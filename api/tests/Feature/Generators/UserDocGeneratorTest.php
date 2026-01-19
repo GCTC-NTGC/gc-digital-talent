@@ -6,6 +6,7 @@ use App\Generators\UserDocGenerator;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
+use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
@@ -51,25 +52,16 @@ class UserDocGeneratorTest extends TestCase
             ->withCommunityInterests([$community->id])
             ->create();
 
-        $targetUser->loadMissing(['userSkills']);
+        $skills = Skill::factory()->count(4)->create();
 
-        // Faker seed makes skill ranks the same.
-        // This is not realistic data so we are forcing them
-        // to be different
-        $targetUser->userSkills()->with('skill')->get()
-            ->sortBy(fn ($userSkill) => $userSkill->skill->key)
-            ->values()
-            ->each(function ($userSkill, $index) {
-                $userSkill->loadMissing(['user']);
-                if ($userSkill->top_skills_rank) {
-                    $userSkill->top_skills_rank = $index + 1;
-                    $userSkill->save();
-                }
-                if ($userSkill->improve_skills_rank) {
-                    $userSkill->improve_skills_rank = $index + 1;
-                    $userSkill->save();
-                }
-            });
+        $targetUser->userSkills()->delete();
+
+        $targetUser->userSkills()->createMany([
+            ['skill_id' => $skills[0]->id, 'top_skills_rank' => 1, 'improve_skills_rank' => null],
+            ['skill_id' => $skills[1]->id, 'top_skills_rank' => 2, 'improve_skills_rank' => null],
+            ['skill_id' => $skills[2]->id, 'top_skills_rank' => null, 'improve_skills_rank' => 1],
+            ['skill_id' => $skills[3]->id, 'top_skills_rank' => null, 'improve_skills_rank' => 2],
+        ]);
 
         $targetUser->refresh();
 
