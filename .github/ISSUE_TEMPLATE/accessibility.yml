@@ -41,7 +41,7 @@ body:
         - macOS
         - Linux
         - Windows
-        - IOS
+        - iOS
         - Andorid
   - type: dropdown
     id: browsers
