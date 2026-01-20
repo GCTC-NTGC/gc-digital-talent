@@ -2,7 +2,6 @@ import ArrowRightIcon from "@heroicons/react/16/solid/ArrowRightIcon";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
-import { useRef } from "react";
 
 import { Maybe } from "@gc-digital-talent/graphql";
 import { Field, inputStyles } from "@gc-digital-talent/forms";
