@@ -36,7 +36,7 @@ async function writeErrorLog(msg: string, file?: string, append = true) {
 
 async function fetchLink(
   url: string,
-  timeoutMs = 10000,
+  timeoutMs = 30000,
 ): Promise<number | string> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
