@@ -262,7 +262,6 @@ class WorkStreamTest extends TestCase
             ],
         ]);
 
-
         // Assert creating a work stream with same name fails
         $this->actingAs($this->admin, 'api')
             ->graphQL(<<<'GRAPHQL'
