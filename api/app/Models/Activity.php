@@ -58,6 +58,13 @@ class Activity extends SpatieActivity
      * - PoolCandidate subject user names
      * - PoolSkill subject skill names (en/fr)
      * - AssessmentStep subject titles (en/fr) and type display names (en/fr).
+     *
+     * Comprehensive search with joined tables must use whereExists-scoped joins
+     * because in Postgres, join aliases (like causer_users) are only valid inside
+     * their specific query branch. This prevents "missing FROM-clause entry" errors
+     * when searching across multiple relations in OR branches.
+     *
+     * Always scope each join inside its closure for compatibility.
      */
     public function scopeWhereProcessGeneralSearch(Builder $query, ?string $searchTerm): Builder
     {
