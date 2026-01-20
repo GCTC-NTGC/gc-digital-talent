@@ -263,7 +263,7 @@ class WorkStreamTest extends TestCase
         ]);
 
         $this->actingAs($this->admin, 'api')
-        ->graphQL(<<<'GRAPHQL'
+            ->graphQL(<<<'GRAPHQL'
             mutation CreateWorkStream($workStream: CreateWorkStreamInput!) {
                 createWorkStream(workStream: $workStream) {
                     id
@@ -281,36 +281,35 @@ class WorkStreamTest extends TestCase
                 }
             }
             GRAPHQL,
-            [
-                'workStream' => [
-                    ...$this->input,
-                    'name' => [
-                        'en' => 'New work stream (EN)',
-                        'fr' => 'New work stream (FR)',
+                [
+                    'workStream' => [
+                        ...$this->input,
+                        'name' => [
+                            'en' => 'New work stream (EN)',
+                            'fr' => 'New work stream (FR)',
+                        ],
+                        'community' => ['connect' => $this->communityId],
                     ],
-                    'community' => ['connect' => $this->communityId],
-                ]
-            ])
-        ->assertJsonFragment([ErrorCode::WORK_STREAM_NAME_IN_USE->name]);
+                ])
+            ->assertJsonFragment([ErrorCode::WORK_STREAM_NAME_IN_USE->name]);
 
-
-    $this->actingAs($this->nonAdmin, 'api')
-        ->graphQL(<<<'GRAPHQL'
+        $this->actingAs($this->nonAdmin, 'api')
+            ->graphQL(<<<'GRAPHQL'
             mutation UpdateWorkStream($id: UUID!, $workStream: UpdateWorkStreamInput!) {
                 updateWorkStream(id: $id, workStream: $workStream) {
                     id
                 }
             }
             GRAPHQL,
-            [
-                'id' => $workStream->id,
-                'workStream' => [
-                    'name' => [
-                        'en' => 'New work stream (EN)',
-                        'fr' => 'New work stream (FR)',
+                [
+                    'id' => $workStream->id,
+                    'workStream' => [
+                        'name' => [
+                            'en' => 'New work stream (EN)',
+                            'fr' => 'New work stream (FR)',
+                        ],
                     ],
-                ],
-            ])
-        ->assertJsonFragment([ErrorCode::WORK_STREAM_NAME_IN_USE->name]);
+                ])
+            ->assertJsonFragment([ErrorCode::WORK_STREAM_NAME_IN_USE->name]);
     }
 }
