@@ -16,8 +16,8 @@ final class UpdateWorkStreamInputValidator extends Validator
     public function rules(): array
     {
         return [
-            'name.en' => ['required', Rule::unique('work_streams', 'name->en')],
-            'name.fr' => ['required', Rule::unique('work_streams', 'name->fr')],
+            'name.en' => [Rule::unique('work_streams', 'name->en')],
+            'name.fr' => [Rule::unique('work_streams', 'name->fr')],
         ];
     }
 
