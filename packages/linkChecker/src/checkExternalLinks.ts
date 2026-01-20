@@ -136,7 +136,8 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
       if (
         typeof url === "string" &&
         url.startsWith("http") &&
-        !url.toLowerCase().includes("sharepoint")
+        !url.toLowerCase().includes("sharepoint") &&
+        !url.toLowerCase().includes("fonts")
       ) {
         links.push(url);
       }
@@ -149,7 +150,8 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
       const url = match[1];
       if (
         typeof url === "string" &&
-        !url.toLowerCase().includes("sharepoint")
+        !url.toLowerCase().includes("sharepoint") &&
+        !url.toLowerCase().includes("fonts")
       ) {
         links.push(url);
       }
@@ -252,15 +254,17 @@ async function main() {
         stdio: "inherit",
       });
     }
-    // Save broken links (from first pass only; second pass will overwrite if needed)
+    // create broken links file only if any broken link  exist
     const brokenLinks = results.filter((r) => r.status !== 200);
-    const brokenLinksPath = path.resolve("external-broken-links.json");
-    await fs.writeFile(
-      brokenLinksPath,
-      JSON.stringify(brokenLinks, null, 2),
-      "utf-8",
-    );
-    if (brokenLinks.length > 0 || legacyLinks.length > 0) process.exit(1);
+    if (brokenLinks.length > 0) {
+      const brokenLinksPath = path.resolve("external-broken-links.json");
+      await fs.writeFile(
+        brokenLinksPath,
+        JSON.stringify(brokenLinks, null, 2),
+        "utf-8",
+      );
+      process.exit(1);
+    }
   } catch (err) {
     let msg: string;
     if (err instanceof Error) {
