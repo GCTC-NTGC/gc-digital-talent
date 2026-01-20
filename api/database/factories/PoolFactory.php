@@ -252,17 +252,14 @@ class PoolFactory extends BaseFactory
                     ? PoolSkillType::ESSENTIAL->name
                     : PoolSkillType::NONESSENTIAL->name;
 
-                // Pick a random skill not already attached
                 $skillId = Skill::whereNotIn('id', $existingSkillIds)
                     ->inRandomOrder()
                     ->value('id');
 
-                // If none available, create a new one
                 if (! $skillId) {
                     $skillId = Skill::factory()->create()->id;
                 }
 
-                // Attach safely
                 $pool->poolSkills()->firstOrCreate(
                     ['skill_id' => $skillId],
                     [
@@ -289,7 +286,6 @@ class PoolFactory extends BaseFactory
     public function withAssessmentSteps(int $count = 1, ?array $types = null, bool $assignSkills = true): self
     {
         return $this->afterCreating(function (Pool $pool) use ($count, $types, $assignSkills) {
-            // Define allowed types if not given
             $defaultTypes = AssessmentStepType::uncontrolledStepTypes();
             $allTypes = $types ?: $defaultTypes;
 
@@ -306,7 +302,6 @@ class PoolFactory extends BaseFactory
                 ]);
             }
 
-            // Assign skills only if $assignSkills === true and there is more than one step
             if ($assignSkills) {
                 $this->ensureEssentialSkillsAssignedToSteps($pool);
                 $this->ensureEachStepHasAnEssentialSkill($pool);
@@ -333,7 +328,6 @@ class PoolFactory extends BaseFactory
                 ->where('type', AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name)
                 ->first();
 
-            // If not found, create it (sort_order handled by boot)
             if (! $screeningStep) {
                 $screeningStep = $pool->assessmentSteps()->create([
                     'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
