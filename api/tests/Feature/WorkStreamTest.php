@@ -262,6 +262,8 @@ class WorkStreamTest extends TestCase
             ],
         ]);
 
+
+        // Assert creating a work stream with same name fails
         $this->actingAs($this->admin, 'api')
             ->graphQL(<<<'GRAPHQL'
             mutation CreateWorkStream($workStream: CreateWorkStreamInput!) {
@@ -293,6 +295,7 @@ class WorkStreamTest extends TestCase
                 ])
             ->assertJsonFragment([ErrorCode::WORK_STREAM_NAME_IN_USE->name]);
 
+        // Assert updating a work stream with same name fails
         $this->actingAs($this->nonAdmin, 'api')
             ->graphQL(<<<'GRAPHQL'
             mutation UpdateWorkStream($id: UUID!, $workStream: UpdateWorkStreamInput!) {
@@ -311,5 +314,57 @@ class WorkStreamTest extends TestCase
                     ],
                 ])
             ->assertJsonFragment([ErrorCode::WORK_STREAM_NAME_IN_USE->name]);
+
+        // Assert creating a work stream with unique name works
+        $this->actingAs($this->admin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+            mutation CreateWorkStream($workStream: CreateWorkStreamInput!) {
+                createWorkStream(workStream: $workStream) {
+                    id
+                    key
+                    name {
+                        en
+                        fr
+                    }
+                    plainLanguageName {
+                        en
+                        fr
+                    }
+                    community { id }
+                    talentSearchable
+                }
+            }
+            GRAPHQL,
+                [
+                    'workStream' => [
+                        ...$this->input,
+                        'name' => [
+                            'en' => 'Unique work stream (EN)',
+                            'fr' => 'Unique work stream (FR)',
+                        ],
+                        'community' => ['connect' => $this->communityId],
+                    ],
+                ])
+            ->assertGraphQLValidationPasses();
+
+        // Assert updating a work stream with unique name passes
+        $this->actingAs($this->nonAdmin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+            mutation UpdateWorkStream($id: UUID!, $workStream: UpdateWorkStreamInput!) {
+                updateWorkStream(id: $id, workStream: $workStream) {
+                    id
+                }
+            }
+            GRAPHQL,
+                [
+                    'id' => $workStream->id,
+                    'workStream' => [
+                        'name' => [
+                            'en' => 'Another unique work stream (EN)',
+                            'fr' => 'Another unique work stream (FR)',
+                        ],
+                    ],
+                ])
+            ->assertGraphQLValidationPasses();
     }
 }
