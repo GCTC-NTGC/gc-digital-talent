@@ -42,7 +42,7 @@ body:
         - Linux
         - Windows
         - iOS
-        - Andorid
+        - Android
   - type: dropdown
     id: browsers
     attributes:
