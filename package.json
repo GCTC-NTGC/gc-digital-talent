@@ -4,7 +4,7 @@
   "author": "",
   "license": "AGPL-3.0",
   "engines": {
-    "node": ">=22.17.0",
+    "node": ">=24.12.0",
     "pnpm": ">=10.27.0"
   },
   "packageManager": "pnpm@10.27.0",
@@ -35,6 +35,7 @@
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "test:coverage": "pnpm vitest run",
+    "typegen": "turbo run typegen --filter @gc-digital-talent/web",
     "watch": "turbo run watch --filter @gc-digital-talent/web --filter @gc-digital-talent/graphql",
     "e2e:playwright": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright",
     "e2e:playwright:chromium": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:chromium",
@@ -59,7 +60,7 @@
     "playwright": "^1.57.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "storybook": "^10.1.11",
-    "turbo": "^2.7.3",
+    "turbo": "^2.7.4",
     "vitest": "^4.0.16"
   }
 }

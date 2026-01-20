@@ -573,13 +573,13 @@ type Pool implements HasRoleAssignments {
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
   activities(orderBy: _ @orderBy): [Activity!]
-    @morphMany(
-      relation: "activities"
-      type: PAGINATOR
-      scopes: ["whereIsPoolActivity", "authorizedToViewPoolActivity"]
-      defaultCount: 50
+    @paginate(
+      type: PAGINATOR,
+      builder: "App\\Models\\Pool@aggregateActivities",
+      defaultCount: 50,
       maxCount: 1000
     )
+    @scope(name: ["authorizedToViewPoolActivity"])
   applicantsCount: Int
     @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
 }
@@ -3450,6 +3450,7 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updateDraft", find: "id")
+    @validator(class: "Mutation\\UpdatePoolValidator")
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput! @spread): Pool
     @update
     @guard
@@ -3682,10 +3683,6 @@ type Mutation {
   downloadCommunityInterestUsersExcel(
     ids: [UUID!]
     where: CommunityInterestFilterInput
-  ): Boolean! @guard
-  downloadUsersThruPoolCandidatesExcel(
-    ids: [UUID!]
-    where: PoolCandidateSearchInput
   ): Boolean! @guard
   downloadNominationsExcel(
     ids: [UUID!]

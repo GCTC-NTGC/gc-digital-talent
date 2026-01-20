@@ -2,7 +2,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 import { useQuery } from "urql";
-import { ReactNode, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Button,
@@ -39,12 +39,6 @@ import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import NoResults from "./NoResults";
 import SearchResultCard from "./SearchResultCard";
-
-const styledCount = (chunks: ReactNode) => (
-  <span className="font-bold text-primary-500 dark:text-primary-300">
-    {chunks}
-  </span>
-);
 
 interface SearchFormProps {
   classifications: Pick<
@@ -234,18 +228,17 @@ export const SearchForm = ({
                 {intl.formatMessage(
                   {
                     defaultMessage: `Results: {totalCandidateCount, plural,
-                      =0 {<strong>#</strong> matching candidates}
-                      one {<strong>#</strong> matching candidate}
-                      other {<strong>#</strong> matching candidates} } across {numPools, plural,
-                      =0 {<strong>#</strong> pools}
-                      one {<strong>#</strong> pool}
-                      other {<strong>#</strong> pools} }`,
-                    id: "zvnzds",
+                      =0 {<heavyPrimary>#</heavyPrimary> matching candidates}
+                      one {<heavyPrimary>#</heavyPrimary> matching candidate}
+                      other {<heavyPrimary>#</heavyPrimary> matching candidates} } across {numPools, plural,
+                      =0 {<heavyPrimary>#</heavyPrimary> pools}
+                      one {<heavyPrimary>#</heavyPrimary> pool}
+                      other {<heavyPrimary>#</heavyPrimary> pools} }`,
+                    id: "58n1gP",
                     description:
                       "Heading for total matching candidates across a certain number of pools in results section of search page.",
                   },
                   {
-                    strong: styledCount,
                     totalCandidateCount: candidateCount,
                     numPools: results?.length ?? 0,
                   },

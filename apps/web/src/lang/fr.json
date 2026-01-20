@@ -307,6 +307,10 @@
     "defaultMessage": "Autorisation de sécurité de niveau très secret",
     "description": "Top secret security clearance level of security clearance"
   },
+  "/9xGUH": {
+    "defaultMessage": "<strong>{name}</strong> a qualifié",
+    "description": "Label for activity log item qualified action"
+  },
   "/AH0m5": {
     "defaultMessage": "Si vous avez un profil sur Talents numériques du GC, l'information qu'il contient sera automatiquement ajoutée à la demande d'emploi. Vous pourrez revoir et modifier cette information et ajouter toute information manquante. Toute modification apportée à votre profil aux fins de la demande d'emploi sera sauvegardée dans votre profil afin que vous puissiez utiliser l'information ultérieurement.",
     "description": "Description of how user profiles assist in application completion"
@@ -1815,6 +1819,10 @@
     "defaultMessage": "Sélectionnez la collectivité et les rôles que vous souhaitez ajouter",
     "description": "Lead in text for the pick community and roles inputs."
   },
+  "58n1gP": {
+    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<heavyPrimary>#</heavyPrimary> candidat correspondant} one {<heavyPrimary>#</heavyPrimary> candidat correspondant} other {<heavyPrimary>#</heavyPrimary> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<heavyPrimary>#</heavyPrimary> bassin} one {<heavyPrimary>#</heavyPrimary> bassin} other {<heavyPrimary>#</heavyPrimary> bassins} }",
+    "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
+  },
   "59TDoK": {
     "defaultMessage": "Bureau où travailler sur place",
     "description": "Legend for location preferences filter on search form."
@@ -1854,6 +1862,10 @@
   "5H61KV": {
     "defaultMessage": "Paramètres des notifications",
     "description": "Title for managing notification settings"
+  },
+  "5HSzQ4": {
+    "defaultMessage": "Nouvelle candidature",
+    "description": "Event description when application is submitted"
   },
   "5HhVG9": {
     "defaultMessage": "Courriel professionnel de l'auteur(trice) de la mise en candidature",
@@ -2110,6 +2122,10 @@
   "6aCiD3": {
     "defaultMessage": "Nous ne donnons que des exemples de compétences comportementales essentielles dans les modèles d’offre d’emploi.",
     "description": "Lead in for a list of essential behavioural skills"
+  },
+  "6bGWe5": {
+    "defaultMessage": "<strong>{name}</strong> a publié",
+    "description": "Label for activity log item published action"
   },
   "6bvAQ+": {
     "defaultMessage": "Rétroaction et coordonnées",
@@ -3939,6 +3955,10 @@
     "defaultMessage": "Notes",
     "description": "Title for admin notes shorthand"
   },
+  "EKsn4N": {
+    "defaultMessage": "Êtes-vous sûr de vouloir ramener cette personne candidate à une étape précédente du processus?",
+    "description": "Content for move to previous step in screening stage notice"
+  },
   "EPF4Ac": {
     "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
     "description": "Application step skipped page details"
@@ -4326,6 +4346,10 @@
   "GDCKBX": {
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for goals and work style section"
+  },
+  "GDP+Rx": {
+    "defaultMessage": "<strong>{name}</strong> a disqualifié",
+    "description": "Label for activity log item disqualified action"
   },
   "GEULvE": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience d’apprentissage personnel} one {# expérience d’apprentissage personnel} other {# expériences d’apprentissage personnel}}",
@@ -8034,6 +8058,10 @@
     "defaultMessage": "personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
   },
+  "XBN7Po": {
+    "defaultMessage": "<strong>{name}</strong> a réintégré",
+    "description": "Label for activity log item reinstated action"
+  },
   "XBWnI6": {
     "defaultMessage": "Renseignements relatifs au réaménagement des effectifs",
     "description": "Title for the information specifically related to workforce adjustment"
@@ -8237,6 +8265,10 @@
   "Y555u5": {
     "defaultMessage": "Bilingue intermédiaire (B B B)",
     "description": "Bilingual intermediate language requirement"
+  },
+  "Y5BHHb": {
+    "defaultMessage": "Retour à une étape précédente",
+    "description": "Title for move to previous step in screening stage notice"
   },
   "Y5Z216": {
     "defaultMessage": "d’indiquer le titre complet du contenu reproduit, ainsi que son auteur (s’il y a lieu)",
@@ -10853,6 +10885,10 @@
     "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
     "description": "An item in a list of points about cert exams"
   },
+  "iy3pRH": {
+    "defaultMessage": "<strong>{name}</strong> a restauré",
+    "description": "Label for activity log item reverted action"
+  },
   "izAPZA": {
     "defaultMessage": "Ajouter une expérience professionnelle du GC",
     "description": "Label to go to adding experiences"
@@ -11152,6 +11188,10 @@
   "k5bZg7": {
     "defaultMessage": "Parlez-nous de votre expérience",
     "description": "Link text for application survey"
+  },
+  "k78t5J": {
+    "defaultMessage": "<strong>{name}</strong> a retiré",
+    "description": "Label for activity log item removed action"
   },
   "k7n43+": {
     "defaultMessage": "Les compétences techniques constituant un atout ou les compétences techniques facultatives vous permettent de préciser les compétences qui ne sont pas strictement requises, mais qui seraient utiles pour le poste. Il peut s’agir de combler des lacunes au sein de votre équipe ou de posséder des compétences connexes susceptibles de renforcer le travail de la personne candidate. Mentionnez toutes les compétences que vous estimez utiles pour le poste, mais n’oubliez pas que les personnes candidates ne sont pas obligées de posséder ces compétences pour postuler ou se qualifier.",
@@ -13581,6 +13621,10 @@
     "defaultMessage": "Annuler et revenir aux ministères",
     "description": "Button label to return to the departments table"
   },
+  "uqZ99p": {
+    "defaultMessage": "<strong>{name}</strong> a placé",
+    "description": "Label for activity log item placed action"
+  },
   "usRTou": {
     "defaultMessage": "Non, je ne suis pas un(e) employé(e) du gouvernement du Canada.",
     "description": "Message to state user is not employed by government"
@@ -13768,6 +13812,10 @@
   "vc9lfk": {
     "defaultMessage": "Raison d’être de la bibliothèque de compétences",
     "description": "Heading for section describing the purpose of the skills library"
+  },
+  "veZI+j": {
+    "defaultMessage": "<strong>{name}</strong> a soumis",
+    "description": "Label for activity log item submitted action"
   },
   "vfXTEA": {
     "defaultMessage": "3. Bons pour examens de certification",
@@ -14864,10 +14912,6 @@
   "zvXWQB": {
     "defaultMessage": "Télécharger la trousse du gestionnaire pour plus de renseignements et contactez l’équipe pour lancer le processus.",
     "description": "Paragraph 1 for the 'How to begin hiring an apprentice' section"
-  },
-  "zvnzds": {
-    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<strong>#</strong> candidat correspondant} one {<strong>#</strong> candidat correspondant} other {<strong>#</strong> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<strong>#</strong> bassin} one {<strong>#</strong> bassin} other {<strong>#</strong> bassins} }",
-    "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
   },
   "zxLL3N": {
     "defaultMessage": "Afficher les détails de cette expérience",
