@@ -1,8 +1,8 @@
 import ArrowRightIcon from "@heroicons/react/16/solid/ArrowRightIcon";
 import { FormProvider, useForm } from "react-hook-form";
-import { useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
+import { useRef } from "react";
 
 import { Maybe } from "@gc-digital-talent/graphql";
 import { Field, inputStyles } from "@gc-digital-talent/forms";
@@ -10,7 +10,6 @@ import { Button } from "@gc-digital-talent/ui";
 
 import adminMessages from "~/messages/adminMessages";
 
-import { SEARCH_PARAM_KEY } from "../Table/ResponsiveTable/constants";
 import ResetButton from "../Table/ResetButton";
 
 const input = tv({
@@ -23,31 +22,33 @@ interface FormValues {
 }
 
 interface SearchFormProps {
-  param?: string;
+  onSearch?: (term?: Maybe<string>) => void;
+  onReset?: () => void;
+  defaultValue?: Maybe<string>;
 }
 
-const SearchForm = ({ param }: SearchFormProps) => {
-  const PARAM_KEY = param ?? SEARCH_PARAM_KEY.SEARCH_TERM;
+const SearchForm = ({ onSearch, onReset, defaultValue }: SearchFormProps) => {
   const intl = useIntl();
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      term: searchParams.get(PARAM_KEY),
+      term: defaultValue,
     },
   });
 
   const term = methods.watch("term");
 
   const handleSubmit = (values: FormValues) => {
-    const newParams = new URLSearchParams(searchParams);
-    if (values.term) {
-      newParams.set(PARAM_KEY, values.term);
-    } else {
-      newParams.delete(PARAM_KEY);
-    }
+    onSearch?.(values.term);
+  };
 
-    setSearchParams(newParams);
+  const handleReset = () => {
+    methods.reset({ term: "" });
+    // Small delay to wait for reset re-render
+    setTimeout(() => {
+      methods.setFocus("term");
+    }, 10);
+    onReset?.();
   };
 
   return (
@@ -60,12 +61,12 @@ const SearchForm = ({ param }: SearchFormProps) => {
           <div className="relative flex w-full grow">
             <input
               id="term"
-              {...methods.register("term")}
               className={input()}
+              {...methods.register("term")}
             />
             {term && (
               <div className="absolute inset-3 left-auto flex items-stretch">
-                <ResetButton onClick={() => handleSubmit({ term: null })} />
+                <ResetButton onClick={handleReset} />
               </div>
             )}
           </div>
