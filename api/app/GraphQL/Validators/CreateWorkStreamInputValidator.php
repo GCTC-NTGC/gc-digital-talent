@@ -16,8 +16,7 @@ final class CreateWorkStreamInputValidator extends Validator
     public function rules(): array
     {
         return [
-            'name.en' => ['required', Rule::unique('work_streams', 'name->en')],
-            'name.fr' => ['required', Rule::unique('work_streams', 'name->fr')],
+            'name.*' => ['required', Rule::unique('work_streams', 'name->*')],
         ];
     }
 
@@ -27,8 +26,7 @@ final class CreateWorkStreamInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'name.en.unique' => ErrorCode::WORK_STREAM_NAME_IN_USE->name,
-            'name.fr.unique' => ErrorCode::WORK_STREAM_NAME_IN_USE->name,
+            'name.*.unique' => ErrorCode::WORK_STREAM_NAME_IN_USE->name,
         ];
     }
 }
