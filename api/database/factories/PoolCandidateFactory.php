@@ -19,7 +19,6 @@ use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestionResponse;
-use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -259,7 +258,6 @@ class PoolCandidateFactory extends Factory
         return $this->afterCreating(function (PoolCandidate $poolCandidate) {
             $poolSkillIds = $poolCandidate->pool->poolSkills()->pluck('id')->toArray();
 
-            // Create one EDUCATION result (simple)
             $educationStep = AssessmentStep::factory()->create([
                 'pool_id' => $poolCandidate->pool_id,
             ]);
@@ -279,11 +277,6 @@ class PoolCandidateFactory extends Factory
                 ->shuffle()
                 ->take(4)
                 ->all();
-
-            // Ensure at least one skill exists
-            if (empty($assignedSkillIds)) {
-                $assignedSkillIds[] = Skill::factory()->create()->id;
-            }
 
             foreach ($assignedSkillIds as $skillId) {
                 AssessmentResult::factory()
