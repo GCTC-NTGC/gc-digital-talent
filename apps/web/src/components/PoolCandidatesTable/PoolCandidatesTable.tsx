@@ -371,12 +371,9 @@ const DownloadPoolCandidatesExcel_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadUsersThruPoolCandidatesExcel_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadUsersThruPoolCandidatesExcel(
-    $ids: [UUID!]
-    $where: PoolCandidateSearchInput
-  ) {
-    downloadUsersThruPoolCandidatesExcel(ids: $ids, where: $where)
+const DownloadUserExcel_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadUserExcel($ids: [UUID!]) {
+    downloadUsersExcel(ids: $ids)
   }
 `);
 
@@ -482,7 +479,7 @@ const PoolCandidatesTable = ({
   );
 
   const [{ fetching: downloadingUsersExcel }, downloadUsers] = useMutation(
-    DownloadUsersThruPoolCandidatesExcel_Mutation,
+    DownloadUserExcel_Mutation,
   );
 
   const [{ fetching: downloadingUserDoc }, downloadUserDoc] = useMutation(
@@ -658,7 +655,9 @@ const PoolCandidatesTable = ({
   };
 
   const handleUsersExcelDownload = () => {
-    downloadUsers({ ids: selectedRows })
+    const selectedUserIds = rowIdsToUserIds(selectedRows);
+
+    downloadUsers({ ids: selectedUserIds })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };

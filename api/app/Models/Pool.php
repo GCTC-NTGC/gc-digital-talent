@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Builders\PoolBuilder;
 use App\Casts\LocalizedString;
+use App\Enums\ActivityEvent;
+use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
@@ -11,6 +13,7 @@ use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\Observers\PoolObserver;
+use App\Traits\LogsCustomActivity;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -68,9 +71,12 @@ class Pool extends Model
 {
     use HasFactory;
     use LogsActivity;
+    use LogsCustomActivity;
     use SoftDeletes;
 
     protected $keyType = 'string';
+
+    protected $customLogName = ActivityLog::PROCESS->value;
 
     /**
      * The attributes that should be cast.
@@ -164,6 +170,7 @@ class Pool extends Model
             $pool->team()->firstOrCreate([], [
                 'name' => 'pool-'.$pool->id,
             ]);
+
         });
     }
 
@@ -286,6 +293,11 @@ class Pool extends Model
     public function assessmentSteps(): HasMany
     {
         return $this->hasMany(AssessmentStep::class)->orderBy('sort_order', 'ASC');
+    }
+
+    public function aggregateActivities($root, array $args = [])
+    {
+        return Activity::whereIsAggregatePoolActivity($args, $root);
     }
 
     /**
@@ -503,6 +515,15 @@ class Pool extends Model
         return $classification
             ? $classification.$dividingColon.$name
             : $name;
+    }
+
+    public function publish()
+    {
+        $this->disableCustomLogging(function ($pool) {
+            $pool->update(['published_at' => Carbon::now()]);
+        });
+
+        $this->logActivity(ActivityEvent::PUBLISHED);
     }
 
     // is the pool considered "complete"
