@@ -448,7 +448,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                         $nominator->currentClassification->formattedGroupAndLevel ?? '', // nominator classification
                         $nominator->department?->name[$this->lang] ?? '', // nominator department
                         $submitter?->getFullName() ?? '', // submitter's name
-                        $submitter?->work_email ?? '', // submitter's work email
+                        $submitter->work_email ?? '', // submitter's work email
                         $submitterRelationshipStr, // submitter's relationship to nominator
                         $referenceDetails['name'], // reference name
                         $referenceDetails['email'], // reference email
