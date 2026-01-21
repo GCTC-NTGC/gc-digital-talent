@@ -920,8 +920,8 @@ class PoolCandidate extends Model
     {
         $this->disableLogging();
 
-        $atts = ['pool_candidate_status', 'placed_at', 'placed_department_id'];
-        $old = $this->only($atts);
+        $loggedAttributes = ['pool_candidate_status', 'placed_at', 'placed_department_id'];
+        $old = $this->only($loggedAttributes);
 
         $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $this->computed_final_decision = FinalDecision::QUALIFIED->name;
@@ -933,7 +933,7 @@ class PoolCandidate extends Model
         $this->save();
 
         $this->logActivity(ActivityEvent::REVERTED,
-            $this->only($atts),
+            $this->only($loggedAttributes),
             $old
         );
 
@@ -943,8 +943,8 @@ class PoolCandidate extends Model
     {
         $this->disableLogging();
 
-        $atts = ['application_status', 'expiry_date', 'status_updated_at', 'screening_stage'];
-        $old = $this->only($atts);
+        $loggedAttributes = ['application_status', 'expiry_date', 'status_updated_at', 'screening_stage'];
+        $old = $this->only($loggedAttributes);
 
         $this->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
         $this->application_status = ApplicationStatus::TO_ASSESS->name;
@@ -957,7 +957,7 @@ class PoolCandidate extends Model
         $this->save();
 
         $this->logActivity(ActivityEvent::REVERTED,
-            $this->only($atts),
+            $this->only($loggedAttributes),
             $old
         );
     }
