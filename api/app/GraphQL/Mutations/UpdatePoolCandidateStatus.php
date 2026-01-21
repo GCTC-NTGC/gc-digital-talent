@@ -19,30 +19,6 @@ final readonly class UpdatePoolCandidateStatus
         if (isset($args['application_status']) && $args['application_status'] !== $candidate->application_status) {
             $status = $args['application_status'];
 
-            $now = now();
-            $values = [
-                'placed_at' => null,
-            ];
-
-            $timestamps = match ($status) {
-                PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
-                PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
-                PoolCandidateStatus::REMOVED->name,
-                PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-                PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-                PoolCandidateStatus::UNDER_CONSIDERATION->name,
-                PoolCandidateStatus::PLACED_TENTATIVE->name,
-                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-                PoolCandidateStatus::QUALIFIED_AVAILABLE->name => ['status_updated_at'],
-
-                PoolCandidateStatus::PLACED_CASUAL->name,
-                PoolCandidateStatus::PLACED_TERM->name,
-                PoolCandidateStatus::PLACED_INDETERMINATE->name => ['placed_at', 'status_updated_at'],
-
-                default => null// no-op
-            };
-
             $finalDecision = match ($status) {
                 PoolCandidateStatus::NEW_APPLICATION->name,
                 PoolCandidateStatus::APPLICATION_REVIEW->name,
@@ -68,12 +44,6 @@ final readonly class UpdatePoolCandidateStatus
                 default => null
             };
 
-            if ($timestamps) {
-                foreach ($timestamps as $timestamp) {
-                    $values[$timestamp] = $now;
-                }
-            }
-
             $legacyStatus = match ($status) {
                 ApplicationStatus::DRAFT->name => PoolCandidateStatus::DRAFT->name,
                 ApplicationStatus::TO_ASSESS->name => PoolCandidateStatus::NEW_APPLICATION->name,
@@ -83,6 +53,7 @@ final readonly class UpdatePoolCandidateStatus
                 default => null
             };
 
+            $values['status_updated_at'] = now();
             $values['computed_final_decision'] = $finalDecision;
             $values['application_status'] = $status;
 
