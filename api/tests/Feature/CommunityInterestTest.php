@@ -314,7 +314,7 @@ class CommunityInterestTest extends TestCase
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
-        )->assertJsonFragment(['total' => 0]);
+        )->assertJsonFragment(['total' => 1]);
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
