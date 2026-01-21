@@ -50,9 +50,29 @@ class PoolCandidateFactory extends Factory
 
         return [
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
-            'pool_candidate_status' => $this->faker->boolean() ?
-                $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :
-                $this->faker->randomElement(PoolCandidateStatus::cases())->name,
+            'pool_candidate_status' => function (array $attributes) {
+                if (isset($attributes['application_status'])) {
+
+                    $legacyStatus = match ($attributes['application_status']) {
+                        ApplicationStatus::DRAFT->name => PoolCandidateStatus::DRAFT->name,
+                        ApplicationStatus::TO_ASSESS->name => PoolCandidateStatus::NEW_APPLICATION->name,
+                        ApplicationStatus::DISQUALIFIED->name => ApplicationStatus::DISQUALIFIED->name,
+                        ApplicationStatus::QUALIFIED->name => ApplicationStatus::QUALIFIED->name,
+                        ApplicationStatus::REMOVED->name => ApplicationStatus::REMOVED->name,
+                        default => null
+                    };
+
+                    if ($legacyStatus) {
+                        return $legacyStatus;
+                    }
+
+                }
+
+                return $this->faker->boolean() ?
+                        $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :
+                        $this->faker->randomElement(PoolCandidateStatus::cases())->name;
+
+            },
             'application_status' => $this->faker->randomElement(ApplicationStatus::cases())->name,
             'screening_stage' => function (array $attributes) {
                 if ($attributes['application_status'] === ApplicationStatus::TO_ASSESS->name) {
