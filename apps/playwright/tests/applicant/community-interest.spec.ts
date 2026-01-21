@@ -13,6 +13,7 @@ import { loginBySub } from "../../utils/auth";
 test.describe("Community Interest", () => {
   let community: Community | undefined;
   let workStream: WorkStream | undefined;
+
   test.beforeAll(async () => {
     const adminCtx = await graphql.newContext();
     community = await createCommunity(adminCtx, {});
@@ -23,6 +24,7 @@ test.describe("Community Interest", () => {
       community: { connect: community?.id },
     });
   });
+
   test("Create, review, and delete community interest", async ({ appPage }) => {
     await loginBySub(appPage.page, "applicant-employee@test.com");
     await appPage.page.goto("/en/applicant");

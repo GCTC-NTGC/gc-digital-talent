@@ -92,7 +92,7 @@ export const isRODStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? RECORD_DECISION_STATUSES.includes(status) : false);
 
-export const isRevertableStatus = (
+export const isRevertibleStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean =>
   status
