@@ -61,7 +61,7 @@ function transformSortStateToOrderByClause(
   const columnMap = new Map<string, string>([
     ["name", `title->${locale}`],
     ["language", "course_language"],
-    ["status", "registration_deadline"], // deadline status is not a real column, but storting by deadline achieves the same thing
+    ["status", "registration_deadline"], // deadline status is not a real column, but sorting by deadline achieves the same thing
     ["applicationDeadline", "registration_deadline"],
     ["trainingStartDate", "training_start"],
     ["trainingEndDate", "training_end"],
