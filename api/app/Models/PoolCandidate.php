@@ -875,41 +875,14 @@ class PoolCandidate extends Model
             throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
         }
 
-        // Update the candidates status based on the current status
-        // or throw an error if the candidate has an invalid status
-        switch ($this->pool_candidate_status) {
-            case PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name:
-            case PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name:
-                $this->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
-                $this->computed_final_decision_weight = null;
-                break;
-            case PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name:
-            case PoolCandidateStatus::QUALIFIED_WITHDREW->name:
-                $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
-                $this->computed_final_decision_weight = 10;
-                break;
-            case PoolCandidateStatus::REMOVED->name:
-                $this->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
-                $this->computed_final_decision_weight = null;
-                break;
-            default:
-                // PASS: Do nothing
-        }
-
         $this->status_updated_at = Carbon::now();
         $this->removal_reason = null;
         $this->removal_reason_other = null;
         $this->application_status = ApplicationStatus::TO_ASSESS->name;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
-
-        $decision = match ($this->computed_final_decision) {
-            FinalDecision::TO_ASSESS_REMOVED->name => FinalDecision::TO_ASSESS->name,
-            FinalDecision::DISQUALIFIED_REMOVED->name => FinalDecision::DISQUALIFIED->name,
-            FinalDecision::QUALIFIED_REMOVED->name => FinalDecision::QUALIFIED->name,
-            default => FinalDecision::TO_ASSESS->name
-        };
-
-        $this->computed_final_decision = $decision;
+        $this->pool_candidate_status = PoolCandidateStatus::APPLICATION_REVIEW->name;
+        $this->computed_final_decision = FinalDecision::TO_ASSESS->name;
+        $this->computed_final_decision_weight = 40;
 
         $this->save();
 
