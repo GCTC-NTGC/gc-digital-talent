@@ -28,7 +28,7 @@ class PoolCandidateTestSeeder extends Seeder
      */
     public function run()
     {
-        $candidateOne = PoolCandidate::factory()->create([
+        PoolCandidate::factory()->create([
             'application_status' => ApplicationStatus::QUALIFIED->name,
             'submitted_at' => config('constants.far_past_date'),
             'expiry_date' => config('constants.far_future_date'),
@@ -132,7 +132,7 @@ class PoolCandidateTestSeeder extends Seeder
                 $this->applyToAllPools(
                     user: $user,
                     status: ApplicationStatus::DISQUALIFIED->name,
-                    disqaulficiationReason: DisqualificationReason::SCREENED_OUT_APPLICATION->name,
+                    disqualificationReason: DisqualificationReason::SCREENED_OUT_APPLICATION->name,
                     expiryDate: now()->addYears(2),
                 );
             })
@@ -191,7 +191,7 @@ class PoolCandidateTestSeeder extends Seeder
                 $this->applyToAllPools(
                     user: $user,
                     status: ApplicationStatus::DISQUALIFIED->name,
-                    disqaulficiationReason: DisqualificationReason::SCREENED_OUT_ASSESSMENT->name,
+                    disqualificationReason: DisqualificationReason::SCREENED_OUT_ASSESSMENT->name,
                     priorityStatus: ClaimVerificationResult::UNVERIFIED->name,
                     expiryDate: now()->addYears(2),
                 );
@@ -209,7 +209,7 @@ class PoolCandidateTestSeeder extends Seeder
         $user,
         $status,
         $removalReason = null,
-        $disqaulficiationReason = null,
+        $disqualificationReason = null,
         $expiryDate = null,
         $priorityStatus = null,
         $priorityExpiry = null,
@@ -244,7 +244,7 @@ class PoolCandidateTestSeeder extends Seeder
                     'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
                     'application_status' => $status,
                     'removal_reason' => $removalReason,
-                    'disqualification_reason' => $disqaulficiationReason,
+                    'disqualification_reason' => $disqualificationReason,
                     'expiry_date' => $expiryDate,
                     'placed_at' => $placedAt,
                     'placement_type' => $placementType,
