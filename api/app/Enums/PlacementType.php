@@ -21,14 +21,14 @@ enum PlacementType
             PlacementType::NOT_PLACED->name,
             PlacementType::UNDER_CONSIDERATION->name,
             PlacementType::PLACED_TENTATIVE->name,
+            PlacementType::PLACED_CASUAL->name,
+            PlacementType::PLACED_TERM->name,
         ];
     }
 
     public static function hiredGroup(): array
     {
         return [
-            PlacementType::PLACED_CASUAL->name,
-            PlacementType::PLACED_TERM->name,
             PlacementType::PLACED_INDETERMINATE->name,
         ];
     }
