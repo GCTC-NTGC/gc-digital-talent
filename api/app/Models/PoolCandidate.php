@@ -952,6 +952,7 @@ class PoolCandidate extends Model
         $this->status_updated_at = Carbon::now();
         $this->computed_final_decision = FinalDecision::TO_ASSESS->name;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
+        $this->disqualification_reason = null;
         $this->computed_final_decision_weight = 40;
 
         $this->save();
