@@ -1,4 +1,3 @@
-/* eslint-disable playwright/no-conditional-in-test */
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
@@ -289,6 +288,7 @@ test.describe("Location Preference update for Community Talent", () => {
       workStreams: { sync: ["c6ce7eee-751c-4637-a9a2-d19fb20eaaeb"] },
     });
   });
+
   test.afterEach(async () => {
     await deleteUser(adminCtx, { id: govUser.id });
   });
