@@ -32,6 +32,7 @@ import Table, {
 import { InitialState } from "~/components/Table/ResponsiveTable/types";
 import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
+import accessors from "~/components/Table/accessors";
 
 import formLabels from "../formLabels";
 
@@ -198,7 +199,8 @@ const TrainingOpportunitiesTable = ({
       },
     ),
     columnHelper.accessor(
-      (opportunity) => (opportunity.courseLanguage?.label, intl),
+      (opportunity) =>
+        getLocalizedName(opportunity.courseLanguage?.label, intl),
       {
         id: "language",
         header: intl.formatMessage(commonMessages.language),
@@ -229,7 +231,7 @@ const TrainingOpportunitiesTable = ({
       },
     ),
     columnHelper.accessor(
-      (opportunity) => (opportunity.registrationDeadline, intl),
+      (opportunity) => accessors.date(opportunity.registrationDeadline),
       {
         id: "applicationDeadline",
         header: intl.formatMessage(formLabels.applicationDeadline),
@@ -237,18 +239,24 @@ const TrainingOpportunitiesTable = ({
           opportunity.registrationDeadline,
       },
     ),
-    columnHelper.accessor((opportunity) => (opportunity.trainingStart, intl), {
-      id: "trainingStartDate",
-      header: intl.formatMessage(formLabels.trainingStartDate),
-      cell: ({ row: { original: opportunity } }) => opportunity.trainingStart,
-    }),
-    columnHelper.accessor((opportunity) => (opportunity.trainingEnd, intl), {
-      id: "trainingEndDate",
-      header: intl.formatMessage(formLabels.trainingEndDate),
-      cell: ({ row: { original: opportunity } }) =>
-        opportunity.trainingEnd ??
-        intl.formatMessage(adminMessages.noneProvided),
-    }),
+    columnHelper.accessor(
+      (opportunity) => accessors.date(opportunity.trainingStart),
+      {
+        id: "trainingStartDate",
+        header: intl.formatMessage(formLabels.trainingStartDate),
+        cell: ({ row: { original: opportunity } }) => opportunity.trainingStart,
+      },
+    ),
+    columnHelper.accessor(
+      (opportunity) => accessors.date(opportunity.trainingEnd),
+      {
+        id: "trainingEndDate",
+        header: intl.formatMessage(formLabels.trainingEndDate),
+        cell: ({ row: { original: opportunity } }) =>
+          opportunity.trainingEnd ??
+          intl.formatMessage(adminMessages.noneProvided),
+      },
+    ),
   ] as ColumnDef<TrainingOpportunity>[];
 
   const [{ data, fetching }] = useQuery({
