@@ -161,12 +161,6 @@ class Activity extends SpatieActivity
         return $query->whereRaw('properties::text ILIKE ?', ["%$searchTerm%"]);
     }
 
-    public static function scopeWhereCauserLike(Builder $query, ?string $searchTerm)
-    {
-        if (! $searchTerm) {
-        }
-    }
-
     public function scopeAuthorizedToViewPoolActivity(Builder $query)
     {
         /** @var \App\Models\User | null */
