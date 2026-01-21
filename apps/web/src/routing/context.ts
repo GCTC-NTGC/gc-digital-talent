@@ -4,17 +4,17 @@ import { IntlShape } from "react-intl";
 
 import { Maybe, UserAuthInfo } from "@gc-digital-talent/graphql";
 
-export type GraphqlClientContext = Client | null;
+export type GraphqlClientContext = Client;
 
-export const graphqlClientContext = createContext<GraphqlClientContext>(null);
+export const graphqlClientContext = createContext<Client>();
 
 export type UserContext = Maybe<Partial<UserAuthInfo>>;
 
 export const userContext = createContext<UserContext>(null);
 
-export type IntlContext = IntlShape | null;
+export type IntlContext = IntlShape;
 
-export const intlContext = createContext<IntlContext>(null);
+export const intlContext = createContext<IntlContext>();
 
 export interface AppContext {
   get(token: typeof userContext): UserContext;
