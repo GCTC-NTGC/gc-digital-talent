@@ -7,6 +7,7 @@ test.describe("Language selection", () => {
       page.locator("header").getByRole("link", { name: /français/i }),
     ).toBeVisible();
   });
+
   test("changes from French to English", async ({ page }) => {
     await page.goto("/fr/search");
     await expect(page.locator("html")).toHaveAttribute("lang", "fr");
@@ -16,12 +17,14 @@ test.describe("Language selection", () => {
       .click();
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
   });
+
   test("has English link", async ({ page }) => {
     await page.goto("/fr/search");
     await expect(
       page.locator("header").getByRole("link", { name: /english/i }),
     ).toBeVisible();
   });
+
   test("changes from English to French", async ({ page }) => {
     await page.goto("/en/search");
     await expect(page.locator("html")).toHaveAttribute("lang", "en");
