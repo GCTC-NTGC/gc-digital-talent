@@ -147,17 +147,16 @@ return new class extends Migration
                 final_decision_at = CASE
                     WHEN application_status IN ('QUALIFIED', 'DISQUALIFIED') THEN status_updated_at
                     ELSE NULL
-                END,
-                removed_at = NULL
+                END;
         SQL);
 
         Schema::table('pool_candidates', function (Blueprint $table) {
+            $table->dropColumn('status_weight');
             $table->dropColumn('application_status');
             $table->dropColumn('disqualification_reason');
             $table->dropColumn('status_updated_at');
             $table->dropColumn('placement_type');
             $table->dropColumn('referring');
-            $table->dropColumn('status_weight');
         });
 
         DB::statement(<<<'SQL'
@@ -184,7 +183,7 @@ return new class extends Migration
                 WHEN ((pool_candidate_status)::text = 'EXPIRED'::text) THEN 150
                 WHEN ((pool_candidate_status)::text = 'REMOVED'::text) THEN 160
                 ELSE NULL::integer
-            END) STORED,
+            END) STORED;
         SQL);
     }
 };
