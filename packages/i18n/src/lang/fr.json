@@ -1779,6 +1779,10 @@
     "defaultMessage": "Janvier",
     "description": "Name of the first month"
   },
+  "yg8m7r": {
+    "defaultMessage": "Ce nom de volet de travail est déjà utilisé",
+    "description": "Error message that the input work stream name is already in use."
+  },
   "ygMrNM": {
     "defaultMessage": "Un champ obligatoire est vide : Note spéciale (français)",
     "description": "Error message that Special note for this process in French must be filled"

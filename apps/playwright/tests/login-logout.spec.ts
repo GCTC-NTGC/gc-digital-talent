@@ -7,6 +7,7 @@ test.describe("Login and logout", () => {
   test.beforeEach(async ({ page }) => {
     await page.clock.setSystemTime(Date.now());
   });
+
   test("log in", async ({ page }) => {
     const requestPromise = page.waitForRequest(
       (request) =>
@@ -60,6 +61,7 @@ test.describe("Login and logout", () => {
         );
       });
   });
+
   // If you log in as a deleted user you end up on the "user deleted" page.
   test("show a message when logged in as a deleted user", async ({ page }) => {
     // stub the "user deleted" API response.
@@ -261,6 +263,7 @@ test.describe("Login and logout", () => {
       expect(searchParamIdTokenHint).toEqual(tokenSet.idToken);
     });
   });
+
   // If token validation fails the user is immediately logged out.
   test("log out when token validation fails", async ({ page }) => {
     // start login process
@@ -298,6 +301,7 @@ test.describe("Login and logout", () => {
       }),
     ).toBeVisible();
   });
+
   // Logout appears to make all logged in tabs
   test("all tabs logged out", async ({ context }) => {
     const pageOne = await context.newPage();

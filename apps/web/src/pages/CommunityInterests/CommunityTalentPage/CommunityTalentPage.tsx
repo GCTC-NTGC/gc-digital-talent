@@ -50,6 +50,7 @@ export const Component = () => (
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityTalentCoordinator,
+      ROLE_NAME.PlatformAdmin,
     ]}
   >
     <CommunityTalentPage />
