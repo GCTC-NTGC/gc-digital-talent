@@ -254,7 +254,7 @@ async function main() {
         stdio: "inherit",
       });
     }
-    // create broken links file only if any broken link  exist
+    // create broken links file only if any broken link exist
     const brokenLinks = results.filter((r) => r.status !== 200);
     if (brokenLinks.length > 0) {
       const brokenLinksPath = path.resolve("external-broken-links.json");
