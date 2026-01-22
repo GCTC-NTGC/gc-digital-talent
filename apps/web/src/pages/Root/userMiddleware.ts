@@ -1,5 +1,5 @@
 import { ACCESS_TOKEN } from "@gc-digital-talent/auth";
-import { graphql } from "@gc-digital-talent/graphql";
+import { graphql, UserMiddlewareQuery } from "@gc-digital-talent/graphql";
 
 import { graphqlClientContext, userContext } from "~/routing/context";
 
@@ -30,32 +30,38 @@ const UserMiddleware_Query = graphql(/** GraphQL */ `
   }
 `);
 
+let cachedToken: string | null = null;
+let cachedUser: UserMiddlewareQuery["myAuth"] | null | undefined = undefined;
+
 const userMiddleware: Route.ClientMiddlewareFunction = async (
   { context },
   next,
 ) => {
-  try {
-    if (context.get(userContext)) {
-      return next();
-    }
+  const token = localStorage.getItem(ACCESS_TOKEN);
 
-    const token = localStorage.getItem(ACCESS_TOKEN);
-    if (!token) {
-      context.set(userContext, null);
-      return next();
-    }
-
-    const client = context.get(graphqlClientContext);
-    const result = await client.query(UserMiddleware_Query, {}).toPromise();
-
-    context.set(userContext, result.data?.myAuth ?? null);
-
-    return next();
-  } catch {
+  if (!token) {
+    cachedToken = null;
+    cachedUser = null;
     context.set(userContext, null);
-
     return next();
   }
+
+  if (cachedToken !== token) {
+    cachedToken = token;
+    cachedUser = undefined;
+  }
+
+  if (cachedUser !== undefined) {
+    context.set(userContext, cachedUser);
+    return next();
+  }
+
+  const client = context.get(graphqlClientContext);
+  const result = await client.query(UserMiddleware_Query, {}).toPromise();
+  cachedUser = result.data?.myAuth ?? null;
+  context.set(userContext, cachedUser);
+
+  return next();
 };
 
 export default userMiddleware;
