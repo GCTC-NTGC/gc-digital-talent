@@ -141,16 +141,17 @@ class PoolPage extends AppPage {
   }
 
   async addEssentialSkills(skills: string[], skillLevel: string) {
+    await this.page.getByRole("button", { name: /add skill/i }).click();
     const experiencePageFixture = new ExperiencePage(this.page);
     for (const skill of skills) {
       await experiencePageFixture.addANewSkillToProfile(skill, skillLevel);
-      await this.page.getByRole("button", { name: /Add this skill/i }).click();
+      await this.page.getByRole("button", { name: /add this skill/i }).click();
     }
   }
 
   async addAboutThisRole() {
     // Add your impact
-    await this.page.getByRole("button", { name: /edit Your impact/i }).click();
+    await this.page.getByRole("button", { name: /edit your impact/i }).click();
     await this.page
       .getByRole("textbox", { name: /your impact (english)/i })
       .fill("Playwright Test process (EN)");
@@ -161,7 +162,7 @@ class PoolPage extends AppPage {
     await this.verifyAlertUponSave(/process updated successfully/i);
 
     // Add work tasks
-    await this.page.getByRole("button", { name: /edit Work tasks/i }).click();
+    await this.page.getByRole("button", { name: /edit work tasks/i }).click();
     await this.page
       .getByRole("textbox", { name: /common tasks in this role (English)/i })
       .fill("Playwright Test work tasks (EN)");
@@ -169,6 +170,19 @@ class PoolPage extends AppPage {
       .getByRole("textbox", { name: /common tasks in this role (French)/i })
       .fill("Playwright Test work tasks (FR)");
     await this.page.getByRole("button", { name: /save work tasks/i }).click();
+    await this.verifyAlertUponSave(/process updated successfully/i);
+  }
+
+  async addContactEmail(contactEmail: string) {
+    await this.page
+      .getByRole("button", { name: /edit contact email/i })
+      .click();
+    await this.page
+      .getByRole("textbox", { name: /contact email/i })
+      .fill(contactEmail);
+    await this.page
+      .getByRole("button", { name: /save contact email/i })
+      .click();
     await this.verifyAlertUponSave(/process updated successfully/i);
   }
 

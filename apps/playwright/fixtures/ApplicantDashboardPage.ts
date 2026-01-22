@@ -170,6 +170,7 @@ class ApplicantDashboardPage extends AppPage {
           break;
 
         case "skills portfolio":
+          await this.page.getByRole("button", { name: /add a skill/i }).click();
           await experiencePage.addANewSkillToProfile(
             "Functional Testing",
             "Intermediate",
