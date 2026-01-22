@@ -950,6 +950,9 @@ return [
             'communityInterest' => [
                 'own' => ['delete'],
             ],
+            'talentNominationEvent' => [
+                'any' => ['view'],
+            ],
         ],
 
         'process_operator' => [
@@ -1213,7 +1216,6 @@ return [
 
         'community_talent_coordinator' => [
             'talentNominationEvent' => [
-                'any' => ['view'],
                 'team' => ['create', 'update'],
             ],
             'talentNomination' => [

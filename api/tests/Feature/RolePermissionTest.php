@@ -381,7 +381,6 @@ class RolePermissionTest extends TestCase
         $communityTalentCoordinator->removeRole('base_user'); // isolate community_talent_coordinator
 
         $permissionsToCheck = [
-            'view-any-talentNominationEvent',
             'create-team-talentNominationEvent',
             'update-team-talentNominationEvent',
             'view-team-communityInterest',
