@@ -87,7 +87,7 @@
     "@vitejs/plugin-react": "^5.1.2",
     "dotenv": "^17.2.3",
     "eslint": "^9.20.1",
-    "prettier": "^3.8.0",
+    "prettier": "^3.8.1",
     "tsconfig": "workspace:*",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
