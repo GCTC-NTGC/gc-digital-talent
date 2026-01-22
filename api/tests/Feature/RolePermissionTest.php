@@ -139,8 +139,7 @@ class RolePermissionTest extends TestCase
         $superAdminRole = Role::where('name', 'platform_admin')->sole();
         $this->user->addRole($superAdminRole);
 
-        $this->assertTrue($this->user->hasRole('platform_admin'));
-        $this->assertTrue($this->user->isAbleTo([
+        $permissionsToCheck = [
             'create-any-classification',
             'view-any-classification',
             'update-any-classification',
@@ -190,7 +189,30 @@ class RolePermissionTest extends TestCase
             'update-any-processOperatorMembership',
             'view-any-communityTeamMembers',
             'view-any-poolTeamMembers',
-        ], true));
+            'view-any-role',
+            'view-any-jobPosterTemplate',
+            'create-any-jobPosterTemplate',
+            'update-any-jobPosterTemplate',
+            'delete-any-jobPosterTemplate',
+            'create-any-trainingOpportunity',
+            'create-any-workStream',
+            'update-any-workStream',
+            'update-any-communityTalentCoordinatorMembership',
+            'view-any-employeeWFA',
+            'view-any-poolActivityLog',
+            'archive-any-department',
+            'view-any-communityInterest',
+            'create-any-talentNominationEvent',
+        ];
+
+        $allPermissions = Permission::all()->pluck('name')->toArray();
+        $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
+
+        $this->assertTrue($this->user->hasRole('platform_admin'));
+        $this->assertTrue($this->user->isAbleTo($permissionsToCheck, true));
+
+        // negative assertion of permissions, fail if any possessed
+        $this->assertFalse($this->user->isAbleTo($notPossessedPermissions, false));
 
         $this->cleanup();
     }
