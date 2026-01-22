@@ -60,7 +60,7 @@
     "playwright": "^1.57.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "storybook": "^10.1.11",
-    "turbo": "^2.7.4",
+    "turbo": "^2.7.5",
     "vitest": "^4.0.16"
   }
 }
