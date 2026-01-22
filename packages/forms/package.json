@@ -47,7 +47,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/lodash": "^4.17.23",
     "@types/node": "^25.0.10",
-    "@types/react": "^19.2.8",
+    "@types/react": "^19.2.9",
     "eslint": "^9.20.1",
     "react": "^19.2.3",
     "react-hook-form": "^7.71.1",
