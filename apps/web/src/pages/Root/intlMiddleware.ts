@@ -7,6 +7,8 @@ import { intlContext } from "~/routing/context";
 
 import type { Route } from "./+types/RootRoute";
 
+const intl = getIntl(messages);
+
 const intlMiddleware: Route.ClientMiddlewareFunction = (
   { context, request },
   next,
@@ -19,7 +21,6 @@ const intlMiddleware: Route.ClientMiddlewareFunction = (
     throw redirect(`/${locale}`);
   }
 
-  const intl = getIntl(messages);
   context.set(intlContext, intl);
   return next();
 };
