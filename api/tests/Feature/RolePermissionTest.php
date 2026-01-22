@@ -342,9 +342,12 @@ class RolePermissionTest extends TestCase
             'update-team-processOperatorMembership',
             'publish-team-draftPool',
             'update-team-publishedPool',
+            'view-team-communityInterest',
+            'view-team-communityTalent',
             'update-team-community',
             'update-team-communityRecruiterMembership',
             'create-any-talentNominationEvent',
+            'create-team-talentNominationEvent',
             'update-team-talentNominationEvent',
             'update-team-communityTalentCoordinatorMembership',
         ];
