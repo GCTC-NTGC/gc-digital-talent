@@ -346,7 +346,6 @@ class RolePermissionTest extends TestCase
             'view-team-communityTalent',
             'update-team-community',
             'update-team-communityRecruiterMembership',
-            'create-any-talentNominationEvent',
             'create-team-talentNominationEvent',
             'update-team-talentNominationEvent',
             'update-team-communityTalentCoordinatorMembership',

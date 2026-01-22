@@ -1080,7 +1080,6 @@ return [
                 'team' => ['view', 'update', 'delete'],
             ],
             'talentNominationEvent' => [
-                'any' => ['create'],
                 'team' => ['create', 'update'],
             ],
             'community' => [
@@ -1211,6 +1210,9 @@ return [
             ],
             'communityInterest' => [
                 'any' => ['view'],
+            ],
+            'talentNominationEvent' => [
+                'any' => ['create'],
             ],
         ],
 
