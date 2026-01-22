@@ -1086,6 +1086,12 @@ return [
             'community' => [
                 'team' => ['view', 'update'],
             ],
+            'communityInterest' => [
+                'team' => ['view'],
+            ],
+            'communityTalent' => [
+                'team' => ['view'],
+            ],
             'communityTeamMembers' => [
                 'team' => ['view'],
             ],
@@ -1100,6 +1106,9 @@ return [
             ],
             'communityTalentCoordinatorMembership' => [
                 'team' => ['update'],
+            ],
+            'talentNominationEvent' => [
+                'team' => ['create', 'update'],
             ],
         ],
 
