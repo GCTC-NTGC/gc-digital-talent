@@ -25,7 +25,7 @@
     "wonka": "^6.3.5"
   },
   "devDependencies": {
-    "@formatjs/ts-transformer": "^4.2.0",
+    "@formatjs/ts-transformer": "^4.3.1",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@storybook/addon-a11y": "^10.1.11",
     "@storybook/addon-designs": "^11.1.1",
