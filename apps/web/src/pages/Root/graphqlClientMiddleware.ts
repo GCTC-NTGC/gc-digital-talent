@@ -11,9 +11,7 @@ const graphqlClientMiddleware: Route.ClientMiddlewareFunction = (
   next,
 ) => {
   const intl = context.get(intlContext);
-  if (!urqlClient) {
-    urqlClient = getClient({ intl });
-  }
+  urqlClient ??= getClient({ intl });
   context.set(graphqlClientContext, urqlClient);
   return next();
 };
