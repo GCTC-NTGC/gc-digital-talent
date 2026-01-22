@@ -8,6 +8,7 @@ test.describe("Static pages", () => {
         page.getByRole("heading", { name: /terms and conditions/i, level: 1 }),
       ).toBeVisible();
     });
+
     test("has no accessibility violations", async ({
       page,
       makeAxeBuilder,
@@ -17,6 +18,7 @@ test.describe("Static pages", () => {
       expect(accessibilityScanResults.violations).toEqual([]);
     });
   });
+
   test.describe("Privacy policy", () => {
     test("has heading", async ({ page }) => {
       await page.goto("/en/privacy-policy");
@@ -24,6 +26,7 @@ test.describe("Static pages", () => {
         page.getByRole("heading", { name: /privacy policy/i, level: 1 }),
       ).toBeVisible();
     });
+
     test("has no accessibility violations", async ({
       page,
       makeAxeBuilder,
@@ -33,6 +36,7 @@ test.describe("Static pages", () => {
       expect(accessibilityScanResults.violations).toEqual([]);
     });
   });
+
   test.describe("Accessibility statement", () => {
     test("has heading", async ({ page }) => {
       await page.goto("/en/accessibility-statement");
@@ -43,6 +47,7 @@ test.describe("Static pages", () => {
         }),
       ).toBeVisible();
     });
+
     test("has no accessibility violations", async ({
       page,
       makeAxeBuilder,
@@ -52,6 +57,7 @@ test.describe("Static pages", () => {
       expect(accessibilityScanResults.violations).toEqual([]);
     });
   });
+
   test.describe("Directive on Digital Talent", () => {
     test("has heading", async ({ page }) => {
       await page.goto("/en/directive-on-digital-talent");
@@ -62,6 +68,7 @@ test.describe("Static pages", () => {
         }),
       ).toBeVisible();
     });
+
     test("has no accessibility violations", async ({
       page,
       makeAxeBuilder,
@@ -70,6 +77,7 @@ test.describe("Static pages", () => {
       const accessibilityScanResults = await makeAxeBuilder().analyze();
       expect(accessibilityScanResults.violations).toEqual([]);
     });
+
     test("download enabling conditions file in English", async ({ page }) => {
       await page.goto("/en/directive-on-digital-talent");
       const downloadPromise = page.waitForEvent("download");
@@ -80,6 +88,7 @@ test.describe("Static pages", () => {
         "Enabling_Conditions_Guidance_EN.docx",
       );
     });
+
     test("download enabling conditions file in French", async ({ page }) => {
       await page.goto("/fr/directive-on-digital-talent");
       const downloadPromise = page.waitForEvent("download");
