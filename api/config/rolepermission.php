@@ -555,10 +555,6 @@ return [
             'en' => 'View any community',
             'fr' => 'Vissioner toutes les communautés',
         ],
-        'view-team-community' => [
-            'en' => 'View this community',
-            'fr' => 'Vissioner cette communauté',
-        ],
         'create-any-community' => [
             'en' => 'Create any community',
             'fr' => 'Créer toute communauté',
