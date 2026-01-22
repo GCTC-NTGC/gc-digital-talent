@@ -1078,7 +1078,7 @@ return [
             ],
             'talentNominationEvent' => [
                 'any' => ['create'],
-                'team' => ['update'],
+                'team' => ['create', 'update'],
             ],
             'community' => [
                 'team' => ['update'],
@@ -1103,9 +1103,6 @@ return [
             ],
             'communityTalentCoordinatorMembership' => [
                 'team' => ['update'],
-            ],
-            'talentNominationEvent' => [
-                'team' => ['create', 'update'],
             ],
         ],
 
