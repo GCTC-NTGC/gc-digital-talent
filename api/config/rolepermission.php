@@ -1019,9 +1019,6 @@ return [
             'searchRequest' => [
                 'team' => ['view', 'update', 'delete'],
             ],
-            'community' => [
-                'team' => ['view'],
-            ],
             'communityTeamMembers' => [
                 'team' => ['view'],
             ],
@@ -1084,7 +1081,7 @@ return [
                 'team' => ['update'],
             ],
             'community' => [
-                'team' => ['view', 'update'],
+                'team' => ['update'],
             ],
             'communityInterest' => [
                 'team' => ['view'],
