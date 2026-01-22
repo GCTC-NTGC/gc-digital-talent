@@ -32,7 +32,7 @@
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.1",
+    "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.2.9",
     "eslint": "^9.20.1",
