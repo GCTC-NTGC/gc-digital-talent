@@ -8,7 +8,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import flourishTopLight from "~/assets/img/support_top_light.webp";
 import flourishTopDark from "~/assets/img/support_top_dark.webp";
-import supportHeroImg from "~/assets/img/support_header.webp";
+import supportHeroImg from "~/assets/img/woman-on-cellphone-typing-on-laptop.webp";
 
 import SupportForm from "./components/SupportForm/SupportForm";
 
