@@ -33,6 +33,16 @@ enum PlacementType
         ];
     }
 
+    public static function searchable(): array
+    {
+        return [
+            PlacementType::NOT_PLACED->name,
+            PlacementType::PLACED_TENTATIVE->name,
+            PlacementType::PLACED_CASUAL->name,
+            PlacementType::PLACED_TERM->name,
+        ];
+    }
+
     public static function getLangFilename(): string
     {
         return 'placement_type';

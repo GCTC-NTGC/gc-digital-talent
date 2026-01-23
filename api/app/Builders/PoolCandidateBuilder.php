@@ -7,6 +7,7 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
+use App\Enums\PlacementType;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
 use App\Enums\ScreeningStage;
@@ -269,6 +270,10 @@ class PoolCandidateBuilder extends Builder
     public function whereAvailable(): self
     {
         return $this->where('application_status', ApplicationStatus::QUALIFIED->name)
+            ->where(function ($query) {
+                $query->whereIn('placement_type', PlacementType::searchable())
+                    ->orWhereNul('placement_type');
+            })
             ->where('referring', true)
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
