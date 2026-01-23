@@ -19,7 +19,6 @@ use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\OverallAssessmentStatus;
-use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
@@ -183,7 +182,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                     $candidate->pool->name[$this->lang] ?? '', // Process name
                     $userHydrated->first_name, // First name
                     $userHydrated->last_name, // Last name
-                    $this->localizeEnum($candidate->pool_candidate_status, PoolCandidateStatus::class), // Status
+                    $this->localizeEnum($candidate->application_status, ApplicationStatus::class), // Status
                     $this->localizeEnum($userHydrated->priority, PriorityWeight::class),
                     $candidate->suspended_at ? Lang::get('common.not_interested', [], $this->lang) : Lang::get('common.open_to_job_offers', [], $this->lang),
                     $this->sanitizeString($candidate->notes ?? ''), // Notes
