@@ -8,13 +8,16 @@ import {
   Input,
   Radio,
   RadioGroup,
+  TextArea,
 } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   getLocalizedName,
   narrowEnumType,
+  getLocale,
+  Locales,
 } from "@gc-digital-talent/i18n";
-import { Loading } from "@gc-digital-talent/ui";
+import { Heading, Loading } from "@gc-digital-talent/ui";
 import {
   EmploymentCategory,
   graphql,
@@ -23,6 +26,8 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
+import { getExperienceFormLabels } from "~/utils/experienceUtils";
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 import CafFields from "./CafFields";
 import ExternalFields from "./ExternalFields";
@@ -97,11 +102,16 @@ const employmentCategoryDescriptions: Record<
   }),
 };
 
+const TEXT_AREA_ROWS = 3;
+const TEXT_AREA_MAX_WORDS_EN = 200;
+
 const WorkFields = ({
   labels,
   organizationSuggestions,
 }: SubExperienceFormProps & { organizationSuggestions: string[] }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const experienceLabels = getExperienceFormLabels(intl);
   const [{ data, fetching }] = useQuery<WorkFieldOptionsQuery>({
     query: WorkFieldOptions_Query,
   });
@@ -126,6 +136,11 @@ const WorkFields = ({
       contentBelow: intl.formatMessage(contentBelow),
     };
   });
+
+  const wordCountLimits: Record<Locales, number> = {
+    en: TEXT_AREA_MAX_WORDS_EN,
+    fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
+  } as const;
 
   /**
    * Reset all fields when employmentCategory field is changed
@@ -175,35 +190,63 @@ const WorkFields = ({
       {fetching ? (
         <Loading inline />
       ) : (
-        <div className="grid gap-6 xs:grid-cols-2">
-          <div className="col-span-2">
-            <Input
-              id="role"
-              label={labels.role}
-              name="role"
-              type="text"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+        <>
+          <div className="grid gap-6 xs:grid-cols-2">
+            <div className="col-span-2">
+              <Input
+                id="role"
+                label={labels.role}
+                name="role"
+                type="text"
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
+              />
+            </div>
+            <div className="col-span-2">
+              <RadioGroup
+                idPrefix="employmentCategory"
+                name="employmentCategory"
+                legend={intl.formatMessage({
+                  defaultMessage: "Employment category",
+                  id: "BdpXAF",
+                  description: "Label for the employment category radio group",
+                })}
+                items={employmentCategories}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
+              />
+            </div>
+            <EmploymentCategoryFields
+              employmentCategory={watchEmploymentCategory}
+              labels={labels}
+              organizationSuggestions={organizationSuggestions}
             />
           </div>
-          <div className="col-span-2">
-            <RadioGroup
-              idPrefix="employmentCategory"
-              name="employmentCategory"
-              legend={intl.formatMessage({
-                defaultMessage: "Employment category",
-                id: "BdpXAF",
-                description: "Label for the employment category radio group",
+          <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+            {intl.formatMessage({
+              defaultMessage: "Highlight additional details",
+              id: "6v+j79",
+              description: "Title for additional details section",
+            })}
+          </Heading>
+          <div>
+            <p className="mb-6">
+              {intl.formatMessage({
+                defaultMessage:
+                  "Describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important. Try to keep this field concise as you'll be able to provide more detailed information when linking skills to this experience.",
+                id: "yZ0kfQ",
+                description:
+                  "Help text for the experience additional details field",
               })}
-              items={employmentCategories}
+            </p>
+            <TextArea
+              id={"details"}
+              name={"details"}
+              rows={TEXT_AREA_ROWS}
+              wordLimit={wordCountLimits[locale]}
+              label={experienceLabels.details}
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
           </div>
-          <EmploymentCategoryFields
-            employmentCategory={watchEmploymentCategory}
-            labels={labels}
-            organizationSuggestions={organizationSuggestions}
-          />
-        </div>
+        </>
       )}
     </div>
   );
