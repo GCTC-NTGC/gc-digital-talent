@@ -10,6 +10,7 @@ use App\Enums\DisqualificationReason;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
+use App\Enums\PlacementType;
 use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
 use App\Enums\ScreeningStage;
@@ -76,12 +77,14 @@ class ApplicantTest extends TestCase
             'pool_id' => $ITPool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
         ]);
 
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $ITPool2['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
         ]);
 
         // Unqualified candidate - should not appear in searches
@@ -97,6 +100,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $ITPool1['id'],
             'expiry_date' => config('constants.past_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
         ]);
 
         // Executive pool - should not appear in searches
@@ -104,6 +108,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $EXPool['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
         ]);
 
         // Assert empty filter returns only available applicants in IT pools
@@ -157,6 +162,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
@@ -169,6 +175,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => true,
                 'has_disability' => false,
@@ -181,6 +188,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => true,
@@ -193,6 +201,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
@@ -205,6 +214,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
@@ -217,6 +227,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
@@ -229,6 +240,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
@@ -346,6 +358,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -357,6 +370,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'looking_for_english' => false,
                 'looking_for_french' => true,
@@ -368,6 +382,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'looking_for_english' => false,
                 'looking_for_french' => false,
@@ -453,6 +468,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'has_diploma' => false,
             ]),
@@ -462,6 +478,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'has_diploma' => true,
             ]),
@@ -523,6 +540,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'position_duration' => [PositionDuration::PERMANENT->name],
             ]),
@@ -532,6 +550,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'position_duration' => array_column(PositionDuration::cases(), 'name'),
             ]),
@@ -541,6 +560,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'position_duration' => null,
             ]),
@@ -624,6 +644,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => [],
             ]),
@@ -633,6 +654,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => ['SHIFT_WORK'],
             ]),
@@ -642,6 +664,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => ['SHIFT_WORK', 'TRAVEL'],
             ]),
@@ -729,6 +752,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([]),
         ]);
 
@@ -736,6 +760,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1) {
                 AwardExperience::factory()
                     ->for($user)
@@ -754,6 +779,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1, $skill2) {
                 CommunityExperience::factory()
                     ->for($user)
@@ -899,6 +925,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([]),
         ]);
 
@@ -906,6 +933,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1) {
                 AwardExperience::factory()
                     ->for($user)
@@ -919,6 +947,7 @@ class ApplicantTest extends TestCase
             'pool_id' => $pool1->id,
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1, $skill2) {
                 CommunityExperience::factory()
                     ->for($user)
