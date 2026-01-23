@@ -272,7 +272,7 @@ class PoolCandidateBuilder extends Builder
         return $this->where('application_status', ApplicationStatus::QUALIFIED->name)
             ->where(function ($query) {
                 $query->whereIn('placement_type', PlacementType::searchable())
-                    ->orWhereNul('placement_type');
+                    ->orWhereNull('placement_type');
             })
             ->where('referring', true)
             ->where(function ($query) {

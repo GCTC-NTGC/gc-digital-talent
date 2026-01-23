@@ -46,6 +46,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'pool_id' => $pool,
             'user_id' => $user,
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'referring' => $available,
             'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date'),
         ];

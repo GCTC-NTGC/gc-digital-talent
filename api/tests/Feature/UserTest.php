@@ -1658,6 +1658,7 @@ class UserTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1668,6 +1669,7 @@ class UserTest extends TestCase
             'pool_id' => $pool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::PLACED_TENTATIVE->name,
             'user_id' => User::factory([
                 'looking_for_english' => false,
                 'looking_for_french' => true,
@@ -1679,6 +1681,7 @@ class UserTest extends TestCase
             'pool_id' => $pool2['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,

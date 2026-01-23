@@ -255,6 +255,7 @@ class PoolCandidateFactory extends Factory
         return $this->state(function () {
             return [
                 'application_status' => ApplicationStatus::QUALIFIED->name,
+                'placement_type' => $this->faker->randomElement(PlacementType::searchable()),
                 'referring' => true,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
                 'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
