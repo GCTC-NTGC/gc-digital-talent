@@ -176,7 +176,7 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
                 className="absolute top-1/2 -right-6 hidden h-full w-2/5 -translate-y-1/2 bg-cover bg-center xs:block"
                 style={{ backgroundImage: `url('${imgPath}')` }}
               >
-                <div className="absolute inset-0 hidden bg-radial from-transparent from-40% to-[#000] to-70% xs:block" />
+                <div className="absolute inset-0 hidden bg-radial-[circle] from-transparent from-30% to-[#000] to-85% xs:block" />
               </div>
               <BackgroundGraphic
                 aria-hidden="true"
