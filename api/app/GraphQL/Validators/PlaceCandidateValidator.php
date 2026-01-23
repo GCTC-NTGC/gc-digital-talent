@@ -6,6 +6,7 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\ApplicationStatus;
 use App\Enums\ErrorCode;
+use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -29,6 +30,8 @@ final class PlaceCandidateValidator extends Validator
 
         return [
             'poolCandidate.department.connect' => ['uuid', 'required', Rule::exists('departments', 'id')],
+            // NOTE: Back compat for pool candidate status
+            'poolCandidate.placementType' => [Rule::in(PoolCandidateStatus::placedGroup())],
         ];
     }
 
