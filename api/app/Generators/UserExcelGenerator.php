@@ -418,8 +418,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $nextRoleWorkStreams->join(','), // Next role - Work streams
             $nextRoleDepartments->join(', '), // next role - Departments
             $employeeProfile->next_role_additional_information ?? '', // Next role - Additional information
-            $employeeProfile->careerObjectiveClassification?->group ?? '', // Career objective - Target classification group
-            $employeeProfile->careerObjectiveClassification?->level ?? '', // Career objective - Target classification level
+            $employeeProfile->careerObjectiveClassification->group ?? '', // Career objective - Target classification group
+            $employeeProfile->careerObjectiveClassification->level ?? '', // Career objective - Target classification level
             $this->localizeEnum($employeeProfile?->career_objective_target_role, TargetRole::class), // Career objective - Target role
             $this->yesOrNo($employeeProfile?->career_objective_is_c_suite_role), // Career objective - C-suite role
             $this->localizeEnum($employeeProfile?->career_objective_c_suite_role_title, CSuiteRoleTitle::class), // Career objective - C-suite role title
