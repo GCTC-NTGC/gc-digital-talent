@@ -98,8 +98,8 @@ const chrcLink = (locale: Locales, chunks: ReactNode) => (
     external
     href={
       locale === "en"
-        ? "https://www.chrc-ccdp.gc.ca/en/complaints/make-a-complaint"
-        : "https://www.chrc-ccdp.gc.ca/fr/plaintes/deposer-une-plainte"
+        ? "https://www.chrc-ccdp.gc.ca/make-a-complaint"
+        : "https://www.ccdp-chrc.gc.ca/deposer-une-plainte"
     }
   >
     {chunks}
