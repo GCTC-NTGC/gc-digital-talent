@@ -143,6 +143,8 @@ return [
     'awarded_scope' => 'Award scope',
     'other_c_suite_title' => 'Other C-suite role title',
     'additional_details' => 'Additional details',
+    'details_or_key_tasks' => 'Additional details, or Key tasks and responsibilities',
+    'key_tasks_and_responsibilities' => 'Key tasks and responsibilities',
     'education_status' => 'Education status',
     'community_project_or_product' => 'Community project or product',
     'personal_learning_experience_description' => 'Personal learning experience description',
