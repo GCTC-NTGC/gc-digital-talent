@@ -244,16 +244,16 @@ class CandidateFacingStatusTest extends TestCase
                 ...$default,
                 'placement_type' => PlacementType::PLACED_TENTATIVE->name,
             ]],
-
-            // Hired
-            'placed casual' => [CandidateInterest::HIRED->name, [
+            'placed casual' => [CandidateInterest::OPEN_TO_JOBS->name, [
                 ...$default,
                 'placement_type' => PlacementType::PLACED_CASUAL->name,
             ]],
-            'placed term' => [CandidateInterest::HIRED->name, [
+            'placed term' => [CandidateInterest::OPEN_TO_JOBS->name, [
                 ...$default,
                 'placement_type' => PlacementType::PLACED_TERM->name,
             ]],
+
+            // Hired
             'placed indeterminate' => [CandidateInterest::HIRED->name, [
                 ...$default,
                 'placement_type' => PlacementType::PLACED_INDETERMINATE->name,
