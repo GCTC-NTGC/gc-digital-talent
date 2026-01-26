@@ -423,11 +423,6 @@ class PoolCandidateBuilder extends Builder
         return $this->whereIn('removal_reason', $removalReasons);
     }
 
-    /**
-     * Placement type is a subset of statuses (currently)
-     * So, this works almost identical to whereStatusIn
-     * except, it discriminates statuses that are not placement types
-     */
     public function wherePlacementTypeIn(?array $placementTypes): self
     {
 
