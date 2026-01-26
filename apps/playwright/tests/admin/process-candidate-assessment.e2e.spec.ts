@@ -4,6 +4,7 @@ import {
   AssessmentStepType,
   CitizenshipStatus,
   FlexibleWorkLocation,
+  PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
   SkillCategory,
@@ -41,6 +42,7 @@ test.describe("Process candidate assessment", () => {
   let behaviouralSkill: string;
   let communityName: string, workStreamName: string, groupAndLevel: string;
   let sub: string;
+  let candidate: PoolCandidate;
 
   test.beforeEach(async () => {
     testId = generateUniqueTestId();
@@ -171,7 +173,12 @@ test.describe("Process candidate assessment", () => {
       personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName}`,
     });
+    candidate = application;
     const candidatePage = new PoolCandidatePage(appPage.page);
-    await candidatePage.toGoCandidate(application.id);
+    await candidatePage.toGoCandidate(candidate.id);
+    await candidatePage.waitForGraphqlResponse("PoolCandidateSnapshot");
+    await expect(
+      appPage.page.getByLabel("To assess").locator("path"),
+    ).toBeVisible();
   });
 });
