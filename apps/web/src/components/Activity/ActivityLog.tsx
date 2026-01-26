@@ -5,6 +5,7 @@ import { tv } from "tailwind-variants";
 import { Card, Heading, HeadingRank, Notice } from "@gc-digital-talent/ui";
 
 import Item from "./Item";
+import SearchForm from "./SearchForm";
 
 const Empty = () => {
   const intl = useIntl();
@@ -79,4 +80,5 @@ export default {
   List,
   Empty,
   Item,
+  SearchForm,
 };

@@ -572,11 +572,14 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
-  activities(orderBy: _ @orderBy): [Activity!]
+  activities(
+    where: ProcessActivityFilterInput @spread
+    orderBy: _ @orderBy
+  ): [Activity!]
     @paginate(
-      type: PAGINATOR,
-      builder: "App\\Models\\Pool@aggregateActivities",
-      defaultCount: 50,
+      type: PAGINATOR
+      builder: "App\\Models\\Pool@aggregateActivities"
+      defaultCount: 50
       maxCount: 1000
     )
     @scope(name: ["authorizedToViewPoolActivity"])
@@ -1511,6 +1514,10 @@ input CommunityInterestFilterInput {
   locationPreferences: [WorkRegion] @scope
   operationalRequirements: [OperationalRequirement] @scope
   skills: [UUID] @scope
+}
+
+input ProcessActivityFilterInput {
+  generalSearch: String @scope(name: "whereProcessGeneralSearch")
 }
 
 type Query {

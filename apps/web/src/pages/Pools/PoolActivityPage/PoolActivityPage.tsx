@@ -3,7 +3,7 @@ import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
 import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
 
-import { graphql, Scalars } from "@gc-digital-talent/graphql";
+import { graphql, Maybe, Scalars } from "@gc-digital-talent/graphql";
 import {
   Container,
   Heading,
@@ -45,12 +45,18 @@ interface RouteParams extends Record<string, string> {
 }
 
 const PoolActivityPage_Query = graphql(/* GraphQL */ `
-  query PoolActivityPage($id: UUID!, $page: Int, $first: Int!) {
+  query PoolActivityPage(
+    $id: UUID!
+    $page: Int
+    $first: Int!
+    $where: ProcessActivityFilterInput
+  ) {
     pool(id: $id) {
       publishedAt
       activities(
         first: $first
         page: $page
+        where: $where
         orderBy: [{ column: "created_at", order: DESC }]
       ) {
         data {
@@ -73,6 +79,9 @@ const PoolActivityPage = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const searchTerm =
+    searchParams.get(SEARCH_PARAM_KEY.SEARCH_TERM) ?? undefined;
+
   const pageSize = safeGetPageState(
     SEARCH_PARAM_KEY.PAGE_SIZE,
     searchParams,
@@ -82,16 +91,23 @@ const PoolActivityPage = () => {
 
   const [{ data, fetching }] = useQuery({
     query: PoolActivityPage_Query,
-    variables: { id: poolId, first: pageSize, page: currentPage },
+    variables: {
+      id: poolId,
+      first: pageSize,
+      page: currentPage,
+      where: searchTerm ? { generalSearch: searchTerm } : undefined,
+    },
   });
 
-  if (fetching) return <Loading inline />;
-
   if (!data?.pool) {
+    if (fetching) {
+      return <Loading inline />;
+    }
+
     return <ThrowNotFound />;
   }
 
-  const totalItems = data.pool.activities.paginatorInfo.total;
+  const totalItems = data?.pool?.activities.paginatorInfo.total;
   const totalPages = getTotalPages(totalItems, pageSize);
 
   const groups = groupByDay(unpackMaybes(data?.pool?.activities.data));
@@ -112,6 +128,26 @@ const PoolActivityPage = () => {
     setSearchParams(params);
   };
 
+  const handleSearch = (term?: Maybe<string>) => {
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set(SEARCH_PARAM_KEY.SEARCH_TERM, term);
+    } else {
+      params.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
+    }
+    params.delete(SEARCH_PARAM_KEY.PAGE);
+
+    setSearchParams(params);
+  };
+
+  const handleResetSearch = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete(SEARCH_PARAM_KEY.SEARCH_TERM);
+    params.delete(SEARCH_PARAM_KEY.PAGE);
+
+    setSearchParams(params);
+  };
+
   return (
     <Container className="my-18">
       <Heading
@@ -127,43 +163,52 @@ const PoolActivityPage = () => {
         })}
       </Heading>
 
-      {groups.length > 0 ? (
-        <>
-          <ActivityLog.Root className="mb-6">
-            {groups.map((group) => (
-              <ActivityLog.List
-                key={group.day}
-                heading={formatActivityDayGroup(group.day, intl)}
-              >
-                {group.activities.map((item) => (
-                  <ActivityLog.Item
-                    key={item.id}
-                    query={item}
-                    itemProps={{ publishedAt: data?.pool?.publishedAt }}
-                  />
-                ))}
-              </ActivityLog.List>
-            ))}
-          </ActivityLog.Root>
-          <Pagination
-            color="black"
-            ariaLabel={intl.formatMessage({
-              defaultMessage: "Process activity page navigation",
-              id: "I7qIfR",
-              description: "Label for activity pagination",
-            })}
-            currentPage={currentPage}
-            pageSize={pageSize}
-            totalPages={totalPages}
-            totalCount={totalItems}
-            onCurrentPageChange={handlePageChange}
-            onPageSizeChange={handlePageSizeChange}
-            pageSizes={[50, 100, 500]}
-          />
-        </>
-      ) : (
-        <ActivityLog.Empty />
-      )}
+      <ActivityLog.SearchForm
+        onReset={handleResetSearch}
+        onSearch={handleSearch}
+        defaultValue={searchParams.get(SEARCH_PARAM_KEY.SEARCH_TERM)}
+      />
+
+      <div className="relative">
+        {fetching && <Loading className="absolute" />}
+        {groups.length > 0 ? (
+          <>
+            <ActivityLog.Root className="mb-6">
+              {groups.map((group) => (
+                <ActivityLog.List
+                  key={group.day}
+                  heading={formatActivityDayGroup(group.day, intl)}
+                >
+                  {group.activities.map((item) => (
+                    <ActivityLog.Item
+                      key={item.id}
+                      query={item}
+                      itemProps={{ publishedAt: data?.pool?.publishedAt }}
+                    />
+                  ))}
+                </ActivityLog.List>
+              ))}
+            </ActivityLog.Root>
+            <Pagination
+              color="black"
+              ariaLabel={intl.formatMessage({
+                defaultMessage: "Process activity page navigation",
+                id: "I7qIfR",
+                description: "Label for activity pagination",
+              })}
+              currentPage={currentPage}
+              pageSize={pageSize}
+              totalPages={totalPages}
+              totalCount={totalItems}
+              onCurrentPageChange={handlePageChange}
+              onPageSizeChange={handlePageSizeChange}
+              pageSizes={[50, 100, 500]}
+            />
+          </>
+        ) : (
+          <ActivityLog.Empty />
+        )}
+      </div>
     </Container>
   );
 };
