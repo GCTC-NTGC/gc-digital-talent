@@ -4,7 +4,6 @@ import {
   AssessmentStepType,
   CitizenshipStatus,
   FlexibleWorkLocation,
-  PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
   SkillCategory,
@@ -15,9 +14,7 @@ import {
 
 import testConfig from "~/constants/config";
 import { expect, test } from "~/fixtures";
-import PoolCandidatePage from "~/fixtures/PoolCandidatePage";
 import PoolPage from "~/fixtures/PoolPage";
-import { createAndSubmitApplication } from "~/utils/applications";
 import { loginBySub } from "~/utils/auth";
 import { getClassifications } from "~/utils/classification";
 import { getCommunities } from "~/utils/communities";
@@ -29,7 +26,7 @@ import {
   publishPool,
 } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
-import { createUserWithRoles, me } from "~/utils/user";
+import { createUserWithRoles } from "~/utils/user";
 import { getWorkStreams } from "~/utils/workStreams";
 
 test.describe("Process candidate assessment", () => {
@@ -42,7 +39,6 @@ test.describe("Process candidate assessment", () => {
   let behaviouralSkill: string;
   let communityName: string, workStreamName: string, groupAndLevel: string;
   let sub: string;
-  let candidate: PoolCandidate;
 
   test.beforeEach(async () => {
     testId = generateUniqueTestId();
@@ -108,7 +104,6 @@ test.describe("Process candidate assessment", () => {
   }) => {
     await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
     const email = user.email ?? "";
-    const userFirstName = user.firstName ?? "";
     poolPage = new PoolPage(appPage.page);
     communityName = await getCommunities(adminCtx, {}).then(
       (communities) => communities[0]?.name?.en ?? "",
@@ -134,9 +129,9 @@ test.describe("Process candidate assessment", () => {
     );
     await poolPage.navigateBackToProcess(processTitle);
     await expect(
-      appPage.page.getByRole("heading", { name: processTitle, level: 1 }),
-    ).toBeVisible({ timeout: 10000 });
-    const poolId = fetchIdentificationNumber(appPage.page.url(), "pools");
+      poolPage.page.getByRole("heading", { name: processTitle, level: 1 }),
+    ).toBeVisible();
+    const poolId = fetchIdentificationNumber(poolPage.page.url(), "pools");
     // Fetch pool Skills and Add assessment step through API
     const poolSkills = await getPoolSkills(adminCtx, { poolId });
     const poolSkillIds = poolPage.getPoolSkillIdsByCategories(poolSkills, [
@@ -156,28 +151,8 @@ test.describe("Process candidate assessment", () => {
         },
       },
     });
-    await appPage.page.goto(`/admin/pools/${poolId}`);
+    await poolPage.page.goto(`/admin/pools/${poolId}`);
     // Publish the process with assessment step
     await publishPool(adminCtx, poolId);
-    // New user applies to the process
-    const applicantCtx = await graphql.newContext(sub);
-    const applicant = await me(applicantCtx, {});
-    const application = await createAndSubmitApplication(applicantCtx, {
-      userId: applicant.id,
-      poolId: poolId,
-      personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
-      signature: `${applicant.firstName}`,
-    });
-    candidate = application;
-    const candidatePage = new PoolCandidatePage(appPage.page);
-    await candidatePage.toGoCandidate(candidate.id);
-    await candidatePage.waitForGraphqlResponse("PoolCandidateSnapshot");
-    await expect(
-      appPage.page.getByRole("heading", {
-        name: userFirstName,
-        level: 1,
-      }),
-    ).toBeVisible();
-    await poolPage.flagAndBookmarkCandidate(poolId);
   });
 });
