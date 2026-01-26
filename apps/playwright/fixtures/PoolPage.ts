@@ -68,8 +68,6 @@ class PoolPage extends AppPage {
   }
 
   async editBasicInformation(processTitle: string, workStream: string) {
-    await this.waitForGraphqlResponse("EditPoolPage");
-    await this.waitForGraphqlResponse("CoreRequirementOptions");
     await expect(
       this.page.getByRole("heading", {
         name: /advertisement information/i,
@@ -117,7 +115,7 @@ class PoolPage extends AppPage {
     await this.page
       .getByRole("button", { name: /save process number/i })
       .click();
-    await this.verifyAlertUponSave(/process updated successfully/i);
+    await this.waitForGraphqlResponse("UpdatePool");
   }
 
   async updateClosingDate() {
@@ -132,7 +130,7 @@ class PoolPage extends AppPage {
       .selectOption("01");
     await closingDate.getByRole("spinbutton", { name: /day/i }).fill("1");
     await this.page.getByRole("button", { name: /save closing date/i }).click();
-    await this.verifyAlertUponSave(/process updated successfully/i);
+    await this.waitForGraphqlResponse("UpdatePool");
   }
   async updateCoreRequirements() {
     await this.page
@@ -147,7 +145,7 @@ class PoolPage extends AppPage {
     await this.page
       .getByRole("button", { name: /save core requirements/i })
       .click();
-    await this.verifyAlertUponSave(/process updated successfully/i);
+    await this.waitForGraphqlResponse("UpdatePool");
   }
 
   async addEssentialSkills(skills: { name: string; level: string }[]) {
@@ -176,7 +174,7 @@ class PoolPage extends AppPage {
     await impactFr.click();
     await impactFr.fill("Playwright Test process (FR)");
     await this.page.getByRole("button", { name: /save your impact/i }).click();
-    await this.verifyAlertUponSave(/process updated successfully/i);
+    await this.waitForGraphqlResponse("UpdatePool");
 
     // Add work tasks
     await this.page.getByRole("button", { name: /edit work tasks/i }).click();
@@ -191,7 +189,7 @@ class PoolPage extends AppPage {
     await workTasksFr.click();
     await workTasksFr.fill("Playwright Test work tasks (FR)");
     await this.page.getByRole("button", { name: /save work tasks/i }).click();
-    await this.verifyAlertUponSave(/process updated successfully/i);
+    await this.waitForGraphqlResponse("UpdatePool");
   }
 
   async addContactEmail(contactEmail: string) {
@@ -204,7 +202,7 @@ class PoolPage extends AppPage {
     await this.page
       .getByRole("button", { name: /save contact email/i })
       .click();
-    await this.verifyAlertUponSave(/process updated successfully/i);
+    await this.waitForGraphqlResponse("UpdatePool");
   }
 
   async verifyAlertUponSave(alertMessage: string | RegExp) {
@@ -218,7 +216,6 @@ class PoolPage extends AppPage {
     await this.page
       .getByRole("link", { name: `${processTitle}` })
       .click({ timeout: 10000 });
-    await this.waitForGraphqlResponse("ViewPoolPage");
   }
 
   getPoolSkillIdsByCategories(

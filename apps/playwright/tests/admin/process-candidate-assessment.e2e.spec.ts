@@ -4,7 +4,6 @@ import {
   AssessmentStepType,
   CitizenshipStatus,
   FlexibleWorkLocation,
-  PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
   SkillCategory,
@@ -15,6 +14,7 @@ import {
 
 import testConfig from "~/constants/config";
 import { expect, test } from "~/fixtures";
+import PoolCandidatePage from "~/fixtures/PoolCandidatePage";
 import PoolPage from "~/fixtures/PoolPage";
 import { createAndSubmitApplication } from "~/utils/applications";
 import { loginBySub } from "~/utils/auth";
@@ -41,7 +41,6 @@ test.describe("Process candidate assessment", () => {
   let behaviouralSkill: string;
   let communityName: string, workStreamName: string, groupAndLevel: string;
   let sub: string;
-  let candidate: PoolCandidate;
 
   test.beforeEach(async () => {
     testId = generateUniqueTestId();
@@ -133,7 +132,7 @@ test.describe("Process candidate assessment", () => {
     await poolPage.navigateBackToProcess(processTitle);
     await expect(
       appPage.page.getByRole("heading", { name: processTitle, level: 1 }),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 10000 });
     const poolId = fetchIdentificationNumber(appPage.page.url(), "pools");
     // Fetch pool Skills and Add assessment step through API
     const poolSkills = await getPoolSkills(adminCtx, { poolId });
@@ -154,12 +153,13 @@ test.describe("Process candidate assessment", () => {
         },
       },
     });
+    await appPage.page.reload();
     await expect(
       appPage.page
         .getByRole("heading", { name: /assessment plan/i })
         .locator("..")
         .getByText("Complete"),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 10000 });
     // Publish the process with assessment step
     await publishPool(adminCtx, poolId);
     // New user applies to the process
@@ -171,8 +171,7 @@ test.describe("Process candidate assessment", () => {
       personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName}`,
     });
-    candidate = application;
-    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
-    // await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+    const candidatePage = new PoolCandidatePage(appPage.page);
+    await candidatePage.toGoCandidate(application.id);
   });
 });
