@@ -3159,6 +3159,10 @@
     "defaultMessage": "Consultez les renseignements détaillés de la possibilité d'emploi ou poursuivez votre demande.",
     "description": "Subtitle for the review application dialog"
   },
+  "AuezIt": {
+    "defaultMessage": "Rechercher",
+    "description": "Button text to submit a search"
+  },
   "AumMAr": {
     "defaultMessage": "Langue de contact préférée",
     "description": "Legend text for required language preference in getting started form"
