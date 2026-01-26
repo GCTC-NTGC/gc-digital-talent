@@ -1,4 +1,6 @@
 import {
+  AssessmentStep,
+  AssessmentStepInput,
   CreatePoolSkillInput,
   LocalizedString,
   Pool,
@@ -316,4 +318,81 @@ export const deletePool: GraphQLRequestFunc<Pool, DeletePoolArgs> = async (
       variables: { id },
     })
     .then((res: GraphQLResponse<"deletePool", Pool>) => res.deletePool);
+};
+
+const Test_AddAssessmentStepMutationDocument = /* GraphQL */ `
+  mutation Test_AddAssessmentStep(
+    $poolId: UUID!
+    $assessmentStep: AssessmentStepInput!
+  ) {
+    createAssessmentStep(poolId: $poolId, assessmentStep: $assessmentStep) {
+      id
+    }
+  }
+`;
+interface AddAssessmentPlanToPoolArgs {
+  poolId: string;
+  assessmentStep: AssessmentStepInput;
+}
+
+export const createAssessmentStep: GraphQLRequestFunc<
+  AssessmentStep,
+  AddAssessmentPlanToPoolArgs
+> = async (ctx, { poolId, assessmentStep }) => {
+  return ctx
+    .post(Test_AddAssessmentStepMutationDocument, {
+      isPrivileged: true,
+      variables: {
+        poolId,
+        assessmentStep,
+      },
+    })
+    .then((res: GraphQLResponse<"createAssessmentStep", AssessmentStep>) => {
+      return res.createAssessmentStep;
+    });
+};
+
+const Test_PoolSkillsQueryDocument = /* GraphQL */ `
+  query PoolSkills($poolId: UUID!) {
+    pool(id: $poolId) {
+      id
+      poolSkills {
+        id
+        skill {
+          id
+          name {
+            en
+            fr
+          }
+          category {
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
+interface GetPoolSkillsArgs {
+  poolId: string;
+}
+
+/**
+ * Get Pool Skills
+ *
+ * Get all pool skills for a specific pool.
+ */
+export const getPoolSkills: GraphQLRequestFunc<
+  PoolSkill[],
+  GetPoolSkillsArgs
+> = async (ctx, { poolId }) => {
+  return ctx
+    .post(Test_PoolSkillsQueryDocument, {
+      isPrivileged: true,
+      variables: { poolId },
+    })
+    .then(
+      (res: GraphQLResponse<"pool", { id: string; poolSkills: PoolSkill[] }>) =>
+        res.pool.poolSkills,
+    );
 };

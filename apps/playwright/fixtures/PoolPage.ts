@@ -1,3 +1,5 @@
+import { PoolSkill, SkillCategory } from "@gc-digital-talent/graphql";
+
 import { expect } from "~/fixtures";
 
 import AppPage from "./AppPage";
@@ -28,9 +30,17 @@ class PoolPage extends AppPage {
     groupAndLevel: string,
     processTitle: string,
     workStream: string,
+    skills: { name: string; level: string }[],
+    email: string,
   ) {
     await this.poolCreation(community, groupAndLevel);
     await this.editBasicInformation(processTitle, workStream);
+    await this.editProcessNumber();
+    await this.updateClosingDate();
+    await this.updateCoreRequirements();
+    await this.addEssentialSkills(skills);
+    await this.addAboutThisRole();
+    await this.addContactEmail(email);
   }
 
   async poolCreation(community: string, groupAndLevel: string) {
@@ -102,7 +112,7 @@ class PoolPage extends AppPage {
       .getByRole("button", { name: /edit process number/i })
       .click();
     await this.page
-      .getByRole("textbox", { name: /processNumber/i })
+      .getByRole("textbox", { name: /process number/i })
       .fill("123456");
     await this.page
       .getByRole("button", { name: /save process number/i })
@@ -130,7 +140,7 @@ class PoolPage extends AppPage {
       .click();
     await this.page
       .getByRole("combobox", { name: /language requirement/i })
-      .selectOption({ label: "Bilingual intermediate (B B B)" });
+      .selectOption({ label: "English only" });
     await this.page
       .getByRole("combobox", { name: /security requirement/i })
       .selectOption({ label: "Reliability or higher" });
@@ -140,11 +150,17 @@ class PoolPage extends AppPage {
     await this.verifyAlertUponSave(/process updated successfully/i);
   }
 
-  async addEssentialSkills(skills: string[], skillLevel: string) {
-    await this.page.getByRole("button", { name: /add skill/i }).click();
+  async addEssentialSkills(skills: { name: string; level: string }[]) {
     const experiencePageFixture = new ExperiencePage(this.page);
     for (const skill of skills) {
-      await experiencePageFixture.addANewSkillToProfile(skill, skillLevel);
+      await this.page
+        .getByRole("button", { name: /add skill/i })
+        .first()
+        .click();
+      await experiencePageFixture.addANewSkillToProfile(
+        skill.name,
+        skill.level,
+      );
       await this.page.getByRole("button", { name: /add this skill/i }).click();
     }
   }
@@ -152,23 +168,28 @@ class PoolPage extends AppPage {
   async addAboutThisRole() {
     // Add your impact
     await this.page.getByRole("button", { name: /edit your impact/i }).click();
-    await this.page
-      .getByRole("textbox", { name: /your impact (english)/i })
-      .fill("Playwright Test process (EN)");
-    await this.page
-      .getByRole("textbox", { name: /your impact (french)/i })
-      .fill("Playwright Test process (FR)");
+    const impactEn = this.page.getByLabel(/your impact \(English\)/i);
+    await impactEn.click();
+    await impactEn.fill("Playwright Test process (EN)");
+
+    const impactFr = this.page.getByLabel(/your impact \(French\)/i);
+    await impactFr.click();
+    await impactFr.fill("Playwright Test process (FR)");
     await this.page.getByRole("button", { name: /save your impact/i }).click();
     await this.verifyAlertUponSave(/process updated successfully/i);
 
     // Add work tasks
     await this.page.getByRole("button", { name: /edit work tasks/i }).click();
-    await this.page
-      .getByRole("textbox", { name: /common tasks in this role (English)/i })
-      .fill("Playwright Test work tasks (EN)");
-    await this.page
-      .getByRole("textbox", { name: /common tasks in this role (French)/i })
-      .fill("Playwright Test work tasks (FR)");
+    const workTasksEn = this.page.getByLabel(
+      /common tasks in this role \(English\)/i,
+    );
+    await workTasksEn.click();
+    await workTasksEn.fill("Playwright Test work tasks (EN)");
+    const workTasksFr = this.page.getByLabel(
+      /common tasks in this role \(French\)/i,
+    );
+    await workTasksFr.click();
+    await workTasksFr.fill("Playwright Test work tasks (FR)");
     await this.page.getByRole("button", { name: /save work tasks/i }).click();
     await this.verifyAlertUponSave(/process updated successfully/i);
   }
@@ -189,16 +210,28 @@ class PoolPage extends AppPage {
   async verifyAlertUponSave(alertMessage: string | RegExp) {
     await expect(this.page.getByRole("alert").last()).toContainText(
       alertMessage,
+      { timeout: 10000 },
     );
   }
 
-  async publishProcess() {
-    await this.page.getByRole("button", { name: /publish process/i }).click();
+  async navigateBackToProcess(processTitle: string) {
     await this.page
-      .getByRole("button", { name: /Publish advertisement/i })
-      .click();
-    await this.waitForGraphqlResponse("PublishPool");
+      .getByRole("link", { name: `${processTitle}` })
+      .click({ timeout: 10000 });
+    await this.waitForGraphqlResponse("ViewPoolPage");
+  }
+
+  getPoolSkillIdsByCategories(
+    poolSkills: PoolSkill[],
+    categories: SkillCategory[],
+  ): string[] {
+    return poolSkills
+      .filter(
+        (ps) =>
+          ps.skill?.category?.value !== undefined &&
+          categories.includes(ps.skill.category.value),
+      )
+      .map((ps) => ps.id);
   }
 }
-
 export default PoolPage;

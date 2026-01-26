@@ -175,6 +175,11 @@ class ApplicantDashboardPage extends AppPage {
             "Functional Testing",
             "Intermediate",
           );
+          await this.page
+            .getByRole("radio", {
+              name: /yes,\s*i use this skill in my current role/i,
+            })
+            .check();
           break;
 
         case "employee verification":
