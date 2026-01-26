@@ -24,6 +24,8 @@ class TalentNominationEventTest extends TestCase
 
     protected $admin;
 
+    protected $platformAdmin;
+
     protected $talentCoordinator;
 
     protected $communityId;
@@ -78,6 +80,12 @@ class TalentNominationEventTest extends TestCase
                 'sub' => 'community-admin-test@test.com',
             ]);
 
+        $this->platformAdmin = User::factory()
+            ->asGuest()
+            ->asApplicant()
+            ->asAdmin()
+            ->create();
+
         $this->talentCoordinator = User::factory()
             ->asGuest()
             ->asApplicant()
@@ -96,8 +104,8 @@ class TalentNominationEventTest extends TestCase
 
     public function testCreateTalentNominationEvent()
     {
-        // community admin can create for any community
-        $this->actingAs($this->admin, 'api')
+        // platform admin can create for any community
+        $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($this->createMutation, [
                 'talentNominationEvent' => [
                     ...$this->input,
@@ -115,6 +123,24 @@ class TalentNominationEventTest extends TestCase
                 ],
             ]);
 
+        // community admin can create for own community only
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNominationEvent' => [
+                    ...$this->input,
+                    'community' => ['connect' => $this->communityId],
+                    'developmentPrograms' => ['sync' => [$this->developmentProgramId]],
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'createTalentNominationEvent' => [
+                        ...$this->input,
+                        'community' => ['id' => $this->communityId],
+                        'developmentPrograms' => [['id' => $this->developmentProgramId]],
+                    ],
+                ],
+            ]);
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->createMutation, [
                 'talentNominationEvent' => [
@@ -122,14 +148,7 @@ class TalentNominationEventTest extends TestCase
                     'community' => ['connect' => $this->otherCommunityId],
                 ],
             ])
-            ->assertJson([
-                'data' => [
-                    'createTalentNominationEvent' => [
-                        ...$this->input,
-                        'community' => ['id' => $this->otherCommunityId],
-                    ],
-                ],
-            ]);
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         // community talent coordinator can create for own community only
         $this->actingAs($this->talentCoordinator, 'api')
