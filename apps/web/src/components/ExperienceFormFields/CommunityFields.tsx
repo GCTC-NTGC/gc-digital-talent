@@ -6,7 +6,7 @@ import {
   DateInput,
   Input,
   RadioGroup,
-  TextArea,
+  RichTextInput,
 } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale, Locales } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
@@ -19,7 +19,6 @@ import {
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
-const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS_EN = 200;
 
 const CommunityFields = ({
@@ -141,13 +140,15 @@ const CommunityFields = ({
             "Help text for the experience key tasks and responsibilities field",
         })}
       </p>
-      <TextArea
-        id={"details"}
-        name={"details"}
-        rows={TEXT_AREA_ROWS}
+      <RichTextInput
+        id="details"
+        name="details"
         wordLimit={wordCountLimits[locale]}
         label={experienceLabels.keyTasksAndResponsibilities}
-        rules={{ required: intl.formatMessage(errorMessages.required) }}
+        allowHeadings
+        rules={{
+          required: intl.formatMessage(errorMessages.required),
+        }}
       />
     </div>
   );

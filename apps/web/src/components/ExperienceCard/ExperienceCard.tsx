@@ -24,6 +24,7 @@ import {
   graphql,
   Skill,
 } from "@gc-digital-talent/graphql";
+import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import {
   getExperienceFormLabels,
@@ -578,8 +579,12 @@ const ExperienceCard = ({
               title={experienceLabels.details}
               headingLevel={headingLevel}
             >
-              {experience.details ??
-                intl.formatMessage(commonMessages.notAvailable)}
+              <RichTextRenderer
+                node={htmlToRichTextJSON(
+                  experience.details ??
+                    intl.formatMessage(commonMessages.notAvailable),
+                )}
+              />
             </ContentSection>
             {showSkills && !singleSkill && (
               <>
