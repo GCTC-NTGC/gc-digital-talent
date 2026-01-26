@@ -18,7 +18,7 @@
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
     "enforce-unique": "^1.3.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.23"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",

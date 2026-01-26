@@ -31,8 +31,8 @@ const learnMoreLink = (locale: Locales, chunks: ReactNode) => (
     external
     href={
       locale === "en"
-        ? "https://www.canada.ca/en/government/publicservice/staffing/security-screening.html"
-        : "https://www.canada.ca/fr/gouvernement/fonctionpublique/dotation/filtrage-de-securite.html"
+        ? "https://www.canada.ca/en/government/publicservice/workforce/staffing/security-screening.html"
+        : "https://www.canada.ca/fr/gouvernement/fonctionpublique/effectif/dotation/filtrage-de-securite.html"
     }
   >
     {chunks}

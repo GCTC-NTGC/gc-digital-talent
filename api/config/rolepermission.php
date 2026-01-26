@@ -555,10 +555,6 @@ return [
             'en' => 'View any community',
             'fr' => 'Vissioner toutes les communautés',
         ],
-        'view-team-community' => [
-            'en' => 'View this community',
-            'fr' => 'Vissioner cette communauté',
-        ],
         'create-any-community' => [
             'en' => 'Create any community',
             'fr' => 'Créer toute communauté',
@@ -954,6 +950,9 @@ return [
             'communityInterest' => [
                 'own' => ['delete'],
             ],
+            'talentNominationEvent' => [
+                'any' => ['view'],
+            ],
         ],
 
         'process_operator' => [
@@ -1023,9 +1022,6 @@ return [
             'searchRequest' => [
                 'team' => ['view', 'update', 'delete'],
             ],
-            'community' => [
-                'team' => ['view'],
-            ],
             'communityTeamMembers' => [
                 'team' => ['view'],
             ],
@@ -1084,11 +1080,16 @@ return [
                 'team' => ['view', 'update', 'delete'],
             ],
             'talentNominationEvent' => [
-                'any' => ['create'],
-                'team' => ['update'],
+                'team' => ['create', 'update'],
             ],
             'community' => [
-                'team' => ['view', 'update'],
+                'team' => ['update'],
+            ],
+            'communityInterest' => [
+                'team' => ['view'],
+            ],
+            'communityTalent' => [
+                'team' => ['view'],
             ],
             'communityTeamMembers' => [
                 'team' => ['view'],
@@ -1210,11 +1211,13 @@ return [
             'communityInterest' => [
                 'any' => ['view'],
             ],
+            'talentNominationEvent' => [
+                'any' => ['create'],
+            ],
         ],
 
         'community_talent_coordinator' => [
             'talentNominationEvent' => [
-                'any' => ['view'],
                 'team' => ['create', 'update'],
             ],
             'talentNomination' => [

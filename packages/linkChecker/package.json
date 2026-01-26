@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/react": "^19.2.8",
+    "@types/react": "^19.2.9",
     "eslint": "^9.20.1",
     "react": "^19.2.1",
     "tsconfig": "workspace:*",

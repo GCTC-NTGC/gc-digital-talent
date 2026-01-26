@@ -2337,7 +2337,7 @@ input DepartmentBelongsToMany {
   sync: [ID!]
 }
 
-input CreateWorkStreamInput {
+input CreateWorkStreamInput @validator {
   key: String
   name: LocalizedStringInput!
   plainLanguageName: LocalizedStringInput
@@ -2346,7 +2346,7 @@ input CreateWorkStreamInput {
   talentSearchable: Boolean! @rename(attribute: "talent_searchable")
 }
 
-input UpdateWorkStreamInput {
+input UpdateWorkStreamInput @validator {
   key: String
   name: LocalizedStringInput
   plainLanguageName: LocalizedStringInput

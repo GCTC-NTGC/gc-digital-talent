@@ -158,6 +158,9 @@ enum ErrorCode
     // User skill
     case DUPLICATE_USER_SKILL;
 
+    // Work Stream
+    case WORK_STREAM_NAME_IN_USE;
+
     case RATE_LIMIT;
 
 }
