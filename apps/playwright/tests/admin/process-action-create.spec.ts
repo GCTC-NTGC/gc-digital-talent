@@ -10,6 +10,7 @@ test("Create pool", async ({ appPage }) => {
   await loginBySub(appPage.page, "admin@test.com");
   await appPage.page.goto("/en/admin/pools");
   await appPage.waitForGraphqlResponse("PoolTable");
+
   await appPage.page.getByRole("link", { name: /create process/i }).click();
   await appPage.waitForGraphqlResponse("CreatePoolPage");
 
@@ -27,6 +28,16 @@ test("Create pool", async ({ appPage }) => {
 
   await appPage.page.getByRole("button", { name: /create process/i }).click();
   await appPage.waitForGraphqlResponse("CreatePool");
+  await expect(appPage.page.getByRole("alert").last()).toContainText(
+    /recruitment process created successfully/i,
+  );
+  await appPage.waitForGraphqlResponse("EditPoolPage");
+  await appPage.waitForGraphqlResponse("CoreRequirementOptions");
+  await expect(
+    appPage.page.getByRole("heading", {
+      name: /advertisement information/i,
+    }),
+  ).toBeVisible();
 
   // Update basic information section
   await appPage.page
@@ -57,6 +68,9 @@ test("Create pool", async ({ appPage }) => {
     .getByRole("button", { name: /save advertisement details/i })
     .click();
   await appPage.waitForGraphqlResponse(UPDATE_MUTATION);
+  await expect(appPage.page.getByRole("alert").last()).toContainText(
+    /process updated successfully/i,
+  );
 
   // Update closing date
   await appPage.page
