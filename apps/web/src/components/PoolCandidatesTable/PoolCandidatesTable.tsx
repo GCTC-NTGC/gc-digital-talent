@@ -889,7 +889,11 @@ const PoolCandidatesTable = ({
       ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
       {
         id: "applicationStatus",
-        header: intl.formatMessage(tableMessages.finalDecision),
+        header: intl.formatMessage({
+          defaultMessage: "Application status",
+          id: "Aw67A5",
+          description: "Label for the status of an application",
+        }),
         cell: ({
           row: {
             original: {
