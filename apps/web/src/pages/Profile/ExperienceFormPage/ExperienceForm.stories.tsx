@@ -16,7 +16,6 @@ const skillFragments = skillData.map((skill) =>
 export default {
   component: ExperienceForm,
   args: {
-    experienceType: "award",
     skillsQuery: skillFragments,
     userId: "user-id",
   },
@@ -35,4 +34,27 @@ const TemplateExperienceFormForm: StoryFn<typeof ExperienceForm> = ({
   />
 );
 
-export const IndividualExperienceForm = TemplateExperienceFormForm.bind({});
+export const AwardExperienceForm = TemplateExperienceFormForm.bind({});
+AwardExperienceForm.args = {
+  experienceType: "award",
+};
+
+export const CommunityExperienceForm = TemplateExperienceFormForm.bind({});
+CommunityExperienceForm.args = {
+  experienceType: "community",
+};
+
+export const EducationExperienceForm = TemplateExperienceFormForm.bind({});
+EducationExperienceForm.args = {
+  experienceType: "education",
+};
+
+export const PersonalExperienceForm = TemplateExperienceFormForm.bind({});
+PersonalExperienceForm.args = {
+  experienceType: "personal",
+};
+
+export const WorkExperienceForm = TemplateExperienceFormForm.bind({});
+WorkExperienceForm.args = {
+  experienceType: "work",
+};
