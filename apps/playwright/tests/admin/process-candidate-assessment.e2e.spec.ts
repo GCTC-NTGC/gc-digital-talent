@@ -108,6 +108,7 @@ test.describe("Process candidate assessment", () => {
   }) => {
     await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
     const email = user.email ?? "";
+    const userFirstName = user.firstName ?? "";
     poolPage = new PoolPage(appPage.page);
     communityName = await getCommunities(adminCtx, {}).then(
       (communities) => communities[0]?.name?.en ?? "",
@@ -171,6 +172,12 @@ test.describe("Process candidate assessment", () => {
     const candidatePage = new PoolCandidatePage(appPage.page);
     await candidatePage.toGoCandidate(candidate.id);
     await candidatePage.waitForGraphqlResponse("PoolCandidateSnapshot");
+    await expect(
+      appPage.page.getByRole("heading", {
+        name: userFirstName,
+        level: 1,
+      }),
+    ).toBeVisible();
     await poolPage.flagAndBookmarkCandidate(poolId);
   });
 });
