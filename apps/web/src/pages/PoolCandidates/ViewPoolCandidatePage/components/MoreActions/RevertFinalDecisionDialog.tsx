@@ -174,7 +174,7 @@ const RevertFinalDecisionDialog = ({
                 </p>
               </div>
             )}
-            <p {...(!isQualified && { className: "font-bold" })}>
+            <p {...(!isQualified ? { className: "font-bold" } : {})}>
               {intl.formatMessage({
                 defaultMessage:
                   "Do you wish to revert this decision and set candidate status to “Under assessment”?",
