@@ -110,8 +110,9 @@ const RevertFinalDecisionDialog = ({
     : intl.formatMessage(commonMessages.notAvailable);
 
   if (!isQualified || status?.value === ApplicationStatus.Disqualified) {
-    intl.formatMessage(commonMessages.notApplicable);
+    return intl.formatMessage(commonMessages.notApplicable);
   }
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
