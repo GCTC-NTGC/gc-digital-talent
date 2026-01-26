@@ -8,8 +8,8 @@ const messages = defineMessages({
   },
   subTitle: {
     defaultMessage:
-      "View and update account information including contact and work preferences.",
-    id: "NflJW7",
+      "View and update personal information work preferences and language profile.",
+    id: "g/ReTI",
     description: "subtitle for the profile page",
   },
 });
