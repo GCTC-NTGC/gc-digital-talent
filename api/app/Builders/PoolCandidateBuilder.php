@@ -512,15 +512,8 @@ class PoolCandidateBuilder extends Builder
         }
 
         // Ensure the PoolCandidates are qualified and available.
-        return $this->where(function ($query) {
-            $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
-        })
-            ->where('pool_candidates.application_status', ApplicationStatus::QUALIFIED->name) // Where the PoolCandidate is accepted into the pool and not already placed.
-            ->where('pool_candidate.referring', true)
-            ->where(function ($query) {
-                $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
-            })
-            // Now scope for valid pools, according to streams
+        return $this->whereAvailable()
+        // Now scope for valid pools, according to streams
             ->whereHas('pool', function ($query) use ($streams) {
                 $query->whereWorkStreamsIn($streams);
             });
