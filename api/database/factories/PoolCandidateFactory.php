@@ -56,9 +56,9 @@ class PoolCandidateFactory extends Factory
                     $legacyStatus = match ($attributes['application_status']) {
                         ApplicationStatus::DRAFT->name => PoolCandidateStatus::DRAFT->name,
                         ApplicationStatus::TO_ASSESS->name => PoolCandidateStatus::NEW_APPLICATION->name,
-                        ApplicationStatus::DISQUALIFIED->name => ApplicationStatus::DISQUALIFIED->name,
-                        ApplicationStatus::QUALIFIED->name => ApplicationStatus::QUALIFIED->name,
-                        ApplicationStatus::REMOVED->name => ApplicationStatus::REMOVED->name,
+                        ApplicationStatus::DISQUALIFIED->name => $this->faker->randomElement(PoolCandidateStatus::unsuccessfulGroup()),
+                        ApplicationStatus::QUALIFIED->name => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                        ApplicationStatus::REMOVED->name => PoolCandidateStatus::REMOVED->name,
                         default => null
                     };
 
