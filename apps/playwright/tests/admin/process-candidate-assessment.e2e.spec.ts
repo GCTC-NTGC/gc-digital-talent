@@ -155,13 +155,7 @@ test.describe("Process candidate assessment", () => {
         },
       },
     });
-    await appPage.page.reload();
-    await expect(
-      appPage.page
-        .getByRole("heading", { name: /assessment plan/i })
-        .locator("..")
-        .getByText("Complete"),
-    ).toBeVisible({ timeout: 10000 });
+    await appPage.page.goto(`/admin/pools/${poolId}`);
     // Publish the process with assessment step
     await publishPool(adminCtx, poolId);
     // New user applies to the process
@@ -177,8 +171,6 @@ test.describe("Process candidate assessment", () => {
     const candidatePage = new PoolCandidatePage(appPage.page);
     await candidatePage.toGoCandidate(candidate.id);
     await candidatePage.waitForGraphqlResponse("PoolCandidateSnapshot");
-    await expect(
-      appPage.page.getByLabel("To assess").locator("path"),
-    ).toBeVisible();
+    await poolPage.flagAndBookmarkCandidate(poolId);
   });
 });

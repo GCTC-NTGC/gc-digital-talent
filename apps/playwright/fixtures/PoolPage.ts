@@ -230,5 +230,32 @@ class PoolPage extends AppPage {
       )
       .map((ps) => ps.id);
   }
+
+  async flagAndBookmarkCandidate(poolId: string) {
+    await this.flagCandidate();
+    await this.bookmarkCandidate();
+    await this.page.goto(`/admin/pools/${poolId}/pool-candidates`);
+    await this.waitForGraphqlResponse(
+      "CandidatesTableCandidatesPaginated_Query",
+    );
+    await expect(
+      this.page.getByRole("button", { name: /remove your bookmark/i }),
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: /remove .* flag/i }),
+    ).toBeVisible();
+  }
+
+  async flagCandidate() {
+    await this.page.getByRole("button", { name: /add flag/i }).click();
+    await this.waitForGraphqlResponse("ToggleFlag_Mutation");
+  }
+
+  async bookmarkCandidate() {
+    await this.page.getByRole("button", { name: /add bookmark/i }).click();
+    await this.waitForGraphqlResponse(
+      "TogglePoolCandidateUserBookmark_Mutation",
+    );
+  }
 }
 export default PoolPage;
