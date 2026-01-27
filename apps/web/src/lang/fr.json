@@ -263,10 +263,6 @@
     "defaultMessage": "À évaluer",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step"
   },
-  "/0kzjJ": {
-    "defaultMessage": "Nous avons modifié la manière dont nous recueillons les renseignements sur les processus de recrutement hors plateforme. Les renseignements présentés ici seront supprimés à partir du 31 décembre 2025. Veuillez utiliser notre nouveau format et ajouter chaque processus pour lequel vous avez été qualifié(e) en utilisant le bouton « Ajouter un processus hors plateforme ».",
-    "description": "Message informing the user about the update to off-platform processes"
-  },
   "/17wgm": {
     "defaultMessage": "Rôle(s) ajouté(s) avec succès",
     "description": "Message displayed to user when one or more roles have been added to a user"
@@ -1014,10 +1010,6 @@
   "1yMApi": {
     "defaultMessage": "L'employée ou l'employé travaille sur place au moins trois jours par semaine, et à distance les autres jours.",
     "description": "Checklist option explanatory note"
-  },
-  "1yrLje": {
-    "defaultMessage": "Avant de supprimer ces renseignements, assurez-vous d'avoir ajouté vos processus de recrutement hors plateforme en utilisant le nouveau bouton « Ajouter un processus hors plateforme » sur votre tableau de bord.",
-    "description": "Explanation of delete old off platform processes dialog part 1"
   },
   "2/S+Ro": {
     "defaultMessage": "Confirmer votre adresse courriel",
@@ -5674,10 +5666,6 @@
   "MCFcrj": {
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
     "description": "Hero image alt text."
-  },
-  "MCLe8z": {
-    "defaultMessage": "Vous pouvez également choisir de supprimer ces renseignements maintenant.",
-    "description": "Button text for opening dialog to delete old off-platform process data."
   },
   "ME4sNt": {
     "defaultMessage": "Sauvegarder « À propos de nous »",
@@ -10537,10 +10525,6 @@
     "defaultMessage": "(Aucune compétence requise)",
     "description": "Message displayed when no skills are required for a pool"
   },
-  "hO8vGS": {
-    "defaultMessage": "Supprimer les informations stockées dans l'ancien format",
-    "description": "Dialog header informing of purpose"
-  },
   "hQ2+aE": {
     "defaultMessage": "Enregistrer la décision",
     "description": "Save button label for screening decision dialogs"
@@ -12888,10 +12872,6 @@
   "rOIBl0": {
     "defaultMessage": "Le Corps d’innovation vous attend à bras ouverts! Le GSN recrute les personnes de talent très recherchées qui savent s’adapter et se montrent très compétentes dans le numérique au gouvernement. Pendant un an, les personnes retenues développeront leur réseau et diversifieront leur expérience au moyen d’affectations temporaires au MDN. Elles pourront trouver le poste rêvé au MDN ou acquérir des compétences utiles en vue de leur prochaine offre d’emploi.",
     "description": "Paragraph describing the innovation corps"
-  },
-  "rOMDmX": {
-    "defaultMessage": "Confirmez-vous vouloir supprimer les renseignements sur les processus hors plateforme stockés dans l'ancien format?",
-    "description": "Explanation of delete old off platform processes dialog part 2"
   },
   "rOl7Xv": {
     "defaultMessage": "Les renseignements essentiels du profil de la personne candidate, y compris ses coordonnées, ses niveaux et évaluations linguistiques et l'équité en matière d'emploi.",

@@ -100,7 +100,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?array $enabled_in_app_notifications
  * @property \App\Models\Notification $unreadNotifications
  * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
- * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
  * @property ?\App\Models\WorkExperience $latest_current_government_work_experience
  * @property ?\App\Models\WorkExperience $current_substantive_experiences

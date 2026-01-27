@@ -148,7 +148,6 @@ class UserFactory extends Factory
             'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(IndigenousCommunity::cases())->name] : [],
             'enabled_email_notifications' => $this->faker->optional->randomElements($availableNotificationFamilies, null),
             'enabled_in_app_notifications' => $this->faker->optional->randomElements($availableNotificationFamilies, null),
-            'off_platform_recruitment_processes' => $this->faker->optional->paragraph(7),
         ];
     }
 
