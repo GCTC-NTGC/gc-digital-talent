@@ -207,18 +207,18 @@ const SecurityClearanceDialog = () => {
               )}
             </p>
           </div>
-          <Dialog.Footer>
-            <Dialog.Close>
-              <Button color="primary">
-                {intl.formatMessage({
-                  defaultMessage: "Close",
-                  id: "4p0QdF",
-                  description: "Button text used to close an open modal",
-                })}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
         </Dialog.Body>
+        <Dialog.Footer>
+          <Dialog.Close>
+            <Button color="primary">
+              {intl.formatMessage({
+                defaultMessage: "Close",
+                id: "4p0QdF",
+                description: "Button text used to close an open modal",
+              })}
+            </Button>
+          </Dialog.Close>
+        </Dialog.Footer>
       </Dialog.Content>
     </Dialog.Root>
   );

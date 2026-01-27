@@ -23,6 +23,7 @@ import {
 import type { LogoutReason } from "./const";
 import getAuthenticationState from "./utils/authenticationState";
 import { AuthenticationState } from "./types";
+import { setTokensFromLocation } from "./utils/setTokensFromLocation";
 
 export {
   AuthenticationProvider,
@@ -37,6 +38,7 @@ export {
   hasRole,
   narrowTeamableType,
   getAuthenticationState,
+  setTokensFromLocation,
 };
 
 export {
