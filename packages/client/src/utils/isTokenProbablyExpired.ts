@@ -5,10 +5,10 @@ import { allowableClockSkewSeconds } from "../constants";
 /**
  * Attempt to determine if an access token is expired
  */
-export function isTokenProbablyExpired(accessToken: string | null): boolean {
+export function isTokenProbablyExpired(token: string | null): boolean {
   let tokenProbablyExpired = false;
-  if (accessToken) {
-    const decoded = jwtDecode<JwtPayload>(accessToken);
+  if (token) {
+    const decoded = jwtDecode<JwtPayload>(token);
     if (decoded.exp) {
       const tokenExpiryDateSeconds = decoded.exp;
       const safeTokenExpiryDateSeconds =

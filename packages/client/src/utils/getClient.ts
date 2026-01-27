@@ -19,6 +19,7 @@ import {
   NAV_ROLE_KEY,
   REFRESH_TOKEN,
   AuthenticationState,
+  ID_TOKEN,
 } from "@gc-digital-talent/auth";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 
@@ -113,8 +114,8 @@ export function getClient({ intl, authState }: GetClientArgs): Client {
             return operation;
           },
           willAuthError() {
-            const accessToken = localStorage.getItem(ACCESS_TOKEN);
-            return isTokenProbablyExpired(accessToken);
+            const idToken = localStorage.getItem(ID_TOKEN);
+            return isTokenProbablyExpired(idToken);
           },
           didAuthError(error) {
             const res = error.response as Response | null;

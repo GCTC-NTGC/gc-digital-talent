@@ -5,10 +5,10 @@ namespace App\Services;
 use DateInterval;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\UnauthorizedException;
 // We're using two JWT management libraries here (Jose & Lcobucci), which each
 // offer different functionality related to constraints and JWKS.
 // TODO: Consider consolidating into a single library, or migrating to a new
@@ -18,11 +18,6 @@ use Jose\Component\Core\Util\RSAKey;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Key\InMemory;
-use Lcobucci\JWT\UnencryptedToken;
-use Lcobucci\JWT\Validation\Constraint\IssuedBy;
-use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
-use Lcobucci\JWT\Validation\Constraint\RelatedTo;
-use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Psr\Clock\ClockInterface;
 
 class OpenIdBearerTokenService
@@ -140,83 +135,55 @@ class OpenIdBearerTokenService
 
     }
 
-    // call the introspection endpoint to check if the OP considers the access token still valid
-    public function verifyJwtWithIntrospection(string $accessToken)
+    // request the introspection values (or pull from cache) and return the values
+    private function getIntrospectionValues(string $accessToken): array
     {
-        $cacheKey = 'introspection_token_'.$accessToken;
+        $cacheKey = 'introspection_token_values_'.$accessToken;
 
         if (Cache::has($cacheKey)) {
-            // use cached access token status if available
-            $isTokenActive = Cache::get($cacheKey);
-        } else {
-            // make api call to introspect endpoint
-            $introspectionUri = $this->getConfigProperty('introspection_endpoint');
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
-                return $exception instanceof ConnectionException;
-            }, throw: false)->asForm()
-                ->withToken($accessToken)
-                ->post($introspectionUri, [
-                    'token' => $accessToken,
-                ]);
-            assert($response instanceof \Illuminate\Http\Client\Response);
-
-            if ($response->failed()) {
-                $errorCode = $response->json('error');
-                $isNormalErrorCode = $errorCode == 'access_denied';
-
-                $errorMessageToLog = 'Failed when GETting the introspection verification in verifyJwtWithIntrospection '.$errorCode;
-                if (! $isNormalErrorCode) {
-                    Log::error($errorMessageToLog);
-                } else {
-                    Log::debug($errorMessageToLog);
-                }
-                Log::debug((string) $response->getBody());
-                throw new Exception('Failed to get introspection');
-            }
-
-            $isTokenActive = boolval($response->json('active'));
-            $expiryVal = $response->json('exp');
-            // only cache active token
-            if ($isTokenActive && is_numeric($expiryVal)) {
-                $expiryTimestamp = intval($expiryVal);
-                $nowTimestamp = $this->clock->now()->getTimestamp();
-                $cacheTime = min(10, $expiryTimestamp - $nowTimestamp); // cache for a few seconds, or up to expiry time
-                if ($cacheTime > 0) {
-                    Cache::put($cacheKey, $isTokenActive, $cacheTime);
-                }
-            }
+            // shortcut: use cached access token values if available
+            return Cache::get($cacheKey);
         }
 
-        if (! $isTokenActive) {
-            throw new UnauthorizedException('Access token is not active', 401);
+        // make api call to introspect endpoint
+        $introspectionUri = $this->getConfigProperty('introspection_endpoint');
+        $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+            return $exception instanceof ConnectionException;
+        }, throw: false)->asForm()
+            ->post($introspectionUri, [
+                'client_id' => config('oauth.client_id'),
+                'client_secret' => config('oauth.client_secret'),
+                'token' => $accessToken,
+            ]);
+        assert($response instanceof \Illuminate\Http\Client\Response);
+
+        if ($response->failed()) {
+            Log::error('Failed when GETting the introspection verification in getIntrospectionValues ('.$response->status().') '.$response->body());
+            throw new Exception('Failed to get introspection');
         }
+
+        $values = $response->json();
+        $isTokenActive = Arr::boolean($values, 'active', false);
+        $expiryTimestamp = Arr::integer($values, 'exp', 0);
+        $nowTimestamp = $this->clock->now()->getTimestamp();
+        // only cache active token
+        if ($isTokenActive && $expiryTimestamp > $nowTimestamp) {
+            $cacheTime = min(10, $expiryTimestamp - $nowTimestamp); // cache for a few seconds, or up to expiry time
+            Cache::put($cacheKey, $values, $cacheTime);
+        }
+
+        return $values;
     }
 
-    /*
-    * @returns Lcobucci\JWT\Token\DataSet
-    */
-    public function validateAndGetClaims(string $bearerToken)
+    // call the introspection endpoint to get the sub
+    public function getSubWithIntrospection(string $accessToken): ?string
     {
-        $unsecuredToken = $this->unsecuredConfig->parser()->parse($bearerToken);
+        $values = $this->getIntrospectionValues($accessToken);
 
-        $keyId = strval($unsecuredToken->headers()->get('kid'));
-        $config = $this->getConfiguration($keyId);
+        if (Arr::has($values, 'sub')) {
+            return Arr::string($values, 'sub');
+        }
 
-        $token = $config->parser()->parse($bearerToken);
-
-        assert($token instanceof UnencryptedToken);
-        $config = $config->withValidationConstraints(
-            new IssuedBy($this->getConfigProperty('issuer')),
-            new RelatedTo($token->claims()->get('sub')),
-            new LooseValidAt($this->clock, $this->allowableClockSkew),
-            new SignedWith($config->signer(), $config->verificationKey()),
-        );
-        $constraints = $config->validationConstraints();
-
-        $config->validator()->assert($token, ...$constraints);
-
-        $this->verifyJwtWithIntrospection($bearerToken);
-
-        return $token->claims();
+        return null;
     }
 }

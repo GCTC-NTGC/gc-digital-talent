@@ -22,7 +22,6 @@ use App\Policies\UserPolicy;
 use App\Services\OpenIdBearerTokenService;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 use Throwable;
 
 class AuthServiceProvider extends ServiceProvider
@@ -79,17 +78,10 @@ class AuthServiceProvider extends ServiceProvider
     public function resolveUserOrAbort($bearerToken, $tokenService): ?User
     {
         if ($bearerToken) {
-            try {
-                $claims = $tokenService->validateAndGetClaims($bearerToken);  // 2. validate access token.
-                $sub = $claims->get('sub');
-            } catch (RequiredConstraintsViolated $e) {
-                $violations = [];
-                foreach ($e->violations() as $violationError) {
-                    array_push($violations, $violationError->getMessage());
-                }
-                throw new AuthenticationException('Authorization token not valid: '.implode(',', $violations), 'invalid_token');
-            } catch (Throwable $e) {
-                throw new AuthenticationException('Error while validating authorization token: '.$e->getMessage(), 'token_validation');
+            $sub = $tokenService->getSubWithIntrospection($bearerToken);
+
+            if (empty($sub)) {
+                throw new AuthenticationException('Authorization token not valid', 'introspection');
             }
 
             // By this point we have verified that the token is legitimate

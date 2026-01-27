@@ -57,7 +57,6 @@ function logoutAndRefreshPage({
 }: LogoutAndRefreshPageParameters): void {
   defaultLogger.notice("Logging out and refreshing the page");
   // capture tokens before they are removed
-  const accessToken = localStorage.getItem(ACCESS_TOKEN);
   const idToken = localStorage.getItem(ID_TOKEN);
 
   // remove tokens from local storage
@@ -102,10 +101,10 @@ function logoutAndRefreshPage({
   }
   let authSessionIsCurrentlyActive = false; // assume false unless we can prove it below
 
-  if (accessToken) {
-    const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
-    if (decodedAccessToken.exp)
-      authSessionIsCurrentlyActive = Date.now() < decodedAccessToken.exp * 1000; // JWT expiry date in seconds, not milliseconds
+  if (idToken) {
+    const decodedIdToken = jwtDecode<JwtPayload>(idToken);
+    if (decodedIdToken.exp)
+      authSessionIsCurrentlyActive = Date.now() < decodedIdToken.exp * 1000; // JWT expiry date in seconds, not milliseconds
   }
 
   // Post a logout message to the broadcast channel
