@@ -3163,6 +3163,10 @@
     "defaultMessage": "Type de mobilité",
     "description": "Legend for mobility type checklist in community talent filter dialog"
   },
+  "Aw67A5": {
+    "defaultMessage": "Statut de la candidature",
+    "description": "Label for the status of an application"
+  },
   "AwIGg0": {
     "defaultMessage": "Vous avez une question précise? Vous souhaitez faire part de vos commentaires ou signaler un bogue? Envoyez-nous un message au moyen de ce formulaire.",
     "description": "Support form paragraph one"
