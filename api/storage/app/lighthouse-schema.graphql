@@ -8,6 +8,11 @@ interface LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedActivityEvent implements LocalizedEnumOption {
+  value: ActivityEvent!
+  label: LocalizedString!
+}
+
 type LocalizedArmedForcesStatus implements LocalizedEnumOption {
   value: ArmedForcesStatus!
   label: LocalizedString!
