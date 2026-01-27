@@ -607,7 +607,7 @@ test.describe("Block job applications", () => {
         appPage.page.getByText(/a verified contact email is required/i),
       ).toBeVisible();
       await application.saveAndContinue();
-      await expect(appPage.page.getByRole("alert")).toContainText(
+      await expect(appPage.page.getByRole("alert").last()).toContainText(
         /please complete all required fields before continuing./i,
       );
     });
@@ -698,7 +698,7 @@ test.describe("Block job applications", () => {
         ),
       ).toBeVisible();
       await application.saveAndContinue();
-      await expect(appPage.page.getByRole("alert")).toContainText(
+      await expect(appPage.page.getByRole("alert").last()).toContainText(
         /please complete all required fields before continuing./i,
       );
     });
