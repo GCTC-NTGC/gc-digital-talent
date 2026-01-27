@@ -2,8 +2,14 @@ import { useIntl } from "react-intl";
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
 import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
+import { SubmitHandler } from "react-hook-form";
 
-import { graphql, Maybe, Scalars } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  Maybe,
+  ProcessActivityFilterInput,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 import {
   Container,
   Heading,
@@ -23,6 +29,10 @@ import {
 import Pagination from "~/components/Pagination";
 import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
 
+import PoolActivityFilterDialog, {
+  FormValues,
+} from "./components/PoolActivityFilterDialog";
+
 function safeGetPageState(
   key: string,
   params: URLSearchParams,
@@ -38,6 +48,30 @@ function safeGetPageState(
 
 function getTotalPages(total: number, pageSize: number) {
   return Math.ceil(total / pageSize);
+}
+
+function safeGetFilters(filtersEncoded: string | null) {
+  let filters: FormValues | undefined;
+
+  if (filtersEncoded) {
+    try {
+      filters = JSON.parse(decodeURIComponent(filtersEncoded)) as FormValues;
+    } catch {
+      filters = undefined;
+    }
+  }
+
+  return filters;
+}
+
+function transformWhereClause(
+  searchTerm?: string,
+  filters?: FormValues,
+): ProcessActivityFilterInput {
+  return {
+    ...(searchTerm ? { generalSearch: searchTerm } : {}),
+    ...filters,
+  };
 }
 
 interface RouteParams extends Record<string, string> {
@@ -78,6 +112,7 @@ const PoolActivityPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const [searchParams, setSearchParams] = useSearchParams();
+  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
 
   const searchTerm =
     searchParams.get(SEARCH_PARAM_KEY.SEARCH_TERM) ?? undefined;
@@ -88,6 +123,7 @@ const PoolActivityPage = () => {
     50,
   );
   const currentPage = safeGetPageState(SEARCH_PARAM_KEY.PAGE, searchParams, 1);
+  const filters = safeGetFilters(filtersEncoded);
 
   const [{ data, fetching }] = useQuery({
     query: PoolActivityPage_Query,
@@ -95,7 +131,7 @@ const PoolActivityPage = () => {
       id: poolId,
       first: pageSize,
       page: currentPage,
-      where: searchTerm ? { generalSearch: searchTerm } : undefined,
+      where: transformWhereClause(searchTerm, filters),
     },
   });
 
@@ -148,6 +184,20 @@ const PoolActivityPage = () => {
     setSearchParams(params);
   };
 
+  const handleFilterChange: SubmitHandler<FormValues> = (values) => {
+    const params = new URLSearchParams(searchParams);
+    params.delete(SEARCH_PARAM_KEY.PAGE);
+
+    if (Object.keys(values).length > 0) {
+      const encodedFilters = encodeURIComponent(JSON.stringify(values));
+      params.set(SEARCH_PARAM_KEY.FILTERS, encodedFilters);
+    } else {
+      params.delete(SEARCH_PARAM_KEY.FILTERS);
+    }
+
+    setSearchParams(params);
+  };
+
   return (
     <Container className="my-18">
       <Heading
@@ -163,11 +213,20 @@ const PoolActivityPage = () => {
         })}
       </Heading>
 
-      <ActivityLog.SearchForm
-        onReset={handleResetSearch}
-        onSearch={handleSearch}
-        defaultValue={searchParams.get(SEARCH_PARAM_KEY.SEARCH_TERM)}
-      />
+      <div className="my-6 flex items-end gap-3">
+        <ActivityLog.SearchForm
+          onReset={handleResetSearch}
+          onSearch={handleSearch}
+          defaultValue={searchParams.get(SEARCH_PARAM_KEY.SEARCH_TERM)}
+        />
+        <div className="shrink">
+          <PoolActivityFilterDialog
+            onSubmit={handleFilterChange}
+            initialValues={filters}
+            resetValues={{}}
+          />
+        </div>
+      </div>
 
       <div className="relative">
         {fetching && <Loading className="absolute" />}
