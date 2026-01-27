@@ -2603,6 +2603,10 @@
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
   },
+  "8nWMjm": {
+    "defaultMessage": "Consultez et mettez à jour les renseignements personnels, y compris les préférences de travail et le profil linguistique.",
+    "description": "subtitle for the profile page"
+  },
   "8oFk6S": {
     "defaultMessage": "Mise à jour de la collectivité réussie!",
     "description": "Message displayed after a community is updated"
@@ -10185,10 +10189,6 @@
   "g+tCWe": {
     "defaultMessage": "Commencez par compléter l'information de base de votre compte.",
     "description": "Subtitle for the registration pages"
-  },
-  "g/ReTI": {
-    "defaultMessage": "Consultez et mettez à jour les renseignements personnels, y compris les préférences de travail et le profil linguistique.",
-    "description": "subtitle for the profile page"
   },
   "g1WB3B": {
     "defaultMessage": "Ajouter une expérience",
