@@ -62,7 +62,7 @@ const PoolActivityFilterDialog = ({
         description: "Subtitle for activity log filter dialog",
       })}
     >
-      <Heading level="h3" size="h5" className="mb-6 font-bold">
+      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Date range",
           id: "kTCdxh",
@@ -89,7 +89,7 @@ const PoolActivityFilterDialog = ({
           })}
         />
       </div>
-      <Heading level="h3" size="h5" className="mb-6 font-bold">
+      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Process details",
           id: "XQCxDQ",
