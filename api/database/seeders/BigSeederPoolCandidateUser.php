@@ -39,10 +39,11 @@ class BigSeederPoolCandidateUser extends Seeder
 
         $pools = Pool::factory()
             ->count(2)
-            ->withPoolSkills(4, 4)
-            ->withQuestions(2, 2)
             ->published()
-            ->withAssessments(3)
+            ->withPoolSkills(4, 4)
+            ->withGeneralQuestions(2)
+            ->withScreeningQuestions(3)
+            ->withAssessmentSteps(count: 3)
             ->create();
         $poolIds = $pools->pluck('id')->toArray();
 
