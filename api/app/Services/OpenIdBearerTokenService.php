@@ -62,6 +62,7 @@ class OpenIdBearerTokenService
             $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->get($this->configUri);
+            assert($response instanceof \Illuminate\Http\Client\Response);
 
             if ($response->failed()) {
                 Log::error('Failed when GETting the OpenID configuration in getConfigProperty');
@@ -93,6 +94,7 @@ class OpenIdBearerTokenService
             $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->get($jwks_uri);
+            assert($response instanceof \Illuminate\Http\Client\Response);
 
             if ($response->failed()) {
                 Log::error('Failed when GETting the JWKS in getConfiguration');
@@ -156,6 +158,7 @@ class OpenIdBearerTokenService
                 ->post($introspectionUri, [
                     'token' => $accessToken,
                 ]);
+            assert($response instanceof \Illuminate\Http\Client\Response);
 
             if ($response->failed()) {
                 $errorCode = $response->json('error');
