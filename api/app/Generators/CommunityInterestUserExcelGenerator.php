@@ -99,7 +99,7 @@ class CommunityInterestUserExcelGenerator extends ExcelGenerator implements File
                     $this->localizeEnum($user->citizenship, CitizenshipStatus::class),
                     $this->lookingForLanguages($user),
                     $this->localizeEnum($user->first_official_language, Language::class),
-                    is_null($user->second_language_exam_completed) ? '' : $this->yesOrNo($user->second_language_exam_completed), // Bilingual evaluation
+                    $this->yesOrNo($user->second_language_exam_completed),
                     $this->yesOrNo($user->second_language_exam_validity),
                     $this->localizeEnum($user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
                     $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class), // Writing level
