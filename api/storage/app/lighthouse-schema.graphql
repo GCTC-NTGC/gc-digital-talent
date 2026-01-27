@@ -1875,8 +1875,17 @@ input CommunityInterestFilterInput {
   skills: [UUID]
 }
 
+input DateBetweenInput {
+  start: Date
+  end: Date
+}
+
 input ProcessActivityFilterInput {
   generalSearch: String
+  createdAt: DateBetweenInput
+  causers: [UUID!]
+  candidates: [UUID!]
+  events: [ActivityEvent!]
 }
 
 input ClassificationBelongsTo {
