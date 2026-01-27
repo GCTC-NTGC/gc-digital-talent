@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use App\Enums\ApplicationStatus;
 use App\Enums\ErrorCode;
+use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
+use App\Enums\SkillLevel;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
@@ -281,13 +283,9 @@ class PoolTest extends TestCase
     public function testPublishedPoolQueryDoesNotReturnDraft(): void
     {
         // this pool has been published so it should be returned in the publishedPool query
-        $publishedPool = Pool::factory()->create([
-            'published_at' => config('constants.past_date'),
-        ]);
+        $publishedPool = Pool::factory()->published()->create();
         // this pool is still a draft so it should not be returned in the publishedPool query
-        $draftPool = Pool::factory()->create([
-            'published_at' => null,
-        ]);
+        Pool::factory()->draft()->create();
 
         // Assert query will return only the published pool
         $this->graphQL(
@@ -314,11 +312,9 @@ class PoolTest extends TestCase
     public function testPublishedPoolQueryDoesNotReturnArchived(): void
     {
         // this pool has been published so it should be returned in the publishedPool query
-        $publishedPool = Pool::factory()->create([
-            'published_at' => config('constants.past_date'),
-        ]);
+        $publishedPool = Pool::factory()->published()->create();
         // this pool is archived so it should not be returned in the publishedPool query
-        $archivedPool = Pool::factory()->archived()->create();
+        Pool::factory()->archived()->create();
 
         // Assert query will return only the published pool
         $this->graphQL(
@@ -343,13 +339,9 @@ class PoolTest extends TestCase
 
     public function testListPoolsDoesNotReturnDraftAsAnon(): void
     {
-        $publishedPool = Pool::factory()->create([
-            'published_at' => config('constants.past_date'),
-        ]);
+        $publishedPool = Pool::factory()->published()->create();
 
-        $draftPool = Pool::factory()->create([
-            'published_at' => null,
-        ]);
+        Pool::factory()->draft()->create();
 
         // Assert query will return only the published pool as anonymous user
         $this->graphQL(
@@ -368,11 +360,9 @@ class PoolTest extends TestCase
 
     public function testListPoolsDoesNotReturnArchivedAsAnon(): void
     {
-        $publishedPool = Pool::factory()->create([
-            'published_at' => config('constants.past_date'),
-        ]);
+        $publishedPool = Pool::factory()->published()->create();
 
-        $archivedPool = Pool::factory()->archived()->create();
+        Pool::factory()->archived()->create();
 
         // Assert query will return only the published pool as anonymous user
         $this->graphQL(
@@ -395,9 +385,7 @@ class PoolTest extends TestCase
             ->published()
             ->create();
 
-        $draftPool = Pool::factory()->create([
-            'published_at' => null,
-        ]);
+        Pool::factory()->draft()->create();
 
         // Assert query will return only the published pool as base role user
         $this->actingAs($this->baseUser, 'api')->graphQL(
@@ -416,13 +404,9 @@ class PoolTest extends TestCase
 
     public function testListPoolsReturnsOnlyPublishedAsGuestRoleUser(): void
     {
-        $publishedPool = Pool::factory()->create([
-            'published_at' => config('constants.past_date'),
-        ]);
+        $publishedPool = Pool::factory()->published()->create();
 
-        $draftPool = Pool::factory()->create([
-            'published_at' => null,
-        ]);
+        Pool::factory()->draft()->create();
 
         // Assert query will return only the published pool as guest role user
         $this->actingAs($this->guestUser, 'api')->graphQL(
@@ -442,9 +426,7 @@ class PoolTest extends TestCase
     // test filtering closing_date on publishedPools
     public function testPoolQueryClosingDate(): void
     {
-        Pool::factory()->create([
-            'published_at' => null,
-        ]);
+        Pool::factory()->draft()->create();
         Pool::factory()->count(2)->create([
             'published_at' => config('constants.past_date'),
             'closing_date' => config('constants.far_future_date'),
@@ -621,7 +603,7 @@ class PoolTest extends TestCase
 
     public function testCannotReopenWithDeletedSkill(): void
     {
-        $pool = Pool::factory()->published()->closed()->create(['community_id' => $this->community->id]);
+        $pool = Pool::factory()->closed()->create(['community_id' => $this->community->id]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create(['deleted_at' => config('constants.past_datetime')]);
         $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
@@ -704,9 +686,9 @@ class PoolTest extends TestCase
         Skill::factory()->create();
 
         $completePool = Pool::factory()
-            ->withPoolSkills(2, 2)
-            ->withAssessments(2)
             ->published()
+            ->withPoolSkills(2, 2)
+            ->withAssessmentSteps(2)
             ->create([
                 'closing_date' => config('constants.far_future_date'),
             ]);
@@ -797,7 +779,7 @@ class PoolTest extends TestCase
         $completePool = Pool::factory()
             ->withPoolSkills(2, 2)
             ->published()
-            ->withAssessmentStepAndWithoutPoolSkills()
+            ->withAssessmentSteps(assignSkills: false)
             ->create([
                 'closing_date' => config('constants.far_future_date'),
                 'published_at' => null,
@@ -909,21 +891,39 @@ class PoolTest extends TestCase
     {
 
         Classification::factory()->create();
-        Skill::factory()->create([
+        $technicalSkill = Skill::factory()->create([
             'category' => SkillCategory::TECHNICAL->name,
         ]);
-        Skill::factory()->create([
+        $behaviouralSkill = Skill::factory()->create([
             'category' => SkillCategory::BEHAVIOURAL->name,
         ]);
+
         $completePool = Pool::factory()
             ->published()
-            ->withPoolSkills(2, 2)
             ->create([
                 'closing_date' => config('constants.far_future_date'),
                 'published_at' => null,
             ]);
 
-        $poolStepSkills = $completePool->assessmentSteps()->first()->poolSkills()->get()->toArray();
+        $completePool->poolSkills()->delete();
+        $completePool->poolSkills()->createMany([
+            [
+                'skill_id' => $technicalSkill->id,
+                'type' => PoolSkillType::ESSENTIAL->name,
+                'required_skill_level' => SkillLevel::BEGINNER->name,
+            ],
+            [
+                'skill_id' => $behaviouralSkill->id,
+                'type' => PoolSkillType::ESSENTIAL->name,
+                'required_skill_level' => SkillLevel::BEGINNER->name,
+            ],
+        ]);
+
+        $assessmentStep = $completePool->assessmentSteps()->first();
+        $assessmentStep->poolSkills()->sync([
+            $completePool->poolSkills()->where('skill_id', $technicalSkill->id)->first()->id,
+        ]);
+        $poolStepSkills = $assessmentStep->poolSkills()->get()->toArray();
 
         // confirm application screening missing one skill seeded that isn't technical
         assertEquals(1, count($poolStepSkills));
@@ -1060,7 +1060,7 @@ class PoolTest extends TestCase
     {
         $pool = Pool::factory()
             ->for($this->communityRecruiter)
-            ->withAssessments()
+            ->withAssessmentSteps()
             ->draft()
             ->create([
                 'community_id' => $this->community,
@@ -1517,7 +1517,7 @@ class PoolTest extends TestCase
 
         $pool = Pool::factory()
             ->for($this->communityRecruiter)
-            ->withAssessments()
+            ->withAssessmentSteps()
             ->published()
             ->create([
                 'community_id' => $this->community,
@@ -1773,7 +1773,7 @@ class PoolTest extends TestCase
         $originalSkills = array_map([$this, 'filterSkillKeys'], $original->poolSkills->toArray());
         $duplicatedSkills = array_map([$this, 'filterSkillKeys'], $duplicated->poolSkills->toArray());
 
-        $this->assertEquals($originalSkills, $duplicatedSkills);
+        $this->assertEqualsCanonicalizing($originalSkills, $duplicatedSkills);
     }
 
     private function filterSkillKeys(array $poolSkill)

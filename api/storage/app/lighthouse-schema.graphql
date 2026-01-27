@@ -1124,6 +1124,7 @@ type Pool implements HasRoleAssignments {
   contactEmail: String
   applicantsCount: Int
   activities(
+    where: ProcessActivityFilterInput
     orderBy: [OrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -1880,6 +1881,10 @@ input CommunityInterestFilterInput {
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
   skills: [UUID]
+}
+
+input ProcessActivityFilterInput {
+  generalSearch: String
 }
 
 input ClassificationBelongsTo {

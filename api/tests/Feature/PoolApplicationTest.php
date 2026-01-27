@@ -175,9 +175,7 @@ class PoolApplicationTest extends TestCase
     public function testApplicationCreation(): void
     {
         // create an unexpired Pool instance
-        $pool = Pool::factory()->create([
-            'published_at' => config('constants.past_date'),
-            'closing_date' => config('constants.far_future_date'),
+        $pool = Pool::factory()->published()->create([
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
             'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
@@ -441,7 +439,7 @@ class PoolApplicationTest extends TestCase
     public function testApplicationSubmitWithoutEssentialTechnicalSkills(): void
     {
         // create a pool, attach one essential skill to it
-        $newPool = Pool::factory()->WithPoolSkills(1, 0)->create([
+        $newPool = Pool::factory()->withPoolSkills(1, 0)->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
             'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
@@ -485,7 +483,7 @@ class PoolApplicationTest extends TestCase
     public function testApplicationSubmitWithEssentialTechnicalSkills(): void
     {
         // create a pool, attach one essential skill to it
-        $newPool = Pool::factory()->WithPoolSkills(1, 0)->create([
+        $newPool = Pool::factory()->withPoolSkills(1, 0)->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
             'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements

@@ -822,12 +822,12 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'level' => 1,
         ]);
 
-        $unaccosiatedStream = WorkStream::factory()->create();
-        $unaccosiatedPool = Pool::factory()->candidatesAvailableInSearch()->published()->create([
-            'work_stream_id' => $unaccosiatedStream->id,
+        $unassociatedStream = WorkStream::factory()->create();
+        $unassociatedPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'work_stream_id' => $unassociatedStream->id,
         ]);
         PoolCandidate::factory()->availableInSearch()->create([
-            'pool_id' => $unaccosiatedPool->id,
+            'pool_id' => $unassociatedPool->id,
         ]);
 
         $stream = WorkStream::factory()->create();

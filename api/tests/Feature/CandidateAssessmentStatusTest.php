@@ -84,12 +84,10 @@ class CandidateAssessmentStatusTest extends TestCase
                 'community_id' => $this->community->id,
             ]);
 
-        $technicalSkill = Skill::where('category', SkillCategory::TECHNICAL->name)->first();
-        $this->poolSkill = PoolSkill::create([
-            'pool_id' => $this->pool->id,
-            'skill_id' => $technicalSkill->id,
-            'type' => PoolSkillType::ESSENTIAL->name,
-        ]);
+        $this->poolSkill = $this->pool->poolSkills
+            ->first(fn ($poolSkill) => $poolSkill->type === PoolSkillType::ESSENTIAL->name &&
+                $poolSkill->skill->category === SkillCategory::TECHNICAL->name
+            );
 
         AssessmentStep::factory()
             ->afterCreating(function (AssessmentStep $step) {
@@ -404,9 +402,11 @@ class CandidateAssessmentStatusTest extends TestCase
     {
 
         $pool = Pool::factory()
-            ->published()
+            ->draft()
             ->create([
                 'community_id' => $this->community->id,
+                'published_at' => config('constants.past_datetime'),
+                'closing_date' => config('constants.far_future_datetime'),
             ]);
 
         $technicalSkill = Skill::where('category', SkillCategory::TECHNICAL->name)->first();
@@ -505,11 +505,10 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
 
         $technicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->limit(2)->get();
-        $poolSkillOne = PoolSkill::create([
-            'pool_id' => $pool->id,
-            'skill_id' => $technicalSkills[0]->id,
-            'type' => PoolSkillType::ESSENTIAL->name,
-        ]);
+        $poolSkillOne = $pool->poolSkills
+            ->first(fn ($poolSkill) => $poolSkill->type === PoolSkillType::ESSENTIAL->name &&
+                $poolSkill->skill->category === SkillCategory::TECHNICAL->name
+            );
 
         // Non-essential skills never need to be assessed
         $poolSkillTwo = PoolSkill::create([
@@ -520,7 +519,7 @@ class CandidateAssessmentStatusTest extends TestCase
 
         $stepOne = $pool->assessmentSteps->first();
 
-        $stepTwo = AssessmentStep::factory()
+        AssessmentStep::factory()
             ->afterCreating(function (AssessmentStep $step) use ($poolSkillOne, $poolSkillTwo) {
                 $step->poolSkills()->sync([$poolSkillOne->id, $poolSkillTwo->id]);
             })->create([
@@ -577,9 +576,11 @@ class CandidateAssessmentStatusTest extends TestCase
     {
 
         $pool = Pool::factory()
-            ->published()
+            ->draft()
             ->create([
                 'community_id' => $this->community->id,
+                'published_at' => config('constants.past_datetime'),
+                'closing_date' => config('constants.far_future_datetime'),
             ]);
 
         $technicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->limit(2)->get();
@@ -702,9 +703,11 @@ class CandidateAssessmentStatusTest extends TestCase
     {
 
         $pool = Pool::factory()
-            ->published()
+            ->draft()
             ->create([
                 'community_id' => $this->community->id,
+                'published_at' => config('constants.past_datetime'),
+                'closing_date' => config('constants.far_future_datetime'),
             ]);
 
         $candidate = PoolCandidate::factory()->withSnapshot()->create([
@@ -753,10 +756,13 @@ class CandidateAssessmentStatusTest extends TestCase
     {
         // pool with two steps, both steps associated with one technical pool skill
         $pool = Pool::factory()
-            ->published()
+            ->draft()
             ->create([
                 'community_id' => $this->community->id,
+                'published_at' => config('constants.past_datetime'),
+                'closing_date' => config('constants.far_future_datetime'),
             ]);
+
         $poolSkill = PoolSkill::create([
             'pool_id' => $pool->id,
             'skill_id' => Skill::factory()->create(['category' => SkillCategory::TECHNICAL->name])->id,

@@ -297,9 +297,14 @@ class AssessmentStepTest extends TestCase
     public function testScreeningQuestionsAndSkills(): void
     {
         Skill::factory()->count(3)->create();
-        $testPool = Pool::factory()->draft()->WithPoolSkills(2, 2)->WithQuestions(2, 2)->create([
-            'community_id' => $this->community->id,
-        ]);
+        $testPool = Pool::factory()
+            ->draft()
+            ->withPoolSkills(2, 2)
+            ->withGeneralQuestions(2)
+            ->withScreeningQuestions(2)
+            ->create([
+                'community_id' => $this->community->id,
+            ]);
         $screeningQuestion = $testPool->screeningQuestions[0]; // first factory created question
         $poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
 
@@ -376,9 +381,14 @@ class AssessmentStepTest extends TestCase
     public function testScreeningQuestionsCreatingAssessmentStep(): void
     {
         Skill::factory()->count(3)->create();
-        $testPool = Pool::factory()->draft()->withPoolSkills(2, 2)->withQuestions(2, 2)->create([
-            'community_id' => $this->community->id,
-        ]);
+        $testPool = Pool::factory()
+            ->draft()
+            ->withPoolSkills(2, 2)
+            ->withGeneralQuestions(2)
+            ->withScreeningQuestions(2)
+            ->create([
+                'community_id' => $this->community->id,
+            ]);
         AssessmentStep::truncate();
         $poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
 

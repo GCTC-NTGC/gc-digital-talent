@@ -199,8 +199,8 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                     $this->localizeEnum($userHydrated->citizenship, CitizenshipStatus::class),
                     $this->localizeEnum($userHydrated->first_official_language, Language::class),
                     $this->localizeEnum($userHydrated->estimated_language_ability, EstimatedLanguageAbility::class), // Estimated language ability
-                    $userHydrated->second_language_exam_completed ? Lang::get('common.yes', [], $this->lang) : '', // Bilingual evaluation
-                    is_null($userHydrated->second_language_exam_validity) ? '' : $this->yesOrNo($userHydrated->second_language_exam_validity), // Bilingual exam validity
+                    $this->yesOrNo($userHydrated->second_language_exam_completed),
+                    $this->yesOrNo($userHydrated->second_language_exam_validity),
                     $this->localizeEnum($userHydrated->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
                     $this->localizeEnum($userHydrated->written_level, EvaluatedLanguageAbility::class), // Writing level
                     $this->localizeEnum($userHydrated->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
@@ -220,12 +220,12 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                         }),
                         WorkRegion::class
                     ), // Location preferences
-                    $this->localizeEnumArray($userHydrated->flexible_work_locations ?? [], FlexibleWorkLocation::class), // Flexible work locations
+                    $this->localizeEnumArray($userHydrated->flexible_work_locations, FlexibleWorkLocation::class), // Flexible work locations
                     $userHydrated->location_exemptions, // Location exemptions
-                    $userHydrated->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
+                    $this->yesOrNo($userHydrated->is_woman), // Woman
                     $this->localizeEnumArray($userHydrated->indigenous_communities, IndigenousCommunity::class),
-                    $userHydrated->is_visible_minority ? Lang::get('common.yes', [], $this->lang) : '', // Visible minority
-                    $userHydrated->has_disability ? Lang::get('common.yes', [], $this->lang) : '', // Disability
+                    $this->yesOrNo($userHydrated->is_visible_minority), // Visible minority
+                    $this->yesOrNo($userHydrated->has_disability), // Disability
                     $this->localizeEnum($candidate->education_requirement_option, EducationRequirementOption::class), // Education requirement
                     implode(', ', $educationRequirementExperiences ?? []), // Education requirement experiences
                 ];

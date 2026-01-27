@@ -50,7 +50,7 @@ class PoolCandidateSearchTest extends TestCase
 
         $this->community = Community::factory()->create();
         $this->pool = Pool::factory()
-            ->withAssessments()
+            ->withAssessmentSteps()
             ->create([
                 'community_id' => $this->community->id,
             ]);

@@ -1,17 +1,10 @@
 import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
+import { useMutation } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
-import {
-  Pending,
-  NotFound,
-  Card,
-  Heading,
-  Link,
-  CardSeparator,
-} from "@gc-digital-talent/ui";
+import { Card, Heading, Link, CardSeparator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Select, Submit, SwitchInput } from "@gc-digital-talent/forms";
 import {
@@ -27,14 +20,16 @@ import {
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import { getClassificationName } from "~/utils/poolUtils";
 import Hero from "~/components/Hero";
+import { requireUser } from "~/routing/auth";
+import { graphqlClientContext, intlContext } from "~/routing/context";
 
 import messages from "./messages";
 import { getClassificationLevels } from "./helpers";
@@ -328,49 +323,44 @@ const Classification_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface UpdateClassificationProps {
-  id: string;
-}
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request }, next) => {
+    requireUser(context, request, [ROLE_NAME.PlatformAdmin]);
+    return await next();
+  },
+];
 
-const UpdateClassification = ({ id }: UpdateClassificationProps) => {
-  const intl = useIntl();
-  const [{ data, fetching, error }] = useQuery({
-    query: Classification_Query,
-    variables: { id },
-  });
+export async function clientLoader({
+  params,
+  context,
+}: Route.ClientLoaderArgs) {
+  const intl = context.get(intlContext);
+  const client = context.get(graphqlClientContext);
 
-  return (
-    <Pending fetching={fetching} error={error}>
-      {data?.classification ? (
-        <UpdateClassificationForm query={data?.classification} />
-      ) : (
-        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage: "Classification {classificationId} not found.",
-                id: "b3VnhM",
-                description: "Message displayed for classification not found.",
-              },
-              { classificationId: id },
-            )}
-          </p>
-        </NotFound>
-      )}
-    </Pending>
-  );
-};
+  const res = await client
+    .query(Classification_Query, { id: params.classificationId })
+    .toPromise();
 
-export function clientLoader({ params }: Route.ClientLoaderArgs) {
-  return { id: params.classificationId };
+  if (!res.data?.classification) {
+    throw new NotFoundError(
+      intl.formatMessage(
+        {
+          defaultMessage: "Classification {classificationId} not found.",
+          id: "b3VnhM",
+          description: "Message displayed for classification not found.",
+        },
+        { classificationId: params.classificationId },
+      ),
+    );
+  }
+
+  return {
+    classification: res.data?.classification,
+  };
 }
 
 export function Component({ loaderData }: Route.ComponentProps) {
-  return (
-    <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-      <UpdateClassification id={loaderData.id} />
-    </RequireAuth>
-  );
+  return <UpdateClassificationForm query={loaderData.classification} />;
 }
 
 Component.displayName = "AdminUpdateClassificationPage";
