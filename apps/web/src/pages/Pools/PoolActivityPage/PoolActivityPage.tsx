@@ -4,12 +4,7 @@ import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
 import { SubmitHandler } from "react-hook-form";
 
-import {
-  graphql,
-  Maybe,
-  ProcessActivityFilterInput,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import { graphql, Maybe, Scalars } from "@gc-digital-talent/graphql";
 import {
   Container,
   Heading,
@@ -32,47 +27,12 @@ import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
 import PoolActivityFilterDialog, {
   FormValues,
 } from "./components/PoolActivityFilterDialog";
-
-function safeGetPageState(
-  key: string,
-  params: URLSearchParams,
-  defaultVal: number,
-) {
-  if (!params.has(key)) return defaultVal;
-
-  const param = params.get(key);
-  if (isNaN(Number(param))) return defaultVal;
-
-  return Number(param);
-}
-
-function getTotalPages(total: number, pageSize: number) {
-  return Math.ceil(total / pageSize);
-}
-
-function safeGetFilters(filtersEncoded: string | null) {
-  let filters: FormValues | undefined;
-
-  if (filtersEncoded) {
-    try {
-      filters = JSON.parse(decodeURIComponent(filtersEncoded)) as FormValues;
-    } catch {
-      filters = undefined;
-    }
-  }
-
-  return filters;
-}
-
-function transformWhereClause(
-  searchTerm?: string,
-  filters?: FormValues,
-): ProcessActivityFilterInput {
-  return {
-    ...(searchTerm ? { generalSearch: searchTerm } : {}),
-    ...filters,
-  };
-}
+import {
+  getTotalPages,
+  safeGetFilters,
+  safeGetPageState,
+  transformWhereClause,
+} from "./utils";
 
 interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
@@ -112,7 +72,6 @@ const PoolActivityPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const [searchParams, setSearchParams] = useSearchParams();
-  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
 
   const searchTerm =
     searchParams.get(SEARCH_PARAM_KEY.SEARCH_TERM) ?? undefined;
@@ -123,7 +82,7 @@ const PoolActivityPage = () => {
     50,
   );
   const currentPage = safeGetPageState(SEARCH_PARAM_KEY.PAGE, searchParams, 1);
-  const filters = safeGetFilters(filtersEncoded);
+  const filters = safeGetFilters(searchParams);
 
   const [{ data, fetching }] = useQuery({
     query: PoolActivityPage_Query,
@@ -221,6 +180,7 @@ const PoolActivityPage = () => {
         />
         <div className="shrink">
           <PoolActivityFilterDialog
+            key={filters ? JSON.stringify(filters) : "empty"}
             onSubmit={handleFilterChange}
             initialValues={filters}
             resetValues={{}}
