@@ -599,6 +599,10 @@
     "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
     "description": "Legend for the radio group in the application education page - IAP variant."
   },
+  "0J8XAX": {
+    "defaultMessage": "Tâches et responsabilités principales",
+    "description": "Label displayed on Experience form for key tasks and responsibilities field."
+  },
   "0K7Upw": {
     "defaultMessage": "Pour commencer une nouvelle demande, consultez la page « Parcourir les possibilités d'emploi » et sélectionnez une offre d'emploi.",
     "description": "Body for notice when there are no applications"
@@ -5899,6 +5903,10 @@
     "defaultMessage": "Renseignements supplémentaires",
     "description": "Label for a community interests additional information"
   },
+  "NEycpM": {
+    "defaultMessage": "La section suivante doit présenter un aperçu général axé sur ce que vous avez fait dans ce rôle. Essayez de garder ce champ clair et concis, puisque vous pourrez fournir des renseignements plus détaillés lorsque vous associerez des compétences à cette expérience.",
+    "description": "Help text for the experience key tasks and responsibilities field"
+  },
   "NGEgVN": {
     "defaultMessage": "Organisation émettrice",
     "description": "Label displayed on award form for organization section"
@@ -7146,6 +7154,10 @@
   "T1TKNL": {
     "defaultMessage": "Niveau de compétence en langue seconde",
     "description": "Legend for second language proficiency level in language information form"
+  },
+  "T29e79": {
+    "defaultMessage": "Statut de ce rôle",
+    "description": "Label for status of this role experience field"
   },
   "T3aDLD": {
     "defaultMessage": "Les renseignements suivants sont facultatifs, mais ils visent à aider les candidates et candidats à mieux comprendre le processus d'embauche. Vos réponses à ces questions apparaîtront avec d'autres renseignements importants, comme l'équité, les mesures d'adaptation et les coordonnées.",
@@ -8710,6 +8722,10 @@
     "defaultMessage": "la gestion de projets de TI;",
     "description": "First item in list of certification topics section"
   },
+  "ZijW8r": {
+    "defaultMessage": "J'ai occupé ce rôle par le passé.",
+    "description": "Label displayed on Experience form for past role option."
+  },
   "ZoZNDf": {
     "defaultMessage": "Trouvez une nouvelle compétence et ajoutez-la à votre portfolio",
     "description": "Title for the find a skill dialog within the skill portfolio"
@@ -9761,6 +9777,10 @@
   "eO9buR": {
     "defaultMessage": "4. Félicitations! <strong>Vous vous êtes connecté avec une CléGC</strong> et vous serez redirigé vers la <strong>plateforme de talents numériques du GC</strong>.",
     "description": "Text for final sign in step."
+  },
+  "eOIwNx": {
+    "defaultMessage": "Rôle ou titre",
+    "description": "Label displayed on Community Experience form for role input"
   },
   "eOrKX2": {
     "defaultMessage": "Consultez ou mettez à jour ce modèle d’offre d’emploi.",
@@ -11928,6 +11948,10 @@
   "nF//P1": {
     "defaultMessage": "Recommandations pour des programmes de perfectionnement",
     "description": "Trigger title for development programs"
+  },
+  "nF3JZd": {
+    "defaultMessage": "J'occupe actuellement ce rôle.",
+    "description": "Label displayed on Experience form for currently active option"
   },
   "nFlN/H": {
     "defaultMessage": "Les trois examens de niveau linguistique sont actuellement valides",
