@@ -40,8 +40,18 @@ export function transformWhereClause(
   searchTerm?: string,
   filters?: FormValues,
 ): ProcessActivityFilterInput {
+  const { startDate, endDate, ...restFilters } = filters ?? {};
+
   return {
     ...(searchTerm ? { generalSearch: searchTerm } : {}),
-    ...filters,
+    ...restFilters,
+    ...(startDate || endDate
+      ? {
+          createdAt: {
+            ...(startDate && { start: startDate }),
+            ...(endDate && { end: endDate }),
+          },
+        }
+      : {}),
   };
 }

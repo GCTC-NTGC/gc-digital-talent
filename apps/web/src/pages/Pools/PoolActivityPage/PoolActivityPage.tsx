@@ -38,6 +38,12 @@ interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
 }
 
+const resetValues: FormValues = {
+  events: undefined,
+  candidates: undefined,
+  causers: undefined,
+};
+
 const PoolActivityPage_Query = graphql(/* GraphQL */ `
   query PoolActivityPage(
     $id: UUID!
@@ -147,7 +153,7 @@ const PoolActivityPage = () => {
     const params = new URLSearchParams(searchParams);
     params.delete(SEARCH_PARAM_KEY.PAGE);
 
-    if (Object.keys(values).length > 0) {
+    if (Object.values(values).some((val) => typeof val !== "undefined")) {
       const encodedFilters = encodeURIComponent(JSON.stringify(values));
       params.set(SEARCH_PARAM_KEY.FILTERS, encodedFilters);
     } else {
@@ -183,7 +189,7 @@ const PoolActivityPage = () => {
             key={filters ? JSON.stringify(filters) : "empty"}
             onSubmit={handleFilterChange}
             initialValues={filters}
-            resetValues={{}}
+            resetValues={resetValues}
           />
         </div>
       </div>
