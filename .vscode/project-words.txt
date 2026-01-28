@@ -87,6 +87,7 @@ toastify
 tsquery
 tsvector
 Typenames
+unaccent
 Unencrypted
 urql
 Uturn
