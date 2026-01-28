@@ -1114,6 +1114,7 @@ type Pool implements HasRoleAssignments {
   contactEmail: String
   applicantsCount: Int
   activities(
+    where: ProcessActivityFilterInput
     orderBy: [OrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -1872,6 +1873,10 @@ input CommunityInterestFilterInput {
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
   skills: [UUID]
+}
+
+input ProcessActivityFilterInput {
+  generalSearch: String
 }
 
 input ClassificationBelongsTo {
@@ -3816,6 +3821,7 @@ enum ErrorCode {
   SUB_IN_USE
   VERIFICATION_FAILED
   DUPLICATE_USER_SKILL
+  WORK_STREAM_NAME_IN_USE
   RATE_LIMIT
 }
 

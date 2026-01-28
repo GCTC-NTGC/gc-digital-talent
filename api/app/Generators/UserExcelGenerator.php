@@ -359,21 +359,21 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $user->last_name,
             $user->email ?? '',
             $user->telephone ?? '',
-            $user->armed_forces_status ? $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class) : '',
-            $user->citizenship ? $this->localizeEnum($user->citizenship, CitizenshipStatus::class) : '',
+            $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class),
+            $this->localizeEnum($user->citizenship, CitizenshipStatus::class),
             $user->current_city ?? '',
-            $user->current_province ? $this->localizeEnum($user->current_province, ProvinceOrTerritory::class) : '',
-            $user->preferred_lang ? $this->localizeEnum($user->preferred_lang, Language::class) : '',
+            $this->localizeEnum($user->current_province, ProvinceOrTerritory::class),
+            $this->localizeEnum($user->preferred_lang, Language::class),
             $this->lookingForLanguages($user),
             $this->localizeEnum($user->first_official_language, Language::class),
             $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class),
-            $user->second_language_exam_completed ? Lang::get('common.yes', [], $this->lang) : '', // Bilingual evaluation
-            is_null($user->second_language_exam_validity) ? '' : $this->yesOrNo($user->second_language_exam_validity), // Bilingual exam validity
+            $this->yesOrNo($user->second_language_exam_completed), // Bilingual evaluation
+            $this->yesOrNo($user->second_language_exam_validity), // Bilingual exam validity
             $this->localizeEnum($user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
             $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class), // Writing level
             $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
             $this->yesOrNo($user->computed_is_gov_employee), // Government employee
-            $department->name[$this->lang] ?? '', // Department
+            $department?->name[$this->lang] ?? '', // Department
             $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class),
             $user->work_email, // Work email
             $user->getClassification(), // Current classification
@@ -388,49 +388,49 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 }),
                 WorkRegion::class
             ), // Location preferences
-            $this->localizeEnumArray($user->flexible_work_locations ?? [], FlexibleWorkLocation::class), // flexible work locations
+            $this->localizeEnumArray($user->flexible_work_locations, FlexibleWorkLocation::class), // flexible work locations
             $user->location_exemptions, // Location exemptions
-            $user->is_woman ? Lang::get('common.yes', [], $this->lang) : '', // Woman
+            $this->yesOrNo($user->is_woman),
             $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class),
-            $user->is_visible_minority ? Lang::get('common.yes', [], $this->lang) : '', // Visible minority
-            $user->has_disability ? Lang::get('common.yes', [], $this->lang) : '', // Disability
+            $this->yesOrNo($user->is_visible_minority), // Visible minority
+            $this->yesOrNo($user->has_disability), // Disability
             $userSkills->join(', '),
-            $employeeProfile ? $this->yesOrNo($employeeProfile->career_planning_lateral_move_interest ?? null) : '', // Career planning - Lateral move interest
-            $employeeProfile ? $this->localizeEnum($employeeProfile->career_planning_lateral_move_time_frame ?? null, TimeFrame::class) : '', // Career planning - Lateral move time frame
-            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_lateral_move_organization_type ?? [], OrganizationTypeInterest::class) : [],  // Career planning - Lateral move organization type
-            $employeeProfile ? $this->yesOrNo($employeeProfile->career_planning_promotion_move_interest ?? null) : '', // Career planning - Promotion move interest
-            $employeeProfile ? $this->localizeEnum($employeeProfile->career_planning_promotion_move_time_frame ?? null, TimeFrame::class) : '',  // Career planning - Promotion move time frame
-            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_promotion_move_organization_type ?? [], OrganizationTypeInterest::class) : [], // Career planning - Promotion move organization type
-            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_learning_opportunities_interest ?? [], LearningOpportunitiesInterest::class) : [], // Career planning - Learning opportunities interest
-            $employeeProfile && $employeeProfile->eligible_retirement_year ? $employeeProfile->eligible_retirement_year->format('Y') : '', // Eligible retirement year
-            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_mentorship_status ?? [], Mentorship::class) : [], // Career planning - Mentorship status
-            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_mentorship_interest, Mentorship::class) : [], // Career planning - Mentorship interest
-            $employeeProfile ? $this->yesOrNo($employeeProfile->career_planning_exec_interest ?? null) : '', // Career planning - Executive interest
-            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_exec_coaching_status ?? [], ExecCoaching::class) : [], // Career planning - Executive coaching status
-            $employeeProfile ? $this->localizeEnumArray($employeeProfile->career_planning_exec_coaching_interest, ExecCoaching::class) : [], // Career planning - Executive interest
-            $employeeProfile && $employeeProfile->nextRoleClassification ? $employeeProfile->nextRoleClassification->group : '', // Next role - target classification group
-            $employeeProfile && $employeeProfile->nextRoleClassification ? $employeeProfile->nextRoleClassification->level : '', // Next role - Target classification level
-            $employeeProfile ? $this->localizeEnum($employeeProfile->next_role_target_role ?? null, TargetRole::class) : '', // Next role - Target role
-            $employeeProfile ? $this->yesOrNo($employeeProfile->next_role_is_c_suite_role ?? null) : '', // Next role - C-suite role
-            $employeeProfile ? $this->localizeEnum($employeeProfile->next_role_c_suite_role_title ?? null, CSuiteRoleTitle::class) : '',
-            $employeeProfile ? $employeeProfile->next_role_job_title ?? '' : '', // Next role - Job title
-            $employeeProfile && $employeeProfile->nextRoleCommunity ? $employeeProfile->nextRoleCommunity->name[$this->lang] ?? '' : '', // Next role - Functional community
+            $this->yesOrNo($employeeProfile?->career_planning_lateral_move_interest), // Career planning - Lateral move interest
+            $this->localizeEnum($employeeProfile?->career_planning_lateral_move_time_frame, TimeFrame::class), // Career planning - Lateral move time frame
+            $this->localizeEnumArray($employeeProfile?->career_planning_lateral_move_organization_type, OrganizationTypeInterest::class),  // Career planning - Lateral move organization type
+            $this->yesOrNo($employeeProfile?->career_planning_promotion_move_interest), // Career planning Promotion move interest
+            $this->localizeEnum($employeeProfile?->career_planning_promotion_move_time_frame, TimeFrame::class),  // Career planning - Promotion move time frame
+            $this->localizeEnumArray($employeeProfile?->career_planning_promotion_move_organization_type, OrganizationTypeInterest::class), // Career planning - Promotion move organization type
+            $this->localizeEnumArray($employeeProfile?->career_planning_learning_opportunities_interest, LearningOpportunitiesInterest::class), // Career planning - Learning opportunities interest
+            $employeeProfile?->eligible_retirement_year?->format('Y') ?? '', // Eligible retirement year
+            $this->localizeEnumArray($employeeProfile?->career_planning_mentorship_status, Mentorship::class), // Career planning - Mentorship status
+            $this->localizeEnumArray($employeeProfile?->career_planning_mentorship_interest, Mentorship::class), // Career planning - Mentorship interest
+            $this->yesOrNo($employeeProfile?->career_planning_exec_interest), // Career planning - Executive interest
+            $this->localizeEnumArray($employeeProfile?->career_planning_exec_coaching_status, ExecCoaching::class), // Career planning - Executive coaching status
+            $this->localizeEnumArray($employeeProfile?->career_planning_exec_coaching_interest, ExecCoaching::class), // Career planning - Executive interest
+            $employeeProfile?->nextRoleClassification->group ?? '', // Next role - target classification group
+            $employeeProfile?->nextRoleClassification->level ?? '', // Next role - Target classification level
+            $this->localizeEnum($employeeProfile?->next_role_target_role, TargetRole::class), // Next role - Target role
+            $this->yesOrNo($employeeProfile?->next_role_is_c_suite_role), // Next role - C-suite role
+            $this->localizeEnum($employeeProfile?->next_role_c_suite_role_title, CSuiteRoleTitle::class),
+            $employeeProfile->next_role_job_title ?? '', // Next role - Job title
+            $employeeProfile?->nextRoleCommunity?->name[$this->lang] ?? '', // Next role - Functional community
             $nextRoleWorkStreams->join(','), // Next role - Work streams
             $nextRoleDepartments->join(', '), // next role - Departments
-            $employeeProfile ? $employeeProfile->next_role_additional_information ?? '' : '', // Next role - Additional information
-            $employeeProfile && $employeeProfile->careerObjectiveClassification ? $employeeProfile->careerObjectiveClassification->group : '', // Career objective - Target classification group
-            $employeeProfile && $employeeProfile->careerObjectiveClassification ? $employeeProfile->careerObjectiveClassification->level : '', // Career objective - Target classification level
-            $employeeProfile ? $this->localizeEnum($employeeProfile->career_objective_target_role ?? null, TargetRole::class) : '', // Career objective - Target role
-            $employeeProfile ? $this->yesOrNo($employeeProfile->career_objective_is_c_suite_role ?? null) : '', // Career objective - C-suite role
-            $employeeProfile ? $this->localizeEnum($employeeProfile->career_objective_c_suite_role_title ?? null, CSuiteRoleTitle::class) : '', // Career objective - C-suite role title
-            $employeeProfile ? $employeeProfile->career_objective_job_title ?? '' : '', // Career objective - Job title
-            $employeeProfile && $employeeProfile->careerObjectiveCommunity ? $employeeProfile->careerObjectiveCommunity->name[$this->lang] ?? ' ' : '', // Career objective - Functional community
+            $employeeProfile->next_role_additional_information ?? '', // Next role - Additional information
+            $employeeProfile->careerObjectiveClassification->group ?? '', // Career objective - Target classification group
+            $employeeProfile->careerObjectiveClassification->level ?? '', // Career objective - Target classification level
+            $this->localizeEnum($employeeProfile?->career_objective_target_role, TargetRole::class), // Career objective - Target role
+            $this->yesOrNo($employeeProfile?->career_objective_is_c_suite_role), // Career objective - C-suite role
+            $this->localizeEnum($employeeProfile?->career_objective_c_suite_role_title, CSuiteRoleTitle::class), // Career objective - C-suite role title
+            $employeeProfile->career_objective_job_title ?? '', // Career objective - Job title
+            $employeeProfile?->careerObjectiveCommunity?->name[$this->lang] ?? ' ', // Career objective - Functional community
             $careerObjectiveWorkStreams->join(', '), // career objective - Work streams
             $careerObjectiveDepartments->join(', '), // career objective - Departments
-            $employeeProfile ? $employeeProfile->career_objective_additional_information ?? '' : '', // Career objective - Additional information
-            $employeeProfile ? $employeeProfile->career_planning_about_you ?? '' : '', // Career planning - About you
-            $employeeProfile ? $employeeProfile->career_planning_learning_goals ?? '' : '',  // Career planning - Learning goals
-            $employeeProfile ? $employeeProfile->career_planning_work_style ?? '' : '', // Career planning - Work style
+            $employeeProfile->career_objective_additional_information ?? '', // Career objective - Additional information
+            $employeeProfile->career_planning_about_you ?? '', // Career planning - About you
+            $employeeProfile->career_planning_learning_goals ?? '',  // Career planning - Learning goals
+            $employeeProfile->career_planning_work_style ?? '', // Career planning - Work style
             $appliedPools->join(', '), // Digital talent processes
             $offPlatformProcesses->join(', '), // Off-platform processes
         ];
@@ -488,21 +488,21 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $numberOfMonths, // number of months calculated number of months based on the start and end date or start date and date of download for current experiences
             $exp->role ?? '', // Role or title: My role (work experience), My role (Community participation), Personal experience short title, Award title
             $exp->organization ?? '', // Organization, department, military force, or institution: Organization (external), Department (GC), Military force (CAF), Education institution, Group, organization, or community, Issuing organization
-            $exp->employment_category ? $this->localizeEnum($exp->employment_category, EmploymentCategory::class) : '',  // Employment category
+            $this->localizeEnum($exp->employment_category, EmploymentCategory::class),  // Employment category
             $exp->division ?? '', // team, group, division
-            $exp->ext_size_of_organization ? $this->localizeEnum($exp->ext_size_of_organization, ExternalSizeOfOrganization::class) : '', // size external organization
-            $exp->ext_role_seniority ? $this->localizeEnum($exp->ext_role_seniority, ExternalRoleSeniority::class) : '', // seniority external organziation
-            $exp->gov_employment_type ? $this->localizeEnum($exp->gov_employment_type, GovEmployeeType::class) : '', // gc employment type
-            $exp->gov_position_type ? $this->localizeEnum($exp->gov_position_type, GovPositionType::class) : '', // gc position type
-            $exp->classification ? ($exp->classification->group.($exp->classification->level ? '-'.$exp->classification->level : '')) : '', // Classification: group-level
+            $this->localizeEnum($exp->ext_size_of_organization, ExternalSizeOfOrganization::class), // size external organization
+            $this->localizeEnum($exp->ext_role_seniority, ExternalRoleSeniority::class), // seniority external organization
+            $this->localizeEnum($exp->gov_employment_type, GovEmployeeType::class), // gc employment type
+            $this->localizeEnum($exp->gov_position_type, GovPositionType::class), // gc position type
+            $exp->classification?->group.($exp->classification?->level ? '-'.$exp->classification->level : ''), // Classification: group-level
             $this->yesOrNo($exp->supervisory_position), // gc management or supervisory status: Yes, No, empty
             $exp->supervised_employees_number ?? '', // GC number of supervised employees
             $exp->annual_budget_allocation ?? '', // GC annual budget allocation
-            $exp->c_suite_role_title ? $this->localizeEnum($exp->c_suite_role_title, CSuiteRoleTitle::class) : '', // GC C-suite role
+            $this->localizeEnum($exp->c_suite_role_title, CSuiteRoleTitle::class), // GC C-suite role
             $exp->other_c_suite_title ?? '', // Other C-suite role title
-            $exp->caf_employment_type ? $this->localizeEnum($exp->caf_employment_type, CafEmploymentType::class) : '', // CAF employment type
-            $exp->caf_rank ? $this->localizeEnum($exp->caf_rank, CafRank::class) : '', // CAF rank category
-            $workStreams, // Work streams: workstreams linked to the experience separated by commas
+            $this->localizeEnum($exp->caf_employment_type, CafEmploymentType::class), // CAF employment type
+            $this->localizeEnum($exp->caf_rank, CafRank::class), // CAF rank category
+            $workStreams, // Work streams: work streams linked to the experience separated by commas
             // Education fields - empty for work
             '', // 25: type_of_education
             '', // 26: area_study
@@ -562,8 +562,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->user->first_name,
             $exp->user->last_name,
             $this->getExperienceType($exp),  // experience type
-            $exp->start_date ? $exp->start_date->format('Y-m') : '', // start date
-            $exp->end_date ? $exp->end_date->format('Y-m') : '', // end date
+            $exp->start_date?->format('Y-m') ?? '', // start date
+            $exp->end_date?->format('Y-m') ?? '', // end date
             $isCurrent, // currently active
             $numberOfMonths, // number of months
             // Work-specific fields (8-24) - mostly empty for education
@@ -584,9 +584,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // caf_employment_type
             '', // rank_category
             '', // work_streams
-            $exp->type ? $this->localizeEnum($exp->type, EducationType::class) : '',  // education type
+            $this->localizeEnum($exp->type, EducationType::class),  // education type
             $exp->area_of_study ?? '', // area of study
-            $exp->status ? $this->localizeEnum($exp->status, EducationStatus::class) : '', // education status
+            $this->localizeEnum($exp->status, EducationStatus::class), // education status
             $exp->thesis_title ?? '', // thesis title
             // Community/Personal fields - empty for education
             '', // community_project_or_product
@@ -672,10 +672,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             // Community/Personal fields - empty for awards
             '', // community_project_or_product
             '', // personal_learning_experience_description
-            $exp->awarded_to ? $this->localizeEnum($exp->awarded_to, AwardedTo::class) : '', // award_recipient
+            $this->localizeEnum($exp->awarded_to, AwardedTo::class), // award_recipient
             '', // issued by
-            $exp->awarded_scope ? $this->localizeEnum($exp->awarded_scope, AwardedScope::class) : '', // award
-            $exp->awarded_date ? $exp->awarded_date->format('Y-m-d') : '', // date awarded
+            $this->localizeEnum($exp->awarded_scope, AwardedScope::class), // award
+            $exp->awarded_date?->format('Y-m-d') ?? '', // date awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp), // featured skills
             $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
@@ -721,8 +721,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->user->first_name,
             $exp->user->last_name,
             $this->getExperienceType($exp),  // experience type
-            $exp->start_date ? $exp->start_date->format('Y-m') : '', // start date
-            $exp->end_date ? $exp->end_date->format('Y-m') : '', // end date
+            $exp->start_date?->format('Y-m') ?? '', // start date
+            $exp->end_date?->format('Y-m') ?? '', // end date
             $isCurrent, // is current
             $numberOfMonths, // number of months
             $exp->title ?? '', // role or title
@@ -799,8 +799,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->user->first_name,
             $exp->user->last_name,
             $this->localizeEnum(ExperienceType::PERSONAL->name, ExperienceType::class), // experience type
-            $exp->start_date ? $exp->start_date->format('Y-m') : '', // start date
-            $exp->end_date ? $exp->end_date->format('Y-m') : '', // end date
+            $exp->start_date?->format('Y-m') ?? '', // start date
+            $exp->end_date?->format('Y-m') ?? '', // end date
             $isCurrent, // is current
             $numberOfMonths, // number of months
             $exp->title ?? '', // role or title
@@ -1002,7 +1002,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
         return [
             $exp->department->id ?? '',
-            $exp->department->size ? $this->localizeEnum($exp->department->size, DepartmentSize::class) : '',
+            $this->localizeEnum($exp->department->size, DepartmentSize::class),
             $exp->department->type ?? '',
         ];
     }
@@ -1080,12 +1080,12 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $interest->community->name[$this->lang] ?? '', // community name
             $interest->job_interest ? $this->localize('common.interested') : $this->localize('common.not_interested'), // job interest
             $interest->training_interest ? $this->localize('common.interested') : $this->localize('common.not_interested'), // training interest
-            $workStreams, // Work streams: workstreams linked to the community interest separated by commas
+            $workStreams, // Work streams: work streams linked to the community interest separated by commas
             $interest->additional_information, // additional information
             ...$developmentProgramInterests, // Generated leadership and development columns
             $interest->community->key === 'finance' ? $this->yesOrNo($interest->finance_is_chief) : '', // CFO status
-            $this->localizeEnumArray($interest->finance_additional_duties ?? [], FinanceChiefDuty::class), // additional duties
-            $this->localizeEnumArray($interest->finance_other_roles ?? [], FinanceChiefRole::class), // other roles
+            $this->localizeEnumArray($interest->finance_additional_duties, FinanceChiefDuty::class), // additional duties
+            $this->localizeEnumArray($interest->finance_other_roles, FinanceChiefRole::class), // other roles
             $interest->finance_other_roles_other, // other SDO position
         ];
     }

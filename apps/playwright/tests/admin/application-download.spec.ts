@@ -112,7 +112,6 @@ test.describe("Application download", () => {
     const doc = new WordDocument(appPage.page);
     await doc.setContent(path);
 
-    // eslint-disable-next-line playwright/no-conditional-in-test
     const name = user.firstName ?? "Failed test, no user name";
 
     await expect(
@@ -134,7 +133,6 @@ test.describe("Application download", () => {
     const candidatePage = new PoolCandidatePage(appPage.page);
     await loginBySub(candidatePage.page, "admin@test.com");
 
-    // eslint-disable-next-line playwright/no-conditional-in-test
     const name = user.firstName ?? "Failed test, no user name";
 
     await candidatePage.searchForCandidate(name);

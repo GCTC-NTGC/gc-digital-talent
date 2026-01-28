@@ -77,6 +77,13 @@ class SnapshotTest extends TestCase
         $pool1 = Pool::factory()->published()->create();
         $pool2 = Pool::factory()->published()->create();
 
+        // Ensure user has pool skills
+        $essentialSkills = $pool1->essentialSkills()->get();
+        $skillsArray = $essentialSkills->map(fn ($skill) => ['id' => $skill->id])->all();
+        foreach (WorkExperience::where('user_id', $user->id)->with('user')->get() as $exp) {
+            $exp->syncSkills($skillsArray);
+        }
+
         $poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $user->id,
             'pool_id' => $pool1->id,

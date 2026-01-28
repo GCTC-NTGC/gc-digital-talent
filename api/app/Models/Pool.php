@@ -113,6 +113,7 @@ class Pool extends Model
         'what_to_expect',
         'advertisement_location',
         'special_note',
+        'about_us',
         'publishing_group',
         'process_number',
         'operational_requirements',

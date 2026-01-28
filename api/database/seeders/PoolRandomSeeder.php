@@ -15,7 +15,7 @@ class PoolRandomSeeder extends Seeder
     public function run()
     {
         Pool::factory()->draft()->create();
-        Pool::factory()->count(3)->published()->withAssessments(3)->create();
+        Pool::factory()->count(3)->published()->withAssessmentSteps(3)->create();
         Pool::factory()->closed()->create();
         Pool::factory()->archived()->create();
     }

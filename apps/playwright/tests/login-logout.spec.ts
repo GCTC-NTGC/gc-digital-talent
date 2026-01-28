@@ -7,6 +7,7 @@ test.describe("Login and logout", () => {
   test.beforeEach(async ({ page }) => {
     await page.clock.setSystemTime(Date.now());
   });
+
   test("log in", async ({ page }) => {
     const requestPromise = page.waitForRequest(
       (request) =>
@@ -60,6 +61,7 @@ test.describe("Login and logout", () => {
         );
       });
   });
+
   // If you log in as a deleted user you end up on the "user deleted" page.
   test("show a message when logged in as a deleted user", async ({ page }) => {
     // stub the "user deleted" API response.
@@ -67,22 +69,24 @@ test.describe("Login and logout", () => {
     await page.route("**/graphql", async (route) => {
       const reqJson = (await route
         .request()
-        ?.postDataJSON()) as GraphQLOperation | null;
+        .postDataJSON()) as GraphQLOperation | null;
       if (reqJson?.operationName === "authorizationQuery") {
         const body = JSON.stringify({
           data: { myAuth: null },
           errors: [
             {
               message: `Login as deleted user: applicant@test.com`,
-              extensions: {
-                reason: "user_deleted",
-              },
+              extensions: { reason: "user_deleted" },
             },
           ],
         });
         await route.fulfill({ body });
+        return;
       }
+      // Always continue for others
+      await route.continue();
     });
+
     // start login process
     await page.goto("/login");
     await page.locator("input[name=username]").fill("applicant@test.com");
@@ -261,6 +265,7 @@ test.describe("Login and logout", () => {
       expect(searchParamIdTokenHint).toEqual(tokenSet.idToken);
     });
   });
+
   // If token validation fails the user is immediately logged out.
   test("log out when token validation fails", async ({ page }) => {
     // start login process
@@ -284,7 +289,10 @@ test.describe("Login and logout", () => {
           ],
         });
         await route.fulfill({ body });
+        return;
       }
+
+      await route.continue();
     });
 
     // try to visit a page
@@ -298,6 +306,7 @@ test.describe("Login and logout", () => {
       }),
     ).toBeVisible();
   });
+
   // Logout appears to make all logged in tabs
   test("all tabs logged out", async ({ context }) => {
     const pageOne = await context.newPage();
