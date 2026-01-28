@@ -317,3 +317,16 @@ export const deletePool: GraphQLRequestFunc<Pool, DeletePoolArgs> = async (
     })
     .then((res: GraphQLResponse<"deletePool", Pool>) => res.deletePool);
 };
+
+export const createAndPublishInternalPool: GraphQLRequestFunc<
+  Pool,
+  CreateAndPublishPoolArgs
+> = async (ctx, args) => {
+  return createAndPublishPool(ctx, {
+    ...args,
+    input: {
+      ...args.input,
+      areaOfSelection: PoolAreaOfSelection.Employees,
+    },
+  });
+};

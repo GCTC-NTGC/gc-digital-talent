@@ -969,9 +969,16 @@ enum ActivityEvent {
   QUALIFIED
   DISQUALIFIED
   PLACED
+  ADDED
   REMOVED
   REINSTATED
   REVERTED
+  PUBLISHED
+}
+
+enum ActivityLog {
+  DEFAULT
+  PROCESS
 }
 
 enum ApplicationStatus {
@@ -1331,6 +1338,7 @@ enum ErrorCode {
   SUB_IN_USE
   VERIFICATION_FAILED
   DUPLICATE_USER_SKILL
+  WORK_STREAM_NAME_IN_USE
   RATE_LIMIT
 }
 
