@@ -8,4 +8,5 @@ rm ./bootstrap/cache/*.php --force
 composer install --prefer-dist
 php artisan migrate
 php artisan lighthouse:print-schema --write
+php artisan lighthouse:ide-helper
 php artisan optimize:clear
