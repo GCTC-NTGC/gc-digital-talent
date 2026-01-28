@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Notifications;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\NotificationFamily;
-use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Notifications\ApplicationStatusChanged;
@@ -46,12 +46,10 @@ class TriggerApplicationStatusChangedTest extends TestCase
         $application = PoolCandidate::factory()
             ->for($this->user)
             ->create([
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
-
+                'application_status' => ApplicationStatus::DRAFT->name,
             ]);
 
-        $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
-        $application->save();
+        $application->submit('test-notification');
 
         Notification::assertNothingSent();
     }
@@ -61,15 +59,9 @@ class TriggerApplicationStatusChangedTest extends TestCase
     {
         $application = PoolCandidate::factory()
             ->for($this->user)
-            ->create(['pool_candidate_status' => PoolCandidateStatus::DRAFT->name]);
+            ->create(['application_status' => ApplicationStatus::DRAFT->name]);
 
-        $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
-        $application->save();
-        $application->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
-        $application->save();
-        $application->pool_candidate_status = PoolCandidateStatus::APPLICATION_REVIEW->name;
-        $application->save();
-        $application->pool_candidate_status = PoolCandidateStatus::SCREENED_IN->name;
+        $application->application_status = ApplicationStatus::TO_ASSESS->name;
         $application->save();
 
         Notification::assertNothingSent();
@@ -81,9 +73,9 @@ class TriggerApplicationStatusChangedTest extends TestCase
     {
         $application = PoolCandidate::factory()
             ->for($this->user)
-            ->create(['pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name]);
+            ->create(['application_status' => ApplicationStatus::TO_ASSESS->name]);
 
-        $application->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $application->application_status = ApplicationStatus::QUALIFIED->name;
         $application->save();
 
         Notification::assertSentTo(
@@ -97,9 +89,9 @@ class TriggerApplicationStatusChangedTest extends TestCase
     {
         $application = PoolCandidate::factory()
             ->for($this->user)
-            ->create(['pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name]);
+            ->create(['application_status' => ApplicationStatus::QUALIFIED->name]);
 
-        $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $application->application_status = ApplicationStatus::TO_ASSESS->name;
         $application->save();
 
         Notification::assertSentTo(
@@ -113,9 +105,9 @@ class TriggerApplicationStatusChangedTest extends TestCase
     {
         $application = PoolCandidate::factory()
             ->for($this->user)
-            ->create(['pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name]);
+            ->create(['application_status' => ApplicationStatus::TO_ASSESS->name]);
 
-        $application->pool_candidate_status = PoolCandidateStatus::REMOVED->name;
+        $application->application_status = ApplicationStatus::REMOVED->name;
         $application->save();
 
         Notification::assertSentTo(
@@ -129,9 +121,9 @@ class TriggerApplicationStatusChangedTest extends TestCase
     {
         $application = PoolCandidate::factory()
             ->for($this->user)
-            ->create(['pool_candidate_status' => PoolCandidateStatus::REMOVED->name]);
+            ->create(['application_status' => ApplicationStatus::REMOVED->name]);
 
-        $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $application->application_status = ApplicationStatus::TO_ASSESS->name;
         $application->save();
 
         Notification::assertSentTo(

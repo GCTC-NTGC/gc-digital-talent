@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ApplicationStatus;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -299,6 +299,7 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationPlacement')) {
             return true;
         }
+
         $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
         $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationPlacement', $poolCandidate->pool->team);
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationPlacement', $poolCandidate->pool->community->team);
@@ -310,27 +311,20 @@ class PoolCandidatePolicy
      * Parent function to handle assessing status update authorization
      * Branches depending on input status
      *
-     * @param  array{id: ?string, expiry_date: ?string, pool_candidate_status: ?string }  $args
+     * @param  array{id: ?string, expiry_date: ?string, application_status: ?string }  $args
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function updateStatus(User $user, PoolCandidate $poolCandidate, $args)
     {
-        $inputStatus = $args['pool_candidate_status'] ?? null;
+        $inputStatus = $args['application_status'] ?? null;
+        $inputPlacementType = $args['placement_type'] ?? null;
+
+        if ($inputPlacementType) {
+            return $this->updatePlacement($user, $poolCandidate);
+        }
 
         if ($inputStatus) {
-
-            $placedStatuses = PoolCandidateStatus::placedGroup();
-            $draftOrExpired = [
-                PoolCandidateStatus::DRAFT->name,
-                PoolCandidateStatus::DRAFT_EXPIRED->name,
-                PoolCandidateStatus::EXPIRED->name,
-            ];
-
-            if (in_array($inputStatus, $placedStatuses)) {
-                return $this->updatePlacement($user, $poolCandidate);
-            }
-
-            if (in_array($inputStatus, $draftOrExpired)) {
+            if ($inputStatus === ApplicationStatus::DRAFT->name) {
                 return $this->updateStatusLegacy($user, $poolCandidate);
             }
 

@@ -8,6 +8,11 @@ interface LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedApplicationStatus implements LocalizedEnumOption {
+  value: ApplicationStatus!
+  label: LocalizedString!
+}
+
 type LocalizedArmedForcesStatus implements LocalizedEnumOption {
   value: ArmedForcesStatus!
   label: LocalizedString!
@@ -110,6 +115,11 @@ type LocalizedDeadlineStatus implements LocalizedEnumOption {
 
 type LocalizedDepartmentSize implements LocalizedEnumOption {
   value: DepartmentSize!
+  label: LocalizedString!
+}
+
+type LocalizedDisqualificationReason implements LocalizedEnumOption {
+  value: DisqualificationReason!
   label: LocalizedString!
 }
 
@@ -1191,7 +1201,7 @@ type PoolCandidate {
   user: User!
   expiryDate: Date
   category: PoolCandidateCategory
-  status: LocalizedPoolCandidateStatus
+  status: LocalizedApplicationStatus
   candidateStatus: LocalizedCandidateStatus
   candidateInterest: LocalizedCandidateInterest
   statusWeight: Int
@@ -1202,7 +1212,6 @@ type PoolCandidate {
   suspendedAt: DateTime
   deletedDate: DateTime
   isFlagged: Boolean
-  removedAt: DateTime
   removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
   profileSnapshot: JSON
@@ -1216,8 +1225,9 @@ type PoolCandidate {
   assessmentResults: [AssessmentResult]
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep
-  finalDecision: LocalizedFinalDecision
-  finalDecisionAt: DateTime
+  statusUpdatedAt: DateTime
+  disqualificationReason: LocalizedDisqualificationReason
+  placementType: LocalizedPlacementType
   placedAt: DateTime
   placedDepartment: Department
   veteranVerification: ClaimVerificationResult
@@ -1238,7 +1248,7 @@ type PoolCandidateAdminView {
   user: User!
   submittedAt: DateTime
   suspendedAt: DateTime
-  status: LocalizedPoolCandidateStatus
+  status: LocalizedApplicationStatus
   candidateStatus: LocalizedCandidateStatus
   candidateInterest: LocalizedCandidateInterest
   screeningStage: LocalizedScreeningStage
@@ -1247,11 +1257,10 @@ type PoolCandidateAdminView {
   category: PoolCandidateCategory
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep
-  finalDecision: LocalizedFinalDecision
+  placementType: LocalizedPlacementType
   placedDepartment: Department
   closingDate: DateTime
-  removedAt: DateTime
-  finalDecisionAt: DateTime
+  statusUpdatedAt: DateTime
 }
 
 type PoolCandidateAdminViewWithSkillCount {
@@ -1678,7 +1687,7 @@ input IdInput {
 input UserPoolFilterInput {
   poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
-  statuses: [PoolCandidateStatus!]
+  statuses: [ApplicationStatus!]
   suspendedStatus: CandidateSuspendedFilter = ACTIVE
 }
 
@@ -1773,7 +1782,7 @@ input PoolCandidateSearchInput {
   isGovEmployee: Boolean
   departments: [UUID!]
   priorityWeight: [PriorityWeight]
-  poolCandidateStatus: [PoolCandidateStatus]
+  statuses: [ApplicationStatus]
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
   publishingGroups: [PublishingGroup]
@@ -1782,7 +1791,6 @@ input PoolCandidateSearchInput {
   processNumber: String
   flexibleWorkLocations: [FlexibleWorkLocation]
   assessmentSteps: [Int!]
-  finalDecisions: [FinalDecision!]
   placementTypes: [PlacementType!]
   removalReasons: [CandidateRemovalReason!]
   screeningStages: [ScreeningStage!]
@@ -2189,7 +2197,7 @@ input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
   expiryDate: Date
-  status: PoolCandidateStatus = NEW_APPLICATION
+  status: ApplicationStatus = TO_ASSESS
   notes: String
   isFlagged: Boolean
 }
@@ -2205,7 +2213,7 @@ input UpdateClassificationInput {
 
 input UpdatePoolCandidateStatusInput {
   expiryDate: Date
-  status: PoolCandidateStatus
+  status: ApplicationStatus
 }
 
 input UpdatePoolCandidateClaimVerificationInput {
@@ -3470,6 +3478,14 @@ enum ActivityEvent {
 enum ActivityLog {
   DEFAULT
   PROCESS
+}
+
+enum ApplicationStatus {
+  DRAFT
+  TO_ASSESS
+  REMOVED
+  DISQUALIFIED
+  QUALIFIED
 }
 
 enum ApplicationStep {

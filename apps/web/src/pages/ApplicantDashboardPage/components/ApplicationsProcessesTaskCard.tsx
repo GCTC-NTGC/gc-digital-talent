@@ -1,7 +1,12 @@
 import { useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  ApplicationStatus,
+  FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import {
   Accordion,
   AccordionMetaData,
@@ -12,7 +17,6 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
-import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
 import { recruitmentProcessesTitle } from "~/components/RecruitmentProcesses/utils";
 
 import ReviewRecruitmentProcessPreviewList from "./ReviewRecruitmentProcessPreviewList";
@@ -27,10 +31,9 @@ const ApplicationsProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
     }
     poolCandidates {
       ...ReviewApplicationPreviewList
-      finalDecision {
+      status {
         value
       }
-      finalDecisionAt
     }
     ...ReviewRecruitmentProcessPreviewList
   }
@@ -67,9 +70,7 @@ const ApplicationsProcessesTaskCard = ({
     applicationsProcessesTaskCardFragment?.poolCandidates,
   );
   const recruitmentProcessesFiltered = recruitmentProcesses.filter(
-    (recruitmentProcess) =>
-      recruitmentProcess.finalDecisionAt &&
-      isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
+    ({ status }) => status?.value === ApplicationStatus.Qualified,
   ); // filter for qualified recruitment processes
 
   const offPlatformProcesses = unpackMaybes(

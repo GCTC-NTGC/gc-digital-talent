@@ -21,10 +21,8 @@ import {
   CandidateSuspendedFilter,
   SortOrder,
   FragmentType,
-  AssessmentResultStatus,
   LocalizedProvinceOrTerritory,
   Classification,
-  LocalizedFinalDecision,
   InputMaybe,
   LocalizedString,
   ClaimVerificationSort,
@@ -34,6 +32,7 @@ import {
   LocalizedCandidateSuspendedFilter,
   PoolCandidatesBaseSort,
   LocalizedCandidateStatus,
+  LocalizedApplicationStatus,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Radio } from "@gc-digital-talent/forms";
@@ -42,7 +41,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
   candidateStatusChip,
-  getCandidateStatusChip,
+  getApplicationStatusChip,
 } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
@@ -187,18 +186,11 @@ export const currentLocationAccessor = (
 ) =>
   `${city ?? intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
 
-export const finalDecisionCell = (
-  finalDecision: Maybe<LocalizedFinalDecision> | undefined,
-  assessmentStep: Maybe<number> | undefined,
-  assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
+export const applicationStatusCell = (
+  status: Maybe<LocalizedApplicationStatus> | undefined,
   intl: IntlShape,
 ) => {
-  const { color, label } = getCandidateStatusChip(
-    finalDecision,
-    assessmentStep,
-    assessmentStatus,
-    intl,
-  );
+  const { label, color } = getApplicationStatusChip(status, intl);
   return <Chip color={color}>{label}</Chip>;
 };
 
@@ -474,7 +466,7 @@ export function transformPoolCandidateSearchInputToFormValues(
     assessmentSteps: unpackMaybes(
       input?.assessmentSteps?.flatMap((step) => String(step)),
     ),
-    finalDecisions: unpackMaybes(input?.finalDecisions),
+    statuses: unpackMaybes(input?.statuses),
     removalReasons: unpackMaybes(input?.removalReasons),
     placementTypes: unpackMaybes(input?.placementTypes),
     screeningStages: unpackMaybes(input?.screeningStages),
@@ -516,7 +508,7 @@ export function transformFormValuesToFilterState(
     assessmentSteps: data.assessmentSteps
       .filter(notEmpty)
       .map((step) => Number(step)),
-    finalDecisions: data.finalDecisions,
+    statuses: data.statuses,
     removalReasons: data.removalReasons,
     placementTypes: data.placementTypes,
     screeningStages: data.screeningStages,
@@ -551,7 +543,7 @@ export const addSearchToPoolCandidateFilterInput = (
         fancyFilterState?.applicantFilter?.flexibleWorkLocations,
       hasDiploma: null, // disconnect education selection for CandidatesTableCandidatesPaginated_Query
     },
-    poolCandidateStatus: fancyFilterState?.poolCandidateStatus,
+    statuses: fancyFilterState?.statuses,
     priorityWeight: fancyFilterState?.priorityWeight,
     expiryStatus: fancyFilterState?.expiryStatus,
     suspendedStatus: fancyFilterState?.suspendedStatus,
@@ -563,7 +555,6 @@ export const addSearchToPoolCandidateFilterInput = (
     assessmentSteps: fancyFilterState?.assessmentSteps?.map((val) =>
       Number(val),
     ),
-    finalDecisions: fancyFilterState?.finalDecisions,
     removalReasons: fancyFilterState?.removalReasons,
     placementTypes: fancyFilterState?.placementTypes,
     screeningStages: fancyFilterState?.screeningStages,

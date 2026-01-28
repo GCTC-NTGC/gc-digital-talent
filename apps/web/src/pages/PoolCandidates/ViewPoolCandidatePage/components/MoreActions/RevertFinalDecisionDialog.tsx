@@ -4,8 +4,8 @@ import { useMutation } from "urql";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import {
+  ApplicationStatus,
   FragmentType,
-  PoolCandidateStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -23,7 +23,6 @@ import {
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
-import { isDisqualifiedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 
 const RevertFinalDecision_Mutation = graphql(/* GraphQL */ `
   mutation RevertFinalDecision_Mutation($id: UUID!) {
@@ -37,7 +36,7 @@ export const RevertFinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
   fragment RevertFinalDecisionDialog on PoolCandidate {
     id
     expiryDate
-    finalDecisionAt
+    statusUpdatedAt
     status {
       value
       label {
@@ -62,7 +61,7 @@ const RevertFinalDecisionDialog = ({
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [, executeMutation] = useMutation(RevertFinalDecision_Mutation);
-  const { id, expiryDate, finalDecisionAt, status } = getFragment(
+  const { id, expiryDate, statusUpdatedAt, status } = getFragment(
     RevertFinalDecisionDialog_Fragment,
     revertFinalDecisionQuery,
   );
@@ -100,21 +99,16 @@ const RevertFinalDecisionDialog = ({
       });
   };
 
-  const isQualified =
-    isQualifiedStatus(status?.value) ||
-    status?.value === PoolCandidateStatus.Expired;
+  const isQualified = status?.value === ApplicationStatus.Qualified;
 
-  const finalDecisionDate = finalDecisionAt
+  const finalDecisionDate = statusUpdatedAt
     ? formatDate({
-        date: parseDateTimeUtc(finalDecisionAt),
+        date: parseDateTimeUtc(statusUpdatedAt),
         formatString: DATE_FORMAT_STRING,
         intl,
       })
     : intl.formatMessage(commonMessages.notAvailable);
 
-  if (!isQualified || !isDisqualifiedStatus(status?.value)) {
-    intl.formatMessage(commonMessages.notApplicable);
-  }
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
@@ -176,7 +170,7 @@ const RevertFinalDecisionDialog = ({
                 </p>
               </div>
             )}
-            <p {...(!isQualified && { className: "font-bold" })}>
+            <p className={!isQualified ? "font-bold" : undefined}>
               {intl.formatMessage({
                 defaultMessage:
                   "Do you wish to revert this decision and set candidate status to “Under assessment”?",

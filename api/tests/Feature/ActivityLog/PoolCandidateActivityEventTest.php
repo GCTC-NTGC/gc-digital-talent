@@ -3,8 +3,11 @@
 namespace Tests\Feature\ActivityLog;
 
 use App\Enums\ActivityEvent;
+use App\Enums\ApplicationStatus;
 use App\Enums\CandidateRemovalReason;
-use App\Enums\PoolCandidateStatus;
+use App\Enums\DisqualificationReason;
+use App\Enums\PlacementType;
+use App\Enums\ScreeningStage;
 use App\Models\Activity;
 use App\Models\Department;
 use App\Models\PoolCandidate;
@@ -74,7 +77,7 @@ class PoolCandidateActivityEventTest extends TestCase
 
     public function testDisqualifiedEvent()
     {
-        $this->application->disqualify(PoolCandidateStatus::SCREENED_OUT_APPLICATION->name);
+        $this->application->disqualify(DisqualificationReason::SCREENED_OUT_APPLICATION->name);
 
         $this->assertDatabaseHas('activity_log', [
             'subject_type' => PoolCandidate::class,
@@ -85,7 +88,7 @@ class PoolCandidateActivityEventTest extends TestCase
 
     public function testPlacedEvent()
     {
-        $type = PoolCandidateStatus::PLACED_CASUAL->name;
+        $type = PlacementType::PLACED_CASUAL->name;
         $department = Department::factory()->create();
 
         $this->application->place($type, $department->id);
@@ -113,7 +116,9 @@ class PoolCandidateActivityEventTest extends TestCase
         $reason = CandidateRemovalReason::OTHER->name;
         $other = 'Some reason';
 
-        $this->application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->application->application_status = ApplicationStatus::TO_ASSESS->name;
+        $this->application->screening_stage = ScreeningStage::NEW_APPLICATION->name;
+        $this->application->placement_type = null;
         $this->application->saveQuietly();
 
         $this->application->remove($reason, $other);
@@ -138,7 +143,7 @@ class PoolCandidateActivityEventTest extends TestCase
 
     public function testReinstateEvent()
     {
-        $this->application->pool_candidate_status = PoolCandidateStatus::REMOVED->name;
+        $this->application->application_status = ApplicationStatus::REMOVED->name;
         $this->application->saveQuietly();
 
         $this->application->reinstate();

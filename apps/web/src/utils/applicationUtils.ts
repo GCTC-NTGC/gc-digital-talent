@@ -13,13 +13,12 @@ import {
   ApplicationStep,
   Maybe,
   PoolCandidate,
-  LocalizedPoolCandidateStatus,
   Application_PoolCandidateFragment,
+  LocalizedApplicationStatus,
+  ApplicationStatus,
 } from "@gc-digital-talent/graphql";
 
 import { ApplicationStepInfo } from "~/types/applicationStep";
-
-import { isDraftStatus, isToAssessStatus } from "./poolCandidate";
 
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
 const missingPrerequisitesFromThisApplication = (
@@ -123,14 +122,14 @@ export type Application = Omit<PoolCandidate, "user">;
  * - OR has been submitted but is still in assessment
  */
 export function isApplicationInProgress(a: {
-  status?: Maybe<LocalizedPoolCandidateStatus>;
+  status?: Maybe<LocalizedApplicationStatus>;
   pool: { closingDate?: Maybe<string> };
 }): boolean {
   const poolIsExpired = a.pool.closingDate
     ? isPast(parseDateTimeUtc(a.pool.closingDate))
     : false; // If it doesn't have a closing date it can't be expired
   return (
-    (isDraftStatus(a.status?.value) && !poolIsExpired) ||
-    isToAssessStatus(a.status?.value)
+    (a.status?.value === ApplicationStatus.Draft && !poolIsExpired) ||
+    a.status?.value === ApplicationStatus.ToAssess
   );
 }

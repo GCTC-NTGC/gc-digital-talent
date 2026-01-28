@@ -1,7 +1,12 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  ApplicationStatus,
+  FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Heading,
@@ -14,10 +19,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getClassificationName } from "~/utils/poolUtils";
-import {
-  candidateInterestChip,
-  isQualifiedFinalDecision,
-} from "~/utils/poolCandidate";
+import { candidateInterestChip } from "~/utils/poolCandidate";
 import { wrapAbbr } from "~/utils/nameUtils";
 import OffPlatformRecruitmentProcessList from "~/components/RecruitmentProcesses/OffPlatformRecruitmentProcessList";
 import OffPlatformProcessDialog from "~/components/RecruitmentProcesses/OffPlatformProcessDialog";
@@ -36,14 +38,14 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
     poolCandidates {
       ...ReviewRecruitmentProcessDialog
       id
-      finalDecisionAt
+      statusUpdatedAt
       candidateInterest {
         value
         label {
           localized
         }
       }
-      finalDecision {
+      status {
         value
       }
       pool {
@@ -86,9 +88,7 @@ const ReviewRecruitmentProcessPreviewList = ({
 
   const recruitmentProcesses = unpackMaybes(user?.poolCandidates);
   const recruitmentProcessesFiltered = recruitmentProcesses.filter(
-    (recruitmentProcess) =>
-      recruitmentProcess.finalDecisionAt &&
-      isQualifiedFinalDecision(recruitmentProcess.finalDecision?.value),
+    ({ status }) => status?.value === ApplicationStatus.Qualified,
   ); // filter for qualified recruitment processes
 
   const [{ data: offPlatformProcessData, fetching, error }] = useQuery({
@@ -100,7 +100,7 @@ const ReviewRecruitmentProcessPreviewList = ({
       {recruitmentProcessesFiltered.length ? (
         <PreviewList.Root>
           {recruitmentProcessesFiltered.map((recruitmentProcess) => {
-            const { id, pool, finalDecisionAt, candidateInterest } =
+            const { id, pool, statusUpdatedAt, candidateInterest } =
               recruitmentProcess;
             const interestChip = candidateInterestChip(candidateInterest);
 
@@ -133,7 +133,7 @@ const ReviewRecruitmentProcessPreviewList = ({
                 type: "text",
                 children: (
                   <RecruitmentDate
-                    finalDecisionAt={finalDecisionAt}
+                    statusUpdatedAt={statusUpdatedAt}
                     interest={candidateInterest?.value}
                   />
                 ),

@@ -662,8 +662,8 @@ type PoolCandidate {
   expiryDate: Date @rename(attribute: "expiry_date")
 
   category: PoolCandidateCategory @with(relation: "user")
-  status: LocalizedPoolCandidateStatus
-    @rename(attribute: "pool_candidate_status")
+  status: LocalizedApplicationStatus
+    @rename(attribute: "application_status")
     @canRoot(ability: "viewStatus")
   candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
   candidateInterest: LocalizedCandidateInterest @canRoot(ability: "viewStatus")
@@ -681,9 +681,6 @@ type PoolCandidate {
   isFlagged: Boolean
     @rename(attribute: "is_flagged")
     @canRoot(ability: "viewNotes")
-  removedAt: DateTime
-    @rename(attribute: "removed_at")
-    @canRoot(ability: "viewStatus")
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
     @canRoot(ability: "viewStatus")
@@ -715,10 +712,14 @@ type PoolCandidate {
     @rename(attribute: "computed_assessment_status")
   # Starts at 1, null indicates all steps successful
   assessmentStep: AssessmentStep @belongsTo
-  finalDecision: LocalizedFinalDecision
-    @rename(attribute: "computed_final_decision")
-  finalDecisionAt: DateTime
-    @rename(attribute: "final_decision_at")
+  statusUpdatedAt: DateTime
+    @rename(attribute: "status_updated_at")
+    @canRoot(ability: "viewStatus")
+  disqualificationReason: LocalizedDisqualificationReason
+    @rename(attribute: "disqualification_reason")
+    @canRoot(ability: "viewStatus")
+  placementType: LocalizedPlacementType
+    @rename(attribute: "placement_type")
     @canRoot(ability: "viewStatus")
   placedAt: DateTime
     @rename(attribute: "placed_at")
@@ -754,8 +755,7 @@ type PoolCandidateAdminView {
   user: User! @belongsTo(relation: "user")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
-  status: LocalizedPoolCandidateStatus
-    @rename(attribute: "pool_candidate_status")
+  status: LocalizedApplicationStatus @rename(attribute: "application_status")
   candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
   candidateInterest: LocalizedCandidateInterest @canRoot(ability: "viewStatus")
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
@@ -765,12 +765,10 @@ type PoolCandidateAdminView {
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
   assessmentStep: AssessmentStep @belongsTo
-  finalDecision: LocalizedFinalDecision
-    @rename(attribute: "computed_final_decision")
+  placementType: LocalizedPlacementType @rename(attribute: "placement_type")
   placedDepartment: Department @belongsTo
   closingDate: DateTime @rename(attribute: "closing_date")
-  removedAt: DateTime @rename(attribute: "removed_at")
-  finalDecisionAt: DateTime @rename(attribute: "final_decision_at")
+  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
 }
 
 type PoolCandidateAdminViewWithSkillCount {
@@ -1300,7 +1298,7 @@ input IdInput {
 input UserPoolFilterInput {
   poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
-  statuses: [PoolCandidateStatus!]
+  statuses: [ApplicationStatus!]
   suspendedStatus: CandidateSuspendedFilter = ACTIVE
 }
 
@@ -1408,7 +1406,7 @@ input PoolCandidateSearchInput {
   isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
   priorityWeight: [PriorityWeight] @scope(name: "whereCandidateCategoryIn")
-  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "whereStatusIn")
+  statuses: [ApplicationStatus] @scope(name: "whereStatusIn")
   expiryStatus: CandidateExpiryFilter @scope(name: "whereExpiryStatus")
   suspendedStatus: CandidateSuspendedFilter @scope(name: "whereSuspendedStatus")
   publishingGroups: [PublishingGroup] @scope(name: "wherePublishingGroupsIn") # Filters applicants based on the publishing group of the pool
@@ -1423,7 +1421,6 @@ input PoolCandidateSearchInput {
   flexibleWorkLocations: [FlexibleWorkLocation]
     @scope(name: "whereFlexibleWorkLocationsIn")
   assessmentSteps: [Int!] @scope(name: "whereAssessmentStepIn")
-  finalDecisions: [FinalDecision!] @scope(name: "whereFinalDecisionIn")
   placementTypes: [PlacementType!] @scope(name: "wherePlacementTypeIn")
   removalReasons: [CandidateRemovalReason!] @scope(name: "whereRemovalReasonIn")
   screeningStages: [ScreeningStage!] @scope(name: "whereScreeningStageIn")
@@ -2247,8 +2244,7 @@ input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
   expiryDate: Date @rename(attribute: "expiry_date")
-  status: PoolCandidateStatus = NEW_APPLICATION
-    @rename(attribute: "pool_candidate_status")
+  status: ApplicationStatus = TO_ASSESS @rename(attribute: "application_status")
   notes: String
   isFlagged: Boolean
 }
@@ -2270,7 +2266,7 @@ input UpdatePoolCandidateStatusInput {
   expiryDate: Date
     @rename(attribute: "expiry_date")
     @rules(apply: ["after_or_equal:today"])
-  status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+  status: ApplicationStatus @rename(attribute: "application_status")
 }
 
 input UpdatePoolCandidateClaimVerificationInput @validator {

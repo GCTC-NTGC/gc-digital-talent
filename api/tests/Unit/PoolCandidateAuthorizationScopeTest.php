@@ -2,7 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ApplicationStatus;
+use App\Enums\ScreeningStage;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -62,14 +63,15 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
             ->for($this->user1)
             ->for($this->poolA)
             ->create([
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                'application_status' => ApplicationStatus::DRAFT->name,
             ]);
 
         $this->candidateSubmitted1B = PoolCandidate::factory()
             ->for($this->user1)
             ->for($this->poolB)
             ->create([
-                'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+                'application_status' => ApplicationStatus::TO_ASSESS->name,
+                'screening_stage' => ScreeningStage::UNDER_ASSESSMENT->name,
             ]);
 
         $this->user2 = User::factory()
@@ -80,14 +82,15 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
             ->for($this->user2)
             ->for($this->poolB)
             ->create([
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                'application_status' => ApplicationStatus::DRAFT->name,
             ]);
 
         $this->candidateSubmitted2A = PoolCandidate::factory()
             ->for($this->user2)
             ->for($this->poolA)
             ->create([
-                'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+                'application_status' => ApplicationStatus::TO_ASSESS->name,
+                'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             ]);
     }
 

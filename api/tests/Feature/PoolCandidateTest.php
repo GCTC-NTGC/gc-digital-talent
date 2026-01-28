@@ -2,7 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ApplicationStatus;
+use App\Enums\ScreeningStage;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
 use App\Models\Community;
@@ -91,120 +92,6 @@ class PoolCandidateTest extends TestCase
             ->create([
                 'email' => 'unassociated-community-admin@test.com',
                 'sub' => 'unassociated-community-admin@test.com',
-            ]);
-    }
-
-    public function testPoolCandidateStatusAccessor(): void
-    {
-        $query =
-            /** @lang GraphQL */
-            '
-            query poolCandidate($id: UUID!) {
-                poolCandidate(id: $id) {
-                    status { value }
-                }
-            }
-        ';
-
-        // 1
-        // not submitted, expiry date in the future DRAFT
-        $candidateOne = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
-            'submitted_at' => null,
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_id' => $this->pool->id,
-        ]);
-        // set status to EXPIRED manually despite not being submitted
-        // this was split into two steps as otherwise PoolCandidateFactory automatically assigns a submitted_at
-        $candidateOne->pool_candidate_status = PoolCandidateStatus::EXPIRED->name;
-        $candidateOne->save();
-
-        // 2
-        // not submitted, expiry date in the past, DRAFT EXPIRED
-        $candidateTwo = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT_EXPIRED->name,
-            'submitted_at' => null,
-            'expiry_date' => config('constants.past_date'),
-            'pool_id' => $this->pool->id,
-        ]);
-        // set status to EXPIRED manually despite not being submitted
-        $candidateTwo->pool_candidate_status = PoolCandidateStatus::EXPIRED->name;
-        $candidateTwo->save();
-
-        // 3
-        // expired and submitted applicant that has a PLACED status
-        $candidateThree = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.past_date'),
-            'pool_id' => $this->pool->id,
-        ]);
-
-        // Assert candidate 3 is PLACED_CASUAL, despite being past expiry date
-        $this->actingAs($this->communityUser, 'api')
-            ->graphQL($query, ['id' => $candidateThree->id])
-            ->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'status' => [
-                            'value' => PoolCandidateStatus::PLACED_CASUAL->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        // 4
-        // expired and submitted applicant that lacks a PLACED status
-        // Declared but not used.
-        $candidateFour = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::UNDER_ASSESSMENT->name,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.past_date'),
-            'pool_id' => $this->pool->id,
-        ]);
-
-        // 5
-        // unexpired and submitted
-        $candidateFive = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_id' => $this->pool->id,
-        ]);
-
-        // Assert candidate 5 is NEW_APPLICATION as it was set
-        $this->actingAs($this->communityUser, 'api')
-            ->graphQL($query, ['id' => $candidateFive->id])
-            ->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'status' => [
-                            'value' => PoolCandidateStatus::NEW_APPLICATION->name,
-                        ],
-                    ],
-                ],
-            ]);
-
-        // 6
-        // unexpired and submitted
-        $candidateSix = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::APPLICATION_REVIEW->name,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_id' => $this->pool->id,
-        ]);
-
-        // Assert candidate 6 is APPLICATION_REVIEW as it was set
-        $this->actingAs($this->communityUser, 'api')
-            ->graphQL($query, ['id' => $candidateSix->id])
-            ->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'status' => [
-                            'value' => PoolCandidateStatus::APPLICATION_REVIEW->name,
-                        ],
-                    ],
-                ],
             ]);
     }
 
@@ -385,7 +272,8 @@ class PoolCandidateTest extends TestCase
     public function testNotesAccess(): void
     {
         $candidate = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
             'pool_id' => $this->pool->id,
@@ -466,7 +354,8 @@ class PoolCandidateTest extends TestCase
     public function testNotesUpdate(): void
     {
         $candidate = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
             'pool_id' => $this->pool->id,
@@ -509,7 +398,8 @@ class PoolCandidateTest extends TestCase
     public function testStatusAccess(): void
     {
         $candidate = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
             'pool_id' => $this->pool->id,
@@ -532,7 +422,7 @@ class PoolCandidateTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'status' => [
-                            'value' => $candidate->pool_candidate_status,
+                            'value' => $candidate->application_status,
                         ],
                     ],
                 ],
@@ -545,7 +435,7 @@ class PoolCandidateTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'status' => [
-                            'value' => $candidate->pool_candidate_status,
+                            'value' => $candidate->application_status,
                         ],
                     ],
                 ],
@@ -558,7 +448,7 @@ class PoolCandidateTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'status' => [
-                            'value' => $candidate->pool_candidate_status,
+                            'value' => $candidate->application_status,
                         ],
                     ],
                 ],
@@ -571,7 +461,7 @@ class PoolCandidateTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'status' => [
-                            'value' => $candidate->pool_candidate_status,
+                            'value' => $candidate->application_status,
                         ],
                     ],
                 ],

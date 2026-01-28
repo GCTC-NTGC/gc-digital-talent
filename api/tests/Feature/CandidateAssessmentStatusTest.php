@@ -2,14 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\DisqualificationReason;
 use App\Enums\OverallAssessmentStatus;
 use App\Enums\PlacementType;
-use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
+use App\Enums\ScreeningStage;
 use App\Enums\SkillCategory;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
@@ -31,8 +32,6 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
-
-use function PHPUnit\Framework\assertEquals;
 
 class CandidateAssessmentStatusTest extends TestCase
 {
@@ -107,8 +106,6 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $this->pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
-            'removed_at' => null,
-            'final_decision_at' => null,
             'assessment_step_id' => $this->pool->assessmentSteps->first()?->id,
         ]);
 
@@ -423,8 +420,6 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
-            'removed_at' => null,
-            'final_decision_at' => null,
         ]);
 
         $stepOne = $pool->assessmentSteps->first();
@@ -538,8 +533,6 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
-            'removed_at' => null,
-            'final_decision_at' => null,
         ]);
 
         AssessmentResult::factory()
@@ -623,8 +616,6 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
-            'removed_at' => null,
-            'final_decision_at' => null,
         ]);
 
         $assessmentStep = $pool->assessmentSteps->first();
@@ -723,8 +714,6 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
-            'removed_at' => null,
-            'final_decision_at' => null,
         ]);
 
         $stepOne = $pool->assessmentSteps->first();
@@ -798,8 +787,6 @@ class CandidateAssessmentStatusTest extends TestCase
             'pool_id' => $pool->id,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
-            'removed_at' => null,
-            'final_decision_at' => null,
             'assessment_step_id' => $stepOne->id,
         ]);
 
@@ -931,45 +918,6 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    /** Event ComputeCandidateAssessmentStatus can change the pool_candidate_status field
-     * Assert it is changed when the initial status is NEW_APPLICATION and unchanged otherwise
-     */
-    public function testComputeCandidateAssessmentStatusUpdatesPoolCandidateStatus(): void
-    {
-        $step = $this->pool->assessmentSteps[0];
-        $statuses = array_merge(
-            PoolCandidateStatus::toAssessGroup(),
-            PoolCandidateStatus::finalDecisionGroup(),
-        );
-
-        foreach ($statuses as $status) {
-            $candidate = PoolCandidate::factory()->create([
-                'pool_id' => $this->pool->id,
-                'pool_candidate_status' => $status,
-                'submitted_at' => config('constants.past_date'),
-                'expiry_date' => config('constants.far_future_date'),
-                'removed_at' => null,
-                'final_decision_at' => null,
-            ]);
-
-            AssessmentResult::factory()
-                ->withResultType(AssessmentResultType::EDUCATION)
-                ->create([
-                    'assessment_step_id' => $step->id,
-                    'pool_candidate_id' => $candidate->id,
-                    'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
-                ]);
-
-            $candidate->refresh();
-
-            if ($status === PoolCandidateStatus::NEW_APPLICATION->name) {
-                assertEquals($candidate->pool_candidate_status, PoolCandidateStatus::UNDER_ASSESSMENT->name);
-            } else {
-                assertEquals($candidate->pool_candidate_status, $status);
-            }
-        }
-    }
-
     // step through the ROD mutations (qualify, revert, etc) and check what they set the current step to
     public function testRODMutationsAndTheirEffectOnCurrentStep(): void
     {
@@ -980,7 +928,6 @@ class CandidateAssessmentStatusTest extends TestCase
         mutation qualifyCandidate($id: UUID!, $poolCandidate: QualifyCandidateInput!) {
             qualifyCandidate(id: $id, poolCandidate: $poolCandidate) {
                 id
-                finalDecisionAt
                 assessmentStep { sortOrder }
             }
           }
@@ -991,7 +938,6 @@ class CandidateAssessmentStatusTest extends TestCase
         mutation qualifyAndPlaceCandidate($id: UUID!, $poolCandidate: QualifyAndPlaceCandidateInput!) {
             qualifyAndPlaceCandidate(id: $id, poolCandidate: $poolCandidate) {
                 id
-                finalDecisionAt
                 assessmentStep { sortOrder }
             }
           }
@@ -1016,7 +962,6 @@ class CandidateAssessmentStatusTest extends TestCase
         mutation disqualifyCandidate($id: UUID!, $reason: DisqualificationReason!) {
             disqualifyCandidate(id: $id, reason: $reason) {
                 id
-                finalDecisionAt
                 assessmentStep { sortOrder }
             }
           }
@@ -1027,7 +972,6 @@ class CandidateAssessmentStatusTest extends TestCase
         mutation revertFinalDecision($id: UUID!) {
             revertFinalDecision(id: $id) {
                 id
-                finalDecisionAt
                 assessmentStep { sortOrder }
             }
           }
@@ -1042,7 +986,6 @@ class CandidateAssessmentStatusTest extends TestCase
                 removalReasonOther: $removalReasonOther
             ){
                 id
-                removedAt
                 assessmentStep { sortOrder }
             }
         }
@@ -1053,7 +996,6 @@ class CandidateAssessmentStatusTest extends TestCase
         mutation reinstateCandidate($id: UUID!) {
             reinstateCandidate (id: $id){
                 id
-                removedAt
                 assessmentStep { sortOrder }
             }
         }
@@ -1064,11 +1006,10 @@ class CandidateAssessmentStatusTest extends TestCase
             ->create();
         $candidate = PoolCandidate::factory()->create([
             'pool_id' => $this->pool->id,
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
-            'removed_at' => null,
-            'final_decision_at' => null,
         ]);
         $department = Department::factory()->create();
 
@@ -1088,7 +1029,6 @@ class CandidateAssessmentStatusTest extends TestCase
             )
             ->assertJsonFragment([
                 'id' => $candidate->id,
-                'finalDecisionAt' => '2000-01-01 00:00:00',
                 'assessmentStep' => null,
             ]);
 
@@ -1102,7 +1042,6 @@ class CandidateAssessmentStatusTest extends TestCase
             )
             ->assertJsonFragment([
                 'id' => $candidate->id,
-                'finalDecisionAt' => null,
                 'assessmentStep' => null,
             ]);
 
@@ -1117,7 +1056,6 @@ class CandidateAssessmentStatusTest extends TestCase
             )
             ->assertJsonFragment([
                 'id' => $candidate->id,
-                'finalDecisionAt' => '2000-01-01 00:00:00',
                 'assessmentStep' => null,
             ]);
 
@@ -1131,7 +1069,6 @@ class CandidateAssessmentStatusTest extends TestCase
             )
             ->assertJsonFragment([
                 'id' => $candidate->id,
-                'finalDecisionAt' => null,
                 'assessmentStep' => null,
             ]);
 
@@ -1150,7 +1087,6 @@ class CandidateAssessmentStatusTest extends TestCase
             )
             ->assertJsonFragment([
                 'id' => $candidate->id,
-                'finalDecisionAt' => '2000-01-01 00:00:00',
                 'assessmentStep' => null,
             ]);
 
@@ -1176,7 +1112,6 @@ class CandidateAssessmentStatusTest extends TestCase
             )
             ->assertJsonFragment([
                 'id' => $candidate->id,
-                'finalDecisionAt' => null,
                 'assessmentStep' => null,
             ]);
 
@@ -1191,7 +1126,6 @@ class CandidateAssessmentStatusTest extends TestCase
             )
             ->assertJsonFragment([
                 'id' => $candidate->id,
-                'removedAt' => '2000-01-01 00:00:00',
                 'assessmentStep' => null,
             ]);
 
@@ -1205,7 +1139,6 @@ class CandidateAssessmentStatusTest extends TestCase
             )
             ->assertJsonFragment([
                 'id' => $candidate->id,
-                'removedAt' => null,
                 'assessmentStep' => null,
             ]);
     }

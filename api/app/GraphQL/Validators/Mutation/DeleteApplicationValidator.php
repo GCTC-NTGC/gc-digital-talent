@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\ErrorCode;
-use App\Enums\PoolCandidateStatus;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -18,9 +18,8 @@ final class DeleteApplicationValidator extends Validator
     {
         return [
             // application status check, must be one of these to be deleted
-            'pool_candidate_status' => [Rule::in([
-                PoolCandidateStatus::DRAFT->name,
-                PoolCandidateStatus::DRAFT_EXPIRED->name,
+            'application_status' => [Rule::in([
+                ApplicationStatus::DRAFT->name,
             ])],
         ];
     }

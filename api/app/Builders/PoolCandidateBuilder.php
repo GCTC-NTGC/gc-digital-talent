@@ -2,13 +2,12 @@
 
 namespace App\Builders;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
-use App\Enums\FinalDecision;
 use App\Enums\PlacementType;
-use App\Enums\PoolCandidateStatus;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
 use App\Enums\ScreeningStage;
@@ -259,18 +258,23 @@ class PoolCandidateBuilder extends Builder
 
     }
 
-    public function whereStatusIn(?array $poolCandidateStatuses): self
+    public function whereStatusIn(?array $applicationStatus): self
     {
-        if (empty($poolCandidateStatuses)) {
+        if (empty($applicationStatus)) {
             return $this;
         }
 
-        return $this->whereIn('pool_candidate_status', $poolCandidateStatuses);
+        return $this->whereIn('application_status', $applicationStatus);
     }
 
     public function whereAvailable(): self
     {
-        return $this->whereIn('pool_candidate_status', PoolCandidateStatus::qualifiedEquivalentGroup())
+        return $this->where('application_status', ApplicationStatus::QUALIFIED->name)
+            ->where(function ($query) {
+                $query->whereIn('placement_type', PlacementType::searchable())
+                    ->orWhereNull('placement_type');
+            })
+            ->where('referring', true)
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
@@ -278,14 +282,9 @@ class PoolCandidateBuilder extends Builder
     }
 
     // filter for qualified recruitments similar to frontend in `RecruitmentProcesses.tsx`
-    // based off final_decision_at AND computed_final_decision
     public function whereQualified(): self
     {
-        return $this->where(function ($query) {
-            $query
-                ->whereNotNull('final_decision_at')
-                ->whereIn('computed_final_decision', FinalDecision::applicableToQualifiedRecruitment());
-        });
+        return $this->where('application_status', ApplicationStatus::QUALIFIED->name);
     }
 
     public function whereHasDiploma(?bool $hasDiploma): self
@@ -303,12 +302,12 @@ class PoolCandidateBuilder extends Builder
     {
         $expiryStatus = isset($expiryStatus) ? $expiryStatus : CandidateExpiryFilter::ACTIVE->name;
         if ($expiryStatus == CandidateExpiryFilter::ACTIVE->name) {
-            $this->where(function ($query) {
+            return $this->where(function ($query) {
                 $query->whereDate('expiry_date', '>=', date('Y-m-d'))
                     ->orWhereNull('expiry_date');
             });
         } elseif ($expiryStatus == CandidateExpiryFilter::EXPIRED->name) {
-            $this->whereDate('expiry_date', '<', date('Y-m-d'));
+            return $this->whereDate('expiry_date', '<', date('Y-m-d'));
         }
 
         return $this;
@@ -414,16 +413,6 @@ class PoolCandidateBuilder extends Builder
         });
     }
 
-    public function whereFinalDecisionIn(?array $finalDecisions): self
-    {
-
-        if (empty($finalDecisions)) {
-            return $this;
-        }
-
-        return $this->whereIn('computed_final_decision', $finalDecisions);
-    }
-
     public function whereRemovalReasonIn(?array $removalReasons): self
     {
 
@@ -434,29 +423,14 @@ class PoolCandidateBuilder extends Builder
         return $this->whereIn('removal_reason', $removalReasons);
     }
 
-    /**
-     * Placement type is a subset of statuses (currently)
-     * So, this works almost identical to whereStatusIn
-     * except, it discriminates statuses that are not placement types
-     */
     public function wherePlacementTypeIn(?array $placementTypes): self
     {
-        $placementCases = array_column(PlacementType::cases(), 'name');
-        $diff = array_diff($placementTypes, $placementCases);
 
-        if (empty($placementTypes) || ! empty($diff)) {
+        if (empty($placementTypes)) {
             return $this;
         }
 
-        // NOTE: Temporary fix until we properly decouple this from status
-        //      Replaces `NOT_PLACED` with the equivalent status of `QUALIFIED_AVAILABLE`
-        //      as opposed to any of the placed statuses
-        $key = array_search(PlacementType::NOT_PLACED->name, $placementTypes);
-        if ($key !== false) {
-            $placementTypes[$key] = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
-        }
-
-        return $this->whereIn('pool_candidate_status', $placementTypes);
+        return $this->whereIn('placement_type', $placementTypes);
     }
 
     public function whereSkillsAdditive(?array $skills): self
@@ -538,14 +512,8 @@ class PoolCandidateBuilder extends Builder
         }
 
         // Ensure the PoolCandidates are qualified and available.
-        return $this->where(function ($query) {
-            $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
-        })
-            ->whereIn('pool_candidates.pool_candidate_status', PoolCandidateStatus::qualifiedEquivalentGroup()) // Where the PoolCandidate is accepted into the pool and not already placed.
-            ->where(function ($query) {
-                $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
-            })
-            // Now scope for valid pools, according to streams
+        return $this->whereAvailable()
+        // Now scope for valid pools, according to streams
             ->whereHas('pool', function ($query) use ($streams) {
                 $query->whereWorkStreamsIn($streams);
             });

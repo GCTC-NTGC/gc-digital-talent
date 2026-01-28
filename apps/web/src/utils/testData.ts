@@ -19,10 +19,9 @@ import {
   AssessmentStep,
   PoolCandidate,
   PoolSkill,
+  ApplicationStatus,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
-import { TO_ASSESS_STATUSES } from "~/constants/poolCandidate";
 
 faker.seed(0);
 
@@ -45,7 +44,7 @@ const fakePoolAssessmentSteps = fakeAssessmentSteps(3).map((step, index) => {
 });
 const fakeCandidates = fakePoolCandidates(8).map((candidate) => ({
   ...candidate,
-  status: toLocalizedEnum(faker.helpers.arrayElement(TO_ASSESS_STATUSES)),
+  status: toLocalizedEnum(ApplicationStatus.ToAssess),
 }));
 
 const makeAssessmentResult = (

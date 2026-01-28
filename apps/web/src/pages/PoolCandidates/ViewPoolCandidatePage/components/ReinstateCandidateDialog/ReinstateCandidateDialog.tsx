@@ -29,7 +29,7 @@ const ReinstateCandidate_Mutation = graphql(/* GraphQL */ `
 export const ReinstateCandidateDialog_Fragment = graphql(/* GraphQL */ `
   fragment ReinstateCandidateDialog on PoolCandidate {
     id
-    removedAt
+    statusUpdatedAt
     removalReason {
       label {
         en
@@ -110,9 +110,9 @@ const ReinstateCandidateDialog = ({
                 description: "Date the candidate was removed on",
               },
               {
-                removedDate: candidate.removedAt
+                removedDate: candidate.statusUpdatedAt
                   ? formatDate({
-                      date: parseDateTimeUtc(candidate.removedAt),
+                      date: parseDateTimeUtc(candidate.statusUpdatedAt),
                       formatString: DATE_FORMAT_STRING,
                       intl,
                     })

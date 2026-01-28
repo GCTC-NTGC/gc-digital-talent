@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ApplicationStatus;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -64,12 +64,12 @@ class PoolCandidatesPaginatedTest extends TestCase
 
         // A Draft candidate that no one should be able to see
         PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
         ]);
 
         // Random team candidate
         $this->noTeamCandidate = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
             'pool_id' => Pool::factory()->create([
                 'community_id' => Community::factory()->create(),
             ]),
@@ -77,14 +77,14 @@ class PoolCandidatesPaginatedTest extends TestCase
 
         // Assigned Team
         $this->teamCandidate = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
             'pool_id' => $this->pool->id,
         ]);
 
         $this->applicant = User::factory()->asApplicant()->create();
 
         $this->applicantCandidate = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->applicant->id,
             'pool_id' => $this->pool->id,
         ]);
@@ -155,14 +155,14 @@ class PoolCandidatesPaginatedTest extends TestCase
         $communityCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $communityPool]);
         $communityDraftCandidate = PoolCandidate::factory()->create([
             'pool_id' => $communityPool,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'submitted_at' => null,
         ]);
         $otherCandidate = PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $otherPool]);
         $otherDraftCandidate = PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $otherPool,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'submitted_at' => null,
         ]);
 
@@ -191,14 +191,14 @@ class PoolCandidatesPaginatedTest extends TestCase
         $communityCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $communityPool]);
         $communityDraftCandidate = PoolCandidate::factory()->create([
             'pool_id' => $communityPool,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'submitted_at' => null,
         ]);
         $otherCandidate = PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $otherPool]);
         $otherDraftCandidate = PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $otherPool,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'submitted_at' => null,
         ]);
 

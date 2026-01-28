@@ -2,7 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ApplicationStatus;
+use App\Enums\ScreeningStage;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\Pool;
@@ -105,21 +106,23 @@ class PoolCandidateAdminViewTest extends TestCase
             [
                 'user_id' => $this->applicant->id,
                 'pool_id' => $this->pool->id,
-                'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+                'application_status' => ApplicationStatus::TO_ASSESS->name,
+                'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             ]
         );
         $this->draftPoolCandidate = PoolCandidate::factory()->create(
             [
                 'user_id' => User::factory()->create(),
                 'pool_id' => $this->pool->id,
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                'application_status' => ApplicationStatus::DRAFT->name,
             ]
         );
         $this->thirdPoolCandidate = PoolCandidate::factory()->availableInSearch()->create(
             [
                 'user_id' => User::factory()->create(),
                 'pool_id' => Pool::factory()->create(['community_id' => Community::factory()->create()]),
-                'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+                'application_status' => ApplicationStatus::TO_ASSESS->name,
+                'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             ]
         );
     }

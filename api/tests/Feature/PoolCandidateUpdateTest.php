@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\ClaimVerificationResult;
@@ -9,7 +10,7 @@ use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\ErrorCode;
 use App\Enums\PlacementType;
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ScreeningStage;
 use App\Facades\Notify;
 use App\Models\Community;
 use App\Models\CommunityExperience;
@@ -19,13 +20,10 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
-use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
@@ -143,17 +141,6 @@ class PoolCandidateUpdateTest extends TestCase
 
         $this->unauthorizedMessage = 'This action is unauthorized.';
 
-        $this->manualStatusUpdateMutation = <<<'GRAPHQL'
-            mutation updatePoolCandidateStatus($id: UUID!, $candidate: UpdatePoolCandidateStatusInput!) {
-                updatePoolCandidateStatus(id: $id, poolCandidate: $candidate) {
-                    status { value }
-                    finalDecisionAt
-                    placedAt
-                    removedAt
-                }
-            }
-        GRAPHQL;
-
         $this->placeCandidateMutation =
         /** @lang GraphQL */
         '
@@ -161,6 +148,7 @@ class PoolCandidateUpdateTest extends TestCase
             placeCandidate(id: $id, poolCandidate: $poolCandidate) {
                 id
                 status { value }
+                placementType { value }
                 placedAt
                 placedDepartment {
                     id
@@ -176,6 +164,7 @@ class PoolCandidateUpdateTest extends TestCase
             revertPlaceCandidate(id: $id) {
                 id
                 status { value }
+                placementType { value }
                 placedAt
                 placedDepartment {
                     id
@@ -192,7 +181,6 @@ class PoolCandidateUpdateTest extends TestCase
               id
               status { value }
               expiryDate
-              finalDecisionAt
             }
           }
     ';
@@ -204,7 +192,7 @@ class PoolCandidateUpdateTest extends TestCase
             disqualifyCandidate(id: $id, reason: $reason) {
               id
               status { value }
-              finalDecisionAt
+              disqualificationReason { value }
             }
           }
     ';
@@ -217,7 +205,6 @@ class PoolCandidateUpdateTest extends TestCase
               id
               status { value }
               expiryDate
-              finalDecisionAt
             }
           }
     ';
@@ -232,7 +219,6 @@ class PoolCandidateUpdateTest extends TestCase
                 removalReasonOther: $removalReasonOther
             ){
                 status { value }
-                removedAt
                 removalReason { value }
                 removalReasonOther
             }
@@ -245,7 +231,6 @@ class PoolCandidateUpdateTest extends TestCase
         mutation reinstateTest($id: UUID!) {
             reinstateCandidate (id: $id){
                 status { value }
-                removedAt
                 removalReason { value }
                 removalReasonOther
             }
@@ -408,7 +393,8 @@ class PoolCandidateUpdateTest extends TestCase
     public function testRecordDecisionCandidateMutationPermissions(): void
     {
         $department = Department::factory()->create();
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::PLACED_CASUAL->name;
+        $this->poolCandidate->application_status = ApplicationStatus::QUALIFIED->name;
+        $this->poolCandidate->placement_type = PlacementType::PLACED_INDETERMINATE->name;
         $this->poolCandidate->save();
 
         // candidate may not update own status with the ROD status mutations
@@ -434,7 +420,7 @@ class PoolCandidateUpdateTest extends TestCase
             )
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->application_status = ApplicationStatus::TO_ASSESS->name;
         $this->poolCandidate->save();
 
         $this->actingAs($this->candidateUser, 'api')
@@ -448,6 +434,7 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+
         $this->actingAs($this->candidateUser, 'api')
             ->graphQL(
                 $this->disqualifyCandidateMutation,
@@ -458,7 +445,7 @@ class PoolCandidateUpdateTest extends TestCase
             )
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->poolCandidate->application_status = ApplicationStatus::QUALIFIED->name;
         $this->poolCandidate->save();
 
         $this->actingAs($this->candidateUser, 'api')
@@ -474,7 +461,7 @@ class PoolCandidateUpdateTest extends TestCase
     public function testPlaceCandidateMutation(): void
     {
         $department = Department::factory()->create();
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->application_status = ApplicationStatus::TO_ASSESS->name;
         $this->poolCandidate->placed_at = null;
         $this->poolCandidate->save();
 
@@ -492,7 +479,8 @@ class PoolCandidateUpdateTest extends TestCase
             )
             ->assertGraphQLErrorMessage(ErrorCode::INVALID_STATUS_PLACING->name);
 
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->poolCandidate->application_status = ApplicationStatus::QUALIFIED->name;
+        $this->poolCandidate->placement_type = PlacementType::NOT_PLACED->name;
         $this->poolCandidate->save();
 
         // candidate was placed successfully
@@ -508,7 +496,7 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.placeCandidate');
 
-        assertSame($response['status']['value'], PoolCandidateStatus::PLACED_CASUAL->name);
+        assertSame($response['placementType']['value'], PlacementType::PLACED_CASUAL->name);
         assertNotNull($response['placedAt']);
         assertSame($response['placedDepartment']['id'], $department->id);
     }
@@ -516,7 +504,8 @@ class PoolCandidateUpdateTest extends TestCase
     public function testRevertPlaceCandidateMutation(): void
     {
         $department = Department::factory()->create();
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->application_status = ApplicationStatus::TO_ASSESS->name;
+        $this->poolCandidate->placement_type = PlacementType::NOT_PLACED->name;
         $this->poolCandidate->placed_department_id = $department->id;
         $this->poolCandidate->placed_at = config('constants.far_past_date');
         $this->poolCandidate->save();
@@ -531,7 +520,8 @@ class PoolCandidateUpdateTest extends TestCase
             )
             ->assertGraphQLErrorMessage(ErrorCode::CANDIDATE_NOT_PLACED->name);
 
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::PLACED_CASUAL->name;
+        $this->poolCandidate->application_status = ApplicationStatus::QUALIFIED->name;
+        $this->poolCandidate->placement_type = PlacementType::PLACED_CASUAL->name;
         $this->poolCandidate->save();
 
         // mutation was successful
@@ -543,16 +533,17 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.revertPlaceCandidate');
 
-        assertSame($response['status']['value'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
+        assertSame($response['status']['value'], ApplicationStatus::QUALIFIED->name);
         assertNull($response['placedAt']);
         assertNull($response['placedDepartment']);
+        assertNull($response['placementType']);
     }
 
     public function testQualifyCandidateMutation(): void
     {
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->poolCandidate->application_status = ApplicationStatus::QUALIFIED->name;
+        $this->poolCandidate->status_updated_at = null;
         $this->poolCandidate->expiry_date = null;
-        $this->poolCandidate->final_decision_at = null;
         $this->poolCandidate->save();
 
         // cannot qualify candidate due to status
@@ -568,7 +559,7 @@ class PoolCandidateUpdateTest extends TestCase
             )
             ->assertGraphQLErrorMessage(ErrorCode::INVALID_STATUS_QUALIFICATION->name);
 
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->application_status = ApplicationStatus::TO_ASSESS->name;
         $this->poolCandidate->save();
 
         // cannot qualify candidate due to expiry date validation
@@ -596,16 +587,14 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.qualifyCandidate');
 
-        assertSame($response['status']['value'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
+        assertSame($response['status']['value'], ApplicationStatus::QUALIFIED->name);
         assertSame($response['expiryDate'], config('constants.far_future_date'));
-        assertNotNull($response['finalDecisionAt']);
     }
 
     public function testDisqualifyCandidateMutation(): void
     {
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->poolCandidate->application_status = ApplicationStatus::QUALIFIED->name;
         $this->poolCandidate->expiry_date = null;
-        $this->poolCandidate->final_decision_at = null;
         $this->poolCandidate->save();
 
         // cannot disqualify candidate due to status
@@ -619,7 +608,7 @@ class PoolCandidateUpdateTest extends TestCase
             )
             ->assertGraphQLErrorMessage(ErrorCode::INVALID_STATUS_DISQUALIFICATION->name);
 
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->application_status = ApplicationStatus::TO_ASSESS->name;
         $this->poolCandidate->save();
 
         // candidate was disqualified successfully
@@ -632,15 +621,15 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.disqualifyCandidate');
 
-        assertSame($response['status']['value'], PoolCandidateStatus::SCREENED_OUT_APPLICATION->name);
-        assertNotNull($response['finalDecisionAt']);
+        assertSame($response['status']['value'], ApplicationStatus::DISQUALIFIED->name);
+        assertSame($response['disqualificationReason']['value'], DisqualificationReason::SCREENED_OUT_APPLICATION->name);
     }
 
     public function testRevertFinalDecisionMutation(): void
     {
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
+        $this->poolCandidate->application_status = ApplicationStatus::TO_ASSESS->name;
+        $this->poolCandidate->screening_stage = ScreeningStage::UNDER_ASSESSMENT->name;
         $this->poolCandidate->expiry_date = null;
-        $this->poolCandidate->final_decision_at = null;
         $this->poolCandidate->save();
 
         // candidate was qualified successfully
@@ -656,9 +645,8 @@ class PoolCandidateUpdateTest extends TestCase
             )
             ->json('data.qualifyCandidate');
 
-        assertSame($response['status']['value'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
+        assertSame($response['status']['value'], ApplicationStatus::QUALIFIED->name);
         assertSame($response['expiryDate'], config('constants.far_future_date'));
-        assertNotNull($response['finalDecisionAt']);
 
         // candidate reverted successfully
         $response = $this->actingAs($this->communityRecruiterUser, 'api')
@@ -669,9 +657,8 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.revertFinalDecision');
 
-        assertSame($response['status']['value'], PoolCandidateStatus::UNDER_ASSESSMENT->name);
+        assertSame($response['status']['value'], ApplicationStatus::TO_ASSESS->name);
         assertNull($response['expiryDate']);
-        assertNull($response['finalDecisionAt']);
 
         // cannot revert again due to status changes
         $this->actingAs($this->communityRecruiterUser, 'api')
@@ -684,110 +671,15 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertGraphQLErrorMessage(ErrorCode::INVALID_STATUS_REVERT_FINAL_DECISION->name);
     }
 
-    public function testPoolCandidateRemoval(): void
-    {
-        $candidate = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
-            'user_id' => $this->applicantUser->id,
-        ]);
-
-        $variables = [
-            'id' => $candidate->id,
-            'removalReason' => CandidateRemovalReason::OTHER->name,
-            'removalReasonOther' => 'test reason',
-        ];
-
-        // Applicant can't remove their own application
-        $this->actingAs($this->applicantUser, 'api')
-            ->graphQL($this->removeMutationDocument, $variables)
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
-
-        // Assert removing as admin succeeds
-        $response = $this->actingAs($this->communityRecruiterUser, 'api')
-            ->graphQL($this->removeMutationDocument, $variables)
-            ->assertSuccessful();
-
-        // New fields are updated correctly
-        $response->assertJsonFragment([
-            'removalReason' => [
-                'value' => CandidateRemovalReason::OTHER->name,
-            ],
-            'removalReasonOther' => 'test reason',
-        ]);
-
-        $removedAt = $response->json('data.removeCandidate.removedAt');
-
-        $this->assertNotNull($removedAt);
-
-        // Statuses are updated correctly
-        $statusTransformations = [
-            PoolCandidateStatus::NEW_APPLICATION->name => PoolCandidateStatus::REMOVED->name,
-            PoolCandidateStatus::APPLICATION_REVIEW->name => PoolCandidateStatus::REMOVED->name,
-            PoolCandidateStatus::SCREENED_IN->name => PoolCandidateStatus::REMOVED->name,
-            PoolCandidateStatus::UNDER_ASSESSMENT->name => PoolCandidateStatus::REMOVED->name,
-            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name => PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
-            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name => PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
-            PoolCandidateStatus::QUALIFIED_AVAILABLE->name => PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-            PoolCandidateStatus::EXPIRED->name => PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-        ];
-
-        foreach ($statusTransformations as $initialStatus => $finalStatus) {
-            $candidate = PoolCandidate::factory()->create([
-                'pool_candidate_status' => $initialStatus,
-                'user_id' => $this->applicantUser->id,
-            ]);
-
-            $variables['id'] = $candidate->id;
-
-            $this->actingAs($this->communityRecruiterUser, 'api')
-                ->graphQL($this->removeMutationDocument, $variables)
-                ->assertJsonFragment([
-                    'status' => [
-                        'value' => $finalStatus,
-                    ],
-                ]);
-        }
-
-        // Invalid statuses throw an error
-        $failingStatusToError = [
-            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name,
-            PoolCandidateStatus::QUALIFIED_WITHDREW->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name,
-            PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name,
-            PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name,
-            PoolCandidateStatus::REMOVED->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name,
-            PoolCandidateStatus::UNDER_CONSIDERATION->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name,
-            PoolCandidateStatus::PLACED_TENTATIVE->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name,
-            PoolCandidateStatus::PLACED_CASUAL->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name,
-            PoolCandidateStatus::PLACED_INDETERMINATE->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name,
-            PoolCandidateStatus::PLACED_TERM->name => ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name,
-            PoolCandidateStatus::DRAFT->name => ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name,
-            PoolCandidateStatus::DRAFT_EXPIRED->name => ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name,
-        ];
-
-        foreach ($failingStatusToError as $status => $error) {
-            $candidate = PoolCandidate::factory()->create([
-                'pool_candidate_status' => $status,
-                'user_id' => $this->applicantUser->id,
-            ]);
-
-            $variables['id'] = $candidate->id;
-
-            $this->actingAs($this->communityRecruiterUser, 'api')
-                ->graphQL($this->removeMutationDocument, $variables)
-                ->assertGraphQLErrorMessage($error);
-        }
-    }
-
     public function testPoolCandidateReinstatement(): void
     {
         // Create a removed candidate with all removed fields set
         $candidate = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::REMOVED->name,
+            'application_status' => ApplicationStatus::REMOVED->name,
             'removal_reason' => CandidateRemovalReason::OTHER->name,
             'user_id' => $this->applicantUser->id,
         ]);
 
-        $this->assertNotNull($candidate->removed_at);
         $this->assertNotNull($candidate->removal_reason);
         $this->assertNotNull($candidate->removal_reason_other);
 
@@ -801,57 +693,21 @@ class PoolCandidateUpdateTest extends TestCase
             ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
             ->assertSuccessful()
             ->assertJsonFragment([
-                'removedAt' => null,
                 'removalReason' => null,
                 'removalReasonOther' => null,
             ]);
 
-        // Statuses are updated correctly
-        $statusTransformations = [
-            PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name => PoolCandidateStatus::NEW_APPLICATION->name,
-            PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name => PoolCandidateStatus::NEW_APPLICATION->name,
-            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_WITHDREW->name => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::REMOVED->name => PoolCandidateStatus::NEW_APPLICATION->name,
-        ];
-
-        foreach ($statusTransformations as $initialStatus => $finalStatus) {
-            $candidate = PoolCandidate::factory()->create([
-                'pool_candidate_status' => $initialStatus,
-                'user_id' => $this->applicantUser->id,
-            ]);
-
-            $this->actingAs($this->communityRecruiterUser, 'api')
-                ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
-                ->assertJsonFragment([
-                    'status' => [
-                        'value' => $finalStatus,
-                    ],
-                ]);
-        }
-
         // Invalid statuses throw an error
         $statusesThatShouldFail = [
-            PoolCandidateStatus::NEW_APPLICATION->name,
-            PoolCandidateStatus::APPLICATION_REVIEW->name,
-            PoolCandidateStatus::SCREENED_IN->name,
-            PoolCandidateStatus::UNDER_ASSESSMENT->name,
-            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::EXPIRED->name,
-            PoolCandidateStatus::PLACED_TENTATIVE->name,
-            PoolCandidateStatus::PLACED_CASUAL->name,
-            PoolCandidateStatus::PLACED_INDETERMINATE->name,
-            PoolCandidateStatus::PLACED_TERM->name,
-            PoolCandidateStatus::UNDER_CONSIDERATION->name,
-            PoolCandidateStatus::DRAFT->name,
-            PoolCandidateStatus::DRAFT_EXPIRED->name,
+            ApplicationStatus::DRAFT->name,
+            ApplicationStatus::TO_ASSESS->name,
+            ApplicationStatus::QUALIFIED->name,
+            ApplicationStatus::DISQUALIFIED->name,
         ];
 
         foreach ($statusesThatShouldFail as $status) {
             $candidate = PoolCandidate::factory()->create([
-                'pool_candidate_status' => $status,
+                'application_status' => $status,
                 'user_id' => $this->applicantUser->id,
             ]);
 
@@ -1000,429 +856,6 @@ class PoolCandidateUpdateTest extends TestCase
             )
             ->assertJsonFragment([
                 'id' => $candidate->id,
-            ]);
-    }
-
-    #[DataProvider('manualStatusProvider')]
-    public function testManualStatusUpdatesTimestamps($status, $timestamp, $additionalChanged = [])
-    {
-        // Ensure timestamps are set to compare against
-        // and we are starting from no status
-        $past = config('constants.past_datetime');
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
-        $this->poolCandidate->final_decision_at = $past;
-        $this->poolCandidate->placed_at = $past;
-        $this->poolCandidate->removed_at = $past;
-        $this->poolCandidate->save();
-
-        $camelTimestamp = Str::camel($timestamp);
-        $original = $this->poolCandidate->$timestamp;
-
-        $response = $this->actingAs($this->communityRecruiterUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => $status],
-            ]);
-        // Assert the expected timestamp was changed
-        $data = $response['data']['updatePoolCandidateStatus'];
-        $new = new Carbon($data[$camelTimestamp]);
-        $this->assertGreaterThan($original->timestamp, $new->timestamp, sprintf(
-            '%s is not greater than %s',
-            $new->toDayDateTimeString(),
-            $original->toDayDateTimeString()
-        ));
-
-        $this->poolCandidate->refresh();
-
-        // Ensure other timestamps are null
-        $nulled = array_diff(['final_decision_at', 'removed_at', 'placed_at'], [$timestamp, ...$additionalChanged]);
-        foreach ($nulled as $nulledTimestamp) {
-            $this->assertEquals($this->poolCandidate->$nulledTimestamp, null);
-        }
-
-        // Attempt to make change again and assert it does not affect timestamp
-        $noChangeResponse = $this->actingAs($this->communityRecruiterUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => $status],
-            ]);
-
-        $unChangeData = $noChangeResponse['data']['updatePoolCandidateStatus'];
-        $unchanged = new Carbon($unChangeData[$camelTimestamp]);
-
-        // Same year, month, day, hour, minute (close enough!)
-        $this->assertTrue($new->isSameDay($unchanged));
-        $this->assertTrue($new->isSameHour($unchanged));
-        $this->assertTrue($new->isSameMinute($unchanged));
-    }
-
-    public static function manualStatusProvider()
-    {
-        return [
-            // Final decision
-            'screened out assessment sets final decision' => [
-                PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-                'final_decision_at',
-            ],
-            'screened out application sets final decision' => [
-                PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-                'final_decision_at',
-            ],
-            'qualified available sets final decision' => [
-                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                'final_decision_at',
-            ],
-            'qualified unavailable sets final decision' => [
-                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-                'final_decision_at',
-            ],
-            'qualified withdrew sets final decision' => [
-                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-                'final_decision_at',
-            ],
-
-            // Removed
-            'screened out not responsive sets removed at' => [
-                PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
-                'removed_at',
-            ],
-            'removed sets removed at' => [
-                PoolCandidateStatus::REMOVED->name,
-                'removed_at',
-            ],
-
-            // Placed
-            'placed tentative sets removed at' => [
-                PoolCandidateStatus::PLACED_TENTATIVE->name,
-                'placed_at',
-                ['final_decision_at'],
-            ],
-            'placed casual sets placed at' => [
-                PoolCandidateStatus::PLACED_CASUAL->name,
-                'placed_at',
-                ['final_decision_at'],
-            ],
-            'placed term sets placed at' => [
-                PoolCandidateStatus::PLACED_CASUAL->name,
-                'placed_at',
-                ['final_decision_at'],
-            ],
-            'placed indeterminate sets placed at' => [
-                PoolCandidateStatus::PLACED_INDETERMINATE->name,
-                'placed_at',
-                ['final_decision_at'],
-            ],
-        ];
-    }
-
-    // test policy correctly allows sample manual status updates to work, when expected and fail otherwise
-    public function testManualStatusUpdatePolicy(): void
-    {
-        $past = config('constants.past_datetime');
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
-        $this->poolCandidate->submitted_at = $past;
-        $this->poolCandidate->save();
-
-        // process operator
-        // can set to SCREENED IN, QUALIFIED, REMOVED only
-        // cannot set PLACED TERM, or DRAFT
-        $this->actingAs($this->processOperatorUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::DRAFT->name],
-            ])->assertGraphQLErrorMessage($this->unauthorizedMessage);
-        $this->actingAs($this->processOperatorUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::SCREENED_IN->name],
-            ])->assertJsonFragment([
-                'status' => [
-                    'value' => PoolCandidateStatus::SCREENED_IN->name,
-                ],
-            ]);
-        $this->actingAs($this->processOperatorUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
-            ])->assertJsonFragment([
-                'status' => [
-                    'value' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                ],
-            ]);
-        $this->actingAs($this->processOperatorUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::REMOVED->name],
-            ])->assertJsonFragment([
-                'status' => [
-                    'value' => PoolCandidateStatus::REMOVED->name,
-                ],
-            ]);
-        $this->actingAs($this->processOperatorUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::PLACED_TERM->name],
-            ])->assertGraphQLErrorMessage($this->unauthorizedMessage);
-
-        // community recruiter
-        // can set to SCREENED IN, QUALIFIED, REMOVED, PLACED TERM only
-        // cannot set DRAFT
-        $this->actingAs($this->communityRecruiterUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::DRAFT->name],
-            ])->assertGraphQLErrorMessage($this->unauthorizedMessage);
-        $this->actingAs($this->communityRecruiterUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::SCREENED_IN->name],
-            ])->assertJsonFragment([
-                'status' => [
-                    'value' => PoolCandidateStatus::SCREENED_IN->name,
-                ],
-            ]);
-        $this->actingAs($this->communityRecruiterUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
-            ])->assertJsonFragment([
-                'status' => [
-                    'value' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                ],
-            ]);
-        $this->actingAs($this->communityRecruiterUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::REMOVED->name],
-            ])->assertJsonFragment([
-                'status' => [
-                    'value' => PoolCandidateStatus::REMOVED->name,
-                ],
-            ]);
-        $this->actingAs($this->communityRecruiterUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::PLACED_TERM->name],
-            ])->assertJsonFragment([
-                'status' => [
-                    'value' => PoolCandidateStatus::PLACED_TERM->name,
-                ],
-            ]);
-
-        // community admin
-        // can set to SCREENED IN, QUALIFIED, REMOVED, PLACED TERM only
-        // cannot set DRAFT
-        $this->actingAs($this->communityAdminUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::DRAFT->name],
-            ])->assertGraphQLErrorMessage($this->unauthorizedMessage);
-        $this->actingAs($this->communityAdminUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::SCREENED_IN->name],
-            ])->assertJsonFragment([
-                'status' => [
-                    'value' => PoolCandidateStatus::SCREENED_IN->name,
-                ],
-            ]);
-        $this->actingAs($this->communityAdminUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name],
-            ])->assertJsonFragment([
-                'status' => [
-                    'value' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                ],
-            ]);
-        $this->actingAs($this->communityAdminUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::REMOVED->name],
-            ])->assertJsonFragment([
-                'status' => [
-                    'value' => PoolCandidateStatus::REMOVED->name,
-                ],
-            ]);
-        $this->actingAs($this->communityAdminUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => PoolCandidateStatus::PLACED_TERM->name],
-            ])->assertJsonFragment([
-                'status' => [
-                    'value' => PoolCandidateStatus::PLACED_TERM->name,
-                ],
-            ]);
-    }
-
-    #[DataProvider('nullTimeProvider')]
-    public function testNullTimestampsOnStatusChanged($status, $expected)
-    {
-        $past = config('constants.past_datetime');
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::DRAFT->name;
-        $this->poolCandidate->submitted_at = $past;
-        $this->poolCandidate->removed_at = $past;
-        $this->poolCandidate->final_decision_at = $past;
-        $this->poolCandidate->placed_at = $past;
-        $this->poolCandidate->save();
-
-        $this->actingAs($this->communityAdminUser, 'api')
-            ->graphQL($this->manualStatusUpdateMutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => ['status' => $status],
-            ])->assertJsonFragment([
-                'status' => [
-                    'value' => $status,
-                ],
-                ...$expected,
-            ]);
-    }
-
-    public static function nullTimeProvider()
-    {
-        $nullState = [
-            'removedAt' => null,
-            'finalDecisionAt' => null,
-            'placedAt' => null,
-        ];
-
-        $finalDecision = [
-            'removedAt' => null,
-            'placedAt' => null,
-        ];
-
-        $removed = [
-            'finalDecisionAt' => null,
-            'placedAt' => null,
-        ];
-
-        $placed = [
-            'removedAt' => null,
-        ];
-
-        return [
-            'new application' => [
-                PoolCandidateStatus::NEW_APPLICATION->name,
-                $nullState,
-            ],
-            'application review' => [
-                PoolCandidateStatus::APPLICATION_REVIEW->name,
-                $nullState,
-            ],
-            'screened in' => [
-                PoolCandidateStatus::SCREENED_IN->name,
-                $nullState,
-            ],
-            'under assessment' => [
-                PoolCandidateStatus::UNDER_ASSESSMENT->name,
-                $nullState,
-            ],
-            'screened out - application' => [
-                PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-                $finalDecision,
-            ],
-            'screened out - not interested' => [
-                PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
-                $removed,
-            ],
-            'screened out - not responsive' => [
-                PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
-                $removed,
-            ],
-            'screened out - assessment' => [
-                PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-                $finalDecision,
-            ],
-            'qualified - available' => [
-                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                $finalDecision,
-            ],
-            'qualified - available' => [
-                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                $finalDecision,
-            ],
-            'qualified - unavailable' => [
-                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-                $finalDecision,
-            ],
-            'qualified - withdrew' => [
-                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-                $finalDecision,
-            ],
-            'placed - casual' => [
-                PoolCandidateStatus::PLACED_CASUAL->name,
-                $placed,
-            ],
-            'placed - tentative' => [
-                PoolCandidateStatus::PLACED_TENTATIVE->name,
-                $placed,
-            ],
-            'placed - term' => [
-                PoolCandidateStatus::PLACED_TERM->name,
-                $placed,
-            ],
-            'placed - indeterminate' => [
-                PoolCandidateStatus::PLACED_INDETERMINATE->name,
-                $placed,
-            ],
-            'removed' => [
-                PoolCandidateStatus::REMOVED->name,
-                $removed,
-            ],
-            // NOTE: This action is unauthorized so cannot test
-            // 'expired' => [
-            //     PoolCandidateStatus::EXPIRED->name,
-            //     $finalDecision,
-            // ],
-        ];
-    }
-
-    public function testUpdateExpiryDatePermission()
-    {
-        $mutation = <<<'GRAPHQL'
-            mutation UpdateExpiryDate($id: UUID! $candidate: UpdatePoolCandidateStatusInput!) {
-                updatePoolCandidateStatus(id: $id, poolCandidate: $candidate) {
-                    expiryDate
-                }
-            }
-        GRAPHQL;
-
-        $past = config('constants.past_date');
-        $future = config('constants.far_future_date');
-
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
-        $this->poolCandidate->submitted_at = config('constants.past_datetime');
-        $this->poolCandidate->expiry_date = $past;
-        $this->poolCandidate->save();
-
-        $this->actingAs($this->processOperatorUser, 'api')
-            ->graphQL($mutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => [
-                    'expiryDate' => $future,
-                ],
-            ])->assertJsonFragment([
-                'expiryDate' => $future,
-            ]);
-
-        $this->actingAs($this->communityRecruiterUser, 'api')
-            ->graphQL($mutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => [
-                    'expiryDate' => $future,
-                ],
-            ])->assertJsonFragment([
-                'expiryDate' => $future,
-            ]);
-
-        $this->actingAs($this->communityAdminUser, 'api')
-            ->graphQL($mutation, [
-                'id' => $this->poolCandidate->id,
-                'candidate' => [
-                    'expiryDate' => $future,
-                ],
-            ])->assertJsonFragment([
-                'expiryDate' => $future,
             ]);
     }
 }

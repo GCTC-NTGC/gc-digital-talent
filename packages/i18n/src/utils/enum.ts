@@ -1,6 +1,7 @@
 import { IntlShape } from "react-intl";
 
 import {
+  ApplicationStatus,
   AwardedScope,
   AwardedTo,
   CandidateRemovalReason,
@@ -154,6 +155,13 @@ export function localizedEnumArrayToInput<T>(
 }
 
 export const ENUM_SORT_ORDER = {
+  APPLICATION_STATUS: [
+    ApplicationStatus.Draft,
+    ApplicationStatus.ToAssess,
+    ApplicationStatus.Qualified,
+    ApplicationStatus.Disqualified,
+    ApplicationStatus.Removed,
+  ],
   CANDIDATE_STATUS: [
     CandidateStatus.Draft,
     CandidateStatus.Received,

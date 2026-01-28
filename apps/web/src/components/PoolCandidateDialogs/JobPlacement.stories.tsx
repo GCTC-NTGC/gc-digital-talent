@@ -12,8 +12,8 @@ import {
   OverlayOrDialogDecorator,
 } from "@gc-digital-talent/storybook-helpers";
 import {
+  ApplicationStatus,
   PlacementType,
-  PoolCandidateStatus,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
 import {
@@ -34,7 +34,8 @@ const departments = fakeDepartments();
 const placedData = makeFragmentData(
   {
     id: fakedCandidate.id,
-    status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
+    status: toLocalizedEnum(ApplicationStatus.Qualified),
+    placementType: toLocalizedEnum(PlacementType.PlacedCasual),
     placedDepartment: departments[0],
   },
   JobPlacementDialog_Fragment,
@@ -42,7 +43,7 @@ const placedData = makeFragmentData(
 const notPlacedData = makeFragmentData(
   {
     id: fakedCandidate.id,
-    status: toLocalizedEnum(PoolCandidateStatus.QualifiedAvailable),
+    status: toLocalizedEnum(ApplicationStatus.Qualified),
     placedDepartment: departments[0],
   },
   JobPlacementDialog_Fragment,

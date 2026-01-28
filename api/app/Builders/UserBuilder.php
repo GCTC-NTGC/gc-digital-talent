@@ -92,7 +92,7 @@ class UserBuilder extends Builder
                                 }
                             });
                             if (array_key_exists('statuses', $filter) && ! empty($filter['statuses'])) {
-                                $query->whereIn('pool_candidates.pool_candidate_status', $filter['statuses']);
+                                $query->whereIn('pool_candidates.application_status', $filter['statuses']);
                             }
                             $query->where(function ($query) use ($filter) {
                                 if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == CandidateSuspendedFilter::ACTIVE->name) {

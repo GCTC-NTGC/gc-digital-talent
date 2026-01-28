@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ApplicationStatus;
 use App\GraphQL\Validators\Mutation\CreateApplicationValidator;
 use App\Models\PoolCandidate;
 use Illuminate\Support\Facades\Validator;
@@ -37,7 +37,7 @@ final class CreateApplication
             ]);
 
             // set to DRAFT in the database itself, Accessor already returns this as DRAFT if unexpired via API
-            $application->pool_candidate_status = PoolCandidateStatus::DRAFT->name;
+            $application->application_status = ApplicationStatus::DRAFT->name;
             $application->save();
         } catch (\Throwable $error) {
             // Add the error to the pool

@@ -19,6 +19,11 @@ interface LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedApplicationStatus implements LocalizedEnumOption {
+  value: ApplicationStatus!
+  label: LocalizedString!
+}
+
 type LocalizedArmedForcesStatus implements LocalizedEnumOption {
   value: ArmedForcesStatus!
   label: LocalizedString!
@@ -121,6 +126,11 @@ type LocalizedDeadlineStatus implements LocalizedEnumOption {
 
 type LocalizedDepartmentSize implements LocalizedEnumOption {
   value: DepartmentSize!
+  label: LocalizedString!
+}
+
+type LocalizedDisqualificationReason implements LocalizedEnumOption {
+  value: DisqualificationReason!
   label: LocalizedString!
 }
 
@@ -969,6 +979,14 @@ enum ActivityEvent {
 enum ActivityLog {
   DEFAULT
   PROCESS
+}
+
+enum ApplicationStatus {
+  DRAFT
+  TO_ASSESS
+  REMOVED
+  DISQUALIFIED
+  QUALIFIED
 }
 
 enum ApplicationStep {
