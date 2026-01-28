@@ -5,7 +5,6 @@ import {
   ApplicationDeadlineApproachingNotification,
   ApplicationDeadlineExtendedNotification,
   ApplicationStatusChangedNotification,
-  MigrateOffPlatformProcessesNotification,
   NewJobPostedNotification,
   Notification,
   SystemNotification,
@@ -277,30 +276,6 @@ const userFileGeneratedNotificationToInfo = (
   };
 };
 
-const migrateOffPlatformProcessesNotificationMessage = defineMessage({
-  defaultMessage:
-    "We’ve updated how we collect details about successful off-platform recruitment processes. Please re-enter yours using our new format to avoid losing them.",
-  id: "d0T0Xq",
-  description: "Notification for migrating off platform processes",
-});
-
-function isMigrateOffPlatformProcessesNotification(
-  notification: GraphqlType,
-): notification is MigrateOffPlatformProcessesNotification {
-  return notification.__typename === "MigrateOffPlatformProcessesNotification";
-}
-
-const migrateOffPlatformProcessesNotificationToInfo = (
-  paths: ReturnType<typeof useRoutes>,
-  intl: IntlShape,
-): NotificationInfo => {
-  return {
-    message: intl.formatMessage(migrateOffPlatformProcessesNotificationMessage),
-    href: paths.applicantDashboard(),
-    label: intl.formatMessage(migrateOffPlatformProcessesNotificationMessage),
-  };
-};
-
 const useNotificationInfo = (
   notification: Notification & GraphqlType,
 ): NotificationInfo | null => {
@@ -347,10 +322,6 @@ const useNotificationInfo = (
 
   if (isSystemNotification(notification)) {
     return systemNotificationToInfo(notification, intl);
-  }
-
-  if (isMigrateOffPlatformProcessesNotification(notification)) {
-    return migrateOffPlatformProcessesNotificationToInfo(paths, intl);
   }
 
   logger.warning(

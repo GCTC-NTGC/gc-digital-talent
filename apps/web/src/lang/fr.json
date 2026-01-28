@@ -9402,10 +9402,6 @@
     "defaultMessage": "4. Hourra! Vous avez terminé de configurer votre compte CléGC et serez <strong>ramené à la plateforme Talents numériques du GC</strong>.",
     "description": "Text for fourth sign up -> mfa step."
   },
-  "d0T0Xq": {
-    "defaultMessage": "Nous avons mis à jour la manière dont nous recueillons des informations sur les processus de recrutement hors plateforme réussis. Veuillez saisir à nouveau vos informations en utilisant notre nouveau format afin d’éviter de les perdre.",
-    "description": "Notification for migrating off platform processes"
-  },
   "d1FYv4": {
     "defaultMessage": "Classification",
     "description": "Label displayed on Work Experience card for classification"
