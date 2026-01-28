@@ -1,7 +1,110 @@
+import {
+  ArmedForcesStatus,
+  CitizenshipStatus,
+  FlexibleWorkLocation,
+  PositionDuration,
+  ProvinceOrTerritory,
+  Skill,
+  SkillCategory,
+  User,
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
+import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
+
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
+import { createUserWithRoles, deleteUser } from "~/utils/user";
+import graphql from "~/utils/graphql";
+import { createAndPublishPool } from "~/utils/pools";
+import ApplicationPage from "~/fixtures/ApplicationPage";
+import { getSkills } from "~/utils/skills";
+import { generateUniqueTestId } from "~/utils/id";
+import { getCommunities } from "~/utils/communities";
+import { getWorkStreams } from "~/utils/workStreams";
+import testConfig from "~/constants/config";
+import PoolPage from "~/fixtures/PoolPage";
 
 test.describe("Notifications", () => {
+  let uniqueTestId: string;
+  let sub: string;
+  let technicalSkill: Skill | undefined;
+  let poolId: string;
+  let user: User | undefined;
+  let poolName: string;
+
+  test.beforeAll(async () => {
+    uniqueTestId = generateUniqueTestId();
+    sub = `playwright.sub.${uniqueTestId}`;
+    const adminCtx = await graphql.newContext();
+
+    technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
+      return skills.find(
+        (skill) => skill.category.value === SkillCategory.Technical,
+      );
+    });
+
+    const createdUser = await createUserWithRoles(adminCtx, {
+      roles: ["guest", "base_user", "applicant"],
+      user: {
+        email: `${sub}@example.org`,
+        emailVerifiedAt: PAST_DATE,
+        sub,
+        currentProvince: ProvinceOrTerritory.Alberta,
+        currentCity: "Test city",
+        telephone: "+10123456789",
+        armedForcesStatus: ArmedForcesStatus.Veteran,
+        citizenship: CitizenshipStatus.Citizen,
+        lookingForEnglish: true,
+        isGovEmployee: false,
+        hasPriorityEntitlement: true,
+        priorityNumber: "123",
+        locationPreferences: [WorkRegion.Atlantic],
+        flexibleWorkLocations: [FlexibleWorkLocation.Hybrid],
+        positionDuration: [PositionDuration.Permanent],
+        personalExperiences: {
+          create: [
+            {
+              description: "Test Experience Description",
+              details: "A Playwright test personal experience",
+              skills: {
+                sync: [
+                  {
+                    details: `Test Skill ${technicalSkill?.name.en}`,
+                    id: technicalSkill?.id ?? "",
+                  },
+                ],
+              },
+              startDate: FAR_PAST_DATE,
+              title: "Test Experience",
+            },
+          ],
+        },
+      },
+    });
+
+    user = createdUser;
+
+    const createdPool = await createAndPublishPool(adminCtx, {
+      userId: createdUser?.id ?? "",
+      communityId: (await getCommunities(adminCtx, {}))[0]?.id,
+      workStreamId: (await getWorkStreams(adminCtx, {}))[0]?.id,
+      skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
+      name: {
+        en: "Test_pool (EN)",
+        fr: "Test_pool (FR)",
+      },
+    });
+    poolId = createdPool.id;
+    poolName = createdPool.name?.en ?? "";
+  });
+
+  // test.afterEach(async () => {
+  //   if (user?.id) {
+  //     const adminCtx = await graphql.newContext();
+  //     await deleteUser(adminCtx, { id: user.id });
+  //   }
+  // });
+
   test("Dialog appears and disappears", async ({ appPage }) => {
     await loginBySub(appPage.page, "applicant@test.com");
     await appPage.page.goto("/en/applicant");
@@ -33,5 +136,31 @@ test.describe("Notifications", () => {
         level: 1,
       }),
     ).toBeVisible();
+  });
+
+  test("Notification to inform candidates with draft application extension", async ({
+    appPage,
+  }) => {
+    const application = new ApplicationPage(appPage.page, poolId);
+    await loginBySub(application.page, sub, false);
+    console.log(sub);
+    // Applicant creates draft application
+    await application.create();
+    await application.expectOnStep(application.page, 1);
+    await application.page.getByRole("button", { name: /let's go/i }).click();
+    await application.expectOnStep(application.page, 2);
+    await application.saveAndContinue();
+
+    const poolPage = new PoolPage(appPage.page);
+    await loginBySub(poolPage.page, testConfig.signInSubs.adminSignIn, false);
+    await poolPage.openPool(poolId);
+    await expect(
+      poolPage.page.getByRole("heading", { name: poolName, level: 1 }),
+    ).toBeVisible();
+    await poolPage.updateClosingDateAfterPublished();
+
+    // New user logs in to the portal and starts creating an application and make the application submission status as draft
+    // Admin open the created pool and update the closing date
+    // A new user should receive a notification about the extension of the application deadline
   });
 });

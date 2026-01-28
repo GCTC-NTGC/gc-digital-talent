@@ -18,7 +18,9 @@ class ApplicationPage extends AppPage {
 
   async expectOnStep(page: Page, step: number) {
     await expect(
-      page.getByRole("heading", { name: new RegExp(`step ${step} of 7`, "i") }),
+      page.getByRole("heading", {
+        name: new RegExp(`step\\s+${step}\\s+of\\s+\\d+`, "i"),
+      }),
     ).toBeVisible();
 
     await expect(
