@@ -29,7 +29,7 @@ const useAvailableCandidates = (searchTerm?: string) => {
     },
   });
 
-  const candidates = unpackMaybes(data?.pool.poolCandidates);
+  const candidates = unpackMaybes(data?.pool?.poolCandidates);
   const total = candidates.length;
 
   return {
