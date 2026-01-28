@@ -26,25 +26,12 @@ class PoolCandidateObserver
     {
         $oldStatus = $poolCandidate->getOriginal('application_status');
         $newStatus = $poolCandidate->application_status;
+        $placementChanged = $poolCandidate->wasChanged('placement_type');
 
         CandidateStatusChanged::dispatchIf($poolCandidate->wasChanged('application_status'), $poolCandidate);
 
-        if (
-            ($oldStatus != $newStatus) &&
-            (
-                // new status is a final
-                in_array($newStatus, ApplicationStatus::assessedGroup()) ||
-                // old status was a final
-                in_array($oldStatus, ApplicationStatus::assessedGroup()) ||
-                // new status is a removed
-                $newStatus === ApplicationStatus::REMOVED->name ||
-                // old status was a removed
-                $oldStatus === ApplicationStatus::REMOVED->name ||
-                // placement changed, so let the user know
-                $poolCandidate->wasChanged('placement_type')
-            )) {
+        if ($this->shouldNotifyUser($oldStatus, $newStatus, $placementChanged)) {
             try {
-
                 $poolCandidate->user->notify(new ApplicationStatusChanged(
                     $poolCandidate->pool->name['en'],
                     $poolCandidate->pool->name['fr'],
@@ -55,6 +42,25 @@ class PoolCandidateObserver
             }
         }
 
+    }
+
+    /**
+     * Determine if the user should be notified of the status/placement change.
+     */
+    private function shouldNotifyUser($oldStatus, $newStatus, $placementChanged): bool
+    {
+
+        $triggerGroup = ApplicationStatus::statusChangedNotificationGroup();
+
+        // Placement changed? Always notify
+        if ($placementChanged) {
+            return true;
+        }
+
+        // Otherwise, notify if status has changed AND is in the trigger group
+        return
+            $oldStatus !== $newStatus &&
+            (in_array($oldStatus, $triggerGroup) || in_array($newStatus, $triggerGroup));
     }
 
     /**

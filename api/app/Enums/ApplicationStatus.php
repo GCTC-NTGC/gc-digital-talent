@@ -22,6 +22,15 @@ enum ApplicationStatus
         ];
     }
 
+    public static function statusChangedNotificationGroup(): array
+    {
+        return [
+            ApplicationStatus::QUALIFIED->name,
+            ApplicationStatus::DISQUALIFIED->name,
+            ApplicationStatus::REMOVED->name,
+        ];
+    }
+
     public static function getLangFilename(): string
     {
         return 'application_status';
