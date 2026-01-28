@@ -179,11 +179,13 @@ const PoolActivityPage = () => {
       </Heading>
 
       <div className="my-6 flex items-end gap-3">
-        <ActivityLog.SearchForm
-          onReset={handleResetSearch}
-          onSearch={handleSearch}
-          defaultValue={searchParams.get(SEARCH_PARAM_KEY.SEARCH_TERM)}
-        />
+        <div className="grow">
+          <ActivityLog.SearchForm
+            onReset={handleResetSearch}
+            onSearch={handleSearch}
+            defaultValue={searchParams.get(SEARCH_PARAM_KEY.SEARCH_TERM)}
+          />
+        </div>
         <div className="shrink">
           <PoolActivityFilterDialog
             key={filters ? JSON.stringify(filters) : "empty"}
