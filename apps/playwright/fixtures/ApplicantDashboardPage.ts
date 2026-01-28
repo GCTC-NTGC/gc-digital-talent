@@ -170,7 +170,16 @@ class ApplicantDashboardPage extends AppPage {
           break;
 
         case "skills portfolio":
-          await experiencePage.addANewSkillToProfile("Functional Testing");
+          await this.page.getByRole("button", { name: /add a skill/i }).click();
+          await experiencePage.addANewSkillToProfile(
+            "Functional Testing",
+            "Intermediate",
+          );
+          await this.page
+            .getByRole("radio", {
+              name: /yes,\s*i use this skill in my current role/i,
+            })
+            .check();
           break;
 
         case "employee verification":

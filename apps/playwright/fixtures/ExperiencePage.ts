@@ -693,19 +693,10 @@ class ExperiencePage extends AppPage {
     }
   }
 
-  async addANewSkillToProfile(skill: string) {
-    await this.page.getByRole("button", { name: /add a new skill/i }).click();
+  async addANewSkillToProfile(skill: string, skillLevel: string) {
     await this.page.getByRole("combobox", { name: /Skill/ }).fill(skill);
     await this.page.getByRole("option", { name: skill }).click();
-    await this.page.getByRole("radio", { name: "Intermediate" }).check();
-    await this.page
-      .getByRole("radio", {
-        name: /yes,\s*i use this skill in my current role/i,
-      })
-      .check();
-    await this.page
-      .getByRole("button", { name: /Save and add this skill/i })
-      .click();
+    await this.page.getByRole("radio", { name: skillLevel }).check();
   }
 }
 
