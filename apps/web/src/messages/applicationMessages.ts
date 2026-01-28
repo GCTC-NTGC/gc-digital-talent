@@ -171,6 +171,11 @@ const messages = {
       id: "p7+/CC",
       description: "Title for the assessment stage of an application",
     },
+    applicationStatus: {
+      defaultMessage: "Application status",
+      id: "Aw67A5",
+      description: "Label for the status of an application",
+    },
   }),
 };
 

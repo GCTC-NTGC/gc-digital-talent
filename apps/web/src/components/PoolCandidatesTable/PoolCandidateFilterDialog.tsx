@@ -308,7 +308,7 @@ const PoolCandidateFilterDialog = ({
           name="statuses"
           isMulti
           doNotSort
-          label={intl.formatMessage(applicationMessages.finalDecision)}
+          label={intl.formatMessage(applicationMessages.applicationStatus)}
           options={sortLocalizedEnumOptions(
             ENUM_SORT_ORDER.APPLICATION_STATUS,
             narrowEnumType(unpackMaybes(data?.statuses), "ApplicationStatus"),
