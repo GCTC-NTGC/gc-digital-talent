@@ -19,7 +19,7 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
-import browseHeroImg from "~/assets/img/browse_header.webp";
+import browseHeroImg from "~/assets/img/two-people-looking-at-laptop-with-coffee.webp";
 import flourishTopLight from "~/assets/img/browse_top_light.webp";
 import flourishBottomLight from "~/assets/img/browse_bottom_light.webp";
 import flourishTopDark from "~/assets/img/browse_top_dark.webp";

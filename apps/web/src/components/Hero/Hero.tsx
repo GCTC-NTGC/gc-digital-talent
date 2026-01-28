@@ -18,8 +18,9 @@ import ButtonLinksArray, { ButtonLinkType } from "./ButtonLinksArray";
 const hero = tv({
   slots: {
     wrapper:
-      "Hero relative overflow-hidden bg-black pt-15 iap:bg-linear-90 iap:from-primary iap:to-primary-600",
-    content: "relative z-3 text-center text-white",
+      "Hero relative overflow-hidden bg-[#000] iap:bg-linear-90 iap:from-primary iap:to-primary-600",
+    container: "relative pt-15",
+    content: "relative z-3 text-center text-white xs:w-3/5",
     breadcrumbs: "flex flex-wrap justify-center gap-3 p-0 [&_li]:inline-block",
     tabs: "mt-12 flex",
   },
@@ -35,16 +36,16 @@ const hero = tv({
     },
     mode: {
       default: {
-        wrapper: "pb-12",
+        container: "pb-12",
       },
       image: {
-        wrapper: "pb-0 xs:pb-12",
+        container: "pb-12",
       },
       overlap: {
-        wrapper: "pb-36",
+        container: "pb-36",
       },
       navTabs: {
-        wrapper: "",
+        container: "",
       },
     },
   },
@@ -120,12 +121,15 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
     mode = "navTabs";
   }
 
-  const { wrapper, content, breadcrumbs, tabs } = hero({ mode, centered });
+  const { wrapper, container, content, breadcrumbs, tabs } = hero({
+    mode,
+    centered,
+  });
 
   return (
     <>
       <div className={wrapper()}>
-        <Container size="lg">
+        <Container size="lg" className={container()}>
           <div className={content()}>
             <Heading
               ref={headingRef}
@@ -167,10 +171,18 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
             )}
           </div>
           {showImg ? (
-            <div
-              className="right-0 h-[50vh] w-full bg-size-[auto_50vh] bg-position-[50%_110%] bg-no-repeat xs:absolute xs:top-6 xs:h-full xs:bg-size-[auto_110%] xs:bg-position-[140%_100%] sm:bg-position-[115%_100%] md:bg-position-[110%_100%] lg:bg-position-[105%_100%]"
-              style={{ backgroundImage: `url('${imgPath}')` }}
-            />
+            <>
+              <div
+                className="absolute top-1/2 -right-6 hidden h-full w-2/5 -translate-y-1/2 bg-cover bg-center xs:block"
+                style={{ backgroundImage: `url('${imgPath}')` }}
+              >
+                <div className="absolute inset-0 hidden bg-radial-[circle] from-transparent from-30% to-[#000] to-85% xs:block" />
+              </div>
+              <BackgroundGraphic
+                aria-hidden="true"
+                className="absolute top-0 right-0 z-0 block h-auto w-3/4 min-w-120 xs:hidden iap:hidden"
+              />
+            </>
           ) : (
             <BackgroundGraphic
               aria-hidden="true"
@@ -200,14 +212,14 @@ const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
         )}
         {additionalContent ? (
           <>
-            <Container size="lg" className="relative z-[3]">
+            <Container size="lg" className="relative z-3">
               {additionalContent}
             </Container>
           </>
         ) : null}
       </div>
       {children ? (
-        <Container size="lg" className="relative z-[3] mx-auto -mt-30 mb-0">
+        <Container size="lg" className="relative z-3 mx-auto -mt-30 mb-0">
           {children}
         </Container>
       ) : null}
