@@ -23,6 +23,7 @@ import { getCommunities } from "~/utils/communities";
 import { getWorkStreams } from "~/utils/workStreams";
 import testConfig from "~/constants/config";
 import PoolPage from "~/fixtures/PoolPage";
+import AccountSettings from "~/fixtures/AccountSettings";
 
 test.describe("Notifications", () => {
   let uniqueTestId: string;
@@ -90,20 +91,20 @@ test.describe("Notifications", () => {
       workStreamId: (await getWorkStreams(adminCtx, {}))[0]?.id,
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       name: {
-        en: "Test_pool (EN)",
-        fr: "Test_pool (FR)",
+        en: `Test_pool ${uniqueTestId} (EN)`,
+        fr: `Test_pool ${uniqueTestId} (FR)`,
       },
     });
     poolId = createdPool.id;
     poolName = createdPool.name?.en ?? "";
   });
 
-  // test.afterEach(async () => {
-  //   if (user?.id) {
-  //     const adminCtx = await graphql.newContext();
-  //     await deleteUser(adminCtx, { id: user.id });
-  //   }
-  // });
+  test.afterEach(async () => {
+    if (user?.id) {
+      const adminCtx = await graphql.newContext();
+      await deleteUser(adminCtx, { id: user.id });
+    }
+  });
 
   test("Dialog appears and disappears", async ({ appPage }) => {
     await loginBySub(appPage.page, "applicant@test.com");
@@ -142,15 +143,21 @@ test.describe("Notifications", () => {
     appPage,
   }) => {
     const application = new ApplicationPage(appPage.page, poolId);
+    const settingsPage = new AccountSettings(appPage.page);
     await loginBySub(application.page, sub, false);
-    console.log(sub);
+    // Update notification settings
+    await settingsPage.goToSettings();
+    await settingsPage.updateNotificationsSettings();
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
+      /successfully updated settings/i,
+    );
     // Applicant creates draft application
     await application.create();
     await application.expectOnStep(application.page, 1);
     await application.page.getByRole("button", { name: /let's go/i }).click();
     await application.expectOnStep(application.page, 2);
     await application.saveAndContinue();
-
+    // Admin extends closing date for the draft application
     const poolPage = new PoolPage(appPage.page);
     await loginBySub(poolPage.page, testConfig.signInSubs.adminSignIn, false);
     await poolPage.openPool(poolId);
@@ -158,9 +165,11 @@ test.describe("Notifications", () => {
       poolPage.page.getByRole("heading", { name: poolName, level: 1 }),
     ).toBeVisible();
     await poolPage.updateClosingDateAfterPublished();
-
-    // New user logs in to the portal and starts creating an application and make the application submission status as draft
-    // Admin open the created pool and update the closing date
-    // A new user should receive a notification about the extension of the application deadline
+    // Verify notification for draft application extension
+    await loginBySub(application.page, sub, false);
+    await appPage.page
+      .getByRole("button", { name: /view notifications/i })
+      .click();
+    // The notification is not appearing here, the defect is raised - https://github.com/GCTC-NTGC/gc-digital-talent/issues/15702
   });
 });
