@@ -7,6 +7,7 @@ use App\Enums\AssessmentStepType;
 use Database\Helpers\TeamHelpers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\Models\Activity as SpatieActivity;
 
@@ -49,6 +50,48 @@ class Activity extends SpatieActivity
                     ->orWhereJsonContains('properties->attributes->pool_id', $poolId);
             });
 
+    }
+
+    public function scopeWhereDate(Builder $query, array $args)
+    {
+        $start = $args['start'] ?? null;
+        $end = $args['end'] ?? null;
+
+        if (! $start && ! $end) {
+            return $query;
+        }
+
+        return $query
+            ->when($start, function ($q) use ($start) {
+                $q->where('created_at', '>=', Carbon::parse($start)->startOfDay());
+            })
+            ->when($end, function ($q) use ($end) {
+                $q->where('created_at', '<=', Carbon::parse($end)->endOfDay());
+            });
+    }
+
+    public function scopeWhereCauserIn(Builder $query, ?array $ids)
+    {
+        return $query->when(! empty($ids), function ($q) use ($ids) {
+            $q->whereIn('causer_id', $ids)
+                ->where('causer_type', User::class);
+        });
+    }
+
+    public function scopeWherePoolCandidateIn(Builder $query, ?array $ids)
+    {
+        return $query->when(! empty($ids), function ($q) use ($ids) {
+            $q->whereIn('subject_id', $ids)
+                ->where('subject_type', PoolCandidate::class);
+        });
+    }
+
+    public function scopeWhereEventIn(Builder $query, ?array $events)
+    {
+        return $query->when(! empty($events), function ($q) use ($events) {
+            $normalizedEvents = array_map(fn ($e) => strtolower($e), $events);
+            $q->whereIn('event', $normalizedEvents);
+        });
     }
 
     /**

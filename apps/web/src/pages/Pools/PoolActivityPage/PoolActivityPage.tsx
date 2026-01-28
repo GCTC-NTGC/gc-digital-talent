@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
 import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
+import { SubmitHandler } from "react-hook-form";
 
 import { graphql, Maybe, Scalars } from "@gc-digital-talent/graphql";
 import {
@@ -23,26 +24,25 @@ import {
 import Pagination from "~/components/Pagination";
 import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
 
-function safeGetPageState(
-  key: string,
-  params: URLSearchParams,
-  defaultVal: number,
-) {
-  if (!params.has(key)) return defaultVal;
-
-  const param = params.get(key);
-  if (isNaN(Number(param))) return defaultVal;
-
-  return Number(param);
-}
-
-function getTotalPages(total: number, pageSize: number) {
-  return Math.ceil(total / pageSize);
-}
+import PoolActivityFilterDialog, {
+  FormValues,
+} from "./components/PoolActivityFilterDialog";
+import {
+  getTotalPages,
+  safeGetFilters,
+  safeGetPageState,
+  transformWhereClause,
+} from "./utils";
 
 interface RouteParams extends Record<string, string> {
   poolId: Scalars["ID"]["output"];
 }
+
+const resetValues: FormValues = {
+  events: undefined,
+  candidates: undefined,
+  causers: undefined,
+};
 
 const PoolActivityPage_Query = graphql(/* GraphQL */ `
   query PoolActivityPage(
@@ -88,6 +88,7 @@ const PoolActivityPage = () => {
     50,
   );
   const currentPage = safeGetPageState(SEARCH_PARAM_KEY.PAGE, searchParams, 1);
+  const filters = safeGetFilters(searchParams);
 
   const [{ data, fetching }] = useQuery({
     query: PoolActivityPage_Query,
@@ -95,7 +96,7 @@ const PoolActivityPage = () => {
       id: poolId,
       first: pageSize,
       page: currentPage,
-      where: searchTerm ? { generalSearch: searchTerm } : undefined,
+      where: transformWhereClause(searchTerm, filters),
     },
   });
 
@@ -148,6 +149,20 @@ const PoolActivityPage = () => {
     setSearchParams(params);
   };
 
+  const handleFilterChange: SubmitHandler<FormValues> = (values) => {
+    const params = new URLSearchParams(searchParams);
+    params.delete(SEARCH_PARAM_KEY.PAGE);
+
+    if (Object.values(values).some((val) => typeof val !== "undefined")) {
+      const encodedFilters = encodeURIComponent(JSON.stringify(values));
+      params.set(SEARCH_PARAM_KEY.FILTERS, encodedFilters);
+    } else {
+      params.delete(SEARCH_PARAM_KEY.FILTERS);
+    }
+
+    setSearchParams(params);
+  };
+
   return (
     <Container className="my-18">
       <Heading
@@ -163,11 +178,23 @@ const PoolActivityPage = () => {
         })}
       </Heading>
 
-      <ActivityLog.SearchForm
-        onReset={handleResetSearch}
-        onSearch={handleSearch}
-        defaultValue={searchParams.get(SEARCH_PARAM_KEY.SEARCH_TERM)}
-      />
+      <div className="my-6 flex items-end gap-3">
+        <div className="grow">
+          <ActivityLog.SearchForm
+            onReset={handleResetSearch}
+            onSearch={handleSearch}
+            defaultValue={searchParams.get(SEARCH_PARAM_KEY.SEARCH_TERM)}
+          />
+        </div>
+        <div className="shrink">
+          <PoolActivityFilterDialog
+            key={filters ? JSON.stringify(filters) : "empty"}
+            onSubmit={handleFilterChange}
+            initialValues={filters}
+            resetValues={resetValues}
+          />
+        </div>
+      </div>
 
       <div className="relative">
         {fetching && <Loading className="absolute" />}

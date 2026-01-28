@@ -28,6 +28,8 @@ export interface CommonFilterDialogProps<
 }
 
 interface FilterDialogProps<TFieldValues extends FieldValues> {
+  title?: string;
+  subtitle?: string;
   onSubmit: CommonFilterDialogProps<TFieldValues>["onSubmit"];
   options?: UseFormProps<TFieldValues, unknown>;
   // Values to reset to (removing URL state)
@@ -39,6 +41,8 @@ interface FilterDialogProps<TFieldValues extends FieldValues> {
 }
 
 const FilterDialog = <TFieldValues extends FieldValues>({
+  title,
+  subtitle,
   onSubmit,
   options,
   children,
@@ -99,7 +103,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
     setIsOpen(newOpen);
   };
 
-  const modifiedFitlerCount = filterCount + (modifyFilterCount ?? 0);
+  const modifiedFilterCount = filterCount + (modifyFilterCount ?? 0);
   return (
     <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
@@ -108,8 +112,8 @@ const FilterDialog = <TFieldValues extends FieldValues>({
           type="button"
           block
           icon={AdjustmentsVerticalIcon}
-          {...(modifiedFitlerCount > 0 && {
-            counter: modifiedFitlerCount,
+          {...(modifiedFilterCount > 0 && {
+            counter: modifiedFilterCount,
           })}
         >
           {intl.formatMessage({
@@ -122,18 +126,22 @@ const FilterDialog = <TFieldValues extends FieldValues>({
       </Dialog.Trigger>
       <Dialog.Content wide hasSubtitle>
         <Dialog.Header
-          subtitle={intl.formatMessage({
-            defaultMessage:
-              "Narrow down your table results using the following filters.",
-            id: "hqZfyb",
-            description: "Candidate search filter dialog: subtitle",
-          })}
+          subtitle={
+            subtitle ??
+            intl.formatMessage({
+              defaultMessage:
+                "Narrow down your table results using the following filters.",
+              id: "hqZfyb",
+              description: "Candidate search filter dialog: subtitle",
+            })
+          }
         >
-          {intl.formatMessage({
-            defaultMessage: "Select filters",
-            id: "P9SZBZ",
-            description: "Candidate search filter dialog: title",
-          })}
+          {title ??
+            intl.formatMessage({
+              defaultMessage: "Select filters",
+              id: "P9SZBZ",
+              description: "Candidate search filter dialog: title",
+            })}
         </Dialog.Header>
         <Dialog.Body>
           <FormProvider {...methods}>

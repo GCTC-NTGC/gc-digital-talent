@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\ActivityLog;
 
+use App\Enums\ActivityEvent;
 use App\Enums\AssessmentStepType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
@@ -13,6 +14,7 @@ use App\Models\Skill;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -56,6 +58,10 @@ class ProcessActivityLogTest extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
+
+        // Mock time for date range test
+        $yesterday = now()->subDay();
+        Carbon::setTestNow($yesterday);
 
         $this->process = Pool::factory()->draft()->create();
 
@@ -121,6 +127,9 @@ class ProcessActivityLogTest extends TestCase
             'user_id' => $needleUser->id,
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
+
+        // Reset time to have different createdAt
+        Carbon::setTestNow();
 
         // Candidate logs: submit as themselves
         Auth::login($needleUser);
@@ -267,6 +276,93 @@ class ProcessActivityLogTest extends TestCase
                 'id' => $this->process->id,
                 'where' => [
                     'generalSearch' => 'DefinitelyNotInTheLog',
+                ],
+            ])
+            ->assertJsonCount(0, 'data.pool.activities.data');
+    }
+
+    public function testFilterByDateRange()
+    {
+        $today = now()->format('Y-m-d');
+        $yesterday = now()->subDay()->format('Y-m-d');
+        $tomorrow = now()->addDay()->format('Y-m-d');
+
+        // Check "yesterday" logs appear, "today" does not
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+                'where' => [
+                    'createdAt' => ['start' => $yesterday, 'end' => $yesterday],
+                ],
+            ])
+            ->assertJsonFragment(['subjectId' => $this->step->id])
+            ->assertJsonMissing(['subjectId' => $this->candidate->id]); // qualify happened today
+
+        // Check "today" logs appear, "yesterday" did not
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+                'where' => [
+                    'createdAt' => ['start' => $today, 'end' => $today],
+                ],
+            ])
+            ->assertJsonFragment(['subjectId' => $this->candidate->id])
+            ->assertJsonMissing(['subjectId' => $this->step->id]);
+
+        // Inclusive check, all logs should appear
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+                'where' => [
+                    'createdAt' => ['start' => $yesterday, 'end' => $today],
+                ],
+            ])
+            ->assertJsonFragment(['subjectId' => $this->step->id])
+            ->assertJsonFragment(['subjectId' => $this->candidate->id]);
+
+        // Future check, no logs should appear
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+                'where' => [
+                    'createdAt' => ['start' => $tomorrow, 'end' => $tomorrow],
+                ],
+            ])
+            ->assertJsonCount(0, 'data.pool.activities.data');
+    }
+
+    public function testFilterByExplicitCauser()
+    {
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+                'where' => [
+                    'causers' => [$this->processOperator->id],
+                ],
+            ])
+            ->assertJsonFragment(['causer' => ['id' => $this->processOperator->id]])
+            ->assertJsonMissing(['causer' => ['id' => $this->communityRecruiter->id]]);
+    }
+
+    public function testFilterByEvents()
+    {
+
+        // Positive test, check for existing event
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+                'where' => [
+                    'events' => [ActivityEvent::QUALIFIED->name],
+                ],
+            ])
+            ->assertJsonFragment(['subjectId' => $this->candidate->id]);
+
+        // Negative test, check for non-existent event
+        $this->actingAs($this->communityRecruiter, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+                'where' => [
+                    'events' => [ActivityEvent::DELETED->name],
                 ],
             ])
             ->assertJsonCount(0, 'data.pool.activities.data');

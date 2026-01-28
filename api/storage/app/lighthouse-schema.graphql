@@ -8,6 +8,11 @@ interface LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedActivityEvent implements LocalizedEnumOption {
+  value: ActivityEvent!
+  label: LocalizedString!
+}
+
 type LocalizedArmedForcesStatus implements LocalizedEnumOption {
   value: ArmedForcesStatus!
   label: LocalizedString!
@@ -1076,7 +1081,7 @@ type Pool implements HasRoleAssignments {
   fullDisplayName: DefinedString
   classification: Classification
   operationalRequirements: [LocalizedOperationalRequirement]
-  poolCandidates: [PoolCandidate]
+  poolCandidates(generalSearch: String): [PoolCandidate]
   poolCandidatesCount: Int
   keyTasks: LocalizedString
   yourImpact: LocalizedString
@@ -1875,8 +1880,17 @@ input CommunityInterestFilterInput {
   skills: [UUID]
 }
 
+input DateBetweenInput {
+  start: Date
+  end: Date
+}
+
 input ProcessActivityFilterInput {
   generalSearch: String
+  createdAt: DateBetweenInput
+  causers: [UUID!]
+  candidates: [UUID!]
+  events: [ActivityEvent!]
 }
 
 input ClassificationBelongsTo {
