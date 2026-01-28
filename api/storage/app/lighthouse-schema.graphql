@@ -1081,7 +1081,7 @@ type Pool implements HasRoleAssignments {
   fullDisplayName: DefinedString
   classification: Classification
   operationalRequirements: [LocalizedOperationalRequirement]
-  poolCandidates: [PoolCandidate]
+  poolCandidates(generalSearch: String): [PoolCandidate]
   poolCandidatesCount: Int
   keyTasks: LocalizedString
   yourImpact: LocalizedString

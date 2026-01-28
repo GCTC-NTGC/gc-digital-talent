@@ -16,6 +16,8 @@ import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 
+import CandidatesFilterInput from "./CandidatesFilterInput";
+
 export interface FormValues {
   startDate?: Maybe<Scalars["Date"]["input"]>;
   endDate?: Maybe<Scalars["Date"]["input"]>;
@@ -45,6 +47,7 @@ const PoolActivityFilterDialog = ({
   initialValues,
 }: PoolActivityFilterDialogProps) => {
   const intl = useIntl();
+
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   const [{ data, fetching }] = useQuery({
@@ -89,6 +92,14 @@ const PoolActivityFilterDialog = ({
           })}
         />
       </div>
+      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
+        {intl.formatMessage({
+          defaultMessage: "Candidate details",
+          id: "sty2no",
+          description: "Heading for filters directly related to the candidates",
+        })}
+      </Heading>
+      <CandidatesFilterInput />
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Process details",

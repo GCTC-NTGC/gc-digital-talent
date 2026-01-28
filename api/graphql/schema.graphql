@@ -515,7 +515,9 @@ type Pool implements HasRoleAssignments {
   classification: Classification @belongsTo
   operationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "operational_requirements")
-  poolCandidates: [PoolCandidate]
+  poolCandidates(
+    generalSearch: String @scope(name: "whereGeneralSearch")
+  ): [PoolCandidate]
     @hasMany(
       relation: "publishedPoolCandidates"
       scopes: ["whereAuthorizedToView"]
