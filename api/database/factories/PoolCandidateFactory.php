@@ -145,7 +145,7 @@ class PoolCandidateFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (PoolCandidate $poolCandidate) {
-            // after setting application_status, check what it is and update accordingly, give it a submitted date if it isn't DRAFT or DRAFT_EXPIRED
+            // after setting application_status, check what it is and update accordingly, give it a submitted date if it isn't DRAFT
             // add a signature in the above case too
             // grab status from database directly, bypassing the Accessor in order to avoid the Accessor overriding in some cases
             $candidateId = $poolCandidate->id;
