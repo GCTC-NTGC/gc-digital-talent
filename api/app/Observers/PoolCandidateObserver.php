@@ -39,7 +39,9 @@ class PoolCandidateObserver
                 // new status is a removed
                 $newStatus === ApplicationStatus::REMOVED->name ||
                 // old status was a removed
-                $oldStatus === ApplicationStatus::REMOVED->name
+                $oldStatus === ApplicationStatus::REMOVED->name ||
+                // placement changed, so let the user know
+                $poolCandidate->wasChanged('placement_type')
             )) {
             try {
 
