@@ -17,6 +17,7 @@ import FilterDialog, {
 } from "~/components/FilterDialog/FilterDialog";
 
 import CandidatesFilterInput from "./CandidatesFilterInput";
+import AssessmentMembersFilterInput from "./AssessmentMembersFilterInput";
 
 export interface FormValues {
   startDate?: Maybe<Scalars["Date"]["input"]>;
@@ -50,7 +51,7 @@ const PoolActivityFilterDialog = ({
 
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
-  const [{ data, fetching }] = useQuery({
+  const [{ data }] = useQuery({
     query: PoolActivityFilterData_Query,
   });
 
@@ -65,6 +66,7 @@ const PoolActivityFilterDialog = ({
         description: "Subtitle for activity log filter dialog",
       })}
     >
+      <AssessmentMembersFilterInput />
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Date range",

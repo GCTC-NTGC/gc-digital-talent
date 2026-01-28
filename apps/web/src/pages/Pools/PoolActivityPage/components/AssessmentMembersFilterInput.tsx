@@ -4,15 +4,14 @@ import debounce from "lodash/debounce";
 
 import { Combobox } from "@gc-digital-talent/forms";
 
-import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 
-import useAvailableCandidates from "./useAvailableCandidates";
+import useAvailableAssessmentMembers from "./useAvailableAssessmentMembers";
 
-const CandidatesFilterInput = () => {
+const AssessmentMembersFilterInput = () => {
   const intl = useIntl();
   const [query, setQuery] = useState<string>("");
-  const { candidates, fetching, total } = useAvailableCandidates(
+  const { assessmentMembers, fetching, total } = useAvailableAssessmentMembers(
     query || undefined,
   );
 
@@ -20,29 +19,33 @@ const CandidatesFilterInput = () => {
     setQuery(newQuery);
   }, 300);
 
-  const candidateOptions = candidates.map((candidate) => ({
-    value: candidate.id,
+  const membersOptions = assessmentMembers.map((member) => ({
+    value: member.id,
     label: getFullNameAndEmailLabel(
-      candidate.user.firstName,
-      candidate.user.lastName,
-      candidate.user.email,
+      member.firstName,
+      member.lastName,
+      member.email,
       intl,
     ),
   }));
 
   return (
     <Combobox
-      id="candidates"
-      name="candidates"
+      id="causers"
+      name="causers"
       fetching={fetching}
       isExternalSearch
       isMulti
       onSearch={handleDebouncedSearch}
       total={total}
-      label={intl.formatMessage(tableMessages.candidateName)}
-      options={candidateOptions ?? []}
+      label={intl.formatMessage({
+        defaultMessage: "Assessment team member",
+        id: "CG07OF",
+        description: "Label for a process assessment team member input",
+      })}
+      options={membersOptions ?? []}
     />
   );
 };
 
-export default CandidatesFilterInput;
+export default AssessmentMembersFilterInput;
