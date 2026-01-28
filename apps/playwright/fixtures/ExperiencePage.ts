@@ -550,29 +550,32 @@ class ExperiencePage extends AppPage {
     await this.typeLocator.selectOption("community");
 
     await this.page
-      .getByRole("textbox", { name: /my role/i })
+      .getByRole("textbox", { name: /role or title/i })
       .fill(input.title ?? "test role");
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("radio", { name: /i'm currently active in this role/i })
+        .click();
+    } else {
+      await this.page
+        .getByRole("radio", { name: /this is a role i held in the past/i })
+        .click();
+      await this.fillDate(input.endDate, true);
+    }
+
+    await this.fillDate(input.startDate);
 
     await this.page
       .getByLabel(/group, organization, or community/i)
       .fill(input?.organization ?? "test org");
 
     await this.page
-      .getByRole("textbox", { name: /project/i })
+      .getByRole("textbox", { name: /project or product/i })
       .fill(input?.project ?? "test project");
 
-    await this.fillDate(input.startDate);
-
-    if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", { name: /i am currently active in this role/i })
-        .click();
-    } else {
-      await this.fillDate(input.endDate, true);
-    }
-
     await this.page
-      .getByRole("textbox", { name: /additional details/i })
+      .getByRole("textbox", { name: /key tasks and responsibilities/i })
       .fill(input.details ?? "test details");
 
     await this.save();

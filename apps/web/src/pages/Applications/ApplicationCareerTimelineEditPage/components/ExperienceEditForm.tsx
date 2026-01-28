@@ -24,7 +24,6 @@ import {
   ExperienceType,
   AnyExperience,
 } from "~/types/experience";
-import TasksAndResponsibilities from "~/components/ExperienceFormFields/AdditionalDetails";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 
@@ -147,7 +146,6 @@ const EditExperienceForm = ({
           experienceType={experienceType}
           organizationSuggestions={organizationSuggestions}
         />
-        <TasksAndResponsibilities experienceType={experienceType} />
         <Separator />
         <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
           <Submit

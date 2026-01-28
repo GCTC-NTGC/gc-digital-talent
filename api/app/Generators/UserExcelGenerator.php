@@ -182,7 +182,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'issuing_org',
         'awarded_scope',
         'date_awarded',
-        'additional_details',
+        'details_or_key_tasks',
         'featured_skills',
         'klc_achieve_results',
         'klc_character_leadership',

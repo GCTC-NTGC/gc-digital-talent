@@ -147,6 +147,8 @@ return [
     'gc_annual_budget_allocation' => 'Allocation budgétaire annuelle du GC',
     'c_suite_title' => 'Rôle de cadre supérieur du GC',
     'additional_details' => 'Détails additionnels',
+    'details_or_key_tasks' => 'Détails supplémentaires ou tâches et responsabilités principales',
+    'key_tasks_and_responsibilities' => 'Tâches et responsabilités principales',
     'caf_employment_type' => 'Type d’emploi des FAC',
     'caf_rank_category' => 'Catégorie de grade des FAC',
     'education_status' => 'Statut d’études',

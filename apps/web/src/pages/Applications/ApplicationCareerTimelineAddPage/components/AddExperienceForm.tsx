@@ -24,7 +24,6 @@ import {
   AllExperienceFormValues,
   ExperienceType,
 } from "~/types/experience";
-import TasksAndResponsibilities from "~/components/ExperienceFormFields/AdditionalDetails";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 import experienceMessages from "~/messages/experienceMessages";
@@ -157,7 +156,6 @@ const AddExperienceForm = ({
           ]}
         />
         <ExperienceDetails organizationSuggestions={organizationSuggestions} />
-        <TasksAndResponsibilities />
         <Separator />
         <div className="flex flex-col flex-wrap items-start gap-6 sm:flex-row sm:items-center">
           <Button
