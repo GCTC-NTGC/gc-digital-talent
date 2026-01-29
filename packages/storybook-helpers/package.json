@@ -27,14 +27,14 @@
   "devDependencies": {
     "@formatjs/ts-transformer": "^4.3.1",
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@storybook/addon-a11y": "^10.2.0",
+    "@storybook/addon-a11y": "^10.2.1",
     "@storybook/addon-designs": "^11.1.1",
-    "@storybook/addon-themes": "^10.2.0",
-    "@storybook/builder-vite": "^10.2.0",
-    "@storybook/react-vite": "^10.2.0",
+    "@storybook/addon-themes": "^10.2.1",
+    "@storybook/builder-vite": "^10.2.1",
+    "@storybook/react-vite": "^10.2.1",
     "eslint": "^9.20.1",
     "react": "^19.2.3",
-    "storybook": "^10.2.0",
+    "storybook": "^10.2.1",
     "storybook-react-intl": "^10.0.1",
     "tsconfig": "workspace:*"
   }
