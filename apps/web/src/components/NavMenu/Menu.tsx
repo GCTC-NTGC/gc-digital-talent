@@ -24,7 +24,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   Button,
-  NavMenu as NavMenu,
+  NavMenu,
   NavMenuProvider,
   Container,
 } from "@gc-digital-talent/ui";
@@ -78,6 +78,7 @@ const Menu = ({
   const paths = useRoutes();
   const isSmallScreen = useIsSmallScreen("sm");
   const homeLinkRef = useRef<HTMLAnchorElement>(null);
+  const previousBodyOverflowYRef = useRef<string | null>(null);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isNotificationDialogOpen, setNotificationDialogOpen] = useState(false);
   const { loggedIn } = useAuthentication();
@@ -86,10 +87,7 @@ const Menu = ({
   const languageTogglePath = localizePath(location, changeToLang);
 
   const handleOpenToggle = () => {
-    setMenuOpen((prevOpen) => {
-      const newOpen = !prevOpen;
-      return newOpen;
-    });
+    setMenuOpen((prevOpen) => !prevOpen);
   };
 
   const handleKeyDown: KeyboardEventHandler = (event) => {
@@ -101,10 +99,16 @@ const Menu = ({
 
   useEffect(() => {
     if (isSmallScreen && isMenuOpen) {
+      if (previousBodyOverflowYRef.current === null) {
+        previousBodyOverflowYRef.current = document.body.style.overflowY ?? "";
+      }
       document.body.style.overflowY = "hidden";
     }
     return () => {
-      document.body.style.overflowY = "scroll";
+      if (previousBodyOverflowYRef.current !== null) {
+        document.body.style.overflowY = previousBodyOverflowYRef.current;
+        previousBodyOverflowYRef.current = null;
+      }
     };
   }, [isSmallScreen, isMenuOpen]);
 
@@ -218,9 +222,9 @@ const Menu = ({
               <m.div
                 onClick={() => setMenuOpen(false)}
                 className="fixed inset-0 z-[6] overflow-auto bg-gray-700"
-                initial={{ opacity: 0.85 }}
+                initial={{ opacity: 0 }}
                 animate={{ opacity: 0.85 }}
-                exit={{ opacity: 0.85 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
               />
             )}
