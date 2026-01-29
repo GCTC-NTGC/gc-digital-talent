@@ -20,7 +20,7 @@ const hero = tv({
     wrapper:
       "Hero relative overflow-hidden bg-[#000] iap:bg-linear-90 iap:from-primary iap:to-primary-600",
     container: "relative pt-15",
-    content: "relative z-3 text-center text-white xs:w-3/5",
+    content: "relative z-3 text-center text-white",
     breadcrumbs: "flex flex-wrap justify-center gap-3 p-0 [&_li]:inline-block",
     tabs: "mt-12 flex",
   },
@@ -40,6 +40,7 @@ const hero = tv({
       },
       image: {
         container: "pb-12",
+        content: "xs:w-3/5",
       },
       overlap: {
         container: "pb-36",
