@@ -28,3 +28,11 @@ export const COMMUNITY_ROLES: RoleName[] = [
   ROLE_NAME.CommunityRecruiter,
   ROLE_NAME.CommunityAdmin,
 ];
+
+export const ASSESSMENT_MEMBER_ROLES: RoleName[] = [
+  ROLE_NAME.PlatformAdmin,
+  ROLE_NAME.CommunityAdmin,
+  ROLE_NAME.CommunityRecruiter,
+  ROLE_NAME.CommunityTalentCoordinator,
+  ROLE_NAME.ProcessOperator,
+];

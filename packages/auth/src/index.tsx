@@ -19,6 +19,7 @@ import {
   LOGOUT_REASON_KEY,
   NAV_ROLE_KEY,
   COMMUNITY_ROLES,
+  ASSESSMENT_MEMBER_ROLES,
 } from "./const";
 import type { LogoutReason } from "./const";
 import getAuthenticationState from "./utils/authenticationState";
@@ -48,6 +49,7 @@ export {
   ROLE_NAME,
   NAV_ROLE_KEY,
   COMMUNITY_ROLES,
+  ASSESSMENT_MEMBER_ROLES,
 };
 
 export type { RoleName, LogoutReason, AuthenticationState };

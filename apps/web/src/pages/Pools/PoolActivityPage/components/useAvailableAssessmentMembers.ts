@@ -1,15 +1,8 @@
 import { useQuery } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import { ASSESSMENT_MEMBER_ROLES, RoleName } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-
-const ASSESSMENT_MEMBER_ROLES: RoleName[] = [
-  ROLE_NAME.PlatformAdmin,
-  ROLE_NAME.CommunityRecruiter,
-  ROLE_NAME.CommunityTalentCoordinator,
-  ROLE_NAME.ProcessOperator,
-];
 
 const AssessmentMemberRoles_Query = graphql(/** GraphQL */ `
   query AssessmentMemberRoles {
