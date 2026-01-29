@@ -35,9 +35,9 @@
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@types/lodash": "^4.17.23",
     "@types/node": "^25.0.10",
-    "@types/react": "^19.2.9",
+    "@types/react": "^19.2.10",
     "eslint": "^9.20.1",
-    "react": "^19.2.3",
+    "react": "^19.2.4",
     "tsconfig": "workspace:*",
     "typescript": "^5.9.3",
     "vitest": "^4.0.16"
