@@ -3,7 +3,10 @@ import { format } from "date-fns/format";
 import { ProcessActivityFilterInput } from "@gc-digital-talent/graphql";
 import {
   DATETIME_FORMAT_STRING,
+  getUtcStartOfDayForLocalDate,
   parseDateTimeUtc,
+  getUserTimeZone,
+  getUtcEndOfDayForLocalDate,
 } from "@gc-digital-talent/date-helpers";
 
 import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
@@ -42,15 +45,12 @@ export function safeGetFilters(params: URLSearchParams) {
   return filters;
 }
 
-function toApiDate(d: string) {
-  return format(parseDateTimeUtc(d), DATETIME_FORMAT_STRING);
-}
-
 export function transformWhereClause(
   searchTerm?: string,
   filters?: FormValues,
 ): ProcessActivityFilterInput {
   const { from, to, ...restFilters } = filters ?? {};
+  const tz = getUserTimeZone();
 
   return {
     ...(searchTerm ? { generalSearch: searchTerm } : {}),
@@ -58,8 +58,8 @@ export function transformWhereClause(
     ...(from || to
       ? {
           createdAt: {
-            ...(from && { from: toApiDate(from) }),
-            ...(to && { to: toApiDate(to) }),
+            ...(from && { from: getUtcStartOfDayForLocalDate(from, tz) }),
+            ...(to && { to: getUtcEndOfDayForLocalDate(to, tz) }),
           },
         }
       : {}),
