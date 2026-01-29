@@ -37,7 +37,7 @@
     "@radix-ui/react-toggle-group": "^1.1.11",
     "chromatic": "^13.3.5",
     "lodash": "^4.17.23",
-    "motion": "^12.28.1",
+    "motion": "^12.29.2",
     "react-csv-downloader": "^3.3.0",
     "react-focus-lock": "^2.13.7",
     "react-router": "^7.12.0",
