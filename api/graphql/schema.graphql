@@ -1517,6 +1517,10 @@ input CommunityInterestFilterInput {
   operationalRequirements: [OperationalRequirement] @scope
   skills: [UUID] @scope
 }
+input DateRangeOptional {
+  from: DateTime
+  to: DateTime @rules(apply: ["after_or_equal:from"])
+}
 
 input ProcessActivityFilterInput {
   generalSearch: String @scope(name: "whereProcessGeneralSearch")

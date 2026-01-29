@@ -1880,6 +1880,11 @@ input CommunityInterestFilterInput {
   skills: [UUID]
 }
 
+input DateRangeOptional {
+  from: DateTime
+  to: DateTime
+}
+
 input ProcessActivityFilterInput {
   generalSearch: String
   createdAt: DateRange
