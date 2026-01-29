@@ -43,7 +43,7 @@ const AssessmentMembersFilterInput = () => {
         id: "CG07OF",
         description: "Label for a process assessment team member input",
       })}
-      options={membersOptions ?? []}
+      options={membersOptions}
     />
   );
 };

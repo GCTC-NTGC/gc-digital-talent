@@ -40,7 +40,7 @@ const CandidatesFilterInput = () => {
       onSearch={handleDebouncedSearch}
       total={total}
       label={intl.formatMessage(tableMessages.candidateName)}
-      options={candidateOptions ?? []}
+      options={candidateOptions}
     />
   );
 };
