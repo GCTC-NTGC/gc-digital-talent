@@ -19,7 +19,7 @@ function useDeepCompareEffect(
   dependencies: DependencyList,
 ): void {
   // this function was added to eslint so deps will be checked at the calling location
-   
+
   useEffect(callback, dependencies.map(useDeepCompareMemoize));
 }
 

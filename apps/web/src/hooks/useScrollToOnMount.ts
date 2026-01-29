@@ -22,7 +22,6 @@ function useScrollToOnMount<TRef extends HTMLElement>(
       window.scrollTo(restOpts);
     }
     // NOTE: This is an on mount hook
-     
   }, []);
 
   return el;

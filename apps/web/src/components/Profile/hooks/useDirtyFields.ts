@@ -16,7 +16,6 @@ const useDirtyFields = (section: SectionKey): void => {
      *
      * This is necessary to facilitate validating all of the forms at once
      */
-     
   }, [isDirty]);
 };
 

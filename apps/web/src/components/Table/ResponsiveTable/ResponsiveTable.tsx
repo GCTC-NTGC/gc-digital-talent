@@ -352,7 +352,6 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       debouncedAnnouncement(totalRows ?? 0);
     }
     // Note, exhaustive-deps causes over announcing
-     
   }, [totalRows]);
 
   return (
