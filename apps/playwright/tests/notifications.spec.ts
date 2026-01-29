@@ -145,6 +145,7 @@ test.describe("Notifications", () => {
     const application = new ApplicationPage(appPage.page, poolId);
     const settingsPage = new AccountSettings(appPage.page);
     await loginBySub(application.page, sub, false);
+    const newClosingDate = "3000-10-10";
     // Update notification settings
     await settingsPage.goToSettings();
     await settingsPage.updateNotificationsSettings();
@@ -164,12 +165,22 @@ test.describe("Notifications", () => {
     await expect(
       poolPage.page.getByRole("heading", { name: poolName, level: 1 }),
     ).toBeVisible();
-    await poolPage.updateClosingDateAfterPublished();
+    await poolPage.updateClosingDateAfterPublished(newClosingDate);
     // Verify notification for draft application extension
     await loginBySub(application.page, sub, false);
     await appPage.page
       .getByRole("button", { name: /view notifications/i })
       .click();
-    // The notification is not appearing here, the defect is raised - https://github.com/GCTC-NTGC/gc-digital-talent/issues/15702
+    await appPage.page
+      .getByRole("button", { name: /refresh notifications/i })
+      .click();
+    await expect(
+      appPage.page.getByRole("link", {
+        name: new RegExp(
+          `deadline for ${poolName}.*extended.*continue your application`,
+          "i",
+        ),
+      }),
+    ).toBeVisible();
   });
 });

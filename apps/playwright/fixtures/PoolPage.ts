@@ -236,7 +236,8 @@ class PoolPage extends AppPage {
       .map((ps) => ps.id);
   }
 
-  async updateClosingDateAfterPublished() {
+  async updateClosingDateAfterPublished(closingDate: string) {
+    const [year, month, day] = closingDate.split("-");
     await this.page
       .getByRole("button", { name: /change closing date/i })
       .click();
@@ -249,14 +250,17 @@ class PoolPage extends AppPage {
     await this.page
       .getByRole("radio", { name: /extend closing date/i })
       .check();
-    const closingDate = this.page.getByRole("group", {
-      name: /end date/i,
-    });
-    await closingDate.getByRole("spinbutton", { name: /year/i }).fill("3000");
-    await closingDate
+
+    const endDateGroup = this.page.getByRole("group", { name: /end date/i });
+
+    await endDateGroup.getByRole("spinbutton", { name: /year/i }).fill(year);
+
+    await endDateGroup
       .getByRole("combobox", { name: /month/i })
-      .selectOption("10");
-    await closingDate.getByRole("spinbutton", { name: /day/i }).fill("10");
+      .selectOption(month);
+
+    await endDateGroup.getByRole("spinbutton", { name: /day/i }).fill(day);
+
     await this.page
       .getByRole("button", { name: /change closing date/i })
       .click();

@@ -9,8 +9,9 @@ use App\Notifications\Messages\GcNotifyEmailMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ApplicationDeadlineExtended extends Notification implements CanBeSentViaGcNotifyEmail
+class ApplicationDeadlineExtended extends Notification implements CanBeSentViaGcNotifyEmail, ShouldQueue
 {
     use Queueable;
 
