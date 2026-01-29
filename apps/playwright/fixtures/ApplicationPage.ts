@@ -1,4 +1,4 @@
-import { type Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
 
 import AppPage from "./AppPage";
 
@@ -14,6 +14,16 @@ class ApplicationPage extends AppPage {
     super(page);
 
     this.poolId = poolId;
+  }
+
+  async expectOnStep(page: Page, step: number) {
+    await expect(
+      page.getByRole("heading", { name: new RegExp(`step ${step} of 7`, "i") }),
+    ).toBeVisible();
+
+    await expect(
+      page.getByText(/uh oh, it looks like you jumped ahead!/i),
+    ).toBeHidden();
   }
 
   /** Start application */
