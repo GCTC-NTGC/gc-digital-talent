@@ -283,9 +283,9 @@ class ProcessActivityLogTest extends TestCase
 
     public function testFilterByDateRange()
     {
-        $today = now()->format('Y-m-d');
-        $yesterday = now()->subDay()->format('Y-m-d');
-        $tomorrow = now()->addDay()->format('Y-m-d');
+        $today = now()->format('Y-m-d H:i:s');
+        $yesterday = now()->subDay()->format('Y-m-d H:i:s');
+        $tomorrow = now()->addDay()->format('Y-m-d H:i:s');
 
         // Check "yesterday" logs appear, "today" does not
         $this->actingAs($this->communityRecruiter, 'api')
