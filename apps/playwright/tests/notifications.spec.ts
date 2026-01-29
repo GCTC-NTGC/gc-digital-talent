@@ -24,6 +24,7 @@ import { getWorkStreams } from "~/utils/workStreams";
 import testConfig from "~/constants/config";
 import PoolPage from "~/fixtures/PoolPage";
 import AccountSettings from "~/fixtures/AccountSettings";
+import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
 
 test.describe("Notifications", () => {
   let uniqueTestId: string;
@@ -139,7 +140,7 @@ test.describe("Notifications", () => {
     ).toBeVisible();
   });
 
-  test("Notification to inform candidates with draft application extension", async ({
+  test("Pool extension notification sent to the candidate whose job application is in draft", async ({
     appPage,
   }) => {
     const application = new ApplicationPage(appPage.page, poolId);
@@ -158,6 +159,8 @@ test.describe("Notifications", () => {
     await application.page.getByRole("button", { name: /let's go/i }).click();
     await application.expectOnStep(application.page, 2);
     await application.saveAndContinue();
+    const dashboardPage = new ApplicantDashboardPage(appPage.page);
+    await dashboardPage.verifyApplicationStatusFromDashboard("Draft");
     // Admin extends closing date for the draft application
     const poolPage = new PoolPage(appPage.page);
     await loginBySub(poolPage.page, testConfig.signInSubs.adminSignIn, false);
@@ -182,5 +185,45 @@ test.describe("Notifications", () => {
         ),
       }),
     ).toBeVisible();
+  });
+
+  test("Pool extension notification is not displayed to candidate", async ({
+    appPage,
+  }) => {
+    const application = new ApplicationPage(appPage.page, poolId);
+    await loginBySub(application.page, sub, false);
+    const newClosingDate = "3000-10-10";
+    // Applicant creates draft application
+    await application.create();
+    await application.expectOnStep(application.page, 1);
+    await application.page.getByRole("button", { name: /let's go/i }).click();
+    await application.expectOnStep(application.page, 2);
+    await application.saveAndContinue();
+    const dashboardPage = new ApplicantDashboardPage(appPage.page);
+    await dashboardPage.verifyApplicationStatusFromDashboard("Draft");
+    // Admin extends closing date for the draft application
+    const poolPage = new PoolPage(appPage.page);
+    await loginBySub(poolPage.page, testConfig.signInSubs.adminSignIn, false);
+    await poolPage.openPool(poolId);
+    await expect(
+      poolPage.page.getByRole("heading", { name: poolName, level: 1 }),
+    ).toBeVisible();
+    await poolPage.updateClosingDateAfterPublished(newClosingDate);
+    // Verify notification for draft application extension
+    await loginBySub(application.page, sub, false);
+    await appPage.page
+      .getByRole("button", { name: /view notifications/i })
+      .click();
+    await appPage.page
+      .getByRole("button", { name: /refresh notifications/i })
+      .click();
+    await expect(
+      appPage.page.getByRole("link", {
+        name: new RegExp(
+          `deadline for ${poolName}.*extended.*continue your application`,
+          "i",
+        ),
+      }),
+    ).toBeHidden();
   });
 });

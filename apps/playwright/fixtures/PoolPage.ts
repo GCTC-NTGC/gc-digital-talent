@@ -30,13 +30,12 @@ class PoolPage extends AppPage {
     await this.waitForGraphqlResponse("ViewPoolPage");
   }
 
-  async createProcess(
+  async createProcessTillEssentialSkills(
     community: string,
     groupAndLevel: string,
     processTitle: string,
     workStream: string,
     skills: { name: string; level: string }[],
-    email: string,
   ) {
     await this.poolCreation(community, groupAndLevel);
     await this.editBasicInformation(processTitle, workStream);
@@ -44,8 +43,6 @@ class PoolPage extends AppPage {
     await this.updateClosingDate();
     await this.updateCoreRequirements();
     await this.addEssentialSkills(skills);
-    await this.addAboutThisRole();
-    await this.addContactEmail(email);
   }
 
   async poolCreation(community: string, groupAndLevel: string) {
