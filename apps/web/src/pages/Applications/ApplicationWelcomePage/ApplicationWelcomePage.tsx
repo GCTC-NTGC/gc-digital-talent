@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
+import { SubmitEvent } from "react";
 
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -14,7 +15,6 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
-import { SubmitEvent } from "react";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
