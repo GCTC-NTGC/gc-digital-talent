@@ -292,7 +292,7 @@ class ProcessActivityLogTest extends TestCase
             ->graphQL($this->query, [
                 'id' => $this->process->id,
                 'where' => [
-                    'createdAt' => ['start' => $yesterday, 'end' => $yesterday],
+                    'createdAt' => ['from' => $yesterday, 'to' => $yesterday],
                 ],
             ])
             ->assertJsonFragment(['subjectId' => $this->step->id])
@@ -303,7 +303,7 @@ class ProcessActivityLogTest extends TestCase
             ->graphQL($this->query, [
                 'id' => $this->process->id,
                 'where' => [
-                    'createdAt' => ['start' => $today, 'end' => $today],
+                    'createdAt' => ['from' => $today, 'to' => $today],
                 ],
             ])
             ->assertJsonFragment(['subjectId' => $this->candidate->id])
@@ -314,7 +314,7 @@ class ProcessActivityLogTest extends TestCase
             ->graphQL($this->query, [
                 'id' => $this->process->id,
                 'where' => [
-                    'createdAt' => ['start' => $yesterday, 'end' => $today],
+                    'createdAt' => ['from' => $yesterday, 'to' => $today],
                 ],
             ])
             ->assertJsonFragment(['subjectId' => $this->step->id])
@@ -325,7 +325,7 @@ class ProcessActivityLogTest extends TestCase
             ->graphQL($this->query, [
                 'id' => $this->process->id,
                 'where' => [
-                    'createdAt' => ['start' => $tomorrow, 'end' => $tomorrow],
+                    'createdAt' => ['from' => $tomorrow, 'to' => $tomorrow],
                 ],
             ])
             ->assertJsonCount(0, 'data.pool.activities.data');
