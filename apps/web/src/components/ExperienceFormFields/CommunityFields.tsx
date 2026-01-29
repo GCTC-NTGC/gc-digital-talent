@@ -8,7 +8,12 @@ import {
   RadioGroup,
   TextArea,
 } from "@gc-digital-talent/forms";
-import { errorMessages, getLocale, Locales } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  getLocale,
+  Locales,
+} from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
@@ -113,6 +118,7 @@ const CommunityFields = ({
         label={labels.organization}
         name="organization"
         type="text"
+        placeholder={intl.formatMessage(commonMessages.selectOrTypeAnswer)}
         rules={{ required: intl.formatMessage(errorMessages.required) }}
         list={
           organizationSuggestions.length ? "organizationSuggestions" : undefined
