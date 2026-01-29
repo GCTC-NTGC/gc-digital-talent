@@ -34,7 +34,7 @@
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@types/lodash": "^4.17.23",
-    "@types/node": "^25.0.10",
+    "@types/node": "^25.1.0",
     "@types/react": "^19.2.9",
     "eslint": "^9.20.1",
     "react": "^19.2.3",
