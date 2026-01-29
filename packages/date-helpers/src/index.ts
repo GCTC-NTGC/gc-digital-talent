@@ -202,7 +202,7 @@ export function getUtcStartOfDayForLocalDate(
   timeZone: string,
 ): string {
   const dt = new TZDate(`${date}T00:00:00`, timeZone);
-  return format(dt, DATETIME_FORMAT_STRING);
+  return format(dt.withTimeZone("UTC"), DATETIME_FORMAT_STRING);
 }
 
 // Returns UTC as 'yyyy-MM-dd HH:mm:ss' for end of local calendar day in user TZ
@@ -211,7 +211,7 @@ export function getUtcEndOfDayForLocalDate(
   timeZone: string,
 ): string {
   const dt = new TZDate(`${date}T23:59:59`, timeZone);
-  return format(dt, DATETIME_FORMAT_STRING);
+  return format(dt.withTimeZone("UTC"), DATETIME_FORMAT_STRING);
 }
 
 export const getUserTimeZone = () =>
