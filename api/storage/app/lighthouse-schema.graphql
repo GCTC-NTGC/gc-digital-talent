@@ -1887,7 +1887,7 @@ input DateRangeOptional {
 
 input ProcessActivityFilterInput {
   generalSearch: String
-  createdAt: DateRange
+  createdAt: DateRangeOptional
   causers: [UUID!]
   candidates: [UUID!]
   events: [ActivityEvent!]

@@ -1524,7 +1524,7 @@ input DateRangeOptional {
 
 input ProcessActivityFilterInput {
   generalSearch: String @scope(name: "whereProcessGeneralSearch")
-  createdAt: DateRange @scope(name: "whereDate")
+  createdAt: DateRangeOptional @scope(name: "whereDate")
   causers: [UUID!] @scope(name: "whereCauserIn")
   candidates: [UUID!] @scope(name: "wherePoolCandidateIn")
   events: [ActivityEvent!] @scope(name: "whereEventIn")
