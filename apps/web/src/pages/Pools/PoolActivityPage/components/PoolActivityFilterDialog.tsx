@@ -20,8 +20,8 @@ import CandidatesFilterInput from "./CandidatesFilterInput";
 import AssessmentMembersFilterInput from "./AssessmentMembersFilterInput";
 
 export interface FormValues {
-  startDate?: Maybe<Scalars["Date"]["input"]>;
-  endDate?: Maybe<Scalars["Date"]["input"]>;
+  from?: Maybe<Scalars["DateTime"]["input"]>;
+  to?: Maybe<Scalars["DateTime"]["input"]>;
   causers?: Scalars["UUID"]["input"][];
   candidates?: Scalars["UUID"]["input"][];
   events?: ActivityEvent[];
@@ -76,8 +76,8 @@ const PoolActivityFilterDialog = ({
       </Heading>
       <div className="grid gap-6 sm:grid-cols-2">
         <DateInput
-          name="startDate"
-          id="startDate"
+          name="from"
+          id="from"
           legend={intl.formatMessage({
             defaultMessage: "From",
             id: "JG1ssQ",
@@ -85,8 +85,8 @@ const PoolActivityFilterDialog = ({
           })}
         />
         <DateInput
-          name="endDate"
-          id="endDate"
+          name="to"
+          id="to"
           legend={intl.formatMessage({
             defaultMessage: "To",
             id: "w265XR",

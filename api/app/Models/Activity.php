@@ -54,8 +54,8 @@ class Activity extends SpatieActivity
 
     public function scopeWhereDate(Builder $query, array $args)
     {
-        $start = $args['start'] ?? null;
-        $end = $args['end'] ?? null;
+        $start = $args['from'] ?? null;
+        $end = $args['to'] ?? null;
 
         if (! $start && ! $end) {
             return $query;

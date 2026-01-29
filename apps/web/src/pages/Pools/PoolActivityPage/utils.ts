@@ -1,4 +1,10 @@
+import { format } from "date-fns/format";
+
 import { ProcessActivityFilterInput } from "@gc-digital-talent/graphql";
+import {
+  DATETIME_FORMAT_STRING,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
 
@@ -36,20 +42,24 @@ export function safeGetFilters(params: URLSearchParams) {
   return filters;
 }
 
+function toApiDate(d: string) {
+  return format(parseDateTimeUtc(d), DATETIME_FORMAT_STRING);
+}
+
 export function transformWhereClause(
   searchTerm?: string,
   filters?: FormValues,
 ): ProcessActivityFilterInput {
-  const { startDate, endDate, ...restFilters } = filters ?? {};
+  const { from, to, ...restFilters } = filters ?? {};
 
   return {
     ...(searchTerm ? { generalSearch: searchTerm } : {}),
     ...restFilters,
-    ...(startDate || endDate
+    ...(from || to
       ? {
           createdAt: {
-            ...(startDate && { start: startDate }),
-            ...(endDate && { end: endDate }),
+            ...(from && { from: toApiDate(from) }),
+            ...(to && { to: toApiDate(to) }),
           },
         }
       : {}),
