@@ -3,7 +3,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import yargs from "yargs/yargs";
+import yargs from "yargs";
 import { load } from "js-yaml";
 import stringify from "json-stable-stringify"; // provides sorted output
 

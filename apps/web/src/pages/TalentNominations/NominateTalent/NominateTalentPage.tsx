@@ -139,7 +139,6 @@ const NominateTalentPage = () => {
         );
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitted, fetching, current, location.state]);
 
   const crumbs = useBreadcrumbs({
