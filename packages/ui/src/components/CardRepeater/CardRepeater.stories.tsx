@@ -1,7 +1,7 @@
 import type { StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker/locale/en";
-import { useState, FormEvent, ChangeEventHandler } from "react";
+import { useState, ChangeEventHandler, SubmitEvent } from "react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
@@ -31,7 +31,7 @@ const EditDialog = ({ item, index }: EditDialogProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>(item.value);
 
-  const edit = (event: FormEvent) => {
+  const edit = (event: SubmitEvent) => {
     event.preventDefault();
     const newItem = {
       ...item,
@@ -54,7 +54,7 @@ const EditDialog = ({ item, index }: EditDialogProps) => {
       <Dialog.Content>
         <Dialog.Header>Edit an item</Dialog.Header>
         <Dialog.Body>
-          <form onSubmit={edit}>
+          <form onSubmit={(e) => edit(e)}>
             <label htmlFor="value">Value</label>
             <input
               id="value"
@@ -114,7 +114,7 @@ const AddDialog = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
 
-  const add = (event: FormEvent) => {
+  const add = (event: SubmitEvent) => {
     event.preventDefault();
     const item = {
       id: faker.string.uuid(),
