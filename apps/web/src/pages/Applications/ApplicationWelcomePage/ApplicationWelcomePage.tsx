@@ -1,6 +1,5 @@
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
-import { FormEvent } from "react";
 
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -15,6 +14,7 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
+import { SubmitEvent } from "react";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -80,7 +80,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const nextStepPath =
     followingPageUrl ?? paths.applicationProfile(application.id);
 
-  const handleNavigation = (e: FormEvent<HTMLFormElement>) => {
+  const handleNavigation = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault(); // We don't want to navigate until we mark the step as complete
 
     executeMutation({

@@ -22,7 +22,7 @@ function useScrollToOnMount<TRef extends HTMLElement>(
       window.scrollTo(restOpts);
     }
     // NOTE: This is an on mount hook
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, []);
 
   return el;

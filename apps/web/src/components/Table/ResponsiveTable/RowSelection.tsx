@@ -438,7 +438,7 @@ export const useRowSelection = <T,>(
 
   useEffect(() => {
     rowSelectionCallback(rowSelection);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [rowSelection]);
 
   return [rowSelection, setter];
