@@ -25,6 +25,7 @@ import {
   deletePool,
   getPoolSkills,
   publishPool,
+  updatePool,
 } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
@@ -149,7 +150,7 @@ test.describe("Process candidate assessment", () => {
     groupAndLevel = `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`;
     await poolPage.gotoIndex();
     // Process creation with behavioral and technical skills
-    await poolPage.createProcess(
+    await poolPage.createProcessTillEssentialSkills(
       communityName,
       groupAndLevel,
       processTitle,
@@ -158,13 +159,25 @@ test.describe("Process candidate assessment", () => {
         { name: technicalSkill, level: SkillLevel.Advanced },
         { name: behaviouralSkill, level: "Strongly developed" },
       ],
-      email,
     );
     await poolPage.navigateBackToProcess(processTitle);
     await expect(
       poolPage.page.getByRole("heading", { name: processTitle, level: 1 }),
     ).toBeVisible();
     poolId = fetchIdentificationNumber(poolPage.page.url(), "pools");
+    // Update the pool to complete the mandatory information
+    await updatePool(adminCtx, {
+      poolId,
+      pool: {
+        yourImpact: {
+          en: "Updated impact EN",
+          fr: "Updated impact FR",
+        },
+        keyTasks: { en: "Updated key task EN", fr: "Updated key task FR" },
+        contactEmail: email,
+      },
+    });
+
     // Fetch pool Skills and Add assessment step through API
     const poolSkills = await getPoolSkills(adminCtx, { poolId });
     const poolSkillIds = poolPage.getPoolSkillIdsByCategories(poolSkills, [

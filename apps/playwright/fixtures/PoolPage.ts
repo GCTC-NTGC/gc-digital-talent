@@ -25,13 +25,17 @@ class PoolPage extends AppPage {
     await this.waitForGraphqlResponse("PoolActivityPage");
   }
 
-  async createProcess(
+  async openPool(id: string) {
+    await this.page.goto(`/admin/pools/${id}`);
+    await this.waitForGraphqlResponse("ViewPoolPage");
+  }
+
+  async createProcessTillEssentialSkills(
     community: string,
     groupAndLevel: string,
     processTitle: string,
     workStream: string,
     skills: { name: string; level: string }[],
-    email: string,
   ) {
     await this.poolCreation(community, groupAndLevel);
     await this.editBasicInformation(processTitle, workStream);
@@ -39,8 +43,6 @@ class PoolPage extends AppPage {
     await this.updateClosingDate();
     await this.updateCoreRequirements();
     await this.addEssentialSkills(skills);
-    await this.addAboutThisRole();
-    await this.addContactEmail(email);
   }
 
   async poolCreation(community: string, groupAndLevel: string) {
@@ -229,6 +231,37 @@ class PoolPage extends AppPage {
           categories.includes(ps.skill.category.value),
       )
       .map((ps) => ps.id);
+  }
+
+  async updateClosingDateAfterPublished(closingDate: string) {
+    const [year, month, day] = closingDate.split("-");
+    await this.page
+      .getByRole("button", { name: /change closing date/i })
+      .click();
+    await expect(
+      this.page.getByRole("heading", {
+        name: /change closing date/i,
+        level: 2,
+      }),
+    ).toBeVisible();
+    await this.page
+      .getByRole("radio", { name: /extend closing date/i })
+      .check();
+
+    const endDateGroup = this.page.getByRole("group", { name: /end date/i });
+
+    await endDateGroup.getByRole("spinbutton", { name: /year/i }).fill(year);
+
+    await endDateGroup
+      .getByRole("combobox", { name: /month/i })
+      .selectOption(month);
+
+    await endDateGroup.getByRole("spinbutton", { name: /day/i }).fill(day);
+
+    await this.page
+      .getByRole("button", { name: /change closing date/i })
+      .click();
+    await this.waitForGraphqlResponse("ExtendPool");
   }
 }
 export default PoolPage;
