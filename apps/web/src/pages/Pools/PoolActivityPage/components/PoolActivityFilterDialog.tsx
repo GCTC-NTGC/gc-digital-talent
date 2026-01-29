@@ -1,5 +1,6 @@
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { useWatch } from "react-hook-form";
 
 import {
   ActivityEvent,
@@ -7,7 +8,11 @@ import {
   Maybe,
   Scalars,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, narrowEnumType } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  narrowEnumType,
+} from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
 import { Combobox, DateInput } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -26,6 +31,37 @@ export interface FormValues {
   candidates?: Scalars["UUID"]["input"][];
   events?: ActivityEvent[];
 }
+
+const fromLabel = defineMessage({
+  defaultMessage: "from date",
+  id: "gkMife",
+  description: "Label for a start date input in a range",
+});
+
+const EndDateInput = () => {
+  const intl = useIntl();
+  const from = useWatch<FormValues>({ name: "from" });
+
+  return (
+    <DateInput
+      name="to"
+      id="to"
+      legend={intl.formatMessage({
+        defaultMessage: "To",
+        id: "w265XR",
+        description: "Label for an end date input in a range",
+      })}
+      rules={{
+        min: {
+          value: from ? String(from) : "",
+          message: intl.formatMessage(errorMessages.minDateLabel, {
+            label: intl.formatMessage(fromLabel),
+          }),
+        },
+      }}
+    />
+  );
+};
 
 const PoolActivityFilterData_Query = graphql(/** GraphQL */ `
   query PoolActivityFilterData {
@@ -84,15 +120,7 @@ const PoolActivityFilterDialog = ({
             description: "Label for a start date input in a range",
           })}
         />
-        <DateInput
-          name="to"
-          id="to"
-          legend={intl.formatMessage({
-            defaultMessage: "To",
-            id: "w265XR",
-            description: "Label for an end date input in a range",
-          })}
-        />
+        <EndDateInput />
       </div>
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
