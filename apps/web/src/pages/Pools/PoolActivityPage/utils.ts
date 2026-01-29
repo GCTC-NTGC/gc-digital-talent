@@ -1,5 +1,3 @@
-import { format } from "date-fns/format";
-
 import { ProcessActivityFilterInput } from "@gc-digital-talent/graphql";
 import {
   DATETIME_FORMAT_STRING,
