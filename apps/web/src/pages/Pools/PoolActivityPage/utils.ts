@@ -1,8 +1,6 @@
 import { ProcessActivityFilterInput } from "@gc-digital-talent/graphql";
 import {
-  DATETIME_FORMAT_STRING,
   getUtcStartOfDayForLocalDate,
-  parseDateTimeUtc,
   getUserTimeZone,
   getUtcEndOfDayForLocalDate,
 } from "@gc-digital-talent/date-helpers";
