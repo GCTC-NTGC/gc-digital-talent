@@ -51,9 +51,14 @@ class GeneralQuestionResponsesTest extends TestCase
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
         $this->community = Community::factory()->create(['name' => 'test-community-application']);
-        $this->pool = Pool::factory()->draft()->WithPoolSkills(2, 2)->WithQuestions(2, 2)->create([
-            'community_id' => $this->community->id,
-        ]);
+        $this->pool = Pool::factory()
+            ->draft()
+            ->withPoolSkills()
+            ->withGeneralQuestions()
+            ->withScreeningQuestions()
+            ->create([
+                'community_id' => $this->community->id,
+            ]);
         $this->processOperator = User::factory()
             ->asApplicant()
             ->asProcessOperator($this->pool->id)

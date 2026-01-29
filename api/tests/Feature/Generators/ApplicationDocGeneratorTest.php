@@ -2,12 +2,16 @@
 
 namespace Tests\Feature\Generators;
 
+use App\Enums\PoolSkillType;
+use App\Enums\SkillCategory;
 use App\Generators\ApplicationDocGenerator;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\EducationExperience;
+use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
 use Database\Seeders\CommunitySeeder;
@@ -62,10 +66,24 @@ class ApplicationDocGeneratorTest extends TestCase
         WorkExperience::factory()
             ->create(['user_id' => $user->id]);
 
+        $fixedSkill = Skill::factory()->create([
+            'category' => SkillCategory::TECHNICAL->name,
+        ]);
+
+        $pool = Pool::factory()->published()->create();
+        $pool->poolSkills()->delete();
+        $pool->poolSkills()->create([
+            'skill_id' => $fixedSkill->id,
+            'type' => PoolSkillType::ESSENTIAL->name,
+        ]);
+
         $application = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
-            ->create(['user_id' => $user->id]);
+            ->create([
+                'user_id' => $user->id,
+                'pool_id' => $pool->id,
+            ]);
 
         $application->submitted_at = config('constants.past_datetime');
         $application->save();

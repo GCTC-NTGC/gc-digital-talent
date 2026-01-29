@@ -6,7 +6,6 @@ import { ACCESS_TOKEN } from "../const";
 import { AuthenticationState } from "../types";
 import getAuthenticationState from "../utils/authenticationState";
 import { getLogoutVars } from "../utils/logout";
-import { setTokensFromLocation } from "../utils/setTokensFromLocation";
 
 const defaultAuthState = {
   loggedIn: false,
@@ -29,7 +28,6 @@ const AuthenticationContainer = ({
   children,
 }: AuthenticationContainerProps) => {
   const { postLogoutRedirectUri } = getLogoutVars(locale);
-  setTokensFromLocation();
 
   // Logout if the access token is removed in another way other than
   // the user logging out manually

@@ -103,9 +103,14 @@ class ScreeningQuestionsTest extends TestCase
             'community_id' => $this->community->id,
         ]);
         $this->poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
-        $this->publishedPool = Pool::factory()->published()->WithPoolSkills(2, 2)->WithQuestions(2, 2)->create([
-            'community_id' => $this->community->id,
-        ]);
+        $this->publishedPool = Pool::factory()
+            ->published()
+            ->withPoolSkills()
+            ->withGeneralQuestions()
+            ->withScreeningQuestions()
+            ->create([
+                'community_id' => $this->community->id,
+            ]);
         $this->adminUser = User::factory()
             ->asApplicant()
             ->asAdmin()

@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
-import { FormEvent } from "react";
+import { SubmitEvent } from "react";
 
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -80,7 +80,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const nextStepPath =
     followingPageUrl ?? paths.applicationProfile(application.id);
 
-  const handleNavigation = (e: FormEvent<HTMLFormElement>) => {
+  const handleNavigation = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault(); // We don't want to navigate until we mark the step as complete
 
     executeMutation({
