@@ -63,10 +63,10 @@ class Activity extends SpatieActivity
 
         return $query
             ->when($start, function ($q) use ($start) {
-                $q->where('created_at', '>=', Carbon::parse($start)->startOfDay());
+                $q->where('created_at', '>=', Carbon::parse($start));
             })
             ->when($end, function ($q) use ($end) {
-                $q->where('created_at', '<=', Carbon::parse($end)->endOfDay());
+                $q->where('created_at', '<=', Carbon::parse($end));
             });
     }
 
