@@ -36,3 +36,10 @@ export const ASSESSMENT_MEMBER_ROLES: RoleName[] = [
   ROLE_NAME.CommunityTalentCoordinator,
   ROLE_NAME.ProcessOperator,
 ];
+
+export const PROCESS_ACTIVITY_LOG_ROLES: RoleName[] = [
+  ROLE_NAME.PlatformAdmin,
+  ROLE_NAME.CommunityAdmin,
+  ROLE_NAME.CommunityRecruiter,
+  ROLE_NAME.ProcessOperator,
+];

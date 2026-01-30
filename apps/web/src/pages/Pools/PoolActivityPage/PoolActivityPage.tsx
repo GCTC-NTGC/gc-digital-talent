@@ -12,7 +12,7 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { PROCESS_ACTIVITY_LOG_ROLES } from "@gc-digital-talent/auth";
 
 import ActivityLog from "~/components/Activity/ActivityLog";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -241,13 +241,7 @@ const PoolActivityPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
+  <RequireAuth roles={PROCESS_ACTIVITY_LOG_ROLES}>
     <PoolActivityPage />
   </RequireAuth>
 );
