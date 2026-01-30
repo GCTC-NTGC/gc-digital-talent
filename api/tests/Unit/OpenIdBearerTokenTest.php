@@ -15,8 +15,6 @@ class OpenIdBearerTokenTest extends TestCase
      */
     protected $service_provider;
 
-    protected \DateInterval $allowableClockSkew;
-
     const fakeRootUrl = 'http://example.org';
 
     const fakeConfigUrl = self::fakeRootUrl.'/config';
@@ -39,11 +37,9 @@ class OpenIdBearerTokenTest extends TestCase
         ]);
 
         Carbon::setTestNow('2020-01-01 00:02:00');
-        $this->allowableClockSkew = \DateInterval::createFromDateString('4 minutes');
         $this->service_provider = new OpenIdBearerTokenService(
             self::fakeConfigUrl,
             $this->app->make(ClockInterface::class),
-            $this->allowableClockSkew
         );
     }
 

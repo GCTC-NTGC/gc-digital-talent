@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use DateInterval;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Arr;
@@ -28,8 +27,6 @@ class OpenIdBearerTokenService
 
     private string $configUri;
 
-    private DateInterval $allowableClockSkew;
-
     public function fastSigner(): Configuration
     {
         // replace implementations of signers with no algorithm, forUnsecuredSigner(), and dropping None
@@ -42,12 +39,11 @@ class OpenIdBearerTokenService
         );
     }
 
-    public function __construct(string $configUri, ClockInterface $clock, DateInterval $allowableClockSkew)
+    public function __construct(string $configUri, ClockInterface $clock)
     {
         $this->unsecuredConfig = $this->fastSigner();
         $this->clock = $clock;
         $this->configUri = $configUri;
-        $this->allowableClockSkew = $allowableClockSkew;
     }
 
     // get a configuration property from the openid configuration json document

@@ -17,7 +17,6 @@ class BearerTokenServiceProvider extends ServiceProvider
             return new OpenIdBearerTokenService(
                 config('oauth.server_root').'/.well-known/openid-configuration',
                 $this->app->make(ClockInterface::class),
-                config('oauth.allowable_clock_skew')
             );
         });
     }
