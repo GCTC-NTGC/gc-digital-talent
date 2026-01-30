@@ -8,10 +8,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-// We're using two JWT management libraries here (Jose & Lcobucci), which each
-// offer different functionality related to constraints and JWKS.
-// TODO: Consider consolidating into a single library, or migrating to a new
-// one that does it all.
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Key\InMemory;
