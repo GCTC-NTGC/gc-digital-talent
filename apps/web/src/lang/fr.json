@@ -6643,6 +6643,10 @@
     "defaultMessage": "Il manque des renseignements personnels",
     "description": "Error message displayed when a users personal information is incomplete"
   },
+  "QexLn/": {
+    "defaultMessage": "Gérer Connexion GC",
+    "description": "Message displayed to users to manage their auth account"
+  },
   "QhFxW1": {
     "defaultMessage": "Prochain type de poste et objectif de carrière",
     "description": "Title for next role and career objective section"
