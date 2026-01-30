@@ -6,7 +6,6 @@ import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
 import {
   NotFound,
   Pending,
-  Accordion,
   Heading,
   Sidebar,
   Chip,
