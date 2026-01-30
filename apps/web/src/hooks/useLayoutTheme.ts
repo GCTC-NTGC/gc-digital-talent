@@ -14,7 +14,6 @@ const useLayoutTheme: UseLayoutTheme = (layoutKey) => {
       setKey(layoutKey);
     }
     // Note: Check on every navigation
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, layoutKey]);
 };
 

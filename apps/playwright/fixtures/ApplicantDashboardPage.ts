@@ -170,7 +170,16 @@ class ApplicantDashboardPage extends AppPage {
           break;
 
         case "skills portfolio":
-          await experiencePage.addANewSkillToProfile("Functional Testing");
+          await this.page.getByRole("button", { name: /add a skill/i }).click();
+          await experiencePage.addANewSkillToProfile(
+            "Functional Testing",
+            "Intermediate",
+          );
+          await this.page
+            .getByRole("radio", {
+              name: /yes,\s*i use this skill in my current role/i,
+            })
+            .check();
           break;
 
         case "employee verification":
@@ -196,6 +205,26 @@ class ApplicantDashboardPage extends AppPage {
       }
       await this.goToDashboard();
     }
+  }
+
+  async verifyApplicationStatusFromDashboard(expectedStatus: string) {
+    await this.goToDashboard();
+    await this.toggleJobApplications();
+    const applicationLink = this.page
+      .getByRole("link", {
+        name: /\(EN\)/i,
+      })
+      .first();
+
+    const applicationCard = applicationLink.locator("..");
+
+    const cardText = await applicationCard.textContent();
+
+    const actualStatus = cardText?.match(
+      new RegExp(`\\b${expectedStatus}\\b`, "i"),
+    )?.[0];
+
+    expect(actualStatus).toBe(expectedStatus);
   }
 }
 export default ApplicantDashboardPage;

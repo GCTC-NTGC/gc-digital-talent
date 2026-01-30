@@ -7,10 +7,11 @@ use App\Enums\NotificationFamily;
 use App\Models\User;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
 
-class ApplicationDeadlineExtended extends Notification implements CanBeSentViaGcNotifyEmail
+class ApplicationDeadlineExtended extends Notification implements CanBeSentViaGcNotifyEmail, ShouldQueue
 {
     use Queueable;
 
