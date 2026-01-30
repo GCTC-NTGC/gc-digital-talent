@@ -2943,6 +2943,10 @@
     "defaultMessage": "Outils d'assistance",
     "description": "Title of admin user support tools section"
   },
+  "9zjyN4": {
+    "defaultMessage": "Action",
+    "description": "Label for the action filter for activity log"
+  },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
@@ -3442,6 +3446,10 @@
   "CFIG+8": {
     "defaultMessage": "Postes en français uniquement",
     "description": "French Positions message"
+  },
+  "CG07OF": {
+    "defaultMessage": "Membre de l'équipe d'évaluation",
+    "description": "Label for a process assessment team member input"
   },
   "CKsQyK": {
     "defaultMessage": "Accessibilité et mesures d’adaptation",
@@ -4439,6 +4447,10 @@
     "defaultMessage": "Évaluée",
     "description": "Label for assessed metadata"
   },
+  "Ga0bmb": {
+    "defaultMessage": "Affinez les résultats du journal d’activités en utilisant les filtres suivants.",
+    "description": "Subtitle for activity log filter dialog"
+  },
   "GaX7sd": {
     "defaultMessage": "Une fois votre demande présenté, un membre de l’équipe communiquera avec vous dans les 5 à 10 jours ouvrables qui suivent.",
     "description": "How it works, step 3 content sentence 2"
@@ -5018,6 +5030,10 @@
   "JFFBhZ": {
     "defaultMessage": "Renseignements supplémentaires",
     "description": "Heading for the 'Additional information' section"
+  },
+  "JG1ssQ": {
+    "defaultMessage": "Du",
+    "description": "Label for a start date input in a range"
   },
   "JGC9Pp": {
     "defaultMessage": "Enregistrer et soumettez",
@@ -8130,6 +8146,10 @@
     "defaultMessage": "Modifier une classification",
     "description": "Page title for editing a classification"
   },
+  "XQCxDQ": {
+    "defaultMessage": "Détails du processus",
+    "description": "Heading for filters directly related to the process"
+  },
   "XRqYGj": {
     "defaultMessage": "*Veuillez noter que cette ressource n'est disponible que pour les employées et employés du gouvernement du Canada sur les réseaux officiels.",
     "description": "Fine print displayed on the job poster template about a resource only being available on official networks"
@@ -10382,6 +10402,10 @@
     "defaultMessage": "0 des 0",
     "description": "Title displayed on the candidate skill count column when no skills are selected."
   },
+  "gkMife": {
+    "defaultMessage": "date de début",
+    "description": "Label for a start date input in a range"
+  },
   "gnEK8V": {
     "defaultMessage": "Portée du prix",
     "description": "Label displayed on Award form for award scope input"
@@ -11240,6 +11264,10 @@
   "kLGIuJ": {
     "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des compétences ayant été sélectionnées",
     "description": "Context for skills selection filter in search form."
+  },
+  "kTCdxh": {
+    "defaultMessage": "Plage de dates",
+    "description": "Heading for a start and end date"
   },
   "kTM8Gi": {
     "defaultMessage": "Échec de la soumission de l'évaluation",
@@ -13197,6 +13225,10 @@
     "defaultMessage": "Ce candidat a revendiqué le <strong>statut de vétéran</strong>.",
     "description": "Message for a candidates veteran status claim"
   },
+  "sty2no": {
+    "defaultMessage": "Détails sur le candidat",
+    "description": "Heading for filters directly related to the candidates"
+  },
   "sxCR5N": {
     "defaultMessage": "Seuls les membres du personnel admissibles seront pris en considération pour les possibilités de coaching des cadres. L'admissibilité dépend de votre classification et de votre structure organisationnelle.",
     "description": "Context for an employee profile career development preference field"
@@ -13901,6 +13933,10 @@
     "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. Le programme a été conçu en partenariat avec les peuples autochtones. En remplissant et en signant le formulaire d’auto-déclaration des peuples autochtones, vous contribuez à la protection de l’espace, vous reconnaissez que vous faites partie des trois groupes autochtones du Canada et que vous souhaitez participer au programme",
     "description": "Application self-declaration intro paragraph 1"
   },
+  "w265XR": {
+    "defaultMessage": "Au",
+    "description": "Label for an end date input in a range"
+  },
   "w2luTd": {
     "defaultMessage": "Toute durée",
     "description": "Message for position duration field display"
@@ -14604,6 +14640,10 @@
   "ymTeAQ": {
     "defaultMessage": "<strong>{educationType}</strong> en <strong>{areaOfStudy}</strong> de {institution}",
     "description": "Study at institution, HTML"
+  },
+  "ymjsGj": {
+    "defaultMessage": "Journal d’activités",
+    "description": "Title for activity log page"
   },
   "ynGRwF": {
     "defaultMessage": "<link>Admissibilité</link> à un titre professionnel reconnu dans une province ou un territoire du Canada",
