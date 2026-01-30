@@ -1,6 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import { OperationContext, useQuery } from "urql";
+import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
 
 import {
   NotFound,
@@ -269,29 +270,27 @@ export const ViewPoolCandidate = ({
                     optionsQuery={flexibleWorkLocationOptions}
                   />
                 </ErrorBoundary>
-                <div className="my-12">
-                  <Accordion.Root type="single" mode="card" collapsible>
-                    <Accordion.Item value="otherRecruitments">
-                      <Accordion.Trigger>
-                        {intl.formatMessage({
-                          defaultMessage: "Other processes",
-                          id: "n+/HPL",
-                          description:
-                            "Heading for table of a users other applications and recruitments",
-                        })}
-                      </Accordion.Trigger>
-                      <Accordion.Content>
-                        <PoolStatusTable
-                          currentPoolId={poolCandidate.pool.id}
-                          userQuery={poolCandidate.user}
-                        />
-                      </Accordion.Content>
-                    </Accordion.Item>
-                  </Accordion.Root>
-                </div>
                 <ErrorBoundary>
                   <CareerTimelineSection experiences={nonEmptyExperiences} />
                 </ErrorBoundary>
+                <Heading
+                  icon={ClipboardIcon}
+                  color="secondary"
+                  level="h2"
+                  size="h3"
+                  className="mb-6"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Other processes",
+                    id: "n+/HPL",
+                    description:
+                      "Heading for table of a users other applications and recruitments",
+                  })}
+                </Heading>
+                <PoolStatusTable
+                  currentPoolId={poolCandidate.pool.id}
+                  userQuery={poolCandidate.user}
+                />
               </div>
             ) : (
               <NotFound
