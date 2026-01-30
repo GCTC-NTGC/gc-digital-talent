@@ -1535,7 +1535,6 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
@@ -1581,13 +1580,13 @@ type PersonalExperience implements Experience {
   id: ID!
   user: User!
   title: String
-  description: String
   startDate: Date
   endDate: Date
-  details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
+  learningDescription: String
+  organization: String
 }
 
 type CommunityExperience implements Experience {
@@ -2562,11 +2561,11 @@ input WorkExperienceInput {
 
 input PersonalExperienceInput {
   title: String
-  description: String
   startDate: Date
   endDate: Date
-  details: String
   skills: UpdateExperienceSkills
+  learningDescription: String
+  organization: String
 }
 
 input CommunityExperienceInput {

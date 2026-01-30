@@ -196,7 +196,7 @@ query getProfile($userId: UUID!) {
       # profileExperience fragment
       id
       __typename
-      details
+
       skills {
         id
         key
@@ -224,6 +224,7 @@ query getProfile($userId: UUID!) {
         }
       }
       ... on AwardExperience {
+        details
         title
         issuedBy
         awardedDate
@@ -243,6 +244,7 @@ query getProfile($userId: UUID!) {
         }
       }
       ... on CommunityExperience {
+        details
         title
         organization
         project
@@ -250,6 +252,7 @@ query getProfile($userId: UUID!) {
         endDate
       }
       ... on EducationExperience {
+        details
         institution
         areaOfStudy
         thesisTitle
@@ -272,11 +275,13 @@ query getProfile($userId: UUID!) {
       }
       ... on PersonalExperience {
         title
-        description
         startDate
         endDate
+        learningDescription
+        organization
       }
       ... on WorkExperience {
+        details
         role
         organization
         division
