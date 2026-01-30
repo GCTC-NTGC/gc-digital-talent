@@ -206,5 +206,25 @@ class ApplicantDashboardPage extends AppPage {
       await this.goToDashboard();
     }
   }
+
+  async verifyApplicationStatusFromDashboard(expectedStatus: string) {
+    await this.goToDashboard();
+    await this.toggleJobApplications();
+    const applicationLink = this.page
+      .getByRole("link", {
+        name: /\(EN\)/i,
+      })
+      .first();
+
+    const applicationCard = applicationLink.locator("..");
+
+    const cardText = await applicationCard.textContent();
+
+    const actualStatus = cardText?.match(
+      new RegExp(`\\b${expectedStatus}\\b`, "i"),
+    )?.[0];
+
+    expect(actualStatus).toBe(expectedStatus);
+  }
 }
 export default ApplicantDashboardPage;
