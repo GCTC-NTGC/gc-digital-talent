@@ -8,11 +8,12 @@ test("Can create external work experience", async ({ appPage }) => {
   const role = `Test add external work experience (${uniqueTestId})`;
   const experiencePage = new ExperiencePage(appPage.page);
   await loginBySub(experiencePage.page, "applicant@test.com");
-
+  await experiencePage.selectWorkExperience();
   await experiencePage.addExternalWorkExperience({
     role,
     startDate: "2001-01",
   });
+  await experiencePage.waitForGraphqlResponse("CreateWorkExperience");
 
   await expect(experiencePage.page.getByRole("alert")).toContainText(
     /successfully added experience/i,

@@ -1,4 +1,4 @@
-import { WorkExperience } from "@gc-digital-talent/graphql";
+import { EmploymentCategory, WorkExperience } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import ExperiencePage from "~/fixtures/ExperiencePage";
@@ -12,12 +12,12 @@ test("Can edit work experience", async ({ appPage }) => {
   const role = `Test edit work experience (${uniqueTestId})`;
   const experiencePage = new ExperiencePage(appPage.page);
   await loginBySub(experiencePage.page, "applicant@test.com");
-
+  await experiencePage.selectWorkExperience();
   await experiencePage.addCafWorkExperience({
     role,
     startDate: "2001-01",
   });
-
+  await experiencePage.waitForGraphqlResponse("CreateWorkExperience");
   await expect(experiencePage.page.getByRole("alert")).toContainText(
     /successfully added experience/i,
   );
@@ -35,5 +35,6 @@ test("Can edit work experience", async ({ appPage }) => {
     role,
     startDate: "2001-01",
     endDate: "2200-01",
+    employmentCategory: EmploymentCategory.GovernmentOfCanada,
   });
 });

@@ -7,6 +7,7 @@ import {
   CommunityExperienceInput,
   AwardExperienceInput,
   EducationExperienceInput,
+  EmploymentCategory,
 } from "@gc-digital-talent/graphql";
 
 import AppPage from "./AppPage";
@@ -46,10 +47,12 @@ class ExperiencePage extends AppPage {
     await this.waitForGraphqlResponse("ExperienceFormData");
   }
 
-  async addExternalWorkExperience(input: WorkExperienceInput) {
+  async selectWorkExperience() {
     await this.create();
     await this.typeLocator.selectOption("work");
+  }
 
+  async addExternalWorkExperience(input: WorkExperienceInput) {
     await this.page
       .getByRole("textbox", { name: /my role/i })
       .fill(input.role ?? "test role");
@@ -116,7 +119,6 @@ class ExperiencePage extends AppPage {
     await this.page.getByRole("button", { name: /add work streams/i }).click();
 
     await this.save();
-    await this.waitForGraphqlResponse("CreateWorkExperience");
   }
 
   async addGovStudentWorkExperience(input: WorkExperienceInput) {
@@ -236,9 +238,6 @@ class ExperiencePage extends AppPage {
     input: WorkExperienceInput,
     save = true,
   ) {
-    await this.create();
-    await this.typeLocator.selectOption("work");
-
     await this.page
       .getByRole("textbox", { name: /my role/i })
       .fill(input.role ?? "test role");
@@ -309,7 +308,6 @@ class ExperiencePage extends AppPage {
 
     if (save) {
       await this.save();
-      await this.waitForGraphqlResponse("CreateWorkExperience");
     }
   }
 
@@ -393,9 +391,6 @@ class ExperiencePage extends AppPage {
   }
 
   async addCafWorkExperience(input: WorkExperienceInput) {
-    await this.create();
-    await this.typeLocator.selectOption("work");
-
     await this.page
       .getByRole("textbox", { name: /my role/i })
       .fill(input.role ?? "test role");
@@ -443,7 +438,6 @@ class ExperiencePage extends AppPage {
       .fill(input.details ?? "test details");
 
     await this.save();
-    await this.waitForGraphqlResponse("CreateWorkExperience");
   }
 
   async editWorkExperience(id: string, input: WorkExperienceInput) {
@@ -452,56 +446,22 @@ class ExperiencePage extends AppPage {
     await this.page
       .getByRole("textbox", { name: /my role/i })
       .fill(input.role ?? "edit test role");
+    // If `To be selected EmploymentCategory` is not defined, default is the one which was selected during creation, only role and dates will be updated
+    if (input.employmentCategory) {
+      switch (input.employmentCategory) {
+        case EmploymentCategory.GovernmentOfCanada:
+          await this.addGovTermOrIndeterminateWorkExperience(input);
+          break;
 
-    await this.page
-      .getByRole("group", { name: /employment category/i })
-      .getByRole("radio", {
-        name: /government of canada/i,
-      })
-      .click();
+        case EmploymentCategory.CanadianArmedForces:
+          await this.addCafWorkExperience(input);
+          break;
 
-    await this.page
-      .getByRole("combobox", { name: /department/i })
-      .selectOption({ label: "Treasury Board of Canada Secretariat" });
-
-    await this.page
-      .getByRole("textbox", { name: /team, group, or division/i })
-      .fill(input.division ?? "test team");
-
-    await this.page
-      .getByRole("group", { name: /employment type/i })
-      .getByRole("radio", {
-        name: /casual/i,
-      })
-      .click();
-
-    await this.page
-      .getByRole("combobox", { name: /group/i })
-      .selectOption({ label: "IT" });
-    await this.page
-      .getByRole("combobox", { name: /level/i })
-      .selectOption({ label: "1" });
-
-    await this.page
-      .getByRole("group", { name: /employment type/i })
-      .getByRole("radio", {
-        name: /casual/i,
-      })
-      .click();
-
-    await this.fillDate(input.startDate);
-
-    if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", { name: /i am currently active in this role/i })
-        .click();
-    } else {
-      await this.fillDate(input.endDate, true);
+        case EmploymentCategory.ExternalOrganization:
+          await this.addExternalWorkExperience(input);
+          break;
+      }
     }
-
-    await this.page
-      .getByRole("textbox", { name: /additional details/i })
-      .fill(input.details ?? "test details");
 
     await this.save();
     await this.waitForGraphqlResponse("UpdateWorkExperience");
