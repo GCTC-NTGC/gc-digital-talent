@@ -335,6 +335,28 @@ export const getExperienceFormLabels = (
       id: "ZLKng1",
       description: "Label for other c-suite role title field",
     }),
+    roleStatus: intl.formatMessage({
+      defaultMessage: "Status of this role",
+      id: "T29e79",
+      description: "Label for status of this role experience field",
+    }),
+    activeRole: intl.formatMessage({
+      defaultMessage: "I'm currently active in this role.",
+      id: "nF3JZd",
+      description:
+        "Label displayed on Experience form for currently active option",
+    }),
+    pastRole: intl.formatMessage({
+      defaultMessage: "This is a role I held in the past.",
+      id: "ZijW8r",
+      description: "Label displayed on Experience form for past role option.",
+    }),
+    keyTasksAndResponsibilities: intl.formatMessage({
+      defaultMessage: "Key tasks and responsibilities",
+      id: "0J8XAX",
+      description:
+        "Label displayed on Experience form for key tasks and responsibilities field.",
+    }),
   };
 };
 
@@ -635,7 +657,7 @@ const getCommunityExperienceDefaultValues = (
     organization,
     project,
     startDate,
-    currentRole: endDate === null,
+    roleStatus: endDate ? "past" : "active",
     endDate,
   };
 };

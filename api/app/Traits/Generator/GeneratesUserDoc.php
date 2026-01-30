@@ -388,7 +388,7 @@ trait GeneratesUserDoc
             $section->addTitle($experience->getTitle($this->lang), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('headings.project'), $experience->project);
-            $this->addLabelText($section, $this->localize('headings.additional_details'), $experience->details);
+            $this->addLabelText($section, $this->localize('headings.key_tasks_and_responsibilities'), $experience->details);
 
             if ($withSkills) {
                 $experience->load(['userSkills' => ['skill']]);
