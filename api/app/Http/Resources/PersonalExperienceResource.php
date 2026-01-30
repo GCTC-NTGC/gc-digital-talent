@@ -19,11 +19,11 @@ class PersonalExperienceResource extends JsonResource
             'id' => $this->id,
             '__typename' => 'PersonalExperience',
             'title' => $this->title,
-            'description' => $this->description,
             'startDate' => $this->start_date?->format('Y-m-d'),
             'endDate' => $this->end_date?->format('Y-m-d'),
-            'details' => $this->details,
             'skills' => SkillResource::collection($this->skills),
+            'learningDescription' => $this->learning_description,
+            'organization' => $this->organization,
         ];
     }
 }

@@ -196,7 +196,6 @@ query getProfile($userId: UUID!) {
       # profileExperience fragment
       id
       __typename
-
       skills {
         id
         key
