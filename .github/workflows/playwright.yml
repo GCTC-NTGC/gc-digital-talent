@@ -132,3 +132,12 @@ jobs:
           name: html-report--attempt-${{ github.run_attempt }}
           path: playwright-report
           retention-days: 14
+
+      - name: Upload coverage report to Codecov
+        if: github.actor != 'dependabot[bot]'
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: e2e
+          fail_ci_if_error: false
+          directory: coverage
