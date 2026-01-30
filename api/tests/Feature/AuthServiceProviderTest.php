@@ -3,14 +3,10 @@
 namespace Tests\Feature;
 
 use App\Exceptions\AuthenticationException;
-use App\Models\Role;
 use App\Models\User;
 use App\Providers\AuthServiceProvider;
 use App\Services\OpenIdBearerTokenService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Lcobucci\JWT\Token\DataSet;
-use Lcobucci\JWT\Validation\ConstraintViolation;
-use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -54,14 +50,11 @@ class AuthServiceProviderTest extends TestCase
      */
     public function testAuthenticationExceptionWithInvalidToken()
     {
-        $fakeToken = 'fake-token';
+        $fakeToken = 'opaque-value';
         $mockTokenService = \Mockery::mock(OpenIdBearerTokenService::class);
-        $mockTokenService->shouldReceive('validateAndGetClaims')
+        $mockTokenService->shouldReceive('getSubWithIntrospection')
             ->with($fakeToken)
-            ->andThrow(new RequiredConstraintsViolated('mock error', [
-                new ConstraintViolation('constraint 1'),
-                new ConstraintViolation('constraint 2'),
-            ]));
+            ->andReturn(null);
         try {
             $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
             $this->fail('AuthenticationException was not thrown');
@@ -75,15 +68,15 @@ class AuthServiceProviderTest extends TestCase
      */
     public function testAuthenticationExceptionOnTokenValidation()
     {
-        $fakeToken = 'fake-token';
+        $fakeToken = 'opaque-value';
         $mockTokenService = \Mockery::mock(OpenIdBearerTokenService::class);
-        $mockTokenService->shouldReceive('validateAndGetClaims')
+        $mockTokenService->shouldReceive('getSubWithIntrospection')
             ->with($fakeToken)
             ->andThrow(new \Error);
 
         try {
             $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
-            $this->fail('HttpException was not thrown');
+            $this->fail('AuthenticationException was not thrown');
         } catch (AuthenticationException $e) {
             $this->assertEquals('token_validation', $e->getExtensions()['reason'], 'Unexpected reason on AuthenticationException');
         }
@@ -95,15 +88,13 @@ class AuthServiceProviderTest extends TestCase
     public function testUserIsNotAutoCreatedWhenAlreadyExisting()
     {
         $testSub = 'test-sub';
-        $testRoles = ['TEST'];
+        $testFirstName = 'Dale';
 
-        $mockClaims = \Mockery::mock(new DataSet(['sub' => $testSub], ''));
-
-        $fakeToken = 'fake-token';
+        $fakeToken = 'opaque-value';
         $mockTokenService = \Mockery::mock(OpenIdBearerTokenService::class);
-        $mockTokenService->shouldReceive('validateAndGetClaims')
+        $mockTokenService->shouldReceive('getSubWithIntrospection')
             ->with($fakeToken)
-            ->andReturn($mockClaims);
+            ->andReturn($testSub);
 
         // starting off, they shouldn't exist
         $this->assertDatabaseMissing('users', ['sub' => $testSub]);
@@ -111,14 +102,14 @@ class AuthServiceProviderTest extends TestCase
         // manually add the user with the sub
         $existingUser = new User;
         $existingUser->sub = $testSub;
-        $existingUser->first_name = 'test';
+        $existingUser->first_name = $testFirstName;
         $existingUser->save();
 
         // they should exist now
-        $this->assertDatabaseHas('users', ['sub' => $testSub, 'first_name' => 'test']);
-        // this should not recreate them - that would wipe out the test role on our test user
-        $resolvedUser = $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
+        $this->assertDatabaseHas('users', ['sub' => $testSub, 'first_name' => $testFirstName]);
+        // this should not recreate them - that would wipe out the first name on our test user
+        $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
         // make sure our test user did not get wiped
-        $this->assertDatabaseHas('users', ['sub' => $testSub, 'first_name' => 'test']);
+        $this->assertDatabaseHas('users', ['sub' => $testSub, 'first_name' => $testFirstName]);
     }
 }

@@ -78,10 +78,13 @@ class AuthServiceProvider extends ServiceProvider
     public function resolveUserOrAbort($bearerToken, $tokenService): ?User
     {
         if ($bearerToken) {
-            $sub = $tokenService->getSubWithIntrospection($bearerToken);
-
+            try {
+                $sub = $tokenService->getSubWithIntrospection($bearerToken);
+            } catch (Throwable $e) {
+                throw new AuthenticationException('Error while validating authorization token: '.$e->getMessage(), 'token_validation');
+            }
             if (empty($sub)) {
-                throw new AuthenticationException('Authorization token not valid', 'introspection');
+                throw new AuthenticationException('Authorization token not valid', 'invalid_token');
             }
 
             // By this point we have verified that the token is legitimate
