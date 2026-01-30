@@ -283,16 +283,20 @@ class ProcessActivityLogTest extends TestCase
 
     public function testFilterByDateRange()
     {
-        $today = now()->format('Y-m-d H:i:s');
-        $yesterday = now()->subDay()->format('Y-m-d H:i:s');
-        $tomorrow = now()->addDay()->format('Y-m-d H:i:s');
+        $format = 'Y-m-d H:i:s';
+        $today = now();
+        $yesterday = now()->subDay();
+        $tomorrow = now()->addDay();
 
         // Check "yesterday" logs appear, "today" does not
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($this->query, [
                 'id' => $this->process->id,
                 'where' => [
-                    'createdAt' => ['from' => $yesterday, 'to' => $yesterday],
+                    'createdAt' => [
+                        'from' => $yesterday->startOfDay()->format($format),
+                        'to' => $yesterday->endOfDay()->format($format),
+                    ],
                 ],
             ])
             ->assertJsonFragment(['subjectId' => $this->step->id])
@@ -303,7 +307,10 @@ class ProcessActivityLogTest extends TestCase
             ->graphQL($this->query, [
                 'id' => $this->process->id,
                 'where' => [
-                    'createdAt' => ['from' => $today, 'to' => $today],
+                    'createdAt' => [
+                        'from' => $today->startOfDay()->format($format),
+                        'to' => $today->endOfDay()->format($format),
+                    ],
                 ],
             ])
             ->assertJsonFragment(['subjectId' => $this->candidate->id])
@@ -314,7 +321,10 @@ class ProcessActivityLogTest extends TestCase
             ->graphQL($this->query, [
                 'id' => $this->process->id,
                 'where' => [
-                    'createdAt' => ['from' => $yesterday, 'to' => $today],
+                    'createdAt' => [
+                        'from' => $yesterday->startOfDay()->format($format),
+                        'to' => $today->endOfDay()->format($format),
+                    ],
                 ],
             ])
             ->assertJsonFragment(['subjectId' => $this->step->id])
@@ -325,7 +335,10 @@ class ProcessActivityLogTest extends TestCase
             ->graphQL($this->query, [
                 'id' => $this->process->id,
                 'where' => [
-                    'createdAt' => ['from' => $tomorrow, 'to' => $tomorrow],
+                    'createdAt' => [
+                        'from' => $tomorrow->startOfDay()->format($format),
+                        'to' => $tomorrow->endOfDay()->format($format),
+                    ],
                 ],
             ])
             ->assertJsonCount(0, 'data.pool.activities.data');
