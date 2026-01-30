@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Log;
 // offer different functionality related to constraints and JWKS.
 // TODO: Consider consolidating into a single library, or migrating to a new
 // one that does it all.
-use Jose\Component\Core\JWKSet;
-use Jose\Component\Core\Util\RSAKey;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Key\InMemory;
@@ -21,8 +19,6 @@ use Psr\Clock\ClockInterface;
 
 class OpenIdBearerTokenService
 {
-    private Configuration $unsecuredConfig;
-
     private ClockInterface $clock;
 
     private string $configUri;
@@ -41,7 +37,6 @@ class OpenIdBearerTokenService
 
     public function __construct(string $configUri, ClockInterface $clock)
     {
-        $this->unsecuredConfig = $this->fastSigner();
         $this->clock = $clock;
         $this->configUri = $configUri;
     }
@@ -71,64 +66,6 @@ class OpenIdBearerTokenService
         }
 
         return $uri;
-    }
-
-    // get a Lcobucci\JWT\Configuration object for a given key ID
-    private function getConfiguration(string $keyId): Configuration
-    {
-        if (! $keyId) {
-            throw new Exception('No key ID provided');
-        }
-
-        $jwks_uri = $this->getConfigProperty('jwks_uri');
-        $jsonString = Cache::remember('jwks_json_string', 60, function () use ($jwks_uri) { // only get jwks content every minute
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
-                return $exception instanceof ConnectionException;
-            }, throw: false)->get($jwks_uri);
-            assert($response instanceof \Illuminate\Http\Client\Response);
-
-            if ($response->failed()) {
-                Log::error('Failed when GETting the JWKS in getConfiguration');
-                Log::debug((string) $response->getBody());
-                throw new Exception('Failed to get config');
-            }
-
-            return $response->body();
-        });
-
-        // Uses web-token/jwt-core to generate public key from "e" and "n" in JWKS.
-        // Source: https://github.com/lcobucci/jwt/issues/32#issuecomment-907556410
-        $set = JWKSet::createFromKeyData(json_decode($jsonString, true));
-        $jwk = $set->get($keyId);
-
-        switch ($jwk->get('alg')) {
-            case 'RS256':
-                $signer = new Signer\Rsa\Sha256();
-                break;
-            case 'RS384':
-                $signer = new Signer\Rsa\Sha384();
-                break;
-            case 'RS512':
-                $signer = new Signer\Rsa\Sha512();
-                break;
-            default:
-                throw new Exception('Unknown algorithm type in jwks');
-        }
-
-        $pem = RSAKey::createFromJWK($jwk)->toPEM();
-        // Private key is only used for generating tokens, which is not being done here
-        // None support was dropped so used a key from Lcobucci docs
-        // https://lcobucci-jwt.readthedocs.io/en/stable/quick-start/#parsing-tokens
-        $config = Configuration::forAsymmetricSigner(
-            $signer,
-            InMemory::base64Encoded(
-                'hiG8DlOKvtih6AxlZn5XKImZ06yu8I3mkOzaJrEuW8yAv8Jnkw330uMt8AEqQ5LB'
-            ),
-            InMemory::plainText($pem),
-        );
-
-        return $config;
-
     }
 
     // request the introspection values (or pull from cache) and return the values
