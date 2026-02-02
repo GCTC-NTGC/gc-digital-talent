@@ -75,21 +75,29 @@ interface HeroSharedProps {
 interface HeroWithNavTabsProps extends HeroSharedProps {
   navTabs?: NavTab[];
   overlap?: never;
+  imgPath?: string;
+  centered?: never;
 }
 
 interface HeroWithOverlapProps extends HeroSharedProps {
   navTabs?: never;
   overlap: boolean;
+  imgPath?: string;
+  centered?: never;
 }
 
 interface HeroWithImageProps extends HeroSharedProps {
-  imgPath: string;
+  imgPath?: string;
   centered?: never;
+  navTabs?: NavTab[];
+  overlap?: boolean;
 }
 
 interface HeroWithCenteringProps extends HeroSharedProps {
   imgPath?: never;
-  centered: boolean;
+  centered?: boolean;
+  navTabs?: NavTab[];
+  overlap?: boolean;
 }
 
 const Hero = (
