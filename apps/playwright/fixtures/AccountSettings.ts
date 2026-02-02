@@ -110,7 +110,7 @@ class AccountSettings extends AppPage {
     ).toBeVisible();
 
     // carry removal out
-    await this.page.getByRole("button", { name: "Remove" }).click();
+    await this.page.getByRole("button", { name: "Remove work email" }).click();
     await this.page.getByRole("button", { name: "Remove work email" }).click();
     await this.waitForGraphqlResponse("RemoveUserWorkEmail");
   }
