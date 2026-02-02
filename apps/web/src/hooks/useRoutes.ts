@@ -82,6 +82,7 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "pools", poolId, "preview"].join("/"),
     poolManageAccess: (poolId: string) =>
       [adminUrl, "pools", poolId, "manage-access"].join("/"),
+    poolActivity: (poolId: string) => `${adminUrl}/pools/${poolId}/activity`,
 
     // Admin - Pool Candidates
     poolCandidates: () => [adminUrl, "pool-candidates"].join("/"),

@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Traits\HasLocalization;
+
 enum ActivityEvent: string
 {
+    use HasLocalization;
+
     // Core events
     case CREATED = 'created';
     case UPDATED = 'updated';
@@ -18,4 +22,9 @@ enum ActivityEvent: string
     case REINSTATED = 'reinstated';
     case REVERTED = 'reverted';
     case PUBLISHED = 'published';
+
+    public static function getLangFilename(): string
+    {
+        return 'activity_event';
+    }
 }

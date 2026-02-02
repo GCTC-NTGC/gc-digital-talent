@@ -19,6 +19,11 @@ interface LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedActivityEvent implements LocalizedEnumOption {
+  value: ActivityEvent!
+  label: LocalizedString!
+}
+
 type LocalizedApplicationStatus implements LocalizedEnumOption {
   value: ApplicationStatus!
   label: LocalizedString!
