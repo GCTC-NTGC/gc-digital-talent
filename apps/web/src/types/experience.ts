@@ -285,4 +285,5 @@ export interface ExperienceDetailsDefaultValues {
   seniorManagementStatus?: boolean;
   cSuiteRoleTitle?: CSuiteRoleTitle;
   otherCSuiteRoleTitle?: string;
+  learningDescription?: string;
 }

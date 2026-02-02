@@ -171,7 +171,6 @@ export const Test_MeQueryDocument = /* GraphQL */ `
       experiences {
         id
         __typename
-        details
         skills {
           id
           key
@@ -195,6 +194,7 @@ export const Test_MeQueryDocument = /* GraphQL */ `
           }
         }
         ... on AwardExperience {
+          details
           title
           issuedBy
           awardedDate
@@ -206,6 +206,7 @@ export const Test_MeQueryDocument = /* GraphQL */ `
           }
         }
         ... on CommunityExperience {
+          details
           title
           organization
           project
@@ -213,6 +214,7 @@ export const Test_MeQueryDocument = /* GraphQL */ `
           endDate
         }
         ... on EducationExperience {
+          details
           institution
           areaOfStudy
           thesisTitle
@@ -227,11 +229,13 @@ export const Test_MeQueryDocument = /* GraphQL */ `
         }
         ... on PersonalExperience {
           title
-          description
           startDate
           endDate
+          learningDescription
+          organization
         }
         ... on WorkExperience {
+          details
           role
           organization
           division
