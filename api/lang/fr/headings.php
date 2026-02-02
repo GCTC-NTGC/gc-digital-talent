@@ -154,6 +154,7 @@ return [
     'education_status' => 'Statut d’études',
     'community_project_or_product' => 'Projet ou produit de la collectivité',
     'personal_learning_experience_description' => 'Description de l’expérience d’apprentissage personnel',
+    'personal_learning_organization_platform' => 'Organization, platform, or theme',
     'award_recipient' => 'Lauréat ou lauréate du prix',
 
     'awarded_to' => 'Accordé à',

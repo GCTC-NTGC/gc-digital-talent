@@ -178,6 +178,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'thesis_title',
         'community_project_or_product',
         'personal_learning_experience_description',
+        'personal_learning_organization_platform',
         'award_recipient',
         'issuing_org',
         'awarded_scope',
@@ -511,13 +512,14 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
             // Community/Personal fields - empty for work
             '', // 29: community_project_or_product
-            '', // 30: personal_learning_experience_description
+            '', // 30: personal learning experience description
+            '', // 31: personal learning organization, platform, or theme
 
             // Award fields - empty for work
-            '', // 31: award_recipient
-            '', // 32: issuing_org
-            '', // 33: awarded_scope
-            '', // 34: date_awarded
+            '', // 32: award_recipient
+            '', // 33: issuing_org
+            '', // 34: awarded_scope
+            '', // 35: date_awarded
             $exp->details ?? '',
             $this->getFeaturedSkills($exp),
             $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
@@ -590,7 +592,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->thesis_title ?? '', // thesis title
             // Community/Personal fields - empty for education
             '', // community_project_or_product
-            '', // personal_learning_experience_description
+            '', // personal learning experience description
+            '', // personal learning organization, platform, or theme
 
             // Award fields - empty for education
             '', // award_recipient
@@ -671,7 +674,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
             // Community/Personal fields - empty for awards
             '', // community_project_or_product
-            '', // personal_learning_experience_description
+            '', // personal learning experience description
+            '', // personal learning organization, platform, or theme
             $this->localizeEnum($exp->awarded_to, AwardedTo::class), // award_recipient
             '', // issued by
             $this->localizeEnum($exp->awarded_scope, AwardedScope::class), // award
@@ -748,7 +752,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // education_status
             '', // thesis_title
             $exp->project ?? '', // community_project_or_product
-            '', // personal learning description
+            // Personal
+            '', // personal learning experience description
+            '', // personal learning organization, platform, or theme
             // Award fields - empty for community
             '', // award recipient
             '', // issuing organization
@@ -827,13 +833,14 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // education_status
             '', // thesis_title
             '', // Community project or product
-            $exp->description ?? '', // personal learning experience description
+            $exp->learning_description ?? '', // personal learning experience description
+            $exp->organization, // personal learning organization, platform, or theme
             // Award fields - empty for education
             '', // award recipient
             '', // issuing organization
             '', // awarded_scope
             '', // date awarded
-            $exp->details ?? '', // additional details
+            '', // additional details
             $this->getFeaturedSkills($exp), // featured skills
             $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
             $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership

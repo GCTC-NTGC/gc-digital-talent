@@ -148,6 +148,7 @@ return [
     'education_status' => 'Education status',
     'community_project_or_product' => 'Community project or product',
     'personal_learning_experience_description' => 'Personal learning experience description',
+    'personal_learning_organization_platform' => 'Organization, platform, or theme',
     'award_recipient' => 'Award recipient',
     'date_awarded' => 'Date awarded',
 
