@@ -79,7 +79,7 @@ export type CommunityFormValues = FormValueDateRange & {
   organization: string;
   project: string;
   startDate: Scalars["Date"]["input"];
-  currentRole: boolean;
+  roleStatus: "active" | "past";
   endDate?: Scalars["Date"]["input"];
 };
 

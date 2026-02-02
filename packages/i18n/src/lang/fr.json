@@ -1603,6 +1603,10 @@
     "defaultMessage": "Selon la définition fournie, je m'identifie en tant que :",
     "description": "Prompt text for a user selecting an employment equity group for their profile"
   },
+  "se/c4O": {
+    "defaultMessage": "Sélectionner ou saisir une réponse",
+    "description": "Placeholder text for an input with options list"
+  },
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
     "description": "Error message that the user has selected both status and non-status first nations."

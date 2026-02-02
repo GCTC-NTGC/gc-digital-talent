@@ -13,7 +13,7 @@ import ResetButton from "../Table/ResetButton";
 
 const input = tv({
   extend: inputStyles,
-  base: "w-full grow rounded-r-none border-r-transparent md:w-auto",
+  base: "w-full grow rounded-r-none border-r-transparent py-2.25 md:w-auto",
 });
 
 interface FormValues {
@@ -52,7 +52,7 @@ const SearchForm = ({ onSearch, onReset, defaultValue }: SearchFormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleSubmit)} className="my-6">
+      <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <Field.Label htmlFor="term">
           {intl.formatMessage(adminMessages.searchByKeyword)}
         </Field.Label>

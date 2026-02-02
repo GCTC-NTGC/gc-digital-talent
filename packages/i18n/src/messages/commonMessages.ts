@@ -578,6 +578,11 @@ const commonMessages = defineMessages({
     id: "eozWFc",
     description: "Title for the additional filters",
   },
+  selectOrTypeAnswer: {
+    defaultMessage: "Select or type an answer",
+    id: "se/c4O",
+    description: "Placeholder text for an input with options list",
+  },
 });
 
 export default commonMessages;

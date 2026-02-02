@@ -20,6 +20,7 @@ const FIELD = {
   SAVE_CHANGES: "saveChanges",
   UPDATE_CONTACT_EMAIL: "updateContactEmail",
   CONTACT_EMAIL_INPUT: "contactEmailInput",
+  NOTIFICATION_SETTINGS_HEADING: "notificationSettingsHeading",
 } as const;
 type ObjectValues<T> = T[keyof T];
 export type Field = ObjectValues<typeof FIELD>;
@@ -56,6 +57,10 @@ class AccountSettings extends AppPage {
       }),
       [FIELD.CONTACT_EMAIL_INPUT]: this.page.getByRole("textbox", {
         name: /contact email address/i,
+      }),
+      [FIELD.NOTIFICATION_SETTINGS_HEADING]: this.page.getByRole("heading", {
+        name: /Notification settings/i,
+        level: 2,
       }),
     };
   }
@@ -105,9 +110,23 @@ class AccountSettings extends AppPage {
     ).toBeVisible();
 
     // carry removal out
-    await this.page.getByRole("button", { name: "Remove" }).click();
+    await this.page.getByRole("button", { name: "Remove work email" }).click();
     await this.page.getByRole("button", { name: "Remove work email" }).click();
     await this.waitForGraphqlResponse("RemoveUserWorkEmail");
+  }
+
+  async updateNotificationsSettings() {
+    await expect(
+      this.locators[FIELD.NOTIFICATION_SETTINGS_HEADING],
+    ).toBeVisible();
+    const boxes = this.page.getByRole("checkbox");
+    for (let i = 0; i < (await boxes.count()); i++) {
+      if (await boxes.nth(i).isEnabled()) {
+        await boxes.nth(i).check();
+      }
+    }
+    await this.locators[FIELD.SAVE_CHANGES].click();
+    await this.waitForGraphqlResponse("UpdateEnabledNotifications");
   }
 }
 

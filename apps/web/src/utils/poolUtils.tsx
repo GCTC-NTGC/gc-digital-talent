@@ -12,8 +12,17 @@ import {
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
-import { nodeToString, notEmpty } from "@gc-digital-talent/helpers";
+import {
+  PROCESS_ACTIVITY_LOG_ROLES,
+  ROLE_NAME,
+  RoleName,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
+import {
+  nodeToString,
+  notEmpty,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import { ChipProps, IconType, Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
 import {
   PublishingGroup,
@@ -33,6 +42,7 @@ import { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
+import { checkRole } from "./teamUtils";
 
 /**
  * Determine if the advertisement can be
@@ -239,6 +249,7 @@ export const useAdminPoolPages = (
   pool: Pick<Pool, "id"> & PoolTitle,
 ) => {
   const paths = useRoutes();
+  const { userAuthInfo } = useAuthorization();
   const poolName = getFullPoolTitleLabel(intl, {
     workStream: pool.workStream,
     name: pool.name,
@@ -246,7 +257,7 @@ export const useAdminPoolPages = (
     classification: pool.classification,
   });
 
-  return new Map<PageNavKeys, PageNavInfo>([
+  const pages = new Map<PageNavKeys, PageNavInfo>([
     [
       "view",
       {
@@ -372,6 +383,26 @@ export const useAdminPoolPages = (
       },
     ],
   ]);
+
+  if (
+    checkRole(
+      PROCESS_ACTIVITY_LOG_ROLES,
+      unpackMaybes(userAuthInfo?.roleAssignments),
+    )
+  ) {
+    pages.set("activity", {
+      title: intl.formatMessage({
+        defaultMessage: "Activity",
+        id: "ymjsGj",
+        description: "Title for activity log page",
+      }),
+      link: {
+        url: paths.poolActivity(pool.id),
+      },
+    });
+  }
+
+  return pages;
 };
 
 export const getAdvertisementStatus = (

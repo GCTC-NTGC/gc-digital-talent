@@ -20,6 +20,7 @@ export type PageNavKeys =
   | "plan"
   | "screening"
   | "candidates"
-  | "manage-access";
+  | "manage-access"
+  | "activity";
 
 export type PoolCompleteness = "incomplete" | "complete" | "submitted";
