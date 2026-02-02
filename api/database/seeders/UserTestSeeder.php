@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\AwardExperience;
 use App\Models\Community;
+use App\Models\CommunityExperience;
+use App\Models\EducationExperience;
+use App\Models\PersonalExperience;
 use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -25,7 +29,7 @@ class UserTestSeeder extends Seeder
         $financeCommunityId = Community::select('id')->where('key', 'finance')->sole()->id;
 
         // shared auth users for testing
-        User::factory()
+        $adminUser = User::factory()
             ->asApplicant()
             ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId, $testCommunityId])
             ->asAdmin()
@@ -37,6 +41,10 @@ class UserTestSeeder extends Seeder
                 'email_verified_at' => '2026-01-01',
                 'sub' => 'admin@test.com',
             ]);
+        AwardExperience::factory()->create(['user_id' => $adminUser->id]);
+        CommunityExperience::factory()->create(['user_id' => $adminUser->id]);
+        EducationExperience::factory()->create(['user_id' => $adminUser->id]);
+        PersonalExperience::factory()->create(['user_id' => $adminUser->id]);
 
         User::factory()
             ->asApplicant()
