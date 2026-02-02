@@ -148,7 +148,6 @@ ImageProvided.args = {
 export const ImageProvidedWithCentering = Template.bind({});
 ImageProvidedWithCentering.args = {
   imgPath: browseHeroImg,
-  centered: true,
 };
 
 // overlap story

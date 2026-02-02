@@ -63,13 +63,11 @@ interface NavTab {
 }
 
 interface HeroSharedProps {
-  imgPath?: string;
   title: ReactNode;
   subtitle?: ReactNode;
   crumbs?: BreadcrumbsProps["crumbs"];
   buttonLinks?: ButtonLinkType[];
   children?: ReactNode;
-  centered?: boolean;
   status?: ReactNode;
   additionalContent?: ReactNode;
 }
@@ -84,22 +82,39 @@ interface HeroWithOverlapProps extends HeroSharedProps {
   overlap: boolean;
 }
 
-const Hero = (props: HeroWithNavTabsProps | HeroWithOverlapProps) => {
+interface HeroWithImageProps extends HeroSharedProps {
+  imgPath: string;
+  centered?: never;
+}
+
+interface HeroWithCenteringProps extends HeroSharedProps {
+  imgPath?: never;
+  centered: boolean;
+}
+
+const Hero = (
+  props:
+    | HeroWithNavTabsProps
+    | HeroWithOverlapProps
+    | HeroWithImageProps
+    | HeroWithCenteringProps,
+) => {
   // shared props
   const {
-    imgPath,
     title,
     subtitle,
     crumbs,
     buttonLinks,
     children,
-    centered = false,
     status,
     additionalContent,
   } = props;
   // conditional props
   const navTabs = "navTabs" in props ? props.navTabs : null;
   const overlap = "overlap" in props ? props.overlap : false;
+
+  const imgPath = "imgPath" in props ? props.imgPath : undefined;
+  const centered = "centered" in props && props.centered ? true : false;
 
   const intl = useIntl();
 
