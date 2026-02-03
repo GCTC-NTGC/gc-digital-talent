@@ -94,9 +94,10 @@ export type EducationFormValues = FormValueDateRange & {
 
 export type PersonalFormValues = FormValueDateRange & {
   experienceTitle: string;
-  experienceDescription: string;
   disclaimer: boolean;
-  currentRole: boolean;
+  learningDescription: string;
+  organization: string;
+  roleStatus: "active" | "past";
 };
 
 export type WorkFormValues = FormValueDateRange & {
@@ -206,6 +207,7 @@ export interface ExperienceDetailsSubmissionData {
   seniorManagementStatus?: boolean;
   cSuiteRoleTitle?: CSuiteRoleTitle | null;
   otherCSuiteRoleTitle?: string | null;
+  learningDescription?: string;
 }
 
 type ExperienceMutations = CreateAwardExperienceMutation &
