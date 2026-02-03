@@ -5,6 +5,8 @@ namespace App\Traits\Generator;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Element\TextRun;
 use PhpOffice\PhpWord\Shared\Html;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 
 trait GeneratesDoc
 {
@@ -60,7 +62,25 @@ trait GeneratesDoc
     protected function addHtml(Section $section, ?string $html)
     {
         if ($html) {
-            Html::addHtml($section, $html, false, false);
+            $config = (new HtmlSanitizerConfig())
+                // Only allow tags defined by the input (RichTextInput)
+                ->allowElement('p')
+                ->allowElement('ul')
+
+                // Allow links but strip attributes except for href
+                ->allowElement('a', ['href'])
+
+                // Allow only specific schemes (not javascript: etc) and upgrade HTTP to HTTPS
+                ->allowLinkSchemes(['http', 'https', 'mailto'])
+                ->forceHttpsUrls()
+
+                // Drop all other attributes
+                ->dropAttribute('*', '*');
+
+            $sanitizer = new HtmlSanitizer($config);
+            $cleanHtml = $sanitizer->sanitize($html);
+
+            Html::addHtml($section, $cleanHtml, false, false);
         }
     }
 }
