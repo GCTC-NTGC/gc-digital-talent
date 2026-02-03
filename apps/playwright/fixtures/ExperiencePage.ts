@@ -528,7 +528,7 @@ class ExperiencePage extends AppPage {
     await this.fillDate(input.startDate);
 
     await this.page
-      .getByRole("textbox", { name: /organization, platform, or theme/i })
+      .getByRole("combobox", { name: /organization, platform, or theme/i })
       .fill(input.organization ?? "test organization");
 
     await this.page
