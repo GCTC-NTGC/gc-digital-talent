@@ -512,12 +512,28 @@ class ExperiencePage extends AppPage {
     await this.typeLocator.selectOption("personal");
 
     await this.page
-      .getByRole("textbox", { name: /short title for this experience/i })
+      .getByRole("textbox", { name: /the project or role/i })
       .fill(input.title ?? "test short title");
 
+    if (!input.endDate) {
+      await this.page
+        .getByRole("radio", { name: /i'm currently active in this role/i })
+        .click();
+    } else {
+      await this.page
+        .getByRole("radio", { name: /this is a role i held in the past/i })
+        .click();
+      await this.fillDate(input.endDate, true);
+    }
+    await this.fillDate(input.startDate);
+
     await this.page
-      .getByRole("textbox", { name: /experience description/i })
-      .fill(input.description ?? "test description");
+      .getByRole("textbox", { name: /organization, platform, or theme/i })
+      .fill(input.organization ?? "test organization");
+
+    await this.page
+      .getByRole("textbox", { name: /learning description/i })
+      .fill(input.learningDescription ?? "test learning description");
 
     await this.page
       .getByRole("checkbox", {
@@ -526,20 +542,6 @@ class ExperiencePage extends AppPage {
       .click();
 
     await this.fillDate(input.startDate);
-
-    if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", {
-          name: /i am currently active in this experience/i,
-        })
-        .click();
-    } else {
-      await this.fillDate(input.endDate, true);
-    }
-
-    await this.page
-      .getByRole("textbox", { name: /additional details/i })
-      .fill(input.details ?? "test details");
 
     await this.save();
     await this.waitForGraphqlResponse("CreatePersonalExperience");
