@@ -16,7 +16,7 @@ class UserGeneratedFilesController extends Controller
         $userId = Auth::guard('api')->id();
         throw_unless(is_string($userId) && ! empty($userId), UnauthorizedHttpException::class);
 
-        $safeFileName = FilePath::sanitize($fileName);
+        $safeFileName = FilePath::sanitize($fileName, true);
         $filePath = $userId.'/'.$safeFileName;
 
         throw_unless(Storage::disk('user_generated')->exists($filePath), NotFoundHttpException::class);
