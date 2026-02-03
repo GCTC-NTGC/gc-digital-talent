@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\FilePath;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
@@ -16,15 +16,7 @@ class UserGeneratedFilesController extends Controller
         $userId = Auth::guard('api')->id();
         throw_unless(is_string($userId) && ! empty($userId), UnauthorizedHttpException::class);
 
-        // Strip path information
-        $normalizedFileName = str_replace('\\', '/', $fileName);
-        $safeFileName = basename($normalizedFileName);
-
-        // Check for restricted characters in the file name
-        if (preg_match('/[^A-Za-z0-9._\-\s]/', $safeFileName)) {
-            throw new BadRequestHttpException('Invalid file name format.');
-        }
-
+        $safeFileName = FilePath::sanitize($fileName);
         $filePath = $userId.'/'.$safeFileName;
 
         throw_unless(Storage::disk('user_generated')->exists($filePath), NotFoundHttpException::class);

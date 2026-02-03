@@ -5,6 +5,7 @@ namespace App\Generators;
 use App\Enums\SkillLevel;
 use App\Enums\SupervisoryStatus;
 use App\Models\JobPosterTemplate;
+use App\Support\FilePath;
 use App\Traits\Generator\GeneratesDoc;
 use Illuminate\Support\Str;
 use PhpOffice\PhpWord\Element\Section;
@@ -15,10 +16,11 @@ class JobPosterTemplateGenerator extends DocGenerator implements FileGeneratorIn
 
     public function __construct(protected JobPosterTemplate $jobPoster, public ?string $dir, protected ?string $lang)
     {
+
         $fileName = sprintf(
             '%s - %s',
             __('filename.job_poster_template'),
-            $jobPoster->name[$lang]
+            FilePath::sanitize($jobPoster->name[$lang])
         );
 
         parent::__construct($fileName, $dir);
