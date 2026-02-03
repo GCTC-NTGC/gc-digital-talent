@@ -21,7 +21,7 @@ class UserGeneratedFilesController extends Controller
         $safeFileName = basename($normalizedFileName);
 
         // Check for restricted characters in the file name
-        if (preg_match('/[^A-Za-z0-9._-]/', $safeFileName)) {
+        if (preg_match('/[^A-Za-z0-9._\-\s]/', $safeFileName)) {
             throw new BadRequestHttpException('Invalid file name format.');
         }
 
