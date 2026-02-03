@@ -17,7 +17,8 @@ class UserGeneratedFilesController extends Controller
         throw_unless(is_string($userId) && ! empty($userId), UnauthorizedHttpException::class);
 
         // Strip path information
-        $safeFileName = basename($fileName);
+        $normalizedFileName = str_replace('\\', '/', $fileName);
+        $safeFileName = basename($normalizedFileName);
 
         // Check for restricted characters in the file name
         if (preg_match('/[^A-Za-z0-9._-]/', $safeFileName)) {
