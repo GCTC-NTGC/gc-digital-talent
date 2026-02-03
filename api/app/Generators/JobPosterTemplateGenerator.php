@@ -45,13 +45,15 @@ class JobPosterTemplateGenerator extends DocGenerator implements FileGeneratorIn
         $this->addLabelText($section, $this->localizeHeading('classification'), $this->jobPoster->classification->formattedGroupAndLevel);
         $this->addLabelText($section, $this->localizeHeading('work_stream'), $this->jobPoster->workStream->name[$this->lang]);
         $this->addLabelText($section, $this->localizeHeading('role_type'), $this->localizeEnum($this->jobPoster->supervisory_status, SupervisoryStatus::class));
-        $this->addLabelLink($section, $this->localizeHeading('work_description'),
-            [
-                'href' => $this->jobPoster->work_description[$this->lang],
-                'text' => $this->localize('job_poster_template.gcpedia_view'),
-            ],
-            $this->localize('job_poster_template.gcpedia_note')
-        );
+        if (! empty($this->jobPoster->work_description[$this->lang])) {
+            $this->addLabelLink($section, $this->localizeHeading('work_description'),
+                [
+                    'href' => $this->jobPoster->work_description[$this->lang],
+                    'text' => $this->localize('job_poster_template.gcpedia_view'),
+                ],
+                $this->localize('job_poster_template.gcpedia_note')
+            );
+        }
 
         $this->addLabelText($section, $this->localizeHeading('reference_id'), $this->jobPoster->reference_id);
 
