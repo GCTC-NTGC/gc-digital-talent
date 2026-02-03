@@ -369,6 +369,11 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on Experience form for key tasks and responsibilities field.",
     }),
+    projectOrRole: intl.formatMessage({
+      defaultMessage: "The project or role",
+      id: "II8QD3",
+      description: "Label for the personal experience title",
+    }),
   };
 };
 
@@ -407,7 +412,7 @@ export const formValuesToSubmitData = (
     institution,
     thesisTitle,
     experienceTitle,
-    experienceDescription,
+    learningDescription,
     currentRole,
     employmentCategory,
     extSizeOfOrganization,
@@ -465,7 +470,8 @@ export const formValuesToSubmitData = (
     },
     personal: {
       title: experienceTitle,
-      description: experienceDescription,
+      organization,
+      learningDescription: learningDescription,
       startDate,
       endDate: !currentRole && endDate ? endDate : null,
     },
@@ -724,11 +730,11 @@ const getPersonalExperienceDefaultValues = (
   return {
     experienceTitle: title,
     startDate,
-    currentRole: endDate === null,
     endDate,
     disclaimer: true,
     learningDescription,
     organization,
+    roleStatus: endDate ? "past" : "active",
   };
 };
 
@@ -1127,10 +1133,7 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
 export const organizationSuggestionsFromExperiences = (
   experiences: SimpleAnyExperience[],
 ): string[] => {
-  const experiencesWithoutPersonal = experiences.filter(
-    (exp) => exp?.__typename && exp.__typename !== "PersonalExperience",
-  );
-  const organizationsForAutocomplete = experiencesWithoutPersonal.map((exp) => {
+  const organizationsForAutocomplete = experiences.map((exp) => {
     if (isAwardExperience(exp)) {
       return exp.issuedBy;
     }
@@ -1139,6 +1142,9 @@ export const organizationSuggestionsFromExperiences = (
     }
     if (isEducationExperience(exp)) {
       return exp.institution;
+    }
+    if (isPersonalExperience(exp)) {
+      return exp.organization;
     }
     if (isWorkExperience(exp)) {
       return exp.organization;
