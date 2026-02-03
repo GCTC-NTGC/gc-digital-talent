@@ -577,14 +577,22 @@ const ExperienceCard = ({
                 headingLevel={contentHeadingLevel}
               />
             )}
-            <Separator space="sm" />
-            <ContentSection
-              title={experienceLabels.details}
-              headingLevel={headingLevel}
-            >
-              {experience.details ??
-                intl.formatMessage(commonMessages.notAvailable)}
-            </ContentSection>
+            {/* attempting !isPersonalExperience(experience) didn't seem to work for TypeScript */}
+            {(isAwardExperience(experience) ||
+              isCommunityExperience(experience) ||
+              isEducationExperience(experience) ||
+              isWorkExperience(experience)) && (
+              <>
+                <Separator space="sm" />
+                <ContentSection
+                  title={experienceLabels.details}
+                  headingLevel={headingLevel}
+                >
+                  {experience.details ??
+                    intl.formatMessage(commonMessages.notAvailable)}
+                </ContentSection>
+              </>
+            )}
             {showSkills && !singleSkill && (
               <>
                 <Separator space="sm" />

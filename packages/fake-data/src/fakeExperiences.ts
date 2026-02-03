@@ -150,14 +150,14 @@ const generatePersonal = (): GeneratedPersonalExperience => {
       ...skill,
       experienceSkillRecord: theExperienceSkillRecord,
     })),
-    details: `experience details ${faker.lorem.words()}`,
     title: faker.person.jobTitle(),
     startDate: staticDates.start,
     endDate: staticDates.end,
-    description: `experience description ${faker.lorem.paragraph()}`,
-    experienceSkillRecord: {
+        experienceSkillRecord: {
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
+    learningDescription: faker.lorem.paragraph(),
+    organization: faker.company.buzzPhrase(),
   };
 };
 
