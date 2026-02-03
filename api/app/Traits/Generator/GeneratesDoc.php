@@ -2,6 +2,7 @@
 
 namespace App\Traits\Generator;
 
+use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Element\TextRun;
 use PhpOffice\PhpWord\Shared\Html;
@@ -62,6 +63,9 @@ trait GeneratesDoc
     protected function addHtml(Section $section, ?string $html)
     {
         if ($html) {
+            // Decode so sanitizer can handle encoded HTML tags
+            $decodedHtml = htmlspecialchars_decode($html, ENT_QUOTES);
+
             $config = (new HtmlSanitizerConfig())
                 // Only allow tags defined by the input (RichTextInput)
                 ->allowElement('p')
@@ -78,9 +82,19 @@ trait GeneratesDoc
                 ->dropAttribute('*', '*');
 
             $sanitizer = new HtmlSanitizer($config);
-            $cleanHtml = $sanitizer->sanitize($html);
+            $cleanHtml = $sanitizer->sanitize($decodedHtml);
+            // Convert empty links to plain text and remove empty tags to maintain clean document structure
+            $cleanHtml = preg_replace('/<a href="">(.*?)<\/a>/', '$1', $cleanHtml);
+            $cleanHtml = preg_replace('/<(p|ul|a)[^>]*>\s*<\/\1>/', '', $cleanHtml);
+            $cleanHtml = trim($cleanHtml);
 
-            Html::addHtml($section, $cleanHtml, false, false);
+            if (! empty($cleanHtml)) {
+                try {
+                    Html::addHtml($section, $cleanHtml, false, false);
+                } catch (\Exception $e) {
+                    Log::error('Failed to add HTML snippet: '.$e->getMessage());
+                }
+            }
         }
     }
 }
