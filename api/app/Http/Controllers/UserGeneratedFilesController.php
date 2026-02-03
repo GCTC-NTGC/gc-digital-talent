@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
@@ -13,10 +14,21 @@ class UserGeneratedFilesController extends Controller
     {
         // https://laravel.com/docs/10.x/authentication#accessing-specific-guard-instances
         $userId = Auth::guard('api')->id();
-        throw_unless(is_string($userId), UnauthorizedHttpException::class);
+        throw_unless(is_string($userId) && ! empty($userId), UnauthorizedHttpException::class);
 
-        $filePath = $userId.'/'.$fileName;
+        // Strip path information
+        $safeFileName = basename($fileName);
+
+        // Check for restricted characters in the file name
+        if (preg_match('/[^A-Za-z0-9._-]/', $safeFileName)) {
+            throw new BadRequestHttpException('Invalid file name format.');
+        }
+
+        $filePath = $userId.'/'.$safeFileName;
+
         throw_unless(Storage::disk('user_generated')->exists($filePath), NotFoundHttpException::class);
+
+        $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
         switch (strtolower(pathinfo($filePath)['extension'])) {
