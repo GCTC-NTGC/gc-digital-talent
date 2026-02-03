@@ -32,26 +32,14 @@ class UserGeneratedFilesController extends Controller
         $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
-        switch (strtolower(pathinfo($filePath)['extension'])) {
-            case 'docx':
-                $contentType = ['Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-                break;
-            case 'xlsx':
-                $contentType = ['Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
-                break;
-            case 'pdf':
-                $contentType = ['Content-Type' => 'application/pdf'];
-                break;
-            case 'csv':
-                $contentType = ['Content-Type' => 'text/csv'];
-                break;
-            case 'zip':
-                $contentType = ['Content-Type' => 'application/zip'];
-                break;
-            default:
-                $contentType = ['Content-Type' => 'application/octet-stream'];
-                break;
-        }
+        $contentType = match ($extension) {
+            'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'pdf' => 'application/pdf',
+            'csv' => 'text/csv',
+            'zip' => 'application/zip',
+            default => 'application/octet-stream',
+        };
 
         /* buffered response */
         return response()->streamDownload(function () use ($filePath) {
