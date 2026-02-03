@@ -44,14 +44,14 @@ class UserGeneratedFilesController extends Controller
         /* buffered response */
         return response()->streamDownload(function () use ($filePath) {
             $handle = Storage::disk('user_generated')->readStream($filePath);
-            while (! feof($handle)) {
-                $buffer = fread($handle, 4096);
-                if (! is_bool($buffer)) {
-                    echo $buffer;
+            if ($handle) {
+                fpassthru($handle);
+                // Check to avoid warnings if the handle is already closed or invalid
+                if (is_resource($handle)) {
+                    fclose($handle);
                 }
             }
-            fclose($handle);
-        }, $fileName, $contentType);
+        }, $safeFileName, ['Content-Type' => $contentType]);
 
     }
 }
