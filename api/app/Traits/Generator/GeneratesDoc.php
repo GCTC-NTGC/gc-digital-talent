@@ -69,6 +69,7 @@ trait GeneratesDoc
             $config = (new HtmlSanitizerConfig())
                 // Only allow tags defined by the input (RichTextInput)
                 ->allowElement('p')
+                ->allowElement('li')
                 ->allowElement('ul')
 
                 // Allow links but strip attributes except for href
