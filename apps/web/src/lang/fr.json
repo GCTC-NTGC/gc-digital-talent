@@ -8906,10 +8906,6 @@
     "defaultMessage": "Clé",
     "description": "Title for key field"
   },
-  "aemElP": {
-    "defaultMessage": "Je suis actuellement actif dans cette expérience.",
-    "description": "Label displayed on Personal Experience form for current experience input"
-  },
   "af1unJ": {
     "defaultMessage": "Numéro",
     "description": "Title displayed for the Department table Department # column."
