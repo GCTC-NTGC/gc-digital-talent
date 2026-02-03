@@ -72,40 +72,40 @@ interface HeroSharedProps {
   additionalContent?: ReactNode;
 }
 
-interface HeroWithNavTabsProps extends HeroSharedProps {
+interface HeroNavAndImgProps extends HeroSharedProps {
   navTabs?: NavTab[];
   overlap?: never;
   imgPath?: string;
   centered?: never;
 }
 
-interface HeroWithOverlapProps extends HeroSharedProps {
-  navTabs?: never;
-  overlap: boolean;
-  imgPath?: string;
-  centered?: never;
-}
-
-interface HeroWithImageProps extends HeroSharedProps {
-  imgPath?: string;
-  centered?: never;
+interface HeroNavAndCenteredProps extends HeroSharedProps {
   navTabs?: NavTab[];
-  overlap?: boolean;
-}
-
-interface HeroWithCenteringProps extends HeroSharedProps {
+  overlap?: never;
   imgPath?: never;
   centered?: boolean;
-  navTabs?: NavTab[];
+}
+
+interface HeroOverlapAndImgProps extends HeroSharedProps {
+  navTabs?: never;
   overlap?: boolean;
+  imgPath?: string;
+  centered?: never;
+}
+
+interface HeroOverlapAndCenteredProps extends HeroSharedProps {
+  navTabs?: never;
+  overlap?: boolean;
+  imgPath?: never;
+  centered?: boolean;
 }
 
 const Hero = (
   props:
-    | HeroWithNavTabsProps
-    | HeroWithOverlapProps
-    | HeroWithImageProps
-    | HeroWithCenteringProps,
+    | HeroNavAndImgProps
+    | HeroNavAndCenteredProps
+    | HeroOverlapAndImgProps
+    | HeroOverlapAndCenteredProps,
 ) => {
   // shared props
   const {
