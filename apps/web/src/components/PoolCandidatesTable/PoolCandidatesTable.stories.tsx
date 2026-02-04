@@ -52,8 +52,6 @@ export default {
           ...GLOBAL_A11Y_EXCLUDES,
           // No colour contrast errors here
           "td > span > span > span",
-          // Issue: https://github.com/GCTC-NTGC/gc-digital-talent/issues/15231
-          "p[aria-label]",
         ],
       },
     },

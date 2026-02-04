@@ -8,6 +8,7 @@ test.describe("Profile Page", () => {
       await expect(page).toHaveURL(/\/login-info/);
     });
   });
+
   test.describe("Signed in user without applicant role", () => {
     test("Render not authorized message for /en/applicant", async ({
       appPage,
@@ -22,6 +23,7 @@ test.describe("Profile Page", () => {
         }),
       ).toBeVisible();
     });
+
     test("Render not authorized message for /en/applicant/personal-information", async ({
       appPage,
     }) => {
@@ -37,6 +39,7 @@ test.describe("Profile Page", () => {
         }),
       ).toBeVisible();
     });
+
     test("Render not authorized message for /en/applicant/career-timeline", async ({
       appPage,
     }) => {
@@ -51,6 +54,7 @@ test.describe("Profile Page", () => {
       ).toBeVisible();
     });
   });
+
   test.describe("Signed in user with applicant role", () => {
     test("Render personal information page", async ({ appPage }) => {
       await loginBySub(appPage.page, "applicant@test.com");
@@ -81,6 +85,7 @@ test.describe("Profile Page", () => {
         }),
       ).toBeVisible();
     });
+
     test("Render career timeline page", async ({ appPage }) => {
       await loginBySub(appPage.page, "applicant@test.com");
       await appPage.page.goto("/en/applicant/career-timeline");

@@ -8,6 +8,11 @@ interface LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedActivityEvent implements LocalizedEnumOption {
+  value: ActivityEvent!
+  label: LocalizedString!
+}
+
 type LocalizedArmedForcesStatus implements LocalizedEnumOption {
   value: ArmedForcesStatus!
   label: LocalizedString!
@@ -1075,7 +1080,7 @@ type Pool implements HasRoleAssignments {
   fullDisplayName: DefinedString
   classification: Classification
   operationalRequirements: [LocalizedOperationalRequirement]
-  poolCandidates: [PoolCandidate]
+  poolCandidates(generalSearch: String): [PoolCandidate]
   poolCandidatesCount: Int
   keyTasks: LocalizedString
   yourImpact: LocalizedString
@@ -1113,6 +1118,7 @@ type Pool implements HasRoleAssignments {
   contactEmail: String
   applicantsCount: Int
   activities(
+    where: ProcessActivityFilterInput
     orderBy: [OrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -1871,6 +1877,19 @@ input CommunityInterestFilterInput {
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
   skills: [UUID]
+}
+
+input DateRangeOptional {
+  from: DateTime
+  to: DateTime
+}
+
+input ProcessActivityFilterInput {
+  generalSearch: String
+  createdAt: DateRangeOptional
+  causers: [UUID!]
+  candidates: [UUID!]
+  events: [ActivityEvent!]
 }
 
 input ClassificationBelongsTo {
@@ -3812,6 +3831,7 @@ enum ErrorCode {
   SUB_IN_USE
   VERIFICATION_FAILED
   DUPLICATE_USER_SKILL
+  WORK_STREAM_NAME_IN_USE
   RATE_LIMIT
 }
 

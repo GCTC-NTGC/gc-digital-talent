@@ -143,19 +143,18 @@ const SupervisoryContent = ({
                   ? cSuiteRoleTitle?.label.localized
                   : intl.formatMessage(commonMessages.notApplicable)}
               </ContentSection>
-              {seniorManagementStatus &&
-                cSuiteRoleTitle?.value === CSuiteRoleTitle.Other && (
-                  <>
-                    <Separator space="sm" decorative />
-                    <ContentSection
-                      title={experienceFormLabels.otherCSuiteRoleTitle}
-                      headingLevel={headingLevel}
-                    >
-                      {otherCSuiteRoleTitle ??
-                        intl.formatMessage(commonMessages.notApplicable)}
-                    </ContentSection>
-                  </>
-                )}
+              {cSuiteRoleTitle?.value === CSuiteRoleTitle.Other && (
+                <>
+                  <Separator space="sm" decorative />
+                  <ContentSection
+                    title={experienceFormLabels.otherCSuiteRoleTitle}
+                    headingLevel={headingLevel}
+                  >
+                    {otherCSuiteRoleTitle ??
+                      intl.formatMessage(commonMessages.notApplicable)}
+                  </ContentSection>
+                </>
+              )}
             </>
           )}
         </>

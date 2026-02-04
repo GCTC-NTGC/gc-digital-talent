@@ -36,7 +36,6 @@ test.describe("User search", () => {
   });
 
   test("User can be searched by name", async ({ appPage }) => {
-    // eslint-disable-next-line playwright/no-conditional-in-test
     const userName = user?.firstName ?? "";
     await loginBySub(appPage.page, "admin@test.com", false);
     await appPage.page.goto("/admin/users");

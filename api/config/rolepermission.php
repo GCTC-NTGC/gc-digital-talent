@@ -555,10 +555,6 @@ return [
             'en' => 'View any community',
             'fr' => 'Vissioner toutes les communautés',
         ],
-        'view-team-community' => [
-            'en' => 'View this community',
-            'fr' => 'Vissioner cette communauté',
-        ],
         'create-any-community' => [
             'en' => 'Create any community',
             'fr' => 'Créer toute communauté',
@@ -650,6 +646,10 @@ return [
         'update-team-talentNominationEvent' => [
             'en' => 'Update team talent nomination event',
             'fr' => 'Mise à jour de l\'événement de nomination des talents de l\'équipe',
+        ],
+        'view-any-communityInterest' => [
+            'en' => 'View any community interest record',
+            'fr' => 'Consulter tout dossier d\'intérêt communautaire',
         ],
         'view-team-communityInterest' => [
             'en' => 'View community interest records associated with a community',
@@ -950,6 +950,9 @@ return [
             'communityInterest' => [
                 'own' => ['delete'],
             ],
+            'talentNominationEvent' => [
+                'any' => ['view'],
+            ],
         ],
 
         'process_operator' => [
@@ -1019,9 +1022,6 @@ return [
             'searchRequest' => [
                 'team' => ['view', 'update', 'delete'],
             ],
-            'community' => [
-                'team' => ['view'],
-            ],
             'communityTeamMembers' => [
                 'team' => ['view'],
             ],
@@ -1080,11 +1080,16 @@ return [
                 'team' => ['view', 'update', 'delete'],
             ],
             'talentNominationEvent' => [
-                'any' => ['create'],
-                'team' => ['update'],
+                'team' => ['create', 'update'],
             ],
             'community' => [
-                'team' => ['view', 'update'],
+                'team' => ['update'],
+            ],
+            'communityInterest' => [
+                'team' => ['view'],
+            ],
+            'communityTalent' => [
+                'team' => ['view'],
             ],
             'communityTeamMembers' => [
                 'team' => ['view'],
@@ -1203,11 +1208,16 @@ return [
             'poolActivityLog' => [
                 'any' => ['view'],
             ],
+            'communityInterest' => [
+                'any' => ['view'],
+            ],
+            'talentNominationEvent' => [
+                'any' => ['create'],
+            ],
         ],
 
         'community_talent_coordinator' => [
             'talentNominationEvent' => [
-                'any' => ['view'],
                 'team' => ['create', 'update'],
             ],
             'talentNomination' => [

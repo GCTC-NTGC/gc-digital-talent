@@ -35,6 +35,7 @@ import testConfig from "~/constants/config";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
 import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
 import { getCommunities } from "~/utils/communities";
+
 test.describe("Talent search", () => {
   let uniqueTestId: string;
   let sub: string;

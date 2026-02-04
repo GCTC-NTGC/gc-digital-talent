@@ -82,6 +82,14 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
       "Error message that the input department number is already in use.",
   },
 
+  // work stream validation
+  [ErrorCode.WorkStreamNameInUse]: {
+    defaultMessage: "This work stream name is already in use",
+    id: "yg8m7r",
+    description:
+      "Error message that the input work stream name is already in use.",
+  },
+
   // application validation
   [ErrorCode.ApplicationAlreadySubmitted]: {
     defaultMessage: "Application is already submitted.",

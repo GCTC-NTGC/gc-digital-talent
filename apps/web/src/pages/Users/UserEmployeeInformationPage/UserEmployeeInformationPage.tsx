@@ -12,6 +12,7 @@ import {
   TableOfContents,
   ThrowNotFound,
   Notice,
+  Separator,
 } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -41,6 +42,7 @@ import CareerDevelopmentSection, {
 } from "./components/CareerDevelopmentSection";
 import NextRoleAndCareerObjective from "./components/NextRoleAndCareerObjective";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection";
+import DownloadButton from "../DownloadButton";
 
 const SECTION_ID = {
   COMMUNITY_INTEREST: "community-interest-section",
@@ -70,6 +72,7 @@ const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface UserEmployeeInformationProps {
+  userId: Scalars["UUID"]["output"];
   employeeProfileQuery: FragmentType<typeof UserEmployeeInformation_Fragment>;
   wfaQuery: FragmentType<typeof UserWorkforceAdjustment_Fragment>;
   communityInterestOptionsQuery: FragmentType<
@@ -82,6 +85,7 @@ interface UserEmployeeInformationProps {
 }
 
 export const UserEmployeeInformation = ({
+  userId,
   employeeProfileQuery,
   wfaQuery,
   careerDevelopmentOptionsQuery,
@@ -154,6 +158,8 @@ export const UserEmployeeInformation = ({
             </TableOfContents.ListItem>
           )}
         </TableOfContents.List>
+        <Separator decorative orientation="horizontal" space="xs" />
+        <DownloadButton id={userId} />
       </TableOfContents.Navigation>
       <TableOfContents.Content>
         <div className="flex flex-col gap-y-6">
@@ -406,6 +412,7 @@ const UserEmployeeInformationPage = () => {
       <Pending fetching={fetching} error={error}>
         {data?.user?.employeeProfile && data?.user?.isGovEmployee ? (
           <UserEmployeeInformation
+            userId={userId}
             employeeProfileQuery={data?.user?.employeeProfile}
             userQuery={data.user}
             careerDevelopmentOptionsQuery={data}

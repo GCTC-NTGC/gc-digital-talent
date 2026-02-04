@@ -133,7 +133,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     },
     getRowId: rowSelect?.getRowId,
     autoResetPageIndex: false,
-    enableGlobalFilter: isInternalSearch,
+    manualFiltering: !isInternalSearch,
     enableRowSelection: !!rowSelect,
     enableSorting: !!sort,
     manualSorting: !sort?.internal,
@@ -352,7 +352,6 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       debouncedAnnouncement(totalRows ?? 0);
     }
     // Note, exhaustive-deps causes over announcing
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalRows]);
 
   return (

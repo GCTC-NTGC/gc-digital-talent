@@ -153,10 +153,10 @@ class UserPolicyTest extends TestCase
             'consent_to_share_profile' => true,
         ]);
 
-        // recruiter/coordinator but not admin/process operator can now view applicant as they are a community talent (CommunityInterest with interest)
+        // recruiter/coordinator/admin but not process operator can now view applicant as they are a community talent (CommunityInterest with interest)
         $this->assertTrue($this->communityRecruiter->can('view', $this->applicant));
         $this->assertTrue($this->communityTalentCoordinator->can('view', $this->applicant));
-        $this->assertFalse($this->communityAdmin->can('view', $this->applicant));
+        $this->assertTrue($this->communityAdmin->can('view', $this->applicant));
         $this->assertFalse($this->processOperator->can('view', $this->applicant));
     }
 

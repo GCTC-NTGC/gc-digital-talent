@@ -21,13 +21,13 @@
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
     "date-fns": "^4.1.0",
-    "react-intl": "^8.0.11"
+    "react-intl": "^8.1.1"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "eslint": "^9.20.1",
-    "timezone-mock": "^1.3.6",
+    "timezone-mock": "^1.4.0",
     "tsconfig": "workspace:*",
     "typescript": "^5.9.3",
     "vitest": "^4.0.16"

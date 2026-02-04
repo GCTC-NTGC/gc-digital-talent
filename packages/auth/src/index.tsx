@@ -19,10 +19,13 @@ import {
   LOGOUT_REASON_KEY,
   NAV_ROLE_KEY,
   COMMUNITY_ROLES,
+  ASSESSMENT_MEMBER_ROLES,
+  PROCESS_ACTIVITY_LOG_ROLES,
 } from "./const";
 import type { LogoutReason } from "./const";
 import getAuthenticationState from "./utils/authenticationState";
 import { AuthenticationState } from "./types";
+import { setTokensFromLocation } from "./utils/setTokensFromLocation";
 
 export {
   AuthenticationProvider,
@@ -37,6 +40,7 @@ export {
   hasRole,
   narrowTeamableType,
   getAuthenticationState,
+  setTokensFromLocation,
 };
 
 export {
@@ -48,6 +52,8 @@ export {
   ROLE_NAME,
   NAV_ROLE_KEY,
   COMMUNITY_ROLES,
+  ASSESSMENT_MEMBER_ROLES,
+  PROCESS_ACTIVITY_LOG_ROLES,
 };
 
 export type { RoleName, LogoutReason, AuthenticationState };

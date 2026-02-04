@@ -132,6 +132,11 @@ class CommunityInterest extends Model
             $user = User::findOrFail($args['userId']);
         }
 
+        // can see any community interest - return with no filters added
+        if ($user?->isAbleTo('view-any-communityInterest')) {
+            return $this;
+        }
+
         // we might want to add some filters for some candidates
         $filterCountBefore = count($query->getQuery()->wheres);
         $query->where(function (Builder $query) use ($user) {

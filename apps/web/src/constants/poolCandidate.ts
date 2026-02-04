@@ -25,8 +25,8 @@ export const REMOVED_STATUSES = [
   PoolCandidateStatus.ScreenedOutNotResponsive,
   PoolCandidateStatus.QualifiedUnavailable,
   PoolCandidateStatus.QualifiedWithdrew,
-  PoolCandidateStatus.Expired,
   PoolCandidateStatus.Removed,
+  PoolCandidateStatus.Expired,
 ];
 
 export const DRAFT_STATUSES = [

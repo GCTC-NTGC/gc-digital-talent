@@ -512,7 +512,9 @@ type Pool implements HasRoleAssignments {
   classification: Classification @belongsTo
   operationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "operational_requirements")
-  poolCandidates: [PoolCandidate]
+  poolCandidates(
+    generalSearch: String @scope(name: "whereGeneralSearch")
+  ): [PoolCandidate]
     @hasMany(
       relation: "publishedPoolCandidates"
       scopes: ["whereAuthorizedToView"]
@@ -569,11 +571,14 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
-  activities(orderBy: _ @orderBy): [Activity!]
+  activities(
+    where: ProcessActivityFilterInput @spread
+    orderBy: _ @orderBy
+  ): [Activity!]
     @paginate(
-      type: PAGINATOR,
-      builder: "App\\Models\\Pool@aggregateActivities",
-      defaultCount: 50,
+      type: PAGINATOR
+      builder: "App\\Models\\Pool@aggregateActivities"
+      defaultCount: 50
       maxCount: 1000
     )
     @scope(name: ["authorizedToViewPoolActivity"])
@@ -1509,6 +1514,18 @@ input CommunityInterestFilterInput {
   operationalRequirements: [OperationalRequirement] @scope
   skills: [UUID] @scope
 }
+input DateRangeOptional {
+  from: DateTime
+  to: DateTime @rules(apply: ["after_or_equal:from"])
+}
+
+input ProcessActivityFilterInput {
+  generalSearch: String @scope(name: "whereProcessGeneralSearch")
+  createdAt: DateRangeOptional @scope(name: "whereDate")
+  causers: [UUID!] @scope(name: "whereCauserIn")
+  candidates: [UUID!] @scope(name: "wherePoolCandidateIn")
+  events: [ActivityEvent!] @scope(name: "whereEventIn")
+}
 
 type Query {
   myAuth: UserAuthInfo @auth
@@ -2332,7 +2349,7 @@ input DepartmentBelongsToMany {
   sync: [ID!]
 }
 
-input CreateWorkStreamInput {
+input CreateWorkStreamInput @validator {
   key: String
   name: LocalizedStringInput!
   plainLanguageName: LocalizedStringInput
@@ -2341,7 +2358,7 @@ input CreateWorkStreamInput {
   talentSearchable: Boolean! @rename(attribute: "talent_searchable")
 }
 
-input UpdateWorkStreamInput {
+input UpdateWorkStreamInput @validator {
   key: String
   name: LocalizedStringInput
   plainLanguageName: LocalizedStringInput

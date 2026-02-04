@@ -314,23 +314,24 @@ class CommunityInterestTest extends TestCase
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
-        )->assertJsonFragment(['total' => 0]);
+        )->assertJsonFragment(['total' => 1]);
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
         )->assertJsonFragment(['total' => 0]);
-        $this->actingAs($this->communityAdmin, 'api')->graphQL(
-            $this->paginatedCommunityInterestsQuery,
-            [],
-        )->assertJsonFragment(['total' => 0]);
 
-        // community recruiter/coordinator can see the model
+        // community recruiter/coordinator/admin can see the model
         $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
         )->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityInterestModel->id]);
         $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityInterestModel->id]);
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
         )->assertJsonFragment(['total' => 1])

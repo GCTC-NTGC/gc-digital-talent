@@ -36,7 +36,7 @@ class SnapshotShapeTest extends TestCase
     /**
      * Fields to omit from required snapshot validation, keyed by model class.
      * Add a new field here if you add a model column that should be ignored in snapshot shape checks.
-     * These should match the `*Resource`/grapqhl definition (db column in camelCase)
+     * These should match the `*Resource`/graphql definition (db column in camelCase)
      *
      * When the test fails and the field(s) mentioned should NOT be in the snapshot
      * add it here.
@@ -208,7 +208,7 @@ class SnapshotShapeTest extends TestCase
             ->withGovEmployeeProfile()
             ->withCommunityInterests([$community->id])
             ->create();
-        $pool = Pool::factory()->withAssessments(3)->published()->create();
+        $pool = Pool::factory()->published()->withAssessmentSteps(3)->create();
         $poolCandidate = PoolCandidate::factory()
             ->withAssessmentResults()
             ->withSnapshot()

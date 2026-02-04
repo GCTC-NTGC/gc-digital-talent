@@ -141,7 +141,7 @@ trait GeneratesFile
      * @param  bool  $condition  The condition
      * @param  string  $data  The data shown if condition met
      */
-    public function canShare(bool $condition, string $data)
+    public function canShare(bool $condition, ?string $data = null)
     {
         if ($condition) {
             return $data;
