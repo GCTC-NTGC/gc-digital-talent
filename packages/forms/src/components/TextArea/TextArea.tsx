@@ -53,6 +53,7 @@ const TextArea = ({
   rows = 4,
   trackUnsaved = true,
   whitespaceTrim = true,
+  "aria-label": ariaLabel,
   "aria-labelledby": labelledBy,
   "aria-describedby": describedBy,
   appendLanguageToLabel,
@@ -97,6 +98,12 @@ const TextArea = ({
     };
   }
 
+  let ariaLabelledBy;
+
+  if (!ariaLabel) {
+    ariaLabelledBy = labelledBy ? `${labelledBy} ${id}-label` : `${id}-label`;
+  }
+
   return (
     <Field.Wrapper>
       <Field.Label
@@ -111,7 +118,8 @@ const TextArea = ({
       <div className="relative z-1">
         <textarea
           id={id}
-          aria-labelledby={`${id}-label`}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
           aria-describedby={ariaDescribedBy}
           aria-required={!!rules.required}
           aria-invalid={isInvalid}
@@ -131,12 +139,9 @@ const TextArea = ({
           })}
           {...(readOnly
             ? {
-                readOnly: true,
-              }
+              readOnly: true,
+            }
             : {})}
-          {...(labelledBy && {
-            "aria-labelledby": `${labelledBy} ${id}-label`,
-          })}
           {...rest}
         />
         {wordLimit && (
