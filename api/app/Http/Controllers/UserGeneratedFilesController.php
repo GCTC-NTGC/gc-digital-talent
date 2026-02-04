@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\FilePath;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -13,44 +14,36 @@ class UserGeneratedFilesController extends Controller
     {
         // https://laravel.com/docs/10.x/authentication#accessing-specific-guard-instances
         $userId = Auth::guard('api')->id();
-        throw_unless(is_string($userId), UnauthorizedHttpException::class);
+        throw_unless(is_string($userId) && ! empty($userId), UnauthorizedHttpException::class);
 
-        $filePath = $userId.'/'.$fileName;
+        $safeFileName = FilePath::sanitize($fileName, true);
+        $filePath = $userId.'/'.$safeFileName;
+
         throw_unless(Storage::disk('user_generated')->exists($filePath), NotFoundHttpException::class);
 
+        $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
-        switch (strtolower(pathinfo($filePath)['extension'])) {
-            case 'docx':
-                $contentType = ['Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-                break;
-            case 'xlsx':
-                $contentType = ['Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
-                break;
-            case 'pdf':
-                $contentType = ['Content-Type' => 'application/pdf'];
-                break;
-            case 'csv':
-                $contentType = ['Content-Type' => 'text/csv'];
-                break;
-            case 'zip':
-                $contentType = ['Content-Type' => 'application/zip'];
-                break;
-            default:
-                $contentType = ['Content-Type' => 'application/octet-stream'];
-                break;
-        }
+        $contentType = match ($extension) {
+            'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'pdf' => 'application/pdf',
+            'csv' => 'text/csv',
+            'zip' => 'application/zip',
+            default => 'application/octet-stream',
+        };
 
         /* buffered response */
         return response()->streamDownload(function () use ($filePath) {
             $handle = Storage::disk('user_generated')->readStream($filePath);
-            while (! feof($handle)) {
-                $buffer = fread($handle, 4096);
-                if (! is_bool($buffer)) {
-                    echo $buffer;
+            if ($handle) {
+                fpassthru($handle);
+                // Check to avoid warnings if the handle is already closed or invalid
+                if (is_resource($handle)) {
+                    fclose($handle);
                 }
             }
-            fclose($handle);
-        }, $fileName, $contentType);
+        }, $safeFileName, ['Content-Type' => $contentType]);
 
     }
 }
