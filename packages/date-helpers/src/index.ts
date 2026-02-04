@@ -6,7 +6,7 @@ import { parseISO } from "date-fns/parseISO";
 import { enCA as en } from "date-fns/locale/en-CA";
 import { fr } from "date-fns/locale/fr";
 import { Locale } from "date-fns/locale";
-import { tz } from "@date-fns/tz";
+import { tz, TZDate } from "@date-fns/tz";
 
 import { getLocale, dateMessages } from "@gc-digital-talent/i18n";
 import { Scalars } from "@gc-digital-talent/graphql";
@@ -195,3 +195,24 @@ export const nowUTCDateTime = (): string => {
   const formattedNowUTC = format(nowUTC, DATETIME_FORMAT_STRING);
   return formattedNowUTC;
 };
+
+// Returns UTC as 'yyyy-MM-dd HH:mm:ss' for start of local calendar day in user TZ
+export function getUtcStartOfDayForLocalDate(
+  date: string,
+  timeZone: string,
+): string {
+  const dt = new TZDate(`${date}T00:00:00`, timeZone);
+  return format(dt.withTimeZone("UTC"), DATETIME_FORMAT_STRING);
+}
+
+// Returns UTC as 'yyyy-MM-dd HH:mm:ss' for end of local calendar day in user TZ
+export function getUtcEndOfDayForLocalDate(
+  date: string,
+  timeZone: string,
+): string {
+  const dt = new TZDate(`${date}T23:59:59`, timeZone);
+  return format(dt.withTimeZone("UTC"), DATETIME_FORMAT_STRING);
+}
+
+export const getUserTimeZone = () =>
+  Intl.DateTimeFormat().resolvedOptions().timeZone;

@@ -67,8 +67,16 @@ const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
   return (
     <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialog.Trigger>
-        <Button color="error" mode="inline">
-          {intl.formatMessage(commonMessages.remove)}
+        <Button
+          color="error"
+          mode="inline"
+          className="text-center xs:text-left"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Remove work email",
+            id: "Z2BMGx",
+            description: "Action text",
+          })}
         </Button>
       </AlertDialog.Trigger>
       <AlertDialog.Content>

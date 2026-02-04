@@ -515,7 +515,9 @@ type Pool implements HasRoleAssignments {
   classification: Classification @belongsTo
   operationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "operational_requirements")
-  poolCandidates: [PoolCandidate]
+  poolCandidates(
+    generalSearch: String @scope(name: "whereGeneralSearch")
+  ): [PoolCandidate]
     @hasMany(
       relation: "publishedPoolCandidates"
       scopes: ["whereAuthorizedToView"]
@@ -1515,9 +1517,17 @@ input CommunityInterestFilterInput {
   operationalRequirements: [OperationalRequirement] @scope
   skills: [UUID] @scope
 }
+input DateRangeOptional {
+  from: DateTime
+  to: DateTime @rules(apply: ["after_or_equal:from"])
+}
 
 input ProcessActivityFilterInput {
   generalSearch: String @scope(name: "whereProcessGeneralSearch")
+  createdAt: DateRangeOptional @scope(name: "whereDate")
+  causers: [UUID!] @scope(name: "whereCauserIn")
+  candidates: [UUID!] @scope(name: "wherePoolCandidateIn")
+  events: [ActivityEvent!] @scope(name: "whereEventIn")
 }
 
 type Query {
