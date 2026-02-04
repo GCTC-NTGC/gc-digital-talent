@@ -694,9 +694,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
                 downloadingDoc ||
                 downloadingAllExcel
               }
-              isDownloading={
-                downloadingZip || downloadingDoc || downloadingAllExcel
-              }
+              isDownloading={downloadingZip || downloadingDoc}
               onClickProfile={() => handleDocDownload(false)}
               onClickAnonymousProfile={() => handleDocDownload(true)}
             />
