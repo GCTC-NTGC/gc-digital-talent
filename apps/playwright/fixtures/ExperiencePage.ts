@@ -44,7 +44,6 @@ class ExperiencePage extends AppPage {
 
   async edit(id: string) {
     await this.page.goto(`/en/applicant/career-timeline/${id}/edit`);
-    await this.waitForGraphqlResponse("ExperienceFormData");
   }
 
   async selectWorkExperience() {
@@ -64,12 +63,12 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    let organization = this.page.getByRole("textbox", {
+    const organization = this.page.getByRole("textbox", {
       name: /organization/i,
     });
-    if ((await organization.count()) === 0) {
-      organization = this.page.getByRole("combobox", { name: /organization/i });
-    }
+    // if ((await organization.count()) === 0) {
+    //   organization = this.page.getByRole("combobox", { name: /organization/i });
+    // }
     await organization.fill(input.organization ?? "test org");
 
     await this.page
@@ -92,11 +91,17 @@ class ExperiencePage extends AppPage {
 
     await this.fillDate(input.startDate);
 
+    const checkbox = this.page.getByRole("checkbox", {
+      name: /i am currently active in this role/i,
+    });
     if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", { name: /i am currently active in this role/i })
-        .click();
+      if (!(await checkbox.isChecked())) {
+        await checkbox.click();
+      }
     } else {
+      if (await checkbox.isChecked()) {
+        await checkbox.click();
+      }
       await this.fillDate(input.endDate, true);
     }
 
@@ -293,7 +298,6 @@ class ExperiencePage extends AppPage {
       .selectOption({ label: "1" });
 
     await this.fillDate(input.startDate);
-
     if (!input.endDate) {
       await this.page
         .getByRole("checkbox", { name: /i am currently active in this role/i })
@@ -301,7 +305,6 @@ class ExperiencePage extends AppPage {
     } else {
       await this.fillDate(input.endDate, true);
     }
-
     await this.page
       .getByRole("textbox", { name: /additional details/i })
       .fill(input.details ?? "test details");
@@ -374,11 +377,25 @@ class ExperiencePage extends AppPage {
 
     await this.fillDate(input.startDate);
 
+    // if (!input.endDate) {
+    //   await this.page
+    //     .getByRole("checkbox", { name: /i am currently active in this role/i })
+    //     .click();
+    // } else {
+    //   await this.fillDate(input.endDate, true);
+    // }
+    const checkbox = this.page.getByRole("checkbox", {
+      name: /i am currently active in this role/i,
+    });
+
     if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", { name: /i am currently active in this role/i })
-        .click();
+      if (!(await checkbox.isChecked())) {
+        await checkbox.click();
+      }
     } else {
+      if (await checkbox.isChecked()) {
+        await checkbox.click();
+      }
       await this.fillDate(input.endDate, true);
     }
 
@@ -424,12 +441,17 @@ class ExperiencePage extends AppPage {
       .click();
 
     await this.fillDate(input.startDate);
-
+    const checkbox = this.page.getByRole("checkbox", {
+      name: /i am currently active in this role/i,
+    });
     if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", { name: /i am currently active in this role/i })
-        .click();
+      if (!(await checkbox.isChecked())) {
+        await checkbox.click();
+      }
     } else {
+      if (await checkbox.isChecked()) {
+        await checkbox.click();
+      }
       await this.fillDate(input.endDate, true);
     }
 
@@ -442,6 +464,7 @@ class ExperiencePage extends AppPage {
 
   async editWorkExperience(id: string, input: WorkExperienceInput) {
     await this.edit(id);
+    // await this.waitForGraphqlResponse("WorkFieldOptions");
 
     await this.page
       .getByRole("textbox", { name: /my role/i })
@@ -462,8 +485,6 @@ class ExperiencePage extends AppPage {
           break;
       }
     }
-
-    await this.save();
     await this.waitForGraphqlResponse("UpdateWorkExperience");
   }
 

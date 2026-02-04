@@ -12,6 +12,7 @@ import {
   CitizenshipStatus,
   EmploymentCategory,
   FlexibleWorkLocation,
+  GovEmployeeType,
   ProvinceOrTerritory,
   User,
   WorkExperience,
@@ -84,7 +85,6 @@ test.describe("Government Employee Information section validation", () => {
       await experiencePage.addGovTermOrIndeterminateWorkExperience({
         role,
         startDate: "2001-01",
-        endDate: "2026-01",
         department: { connect: departmentID },
       });
       await expect(experiencePage.page.getByRole("alert")).toContainText(
@@ -111,12 +111,22 @@ test.describe("Government Employee Information section validation", () => {
       const workExperience = applicant.experiences?.find(
         (ex: WorkExperience) => ex?.role === role,
       );
+      // await experiencePage.editWorkExperience(`${workExperience?.id}`, {
+      //   role: editRole,
+      //   startDate: "2001-01",
+      //   endDate: "2200-01",
+      //   employmentCategory: EmploymentCategory.CanadianArmedForces,
+      // });
       await experiencePage.editWorkExperience(`${workExperience?.id}`, {
         role: editRole,
         startDate: "2001-01",
         endDate: "2200-01",
-        employmentCategory: EmploymentCategory.CanadianArmedForces,
+        employmentCategory: EmploymentCategory.ExternalOrganization,
       });
+      await expect(experiencePage.page.getByRole("alert")).toContainText(
+        /successfully updated experience/i,
+        { timeout: 70000 },
+      );
       await experiencePage.goToIndex();
 
       // Verify that government employee information section is updated
