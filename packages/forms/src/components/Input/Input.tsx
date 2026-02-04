@@ -80,6 +80,7 @@ const Input = ({
       <Field.Label
         id={`${id}-label`}
         htmlFor={id}
+        aria-hidden="true"
         required={!!rules.required}
         appendLanguageToLabel={appendLanguageToLabel}
       >
