@@ -141,7 +141,7 @@ const HeadCell = <T,>({ header, id, ...rest }: HeadCellProps<T>) => {
       {...(header.column.getCanSort() && {
         "aria-sort": ariaSort,
       })}
-      className={`${headCell({ preventShrink: !isRowSelect && !shouldShrink })} ${customClassName || ""}`}
+      className={`${headCell({ preventShrink: !isRowSelect && !shouldShrink })}${customClassName ? ` ${customClassName}` : ""}`}
       {...rest}
     >
       {header.isPlaceholder ? null : (
@@ -220,7 +220,7 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
       // Seems like a false positive, cell is the implicit role for this element
       // REF: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#technical_summary:~:text=%3Ctr%3E%20element.-,Implicit%20ARIA%20role,-cell%20if%20a
       role={isRowHeader ? "rowheader" : "cell"}
-      className={`${base()} ${customClassName || ""}`}
+      className={`${base()}${customClassName ? ` ${customClassName}` : ""}`}
       {...(isRowHeader ? { scope: "row" } : {})}
       {...rest}
     >
