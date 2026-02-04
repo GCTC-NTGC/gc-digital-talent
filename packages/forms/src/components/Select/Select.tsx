@@ -90,6 +90,7 @@ const Select = ({
       </Field.Label>
       <select
         id={id}
+        aria-labelledby={`${id}-label`}
         aria-describedby={ariaDescribedBy}
         aria-required={!!rules.required}
         aria-invalid={isInvalid}
