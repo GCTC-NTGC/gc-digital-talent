@@ -66,9 +66,9 @@ class ExperiencePage extends AppPage {
     const organization = this.page.getByRole("textbox", {
       name: /organization/i,
     });
-    // if ((await organization.count()) === 0) {
-    //   organization = this.page.getByRole("combobox", { name: /organization/i });
-    // }
+    if ((await organization.count()) === 0) {
+      organization = this.page.getByRole("combobox", { name: /organization/i });
+    }
     await organization.fill(input.organization ?? "test org");
 
     await this.page
@@ -377,13 +377,6 @@ class ExperiencePage extends AppPage {
 
     await this.fillDate(input.startDate);
 
-    // if (!input.endDate) {
-    //   await this.page
-    //     .getByRole("checkbox", { name: /i am currently active in this role/i })
-    //     .click();
-    // } else {
-    //   await this.fillDate(input.endDate, true);
-    // }
     const checkbox = this.page.getByRole("checkbox", {
       name: /i am currently active in this role/i,
     });
@@ -464,7 +457,6 @@ class ExperiencePage extends AppPage {
 
   async editWorkExperience(id: string, input: WorkExperienceInput) {
     await this.edit(id);
-    // await this.waitForGraphqlResponse("WorkFieldOptions");
 
     await this.page
       .getByRole("textbox", { name: /my role/i })
