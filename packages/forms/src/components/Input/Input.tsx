@@ -88,6 +88,7 @@ const Input = ({
       <input
         id={id}
         type={type}
+        aria-labelledby={`${id}-label`}
         aria-describedby={ariaDescribedBy}
         aria-required={!!rules.required}
         aria-invalid={isInvalid}

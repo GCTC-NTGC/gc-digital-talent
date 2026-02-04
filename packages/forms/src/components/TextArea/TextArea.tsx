@@ -110,6 +110,7 @@ const TextArea = ({
       <div className="relative z-1">
         <textarea
           id={id}
+          aria-labelledby={`${id}-label`}
           aria-describedby={ariaDescribedBy}
           aria-required={!!rules.required}
           aria-invalid={isInvalid}
