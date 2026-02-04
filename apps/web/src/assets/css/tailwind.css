@@ -274,7 +274,7 @@
   }
 
   :lang(fr) .candidate-facing-status-column {
-    min-width: 15rem; /* ~240px - enough for "Candidature examinée" */
+    min-width: 17rem; /* ~272px - enough for "Qualifié(e) dans le processus" */
   }
 }
 
