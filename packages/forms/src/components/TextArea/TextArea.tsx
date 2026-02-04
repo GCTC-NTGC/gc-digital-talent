@@ -139,8 +139,8 @@ const TextArea = ({
           })}
           {...(readOnly
             ? {
-              readOnly: true,
-            }
+                readOnly: true,
+              }
             : {})}
           {...rest}
         />
