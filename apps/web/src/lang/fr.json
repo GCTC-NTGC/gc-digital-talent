@@ -1099,6 +1099,10 @@
     "defaultMessage": "La plupart des collectivités fonctionnelles proposent divers programmes d'apprentissage et de perfectionnement. Ces programmes peuvent avoir des exigences d'admissibilité précises basées sur votre expérience, votre classification ou d'autres qualifications. Le fait d'exprimer votre intérêt pour ces possibilités ne constitue pas une candidature, mais permet au personnel des RH et du recrutement de vérifier votre intérêt au cas où vous seriez sélectionnée ou sélectionné pour une possibilité de formation ou de perfectionnement.",
     "description": "Description of the 'Training and development opportunities' section"
   },
+  "2I1HYQ": {
+    "defaultMessage": "Organisation, plateforme ou thème",
+    "description": "Label displayed on Personal Experience form for organization or overarching theme input"
+  },
   "2IWEV5": {
     "defaultMessage": "Parcourez une bibliothèque d’offres d'emploi préétablies avec des suggestions de tâches et de compétences essentielles.",
     "description": "Description for the page showing list of job poster templates"
@@ -4131,6 +4135,10 @@
     "defaultMessage": "Vous êtes sur le point de publier l'annonce de ce processus : {poolName}",
     "description": "Text to confirm the process to be published"
   },
+  "FEffiH": {
+    "defaultMessage": "Description de l’apprentissage",
+    "description": "Label displayed on Personal Experience form for learning description input"
+  },
   "FGUGtr": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
@@ -4798,6 +4806,10 @@
   "II4Ehd": {
     "defaultMessage": "Communiquer avec la collectivité de l’accès à l’information et de la protection des renseignements personnels (AIPRP)",
     "description": "Link text to email the ATIP community"
+  },
+  "II8QD3": {
+    "defaultMessage": "Projet ou rôle",
+    "description": "Label for the personal experience title"
   },
   "IIKzsd": {
     "defaultMessage": "Afficher ou masquer les colonnes du tableau",
@@ -12457,6 +12469,10 @@
     "defaultMessage": "Toutes les notifications",
     "description": "Link text to show all notifications"
   },
+  "pFxxMJ": {
+    "defaultMessage": "Décrivez l’expérience, ce que vous avez appris, ainsi que les tâches et responsabilités que vous avez pu avoir.",
+    "description": "Descriptive sentence before experience description input"
+  },
   "pH8wF2": {
     "defaultMessage": "Bravo, c’est réussi! En signant, vous confirmez ce qui suit :",
     "description": "Instructions for sign and submit section of application review page."
@@ -12644,6 +12660,10 @@
   "px7yu1": {
     "defaultMessage": "Il n'y a pas d'options d'équité en matière d'emploi.",
     "description": "Message displayed when there are no employment equity categories available to be added."
+  },
+  "pyUCrH": {
+    "defaultMessage": "Vous ne savez pas comment remplir ce champ? Essayez de décrire le thème général dans lequel s’inscrit cette expérience. N’oubliez pas que ce champ sert à regrouper des éléments similaires dans votre apprentissage personnel.",
+    "description": "Input context for personal experience organization"
   },
   "q+MgTY": {
     "defaultMessage": "Les personnes qui administrent les collectivités fonctionnelles surveillent la plateforme de façon continue. Vous devriez recevoir un courriel confirmant qu’elles essaient de vous trouver un poste.",
