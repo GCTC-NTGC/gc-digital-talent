@@ -92,7 +92,7 @@ trait GeneratesDoc
             if (! empty($cleanHtml)) {
                 try {
                     Html::addHtml($section, $cleanHtml, false, false);
-                } catch (\Exception $e) {
+                } catch (\Throwable $e) {
                     Log::error('Failed to add HTML snippet: '.$e->getMessage());
                 }
             }
