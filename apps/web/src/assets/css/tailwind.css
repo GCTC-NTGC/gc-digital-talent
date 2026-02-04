@@ -267,6 +267,15 @@
   [data-state="active"]:focus-visible > .on-active-focus-border-t {
     @apply border-t-focus;
   }
+
+  /* Candidate-facing status column min-width to prevent chip text wrapping */
+  :lang(en) .candidate-facing-status-column {
+    min-width: 13rem; /* ~208px - enough for "Application reviewed" */
+  }
+
+  :lang(fr) .candidate-facing-status-column {
+    min-width: 15rem; /* ~240px - enough for "Candidature examinée" */
+  }
 }
 
 /**

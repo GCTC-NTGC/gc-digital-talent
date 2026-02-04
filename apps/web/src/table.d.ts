@@ -22,5 +22,7 @@ declare module "@tanstack/table-core" {
     shrink?: boolean;
     /** Mark this column as locked sorting (user cannot control) */
     sortingLocked?: boolean;
+    /** Custom className to apply to the column header and cells */
+    className?: string;
   }
 }

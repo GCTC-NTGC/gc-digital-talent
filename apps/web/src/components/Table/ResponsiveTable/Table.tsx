@@ -128,6 +128,7 @@ const HeadCell = <T,>({ header, id, ...rest }: HeadCellProps<T>) => {
   const isRowSelect = header.column.columnDef.meta?.isRowSelect;
   const shouldShrink = header.column.columnDef.meta?.shrink;
   const sortingLocked = header.column.columnDef.meta?.sortingLocked;
+  const customClassName = header.column.columnDef.meta?.className;
   const sortDirection = header.column.getIsSorted();
   let ariaSort: AriaSort = undefined;
   if (sortDirection) {
@@ -140,7 +141,7 @@ const HeadCell = <T,>({ header, id, ...rest }: HeadCellProps<T>) => {
       {...(header.column.getCanSort() && {
         "aria-sort": ariaSort,
       })}
-      className={headCell({ preventShrink: !isRowSelect && !shouldShrink })}
+      className={`${headCell({ preventShrink: !isRowSelect && !shouldShrink })} ${customClassName || ""}`}
       {...rest}
     >
       {header.isPlaceholder ? null : (
@@ -200,6 +201,7 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
   const isRowSelect = cell.column.columnDef.meta?.isRowSelect;
   const isRowHeader = cell.column.columnDef.meta?.isRowHeader;
   const shouldShrink = cell.column.columnDef.meta?.shrink;
+  const customClassName = cell.column.columnDef.meta?.className;
   const header = getColumnHeader(cell.column, "mobileHeader");
 
   // We don't want to show the "header" for row titles or selection cells
@@ -218,7 +220,7 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
       // Seems like a false positive, cell is the implicit role for this element
       // REF: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#technical_summary:~:text=%3Ctr%3E%20element.-,Implicit%20ARIA%20role,-cell%20if%20a
       role={isRowHeader ? "rowheader" : "cell"}
-      className={base()}
+      className={`${base()} ${customClassName || ""}`}
       {...(isRowHeader ? { scope: "row" } : {})}
       {...rest}
     >

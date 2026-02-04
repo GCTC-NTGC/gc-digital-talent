@@ -936,6 +936,9 @@ const PoolCandidatesTable = ({
             },
           },
         }) => candidateStatusCell(candidateStatus),
+        meta: {
+          className: "candidate-facing-status-column",
+        },
       },
     ),
     columnHelper.accessor(
