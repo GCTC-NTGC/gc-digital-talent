@@ -33,6 +33,7 @@ const FIELD = {
   TEAM: "team",
   SIZE: "size",
   SENIORITY: "seniority",
+  ADDITIONAL_DETAILS: "additionalDetails",
   SKIP_ADD_WORK_EXPERIENCE: "skipAddWorkExperience",
 } as const;
 type ObjectValues<T> = T[keyof T];
@@ -99,6 +100,9 @@ class Registration extends AppPage {
       }),
       [FIELD.SIZE]: this.page.getByRole("group", { name: /size/i }),
       [FIELD.SENIORITY]: this.page.getByRole("group", { name: /seniority/i }),
+      [FIELD.ADDITIONAL_DETAILS]: this.page.getByRole("textbox", {
+        name: /additional details/i,
+      }),
       [FIELD.SKIP_ADD_WORK_EXPERIENCE]: this.page.getByRole("link", {
         name: /Skip this step/i,
         exact: true,
@@ -159,6 +163,7 @@ class Registration extends AppPage {
     });
     await endDate.getByRole("spinbutton", { name: /year/i }).fill("2001");
     await endDate.getByRole("combobox", { name: /month/i }).selectOption("01");
+    await this.locators[FIELD.ADDITIONAL_DETAILS].fill("additional details");
     await this.locators[FIELD.SAVE_AND_CONTINUE_BUTTON].click();
     // Need tp figure out the way to delete this UI created user
   }

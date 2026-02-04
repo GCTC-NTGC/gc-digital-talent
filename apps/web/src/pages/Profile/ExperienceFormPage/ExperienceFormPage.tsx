@@ -46,7 +46,6 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
-import AdditionalDetails from "~/components/ExperienceFormFields/AdditionalDetails";
 import SelectExperience from "~/components/ExperienceFormFields/SelectExperience";
 import ExperienceHeading from "~/components/ExperienceFormFields/ExperienceHeading";
 import {
@@ -538,15 +537,6 @@ export const ExperienceForm = ({
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id="additional-details">
-                  {intl.formatMessage({
-                    defaultMessage: "Highlight additional details",
-                    id: "6v+j79",
-                    description: "Title for additional details section",
-                  })}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id="skills">
                   {intl.formatMessage({
                     defaultMessage: "List featured skills",
@@ -582,10 +572,6 @@ export const ExperienceForm = ({
                     organizationSuggestions={organizationSuggestions}
                     experienceType={experienceType}
                   />
-                </TableOfContents.Section>
-
-                <TableOfContents.Section id="additional-details">
-                  <AdditionalDetails experienceType={experienceType} />
                 </TableOfContents.Section>
 
                 <TableOfContents.Section id="skills">
