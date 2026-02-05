@@ -199,7 +199,11 @@ export const candidateStatusCell = (
 ) => {
   const chip = candidateStatusChip(status);
 
-  return chip ? <Chip color={chip.color}>{chip.label}</Chip> : null;
+  return chip ? (
+    <span className="whitespace-nowrap">
+      <Chip color={chip.color}>{chip.label}</Chip>
+    </span>
+  ) : null;
 };
 
 export const flagCell = (
