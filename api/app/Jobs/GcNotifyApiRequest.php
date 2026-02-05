@@ -2,11 +2,11 @@
 
 namespace App\Jobs;
 
+use App\Exceptions\ExternalServiceException;
 use App\Facades\Notify;
 use App\Jobs\Middleware\GcNotifyRateLimited;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use DateTime;
-use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -15,7 +15,6 @@ use Illuminate\Queue\Middleware\ThrottlesExceptions;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class GcNotifyApiRequest implements ShouldQueue
 {
@@ -30,9 +29,8 @@ class GcNotifyApiRequest implements ShouldQueue
     {
         return [
             (new GcNotifyRateLimited),
-            (new ThrottlesExceptions($maxAttempts = 10, $decaySeconds = 600))
-                ->byJob()
-                ->backoff($minutes = 10),
+            (new ThrottlesExceptions($maxAttempts = 1, $decaySeconds = 300))
+                ->byJob(),
         ];
     }
 
@@ -56,33 +54,31 @@ class GcNotifyApiRequest implements ShouldQueue
      */
     public function handle(): void
     {
+        Log::shareContext([
+            'job-id' => $this->job->getJobId(),
+        ]);
+
         $response = Notify::sendEmail(
             $this->message->emailAddress,
             $this->message->templateId,
             $this->message->messageVariables
         );
 
-        // hit rate limiter: try again later
+        Log::channel('jobs')->debug('Sent message: '.$response->status(), $this->message->messageVariables);
+
+        // special case: too many requests so we can retry later
         if ($response->tooManyRequests()) {
-            $this->release($delaySeconds = 60);
-        }
-        // tried to send to non-allowlisted recipient using team-only API key: treat as a success
-        if (
-            $response->clientError() &&
-            Str::startsWith($response->json('errors.0.message'), 'Can’t send to this recipient using a team-only API key')
-        ) {
-            Log::channel('jobs')->debug($response->body(), [$this->message->emailAddress]);
-
-            return; // pretend job was successful
+            throw new ExternalServiceException('Too many requests', $response->status());
         }
 
+        // if the service says there's something else wrong with the request, don't try again
         if (! $response->successful()) {
             $firstApiErrorMessage = Arr::get($response->json(), 'errors.0.message');
             $errorMessage = 'Notification failed to send on GcNotifyEmailChannel. ['.$firstApiErrorMessage.'] Template ID: '.$this->message->templateId;
             Log::channel('jobs')->error($errorMessage);
             Log::channel('jobs')->debug($response->body());
 
-            throw new Exception($errorMessage);
+            $this->fail($errorMessage);
         }
     }
 }
