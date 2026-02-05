@@ -108,7 +108,7 @@ return [
         'maintain_index' => true,
         // You can explicitly specify what PostgreSQL text search config to use by scout.
         // Use \dF in psql to see all available configurations in your database.
-        'config' => 'english',
+        'config' => 'english_unaccented',
         // You may set the default querying method
         // Possible values: plainquery, phrasequery, tsquery
         // plainquery is used if this option is omitted.

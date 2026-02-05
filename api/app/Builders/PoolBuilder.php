@@ -3,9 +3,10 @@
 namespace App\Builders;
 
 use App\Enums\PoolStatus;
-use App\Models\Team;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 
 class PoolBuilder extends Builder
 {
@@ -199,30 +200,34 @@ class PoolBuilder extends Builder
     // A scope for a simple orderBy on a column.  Allows for nulls first or last.
     public function orderByColumn(?array $args): self
     {
-        $column = $args['column'];
-        $order = $args['order'];
-        $nulls = $args['nulls'] ?? null;
+        // user input: DO NOT USE DIRECTLY IN SQL!
+        $inputColumn = $args['column'];
+        $inputOrder = $args['order'];
+        $inputNulls = $args['nulls'] ?? null;
 
         // build column name qualified with table name
         $tableName = $this->model->getTable();
-        $columnSql = "\"$tableName\".\"$column\"";
+        $columnName = Arr::first(Schema::getColumnListing($tableName), fn ($columnName) => strcasecmp($columnName, $inputColumn) == 0);
+        if (empty($columnName)) {
+            throw new \Exception('Invalid column name');
+        }
+        $columnSql = "\"$tableName\".\"$columnName\"";
 
         // build order direction while verifying that option is valid
-        $orderOptionSql = match ($order) {
+        $orderOptionSql = match ($inputOrder) {
             'ASC' => 'ASC',
             'DESC' => 'DESC',
             default => throw new \Exception('Invalid order option'),
         };
 
         // build nulls option while verifying that option is valid
-        $nullsOptionSql = match ($nulls) {
+        $nullsOptionSql = match ($inputNulls) {
             'ORDER_FIRST' => 'NULLS FIRST',
             'ORDER_LAST' => 'NULLS LAST',
             null => '',
             default => throw new \Exception('Invalid nulls option'),
         };
 
-        // SQL execution from user input!  Ensure sufficient sanitization.
         $this->orderByRaw("$columnSql $orderOptionSql $nullsOptionSql");
 
         return $this;
