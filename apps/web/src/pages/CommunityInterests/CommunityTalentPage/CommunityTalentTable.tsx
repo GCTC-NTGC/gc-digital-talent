@@ -261,14 +261,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     DownloadCommunityInterestUsersExcel_Mutation,
   );
 
-  const {
-    downloadDoc,
-    downloadingDoc,
-    downloadZip,
-    downloadingZip,
-    downloadExcel,
-    downloadingExcel,
-  } = useUserDownloads();
+  const { downloadDoc, downloadingDoc, downloadZip, downloadingZip } =
+    useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
     const uniqueIds = removeDuplicateIds(selectedRows);
@@ -285,12 +279,6 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     }
   };
 
-  const handleExcelDownload = () => {
-    downloadExcel({
-      ids: removeDuplicateIds(selectedRows),
-    });
-  };
-
   const handleDownloadError = () => {
     toast.error(intl.formatMessage(errorMessages.downloadRequestFailed));
   };
@@ -301,6 +289,19 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     } else {
       handleDownloadError();
     }
+  };
+
+  const handleExcelDownload = () => {
+    downloadAllExcel({
+      ids: removeDuplicateIds(selectedRows),
+      where: transformCommunityTalentInput(
+        filterState,
+        searchState?.term,
+        searchState?.type,
+      ),
+    })
+      .then((res) => handleDownloadRes(!!res.data))
+      .catch(handleDownloadError);
   };
 
   const handleExcelDownloadAll = () => {
@@ -675,12 +676,12 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         all: {
           enable: true,
           onClick: handleExcelDownloadAll,
-          downloading: downloadingExcel || downloadingAllExcel,
+          downloading: downloadingAllExcel,
         },
         spreadsheet: {
           enable: true,
           onClick: handleExcelDownload,
-          downloading: downloadingExcel || downloadingAllExcel,
+          downloading: downloadingAllExcel,
         },
         doc: {
           enable: true,
@@ -693,9 +694,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
                 downloadingDoc ||
                 downloadingAllExcel
               }
-              isDownloading={
-                downloadingZip || downloadingDoc || downloadingAllExcel
-              }
+              isDownloading={downloadingZip || downloadingDoc}
               onClickProfile={() => handleDocDownload(false)}
               onClickAnonymousProfile={() => handleDocDownload(true)}
             />
