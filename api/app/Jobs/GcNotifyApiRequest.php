@@ -4,13 +4,13 @@ namespace App\Jobs;
 
 use App\Exceptions\ExternalServiceException;
 use App\Facades\Notify;
-use App\Jobs\Middleware\GcNotifyRateLimited;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\Middleware\RateLimited;
 use Illuminate\Queue\Middleware\ThrottlesExceptions;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
@@ -28,9 +28,10 @@ class GcNotifyApiRequest implements ShouldQueue
     public function middleware(): array
     {
         return [
-            (new GcNotifyRateLimited),
-            (new ThrottlesExceptions($maxAttempts = 1, $decaySeconds = 300))
-                ->byJob(),
+            (new RateLimited('gcnotify_api')                                    // shared rate limiter defined in AppServiceProvider.php
+                ->releaseAfter($seconds = 60)),
+            (new ThrottlesExceptions($maxAttempts = 1, $decaySeconds = 600)     // after a single uncaught exception, wait and try again later
+                ->byJob()),
         ];
     }
 
