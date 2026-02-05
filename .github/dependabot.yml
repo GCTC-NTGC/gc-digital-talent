@@ -24,6 +24,14 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      playwright:
+        patterns:
+          - "@playwright/test"
+          - "playwright"
+        update-types:
+          - "patch"
+          - "minor"
+          - "major"
       radix:
         patterns:
           - "@radix-ui*"
