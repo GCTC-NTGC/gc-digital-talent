@@ -28,6 +28,18 @@ const errorMessages = defineMessages({
     id: "v6T4Y0",
     description: "Error message that the date cannot be in the future.",
   },
+  mustNotBeFutureStartDate: {
+    defaultMessage:
+      "The start date can’t be in the future. Enter a date in the past.",
+    id: "5Skje0",
+    description: "Error message that the start date cannot be in the future.",
+  },
+  mustNotBeFutureAwardedDate: {
+    defaultMessage:
+      "The date awarded can’t be in the future. Enter a date in the past.",
+    id: "gCsa4y",
+    description: "Error message that the awarded date cannot be in the future.",
+  },
   mustBeGreater: {
     defaultMessage: "Value must be greater than {value}.",
     id: "5gS1sZ",
