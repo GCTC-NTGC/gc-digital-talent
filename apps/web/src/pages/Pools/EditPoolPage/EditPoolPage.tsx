@@ -47,7 +47,6 @@ import { hasOneEmptyField as aboutUsError } from "~/validators/process/aboutUs";
 import { hasOneEmptyField as whatToExpectAdmissionError } from "~/validators/process/whatToExpectAdmission";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import processMessages from "~/messages/processMessages";
 import { getAdvertisementStatus } from "~/utils/poolUtils";
 import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
@@ -896,11 +895,10 @@ export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
     const res = await client
       .query(PoolTeams_Query, { id: params.poolId })
       .toPromise();
-    const pool = res.data?.pool;
 
     const teamIds = unpackMaybes([
-      pool?.team?.id,
-      pool?.community?.teamIdForRoleAssignment,
+      res.data?.pool?.team?.id,
+      res.data?.pool?.community?.teamIdForRoleAssignment,
     ]);
 
     requireUser(
