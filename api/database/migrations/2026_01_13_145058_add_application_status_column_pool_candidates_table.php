@@ -120,12 +120,13 @@ return new class extends Migration
             UPDATE pool_candidates pc
             SET assessment_step_id = fvs.first_step_id
             FROM first_steps fvs
+            LEFT JOIN assessment_steps current_step ON pc.assessment_step_id = current_step.id
             WHERE pc.pool_id = fvs.pool_id
+            AND pc.application_status = 'UNDER_ASSESSMENT'
             AND (
                 pc.assessment_step_id IS NULL
                 OR current_step.type IN ('APPLICATION_SCREENING', 'SCREENING_QUESTIONS_AT_APPLICATION')
-            )
-            AND pc.application_status = 'UNDER_ASSESSMENT';
+            );
         SQL);
 
         Schema::table('pool_candidates', function (Blueprint $table) {
