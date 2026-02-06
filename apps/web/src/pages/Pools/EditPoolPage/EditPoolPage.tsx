@@ -51,6 +51,8 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import processMessages from "~/messages/processMessages";
 import { getAdvertisementStatus } from "~/utils/poolUtils";
 import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
+import { requireUser } from "~/routing/auth";
+import { graphqlClientContext } from "~/routing/context";
 
 import PoolNameSection, {
   PoolClassification_Fragment,
@@ -95,6 +97,7 @@ import WhatToExpectAdmissionSection, {
 import ContactEmailSection, {
   ContactEmailSubmitData,
 } from "./components/ContactEmailSection/ContactEmailSection";
+import { Route } from "./+types/EditPoolPage";
 
 export const EditPool_Fragment = graphql(/* GraphQL */ `
   fragment EditPool on Pool {
@@ -873,18 +876,49 @@ export const EditPoolPage = () => {
   );
 };
 
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
-    <EditPoolPage />
-  </RequireAuth>
-);
+const PoolTeams_Query = graphql(/** GraphQL */ `
+  query PoolTeams($id: UUID!) {
+    pool(id: $id) {
+      community {
+        teamIdForRoleAssignment
+      }
+      team {
+        id
+      }
+    }
+  }
+`);
+
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  async ({ context, request, params }, next) => {
+    const client = context.get(graphqlClientContext);
+    const res = await client
+      .query(PoolTeams_Query, { id: params.poolId })
+      .toPromise();
+    const pool = res.data?.pool;
+
+    const teamIds = unpackMaybes([
+      pool?.team?.id,
+      pool?.community?.teamIdForRoleAssignment,
+    ]);
+
+    requireUser(
+      context,
+      request,
+      [
+        ROLE_NAME.PlatformAdmin,
+        ROLE_NAME.CommunityAdmin,
+        ROLE_NAME.CommunityRecruiter,
+        ROLE_NAME.ProcessOperator,
+      ],
+      teamIds,
+    );
+    return await next();
+  },
+];
+
+export const Component = () => <EditPoolPage />;
 
 Component.displayName = "AdminEditPoolPage";
 
