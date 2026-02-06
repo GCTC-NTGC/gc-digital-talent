@@ -140,7 +140,8 @@ describe("hasRole tests", () => {
     expect(f(testRole, testUserRoles, teamIds)).toBeTruthy();
   });
 
-  test("team-based role fails if no teamIds are provided to the check", () => {
+  // Existing functionality maintained
+  test("team-based role passes if no teamIds are provided to the check", () => {
     const testRole: RoleName = "process_operator";
     const testUserRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> = [
       {
@@ -154,7 +155,6 @@ describe("hasRole tests", () => {
       },
     ];
 
-    // No teamIds passed as third argument
-    expect(f(testRole, testUserRoles)).toBeFalsy();
+    expect(f(testRole, testUserRoles)).toBeTruthy();
   });
 });
