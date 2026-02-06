@@ -30,7 +30,9 @@ const MenuBar = ({
         isBulletListActive: editor.isActive("bulletList"),
         isHeadingActive: editor.isActive("heading", { level: 3 }),
         canToggleBulletList: editor.can().toggleBulletList(),
-        canToggleHeading: editor.can().toggleHeading({ level: 3 }),
+        canToggleHeading: allowHeadings
+          ? editor.can().toggleHeading({ level: 3 })
+          : false,
         canUndo: editor.can().undo(),
         canRedo: editor.can().redo(),
       };
