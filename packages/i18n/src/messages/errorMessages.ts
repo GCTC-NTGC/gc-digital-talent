@@ -99,8 +99,8 @@ const errorMessages = defineMessages({
       "Error message that appears when a user enters an invalid date into a date input",
   },
   minDate: {
-    defaultMessage: "The date must be after or equal to {date}",
-    id: "oR0evm",
+    defaultMessage: "The date must be after or equal to {date}.",
+    id: "cS1siE",
     description:
       "Error message when a date was entered that is less than the minimum required",
   },

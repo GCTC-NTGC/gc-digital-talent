@@ -1079,6 +1079,10 @@
     "defaultMessage": "Échelle salariale",
     "description": "Title for salary range"
   },
+  "cS1siE": {
+    "defaultMessage": "La date doit être égale ou supérieure au {date}.",
+    "description": "Error message when a date was entered that is less than the minimum required"
+  },
   "cavxJ8": {
     "defaultMessage": "Tous",
     "description": "All as in all items or things"
@@ -1474,10 +1478,6 @@
   "oGXgxJ": {
     "defaultMessage": "Alerte de fermeture",
     "description": "Text for the close button on alerts"
-  },
-  "oR0evm": {
-    "defaultMessage": "La date doit être égale ou supérieure au {date}",
-    "description": "Error message when a date was entered that is less than the minimum required"
   },
   "oSa0Aa": {
     "defaultMessage": "Alerte d’erreur :",
