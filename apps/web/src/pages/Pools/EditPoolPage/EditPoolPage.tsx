@@ -96,7 +96,7 @@ import WhatToExpectAdmissionSection, {
 import ContactEmailSection, {
   ContactEmailSubmitData,
 } from "./components/ContactEmailSection/ContactEmailSection";
-import { Route } from "./+types/EditPoolPage";
+import type { Route } from "./+types/EditPoolPage";
 
 export const EditPool_Fragment = graphql(/* GraphQL */ `
   fragment EditPool on Pool {
