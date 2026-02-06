@@ -107,6 +107,24 @@ return new class extends Migration
                 END
         SQL);
 
+        // Make sure all `UNDER_ASSESSMENT` have an assessment step
+        DB::statement(<<<'SQL'
+            WITH first_steps AS (
+                SELECT DISTINCT ON (pool_id)
+                    pool_id,
+                    id AS first_step_id
+                FROM assessment_steps
+                WHERE type NOT IN ('APPLICATION_SCREENING', 'SCREENING_QUESTIONS_AT_APPLICATION')
+                ORDER BY pool_id, sort_order ASC
+            )
+            UPDATE pool_candidates pc
+            SET assessment_step_id = fvs.first_step_id
+            FROM first_steps fvs
+            WHERE pc.pool_id = fvs.pool_id
+            AND pc.assessment_step_id IS NULL
+            AND pc.application_status = 'UNDER_ASSESSMENT';
+        SQL);
+
         Schema::table('pool_candidates', function (Blueprint $table) {
             $table->dropColumn('final_decision_at');
             $table->dropColumn('removed_at');
