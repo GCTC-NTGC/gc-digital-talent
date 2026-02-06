@@ -14,6 +14,7 @@ export function requireUser<T extends AppContext>(
   context: T,
   request: Request,
   roles?: RoleName[],
+  teamIds?: string[],
 ) {
   const user = context.get(userContext);
   const intl = context.get(intlContext);
@@ -27,7 +28,7 @@ export function requireUser<T extends AppContext>(
   }
 
   if (roles) {
-    const isAuthorized = hasRole(roles, user?.roleAssignments);
+    const isAuthorized = hasRole(roles, user?.roleAssignments, teamIds);
 
     if (!isAuthorized) {
       throw new UnauthorizedError();

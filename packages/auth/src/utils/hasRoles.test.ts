@@ -66,4 +66,95 @@ describe("hasRole tests", () => {
 
     expect(f(testRole, testUserRoles)).toBeFalsy();
   });
+
+  test("team based role and user has it for the correct team", () => {
+    const testRole: RoleName = "process_operator";
+    const teamIds = ["pool-team-1"];
+    const testUserRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> = [
+      {
+        id: "id-1",
+        role: {
+          id: "role-id-1",
+          name: "process_operator",
+          isTeamBased: true,
+        },
+        team: { id: "pool-team-1", name: "Pool Team" },
+      },
+    ];
+
+    expect(f(testRole, testUserRoles, teamIds)).toBeTruthy();
+  });
+
+  test("team-based role and user has it for a different team", () => {
+    const testRole: RoleName = "process_operator";
+    const teamIds = ["pool-team-1"];
+    const testUserRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> = [
+      {
+        id: "id-2",
+        role: {
+          id: "role-id-1",
+          name: "process_operator",
+          isTeamBased: true,
+        },
+        team: { id: "wrong-team", name: "Wrong Team" },
+      },
+    ];
+
+    expect(f(testRole, testUserRoles, teamIds)).toBeFalsy();
+  });
+
+  test("global role bypasses team check even with teamIds provided", () => {
+    const testRole: RoleName = "platform_admin";
+    const teamIds = ["pool-team-1"];
+    const testUserRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> = [
+      {
+        id: "id-3",
+        role: {
+          id: "role-id-admin",
+          name: "platform_admin",
+          isTeamBased: false,
+        },
+        team: null,
+      },
+    ];
+
+    expect(f(testRole, testUserRoles, teamIds)).toBeTruthy();
+  });
+
+  test("multiple teamIds allows access if user matches any team", () => {
+    const testRole: RoleName = "community_talent_coordinator";
+    // Check against both Pool team and Community team
+    const teamIds = ["pool-team-1", "community-team-2"];
+    const testUserRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> = [
+      {
+        id: "id-4",
+        role: {
+          id: "role-id-coord",
+          name: "community_talent_coordinator",
+          isTeamBased: true,
+        },
+        team: { id: "community-team-2", name: "Community Team" },
+      },
+    ];
+
+    expect(f(testRole, testUserRoles, teamIds)).toBeTruthy();
+  });
+
+  test("team-based role fails if no teamIds are provided to the check", () => {
+    const testRole: RoleName = "process_operator";
+    const testUserRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> = [
+      {
+        id: "id-5",
+        role: {
+          id: "role-id-1",
+          name: "process_operator",
+          isTeamBased: true,
+        },
+        team: { id: "pool-team-1", name: "Pool Team" },
+      },
+    ];
+
+    // No teamIds passed as third argument
+    expect(f(testRole, testUserRoles)).toBeFalsy();
+  });
 });
