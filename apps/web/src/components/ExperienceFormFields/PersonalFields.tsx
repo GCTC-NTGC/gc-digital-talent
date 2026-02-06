@@ -96,7 +96,7 @@ const PersonalFields = ({
             },
           }}
         />
-        {/* conditionally render the endDate based off the state attached to the checkbox input */}
+        {/* conditionally render the endDate based off the state attached to the radiogroup input */}
         {!isCurrent && (
           <DateInput
             id="endDate"
@@ -104,19 +104,15 @@ const PersonalFields = ({
             name="endDate"
             round="ceil"
             show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-            rules={
-              isCurrent && watchStartDate
-                ? {}
-                : {
-                    required: intl.formatMessage(errorMessages.required),
-                    min: {
-                      value: watchStartDate ? String(watchStartDate) : "",
-                      message: intl.formatMessage(errorMessages.minDateLabel, {
-                        label: nodeToString(labels.startDate).toLowerCase(),
-                      }),
-                    },
-                  }
-            }
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              min: {
+                value: watchStartDate ? String(watchStartDate) : "",
+                message: intl.formatMessage(errorMessages.minDateLabel, {
+                  label: nodeToString(labels.startDate).toLowerCase(),
+                }),
+              },
+            }}
           />
         )}
         <Input

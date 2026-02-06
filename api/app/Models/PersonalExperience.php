@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Lang;
  * @property ?\Illuminate\Support\Carbon $end_date
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
- * @property string $learning_experience
+ * @property string $learning_description
  * @property string $organization
  */
 class PersonalExperience extends Experience
@@ -40,7 +40,7 @@ class PersonalExperience extends Experience
         'title' => 'title',
         'start_date' => 'startDate',
         'end_date' => 'endDate',
-        'learning_description' => 'LearningDescription',
+        'learning_description' => 'learningDescription',
         'organization' => 'organization',
     ];
 

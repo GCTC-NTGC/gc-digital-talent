@@ -541,8 +541,6 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    await this.fillDate(input.startDate);
-
     await this.save();
     await this.waitForGraphqlResponse("CreatePersonalExperience");
   }
