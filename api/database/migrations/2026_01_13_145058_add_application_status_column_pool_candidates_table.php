@@ -121,7 +121,10 @@ return new class extends Migration
             SET assessment_step_id = fvs.first_step_id
             FROM first_steps fvs
             WHERE pc.pool_id = fvs.pool_id
-            AND pc.assessment_step_id IS NULL
+            AND (
+                pc.assessment_step_id IS NULL
+                OR current_step.type IN ('APPLICATION_SCREENING', 'SCREENING_QUESTIONS_AT_APPLICATION')
+            )
             AND pc.application_status = 'UNDER_ASSESSMENT';
         SQL);
 
