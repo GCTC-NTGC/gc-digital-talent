@@ -1076,6 +1076,7 @@ type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile
   community: Community
+  team: Team
   name: LocalizedString
   displayName: DefinedString
   fullDisplayName: DefinedString
