@@ -56,7 +56,7 @@ class GcNotifyApiRequest implements ShouldQueue
     public function handle(): void
     {
         Log::shareContext([
-            'job-id' => $this?->job?->getJobId(),
+            'job-id' => $this->job->getJobId(),
         ]);
 
         $response = Notify::sendEmail(

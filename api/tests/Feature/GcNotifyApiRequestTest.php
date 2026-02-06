@@ -9,23 +9,26 @@ use Closure;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use Mockery;
 use Tests\TestCase;
 
 class GcNotifyApiRequestTest extends TestCase
 {
-    protected $message;
-
-    protected function setUp(): void
+    // our test job has a simple message, is a partial mock so we can count releases, and has fake queue interactions
+    protected function buildTestJob()
     {
-        parent::setUp();
-
-        $this->message = new GcNotifyEmailMessage(
+        $message = new GcNotifyEmailMessage(
             templateId: '1',
             emailAddress: config('notify.smokeTest.emailAddress'),
             messageVariables: [
                 'body' => 'test',
             ]);
 
+        $job = Mockery::mock(GcNotifyApiRequest::class, [$message])
+            ->makePartial()
+            ->withFakeQueueInteractions(); // method exists, but the mock confuses intelephense
+
+        return $job;
     }
 
     // chain together the middleware closures on a job the way the actual queue would do it
@@ -44,14 +47,14 @@ class GcNotifyApiRequestTest extends TestCase
         return $next;
     }
 
-    /** Test that notification can be queue and sent */
+    // Test that the notification can be queued and sent
     public function testHappyPath(): void
     {
         Notify::expects('sendEmail')
             ->andReturn(new Response(Http::response('created', 201)->wait()))
             ->once();
 
-        $job = (new GcNotifyApiRequest($this->message))->withFakeQueueInteractions();
+        $job = $this->buildTestJob();
         $execute = $this->buildMiddlewareStack($job);
         $execute();
 
@@ -60,30 +63,30 @@ class GcNotifyApiRequestTest extends TestCase
         $job->assertNotFailed();
     }
 
-    /** Test that the job is released back on the queue for API exceptions */
+    // Test that the job is released back on the queue for API exceptions
     public function testClientException(): void
     {
         Notify::expects('sendEmail')
             ->andThrow(new ConnectionException())
             ->once();
 
-        $job = (new GcNotifyApiRequest($this->message))->withFakeQueueInteractions();
+        $job = $this->buildTestJob();
         $execute = $this->buildMiddlewareStack($job);
         $execute();
 
-        $job->assertReleased(); // exception results in throttle retry
+        $job->shouldHaveReceived('release')->once(); // exception results in throttled retry
         $job->assertNotDeleted();
         $job->assertNotFailed();
     }
 
-    /** Test that notification is failed if an error comes back */
+    // Test that notification is failed if an error comes back
     public function testClientFailure(): void
     {
         Notify::expects('sendEmail')
             ->andReturn(new Response(Http::response('bad request', 400)->wait()))
             ->once();
 
-        $job = (new GcNotifyApiRequest($this->message))->withFakeQueueInteractions();
+        $job = $this->buildTestJob();
         $execute = $this->buildMiddlewareStack($job);
         $execute();
 
@@ -92,23 +95,24 @@ class GcNotifyApiRequestTest extends TestCase
         $job->assertFailed(); // immediate failure for bad requests
     }
 
-    /* If there are too many requests, the job is released so it can be retried */
+    // If there are too many requests, the job is released so it can be retried
     public function testTooManyRequests(): void
     {
         Notify::expects('sendEmail')
             ->andReturn(new Response(Http::response('too many requests', 429)->wait()))
             ->once();
 
-        $job = (new GcNotifyApiRequest($this->message))->withFakeQueueInteractions();
+        $job = $this->buildTestJob();
         $execute = $this->buildMiddlewareStack($job);
         $execute();
 
-        $job->assertReleased();  // released for throttled retry
+        $job->shouldHaveReceived('release')->once();  // released for throttled retry
         $job->assertNotDeleted();
         $job->assertNotFailed();
+
     }
 
-    /* Check our rate limiter */
+    // Check that our rate limiter works
     public function testOurRateLimiter(): void
     {
         // Set the rate limiter to 2 requests per minute for this test
@@ -119,11 +123,11 @@ class GcNotifyApiRequestTest extends TestCase
             ->twice(); // only two get though and the third gets released
 
         // define more jobs than the limiter will allow
-        $job1 = (new GcNotifyApiRequest($this->message))->withFakeQueueInteractions();
+        $job1 = $this->buildTestJob();
         $execute1 = $this->buildMiddlewareStack($job1);
-        $job2 = (new GcNotifyApiRequest($this->message))->withFakeQueueInteractions();
+        $job2 = $this->buildTestJob();
         $execute2 = $this->buildMiddlewareStack($job2);
-        $job3 = (new GcNotifyApiRequest($this->message))->withFakeQueueInteractions();
+        $job3 = $this->buildTestJob();
         $execute3 = $this->buildMiddlewareStack($job3);
 
         // call middleware stacks
@@ -138,7 +142,7 @@ class GcNotifyApiRequestTest extends TestCase
         $job2->assertNotFailed();
 
         $execute3();
-        $job3->assertReleased();  // gets released since it hits the limiter
+        $job3->shouldHaveReceived('release')->once();  // gets released since it hits the limiter
         $job3->assertNotDeleted();
         $job3->assertNotFailed();
     }
