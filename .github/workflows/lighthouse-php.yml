@@ -47,8 +47,8 @@ jobs:
       # Note: Be cautious, as secrets in environment can be compromised.
       #   Consider using in PRs from forks, without secrets available.
       #
-      # See: https://github.com/lhotari/action-upterm
+      # See: https://github.com/owenthereal/action-upterm
       - name: Create upterm session for debug
-        uses: lhotari/action-upterm@v1
+        uses: owenthereal/action-upterm@v1
         if: ${{ false }}
         # if: ${{ always() }}

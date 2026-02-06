@@ -26,4 +26,5 @@ Route::prefix('user-generated-files')
             ->middleware('auth:api');
     });
 
-Route::post('csp-report', [CspReportController::class, 'report']);
+Route::post('csp-report', [CspReportController::class, 'report'])
+    ->middleware('throttle:15,1');

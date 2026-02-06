@@ -65,7 +65,7 @@ const EssentialBehaviouralSkills = ({
 
   // the accordion is made for PoolSkills, not JobPosterTemplateSkills
   const accordionItems = templateSkills.map((templateSkill) => ({
-    key: templateSkill.id,
+    key: templateSkill.skill ? templateSkill.skill.id : "",
     poolSkillFragment: convertTemplateSkillToPoolSkillFragment(templateSkill),
   }));
 
