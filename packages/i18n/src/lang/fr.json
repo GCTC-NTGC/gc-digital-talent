@@ -803,6 +803,10 @@
     "defaultMessage": "Alerte de réussite :",
     "description": "Descriptor for a success alert"
   },
+  "SsBPWB": {
+    "defaultMessage": "La {labelSelf} doit être égale ou postérieure à la {labelAssociated}.",
+    "description": "Error message when a date was entered that is less than the minimum required, referencing itself and an associated input label"
+  },
   "SyFJmn": {
     "defaultMessage": "Révisé",
     "description": "Label for an updated at date"

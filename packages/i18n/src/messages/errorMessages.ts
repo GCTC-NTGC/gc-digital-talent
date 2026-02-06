@@ -116,6 +116,13 @@ const errorMessages = defineMessages({
     description:
       "Error message when a date was entered that is less than the minimum required, referencing an associated input label",
   },
+  minDateSelfLabel: {
+    defaultMessage:
+      "The {labelSelf} must be after or equal to the {labelAssociated}.",
+    id: "SsBPWB",
+    description:
+      "Error message when a date was entered that is less than the minimum required, referencing itself and an associated input label",
+  },
   requestRejected: {
     defaultMessage:
       "Your request wasn't completed. Please try again or contact our team for help.",
