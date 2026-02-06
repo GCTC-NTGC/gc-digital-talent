@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Editor } from "@tiptap/react";
+import { Editor, useEditorState } from "@tiptap/react";
 import ListBulletIcon from "@heroicons/react/20/solid/ListBulletIcon";
 import ArrowUturnLeftIcon from "@heroicons/react/20/solid/ArrowUturnLeftIcon";
 import ArrowUturnRightIcon from "@heroicons/react/20/solid/ArrowUturnRightIcon";
@@ -15,29 +15,49 @@ interface MenuBarProps {
   allowHeadings?: boolean;
 }
 
-const MenuBar = ({ editor, allowHeadings = false }: MenuBarProps) => {
+const MenuBar = ({
+  editor: editorProp,
+  allowHeadings = false,
+}: MenuBarProps) => {
   const intl = useIntl();
-  const readOnly = !editor?.isEditable;
+
+  const state = useEditorState({
+    editor: editorProp,
+    selector: ({ editor }) => {
+      if (!editor) return null;
+      return {
+        isEditable: editor.isEditable,
+        isBulletListActive: editor.isActive("bulletList"),
+        isHeadingActive: editor.isActive("heading", { level: 3 }),
+        canToggleBulletList: editor.can().toggleBulletList(),
+        canToggleHeading: editor.can().toggleHeading({ level: 3 }),
+        canUndo: editor.can().undo(),
+        canRedo: editor.can().redo(),
+      };
+    },
+  });
+
+  const isDisabled = !state?.isEditable;
 
   return (
     <div className="flex flex-col justify-between gap-3 rounded-t-md border border-b-0 border-gray-700 bg-black p-3 pt-1.5 @xs:flex-row dark:border-gray">
       <div className="flex flex-wrap gap-3">
         <MenuButton
-          active={editor?.isActive("bulletList") ?? false}
-          onClick={() => editor?.chain().focus().toggleBulletList().run()}
-          disabled={readOnly || !editor?.can().toggleBulletList()}
+          active={state?.isBulletListActive ?? false}
+          onClick={() => editorProp?.chain().focus().toggleBulletList().run()}
+          disabled={isDisabled || !state?.canToggleBulletList}
           icon={ListBulletIcon}
         >
           {intl.formatMessage(richTextMessages.bulletList)}
         </MenuButton>
-        <LinkDialog editor={editor} />
+        <LinkDialog editor={editorProp} />
         {allowHeadings && (
           <MenuButton
-            active={editor?.isActive("heading") ?? false}
+            active={state?.isHeadingActive ?? false}
             onClick={() =>
-              editor?.chain().focus().toggleHeading({ level: 3 }).run()
+              editorProp?.chain().focus().toggleHeading({ level: 3 }).run()
             }
-            disabled={readOnly || !editor?.can().toggleHeading({ level: 3 })}
+            disabled={isDisabled || !state?.canToggleHeading}
             icon={H3Icon}
           >
             {intl.formatMessage(richTextMessages.heading)}
@@ -46,15 +66,15 @@ const MenuBar = ({ editor, allowHeadings = false }: MenuBarProps) => {
       </div>
       <div className="flex flex-wrap gap-3">
         <MenuButton
-          onClick={() => editor?.chain().focus().undo().run()}
-          disabled={readOnly || !editor?.can().undo()}
+          onClick={() => editorProp?.chain().focus().undo().run()}
+          disabled={isDisabled || !state?.canUndo}
           icon={ArrowUturnLeftIcon}
         >
           {intl.formatMessage(richTextMessages.undo)}
         </MenuButton>
         <MenuButton
-          onClick={() => editor?.chain().focus().redo().run()}
-          disabled={readOnly || !editor?.can().redo()}
+          onClick={() => editorProp?.chain().focus().redo().run()}
+          disabled={isDisabled || !state?.canRedo}
           utilityIcon={ArrowUturnRightIcon}
         >
           {intl.formatMessage(richTextMessages.redo)}
