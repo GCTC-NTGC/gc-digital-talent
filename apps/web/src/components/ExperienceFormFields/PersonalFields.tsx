@@ -124,9 +124,12 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
                         min: {
                           value: watchStartDate ? String(watchStartDate) : "",
                           message: intl.formatMessage(
-                            errorMessages.minDateLabel,
+                            errorMessages.minDateSelfLabel,
                             {
-                              label: nodeToString(
+                              labelSelf: nodeToString(
+                                labels.endDate,
+                              ).toLowerCase(),
+                              labelAssociated: nodeToString(
                                 labels.startDate,
                               ).toLowerCase(),
                             },

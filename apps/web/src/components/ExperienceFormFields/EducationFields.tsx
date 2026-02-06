@@ -191,9 +191,14 @@ const EducationFields = ({
                       min: {
                         value: watchStartDate ? String(watchStartDate) : "",
                         message: intl.formatMessage(
-                          errorMessages.minDateLabel,
+                          errorMessages.minDateSelfLabel,
                           {
-                            label: nodeToString(labels.startDate).toLowerCase(),
+                            labelSelf: nodeToString(
+                              labels.endDate,
+                            ).toLowerCase(),
+                            labelAssociated: nodeToString(
+                              labels.startDate,
+                            ).toLowerCase(),
                           },
                         ),
                       },

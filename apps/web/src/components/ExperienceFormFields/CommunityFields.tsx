@@ -105,9 +105,15 @@ const CommunityFields = ({
                   required: intl.formatMessage(errorMessages.required),
                   min: {
                     value: startDate ? String(startDate) : "",
-                    message: intl.formatMessage(errorMessages.minDateLabel, {
-                      label: nodeToString(labels.startDate).toLowerCase(),
-                    }),
+                    message: intl.formatMessage(
+                      errorMessages.minDateSelfLabel,
+                      {
+                        labelSelf: nodeToString(labels.endDate).toLowerCase(),
+                        labelAssociated: nodeToString(
+                          labels.startDate,
+                        ).toLowerCase(),
+                      },
+                    ),
                   },
                 }
           }
