@@ -19,8 +19,13 @@ const hasRole = (
 
     if (!assignment.role?.isTeamBased) return true;
 
-    if (teamIds && teamIds?.length > 0) {
+    if (Array.isArray(teamIds) && teamIds.length > 0) {
       return !!assignment.team?.id && teamIds?.includes(assignment.team.id);
+    }
+
+    // We have the role but don't care about teams
+    if (typeof teamIds === "undefined") {
+      return true;
     }
 
     return false;
