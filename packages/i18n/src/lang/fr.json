@@ -379,10 +379,6 @@
     "defaultMessage": "Aucun nom n'a été fourni",
     "description": "Message for when no name value"
   },
-  "BYWN9B": {
-    "defaultMessage": "La date doit être égale ou postérieure à la {label}",
-    "description": "Error message when a date was entered that is less than the minimum required, referencing an associated input label"
-  },
   "BcEpFb": {
     "defaultMessage": "Publié",
     "description": "Status is published"
@@ -1722,6 +1718,10 @@
   "wdfDZH": {
     "defaultMessage": "Je consens à travailler dans la région de la Colombie-Britannique.",
     "description": "The work region of Canada described as British Columbia."
+  },
+  "wfkOXt": {
+    "defaultMessage": "La date doit être égale ou postérieure à la {label}",
+    "description": "Error message when a date was entered that is less than the minimum required, referencing an associated input label"
   },
   "wqBryV": {
     "defaultMessage": "Tableau de bord du (de la) candidat(e)",
