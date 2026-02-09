@@ -36,12 +36,7 @@ const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
   }, [isSubmitting, errors]);
 
   useEffect(() => {
-    if (
-      showErrorSummary &&
-      errorSummaryRef.current &&
-      isSubmitting &&
-      flatErrors.length > 0
-    ) {
+    if (showErrorSummary && errorSummaryRef.current && flatErrors.length > 0) {
       errorSummaryRef.current.focus();
     }
   }, [showErrorSummary, flatErrors, isSubmitting]);
