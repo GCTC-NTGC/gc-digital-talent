@@ -157,7 +157,9 @@ const ChangeExpiryDateDialog = ({
                   required: intl.formatMessage(errorMessages.required),
                   min: {
                     value: strToFormDate(todayDate.toISOString()),
-                    message: intl.formatMessage(errorMessages.futureDate),
+                    message: intl.formatMessage(
+                      errorMessages.mustNotBePastExpiryDate,
+                    ),
                   },
                 }}
                 legend={intl.formatMessage({
