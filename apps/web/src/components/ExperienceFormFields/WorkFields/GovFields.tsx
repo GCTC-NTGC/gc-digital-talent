@@ -480,7 +480,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                         max: {
                           value: strToFormDate(todayDate.toISOString()),
                           message: intl.formatMessage(
-                            errorMessages.mustNotBeFuture,
+                            errorMessages.mustNotBeFutureEndDate,
                           ),
                         },
                       }
@@ -514,7 +514,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                       max: {
                         value: strToFormDate(todayDate.toISOString()),
                         message: intl.formatMessage(
-                          errorMessages.mustNotBeFuture,
+                          errorMessages.mustNotBeFutureEndDate,
                         ),
                       },
                     }}
