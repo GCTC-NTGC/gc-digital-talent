@@ -1675,10 +1675,6 @@
     "defaultMessage": "J'accepte d'avoir un emploi où je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
-  "v6T4Y0": {
-    "defaultMessage": "Ce champ ne peut pas utiliser de dates dans le futur.",
-    "description": "Error message that the date cannot be in the future."
-  },
   "vGENdP": {
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"

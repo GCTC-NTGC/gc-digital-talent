@@ -23,11 +23,6 @@ const errorMessages = defineMessages({
     id: "ZhQEUx",
     description: "Error message that the provided date must be in the future.",
   },
-  mustNotBeFuture: {
-    defaultMessage: "This field cannot use dates in the future.",
-    id: "v6T4Y0",
-    description: "Error message that the date cannot be in the future.",
-  },
   mustNotBeFutureStartDate: {
     defaultMessage:
       "The start date can’t be in the future. Enter a date in the past.",
