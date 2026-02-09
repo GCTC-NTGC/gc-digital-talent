@@ -40,6 +40,12 @@ const errorMessages = defineMessages({
     id: "gCsa4y",
     description: "Error message that the awarded date cannot be in the future.",
   },
+  mustNotBePastExpiryDate: {
+    defaultMessage:
+      "The expiry date can’t be in the past. Enter a date in the future.",
+    id: "V9HdOK",
+    description: "Error message that the expiry date cannot be in the past.",
+  },
   mustBeGreater: {
     defaultMessage: "Value must be greater than {value}.",
     id: "5gS1sZ",
