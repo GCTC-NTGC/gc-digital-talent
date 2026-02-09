@@ -57,6 +57,7 @@ class GcNotifyApiRequest implements ShouldQueue
     {
         Log::shareContext([
             'job-id' => $this->job->getJobId(),
+            'email-address' => $this->message->emailAddress,
         ]);
 
         $response = Notify::sendEmail(
@@ -65,7 +66,7 @@ class GcNotifyApiRequest implements ShouldQueue
             $this->message->messageVariables
         );
 
-        Log::channel('jobs')->debug('Sent message: '.$response->status(), $this->message->messageVariables);
+        Log::channel('jobs')->info('Sent message: '.$response->status(), $this->message->messageVariables);
 
         // special case: too many requests so we can retry later
         if ($response->tooManyRequests()) {
