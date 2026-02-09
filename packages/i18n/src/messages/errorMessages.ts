@@ -46,6 +46,20 @@ const errorMessages = defineMessages({
     id: "V9HdOK",
     description: "Error message that the expiry date cannot be in the past.",
   },
+  mustNotBePastPriorityDate: {
+    defaultMessage:
+      "The priority status expiration date can’t be in the past. Enter a date in the future.",
+    id: "Kvidd3",
+    description:
+      "Error message that the priority status date cannot be in the past.",
+  },
+  mustNotBePastVeteranDate: {
+    defaultMessage:
+      "The veteran status expiration date can’t be in the past. Enter a date in the future.",
+    id: "NCQBQz",
+    description:
+      "Error message that the veteran status date cannot be in the past.",
+  },
   mustBeGreater: {
     defaultMessage: "Value must be greater than {value}.",
     id: "5gS1sZ",
