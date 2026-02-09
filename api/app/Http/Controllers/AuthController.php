@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\BearerTokenService;
 use App\Models\Role;
 use App\Models\User;
-use App\Services\OpenIdBearerTokenService;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class AuthController extends Controller
 {
     protected $fastSigner;
 
-    public function __construct(OpenIdBearerTokenService $service)
+    public function __construct(BearerTokenService $service)
     {
         // inject signer method from service file
         $this->fastSigner = $service->fastSigner();

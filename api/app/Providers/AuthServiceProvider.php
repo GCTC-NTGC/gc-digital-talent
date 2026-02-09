@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Contracts\BearerTokenService;
 use App\Exceptions\AuthenticationException;
 use App\Models\AwardExperience;
 use App\Models\Classification;
@@ -19,7 +20,6 @@ use App\Policies\ExperiencePolicy;
 use App\Policies\PoolCandidatePolicy;
 use App\Policies\PoolPolicy;
 use App\Policies\UserPolicy;
-use App\Services\OpenIdBearerTokenService;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
@@ -42,7 +42,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(OpenIdBearerTokenService $tokenService)
+    public function boot(BearerTokenService $tokenService)
     {
         // Here you may define how you wish users to be authenticated for your Laravel
         // application. The callback which receives the incoming request instance

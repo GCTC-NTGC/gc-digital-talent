@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Contracts\BearerTokenService;
 use DateInterval;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
@@ -25,7 +26,7 @@ use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Psr\Clock\ClockInterface;
 
-class OpenIdBearerTokenService
+class SignInCanadaBearerTokenService implements BearerTokenService
 {
     private Configuration $unsecuredConfig;
 
