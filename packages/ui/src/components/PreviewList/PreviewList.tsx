@@ -124,10 +124,16 @@ interface LinkProps {
   label: string;
   icon?: BaseIconButtonLinkProps["icon"];
   children?: ReactNode;
+  mode?: VariantProps<typeof actionBaseButton>["mode"];
 }
 
-const Link = ({ href, icon, label }: LinkProps) => (
-  <BaseLink {...actionProps} href={href} icon={icon ?? actionProps.icon}>
+const Link = ({ href, icon, label, mode = "default" }: LinkProps) => (
+  <BaseLink
+    className={actionBaseButton({ mode: mode })}
+    {...actionProps}
+    href={href}
+    icon={icon ?? actionProps.icon}
+  >
     {label}
   </BaseLink>
 );
