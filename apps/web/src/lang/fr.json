@@ -10462,9 +10462,6 @@
     "defaultMessage": "Confirmez que vous avez l’expérience minimale ou une formation équivalente pour le poste.",
     "description": "Subtitle for the application education  page"
   },
-  "gu2wRn": {
-    "defaultMessage": "Cette section vous permet de parcourir l'ensemble de l'expérience professionnelle de la personne candidate. Par défaut, l'expérience est organisée par type, mais vous pouvez choisir de voir le niveau d'expérience de la personne candidate dans un volet de travail particulier ou dans un ministère donné à l'aide des options proposées."
-  },
   "guYbEb": {
     "defaultMessage": "Dernière mise à jour du profil de la personne candidate : {lastUpdated}",
     "description": "Last time user's profile was updated"
@@ -12616,6 +12613,10 @@
   "pp+b1H": {
     "defaultMessage": "Réduire tous<hidden> les renseignements liés à l’expérience</hidden>",
     "description": "Button label to collapse all experiences"
+  },
+  "pp9KRf": {
+    "defaultMessage": "Cette section vous permet de parcourir l'ensemble de l'expérience professionnelle de la personne candidate. Par défaut, l'expérience est organisée par type, mais vous pouvez choisir de voir le niveau d'expérience de la personne candidate dans un volet de travail particulier ou dans un ministère donné à l'aide des options proposées.",
+    "description": "Description for the career page full career section"
   },
   "pq/4js": {
     "defaultMessage": "Date de clôture des nominations",
