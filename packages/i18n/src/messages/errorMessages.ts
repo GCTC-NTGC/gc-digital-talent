@@ -23,10 +23,43 @@ const errorMessages = defineMessages({
     id: "ZhQEUx",
     description: "Error message that the provided date must be in the future.",
   },
-  mustNotBeFuture: {
-    defaultMessage: "This field cannot use dates in the future.",
-    id: "v6T4Y0",
-    description: "Error message that the date cannot be in the future.",
+  mustNotBeFutureStartDate: {
+    defaultMessage:
+      "The start date can’t be in the future. Enter a date in the past.",
+    id: "5Skje0",
+    description: "Error message that the start date cannot be in the future.",
+  },
+  mustNotBeFutureAwardedDate: {
+    defaultMessage:
+      "The date awarded can’t be in the future. Enter a date in the past.",
+    id: "gCsa4y",
+    description: "Error message that the awarded date cannot be in the future.",
+  },
+  mustNotBeFutureEndDate: {
+    defaultMessage:
+      "The end date can’t be in the future. Enter a date in the past or select that this is your current role.",
+    id: "uQq6qZ",
+    description: "Error message that the end date cannot be in the future.",
+  },
+  mustNotBePastExpiryDate: {
+    defaultMessage:
+      "The expiry date can’t be in the past. Enter a date in the future.",
+    id: "V9HdOK",
+    description: "Error message that the expiry date cannot be in the past.",
+  },
+  mustNotBePastPriorityDate: {
+    defaultMessage:
+      "The priority status expiration date can’t be in the past. Enter a date in the future.",
+    id: "Kvidd3",
+    description:
+      "Error message that the priority status date cannot be in the past.",
+  },
+  mustNotBePastVeteranDate: {
+    defaultMessage:
+      "The veteran status expiration date can’t be in the past. Enter a date in the future.",
+    id: "NCQBQz",
+    description:
+      "Error message that the veteran status date cannot be in the past.",
   },
   mustBeGreater: {
     defaultMessage: "Value must be greater than {value}.",
@@ -87,8 +120,8 @@ const errorMessages = defineMessages({
       "Error message that appears when a user enters an invalid date into a date input",
   },
   minDate: {
-    defaultMessage: "The date must be after or equal to {date}",
-    id: "oR0evm",
+    defaultMessage: "The date must be after or equal to {date}.",
+    id: "cS1siE",
     description:
       "Error message when a date was entered that is less than the minimum required",
   },
@@ -99,10 +132,17 @@ const errorMessages = defineMessages({
       "Error message when a date was entered that is greater than the maximum required",
   },
   minDateLabel: {
-    defaultMessage: "The date must be after or equal to the {label}",
-    id: "BYWN9B",
+    defaultMessage: "The date must be after or equal to the {label}.",
+    id: "wfkOXt",
     description:
       "Error message when a date was entered that is less than the minimum required, referencing an associated input label",
+  },
+  minDateSelfLabel: {
+    defaultMessage:
+      "The {labelSelf} must be after or equal to the {labelAssociated}.",
+    id: "SsBPWB",
+    description:
+      "Error message when a date was entered that is less than the minimum required, referencing itself and an associated input label",
   },
   requestRejected: {
     defaultMessage:
