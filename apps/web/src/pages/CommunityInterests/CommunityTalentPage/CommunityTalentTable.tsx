@@ -189,15 +189,6 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadCommunityInterestUsersExcel_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadCommunityInterestUsersExcel(
-    $ids: [UUID!]
-    $where: CommunityInterestFilterInput
-  ) {
-    downloadCommunityInterestUsersExcel(ids: $ids, where: $where)
-  }
-`);
-
 const columnHelper =
   createColumnHelper<CommunityTalentTableCommunityInterestFragmentType>();
 
@@ -255,10 +246,6 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   );
   const [filterState, setFilterState] = useState<CommunityInterestFilterInput>(
     initialFilters ?? {},
-  );
-
-  const [{ fetching: downloadingAllExcel }, downloadAllExcel] = useMutation(
-    DownloadCommunityInterestUsersExcel_Mutation,
   );
 
   const { downloadDoc, downloadingDoc, downloadZip, downloadingZip } =
