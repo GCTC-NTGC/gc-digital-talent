@@ -456,8 +456,8 @@ trait GeneratesUserDoc
             /** @var PersonalExperience $experience */
             $section->addTitle($experience->getTitle(), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
-            $this->addLabelText($section, $this->localize('headings.learning_description'), $experience->learning_description);
             $this->addLabelText($section, $this->localize('headings.personal_learning_organization_platform'), $experience->organization);
+            $this->addLabelText($section, $this->localize('headings.learning_description'), $experience->learning_description);
 
             if ($withSkills) {
                 $experience->load(['userSkills' => ['skill']]);
