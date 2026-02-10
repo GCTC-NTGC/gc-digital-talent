@@ -47,7 +47,7 @@ class AuthController extends Controller
         if (strcasecmp($requestedLocale, 'en') == 0) {
             $ui_locales = 'en-CA en';
         } elseif (strcasecmp($requestedLocale, 'fr') == 0) {
-            $ui_locales = 'fr-CA fr';
+            $ui_locales = 'fr';
         } else {
             $ui_locales = $requestedLocale;
         }
@@ -88,6 +88,7 @@ class AuthController extends Controller
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
         ]);
+        assert($response instanceof \Illuminate\Http\Client\Response);
         if ($response->failed()) {
             Log::error('Failed when POSTing to the token URI in authCallback');
             Log::debug((string) $response->getBody());
@@ -171,6 +172,7 @@ class AuthController extends Controller
                 'client_secret' => config('oauth.client_secret'),
                 'refresh_token' => $refreshToken,
             ]);
+        assert($response instanceof \Illuminate\Http\Client\Response);
         if ($response->failed()) {
             $errorCode = $response->json('error');
             $isNormalErrorCode = $errorCode == 'invalid_grant';
