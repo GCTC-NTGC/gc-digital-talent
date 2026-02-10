@@ -47,7 +47,7 @@ class AuthController extends Controller
         if (strcasecmp($requestedLocale, 'en') == 0) {
             $ui_locales = 'en-CA en';
         } elseif (strcasecmp($requestedLocale, 'fr') == 0) {
-            $ui_locales = 'fr';
+            $ui_locales = 'fr-CA fr';
         } else {
             $ui_locales = $requestedLocale;
         }
@@ -62,7 +62,8 @@ class AuthController extends Controller
             'state' => $state,
             'nonce' => $nonce,
             'acr_values' => config('oauth.acr_values'),
-            'ui_locales' => $ui_locales,
+            'ui_locales' => $ui_locales, // This is what SIC wants
+            'lang' => $ui_locales,  // This is what GCSI wants
         ]);
 
         return redirect(config('oauth.authorize_uri').'?'.$query);
