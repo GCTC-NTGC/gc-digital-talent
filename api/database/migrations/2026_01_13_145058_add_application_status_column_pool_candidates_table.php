@@ -122,7 +122,7 @@ return new class extends Migration
                     ) AS new_step_id
                 FROM pool_candidates pc
                 LEFT JOIN assessment_steps current_step ON pc.assessment_step_id = current_step.id
-                WHERE pc.application_status = 'UNDER_ASSESSMENT'
+                WHERE pc.screening_stage = 'UNDER_ASSESSMENT'
                 AND (
                     pc.assessment_step_id IS NULL
                     OR current_step.type IN ('APPLICATION_SCREENING', 'SCREENING_QUESTIONS_AT_APPLICATION')
