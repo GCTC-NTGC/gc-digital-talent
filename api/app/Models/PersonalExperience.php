@@ -42,6 +42,8 @@ class PersonalExperience extends Experience
         'end_date' => 'endDate',
         'learning_description' => 'learningDescription',
         'organization' => 'organization',
+        'description' => 'description', // preserved for snapshot version 1
+        'details' => 'details', // preserved for snapshot version 1
     ];
 
     public function getTitle(): string
