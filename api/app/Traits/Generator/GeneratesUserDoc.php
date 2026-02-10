@@ -289,8 +289,13 @@ trait GeneratesUserDoc
      * @param  int  $headingRank  The rank of headings
      * @param  int | null  $experienceVersion  whether to render older version of an experience, comes from snapshot version
      */
-    protected function experiences(Section $section, Collection $experienceCollection, bool $withSkills, int $headingRank, ?int $experienceVersion = null)
-    {
+    protected function experiences(
+        Section $section,
+        Collection $experienceCollection,
+        bool $withSkills = true,
+        int $headingRank = 3,
+        ?int $experienceVersion = null
+    ) {
 
         if ($experienceCollection->count() > 0) {
             $section->addTitle($this->localizeHeading('career_timeline'), $headingRank);
