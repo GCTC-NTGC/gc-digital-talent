@@ -63,7 +63,7 @@ export interface ExperienceForDate extends SimpleAnyExperience {
 
 interface FormValueDateRange {
   startDate: Scalars["Date"]["input"];
-  endDate?: Scalars["Date"]["input"];
+  endDate?: Scalars["Date"]["input"] | null;
 }
 
 interface AwardFormValues {

@@ -35,6 +35,7 @@ const PersonalFields = ({
   const {
     setValue,
     formState: { defaultValues },
+    resetField,
   } = useFormContext<PersonalFormValues>();
   // to toggle whether End date is required, the state of the Current role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent =
@@ -55,6 +56,12 @@ const PersonalFields = ({
       setValue("disclaimer", false);
     }
   }, [defaultValues?.learningDescription, setValue, watchDescription]);
+
+  useEffect(() => {
+    if (isCurrent === true) {
+      resetField("endDate", { keepDirty: false, defaultValue: null }); // reset endDate for current experience
+    }
+  }, [isCurrent, resetField]);
 
   return (
     <>
