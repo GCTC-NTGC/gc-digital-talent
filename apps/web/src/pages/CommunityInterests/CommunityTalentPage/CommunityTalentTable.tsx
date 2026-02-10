@@ -248,8 +248,14 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     initialFilters ?? {},
   );
 
-  const { downloadDoc, downloadingDoc, downloadZip, downloadingZip } =
-    useUserDownloads();
+  const {
+    downloadDoc,
+    downloadingDoc,
+    downloadZip,
+    downloadingZip,
+    downloadExcel,
+    downloadingExcel,
+  } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
     const uniqueIds = removeDuplicateIds(selectedRows);
