@@ -24,27 +24,23 @@ const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
   const derivedType: ExperienceType = type ?? experienceType ?? "personal";
   const labels = getExperienceFormLabels(intl, derivedType);
   const {
-    formState: { errors, isSubmitting },
+    formState: { errors, submitCount },
   } = useFormContext();
   const flatErrors = flattenErrors(errors);
 
   useEffect(() => {
     // After during submit, if there are errors, focus the summary
-    if (errors && isSubmitting) {
+    if (submitCount > 0 && flatErrors) {
       setShowErrorSummary(true);
+      errorSummaryRef.current?.focus();
     }
-  }, [isSubmitting, errors]);
+  }, [submitCount]);
 
   useEffect(() => {
-    if (
-      showErrorSummary &&
-      errorSummaryRef.current &&
-      isSubmitting &&
-      flatErrors.length > 0
-    ) {
+    if (showErrorSummary && errorSummaryRef.current) {
       errorSummaryRef.current.focus();
     }
-  }, [showErrorSummary, flatErrors, isSubmitting]);
+  }, [showErrorSummary, submitCount]);
 
   return (
     <ErrorSummaryAlert
