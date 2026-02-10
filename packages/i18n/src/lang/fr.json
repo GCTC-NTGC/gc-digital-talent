@@ -215,6 +215,10 @@
     "defaultMessage": "Préparation de votre fichier pour le téléchargement. Une fois celle-ci terminée, vous recevrez une notification.",
     "description": "Message to user when they request a file for download"
   },
+  "5Skje0": {
+    "defaultMessage": "La date de début ne peut pas être dans le futur. Entrez une date dans le passé.",
+    "description": "Error message that the start date cannot be in the future."
+  },
   "5gS1sZ": {
     "defaultMessage": "La valeur doit être supérieure à {value}",
     "description": "Error message that the provided value must be greater than some referenced minimum value."
@@ -571,6 +575,10 @@
     "defaultMessage": "Constamment démontrée comme étant bien développée dans des conditions quotidiennes auprès de tous les publics, fréquemment démontrée dans des situations de stress et dans des situations modérément difficiles auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress important et dans des situations difficiles.",
     "description": "The behavioural skill level definition for expert"
   },
+  "Kvidd3": {
+    "defaultMessage": "La date d’expiration du statut prioritaire ne peut pas être dans le passé. Entrez une date dans le futur.",
+    "description": "Error message that the priority status date cannot be in the past."
+  },
   "L05/+D": {
     "defaultMessage": "Mois",
     "description": "Label for a month input field"
@@ -638,6 +646,10 @@
   "NAKad/": {
     "defaultMessage": "Supprimer",
     "description": "Remove action"
+  },
+  "NCQBQz": {
+    "defaultMessage": "La date d’expiration du statut d’ancien combattant ne peut pas être dans le passé. Entrez une date dans le futur.",
+    "description": "Error message that the veteran status date cannot be in the past."
   },
   "NQspkZ": {
     "defaultMessage": "Tableau de bord de la collectivité",
@@ -886,6 +898,10 @@
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
+  "V9HdOK": {
+    "defaultMessage": "La date d’expiration ne peut pas être dans le passé. Entrez une date dans le futur.",
+    "description": "Error message that the expiry date cannot be in the past."
   },
   "VV8TA5": {
     "defaultMessage": "Retour",
@@ -1222,6 +1238,10 @@
   "g9J8/u": {
     "defaultMessage": "Compte mis à jour avec succès.",
     "description": "Message displayed to user if account is updated successfully."
+  },
+  "gCsa4y": {
+    "defaultMessage": "La date d’attribution ne peut pas être dans le futur. Entrez une date dans le passé.",
+    "description": "Error message that the awarded date cannot be in the future."
   },
   "gH2uDM": {
     "defaultMessage": "Groupe",
@@ -1662,6 +1682,10 @@
   "uNArwM": {
     "defaultMessage": "+123243234",
     "description": "Placeholder for form telephone field"
+  },
+  "uQq6qZ": {
+    "defaultMessage": "La date de fin ne peut pas être dans le futur. Entrez une date dans le passé ou indiquez qu’il s’agit de votre rôle actuel.",
+    "description": "Error message that the end date cannot be in the future."
   },
   "ufSiRU": {
     "defaultMessage": "Introuvable",
