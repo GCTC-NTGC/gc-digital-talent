@@ -6,7 +6,7 @@ import {
 } from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
-  PoolCandidateStatus,
+  ApplicationStatus,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
@@ -18,14 +18,14 @@ const fakedCandidate = fakePoolCandidates(1)[0];
 const qualifiedData = makeFragmentData(
   {
     ...fakedCandidate,
-    status: toLocalizedEnum(PoolCandidateStatus.QualifiedAvailable),
+    status: toLocalizedEnum(ApplicationStatus.Qualified),
   },
   RevertFinalDecisionDialog_Fragment,
 );
 const disqualifiedData = makeFragmentData(
   {
     ...fakedCandidate,
-    status: toLocalizedEnum(PoolCandidateStatus.ScreenedOutAssessment),
+    status: toLocalizedEnum(ApplicationStatus.Disqualified),
   },
   RevertFinalDecisionDialog_Fragment,
 );

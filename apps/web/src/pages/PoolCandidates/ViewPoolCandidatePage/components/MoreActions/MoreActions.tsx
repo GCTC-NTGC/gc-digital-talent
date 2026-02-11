@@ -7,7 +7,7 @@ import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 import { useQuery } from "urql";
 
 import {
-  FinalDecision,
+  ApplicationStatus,
   FragmentType,
   getFragment,
   graphql,
@@ -21,13 +21,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import JobPlacementDialog from "~/components/PoolCandidateDialogs/JobPlacementDialog";
-import {
-  isDisqualifiedStatus,
-  isQualifiedStatus,
-  isRemovedStatus,
-  isRevertibleStatus,
-  isRODStatus,
-} from "~/utils/poolCandidate";
+import { isRevertableStatus } from "~/utils/poolCandidate";
 import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
 import applicationMessages from "~/messages/applicationMessages";
 import { JobPlacementOptions_Query } from "~/components/PoolCandidateDialogs/JobPlacementForm";
@@ -66,15 +60,11 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
     status {
       value
       label {
-        en
-        fr
+        localized
       }
     }
     isFlagged
     screeningStage {
-      value
-    }
-    finalDecision {
       value
     }
     removalReason {
@@ -107,7 +97,6 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
         level
       }
     }
-    removedAt
   }
 `);
 
@@ -181,7 +170,7 @@ const MoreActions = ({
 
         <Card.Separator space="xs" />
 
-        {isRODStatus(status) && (
+        {status === ApplicationStatus.ToAssess && (
           <>
             {hasCommunityRecruiterRole ? (
               // community recruiters can record a decision and placement at the same time
@@ -226,7 +215,7 @@ const MoreActions = ({
           </>
         )}
 
-        {isRemovedStatus(status) && !!poolCandidate.removedAt && (
+        {status === ApplicationStatus.Removed && (
           <div>
             <StatusLabel>
               <ReinstateCandidateDialog reinstateQuery={poolCandidate} />
@@ -239,16 +228,15 @@ const MoreActions = ({
           </div>
         )}
 
-        {isRevertibleStatus(status) &&
-          !(poolCandidate.finalDecision?.value === FinalDecision.Removed) && (
-            <StatusLabel>
-              <RevertFinalDecisionDialog
-                revertFinalDecisionQuery={poolCandidate}
-              />
-            </StatusLabel>
-          )}
+        {isRevertableStatus(status) && (
+          <StatusLabel>
+            <RevertFinalDecisionDialog
+              revertFinalDecisionQuery={poolCandidate}
+            />
+          </StatusLabel>
+        )}
 
-        {isQualifiedStatus(status) && (
+        {status === ApplicationStatus.Qualified && (
           <>
             <StatusLabel
               label={intl.formatMessage(commonMessages.expiryDate)}
@@ -271,12 +259,13 @@ const MoreActions = ({
 
         <Card.Separator space="xs" />
 
-        {!isRemovedStatus(status) && !isDisqualifiedStatus(status) && (
-          <RemoveCandidateDialog
-            removalQuery={poolCandidate}
-            optionsQuery={data}
-          />
-        )}
+        {status !== ApplicationStatus.Removed &&
+          status !== ApplicationStatus.Disqualified && (
+            <RemoveCandidateDialog
+              removalQuery={poolCandidate}
+              optionsQuery={data}
+            />
+          )}
 
         <Link
           href={paths.userProfile(poolCandidate.user.id)}
