@@ -45,7 +45,7 @@ describe("BrowsePoolsPage", () => {
   function renderBrowsePoolsPage({
     pools,
   }: {
-    pools: Omit<Pool, "activities">[];
+    pools: Omit<Pool, "activities" | "teamId">[];
   }) {
     // Source: https://formidable.com/open-source/urql/docs/advanced/testing/
     const mockClient = {

@@ -9,7 +9,7 @@ import { skillRequirementsIsIncomplete } from "~/validators/profile";
 
 const stepHasError = (
   user: ApplicationPoolCandidateFragmentType["user"],
-  pool: Omit<Pool, "activities">,
+  pool: Omit<Pool, "activities" | "teamId">,
 ) => {
   const applicantExperiences: Omit<Experience, "user">[] | undefined =
     user?.experiences?.filter(notEmpty);

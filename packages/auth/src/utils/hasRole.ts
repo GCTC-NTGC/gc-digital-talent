@@ -1,28 +1,40 @@
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 
 import { RoleName } from "../const";
 
+/**
+ * @deprecated Use `hasRequiredRoles` instead.
+ * hasRequiredRoles provides strict validation for team-based roles.
+ */
 const hasRole = (
   checkRole: RoleName | RoleName[],
   userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
+  teamIds?: string[],
 ): boolean => {
-  if (Array.isArray(checkRole)) {
-    const userRolesName = userRoles
-      ?.filter(notEmpty)
-      .map((roleAssign) => roleAssign.role?.name);
+  const assignments = unpackMaybes(userRoles);
+  const requiredRoles = Array.isArray(checkRole) ? checkRole : [checkRole];
 
-    if (userRolesName) {
-      return !!userRolesName
-        .filter(notEmpty)
-        .some((roleName) => checkRole.includes(roleName as RoleName));
+  return assignments.some((assignment) => {
+    const roleName = assignment.role?.name as RoleName;
+    const isRequired = requiredRoles.includes(roleName);
+
+    if (!isRequired) return false;
+
+    if (!assignment.role?.isTeamBased) return true;
+
+    if (Array.isArray(teamIds) && teamIds.length > 0) {
+      return !!assignment.team?.id && teamIds?.includes(assignment.team.id);
     }
-    return false;
-  }
 
-  return !!userRoles
-    ?.filter(notEmpty)
-    .some((roleAssignment) => roleAssignment.role?.name === checkRole);
+    // We have the role but don't care about teams
+    if (typeof teamIds === "undefined") {
+      return true;
+    }
+
+    return false;
+  });
 };
 
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export default hasRole;

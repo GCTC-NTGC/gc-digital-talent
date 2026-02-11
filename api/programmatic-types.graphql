@@ -24,6 +24,11 @@ type LocalizedActivityEvent implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedApplicationStatus implements LocalizedEnumOption {
+  value: ApplicationStatus!
+  label: LocalizedString!
+}
+
 type LocalizedArmedForcesStatus implements LocalizedEnumOption {
   value: ArmedForcesStatus!
   label: LocalizedString!
@@ -126,6 +131,11 @@ type LocalizedDeadlineStatus implements LocalizedEnumOption {
 
 type LocalizedDepartmentSize implements LocalizedEnumOption {
   value: DepartmentSize!
+  label: LocalizedString!
+}
+
+type LocalizedDisqualificationReason implements LocalizedEnumOption {
+  value: DisqualificationReason!
   label: LocalizedString!
 }
 
@@ -976,6 +986,14 @@ enum ActivityLog {
   PROCESS
 }
 
+enum ApplicationStatus {
+  DRAFT
+  TO_ASSESS
+  REMOVED
+  DISQUALIFIED
+  QUALIFIED
+}
+
 enum ApplicationStep {
   WELCOME
   SELF_DECLARATION
@@ -1788,6 +1806,8 @@ enum WorkRegion {
 
 "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations."
 type __Schema {
+  description: String
+
   "A list of all types supported by this server."
   types: [__Type!]!
 

@@ -47,10 +47,11 @@ import { hasOneEmptyField as aboutUsError } from "~/validators/process/aboutUs";
 import { hasOneEmptyField as whatToExpectAdmissionError } from "~/validators/process/whatToExpectAdmission";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import processMessages from "~/messages/processMessages";
 import { getAdvertisementStatus } from "~/utils/poolUtils";
 import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
+import { requireUser } from "~/routing/auth";
+import { graphqlClientContext } from "~/routing/context";
 
 import PoolNameSection, {
   PoolClassification_Fragment,
@@ -95,6 +96,7 @@ import WhatToExpectAdmissionSection, {
 import ContactEmailSection, {
   ContactEmailSubmitData,
 } from "./components/ContactEmailSection/ContactEmailSection";
+import type { Route } from "./+types/EditPoolPage";
 
 export const EditPool_Fragment = graphql(/* GraphQL */ `
   fragment EditPool on Pool {
@@ -873,18 +875,38 @@ export const EditPoolPage = () => {
   );
 };
 
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.ProcessOperator,
-    ]}
-  >
-    <EditPoolPage />
-  </RequireAuth>
-);
+const PoolTeams_Query = graphql(/** GraphQL */ `
+  query PoolTeams($id: UUID!) {
+    pool(id: $id) {
+      community {
+        teamIdForRoleAssignment
+      }
+      teamId
+    }
+  }
+`);
+
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  async ({ context, request, params }, next) => {
+    const client = context.get(graphqlClientContext);
+    const res = await client
+      .query(PoolTeams_Query, { id: params.poolId })
+      .toPromise();
+
+    const communityId = res.data?.pool?.community?.teamIdForRoleAssignment;
+
+    requireUser(context, request, [
+      { name: ROLE_NAME.PlatformAdmin },
+      { name: ROLE_NAME.CommunityAdmin, teamId: communityId },
+      { name: ROLE_NAME.CommunityRecruiter, teamId: communityId },
+      { name: ROLE_NAME.ProcessOperator, teamId: res.data?.pool?.teamId },
+    ]);
+    return await next();
+  },
+];
+
+export const Component = () => <EditPoolPage />;
 
 Component.displayName = "AdminEditPoolPage";
 
