@@ -77,6 +77,52 @@ class Department extends Model
     }
 
     /**
+     * Attach the users to the related team as department admin
+     *
+     * @param  string|array  $userId  - Id of the user or users to attach the role to
+     * @return void
+     */
+    public function addDepartmentAdmin(string|array $userId)
+    {
+        $team = $this->team()->firstOrCreate([], [
+            'name' => 'department-'.$this->id,
+        ]);
+
+        if (is_array($userId)) {
+            foreach ($userId as $singleUserId) {
+                $user = User::find($singleUserId);
+                $user->addRole('department_admin', $team->name);
+            }
+        } else {
+            $user = User::find($userId);
+            $user->addRole('department_admin', $team->name);
+        }
+    }
+
+    /**
+     * Attach the users to the related team as department HR advisor
+     *
+     * @param  string|array  $userId  - Id of the user or users to attach the role to
+     * @return void
+     */
+    public function addDepartmentHRAdvisor(string|array $userId)
+    {
+        $team = $this->team()->firstOrCreate([], [
+            'name' => 'department-'.$this->id,
+        ]);
+
+        if (is_array($userId)) {
+            foreach ($userId as $singleUserId) {
+                $user = User::find($singleUserId);
+                $user->addRole('department_hr_advisor', $team->name);
+            }
+        } else {
+            $user = User::find($userId);
+            $user->addRole('department_hr_advisor', $team->name);
+        }
+    }
+
+    /**
      * Scopes/filters
      */
 
