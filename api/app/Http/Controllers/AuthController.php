@@ -191,4 +191,17 @@ class AuthController extends Controller
 
         return response($response)->header('Content-Type', 'application/json');
     }
+
+    public function sectorIdentifier(Request $request)
+    {
+        return response()->json([
+            // our actual auth callback
+            config('oauth.redirect_uri'),
+
+            // auth callbacks for the Sign In Canada to GC Sign In migration tool
+            'https://api.migration.signin-connexion.cdssandbox.xyz/v1/auth/callback',
+            'https://api.migration.signin-connexion.cdssandbox.xyz/v1/auth/legacy/callback',
+
+        ]);
+    }
 }
