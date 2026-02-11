@@ -9,7 +9,8 @@ import {
 } from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
-  PoolCandidateStatus,
+  ApplicationStatus,
+  PlacementType,
   User,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
@@ -24,12 +25,13 @@ const profileSnapshot: User = {
 };
 fakeCandidate.profileSnapshot = JSON.stringify(profileSnapshot);
 
-const getData = (status: PoolCandidateStatus) =>
+const getData = (status: ApplicationStatus, placementType?: PlacementType) =>
   makeFragmentData(
     {
       ...fakeCandidate,
       viewStatus: { status: toLocalizedEnum(status) },
       status: toLocalizedEnum(status),
+      placementType: placementType ? toLocalizedEnum(placementType) : null,
     },
     MoreActions_Fragment,
   );
@@ -61,30 +63,33 @@ type Story = StoryObj<typeof MoreActions>;
 
 export const RecordDecisionStatus: Story = {
   args: {
-    poolCandidate: getData(PoolCandidateStatus.ApplicationReview),
+    poolCandidate: getData(ApplicationStatus.ToAssess),
   },
 };
 
 export const QualifiedStatus: Story = {
   args: {
-    poolCandidate: getData(PoolCandidateStatus.QualifiedAvailable),
+    poolCandidate: getData(ApplicationStatus.Qualified),
   },
 };
 
 export const PlacedStatus: Story = {
   args: {
-    poolCandidate: getData(PoolCandidateStatus.PlacedIndeterminate),
+    poolCandidate: getData(
+      ApplicationStatus.Qualified,
+      PlacementType.PlacedIndeterminate,
+    ),
   },
 };
 
 export const DisqualifiedStatus: Story = {
   args: {
-    poolCandidate: getData(PoolCandidateStatus.ScreenedOutAssessment),
+    poolCandidate: getData(ApplicationStatus.Disqualified),
   },
 };
 
 export const RemovedStatus: Story = {
   args: {
-    poolCandidate: getData(PoolCandidateStatus.Removed),
+    poolCandidate: getData(ApplicationStatus.Removed),
   },
 };

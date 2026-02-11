@@ -15,6 +15,34 @@ enum PlacementType
     case PLACED_TERM;
     case PLACED_INDETERMINATE;
 
+    public static function openToJobsGroup(): array
+    {
+        return [
+            PlacementType::NOT_PLACED->name,
+            PlacementType::UNDER_CONSIDERATION->name,
+            PlacementType::PLACED_TENTATIVE->name,
+            PlacementType::PLACED_CASUAL->name,
+            PlacementType::PLACED_TERM->name,
+        ];
+    }
+
+    public static function hiredGroup(): array
+    {
+        return [
+            PlacementType::PLACED_INDETERMINATE->name,
+        ];
+    }
+
+    public static function searchable(): array
+    {
+        return [
+            PlacementType::NOT_PLACED->name,
+            PlacementType::PLACED_TENTATIVE->name,
+            PlacementType::PLACED_CASUAL->name,
+            PlacementType::PLACED_TERM->name,
+        ];
+    }
+
     public static function getLangFilename(): string
     {
         return 'placement_type';

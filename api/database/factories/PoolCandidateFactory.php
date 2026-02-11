@@ -2,13 +2,16 @@
 
 namespace Database\Factories;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentResultType;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\ClaimVerificationResult;
+use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EmploymentCategory;
+use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\ScreeningStage;
 use App\Models\AssessmentResult;
@@ -40,22 +43,54 @@ class PoolCandidateFactory extends Factory
      */
     public function definition()
     {
-        $relevantStatusesForFinalDecision = PoolCandidateStatus::finalDecisionGroup();
-        $placedStatuses = PoolCandidateStatus::placedGroup();
         $placedDepartmentId = Department::inRandomOrder()
             ->limit(1)
             ->pluck('id')
             ->first();
-        $removedStatuses = PoolCandidateStatus::removedGroup();
 
         return [
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
-            'pool_candidate_status' => $this->faker->boolean() ?
-                $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :
-                $this->faker->randomElement(PoolCandidateStatus::cases())->name,
+            'pool_candidate_status' => function (array $attributes) {
+                if (isset($attributes['application_status'])) {
+
+                    $legacyStatus = match ($attributes['application_status']) {
+                        ApplicationStatus::DRAFT->name => PoolCandidateStatus::DRAFT->name,
+                        ApplicationStatus::TO_ASSESS->name => PoolCandidateStatus::NEW_APPLICATION->name,
+                        ApplicationStatus::DISQUALIFIED->name => $this->faker->randomElement(PoolCandidateStatus::unsuccessfulGroup()),
+                        ApplicationStatus::QUALIFIED->name => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                        ApplicationStatus::REMOVED->name => PoolCandidateStatus::REMOVED->name,
+                        default => null
+                    };
+
+                    if ($legacyStatus) {
+                        return $legacyStatus;
+                    }
+
+                }
+
+                return $this->faker->boolean() ?
+                        $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :
+                        $this->faker->randomElement(PoolCandidateStatus::cases())->name;
+
+            },
+            'application_status' => $this->faker->randomElement(ApplicationStatus::cases())->name,
             'screening_stage' => function (array $attributes) {
-                if (in_array($attributes['pool_candidate_status'], PoolCandidateStatus::screeningStageGroup())) {
-                    return $attributes['pool_candidate_status'];
+                if ($attributes['application_status'] === ApplicationStatus::TO_ASSESS->name) {
+                    return $this->faker->randomElement(ScreeningStage::cases())->name;
+                }
+
+                return null;
+            },
+            'disqualification_reason' => function (array $attributes) {
+                if ($attributes['application_status'] === ApplicationStatus::DISQUALIFIED->name) {
+                    return $this->faker->randomElement(DisqualificationReason::cases())->name;
+                }
+
+                return null;
+            },
+            'placement_type' => function (array $attributes) {
+                if ($attributes['application_status'] === ApplicationStatus::QUALIFIED->name) {
+                    return $this->faker->randomElement(PlacementType::cases())->name;
                 }
 
                 return null;
@@ -72,24 +107,18 @@ class PoolCandidateFactory extends Factory
                 $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 2)
             ),
             'is_flagged' => $this->faker->boolean(10),
-            'final_decision_at' => function (array $attributes) use ($relevantStatusesForFinalDecision) {
-                return in_array($attributes['pool_candidate_status'], $relevantStatusesForFinalDecision) ?
-                $this->faker->dateTimeBetween('-4 weeks', '-2 weeks') : null;
+            'placed_at' => function (array $attributes) {
+                return ! is_null($attributes['placement_type']) ? $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
             },
-            'placed_at' => function (array $attributes) use ($placedStatuses) {
-                return in_array($attributes['pool_candidate_status'], $placedStatuses) ?
+            'placed_department_id' => function (array $attributes) use ($placedDepartmentId) {
+                return ! is_null($attributes['placement_type']) ? $placedDepartmentId : null;
+            },
+            'status_updated_at' => function (array $attributes) {
+                return ! is_null($attributes['application_status']) && $attributes['application_status'] !== ApplicationStatus::DRAFT->name ?
                 $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
             },
-            'placed_department_id' => function (array $attributes) use ($placedStatuses, $placedDepartmentId) {
-                return in_array($attributes['pool_candidate_status'], $placedStatuses) ?
-                $placedDepartmentId : null;
-            },
-            'removed_at' => function (array $attributes) use ($removedStatuses) {
-                return in_array($attributes['pool_candidate_status'], $removedStatuses) ?
-                $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
-            },
-            'removal_reason' => function (array $attributes) use ($removedStatuses) {
-                return in_array($attributes['pool_candidate_status'], $removedStatuses) ?
+            'removal_reason' => function (array $attributes) {
+                return $attributes['application_status'] === ApplicationStatus::REMOVED->name ?
                 $this->faker->randomElement(CandidateRemovalReason::cases())->name : null;
             },
             'removal_reason_other' => function (array $attributes) {
@@ -116,20 +145,20 @@ class PoolCandidateFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (PoolCandidate $poolCandidate) {
-            // after setting pool_candidate_status, check what it is and update accordingly, give it a submitted date if it isn't DRAFT or DRAFT_EXPIRED
+            // after setting application_status, check what it is and update accordingly, give it a submitted date if it isn't DRAFT
             // add a signature in the above case too
             // grab status from database directly, bypassing the Accessor in order to avoid the Accessor overriding in some cases
             $candidateId = $poolCandidate->id;
-            $results = DB::select('select pool_candidate_status from pool_candidates where id = :id', ['id' => $candidateId]);
-            $candidateStatus = $results[0]->pool_candidate_status;
-            if ($candidateStatus != PoolCandidateStatus::DRAFT->name && $candidateStatus != PoolCandidateStatus::DRAFT_EXPIRED->name) {
+            $results = DB::select('select application_status from pool_candidates where id = :id', ['id' => $candidateId]);
+            $status = $results[0]->application_status;
+            if ($status != ApplicationStatus::DRAFT->name) {
                 $submittedDate = $this->faker->dateTimeBetween('-3 months', 'now');
                 $fakeSignature = $this->faker->firstName();
                 $step = $poolCandidate->pool->assessmentSteps->first();
                 $poolCandidate->update([
                     'submitted_at' => $submittedDate,
                     'signature' => $fakeSignature,
-                    'screening_stage' => in_array($poolCandidate->pool_candidate_status, PoolCandidateStatus::screeningStageGroup()) ? $this->faker->randomElement(ScreeningStage::cases())->name : null,
+                    'screening_stage' => $poolCandidate->application_status === ApplicationStatus::TO_ASSESS->name ? $this->faker->randomElement(ScreeningStage::cases())->name : null,
                     'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
                     'assessment_step_id' => $step?->id ?? null,
                 ]);
@@ -225,7 +254,9 @@ class PoolCandidateFactory extends Factory
     {
         return $this->state(function () {
             return [
-                'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                'application_status' => ApplicationStatus::QUALIFIED->name,
+                'placement_type' => $this->faker->randomElement(PlacementType::searchable()),
+                'referring' => true,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
                 'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
             ];
@@ -242,6 +273,8 @@ class PoolCandidateFactory extends Factory
         return $this->state(function () {
             return [
                 'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                'application_status' => ApplicationStatus::REMOVED->name,
+                'removal_reason' => CandidateRemovalReason::REQUESTED_TO_BE_WITHDRAWN->name,
                 'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
                 'suspended_at' => $this->faker->dateTimeBetween('-3 months', '-1 minute'),
                 'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),

@@ -9,7 +9,6 @@ import {
   LocalizedProvinceOrTerritory,
   Maybe,
   OperationalRequirement,
-  PoolCandidateStatus,
   PositionDuration,
   PriorityWeight,
   WorkRegion,
@@ -49,19 +48,6 @@ export function stringToEnumOperational(
     )
   ) {
     return selection as OperationalRequirement;
-  }
-  return undefined;
-}
-
-export function stringToEnumPoolCandidateStatus(
-  selection: string,
-): PoolCandidateStatus | undefined {
-  if (
-    Object.values(PoolCandidateStatus).includes(
-      selection as PoolCandidateStatus,
-    )
-  ) {
-    return selection as PoolCandidateStatus;
   }
   return undefined;
 }

@@ -21,9 +21,8 @@ final class RevertPlaceCandidateValidator extends Validator
     {
         $id = $this->arg('id');
         $candidate = PoolCandidate::findOrFail($id);
-        $placedStatuses = array_column(PlacementType::cases(), 'name');
 
-        if (! (in_array($candidate->pool_candidate_status, $placedStatuses))) {
+        if (empty($candidate->placement_type) || $candidate->placement_type === PlacementType::NOT_PLACED->name) {
             throw ValidationException::withMessages(['id' => ErrorCode::CANDIDATE_NOT_PLACED->name]);
         }
 

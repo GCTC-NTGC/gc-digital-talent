@@ -2,10 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
-use App\Enums\PoolCandidateStatus;
+use App\Enums\PlacementType;
 use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
 use App\Enums\WorkRegion;
@@ -44,7 +45,9 @@ class CountPoolCandidatesByPoolTest extends TestCase
         return [
             'pool_id' => $pool,
             'user_id' => $user,
-            'pool_candidate_status' => $available ? PoolCandidateStatus::QUALIFIED_AVAILABLE->name : PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
+            'referring' => $available,
             'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date'),
         ];
     }
@@ -729,23 +732,21 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
         $user3 = User::factory()->create();
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool,
-            'user_id' => $user1,
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->create([
+                'pool_id' => $pool,
+                'user_id' => $user1,
+            ]);
+        PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $pool,
             'user_id' => $user2,
-            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
-            'expiry_date' => config('constants.far_future_date'),
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
         ]);
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $pool,
             'user_id' => $user3,
-            'pool_candidate_status' => PoolCandidateStatus::PLACED_TENTATIVE->name,
-            'expiry_date' => config('constants.far_future_date'),
+            'placement_type' => PlacementType::PLACED_TENTATIVE->name,
         ]);
 
         // all three candidates found
@@ -778,19 +779,14 @@ class CountPoolCandidatesByPoolTest extends TestCase
     public function testUnavailableStatusesDoNotAppear()
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
-        $allStatusesEnums = PoolCandidateStatus::cases();
-        $allStatusesArray = array_map(function ($statusEnum) {
-            return $statusEnum->name;
-        }, $allStatusesEnums);
-        $unavailableStatuses = array_diff($allStatusesArray, [
-            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::PLACED_CASUAL->name,
-            PoolCandidateStatus::PLACED_TENTATIVE->name,
-        ]);
+        $unavailableStatuses = array_filter(ApplicationStatus::cases(), function ($status) {
+            return $status->name !== ApplicationStatus::QUALIFIED->name;
+        });
+
         foreach ($unavailableStatuses as $status) {
             PoolCandidate::factory()->create([
                 'pool_id' => $pool,
-                'pool_candidate_status' => $status,
+                'application_status' => $status->name,
                 'expiry_date' => config('constants.far_future_date'),
             ]);
         }
@@ -830,10 +826,8 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $unassociatedPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'work_stream_id' => $unassociatedStream->id,
         ]);
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $unassociatedPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            'expiry_date' => config('constants.far_future_date'),
         ]);
 
         $stream = WorkStream::factory()->create();
@@ -842,11 +836,9 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'work_stream_id' => $stream->id,
         ]);
         $user1 = User::factory()->create();
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $pool,
             'user_id' => $user1,
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            'expiry_date' => config('constants.far_future_date'),
         ]);
 
         // the one candidate found
@@ -871,6 +863,43 @@ class CountPoolCandidatesByPoolTest extends TestCase
                     'qualifiedInWorkStreams' => [['id' => $stream->id]],
                 ],
             ]
+        )->assertSimilarJson([
+            'data' => [
+                'countPoolCandidatesByPool' => [
+                    [
+                        'pool' => ['id' => $pool->id],
+                        'candidateCount' => 1,
+                    ],
+                ],
+            ],
+        ]);
+    }
+
+    public function testReferring(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create($this->poolData());
+
+        // Unexpected
+        PoolCandidate::factory()->availableInSearch()
+            ->create([
+                'pool_id' => $pool->id,
+                'referring' => false,
+            ]);
+
+        // Expected
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $pool->id,
+        ]);
+
+        $this->graphQL(<<<'GRAPHQL'
+            query ($where: ApplicantFilterInput) {
+                countPoolCandidatesByPool(where: $where) {
+                    pool { id }
+                    candidateCount
+                }
+            }
+            GRAPHQL,
+            []
         )->assertSimilarJson([
             'data' => [
                 'countPoolCandidatesByPool' => [
