@@ -29,16 +29,28 @@ export const hasRequiredRoles = ({
 
   for (const req of requirements) {
     for (const assignment of assignments) {
-      // Gate 1: Match role name
-      if (assignment.role?.name !== req.name) continue;
+      const isNameMatch = assignment.role?.name === req.name;
+      const isTeamBased = !!assignment.role?.isTeamBased;
 
-      // Gate 2: Strict check for team-based roles
-      if (strict && assignment.role?.isTeamBased && !req.teamId) continue;
+      // Global role match (Role matches and it's not team-based)
+      if (isNameMatch && !isTeamBased) {
+        return true;
+      }
 
-      // Gate 3: Team ID mismatch
-      if (req.teamId && assignment.team?.id !== req.teamId) continue;
+      // Explicit team match (Role matches, is team-based, and ID matches)
+      if (
+        isNameMatch &&
+        isTeamBased &&
+        req.teamId &&
+        assignment.team?.id === req.teamId
+      ) {
+        return true;
+      }
 
-      return true;
+      // Loose team match (Role matches, is team-based, not strict, and no specific team requested)
+      if (isNameMatch && isTeamBased && !strict && !req.teamId) {
+        return true;
+      }
     }
   }
 
