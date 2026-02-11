@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\ErrorCode;
-use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -23,13 +23,11 @@ final class RevertFinalDecisionValidator extends Validator
         $candidate = PoolCandidate::findOrFail($id);
 
         $statusesArray = [
-            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::EXPIRED->name,
+            ApplicationStatus::DISQUALIFIED->name,
+            ApplicationStatus::QUALIFIED->name,
         ];
 
-        if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
+        if (! (in_array($candidate->application_status, $statusesArray))) {
             throw ValidationException::withMessages(['id' => ErrorCode::INVALID_STATUS_REVERT_FINAL_DECISION->name]);
         }
 

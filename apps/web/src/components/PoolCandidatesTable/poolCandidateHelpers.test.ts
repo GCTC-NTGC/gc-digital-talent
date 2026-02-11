@@ -24,7 +24,7 @@ const defaultFormValues: FormValues = {
   govEmployee: "",
   community: "",
   assessmentSteps: [],
-  finalDecisions: [],
+  statuses: [],
   placementTypes: [],
   removalReasons: [],
   screeningStages: [],

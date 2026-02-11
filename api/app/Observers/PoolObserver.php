@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Enums\ActivityEvent;
+use App\Enums\ApplicationStatus;
 use App\Enums\PoolStatus;
 use App\Models\Pool;
 use App\Notifications\ApplicationDeadlineExtended;
@@ -36,8 +37,12 @@ class PoolObserver
             && $newClosingDate->gte($oldClosingDate)
         ) {
 
-            $pool->poolCandidates
-                ->where('pool_candidate_status', 'DRAFT') // Only send notification to draft applications
+            $pool->poolCandidates()
+                ->where('application_status', ApplicationStatus::DRAFT->name) // Only send notification to draft applications
+                ->where(function ($query) {
+                    $query->whereDate('expiry_date', '>=', date('Y-m-d'))
+                        ->orWhereNull('expiry_date');
+                })
                 ->each(function ($poolCandidate) use ($newClosingDate) {
                     $poolCandidate->load('user', 'pool');
 
