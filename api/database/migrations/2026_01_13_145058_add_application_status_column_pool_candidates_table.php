@@ -110,18 +110,18 @@ return new class extends Migration
         DB::statement(<<<'SQL'
             UPDATE pool_candidates
             SET
-                screening_stage = CASE
-                    WHEN application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED') THEN NULL
-                    ELSE screening_stage
-                END,
-                assessment_step_id = CASE
-                    WHEN application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED') THEN NULL
-                    WHEN pool_candidate_status = 'NEW_APPLICATION' THEN NULL
-                    ELSE assessment_step_id
-                END
+            screening_stage = CASE
+                WHEN application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED') THEN NULL
+                WHEN application_status = 'TO_ASSESS' AND screening_stage IS NULL THEN 'NEW_APPLICATION'
+                ELSE screening_stage
+            END,
+            assessment_step_id = CASE
+                WHEN application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED') THEN NULL
+                ELSE assessment_step_id
+            END
             WHERE
-                application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED')
-                OR pool_candidate_status = 'NEW_APPLICATION';
+            application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED')
+            OR (application_status = 'TO_ASSESS' AND screening_stage IS NULL);
         SQL);
 
         // Make sure all `UNDER_ASSESSMENT` have an assessment step
@@ -198,10 +198,18 @@ return new class extends Migration
         DB::statement(<<<'SQL'
             UPDATE pool_candidates
             SET
-                screening_stage = NULL,
-                assessment_step_id = NULL
-            WHERE application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED')
-            OR pool_candidate_status = 'NEW_APPLICATION';
+            screening_stage = CASE
+                WHEN application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED') THEN NULL
+                WHEN application_status = 'TO_ASSESS' AND screening_stage IS NULL THEN 'NEW_APPLICATION'
+                ELSE screening_stage
+            END,
+            assessment_step_id = CASE
+                WHEN application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED') THEN NULL
+                ELSE assessment_step_id
+            END
+            WHERE
+            application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED')
+            OR (application_status = 'TO_ASSESS' AND screening_stage IS NULL);
         SQL);
 
         Schema::table('pool_candidates', function (Blueprint $table) {
