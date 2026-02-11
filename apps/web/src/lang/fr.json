@@ -10662,6 +10662,10 @@
     "defaultMessage": "Votre relation avec l'auteur(trice) de la mise en candidature",
     "description": "Label for a nomination submitter's relationship to the nominator"
   },
+  "hqCFJg": {
+    "defaultMessage": "Poste d’attache",
+    "description": "Label for Government position type substantive"
+  },
   "hqZfyb": {
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
@@ -12362,6 +12366,10 @@
     "defaultMessage": "Sauvegarder le courriel de correspondance",
     "description": "Text on a button to save the pool contact email"
   },
+  "ow3hcA": {
+    "defaultMessage": "Poste intérimaire",
+    "description": "Label for Government position type acting"
+  },
   "ow4z7W": {
     "defaultMessage": "Modifier<hidden> la classification</hidden>",
     "description": "Breadcrumb title for the edit classification page link."
@@ -12982,6 +12990,10 @@
     "defaultMessage": "Commencez<hidden> par fournir les renseignements concernant les droits de priorité</hidden>",
     "description": "Call to action to begin editing priority entitlement"
   },
+  "rXd18V": {
+    "defaultMessage": "Détachement",
+    "description": "Label for Government position type secondment"
+  },
   "rYKGn/": {
     "defaultMessage": "Plateforme",
     "description": "Label displayed on off platform process form for platform input"
@@ -13413,6 +13425,10 @@
   "tZsKb7": {
     "defaultMessage": "Échanger avec nous sur les médias sociaux",
     "description": "Title for the social media section."
+  },
+  "tb4mS6": {
+    "defaultMessage": "Affectation",
+    "description": "Label for Government position type assignment"
   },
   "tc3sSC": {
     "defaultMessage": "L'équipe",
