@@ -6,7 +6,7 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
+import { useQuery } from "urql";
 import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
@@ -16,15 +16,12 @@ import {
   CommunityTalentTableCommunityInterestFragment as CommunityTalentTableCommunityInterestFragmentType,
   getFragment,
   CommunityInterestFilterInput,
-  UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
-  errorMessages,
   getEmploymentDuration,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
 
 import Table, {
   getTableStateFromSearchParams,
