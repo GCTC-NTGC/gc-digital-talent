@@ -16,6 +16,7 @@ import {
   CommunityTalentTableCommunityInterestFragment as CommunityTalentTableCommunityInterestFragmentType,
   getFragment,
   CommunityInterestFilterInput,
+  UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -61,6 +62,8 @@ import {
   transformFormValuesToCommunityInterestFilterInput,
   transformSortStateToOrderByClause,
   usernameCell,
+  extractUserIdsFromSelectedRows,
+  transformToUserFilterInput,
 } from "./utils";
 
 const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
@@ -272,41 +275,32 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     }
   };
 
-  const handleDownloadError = () => {
-    toast.error(intl.formatMessage(errorMessages.downloadRequestFailed));
-  };
-
-  const handleDownloadRes = (hasData: boolean) => {
-    if (hasData) {
-      toast.info(intl.formatMessage(commonMessages.preparingDownload));
-    } else {
-      handleDownloadError();
-    }
-  };
-
   const handleExcelDownload = () => {
-    downloadAllExcel({
-      ids: removeDuplicateIds(selectedRows),
-      where: transformCommunityTalentInput(
+    const userIds = extractUserIdsFromSelectedRows(selectedRows);
+
+    if (userIds.length === 0) {
+      return;
+    }
+
+    downloadExcel({
+      ids: userIds,
+      where: transformToUserFilterInput(
         filterState,
         searchState?.term,
         searchState?.type,
       ),
-    })
-      .then((res) => handleDownloadRes(!!res.data))
-      .catch(handleDownloadError);
+    });
   };
 
   const handleExcelDownloadAll = () => {
-    downloadAllExcel({
-      where: transformCommunityTalentInput(
+    downloadExcel({
+      ids: undefined,
+      where: transformToUserFilterInput(
         filterState,
         searchState?.term,
         searchState?.type,
       ),
-    })
-      .then((res) => handleDownloadRes(!!res.data))
-      .catch(handleDownloadError);
+    });
   };
 
   const handlePaginationStateChange = ({
@@ -669,24 +663,19 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         all: {
           enable: true,
           onClick: handleExcelDownloadAll,
-          downloading: downloadingAllExcel,
+          downloading: downloadingExcel,
         },
         spreadsheet: {
           enable: true,
           onClick: handleExcelDownload,
-          downloading: downloadingAllExcel,
+          downloading: downloadingExcel,
         },
         doc: {
           enable: true,
           component: (
             <DownloadDocxButton
               inTable
-              disabled={
-                !hasSelectedRows ||
-                downloadingZip ||
-                downloadingDoc ||
-                downloadingAllExcel
-              }
+              disabled={!hasSelectedRows || downloadingZip || downloadingDoc}
               isDownloading={downloadingZip || downloadingDoc}
               onClickProfile={() => handleDocDownload(false)}
               onClickAnonymousProfile={() => handleDocDownload(true)}
