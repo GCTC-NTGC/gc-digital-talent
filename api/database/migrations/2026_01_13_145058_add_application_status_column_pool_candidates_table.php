@@ -107,6 +107,23 @@ return new class extends Migration
                 END
         SQL);
 
+        DB::statement(<<<'SQL'
+            UPDATE pool_candidates
+            SET
+                screening_stage = CASE
+                    WHEN application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED') THEN NULL
+                    ELSE screening_stage
+                END,
+                assessment_step_id = CASE
+                    WHEN application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED') THEN NULL
+                    WHEN pool_candidate_status = 'NEW_APPLICATION' THEN NULL
+                    ELSE assessment_step_id
+                END
+            WHERE
+                application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED')
+                OR pool_candidate_status = 'NEW_APPLICATION';
+        SQL);
+
         // Make sure all `UNDER_ASSESSMENT` have an assessment step
         DB::statement(<<<'SQL'
             WITH target_steps AS (
@@ -133,14 +150,6 @@ return new class extends Migration
             FROM target_steps ts
             WHERE pool_candidates.id = ts.candidate_id
             AND ts.new_step_id IS NOT NULL;
-        SQL);
-
-        DB::statement(<<<'SQL'
-            UPDATE pool_candidates
-            SET
-                screening_stage = NULL,
-                assessment_step_id = NULL
-            WHERE application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED')
         SQL);
 
         Schema::table('pool_candidates', function (Blueprint $table) {
@@ -192,6 +201,7 @@ return new class extends Migration
                 screening_stage = NULL,
                 assessment_step_id = NULL
             WHERE application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED')
+            OR pool_candidate_status = 'NEW_APPLICATION';
         SQL);
 
         Schema::table('pool_candidates', function (Blueprint $table) {
