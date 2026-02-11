@@ -181,7 +181,7 @@ const CurrentPositionExperiences = ({
             )}
             <div className="-mt-9">
               {Object.keys(currentWorkExperiencesByGovPositionType).map(
-                (key) => (
+                (key, i) => (
                   <Fragment key={key}>
                     <Heading level="h3" className="mb-3 font-normal">
                       {getGovernmentPositionTypeLabel(
@@ -197,6 +197,10 @@ const CurrentPositionExperiences = ({
                         headingLevel="h4"
                       />
                     ))}
+                    {i !==
+                      Object.keys(currentWorkExperiencesByGovPositionType)
+                        .length -
+                        1 && <CardSeparator />}
                   </Fragment>
                 ),
               )}
