@@ -130,7 +130,7 @@ const Layout = ({ query }: LayoutProps) => {
           },
         ]}
       />
-      <AdminContentWrapper table>
+      <AdminContentWrapper>
         <Sidebar.Wrapper className="sm:gap-x-6">
           <Sidebar.Sidebar className="sm:order-2">
             <NominationGroupSidebar
