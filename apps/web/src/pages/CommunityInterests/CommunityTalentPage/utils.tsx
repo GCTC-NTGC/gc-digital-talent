@@ -214,6 +214,6 @@ export function transformCommunityInterestFilterInputToFormValues(
 }
 
 export function removeDuplicateIds(ids: string[]): string[] {
-  const userIds = ids.map((id) => id.split("-userId#")[1]);
+  const userIds = ids.map((id) => id.split("-userId#")[0]);
   return uniqueItems(userIds);
 }

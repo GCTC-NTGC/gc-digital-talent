@@ -42,9 +42,9 @@ class SendNotificationsTest extends Command
 
         $user = User::where('email', $emailAddress)->sole();
 
-        $notification = new Test('test', GcNotifyEmailChannel::class);
         for ($i = 0; $i < $numberOfMessages; $i++) {
             try {
+                $notification = new Test('test ('.$i.')', GcNotifyEmailChannel::class);
                 $user->notify($notification);
                 $successCount++;
             } catch (Throwable $e) {

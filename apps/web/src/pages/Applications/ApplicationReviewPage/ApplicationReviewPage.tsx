@@ -446,7 +446,6 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               key={optionalTechnicalSkill.id}
               skill={optionalTechnicalSkill}
               experiencesQuery={experiences}
-              showDisclaimer
               hideConnectButton
               hideEdit
             />
