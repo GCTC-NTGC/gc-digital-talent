@@ -63,7 +63,7 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    const organization = this.page.getByRole("textbox", {
+    let organization = this.page.getByRole("textbox", {
       name: /organization/i,
     });
     if ((await organization.count()) === 0) {
