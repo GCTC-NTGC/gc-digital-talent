@@ -156,6 +156,7 @@ const MoreActions = ({
   const status = poolCandidate.status?.value;
 
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const hasCommunityRecruiterRole = hasRole(
     [ROLE_NAME.CommunityRecruiter],
     roleAssignments,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-deprecated */
 import { AuthenticationContext } from "./components/AuthenticationContainer";
 import AuthorizationContainer, {
   AuthorizationContext,
@@ -7,6 +8,10 @@ import AuthorizationProvider from "./components/AuthorizationProvider";
 import useAuthentication from "./hooks/useAuthentication";
 import useAuthorization from "./hooks/useAuthorization";
 import apiRoutes, { useApiRoutes } from "./hooks/useApiRoutes";
+import {
+  hasRequiredRoles,
+  type RoleRequirement,
+} from "./utils/hasRequiredRoles";
 import hasRole from "./utils/hasRole";
 import { narrowTeamableType } from "./utils/narrowTeamableType";
 import {
@@ -38,6 +43,7 @@ export {
   useApiRoutes,
   apiRoutes,
   hasRole,
+  hasRequiredRoles,
   narrowTeamableType,
   getAuthenticationState,
   setTokensFromLocation,
@@ -56,4 +62,4 @@ export {
   PROCESS_ACTIVITY_LOG_ROLES,
 };
 
-export type { RoleName, LogoutReason, AuthenticationState };
+export type { RoleName, LogoutReason, AuthenticationState, RoleRequirement };
