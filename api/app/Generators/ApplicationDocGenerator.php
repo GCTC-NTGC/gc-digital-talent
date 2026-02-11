@@ -20,8 +20,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 {
     use GeneratesUserDoc;
 
-    private int $snapshotVersion;
-
     public function __construct(protected PoolCandidate $candidate, public ?string $dir, protected ?string $lang)
     {
         $candidate->loadMissing(['user', 'pool' => ['classification']]);
@@ -33,10 +31,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
         parent::__construct($fileName, $dir);
         $this->anonymous = false;
-
-        $this->snapshotVersion = $candidate->profile_snapshot['version'] ?
-            $candidate->profile_snapshot['version'] :
-            1;
     }
 
     public function generate(): self
@@ -174,7 +168,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         }
 
         if ($experiences && count($experiences) > 0) {
-            $this->experiences($section, collect($experiences), false, 2, $experienceVersion = $this->snapshotVersion);
+            $this->experiences($section, collect($experiences), false, 2);
         }
 
         $section->addTitle($this->localizeHeading('personal_info'), 2);

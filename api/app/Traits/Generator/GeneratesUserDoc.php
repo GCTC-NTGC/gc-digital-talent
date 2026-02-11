@@ -287,9 +287,8 @@ trait GeneratesUserDoc
      * @param  Collection  $experienceCollection  The experiences to be rendered
      * @param  bool  $withSkills  If it should include the skills associated with experiences
      * @param  int  $headingRank  The rank of headings
-     * @param  int | null  $experienceVersion  whether to render older version of an experience, comes from snapshot version
      */
-    protected function experiences(Section $section, Collection $experienceCollection, bool $withSkills, int $headingRank, ?int $experienceVersion = null)
+    protected function experiences(Section $section, Collection $experienceCollection, bool $withSkills = true, int $headingRank = 3)
     {
 
         if ($experienceCollection->count() > 0) {
@@ -340,8 +339,8 @@ trait GeneratesUserDoc
 
                 $subHeadingRank = $headingRank + 2;
 
-                $sortedGroup->each(function ($experience) use ($section, $type, $withSkills, $subHeadingRank, $experienceVersion) {
-                    $this->experience($section, $experience, $type, $withSkills, $subHeadingRank, $experienceVersion);
+                $sortedGroup->each(function ($experience) use ($section, $type, $withSkills, $subHeadingRank) {
+                    $this->experience($section, $experience, $type, $withSkills, $subHeadingRank);
                 });
             }
         }
@@ -354,14 +353,8 @@ trait GeneratesUserDoc
      * @param  AwardExperience|CommunityExperience|EducationExperience|PersonalExperience|WorkExperience  $experience  The experience being generated
      * @param  string  $type  The type of experience being generated
      */
-    public function experience(
-        Section $section,
-        AwardExperience|CommunityExperience|EducationExperience|PersonalExperience|WorkExperience $experience,
-        string $type,
-        bool $withSkills = true,
-        $headingRank = 4,
-        ?int $experienceVersion = null
-    ) {
+    public function experience(Section $section, AwardExperience|CommunityExperience|EducationExperience|PersonalExperience|WorkExperience $experience, string $type, bool $withSkills = true, $headingRank = 4)
+    {
 
         if ($type === AwardExperience::class) {
             /** @var AwardExperience $experience */
@@ -463,17 +456,8 @@ trait GeneratesUserDoc
             /** @var PersonalExperience $experience */
             $section->addTitle($experience->getTitle(), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
-
-            if ((bool) $experienceVersion && $experienceVersion === 1) {
-                // V1 Snapshot representation of a Personal Experience
-                $this->addLabelText($section, $this->localize('headings.learning_description'), $experience->description);
-                $this->addLabelText($section, $this->localize('headings.additional_details'), $experience->details);
-            } else {
-                // V2 and onwards representation of a Personal Experience
-                // default rendering
-                $this->addLabelText($section, $this->localize('headings.personal_learning_organization_platform'), $experience->organization);
-                $this->addLabelText($section, $this->localize('headings.learning_description'), $experience->learning_description);
-            }
+            $this->addLabelText($section, $this->localize('headings.personal_learning_organization_platform'), $experience->organization);
+            $this->addLabelText($section, $this->localize('headings.learning_description'), $experience->learning_description);
 
             if ($withSkills) {
                 $experience->load(['userSkills' => ['skill']]);
