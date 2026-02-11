@@ -509,7 +509,7 @@ type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
   community: Community @belongsTo(relation: "community")
-  team: Team @belongsTo(relation: "team")
+  teamId: UUID! @rename(attribute: "team.id") @with(relation: "team")
   name: LocalizedString
   displayName: DefinedString
   fullDisplayName: DefinedString
