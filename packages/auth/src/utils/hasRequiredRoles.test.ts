@@ -19,6 +19,15 @@ describe("Has required roles", () => {
     team: null,
   };
 
+  test("defaults to false", () => {
+    expect(
+      f({
+        toCheck: [],
+        userRoles: [],
+      }),
+    ).toBe(false);
+  });
+
   test("returns false when user has no roles", () => {
     expect(
       f({
