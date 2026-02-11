@@ -1290,7 +1290,7 @@ type GenericJobTitle {
   classification: Classification
 }
 
-type Department {
+type Department implements HasRoleAssignments {
   id: ID!
   departmentNumber: Int!
   name: LocalizedString!

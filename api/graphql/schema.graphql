@@ -806,7 +806,7 @@ type GenericJobTitle {
   classification: Classification @belongsTo
 }
 
-type Department {
+type Department implements HasRoleAssignments {
   id: ID!
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
