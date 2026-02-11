@@ -3,6 +3,10 @@ import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 
 import { RoleName } from "../const";
 
+/**
+ * @deprecated Use `hasRequiredRoles` instead.
+ * hasRequiredRoles provides strict validation for team-based roles.
+ */
 const hasRole = (
   checkRole: RoleName | RoleName[],
   userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
