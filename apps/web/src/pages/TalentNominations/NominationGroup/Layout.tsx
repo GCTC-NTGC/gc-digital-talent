@@ -131,7 +131,7 @@ const Layout = ({ query }: LayoutProps) => {
         ]}
       />
       <AdminContentWrapper>
-        <Sidebar.Wrapper className="sm:gap-x-6">
+        <Sidebar.Wrapper className="sm:gap-x-3">
           <Sidebar.Sidebar className="sm:order-2">
             <NominationGroupSidebar
               talentNominationGroupQuery={talentNominationGroup}
