@@ -225,9 +225,7 @@ export function transformToUserFilterInput(
 
   const userFilter: UserFilterInput = {};
 
-  if (searchTerm) {
-    userFilter.generalSearch = searchTerm;
-  }
+  userFilter.generalSearch = searchTerm;
 
   return userFilter;
 }
