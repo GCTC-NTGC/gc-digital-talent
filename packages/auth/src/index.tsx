@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-deprecated */
 import { AuthenticationContext } from "./components/AuthenticationContainer";
 import AuthorizationContainer, {
   AuthorizationContext,

@@ -108,6 +108,7 @@ const generatePool = (
       fr: frenchName || `${faker.company.catchPhrase()} FR`,
       localized: englishName || `${faker.company.catchPhrase()} LOCALIZED`,
     },
+    teamId: faker.string.uuid(),
     classification: faker.helpers.arrayElement<Classification>(classifications),
     department: faker.helpers.arrayElement<Department>(departments),
     workStream: faker.helpers.arrayElement<WorkStream>(workStreams),

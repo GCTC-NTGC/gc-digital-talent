@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-deprecated */
 import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 
 import { RoleName } from "../const";
