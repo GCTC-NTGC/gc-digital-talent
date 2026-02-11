@@ -881,9 +881,7 @@ const PoolTeams_Query = graphql(/** GraphQL */ `
       community {
         teamIdForRoleAssignment
       }
-      team {
-        id
-      }
+      teamId
     }
   }
 `);
@@ -896,22 +894,14 @@ export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
       .query(PoolTeams_Query, { id: params.poolId })
       .toPromise();
 
-    const teamIds = unpackMaybes([
-      res.data?.pool?.team?.id,
-      res.data?.pool?.community?.teamIdForRoleAssignment,
-    ]);
+    const communityId = res.data?.pool?.community?.teamIdForRoleAssignment;
 
-    requireUser(
-      context,
-      request,
-      [
-        ROLE_NAME.PlatformAdmin,
-        ROLE_NAME.CommunityAdmin,
-        ROLE_NAME.CommunityRecruiter,
-        ROLE_NAME.ProcessOperator,
-      ],
-      teamIds,
-    );
+    requireUser(context, request, [
+      { name: ROLE_NAME.PlatformAdmin },
+      { name: ROLE_NAME.CommunityAdmin, teamId: communityId },
+      { name: ROLE_NAME.CommunityRecruiter, teamId: communityId },
+      { name: ROLE_NAME.ProcessOperator, teamId: res.data?.pool?.teamId },
+    ]);
     return await next();
   },
 ];
