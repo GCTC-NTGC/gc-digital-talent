@@ -135,6 +135,14 @@ return new class extends Migration
             AND ts.new_step_id IS NOT NULL;
         SQL);
 
+        DB::statement(<<<'SQL'
+            UPDATE pool_candidates
+            SET
+                screening_stage = NULL,
+                assessment_step_id = NULL
+            WHERE application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED')
+        SQL);
+
         Schema::table('pool_candidates', function (Blueprint $table) {
             $table->dropColumn('final_decision_at');
             $table->dropColumn('removed_at');
@@ -176,6 +184,14 @@ return new class extends Migration
                     WHEN application_status IN ('QUALIFIED', 'DISQUALIFIED') THEN status_updated_at
                     ELSE NULL
                 END;
+        SQL);
+
+        DB::statement(<<<'SQL'
+            UPDATE pool_candidates
+            SET
+                screening_stage = NULL,
+                assessment_step_id = NULL
+            WHERE application_status IN ('QUALIFIED', 'DISQUALIFIED', 'REMOVED')
         SQL);
 
         Schema::table('pool_candidates', function (Blueprint $table) {
