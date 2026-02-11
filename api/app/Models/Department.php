@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
@@ -46,6 +47,28 @@ class Department extends Model
         'is_science' => 'boolean',
         'is_regulatory' => 'boolean',
     ];
+
+    /**
+     * Boot function
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (Department $department) {
+            $department->team()->firstOrCreate([], [
+                'name' => 'department-'.$department->id,
+            ]);
+        });
+    }
+
+    /** @return MorphOne<Team, $this> */
+    public function team(): MorphOne
+    {
+        return $this->morphOne(Team::class, 'teamable');
+    }
 
     /** @return HasMany<PoolCandidateSearchRequest, $this> */
     public function poolCandidateSearchRequests(): HasMany
