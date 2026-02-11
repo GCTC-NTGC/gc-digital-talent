@@ -99,6 +99,8 @@ return [
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
         'communityTalentCoordinatorMembership' => 'communityTalentCoordinatorMembership',
+        'departmentAdminMembership' => 'departmentAdminMembership',
+        'departmentHRAdvisorMembership' => 'departmentHRAdvisorMembership',
 
         'poolActivityLog' => 'poolActivityLog',
     ],
@@ -608,6 +610,18 @@ return [
             'en' => 'Add or remove the Community Talent Coordinator role from a community user',
             'fr' => 'Ajouter ou supprimer le rôle de coordinateur des talents de la communauté à un utilisateur de la communauté',
         ],
+        'update-any-departmentAdminMembership' => [
+            'en' => 'Add or remove the department admin role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle d\'administrateur du département pour n\'importe quel utilisateur',
+        ],
+        'update-any-departmentHRAdvisorMembership' => [
+            'en' => 'Add or remove the department HR advisor role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle de conseiller RH du département pour n\'importe quel utilisateur',
+        ],
+        'update-team-departmentHRAdvisorMembership' => [
+            'en' => 'Add or remove the department HR advisor role from a team user',
+            'fr' => 'Ajouter ou supprimer le rôle de conseiller RH du département pour un utilisateur de l\'équipe',
+        ],
 
         'view-any-poolTeamMembers' => [
             'en' => 'View the members of any pool',
@@ -811,6 +825,30 @@ return [
             'description' => [
                 'en' => 'Access to the talent event and talent nomination management flows',
                 'fr' => 'Accès aux flux de gestion des événements et des nominations de talents',
+            ],
+            'is_team_based' => true,
+        ],
+
+        'department_admin' => [
+            'display_name' => [
+                'en' => 'Department Admin',
+                'fr' => 'aaa',
+            ],
+            'description' => [
+                'en' => 'aaa',
+                'fr' => 'aaa',
+            ],
+            'is_team_based' => true,
+        ],
+
+        'department_hr_advisor' => [
+            'display_name' => [
+                'en' => 'Department HR Advisor',
+                'fr' => 'aaa',
+            ],
+            'description' => [
+                'en' => 'aaa',
+                'fr' => 'aaa',
             ],
             'is_team_based' => true,
         ],
@@ -1187,6 +1225,12 @@ return [
             'processOperatorMembership' => [
                 'any' => ['update'],
             ],
+            'departmentAdminMembership' => [
+                'any' => ['update'],
+            ],
+            'departmentHRAdvisorMembership' => [
+                'any' => ['update'],
+            ],
             'communityTeamMembers' => [
                 'any' => ['view'],
             ],
@@ -1234,6 +1278,21 @@ return [
             ],
             'talentNominationGroup' => [
                 'team' => ['update', 'view'],
+            ],
+        ],
+
+        'department_admin' => [
+            'processOperatorMembership' => [
+                'team' => ['update'],
+            ],
+            'departmentHRAdvisorMembership' => [
+                'team' => ['update'],
+            ],
+        ],
+
+        'department_hr_advisor' => [
+            'processOperatorMembership' => [
+                'team' => ['update'],
             ],
         ],
     ],
