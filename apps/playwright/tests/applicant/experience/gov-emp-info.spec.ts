@@ -1,3 +1,5 @@
+import { PAST_DATE } from "@gc-digital-talent/date-helpers";
+
 import { test, expect } from "~/fixtures";
 import graphql, { GraphQLContext } from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
@@ -42,9 +44,10 @@ test.describe("Government Employee Information section validation", () => {
       adminCtx = await graphql.newContext();
       const govEmployee = await createUserWithRoles(adminCtx, {
         user: {
-          email: `${sub}@example.org`,
+          email: `${sub}@gc.ca`,
           sub,
           currentProvince: ProvinceOrTerritory.Ontario,
+          emailVerifiedAt: PAST_DATE,
           currentCity: "Test City",
           telephone: "+10123456789",
           armedForcesStatus: ArmedForcesStatus.NonCaf,
