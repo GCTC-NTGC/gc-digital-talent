@@ -422,7 +422,9 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                 required: intl.formatMessage(errorMessages.required),
                 max: {
                   value: strToFormDate(todayDate.toISOString()),
-                  message: intl.formatMessage(errorMessages.mustNotBeFuture),
+                  message: intl.formatMessage(
+                    errorMessages.mustNotBeFutureStartDate,
+                  ),
                 },
               }}
             />
@@ -464,9 +466,12 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                         min: {
                           value: watchStartDate ? String(watchStartDate) : "",
                           message: intl.formatMessage(
-                            errorMessages.minDateLabel,
+                            errorMessages.minDateSelfLabel,
                             {
-                              label: nodeToString(
+                              labelSelf: nodeToString(
+                                labels.endDate,
+                              ).toLowerCase(),
+                              labelAssociated: nodeToString(
                                 labels.startDate,
                               ).toLowerCase(),
                             },
@@ -475,7 +480,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                         max: {
                           value: strToFormDate(todayDate.toISOString()),
                           message: intl.formatMessage(
-                            errorMessages.mustNotBeFuture,
+                            errorMessages.mustNotBeFutureEndDate,
                           ),
                         },
                       }
@@ -495,16 +500,21 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                       min: {
                         value: watchStartDate ? String(watchStartDate) : "",
                         message: intl.formatMessage(
-                          errorMessages.minDateLabel,
+                          errorMessages.minDateSelfLabel,
                           {
-                            label: nodeToString(labels.startDate).toLowerCase(),
+                            labelSelf: nodeToString(
+                              labels.endDate,
+                            ).toLowerCase(),
+                            labelAssociated: nodeToString(
+                              labels.startDate,
+                            ).toLowerCase(),
                           },
                         ),
                       },
                       max: {
                         value: strToFormDate(todayDate.toISOString()),
                         message: intl.formatMessage(
-                          errorMessages.mustNotBeFuture,
+                          errorMessages.mustNotBeFutureEndDate,
                         ),
                       },
                     }}
