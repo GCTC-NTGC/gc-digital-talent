@@ -631,8 +631,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       downshift:
-        specifier: ^9.0.13
-        version: 9.0.13(react@19.2.4)
+        specifier: ^9.3.0
+        version: 9.3.0(react@19.2.4)
       lodash:
         specifier: ^4.17.23
         version: 4.17.23
@@ -4427,8 +4427,8 @@ packages:
     resolution: {integrity: sha512-mudtfb4zRB4bVvdj0xRo+e6duH1csJRM8IukBqfTRvHotn9+LBXB8ynAidP9zHqoRC/fsllXgk4kCKlR21fIhw==}
     engines: {node: '>=12'}
 
-  downshift@9.0.13:
-    resolution: {integrity: sha512-fPV+K5jwEzfEAhNhprgCmpWQ23MKwKNzdbtK0QQFiw4hbFcKhMeGB+ccorfWJzmsLR5Dty+CmLDduWlIs74G/w==}
+  downshift@9.3.0:
+    resolution: {integrity: sha512-/ZJCU6IudoFEtvbZb5Y2FbZcjxskF8a2w6Fanfz9g6Erl6+yJnkmT4TtFXmPXYU81tVlo/iEwnpW3YODqM7+tA==}
     peerDependencies:
       react: '>=16.12.0'
 
@@ -6218,8 +6218,8 @@ packages:
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
 
-  react-is@18.2.0:
-    resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+  react-is@18.3.1:
+    resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
   react-refresh@0.14.2:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
@@ -10757,13 +10757,13 @@ snapshots:
 
   dotenv@17.2.4: {}
 
-  downshift@9.0.13(react@19.2.4):
+  downshift@9.3.0(react@19.2.4):
     dependencies:
       '@babel/runtime': 7.28.6
       compute-scroll-into-view: 3.1.1
       prop-types: 15.8.1
       react: 19.2.4
-      react-is: 18.2.0
+      react-is: 18.3.1
       tslib: 2.8.1
 
   dset@3.1.4: {}
@@ -12713,7 +12713,7 @@ snapshots:
 
   react-is@17.0.2: {}
 
-  react-is@18.2.0: {}
+  react-is@18.3.1: {}
 
   react-refresh@0.14.2: {}
 
