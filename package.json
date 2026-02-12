@@ -57,7 +57,7 @@
     "@vitest/browser": "^4.0.16",
     "@vitest/browser-playwright": "^4.0.16",
     "@vitest/coverage-v8": "^4.0.16",
-    "playwright": "^1.58.1",
+    "playwright": "^1.58.2",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "storybook": "^10.2.7",
     "turbo": "^2.8.3",
