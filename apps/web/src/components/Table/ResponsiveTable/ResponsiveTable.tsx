@@ -92,6 +92,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 }: TableProps<TData, TFilters>) => {
   const id = useId();
   const intl = useIntl();
+  const isFirstRender = useRef(true);
   const { announce } = useAnnouncer();
   const hasUpdatedRows = useRef<boolean>(false);
   const [, setSearchParams] = useSearchParams();
@@ -267,6 +268,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
           Object.fromEntries(newParams),
         )
       ) {
+        if (isFirstRender.current) {
+          isFirstRender.current = false;
+          return;
+        }
         setSearchParams(newParams, { replace: true });
       }
     }
