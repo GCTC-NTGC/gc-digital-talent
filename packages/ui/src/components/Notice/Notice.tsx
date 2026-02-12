@@ -177,15 +177,17 @@ const Root = forwardRef<HTMLDivElement, NoticeProps>(
 
 const title = tv({
   slots: {
-    icon: "h-auto w-full stroke-2",
+    icon: "stroke-2",
     heading: "mb-.25 col-start-2 font-bold",
   },
   variants: {
     small: {
       true: {
+        icon: "h-6 w-6",
         heading: "mb-px text-sm/6",
       },
       false: {
+        icon: "h-6 w-6",
         heading: "mb-0.5",
       },
     },
