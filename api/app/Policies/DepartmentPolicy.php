@@ -92,4 +92,14 @@ class DepartmentPolicy
     {
         return $user->isAbleTo('archive-any-department');
     }
+
+    /**
+     * Determine whether the user can view department team members
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewTeamMembers(User $user)
+    {
+        return false;
+    }
 }
