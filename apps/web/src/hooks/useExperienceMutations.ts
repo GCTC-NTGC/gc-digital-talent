@@ -6,6 +6,7 @@ import {
   CreateEducationExperienceMutation,
   CreatePersonalExperienceMutation,
   CreateWorkExperienceMutation,
+  EmploymentCategory,
   GovEmployeeType,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -161,12 +162,21 @@ export const useExperienceMutations = (
   ): ExperienceMutationArgs => {
     // users may have invalid WorkExperience state with govEmploymentType TERM and non-null govPositionType
     const massagedValues = values;
-    if (
-      experienceType === "work" &&
-      !!massagedValues.govEmploymentType &&
-      massagedValues.govEmploymentType !== GovEmployeeType.Indeterminate
-    ) {
-      massagedValues.govPositionType = null;
+    if (experienceType === "work") {
+      if (
+        !!massagedValues.govEmploymentType &&
+        massagedValues.govEmploymentType !== GovEmployeeType.Indeterminate
+      ) {
+        massagedValues.govPositionType = null;
+      }
+
+      if (
+        massagedValues.employmentCategory !==
+        EmploymentCategory.GovernmentOfCanada
+      ) {
+        massagedValues.govPositionType = null;
+        massagedValues.govEmploymentType = null;
+      }
     }
 
     return {
