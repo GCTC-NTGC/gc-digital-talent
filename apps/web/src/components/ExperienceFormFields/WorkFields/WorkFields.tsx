@@ -116,7 +116,8 @@ const WorkFields = ({
     query: WorkFieldOptions_Query,
   });
 
-  const { resetField, formState } = useFormContext<WorkFormValues>();
+  const { resetField, formState, unregister } =
+    useFormContext<WorkFormValues>();
 
   const prevEmploymentCategory = useRef<EmploymentCategory | null | undefined>(
     formState.defaultValues?.employmentCategory,
@@ -180,6 +181,12 @@ const WorkFields = ({
       resetDirtyField("cafEmploymentType");
       resetDirtyField("cafForce");
       resetDirtyField("cafRank");
+
+      // Unregister fields is safer than a reset
+      if (watchEmploymentCategory === EmploymentCategory.CanadianArmedForces) {
+        unregister("govEmploymentType");
+        unregister("govPositionType");
+      }
     }
 
     prevEmploymentCategory.current = watchEmploymentCategory;
