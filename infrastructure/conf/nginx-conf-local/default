@@ -132,6 +132,9 @@ server {
     location = /restricted.html {
         alias /home/site/wwwroot/apps/web/dist/client/restricted.html;
     }
+    location /.well-known/ {
+        alias /home/site/wwwroot/apps/web/dist/client/.well-known/;
+    }
     location = /phpinfo.php {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;

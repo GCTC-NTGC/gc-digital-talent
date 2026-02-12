@@ -107,6 +107,9 @@ server {
     location = /restricted.html {
         alias /home/site/wwwroot/apps/web/dist/client/restricted.html;
     }
+    location /.well-known/ {
+        alias /home/site/wwwroot/apps/web/dist/client/.well-known/;
+    }
     # For debugging FPM.  Only accessible locally.
     location ~ ^/(fpm-status)$ {
         allow 127.0.0.1;
