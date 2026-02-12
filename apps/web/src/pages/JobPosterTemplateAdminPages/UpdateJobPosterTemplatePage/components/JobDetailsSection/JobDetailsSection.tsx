@@ -16,6 +16,7 @@ import {
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
+import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
@@ -150,8 +151,14 @@ const formValuesToMutationInput = (
     fr: workDescriptionFr,
   },
   keywords: {
-    en: keywordsEn?.split(",").map((s) => s.trim()),
-    fr: keywordsFr?.split(",").map((s) => s.trim()),
+    en: keywordsEn
+      ?.split(",")
+      .map((s) => emptyToNull(s.trim()))
+      .filter(notEmpty),
+    fr: keywordsFr
+      ?.split(",")
+      .map((s) => emptyToNull(s.trim()))
+      .filter(notEmpty),
   },
   classification: {
     connect: classification,
