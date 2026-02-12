@@ -33,16 +33,18 @@ test.describe("Government Employee Information section validation", () => {
     adminCtx = await graphql.newContext();
     const departments = await getDepartments(adminCtx, {});
     departmentID = departments[0].id;
-    editRole = `Edit work experience (${uniqueTestId})`;
   });
 
   test.describe("For Government employees", () => {
     let user: User;
     let sub: string;
+    let experiencePage: ExperiencePage;
+    let profilePage: ProfilePage;
 
     test.beforeEach(async () => {
       uniqueTestId = generateUniqueTestId();
       sub = `playwright.gov_emp_info${uniqueTestId}`;
+      editRole = `Edit work experience (${uniqueTestId})`;
       adminCtx = await graphql.newContext();
       const govEmployee = await createUserWithRoles(adminCtx, {
         user: {
@@ -84,7 +86,8 @@ test.describe("Government Employee Information section validation", () => {
       await appPage.page.goto("/en/applicant");
       await appPage.waitForGraphqlResponse("ApplicantDashboard");
       const role = `Test add gov indeterminate work experience (${uniqueTestId})`;
-      const experiencePage = new ExperiencePage(appPage.page);
+      experiencePage = new ExperiencePage(appPage.page);
+      profilePage = new ProfilePage(appPage.page);
       await experiencePage.selectWorkExperience();
       await experiencePage.addGovTermOrIndeterminateWorkExperience({
         role,
@@ -96,7 +99,6 @@ test.describe("Government Employee Information section validation", () => {
       );
       await experiencePage.goToIndex();
       // Navigating to personal information page to verify government employee information section
-      const profilePage = new ProfilePage(appPage.page);
       await profilePage.navigateToPersonalInformation();
       await profilePage.updatePriorityEntitlements();
       await expect(
@@ -125,14 +127,9 @@ test.describe("Government Employee Information section validation", () => {
         cafEmploymentType: CafEmploymentType.RegularForce,
         cafForce: CafForce.RoyalCanadianNavy,
       });
-      await expect(experiencePage.page.getByRole("alert")).toContainText(
-        /successfully updated experience/i,
-        { timeout: 70000 },
-      );
-      await experiencePage.goToIndex();
-
       // Verify that government employee information section is updated
       await profilePage.navigateToPersonalInformation();
+      await appPage.page.reload({ timeout: 50000 });
       await profilePage.verifyGovEmployeeInfoSection(
         EmploymentCategory.CanadianArmedForces,
       );

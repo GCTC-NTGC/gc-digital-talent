@@ -480,6 +480,10 @@ class ExperiencePage extends AppPage {
       }
     }
     await this.waitForGraphqlResponse("UpdateWorkExperience");
+    await expect(this.page.getByRole("alert")).toContainText(
+      /successfully updated experience/i,
+      { timeout: 70000 },
+    );
   }
 
   async addPersonalExperience(input: PersonalExperienceInput) {
