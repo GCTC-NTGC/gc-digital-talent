@@ -831,24 +831,24 @@ return [
 
         'department_admin' => [
             'display_name' => [
-                'en' => 'Department Admin',
-                'fr' => 'aaa',
+                'en' => 'Department Administrator',
+                'fr' => 'Administrateur du ministère',
             ],
             'description' => [
-                'en' => 'aaa',
-                'fr' => 'aaa',
+                'en' => 'Assigned for individual departments. This role is intended to assign department roles, publish job posters and manage department details.',
+                'fr' => 'Attribué à chaque service. Ce rôle sert à attribuer les rôles au sein du service, à publier les offres d\'emploi et à gérer les informations relatives au service.',
             ],
             'is_team_based' => true,
         ],
 
         'department_hr_advisor' => [
             'display_name' => [
-                'en' => 'Department HR Advisor',
-                'fr' => 'aaa',
+                'en' => 'Department Human Resources Advisor',
+                'fr' => 'Conseiller en ressources humaines du ministère',
             ],
             'description' => [
-                'en' => 'aaa',
-                'fr' => 'aaa',
+                'en' => 'Assigned for individual departments. This role is intended to coordinate and run staffing processes along-side process operators.',
+                'fr' => 'Attribué à chaque service. Ce rôle consiste à coordonner et à gérer les processus de dotation en personnel en collaboration avec les opérateurs de processus.',
             ],
             'is_team_based' => true,
         ],
