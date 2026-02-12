@@ -63,12 +63,9 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    let organization = this.page.getByRole("textbox", {
+    const organization = this.page.getByRole("textbox", {
       name: /organization/i,
     });
-    if ((await organization.count()) === 0) {
-      organization = this.page.getByRole("combobox", { name: /organization/i });
-    }
     await organization.fill(input.organization ?? "test org");
 
     await this.page
@@ -91,17 +88,16 @@ class ExperiencePage extends AppPage {
 
     await this.fillDate(input.startDate);
 
-    const checkbox = this.page.getByRole("checkbox", {
-      name: /i am currently active in this role/i,
-    });
     if (!input.endDate) {
-      if (!(await checkbox.isChecked())) {
-        await checkbox.click();
+      const currentRole = this.page.getByRole("checkbox", {
+        name: /i am currently active in this role/i,
+      });
+      if (!(await currentRole.isChecked())) {
+        await currentRole.click();
+      } else {
+        await expect(currentRole).toBeChecked();
       }
     } else {
-      if (await checkbox.isChecked()) {
-        await checkbox.click();
-      }
       await this.fillDate(input.endDate, true);
     }
 
@@ -298,10 +294,16 @@ class ExperiencePage extends AppPage {
       .selectOption({ label: "1" });
 
     await this.fillDate(input.startDate);
+
     if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", { name: /i am currently active in this role/i })
-        .click();
+      const currentRole = this.page.getByRole("checkbox", {
+        name: /i am currently active in this role/i,
+      });
+      if (!(await currentRole.isChecked())) {
+        await currentRole.click();
+      } else {
+        await expect(currentRole).toBeChecked();
+      }
     } else {
       await this.fillDate(input.endDate, true);
     }
@@ -434,20 +436,19 @@ class ExperiencePage extends AppPage {
       .click();
 
     await this.fillDate(input.startDate);
-    const checkbox = this.page.getByRole("checkbox", {
-      name: /i am currently active in this role/i,
-    });
+
     if (!input.endDate) {
-      if (!(await checkbox.isChecked())) {
-        await checkbox.click();
+      const currentRole = this.page.getByRole("checkbox", {
+        name: /i am currently active in this role/i,
+      });
+      if (!(await currentRole.isChecked())) {
+        await currentRole.click();
+      } else {
+        await expect(currentRole).toBeChecked();
       }
     } else {
-      if (await checkbox.isChecked()) {
-        await checkbox.click();
-      }
       await this.fillDate(input.endDate, true);
     }
-
     await this.page
       .getByRole("textbox", { name: /additional details/i })
       .fill(input.details ?? "test details");
@@ -469,8 +470,6 @@ class ExperiencePage extends AppPage {
           break;
 
         case EmploymentCategory.CanadianArmedForces:
-          input.govEmploymentType = undefined;
-          input.govPositionType = undefined;
           await this.addCafWorkExperience(input);
           break;
 

@@ -177,6 +177,14 @@ export const useExperienceMutations = (
         massagedValues.govPositionType = null;
         massagedValues.govEmploymentType = null;
       }
+      if (
+        massagedValues.employmentCategory !==
+        EmploymentCategory.CanadianArmedForces
+      ) {
+        massagedValues.cafEmploymentType = null;
+        massagedValues.cafForce = null;
+        massagedValues.cafRank = null;
+      }
     }
 
     return {

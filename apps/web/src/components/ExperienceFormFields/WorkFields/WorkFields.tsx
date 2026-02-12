@@ -183,9 +183,15 @@ const WorkFields = ({
       resetDirtyField("cafRank");
 
       // Unregister fields is safer than a reset
-      if (watchEmploymentCategory === EmploymentCategory.CanadianArmedForces) {
+      if (
+        watchEmploymentCategory === EmploymentCategory.CanadianArmedForces ||
+        EmploymentCategory.GovernmentOfCanada
+      ) {
         unregister("govEmploymentType");
         unregister("govPositionType");
+        unregister("cafEmploymentType");
+        unregister("cafForce");
+        unregister("cafRank");
       }
     }
 
