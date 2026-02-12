@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-deprecated */
 import { useIntl } from "react-intl";
 import uniqBy from "lodash/unionBy";
 import { useLocation } from "react-router";

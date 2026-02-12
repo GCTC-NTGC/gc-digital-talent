@@ -2,9 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Enums\PoolCandidateStatus;
 use App\Events\AssessmentResultSaved;
-use App\Events\CandidateStatusChanged;
 
 class ComputeCandidateAssessmentStatus
 {
@@ -34,13 +32,6 @@ class ComputeCandidateAssessmentStatus
 
         $candidate->computed_assessment_status = $assessmentStatus;
 
-        if ($candidate->pool_candidate_status === PoolCandidateStatus::NEW_APPLICATION->name) {
-            $candidate->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
-        }
-
         $candidate->save();
-
-        CandidateStatusChanged::dispatch($candidate);
-
     }
 }

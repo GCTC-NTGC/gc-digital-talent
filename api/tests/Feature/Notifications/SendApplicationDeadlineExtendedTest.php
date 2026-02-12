@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\Notifications;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\NotificationFamily;
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ScreeningStage;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -110,28 +111,31 @@ class SendApplicationDeadlineExtendedTest extends TestCase
             ->for($this->publishedPool)
             ->for($this->draftUser)
             ->create([
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                'expiry_date' => config('constants.far_future_date'),
+                'application_status' => ApplicationStatus::DRAFT->name,
             ]);
 
         $this->draftExpired = PoolCandidate::factory()
             ->for($this->publishedPool)
             ->for($this->draftExpiredUser)
             ->create([
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT_EXPIRED->name,
+                'application_status' => ApplicationStatus::DRAFT->name,
+                'expiry_date' => config('constants.past_date'),
             ]);
 
         $this->applicationReview = PoolCandidate::factory()
             ->for($this->publishedPool)
             ->for($this->applicationReviewUser)
             ->create([
-                'pool_candidate_status' => PoolCandidateStatus::APPLICATION_REVIEW->name,
+                'application_status' => ApplicationStatus::TO_ASSESS->name,
+                'screening_stage' => ScreeningStage::APPLICATION_REVIEW->name,
             ]);
 
         $this->userInDraftPool = PoolCandidate::factory()
             ->for($this->draftPool)
             ->for($this->draftUser)
             ->create([
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                'application_status' => ApplicationStatus::DRAFT->name,
             ]);
     }
 

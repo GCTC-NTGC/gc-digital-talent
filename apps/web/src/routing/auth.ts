@@ -1,6 +1,9 @@
 import { redirect } from "react-router";
 
-import { hasRole, RoleName } from "@gc-digital-talent/auth";
+import {
+  hasRequiredRoles,
+  type RoleRequirement,
+} from "@gc-digital-talent/auth";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
 
 import { intlContext, userContext, type AppContext } from "./context";
@@ -8,12 +11,15 @@ import { intlContext, userContext, type AppContext } from "./context";
 /**
  * Validates user session and redirects to login-info if missing.
  * @param context The middleware/loader context
- * @param pathname Current path for the 'from' redirect param
+ * @param request The incoming request object
+ * @param requirements Optional role/team requirements to check
+ * @param strict When true, team-based roles must have a teamId provided
  */
 export function requireUser<T extends AppContext>(
   context: T,
   request: Request,
-  roles?: RoleName[],
+  requirements?: RoleRequirement | RoleRequirement[],
+  strict = false,
 ) {
   const user = context.get(userContext);
   const intl = context.get(intlContext);
@@ -26,8 +32,12 @@ export function requireUser<T extends AppContext>(
     throw redirect(`/${intl.locale}/login-info?${searchParams.toString()}`);
   }
 
-  if (roles) {
-    const isAuthorized = hasRole(roles, user?.roleAssignments);
+  if (requirements) {
+    const isAuthorized = hasRequiredRoles({
+      toCheck: requirements,
+      userRoles: user.roleAssignments,
+      strict,
+    });
 
     if (!isAuthorized) {
       throw new UnauthorizedError();
