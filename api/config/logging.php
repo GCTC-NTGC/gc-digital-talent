@@ -1,5 +1,6 @@
 <?php
 
+use App\Logging\Azure\AzureHandler;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -68,7 +69,7 @@ return [
         ],
 
         // processes outside of the web server can't log to stdout in the cloud and have to stick to a file
-        'jobs' => [
+        'jobs_file' => [
             'driver' => 'single',
             'path' => storage_path('logs/jobs.log'),
             'level' => env('LOG_LEVEL', 'debug'),
@@ -129,6 +130,22 @@ return [
 
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+
+        'azure' => [
+            'driver' => 'monolog',
+            'handler' => AzureHandler::class,
+            'level' => env('LOG_LEVEL', 'debug'),
+            'handler_with' => [
+                'endpointUrl' => 'http://localhost:8000/api/log',
+
+            ],
+        ],
+
+        'jobs' => [
+            'driver' => 'stack',
+            'channels' => ['jobs_file', 'azure'],
+            'ignore_exceptions' => false,
         ],
     ],
 
