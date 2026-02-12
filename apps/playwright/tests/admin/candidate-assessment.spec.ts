@@ -63,8 +63,8 @@ test.describe("Pool candidates", () => {
         personalExperiences: {
           create: [
             {
-              description: "Test Experience Description",
-              details: "A Playwright test personal experience",
+              organization: "Test Organization or platform",
+              learningDescription: "Test Experience Learning Description",
               skills: {
                 sync: [
                   {

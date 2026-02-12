@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Lang;
  * @property string $id
  * @property string $user_id
  * @property string $title
- * @property string $description
  * @property ?\Illuminate\Support\Carbon $start_date
  * @property ?\Illuminate\Support\Carbon $end_date
- * @property string $details
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
+ * @property string $learning_description
+ * @property string $organization
  */
 class PersonalExperience extends Experience
 {
@@ -38,9 +38,10 @@ class PersonalExperience extends Experience
 
     protected static $hydrationFields = [
         'title' => 'title',
-        'description' => 'description',
         'start_date' => 'startDate',
         'end_date' => 'endDate',
+        'learning_description' => 'learningDescription',
+        'organization' => 'organization',
     ];
 
     public function getTitle(): string

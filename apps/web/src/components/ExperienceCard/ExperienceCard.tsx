@@ -50,7 +50,6 @@ type EditMode = "link" | "dialog";
 export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceCard on Experience {
     id
-    details
     skills {
       id
       key
@@ -78,6 +77,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       }
     }
     ... on AwardExperience {
+      details
       title
       issuedBy
       awardedDate
@@ -97,6 +97,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       }
     }
     ... on CommunityExperience {
+      details
       title
       organization
       project
@@ -104,6 +105,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       endDate
     }
     ... on EducationExperience {
+      details
       institution
       areaOfStudy
       thesisTitle
@@ -128,12 +130,14 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
     }
     ... on PersonalExperience {
       title
-      description
       startDate
       endDate
+      learningDescription
+      organization
     }
     ... on WorkExperience {
       id
+      details
       role
       organization
       division
@@ -573,14 +577,22 @@ const ExperienceCard = ({
                 headingLevel={contentHeadingLevel}
               />
             )}
-            <Separator space="sm" />
-            <ContentSection
-              title={experienceLabels.details}
-              headingLevel={headingLevel}
-            >
-              {experience.details ??
-                intl.formatMessage(commonMessages.notAvailable)}
-            </ContentSection>
+            {/* attempting !isPersonalExperience(experience) didn't seem to work for TypeScript */}
+            {(isAwardExperience(experience) ||
+              isCommunityExperience(experience) ||
+              isEducationExperience(experience) ||
+              isWorkExperience(experience)) && (
+              <>
+                <Separator space="sm" />
+                <ContentSection
+                  title={experienceLabels.details}
+                  headingLevel={headingLevel}
+                >
+                  {experience.details ??
+                    intl.formatMessage(commonMessages.notAvailable)}
+                </ContentSection>
+              </>
+            )}
             {showSkills && !singleSkill && (
               <>
                 <Separator space="sm" />

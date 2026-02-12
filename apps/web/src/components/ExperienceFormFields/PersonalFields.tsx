@@ -7,35 +7,43 @@ import {
   DATE_SEGMENT,
   DateInput,
   Input,
+  RadioGroup,
   TextArea,
 } from "@gc-digital-talent/forms";
-import { errorMessages, getLocale, Locales } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  getLocale,
+  Locales,
+} from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { nodeToString } from "@gc-digital-talent/helpers";
-import { Heading } from "@gc-digital-talent/ui";
 
 import { PersonalFormValues, SubExperienceFormProps } from "~/types/experience";
-import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 const TEXT_AREA_ROWS = 3;
-const TEXT_AREA_MAX_WORDS_EN = 200;
+const TEXT_AREA_MAX_WORDS_EN = 300;
 
-const PersonalFields = ({ labels }: SubExperienceFormProps) => {
+const PersonalFields = ({
+  labels,
+  organizationSuggestions,
+}: SubExperienceFormProps & { organizationSuggestions: string[] }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const experienceLabels = getExperienceFormLabels(intl);
   const todayDate = new Date();
   const {
     setValue,
     formState: { defaultValues },
+    resetField,
   } = useFormContext<PersonalFormValues>();
   // to toggle whether End date is required, the state of the Current role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch<PersonalFormValues>({ name: "currentRole" });
+  const isCurrent =
+    useWatch<PersonalFormValues>({ name: "roleStatus" }) !== "past";
   // ensuring end date isn't before the start date, using this as a minimum value
   const watchStartDate = useWatch<PersonalFormValues>({ name: "startDate" });
   const watchDescription = useWatch<PersonalFormValues>({
-    name: "experienceDescription",
+    name: "learningDescription",
   });
 
   const wordCountLimits: Record<Locales, number> = {
@@ -44,25 +52,117 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
   } as const;
 
   useEffect(() => {
-    if (watchDescription !== defaultValues?.experienceDescription) {
+    if (watchDescription !== defaultValues?.learningDescription) {
       setValue("disclaimer", false);
     }
-  }, [defaultValues?.experienceDescription, setValue, watchDescription]);
+  }, [defaultValues?.learningDescription, setValue, watchDescription]);
+
+  useEffect(() => {
+    if (isCurrent === true) {
+      resetField("endDate", { keepDirty: false, defaultValue: null }); // reset endDate for current experience
+    }
+  }, [isCurrent, resetField]);
 
   return (
     <>
       <div className="mt-6 flex flex-col gap-y-6">
         <Input
           id="experienceTitle"
-          label={labels.experienceTitle}
+          label={labels.projectOrRole}
           name="experienceTitle"
           type="text"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
+        <RadioGroup
+          idPrefix="roleStatus"
+          name="roleStatus"
+          legend={labels.roleStatus}
+          items={[
+            {
+              value: "active",
+              label: labels.activeRole,
+            },
+            {
+              value: "past",
+              label: labels.pastRole,
+            },
+          ]}
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
+        />
+        <DateInput
+          id="startDate"
+          legend={labels.startDate}
+          name="startDate"
+          round="floor"
+          show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+            max: {
+              value: strToFormDate(todayDate.toISOString()),
+              message: intl.formatMessage(errorMessages.mustNotBeFuture),
+            },
+          }}
+        />
+        {/* conditionally render the endDate based off the state attached to the radiogroup input */}
+        {!isCurrent && (
+          <DateInput
+            id="endDate"
+            legend={labels.endDate}
+            name="endDate"
+            round="ceil"
+            show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              min: {
+                value: watchStartDate ? String(watchStartDate) : "",
+                message: intl.formatMessage(errorMessages.minDateLabel, {
+                  label: nodeToString(labels.startDate).toLowerCase(),
+                }),
+              },
+            }}
+          />
+        )}
+        <Input
+          id="organization"
+          label={labels.organizationOrPlatform}
+          name="organization"
+          type="text"
+          placeholder={intl.formatMessage(commonMessages.selectOrTypeAnswer)}
+          context={intl.formatMessage({
+            defaultMessage:
+              "Unsure how to complete this field? Try to describe the overarching theme this experience falls into. Remember that this field is used to group similar items in your personal learning.",
+            id: "pyUCrH",
+            description: "Input context for personal experience organization",
+          })}
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
+          list={
+            organizationSuggestions.length
+              ? "organizationSuggestions"
+              : undefined
+          }
+        />
+        {organizationSuggestions.length > 0 && (
+          <datalist id="organizationSuggestions">
+            {organizationSuggestions.map((suggestion) => {
+              return <option key={suggestion} value={suggestion}></option>;
+            })}
+          </datalist>
+        )}
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "Please describe the experience, what you've learned, and any of the tasks and responsibilities you might have had.",
+            id: "pFxxMJ",
+            description:
+              "Descriptive sentence before experience description input",
+          })}
+        </p>
         <TextArea
-          id="experienceDescription"
-          label={labels.experienceDescription}
-          name="experienceDescription"
+          id="learningDescription"
+          label={labels.learningDescription}
+          name="learningDescription"
+          rows={TEXT_AREA_ROWS}
+          wordLimit={wordCountLimits[locale]}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
         <Checkbox
@@ -77,89 +177,6 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
               "Label displayed on Personal Experience form for disclaimer checkbox",
           })}
           name="disclaimer"
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-        />
-        <Checkbox
-          boundingBox
-          boundingBoxLabel={labels.currentRole}
-          id="currentRole"
-          label={intl.formatMessage({
-            defaultMessage: "I am currently active in this experience",
-            id: "aemElP",
-            description:
-              "Label displayed on Personal Experience form for current experience input",
-          })}
-          name="currentRole"
-        />
-        <div className="grid gap-6 xs:grid-cols-2">
-          <DateInput
-            id="startDate"
-            legend={labels.startDate}
-            name="startDate"
-            round="floor"
-            show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              max: {
-                value: strToFormDate(todayDate.toISOString()),
-                message: intl.formatMessage(errorMessages.mustNotBeFuture),
-              },
-            }}
-          />
-          <div>
-            {!isCurrent && (
-              <DateInput
-                id="endDate"
-                legend={labels.endDate}
-                name="endDate"
-                round="ceil"
-                show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-                rules={
-                  isCurrent
-                    ? {}
-                    : {
-                        required: intl.formatMessage(errorMessages.required),
-                        min: {
-                          value: watchStartDate ? String(watchStartDate) : "",
-                          message: intl.formatMessage(
-                            errorMessages.minDateLabel,
-                            {
-                              label: nodeToString(
-                                labels.startDate,
-                              ).toLowerCase(),
-                            },
-                          ),
-                        },
-                      }
-                }
-              />
-            )}
-          </div>
-        </div>
-      </div>
-      <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
-        {intl.formatMessage({
-          defaultMessage: "Highlight additional details",
-          id: "6v+j79",
-          description: "Title for additional details section",
-        })}
-      </Heading>
-      <div>
-        <p className="mb-6">
-          {intl.formatMessage({
-            defaultMessage:
-              "Describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important. Try to keep this field concise as you'll be able to provide more detailed information when linking skills to this experience.",
-            id: "yZ0kfQ",
-            description:
-              "Help text for the experience additional details field",
-          })}
-        </p>
-        <TextArea
-          id={"details"}
-          name={"details"}
-          rows={TEXT_AREA_ROWS}
-          wordLimit={wordCountLimits[locale]}
-          label={experienceLabels.details}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
       </div>

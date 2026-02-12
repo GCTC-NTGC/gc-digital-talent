@@ -67,7 +67,12 @@ const ExperienceDetails = ({
                 organizationSuggestions={organizationSuggestions}
               />
             )}
-            {derivedType === "personal" && <PersonalFields labels={labels} />}
+            {derivedType === "personal" && (
+              <PersonalFields
+                labels={labels}
+                organizationSuggestions={organizationSuggestions}
+              />
+            )}
             {derivedType === "work" && (
               <WorkFields
                 labels={labels}

@@ -219,6 +219,18 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on Personal Experience form for experience description input",
     }),
+    learningDescription: intl.formatMessage({
+      defaultMessage: "Learning description",
+      id: "FEffiH",
+      description:
+        "Label displayed on Personal Experience form for learning description input",
+    }),
+    organizationOrPlatform: intl.formatMessage({
+      defaultMessage: "Organization, platform, or theme",
+      id: "2I1HYQ",
+      description:
+        "Label displayed on Personal Experience form for organization or overarching theme input",
+    }),
     disclaimer: intl.formatMessage({
       defaultMessage: "Disclaimer",
       id: "sapxcU",
@@ -357,6 +369,11 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on Experience form for key tasks and responsibilities field.",
     }),
+    projectOrRole: intl.formatMessage({
+      defaultMessage: "The project or role",
+      id: "II8QD3",
+      description: "Label for the personal experience title",
+    }),
   };
 };
 
@@ -395,7 +412,7 @@ export const formValuesToSubmitData = (
     institution,
     thesisTitle,
     experienceTitle,
-    experienceDescription,
+    learningDescription,
     currentRole,
     employmentCategory,
     extSizeOfOrganization,
@@ -453,7 +470,8 @@ export const formValuesToSubmitData = (
     },
     personal: {
       title: experienceTitle,
-      description: experienceDescription,
+      organization,
+      learningDescription: learningDescription,
       startDate,
       endDate: !currentRole && endDate ? endDate : null,
     },
@@ -632,13 +650,15 @@ export const deriveExperienceType = (
 const getAwardExperienceDefaultValues = (
   experience: Omit<AwardExperience, "user">,
 ) => {
-  const { title, issuedBy, awardedDate, awardedTo, awardedScope } = experience;
+  const { title, issuedBy, awardedDate, awardedTo, awardedScope, details } =
+    experience;
   return {
     awardTitle: title,
     issuedBy,
     awardedDate,
     awardedTo: awardedTo?.value,
     awardedScope: awardedScope?.value,
+    details,
   };
 };
 
@@ -651,7 +671,8 @@ const getAwardExperienceDefaultValues = (
 const getCommunityExperienceDefaultValues = (
   experience: Omit<CommunityExperience, "user">,
 ) => {
-  const { title, organization, project, startDate, endDate } = experience;
+  const { title, organization, project, startDate, endDate, details } =
+    experience;
   return {
     role: title,
     organization,
@@ -659,6 +680,7 @@ const getCommunityExperienceDefaultValues = (
     startDate,
     roleStatus: endDate ? "past" : "active",
     endDate,
+    details,
   };
 };
 
@@ -679,6 +701,7 @@ const getEducationExperienceDefaultValues = (
     thesisTitle,
     startDate,
     endDate,
+    details,
   } = experience;
   return {
     educationType: type?.value,
@@ -689,6 +712,7 @@ const getEducationExperienceDefaultValues = (
     startDate,
     currentRole: endDate === null,
     endDate,
+    details,
   };
 };
 
@@ -701,14 +725,16 @@ const getEducationExperienceDefaultValues = (
 const getPersonalExperienceDefaultValues = (
   experience: Omit<PersonalExperience, "user">,
 ) => {
-  const { title, description, startDate, endDate } = experience;
+  const { title, startDate, endDate, learningDescription, organization } =
+    experience;
   return {
     experienceTitle: title,
-    experienceDescription: description,
     startDate,
-    currentRole: endDate === null,
     endDate,
     disclaimer: true,
+    learningDescription,
+    organization,
+    roleStatus: endDate ? "past" : "active",
   };
 };
 
@@ -749,6 +775,7 @@ const getWorkExperienceDefaultValues = (
     seniorManagementStatus,
     cSuiteRoleTitle,
     otherCSuiteRoleTitle,
+    details,
   } = experience;
 
   const isIndeterminate =
@@ -809,6 +836,7 @@ const getWorkExperienceDefaultValues = (
     seniorManagementStatus,
     cSuiteRoleTitle: cSuiteRoleTitle?.value,
     otherCSuiteRoleTitle,
+    details,
   };
 };
 
@@ -841,7 +869,6 @@ export const queryResultToDefaultValues = (
   }
 
   return {
-    details: experience.details ?? "",
     ...unsharedValues,
     skills: experience.skills
       ? experience.skills.map(({ id, name, experienceSkillRecord }) => ({
@@ -1106,10 +1133,7 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
 export const organizationSuggestionsFromExperiences = (
   experiences: SimpleAnyExperience[],
 ): string[] => {
-  const experiencesWithoutPersonal = experiences.filter(
-    (exp) => exp?.__typename && exp.__typename !== "PersonalExperience",
-  );
-  const organizationsForAutocomplete = experiencesWithoutPersonal.map((exp) => {
+  const organizationsForAutocomplete = experiences.map((exp) => {
     if (isAwardExperience(exp)) {
       return exp.issuedBy;
     }
@@ -1118,6 +1142,9 @@ export const organizationSuggestionsFromExperiences = (
     }
     if (isEducationExperience(exp)) {
       return exp.institution;
+    }
+    if (isPersonalExperience(exp)) {
+      return exp.organization;
     }
     if (isWorkExperience(exp)) {
       return exp.organization;

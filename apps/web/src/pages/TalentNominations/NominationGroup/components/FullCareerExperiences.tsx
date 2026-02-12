@@ -53,6 +53,8 @@ export const FullCareerExperiencesUser_Fragment = graphql(/* GraphQL */ `
       ... on PersonalExperience {
         startDate
         endDate
+        learningDescription
+        organization
       }
       ... on WorkExperience {
         startDate
