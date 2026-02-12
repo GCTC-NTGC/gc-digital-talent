@@ -39,7 +39,6 @@ jobs:
           LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
           sudo apt-get update
           sudo apt-get install -y php${{ variables.phpVersion }} php${{ variables.phpVersion }}-mbstring php${{ variables.phpVersion }}-xml php${{ variables.phpVersion }}-pgsql php${{ variables.phpVersion }}-zip php${{ variables.phpVersion }}-curl php${{ variables.phpVersion }}-bcmath php${{ variables.phpVersion }}-gd php${{ variables.phpVersion }}-dom
-          php --version
         displayName: "Setup PHP"
 
       - script: |
