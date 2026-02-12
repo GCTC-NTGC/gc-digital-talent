@@ -1292,6 +1292,8 @@ type GenericJobTitle {
 
 type Department implements HasRoleAssignments {
   id: ID!
+  roleAssignments: [RoleAssignment!]
+  teamIdForRoleAssignment: ID
   departmentNumber: Int!
   name: LocalizedString!
   orgIdentifier: Int
