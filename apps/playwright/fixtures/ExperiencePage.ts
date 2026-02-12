@@ -469,6 +469,8 @@ class ExperiencePage extends AppPage {
           break;
 
         case EmploymentCategory.CanadianArmedForces:
+          input.govEmploymentType = undefined;
+          input.govPositionType = undefined;
           await this.addCafWorkExperience(input);
           break;
 

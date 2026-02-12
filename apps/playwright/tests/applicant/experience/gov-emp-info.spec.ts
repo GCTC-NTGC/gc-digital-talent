@@ -11,6 +11,8 @@ import { getDepartments } from "~/utils/departments";
 
 import {
   ArmedForcesStatus,
+  CafEmploymentType,
+  CafForce,
   CitizenshipStatus,
   EmploymentCategory,
   FlexibleWorkLocation,
@@ -117,7 +119,11 @@ test.describe("Government Employee Information section validation", () => {
         role: editRole,
         startDate: "2001-01",
         endDate: "2200-01",
+        govPositionType: undefined,
+        govEmploymentType: undefined,
         employmentCategory: EmploymentCategory.CanadianArmedForces,
+        cafEmploymentType: CafEmploymentType.RegularForce,
+        cafForce: CafForce.RoyalCanadianNavy,
       });
       await expect(experiencePage.page.getByRole("alert")).toContainText(
         /successfully updated experience/i,
