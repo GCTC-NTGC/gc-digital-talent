@@ -14,7 +14,7 @@ interface ApplicantExperience {
 
 export function isIncomplete(
   applicantExperiences: ApplicantExperience[] | null | undefined,
-  pool: Omit<Pool, "activities">,
+  pool: Omit<Pool, "activities" | "teamId">,
 ): boolean {
   const poolEssentialTechnicalSkills = filterSkillsByCategory(
     filterPoolSkillsByType(pool.poolSkills, PoolSkillType.Essential),

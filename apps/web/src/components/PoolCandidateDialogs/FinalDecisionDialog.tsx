@@ -24,8 +24,7 @@ export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
     status {
       value
       label {
-        en
-        fr
+        localized
       }
     }
     expiryDate

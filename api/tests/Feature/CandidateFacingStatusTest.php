@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\CandidateInterest;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateStatus;
-use App\Enums\PoolCandidateStatus;
+use App\Enums\DisqualificationReason;
+use App\Enums\PlacementType;
 use App\Enums\ScreeningStage;
 use App\Models\PoolCandidate;
 use App\Models\User;
@@ -52,7 +54,7 @@ class CandidateFacingStatusTest extends TestCase
 
         $this->candidate = PoolCandidate::factory()
             ->create([
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                'application_status' => ApplicationStatus::DRAFT->name,
                 'user_id' => $this->user->id,
             ]);
     }
@@ -100,31 +102,30 @@ class CandidateFacingStatusTest extends TestCase
         $future = '2050-01-01 00:00:00';
 
         $submitted = [
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             'submitted_at' => $past,
         ];
 
         $removed = [
             ...$submitted,
-            'removed_at' => $past,
-            'screening_stage' => null,
+            'application_status' => ApplicationStatus::REMOVED->name,
         ];
 
         return [
             // Draft
             'draft (no expiry date)' => [CandidateStatus::DRAFT->name, [
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                'application_status' => ApplicationStatus::DRAFT->name,
                 'expiry_date' => null,
             ]],
             'draft (expiry date future)' => [CandidateStatus::DRAFT, [
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                'application_status' => ApplicationStatus::DRAFT->name,
                 'expiry_date' => $future,
             ]],
             'draft (expiry date past)' => [CandidateStatus::EXPIRED->name, [
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                'application_status' => ApplicationStatus::DRAFT->name,
                 'expiry_date' => $past,
             ]],
-            'draft expired' => [CandidateStatus::EXPIRED->name, ['pool_candidate_status' => PoolCandidateStatus::DRAFT_EXPIRED->name]],
 
             // Submitted
             'screening stage (new application)' => [CandidateStatus::RECEIVED->name, [
@@ -146,11 +147,13 @@ class CandidateFacingStatusTest extends TestCase
 
             // Disqualified
             'disqualified (application)' => [CandidateStatus::UNSUCCESSFUL->name,  [
-                'pool_candidate_status' => PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                'application_status' => ApplicationStatus::DISQUALIFIED->name,
+                'disqualification_reason' => DisqualificationReason::SCREENED_OUT_APPLICATION->name,
                 'screening_stage' => null,
             ]],
             'disqualified (assessment)' => [CandidateStatus::UNSUCCESSFUL->name, [
-                'pool_candidate_status' => PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                'application_status' => ApplicationStatus::DISQUALIFIED->name,
+                'disqualification_reason' => DisqualificationReason::SCREENED_OUT_ASSESSMENT->name,
                 'screening_stage' => null,
             ]],
 
@@ -175,27 +178,33 @@ class CandidateFacingStatusTest extends TestCase
             // Qualified
             'qualified (not placed)' => [CandidateStatus::QUALIFIED->name, [
                 'placed_at' => null,
-                'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                'application_status' => ApplicationStatus::QUALIFIED->name,
+                'placement_type' => PlacementType::NOT_PLACED->name,
             ]],
             'qualified (under consideration)' => [CandidateStatus::QUALIFIED->name, [
                 'placed_at' => null,
-                'pool_candidate_status' => PoolCandidateStatus::UNDER_CONSIDERATION->name,
+                'application_status' => ApplicationStatus::QUALIFIED->name,
+                'placement_type' => PlacementType::UNDER_CONSIDERATION->name,
             ]],
             'placed (tentative)' => [CandidateStatus::QUALIFIED->name, [
                 'placed_at' => $past,
-                'pool_candidate_status' => PoolCandidateStatus::PLACED_TENTATIVE->name,
+                'application_status' => ApplicationStatus::QUALIFIED->name,
+                'placement_type' => PlacementType::PLACED_TENTATIVE->name,
             ]],
             'placed (casual)' => [CandidateStatus::QUALIFIED->name, [
                 'placed_at' => $past,
-                'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
+                'application_status' => ApplicationStatus::QUALIFIED->name,
+                'placement_type' => PlacementType::PLACED_CASUAL->name,
             ]],
             'placed (term)' => [CandidateStatus::QUALIFIED->name, [
                 'placed_at' => $past,
-                'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
+                'application_status' => ApplicationStatus::QUALIFIED->name,
+                'placement_type' => PlacementType::PLACED_TERM->name,
             ]],
             'placed (indeterminate)' => [CandidateStatus::QUALIFIED->name, [
                 'placed_at' => $past,
-                'pool_candidate_status' => PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                'application_status' => ApplicationStatus::QUALIFIED->name,
+                'placement_type' => PlacementType::PLACED_INDETERMINATE->name,
             ]],
 
         ];
@@ -209,8 +218,8 @@ class CandidateFacingStatusTest extends TestCase
             'submitted_at' => $past,
             'suspended_at' => null,
             'placed_at' => null,
-            'removed_at' => null,
             'expiry_date' => null,
+            'application_status' => ApplicationStatus::QUALIFIED->name,
         ];
 
         return [
@@ -229,25 +238,25 @@ class CandidateFacingStatusTest extends TestCase
             // Open to jobs
             'under consideration' => [CandidateInterest::OPEN_TO_JOBS->name, [
                 ...$default,
-                'pool_candidate_status' => PoolCandidateStatus::UNDER_CONSIDERATION->name,
+                'placement_type' => PlacementType::UNDER_CONSIDERATION->name,
             ]],
             'placed tentative' => [CandidateInterest::OPEN_TO_JOBS->name, [
                 ...$default,
-                'pool_candidate_status' => PoolCandidateStatus::PLACED_TENTATIVE->name,
+                'placement_type' => PlacementType::PLACED_TENTATIVE->name,
+            ]],
+            'placed casual' => [CandidateInterest::OPEN_TO_JOBS->name, [
+                ...$default,
+                'placement_type' => PlacementType::PLACED_CASUAL->name,
+            ]],
+            'placed term' => [CandidateInterest::OPEN_TO_JOBS->name, [
+                ...$default,
+                'placement_type' => PlacementType::PLACED_TERM->name,
             ]],
 
             // Hired
-            'placed casual' => [CandidateInterest::HIRED->name, [
-                ...$default,
-                'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
-            ]],
-            'placed term' => [CandidateInterest::HIRED->name, [
-                ...$default,
-                'pool_candidate_status' => PoolCandidateStatus::PLACED_TERM->name,
-            ]],
             'placed indeterminate' => [CandidateInterest::HIRED->name, [
                 ...$default,
-                'pool_candidate_status' => PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                'placement_type' => PlacementType::PLACED_INDETERMINATE->name,
             ]],
 
         ];

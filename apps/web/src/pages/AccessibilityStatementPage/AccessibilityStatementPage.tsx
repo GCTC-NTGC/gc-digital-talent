@@ -15,7 +15,7 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
-import heroImg from "~/assets/img/accessibility-statement-header.webp";
+import heroImg from "~/assets/img/diverse-group-of-people-grouped-around-laptop.webp";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 
 const digitalStandardsLink = (locale: Locales, chunks: ReactNode) => (

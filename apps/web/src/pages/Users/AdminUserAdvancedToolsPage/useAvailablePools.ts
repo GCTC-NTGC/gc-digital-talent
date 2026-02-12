@@ -38,7 +38,7 @@ const EditUserPage_AvailablePoolsQuery = graphql(/* GraphQL */ `
 `);
 
 interface UseAvailablePoolsReturn {
-  pools: Omit<Pool, "activities">[];
+  pools: Omit<Pool, "activities" | "teamId">[];
   total: number;
   fetching: boolean;
 }

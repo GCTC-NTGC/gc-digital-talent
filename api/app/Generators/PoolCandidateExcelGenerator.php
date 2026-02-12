@@ -2,6 +2,7 @@
 
 namespace App\Generators;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentDecisionLevel;
@@ -12,14 +13,12 @@ use App\Enums\CitizenshipStatus;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
-use App\Enums\FinalDecision;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
 use App\Enums\OverallAssessmentStatus;
-use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
@@ -183,7 +182,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                     $candidate->pool->name[$this->lang] ?? '', // Process name
                     $userHydrated->first_name, // First name
                     $userHydrated->last_name, // Last name
-                    $this->localizeEnum($candidate->pool_candidate_status, PoolCandidateStatus::class), // Status
+                    $this->localizeEnum($candidate->application_status, ApplicationStatus::class), // Status
                     $this->localizeEnum($userHydrated->priority, PriorityWeight::class),
                     $candidate->suspended_at ? Lang::get('common.not_interested', [], $this->lang) : Lang::get('common.open_to_job_offers', [], $this->lang),
                     $this->sanitizeString($candidate->notes ?? ''), // Notes
@@ -360,7 +359,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                     }
 
                     $decision = null;
-                    if (is_null($candidate->computed_final_decision) || $candidate->computed_final_decision === FinalDecision::TO_ASSESS->name) {
+                    if (is_null($candidate->application_status) || $candidate->application_status === ApplicationStatus::TO_ASSESS->name) {
                         if (! isset($candidate->computed_assessment_status['overallAssessmentStatus'])) {
                             $decision = Lang::get('final_decision.to_assess', [], $this->lang);
                         } else {
@@ -377,7 +376,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                             }
                         }
                     } else {
-                        $decision = $this->localizeEnum($candidate->computed_final_decision, FinalDecision::class);
+                        $decision = $this->localizeEnum($candidate->application_status, ApplicationStatus::class);
                     }
 
                     $this->finalDecisions[] = [
@@ -600,7 +599,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
             'notes' => 'whereNotesLike',
             'isGovEmployee' => 'whereIsGovEmployee',
             'departments' => 'whereDepartmentsIn',
-            'poolCandidateStatus' => 'whereStatusIn',
+            'statuses' => 'whereStatusIn',
             'priorityWeight' => 'whereCandidateCategoryIn',
             'expiryStatus' => 'whereExpiryStatus',
             'suspendedStatus' => 'whereSuspendedStatus',
@@ -610,7 +609,6 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
             'processNumber' => 'whereProcessNumber',
             'flexibleWorkLocations' => 'whereFlexibleWorkLocationsIn',
             'assessmentSteps' => 'whereAssessmentStepsIn',
-            'finalDecisions' => 'whereFinalDecisionsIn',
             'placementTypes' => 'wherePlacementTypeIn',
             'removalReason' => 'whereRemovalReasonIn',
 

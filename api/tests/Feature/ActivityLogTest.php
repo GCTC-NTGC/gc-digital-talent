@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\Enums\ActivityLog;
+use App\Enums\ApplicationStatus;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
-use App\Enums\PoolCandidateStatus;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\Pool;
@@ -147,7 +147,7 @@ class ActivityLogTest extends TestCase
 
         // assert values on pool candidate update event
         assertEquals($this->adminUser->id, $activityUpdatePoolCandidate->causer_id);
-        assertEquals(PoolCandidateStatus::DRAFT->name, $activityUpdatePoolCandidate->properties['attributes']['pool_candidate_status']);
+        assertEquals(ApplicationStatus::DRAFT->name, $activityUpdatePoolCandidate->properties['attributes']['application_status']);
     }
 
     // test activity log actions undertaken by a specific user

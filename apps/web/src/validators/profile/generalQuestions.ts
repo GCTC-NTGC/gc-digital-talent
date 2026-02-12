@@ -5,7 +5,7 @@ type PartialPoolCandidate = Pick<PoolCandidate, "generalQuestionResponses">;
 
 export function hasMissingResponses(
   poolCandidate: PartialPoolCandidate,
-  pool: Omit<Pool, "activities"> | null,
+  pool: Omit<Pool, "activities" | "teamId"> | null,
 ): boolean {
   const poolQuestionIds =
     pool?.generalQuestions

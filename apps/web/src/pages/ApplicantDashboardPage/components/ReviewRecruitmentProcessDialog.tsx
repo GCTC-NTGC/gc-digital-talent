@@ -53,7 +53,7 @@ const ReviewRecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment ReviewRecruitmentProcessDialog on PoolCandidate {
     id
     expiryDate
-    finalDecisionAt
+    statusUpdatedAt
     suspendedAt
     candidateInterest {
       value
@@ -293,9 +293,9 @@ const ReviewRecruitmentProcessDialog = ({
               {pool.department?.name.localized}
             </FieldDisplay>
             <FieldDisplay label={intl.formatMessage(commonMessages.qualified)}>
-              {recruitmentProcess.finalDecisionAt
+              {recruitmentProcess.statusUpdatedAt
                 ? formatDate({
-                    date: parseDateTimeUtc(recruitmentProcess.finalDecisionAt),
+                    date: parseDateTimeUtc(recruitmentProcess.statusUpdatedAt),
                     formatString: DATE_FORMAT_LOCALIZED,
                     intl,
                   })

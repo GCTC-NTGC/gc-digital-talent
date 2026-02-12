@@ -5,6 +5,7 @@ namespace App\Generators;
 use App\Enums\SkillLevel;
 use App\Enums\SupervisoryStatus;
 use App\Models\JobPosterTemplate;
+use App\Support\FilePath;
 use App\Traits\Generator\GeneratesDoc;
 use Illuminate\Support\Str;
 use PhpOffice\PhpWord\Element\Section;
@@ -15,10 +16,11 @@ class JobPosterTemplateGenerator extends DocGenerator implements FileGeneratorIn
 
     public function __construct(protected JobPosterTemplate $jobPoster, public ?string $dir, protected ?string $lang)
     {
+
         $fileName = sprintf(
             '%s - %s',
             __('filename.job_poster_template'),
-            $jobPoster->name[$lang]
+            FilePath::sanitize($jobPoster->name[$lang])
         );
 
         parent::__construct($fileName, $dir);
@@ -45,13 +47,15 @@ class JobPosterTemplateGenerator extends DocGenerator implements FileGeneratorIn
         $this->addLabelText($section, $this->localizeHeading('classification'), $this->jobPoster->classification->formattedGroupAndLevel);
         $this->addLabelText($section, $this->localizeHeading('work_stream'), $this->jobPoster->workStream->name[$this->lang]);
         $this->addLabelText($section, $this->localizeHeading('role_type'), $this->localizeEnum($this->jobPoster->supervisory_status, SupervisoryStatus::class));
-        $this->addLabelLink($section, $this->localizeHeading('work_description'),
-            [
-                'href' => $this->jobPoster->work_description[$this->lang],
-                'text' => $this->localize('job_poster_template.gcpedia_view'),
-            ],
-            $this->localize('job_poster_template.gcpedia_note')
-        );
+        if (! empty($this->jobPoster->work_description[$this->lang])) {
+            $this->addLabelLink($section, $this->localizeHeading('work_description'),
+                [
+                    'href' => $this->jobPoster->work_description[$this->lang],
+                    'text' => $this->localize('job_poster_template.gcpedia_view'),
+                ],
+                $this->localize('job_poster_template.gcpedia_note')
+            );
+        }
 
         $this->addLabelText($section, $this->localizeHeading('reference_id'), $this->jobPoster->reference_id);
 
