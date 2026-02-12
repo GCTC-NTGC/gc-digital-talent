@@ -4,6 +4,7 @@ import { DefaultValues, FieldValues, useForm } from "react-hook-form";
 
 import {
   Community,
+  Department,
   FragmentType,
   getFragment,
   graphql,
@@ -177,9 +178,18 @@ export type CommunityTeamable = Pick<
   "id" | "__typename" | "name" | "teamIdForRoleAssignment"
 >;
 
+export type DepartmentTeamable = Pick<
+  Department,
+  "id" | "__typename" | "teamIdForRoleAssignment"
+>;
+
 type TeamTeamable = Pick<Team, "id" | "__typename">;
 
-export type Teamable = PoolTeamable | CommunityTeamable | TeamTeamable;
+export type Teamable =
+  | PoolTeamable
+  | CommunityTeamable
+  | TeamTeamable
+  | DepartmentTeamable;
 
 export interface PoolAssignment {
   pool: PoolTeamable;
