@@ -64,9 +64,10 @@ class PoolCandidateFactory extends BaseFactory
                 // Note: Legacy fields
                 'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
             ];
-        })->afterCreating(function (PoolCandidate $candidate) {
+        })->afterCreating(function (PoolCandidate $candidate, ?array $attributes) {
             $user = $candidate->user;
             $pool = $candidate->pool;
+            $attributes = $attributes ?? [];
             $updates = [];
             //  TO DO: Do we complete the user profile?
 
@@ -111,10 +112,10 @@ class PoolCandidateFactory extends BaseFactory
             ]));
 
             // Verification
-            if ($user->armed_forces_status === ArmedForcesStatus::VETERAN->name) {
+            if (! array_key_exists('veteran_verification', $attributes) && $user->armed_forces_status === ArmedForcesStatus::VETERAN->name) {
                 $updates['veteran_verification'] = ClaimVerificationResult::UNVERIFIED->name;
             }
-            if ($user->has_priority_entitlement) {
+            if (! array_key_exists('priority_verification', $attributes) && $user->has_priority_entitlement) {
                 $updates['priority_verification'] = ClaimVerificationResult::UNVERIFIED->name;
             }
 
