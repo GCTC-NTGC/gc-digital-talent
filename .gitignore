@@ -12,3 +12,7 @@ __pycache__
 storybook-static
 
 coverage
+
+# Release risk assessment reports (generated on-demand)
+*risk-assessment-report.md
+sample-analysis-report.md
