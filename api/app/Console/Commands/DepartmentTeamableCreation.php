@@ -5,6 +5,12 @@ namespace App\Console\Commands;
 use App\Models\Department;
 use Illuminate\Console\Command;
 
+/**
+ * Create teamable records in the teams table for departments
+ * Only creates if a record does not already exist, can be re-run
+ * Can be run immediately
+ * To remove sometime (a few weeks maybe) after department team creation is testable in frontend
+ */
 class DepartmentTeamableCreation extends Command
 {
     /**
