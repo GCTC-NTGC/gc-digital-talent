@@ -11,6 +11,7 @@ use App\Enums\CandidateRemovalReason;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
+use App\Enums\EmploymentCategory;
 use App\Enums\FinalDecision;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
@@ -75,7 +76,11 @@ class PoolCandidateFactory extends BaseFactory
             $isEdu = $eduRequirement === EducationRequirementOption::EDUCATION->name;
             $exp = $isEdu
                 ? ($user->educationExperiences->first() ?? EducationExperience::factory()->for($user)->create())
-                : ($user->workExperiences->first() ?? WorkExperience::factory()->for($user)->create());
+            : ($user->workExperiences->first() ?? WorkExperience::factory()->for($user)->create([
+                'employment_category' => $user->computed_is_gov_employee
+                    ? EmploymentCategory::GOVERNMENT_OF_CANADA->name
+                    : EmploymentCategory::EXTERNAL_ORGANIZATION->name,
+            ]));
 
             $relation = $isEdu ? 'educationRequirementEducationExperiences' : 'educationRequirementWorkExperiences';
             $candidate->$relation()->sync([$exp->id]);
