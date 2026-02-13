@@ -27,6 +27,7 @@ import AccountSettings from "~/fixtures/AccountSettings";
 import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
 
 test.describe("Notifications", () => {
+  test.setTimeout(90_000); // This test takes long in webkit
   let uniqueTestId: string;
   let sub: string;
   let technicalSkill: Skill | undefined;
