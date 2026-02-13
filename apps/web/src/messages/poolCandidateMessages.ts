@@ -64,7 +64,7 @@ const messages = defineMessages({
       "Message displayed when candidate has successfully passed an assessment step",
   },
   screenedIn: {
-    defaultMessage: "Screened in",
+    defaultMessage: "Application retained",
     id: "3W/NbE",
     description:
       "Message displayed when candidate has been screened in at a specific assessment step",
