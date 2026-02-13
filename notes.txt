@@ -1,0 +1,4 @@
+move nginx files out of individual folders
+switch from sites-available/enabled to conf.d https://serverfault.com/questions/527630/difference-in-sites-available-vs-sites-enabled-vs-conf-d-directories-nginx
+duplicate deploy file instead of local file
+move shared code to a conf file?

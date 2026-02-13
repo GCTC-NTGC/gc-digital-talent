@@ -1,0 +1,32 @@
+# Swap in this config to take the site offline
+error_log /var/log/nginx/error.log notice;
+
+server {
+    listen 8080;
+    listen [::]:8080;
+    server_name localhost;
+    gzip_static on;
+    absolute_redirect off;
+
+    location = /graphql {
+        add_header Cache-Control "no-cache, max-age=0";
+        add_header Content-Type "application/json";
+        return 200 "{\"errors\":[{\"message\":\"The server is offline\"}]}";
+    }
+
+    location = /admin/graphql {
+        add_header Cache-Control "no-cache, max-age=0";
+        add_header Content-Type "application/json";
+        return 200 "{\"errors\":[{\"message\":\"The server is offline\"}]}";
+    }
+
+    location = /offline.html {
+        alias /home/site/wwwroot/apps/web/dist/client/offline.html;
+    }
+
+    # for all other uris, serve offline page
+    location / {
+        add_header Cache-Control "no-cache, max-age=0";
+        return 307 /offline.html;
+    }
+}
