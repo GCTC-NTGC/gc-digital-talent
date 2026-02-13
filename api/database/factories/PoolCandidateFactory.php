@@ -181,7 +181,7 @@ class PoolCandidateFactory extends BaseFactory
             return [
                 'placement_type' => $type,
                 'placed_at' => $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', $atts['expiry_date'] ?? 'now'),
-                'placement_department_id' => $dept,
+                'placed_department_id' => $dept,
                 'screening_stage' => null,
                 'assessment_step_id' => null,
                 // NOTE: Legacy fields
@@ -195,7 +195,7 @@ class PoolCandidateFactory extends BaseFactory
     public function removed(?CandidateRemovalReason $reason = null, ?string $otherReason = null): self
     {
         $reason = $reason?->name ?? $this->randomEnum(CandidateRemovalReason::class);
-        $otherReason = $otherReason ?? $this->faker->words();
+        $otherReason = $otherReason ?? $this->faker->sentence();
         if ($reason !== CandidateRemovalReason::OTHER->name) {
             $otherReason = null;
         }
