@@ -84,6 +84,7 @@ return [
         'community' => 'community',
         'poolTeamMembers' => 'poolTeamMembers',
         'communityTeamMembers' => 'communityTeamMembers',
+        'departmentTeamMembers' => 'departmentTeamMembers',
         'talentNominationEvent' => 'talentNominationEvent',
         'talentNomination' => 'talentNomination',
         'talentNominationGroup' => 'talentNominationGroup',
@@ -638,6 +639,14 @@ return [
         'view-team-communityTeamMembers' => [
             'en' => 'View the members of this community',
             'fr' => 'Voir les membres de cette communauté',
+        ],
+        'view-any-departmentTeamMembers' => [
+            'en' => 'View the members of any department',
+            'fr' => 'Afficher les membres d\'un département',
+        ],
+        'view-team-departmentTeamMembers' => [
+            'en' => 'View the members of this department',
+            'fr' => 'Voir les membres de ce département',
         ],
 
         'create-any-trainingOpportunity' => [
@@ -1237,6 +1246,9 @@ return [
             'poolTeamMembers' => [
                 'any' => ['view'],
             ],
+            'departmentTeamMembers' => [
+                'any' => ['view'],
+            ],
             'trainingOpportunity' => [
                 'any' => ['create'],
             ],
@@ -1288,11 +1300,17 @@ return [
             'departmentHRAdvisorMembership' => [
                 'team' => ['update'],
             ],
+            'departmentTeamMembers' => [
+                'team' => ['view'],
+            ],
         ],
 
         'department_hr_advisor' => [
             'processOperatorMembership' => [
                 'team' => ['update'],
+            ],
+            'departmentTeamMembers' => [
+                'team' => ['view'],
             ],
         ],
     ],

@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -98,8 +99,8 @@ class DepartmentPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewTeamMembers(User $user)
+    public function viewTeamMembers(User $user, Department $department)
     {
-        return false;
+        return $user->isAbleTo('view-any-departmentTeamMembers') || $user->isAbleTo('view-team-departmentTeamMembers', $department->team);
     }
 }

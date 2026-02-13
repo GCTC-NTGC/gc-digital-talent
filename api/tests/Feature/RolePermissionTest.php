@@ -192,6 +192,7 @@ class RolePermissionTest extends TestCase
             'update-any-departmentHRAdvisorMembership',
             'view-any-communityTeamMembers',
             'view-any-poolTeamMembers',
+            'view-any-departmentTeamMembers',
             'view-any-role',
             'view-any-jobPosterTemplate',
             'create-any-jobPosterTemplate',
@@ -446,6 +447,7 @@ class RolePermissionTest extends TestCase
         $permissionsToCheck = [
             'update-team-processOperatorMembership',
             'update-team-departmentHRAdvisorMembership',
+            'view-team-departmentTeamMembers',
         ];
 
         $allPermissions = Permission::all()->pluck('name')->toArray();
@@ -479,6 +481,7 @@ class RolePermissionTest extends TestCase
 
         $permissionsToCheck = [
             'update-team-processOperatorMembership',
+            'view-team-departmentTeamMembers',
         ];
 
         $allPermissions = Permission::all()->pluck('name')->toArray();
