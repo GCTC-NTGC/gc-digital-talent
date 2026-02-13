@@ -805,8 +805,12 @@ type GenericJobTitle {
   classification: Classification @belongsTo
 }
 
-type Department {
+type Department implements HasRoleAssignments {
   id: ID!
+  roleAssignments: [RoleAssignment!]
+    @hasManyThrough
+    @canRoot(ability: "viewTeamMembers")
+  teamIdForRoleAssignment: ID @with(relation: "team")
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
   orgIdentifier: Int @rename(attribute: "org_identifier")
