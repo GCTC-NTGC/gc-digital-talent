@@ -135,7 +135,7 @@ const ReinstateCandidateDialog = ({
             {intl.formatMessage({
               defaultMessage:
                 'Do you wish to revert this decision and set the candidate status to "Advanced to assessment"?',
-              id: "Wo+T62",
+              id: "pbdwLS",
               description: "Confirmation text for reinstating a candidate",
             })}
           </p>
