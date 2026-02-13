@@ -45,26 +45,25 @@ class PoolCandidateFactory extends BaseFactory
     {
 
         return [
-            'user_id' => User::factory(),
-            'pool_id' => Pool::factory()->published(),
+            'user_id' => fn () => User::factory(),
+            'pool_id' => fn () => Pool::factory()->published(),
             'application_status' => ApplicationStatus::DRAFT->name,
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ];
     }
 
-    public function submitted(): self
+    /**
+     * A completed application that has yet to be submitted
+     */
+    public function completed(): self
     {
-        return $this->state(function () {
-            return [
-                'application_status' => ApplicationStatus::TO_ASSESS->name,
-                'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
-                'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
-                'signature' => $this->faker->name,
-                'submitted_at' => $this->faker->dateTimeBetween('-3 months', 'now'),
-                // Note: Legacy fields
-                'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
-            ];
-        })->afterCreating(function (PoolCandidate $candidate) {
+        $steps = collect(ApplicationStep::cases())
+            ->filter(fn ($step) => $step !== ApplicationStep::REVIEW_AND_SUBMIT)
+            ->map(fn ($step) => $step->name)
+            ->values()
+            ->toArray();
+
+        return $this->state(fn () => ['submitted_steps' => $steps])->afterCreating(function (PoolCandidate $candidate) {
             $user = $candidate->user;
             $pool = $candidate->pool;
             $updates = [];
@@ -122,6 +121,19 @@ class PoolCandidateFactory extends BaseFactory
             }
             $candidate->setApplicationSnapshot();
         });
+    }
+
+    public function submitted(): self
+    {
+        return $this->completed()->state([
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
+            'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
+            'signature' => $this->faker->name,
+            'submitted_at' => $this->faker->dateTimeBetween('-3 months', 'now'),
+            // Note: Legacy fields
+            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+        ]);
     }
 
     public function screening(?ScreeningStage $stage = null): self
