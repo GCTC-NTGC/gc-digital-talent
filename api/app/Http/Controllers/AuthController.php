@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\BearerTokenService;
 use App\Models\Role;
 use App\Models\User;
-use App\Services\OpenIdBearerTokenService;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
@@ -20,7 +20,7 @@ class AuthController extends Controller
 {
     protected $fastSigner;
 
-    public function __construct(OpenIdBearerTokenService $service)
+    public function __construct(BearerTokenService $service)
     {
         // inject signer method from service file
         $this->fastSigner = $service->fastSigner();
@@ -62,7 +62,8 @@ class AuthController extends Controller
             'state' => $state,
             'nonce' => $nonce,
             'acr_values' => config('oauth.acr_values'),
-            'ui_locales' => $ui_locales,
+            'ui_locales' => $ui_locales, // This is what SIC wants
+            'lang' => $ui_locales,  // This is what GCSI wants
         ]);
 
         return redirect(config('oauth.authorize_uri').'?'.$query);
@@ -88,6 +89,7 @@ class AuthController extends Controller
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
         ]);
+        assert($response instanceof \Illuminate\Http\Client\Response);
         if ($response->failed()) {
             Log::error('Failed when POSTing to the token URI in authCallback');
             Log::debug((string) $response->getBody());
@@ -171,6 +173,7 @@ class AuthController extends Controller
                 'client_secret' => config('oauth.client_secret'),
                 'refresh_token' => $refreshToken,
             ]);
+        assert($response instanceof \Illuminate\Http\Client\Response);
         if ($response->failed()) {
             $errorCode = $response->json('error');
             $isNormalErrorCode = $errorCode == 'invalid_grant';
