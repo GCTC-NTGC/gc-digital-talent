@@ -6,9 +6,12 @@ use App\Enums\ApplicationStatus;
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentResultType;
+use App\Enums\AssessmentStepType;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\ClaimVerificationResult;
+use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
+use App\Enums\FinalDecision;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\ScreeningStage;
@@ -16,6 +19,7 @@ use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
+use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -53,11 +57,12 @@ class PoolCandidateFactory extends BaseFactory
         return $this->state(function () {
             return [
                 'application_status' => ApplicationStatus::TO_ASSESS->name,
-                'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
                 'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
                 'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
                 'signature' => $this->faker->name,
                 'submitted_at' => $this->faker->dateTimeBetween('-3 months', 'now'),
+                // Note: Legacy fields
+                'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
             ];
         })->afterCreating(function (PoolCandidate $candidate) {
             $user = $candidate->user;
@@ -76,6 +81,9 @@ class PoolCandidateFactory extends BaseFactory
                 $exp = $user->workExperiences->first() ?? WorkExperience::factory()->for($candidate->user)->create();
                 $candidate->educationRequirementWorkExperiences()->sync([$exp->id]);
             }
+
+            // Refresh to avoid stale relationships
+            $user->load(['communityExperiences', 'educationExperiences', 'personalExperiences', 'workExperiences']);
 
             // Skill requirements
             $pool->essentialSkills->each(function ($skill) use ($user) {
@@ -117,6 +125,94 @@ class PoolCandidateFactory extends BaseFactory
         });
     }
 
+    public function screening(?ScreeningStage $stage = null): self
+    {
+        $stage = $stage?->name ?? $this->randomEnum(ScreeningStage::class);
+
+        return $this->submitted()->state(fn () => [
+            'screening_stage' => $stage,
+        ])->afterCreating(function (PoolCandidate $candidate) {
+            if ($candidate->screening_stage === ScreeningStage::UNDER_ASSESSMENT->name) {
+                $stepId = $candidate->pool->assessmentSteps()->inRandomOrder()->whereNotIn('type', [
+                    AssessmentStepType::APPLICATION_SCREENING->name,
+                    AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
+                ])->first()->id ?? null;
+                $candidate->assessment_step_id = $stepId;
+            }
+        });
+    }
+
+    public function disqualified(?DisqualificationReason $reason = null): self
+    {
+        $reason = $reason?->name ?? $this->randomEnum(DisqualificationReason::class);
+
+        return $this->submitted()->state(fn () => [
+            'application_status' => ApplicationStatus::DISQUALIFIED->name,
+            'disqualification_reason' => $reason,
+            'screening_stage' => null,
+            'assessment_step_id' => null,
+            // NOTE: Legacy fields
+            'pool_candidate_status' => $reason,
+            'computed_final_decision' => FinalDecision::DISQUALIFIED->name,
+            'computed_final_decision_weight' => 210,
+        ]);
+    }
+
+    public function qualified(): self
+    {
+        return $this->submitted()->state([
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'screening_stage' => null,
+            'assessment_step_id' => null,
+            'expiry_date' => $this->faker->dateTimeBetween('+3 months', '+3 years'),
+            // NOTE: Legacy fields
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'computed_final_decision' => FinalDecision::QUALIFIED->name,
+            'computed_final_decision_weight' => 10,
+        ]);
+    }
+
+    public function placed(?PlacementType $placementType = null, ?string $deptId = null): self
+    {
+        return $this->qualified()->state(function (array $atts) use ($deptId, $placementType) {
+            $type = $placementType?->name ?? $this->randomEnum(PlacementType::class);
+            $dept = $deptId ?? $this->firstOrCreate(Department::class)->id;
+
+            return [
+                'placement_type' => $type,
+                'placed_at' => $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', $atts['expiry_date'] ?? 'now'),
+                'placement_department_id' => $dept,
+                'screening_stage' => null,
+                'assessment_step_id' => null,
+                // NOTE: Legacy fields
+                'pool_candidate_status' => $type,
+                'computed_final_decision' => FinalDecision::QUALIFIED_PLACED->name,
+                'computed_final_decision_weight' => 30,
+            ];
+        });
+    }
+
+    public function removed(?CandidateRemovalReason $reason = null, ?string $otherReason = null): self
+    {
+        $reason = $reason?->name ?? $this->randomEnum(CandidateRemovalReason::class);
+        $otherReason = $otherReason ?? $this->faker->words();
+        if ($reason !== CandidateRemovalReason::OTHER->name) {
+            $otherReason = null;
+        }
+
+        return $this->submitted()->state(fn () => [
+            'application_status' => ApplicationStatus::REMOVED->name,
+            'removal_reason' => $reason,
+            'removal_reason_other' => $otherReason,
+            'screening_stage' => null,
+            'assessment_step_id' => null,
+            // NOTE: Legacy fields
+            'pool_candidate_status' => PoolCandidateStatus::REMOVED->name,
+            'computed_final_decision' => FinalDecision::REMOVED->name,
+            'computed_final_decision_weight' => 240,
+        ]);
+    }
+
     /**
      * Pool Candidates are available in search if they are not expired, not suspended, and have the AVAILABLE status.
      *
@@ -124,15 +220,10 @@ class PoolCandidateFactory extends BaseFactory
      */
     public function availableInSearch()
     {
-        return $this->state(function () {
-            return [
-                'application_status' => ApplicationStatus::QUALIFIED->name,
-                'placement_type' => $this->faker->randomElement(PlacementType::searchable()),
-                'referring' => true,
-                'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
-                'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
-            ];
-        });
+        return $this->placed($this->faker->randomElement(PlacementType::searchable()))->state(fn () => [
+            'referring' => true,
+            'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
+        ]);
     }
 
     /**
@@ -142,16 +233,10 @@ class PoolCandidateFactory extends BaseFactory
      */
     public function suspended()
     {
-        return $this->state(function () {
-            return [
-                'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                'application_status' => ApplicationStatus::REMOVED->name,
-                'removal_reason' => CandidateRemovalReason::REQUESTED_TO_BE_WITHDRAWN->name,
-                'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
-                'suspended_at' => $this->faker->dateTimeBetween('-3 months', '-1 minute'),
-                'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
-            ];
-        });
+        return $this->removed(CandidateRemovalReason::REQUESTED_TO_BE_WITHDRAWN)->state(fn () => [
+            'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
+            'suspended_at' => $this->faker->dateTimeBetween('-3 months', '-1 minute'),
+        ]);
     }
 
     /** Add assessment results to the pool candidate
