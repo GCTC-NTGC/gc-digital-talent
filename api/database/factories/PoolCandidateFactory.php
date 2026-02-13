@@ -171,6 +171,13 @@ class PoolCandidateFactory extends BaseFactory
         ]);
     }
 
+    public function expired(): self
+    {
+        return $this->qualified()->state([
+            'expiry_date' => $this->faker->dateTimeBetween('-3 months', '-1 day'),
+        ]);
+    }
+
     public function placed(?PlacementType $placementType = null, ?string $deptId = null): self
     {
         return $this->qualified()->state(function (array $atts) use ($deptId, $placementType) {
@@ -219,7 +226,10 @@ class PoolCandidateFactory extends BaseFactory
      */
     public function availableInSearch()
     {
-        return $this->placed($this->faker->randomElement(PlacementType::searchable()))->state(fn () => [
+        $name = $this->faker->randomElement(PlacementType::searchable());
+        $type = constant(PlacementType::class.'::'.$name);
+
+        return $this->placed($type)->state(fn () => [
             'referring' => true,
             'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
         ]);
