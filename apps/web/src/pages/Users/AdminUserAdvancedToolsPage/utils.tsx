@@ -230,3 +230,12 @@ export const isPoolTeamable = (
   }
   return false;
 };
+
+export const isDepartmentTeamable = (
+  teamable: Teamable | undefined | null,
+): teamable is DepartmentTeamable => {
+  if (teamable?.__typename === "Department") {
+    return true;
+  }
+  return false;
+};
