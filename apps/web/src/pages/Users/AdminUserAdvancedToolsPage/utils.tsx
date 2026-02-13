@@ -48,6 +48,12 @@ export const UserRoleTable_Fragment = graphql(/** GraphQL */ `
             }
             teamIdForRoleAssignment
           }
+          ... on Department {
+            departmentName: name {
+              localized
+            }
+            teamIdForRoleAssignment
+          }
         }
       }
     }
@@ -180,7 +186,14 @@ export type CommunityTeamable = Pick<
 
 export type DepartmentTeamable = Pick<
   Department,
-  "id" | "__typename" | "teamIdForRoleAssignment"
+  | "id"
+  | "__typename"
+  | ("teamIdForRoleAssignment" & {
+      departmentName: {
+        __typename?: "LocalizedString" | undefined;
+        localized?: string | null | undefined;
+      };
+    })
 >;
 
 type TeamTeamable = Pick<Team, "id" | "__typename">;
