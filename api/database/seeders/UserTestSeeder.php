@@ -25,7 +25,7 @@ class UserTestSeeder extends Seeder
         $testCommunityId = Community::select('id')->where('key', 'test-community')->sole()->id;
         $financeCommunityId = Community::select('id')->where('key', 'finance')->sole()->id;
 
-        $departmentId = Department::select('id')->first()->id;
+        $departmentId = Department::select('id')->where('department_number', 56)->sole()->id;
 
         // shared auth users for testing
         User::factory()
