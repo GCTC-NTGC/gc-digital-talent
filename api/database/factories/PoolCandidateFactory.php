@@ -64,24 +64,22 @@ class PoolCandidateFactory extends BaseFactory
                 // Note: Legacy fields
                 'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
             ];
-        })->afterCreating(function (PoolCandidate $candidate, ?array $attributes) {
+        })->afterCreating(function (PoolCandidate $candidate) {
             $user = $candidate->user;
             $pool = $candidate->pool;
-            $attributes = $attributes ?? [];
             $updates = [];
             //  TO DO: Do we complete the user profile?
 
             // Education requirement
             $eduRequirement = $this->faker->randomElement(EducationRequirementOption::classificationRequirements($pool->classification->group));
             $updates['education_requirement_option'] = $eduRequirement;
-            if ($eduRequirement === EducationRequirementOption::EDUCATION->name) {
-                $eduExp = $user->educationExperiences->first() ??
-                    EducationExperience::factory()->for($candidate->user)->create();
-                $candidate->educationRequirementEducationExperiences()->sync([$eduExp->id]);
-            } else {
-                $exp = $user->workExperiences->first() ?? WorkExperience::factory()->for($candidate->user)->create();
-                $candidate->educationRequirementWorkExperiences()->sync([$exp->id]);
-            }
+            $isEdu = $eduRequirement === EducationRequirementOption::EDUCATION->name;
+            $exp = $isEdu
+                ? ($user->educationExperiences->first() ?? EducationExperience::factory()->for($user)->create())
+                : ($user->workExperiences->first() ?? WorkExperience::factory()->for($user)->create());
+
+            $relation = $isEdu ? 'educationRequirementEducationExperiences' : 'educationRequirementWorkExperiences';
+            $candidate->$relation()->sync([$exp->id]);
 
             // Refresh to avoid stale relationships
             $user->load(['communityExperiences', 'educationExperiences', 'personalExperiences', 'workExperiences']);
@@ -104,23 +102,23 @@ class PoolCandidateFactory extends BaseFactory
             });
 
             // Answer all questions
-            $pool->generalQuestions->each(fn ($q) => $candidate->generalQuestionResponses()->create([
-                'general_question_id' => $q->id, 'answer' => $this->faker->paragraph(),
-            ]));
-            $pool->screeningQuestions->each(fn ($q) => $candidate->screeningQuestionResponses()->create([
-                'screening_question_id' => $q->id, 'answer' => $this->faker->paragraph(),
-            ]));
+            $candidate->generalQuestionResponses()->createMany(
+                $pool->generalQuestions->map(fn ($q) => ['general_question_id' => $q->id, 'answer' => $this->faker->paragraph()])->toArray()
+            );
+            $candidate->screeningQuestionResponses()->createMany(
+                $pool->screeningQuestions->map(fn ($q) => ['screening_question_id' => $q->id, 'answer' => $this->faker->paragraph()])->toArray()
+            );
 
             // Verification
-            if (! array_key_exists('veteran_verification', $attributes) && $user->armed_forces_status === ArmedForcesStatus::VETERAN->name) {
+            if ($candidate->veteran_verification === null && $user->armed_forces_status === ArmedForcesStatus::VETERAN->name) {
                 $updates['veteran_verification'] = ClaimVerificationResult::UNVERIFIED->name;
             }
-            if (! array_key_exists('priority_verification', $attributes) && $user->has_priority_entitlement) {
+            if ($candidate->priority_verification == null && $user->has_priority_entitlement) {
                 $updates['priority_verification'] = ClaimVerificationResult::UNVERIFIED->name;
             }
 
             if (! empty($updates)) {
-                $candidate->update($updates);
+                $candidate->fill($updates);
             }
             $candidate->setApplicationSnapshot();
         });
