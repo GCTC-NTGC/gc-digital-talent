@@ -183,11 +183,11 @@ const title = tv({
   variants: {
     small: {
       true: {
-        icon: "h-6 w-6",
+        icon: "h-auto w-6",
         heading: "mb-px text-sm/6",
       },
       false: {
-        icon: "h-6 w-6",
+        icon: "h-auto w-6",
         heading: "mb-0.5",
       },
     },
