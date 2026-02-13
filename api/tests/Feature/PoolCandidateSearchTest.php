@@ -897,6 +897,7 @@ class PoolCandidateSearchTest extends TestCase
             ]);
 
         $expectedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
             ->create([
                 'pool_id' => $this->pool->id,
                 'placement_type' => PlacementType::UNDER_CONSIDERATION->name,
