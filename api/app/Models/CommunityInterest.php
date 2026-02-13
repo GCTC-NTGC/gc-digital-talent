@@ -200,6 +200,19 @@ class CommunityInterest extends Model
         return $query;
     }
 
+    public static function scopeClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+
+        $query->whereHas('user', function ($userQuery) use ($classifications) {
+            $userQuery->whereClassificationIn($classifications);
+        });
+
+        return $query;
+    }
+
     public function scopePoolFilters(Builder $query, ?array $poolFilters): Builder
     {
         if (empty($poolFilters)) {
