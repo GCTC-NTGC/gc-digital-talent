@@ -96,12 +96,12 @@ jobs:
           # Determine version bump based on commit messages
           BUMP_TYPE="patch"
 
-          # Check for breaking changes
+          # Check for breaking changes (can appear anywhere in message)
           if echo "$COMMITS" | grep -qi "BREAKING CHANGE"; then
             BUMP_TYPE="major"
             echo "Found BREAKING CHANGE - bumping MAJOR version"
-          # Check for features
-          elif echo "$COMMITS" | grep -qiE "^(feat:|feature:)"; then
+          # Check for features (must be at start of commit message)
+          elif echo "$COMMITS" | grep -qiE "^feat:|^feature:"; then
             BUMP_TYPE="minor"
             echo "Found feature commits - bumping MINOR version"
           else
@@ -176,7 +176,7 @@ jobs:
 
           echo "## ✨ Features" >> $NOTES_FILE
           echo "$COMMITS" | \
-            grep -iE "^[^|]*\|\|\|(feat:|feature:)" | \
+            grep -iE "\|\|\|(feat:|feature:)" | \
             while IFS='|||' read -r hash subject author; do
               echo "- $subject (@$author) - ${hash:0:7}" >> $NOTES_FILE
             done || echo "_None_" >> $NOTES_FILE
@@ -184,7 +184,7 @@ jobs:
 
           echo "## 🐛 Bug Fixes" >> $NOTES_FILE
           echo "$COMMITS" | \
-            grep -iE "^[^|]*\|\|\|(fix:|bugfix:)" | \
+            grep -iE "\|\|\|(fix:|bugfix:)" | \
             while IFS='|||' read -r hash subject author; do
               echo "- $subject (@$author) - ${hash:0:7}" >> $NOTES_FILE
             done || echo "_None_" >> $NOTES_FILE
@@ -192,7 +192,7 @@ jobs:
 
           echo "## 📚 Documentation" >> $NOTES_FILE
           echo "$COMMITS" | \
-            grep -iE "^[^|]*\|\|\|(docs?:|documentation:)" | \
+            grep -iE "\|\|\|(docs?:|documentation:)" | \
             while IFS='|||' read -r hash subject author; do
               echo "- $subject (@$author) - ${hash:0:7}" >> $NOTES_FILE
             done || echo "_None_" >> $NOTES_FILE
@@ -200,7 +200,7 @@ jobs:
 
           echo "## 🔧 Maintenance" >> $NOTES_FILE
           echo "$COMMITS" | \
-            grep -iE "^[^|]*\|\|\|(chore:|refactor:|style:|test:)" | \
+            grep -iE "\|\|\|(chore:|refactor:|style:|test:)" | \
             while IFS='|||' read -r hash subject author; do
               echo "- $subject (@$author) - ${hash:0:7}" >> $NOTES_FILE
             done || echo "_None_" >> $NOTES_FILE
@@ -209,7 +209,7 @@ jobs:
           echo "## 📝 Other Changes" >> $NOTES_FILE
           # Get commits that don't match any of the above categories
           EXCLUDE_PATTERN="(BREAKING CHANGE"
-          EXCLUDE_PATTERN="${EXCLUDE_PATTERN}|^[^|]*\|\|\|(feat:|feature:"
+          EXCLUDE_PATTERN="${EXCLUDE_PATTERN}|\|\|\|(feat:|feature:"
           EXCLUDE_PATTERN="${EXCLUDE_PATTERN}|fix:|bugfix:|docs?:"
           EXCLUDE_PATTERN="${EXCLUDE_PATTERN}|documentation:|chore:"
           EXCLUDE_PATTERN="${EXCLUDE_PATTERN}|refactor:|style:|test:))"
