@@ -186,15 +186,13 @@ export type CommunityTeamable = Pick<
 
 export type DepartmentTeamable = Pick<
   Department,
-  | "id"
-  | "__typename"
-  | ("teamIdForRoleAssignment" & {
-      departmentName: {
-        __typename?: "LocalizedString" | undefined;
-        localized?: string | null | undefined;
-      };
-    })
->;
+  "id" | "__typename" | "teamIdForRoleAssignment"
+> & {
+  departmentName: {
+    __typename?: "LocalizedString" | undefined;
+    localized?: string | null | undefined;
+  };
+};
 
 type TeamTeamable = Pick<Team, "id" | "__typename">;
 
@@ -210,6 +208,11 @@ export interface PoolAssignment {
 }
 export interface CommunityAssignment {
   community: CommunityTeamable;
+  roles: Role[];
+}
+
+export interface DepartmentAssignment {
+  department: DepartmentTeamable;
   roles: Role[];
 }
 
