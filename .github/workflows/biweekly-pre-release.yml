@@ -1,0 +1,241 @@
+name: Biweekly Pre-Release
+
+on:
+  # Run every Friday at 7:00 PM America/New_York
+  # During EST (Nov-Mar): 7:00 PM EST = 00:00 UTC (next day)
+  # During EDT (Mar-Nov): 7:00 PM EDT = 23:00 UTC (same day)
+  # Using 00:00 UTC on Saturday to handle EST correctly
+  # Note: This means it runs at midnight UTC Saturday,
+  # which is 7 PM Friday ET during EST
+  schedule:
+    - cron: '0 0 * * 6'  # 00:00 UTC Saturday = 7 PM Fri EST
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+# Only run on main branch
+permissions:
+  contents: write
+
+jobs:
+  create-pre-release:
+    # Only run on main branch
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tag analysis
+
+      - name: Check biweekly schedule
+        id: check-schedule
+        run: |
+          # Biweekly schedule starting from February 13, 2026
+          START_DATE="2026-02-13"
+          CURRENT_DATE=$(date -u +%Y-%m-%d)
+
+          # Calculate days since start date
+          START_EPOCH=$(date -d "$START_DATE" +%s)
+          CURRENT_EPOCH=$(date -d "$CURRENT_DATE" +%s)
+          DAYS_DIFF=$(( ($CURRENT_EPOCH - $START_EPOCH) / 86400 ))
+
+          echo "Days since start: $DAYS_DIFF"
+
+          # Check if it's a biweekly schedule (every 14 days)
+          if [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+            if [ $(($DAYS_DIFF % 14)) -ne 0 ]; then
+              echo "Not a biweekly release day. Skipping."
+              echo "should_run=false" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+          fi
+
+          echo "should_run=true" >> $GITHUB_OUTPUT
+
+      - name: Get latest tag
+        id: get-latest-tag
+        if: steps.check-schedule.outputs.should_run == 'true'
+        run: |
+          # Get the latest tag matching v*
+          LATEST_TAG=$(git tag -l "v*" --sort=-v:refname | head -n 1)
+
+          if [ -z "$LATEST_TAG" ]; then
+            echo "No existing tags found. Starting at v1.0.0"
+            echo "latest_tag=" >> $GITHUB_OUTPUT
+            echo "version=1.0.0" >> $GITHUB_OUTPUT
+          else
+            echo "Latest tag: $LATEST_TAG"
+            echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+            # Extract version without 'v' prefix and any pre-release suffix
+            VERSION=$(echo "$LATEST_TAG" | sed 's/^v//' | sed 's/-pre\..*//')
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Analyze commits and determine version bump
+        id: version-bump
+        if: steps.check-schedule.outputs.should_run == 'true'
+        run: |
+          LATEST_TAG="${{ steps.get-latest-tag.outputs.latest_tag }}"
+          CURRENT_VERSION="${{ steps.get-latest-tag.outputs.version }}"
+
+          # Get commits since last tag, or all commits if no tag exists
+          if [ -z "$LATEST_TAG" ]; then
+            COMMITS=$(git log --pretty=format:"%s" main)
+          else
+            COMMITS=$(git log --pretty=format:"%s" ${LATEST_TAG}..main)
+          fi
+
+          echo "Analyzing commits..."
+          echo "$COMMITS"
+
+          # Parse current version
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
+
+          # Determine version bump based on commit messages
+          BUMP_TYPE="patch"
+
+          # Check for breaking changes
+          if echo "$COMMITS" | grep -qi "BREAKING CHANGE"; then
+            BUMP_TYPE="major"
+            echo "Found BREAKING CHANGE - bumping MAJOR version"
+          # Check for features
+          elif echo "$COMMITS" | grep -qiE "^(feat:|feature:)"; then
+            BUMP_TYPE="minor"
+            echo "Found feature commits - bumping MINOR version"
+          else
+            echo "No breaking changes or features - bumping PATCH version"
+          fi
+
+          # Apply version bump
+          if [ "$BUMP_TYPE" = "major" ]; then
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+          elif [ "$BUMP_TYPE" = "minor" ]; then
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            PATCH=$((PATCH + 1))
+          fi
+
+          NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          echo "New version: $NEW_VERSION"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+
+      - name: Create pre-release tag
+        id: create-tag
+        if: steps.check-schedule.outputs.should_run == 'true'
+        run: |
+          NEW_VERSION="${{ steps.version-bump.outputs.new_version }}"
+          TIMESTAMP=$(date -u +%Y%m%d%H%M%S)
+          PRE_RELEASE_TAG="v${NEW_VERSION}-pre.${TIMESTAMP}"
+
+          echo "Creating pre-release tag: $PRE_RELEASE_TAG"
+          echo "tag=$PRE_RELEASE_TAG" >> $GITHUB_OUTPUT
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "$PRE_RELEASE_TAG" -m "Pre-release $PRE_RELEASE_TAG"
+          git push origin "$PRE_RELEASE_TAG"
+
+      - name: Generate release notes
+        id: generate-notes
+        if: steps.check-schedule.outputs.should_run == 'true'
+        run: |
+          LATEST_TAG="${{ steps.get-latest-tag.outputs.latest_tag }}"
+          NEW_TAG="${{ steps.create-tag.outputs.tag }}"
+          BUMP_TYPE="${{ steps.version-bump.outputs.bump_type }}"
+
+          # Create release notes file
+          NOTES_FILE=$(mktemp)
+
+          echo "# Pre-Release ${NEW_TAG}" >> $NOTES_FILE
+          echo "" >> $NOTES_FILE
+          echo "**Version Bump Type:** ${BUMP_TYPE}" >> $NOTES_FILE
+          echo "" >> $NOTES_FILE
+
+          # Get commits since last tag
+          if [ -z "$LATEST_TAG" ]; then
+            COMMITS=$(git log --pretty=format:"%H|||%s|||%an" main)
+          else
+            COMMITS=$(git log \
+              --pretty=format:"%H|||%s|||%an" \
+              ${LATEST_TAG}..main)
+          fi
+
+          # Group commits by type
+          echo "## 🚨 Breaking Changes" >> $NOTES_FILE
+          echo "$COMMITS" | grep -i "BREAKING CHANGE" | \
+            while IFS='|||' read -r hash subject author; do
+              echo "- $subject (@$author) - ${hash:0:7}" >> $NOTES_FILE
+            done || echo "_None_" >> $NOTES_FILE
+          echo "" >> $NOTES_FILE
+
+          echo "## ✨ Features" >> $NOTES_FILE
+          echo "$COMMITS" | \
+            grep -iE "^[^|]*\|\|\|(feat:|feature:)" | \
+            while IFS='|||' read -r hash subject author; do
+              echo "- $subject (@$author) - ${hash:0:7}" >> $NOTES_FILE
+            done || echo "_None_" >> $NOTES_FILE
+          echo "" >> $NOTES_FILE
+
+          echo "## 🐛 Bug Fixes" >> $NOTES_FILE
+          echo "$COMMITS" | \
+            grep -iE "^[^|]*\|\|\|(fix:|bugfix:)" | \
+            while IFS='|||' read -r hash subject author; do
+              echo "- $subject (@$author) - ${hash:0:7}" >> $NOTES_FILE
+            done || echo "_None_" >> $NOTES_FILE
+          echo "" >> $NOTES_FILE
+
+          echo "## 📚 Documentation" >> $NOTES_FILE
+          echo "$COMMITS" | \
+            grep -iE "^[^|]*\|\|\|(docs?:|documentation:)" | \
+            while IFS='|||' read -r hash subject author; do
+              echo "- $subject (@$author) - ${hash:0:7}" >> $NOTES_FILE
+            done || echo "_None_" >> $NOTES_FILE
+          echo "" >> $NOTES_FILE
+
+          echo "## 🔧 Maintenance" >> $NOTES_FILE
+          echo "$COMMITS" | \
+            grep -iE "^[^|]*\|\|\|(chore:|refactor:|style:|test:)" | \
+            while IFS='|||' read -r hash subject author; do
+              echo "- $subject (@$author) - ${hash:0:7}" >> $NOTES_FILE
+            done || echo "_None_" >> $NOTES_FILE
+          echo "" >> $NOTES_FILE
+
+          echo "## 📝 Other Changes" >> $NOTES_FILE
+          # Get commits that don't match any of the above categories
+          EXCLUDE_PATTERN="(BREAKING CHANGE"
+          EXCLUDE_PATTERN="${EXCLUDE_PATTERN}|^[^|]*\|\|\|(feat:|feature:"
+          EXCLUDE_PATTERN="${EXCLUDE_PATTERN}|fix:|bugfix:|docs?:"
+          EXCLUDE_PATTERN="${EXCLUDE_PATTERN}|documentation:|chore:"
+          EXCLUDE_PATTERN="${EXCLUDE_PATTERN}|refactor:|style:|test:))"
+          echo "$COMMITS" | grep -viE "$EXCLUDE_PATTERN" | \
+            while IFS='|||' read -r hash subject author; do
+              echo "- $subject (@$author) - ${hash:0:7}" >> $NOTES_FILE
+            done || echo "_None_" >> $NOTES_FILE
+
+          # Output the notes file path
+          echo "notes_file=$NOTES_FILE" >> $GITHUB_OUTPUT
+
+          # Display the notes
+          cat $NOTES_FILE
+
+      - name: Create GitHub Release
+        if: steps.check-schedule.outputs.should_run == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ steps.create-tag.outputs.tag }}"
+          NOTES_FILE="${{ steps.generate-notes.outputs.notes_file }}"
+
+          gh release create "$TAG" \
+            --title "Pre-Release $TAG" \
+            --notes-file "$NOTES_FILE" \
+            --prerelease \
+            --target main
+
+          echo "✅ Pre-release $TAG created successfully!"
