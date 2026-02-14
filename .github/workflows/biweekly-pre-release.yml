@@ -1,0 +1,450 @@
+name: Biweekly Pre-Release
+
+on:
+  # Run every Friday at 7:00 PM America/New_York
+  # During EST (Nov-Mar): 7:00 PM EST = 00:00 UTC (next day)
+  # During EDT (Mar-Nov): 7:00 PM EDT = 23:00 UTC (same day)
+  # Using 00:00 UTC on Saturday to handle EST correctly
+  # Note: This means it runs at midnight UTC Saturday,
+  # which is 7 PM Friday ET during EST
+  schedule:
+    - cron: '0 0 * * 6'  # 00:00 UTC Saturday = 7 PM Fri EST
+
+  # Allow manual trigger
+  workflow_dispatch:
+
+# Only run on main branch
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  create-pre-release:
+    # Only run on main branch
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      TZ: America/New_York
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tag and PR analysis
+
+      - name: Check biweekly schedule
+        id: check-schedule
+        run: |
+          set -e  # Exit immediately on error
+          
+          # Biweekly schedule starting from February 13, 2026
+          # This enforces releases every 14 days from the start date
+          START_DATE="2026-02-13"
+          CURRENT_DATE=$(date -u +%Y-%m-%d)
+
+          # Calculate days since start date using epoch timestamps
+          START_EPOCH=$(date -d "$START_DATE" +%s)
+          CURRENT_EPOCH=$(date -d "$CURRENT_DATE" +%s)
+          DAYS_DIFF=$(( ($CURRENT_EPOCH - $START_EPOCH) / 86400 ))
+
+          echo "Days since start: $DAYS_DIFF"
+
+          # Check if it's a biweekly schedule (every 14 days)
+          # Skip this check if triggered manually via workflow_dispatch
+          if [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+            if [ $(($DAYS_DIFF % 14)) -ne 0 ]; then
+              echo "Not a biweekly release day. Skipping."
+              echo "should_run=false" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+          fi
+
+          echo "should_run=true" >> $GITHUB_OUTPUT
+
+      - name: Get latest tag
+        id: get-latest-tag
+        if: steps.check-schedule.outputs.should_run == 'true'
+        run: |
+          set -e  # Exit immediately on error
+          
+          # Retrieve the latest tag matching v* pattern
+          # Uses version sort to get the highest semantic version
+          LATEST_TAG=$(git tag -l "v*" --sort=-v:refname | head -n 1)
+
+          if [ -z "$LATEST_TAG" ]; then
+            echo "No existing tags found. Starting at v1.0.0"
+            echo "latest_tag=" >> $GITHUB_OUTPUT
+            echo "version=1.0.0" >> $GITHUB_OUTPUT
+          else
+            echo "Latest tag: $LATEST_TAG"
+            echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+            # Extract version without 'v' prefix
+            VERSION=$(echo "$LATEST_TAG" | sed 's/^v//')
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Analyze commits and determine version bump
+        id: version-bump
+        if: steps.check-schedule.outputs.should_run == 'true'
+        run: |
+          set -e  # Exit immediately on error
+          
+          LATEST_TAG="${{ steps.get-latest-tag.outputs.latest_tag }}"
+          CURRENT_VERSION="${{ steps.get-latest-tag.outputs.version }}"
+
+          # Get commits since last tag, or all commits if no tag exists
+          if [ -z "$LATEST_TAG" ]; then
+            COMMITS=$(git log --pretty=format:"%s" main)
+          else
+            COMMITS=$(git log --pretty=format:"%s" ${LATEST_TAG}..main)
+          fi
+
+          echo "Analyzing commits for semantic versioning..."
+          echo "$COMMITS"
+
+          # Parse current version into components
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
+
+          # Determine version bump based on commit messages
+          # MAJOR: Any commit contains "BREAKING CHANGE" (anywhere in message)
+          # MINOR: Any commit starts with "feat:" or "feature:"
+          # PATCH: Everything else (default)
+          BUMP_TYPE="patch"
+
+          # Check for breaking changes (can appear anywhere in message)
+          if echo "$COMMITS" | grep -qi "BREAKING CHANGE"; then
+            BUMP_TYPE="major"
+            echo "Found BREAKING CHANGE - bumping MAJOR version"
+          # Check for features (must be at start of commit message)
+          elif echo "$COMMITS" | grep -qiE "^feat:|^feature:"; then
+            BUMP_TYPE="minor"
+            echo "Found feature commits - bumping MINOR version"
+          else
+            echo "No breaking changes or features - bumping PATCH version"
+          fi
+
+          # Apply version bump according to semantic versioning rules
+          if [ "$BUMP_TYPE" = "major" ]; then
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+          elif [ "$BUMP_TYPE" = "minor" ]; then
+            MINOR=$((MINOR + 1))
+            PATCH=0
+          else
+            PATCH=$((PATCH + 1))
+          fi
+
+          NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          echo "New version: $NEW_VERSION"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+
+      - name: Create release tag
+        id: create-tag
+        if: steps.check-schedule.outputs.should_run == 'true'
+        run: |
+          set -e  # Exit immediately on error
+          
+          NEW_VERSION="${{ steps.version-bump.outputs.new_version }}"
+          NEW_TAG="v${NEW_VERSION}"
+
+          echo "Creating release tag: $NEW_TAG"
+          
+          # Check if tag already exists to ensure idempotency
+          if git rev-parse "$NEW_TAG" >/dev/null 2>&1; then
+            echo "Tag $NEW_TAG already exists. Failing safely."
+            exit 1
+          fi
+          
+          echo "tag=$NEW_TAG" >> $GITHUB_OUTPUT
+
+          # Validate git config before tagging
+          if [ -z "$(git config user.name)" ]; then
+            git config user.name "github-actions[bot]"
+          fi
+          if [ -z "$(git config user.email)" ]; then
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+          fi
+          
+          # Create annotated tag
+          git tag -a "$NEW_TAG" -m "Release $NEW_TAG"
+          git push origin "$NEW_TAG"
+
+      - name: Generate release notes
+        id: generate-notes
+        if: steps.check-schedule.outputs.should_run == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e  # Exit immediately on error
+          
+          LATEST_TAG="${{ steps.get-latest-tag.outputs.latest_tag }}"
+          NEW_TAG="${{ steps.create-tag.outputs.tag }}"
+          REPO="${{ github.repository }}"
+
+          # Create release notes file
+          NOTES_FILE=$(mktemp)
+
+          # Get merged PRs since last tag
+          # If no previous tag, get all merged PRs
+          if [ -z "$LATEST_TAG" ]; then
+            # Get all merged PRs
+            gh pr list --repo "$REPO" --state merged --limit 1000 --json number,title,author,mergedAt,body > /tmp/prs.json
+          else
+            # Get date of last tag
+            TAG_DATE=$(git log -1 --format=%aI "$LATEST_TAG")
+            # Get PRs merged since that date
+            gh pr list --repo "$REPO" --state merged --search "merged:>=$TAG_DATE" --limit 1000 --json number,title,author,mergedAt,body > /tmp/prs.json
+          fi
+
+          # Count total PRs and commits
+          TOTAL_PRS=$(jq 'length' /tmp/prs.json)
+          if [ -z "$LATEST_TAG" ]; then
+            TOTAL_COMMITS=$(git rev-list --count main)
+          else
+            TOTAL_COMMITS=$(git rev-list --count ${LATEST_TAG}..main)
+          fi
+
+          # Get current date in America/New_York timezone
+          RELEASE_DATE=$(TZ=America/New_York date +"%B %d, %Y")
+
+          # Generate Release Summary
+          echo "## Release Summary" >> $NOTES_FILE
+          echo "" >> $NOTES_FILE
+          echo "- Release Date: $RELEASE_DATE" >> $NOTES_FILE
+          echo "- Total PRs: $TOTAL_PRS" >> $NOTES_FILE
+          echo "- Total Commits: $TOTAL_COMMITS" >> $NOTES_FILE
+          echo "" >> $NOTES_FILE
+          echo "This biweekly pre-release contains $TOTAL_PRS merged pull requests and $TOTAL_COMMITS commits since the last release." >> $NOTES_FILE
+          echo "" >> $NOTES_FILE
+          echo "## Changes" >> $NOTES_FILE
+          echo "" >> $NOTES_FILE
+
+          # Process each category
+          # Note: We need to be careful about dependabot PRs - they should ONLY appear in Dependency Updates
+
+          # Breaking Changes - check PR body or commits for BREAKING CHANGE
+          jq -r '.[] | "\(.number)|||\(.title)|||\(.author.login)|||\(.body // "")"' /tmp/prs.json | while IFS='|||' read -r num title author body; do
+            # Skip dependabot PRs
+            if [ "$author" = "dependabot[bot]" ] || echo "$title" | grep -qi "bump" || echo "$title" | grep -qi "dependabot"; then
+              continue
+            fi
+            
+            # Check for BREAKING CHANGE in PR body
+            if echo "$body" | grep -qi "BREAKING CHANGE"; then
+              echo "$num|||$title"
+            fi
+          done > /tmp/breaking_prs.txt
+          
+          if [ -s /tmp/breaking_prs.txt ]; then
+            echo "### Breaking Changes" >> $NOTES_FILE
+            echo "" >> $NOTES_FILE
+            while IFS='|||' read -r num title; do
+              echo "- $title ([#$num](https://github.com/$REPO/pull/$num))" >> $NOTES_FILE
+            done < /tmp/breaking_prs.txt
+            echo "" >> $NOTES_FILE
+          fi
+
+          # Features - titles starting with "feat:" or "feature:"
+          jq -r '.[] | "\(.number)|||\(.title)|||\(.author.login)"' /tmp/prs.json | while IFS='|||' read -r num title author; do
+            # Skip dependabot PRs
+            if [ "$author" = "dependabot[bot]" ] || echo "$title" | grep -qi "bump" || echo "$title" | grep -qi "dependabot"; then
+              continue
+            fi
+            
+            if echo "$title" | grep -qiE "^feat:|^feature:"; then
+              echo "$num|||$title"
+            fi
+          done > /tmp/features_prs.txt
+          
+          if [ -s /tmp/features_prs.txt ]; then
+            echo "### Features" >> $NOTES_FILE
+            echo "" >> $NOTES_FILE
+            while IFS='|||' read -r num title; do
+              echo "- $title ([#$num](https://github.com/$REPO/pull/$num))" >> $NOTES_FILE
+            done < /tmp/features_prs.txt
+            echo "" >> $NOTES_FILE
+          fi
+
+          # Bug Fixes - titles starting with "fix:", "Bug:", or "bug:"
+          jq -r '.[] | "\(.number)|||\(.title)|||\(.author.login)"' /tmp/prs.json | while IFS='|||' read -r num title author; do
+            # Skip dependabot PRs
+            if [ "$author" = "dependabot[bot]" ] || echo "$title" | grep -qi "bump" || echo "$title" | grep -qi "dependabot"; then
+              continue
+            fi
+            
+            if echo "$title" | grep -qiE "^fix:|^Bug:|^bug:"; then
+              echo "$num|||$title"
+            fi
+          done > /tmp/bugfixes_prs.txt
+          
+          if [ -s /tmp/bugfixes_prs.txt ]; then
+            echo "### Bug Fixes" >> $NOTES_FILE
+            echo "" >> $NOTES_FILE
+            while IFS='|||' read -r num title; do
+              echo "- $title ([#$num](https://github.com/$REPO/pull/$num))" >> $NOTES_FILE
+            done < /tmp/bugfixes_prs.txt
+            echo "" >> $NOTES_FILE
+          fi
+
+          # Refactoring - titles starting with "refactor:"
+          jq -r '.[] | "\(.number)|||\(.title)|||\(.author.login)"' /tmp/prs.json | while IFS='|||' read -r num title author; do
+            # Skip dependabot PRs
+            if [ "$author" = "dependabot[bot]" ] || echo "$title" | grep -qi "bump" || echo "$title" | grep -qi "dependabot"; then
+              continue
+            fi
+            
+            if echo "$title" | grep -qiE "^refactor:"; then
+              echo "$num|||$title"
+            fi
+          done > /tmp/refactoring_prs.txt
+          
+          if [ -s /tmp/refactoring_prs.txt ]; then
+            echo "### Refactoring" >> $NOTES_FILE
+            echo "" >> $NOTES_FILE
+            while IFS='|||' read -r num title; do
+              echo "- $title ([#$num](https://github.com/$REPO/pull/$num))" >> $NOTES_FILE
+            done < /tmp/refactoring_prs.txt
+            echo "" >> $NOTES_FILE
+          fi
+
+          # Documentation - titles starting with "docs:"
+          jq -r '.[] | "\(.number)|||\(.title)|||\(.author.login)"' /tmp/prs.json | while IFS='|||' read -r num title author; do
+            # Skip dependabot PRs
+            if [ "$author" = "dependabot[bot]" ] || echo "$title" | grep -qi "bump" || echo "$title" | grep -qi "dependabot"; then
+              continue
+            fi
+            
+            if echo "$title" | grep -qiE "^docs:"; then
+              echo "$num|||$title"
+            fi
+          done > /tmp/documentation_prs.txt
+          
+          if [ -s /tmp/documentation_prs.txt ]; then
+            echo "### Documentation" >> $NOTES_FILE
+            echo "" >> $NOTES_FILE
+            while IFS='|||' read -r num title; do
+              echo "- $title ([#$num](https://github.com/$REPO/pull/$num))" >> $NOTES_FILE
+            done < /tmp/documentation_prs.txt
+            echo "" >> $NOTES_FILE
+          fi
+
+          # Testing - titles starting with "test:"
+          jq -r '.[] | "\(.number)|||\(.title)|||\(.author.login)"' /tmp/prs.json | while IFS='|||' read -r num title author; do
+            # Skip dependabot PRs
+            if [ "$author" = "dependabot[bot]" ] || echo "$title" | grep -qi "bump" || echo "$title" | grep -qi "dependabot"; then
+              continue
+            fi
+            
+            if echo "$title" | grep -qiE "^test:"; then
+              echo "$num|||$title"
+            fi
+          done > /tmp/testing_prs.txt
+          
+          if [ -s /tmp/testing_prs.txt ]; then
+            echo "### Testing" >> $NOTES_FILE
+            echo "" >> $NOTES_FILE
+            while IFS='|||' read -r num title; do
+              echo "- $title ([#$num](https://github.com/$REPO/pull/$num))" >> $NOTES_FILE
+            done < /tmp/testing_prs.txt
+            echo "" >> $NOTES_FILE
+          fi
+
+          # Performance - titles starting with "perf:"
+          jq -r '.[] | "\(.number)|||\(.title)|||\(.author.login)"' /tmp/prs.json | while IFS='|||' read -r num title author; do
+            # Skip dependabot PRs
+            if [ "$author" = "dependabot[bot]" ] || echo "$title" | grep -qi "bump" || echo "$title" | grep -qi "dependabot"; then
+              continue
+            fi
+            
+            if echo "$title" | grep -qiE "^perf:"; then
+              echo "$num|||$title"
+            fi
+          done > /tmp/performance_prs.txt
+          
+          if [ -s /tmp/performance_prs.txt ]; then
+            echo "### Performance" >> $NOTES_FILE
+            echo "" >> $NOTES_FILE
+            while IFS='|||' read -r num title; do
+              echo "- $title ([#$num](https://github.com/$REPO/pull/$num))" >> $NOTES_FILE
+            done < /tmp/performance_prs.txt
+            echo "" >> $NOTES_FILE
+          fi
+
+          # CI/CD - titles starting with "ci:"
+          jq -r '.[] | "\(.number)|||\(.title)|||\(.author.login)"' /tmp/prs.json | while IFS='|||' read -r num title author; do
+            # Skip dependabot PRs
+            if [ "$author" = "dependabot[bot]" ] || echo "$title" | grep -qi "bump" || echo "$title" | grep -qi "dependabot"; then
+              continue
+            fi
+            
+            if echo "$title" | grep -qiE "^ci:"; then
+              echo "$num|||$title"
+            fi
+          done > /tmp/cicd_prs.txt
+          
+          if [ -s /tmp/cicd_prs.txt ]; then
+            echo "### CI/CD" >> $NOTES_FILE
+            echo "" >> $NOTES_FILE
+            while IFS='|||' read -r num title; do
+              echo "- $title ([#$num](https://github.com/$REPO/pull/$num))" >> $NOTES_FILE
+            done < /tmp/cicd_prs.txt
+            echo "" >> $NOTES_FILE
+          fi
+
+          # Dependency Updates - PRs authored by dependabot or containing "bump" or "dependabot" in title
+          jq -r '.[] | "\(.number)|||\(.title)|||\(.author.login)"' /tmp/prs.json | while IFS='|||' read -r num title author; do
+            if [ "$author" = "dependabot[bot]" ] || echo "$title" | grep -qi "bump" || echo "$title" | grep -qi "dependabot"; then
+              echo "$num|||$title"
+            fi
+          done > /tmp/dependencies_prs.txt
+          
+          if [ -s /tmp/dependencies_prs.txt ]; then
+            echo "### Dependency Updates" >> $NOTES_FILE
+            echo "" >> $NOTES_FILE
+            while IFS='|||' read -r num title; do
+              echo "- $title ([#$num](https://github.com/$REPO/pull/$num))" >> $NOTES_FILE
+            done < /tmp/dependencies_prs.txt
+            echo "" >> $NOTES_FILE
+          fi
+
+          # Add full changelog link
+          echo "---" >> $NOTES_FILE
+          echo "" >> $NOTES_FILE
+          echo "**Full Changelog**" >> $NOTES_FILE
+          if [ -z "$LATEST_TAG" ]; then
+            echo "https://github.com/$REPO/commits/$NEW_TAG" >> $NOTES_FILE
+          else
+            echo "https://github.com/$REPO/compare/$LATEST_TAG...$NEW_TAG" >> $NOTES_FILE
+          fi
+
+          # Output the notes file path
+          echo "notes_file=$NOTES_FILE" >> $GITHUB_OUTPUT
+
+          # Display the notes
+          cat $NOTES_FILE
+
+      - name: Create GitHub Release
+        if: steps.check-schedule.outputs.should_run == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e  # Exit immediately on error
+          
+          TAG="${{ steps.create-tag.outputs.tag }}"
+          NOTES_FILE="${{ steps.generate-notes.outputs.notes_file }}"
+
+          # Create release with idempotency check
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists. Skipping creation."
+            exit 0
+          fi
+
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --notes-file "$NOTES_FILE" \
+            --prerelease \
+            --target main
+
+          echo "Pre-release $TAG created successfully!"
