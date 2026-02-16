@@ -1179,3 +1179,26 @@ export const experiencesDurationMonths = (
 export interface SnapshotExperience extends Omit<AnyExperience, "user"> {
   __typename?: AnyExperience["__typename"];
 }
+
+export const getGovernmentPositionTypeLabel = (
+  type: GovPositionType,
+  intl: IntlShape,
+): string => {
+  const typeMessages = new Map<GovPositionType, string>([
+    [GovPositionType.Acting, intl.formatMessage(experienceMessages.roleActing)],
+    [
+      GovPositionType.Assignment,
+      intl.formatMessage(experienceMessages.roleAssignment),
+    ],
+    [
+      GovPositionType.Secondment,
+      intl.formatMessage(experienceMessages.roleSecondment),
+    ],
+    [
+      GovPositionType.Substantive,
+      intl.formatMessage(experienceMessages.roleSubstantive),
+    ],
+  ]);
+
+  return typeMessages.get(type) ?? "";
+};

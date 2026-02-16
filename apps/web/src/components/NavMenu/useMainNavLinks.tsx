@@ -12,6 +12,7 @@ import {
   useAuthorization,
 } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { getRuntimeVariable, useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
@@ -34,6 +35,7 @@ const useMainNavLinks = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { pathname } = useLocation();
+  const featureFlags = useFeatureFlags();
 
   const { navRole } = useNavContext();
   const { userAuthInfo } = useAuthorization();
@@ -264,6 +266,17 @@ const useMainNavLinks = () => {
     />
   );
 
+  const manageAuthAccountLink = getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI");
+  const ManageAuthAccount =
+    featureFlags.gcSignIn && manageAuthAccountLink ? (
+      <NavItem
+        key="manageAuthAccount"
+        href={manageAuthAccountLink}
+        title={intl.formatMessage(authMessages.manageAuthAccount)}
+        subMenu
+      />
+    ) : null;
+
   const getRoleName: Record<string, string> = {
     ["applicant"]: intl.formatMessage(navMenuMessages.applicant),
     ["process_operator"]: intl.formatMessage(navMenuMessages.community),
@@ -319,7 +332,7 @@ const useMainNavLinks = () => {
   const defaultLinks = {
     roleLinks: roleLinksNoDuplicatesAndSorted,
     mainLinks: [FindTalent, BrowseJobs],
-    accountLinks: loggedIn ? [SignOut] : null,
+    accountLinks: loggedIn ? [ManageAuthAccount, SignOut] : null,
     authLinks: !loggedIn ? [SignIn, SignUp] : null,
     resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
     systemSettings: null,
@@ -336,6 +349,7 @@ const useMainNavLinks = () => {
               CareerTimeline,
               SkillPortfolio,
               AccountSettings,
+              ManageAuthAccount,
               SignOut,
             ]
           : null,
@@ -345,14 +359,18 @@ const useMainNavLinks = () => {
       return {
         ...defaultLinks,
         mainLinks: [CommunityDashboard, Processes, Candidates, Requests],
-        accountLinks: loggedIn ? [AccountSettings, SignOut] : null,
+        accountLinks: loggedIn
+          ? [AccountSettings, ManageAuthAccount, SignOut]
+          : null,
         resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
       };
     case "admin":
       return {
         ...defaultLinks,
         mainLinks: [AdminDashboard, ViewUsers, Processes, Requests],
-        accountLinks: loggedIn ? [AccountSettings, SignOut] : null,
+        accountLinks: loggedIn
+          ? [AccountSettings, ManageAuthAccount, SignOut]
+          : null,
         resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
         systemSettings: [
           Announcements,

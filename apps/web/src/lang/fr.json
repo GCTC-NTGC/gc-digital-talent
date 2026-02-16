@@ -6651,6 +6651,10 @@
     "defaultMessage": "Il manque des renseignements personnels",
     "description": "Error message displayed when a users personal information is incomplete"
   },
+  "QexLn/": {
+    "defaultMessage": "Gérer la Connexion GC",
+    "description": "Message displayed to users to manage their auth account"
+  },
   "QhFxW1": {
     "defaultMessage": "Prochain type de poste et objectif de carrière",
     "description": "Title for next role and career objective section"
@@ -10438,9 +10442,6 @@
     "defaultMessage": "Confirmez que vous avez l’expérience minimale ou une formation équivalente pour le poste.",
     "description": "Subtitle for the application education  page"
   },
-  "gu2wRn": {
-    "defaultMessage": "Cette section vous permet de parcourir l'ensemble de l'expérience professionnelle de la personne candidate. Par défaut, l'expérience est organisée par type, mais vous pouvez choisir de voir le niveau d'expérience de la personne candidate dans un volet de travail particulier ou dans un ministère donné à l'aide des options proposées."
-  },
   "guYbEb": {
     "defaultMessage": "Dernière mise à jour du profil de la personne candidate : {lastUpdated}",
     "description": "Last time user's profile was updated"
@@ -10640,6 +10641,10 @@
   "hq5u5/": {
     "defaultMessage": "Votre relation avec l'auteur(trice) de la mise en candidature",
     "description": "Label for a nomination submitter's relationship to the nominator"
+  },
+  "hqCFJg": {
+    "defaultMessage": "Poste d’attache",
+    "description": "Label for Government position type substantive"
   },
   "hqZfyb": {
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
@@ -12329,6 +12334,10 @@
     "defaultMessage": "Sauvegarder le courriel de correspondance",
     "description": "Text on a button to save the pool contact email"
   },
+  "ow3hcA": {
+    "defaultMessage": "Poste intérimaire",
+    "description": "Label for Government position type acting"
+  },
   "ow4z7W": {
     "defaultMessage": "Modifier<hidden> la classification</hidden>",
     "description": "Breadcrumb title for the edit classification page link."
@@ -12576,6 +12585,10 @@
   "pp+b1H": {
     "defaultMessage": "Réduire tous<hidden> les renseignements liés à l’expérience</hidden>",
     "description": "Button label to collapse all experiences"
+  },
+  "pp9KRf": {
+    "defaultMessage": "Cette section vous permet de parcourir l'ensemble de l'expérience professionnelle de la personne candidate. Par défaut, l'expérience est organisée par type, mais vous pouvez choisir de voir le niveau d'expérience de la personne candidate dans un volet de travail particulier ou dans un ministère donné à l'aide des options proposées.",
+    "description": "Description for the career page full career section"
   },
   "pq/4js": {
     "defaultMessage": "Date de clôture des nominations",
@@ -12940,6 +12953,10 @@
   "rWs8MO": {
     "defaultMessage": "Commencez<hidden> par fournir les renseignements concernant les droits de priorité</hidden>",
     "description": "Call to action to begin editing priority entitlement"
+  },
+  "rXd18V": {
+    "defaultMessage": "Détachement",
+    "description": "Label for Government position type secondment"
   },
   "rYKGn/": {
     "defaultMessage": "Plateforme",
@@ -13372,6 +13389,10 @@
   "tZsKb7": {
     "defaultMessage": "Échanger avec nous sur les médias sociaux",
     "description": "Title for the social media section."
+  },
+  "tb4mS6": {
+    "defaultMessage": "Affectation",
+    "description": "Label for Government position type assignment"
   },
   "tc3sSC": {
     "defaultMessage": "L'équipe",

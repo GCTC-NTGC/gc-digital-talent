@@ -1300,8 +1300,10 @@ type GenericJobTitle {
   classification: Classification
 }
 
-type Department {
+type Department implements HasRoleAssignments {
   id: ID!
+  roleAssignments: [RoleAssignment!]
+  teamIdForRoleAssignment: ID
   departmentNumber: Int!
   name: LocalizedString!
   orgIdentifier: Int
@@ -1887,6 +1889,7 @@ input CommunityInterestFilterInput {
   locationPreferences: [WorkRegion]
   operationalRequirements: [OperationalRequirement]
   skills: [UUID]
+  classifications: [UUID!]
 }
 
 input DateRangeOptional {
