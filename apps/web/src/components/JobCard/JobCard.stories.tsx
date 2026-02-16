@@ -1,4 +1,5 @@
 import { StoryFn, Meta } from "@storybook/react-vite";
+import { faker } from "@faker-js/faker";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
 import {
@@ -21,7 +22,7 @@ import JobCard, { JobCard_Fragment } from "./JobCard";
 
 */
 
-const open = {
+const publicJob = {
   value: PoolAreaOfSelection.Public,
   label: {
     en: "Public",
@@ -78,12 +79,12 @@ export default {
 
 const Template: StoryFn<typeof JobCard> = (args) => <JobCard {...args} />;
 
-export const Open = Template.bind({});
-Open.args = {
+export const Public = Template.bind({});
+Public.args = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
-      areaOfSelection: open,
+      areaOfSelection: publicJob,
       selectionLimitations: [],
     },
     JobCard_Fragment,
@@ -95,7 +96,7 @@ Citizen.args = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
-      areaOfSelection: open,
+      areaOfSelection: publicJob,
       selectionLimitations: [citizen],
     },
     JobCard_Fragment,
@@ -144,6 +145,32 @@ All.args = {
       ...fakedPool,
       areaOfSelection: employee,
       selectionLimitations: [atLevel, departmentPref],
+    },
+    JobCard_Fragment,
+  ),
+};
+
+export const DeadlineApproaching = Template.bind({});
+DeadlineApproaching.args = {
+  poolQuery: makeFragmentData(
+    {
+      ...fakedPool,
+      areaOfSelection: employee,
+      selectionLimitations: [atLevel, departmentPref],
+      closingDate: faker.date.soon({ days: 2 }).toISOString(),
+    },
+    JobCard_Fragment,
+  ),
+};
+
+export const Closed = Template.bind({});
+Closed.args = {
+  poolQuery: makeFragmentData(
+    {
+      ...fakedPool,
+      areaOfSelection: employee,
+      selectionLimitations: [atLevel, departmentPref],
+      closingDate: faker.date.past().toISOString(),
     },
     JobCard_Fragment,
   ),

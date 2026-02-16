@@ -4,6 +4,7 @@ import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import { differenceInDays } from "date-fns/differenceInDays";
+import { isPast } from "date-fns/isPast";
 
 import {
   FragmentType,
@@ -185,8 +186,15 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const languageRequirement = pool.language?.label.localized;
 
   const deadline = pool.closingDate
-    ? differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) < 3
+    ? differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) < 3 &&
+      differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) > 0
     : null;
+
+  const poolIsClosed = pool.closingDate
+    ? isPast(parseDateTimeUtc(pool.closingDate))
+    : false;
+
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   return (
     <Card className="relative">
@@ -238,28 +246,42 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
                 : "font-bold"
             }
           >
-            {pool.closingDate
+            {poolIsClosed
               ? intl.formatMessage(
+                  {
+                    defaultMessage: "Applications closed on {closingDate}",
+                    id: "D8mu6E",
+                    description:
+                      "Message informing user applications won't be accepted after closing date",
+                  },
+                  {
+                    closingDate: pool.closingDate
+                      ? formatDate({
+                          date: parseDateTimeUtc(pool.closingDate),
+                          formatString: DATE_FORMAT_LOCALIZED,
+                          intl,
+                          timeZone: "Canada/Pacific",
+                        })
+                      : notAvailable,
+                  },
+                )
+              : intl.formatMessage(
                   {
                     defaultMessage: "Apply on or before {closingDate}",
                     id: "LjYzkS",
                     description: "Message to apply to the pool before deadline",
                   },
                   {
-                    closingDate: formatDate({
-                      date: parseDateTimeUtc(pool.closingDate),
-                      formatString: DATE_FORMAT_LOCALIZED,
-                      intl,
-                      timeZone: "Canada/Pacific",
-                    }),
+                    closingDate: pool.closingDate
+                      ? formatDate({
+                          date: parseDateTimeUtc(pool.closingDate),
+                          formatString: DATE_FORMAT_LOCALIZED,
+                          intl,
+                          timeZone: "Canada/Pacific",
+                        })
+                      : notAvailable,
                   },
-                )
-              : intl.formatMessage({
-                  defaultMessage: "(To be determined)",
-                  description:
-                    "Message displayed when a pool has no expiry date yet",
-                  id: "Hd0nHP",
-                })}
+                )}
           </p>
         </div>
         <Link
@@ -268,23 +290,47 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           mode="solid"
           href={paths.jobPoster(pool.id)}
         >
-          <span aria-hidden="true">
-            {intl.formatMessage({
-              id: "OjI368",
-              defaultMessage: "Apply now",
-              description: "Label on link to apply to a job",
-            })}
-          </span>
-          <span className="sr-only">
-            {intl.formatMessage(
-              {
-                id: "5s1vaA",
-                defaultMessage: "Apply to ({name})",
-                description: "Message on link that say to apply to a job",
-              },
-              { name: getShortPoolTitleLabel(intl, pool) },
-            )}
-          </span>
+          {poolIsClosed ? (
+            <>
+              <span aria-hidden="true">
+                {intl.formatMessage({
+                  id: "rZ9ljW",
+                  defaultMessage: "View job ad",
+                  description: "Label on link to closed job ad",
+                })}
+              </span>
+              <span className="sr-only">
+                {intl.formatMessage(
+                  {
+                    id: "D0Yslc",
+                    defaultMessage: "View job ad {name}",
+                    description: "Message on link that say to apply to a job",
+                  },
+                  { name: getShortPoolTitleLabel(intl, pool) },
+                )}
+              </span>
+            </>
+          ) : (
+            <>
+              <span aria-hidden="true">
+                {intl.formatMessage({
+                  id: "OjI368",
+                  defaultMessage: "Apply now",
+                  description: "Label on link to apply to a job",
+                })}
+              </span>
+              <span className="sr-only">
+                {intl.formatMessage(
+                  {
+                    id: "5s1vaA",
+                    defaultMessage: "Apply to ({name})",
+                    description: "Message on link that say to apply to a job",
+                  },
+                  { name: getShortPoolTitleLabel(intl, pool) },
+                )}
+              </span>
+            </>
+          )}
         </Link>
         <div className="xs:hidden">
           <PostedOnDate
