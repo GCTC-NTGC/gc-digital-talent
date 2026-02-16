@@ -35,6 +35,7 @@ import adminMessages from "~/messages/adminMessages";
 export interface FormValues {
   communities: string[];
   workStreams: string[];
+  classifications: string[];
   mobilityInterest: string[];
   mobilityType: string[];
   languageAbility?: LanguageAbility;
@@ -52,6 +53,11 @@ const context: Partial<OperationContext> = {
 
 const CommunityTalentFilterData_Query = graphql(/* GraphQL */ `
   query CommunityFilterData {
+    classifications {
+      id
+      group
+      level
+    }
     communities {
       id
       name {
@@ -168,7 +174,7 @@ const CommunityTalentFilterDialog = ({
           description: "Heading for filters associated with employee profiles",
         })}
       </Heading>
-      <div className="grid gap-6 xs:grid-cols-2">
+      <div className="mb-6 grid gap-6 xs:grid-cols-2">
         <Checklist
           idPrefix="mobilityInterest"
           name="mobilityInterest"
@@ -231,6 +237,18 @@ const CommunityTalentFilterDialog = ({
           ]}
         />
       </div>
+      <Combobox
+        id="classifications"
+        name="classifications"
+        isMulti
+        label={intl.formatMessage(adminMessages.classifications)}
+        options={unpackMaybes(data?.classifications).map(
+          ({ group, level, id }) => ({
+            value: id,
+            label: `${group}-${level < 10 ? "0" : ""}${level}`,
+          }),
+        )}
+      />
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Profile filters",
