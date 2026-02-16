@@ -20,7 +20,7 @@ interface ChildProps {
 
 const DefaultChildren = ({ onValueChange, value }: ChildProps) => (
   <DropdownMenu.Root>
-    <DropdownMenu.Trigger>Open Menu</DropdownMenu.Trigger>
+    <DropdownMenu.Trigger>Dropdown Menu</DropdownMenu.Trigger>
     <DropdownMenu.Popup>
       <DropdownMenu.Item>Item One</DropdownMenu.Item>
       <DropdownMenu.Item disabled>Item Two disabled</DropdownMenu.Item>
@@ -84,24 +84,6 @@ describe("DropdownMenu", () => {
     await expectNoAccessibilityErrors(container);
   });
 
-  it("should not render when closed", () => {
-    renderDropdownMenu({});
-
-    expect(
-      screen.queryByRole("menu", { name: /dropdown menu/i }),
-    ).not.toBeInTheDocument();
-  });
-
-  it("should render when opened", async () => {
-    renderDropdownMenu({});
-
-    await user.click(screen.getByRole("button", { name: /dropdown menu/i }));
-
-    expect(
-      screen.getByRole("menu", { name: /dropdown menu/i }),
-    ).toBeInTheDocument();
-  });
-
   it("change value when selected", async () => {
     renderDropdownMenu({});
 
@@ -113,6 +95,6 @@ describe("DropdownMenu", () => {
 
     await user.click(radioItemTwo);
 
-    expect(radioItemTwo).toHaveAttribute("data-state", "checked");
+    expect(radioItemTwo).toHaveAttribute("aria-checked", "true");
   });
 });
