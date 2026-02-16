@@ -143,17 +143,17 @@ test.describe("Notifications", () => {
   test("Pool extension notification sent to the candidate whose job application is in draft", async ({
     appPage,
   }) => {
-    const application = new ApplicationPage(appPage.page, poolId);
-    const settingsPage = new AccountSettings(appPage.page);
-    await loginBySub(application.page, sub, false);
     const newClosingDate = "3000-10-10";
+    await loginBySub(appPage.page, sub, false);
     // Update notification settings
+    const settingsPage = new AccountSettings(appPage.page);
     await settingsPage.goToSettings();
     await settingsPage.updateNotificationsSettings();
     await expect(appPage.page.getByRole("alert").last()).toContainText(
       /successfully updated settings/i,
     );
     // Applicant creates draft application
+    const application = new ApplicationPage(appPage.page, poolId);
     await application.create();
     await application.expectOnStep(application.page, 1);
     await application.page.getByRole("button", { name: /let's go/i }).click();
@@ -170,7 +170,7 @@ test.describe("Notifications", () => {
     ).toBeVisible();
     await poolPage.updateClosingDateAfterPublished(newClosingDate);
     // Verify notification for draft application extension
-    await loginBySub(application.page, sub, false);
+    await loginBySub(appPage.page, sub, false);
     await appPage.page
       .getByRole("button", { name: /view notifications/i })
       .click();
@@ -190,10 +190,10 @@ test.describe("Notifications", () => {
   test("Pool extension notification is not displayed to candidate", async ({
     appPage,
   }) => {
-    const application = new ApplicationPage(appPage.page, poolId);
-    await loginBySub(application.page, sub, false);
     const newClosingDate = "3000-10-10";
+    await loginBySub(appPage.page, sub, false);
     // Applicant creates draft application
+    const application = new ApplicationPage(appPage.page, poolId);
     await application.create();
     await application.expectOnStep(application.page, 1);
     await application.page.getByRole("button", { name: /let's go/i }).click();
@@ -210,7 +210,7 @@ test.describe("Notifications", () => {
     ).toBeVisible();
     await poolPage.updateClosingDateAfterPublished(newClosingDate);
     // Verify notification for draft application extension
-    await loginBySub(application.page, sub, false);
+    await loginBySub(appPage.page, sub, false);
     await appPage.page
       .getByRole("button", { name: /view notifications/i })
       .click();
