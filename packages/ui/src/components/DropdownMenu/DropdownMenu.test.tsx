@@ -7,7 +7,6 @@ import {
   expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
-import Button from "../Button";
 import DropdownMenu from "./DropdownMenu";
 
 type DropdownMenuRootPrimitivePropsWithoutRef = ComponentPropsWithoutRef<
@@ -20,34 +19,35 @@ interface ChildProps {
 }
 
 const DefaultChildren = ({ onValueChange, value }: ChildProps) => (
-  <>
-    <DropdownMenu.Trigger>
-      <Button>Dropdown Menu</Button>
-    </DropdownMenu.Trigger>
-    <DropdownMenu.Content>
-      <DropdownMenu.Label>Dropdown Items Label</DropdownMenu.Label>
+  <DropdownMenu.Root>
+    <DropdownMenu.Trigger>Open Menu</DropdownMenu.Trigger>
+    <DropdownMenu.Popup>
       <DropdownMenu.Item>Item One</DropdownMenu.Item>
-      <DropdownMenu.Item>Item Two</DropdownMenu.Item>
+      <DropdownMenu.Item disabled>Item Two disabled</DropdownMenu.Item>
+      <DropdownMenu.Item color="secondary">Secondary</DropdownMenu.Item>
+      <DropdownMenu.Item color="success">Success</DropdownMenu.Item>
+      <DropdownMenu.Item color="warning">Warning</DropdownMenu.Item>
+      <DropdownMenu.Item color="error">Error</DropdownMenu.Item>
       <DropdownMenu.Separator />
-
-      <DropdownMenu.Label>Dropdown Checkbox Label</DropdownMenu.Label>
-      <DropdownMenu.CheckboxItem>Checkbox Item One</DropdownMenu.CheckboxItem>
+      <DropdownMenu.Group>
+        <DropdownMenu.GroupLabel>Checkboxes</DropdownMenu.GroupLabel>
+        <DropdownMenu.CheckboxItem>Checkbox one</DropdownMenu.CheckboxItem>
+        <DropdownMenu.CheckboxItem>Checkbox two</DropdownMenu.CheckboxItem>
+        <DropdownMenu.CheckboxItem>Checkbox three</DropdownMenu.CheckboxItem>
+      </DropdownMenu.Group>
       <DropdownMenu.Separator />
-
-      <DropdownMenu.Label>Dropdown Checkbox Label</DropdownMenu.Label>
-      <DropdownMenu.RadioGroup value={value} onValueChange={onValueChange}>
-        <DropdownMenu.RadioItem value="one">
-          Radio Item One
-        </DropdownMenu.RadioItem>
-        <DropdownMenu.RadioItem value="two">
-          Radio Item Two
-        </DropdownMenu.RadioItem>
-        <DropdownMenu.RadioItem value="three">
-          Radio Item Three
-        </DropdownMenu.RadioItem>
-      </DropdownMenu.RadioGroup>
-    </DropdownMenu.Content>
-  </>
+      <DropdownMenu.Group>
+        <DropdownMenu.GroupLabel>Radios</DropdownMenu.GroupLabel>
+        <DropdownMenu.RadioGroup value={value} onValueChange={onValueChange}>
+          <DropdownMenu.RadioItem value="one">Radio one</DropdownMenu.RadioItem>
+          <DropdownMenu.RadioItem value="two">Radio two</DropdownMenu.RadioItem>
+          <DropdownMenu.RadioItem value="three">
+            Radio three
+          </DropdownMenu.RadioItem>
+        </DropdownMenu.RadioGroup>
+      </DropdownMenu.Group>
+    </DropdownMenu.Popup>
+  </DropdownMenu.Root>
 );
 
 const StatefulDropdownMenu = (
