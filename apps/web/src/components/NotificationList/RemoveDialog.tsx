@@ -14,20 +14,19 @@ import { Scalars } from "@gc-digital-talent/graphql";
 
 import { DeleteNotification_Mutation } from "./mutations";
 
-interface RemoveDialogProps extends ComponentPropsWithoutRef<
-  typeof DropdownMenu.Item
-> {
+interface RemoveDialogProps {
   id: Scalars["UUID"]["output"];
   message: ReactNode;
   date: string;
+  isOpen?: boolean;
+  onOpenChange?: (newOpen: boolean) => void;
 }
 
 const RemoveDialog = forwardRef<
   ComponentRef<typeof DropdownMenu.Item>,
   RemoveDialogProps
->(({ id, message, date, onSelect, ...rest }, forwardedRef) => {
+>(({ id, message, date, isOpen, onOpenChange }) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [{ fetching: deleting }, executeDeleteMutation] = useMutation(
     DeleteNotification_Mutation,
@@ -36,26 +35,13 @@ const RemoveDialog = forwardRef<
   const handleDelete = async () => {
     await executeDeleteMutation({ id }).then((res) => {
       if (res.data?.deleteNotification) {
-        setIsOpen(false);
+        onOpenChange?.(false);
       }
     });
   };
 
   return (
-    <AlertDialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <AlertDialog.Trigger>
-        <DropdownMenu.Item
-          ref={forwardedRef}
-          color="error"
-          onSelect={(event) => {
-            event.preventDefault();
-            onSelect?.(event);
-          }}
-          {...rest}
-        >
-          {intl.formatMessage(commonMessages.delete)}
-        </DropdownMenu.Item>
-      </AlertDialog.Trigger>
+    <AlertDialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <AlertDialog.Content>
         <AlertDialog.Title>
           {intl.formatMessage({

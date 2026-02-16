@@ -12,9 +12,9 @@ interface TriggerProps extends Menu.Trigger.Props {
   btnProps?: ButtonProps;
 }
 
-const Trigger = ({ btnProps, ...triggerProps }: TriggerProps) => (
+const Trigger = ({ btnProps, render, ...triggerProps }: TriggerProps) => (
   <Menu.Trigger
-    render={<Button utilityIcon={ChevronDownIcon} {...btnProps} />}
+    render={render ?? <Button utilityIcon={ChevronDownIcon} {...btnProps} />}
     {...triggerProps}
   />
 );
@@ -44,18 +44,29 @@ const popup = tv({
 
 interface PopupProps extends Omit<Menu.Popup.Props, "className"> {
   portalProps?: Menu.Portal.Props;
+  positionerProps?: Menu.Positioner.Props;
   className?: string;
 }
 
 const Popup = ({
   portalProps,
+  positionerProps,
   children,
   className,
+  ref,
   ...popupProps
 }: PopupProps) => (
   <Menu.Portal {...portalProps}>
-    <Menu.Positioner className="max-w-(--available-height)" sideOffset={8}>
-      <Menu.Popup className={popup({ class: className })} {...popupProps}>
+    <Menu.Positioner
+      className="max-w-(--available-height)"
+      sideOffset={8}
+      {...positionerProps}
+    >
+      <Menu.Popup
+        ref={ref}
+        className={popup({ class: className })}
+        {...popupProps}
+      >
         <Menu.Arrow className="data-[side=bottom]:-top-2 data-[side=left]:-right-3.25 data-[side=left]:rotate-90 data-[side=right]:-left-3.25 data-[side=right]:-rotate-90 data-[side=top]:-bottom-1.75 data-[side=top]:rotate-180 md:data-[side=bottom]:-top-1.75">
           <ArrowSvg />
         </Menu.Arrow>

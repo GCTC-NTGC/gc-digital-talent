@@ -1,5 +1,4 @@
 import { useState } from "react";
-import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
 import type { StoryFn, Meta } from "@storybook/react-vite";
 
 import {
@@ -9,7 +8,6 @@ import {
 } from "@gc-digital-talent/storybook-helpers";
 
 import DropdownMenu from "./DropdownMenu";
-import IconButton from "../Button/IconButton";
 
 export default {
   component: DropdownMenu.Root,
