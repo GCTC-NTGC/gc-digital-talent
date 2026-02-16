@@ -21,11 +21,7 @@ export default {
     },
     a11y: {
       context: {
-        exclude: [
-          ...GLOBAL_A11Y_EXCLUDES,
-          // Issue: https://github.com/radix-ui/primitives/issues/3085
-          "[data-aria-hidden]",
-        ],
+        exclude: [...GLOBAL_A11Y_EXCLUDES, "[data-base-ui-focus-guard]"],
       },
     },
   },
