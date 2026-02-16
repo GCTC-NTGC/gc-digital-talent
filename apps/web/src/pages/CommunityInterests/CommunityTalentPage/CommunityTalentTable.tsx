@@ -197,6 +197,7 @@ const defaultState = {
   filters: {
     communities: [],
     workStreams: [],
+    classifications: [],
     jobInterest: undefined,
     trainingInterest: undefined,
     lateralMoveInterest: undefined,

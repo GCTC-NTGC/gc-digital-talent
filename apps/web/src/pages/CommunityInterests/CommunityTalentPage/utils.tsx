@@ -155,6 +155,7 @@ export function transformCommunityTalentInput(
     // from fancy filter
     communities: filterState?.communities,
     workStreams: filterState?.workStreams,
+    classifications: filterState?.classifications,
     poolFilters: filterState?.poolFilters,
     jobInterest: filterState?.jobInterest,
     trainingInterest: filterState?.trainingInterest,
@@ -211,6 +212,7 @@ export function transformCommunityInterestFilterInputToFormValues(
     operationalRequirements: unpackMaybes(input?.operationalRequirements),
     skills: unpackMaybes(input?.skills),
     flexibleWorkLocations: unpackMaybes(input?.flexibleWorkLocations),
+    classifications: unpackMaybes(input?.classifications),
   };
 }
 
