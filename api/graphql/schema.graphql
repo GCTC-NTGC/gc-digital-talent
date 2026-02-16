@@ -1518,6 +1518,7 @@ input CommunityInterestFilterInput {
   locationPreferences: [WorkRegion] @scope
   operationalRequirements: [OperationalRequirement] @scope
   skills: [UUID] @scope
+  classifications: [UUID!] @scope
 }
 input DateRangeOptional {
   from: DateTime
