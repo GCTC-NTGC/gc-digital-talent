@@ -19,7 +19,7 @@ interface ChildProps {
 }
 
 const DefaultChildren = ({ onValueChange, value }: ChildProps) => (
-  <DropdownMenu.Root>
+  <>
     <DropdownMenu.Trigger>Dropdown Menu</DropdownMenu.Trigger>
     <DropdownMenu.Popup>
       <DropdownMenu.Item>Item One</DropdownMenu.Item>
@@ -47,7 +47,7 @@ const DefaultChildren = ({ onValueChange, value }: ChildProps) => (
         </DropdownMenu.RadioGroup>
       </DropdownMenu.Group>
     </DropdownMenu.Popup>
-  </DropdownMenu.Root>
+  </>
 );
 
 const StatefulDropdownMenu = (
