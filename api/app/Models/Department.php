@@ -77,6 +77,16 @@ class Department extends Model
     }
 
     /**
+     * Accessors
+     */
+
+    /* accessor to retrieve id from teams table */
+    public function getTeamIdForRoleAssignmentAttribute()
+    {
+        return $this->team?->id;
+    }
+
+    /**
      * Attach the users to the related team as department admin
      *
      * @param  string|array  $userId  - Id of the user or users to attach the role to
