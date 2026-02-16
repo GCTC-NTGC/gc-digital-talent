@@ -6,7 +6,6 @@ import { tv } from "tailwind-variants";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
-  Button,
   Card,
   DialogPrimitive,
   DropdownMenu,

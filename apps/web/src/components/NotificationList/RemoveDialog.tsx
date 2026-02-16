@@ -1,12 +1,6 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import {
-  ComponentPropsWithoutRef,
-  ComponentRef,
-  ReactNode,
-  forwardRef,
-  useState,
-} from "react";
+import { ComponentRef, ReactNode, forwardRef } from "react";
 
 import { AlertDialog, Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
