@@ -1,8 +1,8 @@
 import {
+  ApplicationStatus,
   CandidateExpiryFilter,
   CandidateRemovalReason,
   CandidateSuspendedFilter,
-  FinalDecision,
   FlexibleWorkLocation,
   LanguageAbility,
   OperationalRequirement,
@@ -20,7 +20,7 @@ export interface FormValues {
   departments: string[];
   equity: string[];
   expiryStatus?: CandidateExpiryFilter;
-  finalDecisions: FinalDecision[];
+  statuses: ApplicationStatus[];
   flexibleWorkLocations: FlexibleWorkLocation[];
   govEmployee?: string;
   languageAbility?: LanguageAbility;

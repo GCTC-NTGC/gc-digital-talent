@@ -23,9 +23,8 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
   fragment ReviewApplicationPreviewList on PoolCandidate {
     ...ReviewApplicationDialog
     id
-    finalDecisionAt
+    statusUpdatedAt
     submittedAt
-    removedAt
     candidateStatus {
       value
       label {
@@ -80,15 +79,8 @@ const ReviewApplicationPreviewList = ({
       {applications.length ? (
         <PreviewList.Root>
           {sortedApplications.map((application) => {
-            const {
-              id,
-              pool,
-              submittedAt,
-              finalDecisionAt,
-              removedAt,
-              candidateStatus,
-            } = application;
-            const assessedDate = removedAt ?? finalDecisionAt;
+            const { id, pool, submittedAt, statusUpdatedAt, candidateStatus } =
+              application;
             const statusChip = candidateStatusChip(candidateStatus);
 
             let applicationMetadata: PreviewMetaData[] = [];
@@ -122,7 +114,7 @@ const ReviewApplicationPreviewList = ({
                   <ApplicationDate
                     closingDate={pool?.closingDate}
                     submittedAt={submittedAt}
-                    assessedDate={assessedDate}
+                    assessedDate={statusUpdatedAt}
                     status={candidateStatus?.value}
                   />
                 ),

@@ -1025,8 +1025,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             return $this->localizeHeading($key);
         }, $this->communityInterestLocaleKeys2);
 
-        $communityIds = CommunityInterest::whereIn('user_id', $userIds)
-            ->authorizedToView(['userId' => $this->authenticatedUserId])
+        $communityIds = CommunityInterest::authorizedToView(['userId' => $this->authenticatedUserId])
+            ->whereIn('user_id', $userIds)
             ->isVerifiedGovEmployee()
             ->get('community_id')
             ->pluck('community_id')
@@ -1050,8 +1050,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
         $currentRow = 2;
 
-        CommunityInterest::whereIn('user_id', $userIds)
-            ->authorizedToView(['userId' => $this->authenticatedUserId])
+        CommunityInterest::authorizedToView(['userId' => $this->authenticatedUserId])
+            ->whereIn('user_id', $userIds)
             ->isVerifiedGovEmployee()
             ->with(['user', 'community', 'workStreams', 'interestInDevelopmentPrograms'])
             ->chunk(200, function ($interests) use ($sheet, &$currentRow, $developmentProgramIds) {

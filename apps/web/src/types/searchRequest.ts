@@ -42,11 +42,11 @@ export interface BrowserHistoryState {
 }
 
 export type PartialApplicantFilter = Omit<ApplicantFilter, "pools"> & {
-  pools?: Maybe<Maybe<Omit<Pool, "activities">>[]>;
+  pools?: Maybe<Maybe<Omit<Pool, "activities" | "teamId">>[]>;
 };
 
 export type PartialPoolCandidateFilter = Omit<PoolCandidateFilter, "pools"> & {
-  pools?: Maybe<Maybe<Omit<Pool, "activities">>[]>;
+  pools?: Maybe<Maybe<Omit<Pool, "activities" | "teamId">>[]>;
 };
 
 export type PartialSearchRequest = Omit<

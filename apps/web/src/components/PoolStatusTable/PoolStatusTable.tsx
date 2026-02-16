@@ -6,10 +6,12 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
+  ApplicationStatus,
   FragmentType,
   getFragment,
   graphql,
-  PoolStatusTable_PoolCandidateFragment as PoolStatusTablePoolCandidateFragmentType,
+  PoolCandidate,
+  PoolStatusTableFragment,
   Scalars,
 } from "@gc-digital-talent/graphql";
 
@@ -19,23 +21,17 @@ import { normalizedText } from "~/components/Table/sortingFns";
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
-import { isQualifiedFinalDecision } from "~/utils/poolCandidate";
 
 import accessors from "../Table/accessors";
-import { expiryCell, statusCell } from "./cells";
+import { expiryCell } from "./cells";
 import sortStatus from "./sortStatus";
 
-const isSuspended = (
-  suspendedAt: PoolStatusTablePoolCandidateFragmentType["suspendedAt"],
-): boolean => {
+const isSuspended = (suspendedAt: PoolCandidate["suspendedAt"]): boolean => {
   if (!suspendedAt) return false;
 
   const suspendedAtDate = parseDateTimeUtc(suspendedAt);
   return isPast(suspendedAtDate);
 };
-
-const columnHelper =
-  createColumnHelper<PoolStatusTablePoolCandidateFragmentType>();
 
 const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
   fragment PoolStatusTable on User {
@@ -44,19 +40,16 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
     lastName
     poolCandidates {
       id
+      ...ChangeDateDialog_PoolCandidate
       status {
         value
         label {
-          en
-          fr
+          localized
         }
       }
       expiryDate
       notes
       suspendedAt
-      finalDecision {
-        value
-      }
       pool {
         id
         processNumber
@@ -87,6 +80,12 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
     }
   }
 `);
+
+type RowDef = NonNullable<
+  NonNullable<PoolStatusTableFragment["poolCandidates"]>[number]
+>;
+
+const columnHelper = createColumnHelper<RowDef>();
 
 interface PoolStatusTableProps {
   currentPoolId?: Scalars["ID"]["output"];
@@ -143,18 +142,15 @@ const PoolStatusTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ status }) => getLocalizedName(status?.label, intl),
+      (row) =>
+        row.status?.label?.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
       {
         id: "status",
         enableHiding: false,
-        cell: ({ row: { original: candidate } }) =>
-          statusCell(candidate, {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            poolCandidates: user.poolCandidates,
-          }),
         header: intl.formatMessage(commonMessages.status),
-        sortingFn: sortStatus,
+        sortingFn: ({ original: a }, { original: b }) =>
+          sortStatus(a.status?.value, b.status?.value),
       },
     ),
     columnHelper.accessor(
@@ -224,7 +220,7 @@ const PoolStatusTable = ({
           "Title of the 'Expiry date' column for the table on view-user page",
       }),
     }),
-  ] as ColumnDef<PoolStatusTablePoolCandidateFragmentType>[];
+  ] as ColumnDef<RowDef>[];
 
   let data = unpackMaybes(user.poolCandidates);
   if (currentPoolId) {
@@ -233,13 +229,13 @@ const PoolStatusTable = ({
     );
   }
   if (onlyRecruitmentProcesses) {
-    data = data.filter(({ finalDecision }) =>
-      isQualifiedFinalDecision(finalDecision?.value),
+    data = data.filter(
+      ({ status }) => status?.value === ApplicationStatus.Qualified,
     );
   }
 
   return (
-    <Table<PoolStatusTablePoolCandidateFragmentType>
+    <Table<RowDef>
       caption={intl.formatMessage({
         defaultMessage: "Pool information",
         id: "ptOxLJ",

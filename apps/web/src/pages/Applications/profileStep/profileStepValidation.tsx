@@ -22,7 +22,10 @@ interface PartialUser
     PartialUserLanguage,
     PartialUserPreferences {}
 
-const stepHasError = (user: PartialUser, pool: Omit<Pool, "activities">) => {
+const stepHasError = (
+  user: PartialUser,
+  pool: Omit<Pool, "activities" | "teamId">,
+) => {
   const hasEmptyRequiredFields =
     aboutSectionHasEmptyRequiredFields(user, pool) ||
     diversityEquityInclusionSectionHasEmptyRequiredFields(user, pool) ||

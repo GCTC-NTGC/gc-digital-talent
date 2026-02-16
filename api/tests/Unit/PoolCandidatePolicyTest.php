@@ -2,7 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ApplicationStatus;
+use App\Enums\PlacementType;
 use App\Facades\Notify;
 use App\Models\Community;
 use App\Models\Pool;
@@ -622,105 +623,65 @@ class PoolCandidatePolicyTest extends TestCase
         // test all the statuses
         // grouped similar statuses to condense this blob
 
-        $draftOrExpiredStatuses = [
-            PoolCandidateStatus::DRAFT->name,
-            PoolCandidateStatus::DRAFT_EXPIRED->name,
-            PoolCandidateStatus::EXPIRED->name,
-        ];
-        foreach ($draftOrExpiredStatuses as $draftOrExpiredStatus) {
+        $this->assertFalse($this->processOperatorUser->can(
+            'updateStatus',
+            [$this->poolCandidate, ['application_status' => ApplicationStatus::DRAFT->name]]));
+        $this->assertFalse($this->communityRecruiterUser->can(
+            'updateStatus',
+            [$this->poolCandidate, ['application_status' => ApplicationStatus::DRAFT->name]]));
+        $this->assertFalse($this->communityAdminUser->can(
+            'updateStatus',
+            [$this->poolCandidate, ['application_status' => ApplicationStatus::DRAFT->name]]));
+
+        $placementTypes = PlacementType::cases();
+        foreach ($placementTypes as $placementType) {
             $this->assertFalse($this->processOperatorUser->can(
                 'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $draftOrExpiredStatus]]));
-            $this->assertFalse($this->communityRecruiterUser->can(
-                'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $draftOrExpiredStatus]]));
-            $this->assertFalse($this->communityAdminUser->can(
-                'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $draftOrExpiredStatus]]));
-        }
-
-        $placedStatuses = [
-            PoolCandidateStatus::UNDER_CONSIDERATION->name,
-            PoolCandidateStatus::PLACED_TENTATIVE->name,
-            PoolCandidateStatus::PLACED_CASUAL->name,
-            PoolCandidateStatus::PLACED_TERM->name,
-            PoolCandidateStatus::PLACED_INDETERMINATE->name,
-        ];
-        foreach ($placedStatuses as $placedStatus) {
-            $this->assertFalse($this->processOperatorUser->can(
-                'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $placedStatus]]));
+                [$this->poolCandidate, ['placement_type' => $placementType->name]]));
             $this->assertTrue($this->communityRecruiterUser->can(
                 'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $placedStatus]]));
+                [$this->poolCandidate, ['placement_type' => $placementType->name]]));
             $this->assertTrue($this->communityAdminUser->can(
                 'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $placedStatus]]));
+                [$this->poolCandidate, ['placement_type' => $placementType->name]]));
         }
 
-        $initialStatuses = [
-            PoolCandidateStatus::NEW_APPLICATION->name,
-            PoolCandidateStatus::APPLICATION_REVIEW->name,
-            PoolCandidateStatus::UNDER_ASSESSMENT->name,
-        ];
-        foreach ($initialStatuses as $initialStatus) {
-            $this->assertTrue($this->processOperatorUser->can(
-                'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $initialStatus]]));
-            $this->assertTrue($this->communityRecruiterUser->can(
-                'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $initialStatus]]));
-            $this->assertTrue($this->communityAdminUser->can(
-                'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $initialStatus]]));
-        }
-
-        $screeningStatuses = [
-            PoolCandidateStatus::SCREENED_IN->name,
-            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-            PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
-            PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
-        ];
-        foreach ($screeningStatuses as $screeningStatus) {
-            $this->assertTrue($this->processOperatorUser->can(
-                'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $screeningStatus]]));
-            $this->assertTrue($this->communityRecruiterUser->can(
-                'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $screeningStatus]]));
-            $this->assertTrue($this->communityAdminUser->can(
-                'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $screeningStatus]]));
-        }
-
-        $qualifiedStatuses = [
-            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-        ];
-        foreach ($qualifiedStatuses as $qualifiedStatus) {
-            $this->assertTrue($this->processOperatorUser->can(
-                'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $qualifiedStatus]]));
-            $this->assertTrue($this->communityRecruiterUser->can(
-                'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $qualifiedStatus]]));
-            $this->assertTrue($this->communityAdminUser->can(
-                'updateStatus',
-                [$this->poolCandidate, ['pool_candidate_status' => $qualifiedStatus]]));
-        }
-
-        // test REMOVED
         $this->assertTrue($this->processOperatorUser->can(
             'updateStatus',
-            [$this->poolCandidate, ['pool_candidate_status' => PoolCandidateStatus::REMOVED->name]]));
+            [$this->poolCandidate, ['application_status' => ApplicationStatus::TO_ASSESS->name]]));
         $this->assertTrue($this->communityRecruiterUser->can(
             'updateStatus',
-            [$this->poolCandidate, ['pool_candidate_status' => PoolCandidateStatus::REMOVED->name]]));
+            [$this->poolCandidate, ['application_status' => ApplicationStatus::TO_ASSESS->name]]));
         $this->assertTrue($this->communityAdminUser->can(
             'updateStatus',
-            [$this->poolCandidate, ['pool_candidate_status' => PoolCandidateStatus::REMOVED->name]]));
+            [$this->poolCandidate, ['application_status' => ApplicationStatus::TO_ASSESS->name]]));
+
+        $removedDisqualifiedStatuses = [
+            ApplicationStatus::REMOVED->name,
+            ApplicationStatus::DISQUALIFIED->name,
+        ];
+        foreach ($removedDisqualifiedStatuses as $removedDisqualifiedStatus) {
+            $this->assertTrue($this->processOperatorUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['application_status' => $removedDisqualifiedStatus]]));
+            $this->assertTrue($this->communityRecruiterUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['application_status' => $removedDisqualifiedStatus]]));
+            $this->assertTrue($this->communityAdminUser->can(
+                'updateStatus',
+                [$this->poolCandidate, ['application_status' => $removedDisqualifiedStatus]]));
+        }
+
+        $this->assertTrue($this->processOperatorUser->can(
+            'updateStatus',
+            [$this->poolCandidate, ['application_status' => ApplicationStatus::QUALIFIED->name]]));
+        $this->assertTrue($this->communityRecruiterUser->can(
+            'updateStatus',
+            [$this->poolCandidate, ['application_status' => ApplicationStatus::QUALIFIED->name]]));
+        $this->assertTrue($this->communityAdminUser->can(
+            'updateStatus',
+            [$this->poolCandidate, ['application_status' => ApplicationStatus::QUALIFIED->name]]));
+
     }
 
     /**
