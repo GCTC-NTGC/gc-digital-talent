@@ -67,6 +67,7 @@ const hasRolesHandleNoRolesRequired = (
   if (Array.isArray(checkRole) && checkRole.length === 0) {
     return true;
   }
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return hasRole(checkRole, userRoles);
 };
 

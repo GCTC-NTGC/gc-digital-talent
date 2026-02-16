@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -91,5 +92,15 @@ class DepartmentPolicy
     public function archiveAndUnarchive(User $user)
     {
         return $user->isAbleTo('archive-any-department');
+    }
+
+    /**
+     * Determine whether the user can view department team members
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewTeamMembers(User $user, Department $department)
+    {
+        return $user->isAbleTo('view-any-departmentTeamMembers') || $user->isAbleTo('view-team-departmentTeamMembers', $department->team);
     }
 }

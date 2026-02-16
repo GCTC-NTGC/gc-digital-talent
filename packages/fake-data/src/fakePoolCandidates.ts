@@ -5,14 +5,13 @@ import {
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
 import {
-  PoolCandidateStatus,
   PoolCandidate,
   Pool,
   User,
   EducationRequirementOption,
   OverallAssessmentStatus,
-  FinalDecision,
   ScreeningStage,
+  ApplicationStatus,
 } from "@gc-digital-talent/graphql";
 
 import fakeExperiences from "./fakeExperiences";
@@ -61,8 +60,8 @@ const generatePoolCandidate = (
       .toISOString()
       .substring(0, 10),
     status: toLocalizedEnum(
-      faker.helpers.arrayElement<PoolCandidateStatus>(
-        Object.values(PoolCandidateStatus),
+      faker.helpers.arrayElement<ApplicationStatus>(
+        Object.values(ApplicationStatus),
       ),
     ),
     archivedAt: faker.helpers.maybe(() =>
@@ -81,10 +80,7 @@ const generatePoolCandidate = (
       assessmentStepStatuses: [],
       overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
     },
-    finalDecision: toLocalizedEnum(
-      faker.helpers.arrayElement<FinalDecision>(Object.values(FinalDecision)),
-    ),
-    finalDecisionAt: faker.date
+    statusUpdatedAt: faker.date
       .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
       .toISOString()
       .substring(0, 10),

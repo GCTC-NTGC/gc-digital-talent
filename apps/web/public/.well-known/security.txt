@@ -1,0 +1,9 @@
+# security.txt for GC Digital Talent - Treasury Board of Canada Secretariat / pour Talents numériques du GC - Secrétariat du Conseil du Trésor du Canada
+# RFC 9116-compliant contact information for reporting security vulnerabilities. 
+
+Contact: mailto:ZZTBSCYBERS@tbs-sct.gc.ca
+Contact: https://hackerone.com/tbs-sct
+Policy: https://hackerone.com/tbs-sct
+Preferred-Languages: EN, FR
+Canonical: https://talent.canada.ca/.well-known/security.txt
+Expires: 2026-03-05T23:59:59Z

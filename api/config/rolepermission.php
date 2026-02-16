@@ -84,6 +84,7 @@ return [
         'community' => 'community',
         'poolTeamMembers' => 'poolTeamMembers',
         'communityTeamMembers' => 'communityTeamMembers',
+        'departmentTeamMembers' => 'departmentTeamMembers',
         'talentNominationEvent' => 'talentNominationEvent',
         'talentNomination' => 'talentNomination',
         'talentNominationGroup' => 'talentNominationGroup',
@@ -99,6 +100,8 @@ return [
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
         'communityTalentCoordinatorMembership' => 'communityTalentCoordinatorMembership',
+        'departmentAdminMembership' => 'departmentAdminMembership',
+        'departmentHRAdvisorMembership' => 'departmentHRAdvisorMembership',
 
         'poolActivityLog' => 'poolActivityLog',
     ],
@@ -608,6 +611,18 @@ return [
             'en' => 'Add or remove the Community Talent Coordinator role from a community user',
             'fr' => 'Ajouter ou supprimer le rôle de coordinateur des talents de la communauté à un utilisateur de la communauté',
         ],
+        'update-any-departmentAdminMembership' => [
+            'en' => 'Add or remove the department admin role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle d\'administrateur du département pour n\'importe quel utilisateur',
+        ],
+        'update-any-departmentHRAdvisorMembership' => [
+            'en' => 'Add or remove the department HR advisor role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle de conseiller RH du département pour n\'importe quel utilisateur',
+        ],
+        'update-team-departmentHRAdvisorMembership' => [
+            'en' => 'Add or remove the department HR advisor role from a team user',
+            'fr' => 'Ajouter ou supprimer le rôle de conseiller RH du département pour un utilisateur de l\'équipe',
+        ],
 
         'view-any-poolTeamMembers' => [
             'en' => 'View the members of any pool',
@@ -624,6 +639,14 @@ return [
         'view-team-communityTeamMembers' => [
             'en' => 'View the members of this community',
             'fr' => 'Voir les membres de cette communauté',
+        ],
+        'view-any-departmentTeamMembers' => [
+            'en' => 'View the members of any department',
+            'fr' => 'Afficher les membres d\'un département',
+        ],
+        'view-team-departmentTeamMembers' => [
+            'en' => 'View the members of this department',
+            'fr' => 'Voir les membres de ce département',
         ],
 
         'create-any-trainingOpportunity' => [
@@ -819,6 +842,30 @@ return [
             'description' => [
                 'en' => 'Access to the talent event and talent nomination management flows',
                 'fr' => 'Accès aux flux de gestion des événements et des nominations de talents',
+            ],
+            'is_team_based' => true,
+        ],
+
+        'department_admin' => [
+            'display_name' => [
+                'en' => 'Department Administrator',
+                'fr' => 'Administrateur du ministère',
+            ],
+            'description' => [
+                'en' => 'Assigned for individual departments. This role is intended to assign department roles, publish job posters and manage department details.',
+                'fr' => 'Attribué à chaque service. Ce rôle sert à attribuer les rôles au sein du service, à publier les offres d\'emploi et à gérer les informations relatives au service.',
+            ],
+            'is_team_based' => true,
+        ],
+
+        'department_hr_advisor' => [
+            'display_name' => [
+                'en' => 'Department Human Resources Advisor',
+                'fr' => 'Conseiller en ressources humaines du ministère',
+            ],
+            'description' => [
+                'en' => 'Assigned for individual departments. This role is intended to coordinate and run staffing processes along-side process operators.',
+                'fr' => 'Attribué à chaque service. Ce rôle consiste à coordonner et à gérer les processus de dotation en personnel en collaboration avec les opérateurs de processus.',
             ],
             'is_team_based' => true,
         ],
@@ -1195,10 +1242,19 @@ return [
             'processOperatorMembership' => [
                 'any' => ['update'],
             ],
+            'departmentAdminMembership' => [
+                'any' => ['update'],
+            ],
+            'departmentHRAdvisorMembership' => [
+                'any' => ['update'],
+            ],
             'communityTeamMembers' => [
                 'any' => ['view'],
             ],
             'poolTeamMembers' => [
+                'any' => ['view'],
+            ],
+            'departmentTeamMembers' => [
                 'any' => ['view'],
             ],
             'trainingOpportunity' => [
@@ -1245,6 +1301,27 @@ return [
             ],
             'talentNominationGroup' => [
                 'team' => ['update', 'view'],
+            ],
+        ],
+
+        'department_admin' => [
+            'processOperatorMembership' => [
+                'team' => ['update'],
+            ],
+            'departmentHRAdvisorMembership' => [
+                'team' => ['update'],
+            ],
+            'departmentTeamMembers' => [
+                'team' => ['view'],
+            ],
+        ],
+
+        'department_hr_advisor' => [
+            'processOperatorMembership' => [
+                'team' => ['update'],
+            ],
+            'departmentTeamMembers' => [
+                'team' => ['view'],
             ],
         ],
     ],

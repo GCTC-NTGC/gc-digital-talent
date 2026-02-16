@@ -48,6 +48,8 @@ export function convertRoleToNavRole(role: RoleName): NavRole {
     case "guest":
     case "base_user":
       return null;
+    case "department_admin": // temporary to allow login
+    case "department_hr_advisor": // temporary to allow login
     case "applicant":
       return "applicant";
     case "process_operator":

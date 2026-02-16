@@ -168,7 +168,9 @@ const EducationFields = ({
               required: intl.formatMessage(errorMessages.required),
               max: {
                 value: strToFormDate(todayDate.toISOString()),
-                message: intl.formatMessage(errorMessages.mustNotBeFuture),
+                message: intl.formatMessage(
+                  errorMessages.mustNotBeFutureStartDate,
+                ),
               },
             }}
           />
@@ -189,9 +191,14 @@ const EducationFields = ({
                       min: {
                         value: watchStartDate ? String(watchStartDate) : "",
                         message: intl.formatMessage(
-                          errorMessages.minDateLabel,
+                          errorMessages.minDateSelfLabel,
                           {
-                            label: nodeToString(labels.startDate).toLowerCase(),
+                            labelSelf: nodeToString(
+                              labels.endDate,
+                            ).toLowerCase(),
+                            labelAssociated: nodeToString(
+                              labels.startDate,
+                            ).toLowerCase(),
                           },
                         ),
                       },

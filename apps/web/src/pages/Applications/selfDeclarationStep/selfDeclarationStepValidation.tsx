@@ -7,7 +7,7 @@ import { diversityEquityInclusionSectionHasEmptyRequiredFields } from "~/validat
 
 const stepHasError = (
   user: ApplicationPoolCandidateFragmentType["user"],
-  pool: Omit<Pool, "activities">,
+  pool: Omit<Pool, "activities" | "teamId">,
 ) => {
   const hasEmptyRequiredFields =
     diversityEquityInclusionSectionHasEmptyRequiredFields(user, pool);

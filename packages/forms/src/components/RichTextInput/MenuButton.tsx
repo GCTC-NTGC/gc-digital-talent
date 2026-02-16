@@ -1,6 +1,16 @@
 import { ReactNode, forwardRef } from "react";
+import { tv } from "tailwind-variants";
 
 import { Button, ButtonProps } from "@gc-digital-talent/ui";
+
+const menuBtn = tv({
+  base: "font-normal",
+  variants: {
+    active: {
+      true: "font-bold no-underline [&_span]:no-underline",
+    },
+  },
+});
 
 interface MenuButtonProps {
   onClick?: ButtonProps["onClick"];
@@ -17,7 +27,8 @@ const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
       ref={ref}
       mode="inline"
       type="button"
-      color={active ? "secondary" : "white"}
+      className={menuBtn({ active })}
+      color="white"
       fixedColor
       size="sm"
       {...rest}

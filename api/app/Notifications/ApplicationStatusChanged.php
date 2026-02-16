@@ -7,9 +7,10 @@ use App\Enums\NotificationFamily;
 use App\Models\User;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
-class ApplicationStatusChanged extends Notification implements CanBeSentViaGcNotifyEmail
+class ApplicationStatusChanged extends Notification implements CanBeSentViaGcNotifyEmail, ShouldQueue
 {
     use Queueable;
 
