@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import { useOutletContext } from "react-router";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Pending,
   NotFound,
@@ -24,15 +25,13 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import adminMessages from "~/messages/adminMessages";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import labels from "./labels";
+import { ContextType } from "./ManageAccessPage/components/types";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentView on Department {
@@ -164,45 +163,19 @@ const Department_Query = graphql(/* GraphQL */ `
 
 const ViewDepartmentPage = () => {
   const intl = useIntl();
-  const routes = useRoutes();
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
   const [{ data: departmentData, fetching, error }] = useQuery({
     query: Department_Query,
     variables: { id: departmentId },
   });
 
-  const departmentName = getLocalizedName(
-    departmentData?.department?.name,
-    intl,
-  );
+  const {
+    departmentName,
+    navigationCrumbs: baseCrumbs,
+    navTabs,
+  } = useOutletContext<ContextType>();
 
-  const navigationCrumbs = useBreadcrumbs({
-    crumbs: [
-      {
-        label: intl.formatMessage(pageTitles.departments),
-        url: routes.departmentTable(),
-      },
-      {
-        label: departmentName,
-        url: routes.departmentView(departmentId),
-      },
-    ],
-  });
-
-  const navTabs = [
-    {
-      url: routes.departmentView(departmentId),
-      label: intl.formatMessage({
-        defaultMessage: "Department information",
-        id: "sp9OKU",
-        description: "Nav tab label for department information",
-      }),
-    },
-    {
-      url: routes.departmentAdvancedTools(departmentId),
-      label: intl.formatMessage(adminMessages.advancedTools),
-    },
-  ];
+  const crumbs = [...(baseCrumbs ?? [])];
 
   return (
     <>
@@ -211,7 +184,7 @@ const ViewDepartmentPage = () => {
         title={
           fetching ? intl.formatMessage(commonMessages.loading) : departmentName
         }
-        crumbs={navigationCrumbs}
+        crumbs={crumbs}
         navTabs={navTabs}
       />
       <Container className="my-18">

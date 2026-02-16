@@ -168,6 +168,10 @@ const getRoutes = (lang: Locales) => {
         departmentId,
         "advanced-tools",
       ].join("/"),
+    departmentManageAccess: (departmentId: string) =>
+      [adminUrl, "settings", "departments", departmentId, "manage-access"].join(
+        "/",
+      ),
 
     // Admin - Announcements
     announcements: () => [adminUrl, "settings", "announcements"].join("/"),
