@@ -202,7 +202,6 @@ class RolePermissionTest extends TestCase
             'create-any-workStream',
             'update-any-workStream',
             'update-any-communityTalentCoordinatorMembership',
-            'view-any-employeeWFA',
             'view-any-poolActivityLog',
             'archive-any-department',
             'view-any-communityInterest',
@@ -310,7 +309,6 @@ class RolePermissionTest extends TestCase
             'update-team-processOperatorMembership',
             'view-team-communityInterest',
             'view-team-communityTalent',
-            'view-team-employeeWFA',
             'view-team-poolActivityLog',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
