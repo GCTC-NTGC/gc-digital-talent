@@ -2,6 +2,6 @@
   "extends": "./base.json",
   "compilerOptions": {
     "module": "ES2015",
-    "target": "ES2015"
+    "target": "es6"
   }
 }

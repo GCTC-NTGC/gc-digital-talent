@@ -2,10 +2,10 @@ import { useQuery } from "urql";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import permissionConstants from "~/constants/permissionConstants";
 
 import { RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
@@ -110,7 +110,7 @@ const TalentNominationGroupCareerExperiencePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityTalentCoordinator]}>
+  <RequireAuth roles={permissionConstants.viewCommunityTalentNominations}>
     <TalentNominationGroupCareerExperiencePage />
   </RequireAuth>
 );
