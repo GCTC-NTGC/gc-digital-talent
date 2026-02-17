@@ -1491,8 +1491,6 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
-    @paginate(defaultCount: 10, maxCount: 1000, model: "App\\Models\\User")
-    @guard
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID! @eq): Pool @find @canQuery(ability: "view")
   publishedPools(
@@ -3065,9 +3063,6 @@ type Mutation {
     @guard
     @update(model: "EmployeeProfile")
     @canFind(ability: "update", find: "id", model: "EmployeeProfile")
-    @guard
-    @validator
-    @update(model: "User")
   createCommunityInterest(
     communityInterest: CreateCommunityInterestInput! @spread
   ): CommunityInterest
