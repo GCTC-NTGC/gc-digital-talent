@@ -1,4 +1,8 @@
-import { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  RoleAssignment,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
 
@@ -20,5 +24,8 @@ export interface ContextType {
   teamId: Scalars["UUID"]["output"] | null | undefined;
   navTabs: React.ComponentProps<typeof Hero>["navTabs"];
   navigationCrumbs: React.ComponentProps<typeof Hero>["crumbs"];
-  canAdminManageAccess: boolean;
+  roleAssignmentsFiltered: RoleAssignment[];
+  canViewManageAccess: boolean;
+  canEditAdmin: boolean;
+  canEditAdvisor: boolean;
 }

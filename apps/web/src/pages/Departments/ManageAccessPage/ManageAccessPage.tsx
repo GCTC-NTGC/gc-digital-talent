@@ -58,7 +58,8 @@ const DepartmentMembersTable = ({
     DepartmentManageAccessPage_DepartmentFragment,
     departmentQuery,
   );
-  const { canAdminManageAccess } = useOutletContext<ContextType>();
+  const { canViewManageAccess, canEditAdmin, canEditAdvisor } =
+    useOutletContext<ContextType>();
 
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
@@ -103,7 +104,7 @@ const DepartmentMembersTable = ({
     }),
   ] as ColumnDef<DepartmentMember>[];
 
-  if (canAdminManageAccess) {
+  if (canEditAdmin || canEditAdvisor) {
     columns.splice(
       1,
       0,
@@ -142,7 +143,7 @@ const DepartmentMembersTable = ({
           internal: true,
           label: intl.formatMessage(adminMessages.searchByKeyword),
         }}
-        {...(canAdminManageAccess && {
+        {...((canEditAdmin || canEditAdvisor) && {
           add: {
             component: (
               <AddDepartmentMembershipDialog
@@ -240,10 +241,9 @@ const DepartmentManageAccessPageApiWrapper = () => {
 export const Component = () => (
   <RequireAuth
     roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
     ]}
   >
     <DepartmentManageAccessPageApiWrapper />

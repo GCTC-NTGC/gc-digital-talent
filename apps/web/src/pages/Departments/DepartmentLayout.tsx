@@ -3,7 +3,7 @@ import { Outlet } from "react-router";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import { useQuery } from "urql";
 
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -25,8 +25,7 @@ const DepartmentLayoutDepartmentName_Query = graphql(/* GraphQL */ `
   query DepartmentName($id: UUID!) {
     department(id: $id) {
       name {
-        en
-        fr
+        localized
       }
       teamIdForRoleAssignment
     }
@@ -67,15 +66,21 @@ const DepartmentLayout = () => {
 
   const roleAssignmentsFiltered =
     data?.myAuth?.roleAssignments?.filter(notEmpty) ?? [];
-  const canAdminManageAccess = checkRoleDepartments(
-    [ROLE_NAME.PlatformAdmin, ROLE_NAME.CommunityAdmin],
+
+  const canEditAdmin = checkRoleDepartments(
+    [ROLE_NAME.PlatformAdmin],
+    roleAssignmentsFiltered,
+  );
+  const canEditAdvisor = checkRoleDepartments(
+    [ROLE_NAME.PlatformAdmin, ROLE_NAME.DepartmentAdmin],
     roleAssignmentsFiltered,
     departmentId,
   );
   const canViewManageAccess =
-    canAdminManageAccess ||
+    canEditAdmin ||
+    canEditAdvisor ||
     checkRoleDepartments(
-      [ROLE_NAME.CommunityTalentCoordinator],
+      [ROLE_NAME.DepartmentHRAdvisor],
       roleAssignmentsFiltered,
       departmentId,
     );
@@ -111,7 +116,7 @@ const DepartmentLayout = () => {
     });
   }
 
-  if (canViewManageAccess) {
+  if (canEditAdmin) {
     pages.set("advanced-tools", {
       icon: ClipboardDocumentListIcon,
       title: intl.formatMessage(messages.advancedTools),
@@ -121,7 +126,9 @@ const DepartmentLayout = () => {
     });
   }
 
-  const departmentName = getLocalizedName(data?.department?.name, intl);
+  const departmentName =
+    data?.department?.name?.localized ??
+    intl.formatMessage(commonMessages.notFound);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -144,7 +151,10 @@ const DepartmentLayout = () => {
       url: page.link.url,
     })),
     navigationCrumbs: navigationCrumbs,
-    canAdminManageAccess,
+    roleAssignmentsFiltered,
+    canEditAdmin,
+    canEditAdvisor,
+    canViewManageAccess,
   };
 
   // No actual shared UI - this is just used as a context provider
@@ -154,10 +164,9 @@ const DepartmentLayout = () => {
 export const Component = () => (
   <RequireAuth
     roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
     ]}
   >
     <DepartmentLayout />
