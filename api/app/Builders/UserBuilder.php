@@ -552,15 +552,6 @@ class UserBuilder extends Builder
         });
     }
 
-    public function whereWfaInterestIn(?array $wfaInterests): self
-    {
-        if (empty($wfaInterests)) {
-            return $this;
-        }
-
-        return $this->whereIn('wfa_interest', $wfaInterests);
-    }
-
     public function whereHasPriorityEntitlement(?bool $hasPriority): self
     {
         if (! isset($hasPriority)) {

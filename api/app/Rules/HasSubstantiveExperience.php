@@ -3,7 +3,6 @@
 namespace App\Rules;
 
 use App\Enums\ErrorCode;
-use App\Enums\WfaInterest;
 use App\Models\User;
 use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;
@@ -29,10 +28,8 @@ class HasSubstantiveExperience implements DataAwareRule, ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $user = User::find($value);
-        $wfaInterest = Arr::get($this->data, 'employeeWFA.wfaInterest');
-        $ruleApplies = ! is_null($wfaInterest) && $wfaInterest !== WfaInterest::NOT_APPLICABLE->name;
 
-        if ($user && $ruleApplies) {
+        if ($user) {
             $expCount = $user->current_substantive_experiences->count();
 
             if (! $expCount) {
