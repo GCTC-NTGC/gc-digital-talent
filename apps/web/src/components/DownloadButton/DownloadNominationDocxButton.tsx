@@ -1,8 +1,7 @@
-import ArrowDownTrayIcon from "@heroicons/react/20/solid/ArrowDownTrayIcon";
-import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
+import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
 import { useIntl } from "react-intl";
 
-import { Button, DropdownMenu } from "@gc-digital-talent/ui";
+import { DropdownMenu } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Maybe, Scalars } from "@gc-digital-talent/graphql";
 
@@ -44,24 +43,26 @@ const DownloadNominationDocxButton = ({
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <Button
-          disabled={isDownloading}
-          mode="inline"
-          color="black"
-          className="text-left"
-          utilityIcon={ChevronDownIcon}
-          icon={isDownloading ? SpinnerIcon : ArrowDownTrayIcon}
-        >
-          <span className="sr-only">
-            {intl.formatMessage(commonMessages.download)}
-          </span>
-        </Button>
+      <DropdownMenu.Trigger
+        disabled={isDownloading}
+        btnProps={{
+          disabled: isDownloading,
+          mode: "inline",
+          color: "black",
+          className: "text-left",
+          icon: isDownloading ? SpinnerIcon : ArrowDownTrayIcon,
+        }}
+      >
+        <span className="sr-only">
+          {intl.formatMessage(commonMessages.download)}
+        </span>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content align="end" collisionPadding={2}>
+      <DropdownMenu.Popup
+        positionerProps={{ align: "end", collisionPadding: 2 }}
+      >
         <DropdownMenu.Item
           disabled={isDownloading}
-          onSelect={handleNominationDocDownload}
+          onClick={handleNominationDocDownload}
         >
           {intl.formatMessage({
             defaultMessage: "Download nomination",
@@ -73,7 +74,7 @@ const DownloadNominationDocxButton = ({
         {consentToShareProfile && (
           <DropdownMenu.Item
             disabled={isDownloading}
-            onSelect={() => handleProfileDocDownload(false)}
+            onClick={() => handleProfileDocDownload(false)}
           >
             {intl.formatMessage({
               defaultMessage: "Download profile",
@@ -82,7 +83,7 @@ const DownloadNominationDocxButton = ({
             })}
           </DropdownMenu.Item>
         )}
-      </DropdownMenu.Content>
+      </DropdownMenu.Popup>
     </DropdownMenu.Root>
   );
 };

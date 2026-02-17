@@ -44,7 +44,7 @@ interface RemoveCommunityMemberDialogProps extends ComponentPropsWithoutRef<
 const RemoveCommunityMemberDialog = forwardRef<
   ComponentRef<typeof DropdownMenu.Item>,
   RemoveCommunityMemberDialogProps
->(({ user, community, hasPlatformAdmin, onSelect, ...rest }, forwardedRef) => {
+>(({ user, community, hasPlatformAdmin, onClick, ...rest }, forwardedRef) => {
   const intl = useIntl();
   const { teamId } = useOutletContext<ContextType>();
   const [{ fetching }, executeMutation] = useMutation(
@@ -113,9 +113,10 @@ const RemoveCommunityMemberDialog = forwardRef<
       <Dialog.Trigger>
         <DropdownMenu.Item
           ref={forwardedRef}
-          onSelect={(event) => {
+          onClick={(event) => {
             event.preventDefault();
-            onSelect?.(event);
+            setIsOpen(true);
+            onClick?.(event);
           }}
           {...rest}
         >

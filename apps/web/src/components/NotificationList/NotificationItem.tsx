@@ -1,12 +1,11 @@
 import { useIntl } from "react-intl";
-import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
+import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
 import { useMutation } from "urql";
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { tv } from "tailwind-variants";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
-  Button,
   Card,
   DialogPrimitive,
   DropdownMenu,
@@ -123,6 +122,7 @@ const NotificationItem = ({
     NotificationItem_Fragment,
     notificationQuery,
   );
+  const [isConfirmOpen, setConfirmOpen] = useState<boolean>(false);
   const itemRef = useRef<HTMLLIElement>(null);
   const info = useNotificationInfo(notification);
   const isUnread = notification.readAt === null;
@@ -177,91 +177,114 @@ const NotificationItem = ({
   };
 
   return (
-    <li ref={itemRef}>
-      <Card className={notificationItem({ inDialog })}>
-        <div className="grid w-full grid-cols-[calc(var(--spacing)*3)_1fr] grid-rows-[auto_auto] gap-1.5">
-          <div className="row-start-2 m-auto">
-            {isUnread && (
-              <svg
-                className="size-1.5 text-error"
-                viewBox="0 0 8 8"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="3.5" cy="3.5" r="3.375" fill="currentColor" />
-              </svg>
-            )}
-          </div>
-          <div className="row-start-2 flex w-full items-start justify-between gap-1.5">
-            {info.href ? (
-              <LinkWrapper inDialog={inDialog}>
-                {info.download ? (
-                  <NotificationDownload
-                    href={info.href}
-                    fileName={info.download}
-                    {...commonLinkProps}
-                  >
-                    {info.message}
-                  </NotificationDownload>
-                ) : (
-                  <NotificationLink href={info.href} {...commonLinkProps}>
-                    {info.message}
-                  </NotificationLink>
-                )}
-              </LinkWrapper>
-            ) : (
-              <NotificationButton {...commonLinkProps}>
-                {info.message}
-              </NotificationButton>
-            )}
-            <DropdownMenu.Root>
-              <DropdownMenu.Trigger>
-                <IconButton
-                  color="black"
-                  icon={EllipsisVerticalIcon}
-                  label={intl.formatMessage(
-                    {
-                      defaultMessage: "Manage {notificationName}",
-                      id: "lSSz6L",
-                      description: "Button text for managing a notification",
-                    },
-                    { notificationName: info.label },
+    <>
+      <li ref={itemRef}>
+        <Card className={notificationItem({ inDialog })}>
+          <div className="grid w-full grid-cols-[calc(var(--spacing)*3)_1fr] grid-rows-[auto_auto] gap-1.5">
+            <div className="row-start-2 m-auto">
+              {isUnread && (
+                <svg
+                  className="size-1.5 text-error"
+                  viewBox="0 0 8 8"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="3.5" cy="3.5" r="3.375" fill="currentColor" />
+                </svg>
+              )}
+            </div>
+            <div className="row-start-2 flex w-full items-start justify-between gap-1.5">
+              {info.href ? (
+                <LinkWrapper inDialog={inDialog}>
+                  {info.download ? (
+                    <NotificationDownload
+                      href={info.href}
+                      fileName={info.download}
+                      {...commonLinkProps}
+                    >
+                      {info.message}
+                    </NotificationDownload>
+                  ) : (
+                    <NotificationLink href={info.href} {...commonLinkProps}>
+                      {info.message}
+                    </NotificationLink>
                   )}
-                />
-              </DropdownMenu.Trigger>
-              <DropdownMenu.Content align="end" className="z-[98]">
-                <DropdownMenu.Item asChild onSelect={toggleReadStatus}>
-                  <Button mode="inline" block disabled={isTogglingReadStatus}>
-                    {isUnread
-                      ? intl.formatMessage({
-                          defaultMessage: "Mark as read",
-                          id: "vi7jVU",
-                          description:
-                            "Button text to mark a notification as read",
-                        })
-                      : intl.formatMessage({
-                          defaultMessage: "Mark as unread",
-                          id: "2SnhXV",
-                          description:
-                            "Button text to mark a notification as unread",
-                        })}
-                  </Button>
-                </DropdownMenu.Item>
-                <RemoveDialog
-                  id={notification.id}
-                  message={info.message}
-                  date={createdAt}
-                />
-              </DropdownMenu.Content>
-            </DropdownMenu.Root>
+                </LinkWrapper>
+              ) : (
+                <NotificationButton {...commonLinkProps}>
+                  {info.message}
+                </NotificationButton>
+              )}
+              <div
+                onFocus={(e) => e.stopPropagation()}
+                onBlur={(e) => e.stopPropagation()}
+              >
+                <DropdownMenu.Root>
+                  <DropdownMenu.Trigger
+                    render={
+                      <IconButton
+                        color="black"
+                        icon={EllipsisVerticalIcon}
+                        label={intl.formatMessage(
+                          {
+                            defaultMessage: "Manage {notificationName}",
+                            id: "lSSz6L",
+                            description:
+                              "Button text for managing a notification",
+                          },
+                          { notificationName: info.label },
+                        )}
+                      />
+                    }
+                  />
+                  <DropdownMenu.Popup
+                    positionerProps={{ align: "end", className: "z-98" }}
+                  >
+                    <DropdownMenu.Item
+                      onClick={toggleReadStatus}
+                      disabled={isTogglingReadStatus}
+                    >
+                      {isUnread
+                        ? intl.formatMessage({
+                            defaultMessage: "Mark as read",
+                            id: "vi7jVU",
+                            description:
+                              "Button text to mark a notification as read",
+                          })
+                        : intl.formatMessage({
+                            defaultMessage: "Mark as unread",
+                            id: "2SnhXV",
+                            description:
+                              "Button text to mark a notification as unread",
+                          })}
+                    </DropdownMenu.Item>
+                    <DropdownMenu.Item
+                      color="error"
+                      onClick={() => setConfirmOpen(true)}
+                    >
+                      {intl.formatMessage(commonMessages.delete)}
+                    </DropdownMenu.Item>
+                  </DropdownMenu.Popup>
+                </DropdownMenu.Root>
+              </div>
+            </div>
+            <p className="col-start-2 row-start-1 text-sm/none text-gray-500 dark:text-gray-200">
+              {createdAt}
+            </p>
           </div>
-          <p className="col-start-2 row-start-1 text-sm/none text-gray-500 dark:text-gray-200">
-            {createdAt}
-          </p>
-        </div>
-      </Card>
-      {inDialog && <Separator orientation="horizontal" space="none" />}
-    </li>
+        </Card>
+        {inDialog && <Separator orientation="horizontal" space="none" />}
+      </li>
+      {isConfirmOpen && (
+        <RemoveDialog
+          id={notification.id}
+          message={info.message}
+          date={createdAt}
+          isOpen={isConfirmOpen}
+          onOpenChange={setConfirmOpen}
+        />
+      )}
+    </>
   );
 };
 
