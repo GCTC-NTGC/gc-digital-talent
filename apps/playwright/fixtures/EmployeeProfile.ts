@@ -10,7 +10,6 @@ export const EMPLOYEE_PROFILE_FORM = {
   NextRole: "next-role",
   CareerObjective: "career-objective",
   GoalsWorkStyle: "goals-work-style",
-  Wfa: "wfa",
 };
 
 type EmployeeProfileForm = ObjectValues<typeof EMPLOYEE_PROFILE_FORM>;
