@@ -12,11 +12,11 @@ import {
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import permissionConstants from "~/constants/permissionConstants";
 
 import { RouteParams } from "./types";
 import { detailTabMessages } from "./messages";
@@ -174,7 +174,7 @@ const TalentNominationGroupDetailsPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityTalentCoordinator]}>
+  <RequireAuth roles={permissionConstants.viewCommunityTalentNominations}>
     <TalentNominationGroupDetailsPage />
   </RequireAuth>
 );

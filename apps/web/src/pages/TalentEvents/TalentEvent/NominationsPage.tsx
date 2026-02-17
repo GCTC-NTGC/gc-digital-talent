@@ -4,11 +4,11 @@ import EnvelopeOpenIcon from "@heroicons/react/24/outline/EnvelopeOpenIcon";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import messages from "~/messages/talentNominationMessages";
+import permissionConstants from "~/constants/permissionConstants";
 
 import { RouteParams } from "./types";
 import TalentEventNominationsTable from "./TalentEventNominationsTable";
@@ -60,7 +60,7 @@ const TalentEventNominationsPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityTalentCoordinator]}>
+  <RequireAuth roles={permissionConstants.viewCommunityTalentNominations}>
     <TalentEventNominationsPage />
   </RequireAuth>
 );
