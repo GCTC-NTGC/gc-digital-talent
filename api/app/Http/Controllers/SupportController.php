@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ApiKeyNotFoundException;
 use App\Exceptions\ExternalServiceException;
 use App\Support\Freshdesk;
 use Illuminate\Http\Request;
@@ -97,10 +98,10 @@ class SupportController extends Controller
                 'serviceResponse' => 'error',
                 'errorDetail' => $error->getMessage(),
             ], 400);
-        } catch (Throwable $error) {
+        } catch (ApiKeyNotFoundException $error) {
             return response()->json([
                 'message' => $error->getMessage(),
-            ], 400);
+            ], 500);
         }
 
         return response([
