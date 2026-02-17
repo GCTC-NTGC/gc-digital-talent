@@ -1,15 +1,14 @@
 import { useQuery } from "urql";
 import { useMemo } from "react";
+import { useOutletContext } from "react-router";
 
 import { Role, graphql } from "@gc-digital-talent/graphql";
-import {
-  notEmpty,
-  uniqueItems,
-  unpackMaybes,
-} from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization, RoleName } from "@gc-digital-talent/auth";
+import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 
 import { checkRoleDepartments } from "~/utils/departmentUtils";
+
+import { ContextType } from "./types";
 
 const DepartmentMembers_AvailableRolesQuery = graphql(/* GraphQL */ `
   query AvailableDepartmentRoles {
@@ -41,24 +40,26 @@ const useAvailableRoles = ({
     query: DepartmentMembers_AvailableRolesQuery,
   });
 
-  const { userAuthInfo } = useAuthorization();
-  const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
+  const { roleAssignmentsFiltered } = useOutletContext<ContextType>();
+
   const departmentRoles: RoleName[] = useMemo(() => {
     const array: RoleName[] = [];
-    if (checkRoleDepartments([ROLE_NAME.PlatformAdmin], roleAssignments)) {
+    if (
+      checkRoleDepartments([ROLE_NAME.PlatformAdmin], roleAssignmentsFiltered)
+    ) {
       array.push(ROLE_NAME.DepartmentAdmin, ROLE_NAME.DepartmentHRAdvisor);
     }
     if (
       checkRoleDepartments(
         [ROLE_NAME.DepartmentAdmin],
-        roleAssignments,
+        roleAssignmentsFiltered,
         departmentId,
       )
     ) {
       array.push(ROLE_NAME.DepartmentHRAdvisor);
     }
     return uniqueItems(array);
-  }, [roleAssignments]);
+  }, [roleAssignmentsFiltered]);
 
   const roles: Role[] = useMemo(
     () =>

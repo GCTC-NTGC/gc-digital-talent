@@ -1,10 +1,10 @@
 import { RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
-  Maybe,
   Role,
   RoleAssignment,
   UserPublicProfile,
+  DepartmentNameQuery,
 } from "@gc-digital-talent/graphql";
 
 export type DepartmentMember = {
@@ -43,6 +43,10 @@ export const groupRoleAssignmentsByUserDepartments = (
   return users;
 };
 
+type RoleAssignmentsCustom = NonNullable<
+  DepartmentNameQuery["myAuth"]
+>["roleAssignments"];
+
 /**
  * Check to see if user contains one or more roles
  *
@@ -53,7 +57,7 @@ export const groupRoleAssignmentsByUserDepartments = (
  */
 export const checkRoleDepartments = (
   roles: RoleName[] | null,
-  userRoleAssignments: Maybe<RoleAssignment[]>,
+  userRoleAssignments: RoleAssignmentsCustom,
   departmentId?: string,
 ): boolean => {
   if (!roles) {
