@@ -32,10 +32,6 @@ const IndexWorkforceAdjustmentPage = () => {
         label: intl.formatMessage(navigationMessages.communityDashboard),
         url: paths.communityDashboard(),
       },
-      {
-        label: pageTitle,
-        url: paths.workforceAdjustmentEmployees(),
-      },
     ],
   });
 
