@@ -7,7 +7,6 @@ use App\Models\User;
 use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Support\Arr;
 
 class HasSubstantiveExperience implements DataAwareRule, ValidationRule
 {
