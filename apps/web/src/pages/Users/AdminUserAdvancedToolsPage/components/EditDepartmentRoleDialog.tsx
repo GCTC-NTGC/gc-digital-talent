@@ -148,9 +148,8 @@ const EditDepartmentRoleDialog = ({
                 isMulti
                 label={intl.formatMessage({
                   defaultMessage: "Department roles",
-                  id: "uZ32uZ",
-                  description:
-                    "Label for the input to select role of a department role",
+                  id: "3XvHVf",
+                  description: "Heading for updating a user's department roles",
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 placeholder={intl.formatMessage({

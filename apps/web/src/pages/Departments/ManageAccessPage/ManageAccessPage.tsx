@@ -96,8 +96,8 @@ const DepartmentMembersTable = ({
       id: "roles",
       header: intl.formatMessage({
         defaultMessage: "Department roles",
-        id: "kc8chj",
-        description: "Label for the input to select role of a Department role",
+        id: "3XvHVf",
+        description: "Heading for updating a user's department roles",
       }),
       cell: ({ row: { original: member } }) => roleCell(member.roles, intl),
     }),

@@ -13202,10 +13202,6 @@
     "defaultMessage": "Nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
     "description": "Text describing our user testing for accessibility"
   },
-  "sp9OKU": {
-    "defaultMessage": "Informations sur le ministère",
-    "description": "Nav tab label for department information"
-  },
   "spzerx": {
     "defaultMessage": "Modifier une compétence",
     "description": "Page title for the edit skill page."

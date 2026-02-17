@@ -178,9 +178,9 @@ const AddDepartmentRoleDialog = ({ query, optionsQuery }: RoleTableProps) => {
                   isMulti
                   label={intl.formatMessage({
                     defaultMessage: "Department roles",
-                    id: "uZ32uZ",
+                    id: "3XvHVf",
                     description:
-                      "Label for the input to select role of a department role",
+                      "Heading for updating a user's department roles",
                   })}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),

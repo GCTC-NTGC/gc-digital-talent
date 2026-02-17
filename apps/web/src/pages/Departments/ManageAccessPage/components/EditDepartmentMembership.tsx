@@ -136,9 +136,9 @@ const EditDepartmentMembershipDialog = forwardRef<
         >
           {intl.formatMessage({
             defaultMessage: "Edit department roles",
-            id: "VgyUtZ",
+            id: "Z6gyMG",
             description:
-              "Label for the form to edit a users department membership",
+              "Label for the form to edit user department membership",
           })}
         </DropdownMenu.Item>
       </Dialog.Trigger>
