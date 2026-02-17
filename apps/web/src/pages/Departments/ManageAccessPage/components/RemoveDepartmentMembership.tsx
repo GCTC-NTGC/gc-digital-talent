@@ -56,7 +56,7 @@ const RemoveDepartmentMembershipDialog = forwardRef<
   });
   if (
     !hasPlatformAdmin &&
-    user.roles.find((role) => role.name === ROLE_NAME.CommunityAdmin)
+    user.roles.find((role) => role.name === ROLE_NAME.DepartmentAdmin)
   ) {
     return null;
   }

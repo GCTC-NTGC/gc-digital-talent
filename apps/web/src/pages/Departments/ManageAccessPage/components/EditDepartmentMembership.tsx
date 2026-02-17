@@ -76,7 +76,7 @@ const EditDepartmentMembershipDialog = forwardRef<
 
     const rolesToDetach = initialRolesIds.filter((roleId) => {
       const role = user.roles.find((userRole) => userRole.id === roleId);
-      if (!hasPlatformAdmin && role?.name === "community_admin") {
+      if (!hasPlatformAdmin && role?.name === "department_admin") {
         return false;
       }
       return !formValues.roles.includes(roleId);
