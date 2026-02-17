@@ -176,12 +176,15 @@ interface RouteParams extends Record<string, string> {
   departmentId: Scalars["ID"]["output"];
 }
 
+type DepartmentMembersQueryType = NonNullable<
+  DepartmentMembersTeamQuery["department"]
+>;
 interface DepartmentManageAccessPageProps {
-  department: NonNullable<DepartmentMembersTeamQuery["department"]>;
+  departmentQuery: DepartmentMembersQueryType;
 }
 
 const DepartmentManageAccessPage = ({
-  department,
+  departmentQuery,
 }: DepartmentManageAccessPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -213,7 +216,7 @@ const DepartmentManageAccessPage = ({
       <SEO title={formattedPageTitle} />
       <Hero title={departmentName} crumbs={crumbs} navTabs={navTabs} />
       <Container className="my-12">
-        <DepartmentMembersTable departmentQuery={department} />
+        <DepartmentMembersTable departmentQuery={departmentQuery} />
       </Container>
     </>
   );
@@ -229,7 +232,7 @@ const DepartmentManageAccessPageApiWrapper = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.department ? (
-        <DepartmentManageAccessPage department={data.department} />
+        <DepartmentManageAccessPage departmentQuery={data.department} />
       ) : (
         <ThrowNotFound />
       )}
