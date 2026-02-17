@@ -58,8 +58,7 @@ const DepartmentMembersTable = ({
     DepartmentManageAccessPage_DepartmentFragment,
     departmentQuery,
   );
-  const { canViewManageAccess, canEditAdmin, canEditAdvisor } =
-    useOutletContext<ContextType>();
+  const { canEditAdmin, canEditAdvisor } = useOutletContext<ContextType>();
 
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
