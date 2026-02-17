@@ -205,7 +205,8 @@ class RolePermissionTest extends TestCase
             'view-any-poolActivityLog',
             'archive-any-department',
             'view-any-communityInterest',
-            'create-any-talentNominationEvent',
+            'view-any-talentNomination',
+            'view-any-talentNominationGroup',
         ];
 
         $allPermissions = Permission::all()->pluck('name')->toArray();
