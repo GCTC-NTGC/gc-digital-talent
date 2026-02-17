@@ -57,7 +57,6 @@ const SECTION_ID = {
   NEXT_ROLE: "next-role-section",
   CAREER_OBJECTIVE: "career-objective-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
-  WFA: "wfa-section",
 };
 
 const EmployeeProfileOptions_Fragment = graphql(/** GraphQL */ `
@@ -65,7 +64,6 @@ const EmployeeProfileOptions_Fragment = graphql(/** GraphQL */ `
     ...EmployeeProfileCareerDevelopmentOptions
     ...EmployeeProfileNextRoleOptions
     ...EmployeeProfileCareerObjectiveOptions
-    ...EmployeeWfaOptions
   }
 `);
 
@@ -78,7 +76,6 @@ const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
       ...EmployeeProfileNextRole
       ...EmployeeProfileGoalsWorkStyle
     }
-    ...EmployeeProfileWfa
   }
 `);
 
