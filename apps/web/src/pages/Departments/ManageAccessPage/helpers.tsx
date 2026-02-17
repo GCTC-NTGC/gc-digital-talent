@@ -38,27 +38,29 @@ export const actionCell = (
   return (
     <>
       <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <IconButton
-            icon={EllipsisVerticalIcon}
-            color="black"
-            label={intl.formatMessage(
-              {
-                defaultMessage: "Actions for {userName} in {departmentName}",
-                id: "LLN1xf",
-                description:
-                  "Aria label for the menu trigger for department actions",
-              },
-              {
-                userName: `${user.firstName} ${user.lastName}`,
-                departmentName:
-                  department.name?.localized ??
-                  intl.formatMessage(commonMessages.notFound),
-              },
-            )}
-          />
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content>
+        <DropdownMenu.Trigger
+          render={
+            <IconButton
+              icon={EllipsisVerticalIcon}
+              color="black"
+              label={intl.formatMessage(
+                {
+                  defaultMessage: "Actions for {userName} in {departmentName}",
+                  id: "LLN1xf",
+                  description:
+                    "Aria label for the menu trigger for department actions",
+                },
+                {
+                  userName: `${user.firstName} ${user.lastName}`,
+                  departmentName:
+                    department.name?.localized ??
+                    intl.formatMessage(commonMessages.notFound),
+                },
+              )}
+            />
+          }
+        />
+        <DropdownMenu.Popup portalProps={{ keepMounted: true }}>
           <EditDepartmentMembershipDialog
             user={user}
             department={department}
@@ -69,7 +71,7 @@ export const actionCell = (
             department={department}
             hasPlatformAdmin={hasPlatformAdmin}
           />
-        </DropdownMenu.Content>
+        </DropdownMenu.Popup>
       </DropdownMenu.Root>
     </>
   );
