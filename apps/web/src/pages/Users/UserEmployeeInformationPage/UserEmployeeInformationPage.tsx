@@ -341,7 +341,6 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
         ...UserEmployeeInformation
       }
       ...NextRoleAndCareerObjective
-      ...UserWorkforceAdjustment
     }
     ...CareerDevelopmentOptions
     ...CommunityInterestOptions
