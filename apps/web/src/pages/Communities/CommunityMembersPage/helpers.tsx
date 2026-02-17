@@ -1,6 +1,6 @@
 import orderBy from "lodash/orderBy";
 import { IntlShape } from "react-intl";
-import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
+import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { DropdownMenu, IconButton, Link, Ul } from "@gc-digital-talent/ui";
@@ -38,25 +38,27 @@ export const actionCell = (
   return (
     <>
       <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <IconButton
-            icon={EllipsisVerticalIcon}
-            color="black"
-            label={intl.formatMessage(
-              {
-                defaultMessage: "Actions for {userName} in {communityName}",
-                id: "J+haAz",
-                description:
-                  "Aria label for the menu trigger for community actions",
-              },
-              {
-                userName: `${user.firstName} ${user.lastName}`,
-                communityName: getLocalizedName(community.name, intl),
-              },
-            )}
-          />
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content>
+        <DropdownMenu.Trigger
+          render={
+            <IconButton
+              icon={EllipsisVerticalIcon}
+              color="black"
+              label={intl.formatMessage(
+                {
+                  defaultMessage: "Actions for {userName} in {communityName}",
+                  id: "J+haAz",
+                  description:
+                    "Aria label for the menu trigger for community actions",
+                },
+                {
+                  userName: `${user.firstName} ${user.lastName}`,
+                  communityName: getLocalizedName(community.name, intl),
+                },
+              )}
+            />
+          }
+        />
+        <DropdownMenu.Popup portalProps={{ keepMounted: true }}>
           <EditCommunityMemberDialog
             user={user}
             community={community}
@@ -67,7 +69,7 @@ export const actionCell = (
             community={community}
             hasPlatformAdmin={hasPlatformAdmin}
           />
-        </DropdownMenu.Content>
+        </DropdownMenu.Popup>
       </DropdownMenu.Root>
     </>
   );

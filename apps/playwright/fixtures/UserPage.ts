@@ -64,6 +64,7 @@ class UserPage extends AppPage {
     await this.page
       .getByRole("menuitemradio", { name: new RegExp(searchType, "i") })
       .click();
+    await this.page.keyboard.press("Escape");
     await this.page.getByRole("textbox", { name: /search/i }).fill(name);
   }
 }
