@@ -446,6 +446,7 @@ class RolePermissionTest extends TestCase
         $departmentAdmin->removeRole('base_user'); // isolate
 
         $permissionsToCheck = [
+            'view-any-userBasicInfo',
             'update-team-processOperatorMembership',
             'update-team-departmentHRAdvisorMembership',
             'view-team-departmentTeamMembers',
@@ -481,6 +482,7 @@ class RolePermissionTest extends TestCase
         $departmentAdvisor->removeRole('base_user'); // isolate
 
         $permissionsToCheck = [
+            'view-any-userBasicInfo',
             'update-team-processOperatorMembership',
             'view-team-departmentTeamMembers',
         ];
