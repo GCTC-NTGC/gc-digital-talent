@@ -37,7 +37,6 @@ class EmployeeProfile extends AppPage {
       [EMPLOYEE_PROFILE_FORM.NextRole, /edit your next role/i],
       [EMPLOYEE_PROFILE_FORM.CareerObjective, /edit your career objective/i],
       [EMPLOYEE_PROFILE_FORM.GoalsWorkStyle, /edit your goals and work style/i],
-      [EMPLOYEE_PROFILE_FORM.Wfa, /edit workforce adjustment/i],
     ]);
 
     const formLabel = formMap.get(form);
@@ -55,7 +54,6 @@ class EmployeeProfile extends AppPage {
       [EMPLOYEE_PROFILE_FORM.NextRole, /save your next role/i],
       [EMPLOYEE_PROFILE_FORM.CareerObjective, /save your career objective/i],
       [EMPLOYEE_PROFILE_FORM.GoalsWorkStyle, /save your goals and work style/i],
-      [EMPLOYEE_PROFILE_FORM.Wfa, /save workforce adjustment/i],
     ]);
 
     const formLabel = formMap.get(form);
