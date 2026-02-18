@@ -21,6 +21,7 @@ import {
   RoleInput,
   DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
@@ -76,7 +77,7 @@ const EditDepartmentMembershipDialog = forwardRef<
 
     const rolesToDetach = initialRolesIds.filter((roleId) => {
       const role = user.roles.find((userRole) => userRole.id === roleId);
-      if (!hasPlatformAdmin && role?.name === "department_admin") {
+      if (!hasPlatformAdmin && role?.name === ROLE_NAME.DepartmentAdmin) {
         return false;
       }
       return !formValues.roles.includes(roleId);
