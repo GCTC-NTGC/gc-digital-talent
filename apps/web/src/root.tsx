@@ -5,7 +5,6 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { Loading } from "@gc-digital-talent/ui";
 
 import ContextContainer from "~/components/Context/ContextProvider";
-import messages from "~/lang/frCompiled.json";
 import "~/assets/css/tailwind.css";
 
 import type { Route } from "./+types/root";
@@ -175,7 +174,7 @@ export function Layout({ children }: LayoutProps) {
 
 export default function Root() {
   return (
-    <ContextContainer messages={messages}>
+    <ContextContainer>
       <Outlet />
     </ContextContainer>
   );

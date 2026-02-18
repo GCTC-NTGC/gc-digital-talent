@@ -1,5 +1,5 @@
 import { IntlProvider } from "react-intl";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 
 import defaultRichTextElements from "@gc-digital-talent/rich-text-elements";
 
@@ -14,14 +14,12 @@ interface LanguageProviderProps {
 
 const LanguageProvider = ({ messages, children }: LanguageProviderProps) => {
   // eslint-disable-next-line no-restricted-syntax
-  const { locale } = useLocale();
-  const compiledMessages = combineMessages(locale, messages);
+  const locale = useLocale();
+  const compiledMessages = useMemo(() => combineMessages(locale, messages), []);
 
-  // If the url already begins with locale, pass it to IntlContainer. Otherwise, return null while we redirect.
   return (
     <IntlProvider
       locale={locale}
-      key={locale}
       messages={compiledMessages}
       defaultRichTextElements={defaultRichTextElements}
     >

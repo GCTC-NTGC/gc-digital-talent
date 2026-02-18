@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-elements */
 // NOTE: `a` needed here to avoid styling, etc
 import { IntlProvider, useIntl } from "react-intl";
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
@@ -16,11 +16,7 @@ import {
   Heading,
 } from "@gc-digital-talent/ui";
 import { getLogger } from "@gc-digital-talent/logger";
-import {
-  combineMessages,
-  commonMessages,
-  useLocale,
-} from "@gc-digital-talent/i18n";
+import { combineMessages, commonMessages } from "@gc-digital-talent/i18n";
 
 import messages from "~/lang/frCompiled.json";
 import useErrorMessages from "~/hooks/useErrorMessages";
@@ -56,8 +52,7 @@ const reloadLink = (chunks: ReactNode) => (
 
 const RouteErrorBoundary = () => {
   const intl = useIntl();
-  // eslint-disable-next-line no-restricted-syntax
-  const { locale } = useLocale();
+  const { locale } = useParams();
   const { mode } = useTheme();
   const paths = useRoutes();
   const location = useLocation();

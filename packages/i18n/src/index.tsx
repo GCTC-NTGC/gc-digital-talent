@@ -1,6 +1,5 @@
 import fr from "./lang/frCompiled.json";
 import LanguageProvider from "./components/LanguageProvider";
-import LocaleProvider from "./components/LocaleProvider";
 import NestedLanguageProvider from "./components/NestedLanguageProvider";
 import useLocale from "./hooks/useLocale";
 import getIntl from "./utils/getIntl";
@@ -105,7 +104,6 @@ export {
   richTextMessages,
   tryFindMessageDescriptor,
   LanguageProvider,
-  LocaleProvider,
   NestedLanguageProvider,
   combineMessages,
   getIntl,
