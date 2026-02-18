@@ -6,7 +6,7 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
+import { useQuery } from "urql";
 import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
@@ -19,11 +19,9 @@ import {
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
-  errorMessages,
   getEmploymentDuration,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
 
 import Table, {
   getTableStateFromSearchParams,
@@ -61,6 +59,8 @@ import {
   transformFormValuesToCommunityInterestFilterInput,
   transformSortStateToOrderByClause,
   usernameCell,
+  extractUserIdsFromSelectedRows,
+  transformToUserFilterInput,
 } from "./utils";
 
 const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
@@ -189,15 +189,6 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadCommunityInterestUsersExcel_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadCommunityInterestUsersExcel(
-    $ids: [UUID!]
-    $where: CommunityInterestFilterInput
-  ) {
-    downloadCommunityInterestUsersExcel(ids: $ids, where: $where)
-  }
-`);
-
 const columnHelper =
   createColumnHelper<CommunityTalentTableCommunityInterestFragmentType>();
 
@@ -257,12 +248,14 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     initialFilters ?? {},
   );
 
-  const [{ fetching: downloadingAllExcel }, downloadAllExcel] = useMutation(
-    DownloadCommunityInterestUsersExcel_Mutation,
-  );
-
-  const { downloadDoc, downloadingDoc, downloadZip, downloadingZip } =
-    useUserDownloads();
+  const {
+    downloadDoc,
+    downloadingDoc,
+    downloadZip,
+    downloadingZip,
+    downloadExcel,
+    downloadingExcel,
+  } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
     const uniqueIds = removeDuplicateIds(selectedRows);
@@ -279,41 +272,32 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     }
   };
 
-  const handleDownloadError = () => {
-    toast.error(intl.formatMessage(errorMessages.downloadRequestFailed));
-  };
-
-  const handleDownloadRes = (hasData: boolean) => {
-    if (hasData) {
-      toast.info(intl.formatMessage(commonMessages.preparingDownload));
-    } else {
-      handleDownloadError();
-    }
-  };
-
   const handleExcelDownload = () => {
-    downloadAllExcel({
-      ids: removeDuplicateIds(selectedRows),
-      where: transformCommunityTalentInput(
+    const userIds = extractUserIdsFromSelectedRows(selectedRows);
+
+    if (userIds.length === 0) {
+      return;
+    }
+
+    downloadExcel({
+      ids: userIds,
+      where: transformToUserFilterInput(
         filterState,
         searchState?.term,
         searchState?.type,
       ),
-    })
-      .then((res) => handleDownloadRes(!!res.data))
-      .catch(handleDownloadError);
+    });
   };
 
   const handleExcelDownloadAll = () => {
-    downloadAllExcel({
-      where: transformCommunityTalentInput(
+    downloadExcel({
+      ids: undefined,
+      where: transformToUserFilterInput(
         filterState,
         searchState?.term,
         searchState?.type,
       ),
-    })
-      .then((res) => handleDownloadRes(!!res.data))
-      .catch(handleDownloadError);
+    });
   };
 
   const handlePaginationStateChange = ({
@@ -676,24 +660,19 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         all: {
           enable: true,
           onClick: handleExcelDownloadAll,
-          downloading: downloadingAllExcel,
+          downloading: downloadingExcel,
         },
         spreadsheet: {
           enable: true,
           onClick: handleExcelDownload,
-          downloading: downloadingAllExcel,
+          downloading: downloadingExcel,
         },
         doc: {
           enable: true,
           component: (
             <DownloadDocxButton
               inTable
-              disabled={
-                !hasSelectedRows ||
-                downloadingZip ||
-                downloadingDoc ||
-                downloadingAllExcel
-              }
+              disabled={!hasSelectedRows || downloadingZip || downloadingDoc}
               isDownloading={downloadingZip || downloadingDoc}
               onClickProfile={() => handleDocDownload(false)}
               onClickAnonymousProfile={() => handleDocDownload(true)}
