@@ -12,57 +12,6 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import JobCard, { JobCard_Fragment } from "./JobCard";
 
-/*
-
-1. Open to the public
-2. Open to the public + Canadian citizens
-3. Open to employees
-4. Open to employees + At level
-5. Open to employees + Departmental preference
-6. Open to employees + At level + Departmental preference
-
-*/
-
-const publicJob = {
-  value: PoolAreaOfSelection.Public,
-  label: {
-    en: "Public",
-    fr: "Public FR",
-  },
-};
-
-const citizen = {
-  value: PoolSelectionLimitation.CanadianCitizens,
-  label: {
-    en: "Canadian citizen",
-    fr: "Canadian citizen FR",
-  },
-};
-
-const employee = {
-  value: PoolAreaOfSelection.Employees,
-  label: {
-    en: "Employees",
-    fr: "Employees FR",
-  },
-};
-
-const atLevel = {
-  value: PoolSelectionLimitation.AtLevelOnly,
-  label: {
-    en: "At-level",
-    fr: "At-level FR",
-  },
-};
-
-const departmentPref = {
-  value: PoolSelectionLimitation.DepartmentalPreference,
-  label: {
-    en: "Departmental preference",
-    fr: "Departmental preference FR",
-  },
-};
-
 const fakedPools = fakePools();
 const fakedPool = fakedPools[0];
 
@@ -99,7 +48,9 @@ Public.args = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
-      areaOfSelection: publicJob,
+      areaOfSelection: {
+        value: PoolAreaOfSelection.Public,
+      },
       selectionLimitations: [],
     },
     JobCard_Fragment,
@@ -111,8 +62,14 @@ Citizen.args = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
-      areaOfSelection: publicJob,
-      selectionLimitations: [citizen],
+      areaOfSelection: {
+        value: PoolAreaOfSelection.Public,
+      },
+      selectionLimitations: [
+        {
+          value: PoolSelectionLimitation.CanadianCitizens,
+        },
+      ],
     },
     JobCard_Fragment,
   ),
@@ -123,7 +80,9 @@ Employee.args = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
-      areaOfSelection: employee,
+      areaOfSelection: {
+        value: PoolAreaOfSelection.Employees,
+      },
     },
     JobCard_Fragment,
   ),
@@ -134,8 +93,14 @@ AtLevel.args = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
-      areaOfSelection: employee,
-      selectionLimitations: [atLevel],
+      areaOfSelection: {
+        value: PoolAreaOfSelection.Employees,
+      },
+      selectionLimitations: [
+        {
+          value: PoolSelectionLimitation.AtLevelOnly,
+        },
+      ],
     },
     JobCard_Fragment,
   ),
@@ -146,8 +111,12 @@ Departmental.args = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
-      areaOfSelection: employee,
-      selectionLimitations: [departmentPref],
+      areaOfSelection: {
+        value: PoolAreaOfSelection.Employees,
+      },
+      selectionLimitations: [
+        { value: PoolSelectionLimitation.DepartmentalPreference },
+      ],
     },
     JobCard_Fragment,
   ),
@@ -158,8 +127,17 @@ All.args = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
-      areaOfSelection: employee,
-      selectionLimitations: [atLevel, departmentPref],
+      areaOfSelection: {
+        value: PoolAreaOfSelection.Employees,
+      },
+      selectionLimitations: [
+        {
+          value: PoolSelectionLimitation.AtLevelOnly,
+        },
+        {
+          value: PoolSelectionLimitation.DepartmentalPreference,
+        },
+      ],
     },
     JobCard_Fragment,
   ),
@@ -170,8 +148,17 @@ DeadlineApproaching.args = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
-      areaOfSelection: employee,
-      selectionLimitations: [atLevel, departmentPref],
+      areaOfSelection: {
+        value: PoolAreaOfSelection.Employees,
+      },
+      selectionLimitations: [
+        {
+          value: PoolSelectionLimitation.AtLevelOnly,
+        },
+        {
+          value: PoolSelectionLimitation.DepartmentalPreference,
+        },
+      ],
       closingDate: faker.date.soon({ days: 2 }).toISOString(),
     },
     JobCard_Fragment,
@@ -183,8 +170,17 @@ Closed.args = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
-      areaOfSelection: employee,
-      selectionLimitations: [atLevel, departmentPref],
+      areaOfSelection: {
+        value: PoolAreaOfSelection.Employees,
+      },
+      selectionLimitations: [
+        {
+          value: PoolSelectionLimitation.AtLevelOnly,
+        },
+        {
+          value: PoolSelectionLimitation.DepartmentalPreference,
+        },
+      ],
       closingDate: faker.date.past().toISOString(),
     },
     JobCard_Fragment,
