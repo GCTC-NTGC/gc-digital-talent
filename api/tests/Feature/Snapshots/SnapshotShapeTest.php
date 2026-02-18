@@ -124,9 +124,6 @@ class SnapshotShapeTest extends TestCase
             'nextRoleCSuiteRoleTitle',
             'careerObjectiveCSuiteRoleTitle',
             'careerPlanningLearningOpportunitiesInterest',
-            'wfaInterest',
-            'wfaDate',
-            'wfaUpdatedAt',
         ],
         UserSkill::class => [
             'userId',

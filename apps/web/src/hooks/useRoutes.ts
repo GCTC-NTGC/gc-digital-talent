@@ -391,10 +391,6 @@ const getRoutes = (lang: Locales) => {
     // DND
     dndDigitalCareers: () => `${baseUrl}/dnd`,
 
-    // Workforce adjustment
-    workforceAdjustmentEmployees: () => `${adminUrl}/wfa-employees`,
-    wfaInfo: () => `${baseUrl}/workforce-adjustment`,
-
     // TC Report mini-site
     tcReport: () => `/static/tc-report/${lang}/talent-cloud/report`,
   };

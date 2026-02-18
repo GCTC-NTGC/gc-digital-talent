@@ -40,10 +40,6 @@ export default [
             "./pages/DNDDigitalCareersPage/DNDDigitalCareersPage.tsx",
           ),
           route(
-            "workforce-adjustment",
-            "./pages/WorkforceAdjustment/WorkforceAdjustmentPage.tsx",
-          ),
-          route(
             "directive-on-digital-talent",
             "./pages/DirectivePage/DirectivePage.tsx",
           ),
@@ -558,12 +554,6 @@ export default [
                 ),
               ]),
             ]),
-
-            // Admin - WFA
-            route(
-              "wfa-employees",
-              "./pages/WorkforceAdjustment/IndexWorkforceAdjustmentPage/IndexWorkforceAdjustmentPage.tsx",
-            ),
           ]),
 
           // Catch all
