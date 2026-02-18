@@ -8,6 +8,7 @@ import {
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import JobCard, { JobCard_Fragment } from "./JobCard";
 
@@ -74,6 +75,20 @@ export default {
   component: JobCard,
   args: {
     poolQuery: makeFragmentData(fakedPool, JobCard_Fragment),
+  },
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+        dark: allModes.dark,
+        "dark mobile": allModes["dark mobile"],
+      },
+    },
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/1ibVEEPTPTHbjifAgmcoGW/Browse-jobs--All-users-?node-id=375-1724&m=dev",
+    },
   },
 } as Meta;
 
