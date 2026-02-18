@@ -1,8 +1,7 @@
 import { useIntl } from "react-intl";
-import ArrowDownTrayIcon from "@heroicons/react/20/solid/ArrowDownTrayIcon";
-import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
+import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
 
-import { Button, DropdownMenu } from "@gc-digital-talent/ui";
+import { DropdownMenu } from "@gc-digital-talent/ui";
 import { Scalars } from "@gc-digital-talent/graphql";
 
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
@@ -27,25 +26,28 @@ const DownloadButton = ({ id }: DownloadButtonProps) => {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <Button
-          disabled={isDownloading}
-          mode="inline"
-          block
-          utilityIcon={ChevronDownIcon}
-          icon={isDownloading ? SpinnerIcon : ArrowDownTrayIcon}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Download profile",
-            id: "WimaP7",
-            description: "Button text to download a users profile",
-          })}
-        </Button>
+      <DropdownMenu.Trigger
+        disabled={isDownloading}
+        btnProps={{
+          disabled: isDownloading,
+          mode: "inline",
+          block: true,
+          className: "text-left",
+          icon: isDownloading ? SpinnerIcon : ArrowDownTrayIcon,
+        }}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Download profile",
+          id: "WimaP7",
+          description: "Button text to download a users profile",
+        })}
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content align="start" collisionPadding={2}>
+      <DropdownMenu.Popup
+        positionerProps={{ align: "end", collisionPadding: 2 }}
+      >
         <DropdownMenu.Item
           disabled={isDownloading}
-          onSelect={() => handleProfileDocDownload(false)}
+          onClick={() => handleProfileDocDownload(false)}
         >
           {intl.formatMessage({
             defaultMessage: "Download full profile",
@@ -55,7 +57,7 @@ const DownloadButton = ({ id }: DownloadButtonProps) => {
         </DropdownMenu.Item>
         <DropdownMenu.Item
           disabled={isDownloading}
-          onSelect={() => handleProfileDocDownload(true)}
+          onClick={() => handleProfileDocDownload(true)}
         >
           {intl.formatMessage({
             defaultMessage: "Download profile without contact information",
@@ -64,7 +66,7 @@ const DownloadButton = ({ id }: DownloadButtonProps) => {
               "Button label for downloading an anonymous user profile.",
           })}
         </DropdownMenu.Item>
-      </DropdownMenu.Content>
+      </DropdownMenu.Popup>
     </DropdownMenu.Root>
   );
 };

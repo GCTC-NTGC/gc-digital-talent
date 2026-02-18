@@ -1,7 +1,6 @@
-import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import { useIntl } from "react-intl";
 
-import { Button, DropdownMenu } from "@gc-digital-talent/ui";
+import { DropdownMenu } from "@gc-digital-talent/ui";
 import { empty } from "@gc-digital-talent/helpers";
 
 import { actionButtonStyles } from "~/components/Table/ResponsiveTable/RowSelection";
@@ -29,31 +28,24 @@ const DownloadDocxButton = ({
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <Button
-          disabled={disabled}
-          utilityIcon={ChevronDownIcon}
-          {...(isDownloading && {
-            icon: SpinnerIcon,
-          })}
-          {...(inTable
-            ? {
-                ...actionButtonStyles,
-              }
-            : {
-                color: "primary",
-              })}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Download DOCX",
-            id: "j357Vx",
-            description: "Button text to download DOCX files",
-          })}
-        </Button>
+      <DropdownMenu.Trigger
+        btnProps={{
+          disabled,
+          icon: isDownloading ? SpinnerIcon : undefined,
+          ...(inTable ? actionButtonStyles : { color: "primary" }),
+        }}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Download DOCX",
+          id: "j357Vx",
+          description: "Button text to download DOCX files",
+        })}
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content align="end" collisionPadding={2}>
+      <DropdownMenu.Popup
+        positionerProps={{ align: "end", collisionPadding: 2 }}
+      >
         {!empty(onClickApplication) ? (
-          <DropdownMenu.Item disabled={disabled} onSelect={onClickApplication}>
+          <DropdownMenu.Item disabled={disabled} onClick={onClickApplication}>
             {intl.formatMessage({
               defaultMessage: "Download application",
               id: "3uD9Sb",
@@ -63,7 +55,7 @@ const DownloadDocxButton = ({
           </DropdownMenu.Item>
         ) : null}
         {!empty(onClickProfile) ? (
-          <DropdownMenu.Item disabled={disabled} onSelect={onClickProfile}>
+          <DropdownMenu.Item disabled={disabled} onClick={onClickProfile}>
             {intl.formatMessage({
               defaultMessage: "Download profile",
               id: "lVOZ5k",
@@ -74,7 +66,7 @@ const DownloadDocxButton = ({
         {!empty(onClickAnonymousProfile) ? (
           <DropdownMenu.Item
             disabled={disabled}
-            onSelect={onClickAnonymousProfile}
+            onClick={onClickAnonymousProfile}
           >
             {intl.formatMessage({
               defaultMessage: "Download profile without contact information",
@@ -84,7 +76,7 @@ const DownloadDocxButton = ({
             })}
           </DropdownMenu.Item>
         ) : null}
-      </DropdownMenu.Content>
+      </DropdownMenu.Popup>
     </DropdownMenu.Root>
   );
 };

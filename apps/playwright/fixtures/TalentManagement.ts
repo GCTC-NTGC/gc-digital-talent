@@ -21,6 +21,7 @@ class TalentManagement extends AppPage {
   async viewActiveTalentNominationEvent() {
     await this.page.getByRole("button", { name: /show 10/i }).click();
     await this.page.getByRole("menuitemradio", { name: /50/i }).click();
+    await this.page.keyboard.press("Escape");
     await this.page
       .getByRole("link", { name: /test talent nomination event active en 0/i })
       .click();

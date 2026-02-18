@@ -187,6 +187,10 @@ class TalentNominationGroup extends Model
             $user = User::findOrFail($args['userId']);
         }
 
+        if ($user?->isAbleTo('view-any-talentNominationGroup')) {
+            return;
+        }
+
         if ($user?->isAbleTo('view-team-talentNominationGroup')) {
             $communities = $user->rolesTeams()
                 ->where('teamable_type', "App\Models\Community")
