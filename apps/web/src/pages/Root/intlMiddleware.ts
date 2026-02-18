@@ -1,6 +1,11 @@
 import { redirect } from "react-router";
 
-import { getIntl, getPathLocale, getDesiredLocale, STORED_LOCALE } from "@gc-digital-talent/i18n";
+import {
+  getIntl,
+  getPathLocale,
+  getDesiredLocale,
+  STORED_LOCALE,
+} from "@gc-digital-talent/i18n";
 
 import messages from "~/lang/frCompiled.json";
 import { intlContext } from "~/routing/context";

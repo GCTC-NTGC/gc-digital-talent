@@ -14,7 +14,12 @@ import {
   localizeCurrency,
   localizeSalaryRange,
 } from "./utils/localize";
-import { combineMessages, getDesiredLocale, getPathLocale, STORED_LOCALE } from "./utils/utils";
+import {
+  combineMessages,
+  getDesiredLocale,
+  getPathLocale,
+  STORED_LOCALE,
+} from "./utils/utils";
 import {
   apiMessages,
   commonMessages,
@@ -160,7 +165,7 @@ export {
   getLearningOpportunitiesInterest,
   getPathLocale,
   ENUM_SORT_ORDER,
-  STORED_LOCALE
+  STORED_LOCALE,
 };
 
 export type {
