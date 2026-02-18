@@ -32,5 +32,5 @@ Route::post('csp-report', [CspReportController::class, 'report'])
     ->middleware('throttle:15,1');
 
 if (App::isLocal()) {
-    Route::post('log', [TestController::class, 'log']);
+    Route::post('{endpoint}/dataCollectionRules/{dcrImmutableId}/streams/{streamName}', [TestController::class, 'log']);
 }

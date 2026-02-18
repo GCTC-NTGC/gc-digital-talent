@@ -15,15 +15,34 @@ use Monolog\Utils;
 
 /**
  * Sends notifications through Azure endpoints
+ *
+ * @see https://learn.microsoft.com/en-us/azure/azure-monitor/logs/logs-ingestion-api-overview#rest-api-call
  */
 class AzureHandler extends AbstractProcessingHandler
 {
     /**
-     * Azure endpoint URL
+     * Endpoint
+     * The REST API endpoint for the Logs Ingestion API can either be a data collection endpoint (DCE) or the DCR logs ingestion endpoint.
      *
      * @var non-empty-string
      */
-    private string $endpointUrl;
+    private string $endpoint;
+
+    /**
+     * DCR Immutable ID
+     * The DCR Immutable ID is generated for the DCR when it's created. You can retrieve it from the Overview page for the DCR in the Azure portal.
+     *
+     * @var non-empty-string
+     */
+    private string $dcrImmutableId;
+
+    /**
+     * Stream Name
+     * Stream Name refers to the stream in the DCR that should handle the custom data.
+     *
+     * @var non-empty-string
+     */
+    private string $streamName;
 
     /**
      * Instance of the AzureRecord util class preparing data for Azure API.
@@ -31,28 +50,22 @@ class AzureHandler extends AbstractProcessingHandler
     private AzureRecord $azureRecord;
 
     /**
-     * @param  non-empty-string  $endpointUrl  Azure endpoint URL
-     * @param  string|null  $channel  Slack channel (encoded ID or name)
-     * @param  string|null  $username  Name of a bot
-     * @param  bool  $useAttachment  Whether the message should be added to Slack as attachment (plain text otherwise)
-     * @param  string|null  $iconEmoji  The emoji name to use (or null)
-     * @param  bool  $useShortAttachment  Whether the the context/extra messages added to Slack as attachments are in a short style
-     * @param  bool  $includeContextAndExtra  Whether the attachment should include context and extra data
-     * @param  string[]  $excludeFields  Dot separated list of fields to exclude from slack message. E.g. ['context.field1', 'extra.field2']
+     * @param  non-empty-string  $endpoint  Endpoint
+     * @param  non-empty-string  $dcrImmutableId  DCR Immutable ID
+     * @param  non-empty-string  $streamName  Stream Name
+     * @param  string|null  $column01  First placeholder column
+     * @param  string|null  $column02  Second placeholder column
      *
      * @throws MissingExtensionException If the curl extension is missing
      */
     public function __construct(
-        string $endpointUrl,
-        ?string $channel = null,
-        ?string $username = null,
-        bool $useAttachment = true,
-        ?string $iconEmoji = null,
-        bool $useShortAttachment = false,
-        bool $includeContextAndExtra = false,
+        string $endpoint,
+        string $dcrImmutableId,
+        string $streamName,
+        ?string $column01 = null,
+        ?string $column02 = null,
         $level = Level::Critical,
         bool $bubble = true,
-        array $excludeFields = []
     ) {
         if (! \extension_loaded('curl')) {
             throw new MissingExtensionException('The curl extension is needed to use the AzureHandler');
@@ -60,16 +73,13 @@ class AzureHandler extends AbstractProcessingHandler
 
         parent::__construct($level, $bubble);
 
-        $this->endpointUrl = $endpointUrl;
+        $this->endpoint = $endpoint;
+        $this->dcrImmutableId = $dcrImmutableId;
+        $this->streamName = $streamName;
 
         $this->azureRecord = new AzureRecord(
-            $channel,
-            $username,
-            $useAttachment,
-            $iconEmoji,
-            $useShortAttachment,
-            $includeContextAndExtra,
-            $excludeFields
+            $column01,
+            $column02,
         );
     }
 
@@ -78,9 +88,24 @@ class AzureHandler extends AbstractProcessingHandler
         return $this->azureRecord;
     }
 
-    public function getEndpointUrl(): string
+    public function getEndpoint(): string
     {
-        return $this->endpointUrl;
+        return $this->endpoint;
+    }
+
+    public function getDcrImmutableId(): string
+    {
+        return $this->dcrImmutableId;
+    }
+
+    public function getStreamName(): string
+    {
+        return $this->streamName;
+    }
+
+    public function getConstructedUrl(): string
+    {
+        return $this->getEndpoint().'/dataCollectionRules/'.$this->getDcrImmutableId().'/streams/'.$this->getStreamName().'?api-version=2023-01-01';
     }
 
     /**
@@ -88,15 +113,18 @@ class AzureHandler extends AbstractProcessingHandler
      */
     protected function write(LogRecord $record): void
     {
-        $postData = $this->azureRecord->getSlackData($record);
+        $postData = $this->azureRecord->getAzureData($record);
         $postString = Utils::jsonEncode($postData);
 
         $ch = curl_init();
         $options = [
-            CURLOPT_URL => $this->endpointUrl,
+            CURLOPT_URL => $this->getConstructedUrl(),
             CURLOPT_POST => true,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => ['Content-type: application/json'],
+            CURLOPT_HTTPHEADER => [
+                'Authorization: '.'X',
+                'Content-type: application/json',
+            ],
             CURLOPT_POSTFIELDS => $postString,
         ];
 

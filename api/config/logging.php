@@ -137,8 +137,11 @@ return [
             'handler' => AzureHandler::class,
             'level' => env('LOG_LEVEL', 'debug'),
             'handler_with' => [
-                'endpointUrl' => 'http://localhost:8000/api/log',
-
+                'endpoint' => 'http://localhost:8000/api/log',
+                'dcrImmutableId' => 'dcr-000a00a000a00000a000000aa000a0aa',
+                'streamName' => 'Custom-MyTable',
+                'column01' => 'column01-value',
+                'column02' => 'column02-value',
             ],
         ],
 
