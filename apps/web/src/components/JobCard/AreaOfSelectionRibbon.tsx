@@ -30,34 +30,34 @@ const ribbon = tv({
     },
     publicColor: {
       first: {
-        label: "bg-primary-100",
+        label: "bg-primary-100 text-primary-700",
         topTriangle: "bg-primary-100",
         bottomTriangle: "bg-primary-100",
       },
       second: {
-        label: "bg-primary-200",
+        label: "bg-primary-200 text-primary-700",
         topTriangle: "bg-primary-200",
         bottomTriangle: "bg-primary-200",
       },
       third: {
-        label: "bg-primary-300",
+        label: "bg-primary-300 text-primary-700",
         topTriangle: "bg-primary-300",
         bottomTriangle: "bg-primary-300",
       },
     },
     employeeColor: {
       first: {
-        label: "bg-secondary-100",
+        label: "bg-secondary-100 text-secondary-700",
         topTriangle: "bg-secondary-100",
         bottomTriangle: "bg-secondary-100",
       },
       second: {
-        label: "bg-secondary-200",
+        label: "bg-secondary-200 text-secondary-700",
         topTriangle: "bg-secondary-200",
         bottomTriangle: "bg-secondary-200",
       },
       third: {
-        label: "bg-secondary-300",
+        label: "bg-secondary-300 text-secondary-700",
         topTriangle: "bg-secondary-300",
         bottomTriangle: "bg-secondary-300",
       },
