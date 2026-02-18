@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Outlet, ScrollRestoration } from "react-router";
+import { Outlet } from "react-router";
 
 import { getLocale } from "@gc-digital-talent/i18n";
 import { Flourish } from "@gc-digital-talent/ui";
@@ -51,11 +51,6 @@ const Layout = ({
         </main>
         <Footer />
       </div>
-      <ScrollRestoration
-        getKey={(location) => {
-          return location.pathname;
-        }}
-      />
     </>
   );
 };
