@@ -1,9 +1,13 @@
 /* eslint-disable react/forbid-elements */
 import { useIntl } from "react-intl";
-import { useLocation, useParams } from "react-router";
+import { useLocation } from "react-router";
 import { tv } from "tailwind-variants";
 
-import { Locales, localizePath, oppositeLocale } from "@gc-digital-talent/i18n";
+import {
+  getLocale,
+  localizePath,
+  oppositeLocale,
+} from "@gc-digital-talent/i18n";
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { Container } from "@gc-digital-talent/ui";
 
@@ -22,7 +26,7 @@ const logo = tv({
 
 const Header = () => {
   const intl = useIntl();
-  const { locale } = useParams<{ locale: Locales }>();
+  const locale = getLocale(intl);
 
   const location = useLocation();
   const changeToLang = oppositeLocale(locale ?? "en");
