@@ -8,17 +8,27 @@ import { intlContext } from "~/routing/context";
 import type { Route } from "./+types/RootRoute";
 
 const intl = getIntl(messages);
+const SUPPORTED_LOCALES = ["en", "fr"];
 
 const intlMiddleware: Route.ClientMiddlewareFunction = (
   { context, request },
   next,
 ) => {
   const url = new URL(request.url);
+  const { pathname, search } = url;
 
-  if (url.pathname === "/") {
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const firstSegment = pathSegments[0];
+
+  const hasValidLocale = SUPPORTED_LOCALES.includes(firstSegment);
+
+  if (!hasValidLocale) {
     const locale = getDesiredLocale() || "en";
+
+    const newPath = `/${locale}${pathname}${search}`;
+
     // eslint-disable-next-line @typescript-eslint/only-throw-error
-    throw redirect(`/${locale}`);
+    throw redirect(newPath);
   }
 
   context.set(intlContext, intl);
