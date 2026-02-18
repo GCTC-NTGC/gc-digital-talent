@@ -611,6 +611,22 @@ class UserBuilder extends Builder
                 });
             }
 
+            if ($user?->isAbleTo('view-team-communityTalent')) {
+                $query->orWhereHas('communityInterests', function (Builder $query) use ($user) {
+                    $allCommunityTeams = $user->rolesTeams()
+                        ->where('teamable_type', "App\Models\Community")
+                        ->get();
+
+                    $viewPermissionCommunityTeams = $allCommunityTeams
+                        ->filter(fn ($team) => $user->isAbleTo('view-team-communityTalent', $team));
+
+                    $communityIds = $viewPermissionCommunityTeams->pluck('teamable_id')->toArray();
+
+                    $query->whereIn('community_id', $communityIds);
+                    $query->where('consent_to_share_profile', true);
+                });
+            }
+
             if ($user?->isAbleTo('view-own-user')) {
                 $query->orWhere('users.id', $user->id);
             }
