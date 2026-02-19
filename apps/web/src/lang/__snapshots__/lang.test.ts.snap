@@ -60,6 +60,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Add department role",
+    "fr": [
+      "Ajouter un rôle dans un ministère",
+      "Ajouter un rôle dans le ministère :"
+    ]
+  },
+  {
     "en": "cloud computing",
     "fr": [
       "intégration de systèmes",
@@ -71,6 +78,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "fr": [
       "Statut de citoyenneté",
       "Statut de citoyen"
+    ]
+  },
+  {
+    "en": "Department information",
+    "fr": [
+      "Renseignements sur le ministère",
+      "Informations sur le ministère"
     ]
   },
   {
