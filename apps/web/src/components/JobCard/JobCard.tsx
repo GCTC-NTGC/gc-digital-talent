@@ -230,7 +230,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
               classification: pool.classification,
             })}
           </Heading>
-          <div className="mb-6 flex flex-col gap-1.5">
+          <div className="mb-6 flex flex-col gap-3 font-normal text-gray-700">
             <IconLabel label={department} icon={BuildingOfficeIcon} />
             <IconLabel label={location} icon={MapPinIcon} />
             <IconLabel label={salaryRange} icon={CurrencyDollarIcon} />

@@ -14,7 +14,7 @@ const IconLabel = ({ label, icon, children }: IconLabelProps) => {
   return (
     <p className="grid grid-cols-[calc(var(--spacing)*6)_1fr] gap-x-1.5">
       <span className="inline-block size-6 align-middle">
-        <Icon />
+        <Icon className="text-gray-400" />
       </span>
       <span>
         <span className="mr-1 inline-block">{label}</span>
