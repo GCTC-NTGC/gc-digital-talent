@@ -173,8 +173,8 @@ const RevertFinalDecisionDialog = ({
             <p className={!isQualified ? "font-bold" : undefined}>
               {intl.formatMessage({
                 defaultMessage:
-                  "Do you wish to revert this decision and set candidate status to “Under assessment”?",
-                id: "5r2C2L",
+                  "Do you wish to revert this decision and set candidate status to “Advanced to assessment”?",
+                id: "CCL2ul",
                 description:
                   "Final question on revert final decision dialog on view pool candidate page",
               })}

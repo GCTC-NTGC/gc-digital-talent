@@ -1931,10 +1931,6 @@
     "defaultMessage": "Nomination pour l'avancement",
     "description": "heading for advancement nomination section"
   },
-  "5r2C2L": {
-    "defaultMessage": "Souhaitez-vous annuler cette décision et remettre le statut du candidat ou de la candidate à « En cours d'évaluation »?",
-    "description": "Final question on revert final decision dialog on view pool candidate page"
-  },
   "5r5XSh": {
     "defaultMessage": "Veuillez confirmer votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
