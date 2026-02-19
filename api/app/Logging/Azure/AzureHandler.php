@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Logging\Azure;
 
+use App\Contracts\ManagedIdentityService;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Handler\Curl\Util;
@@ -20,6 +21,12 @@ use Monolog\Utils;
  */
 class AzureHandler extends AbstractProcessingHandler
 {
+    /**
+     * Managed identity service
+     * The service that can provide access token based on the managed identity.
+     */
+    private ManagedIdentityService $identityService;
+
     /**
      * Endpoint
      * The REST API endpoint for the Logs Ingestion API can either be a data collection endpoint (DCE) or the DCR logs ingestion endpoint.
@@ -59,6 +66,7 @@ class AzureHandler extends AbstractProcessingHandler
      * @throws MissingExtensionException If the curl extension is missing
      */
     public function __construct(
+        ManagedIdentityService $identityService,
         string $endpoint,
         string $dcrImmutableId,
         string $streamName,
@@ -73,6 +81,7 @@ class AzureHandler extends AbstractProcessingHandler
 
         parent::__construct($level, $bubble);
 
+        $this->identityService = $identityService;
         $this->endpoint = $endpoint;
         $this->dcrImmutableId = $dcrImmutableId;
         $this->streamName = $streamName;
@@ -86,6 +95,11 @@ class AzureHandler extends AbstractProcessingHandler
     public function getAzureRecord(): AzureRecord
     {
         return $this->azureRecord;
+    }
+
+    public function getIdentityService(): ManagedIdentityService
+    {
+        return $this->identityService;
     }
 
     public function getEndpoint(): string
@@ -115,6 +129,7 @@ class AzureHandler extends AbstractProcessingHandler
     {
         $postData = $this->azureRecord->getAzureData($record);
         $postString = Utils::jsonEncode($postData);
+        $accessToken = $this->identityService->getAccessToken();
 
         $ch = curl_init();
         $options = [
@@ -122,7 +137,7 @@ class AzureHandler extends AbstractProcessingHandler
             CURLOPT_POST => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
-                'Authorization: '.'X',
+                'Authorization: '.$accessToken,
                 'Content-type: application/json',
             ],
             CURLOPT_POSTFIELDS => $postString,
