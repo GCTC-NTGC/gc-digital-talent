@@ -18,7 +18,12 @@ final class UpdateWorkStreamValidator extends Validator
         $id = $this->arg('id');
 
         return [
-            'name.*' => [Rule::unique('work_streams', 'name->*')->ignore($id)],
+            'workStream.name.en' => [
+                Rule::unique('work_streams', 'name->en')->ignore($id),
+            ],
+            'workStream.name.fr' => [
+                Rule::unique('work_streams', 'name->fr')->ignore($id),
+            ],
         ];
     }
 
@@ -28,7 +33,7 @@ final class UpdateWorkStreamValidator extends Validator
     public function messages(): array
     {
         return [
-            'name.*.unique' => ErrorCode::WORK_STREAM_NAME_IN_USE->name,
+            'workStream.name.*.unique' => ErrorCode::WORK_STREAM_NAME_IN_USE->name,
         ];
     }
 }
