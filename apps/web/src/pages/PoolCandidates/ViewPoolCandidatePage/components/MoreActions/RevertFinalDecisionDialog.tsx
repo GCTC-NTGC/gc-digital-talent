@@ -173,10 +173,10 @@ const RevertFinalDecisionDialog = ({
             <p className={!isQualified ? "font-bold" : undefined}>
               {intl.formatMessage({
                 defaultMessage:
-                  "Do you wish to revert this decision and set candidate status to “Advanced to assessment”?",
-                id: "CCL2ul",
+                  'Do you wish to revert this decision and set the candidate status to "Application review"?',
+                id: "eUDr2H",
                 description:
-                  "Final question on revert final decision dialog on view pool candidate page",
+                  "Confirmation text for reverting final decision of a candidate",
               })}
             </p>
             <FormChangeNotifyWell />

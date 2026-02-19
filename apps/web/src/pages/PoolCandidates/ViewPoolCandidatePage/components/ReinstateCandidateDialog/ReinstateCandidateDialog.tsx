@@ -134,9 +134,10 @@ const ReinstateCandidateDialog = ({
           <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
-                'Do you wish to revert this decision and set the candidate status to "Advanced to assessment"?',
-              id: "pbdwLS",
-              description: "Confirmation text for reinstating a candidate",
+                'Do you wish to revert this decision and set the candidate status to "Application review"?',
+              id: "eUDr2H",
+              description:
+                "Confirmation text for reverting final decision of a candidate",
             })}
           </p>
           <FormChangeNotifyWell />
