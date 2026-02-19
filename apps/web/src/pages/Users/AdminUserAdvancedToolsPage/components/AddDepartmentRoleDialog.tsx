@@ -85,7 +85,7 @@ const AddDepartmentRoleDialog = ({ query, optionsQuery }: RoleTableProps) => {
       "Button label for the form to add a department membership to a user",
   });
 
-  // if a department is selected, eliminate existing roles from the dropdown
+  // if a department is selected, eliminate existing roles from the dropdown input
   const selectedDepartment = methods.watch("department");
 
   const currentRoles = unpackMaybes(
