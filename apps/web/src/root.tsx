@@ -2,6 +2,7 @@
 import { ReactNode } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
+import { initScript } from "@gc-digital-talent/theme";
 import { Loading } from "@gc-digital-talent/ui";
 
 import ContextContainer from "~/components/Context/ContextProvider";
@@ -133,6 +134,10 @@ export function Layout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <head>
+        <script
+          nonce="**CSP_NONCE**"
+          dangerouslySetInnerHTML={{ __html: initScript }}
+        />
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="msapplication-TileColor" content="#9747FF" />
