@@ -1263,6 +1263,12 @@ directive @upsert(
   model: String
 
   """
+  Specify the columns by which to upsert the model.
+  Optional, by default `id` or the primary key of the model are used.
+  """
+  identifyingColumns: [String!]
+
+  """
   Specify the name of the relation on the parent model.
   This is only needed when using this directive as a nested arg
   resolver and if the name of the relation is not the arg name.
@@ -1280,6 +1286,12 @@ directive @upsertMany(
   This is only needed when the default model detection does not work.
   """
   model: String
+
+  """
+  Specify the columns by which to upsert the model.
+  Optional, by default `id` or the primary key of the model are used.
+  """
+  identifyingColumns: [String!]
 
   """
   Specify the name of the relation on the parent model.

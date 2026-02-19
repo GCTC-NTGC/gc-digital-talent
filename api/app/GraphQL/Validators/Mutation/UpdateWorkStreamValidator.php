@@ -1,12 +1,12 @@
 <?php
 
-namespace App\GraphQL\Validators;
+namespace App\GraphQL\Validators\Mutation;
 
 use App\Enums\ErrorCode;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class UpdateWorkStreamInputValidator extends Validator
+final class UpdateWorkStreamValidator extends Validator
 {
     /**
      * Return the validation rules.
@@ -15,8 +15,10 @@ final class UpdateWorkStreamInputValidator extends Validator
      */
     public function rules(): array
     {
+        $id = $this->arg('id');
+
         return [
-            'name.*' => [Rule::unique('work_streams', 'name->*')],
+            'name.*' => [Rule::unique('work_streams', 'name->*')->ignore($id)],
         ];
     }
 
