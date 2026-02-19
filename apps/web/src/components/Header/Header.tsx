@@ -29,7 +29,7 @@ const Header = () => {
   const locale = getLocale(intl);
 
   const location = useLocation();
-  const changeToLang = oppositeLocale(locale ?? "en");
+  const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
   const isSmallScreen = useIsSmallScreen("sm");
 
