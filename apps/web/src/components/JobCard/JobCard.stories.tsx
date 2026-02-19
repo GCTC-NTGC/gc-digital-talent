@@ -41,10 +41,7 @@ export default {
   },
 } as Meta;
 
-const Template: StoryFn<typeof JobCard> = (args) => <JobCard {...args} />;
-
-export const Public = Template.bind({});
-Public.args = {
+const open = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
@@ -57,8 +54,7 @@ Public.args = {
   ),
 };
 
-export const Citizen = Template.bind({});
-Citizen.args = {
+const citizen = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
@@ -75,8 +71,7 @@ Citizen.args = {
   ),
 };
 
-export const Employee = Template.bind({});
-Employee.args = {
+const employee = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
@@ -88,8 +83,7 @@ Employee.args = {
   ),
 };
 
-export const AtLevel = Template.bind({});
-AtLevel.args = {
+const atLevel = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
@@ -106,8 +100,7 @@ AtLevel.args = {
   ),
 };
 
-export const Departmental = Template.bind({});
-Departmental.args = {
+const departmental = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
@@ -122,8 +115,7 @@ Departmental.args = {
   ),
 };
 
-export const All = Template.bind({});
-All.args = {
+const all = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
@@ -143,8 +135,7 @@ All.args = {
   ),
 };
 
-export const DeadlineApproaching = Template.bind({});
-DeadlineApproaching.args = {
+const deadlineApproaching = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
@@ -165,8 +156,7 @@ DeadlineApproaching.args = {
   ),
 };
 
-export const Closed = Template.bind({});
-Closed.args = {
+const closed = {
   poolQuery: makeFragmentData(
     {
       ...fakedPool,
@@ -187,7 +177,22 @@ Closed.args = {
   ),
 };
 
-export const Null = Template.bind({});
-Null.args = {
+const nullCard = {
   poolQuery: makeFragmentData(nullPool, JobCard_Fragment),
 };
+
+const Template: StoryFn<typeof JobCard> = () => (
+  <div className="flex flex-col gap-6">
+    <JobCard {...open} />
+    <JobCard {...citizen} />
+    <JobCard {...employee} />
+    <JobCard {...atLevel} />
+    <JobCard {...departmental} />
+    <JobCard {...all} />
+    <JobCard {...deadlineApproaching} />
+    <JobCard {...closed} />
+    <JobCard {...nullCard} />
+  </div>
+);
+
+export const AllCards = Template.bind({});
