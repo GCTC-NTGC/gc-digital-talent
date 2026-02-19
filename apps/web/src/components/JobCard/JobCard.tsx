@@ -198,7 +198,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
 
   return (
     <Card className="relative">
-      <div className="mr-6 mb-6 flex justify-between">
+      <div className="mr-6 mb-6 flex items-center justify-between">
         {pool.areaOfSelection && (
           <div className="-ml-8 flex flex-col sm:flex-row">
             <AreaOfSelectionFlag

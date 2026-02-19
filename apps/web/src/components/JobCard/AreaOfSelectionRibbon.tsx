@@ -11,8 +11,6 @@ const ribbon = tv({
   slots: {
     base: "top-0 mb-1.5 flex items-center",
     label: "flex h-8 items-center px-6 pl-14 font-bold",
-    // relative -right-4
-    end: "",
     topTriangle: "h-4 w-4 [clip-path:polygon(0_0,0%_100%,100%_0)]",
     bottomTriangle: "h-4 w-4 [clip-path:polygon(0_0,0%_100%,100%_100%)]",
   },
@@ -25,7 +23,7 @@ const ribbon = tv({
         base: "z-1 sm:-ml-6",
       },
       third: {
-        base: "z-0 ml-6 sm:-ml-6",
+        base: "z-0 sm:-ml-6",
       },
     },
     publicColor: {
@@ -64,17 +62,6 @@ const ribbon = tv({
     },
   },
 });
-
-/*
-
-1. Open to the public
-2. Canadian citizens
-3. Open to employees
-4. Open to employees + At level
-5. Open to employees + Departmental preference
-6. Open to employees + At level + Departmental preference
-
-*/
 
 type RibbonLevel = "first" | "second" | "third";
 
@@ -168,7 +155,7 @@ const AreaOfSelectionRibbon = ({
     intl,
   );
 
-  const { base, bottomTriangle, end, label, topTriangle } = ribbon();
+  const { base, bottomTriangle, label, topTriangle } = ribbon();
 
   return (
     <>
@@ -181,11 +168,22 @@ const AreaOfSelectionRibbon = ({
         return (
           <div key={text} className={base(props)}>
             <p className={label(props)}>{text}</p>
-            <div className={end()}>
+            <div>
               <div className={topTriangle(props)}></div>
               <div className={bottomTriangle(props)}></div>
             </div>
           </div>
+          // <div key={text} className="order-1 drop-shadow-(--ribbon-shadow)">
+          //   <div
+          //     className="relative -ml-10.5 inline-block rounded-l-md bg-secondary-100 py-1 pr-9 pl-10.5 text-sm/normal font-bold text-black dark:text-secondary-700"
+          //     style={{
+          //       clipPath:
+          //         "polygon(0% 0%, 100% 0%, calc(100% - 1rem) 50%, 100% 100%, 0% 100%)",
+          //     }}
+          //   >
+          //     {text}
+          //   </div>
+          // </div>
         );
       })}
     </>
