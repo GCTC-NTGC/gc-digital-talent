@@ -501,13 +501,6 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Error message that contact email for this process must be filled",
   },
-  [ErrorCode.MissingSubstantiveExperience]: {
-    defaultMessage:
-      "You can’t save this option as your workforce adjustment situation if your current position is missing, not marked as substantive, or not marked as a Government of Canada experience. Please update your career experience to continue.",
-    id: "OKhXQk",
-    description:
-      "Error message for when a user is missing a substantive experience for workforce adjustment",
-  },
   [ErrorCode.ApplicationWorkEmailNotVerified]: {
     defaultMessage:
       "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",

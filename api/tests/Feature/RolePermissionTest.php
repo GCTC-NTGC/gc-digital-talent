@@ -89,8 +89,6 @@ class RolePermissionTest extends TestCase
             'view-any-genericJobTitle',
             'view-any-skill',
             'view-any-skillFamily',
-            'view-own-user',
-            'update-own-user',
             'view-any-publishedPool',
             'view-any-applicantCount',
             'create-any-searchRequest',
@@ -123,6 +121,11 @@ class RolePermissionTest extends TestCase
             'create-own-draftApplication',
             'delete-own-draftApplication',
             'archive-own-submittedApplication',
+            'view-own-user',
+            'update-own-user',
+            'view-own-employeeProfile',
+            'update-own-employeeProfile',
+            'view-own-searchRequest',
         ], true));
 
         $this->assertFalse(($this->user->isAbleTo('view-any-user')));
@@ -202,7 +205,6 @@ class RolePermissionTest extends TestCase
             'create-any-workStream',
             'update-any-workStream',
             'update-any-communityTalentCoordinatorMembership',
-            'view-any-employeeWFA',
             'view-any-poolActivityLog',
             'archive-any-department',
             'view-any-communityInterest',
@@ -311,7 +313,6 @@ class RolePermissionTest extends TestCase
             'update-team-processOperatorMembership',
             'view-team-communityInterest',
             'view-team-communityTalent',
-            'view-team-employeeWFA',
             'view-team-poolActivityLog',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();

@@ -403,11 +403,6 @@ type LocalizedTimeFrame implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedWfaInterest implements LocalizedEnumOption {
-  value: WfaInterest!
-  label: LocalizedString!
-}
-
 type LocalizedWorkRegion implements LocalizedEnumOption {
   value: WorkRegion!
   label: LocalizedString!
@@ -473,16 +468,6 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): UserPublicProfilePaginator!
-  employeeWFAPaginatedAdminTable(
-    where: EmployeeWfaFilterInput
-    orderBy: [QueryEmployeeWFAPaginatedAdminTableOrderByRelationOrderByClause!]
-
-    "Limits number of fetched items. Maximum allowed value: 1000."
-    first: Int! = 10
-
-    "The offset from which items are returned."
-    page: Int
-  ): UserEmployeeWFAPaginator!
   poolsPaginated(
     includeIds: [UUID!]
     excludeIds: [UUID!]
@@ -577,7 +562,6 @@ type Mutation {
   updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
-  updateEmployeeWFA(id: UUID!, employeeWFA: UpdateEmployeeWFAInput!): EmployeeWFA
   createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
   updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
@@ -796,7 +780,6 @@ type User {
   positionDuration: [PositionDuration]
   employeeProfile: EmployeeProfile
   govEmployeeProfile: BasicGovEmployeeProfile
-  employeeWFA: EmployeeWFA
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -1004,44 +987,6 @@ type BasicGovEmployeeProfile {
   role: String
   department: Department
   classification: Classification
-}
-
-type UserEmployeeWFA {
-  id: UUID!
-  employeeWFA: EmployeeWFA
-  firstName: String
-  lastName: String
-  classification: Classification
-  department: Department
-  workEmail: Email
-  isWoman: Boolean
-  hasDisability: Boolean
-  isVisibleMinority: Boolean
-  indigenousCommunities: [LocalizedIndigenousCommunity]
-  hasPriorityEntitlement: Boolean
-  priorityNumber: String
-  citizenship: LocalizedCitizenshipStatus
-  armedForcesStatus: LocalizedArmedForcesStatus
-  preferredLang: LocalizedLanguage
-  preferredLanguageForInterview: LocalizedLanguage
-  preferredLanguageForExam: LocalizedLanguage
-  firstOfficialLanguage: LocalizedLanguage
-  secondLanguageExamCompleted: Boolean
-  secondLanguageExamValidity: Boolean
-  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
-  acceptedOperationalRequirements: [LocalizedOperationalRequirement]
-  locationPreferences: [LocalizedWorkRegion]
-  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
-  locationExemptions: String
-  userSkills(includeSkillIds: [UUID]): [UserSkill]
-  communityInterests(id: UUID): [CommunityInterest!]
-}
-
-type EmployeeWFA {
-  id: UUID!
-  wfaInterest: LocalizedWfaInterest
-  wfaDate: Date
-  wfaUpdatedAt: DateTime
 }
 
 type GeneralQuestion {
@@ -1718,25 +1663,6 @@ input UserPublicProfileFilterInput {
   publicProfileSearch: String
 }
 
-input EmployeeWfaFilterInput {
-  workEmail: String
-  name: String
-  generalSearch: String
-  equity: EquitySelectionsInput
-  languageAbility: LanguageAbility
-  flexibleWorkLocations: [FlexibleWorkLocation]
-  locationPreferences: [WorkRegion]
-  operationalRequirements: [OperationalRequirement]
-  positionDuration: [PositionDuration]
-  wfaInterests: [WfaInterest]
-  hasPriorityEntitlement: Boolean
-  skills: [IdInput]
-  classifications: [IdInput]
-  departments: [IdInput]
-  workStreams: [IdInput]
-  communities: [IdInput]
-}
-
 input PoolFilterInput {
   generalSearch: String
   name: String
@@ -2103,11 +2029,6 @@ input UpdateEmployeeProfileInput {
   careerObjectiveIsCSuiteRole: Boolean
   nextRoleCSuiteRoleTitle: CSuiteRoleTitle
   careerObjectiveCSuiteRoleTitle: CSuiteRoleTitle
-}
-
-input UpdateEmployeeWFAInput {
-  wfaInterest: WfaInterest
-  wfaDate: Date
 }
 
 input CreateCommunityInterestInput {
@@ -3008,15 +2929,6 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
-"A paginated list of UserEmployeeWFA items."
-type UserEmployeeWFAPaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of UserEmployeeWFA items."
-  data: [UserEmployeeWFA!]!
-}
-
 "A paginated list of Pool items."
 type PoolPaginator {
   "Pagination information about the list of items."
@@ -3078,33 +2990,6 @@ type CommunityInterestWithSkillCountPaginator {
 
   "A list of CommunityInterestWithSkillCount items."
   data: [CommunityInterestWithSkillCount!]!
-}
-
-"Allowed column names for Query.employeeWFAPaginatedAdminTable.orderBy."
-enum QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn {
-  GROUP
-  LEVEL
-}
-
-"Aggregate specification for Query.employeeWFAPaginatedAdminTable.orderBy.currentClassification."
-input QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn
-}
-
-"Order by clause for Query.employeeWFAPaginatedAdminTable.orderBy."
-input QueryEmployeeWFAPaginatedAdminTableOrderByRelationOrderByClause {
-  "The column that is used for ordering."
-  column: String
-
-  "The direction that is used for ordering."
-  order: SortOrder!
-
-  "Aggregate specification."
-  currentClassification: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
@@ -4290,14 +4175,6 @@ enum TimeFrame {
   THIS_YEAR
   ONE_TO_TWO_YEARS
   THREE_OR_MORE_YEARS
-}
-
-enum WfaInterest {
-  NOT_APPLICABLE
-  TERM_ENDING
-  LETTER_RECEIVED
-  NOT_SURE
-  VOLUNTARY_DEPARTURE
 }
 
 enum WhenSkillUsed {

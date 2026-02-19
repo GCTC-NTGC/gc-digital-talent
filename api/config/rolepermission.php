@@ -93,7 +93,6 @@ return [
         'communityInterest' => 'communityInterest',
         'communityTalent' => 'communityTalent',
         'basicGovEmployeeProfile' => 'basicGovEmployeeProfile',
-        'employeeWFA' => 'employeeWFA',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
@@ -261,23 +260,6 @@ return [
         'update-own-employeeProfile' => [
             'en' => 'Update any Employee Profile',
             'fr' => 'Visionner tout profil de candidat',
-        ],
-
-        'view-any-employeeWFA' => [
-            'en' => 'View any WFA Employee',
-            'fr' => 'Afficher tous les employés WFA',
-        ],
-        'view-own-employeeWFA' => [
-            'en' => 'View own WFA Employee',
-            'fr' => 'Afficher son propre employé WFA',
-        ],
-        'view-team-employeeWFA' => [
-            'en' => 'View team WFA Employee',
-            'fr' => 'Voir l\'équipe WFA Employé',
-        ],
-        'update-own-employeeWFA' => [
-            'en' => 'Update own WFA Employee',
-            'fr' => 'Mettre à jour son propre employé WFA',
         ],
 
         'view-team-draftPool' => [
@@ -950,12 +932,6 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
-            'user' => [
-                'own' => ['view', 'update'],
-            ],
-            'employeeProfile' => [
-                'own' => ['view', 'update'],
-            ],
             'publishedPool' => [
                 'any' => ['view'],
             ],
@@ -967,7 +943,6 @@ return [
             ],
             'searchRequest' => [
                 'any' => ['create'],
-                'own' => ['view'],
             ],
             'announcement' => [
                 'any' => ['view'],
@@ -999,14 +974,20 @@ return [
             'basicGovEmployeeProfile' => [
                 'any' => ['view'],
             ],
-            'employeeWFA' => [
-                'own' => ['view', 'update'],
-            ],
             'communityInterest' => [
                 'own' => ['delete'],
             ],
             'talentNominationEvent' => [
                 'any' => ['view'],
+            ],
+            'employeeProfile' => [
+                'own' => ['view', 'update'],
+            ],
+            'searchRequest' => [
+                'own' => ['view'],
+            ],
+            'user' => [
+                'own' => ['view', 'update'],
             ],
         ],
 
@@ -1090,9 +1071,6 @@ return [
                 'team' => ['view'],
             ],
             'communityTalent' => [
-                'team' => ['view'],
-            ],
-            'employeeWFA' => [
                 'team' => ['view'],
             ],
             'poolActivityLog' => [
@@ -1265,9 +1243,6 @@ return [
             ],
             'communityTalentCoordinatorMembership' => [
                 'any' => ['update'],
-            ],
-            'employeeWFA' => [
-                'any' => ['view'],
             ],
             'poolActivityLog' => [
                 'any' => ['view'],
