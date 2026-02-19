@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Contracts\BearerTokenService;
 use DateInterval;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -25,7 +27,7 @@ use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Psr\Clock\ClockInterface;
 
-class OpenIdBearerTokenService
+class GcSignInBearerTokenService implements BearerTokenService
 {
     private Configuration $unsecuredConfig;
 
@@ -62,6 +64,7 @@ class OpenIdBearerTokenService
             $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->get($this->configUri);
+            assert($response instanceof \Illuminate\Http\Client\Response);
 
             if ($response->failed()) {
                 Log::error('Failed when GETting the OpenID configuration in getConfigProperty');
@@ -93,6 +96,7 @@ class OpenIdBearerTokenService
             $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->get($jwks_uri);
+            assert($response instanceof \Illuminate\Http\Client\Response);
 
             if ($response->failed()) {
                 Log::error('Failed when GETting the JWKS in getConfiguration');
@@ -108,19 +112,13 @@ class OpenIdBearerTokenService
         $set = JWKSet::createFromKeyData(json_decode($jsonString, true));
         $jwk = $set->get($keyId);
 
-        switch ($jwk->get('alg')) {
-            case 'RS256':
-                $signer = new Signer\Rsa\Sha256();
-                break;
-            case 'RS384':
-                $signer = new Signer\Rsa\Sha384();
-                break;
-            case 'RS512':
-                $signer = new Signer\Rsa\Sha512();
-                break;
-            default:
-                throw new Exception('Unknown algorithm type in jwks');
-        }
+        $signer = match (true) {
+            ! $jwk->has('alg') => new Signer\Rsa\Sha256(), // assume if not given
+            $jwk->get('alg') == 'RS256' => new Signer\Rsa\Sha256(),
+            $jwk->get('alg') == 'RS384' => new Signer\Rsa\Sha384(),
+            $jwk->get('alg') == 'RS512' => new Signer\Rsa\Sha512(),
+            default => throw new Exception('Unknown algorithm type in jwks'),
+        };
 
         $pem = RSAKey::createFromJWK($jwk)->toPEM();
         // Private key is only used for generating tokens, which is not being done here
@@ -138,51 +136,52 @@ class OpenIdBearerTokenService
 
     }
 
+    private function getIntrospectionValues(string $accessToken): array
+    {
+        $cacheKey = 'introspection_token_values_'.$accessToken;
+
+        if (Cache::has($cacheKey)) {
+            // shortcut: use cached access token values if available
+            return Cache::get($cacheKey);
+        }
+
+        // make api call to introspect endpoint
+        $introspectionUri = $this->getConfigProperty('introspection_endpoint');
+        $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+            return $exception instanceof ConnectionException;
+        }, throw: false)->asForm()
+            ->withToken($accessToken)  // required by mockauth but not GCSI
+            ->post($introspectionUri, [
+                'client_id' => config('oauth.client_id'),
+                'client_secret' => config('oauth.client_secret'),
+                'token' => $accessToken,
+            ]);
+        assert($response instanceof \Illuminate\Http\Client\Response);
+
+        if ($response->failed()) {
+            Log::error('Failed when GETting the introspection verification in getIntrospectionValues ('.$response->status().') '.$response->body());
+            throw new Exception('Failed to get introspection');
+        }
+
+        $values = $response->json();
+        $isTokenActive = Arr::boolean($values, 'active', false);
+        $expiryTimestamp = Arr::integer($values, 'exp', 0);
+        $nowTimestamp = $this->clock->now()->getTimestamp();
+        // only cache active token
+        if ($isTokenActive && $expiryTimestamp > $nowTimestamp) {
+            $cacheTime = min(10, $expiryTimestamp - $nowTimestamp); // cache for a few seconds, or up to expiry time
+            Cache::put($cacheKey, $values, $cacheTime);
+        }
+
+        return $values;
+    }
+
     // call the introspection endpoint to check if the OP considers the access token still valid
     public function verifyJwtWithIntrospection(string $accessToken)
     {
-        $cacheKey = 'introspection_token_'.$accessToken;
+        $values = $this->getIntrospectionValues($accessToken);
 
-        if (Cache::has($cacheKey)) {
-            // use cached access token status if available
-            $isTokenActive = Cache::get($cacheKey);
-        } else {
-            // make api call to introspect endpoint
-            $introspectionUri = $this->getConfigProperty('introspection_endpoint');
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
-                return $exception instanceof ConnectionException;
-            }, throw: false)->asForm()
-                ->withToken($accessToken)
-                ->post($introspectionUri, [
-                    'token' => $accessToken,
-                ]);
-
-            if ($response->failed()) {
-                $errorCode = $response->json('error');
-                $isNormalErrorCode = $errorCode == 'access_denied';
-
-                $errorMessageToLog = 'Failed when GETting the introspection verification in verifyJwtWithIntrospection '.$errorCode;
-                if (! $isNormalErrorCode) {
-                    Log::error($errorMessageToLog);
-                } else {
-                    Log::debug($errorMessageToLog);
-                }
-                Log::debug((string) $response->getBody());
-                throw new Exception('Failed to get introspection');
-            }
-
-            $isTokenActive = boolval($response->json('active'));
-            $expiryVal = $response->json('exp');
-            // only cache active token
-            if ($isTokenActive && is_numeric($expiryVal)) {
-                $expiryTimestamp = intval($expiryVal);
-                $nowTimestamp = $this->clock->now()->getTimestamp();
-                $cacheTime = min(10, $expiryTimestamp - $nowTimestamp); // cache for a few seconds, or up to expiry time
-                if ($cacheTime > 0) {
-                    Cache::put($cacheKey, $isTokenActive, $cacheTime);
-                }
-            }
-        }
+        $isTokenActive = Arr::boolean($values, 'active', false);
 
         if (! $isTokenActive) {
             throw new UnauthorizedException('Access token is not active', 401);

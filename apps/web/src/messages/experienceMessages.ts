@@ -166,6 +166,26 @@ const messages = defineMessages({
     id: "M1en14",
     description: "Button label to expand all experiences",
   },
+  roleActing: {
+    defaultMessage: "Acting role",
+    id: "ow3hcA",
+    description: "Label for Government position type acting",
+  },
+  roleAssignment: {
+    defaultMessage: "Assignment role",
+    id: "tb4mS6",
+    description: "Label for Government position type assignment",
+  },
+  roleSecondment: {
+    defaultMessage: "Secondment role",
+    id: "rXd18V",
+    description: "Label for Government position type secondment",
+  },
+  roleSubstantive: {
+    defaultMessage: "Substantive role",
+    id: "hqCFJg",
+    description: "Label for Government position type substantive",
+  },
 });
 
 export default messages;

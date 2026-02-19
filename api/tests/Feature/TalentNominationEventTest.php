@@ -104,25 +104,6 @@ class TalentNominationEventTest extends TestCase
 
     public function testCreateTalentNominationEvent()
     {
-        // platform admin can create for any community
-        $this->actingAs($this->platformAdmin, 'api')
-            ->graphQL($this->createMutation, [
-                'talentNominationEvent' => [
-                    ...$this->input,
-                    'community' => ['connect' => $this->communityId],
-                    'developmentPrograms' => ['sync' => [$this->developmentProgramId]],
-                ],
-            ])
-            ->assertJson([
-                'data' => [
-                    'createTalentNominationEvent' => [
-                        ...$this->input,
-                        'community' => ['id' => $this->communityId],
-                        'developmentPrograms' => [['id' => $this->developmentProgramId]],
-                    ],
-                ],
-            ]);
-
         // community admin can create for own community only
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->createMutation, [

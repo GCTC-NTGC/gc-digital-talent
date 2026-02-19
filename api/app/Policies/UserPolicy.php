@@ -75,34 +75,6 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can view the WFA information.
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewEmployeeWFA(User $user, User $model)
-    {
-        if ($user->isAbleTo('view-any-employeeWFA')) {
-            return true;
-        }
-
-        if ($user->isAbleTo('view-own-employeeWFA') && $model->id === $user->id) {
-            return true;
-        }
-
-        $teams = $user->rolesTeams()->get();
-
-        $teamIds = $teams->filter(
-            fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team)
-        )->pluck('id')->toArray();
-
-        if (! empty($teamIds) && ($this->applicantHasAppliedToPoolInTeams($model, $teamIds) || $this->teamsUserHasSharedProfileWith($model, $teamIds))) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Determine whether the user can create models.
      *
      * @return \Illuminate\Auth\Access\Response|bool
@@ -131,14 +103,6 @@ class UserPolicy
     public function updateSub(User $user)
     {
         return $user->isAbleTo('update-any-userSub');
-    }
-
-    /**
-     * Determine whether the user can update the WFA info for the model.
-     */
-    public function updateEmployeeWFA(User $user, User $model): bool
-    {
-        return $user->isAbleTo('update-own-employeeWFA') && $model->id === $user->id;
     }
 
     /**
@@ -262,19 +226,28 @@ class UserPolicy
 
         switch ($role->name) {
             case 'process_operator':
-                // Community roles have the update-team-processOperatorMembership permission, and it should give them the ability to assign processOperator roles to pools in their community.
+                // community and department roles have the update-team-processOperatorMembership permission
+                // it should give them the ability to assign processOperator roles to pools in their community OR department.
                 // for assigning a process, team is a poolTeam so need to reach the community teamable for community checks
-                $poolTeam = $team->loadMissing(['teamable.community.team']);
+                // or check through department
+                $poolCommunityTeam = $team->loadMissing(['teamable.community.team']);
+                $poolDepartmentTeam = $team->loadMissing(['teamable.department.team']);
 
-                return $actor->isAbleTo('update-any-processOperatorMembership')
-                    || $actor->isAbleTo('update-team-processOperatorMembership', $team)
-                || (isset($poolTeam->teamable->community->team) && $actor->isAbleTo('update-team-processOperatorMembership', $poolTeam->teamable->community->team));
+                return
+                    $actor->isAbleTo('update-any-processOperatorMembership') ||
+                    $actor->isAbleTo('update-team-processOperatorMembership', $team) ||
+                    (isset($poolCommunityTeam->teamable->community->team) && $actor->isAbleTo('update-team-processOperatorMembership', $poolCommunityTeam->teamable->community->team)) ||
+                    (isset($poolDepartmentTeam->teamable->department->team) && $actor->isAbleTo('update-team-processOperatorMembership', $poolDepartmentTeam->teamable->department->team));
             case 'community_recruiter':
                 return $actor->isAbleTo('update-any-communityRecruiterMembership') || $actor->isAbleTo('update-team-communityRecruiterMembership', $team);
             case 'community_admin':
                 return $actor->isAbleTo('update-any-communityAdminMembership') || $actor->isAbleTo('update-team-communityAdminMembership', $team);
             case 'community_talent_coordinator':
                 return $actor->isAbleTo('update-any-communityTalentCoordinatorMembership') || $actor->isAbleTo('update-team-communityTalentCoordinatorMembership', $team);
+            case 'department_admin':
+                return $actor->isAbleTo('update-any-departmentAdminMembership') || $actor->isAbleTo('update-team-departmentAdminMembership', $team);
+            case 'department_hr_advisor':
+                return $actor->isAbleTo('update-any-departmentHRAdvisorMembership') || $actor->isAbleTo('update-team-departmentHRAdvisorMembership', $team);
         }
 
         return false; // reject unknown roles

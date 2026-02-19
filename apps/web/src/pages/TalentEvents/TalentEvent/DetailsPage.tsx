@@ -12,7 +12,6 @@ import {
   ThrowNotFound,
   Ul,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_LOCALIZED,
@@ -24,6 +23,7 @@ import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import permissionConstants from "~/constants/permissionConstants";
 
 import { RouteParams } from "./types";
 
@@ -269,7 +269,7 @@ const TalentEventDetailsPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityTalentCoordinator]}>
+  <RequireAuth roles={permissionConstants.viewCommunityTalentNominations}>
     <TalentEventDetailsPage />
   </RequireAuth>
 );

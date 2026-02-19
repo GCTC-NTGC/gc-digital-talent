@@ -27,6 +27,7 @@ import AccountSettings from "~/fixtures/AccountSettings";
 import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
 
 test.describe("Notifications", () => {
+  test.setTimeout(90_000); // This test takes long in webkit
   let uniqueTestId: string;
   let sub: string;
   let technicalSkill: Skill | undefined;
@@ -143,17 +144,19 @@ test.describe("Notifications", () => {
   test("Pool extension notification sent to the candidate whose job application is in draft", async ({
     appPage,
   }) => {
-    const application = new ApplicationPage(appPage.page, poolId);
     const settingsPage = new AccountSettings(appPage.page);
-    await loginBySub(application.page, sub, false);
+    await loginBySub(settingsPage.page, sub, false);
     const newClosingDate = "3000-10-10";
     // Update notification settings
     await settingsPage.goToSettings();
     await settingsPage.updateNotificationsSettings();
-    await expect(appPage.page.getByRole("alert").last()).toContainText(
+    await expect(settingsPage.page.getByRole("alert").last()).toContainText(
       /successfully updated settings/i,
     );
+    await expect(appPage.page.getByRole("alert").last()).toBeHidden();
+
     // Applicant creates draft application
+    const application = new ApplicationPage(appPage.page, poolId);
     await application.create();
     await application.expectOnStep(application.page, 1);
     await application.page.getByRole("button", { name: /let's go/i }).click();

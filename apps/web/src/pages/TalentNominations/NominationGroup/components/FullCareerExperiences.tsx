@@ -207,8 +207,8 @@ const FullCareerExperiences = ({
       <p className="mt-3 mb-6">
         {intl.formatMessage({
           defaultMessage:
-            "This section allows you to browse the nominee’s full career experience. By default, experience is organized by type, however you can choose to see how much experience the nominee has in a particular work stream or type of department using the options provided",
-          id: "gu2wRn",
+            "This section allows you to browse the nominee’s full career experience. By default, experience is organized by type, however you can choose to see how much experience the nominee has in a particular work stream or type of department using the options provided.",
+          id: "pp9KRf",
           description: "Description for the career page full career section",
         })}
       </p>

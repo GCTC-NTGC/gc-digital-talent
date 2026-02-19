@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\AwardExperience;
 use App\Models\Community;
 use App\Models\CommunityExperience;
+use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\Pool;
@@ -27,6 +28,8 @@ class UserTestSeeder extends Seeder
         $atipCommunityId = Community::select('id')->where('key', 'atip')->sole()->id;
         $testCommunityId = Community::select('id')->where('key', 'test-community')->sole()->id;
         $financeCommunityId = Community::select('id')->where('key', 'finance')->sole()->id;
+
+        $departmentId = Department::select('id')->where('department_number', 56)->sole()->id;
 
         // shared auth users for testing
         $adminUser = User::factory()
@@ -131,6 +134,28 @@ class UserTestSeeder extends Seeder
                 'last_name' => 'Sky',
                 'email' => 'talent-coordinator@test.com',
                 'sub' => 'talent-coordinator@test.com',
+            ]);
+
+        User::factory()
+            ->asApplicant()
+            ->asDepartmentAdmin([$departmentId])
+            ->withGovEmployeeProfile()
+            ->create([
+                'first_name' => 'Brutus',
+                'last_name' => 'Sackville',
+                'email' => 'department-admin@test.com',
+                'sub' => 'department-admin@test.com',
+            ]);
+
+        User::factory()
+            ->asApplicant()
+            ->asDepartmentHRAdvisor([$departmentId])
+            ->withGovEmployeeProfile()
+            ->create([
+                'first_name' => 'Archibald',
+                'last_name' => 'Bird',
+                'email' => 'department-advisor@test.com',
+                'sub' => 'department-advisor@test.com',
             ]);
     }
 }

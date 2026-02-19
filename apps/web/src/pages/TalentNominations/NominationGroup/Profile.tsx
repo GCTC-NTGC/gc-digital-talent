@@ -13,7 +13,6 @@ import {
   ThrowNotFound,
   Notice,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import BasicInformation from "~/components/BasicInformation/BasicInformation";
@@ -23,6 +22,7 @@ import TalentManagementPreferences from "~/components/TalentManagementPreference
 import NextRoleAndCareerObjective from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
 import GoalsAndWorkStyle from "~/components/GoalsAndWorkStyle/GoalsAndWorkStyle";
 import RecruitmentProcesses from "~/components/RecruitmentProcesses/RecruitmentProcesses";
+import permissionConstants from "~/constants/permissionConstants";
 
 import { RouteParams, SECTION_KEY } from "./types";
 
@@ -237,7 +237,7 @@ const TalentNominationGroupProfilePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityTalentCoordinator]}>
+  <RequireAuth roles={permissionConstants.viewCommunityTalentNominations}>
     <TalentNominationGroupProfilePage />
   </RequireAuth>
 );

@@ -22,7 +22,6 @@ use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
-use App\Enums\WfaInterest;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\Community;
@@ -241,8 +240,6 @@ class UserFactory extends Factory
 
             $this->syncSkillsToExperience($experience);
 
-            $user->wfa_interest = $this->faker->randomElement(WfaInterest::cases())->name;
-            $user->wfa_date = $this->faker->dateTimeBetween('2028-01-01', '2029-12-31')->format('Y-m-d');
             $user->saveQuietly();
 
             OffPlatformRecruitmentProcess::factory()
@@ -478,6 +475,48 @@ class UserFactory extends Factory
             } else {
                 $community = Community::find($communityId);
                 $community->addCommunityTalentCoordinator($user->id);
+            }
+        });
+    }
+
+    /**
+     * Attach the department admin role to a user after creation.
+     *
+     * @param  string|array  $departmentId  Id of the community or communities to attach the role to
+     * @return $this
+     */
+    public function asDepartmentAdmin(string|array $departmentIds)
+    {
+        return $this->afterCreating(function (User $user) use ($departmentIds) {
+            if (is_array($departmentIds)) {
+                foreach ($departmentIds as $departmentId) {
+                    $department = Department::find($departmentId);
+                    $department->addDepartmentAdmin($user->id);
+                }
+            } else {
+                $department = Department::find($departmentIds);
+                $department->addDepartmentAdmin($user->id);
+            }
+        });
+    }
+
+    /**
+     * Attach the department HR advisor role to a user after creation.
+     *
+     * @param  string|array  $departmentId  Id of the community or communities to attach the role to
+     * @return $this
+     */
+    public function asDepartmentHRAdvisor(string|array $departmentIds)
+    {
+        return $this->afterCreating(function (User $user) use ($departmentIds) {
+            if (is_array($departmentIds)) {
+                foreach ($departmentIds as $departmentId) {
+                    $department = Department::find($departmentId);
+                    $department->addDepartmentHRAdvisor($user->id);
+                }
+            } else {
+                $department = Department::find($departmentIds);
+                $department->addDepartmentHRAdvisor($user->id);
             }
         });
     }

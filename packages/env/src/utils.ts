@@ -40,11 +40,11 @@ export const checkFeatureFlag = (name: string): boolean => {
  * A convenience function which makes explicit all expected feature flags.
  */
 export const getFeatureFlags = () => ({
-  workforceAdjustment: checkFeatureFlag("FEATURE_WFA"),
   applicationEmailVerification: checkFeatureFlag(
     "FEATURE_APPLICATION_EMAIL_VERIFICATION",
   ),
   holidayMessage: checkFeatureFlag("FEATURE_HOLIDAY_MESSAGE"),
+  gcSignIn: checkFeatureFlag("FEATURE_GCSI"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;
