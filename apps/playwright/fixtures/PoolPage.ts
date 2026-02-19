@@ -263,5 +263,21 @@ class PoolPage extends AppPage {
       .click();
     await this.waitForGraphqlResponse("ExtendPool");
   }
+
+  async verifyActivityLogContent(
+    user?: { firstName?: string; lastName?: string },
+    action?: string,
+    Entity?: string,
+  ) {
+    await this.page.reload();
+    await expect(
+      this.page.getByText(
+        new RegExp(
+          `${user?.firstName ?? ""} ${user?.lastName ?? ""} ${action ?? ""}: ${Entity ?? ""}`,
+          "i",
+        ),
+      ),
+    ).toBeVisible();
+  }
 }
 export default PoolPage;
