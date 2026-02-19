@@ -107,6 +107,11 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: permissionConstants.viewCandidates,
     },
     {
+      label: intl.formatMessage(pageTitles.talentManagement),
+      href: adminRoutes.adminTalentManagementEvents(),
+      roles: permissionConstants.viewCommunityTalentNominations,
+    },
+    {
       label: intl.formatMessage(navigationMessages.processes),
       href: adminRoutes.poolTable(),
       roles: permissionConstants.viewProcesses,
@@ -120,11 +125,6 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       label: intl.formatMessage(adminMessages.communityTalent),
       href: adminRoutes.communityTalentPage(),
       roles: permissionConstants.viewCommunityTalent,
-    },
-    {
-      label: intl.formatMessage(pageTitles.workforceAdjustment),
-      href: adminRoutes.workforceAdjustmentEmployees(),
-      roles: permissionConstants.viewWorkforceAdjustment,
     },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>

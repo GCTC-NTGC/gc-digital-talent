@@ -128,9 +128,6 @@ type User {
   employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
   govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
 
-  # Employee WFA info
-  employeeWFA: EmployeeWFA @self @canFind(ability: "viewEmployeeWFA")
-
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["whereAuthorizedToView"])
@@ -411,60 +408,6 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")
-}
-
-# Streamlined User, intended for querying in large collections while remaining performant
-# Include only fields as needed for admin purposes
-type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
-  id: UUID!
-  employeeWFA: EmployeeWFA @self
-
-  # User profile info for table
-  firstName: String @rename(attribute: "first_name")
-  lastName: String @rename(attribute: "last_name")
-  classification: Classification @belongsTo(relation: "currentClassification")
-  department: Department @belongsTo
-  workEmail: Email @rename(attribute: "work_email")
-  isWoman: Boolean @rename(attribute: "is_woman")
-  hasDisability: Boolean @rename(attribute: "has_disability")
-  isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [LocalizedIndigenousCommunity]
-    @rename(attribute: "indigenous_communities")
-  hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
-  priorityNumber: String @rename(attribute: "priority_number")
-  citizenship: LocalizedCitizenshipStatus
-  armedForcesStatus: LocalizedArmedForcesStatus
-    @rename(attribute: "armed_forces_status")
-  preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: LocalizedLanguage
-    @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: LocalizedLanguage
-    @rename(attribute: "preferred_language_for_exam")
-  firstOfficialLanguage: LocalizedLanguage
-    @rename(attribute: "first_official_language")
-  secondLanguageExamCompleted: Boolean
-    @rename(attribute: "second_language_exam_completed")
-  secondLanguageExamValidity: Boolean
-    @rename(attribute: "second_language_exam_validity")
-  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
-    @rename(attribute: "estimated_language_ability")
-  acceptedOperationalRequirements: [LocalizedOperationalRequirement]
-    @rename(attribute: "accepted_operational_requirements")
-  locationPreferences: [LocalizedWorkRegion]
-    @rename(attribute: "location_preferences")
-  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
-    @rename(attribute: "flexible_work_locations")
-  locationExemptions: String @rename(attribute: "location_exemptions")
-  userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
-  communityInterests(id: UUID @eq): [CommunityInterest!]
-    @belongsToMany(scopes: ["authorizedToView"])
-}
-
-type EmployeeWFA @model(class: "\\App\\Models\\User") {
-  id: UUID!
-  wfaInterest: LocalizedWfaInterest @rename(attribute: "wfa_interest")
-  wfaDate: Date @rename(attribute: "wfa_date")
-  wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
 }
 
 type GeneralQuestion {
@@ -1328,27 +1271,6 @@ input UserPublicProfileFilterInput {
   publicProfileSearch: String @scope(name: "wherePublicProfileSearch")
 }
 
-input EmployeeWfaFilterInput {
-  workEmail: String @scope(name: "whereWorkEmail")
-  name: String @scope(name: "whereName")
-  generalSearch: String @scope(name: "whereGeneralSearch")
-  equity: EquitySelectionsInput @scope(name: "whereEquityIn")
-  languageAbility: LanguageAbility @scope(name: "whereLanguageAbility")
-  flexibleWorkLocations: [FlexibleWorkLocation]
-    @scope(name: "whereFlexibleWorkLocationsIn")
-  locationPreferences: [WorkRegion] @scope(name: "whereLocationPreferencesIn")
-  operationalRequirements: [OperationalRequirement]
-    @scope(name: "whereOperationalRequirementsIn")
-  positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
-  wfaInterests: [WfaInterest] @scope(name: "whereWfaInterestIn")
-  hasPriorityEntitlement: Boolean @scope(name: "whereHasPriorityEntitlement")
-  skills: [IdInput] @scope(name: "whereSkillsAdditive")
-  classifications: [IdInput] @scope(name: "whereClassificationIn")
-  departments: [IdInput] @scope(name: "whereDepartmentsIn")
-  workStreams: [IdInput] @scope(name: "whereCommunityWorkStreamsIn")
-  communities: [IdInput] @scope(name: "whereCommunitiesIn")
-}
-
 input PoolFilterInput {
   generalSearch: String @scope
   name: String @scope
@@ -1569,22 +1491,6 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
-  employeeWFAPaginatedAdminTable(
-    where: EmployeeWfaFilterInput
-    orderBy: _
-      @orderBy(
-        relations: [
-          { relation: "currentClassification", columns: ["group", "level"] }
-        ]
-      )
-  ): [UserEmployeeWFA]!
-    @paginate(
-      defaultCount: 10
-      maxCount: 1000
-      scopes: ["whereAuthorizedToViewEmployeeWFAAdminTable"]
-      model: "App\\Models\\User"
-    )
-    @guard
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID! @eq): Pool @find @canQuery(ability: "view")
   publishedPools(
@@ -2134,11 +2040,6 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "next_role_c_suite_role_title")
   careerObjectiveCSuiteRoleTitle: CSuiteRoleTitle
     @rename(attribute: "career_objective_c_suite_role_title")
-}
-
-input UpdateEmployeeWFAInput {
-  wfaInterest: WfaInterest @rename(attribute: "wfa_interest")
-  wfaDate: Date @rename(attribute: "wfa_date")
 }
 
 input CreateCommunityInterestInput @validator {
@@ -3162,14 +3063,6 @@ type Mutation {
     @guard
     @update(model: "EmployeeProfile")
     @canFind(ability: "update", find: "id", model: "EmployeeProfile")
-  updateEmployeeWFA(
-    id: UUID!
-    employeeWFA: UpdateEmployeeWFAInput! @spread
-  ): EmployeeWFA
-    @guard
-    @validator
-    @update(model: "User")
-    @canFind(ability: "updateEmployeeWFA", find: "id", model: "User")
   createCommunityInterest(
     communityInterest: CreateCommunityInterestInput! @spread
   ): CommunityInterest

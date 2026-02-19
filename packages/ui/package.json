@@ -17,6 +17,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@base-ui/react": "^1.2.0",
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
@@ -26,7 +27,6 @@
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-collapsible": "^1.1.12",
     "@radix-ui/react-dialog": "^1.1.15",
-    "@radix-ui/react-dropdown-menu": "^2.1.16",
     "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-scroll-area": "^1.2.10",
     "@radix-ui/react-separator": "^1.1.8",
@@ -37,7 +37,7 @@
     "@radix-ui/react-toggle-group": "^1.1.11",
     "chromatic": "^15.1.0",
     "lodash": "^4.17.23",
-    "motion": "^12.34.0",
+    "motion": "^12.34.2",
     "react-csv-downloader": "^3.3.0",
     "react-focus-lock": "^2.13.7",
     "react-focus-on": "^3.10.2",

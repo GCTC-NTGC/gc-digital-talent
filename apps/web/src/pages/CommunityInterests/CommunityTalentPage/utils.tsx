@@ -11,6 +11,7 @@ import {
   CommunityInterestFilterInput,
   InputMaybe,
   PositionDuration,
+  UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
@@ -213,6 +214,29 @@ export function transformCommunityInterestFilterInputToFormValues(
     flexibleWorkLocations: unpackMaybes(input?.flexibleWorkLocations),
     classifications: unpackMaybes(input?.classifications),
   };
+}
+
+export function transformToUserFilterInput(
+  _filterState: CommunityInterestFilterInput | undefined,
+  searchTerm: string | undefined,
+  _searchType: string | undefined,
+): UserFilterInput | undefined {
+  if (!searchTerm) {
+    return undefined;
+  }
+
+  const userFilter: UserFilterInput = {};
+
+  userFilter.generalSearch = searchTerm;
+
+  return userFilter;
+}
+
+export function extractUserIdsFromSelectedRows(
+  selectedRowIds: string[],
+): string[] {
+  const userIds = selectedRowIds.map((id) => id.split("userId#")[1]);
+  return uniqueItems(userIds);
 }
 
 export function removeDuplicateIds(ids: string[]): string[] {

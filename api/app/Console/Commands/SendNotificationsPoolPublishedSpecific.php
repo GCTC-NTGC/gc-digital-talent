@@ -3,32 +3,30 @@
 namespace App\Console\Commands;
 
 use App\Enums\NotificationFamily;
-use App\Enums\PublishingGroup;
 use App\Models\Pool;
 use App\Models\User;
 use App\Notifications\NewJobPosted;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class SendNotificationsPoolPublished extends Command
+// This is a copy of SendNotificationsPoolPublished designed to be run manually and choose a specific pool.
+class SendNotificationsPoolPublishedSpecific extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'send-notifications:pool-published';
+    protected $signature = 'send-notifications:pool-published-specific {poolId}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Send notifications to users about a new pool being published.';
+    protected $description = 'Send notifications to users about a specific pool being published.';
 
     /**
      * Execute the console command.
@@ -37,36 +35,31 @@ class SendNotificationsPoolPublished extends Command
      */
     public function handle()
     {
-        $this->info('SendNotificationsPoolPublished running at '.Carbon::now()->toDateTimeString().'.');
+        $poolId = $this->argument('poolId');
+        $pool = Pool::find($poolId);
 
-        $successCount = 0;
-        $failureCount = 0;
+        if (! $pool) {
+            $this->error('Could not find a pool with that ID.');
 
-        $endOfSpan = Carbon::now();
-        $startOfSpan = Carbon::now()->subHours(24); // assuming the last reporting job ran about 24 hours ago
-        $this->info("Finding pools published between $startOfSpan and $endOfSpan.");
+            return Command::FAILURE;
+        }
 
-        $poolsPublishedRecently = Pool::query()
-            ->where('published_at', '>=', $startOfSpan)
-            ->where('published_at', '<', $endOfSpan)
-            ->whereNotClosed() // don't notify of pools that have already been closed
-            ->where('publishing_group', '<>', PublishingGroup::OTHER->name) // don't notify of testing pools
-            ->get();
+        $this->info('Found the pool "'.($pool->name['en']).'" published on "'.($pool->published_at).'" set to close on "'.($pool->closing_date).'".');
+        if (! $this->confirm('Do you wish to send notifications for this pool?')) {
+            $this->info('Cancelled command.');
 
-        $this->info('Found '.$poolsPublishedRecently->count().' pools.');
+            return Command::FAILURE;
+        }
 
-        $notifications = $poolsPublishedRecently
-            ->map(fn ($model) => get_class($model) == Pool::class
-                ? new NewJobPosted(
-                    $model->name['en'],
-                    $model->name['fr'],
-                    $model->id
-                )
-                : null
-            )
-            ->whereNotNull();
+        $notifications = collect([
+            new NewJobPosted(
+                $pool->name['en'],
+                $pool->name['fr'],
+                $pool->id
+            ),
+        ]);
 
-        // Everything below this line should stay in sync with api/app/Console/Commands/SendNotificationsPoolPublishedSpecific.php
+        // Everything below this line should stay in sync with api/app/Console/Commands/SendNotificationsPoolPublished.php
 
         $successCount = 0;
         $failureCount = 0;
