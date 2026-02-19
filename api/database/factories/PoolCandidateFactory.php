@@ -71,16 +71,24 @@ class PoolCandidateFactory extends BaseFactory
             //  TO DO: Do we complete the user profile?
 
             // Education requirement
-            $eduRequirement = $this->faker->randomElement(EducationRequirementOption::classificationRequirements($pool->classification->group));
+            $eduRequirement = $this->faker->randomElement(
+                EducationRequirementOption::classificationRequirements($pool->classification->group)
+            );
+
             $updates['education_requirement_option'] = $eduRequirement;
             $isEdu = $eduRequirement === EducationRequirementOption::EDUCATION->name;
-            $exp = $isEdu
-                ? ($user->educationExperiences->first() ?? EducationExperience::factory()->for($user)->create())
-            : ($user->workExperiences->first() ?? WorkExperience::factory()->for($user)->create([
-                'employment_category' => $user->computed_is_gov_employee
-                    ? EmploymentCategory::GOVERNMENT_OF_CANADA->name
-                    : EmploymentCategory::EXTERNAL_ORGANIZATION->name,
-            ]));
+
+            if ($isEdu) {
+                $exp = $user->educationExperiences->first()
+                    ?? EducationExperience::factory()->for($user)->create();
+            } else {
+                $exp = $user->workExperiences->first()
+                    ?? WorkExperience::factory()->for($user)->create([
+                        'employment_category' => $user->computed_is_gov_employee
+                            ? EmploymentCategory::GOVERNMENT_OF_CANADA->name
+                            : EmploymentCategory::EXTERNAL_ORGANIZATION->name,
+                    ]);
+            }
 
             $relation = $isEdu ? 'educationRequirementEducationExperiences' : 'educationRequirementWorkExperiences';
             $candidate->$relation()->sync([$exp->id]);
