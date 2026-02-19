@@ -45,3 +45,8 @@ export const PROCESS_ACTIVITY_LOG_ROLES: RoleName[] = [
   ROLE_NAME.CommunityRecruiter,
   ROLE_NAME.ProcessOperator,
 ];
+
+export const DEPARTMENT_ROLES: RoleName[] = [
+  ROLE_NAME.DepartmentAdmin,
+  ROLE_NAME.DepartmentHRAdvisor,
+];

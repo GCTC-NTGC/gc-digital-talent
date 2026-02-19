@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
+use Staudenmeir\EloquentJsonRelations\Relations\Postgres\HasManyThrough;
 
 /**
  * Class Department
@@ -70,10 +71,27 @@ class Department extends Model
         return $this->morphOne(Team::class, 'teamable');
     }
 
+    /** @return HasManyThrough<RoleAssignment, Team, $this> */
+    public function roleAssignments(): HasManyThrough
+    {
+        // reused from Community/Pool
+        return $this->hasManyThrough(RoleAssignment::class, Team::class, 'teamable_id');
+    }
+
     /** @return HasMany<PoolCandidateSearchRequest, $this> */
     public function poolCandidateSearchRequests(): HasMany
     {
         return $this->hasMany(PoolCandidateSearchRequest::class);
+    }
+
+    /**
+     * Accessors
+     */
+
+    /* accessor to retrieve id from teams table */
+    public function getTeamIdForRoleAssignmentAttribute()
+    {
+        return $this->team?->id;
     }
 
     /**
