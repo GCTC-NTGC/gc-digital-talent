@@ -20,6 +20,10 @@ import adminMessages from "~/messages/adminMessages";
 
 import {
   departmentStatusAccessor,
+  MyRoleDepartment,
+  myRolesAccessor,
+  myRolesCell,
+  roleAssignmentsToRoleDepartmentArray,
   SIZE_SORT_ORDER,
   yesNoAccessor,
 } from "../utils";
@@ -53,11 +57,13 @@ export const DepartmentTableRow_Fragment = graphql(/* GraphQL */ `
 interface DepartmentTableProps {
   departmentsQuery: FragmentType<typeof DepartmentTableRow_Fragment>[];
   title: string;
+  myRolesAndTeams: MyRoleDepartment[];
 }
 
 export const DepartmentTable = ({
   departmentsQuery,
   title,
+  myRolesAndTeams,
 }: DepartmentTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -94,6 +100,20 @@ export const DepartmentTable = ({
       filterFn: "weakEquals",
       header: intl.formatMessage(adminMessages.id),
     }),
+    columnHelper.accessor(
+      (department) => myRolesAccessor(department.id, myRolesAndTeams, intl),
+      {
+        id: "myRoles",
+        sortingFn: normalizedText,
+        header: intl.formatMessage({
+          defaultMessage: "My roles",
+          id: "iEIzSc",
+          description: "Label displayed for the table column header My roles",
+        }),
+        cell: ({ row: { original: department } }) =>
+          myRolesCell(department.id, myRolesAndTeams, intl),
+      },
+    ),
     columnHelper.accessor(
       ({ isCorePublicAdministration }) =>
         yesNoAccessor(!!isCorePublicAdministration, intl),
@@ -197,6 +217,14 @@ const Departments_Query = graphql(/* GraphQL */ `
     departments(whereArchived: $whereArchived) {
       ...DepartmentTableRow
     }
+    me {
+      authInfo {
+        id
+        roleAssignments {
+          ...DepartmentRoleAssignment
+        }
+      }
+    }
   }
 `);
 
@@ -208,11 +236,16 @@ const DepartmentTableApi = ({ title }: { title: string }) => {
     },
   });
 
+  const roleAssignments = unpackMaybes(data?.me?.authInfo?.roleAssignments);
+  const myRolesAndTeams: MyRoleDepartment[] =
+    roleAssignmentsToRoleDepartmentArray(roleAssignments);
+
   return (
     <Pending fetching={fetching} error={error}>
       <DepartmentTable
         departmentsQuery={unpackMaybes(data?.departments)}
         title={title}
+        myRolesAndTeams={myRolesAndTeams}
       />
     </Pending>
   );
