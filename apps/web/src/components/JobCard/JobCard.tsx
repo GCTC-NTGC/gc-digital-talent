@@ -5,12 +5,14 @@ import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import { differenceInDays } from "date-fns/differenceInDays";
 import { isPast } from "date-fns/isPast";
+import { ReactNode } from "react";
 
 import {
   FragmentType,
   getFragment,
   graphql,
   Maybe,
+  PoolLanguage,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import {
@@ -183,7 +185,51 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
     ? intl.formatMessage(commonMessages.remote)
     : pool.location?.localized;
   const salaryRange = getSalaryRange(locale, pool.classification);
-  const languageRequirement = pool.language?.label.localized;
+  const languageRequirement = pool.language?.value;
+
+  const languageLabel = new Map<PoolLanguage, ReactNode>([
+    [
+      PoolLanguage.BilingualAdvanced,
+      <>
+        <span>
+          {intl.formatMessage({
+            defaultMessage: "Bilingual advanced",
+            id: "+UNdxf",
+            description: "First part of bilingual advanced pool language",
+          })}
+        </span>{" "}
+        <span className="text-gray-400 dark:text-gray-200">
+          {intl.formatMessage({
+            defaultMessage: "(C B C)",
+            id: "8m4Fvb",
+            description: "Second part of bilingual advanced pool language",
+          })}
+        </span>
+      </>,
+    ],
+    [
+      PoolLanguage.BilingualIntermediate,
+      <>
+        <span>
+          {intl.formatMessage({
+            defaultMessage: "Bilingual intermediate",
+            id: "vdwD/Y",
+            description: "First part of bilingual intermediate pool language",
+          })}
+        </span>{" "}
+        <span className="text-gray-400 dark:text-gray-200">
+          {intl.formatMessage({
+            defaultMessage: "(B B B)",
+            id: "ZI0wBf",
+            description: "Second part of bilingual intermediate pool language",
+          })}
+        </span>
+      </>,
+    ],
+    [PoolLanguage.English, languageRequirement],
+    [PoolLanguage.French, languageRequirement],
+    [PoolLanguage.Various, languageRequirement],
+  ]);
 
   const deadline = pool.closingDate
     ? differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) < 3 &&
@@ -197,7 +243,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   return (
-    <Card className="relative">
+    <Card className="relative pb-10">
       <div className="mr-6 mb-6 flex items-center justify-between">
         {pool.areaOfSelection && (
           <div className="-ml-8 flex flex-col sm:flex-row">
@@ -217,7 +263,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
         </div>
       </div>
       <div className="relative mx-6 flex flex-col items-start justify-between gap-6 xs:flex-row xs:items-center">
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-3">
           <Heading
             level={headingLevel}
             size="h5"
@@ -230,12 +276,12 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
               classification: pool.classification,
             })}
           </Heading>
-          <div className="mb-6 flex flex-col gap-3 font-normal text-gray-700">
+          <div className="flex flex-col gap-3 font-normal text-gray-700 dark:text-gray-100">
             <IconLabel label={department} icon={BuildingOfficeIcon} />
             <IconLabel label={location} icon={MapPinIcon} />
             <IconLabel label={salaryRange} icon={CurrencyDollarIcon} />
             <IconLabel
-              label={languageRequirement}
+              label={languageLabel.get(languageRequirement)}
               icon={ChatBubbleLeftRightIcon}
             />
           </div>
