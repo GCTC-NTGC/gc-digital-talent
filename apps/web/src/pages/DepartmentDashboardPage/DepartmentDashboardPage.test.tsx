@@ -83,6 +83,11 @@ describe("Render department dashboard page", () => {
     // administration links
     expect(
       screen.getByRole("link", {
+        name: "Departments",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
         name: "Users",
       }),
     ).toBeInTheDocument();
@@ -100,11 +105,6 @@ describe("Render department dashboard page", () => {
     expect(
       screen.queryByRole("link", {
         name: "Communities",
-      }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("link", {
-        name: "Departments",
       }),
     ).not.toBeInTheDocument();
     expect(
@@ -176,6 +176,11 @@ describe("Render department dashboard page", () => {
     // administration links
     expect(
       screen.getByRole("link", {
+        name: "Departments",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
         name: "Users",
       }),
     ).toBeInTheDocument();
@@ -193,11 +198,6 @@ describe("Render department dashboard page", () => {
     expect(
       screen.queryByRole("link", {
         name: "Communities",
-      }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("link", {
-        name: "Departments",
       }),
     ).not.toBeInTheDocument();
     expect(

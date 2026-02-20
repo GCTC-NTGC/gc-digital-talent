@@ -154,6 +154,14 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   // administration section
   const administrationCollection: CardLinkInfo[] = [
     {
+      label: intl.formatMessage(navigationMessages.departments),
+      href: adminRoutes.departmentTable(),
+      roles: [
+        { name: ROLE_NAME.DepartmentAdmin },
+        { name: ROLE_NAME.DepartmentHRAdvisor },
+      ],
+    },
+    {
       label: intl.formatMessage(navigationMessages.users),
       href: adminRoutes.userTable(),
       roles: [
