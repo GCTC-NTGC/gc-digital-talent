@@ -4,6 +4,8 @@ namespace Tests\Feature\Generators;
 
 use App\Enums\PoolSkillType;
 use App\Enums\SkillCategory;
+use App\Enums\SkillLevel;
+use App\Enums\WhenSkillUsed;
 use App\Generators\ApplicationDocGenerator;
 use App\Models\Classification;
 use App\Models\Community;
@@ -13,6 +15,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
+use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Database\Seeders\CommunitySeeder;
 use Database\Seeders\RolePermissionSeeder;
@@ -61,10 +64,8 @@ class ApplicationDocGeneratorTest extends TestCase
             ->withCommunityInterests([$community->id])
             ->create();
 
-        EducationExperience::factory()
-            ->create(['user_id' => $user->id]);
-        WorkExperience::factory()
-            ->create(['user_id' => $user->id]);
+        $edu = EducationExperience::factory()->for($user)->create();
+        $work = WorkExperience::factory()->for($user)->create();
 
         $fixedSkill = Skill::factory()->create([
             'category' => SkillCategory::TECHNICAL->name,
@@ -77,13 +78,21 @@ class ApplicationDocGeneratorTest extends TestCase
             'type' => PoolSkillType::ESSENTIAL->name,
         ]);
 
+        $userSkill = UserSkill::create([
+            'user_id' => $user->id,
+            'skill_id' => $fixedSkill->id,
+            'skill_level' => SkillLevel::ADVANCED->name,
+            'when_skill_used' => WhenSkillUsed::PAST->name,
+        ]);
+        $edu->userSkills()->attach($userSkill->id, ['details' => 'Deterministic snapshot detail.']);
+        $work->userSkills()->attach($userSkill->id, ['details' => 'Deterministic snapshot detail.']);
+
         $application = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
-            ->create([
-                'user_id' => $user->id,
-                'pool_id' => $pool->id,
-            ]);
+            ->for($user)
+            ->for($pool)
+            ->create(['signature' => 'Test signature']);
 
         $application->submitted_at = config('constants.past_datetime');
         $application->save();
