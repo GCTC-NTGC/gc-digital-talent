@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Notifications;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\NotificationFamily;
-use App\Enums\PoolCandidateStatus;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
@@ -65,7 +65,7 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
             ->for($pool)
             ->for($user)
             ->create([
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                'application_status' => ApplicationStatus::DRAFT->name,
                 'submitted_at' => null,
             ]);
 
@@ -137,7 +137,7 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
             ->for($pool)
             ->for($user)
             ->create([
-                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                'application_status' => ApplicationStatus::DRAFT->name,
                 'submitted_at' => null,
             ]);
 

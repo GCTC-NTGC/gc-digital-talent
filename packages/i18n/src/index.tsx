@@ -53,7 +53,6 @@ import {
   getExecCoachingInterest,
   getTalentNominationLateralMovementOption,
   getLearningOpportunitiesInterest,
-  getWfaInterestFirstPerson,
 } from "./messages/localizedConstants";
 import {
   type MaybeLocalizedEnums,
@@ -76,7 +75,6 @@ import {
   sortPoolLanguage,
   sortPriorityWeight,
   sortSecurityStatus,
-  sortWfaInterest,
   localizedEnumToInput,
   localizedEnumArrayToInput,
   narrowEnumType,
@@ -133,7 +131,6 @@ export {
   sortPoolLanguage,
   sortPriorityWeight,
   sortSecurityStatus,
-  sortWfaInterest,
   sortLocalizedEnumOptions,
   appendLanguageName,
 };
@@ -163,7 +160,6 @@ export {
   getExecCoachingInterest,
   getTalentNominationLateralMovementOption,
   getLearningOpportunitiesInterest,
-  getWfaInterestFirstPerson,
   ENUM_SORT_ORDER,
 };
 

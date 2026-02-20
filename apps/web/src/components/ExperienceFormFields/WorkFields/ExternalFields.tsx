@@ -125,7 +125,9 @@ const ExternalFields = ({
                 required: intl.formatMessage(errorMessages.required),
                 max: {
                   value: strToFormDate(todayDate.toISOString()),
-                  message: intl.formatMessage(errorMessages.mustNotBeFuture),
+                  message: intl.formatMessage(
+                    errorMessages.mustNotBeFutureStartDate,
+                  ),
                 },
               }}
             />
@@ -162,9 +164,12 @@ const ExternalFields = ({
                         min: {
                           value: watchStartDate ? String(watchStartDate) : "",
                           message: intl.formatMessage(
-                            errorMessages.minDateLabel,
+                            errorMessages.minDateSelfLabel,
                             {
-                              label: nodeToString(
+                              labelSelf: nodeToString(
+                                labels.endDate,
+                              ).toLowerCase(),
+                              labelAssociated: nodeToString(
                                 labels.startDate,
                               ).toLowerCase(),
                             },

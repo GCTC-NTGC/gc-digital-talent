@@ -13,6 +13,10 @@ class TalentNominationGroupPolicy
      */
     public function view(User $actor, TalentNominationGroup $talentNominationGroup): bool
     {
+        if ($actor->isAbleTo('view-any-talentNominationGroup')) {
+            return true;
+        }
+
         $talentNominationGroup->loadMissing('talentNominationEvent');
         $communityTeam = Team::with(['teamable.team'])
             ->where('teamable_type', 'App\Models\Community')

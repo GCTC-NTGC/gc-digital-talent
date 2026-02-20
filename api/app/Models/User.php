@@ -12,7 +12,6 @@ use App\Enums\GovPositionType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
-use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
 use App\Traits\HydratesSnapshot;
@@ -103,9 +102,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?bool $is_verified_gov_employee
  * @property ?\App\Models\WorkExperience $latest_current_government_work_experience
  * @property ?\App\Models\WorkExperience $current_substantive_experiences
- * @property ?string $wfa_interest
- * @property ?\Illuminate\Support\Carbon $wfa_date
- * @property ?\Illuminate\Support\Carbon $wfa_updated_at
  * @property ?\Illuminate\Support\Carbon $last_sign_in_at
  * @property array $flexible_work_locations
  * @property \App\Models\OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
@@ -142,8 +138,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'preferred_language_for_exam' => LanguageCode::class,
         'first_official_language' => LanguageCode::class,
         'flexible_work_locations' => 'array',
-        'wfa_date' => 'date',
-        'wfa_updated_at' => 'datetime',
     ];
 
     protected $fillable = [
@@ -196,15 +190,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function newEloquentBuilder($query): Builder
     {
         return new UserBuilder($query);
-    }
-
-    /**
-     * The "booted" method of the model.
-     * Activates the Observer class
-     */
-    protected static function booted(): void
-    {
-        User::observe(UserObserver::class);
     }
 
     /**

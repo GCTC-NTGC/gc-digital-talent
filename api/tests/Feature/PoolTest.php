@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\ErrorCode;
-use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\PublishingGroup;
@@ -1827,7 +1827,7 @@ class PoolTest extends TestCase
             ->create(
                 [
                     'pool_id' => $publishedPool->id,
-                    'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+                    'application_status' => ApplicationStatus::DRAFT->name,
                 ]
             );
 

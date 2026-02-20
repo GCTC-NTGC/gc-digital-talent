@@ -1,80 +1,79 @@
 /**
- * Documentation: https://www.radix-ui.com/docs/primitives/components/dropdown-menu
+ * Documentation: https://base-ui.com/react/components/menu
  */
-import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+import { Menu } from "@base-ui/react/menu";
 import { tv, VariantProps } from "tailwind-variants";
-import { forwardRef, ComponentRef, ComponentPropsWithoutRef } from "react";
+import ChevronDownIcon from "@heroicons/react/16/solid/ChevronDownIcon";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
-const Trigger = forwardRef<
-  ComponentRef<typeof DropdownMenuPrimitive.Trigger>,
-  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>
->(({ asChild = true, ...rest }, forwardedRef) => (
-  <DropdownMenuPrimitive.Trigger
-    ref={forwardedRef}
-    asChild={asChild}
-    {...rest}
+import Button, { ButtonProps } from "../Button";
+
+interface TriggerProps extends Menu.Trigger.Props {
+  btnProps?: ButtonProps;
+}
+
+const Trigger = ({ btnProps, render, ...triggerProps }: TriggerProps) => (
+  <Menu.Trigger
+    render={render ?? <Button utilityIcon={ChevronDownIcon} {...btnProps} />}
+    {...triggerProps}
   />
-));
-
-const content = tv({
-  base: "max-h-(--radix-dropdown-menu-content-available-height) max-w-screen overflow-y-auto rounded-md bg-white p-3 font-sans text-black shadow-md dark:bg-gray-600 dark:text-white",
-});
-
-const StyledContent = forwardRef<
-  ComponentRef<typeof DropdownMenuPrimitive.Content>,
-  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
->(({ className, ...rest }, forwardedRef) => (
-  <DropdownMenuPrimitive.Content
-    className={content({ class: className })}
-    ref={forwardedRef}
-    {...rest}
-  />
-));
-
-const StyledArrow = forwardRef<
-  ComponentRef<typeof DropdownMenuPrimitive.Arrow>,
-  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Arrow>
->((props, forwardedRef) => (
-  <DropdownMenuPrimitive.Arrow
-    className="fill-white dark:fill-gray-600"
-    ref={forwardedRef}
-    {...props}
-  />
-));
-
-type DropdownMenuPrimitiveContentProps = ComponentPropsWithoutRef<
-  typeof DropdownMenuPrimitive.Content
->;
-const Content = ({ children, ...props }: DropdownMenuPrimitiveContentProps) => (
-  <DropdownMenuPrimitive.Portal>
-    <StyledContent {...props}>
-      {children}
-      <StyledArrow />
-    </StyledContent>
-  </DropdownMenuPrimitive.Portal>
 );
 
-const StyledSubContent = forwardRef<
-  ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
-  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
->(({ className, ...rest }, forwardedRef) => (
-  <DropdownMenuPrimitive.SubContent
-    className={content({ class: className })}
-    ref={forwardedRef}
-    {...rest}
-  />
-));
+function ArrowSvg(props: React.ComponentProps<"svg">) {
+  return (
+    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
+      <path
+        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
+        className="fill-white dark:fill-gray-600"
+      />
+      <path
+        d="M8.99542 1.85876C9.75604 1.17425 10.9106 1.17422 11.6713 1.85878L16.5281 6.22989C17.0789 6.72568 17.7938 7.00001 18.5349 7.00001L15.89 7L11.0023 2.60207C10.622 2.2598 10.0447 2.2598 9.66436 2.60207L4.77734 7L2.13171 7.00001C2.87284 7.00001 3.58774 6.72568 4.13861 6.22989L8.99542 1.85876Z"
+        className="fill-gray-200 dark:fill-none"
+      />
+      <path
+        d="M10.3333 3.34539L5.47654 7.71648C4.55842 8.54279 3.36693 9 2.13172 9H0V8H2.13172C3.11989 8 4.07308 7.63423 4.80758 6.97318L9.66437 2.60207C10.0447 2.25979 10.622 2.2598 11.0023 2.60207L15.8591 6.97318C16.5936 7.63423 17.5468 8 18.5349 8H20V9H18.5349C17.2998 9 16.1083 8.54278 15.1901 7.71648L10.3333 3.34539Z"
+        className="dark:fill-gray-300"
+      />
+    </svg>
+  );
+}
 
-type DropdownMenuPrimitiveSubContentProps = ComponentPropsWithoutRef<
-  typeof DropdownMenuPrimitive.SubContent
->;
-const SubContent = ({
+const popup = tv({
+  base: `max-w-screen overflow-y-auto rounded-md bg-white py-3 font-sans text-black shadow-md outline-1 outline-gray-200 dark:bg-gray-600 dark:text-white dark:-outline-offset-1 dark:outline-gray-300`,
+});
+
+interface PopupProps extends Omit<Menu.Popup.Props, "className"> {
+  portalProps?: Menu.Portal.Props;
+  positionerProps?: Menu.Positioner.Props;
+  className?: string;
+}
+
+const Popup = ({
+  portalProps,
+  positionerProps,
   children,
-  ...props
-}: DropdownMenuPrimitiveSubContentProps) => (
-  <DropdownMenuPrimitive.Portal>
-    <StyledSubContent {...props}>{children}</StyledSubContent>
-  </DropdownMenuPrimitive.Portal>
+  className,
+  ref,
+  ...popupProps
+}: PopupProps) => (
+  <Menu.Portal {...portalProps}>
+    <Menu.Positioner
+      className="max-w-(--available-height)"
+      sideOffset={8}
+      {...positionerProps}
+    >
+      <Menu.Popup
+        ref={ref}
+        className={popup({ class: className })}
+        {...popupProps}
+      >
+        <Menu.Arrow className="data-[side=bottom]:-top-2 data-[side=left]:-right-3.25 data-[side=left]:rotate-90 data-[side=right]:-left-3.25 data-[side=right]:-rotate-90 data-[side=top]:-bottom-1.75 data-[side=top]:rotate-180 md:data-[side=bottom]:-top-1.75">
+          <ArrowSvg />
+        </Menu.Arrow>
+        {children}
+      </Menu.Popup>
+    </Menu.Positioner>
+  </Menu.Portal>
 );
 
 const item = tv({
@@ -102,172 +101,103 @@ const item = tv({
 
 type ItemVariants = VariantProps<typeof item>;
 
-interface ItemProps
-  extends
-    ItemVariants,
-    Omit<
-      ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>,
-      "color"
-    > {}
+interface ItemProps extends ItemVariants, Omit<Menu.Item.Props, "className"> {
+  className?: string;
+}
 
-const Item = forwardRef<
-  ComponentRef<typeof DropdownMenuPrimitive.Item>,
-  ItemProps
->(({ color = "primary", disabled, className, ...rest }, forwardedRef) => (
-  <DropdownMenuPrimitive.Item
-    ref={forwardedRef}
+const Item = ({
+  className,
+  color = "primary",
+  disabled,
+  ...rest
+}: ItemProps) => (
+  <Menu.Item
     disabled={disabled}
     className={item({ color, disabled, class: className })}
     {...rest}
   />
-));
+);
+
+const checkboxItem = tv({
+  extend: item,
+  base: "grid grid-cols-[0.75rem_1fr] items-center gap-2 pl-3",
+});
 
 interface CheckboxItemProps
-  extends
-    ItemVariants,
-    Omit<
-      ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>,
-      "color"
-    > {}
+  extends Omit<Menu.CheckboxItem.Props, "className">, ItemVariants {
+  className?: string;
+}
 
-const CheckboxItem = forwardRef<
-  ComponentRef<typeof DropdownMenuPrimitive.CheckboxItem>,
-  CheckboxItemProps
->(({ color = "primary", className, ...rest }, forwardedRef) => (
-  <DropdownMenuPrimitive.CheckboxItem
-    ref={forwardedRef}
-    className={item({ color, class: className })}
+const CheckboxItem = ({
+  color = "primary",
+  disabled,
+  className,
+  children,
+  ...rest
+}: CheckboxItemProps) => (
+  <Menu.CheckboxItem
+    className={checkboxItem({ color, disabled, class: className })}
     {...rest}
-  />
-));
+  >
+    <Menu.CheckboxItemIndicator className="col-start-1">
+      <CheckIcon className="size-4" />
+    </Menu.CheckboxItemIndicator>
+    <span className="col-start-2">{children}</span>
+  </Menu.CheckboxItem>
+);
 
 interface RadioItemProps
-  extends
-    ItemVariants,
-    Omit<
-      ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>,
-      "color"
-    > {}
+  extends Omit<Menu.RadioItem.Props, "className">, ItemVariants {
+  className?: string;
+}
 
-const RadioItem = forwardRef<
-  ComponentRef<typeof DropdownMenuPrimitive.RadioItem>,
-  RadioItemProps
->(({ color = "primary", className, ...rest }, forwardedRef) => (
-  <DropdownMenuPrimitive.RadioItem
-    ref={forwardedRef}
-    className={item({ color, class: className })}
+const RadioItem = ({
+  color = "primary",
+  disabled,
+  className,
+  children,
+  ...rest
+}: RadioItemProps) => (
+  <Menu.RadioItem
+    className={checkboxItem({ color, disabled, class: className })}
     {...rest}
-  />
-));
+  >
+    <Menu.RadioItemIndicator className="col-start-1">
+      <CheckIcon className="size-4" />
+    </Menu.RadioItemIndicator>
+    <span className="col-start-2">{children}</span>
+  </Menu.RadioItem>
+);
 
-const Label = forwardRef<
-  ComponentRef<typeof DropdownMenuPrimitive.Label>,
-  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label>
->((props, forwardedRef) => (
-  <DropdownMenuPrimitive.Label
-    className="text-black dark:text-white"
-    ref={forwardedRef}
-    {...props}
-  />
-));
+const groupLabel = tv({ base: "px-3 py-1.5" });
 
-const Separator = forwardRef<
-  ComponentRef<typeof DropdownMenuPrimitive.Separator>,
-  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
->((props, forwardedRef) => (
-  <DropdownMenuPrimitive.Separator
-    className="my-1.5 h-px text-gray-100/10"
-    ref={forwardedRef}
-    {...props}
-  />
-));
+interface GroupLabelProps extends Omit<Menu.GroupLabel.Props, "className"> {
+  className?: string;
+}
 
-const ItemIndicator = forwardRef<
-  ComponentRef<typeof DropdownMenuPrimitive.ItemIndicator>,
-  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.ItemIndicator>
->((props, forwardedRef) => (
-  <DropdownMenuPrimitive.ItemIndicator
-    className="absolute left-4.5 inline-flex size-3 items-center justify-center"
-    ref={forwardedRef}
-    {...props}
-  />
-));
+const GroupLabel = ({ className, ...rest }: GroupLabelProps) => (
+  <Menu.GroupLabel className={groupLabel({ class: className })} {...rest} />
+);
 
-const { Root, RadioGroup, Group } = DropdownMenuPrimitive;
+const separator = tv({ base: "my-1.5 h-px bg-gray-100/10" });
 
-/**
- * @name DropdownMenu
- * @desc Displays a menu to the user—such as a set of actions or functions—triggered by a button.
- * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu)
- */
-const DropdownMenu = {
-  /**
-   * @name Root
-   * @desc Contains all the parts of a dropdown menu.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#root)
-   */
-  Root,
-  /**
-   * @name Trigger
-   * @desc The button that toggles the dropdown menu.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#trigger)
-   */
+interface SeparatorProps extends Omit<Menu.Separator.Props, "className"> {
+  className?: string;
+}
+
+const Separator = ({ className, ...rest }: SeparatorProps) => (
+  <Menu.Separator className={separator({ class: className })} {...rest} />
+);
+
+export default {
+  Root: Menu.Root,
   Trigger,
-  /**
-   * @name Content
-   * @desc The component that pops out when the dropdown menu is open.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#content)
-   */
-  Content,
-  SubContent,
-  /**
-   * @name Item
-   * @desc The component that contains the dropdown menu items.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#item)
-   */
+  Popup,
   Item,
-  /**
-   * @name ItemIndicator
-   * @desc Renders when the parent `DropdownMenu.CheckboxItem` or `DropdownMenu.RadioItem` is checked.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#itemindicator)
-   */
-  ItemIndicator,
-  /**
-   * @name RadioGroup
-   * @desc Used to group multiple `DropdownMenu.RadioItem`s.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#radiogroup)
-   */
-  RadioGroup,
-  /**
-   * @name CheckboxItem
-   * @desc An item that can be controlled and rendered like a checkbox.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#checkboxitem)
-   */
   CheckboxItem,
-  /**
-   * @name RadioItem
-   * @desc An item that can be controlled and rendered like a radio.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#radioitem)
-   */
+  RadioGroup: Menu.RadioGroup,
   RadioItem,
-  /**
-   * @name Label
-   * @desc Used to render a label. It won't be focusable using arrow keys.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#label)
-   */
-  Label,
-  /**
-   * @name Group
-   * @desc Used to group multiple DropdownMenu.Items.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#group)
-   */
-  Group,
-  /**
-   * @name Separator
-   * @desc Used to visually separate items in the dropdown menu.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/dropdown-menu#separator)
-   */
+  Group: Menu.Group,
+  GroupLabel,
   Separator,
 };
-
-export default DropdownMenu;

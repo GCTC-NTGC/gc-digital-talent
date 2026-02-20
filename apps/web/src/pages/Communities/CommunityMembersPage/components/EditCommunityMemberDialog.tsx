@@ -43,7 +43,7 @@ interface EditCommunityMemberDialogProps extends ComponentPropsWithoutRef<
 const EditCommunityMemberDialog = forwardRef<
   ComponentRef<typeof DropdownMenu.Item>,
   EditCommunityMemberDialogProps
->(({ user, community, hasPlatformAdmin, onSelect, ...rest }, forwardedRef) => {
+>(({ user, community, hasPlatformAdmin, onClick, ...rest }, forwardedRef) => {
   const intl = useIntl();
   const { teamId } = useOutletContext<ContextType>();
   const { roles, fetching } = useAvailableRoles();
@@ -127,9 +127,10 @@ const EditCommunityMemberDialog = forwardRef<
       <Dialog.Trigger>
         <DropdownMenu.Item
           ref={forwardedRef}
-          onSelect={(event) => {
+          onClick={(event) => {
             event.preventDefault();
-            onSelect?.(event);
+            onClick?.(event);
+            setIsOpen(true);
           }}
           {...rest}
         >

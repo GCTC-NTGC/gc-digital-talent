@@ -4,10 +4,10 @@ namespace Tests\Unit;
 
 use App\Models\Community;
 use App\Models\CommunityInterest;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Role;
-use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -35,11 +35,19 @@ class UserPolicyTest extends TestCase
 
     protected $communityTalentCoordinator;
 
+    protected $departmentAdmin;
+
+    protected $departmentHRAdvisor;
+
     protected $pool;
 
     protected $community;
 
     protected $otherCommunity;
+
+    protected $department;
+
+    protected $otherDepartment;
 
     protected function setUp(): void
     {
@@ -94,6 +102,17 @@ class UserPolicyTest extends TestCase
         $this->communityTalentCoordinator = User::factory()
             ->asCommunityTalentCoordinator($this->community->id)
             ->create();
+
+        $this->department = Department::factory()->create();
+        $this->otherDepartment = Department::factory()->create();
+
+        $this->departmentAdmin = User::factory()
+            ->asDepartmentAdmin($this->department->id)
+            ->create();
+
+        $this->departmentHRAdvisor = User::factory()
+            ->asDepartmentHRAdvisor($this->department->id)
+            ->create();
     }
 
     /**
@@ -111,6 +130,8 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->communityRecruiter->can('viewAny', User::class));
         $this->assertFalse($this->communityAdmin->can('viewAny', User::class));
         $this->assertFalse($this->communityTalentCoordinator->can('viewAny', User::class));
+        $this->assertFalse($this->departmentAdmin->can('viewAny', User::class));
+        $this->assertFalse($this->departmentHRAdvisor->can('viewAny', User::class));
     }
 
     /**
@@ -130,6 +151,8 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->communityRecruiter->can('view', $this->applicant));
         $this->assertFalse($this->communityAdmin->can('view', $this->applicant));
         $this->assertFalse($this->communityTalentCoordinator->can('view', $this->applicant));
+        $this->assertFalse($this->departmentAdmin->can('view', $this->applicant));
+        $this->assertFalse($this->departmentHRAdvisor->can('view', $this->applicant));
 
         $this->pool->community_id = $this->community->id;
         $this->pool->save();
@@ -141,10 +164,12 @@ class UserPolicyTest extends TestCase
             ]
         );
 
-        // can now view applicant as they have an application attached to $pool within $community
+        // can now view applicant as they have an application attached to $pool within $community, department cannot still
         $this->assertTrue($this->processOperator->can('view', $this->applicant));
         $this->assertTrue($this->communityRecruiter->can('view', $this->applicant));
         $this->assertTrue($this->communityAdmin->can('view', $this->applicant));
+        $this->assertFalse($this->departmentAdmin->can('view', $this->applicant));
+        $this->assertFalse($this->departmentHRAdvisor->can('view', $this->applicant));
 
         PoolCandidate::truncate();
         CommunityInterest::factory()->create([
@@ -158,10 +183,13 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($this->communityTalentCoordinator->can('view', $this->applicant));
         $this->assertTrue($this->communityAdmin->can('view', $this->applicant));
         $this->assertFalse($this->processOperator->can('view', $this->applicant));
+        $this->assertFalse($this->departmentAdmin->can('view', $this->applicant));
+        $this->assertFalse($this->departmentHRAdvisor->can('view', $this->applicant));
     }
 
     /**
-     * Only Platform Admins, Community Recruiter, and Community Admin should be able to viewBasicInfo
+     * Able to viewBasicInfo
+     * Only Platform Admins, Community Recruiter, Community Admin, Department Admin, and Department Advisor
      *
      * @return void
      */
@@ -175,6 +203,8 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($this->communityRecruiter->can('viewBasicInfo', $this->applicant));
         $this->assertTrue($this->communityAdmin->can('viewBasicInfo', $this->applicant));
         $this->assertFalse($this->communityTalentCoordinator->can('viewBasicInfo', $this->applicant));
+        $this->assertTrue($this->departmentAdmin->can('viewBasicInfo', $this->applicant));
+        $this->assertTrue($this->departmentHRAdvisor->can('viewBasicInfo', $this->applicant));
     }
 
     /**
@@ -193,6 +223,8 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->communityRecruiter->can('update', $this->applicant));
         $this->assertFalse($this->communityAdmin->can('update', $this->applicant));
         $this->assertFalse($this->communityTalentCoordinator->can('update', $this->applicant));
+        $this->assertFalse($this->departmentAdmin->can('update', $this->applicant));
+        $this->assertFalse($this->departmentHRAdvisor->can('update', $this->applicant));
     }
 
     /**
@@ -210,6 +242,8 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->communityRecruiter->can('updateSub', $this->applicant));
         $this->assertFalse($this->communityAdmin->can('updateSub', $this->applicant));
         $this->assertFalse($this->communityTalentCoordinator->can('updateSub', $this->applicant));
+        $this->assertFalse($this->departmentAdmin->can('updateSub', $this->applicant));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateSub', $this->applicant));
     }
 
     /**
@@ -228,10 +262,13 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->communityRecruiter->can('delete', $this->applicant));
         $this->assertFalse($this->communityAdmin->can('delete', $this->applicant));
         $this->assertFalse($this->communityTalentCoordinator->can('delete', $this->applicant));
+        $this->assertFalse($this->departmentAdmin->can('delete', $this->applicant));
+        $this->assertFalse($this->departmentHRAdvisor->can('delete', $this->applicant));
     }
 
     /**
-     * Only Platform Admins can always update Process Operator, Community Admin and Community Recruiter situational
+     * Only Platform Admins can always update Process Operator
+     * Community Admin,Community Recruiter, Department Admin, and Department HR Advisor situational
      *
      * @return void
      */
@@ -283,17 +320,35 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->communityAdmin->can('updateRoles', $policyArgsForDetach));
         $this->assertFalse($this->communityTalentCoordinator->can('updateRoles', $policyArgsForAttach));
         $this->assertFalse($this->communityTalentCoordinator->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForDetach));
 
         $this->pool->community_id = $this->community->id;
         $this->pool->save();
 
         // once the pool is in their community, recruiter and admin can assign but operator can never do so
+        // this changes nothing for department
         $this->assertFalse($this->processOperator->can('updateRoles', $policyArgsForAttach));
         $this->assertFalse($this->processOperator->can('updateRoles', $policyArgsForDetach));
         $this->assertTrue($this->communityRecruiter->can('updateRoles', $policyArgsForAttach));
         $this->assertTrue($this->communityRecruiter->can('updateRoles', $policyArgsForDetach));
         $this->assertTrue($this->communityAdmin->can('updateRoles', $policyArgsForAttach));
         $this->assertTrue($this->communityAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForDetach));
+
+        $this->pool->department_id = $this->department->id;
+        $this->pool->save();
+
+        // once the pool is associated with the test department, department roles can assign process operators to it
+        $this->assertTrue($this->departmentAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertTrue($this->departmentAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertTrue($this->departmentHRAdvisor->can('updateRoles', $policyArgsForAttach));
+        $this->assertTrue($this->departmentHRAdvisor->can('updateRoles', $policyArgsForDetach));
     }
 
     /**
@@ -349,6 +404,10 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($this->communityAdmin->can('updateRoles', $policyArgsForDetach));
         $this->assertFalse($this->communityTalentCoordinator->can('updateRoles', $policyArgsForAttach));
         $this->assertFalse($this->communityTalentCoordinator->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForDetach));
 
         // Community Admin could assign within their community, but not for a different community
         $otherCommunity = Community::factory()->create();
@@ -439,6 +498,10 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->communityAdmin->can('updateRoles', $policyArgsForDetach));
         $this->assertFalse($this->communityTalentCoordinator->can('updateRoles', $policyArgsForAttach));
         $this->assertFalse($this->communityTalentCoordinator->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForDetach));
     }
 
     /**
@@ -490,6 +553,10 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->communityRecruiter->can('updateRoles', $policyArgsForDetach));
         $this->assertFalse($this->communityTalentCoordinator->can('updateRoles', $policyArgsForAttach));
         $this->assertFalse($this->communityTalentCoordinator->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForDetach));
 
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
         $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
@@ -548,5 +615,163 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->communityAdmin->can('removeWorkEmailInformation', $this->applicant));
         $this->assertFalse($this->communityTalentCoordinator->can('removeWorkEmailInformation', $this->applicant));
         $this->assertFalse($this->platformAdmin->can('removeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->departmentAdmin->can('removeWorkEmailInformation', $this->applicant));
+        $this->assertFalse($this->departmentHRAdvisor->can('removeWorkEmailInformation', $this->applicant));
+    }
+
+    /**
+     * Only Platform Admins can update Department Admin
+     *
+     * @return void
+     */
+    public function testCanUpdateDepartmentAdminRole()
+    {
+        $departmentAdminId = Role::where('name', 'department_admin')->sole()->id;
+
+        $policyArgsForAttach = [
+            User::class,
+            [
+                'id' => $this->otherApplicant->id,
+                'roleAssignmentsInput' => [
+                    'attach' => [
+                        [
+                            'roleId' => $departmentAdminId,
+                            'teamId' => $this->community->team->id,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        $policyArgsForDetach = [
+            User::class,
+            [
+                'id' => $this->otherApplicant->id,
+                'roleAssignmentsInput' => [
+                    'detach' => [
+                        [
+                            'roleId' => $departmentAdminId,
+                            'teamId' => $this->community->team->id,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertFalse($this->guest->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->guest->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
+        $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
+
+        $this->assertFalse($this->processOperator->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->processOperator->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->communityRecruiter->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->communityRecruiter->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->communityAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->communityAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->communityTalentCoordinator->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->communityTalentCoordinator->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForDetach));
+    }
+
+    /**
+     * Only Platform Admins and Department Admin can update Department Advisor, the latter depends on team
+     *
+     * @return void
+     */
+    public function testCanUpdateDepartmentHRAdvisorRole()
+    {
+        $departmentAdvisorId = Role::where('name', 'department_hr_advisor')->sole()->id;
+
+        $policyArgsForAttach = [
+            User::class,
+            [
+                'id' => $this->otherApplicant->id,
+                'roleAssignmentsInput' => [
+                    'attach' => [
+                        [
+                            'roleId' => $departmentAdvisorId,
+                            'teamId' => $this->department->team->id,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        $policyArgsForDetach = [
+            User::class,
+            [
+                'id' => $this->otherApplicant->id,
+                'roleAssignmentsInput' => [
+                    'detach' => [
+                        [
+                            'roleId' => $departmentAdvisorId,
+                            'teamId' => $this->department->team->id,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertFalse($this->guest->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->guest->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->applicant->can('updateRoles', $policyArgsForDetach));
+        $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertTrue($this->departmentAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertTrue($this->departmentAdmin->can('updateRoles', $policyArgsForDetach));
+
+        $this->assertFalse($this->processOperator->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->processOperator->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->communityRecruiter->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->communityRecruiter->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->communityAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->communityAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->communityTalentCoordinator->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->communityTalentCoordinator->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForDetach));
+
+        // argument for other department
+        $policyArgsForAttach = [
+            User::class,
+            [
+                'id' => $this->otherApplicant->id,
+                'roleAssignmentsInput' => [
+                    'attach' => [
+                        [
+                            'roleId' => $departmentAdvisorId,
+                            'teamId' => $this->otherDepartment->team->id,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        $policyArgsForDetach = [
+            User::class,
+            [
+                'id' => $this->otherApplicant->id,
+                'roleAssignmentsInput' => [
+                    'detach' => [
+                        [
+                            'roleId' => $departmentAdvisorId,
+                            'teamId' => $this->otherDepartment->team->id,
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        // only platform admin can now
+        $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertTrue($this->platformAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForDetach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForAttach));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForDetach));
     }
 }

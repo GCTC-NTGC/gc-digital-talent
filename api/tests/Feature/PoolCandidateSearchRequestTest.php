@@ -301,7 +301,8 @@ class PoolCandidateSearchRequestTest extends TestCase
         $this->seed(DepartmentSeeder::class);
         $this->seed(CommunitySeeder::class);
 
-        $user1 = User::factory()->create();
+        $user1 = User::factory()->asApplicant()->create();
+
         $request1 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user1->id]);
         $user2 = User::factory()->create();
         $request2 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user2->id]);
@@ -333,7 +334,8 @@ class PoolCandidateSearchRequestTest extends TestCase
         $this->seed(DepartmentSeeder::class);
         $this->seed(CommunitySeeder::class);
 
-        $user1 = User::factory()->create();
+        $user1 = User::factory()->asApplicant()->create();
+
         $request1 = PoolCandidateSearchRequest::factory()->create(['user_id' => $user1->id]);
 
         $this->actingAs($user1, 'api')->graphQL(<<<'GRAPHQL'

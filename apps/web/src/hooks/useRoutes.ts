@@ -168,6 +168,10 @@ const getRoutes = (lang: Locales) => {
         departmentId,
         "advanced-tools",
       ].join("/"),
+    departmentManageAccess: (departmentId: string) =>
+      [adminUrl, "settings", "departments", departmentId, "manage-access"].join(
+        "/",
+      ),
 
     // Admin - Announcements
     announcements: () => [adminUrl, "settings", "announcements"].join("/"),
@@ -390,10 +394,6 @@ const getRoutes = (lang: Locales) => {
 
     // DND
     dndDigitalCareers: () => `${baseUrl}/dnd`,
-
-    // Workforce adjustment
-    workforceAdjustmentEmployees: () => `${adminUrl}/wfa-employees`,
-    wfaInfo: () => `${baseUrl}/workforce-adjustment`,
 
     // TC Report mini-site
     tcReport: () => `/static/tc-report/${lang}/talent-cloud/report`,

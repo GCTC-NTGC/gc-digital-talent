@@ -3,17 +3,10 @@ import ChevronDoubleLeftIcon from "@heroicons/react/24/solid/ChevronDoubleLeftIc
 import ChevronLeftIcon from "@heroicons/react/24/solid/ChevronLeftIcon";
 import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
-import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
-import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
-import {
-  Button,
-  ButtonProps,
-  DropdownMenu,
-  UNICODE_CHAR,
-} from "@gc-digital-talent/ui";
+import { ButtonProps, DropdownMenu, UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 import { DOTS, usePagination } from "./usePagination";
 import PageButton from "./PageButton";
@@ -151,40 +144,36 @@ const Pagination = ({
           <>
             <span aria-hidden>{UNICODE_CHAR.BULLET}</span>
             <DropdownMenu.Root>
-              <DropdownMenu.Trigger>
-                <Button
-                  mode="text"
-                  size="sm"
-                  color={color}
-                  utilityIcon={ChevronDownIcon}
-                  className="-mt-px"
-                >
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Show {pageSize}",
-                      id: "JgdijS",
-                      description:
-                        "Button text to change the number of items that show up on each page",
-                    },
-                    { pageSize },
-                  )}
-                </Button>
+              <DropdownMenu.Trigger
+                btnProps={{
+                  mode: "text",
+                  size: "sm",
+                  color,
+                  className: "-mt-px",
+                }}
+              >
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Show {pageSize}",
+                    id: "JgdijS",
+                    description:
+                      "Button text to change the number of items that show up on each page",
+                  },
+                  { pageSize },
+                )}
               </DropdownMenu.Trigger>
-              <DropdownMenu.Content>
+              <DropdownMenu.Popup>
                 <DropdownMenu.RadioGroup
                   value={String(pageSize)}
                   onValueChange={handlePageSizeChange}
                 >
                   {pageSizes.map((size) => (
                     <DropdownMenu.RadioItem key={size} value={String(size)}>
-                      <DropdownMenu.ItemIndicator>
-                        <CheckIcon />
-                      </DropdownMenu.ItemIndicator>
                       {size}
                     </DropdownMenu.RadioItem>
                   ))}
                 </DropdownMenu.RadioGroup>
-              </DropdownMenu.Content>
+              </DropdownMenu.Popup>
             </DropdownMenu.Root>
           </>
         )}

@@ -128,9 +128,6 @@ type User {
   employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
   govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
 
-  # Employee WFA info
-  employeeWFA: EmployeeWFA @self @canFind(ability: "viewEmployeeWFA")
-
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["whereAuthorizedToView"])
@@ -410,60 +407,6 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   classification: Classification @belongsTo(relation: "currentClassification")
 }
 
-# Streamlined User, intended for querying in large collections while remaining performant
-# Include only fields as needed for admin purposes
-type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
-  id: UUID!
-  employeeWFA: EmployeeWFA @self
-
-  # User profile info for table
-  firstName: String @rename(attribute: "first_name")
-  lastName: String @rename(attribute: "last_name")
-  classification: Classification @belongsTo(relation: "currentClassification")
-  department: Department @belongsTo
-  workEmail: Email @rename(attribute: "work_email")
-  isWoman: Boolean @rename(attribute: "is_woman")
-  hasDisability: Boolean @rename(attribute: "has_disability")
-  isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [LocalizedIndigenousCommunity]
-    @rename(attribute: "indigenous_communities")
-  hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
-  priorityNumber: String @rename(attribute: "priority_number")
-  citizenship: LocalizedCitizenshipStatus
-  armedForcesStatus: LocalizedArmedForcesStatus
-    @rename(attribute: "armed_forces_status")
-  preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: LocalizedLanguage
-    @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: LocalizedLanguage
-    @rename(attribute: "preferred_language_for_exam")
-  firstOfficialLanguage: LocalizedLanguage
-    @rename(attribute: "first_official_language")
-  secondLanguageExamCompleted: Boolean
-    @rename(attribute: "second_language_exam_completed")
-  secondLanguageExamValidity: Boolean
-    @rename(attribute: "second_language_exam_validity")
-  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
-    @rename(attribute: "estimated_language_ability")
-  acceptedOperationalRequirements: [LocalizedOperationalRequirement]
-    @rename(attribute: "accepted_operational_requirements")
-  locationPreferences: [LocalizedWorkRegion]
-    @rename(attribute: "location_preferences")
-  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
-    @rename(attribute: "flexible_work_locations")
-  locationExemptions: String @rename(attribute: "location_exemptions")
-  userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
-  communityInterests(id: UUID @eq): [CommunityInterest!]
-    @belongsToMany(scopes: ["authorizedToView"])
-}
-
-type EmployeeWFA @model(class: "\\App\\Models\\User") {
-  id: UUID!
-  wfaInterest: LocalizedWfaInterest @rename(attribute: "wfa_interest")
-  wfaDate: Date @rename(attribute: "wfa_date")
-  wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
-}
-
 type GeneralQuestion {
   id: ID!
   pool: Pool @belongsTo
@@ -506,6 +449,7 @@ type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
   community: Community @belongsTo(relation: "community")
+  teamId: UUID! @rename(attribute: "team.id") @with(relation: "team")
   name: LocalizedString
   displayName: DefinedString
   fullDisplayName: DefinedString
@@ -661,8 +605,8 @@ type PoolCandidate {
   expiryDate: Date @rename(attribute: "expiry_date")
 
   category: PoolCandidateCategory @with(relation: "user")
-  status: LocalizedPoolCandidateStatus
-    @rename(attribute: "pool_candidate_status")
+  status: LocalizedApplicationStatus
+    @rename(attribute: "application_status")
     @canRoot(ability: "viewStatus")
   candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
   candidateInterest: LocalizedCandidateInterest @canRoot(ability: "viewStatus")
@@ -680,9 +624,6 @@ type PoolCandidate {
   isFlagged: Boolean
     @rename(attribute: "is_flagged")
     @canRoot(ability: "viewNotes")
-  removedAt: DateTime
-    @rename(attribute: "removed_at")
-    @canRoot(ability: "viewStatus")
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
     @canRoot(ability: "viewStatus")
@@ -714,10 +655,14 @@ type PoolCandidate {
     @rename(attribute: "computed_assessment_status")
   # Starts at 1, null indicates all steps successful
   assessmentStep: AssessmentStep @belongsTo
-  finalDecision: LocalizedFinalDecision
-    @rename(attribute: "computed_final_decision")
-  finalDecisionAt: DateTime
-    @rename(attribute: "final_decision_at")
+  statusUpdatedAt: DateTime
+    @rename(attribute: "status_updated_at")
+    @canRoot(ability: "viewStatus")
+  disqualificationReason: LocalizedDisqualificationReason
+    @rename(attribute: "disqualification_reason")
+    @canRoot(ability: "viewStatus")
+  placementType: LocalizedPlacementType
+    @rename(attribute: "placement_type")
     @canRoot(ability: "viewStatus")
   placedAt: DateTime
     @rename(attribute: "placed_at")
@@ -753,8 +698,7 @@ type PoolCandidateAdminView {
   user: User! @belongsTo(relation: "user")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
-  status: LocalizedPoolCandidateStatus
-    @rename(attribute: "pool_candidate_status")
+  status: LocalizedApplicationStatus @rename(attribute: "application_status")
   candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
   candidateInterest: LocalizedCandidateInterest @canRoot(ability: "viewStatus")
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
@@ -764,12 +708,10 @@ type PoolCandidateAdminView {
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
   assessmentStep: AssessmentStep @belongsTo
-  finalDecision: LocalizedFinalDecision
-    @rename(attribute: "computed_final_decision")
+  placementType: LocalizedPlacementType @rename(attribute: "placement_type")
   placedDepartment: Department @belongsTo
   closingDate: DateTime @rename(attribute: "closing_date")
-  removedAt: DateTime @rename(attribute: "removed_at")
-  finalDecisionAt: DateTime @rename(attribute: "final_decision_at")
+  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
 }
 
 type PoolCandidateAdminViewWithSkillCount {
@@ -803,8 +745,12 @@ type GenericJobTitle {
   classification: Classification @belongsTo
 }
 
-type Department {
+type Department implements HasRoleAssignments {
   id: ID!
+  roleAssignments: [RoleAssignment!]
+    @hasManyThrough
+    @canRoot(ability: "viewTeamMembers")
+  teamIdForRoleAssignment: ID @with(relation: "team")
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
   orgIdentifier: Int @rename(attribute: "org_identifier")
@@ -1299,7 +1245,7 @@ input IdInput {
 input UserPoolFilterInput {
   poolId: ID!
   expiryStatus: CandidateExpiryFilter = ACTIVE
-  statuses: [PoolCandidateStatus!]
+  statuses: [ApplicationStatus!]
   suspendedStatus: CandidateSuspendedFilter = ACTIVE
 }
 
@@ -1320,27 +1266,6 @@ input UserFilterInput {
 
 input UserPublicProfileFilterInput {
   publicProfileSearch: String @scope(name: "wherePublicProfileSearch")
-}
-
-input EmployeeWfaFilterInput {
-  workEmail: String @scope(name: "whereWorkEmail")
-  name: String @scope(name: "whereName")
-  generalSearch: String @scope(name: "whereGeneralSearch")
-  equity: EquitySelectionsInput @scope(name: "whereEquityIn")
-  languageAbility: LanguageAbility @scope(name: "whereLanguageAbility")
-  flexibleWorkLocations: [FlexibleWorkLocation]
-    @scope(name: "whereFlexibleWorkLocationsIn")
-  locationPreferences: [WorkRegion] @scope(name: "whereLocationPreferencesIn")
-  operationalRequirements: [OperationalRequirement]
-    @scope(name: "whereOperationalRequirementsIn")
-  positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
-  wfaInterests: [WfaInterest] @scope(name: "whereWfaInterestIn")
-  hasPriorityEntitlement: Boolean @scope(name: "whereHasPriorityEntitlement")
-  skills: [IdInput] @scope(name: "whereSkillsAdditive")
-  classifications: [IdInput] @scope(name: "whereClassificationIn")
-  departments: [IdInput] @scope(name: "whereDepartmentsIn")
-  workStreams: [IdInput] @scope(name: "whereCommunityWorkStreamsIn")
-  communities: [IdInput] @scope(name: "whereCommunitiesIn")
 }
 
 input PoolFilterInput {
@@ -1407,7 +1332,7 @@ input PoolCandidateSearchInput {
   isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
   priorityWeight: [PriorityWeight] @scope(name: "whereCandidateCategoryIn")
-  poolCandidateStatus: [PoolCandidateStatus] @scope(name: "whereStatusIn")
+  statuses: [ApplicationStatus] @scope(name: "whereStatusIn")
   expiryStatus: CandidateExpiryFilter @scope(name: "whereExpiryStatus")
   suspendedStatus: CandidateSuspendedFilter @scope(name: "whereSuspendedStatus")
   publishingGroups: [PublishingGroup] @scope(name: "wherePublishingGroupsIn") # Filters applicants based on the publishing group of the pool
@@ -1422,7 +1347,6 @@ input PoolCandidateSearchInput {
   flexibleWorkLocations: [FlexibleWorkLocation]
     @scope(name: "whereFlexibleWorkLocationsIn")
   assessmentSteps: [Int!] @scope(name: "whereAssessmentStepIn")
-  finalDecisions: [FinalDecision!] @scope(name: "whereFinalDecisionIn")
   placementTypes: [PlacementType!] @scope(name: "wherePlacementTypeIn")
   removalReasons: [CandidateRemovalReason!] @scope(name: "whereRemovalReasonIn")
   screeningStages: [ScreeningStage!] @scope(name: "whereScreeningStageIn")
@@ -1513,6 +1437,7 @@ input CommunityInterestFilterInput {
   locationPreferences: [WorkRegion] @scope
   operationalRequirements: [OperationalRequirement] @scope
   skills: [UUID] @scope
+  classifications: [UUID!] @scope
 }
 input DateRangeOptional {
   from: DateTime
@@ -1563,22 +1488,6 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
-  employeeWFAPaginatedAdminTable(
-    where: EmployeeWfaFilterInput
-    orderBy: _
-      @orderBy(
-        relations: [
-          { relation: "currentClassification", columns: ["group", "level"] }
-        ]
-      )
-  ): [UserEmployeeWFA]!
-    @paginate(
-      defaultCount: 10
-      maxCount: 1000
-      scopes: ["whereAuthorizedToViewEmployeeWFAAdminTable"]
-      model: "App\\Models\\User"
-    )
-    @guard
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID! @eq): Pool @find @canQuery(ability: "view")
   publishedPools(
@@ -2124,11 +2033,6 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "career_objective_c_suite_role_title")
 }
 
-input UpdateEmployeeWFAInput {
-  wfaInterest: WfaInterest @rename(attribute: "wfa_interest")
-  wfaDate: Date @rename(attribute: "wfa_date")
-}
-
 input CreateCommunityInterestInput @validator {
   userId: UUID! @rename(attribute: "user_id")
   community: CommunityBelongsTo!
@@ -2248,8 +2152,7 @@ input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
   expiryDate: Date @rename(attribute: "expiry_date")
-  status: PoolCandidateStatus = NEW_APPLICATION
-    @rename(attribute: "pool_candidate_status")
+  status: ApplicationStatus = TO_ASSESS @rename(attribute: "application_status")
   notes: String
   isFlagged: Boolean
 }
@@ -2271,7 +2174,7 @@ input UpdatePoolCandidateStatusInput {
   expiryDate: Date
     @rename(attribute: "expiry_date")
     @rules(apply: ["after_or_equal:today"])
-  status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+  status: ApplicationStatus @rename(attribute: "application_status")
 }
 
 input UpdatePoolCandidateClaimVerificationInput @validator {
@@ -3151,14 +3054,6 @@ type Mutation {
     @guard
     @update(model: "EmployeeProfile")
     @canFind(ability: "update", find: "id", model: "EmployeeProfile")
-  updateEmployeeWFA(
-    id: UUID!
-    employeeWFA: UpdateEmployeeWFAInput! @spread
-  ): EmployeeWFA
-    @guard
-    @validator
-    @update(model: "User")
-    @canFind(ability: "updateEmployeeWFA", find: "id", model: "User")
   createCommunityInterest(
     communityInterest: CreateCommunityInterestInput! @spread
   ): CommunityInterest

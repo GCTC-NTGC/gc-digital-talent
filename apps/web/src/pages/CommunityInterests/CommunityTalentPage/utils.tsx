@@ -11,6 +11,7 @@ import {
   CommunityInterestFilterInput,
   InputMaybe,
   PositionDuration,
+  UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
@@ -154,6 +155,7 @@ export function transformCommunityTalentInput(
     // from fancy filter
     communities: filterState?.communities,
     workStreams: filterState?.workStreams,
+    classifications: filterState?.classifications,
     poolFilters: filterState?.poolFilters,
     jobInterest: filterState?.jobInterest,
     trainingInterest: filterState?.trainingInterest,
@@ -210,10 +212,34 @@ export function transformCommunityInterestFilterInputToFormValues(
     operationalRequirements: unpackMaybes(input?.operationalRequirements),
     skills: unpackMaybes(input?.skills),
     flexibleWorkLocations: unpackMaybes(input?.flexibleWorkLocations),
+    classifications: unpackMaybes(input?.classifications),
   };
 }
 
+export function transformToUserFilterInput(
+  _filterState: CommunityInterestFilterInput | undefined,
+  searchTerm: string | undefined,
+  _searchType: string | undefined,
+): UserFilterInput | undefined {
+  if (!searchTerm) {
+    return undefined;
+  }
+
+  const userFilter: UserFilterInput = {};
+
+  userFilter.generalSearch = searchTerm;
+
+  return userFilter;
+}
+
+export function extractUserIdsFromSelectedRows(
+  selectedRowIds: string[],
+): string[] {
+  const userIds = selectedRowIds.map((id) => id.split("userId#")[1]);
+  return uniqueItems(userIds);
+}
+
 export function removeDuplicateIds(ids: string[]): string[] {
-  const userIds = ids.map((id) => id.split("-userId#")[1]);
+  const userIds = ids.map((id) => id.split("-userId#")[0]);
   return uniqueItems(userIds);
 }

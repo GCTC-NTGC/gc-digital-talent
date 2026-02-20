@@ -24,6 +24,11 @@ type LocalizedActivityEvent implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedApplicationStatus implements LocalizedEnumOption {
+  value: ApplicationStatus!
+  label: LocalizedString!
+}
+
 type LocalizedArmedForcesStatus implements LocalizedEnumOption {
   value: ArmedForcesStatus!
   label: LocalizedString!
@@ -126,6 +131,11 @@ type LocalizedDeadlineStatus implements LocalizedEnumOption {
 
 type LocalizedDepartmentSize implements LocalizedEnumOption {
   value: DepartmentSize!
+  label: LocalizedString!
+}
+
+type LocalizedDisqualificationReason implements LocalizedEnumOption {
+  value: DisqualificationReason!
   label: LocalizedString!
 }
 
@@ -404,11 +414,6 @@ type LocalizedTimeFrame implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedWfaInterest implements LocalizedEnumOption {
-  value: WfaInterest!
-  label: LocalizedString!
-}
-
 type LocalizedWorkRegion implements LocalizedEnumOption {
   value: WorkRegion!
   label: LocalizedString!
@@ -486,15 +491,6 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
-"A paginated list of UserEmployeeWFA items."
-type UserEmployeeWFAPaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of UserEmployeeWFA items."
-  data: [UserEmployeeWFA!]!
-}
-
 "A paginated list of Pool items."
 type PoolPaginator {
   "Pagination information about the list of items."
@@ -556,33 +552,6 @@ type CommunityInterestWithSkillCountPaginator {
 
   "A list of CommunityInterestWithSkillCount items."
   data: [CommunityInterestWithSkillCount!]!
-}
-
-"Allowed column names for Query.employeeWFAPaginatedAdminTable.orderBy."
-enum QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn {
-  GROUP
-  LEVEL
-}
-
-"Aggregate specification for Query.employeeWFAPaginatedAdminTable.orderBy.currentClassification."
-input QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn
-}
-
-"Order by clause for Query.employeeWFAPaginatedAdminTable.orderBy."
-input QueryEmployeeWFAPaginatedAdminTableOrderByRelationOrderByClause {
-  "The column that is used for ordering."
-  column: String
-
-  "The direction that is used for ordering."
-  order: SortOrder!
-
-  "Aggregate specification."
-  currentClassification: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
@@ -974,6 +943,14 @@ enum ActivityEvent {
 enum ActivityLog {
   DEFAULT
   PROCESS
+}
+
+enum ApplicationStatus {
+  DRAFT
+  TO_ASSESS
+  REMOVED
+  DISQUALIFIED
+  QUALIFIED
 }
 
 enum ApplicationStep {
@@ -1762,14 +1739,6 @@ enum TimeFrame {
   THREE_OR_MORE_YEARS
 }
 
-enum WfaInterest {
-  NOT_APPLICABLE
-  TERM_ENDING
-  LETTER_RECEIVED
-  NOT_SURE
-  VOLUNTARY_DEPARTURE
-}
-
 enum WhenSkillUsed {
   CURRENT
   PAST
@@ -1788,6 +1757,8 @@ enum WorkRegion {
 
 "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations."
 type __Schema {
+  description: String
+
   "A list of all types supported by this server."
   types: [__Type!]!
 

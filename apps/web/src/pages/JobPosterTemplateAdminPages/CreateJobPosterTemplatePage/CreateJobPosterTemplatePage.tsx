@@ -23,7 +23,11 @@ import {
 } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  emptyToNull,
+  notEmpty,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -148,8 +152,14 @@ const formValuesToMutationInput = ({
       fr: workDescriptionFr,
     },
     keywords: {
-      en: keywordsEn?.split(",").map((s) => s.trim()),
-      fr: keywordsFr?.split(",").map((s) => s.trim()),
+      en: keywordsEn
+        ?.split(",")
+        .map((s) => emptyToNull(s.trim()))
+        .filter(notEmpty),
+      fr: keywordsFr
+        ?.split(",")
+        .map((s) => emptyToNull(s.trim()))
+        .filter(notEmpty),
     },
     classification: {
       connect: classification,

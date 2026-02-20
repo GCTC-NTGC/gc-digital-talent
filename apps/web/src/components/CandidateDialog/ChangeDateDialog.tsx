@@ -203,7 +203,9 @@ const ChangeDateDialog = ({
                   rules={{
                     min: {
                       value: currentDate(),
-                      message: intl.formatMessage(errorMessages.futureDate),
+                      message: intl.formatMessage(
+                        errorMessages.mustNotBePastExpiryDate,
+                      ),
                     },
                   }}
                 />

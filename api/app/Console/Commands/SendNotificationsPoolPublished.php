@@ -37,14 +37,6 @@ class SendNotificationsPoolPublished extends Command
      */
     public function handle()
     {
-        // workaround until we get better logging in prod #11289
-        $onDemandLog = Log::build([
-            'driver' => 'single',
-            'path' => App::isProduction() // workaround for storage_path misconfigured in prod #11471
-                ? '/tmp/api/storage/logs/jobs.log'
-                : storage_path('logs/jobs.log'),
-        ]);
-
         $this->info('SendNotificationsPoolPublished running at '.Carbon::now()->toDateTimeString().'.');
 
         $successCount = 0;
@@ -74,13 +66,15 @@ class SendNotificationsPoolPublished extends Command
             )
             ->whereNotNull();
 
+        // Everything below this line should stay in sync with api/app/Console/Commands/SendNotificationsPoolPublishedSpecific.php
+
         $successCount = 0;
         $failureCount = 0;
 
         if ($notifications->count() > 0) {
             User::whereJsonContains('enabled_email_notifications', NotificationFamily::JOB_ALERT->name)
                 ->orWhereJsonContains('enabled_in_app_notifications', NotificationFamily::JOB_ALERT->name)
-                ->chunk(200, function (Collection $users) use ($notifications, &$successCount, &$failureCount, $onDemandLog) {
+                ->chunk(200, function (Collection $users) use ($notifications, &$successCount, &$failureCount) {
                     foreach ($users as $user) {
                         foreach ($notifications as $notification) {
                             try {
@@ -88,7 +82,7 @@ class SendNotificationsPoolPublished extends Command
                                 $successCount++;
                             } catch (Throwable $e) {
                                 // best-effort: log and continue
-                                $onDemandLog->error('Failed to send "new job posted" notification for "'.$notification->poolNameEn.'" ('.$notification->poolId.') to user " '.$user->first_name.' '.$user->last_name.' ('.$user->id.'). '.$e->getMessage());
+                                $this->error('Failed to send "new job posted" notification for "'.$notification->poolNameEn.'" ('.$notification->poolId.') to user " '.$user->first_name.' '.$user->last_name.' ('.$user->id.'). '.$e->getMessage());
                                 $failureCount++;
                             }
                         }

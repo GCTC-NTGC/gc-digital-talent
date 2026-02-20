@@ -243,7 +243,13 @@ const ClaimVerificationDialog = ({
                       : undefined,
                     min: {
                       value: strToFormDate(todayDate.toISOString()),
-                      message: intl.formatMessage(errorMessages.futureDate),
+                      message: isPriority
+                        ? intl.formatMessage(
+                            errorMessages.mustNotBePastPriorityDate,
+                          )
+                        : intl.formatMessage(
+                            errorMessages.mustNotBePastVeteranDate,
+                          ),
                     },
                   }}
                 />

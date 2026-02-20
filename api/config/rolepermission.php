@@ -84,6 +84,7 @@ return [
         'community' => 'community',
         'poolTeamMembers' => 'poolTeamMembers',
         'communityTeamMembers' => 'communityTeamMembers',
+        'departmentTeamMembers' => 'departmentTeamMembers',
         'talentNominationEvent' => 'talentNominationEvent',
         'talentNomination' => 'talentNomination',
         'talentNominationGroup' => 'talentNominationGroup',
@@ -92,13 +93,14 @@ return [
         'communityInterest' => 'communityInterest',
         'communityTalent' => 'communityTalent',
         'basicGovEmployeeProfile' => 'basicGovEmployeeProfile',
-        'employeeWFA' => 'employeeWFA',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
         'communityTalentCoordinatorMembership' => 'communityTalentCoordinatorMembership',
+        'departmentAdminMembership' => 'departmentAdminMembership',
+        'departmentHRAdvisorMembership' => 'departmentHRAdvisorMembership',
 
         'poolActivityLog' => 'poolActivityLog',
     ],
@@ -258,23 +260,6 @@ return [
         'update-own-employeeProfile' => [
             'en' => 'Update any Employee Profile',
             'fr' => 'Visionner tout profil de candidat',
-        ],
-
-        'view-any-employeeWFA' => [
-            'en' => 'View any WFA Employee',
-            'fr' => 'Afficher tous les employés WFA',
-        ],
-        'view-own-employeeWFA' => [
-            'en' => 'View own WFA Employee',
-            'fr' => 'Afficher son propre employé WFA',
-        ],
-        'view-team-employeeWFA' => [
-            'en' => 'View team WFA Employee',
-            'fr' => 'Voir l\'équipe WFA Employé',
-        ],
-        'update-own-employeeWFA' => [
-            'en' => 'Update own WFA Employee',
-            'fr' => 'Mettre à jour son propre employé WFA',
         ],
 
         'view-team-draftPool' => [
@@ -608,6 +593,18 @@ return [
             'en' => 'Add or remove the Community Talent Coordinator role from a community user',
             'fr' => 'Ajouter ou supprimer le rôle de coordinateur des talents de la communauté à un utilisateur de la communauté',
         ],
+        'update-any-departmentAdminMembership' => [
+            'en' => 'Add or remove the department admin role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle d\'administrateur du département pour n\'importe quel utilisateur',
+        ],
+        'update-any-departmentHRAdvisorMembership' => [
+            'en' => 'Add or remove the department HR advisor role from any user',
+            'fr' => 'Ajouter ou supprimer le rôle de conseiller RH du département pour n\'importe quel utilisateur',
+        ],
+        'update-team-departmentHRAdvisorMembership' => [
+            'en' => 'Add or remove the department HR advisor role from a team user',
+            'fr' => 'Ajouter ou supprimer le rôle de conseiller RH du département pour un utilisateur de l\'équipe',
+        ],
 
         'view-any-poolTeamMembers' => [
             'en' => 'View the members of any pool',
@@ -624,6 +621,14 @@ return [
         'view-team-communityTeamMembers' => [
             'en' => 'View the members of this community',
             'fr' => 'Voir les membres de cette communauté',
+        ],
+        'view-any-departmentTeamMembers' => [
+            'en' => 'View the members of any department',
+            'fr' => 'Afficher les membres d\'un département',
+        ],
+        'view-team-departmentTeamMembers' => [
+            'en' => 'View the members of this department',
+            'fr' => 'Voir les membres de ce département',
         ],
 
         'create-any-trainingOpportunity' => [
@@ -680,6 +685,10 @@ return [
             'en' => 'View a talent nomination as a team (community) member',
             'fr' => 'Voir la nomination d\'un talent en tant que membre d\'une équipe (communauté)',
         ],
+        'view-any-talentNomination' => [
+            'en' => 'View any talent nomination',
+            'fr' => 'Voir tout nomination de talents',
+        ],
 
         'update-team-talentNominationGroup' => [
             'en' => 'Update a team (community) talent nomination group',
@@ -688,6 +697,10 @@ return [
         'view-team-talentNominationGroup' => [
             'en' => 'View a team (community) talent nomination group',
             'fr' => 'Voir le groupe de nomination des talents d\'une équipe (communauté)',
+        ],
+        'view-any-talentNominationGroup' => [
+            'en' => 'View any talent nomination group',
+            'fr' => 'Voir tout groupe de nomination des talents',
         ],
 
         'view-any-basicGovEmployeeProfile' => [
@@ -814,6 +827,30 @@ return [
             ],
             'is_team_based' => true,
         ],
+
+        'department_admin' => [
+            'display_name' => [
+                'en' => 'Department Administrator',
+                'fr' => 'Administrateur du ministère',
+            ],
+            'description' => [
+                'en' => 'Assigned for individual departments. This role is intended to assign department roles, publish job posters and manage department details.',
+                'fr' => 'Attribué à chaque service. Ce rôle sert à attribuer les rôles au sein du service, à publier les offres d\'emploi et à gérer les informations relatives au service.',
+            ],
+            'is_team_based' => true,
+        ],
+
+        'department_hr_advisor' => [
+            'display_name' => [
+                'en' => 'Department Human Resources Advisor',
+                'fr' => 'Conseiller en ressources humaines du ministère',
+            ],
+            'description' => [
+                'en' => 'Assigned for individual departments. This role is intended to coordinate and run staffing processes along-side process operators.',
+                'fr' => 'Attribué à chaque service. Ce rôle consiste à coordonner et à gérer les processus de dotation en personnel en collaboration avec les opérateurs de processus.',
+            ],
+            'is_team_based' => true,
+        ],
     ],
 
     /*
@@ -895,12 +932,6 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
-            'user' => [
-                'own' => ['view', 'update'],
-            ],
-            'employeeProfile' => [
-                'own' => ['view', 'update'],
-            ],
             'publishedPool' => [
                 'any' => ['view'],
             ],
@@ -912,7 +943,6 @@ return [
             ],
             'searchRequest' => [
                 'any' => ['create'],
-                'own' => ['view'],
             ],
             'announcement' => [
                 'any' => ['view'],
@@ -944,14 +974,20 @@ return [
             'basicGovEmployeeProfile' => [
                 'any' => ['view'],
             ],
-            'employeeWFA' => [
-                'own' => ['view', 'update'],
-            ],
             'communityInterest' => [
                 'own' => ['delete'],
             ],
             'talentNominationEvent' => [
                 'any' => ['view'],
+            ],
+            'employeeProfile' => [
+                'own' => ['view', 'update'],
+            ],
+            'searchRequest' => [
+                'own' => ['view'],
+            ],
+            'user' => [
+                'own' => ['view', 'update'],
             ],
         ],
 
@@ -1035,9 +1071,6 @@ return [
                 'team' => ['view'],
             ],
             'communityTalent' => [
-                'team' => ['view'],
-            ],
-            'employeeWFA' => [
                 'team' => ['view'],
             ],
             'poolActivityLog' => [
@@ -1187,10 +1220,19 @@ return [
             'processOperatorMembership' => [
                 'any' => ['update'],
             ],
+            'departmentAdminMembership' => [
+                'any' => ['update'],
+            ],
+            'departmentHRAdvisorMembership' => [
+                'any' => ['update'],
+            ],
             'communityTeamMembers' => [
                 'any' => ['view'],
             ],
             'poolTeamMembers' => [
+                'any' => ['view'],
+            ],
+            'departmentTeamMembers' => [
                 'any' => ['view'],
             ],
             'trainingOpportunity' => [
@@ -1202,17 +1244,17 @@ return [
             'communityTalentCoordinatorMembership' => [
                 'any' => ['update'],
             ],
-            'employeeWFA' => [
-                'any' => ['view'],
-            ],
             'poolActivityLog' => [
                 'any' => ['view'],
             ],
             'communityInterest' => [
                 'any' => ['view'],
             ],
-            'talentNominationEvent' => [
-                'any' => ['create'],
+            'talentNomination' => [
+                'any' => ['view'],
+            ],
+            'talentNominationGroup' => [
+                'any' => ['view'],
             ],
         ],
 
@@ -1234,6 +1276,33 @@ return [
             ],
             'talentNominationGroup' => [
                 'team' => ['update', 'view'],
+            ],
+        ],
+
+        'department_admin' => [
+            'userBasicInfo' => [
+                'any' => ['view'],
+            ],
+            'processOperatorMembership' => [
+                'team' => ['update'],
+            ],
+            'departmentHRAdvisorMembership' => [
+                'team' => ['update'],
+            ],
+            'departmentTeamMembers' => [
+                'team' => ['view'],
+            ],
+        ],
+
+        'department_hr_advisor' => [
+            'userBasicInfo' => [
+                'any' => ['view'],
+            ],
+            'processOperatorMembership' => [
+                'team' => ['update'],
+            ],
+            'departmentTeamMembers' => [
+                'team' => ['view'],
             ],
         ],
     ],

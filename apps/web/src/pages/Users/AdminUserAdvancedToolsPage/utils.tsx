@@ -4,6 +4,7 @@ import { DefaultValues, FieldValues, useForm } from "react-hook-form";
 
 import {
   Community,
+  Department,
   FragmentType,
   getFragment,
   graphql,
@@ -43,6 +44,12 @@ export const UserRoleTable_Fragment = graphql(/** GraphQL */ `
           }
           ... on Community {
             name {
+              localized
+            }
+            teamIdForRoleAssignment
+          }
+          ... on Department {
+            departmentName: name {
               localized
             }
             teamIdForRoleAssignment
@@ -177,9 +184,23 @@ export type CommunityTeamable = Pick<
   "id" | "__typename" | "name" | "teamIdForRoleAssignment"
 >;
 
+export type DepartmentTeamable = Pick<
+  Department,
+  "id" | "__typename" | "teamIdForRoleAssignment"
+> & {
+  departmentName: {
+    __typename?: "LocalizedString" | undefined;
+    localized?: string | null | undefined;
+  };
+};
+
 type TeamTeamable = Pick<Team, "id" | "__typename">;
 
-export type Teamable = PoolTeamable | CommunityTeamable | TeamTeamable;
+export type Teamable =
+  | PoolTeamable
+  | CommunityTeamable
+  | TeamTeamable
+  | DepartmentTeamable;
 
 export interface PoolAssignment {
   pool: PoolTeamable;
@@ -187,6 +208,11 @@ export interface PoolAssignment {
 }
 export interface CommunityAssignment {
   community: CommunityTeamable;
+  roles: Role[];
+}
+
+export interface DepartmentAssignment {
+  department: DepartmentTeamable;
   roles: Role[];
 }
 
@@ -203,6 +229,15 @@ export const isPoolTeamable = (
   teamable: Teamable | undefined | null,
 ): teamable is PoolTeamable => {
   if (teamable?.__typename === "Pool") {
+    return true;
+  }
+  return false;
+};
+
+export const isDepartmentTeamable = (
+  teamable: Teamable | undefined | null,
+): teamable is DepartmentTeamable => {
+  if (teamable?.__typename === "Department") {
     return true;
   }
   return false;

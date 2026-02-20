@@ -28,7 +28,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
-import { getCandidateStatusChip } from "~/utils/poolCandidate";
+import { getApplicationStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
@@ -64,15 +64,13 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       ...MoreActions
       ...ClaimVerification
       ...AssessmentResultsTable
-      ...ChangeStatusDialog_PoolCandidate
       ...ApplicationInformation_PoolCandidate
       id
       profileSnapshot
-      finalDecision {
+      status {
         value
         label {
-          en
-          fr
+          localized
         }
       }
       assessmentStep {
@@ -87,7 +85,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       user {
         ...ApplicationProfileDetails
         ...PoolStatusTable
-        ...ChangeStatusDialog_User
         firstName
         lastName
         hasPriorityEntitlement
@@ -163,12 +160,7 @@ export const ViewPoolCandidate = ({
     String(poolCandidate.profileSnapshot),
   ) as Maybe<User>;
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
-  const statusChip = getCandidateStatusChip(
-    poolCandidate.finalDecision,
-    poolCandidate.assessmentStep?.sortOrder,
-    poolCandidate.assessmentStatus,
-    intl,
-  );
+  const statusChip = getApplicationStatusChip(poolCandidate.status, intl);
 
   const candidateName = getFullNameLabel(
     poolCandidate.user.firstName,

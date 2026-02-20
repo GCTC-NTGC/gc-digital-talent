@@ -40,10 +40,6 @@ export default [
             "./pages/DNDDigitalCareersPage/DNDDigitalCareersPage.tsx",
           ),
           route(
-            "workforce-adjustment",
-            "./pages/WorkforceAdjustment/WorkforceAdjustmentPage.tsx",
-          ),
-          route(
             "directive-on-digital-talent",
             "./pages/DirectivePage/DirectivePage.tsx",
           ),
@@ -495,12 +491,21 @@ export default [
                 index("./pages/Departments/IndexDepartmentPage.tsx"),
                 route("create", "./pages/Departments/CreateDepartmentPage.tsx"),
                 ...prefix(":departmentId", [
-                  index("./pages/Departments/ViewDepartmentPage.tsx"),
-                  route("edit", "./pages/Departments/UpdateDepartmentPage.tsx"),
-                  route(
-                    "advanced-tools",
-                    "./pages/Departments/AdvancedToolsDepartmentPage.tsx",
-                  ),
+                  layout("./pages/Departments/DepartmentLayout.tsx", [
+                    index("./pages/Departments/ViewDepartmentPage.tsx"),
+                    route(
+                      "edit",
+                      "./pages/Departments/UpdateDepartmentPage.tsx",
+                    ),
+                    route(
+                      "manage-access",
+                      "./pages/Departments/ManageAccessPage/ManageAccessPage.tsx",
+                    ),
+                    route(
+                      "advanced-tools",
+                      "./pages/Departments/AdvancedToolsDepartmentPage.tsx",
+                    ),
+                  ]),
                 ]),
               ]),
 
@@ -558,12 +563,6 @@ export default [
                 ),
               ]),
             ]),
-
-            // Admin - WFA
-            route(
-              "wfa-employees",
-              "./pages/WorkforceAdjustment/IndexWorkforceAdjustmentPage/IndexWorkforceAdjustmentPage.tsx",
-            ),
           ]),
 
           // Catch all

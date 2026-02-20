@@ -235,6 +235,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
   };
 
   const { roleAssignments } = useAuthorization();
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const canCreatePool = hasRole(
     permissionConstants.createProcess,
     roleAssignments,
