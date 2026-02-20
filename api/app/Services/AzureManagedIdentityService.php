@@ -24,11 +24,7 @@ class AzureManagedIdentityService implements ManagedIdentityService
         $response = Http::withHeaders([
             'Secret' => config('azure.managed_identity.header'),
         ])
-            ->withOptions([
-                'api-version' => '2017-09-01',
-                'resource' => 'https://management.azure.com/',
-            ])
-            ->get(config('azure.managed_identity.endpoint'));
+            ->get(config('azure.managed_identity.endpoint').'?api-version=2017-09-01&resource=https://management.azure.com/');
         assert($response instanceof Response); // type narrow away PromiseInterface
 
         if (! $response->ok()) {
