@@ -236,7 +236,7 @@ const Hero = (
         )}
         {additionalContent ? (
           <>
-            <Container size="lg" className="relative z-3">
+            <Container size="lg" className="relative z-3 pb-12">
               {additionalContent}
             </Container>
           </>
