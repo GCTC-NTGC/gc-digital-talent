@@ -34,7 +34,7 @@ interface FormValues {
 }
 
 const RemoveCandidate_Mutation = graphql(/* GraphQL */ `
-  mutation RemoveCandidate(
+  mutation RemoveCandidateAction(
     $id: UUID!
     $removalReason: CandidateRemovalReason!
     $removalReasonOther: String
