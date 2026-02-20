@@ -4,9 +4,9 @@ import { useLocation } from "react-router";
 import { tv } from "tailwind-variants";
 
 import {
+  getLocale,
   localizePath,
   oppositeLocale,
-  useLocale,
 } from "@gc-digital-talent/i18n";
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { Container } from "@gc-digital-talent/ui";
@@ -26,8 +26,7 @@ const logo = tv({
 
 const Header = () => {
   const intl = useIntl();
-  // eslint-disable-next-line no-restricted-syntax
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
 
   const location = useLocation();
   const changeToLang = oppositeLocale(locale);

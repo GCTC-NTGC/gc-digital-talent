@@ -1,9 +1,11 @@
-import { useContext } from "react";
+import { useLocation } from "react-router";
 
-import { LocaleContext, LocaleState } from "../components/LocaleProvider";
+import { Locales } from "../types";
 
-export default function useLocale(): LocaleState {
-  const ctx = useContext(LocaleContext);
-
-  return ctx;
+function useLocale(): Locales {
+  const location = useLocation();
+  const pathLocale = location.pathname.split("/")[1];
+  return pathLocale === "fr" ? "fr" : "en";
 }
+
+export default useLocale;
