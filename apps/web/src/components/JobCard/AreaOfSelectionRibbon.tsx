@@ -6,58 +6,39 @@ import {
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
 
-// absolute -left-2 flex
 const ribbon = tv({
   slots: {
-    base: "top-0 mb-1.5 flex items-center",
-    label: "flex h-8 items-center px-6 pl-14 font-bold",
-    topTriangle: "h-4 w-4 [clip-path:polygon(0_0,0%_100%,100%_0)]",
-    bottomTriangle: "h-4 w-4 [clip-path:polygon(0_0,0%_100%,100%_100%)]",
+    base: "drop-shadow-(--ribbon-shadow)",
+    label:
+      "relative inline-block rounded-l-md py-1 pr-9 pl-10.5 text-sm/normal font-bold [clip-path:polygon(0%_0%,100%_0%,calc(100%-1rem)_50%,100%_100%,0%_100%)]",
   },
   variants: {
-    level: {
+    publicColor: {
       first: {
         base: "z-2",
+        label: "bg-primary-100 text-primary-700",
       },
       second: {
         base: "z-1 sm:-ml-6",
+        label: "bg-primary-200 text-primary-700",
       },
       third: {
         base: "z-0 sm:-ml-6",
-      },
-    },
-    publicColor: {
-      first: {
-        label: "bg-primary-100 text-primary-700",
-        topTriangle: "bg-primary-100",
-        bottomTriangle: "bg-primary-100",
-      },
-      second: {
-        label: "bg-primary-200 text-primary-700",
-        topTriangle: "bg-primary-200",
-        bottomTriangle: "bg-primary-200",
-      },
-      third: {
         label: "bg-primary-300 text-primary-700",
-        topTriangle: "bg-primary-300",
-        bottomTriangle: "bg-primary-300",
       },
     },
     employeeColor: {
       first: {
+        base: "z-2",
         label: "bg-secondary-100 text-secondary-700",
-        topTriangle: "bg-secondary-100",
-        bottomTriangle: "bg-secondary-100",
       },
       second: {
+        base: "z-1 sm:-ml-6",
         label: "bg-secondary-200 text-secondary-700",
-        topTriangle: "bg-secondary-200",
-        bottomTriangle: "bg-secondary-200",
       },
       third: {
+        base: "z-0 sm:-ml-6",
         label: "bg-secondary-300 text-secondary-700",
-        topTriangle: "bg-secondary-300",
-        bottomTriangle: "bg-secondary-300",
       },
     },
   },
@@ -155,7 +136,7 @@ const AreaOfSelectionRibbon = ({
     intl,
   );
 
-  const { base, bottomTriangle, label, topTriangle } = ribbon();
+  const { base, label } = ribbon();
 
   return (
     <>
@@ -167,23 +148,8 @@ const AreaOfSelectionRibbon = ({
             : { level: ribbonLevel, employeeColor: ribbonLevel };
         return (
           <div key={text} className={base(props)}>
-            <p className={label(props)}>{text}</p>
-            <div>
-              <div className={topTriangle(props)}></div>
-              <div className={bottomTriangle(props)}></div>
-            </div>
+            <div className={label(props)}>{text}</div>
           </div>
-          // <div key={text} className="order-1 drop-shadow-(--ribbon-shadow)">
-          //   <div
-          //     className="relative -ml-10.5 inline-block rounded-l-md bg-secondary-100 py-1 pr-9 pl-10.5 text-sm/normal font-bold text-black dark:text-secondary-700"
-          //     style={{
-          //       clipPath:
-          //         "polygon(0% 0%, 100% 0%, calc(100% - 1rem) 50%, 100% 100%, 0% 100%)",
-          //     }}
-          //   >
-          //     {text}
-          //   </div>
-          // </div>
         );
       })}
     </>
