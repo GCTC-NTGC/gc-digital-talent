@@ -36,9 +36,10 @@ const CandidateNavigation = ({ candidateId }: CandidateNavigationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const candidateNavigation = usePoolCandidateNavigation(candidateId);
-  if (!candidateNavigation) return null;
+  if (!candidateNavigation?.candidateIds) return null;
   const { nextCandidate, previousCandidate, candidateIds, stepName } =
     candidateNavigation;
+  if (!nextCandidate && !previousCandidate) return null;
 
   const commonLinkProps: Partial<IconLinkProps> = {
     color: "primary",

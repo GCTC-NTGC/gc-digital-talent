@@ -31,8 +31,8 @@ const learnMoreLink = (locale: Locales, chunks: ReactNode) => (
     external
     href={
       locale === "en"
-        ? "https://www.canada.ca/en/government/publicservice/staffing/security-screening.html"
-        : "https://www.canada.ca/fr/gouvernement/fonctionpublique/dotation/filtrage-de-securite.html"
+        ? "https://www.canada.ca/en/government/publicservice/workforce/staffing/security-screening.html"
+        : "https://www.canada.ca/fr/gouvernement/fonctionpublique/effectif/dotation/filtrage-de-securite.html"
     }
   >
     {chunks}
@@ -207,18 +207,18 @@ const SecurityClearanceDialog = () => {
               )}
             </p>
           </div>
-          <Dialog.Footer>
-            <Dialog.Close>
-              <Button color="primary">
-                {intl.formatMessage({
-                  defaultMessage: "Close",
-                  id: "4p0QdF",
-                  description: "Button text used to close an open modal",
-                })}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
         </Dialog.Body>
+        <Dialog.Footer>
+          <Dialog.Close>
+            <Button color="primary">
+              {intl.formatMessage({
+                defaultMessage: "Close",
+                id: "4p0QdF",
+                description: "Button text used to close an open modal",
+              })}
+            </Button>
+          </Dialog.Close>
+        </Dialog.Footer>
       </Dialog.Content>
     </Dialog.Root>
   );

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ApplicationStatus;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -103,9 +103,14 @@ class ScreeningQuestionsTest extends TestCase
             'community_id' => $this->community->id,
         ]);
         $this->poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
-        $this->publishedPool = Pool::factory()->published()->WithPoolSkills(2, 2)->WithQuestions(2, 2)->create([
-            'community_id' => $this->community->id,
-        ]);
+        $this->publishedPool = Pool::factory()
+            ->published()
+            ->withPoolSkills()
+            ->withGeneralQuestions()
+            ->withScreeningQuestions()
+            ->create([
+                'community_id' => $this->community->id,
+            ]);
         $this->adminUser = User::factory()
             ->asApplicant()
             ->asAdmin()
@@ -214,7 +219,7 @@ class ScreeningQuestionsTest extends TestCase
     {
         $application = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->applicantUser->id,
         ]);
         ScreeningQuestionResponse::all()->each->delete();
@@ -263,7 +268,7 @@ class ScreeningQuestionsTest extends TestCase
     {
         $application = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->applicantUser->id,
         ]);
         ScreeningQuestionResponse::all()->each->delete();
@@ -311,7 +316,7 @@ class ScreeningQuestionsTest extends TestCase
     {
         $application = PoolCandidate::factory()->create([
             'pool_id' => $this->publishedPool->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->applicantUser->id,
         ]);
         ScreeningQuestionResponse::all()->each->delete();

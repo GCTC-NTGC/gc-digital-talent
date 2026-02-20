@@ -4,9 +4,17 @@ import { IntlProvider, useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { ReactNode } from "react";
 import { tv } from "tailwind-variants";
+import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
+import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 
 import { ThemeProvider, useTheme } from "@gc-digital-talent/theme";
-import { Button, Container, Flourish, Heading } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Container,
+  CTALink,
+  Flourish,
+  Heading,
+} from "@gc-digital-talent/ui";
 import { getLogger } from "@gc-digital-talent/logger";
 import {
   combineMessages,
@@ -24,6 +32,7 @@ import {
   GocLogoWhiteEn,
   GocLogoWhiteFr,
 } from "~/components/Svg";
+import useRoutes from "~/hooks/useRoutes";
 
 const logo = tv({
   base: "h-auto w-72",
@@ -50,6 +59,7 @@ const RouteErrorBoundary = () => {
   // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
   const { mode } = useTheme();
+  const paths = useRoutes();
   const location = useLocation();
   const error = useErrorMessages();
   const logger = getLogger();
@@ -132,6 +142,28 @@ const RouteErrorBoundary = () => {
               },
             )}
           </p>
+
+          <div className="flex flex-wrap justify-center gap-6 xs:flex-nowrap">
+            <CTALink icon={HomeIcon} color="success" href={paths.home()}>
+              {intl.formatMessage({
+                defaultMessage: "Go to the homepage",
+                id: "i9E0ka",
+                description: "Link text to go to the homepage from a 404",
+              })}
+            </CTALink>
+            <CTALink
+              icon={WrenchScrewdriverIcon}
+              color="secondary"
+              href={paths.support()}
+              state={{ referrer: window.location.href }}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Report a missing page",
+                id: "kfzKrV",
+                description: "Link text to go report a missing page on the 404",
+              })}
+            </CTALink>
+          </div>
         </Container>
       </div>
       <Flourish />

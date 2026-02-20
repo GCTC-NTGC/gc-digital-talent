@@ -19,8 +19,13 @@ class TalentNominationPolicy
             return true;
         }
 
-        // can view if the nomination is submitted and is for an event in their community
+        // can view if the nomination is submitted
         $isDraft = $talentNomination->isDraft();
+        if (! $isDraft && $actor->isAbleTo('view-any-talentNomination')) {
+            return true;
+        }
+
+        // can view if the nomination is submitted and is for an event in their community
         $talentNomination->loadMissing('talentNominationEvent');
         $communityTeam = Team::with(['teamable.team'])
             ->where('teamable_type', 'App\Models\Community')

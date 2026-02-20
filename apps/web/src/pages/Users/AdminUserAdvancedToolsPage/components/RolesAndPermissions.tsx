@@ -9,12 +9,14 @@ import IndividualRoleTable from "./IndividualRoleTable";
 import CommunityRoleTable from "./CommunityRoleTable";
 import ProcessRoleTable from "./ProcessRoleTable";
 import { RoleTableProps } from "../utils";
+import DepartmentRoleTable from "./DepartmentRoleTable";
 
 export const ROLE_PERMISSIONS_ID = "role-permissions";
 export const ROLE_TABLE_IDS = {
   INDIVIDUAL: "individual-roles",
   COMMUNITY: "community-roles",
   PROCESS: "process-roles",
+  DEPARTMENT: "department-roles",
 };
 
 const RolePermissions = ({ query, optionsQuery }: RoleTableProps) => {
@@ -38,6 +40,9 @@ const RolePermissions = ({ query, optionsQuery }: RoleTableProps) => {
       </TableOfContents.Section>
       <TableOfContents.Section id={ROLE_TABLE_IDS.PROCESS}>
         <ProcessRoleTable {...{ query, optionsQuery }} />
+      </TableOfContents.Section>
+      <TableOfContents.Section id={ROLE_TABLE_IDS.DEPARTMENT}>
+        <DepartmentRoleTable {...{ query, optionsQuery }} />
       </TableOfContents.Section>
     </TableOfContents.Section>
   );

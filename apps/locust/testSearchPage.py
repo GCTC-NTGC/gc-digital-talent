@@ -1,6 +1,5 @@
 import string
 import random
-import time
 from locust import HttpUser, task, between
 
 class TestSearchPage(HttpUser):

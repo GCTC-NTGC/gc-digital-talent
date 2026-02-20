@@ -92,7 +92,7 @@ class UserBuilder extends Builder
                                 }
                             });
                             if (array_key_exists('statuses', $filter) && ! empty($filter['statuses'])) {
-                                $query->whereIn('pool_candidates.pool_candidate_status', $filter['statuses']);
+                                $query->whereIn('pool_candidates.application_status', $filter['statuses']);
                             }
                             $query->where(function ($query) use ($filter) {
                                 if (array_key_exists('suspendedStatus', $filter) && $filter['suspendedStatus'] == CandidateSuspendedFilter::ACTIVE->name) {
@@ -422,19 +422,6 @@ class UserBuilder extends Builder
         });
     }
 
-    public function whereNameAndEmailNotIn(?array $negationArray): self
-    {
-        if (isset($negationArray) && count($negationArray) > 0) {
-            foreach ($negationArray as $value) {
-                $this->whereNot('first_name', 'ilike', $value);
-                $this->whereNot('last_name', 'ilike', $value);
-                $this->whereNot('email', 'ilike', $value);
-            }
-        }
-
-        return $this;
-    }
-
     public function wherePublicProfileSearch(?string $search): self
     {
         if ($search) {
@@ -459,8 +446,8 @@ class UserBuilder extends Builder
 
         return $this->where(function ($query) use ($splitName) {
             foreach ($splitName as $value) {
-                $query->where('first_name', 'ilike', "%{$value}%")
-                    ->orWhere('last_name', 'ilike', "%{$value}%");
+                $query->whereRaw("f_unaccent(first_name) ilike ('%' || f_unaccent(?) || '%')", $value)
+                    ->orWhereRaw("f_unaccent(last_name) ilike ('%' || f_unaccent(?) || '%')", $value);
             }
         });
     }
@@ -480,7 +467,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->where('email', 'ilike', "%{$email}%");
+        return $this->whereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", $email);
     }
 
     public function whereWorkEmail(?string $email): self
@@ -489,7 +476,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->where('work_email', 'ilike', "%{$email}%");
+        return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
     }
 
     public function whereExactWorkEmail(string $email): self
@@ -565,15 +552,6 @@ class UserBuilder extends Builder
         });
     }
 
-    public function whereWfaInterestIn(?array $wfaInterests): self
-    {
-        if (empty($wfaInterests)) {
-            return $this;
-        }
-
-        return $this->whereIn('wfa_interest', $wfaInterests);
-    }
-
     public function whereHasPriorityEntitlement(?bool $hasPriority): self
     {
         if (! isset($hasPriority)) {
@@ -624,6 +602,22 @@ class UserBuilder extends Builder
                 });
             }
 
+            if ($user?->isAbleTo('view-team-communityTalent')) {
+                $query->orWhereHas('communityInterests', function (Builder $query) use ($user) {
+                    $allCommunityTeams = $user->rolesTeams()
+                        ->where('teamable_type', "App\Models\Community")
+                        ->get();
+
+                    $viewPermissionCommunityTeams = $allCommunityTeams
+                        ->filter(fn ($team) => $user->isAbleTo('view-team-communityTalent', $team));
+
+                    $communityIds = $viewPermissionCommunityTeams->pluck('teamable_id')->toArray();
+
+                    $query->whereIn('community_id', $communityIds);
+                    $query->where('consent_to_share_profile', true);
+                });
+            }
+
             if ($user?->isAbleTo('view-own-user')) {
                 $query->orWhere('users.id', $user->id);
             }
@@ -650,54 +644,6 @@ class UserBuilder extends Builder
 
         // otherwise: use the regular authorized to view scope
         return $this->whereAuthorizedToView();
-    }
-
-    /**
-     * Used only for the WFA table
-     *
-     * User can only see profiles that have been shared with a community
-     * they are a part of.
-     */
-    public function whereAuthorizedToViewEmployeeWFAAdminTable(): self
-    {
-        /** @var \App\Models\User | null */
-        $user = Auth::user();
-
-        if ($user?->isAbleTo('view-any-employeeWFA')) {
-            return $this;
-        }
-
-        $filterCountBefore = count($this->getQuery()->wheres);
-        $query = $this->where(function (Builder $query) use ($user) {
-            if ($user?->isAbleTo('view-team-employeeWFA')) {
-                $allCommunityTeams = $user->rolesTeams()
-                    ->where('teamable_type', "App\Models\Community")
-                    ->get();
-                $teamIds = $allCommunityTeams
-                    ->filter(fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team))->pluck('teamable_id')->toArray();
-
-                // NOTE: We only want to show users who have added this community and consented to share profile
-                // While users with this permission may see those who have applied to a process in their community
-                // we do not want to show those by default
-                $query->orWhereHas('communityInterests', function (Builder $commInterestQuery) use ($teamIds) {
-                    // User has expressed interest in community
-                    $commInterestQuery->whereIn('community_id', $teamIds)
-                        ->where('consent_to_share_profile', true);
-                });
-
-                if ($user->isAbleTo('view-own-employeeWFA')) {
-                    $query->orWhere('users.id', $user->id);
-                }
-            }
-        });
-
-        $filterCountAfter = count($query->getQuery()->wheres);
-        if ($filterCountAfter > $filterCountBefore) {
-            return $query;
-        }
-
-        // fall through - query will return nothing
-        return $this->where('id', null);
     }
 
     // special scope for search page with custom logic to simultaneously handle WORK REGION and FLEXIBLE WORK LOCATION
@@ -774,7 +720,7 @@ class UserBuilder extends Builder
                 ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
                     $query->selectRaw(
                         'websearch_to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
-                        ['english', $combinedSearchTerm]
+                        [config('scout.pgsql.config'), $combinedSearchTerm]
                     );
                 }, 'calculations')
                 // add the calculated rank column to allow for ordering by text search rank
@@ -808,21 +754,33 @@ class UserBuilder extends Builder
                 $query->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery');
 
                 // clause 2: add "ilike" filters
-                if ($arrayed) {
-                    foreach ($arrayed as $index => $value) {
-                        $query->orWhere(function ($query) use ($value, $matchesWithoutOperatorOrStartingSpace) {
-                            $query->whereAny([
-                                'first_name',
-                                'last_name',
-                                'email',
-                            ], 'ilike', "%{$value}%"
-                            );
-                            $query->where(function ($query) use ($matchesWithoutOperatorOrStartingSpace) {
-                                $query->whereNameAndEmailNotIn($matchesWithoutOperatorOrStartingSpace);
-                            });
+                $query->orWhere(function ($ilikeSubquery) use ($arrayed, $matchesWithoutOperatorOrStartingSpace) {
+
+                    // positive matching ilike filters
+                    if (count($arrayed ?? []) > 0) {
+                        $ilikeSubquery->where(function ($positiveIlikeSubquery) use ($arrayed) {
+                            foreach ($arrayed as $term) {
+                                $positiveIlikeSubquery
+                                    ->orWhereRaw("f_unaccent(first_name) ilike ('%' || f_unaccent(?) || '%')", $term)
+                                    ->orWhereRaw("f_unaccent(last_name) ilike ('%' || f_unaccent(?) || '%')", $term)
+                                    ->orWhereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", $term);
+                            }
                         });
                     }
-                }
+
+                    //  negative ilike filters
+                    if (count($matchesWithoutOperatorOrStartingSpace) > 0) {
+                        $ilikeSubquery->whereNot(function ($negativeIlikeSubquery) use ($matchesWithoutOperatorOrStartingSpace) {
+                            foreach ($matchesWithoutOperatorOrStartingSpace as $term) {
+                                $negativeIlikeSubquery
+                                    ->orWhereRaw('f_unaccent(first_name) ilike f_unaccent(?)', $term)
+                                    ->orWhereRaw('f_unaccent(last_name) ilike f_unaccent(?)', $term)
+                                    ->orWhereRaw('f_unaccent(email) ilike f_unaccent(?)', $term);
+                            }
+                        });
+                    }
+                });
+
             });
 
         }
@@ -842,11 +800,11 @@ class UserBuilder extends Builder
                 ->crossJoinSub(function ($query) use ($queryTextPrefixMatch, $queryTextExactMatch) {
                     $query->selectRaw(
                         'to_tsquery(coalesce(?, get_current_ts_config()), ?) AS prefix_match_query',
-                        ['english', $queryTextPrefixMatch]
+                        [config('scout.pgsql.config'), $queryTextPrefixMatch]
                     );
                     $query->selectRaw(
                         'to_tsquery(coalesce(?, get_current_ts_config()), ?) AS exact_match_query',
-                        ['english', $queryTextExactMatch]
+                        [config('scout.pgsql.config'), $queryTextExactMatch]
                     );
                 }, 'calculations')
                 // filter rows against the queries (OR)

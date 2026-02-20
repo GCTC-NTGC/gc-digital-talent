@@ -36,7 +36,6 @@ test.describe("User search", () => {
   });
 
   test("User can be searched by name", async ({ appPage }) => {
-    // eslint-disable-next-line playwright/no-conditional-in-test
     const userName = user?.firstName ?? "";
     await loginBySub(appPage.page, "admin@test.com", false);
     await appPage.page.goto("/admin/users");
@@ -44,6 +43,7 @@ test.describe("User search", () => {
     await appPage.page
       .getByRole("menuitemradio", { name: /candidate name/i })
       .click();
+    await appPage.page.keyboard.press("Escape");
     await appPage.page
       .getByRole("textbox", { name: /search users/i })
       .fill(userName);

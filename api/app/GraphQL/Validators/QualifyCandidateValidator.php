@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\ErrorCode;
-use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use Carbon\Carbon;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -24,15 +24,8 @@ final class QualifyCandidateValidator extends Validator
         $candidate = PoolCandidate::findOrFail($id);
         $startOfDay = Carbon::now()->startOfDay();
 
-        $statusesArray = [
-            PoolCandidateStatus::NEW_APPLICATION->name,
-            PoolCandidateStatus::APPLICATION_REVIEW->name,
-            PoolCandidateStatus::SCREENED_IN->name,
-            PoolCandidateStatus::UNDER_ASSESSMENT->name,
-        ];
-
-        if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
-            throw ValidationException::withMessages(['id' => ErrorCode::INVALID_STATUS_QUALIFICATION->name]);
+        if ($candidate->application_status !== ApplicationStatus::TO_ASSESS->name) {
+            throw ValidationException::withMessages(['status' => ErrorCode::INVALID_STATUS_QUALIFICATION->name]);
         }
 
         return [

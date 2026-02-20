@@ -67,6 +67,7 @@ const hasRolesHandleNoRolesRequired = (
   if (Array.isArray(checkRole) && checkRole.length === 0) {
     return true;
   }
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return hasRole(checkRole, userRoles);
 };
 
@@ -124,11 +125,6 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       label: intl.formatMessage(adminMessages.communityTalent),
       href: adminRoutes.communityTalentPage(),
       roles: permissionConstants.viewCommunityTalent,
-    },
-    {
-      label: intl.formatMessage(pageTitles.workforceAdjustment),
-      href: adminRoutes.workforceAdjustmentEmployees(),
-      roles: permissionConstants.viewWorkforceAdjustment,
     },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>

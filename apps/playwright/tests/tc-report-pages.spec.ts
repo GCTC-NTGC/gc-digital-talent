@@ -9,6 +9,7 @@ test.describe("Talent Cloud Report pages", () => {
       ).toBeVisible();
     });
   });
+
   test.describe("Report page", () => {
     test("has heading", async ({ page }) => {
       await page.goto("static/tc-report/en/talent-cloud/report");

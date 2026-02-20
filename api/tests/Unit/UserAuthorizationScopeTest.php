@@ -164,6 +164,7 @@ class UserAuthorizationScopeTest extends TestCase
     {
         $processOperator = User::factory()
             ->asProcessOperator($this->pool1->id)
+            ->asApplicant()
             ->create();
 
         Auth::shouldReceive('user')
@@ -187,6 +188,7 @@ class UserAuthorizationScopeTest extends TestCase
 
         $communityRecruiter = User::factory()
             ->asCommunityRecruiter($community->id)
+            ->asApplicant()
             ->create();
 
         Auth::shouldReceive('user')
@@ -210,6 +212,7 @@ class UserAuthorizationScopeTest extends TestCase
 
         $communityAdmin = User::factory()
             ->asCommunityAdmin($community->id)
+            ->asApplicant()
             ->create();
 
         Auth::shouldReceive('user')

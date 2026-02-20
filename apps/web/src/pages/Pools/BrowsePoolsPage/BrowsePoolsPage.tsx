@@ -19,12 +19,11 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
-import browseHeroImg from "~/assets/img/browse_header.webp";
+import browseHeroImg from "~/assets/img/two-people-looking-at-laptop-with-coffee.webp";
 import flourishTopLight from "~/assets/img/browse_top_light.webp";
 import flourishBottomLight from "~/assets/img/browse_bottom_light.webp";
 import flourishTopDark from "~/assets/img/browse_top_dark.webp";
 import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
-import WfaBanner from "~/components/WfaBanner/WfaBanner";
 import HolidayMessage from "~/components/HolidayMessage/HolidayMessage";
 
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
@@ -126,7 +125,6 @@ export const Component = () => {
           className={flourish({ isTop: true })}
         />
         <Container className="relative z-[2]">
-          <WfaBanner />
           <ActiveRecruitmentSection poolsQuery={activeRecruitmentPools} />
           {!areOpportunitiesShowing && featureFlags.holidayMessage ? (
             <HolidayMessage />

@@ -16,6 +16,8 @@ export const ROLE_NAME = {
   CommunityAdmin: "community_admin",
   PlatformAdmin: "platform_admin",
   CommunityTalentCoordinator: "community_talent_coordinator",
+  DepartmentAdmin: "department_admin",
+  DepartmentHRAdvisor: "department_hr_advisor",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -27,4 +29,24 @@ export const COMMUNITY_ROLES: RoleName[] = [
   ROLE_NAME.CommunityTalentCoordinator,
   ROLE_NAME.CommunityRecruiter,
   ROLE_NAME.CommunityAdmin,
+];
+
+export const ASSESSMENT_MEMBER_ROLES: RoleName[] = [
+  ROLE_NAME.PlatformAdmin,
+  ROLE_NAME.CommunityAdmin,
+  ROLE_NAME.CommunityRecruiter,
+  ROLE_NAME.CommunityTalentCoordinator,
+  ROLE_NAME.ProcessOperator,
+];
+
+export const PROCESS_ACTIVITY_LOG_ROLES: RoleName[] = [
+  ROLE_NAME.PlatformAdmin,
+  ROLE_NAME.CommunityAdmin,
+  ROLE_NAME.CommunityRecruiter,
+  ROLE_NAME.ProcessOperator,
+];
+
+export const DEPARTMENT_ROLES: RoleName[] = [
+  ROLE_NAME.DepartmentAdmin,
+  ROLE_NAME.DepartmentHRAdvisor,
 ];

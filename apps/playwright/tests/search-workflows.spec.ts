@@ -4,12 +4,12 @@ import {
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
 import {
+  ApplicationStatus,
   Classification,
   EstimatedLanguageAbility,
   FlexibleWorkLocation,
   Language,
   OperationalRequirement,
-  PoolCandidateStatus,
   Skill,
   SkillCategory,
   User,
@@ -35,6 +35,7 @@ import testConfig from "~/constants/config";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
 import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
 import { getCommunities } from "~/utils/communities";
+
 test.describe("Talent search", () => {
   let uniqueTestId: string;
   let sub: string;
@@ -129,7 +130,7 @@ test.describe("Talent search", () => {
 
     await updateCandidateStatus(adminCtx, {
       id: application.id,
-      status: PoolCandidateStatus.QualifiedAvailable,
+      status: ApplicationStatus.Qualified,
       expiryDate: FAR_FUTURE_DATE,
     });
     user = createdUser;

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Community;
+use App\Models\Department;
 use App\Models\Permission;
 use App\Models\Pool;
 use App\Models\Role;
@@ -88,8 +89,6 @@ class RolePermissionTest extends TestCase
             'view-any-genericJobTitle',
             'view-any-skill',
             'view-any-skillFamily',
-            'view-own-user',
-            'update-own-user',
             'view-any-publishedPool',
             'view-any-applicantCount',
             'create-any-searchRequest',
@@ -122,6 +121,11 @@ class RolePermissionTest extends TestCase
             'create-own-draftApplication',
             'delete-own-draftApplication',
             'archive-own-submittedApplication',
+            'view-own-user',
+            'update-own-user',
+            'view-own-employeeProfile',
+            'update-own-employeeProfile',
+            'view-own-searchRequest',
         ], true));
 
         $this->assertFalse(($this->user->isAbleTo('view-any-user')));
@@ -139,8 +143,7 @@ class RolePermissionTest extends TestCase
         $superAdminRole = Role::where('name', 'platform_admin')->sole();
         $this->user->addRole($superAdminRole);
 
-        $this->assertTrue($this->user->hasRole('platform_admin'));
-        $this->assertTrue($this->user->isAbleTo([
+        $permissionsToCheck = [
             'create-any-classification',
             'view-any-classification',
             'update-any-classification',
@@ -188,9 +191,35 @@ class RolePermissionTest extends TestCase
             'update-any-communityRecruiterMembership',
             'update-any-communityAdminMembership',
             'update-any-processOperatorMembership',
+            'update-any-departmentAdminMembership',
+            'update-any-departmentHRAdvisorMembership',
             'view-any-communityTeamMembers',
             'view-any-poolTeamMembers',
-        ], true));
+            'view-any-departmentTeamMembers',
+            'view-any-role',
+            'view-any-jobPosterTemplate',
+            'create-any-jobPosterTemplate',
+            'update-any-jobPosterTemplate',
+            'delete-any-jobPosterTemplate',
+            'create-any-trainingOpportunity',
+            'create-any-workStream',
+            'update-any-workStream',
+            'update-any-communityTalentCoordinatorMembership',
+            'view-any-poolActivityLog',
+            'archive-any-department',
+            'view-any-communityInterest',
+            'view-any-talentNomination',
+            'view-any-talentNominationGroup',
+        ];
+
+        $allPermissions = Permission::all()->pluck('name')->toArray();
+        $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
+
+        $this->assertTrue($this->user->hasRole('platform_admin'));
+        $this->assertTrue($this->user->isAbleTo($permissionsToCheck, true));
+
+        // negative assertion of permissions, fail if any possessed
+        $this->assertFalse($this->user->isAbleTo($notPossessedPermissions, false));
 
         $this->cleanup();
     }
@@ -279,13 +308,11 @@ class RolePermissionTest extends TestCase
             'view-team-searchRequest',
             'update-team-searchRequest',
             'delete-team-searchRequest',
-            'view-team-community',
             'view-team-communityTeamMembers',
             'view-team-poolTeamMembers',
             'update-team-processOperatorMembership',
             'view-team-communityInterest',
             'view-team-communityTalent',
-            'view-team-employeeWFA',
             'view-team-poolActivityLog',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
@@ -338,15 +365,16 @@ class RolePermissionTest extends TestCase
             'view-team-searchRequest',
             'update-team-searchRequest',
             'delete-team-searchRequest',
-            'view-team-community',
             'view-team-communityTeamMembers',
             'view-team-poolTeamMembers',
             'update-team-processOperatorMembership',
             'publish-team-draftPool',
             'update-team-publishedPool',
+            'view-team-communityInterest',
+            'view-team-communityTalent',
             'update-team-community',
             'update-team-communityRecruiterMembership',
-            'create-any-talentNominationEvent',
+            'create-team-talentNominationEvent',
             'update-team-talentNominationEvent',
             'update-team-communityTalentCoordinatorMembership',
         ];
@@ -380,7 +408,6 @@ class RolePermissionTest extends TestCase
         $communityTalentCoordinator->removeRole('base_user'); // isolate community_talent_coordinator
 
         $permissionsToCheck = [
-            'view-any-talentNominationEvent',
             'create-team-talentNominationEvent',
             'update-team-talentNominationEvent',
             'view-team-communityInterest',
@@ -401,6 +428,77 @@ class RolePermissionTest extends TestCase
 
         // negative assertion of permissions, fail if any possessed
         $this->assertFalse($communityTalentCoordinator->isAbleTo($notPossessedPermissions, false));
+
+        $this->cleanup();
+    }
+
+    /**
+     * Test the Department Admin Role
+     *
+     * @return void
+     */
+    public function testDepartmentAdmin()
+    {
+        $department = Department::factory()->create();
+        $otherDepartment = Department::factory()->create();
+        $departmentAdmin = User::factory()
+            ->asDepartmentAdmin([$department->id])
+            ->create();
+        $departmentAdmin->removeRole('base_user'); // isolate
+
+        $permissionsToCheck = [
+            'view-any-userBasicInfo',
+            'update-team-processOperatorMembership',
+            'update-team-departmentHRAdvisorMembership',
+            'view-team-departmentTeamMembers',
+        ];
+
+        $allPermissions = Permission::all()->pluck('name')->toArray();
+        $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
+
+        $this->assertTrue($departmentAdmin->hasRole('department_admin', $department->team));
+        $this->assertTrue($departmentAdmin->isAbleTo($permissionsToCheck, $department->team, true));
+
+        $this->assertFalse($departmentAdmin->hasRole('department_admin', $otherDepartment->team));
+        $this->assertFalse($departmentAdmin->isAbleTo($permissionsToCheck, $otherDepartment->team, false));
+
+        // negative assertion of permissions, fail if any possessed
+        $this->assertFalse($departmentAdmin->isAbleTo($notPossessedPermissions, false));
+
+        $this->cleanup();
+    }
+
+    /**
+     * Test the Department HR Advisor Role
+     *
+     * @return void
+     */
+    public function testDepartmentHRAdvisor()
+    {
+        $department = Department::factory()->create();
+        $otherDepartment = Department::factory()->create();
+        $departmentAdvisor = User::factory()
+            ->asDepartmentHRAdvisor([$department->id])
+            ->create();
+        $departmentAdvisor->removeRole('base_user'); // isolate
+
+        $permissionsToCheck = [
+            'view-any-userBasicInfo',
+            'update-team-processOperatorMembership',
+            'view-team-departmentTeamMembers',
+        ];
+
+        $allPermissions = Permission::all()->pluck('name')->toArray();
+        $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
+
+        $this->assertTrue($departmentAdvisor->hasRole('department_hr_advisor', $department->team));
+        $this->assertTrue($departmentAdvisor->isAbleTo($permissionsToCheck, $department->team, true));
+
+        $this->assertFalse($departmentAdvisor->hasRole('department_hr_advisor', $otherDepartment->team));
+        $this->assertFalse($departmentAdvisor->isAbleTo($permissionsToCheck, $otherDepartment->team, false));
+
+        // negative assertion of permissions, fail if any possessed
+        $this->assertFalse($departmentAdvisor->isAbleTo($notPossessedPermissions, false));
 
         $this->cleanup();
     }

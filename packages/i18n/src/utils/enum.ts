@@ -1,6 +1,7 @@
 import { IntlShape } from "react-intl";
 
 import {
+  ApplicationStatus,
   AwardedScope,
   AwardedTo,
   CandidateRemovalReason,
@@ -20,7 +21,6 @@ import {
   PriorityWeight,
   ScreeningStage,
   SecurityStatus,
-  WfaInterest,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -154,6 +154,13 @@ export function localizedEnumArrayToInput<T>(
 }
 
 export const ENUM_SORT_ORDER = {
+  APPLICATION_STATUS: [
+    ApplicationStatus.Draft,
+    ApplicationStatus.ToAssess,
+    ApplicationStatus.Qualified,
+    ApplicationStatus.Disqualified,
+    ApplicationStatus.Removed,
+  ],
   CANDIDATE_STATUS: [
     CandidateStatus.Draft,
     CandidateStatus.Received,
@@ -431,18 +438,5 @@ export function sortFlexibleWorkLocations(
       FlexibleWorkLocation.Onsite,
     ],
     flexibleWorkLocationOptions,
-  );
-}
-
-export function sortWfaInterest(wfaInterests?: MaybeLocalizedEnums) {
-  return sortLocalizedEnums(
-    [
-      WfaInterest.NotApplicable,
-      WfaInterest.TermEnding,
-      WfaInterest.LetterReceived,
-      WfaInterest.NotSure,
-      WfaInterest.VoluntaryDeparture,
-    ],
-    wfaInterests,
   );
 }

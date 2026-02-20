@@ -57,10 +57,10 @@ describe("Render dashboard page", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("link", {
+      screen.getByRole("link", {
         name: "Community talent",
       }),
-    ).not.toBeInTheDocument();
+    ).toBeInTheDocument();
 
     // resources links
     expect(

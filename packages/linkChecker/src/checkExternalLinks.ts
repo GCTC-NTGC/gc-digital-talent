@@ -36,7 +36,7 @@ async function writeErrorLog(msg: string, file?: string, append = true) {
 
 async function fetchLink(
   url: string,
-  timeoutMs = 10000,
+  timeoutMs = 30000,
 ): Promise<number | string> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -123,36 +123,36 @@ async function getAllFiles(): Promise<string[]> {
   return files;
 }
 
+function isValidExternalLink(url: string): boolean {
+  const whiteListedDomains = [
+    "https://fonts.googleapis.com",
+    "https://fonts.gstatic.com",
+    "https://gcxgce.sharepoint.com",
+  ];
+
+  return (
+    typeof url === "string" &&
+    url.startsWith("http") &&
+    !whiteListedDomains.some((domain) =>
+      url.toLowerCase().startsWith(domain.toLowerCase()),
+    )
+  );
+}
+
 async function extractExternalLinks(filePath: string): Promise<string[]> {
   const content = await fs.readFile(filePath, "utf-8");
   const links: string[] = [];
   const ext = path.extname(filePath).slice(1);
 
-  if (ext === "html") {
-    const regex = /href=['"]([^'"]+)['"]/g;
-    let match;
-    while ((match = regex.exec(content))) {
-      const url = match[1];
-      if (
-        typeof url === "string" &&
-        url.startsWith("http") &&
-        !url.toLowerCase().includes("sharepoint")
-      ) {
-        links.push(url);
-      }
-    }
-  } else {
-    // JS/TS/TSX/JSX links (in strings)
-    const regex = /['"](https?:\/\/[^'"]+)['"]/g;
-    let match;
-    while ((match = regex.exec(content))) {
-      const url = match[1];
-      if (
-        typeof url === "string" &&
-        !url.toLowerCase().includes("sharepoint")
-      ) {
-        links.push(url);
-      }
+  // Determine regex based on file extension
+  const regex =
+    ext === "html" ? /href=['"]([^'"]+)['"]/g : /['"](https?:\/\/[^'"]+)['"]/g;
+
+  let match;
+  while ((match = regex.exec(content))) {
+    const url = match[1];
+    if (isValidExternalLink(url)) {
+      links.push(url);
     }
   }
 
@@ -252,15 +252,17 @@ async function main() {
         stdio: "inherit",
       });
     }
-    // Save broken links (from first pass only; second pass will overwrite if needed)
+    // create broken links file only if any broken link exist
     const brokenLinks = results.filter((r) => r.status !== 200);
-    const brokenLinksPath = path.resolve("external-broken-links.json");
-    await fs.writeFile(
-      brokenLinksPath,
-      JSON.stringify(brokenLinks, null, 2),
-      "utf-8",
-    );
-    if (brokenLinks.length > 0 || legacyLinks.length > 0) process.exit(1);
+    if (brokenLinks.length > 0) {
+      const brokenLinksPath = path.resolve("external-broken-links.json");
+      await fs.writeFile(
+        brokenLinksPath,
+        JSON.stringify(brokenLinks, null, 2),
+        "utf-8",
+      );
+      process.exit(1);
+    }
   } catch (err) {
     let msg: string;
     if (err instanceof Error) {

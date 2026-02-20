@@ -295,7 +295,7 @@ class CommunityInterestTest extends TestCase
     {
         CommunityInterest::truncate();
         /** @var \App\Models\User */
-        $owningUser = User::factory()->withGovEmployeeProfile()->create();
+        $owningUser = User::factory()->withGovEmployeeProfile()->asApplicant()->create();
         $communityInterestModel = CommunityInterest::factory()->create([
             'user_id' => $owningUser->id,
             'community_id' => $this->communityId,
@@ -314,23 +314,24 @@ class CommunityInterestTest extends TestCase
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
-        )->assertJsonFragment(['total' => 0]);
+        )->assertJsonFragment(['total' => 1]);
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
         )->assertJsonFragment(['total' => 0]);
-        $this->actingAs($this->communityAdmin, 'api')->graphQL(
-            $this->paginatedCommunityInterestsQuery,
-            [],
-        )->assertJsonFragment(['total' => 0]);
 
-        // community recruiter/coordinator can see the model
+        // community recruiter/coordinator/admin can see the model
         $this->actingAs($this->communityRecruiter, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
         )->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityInterestModel->id]);
         $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [],
+        )->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $communityInterestModel->id]);
+        $this->actingAs($this->communityAdmin, 'api')->graphQL(
             $this->paginatedCommunityInterestsQuery,
             [],
         )->assertJsonFragment(['total' => 1])

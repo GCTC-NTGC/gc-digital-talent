@@ -11,7 +11,7 @@ import {
   fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
-import { FinalDecision, PlacementType } from "@gc-digital-talent/graphql";
+import { ApplicationStatus, PlacementType } from "@gc-digital-talent/graphql";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 
@@ -63,10 +63,10 @@ const mockClient = {
         suspendedStatuses: [],
         languages: [],
         provinces: [],
-        finalDecisions: [
+        statuses: [
           {
-            __typename: "LocalizedFinalDecision",
-            value: FinalDecision.Qualified,
+            __typename: "LocalizedApplicationStatus",
+            value: ApplicationStatus.Qualified,
             label: { localized: "Qualified" },
           },
         ],

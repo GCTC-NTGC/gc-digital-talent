@@ -92,6 +92,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 }: TableProps<TData, TFilters>) => {
   const id = useId();
   const intl = useIntl();
+  const isFirstRender = useRef(true);
   const { announce } = useAnnouncer();
   const hasUpdatedRows = useRef<boolean>(false);
   const [, setSearchParams] = useSearchParams();
@@ -133,7 +134,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     },
     getRowId: rowSelect?.getRowId,
     autoResetPageIndex: false,
-    enableGlobalFilter: isInternalSearch,
+    manualFiltering: !isInternalSearch,
     enableRowSelection: !!rowSelect,
     enableSorting: !!sort,
     manualSorting: !sort?.internal,
@@ -267,6 +268,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
           Object.fromEntries(newParams),
         )
       ) {
+        if (isFirstRender.current) {
+          isFirstRender.current = false;
+          return;
+        }
         setSearchParams(newParams, { replace: true });
       }
     }
@@ -352,7 +357,6 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       debouncedAnnouncement(totalRows ?? 0);
     }
     // Note, exhaustive-deps causes over announcing
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalRows]);
 
   return (

@@ -132,6 +132,11 @@ class CommunityInterest extends Model
             $user = User::findOrFail($args['userId']);
         }
 
+        // can see any community interest - return with no filters added
+        if ($user?->isAbleTo('view-any-communityInterest')) {
+            return $this;
+        }
+
         // we might want to add some filters for some candidates
         $filterCountBefore = count($query->getQuery()->wheres);
         $query->where(function (Builder $query) use ($user) {
@@ -190,6 +195,19 @@ class CommunityInterest extends Model
 
         $query->whereHas('workStreams', function ($query) use ($workStreamIds) {
             $query->whereIn('community_interest_work_stream.work_stream_id', $workStreamIds);
+        });
+
+        return $query;
+    }
+
+    public static function scopeClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+
+        $query->whereHas('user', function ($userQuery) use ($classifications) {
+            $userQuery->whereClassificationIn($classifications);
         });
 
         return $query;

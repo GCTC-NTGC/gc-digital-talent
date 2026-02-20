@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import ArrowDownTrayIcon from "@heroicons/react/20/solid/ArrowDownTrayIcon";
+import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
 
 import { graphql, Scalars } from "@gc-digital-talent/graphql";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";

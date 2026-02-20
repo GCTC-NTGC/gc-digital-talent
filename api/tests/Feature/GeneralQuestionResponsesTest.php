@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Enums\PoolCandidateStatus;
+use App\Enums\ApplicationStatus;
 use App\Models\Community;
 use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
@@ -51,9 +51,14 @@ class GeneralQuestionResponsesTest extends TestCase
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
         $this->community = Community::factory()->create(['name' => 'test-community-application']);
-        $this->pool = Pool::factory()->draft()->WithPoolSkills(2, 2)->WithQuestions(2, 2)->create([
-            'community_id' => $this->community->id,
-        ]);
+        $this->pool = Pool::factory()
+            ->draft()
+            ->withPoolSkills()
+            ->withGeneralQuestions()
+            ->withScreeningQuestions()
+            ->create([
+                'community_id' => $this->community->id,
+            ]);
         $this->processOperator = User::factory()
             ->asApplicant()
             ->asProcessOperator($this->pool->id)
@@ -68,7 +73,7 @@ class GeneralQuestionResponsesTest extends TestCase
     public function testCreatingGeneralQuestionResponses(): void
     {
         $application = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->processOperator->id,
         ]);
         GeneralQuestionResponse::all()->each->delete();
@@ -115,7 +120,7 @@ class GeneralQuestionResponsesTest extends TestCase
     public function testUpdatingGeneralQuestionResponses(): void
     {
         $application = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->processOperator->id,
         ]);
         GeneralQuestionResponse::all()->each->delete();
@@ -161,7 +166,7 @@ class GeneralQuestionResponsesTest extends TestCase
     public function testDeletingGeneralQuestionResponses(): void
     {
         $application = PoolCandidate::factory()->create([
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->processOperator->id,
         ]);
         GeneralQuestionResponse::all()->each->delete();

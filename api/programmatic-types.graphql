@@ -19,6 +19,16 @@ interface LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedActivityEvent implements LocalizedEnumOption {
+  value: ActivityEvent!
+  label: LocalizedString!
+}
+
+type LocalizedApplicationStatus implements LocalizedEnumOption {
+  value: ApplicationStatus!
+  label: LocalizedString!
+}
+
 type LocalizedArmedForcesStatus implements LocalizedEnumOption {
   value: ArmedForcesStatus!
   label: LocalizedString!
@@ -79,8 +89,18 @@ type LocalizedCandidateExpiryFilter implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateInterest implements LocalizedEnumOption {
+  value: CandidateInterest!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
+  label: LocalizedString!
+}
+
+type LocalizedCandidateStatus implements LocalizedEnumOption {
+  value: CandidateStatus!
   label: LocalizedString!
 }
 
@@ -111,6 +131,11 @@ type LocalizedDeadlineStatus implements LocalizedEnumOption {
 
 type LocalizedDepartmentSize implements LocalizedEnumOption {
   value: DepartmentSize!
+  label: LocalizedString!
+}
+
+type LocalizedDisqualificationReason implements LocalizedEnumOption {
+  value: DisqualificationReason!
   label: LocalizedString!
 }
 
@@ -146,6 +171,11 @@ type LocalizedEvaluatedLanguageAbility implements LocalizedEnumOption {
 
 type LocalizedExecCoaching implements LocalizedEnumOption {
   value: ExecCoaching!
+  label: LocalizedString!
+}
+
+type LocalizedExperienceType implements LocalizedEnumOption {
+  value: ExperienceType!
   label: LocalizedString!
 }
 
@@ -384,16 +414,6 @@ type LocalizedTimeFrame implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedWfaInterest implements LocalizedEnumOption {
-  value: WfaInterest!
-  label: LocalizedString!
-}
-
-type LocalizedWorkExperienceGovEmployeeType implements LocalizedEnumOption {
-  value: WorkExperienceGovEmployeeType!
-  label: LocalizedString!
-}
-
 type LocalizedWorkRegion implements LocalizedEnumOption {
   value: WorkRegion!
   label: LocalizedString!
@@ -444,6 +464,15 @@ type PaginatorInfo {
   total: Int!
 }
 
+"A paginated list of Activity items."
+type ActivityPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Activity items."
+  data: [Activity!]!
+}
+
 "A paginated list of User items."
 type UserPaginator {
   "Pagination information about the list of items."
@@ -460,15 +489,6 @@ type UserPublicProfilePaginator {
 
   "A list of UserPublicProfile items."
   data: [UserPublicProfile!]!
-}
-
-"A paginated list of UserEmployeeWFA items."
-type UserEmployeeWFAPaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of UserEmployeeWFA items."
-  data: [UserEmployeeWFA!]!
 }
 
 "A paginated list of Pool items."
@@ -532,33 +552,6 @@ type CommunityInterestWithSkillCountPaginator {
 
   "A list of CommunityInterestWithSkillCount items."
   data: [CommunityInterestWithSkillCount!]!
-}
-
-"Allowed column names for Query.employeeWFAPaginatedAdminTable.orderBy."
-enum QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn {
-  GROUP
-  LEVEL
-}
-
-"Aggregate specification for Query.employeeWFAPaginatedAdminTable.orderBy.currentClassification."
-input QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn
-}
-
-"Order by clause for Query.employeeWFAPaginatedAdminTable.orderBy."
-input QueryEmployeeWFAPaginatedAdminTableOrderByRelationOrderByClause {
-  "The column that is used for ordering."
-  column: String
-
-  "The direction that is used for ordering."
-  order: SortOrder!
-
-  "Aggregate specification."
-  currentClassification: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
@@ -841,6 +834,27 @@ input WhereConditions {
   HAS: WhereConditionsRelation
 }
 
+"Dynamic WHERE conditions for HAS conditions."
+input WhereConditionsHasCondition {
+  "The column that is used for the condition."
+  column: String
+
+  "The operator that is used for the condition."
+  operator: SQLOperator = EQ
+
+  "The value that is used for the condition."
+  value: Mixed
+
+  "A set of conditions that requires all conditions to match."
+  AND: [WhereConditionsHasCondition!]
+
+  "A set of conditions that requires at least one condition to match."
+  OR: [WhereConditionsHasCondition!]
+
+  "Check whether a relation exists. Extra conditions or a minimum amount can be applied."
+  HAS: WhereConditionsRelation
+}
+
 "Dynamic HAS conditions for WHERE condition queries."
 input WhereConditionsRelation {
   "The relation that is checked."
@@ -853,7 +867,7 @@ input WhereConditionsRelation {
   amount: Int = 1
 
   "Additional condition logic."
-  condition: WhereConditions
+  condition: WhereConditionsHasCondition
 }
 
 "The available SQL operators that are used to filter query results."
@@ -910,6 +924,34 @@ as they may not be parsed correctly on the server side. Use `String` literals if
 dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
+
+enum ActivityEvent {
+  CREATED
+  UPDATED
+  DELETED
+  SUBMITTED
+  QUALIFIED
+  DISQUALIFIED
+  PLACED
+  ADDED
+  REMOVED
+  REINSTATED
+  REVERTED
+  PUBLISHED
+}
+
+enum ActivityLog {
+  DEFAULT
+  PROCESS
+}
+
+enum ApplicationStatus {
+  DRAFT
+  TO_ASSESS
+  REMOVED
+  DISQUALIFIED
+  QUALIFIED
+}
 
 enum ApplicationStep {
   WELCOME
@@ -1029,11 +1071,33 @@ enum CandidateExpiryFilter {
   ALL
 }
 
+enum CandidateInterest {
+  OPEN_TO_JOBS
+  NOT_INTERESTED
+  HIRED
+  EXPIRED
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
   INELIGIBLE
   OTHER
+}
+
+enum CandidateStatus {
+  DRAFT
+  EXPIRED
+  RECEIVED
+  UNDER_REVIEW
+  APPLICATION_REVIEWED
+  UNDER_ASSESSMENT
+  UNSUCCESSFUL
+  QUALIFIED
+  WITHDREW
+  NOT_RESPONSIVE
+  INELIGIBLE
+  REMOVED
 }
 
 enum CandidateSuspendedFilter {
@@ -1238,6 +1302,7 @@ enum ErrorCode {
   SUB_IN_USE
   VERIFICATION_FAILED
   DUPLICATE_USER_SKILL
+  WORK_STREAM_NAME_IN_USE
   RATE_LIMIT
 }
 
@@ -1260,6 +1325,14 @@ enum EvaluatedLanguageAbility {
 enum ExecCoaching {
   COACHING
   LEARNING
+}
+
+enum ExperienceType {
+  WORK
+  EDUCATION
+  AWARD
+  COMMUNITY
+  PERSONAL
 }
 
 enum ExternalRoleSeniority {
@@ -1348,6 +1421,7 @@ enum GovEmployeeType {
   CASUAL
   TERM
   INDETERMINATE
+  CONTRACTOR
 }
 
 enum GovPositionType {
@@ -1434,6 +1508,7 @@ enum OverallAssessmentStatus {
 }
 
 enum PlacementType {
+  NOT_PLACED
   UNDER_CONSIDERATION
   PLACED_TENTATIVE
   PLACED_CASUAL
@@ -1664,25 +1739,9 @@ enum TimeFrame {
   THREE_OR_MORE_YEARS
 }
 
-enum WfaInterest {
-  NOT_APPLICABLE
-  TERM_ENDING
-  LETTER_RECEIVED
-  NOT_SURE
-  VOLUNTARY_DEPARTURE
-}
-
 enum WhenSkillUsed {
   CURRENT
   PAST
-}
-
-enum WorkExperienceGovEmployeeType {
-  STUDENT
-  CASUAL
-  TERM
-  INDETERMINATE
-  CONTRACTOR
 }
 
 enum WorkRegion {
@@ -1698,6 +1757,8 @@ enum WorkRegion {
 
 "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations."
 type __Schema {
+  description: String
+
   "A list of all types supported by this server."
   types: [__Type!]!
 

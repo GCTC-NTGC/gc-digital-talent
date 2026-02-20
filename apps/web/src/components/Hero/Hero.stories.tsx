@@ -6,7 +6,7 @@ import ChatBubbleBottomCenterIcon from "@heroicons/react/20/solid/ChatBubbleBott
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 import { Container } from "@gc-digital-talent/ui";
 
-import browseHeroImg from "~/assets/img/browse_header.webp";
+import browseHeroImg from "~/assets/img/two-people-looking-at-laptop-with-coffee.webp";
 
 import Hero from "./Hero";
 
@@ -143,12 +143,6 @@ ButtonsAndTabsWithCentering.args = {
 export const ImageProvided = Template.bind({});
 ImageProvided.args = {
   imgPath: browseHeroImg,
-};
-
-export const ImageProvidedWithCentering = Template.bind({});
-ImageProvidedWithCentering.args = {
-  imgPath: browseHeroImg,
-  centered: true,
 };
 
 // overlap story

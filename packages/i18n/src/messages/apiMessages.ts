@@ -82,6 +82,14 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
       "Error message that the input department number is already in use.",
   },
 
+  // work stream validation
+  [ErrorCode.WorkStreamNameInUse]: {
+    defaultMessage: "This work stream name is already in use",
+    id: "yg8m7r",
+    description:
+      "Error message that the input work stream name is already in use.",
+  },
+
   // application validation
   [ErrorCode.ApplicationAlreadySubmitted]: {
     defaultMessage: "Application is already submitted.",
@@ -492,13 +500,6 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "9wqUyU",
     description:
       "Error message that contact email for this process must be filled",
-  },
-  [ErrorCode.MissingSubstantiveExperience]: {
-    defaultMessage:
-      "You can’t save this option as your workforce adjustment situation if your current position is missing, not marked as substantive, or not marked as a Government of Canada experience. Please update your career experience to continue.",
-    id: "OKhXQk",
-    description:
-      "Error message for when a user is missing a substantive experience for workforce adjustment",
   },
   [ErrorCode.ApplicationWorkEmailNotVerified]: {
     defaultMessage:

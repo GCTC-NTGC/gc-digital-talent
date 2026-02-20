@@ -215,6 +215,10 @@
     "defaultMessage": "Préparation de votre fichier pour le téléchargement. Une fois celle-ci terminée, vous recevrez une notification.",
     "description": "Message to user when they request a file for download"
   },
+  "5Skje0": {
+    "defaultMessage": "La date de début ne peut pas être dans le futur. Entrez une date dans le passé.",
+    "description": "Error message that the start date cannot be in the future."
+  },
   "5gS1sZ": {
     "defaultMessage": "La valeur doit être supérieure à {value}",
     "description": "Error message that the provided value must be greater than some referenced minimum value."
@@ -379,10 +383,6 @@
     "defaultMessage": "Aucun nom n'a été fourni",
     "description": "Message for when no name value"
   },
-  "BYWN9B": {
-    "defaultMessage": "La date doit être égale ou postérieure à la {label}",
-    "description": "Error message when a date was entered that is less than the minimum required, referencing an associated input label"
-  },
   "BcEpFb": {
     "defaultMessage": "Publié",
     "description": "Status is published"
@@ -466,10 +466,6 @@
   "FO4QJP": {
     "defaultMessage": "Fermer",
     "description": "Label for action to dismiss something"
-  },
-  "FdYDwk": {
-    "defaultMessage": "J’occupe un poste pour une durée indéterminée, j’ai reçu une lettre sur le réaménagement des effectifs et je souhaite rester",
-    "description": "Letter received WFA interest"
   },
   "FqsPMv": {
     "defaultMessage": "Indéterminé",
@@ -575,6 +571,10 @@
     "defaultMessage": "Constamment démontrée comme étant bien développée dans des conditions quotidiennes auprès de tous les publics, fréquemment démontrée dans des situations de stress et dans des situations modérément difficiles auprès de la plupart des publics, et démontrée par intermittence dans des conditions de stress important et dans des situations difficiles.",
     "description": "The behavioural skill level definition for expert"
   },
+  "Kvidd3": {
+    "defaultMessage": "La date d’expiration du statut prioritaire ne peut pas être dans le passé. Entrez une date dans le futur.",
+    "description": "Error message that the priority status date cannot be in the past."
+  },
   "L05/+D": {
     "defaultMessage": "Mois",
     "description": "Label for a month input field"
@@ -635,13 +635,13 @@
     "defaultMessage": "Renseignements manquants",
     "description": "Message for when specific item has missing information"
   },
-  "N62XrS": {
-    "defaultMessage": "J’occupe un poste pour une durée indéterminée, mais je souhaite quitter volontairement la fonction publique",
-    "description": "Voluntary departure WFA interest"
-  },
   "NAKad/": {
     "defaultMessage": "Supprimer",
     "description": "Remove action"
+  },
+  "NCQBQz": {
+    "defaultMessage": "La date d’expiration du statut d’ancien combattant ne peut pas être dans le passé. Entrez une date dans le futur.",
+    "description": "Error message that the veteran status date cannot be in the past."
   },
   "NQspkZ": {
     "defaultMessage": "Tableau de bord de la collectivité",
@@ -670,10 +670,6 @@
   "OJVUdM": {
     "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels. Une adresse courriel professionnelle confirmée du gouvernement du Canada est requise.",
     "description": "Body for a message informing the user that a contact email is required."
-  },
-  "OKhXQk": {
-    "defaultMessage": "Vous ne pouvez pas enregistrer cette situation de réaménagement des effectifs si votre poste actuel est absent, n'est pas marqué comme poste d'attache ou n'est pas marqué comme une expérience au sein du gouvernement du Canada. Veuillez mettre à jour votre expérience professionnelle pour continuer.",
-    "description": "Error message for when a user is missing a substantive experience for workforce adjustment"
   },
   "OLs1UJ": {
     "defaultMessage": "J'aimerais que quelqu'un me serve de mentor.",
@@ -807,6 +803,10 @@
     "defaultMessage": "Alerte de réussite :",
     "description": "Descriptor for a success alert"
   },
+  "SsBPWB": {
+    "defaultMessage": "La {labelSelf} doit être égale ou postérieure à la {labelAssociated}.",
+    "description": "Error message when a date was entered that is less than the minimum required, referencing itself and an associated input label"
+  },
   "SyFJmn": {
     "defaultMessage": "Révisé",
     "description": "Label for an updated at date"
@@ -886,6 +886,10 @@
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
+  "V9HdOK": {
+    "defaultMessage": "La date d’expiration ne peut pas être dans le passé. Entrez une date dans le futur.",
+    "description": "Error message that the expiry date cannot be in the past."
   },
   "VV8TA5": {
     "defaultMessage": "Retour",
@@ -1079,6 +1083,10 @@
     "defaultMessage": "Échelle salariale",
     "description": "Title for salary range"
   },
+  "cS1siE": {
+    "defaultMessage": "La date doit être égale ou supérieure au {date}.",
+    "description": "Error message when a date was entered that is less than the minimum required"
+  },
   "cavxJ8": {
     "defaultMessage": "Tous",
     "description": "All as in all items or things"
@@ -1110,10 +1118,6 @@
   "dVZjaj": {
     "defaultMessage": "Processus de recrutement",
     "description": "Name of the recruitment processes section"
-  },
-  "dXEHu0": {
-    "defaultMessage": "Je ne sais pas vraiment si le réaménagement des effectifs touche mon poste",
-    "description": "Unsure WFA interest"
   },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
@@ -1218,6 +1222,10 @@
   "g9J8/u": {
     "defaultMessage": "Compte mis à jour avec succès.",
     "description": "Message displayed to user if account is updated successfully."
+  },
+  "gCsa4y": {
+    "defaultMessage": "La date d’attribution ne peut pas être dans le futur. Entrez une date dans le passé.",
+    "description": "Error message that the awarded date cannot be in the future."
   },
   "gH2uDM": {
     "defaultMessage": "Groupe",
@@ -1475,10 +1483,6 @@
     "defaultMessage": "Alerte de fermeture",
     "description": "Text for the close button on alerts"
   },
-  "oR0evm": {
-    "defaultMessage": "La date doit être égale ou supérieure au {date}",
-    "description": "Error message when a date was entered that is less than the minimum required"
-  },
   "oSa0Aa": {
     "defaultMessage": "Alerte d’erreur :",
     "description": "Descriptor for an error alert"
@@ -1510,10 +1514,6 @@
   "qIOz/5": {
     "defaultMessage": "Demandes",
     "description": "Name of Requests page"
-  },
-  "qOVygs": {
-    "defaultMessage": "Cette section ne me concerne pas",
-    "description": "Not applicable WFA interest"
   },
   "qP2HGB": {
     "defaultMessage": "Outils avancés",
@@ -1603,6 +1603,10 @@
     "defaultMessage": "Selon la définition fournie, je m'identifie en tant que :",
     "description": "Prompt text for a user selecting an employment equity group for their profile"
   },
+  "se/c4O": {
+    "defaultMessage": "Sélectionner ou saisir une réponse",
+    "description": "Placeholder text for an input with options list"
+  },
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
     "description": "Error message that the user has selected both status and non-status first nations."
@@ -1639,10 +1643,6 @@
     "defaultMessage": "Processus hors plateforme",
     "description": "Off-platform section header"
   },
-  "trCVD0": {
-    "defaultMessage": "Mon poste pour une période déterminée n’est pas renouvelé ou prend fin tôt",
-    "description": "Term ending WFA interest"
-  },
   "tyc8W0": {
     "defaultMessage": "(anglais)",
     "description": "Name of English language formatted for appending"
@@ -1659,6 +1659,10 @@
     "defaultMessage": "+123243234",
     "description": "Placeholder for form telephone field"
   },
+  "uQq6qZ": {
+    "defaultMessage": "La date de fin ne peut pas être dans le futur. Entrez une date dans le passé ou indiquez qu’il s’agit de votre rôle actuel.",
+    "description": "Error message that the end date cannot be in the future."
+  },
   "ufSiRU": {
     "defaultMessage": "Introuvable",
     "description": "Title displayed when an item cannot be found."
@@ -1670,10 +1674,6 @@
   "uu2OuP": {
     "defaultMessage": "J'accepte d'avoir un emploi où je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
-  },
-  "v6T4Y0": {
-    "defaultMessage": "Ce champ ne peut pas utiliser de dates dans le futur.",
-    "description": "Error message that the date cannot be in the future."
   },
   "vGENdP": {
     "defaultMessage": "Alerte d’information :",
@@ -1718,6 +1718,10 @@
   "wdfDZH": {
     "defaultMessage": "Je consens à travailler dans la région de la Colombie-Britannique.",
     "description": "The work region of Canada described as British Columbia."
+  },
+  "wfkOXt": {
+    "defaultMessage": "La date doit être égale ou postérieure à la {label}",
+    "description": "Error message when a date was entered that is less than the minimum required, referencing an associated input label"
   },
   "wqBryV": {
     "defaultMessage": "Tableau de bord du (de la) candidat(e)",
@@ -1778,6 +1782,10 @@
   "yHeFkO": {
     "defaultMessage": "Janvier",
     "description": "Name of the first month"
+  },
+  "yg8m7r": {
+    "defaultMessage": "Ce nom de volet de travail est déjà utilisé",
+    "description": "Error message that the input work stream name is already in use."
   },
   "ygMrNM": {
     "defaultMessage": "Un champ obligatoire est vide : Note spéciale (français)",

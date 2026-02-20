@@ -17,6 +17,7 @@ import {
 import { Heading, Pending, Button } from "@gc-digital-talent/ui";
 import { getLogger } from "@gc-digital-talent/logger";
 import { User, graphql } from "@gc-digital-talent/graphql";
+import { appInsights } from "@gc-digital-talent/app-insights";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
@@ -268,9 +269,29 @@ const SupportFormApi = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const logger = getLogger();
+
+  function logInsight(name: string, data?: Record<string, string>) {
+    if (appInsights) {
+      appInsights.trackEvent(
+        { name },
+        {
+          aiUserId: appInsights.context?.user?.id,
+          pageUrl: window.location.href,
+          path: window.location.pathname,
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+          referrer: document.referrer || "none",
+          ...(data ?? {}),
+        },
+      );
+    }
+  }
+
   const handleCreateTicket = async (formValues: FormValues) => {
+    logInsight("Support ticket creation initiated");
     return await submitTicket(formValues, logger, locale)
       .then(() => {
+        logInsight("Support ticket successfully submitted");
         toast.success(
           intl.formatMessage({
             defaultMessage: "Ticket created successfully!",
@@ -286,6 +307,9 @@ const SupportFormApi = () => {
         if (err.name === SUPPORT_TICKET_ERROR.INVALID_EMAIL) {
           errorMessage = emailErrorMessage;
         }
+        logInsight("Support ticket submission failed", {
+          errorMessage: err?.message,
+        });
         toast.error(
           <>
             {intl.formatMessage(errorMessage, {

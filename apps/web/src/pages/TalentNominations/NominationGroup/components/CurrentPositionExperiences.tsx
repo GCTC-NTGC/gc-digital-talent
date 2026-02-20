@@ -1,8 +1,15 @@
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { useIntl } from "react-intl";
+import { Fragment } from "react/jsx-runtime";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  FragmentType,
+  getFragment,
+  GovPositionType,
+  graphql,
+  WorkExperience,
+} from "@gc-digital-talent/graphql";
+import { empty, groupBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   currentDate,
   DATE_FORMAT_LOCALIZED,
@@ -14,7 +21,10 @@ import { CardSeparator, Heading, Ul, Notice } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
-import { isGovWorkExperience } from "~/utils/experienceUtils";
+import {
+  getGovernmentPositionTypeLabel,
+  isGovWorkExperience,
+} from "~/utils/experienceUtils";
 
 export const CurrentPositionExperiences_Fragment = graphql(/* GraphQL */ `
   fragment CurrentPositionExperiences on User {
@@ -24,6 +34,11 @@ export const CurrentPositionExperiences_Fragment = graphql(/* GraphQL */ `
       ... on WorkExperience {
         startDate
         endDate
+        govPositionType {
+          label {
+            localized
+          }
+        }
       }
       ...ExperienceCard
     }
@@ -69,14 +84,20 @@ const CurrentPositionExperiences = ({
   const currentWorkExperiences = unpackMaybes(data?.experiences).filter(
     (exp) => isGovWorkExperience(exp) && isCurrentExperience(exp?.endDate),
   );
-
-  const sorted = currentWorkExperiences.sort((a, b) => {
+  const currentWorkExperiencesSorted = currentWorkExperiences.sort((a, b) => {
     const aStart =
       "startDate" in a && a.startDate ? new Date(a.startDate) : MAX_DATE;
     const bStart =
       "startDate" in b && b.startDate ? new Date(b.startDate) : MAX_DATE;
     return bStart.getTime() - aStart.getTime(); // more recent start sorted higher
   });
+
+  const currentWorkExperiencesByGovPositionType = groupBy(
+    currentWorkExperiencesSorted,
+    (e) => {
+      return (e as WorkExperience).govPositionType?.value ?? "";
+    },
+  );
 
   return (
     <>
@@ -105,7 +126,8 @@ const CurrentPositionExperiences = ({
       {shareProfile && !empty(data) && (
         <div>
           <div className="flex flex-col gap-y-3">
-            {sorted.length === 0 && (
+            {Object.keys(currentWorkExperiencesByGovPositionType).length ===
+              0 && (
               <Notice.Root className="mb-10.5" color="error">
                 <Notice.Title>
                   {intl.formatMessage({
@@ -157,13 +179,32 @@ const CurrentPositionExperiences = ({
                 </Notice.Content>
               </Notice.Root>
             )}
-            {sorted.map((exp) => (
-              <ExperienceCard
-                key={exp.id}
-                experienceQuery={exp}
-                showEdit={false}
-              />
-            ))}
+            <div className="-mt-9">
+              {Object.keys(currentWorkExperiencesByGovPositionType).map(
+                (key, i) => (
+                  <Fragment key={key}>
+                    <Heading level="h3" className="mb-3 font-normal">
+                      {getGovernmentPositionTypeLabel(
+                        key as GovPositionType,
+                        intl,
+                      )}
+                    </Heading>
+                    {currentWorkExperiencesByGovPositionType[key].map((exp) => (
+                      <ExperienceCard
+                        key={exp.id}
+                        experienceQuery={exp}
+                        showEdit={false}
+                        headingLevel="h4"
+                      />
+                    ))}
+                    {i !==
+                      Object.keys(currentWorkExperiencesByGovPositionType)
+                        .length -
+                        1 && <CardSeparator />}
+                  </Fragment>
+                ),
+              )}
+            </div>
           </div>
         </div>
       )}

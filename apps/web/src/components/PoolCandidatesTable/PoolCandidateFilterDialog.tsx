@@ -14,8 +14,8 @@ import {
   graphql,
   WorkRegion,
   AssessmentStep,
-  FinalDecision,
   AssessmentStepType,
+  ApplicationStatus,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -77,8 +77,8 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
         }
       }
     }
-    finalDecisions: localizedEnumOptions(enumName: "FinalDecision") {
-      ... on LocalizedFinalDecision {
+    statuses: localizedEnumOptions(enumName: "ApplicationStatus") {
+      ... on LocalizedApplicationStatus {
         value
         label {
           localized
@@ -182,13 +182,6 @@ export type PoolCandidateFilterDialogProps =
       | Pick<AssessmentStep, "id" | "type" | "sortOrder" | "title">[]
       | null;
   };
-
-const finalDecisionStatusesToFilterOut: FinalDecision[] = [
-  FinalDecision.QualifiedExpired,
-  FinalDecision.QualifiedPlaced,
-  FinalDecision.DisqualifiedRemoved,
-  FinalDecision.ToAssessRemoved,
-];
 
 const PoolCandidateFilterDialog = ({
   query,
@@ -311,21 +304,19 @@ const PoolCandidateFilterDialog = ({
 
       <div className="mb-6 grid gap-6 xs:grid-cols-3">
         <Combobox
-          id="finalDecisions"
-          name="finalDecisions"
+          id="statuses"
+          name="statuses"
           isMulti
-          label={intl.formatMessage(applicationMessages.finalDecision)}
-          options={narrowEnumType(
-            unpackMaybes(data?.finalDecisions),
-            "FinalDecision",
+          doNotSort
+          label={intl.formatMessage(applicationMessages.applicationStatus)}
+          options={sortLocalizedEnumOptions(
+            ENUM_SORT_ORDER.APPLICATION_STATUS,
+            narrowEnumType(unpackMaybes(data?.statuses), "ApplicationStatus"),
           )
-            .filter(
-              (finalDecision) =>
-                !finalDecisionStatusesToFilterOut.includes(finalDecision.value),
-            )
-            .map((finalDecision) => ({
-              value: finalDecision.value,
-              label: finalDecision.label?.localized ?? notAvailable,
+            .filter((status) => status.value !== ApplicationStatus.Draft)
+            .map((status) => ({
+              value: status.value,
+              label: status.label?.localized ?? notAvailable,
             }))}
         />
         <Combobox

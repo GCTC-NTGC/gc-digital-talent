@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-deprecated */
 import { AuthenticationContext } from "./components/AuthenticationContainer";
 import AuthorizationContainer, {
   AuthorizationContext,
@@ -7,6 +8,10 @@ import AuthorizationProvider from "./components/AuthorizationProvider";
 import useAuthentication from "./hooks/useAuthentication";
 import useAuthorization from "./hooks/useAuthorization";
 import apiRoutes, { useApiRoutes } from "./hooks/useApiRoutes";
+import {
+  hasRequiredRoles,
+  type RoleRequirement,
+} from "./utils/hasRequiredRoles";
 import hasRole from "./utils/hasRole";
 import { narrowTeamableType } from "./utils/narrowTeamableType";
 import {
@@ -19,10 +24,14 @@ import {
   LOGOUT_REASON_KEY,
   NAV_ROLE_KEY,
   COMMUNITY_ROLES,
+  ASSESSMENT_MEMBER_ROLES,
+  PROCESS_ACTIVITY_LOG_ROLES,
+  DEPARTMENT_ROLES,
 } from "./const";
 import type { LogoutReason } from "./const";
 import getAuthenticationState from "./utils/authenticationState";
 import { AuthenticationState } from "./types";
+import { setTokensFromLocation } from "./utils/setTokensFromLocation";
 
 export {
   AuthenticationProvider,
@@ -35,8 +44,10 @@ export {
   useApiRoutes,
   apiRoutes,
   hasRole,
+  hasRequiredRoles,
   narrowTeamableType,
   getAuthenticationState,
+  setTokensFromLocation,
 };
 
 export {
@@ -48,6 +59,9 @@ export {
   ROLE_NAME,
   NAV_ROLE_KEY,
   COMMUNITY_ROLES,
+  ASSESSMENT_MEMBER_ROLES,
+  PROCESS_ACTIVITY_LOG_ROLES,
+  DEPARTMENT_ROLES,
 };
 
-export type { RoleName, LogoutReason, AuthenticationState };
+export type { RoleName, LogoutReason, AuthenticationState, RoleRequirement };

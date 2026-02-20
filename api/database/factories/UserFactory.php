@@ -22,7 +22,6 @@ use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
-use App\Enums\WfaInterest;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\Community;
@@ -241,8 +240,6 @@ class UserFactory extends Factory
 
             $this->syncSkillsToExperience($experience);
 
-            $user->wfa_interest = $this->faker->randomElement(WfaInterest::cases())->name;
-            $user->wfa_date = $this->faker->dateTimeBetween('2028-01-01', '2029-12-31')->format('Y-m-d');
             $user->saveQuietly();
 
             OffPlatformRecruitmentProcess::factory()
@@ -483,6 +480,48 @@ class UserFactory extends Factory
     }
 
     /**
+     * Attach the department admin role to a user after creation.
+     *
+     * @param  string|array  $departmentId  Id of the community or communities to attach the role to
+     * @return $this
+     */
+    public function asDepartmentAdmin(string|array $departmentIds)
+    {
+        return $this->afterCreating(function (User $user) use ($departmentIds) {
+            if (is_array($departmentIds)) {
+                foreach ($departmentIds as $departmentId) {
+                    $department = Department::find($departmentId);
+                    $department->addDepartmentAdmin($user->id);
+                }
+            } else {
+                $department = Department::find($departmentIds);
+                $department->addDepartmentAdmin($user->id);
+            }
+        });
+    }
+
+    /**
+     * Attach the department HR advisor role to a user after creation.
+     *
+     * @param  string|array  $departmentId  Id of the community or communities to attach the role to
+     * @return $this
+     */
+    public function asDepartmentHRAdvisor(string|array $departmentIds)
+    {
+        return $this->afterCreating(function (User $user) use ($departmentIds) {
+            if (is_array($departmentIds)) {
+                foreach ($departmentIds as $departmentId) {
+                    $department = Department::find($departmentId);
+                    $department->addDepartmentHRAdvisor($user->id);
+                }
+            } else {
+                $department = Department::find($departmentIds);
+                $department->addDepartmentHRAdvisor($user->id);
+            }
+        });
+    }
+
+    /**
      * Get skills for use in experiences
      *
      * @param  User  $user  The user to connect skills to
@@ -493,20 +532,33 @@ class UserFactory extends Factory
      */
     private function getUserSkills(User $user, $count = 10, array $skills = [])
     {
-        $allSkills = $skills;
-        if (empty($skills)) {
-            $allSkills = Skill::select('id')->whereDoesntHave('userSkills', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            })->inRandomOrder()->take($count)->get();
-            if (! $allSkills->count()) {
-                $allSkills = Skill::factory($count)->create();
+        $availableSkills = collect($skills);
+
+        if ($availableSkills->isEmpty()) {
+            $availableSkills = Skill::whereDoesntHave('userSkills', fn ($q) => $q->where('user_id', $user->id))
+                ->inRandomOrder()
+                ->take($count)
+                ->get();
+
+            $toCreate = $count - $availableSkills->count();
+            if ($toCreate > 0) {
+                $createdSkills = Skill::factory($toCreate)->create();
+                $availableSkills = $availableSkills->concat($createdSkills);
             }
         }
-        $skillSequence = $allSkills->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 
-        $userSkills = UserSkill::factory($count)->for($user)
-            ->sequence(...$skillSequence)
-            ->create();
+        $availableSkills = $availableSkills->filter(fn ($s) => $s && $s->id)->shuffle()->take($count);
+
+        if ($availableSkills->isEmpty()) {
+            throw new \LogicException('No skills available to attach to user.');
+        }
+
+        $userSkills = collect();
+        foreach ($availableSkills as $skill) {
+            $userSkills->push(UserSkill::factory()->for($user)->create([
+                'skill_id' => $skill->id,
+            ]));
+        }
 
         return $userSkills->map(fn ($us) => $us->skill);
 

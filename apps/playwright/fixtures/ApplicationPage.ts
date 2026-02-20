@@ -1,4 +1,4 @@
-import { type Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
 
 import AppPage from "./AppPage";
 
@@ -16,9 +16,21 @@ class ApplicationPage extends AppPage {
     this.poolId = poolId;
   }
 
+  async expectOnStep(page: Page, step: number) {
+    await expect(
+      page.getByRole("heading", {
+        name: new RegExp(`step\\s+${step}\\s+of\\s+\\d+`, "i"),
+      }),
+    ).toBeVisible();
+
+    await expect(
+      page.getByText(/uh oh, it looks like you jumped ahead!/i),
+    ).toBeHidden();
+  }
+
   /** Start application */
   async create() {
-    await this.page.goto("/en/jobs/");
+    await this.page.goto("/en/jobs");
     await this.waitForGraphqlResponse("BrowsePoolsPage");
 
     await this.page.locator(`a[href*="${this.poolId}"]`).click();

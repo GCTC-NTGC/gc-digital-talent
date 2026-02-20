@@ -1,11 +1,11 @@
 import { defineMessage, useIntl } from "react-intl";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import { OperationContext, useQuery } from "urql";
+import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
 
 import {
   NotFound,
   Pending,
-  Accordion,
   Heading,
   Sidebar,
   Chip,
@@ -28,7 +28,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
-import { getCandidateStatusChip } from "~/utils/poolCandidate";
+import { getApplicationStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
@@ -64,15 +64,13 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       ...MoreActions
       ...ClaimVerification
       ...AssessmentResultsTable
-      ...ChangeStatusDialog_PoolCandidate
       ...ApplicationInformation_PoolCandidate
       id
       profileSnapshot
-      finalDecision {
+      status {
         value
         label {
-          en
-          fr
+          localized
         }
       }
       assessmentStep {
@@ -87,7 +85,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       user {
         ...ApplicationProfileDetails
         ...PoolStatusTable
-        ...ChangeStatusDialog_User
         firstName
         lastName
         hasPriorityEntitlement
@@ -163,12 +160,7 @@ export const ViewPoolCandidate = ({
     String(poolCandidate.profileSnapshot),
   ) as Maybe<User>;
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
-  const statusChip = getCandidateStatusChip(
-    poolCandidate.finalDecision,
-    poolCandidate.assessmentStep?.sortOrder,
-    poolCandidate.assessmentStatus,
-    intl,
-  );
+  const statusChip = getApplicationStatusChip(poolCandidate.status, intl);
 
   const candidateName = getFullNameLabel(
     poolCandidate.user.firstName,
@@ -269,29 +261,27 @@ export const ViewPoolCandidate = ({
                     optionsQuery={flexibleWorkLocationOptions}
                   />
                 </ErrorBoundary>
-                <div className="my-12">
-                  <Accordion.Root type="single" mode="card" collapsible>
-                    <Accordion.Item value="otherRecruitments">
-                      <Accordion.Trigger>
-                        {intl.formatMessage({
-                          defaultMessage: "Other processes",
-                          id: "n+/HPL",
-                          description:
-                            "Heading for table of a users other applications and recruitments",
-                        })}
-                      </Accordion.Trigger>
-                      <Accordion.Content>
-                        <PoolStatusTable
-                          currentPoolId={poolCandidate.pool.id}
-                          userQuery={poolCandidate.user}
-                        />
-                      </Accordion.Content>
-                    </Accordion.Item>
-                  </Accordion.Root>
-                </div>
                 <ErrorBoundary>
                   <CareerTimelineSection experiences={nonEmptyExperiences} />
                 </ErrorBoundary>
+                <Heading
+                  icon={ClipboardIcon}
+                  color="secondary"
+                  level="h2"
+                  size="h3"
+                  className="mb-6"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Other processes",
+                    id: "n+/HPL",
+                    description:
+                      "Heading for table of a users other applications and recruitments",
+                  })}
+                </Heading>
+                <PoolStatusTable
+                  currentPoolId={poolCandidate.pool.id}
+                  userQuery={poolCandidate.user}
+                />
               </div>
             ) : (
               <NotFound

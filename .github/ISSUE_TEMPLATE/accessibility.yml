@@ -41,6 +41,8 @@ body:
         - macOS
         - Linux
         - Windows
+        - iOS
+        - Android
   - type: dropdown
     id: browsers
     attributes:
@@ -61,6 +63,10 @@ body:
         - Microsoft Narrator
         - NonVisual Desktop Access (NVDA)
         - VoiceOver
+        - OS Magnification
+        - Voice Access
+        - TalkBack
+        - Dragon Naturally Speaking
   - type: textarea
     id: screenshot
     attributes:

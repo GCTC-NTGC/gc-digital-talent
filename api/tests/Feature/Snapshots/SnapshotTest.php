@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Snapshots;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\EmploymentCategory;
 use App\Enums\Language;
 use App\Enums\OperationalRequirement;
-use App\Enums\PoolCandidateStatus;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
@@ -77,15 +77,22 @@ class SnapshotTest extends TestCase
         $pool1 = Pool::factory()->published()->create();
         $pool2 = Pool::factory()->published()->create();
 
+        // Ensure user has pool skills
+        $essentialSkills = $pool1->essentialSkills()->get();
+        $skillsArray = $essentialSkills->map(fn ($skill) => ['id' => $skill->id])->all();
+        foreach (WorkExperience::where('user_id', $user->id)->with('user')->get() as $exp) {
+            $exp->syncSkills($skillsArray);
+        }
+
         $poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $user->id,
             'pool_id' => $pool1->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
         ]);
         $poolCandidateUnrelated = PoolCandidate::factory()->create([
             'user_id' => $user->id,
             'pool_id' => $pool2->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
         ]);
 
         // get what the snapshot should look like
@@ -148,7 +155,7 @@ class SnapshotTest extends TestCase
         // pool is created and essential/nonessential skills attached implicitly
         $poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $user->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'application_status' => ApplicationStatus::DRAFT->name,
             'pool_id' => Pool::factory()->withPoolSkills(5, 5),
         ]);
 
