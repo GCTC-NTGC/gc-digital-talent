@@ -1,4 +1,5 @@
-import { useState, useMemo, useRef } from "react";
+import { useSearchParams } from "react-router";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import {
@@ -92,6 +93,19 @@ import { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
 import DownloadCandidateExcelButton from "../DownloadButton/DownloadCandidateExcelButton";
 import DownloadAllCandidateTableExcelButton from "../DownloadButton/DownloadAllCandidateTableExcelButton";
+
+const [, setSearchParams] = useSearchParams();
+useEffect(() => {
+  return () => {
+    setSearchParams(
+      (params) => {
+        params.delete("f");
+        return params;
+      },
+      { replace: true },
+    );
+  };
+}, [setSearchParams]);
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
   CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginatedAdminView"]["data"][number];
