@@ -135,9 +135,9 @@ return [
             'driver' => 'custom',
             'via' => App\Logging\Azure\CreateAzureLogger::class,
             'level' => env('LOG_LEVEL', 'debug'),
-            'endpoint' => 'http://localhost:8000/api/log',
-            'dcrImmutableId' => 'dcr-000a00a000a00000a000000aa000a0aa',
-            'streamName' => 'Custom-MyTable',
+            'endpoint' => env('AZURE_LOG_INGESTION_ENDPOINT'),
+            'dcrImmutableId' => env('AZURE_DCR_IMMUTABLE_ID'),
+            'streamName' => env('AZURE_STREAM_NAME'),
         ],
 
         'jobs' => [
