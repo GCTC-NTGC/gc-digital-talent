@@ -45,6 +45,7 @@ import ApplicationInformation from "./components/ApplicationInformation/Applicat
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import MoreActions from "./components/MoreActions/MoreActions";
 import ClaimVerification from "./components/ClaimVerification/ClaimVerification";
+import ApplicationSidebar from "./components/Sidebar/ApplicationSidebar";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -62,6 +63,8 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
     }
     poolCandidate(id: $poolCandidateId) {
       ...MoreActions
+      ...ApplicationSidebar
+
       ...ClaimVerification
       ...AssessmentResultsTable
       ...ApplicationInformation_PoolCandidate
@@ -237,6 +240,7 @@ export const ViewPoolCandidate = ({
               jobPlacementOptions={jobPlacementOptions}
               usersPoolCandidateBookmarks={usersPoolCandidateBookmarks}
             />
+            <ApplicationSidebar query={poolCandidate} />
           </Sidebar.Sidebar>
           <Sidebar.Content>
             <Heading
