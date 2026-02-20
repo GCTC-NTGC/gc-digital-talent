@@ -1307,6 +1307,10 @@
     "defaultMessage": "Informations sur le volet de travail",
     "description": "Heading for the 'update a work stream' form"
   },
+  "3DBCsk": {
+    "defaultMessage": "L’utilisateur perdra tous les rôles suivants dans le ministère",
+    "description": "Lead text for the list of roles the user will lose"
+  },
   "3EI6TE": {
     "defaultMessage": "L'ajout de l'utilisateur au processus a échoué.",
     "description": "Error message displayed when an attempt to add users to known pools"
@@ -1379,6 +1383,10 @@
     "defaultMessage": "Sélectionné(e)",
     "description": "Message displayed when candidate has been screened in at a specific assessment step"
   },
+  "3XvHVf": {
+    "defaultMessage": "Rôles dans le ministère",
+    "description": "Heading for updating a user's department roles"
+  },
   "3YO9gR": {
     "defaultMessage": "La possibilité de formation a été mise à jour avec succès!",
     "description": "Message displayed to user after training opportunity is updated successfully."
@@ -1398,6 +1406,10 @@
   "3bdGj/": {
     "defaultMessage": "Permanent uniquement",
     "description": "Description for position duration field display"
+  },
+  "3bgFky": {
+    "defaultMessage": "Ajouter un rôle dans un ministère",
+    "description": "Button label for the form to add a department membership to a user"
   },
   "3c2YZs": {
     "defaultMessage": "La réussite de deux années d'études secondaires.",
@@ -1802,6 +1814,10 @@
   "5DfpAy": {
     "defaultMessage": "Supprimez cette expérience",
     "description": "Label on button to delete the current experience"
+  },
+  "5DwxBX": {
+    "defaultMessage": "Renseignements sur le ministère",
+    "description": "Title for Department information"
   },
   "5FFRV2": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'utilisateur",
@@ -2458,6 +2474,10 @@
   "8R8ip4": {
     "defaultMessage": "Enregistrer les commentaires",
     "description": "Label for saving comments"
+  },
+  "8RkTQC": {
+    "defaultMessage": "Retirer du ministère",
+    "description": "Button label for the form to remove a department role from a user"
   },
   "8T/Szk": {
     "defaultMessage": "Que dois-je faire si j’éprouve des problèmes techniques en remplissant ma demande?",
@@ -3827,6 +3847,10 @@
     "defaultMessage": "Les préférences en matière de développement de carrière ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
   },
+  "ECR3YX": {
+    "defaultMessage": "Sélectionnez le ministère et les rôles à ajouter",
+    "description": "Lead in text for the pick department and roles inputs."
+  },
   "EG5WpQ": {
     "defaultMessage": "Erreur : impossible de mettre à jour les paramètres",
     "description": "Message displayed when an error occurs while updating notification settings."
@@ -4286,6 +4310,10 @@
   "GSHQHG": {
     "defaultMessage": "Autre experience connexe (p. ex., personnelle, communautaire, familiale).",
     "description": "Experience requirement, other."
+  },
+  "GSVZ7R": {
+    "defaultMessage": "Retirer du ministère",
+    "description": "Header for the form to remove a department role from a user"
   },
   "GTHuSJ": {
     "defaultMessage": "Répondez aux questions clés sur votre adéquation à ce rôle.",
@@ -5171,6 +5199,10 @@
     "defaultMessage": "Voir",
     "description": "Title displayed for a tables View column."
   },
+  "Kk6u+9": {
+    "defaultMessage": "Sélectionnez l’utilisateur à ajouter à {departmentName}, ainsi que les rôles à lui attribuer.",
+    "description": "Help text for user field on the add member to department form"
+  },
   "Kki7mk": {
     "defaultMessage": "Ma bibliothèque",
     "description": "Label for filtering skills by ones already added to the users library"
@@ -5335,6 +5367,10 @@
     "defaultMessage": "Ma communauté ne figure pas dans la liste",
     "description": "Label for not represented community"
   },
+  "LLN1xf": {
+    "defaultMessage": "Actions pour {userName} dans {departmentName}",
+    "description": "Aria label for the menu trigger for department actions"
+  },
   "LN3sPI": {
     "defaultMessage": "Aidez les gestionnaires à comprendre quelles sont les compétences comportementales que vous aimeriez améliorer. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
     "description": "Page blurb for the improve behavioural skills page"
@@ -5495,6 +5531,10 @@
     "defaultMessage": "Une fois l’apprentissage terminé avec succès, les diplômés reçoivent un certificat numérique ainsi qu’un certificat vérifiable portable. Il est approuvé par le, la dirigeant·e principal·e de l’information du Canada et officiellement reconnu comme répondant à <link>l‘alternative aux exigences d’études de la norme de qualification minimale du GC pour le groupe professionnel IT</link>.",
     "description": "Paragraph 1 of the 'Digital certificate credential' subsection"
   },
+  "LzMFBB": {
+    "defaultMessage": "Du ministère suivant :",
+    "description": "Follow in text for the department being updated"
+  },
   "M/phlO": {
     "defaultMessage": "Question",
     "description": "Support form subject field question option label"
@@ -5558,6 +5598,10 @@
   "MOKBPl": {
     "defaultMessage": "En attente de réponse",
     "description": "Label for pool candidate search requests that are awaiting a response"
+  },
+  "MT17Vm": {
+    "defaultMessage": "Ajouter un rôle dans le ministère :",
+    "description": "Header for the form to add a department membership to a user"
   },
   "MUxI+G": {
     "defaultMessage": "Il n’existe aucun résultat correspondant.",
@@ -5746,6 +5790,10 @@
   "N832OY": {
     "defaultMessage": "Un ou plusieurs des niveaux de langue ne sont plus valides.",
     "description": "Message for exam validity field display"
+  },
+  "NBf3bX": {
+    "defaultMessage": "Retirer {userName} de {departmentName}.",
+    "description": "Label for the dialog trigger to remove a user from a department"
   },
   "NCMG9w": {
     "defaultMessage": "Renseignements supplémentaires",
@@ -6346,6 +6394,10 @@
   "Q9yLca": {
     "defaultMessage": "Consultez et gérez toutes les nominations reçues pour cet événement axé sur la gestion des talents.",
     "description": "Talent nominations table page, table information"
+  },
+  "QAO9u9": {
+    "defaultMessage": "Sélectionner un ministère",
+    "description": "Placeholder text for department selection input"
   },
   "QAo1Vy": {
     "defaultMessage": "La possibilité de formation {trainingOpportunityId} n'a pas été trouvée.",
@@ -7502,6 +7554,10 @@
     "defaultMessage": "Compétence mise à jour avec succès!",
     "description": "Message displayed when a user updates a skill"
   },
+  "VgyUtZ": {
+    "defaultMessage": "Modifier les rôles dans le ministère",
+    "description": "Label for the form to edit a users department membership"
+  },
   "VhqbdZ": {
     "defaultMessage": "Vous êtes certain de vouloir continuer?",
     "description": "Question to continue in a confirmation dialog"
@@ -8378,6 +8434,10 @@
     "defaultMessage": "Allocation budgétaire annuelle ($CAN)",
     "description": "Label for annual budget allocation field"
   },
+  "ZJpfIZ": {
+    "defaultMessage": "L’utilisateur perdra tous les rôles suivants dans le ministère :",
+    "description": "Text notifying user which department roles will be removed from the user"
+  },
   "ZJsUbj": {
     "defaultMessage": "Salon de l’emploi et du réseautage (hiver) — Université Carleton (site en anglais)",
     "description": "Heading for winter career fair"
@@ -8765,6 +8825,10 @@
   "bMfecw": {
     "defaultMessage": "Ajouter des rôles dans des processus",
     "description": "Header for the form to add a process membership to a user"
+  },
+  "bNc3Zd": {
+    "defaultMessage": "Rechercher des rôles dans les ministères",
+    "description": "Label for the department roles table search input"
   },
   "bOAF9o": {
     "defaultMessage": "Ajouter une nouvelle expérience",
@@ -12310,6 +12374,10 @@
     "defaultMessage": "Il n'y a pas d'options d'équité en matière d'emploi.",
     "description": "Message displayed when there are no employment equity categories available to be added."
   },
+  "pyB9Em": {
+    "defaultMessage": "Modifier les rôles de {userName} dans {departmentName}.",
+    "description": "Help text for the edit department membership form"
+  },
   "q+bkac": {
     "defaultMessage": "Davantage de renseignements sur l’équité en matière d’emploi",
     "description": "Heading for opening the accordion with information on employment equity"
@@ -12622,6 +12690,10 @@
     "defaultMessage": "Créer une possibilité de formation",
     "description": "Page title for the training opportunity creation page (infinitive in French)"
   },
+  "rUNQVc": {
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans le ministère » pour commencer.",
+    "description": "Instructions for adding department membership to a user."
+  },
   "rVgBGi": {
     "defaultMessage": "La soumission de votre demande est réussie.",
     "description": "Subtitle for the request confirmation page."
@@ -12745,6 +12817,10 @@
   "sB7wVn": {
     "defaultMessage": "L’information publiée par le gouvernement du Canada est assujettie à la <copyrightLink>Loi sur le droit d’auteur</copyrightLink>.",
     "description": "Paragraph for comments and interaction section"
+  },
+  "sBU6QB": {
+    "defaultMessage": "Membres du ministère",
+    "description": "Page title for the department manage access page"
   },
   "sDqpzq": {
     "defaultMessage": "Télécharger la trousse du gestionnaire",
@@ -12873,10 +12949,6 @@
   "sozTPf": {
     "defaultMessage": "Nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
     "description": "Text describing our user testing for accessibility"
-  },
-  "sp9OKU": {
-    "defaultMessage": "Informations sur le ministère",
-    "description": "Nav tab label for department information"
   },
   "spzerx": {
     "defaultMessage": "Modifier une compétence",

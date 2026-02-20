@@ -932,12 +932,6 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
-            'user' => [
-                'own' => ['view', 'update'],
-            ],
-            'employeeProfile' => [
-                'own' => ['view', 'update'],
-            ],
             'publishedPool' => [
                 'any' => ['view'],
             ],
@@ -949,7 +943,6 @@ return [
             ],
             'searchRequest' => [
                 'any' => ['create'],
-                'own' => ['view'],
             ],
             'announcement' => [
                 'any' => ['view'],
@@ -986,6 +979,15 @@ return [
             ],
             'talentNominationEvent' => [
                 'any' => ['view'],
+            ],
+            'employeeProfile' => [
+                'own' => ['view', 'update'],
+            ],
+            'searchRequest' => [
+                'own' => ['view'],
+            ],
+            'user' => [
+                'own' => ['view', 'update'],
             ],
         ],
 
@@ -1278,6 +1280,9 @@ return [
         ],
 
         'department_admin' => [
+            'userBasicInfo' => [
+                'any' => ['view'],
+            ],
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],
@@ -1290,6 +1295,9 @@ return [
         ],
 
         'department_hr_advisor' => [
+            'userBasicInfo' => [
+                'any' => ['view'],
+            ],
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],
