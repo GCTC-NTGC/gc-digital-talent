@@ -246,7 +246,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
     <Card className="relative pb-10">
       <div className="mr-6 mb-6 flex items-center justify-between">
         {pool.areaOfSelection && (
-          <div className="-ml-8 flex flex-col sm:flex-row">
+          <div className="-ml-8 flex flex-col gap-1.5 sm:flex-row sm:gap-0">
             <AreaOfSelectionFlag
               areaOfSelection={pool.areaOfSelection?.value}
               selectionLimitations={unpackMaybes(pool.selectionLimitations).map(
