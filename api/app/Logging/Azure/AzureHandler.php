@@ -22,56 +22,37 @@ use Monolog\Utils;
 class AzureHandler extends AbstractProcessingHandler
 {
     /**
-     * Managed identity service
-     * The service that can provide access token based on the managed identity.
-     */
-    private ManagedIdentityService $identityService;
-
-    /**
-     * Endpoint
-     * The REST API endpoint for the Logs Ingestion API can either be a data collection endpoint (DCE) or the DCR logs ingestion endpoint.
-     *
-     * @var non-empty-string
-     */
-    private string $endpoint;
-
-    /**
-     * DCR Immutable ID
-     * The DCR Immutable ID is generated for the DCR when it's created. You can retrieve it from the Overview page for the DCR in the Azure portal.
-     *
-     * @var non-empty-string
-     */
-    private string $dcrImmutableId;
-
-    /**
-     * Stream Name
-     * Stream Name refers to the stream in the DCR that should handle the custom data.
-     *
-     * @var non-empty-string
-     */
-    private string $streamName;
-
-    /**
      * Instance of the AzureRecord util class preparing data for Azure API.
      */
     private AzureRecord $azureRecord;
 
     /**
-     * @param  non-empty-string  $endpoint  Endpoint
-     * @param  non-empty-string  $dcrImmutableId  DCR Immutable ID
-     * @param  non-empty-string  $streamName  Stream Name
-     * @param  string|null  $column01  First placeholder column
-     * @param  string|null  $column02  Second placeholder column
+     * @param  ManagedIdentityService  $identityService  The service that can provide access token based on the managed identity.
+     * @param  non-empty-string  $endpoint  The REST API endpoint for the Logs Ingestion API can either be a data collection endpoint (DCE) or the DCR logs ingestion endpoint.
+     * @param  non-empty-string  $dcrImmutableId  The DCR Immutable ID is generated for the DCR when it's created. You can retrieve it from the Overview page for the DCR in the Azure portal.
+     * @param  non-empty-string  $streamName  Stream Name refers to the stream in the DCR that should handle the custom data.
      *
      * @throws MissingExtensionException If the curl extension is missing
      */
     public function __construct(
-        ManagedIdentityService $identityService,
-        string $endpoint,
-        string $dcrImmutableId,
-        string $streamName,
-        ?string $column01 = null,
-        ?string $column02 = null,
+        public ManagedIdentityService $identityService,
+        public string $endpoint,
+        public string $dcrImmutableId,
+        public string $streamName,
+        public ?string $applicationID = null,
+        public ?array $context = null,
+        public ?string $correlationID = null,
+        public ?string $eventAction = null,
+        public ?string $eventID = null,
+        public ?string $eventStatus = null,
+        public ?string $eventText = null,
+        public ?string $group = null,
+        public ?string $host = null,
+        public ?string $sourceIP = null,
+        public ?string $sourceUserID = null,
+        public ?string $targetUserID = null,
+        public ?string $xForwardedIP = null,
+
         $level = Level::Critical,
         bool $bubble = true,
     ) {
@@ -81,14 +62,19 @@ class AzureHandler extends AbstractProcessingHandler
 
         parent::__construct($level, $bubble);
 
-        $this->identityService = $identityService;
-        $this->endpoint = $endpoint;
-        $this->dcrImmutableId = $dcrImmutableId;
-        $this->streamName = $streamName;
-
         $this->azureRecord = new AzureRecord(
-            $column01,
-            $column02,
+            applicationID: $applicationID,
+            correlationID: $correlationID,
+            eventAction: $eventAction,
+            eventID: $eventID,
+            eventStatus: $eventStatus,
+            group: $group,
+            host: $host,
+            sourceIP: $sourceIP,
+            sourceUserID: $sourceUserID,
+            targetUserID: $targetUserID,
+            xForwardedIP: $xForwardedIP,
+            formatter: null,
         );
     }
 
@@ -97,29 +83,9 @@ class AzureHandler extends AbstractProcessingHandler
         return $this->azureRecord;
     }
 
-    public function getIdentityService(): ManagedIdentityService
-    {
-        return $this->identityService;
-    }
-
-    public function getEndpoint(): string
-    {
-        return $this->endpoint;
-    }
-
-    public function getDcrImmutableId(): string
-    {
-        return $this->dcrImmutableId;
-    }
-
-    public function getStreamName(): string
-    {
-        return $this->streamName;
-    }
-
     public function getConstructedUrl(): string
     {
-        return $this->getEndpoint().'/dataCollectionRules/'.$this->getDcrImmutableId().'/streams/'.$this->getStreamName().'?api-version=2023-01-01';
+        return $this->endpoint.'/dataCollectionRules/'.$this->dcrImmutableId.'/streams/'.$this->streamName.'?api-version=2023-01-01';
     }
 
     /**

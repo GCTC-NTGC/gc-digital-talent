@@ -4,6 +4,8 @@ namespace App\Logging\Azure;
 
 use App\Contracts\ManagedIdentityService;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Monolog\Logger;
 
 class CreateAzureLogger
@@ -20,8 +22,20 @@ class CreateAzureLogger
             endpoint: $config['endpoint'],
             dcrImmutableId: $config['dcrImmutableId'],
             streamName: $config['streamName'],
-            column01: $config['column01'],
-            column02: $config['column02']
+            applicationID: config('app.url'),
+            // context
+            // correlationID
+            // eventAction
+            // eventID
+            // eventStatus
+            // eventText
+            // group
+            host: Request::getHost(),
+            sourceIP: Request::ip(),
+            sourceUserID: Auth::user()?->getAuthIdentifier(),
+            // targetUserID
+            // timeGenerated
+            // xForwardedIP
         ));
 
         return $logger;

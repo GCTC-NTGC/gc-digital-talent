@@ -24,9 +24,16 @@ class AzureManagedIdentityService implements ManagedIdentityService
         $response = Http::withHeaders([
             'Secret' => config('azure.managed_identity.header'),
         ])
-            ->get(config('azure.managed_identity.endpoint').'?api-version=2017-09-01&resource=https://management.azure.com/')
-            ->throwUnlessStatus(200);
+            ->withOptions([
+                'api-version' => '2017-09-01',
+                'resource' => 'https://management.azure.com/',
+            ])
+            ->get(config('azure.managed_identity.endpoint'));
         assert($response instanceof Response); // type narrow away PromiseInterface
+
+        if (! $response->ok()) {
+            throw new \RuntimeException('Failed to retrieve Azure managed identity token: HTTP '.$response->status());
+        }
 
         $values = $response->json();
 

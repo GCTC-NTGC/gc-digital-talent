@@ -4,32 +4,30 @@ declare(strict_types=1);
 
 namespace App\Logging\Azure;
 
+use Illuminate\Support\Carbon;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\LogRecord;
 
 class AzureRecord
 {
-    /**
-     * Column 01
-     */
-    private ?string $column01;
-
-    /**
-     * Column 02
-     */
-    private ?string $column02;
-
-    private ?FormatterInterface $formatter;
+    private Carbon $timeGenerated;
 
     public function __construct(
-        ?string $column01 = null,
-        ?string $column02 = null,
-        ?FormatterInterface $formatter = null
+        public ?string $applicationID,
+        public ?string $correlationID,
+        public ?string $eventAction,
+        public ?string $eventID,
+        public ?string $eventStatus,
+        public ?string $group,
+        public ?string $host,
+        public ?string $sourceIP,
+        public ?string $sourceUserID,
+        public ?string $targetUserID,
+
+        public ?string $xForwardedIP,
+        public ?FormatterInterface $formatter,
     ) {
-        $this
-            ->setColumn01($column01)
-            ->setColumn02($column02)
-            ->setFormatter($formatter);
+        $this->timeGenerated = Carbon::now();
     }
 
     /**
@@ -42,41 +40,47 @@ class AzureRecord
     {
         $dataArray = [];
 
-        if ($this->column01 !== null) {
-            $dataArray['Column01'] = $this->column01;
+        if ($this->applicationID !== null) {
+            $dataArray['ApplicationID'] = $this->applicationID;
+        }
+        $dataArray['Context'] = $record->context;
+        if ($this->correlationID !== null) {
+            $dataArray['CorrelationID'] = $this->correlationID;
+        }
+        if ($this->eventAction !== null) {
+            $dataArray['EventAction'] = $this->eventAction;
+        }
+        if ($this->eventID !== null) {
+            $dataArray['EventID'] = $this->eventID;
+        }
+        if ($this->eventStatus !== null) {
+            $dataArray['EventStatus'] = $this->eventStatus;
+        }
+        $dataArray['EventText'] = $record->message;
+        if ($this->group !== null) {
+            $dataArray['Group'] = $this->group;
+        }
+        if ($this->host !== null) {
+            $dataArray['Host'] = $this->host;
+        }
+        $dataArray['LogLevel'] = $record->level->getName();
+        if ($this->sourceIP !== null) {
+            $dataArray['SourceIP'] = $this->sourceIP;
+        }
+        if ($this->sourceUserID !== null) {
+            $dataArray['SourceUserID'] = $this->sourceUserID;
+        }
+        if ($this->targetUserID !== null) {
+            $dataArray['TargetUserID'] = $this->targetUserID;
         }
 
-        if ($this->column02 !== null) {
-            $dataArray['Column02'] = $this->column02;
+        $dataArray['TimeGenerated'] = $this->timeGenerated->toIso8601ZuluString();
+
+        if ($this->xForwardedIP !== null) {
+            $dataArray['XForwardedIP'] = $this->xForwardedIP;
         }
 
-        $finalArray = array_merge($dataArray, $record->toArray());
-
-        return $finalArray;
-    }
-
-    /**
-     * first placeholder column
-     *
-     * @return $this
-     */
-    public function setColumn01(?string $column01 = null): self
-    {
-        $this->column01 = $column01;
-
-        return $this;
-    }
-
-    /**
-     * second placeholder column
-     *
-     * @return $this
-     */
-    public function setColumn02(?string $column02 = null): self
-    {
-        $this->column02 = $column02;
-
-        return $this;
+        return $dataArray;
     }
 
     /**
