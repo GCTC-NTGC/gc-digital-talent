@@ -11,6 +11,7 @@ import ApplicationStatusMeta from "./ApplicationStatusMeta/ApplicationStatusMeta
 import ApplicationStatusDialog from "./Dialog/ApplicationStatusDialog/ApplicationStatusDialog";
 import ApplicantContactInformation from "./ApplicantContactInformation";
 import ApplicationBookmarkFlag from "./ApplicationBookmarkFlag";
+import ApplicationNotes from "./ApplicationNotes";
 
 export const ApplicationSidebar_Fragment = graphql(/** GraphQL **/ `
   fragment ApplicationSidebar on PoolCandidate {
@@ -24,6 +25,7 @@ export const ApplicationSidebar_Fragment = graphql(/** GraphQL **/ `
     ...ApplicationStatusMeta
     ...ApplicantContactInformation
     ...ApplicationBookmarkFlag
+    ...ApplicationNotes
   }
 `);
 
@@ -64,6 +66,7 @@ const ApplicationSidebar = ({ query }: ApplicationSidebarProps) => {
         <Card.Separator />
         <ApplicationBookmarkFlag query={application} />
         <Card.Separator />
+        <ApplicationNotes query={application} />
       </Card>
       <CandidateNavigation candidateId={application.id} />
     </>
