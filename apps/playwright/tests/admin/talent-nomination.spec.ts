@@ -12,6 +12,7 @@ import { loginBySub } from "../../utils/auth";
 
 test.describe("Talent nomination management", () => {
   test("Create a talent nomination", async ({ appPage }) => {
+    test.setTimeout(90_000); // This test takes long in webkit
     // Prepare the test environment
     const adminCtx = await graphql.newContext();
     const uniqueTestId = generateUniqueTestId();
@@ -215,7 +216,7 @@ test.describe("Talent nomination management", () => {
     await appPage.waitForGraphqlResponse("NominateTalentSubmit");
     await expect(
       appPage.page.getByRole("heading", { name: /received your nomination/i }),
-    ).toBeVisible();
+    ).toBeVisible({ timeout: 30000 });
     await appPage.page
       .getByRole("link", { name: /return to your dashboard/i })
       .click();
