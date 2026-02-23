@@ -130,7 +130,7 @@ const PostedOnDate = ({
   const intl = useIntl();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   return (
-    <div className="flex gap-3 text-gray-500 dark:text-gray-300">
+    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-200">
       <p>
         {intl.formatMessage(
           {
@@ -150,7 +150,7 @@ const PostedOnDate = ({
         )}
       </p>
       <span
-        className="text-gray-300 xs:inline-block dark:text-gray-200"
+        className="text-gray-500 xs:inline-block dark:text-gray-200"
         aria-hidden
       >
         {UNICODE_CHAR.BULLET}
@@ -187,18 +187,18 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const salaryRange = getSalaryRange(locale, pool.classification);
   const languageRequirement = pool.language?.value;
 
+  const bilingual = intl.formatMessage({
+    defaultMessage: "Bilingual",
+    id: "IyF3S3",
+    description: "First part of bilingual language label pool language",
+  });
+
   const languageLabel = new Map<PoolLanguage | undefined, ReactNode>([
     [
       PoolLanguage.BilingualAdvanced,
       <>
-        <span>
-          {intl.formatMessage({
-            defaultMessage: "Bilingual advanced",
-            id: "+UNdxf",
-            description: "First part of bilingual advanced pool language",
-          })}
-        </span>{" "}
-        <span className="text-gray-400 dark:text-gray-200">
+        <span>{bilingual}</span>{" "}
+        <span className="text-gray-500 dark:text-gray-200">
           {intl.formatMessage({
             defaultMessage: "(C B C)",
             id: "8m4Fvb",
@@ -210,14 +210,8 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
     [
       PoolLanguage.BilingualIntermediate,
       <>
-        <span>
-          {intl.formatMessage({
-            defaultMessage: "Bilingual intermediate",
-            id: "vdwD/Y",
-            description: "First part of bilingual intermediate pool language",
-          })}
-        </span>{" "}
-        <span className="text-gray-400 dark:text-gray-200">
+        <span>{bilingual}</span>{" "}
+        <span className="text-gray-500 dark:text-gray-200">
           {intl.formatMessage({
             defaultMessage: "(B B B)",
             id: "ZI0wBf",
@@ -267,7 +261,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           <Heading
             level={headingLevel}
             size="h5"
-            className="mt-0 mb-2 pl-0 font-bold"
+            className="mt-0 mb-2 pl-0 font-bold dark:text-gray-100"
           >
             {getShortPoolTitleHtml(intl, {
               workStream: pool.workStream,
