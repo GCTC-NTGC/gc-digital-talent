@@ -9587,7 +9587,8 @@
     "description": "Subtitle for explore skills page"
   },
   "eUDr2H": {
-    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir le candidat au statut \"Examen des candidatures\"?"
+    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir le candidat au statut « Examen des candidatures »?",
+    "description": "Confirmation text for reverting final decision of a candidate"
   },
   "eUnUZo": {
     "defaultMessage": "Le nombre de compétences comportementales sélectionnées ici, combiné aux compétences techniques essentielles dans la section précédente, contribue au nombre total de compétences essentielles.",
