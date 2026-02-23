@@ -267,13 +267,13 @@ class PoolPage extends AppPage {
   async verifyActivityLogContent(
     user?: { firstName?: string; lastName?: string },
     action?: string,
-    Entity?: string,
+    entity?: string,
   ) {
     await this.page.reload();
     await expect(
       this.page.getByText(
         new RegExp(
-          `${user?.firstName ?? ""} ${user?.lastName ?? ""} ${action ?? ""}: ${Entity ?? ""}`,
+          `${user?.firstName ?? ""} ${user?.lastName ?? ""} ${action ?? ""}: ${entity ?? ""}`,
           "i",
         ),
       ),
