@@ -103,7 +103,7 @@ class AzureHandler extends AbstractProcessingHandler
             CURLOPT_POST => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => [
-                'Authorization: '.$accessToken,
+                'Authorization: Bearer '.$accessToken,
                 'Content-type: application/json',
             ],
             CURLOPT_POSTFIELDS => $postString,
