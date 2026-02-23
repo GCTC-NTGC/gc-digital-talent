@@ -325,7 +325,7 @@ class PoolPage extends AppPage {
       await combobox.fill(value);
       await this.page
         .getByRole("listbox")
-        .getByRole("option", { name: value, exact: false })
+        .getByRole("option", { name: value })
         .click();
     };
     // Select Assessment Team Member
