@@ -11,13 +11,6 @@ export default defineMessages({
     id: "T7MvOg",
     description: "Error message when status decision could not be reverted",
   },
-  statusMessage: {
-    defaultMessage:
-      "Candidates was marked <strong>{status}</strong> on <strong>{date}</strong>",
-    id: "VZg3ul",
-    description:
-      "Message indicating the application status and date it was updated",
-  },
   revertSubmit: {
     defaultMessage: "Revert decision and update status",
     id: "uLmAEX",

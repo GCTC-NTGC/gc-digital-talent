@@ -20,7 +20,6 @@ import {
   commonMessages,
   ENUM_SORT_ORDER,
   errorMessages,
-  getLocalizedEnumStringByValue,
   narrowEnumType,
   sortLocalizedEnumOptions,
 } from "@gc-digital-talent/i18n";
@@ -267,11 +266,9 @@ export const RemovedFields = ({ query }: RemovedFieldsProps) => {
   const intl = useIntl();
   const options = getFragment(RemovedFieldsOptions_Query, query);
   const { watch } = useFormContext<FormValues>();
-  const [status, reason] = watch(["status", "removalReason"]);
+  const [status, removalReason] = watch(["status", "removalReason"]);
 
   if (status !== ApplicationStatus.Removed) return null;
-
-  const reasons = unpackMaybes(options?.removalReasons);
 
   return (
     <>
@@ -288,7 +285,10 @@ export const RemovedFields = ({ query }: RemovedFieldsProps) => {
         }}
         items={sortLocalizedEnumOptions(
           ENUM_SORT_ORDER.REMOVAL_REASON,
-          narrowEnumType(reasons, "CandidateRemovalReason"),
+          narrowEnumType(
+            unpackMaybes(options?.removalReasons),
+            "CandidateRemovalReason",
+          ),
         ).map((reason) => ({
           value: reason.value,
           label:
@@ -296,18 +296,18 @@ export const RemovedFields = ({ query }: RemovedFieldsProps) => {
             intl.formatMessage(commonMessages.notAvailable),
         }))}
       />
-      {reason === CandidateRemovalReason.Other && (
+      {removalReason === CandidateRemovalReason.Other && (
         <TextArea
           id="removalReasonOther"
           name="removalReasonOther"
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          label={getLocalizedEnumStringByValue(
-            CandidateRemovalReason.Other,
-            reasons,
-            intl,
-          )}
+          label={intl.formatMessage({
+            defaultMessage: "Other reason",
+            id: "aLAl+r",
+            description: "Label for the other reason a decision was made",
+          })}
         />
       )}
     </>

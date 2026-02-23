@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
 
 import { Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
@@ -10,8 +9,11 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-
-import messages from "./messages";
+import {
+  DATE_FORMAT_STRING,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 export const StatusChangeNotice = () => {
   const intl = useIntl();
@@ -75,6 +77,7 @@ interface ContentProps extends FooterProps {
 
 export const Content = ({ query, reason, submitProps }: ContentProps) => {
   const intl = useIntl();
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const application = getFragment(
     ApplicationStatusDialogContent_Fragment,
     query,
@@ -89,6 +92,27 @@ export const Content = ({ query, reason, submitProps }: ContentProps) => {
 
   return (
     <>
+      <p className="mb-6">
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "Candidates was marked <strong>{status}</strong> on <strong>{date}</strong>",
+            id: "VZg3ul",
+            description:
+              "Message indicating the application status and date it was updated",
+          },
+          {
+            status: application.status.label.localized ?? notAvailable,
+            date: application.statusUpdatedAt
+              ? formatDate({
+                  date: parseDateTimeUtc(application.statusUpdatedAt),
+                  formatString: DATE_FORMAT_STRING,
+                  intl,
+                })
+              : notAvailable,
+          },
+        )}
+      </p>
       {reason && (
         <p className="mb-6">
           {intl.formatMessage({

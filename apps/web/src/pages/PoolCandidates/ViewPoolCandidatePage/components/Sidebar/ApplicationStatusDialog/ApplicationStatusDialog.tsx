@@ -13,7 +13,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import applicationMessages from "~/messages/applicationMessages";
-import { applicationStatus } from "~/utils/poolCandidate";
 
 import ToAssessStatusForm from "./ToAssessStatusForm";
 import { ApplicationStatusFormProps, MutationHandler } from "./types";
