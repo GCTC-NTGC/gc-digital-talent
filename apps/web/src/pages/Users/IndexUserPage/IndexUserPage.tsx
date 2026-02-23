@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
