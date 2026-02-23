@@ -3126,6 +3126,7 @@ type Mutation {
     id: UUID!
     poolCandidate: UpdatePoolCandidateStatusInput! @spread
   ): PoolCandidate
+    @deprecated(reason: "Replaced by specific mutations")
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
@@ -3158,6 +3159,15 @@ type Mutation {
   updatePoolCandidateScreeningStage(
     poolCandidate: UpdatePoolCandidateScreeningStageInput! @spread
   ): PoolCandidate
+    @guard
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+  updatePoolCandidateExpiryDate(
+    id: UUID!
+    expiryDate: Date!
+      @rename(attribute: "expiry_date")
+      @rules(apply: ["after_or_equal:today"])
+  ): PoolCandidate
+    @update
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   removeCandidate(
