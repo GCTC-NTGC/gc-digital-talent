@@ -1363,6 +1363,10 @@
     "defaultMessage": "Demandes de talents",
     "description": "Title for the index search request page"
   },
+  "3OR3Zv": {
+    "defaultMessage": "Vue ministère",
+    "description": "Department role name for nav menu"
+  },
   "3PwQT7": {
     "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
     "description": "Title for notice when there are no pool candidate search requests"
@@ -1390,6 +1394,10 @@
   "3Z4fra": {
     "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavySecondary>« Requises »</heavySecondary>. Si vous possédez l'une des compétences <heavyPrimary>« Facultatives »</heavyPrimary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
     "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
+  },
+  "3aiz1p": {
+    "defaultMessage": "Voici votre tableau de bord du ministère. Vous pouvez y recruter, gérer les talents et trouver des ressources.",
+    "description": "Subtitle for the department dashboard page"
   },
   "3amaVI": {
     "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
@@ -2210,6 +2218,10 @@
   "77AbwY": {
     "defaultMessage": "Apprenez comment fonctionnent les dates limites et ce que les candidates et candidats verront au moment de présenter une demande.",
     "description": "Subtitle for the pool closing date dialog"
+  },
+  "78k3CS": {
+    "defaultMessage": "Bon retour<hidden> dans le tableau de bord</hidden> de votre ministère, {name}",
+    "description": "Title for department dashboard on the admin portal."
   },
   "7DUfu+": {
     "defaultMessage": "Statut de citoyenneté",

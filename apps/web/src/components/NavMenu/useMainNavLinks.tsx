@@ -86,6 +86,14 @@ const useMainNavLinks = () => {
     />
   );
 
+  const DepartmentDashboard = (
+    <NavItem
+      key="departmentDashboard"
+      href={paths.departmentDashboard()}
+      title={intl.formatMessage(navigationMessages.dashboard)}
+    />
+  );
+
   const Processes = hasRole(
     permissionConstants.viewProcesses,
     roleAssignments,
@@ -285,6 +293,8 @@ const useMainNavLinks = () => {
     ["community_talent_coordinator"]: intl.formatMessage(
       navMenuMessages.community,
     ),
+    ["department_admin"]: intl.formatMessage(navMenuMessages.department),
+    ["department_hr_advisor"]: intl.formatMessage(navMenuMessages.department),
     ["platform_admin"]: intl.formatMessage(navMenuMessages.admin),
   };
 
@@ -294,6 +304,8 @@ const useMainNavLinks = () => {
     ["community_recruiter"]: paths.communityDashboard(),
     ["community_admin"]: paths.communityDashboard(),
     ["community_talent_coordinator"]: paths.communityDashboard(),
+    ["department_admin"]: paths.departmentDashboard(),
+    ["department_hr_advisor"]: paths.departmentDashboard(),
     ["platform_admin"]: paths.adminDashboard(),
   };
 
@@ -359,6 +371,15 @@ const useMainNavLinks = () => {
       return {
         ...defaultLinks,
         mainLinks: [CommunityDashboard, Processes, Candidates, Requests],
+        accountLinks: loggedIn
+          ? [AccountSettings, ManageAuthAccount, SignOut]
+          : null,
+        resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
+      };
+    case "department":
+      return {
+        ...defaultLinks,
+        mainLinks: [DepartmentDashboard, Processes, Candidates],
         accountLinks: loggedIn
           ? [AccountSettings, ManageAuthAccount, SignOut]
           : null,
