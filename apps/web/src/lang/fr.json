@@ -4511,6 +4511,10 @@
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
     "description": "Name of Western Ojibwe language"
   },
+  "Ho4kfT": {
+    "defaultMessage": "À l'étape d'évaluation",
+    "description": "Status label for an application under assessment"
+  },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
     "description": "Subject line of a manager's email for apprenticeship"
@@ -9518,6 +9522,9 @@
     "defaultMessage": "Exploitez toutes les compétences sur notre site",
     "description": "Subtitle for explore skills page"
   },
+  "eUDr2H": {
+    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir le candidat au statut \"Examen des candidatures\"?"
+  },
   "eUnUZo": {
     "defaultMessage": "Le nombre de compétences comportementales sélectionnées ici, combiné aux compétences techniques essentielles dans la section précédente, contribue au nombre total de compétences essentielles.",
     "description": "Lead in, paragraph 2, for a list of essential behavioural skills"
@@ -10297,6 +10304,10 @@
   "hWHT65": {
     "defaultMessage": "Pour cette procédure de candidature, vous devez remplir les conditions linguistiques suivantes :",
     "description": "Text that appears when a user is missing a language requirement on their profile."
+  },
+  "hWQgP5": {
+    "defaultMessage": "Candidature retenue",
+    "description": "Message displayed when candidate has been screened in at a specific assessment step"
   },
   "hXWO/r": {
     "defaultMessage": "Dans de rares cas, vous pouvez être informé d’une offre d’emploi qui indique ensuite qu’elle a été « fermée prématurément ». Cela se produit lorsque l’offre d’emploi est publiée avec des informations incorrectes ou qu’un besoin en ressources humaines doit être modifié. Dans un souci d’équité, ces offres d’emploi sont fermées afin que les mises à jour puissent être effectuées et publiées sous la forme d’une nouvelle annonce.",
