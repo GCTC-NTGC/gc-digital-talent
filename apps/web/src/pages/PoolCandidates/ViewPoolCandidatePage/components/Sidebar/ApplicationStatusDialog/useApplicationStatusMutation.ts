@@ -1,61 +1,21 @@
 import { OperationResult, useMutation } from "urql";
 import { useMemo } from "react";
 
-import { ApplicationStatus, graphql } from "@gc-digital-talent/graphql";
+import { ApplicationStatus } from "@gc-digital-talent/graphql";
 
 import { FormValues } from "./types";
+import {
+  DisqualifyCandidate_Mutation,
+  QualifyAndPlaceCandidate_Mutation,
+  QualifyCandidate_Mutation,
+  RemoveCandidate_Mutation,
+} from "./mutations";
 
 type StatusStrategy = (
   id: string,
   data: FormValues,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) => Promise<OperationResult<any, any>>;
-
-const QualifyCandidate_Mutation = graphql(/** GraphQL */ `
-  mutation QualifyCandidate(
-    $id: UUID!
-    $poolCandidate: QualifyCandidateInput!
-  ) {
-    qualifyCandidate(id: $id, poolCandidate: $poolCandidate) {
-      id
-    }
-  }
-`);
-
-const QualifyAndPlaceCandidate_Mutation = graphql(/** GraphQL */ `
-  mutation QualifyAndPlaceCandidate(
-    $id: UUID!
-    $poolCandidate: QualifyAndPlaceCandidateInput!
-  ) {
-    qualifyAndPlaceCandidate(id: $id, poolCandidate: $poolCandidate) {
-      id
-    }
-  }
-`);
-
-const DisqualifyCandidate_Mutation = graphql(/** GraphQL */ `
-  mutation DisqualifyCandidate($id: UUID!, $reason: DisqualificationReason!) {
-    disqualifyCandidate(id: $id, reason: $reason) {
-      id
-    }
-  }
-`);
-
-const RemoveCandidate_Mutation = graphql(/** GraphQL */ `
-  mutation RemoveCandidate(
-    $id: UUID!
-    $removalReason: CandidateRemovalReason!
-    $removalReasonOther: String
-  ) {
-    removeCandidate(
-      id: $id
-      removalReason: $removalReason
-      removalReasonOther: $removalReasonOther
-    ) {
-      id
-    }
-  }
-`);
 
 const useApplicationStatusMutation = () => {
   const [, qualify] = useMutation(QualifyCandidate_Mutation);
@@ -78,7 +38,7 @@ const useApplicationStatusMutation = () => {
                 poolCandidate: {
                   expiryDate: data.expiryDate,
                   placementType: data.placementType,
-                  department: data.department,
+                  department: { connect: data.department },
                 },
               });
             }

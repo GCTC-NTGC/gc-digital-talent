@@ -10,12 +10,16 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Dialog, StatusButton, StatusButtonProps } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import applicationMessages from "~/messages/applicationMessages";
 import { applicationStatus } from "~/utils/poolCandidate";
 
 import ToAssessStatusForm from "./ToAssessStatusForm";
-import { ApplicationStatusFormProps } from "./types";
+import { ApplicationStatusFormProps, MutationHandler } from "./types";
+import DisqualifiedStatusForm from "./DisqualifiedStatusForm";
+import QualifiedStatusForm from "./QualifiedStatusForm";
+import RemovedStatusForm from "./RemovedStatusForm";
 
 const ApplicationStatusDialog_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationStatusDialog on PoolCandidate {
@@ -26,6 +30,10 @@ const ApplicationStatusDialog_Fragment = graphql(/** GraphQL */ `
         localized
       }
     }
+
+    ...QualifiedStatusForm
+    ...DisqualifiedStatusForm
+    ...RemovedStatusForm
   }
 `);
 
@@ -70,11 +78,27 @@ const ApplicationStatusDialog = ({ query }: ApplicationStatusDialogProps) => {
     application.status?.value ?? ApplicationStatus.ToAssess,
   );
 
+  const handleSubmit: MutationHandler = async (mutation, messages) => {
+    const handleError = () => {
+      toast.error(intl.formatMessage(messages.error));
+    };
+
+    await mutation
+      .then((res) => {
+        if (!res.data || res.error) {
+          handleError();
+          return;
+        }
+
+        toast.success(intl.formatMessage(messages.success));
+        setOpen(false);
+      })
+      .catch(handleError);
+  };
+
   const commonProps: ApplicationStatusFormProps = {
     id: application.id,
-    onSubmit() {
-      setOpen(false);
-    },
+    onSubmit: handleSubmit,
   };
 
   return (
@@ -95,8 +119,21 @@ const ApplicationStatusDialog = ({ query }: ApplicationStatusDialogProps) => {
         <Dialog.Header>
           {intl.formatMessage(header ?? applicationMessages.applicationStatus)}
         </Dialog.Header>
+
         {application.status?.value === ApplicationStatus.ToAssess && (
           <ToAssessStatusForm {...commonProps} />
+        )}
+
+        {application.status.value === ApplicationStatus.Qualified && (
+          <QualifiedStatusForm {...commonProps} query={application} />
+        )}
+
+        {application.status.value === ApplicationStatus.Disqualified && (
+          <DisqualifiedStatusForm {...commonProps} query={application} />
+        )}
+
+        {application.status.value === ApplicationStatus.Removed && (
+          <RemovedStatusForm {...commonProps} query={application} />
         )}
       </Dialog.Content>
     </Dialog.Root>

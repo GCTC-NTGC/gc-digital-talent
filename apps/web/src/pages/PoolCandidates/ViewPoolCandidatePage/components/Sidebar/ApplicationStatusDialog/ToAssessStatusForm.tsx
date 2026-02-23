@@ -2,19 +2,13 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
 import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
 
-import {
-  ApplicationStatus,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
-import { Dialog, Notice, Pending } from "@gc-digital-talent/ui";
+import { ApplicationStatus, graphql } from "@gc-digital-talent/graphql";
+import { Dialog, Pending } from "@gc-digital-talent/ui";
 import { RadioGroup } from "@gc-digital-talent/forms";
-import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   ENUM_SORT_ORDER,
   errorMessages,
-  formMessages,
   narrowEnumType,
   sortLocalizedEnumOptions,
 } from "@gc-digital-talent/i18n";
@@ -22,15 +16,18 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
 
-import { ApplicationStatusFormProps, FormValues } from "./types";
+import {
+  ApplicationStatusFormProps,
+  FormValues,
+  MutationMessages,
+} from "./types";
 import useApplicationStatusMutation from "./useApplicationStatusMutation";
 import {
   DisqualifiedFields,
   QualifiedFields,
   RemovedFields,
 } from "./StatusFields";
-import ApplicationStatusDialogFooter from "./ApplicationStatusDialogFooter";
-import StatusChangeNotice from "./StatusChangeNotice";
+import { Footer, StatusChangeNotice } from "./StatusContent";
 
 const ApplicationStatusFormOptions_Query = graphql(/** GraphQL */ `
   query ApplicationStatusFormOptions {
@@ -84,6 +81,19 @@ const statusMessageMap = new Map<ApplicationStatus, MessageDescriptor>([
   ],
 ]);
 
+const mutationMessages: MutationMessages = {
+  success: defineMessage({
+    defaultMessage: "Application status updated successfully!",
+    id: "EYWt+5",
+    description: "Success message when updating application status",
+  }),
+  error: defineMessage({
+    defaultMessage: "Error: Could not save application status",
+    id: "pDHM6j",
+    description: "Error message when status could not be updated",
+  }),
+};
+
 const ToAssessStatusForm = ({ id, onSubmit }: ApplicationStatusFormProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
@@ -98,35 +108,8 @@ const ToAssessStatusForm = ({ id, onSubmit }: ApplicationStatusFormProps) => {
     query: ApplicationStatusFormOptions_Query,
   });
 
-  const handleError = () => {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage: "Error: Could not save application status",
-        id: "pDHM6j",
-        description: "Error message when status could not be updated",
-      }),
-    );
-  };
-
   const handleSubmit = async (formValues: FormValues) => {
-    await submitStatusChange(id, formValues)
-      .then((res) => {
-        if (res.error || !res.data) {
-          handleError();
-          return;
-        }
-
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Application status updated successfully!",
-            id: "EYWt+5",
-            description: "Success message when updating application status",
-          }),
-        );
-
-        onSubmit?.();
-      })
-      .catch(handleError);
+    await onSubmit(submitStatusChange(id, formValues), mutationMessages);
   };
 
   return (
@@ -173,7 +156,7 @@ const ToAssessStatusForm = ({ id, onSubmit }: ApplicationStatusFormProps) => {
             </Pending>
             <StatusChangeNotice />
           </div>
-          <ApplicationStatusDialogFooter />
+          <Footer />
         </Dialog.Body>
       </form>
     </FormProvider>

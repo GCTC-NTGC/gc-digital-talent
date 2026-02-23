@@ -1,3 +1,6 @@
+import { MessageDescriptor } from "react-intl";
+import { OperationResult } from "urql";
+
 import {
   ApplicationStatus,
   CandidateRemovalReason,
@@ -16,7 +19,18 @@ export interface FormValues {
   removalReasonOther?: Scalars["String"]["input"];
 }
 
+export interface MutationMessages {
+  success: MessageDescriptor;
+  error: MessageDescriptor;
+}
+
+export type MutationHandler = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mutation: Promise<OperationResult<any, any>>,
+  messages: MutationMessages,
+) => Promise<void>;
+
 export interface ApplicationStatusFormProps {
   id: Scalars["UUID"]["output"];
-  onSubmit?: () => void;
+  onSubmit: MutationHandler;
 }
