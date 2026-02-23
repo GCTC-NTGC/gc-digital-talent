@@ -87,7 +87,7 @@ export default defineConfig(({ command }) => ({
     cspNonce: "**CSP_NONCE**",
   },
   ssr: {
-    noExternal: ["react-helmet-async"],
+    noExternal: ["@dr.pogodin/react-helmet"],
   },
   resolve: {
     alias: {
