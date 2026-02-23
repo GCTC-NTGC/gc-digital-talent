@@ -269,7 +269,7 @@ class PoolPage extends AppPage {
     action?: string,
     Entity?: string,
   ) {
-    await this.page.reload({ waitUntil: "load" });
+    await this.page.reload();
     await expect(
       this.page.getByText(
         new RegExp(
