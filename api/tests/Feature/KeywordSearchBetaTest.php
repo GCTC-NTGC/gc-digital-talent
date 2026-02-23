@@ -75,7 +75,7 @@ class KeywordSearchBetaTest extends TestCase
             }
         ', [
                 'where' => [
-                    'generalSearchBeta' => 'Toronto',
+                    'generalSearch' => 'Toronto',
                 ],
             ])->assertJson([
                 'data' => [
@@ -170,7 +170,7 @@ class KeywordSearchBetaTest extends TestCase
             }
         ', [
                 'where' => [
-                    'generalSearchBeta' => '0987654321',
+                    'generalSearch' => '0987654321',
                 ],
             ])->assertJson([
                 'data' => [
@@ -225,7 +225,7 @@ class KeywordSearchBetaTest extends TestCase
             }
         ', [
                 'where' => [
-                    'generalSearchBeta' => 'software developer', // verify it is case insensitive
+                    'generalSearch' => 'software developer', // verify it is case insensitive
                 ],
             ])->assertJson([
                 'data' => [
@@ -280,7 +280,7 @@ class KeywordSearchBetaTest extends TestCase
             }
         ', [
                 'where' => [
-                    'generalSearchBeta' => 'computer',
+                    'generalSearch' => 'computer',
                 ],
             ])->assertJson([
                 'data' => [
@@ -344,7 +344,7 @@ class KeywordSearchBetaTest extends TestCase
             }
         ', [
                 'where' => [
-                    'generalSearchBeta' => 'award title',
+                    'generalSearch' => 'award title',
                 ],
             ])->assertJson([
                 'data' => [
@@ -375,7 +375,7 @@ class KeywordSearchBetaTest extends TestCase
             }
         ', [
                 'where' => [
-                    'generalSearchBeta' => 'community title',
+                    'generalSearch' => 'community title',
                 ],
             ])->assertJson([
                 'data' => [
@@ -471,7 +471,7 @@ class KeywordSearchBetaTest extends TestCase
             }
         ', [
                 'where' => [
-                    'generalSearchBeta' => '"user" "CDS"',
+                    'generalSearch' => '"user" "CDS"',
                 ],
             ])->assertJson([
                 'data' => [
@@ -523,7 +523,7 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => 'john',
+                    'generalSearch' => 'john',
                 ],
             ])->assertJsonCount(
                 3, 'data.usersPaginated.data'
@@ -548,7 +548,7 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => 'JOHN',
+                    'generalSearch' => 'JOHN',
                 ],
             ])->assertJsonCount(
                 3, 'data.usersPaginated.data'
@@ -595,7 +595,7 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => 'abc OR hal',
+                    'generalSearch' => 'abc OR hal',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
@@ -616,7 +616,7 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => 'abc OR johnson@test.com',
+                    'generalSearch' => 'abc OR johnson@test.com',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
@@ -637,7 +637,7 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => 'johnso or hal',
+                    'generalSearch' => 'johnso or hal',
                 ],
             ])->assertJsonFragment([
                 'id' => $user2->id,
@@ -658,7 +658,7 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => 'BOB@ OR johnson@',
+                    'generalSearch' => 'BOB@ OR johnson@',
                 ],
             ])->assertJsonFragment([
                 'id' => $user2->id,
@@ -701,7 +701,7 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => '"john smith"',
+                    'generalSearch' => '"john smith"',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
@@ -743,7 +743,7 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => 'john -smith',
+                    'generalSearch' => 'john -smith',
                 ],
             ])->assertJsonFragment([
                 'id' => $user2->id,
@@ -764,7 +764,7 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => 'john -bob@test.com',
+                    'generalSearch' => 'john -bob@test.com',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
@@ -801,7 +801,7 @@ class KeywordSearchBetaTest extends TestCase
             }
             ', [
                 'where' => [
-                    'generalSearchBeta' => 'bob-jon',
+                    'generalSearch' => 'bob-jon',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
@@ -820,7 +820,7 @@ class KeywordSearchBetaTest extends TestCase
             }
             ', [
                 'where' => [
-                    'generalSearchBeta' => 'o_bria',
+                    'generalSearch' => 'o_bria',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
@@ -837,7 +837,7 @@ class KeywordSearchBetaTest extends TestCase
             }
             ', [
                 'where' => [
-                    'generalSearchBeta' => 'bob.jone',
+                    'generalSearch' => 'bob.jone',
                 ],
             ])->assertJsonFragment([
                 'id' => $user2->id,
@@ -856,7 +856,7 @@ class KeywordSearchBetaTest extends TestCase
             }
             ', [
                 'where' => [
-                    'generalSearchBeta' => 'bob jone',
+                    'generalSearch' => 'bob jone',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
@@ -899,7 +899,7 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => '"johnson" OR john',
+                    'generalSearch' => '"johnson" OR john',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
@@ -920,7 +920,7 @@ class KeywordSearchBetaTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearchBeta' => '  "johnson"    OR     john     ',
+                    'generalSearch' => '  "johnson"    OR     john     ',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
