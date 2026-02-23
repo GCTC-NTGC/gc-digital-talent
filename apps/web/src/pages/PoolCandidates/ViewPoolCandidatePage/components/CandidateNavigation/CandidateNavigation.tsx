@@ -2,7 +2,7 @@ import { defineMessages, useIntl } from "react-intl";
 import ChevronDoubleRightIcon from "@heroicons/react/16/solid/ChevronDoubleRightIcon";
 import ChevronDoubleLeftIcon from "@heroicons/react/16/solid/ChevronDoubleLeftIcon";
 
-import { Card, IconLinkProps, Link, Separator } from "@gc-digital-talent/ui";
+import { Card, LinkProps, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -41,9 +41,11 @@ const CandidateNavigation = ({ candidateId }: CandidateNavigationProps) => {
     candidateNavigation;
   if (!nextCandidate && !previousCandidate) return null;
 
-  const commonLinkProps: Partial<IconLinkProps> = {
+  const commonLinkProps: Partial<LinkProps> = {
     color: "primary",
+    mode: "inline",
     state: { candidateIds, stepName },
+    block: true,
   };
 
   return (
@@ -74,7 +76,6 @@ const CandidateNavigation = ({ candidateId }: CandidateNavigationProps) => {
             href={paths.poolCandidateApplication(nextCandidate)}
             utilityIcon={ChevronDoubleRightIcon}
             {...commonLinkProps}
-            className="flex justify-end"
           >
             {intl.formatMessage(messages.nextCandidate)}
           </Link>
