@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
+import { useOutletContext } from "react-router";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
@@ -15,14 +16,13 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import adminMessages from "~/messages/adminMessages";
 
 import { ArchiveDepartment } from "./components/ArchiveDepartment";
 import { RestoreDepartment } from "./components/RestoreDepartment";
+import { ContextType } from "./ManageAccessPage/components/types";
 
 export const DepartmentAdvancedTools_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentAdvancedTools on Department {
@@ -106,39 +106,17 @@ const AdvancedToolsDepartmentPage = () => {
     variables: { id: departmentId },
   });
 
-  const departmentName =
-    departmentData?.department?.name?.localized ??
-    intl.formatMessage(commonMessages.notAvailable);
+  const {
+    departmentName,
+    navigationCrumbs: baseCrumbs,
+    navTabs,
+  } = useOutletContext<ContextType>();
 
-  const navigationCrumbs = useBreadcrumbs({
-    crumbs: [
-      {
-        label: intl.formatMessage(pageTitles.departments),
-        url: routes.departmentTable(),
-      },
-      {
-        label: departmentName,
-        url: routes.departmentView(departmentId),
-      },
-      {
-        label: intl.formatMessage(adminMessages.advancedTools),
-        url: routes.departmentAdvancedTools(departmentId),
-      },
-    ],
-  });
-
-  const navTabs = [
+  const crumbs = [
+    ...(baseCrumbs ?? []),
     {
-      url: routes.departmentView(departmentId),
-      label: intl.formatMessage({
-        defaultMessage: "Department information",
-        id: "sp9OKU",
-        description: "Nav tab label for department information",
-      }),
-    },
-    {
-      url: routes.departmentAdvancedTools(departmentId),
       label: intl.formatMessage(adminMessages.advancedTools),
+      url: routes.departmentAdvancedTools(departmentId),
     },
   ];
 
@@ -149,7 +127,7 @@ const AdvancedToolsDepartmentPage = () => {
         title={
           fetching ? intl.formatMessage(commonMessages.loading) : departmentName
         }
-        crumbs={navigationCrumbs}
+        crumbs={crumbs}
         navTabs={navTabs}
       />
       <div className="mw-full mx-auto max-w-6xl px-6">

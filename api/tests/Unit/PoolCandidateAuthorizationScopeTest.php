@@ -69,10 +69,8 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
         $this->candidateSubmitted1B = PoolCandidate::factory()
             ->for($this->user1)
             ->for($this->poolB)
-            ->create([
-                'application_status' => ApplicationStatus::TO_ASSESS->name,
-                'screening_stage' => ScreeningStage::UNDER_ASSESSMENT->name,
-            ]);
+            ->screening(ScreeningStage::UNDER_ASSESSMENT)
+            ->create();
 
         $this->user2 = User::factory()
             ->asApplicant()
@@ -88,10 +86,8 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
         $this->candidateSubmitted2A = PoolCandidate::factory()
             ->for($this->user2)
             ->for($this->poolA)
-            ->create([
-                'application_status' => ApplicationStatus::TO_ASSESS->name,
-                'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
-            ]);
+            ->submitted()
+            ->create();
     }
 
     // a guest should be able to view no candidates

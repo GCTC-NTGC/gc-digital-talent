@@ -1280,6 +1280,9 @@ return [
         ],
 
         'department_admin' => [
+            'userBasicInfo' => [
+                'any' => ['view'],
+            ],
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],
@@ -1292,6 +1295,9 @@ return [
         ],
 
         'department_hr_advisor' => [
+            'userBasicInfo' => [
+                'any' => ['view'],
+            ],
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],

@@ -188,7 +188,8 @@ class UserPolicyTest extends TestCase
     }
 
     /**
-     * Only Platform Admins, Community Recruiter, and Community Admin should be able to viewBasicInfo
+     * Able to viewBasicInfo
+     * Only Platform Admins, Community Recruiter, Community Admin, Department Admin, and Department Advisor
      *
      * @return void
      */
@@ -202,8 +203,8 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($this->communityRecruiter->can('viewBasicInfo', $this->applicant));
         $this->assertTrue($this->communityAdmin->can('viewBasicInfo', $this->applicant));
         $this->assertFalse($this->communityTalentCoordinator->can('viewBasicInfo', $this->applicant));
-        $this->assertFalse($this->departmentAdmin->can('viewBasicInfo', $this->applicant));
-        $this->assertFalse($this->departmentHRAdvisor->can('viewBasicInfo', $this->applicant));
+        $this->assertTrue($this->departmentAdmin->can('viewBasicInfo', $this->applicant));
+        $this->assertTrue($this->departmentHRAdvisor->can('viewBasicInfo', $this->applicant));
     }
 
     /**

@@ -10,7 +10,7 @@ interface AuthenticationContainerProps {
 
 const AuthenticationProvider = ({ children }: AuthenticationContainerProps) => {
   // eslint-disable-next-line no-restricted-syntax
-  const { locale } = useLocale();
+  const locale = useLocale();
 
   return (
     <AuthenticationContainer locale={locale}>
