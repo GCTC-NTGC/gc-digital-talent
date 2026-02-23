@@ -255,61 +255,46 @@ class WorkStreamTest extends TestCase
      */
     public function testNoDuplicateWorkStreamNames()
     {
-        $workStream = WorkStream::factory()->create([
-            'name' => [
-                'en' => 'New work stream (EN)',
-                'fr' => 'New work stream (FR)',
-            ],
-        ]);
+        $name = [
+            'en' => 'New work stream (EN)',
+            'fr' => 'New work stream (FR)',
+        ];
+
+        WorkStream::factory()->create(['name' => $name]);
+
+        $workStream = WorkStream::factory()->create();
 
         // Assert creating a work stream with same name fails
         $this->actingAs($this->admin, 'api')
             ->graphQL(<<<'GRAPHQL'
-            mutation CreateWorkStream($workStream: CreateWorkStreamInput!) {
-                createWorkStream(workStream: $workStream) {
-                    id
-                    key
-                    name {
-                        en
-                        fr
+                mutation CreateWorkStream($workStream: CreateWorkStreamInput!) {
+                    createWorkStream(workStream: $workStream) {
+                        id
                     }
-                    plainLanguageName {
-                        en
-                        fr
-                    }
-                    community { id }
-                    talentSearchable
                 }
-            }
-            GRAPHQL,
+                GRAPHQL,
                 [
                     'workStream' => [
                         ...$this->input,
-                        'name' => [
-                            'en' => 'New work stream (EN)',
-                            'fr' => 'New work stream (FR)',
-                        ],
+                        'name' => $name,
                         'community' => ['connect' => $this->communityId],
                     ],
-                ])
-            ->assertJsonFragment([ErrorCode::WORK_STREAM_NAME_IN_USE->name]);
+                ])->assertJsonFragment([ErrorCode::WORK_STREAM_NAME_IN_USE->name]);
 
         // Assert updating a work stream with same name fails
-        $this->actingAs($this->nonAdmin, 'api')
+        $this->actingAs($this->admin, 'api')
             ->graphQL(<<<'GRAPHQL'
             mutation UpdateWorkStream($id: UUID!, $workStream: UpdateWorkStreamInput!) {
                 updateWorkStream(id: $id, workStream: $workStream) {
                     id
+                    name { en fr }
                 }
             }
             GRAPHQL,
                 [
                     'id' => $workStream->id,
                     'workStream' => [
-                        'name' => [
-                            'en' => 'New work stream (EN)',
-                            'fr' => 'New work stream (FR)',
-                        ],
+                        'name' => $name,
                     ],
                 ])
             ->assertJsonFragment([ErrorCode::WORK_STREAM_NAME_IN_USE->name]);
@@ -317,23 +302,12 @@ class WorkStreamTest extends TestCase
         // Assert creating a work stream with unique name works
         $this->actingAs($this->admin, 'api')
             ->graphQL(<<<'GRAPHQL'
-            mutation CreateWorkStream($workStream: CreateWorkStreamInput!) {
-                createWorkStream(workStream: $workStream) {
-                    id
-                    key
-                    name {
-                        en
-                        fr
+                mutation CreateWorkStream($workStream: CreateWorkStreamInput!) {
+                    createWorkStream(workStream: $workStream) {
+                        id
                     }
-                    plainLanguageName {
-                        en
-                        fr
-                    }
-                    community { id }
-                    talentSearchable
                 }
-            }
-            GRAPHQL,
+                GRAPHQL,
                 [
                     'workStream' => [
                         ...$this->input,

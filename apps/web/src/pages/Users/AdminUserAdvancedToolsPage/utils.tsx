@@ -186,15 +186,13 @@ export type CommunityTeamable = Pick<
 
 export type DepartmentTeamable = Pick<
   Department,
-  | "id"
-  | "__typename"
-  | ("teamIdForRoleAssignment" & {
-      departmentName: {
-        __typename?: "LocalizedString" | undefined;
-        localized?: string | null | undefined;
-      };
-    })
->;
+  "id" | "__typename" | "teamIdForRoleAssignment"
+> & {
+  departmentName: {
+    __typename?: "LocalizedString" | undefined;
+    localized?: string | null | undefined;
+  };
+};
 
 type TeamTeamable = Pick<Team, "id" | "__typename">;
 
@@ -213,6 +211,11 @@ export interface CommunityAssignment {
   roles: Role[];
 }
 
+export interface DepartmentAssignment {
+  department: DepartmentTeamable;
+  roles: Role[];
+}
+
 export const isCommunityTeamable = (
   teamable: Teamable | undefined | null,
 ): teamable is CommunityTeamable => {
@@ -226,6 +229,15 @@ export const isPoolTeamable = (
   teamable: Teamable | undefined | null,
 ): teamable is PoolTeamable => {
   if (teamable?.__typename === "Pool") {
+    return true;
+  }
+  return false;
+};
+
+export const isDepartmentTeamable = (
+  teamable: Teamable | undefined | null,
+): teamable is DepartmentTeamable => {
+  if (teamable?.__typename === "Department") {
     return true;
   }
   return false;
