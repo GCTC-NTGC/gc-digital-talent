@@ -374,5 +374,15 @@ class PoolPage extends AppPage {
 
     await this.page.getByRole("button", { name: /show results/i }).click();
   }
+
+  async resetFiltersInActivityLog() {
+    await this.page.getByRole("button", { name: /filters/i }).click();
+    await this.page.getByRole("button", { name: /reset filters/i }).click();
+    await expect(
+      this.page
+        .getByRole("heading", { name: /activity log/i, level: 2 })
+        .first(),
+    ).toBeVisible();
+  }
 }
 export default PoolPage;

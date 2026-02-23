@@ -290,17 +290,7 @@ test.describe("Process activity log", () => {
           .first(),
       ).toBeVisible();
 
-      // Reset filters
-      await poolPage.page.getByRole("button", { name: /filters/i }).click();
-      await poolPage.page
-        .getByRole("button", { name: /reset filters/i })
-        .click();
-      await expect(
-        poolPage.page
-          .getByRole("heading", { name: /activity log/i, level: 2 })
-          .first(),
-      ).toBeVisible();
-
+      await poolPage.resetFiltersInActivityLog();
       await poolPage.applyFiltersInActivityLog({
         fromDate: currentDate(),
         processDetail: "Disqualified",
