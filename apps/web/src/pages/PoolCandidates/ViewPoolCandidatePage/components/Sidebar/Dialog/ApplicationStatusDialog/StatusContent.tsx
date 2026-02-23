@@ -1,8 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import { Button, ButtonProps, Dialog, Notice } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 import {
   ApplicationStatus,
   FragmentType,
@@ -14,6 +13,8 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
+
+import Footer, { FooterProps } from "../Footer";
 
 export const StatusChangeNotice = () => {
   const intl = useIntl();
@@ -27,34 +28,6 @@ export const StatusChangeNotice = () => {
         <p>{intl.formatMessage(formMessages.candidateNotify)}</p>
       </Notice.Content>
     </Notice.Root>
-  );
-};
-
-interface FooterProps {
-  submitProps?: {
-    color?: ButtonProps["color"];
-    label?: string;
-  };
-}
-
-export const Footer = ({ submitProps }: FooterProps) => {
-  const intl = useIntl();
-
-  return (
-    <Dialog.Footer>
-      <Submit
-        text={
-          submitProps?.label ??
-          intl.formatMessage(commonMessages.saveAndContinue)
-        }
-        color={submitProps?.color}
-      />
-      <Dialog.Close>
-        <Button color="warning" mode="inline">
-          {intl.formatMessage(formMessages.cancelGoBack)}
-        </Button>
-      </Dialog.Close>
-    </Dialog.Footer>
   );
 };
 

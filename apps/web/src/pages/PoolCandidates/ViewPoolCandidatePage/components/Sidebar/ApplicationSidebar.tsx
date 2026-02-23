@@ -7,7 +7,8 @@ import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
-import ApplicationStatusDialog from "./ApplicationStatusDialog/ApplicationStatusDialog";
+import ApplicationStatusMeta from "./ApplicationStatusMeta/ApplicationStatusMeta";
+import ApplicationStatusDialog from "./Dialog/ApplicationStatusDialog/ApplicationStatusDialog";
 
 export const ApplicationSidebar_Fragment = graphql(/** GraphQL **/ `
   fragment ApplicationSidebar on PoolCandidate {
@@ -18,6 +19,7 @@ export const ApplicationSidebar_Fragment = graphql(/** GraphQL **/ `
       lastName
     }
     ...ApplicationStatusDialog
+    ...ApplicationStatusMeta
   }
 `);
 
@@ -52,6 +54,7 @@ const ApplicationSidebar = ({ query }: ApplicationSidebarProps) => {
         </div>
         <Card.Separator />
         <ApplicationStatusDialog query={application} />
+        <ApplicationStatusMeta query={application} />
         <Card.Separator />
       </Card>
       <CandidateNavigation candidateId={application.id} />

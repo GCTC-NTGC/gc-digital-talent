@@ -66,7 +66,7 @@ const DisqualifiedStatusForm = ({
           <Content
             query={application}
             reason={
-              application.disqualificationReason.label.localized ??
+              application.disqualificationReason?.label.localized ??
               intl.formatMessage(commonMessages.notAvailable)
             }
             submitProps={{

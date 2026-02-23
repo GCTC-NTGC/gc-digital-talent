@@ -20,14 +20,15 @@ import {
   ApplicationStatusFormProps,
   FormValues,
   MutationMessages,
-} from "./types";
+} from "../types";
 import useApplicationStatusMutation from "./useApplicationStatusMutation";
 import {
   DisqualifiedFields,
   QualifiedFields,
   RemovedFields,
 } from "./StatusFields";
-import { Footer, StatusChangeNotice } from "./StatusContent";
+import { StatusChangeNotice } from "./StatusContent";
+import Footer from "../Footer";
 
 const ApplicationStatusFormOptions_Query = graphql(/** GraphQL */ `
   query ApplicationStatusFormOptions {

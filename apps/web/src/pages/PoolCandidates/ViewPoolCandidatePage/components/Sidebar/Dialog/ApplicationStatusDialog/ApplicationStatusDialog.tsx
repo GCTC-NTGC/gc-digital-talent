@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import { MessageDescriptor, useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/16/solid/PencilSquareIcon";
 
 import {
@@ -15,10 +15,11 @@ import { toast } from "@gc-digital-talent/toast";
 import applicationMessages from "~/messages/applicationMessages";
 
 import ToAssessStatusForm from "./ToAssessStatusForm";
-import { ApplicationStatusFormProps, MutationHandler } from "./types";
+import { ApplicationStatusFormProps, MutationHandler } from "../types";
 import DisqualifiedStatusForm from "./DisqualifiedStatusForm";
 import QualifiedStatusForm from "./QualifiedStatusForm";
 import RemovedStatusForm from "./RemovedStatusForm";
+import messages from "./messages";
 
 const ApplicationStatusDialog_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationStatusDialog on PoolCandidate {
@@ -43,17 +44,10 @@ const statusColorMap = new Map<ApplicationStatus, StatusButtonProps["color"]>([
   [ApplicationStatus.Qualified, "success"],
 ]);
 
-const revertMessage = defineMessage({
-  defaultMessage: "Revert final assessment decision",
-  id: "wb/hvK",
-  description:
-    "Heading for dialog to revert an application assessment decision",
-});
-
 const statusHeaderMap = new Map<ApplicationStatus, MessageDescriptor>([
   [ApplicationStatus.ToAssess, applicationMessages.applicationStatus],
-  [ApplicationStatus.Qualified, revertMessage],
-  [ApplicationStatus.Disqualified, revertMessage],
+  [ApplicationStatus.Qualified, messages.revertHeader],
+  [ApplicationStatus.Disqualified, messages.revertHeader],
   [ApplicationStatus.Removed, applicationMessages.reinstate],
 ]);
 
@@ -77,9 +71,9 @@ const ApplicationStatusDialog = ({ query }: ApplicationStatusDialogProps) => {
     application.status?.value ?? ApplicationStatus.ToAssess,
   );
 
-  const handleSubmit: MutationHandler = async (mutation, messages) => {
+  const handleSubmit: MutationHandler = async (mutation, msgs) => {
     const handleError = () => {
-      toast.error(intl.formatMessage(messages.error));
+      toast.error(intl.formatMessage(msgs.error));
     };
 
     await mutation
@@ -89,7 +83,7 @@ const ApplicationStatusDialog = ({ query }: ApplicationStatusDialogProps) => {
           return;
         }
 
-        toast.success(intl.formatMessage(messages.success));
+        toast.success(intl.formatMessage(msgs.success));
         setOpen(false);
       })
       .catch(handleError);

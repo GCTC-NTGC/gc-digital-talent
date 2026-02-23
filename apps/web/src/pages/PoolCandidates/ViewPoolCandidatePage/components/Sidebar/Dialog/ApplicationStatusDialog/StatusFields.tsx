@@ -33,6 +33,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Notice } from "@gc-digital-talent/ui";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import applicationMessages from "~/messages/applicationMessages";
 
 import { FormValues } from "./types";
 
@@ -275,11 +276,7 @@ export const RemovedFields = ({ query }: RemovedFieldsProps) => {
       <RadioGroup
         idPrefix="removalReason"
         name="removalReason"
-        legend={intl.formatMessage({
-          defaultMessage: "Reason",
-          id: "4Ahswu",
-          description: "Label for the reason why a candidate is being removed",
-        })}
+        legend={intl.formatMessage(applicationMessages.reason)}
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
