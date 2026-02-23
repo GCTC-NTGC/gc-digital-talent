@@ -1379,10 +1379,6 @@
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
   },
-  "3W/NbE": {
-    "defaultMessage": "Sélectionné(e)",
-    "description": "Message displayed when candidate has been screened in at a specific assessment step"
-  },
   "3XvHVf": {
     "defaultMessage": "Rôles dans le ministère",
     "description": "Heading for updating a user's department roles"
