@@ -3,7 +3,13 @@ import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
 import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
 
 import { IconButton } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Maybe,
+} from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
@@ -18,27 +24,10 @@ export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
       lastName
     }
     pool {
-      workStream {
-        id
-        name {
-          en
-          fr
+      displayName {
+        display {
+          localized
         }
-      }
-      name {
-        en
-        fr
-      }
-      publishingGroup {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      classification {
-        group
-        level
       }
     }
   }
@@ -58,6 +47,7 @@ export const PoolCandidateCandidateTable_FlagFragment = graphql(/* GraphQL */ `
 
 interface CandidateFlagProps {
   candidateQuery: FragmentType<typeof PoolCandidate_FlagFragment>;
+  processTitle?: Maybe<string>;
   onFlagChange?: (newIsFlagged: boolean) => void;
   flagged?: boolean;
   size?: "sm" | "md" | "lg";
@@ -65,12 +55,18 @@ interface CandidateFlagProps {
 
 const CandidateFlag = ({
   candidateQuery,
+  processTitle = null,
   flagged,
   onFlagChange,
   size = "md",
 }: CandidateFlagProps) => {
   const intl = useIntl();
   const candidate = getFragment(PoolCandidate_FlagFragment, candidateQuery);
+  const candidateName = getFullNameLabel(
+    candidate.user.firstName,
+    candidate.user.lastName,
+    intl,
+  );
 
   const [{ isFlagged, isUpdating: isUpdatingFlag }, toggleFlag] =
     useCandidateFlagToggle({
@@ -78,14 +74,11 @@ const CandidateFlag = ({
       onChange: onFlagChange,
       value: flagged,
       defaultValue: candidate?.isFlagged ?? false,
-      candidateInfo: {
-        firstName: candidate.user.firstName,
-        lastName: candidate.user.lastName,
-        workStream: candidate.pool.workStream,
-        name: candidate.pool.name,
-        publishingGroup: candidate.pool.publishingGroup,
-        classification: candidate.pool.classification,
-      },
+      name: candidateName,
+      processTitle:
+        processTitle ??
+        candidate.pool.displayName?.display.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
     });
 
   return (
@@ -106,11 +99,7 @@ const CandidateFlag = ({
                   "Un-flag button label for applicant assessment tracking.",
               },
               {
-                candidateName: getFullNameLabel(
-                  candidate.user.firstName,
-                  candidate.user.lastName,
-                  intl,
-                ),
+                candidateName,
               },
             )
           : intl.formatMessage(
@@ -121,11 +110,7 @@ const CandidateFlag = ({
                   "Flag button label for applicant assessment tracking.",
               },
               {
-                candidateName: getFullNameLabel(
-                  candidate.user.firstName,
-                  candidate.user.lastName,
-                  intl,
-                ),
+                candidateName,
               },
             )
       }

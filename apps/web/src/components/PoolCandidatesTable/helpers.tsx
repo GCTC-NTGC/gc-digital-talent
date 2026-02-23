@@ -208,8 +208,15 @@ export const candidateStatusCell = (
 
 export const flagCell = (
   candidate: FragmentType<typeof PoolCandidate_FlagFragment>,
+  processTitle?: Maybe<string>,
 ) => {
-  return <CandidateFlag candidateQuery={candidate} size="lg" />;
+  return (
+    <CandidateFlag
+      candidateQuery={candidate}
+      processTitle={processTitle}
+      size="lg"
+    />
+  );
 };
 
 export const flagHeader = (intl: IntlShape) => (
