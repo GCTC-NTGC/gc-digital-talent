@@ -1,6 +1,5 @@
 import fr from "./lang/frCompiled.json";
 import LanguageProvider from "./components/LanguageProvider";
-import LocaleProvider from "./components/LocaleProvider";
 import NestedLanguageProvider from "./components/NestedLanguageProvider";
 import useLocale from "./hooks/useLocale";
 import getIntl from "./utils/getIntl";
@@ -15,7 +14,12 @@ import {
   localizeCurrency,
   localizeSalaryRange,
 } from "./utils/localize";
-import { combineMessages, getDesiredLocale } from "./utils/utils";
+import {
+  combineMessages,
+  getDesiredLocale,
+  getPathLocale,
+  STORED_LOCALE,
+} from "./utils/utils";
 import {
   apiMessages,
   commonMessages,
@@ -105,7 +109,6 @@ export {
   richTextMessages,
   tryFindMessageDescriptor,
   LanguageProvider,
-  LocaleProvider,
   NestedLanguageProvider,
   combineMessages,
   getIntl,
@@ -160,7 +163,9 @@ export {
   getExecCoachingInterest,
   getTalentNominationLateralMovementOption,
   getLearningOpportunitiesInterest,
+  getPathLocale,
   ENUM_SORT_ORDER,
+  STORED_LOCALE,
 };
 
 export type {

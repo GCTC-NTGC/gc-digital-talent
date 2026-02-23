@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { useIntl } from "react-intl";
-import { useLocation, Outlet, ScrollRestoration } from "react-router";
+import { useLocation, Outlet } from "react-router";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { AnimatePresence } from "motion/react";
 
@@ -86,7 +86,6 @@ export const Component = () => {
             </main>
             <Footer />
           </div>
-          <ScrollRestoration />
         </Fragment>
       </AnimatePresence>
     </NestedLanguageProvider>

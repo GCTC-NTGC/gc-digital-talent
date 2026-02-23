@@ -19,7 +19,7 @@ import { getLogger } from "@gc-digital-talent/logger";
 import {
   combineMessages,
   commonMessages,
-  useLocale,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 
 import messages from "~/lang/frCompiled.json";
@@ -56,8 +56,7 @@ const reloadLink = (chunks: ReactNode) => (
 
 const RouteErrorBoundary = () => {
   const intl = useIntl();
-  // eslint-disable-next-line no-restricted-syntax
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const { mode } = useTheme();
   const paths = useRoutes();
   const location = useLocation();

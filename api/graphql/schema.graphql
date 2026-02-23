@@ -2270,7 +2270,7 @@ input CreateWorkStreamInput @validator {
   talentSearchable: Boolean! @rename(attribute: "talent_searchable")
 }
 
-input UpdateWorkStreamInput @validator {
+input UpdateWorkStreamInput {
   key: String
   name: LocalizedStringInput
   plainLanguageName: LocalizedStringInput
@@ -3452,7 +3452,11 @@ type Mutation {
   updateWorkStream(
     id: UUID!
     workStream: UpdateWorkStreamInput! @spread
-  ): WorkStream @update @guard @canFind(ability: "update", find: "id")
+  ): WorkStream
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator
 
   # Communities mutations
   createCommunity(community: CreateCommunityInput! @spread): Community
