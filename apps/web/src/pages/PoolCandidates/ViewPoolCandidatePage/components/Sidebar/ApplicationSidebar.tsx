@@ -9,6 +9,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import CandidateNavigation from "../CandidateNavigation/CandidateNavigation";
 import ApplicationStatusMeta from "./ApplicationStatusMeta/ApplicationStatusMeta";
 import ApplicationStatusDialog from "./Dialog/ApplicationStatusDialog/ApplicationStatusDialog";
+import ApplicantContactInformation from "./ApplicantContactInformation";
 
 export const ApplicationSidebar_Fragment = graphql(/** GraphQL **/ `
   fragment ApplicationSidebar on PoolCandidate {
@@ -20,6 +21,7 @@ export const ApplicationSidebar_Fragment = graphql(/** GraphQL **/ `
     }
     ...ApplicationStatusDialog
     ...ApplicationStatusMeta
+    ...ApplicantContactInformation
   }
 `);
 
@@ -55,6 +57,8 @@ const ApplicationSidebar = ({ query }: ApplicationSidebarProps) => {
         <Card.Separator />
         <ApplicationStatusDialog query={application} />
         <ApplicationStatusMeta query={application} />
+        <Card.Separator />
+        <ApplicantContactInformation query={application} />
         <Card.Separator />
       </Card>
       <CandidateNavigation candidateId={application.id} />
