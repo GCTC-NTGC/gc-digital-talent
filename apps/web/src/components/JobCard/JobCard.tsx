@@ -187,11 +187,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const salaryRange = getSalaryRange(locale, pool.classification);
   const languageRequirement = pool.language?.value;
 
-  const bilingual = intl.formatMessage({
-    defaultMessage: "Bilingual",
-    id: "IyF3S3",
-    description: "First part of bilingual language label pool language",
-  });
+  const bilingual = intl.formatMessage(commonMessages.bilingual);
 
   const languageLabel = new Map<PoolLanguage | undefined, ReactNode>([
     [

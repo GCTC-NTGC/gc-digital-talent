@@ -1959,6 +1959,10 @@
     "defaultMessage": "Veuillez confirmer votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
   },
+  "5s1vaA": {
+    "defaultMessage": "Posez votre candidature à ({name})",
+    "description": "Message on link that say to apply to a job"
+  },
   "5sZWgB": {
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for Goals and work style section of user employee information page"
@@ -2538,6 +2542,10 @@
   "8kMPLB": {
     "defaultMessage": "Décrivez la façon dont cette compétence a été mise en valeur dans ce rôle",
     "description": "Label for the textarea in the skills in detail section."
+  },
+  "8m4Fvb": {
+    "defaultMessage": "(C B C)",
+    "description": "Second part of bilingual advanced pool language"
   },
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
@@ -6067,6 +6075,10 @@
     "defaultMessage": "Vous êtes à l'aise de partager vos renseignements sur l'équité en matière d'emploi pour des possibilités de recrutement et à des fins de statistiques anonymisées.",
     "description": "Second condition for selecting an employment equity group"
   },
+  "OjI368": {
+    "defaultMessage": "Présenter une demande",
+    "description": "Label on link to apply to a job"
+  },
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
@@ -8434,6 +8446,10 @@
     "defaultMessage": "Allocation budgétaire annuelle ($CAN)",
     "description": "Label for annual budget allocation field"
   },
+  "ZI0wBf": {
+    "defaultMessage": "(B B B)",
+    "description": "Second part of bilingual intermediate pool language"
+  },
   "ZJpfIZ": {
     "defaultMessage": "L’utilisateur perdra tous les rôles suivants dans le ministère :",
     "description": "Text notifying user which department roles will be removed from the user"
@@ -9845,6 +9861,10 @@
   "fQ7zxR": {
     "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for ability to remove two-factor authentication"
+  },
+  "fQiUXz": {
+    "defaultMessage": "Préférence ministérielle",
+    "description": "Combined eligibility string for 'employees only' and 'departmental preference'"
   },
   "fQkgnT": {
     "defaultMessage": "Placement professionnel",
@@ -12713,6 +12733,10 @@
   "rYYqbv": {
     "defaultMessage": "Les fonctionnaires du gouvernement du Canada travaillant en TI pourraient profiter des bons pour examens de certification attestant les compétences reconnues par l'industrie. Ces bons vous aideront à accroître vos qualifications et à faire progresser votre carrière.",
     "description": "First paragraph of certification exam vouchers section"
+  },
+  "rZ9ljW": {
+    "defaultMessage": "Afficher l'offre d'emploi",
+    "description": "Label on link to closed job ad"
   },
   "rdUAvx": {
     "defaultMessage": "Détails",
