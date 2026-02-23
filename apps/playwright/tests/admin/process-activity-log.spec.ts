@@ -1,10 +1,10 @@
 import {
+  currentDate,
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
 import {
-  ApplicationStatus,
   ArmedForcesStatus,
   CandidateRemovalReason,
   CitizenshipStatus,
@@ -22,8 +22,9 @@ import { expect, test } from "~/fixtures";
 import PoolPage from "~/fixtures/PoolPage";
 import {
   createAndSubmitApplication,
+  qualifyCandidate,
+  reinstateCandidate,
   removeCandidate,
-  updateCandidateStatus,
 } from "~/utils/applications";
 import { loginBySub } from "~/utils/auth";
 import graphql, { GraphQLContext } from "~/utils/graphql";
@@ -178,12 +179,12 @@ test.describe("Process activity log", () => {
       user = currentUser;
     });
 
-    // test.afterEach(async () => {
-    //   if (applicantUser.id) {
-    //     adminCtx = await graphql.newContext();
-    //     await deleteUser(adminCtx, { id: applicantUser.id });
-    //   }
-    // });
+    test.afterEach(async () => {
+      if (applicantUser.id) {
+        adminCtx = await graphql.newContext();
+        await deleteUser(adminCtx, { id: applicantUser.id });
+      }
+    });
 
     test("Process Activity log - E2E", async ({ appPage }) => {
       const poolPage = new PoolPage(appPage.page);
@@ -227,13 +228,17 @@ test.describe("Process activity log", () => {
       );
 
       // Updating candidate statuses and verifying activity log for each status update
-      await updateCandidateStatus(adminCtx, {
+      await qualifyCandidate(adminCtx, {
         id: application.id,
-        status: ApplicationStatus.Qualified,
-        expiryDate: FAR_FUTURE_DATE,
+        poolCandidate: {
+          expiryDate: FAR_FUTURE_DATE,
+        },
       });
       await poolPage.verifyActivityLogContent(
-        { firstName: "", lastName: "" },
+        {
+          firstName: user?.firstName ?? "",
+          lastName: user?.lastName ?? "",
+        },
         "qualified",
         `${applicant?.firstName ?? ""} ${applicant?.lastName ?? ""}`,
       );
@@ -252,17 +257,57 @@ test.describe("Process activity log", () => {
         `${applicant?.firstName ?? ""} ${applicant?.lastName ?? ""}`,
       );
 
-      // Reinstating the candidate
-      await updateCandidateStatus(adminCtx, {
-        id: application.id,
-        status: ApplicationStatus.ToAssess,
-        expiryDate: FAR_FUTURE_DATE,
-      });
+      // Reinstate the candidate
+      await reinstateCandidate(adminCtx, { id: application.id });
       await poolPage.verifyActivityLogContent(
-        { firstName: "", lastName: "" },
+        {
+          firstName: user?.firstName ?? "",
+          lastName: user?.lastName ?? "",
+        },
         "reinstated",
         `${applicant?.firstName ?? ""} ${applicant?.lastName ?? ""}`,
       );
+
+      // Verify the search functionality in activity log
+      await poolPage.verifySearchActivityLog([
+        "closing",
+        "testing",
+        "playwright",
+      ]);
+
+      // Verify the Filters in activity log
+      await poolPage.applyFiltersInActivityLog({
+        candidateName: `${applicant?.firstName ?? ""} ${applicant?.lastName ?? ""}`,
+      });
+      await expect(
+        poolPage.page
+          .getByText(
+            new RegExp(
+              `${applicant?.firstName ?? ""} ${applicant?.lastName ?? ""}`,
+              "i",
+            ),
+          )
+          .first(),
+      ).toBeVisible();
+
+      // Reset filters
+      await poolPage.page.getByRole("button", { name: /filters/i }).click();
+      await poolPage.page
+        .getByRole("button", { name: /reset filters/i })
+        .click();
+      await expect(
+        poolPage.page
+          .getByRole("heading", { name: /activity log/i, level: 2 })
+          .first(),
+      ).toBeVisible();
+
+      await poolPage.applyFiltersInActivityLog({
+        fromDate: currentDate(),
+        processDetail: "Disqualified",
+      });
+      await expect(
+        poolPage.page.getByText(/this activity log is empty/i),
+      ).toBeVisible();
     });
   });
 });

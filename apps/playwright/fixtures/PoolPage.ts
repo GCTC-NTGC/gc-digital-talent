@@ -269,7 +269,7 @@ class PoolPage extends AppPage {
     action?: string,
     Entity?: string,
   ) {
-    await this.page.reload();
+    await this.page.reload({ waitUntil: "load" });
     await expect(
       this.page.getByText(
         new RegExp(
@@ -278,6 +278,101 @@ class PoolPage extends AppPage {
         ),
       ),
     ).toBeVisible();
+  }
+
+  async verifySearchActivityLog(searchTerm: string[]) {
+    const searchInput = this.page.getByRole("textbox", {
+      name: /Search by keyword/i,
+    });
+    await expect(searchInput).toBeVisible();
+    for (const term of searchTerm) {
+      await searchInput.fill(term);
+      await this.page
+        .getByRole("button", { name: /search/i })
+        .last()
+        .click();
+      const searchResult = this.page.getByText(new RegExp(term, "i")).first();
+      await expect(searchResult).toBeVisible();
+    }
+    await this.page.getByRole("button", { name: /reset search/i }).click();
+  }
+
+  async applyFiltersInActivityLog(filters: {
+    assessmentTeamMember?: string;
+    fromDate?: string;
+    toDate?: string;
+    candidateName?: string;
+    processDetail?: string;
+  }) {
+    const {
+      assessmentTeamMember,
+      fromDate,
+      toDate,
+      candidateName,
+      processDetail,
+    } = filters;
+
+    // Open the Filters
+    await this.page.getByRole("button", { name: /filters/i }).click();
+    await expect(
+      this.page.getByRole("heading", { name: /select filters/i }),
+    ).toBeVisible();
+
+    /**
+     * Helper to handle custom Comboboxes (UL/LI based)
+     * As seen in the DOM, these are not native <select> elements
+     */
+    const selectCustomOption = async (
+      roleName: string | RegExp,
+      value: string,
+    ) => {
+      const combobox = this.page.getByRole("combobox", { name: roleName });
+      await combobox.click();
+      await combobox.fill(value);
+      // Locate the option within the popup listbox
+      await this.page
+        .getByRole("listbox")
+        .getByRole("option", { name: value, exact: false })
+        .click();
+    };
+
+    // Select Assessment Team Member
+    if (assessmentTeamMember) {
+      await selectCustomOption(/assessment team member/i, assessmentTeamMember);
+    }
+
+    // Select from and to dates
+    const fillDate = async (sectionLabel: "From" | "To", dateStr: string) => {
+      const [year, month, day] = dateStr.split("-");
+
+      // 1. Find the section container by its text label
+      // 2. We use 'filter' to ensure we are looking only inside that specific date column
+      const section = this.page
+        .getByRole("group")
+        .filter({ hasText: sectionLabel });
+
+      // Use specific labels for the individual inputs
+      await section.getByRole("spinbutton", { name: /year/i }).fill(year);
+      await section
+        .getByRole("combobox", { name: /month/i })
+        .selectOption(month);
+      await section.getByRole("spinbutton", { name: /day/i }).fill(day);
+    };
+
+    if (fromDate) await fillDate("From", fromDate);
+    if (toDate) await fillDate("To", toDate);
+
+    // Select Candidate Name
+    if (candidateName) {
+      await selectCustomOption(/candidate name/i, candidateName);
+    }
+
+    // Select Process Detail (Action)
+    if (processDetail) {
+      await selectCustomOption(/action/i, processDetail);
+    }
+
+    await this.page.getByRole("button", { name: /show results/i }).click();
   }
 }
 export default PoolPage;
