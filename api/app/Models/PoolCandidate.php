@@ -42,6 +42,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -479,6 +480,29 @@ class PoolCandidate extends Model
     public function isDraft()
     {
         return is_null($this->submitted_at) || $this->submitted_at->isFuture();
+    }
+
+    protected function isBookmarked(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                /** @var \App\Models\User | null */
+                $user = Auth::user();
+                if (! $user) {
+                    return null;
+                }
+
+                static $bookmarkedIds = null;
+
+                if ($bookmarkedIds === null) {
+                    $bookmarkedIds = $user->poolCandidateBookmarks()
+                        ->pluck('pool_candidate_id')
+                        ->all();
+                }
+
+                return in_array($this->id, $bookmarkedIds);
+            }
+        );
     }
 
     /**

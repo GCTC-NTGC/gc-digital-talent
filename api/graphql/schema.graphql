@@ -627,6 +627,7 @@ type PoolCandidate {
   isFlagged: Boolean
     @rename(attribute: "is_flagged")
     @canRoot(ability: "viewNotes")
+  isBookmarked: Boolean
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
     @canRoot(ability: "viewStatus")
@@ -707,6 +708,7 @@ type PoolCandidateAdminView {
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   notes: String
   isFlagged: Boolean @rename(attribute: "is_flagged")
+  isBookmarked: Boolean
   category: PoolCandidateCategory @with(relation: "user")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")

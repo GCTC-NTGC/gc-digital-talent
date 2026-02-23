@@ -1164,6 +1164,7 @@ type PoolCandidate {
   suspendedAt: DateTime
   deletedDate: DateTime
   isFlagged: Boolean
+  isBookmarked: Boolean
   removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
   profileSnapshot: JSON
@@ -1206,6 +1207,7 @@ type PoolCandidateAdminView {
   screeningStage: LocalizedScreeningStage
   notes: String
   isFlagged: Boolean
+  isBookmarked: Boolean
   category: PoolCandidateCategory
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep
