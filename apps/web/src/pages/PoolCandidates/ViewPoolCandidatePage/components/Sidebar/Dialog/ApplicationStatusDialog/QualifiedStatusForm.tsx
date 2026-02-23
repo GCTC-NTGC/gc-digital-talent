@@ -11,10 +11,10 @@ import {
 import { Dialog } from "@gc-digital-talent/ui";
 import { HiddenInput } from "@gc-digital-talent/forms";
 
-import { ApplicationStatusFormProps, MutationMessages } from "./types";
 import { RevertDecision_Mutation } from "./mutations";
 import messages from "./messages";
 import { Content } from "./StatusContent";
+import { ApplicationStatusFormProps, MutationMessages } from "../types";
 
 const QualifiedStatusForm_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedStatusForm on PoolCandidate {

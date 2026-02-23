@@ -7,17 +7,25 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import ApplicationExpiryDateDialog from "../Dialog/ApplicationExpiryDateDialog";
+import ApplicationPlacementDialog from "../Dialog/ApplicationPlacementDialog";
 
 const QualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedStatusMeta on PoolCandidate {
     status {
       value
     }
+    placedDepartment {
+      name {
+        localized
+      }
+    }
 
+    ...ApplicationPlacementDialog
     ...ApplicationExpiryDateDialog
   }
 `);
@@ -32,9 +40,19 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
   if (application.status?.value !== ApplicationStatus.Qualified) return null;
 
   return (
-    <FieldDisplay label={intl.formatMessage(commonMessages.expiryDate)}>
-      <ApplicationExpiryDateDialog query={application} />
-    </FieldDisplay>
+    <>
+      <FieldDisplay label={intl.formatMessage(commonMessages.jobPlacement)}>
+        <ApplicationPlacementDialog query={application} />
+        {application.placedDepartment && (
+          <Ul space="sm" className="text-gray-600 dark:text-gray-200">
+            <li>{application.placedDepartment.name.localized}</li>
+          </Ul>
+        )}
+      </FieldDisplay>
+      <FieldDisplay label={intl.formatMessage(commonMessages.expiryDate)}>
+        <ApplicationExpiryDateDialog query={application} />
+      </FieldDisplay>
+    </>
   );
 };
 

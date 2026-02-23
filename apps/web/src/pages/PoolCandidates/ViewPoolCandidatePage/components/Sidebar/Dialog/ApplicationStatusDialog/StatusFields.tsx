@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { MessageDescriptor, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
 import {
   ApplicationStatus,
@@ -7,15 +7,8 @@ import {
   FragmentType,
   getFragment,
   graphql,
-  PlacementType,
 } from "@gc-digital-talent/graphql";
-import {
-  DateInput,
-  objectsToSortedOptions,
-  RadioGroup,
-  Select,
-  TextArea,
-} from "@gc-digital-talent/forms";
+import { DateInput, RadioGroup, TextArea } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   ENUM_SORT_ORDER,
@@ -30,43 +23,15 @@ import {
   useAuthorization,
 } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Notice } from "@gc-digital-talent/ui";
 
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import applicationMessages from "~/messages/applicationMessages";
 
-import { FormValues } from "./types";
-
-const placementContentMap = new Map<PlacementType, MessageDescriptor>([
-  [
-    PlacementType.UnderConsideration,
-    poolCandidateMessages.underConsiderationDesc,
-  ],
-  [PlacementType.PlacedTentative, poolCandidateMessages.PlacedTentativeDesc],
-]);
-
-const PLACED_NOTICE_TYPES = [
-  PlacementType.UnderConsideration,
-  PlacementType.PlacedTerm,
-  PlacementType.PlacedIndeterminate,
-];
+import { FormValues } from "../types";
+import JobPlacementFormFields from "../FormFields/JobPlacementFormFields";
 
 const QualifiedFieldsOptions_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedFieldsOptions on Query {
-    placementTypes: localizedEnumOptions(enumName: "PlacementType") {
-      ... on LocalizedPlacementType {
-        value
-        label {
-          localized
-        }
-      }
-    }
-    departments {
-      id
-      name {
-        localized
-      }
-    }
+    ...JobPlacementFormFields
   }
 `);
 
@@ -79,33 +44,14 @@ export const QualifiedFields = ({ query }: QualifiedFieldsProps) => {
   const { userAuthInfo } = useAuthorization();
   const { watch } = useFormContext<FormValues>();
   const options = getFragment(QualifiedFieldsOptions_Fragment, query);
-  const [status, selectedType] = watch(["status", "placementType"]);
-  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
+  const status = watch("status");
 
   if (status !== ApplicationStatus.Qualified) return null;
 
-  const isPlaced = selectedType && selectedType !== PlacementType.NotPlaced;
   const canPlace = hasRequiredRoles({
     toCheck: [{ name: ROLE_NAME.CommunityRecruiter }],
     userRoles: unpackMaybes(userAuthInfo?.roleAssignments),
   });
-
-  const placementTypeOptions = sortLocalizedEnumOptions(
-    ENUM_SORT_ORDER.PLACEMENT_TYPE,
-    narrowEnumType(unpackMaybes(options?.placementTypes), "PlacementType"),
-  ).map((placementType) => {
-    const content = placementContentMap.get(placementType.value);
-
-    return {
-      value: placementType.value,
-      label: placementType.label.localized ?? notAvailable,
-      contentBelow: content ? intl.formatMessage(content) : undefined,
-    };
-  });
-
-  const selectedTypeOption = placementTypeOptions.find(
-    (option) => option.value === selectedType,
-  );
 
   return (
     <>
@@ -133,63 +79,7 @@ export const QualifiedFields = ({ query }: QualifiedFieldsProps) => {
         }}
       />
 
-      {canPlace && (
-        <>
-          <RadioGroup
-            idPrefix="placementType"
-            name="placementType"
-            legend={intl.formatMessage({
-              defaultMessage: "Job placement status",
-              id: "dpO8Va",
-              description: "Label for the job placement status field",
-            })}
-            items={placementTypeOptions}
-          />
-
-          {isPlaced && (
-            <Select
-              id="department"
-              name="department"
-              label={intl.formatMessage({
-                defaultMessage: "Placed department",
-                id: "G8JoCN",
-                description: "Label for the placed department field",
-              })}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a department",
-                id: "y827h2",
-                description:
-                  "Null selection for department select input in the request form.",
-              })}
-              options={objectsToSortedOptions(
-                unpackMaybes(options?.departments),
-                intl,
-              )}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-          )}
-
-          {selectedTypeOption &&
-            PLACED_NOTICE_TYPES.includes(selectedTypeOption.value) && (
-              <Notice.Root small>
-                <Notice.Title>{selectedTypeOption.label}</Notice.Title>
-                <Notice.Content>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "This candidate will not appear in talent request results based on this process.",
-                      id: "dDrs39",
-                      description:
-                        "Notice that candidates under consideration do not appear in talent search requests",
-                    })}
-                  </p>
-                </Notice.Content>
-              </Notice.Root>
-            )}
-        </>
-      )}
+      {canPlace && <JobPlacementFormFields query={options} />}
     </>
   );
 };
