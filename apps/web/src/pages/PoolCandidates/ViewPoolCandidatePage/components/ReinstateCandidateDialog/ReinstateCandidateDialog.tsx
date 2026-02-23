@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
@@ -17,6 +17,7 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
+import applicationMessages from "~/messages/applicationMessages";
 
 const ReinstateCandidate_Mutation = graphql(/* GraphQL */ `
   mutation ReinstateCandidate($id: UUID!) {
@@ -38,12 +39,6 @@ export const ReinstateCandidateDialog_Fragment = graphql(/* GraphQL */ `
     }
   }
 `);
-
-const title = defineMessage({
-  defaultMessage: "Reinstate candidate",
-  id: "fP0gCn",
-  description: "Title for action to reinstate a candidate",
-});
 
 interface ReinstateCandidateDialogProps {
   reinstateQuery: FragmentType<typeof ReinstateCandidateDialog_Fragment>;
@@ -99,7 +94,9 @@ const ReinstateCandidateDialog = ({
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{intl.formatMessage(title)}</Dialog.Header>
+        <Dialog.Header>
+          {intl.formatMessage(applicationMessages.reinstate)}
+        </Dialog.Header>
         <Dialog.Body>
           <p className="mb-6">
             {intl.formatMessage(

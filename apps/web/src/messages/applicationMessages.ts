@@ -176,6 +176,11 @@ const messages = {
       id: "Aw67A5",
       description: "Label for the status of an application",
     },
+    reinstate: {
+      defaultMessage: "Reinstate candidate",
+      id: "fP0gCn",
+      description: "Title for action to reinstate a candidate",
+    },
   }),
 };
 

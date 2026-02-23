@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/16/solid/PencilSquareIcon";
 
 import {
@@ -12,8 +12,10 @@ import { Dialog, StatusButton, StatusButtonProps } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import applicationMessages from "~/messages/applicationMessages";
+import { applicationStatus } from "~/utils/poolCandidate";
 
 import ToAssessStatusForm from "./ToAssessStatusForm";
+import { ApplicationStatusFormProps } from "./types";
 
 const ApplicationStatusDialog_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationStatusDialog on PoolCandidate {
@@ -34,6 +36,20 @@ const statusColorMap = new Map<ApplicationStatus, StatusButtonProps["color"]>([
   [ApplicationStatus.Qualified, "success"],
 ]);
 
+const revertMessage = defineMessage({
+  defaultMessage: "Revert final assessment decision",
+  id: "wb/hvK",
+  description:
+    "Heading for dialog to revert an application assessment decision",
+});
+
+const statusHeaderMap = new Map<ApplicationStatus, MessageDescriptor>([
+  [ApplicationStatus.ToAssess, applicationMessages.applicationStatus],
+  [ApplicationStatus.Qualified, revertMessage],
+  [ApplicationStatus.Disqualified, revertMessage],
+  [ApplicationStatus.Removed, applicationMessages.reinstate],
+]);
+
 interface ApplicationStatusDialogProps {
   query: FragmentType<typeof ApplicationStatusDialog_Fragment>;
 }
@@ -43,8 +59,22 @@ const ApplicationStatusDialog = ({ query }: ApplicationStatusDialogProps) => {
   const application = getFragment(ApplicationStatusDialog_Fragment, query);
   const [isOpen, setOpen] = useState<boolean>(false);
 
-  const close = () => {
-    setOpen(false);
+  if (
+    !application.status?.value ||
+    application.status?.value === ApplicationStatus.Draft
+  ) {
+    return null;
+  }
+
+  const header = statusHeaderMap.get(
+    application.status?.value ?? ApplicationStatus.ToAssess,
+  );
+
+  const commonProps: ApplicationStatusFormProps = {
+    id: application.id,
+    onSubmit() {
+      setOpen(false);
+    },
   };
 
   return (
@@ -63,10 +93,10 @@ const ApplicationStatusDialog = ({ query }: ApplicationStatusDialogProps) => {
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
-          {intl.formatMessage(applicationMessages.applicationStatus)}
+          {intl.formatMessage(header ?? applicationMessages.applicationStatus)}
         </Dialog.Header>
         {application.status?.value === ApplicationStatus.ToAssess && (
-          <ToAssessStatusForm id={application.id} onSubmit={close} />
+          <ToAssessStatusForm {...commonProps} />
         )}
       </Dialog.Content>
     </Dialog.Root>

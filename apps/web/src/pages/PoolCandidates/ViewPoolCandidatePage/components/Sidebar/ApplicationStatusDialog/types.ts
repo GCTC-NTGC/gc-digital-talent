@@ -15,3 +15,8 @@ export interface FormValues {
   removalReason?: CandidateRemovalReason;
   removalReasonOther?: Scalars["String"]["input"];
 }
+
+export interface ApplicationStatusFormProps {
+  id: Scalars["UUID"]["output"];
+  onSubmit?: () => void;
+}

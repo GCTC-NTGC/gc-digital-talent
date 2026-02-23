@@ -22,7 +22,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
 
-import { FormValues } from "./types";
+import { ApplicationStatusFormProps, FormValues } from "./types";
 import useApplicationStatusMutation from "./useApplicationStatusMutation";
 import {
   DisqualifiedFields,
@@ -30,6 +30,7 @@ import {
   RemovedFields,
 } from "./StatusFields";
 import ApplicationStatusDialogFooter from "./ApplicationStatusDialogFooter";
+import StatusChangeNotice from "./StatusChangeNotice";
 
 const ApplicationStatusFormOptions_Query = graphql(/** GraphQL */ `
   query ApplicationStatusFormOptions {
@@ -83,12 +84,7 @@ const statusMessageMap = new Map<ApplicationStatus, MessageDescriptor>([
   ],
 ]);
 
-interface ToAssessStatusFormProps {
-  id: Scalars["UUID"]["output"];
-  onSubmit?: () => void;
-}
-
-const ToAssessStatusForm = ({ id, onSubmit }: ToAssessStatusFormProps) => {
+const ToAssessStatusForm = ({ id, onSubmit }: ApplicationStatusFormProps) => {
   const intl = useIntl();
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -175,14 +171,7 @@ const ToAssessStatusForm = ({ id, onSubmit }: ToAssessStatusFormProps) => {
                 </>
               )}
             </Pending>
-            <Notice.Root mode="inline" color="warning" small>
-              <Notice.Title>
-                {intl.formatMessage(commonMessages.important)}
-              </Notice.Title>
-              <Notice.Content>
-                <p>{intl.formatMessage(formMessages.candidateNotify)}</p>
-              </Notice.Content>
-            </Notice.Root>
+            <StatusChangeNotice />
           </div>
           <ApplicationStatusDialogFooter />
         </Dialog.Body>
