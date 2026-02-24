@@ -13,8 +13,8 @@ export default defineMessages({
     description: "Success message when an application decision was reverted",
   },
   revertError: {
-    defaultMessage: "Error: Could not revert decsision",
-    id: "T7MvOg",
+    defaultMessage: "Error: Could not revert decision",
+    id: "9HFLu6",
     description: "Error message when status decision could not be reverted",
   },
   revertSubmit: {

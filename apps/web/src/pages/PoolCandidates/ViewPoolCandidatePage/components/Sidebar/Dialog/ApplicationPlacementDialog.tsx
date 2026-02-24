@@ -149,8 +149,8 @@ const ApplicationPlacementDialog = ({
 
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Placement status updates successfully!",
-            id: "0+Qkla",
+            defaultMessage: "Placement status updated successfully!",
+            id: "vbYcIR",
             description:
               "Success message displayed after updating placement status",
           }),
@@ -184,8 +184,8 @@ const ApplicationPlacementDialog = ({
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:
-              "Keep track of candidate's job placement using the following options.",
-            id: "AD/V7f",
+              "Keep track of a candidate's job placement using the following options.",
+            id: "rwjZZT",
             description:
               "Subtitle for the dialog to update a candidates placement status",
           })}
