@@ -144,7 +144,7 @@ test.describe("Pool candidates", () => {
       .getByRole("textbox", { name: "Notes" })
       .fill("Notes notes notes");
     await appPage.page.getByRole("button", { name: "Save changes" }).click();
-    await appPage.waitForGraphqlResponse("PoolCandidate_UpdateNotes");
+    await appPage.waitForGraphqlResponse("UpdateApplicationNotes");
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`); // refresh to tackle test flakiness, sad
     await expect(
       appPage.page.getByRole("button", { name: /edit notes/i }),
@@ -242,9 +242,7 @@ test.describe("Pool candidates", () => {
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
-    await appPage.page
-      .getByRole("button", { name: /record final decision/i })
-      .click();
+    await appPage.page.getByRole("button", { name: /to assess/i }).click();
 
     await appPage.page
       .getByRole("radio", { name: /^qualify candidate/i })
@@ -271,9 +269,8 @@ test.describe("Pool candidates", () => {
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
-    await appPage.page
-      .getByRole("button", { name: "Remove candidate" })
-      .click();
+    await appPage.page.getByRole("button", { name: /to assess/ }).click();
+    await appPage.page.getByRole("radio", { name: /remove/i }).click();
     await appPage.page
       .getByRole("radio", { name: "Candidate has requested to be withdrawn" })
       .click();
@@ -284,7 +281,7 @@ test.describe("Pool candidates", () => {
       appPage.page.getByRole("button", { name: "Removed", exact: true }),
     ).toBeVisible();
     await expect(
-      appPage.page.getByRole("button", { name: "Record final decision" }),
+      appPage.page.getByRole("button", { name: /to assess/i }),
     ).toBeHidden();
     await appPage.page
       .getByRole("button", { name: "Removed", exact: true })
