@@ -83,7 +83,7 @@ class PoolCandidateUpdateTest extends TestCase
         Notify::spy(); // don't send any notifications
         $this->seed(RolePermissionSeeder::class);
 
-        $this->community = Community::factory()->create(['name' => 'test-community']);
+        $this->community = Community::factory()->create(['name' => ['en' => 'test-community EN', 'fr' => 'test-community FR']]);
         $this->pool = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);
