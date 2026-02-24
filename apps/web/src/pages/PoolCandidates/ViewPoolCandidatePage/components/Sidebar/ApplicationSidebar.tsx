@@ -12,6 +12,7 @@ import ApplicationStatusDialog from "./Dialog/ApplicationStatusDialog/Applicatio
 import ApplicantContactInformation from "./ApplicantContactInformation";
 import ApplicationBookmarkFlag from "./ApplicationBookmarkFlag";
 import ApplicationNotes from "./ApplicationNotes";
+import DownloadButton from "./ApplicationDownloadButton";
 
 export const ApplicationSidebar_Fragment = graphql(/** GraphQL **/ `
   fragment ApplicationSidebar on PoolCandidate {
@@ -21,6 +22,7 @@ export const ApplicationSidebar_Fragment = graphql(/** GraphQL **/ `
       firstName
       lastName
     }
+    ...ApplicationDownloadButton
     ...ApplicationStatusDialog
     ...ApplicationStatusMeta
     ...ApplicantContactInformation
@@ -56,6 +58,9 @@ const ApplicationSidebar = ({ query }: ApplicationSidebarProps) => {
                 )}
               </Link>
             </Heading>
+          </div>
+          <div className="shrink-0">
+            <DownloadButton query={application} />
           </div>
         </div>
         <Card.Separator />

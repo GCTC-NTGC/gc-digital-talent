@@ -67,7 +67,7 @@ const ApplicationBookmarkFlag = ({ query }: ApplicationBookmarkFlagProps) => {
   });
 
   return (
-    <div className="flex flex-col gap-y-6">
+    <div className="flex flex-col gap-y-4.5">
       <Button
         {...commonProps}
         icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}

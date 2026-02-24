@@ -99,7 +99,7 @@ const ApplicationNotes = ({ query }: ApplicationNotesProps) => {
     <ToggleSection.Root open={isEditing} onOpenChange={setIsEditing}>
       {/** Note: Empty className simply removes the default styles */}
       <ToggleSection.Content className="">
-        <ToggleSection.InitialContent className="flex flex-col gap-y-6">
+        <ToggleSection.InitialContent className="flex flex-col gap-y-4.5">
           <ToggleForm.FieldDisplay
             label={intl.formatMessage(adminMessages.notes)}
           >
