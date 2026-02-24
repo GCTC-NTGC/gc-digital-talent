@@ -7,16 +7,11 @@ use Illuminate\Support\Facades\Log;
 
 class TestController extends Controller
 {
-    public function log(Request $request, string $endpoint, string $dcrImmutableId, $streamName)
+    public function log(Request $request)
     {
         $data = $request->getContent();
 
-        Log::debug(print_r($data, true), [
-            $endpoint,
-            $dcrImmutableId,
-            $streamName,
-
-        ]);
+        Log::debug(print_r($data, true));
 
         return response()->noContent();
     }

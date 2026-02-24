@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace App\Logging\Azure;
 
-use Illuminate\Support\Carbon;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\LogRecord;
 
 class AzureRecord
 {
-    private Carbon $timeGenerated;
-
     public function __construct(
         public ?string $applicationID,
         public ?string $correlationID,
@@ -26,9 +23,7 @@ class AzureRecord
 
         public ?string $xForwardedIP,
         public ?FormatterInterface $formatter,
-    ) {
-        $this->timeGenerated = Carbon::now();
-    }
+    ) {}
 
     /**
      * Returns required data in format that Azure
@@ -74,7 +69,7 @@ class AzureRecord
             $dataArray['TargetUserID'] = $this->targetUserID;
         }
 
-        $dataArray['TimeGenerated'] = $this->timeGenerated->toIso8601ZuluString();
+        $dataArray['TimeGenerated'] = $record->datetime->format('c');
 
         if ($this->xForwardedIP !== null) {
             $dataArray['XForwardedIP'] = $this->xForwardedIP;
