@@ -248,9 +248,7 @@ test.describe("Pool candidates", () => {
 
     await appPage.waitForGraphqlResponse("ApplicationStatusFormOptions");
 
-    await appPage.page
-      .getByRole("radio", { name: /^qualified/i })
-      .click();
+    await appPage.page.getByRole("radio", { name: /^qualified/i }).click();
 
     const expiryDate = appPage.page.getByRole("group", {
       name: /expiry date/i,
@@ -261,11 +259,11 @@ test.describe("Pool candidates", () => {
       .getByRole("combobox", { name: /month/i })
       .selectOption("01");
     await expiryDate.getByRole("spinbutton", { name: /day/i }).fill("1");
-    await appPage.page.getByRole("button", { name: /save and continue/i }).click();
+    await appPage.page
+      .getByRole("button", { name: /save and continue/i })
+      .click();
 
-    await expect(
-      appPage.page.getByText(/2400-01-01/i),
-    ).toBeVisible();
+    await expect(appPage.page.getByText(/2400-01-01/i)).toBeVisible();
   });
 
   test("Removing and reinstating", async ({ appPage }) => {
