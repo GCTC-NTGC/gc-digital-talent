@@ -487,7 +487,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $isCurrent, // currently active
             $numberOfMonths, // number of months calculated number of months based on the start and end date or start date and date of download for current experiences
             $exp->role ?? '', // Role or title: My role (work experience), My role (Community participation), Personal experience short title, Award title
-            $exp->organization ?? '', // Organization, department, military force, or institution: Organization (external), Department (GC), Military force (CAF), Education institution, Group, organization, or community, Issuing organization
+            $this->getOrganizationName($exp),  // Organization, department, military force, or institution: Organization (external), Department (GC), Military force (CAF), Education institution, Group, organization, or community, Issuing organization
             $this->localizeEnum($exp->employment_category, EmploymentCategory::class),  // Employment category
             $exp->division ?? '', // team, group, division
             $this->localizeEnum($exp->ext_size_of_organization, ExternalSizeOfOrganization::class), // size external organization
@@ -1005,6 +1005,39 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $this->localizeEnum($exp->department->size, DepartmentSize::class),
             $exp->department->type ?? '',
         ];
+    }
+
+    /**
+     * Get organization name
+     * for goc employees use department name
+     * for caf employees use localized employment type
+     * for external use organization field
+     *
+     * @param  WorkExperience  $exp  The work experience
+     * @return string The organization name
+     */
+    private function getOrganizationName(WorkExperience $exp): string
+    {
+        // goc employee
+        if ($exp->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name && $exp->department) {
+            // return localized department name
+            return $exp->department?->name[$this->lang] ?? $exp->organization ?? '';
+        }
+
+        // CAF employee
+        if ($exp->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
+            // return localized caf employment type
+            return $this->localizeEnum($exp->caf_employment_type, CafEmploymentType::class);
+        }
+
+        // external organization
+        if ($exp->employment_category === EmploymentCategory::EXTERNAL_ORGANIZATION->name) {
+            // return organization field for external experience
+            return $exp->organization ?? '';
+        }
+
+        // fallback
+        return $exp->organization ?? '';
     }
 
     /**
