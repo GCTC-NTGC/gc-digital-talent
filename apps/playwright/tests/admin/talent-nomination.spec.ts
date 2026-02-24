@@ -215,7 +215,7 @@ test.describe("Talent nomination management", () => {
     await appPage.waitForGraphqlResponse("NominateTalentSubmit");
     await expect(
       appPage.page.getByRole("heading", { name: /received your nomination/i }),
-    ).toBeVisible({ timeout: 30000 });
+    ).toBeVisible();
     await appPage.page
       .getByRole("link", { name: /return to your dashboard/i })
       .click();

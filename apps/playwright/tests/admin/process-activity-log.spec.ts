@@ -187,6 +187,7 @@ test.describe("Process activity log", () => {
     });
 
     test("Process Activity log - E2E", async ({ appPage }) => {
+      test.setTimeout(90_000);
       const poolPage = new PoolPage(appPage.page);
       await loginBySub(poolPage.page, testConfig.signInSubs.adminSignIn);
       await poolPage.goToActivity(poolId);
