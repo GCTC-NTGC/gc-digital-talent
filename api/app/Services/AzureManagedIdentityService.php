@@ -38,10 +38,12 @@ class AzureManagedIdentityService implements ManagedIdentityService
         $values = $response->json();
 
         // figure out when it expires so we can cache it until then
-        $expiresOnStr = $values['expires_on'];
-        $expiresOn = Carbon::parse($expiresOnStr);
-        if ($expiresOn->isFuture()) {
-            Cache::put($cacheKey, $values, $expiresOn);
+        $expiresOnStr = $values['expires_on'] ?? null;
+        if (is_int($expiresOnStr)) {
+            $expiresOn = Carbon::createFromTimestamp($expiresOnStr);
+            if ($expiresOn->isFuture()) {
+                Cache::put($cacheKey, $values, $expiresOn);
+            }
         }
 
         return $values;
