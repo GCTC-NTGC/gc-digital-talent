@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@dr.pogodin/react-helmet";
 import { useIntl } from "react-intl";
 
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
