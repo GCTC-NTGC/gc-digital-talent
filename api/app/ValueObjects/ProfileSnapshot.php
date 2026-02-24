@@ -155,9 +155,14 @@ class ProfileSnapshot implements Castable
 
         if (method_exists($enum, 'localizedString')) {
             if (is_string($value)) {
+
+                // check if the key is valid first
+                $enumCases = array_column($enum::cases(), 'name');
+                $valueInCases = in_array(strtoupper($value), $enumCases);
+
                 return [
                     'value' => $value,
-                    'label' => $enum::localizedString($value),
+                    'label' => $valueInCases ? $enum::localizedString($value) : strtoupper($value),
                 ];
             }
         }
