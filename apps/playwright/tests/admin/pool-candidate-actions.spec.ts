@@ -242,10 +242,14 @@ test.describe("Pool candidates", () => {
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
-    await appPage.page.getByRole("button", { name: /to assess/i }).click();
+    const sidebar = appPage.page.getByRole("complementary").first();
+
+    await sidebar.getByRole("button", { name: /to assess/i }).click();
+
+    await appPage.waitForGraphqlResponse("ApplicationStatusFormOptions");
 
     await appPage.page
-      .getByRole("radio", { name: /^qualify candidate/i })
+      .getByRole("radio", { name: /^qualified/i })
       .click();
 
     const expiryDate = appPage.page.getByRole("group", {
@@ -257,10 +261,10 @@ test.describe("Pool candidates", () => {
       .getByRole("combobox", { name: /month/i })
       .selectOption("01");
     await expiryDate.getByRole("spinbutton", { name: /day/i }).fill("1");
-    await appPage.page.getByRole("button", { name: /save changes/i }).click();
+    await appPage.page.getByRole("button", { name: /save and continue/i }).click();
 
     await expect(
-      appPage.page.getByText(/expiry date: 2400-01-01/i),
+      appPage.page.getByText(/2400-01-01/i),
     ).toBeVisible();
   });
 
@@ -269,19 +273,21 @@ test.describe("Pool candidates", () => {
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
-    await appPage.page.getByRole("button", { name: /to assess/ }).click();
+    const sidebar = appPage.page.getByRole("complementary").first();
+
+    await sidebar.getByRole("button", { name: /to assess/i }).click();
     await appPage.page.getByRole("radio", { name: /remove/i }).click();
     await appPage.page
       .getByRole("radio", { name: "Candidate has requested to be withdrawn" })
       .click();
     await appPage.page
-      .getByRole("button", { name: "Remove candidate and update status" })
+      .getByRole("button", { name: /save and continue/i })
       .click();
     await expect(
       appPage.page.getByRole("button", { name: "Removed", exact: true }),
     ).toBeVisible();
     await expect(
-      appPage.page.getByRole("button", { name: /to assess/i }),
+      sidebar.getByRole("button", { name: /to assess/i }),
     ).toBeHidden();
     await appPage.page
       .getByRole("button", { name: "Removed", exact: true })
@@ -297,7 +303,7 @@ test.describe("Pool candidates", () => {
     ).toBeHidden();
     await appPage.waitForGraphqlResponse("ReinstateCandidate");
     await expect(
-      appPage.page.getByRole("button", { name: /remove candidate/i }),
+      sidebar.getByRole("button", { name: /to assess/i }),
     ).toBeVisible();
   });
 });
