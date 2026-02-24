@@ -133,7 +133,7 @@ return [
     'other_c_suite_title' => 'Autre titre de cadre supérieur',
     'issuing_org' => 'Organisation émettrice',
     'date_awarded' => 'Date d’attribution',
-    'department_number' => 'Numéro de ministère',
+    'department_number' => 'Numéro de ministère', // todod
     'department_size' => 'Taille du ministère',
     'department_type' => 'Type de ministère',
     'organization_department' => 'Organisation, ministère, force militaire ou établissement',

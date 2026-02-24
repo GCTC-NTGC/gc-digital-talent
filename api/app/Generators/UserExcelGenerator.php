@@ -1001,7 +1001,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         }
 
         return [
-            $exp->department->id ?? '',
+            $exp->department->org_identifier ?? '',
             $this->localizeEnum($exp->department->size, DepartmentSize::class),
             $exp->department->type ?? '',
         ];
