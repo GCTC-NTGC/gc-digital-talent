@@ -45,7 +45,7 @@ class AssessmentResultTest extends TestCase
         parent::setUp();
         Notify::spy(); // don't send any notifications
         $this->seed(RolePermissionSeeder::class);
-        $this->community = Community::factory()->create(['name' => ['en' => 'test-community EN', 'fr' => 'test-community FR']]);
+        $this->community = Community::factory()->create();
         $this->pool = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);

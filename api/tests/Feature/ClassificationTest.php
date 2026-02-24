@@ -47,7 +47,7 @@ class ClassificationTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
         $this->setUpFaker();
 
-        $this->community = Community::factory()->create(['name' => ['en' => 'test-community EN', 'fr' => 'test-community FR']]);
+        $this->community = Community::factory()->create();
         $this->teamPool = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);
