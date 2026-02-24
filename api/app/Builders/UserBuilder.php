@@ -711,6 +711,10 @@ class UserBuilder extends Builder
 
     public function whereGeneralSearch(?string $searchTerm): self
     {
+        if (empty($searchTerm)) {
+            return $this;
+        }
+
         $queryTextPrefixMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::PREFIX);
         $queryTextExactMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::EXACT);
 
