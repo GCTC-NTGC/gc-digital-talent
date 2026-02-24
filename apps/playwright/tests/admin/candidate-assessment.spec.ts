@@ -7,6 +7,7 @@ import {
   ProvinceOrTerritory,
   Skill,
   SkillCategory,
+  User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
@@ -30,6 +31,7 @@ test.describe("Pool candidates", () => {
   let sub: string;
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
+  let user: User | undefined;
 
   test.beforeAll(async () => {
     uniqueTestId = generateUniqueTestId();
@@ -80,6 +82,7 @@ test.describe("Pool candidates", () => {
         },
       },
     });
+    user = createdUser;
 
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: createdUser?.id ?? "",
@@ -184,6 +187,19 @@ test.describe("Pool candidates", () => {
     ).toBeVisible();
     await expect(
       appPage.page.getByLabel("Screened in").locator("path"),
+    ).toBeVisible();
+  });
+
+  test("Validate application status for Qualified Candidate", async ({
+    appPage,
+  }) => {
+    await loginBySub(appPage.page, "admin@test.com");
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+    await expect(
+      appPage.page.getByRole("heading", {
+        name: `${user?.firstName} ${user?.lastName}`,
+      }),
     ).toBeVisible();
   });
 });

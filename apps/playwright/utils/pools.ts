@@ -1,6 +1,7 @@
 import {
   AssessmentStep,
   AssessmentStepInput,
+  AssessmentStepType,
   CreatePoolSkillInput,
   LocalizedString,
   Pool,
@@ -200,6 +201,38 @@ export const publishPool: GraphQLRequestFunc<Pool, string> = async (
     .then((res: GraphQLResponse<"publishPool", Pool>) => res.publishPool);
 };
 
+const Test_AddAssessmentStepMutationDocument = /* GraphQL */ `
+  mutation Test_AddAssessmentStep(
+    $poolId: UUID!
+    $assessmentStep: AssessmentStepInput!
+  ) {
+    createAssessmentStep(poolId: $poolId, assessmentStep: $assessmentStep) {
+      id
+    }
+  }
+`;
+interface AddAssessmentPlanToPoolArgs {
+  poolId: string;
+  assessmentStep: AssessmentStepInput;
+}
+
+export const createAssessmentStep: GraphQLRequestFunc<
+  AssessmentStep,
+  AddAssessmentPlanToPoolArgs
+> = async (ctx, { poolId, assessmentStep }) => {
+  return ctx
+    .post(Test_AddAssessmentStepMutationDocument, {
+      isPrivileged: true,
+      variables: {
+        poolId,
+        assessmentStep,
+      },
+    })
+    .then((res: GraphQLResponse<"createAssessmentStep", AssessmentStep>) => {
+      return res.createAssessmentStep;
+    });
+};
+
 interface CreateAndPublishPoolArgs {
   userId: string;
   teamId?: string;
@@ -291,7 +324,22 @@ export const createAndPublishPool: GraphQLRequestFunc<
         });
       }
     }
-
+    const poolSkillsID = await getPoolSkills(ctx, { poolId: pool.id }).then(
+      (poolSkills) => poolSkills.map((ps) => ps.id),
+    );
+    await createAssessmentStep(ctx, {
+      poolId: pool.id,
+      assessmentStep: {
+        type: AssessmentStepType.InterviewIndividual,
+        title: {
+          en: "Test Individual Interview [EN]",
+          fr: "Test Individual Interview [FR]",
+        },
+        poolSkills: {
+          sync: poolSkillsID,
+        },
+      },
+    });
     return await publishPool(ctx, pool.id);
   });
 };
@@ -331,38 +379,6 @@ export const createAndPublishInternalPool: GraphQLRequestFunc<
       areaOfSelection: PoolAreaOfSelection.Employees,
     },
   });
-};
-
-const Test_AddAssessmentStepMutationDocument = /* GraphQL */ `
-  mutation Test_AddAssessmentStep(
-    $poolId: UUID!
-    $assessmentStep: AssessmentStepInput!
-  ) {
-    createAssessmentStep(poolId: $poolId, assessmentStep: $assessmentStep) {
-      id
-    }
-  }
-`;
-interface AddAssessmentPlanToPoolArgs {
-  poolId: string;
-  assessmentStep: AssessmentStepInput;
-}
-
-export const createAssessmentStep: GraphQLRequestFunc<
-  AssessmentStep,
-  AddAssessmentPlanToPoolArgs
-> = async (ctx, { poolId, assessmentStep }) => {
-  return ctx
-    .post(Test_AddAssessmentStepMutationDocument, {
-      isPrivileged: true,
-      variables: {
-        poolId,
-        assessmentStep,
-      },
-    })
-    .then((res: GraphQLResponse<"createAssessmentStep", AssessmentStep>) => {
-      return res.createAssessmentStep;
-    });
 };
 
 const Test_PoolSkillsQueryDocument = /* GraphQL */ `
@@ -408,4 +424,17 @@ export const getPoolSkills: GraphQLRequestFunc<
       (res: GraphQLResponse<"pool", { id: string; poolSkills: PoolSkill[] }>) =>
         res.pool.poolSkills,
     );
+};
+
+export const getPoolSkillIdsByCategories = (
+  poolSkills: PoolSkill[],
+  categories: SkillCategory[],
+): string[] => {
+  return poolSkills
+    .filter(
+      (ps) =>
+        ps.skill?.category?.value !== undefined &&
+        categories.includes(ps.skill.category.value),
+    )
+    .map((ps) => ps.id);
 };
