@@ -149,6 +149,10 @@ class ProfileSnapshot implements Castable
     /**
      * Transform an enum value from the snapshot
      * into a localized enum if it already isn't one.
+     *
+     * @param  string|null  $value  of the enum
+     * @param  class-string  $enum  The enum class
+     * @return mixed value and label object
      */
     private function parseSnapshotEnum(mixed $value, $enum): mixed
     {
