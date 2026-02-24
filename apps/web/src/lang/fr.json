@@ -1363,6 +1363,10 @@
     "defaultMessage": "Demandes de talents",
     "description": "Title for the index search request page"
   },
+  "3OR3Zv": {
+    "defaultMessage": "Vue ministère",
+    "description": "Department role name for nav menu"
+  },
   "3PwQT7": {
     "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
     "description": "Title for notice when there are no pool candidate search requests"
@@ -1379,10 +1383,6 @@
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
   },
-  "3W/NbE": {
-    "defaultMessage": "Sélectionné(e)",
-    "description": "Message displayed when candidate has been screened in at a specific assessment step"
-  },
   "3XvHVf": {
     "defaultMessage": "Rôles dans le ministère",
     "description": "Heading for updating a user's department roles"
@@ -1394,6 +1394,10 @@
   "3Z4fra": {
     "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavySecondary>« Requises »</heavySecondary>. Si vous possédez l'une des compétences <heavyPrimary>« Facultatives »</heavyPrimary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
     "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
+  },
+  "3aiz1p": {
+    "defaultMessage": "Voici votre tableau de bord du ministère. Vous pouvez y recruter, gérer les talents et trouver des ressources.",
+    "description": "Subtitle for the department dashboard page"
   },
   "3amaVI": {
     "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
@@ -1951,10 +1955,6 @@
     "defaultMessage": "Nomination pour l'avancement",
     "description": "heading for advancement nomination section"
   },
-  "5r2C2L": {
-    "defaultMessage": "Souhaitez-vous annuler cette décision et remettre le statut du candidat ou de la candidate à « En cours d'évaluation »?",
-    "description": "Final question on revert final decision dialog on view pool candidate page"
-  },
   "5r5XSh": {
     "defaultMessage": "Veuillez confirmer votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
@@ -2218,6 +2218,10 @@
   "77AbwY": {
     "defaultMessage": "Apprenez comment fonctionnent les dates limites et ce que les candidates et candidats verront au moment de présenter une demande.",
     "description": "Subtitle for the pool closing date dialog"
+  },
+  "78k3CS": {
+    "defaultMessage": "Bon retour<hidden> dans le tableau de bord</hidden> de votre ministère, {name}",
+    "description": "Title for department dashboard on the admin portal."
   },
   "7DUfu+": {
     "defaultMessage": "Statut de citoyenneté",
@@ -4546,6 +4550,10 @@
   "Hi7hnj": {
     "defaultMessage": "Anishinaabemowin (Ojibwé de l’Ouest)",
     "description": "Name of Western Ojibwe language"
+  },
+  "Ho4kfT": {
+    "defaultMessage": "À l'étape d'évaluation",
+    "description": "Status label for an application under assessment"
   },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
@@ -7802,10 +7810,6 @@
     "defaultMessage": "Connexion à votre compte",
     "description": "Heading for section of the sign in page showing the sign in steps"
   },
-  "Wo+T62": {
-    "defaultMessage": "Souhaitez-vous annuler cette décision et régler le statut du candidat à « En cours d’évaluation »?",
-    "description": "Confirmation text for reinstating a candidate"
-  },
   "WoFBmk": {
     "defaultMessage": "Je consens à travailler constamment à distance.",
     "description": "Checklist option explanatory note"
@@ -9594,6 +9598,10 @@
     "defaultMessage": "Exploitez toutes les compétences sur notre site",
     "description": "Subtitle for explore skills page"
   },
+  "eUDr2H": {
+    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir le candidat au statut « Examen des candidatures »?",
+    "description": "Confirmation text for reverting final decision of a candidate"
+  },
   "eUnUZo": {
     "defaultMessage": "Le nombre de compétences comportementales sélectionnées ici, combiné aux compétences techniques essentielles dans la section précédente, contribue au nombre total de compétences essentielles.",
     "description": "Lead in, paragraph 2, for a list of essential behavioural skills"
@@ -10374,6 +10382,10 @@
     "defaultMessage": "Pour cette procédure de candidature, vous devez remplir les conditions linguistiques suivantes :",
     "description": "Text that appears when a user is missing a language requirement on their profile."
   },
+  "hWQgP5": {
+    "defaultMessage": "Candidature retenue",
+    "description": "Message displayed when candidate has been screened in at a specific assessment step"
+  },
   "hXWO/r": {
     "defaultMessage": "Dans de rares cas, vous pouvez être informé d’une offre d’emploi qui indique ensuite qu’elle a été « fermée prématurément ». Cela se produit lorsque l’offre d’emploi est publiée avec des informations incorrectes ou qu’un besoin en ressources humaines doit être modifié. Dans un souci d’équité, ces offres d’emploi sont fermées afin que les mises à jour puissent être effectuées et publiées sous la forme d’une nouvelle annonce.",
     "description": "First paragraph for the closed early pool deadlines dialog"
@@ -10385,10 +10397,6 @@
   "hdBTPI": {
     "defaultMessage": "Tout l’équipement informatique requis (ordinateur portable, souris, écran, téléphone) et le matériel de formation seront fournis gratuitement. Si une personne choisit de travailler à la maison, le coût de l’accès à Internet relèvera de l’apprenti.",
     "description": "Learn more dialog question ten paragraph one"
-  },
-  "heFiZt": {
-    "defaultMessage": "En cours d'évaluation",
-    "description": "Status label for an application under assessment"
   },
   "hhE2b6": {
     "defaultMessage": "Votre signature",
