@@ -2,7 +2,6 @@
 import { ReactNode } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
-import { initScript } from "@gc-digital-talent/theme";
 import { Loading } from "@gc-digital-talent/ui";
 
 import ContextContainer from "~/components/Context/ContextProvider";
@@ -12,6 +11,8 @@ import "~/assets/css/tailwind.css";
 import type { Route } from "./+types/root";
 import RootErrorBoundary from "./components/Layout/RouteErrorBoundary/RootErrorBoundary";
 import { makeServerConfigJS } from "./utils/runtime";
+// eslint-disable-next-line import/extensions
+import initTheme from "./utils/initTheme.js?raw";
 
 declare global {
   interface Window {
@@ -136,7 +137,7 @@ export function Layout({ children }: LayoutProps) {
       <head>
         <script
           nonce="**CSP_NONCE**"
-          dangerouslySetInnerHTML={{ __html: initScript }}
+          dangerouslySetInnerHTML={{ __html: initTheme }}
         />
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

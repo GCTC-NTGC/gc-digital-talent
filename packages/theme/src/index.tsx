@@ -7,9 +7,6 @@ import type {
   SetThemeKeyFunc,
   Theme,
 } from "./types";
-// eslint-disable-next-line import/extensions
-import initScript from "./init.js?raw";
-export { initScript };
 
 export { ThemeProvider, useTheme };
 export type { Theme, ThemeMode, SetThemeModeFunc, ThemeKey, SetThemeKeyFunc };
