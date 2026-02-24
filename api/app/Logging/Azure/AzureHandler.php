@@ -93,7 +93,7 @@ class AzureHandler extends AbstractProcessingHandler
      */
     protected function write(LogRecord $record): void
     {
-        $postData = $this->azureRecord->getAzureData($record);
+        $postData = [$this->azureRecord->getAzureData($record)];
         $postString = Utils::jsonEncode($postData);
         $accessToken = $this->identityService->getAccessToken();
 
