@@ -130,7 +130,7 @@ const NominationGroupEvaluationDialog = ({
               TalentNominationGroupStatus.InProgress,
           )}
           icon={PencilSquareIcon}
-          label={intl.formatMessage(dialogMessages.title)}
+          aria-label={intl.formatMessage(dialogMessages.title)}
           block
         >
           {nominationGroup?.status?.label?.localized ??
