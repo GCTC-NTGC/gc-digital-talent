@@ -12,7 +12,7 @@ import { Dialog } from "@gc-digital-talent/ui";
 import { HiddenInput } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { ApplicationStatusFormProps, MutationMessages } from "./types";
+import { ApplicationStatusFormProps, MutationMessages } from "../types";
 import { ReinstateCandidate_Mutation } from "./mutations";
 import { Content } from "./StatusContent";
 

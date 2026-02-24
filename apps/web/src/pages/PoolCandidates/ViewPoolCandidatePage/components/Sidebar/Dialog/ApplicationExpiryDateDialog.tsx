@@ -79,7 +79,8 @@ const ApplicationExpiryDateDialog = ({
         }
 
         methods.resetField("expiryDate", {
-          defaultValue: res.data.updatePoolCandidateExpiryDate.expiryDate ?? "",
+          defaultValue:
+            res.data.updatePoolCandidateExpiryDate?.expiryDate ?? "",
         });
 
         toast.success(
@@ -101,12 +102,13 @@ const ApplicationExpiryDateDialog = ({
     description: "Title for the change expiry date dialog",
   });
 
-  const formattedDate =
-    formatDate({
-      date: parseDateTimeUtc(application.expiryDate),
-      formatString: DATE_FORMAT_STRING,
-      intl,
-    }) || title;
+  const formattedDate = application.expiryDate
+    ? formatDate({
+        date: parseDateTimeUtc(application.expiryDate),
+        formatString: DATE_FORMAT_STRING,
+        intl,
+      })
+    : title;
 
   const todayDate = new Date();
 

@@ -26,7 +26,7 @@ import {
   DisqualifiedFields,
   QualifiedFields,
   RemovedFields,
-} from "./StatusFields";
+} from "../FormFields/StatusFields";
 import { StatusChangeNotice } from "./StatusContent";
 import Footer from "../Footer";
 

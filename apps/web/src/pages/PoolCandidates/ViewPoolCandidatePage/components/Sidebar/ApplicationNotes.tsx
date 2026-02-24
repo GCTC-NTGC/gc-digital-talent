@@ -55,7 +55,7 @@ const ApplicationNotes = ({ query }: ApplicationNotesProps) => {
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      notes: application.notes,
+      notes: application.notes ?? "",
     },
   });
 

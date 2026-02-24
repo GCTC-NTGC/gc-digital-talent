@@ -11,10 +11,6 @@ const TogglePoolCandidateUserBookmark_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-interface CandidateInfo {
-  name: string;
-}
-
 interface UseCandidateBookmarkToggleArgs {
   id: Scalars["UUID"]["output"];
   name: string;

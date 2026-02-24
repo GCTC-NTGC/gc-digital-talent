@@ -103,7 +103,8 @@ const ApplicantContactInformation = ({
             description: "Label for preferred contact language field",
           })}
         >
-          {application.user.preferredLang?.label.localized ?? notProvided}
+          {application.user.preferredLang?.label.localized ??
+            intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
       </Collapsible.Content>
     </Collapsible.Root>

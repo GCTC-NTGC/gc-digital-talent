@@ -3,7 +3,7 @@ import { useMemo } from "react";
 
 import { ApplicationStatus } from "@gc-digital-talent/graphql";
 
-import { FormValues } from "./types";
+import { FormValues } from "../types";
 import {
   DisqualifyCandidate_Mutation,
   QualifyAndPlaceCandidate_Mutation,

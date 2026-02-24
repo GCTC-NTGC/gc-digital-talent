@@ -36,14 +36,12 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 import pageTitles from "~/messages/pageTitles";
-import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 import Hero from "~/components/Hero";
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
-import MoreActions from "./components/MoreActions/MoreActions";
 import ClaimVerification from "./components/ClaimVerification/ClaimVerification";
 import ApplicationSidebar from "./components/Sidebar/ApplicationSidebar";
 
@@ -55,14 +53,7 @@ const screeningAndAssessmentTitle = defineMessage({
 
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
-    ...JobPlacementOptions
-    me {
-      poolCandidateBookmarks {
-        id
-      }
-    }
     poolCandidate(id: $poolCandidateId) {
-      ...MoreActions
       ...ApplicationSidebar
 
       ...ClaimVerification
@@ -143,18 +134,14 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
 
 export interface ViewPoolCandidateProps {
   poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
-  jobPlacementOptions: JobPlacementOptionsFragmentType;
   flexibleWorkLocationOptions: FragmentType<
     typeof FlexibleWorkLocationOptions_Fragment
   >;
-  usersPoolCandidateBookmarks: string[];
 }
 
 export const ViewPoolCandidate = ({
   poolCandidate,
-  jobPlacementOptions,
   flexibleWorkLocationOptions,
-  usersPoolCandidateBookmarks,
 }: ViewPoolCandidateProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -235,11 +222,6 @@ export const ViewPoolCandidate = ({
       <AdminContentWrapper table overflowScrollbar>
         <Sidebar.Wrapper scrollbar>
           <Sidebar.Sidebar scrollbar>
-            <MoreActions
-              poolCandidate={poolCandidate}
-              jobPlacementOptions={jobPlacementOptions}
-              usersPoolCandidateBookmarks={usersPoolCandidateBookmarks}
-            />
             <ApplicationSidebar query={poolCandidate} />
           </Sidebar.Sidebar>
           <Sidebar.Content>
@@ -326,18 +308,12 @@ export const ViewPoolCandidatePage = () => {
     variables: { poolCandidateId },
   });
 
-  const browsingUsersCandidateBookmarks = unpackMaybes(
-    data?.me?.poolCandidateBookmarks,
-  ).map((candidate) => candidate.id);
-
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate ? (
         <ViewPoolCandidate
           poolCandidate={data.poolCandidate}
-          jobPlacementOptions={data}
           flexibleWorkLocationOptions={data}
-          usersPoolCandidateBookmarks={browsingUsersCandidateBookmarks}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>

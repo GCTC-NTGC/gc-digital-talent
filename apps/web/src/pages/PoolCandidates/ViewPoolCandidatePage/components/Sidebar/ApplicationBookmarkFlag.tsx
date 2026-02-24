@@ -6,6 +6,7 @@ import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
 import { Button, ButtonProps } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
 import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
@@ -57,7 +58,7 @@ const ApplicationBookmarkFlag = ({ query }: ApplicationBookmarkFlagProps) => {
     defaultValue: application.isFlagged ?? false,
     name,
     processTitle:
-      application.pool.displayName.display.localized ??
+      application.pool.displayName?.display.localized ??
       intl.formatMessage(commonMessages.notAvailable),
   });
   const [{ isBookmarked }, toggleBookmark] = useCandidateBookmarkToggle({
