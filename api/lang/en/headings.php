@@ -187,6 +187,10 @@ return [
     'department_number' => 'Organization id',
     'department_size' => 'Department size',
     'department_type' => 'Department type',
+    'core_public_administration' => 'Core Public Administration',
+    'central_agency' => 'Central Agency',
+    'science' => 'Science-based',
+    'regulatory' => 'Regulatory',
 
     // Job poster template
     'basic_details' => 'Basic details',

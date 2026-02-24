@@ -1003,8 +1003,38 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         return [
             $exp->department->org_identifier ?? '',
             $this->localizeEnum($exp->department->size, DepartmentSize::class),
-            $exp->department->type ?? '',
+            $this->getDepartmentTypes($exp->department),
         ];
+    }
+
+    /**
+     * Get department types
+     */
+    private function getDepartmentTypes($department): string
+    {
+        if (! $department) {
+            return '';
+        }
+
+        $types = [];
+
+        if ($department->is_core_public_administration) {
+            $types[] = $this->localize('headings.core_public_administration');
+        }
+
+        if ($department->is_central_agency) {
+            $types[] = $this->localize('headings.central_agency');
+        }
+
+        if ($department->is_science) {
+            $types[] = $this->localize('headings.science');
+        }
+
+        if ($department->is_regulatory) {
+            $types[] = $this->localize('headings.regulatory');
+        }
+
+        return implode(', ', $types);
     }
 
     /**

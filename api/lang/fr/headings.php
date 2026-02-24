@@ -155,6 +155,10 @@ return [
     'community_project_or_product' => 'Projet ou produit de la collectivité',
     'personal_learning_experience_description' => 'Description de l’expérience d’apprentissage personnel',
     'award_recipient' => 'Lauréat ou lauréate du prix',
+    'core_public_administration' => 'Core Public Administration', // todo
+    'central_agency' => 'Central Agency', // todo
+    'science' => 'Science-based', // todo
+    'regulatory' => 'Regulatory', // todo
 
     'awarded_to' => 'Accordé à',
     'issuing_organization' => 'Organisation émettrice',
