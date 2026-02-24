@@ -233,7 +233,7 @@ test.describe("Pool candidates", () => {
       }),
     ).toBeVisible();
     await expect(
-      appPage.page.getByLabel("Screened in").locator("path"),
+      appPage.page.getByLabel("Application retained").locator("path"),
     ).toBeVisible();
   });
 

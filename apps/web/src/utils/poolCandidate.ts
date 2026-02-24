@@ -160,8 +160,8 @@ export const applicationStatusLabels = defineMessages({
     description: "Status label for a reviewed application awaiting assessment",
   },
   UNDER_ASSESSMENT: {
-    defaultMessage: "Under assessment",
-    id: "heFiZt",
+    defaultMessage: "Advanced to assessment",
+    id: "Ho4kfT",
     description: "Status label for an application under assessment",
   },
   UNSUCCESSFUL: {
