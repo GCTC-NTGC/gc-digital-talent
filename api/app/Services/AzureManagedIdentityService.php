@@ -22,9 +22,13 @@ class AzureManagedIdentityService implements ManagedIdentityService
         }
 
         $response = Http::withHeaders([
-            'Secret' => config('azure.managed_identity.header'),
+            'X-IDENTITY-HEADER' => config('azure.managed_identity.header'),
         ])
-            ->get(config('azure.managed_identity.endpoint').'?api-version=2017-09-01&resource=https://management.azure.com/');
+            ->get(
+                config('azure.managed_identity.endpoint').'?'.http_build_query([
+                    'api-version' => '2019-08-01',
+                    'resource' => 'https://monitor.azure.com/'])
+            );
         assert($response instanceof Response); // type narrow away PromiseInterface
 
         if (! $response->ok()) {
