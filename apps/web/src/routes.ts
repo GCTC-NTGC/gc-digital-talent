@@ -281,6 +281,12 @@ export default [
             "./pages/CommunityDashboardPage/CommunityDashboardPage.tsx",
           ),
 
+          // Department
+          route(
+            "department",
+            "./pages/DepartmentDashboardPage/DepartmentDashboardPage.tsx",
+          ),
+
           // Admin
           ...prefix("admin", [
             index("./pages/AdminDashboardPage/AdminDashboardPage.tsx"),

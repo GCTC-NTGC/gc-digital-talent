@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Enums\ApplicationStatus;
 use App\Enums\ErrorCode;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
@@ -1812,24 +1811,9 @@ class PoolTest extends TestCase
     public function testApplicantsCount()
     {
         // setup
-        $publishedPool = Pool::factory()
-            ->published()
-            ->for($this->adminUser)
-            ->create();
-        PoolCandidate::factory()
-            ->availableInSearch()
-            ->create(
-                [
-                    'pool_id' => $publishedPool->id,
-                ]
-            );
-        PoolCandidate::factory()
-            ->create(
-                [
-                    'pool_id' => $publishedPool->id,
-                    'application_status' => ApplicationStatus::DRAFT->name,
-                ]
-            );
+        $publishedPool = Pool::factory()->published()->for($this->adminUser)->create();
+        PoolCandidate::factory()->availableInSearch()->for($publishedPool)->create();
+        PoolCandidate::factory()->for($publishedPool)->create();
 
         // assert published pool has two pool candidate records
         $candidateCount = count(PoolCandidate::where('pool_id', $publishedPool->id)->get());

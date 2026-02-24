@@ -73,11 +73,8 @@ class PoolCandidateSearchTest extends TestCase
     public function testPoolCandidatesSearchFilter(): void
     {
         // DRAFT, NOT PRESENT
-        $candidateOne = PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
+        PoolCandidate::factory()->for($this->pool)->create([
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => true,
                 'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
@@ -87,13 +84,8 @@ class PoolCandidateSearchTest extends TestCase
             ]),
         ]);
         // NEW APPLICATION, NO PRIORITY SO SECOND
-        $candidateTwo = PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
+        $candidateTwo = PoolCandidate::factory()->submitted()->for($this->pool)->create([
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
-            'expiry_date' => config('constants.far_future_date'),
-            'submitted_at' => config('constants.past_date'),
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
-            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
@@ -103,31 +95,24 @@ class PoolCandidateSearchTest extends TestCase
             ]),
         ]);
         // APPLICATION REVIEW, NO PRIORITY SO THIRD
-        $candidateThree = PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
-            'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
-            'expiry_date' => config('constants.far_future_date'),
-            'submitted_at' => config('constants.past_date'),
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
-            'screening_stage' => ScreeningStage::APPLICATION_REVIEW->name,
-            'user_id' => User::factory([
-                'has_priority_entitlement' => false,
-                'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
-                'citizenship' => CitizenshipStatus::OTHER->name,
-                'has_diploma' => false,
-                'is_woman' => false,
-            ]),
-        ]);
+        $candidateThree = PoolCandidate::factory()
+            ->screening(ScreeningStage::APPLICATION_REVIEW)
+            ->for($this->pool)
+            ->create([
+                'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
+                'user_id' => User::factory([
+                    'has_priority_entitlement' => false,
+                    'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
+                    'citizenship' => CitizenshipStatus::OTHER->name,
+                    'has_diploma' => false,
+                    'is_woman' => false,
+                ]),
+            ]);
 
         // NEW APPLICATION, VETERAN SO FIRST
         // has diploma and is woman
-        $candidateFour = PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
+        $candidateFour = PoolCandidate::factory()->submitted()->for($this->pool)->create([
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
-            'expiry_date' => config('constants.far_future_date'),
-            'submitted_at' => config('constants.past_date'),
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
-            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => false,
                 'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
@@ -138,12 +123,8 @@ class PoolCandidateSearchTest extends TestCase
         ]);
         // QUALIFIED AVAILABLE, HAS ENTITLEMENT FOURTH
         // has diploma and is woman
-        $candidateFive = PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
+        $candidateFive = PoolCandidate::factory()->qualified()->for($this->pool)->create([
             'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15',
-            'expiry_date' => config('constants.far_future_date'),
-            'submitted_at' => config('constants.past_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
             'user_id' => User::factory([
                 'has_priority_entitlement' => true,
                 'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
@@ -223,33 +204,12 @@ class PoolCandidateSearchTest extends TestCase
 
     public function testPoolCandidatesSearchExpiryFilter(): void
     {
-        $candidateActive = PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
-            'user_id' => User::factory(),
-        ]);
-        $candidateActive2 = PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
-            'user_id' => User::factory(),
-        ]);
-        $candidateExpired = PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
+        PoolCandidate::factory()->count(2)->placed(PlacementType::PLACED_CASUAL)->for($this->pool)->create();
+        PoolCandidate::factory()->placed(PlacementType::PLACED_CASUAL)->for($this->pool)->create([
             'expiry_date' => config('constants.past_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
-            'user_id' => User::factory(),
         ]);
-        $candidateNullExpiry = PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
+        PoolCandidate::factory()->placed(PlacementType::PLACED_CASUAL)->for($this->pool)->create([
             'expiry_date' => null,
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
-            'user_id' => User::factory(),
         ]);
 
         $query =
@@ -326,32 +286,14 @@ class PoolCandidateSearchTest extends TestCase
 
     public function testPoolCandidatesSearchSuspendedFilter(): void
     {
-        PoolCandidate::factory()->count(5)->create([
-            'pool_id' => $this->pool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
-            'suspended_at' => null,
-        ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
+        PoolCandidate::factory()->count(5)->placed(PlacementType::PLACED_CASUAL)->for($this->pool)->create();
+        PoolCandidate::factory()->placed(PlacementType::PLACED_CASUAL)->for($this->pool)->create([
             'suspended_at' => config('constants.far_past_datetime'),
         ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
+        PoolCandidate::factory()->placed(PlacementType::PLACED_CASUAL)->for($this->pool)->create([
             'suspended_at' => Carbon::now()->subMinutes(1),
         ]);
-        PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
+        PoolCandidate::factory()->placed(PlacementType::PLACED_CASUAL)->for($this->pool)->create([
             'suspended_at' => Carbon::now()->addMinutes(1),
         ]);
 
@@ -447,23 +389,23 @@ class PoolCandidateSearchTest extends TestCase
 
     public function testPoolCandidatesSearchGovEmployee(): void
     {
-        PoolCandidate::factory()->count(5)->create([
-            'pool_id' => $this->pool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
-            'suspended_at' => null,
-            'user_id' => User::factory()->withGovEmployeeProfile(),
-        ]);
+        // Create 5 Gov Employees
+        foreach (range(1, 5) as $i) {
+            PoolCandidate::factory()
+                ->placed(PlacementType::PLACED_CASUAL)
+                ->for(User::factory()->withGovEmployeeProfile())
+                ->for($this->pool)
+                ->create();
+        }
 
-        PoolCandidate::factory()->count(3)->create([
-            'pool_id' => $this->pool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
-            'suspended_at' => null,
-            'user_id' => User::factory()->withNonGovProfile(),
-        ]);
+        // Create 3 Non-Gov Employees
+        foreach (range(1, 3) as $i) {
+            PoolCandidate::factory()
+                ->placed(PlacementType::PLACED_CASUAL)
+                ->for(User::factory()->withNonGovProfile())
+                ->for($this->pool)
+                ->create();
+        }
 
         $query =
             /** @lang GraphQL */
@@ -530,13 +472,7 @@ class PoolCandidateSearchTest extends TestCase
             'community_id' => $this->community->id,
             'classification_id' => $classificationIT1->id,
         ]);
-        PoolCandidate::factory()->count(5)->create([
-            'pool_id' => $poolIT1->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
-            'suspended_at' => null,
-        ]);
+        PoolCandidate::factory()->count(5)->placed(PlacementType::PLACED_CASUAL)->for($poolIT1)->create();
 
         // Wrong classification candidates
         $classificationIT2 = Classification::factory()->create([
@@ -547,21 +483,8 @@ class PoolCandidateSearchTest extends TestCase
             'community_id' => $this->community->id,
             'classification_id' => $classificationIT2->id,
         ]);
-        PoolCandidate::factory()->count(3)->create([
-            'pool_id' => $poolIT2->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
-            'suspended_at' => null,
-        ]);
-
-        PoolCandidate::factory()->create([
-            'pool_id' => $poolIT1->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
-            'screening_stage' => ScreeningStage::UNDER_ASSESSMENT->name,
-            'suspended_at' => null,
-        ]);
+        PoolCandidate::factory()->count(3)->placed(PlacementType::PLACED_CASUAL)->for($poolIT2)->create();
+        PoolCandidate::factory()->screening(ScreeningStage::UNDER_ASSESSMENT)->for($poolIT1)->create();
 
         $query =
             /** @lang GraphQL */
@@ -647,12 +570,7 @@ class PoolCandidateSearchTest extends TestCase
     // test pool candidates  general search by notes
     public function testPoolCandidatesSearchByNotes()
     {
-        $candidateId = PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
-            'suspended_at' => null,
+        PoolCandidate::factory()->placed(PlacementType::PLACED_CASUAL)->for($this->pool)->create([
             'notes' => 'test notes',
         ]);
 
@@ -706,16 +624,14 @@ class PoolCandidateSearchTest extends TestCase
         // Create 10 unexpected candidates
         PoolCandidate::factory(10)
             ->availableInSearch()
-            ->create([
-                'pool_id' => $this->pool->id,
-            ]);
+            ->for($this->pool)
+            ->create();
 
         $expectedCandidate = PoolCandidate::factory()
             ->availableInSearch()
-            ->create([
-                'pool_id' => $this->pool->id,
-                'user_id' => User::factory()->withGovEmployeeProfile(),
-            ]);
+            ->for($this->pool)
+            ->for(User::factory()->withGovEmployeeProfile())
+            ->create();
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
@@ -751,21 +667,17 @@ class PoolCandidateSearchTest extends TestCase
         }
         GRAPHQL;
 
-        $assessmentSteps = $this->pool->assessmentSteps;
-
         // Create 10 unexpected candidates
         PoolCandidate::factory(10)
             ->availableInSearch()
             ->withAssessmentResults()
-            ->create([
-                'pool_id' => $this->pool->id,
-            ]);
+            ->for($this->pool)
+            ->create();
 
         $expectedCandidate = PoolCandidate::factory()
             ->availableInSearch()
-            ->create([
-                'pool_id' => $this->pool->id,
-            ]);
+            ->for($this->pool)
+            ->create();
 
         $expectedAssessmentStep = AssessmentStep::factory()->create([
             'pool_id' => $this->pool->id,
@@ -813,8 +725,8 @@ class PoolCandidateSearchTest extends TestCase
         // Create 10 unexpected candidates
         PoolCandidate::factory(10)
             ->availableInSearch()
+            ->for($this->pool)
             ->create([
-                'pool_id' => $this->pool->id,
                 'application_status' => Arr::random(Arr::where(array_column(ApplicationStatus::cases(), 'name'), function ($status) use ($expectedStatus) {
                     return $status !== $expectedStatus;
                 })),
@@ -822,8 +734,8 @@ class PoolCandidateSearchTest extends TestCase
 
         $expectedCandidate = PoolCandidate::factory()
             ->availableInSearch()
+            ->for($this->pool)
             ->create([
-                'pool_id' => $this->pool->id,
                 'application_status' => $expectedStatus,
             ]);
 
@@ -861,47 +773,19 @@ class PoolCandidateSearchTest extends TestCase
         }
         GRAPHQL;
 
-        PoolCandidate::factory()
-            ->availableInSearch()
-            ->create([
-                'pool_id' => $this->pool->id,
-                'placement_type' => PlacementType::NOT_PLACED->name,
-            ]);
+        $types = collect(PlacementType::cases())
+            ->reject(fn ($type) => $type->name === PlacementType::UNDER_CONSIDERATION->name);
 
-        PoolCandidate::factory()
-            ->availableInSearch()
-            ->create([
-                'pool_id' => $this->pool->id,
-                'placement_type' => PlacementType::PLACED_TENTATIVE->name,
-            ]);
-
-        PoolCandidate::factory()
-            ->availableInSearch()
-            ->create([
-                'pool_id' => $this->pool->id,
-                'placement_type' => PlacementType::PLACED_CASUAL->name,
-            ]);
-
-        PoolCandidate::factory()
-            ->availableInSearch()
-            ->create([
-                'pool_id' => $this->pool->id,
-                'placement_type' => PlacementType::PLACED_TERM->name,
-            ]);
-
-        PoolCandidate::factory()
-            ->availableInSearch()
-            ->create([
-                'pool_id' => $this->pool->id,
-                'placement_type' => PlacementType::PLACED_INDETERMINATE->name,
-            ]);
+        foreach (range(1, 10) as $i) {
+            PoolCandidate::factory()
+                ->placed($types->random())
+                ->create();
+        }
 
         $expectedCandidate = PoolCandidate::factory()
-            ->availableInSearch()
-            ->create([
-                'pool_id' => $this->pool->id,
-                'placement_type' => PlacementType::UNDER_CONSIDERATION->name,
-            ]);
+            ->for($this->pool)
+            ->placed(PlacementType::UNDER_CONSIDERATION)
+            ->create();
 
         $this->actingAs($this->communityRecruiter, 'api')
             ->graphQL($query, [
@@ -936,18 +820,17 @@ class PoolCandidateSearchTest extends TestCase
         }
         GRAPHQL;
 
-        // Create 10 unexpected candidates
-        PoolCandidate::factory(10)
-            ->availableInSearch()
-            ->create([
-                'pool_id' => $this->pool->id,
-                'removal_reason' => Arr::random(Arr::where(array_column(CandidateRemovalReason::cases(), 'name'), function ($status) {
-                    return $status !== CandidateRemovalReason::INELIGIBLE->name;
-                })),
-            ]);
+        $reasons = collect(CandidateRemovalReason::cases())
+            ->reject(fn ($reason) => $reason->name === CandidateRemovalReason::INELIGIBLE->name);
+
+        foreach (range(1, 10) as $i) {
+            PoolCandidate::factory()
+                ->removed($reasons->random())
+                ->create();
+        }
 
         $expectedCandidate = PoolCandidate::factory()
-            ->availableInSearch()
+            ->removed(CandidateRemovalReason::INELIGIBLE)
             ->create([
                 'pool_id' => $this->pool->id,
                 'removal_reason' => CandidateRemovalReason::INELIGIBLE->name,
@@ -989,9 +872,8 @@ class PoolCandidateSearchTest extends TestCase
         // Create 10 unexpected candidates
         $unexpected = PoolCandidate::factory(10)
             ->availableInSearch()
-            ->create([
-                'pool_id' => $this->pool->id,
-            ]);
+            ->for($this->pool)
+            ->create();
 
         foreach ($unexpected as $candidate) {
             $candidate->screening_stage = Arr::random(Arr::where(
@@ -1003,9 +885,8 @@ class PoolCandidateSearchTest extends TestCase
 
         $expectedCandidate = PoolCandidate::factory()
             ->availableInSearch()
-            ->create([
-                'pool_id' => $this->pool->id,
-            ]);
+            ->for($this->pool)
+            ->create();
 
         $expectedCandidate->screening_stage = ScreeningStage::UNDER_ASSESSMENT->name;
         $expectedCandidate->save();
