@@ -12,7 +12,6 @@ import { loginBySub } from "../../utils/auth";
 
 test.describe("Talent nomination management", () => {
   test("Create a talent nomination", async ({ appPage }) => {
-    test.setTimeout(90_000); // This test takes long in webkit
     // Prepare the test environment
     const adminCtx = await graphql.newContext();
     const uniqueTestId = generateUniqueTestId();
