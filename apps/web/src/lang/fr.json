@@ -2795,6 +2795,10 @@
     "defaultMessage": "Modifier l'adresse courriel professionnelle",
     "description": "Link to update email"
   },
+  "9lg3QJ": {
+    "defaultMessage": "Publié le {publishedDate}",
+    "description": "Text displaying the date a job was posted"
+  },
   "9mrSt3": {
     "defaultMessage": "Description de l'événement",
     "description": "Label for nomination event description"
@@ -2882,6 +2886,10 @@
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
+  },
+  "A+7N3f": {
+    "defaultMessage": "Ouvert aux employés",
+    "description": "Combined eligibility string for 'employees only' with no other limitations"
   },
   "A/uMD+": {
     "defaultMessage": "est en mesure d’attribuer le rôle de responsable des processus;",
@@ -3551,6 +3559,10 @@
     "defaultMessage": "Ministère d’attache",
     "description": "Label displayed on the pool form department field."
   },
+  "D0Yslc": {
+    "defaultMessage": "Voir l'offre d'emploi {name}",
+    "description": "Message on link that say to apply to a job"
+  },
   "D0cHjz": {
     "defaultMessage": "Bienvenue à Talents numériques du GC",
     "description": "Page title for the registration pages"
@@ -3578,6 +3590,10 @@
   "D7/cN1": {
     "defaultMessage": "Approbation pour une mutation latérale",
     "description": "Label for an nomination for lateral movement decision"
+  },
+  "D8mu6E": {
+    "defaultMessage": "Les candidatures ont pris fin le {closingDate}",
+    "description": "Message informing user applications won't be accepted after closing date"
   },
   "D91nGW": {
     "defaultMessage": "Titre du poste non trouvé.",
@@ -6686,6 +6702,10 @@
   "RA4afJ": {
     "defaultMessage": "Approbation pour les programmes de perfectionnement",
     "description": "Label for an nomination for development programs decision"
+  },
+  "RC8Q0J": {
+    "defaultMessage": "{applicantsCount} candidatures",
+    "description": "Text displaying number of applications for a job"
   },
   "RDAVsP": {
     "defaultMessage": "Lire la Directive",
@@ -10589,6 +10609,10 @@
   "iJoahz": {
     "defaultMessage": "Objectif de carrière",
     "description": "Title for career objective dialog"
+  },
+  "iKN6ln": {
+    "defaultMessage": "À niveau",
+    "description": "Combined eligibility string for 'employees only' and 'at-level only'"
   },
   "iKWOl+": {
     "defaultMessage": "Cette section vous permet d'indiquer les groupes visés par l'équité en matière d'emploi qui s'appliquent à vous. Remplissez cette section si vous remplissez ces deux conditions :",
