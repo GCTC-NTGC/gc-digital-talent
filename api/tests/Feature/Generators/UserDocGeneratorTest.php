@@ -5,6 +5,8 @@ namespace Tests\Feature\Generators;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\CSuiteRoleTitle;
+use App\Enums\EstimatedLanguageAbility;
+use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\IndigenousCommunity;
@@ -95,6 +97,13 @@ class UserDocGeneratorTest extends TestCase
                 'looking_for_english' => true,
                 'looking_for_french' => true,
                 'looking_for_bilingual' => true,
+                'first_official_language' => Language::FR->name,
+                'estimated_language_ability' => EstimatedLanguageAbility::ADVANCED->name,
+                'second_language_exam_completed' => true,
+                'second_language_exam_validity' => true,
+                'comprehension_level' => EvaluatedLanguageAbility::A->name,
+                'written_level' => EvaluatedLanguageAbility::B->name,
+                'verbal_level' => EvaluatedLanguageAbility::C->name,
                 // Work info
                 'work_email' => 'employee@test.com',
                 'has_priority_entitlement' => true,
@@ -107,6 +116,7 @@ class UserDocGeneratorTest extends TestCase
                 ],
                 'current_city' => 'The Town',
                 'current_province' => ProvinceOrTerritory::ONTARIO->name,
+                'location_preferences' => ['NATIONAL_CAPITAL', 'ONTARIO'],
                 'flexible_work_locations' => [
                     FlexibleWorkLocation::REMOTE->name,
                     FlexibleWorkLocation::HYBRID->name,
@@ -167,7 +177,14 @@ class UserDocGeneratorTest extends TestCase
             'career_objective_c_suite_role_title' => CSuiteRoleTitle::CHIEF_DATA_OFFICER->name,
         ]);
 
-        $skills = Skill::factory()->count(4)->create();
+        $skills = collect(range(1, 4))->map(function ($index) {
+            return Skill::factory()->create([
+                'name' => [
+                    'en' => "Skill $index EN",
+                    'fr' => "Skill $index FR",
+                ],
+            ]);
+        });
 
         $targetUser->userSkills()->delete();
 
