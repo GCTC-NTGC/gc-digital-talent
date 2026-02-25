@@ -1,3 +1,11 @@
+/**
+ * Initializes dark mode if preferred to avoid a theme flash
+ *
+ * Intended as an early execution to happen while React and the ThemeProvider
+ * are booting up.
+ *
+ * This should match the ThemeKey and ThemeMode in ThemeProvider
+ */
 (function () {
   try {
     const theme = JSON.parse(
