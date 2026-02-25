@@ -10,7 +10,7 @@ const ribbon = tv({
   slots: {
     base: "drop-shadow-(--ribbon-shadow)",
     label:
-      "relative inline-block rounded-l-md py-1 pr-9 pl-10.5 text-sm/normal font-bold [clip-path:polygon(0%_0%,100%_0%,calc(100%-1rem)_50%,100%_100%,0%_100%)]",
+      "relative inline-block rounded-l-md py-1 pr-9 pl-13.5 text-sm/normal font-bold [clip-path:polygon(0%_0%,100%_0%,calc(100%-1rem)_50%,100%_100%,0%_100%)]",
   },
   variants: {
     publicColor: {
