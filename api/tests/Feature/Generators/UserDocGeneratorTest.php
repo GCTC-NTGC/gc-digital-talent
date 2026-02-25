@@ -28,6 +28,7 @@ use App\Models\Department;
 use App\Models\OffPlatformRecruitmentProcess;
 use App\Models\Skill;
 use App\Models\User;
+use App\Models\WorkExperience;
 use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -72,7 +73,12 @@ class UserDocGeneratorTest extends TestCase
                 'fr' => 'Snapshot classification FR',
             ],
         ]);
-        WorkStream::factory()->create();
+        $workStream = WorkStream::factory()->create([
+            'name' => [
+                'en' => 'Snapshot work stream EN',
+                'fr' => 'Snapshot work stream FR',
+            ],
+        ]);
 
         $adminUser = User::factory()
             ->asApplicant()
@@ -188,6 +194,30 @@ class UserDocGeneratorTest extends TestCase
                 'process_number' => '12345',
                 'platform' => HiringPlatform::GC_JOBS->name,
             ]);
+
+        $targetUser->workExperiences()->delete();
+
+        $exp = WorkExperience::factory()
+            ->for($targetUser)
+            ->for($classification)
+            ->for($department)
+            ->asSubstantive()
+            ->create([
+                'role' => 'Deterministic Analyst',
+                'organization' => 'Treasury Board',
+                'division' => 'Analysis Division',
+                'start_date' => '2020-01-01',
+                'details' => 'Did deterministic testing of policy.',
+                'supervisory_position' => true,
+                'supervised_employees' => true,
+                'supervised_employees_number' => 19,
+                'budget_management' => true,
+                'annual_budget_allocation' => 1000,
+                'senior_management_status' => true,
+                'c_suite_role_title' => CSuiteRoleTitle::CHIEF_DIGITAL_OFFICER->name,
+                'other_c_suite_role_title' => null,
+            ]);
+        $exp->workStreams()->sync([$workStream]);
 
         $skills = collect(range(1, 4))->map(function ($index) {
             return Skill::factory()->create([
