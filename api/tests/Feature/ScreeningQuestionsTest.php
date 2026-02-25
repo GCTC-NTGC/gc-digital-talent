@@ -96,8 +96,7 @@ class ScreeningQuestionsTest extends TestCase
     {
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
-        $this->community = Community::factory()->create([
-            'key' => 'test-community']);
+        $this->community = Community::factory()->create();
         Skill::factory()->count(3)->create();
         $this->pool = Pool::factory()->draft()->withPoolSkills(2, 2)->create([
             'community_id' => $this->community->id,

@@ -323,10 +323,6 @@
     "defaultMessage": "Tâches principales - Exemples",
     "description": "Long title of the 'key tasks' section of the job poster template page"
   },
-  "/GsyBb": {
-    "defaultMessage": "Le tableau a été modifié. Nous mettons à l'essai un nouvel algorithme afin d'améliorer les résultats trouvés et affichés. Faites‑nous signe si vous éprouvez des difficultés.",
-    "description": "Body of a note around testing new search"
-  },
   "/HdHpe": {
     "defaultMessage": "Droits de priorité",
     "description": "Title for the priority entitlements section"
@@ -1955,6 +1951,10 @@
     "defaultMessage": "Veuillez confirmer votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
   },
+  "5s1vaA": {
+    "defaultMessage": "Posez votre candidature à ({name})",
+    "description": "Message on link that say to apply to a job"
+  },
   "5sZWgB": {
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for Goals and work style section of user employee information page"
@@ -2539,6 +2539,10 @@
     "defaultMessage": "Décrivez la façon dont cette compétence a été mise en valeur dans ce rôle",
     "description": "Label for the textarea in the skills in detail section."
   },
+  "8m4Fvb": {
+    "defaultMessage": "(C B C)",
+    "description": "Second part of bilingual advanced pool language"
+  },
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
@@ -2787,6 +2791,10 @@
     "defaultMessage": "Modifier l'adresse courriel professionnelle",
     "description": "Link to update email"
   },
+  "9lg3QJ": {
+    "defaultMessage": "Publié le {publishedDate}",
+    "description": "Text displaying the date a job was posted"
+  },
   "9mrSt3": {
     "defaultMessage": "Description de l'événement",
     "description": "Label for nomination event description"
@@ -2874,6 +2882,10 @@
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
     "description": "Display text for edit experience form in breadcrumbs"
+  },
+  "A+7N3f": {
+    "defaultMessage": "Ouvert aux employés",
+    "description": "Combined eligibility string for 'employees only' with no other limitations"
   },
   "A/uMD+": {
     "defaultMessage": "est en mesure d’attribuer le rôle de responsable des processus;",
@@ -3539,6 +3551,10 @@
     "defaultMessage": "Ministère d’attache",
     "description": "Label displayed on the pool form department field."
   },
+  "D0Yslc": {
+    "defaultMessage": "Voir l'offre d'emploi {name}",
+    "description": "Message on link that say to apply to a job"
+  },
   "D0cHjz": {
     "defaultMessage": "Bienvenue à Talents numériques du GC",
     "description": "Page title for the registration pages"
@@ -3567,6 +3583,10 @@
     "defaultMessage": "Approbation pour une mutation latérale",
     "description": "Label for an nomination for lateral movement decision"
   },
+  "D8mu6E": {
+    "defaultMessage": "Les candidatures ont pris fin le {closingDate}",
+    "description": "Message informing user applications won't be accepted after closing date"
+  },
   "D91nGW": {
     "defaultMessage": "Titre du poste non trouvé.",
     "description": "Message shown to user when pool name or classification are not found."
@@ -3582,10 +3602,6 @@
   "DBczOG": {
     "defaultMessage": "Stratégie",
     "description": "Heading for strategy for the indigenous talent portal"
-  },
-  "DDnn7i": {
-    "defaultMessage": "Utiliser l'ancienne recherche dans le tableau",
-    "description": "Check box to toggle new search"
   },
   "DEdQkH": {
     "defaultMessage": "{count, plural, one {# évaluation} other {# évaluations}}",
@@ -6051,6 +6067,10 @@
     "defaultMessage": "Vous êtes à l'aise de partager vos renseignements sur l'équité en matière d'emploi pour des possibilités de recrutement et à des fins de statistiques anonymisées.",
     "description": "Second condition for selecting an employment equity group"
   },
+  "OjI368": {
+    "defaultMessage": "Présenter une demande",
+    "description": "Label on link to apply to a job"
+  },
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
@@ -6655,6 +6675,10 @@
     "defaultMessage": "Approbation pour les programmes de perfectionnement",
     "description": "Label for an nomination for development programs decision"
   },
+  "RC8Q0J": {
+    "defaultMessage": "{applicantsCount} candidatures",
+    "description": "Text displaying number of applications for a job"
+  },
   "RDAVsP": {
     "defaultMessage": "Lire la Directive",
     "description": "Link text to read the entire directive."
@@ -6818,10 +6842,6 @@
   "Rw9JVt": {
     "defaultMessage": "Ce tableau ne contient pas de données à afficher.",
     "description": "Null message title for talent nominations table."
-  },
-  "RwXPoj": {
-    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
-    "description": "Question displayed when authenticated user attempts to sign out"
   },
   "RzXSJ9": {
     "defaultMessage": "Modifier une expérience",
@@ -8398,6 +8418,10 @@
     "defaultMessage": "Allocation budgétaire annuelle ($CAN)",
     "description": "Label for annual budget allocation field"
   },
+  "ZI0wBf": {
+    "defaultMessage": "(B B B)",
+    "description": "Second part of bilingual intermediate pool language"
+  },
   "ZJpfIZ": {
     "defaultMessage": "L’utilisateur perdra tous les rôles suivants dans le ministère :",
     "description": "Text notifying user which department roles will be removed from the user"
@@ -9810,6 +9834,10 @@
     "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
     "description": "GCKey answer for ability to remove two-factor authentication"
   },
+  "fQiUXz": {
+    "defaultMessage": "Préférence ministérielle",
+    "description": "Combined eligibility string for 'employees only' and 'departmental preference'"
+  },
   "fQkgnT": {
     "defaultMessage": "Placement professionnel",
     "description": "Title displayed on the Pool Candidates table job placement column"
@@ -10533,6 +10561,10 @@
   "iJoahz": {
     "defaultMessage": "Objectif de carrière",
     "description": "Title for career objective dialog"
+  },
+  "iKN6ln": {
+    "defaultMessage": "À niveau",
+    "description": "Combined eligibility string for 'employees only' and 'at-level only'"
   },
   "iKWOl+": {
     "defaultMessage": "Cette section vous permet d'indiquer les groupes visés par l'équité en matière d'emploi qui s'appliquent à vous. Remplissez cette section si vous remplissez ces deux conditions :",
@@ -12662,6 +12694,10 @@
     "defaultMessage": "Les fonctionnaires du gouvernement du Canada travaillant en TI pourraient profiter des bons pour examens de certification attestant les compétences reconnues par l'industrie. Ces bons vous aideront à accroître vos qualifications et à faire progresser votre carrière.",
     "description": "First paragraph of certification exam vouchers section"
   },
+  "rZ9ljW": {
+    "defaultMessage": "Afficher l'offre d'emploi",
+    "description": "Label on link to closed job ad"
+  },
   "rdUAvx": {
     "defaultMessage": "Détails",
     "description": "Link text for details step of a talent nomination"
@@ -13781,10 +13817,6 @@
   "wqcWdN": {
     "defaultMessage": "Votre candidature a été retirée de ce processus. Si vous avez des questions, veuillez contacter le service ou l’équipe de recrutement responsable de la publication de l’offre d’emploi.",
     "description": "Status description for an application that was removed from a pool"
-  },
-  "wqzCx3": {
-    "defaultMessage": "Mise à l'essai d'une nouvelle recherche dans le tableau",
-    "description": "Title for a note around testing new search"
   },
   "wrKBLf": {
     "defaultMessage": "Autre type d'études",

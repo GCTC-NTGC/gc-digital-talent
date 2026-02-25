@@ -38,6 +38,7 @@ import IconButton, {
   type IconButtonProps,
 } from "./components/Button/IconButton";
 import IconLink, { type IconLinkProps } from "./components/Link/IconLink";
+import IconLabel from "./components/IconLabel/IconLabel";
 import Image, { type ImgProps } from "./components/Image/Image";
 import Link, {
   DownloadCsv,
@@ -171,6 +172,7 @@ export {
   Flourish,
   Heading,
   IconButton,
+  IconLabel,
   IconLink,
   Image,
   Link,
