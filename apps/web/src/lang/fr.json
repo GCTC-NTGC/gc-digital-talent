@@ -323,10 +323,6 @@
     "defaultMessage": "Tâches principales - Exemples",
     "description": "Long title of the 'key tasks' section of the job poster template page"
   },
-  "/GsyBb": {
-    "defaultMessage": "Le tableau a été modifié. Nous mettons à l'essai un nouvel algorithme afin d'améliorer les résultats trouvés et affichés. Faites‑nous signe si vous éprouvez des difficultés.",
-    "description": "Body of a note around testing new search"
-  },
   "/HdHpe": {
     "defaultMessage": "Droits de priorité",
     "description": "Title for the priority entitlements section"
@@ -3591,10 +3587,6 @@
     "defaultMessage": "Stratégie",
     "description": "Heading for strategy for the indigenous talent portal"
   },
-  "DDnn7i": {
-    "defaultMessage": "Utiliser l'ancienne recherche dans le tableau",
-    "description": "Check box to toggle new search"
-  },
   "DEdQkH": {
     "defaultMessage": "{count, plural, one {# évaluation} other {# évaluations}}",
     "description": "Number of assessments for a skill"
@@ -6846,10 +6838,6 @@
   "Rw9JVt": {
     "defaultMessage": "Ce tableau ne contient pas de données à afficher.",
     "description": "Null message title for talent nominations table."
-  },
-  "RwXPoj": {
-    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
-    "description": "Question displayed when authenticated user attempts to sign out"
   },
   "RzXSJ9": {
     "defaultMessage": "Modifier une expérience",
@@ -13845,10 +13833,6 @@
   "wqcWdN": {
     "defaultMessage": "Votre candidature a été retirée de ce processus. Si vous avez des questions, veuillez contacter le service ou l’équipe de recrutement responsable de la publication de l’offre d’emploi.",
     "description": "Status description for an application that was removed from a pool"
-  },
-  "wqzCx3": {
-    "defaultMessage": "Mise à l'essai d'une nouvelle recherche dans le tableau",
-    "description": "Title for a note around testing new search"
   },
   "wrKBLf": {
     "defaultMessage": "Autre type d'études",
