@@ -453,13 +453,7 @@ const PoolCandidatesTable = ({
     ...defaultState,
     sortState: defaultSortState,
   });
-  const [searchParams, setSearchParams] = useSearchParams() as [
-    URLSearchParams,
-    (
-      nextInit: URLSearchParams | string,
-      navigateOpts?: { replace?: boolean; state?: unknown },
-    ) => void,
-  ];
+  const [searchParams, setSearchParams] = useSearchParams();
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters = useMemo(
     () =>
