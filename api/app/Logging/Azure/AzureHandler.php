@@ -31,23 +31,15 @@ class AzureHandler extends AbstractProcessingHandler
      * @param  non-empty-string  $streamName  Stream Name refers to the stream in the DCR that should handle the custom data.
      */
     public function __construct(
+        // logger config
         public ManagedIdentityService $identityService,
         public string $endpoint,
         public string $dcrImmutableId,
         public string $streamName,
-        public ?string $applicationID = null,
-        public ?array $context = null,
-        public ?string $correlationID = null,
-        public ?string $eventAction = null,
-        public ?string $eventID = null,
-        public ?string $eventStatus = null,
-        public ?string $eventText = null,
-        public ?string $group = null,
-        public ?string $host = null,
-        public ?string $sourceIP = null,
-        public ?string $sourceUserID = null,
-        public ?string $targetUserID = null,
-        public ?string $xForwardedIP = null,
+        // logged values
+        public ?string $applicationId = null,
+        public ?string $sourceIp = null,
+        public ?string $sourceUserId = null,
 
         $level = Level::Critical,
         bool $bubble = true,
@@ -55,17 +47,9 @@ class AzureHandler extends AbstractProcessingHandler
         parent::__construct($level, $bubble);
 
         $this->azureRecord = new AzureRecord(
-            applicationID: $applicationID,
-            correlationID: $correlationID,
-            eventAction: $eventAction,
-            eventID: $eventID,
-            eventStatus: $eventStatus,
-            group: $group,
-            host: $host,
-            sourceIP: $sourceIP,
-            sourceUserID: $sourceUserID,
-            targetUserID: $targetUserID,
-            xForwardedIP: $xForwardedIP,
+            applicationId: $applicationId,
+            sourceIp: $sourceIp,
+            sourceUserId: $sourceUserId,
             formatter: null,
         );
     }

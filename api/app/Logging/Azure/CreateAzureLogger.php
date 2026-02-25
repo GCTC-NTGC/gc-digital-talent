@@ -17,25 +17,16 @@ class CreateAzureLogger
     {
         $logger = new Logger('azure');
         $logger->pushHandler(new AzureHandler(
+            // logger config
             level: $config['level'],
             identityService: App::make(ManagedIdentityService::class),
             endpoint: $config['endpoint'],
             dcrImmutableId: $config['dcrImmutableId'],
             streamName: $config['streamName'],
-            applicationID: config('app.url'),
-            // context
-            // correlationID
-            // eventAction
-            // eventID
-            // eventStatus
-            // eventText
-            // group
-            host: Request::getHost(),
-            sourceIP: Request::ip(),
-            sourceUserID: Auth::user()?->getAuthIdentifier(),
-            // targetUserID
-            // timeGenerated
-            // xForwardedIP
+            // logged values
+            applicationId: config('app.url'),
+            sourceIp: Request::ip(),
+            sourceUserId: Auth::user()?->getAuthIdentifier(),
         ));
 
         return $logger;
