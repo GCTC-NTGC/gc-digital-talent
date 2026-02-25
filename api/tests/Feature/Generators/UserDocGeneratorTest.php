@@ -9,6 +9,7 @@ use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
 use App\Enums\FlexibleWorkLocation;
+use App\Enums\HiringPlatform;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\LearningOpportunitiesInterest;
@@ -24,6 +25,7 @@ use App\Generators\UserDocGenerator;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
+use App\Models\OffPlatformRecruitmentProcess;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkStream;
@@ -56,7 +58,7 @@ class UserDocGeneratorTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $community = Community::factory()->create();
-        Department::factory()->create([
+        $department = Department::factory()->create([
             'name' => [
                 'en' => 'Snapshot dept EN',
                 'fr' => 'Snapshot dept FR',
@@ -176,6 +178,16 @@ class UserDocGeneratorTest extends TestCase
             'next_role_c_suite_role_title' => CSuiteRoleTitle::CHIEF_AUDIT_EXECUTIVE->name,
             'career_objective_c_suite_role_title' => CSuiteRoleTitle::CHIEF_DATA_OFFICER->name,
         ]);
+
+        $targetUser->offPlatformRecruitmentProcesses()->delete();
+        OffPlatformRecruitmentProcess::factory()
+            ->for($targetUser)
+            ->for($department)
+            ->for($classification)
+            ->create([
+                'process_number' => '12345',
+                'platform' => HiringPlatform::GC_JOBS->name,
+            ]);
 
         $skills = collect(range(1, 4))->map(function ($index) {
             return Skill::factory()->create([
