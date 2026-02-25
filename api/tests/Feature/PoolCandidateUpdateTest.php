@@ -434,6 +434,7 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         $this->poolCandidate->application_status = ApplicationStatus::QUALIFIED->name;
+        $this->poolCandidate->placement_type = null;
         $this->poolCandidate->save();
 
         $this->actingAs($this->candidateUser, 'api')
