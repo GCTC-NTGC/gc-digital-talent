@@ -6847,10 +6847,6 @@
     "defaultMessage": "Ce tableau ne contient pas de données à afficher.",
     "description": "Null message title for talent nominations table."
   },
-  "RwXPoj": {
-    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
-    "description": "Question displayed when authenticated user attempts to sign out"
-  },
   "RzXSJ9": {
     "defaultMessage": "Modifier une expérience",
     "description": "Button to open modal to add a new experience to the profile"
