@@ -76,6 +76,7 @@ import {
   poolCandidateBookmarkHeader,
   poolCandidateBookmarkCell,
   applicationStatusCell,
+  screeningResultCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -249,12 +250,11 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               }
             }
           }
-
-          assessmentStatus {
-            assessmentStepStatuses {
-              step
+          screeningResult {
+            value
+            label {
+              localized
             }
-            overallAssessmentStatus
           }
           pool {
             id
@@ -883,6 +883,25 @@ const PoolCandidatesTable = ({
       {
         id: "assessmentStep",
         header: intl.formatMessage(applicationMessages.assessmentStage),
+      },
+    ),
+    columnHelper.accessor(
+      ({ poolCandidate: { screeningResult } }) =>
+        screeningResult?.label?.localized ?? "",
+      {
+        id: "screeningResult",
+        header: intl.formatMessage({
+          defaultMessage: "Screening result",
+          id: "qwLrrx",
+          description: "Label for the result of an application screening",
+        }),
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { screeningResult },
+            },
+          },
+        }) => screeningResultCell(screeningResult),
       },
     ),
     columnHelper.accessor(
