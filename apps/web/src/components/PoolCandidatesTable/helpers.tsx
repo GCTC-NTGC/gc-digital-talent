@@ -13,7 +13,7 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Link, Chip, Spoiler, Color, IconType } from "@gc-digital-talent/ui";
+import { Link, Chip, Spoiler, IconType } from "@gc-digital-talent/ui";
 import {
   CandidateExpiryFilter,
   Maybe,
