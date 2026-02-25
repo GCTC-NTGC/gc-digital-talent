@@ -25,6 +25,7 @@ use App\Generators\UserDocGenerator;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
+use App\Models\DevelopmentProgram;
 use App\Models\OffPlatformRecruitmentProcess;
 use App\Models\Skill;
 use App\Models\User;
@@ -59,6 +60,12 @@ class UserDocGeneratorTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $community = Community::factory()->create();
+        DevelopmentProgram::factory()->for($community)->create([
+            'name' => [
+                'en' => 'Snapshot program EN',
+                'fr' => 'Snapshot program FR',
+            ],
+        ]);
         $department = Department::factory()->create([
             'name' => [
                 'en' => 'Snapshot dept EN',
@@ -176,7 +183,6 @@ class UserDocGeneratorTest extends TestCase
             'career_objective_community_other' => 'Snapshot other community career objective',
             'next_role_classification_id' => $classification->id,
             'career_objective_classification_id' => $classification->id,
-
             'next_role_target_role' => TargetRole::ASSISTANT_DEPUTY_MINISTER->name,
             'career_objective_target_role' => TargetRole::DEPUTY_MINISTER->name,
             'next_role_is_c_suite_role' => true,
@@ -184,6 +190,11 @@ class UserDocGeneratorTest extends TestCase
             'next_role_c_suite_role_title' => CSuiteRoleTitle::CHIEF_AUDIT_EXECUTIVE->name,
             'career_objective_c_suite_role_title' => CSuiteRoleTitle::CHIEF_DATA_OFFICER->name,
         ]);
+
+        $targetUser->employeeProfile->nextRoleWorkStreams()->sync([$workStream]);
+        $targetUser->employeeProfile->careerObjectiveWorkStreams()->sync([$workStream]);
+        $targetUser->employeeProfile->nextRoleDepartments()->sync([$department]);
+        $targetUser->employeeProfile->careerObjectiveDepartments()->sync([$department]);
 
         $targetUser->offPlatformRecruitmentProcesses()->delete();
         OffPlatformRecruitmentProcess::factory()
