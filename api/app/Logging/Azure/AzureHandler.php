@@ -37,9 +37,11 @@ class AzureHandler extends AbstractProcessingHandler
         public string $dcrImmutableId,
         public string $streamName,
         // logged values
-        public ?string $applicationId = null,
-        public ?string $sourceIp = null,
-        public ?string $sourceUserId = null,
+        public ?string $applicationId,
+        public ?string $sourceIp,
+        public ?string $xForwardedIp,
+        public ?string $correlationId,
+        public ?string $sourceUserId,
 
         $level = Level::Critical,
         bool $bubble = true,
@@ -50,6 +52,8 @@ class AzureHandler extends AbstractProcessingHandler
             applicationId: $applicationId,
             sourceIp: $sourceIp,
             sourceUserId: $sourceUserId,
+            xForwardedIp: $xForwardedIp,
+            correlationId: $correlationId,
             formatter: null,
         );
     }

@@ -26,6 +26,8 @@ class CreateAzureLogger
             // logged values
             applicationId: config('app.url'),
             sourceIp: Request::ip(),
+            xForwardedIp: Request::header('X-Forwarded-For'),
+            correlationId: Request::cookie('ai_session'),
             sourceUserId: Auth::user()?->getAuthIdentifier(),
         ));
 
