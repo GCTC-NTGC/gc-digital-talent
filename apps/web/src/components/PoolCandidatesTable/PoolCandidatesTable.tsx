@@ -1,5 +1,5 @@
-import { useSearchParams } from "react-router";
 import { useState, useMemo, useRef, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import {
@@ -93,19 +93,6 @@ import { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
 import DownloadCandidateExcelButton from "../DownloadButton/DownloadCandidateExcelButton";
 import DownloadAllCandidateTableExcelButton from "../DownloadButton/DownloadAllCandidateTableExcelButton";
-
-const [, setSearchParams] = useSearchParams();
-useEffect(() => {
-  return () => {
-    setSearchParams(
-      (params) => {
-        params.delete("f");
-        return params;
-      },
-      { replace: true },
-    );
-  };
-}, [setSearchParams]);
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
   CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginatedAdminView"]["data"][number];
@@ -466,7 +453,13 @@ const PoolCandidatesTable = ({
     ...defaultState,
     sortState: defaultSortState,
   });
-  const searchParams = new URLSearchParams(window.location.search);
+  const [searchParams, setSearchParams] = useSearchParams() as [
+    URLSearchParams,
+    (
+      nextInit: URLSearchParams | string,
+      navigateOpts?: { replace?: boolean; state?: unknown },
+    ) => void,
+  ];
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters = useMemo(
     () =>
@@ -475,6 +468,16 @@ const PoolCandidatesTable = ({
         : initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
+  // Remove filter param from URL on unmount using router API
+  useEffect(() => {
+    return () => {
+      if (searchParams.has(SEARCH_PARAM_KEY.FILTERS)) {
+        const newParams = new URLSearchParams(searchParams.toString());
+        newParams.delete(SEARCH_PARAM_KEY.FILTERS);
+        setSearchParams(newParams, { replace: true });
+      }
+    };
+  }, []); // Only run on unmount
 
   const [{ fetching: downloadingExcel }, downloadExcel] = useMutation(
     DownloadPoolCandidatesExcel_Mutation,
