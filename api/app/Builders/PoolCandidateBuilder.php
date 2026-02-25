@@ -795,6 +795,8 @@ class PoolCandidateBuilder extends Builder
                                 return $poolQuery->whereIn('id', $teamIds);
                             })->orWhereHas('community.team', function (Builder $poolQuery) use ($teamIds) {
                                 return $poolQuery->whereIn('id', $teamIds);
+                            })->orWhereHas('department.team', function (Builder $poolQuery) use ($teamIds) {
+                                return $poolQuery->whereIn('id', $teamIds);
                             });
                         });
                     });
