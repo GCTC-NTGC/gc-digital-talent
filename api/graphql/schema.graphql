@@ -708,6 +708,7 @@ type PoolCandidateAdminView {
   notes: String
   isFlagged: Boolean @rename(attribute: "is_flagged")
   category: PoolCandidateCategory @with(relation: "user")
+  screeningResult: LocalizedAssessmentDecision
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
   assessmentStep: AssessmentStep @belongsTo

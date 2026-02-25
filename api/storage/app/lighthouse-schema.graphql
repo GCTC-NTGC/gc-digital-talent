@@ -1206,6 +1206,7 @@ type PoolCandidateAdminView {
   notes: String
   isFlagged: Boolean
   category: PoolCandidateCategory
+  screeningResult: LocalizedAssessmentDecision
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep
   placementType: LocalizedPlacementType
