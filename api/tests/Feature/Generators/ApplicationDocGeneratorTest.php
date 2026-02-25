@@ -16,7 +16,6 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserSkill;
-use App\Models\WorkExperience;
 use Database\Seeders\CommunitySeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -39,7 +38,6 @@ class ApplicationDocGeneratorTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->setUpFaker();
         $this->faker->seed(0);
 
@@ -49,14 +47,18 @@ class ApplicationDocGeneratorTest extends TestCase
         ]);
 
         Department::factory()->create();
-        Classification::factory()->create();
+        Classification::factory()->create([
+            'group' => 'XX',
+            'level' => 1,
+            'display_name' => [
+                'en' => 'Snapshot dept EN',
+                'fr' => 'Snapshot dept FR',
+            ],
+        ]);
 
         $community = Community::where('key', 'digital')->sole();
 
-        $adminUser = User::factory()
-            ->asApplicant()
-            ->asAdmin()
-            ->create();
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
 
         $user = User::factory()
             ->asApplicant()
@@ -65,13 +67,23 @@ class ApplicationDocGeneratorTest extends TestCase
             ->create();
 
         $edu = EducationExperience::factory()->for($user)->create();
-        $work = WorkExperience::factory()->for($user)->create();
+        $work = $user->workExperiences()->first();
 
         $fixedSkill = Skill::factory()->create([
+            'name' => [
+                'en' => 'Snapshot skill EN',
+                'fr' => 'Snapshot skill FR',
+            ],
             'category' => SkillCategory::TECHNICAL->name,
         ]);
 
-        $pool = Pool::factory()->published()->create();
+        $pool = Pool::factory()->published()->create([
+            'process_number' => '12345',
+            'name' => [
+                'en' => 'Snapshot pool EN',
+                'fr' => 'Snapshot pool FR',
+            ],
+        ]);
         $pool->poolSkills()->delete();
         $pool->poolSkills()->create([
             'skill_id' => $fixedSkill->id,
@@ -84,25 +96,28 @@ class ApplicationDocGeneratorTest extends TestCase
             'skill_level' => SkillLevel::ADVANCED->name,
             'when_skill_used' => WhenSkillUsed::PAST->name,
         ]);
+
         $edu->userSkills()->attach($userSkill->id, ['details' => 'Deterministic snapshot detail.']);
         $work->userSkills()->attach($userSkill->id, ['details' => 'Deterministic snapshot detail.']);
 
         $application = PoolCandidate::factory()
             ->availableInSearch()
-            ->withSnapshot()
             ->for($user)
             ->for($pool)
-            ->create(['signature' => 'Test signature']);
+            ->create([
+                'signature' => 'Test signature',
+            ]);
 
         $application->submitted_at = config('constants.past_datetime');
         $application->save();
+
+        $application->setApplicationSnapshot();
 
         $this->generator = new ApplicationDocGenerator(
             candidate: $application,
             dir: 'test',
             lang: 'en',
         );
-
         $this->generator->setAuthenticatedUserId($adminUser->id);
     }
 
