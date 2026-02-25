@@ -59,8 +59,7 @@ class PoolTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->community = Community::factory()->create([
-            'key' => 'pool-application-test-community']);
+        $this->community = Community::factory()->create();
 
         $this->communityRecruiter = User::factory()
             ->asCommunityRecruiter($this->community->id)

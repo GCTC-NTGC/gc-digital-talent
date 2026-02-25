@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\EducationRequirementOption;
 use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -39,6 +40,7 @@ class DepartmentDeduplicationTest extends TestCase
         $poolCandidate = PoolCandidate::factory()
             ->availableInSearch()
             ->create([
+                'education_requirement_option' => EducationRequirementOption::EDUCATION->name,
                 'placed_department_id' => $departmentToRemove->id,
                 'pool_id' => $pool->id,
             ]);
