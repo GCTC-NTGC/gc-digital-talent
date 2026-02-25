@@ -148,6 +148,7 @@ class PoolCandidate extends Model
         'removal_reason',
         'disqualification_reason',
         'computed_final_decision',
+        'placement_type',
     ];
 
     protected $touches = ['user'];
@@ -805,18 +806,6 @@ class PoolCandidate extends Model
     public function remove(?string $reason, ?string $otherReason)
     {
         $this->disableLogging();
-
-        if ($this->application_status === ApplicationStatus::DRAFT->name) {
-            throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
-        }
-
-        if ($this->application_status === ApplicationStatus::REMOVED->name) {
-            throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name);
-        }
-
-        if (! empty($this->placement_type) && $this->placement_type !== PlacementType::NOT_PLACED->name) {
-            throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name);
-        }
 
         $this->application_status = ApplicationStatus::REMOVED->name;
         $this->status_updated_at = Carbon::now();

@@ -3165,6 +3165,7 @@ type Mutation {
     removalReasonOther: String
   ): PoolCandidate
     @guard
+    @validator
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   reinstateCandidate(id: UUID!): PoolCandidate
     @guard

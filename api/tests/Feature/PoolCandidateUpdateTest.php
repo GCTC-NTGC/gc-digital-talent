@@ -73,7 +73,15 @@ class PoolCandidateUpdateTest extends TestCase
 
     protected $revertFinalDecisionMutation;
 
-    protected $removeMutationDocument;
+    protected $removeMutationDocument = <<<'GRAPHQL'
+        mutation removeTest($id: UUID!, $removalReason: CandidateRemovalReason!, $removalReasonOther: String) {
+            removeCandidate (id: $id, removalReason: $removalReason, removalReasonOther: $removalReasonOther){
+                status { value }
+                removalReason { value }
+                removalReasonOther
+            }
+        }
+        GRAPHQL;
 
     protected $reinstateMutationDocument;
 
@@ -207,22 +215,6 @@ class PoolCandidateUpdateTest extends TestCase
               expiryDate
             }
           }
-    ';
-
-        $this->removeMutationDocument =
-            /** @lang GraphQL */
-            '
-        mutation removeTest($id: UUID!, $removalReason: CandidateRemovalReason!, $removalReasonOther: String) {
-            removeCandidate (
-                id: $id,
-                removalReason: $removalReason,
-                removalReasonOther: $removalReasonOther
-            ){
-                status { value }
-                removalReason { value }
-                removalReasonOther
-            }
-        }
     ';
 
         $this->reinstateMutationDocument =
@@ -852,5 +844,72 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertJsonFragment([
                 'id' => $candidate->id,
             ]);
+    }
+
+    public function testRemoveCandidate()
+    {
+        $input = [
+            'id' => $this->poolCandidate->id,
+            'removalReason' => CandidateRemovalReason::INELIGIBLE->name,
+        ];
+
+        $res = [
+            'status' => [
+                'value' => ApplicationStatus::REMOVED->name,
+            ],
+        ];
+
+        // Assert exists validation
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, [
+                ...$input,
+                'id' => $this->faker->uuid(),
+            ])->assertGraphQLValidationError('id', 'The selected id is invalid.');
+
+        // Assert other reason
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, [
+                ...$input,
+                'removalReason' => CandidateRemovalReason::OTHER->name,
+            ])->assertGraphQLValidationError('removalReasonOther', 'The removal reason other field is required when removal reason is OTHER.');
+
+        // Cant remove draft
+        $this->poolCandidate->update(['application_status' => ApplicationStatus::DRAFT->name]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, $input)
+            ->assertGraphQLValidationError('id', ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
+
+        // Cant remove removed
+        $this->poolCandidate->update(['application_status' => ApplicationStatus::REMOVED->name]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, $input)
+            ->assertGraphQLValidationError('id', ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name);
+
+        // Cant remove placed
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
+        ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, $input)
+            ->assertGraphQLValidationError('id', ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name);
+
+        // Can remove qualified
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
+        ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, $input)
+            ->assertJsonFragment($res);
+
+        // Can remove to assess
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'placement_type' => null,
+        ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, $input)
+            ->assertJsonFragment($res);
     }
 }
