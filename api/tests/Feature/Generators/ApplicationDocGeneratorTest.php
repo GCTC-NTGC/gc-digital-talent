@@ -102,16 +102,13 @@ class ApplicationDocGeneratorTest extends TestCase
 
         $application = PoolCandidate::factory()
             ->availableInSearch()
+            ->withSnapshot()
             ->for($user)
             ->for($pool)
-            ->create([
-                'signature' => 'Test signature',
-            ]);
+            ->create(['signature' => 'Test signature']);
 
         $application->submitted_at = config('constants.past_datetime');
         $application->save();
-
-        $application->setApplicationSnapshot();
 
         $this->generator = new ApplicationDocGenerator(
             candidate: $application,
