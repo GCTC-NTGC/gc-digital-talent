@@ -3169,6 +3169,7 @@ type Mutation {
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   reinstateCandidate(id: UUID!): PoolCandidate
     @guard
+    @validator
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   qualifyCandidate(
     id: UUID!

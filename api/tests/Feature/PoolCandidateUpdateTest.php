@@ -703,7 +703,7 @@ class PoolCandidateUpdateTest extends TestCase
 
             $this->actingAs($this->communityRecruiterUser, 'api')
                 ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
-                ->assertGraphQLErrorMessage(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
+                ->assertGraphQLValidationError('id', ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
         }
     }
 

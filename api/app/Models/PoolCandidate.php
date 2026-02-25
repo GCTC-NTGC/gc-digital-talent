@@ -16,7 +16,6 @@ use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
-use App\Enums\ErrorCode;
 use App\Enums\FinalDecision;
 use App\Enums\OverallAssessmentStatus;
 use App\Enums\PlacementType;
@@ -29,7 +28,6 @@ use App\Observers\PoolCandidateObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\LogsCustomActivity;
 use App\ValueObjects\ProfileSnapshot;
-use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -859,10 +857,6 @@ class PoolCandidate extends Model
     public function reinstate()
     {
         $this->disableLogging();
-
-        if ($this->application_status !== ApplicationStatus::REMOVED->name) {
-            throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
-        }
 
         $this->status_updated_at = Carbon::now();
         $this->removal_reason = null;
