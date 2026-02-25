@@ -596,6 +596,9 @@ class UserBuilder extends Builder
                                     })
                                     ->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                                         return $query->whereIn('teams.id', $teamIds);
+                                    })
+                                    ->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('teams.id', $teamIds);
                                     });
                             });
                     });
