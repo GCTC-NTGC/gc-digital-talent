@@ -6919,10 +6919,6 @@
     "defaultMessage": "Conditions d’emploi ou exigences opérationnelles",
     "description": "Title for operational requirements section on summary of filters section"
   },
-  "SQJgGP": {
-    "defaultMessage": "Votre information sur l’annonce et votre plan d'évaluation sont complets.",
-    "description": "Lead-in text on a complete process, ready for publishing"
-  },
   "SQRzSl": {
     "defaultMessage": "Raison de la clôture",
     "description": "Label for the reason for closing the pool"
@@ -12353,6 +12349,10 @@
   "phS+TP": {
     "defaultMessage": "Modifier les informations sur la collectivité",
     "description": "Link to edit the currently viewed community"
+  },
+  "phluwu": {
+    "defaultMessage": "Votre information sur l’annonce et votre plan d'évaluation sont complets.",
+    "description": "Lead-in text on a complete process, ready for publishing"
   },
   "piZjS+": {
     "defaultMessage": "Catégorie de compétences",
