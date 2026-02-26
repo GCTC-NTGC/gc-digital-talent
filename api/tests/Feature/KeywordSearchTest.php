@@ -15,7 +15,7 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
-class KeywordSearchBetaTest extends TestCase
+class KeywordSearchTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
