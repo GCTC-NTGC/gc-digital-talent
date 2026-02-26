@@ -57,7 +57,7 @@
     "@tanstack/react-table": "^8.21.3",
     "date-fns": "^3.6.0",
     "lodash": "^4.17.23",
-    "motion": "^12.34.2",
+    "motion": "^12.34.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.71.1",
