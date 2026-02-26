@@ -231,10 +231,6 @@
     "defaultMessage": "Cette section couvre des exigences telles que le travail à distance, la localisation sur place, la langue et la sécurité.",
     "description": "Describes selecting additional requirements for a process."
   },
-  "+rZvoD": {
-    "defaultMessage": "1. Sélectionnez l’option d’<strong>inscription</strong> à partir de la page d’accueil. Elle <strong>se trouve après la section d’ouverture de séance</strong>.",
-    "description": "Text for first sign up -> create step."
-  },
   "+s+emq": {
     "defaultMessage": "Nom d'utilisateur :",
     "description": "Label for the user name input in the delete user dialog"
@@ -5622,6 +5618,10 @@
   "MT17Vm": {
     "defaultMessage": "Ajouter un rôle dans le ministère :",
     "description": "Header for the form to add a department membership to a user"
+  },
+  "MUYJr1": {
+    "defaultMessage": "1. Sélectionnez l’option d’<strong>inscription</strong> à partir de la page d’accueil. Elle <strong>se trouve après la section d’ouverture de séance</strong>.",
+    "description": "Text for first sign up -> create step."
   },
   "MUxI+G": {
     "defaultMessage": "Il n’existe aucun résultat correspondant.",
