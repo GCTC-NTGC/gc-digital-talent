@@ -21,14 +21,12 @@ class AzureManagedIdentityService implements ManagedIdentityService
             return Cache::get($cacheKey);
         }
 
-        $response = Http::withHeaders([
-            'X-IDENTITY-HEADER' => config('azure.managed_identity.header'),
-        ])
-            ->get(
-                config('azure.managed_identity.endpoint').'?'.http_build_query([
-                    'api-version' => '2019-08-01',
-                    'resource' => 'https://monitor.azure.com/'])
-            )
+        $response = Http::withHeader('X-IDENTITY-HEADER', config('azure.managed_identity.header'))
+            ->withQueryParameters([
+                'api-version' => '2019-08-01',
+                'resource' => 'https://monitor.azure.com/',
+            ])
+            ->get(config('azure.managed_identity.endpoint'))
             ->throwUnlessStatus(200);
         assert($response instanceof Response); // type narrow away PromiseInterface
 

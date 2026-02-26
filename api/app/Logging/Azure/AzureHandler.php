@@ -13,7 +13,7 @@ use Monolog\Level;
 use Monolog\LogRecord;
 
 /**
- * Sends notifications through Azure endpoints
+ * Sends log messages through Azure endpoints
  *
  * @see https://learn.microsoft.com/en-us/azure/azure-monitor/logs/logs-ingestion-api-overview#rest-api-call
  */
@@ -69,11 +69,10 @@ class AzureHandler extends AbstractProcessingHandler
     protected function write(LogRecord $record): void
     {
         Http::withToken($this->identityService->getAccessToken())
+            ->withQueryParameters(['api-version' => '2023-01-01'])
             ->post(
-                $this->endpoint.'/dataCollectionRules/'.$this->dcrImmutableId.'/streams/'.$this->streamName.'?api-version=2023-01-01',
-                [
-                    $this->azureRecord->getAzureData($record),
-                ]
+                $this->endpoint.'/dataCollectionRules/'.$this->dcrImmutableId.'/streams/'.$this->streamName,
+                [$this->azureRecord->getAzureData($record)]
             )
             ->throwUnlessStatus(204);
     }
