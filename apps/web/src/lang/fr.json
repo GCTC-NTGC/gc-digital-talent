@@ -12474,10 +12474,6 @@
     "defaultMessage": "Les événements présentés dans cette section acceptent actuellement des mises en candidature.",
     "description": "Description for active events section"
   },
-  "qEvJjr": {
-    "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
-    "description": "Paragraph three for the self-declaration explanation dialog"
-  },
   "qFFEST": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées aux exigences de poste acceptables choisies par les candidates et candidats dans leur demande.",
     "description": "Message describing the operational requirements filter in the search form."
@@ -12613,6 +12609,10 @@
   "qytMp/": {
     "defaultMessage": "Salon de l’emploi de la Semaine de la carrière — Université d’Ottawa",
     "description": "Heading for career week job fair"
+  },
+  "r01z4D": {
+    "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
+    "description": "Paragraph three for the self-declaration explanation dialog"
   },
   "r2K3M3": {
     "defaultMessage": "Créer<hidden> une collectivité</hidden>",
