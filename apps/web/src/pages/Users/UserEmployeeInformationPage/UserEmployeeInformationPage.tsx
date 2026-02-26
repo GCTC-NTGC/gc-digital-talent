@@ -58,8 +58,6 @@ const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
       ...CommunityInterest
     }
     ...CareerDevelopment
-    ...NextRole
-    ...CareerObjective
     ...GoalsWorkStyle
   }
 `);

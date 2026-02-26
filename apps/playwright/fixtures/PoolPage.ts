@@ -263,5 +263,108 @@ class PoolPage extends AppPage {
       .click();
     await this.waitForGraphqlResponse("ExtendPool");
   }
+
+  async verifyActivityLogContent(
+    user?: { firstName?: string; lastName?: string },
+    action?: string,
+    entity?: string,
+  ) {
+    await this.page.reload();
+    await expect(
+      this.page.getByText(
+        new RegExp(
+          `${user?.firstName ?? ""} ${user?.lastName ?? ""} ${action ?? ""}: ${entity ?? ""}`,
+          "i",
+        ),
+      ),
+    ).toBeVisible();
+  }
+
+  async verifySearchActivityLog(searchTerm: string[]) {
+    const searchInput = this.page.getByRole("textbox", {
+      name: /Search by keyword/i,
+    });
+    await expect(searchInput).toBeVisible();
+    for (const term of searchTerm) {
+      await searchInput.fill(term);
+      await this.page
+        .getByRole("button", { name: /search/i })
+        .last()
+        .click();
+      const searchResult = this.page.getByText(new RegExp(term, "i")).first();
+      await expect(searchResult).toBeVisible();
+    }
+    await this.page.getByRole("button", { name: /reset search/i }).click();
+  }
+
+  async applyFiltersInActivityLog(filters: {
+    assessmentTeamMember?: string;
+    fromDate?: string;
+    toDate?: string;
+    candidateName?: string;
+    processDetail?: string;
+  }) {
+    const {
+      assessmentTeamMember,
+      fromDate,
+      toDate,
+      candidateName,
+      processDetail,
+    } = filters;
+    // Open the Filters
+    await this.page.getByRole("button", { name: /filters/i }).click();
+    await expect(
+      this.page.getByRole("heading", { name: /select filters/i }),
+    ).toBeVisible();
+    const selectCustomOption = async (
+      roleName: string | RegExp,
+      value: string,
+    ) => {
+      const combobox = this.page.getByRole("combobox", { name: roleName });
+      await combobox.click();
+      await combobox.fill(value);
+      await this.page
+        .getByRole("listbox")
+        .getByRole("option", { name: value })
+        .click();
+    };
+    // Select Assessment Team Member
+    if (assessmentTeamMember) {
+      await selectCustomOption(/assessment team member/i, assessmentTeamMember);
+    }
+    // Select from and to dates
+    const fillDate = async (sectionLabel: "From" | "To", dateStr: string) => {
+      const [year, month, day] = dateStr.split("-");
+      const section = this.page
+        .getByRole("group")
+        .filter({ hasText: sectionLabel });
+      await section.getByRole("spinbutton", { name: /year/i }).fill(year);
+      await section
+        .getByRole("combobox", { name: /month/i })
+        .selectOption(month);
+      await section.getByRole("spinbutton", { name: /day/i }).fill(day);
+    };
+    if (fromDate) await fillDate("From", fromDate);
+    if (toDate) await fillDate("To", toDate);
+    // Select Candidate Name
+    if (candidateName) {
+      await selectCustomOption(/candidate name/i, candidateName);
+    }
+    // Select Process Detail (Action)
+    if (processDetail) {
+      await selectCustomOption(/action/i, processDetail);
+    }
+    await this.page.getByRole("button", { name: /show results/i }).click();
+  }
+
+  async resetFiltersInActivityLog() {
+    await this.page.getByRole("button", { name: /filters/i }).click();
+    await this.page.getByRole("button", { name: /reset filters/i }).click();
+    await expect(
+      this.page
+        .getByRole("heading", { name: /activity log/i, level: 2 })
+        .first(),
+    ).toBeVisible();
+  }
 }
 export default PoolPage;

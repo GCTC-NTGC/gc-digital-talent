@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import lowerCase from "lodash/lowerCase";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -12,7 +11,6 @@ import { nodeToString } from "@gc-digital-talent/helpers";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
-import adminMessages from "~/messages/adminMessages";
 
 import CareerObjectiveDialog from "./CareerObjectiveDialog";
 
@@ -126,7 +124,15 @@ const CareerObjectivePreview = ({
       {
         key: "work-streams",
         type: "text",
-        children: `${employeeProfile.careerObjectiveWorkStreams.length} ${lowerCase(intl.formatMessage(adminMessages.workStreams))}`,
+        children: intl.formatMessage(
+          {
+            defaultMessage:
+              "{total, plural, =0 {0 work streams} one {# work stream} other {# work streams}}",
+            id: "xgawew",
+            description: "Count of work streams",
+          },
+          { total: employeeProfile.careerObjectiveWorkStreams.length },
+        ),
       },
     ];
   }
@@ -136,7 +142,15 @@ const CareerObjectivePreview = ({
       {
         key: "departments",
         type: "text",
-        children: `${employeeProfile.careerObjectiveDepartments.length} ${intl.formatMessage({ defaultMessage: "organizations", id: "ocgTi6", description: "label for organization metadata" })}`,
+        children: intl.formatMessage(
+          {
+            defaultMessage:
+              "{total, plural, =0 {0 organizations} one {# organization} other {# organizations}}",
+            id: "nRrlr1",
+            description: "Count of organizations",
+          },
+          { total: employeeProfile.careerObjectiveDepartments.length },
+        ),
       },
     ];
   }

@@ -68,8 +68,8 @@ class PoolCandidatePolicyTest extends TestCase
                 'sub' => 'applicant-user@test.com',
             ]);
 
-        $this->community = Community::factory()->create(['name' => ['en' => 'test-team EN', 'fr' => 'test-team FR']]);
-        $this->otherCommunity = Community::factory()->create(['name' => ['en' => 'suspicious-team EN', 'fr' => 'suspicious-team FR']]);
+        $this->community = Community::factory()->create();
+        $this->otherCommunity = Community::factory()->create();
 
         $this->adminUser = User::factory()
             ->asAdmin()

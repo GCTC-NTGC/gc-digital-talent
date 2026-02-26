@@ -10,6 +10,8 @@ import "~/assets/css/tailwind.css";
 import type { Route } from "./+types/root";
 import RootErrorBoundary from "./components/Layout/RouteErrorBoundary/RootErrorBoundary";
 import { makeServerConfigJS } from "./utils/runtime";
+// eslint-disable-next-line import/extensions
+import initTheme from "./utils/initTheme.js?raw";
 
 declare global {
   interface Window {
@@ -132,6 +134,10 @@ export function Layout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <head>
+        <script
+          nonce="**CSP_NONCE**"
+          dangerouslySetInnerHTML={{ __html: initTheme }}
+        />
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="msapplication-TileColor" content="#9747FF" />
