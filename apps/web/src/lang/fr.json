@@ -7371,6 +7371,10 @@
     "defaultMessage": "La présente section de votre profil vous permet de manifester votre intérêt pour une variété d'options particulières liées au recrutement, au mentorat et aux possibilités de promotion.",
     "description": "Describes the career development preferences of employee profile"
   },
+  "UjvTeN": {
+    "defaultMessage": "Dans ce poste, vous devez protéger les systèmes et les réseaux informatiques contre les cybermenaces. Vous aurez peut-être aussi à surveiller les réseaux, à cerner les vulnérabilités, à instaurer des mesures de sécurité, à donner suite aux incidents et à formuler des politiques en matière de sécurité.",
+    "description": "Description of the cyber security advisor role"
+  },
   "UjxhSB": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.",
     "description": "Alert message informing user to add education experience in application education page."
@@ -12821,10 +12825,6 @@
   "rxDfeN": {
     "defaultMessage": "Énumérer les compétences en vedette",
     "description": "Heading for the experience type section fo the experience form"
-  },
-  "ryDGWN": {
-    "defaultMessage": "Dans ce poste, vous devez protéger les systèmes et les réseaux informatiques contre les cybermenaces. Vous aurez peut-être aussi à surveiller les réseaux, à cerner les vulnérabilités, à instaurer des mesures de sécurité, à donner suite aux incidents et à formuler des politiques en matière de sécurité.",
-    "description": "Description of the cyber security advisor role"
   },
   "ryeKXV": {
     "defaultMessage": "Cherchez les rôles dans des collectivités",
