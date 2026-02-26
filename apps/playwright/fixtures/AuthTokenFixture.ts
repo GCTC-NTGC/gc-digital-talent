@@ -28,7 +28,7 @@ class AuthTokenFixture {
   }
 
   // Create both refresh and graphql request listeners (Request promises)
-  // Ignoring eslint because it cant tell that we are returning them
+  // Ignoring eslint because it can't tell that we are returning them
   createListeners() {
     // Prepare the refresh listener
     // eslint-disable-next-line playwright/missing-playwright-await
