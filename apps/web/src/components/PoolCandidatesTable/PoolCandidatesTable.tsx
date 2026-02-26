@@ -462,16 +462,23 @@ const PoolCandidatesTable = ({
         : initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
+  const latestSearchParamsRef = useRef(searchParams);
+
+  useEffect(() => {
+    latestSearchParamsRef.current = searchParams;
+  }, [searchParams]);
+
   // Remove filter param from URL on unmount using router API
   useEffect(() => {
     return () => {
-      if (searchParams.has(SEARCH_PARAM_KEY.FILTERS)) {
-        const newParams = new URLSearchParams(searchParams.toString());
+      const currentSearchParams = latestSearchParamsRef.current;
+      if (currentSearchParams.has(SEARCH_PARAM_KEY.FILTERS)) {
+        const newParams = new URLSearchParams(currentSearchParams.toString());
         newParams.delete(SEARCH_PARAM_KEY.FILTERS);
         setSearchParams(newParams, { replace: true });
       }
     };
-  }, []); // Only run on unmount
+  }, [setSearchParams]); // Only run cleanup on unmount, with latest searchParams
 
   const [{ fetching: downloadingExcel }, downloadExcel] = useMutation(
     DownloadPoolCandidatesExcel_Mutation,
