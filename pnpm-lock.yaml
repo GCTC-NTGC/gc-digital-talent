@@ -13501,12 +13501,6 @@ snapshots:
     optionalDependencies:
       tailwind-merge: 3.5.0
 
-  tailwind-variants@3.2.2(tailwind-merge@3.5.0)(tailwindcss@4.2.1):
-    dependencies:
-      tailwindcss: 4.2.1
-    optionalDependencies:
-      tailwind-merge: 3.5.0
-
   tailwindcss@4.2.0: {}
 
   tailwindcss@4.2.1: {}
