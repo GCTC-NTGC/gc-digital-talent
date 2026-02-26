@@ -6,6 +6,7 @@ import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIc
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { tv } from "tailwind-variants";
+import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
 import {
   Locales,
@@ -197,12 +198,17 @@ interface DecisionInfo {
   icon: IconType;
 }
 
+const defaultDecisionInfo = {
+  className: "text-warning",
+  icon: ExclamationCircleIcon,
+};
+
 const decisionInfoMap = new Map<AssessmentDecision, DecisionInfo>([
   [
     AssessmentDecision.Hold,
     {
-      className: "text-warning",
-      icon: ExclamationCircleIcon,
+      className: "text-primary",
+      icon: PauseCircleIcon,
     },
   ],
   [
@@ -227,19 +233,19 @@ const decisionIcon = tv({
 
 export const screeningResultCell = (
   screeningResult?: Maybe<LocalizedAssessmentDecision>,
+  defaultMessage = "",
 ) => {
-  if (!screeningResult) return null;
-
-  const info = decisionInfoMap.get(screeningResult.value);
-
-  if (!info) return null;
+  let info: DecisionInfo = defaultDecisionInfo;
+  if (screeningResult) {
+    info = decisionInfoMap.get(screeningResult.value) ?? defaultDecisionInfo;
+  }
 
   const Icon = info.icon;
 
   return (
     <Icon
       aria-hidden="false"
-      aria-label={screeningResult.label.localized ?? ""}
+      aria-label={screeningResult?.label.localized ?? defaultMessage}
       className={decisionIcon({ class: info.className })}
     />
   );

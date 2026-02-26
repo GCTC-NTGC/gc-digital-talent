@@ -93,6 +93,7 @@ import { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
 import DownloadCandidateExcelButton from "../DownloadButton/DownloadCandidateExcelButton";
 import DownloadAllCandidateTableExcelButton from "../DownloadButton/DownloadAllCandidateTableExcelButton";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
   CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginatedAdminView"]["data"][number];
@@ -903,7 +904,11 @@ const PoolCandidatesTable = ({
               poolCandidate: { screeningResult },
             },
           },
-        }) => screeningResultCell(screeningResult),
+        }) =>
+          screeningResultCell(
+            screeningResult,
+            intl.formatMessage(poolCandidateMessages.toAssess),
+          ),
       },
     ),
     columnHelper.accessor(
