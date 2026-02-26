@@ -12,6 +12,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
+    "src/utils/initTheme.js",
     "routes.ts",
     ".react-router/types/**/*"
   ],

@@ -1,4 +1,4 @@
-import { HelmetProvider } from "react-helmet-async";
+import { HelmetProvider } from "@dr.pogodin/react-helmet";
 import { MotionConfig, LazyMotion, domAnimation } from "motion/react";
 import { ReactNode } from "react";
 

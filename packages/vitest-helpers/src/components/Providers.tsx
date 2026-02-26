@@ -1,4 +1,4 @@
-import { HelmetProvider } from "react-helmet-async";
+import { HelmetProvider } from "@dr.pogodin/react-helmet";
 import { IntlProvider } from "react-intl";
 import { BrowserRouter } from "react-router";
 import { ReactNode } from "react";
