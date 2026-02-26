@@ -11818,6 +11818,10 @@
     "defaultMessage": "peut sélectionner et évaluer les candidates et candidats et indiquer ceux qui ont été embauchés;",
     "description": "Description of the permission to fully assess and place applicants"
   },
+  "nRrlr1": {
+    "defaultMessage": "{total, plural, =0 {0 organisation} one {# organisation} other {# organisations}}",
+    "description": "Count of organizations"
+  },
   "nTPcCF": {
     "defaultMessage": "Soumise",
     "description": "Label for request submitted"
@@ -12061,10 +12065,6 @@
   "ocTGYr": {
     "defaultMessage": "Informations sur la collectivité",
     "description": "Heading for the 'create a community' form"
-  },
-  "ocgTi6": {
-    "defaultMessage": "organisations",
-    "description": "label for organization metadata"
   },
   "oepQr+": {
     "defaultMessage": "Courriel de confirmation envoyé!",
@@ -14069,6 +14069,10 @@
   "xg/wvH": {
     "defaultMessage": "Voir la demande",
     "description": "Label for view application link"
+  },
+  "xgawew": {
+    "defaultMessage": "{total, plural, =0 {0 volet de travail} one {# volet de travail} other {# volets de travail}}",
+    "description": "Count of work streams"
   },
   "xggOcb": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez développé vos compétences et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, votre profil est votre outil pour être découvert par les responsables du recrutement.",
