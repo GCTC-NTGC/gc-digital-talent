@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import lowerCase from "lodash/lowerCase";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -11,7 +10,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
-import adminMessages from "~/messages/adminMessages";
 
 import NextRoleDialog from "./NextRoleDialog";
 
