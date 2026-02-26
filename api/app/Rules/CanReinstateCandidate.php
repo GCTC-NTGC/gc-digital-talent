@@ -18,6 +18,8 @@ class CanReinstateCandidate implements ValidationRule
         $candidate = PoolCandidate::find($value);
 
         if (! $candidate) {
+            $fail(ErrorCode::CANDIDATE_NOT_FOUND->name);
+
             return;
         }
 
