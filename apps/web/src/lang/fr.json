@@ -2571,10 +2571,6 @@
     "defaultMessage": "Les personnes candidates peuvent accepter de donner accès à leur profil en utilisant l'outil « Collectivités fonctionnelles » de leur tableau de bord.",
     "description": "Null secondary message for nominee profile"
   },
-  "8sqysp": {
-    "defaultMessage": "Nous ajoutons au besoin, pour répondre à des exigences opérationnelles précises, des compétences spécialisées dont les descriptions sont plus détaillées.",
-    "description": "Paragraph two, information on skill descriptions"
-  },
   "8umYON": {
     "defaultMessage": "Prochaines étapes",
     "description": "Title for what to expect section"
@@ -10237,6 +10233,10 @@
   "gnGAe8": {
     "defaultMessage": "Niveau de classification actuel",
     "description": "Label displayed on classification level input"
+  },
+  "gnoNDM": {
+    "defaultMessage": "Nous ajoutons au besoin, pour répondre à des exigences opérationnelles précises, des compétences spécialisées dont les descriptions sont plus détaillées.",
+    "description": "Paragraph two, information on skill descriptions"
   },
   "gp+7iZ": {
     "defaultMessage": "Un agencement d'études, de formation ou d'expérience.",
