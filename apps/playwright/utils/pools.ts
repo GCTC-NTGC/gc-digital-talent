@@ -233,6 +233,57 @@ export const createAssessmentStep: GraphQLRequestFunc<
     });
 };
 
+const Test_PoolSkillsQueryDocument = /* GraphQL */ `
+  query PoolSkills($poolId: UUID!) {
+    pool(id: $poolId) {
+      id
+      poolSkills {
+        id
+        skill {
+          id
+          name {
+            en
+            fr
+          }
+          category {
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
+interface GetPoolSkillsArgs {
+  poolId: string;
+  categories?: SkillCategory[];
+}
+
+/**
+ * Get Pool Skills
+ *
+ * Get all pool skills for a specific pool.
+ */
+export const getPoolSkills: GraphQLRequestFunc<
+  PoolSkill[],
+  GetPoolSkillsArgs
+> = async (ctx, { poolId, categories }) => {
+  const poolSkills = await ctx
+    .post(Test_PoolSkillsQueryDocument, {
+      isPrivileged: true,
+      variables: { poolId },
+    })
+    .then(
+      (res: GraphQLResponse<"pool", { id: string; poolSkills: PoolSkill[] }>) =>
+        res.pool.poolSkills,
+    );
+  return poolSkills.filter(
+    (ps) =>
+      ps.skill?.category?.value !== undefined &&
+      (!categories || categories.includes(ps.skill.category.value)),
+  );
+};
+
 interface CreateAndPublishPoolArgs {
   userId: string;
   teamId?: string;
@@ -379,62 +430,4 @@ export const createAndPublishInternalPool: GraphQLRequestFunc<
       areaOfSelection: PoolAreaOfSelection.Employees,
     },
   });
-};
-
-const Test_PoolSkillsQueryDocument = /* GraphQL */ `
-  query PoolSkills($poolId: UUID!) {
-    pool(id: $poolId) {
-      id
-      poolSkills {
-        id
-        skill {
-          id
-          name {
-            en
-            fr
-          }
-          category {
-            value
-          }
-        }
-      }
-    }
-  }
-`;
-
-interface GetPoolSkillsArgs {
-  poolId: string;
-}
-
-/**
- * Get Pool Skills
- *
- * Get all pool skills for a specific pool.
- */
-export const getPoolSkills: GraphQLRequestFunc<
-  PoolSkill[],
-  GetPoolSkillsArgs
-> = async (ctx, { poolId }) => {
-  return ctx
-    .post(Test_PoolSkillsQueryDocument, {
-      isPrivileged: true,
-      variables: { poolId },
-    })
-    .then(
-      (res: GraphQLResponse<"pool", { id: string; poolSkills: PoolSkill[] }>) =>
-        res.pool.poolSkills,
-    );
-};
-
-export const getPoolSkillIdsByCategories = (
-  poolSkills: PoolSkill[],
-  categories: SkillCategory[],
-): string[] => {
-  return poolSkills
-    .filter(
-      (ps) =>
-        ps.skill?.category?.value !== undefined &&
-        categories.includes(ps.skill.category.value),
-    )
-    .map((ps) => ps.id);
 };

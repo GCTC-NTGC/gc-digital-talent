@@ -1,5 +1,8 @@
 import {
   ArmedForcesStatus,
+  AssessmentDecision,
+  AssessmentResultJustification,
+  AssessmentResultType,
   CitizenshipStatus,
   FlexibleWorkLocation,
   PoolCandidate,
@@ -7,19 +10,25 @@ import {
   ProvinceOrTerritory,
   Skill,
   SkillCategory,
-  User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
-import graphql from "~/utils/graphql";
+import graphql, { GraphQLContext } from "~/utils/graphql";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, me } from "~/utils/user";
 import { createAndSubmitApplication } from "~/utils/applications";
 import { createAndPublishPool } from "~/utils/pools";
 import { loginBySub } from "~/utils/auth";
 import { generateUniqueTestId } from "~/utils/id";
+import testConfig from "~/constants/config";
+import AssessmentPage from "~/fixtures/AssessmentPage";
+import {
+  createAssessmentResult,
+  getCandidateScreeningStage,
+  getPoolAssessmentSteps,
+} from "~/utils/candidateAssessment";
 
 const LOCALIZED_STRING = {
   en: "test EN",
@@ -31,12 +40,13 @@ test.describe("Pool candidates", () => {
   let sub: string;
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
-  let user: User | undefined;
+  let adminCtx: GraphQLContext;
+  let poolId: string;
 
   test.beforeAll(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
-    const adminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext();
 
     technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find(
@@ -82,13 +92,13 @@ test.describe("Pool candidates", () => {
         },
       },
     });
-    user = createdUser;
 
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: createdUser?.id ?? "",
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       name: LOCALIZED_STRING,
     });
+    poolId = createdPool.id;
 
     const applicantCtx = await graphql.newContext(
       createdUser?.authInfo?.sub ?? "applicant@test.com",
@@ -193,13 +203,33 @@ test.describe("Pool candidates", () => {
   test("Validate application status for Qualified Candidate", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, "admin@test.com");
-    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
-    await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
-    await expect(
-      appPage.page.getByRole("heading", {
-        name: `${user?.firstName} ${user?.lastName}`,
-      }),
-    ).toBeVisible();
+    const assessmentPage = new AssessmentPage(appPage.page);
+    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await assessmentPage.goToCandidateApplication(candidate.id);
+
+    // Fetch the screening stage and move forward one step in screening stages
+    const screeningStage = await getCandidateScreeningStage(adminCtx, {
+      candidateId: candidate.id,
+    });
+    await assessmentPage.updateScreeningStages(screeningStage);
+
+    const steps = await getPoolAssessmentSteps(adminCtx, {
+      poolId: poolId,
+    });
+    const screeningStepId = steps.find(
+      (s) => s.type?.value?.toString() === "APPLICATION_SCREENING",
+    )?.id;
+
+    await createAssessmentResult(adminCtx, {
+      assessmentResult: {
+        poolCandidateId: candidate.id,
+        assessmentStepId: screeningStepId ?? "",
+        assessmentResultType: AssessmentResultType.Education,
+        assessmentDecision: AssessmentDecision.Successful,
+        justifications: [
+          AssessmentResultJustification.EducationAcceptedInformation,
+        ],
+      },
+    });
   });
 });
