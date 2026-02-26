@@ -31,6 +31,7 @@ Route::prefix('user-generated-files')
 Route::post('csp-report', [CspReportController::class, 'report'])
     ->middleware('throttle:15,1');
 
-if (App::isLocal()) {
+// Testing routes only enabled outside of production.
+if (! App::isProduction()) {
     Route::post('{endpoint}/dataCollectionRules/{dcrImmutableId}/streams/{streamName}', [TestController::class, 'log']);
 }

@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Contracts\ManagedIdentityService;
 
-// pretends to get tokens from Azure for testing
+// pretends to get tokens from a service for testing
 class DummyManagedIdentityService implements ManagedIdentityService
 {
     public function getAccessToken(): string

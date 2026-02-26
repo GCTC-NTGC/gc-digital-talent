@@ -7,6 +7,7 @@ namespace App\Logging\Azure;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\LogRecord;
 
+/* A record for logging into Azure.  Represents a single log event. */
 class AzureRecord
 {
     public function __construct(
@@ -29,7 +30,7 @@ class AzureRecord
     {
         $dataArray = [];
 
-        // some context fields may be pulled out if recognized
+        // some context fields may be pulled out and promoted if recognized
         $context = $record->context;
 
         $dataArray['TimeGenerated'] = $record->datetime->format('c');

@@ -8,11 +8,11 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
-// retrieves and caches tokens from Azure using a managed identity
+/* Interact with an Azure identity service. */
 class AzureManagedIdentityService implements ManagedIdentityService
 {
-    // contact the endpoint and request a token, hopefully cache it
-    protected function getServiceValues(): array
+    /* Retrieves identity values (from cache or Azure services) using a managed identity. */
+    protected function getIdentityValues(): array
     {
         $cacheKey = 'azure_managed_identity_values';
 
@@ -28,12 +28,9 @@ class AzureManagedIdentityService implements ManagedIdentityService
                 config('azure.managed_identity.endpoint').'?'.http_build_query([
                     'api-version' => '2019-08-01',
                     'resource' => 'https://monitor.azure.com/'])
-            );
+            )
+            ->throwUnlessStatus(200);
         assert($response instanceof Response); // type narrow away PromiseInterface
-
-        if (! $response->ok()) {
-            throw new \RuntimeException('Failed to retrieve Azure managed identity token: HTTP '.$response->status());
-        }
 
         $values = $response->json();
 
@@ -49,9 +46,10 @@ class AzureManagedIdentityService implements ManagedIdentityService
         return $values;
     }
 
+    /* Retrieve an access token from the identity service */
     public function getAccessToken(): string
     {
-        $values = $this->getServiceValues();
+        $values = $this->getIdentityValues();
 
         return $values['access_token'];
     }
