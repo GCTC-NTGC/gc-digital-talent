@@ -184,9 +184,13 @@ return [
     'klc_mobilize_people' => 'KLC - Mobilize people',
     'klc_promote_innovation_and_guide_change' => 'KLC - Promote innovation and guide change',
     'klc_uphold_integrity_and_respect' => 'KLC - Uphold integrity and respect',
-    'department_number' => 'Department number',
+    'department_number' => 'Organization id',
     'department_size' => 'Department size',
     'department_type' => 'Department type',
+    'core_public_administration' => 'Core Public Administration',
+    'central_agency' => 'Central Agency',
+    'science' => 'Science-based',
+    'regulatory' => 'Regulatory',
 
     // Job poster template
     'basic_details' => 'Basic details',
