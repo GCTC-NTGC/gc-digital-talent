@@ -472,6 +472,31 @@ class PoolCandidate extends Model
     }
 
     /**
+     * Determine result of the first step (application screening)
+     * of the assessment status
+     */
+    public function screeningResult(): Attribute
+    {
+        return Attribute::get(function () {
+            $screeningStep = $this->loadMissing('pool.assessmentSteps')->pool->assessmentSteps->sortBy('sort_order')
+                ->firstWhere(function ($step) {
+                    return $step->type === AssessmentStepType::APPLICATION_SCREENING->name;
+                })->id ?? null;
+
+            if (! $screeningStep) {
+                return null;
+            }
+
+            $result = Arr::first(
+                $this->computed_assessment_status['assessmentStepStatuses'],
+                fn ($status) => $status['step'] === $screeningStep
+            );
+
+            return $result ? $result['decision'] : null;
+        });
+    }
+
+    /**
      * Determine if a PoolCandidate is in draft mode
      *
      * @return bool
