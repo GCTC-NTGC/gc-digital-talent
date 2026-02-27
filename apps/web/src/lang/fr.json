@@ -12562,6 +12562,10 @@
     "defaultMessage": "Si vous pensez que vos compétences et votre expérience correspondent au poste de <strong>{title}</strong>, nous serions ravis de recevoir votre demande d'emploi.",
     "description": "Lead-in text to the apply call to action at the end of a pool advertisement"
   },
+  "qwLrrx": {
+    "defaultMessage": "Résultat de la présélection",
+    "description": "Label for the result of an application screening"
+  },
   "qxCyZM": {
     "defaultMessage": "Le ministère a été archivé",
     "description": "Alert, department archived successfully"
