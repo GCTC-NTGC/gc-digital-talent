@@ -1,8 +1,5 @@
 import {
   ArmedForcesStatus,
-  AssessmentDecision,
-  AssessmentResultJustification,
-  AssessmentResultType,
   CitizenshipStatus,
   FlexibleWorkLocation,
   PoolCandidate,
@@ -19,16 +16,12 @@ import graphql, { GraphQLContext } from "~/utils/graphql";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, me } from "~/utils/user";
 import { createAndSubmitApplication } from "~/utils/applications";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, getPoolSkills } from "~/utils/pools";
 import { loginBySub } from "~/utils/auth";
 import { generateUniqueTestId } from "~/utils/id";
 import testConfig from "~/constants/config";
 import AssessmentPage from "~/fixtures/AssessmentPage";
-import {
-  createAssessmentResult,
-  getCandidateScreeningStage,
-  getPoolAssessmentSteps,
-} from "~/utils/candidateAssessment";
+import { getPoolCandidatesTable } from "~/utils/candidateAssessment";
 
 const LOCALIZED_STRING = {
   en: "test EN",
@@ -206,30 +199,39 @@ test.describe("Pool candidates", () => {
     const assessmentPage = new AssessmentPage(appPage.page);
     await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
     await assessmentPage.goToCandidateApplication(candidate.id);
+    const { screeningStepId, nextStepTitle, nextStepId } =
+      await assessmentPage.fetchAndVerifyAssessmentSteps(adminCtx, poolId);
 
-    // Fetch the screening stage and move forward one step in screening stages
-    const screeningStage = await getCandidateScreeningStage(adminCtx, {
-      candidateId: candidate.id,
-    });
-    await assessmentPage.updateScreeningStages(screeningStage);
-
-    const steps = await getPoolAssessmentSteps(adminCtx, {
+    const poolSkillsID = await getPoolSkills(adminCtx, {
       poolId: poolId,
-    });
-    const screeningStepId = steps.find(
-      (s) => s.type?.value?.toString() === "APPLICATION_SCREENING",
-    )?.id;
+    }).then((poolSkills) => poolSkills.map((ps) => ps.id));
 
-    await createAssessmentResult(adminCtx, {
-      assessmentResult: {
-        poolCandidateId: candidate.id,
-        assessmentStepId: screeningStepId ?? "",
-        assessmentResultType: AssessmentResultType.Education,
-        assessmentDecision: AssessmentDecision.Successful,
-        justifications: [
-          AssessmentResultJustification.EducationAcceptedInformation,
-        ],
-      },
-    });
+    await assessmentPage.completeCandidateScreening(
+      candidate.id,
+      adminCtx,
+      screeningStepId ?? "",
+      poolSkillsID[0] ?? "",
+    );
+    await appPage.page.reload();
+    await expect(
+      appPage.page.getByRole("button", { name: /Demonstrated/i }).last(),
+    ).toBeVisible();
+    await expect(appPage.page.getByText(nextStepTitle)).toBeVisible();
+    await assessmentPage.goToPoolCandidateTable(poolId);
+    const tableRows = await getPoolCandidatesTable(adminCtx, { poolId });
+    const poolCandidate = tableRows.find(
+      (c) => c.user.firstName === "Playwright",
+    );
+    expect(
+      poolCandidate,
+      "Candidate 'Playwright' should be present in the pool table",
+    ).toBeDefined();
+
+    // 4. Assertions now run safely without linting errors
+    expect(poolCandidate!.screeningStage?.label.localized).toBe(
+      "Advanced to assessment",
+    );
+    expect(poolCandidate?.status?.label?.localized).toBe("To assess");
+    expect(poolCandidate!.assessmentStep?.id).toBe(nextStepId);
   });
 });

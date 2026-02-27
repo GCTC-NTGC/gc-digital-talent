@@ -2,6 +2,7 @@ import {
   AssessmentStep,
   CreateAssessmentResultInput,
   PoolCandidate,
+  PoolCandidateAdminView,
 } from "@gc-digital-talent/graphql";
 
 import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
@@ -47,6 +48,10 @@ const Pool_AssessmentStepsQueryDocument = /* GraphQL */ `
         sortOrder
         type {
           value
+        }
+        title {
+          en
+          fr
         }
       }
     }
@@ -100,5 +105,73 @@ export const createAssessmentResult: GraphQLRequestFunc<
     .then(
       (res: GraphQLResponse<"createAssessmentResult", PoolCandidate>) =>
         res.createAssessmentResult,
+    );
+};
+
+const CandidatesTableCandidatesPaginatedDocument = /* GraphQL */ `
+  query CandidatesTableCandidatesPaginated_Query(
+    $where: PoolCandidateSearchInput
+  ) {
+    poolCandidatesPaginatedAdminView(where: $where) {
+      data {
+        poolCandidate {
+          id
+          user {
+            id
+            firstName
+            lastName
+          }
+          status {
+            value
+            label {
+              localized
+            }
+          }
+          candidateStatus {
+            value
+            label {
+              localized
+            }
+          }
+          screeningStage {
+            label {
+              localized
+            }
+          }
+          assessmentStep {
+            id
+            title {
+              localized
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const getPoolCandidatesTable: GraphQLRequestFunc<
+  PoolCandidateAdminView[],
+  { poolId: string }
+> = async (ctx, { poolId }) => {
+  return ctx
+    .post(CandidatesTableCandidatesPaginatedDocument, {
+      isPrivileged: true,
+      variables: {
+        where: {
+          pools: [{ id: { equals: poolId } }],
+        },
+      },
+    })
+    .then(
+      (
+        res: GraphQLResponse<
+          "poolCandidatesPaginatedAdminView",
+          { data: { poolCandidate: PoolCandidateAdminView }[] }
+        >,
+      ) => {
+        return res.poolCandidatesPaginatedAdminView.data.map(
+          (item) => item.poolCandidate,
+        );
+      },
     );
 };
