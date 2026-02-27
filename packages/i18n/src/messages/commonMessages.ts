@@ -80,6 +80,7 @@ const commonMessages = defineMessages({
     description: "Message when name value not found",
   },
   dividingColon: {
+    // eslint-disable-next-line formatjs/prefer-full-sentence
     defaultMessage: ": ",
     id: "i3Jl6C",
     description: "Dividing colon with trailing space",

@@ -39,7 +39,7 @@ function ArrowSvg(props: React.ComponentProps<"svg">) {
 }
 
 const popup = tv({
-  base: `max-w-screen overflow-y-auto rounded-md bg-white py-3 font-sans text-black shadow-md outline-1 outline-gray-200 dark:bg-gray-600 dark:text-white dark:-outline-offset-1 dark:outline-gray-300`,
+  base: `max-h-[var(--available-height)] max-w-screen overflow-y-auto rounded-md bg-white py-3 font-sans text-black shadow-md outline-1 outline-gray-200 dark:bg-gray-600 dark:text-white dark:-outline-offset-1 dark:outline-gray-300`,
 });
 
 interface PopupProps extends Omit<Menu.Popup.Props, "className"> {

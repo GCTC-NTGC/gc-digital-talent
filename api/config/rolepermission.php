@@ -1292,6 +1292,39 @@ return [
             'departmentTeamMembers' => [
                 'team' => ['view'],
             ],
+            'draftPool' => [
+                'team' => ['view'],
+            ],
+            'publishedPool' => [
+                'team' => ['archive'],
+            ],
+            'poolTeamMembers' => [
+                'team' => ['view'],
+            ],
+            'poolActivityLog' => [
+                'team' => ['view'],
+            ],
+            'assessmentPlan' => [
+                'team' => ['view'],
+            ],
+            'applicantProfile' => [
+                'team' => ['view'],
+            ],
+            'submittedApplication' => [
+                'team' => ['view'],
+            ],
+            'applicationStatus' => [
+                'team' => ['view'],
+            ],
+            'applicationAssessment' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationDecision' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationPlacement' => [
+                'team' => ['view', 'update'],
+            ],
         ],
 
         'department_hr_advisor' => [
@@ -1303,6 +1336,39 @@ return [
             ],
             'departmentTeamMembers' => [
                 'team' => ['view'],
+            ],
+            'draftPool' => [
+                'team' => ['view'],
+            ],
+            'publishedPool' => [
+                'team' => ['archive'],
+            ],
+            'poolTeamMembers' => [
+                'team' => ['view'],
+            ],
+            'poolActivityLog' => [
+                'team' => ['view'],
+            ],
+            'assessmentPlan' => [
+                'team' => ['view'],
+            ],
+            'applicantProfile' => [
+                'team' => ['view'],
+            ],
+            'submittedApplication' => [
+                'team' => ['view'],
+            ],
+            'applicationStatus' => [
+                'team' => ['view'],
+            ],
+            'applicationAssessment' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationDecision' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationPlacement' => [
+                'team' => ['view', 'update'],
             ],
         ],
     ],

@@ -155,6 +155,7 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->departmentHRAdvisor->can('view', $this->applicant));
 
         $this->pool->community_id = $this->community->id;
+        $this->pool->department_id = $this->department->id;
         $this->pool->save();
         $newApplication = PoolCandidate::factory()->create(
             [
@@ -168,8 +169,8 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($this->processOperator->can('view', $this->applicant));
         $this->assertTrue($this->communityRecruiter->can('view', $this->applicant));
         $this->assertTrue($this->communityAdmin->can('view', $this->applicant));
-        $this->assertFalse($this->departmentAdmin->can('view', $this->applicant));
-        $this->assertFalse($this->departmentHRAdvisor->can('view', $this->applicant));
+        $this->assertTrue($this->departmentAdmin->can('view', $this->applicant));
+        $this->assertTrue($this->departmentHRAdvisor->can('view', $this->applicant));
 
         PoolCandidate::truncate();
         CommunityInterest::factory()->create([
