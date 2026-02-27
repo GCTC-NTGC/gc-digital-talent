@@ -1,16 +1,33 @@
-import { expect, Page } from "@playwright/test";
+import { expect, Locator, Page } from "@playwright/test";
 
-import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
+import {
+  EmploymentCategory,
+  FlexibleWorkLocation,
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
 
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
 
+const FIELD = {
+  CAREER_EXPERIENCE_LINK: "careerExperienceLink",
+} as const;
+
+type ObjectValues<T> = T[keyof T];
+export type Field = ObjectValues<typeof FIELD>;
+
 class ProfilePage extends AppPage {
+  readonly locators: Record<Field, Locator>;
   locationPrefUpdate: LocationPreferenceUpdatePage;
 
   constructor(page: Page) {
     super(page);
     this.locationPrefUpdate = new LocationPreferenceUpdatePage(page);
+    this.locators = {
+      [FIELD.CAREER_EXPERIENCE_LINK]: page.getByRole("link", {
+        name: /career experience/i,
+      }),
+    };
   }
 
   async navigateToPersonalInformation() {
@@ -76,6 +93,42 @@ class ProfilePage extends AppPage {
     await expect(this.page.getByRole("alert").last()).toContainText(
       /language preferences updated successfully/i,
     );
+  }
+
+  async verifyGovEmployeeInfoSection(
+    experienceType: EmploymentCategory | undefined,
+  ) {
+    await this.verifyWellMessage();
+
+    const isGovernmentEmployee =
+      experienceType === EmploymentCategory.GovernmentOfCanada;
+
+    if (isGovernmentEmployee) {
+      await expect(
+        this.page.getByText("Yes, I am a Government of Canada employee.", {
+          exact: true,
+        }),
+      ).toBeVisible();
+    } else {
+      await expect(
+        this.page.getByText("No, I am not a Government of Canada employee.", {
+          exact: true,
+        }),
+      ).toBeVisible();
+    }
+  }
+
+  async verifyWellMessage() {
+    const careerLink = this.locators[FIELD.CAREER_EXPERIENCE_LINK];
+    await expect(careerLink).toBeVisible();
+    await expect(careerLink.locator("..")).toContainText(
+      /You can now add Government of Canada employment details directly on your/i,
+    );
+  }
+
+  async navigateToCareerExperienceFromProfile() {
+    await this.locators[FIELD.CAREER_EXPERIENCE_LINK].click();
+    await this.waitForGraphqlResponse("CareerTimelineExperiences");
   }
 }
 
