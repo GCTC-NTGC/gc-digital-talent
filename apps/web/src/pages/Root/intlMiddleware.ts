@@ -1,6 +1,11 @@
 import { redirect } from "react-router";
 
-import { getDesiredLocale, getIntl } from "@gc-digital-talent/i18n";
+import {
+  getIntl,
+  getPathLocale,
+  getDesiredLocale,
+  STORED_LOCALE,
+} from "@gc-digital-talent/i18n";
 
 import messages from "~/lang/frCompiled.json";
 import { intlContext } from "~/routing/context";
@@ -15,11 +20,17 @@ const intlMiddleware: Route.ClientMiddlewareFunction = (
 ) => {
   const url = new URL(request.url);
 
-  if (url.pathname === "/") {
-    const locale = getDesiredLocale() || "en";
+  const currentPathLocale = getPathLocale(url.pathname);
+
+  if (!currentPathLocale) {
+    const targetLocale = getDesiredLocale();
+    const newPath = `/${targetLocale}${url.pathname}${url.search}`;
+
     // eslint-disable-next-line @typescript-eslint/only-throw-error
-    throw redirect(`/${locale}`);
+    throw redirect(newPath);
   }
+
+  localStorage.setItem(STORED_LOCALE, currentPathLocale);
 
   context.set(intlContext, intl);
   return next();

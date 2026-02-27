@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Enums\ApplicationStatus;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -63,31 +62,21 @@ class PoolCandidatesPaginatedTest extends TestCase
         ]);
 
         // A Draft candidate that no one should be able to see
-        PoolCandidate::factory()->create([
-            'application_status' => ApplicationStatus::DRAFT->name,
-        ]);
+        PoolCandidate::factory()->create();
 
         // Random team candidate
-        $this->noTeamCandidate = PoolCandidate::factory()->create([
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
+        $this->noTeamCandidate = PoolCandidate::factory()->submitted()->create([
             'pool_id' => Pool::factory()->create([
                 'community_id' => Community::factory()->create(),
             ]),
         ]);
 
         // Assigned Team
-        $this->teamCandidate = PoolCandidate::factory()->create([
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
-            'pool_id' => $this->pool->id,
-        ]);
+        $this->teamCandidate = PoolCandidate::factory()->submitted()->for($this->pool)->create();
 
         $this->applicant = User::factory()->asApplicant()->create();
 
-        $this->applicantCandidate = PoolCandidate::factory()->create([
-            'application_status' => ApplicationStatus::DRAFT->name,
-            'user_id' => $this->applicant->id,
-            'pool_id' => $this->pool->id,
-        ]);
+        $this->applicantCandidate = PoolCandidate::factory()->for($this->applicant)->for($this->pool)->create();
     }
 
     protected function assertPaginatedResponse(User $user, int $count, array $ids): void
@@ -152,19 +141,13 @@ class PoolCandidatesPaginatedTest extends TestCase
             ->create();
 
         PoolCandidate::truncate();
-        $communityCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $communityPool]);
-        $communityDraftCandidate = PoolCandidate::factory()->create([
-            'pool_id' => $communityPool,
-            'application_status' => ApplicationStatus::DRAFT->name,
-            'submitted_at' => null,
-        ]);
-        $otherCandidate = PoolCandidate::factory()->availableInSearch()->create([
-            'pool_id' => $otherPool]);
-        $otherDraftCandidate = PoolCandidate::factory()->availableInSearch()->create([
-            'pool_id' => $otherPool,
-            'application_status' => ApplicationStatus::DRAFT->name,
-            'submitted_at' => null,
-        ]);
+        $communityCandidate = PoolCandidate::factory()->availableInSearch()->for($communityPool)->create();
+        // Draft
+        PoolCandidate::factory()->for($communityPool)->create();
+        // Not associated
+        PoolCandidate::factory()->availableInSearch()->for($otherPool)->create();
+        // Not associate, draft
+        PoolCandidate::factory()->for($otherPool)->create();
 
         assertSame(4, count(PoolCandidate::all()));
         assertSame(2, count(PoolCandidate::where('pool_id', $communityPool->id)->get()));
@@ -188,19 +171,13 @@ class PoolCandidatesPaginatedTest extends TestCase
             ->create();
 
         PoolCandidate::truncate();
-        $communityCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $communityPool]);
-        $communityDraftCandidate = PoolCandidate::factory()->create([
-            'pool_id' => $communityPool,
-            'application_status' => ApplicationStatus::DRAFT->name,
-            'submitted_at' => null,
-        ]);
-        $otherCandidate = PoolCandidate::factory()->availableInSearch()->create([
-            'pool_id' => $otherPool]);
-        $otherDraftCandidate = PoolCandidate::factory()->availableInSearch()->create([
-            'pool_id' => $otherPool,
-            'application_status' => ApplicationStatus::DRAFT->name,
-            'submitted_at' => null,
-        ]);
+        $communityCandidate = PoolCandidate::factory()->availableInSearch()->for($communityPool)->create();
+        // Draft
+        PoolCandidate::factory()->for($communityPool)->create();
+        // Not associated
+        PoolCandidate::factory()->availableInSearch()->for($otherPool)->create();
+        // Not associated, draft
+        PoolCandidate::factory()->for($otherPool)->create();
 
         assertSame(4, count(PoolCandidate::all()));
         assertSame(2, count(PoolCandidate::where('pool_id', $communityPool->id)->get()));

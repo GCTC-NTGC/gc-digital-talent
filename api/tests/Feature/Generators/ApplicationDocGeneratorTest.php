@@ -4,6 +4,8 @@ namespace Tests\Feature\Generators;
 
 use App\Enums\PoolSkillType;
 use App\Enums\SkillCategory;
+use App\Enums\SkillLevel;
+use App\Enums\WhenSkillUsed;
 use App\Generators\ApplicationDocGenerator;
 use App\Models\Classification;
 use App\Models\Community;
@@ -13,7 +15,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
-use App\Models\WorkExperience;
+use App\Models\UserSkill;
 use Database\Seeders\CommunitySeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -36,7 +38,6 @@ class ApplicationDocGeneratorTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->setUpFaker();
         $this->faker->seed(0);
 
@@ -46,14 +47,18 @@ class ApplicationDocGeneratorTest extends TestCase
         ]);
 
         Department::factory()->create();
-        Classification::factory()->create();
+        Classification::factory()->create([
+            'group' => 'XX',
+            'level' => 1,
+            'display_name' => [
+                'en' => 'Snapshot dept EN',
+                'fr' => 'Snapshot dept FR',
+            ],
+        ]);
 
         $community = Community::where('key', 'digital')->sole();
 
-        $adminUser = User::factory()
-            ->asApplicant()
-            ->asAdmin()
-            ->create();
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
 
         $user = User::factory()
             ->asApplicant()
@@ -61,29 +66,46 @@ class ApplicationDocGeneratorTest extends TestCase
             ->withCommunityInterests([$community->id])
             ->create();
 
-        EducationExperience::factory()
-            ->create(['user_id' => $user->id]);
-        WorkExperience::factory()
-            ->create(['user_id' => $user->id]);
+        $edu = EducationExperience::factory()->for($user)->create();
+        $work = $user->workExperiences()->first();
 
         $fixedSkill = Skill::factory()->create([
+            'name' => [
+                'en' => 'Snapshot skill EN',
+                'fr' => 'Snapshot skill FR',
+            ],
             'category' => SkillCategory::TECHNICAL->name,
         ]);
 
-        $pool = Pool::factory()->published()->create();
+        $pool = Pool::factory()->published()->create([
+            'process_number' => '12345',
+            'name' => [
+                'en' => 'Snapshot pool EN',
+                'fr' => 'Snapshot pool FR',
+            ],
+        ]);
         $pool->poolSkills()->delete();
         $pool->poolSkills()->create([
             'skill_id' => $fixedSkill->id,
             'type' => PoolSkillType::ESSENTIAL->name,
         ]);
 
+        $userSkill = UserSkill::create([
+            'user_id' => $user->id,
+            'skill_id' => $fixedSkill->id,
+            'skill_level' => SkillLevel::ADVANCED->name,
+            'when_skill_used' => WhenSkillUsed::PAST->name,
+        ]);
+
+        $edu->userSkills()->attach($userSkill->id, ['details' => 'Deterministic snapshot detail.']);
+        $work->userSkills()->attach($userSkill->id, ['details' => 'Deterministic snapshot detail.']);
+
         $application = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
-            ->create([
-                'user_id' => $user->id,
-                'pool_id' => $pool->id,
-            ]);
+            ->for($user)
+            ->for($pool)
+            ->create(['signature' => 'Test signature']);
 
         $application->submitted_at = config('constants.past_datetime');
         $application->save();
@@ -93,7 +115,6 @@ class ApplicationDocGeneratorTest extends TestCase
             dir: 'test',
             lang: 'en',
         );
-
         $this->generator->setAuthenticatedUserId($adminUser->id);
     }
 

@@ -275,6 +275,9 @@ class PoolBuilder extends Builder
                 $query->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                     return $query->whereIn('id', $teamIds);
                 });
+                $query->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
             });
         }
 
@@ -311,6 +314,9 @@ class PoolBuilder extends Builder
                     return $query->whereIn('id', $teamIds);
                 });
                 $query->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                    return $query->whereIn('id', $teamIds);
+                });
+                $query->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
                     return $query->whereIn('id', $teamIds);
                 });
             }
