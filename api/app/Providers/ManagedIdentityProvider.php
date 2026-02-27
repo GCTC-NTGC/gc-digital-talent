@@ -4,11 +4,11 @@ namespace App\Providers;
 
 use App\Contracts\ManagedIdentityService;
 use App\Services\AzureManagedIdentityService;
-use App\Services\DummyManagedIdentityService;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
-class ManagedIdentityProvider extends ServiceProvider
+class ManagedIdentityProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Register any application services.
@@ -22,9 +22,25 @@ class ManagedIdentityProvider extends ServiceProvider
                 return new AzureManagedIdentityService();
             }
 
-            // otherwise, run the dummy version
-            return new DummyManagedIdentityService();
+            // otherwise, return a dummy version
+            return new class implements ManagedIdentityService
+            {
+                public function getAccessToken(): string
+                {
+                    return 'X';
+                }
+            };
 
         });
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array<int, string>
+     */
+    public function provides(): array
+    {
+        return [ManagedIdentityService::class];
     }
 }
