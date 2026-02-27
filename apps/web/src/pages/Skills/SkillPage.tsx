@@ -258,8 +258,8 @@ export const Component = () => {
               <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Specialized skills with more detailed descriptions are added to address specific operational requirements, as needed. ",
-                  id: "8sqysp",
+                    "Specialized skills with more detailed descriptions are added to address specific operational requirements, as needed.",
+                  id: "gnoNDM",
                   description:
                     "Paragraph two, information on skill descriptions",
                 })}
