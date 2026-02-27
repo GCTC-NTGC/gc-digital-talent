@@ -4171,6 +4171,10 @@ enum TargetRole {
   OTHER
 }
 
+enum TbsSecurityLoggingEventId {
+  EMAIL_SENT
+}
+
 enum TimeFrame {
   THIS_YEAR
   ONE_TO_TWO_YEARS
