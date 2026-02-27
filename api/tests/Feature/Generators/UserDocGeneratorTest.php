@@ -18,6 +18,7 @@ use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
+use App\Enums\SkillCategory;
 use App\Enums\SkillLevel;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
@@ -59,7 +60,12 @@ class UserDocGeneratorTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $community = Community::factory()->create();
+        $community = Community::factory()->create([
+            'name' => [
+                'en' => 'Snapshot community EN',
+                'fr' => 'Snapshot community FR',
+            ],
+        ]);
         DevelopmentProgram::factory()->for($community)->create([
             'name' => [
                 'en' => 'Snapshot program EN',
@@ -232,6 +238,7 @@ class UserDocGeneratorTest extends TestCase
 
         $skills = collect(range(1, 4))->map(function ($index) {
             return Skill::factory()->create([
+                'category' => SkillCategory::TECHNICAL->name,
                 'name' => [
                     'en' => "Skill $index EN",
                     'fr' => "Skill $index FR",
