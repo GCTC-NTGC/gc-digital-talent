@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Queue\Events\Looping;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
@@ -61,14 +60,5 @@ class AppServiceProvider extends ServiceProvider
         //         Log::info("An event was fired: {$event}", $data);
         //     }
         // });
-
-        Event::listen(function (Looping $_) {
-            /** @var \Monolog\Logger */
-            $logger = Log::channel('azure'); // ->flush();
-            /** @var \Monolog\Handler\BufferHandler */
-            $firstHandler = $logger->getHandlers()[0];
-            $firstHandler->flush();
-        });
-
     }
 }
