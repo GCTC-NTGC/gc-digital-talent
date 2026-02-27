@@ -474,8 +474,6 @@ class PoolCandidate extends Model
     /**
      * Determine result of the first step (application screening)
      * of the assessment status
-     *
-     * @return ???
      */
     public function screeningResult(): Attribute
     {
