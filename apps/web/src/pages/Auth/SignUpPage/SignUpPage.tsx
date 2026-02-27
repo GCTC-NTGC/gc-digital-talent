@@ -178,8 +178,8 @@ export const Component = () => {
               >
                 {intl.formatMessage({
                   defaultMessage:
-                    "1. Select <strong>sign up</strong> on the welcome page. This is <strong>located after the sign in</strong> section. ",
-                  id: "+rZvoD",
+                    "1. Select <strong>sign up</strong> on the welcome page. This is <strong>located after the sign in</strong> section.",
+                  id: "MUYJr1",
                   description: "Text for first sign up -> create step.",
                 })}
               </Instructions.Step>
