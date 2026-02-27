@@ -6,7 +6,6 @@ use App\Enums\TbsSecurityLoggingEventId;
 use App\Exceptions\ExternalServiceException;
 use App\Facades\Notify;
 use App\Notifications\Messages\GcNotifyEmailMessage;
-use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -38,8 +37,10 @@ class GcNotifyApiRequest implements ShouldQueue
 
     /**
      * Determine the time at which the job should timeout.
+     *
+     * @inherit-doc
      */
-    public function retryUntil(): DateTime
+    public function retryUntil()
     {
         return now()->addHours(12);
     }

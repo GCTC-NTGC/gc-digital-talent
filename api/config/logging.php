@@ -143,6 +143,7 @@ return [
 
         'jobs' => [
             'driver' => 'stack',
+            'level' => env('LOG_LEVEL', 'debug'),
             'channels' => ['jobs_file', 'azure'],
             'ignore_exceptions' => false,
         ],
