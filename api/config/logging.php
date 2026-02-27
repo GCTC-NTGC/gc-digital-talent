@@ -135,7 +135,7 @@ return [
             'driver' => 'custom',
             'via' => App\Logging\Azure\CreateAzureLogger::class,
             'level' => env('LOG_LEVEL', 'debug'),
-            'bufferLimit' => 3,
+            'bufferLimit' => 30,
             'endpoint' => env('AZURE_LOG_INGESTION_ENDPOINT'),
             'dcrImmutableId' => env('AZURE_DCR_IMMUTABLE_ID'),
             'streamName' => env('AZURE_STREAM_NAME'),
