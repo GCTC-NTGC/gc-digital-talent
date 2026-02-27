@@ -12,8 +12,6 @@ class AssessmentResultPolicy
     use HandlesAuthorization;
 
     /**
-     * NOTE: the logic for PoolCandidatePolicy->viewAssessmentResults should be kept in sync with this function.
-     *
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(User $user, AssessmentResult $assessmentResult)
@@ -22,14 +20,16 @@ class AssessmentResultPolicy
             return true;
         }
 
-        $assessmentResult->loadMissing(['assessmentStep.pool.team', 'assessmentStep.pool.community.team']);
+        $assessmentResult->loadMissing(['assessmentStep.pool.team', 'assessmentStep.pool.community.team', 'assessmentStep.pool.department.team']);
 
         $teamPermission = ! is_null($assessmentResult->assessmentStep->pool->team)
             && $user->isAbleTo('view-team-applicationAssessment', $assessmentResult->assessmentStep->pool->team);
         $communityPermission = ! is_null($assessmentResult->assessmentStep->pool->community->team)
         && $user->isAbleTo('view-team-applicationAssessment', $assessmentResult->assessmentStep->pool->community->team);
+        $departmentPermission = ! is_null($assessmentResult->assessmentStep->pool->department->team)
+        && $user->isAbleTo('view-team-applicationAssessment', $assessmentResult->assessmentStep->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 
     /**
@@ -42,14 +42,16 @@ class AssessmentResultPolicy
     public function create(User $user, $request)
     {
         if (array_key_exists('assessment_step_id', $request)) {
-            $parentAssessmentStep = AssessmentStep::with(['pool.team', 'pool.community.team'])->find($request['assessment_step_id']);
+            $parentAssessmentStep = AssessmentStep::with(['pool.team', 'pool.community.team', 'pool.department.team'])->find($request['assessment_step_id']);
 
             $teamPermission = ! is_null($parentAssessmentStep->pool->team)
                 && $user->isAbleTo('update-team-applicationAssessment', $parentAssessmentStep->pool->team);
             $communityPermission = ! is_null($parentAssessmentStep->pool->community->team)
             && $user->isAbleTo('update-team-applicationAssessment', $parentAssessmentStep->pool->community->team);
+            $departmentPermission = ! is_null($parentAssessmentStep->pool->department->team)
+            && $user->isAbleTo('update-team-applicationAssessment', $parentAssessmentStep->pool->department->team);
 
-            return $teamPermission || $communityPermission;
+            return $teamPermission || $communityPermission || $departmentPermission;
         }
 
         return false;
@@ -62,13 +64,15 @@ class AssessmentResultPolicy
      */
     public function update(User $user, AssessmentResult $assessmentResult)
     {
-        $assessmentResult->loadMissing(['assessmentStep.pool.team', 'assessmentStep.pool.community.team']);
+        $assessmentResult->loadMissing(['assessmentStep.pool.team', 'assessmentStep.pool.community.team', 'assessmentStep.pool.department.team']);
 
         $teamPermission = ! is_null($assessmentResult->assessmentStep->pool->team)
             && $user->isAbleTo('update-team-applicationAssessment', $assessmentResult->assessmentStep->pool->team);
         $communityPermission = ! is_null($assessmentResult->assessmentStep->pool->community->team)
         && $user->isAbleTo('update-team-applicationAssessment', $assessmentResult->assessmentStep->pool->community->team);
+        $departmentPermission = ! is_null($assessmentResult->assessmentStep->pool->department->team)
+        && $user->isAbleTo('update-team-applicationAssessment', $assessmentResult->assessmentStep->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 }

@@ -190,6 +190,8 @@ class UserPolicy
                     $q->whereIn('id', $teamIds);
                 })->orWhereHas('pool.community.team', function ($q) use ($teamIds) {
                     $q->whereIn('id', $teamIds);
+                })->orWhereHas('pool.department.team', function ($q) use ($teamIds) {
+                    $q->whereIn('id', $teamIds);
                 });
             })
             ->exists();

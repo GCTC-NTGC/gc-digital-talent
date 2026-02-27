@@ -451,6 +451,20 @@ class RolePermissionTest extends TestCase
             'update-team-processOperatorMembership',
             'update-team-departmentHRAdvisorMembership',
             'view-team-departmentTeamMembers',
+            'view-team-draftPool',
+            'archive-team-publishedPool',
+            'view-team-poolTeamMembers',
+            'view-team-poolActivityLog',
+            'view-team-assessmentPlan',
+            'view-team-applicantProfile',
+            'view-team-submittedApplication',
+            'view-team-applicationStatus',
+            'view-team-applicationAssessment',
+            'update-team-applicationAssessment',
+            'view-team-applicationDecision',
+            'update-team-applicationDecision',
+            'view-team-applicationPlacement',
+            'update-team-applicationPlacement',
         ];
 
         $allPermissions = Permission::all()->pluck('name')->toArray();
@@ -486,6 +500,20 @@ class RolePermissionTest extends TestCase
             'view-any-userBasicInfo',
             'update-team-processOperatorMembership',
             'view-team-departmentTeamMembers',
+            'view-team-draftPool',
+            'archive-team-publishedPool',
+            'view-team-poolTeamMembers',
+            'view-team-poolActivityLog',
+            'view-team-assessmentPlan',
+            'view-team-applicantProfile',
+            'view-team-submittedApplication',
+            'view-team-applicationStatus',
+            'view-team-applicationAssessment',
+            'update-team-applicationAssessment',
+            'view-team-applicationDecision',
+            'update-team-applicationDecision',
+            'view-team-applicationPlacement',
+            'update-team-applicationPlacement',
         ];
 
         $allPermissions = Permission::all()->pluck('name')->toArray();

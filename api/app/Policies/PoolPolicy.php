@@ -46,15 +46,20 @@ class PoolPolicy
         }
 
         // Load team only when needed to check if team owns draft.
-        $pool->loadMissing(['team', 'community.team']);
+        $pool->loadMissing(['team', 'community.team', 'department.team']);
 
-        // Check permissions for team.
+        // Check permissions for pool team.
         if ($pool->team && $user->isAbleTo('view-team-draftPool', $pool->team)) {
             return true;
         }
 
         // Check permissions for community.
         if ($pool->community?->team && $user->isAbleTo('view-team-draftPool', $pool->community->team)) {
+            return true;
+        }
+
+        // Check permissions for department.
+        if ($pool->department?->team && $user->isAbleTo('view-team-draftPool', $pool->department->team)) {
             return true;
         }
 
@@ -256,11 +261,12 @@ class PoolPolicy
             return true;
         }
 
-        $pool->loadMissing(['team', 'community.team']);
+        $pool->loadMissing(['team', 'community.team', 'department.team']);
         $teamPermission = ! is_null($pool->team) && $user->isAbleTo('view-team-assessmentPlan', $pool->team);
         $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('view-team-assessmentPlan', $pool->community->team);
+        $departmentPermission = ! is_null($pool->department->team) && $user->isAbleTo('view-team-assessmentPlan', $pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 
     /**
@@ -274,10 +280,11 @@ class PoolPolicy
             return true;
         }
 
-        $pool->loadMissing(['team', 'community.team']);
+        $pool->loadMissing(['team', 'community.team', 'department.team']);
         $teamPermission = ! is_null($pool->team) && ($user->isAbleTo('view-team-poolTeamMembers', $pool->team));
         $communityPermission = ! is_null($pool->community->team) && $user->isAbleTo('view-team-poolTeamMembers', $pool->community->team);
+        $departmentPermission = ! is_null($pool->department->team) && $user->isAbleTo('view-team-poolTeamMembers', $pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 }

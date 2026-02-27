@@ -45,10 +45,11 @@ class PoolCandidatePolicy
                 return true;
             }
 
-            $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
+            $poolCandidate->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
             $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('view-team-submittedApplication', $poolCandidate->pool->team);
             $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('view-team-submittedApplication', $poolCandidate->pool->community->team);
-            if ($teamPermission || $communityPermission) {
+            $departmentPermission = ! is_null($poolCandidate->pool?->department?->team) && $user->isAbleTo('view-team-submittedApplication', $poolCandidate->pool->department->team);
+            if ($teamPermission || $communityPermission || $departmentPermission) {
                 return true;
             }
         }
@@ -193,11 +194,12 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationStatus')) {
             return true;
         }
-        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
         $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->team);
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->community->team);
+        $departmentPermission = ! is_null($poolCandidate->pool?->department?->team) && $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 
     // flagging and notes share permissions
@@ -206,11 +208,12 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationAssessment')) {
             return true;
         }
-        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
         $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->team);
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->community->team);
+        $departmentPermission = ! is_null($poolCandidate->pool?->department?->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 
     public function viewNotes(User $user, PoolCandidate $poolCandidate)
@@ -229,11 +232,12 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationAssessment')) {
             return true;
         }
-        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
         $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->team);
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->community->team);
+        $departmentPermission = ! is_null($poolCandidate->pool?->department?->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 
     public function viewAssessment(User $user, PoolCandidate $poolCandidate)
@@ -251,11 +255,12 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationAssessment')) {
             return true;
         }
-        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
         $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->team);
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->community->team);
+        $departmentPermission = ! is_null($poolCandidate->pool?->department?->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 
     public function viewDecision(User $user, PoolCandidate $poolCandidate)
@@ -263,11 +268,12 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('view-any-applicationDecision')) {
             return true;
         }
-        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
         $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('view-team-applicationDecision', $poolCandidate->pool->team);
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('view-team-applicationDecision', $poolCandidate->pool->community->team);
+        $departmentPermission = ! is_null($poolCandidate->pool?->department?->team) && $user->isAbleTo('view-team-applicationDecision', $poolCandidate->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 
     public function updateDecision(User $user, PoolCandidate $poolCandidate)
@@ -275,11 +281,12 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationDecision')) {
             return true;
         }
-        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
         $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationDecision', $poolCandidate->pool->team);
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationDecision', $poolCandidate->pool->community->team);
+        $departmentPermission = ! is_null($poolCandidate->pool?->department?->team) && $user->isAbleTo('update-team-applicationDecision', $poolCandidate->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 
     public function viewPlacement(User $user, PoolCandidate $poolCandidate)
@@ -287,11 +294,12 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('view-any-applicationPlacement')) {
             return true;
         }
-        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
         $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('view-team-applicationPlacement', $poolCandidate->pool->team);
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('view-team-applicationPlacement', $poolCandidate->pool->community->team);
+        $departmentPermission = ! is_null($poolCandidate->pool?->department?->team) && $user->isAbleTo('view-team-applicationPlacement', $poolCandidate->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 
     public function updatePlacement(User $user, PoolCandidate $poolCandidate)
@@ -300,11 +308,12 @@ class PoolCandidatePolicy
             return true;
         }
 
-        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
         $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationPlacement', $poolCandidate->pool->team);
         $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationPlacement', $poolCandidate->pool->community->team);
+        $departmentPermission = ! is_null($poolCandidate->pool?->department?->team) && $user->isAbleTo('update-team-applicationPlacement', $poolCandidate->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 
     /**
@@ -344,15 +353,17 @@ class PoolCandidatePolicy
     }
 
     /**
-     * Helper method to check permissions for team/community.
+     * Helper method to check permissions for team/community/department.
      */
     protected function hasTeamOrCommunityPermission(User $user, PoolCandidate $poolCandidate, string $permission): bool
     {
         // Ensure relationships are eager-loaded to avoid N+1 queries
-        $poolCandidate->loadMissing(['pool.team', 'pool.community.team']);
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
         $pool = $poolCandidate->pool;
 
-        return ($pool->team && $user->isAbleTo($permission, $pool->team))
-            || ($pool->community?->team && $user->isAbleTo($permission, $pool->community->team));
+        return
+            ($pool->team && $user->isAbleTo($permission, $pool->team))
+            || ($pool->community?->team && $user->isAbleTo($permission, $pool->community->team))
+            || ($pool->department?->team && $user->isAbleTo($permission, $pool->department->team));
     }
 }

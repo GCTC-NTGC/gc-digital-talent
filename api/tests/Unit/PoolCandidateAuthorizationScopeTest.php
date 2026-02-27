@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Enums\ApplicationStatus;
 use App\Enums\ScreeningStage;
 use App\Models\Community;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
@@ -182,6 +183,44 @@ class PoolCandidateAuthorizationScopeTest extends TestCase
 
         assertEqualsCanonicalizing([
             $this->candidateSubmitted2A->id,
+        ], $poolCandidateIds);
+    }
+
+    // department admin only sees submitted candidate attached to poolA as it is in turn attached to the department thru authorizedToView
+    public function testScopeAuthorizedToViewAsDepartmentAdmin(): void
+    {
+        $department = Department::factory()->create();
+        $this->poolA->department_id = $department->id;
+        $this->poolA->save();
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asDepartmentAdmin($department->id)
+                ->create());
+
+        $poolCandidateIds = PoolCandidate::whereAuthorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->candidateSubmitted2A->id,
+        ], $poolCandidateIds);
+    }
+
+    // department advisor only sees submitted candidate attached to poolB as it is in turn attached to the department thru authorizedToView
+    public function testScopeAuthorizedToViewAsDepartmentAdvisor(): void
+    {
+        $department = Department::factory()->create();
+        $this->poolB->department_id = $department->id;
+        $this->poolB->save();
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asDepartmentHRAdvisor($department->id)
+                ->create());
+
+        $poolCandidateIds = PoolCandidate::whereAuthorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->candidateSubmitted1B->id,
         ], $poolCandidateIds);
     }
 }

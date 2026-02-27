@@ -48,7 +48,12 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const canAddRemoveRoles = hasRole(
-    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+    [
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
+    ],
     roleAssignments,
   );
 
@@ -187,6 +192,8 @@ export const Component = () => (
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.ProcessOperator,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
     ]}
   >
     <ManageAccessPoolPage />
