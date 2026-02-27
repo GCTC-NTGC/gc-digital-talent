@@ -13,19 +13,21 @@ use Monolog\LogRecord;
  */
 class AzureAppLogsFormatter implements FormatterInterface
 {
-    protected static function copyValueIfExists($sourceArray, $key, &$targetArray)
+    // copy an array value to a target array, only if it exists, as a string
+    protected static function copyValueAsString($sourceArray, $key, &$targetArray)
     {
         $value = $sourceArray[$key] ?? null;
         if (! empty($value)) {
-            $targetArray[$key] = $value;
+            $targetArray[$key] = strval($value);
         }
     }
 
-    protected static function moveValueIfExists(&$sourceArray, $key, &$targetArray)
+    // copy an array value to a target array, only if it exists, as a string, and remove from source array
+    protected static function moveValueAsString(&$sourceArray, $key, &$targetArray)
     {
         $value = $sourceArray[$key] ?? null;
         if (! empty($value)) {
-            $targetArray[$key] = $value;
+            $targetArray[$key] = strval($value);
             unset($sourceArray[$key]);
         }
     }
@@ -34,24 +36,24 @@ class AzureAppLogsFormatter implements FormatterInterface
     {
         $dataArray = [];
 
-        // some context fields may be pulled out and promoted if recognized
+        // some context fields may be pulled out and promoted to their own fields if recognized
         $context = $record->context;
 
         $dataArray['TimeGenerated'] = $record->datetime->format('c');
         $dataArray['LogLevel'] = $record->level->getName();
 
-        self::moveValueIfExists($context, 'EventID', $dataArray);
+        self::moveValueAsString($context, 'EventID', $dataArray);
 
         // extra fields from TbsLoggingStandardProcessor
-        self::copyValueIfExists($record->extra, 'ApplicationID', $dataArray);
-        self::copyValueIfExists($record->extra, 'SourceIP', $dataArray);
-        self::copyValueIfExists($record->extra, 'XForwardedIP', $dataArray);
-        self::copyValueIfExists($record->extra, 'CorrelationID', $dataArray);
-        self::copyValueIfExists($record->extra, 'SourceUserID', $dataArray);
+        self::copyValueAsString($record->extra, 'ApplicationID', $dataArray);
+        self::copyValueAsString($record->extra, 'SourceIP', $dataArray);
+        self::copyValueAsString($record->extra, 'XForwardedIP', $dataArray);
+        self::copyValueAsString($record->extra, 'CorrelationID', $dataArray);
+        self::copyValueAsString($record->extra, 'SourceUserID', $dataArray);
 
-        self::moveValueIfExists($context, 'TargetUserID', $dataArray);
-        self::moveValueIfExists($context, 'EventStatus', $dataArray);
-        self::moveValueIfExists($context, 'EventAction', $dataArray);
+        self::moveValueAsString($context, 'TargetUserID', $dataArray);
+        self::moveValueAsString($context, 'EventStatus', $dataArray);
+        self::moveValueAsString($context, 'EventAction', $dataArray);
 
         $dataArray['EventText'] = $record->message;
         $dataArray['Context'] = $context;
