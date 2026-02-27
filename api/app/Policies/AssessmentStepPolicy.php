@@ -72,12 +72,13 @@ class AssessmentStepPolicy
             return true;
         }
 
-        $assessmentStep->loadMissing(['pool.team', 'pool.community.team']);
+        $assessmentStep->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
 
         $teamPermission = ! is_null($assessmentStep->pool->team) && $user->isAbleTo('view-team-assessmentPlan', $assessmentStep->pool->team);
         $communityPermission = ! is_null($assessmentStep->pool->community->team) && $user->isAbleTo('view-team-assessmentPlan', $assessmentStep->pool->community->team);
+        $departmentPermission = ! is_null($assessmentStep->pool->department->team) && $user->isAbleTo('view-team-assessmentPlan', $assessmentStep->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 
     /**
@@ -91,11 +92,12 @@ class AssessmentStepPolicy
             return true;
         }
 
-        $assessmentStep->loadMissing(['pool.team', 'pool.community.team']);
+        $assessmentStep->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
 
         $teamPermission = ! is_null($assessmentStep->pool->team) && $user->isAbleTo('view-team-applicationAssessment', $assessmentStep->pool->team);
         $communityPermission = ! is_null($assessmentStep->pool->community->team) && $user->isAbleTo('view-team-applicationAssessment', $assessmentStep->pool->community->team);
+        $departmentPermission = ! is_null($assessmentStep->pool->department->team) && $user->isAbleTo('view-team-applicationAssessment', $assessmentStep->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 }

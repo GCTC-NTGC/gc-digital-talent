@@ -2,11 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Enums\ApplicationStatus;
-use App\Enums\ScreeningStage;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
 use App\Models\Community;
+use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\Pool;
@@ -37,9 +36,17 @@ class PoolCandidateTest extends TestCase
 
     protected $unAssociatedCommunityUser;
 
+    protected $departmentUser;
+
+    protected $unAssociatedDepartmentUser;
+
     protected $community;
 
     protected $pool;
+
+    protected $department;
+
+    protected PoolCandidate $candidate;
 
     protected function setUp(): void
     {
@@ -48,9 +55,11 @@ class PoolCandidateTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->community = Community::factory()->create();
+        $this->department = Department::factory()->create();
 
         $this->pool = Pool::factory()->create([
             'community_id' => $this->community->id,
+            'department_id' => $this->department->id,
         ]);
 
         $this->adminUser = User::factory()
@@ -83,8 +92,17 @@ class PoolCandidateTest extends TestCase
                 'sub' => 'community-admin@test.com',
             ]);
 
+        $this->departmentUser = User::factory()
+            ->asApplicant()
+            ->asDepartmentAdmin($this->department->id)
+            ->create([
+                'email' => 'department-admin@test.com',
+                'sub' => 'department-admin@test.com',
+            ]);
+
         // Community and users not associated with the Pool we are testing against
         $unAssociatedCommunity = Community::factory()->create();
+        $unAssociatedDepartment = Department::factory()->create();
 
         $this->unAssociatedCommunityUser = User::factory()
             ->asApplicant()
@@ -93,6 +111,19 @@ class PoolCandidateTest extends TestCase
                 'email' => 'unassociated-community-admin@test.com',
                 'sub' => 'unassociated-community-admin@test.com',
             ]);
+        $this->unAssociatedDepartmentUser = User::factory()
+            ->asApplicant()
+            ->asDepartmentAdmin($unAssociatedDepartment->id)
+            ->create([
+                'email' => 'unassociated-department-admin@test.com',
+                'sub' => 'unassociated-department-admin@test.com',
+            ]);
+
+        $this->candidate = PoolCandidate::factory()
+            ->submitted()
+            ->for($this->applicantUser)
+            ->for($this->pool)
+            ->create();
     }
 
     public function testSkillCount(): void
@@ -147,16 +178,17 @@ class PoolCandidateTest extends TestCase
         $personal->syncSkills([$skills[2]]);
         $users[1]->personalExperiences()->save($personal);
 
-        $userOneCandidate = PoolCandidate::factory()->create([
-            'user_id' => $users[0]->id,
-            'pool_id' => $this->pool->id,
-            'submitted_at' => config('constants.past_date'),
-        ]);
-        $userTwoCandidate = PoolCandidate::factory()->create([
-            'user_id' => $users[1]->id,
-            'pool_id' => $this->pool->id,
-            'submitted_at' => config('constants.past_date'),
-        ]);
+        $userOneCandidate = PoolCandidate::factory()
+            ->submitted()
+            ->for($users[0])
+            ->for($this->pool)
+            ->create();
+
+        $userTwoCandidate = PoolCandidate::factory()
+            ->submitted()
+            ->for($users[1])
+            ->for($this->pool)
+            ->create();
 
         // Assert skill count matches the number of skills in the subset and orders by skill count in ascending order
         $this->actingAs($this->communityUser, 'api')
@@ -271,15 +303,6 @@ class PoolCandidateTest extends TestCase
 
     public function testNotesAccess(): void
     {
-        $candidate = PoolCandidate::factory()->create([
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
-            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_id' => $this->pool->id,
-            'user_id' => $this->applicantUser->id,
-        ]);
-
         $basicQuery = /** @lang GraphQL */
         '
             query poolCandidate($id: UUID!) {
@@ -300,68 +323,74 @@ class PoolCandidateTest extends TestCase
 
         // Assert community member can view notes
         $this->actingAs($this->communityUser, 'api')
-            ->graphQL($notesQuery, ['id' => $candidate->id])
+            ->graphQL($notesQuery, ['id' => $this->candidate->id])
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'notes' => $candidate->notes,
+                        'notes' => $this->candidate->notes,
                     ],
                 ],
             ]);
 
         // Assert community recruiter can view notes
         $this->actingAs($this->communityRecruiterUser, 'api')
-            ->graphQL($notesQuery, ['id' => $candidate->id])
+            ->graphQL($notesQuery, ['id' => $this->candidate->id])
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'notes' => $candidate->notes,
+                        'notes' => $this->candidate->notes,
                     ],
                 ],
             ]);
 
         // Assert admin can view notes
         $this->actingAs($this->adminUser, 'api')
-            ->graphQL($notesQuery, ['id' => $candidate->id])
+            ->graphQL($notesQuery, ['id' => $this->candidate->id])
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'notes' => $candidate->notes,
+                        'notes' => $this->candidate->notes,
                     ],
                 ],
             ]);
 
         // Assert applicant can query candidate, but not access notes
         $this->actingAs($this->applicantUser, 'api')
-            ->graphQL($basicQuery, ['id' => $candidate->id])
+            ->graphQL($basicQuery, ['id' => $this->candidate->id])
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'id' => $candidate->id,
+                        'id' => $this->candidate->id,
                     ],
                 ],
             ]);
         $this->actingAs($this->applicantUser, 'api')
-            ->graphQL($notesQuery, ['id' => $candidate->id])
+            ->graphQL($notesQuery, ['id' => $this->candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         // Assert an unassociated process operator cannot query candidate notes
         $this->actingAs($this->unAssociatedCommunityUser, 'api')
-            ->graphQL($notesQuery, ['id' => $candidate->id])
+            ->graphQL($notesQuery, ['id' => $this->candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        // Assert only associated through pool->department department user can query notes
+        $this->actingAs($this->departmentUser, 'api')
+            ->graphQL($notesQuery, ['id' => $this->candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'notes' => $this->candidate->notes,
+                    ],
+                ],
+            ]);
+        $this->actingAs($this->unAssociatedDepartmentUser, 'api')
+            ->graphQL($notesQuery, ['id' => $this->candidate->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
     }
 
     public function testNotesUpdate(): void
     {
-        $candidate = PoolCandidate::factory()->create([
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
-            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_id' => $this->pool->id,
-            'user_id' => $this->applicantUser->id,
-        ]);
-
         $notesMutation = /** @lang GraphQL */
         '
             mutation UpdatePoolCandidateNotes($id: UUID!, $notes: String) {
@@ -372,7 +401,7 @@ class PoolCandidateTest extends TestCase
             }
          ';
 
-        $notesVariables = ['id' => $candidate->id, 'notes' => 'new notes'];
+        $notesVariables = ['id' => $this->candidate->id, 'notes' => 'new notes'];
 
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL($notesMutation, $notesVariables)
@@ -390,6 +419,18 @@ class PoolCandidateTest extends TestCase
                     'updatePoolCandidateNotes' => $notesVariables,
                 ],
             ]);
+
+        // Assert department user can update notes
+        $this->actingAs($this->departmentUser, 'api')
+            ->graphQL($notesMutation, $notesVariables)
+            ->assertJson([
+                'data' => [
+                    'updatePoolCandidateNotes' => $notesVariables,
+                ],
+            ]);
+        $this->actingAs($this->unAssociatedDepartmentUser, 'api')
+            ->graphQL($notesMutation, $notesVariables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
     /**
@@ -397,14 +438,6 @@ class PoolCandidateTest extends TestCase
      */
     public function testStatusAccess(): void
     {
-        $candidate = PoolCandidate::factory()->create([
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
-            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
-            'submitted_at' => config('constants.past_date'),
-            'expiry_date' => config('constants.far_future_date'),
-            'pool_id' => $this->pool->id,
-            'user_id' => $this->applicantUser->id,
-        ]);
 
         $statusQuery = /** @lang GraphQL */
         '
@@ -417,12 +450,12 @@ class PoolCandidateTest extends TestCase
 
         // Assert community member can view status
         $this->actingAs($this->communityUser, 'api')
-            ->graphQL($statusQuery, ['id' => $candidate->id])
+            ->graphQL($statusQuery, ['id' => $this->candidate->id])
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
                         'status' => [
-                            'value' => $candidate->application_status,
+                            'value' => $this->candidate->application_status,
                         ],
                     ],
                 ],
@@ -430,12 +463,12 @@ class PoolCandidateTest extends TestCase
 
         // Assert community recruiter can view status
         $this->actingAs($this->communityRecruiterUser, 'api')
-            ->graphQL($statusQuery, ['id' => $candidate->id])
+            ->graphQL($statusQuery, ['id' => $this->candidate->id])
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
                         'status' => [
-                            'value' => $candidate->application_status,
+                            'value' => $this->candidate->application_status,
                         ],
                     ],
                 ],
@@ -443,12 +476,12 @@ class PoolCandidateTest extends TestCase
 
         // Assert admin can view status
         $this->actingAs($this->adminUser, 'api')
-            ->graphQL($statusQuery, ['id' => $candidate->id])
+            ->graphQL($statusQuery, ['id' => $this->candidate->id])
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
                         'status' => [
-                            'value' => $candidate->application_status,
+                            'value' => $this->candidate->application_status,
                         ],
                     ],
                 ],
@@ -456,12 +489,12 @@ class PoolCandidateTest extends TestCase
 
         // Assert applicant can access status
         $this->actingAs($this->applicantUser, 'api')
-            ->graphQL($statusQuery, ['id' => $candidate->id])
+            ->graphQL($statusQuery, ['id' => $this->candidate->id])
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
                         'status' => [
-                            'value' => $candidate->application_status,
+                            'value' => $this->candidate->application_status,
                         ],
                     ],
                 ],
@@ -469,8 +502,25 @@ class PoolCandidateTest extends TestCase
 
         // Assert an unassociated process operator cannot query candidate status
         $this->actingAs($this->unAssociatedCommunityUser, 'api')
-            ->graphQL($statusQuery, ['id' => $candidate->id])
+            ->graphQL($statusQuery, ['id' => $this->candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        // Assert only associated through pool->department department user can query status
+        $this->actingAs($this->departmentUser, 'api')
+            ->graphQL($statusQuery, ['id' => $this->candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'status' => [
+                            'value' => $this->candidate->application_status,
+                        ],
+                    ],
+                ],
+            ]);
+        $this->actingAs($this->unAssociatedDepartmentUser, 'api')
+            ->graphQL($statusQuery, ['id' => $this->candidate->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
     }
 
     public function testOrderByPoolName(): void
@@ -506,14 +556,9 @@ class PoolCandidateTest extends TestCase
             'name' => ['en' => 'AB (EN)', 'fr' => 'ÀÀ (FR)'],
         ]);
 
-        $userOneCandidate = PoolCandidate::factory()->create([
-            'pool_id' => $poolOne->id,
-            'submitted_at' => config('constants.past_date'),
-        ]);
-        $userTwoCandidate = PoolCandidate::factory()->create([
-            'pool_id' => $poolTwo->id,
-            'submitted_at' => config('constants.past_date'),
-        ]);
+        PoolCandidate::truncate();
+        PoolCandidate::factory()->submitted()->for($poolOne)->create();
+        PoolCandidate::factory()->submitted()->for($poolTwo)->create();
 
         // Assert sorting by EN ASC returns proper order
         $this->actingAs($this->adminUser, 'api')
@@ -662,8 +707,8 @@ class PoolCandidateTest extends TestCase
         $otherCommunity = Community::factory()->create();
         $communityPool = Pool::factory()->published()->create(['community_id' => $community->id]);
         $otherPool = Pool::factory()->published()->create(['community_id' => $otherCommunity->id]);
-        $communityCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $communityPool]);
-        $otherCandidate = PoolCandidate::factory()->availableInSearch()->create(['pool_id' => $otherPool]);
+        $communityCandidate = PoolCandidate::factory()->availableInSearch()->for($communityPool)->create();
+        $otherCandidate = PoolCandidate::factory()->availableInSearch()->for($otherPool)->create();
 
         // acting user belongs to both communities to avoid interaction with authorizedToViewScope
         $communityAdmin = User::factory()
@@ -704,7 +749,6 @@ class PoolCandidateTest extends TestCase
     {
         $candidate = PoolCandidate::factory()
             ->availableInSearch()
-            ->withSnapshot()
             ->create();
 
         $expected = $candidate->education_requirement_experiences->map(fn ($exp) => $exp->id)->toArray();

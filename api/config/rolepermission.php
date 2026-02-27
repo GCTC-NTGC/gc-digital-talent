@@ -932,12 +932,6 @@ return [
             'role' => [
                 'any' => ['view'],
             ],
-            'user' => [
-                'own' => ['view', 'update'],
-            ],
-            'employeeProfile' => [
-                'own' => ['view', 'update'],
-            ],
             'publishedPool' => [
                 'any' => ['view'],
             ],
@@ -949,7 +943,6 @@ return [
             ],
             'searchRequest' => [
                 'any' => ['create'],
-                'own' => ['view'],
             ],
             'announcement' => [
                 'any' => ['view'],
@@ -986,6 +979,15 @@ return [
             ],
             'talentNominationEvent' => [
                 'any' => ['view'],
+            ],
+            'employeeProfile' => [
+                'own' => ['view', 'update'],
+            ],
+            'searchRequest' => [
+                'own' => ['view'],
+            ],
+            'user' => [
+                'own' => ['view', 'update'],
             ],
         ],
 
@@ -1278,6 +1280,9 @@ return [
         ],
 
         'department_admin' => [
+            'userBasicInfo' => [
+                'any' => ['view'],
+            ],
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],
@@ -1287,14 +1292,83 @@ return [
             'departmentTeamMembers' => [
                 'team' => ['view'],
             ],
+            'draftPool' => [
+                'team' => ['view'],
+            ],
+            'publishedPool' => [
+                'team' => ['archive'],
+            ],
+            'poolTeamMembers' => [
+                'team' => ['view'],
+            ],
+            'poolActivityLog' => [
+                'team' => ['view'],
+            ],
+            'assessmentPlan' => [
+                'team' => ['view'],
+            ],
+            'applicantProfile' => [
+                'team' => ['view'],
+            ],
+            'submittedApplication' => [
+                'team' => ['view'],
+            ],
+            'applicationStatus' => [
+                'team' => ['view'],
+            ],
+            'applicationAssessment' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationDecision' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationPlacement' => [
+                'team' => ['view', 'update'],
+            ],
         ],
 
         'department_hr_advisor' => [
+            'userBasicInfo' => [
+                'any' => ['view'],
+            ],
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],
             'departmentTeamMembers' => [
                 'team' => ['view'],
+            ],
+            'draftPool' => [
+                'team' => ['view'],
+            ],
+            'publishedPool' => [
+                'team' => ['archive'],
+            ],
+            'poolTeamMembers' => [
+                'team' => ['view'],
+            ],
+            'poolActivityLog' => [
+                'team' => ['view'],
+            ],
+            'assessmentPlan' => [
+                'team' => ['view'],
+            ],
+            'applicantProfile' => [
+                'team' => ['view'],
+            ],
+            'submittedApplication' => [
+                'team' => ['view'],
+            ],
+            'applicationStatus' => [
+                'team' => ['view'],
+            ],
+            'applicationAssessment' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationDecision' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationPlacement' => [
+                'team' => ['view', 'update'],
             ],
         ],
     ],

@@ -5,12 +5,13 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { Loading } from "@gc-digital-talent/ui";
 
 import ContextContainer from "~/components/Context/ContextProvider";
-import messages from "~/lang/frCompiled.json";
 import "~/assets/css/tailwind.css";
 
 import type { Route } from "./+types/root";
 import RootErrorBoundary from "./components/Layout/RouteErrorBoundary/RootErrorBoundary";
 import { makeServerConfigJS } from "./utils/runtime";
+// eslint-disable-next-line import/extensions
+import initTheme from "./utils/initTheme.js?raw";
 
 declare global {
   interface Window {
@@ -133,6 +134,10 @@ export function Layout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <head>
+        <script
+          nonce="**CSP_NONCE**"
+          dangerouslySetInnerHTML={{ __html: initTheme }}
+        />
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="msapplication-TileColor" content="#9747FF" />
@@ -143,7 +148,12 @@ export function Layout({ children }: LayoutProps) {
       <body className="bg-gray-100 font-sans text-black dark:bg-gray-700 dark:text-white">
         <div className="isolate">{children}</div>
 
-        <ScrollRestoration nonce="**CSP_NONCE**" />
+        <ScrollRestoration
+          nonce="**CSP_NONCE**"
+          getKey={(location) => {
+            return location.pathname;
+          }}
+        />
         <Scripts nonce="**CSP_NONCE**" />
 
         <script
@@ -175,7 +185,7 @@ export function Layout({ children }: LayoutProps) {
 
 export default function Root() {
   return (
-    <ContextContainer messages={messages}>
+    <ContextContainer>
       <Outlet />
     </ContextContainer>
   );

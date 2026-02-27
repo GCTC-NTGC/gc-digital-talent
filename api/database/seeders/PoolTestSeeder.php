@@ -7,6 +7,7 @@ use App\Enums\PoolLanguage;
 use App\Enums\PublishingGroup;
 use App\Models\Classification;
 use App\Models\Community;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\User;
 use App\Models\WorkStream;
@@ -28,6 +29,7 @@ class PoolTestSeeder extends Seeder
         $digitalCommunityId = Community::select('id')->where('key', 'digital')->sole()->id;
         $atipCommunityId = Community::select('id')->where('key', 'atip')->sole()->id;
         $businessAdvisoryStreamId = WorkStream::select('id')->where('key', 'BUSINESS_ADVISORY_SERVICES')->sole()->id;
+        $departmentId = Department::select('id')->where('department_number', 56)->sole()->id;
 
         // CMO Digital
         $createdPool = Pool::factory()
@@ -44,6 +46,7 @@ class PoolTestSeeder extends Seeder
                 ],
                 'user_id' => $adminUserId,
                 'community_id' => $digitalCommunityId,
+                'department_id' => $departmentId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,

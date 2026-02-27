@@ -1,8 +1,9 @@
 import {
-  ApplicationStatus,
   CandidateRemovalReason,
+  DisqualificationReason,
   EducationRequirementOption,
   PoolCandidate,
+  QualifyCandidateInput,
   Scalars,
 } from "@gc-digital-talent/graphql";
 
@@ -118,45 +119,40 @@ export const createAndSubmitApplication: GraphQLRequestFunc<
   });
 };
 
-const Test_UpdateApplicationStatusMutationDocument = /* GraphQL */ `
-  mutation Test_UpdateApplicationStatus(
+const Test_QualifyCandidateMutationDocument = /* GraphQL */ `
+  mutation Test_QualifyCandidate(
     $id: UUID!
-    $input: UpdatePoolCandidateStatusInput!
+    $poolCandidate: QualifyCandidateInput!
   ) {
-    updatePoolCandidateStatus(id: $id, poolCandidate: $input) {
+    qualifyCandidate(id: $id, poolCandidate: $poolCandidate) {
       id
-      expiryDate
-      status {
-        value
-      }
     }
   }
 `;
 
-interface UpdateStatusArgs {
+interface QualifyCandidateArgs {
   id: string;
-  status: ApplicationStatus;
-  expiryDate: string;
+  poolCandidate: QualifyCandidateInput;
 }
 
 /**
- * Update status of an application using graphql API
+ * Mark a candidate as qualified using graphql API
  */
-export const updateCandidateStatus: GraphQLRequestFunc<
+export const qualifyCandidate: GraphQLRequestFunc<
   PoolCandidate,
-  UpdateStatusArgs
-> = async (ctx, { id, status, expiryDate }) => {
+  QualifyCandidateArgs
+> = async (ctx, { id, poolCandidate }) => {
   return ctx
-    .post(Test_UpdateApplicationStatusMutationDocument, {
+    .post(Test_QualifyCandidateMutationDocument, {
       isPrivileged: true,
       variables: {
         id,
-        input: { status, expiryDate },
+        poolCandidate,
       },
     })
     .then(
-      (res: GraphQLResponse<"updatePoolCandidateStatus", PoolCandidate>) =>
-        res.updatePoolCandidateStatus,
+      (res: GraphQLResponse<"qualifyCandidate", PoolCandidate>) =>
+        res.qualifyCandidate,
     );
 };
 
@@ -199,5 +195,74 @@ export const removeCandidate: GraphQLRequestFunc<
     .then(
       (res: GraphQLResponse<"removeCandidate", PoolCandidate>) =>
         res.removeCandidate,
+    );
+};
+
+const Test_DisqualifyCandidateMutationDocument = /* GraphQL */ `
+  mutation Test_DisqualifyCandidate(
+    $id: UUID!
+    $reason: DisqualificationReason!
+  ) {
+    disqualifyCandidate(id: $id, reason: $reason) {
+      id
+    }
+  }
+`;
+
+interface DisqualifyCandidateArgs {
+  id: string;
+  reason: DisqualificationReason;
+}
+
+/**
+ * Mark a candidate as disqualified using graphql API
+ */
+export const disqualifyCandidate: GraphQLRequestFunc<
+  PoolCandidate,
+  DisqualifyCandidateArgs
+> = async (ctx, { id, reason }) => {
+  return ctx
+    .post(Test_DisqualifyCandidateMutationDocument, {
+      isPrivileged: true,
+      variables: {
+        id,
+        reason,
+      },
+    })
+    .then(
+      (res: GraphQLResponse<"disqualifyCandidate", PoolCandidate>) =>
+        res.disqualifyCandidate,
+    );
+};
+
+const Test_ReinstateCandidateMutationDocument = /* GraphQL */ `
+  mutation Test_ReinstateCandidate($id: UUID!) {
+    reinstateCandidate(id: $id) {
+      id
+    }
+  }
+`;
+
+interface ReinstateCandidateArgs {
+  id: string;
+}
+
+/**
+ * Reinstate a candidate using graphql API
+ */
+export const reinstateCandidate: GraphQLRequestFunc<
+  PoolCandidate,
+  ReinstateCandidateArgs
+> = async (ctx, { id }) => {
+  return ctx
+    .post(Test_ReinstateCandidateMutationDocument, {
+      isPrivileged: true,
+      variables: {
+        id,
+      },
+    })
+    .then(
+      (res: GraphQLResponse<"reinstateCandidate", PoolCandidate>) =>
+        res.reinstateCandidate,
     );
 };

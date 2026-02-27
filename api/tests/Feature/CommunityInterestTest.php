@@ -295,7 +295,7 @@ class CommunityInterestTest extends TestCase
     {
         CommunityInterest::truncate();
         /** @var \App\Models\User */
-        $owningUser = User::factory()->withGovEmployeeProfile()->create();
+        $owningUser = User::factory()->withGovEmployeeProfile()->asApplicant()->create();
         $communityInterestModel = CommunityInterest::factory()->create([
             'user_id' => $owningUser->id,
             'community_id' => $this->communityId,

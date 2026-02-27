@@ -25,6 +25,7 @@ const getRoutes = (lang: Locales) => {
   const communityUrl = [baseUrl, "community"].join("/");
   const showcase = [applicantUrl, "skills", "showcase"].join("/");
   const communitiesUrl = [baseUrl, "communities"].join("/");
+  const departmentUrl = [baseUrl, "department"].join("/");
 
   return {
     // Main Routes
@@ -55,6 +56,9 @@ const getRoutes = (lang: Locales) => {
 
     // Admin
     adminDashboard: () => adminUrl,
+
+    // Department
+    departmentDashboard: () => departmentUrl,
 
     // Admin - Communities
     communityDashboard: () => communityUrl,
@@ -168,6 +172,10 @@ const getRoutes = (lang: Locales) => {
         departmentId,
         "advanced-tools",
       ].join("/"),
+    departmentManageAccess: (departmentId: string) =>
+      [adminUrl, "settings", "departments", departmentId, "manage-access"].join(
+        "/",
+      ),
 
     // Admin - Announcements
     announcements: () => [adminUrl, "settings", "announcements"].join("/"),

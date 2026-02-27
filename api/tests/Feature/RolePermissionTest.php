@@ -89,8 +89,6 @@ class RolePermissionTest extends TestCase
             'view-any-genericJobTitle',
             'view-any-skill',
             'view-any-skillFamily',
-            'view-own-user',
-            'update-own-user',
             'view-any-publishedPool',
             'view-any-applicantCount',
             'create-any-searchRequest',
@@ -123,6 +121,11 @@ class RolePermissionTest extends TestCase
             'create-own-draftApplication',
             'delete-own-draftApplication',
             'archive-own-submittedApplication',
+            'view-own-user',
+            'update-own-user',
+            'view-own-employeeProfile',
+            'update-own-employeeProfile',
+            'view-own-searchRequest',
         ], true));
 
         $this->assertFalse(($this->user->isAbleTo('view-any-user')));
@@ -444,9 +447,24 @@ class RolePermissionTest extends TestCase
         $departmentAdmin->removeRole('base_user'); // isolate
 
         $permissionsToCheck = [
+            'view-any-userBasicInfo',
             'update-team-processOperatorMembership',
             'update-team-departmentHRAdvisorMembership',
             'view-team-departmentTeamMembers',
+            'view-team-draftPool',
+            'archive-team-publishedPool',
+            'view-team-poolTeamMembers',
+            'view-team-poolActivityLog',
+            'view-team-assessmentPlan',
+            'view-team-applicantProfile',
+            'view-team-submittedApplication',
+            'view-team-applicationStatus',
+            'view-team-applicationAssessment',
+            'update-team-applicationAssessment',
+            'view-team-applicationDecision',
+            'update-team-applicationDecision',
+            'view-team-applicationPlacement',
+            'update-team-applicationPlacement',
         ];
 
         $allPermissions = Permission::all()->pluck('name')->toArray();
@@ -479,8 +497,23 @@ class RolePermissionTest extends TestCase
         $departmentAdvisor->removeRole('base_user'); // isolate
 
         $permissionsToCheck = [
+            'view-any-userBasicInfo',
             'update-team-processOperatorMembership',
             'view-team-departmentTeamMembers',
+            'view-team-draftPool',
+            'archive-team-publishedPool',
+            'view-team-poolTeamMembers',
+            'view-team-poolActivityLog',
+            'view-team-assessmentPlan',
+            'view-team-applicantProfile',
+            'view-team-submittedApplication',
+            'view-team-applicationStatus',
+            'view-team-applicationAssessment',
+            'update-team-applicationAssessment',
+            'view-team-applicationDecision',
+            'update-team-applicationDecision',
+            'view-team-applicationPlacement',
+            'update-team-applicationPlacement',
         ];
 
         $allPermissions = Permission::all()->pluck('name')->toArray();

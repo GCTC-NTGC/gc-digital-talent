@@ -83,7 +83,7 @@ class PoolCandidateUpdateTest extends TestCase
         Notify::spy(); // don't send any notifications
         $this->seed(RolePermissionSeeder::class);
 
-        $this->community = Community::factory()->create(['name' => 'test-community']);
+        $this->community = Community::factory()->create();
         $this->pool = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);
@@ -134,10 +134,10 @@ class PoolCandidateUpdateTest extends TestCase
                 'email' => 'community-admin-user@test.com',
             ]);
 
-        $this->poolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->candidateUser->id,
-            'pool_id' => $this->pool->id,
-        ]);
+        $this->poolCandidate = PoolCandidate::factory()
+            ->for($this->candidateUser)
+            ->for($this->pool)
+            ->create();
 
         $this->unauthorizedMessage = 'This action is unauthorized.';
 
@@ -674,11 +674,10 @@ class PoolCandidateUpdateTest extends TestCase
     public function testPoolCandidateReinstatement(): void
     {
         // Create a removed candidate with all removed fields set
-        $candidate = PoolCandidate::factory()->create([
-            'application_status' => ApplicationStatus::REMOVED->name,
-            'removal_reason' => CandidateRemovalReason::OTHER->name,
-            'user_id' => $this->applicantUser->id,
-        ]);
+        $candidate = PoolCandidate::factory()
+            ->removed(CandidateRemovalReason::OTHER)
+            ->for($this->applicantUser)
+            ->create();
 
         $this->assertNotNull($candidate->removal_reason);
         $this->assertNotNull($candidate->removal_reason_other);
@@ -706,9 +705,8 @@ class PoolCandidateUpdateTest extends TestCase
         ];
 
         foreach ($statusesThatShouldFail as $status) {
-            $candidate = PoolCandidate::factory()->create([
+            $candidate = PoolCandidate::factory()->for($this->applicantUser)->create([
                 'application_status' => $status,
-                'user_id' => $this->applicantUser->id,
             ]);
 
             $this->actingAs($this->communityRecruiterUser, 'api')
@@ -722,11 +720,9 @@ class PoolCandidateUpdateTest extends TestCase
         $user = User::factory()->create([
             'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
             'has_priority_entitlement' => true,
-
         ]);
-        $candidate = PoolCandidate::factory()->create([
-            'user_id' => $user->id,
-            'pool_id' => $this->pool->id,
+
+        $candidate = PoolCandidate::factory()->for($user)->for($this->pool)->create([
             'veteran_verification' => ClaimVerificationResult::UNVERIFIED->name,
             'veteran_verification_expiry' => null,
             'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,
@@ -788,8 +784,7 @@ class PoolCandidateUpdateTest extends TestCase
 
     public function testUpdatePoolCandidateClaimVerificationValidation(): void
     {
-        $candidate = PoolCandidate::factory()->create([
-            'pool_id' => $this->pool->id,
+        $candidate = PoolCandidate::factory()->for($this->pool)->create([
             'veteran_verification' => ClaimVerificationResult::UNVERIFIED->name,
             'veteran_verification_expiry' => null,
             'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,

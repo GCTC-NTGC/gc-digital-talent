@@ -26,6 +26,7 @@ import {
   COMMUNITY_ROLES,
   ASSESSMENT_MEMBER_ROLES,
   PROCESS_ACTIVITY_LOG_ROLES,
+  DEPARTMENT_ROLES,
 } from "./const";
 import type { LogoutReason } from "./const";
 import getAuthenticationState from "./utils/authenticationState";
@@ -60,6 +61,7 @@ export {
   COMMUNITY_ROLES,
   ASSESSMENT_MEMBER_ROLES,
   PROCESS_ACTIVITY_LOG_ROLES,
+  DEPARTMENT_ROLES,
 };
 
 export type { RoleName, LogoutReason, AuthenticationState, RoleRequirement };

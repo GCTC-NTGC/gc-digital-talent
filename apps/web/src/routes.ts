@@ -281,6 +281,12 @@ export default [
             "./pages/CommunityDashboardPage/CommunityDashboardPage.tsx",
           ),
 
+          // Department
+          route(
+            "department",
+            "./pages/DepartmentDashboardPage/DepartmentDashboardPage.tsx",
+          ),
+
           // Admin
           ...prefix("admin", [
             index("./pages/AdminDashboardPage/AdminDashboardPage.tsx"),
@@ -491,12 +497,21 @@ export default [
                 index("./pages/Departments/IndexDepartmentPage.tsx"),
                 route("create", "./pages/Departments/CreateDepartmentPage.tsx"),
                 ...prefix(":departmentId", [
-                  index("./pages/Departments/ViewDepartmentPage.tsx"),
-                  route("edit", "./pages/Departments/UpdateDepartmentPage.tsx"),
-                  route(
-                    "advanced-tools",
-                    "./pages/Departments/AdvancedToolsDepartmentPage.tsx",
-                  ),
+                  layout("./pages/Departments/DepartmentLayout.tsx", [
+                    index("./pages/Departments/ViewDepartmentPage.tsx"),
+                    route(
+                      "edit",
+                      "./pages/Departments/UpdateDepartmentPage.tsx",
+                    ),
+                    route(
+                      "manage-access",
+                      "./pages/Departments/ManageAccessPage/ManageAccessPage.tsx",
+                    ),
+                    route(
+                      "advanced-tools",
+                      "./pages/Departments/AdvancedToolsDepartmentPage.tsx",
+                    ),
+                  ]),
                 ]),
               ]),
 

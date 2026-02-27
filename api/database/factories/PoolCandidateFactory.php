@@ -6,28 +6,29 @@ use App\Enums\ApplicationStatus;
 use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentResultType;
+use App\Enums\AssessmentStepType;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EmploymentCategory;
+use App\Enums\FinalDecision;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\ScreeningStage;
+use App\Enums\SkillLevel;
+use App\Enums\WhenSkillUsed;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
 use App\Models\Department;
 use App\Models\EducationExperience;
-use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\ScreeningQuestionResponse;
 use App\Models\User;
+use App\Models\UserSkill;
 use App\Models\WorkExperience;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\DB;
 
-class PoolCandidateFactory extends Factory
+class PoolCandidateFactory extends BaseFactory
 {
     /**
      * The name of the factory's corresponding model.
@@ -43,206 +44,204 @@ class PoolCandidateFactory extends Factory
      */
     public function definition()
     {
-        $placedDepartmentId = Department::inRandomOrder()
-            ->limit(1)
-            ->pluck('id')
-            ->first();
 
         return [
-            'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
-            'pool_candidate_status' => function (array $attributes) {
-                if (isset($attributes['application_status'])) {
-
-                    $legacyStatus = match ($attributes['application_status']) {
-                        ApplicationStatus::DRAFT->name => PoolCandidateStatus::DRAFT->name,
-                        ApplicationStatus::TO_ASSESS->name => PoolCandidateStatus::NEW_APPLICATION->name,
-                        ApplicationStatus::DISQUALIFIED->name => $this->faker->randomElement(PoolCandidateStatus::unsuccessfulGroup()),
-                        ApplicationStatus::QUALIFIED->name => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                        ApplicationStatus::REMOVED->name => PoolCandidateStatus::REMOVED->name,
-                        default => null
-                    };
-
-                    if ($legacyStatus) {
-                        return $legacyStatus;
-                    }
-
-                }
-
-                return $this->faker->boolean() ?
-                        $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :
-                        $this->faker->randomElement(PoolCandidateStatus::cases())->name;
-
-            },
-            'application_status' => $this->faker->randomElement(ApplicationStatus::cases())->name,
-            'screening_stage' => function (array $attributes) {
-                if ($attributes['application_status'] === ApplicationStatus::TO_ASSESS->name) {
-                    return $this->faker->randomElement(ScreeningStage::cases())->name;
-                }
-
-                return null;
-            },
-            'disqualification_reason' => function (array $attributes) {
-                if ($attributes['application_status'] === ApplicationStatus::DISQUALIFIED->name) {
-                    return $this->faker->randomElement(DisqualificationReason::cases())->name;
-                }
-
-                return null;
-            },
-            'placement_type' => function (array $attributes) {
-                if ($attributes['application_status'] === ApplicationStatus::QUALIFIED->name) {
-                    return $this->faker->randomElement(PlacementType::cases())->name;
-                }
-
-                return null;
-            },
-            'user_id' => User::factory(),
-            'pool_id' => Pool::factory()->published(),
-            'notes' => $this->faker->paragraphs(3, true),
-            'submitted_at' => null,
-            'suspended_at' => null,
-            'signature' => null,
-            'submitted_steps' => array_slice(
-                array_column(ApplicationStep::cases(), 'name'),
-                0,
-                $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 2)
-            ),
-            'is_flagged' => $this->faker->boolean(10),
-            'placed_at' => function (array $attributes) {
-                return ! is_null($attributes['placement_type']) ? $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
-            },
-            'placed_department_id' => function (array $attributes) use ($placedDepartmentId) {
-                return ! is_null($attributes['placement_type']) ? $placedDepartmentId : null;
-            },
-            'status_updated_at' => function (array $attributes) {
-                return ! is_null($attributes['application_status']) && $attributes['application_status'] !== ApplicationStatus::DRAFT->name ?
-                $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
-            },
-            'removal_reason' => function (array $attributes) {
-                return $attributes['application_status'] === ApplicationStatus::REMOVED->name ?
-                $this->faker->randomElement(CandidateRemovalReason::cases())->name : null;
-            },
-            'removal_reason_other' => function (array $attributes) {
-                return $attributes['removal_reason'] === CandidateRemovalReason::OTHER->name ?
-                $this->faker->sentence() : null;
-            },
-            // we don't know yet if the user is a veteran so we'll force consistency later in the afterCreating callback
-            'veteran_verification' => $this->faker->optional()->randomElement(array_column(ClaimVerificationResult::cases(), 'name')),
-            'veteran_verification_expiry' => function (array $attributes) {
-                if ($attributes['veteran_verification'] == ClaimVerificationResult::ACCEPTED) {
-                    return $this->faker->dateTimeBetween('6 months', '24 months');
-                }
-            },
-            // we don't know yet if the user has priority so we'll force consistency later in the afterCreating callback
-            'priority_verification' => $this->faker->optional()->randomElement(array_column(ClaimVerificationResult::cases(), 'name')),
-            'priority_verification_expiry' => function (array $attributes) {
-                if ($attributes['priority_verification'] == ClaimVerificationResult::ACCEPTED) {
-                    return $this->faker->dateTimeBetween('6 months', '24 months');
-                }
-            },
+            'user_id' => fn () => User::factory(),
+            'pool_id' => fn () => Pool::factory()->published(),
+            'application_status' => ApplicationStatus::DRAFT->name,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ];
     }
 
-    public function configure()
+    /**
+     * A completed application that has yet to be submitted
+     */
+    public function completed(): self
     {
-        return $this->afterCreating(function (PoolCandidate $poolCandidate) {
-            // after setting application_status, check what it is and update accordingly, give it a submitted date if it isn't DRAFT
-            // add a signature in the above case too
-            // grab status from database directly, bypassing the Accessor in order to avoid the Accessor overriding in some cases
-            $candidateId = $poolCandidate->id;
-            $results = DB::select('select application_status from pool_candidates where id = :id', ['id' => $candidateId]);
-            $status = $results[0]->application_status;
-            if ($status != ApplicationStatus::DRAFT->name) {
-                $submittedDate = $this->faker->dateTimeBetween('-3 months', 'now');
-                $fakeSignature = $this->faker->firstName();
-                $step = $poolCandidate->pool->assessmentSteps->first();
-                $poolCandidate->update([
-                    'submitted_at' => $submittedDate,
-                    'signature' => $fakeSignature,
-                    'screening_stage' => $poolCandidate->application_status === ApplicationStatus::TO_ASSESS->name ? $this->faker->randomElement(ScreeningStage::cases())->name : null,
-                    'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
-                    'assessment_step_id' => $step?->id ?? null,
+        $steps = collect(ApplicationStep::cases())
+            ->filter(fn ($step) => $step !== ApplicationStep::REVIEW_AND_SUBMIT)
+            ->map(fn ($step) => $step->name)
+            ->values()
+            ->toArray();
+
+        return $this->state(fn () => ['submitted_steps' => $steps])->afterCreating(function (PoolCandidate $candidate) {
+            $user = $candidate->user;
+            $pool = $candidate->pool;
+            $updates = [];
+            //  TO DO: Do we complete the user profile?
+
+            // Education requirement
+            $eduRequirement = $this->faker->randomElement(
+                EducationRequirementOption::classificationRequirements($pool->classification->group)
+            );
+
+            $updates['education_requirement_option'] = $eduRequirement;
+            $isEdu = $eduRequirement === EducationRequirementOption::EDUCATION->name;
+
+            if ($isEdu) {
+                $exp = $user->educationExperiences->first()
+                    ?? EducationExperience::factory()->for($user)->create();
+            } else {
+                $exp = $user->workExperiences->first()
+                    ?? WorkExperience::factory()->for($user)->create([
+                        'employment_category' => $user->computed_is_gov_employee
+                            ? EmploymentCategory::GOVERNMENT_OF_CANADA->name
+                            : EmploymentCategory::EXTERNAL_ORGANIZATION->name,
+                    ]);
+            }
+
+            $relation = $isEdu ? 'educationRequirementEducationExperiences' : 'educationRequirementWorkExperiences';
+            $candidate->$relation()->sync([$exp->id]);
+
+            // Refresh to avoid stale relationships
+            $user->load(['communityExperiences', 'educationExperiences', 'personalExperiences', 'workExperiences']);
+
+            // Skill requirements
+            $pool->essentialSkills->each(function ($skill) use ($user) {
+                $userSkill = UserSkill::firstOrCreate([
+                    'user_id' => $user->id,
+                    'skill_id' => $skill->id,
+                ], [
+                    'skill_level' => $this->randomEnum(SkillLevel::class),
+                    'when_skill_used' => $this->randomEnum(WhenSkillUsed::class),
                 ]);
+
+                // Only attach to an experience if it's not already linked
+                $experience = $user->experiences->random();
+                if (! $experience->userSkills()->where('user_skills.id', $userSkill->id)->exists()) {
+                    $experience->userSkills()->attach($userSkill->id, ['details' => $this->faker->paragraph()]);
+                }
+            });
+
+            // Answer all questions
+            $candidate->generalQuestionResponses()->createMany(
+                $pool->generalQuestions->map(fn ($q) => ['general_question_id' => $q->id, 'answer' => $this->faker->paragraph()])->toArray()
+            );
+            $candidate->screeningQuestionResponses()->createMany(
+                $pool->screeningQuestions->map(fn ($q) => ['screening_question_id' => $q->id, 'answer' => $this->faker->paragraph()])->toArray()
+            );
+
+            // Verification
+            if ($candidate->veteran_verification === null && $user->armed_forces_status === ArmedForcesStatus::VETERAN->name) {
+                $updates['veteran_verification'] = ClaimVerificationResult::UNVERIFIED->name;
+            }
+            if ($candidate->priority_verification == null && $user->has_priority_entitlement) {
+                $updates['priority_verification'] = ClaimVerificationResult::UNVERIFIED->name;
             }
 
-            // if the attached pool has general questions, generate responses
-            $generalQuestionsIdArray = $poolCandidate->pool->generalQuestions()->pluck('id')->toArray();
-            if (isset($generalQuestionsIdArray) && count($generalQuestionsIdArray) > 0) {
-                for ($i = 0; $i < count($generalQuestionsIdArray); $i++) {
-                    GeneralQuestionResponse::create([
-                        'pool_candidate_id' => $candidateId,
-                        'general_question_id' => $generalQuestionsIdArray[$i],
-                        'answer' => $this->faker->paragraph(),
-                    ]);
-                }
+            if (! empty($updates)) {
+                $candidate->fill($updates);
             }
+            $candidate->setApplicationSnapshot();
+        });
+    }
 
-            // if the attached pool has screening questions, generate responses
-            $screeningQuestionsIdArray = $poolCandidate->pool->screeningQuestions()->pluck('id')->toArray();
-            if (isset($screeningQuestionsIdArray) && count($screeningQuestionsIdArray) > 0) {
-                for ($i = 0; $i < count($screeningQuestionsIdArray); $i++) {
-                    ScreeningQuestionResponse::factory()->create([
-                        'pool_candidate_id' => $candidateId,
-                        'screening_question_id' => $screeningQuestionsIdArray[$i],
-                        'answer' => $this->faker->paragraph(),
-                    ]);
-                }
-            }
+    public function submitted(): self
+    {
+        return $this->completed()->state([
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
+            'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
+            'signature' => $this->faker->name,
+            'submitted_at' => $this->faker->dateTimeBetween('-3 months', 'now'),
+            // Note: Legacy fields
+            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+        ]);
+    }
 
-            // set education requirement option, influenced by classification of pool
-            $classification = $poolCandidate->pool->classification;
-            if ($classification) {
-                if ($classification->group === 'EX') {
-                    $poolCandidate->update([
-                        'education_requirement_option' => EducationRequirementOption::PROFESSIONAL_DESIGNATION->name,
-                    ]);
-                } else {
-                    $requirementOption = $this->faker->boolean() ? EducationRequirementOption::APPLIED_WORK->name : EducationRequirementOption::EDUCATION->name;
-                    $poolCandidate->update([
-                        'education_requirement_option' => $requirementOption,
-                    ]);
-                }
-            }
+    public function screening(?ScreeningStage $stage = null): self
+    {
+        $stage = $stage?->name ?? $this->randomEnum(ScreeningStage::class);
 
-            // attach either a work or education experience to a pool candidate to meet minimum criteria
-            if ($poolCandidate->education_requirement_option === EducationRequirementOption::EDUCATION->name ||
-            $poolCandidate->education_requirement_option === EducationRequirementOption::PROFESSIONAL_DESIGNATION->name) {
-                // Ensure user has at least one education experience
-                $experience = EducationExperience::where('user_id', $poolCandidate->user_id)->first();
-                if (! $experience) {
-                    $experience = EducationExperience::factory()->create([
-                        'user_id' => $poolCandidate->user_id,
-                    ]);
-                }
-                $poolCandidate->educationRequirementEducationExperiences()->sync([$experience->id]);
-            } elseif ($poolCandidate->education_requirement_option === EducationRequirementOption::APPLIED_WORK->name) {
-                // Ensure user has at least one work experience
-                $experience = WorkExperience::where('user_id', $poolCandidate->user_id)->first();
-                if (! $experience) {
-                    $experience = WorkExperience::factory()->create([
-                        'user_id' => $poolCandidate->user_id,
-                        'employment_category' => EmploymentCategory::EXTERNAL_ORGANIZATION->name,
-                    ]);
-                }
-                $poolCandidate->educationRequirementWorkExperiences()->sync([$experience->id]);
-            }
-
-            // ensure claim verification is consistent
-            if ($poolCandidate->user->armed_forces_status != ArmedForcesStatus::VETERAN->name
-            && ! is_null($poolCandidate->veteran_verification)) {
-                $poolCandidate->update([
-                    'veteran_verification' => null,
-                    'veteran_verification_expiry' => null,
-                ]);
-            }
-            // ensure claim verification is consistent
-            if (! $poolCandidate->user->has_priority_entitlement
-            && ! is_null($poolCandidate->priority_verification)) {
-                $poolCandidate->update([
-                    'priority_verification' => null,
-                    'priority_verification_expiry' => null,
-                ]);
+        return $this->submitted()->state(fn () => [
+            'screening_stage' => $stage,
+        ])->afterCreating(function (PoolCandidate $candidate) {
+            if ($candidate->screening_stage === ScreeningStage::UNDER_ASSESSMENT->name) {
+                $stepId = $candidate->pool->assessmentSteps()->inRandomOrder()->whereNotIn('type', [
+                    AssessmentStepType::APPLICATION_SCREENING->name,
+                    AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
+                ])->first()->id ?? null;
+                $candidate->assessment_step_id = $stepId;
             }
         });
+    }
+
+    public function disqualified(?DisqualificationReason $reason = null): self
+    {
+        $reason = $reason?->name ?? $this->randomEnum(DisqualificationReason::class);
+
+        return $this->submitted()->state(fn () => [
+            'application_status' => ApplicationStatus::DISQUALIFIED->name,
+            'disqualification_reason' => $reason,
+            'screening_stage' => null,
+            'assessment_step_id' => null,
+            // NOTE: Legacy fields
+            'pool_candidate_status' => $reason,
+            'computed_final_decision' => FinalDecision::DISQUALIFIED->name,
+            'computed_final_decision_weight' => 210,
+        ]);
+    }
+
+    public function qualified(): self
+    {
+        return $this->submitted()->state([
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'screening_stage' => null,
+            'assessment_step_id' => null,
+            'expiry_date' => $this->faker->dateTimeBetween('+3 months', '+3 years'),
+            // NOTE: Legacy fields
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'computed_final_decision' => FinalDecision::QUALIFIED->name,
+            'computed_final_decision_weight' => 10,
+        ]);
+    }
+
+    public function expired(): self
+    {
+        return $this->qualified()->state([
+            'expiry_date' => $this->faker->dateTimeBetween('-3 months', '-1 day'),
+        ]);
+    }
+
+    public function placed(?PlacementType $placementType = null, ?string $deptId = null): self
+    {
+        return $this->qualified()->state(function (array $atts) use ($deptId, $placementType) {
+            $type = $placementType?->name ?? $this->randomEnum(PlacementType::class);
+            $dept = $deptId ?? $this->firstOrCreate(Department::class)->id;
+
+            return [
+                'placement_type' => $type,
+                'placed_at' => $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', $atts['expiry_date'] ?? 'now'),
+                'placed_department_id' => $dept,
+                'screening_stage' => null,
+                'assessment_step_id' => null,
+                // NOTE: Legacy fields
+                'pool_candidate_status' => $type,
+                'computed_final_decision' => FinalDecision::QUALIFIED_PLACED->name,
+                'computed_final_decision_weight' => 30,
+            ];
+        });
+    }
+
+    public function removed(?CandidateRemovalReason $reason = null, ?string $otherReason = null): self
+    {
+        $reason = $reason?->name ?? $this->randomEnum(CandidateRemovalReason::class);
+        $otherReason = $otherReason ?? $this->faker->sentence();
+        if ($reason !== CandidateRemovalReason::OTHER->name) {
+            $otherReason = null;
+        }
+
+        return $this->submitted()->state(fn () => [
+            'application_status' => ApplicationStatus::REMOVED->name,
+            'removal_reason' => $reason,
+            'removal_reason_other' => $otherReason,
+            'screening_stage' => null,
+            'assessment_step_id' => null,
+            // NOTE: Legacy fields
+            'pool_candidate_status' => PoolCandidateStatus::REMOVED->name,
+            'computed_final_decision' => FinalDecision::REMOVED->name,
+            'computed_final_decision_weight' => 240,
+        ]);
     }
 
     /**
@@ -252,15 +251,13 @@ class PoolCandidateFactory extends Factory
      */
     public function availableInSearch()
     {
-        return $this->state(function () {
-            return [
-                'application_status' => ApplicationStatus::QUALIFIED->name,
-                'placement_type' => $this->faker->randomElement(PlacementType::searchable()),
-                'referring' => true,
-                'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
-                'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
-            ];
-        });
+        $name = $this->faker->randomElement(PlacementType::searchable());
+        $type = constant(PlacementType::class.'::'.$name);
+
+        return $this->placed($type)->state(fn () => [
+            'referring' => true,
+            'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
+        ]);
     }
 
     /**
@@ -270,16 +267,10 @@ class PoolCandidateFactory extends Factory
      */
     public function suspended()
     {
-        return $this->state(function () {
-            return [
-                'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                'application_status' => ApplicationStatus::REMOVED->name,
-                'removal_reason' => CandidateRemovalReason::REQUESTED_TO_BE_WITHDRAWN->name,
-                'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
-                'suspended_at' => $this->faker->dateTimeBetween('-3 months', '-1 minute'),
-                'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
-            ];
-        });
+        return $this->removed(CandidateRemovalReason::REQUESTED_TO_BE_WITHDRAWN)->state(fn () => [
+            'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
+            'suspended_at' => $this->faker->dateTimeBetween('-3 months', '-1 minute'),
+        ]);
     }
 
     /** Add assessment results to the pool candidate
