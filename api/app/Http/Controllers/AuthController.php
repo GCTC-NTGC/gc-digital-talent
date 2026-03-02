@@ -63,7 +63,7 @@ class AuthController extends Controller
             'nonce' => $nonce,
             'acr_values' => config('oauth.acr_values'),
             'ui_locales' => $ui_locales, // This is what SIC wants
-            'lang' => $ui_locales,  // This is what GCSI wants
+            'lang' => $ui_locales,  // This is what CanadaLogin wants
         ]);
 
         return redirect(config('oauth.authorize_uri').'?'.$query);

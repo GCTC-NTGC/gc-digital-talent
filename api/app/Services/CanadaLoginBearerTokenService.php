@@ -27,7 +27,7 @@ use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Psr\Clock\ClockInterface;
 
-class GcSignInBearerTokenService implements BearerTokenService
+class CanadaLoginBearerTokenService implements BearerTokenService
 {
     private Configuration $unsecuredConfig;
 
