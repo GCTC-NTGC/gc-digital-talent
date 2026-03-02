@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Contracts\ManagedIdentityService;
 use App\Services\AzureManagedIdentityService;
-use Illuminate\Contracts\Foundation\Application;
+use App\Services\DummyManagedIdentityService;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,14 +23,7 @@ class ManagedIdentityProvider extends ServiceProvider implements DeferrableProvi
             }
 
             // otherwise, return a dummy version
-            return new class implements ManagedIdentityService
-            {
-                public function getAccessToken(): string
-                {
-                    return 'X';
-                }
-            };
-
+            return new DummyManagedIdentityService();
         });
     }
 
