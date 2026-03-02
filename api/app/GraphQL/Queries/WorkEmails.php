@@ -15,11 +15,11 @@ final class WorkEmails
     {
         $search = $args['search'] ?? '';
 
-        $results = User::select('work_email')
+        $results = User::select(['id', 'work_email'])
             ->whereWorkEmailIsVerified()
             ->whereWorkEmail($search)
             ->limit(10)
-            ->pluck('work_email');
+            ->get();
 
         return $results;
     }

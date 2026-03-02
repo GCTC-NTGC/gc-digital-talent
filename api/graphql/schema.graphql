@@ -410,6 +410,12 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   classification: Classification @belongsTo(relation: "currentClassification")
 }
 
+# Mini type to support search by work email
+type UserWorkEmail @model(class: "\\App\\Models\\User") {
+  id: ID!
+  workEmail: Email @rename(attribute: "work_email")
+}
+
 type GeneralQuestion {
   id: ID!
   pool: Pool @belongsTo
@@ -1465,7 +1471,7 @@ type Query {
     @guard
     @validator
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
-  workEmails(search: String!): [String]!
+  workEmails(search: String!): [UserWorkEmail!]!
   usersPaginated(
     where: UserFilterInput
       @scope(name: "whereUserFilterInputToSpecialLocationMatching")

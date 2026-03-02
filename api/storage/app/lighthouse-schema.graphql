@@ -418,7 +418,7 @@ type Query {
     trashed: Trashed
   ): User
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
-  workEmails(search: String!): [String]!
+  workEmails(search: String!): [UserWorkEmail!]!
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -988,6 +988,11 @@ type BasicGovEmployeeProfile {
   role: String
   department: Department
   classification: Classification
+}
+
+type UserWorkEmail {
+  id: ID!
+  workEmail: Email
 }
 
 type GeneralQuestion {
