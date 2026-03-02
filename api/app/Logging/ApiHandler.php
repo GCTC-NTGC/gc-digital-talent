@@ -10,8 +10,8 @@ use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\LogRecord;
 
 /**
- * Base class for all api handlers
- * Adapted from MailHandler
+ * Base class for all api handlers. Can batch messages to be sent together.
+ * Adapted from the standard Monolog MailHandler
  */
 abstract class ApiHandler extends AbstractProcessingHandler
 {

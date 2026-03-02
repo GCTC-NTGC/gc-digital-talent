@@ -8,7 +8,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
-/* Interact with an Azure identity service. */
+/* Interact with an Azure managed identity service. */
 class AzureManagedIdentityService implements ManagedIdentityService
 {
     /* Retrieves identity values (from cache or Azure services) using a managed identity. */

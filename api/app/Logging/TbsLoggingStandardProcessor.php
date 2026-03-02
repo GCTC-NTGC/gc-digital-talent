@@ -10,7 +10,7 @@ use Monolog\LogRecord;
 use Monolog\Processor\ProcessorInterface;
 
 /**
- * Injects fields required by the TBS logging standard
+ * Injects fields defined by the TBS logging standard
  */
 class TbsLoggingStandardProcessor implements ProcessorInterface
 {

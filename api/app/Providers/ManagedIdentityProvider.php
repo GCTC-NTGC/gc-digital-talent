@@ -15,7 +15,7 @@ class ManagedIdentityProvider extends ServiceProvider implements DeferrableProvi
      */
     public function register(): void
     {
-        $this->app->bind(ManagedIdentityService::class, function (Application $app) {
+        $this->app->bind(ManagedIdentityService::class, function () {
 
             // this service only works when run inside a real Azure app service
             if (config('app.env') == 'production') {

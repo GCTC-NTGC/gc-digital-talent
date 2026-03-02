@@ -9,7 +9,7 @@ use Monolog\Formatter\FormatterInterface;
 use Monolog\LogRecord;
 
 /**
- * Turns a monolog record into a plain array ready for serialization
+ * Formats a monolog record into a string
  */
 class AzureAppLogsFormatter implements FormatterInterface
 {
