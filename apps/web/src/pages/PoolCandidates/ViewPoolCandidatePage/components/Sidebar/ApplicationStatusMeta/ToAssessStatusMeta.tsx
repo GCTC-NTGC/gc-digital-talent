@@ -42,7 +42,7 @@ const ToAssessStatusMeta = ({ query }: ToAssessStatusMetaProps) => {
         label={intl.formatMessage(applicationMessages.assessmentStage)}
       >
         {application.screeningStage?.value ===
-          ScreeningStage.UnderAssessment ? (
+        ScreeningStage.UnderAssessment ? (
           <UpdateAssessmentStageDialog query={application} />
         ) : (
           <p className="text-gray-500 dark:text-gray-200">

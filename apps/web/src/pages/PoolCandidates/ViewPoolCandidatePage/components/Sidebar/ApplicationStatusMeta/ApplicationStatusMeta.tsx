@@ -1,4 +1,9 @@
-import { ApplicationStatus, FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  ApplicationStatus,
+  FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import DisqualifiedStatusMeta from "./DisqualifiedStatusMeta";
 import RemovedStatusMeta from "./RemovedStatusMeta";
