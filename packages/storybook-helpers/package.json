@@ -12,7 +12,7 @@
     "lint": "eslint \"./**/*.ts*\""
   },
   "dependencies": {
-    "@dr.pogodin/react-helmet": "^3.0.6",
+    "@dr.pogodin/react-helmet": "^3.1.0",
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
     "@urql/core": "^5.2.0",

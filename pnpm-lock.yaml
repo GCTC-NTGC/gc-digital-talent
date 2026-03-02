@@ -109,8 +109,8 @@ importers:
   apps/web:
     dependencies:
       '@dr.pogodin/react-helmet':
-        specifier: ^3.0.6
-        version: 3.0.6(react@19.2.4)
+        specifier: ^3.1.0
+        version: 3.1.0(react@19.2.4)
       '@gc-digital-talent/app-insights':
         specifier: workspace:*
         version: link:../../packages/app-insights
@@ -927,8 +927,8 @@ importers:
   packages/storybook-helpers:
     dependencies:
       '@dr.pogodin/react-helmet':
-        specifier: ^3.0.6
-        version: 3.0.6(react@19.2.4)
+        specifier: ^3.1.0
+        version: 3.1.0(react@19.2.4)
       '@gc-digital-talent/env':
         specifier: workspace:*
         version: link:../env
@@ -1212,8 +1212,8 @@ importers:
   packages/vitest-helpers:
     dependencies:
       '@dr.pogodin/react-helmet':
-        specifier: ^3.0.6
-        version: 3.0.6(react@19.2.4)
+        specifier: ^3.1.0
+        version: 3.1.0(react@19.2.4)
       '@gc-digital-talent/rich-text-elements':
         specifier: workspace:*
         version: link:../rich-text-elements
@@ -1511,8 +1511,8 @@ packages:
   '@date-fns/tz@1.4.1':
     resolution: {integrity: sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA==}
 
-  '@dr.pogodin/react-helmet@3.0.6':
-    resolution: {integrity: sha512-RSxje6i2KS+Se4St0Idmisi3jCwHZDIEtBv+zQ1u0kzJeivzwoQHs54K2fJ//UsC7pQ45OsO+xhiKmvmJfx1YQ==}
+  '@dr.pogodin/react-helmet@3.1.0':
+    resolution: {integrity: sha512-Ns57qggCJsD9qTu6sJ8F6TTV7VDj5kzyLF88MCy5rPjqQn1t6d2F2J27reWuhLKQWyhQnKhr8OEM5Mkv1OFGaA==}
     peerDependencies:
       react: '19'
 
@@ -7760,7 +7760,7 @@ snapshots:
 
   '@date-fns/tz@1.4.1': {}
 
-  '@dr.pogodin/react-helmet@3.0.6(react@19.2.4)':
+  '@dr.pogodin/react-helmet@3.1.0(react@19.2.4)':
     dependencies:
       '@babel/runtime': 7.28.6
       react: 19.2.4
