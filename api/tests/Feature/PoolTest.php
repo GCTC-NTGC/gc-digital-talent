@@ -1723,6 +1723,61 @@ class PoolTest extends TestCase
         ]);
     }
 
+    // can create a pool as department role, no community attached
+    public function testCreatePoolNoCommunity()
+    {
+        $classification = Classification::factory()->create();
+        $department = Department::factory()->create();
+
+        $departmentAdmin = User::factory()
+            ->asDepartmentAdmin($department->id)
+            ->create();
+
+        $response = $this->actingAs($departmentAdmin, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
+                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+                    id
+                    owner {
+                        id
+                    }
+                    community {
+                        id
+                    }
+                    classification {
+                        id
+                    }
+                    department {
+                        id
+                    }
+                }
+            }',
+                [
+                    'userId' => $departmentAdmin->id,
+                    'pool' => [
+                        'classification' => [
+                            'connect' => $classification->id,
+                        ],
+                        'department' => [
+                            'connect' => $department->id,
+                        ],
+                    ],
+                ]
+            );
+
+        $response->assertJsonFragment([
+            'owner' => ['id' => $departmentAdmin->id],
+        ])->assertJsonFragment([
+            'community' => null,
+        ])->assertJsonFragment([
+            'classification' => ['id' => $classification->id],
+        ])->assertJsonFragment([
+            'department' => ['id' => $department->id],
+        ]);
+    }
+
     public function testDuplicatePool()
     {
         $this->seed([
