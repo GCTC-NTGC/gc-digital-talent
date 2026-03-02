@@ -83,6 +83,10 @@ const meta = {
   ],
   loaders: [localStorageLoader({ [ACCESS_TOKEN]: USER_ID })],
   parameters: {
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/design/mbgNRMD2ujao55nJkakrZM/Candidate-application--Communities-?node-id=2840-17841&t=72dxQ3T4Mx1g6A5C-1",
+    },
     apiResponses: {
       authorizationQuery: {
         data: {
