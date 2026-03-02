@@ -28,6 +28,9 @@ final class CreatePoolValidator extends Validator
             Department::find(($this->arg('pool'))['department']['connect'])->loadMissing('team')
              : null;
 
+        /**
+         * @var array<\App\Models\Team> $teams
+         */
         $teams = $user->rolesTeams()->get();
         $teamIds = [];
         foreach ($teams as $team) {
