@@ -65,6 +65,13 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      tailwind:
+        patterns:
+          - "@tailwindcss/vite"
+          - "tailwindcss"
+        update-types:
+          - "minor"
+          - "patch"
       tiptap:
         patterns:
           - "@tiptap*"
