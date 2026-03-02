@@ -1778,6 +1778,57 @@ class PoolTest extends TestCase
         ]);
     }
 
+    // test user with community and department roles submitting an invalid pairing
+    public function testCreatePoolInvalidDepartmentCommunityPair()
+    {
+        $classification = Classification::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $department = Department::factory()->create();
+        $otherDepartment = Department::factory()->create();
+
+        $testUser = User::factory()
+            ->asCommunityAdmin($this->community->id)
+            ->asDepartmentAdmin($department->id)
+            ->create();
+
+        $response = $this->actingAs($testUser, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
+                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+                    id
+                    owner {
+                        id
+                    }
+                    community {
+                        id
+                    }
+                    classification {
+                        id
+                    }
+                    department {
+                        id
+                    }
+                }
+            }',
+                [
+                    'communityId' => $otherCommunity->id,
+                    'userId' => $testUser->id,
+                    'pool' => [
+                        'classification' => [
+                            'connect' => $classification->id,
+                        ],
+                        'department' => [
+                            'connect' => $otherDepartment->id,
+                        ],
+                    ],
+                ]
+            );
+
+        $response->assertGraphQLErrorMessage(ErrorCode::INVALID_COMMUNITY_DEPARTMENT_COMBO->name);
+    }
+
     public function testDuplicatePool()
     {
         $this->seed([
