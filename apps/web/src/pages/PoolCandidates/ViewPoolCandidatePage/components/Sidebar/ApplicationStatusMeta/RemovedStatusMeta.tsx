@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 
 import {
-  ApplicationStatus,
   CandidateRemovalReason,
   FragmentType,
   getFragment,
@@ -14,9 +13,6 @@ import applicationMessages from "~/messages/applicationMessages";
 
 const RemovedStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment RemovedStatusMeta on PoolCandidate {
-    status {
-      value
-    }
     removalReasonOther
     removalReason {
       value
@@ -34,7 +30,6 @@ interface RemovedStatusMetaProps {
 const RemovedStatusMeta = ({ query }: RemovedStatusMetaProps) => {
   const intl = useIntl();
   const application = getFragment(RemovedStatusMeta_Fragment, query);
-  if (application.status?.value !== ApplicationStatus.Removed) return null;
 
   let reason = application.removalReason?.label.localized;
   if (application.removalReason?.value === CandidateRemovalReason.Other) {

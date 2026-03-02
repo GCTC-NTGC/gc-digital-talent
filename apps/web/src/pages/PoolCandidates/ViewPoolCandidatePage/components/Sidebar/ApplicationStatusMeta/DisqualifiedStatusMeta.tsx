@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 
 import {
-  ApplicationStatus,
   FragmentType,
   getFragment,
   graphql,
@@ -13,9 +12,6 @@ import applicationMessages from "~/messages/applicationMessages";
 
 const DisqualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment DisqualifiedStatusMeta on PoolCandidate {
-    status {
-      value
-    }
     disqualificationReason {
       label {
         localized
@@ -31,8 +27,6 @@ interface DisqualifiedStatusMetaProps {
 const DisqualifiedStatusMeta = ({ query }: DisqualifiedStatusMetaProps) => {
   const intl = useIntl();
   const application = getFragment(DisqualifiedStatusMeta_Fragment, query);
-
-  if (application.status?.value !== ApplicationStatus.Disqualified) return null;
 
   return (
     <FieldDisplay label={intl.formatMessage(applicationMessages.reason)}>

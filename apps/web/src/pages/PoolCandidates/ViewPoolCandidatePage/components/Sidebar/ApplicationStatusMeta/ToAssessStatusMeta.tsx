@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 
 import {
-  ApplicationStatus,
   FragmentType,
   getFragment,
   graphql,
@@ -15,10 +14,6 @@ import applicationMessages from "~/messages/applicationMessages";
 
 const ToAssessStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment ToAssessStatusMeta on PoolCandidate {
-    status {
-      value
-    }
-
     screeningStage {
       value
     }
@@ -36,8 +31,6 @@ const ToAssessStatusMeta = ({ query }: ToAssessStatusMetaProps) => {
   const intl = useIntl();
   const application = getFragment(ToAssessStatusMeta_Fragment, query);
 
-  if (application.status?.value !== ApplicationStatus.ToAssess) return null;
-
   return (
     <>
       <FieldDisplay
@@ -49,7 +42,7 @@ const ToAssessStatusMeta = ({ query }: ToAssessStatusMetaProps) => {
         label={intl.formatMessage(applicationMessages.assessmentStage)}
       >
         {application.screeningStage?.value ===
-        ScreeningStage.UnderAssessment ? (
+          ScreeningStage.UnderAssessment ? (
           <UpdateAssessmentStageDialog query={application} />
         ) : (
           <p className="text-gray-500 dark:text-gray-200">

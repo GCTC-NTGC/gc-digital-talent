@@ -1,4 +1,4 @@
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { ApplicationStatus, FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import DisqualifiedStatusMeta from "./DisqualifiedStatusMeta";
 import RemovedStatusMeta from "./RemovedStatusMeta";
@@ -7,6 +7,9 @@ import QualifiedStatusMeta from "./QualifiedStatusMeta";
 
 const ApplicationStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationStatusMeta on PoolCandidate {
+    status {
+      value
+    }
     ...ToAssessStatusMeta
     ...QualifiedStatusMeta
     ...DisqualifiedStatusMeta
@@ -23,10 +26,18 @@ const ApplicationStatusMeta = ({ query }: ApplicationStatusMetaProps) => {
 
   return (
     <>
-      <ToAssessStatusMeta query={application} />
-      <QualifiedStatusMeta query={application} />
-      <DisqualifiedStatusMeta query={application} />
-      <RemovedStatusMeta query={application} />
+      {application?.status?.value === ApplicationStatus.ToAssess && (
+        <ToAssessStatusMeta query={application} />
+      )}
+      {application?.status?.value === ApplicationStatus.Qualified && (
+        <QualifiedStatusMeta query={application} />
+      )}
+      {application?.status?.value === ApplicationStatus.Disqualified && (
+        <DisqualifiedStatusMeta query={application} />
+      )}
+      {application?.status?.value === ApplicationStatus.Removed && (
+        <RemovedStatusMeta query={application} />
+      )}
     </>
   );
 };

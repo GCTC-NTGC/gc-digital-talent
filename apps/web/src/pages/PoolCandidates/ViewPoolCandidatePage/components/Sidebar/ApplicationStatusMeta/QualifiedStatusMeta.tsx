@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 
 import {
-  ApplicationStatus,
   FragmentType,
   getFragment,
   graphql,
@@ -16,9 +15,6 @@ import ApplicationPlacementDialog from "../Dialog/ApplicationPlacementDialog";
 
 const QualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedStatusMeta on PoolCandidate {
-    status {
-      value
-    }
     placedDepartment {
       name {
         localized
@@ -37,7 +33,6 @@ interface QualifiedStatusMetaProps {
 const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
   const intl = useIntl();
   const application = getFragment(QualifiedStatusMeta_Fragment, query);
-  if (application.status?.value !== ApplicationStatus.Qualified) return null;
 
   return (
     <>
