@@ -38,7 +38,7 @@ class AzureHandler extends ApiHandler
     protected function send(string $content, array $records): void
     {
         Http::withToken($this->identityService->getAccessToken())
-            ->withQueryParameters(['api-version' => '2023-01-01'])
+            ->withQueryParameters(['api-version' => '2024-03-11'])
             ->withBody($content, 'application/json')
             ->post($this->endpoint.'/dataCollectionRules/'.$this->dcrImmutableId.'/streams/'.$this->streamName)
             ->throwUnlessStatus(204);
