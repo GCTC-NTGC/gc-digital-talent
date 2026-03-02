@@ -25,6 +25,6 @@
     "eslint-plugin-react-hooks": "^6.1.0",
     "eslint-plugin-testing-library": "^7.16.0",
     "eslint-plugin-turbo": "^2.8.12",
-    "globals": "^17.3.0"
+    "globals": "^17.4.0"
   }
 }
