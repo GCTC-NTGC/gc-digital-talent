@@ -173,7 +173,11 @@ const UpdateAssessmentStageDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         {trigger ?? (
-          <Button mode="inline" color="warning" className="font-normal">
+          <Button
+            mode="inline"
+            color="warning"
+            className="text-left font-normal"
+          >
             {label}
           </Button>
         )}

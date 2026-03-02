@@ -167,7 +167,7 @@ const ApplicationPlacementDialog = ({
         <Button
           mode="inline"
           color="success"
-          className="font-normal"
+          className="text-left font-normal"
           aria-label={intl.formatMessage(
             {
               defaultMessage: "Placement: {placement}. Edit.",
