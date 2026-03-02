@@ -49,6 +49,14 @@ updates:
           - "major"
           - "minor"
           - "patch"
+      react-router:
+        patterns:
+          - "@react-router/node"
+          - "@react-router/dev"
+          - "react-router"
+        update-types:
+          - "minor"
+          - "patch"
       storybook:
         patterns:
           - "@storybook*"
