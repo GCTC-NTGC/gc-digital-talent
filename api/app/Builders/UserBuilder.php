@@ -484,6 +484,11 @@ class UserBuilder extends Builder
         return $this->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
     }
 
+    public function whereWorkEmailIsVerified(): self
+    {
+        return $this->whereNotNull('work_email_verified_at');
+    }
+
     public function whereIsGovEmployee(?bool $isGovEmployee): self
     {
         if (! $isGovEmployee) {
