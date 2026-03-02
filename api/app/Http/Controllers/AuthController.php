@@ -198,7 +198,7 @@ class AuthController extends Controller
             // our actual auth callback
             config('oauth.redirect_uri'),
 
-            // auth callbacks for the Sign In Canada to GC Sign In migration tool
+            // auth callbacks for the Sign In Canada to CanadaLogin migration tool
             'https://api.migration.signin-connexion.cdssandbox.xyz/v1/auth/callback',
             'https://api.migration.signin-connexion.cdssandbox.xyz/v1/auth/legacy/callback',
 
