@@ -3354,9 +3354,13 @@ type Mutation {
   # Pool mutations
   createPool(
     userId: ID! @rename(attribute: "user_id")
-    communityId: ID! @rename(attribute: "community_id")
+    communityId: ID @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
-  ): Pool @create @guard @canModel(ability: "create", injectArgs: true)
+  ): Pool
+    @create
+    @guard
+    @canModel(ability: "create", injectArgs: true)
+    @validator(class: "Mutation\\CreatePoolValidator")
   duplicatePool(id: ID!, pool: DuplicatePoolInput! @spread): Pool
     @guard
     @canModel(ability: "duplicate", injectArgs: true)
