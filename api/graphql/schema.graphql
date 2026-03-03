@@ -1471,10 +1471,10 @@ type Query {
     @guard
     @validator
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
-  workEmails(search: String!): [UserWorkEmail!]!
+  workEmails(search: String): [UserWorkEmail!]!
     @all(
       model: "User"
-      scopes: ["whereWorkEmailIsVerified", "whereWorkEmail", "limitTen"]
+      scopes: ["whereWorkEmailIsVerified", "whereWorkEmail", "limitFive"]
     )
     @guard
     @canModel(ability: "viewAnyUserWorkEmail", model: "User")

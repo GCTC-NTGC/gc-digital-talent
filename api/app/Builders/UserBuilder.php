@@ -768,8 +768,8 @@ class UserBuilder extends Builder
      * Used to limit rows for search results.
      * This seems pretty silly but I haven't figured out how to enforce a server-side limit in Lighthouse directives.
      */
-    public function limitTen(): void
+    public function limitFive(): void
     {
-        $this->limit(3);
+        $this->limit(5);
     }
 }

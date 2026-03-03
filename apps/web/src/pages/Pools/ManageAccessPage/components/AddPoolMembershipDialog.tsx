@@ -39,18 +39,12 @@ const AddPoolMembershipDialog = ({
 }: AddPoolMembershipDialogProps) => {
   const intl = useIntl();
   const [query, setQuery] = useState<string>("");
-  const {
-    users,
-    total,
-    fetching: usersFetching,
-  } = useAvailableUsers(members, {
-    publicProfileSearch: query || undefined,
-  });
+  const { users, fetching: usersFetching } = useAvailableUsers(query);
 
   const teamId = pool?.teamIdForRoleAssignment;
   const { roles, fetching: rolesFetching } = useAvailableRoles();
   const [, executeMutation] = useMutation(UpdateUserProcessRoles_Mutation);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
 
   const methods = useForm<ManageAccessFormValues>({
     defaultValues: {
@@ -114,12 +108,7 @@ const AddPoolMembershipDialog = ({
 
   const userOptions = users?.map((user) => ({
     value: user.id,
-    label: getFullNameAndEmailLabel(
-      user.firstName,
-      user.lastName,
-      user.email,
-      intl,
-    ),
+    label: user.workEmail ?? user.id,
   }));
 
   return (
@@ -161,7 +150,7 @@ const AddPoolMembershipDialog = ({
                   fetching={usersFetching}
                   isExternalSearch
                   onSearch={handleDebouncedSearch}
-                  total={total}
+                  total={users.length}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
