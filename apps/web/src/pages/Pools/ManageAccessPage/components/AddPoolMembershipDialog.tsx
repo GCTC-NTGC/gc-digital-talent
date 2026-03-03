@@ -20,7 +20,6 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
-import adminMessages from "~/messages/adminMessages";
 
 import { ManageAccessFormValues, PoolTeamMember } from "./types";
 import useAvailableUsers from "./useAvailableUsers";
@@ -119,7 +118,19 @@ const AddPoolMembershipDialog = ({ pool }: AddPoolMembershipDialogProps) => {
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>
+        <Dialog.Header
+          subtitle={intl.formatMessage(
+            {
+              defaultMessage:
+                "Select the user you would like to add to {teamName} along with their roles.",
+              id: "fuGqZQ",
+              description: "Subtitle for the add member to team form",
+            },
+            {
+              teamName: getLocalizedName(pool.name, intl),
+            },
+          )}
+        >
           {intl.formatMessage({
             defaultMessage: "Add member",
             id: "IHyNL8",
@@ -134,10 +145,10 @@ const AddPoolMembershipDialog = ({ pool }: AddPoolMembershipDialogProps) => {
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Select the user you would like to add to this process:",
-                    id: "h5AUW9",
+                      "Only users with verified employee emails can be added to this process.",
+                    id: "+E05kW",
                     description:
-                      "Label for the user select field on process team dialog",
+                      "Warning that only verified work emails can be selected",
                   })}
                 </p>
                 <Combobox
@@ -150,19 +161,14 @@ const AddPoolMembershipDialog = ({ pool }: AddPoolMembershipDialogProps) => {
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  label={intl.formatMessage(adminMessages.user)}
+                  label={intl.formatMessage({
+                    defaultMessage: "Verified employee email",
+                    id: "dRH0kc",
+                    description: "A label for a verified work email",
+                  })}
                   options={userOptions ?? []}
                 />
                 <input type="hidden" name="poolId" value={pool.id} />
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Select the roles you would like this member to have:",
-                    id: "FtxA9/",
-                    description:
-                      "Label for the roles select field on process team dialog",
-                  })}
-                </p>
                 <Combobox
                   id="roles"
                   name="roles"
