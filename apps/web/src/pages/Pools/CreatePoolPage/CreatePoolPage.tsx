@@ -13,7 +13,14 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { Pending, Link, Card, Heading } from "@gc-digital-talent/ui";
+import {
+  Pending,
+  Link,
+  Card,
+  Heading,
+  Notice,
+  Ul,
+} from "@gc-digital-talent/ui";
 import {
   graphql,
   CreatePoolInput,
@@ -31,6 +38,7 @@ import pageTitles from "~/messages/pageTitles";
 import messages from "~/messages/adminMessages";
 import permissionConstants from "~/constants/permissionConstants";
 import Hero from "~/components/Hero";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import FunctionalCommunitySection from "./FunctionalCommunitySection";
 
@@ -110,7 +118,10 @@ export const CreatePoolForm = ({
   const navigate = useNavigate();
   const paths = useRoutes();
   const methods = useForm<FormValues>();
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
+
+  const [watchDepartment] = watch(["department"]);
+
   const classifications = getFragment(
     CreatePoolClassification_Fragment,
     classificationsQuery,
@@ -123,6 +134,10 @@ export const CreatePoolForm = ({
     CreatePoolCommunity_Fragment,
     communitiesQuery,
   );
+
+  const selectedDepartment = watchDepartment
+    ? departments.find((d) => d.id === watchDepartment)
+    : undefined;
 
   // submission section, and navigate to edit the created pool
   const formValuesToSubmitData = (values: FormValues): CreatePoolInput => ({
@@ -269,6 +284,58 @@ export const CreatePoolForm = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
               />
+              {selectedDepartment ? (
+                <Notice.Root>
+                  <Notice.Content>
+                    <p>
+                      {selectedDepartment.departmentName?.localized ??
+                        intl.formatMessage(commonMessages.notAvailable)}
+                    </p>
+                    <Ul unStyled space="md">
+                      <li>
+                        <BoolCheckIcon
+                          value={selectedDepartment.isCorePublicAdministration}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "isCorePublicAdministration",
+                            id: "/eJsB6",
+                            description: "a",
+                          })}
+                        </BoolCheckIcon>
+                      </li>
+                      <li>
+                        <BoolCheckIcon
+                          value={selectedDepartment.isCentralAgency}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "isCentralAgency",
+                            id: "7wD9cj",
+                            description: "b",
+                          })}
+                        </BoolCheckIcon>
+                      </li>
+                      <li>
+                        <BoolCheckIcon value={selectedDepartment.isScience}>
+                          {intl.formatMessage({
+                            defaultMessage: "isScience",
+                            id: "7aumVv",
+                            description: "c",
+                          })}
+                        </BoolCheckIcon>
+                      </li>
+                      <li>
+                        <BoolCheckIcon value={selectedDepartment.isRegulatory}>
+                          {intl.formatMessage({
+                            defaultMessage: "isRegulatory",
+                            id: "1oBdgt",
+                            description: "d",
+                          })}
+                        </BoolCheckIcon>
+                      </li>
+                    </Ul>
+                  </Notice.Content>
+                </Notice.Root>
+              ) : null}
               <Card.Separator space="none" className="my-6" />
             </div>
             <div>
