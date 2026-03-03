@@ -231,10 +231,6 @@
     "defaultMessage": "Cette section couvre des exigences telles que le travail à distance, la localisation sur place, la langue et la sécurité.",
     "description": "Describes selecting additional requirements for a process."
   },
-  "+rZvoD": {
-    "defaultMessage": "1. Sélectionnez l’option d’<strong>inscription</strong> à partir de la page d’accueil. Elle <strong>se trouve après la section d’ouverture de séance</strong>.",
-    "description": "Text for first sign up -> create step."
-  },
   "+s+emq": {
     "defaultMessage": "Nom d'utilisateur :",
     "description": "Label for the user name input in the delete user dialog"
@@ -2566,10 +2562,6 @@
   "8plD42": {
     "defaultMessage": "Les personnes candidates peuvent accepter de donner accès à leur profil en utilisant l'outil « Collectivités fonctionnelles » de leur tableau de bord.",
     "description": "Null secondary message for nominee profile"
-  },
-  "8sqysp": {
-    "defaultMessage": "Nous ajoutons au besoin, pour répondre à des exigences opérationnelles précises, des compétences spécialisées dont les descriptions sont plus détaillées.",
-    "description": "Paragraph two, information on skill descriptions"
   },
   "8umYON": {
     "defaultMessage": "Prochaines étapes",
@@ -5603,6 +5595,10 @@
     "defaultMessage": "Ajouter un rôle dans le ministère :",
     "description": "Header for the form to add a department membership to a user"
   },
+  "MUYJr1": {
+    "defaultMessage": "1. Sélectionnez l’option d’<strong>inscription</strong> à partir de la page d’accueil. Elle <strong>se trouve après la section d’ouverture de séance</strong>.",
+    "description": "Text for first sign up -> create step."
+  },
   "MUxI+G": {
     "defaultMessage": "Il n’existe aucun résultat correspondant.",
     "description": "Title for when no skills match a users filters."
@@ -6895,10 +6891,6 @@
     "defaultMessage": "Conditions d’emploi ou exigences opérationnelles",
     "description": "Title for operational requirements section on summary of filters section"
   },
-  "SQJgGP": {
-    "defaultMessage": "Votre information sur l’annonce et votre plan d'évaluation sont complets.",
-    "description": "Lead-in text on a complete process, ready for publishing"
-  },
   "SQRzSl": {
     "defaultMessage": "Raison de la clôture",
     "description": "Label for the reason for closing the pool"
@@ -7346,6 +7338,10 @@
   "Uj7TE2": {
     "defaultMessage": "La présente section de votre profil vous permet de manifester votre intérêt pour une variété d'options particulières liées au recrutement, au mentorat et aux possibilités de promotion.",
     "description": "Describes the career development preferences of employee profile"
+  },
+  "UjvTeN": {
+    "defaultMessage": "Dans ce poste, vous devez protéger les systèmes et les réseaux informatiques contre les cybermenaces. Vous aurez peut-être aussi à surveiller les réseaux, à cerner les vulnérabilités, à instaurer des mesures de sécurité, à donner suite aux incidents et à formuler des politiques en matière de sécurité.",
+    "description": "Description of the cyber security advisor role"
   },
   "UjxhSB": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expérience en matière d’études à votre parcours professionnel.",
@@ -10194,6 +10190,10 @@
     "defaultMessage": "Niveau de classification actuel",
     "description": "Label displayed on classification level input"
   },
+  "gnoNDM": {
+    "defaultMessage": "Nous ajoutons au besoin, pour répondre à des exigences opérationnelles précises, des compétences spécialisées dont les descriptions sont plus détaillées.",
+    "description": "Paragraph two, information on skill descriptions"
+  },
   "gp+7iZ": {
     "defaultMessage": "Un agencement d'études, de formation ou d'expérience.",
     "description": "Applied work experience for CR classification group"
@@ -11766,6 +11766,10 @@
     "defaultMessage": "peut sélectionner et évaluer les candidates et candidats et indiquer ceux qui ont été embauchés;",
     "description": "Description of the permission to fully assess and place applicants"
   },
+  "nRrlr1": {
+    "defaultMessage": "{total, plural, =0 {0 organisation} one {# organisation} other {# organisations}}",
+    "description": "Count of organizations"
+  },
   "nTPcCF": {
     "defaultMessage": "Soumise",
     "description": "Label for request submitted"
@@ -12001,10 +12005,6 @@
   "ocTGYr": {
     "defaultMessage": "Informations sur la collectivité",
     "description": "Heading for the 'create a community' form"
-  },
-  "ocgTi6": {
-    "defaultMessage": "organisations",
-    "description": "label for organization metadata"
   },
   "oepQr+": {
     "defaultMessage": "Courriel de confirmation envoyé!",
@@ -12294,6 +12294,10 @@
     "defaultMessage": "Modifier les informations sur la collectivité",
     "description": "Link to edit the currently viewed community"
   },
+  "phluwu": {
+    "defaultMessage": "Votre information sur l’annonce et votre plan d'évaluation sont complets.",
+    "description": "Lead-in text on a complete process, ready for publishing"
+  },
   "piZjS+": {
     "defaultMessage": "Catégorie de compétences",
     "description": "Label for the skill category filter field"
@@ -12413,10 +12417,6 @@
   "qEU5rz": {
     "defaultMessage": "Les événements présentés dans cette section acceptent actuellement des mises en candidature.",
     "description": "Description for active events section"
-  },
-  "qEvJjr": {
-    "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
-    "description": "Paragraph three for the self-declaration explanation dialog"
   },
   "qFFEST": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées aux exigences de poste acceptables choisies par les candidates et candidats dans leur demande.",
@@ -12546,6 +12546,10 @@
     "defaultMessage": "Si vous pensez que vos compétences et votre expérience correspondent au poste de <strong>{title}</strong>, nous serions ravis de recevoir votre demande d'emploi.",
     "description": "Lead-in text to the apply call to action at the end of a pool advertisement"
   },
+  "qwLrrx": {
+    "defaultMessage": "Résultat de la présélection",
+    "description": "Label for the result of an application screening"
+  },
   "qxCyZM": {
     "defaultMessage": "Le ministère a été archivé",
     "description": "Alert, department archived successfully"
@@ -12553,6 +12557,10 @@
   "qytMp/": {
     "defaultMessage": "Salon de l’emploi de la Semaine de la carrière — Université d’Ottawa",
     "description": "Heading for career week job fair"
+  },
+  "r01z4D": {
+    "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
+    "description": "Paragraph three for the self-declaration explanation dialog"
   },
   "r2K3M3": {
     "defaultMessage": "Créer<hidden> une collectivité</hidden>",
@@ -12761,10 +12769,6 @@
   "rxDfeN": {
     "defaultMessage": "Énumérer les compétences en vedette",
     "description": "Heading for the experience type section fo the experience form"
-  },
-  "ryDGWN": {
-    "defaultMessage": "Dans ce poste, vous devez protéger les systèmes et les réseaux informatiques contre les cybermenaces. Vous aurez peut-être aussi à surveiller les réseaux, à cerner les vulnérabilités, à instaurer des mesures de sécurité, à donner suite aux incidents et à formuler des politiques en matière de sécurité.",
-    "description": "Description of the cyber security advisor role"
   },
   "ryeKXV": {
     "defaultMessage": "Cherchez les rôles dans des collectivités",
@@ -14001,6 +14005,10 @@
   "xg/wvH": {
     "defaultMessage": "Voir la demande",
     "description": "Label for view application link"
+  },
+  "xgawew": {
+    "defaultMessage": "{total, plural, =0 {0 volet de travail} one {# volet de travail} other {# volets de travail}}",
+    "description": "Count of work streams"
   },
   "xggOcb": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez développé vos compétences et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, votre profil est votre outil pour être découvert par les responsables du recrutement.",

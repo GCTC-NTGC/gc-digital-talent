@@ -50,6 +50,7 @@ import processMessages from "~/messages/processMessages";
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 import applicationMessages from "~/messages/applicationMessages";
 import { isLegacyAssessmentStepType } from "~/utils/poolCandidate";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -76,6 +77,7 @@ import {
   poolCandidateBookmarkHeader,
   poolCandidateBookmarkCell,
   applicationStatusCell,
+  screeningResultCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -249,12 +251,11 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               }
             }
           }
-
-          assessmentStatus {
-            assessmentStepStatuses {
-              step
+          screeningResult {
+            value
+            label {
+              localized
             }
-            overallAssessmentStatus
           }
           pool {
             id
@@ -884,6 +885,31 @@ const PoolCandidatesTable = ({
       {
         id: "assessmentStep",
         header: intl.formatMessage(applicationMessages.assessmentStage),
+      },
+    ),
+    columnHelper.accessor(
+      ({ poolCandidate: { screeningResult } }) =>
+        screeningResult?.label?.localized ?? "",
+      {
+        id: "screeningResult",
+        header: intl.formatMessage({
+          defaultMessage: "Screening result",
+          id: "qwLrrx",
+          description: "Label for the result of an application screening",
+        }),
+        enableSorting: false,
+        enableColumnFilter: false,
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { screeningResult },
+            },
+          },
+        }) =>
+          screeningResultCell(
+            screeningResult,
+            intl.formatMessage(poolCandidateMessages.toAssess),
+          ),
       },
     ),
     columnHelper.accessor(

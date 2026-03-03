@@ -710,6 +710,7 @@ type PoolCandidateAdminView {
   isFlagged: Boolean @rename(attribute: "is_flagged")
   isBookmarked: Boolean
   category: PoolCandidateCategory @with(relation: "user")
+  screeningResult: LocalizedAssessmentDecision
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
   assessmentStep: AssessmentStep @belongsTo
@@ -3177,9 +3178,11 @@ type Mutation {
     removalReasonOther: String
   ): PoolCandidate
     @guard
+    @validator
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   reinstateCandidate(id: UUID!): PoolCandidate
     @guard
+    @validator
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   qualifyCandidate(
     id: UUID!
@@ -3197,8 +3200,8 @@ type Mutation {
     @validator(class: "App\\GraphQL\\Validators\\DisqualifyCandidateValidator")
   revertFinalDecision(id: UUID!): PoolCandidate
     @guard
+    @validator
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
-    @validator(class: "App\\GraphQL\\Validators\\RevertFinalDecisionValidator")
   placeCandidate(
     id: UUID!
     poolCandidate: PlaceCandidateInput! @spread

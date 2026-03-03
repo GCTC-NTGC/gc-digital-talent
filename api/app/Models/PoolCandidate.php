@@ -16,7 +16,6 @@ use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
-use App\Enums\ErrorCode;
 use App\Enums\FinalDecision;
 use App\Enums\OverallAssessmentStatus;
 use App\Enums\PlacementType;
@@ -29,7 +28,6 @@ use App\Observers\PoolCandidateObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\LogsCustomActivity;
 use App\ValueObjects\ProfileSnapshot;
-use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -149,6 +147,7 @@ class PoolCandidate extends Model
         'removal_reason',
         'disqualification_reason',
         'computed_final_decision',
+        'placement_type',
     ];
 
     protected $touches = ['user'];
@@ -469,6 +468,31 @@ class PoolCandidate extends Model
     {
         return Attribute::get(function () {
             return $this->expiry_date && $this->expiry_date->isPast();
+        });
+    }
+
+    /**
+     * Determine result of the first step (application screening)
+     * of the assessment status
+     */
+    public function screeningResult(): Attribute
+    {
+        return Attribute::get(function () {
+            $screeningStep = $this->loadMissing('pool.assessmentSteps')->pool->assessmentSteps->sortBy('sort_order')
+                ->firstWhere(function ($step) {
+                    return $step->type === AssessmentStepType::APPLICATION_SCREENING->name;
+                })->id ?? null;
+
+            if (! $screeningStep) {
+                return null;
+            }
+
+            $result = Arr::first(
+                $this->computed_assessment_status['assessmentStepStatuses'],
+                fn ($status) => $status['step'] === $screeningStep
+            );
+
+            return $result ? $result['decision'] : null;
         });
     }
 
@@ -830,18 +854,6 @@ class PoolCandidate extends Model
     {
         $this->disableLogging();
 
-        if ($this->application_status === ApplicationStatus::DRAFT->name) {
-            throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
-        }
-
-        if ($this->application_status === ApplicationStatus::REMOVED->name) {
-            throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name);
-        }
-
-        if (! empty($this->placement_type) && $this->placement_type !== PlacementType::NOT_PLACED->name) {
-            throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name);
-        }
-
         $this->application_status = ApplicationStatus::REMOVED->name;
         $this->status_updated_at = Carbon::now();
         $this->removal_reason = $reason;
@@ -894,10 +906,6 @@ class PoolCandidate extends Model
     public function reinstate()
     {
         $this->disableLogging();
-
-        if ($this->application_status !== ApplicationStatus::REMOVED->name) {
-            throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
-        }
 
         $this->status_updated_at = Carbon::now();
         $this->removal_reason = null;
