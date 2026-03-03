@@ -19,10 +19,7 @@ import {
   DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
 } from "@gc-digital-talent/graphql";
 
-import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
-import adminMessages from "~/messages/adminMessages";
-import { DepartmentMember } from "~/utils/departmentUtils";
 
 import { DepartmentManageAccessFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
@@ -32,22 +29,14 @@ import { UpdateUserDepartmentRoles_Mutation } from "./operations";
 
 interface AddDepartmentMembershipDialogProps {
   department: DepartmentManageAccessPageDepartmentFragmentType;
-  members: DepartmentMember[];
 }
 
 const AddDepartmentMembershipDialog = ({
   department,
-  members,
 }: AddDepartmentMembershipDialogProps) => {
   const intl = useIntl();
   const [query, setQuery] = useState<string>("");
-  const {
-    users,
-    total,
-    fetching: usersFetching,
-  } = useAvailableUsers(members, {
-    publicProfileSearch: query || undefined,
-  });
+  const { users, fetching: usersFetching } = useAvailableUsers(query);
 
   const { teamId } = useOutletContext<ContextType>();
   const { roles, fetching: rolesFetching } = useAvailableRoles({
@@ -114,12 +103,7 @@ const AddDepartmentMembershipDialog = ({
   const roleOptions = getTeamBasedRoleOptions(roles, intl);
   const userOptions = users?.map((user) => ({
     value: user.id,
-    label: getFullNameAndEmailLabel(
-      user.firstName,
-      user.lastName,
-      user.email,
-      intl,
-    ),
+    label: user.workEmail ?? user.id,
   }));
 
   return (
@@ -138,13 +122,12 @@ const AddDepartmentMembershipDialog = ({
           subtitle={intl.formatMessage(
             {
               defaultMessage:
-                "Select the user you would like to add to {departmentName} along with their roles.",
-              id: "Kk6u+9",
-              description:
-                "Help text for user field on the add member to department form",
+                "Select the user you would like to add to {teamName} along with their roles.",
+              id: "fuGqZQ",
+              description: "Subtitle for the add member to team form",
             },
             {
-              departmentName:
+              teamName:
                 department.name?.localized ??
                 intl.formatMessage(commonMessages.notFound),
             },
@@ -161,17 +144,30 @@ const AddDepartmentMembershipDialog = ({
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div className="flex flex-col gap-y-6">
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Only users with verified employee emails can be added to this department.",
+                    id: "RfWCgW",
+                    description:
+                      "Warning that only verified work emails can be selected",
+                  })}
+                </p>
                 <Combobox
                   id="userId"
                   name="userId"
                   fetching={usersFetching}
                   isExternalSearch
                   onSearch={handleDebouncedSearch}
-                  total={total}
+                  total={users.length}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  label={intl.formatMessage(adminMessages.user)}
+                  label={intl.formatMessage({
+                    defaultMessage: "Verified employee email",
+                    id: "dRH0kc",
+                    description: "A label for a verified work email",
+                  })}
                   options={userOptions ?? []}
                 />
                 <input
