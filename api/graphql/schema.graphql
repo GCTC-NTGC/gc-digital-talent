@@ -1472,6 +1472,8 @@ type Query {
     @validator
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
   workEmails(search: String!): [UserWorkEmail!]!
+    @guard
+    @canModel(ability: "viewAnyUserWorkEmail", model: "User")
   usersPaginated(
     where: UserFilterInput
       @scope(name: "whereUserFilterInputToSpecialLocationMatching")
