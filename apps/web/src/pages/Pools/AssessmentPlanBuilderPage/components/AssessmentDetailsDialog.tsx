@@ -252,7 +252,6 @@ const AssessmentDetailsDialog = ({
     handleSubmit,
     control,
     watch,
-    setValue,
     getValues,
     reset,
     formState: { errors },
