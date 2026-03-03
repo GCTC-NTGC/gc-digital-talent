@@ -20,9 +20,10 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
+
 import JobPlacementFormFields from "./FormFields/JobPlacementFormFields";
 import Footer from "./Footer";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(
@@ -99,19 +100,16 @@ const ApplicationPlacementDialog = ({
     query: ApplicationPlacementOptions_Query,
   });
 
-  let label = intl.formatMessage(commonMessages.notAvailable);
+  let label =
+    application.placementType?.label.localized ??
+    intl.formatMessage(commonMessages.notAvailable);
   if (
     !application.placementType?.value ||
     application.placementType?.value === null ||
     application.placementType?.value === PlacementType.NotPlaced
   ) {
     label = intl.formatMessage(poolCandidateMessages.notPlaced);
-  } else {
-    label =
-      application.placementType.label.localized ??
-      intl.formatMessage(commonMessages.notAvailable);
   }
-
   const canPlace = hasRequiredRoles({
     toCheck: [{ name: ROLE_NAME.CommunityRecruiter }],
     userRoles: unpackMaybes(userAuthInfo?.roleAssignments),
