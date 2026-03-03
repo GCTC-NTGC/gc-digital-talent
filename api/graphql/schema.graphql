@@ -1472,6 +1472,10 @@ type Query {
     @validator
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
   workEmails(search: String!): [UserWorkEmail!]!
+    @all(
+      model: "User"
+      scopes: ["whereWorkEmailIsVerified", "whereWorkEmail", "limitTen"]
+    )
     @guard
     @canModel(ability: "viewAnyUserWorkEmail", model: "User")
   usersPaginated(

@@ -470,13 +470,15 @@ class UserBuilder extends Builder
         return $this->whereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", $email);
     }
 
-    public function whereWorkEmail(?string $email): self
+    public function whereWorkEmail(?array $args): self
     {
-        if (! $email) {
+        $search = $args['search'] ?? '';
+
+        if (! $search) {
             return $this;
         }
 
-        return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
+        return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $search);
     }
 
     public function whereExactWorkEmail(string $email): self
@@ -760,5 +762,14 @@ class UserBuilder extends Builder
         }
 
         return $this;
+    }
+
+    /**
+     * Used to limit rows for search results.
+     * This seems pretty silly but I haven't figured out how to enforce a server-side limit in Lighthouse directives.
+     */
+    public function limitTen(): void
+    {
+        $this->limit(3);
     }
 }
