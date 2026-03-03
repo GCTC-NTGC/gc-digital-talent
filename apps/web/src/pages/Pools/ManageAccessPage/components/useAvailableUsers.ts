@@ -3,8 +3,8 @@ import { useQuery } from "urql";
 import { UserWorkEmail, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-const ManageAccessPool_AvailableUsersQuery = graphql(/* GraphQL */ `
-  query ManageAccessPoolAvailableUsers($search: String) {
+const ManageAccessPool_WorkEmailsQuery = graphql(/* GraphQL */ `
+  query ManageAccessPoolWorkEmails($search: String) {
     workEmails(search: $search) {
       id
       workEmail
@@ -19,7 +19,7 @@ interface UseAvailableUsersReturn {
 
 const useAvailableUsers = (search: string): UseAvailableUsersReturn => {
   const [{ data, fetching }] = useQuery({
-    query: ManageAccessPool_AvailableUsersQuery,
+    query: ManageAccessPool_WorkEmailsQuery,
     variables: {
       search,
     },

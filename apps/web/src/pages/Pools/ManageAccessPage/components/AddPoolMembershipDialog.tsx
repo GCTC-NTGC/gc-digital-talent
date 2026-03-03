@@ -19,7 +19,6 @@ import {
   ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 
-import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 import adminMessages from "~/messages/adminMessages";
 
@@ -33,10 +32,7 @@ interface AddPoolMembershipDialogProps {
   members: PoolTeamMember[];
 }
 
-const AddPoolMembershipDialog = ({
-  pool,
-  members,
-}: AddPoolMembershipDialogProps) => {
+const AddPoolMembershipDialog = ({ pool }: AddPoolMembershipDialogProps) => {
   const intl = useIntl();
   const [query, setQuery] = useState<string>("");
   const { users, fetching: usersFetching } = useAvailableUsers(query);
@@ -44,7 +40,7 @@ const AddPoolMembershipDialog = ({
   const teamId = pool?.teamIdForRoleAssignment;
   const { roles, fetching: rolesFetching } = useAvailableRoles();
   const [, executeMutation] = useMutation(UpdateUserProcessRoles_Mutation);
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const methods = useForm<ManageAccessFormValues>({
     defaultValues: {
