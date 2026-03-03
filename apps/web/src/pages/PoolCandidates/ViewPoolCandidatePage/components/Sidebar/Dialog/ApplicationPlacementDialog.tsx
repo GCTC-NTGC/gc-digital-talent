@@ -22,6 +22,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import JobPlacementFormFields from "./FormFields/JobPlacementFormFields";
 import Footer from "./Footer";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(
@@ -82,9 +83,6 @@ const ApplicationPlacementDialog = ({
   const [isOpen, setOpen] = useState<boolean>(false);
   const { userAuthInfo } = useAuthorization();
   const application = getFragment(ApplicationPlacementDialog_Fragment, query);
-  const label =
-    application.placementType?.label.localized ??
-    intl.formatMessage(commonMessages.notAvailable);
   const methods = useForm<FormValues>({
     defaultValues: {
       placementType: application.placementType?.value,
@@ -100,6 +98,19 @@ const ApplicationPlacementDialog = ({
   const [{ data, fetching, error }] = useQuery({
     query: ApplicationPlacementOptions_Query,
   });
+
+  let label = intl.formatMessage(commonMessages.notAvailable);
+  if (
+    !application.placementType?.value ||
+    application.placementType?.value === null ||
+    application.placementType?.value === PlacementType.NotPlaced
+  ) {
+    label = intl.formatMessage(poolCandidateMessages.notPlaced);
+  } else {
+    label =
+      application.placementType.label.localized ??
+      intl.formatMessage(commonMessages.notAvailable);
+  }
 
   const canPlace = hasRequiredRoles({
     toCheck: [{ name: ROLE_NAME.CommunityRecruiter }],
