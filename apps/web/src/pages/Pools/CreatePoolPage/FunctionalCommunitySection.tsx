@@ -17,9 +17,9 @@ interface CommunityNoticeProps {
 
 const CommunityNotice = ({ selectedCommunity, intl }: CommunityNoticeProps) => {
   return (
-    <Notice.Root>
+    <Notice.Root color="primary">
       <Notice.Content>
-        <p>
+        <p className="mb-1.5 font-bold">
           {selectedCommunity.name?.localized ??
             intl.formatMessage(commonMessages.notAvailable)}
         </p>
@@ -27,11 +27,12 @@ const CommunityNotice = ({ selectedCommunity, intl }: CommunityNoticeProps) => {
           {selectedCommunity.description?.localized ??
             intl.formatMessage(commonMessages.notAvailable)}
         </p>
-        <p>
+        <p className="mt-4 mb-1 font-bold">
           {intl.formatMessage({
             defaultMessage: "Community workstreams",
-            id: "bIDukA",
-            description: "aaa",
+            id: "Rd3PKk",
+            description:
+              "List of workstreams associated with a function community",
           })}
         </p>
         <Ul>
@@ -95,37 +96,56 @@ const FunctionalCommunitySection = ({
             name="addFunctionalCommunity"
             boundingBox
             boundingBoxLabel={intl.formatMessage({
-              defaultMessage: "Bbbbbbb",
-              id: "6tNaqr",
-              description:
-                "Label displayed on Personal Experience form for disclaimer checkbox",
+              defaultMessage: "Community partnership",
+              id: "K7SjlM",
+              description: "Community partnership label",
             })}
             label={intl.formatMessage({
-              defaultMessage: "Aaaaaaa",
-              id: "bAtCtV",
-              description:
-                "Label displayed on Personal Experience form for disclaimer checkbox",
+              defaultMessage: "Add a community partnership",
+              id: "MZprzd",
+              description: "Input to select to add a community partnership",
             })}
           />
           {watchAddFunctionalCommunity ? (
-            <Select
-              id="community"
-              label={intl.formatMessage(messages.community)}
-              name="community"
-              nullSelection={intl.formatMessage(
-                commonMessages.selectACommunity,
-              )}
-              options={communityOptionsUnique}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
+            <>
+              <p className="my-5">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Not all classifications have a related functional community.",
+                  id: "VWRYBz",
+                  description: "Heads-up before community select",
+                })}
+              </p>
+              <p className="mb-5">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Select which functional community you will like to collaborate on this process:",
+                  id: "A24C7X",
+                  description:
+                    "Text describing community select in processes creation",
+                })}
+              </p>
+              <Select
+                id="community"
+                label={intl.formatMessage(messages.community)}
+                name="community"
+                nullSelection={intl.formatMessage(
+                  commonMessages.selectACommunity,
+                )}
+                options={communityOptionsUnique}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            </>
           ) : null}
           {selectedCommunity ? (
-            <CommunityNotice
-              selectedCommunity={selectedCommunity}
-              intl={intl}
-            />
+            <div className="mt-6">
+              <CommunityNotice
+                selectedCommunity={selectedCommunity}
+                intl={intl}
+              />
+            </div>
           ) : null}
         </>
       ) : (
@@ -141,10 +161,12 @@ const FunctionalCommunitySection = ({
             }}
           />
           {selectedCommunity ? (
-            <CommunityNotice
-              selectedCommunity={selectedCommunity}
-              intl={intl}
-            />
+            <div className="mt-6">
+              <CommunityNotice
+                selectedCommunity={selectedCommunity}
+                intl={intl}
+              />
+            </div>
           ) : null}
         </>
       )}

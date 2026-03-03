@@ -13,14 +13,7 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
-  Pending,
-  Link,
-  Card,
-  Heading,
-  Notice,
-  Ul,
-} from "@gc-digital-talent/ui";
+import { Pending, Link, Card, Heading } from "@gc-digital-talent/ui";
 import {
   graphql,
   CreatePoolInput,
@@ -38,9 +31,9 @@ import pageTitles from "~/messages/pageTitles";
 import messages from "~/messages/adminMessages";
 import permissionConstants from "~/constants/permissionConstants";
 import Hero from "~/components/Hero";
-import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import FunctionalCommunitySection from "./FunctionalCommunitySection";
+import DepartmentCard from "./DepartmentCard";
 
 const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment CreatePoolClassification on Classification {
@@ -218,22 +211,22 @@ export const CreatePoolForm = ({
       </p>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-y-6">
+          <div className="flex flex-col gap-y-3">
             <div>
               <Card.Separator space="none" className="my-6" />
-              <p>
+              <p className="mb-1.5 font-bold">
                 {intl.formatMessage({
-                  defaultMessage: "Basic details",
-                  id: "G7uMOV",
-                  description: "The basic details of a job poster template",
+                  defaultMessage: "Type of position",
+                  id: "ESP5lv",
+                  description: "Position classification section",
                 })}
               </p>
-              <p>
+              <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Fill out the basic information regarding your new process advertisement.",
-                  id: "diWnGY",
-                  description: "Informative line for create a process page",
+                    "Choose the group and level for the position you are trying to recruit for.",
+                  id: "fsWkBB",
+                  description: "Describing selecting a classification",
                 })}
               </p>
               <Select
@@ -254,19 +247,20 @@ export const CreatePoolForm = ({
               <Card.Separator space="none" className="my-6" />
             </div>
             <div>
-              <p>
+              <p className="mb-1.5 font-bold">
                 {intl.formatMessage({
-                  defaultMessage: "Basic details",
-                  id: "G7uMOV",
-                  description: "The basic details of a job poster template",
+                  defaultMessage: "Hiring authority",
+                  id: "aZWWxp",
+                  description: "Position department section",
                 })}
               </p>
-              <p>
+              <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Fill out the basic information regarding your new process advertisement.",
-                  id: "diWnGY",
-                  description: "Informative line for create a process page",
+                    "Choose an organization that will have the hiring authority related to this hiring process.",
+                  id: "d2IDL3",
+                  description:
+                    "Describing selecting a department for a process",
                 })}
               </p>
               <Select
@@ -285,73 +279,30 @@ export const CreatePoolForm = ({
                 }}
               />
               {selectedDepartment ? (
-                <Notice.Root>
-                  <Notice.Content>
-                    <p>
-                      {selectedDepartment.departmentName?.localized ??
-                        intl.formatMessage(commonMessages.notAvailable)}
-                    </p>
-                    <Ul unStyled space="md">
-                      <li>
-                        <BoolCheckIcon
-                          value={selectedDepartment.isCorePublicAdministration}
-                        >
-                          {intl.formatMessage({
-                            defaultMessage: "isCorePublicAdministration",
-                            id: "/eJsB6",
-                            description: "a",
-                          })}
-                        </BoolCheckIcon>
-                      </li>
-                      <li>
-                        <BoolCheckIcon
-                          value={selectedDepartment.isCentralAgency}
-                        >
-                          {intl.formatMessage({
-                            defaultMessage: "isCentralAgency",
-                            id: "7wD9cj",
-                            description: "b",
-                          })}
-                        </BoolCheckIcon>
-                      </li>
-                      <li>
-                        <BoolCheckIcon value={selectedDepartment.isScience}>
-                          {intl.formatMessage({
-                            defaultMessage: "isScience",
-                            id: "7aumVv",
-                            description: "c",
-                          })}
-                        </BoolCheckIcon>
-                      </li>
-                      <li>
-                        <BoolCheckIcon value={selectedDepartment.isRegulatory}>
-                          {intl.formatMessage({
-                            defaultMessage: "isRegulatory",
-                            id: "1oBdgt",
-                            description: "d",
-                          })}
-                        </BoolCheckIcon>
-                      </li>
-                    </Ul>
-                  </Notice.Content>
-                </Notice.Root>
+                <div className="mt-6">
+                  <DepartmentCard
+                    selectedDepartment={selectedDepartment}
+                    intl={intl}
+                  />
+                </div>
               ) : null}
               <Card.Separator space="none" className="my-6" />
             </div>
             <div>
-              <p>
+              <p className="mb-1.5 font-bold">
                 {intl.formatMessage({
-                  defaultMessage: "Basic details",
-                  id: "G7uMOV",
-                  description: "The basic details of a job poster template",
+                  defaultMessage: "Add a functional community partner",
+                  id: "ZT4chj",
+                  description: "Functional community section",
                 })}
               </p>
-              <p>
+              <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Fill out the basic information regarding your new process advertisement.",
-                  id: "diWnGY",
-                  description: "Informative line for create a process page",
+                    "Adding a functional community partner will give them access to this process. Some communities can help craft an advertisement and manage applications. Communities can also place excess of qualified pool of talent.",
+                  id: "0UiJ1k",
+                  description:
+                    "Describing selecting a functional community for a process",
                 })}
               </p>
               <FunctionalCommunitySection
@@ -420,11 +371,7 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
 `);
 
 const CreatePoolPage_Mutation = graphql(/* GraphQL */ `
-  mutation CreatePool(
-    $userId: ID!
-    $communityId: ID!
-    $pool: CreatePoolInput!
-  ) {
+  mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
     createPool(userId: $userId, communityId: $communityId, pool: $pool) {
       id
       name {
@@ -570,16 +517,18 @@ const CreatePoolPage = () => {
         overlap
         centered
       >
-        <Pending fetching={fetching} error={error}>
-          <CreatePoolForm
-            userId={data?.me?.id ?? ""}
-            classificationsQuery={unpackMaybes(data?.classifications)}
-            departmentsQuery={departments}
-            communitiesQuery={communities}
-            handleCreatePool={handleCreatePool}
-            canToggleFunctionalCommunity={canToggleFunctionalCommunity}
-          />
-        </Pending>
+        <div className="mx-20 mt-4">
+          <Pending fetching={fetching} error={error}>
+            <CreatePoolForm
+              userId={data?.me?.id ?? ""}
+              classificationsQuery={unpackMaybes(data?.classifications)}
+              departmentsQuery={departments}
+              communitiesQuery={communities}
+              handleCreatePool={handleCreatePool}
+              canToggleFunctionalCommunity={canToggleFunctionalCommunity}
+            />
+          </Pending>
+        </div>
       </Hero>
     </>
   );
