@@ -21,12 +21,17 @@ const NominatorList_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
+// Get the element key for combined separator key
+const getElementKey = (el: JSX.Element) => el.key?.toString() ?? "";
+
 // effectively insertBetween(), but specialized specifically for the purpose of unique key values
 const commaSeparator = (arr: JSX.Element[]): JSX.Element[] => {
   return arr.reduce<JSX.Element[]>((prev, curr, i) => {
+    const prevKey = getElementKey(arr[i - 1]);
+    const currKey = getElementKey(curr);
     if (i > 0) {
       prev.push(
-        <span key={i}>
+        <span key={`sep-${prevKey}-${currKey}`}>
           <span className="mx-1">{UNICODE_CHAR.COMMA}</span>
         </span>,
       );
