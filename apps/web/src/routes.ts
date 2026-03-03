@@ -332,7 +332,7 @@ export default [
               index("./pages/Pools/IndexPoolPage/IndexPoolPage.tsx"),
               route(
                 "create",
-                "./pages/Pools/CreatePoolPage/CreatePoolPageNew.tsx",
+                "./pages/Pools/CreatePoolPage/CreatePoolPage.tsx",
               ),
               ...prefix(":poolId", [
                 route(

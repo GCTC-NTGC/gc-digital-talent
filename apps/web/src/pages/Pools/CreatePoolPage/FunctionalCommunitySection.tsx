@@ -5,13 +5,13 @@ import uniqBy from "lodash/uniqBy";
 
 import { Option, Select, Checkbox } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { CreatePoolCommunity1Fragment as CreatePoolCommunity1FragmentType } from "@gc-digital-talent/graphql";
+import { CreatePoolCommunityFragment as CreatePoolCommunityFragmentType } from "@gc-digital-talent/graphql";
 import { Notice, Ul } from "@gc-digital-talent/ui";
 
 import messages from "~/messages/adminMessages";
 
 interface CommunityNoticeProps {
-  selectedCommunity: CreatePoolCommunity1FragmentType;
+  selectedCommunity: CreatePoolCommunityFragmentType;
   intl: IntlShape;
 }
 
@@ -50,7 +50,7 @@ interface FormValues {
 }
 
 interface FunctionalCommunitySectionProps {
-  communities: CreatePoolCommunity1FragmentType[];
+  communities: CreatePoolCommunityFragmentType[];
   canToggleFunctionalCommunity: boolean;
 }
 
