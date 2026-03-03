@@ -37,7 +37,9 @@ const CommunityNotice = ({ selectedCommunity, intl }: CommunityNoticeProps) => {
         </p>
         <Ul>
           {selectedCommunity.workStreams?.map((workStream) => (
-            <li key={workStream.id}>{workStream?.name?.localized}</li>
+            <li className="mb-1.5" key={workStream.id}>
+              {workStream?.name?.localized}
+            </li>
           ))}
         </Ul>
       </Notice.Content>

@@ -20,7 +20,11 @@ const DepartmentCard = ({ selectedDepartment, intl }: DepartmentCardProps) => {
       </p>
       <Ul className="mt-4" unStyled space="md">
         <li>
-          <BoolCheckIcon value={selectedDepartment.isCorePublicAdministration}>
+          <BoolCheckIcon
+            value={selectedDepartment.isCorePublicAdministration}
+            trueLabel={intl.formatMessage(commonMessages.yes)}
+            falseLabel={intl.formatMessage(commonMessages.no)}
+          >
             {intl.formatMessage({
               defaultMessage: "Core public administration (CPA)",
               id: "JaUbaI",
@@ -30,7 +34,11 @@ const DepartmentCard = ({ selectedDepartment, intl }: DepartmentCardProps) => {
           </BoolCheckIcon>
         </li>
         <li>
-          <BoolCheckIcon value={selectedDepartment.isCentralAgency}>
+          <BoolCheckIcon
+            value={selectedDepartment.isCentralAgency}
+            trueLabel={intl.formatMessage(commonMessages.yes)}
+            falseLabel={intl.formatMessage(commonMessages.no)}
+          >
             {intl.formatMessage({
               defaultMessage: "Central agency",
               id: "gbvOCW",
@@ -39,7 +47,11 @@ const DepartmentCard = ({ selectedDepartment, intl }: DepartmentCardProps) => {
           </BoolCheckIcon>
         </li>
         <li>
-          <BoolCheckIcon value={selectedDepartment.isScience}>
+          <BoolCheckIcon
+            value={selectedDepartment.isScience}
+            trueLabel={intl.formatMessage(commonMessages.yes)}
+            falseLabel={intl.formatMessage(commonMessages.no)}
+          >
             {intl.formatMessage({
               defaultMessage: "Science",
               id: "z6EMbE",
@@ -48,7 +60,11 @@ const DepartmentCard = ({ selectedDepartment, intl }: DepartmentCardProps) => {
           </BoolCheckIcon>
         </li>
         <li>
-          <BoolCheckIcon value={selectedDepartment.isRegulatory}>
+          <BoolCheckIcon
+            value={selectedDepartment.isRegulatory}
+            trueLabel={intl.formatMessage(commonMessages.yes)}
+            falseLabel={intl.formatMessage(commonMessages.no)}
+          >
             {intl.formatMessage({
               defaultMessage: "Regulatory",
               id: "uhoPHh",
