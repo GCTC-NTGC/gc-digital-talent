@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { JSX } from "react";
+import { Fragment } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -21,26 +21,6 @@ const NominatorList_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-// Get the element key for combined separator key
-const getElementKey = (el: JSX.Element) => el.key?.toString() ?? "";
-
-// effectively insertBetween(), but specialized specifically for the purpose of unique key values
-const commaSeparator = (arr: JSX.Element[]): JSX.Element[] => {
-  return arr.reduce<JSX.Element[]>((prev, curr, i) => {
-    const prevKey = getElementKey(arr[i - 1]);
-    const currKey = getElementKey(curr);
-    if (i > 0) {
-      prev.push(
-        <span key={`sep-${prevKey}-${currKey}`}>
-          <span className="mx-1">{UNICODE_CHAR.COMMA}</span>
-        </span>,
-      );
-    }
-    prev.push(curr);
-    return prev;
-  }, []);
-};
-
 interface NominatorListProps {
   query?: FragmentType<typeof NominatorList_Fragment>[];
 }
@@ -59,12 +39,20 @@ const NominatorList = ({ query }: NominatorListProps) => {
     return aName.localeCompare(bName);
   });
 
-  const nominatorsList = nominationsSortedByNominator.map((nomination) => (
-    <NominatorInfoDialog key={nomination.id} nominationQuery={nomination} />
-  ));
-  const nominatorListCommaSeparated = commaSeparator(nominatorsList);
-
-  return <>{nominatorListCommaSeparated}</>;
+  return (
+    <>
+      {nominationsSortedByNominator.map((nomination, index) => (
+        <Fragment key={nomination.id}>
+          {index > 0 && (
+            <span className="mr-1" aria-hidden="true">
+              {UNICODE_CHAR.COMMA}
+            </span>
+          )}
+          <NominatorInfoDialog nominationQuery={nomination} />
+        </Fragment>
+      ))}
+    </>
+  );
 };
 
 export default NominatorList;
