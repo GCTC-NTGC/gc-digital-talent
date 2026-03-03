@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import uniqBy from "lodash/uniqBy";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -34,6 +33,8 @@ import messages from "~/messages/adminMessages";
 import permissionConstants from "~/constants/permissionConstants";
 import Hero from "~/components/Hero";
 
+import FunctionalCommunitySection from "./FunctionalCommunitySection";
+
 const CreatePoolClassification_Fragment1 = graphql(/* GraphQL */ `
   fragment CreatePoolClassification1 on Classification {
     id
@@ -52,14 +53,27 @@ const CreatePoolDepartment_Fragment1 = graphql(/* GraphQL */ `
     departmentName: name {
       localized
     }
+    isCorePublicAdministration
+    isCentralAgency
+    isScience
+    isRegulatory
   }
 `);
 
-const CreatePoolCommunity_Fragment1 = graphql(/* GraphQL */ `
+export const CreatePoolCommunity_Fragment1 = graphql(/* GraphQL */ `
   fragment CreatePoolCommunity1 on Community {
     id
     name {
       localized
+    }
+    description {
+      localized
+    }
+    workStreams {
+      id
+      name {
+        localized
+      }
     }
   }
 `);
@@ -82,6 +96,7 @@ interface CreatePoolFormProps {
     communityId: string,
     data: CreatePoolInput,
   ) => Promise<CreatePoolMutation["createPool"]>;
+  canToggleFunctionalCommunity: boolean;
 }
 
 export const CreatePoolForm = ({
@@ -90,6 +105,7 @@ export const CreatePoolForm = ({
   departmentsQuery,
   communitiesQuery,
   handleCreatePool,
+  canToggleFunctionalCommunity,
 }: CreatePoolFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -162,12 +178,6 @@ export const CreatePoolForm = ({
         intl.formatMessage(commonMessages.notAvailable),
     }),
   );
-
-  const communityOptions: Option[] = communities.map(({ id, name }) => ({
-    value: id,
-    label: name?.localized ?? intl.formatMessage(commonMessages.notAvailable),
-  }));
-  const communityOptionsUnique: Option[] = uniqBy(communityOptions, "value");
 
   return (
     <Card className="mb-18">
@@ -246,13 +256,16 @@ export const CreatePoolForm = ({
                 })}
               </p>
               <Select
-                id="community"
-                label={intl.formatMessage(messages.community)}
-                name="community"
-                nullSelection={intl.formatMessage(
-                  commonMessages.selectACommunity,
-                )}
-                options={communityOptionsUnique}
+                id="department"
+                label={intl.formatMessage(messages.department)}
+                name="department"
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a department",
+                  id: "y827h2",
+                  description:
+                    "Null selection for department select input in the request form.",
+                })}
+                options={departmentOptions}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -275,20 +288,9 @@ export const CreatePoolForm = ({
                   description: "Informative line for create a process page",
                 })}
               </p>
-              <Select
-                id="department"
-                label={intl.formatMessage(messages.department)}
-                name="department"
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a department",
-                  id: "y827h2",
-                  description:
-                    "Null selection for department select input in the request form.",
-                })}
-                options={departmentOptions}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
+              <FunctionalCommunitySection
+                communities={communities}
+                canToggleFunctionalCommunity={canToggleFunctionalCommunity}
               />
               <Card.Separator space="none" className="my-6" />
             </div>
@@ -469,6 +471,11 @@ const CreatePoolPage = () => {
   let communities: FragmentType<typeof CreatePoolCommunity_Fragment1>[] = [];
   let departments: FragmentType<typeof CreatePoolDepartment_Fragment1>[] = [];
 
+  // whether the community selection is optional for a user, never optional for users with only community role
+  const canToggleFunctionalCommunity = !(
+    hasCommunityRole && !hasDepartmentRole
+  );
+
   if (hasCommunityRole && hasDepartmentRole) {
     communities = unpackMaybes(data?.communities);
     departments = unpackMaybes(data?.departments);
@@ -504,6 +511,7 @@ const CreatePoolPage = () => {
             departmentsQuery={departments}
             communitiesQuery={communities}
             handleCreatePool={handleCreatePool}
+            canToggleFunctionalCommunity={canToggleFunctionalCommunity}
           />
         </Pending>
       </Hero>
