@@ -28,7 +28,7 @@ const PoolFilterInput = ({
   excludeIds,
   label,
   rules,
-  filterInput = {},
+  filterInput,
   name = "pools",
   id = "pools",
 }: PoolFilterInputProps) => {

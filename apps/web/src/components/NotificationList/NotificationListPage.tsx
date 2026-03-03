@@ -57,7 +57,7 @@ const NotificationListPage = ({
   isLastPage,
   inDialog,
   onRead,
-  excludeIds = [],
+  excludeIds,
   fetchingLiveNotifications,
 }: NotificationPageProps) => {
   const intl = useIntl();
@@ -83,7 +83,7 @@ const NotificationListPage = ({
     page === 1 &&
     !fetching &&
     !fetchingLiveNotifications &&
-    excludeIds.length === 0;
+    excludeIds?.length === 0;
 
   const firstNewNotification = useRef<HTMLAnchorElement & HTMLButtonElement>(
     null,
