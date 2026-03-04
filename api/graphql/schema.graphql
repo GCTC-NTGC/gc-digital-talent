@@ -1474,7 +1474,7 @@ type Query {
   workEmails(search: String): [UserWorkEmail!]!
     @all(
       model: "User"
-      scopes: ["whereWorkEmailIsVerified", "whereWorkEmail", "limitFive"]
+      scopes: ["whereWorkEmailIsVerified", "whereWorkEmailSearch", "limitFive"]
     )
     @guard
     @canModel(ability: "viewAnyUserWorkEmail", model: "User")

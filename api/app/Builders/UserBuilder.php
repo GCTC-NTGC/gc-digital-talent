@@ -470,15 +470,19 @@ class UserBuilder extends Builder
         return $this->whereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", $email);
     }
 
-    public function whereWorkEmail(?array $args): self
+    public function whereWorkEmail(?string $email): self
     {
-        $search = $args['search'] ?? '';
-
-        if (! $search) {
+        if (! $email) {
             return $this;
         }
 
-        return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $search);
+        return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
+    }
+
+    // just calls another scope, but calling the scope from Lighthouse requires accepting an args array
+    public function whereWorkEmailSearch(?array $args): self
+    {
+        return $this->whereWorkEmail($args['search'] ?? null);
     }
 
     public function whereExactWorkEmail(string $email): self
