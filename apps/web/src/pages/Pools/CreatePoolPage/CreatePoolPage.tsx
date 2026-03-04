@@ -38,7 +38,7 @@ import FunctionalCommunitySection from "./FunctionalCommunitySection";
 import DepartmentCard from "./DepartmentCard";
 import YourRolesSection from "./YourRolesSection";
 
-const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
+export const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment CreatePoolClassification on Classification {
     id
     group
@@ -50,7 +50,7 @@ const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const CreatePoolDepartment_Fragment = graphql(/* GraphQL */ `
+export const CreatePoolDepartment_Fragment = graphql(/* GraphQL */ `
   fragment CreatePoolDepartment on Department {
     id
     departmentName: name {
