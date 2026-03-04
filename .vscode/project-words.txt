@@ -10,6 +10,7 @@ behavioural
 Behavioural
 BEHAVIOURAL
 camelcase
+CANADALOGIN
 Canonicalizing
 chra
 chrc
