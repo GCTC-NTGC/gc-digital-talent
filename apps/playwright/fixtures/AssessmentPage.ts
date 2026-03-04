@@ -203,7 +203,6 @@ class AssessmentPage extends AppPage {
     if (!screeningStep) {
       throw new Error("Screening step not found.");
     }
-
     const nextStep = steps
       .filter((s) => (s.sortOrder ?? 0) > (screeningStep.sortOrder ?? 0))
       .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))[0];
@@ -213,8 +212,8 @@ class AssessmentPage extends AppPage {
         "No assessment step found following the screening stage.",
       );
     }
-
     return {
+      steps,
       screeningStepId: screeningStep.id,
       nextStepTitle: nextStep.title?.en ?? "",
       nextStepId: nextStep.id,

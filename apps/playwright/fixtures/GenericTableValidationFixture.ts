@@ -4,6 +4,7 @@ import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
 
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
+import AssessmentPage from "./AssessmentPage";
 
 const FIELD = {
   GENERIC_TABLE_ROW: "genericTableRow",
@@ -24,6 +25,8 @@ export type Field = ObjectValues<typeof FIELD>;
 class GenericTableValidationFixture extends AppPage {
   readonly locators: Record<Field, Locator>;
   locPrefUpdateFixture: LocationPreferenceUpdatePage;
+  assessmentPageFixture: AssessmentPage;
+
   constructor(page: Page) {
     super(page);
     this.locators = {
@@ -49,6 +52,7 @@ class GenericTableValidationFixture extends AppPage {
       }),
     };
     this.locPrefUpdateFixture = new LocationPreferenceUpdatePage(this.page);
+    this.assessmentPageFixture = new AssessmentPage(this.page);
   }
 
   async setFlexibleWorkLocationColumn() {
@@ -118,6 +122,33 @@ class GenericTableValidationFixture extends AppPage {
     await expect(
       talentTableCells.filter({ hasText: userName ?? "" }).first(),
     ).toBeVisible();
+  }
+
+  async verifyPoolCandidateTableApplicationStatus(
+    candidateName: string,
+    screeningStage: string,
+    assessmentStep?: string,
+    applicationStatus?: string,
+    candidateFacingStatus?: string,
+  ) {
+    const candidateRow = this.locators[FIELD.TALENT_TABLE_ROW]
+      .filter({
+        hasText: candidateName,
+      })
+      .first();
+    await expect(candidateRow).toBeVisible();
+    if (screeningStage) {
+      await expect(candidateRow).toContainText(screeningStage);
+    }
+    if (assessmentStep) {
+      await expect(candidateRow).toContainText(assessmentStep);
+    }
+    if (applicationStatus) {
+      await expect(candidateRow).toContainText(applicationStatus);
+    }
+    if (candidateFacingStatus) {
+      await expect(candidateRow).toContainText(candidateFacingStatus);
+    }
   }
 }
 export default GenericTableValidationFixture;

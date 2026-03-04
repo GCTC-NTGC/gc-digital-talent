@@ -158,7 +158,9 @@ export const getPoolCandidatesTable: GraphQLRequestFunc<
       isPrivileged: true,
       variables: {
         where: {
-          pools: [{ id: { equals: poolId } }],
+          applicantFilter: {
+            pools: [{ id: poolId }],
+          },
         },
       },
     })

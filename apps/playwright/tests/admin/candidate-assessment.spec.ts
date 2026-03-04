@@ -212,12 +212,15 @@ test.describe("Pool candidates", () => {
       screeningStepId ?? "",
       poolSkillsID[0] ?? "",
     );
+
     await appPage.page.reload();
     await expect(
       appPage.page.getByRole("button", { name: /Demonstrated/i }).last(),
     ).toBeVisible();
     await expect(appPage.page.getByText(nextStepTitle)).toBeVisible();
+
     await assessmentPage.goToPoolCandidateTable(poolId);
+
     const tableRows = await getPoolCandidatesTable(adminCtx, { poolId });
     const poolCandidate = tableRows.find(
       (c) => c.user.firstName === "Playwright",
@@ -226,8 +229,6 @@ test.describe("Pool candidates", () => {
       poolCandidate,
       "Candidate 'Playwright' should be present in the pool table",
     ).toBeDefined();
-
-    // 4. Assertions now run safely without linting errors
     expect(poolCandidate!.screeningStage?.label.localized).toBe(
       "Advanced to assessment",
     );
