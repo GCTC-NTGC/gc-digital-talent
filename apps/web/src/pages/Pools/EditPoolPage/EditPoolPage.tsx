@@ -55,7 +55,6 @@ import { graphqlClientContext } from "~/routing/context";
 
 import PoolNameSection, {
   PoolClassification_Fragment,
-  PoolDepartment_Fragment,
   type PoolNameSubmitData,
 } from "./components/PoolNameSection/PoolNameSection";
 import ProcessNumberSection, {
@@ -258,7 +257,6 @@ export type PoolSubmitData =
 export interface EditPoolFormProps {
   poolQuery: FragmentType<typeof EditPool_Fragment>;
   classifications: FragmentType<typeof PoolClassification_Fragment>[];
-  departments: FragmentType<typeof PoolDepartment_Fragment>[];
   skills: Skill[];
   onSave: (submitData: PoolSubmitData) => Promise<void>;
   onUpdatePublished: (submitData: UpdatePublishedPoolInput) => Promise<void>;
@@ -268,7 +266,6 @@ export interface EditPoolFormProps {
 export const EditPoolForm = ({
   poolQuery,
   classifications,
-  departments,
   skills,
   onSave,
   onUpdatePublished,
@@ -583,7 +580,6 @@ export const EditPoolForm = ({
                   <PoolNameSection
                     poolQuery={pool}
                     classificationsQuery={classifications}
-                    departmentsQuery={departments}
                     sectionMetadata={sectionMetadata.poolName}
                     onSave={onSave}
                   />
@@ -762,11 +758,6 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
       ...PoolClassification
     }
 
-    # all departments to populate form dropdown
-    departments {
-      ...PoolDepartment
-    }
-
     # all skills to populate skill pickers
     skills {
       id
@@ -857,7 +848,6 @@ export const EditPoolPage = () => {
           <EditPoolForm
             poolQuery={data.pool}
             classifications={unpackMaybes(data.classifications)}
-            departments={unpackMaybes(data.departments)}
             skills={data.skills.filter(notEmpty)}
             onSave={(saveData) => mutations.update(poolId, saveData)}
             onUpdatePublished={(updateData) =>
