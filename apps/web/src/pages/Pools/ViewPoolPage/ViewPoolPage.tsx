@@ -141,19 +141,46 @@ export const ViewPool = ({
   const assessmentStatus = getAssessmentPlanStatus(pool);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status, intl);
-  const canPublish = checkRole([ROLE_NAME.CommunityAdmin], roleAssignments);
+  const canPublish = checkRole(
+    [
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
+    ],
+    roleAssignments,
+  );
+  const canChangeDateOfPublished = checkRole(
+    [ROLE_NAME.CommunityAdmin],
+    roleAssignments,
+  );
   // Editing a published pool is restricted to same roles who can publish it in the first place.
-  const canEdit = advertisementStatus !== "submitted" || canPublish;
+  const canEdit =
+    advertisementStatus !== "submitted" || canChangeDateOfPublished;
   const canDuplicate = checkRole(
-    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+    [
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
+    ],
     roleAssignments,
   );
   const canArchive = checkRole(
-    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+    [
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
+    ],
     roleAssignments,
   );
   const canDelete = checkRole(
-    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+    [
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
+    ],
     roleAssignments,
   );
 
@@ -414,7 +441,8 @@ export const ViewPool = ({
             {[PoolStatus.Closed, PoolStatus.Published].includes(
               pool.status?.value ?? PoolStatus.Draft,
             ) &&
-              canPublish && (
+              canPublish &&
+              canChangeDateOfPublished && (
                 <ChangeDateDialog
                   {...commonDialogProps}
                   closingDate={pool.closingDate}
