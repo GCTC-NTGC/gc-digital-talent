@@ -145,10 +145,7 @@ const DepartmentMembersTable = ({
         {...((canEditAdmin || canEditAdvisor) && {
           add: {
             component: (
-              <AddDepartmentMembershipDialog
-                department={department}
-                members={members}
-              />
+              <AddDepartmentMembershipDialog department={department} />
             ),
           },
           nullMessage: {
