@@ -252,7 +252,7 @@ const AssessmentDetailsDialog = ({
     handleSubmit,
     control,
     watch,
-    getValues,
+    setValue,
     reset,
     formState: { errors },
   } = methods;
@@ -302,23 +302,14 @@ const AssessmentDetailsDialog = ({
   });
 
   useEffect(() => {
-    const values = getValues();
     if (dialogMode === "regular") {
-      reset({
-        ...values,
-        screeningQuestionFieldArray: [],
-        assessmentTitleEn: values.assessmentTitleEn,
-        assessmentTitleFr: values.assessmentTitleFr,
-      });
-    } else if (dialogMode === "screening_question") {
-      reset({
-        ...values,
-        assessmentTitleEn: null,
-        assessmentTitleFr: null,
-        screeningQuestionFieldArray: values.screeningQuestionFieldArray,
-      });
+      setValue("screeningQuestionFieldArray", []);
     }
-  }, [dialogMode, reset, getValues]);
+    if (dialogMode === "screening_question") {
+      setValue("assessmentTitleEn", null);
+      setValue("assessmentTitleFr", null);
+    }
+  }, [dialogMode, setValue]);
 
   // NOTE: Required to update form when initial values change
   useEffect(() => {
