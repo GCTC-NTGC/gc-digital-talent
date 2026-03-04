@@ -63,8 +63,9 @@ test.describe("Application card", () => {
       },
     });
 
+    const admin = await me(adminCtx, {});
     const pool = await createAndPublishPool(adminCtx, {
-      userId: createdUser?.id ?? "",
+      userId: admin?.id ?? "",
       skillIds: skill ? [skill.id] : undefined,
       name: {
         en: `${poolName} (EN)`,

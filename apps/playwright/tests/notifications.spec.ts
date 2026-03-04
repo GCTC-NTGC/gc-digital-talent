@@ -13,7 +13,7 @@ import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
-import { createUserWithRoles, deleteUser } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import ApplicationPage from "~/fixtures/ApplicationPage";
@@ -86,9 +86,10 @@ test.describe("Notifications", () => {
     });
 
     user = createdUser;
+    const admin = await me(adminCtx, {});
 
     const createdPool = await createAndPublishPool(adminCtx, {
-      userId: createdUser?.id ?? "",
+      userId: admin?.id ?? "",
       communityId: (await getCommunities(adminCtx, {}))[0]?.id,
       workStreamId: (await getWorkStreams(adminCtx, {}))[0]?.id,
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,

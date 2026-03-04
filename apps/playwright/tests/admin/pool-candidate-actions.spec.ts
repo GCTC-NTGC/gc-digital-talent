@@ -80,9 +80,9 @@ test.describe("Pool candidates", () => {
         },
       },
     });
-
+    const admin = await me(adminCtx, {});
     const createdPool = await createAndPublishPool(adminCtx, {
-      userId: createdUser?.id ?? "",
+      userId: admin?.id ?? "",
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       name: LOCALIZED_STRING,
     });

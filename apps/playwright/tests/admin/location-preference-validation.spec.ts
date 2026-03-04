@@ -156,8 +156,9 @@ test.describe("Location Preference Validation", () => {
     const skill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
     });
+    const admin = await me(adminCtx, {});
     const createdPool = await createAndPublishPool(adminCtx, {
-      userId: user?.id ?? "",
+      userId: admin?.id ?? "",
       skillIds: skill ? [skill?.id] : undefined,
       name: {
         en: `App location preference ${testId} (EN)`,
