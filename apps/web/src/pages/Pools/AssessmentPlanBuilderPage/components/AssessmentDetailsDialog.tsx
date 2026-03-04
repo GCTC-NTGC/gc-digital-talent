@@ -217,7 +217,7 @@ interface AssessmentDetailsDialogProps {
 const AssessmentDetailsDialog = ({
   initialValues,
   poolSkillsQuery,
-  disallowStepTypes = [],
+  disallowStepTypes,
   trigger,
   onError,
 }: AssessmentDetailsDialogProps) => {
@@ -486,7 +486,7 @@ const AssessmentDetailsDialog = ({
     stringsData?.assessmentStepTypes?.filter((stepType) => {
       const value = (stepType.value ?? "") as AssessmentStepType;
       return (
-        allowedStepTypes.includes(value) && !disallowStepTypes.includes(value)
+        allowedStepTypes.includes(value) && !disallowStepTypes?.includes(value)
       );
     }),
     intl,

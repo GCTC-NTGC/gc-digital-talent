@@ -1,5 +1,4 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
@@ -100,11 +99,6 @@ const TalentEventNominationsTable = ({
     TalentEventNominationsTable_Fragment,
     query,
   );
-  const talentEventNominationsData = useMemo(
-    () => talentEventNominations,
-    [talentEventNominations],
-  );
-
   const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
 
   const [{ fetching: downloadingAllExcel }, downloadAllExcel] = useMutation(
@@ -140,7 +134,7 @@ const TalentEventNominationsTable = ({
       .catch(handleDownloadError);
   };
 
-  const nominationIds = talentEventNominationsData.map((nom) => nom.id);
+  const nominationIds = talentEventNominations.map((nom) => nom.id);
 
   const columns = [
     columnHelper.accessor(
@@ -230,7 +224,7 @@ const TalentEventNominationsTable = ({
 
   return (
     <Table<TalentEventNominationsTableFragmentType>
-      data={talentEventNominationsData}
+      data={talentEventNominations}
       caption={intl.formatMessage(messages.talentNominations)}
       columns={columns}
       search={{
