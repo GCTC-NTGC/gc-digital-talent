@@ -5,11 +5,11 @@ import { IconButtonProps } from "@gc-digital-talent/ui";
 const statusBtn = tv({
   slots: {
     base: [
-      "group/statusBtn flex min-w-max items-stretch justify-between overflow-hidden rounded-md",
+      "group/statusBtn flex max-w-full items-stretch justify-between overflow-hidden rounded-md",
       "cursor-pointer border-0 p-0 outline -outline-offset-1 transition-all duration-200",
       "focus-visible:bg-focus focus-visible:text-black focus-visible:outline-focus-700",
     ],
-    text: "flex grow items-center p-4 leading-none font-bold",
+    text: "block min-w-0 truncate p-4 text-left leading-none font-bold",
     iconWrapper:
       "flex items-center justify-center px-2 group-focus-visible/statusBtn:bg-focus-700",
     iconContainer: [
