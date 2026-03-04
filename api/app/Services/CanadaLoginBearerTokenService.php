@@ -27,7 +27,7 @@ use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Psr\Clock\ClockInterface;
 
-class GcSignInBearerTokenService implements BearerTokenService
+class CanadaLoginBearerTokenService implements BearerTokenService
 {
     private Configuration $unsecuredConfig;
 
@@ -150,7 +150,7 @@ class GcSignInBearerTokenService implements BearerTokenService
         $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
             return $exception instanceof ConnectionException;
         }, throw: false)->asForm()
-            ->withToken($accessToken)  // required by mockauth but not GCSI
+            ->withToken($accessToken)  // required by mockauth but not CanadaLogin
             ->post($introspectionUri, [
                 'client_id' => config('oauth.client_id'),
                 'client_secret' => config('oauth.client_secret'),

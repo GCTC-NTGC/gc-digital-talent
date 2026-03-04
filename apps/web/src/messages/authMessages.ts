@@ -17,8 +17,8 @@ const messages = defineMessages({
     description: "Message displayed to users to sign out of the application",
   },
   manageAuthAccount: {
-    defaultMessage: "Manage GC Sign in",
-    id: "QexLn/",
+    defaultMessage: "Manage CanadaLogin",
+    id: "WogJ4I",
     description: "Message displayed to users to manage their auth account",
   },
 });
