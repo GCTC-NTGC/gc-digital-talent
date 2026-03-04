@@ -3,6 +3,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import uniqBy from "lodash/uniqBy";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Option, Select, Submit } from "@gc-digital-talent/forms";
@@ -20,6 +21,7 @@ import {
   CreatePoolMutation,
   FragmentType,
   getFragment,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 import { hasRequiredRoles, ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 
@@ -34,6 +36,7 @@ import Hero from "~/components/Hero";
 
 import FunctionalCommunitySection from "./FunctionalCommunitySection";
 import DepartmentCard from "./DepartmentCard";
+import YourRolesSection from "./YourRolesSection";
 
 const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment CreatePoolClassification on Classification {
@@ -78,6 +81,12 @@ export const CreatePoolCommunity_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export interface RoleObject {
+  id: string;
+  name: string;
+  displayName?: Maybe<string>;
+}
+
 interface FormValues {
   classification: string;
   department: string;
@@ -97,6 +106,7 @@ interface CreatePoolFormProps {
     data: CreatePoolInput,
   ) => Promise<CreatePoolMutation["createPool"]>;
   canToggleFunctionalCommunity: boolean;
+  usersRelevantRoles: RoleObject[];
 }
 
 export const CreatePoolForm = ({
@@ -106,6 +116,7 @@ export const CreatePoolForm = ({
   communitiesQuery,
   handleCreatePool,
   canToggleFunctionalCommunity,
+  usersRelevantRoles,
 }: CreatePoolFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -214,6 +225,10 @@ export const CreatePoolForm = ({
           <div className="flex flex-col gap-y-3">
             <div>
               <Card.Separator space="none" className="my-6" />
+              <YourRolesSection rolesArray={usersRelevantRoles} intl={intl} />
+              <Card.Separator space="none" className="my-6" />
+            </div>
+            <div>
               <p className="mb-1.5 font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Type of position",
@@ -342,6 +357,9 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
           role {
             id
             name
+            displayName {
+              localized
+            }
           }
           teamable {
             id
@@ -477,6 +495,27 @@ const CreatePoolPage = () => {
     userRoles: roleAssignments,
   });
 
+  // generate roles prop to drill down
+  const userPoolCreationRoles = roleAssignments
+    .map((roleAssign) => roleAssign.role)
+    .filter((role) => !!role)
+    .filter((role) =>
+      [
+        "community_admin",
+        "community_recruiter",
+        "department_admin",
+        "department_hr_advisor",
+      ].includes(role.name),
+    );
+  const userUniquePoolRoles = uniqBy(userPoolCreationRoles, "name");
+  const rolesToRenderArray: RoleObject[] = userUniquePoolRoles.map((role) => {
+    return {
+      id: role.id,
+      name: role.name,
+      displayName: role.displayName?.localized,
+    };
+  });
+
   // determine what communities and departments to display
   // only community -> sees own communities plus all departments
   // only department -> sees own departments plus all communities
@@ -526,6 +565,7 @@ const CreatePoolPage = () => {
               communitiesQuery={communities}
               handleCreatePool={handleCreatePool}
               canToggleFunctionalCommunity={canToggleFunctionalCommunity}
+              usersRelevantRoles={rolesToRenderArray}
             />
           </Pending>
         </div>
