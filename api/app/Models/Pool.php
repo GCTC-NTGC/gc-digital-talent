@@ -54,7 +54,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?string $change_justification
  * @property ?string $status
  * @property string $department_id
- * @property string $community_id
+ * @property ?string $community_id
  * @property string $work_stream_id
  * @property ?string $area_of_selection
  * @property array $selection_limitations
