@@ -168,7 +168,11 @@ const Pagination = ({
                   onValueChange={handlePageSizeChange}
                 >
                   {pageSizes.map((size) => (
-                    <DropdownMenu.RadioItem key={size} value={String(size)}>
+                    <DropdownMenu.RadioItem
+                      closeOnClick
+                      key={size}
+                      value={String(size)}
+                    >
                       {size}
                     </DropdownMenu.RadioItem>
                   ))}
