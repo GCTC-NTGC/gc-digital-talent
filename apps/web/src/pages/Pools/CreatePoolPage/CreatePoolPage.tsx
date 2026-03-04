@@ -580,6 +580,6 @@ export const Component = () => (
   </RequireAuth>
 );
 
-Component.displayName = "AdminCreatePoolPage2";
+Component.displayName = "AdminCreatePoolPage";
 
 export default Component;
