@@ -344,6 +344,11 @@ type LocalizedPublishingGroup implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedReferralPauseLength implements LocalizedEnumOption {
+  value: ReferralPauseLength!
+  label: LocalizedString!
+}
+
 type LocalizedScreeningStage implements LocalizedEnumOption {
   value: ScreeningStage!
   label: LocalizedString!
@@ -1269,6 +1274,7 @@ enum ErrorCode {
   SCREENING_STAGE_NOT_UNDER_ASSESSMENT
   ASSESSMENT_STEP_PROHIBITED
   ASSESSMENT_STEP_CANDIDATE_SAME_POOL
+  INVALID_PAUSE_REFERRAL
   POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES
   POOL_SKILL_NOT_VALID
   TEAM_ID_REQUIRED
@@ -1633,6 +1639,15 @@ enum PublishingGroup {
   IAP
   IT_JOBS
   EXECUTIVE_JOBS
+  OTHER
+}
+
+enum ReferralPauseLength {
+  ONE_MONTH
+  THREE_MONTHS
+  SIX_MONTHS
+  ONE_YEAR
+  UNTIL_EXPIRY
   OTHER
 }
 
