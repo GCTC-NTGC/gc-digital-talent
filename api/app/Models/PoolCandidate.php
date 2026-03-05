@@ -43,6 +43,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Lang;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -852,6 +853,7 @@ class PoolCandidate extends Model
         if ($this->placement_type === PlacementType::PLACED_INDETERMINATE->name) {
             $this->referral_pause_at = Carbon::now();
             $this->referral_unpause_at = $this->expiry_date;
+            $this->referral_pause_reason = Lang::get('common.successfully_placed');
         }
 
         $this->save();
