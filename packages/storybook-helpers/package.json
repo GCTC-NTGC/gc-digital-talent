@@ -17,7 +17,7 @@
     "@gc-digital-talent/theme": "workspace:*",
     "@urql/core": "^5.2.0",
     "chromatic": "^15.2.0",
-    "graphql": "^16.13.0",
+    "graphql": "^16.13.1",
     "lodash": "^4.17.23",
     "motion": "^12.34.4",
     "react-router": "^7.13.1",
