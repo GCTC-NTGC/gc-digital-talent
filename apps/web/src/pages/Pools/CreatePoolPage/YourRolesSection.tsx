@@ -1,4 +1,4 @@
-import { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 
@@ -10,10 +10,11 @@ import { RoleObject } from "./CreatePoolPage";
 
 interface YourRolesSectionProps {
   rolesArray: RoleObject[];
-  intl: IntlShape;
 }
 
-const YourRolesSection = ({ rolesArray, intl }: YourRolesSectionProps) => {
+const YourRolesSection = ({ rolesArray }: YourRolesSectionProps) => {
+  const intl = useIntl();
+
   const roleChips = rolesArray
     ? rolesArray.map((role) => (
         <Chip color="primary" key={role.id} className="mr-1.5">
@@ -25,8 +26,7 @@ const YourRolesSection = ({ rolesArray, intl }: YourRolesSectionProps) => {
   const rolesPossessed = rolesArray.map((role) => role.name);
 
   // determine which of three states to render
-  type SectionCase = "DEPARTMENT" | "COMMUNITY" | "BOTH";
-  let applicableCase: SectionCase = "BOTH";
+  let applicableCase: "DEPARTMENT" | "COMMUNITY" | "BOTH" = "BOTH";
 
   if (
     rolesPossessed.some((role) =>

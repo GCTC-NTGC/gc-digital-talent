@@ -1,4 +1,4 @@
-import { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { CreatePoolDepartmentFragment as CreatePoolDepartmentFragmentType } from "@gc-digital-talent/graphql";
@@ -8,10 +8,11 @@ import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 interface DepartmentCardProps {
   selectedDepartment: CreatePoolDepartmentFragmentType;
-  intl: IntlShape;
 }
 
-const DepartmentCard = ({ selectedDepartment, intl }: DepartmentCardProps) => {
+const DepartmentCard = ({ selectedDepartment }: DepartmentCardProps) => {
+  const intl = useIntl();
+
   return (
     <Card>
       <p className="font-bold text-primary-600">

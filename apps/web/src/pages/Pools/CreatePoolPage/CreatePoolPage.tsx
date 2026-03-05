@@ -7,7 +7,7 @@ import uniqBy from "lodash/uniqBy";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Option, Select, Submit } from "@gc-digital-talent/forms";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
@@ -139,9 +139,7 @@ export const CreatePoolForm = ({
     communitiesQuery,
   );
 
-  const selectedDepartment = watchDepartment
-    ? departments.find((d) => d.id === watchDepartment)
-    : undefined;
+  const selectedDepartment = departments.find((d) => d.id === watchDepartment);
 
   // submission section, and navigate to edit the created pool
   const formValuesToSubmitData = (values: FormValues): CreatePoolInput => ({
@@ -225,7 +223,7 @@ export const CreatePoolForm = ({
           <div className="flex flex-col gap-y-3">
             <div>
               <Card.Separator space="none" className="my-6" />
-              <YourRolesSection rolesArray={usersRelevantRoles} intl={intl} />
+              <YourRolesSection rolesArray={usersRelevantRoles} />
               <Card.Separator space="none" className="my-6" />
             </div>
             <div>
@@ -295,10 +293,7 @@ export const CreatePoolForm = ({
               />
               {selectedDepartment ? (
                 <div className="mt-6">
-                  <DepartmentCard
-                    selectedDepartment={selectedDepartment}
-                    intl={intl}
-                  />
+                  <DepartmentCard selectedDepartment={selectedDepartment} />
                 </div>
               ) : null}
               <Card.Separator space="none" className="my-6" />
@@ -498,7 +493,7 @@ const CreatePoolPage = () => {
   // generate roles prop to drill down
   const userPoolCreationRoles = roleAssignments
     .map((roleAssign) => roleAssign.role)
-    .filter((role) => !!role)
+    .filter(notEmpty)
     .filter((role) =>
       [
         "community_admin",
