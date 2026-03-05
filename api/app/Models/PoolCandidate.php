@@ -849,6 +849,11 @@ class PoolCandidate extends Model
         $this->computed_final_decision = FinalDecision::QUALIFIED_PLACED->name;
         $this->computed_final_decision_weight = 30;
 
+        if ($this->placement_type === PlacementType::PLACED_INDETERMINATE->name) {
+            $this->referral_pause_at = Carbon::now();
+            $this->referral_unpause_at = $this->expiry_date;
+        }
+
         $this->save();
 
         $this->logActivity(ActivityEvent::PLACED, [
