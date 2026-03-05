@@ -39,11 +39,11 @@ final class CreatePoolValidator extends Validator
             }
         }
 
+        $authorizedForCommunity = ($community && $community->team->id && in_array($community->team->id, $teamIds));
+        $authorizedForDepartment = ($department && $department->team->id && in_array($department->team->id, $teamIds));
+
         if (
-            ! (
-                ($community && $community->team->id && in_array($community->team->id, $teamIds))
-                || ($department && $department->team->id && in_array($department->team->id, $teamIds))
-            )
+            ! ($authorizedForCommunity || $authorizedForDepartment)
         ) {
             throw ValidationException::withMessages(['id' => ErrorCode::INVALID_COMMUNITY_DEPARTMENT_COMBO->name]);
         }
