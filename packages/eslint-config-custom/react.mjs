@@ -163,6 +163,7 @@ export default [
                 "lodash/upperCase",
                 "lodash/head",
                 "lodash/reverse",
+                "lodash/isBoolean",
                 "lodash/isNumber",
                 "lodash/isObject",
                 "lodash/isString",
