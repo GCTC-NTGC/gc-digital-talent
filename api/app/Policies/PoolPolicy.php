@@ -129,7 +129,7 @@ class PoolPolicy
 
         // Confirm the user can create pools for the team
         $teamPermission = ! is_null($existing->team) && $user->isAbleTo('create-team-draftPool', $existing->team);
-        $communityPermission = ! is_null($existing->community->team) && $user->isAbleTo('create-team-draftPool', $existing->community->team);
+        $communityPermission = ! is_null($existing->community?->team) && $user->isAbleTo('create-team-draftPool', $existing->community?->team);
         $departmentPermission = ! is_null($existing->department->team) && $user->isAbleTo('create-team-draftPool', $existing->department->team);
         if ($teamPermission || $communityPermission || $departmentPermission) {
             return true;

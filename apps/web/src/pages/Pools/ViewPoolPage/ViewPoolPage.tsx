@@ -455,6 +455,7 @@ export const ViewPool = ({
                 {...commonDialogProps}
                 departmentsQuery={departmentsQuery}
                 onDuplicate={onDuplicate}
+                roleAssignments={unpackMaybes(roleAssignments)}
               />
             )}
             {pool.status?.value === PoolStatus.Closed && canArchive && (
