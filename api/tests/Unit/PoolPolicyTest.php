@@ -269,6 +269,7 @@ class PoolPolicyTest extends TestCase
     {
         $createPoolInput = [
             'community_id' => $this->community->id,
+            'department' => ['connect' => $this->otherDepartment->id],
         ];
 
         // assert community check
@@ -286,6 +287,7 @@ class PoolPolicyTest extends TestCase
         // community roles cannot create pools for other communities
         $createOtherPoolInput = [
             'community_id' => $this->otherCommunity->id,
+            'department' => ['connect' => $this->otherDepartment->id],
         ];
         $this->assertFalse($this->communityRecruiterUser->can('create', [Pool::class, $createOtherPoolInput]));
         $this->assertFalse($this->communityAdminUser->can('create', [Pool::class, $createOtherPoolInput]));
