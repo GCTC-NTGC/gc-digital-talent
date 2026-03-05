@@ -22,6 +22,7 @@ use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
+use App\Enums\ReferralPauseLength;
 use App\Enums\ScreeningStage;
 use App\Enums\SkillCategory;
 use App\Observers\PoolCandidateObserver;
@@ -151,6 +152,9 @@ class PoolCandidate extends Model
         'disqualification_reason',
         'computed_final_decision',
         'placement_type',
+        'referral_pause_at',
+        'referral_unpause_at',
+        'referral_pause_reason',
     ];
 
     protected $touches = ['user'];
@@ -975,5 +979,34 @@ class PoolCandidate extends Model
     {
         $properties['attributes']['user_name'] = $this->user->fullName ?? null;
         $properties['attributes']['pool_id'] = $this->pool->id ?? null;
+    }
+
+    public function pauseReferral(string $referralPauseLength, string $reason, ?Carbon $referralUnpauseAt)
+    {
+        $now = Carbon::now();
+
+        $lengthOfTime = match ($referralPauseLength) {
+            ReferralPauseLength::ONE_MONTH->name => $now->addMonth(),
+            ReferralPauseLength::THREE_MONTHS->name => $now->addMonths(3),
+            ReferralPauseLength::SIX_MONTHS->name => $now->addMonths(6),
+            ReferralPauseLength::ONE_YEAR->name => $now->addYear(),
+            ReferralPauseLength::UNTIL_EXPIRY->name => $this->expiry_date,
+            ReferralPauseLength::OTHER->name => $referralUnpauseAt,
+        };
+
+        $this->referral_pause_at = Carbon::now();
+        $this->referral_pause_reason = $reason;
+        $this->referral_unpause_at = $lengthOfTime;
+
+        $this->save();
+    }
+
+    public function unpauseReferral()
+    {
+        $this->referral_pause_at = null;
+        $this->referral_pause_reason = null;
+        $this->referral_unpause_at = null;
+
+        $this->save();
     }
 }
