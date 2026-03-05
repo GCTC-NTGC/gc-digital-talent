@@ -42,6 +42,11 @@ const generatePoolCandidate = (
     })) ?? [];
   const educationRequirementExperiences = fakeExperiences(1);
 
+  const expiryDate = faker.date
+      .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
+      .toISOString()
+      .substring(0, 10);
+
   return {
     id: faker.string.uuid(),
     pool,
@@ -55,10 +60,7 @@ const generatePoolCandidate = (
         Object.values(EducationRequirementOption),
       ),
     ),
-    expiryDate: faker.date
-      .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
-      .toISOString()
-      .substring(0, 10),
+    expiryDate,
     status: toLocalizedEnum(
       faker.helpers.arrayElement<ApplicationStatus>(
         Object.values(ApplicationStatus),
@@ -84,6 +86,9 @@ const generatePoolCandidate = (
       .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
       .toISOString()
       .substring(0, 10),
+    referralPauseAt: faker.date.past().toISOString(),
+    referralUnpauseAt: expiryDate,
+    referralPauseReason: faker.lorem.sentence(),
   };
 };
 

@@ -13,6 +13,7 @@ import {
   makeFragmentData,
   PlacementType,
   PoolCandidate,
+  ReferralPauseLength,
 } from "@gc-digital-talent/graphql";
 import {
   MockGraphqlDecorator,
@@ -41,6 +42,9 @@ type ApplicationSidebarData = Pick<
   | "expiryDate"
   | "screeningStage"
   | "assessmentStep"
+  | "referralPauseAt"
+  | "referralUnpauseAt"
+  | "referralPauseReason"
 >;
 
 const makeApplication = (data?: ApplicationSidebarData) =>
@@ -128,6 +132,16 @@ const meta = {
           departments: fakeDepartments(),
         },
       },
+      ApplicationReferralPauseOptions: {
+        data: {
+          referralPauseLengths: fakeLocalizedEnum(ReferralPauseLength).map(
+            (value) => ({
+              __typename: "LocalizedReferralPauseLength",
+              ...value,
+            }),
+          ),
+        },
+      },
     },
   },
 } satisfies Meta;
@@ -164,7 +178,18 @@ export const Removed: Story = {
   },
 };
 
-export const Qualified: Story = {
+export const QualifiedPaused: Story = {
+  args: {
+    query: makeApplication({
+      status: toLocalizedEnum(ApplicationStatus.Qualified),
+      referralPauseAt: null,
+      referralUnpauseAt: null,
+      referralPauseReason: null,
+    }),
+  },
+};
+
+export const QualifiedUnpause: Story = {
   args: {
     query: makeApplication({
       status: toLocalizedEnum(ApplicationStatus.Qualified),
@@ -177,6 +202,15 @@ export const Placed: Story = {
     query: makeApplication({
       status: toLocalizedEnum(ApplicationStatus.Qualified),
       placementType: toLocalizedEnum(PlacementType.PlacedTerm),
+    }),
+  },
+};
+
+export const PlacedIndeterminate: Story = {
+  args: {
+    query: makeApplication({
+      status: toLocalizedEnum(ApplicationStatus.Qualified),
+      placementType: toLocalizedEnum(PlacementType.PlacedIndeterminate),
     }),
   },
 };
