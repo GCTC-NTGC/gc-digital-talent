@@ -93,7 +93,7 @@ class PoolPolicy
             $request['department']['connect']
             : null;
 
-        if (is_null($communityId) && is_null($departmentId)) {
+        if (is_null($departmentId)) {
             return false;
         }
 
@@ -106,12 +106,10 @@ class PoolPolicy
             }
         }
 
-        if ($departmentId) {
-            $department = Department::with('team')->findOrFail($departmentId);
-            if (! is_null($department->team) && $user->isAbleTo('create-team-draftPool', $department->team)) {
-                // user is a department admin or advisor
-                return true;
-            }
+        $department = Department::with('team')->findOrFail($departmentId);
+        if (! is_null($department->team) && $user->isAbleTo('create-team-draftPool', $department->team)) {
+            // user is a department admin or advisor
+            return true;
         }
 
         return false; // fallback to fail
