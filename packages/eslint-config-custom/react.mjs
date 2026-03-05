@@ -167,6 +167,7 @@ export default [
                 "lodash/isNumber",
                 "lodash/isObject",
                 "lodash/isString",
+                "lodash/uniq",
               ],
               message: "Please use the native javascript function instead.",
             },
