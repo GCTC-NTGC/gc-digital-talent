@@ -672,6 +672,15 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+  referralPauseAt: DateTime
+    @rename(attribute: "referral_pause_at")
+    @canRoot(ability: "viewStatus")
+  referralUnpauseAt: DateTime
+    @rename(attribute: "referral_unpause_at")
+    @canRoot(ability: "viewStatus")
+  referralPauseReason: String
+    @rename(attribute: "referral_pause_reason")
+    @canRoot(ability: "viewStatus")
 
   # claim verification
   veteranVerification: ClaimVerificationResult
