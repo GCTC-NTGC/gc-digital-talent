@@ -2,6 +2,11 @@ import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
+import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
+import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+import { tv } from "tailwind-variants";
+import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
 import {
   Locales,
@@ -9,7 +14,7 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
+import { Link, Chip, Spoiler, IconType } from "@gc-digital-talent/ui";
 import {
   CandidateExpiryFilter,
   Maybe,
@@ -33,6 +38,8 @@ import {
   PoolCandidatesBaseSort,
   LocalizedCandidateStatus,
   LocalizedApplicationStatus,
+  LocalizedAssessmentDecision,
+  AssessmentDecision,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Radio } from "@gc-digital-talent/forms";
@@ -185,6 +192,64 @@ export const currentLocationAccessor = (
   intl: IntlShape,
 ) =>
   `${city ?? intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
+
+interface DecisionInfo {
+  className: string;
+  icon: IconType;
+}
+
+const defaultDecisionInfo = {
+  className: "text-warning",
+  icon: ExclamationCircleIcon,
+};
+
+const decisionInfoMap = new Map<AssessmentDecision, DecisionInfo>([
+  [
+    AssessmentDecision.Hold,
+    {
+      className: "text-primary",
+      icon: PauseCircleIcon,
+    },
+  ],
+  [
+    AssessmentDecision.Successful,
+    {
+      className: "text-success",
+      icon: CheckCircleIcon,
+    },
+  ],
+  [
+    AssessmentDecision.Unsuccessful,
+    {
+      className: "text-error",
+      icon: XCircleIcon,
+    },
+  ],
+]);
+
+const decisionIcon = tv({
+  base: "size-6",
+});
+
+export const screeningResultCell = (
+  screeningResult?: Maybe<LocalizedAssessmentDecision>,
+  defaultMessage = "",
+) => {
+  let info: DecisionInfo = defaultDecisionInfo;
+  if (screeningResult) {
+    info = decisionInfoMap.get(screeningResult.value) ?? defaultDecisionInfo;
+  }
+
+  const Icon = info.icon;
+
+  return (
+    <Icon
+      aria-hidden="false"
+      aria-label={screeningResult?.label.localized ?? defaultMessage}
+      className={decisionIcon({ class: info.className })}
+    />
+  );
+};
 
 export const applicationStatusCell = (
   status: Maybe<LocalizedApplicationStatus> | undefined,

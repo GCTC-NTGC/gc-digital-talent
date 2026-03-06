@@ -22,14 +22,14 @@ const StyledOverlay = forwardRef<
   ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >((props, forwardedRef) => (
   <DialogPrimitive.Overlay
-    className="fixed inset-0 z-[9998] grid place-items-center overflow-auto bg-gray-700/90"
+    className="fixed inset-0 z-98 grid place-items-center overflow-auto bg-gray-700/90"
     ref={forwardedRef}
     {...props}
   />
 ));
 
 const content = tv({
-  base: "relative z-[9999] mx-auto my-18 w-[90vw] font-sans",
+  base: "relative z-99 mx-auto my-18 w-[90vw] font-sans",
   variants: {
     wide: {
       true: "max-w-5xl",

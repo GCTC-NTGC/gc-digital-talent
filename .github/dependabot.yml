@@ -49,6 +49,14 @@ updates:
           - "major"
           - "minor"
           - "patch"
+      react-router:
+        patterns:
+          - "@react-router/node"
+          - "@react-router/dev"
+          - "react-router"
+        update-types:
+          - "minor"
+          - "patch"
       storybook:
         patterns:
           - "@storybook*"
@@ -62,6 +70,13 @@ updates:
       graphql-codegen:
         patterns:
           - "@graphql-codegen*"
+        update-types:
+          - "minor"
+          - "patch"
+      tailwind:
+        patterns:
+          - "@tailwindcss/vite"
+          - "tailwindcss"
         update-types:
           - "minor"
           - "patch"

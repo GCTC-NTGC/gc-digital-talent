@@ -547,6 +547,10 @@
     "defaultMessage": "Je m'identifie comme une personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
   },
+  "JPBRgs": {
+    "defaultMessage": "Une erreur est survenue lors de l'annulation de la décision finale. Le candidat a été placé.",
+    "description": "Error message that reverting the final decision for a placed candidate failed"
+  },
   "JQfTpr": {
     "defaultMessage": "Recrutement",
     "description": "Name of Recruitment page"
@@ -726,6 +730,10 @@
   "PMwqcS": {
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
+  },
+  "PPOcri": {
+    "defaultMessage": "Candidat introuvable",
+    "description": "Error message for when a pool candidate could not be found"
   },
   "PPSXML": {
     "defaultMessage": "Je consens à travailler dans la région des Prairies (Manitoba, Saskatchewan, Alberta).",

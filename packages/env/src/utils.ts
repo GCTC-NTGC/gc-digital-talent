@@ -44,7 +44,7 @@ export const getFeatureFlags = () => ({
     "FEATURE_APPLICATION_EMAIL_VERIFICATION",
   ),
   holidayMessage: checkFeatureFlag("FEATURE_HOLIDAY_MESSAGE"),
-  gcSignIn: checkFeatureFlag("FEATURE_GCSI"),
+  canadaLogin: checkFeatureFlag("FEATURE_CANADALOGIN"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;

@@ -276,7 +276,7 @@ const useMainNavLinks = () => {
 
   const manageAuthAccountLink = getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI");
   const ManageAuthAccount =
-    featureFlags.gcSignIn && manageAuthAccountLink ? (
+    featureFlags.canadaLogin && manageAuthAccountLink ? (
       <NavItem
         key="manageAuthAccount"
         href={manageAuthAccountLink}

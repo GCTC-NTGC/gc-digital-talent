@@ -29,7 +29,7 @@ const EmployeeSearchInput = ({
   id,
   label,
   name,
-  rules = {},
+  rules,
   buttonLabel,
   wrapperProps,
   errorMessages,
@@ -45,7 +45,7 @@ const EmployeeSearchInput = ({
   const labelId = `${id}-label`;
   return (
     <Field.Wrapper {...wrapperProps}>
-      <Field.Label id={labelId} htmlFor={id} required={!!rules.required}>
+      <Field.Label id={labelId} htmlFor={id} required={!!rules?.required}>
         {label}
       </Field.Label>
       <Controller

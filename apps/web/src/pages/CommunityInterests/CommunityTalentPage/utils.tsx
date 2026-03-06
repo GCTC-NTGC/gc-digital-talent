@@ -238,8 +238,3 @@ export function extractUserIdsFromSelectedRows(
   const userIds = selectedRowIds.map((id) => id.split("userId#")[1]);
   return uniqueItems(userIds);
 }
-
-export function removeDuplicateIds(ids: string[]): string[] {
-  const userIds = ids.map((id) => id.split("-userId#")[0]);
-  return uniqueItems(userIds);
-}

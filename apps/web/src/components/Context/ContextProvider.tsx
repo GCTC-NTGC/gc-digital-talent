@@ -1,6 +1,7 @@
 import { HelmetProvider } from "@dr.pogodin/react-helmet";
 import { MotionConfig, LazyMotion, domAnimation } from "motion/react";
 import { ReactNode } from "react";
+import ReactDOM from "react-dom";
 
 import { AppInsightsProvider } from "@gc-digital-talent/app-insights";
 import {
@@ -18,6 +19,8 @@ import frMessages from "~/lang/frCompiled.json";
 
 import NavContextProvider from "../NavContext/NavContextProvider";
 
+const ToastPortal = () => ReactDOM.createPortal(<Toast />, document.body);
+
 interface ContextContainerProps {
   children: ReactNode;
 }
@@ -27,7 +30,7 @@ const ContextContainer = ({ children }: ContextContainerProps) => (
     <HelmetProvider>
       <AuthenticationProvider>
         <LanguageProvider messages={frMessages}>
-          <Toast />
+          <ToastPortal />
           <ThemeProvider>
             <ClientProvider>
               <AppInsightsProvider>

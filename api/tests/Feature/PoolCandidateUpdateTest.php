@@ -71,9 +71,25 @@ class PoolCandidateUpdateTest extends TestCase
 
     protected $disqualifyCandidateMutation;
 
-    protected $revertFinalDecisionMutation;
+    protected $revertFinalDecisionMutation = <<<'GRAPHQL'
+        mutation revertFinalDecision($id: UUID!) {
+            revertFinalDecision(id: $id) {
+              id
+              status { value }
+              expiryDate
+            }
+          }
+    GRAPHQL;
 
-    protected $removeMutationDocument;
+    protected $removeMutationDocument = <<<'GRAPHQL'
+        mutation removeTest($id: UUID!, $removalReason: CandidateRemovalReason!, $removalReasonOther: String) {
+            removeCandidate (id: $id, removalReason: $removalReason, removalReasonOther: $removalReasonOther){
+                status { value }
+                removalReason { value }
+                removalReasonOther
+            }
+        }
+    GRAPHQL;
 
     protected $reinstateMutationDocument;
 
@@ -195,34 +211,6 @@ class PoolCandidateUpdateTest extends TestCase
               disqualificationReason { value }
             }
           }
-    ';
-
-        $this->revertFinalDecisionMutation =
-        /** @lang GraphQL */
-        '
-        mutation revertFinalDecision($id: UUID!) {
-            revertFinalDecision(id: $id) {
-              id
-              status { value }
-              expiryDate
-            }
-          }
-    ';
-
-        $this->removeMutationDocument =
-            /** @lang GraphQL */
-            '
-        mutation removeTest($id: UUID!, $removalReason: CandidateRemovalReason!, $removalReasonOther: String) {
-            removeCandidate (
-                id: $id,
-                removalReason: $removalReason,
-                removalReasonOther: $removalReasonOther
-            ){
-                status { value }
-                removalReason { value }
-                removalReasonOther
-            }
-        }
     ';
 
         $this->reinstateMutationDocument =
@@ -446,6 +434,7 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         $this->poolCandidate->application_status = ApplicationStatus::QUALIFIED->name;
+        $this->poolCandidate->placement_type = null;
         $this->poolCandidate->save();
 
         $this->actingAs($this->candidateUser, 'api')
@@ -660,15 +649,6 @@ class PoolCandidateUpdateTest extends TestCase
         assertSame($response['status']['value'], ApplicationStatus::TO_ASSESS->name);
         assertNull($response['expiryDate']);
 
-        // cannot revert again due to status changes
-        $this->actingAs($this->communityRecruiterUser, 'api')
-            ->graphQL(
-                $this->revertFinalDecisionMutation,
-                [
-                    'id' => $this->poolCandidate->id,
-                ]
-            )
-            ->assertGraphQLErrorMessage(ErrorCode::INVALID_STATUS_REVERT_FINAL_DECISION->name);
     }
 
     public function testPoolCandidateReinstatement(): void
@@ -711,7 +691,7 @@ class PoolCandidateUpdateTest extends TestCase
 
             $this->actingAs($this->communityRecruiterUser, 'api')
                 ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
-                ->assertGraphQLErrorMessage(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
+                ->assertGraphQLValidationError('id', ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
         }
     }
 
@@ -852,5 +832,140 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertJsonFragment([
                 'id' => $candidate->id,
             ]);
+    }
+
+    public function testRemoveCandidate()
+    {
+        $input = [
+            'id' => $this->poolCandidate->id,
+            'removalReason' => CandidateRemovalReason::INELIGIBLE->name,
+        ];
+
+        $res = [
+            'status' => [
+                'value' => ApplicationStatus::REMOVED->name,
+            ],
+        ];
+
+        // Assert exists validation
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, [
+                ...$input,
+                'id' => $this->faker->uuid(),
+            ])->assertGraphQLValidationError('id', 'The selected id is invalid.');
+
+        // Assert other reason
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, [
+                ...$input,
+                'removalReason' => CandidateRemovalReason::OTHER->name,
+            ])->assertGraphQLValidationError('removalReasonOther', 'The removal reason other field is required when removal reason is OTHER.');
+
+        // Cant remove draft
+        $this->poolCandidate->update(['application_status' => ApplicationStatus::DRAFT->name]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, $input)
+            ->assertGraphQLValidationError('id', ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
+
+        // Cant remove removed
+        $this->poolCandidate->update(['application_status' => ApplicationStatus::REMOVED->name]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, $input)
+            ->assertGraphQLValidationError('id', ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name);
+
+        // Cant remove placed
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
+        ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, $input)
+            ->assertGraphQLValidationError('id', ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name);
+
+        // Can remove qualified
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
+        ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, $input)
+            ->assertJsonFragment($res);
+
+        // Can remove to assess
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'placement_type' => null,
+        ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, $input)
+            ->assertJsonFragment($res);
+    }
+
+    public function testRevertFinalDecision()
+    {
+        $input = ['id' => $this->poolCandidate->id];
+
+        $res = ['status' => ['value' => ApplicationStatus::TO_ASSESS->name]];
+
+        // Assert exists validation
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->revertFinalDecisionMutation, [
+                ...$input,
+                'id' => $this->faker->uuid(),
+            ])->assertGraphQLValidationError('id', 'The selected id is invalid.');
+
+        // Cannot revert draft
+        $this->poolCandidate->update(['application_status' => ApplicationStatus::DRAFT->name]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->revertFinalDecisionMutation, $input)
+            ->assertGraphQLValidationError('id', ErrorCode::INVALID_STATUS_REVERT_FINAL_DECISION->name);
+
+        // Cannot revert to assess
+        $this->poolCandidate->update(['application_status' => ApplicationStatus::TO_ASSESS->name]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->revertFinalDecisionMutation, $input)
+            ->assertGraphQLValidationError('id', ErrorCode::INVALID_STATUS_REVERT_FINAL_DECISION->name);
+
+        // Cannot revert removed
+        $this->poolCandidate->update(['application_status' => ApplicationStatus::REMOVED->name]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->revertFinalDecisionMutation, $input)
+            ->assertGraphQLValidationError('id', ErrorCode::INVALID_STATUS_REVERT_FINAL_DECISION->name);
+
+        // Cannot revert placed
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::PLACED_CASUAL->name,
+        ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->revertFinalDecisionMutation, $input)
+            ->assertGraphQLValidationError('id', ErrorCode::INVALID_REVERT_DECISION_PLACED->name);
+
+        // Can revert not placed
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
+        ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->revertFinalDecisionMutation, $input)
+            ->assertJsonFragment($res);
+        $this->poolCandidate = $this->poolCandidate->fresh();
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
+        ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->revertFinalDecisionMutation, $input)
+            ->assertJsonFragment($res);
+
+        // Can revert disqualified
+        $this->poolCandidate = $this->poolCandidate->fresh();
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::DISQUALIFIED->name,
+            'placement_type' => null,
+        ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->revertFinalDecisionMutation, $input)
+            ->assertJsonFragment($res);
     }
 }
