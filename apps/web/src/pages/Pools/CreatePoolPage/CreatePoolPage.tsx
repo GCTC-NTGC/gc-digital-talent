@@ -35,7 +35,6 @@ import permissionConstants from "~/constants/permissionConstants";
 import Hero from "~/components/Hero";
 
 import FunctionalCommunitySection from "./FunctionalCommunitySection";
-import DepartmentCard from "./DepartmentCard";
 import YourRolesSection from "./YourRolesSection";
 
 export const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
@@ -122,9 +121,7 @@ export const CreatePoolForm = ({
   const navigate = useNavigate();
   const paths = useRoutes();
   const methods = useForm<FormValues>();
-  const { handleSubmit, watch } = methods;
-
-  const [watchDepartment] = watch(["department"]);
+  const { handleSubmit } = methods;
 
   const classifications = getFragment(
     CreatePoolClassification_Fragment,
@@ -138,8 +135,6 @@ export const CreatePoolForm = ({
     CreatePoolCommunity_Fragment,
     communitiesQuery,
   );
-
-  const selectedDepartment = departments.find((d) => d.id === watchDepartment);
 
   // submission section, and navigate to edit the created pool
   const formValuesToSubmitData = (values: FormValues): CreatePoolInput => ({
@@ -291,11 +286,6 @@ export const CreatePoolForm = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
               />
-              {selectedDepartment ? (
-                <div className="mt-6">
-                  <DepartmentCard selectedDepartment={selectedDepartment} />
-                </div>
-              ) : null}
               <Card.Separator space="none" className="my-6" />
             </div>
             <div>
