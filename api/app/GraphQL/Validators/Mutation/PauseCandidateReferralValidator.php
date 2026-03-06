@@ -7,7 +7,6 @@ namespace App\GraphQL\Validators\Mutation;
 use App\Enums\ReferralPauseLength;
 use App\Models\PoolCandidate;
 use App\Rules\CanPauseCandidateReferral;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -34,7 +33,7 @@ final class PauseCandidateReferralValidator extends Validator
             'referralUnpauseAt' => [
                 Rule::when(
                     fn (): bool => $this->arg('referralPauseLength') === ReferralPauseLength::OTHER->name,
-                    ['required', 'date', 'after:today', 'before_or_equal:' . $candidate->expiry_date]
+                    ['required', 'date', 'after:today', 'before_or_equal:'.$candidate->expiry_date]
                 ),
             ],
             'referralPauseReason' => ['required', 'string'],
