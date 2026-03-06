@@ -133,6 +133,6 @@ jobs:
           path: |
             apps/**/lang/untranslated.json
             packages/**/lang/untranslated.json
-            !packages/node_modules/**
             api/**/intlErrors.json
+            !**/node_modules/**
           if-no-files-found: ignore
