@@ -27,6 +27,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
+import applicationMessages from "~/messages/applicationMessages";
 
 interface FormValues {
   removalReason?: CandidateRemovalReason;
@@ -34,7 +35,7 @@ interface FormValues {
 }
 
 const RemoveCandidate_Mutation = graphql(/* GraphQL */ `
-  mutation RemoveCandidate(
+  mutation RemoveCandidateAction(
     $id: UUID!
     $removalReason: CandidateRemovalReason!
     $removalReasonOther: String
@@ -171,12 +172,7 @@ const RemoveCandidateDialog = ({
                 <RadioGroup
                   idPrefix="removalReason"
                   name="removalReason"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Reason",
-                    id: "4Ahswu",
-                    description:
-                      "Label for the reason why a candidate is being removed",
-                  })}
+                  legend={intl.formatMessage(applicationMessages.reason)}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}

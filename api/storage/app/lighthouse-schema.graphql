@@ -574,12 +574,13 @@ type Mutation {
   verifyUserEmails(code: String!): User
   removeUserWorkEmail(id: UUID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
-  updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
+  updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate @deprecated(reason: "Replaced by specific mutations")
   togglePoolCandidateFlag(id: ID!): Boolean
   togglePoolCandidateUserBookmark(poolCandidateId: UUID!): Boolean
   updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   updatePoolCandidateScreeningStage(poolCandidate: UpdatePoolCandidateScreeningStageInput!): PoolCandidate
+  updatePoolCandidateExpiryDate(id: UUID!, expiryDate: Date!): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
   reinstateCandidate(id: UUID!): PoolCandidate
   qualifyCandidate(id: UUID!, poolCandidate: QualifyCandidateInput!): PoolCandidate
@@ -1163,6 +1164,7 @@ type PoolCandidate {
   suspendedAt: DateTime
   deletedDate: DateTime
   isFlagged: Boolean
+  isBookmarked: Boolean
   removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
   profileSnapshot: JSON
@@ -1205,6 +1207,7 @@ type PoolCandidateAdminView {
   screeningStage: LocalizedScreeningStage
   notes: String
   isFlagged: Boolean
+  isBookmarked: Boolean
   category: PoolCandidateCategory
   screeningResult: LocalizedAssessmentDecision
   assessmentStatus: AssessmentResultStatus

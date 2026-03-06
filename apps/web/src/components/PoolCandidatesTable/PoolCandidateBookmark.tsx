@@ -46,11 +46,9 @@ const PoolCandidateBookmark = ({
 
   const [{ isBookmarked, isUpdating: isUpdatingBookmark }, toggleBookmark] =
     useCandidateBookmarkToggle({
-      poolCandidateId,
+      id: poolCandidateId,
       defaultValue: isBookmarkedDefaultValue,
-      candidateInfo: {
-        candidateName: poolCandidateName,
-      },
+      name: poolCandidateName,
     });
 
   return (

@@ -34,7 +34,7 @@ import WorkPreferencesSnapshot from "~/components/ProfileSnapshot/WorkPreference
 
 import SkillDisplay from "./SkillDisplay";
 import { SECTION_KEY } from "./types";
-import DownloadButton from "../MoreActions/DownloadButton";
+import ApplicationDownloadButton from "../Sidebar/ApplicationDownloadButton";
 
 const questionHeading = tv({
   base: "text-base lg:text-base",
@@ -82,6 +82,7 @@ export const ApplicationInformation_PoolCandidateFragment = graphql(
       submittedAt
       signature
       ...EducationRequirement_PoolCandidate
+      ...ApplicationDownloadButton
       screeningQuestionResponses {
         id
         answer
@@ -190,7 +191,7 @@ const ApplicationInformation = ({
         </Heading>
         <div className="flex items-end gap-3">
           {application && snapshot && (
-            <DownloadButton id={application.id} userId={snapshot.id} />
+            <ApplicationDownloadButton query={application} />
           )}
           <Button mode="inline" color="primary" onClick={toggleSections}>
             {hasOpenSections
