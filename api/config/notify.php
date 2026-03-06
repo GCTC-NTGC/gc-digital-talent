@@ -46,8 +46,6 @@ return [
         'nomination_received_nominator_fr' => env('GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_NOMINATOR_FR', ''),
         'application_received_en' => env('GCNOTIFY_TEMPLATE_APPLICATION_RECEIVED_EN', ''),
         'application_received_fr' => env('GCNOTIFY_TEMPLATE_APPLICATION_RECEIVED_FR', ''),
-        're_enter_off_platform_en' => env('GCNOTIFY_TEMPLATE_RE_ENTER_OFF_PLATFORM_EN'),
-        're_enter_off_platform_fr' => env('GCNOTIFY_TEMPLATE_RE_ENTER_OFF_PLATFORM_FR'),
         'application_deadline_extended_en' => env('GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_EXTENDED_EN', ''),
         'application_deadline_extended_fr' => env('GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_EXTENDED_FR', ''),
     ],
