@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
@@ -52,5 +53,12 @@ class AppServiceProvider extends ServiceProvider
 
         // rate limiter for GC Notify API
         RateLimiter::for('gcnotify_api', fn () => Limit::perMinute(config('notify.client.max_requests_per_minute')));
+
+        // log all events (except logging)
+        // Event::listen('*', function (string $event, array $data) {
+        //     if ($event != 'Illuminate\Log\Events\MessageLogged') {
+        //         Log::info("An event was fired: {$event}", $data);
+        //     }
+        // });
     }
 }

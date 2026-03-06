@@ -68,7 +68,7 @@ return [
         ],
 
         // processes outside of the web server can't log to stdout in the cloud and have to stick to a file
-        'jobs' => [
+        'jobs_file' => [
             'driver' => 'single',
             'path' => storage_path('logs/jobs.log'),
             'level' => env('LOG_LEVEL', 'debug'),
@@ -129,6 +129,23 @@ return [
 
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+
+        'azure' => [
+            'driver' => 'custom',
+            'via' => App\Logging\Azure\CreateAzureLogger::class,
+            'level' => env('LOG_LEVEL', 'debug'),
+            'bufferLimit' => 30,
+            'endpoint' => env('AZURE_LOG_INGESTION_ENDPOINT'),
+            'dcrImmutableId' => env('AZURE_DCR_IMMUTABLE_ID'),
+            'streamName' => env('AZURE_STREAM_NAME'),
+        ],
+
+        'jobs' => [
+            'driver' => 'stack',
+            'level' => env('LOG_LEVEL', 'debug'),
+            'channels' => ['jobs_file', 'azure'],
+            'ignore_exceptions' => false,
         ],
     ],
 

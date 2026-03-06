@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\CspReportController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserGeneratedFilesController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +30,8 @@ Route::prefix('user-generated-files')
 
 Route::post('csp-report', [CspReportController::class, 'report'])
     ->middleware('throttle:15,1');
+
+// Testing routes only enabled outside of production.
+if (! App::isProduction()) {
+    Route::post('{endpoint}/dataCollectionRules/{dcrImmutableId}/streams/{streamName}', [TestController::class, 'log']);
+}
