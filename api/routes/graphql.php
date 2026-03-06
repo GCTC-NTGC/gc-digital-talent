@@ -37,9 +37,6 @@ Route::middleware([
 
     // Set the app locale
     App\Http\Middleware\AcceptLanguageMiddleware::class,
-
-    // Throttles based on RateLimiter in RouteServiceProvider.
-    'throttle:graphql',
 ])->group(function () {
     // regular access to the graphql controller
     Route::post('/graphql', Nuwave\Lighthouse\Http\GraphQLController::class)

@@ -111,7 +111,7 @@ fragment SearchResultCard_Pool on Pool {
         # headerDict['authorization'] = 'Bearer ...'
 
         cookieDict={}
-        cookieDict['ai_user'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+        # cookieDict['key'] = 'value'
 
         response = self.client.post(
             "/graphql",
