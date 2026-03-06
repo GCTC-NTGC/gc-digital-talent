@@ -45,7 +45,7 @@ class PoolSkillPolicy
 
         $poolSkill->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
         $teamPermission = ! is_null($poolSkill->pool->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->team);
-        $communityPermission = ! is_null($poolSkill->pool->community?->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->community?->team);
+        $communityPermission = ! is_null($poolSkill->pool->community?->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->community->team);
         $departmentPermission = ! is_null($poolSkill->pool->department->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->department->team);
 
         return $teamPermission || $communityPermission || $departmentPermission;

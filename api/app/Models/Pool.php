@@ -65,6 +65,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?\Illuminate\Support\Carbon $published_at
  * @property ?\Illuminate\Support\Carbon $archived_at
  * @property Classification $classification
+ * @property ?Community $community
  * @property ?string $contact_email
  */
 class Pool extends Model
