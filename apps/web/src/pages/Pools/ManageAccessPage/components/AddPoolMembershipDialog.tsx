@@ -19,9 +19,7 @@ import {
   ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 
-import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
-import adminMessages from "~/messages/adminMessages";
 
 import { ManageAccessFormValues, PoolTeamMember } from "./types";
 import useAvailableUsers from "./useAvailableUsers";
@@ -33,19 +31,10 @@ interface AddPoolMembershipDialogProps {
   members: PoolTeamMember[];
 }
 
-const AddPoolMembershipDialog = ({
-  pool,
-  members,
-}: AddPoolMembershipDialogProps) => {
+const AddPoolMembershipDialog = ({ pool }: AddPoolMembershipDialogProps) => {
   const intl = useIntl();
   const [query, setQuery] = useState<string>("");
-  const {
-    users,
-    total,
-    fetching: usersFetching,
-  } = useAvailableUsers(members, {
-    publicProfileSearch: query || undefined,
-  });
+  const { users, fetching: usersFetching } = useAvailableUsers(query);
 
   const teamId = pool?.teamIdForRoleAssignment;
   const { roles, fetching: rolesFetching } = useAvailableRoles();
@@ -114,12 +103,7 @@ const AddPoolMembershipDialog = ({
 
   const userOptions = users?.map((user) => ({
     value: user.id,
-    label: getFullNameAndEmailLabel(
-      user.firstName,
-      user.lastName,
-      user.email,
-      intl,
-    ),
+    label: user.workEmail ?? user.id,
   }));
 
   return (
@@ -134,7 +118,19 @@ const AddPoolMembershipDialog = ({
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>
+        <Dialog.Header
+          subtitle={intl.formatMessage(
+            {
+              defaultMessage:
+                "Select the user you would like to add to {teamName} along with their roles.",
+              id: "fuGqZQ",
+              description: "Subtitle for the add member to team form",
+            },
+            {
+              teamName: getLocalizedName(pool.name, intl),
+            },
+          )}
+        >
           {intl.formatMessage({
             defaultMessage: "Add member",
             id: "IHyNL8",
@@ -149,10 +145,10 @@ const AddPoolMembershipDialog = ({
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Select the user you would like to add to this process:",
-                    id: "h5AUW9",
+                      "Only users with verified employee emails can be added to this process.",
+                    id: "+E05kW",
                     description:
-                      "Label for the user select field on process team dialog",
+                      "Warning that only verified work emails can be selected",
                   })}
                 </p>
                 <Combobox
@@ -161,23 +157,18 @@ const AddPoolMembershipDialog = ({
                   fetching={usersFetching}
                   isExternalSearch
                   onSearch={handleDebouncedSearch}
-                  total={total}
+                  total={users.length}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  label={intl.formatMessage(adminMessages.user)}
+                  label={intl.formatMessage({
+                    defaultMessage: "Verified employee email",
+                    id: "dRH0kc",
+                    description: "A label for a verified work email",
+                  })}
                   options={userOptions ?? []}
                 />
                 <input type="hidden" name="poolId" value={pool.id} />
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Select the roles you would like this member to have:",
-                    id: "FtxA9/",
-                    description:
-                      "Label for the roles select field on process team dialog",
-                  })}
-                </p>
                 <Combobox
                   id="roles"
                   name="roles"

@@ -1,69 +1,34 @@
 import { useQuery } from "urql";
 
-import {
-  UserPublicProfile,
-  UserPublicProfileFilterInput,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { UserWorkEmail, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { DepartmentMember } from "~/utils/departmentUtils";
-
-const DepartmentMembers_AvailableUsersQuery = graphql(/* GraphQL */ `
-  query DepartmentMembers_AvailableUsers(
-    $where: UserPublicProfileFilterInput
-    $excludeIds: [ID!]
-    $first: Int
-    $page: Int
-    $orderBy: [OrderByClause!]
-  ) {
-    userPublicProfilesPaginated(
-      where: $where
-      first: $first
-      page: $page
-      excludeIds: $excludeIds
-      orderBy: $orderBy
-    ) {
-      data {
-        id
-        firstName
-        lastName
-        email
-      }
-      paginatorInfo {
-        total
-      }
+const ManageAccessDepartment_AvailableUsersQuery = graphql(/* GraphQL */ `
+  query ManageAccessPoolWorkEmails($search: String) {
+    workEmails(search: $search) {
+      id
+      workEmail
     }
   }
 `);
 
 interface UseAvailableUsersReturn {
-  users: UserPublicProfile[];
-  total: number;
+  users: UserWorkEmail[];
   fetching: boolean;
 }
 
-const useAvailableUsers = (
-  members: DepartmentMember[],
-  where?: UserPublicProfileFilterInput,
-): UseAvailableUsersReturn => {
-  const excludeIds = members.map((member) => member.id);
+const useAvailableUsers = (search: string): UseAvailableUsersReturn => {
   const [{ data, fetching }] = useQuery({
-    query: DepartmentMembers_AvailableUsersQuery,
+    query: ManageAccessDepartment_AvailableUsersQuery,
     variables: {
-      first: 100,
-      excludeIds,
-      where,
+      search,
     },
   });
 
-  const users = unpackMaybes(data?.userPublicProfilesPaginated.data);
-  const total =
-    data?.userPublicProfilesPaginated.paginatorInfo?.total ?? users.length;
+  const users = unpackMaybes(data?.workEmails);
 
   return {
     users,
-    total,
     fetching,
   };
 };

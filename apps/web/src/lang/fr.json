@@ -4171,10 +4171,6 @@
     "defaultMessage": "Utilisateur",
     "description": "Label for a specific user"
   },
-  "FtxA9/": {
-    "defaultMessage": "Sélectionnez les rôles à confier au membre :",
-    "description": "Label for the roles select field on process team dialog"
-  },
   "FuuXpa": {
     "defaultMessage": "Suivant",
     "description": "Link text to navigate to the next item"
@@ -5214,10 +5210,6 @@
   "KjbjQU": {
     "defaultMessage": "Voir",
     "description": "Title displayed for a tables View column."
-  },
-  "Kk6u+9": {
-    "defaultMessage": "Sélectionnez l’utilisateur à ajouter à {departmentName}, ainsi que les rôles à lui attribuer.",
-    "description": "Help text for user field on the add member to department form"
   },
   "Kki7mk": {
     "defaultMessage": "Ma bibliothèque",
@@ -7266,10 +7258,6 @@
   "U8bLT7": {
     "defaultMessage": "Comment cela fonctionnera-t-il?",
     "description": "heading for how the indigenous talent portal will work"
-  },
-  "U8jsvJ": {
-    "defaultMessage": "Sélectionnez l'utilisateur que vous souhaitez ajouter à {communityName} ainsi que son rôle.",
-    "description": "Help text for user field on the add member to community form"
   },
   "U9jw1M": {
     "defaultMessage": "À l’exception de quelques compétences comportementales très particulières, seuls des renseignements techniques sont recueillis auprès des candidats dans la candidature initiale. Cela signifie que lors de votre examen, vous ne verrez que les données d’expérience relatives aux compétences techniques et à quelques compétences comportementales précises. Deux raisons expliquent ce choix.",
@@ -9986,6 +9974,10 @@
     "defaultMessage": "Niveau d’études",
     "description": "Title for education level on summary of filters section"
   },
+  "fuGqZQ": {
+    "defaultMessage": "Sélectionnez l’utilisateur à ajouter à {teamName}, ainsi que les rôles à lui attribuer.",
+    "description": "Subtitle for the add member to team form"
+  },
   "fugmiC": {
     "defaultMessage": "Descriptions",
     "description": "Heading for skill descriptions"
@@ -10313,10 +10305,6 @@
   "h4qlyy": {
     "defaultMessage": "Épinglé",
     "description": "Label for pinning something to the top of a list"
-  },
-  "h5AUW9": {
-    "defaultMessage": "Sélectionnez l'utilisateur que vous souhaitez ajouter à ce processus :",
-    "description": "Label for the user select field on process team dialog"
   },
   "h7IJnu": {
     "defaultMessage": "Profil complet",

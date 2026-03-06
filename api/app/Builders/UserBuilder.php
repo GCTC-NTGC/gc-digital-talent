@@ -479,9 +479,20 @@ class UserBuilder extends Builder
         return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
     }
 
+    // just calls another scope, but calling the scope from Lighthouse requires accepting an args array
+    public function whereWorkEmailSearch(?array $args): self
+    {
+        return $this->whereWorkEmail($args['search'] ?? null);
+    }
+
     public function whereExactWorkEmail(string $email): self
     {
         return $this->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
+    }
+
+    public function whereWorkEmailIsVerified(): self
+    {
+        return $this->whereNotNull('work_email_verified_at');
     }
 
     public function whereIsGovEmployee(?bool $isGovEmployee): self
@@ -755,5 +766,14 @@ class UserBuilder extends Builder
         }
 
         return $this;
+    }
+
+    /**
+     * Used to limit rows for search results.
+     * This seems pretty silly but I haven't figured out how to enforce a server-side limit in Lighthouse directives.
+     */
+    public function limitFive(): void
+    {
+        $this->limit(5);
     }
 }

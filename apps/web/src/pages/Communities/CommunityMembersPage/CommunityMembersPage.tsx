@@ -138,12 +138,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
         }}
         {...(canAdminManageAccess && {
           add: {
-            component: (
-              <AddCommunityMemberDialog
-                community={community}
-                members={members}
-              />
-            ),
+            component: <AddCommunityMemberDialog community={community} />,
           },
           nullMessage: {
             description: intl.formatMessage({

@@ -20,10 +20,7 @@ import {
   CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
 
-import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
-import { CommunityMember } from "~/utils/communityUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
-import adminMessages from "~/messages/adminMessages";
 
 import { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
@@ -33,23 +30,14 @@ import { UpdateUserCommunityRoles_Mutation } from "./operations";
 
 interface AddCommunityMemberDialogProps {
   community: CommunityMembersPageCommunityFragmentType;
-  members: CommunityMember[];
 }
 
 const AddCommunityMemberDialog = ({
   community,
-  members,
-}: // onSave,
-AddCommunityMemberDialogProps) => {
+}: AddCommunityMemberDialogProps) => {
   const intl = useIntl();
   const [query, setQuery] = useState<string>("");
-  const {
-    users,
-    total,
-    fetching: usersFetching,
-  } = useAvailableUsers(members, {
-    publicProfileSearch: query || undefined,
-  });
+  const { users, fetching: usersFetching } = useAvailableUsers(query);
 
   const { teamId } = useOutletContext<ContextType>();
   const { roles, fetching: rolesFetching } = useAvailableRoles();
@@ -114,12 +102,7 @@ AddCommunityMemberDialogProps) => {
   const roleOptions = getTeamBasedRoleOptions(roles, intl);
   const userOptions = users?.map((user) => ({
     value: user.id,
-    label: getFullNameAndEmailLabel(
-      user.firstName,
-      user.lastName,
-      user.email,
-      intl,
-    ),
+    label: user.workEmail ?? user.id,
   }));
 
   return (
@@ -138,13 +121,12 @@ AddCommunityMemberDialogProps) => {
           subtitle={intl.formatMessage(
             {
               defaultMessage:
-                "Select the user you would like to add to {communityName} along with their roles.",
-              id: "U8jsvJ",
-              description:
-                "Help text for user field on the add member to community form",
+                "Select the user you would like to add to {teamName} along with their roles.",
+              id: "fuGqZQ",
+              description: "Subtitle for the add member to team form",
             },
             {
-              communityName: getLocalizedName(community.name, intl),
+              teamName: getLocalizedName(community.name, intl),
             },
           )}
         >
@@ -159,17 +141,30 @@ AddCommunityMemberDialogProps) => {
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div className="flex flex-col gap-y-6">
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Only users with verified employee emails can be added to this community.",
+                    id: "FnvqtK",
+                    description:
+                      "Warning that only verified work emails can be selected",
+                  })}
+                </p>
                 <Combobox
                   id="userId"
                   name="userId"
                   fetching={usersFetching}
                   isExternalSearch
                   onSearch={handleDebouncedSearch}
-                  total={total}
+                  total={users.length}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  label={intl.formatMessage(adminMessages.user)}
+                  label={intl.formatMessage({
+                    defaultMessage: "Verified employee email",
+                    id: "dRH0kc",
+                    description: "A label for a verified work email",
+                  })}
                   options={userOptions ?? []}
                 />
                 <input type="hidden" name="communityId" value={community.id} />
