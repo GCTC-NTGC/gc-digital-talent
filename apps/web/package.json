@@ -35,7 +35,7 @@
     "**/*.css"
   ],
   "dependencies": {
-    "@dr.pogodin/react-helmet": "^3.0.6",
+    "@dr.pogodin/react-helmet": "^3.1.0",
     "@gc-digital-talent/app-insights": "workspace:*",
     "@gc-digital-talent/auth": "workspace:*",
     "@gc-digital-talent/client": "workspace:*",
@@ -57,7 +57,7 @@
     "@tanstack/react-table": "^8.21.3",
     "date-fns": "^3.6.0",
     "lodash": "^4.17.23",
-    "motion": "^12.34.3",
+    "motion": "^12.35.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.71.2",
@@ -91,7 +91,7 @@
     "tsconfig": "workspace:*",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
-    "vite-plugin-compression2": "^2.4.0",
+    "vite-plugin-compression2": "^2.5.0",
     "vite-plugin-html": "^3.2.2",
     "vitest": "^4.0.16"
   }

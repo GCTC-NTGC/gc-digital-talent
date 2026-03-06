@@ -1199,6 +1199,7 @@ type PoolCandidateAdminView {
   notes: String
   isFlagged: Boolean
   category: PoolCandidateCategory
+  screeningResult: LocalizedAssessmentDecision
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep
   placementType: LocalizedPlacementType
@@ -3688,6 +3689,8 @@ enum ErrorCode {
   INVALID_STATUS_PLACING
   INVALID_STATUS_QUALIFICATION
   INVALID_STATUS_REVERT_FINAL_DECISION
+  INVALID_REVERT_DECISION_PLACED
+  CANDIDATE_NOT_FOUND
   CANDIDATE_NOT_PLACED
   CANDIDATE_UNEXPECTED_STATUS
   REMOVE_CANDIDATE_ALREADY_PLACED
