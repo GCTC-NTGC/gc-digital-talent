@@ -366,4 +366,17 @@ class PoolCandidatePolicy
             || ($pool->community?->team && $user->isAbleTo($permission, $pool->community->team))
             || ($pool->department?->team && $user->isAbleTo($permission, $pool->department->team));
     }
+
+    public function updateReferral(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('update-any-applicationDecision')) {
+            return true;
+        }
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationDecision', $poolCandidate->pool->team);
+        $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationDecision', $poolCandidate->pool->community->team);
+        $departmentPermission = ! is_null($poolCandidate->pool?->department?->team) && $user->isAbleTo('update-team-applicationDecision', $poolCandidate->pool->department->team);
+
+        return $teamPermission || $communityPermission || $departmentPermission;
+    }
 }
