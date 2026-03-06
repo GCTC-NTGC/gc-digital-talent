@@ -702,8 +702,8 @@ type PoolCandidateAdminView {
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   status: LocalizedApplicationStatus @rename(attribute: "application_status")
-  candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
-  candidateInterest: LocalizedCandidateInterest @canRoot(ability: "viewStatus")
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   notes: String
   isFlagged: Boolean @rename(attribute: "is_flagged")
