@@ -1,11 +1,6 @@
 import { defineMessages } from "react-intl";
 
 const commonMessages = defineMessages({
-  test: {
-    defaultMessage: "test i18n string",
-    id: "cah4Cr",
-    description: "testing",
-  },
   projectTitle: {
     defaultMessage: "GC Digital Talent",
     id: "1i0PsT",
