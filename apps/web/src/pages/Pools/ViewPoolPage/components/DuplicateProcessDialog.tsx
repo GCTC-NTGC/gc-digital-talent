@@ -12,10 +12,13 @@ import {
 import { Option, Select } from "@gc-digital-talent/forms";
 import {
   FragmentType,
+  RoleAssignment,
   Scalars,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { hasRequiredRoles, ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { ProcessDialogProps } from "./types";
 
@@ -39,6 +42,7 @@ interface DuplicateProcessDialogProps extends ProcessDialogProps {
   onDuplicate: (opts: {
     department: Scalars["ID"]["output"] | undefined;
   }) => Promise<void>;
+  roleAssignments: RoleAssignment[];
 }
 
 const DuplicateProcessDialog = ({
@@ -46,6 +50,7 @@ const DuplicateProcessDialog = ({
   isFetching,
   onDuplicate,
   departmentsQuery,
+  roleAssignments,
 }: DuplicateProcessDialogProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
@@ -53,10 +58,48 @@ const DuplicateProcessDialog = ({
     DuplicatePoolDepartment_Fragment,
     departmentsQuery,
   );
-  const departmentOptions: Option[] = departments.map(({ id, name }) => ({
-    value: id,
-    label: getLocalizedName(name, intl),
-  }));
+
+  // restrict departments to select from based off user's role assignments
+  const departmentRoles: RoleName[] = [
+    ROLE_NAME.DepartmentAdmin,
+    ROLE_NAME.DepartmentHRAdvisor,
+  ];
+  function isAuthorizedDepartment(
+    assignment: RoleAssignment,
+  ): assignment is RoleAssignment {
+    return (
+      !!assignment.role &&
+      departmentRoles.includes(assignment.role.name as RoleName)
+    );
+  }
+
+  let departmentsToDisplay = departments;
+  const userDepartmentRoles = roleAssignments.filter(isAuthorizedDepartment);
+  const departmentIds = unpackMaybes(
+    userDepartmentRoles.map((assignment) => assignment.teamable?.id),
+  );
+  const hasCommunityRole = hasRequiredRoles({
+    toCheck: [{ name: "community_admin" }, { name: "community_recruiter" }],
+    userRoles: roleAssignments,
+  });
+  const hasDepartmentRole = hasRequiredRoles({
+    toCheck: [{ name: "department_admin" }, { name: "department_hr_advisor" }],
+    userRoles: roleAssignments,
+  });
+
+  if (!hasCommunityRole && hasDepartmentRole) {
+    // in the case of department role but not community, narrow department options
+    departmentsToDisplay = departments.filter((department) =>
+      departmentIds.includes(department.id),
+    );
+  }
+
+  const departmentOptions: Option[] = departmentsToDisplay.map(
+    ({ id, name }) => ({
+      value: id,
+      label: getLocalizedName(name, intl),
+    }),
+  );
 
   const title = intl.formatMessage({
     defaultMessage: "Duplicate process",

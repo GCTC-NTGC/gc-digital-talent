@@ -618,7 +618,7 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
-  createPool(userId: ID!, communityId: ID!, pool: CreatePoolInput!): Pool
+  createPool(userId: ID!, communityId: ID, pool: CreatePoolInput!): Pool
   duplicatePool(id: ID!, pool: DuplicatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
@@ -2622,7 +2622,6 @@ input SyncScreeningQuestionsInput {
 input UpdatePoolInput {
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   workStream: WorkStreamBelongsTo
   processNumber: String
   closingDate: DateTime
@@ -3692,6 +3691,7 @@ enum ErrorCode {
   CHANGE_JUSTIFICATION_REQUIRED
   UNARCHIVE_POOL_INVALID_STATUS
   ARCHIVE_POOL_INVALID_STATUS
+  INVALID_COMMUNITY_DEPARTMENT_COMBO
   INVALID_STATUS_DISQUALIFICATION
   INVALID_STATUS_PLACING
   INVALID_STATUS_QUALIFICATION

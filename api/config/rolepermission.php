@@ -1293,7 +1293,7 @@ return [
                 'team' => ['view'],
             ],
             'draftPool' => [
-                'team' => ['view'],
+                'team' => ['view', 'create', 'update', 'delete', 'publish'],
             ],
             'publishedPool' => [
                 'team' => ['archive'],
@@ -1305,7 +1305,7 @@ return [
                 'team' => ['view'],
             ],
             'assessmentPlan' => [
-                'team' => ['view'],
+                'team' => ['view', 'update'],
             ],
             'applicantProfile' => [
                 'team' => ['view'],
@@ -1338,7 +1338,7 @@ return [
                 'team' => ['view'],
             ],
             'draftPool' => [
-                'team' => ['view'],
+                'team' => ['view', 'create', 'update', 'delete', 'publish'],
             ],
             'publishedPool' => [
                 'team' => ['archive'],
@@ -1350,7 +1350,7 @@ return [
                 'team' => ['view'],
             ],
             'assessmentPlan' => [
-                'team' => ['view'],
+                'team' => ['view', 'update'],
             ],
             'applicantProfile' => [
                 'team' => ['view'],

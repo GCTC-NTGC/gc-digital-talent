@@ -58,7 +58,6 @@ export type PoolNameSubmitData = Pick<
   | "areaOfSelection"
   | "selectionLimitations"
   | "classification"
-  | "department"
   | "name"
   | "workStream"
   | "publishingGroup"
@@ -73,11 +72,6 @@ export const formValuesToSubmitData = (
   classification: formValues.classification
     ? {
         connect: formValues.classification,
-      }
-    : undefined,
-  department: formValues.department
-    ? {
-        connect: formValues.department,
       }
     : undefined,
   workStream: formValues.stream ? { connect: formValues.stream } : undefined,

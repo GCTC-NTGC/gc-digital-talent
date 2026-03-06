@@ -91,12 +91,13 @@ test.describe("Application", () => {
     testInfo.slow();
     const adminCtx = await graphql.newContext();
     const poolName = `application test pool for link experience to skill ${uniqueTestId}`;
+    const admin = await me(adminCtx, {});
     const pool = await createAndPublishPool(adminCtx, {
       name: {
         en: `${poolName} (EN)`,
         fr: `${poolName} (FR)`,
       },
-      userId: user?.id ?? "",
+      userId: admin?.id ?? "",
       classificationId: classificationId,
       input: {
         generalQuestions: {
@@ -254,12 +255,13 @@ test.describe("Application", () => {
     testInfo.slow();
     const adminCtx = await graphql.newContext();
     const poolName = `application test pool for submit application ${uniqueTestId}`;
+    const admin = await me(adminCtx, {});
     const pool = await createAndPublishPool(adminCtx, {
       name: {
         en: `${poolName} (EN)`,
         fr: `${poolName} (FR)`,
       },
-      userId: user?.id ?? "",
+      userId: admin?.id ?? "",
       classificationId: classificationId,
       input: {
         generalQuestions: {
@@ -448,12 +450,13 @@ test.describe("Application", () => {
   test("Can view application on dashboard", async ({ appPage }) => {
     const adminCtx = await graphql.newContext();
     const poolName = `application test pool for viewing on dashboard ${uniqueTestId}`;
+    const admin = await me(adminCtx, {});
     const pool = await createAndPublishPool(adminCtx, {
       name: {
         en: `${poolName} (EN)`,
         fr: `${poolName} (FR)`,
       },
-      userId: user?.id ?? "",
+      userId: admin?.id ?? "",
       classificationId: classificationId,
       input: {
         generalQuestions: {

@@ -47,7 +47,6 @@ import {
   dataToFormValues,
   formValuesToSubmitData,
   getClassificationOptions,
-  getDepartmentOptions,
 } from "./utils";
 import { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
@@ -133,18 +132,8 @@ export const PoolClassification_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const PoolDepartment_Fragment = graphql(/* GraphQL */ `
-  fragment PoolDepartment on Department {
-    id
-    name {
-      en
-      fr
-    }
-  }
-`);
-
 const PoolNameOptions_Query = graphql(/* GraphQL */ `
-  query PoolNameOptions($communityIds: [UUID!]) {
+  query PoolNameOptions {
     publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
       value
       label {
@@ -152,11 +141,14 @@ const PoolNameOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    workStreams(whereCommunityIn: $communityIds) {
+    workStreams {
       id
       name {
         en
         fr
+      }
+      community {
+        id
       }
     }
     opportunityLengths: localizedEnumStrings(
@@ -239,13 +231,11 @@ interface PoolNameSectionProps extends SectionProps<
   FragmentType<typeof EditPoolName_Fragment>
 > {
   classificationsQuery: FragmentType<typeof PoolClassification_Fragment>[];
-  departmentsQuery: FragmentType<typeof PoolDepartment_Fragment>[];
 }
 
 const PoolNameSection = ({
   poolQuery,
   classificationsQuery,
-  departmentsQuery,
   sectionMetadata,
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
@@ -253,7 +243,6 @@ const PoolNameSection = ({
   const pool = getFragment(EditPoolName_Fragment, poolQuery);
   const [{ data }] = useQuery({
     query: PoolNameOptions_Query,
-    variables: { communityIds: unpackMaybes([pool?.community?.id]) },
   });
   const isNull = isInNullState(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
@@ -267,7 +256,14 @@ const PoolNameSection = ({
     PoolClassification_Fragment,
     classificationsQuery,
   );
-  const departments = getFragment(PoolDepartment_Fragment, departmentsQuery);
+
+  // if community selected, limited streams, otherwise can pick any
+  const workStreams = unpackMaybes(data?.workStreams);
+  const workStreamsFiltered = pool?.community?.id
+    ? workStreams.filter(
+        (stream) => stream.community?.id === pool?.community?.id,
+      )
+    : workStreams;
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
@@ -442,12 +438,10 @@ const PoolNameSection = ({
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
-                  options={unpackMaybes(data?.workStreams).map(
-                    (workStream) => ({
-                      value: workStream.id,
-                      label: getLocalizedName(workStream?.name, intl),
-                    }),
-                  )}
+                  options={workStreamsFiltered.map((workStream) => ({
+                    value: workStream.id,
+                    label: getLocalizedName(workStream?.name, intl),
+                  }))}
                   disabled={formDisabled}
                 />
                 <Input
@@ -476,16 +470,6 @@ const PoolNameSection = ({
                 />
               </div>
               <div className="mb-6 grid gap-6">
-                <Select
-                  id="department"
-                  label={intl.formatMessage(commonMessages.department)}
-                  name="department"
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOption,
-                  )}
-                  options={getDepartmentOptions(departments, intl)}
-                  disabled={formDisabled}
-                />
                 <Select
                   id="opportunityLength"
                   name="opportunityLength"
