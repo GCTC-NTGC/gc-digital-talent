@@ -33,7 +33,7 @@
     "@formatjs/cli": "^6.13.0",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
-    "@types/node": "^25.3.0",
+    "@types/node": "^25.3.3",
     "@types/react": "^19.2.14",
     "@types/yargs": "^17.0.35",
     "eslint": "^9.20.1",

@@ -6539,10 +6539,6 @@
     "defaultMessage": "Il manque des renseignements personnels",
     "description": "Error message displayed when a users personal information is incomplete"
   },
-  "QexLn/": {
-    "defaultMessage": "Gérer la Connexion GC",
-    "description": "Message displayed to users to manage their auth account"
-  },
   "QhFxW1": {
     "defaultMessage": "Prochain type de poste et objectif de carrière",
     "description": "Title for next role and career objective section"
@@ -7821,6 +7817,10 @@
   "WoZ3pB": {
     "defaultMessage": "Les postes au niveau de la direction m'intéressent.",
     "description": "The executive interest described as interested."
+  },
+  "WogJ4I": {
+    "defaultMessage": "Gérer la ConnexionCanada",
+    "description": "Message displayed to users to manage their auth account"
   },
   "WokDUl": {
     "defaultMessage": "Groupe de classification visé",
@@ -12589,6 +12589,10 @@
   "qvfSHZ": {
     "defaultMessage": "Si vous pensez que vos compétences et votre expérience correspondent au poste de <strong>{title}</strong>, nous serions ravis de recevoir votre demande d'emploi.",
     "description": "Lead-in text to the apply call to action at the end of a pool advertisement"
+  },
+  "qwLrrx": {
+    "defaultMessage": "Résultat de la présélection",
+    "description": "Label for the result of an application screening"
   },
   "qxCyZM": {
     "defaultMessage": "Le ministère a été archivé",

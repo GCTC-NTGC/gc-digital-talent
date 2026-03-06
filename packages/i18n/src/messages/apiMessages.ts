@@ -204,6 +204,18 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Error message that reverting the final decision for a candidate failed",
   },
+  [ErrorCode.InvalidRevertDecisionPlaced]: {
+    defaultMessage:
+      "An error occurred while reverting final decision. Candidate has been placed.",
+    id: "JPBRgs",
+    description:
+      "Error message that reverting the final decision for a placed candidate failed",
+  },
+  [ErrorCode.CandidateNotFound]: {
+    defaultMessage: "Candidate not found.",
+    id: "PPOcri",
+    description: "Error message for when a pool candidate could not be found",
+  },
   [ErrorCode.InvalidStatusPlacing]: {
     defaultMessage:
       "An error occurred while placing the candidate. Contact support if this problem persists.",
