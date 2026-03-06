@@ -1,4 +1,5 @@
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import {
@@ -453,7 +454,7 @@ const PoolCandidatesTable = ({
     ...defaultState,
     sortState: defaultSortState,
   });
-  const searchParams = new URLSearchParams(window.location.search);
+  const [searchParams, setSearchParams] = useSearchParams();
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters = useMemo(
     () =>
@@ -462,6 +463,23 @@ const PoolCandidatesTable = ({
         : initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
+  const latestSearchParamsRef = useRef(searchParams);
+
+  useEffect(() => {
+    latestSearchParamsRef.current = searchParams;
+  }, [searchParams]);
+
+  // Remove filter param from URL on unmount using router API
+  useEffect(() => {
+    return () => {
+      const currentSearchParams = latestSearchParamsRef.current;
+      if (currentSearchParams.has(SEARCH_PARAM_KEY.FILTERS)) {
+        const newParams = new URLSearchParams(currentSearchParams.toString());
+        newParams.delete(SEARCH_PARAM_KEY.FILTERS);
+        setSearchParams(newParams, { replace: true });
+      }
+    };
+  }, [setSearchParams]); // Only run cleanup on unmount, with latest searchParams
 
   const [{ fetching: downloadingExcel }, downloadExcel] = useMutation(
     DownloadPoolCandidatesExcel_Mutation,
