@@ -44,7 +44,9 @@ class TalentManagement extends AppPage {
         name: /submit the evaluation of this nomination/i,
       })
       .click();
-    await this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Query");
+    await this.waitForGraphqlResponse(
+      "NominationGroupEvaluationDialogFormOptions",
+    );
 
     await this.page
       .getByRole("group", { name: /advancement approval/i })
@@ -81,7 +83,9 @@ class TalentManagement extends AppPage {
         name: /submit the evaluation of this nomination/i,
       })
       .click();
-    await this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Query");
+    await this.waitForGraphqlResponse(
+      "NominationGroupEvaluationDialogFormOptions",
+    );
 
     await this.page
       .getByRole("group", { name: /advancement approval/i })
@@ -113,7 +117,9 @@ class TalentManagement extends AppPage {
         name: /submit the evaluation of this nomination/i,
       })
       .click();
-    await this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Query");
+    await this.waitForGraphqlResponse(
+      "NominationGroupEvaluationDialogFormOptions",
+    );
 
     await this.page
       .getByRole("group", { name: /advancement approval/i })

@@ -627,6 +627,7 @@ type PoolCandidate {
   isFlagged: Boolean
     @rename(attribute: "is_flagged")
     @canRoot(ability: "viewNotes")
+  isBookmarked: Boolean
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
     @canRoot(ability: "viewStatus")
@@ -671,6 +672,15 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+  referralPauseAt: DateTime
+    @rename(attribute: "referral_pause_at")
+    @canRoot(ability: "viewStatus")
+  referralUnpauseAt: DateTime
+    @rename(attribute: "referral_unpause_at")
+    @canRoot(ability: "viewStatus")
+  referralPauseReason: String
+    @rename(attribute: "referral_pause_reason")
+    @canRoot(ability: "viewStatus")
 
   # claim verification
   veteranVerification: ClaimVerificationResult
@@ -707,6 +717,7 @@ type PoolCandidateAdminView {
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   notes: String
   isFlagged: Boolean @rename(attribute: "is_flagged")
+  isBookmarked: Boolean
   category: PoolCandidateCategory @with(relation: "user")
   screeningResult: LocalizedAssessmentDecision
   assessmentStatus: AssessmentResultStatus
@@ -3126,6 +3137,7 @@ type Mutation {
     id: UUID!
     poolCandidate: UpdatePoolCandidateStatusInput! @spread
   ): PoolCandidate
+    @deprecated(reason: "Replaced by specific mutations")
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
@@ -3158,6 +3170,15 @@ type Mutation {
   updatePoolCandidateScreeningStage(
     poolCandidate: UpdatePoolCandidateScreeningStageInput! @spread
   ): PoolCandidate
+    @guard
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+  updatePoolCandidateExpiryDate(
+    id: UUID!
+    expiryDate: Date!
+      @rename(attribute: "expiry_date")
+      @rules(apply: ["after_or_equal:today"])
+  ): PoolCandidate
+    @update
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   removeCandidate(
@@ -3211,6 +3232,20 @@ type Mutation {
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
     @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
+
+  pauseCandidateReferral(
+    id: UUID!
+    referralPauseLength: ReferralPauseLength
+    referralUnpauseAt: Date
+    referralPauseReason: String
+  ): PoolCandidate
+    @guard
+    @validator
+    @canFind(ability: "updateReferral", find: "id", injectArgs: true)
+  unpauseCandidateReferral(id: UUID!): PoolCandidate
+    @guard
+    @validator
+    @canFind(ability: "updateReferral", find: "id", injectArgs: true)
 
   createClassification(
     classification: CreateClassificationInput! @spread

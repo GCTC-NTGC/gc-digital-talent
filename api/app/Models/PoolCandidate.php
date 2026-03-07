@@ -22,6 +22,7 @@ use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
+use App\Enums\ReferralPauseLength;
 use App\Enums\ScreeningStage;
 use App\Enums\SkillCategory;
 use App\Observers\PoolCandidateObserver;
@@ -40,7 +41,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Lang;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -87,6 +90,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property bool $is_open_to_jobs
  * @property bool $is_hired
  * @property bool $referring
+ * @property ?\Illuminate\Support\Carbon $referral_pause_at
+ * @property ?\Illuminate\Support\Carbon $referral_unpause_at
+ * @property ?string $referral_pause_reason
  */
 class PoolCandidate extends Model
 {
@@ -147,6 +153,9 @@ class PoolCandidate extends Model
         'disqualification_reason',
         'computed_final_decision',
         'placement_type',
+        'referral_pause_at',
+        'referral_unpause_at',
+        'referral_pause_reason',
     ];
 
     protected $touches = ['user'];
@@ -505,6 +514,29 @@ class PoolCandidate extends Model
         return is_null($this->submitted_at) || $this->submitted_at->isFuture();
     }
 
+    protected function isBookmarked(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                /** @var \App\Models\User | null */
+                $user = Auth::user();
+                if (! $user) {
+                    return null;
+                }
+
+                static $bookmarkedIds = null;
+
+                if ($bookmarkedIds === null) {
+                    $bookmarkedIds = $user->poolCandidateBookmarks()
+                        ->pluck('pool_candidate_id')
+                        ->all();
+                }
+
+                return in_array($this->id, $bookmarkedIds);
+            }
+        );
+    }
+
     /**
      * Take the new application step to insert and add it to the array, preserving uniqueness
      */
@@ -818,6 +850,10 @@ class PoolCandidate extends Model
         $this->computed_final_decision = FinalDecision::QUALIFIED_PLACED->name;
         $this->computed_final_decision_weight = 30;
 
+        if ($this->placement_type === PlacementType::PLACED_INDETERMINATE->name) {
+            $this->pauseReferral(ReferralPauseLength::OTHER->name, Lang::get('common.successfully_placed'), $this->expiry_date);
+        }
+
         $this->save();
 
         $this->logActivity(ActivityEvent::PLACED, [
@@ -935,6 +971,7 @@ class PoolCandidate extends Model
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
         $this->disqualification_reason = null;
         $this->computed_final_decision_weight = 40;
+        $this->unpauseReferral();
 
         $this->save();
 
@@ -948,5 +985,35 @@ class PoolCandidate extends Model
     {
         $properties['attributes']['user_name'] = $this->user->fullName ?? null;
         $properties['attributes']['pool_id'] = $this->pool->id ?? null;
+    }
+
+    public function pauseReferral(string $referralPauseLength, string $reason, ?Carbon $referralUnpauseAt)
+    {
+        $now = Carbon::now();
+
+        $lengthOfTime = match ($referralPauseLength) {
+            ReferralPauseLength::ONE_MONTH->name => $now->addMonth(),
+            ReferralPauseLength::THREE_MONTHS->name => $now->addMonths(3),
+            ReferralPauseLength::SIX_MONTHS->name => $now->addMonths(6),
+            ReferralPauseLength::ONE_YEAR->name => $now->addYear(),
+            ReferralPauseLength::UNTIL_EXPIRY->name => $this->expiry_date,
+            ReferralPauseLength::OTHER->name => $referralUnpauseAt,
+            default => null,
+        };
+
+        $this->referral_pause_at = Carbon::now();
+        $this->referral_pause_reason = $reason;
+        $this->referral_unpause_at = $lengthOfTime;
+
+        $this->save();
+    }
+
+    public function unpauseReferral()
+    {
+        $this->referral_pause_at = null;
+        $this->referral_pause_reason = null;
+        $this->referral_unpause_at = null;
+
+        $this->save();
     }
 }

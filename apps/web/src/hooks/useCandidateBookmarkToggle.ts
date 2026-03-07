@@ -6,18 +6,14 @@ import { toast } from "@gc-digital-talent/toast";
 import { useControllableState } from "@gc-digital-talent/ui";
 
 const TogglePoolCandidateUserBookmark_Mutation = graphql(/* GraphQL */ `
-  mutation TogglePoolCandidateUserBookmark_Mutation($poolCandidateId: UUID!) {
-    togglePoolCandidateUserBookmark(poolCandidateId: $poolCandidateId)
+  mutation TogglePoolCandidateUserBookmark_Mutation($id: UUID!) {
+    togglePoolCandidateUserBookmark(poolCandidateId: $id)
   }
 `);
 
-interface CandidateInfo {
-  candidateName: string;
-}
-
 interface UseCandidateBookmarkToggleArgs {
-  poolCandidateId: Scalars["UUID"]["output"];
-  candidateInfo: CandidateInfo;
+  id: Scalars["UUID"]["output"];
+  name: string;
   defaultValue?: boolean;
   showToast?: boolean;
 }
@@ -33,14 +29,12 @@ type UseCandidateBookmarkToggleReturn = [
 ];
 
 const useCandidateBookmarkToggle = ({
-  poolCandidateId,
-  candidateInfo,
+  id,
+  name,
   defaultValue,
   showToast = true,
 }: UseCandidateBookmarkToggleArgs): UseCandidateBookmarkToggleReturn => {
   const intl = useIntl();
-
-  const candidateName = candidateInfo.candidateName;
 
   const [isBookmarked, setIsBookmarked] = useControllableState({
     defaultValue: defaultValue ?? false,
@@ -50,10 +44,8 @@ const useCandidateBookmarkToggle = ({
   );
 
   const toggleBookmark = async () => {
-    if (poolCandidateId) {
-      await executeToggleBookmarkMutation({
-        poolCandidateId,
-      })
+    if (id) {
+      await executeToggleBookmarkMutation({ id })
         .then((res) => {
           if (!res.error) {
             const newIsBookmarked =
@@ -68,7 +60,7 @@ const useCandidateBookmarkToggle = ({
                       description: "Bookmarked a candidate",
                     },
                     {
-                      name: candidateName,
+                      name,
                     },
                   ),
                 );
@@ -81,7 +73,7 @@ const useCandidateBookmarkToggle = ({
                       description: "Un-bookmarked a candidate",
                     },
                     {
-                      name: candidateName,
+                      name,
                     },
                   ),
                 );

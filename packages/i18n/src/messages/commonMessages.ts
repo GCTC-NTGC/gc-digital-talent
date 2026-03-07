@@ -235,6 +235,11 @@ const commonMessages = defineMessages({
     id: "u/+Nrd",
     description: "Label for job placement",
   },
+  referralStatus: {
+    defaultMessage: "Referral status",
+    id: "NG15dv",
+    description: "Label for the referral status field display",
+  },
   warning: {
     defaultMessage: "Warning!",
     id: "YtV1mE",

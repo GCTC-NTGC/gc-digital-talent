@@ -19,6 +19,7 @@ import {
   PoolLanguage,
   PoolOpportunityLength,
   PriorityWeight,
+  ReferralPauseLength,
   ScreeningStage,
   SecurityStatus,
   WorkRegion,
@@ -191,6 +192,12 @@ export const ENUM_SORT_ORDER = {
     PriorityWeight.CitizenOrPermanentResident,
     PriorityWeight.Other,
   ],
+  REMOVAL_REASON: [
+    CandidateRemovalReason.RequestedToBeWithdrawn,
+    CandidateRemovalReason.NotResponsive,
+    CandidateRemovalReason.Ineligible,
+    CandidateRemovalReason.Other,
+  ],
   SCREENING_STAGE: [
     ScreeningStage.NewApplication,
     ScreeningStage.ApplicationReview,
@@ -206,6 +213,14 @@ export const ENUM_SORT_ORDER = {
     WorkRegion.North,
     WorkRegion.Prairie,
     WorkRegion.BritishColumbia,
+  ],
+  REFERRAL_PAUSE_LENGTH: [
+    ReferralPauseLength.OneMonth,
+    ReferralPauseLength.ThreeMonths,
+    ReferralPauseLength.SixMonths,
+    ReferralPauseLength.OneYear,
+    ReferralPauseLength.UntilExpiry,
+    ReferralPauseLength.Other,
   ],
 };
 
