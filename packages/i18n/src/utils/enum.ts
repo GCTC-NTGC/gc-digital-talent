@@ -221,7 +221,7 @@ export const ENUM_SORT_ORDER = {
     ReferralPauseLength.OneYear,
     ReferralPauseLength.UntilExpiry,
     ReferralPauseLength.Other,
-  ]
+  ],
 };
 
 /**

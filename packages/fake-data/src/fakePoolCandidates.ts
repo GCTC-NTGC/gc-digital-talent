@@ -43,9 +43,9 @@ const generatePoolCandidate = (
   const educationRequirementExperiences = fakeExperiences(1);
 
   const expiryDate = faker.date
-      .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
-      .toISOString()
-      .substring(0, 10);
+    .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
+    .toISOString()
+    .substring(0, 10);
 
   return {
     id: faker.string.uuid(),
