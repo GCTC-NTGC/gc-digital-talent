@@ -998,6 +998,7 @@ class PoolCandidate extends Model
             ReferralPauseLength::ONE_YEAR->name => $now->addYear(),
             ReferralPauseLength::UNTIL_EXPIRY->name => $this->expiry_date,
             ReferralPauseLength::OTHER->name => $referralUnpauseAt,
+            default => null,
         };
 
         $this->referral_pause_at = Carbon::now();
