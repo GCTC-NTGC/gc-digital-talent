@@ -146,6 +146,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: untranslated-flattened
+          name: untranslated
           path: staging_untranslated/
           if-no-files-found: ignore
