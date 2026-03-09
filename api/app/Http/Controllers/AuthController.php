@@ -192,17 +192,23 @@ class AuthController extends Controller
         return response($response)->header('Content-Type', 'application/json');
     }
 
+    // generates an allow-list of auth callbacks for our domain
     public function sectorIdentifier(Request $request)
     {
-        // CanadaLogin doesn't like the escaped forward slashes
-        $data = json_encode([
+        $callbackUrls = [
             // our actual auth callback
             config('oauth.redirect_uri'),
+        ];
 
-            // auth callback for the Sign In Canada to CanadaLogin migration tool
-            'https://api.migration.signin-connexion.cdssandbox.xyz/v1/auth/legacy/callback',
+        // temporarily allow callback to the migration tool
+        if(env('OAUTH_MIGRATION_TOOL_CALLBACK')){
+            $callbackUrls[] = env('OAUTH_MIGRATION_TOOL_CALLBACK');
+        }
 
-        ], JSON_UNESCAPED_SLASHES);
-        return response($data, 200)->header('Content-Type', 'application/json');
+        return response()->json(
+            data: $callbackUrls,
+            // CanadaLogin doesn't like the escaped forward slashes
+            options: JSON_UNESCAPED_SLASHES
+        );
     }
 }
