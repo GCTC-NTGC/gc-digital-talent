@@ -184,13 +184,16 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
   );
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters = useMemo(
-    () =>
-      filtersEncoded
-        ? (JSON.parse(filtersEncoded) as PoolFilterInput)
-        : initialFilterInput,
-    [filtersEncoded, initialFilterInput],
-  );
+  const initialFilters = useMemo(() => {
+    if (!filtersEncoded) return initialFilterInput;
+
+    // Parse but only pick fields valid in PoolFilterInput
+    const parsed = JSON.parse(filtersEncoded) as PoolFilterInput;
+    return transformFormValuesToFilterInput(
+      transformPoolFilterInputToFormValues(parsed),
+    );
+  }, [filtersEncoded, initialFilterInput]);
+
   const filterRef = useRef<PoolFilterInput | undefined>(initialFilters);
   const [filterState, setFilterState] = useState<PoolFilterInput | undefined>(
     initialFilters,
@@ -240,6 +243,8 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
     permissionConstants.createProcess,
     roleAssignments,
   );
+  console.log("[PoolTable] filterState:", JSON.stringify(filterState, null, 2));
+  console.log("[PoolTable] raw URL filters param:", window.location.search);
 
   const [{ data, fetching }] = useQuery({
     query: PoolTable_Query,
