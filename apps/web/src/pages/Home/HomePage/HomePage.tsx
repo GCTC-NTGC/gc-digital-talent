@@ -28,6 +28,11 @@ export const Component = ({ defaultImage }: HeroProps) => {
         })}
       />
       <Hero defaultImage={defaultImage} />
+      {intl.formatMessage({
+        defaultMessage: "test web string",
+        description: "Testing",
+        id: 'uHMeqf',
+      })}
       <Opportunities />
       <Profile />
       <Featured />
