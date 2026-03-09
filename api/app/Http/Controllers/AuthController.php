@@ -205,10 +205,9 @@ class AuthController extends Controller
             $callbackUrls[] = env('OAUTH_MIGRATION_TOOL_CALLBACK');
         }
 
-        return response()->json(
-            data: $callbackUrls,
-            // CanadaLogin doesn't like the escaped forward slashes
-            options: JSON_UNESCAPED_SLASHES
-        );
-    }
+        return response(json_encode($callbackUrls, JSON_UNESCAPED_SLASHES))
+            ->withHeaders([
+                    'Content-Type'=> 'application/json; charset=utf-8'
+                ]);
+        }
 }
