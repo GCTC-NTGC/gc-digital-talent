@@ -194,14 +194,15 @@ class AuthController extends Controller
 
     public function sectorIdentifier(Request $request)
     {
-        return response()->json([
+        // CanadaLogin doesn't like the escaped forward slashes
+        $data = json_encode([
             // our actual auth callback
             config('oauth.redirect_uri'),
 
-            // auth callbacks for the Sign In Canada to CanadaLogin migration tool
-            'https://api.migration.signin-connexion.cdssandbox.xyz/v1/auth/callback',
+            // auth callback for the Sign In Canada to CanadaLogin migration tool
             'https://api.migration.signin-connexion.cdssandbox.xyz/v1/auth/legacy/callback',
 
-        ]);
+        ], JSON_UNESCAPED_SLASHES);
+        return response($data, 200)->header('Content-Type', 'application/json');
     }
 }
