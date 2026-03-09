@@ -33,8 +33,8 @@ interface FormValues {
 
 const mutationMessages: MutationMessages = {
   success: defineMessage({
-    defaultMessage: "Candidate reinstated successfully!",
-    id: "be0Dm6",
+    defaultMessage: "Candidate reinstated successfully.",
+    id: "SFf5/H",
     description: "Success message after reinstating a candidate",
   }),
   error: defineMessage({
