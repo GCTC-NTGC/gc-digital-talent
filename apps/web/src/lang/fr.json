@@ -575,10 +575,6 @@
     "defaultMessage": "Au cours des 24 mois, les apprenti·es apprennent en cours d’emploi avec un·e partenaire pair (4 jours par semaine) et suivent un programme de formation en ligne à leur rythme (1 jour par semaine) dans le cadre de leur perfectionnement.",
     "description": "Paragraph 1 of the 'Work integrated learning and IT training' subsection"
   },
-  "0Ic6ql": {
-    "defaultMessage": "Candidat non retiré",
-    "description": "Error message for removing a candidate"
-  },
   "0IggSg": {
     "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
     "description": "Legend for the radio group in the application education page - IAP variant."
@@ -1654,10 +1650,6 @@
   "4bWCNR": {
     "defaultMessage": "(Aucun fourni)",
     "description": "Message displayed when a given field has no values to display, that no information is present."
-  },
-  "4cN/oN": {
-    "defaultMessage": "Pour la raison suivante",
-    "description": "Lead in text for a decisions reason"
   },
   "4f81Y1": {
     "defaultMessage": "En sélectionnant « Seules les personnes ayant la citoyenneté canadienne peuvent postuler », vous confirmez que cette offre d’emploi est offerte par un ministère ou un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>.",
@@ -3427,10 +3419,6 @@
     "defaultMessage": "Les quatre groupes visés par l'équité en matière d'emploi sont les femmes, les Autochtones, les personnes en situation de handicap et les membres des minorités visibles.",
     "description": "Second paragraph for employment equity information."
   },
-  "CRcpm4": {
-    "defaultMessage": "Rétablir le candidat et mettre à jour le statut",
-    "description": "Button text to reinstate a candidate and update their status"
-  },
   "CTl5IT": {
     "defaultMessage": "Modifier notes",
     "description": "Button text to start editing pool candidate notes"
@@ -4518,10 +4506,6 @@
   "HXqsIc": {
     "defaultMessage": "Outils avancés",
     "description": "Nav tab label to access advanced tools "
-  },
-  "HY0vjz": {
-    "defaultMessage": "Supprimer le (la) candidat(e)",
-    "description": "Title for action to remove a candidate infinitive"
   },
   "HYUyl0": {
     "defaultMessage": "{count, plural, =0 {0 demande} one {# demande} other {# demandes}}",
@@ -5882,10 +5866,6 @@
   "NW7sCE": {
     "defaultMessage": "Créer une classification",
     "description": "Button text to create classification"
-  },
-  "NWDow2": {
-    "defaultMessage": "Supprimez le (la) candidat(e)",
-    "description": "Title for action to remove a candidate imperative"
   },
   "NZ3laJ": {
     "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt!",
@@ -9626,10 +9606,6 @@
     "defaultMessage": "Exploitez toutes les compétences sur notre site",
     "description": "Subtitle for explore skills page"
   },
-  "eUDr2H": {
-    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir le candidat au statut « Examen des candidatures »?",
-    "description": "Confirmation text for reverting final decision of a candidate"
-  },
   "eUnUZo": {
     "defaultMessage": "Le nombre de compétences comportementales sélectionnées ici, combiné aux compétences techniques essentielles dans la section précédente, contribue au nombre total de compétences essentielles.",
     "description": "Lead in, paragraph 2, for a list of essential behavioural skills"
@@ -9685,10 +9661,6 @@
   "egLb65": {
     "defaultMessage": "Continuez",
     "description": "An action button to proceed"
-  },
-  "ehYGss": {
-    "defaultMessage": "Le candidat a reçu la cote <strong>« Retiré »</strong> le <strong>{removedDate}</strong>.",
-    "description": "Date the candidate was removed on"
   },
   "ehrsDa": {
     "defaultMessage": "Langue d'expression à l'entrevue",
@@ -10845,10 +10817,6 @@
   "jHuiRm": {
     "defaultMessage": "Billet créé avec succès!",
     "description": "Support form toast message success"
-  },
-  "jI3Kfv": {
-    "defaultMessage": "Si vous souhaitez que ce candidat ne soit plus pris en considération pour des motifs extérieurs au processus d’évaluation, veuillez le préciser dans les champs suivants",
-    "description": "Help text for removing a candidate"
   },
   "jIMP76": {
     "defaultMessage": "Fournir quelques détails",
@@ -12094,10 +12062,6 @@
     "defaultMessage": "Commençons par en apprendre un peu plus sur l'auteur(trice) de la mise en candidature.",
     "description": "Subtitle for nomination nominator step"
   },
-  "ohLTJS": {
-    "defaultMessage": "Candidat non rétabli",
-    "description": "Error message for reinstating a candidate"
-  },
   "ohQoWa": {
     "defaultMessage": "N'importe quelle durée (court terme, long terme, période indéterminée)",
     "description": "Label displayed on Work Preferences form for any duration option"
@@ -12233,10 +12197,6 @@
   "pDqhbX": {
     "defaultMessage": "Postulez à un emploi, poursuivez vos ébauches ou suivez vos candidatures soumises tout au long du processus d'évaluation.",
     "description": "Subtitle explaining job applications expandable within applications and processes card"
-  },
-  "pErNfb": {
-    "defaultMessage": "Retirez le (la) candidat(e) et mettez à jour le statut",
-    "description": "Button text to remove a candidate and update their status"
   },
   "pFOjuY": {
     "defaultMessage": "Joyeux temps des Fêtes!",
@@ -12541,10 +12501,6 @@
   "qSTIKZ": {
     "defaultMessage": "Échec de la mise à jour de la date d'expiration",
     "description": "Toast for failed expiry date update on view-user page"
-  },
-  "qShZxu": {
-    "defaultMessage": "Candidat rétabli avec succès",
-    "description": "Success message for reinstating a candidate"
   },
   "qUkDNj": {
     "defaultMessage": "Restauration du ministère",
@@ -13005,10 +12961,6 @@
   "sl1kbp": {
     "defaultMessage": "détails pour {name}",
     "description": "Link text suffix to read more details for a search request"
-  },
-  "slQ7q5": {
-    "defaultMessage": "Candidat retiré avec succès",
-    "description": "Success message for removing a candidate"
   },
   "sn+r8z": {
     "defaultMessage": "La restauration de l'utilisateur a échoué.",
