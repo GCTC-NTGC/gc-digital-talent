@@ -37,6 +37,7 @@ type ApplicationSidebarData = Pick<
   PoolCandidate,
   | "status"
   | "placementType"
+  | "placedDepartment"
   | "disqualificationReason"
   | "removalReason"
   | "expiryDate"
@@ -202,6 +203,7 @@ export const Placed: Story = {
     query: makeApplication({
       status: toLocalizedEnum(ApplicationStatus.Qualified),
       placementType: toLocalizedEnum(PlacementType.PlacedTerm),
+      placedDepartment: fakeDepartments()[0],
     }),
   },
 };
@@ -211,6 +213,7 @@ export const PlacedIndeterminate: Story = {
     query: makeApplication({
       status: toLocalizedEnum(ApplicationStatus.Qualified),
       placementType: toLocalizedEnum(PlacementType.PlacedIndeterminate),
+      placedDepartment: fakeDepartments()[0],
     }),
   },
 };
