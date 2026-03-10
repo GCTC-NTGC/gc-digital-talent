@@ -289,6 +289,9 @@ importers:
       vitest:
         specifier: ^4.0.16
         version: 4.0.18(@types/node@25.3.3)(@vitest/browser-playwright@4.0.18)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.31.1)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
+      wonka:
+        specifier: ^6.3.5
+        version: 6.3.5
 
   packages/app-insights:
     dependencies:
@@ -451,6 +454,9 @@ importers:
       vitest:
         specifier: ^4.0.16
         version: 4.0.18(@types/node@25.3.3)(@vitest/browser-playwright@4.0.18)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.31.1)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
+      wonka:
+        specifier: ^6.3.5
+        version: 6.3.5
 
   packages/date-helpers:
     dependencies:
@@ -757,6 +763,9 @@ importers:
       react:
         specifier: ^19.2.4
         version: 19.2.4
+      react-dom:
+        specifier: ^19.2.4
+        version: 19.2.4(react@19.2.4)
       urql:
         specifier: ^5.0.1
         version: 5.0.1(@urql/core@5.2.0(graphql@16.13.1))(react@19.2.4)
