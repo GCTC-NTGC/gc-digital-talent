@@ -183,6 +183,9 @@ importers:
       react-dom:
         specifier: ^19.2.4
         version: 19.2.4(react@19.2.4)
+      react-focus-on:
+        specifier: ^3.10.2
+        version: 3.10.2(@types/react@19.2.14)(react@19.2.4)
       react-hook-form:
         specifier: ^7.71.2
         version: 7.71.2(react@19.2.4)
@@ -1138,9 +1141,6 @@ importers:
       react-csv-downloader:
         specifier: ^3.3.0
         version: 3.3.0(react@19.2.4)
-      react-focus-on:
-        specifier: ^3.10.2
-        version: 3.10.2(@types/react@19.2.14)(react@19.2.4)
       react-router:
         specifier: ^7.13.1
         version: 7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
