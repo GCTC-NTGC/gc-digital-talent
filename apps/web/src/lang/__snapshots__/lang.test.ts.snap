@@ -172,13 +172,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Remove candidate",
-    "fr": [
-      "Supprimer le (la) candidat(e)",
-      "Supprimez le (la) candidat(e)"
-    ]
-  },
-  {
     "en": "Remove from process",
     "fr": [
       "Retirez du processus",
