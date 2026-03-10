@@ -1138,9 +1138,6 @@ importers:
       react-csv-downloader:
         specifier: ^3.3.0
         version: 3.3.0(react@19.2.4)
-      react-focus-lock:
-        specifier: ^2.13.7
-        version: 2.13.7(@types/react@19.2.14)(react@19.2.4)
       react-focus-on:
         specifier: ^3.10.2
         version: 3.10.2(@types/react@19.2.14)(react@19.2.4)
