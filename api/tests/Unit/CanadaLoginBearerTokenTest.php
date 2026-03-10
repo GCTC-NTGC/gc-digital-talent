@@ -2,14 +2,14 @@
 
 namespace Tests\Unit;
 
-use App\Services\GcSignInBearerTokenService;
+use App\Services\CanadaLoginBearerTokenService;
 use DateTimeImmutable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Psr\Clock\ClockInterface;
 use Tests\TestCase;
 
-class GcSignInBearerTokenTest extends TestCase
+class CanadaLoginBearerTokenTest extends TestCase
 {
     /**
      * @var App\Contracts\BearerTokenService
@@ -54,7 +54,7 @@ class GcSignInBearerTokenTest extends TestCase
 
         Carbon::setTestNow('2020-01-01 00:02:00');
         $this->allowableClockSkew = \DateInterval::createFromDateString('4 minutes');
-        $this->service_provider = new GcSignInBearerTokenService(
+        $this->service_provider = new CanadaLoginBearerTokenService(
             self::fakeConfigUrl,
             $this->app->make(ClockInterface::class),
             $this->allowableClockSkew

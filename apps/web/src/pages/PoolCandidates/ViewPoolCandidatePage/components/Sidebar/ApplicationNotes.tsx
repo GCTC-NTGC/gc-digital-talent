@@ -79,8 +79,8 @@ const ApplicationNotes = ({ query }: ApplicationNotesProps) => {
 
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Notes updated successfully!",
-            id: "t9FeTB",
+            defaultMessage: "Notes updated successfully.",
+            id: "0RH74P",
             description: "Success message displayed after updating notes",
           }),
         );

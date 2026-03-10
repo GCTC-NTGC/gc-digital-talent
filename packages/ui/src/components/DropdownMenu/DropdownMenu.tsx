@@ -108,11 +108,13 @@ interface ItemProps extends ItemVariants, Omit<Menu.Item.Props, "className"> {
 const Item = ({
   className,
   color = "primary",
+  closeOnClick = true,
   disabled,
   ...rest
 }: ItemProps) => (
   <Menu.Item
     disabled={disabled}
+    closeOnClick={closeOnClick}
     className={item({ color, disabled, class: className })}
     {...rest}
   />
@@ -130,6 +132,7 @@ interface CheckboxItemProps
 
 const CheckboxItem = ({
   color = "primary",
+  closeOnClick = true,
   disabled,
   className,
   children,
@@ -137,6 +140,7 @@ const CheckboxItem = ({
 }: CheckboxItemProps) => (
   <Menu.CheckboxItem
     className={checkboxItem({ color, disabled, class: className })}
+    closeOnClick={closeOnClick}
     {...rest}
   >
     <Menu.CheckboxItemIndicator className="col-start-1">
@@ -153,6 +157,7 @@ interface RadioItemProps
 
 const RadioItem = ({
   color = "primary",
+  closeOnClick = true,
   disabled,
   className,
   children,
@@ -160,6 +165,7 @@ const RadioItem = ({
 }: RadioItemProps) => (
   <Menu.RadioItem
     className={checkboxItem({ color, disabled, class: className })}
+    closeOnClick={closeOnClick}
     {...rest}
   >
     <Menu.RadioItemIndicator className="col-start-1">

@@ -84,8 +84,8 @@ const statusMessageMap = new Map<ApplicationStatus, MessageDescriptor>([
 
 const mutationMessages: MutationMessages = {
   success: defineMessage({
-    defaultMessage: "Application status updated successfully!",
-    id: "EYWt+5",
+    defaultMessage: "Application status updated successfully.",
+    id: "nPBGRJ",
     description: "Success message when updating application status",
   }),
   error: defineMessage({

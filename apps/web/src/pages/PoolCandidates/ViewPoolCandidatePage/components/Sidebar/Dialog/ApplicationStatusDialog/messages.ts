@@ -8,8 +8,8 @@ export default defineMessages({
       "Heading for dialog to revert an application assessment decision",
   },
   revertSuccess: {
-    defaultMessage: "Decision reverted successfully!",
-    id: "QIzz88",
+    defaultMessage: "Decision reverted successfully.",
+    id: "uXSbTI",
     description: "Success message when an application decision was reverted",
   },
   revertError: {

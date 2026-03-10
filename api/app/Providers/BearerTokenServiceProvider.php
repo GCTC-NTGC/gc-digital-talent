@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Contracts\BearerTokenService;
-use App\Services\GcSignInBearerTokenService;
+use App\Services\CanadaLoginBearerTokenService;
 use App\Services\SignInCanadaBearerTokenService;
 use Illuminate\Support\ServiceProvider;
 use Psr\Clock\ClockInterface;
@@ -27,7 +27,7 @@ class BearerTokenServiceProvider extends ServiceProvider
             }
 
             // otherwise, use the new service
-            return new GcSignInBearerTokenService(
+            return new CanadaLoginBearerTokenService(
                 config('oauth.server_root').'/.well-known/openid-configuration',
                 $this->app->make(ClockInterface::class),
                 config('oauth.allowable_clock_skew')
