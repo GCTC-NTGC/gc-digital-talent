@@ -1826,7 +1826,7 @@ class PoolTest extends TestCase
                 ]
             );
 
-        $response->assertGraphQLErrorMessage(ErrorCode::INVALID_COMMUNITY_DEPARTMENT_COMBO->name);
+        $response->assertGraphQLValidationError('pool', ErrorCode::INVALID_COMMUNITY_DEPARTMENT_COMBO->name);
     }
 
     public function testDuplicatePool()

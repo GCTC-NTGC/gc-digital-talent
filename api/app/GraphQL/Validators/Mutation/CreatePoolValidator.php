@@ -6,7 +6,7 @@ use App\Enums\ErrorCode;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\User;
-use Nuwave\Lighthouse\Exceptions\ValidationException;
+use Closure;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class CreatePoolValidator extends Validator
@@ -39,18 +39,20 @@ final class CreatePoolValidator extends Validator
             }
         }
 
-        $authorizedForCommunity = ($community && $community->team->id && in_array($community->team->id, $teamIds));
-        $authorizedForDepartment = ($department && $department->team->id && in_array($department->team->id, $teamIds));
-
-        if (
-            ! ($authorizedForCommunity || $authorizedForDepartment)
-        ) {
-            throw ValidationException::withMessages(['id' => ErrorCode::INVALID_COMMUNITY_DEPARTMENT_COMBO->name]);
-        }
+        $authorizedForCommunity = in_array($community?->team?->id, $teamIds);
+        $authorizedForDepartment = in_array($department?->team?->id, $teamIds);
 
         return [
             'pool.department.connect' => [
                 'required',
+            ],
+            'pool' => [
+                function (string $attribute, mixed $value, Closure $fail) use ($authorizedForCommunity, $authorizedForDepartment) {
+                    if (! ($authorizedForCommunity || $authorizedForDepartment)) {
+                        $fail(ErrorCode::INVALID_COMMUNITY_DEPARTMENT_COMBO->name);
+                    }
+                },
+
             ],
         ];
     }
