@@ -86,11 +86,11 @@ const DepartmentMembersTable = ({
         },
       },
     ),
-    columnHelper.accessor("email", {
-      id: "email",
-      header: intl.formatMessage(commonMessages.email),
+    columnHelper.accessor("workEmail", {
+      id: "workEmail",
+      header: intl.formatMessage(commonMessages.workEmail),
       cell: ({ row: { original: member } }) =>
-        emailLinkCell(member.email, intl),
+        emailLinkCell(member.workEmail, intl),
     }),
     columnHelper.accessor((member) => roleAccessor(member.roles, intl), {
       id: "roles",
