@@ -395,6 +395,7 @@ type MigrateOffPlatformProcessesNotification implements Notification {
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
+  workEmail: Email @rename(attribute: "work_email")
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
 }
@@ -408,6 +409,12 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")
+}
+
+# Mini type to support search by work email
+type UserWorkEmail @model(class: "\\App\\Models\\User") {
+  id: ID!
+  workEmail: Email @rename(attribute: "work_email")
 }
 
 type GeneralQuestion {
@@ -1467,6 +1474,13 @@ type Query {
     @guard
     @validator
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
+  workEmails(search: String): [UserWorkEmail!]!
+    @all(
+      model: "User"
+      scopes: ["whereWorkEmailIsVerified", "whereWorkEmailSearch", "limitFive"]
+    )
+    @guard
+    @canModel(ability: "viewAnyUserWorkEmail", model: "User")
   usersPaginated(
     where: UserFilterInput
       @scope(name: "whereUserFilterInputToSpecialLocationMatching")

@@ -138,7 +138,7 @@ class EmployeeProfile extends Model
     /** @return HasOne<User, $this> */
     public function userPublicProfile(): HasOne
     {
-        return $this->hasOne(User::class, 'id')->select(['id', 'email', 'first_name', 'last_name']);
+        return $this->hasOne(User::class, 'id')->select(['id', 'email', 'work_email', 'first_name', 'last_name']);
     }
 
     /** @return HasMany<CommunityInterest, $this> */
