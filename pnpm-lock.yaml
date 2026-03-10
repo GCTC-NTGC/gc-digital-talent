@@ -954,9 +954,6 @@ importers:
         specifier: ^6.3.5
         version: 6.3.5
     devDependencies:
-      '@formatjs/ts-transformer':
-        specifier: ^4.4.0
-        version: 4.4.0
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
