@@ -975,6 +975,7 @@ type MigrateOffPlatformProcessesNotification implements Notification {
 type UserPublicProfile {
   id: ID!
   email: Email
+  workEmail: Email
   firstName: String
   lastName: String
 }

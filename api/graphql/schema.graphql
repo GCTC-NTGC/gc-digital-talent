@@ -395,6 +395,7 @@ type MigrateOffPlatformProcessesNotification implements Notification {
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
+  workEmail: Email @rename(attribute: "work_email")
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
 }

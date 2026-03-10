@@ -66,11 +66,13 @@ class RoleAssignment extends Model
 
     public function user(): MorphTo
     {
+        // UserPublicProfile
         return $this->morphTo('user')->select([
             'id',
             'first_name',
             'last_name',
             'email',
+            'work_email'
         ]);
     }
 }
