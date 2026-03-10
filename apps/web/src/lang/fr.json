@@ -71,6 +71,10 @@
     "defaultMessage": "À propos du programme",
     "description": "Title of the 'About the program' section"
   },
+  "+E05kW": {
+    "defaultMessage": "Seuls les utilisateurs ayant une adresse courriel professionnelle vérifiée peuvent être ajoutés à ce processus.",
+    "description": "Warning that only verified work emails can be selected"
+  },
   "+EINSB": {
     "defaultMessage": "Traiter en priorité les demandes des candidats visés par l’équité en matière d’emploi;",
     "description": "List item 2, how self-declaration data is used"
@@ -4143,6 +4147,10 @@
     "defaultMessage": "Notre engagement envers la conception, l’élaboration et la prestation de services accessibles.",
     "description": "Subtitle for the accessibility statement page."
   },
+  "FnvqtK": {
+    "defaultMessage": "Seuls les utilisateurs ayant une adresse courriel professionnelle vérifiée peuvent être ajoutés à cette communauté.",
+    "description": "Warning that only verified work emails can be selected"
+  },
   "FpDMGu": {
     "defaultMessage": "Lien avec l’expérience supprimé!",
     "description": "Success message displayed after unlinking an experience to a skill"
@@ -6815,6 +6823,10 @@
     "defaultMessage": "Ajouter <hidden>{title} </hidden>à mon profil",
     "description": "Text label for button to add employment equity category to profile."
   },
+  "RfWCgW": {
+    "defaultMessage": "Seuls les utilisateurs ayant une adresse courriel professionnelle vérifiée peuvent être ajoutés à ce ministère.",
+    "description": "Warning that only verified work emails can be selected"
+  },
   "Rg8rht": {
     "defaultMessage": "Les tâches principales ont été mises à jour avec succès.",
     "description": "Message displayed when a user successfully updates the key tasks"
@@ -9325,6 +9337,10 @@
   "dPAsNx": {
     "defaultMessage": "Il s’agissait d'un rôle dans la force régulière ou de réserve de l’Armée canadienne, de l'Aviation royale canadienne ou de la Marine royale canadienne.",
     "description": "Description for the caf employment category option in work experience"
+  },
+  "dRH0kc": {
+    "defaultMessage": "Adresse courriel professionnelle vérifiée",
+    "description": "A label for a verified work email"
   },
   "dRJLsv": {
     "defaultMessage": "Enregistrer votre prochain type de poste",
