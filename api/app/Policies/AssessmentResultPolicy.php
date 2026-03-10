@@ -24,7 +24,7 @@ class AssessmentResultPolicy
 
         $teamPermission = ! is_null($assessmentResult->assessmentStep->pool->team)
             && $user->isAbleTo('view-team-applicationAssessment', $assessmentResult->assessmentStep->pool->team);
-        $communityPermission = ! is_null($assessmentResult->assessmentStep->pool->community->team)
+        $communityPermission = ! is_null($assessmentResult->assessmentStep->pool->community?->team)
         && $user->isAbleTo('view-team-applicationAssessment', $assessmentResult->assessmentStep->pool->community->team);
         $departmentPermission = ! is_null($assessmentResult->assessmentStep->pool->department->team)
         && $user->isAbleTo('view-team-applicationAssessment', $assessmentResult->assessmentStep->pool->department->team);
@@ -46,7 +46,7 @@ class AssessmentResultPolicy
 
             $teamPermission = ! is_null($parentAssessmentStep->pool->team)
                 && $user->isAbleTo('update-team-applicationAssessment', $parentAssessmentStep->pool->team);
-            $communityPermission = ! is_null($parentAssessmentStep->pool->community->team)
+            $communityPermission = ! is_null($parentAssessmentStep->pool->community?->team)
             && $user->isAbleTo('update-team-applicationAssessment', $parentAssessmentStep->pool->community->team);
             $departmentPermission = ! is_null($parentAssessmentStep->pool->department->team)
             && $user->isAbleTo('update-team-applicationAssessment', $parentAssessmentStep->pool->department->team);
@@ -68,7 +68,7 @@ class AssessmentResultPolicy
 
         $teamPermission = ! is_null($assessmentResult->assessmentStep->pool->team)
             && $user->isAbleTo('update-team-applicationAssessment', $assessmentResult->assessmentStep->pool->team);
-        $communityPermission = ! is_null($assessmentResult->assessmentStep->pool->community->team)
+        $communityPermission = ! is_null($assessmentResult->assessmentStep->pool->community?->team)
         && $user->isAbleTo('update-team-applicationAssessment', $assessmentResult->assessmentStep->pool->community->team);
         $departmentPermission = ! is_null($assessmentResult->assessmentStep->pool->department->team)
         && $user->isAbleTo('update-team-applicationAssessment', $assessmentResult->assessmentStep->pool->department->team);

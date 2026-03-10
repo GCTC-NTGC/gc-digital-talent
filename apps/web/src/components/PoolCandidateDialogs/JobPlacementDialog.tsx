@@ -18,12 +18,26 @@ import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { checkRole } from "~/utils/teamUtils";
-import { formValuesToPlaceCandidateInput } from "~/components/PoolCandidateDialogs/formUtils";
 
 import JobPlacementForm, {
   FormValues,
   JobPlacementOptions_Query,
 } from "./JobPlacementForm";
+
+export function formValuesToPlaceCandidateInput(formValues: FormValues) {
+  if (!formValues.placementType) {
+    throw new Error("Missing placement type");
+  }
+  if (formValues.placementType === PlacementType.NotPlaced) {
+    throw new Error("Invalid placement type");
+  }
+  return {
+    poolCandidate: {
+      department: { connect: formValues.placedDepartment ?? "" },
+      placementType: formValues.placementType,
+    },
+  };
+}
 
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(

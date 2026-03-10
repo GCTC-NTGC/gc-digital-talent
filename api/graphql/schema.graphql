@@ -634,6 +634,7 @@ type PoolCandidate {
   isFlagged: Boolean
     @rename(attribute: "is_flagged")
     @canRoot(ability: "viewNotes")
+  isBookmarked: Boolean
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
     @canRoot(ability: "viewStatus")
@@ -709,11 +710,12 @@ type PoolCandidateAdminView {
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   status: LocalizedApplicationStatus @rename(attribute: "application_status")
-  candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
-  candidateInterest: LocalizedCandidateInterest @canRoot(ability: "viewStatus")
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   notes: String
   isFlagged: Boolean @rename(attribute: "is_flagged")
+  isBookmarked: Boolean
   category: PoolCandidateCategory @with(relation: "user")
   screeningResult: LocalizedAssessmentDecision
   assessmentStatus: AssessmentResultStatus
@@ -2744,7 +2746,6 @@ input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   workStream: WorkStreamBelongsTo
   processNumber: String @rename(attribute: "process_number")
   # Closing date
@@ -3140,6 +3141,7 @@ type Mutation {
     id: UUID!
     poolCandidate: UpdatePoolCandidateStatusInput! @spread
   ): PoolCandidate
+    @deprecated(reason: "Replaced by specific mutations")
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
@@ -3172,6 +3174,15 @@ type Mutation {
   updatePoolCandidateScreeningStage(
     poolCandidate: UpdatePoolCandidateScreeningStageInput! @spread
   ): PoolCandidate
+    @guard
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+  updatePoolCandidateExpiryDate(
+    id: UUID!
+    expiryDate: Date!
+      @rename(attribute: "expiry_date")
+      @rules(apply: ["after_or_equal:today"])
+  ): PoolCandidate
+    @update
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   removeCandidate(
@@ -3368,9 +3379,13 @@ type Mutation {
   # Pool mutations
   createPool(
     userId: ID! @rename(attribute: "user_id")
-    communityId: ID! @rename(attribute: "community_id")
+    communityId: ID @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
-  ): Pool @create @guard @canModel(ability: "create", injectArgs: true)
+  ): Pool
+    @create
+    @guard
+    @canModel(ability: "create", injectArgs: true)
+    @validator(class: "Mutation\\CreatePoolValidator")
   duplicatePool(id: ID!, pool: DuplicatePoolInput! @spread): Pool
     @guard
     @canModel(ability: "duplicate", injectArgs: true)

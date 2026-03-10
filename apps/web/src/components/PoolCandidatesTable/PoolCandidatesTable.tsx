@@ -434,7 +434,7 @@ const PoolCandidatesTable = ({
   availableSteps,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pick<Pool, "id">>;
+  currentPool?: Maybe<Pick<Pool, "id" | "displayName">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
@@ -768,6 +768,7 @@ const PoolCandidatesTable = ({
                 poolCandidate as FragmentType<
                   typeof PoolCandidate_FlagFragment
                 >,
+                currentPool?.displayName?.display.localized,
               ),
             meta: {
               shrink: true,

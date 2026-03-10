@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import isBoolean from "lodash/isBoolean";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
 import { ReactNode } from "react";
 
@@ -349,7 +348,9 @@ const ExperienceCard = ({
       )
     : experience.skills;
   const singleSkill =
-    !isBoolean(showSkills) && !Array.isArray(showSkills) && "id" in showSkills
+    typeof showSkills !== "boolean" &&
+    !Array.isArray(showSkills) &&
+    "id" in showSkills
       ? experience.skills?.find((skill) => skill.id === showSkills.id)
       : null;
 
