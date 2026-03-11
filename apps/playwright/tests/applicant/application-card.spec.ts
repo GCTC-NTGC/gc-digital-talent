@@ -79,7 +79,6 @@ test.describe("Application card", () => {
     const applicant = await me(applicantCtx, {});
 
     const candidate = await createAndSubmitApplication(applicantCtx, {
-      userId: applicant.id,
       poolId: pool.id,
       personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName} signature`,
