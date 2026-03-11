@@ -572,7 +572,7 @@
     "description": "Label displayed on Award form for awarded to input"
   },
   "0HPwnA": {
-    "defaultMessage": "Expérience combinée en sciences informatiques, en sciences, en technologie de l’information, en gestion de l’information ou en tout autre spécialité pertinente au présent concours, y compris n’importe quelle des expériences suivantes : ",
+    "defaultMessage": "Expérience combinée en sciences informatiques, en sciences, en technologie de l’information, en gestion de l’information ou toute autre spécialité pertinente au présent concours, y compris n’importe quelle des expériences suivantes : ",
     "description": "Descriptive text explaining valid applied work experiences."
   },
   "0IZsNR": {
@@ -4336,7 +4336,7 @@
     "description": "Placeholder displayed on the skill form skill families field."
   },
   "GSHQHG": {
-    "defaultMessage": "Autre experience connexe (p. ex., personnelle, communautaire, familiale).",
+    "defaultMessage": "Autre expérience connexe (p. ex., personnelle, communautaire, familiale).",
     "description": "Experience requirement, other."
   },
   "GSVZ7R": {
