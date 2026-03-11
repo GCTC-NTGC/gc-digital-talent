@@ -64,6 +64,8 @@ export const isAdvertisementVisible = (
     ROLE_NAME.ProcessOperator,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
+    ROLE_NAME.DepartmentAdmin,
+    ROLE_NAME.DepartmentHRAdvisor,
   ];
   return (
     roleAssignments.filter(notEmpty).some((assignment) => {

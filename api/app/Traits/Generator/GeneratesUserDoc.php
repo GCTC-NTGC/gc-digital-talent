@@ -792,7 +792,7 @@ trait GeneratesUserDoc
             $section->addTitle($candidate->pool->name[$this->lang] ?? '', $headingRank + 2);
             $this->addLabelText($section, $this->localize('headings.classification'), $candidate->pool->classification->formattedGroupAndLevel);
             $this->addLabelText($section, $this->localizeHeading('process_number'), $candidate->pool->process_number);
-            $this->addLabelText($section, $this->localizeHeading('functional_community'), $candidate->pool->community->name[$this->lang] ?? '');
+            $this->addLabelText($section, $this->localizeHeading('functional_community'), $candidate->pool->community?->name[$this->lang] ?? '');
             $this->addLabelText($section, $this->localizeHeading('availability'), $this->yesOrNo(! isset($candidate->suspended_at)));
         });
 

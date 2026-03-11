@@ -286,4 +286,12 @@ class UserPolicy
     {
         return $user->isAbleTo('view-any-basicGovEmployeeProfile');
     }
+
+    /**
+     * Determine whether the user can view a more limited version of the User model.
+     */
+    public function viewAnyUserWorkEmail(User $user): bool
+    {
+        return $user->isAbleTo('view-any-userWorkEmail');
+    }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-deprecated */
 import { useIntl } from "react-intl";
-import uniqBy from "lodash/unionBy";
+import uniqBy from "lodash/uniqBy";
 import { useLocation } from "react-router";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
