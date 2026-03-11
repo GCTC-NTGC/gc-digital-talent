@@ -90,7 +90,6 @@
     "@types/lodash": "^4.17.24",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.4",
     "dotenv": "^17.3.1",
     "eslint": "^9.20.1",
     "jsdom": "^26.0.0",
@@ -100,7 +99,6 @@
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vite-plugin-compression2": "^2.5.0",
-    "vite-plugin-html": "^3.2.2",
     "vitest": "^4.0.16",
     "wonka": "^6.3.5"
   }
