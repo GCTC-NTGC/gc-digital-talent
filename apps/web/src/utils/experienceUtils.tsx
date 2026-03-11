@@ -152,6 +152,11 @@ export const getExperienceFormLabels = (
       id: "gnEK8V",
       description: "Label displayed on Award form for award scope input",
     }),
+    employmentCategory: intl.formatMessage({
+      defaultMessage: "Employment category",
+      id: "BdpXAF",
+      description: "Label for the employment category radio group",
+    }),
     role: intl.formatMessage({
       defaultMessage: "My role",
       id: "nyQyqM",
