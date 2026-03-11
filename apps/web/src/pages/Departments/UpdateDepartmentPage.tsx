@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
+import { useMutation } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -11,34 +11,28 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
-  Pending,
-  NotFound,
-  Heading,
-  Link,
-  CardSeparator,
-  Card,
-} from "@gc-digital-talent/ui";
+import { Heading, Link, CardSeparator, Card } from "@gc-digital-talent/ui";
 import {
   DepartmentSize,
   FragmentType,
   LocalizedStringInput,
   Maybe,
-  Scalars,
   UpdateDepartmentInput,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import { requireUser } from "~/routing/auth";
+import { graphqlClientContext, intlContext } from "~/routing/context";
 
+import type { Route } from "./+types/UpdateDepartmentPage";
 import FormFields, { DepartmentFormOptions_Fragment } from "./FormFields";
 import { DepartmentType, departmentTypeToInput } from "./utils";
 
@@ -193,10 +187,6 @@ export const UpdateDepartmentForm = ({
   );
 };
 
-interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
-}
-
 const Department_Query = graphql(/* GraphQL */ `
   query Department($id: UUID!) {
     department(id: $id) {
@@ -218,22 +208,57 @@ const UpdateDepartment_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const UpdateDepartmentPage = () => {
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request }, next) => {
+    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
+    return await next();
+  },
+];
+
+export async function clientLoader({
+  context,
+  params,
+}: Route.ClientLoaderArgs) {
+  const intl = context.get(intlContext);
+  const client = context.get(graphqlClientContext);
+  const res = await client
+    .query(Department_Query, { id: params.departmentId })
+    .toPromise();
+
+  if (!res.data?.department) {
+    throw new NotFoundError(
+      intl.formatMessage(
+        {
+          defaultMessage: "Department {departmentId} not found.",
+          id: "8Otaw9",
+          description: "Message displayed for department not found.",
+        },
+        { departmentId: params.departmentId },
+      ),
+    );
+  }
+
+  return {
+    department: res.data.department,
+    departmentFormQuery: res.data?.department,
+    departmentFormOptionsQuery: res.data,
+  };
+}
+
+const Component = ({
+  loaderData: { department, departmentFormQuery, departmentFormOptionsQuery },
+  params: { departmentId },
+}: Route.ComponentProps) => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { departmentId } = useRequiredParams<RouteParams>("departmentId");
-  const [{ data, fetching, error }] = useQuery({
-    query: Department_Query,
-    variables: { id: departmentId },
-  });
   const [, executeMutation] = useMutation(UpdateDepartment_Mutation);
   const handleUpdateDepartment = (
     id: string,
-    department: UpdateDepartmentInput,
+    updateDepartmentInput: UpdateDepartmentInput,
   ) =>
     executeMutation({
       id,
-      department,
+      department: updateDepartmentInput,
     }).then((result) => {
       if (result.data?.updateDepartment) {
         return result.data?.updateDepartment;
@@ -241,7 +266,7 @@ const UpdateDepartmentPage = () => {
       return Promise.reject(new Error(result.error?.toString()));
     });
 
-  const departmentName = getLocalizedName(data?.department?.name, intl);
+  const departmentName = getLocalizedName(department?.name, intl);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -280,42 +305,16 @@ const UpdateDepartmentPage = () => {
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div className="mb-18">
-          <Pending fetching={fetching} error={error}>
-            {data?.department ? (
-              <UpdateDepartmentForm
-                query={data.department}
-                optionsQuery={data}
-                handleUpdateDepartment={handleUpdateDepartment}
-              />
-            ) : (
-              <NotFound
-                headingMessage={intl.formatMessage(commonMessages.notFound)}
-              >
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Department {departmentId} not found.",
-                      id: "8Otaw9",
-                      description:
-                        "Message displayed for department not found.",
-                    },
-                    { departmentId },
-                  )}
-                </p>
-              </NotFound>
-            )}
-          </Pending>
+          <UpdateDepartmentForm
+            query={departmentFormQuery}
+            optionsQuery={departmentFormOptionsQuery}
+            handleUpdateDepartment={handleUpdateDepartment}
+          />
         </div>
       </Hero>
     </>
   );
 };
-
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <UpdateDepartmentPage />
-  </RequireAuth>
-);
 
 Component.displayName = "AdminUpdateDepartmentPage";
 
