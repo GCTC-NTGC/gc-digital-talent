@@ -202,7 +202,7 @@ class PoolApplicationTest extends TestCase
 
         // Guest users cannot create applications
         $this->graphQL($this->createMutationDocument, $variables)
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+            ->assertGraphQLErrorMessage('Unauthenticated.');
 
         // Assert creating a pool application succeeds
         // returns DRAFT as a result of application_status Accessor and unexpired pool
