@@ -7211,10 +7211,6 @@
     "defaultMessage": "Classification de la personne de référence",
     "description": "Label for the reference's input field in nominations details step"
   },
-  "TiIkSF": {
-    "defaultMessage": "Études postsecondaires de deux ans",
-    "description": "Option for education requirement, 2-year post-secondary"
-  },
   "Tj1iyN": {
     "defaultMessage": "S’inscrire aux mises à jour<hidden> sur les cours et camps d'entrainement dirigés par un instructeur ou une instructrice</hidden>",
     "description": "A link to sign up for updates"
