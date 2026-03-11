@@ -149,7 +149,7 @@ export const DashboardPage = ({
       <section className="my-18">
         <Container>
           <div className="flex flex-col gap-6 xs:flex-row">
-            <div className="flex flex-col gap-6">
+            <div className="flex grow flex-col gap-6">
               <DepartmentToolsTaskCard
                 departmentToolsTaskCardQuery={currentUser}
               />
