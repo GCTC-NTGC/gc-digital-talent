@@ -418,6 +418,7 @@ type Query {
     trashed: Trashed
   ): User
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
+  workEmails(search: String): [UserWorkEmail!]!
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -634,7 +635,7 @@ type Mutation {
   archivePool(id: ID!): Pool
   unarchivePool(id: ID!): Pool
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
-  createApplication(userId: ID!, poolId: ID!): PoolCandidate
+  createApplication(poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): PoolCandidate
   submitApplication(id: ID!, signature: String!): PoolCandidate
   updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
@@ -975,6 +976,7 @@ type MigrateOffPlatformProcessesNotification implements Notification {
 type UserPublicProfile {
   id: ID!
   email: Email
+  workEmail: Email
   firstName: String
   lastName: String
 }
@@ -988,6 +990,11 @@ type BasicGovEmployeeProfile {
   role: String
   department: Department
   classification: Classification
+}
+
+type UserWorkEmail {
+  id: ID!
+  workEmail: Email
 }
 
 type GeneralQuestion {
