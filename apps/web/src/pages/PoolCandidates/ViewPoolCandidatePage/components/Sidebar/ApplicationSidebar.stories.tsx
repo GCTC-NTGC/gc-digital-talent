@@ -179,7 +179,7 @@ export const Removed: Story = {
   },
 };
 
-export const QualifiedPaused: Story = {
+export const QualifiedUnpaused: Story = {
   args: {
     query: makeApplication({
       status: toLocalizedEnum(ApplicationStatus.Qualified),
@@ -190,7 +190,7 @@ export const QualifiedPaused: Story = {
   },
 };
 
-export const QualifiedUnpause: Story = {
+export const QualifiedPaused: Story = {
   args: {
     query: makeApplication({
       status: toLocalizedEnum(ApplicationStatus.Qualified),
