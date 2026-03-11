@@ -289,7 +289,7 @@ const ApplicationPauseReferralDialog = ({
                             min: {
                               value: strToFormDate(new Date().toISOString()),
                               message: intl.formatMessage(
-                                errorMessages.mustNotBePastExpiryDate,
+                                errorMessages.invalidDate,
                               ),
                             },
                             max: {
