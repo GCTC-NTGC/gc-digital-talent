@@ -1834,5 +1834,9 @@
   "zhqK/P": {
     "defaultMessage": "Non précisé",
     "description": "Unspecified, has not been set or defined"
+  },
+  "vNVMlM": {
+    "defaultMessage": "« {text} »",
+    "description": "Text within double quotes"
   }
 }

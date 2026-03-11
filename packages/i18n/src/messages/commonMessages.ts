@@ -589,6 +589,11 @@ const commonMessages = defineMessages({
     id: "se/c4O",
     description: "Placeholder text for an input with options list",
   },
+  quotes: {
+    defaultMessage: '"{text}"',
+    id: "vNVMlM",
+    description: "Text within double quotes",
+  },
 });
 
 export default commonMessages;

@@ -13,6 +13,7 @@ import {
 import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { HiddenInput } from "@gc-digital-talent/forms";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
@@ -181,8 +182,11 @@ const ApplicationUnpauseReferralDialog = ({
                   })}
                 >
                   <Ul space="sm">
-                    {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
-                    <li>&ldquo;{application.referralPauseReason}&ldquo;</li>
+                    <li>
+                      {intl.formatMessage(commonMessages.quotes, {
+                        text: application.referralPauseReason,
+                      })}
+                    </li>
                   </Ul>
                 </FieldDisplay>
                 <p>
