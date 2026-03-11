@@ -145,9 +145,10 @@ const ApplicationPauseReferralDialog = ({
 
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Referral pause status updated successfully",
-            id: "LzHJtH",
-            description: "Success message for updating referral status",
+            defaultMessage: "Candidate name will no longer be referred",
+            id: "48aunb",
+            description:
+              "Success message after pausing referrals for a candidate",
           }),
         );
 

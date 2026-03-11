@@ -81,9 +81,10 @@ const ApplicationUnpauseReferralDialog = ({
 
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Referral pause status updated successfully",
-            id: "LzHJtH",
-            description: "Success message for updating referral status",
+            defaultMessage: "Candidate name will now actively be referred",
+            id: "6QhHsW",
+            description:
+              "Success message after unpausing referrals for a candidate",
           }),
         );
 
