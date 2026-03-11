@@ -77,8 +77,8 @@ class PoolApplicationTest extends TestCase
     protected $createMutationDocument =
         /** @lang GraphQL */
         '
-        mutation createApplication($userId: ID!, $poolId: ID!){
-            createApplication(userId: $userId, poolId: $poolId) {
+        mutation createApplication($poolId: ID!){
+            createApplication(poolId: $poolId) {
                 user {
                     id
                 }
@@ -181,7 +181,6 @@ class PoolApplicationTest extends TestCase
         ]);
 
         $variables = [
-            'userId' => $this->applicantUser->id,
             'poolId' => $pool->id,
         ];
 
@@ -234,7 +233,6 @@ class PoolApplicationTest extends TestCase
         ]);
 
         $variables = [
-            'userId' => $this->applicantUser->id,
             'poolId' => $pool->id,
         ];
 
