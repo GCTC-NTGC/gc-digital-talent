@@ -47,7 +47,7 @@ export const CommunityMembersPage_CommunityFragment = graphql(/* GraphQL */ `
       }
       user {
         id
-        email
+        workEmail
         firstName
         lastName
       }
