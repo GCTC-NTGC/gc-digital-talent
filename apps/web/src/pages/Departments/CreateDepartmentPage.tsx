@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
+import { useMutation } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -12,24 +12,21 @@ import {
   Scalars,
   LocalizedStringInput,
   DepartmentSize,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import {
-  Heading,
-  Link,
-  CardSeparator,
-  Card,
-  Pending,
-} from "@gc-digital-talent/ui";
+import { Heading, Link, CardSeparator, Card } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import { requireUser } from "~/routing/auth";
+import { graphqlClientContext } from "~/routing/context";
 
-import FormFields from "./FormFields";
+import type { Route } from "./+types/CreateDepartmentPage";
+import FormFields, { DepartmentFormOptions_Fragment } from "./FormFields";
 import { DepartmentType, departmentTypeToInput } from "./utils";
 
 interface FormValues {
@@ -66,17 +63,16 @@ interface CreateDepartmentProps {
   handleCreateDepartment: (
     data: CreateDepartmentInput,
   ) => Promise<Scalars["UUID"]["output"]>;
+  optionsQuery?: FragmentType<typeof DepartmentFormOptions_Fragment>;
 }
 
 export const CreateDepartmentForm = ({
   handleCreateDepartment,
+  optionsQuery,
 }: CreateDepartmentProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const [{ data, fetching, error }] = useQuery({
-    query: CreateDepartmentOptions_Query,
-  });
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
@@ -122,9 +118,7 @@ export const CreateDepartmentForm = ({
               description: "Heading for the 'create a department' form",
             })}
           </Heading>
-          <Pending fetching={fetching} error={error}>
-            <FormFields optionsQuery={data} />
-          </Pending>
+          <FormFields optionsQuery={optionsQuery} />
           <CardSeparator />
           <div className="flex flex-col items-center gap-6 xs:flex-row">
             <Submit
@@ -161,7 +155,23 @@ const CreateDepartment_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const CreateDepartmentPage = () => {
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request }, next) => {
+    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
+    return await next();
+  },
+];
+
+export async function clientLoader({ context }: Route.ClientLoaderArgs) {
+  const client = context.get(graphqlClientContext);
+  const res = await client.query(CreateDepartmentOptions_Query, {}).toPromise();
+
+  return {
+    options: res.data,
+  };
+}
+
+export const Component = ({ loaderData }: Route.ComponentProps) => {
   const intl = useIntl();
   const routes = useRoutes();
   const [, executeMutation] = useMutation(CreateDepartment_Mutation);
@@ -203,18 +213,13 @@ const CreateDepartmentPage = () => {
         <div className="mb-18">
           <CreateDepartmentForm
             handleCreateDepartment={handleCreateDepartment}
+            optionsQuery={loaderData.options}
           />
         </div>
       </Hero>
     </>
   );
 };
-
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <CreateDepartmentPage />
-  </RequireAuth>
-);
 
 Component.displayName = "AdminCreateDepartmentPage";
 
