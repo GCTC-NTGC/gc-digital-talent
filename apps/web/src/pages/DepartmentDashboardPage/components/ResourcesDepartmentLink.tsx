@@ -81,8 +81,8 @@ const ResourcesDepartmentLink = ({
           <p className="text-sm text-gray-600 dark:text-gray-200">
             {intl.formatMessage({
               defaultMessage: "View and manage this department.",
-              id: "A0qVSM",
-              description: "the 'Learn about skills' tool description",
+              id: "wK13Vv",
+              description: "Link to department page",
             })}
           </p>
           <div className="mt-2.5 flex flex-col gap-1">

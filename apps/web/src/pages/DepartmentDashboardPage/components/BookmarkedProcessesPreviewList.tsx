@@ -26,7 +26,8 @@ const BookmarkedProcessesPreviewList_Fragment = graphql(/* GraphQL */ `
     status {
       value
       label {
-        localized
+        en
+        fr
       }
     }
     classification {
@@ -119,8 +120,20 @@ const BookmarkedProcessesPreviewList = ({
                   key: "applicationCount",
                   type: "text",
                   children:
-                    process.applicantsCount ??
-                    intl.formatMessage(commonMessages.notFound),
+                    process.applicantsCount !== null &&
+                    process.applicantsCount !== undefined
+                      ? intl.formatMessage(
+                          {
+                            defaultMessage:
+                              "{applicantsCount, plural, =0 {0 applications} one {# application} other {# applications}}",
+                            id: "vd8CrA",
+                            description: "Applications count for process",
+                          },
+                          {
+                            applicantsCount: process.applicantsCount,
+                          },
+                        )
+                      : intl.formatMessage(commonMessages.notFound),
                 },
               ];
             }
@@ -129,20 +142,8 @@ const BookmarkedProcessesPreviewList = ({
               <PreviewList.Item
                 key={process.id}
                 title={
-                  process.name?.localized
-                    ? intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "<hidden>Application for </hidden>{poolName}",
-                          id: "LC1Rsg",
-                          description:
-                            "Text before application pool name in application preview list.",
-                        },
-                        {
-                          poolName: process.name.localized,
-                        },
-                      )
-                    : intl.formatMessage(commonMessages.notFound)
+                  process.name?.localized ??
+                  intl.formatMessage(commonMessages.notFound)
                 }
                 metaData={processMetadata}
                 action={

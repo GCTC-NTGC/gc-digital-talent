@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
+import { useQuery } from "urql";
 
 import {
   Pending,
@@ -156,12 +156,13 @@ export const DashboardPage = ({
             </div>
             <div className="flex shrink-0 flex-col gap-6 xs:max-w-84">
               <ResourceBlock.Root
-                headingColor="warning"
+                headingColor="primary"
                 headingAs="h2"
                 title={intl.formatMessage({
-                  defaultMessage: "Your account",
-                  id: "CBedVL",
-                  description: "Nav menu trigger for account links sub menu",
+                  defaultMessage: "Your information",
+                  id: "N5FFar",
+                  description:
+                    "Resource section heading above user's information",
                 })}
               >
                 {departmentRolesObjectArray.map((departmentRolesObject) => (
@@ -172,7 +173,7 @@ export const DashboardPage = ({
                 ))}
               </ResourceBlock.Root>
               <ResourceBlock.Root
-                headingColor="error"
+                headingColor="primary"
                 headingAs="h2"
                 title={intl.formatMessage({
                   defaultMessage: "Resources",
@@ -180,6 +181,21 @@ export const DashboardPage = ({
                   description: "Card title for a 'resources' card",
                 })}
               >
+                <ResourceBlock.SingleLinkItem
+                  as="h3"
+                  title={intl.formatMessage({
+                    defaultMessage: "Browse job templates",
+                    id: "KxJcav",
+                    description: "Link to job templates",
+                  })}
+                  href={paths.jobPosterTemplates()}
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Explore a library of templates for job advertisements that provide a great starting point for your next hire.",
+                    id: "DJAk48",
+                    description: "Description below job templates link",
+                  })}
+                />
                 <ResourceBlock.SingleLinkItem
                   as="h3"
                   title={intl.formatMessage({
@@ -198,16 +214,16 @@ export const DashboardPage = ({
                 <ResourceBlock.SingleLinkItem
                   as="h3"
                   title={intl.formatMessage({
-                    defaultMessage: "Contact support",
-                    id: "jRnA1D",
-                    description: "Link for the 'contact support' card",
+                    defaultMessage: "Directive on Digital Talent",
+                    id: "xXwUGs",
+                    description: "Title for the digital talent directive page",
                   })}
-                  href={paths.support()}
+                  href={paths.directive()}
                   description={intl.formatMessage({
                     defaultMessage:
-                      "Questions or need help? Get in touch with our support team and let us know how we can help.",
-                    id: "s8ByY4",
-                    description: "the 'contact support' tool description",
+                      "Learn more about the directive, how it applies to your context, and understand your obligations.",
+                    id: "H4JBTP",
+                    description: "Description below directive link",
                   })}
                 />
               </ResourceBlock.Root>
@@ -217,13 +233,6 @@ export const DashboardPage = ({
       </section>
     </>
   );
-};
-
-const context: Partial<OperationContext> = {
-  additionalTypenames: [
-    "PoolCandidateSearchRequest",
-    "OffPlatformRecruitmentProcess",
-  ],
 };
 
 const DepartmentDashboard_Query = graphql(/* GraphQL */ `
@@ -238,7 +247,6 @@ export const DepartmentDashboardPageApi = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: DepartmentDashboard_Query,
-    context,
   });
 
   return (

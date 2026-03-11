@@ -47,13 +47,13 @@ const DepartmentToolsTaskCard = ({
       key: "pools-table-key",
       type: "link",
       href: paths.poolTable(),
-      color: "primary",
+      color: "secondary",
       children: (
         <>
           {intl.formatMessage({
             defaultMessage: "View all processes",
-            id: "YWDllU",
-            description: "Card title for Applications and processes",
+            id: "B8N4yZ",
+            description: "Link to view all processes",
           })}
         </>
       ),
@@ -67,10 +67,10 @@ const DepartmentToolsTaskCard = ({
           icon={WrenchScrewdriverIcon}
           title={intl.formatMessage({
             defaultMessage: "Your department tools",
-            id: "VNeLM7",
-            description: "Card title for Applications and processes",
+            id: "AMHpov",
+            description: "Task card title for department tools",
           })}
-          headingColor="secondary"
+          headingColor="primary"
           headingAs="h2"
         >
           <TaskCard.Item>
@@ -81,15 +81,15 @@ const DepartmentToolsTaskCard = ({
                   subtitle={intl.formatMessage({
                     defaultMessage:
                       "This section contains any process you have bookmarked.",
-                    id: "YrgyXg",
+                    id: "/Sps62",
                     description:
-                      "Subtitle explaining job applications expandable within applications and processes card",
+                      "Subtitle explaining bookmarked processes expandable within task card",
                   })}
                 >
                   {intl.formatMessage({
                     defaultMessage: "Bookmarked processes",
-                    id: "nr8qVo",
-                    description: "Job applications expandable",
+                    id: "DNUZPm",
+                    description: "Bookmarked processes expandable",
                   })}
                   <span className="ml-1">
                     {wrapParens(processesUnpacked?.length ?? 0)}
