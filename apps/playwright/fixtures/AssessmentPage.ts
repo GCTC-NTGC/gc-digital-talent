@@ -23,6 +23,11 @@ const FIELD = {
   SAVE_CONTINUE_BUTTON: "saveContinueButton",
   ALERT_MESSAGE: "alertMessage",
   NO_ASSESSMENT_STEPS_PRESENT: "noAssessmentStepsPresent",
+  QUALIFIED_STATUS: "qualifiedStatus",
+  NOT_PLACEMENT_LABEL: "notPlacementLabel",
+  NOT_PLACED_BUTTON: "notPlacedButton",
+  JOB_PLACEMENT_HEADING: "jobPlacementHeading",
+  CANCEL_BUTTON: "cancelButton",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -57,6 +62,20 @@ class AssessmentPage extends AppPage {
       [FIELD.NO_ASSESSMENT_STEPS_PRESENT]: this.page.getByText(
         /available after screening stage/i,
       ),
+      [FIELD.QUALIFIED_STATUS]: this.page.getByRole("button", {
+        name: /qualified/i,
+      }),
+      [FIELD.NOT_PLACEMENT_LABEL]: this.page.getByLabel(
+        /placement: not placed. edit./i,
+      ),
+      [FIELD.NOT_PLACED_BUTTON]: this.page.getByRole("button", {
+        name: /not placed/i,
+      }),
+      [FIELD.JOB_PLACEMENT_HEADING]: this.page.getByRole("heading", {
+        name: /job placement/i,
+        level: 2,
+      }),
+      [FIELD.CANCEL_BUTTON]: this.page.getByRole("button", { name: /cancel/i }),
     };
   }
 
@@ -70,14 +89,6 @@ class AssessmentPage extends AppPage {
     await this.waitForGraphqlResponse(
       "CandidatesTableCandidatesPaginated_Query",
     );
-  }
-
-  async verifyApplicationStatusesInTableView(candidateId: string) {
-    const screeningStageCell = this.page
-      .getByRole("row", { name: new RegExp(candidateId, "i") })
-      .getByRole("cell", { name: /screening stage/i });
-    await expect(screeningStageCell).toBeVisible();
-    return screeningStageCell;
   }
 
   async updateScreeningStage(
@@ -97,17 +108,14 @@ class AssessmentPage extends AppPage {
       })
       .click();
     await expect(this.locators.screeningStageDialogHeading).toBeVisible();
-
     await this.locators[FIELD.SCREENING_STAGE].selectOption({
       value: nextStageKey,
     });
-
     await this.locators[FIELD.SAVE_CONTINUE_BUTTON].click();
     await this.waitForGraphqlResponse("UpdateScreeningStage");
     await expect(this.locators[FIELD.ALERT_MESSAGE]).toHaveText(
       /Candidate screening stage updated successfully/i,
     );
-
     return (await getCandidateScreeningStage(ctx, {
       candidateId,
     })) as ScreeningStage;
@@ -124,13 +132,11 @@ class AssessmentPage extends AppPage {
     })) as ScreeningStage;
     while (currentStage !== ScreeningStage.UnderAssessment) {
       await expect(this.locators.noAssessmentStepsPresent).toBeVisible();
-
       currentStage = await this.updateScreeningStage(
         currentStage,
         ctx,
         candidateId,
       );
-
       switch (currentStage) {
         case ScreeningStage.ApplicationReview:
           await this.updateCandidateAssessmentResult(
@@ -140,7 +146,6 @@ class AssessmentPage extends AppPage {
             AssessmentResultType.Education,
           );
           break;
-
         case ScreeningStage.ScreenedIn:
           await this.updateCandidateAssessmentResult(
             screeningStepId,
@@ -150,7 +155,6 @@ class AssessmentPage extends AppPage {
             technicalPoolSkillId,
           );
           break;
-
         default:
           break;
       }
@@ -199,14 +203,12 @@ class AssessmentPage extends AppPage {
     const screeningStep = steps.find(
       (s) => s.type?.value?.toString() === "APPLICATION_SCREENING",
     );
-
     if (!screeningStep) {
       throw new Error("Screening step not found.");
     }
     const nextStep = steps
       .filter((s) => (s.sortOrder ?? 0) > (screeningStep.sortOrder ?? 0))
       .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))[0];
-
     if (!nextStep) {
       throw new Error(
         "No assessment step found following the screening stage.",
@@ -218,6 +220,66 @@ class AssessmentPage extends AppPage {
       nextStepTitle: nextStep.title?.en ?? "",
       nextStepId: nextStep.id,
     };
+  }
+
+  async completeCandidateAssessments(
+    candidateId: string,
+    ctx: GraphQLContext,
+    assessmentSteps: { id: string; title?: { en?: string | null } | null }[],
+    technicalPoolSkillId?: string,
+  ) {
+    for (const step of assessmentSteps) {
+      const stepTitle = step.title?.en ?? "";
+      const stepId = step.id;
+      const updatedStepTitle = stepTitle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      await this.page
+        .getByRole("button", { name: new RegExp(updatedStepTitle, "i") })
+        .click();
+      const dropdown = this.page.getByRole("combobox", {
+        name: /assessment stage/i,
+      });
+      await expect(dropdown).toBeVisible();
+      await expect(dropdown).toHaveText(new RegExp(updatedStepTitle));
+      await this.locators[FIELD.SAVE_CONTINUE_BUTTON].click();
+      await this.updateCandidateAssessmentResult(
+        stepId,
+        candidateId,
+        ctx,
+        AssessmentResultType.Skill,
+        technicalPoolSkillId,
+      );
+    }
+  }
+
+  async verifyAllPlacementMessages() {
+    const dialog = this.page.getByRole("dialog");
+    const radioButtons = await dialog.getByRole("radio").all();
+    for (const radio of radioButtons) {
+      const status = (await radio.innerText()).trim();
+      await radio.click();
+      switch (status) {
+        case "Not placed":
+        case "Offer in progress":
+        case "Placed casual":
+          await expect(dialog.getByText(status)).toBeHidden();
+          break;
+
+        case "Under Consideration":
+        case "Placed term":
+        case "Placed indeterminate":
+          await expect(dialog.getByText(status)).toBeVisible();
+          break;
+      }
+    }
+  }
+
+  async verifyJobPlacementStatusWarningMessage() {
+    await expect(this.locators.qualifiedStatus).toBeVisible();
+    await expect(this.locators.notPlacementLabel).toBeVisible();
+    await this.locators.notPlacedButton.click();
+    await expect(this.locators.jobPlacementHeading).toBeVisible();
+    await this.verifyAllPlacementMessages();
+    await this.locators.cancelButton.click();
   }
 }
 export default AssessmentPage;

@@ -2,6 +2,9 @@ import { expect, Locator, Page } from "playwright/test";
 
 import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
 
+import { getPoolCandidatesTable } from "~/utils/candidateAssessment";
+import { GraphQLContext } from "~/utils/graphql";
+
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
 import AssessmentPage from "./AssessmentPage";
@@ -124,31 +127,41 @@ class GenericTableValidationFixture extends AppPage {
     ).toBeVisible();
   }
 
-  async verifyPoolCandidateTableApplicationStatus(
-    candidateName: string,
-    screeningStage: string,
+  async verifyCandidateStatusInTable(
+    poolId: string,
+    ctx: GraphQLContext,
+    candidateName?: string,
+    screeningStage?: string,
     assessmentStep?: string,
     applicationStatus?: string,
     candidateFacingStatus?: string,
   ) {
-    const candidateRow = this.locators[FIELD.TALENT_TABLE_ROW]
-      .filter({
-        hasText: candidateName,
-      })
-      .first();
-    await expect(candidateRow).toBeVisible();
-    if (screeningStage) {
-      await expect(candidateRow).toContainText(screeningStage);
+    const tableRows = await getPoolCandidatesTable(ctx, { poolId });
+    const poolCandidate = tableRows.find(
+      (c) => c.user.firstName === candidateName,
+    );
+    expect(
+      poolCandidate,
+      `Candidate '${candidateName}' should be present in the pool table`,
+    ).toBeDefined();
+    expect(poolCandidate!.screeningStage?.label.localized).toBe(screeningStage);
+    expect(poolCandidate!.assessmentStep?.title?.localized).toBe(
+      assessmentStep,
+    );
+    expect(poolCandidate?.status?.label?.localized).toBe(applicationStatus);
+    expect(poolCandidate!.candidateStatus?.label.localized).toBe(
+      candidateFacingStatus,
+    );
+  }
+
+  async verifyScreeningStageResult(candidateName?: string) {
+    const talentTableCells = this.locators[FIELD.GENERIC_TABLE_ROW];
+    const rowText =
+      (await talentTableCells.first().textContent())?.toLowerCase() ?? "";
+    if (candidateName) {
+      expect(rowText).toContain(candidateName.toLowerCase());
     }
-    if (assessmentStep) {
-      await expect(candidateRow).toContainText(assessmentStep);
-    }
-    if (applicationStatus) {
-      await expect(candidateRow).toContainText(applicationStatus);
-    }
-    if (candidateFacingStatus) {
-      await expect(candidateRow).toContainText(candidateFacingStatus);
-    }
+    await expect(this.page.getByLabel(/demonstrated/i)).toBeVisible();
   }
 }
 export default GenericTableValidationFixture;
