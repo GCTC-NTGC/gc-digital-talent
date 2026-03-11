@@ -58,6 +58,13 @@ class GenericTableValidationFixture extends AppPage {
     this.assessmentPageFixture = new AssessmentPage(this.page);
   }
 
+  async goToPoolCandidateTable(poolId: string) {
+    await this.page.goto(`/en/admin/pools/${poolId}/pool-candidates`);
+    await this.waitForGraphqlResponse(
+      "CandidatesTableCandidatesPaginated_Query",
+    );
+  }
+
   async setFlexibleWorkLocationColumn() {
     const flexWorkLocHeader = this.page.getByRole("columnheader", {
       name: /Flexible work location options/i,
@@ -136,6 +143,7 @@ class GenericTableValidationFixture extends AppPage {
     applicationStatus?: string,
     candidateFacingStatus?: string,
   ) {
+    await this.goToPoolCandidateTable(poolId);
     const tableRows = await getPoolCandidatesTable(ctx, { poolId });
     const poolCandidate = tableRows.find(
       (c) => c.user.firstName === candidateName,
@@ -144,7 +152,9 @@ class GenericTableValidationFixture extends AppPage {
       poolCandidate,
       `Candidate '${candidateName}' should be present in the pool table`,
     ).toBeDefined();
-    expect(poolCandidate!.screeningStage?.label.localized).toBe(screeningStage);
+    expect(poolCandidate!.screeningStage?.label.localized?.toLowerCase()).toBe(
+      screeningStage?.toLowerCase(),
+    );
     expect(poolCandidate!.assessmentStep?.title?.localized).toBe(
       assessmentStep,
     );

@@ -23,6 +23,7 @@ import { createUserWithRoles, me } from "~/utils/user";
 import {
   createAndSubmitApplication,
   qualifyCandidate,
+  revertFinalDecision,
 } from "~/utils/applications";
 import { createAndPublishPool, getPoolSkills } from "~/utils/pools";
 import { loginBySub } from "~/utils/auth";
@@ -30,6 +31,7 @@ import { generateUniqueTestId } from "~/utils/id";
 import testConfig from "~/constants/config";
 import AssessmentPage from "~/fixtures/AssessmentPage";
 import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
+import { getCandidateScreeningStage } from "~/utils/candidateAssessment";
 
 const LOCALIZED_STRING = {
   en: "test EN",
@@ -56,7 +58,7 @@ test.describe("Pool candidates", () => {
       );
     });
 
-    const createdUser = await createUserWithRoles(adminCtx, {
+    user = await createUserWithRoles(adminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         firstName: "Playwright",
@@ -96,9 +98,7 @@ test.describe("Pool candidates", () => {
         },
       },
     });
-
     const admin = await me(adminCtx, {});
-
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: admin?.id ?? "",
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
@@ -115,10 +115,6 @@ test.describe("Pool candidates", () => {
       poolId: createdPool.id,
       personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName} signature`,
-      // userId: "3d5f80da-ea9e-44b9-a3fc-11a7276947aa",
-      // poolId: "d13426ad-e506-4ca5-9a2f-5e376e0dd244",
-      // personalExperienceId: "019cd508-f238-7035-9d2d-2cf3b49367dd",
-      // signature: "Test signature",
     });
 
     candidate = application;
@@ -212,18 +208,19 @@ test.describe("Pool candidates", () => {
   test("Validate application status for Qualified Candidate", async ({
     appPage,
   }) => {
-    test.setTimeout(90_000);
+    test.setTimeout(120_000);
     const candidateName = user?.firstName;
     const assessmentPage = new AssessmentPage(appPage.page);
     await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
     const poolSkillsID = await getPoolSkills(adminCtx, {
       poolId: poolId,
     }).then((poolSkills) => poolSkills.map((ps) => ps.id));
-    // 1. Navigate to Candidate Application and fetch available assessment steps in the pool
-    await assessmentPage.goToCandidateApplication(candidate.id);
+    // 1. Fetch available assessment steps in the pool
     const { screeningStepId, nextStepTitle, nextStepId } =
       await assessmentPage.fetchAndVerifyAssessmentSteps(adminCtx, poolId);
+
     // 2. Complete screening stage validation i.e Assessing Application screening and updating screening stages
+    await assessmentPage.goToCandidateApplication(candidate.id);
     await assessmentPage.completeCandidateScreening(
       candidate.id,
       adminCtx,
@@ -235,8 +232,8 @@ test.describe("Pool candidates", () => {
       appPage.page.getByRole("button", { name: /Demonstrated/i }).last(),
     ).toBeVisible();
     await expect(appPage.page.getByText(nextStepTitle)).toBeVisible();
+
     // 3. Navigate to candidate table and verify the screening, assessment stages are updated for that candidate
-    await assessmentPage.goToPoolCandidateTable(poolId);
     const genericTable = new GenericTableValidationFixture(appPage.page);
     await genericTable.verifyCandidateStatusInTable(
       poolId,
@@ -247,8 +244,10 @@ test.describe("Pool candidates", () => {
       "To assess",
       "Under assessment",
     );
+
     // 4. Verify the screening stage result is visible based on the 'Application Screening' assessment result
     await genericTable.verifyScreeningStageResult(candidateName!);
+
     // 5. Assess the candidate assessment step such as interview and verify it is demonstrated
     await assessmentPage.goToCandidateApplication(candidate.id);
     await assessmentPage.completeCandidateAssessments(
@@ -262,19 +261,19 @@ test.describe("Pool candidates", () => {
       ],
       poolSkillsID[0] ?? "",
     );
-    await appPage.page.reload();
+    await assessmentPage.goToCandidateApplication(candidate.id);
     await expect(
       appPage.page.getByRole("button", { name: /Demonstrated/i }).last(),
     ).toBeVisible();
-    // 6. Qualify the candidate as passed all screening and assessment steps for the pool
+
+    // 6. Qualify the candidate as passed all screening and assessment steps for the pool and verify on candidate table
     await qualifyCandidate(adminCtx, {
       id: candidate.id,
       poolCandidate: {
         expiryDate: FAR_FUTURE_DATE,
       },
     });
-    await appPage.page.reload();
-    await assessmentPage.goToPoolCandidateTable(poolId);
+    await assessmentPage.verifyJobPlacementStatusWarningMessage(candidate.id);
     await genericTable.verifyCandidateStatusInTable(
       poolId,
       adminCtx,
@@ -284,8 +283,20 @@ test.describe("Pool candidates", () => {
       "Qualified",
       "Qualified in process",
     );
-    await assessmentPage.goToCandidateApplication(candidate.id);
-    await assessmentPage.verifyJobPlacementStatusWarningMessage();
-    // Once done follow the steps from the test
+
+    // 7. Revert the Qualified candidate status and verify the reverted candidate status in the table
+    await revertFinalDecision(adminCtx, { id: candidate.id });
+    const revertedCandidateStatus = await getCandidateScreeningStage(adminCtx, {
+      candidateId: candidate.id,
+    });
+    await genericTable.verifyCandidateStatusInTable(
+      poolId,
+      adminCtx,
+      candidateName!,
+      revertedCandidateStatus.replace(/_/g, " ").toLowerCase(),
+      undefined,
+      "To assess",
+      "Under review",
+    );
   });
 });

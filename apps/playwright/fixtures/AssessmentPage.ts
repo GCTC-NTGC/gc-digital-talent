@@ -28,6 +28,8 @@ const FIELD = {
   NOT_PLACED_BUTTON: "notPlacedButton",
   JOB_PLACEMENT_HEADING: "jobPlacementHeading",
   CANCEL_BUTTON: "cancelButton",
+  ADD_BOOKMARK_BUTTON: "addBookmarkButton",
+  ADD_FLAG_BUTTON: "addFlagButton",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -76,19 +78,18 @@ class AssessmentPage extends AppPage {
         level: 2,
       }),
       [FIELD.CANCEL_BUTTON]: this.page.getByRole("button", { name: /cancel/i }),
+      [FIELD.ADD_BOOKMARK_BUTTON]: this.page.getByRole("button", {
+        name: /add bookmark/i,
+      }),
+      [FIELD.ADD_FLAG_BUTTON]: this.page.getByRole("button", {
+        name: /add flag/i,
+      }),
     };
   }
 
   async goToCandidateApplication(candidateId: string) {
     await this.page.goto(`/en/admin/candidates/${candidateId}/application`);
     await this.waitForGraphqlResponse("PoolCandidateSnapshot");
-  }
-
-  async goToPoolCandidateTable(poolId: string) {
-    await this.page.goto(`/en/admin/pools/${poolId}/pool-candidates`);
-    await this.waitForGraphqlResponse(
-      "CandidatesTableCandidatesPaginated_Query",
-    );
   }
 
   async updateScreeningStage(
@@ -273,7 +274,8 @@ class AssessmentPage extends AppPage {
     }
   }
 
-  async verifyJobPlacementStatusWarningMessage() {
+  async verifyJobPlacementStatusWarningMessage(candidateId: string) {
+    await this.goToCandidateApplication(candidateId);
     await expect(this.locators.qualifiedStatus).toBeVisible();
     await expect(this.locators.notPlacementLabel).toBeVisible();
     await this.locators.notPlacedButton.click();
