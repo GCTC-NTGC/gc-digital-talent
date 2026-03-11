@@ -46,10 +46,13 @@ class AuthController extends Controller
         $requestedLocale = $request->input('locale');
         if (strcasecmp($requestedLocale, 'en') == 0) {
             $ui_locales = 'en-CA en';
+            $lang = 'en';
         } elseif (strcasecmp($requestedLocale, 'fr') == 0) {
             $ui_locales = 'fr-CA fr';
+            $lang = 'fr';
         } else {
             $ui_locales = $requestedLocale;
+            $lang = $requestedLocale;
         }
 
         $scope = 'openid offline_access';
@@ -63,7 +66,7 @@ class AuthController extends Controller
             'nonce' => $nonce,
             'acr_values' => config('oauth.acr_values'),
             'ui_locales' => $ui_locales, // This is what SIC wants
-            'lang' => $ui_locales,  // This is what CanadaLogin wants
+            'lang' => $lang,  // This is what CanadaLogin wants
         ]);
 
         return redirect(config('oauth.authorize_uri').'?'.$query);
