@@ -6,7 +6,7 @@ import { vi } from "vitest";
 import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 import { AuthorizationContainer, ROLE_NAME } from "@gc-digital-talent/auth";
 
-import { DashboardPage } from "./DepartmentDashboardPage";
+import { DashboardPage } from "./DepartmentDashboardPageOld";
 
 const mockClient = {
   executeQuery: vi.fn(() => pipe(fromValue({}), delay(0))),
