@@ -26,24 +26,13 @@ import {
   LocalizedApplicationStatus,
 } from "@gc-digital-talent/graphql";
 
-import {
-  REVERT_DECISION_STATUSES,
-  LEGACY_ASSESSMENT_STEP_TYPES,
-} from "~/constants/poolCandidate";
-
-import { NullableDecision } from "./assessmentResults";
-
-export const isRevertableStatus = (
-  status: Maybe<ApplicationStatus> | undefined,
-): boolean => (status ? REVERT_DECISION_STATUSES.includes(status) : false);
+import { LEGACY_ASSESSMENT_STEP_TYPES } from "~/constants/poolCandidate";
 
 export const isLegacyAssessmentStepType = (
   type?: Maybe<AssessmentStepType>,
 ): boolean => {
   return !!(type ? LEGACY_ASSESSMENT_STEP_TYPES.includes(type) : false);
 };
-
-export type ResultDecisionCounts = Record<NullableDecision, number>;
 
 // too generic to narrow
 export const getOrderedSteps = (assessmentSteps: AssessmentStep[]) =>
@@ -65,28 +54,9 @@ const getApplicationStatusChipColor = (
   return applicationStatusColourMap.get(status) ?? "gray";
 };
 
-/** Application statuses as a union type */
-type LegacyApplicationStatus =
-  | "EXPIRED"
-  | "DRAFT"
-  | "RECEIVED"
-  | "UNDER_REVIEW"
-  | "APPLICATION_REVIEWED"
-  | "UNDER_ASSESSMENT"
-  | "UNSUCCESSFUL"
-  | "SUCCESSFUL";
-
-/** Qualified recruitment statuses as a union type */
-type QualifiedRecruitmentStatus = "HIRED" | "NOT_INTERESTED" | "OPEN_TO_JOBS";
-
 interface StatusChip {
   color?: ChipProps["color"];
   label: ReactNode;
-}
-
-export interface StatusChipWithDescription extends StatusChip {
-  description?: ReactNode;
-  value: LegacyApplicationStatus | QualifiedRecruitmentStatus;
 }
 
 /**

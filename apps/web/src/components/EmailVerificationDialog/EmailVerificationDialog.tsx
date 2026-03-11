@@ -165,7 +165,7 @@ const EmailVerificationForm = ({
   );
 };
 
-export interface EmailVerificationDialogProps {
+interface EmailVerificationDialogProps {
   emailType: EmailType;
   emailAddress: string | null;
   onVerificationSuccess?: () => void;

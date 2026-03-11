@@ -44,7 +44,7 @@ export const JobPlacementOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export type JobPlacementOptionsFragmentType = FragmentType<
+type JobPlacementOptionsFragmentType = FragmentType<
   typeof JobPlacementOptions_Query
 >;
 export interface FormValues {

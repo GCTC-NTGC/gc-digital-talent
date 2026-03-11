@@ -10,7 +10,6 @@ import { StepType } from "@gc-digital-talent/ui";
 import {
   ApplicationStep,
   Maybe,
-  PoolCandidate,
   Application_PoolCandidateFragment,
 } from "@gc-digital-talent/graphql";
 
@@ -109,5 +108,3 @@ export function applicationStepsToStepperArgs(
       };
     });
 }
-
-export type Application = Omit<PoolCandidate, "user">;

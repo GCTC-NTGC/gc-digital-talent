@@ -63,7 +63,7 @@ const LanguageInfo_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export interface DisplayProps {
+interface DisplayProps {
   languageInfoQuery: FragmentType<typeof LanguageInfo_Fragment>;
 }
 

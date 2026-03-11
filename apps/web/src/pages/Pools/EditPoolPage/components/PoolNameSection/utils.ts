@@ -92,13 +92,3 @@ export const getClassificationOptions = (
     label: `${group}-${level < 10 ? "0" : ""}${level} (${getLocalizedName(name, intl)})`,
   }));
 };
-
-export const getDepartmentOptions = (
-  departments: readonly Pick<Department, "id" | "name">[],
-  intl: IntlShape,
-): Option[] => {
-  return departments.filter(notEmpty).map(({ id, name }) => ({
-    value: id,
-    label: getLocalizedName(name, intl),
-  }));
-};

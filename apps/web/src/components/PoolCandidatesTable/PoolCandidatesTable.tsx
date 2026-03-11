@@ -87,8 +87,8 @@ import PoolCandidateFilterDialog, {
 } from "./PoolCandidateFilterDialog";
 import { FormValues } from "./types";
 import {
-  JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
+  JobPlacementDialogCandidateTable_Fragment,
 } from "../PoolCandidateDialogs/JobPlacementDialog";
 import { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
@@ -964,7 +964,9 @@ const PoolCandidatesTable = ({
           },
         }) =>
           jobPlacementDialogAccessor(
-            poolCandidate as FragmentType<typeof JobPlacementDialog_Fragment>,
+            poolCandidate as FragmentType<
+              typeof JobPlacementDialogCandidateTable_Fragment
+            >,
             tableData,
           ),
         enableSorting: false,

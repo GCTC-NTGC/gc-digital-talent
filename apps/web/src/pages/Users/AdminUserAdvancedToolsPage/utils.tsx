@@ -196,7 +196,7 @@ export type DepartmentTeamable = Pick<
 
 type TeamTeamable = Pick<Team, "id" | "__typename">;
 
-export type Teamable =
+type Teamable =
   | PoolTeamable
   | CommunityTeamable
   | TeamTeamable

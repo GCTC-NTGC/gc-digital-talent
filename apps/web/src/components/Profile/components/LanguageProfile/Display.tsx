@@ -47,7 +47,7 @@ const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-export interface DisplayProps {
+interface DisplayProps {
   query: FragmentType<typeof LanguageProfileDisplay_Fragment>;
 }
 
