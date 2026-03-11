@@ -1,11 +1,10 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
-import { useQuery } from "urql";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Link, Pending } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 import {
   graphql,
   DepartmentTableRowFragment,
@@ -23,7 +22,6 @@ import {
   MyRoleDepartment,
   myRolesAccessor,
   myRolesCell,
-  roleAssignmentsToRoleDepartmentArray,
   SIZE_SORT_ORDER,
   yesNoAccessor,
 } from "../utils";
@@ -212,43 +210,4 @@ export const DepartmentTable = ({
   );
 };
 
-const Departments_Query = graphql(/* GraphQL */ `
-  query Departments($whereArchived: Boolean) {
-    departments(whereArchived: $whereArchived) {
-      ...DepartmentTableRow
-    }
-    me {
-      authInfo {
-        id
-        roleAssignments {
-          ...DepartmentRoleAssignment
-        }
-      }
-    }
-  }
-`);
-
-const DepartmentTableApi = ({ title }: { title: string }) => {
-  const [{ data, fetching, error }] = useQuery({
-    query: Departments_Query,
-    variables: {
-      whereArchived: null, // explicit null value results in the Lighthouse directive not doing a thing
-    },
-  });
-
-  const roleAssignments = unpackMaybes(data?.me?.authInfo?.roleAssignments);
-  const myRolesAndTeams: MyRoleDepartment[] =
-    roleAssignmentsToRoleDepartmentArray(roleAssignments);
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      <DepartmentTable
-        departmentsQuery={unpackMaybes(data?.departments)}
-        title={title}
-        myRolesAndTeams={myRolesAndTeams}
-      />
-    </Pending>
-  );
-};
-
-export default DepartmentTableApi;
+export default DepartmentTable;
