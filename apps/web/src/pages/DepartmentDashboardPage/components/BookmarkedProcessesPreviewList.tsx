@@ -168,20 +168,12 @@ const BookmarkedProcessesPreviewList = ({
           <Notice.Title>
             {intl.formatMessage({
               defaultMessage:
-                "You don't have any active applications at the moment.",
-              id: "Y93ht7",
-              description: "Title for notice when there are no applications",
+                "You don't have any recruitment processes at the moment.",
+              id: "27KZKI",
+              description:
+                "Title for notice when there are no processes to view",
             })}
           </Notice.Title>
-          <Notice.Content>
-            <p>
-              {intl.formatMessage({
-                defaultMessage: `You can start a new application by visiting the "Browse jobs" page and selecting an opportunity.`,
-                id: "0K7Upw",
-                description: "Body for notice when there are no applications",
-              })}
-            </p>
-          </Notice.Content>
         </Notice.Root>
       )}
     </>
