@@ -114,17 +114,14 @@ class ActivityLogTest extends TestCase
                 ],
             ]
         )->assertSuccessful();
-        $this->actingAs($this->adminUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                mutation createApplication($userId: ID!, $poolId: ID!){
-                    createApplication(userId: $userId, poolId: $poolId) {
+        $this->actingAs($this->adminUser, 'api')->graphQL(<<<'GRAPHQL'
+                mutation createApplication($poolId: ID!){
+                    createApplication(poolId: $poolId) {
                         id
                     }
-                    }
-                ',
+                }
+                GRAPHQL,
             [
-                'userId' => $this->adminUser->id,
                 'poolId' => $testPool->id,
             ]
         )->assertSuccessful();
@@ -174,17 +171,14 @@ class ActivityLogTest extends TestCase
                 ],
             ]
         )->assertSuccessful();
-        $this->actingAs($this->adminUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                mutation createApplication($userId: ID!, $poolId: ID!){
-                    createApplication(userId: $userId, poolId: $poolId) {
+        $this->actingAs($this->adminUser, 'api')->graphQL(<<<'GRAPHQL'
+                mutation createApplication($poolId: ID!){
+                    createApplication(poolId: $poolId) {
                         id
                     }
                     }
-                ',
+                GRAPHQL,
             [
-                'userId' => $this->adminUser->id,
                 'poolId' => $testPool->id,
             ]
         )->assertSuccessful();

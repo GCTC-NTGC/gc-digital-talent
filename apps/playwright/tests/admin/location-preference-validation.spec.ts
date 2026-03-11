@@ -172,7 +172,6 @@ test.describe("Location Preference Validation", () => {
     const applicant = await me(applicantCtx, {});
 
     const candidate = await createAndSubmitApplication(applicantCtx, {
-      userId: applicant.id,
       poolId: id,
       personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName} signature`,

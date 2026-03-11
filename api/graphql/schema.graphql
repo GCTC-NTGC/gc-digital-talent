@@ -3447,7 +3447,8 @@ type Mutation {
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
     @guard
     @canFind(ability: "suspend", find: "id")
-  createApplication(userId: ID!, poolId: ID!): PoolCandidate
+  createApplication(poolId: ID!): PoolCandidate
+    @guard
     @canModel(ability: "createDraft")
   deleteApplication(id: ID!): PoolCandidate
     @guard

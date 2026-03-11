@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Enums\ApplicationStatus;
 use App\GraphQL\Validators\Mutation\CreateApplicationValidator;
 use App\Models\PoolCandidate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
@@ -15,8 +16,11 @@ final class CreateApplication
      */
     public function __invoke($_, array $args)
     {
+        /** @var \App\Models\User | null */
+        $user = Auth::user();
+
         try {
-            $createValidator = new CreateApplicationValidator($args['poolId'], $args['userId']);
+            $createValidator = new CreateApplicationValidator($args['poolId']);
             $validator = Validator::make(
                 $args,
                 $createValidator->rules(),
@@ -32,7 +36,7 @@ final class CreateApplication
 
             // Passed validation so we are free to create
             $application = PoolCandidate::create([
-                'user_id' => $args['userId'],
+                'user_id' => $user->id,
                 'pool_id' => $args['poolId'],
             ]);
 
@@ -45,7 +49,7 @@ final class CreateApplication
             $errorPool->record($error);
 
             // Partial error, lets return the found pool
-            $application = PoolCandidate::where('user_id', $args['userId'])
+            $application = PoolCandidate::where('user_id', $user->id)
                 ->where('pool_id', $args['poolId'])
                 ->first();
         }
