@@ -5,7 +5,7 @@ import { Accordion } from "@gc-digital-talent/ui";
 
 import Display from "./Display";
 
-export const GoalsAndWorkStyle_Fragment = graphql(/* GraphQL */ `
+const GoalsAndWorkStyle_Fragment = graphql(/* GraphQL */ `
   fragment GoalsAndWorkStyle on EmployeeProfile {
     ...GoalsAndWorkStyleDisplay
   }

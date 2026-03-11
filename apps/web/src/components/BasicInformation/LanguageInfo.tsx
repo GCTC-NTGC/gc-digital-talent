@@ -11,7 +11,7 @@ import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 import { getEstimatedLanguageAbility } from "./utils";
 import Caption from "./Caption";
 
-export const LanguageInfo_Fragment = graphql(/* GraphQL */ `
+const LanguageInfo_Fragment = graphql(/* GraphQL */ `
   fragment LanguageInfo on User {
     lookingForEnglish
     lookingForFrench

@@ -31,7 +31,7 @@ export const supportToolsTitle = defineMessage({
   description: "Title of admin user support tools section",
 });
 
-export const UpdateSub_Mutation = graphql(/* GraphQL */ `
+const UpdateSub_Mutation = graphql(/* GraphQL */ `
   mutation UpdateSub($input: UpdateUserSubInput!) {
     updateUserSub(updateUserSubInput: $input) {
       id

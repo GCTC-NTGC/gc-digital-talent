@@ -5,17 +5,13 @@
  *
  * For utilities general to the PoolCandidate object, or specific to the Admin side, see ./poolCandidates.ts
  */
-import { isPast } from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
   ApplicationStep,
   Maybe,
   PoolCandidate,
   Application_PoolCandidateFragment,
-  LocalizedApplicationStatus,
-  ApplicationStatus,
 } from "@gc-digital-talent/graphql";
 
 import { ApplicationStepInfo } from "~/types/applicationStep";
@@ -115,21 +111,3 @@ export function applicationStepsToStepperArgs(
 }
 
 export type Application = Omit<PoolCandidate, "user">;
-
-/**
- * Returns true if the application is
- * - a draft which still may be submitted (ie pool has not closed)
- * - OR has been submitted but is still in assessment
- */
-export function isApplicationInProgress(a: {
-  status?: Maybe<LocalizedApplicationStatus>;
-  pool: { closingDate?: Maybe<string> };
-}): boolean {
-  const poolIsExpired = a.pool.closingDate
-    ? isPast(parseDateTimeUtc(a.pool.closingDate))
-    : false; // If it doesn't have a closing date it can't be expired
-  return (
-    (a.status?.value === ApplicationStatus.Draft && !poolIsExpired) ||
-    a.status?.value === ApplicationStatus.ToAssess
-  );
-}

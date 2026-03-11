@@ -21,7 +21,7 @@ const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const subtitles: Record<EmailType, MessageDescriptor> = {
+const subtitles: Record<EmailType, MessageDescriptor> = {
   WORK: defineMessage({
     defaultMessage:
       "Verify your Government of Canada work email to confirm your status as an employee.",
@@ -36,7 +36,7 @@ export const subtitles: Record<EmailType, MessageDescriptor> = {
   }),
 };
 
-export const descriptions: Record<EmailType, MessageDescriptor> = {
+const descriptions: Record<EmailType, MessageDescriptor> = {
   WORK: defineMessage({
     defaultMessage:
       "To verify your work email, the domain must match a known Government of Canada email pattern (e.g. @canada.ca, @department.gc.ca, etc.).",
@@ -173,7 +173,7 @@ export interface EmailVerificationDialogProps {
   defaultOpen?: boolean;
 }
 
-export const EmailVerificationDialog = ({
+const EmailVerificationDialog = ({
   emailType: dialogEmailType,
   emailAddress: initialEmailAddress,
   onVerificationSuccess,

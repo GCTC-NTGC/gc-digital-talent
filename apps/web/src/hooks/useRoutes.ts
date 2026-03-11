@@ -4,8 +4,8 @@ import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
 import { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
 
-export const FromIapDraftQueryKey = "fromIapDraft";
-export const FromIapSuccessQueryKey = "fromIapSuccess";
+const FromIapDraftQueryKey = "fromIapDraft";
+const FromIapSuccessQueryKey = "fromIapSuccess";
 
 const createSearchQuery = (parameters: Map<string, string>): string => {
   if (parameters.size === 0) return "";

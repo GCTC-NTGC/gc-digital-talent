@@ -14,7 +14,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 
 import CareerObjectiveDialog from "./CareerObjectiveDialog";
 
-export const CareerObjectivePreview_Fragment = graphql(/* GraphQL */ `
+const CareerObjectivePreview_Fragment = graphql(/* GraphQL */ `
   fragment CareerObjectivePreview on User {
     employeeProfile {
       careerObjectiveClassification {

@@ -7,7 +7,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";
 
-export const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
+const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
   fragment LanguageProfileDisplay on User {
     lookingForEnglish
     lookingForFrench
