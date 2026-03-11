@@ -299,8 +299,8 @@ const ApplicationPauseReferralDialog = ({
                               message: intl.formatMessage(
                                 {
                                   defaultMessage:
-                                    "Pause end date cannot be after this candidate’s pool expiry date ({date}).",
-                                  id: "rJQmvz",
+                                    "Pause end date cannot be after this candidate's pool expiry date ({date}).",
+                                  id: "yoSmU/",
                                   description:
                                     "Error message for pause referral status end date input",
                                 },
