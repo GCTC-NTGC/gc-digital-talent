@@ -40,7 +40,7 @@ export interface DepartmentWithRolesObject {
   departmentId: string;
   departmentName: string;
   rolesArray: {
-    roleName: "department_admin" | "department_advisor";
+    roleName: "department_admin" | "department_hr_advisor";
     roleDisplayName: string;
   }[];
 }
@@ -59,7 +59,7 @@ const ResourcesDepartmentLink = ({
     (roleObject) => roleObject.roleName === "department_admin",
   );
   const departmentAdvisorObject = departmentWithRoles.rolesArray.find(
-    (roleObject) => roleObject.roleName === "department_advisor",
+    (roleObject) => roleObject.roleName === "department_hr_advisor",
   );
 
   return (
