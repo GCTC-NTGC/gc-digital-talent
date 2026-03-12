@@ -6,15 +6,16 @@ use App\Contracts\BearerTokenService;
 use DateInterval;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\UnauthorizedException;
 // We're using two JWT management libraries here (Jose & Lcobucci), which each
 // offer different functionality related to constraints and JWKS.
 // TODO: Consider consolidating into a single library, or migrating to a new
 // one that does it all.
+use Illuminate\Validation\UnauthorizedException;
 use Jose\Component\Core\JWKSet;
 use Jose\Component\Core\Util\RSAKey;
 use Lcobucci\JWT\Configuration;
@@ -64,7 +65,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
             $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->get($this->configUri);
-            assert($response instanceof \Illuminate\Http\Client\Response);
+            assert($response instanceof Response);
 
             if ($response->failed()) {
                 Log::error('Failed when GETting the OpenID configuration in getConfigProperty');
@@ -96,7 +97,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
             $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->get($jwks_uri);
-            assert($response instanceof \Illuminate\Http\Client\Response);
+            assert($response instanceof Response);
 
             if ($response->failed()) {
                 Log::error('Failed when GETting the JWKS in getConfiguration');
@@ -156,7 +157,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
                 'client_secret' => config('oauth.client_secret'),
                 'token' => $accessToken,
             ]);
-        assert($response instanceof \Illuminate\Http\Client\Response);
+        assert($response instanceof Response);
 
         if ($response->failed()) {
             Log::error('Failed when GETting the introspection verification in getIntrospectionValues ('.$response->status().') '.$response->body());

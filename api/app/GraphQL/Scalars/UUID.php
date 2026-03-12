@@ -4,6 +4,7 @@ namespace App\GraphQL\Scalars;
 
 use GraphQL\Error\Error;
 use GraphQL\Error\InvariantViolation;
+use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\ScalarType;
 use GraphQL\Utils\Utils;
@@ -39,11 +40,11 @@ final class UUID extends ScalarType
     /**
      * Parses an externally provided literal value (hardcoded in GraphQL query) to use as an input.
      *
-     * @param  \GraphQL\Language\AST\Node  $valueNode
+     * @param  Node  $valueNode
      * @param  array<string, mixed>|null  $variables
      * @return string valid uuid
      *
-     * @throws \GraphQL\Error\Error
+     * @throws Error
      */
     public function parseLiteral($valueNode, ?array $variables = null)
     {
@@ -63,7 +64,7 @@ final class UUID extends ScalarType
      * @param  mixed  $value  A value that may be a UUID
      * @return string A valid UUID
      *
-     * @throws \GraphQL\Error\InvariantViolation|\GraphQL\Error\Error
+     * @throws InvariantViolation|Error
      */
     private function isValidUuid($value, string $exceptionClass)
     {

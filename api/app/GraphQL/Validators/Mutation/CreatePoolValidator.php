@@ -5,6 +5,7 @@ namespace App\GraphQL\Validators\Mutation;
 use App\Enums\ErrorCode;
 use App\Models\Community;
 use App\Models\Department;
+use App\Models\Team;
 use App\Models\User;
 use Closure;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -29,7 +30,7 @@ final class CreatePoolValidator extends Validator
              : null;
 
         /**
-         * @var array<\App\Models\Team> $teams
+         * @var array<Team> $teams
          */
         $teams = $user->rolesTeams()->get();
         $teamIds = [];

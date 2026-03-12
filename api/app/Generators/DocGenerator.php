@@ -5,6 +5,7 @@ namespace App\Generators;
 use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\Style\Font;
 
 abstract class DocGenerator extends FileGenerator implements FileGeneratorInterface
 {
@@ -60,7 +61,7 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
 
         $this->strong = ['bold' => true];
 
-        $this->linkStyle = ['color' => '#003632', 'underline' => \PhpOffice\PhpWord\Style\Font::UNDERLINE_SINGLE];
+        $this->linkStyle = ['color' => '#003632', 'underline' => Font::UNDERLINE_SINGLE];
     }
 
     public function setExtension(?string $ext)

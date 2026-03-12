@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class TrainingOpportunityPolicy
 {
@@ -12,7 +13,7 @@ class TrainingOpportunityPolicy
     /**
      * Can view the model
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view()
     {

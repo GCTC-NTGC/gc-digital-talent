@@ -130,7 +130,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $section->addTitle($this->localizeHeading('education_requirement'), 3);
         $this->addLabelText($section, $this->localizeHeading('requirement_selection'), $this->localizeEnum($candidate->education_requirement_option, EducationRequirementOption::class));
         $candidate->educationRequirementExperiences->each(function ($educationExperience) use ($section) {
-            /** @var \App\Models\EducationExperience $educationExperience */
+            /** @var EducationExperience $educationExperience */
             $section->addListItem($this->formatEducationTitle($educationExperience));
 
         });

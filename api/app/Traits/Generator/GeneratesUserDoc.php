@@ -2,6 +2,7 @@
 
 namespace App\Traits\Generator;
 
+use App\Builders\PoolCandidateBuilder;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AwardedScope;
 use App\Enums\AwardedTo;
@@ -702,7 +703,7 @@ trait GeneratesUserDoc
             'userSkills',
             'employeeProfile',
             'poolCandidates' => function ($query) {
-                /** @var \App\Builders\PoolCandidateBuilder $query */
+                /** @var PoolCandidateBuilder $query */
                 $query
                     ->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
                     ->whereQualified();
