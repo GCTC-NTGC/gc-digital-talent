@@ -21,7 +21,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@dr.pogodin/react-helmet": "^3.1.0",
+    "@dr.pogodin/react-helmet": "^3.1.1",
     "@gc-digital-talent/rich-text-elements": "workspace:*",
     "axe-core": "^4.11.1",
     "react-intl": "^8.1.3",

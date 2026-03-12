@@ -35,7 +35,7 @@
     "**/*.css"
   ],
   "dependencies": {
-    "@dr.pogodin/react-helmet": "^3.1.0",
+    "@dr.pogodin/react-helmet": "^3.1.1",
     "@gc-digital-talent/app-insights": "workspace:*",
     "@gc-digital-talent/auth": "workspace:*",
     "@gc-digital-talent/client": "workspace:*",
@@ -81,16 +81,15 @@
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@react-router/dev": "^7.13.1",
     "@storybook/addon-designs": "^11.1.2",
-    "@storybook/addon-themes": "^10.2.15",
-    "@storybook/builder-vite": "^10.2.15",
-    "@storybook/react-vite": "^10.2.15",
+    "@storybook/addon-themes": "^10.2.17",
+    "@storybook/builder-vite": "^10.2.17",
+    "@storybook/react-vite": "^10.2.17",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/lodash": "^4.17.24",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.4",
     "dotenv": "^17.3.1",
     "eslint": "^9.20.1",
     "jsdom": "^26.0.0",
@@ -100,7 +99,6 @@
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vite-plugin-compression2": "^2.5.0",
-    "vite-plugin-html": "^3.2.2",
     "vitest": "^4.0.16",
     "wonka": "^6.3.5"
   }
