@@ -127,13 +127,15 @@ test.describe("Pool candidates", () => {
 
     // to assess icon by application screening
     await expect(
-      appPage.page.getByLabel("To assess").locator("path"),
+      appPage.page.getByLabel("To assess").locator("path").first(),
     ).toBeVisible();
 
     // education result
     await appPage.page
       .getByRole("row", { name: "Education requirement To" })
       .getByRole("button")
+      .first()
+
       .click();
     await expect(
       appPage.page.getByText("I meet the applied work"),
@@ -163,6 +165,7 @@ test.describe("Pool candidates", () => {
     await appPage.page
       .getByRole("row", { name: `${technicalSkill?.name?.en}` })
       .getByRole("button")
+      .first()
       .click();
     await expect(
       appPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
