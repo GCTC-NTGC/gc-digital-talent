@@ -81,8 +81,7 @@ const BookmarkedProcessesPreviewList = ({
           {sortedProcesses.map((process) => {
             const processBadge = getProcessStatusBadge(process.status, intl);
 
-            let processMetadata: PreviewMetaData[] = [];
-            processMetadata = [
+            let processMetadata: PreviewMetaData[] = [
               {
                 key: "status",
                 type: "chip",
@@ -138,13 +137,15 @@ const BookmarkedProcessesPreviewList = ({
               ];
             }
 
+            const processName =
+              !!process.name?.localized && process.name.localized !== ""
+                ? process.name.localized
+                : intl.formatMessage(commonMessages.notFound);
+
             return (
               <PreviewList.Item
                 key={process.id}
-                title={
-                  process.name?.localized ??
-                  intl.formatMessage(commonMessages.notFound)
-                }
+                title={processName}
                 metaData={processMetadata}
                 action={
                   <>
