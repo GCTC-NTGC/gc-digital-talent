@@ -71,6 +71,8 @@ interface TableProps<TData, TFilters> {
   filter?: FilterDef<TFilters>;
   /** Should this sync state in the URL? */
   urlSync?: boolean;
+  filterParamKey?: string;
+
 }
 
 const ResponsiveTable = <TData extends object, TFilters = object>({
@@ -89,6 +91,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   pagination,
   filter,
   urlSync = true,
+  filterParamKey = SEARCH_PARAM_KEY.FILTERS,
 }: TableProps<TData, TFilters>) => {
   const id = useId();
   const intl = useIntl();
@@ -257,9 +260,9 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
         isEmpty(filter?.state) ||
         isEqual(filter?.initialState, filter?.state)
       ) {
-        newParams.delete(SEARCH_PARAM_KEY.FILTERS);
+        newParams.delete(filterParamKey);
       } else {
-        newParams.set(SEARCH_PARAM_KEY.FILTERS, JSON.stringify(filter?.state));
+        newParams.set(filterParamKey, JSON.stringify(filter?.state));
       }
 
       if (
@@ -292,6 +295,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     urlSync,
     filter?.state,
     filter?.initialState,
+    filterParamKey,
   ]);
 
   useEffect(() => {

@@ -55,6 +55,7 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
+import { parseFilterParam } from "../Table/ResponsiveTable/utils";
 import {
   flagCell,
   flagHeader,
@@ -454,12 +455,13 @@ const PoolCandidatesTable = ({
     sortState: defaultSortState,
   });
   const searchParams = new URLSearchParams(window.location.search);
-  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+  const filtersEncoded = searchParams.get(
+    SEARCH_PARAM_KEY.POOL_CANDIDATE_FILTERS,
+  );
   const initialFilters = useMemo(
     () =>
-      filtersEncoded
-        ? (JSON.parse(filtersEncoded) as PoolCandidateSearchInput)
-        : initialFilterInput,
+      parseFilterParam<PoolCandidateSearchInput>(filtersEncoded) ??
+      initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
 

@@ -54,3 +54,27 @@ export const getColumnHeader = <T>(
 
   return header;
 };
+
+/**
+ * This function parses a URL-encoded string into expected filter type.
+ * @param encoded
+ * @returns Parsed filters of type TFilters, or undefined if parsing fails or if the input is invalid.
+ */
+export function parseFilterParam<TFilters>(
+  encoded: string | null,
+): TFilters | undefined {
+  if (!encoded) return undefined;
+  try {
+    const parsed: unknown = JSON.parse(encoded);
+    if (
+      typeof parsed !== "object" ||
+      parsed === null ||
+      Array.isArray(parsed)
+    ) {
+      return undefined;
+    }
+    return parsed as TFilters;
+  } catch {
+    return undefined;
+  }
+}
