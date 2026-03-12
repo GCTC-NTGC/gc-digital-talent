@@ -22,7 +22,7 @@ const YourProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-interface YourProcessesTaskCardTaskCardProps {
+interface YourProcessesTaskCardProps {
   yourProcessesTaskCardQuery: FragmentType<
     typeof YourProcessesTaskCard_Fragment
   >;
@@ -30,7 +30,7 @@ interface YourProcessesTaskCardTaskCardProps {
 
 const YourProcessesTaskCard = ({
   yourProcessesTaskCardQuery,
-}: YourProcessesTaskCardTaskCardProps) => {
+}: YourProcessesTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
