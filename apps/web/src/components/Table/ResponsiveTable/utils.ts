@@ -56,7 +56,7 @@ export const getColumnHeader = <T>(
 };
 
 /**
- * This function parses a URL-encoded string into expected filter type.
+ * This function parses a JSON string (e.g. the already-decoded value from URLSearchParams.get()) into the expected filter type.
  * @param encoded
  * @returns Parsed filters of type TFilters, or undefined if parsing fails or if the input is invalid.
  */
