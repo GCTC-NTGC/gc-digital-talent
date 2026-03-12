@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -22,8 +23,8 @@ use Illuminate\Support\Str;
  * @property bool $job_interest
  * @property bool $training_interest
  * @property string $additional_information
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property bool $finance_is_chief
  * @property array $finance_additional_duties
  * @property array $finance_other_roles
@@ -125,7 +126,7 @@ class CommunityInterest extends Model
     // own interest or belongs to your community and consentToShareProfile is TRUE
     public function scopeAuthorizedToView(Builder $query, ?array $args = null)
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {

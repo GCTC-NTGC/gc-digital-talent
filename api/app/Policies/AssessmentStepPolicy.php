@@ -18,7 +18,7 @@ class AssessmentStepPolicy
      *
      * @param  $request:  The arguments included in the request, acquired with the injectArgs lighthouse directive
      *                   We need to use this because the model hasn't been created yet so we can't read from it
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function create(User $user, $request)
     {
@@ -48,7 +48,7 @@ class AssessmentStepPolicy
     /**
      * Determine whether the user can update or delete the assessment step
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function update(User $user, AssessmentStep $assessmentStep)
     {
@@ -65,7 +65,7 @@ class AssessmentStepPolicy
     /**
      * Determine whether the user can view assessment step
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(User $user, AssessmentStep $assessmentStep)
     {
@@ -85,7 +85,7 @@ class AssessmentStepPolicy
     /**
      * Determine whether the user can view attached assessment results
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAssessmentResults(User $user, AssessmentStep $assessmentStep)
     {

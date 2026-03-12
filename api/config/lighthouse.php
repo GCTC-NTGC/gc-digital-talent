@@ -1,6 +1,21 @@
 <?php
 
 declare(strict_types=1);
+use App\GraphQL\Handlers\LoggingErrorHandler;
+use GraphQL\Error\DebugFlag;
+use GraphQL\Validator\Rules\DisableIntrospection;
+use GraphQL\Validator\Rules\QueryComplexity;
+use Nuwave\Lighthouse\Execution\AuthenticationErrorHandler;
+use Nuwave\Lighthouse\Execution\AuthorizationErrorHandler;
+use Nuwave\Lighthouse\Execution\ReportingErrorHandler;
+use Nuwave\Lighthouse\Execution\ValidationErrorHandler;
+use Nuwave\Lighthouse\Schema\Directives\RenameArgsDirective;
+use Nuwave\Lighthouse\Schema\Directives\SanitizeDirective;
+use Nuwave\Lighthouse\Schema\Directives\SpreadDirective;
+use Nuwave\Lighthouse\Schema\Directives\TransformArgsDirective;
+use Nuwave\Lighthouse\Schema\Directives\TrimDirective;
+use Nuwave\Lighthouse\Subscriptions\SubscriptionRouter;
+use Nuwave\Lighthouse\Validation\ValidateDirective;
 
 return [
     /*
@@ -139,11 +154,11 @@ return [
     */
 
     'security' => [
-        'max_query_complexity' => GraphQL\Validator\Rules\QueryComplexity::DISABLED,
+        'max_query_complexity' => QueryComplexity::DISABLED,
         'max_query_depth' => 20, // examples: applicant dashboard - 6
         'disable_introspection' => (bool) env('LIGHTHOUSE_SECURITY_DISABLE_INTROSPECTION', false)
-            ? GraphQL\Validator\Rules\DisableIntrospection::ENABLED
-            : GraphQL\Validator\Rules\DisableIntrospection::DISABLED,
+            ? DisableIntrospection::ENABLED
+            : DisableIntrospection::DISABLED,
     ],
 
     /*
@@ -198,7 +213,7 @@ return [
     |
     */
 
-    'debug' => env('LIGHTHOUSE_DEBUG', GraphQL\Error\DebugFlag::INCLUDE_DEBUG_MESSAGE | GraphQL\Error\DebugFlag::INCLUDE_TRACE),
+    'debug' => env('LIGHTHOUSE_DEBUG', DebugFlag::INCLUDE_DEBUG_MESSAGE | DebugFlag::INCLUDE_TRACE),
 
     /*
     |--------------------------------------------------------------------------
@@ -212,11 +227,11 @@ return [
     */
 
     'error_handlers' => [
-        Nuwave\Lighthouse\Execution\AuthenticationErrorHandler::class,
-        Nuwave\Lighthouse\Execution\AuthorizationErrorHandler::class,
-        Nuwave\Lighthouse\Execution\ValidationErrorHandler::class,
-        Nuwave\Lighthouse\Execution\ReportingErrorHandler::class,
-        \App\GraphQL\Handlers\LoggingErrorHandler::class,
+        AuthenticationErrorHandler::class,
+        AuthorizationErrorHandler::class,
+        ValidationErrorHandler::class,
+        ReportingErrorHandler::class,
+        LoggingErrorHandler::class,
     ],
 
     /*
@@ -231,12 +246,12 @@ return [
     */
 
     'field_middleware' => [
-        \Nuwave\Lighthouse\Schema\Directives\TrimDirective::class,
-        \Nuwave\Lighthouse\Schema\Directives\SanitizeDirective::class,
-        \Nuwave\Lighthouse\Validation\ValidateDirective::class,
-        \Nuwave\Lighthouse\Schema\Directives\TransformArgsDirective::class,
-        \Nuwave\Lighthouse\Schema\Directives\SpreadDirective::class,
-        \Nuwave\Lighthouse\Schema\Directives\RenameArgsDirective::class,
+        TrimDirective::class,
+        SanitizeDirective::class,
+        ValidateDirective::class,
+        TransformArgsDirective::class,
+        SpreadDirective::class,
+        RenameArgsDirective::class,
     ],
 
     /*
@@ -365,13 +380,13 @@ return [
             ],
             'pusher' => [
                 'driver' => 'pusher',
-                'routes' => Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@pusher',
+                'routes' => SubscriptionRouter::class.'@pusher',
                 'connection' => 'pusher',
             ],
             'echo' => [
                 'driver' => 'echo',
                 'connection' => env('LIGHTHOUSE_SUBSCRIPTION_REDIS_CONNECTION', 'default'),
-                'routes' => Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@echoRoutes',
+                'routes' => SubscriptionRouter::class.'@echoRoutes',
             ],
         ],
 
