@@ -88,8 +88,8 @@ import PoolCandidateFilterDialog, {
 } from "./PoolCandidateFilterDialog";
 import { FormValues } from "./types";
 import {
-  JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
+  JobPlacementDialogCandidateTable_Fragment,
 } from "../PoolCandidateDialogs/JobPlacementDialog";
 import { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
@@ -205,7 +205,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
         poolCandidate {
           ...JobPlacementDialogCandidateTable
           id
-          ...PoolCandidateTable_Flag
           notes
           status {
             value
@@ -435,7 +434,7 @@ const PoolCandidatesTable = ({
   availableSteps,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pick<Pool, "id">>;
+  currentPool?: Maybe<Pick<Pool, "id" | "displayName">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
@@ -770,6 +769,7 @@ const PoolCandidatesTable = ({
                 poolCandidate as FragmentType<
                   typeof PoolCandidate_FlagFragment
                 >,
+                currentPool?.displayName?.display.localized,
               ),
             meta: {
               shrink: true,
@@ -966,7 +966,9 @@ const PoolCandidatesTable = ({
           },
         }) =>
           jobPlacementDialogAccessor(
-            poolCandidate as FragmentType<typeof JobPlacementDialog_Fragment>,
+            poolCandidate as FragmentType<
+              typeof JobPlacementDialogCandidateTable_Fragment
+            >,
             tableData,
           ),
         enableSorting: false,

@@ -31,7 +31,7 @@ export interface GovernmentInformationSnapshotV1 {
   isWorkEmailVerified?: Maybe<boolean>;
 }
 
-export type GovernmentInformationV1Props =
+type GovernmentInformationV1Props =
   SnapshotProps<GovernmentInformationSnapshotV1>;
 
 const GovernmentInformationV1 = ({

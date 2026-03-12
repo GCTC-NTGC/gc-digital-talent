@@ -418,6 +418,7 @@ type Query {
     trashed: Trashed
   ): User
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
+  workEmails(search: String): [UserWorkEmail!]!
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -574,12 +575,13 @@ type Mutation {
   verifyUserEmails(code: String!): User
   removeUserWorkEmail(id: UUID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
-  updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
+  updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate @deprecated(reason: "Replaced by specific mutations")
   togglePoolCandidateFlag(id: ID!): Boolean
   togglePoolCandidateUserBookmark(poolCandidateId: UUID!): Boolean
   updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   updatePoolCandidateScreeningStage(poolCandidate: UpdatePoolCandidateScreeningStageInput!): PoolCandidate
+  updatePoolCandidateExpiryDate(id: UUID!, expiryDate: Date!): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
   reinstateCandidate(id: UUID!): PoolCandidate
   qualifyCandidate(id: UUID!, poolCandidate: QualifyCandidateInput!): PoolCandidate
@@ -618,7 +620,7 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
-  createPool(userId: ID!, communityId: ID!, pool: CreatePoolInput!): Pool
+  createPool(userId: ID!, communityId: ID, pool: CreatePoolInput!): Pool
   duplicatePool(id: ID!, pool: DuplicatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
@@ -633,7 +635,7 @@ type Mutation {
   archivePool(id: ID!): Pool
   unarchivePool(id: ID!): Pool
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
-  createApplication(userId: ID!, poolId: ID!): PoolCandidate
+  createApplication(poolId: ID!): PoolCandidate
   deleteApplication(id: ID!): PoolCandidate
   submitApplication(id: ID!, signature: String!): PoolCandidate
   updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
@@ -974,6 +976,7 @@ type MigrateOffPlatformProcessesNotification implements Notification {
 type UserPublicProfile {
   id: ID!
   email: Email
+  workEmail: Email
   firstName: String
   lastName: String
 }
@@ -987,6 +990,11 @@ type BasicGovEmployeeProfile {
   role: String
   department: Department
   classification: Classification
+}
+
+type UserWorkEmail {
+  id: ID!
+  workEmail: Email
 }
 
 type GeneralQuestion {
@@ -1163,6 +1171,7 @@ type PoolCandidate {
   suspendedAt: DateTime
   deletedDate: DateTime
   isFlagged: Boolean
+  isBookmarked: Boolean
   removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
   profileSnapshot: JSON
@@ -1205,6 +1214,7 @@ type PoolCandidateAdminView {
   screeningStage: LocalizedScreeningStage
   notes: String
   isFlagged: Boolean
+  isBookmarked: Boolean
   category: PoolCandidateCategory
   screeningResult: LocalizedAssessmentDecision
   assessmentStatus: AssessmentResultStatus
@@ -2622,7 +2632,6 @@ input SyncScreeningQuestionsInput {
 input UpdatePoolInput {
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   workStream: WorkStreamBelongsTo
   processNumber: String
   closingDate: DateTime
@@ -3692,6 +3701,7 @@ enum ErrorCode {
   CHANGE_JUSTIFICATION_REQUIRED
   UNARCHIVE_POOL_INVALID_STATUS
   ARCHIVE_POOL_INVALID_STATUS
+  INVALID_COMMUNITY_DEPARTMENT_COMBO
   INVALID_STATUS_DISQUALIFICATION
   INVALID_STATUS_PLACING
   INVALID_STATUS_QUALIFICATION

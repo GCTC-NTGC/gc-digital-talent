@@ -1,4 +1,4 @@
-import { StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react-vite";
 
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 

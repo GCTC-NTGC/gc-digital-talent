@@ -6,7 +6,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
-export const PersonalContact_Fragment = graphql(/* GraphQL */ `
+const PersonalContact_Fragment = graphql(/* GraphQL */ `
   fragment PersonalContact on User {
     firstName
     lastName

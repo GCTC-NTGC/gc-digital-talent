@@ -9,7 +9,7 @@ import WorkPreferences from "./WorkPreferences";
 import { BasicInformationOptions_Fragment } from "./utils";
 import DiversityEquityInfo from "./DiversityEquityInfo";
 
-export const BasicInformation_Fragment = graphql(/* GraphQL */ `
+const BasicInformation_Fragment = graphql(/* GraphQL */ `
   fragment BasicInformation on User {
     ...PersonalContact
     ...LanguageInfo

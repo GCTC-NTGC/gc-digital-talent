@@ -63,8 +63,9 @@ test.describe("Application card", () => {
       },
     });
 
+    const admin = await me(adminCtx, {});
     const pool = await createAndPublishPool(adminCtx, {
-      userId: createdUser?.id ?? "",
+      userId: admin?.id ?? "",
       skillIds: skill ? [skill.id] : undefined,
       name: {
         en: `${poolName} (EN)`,
@@ -78,7 +79,6 @@ test.describe("Application card", () => {
     const applicant = await me(applicantCtx, {});
 
     const candidate = await createAndSubmitApplication(applicantCtx, {
-      userId: applicant.id,
       poolId: pool.id,
       personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName} signature`,

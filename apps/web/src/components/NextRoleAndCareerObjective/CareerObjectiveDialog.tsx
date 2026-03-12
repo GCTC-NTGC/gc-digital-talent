@@ -7,7 +7,7 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import CareerObjective from "./CareerObjective";
 
-export const CareerObjectiveDialog_Fragment = graphql(/* GraphQL */ `
+const CareerObjectiveDialog_Fragment = graphql(/* GraphQL */ `
   fragment CareerObjectiveDialog on User {
     firstName
     employeeProfile {

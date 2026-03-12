@@ -63,6 +63,7 @@ return [
         'user' => 'user',
         'userBasicInfo' => 'userBasicInfo',
         'userSub' => 'userSub',
+        'userWorkEmail' => 'userWorkEmail',
         'employeeProfile' => 'employeeProfile',
         'applicantProfile' => 'applicantProfile',
         'draftPool' => 'draftPool',
@@ -218,6 +219,10 @@ return [
         'view-any-userBasicInfo' => [
             'en' => 'View basic info of any User',
             'fr' => 'Afficher les informations de base de tout utilisateur',
+        ],
+        'view-any-userWorkEmail' => [
+            'en' => 'View the work email of any User',
+            'fr' => 'Afficher l\'adresse e-mail professionnelle de n\'importe quel utilisateur',
         ],
         'update-any-user' => [
             'en' => 'Update Any User (does not include updating the "sub" field or role assignments)',
@@ -1028,6 +1033,9 @@ return [
             'userBasicInfo' => [
                 'any' => ['view'],
             ],
+            'userWorkEmail' => [
+                'any' => ['view'],
+            ],
             'applicantProfile' => [
                 'team' => ['view'],
             ],
@@ -1080,6 +1088,9 @@ return [
 
         'community_admin' => [
             'userBasicInfo' => [
+                'any' => ['view'],
+            ],
+            'userWorkEmail' => [
                 'any' => ['view'],
             ],
             'applicantProfile' => [
@@ -1167,6 +1178,9 @@ return [
                 'any' => ['update'],
             ],
             'userBasicInfo' => [
+                'any' => ['view'],
+            ],
+            'userWorkEmail' => [
                 'any' => ['view'],
             ],
             'applicantProfile' => [
@@ -1283,6 +1297,9 @@ return [
             'userBasicInfo' => [
                 'any' => ['view'],
             ],
+            'userWorkEmail' => [
+                'any' => ['view'],
+            ],
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],
@@ -1293,7 +1310,7 @@ return [
                 'team' => ['view'],
             ],
             'draftPool' => [
-                'team' => ['view'],
+                'team' => ['view', 'create', 'update', 'delete', 'publish'],
             ],
             'publishedPool' => [
                 'team' => ['archive'],
@@ -1305,7 +1322,7 @@ return [
                 'team' => ['view'],
             ],
             'assessmentPlan' => [
-                'team' => ['view'],
+                'team' => ['view', 'update'],
             ],
             'applicantProfile' => [
                 'team' => ['view'],
@@ -1331,6 +1348,9 @@ return [
             'userBasicInfo' => [
                 'any' => ['view'],
             ],
+            'userWorkEmail' => [
+                'any' => ['view'],
+            ],
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],
@@ -1338,7 +1358,7 @@ return [
                 'team' => ['view'],
             ],
             'draftPool' => [
-                'team' => ['view'],
+                'team' => ['view', 'create', 'update', 'delete', 'publish'],
             ],
             'publishedPool' => [
                 'team' => ['archive'],
@@ -1350,7 +1370,7 @@ return [
                 'team' => ['view'],
             ],
             'assessmentPlan' => [
-                'team' => ['view'],
+                'team' => ['view', 'update'],
             ],
             'applicantProfile' => [
                 'team' => ['view'],

@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\PoolSkill;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class PoolSkillPolicy
 {
@@ -14,7 +15,7 @@ class PoolSkillPolicy
      * Determine whether the user can update the model.
      * Simply check if user has permission to update the pool the skill is part of.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function update(User $user, PoolSkill $poolSkill)
     {
@@ -25,7 +26,7 @@ class PoolSkillPolicy
      * Determine whether the user can delete the model.
      * Simply check if user has permission to update the pool the skill is part of.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function delete(User $user, PoolSkill $poolSkill)
     {
@@ -35,7 +36,7 @@ class PoolSkillPolicy
     /**
      * Determine whether the user can view assessment steps attached to the pool skill model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAssessmentSteps(User $user, PoolSkill $poolSkill)
     {
@@ -43,10 +44,11 @@ class PoolSkillPolicy
             return true;
         }
 
-        $poolSkill->loadMissing(['pool.team', 'pool.community.team']);
+        $poolSkill->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
         $teamPermission = ! is_null($poolSkill->pool->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->team);
-        $communityPermission = ! is_null($poolSkill->pool->community->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->community->team);
+        $communityPermission = ! is_null($poolSkill->pool->community?->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->community->team);
+        $departmentPermission = ! is_null($poolSkill->pool->department->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->department->team);
 
-        return $teamPermission || $communityPermission;
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 }

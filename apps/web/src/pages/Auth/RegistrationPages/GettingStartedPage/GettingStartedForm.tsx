@@ -82,7 +82,7 @@ export interface GettingStartedFormProps {
   onSubmit: (formValues: FormValues) => Promise<void>;
 }
 
-export const GettingStartedForm = ({
+const GettingStartedForm = ({
   initialValuesQuery,
   optionsQuery,
   onSubmit,

@@ -23,7 +23,7 @@ import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/Un
 
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 
-export const CareerDevelopmentTaskCardUser_Fragment = graphql(/* GraphQL */ `
+const CareerDevelopmentTaskCardUser_Fragment = graphql(/* GraphQL */ `
   fragment CareerDevelopmentTaskCardUser on User {
     isVerifiedGovEmployee
     employeeProfile {

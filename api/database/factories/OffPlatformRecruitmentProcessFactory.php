@@ -5,11 +5,12 @@ namespace Database\Factories;
 use App\Enums\HiringPlatform;
 use App\Models\Classification;
 use App\Models\Department;
+use App\Models\OffPlatformRecruitmentProcess;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OffPlatformRecruitmentProcess>
+ * @extends Factory<OffPlatformRecruitmentProcess>
  */
 class OffPlatformRecruitmentProcessFactory extends Factory
 {

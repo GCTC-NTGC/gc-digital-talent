@@ -166,7 +166,7 @@ function stripSuffix(str: string, len = 3): string {
   return str.slice(0, -len);
 }
 
-export type JSONRecord = Record<string, unknown>;
+type JSONRecord = Record<string, unknown>;
 
 function isRecord(obj: unknown): obj is Record<string, unknown> {
   return typeof obj === "object" && obj !== null && !Array.isArray(obj);

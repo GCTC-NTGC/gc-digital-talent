@@ -24,6 +24,3 @@ export const SEARCH_PARAM_KEY = {
   POOL_FILTERS: "pool-filters", // owned by PoolTable
   POOL_CANDIDATE_FILTERS: "pool-candidate-filters", // owned by PoolCandidatesTable
 } as const;
-
-export type SearchParamKey =
-  (typeof SEARCH_PARAM_KEY)[keyof typeof SEARCH_PARAM_KEY];
