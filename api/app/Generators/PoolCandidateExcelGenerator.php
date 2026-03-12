@@ -570,7 +570,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
 
     private function buildQuery()
     {
-        /** @var Builder<\App\Models\PoolCandidate> $query */
+        /** @var Builder<PoolCandidate> $query */
         $query = PoolCandidate::with([
             'generalQuestionResponses' => ['generalQuestion'],
             'screeningQuestionResponses' => ['screeningQuestion'],
@@ -626,7 +626,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
             'community' => 'whereCandidatesInCommunity',
         ]);
 
-        /** @var Builder<\App\Models\PoolCandidate> $query */
+        /** @var Builder<PoolCandidate> $query */
         $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
             ->whereNotDraft()
             ->wherePoolCandidateSearchInputToSpecialLocationMatching($this->filters);

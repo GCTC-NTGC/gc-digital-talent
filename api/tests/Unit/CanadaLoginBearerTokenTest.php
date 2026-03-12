@@ -344,7 +344,7 @@ class CanadaLoginBearerTokenTest extends TestCase
         "iat": 0                     -- issued at beginning of time
         }
          */
-        HTTP::assertSentCount(0);
+        Http::assertSentCount(0);
 
         Carbon::setTestNow('2020-01-01 00:00:00'); // not yet expired
         $this->setIntrospectionResponse(true, Carbon::createFromTimeString('2020-01-01 00:00:05')->toImmutable());

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use Laratrust\Models\Role as LaratrustRole;
 
 /**
@@ -15,8 +16,8 @@ use Laratrust\Models\Role as LaratrustRole;
  * @property bool $is_team_based
  * @property array $display_name
  * @property array $description
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  */
 class Role extends LaratrustRole
 {

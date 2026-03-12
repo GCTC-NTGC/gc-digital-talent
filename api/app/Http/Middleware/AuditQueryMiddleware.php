@@ -13,7 +13,7 @@ use Psr\Log\LoggerInterface;
 class AuditQueryMiddleware
 {
     /**
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     protected $logger;
 

@@ -7,7 +7,7 @@ namespace App\GraphQL\Directives\Pagination;
 use Exception;
 use Illuminate\Contracts\Pagination\CursorPaginator;
 
-/** @implements \Illuminate\Contracts\Pagination\CursorPaginator<array-key, mixed> */
+/** @implements CursorPaginator<array-key, mixed> */
 class ZeroPerPagePaginator implements CursorPaginator
 {
     public function url($cursor)

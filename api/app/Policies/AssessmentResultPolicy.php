@@ -6,13 +6,14 @@ use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class AssessmentResultPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(User $user, AssessmentResult $assessmentResult)
     {
@@ -37,7 +38,7 @@ class AssessmentResultPolicy
      *
      * @param  $request:  The arguments included in the request, acquired with the injectArgs lighthouse directive
      *                   We need to use this because the model hasn't been created yet so we can't read from it
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function create(User $user, $request)
     {
@@ -60,7 +61,7 @@ class AssessmentResultPolicy
     /**
      * Determine whether the user can update and/or delete the assessment result
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function update(User $user, AssessmentResult $assessmentResult)
     {

@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
@@ -89,7 +90,7 @@ class AuthController extends Controller
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
         ]);
-        assert($response instanceof \Illuminate\Http\Client\Response);
+        assert($response instanceof Response);
         if ($response->failed()) {
             Log::error('Failed when POSTing to the token URI in authCallback');
             Log::debug((string) $response->getBody());
@@ -173,7 +174,7 @@ class AuthController extends Controller
                 'client_secret' => config('oauth.client_secret'),
                 'refresh_token' => $refreshToken,
             ]);
-        assert($response instanceof \Illuminate\Http\Client\Response);
+        assert($response instanceof Response);
         if ($response->failed()) {
             $errorCode = $response->json('error');
             $isNormalErrorCode = $errorCode == 'invalid_grant';
