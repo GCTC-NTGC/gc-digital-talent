@@ -286,7 +286,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             areaOfSelection {
               value
             }
-            screeningQuestionsCount
             contactEmail
           }
           assessmentStatus {
