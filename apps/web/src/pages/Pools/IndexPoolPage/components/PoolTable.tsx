@@ -422,6 +422,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       data={filteredData}
       columns={columns}
       isLoading={fetching}
+      filterParamKey={SEARCH_PARAM_KEY.POOL_FILTERS}
       hiddenColumnIds={[
         "id",
         "publishedAt",

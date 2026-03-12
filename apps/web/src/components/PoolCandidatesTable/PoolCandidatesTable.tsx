@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef } from "react";
+import { useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import {
@@ -44,6 +45,7 @@ import useSelectedRows from "~/hooks/useSelectedRows";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { parseFilterParam } from "~/components/Table/ResponsiveTable/utils";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
@@ -55,7 +57,6 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
 import { SearchState } from "../Table/ResponsiveTable/types";
-import { parseFilterParam } from "../Table/ResponsiveTable/utils";
 import {
   flagCell,
   flagHeader,
@@ -453,7 +454,7 @@ const PoolCandidatesTable = ({
     ...defaultState,
     sortState: defaultSortState,
   });
-  const searchParams = new URLSearchParams(window.location.search);
+  const [searchParams] = useSearchParams();
   const filtersEncoded = searchParams.get(
     SEARCH_PARAM_KEY.POOL_CANDIDATE_FILTERS,
   );
@@ -1122,6 +1123,7 @@ const PoolCandidatesTable = ({
       columns={columns}
       isLoading={fetching || fetchingTableData}
       hiddenColumnIds={hiddenColumnIds}
+      filterParamKey={SEARCH_PARAM_KEY.POOL_CANDIDATE_FILTERS}
       search={{
         internal: false,
         label: intl.formatMessage({
