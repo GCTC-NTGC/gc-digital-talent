@@ -134,7 +134,10 @@ const ApplicationPauseReferralDialog = ({
     await executePauseCandidateReferral({
       id: application.id,
       referralPauseLength: values.referralPauseLength,
-      referralUnpauseAt: "",
+      referralUnpauseAt:
+        values.referralPauseLength === ReferralPauseLength.Other
+          ? values.referralUnpauseAt
+          : null,
       referralPauseReason: values.referralPauseReason,
     })
       .then((res) => {
