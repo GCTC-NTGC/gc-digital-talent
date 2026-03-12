@@ -5,7 +5,9 @@ namespace App\GraphQL\Directives;
 use GraphQL\Error\UserError;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InterfaceTypeDefinitionNode;
+use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
+use GraphQL\Language\AST\TypeDefinitionNode;
 use GraphQL\Language\Parser;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -118,7 +120,8 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
 
         // If the first parameter is type-hinted as an array, pass the full context.
         // Otherwise, pass just the direction string.
-        if (isset($params[0]) && $params[0]->getType()?->getName() === 'array') {
+        $type = $params[0]->getType();
+        if ($type instanceof \ReflectionNamedType && $type->getName() === 'array') {
             $builder->{$scope}($input);
         } else {
             $builder->{$scope}($direction);
@@ -206,7 +209,12 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
 
         foreach ($typesToRegister as $name => $sdl) {
             if (! isset($documentAST->types[$name])) {
-                $documentAST->setTypeDefinition(Parser::parse($sdl)->definitions[0]);
+                if (! isset($documentAST->types[$name])) {
+                    $document = Parser::parse($sdl);
+                    /** @var TypeDefinitionNode&Node $node */
+                    $node = $document->definitions[0];
+                    $documentAST->setTypeDefinition($node);
+                }
             }
         }
     }
