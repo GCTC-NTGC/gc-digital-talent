@@ -72,7 +72,6 @@ interface TableProps<TData, TFilters> {
   /** Should this sync state in the URL? */
   urlSync?: boolean;
   filterParamKey?: string;
-
 }
 
 const ResponsiveTable = <TData extends object, TFilters = object>({
