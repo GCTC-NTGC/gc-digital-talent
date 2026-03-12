@@ -14,32 +14,32 @@ import useRoutes from "~/hooks/useRoutes";
 
 import BookmarkedProcessesPreviewList from "./BookmarkedProcessesPreviewList";
 
-const DepartmentToolsTaskCard_Fragment = graphql(/* GraphQL */ `
-  fragment DepartmentToolsTaskCard on User {
+const YourProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
+  fragment YourProcessesTaskCard on User {
     poolBookmarks {
       ...BookmarkedProcessesPreviewList
     }
   }
 `);
 
-interface DepartmentToolsTaskCardTaskCardProps {
-  departmentToolsTaskCardQuery: FragmentType<
-    typeof DepartmentToolsTaskCard_Fragment
+interface YourProcessesTaskCardTaskCardProps {
+  yourProcessesTaskCardQuery: FragmentType<
+    typeof YourProcessesTaskCard_Fragment
   >;
 }
 
-const DepartmentToolsTaskCard = ({
-  departmentToolsTaskCardQuery,
-}: DepartmentToolsTaskCardTaskCardProps) => {
+const YourProcessesTaskCard = ({
+  yourProcessesTaskCardQuery,
+}: YourProcessesTaskCardTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const departmentProcessesTaskCardFragment = getFragment(
-    DepartmentToolsTaskCard_Fragment,
-    departmentToolsTaskCardQuery,
+  const yourProcessesTaskCardFragment = getFragment(
+    YourProcessesTaskCard_Fragment,
+    yourProcessesTaskCardQuery,
   );
   const processesUnpacked = unpackMaybes(
-    departmentProcessesTaskCardFragment?.poolBookmarks,
+    yourProcessesTaskCardFragment?.poolBookmarks,
   );
 
   const bookmarkedProcessesMetaData: AccordionMetaData = [
@@ -66,9 +66,9 @@ const DepartmentToolsTaskCard = ({
         <TaskCard.Root
           icon={WrenchScrewdriverIcon}
           title={intl.formatMessage({
-            defaultMessage: "Your department tools",
-            id: "AMHpov",
-            description: "Task card title for department tools",
+            defaultMessage: "Your processes",
+            id: "BiRxFg",
+            description: "Task card title for processes",
           })}
           headingColor="primary"
           headingAs="h2"
@@ -110,4 +110,4 @@ const DepartmentToolsTaskCard = ({
   );
 };
 
-export default DepartmentToolsTaskCard;
+export default YourProcessesTaskCard;

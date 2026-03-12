@@ -24,7 +24,7 @@ import Hero from "~/components/Hero";
 import messages from "~/messages/profileMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import DepartmentToolsTaskCard from "./components/DepartmentToolsTaskCard";
+import YourProcessesTaskCard from "./components/YourProcessesTaskCard";
 import ResourcesDepartmentLink from "./components/ResourcesDepartmentLink";
 import {
   departmentAssignmentsToDepartmentRolesObjects,
@@ -55,7 +55,7 @@ export const DepartmentDashboardPage_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
-    ...DepartmentToolsTaskCard
+    ...YourProcessesTaskCard
   }
 `);
 
@@ -150,9 +150,7 @@ export const DashboardPage = ({
         <Container>
           <div className="flex flex-col gap-6 xs:flex-row">
             <div className="flex grow flex-col gap-6">
-              <DepartmentToolsTaskCard
-                departmentToolsTaskCardQuery={currentUser}
-              />
+              <YourProcessesTaskCard yourProcessesTaskCardQuery={currentUser} />
             </div>
             <div className="flex shrink-0 flex-col gap-6 xs:max-w-84">
               <ResourceBlock.Root
