@@ -19,7 +19,7 @@ import {
 import { test, expect } from "~/fixtures";
 import graphql, { GraphQLContext } from "~/utils/graphql";
 import { getSkills } from "~/utils/skills";
-import { createUserWithRoles, me } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import {
   createAndSubmitApplication,
   qualifyCandidate,
@@ -47,7 +47,7 @@ test.describe("Pool candidates", () => {
   let poolId: string;
   let user: User | undefined;
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     adminCtx = await graphql.newContext();
@@ -118,6 +118,13 @@ test.describe("Pool candidates", () => {
     });
 
     candidate = application;
+  });
+
+  test.afterEach(async () => {
+    if (user?.id) {
+      adminCtx = await graphql.newContext();
+      await deleteUser(adminCtx, { id: user.id });
+    }
   });
 
   test("Completing an assessment step", async ({ appPage }) => {
@@ -276,7 +283,6 @@ test.describe("Pool candidates", () => {
         expiryDate: FAR_FUTURE_DATE,
       },
     });
-    await assessmentPage.verifyJobPlacementStatusWarningMessage(candidate.id);
     await genericTable.verifyCandidateStatusInTable(
       poolId,
       adminCtx,

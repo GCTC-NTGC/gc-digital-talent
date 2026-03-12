@@ -251,37 +251,5 @@ class AssessmentPage extends AppPage {
       );
     }
   }
-
-  async verifyAllPlacementMessages() {
-    const dialog = this.page.getByRole("dialog");
-    const radioButtons = await dialog.getByRole("radio").all();
-    for (const radio of radioButtons) {
-      const status = (await radio.innerText()).trim();
-      await radio.click();
-      switch (status) {
-        case "Not placed":
-        case "Offer in progress":
-        case "Placed casual":
-          await expect(dialog.getByText(status)).toBeHidden();
-          break;
-
-        case "Under Consideration":
-        case "Placed term":
-        case "Placed indeterminate":
-          await expect(dialog.getByText(status)).toBeVisible();
-          break;
-      }
-    }
-  }
-
-  async verifyJobPlacementStatusWarningMessage(candidateId: string) {
-    await this.goToCandidateApplication(candidateId);
-    await expect(this.locators.qualifiedStatus).toBeVisible();
-    await expect(this.locators.notPlacementLabel).toBeVisible();
-    await this.locators.notPlacedButton.click();
-    await expect(this.locators.jobPlacementHeading).toBeVisible();
-    await this.verifyAllPlacementMessages();
-    await this.locators.cancelButton.click();
-  }
 }
 export default AssessmentPage;

@@ -7,6 +7,7 @@ import {
   ProvinceOrTerritory,
   Skill,
   SkillCategory,
+  User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
@@ -14,7 +15,7 @@ import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 import { test, expect } from "~/fixtures";
 import graphql from "~/utils/graphql";
 import { getSkills } from "~/utils/skills";
-import { createUserWithRoles, me } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import { createAndSubmitApplication } from "~/utils/applications";
 import { createAndPublishPool } from "~/utils/pools";
 import { loginBySub } from "~/utils/auth";
@@ -30,8 +31,9 @@ test.describe("Pool candidates", () => {
   let sub: string;
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
+  let user: User | undefined;
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
@@ -80,6 +82,7 @@ test.describe("Pool candidates", () => {
         },
       },
     });
+    user = createdUser;
     const admin = await me(adminCtx, {});
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: admin?.id ?? "",
@@ -99,6 +102,13 @@ test.describe("Pool candidates", () => {
     });
 
     candidate = application;
+  });
+
+  test.afterEach(async () => {
+    if (user?.id) {
+      const adminCtx = await graphql.newContext();
+      await deleteUser(adminCtx, { id: user.id });
+    }
   });
 
   test("Verification and notes mutations", async ({ appPage }) => {
@@ -158,13 +168,15 @@ test.describe("Pool candidates", () => {
 
     // to assess icon by application screening
     await expect(
-      appPage.page.getByLabel("To assess").locator("path"),
+      appPage.page.getByLabel("To assess").locator("path").first(),
     ).toBeVisible();
 
     // education result
     await appPage.page
       .getByRole("row", { name: "Education requirement To" })
       .getByRole("button")
+      .first()
+
       .click();
     await expect(
       appPage.page.getByText("I meet the applied work"),
@@ -194,6 +206,7 @@ test.describe("Pool candidates", () => {
     await appPage.page
       .getByRole("row", { name: `${technicalSkill?.name?.en}` })
       .getByRole("button")
+      .first()
       .click();
     await expect(
       appPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
@@ -243,7 +256,10 @@ test.describe("Pool candidates", () => {
 
     const sidebar = appPage.page.getByRole("complementary").first();
 
-    await sidebar.getByRole("button", { name: /to assess/i }).click();
+    await sidebar
+      .getByRole("button", { name: /to assess/i })
+      .first()
+      .click();
 
     await appPage.waitForGraphqlResponse("ApplicationStatusFormOptions");
 
