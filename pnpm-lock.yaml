@@ -224,8 +224,8 @@ importers:
         specifier: ^10.3.0
         version: 10.3.0
       '@formatjs/cli':
-        specifier: ^6.13.0
-        version: 6.13.0
+        specifier: ^6.13.1
+        version: 6.13.1
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
@@ -552,8 +552,8 @@ importers:
         specifier: ^4.4.4
         version: 4.4.4(eslint-plugin-import@2.32.0)(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-formatjs:
-        specifier: ^6.2.0
-        version: 6.2.0(eslint@9.39.2(jiti@2.6.1))
+        specifier: ^6.3.0
+        version: 6.3.0(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-import:
         specifier: ^2.32.0
         version: 2.32.0(@typescript-eslint/parser@8.56.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.2(jiti@2.6.1))
@@ -823,8 +823,8 @@ importers:
         version: 7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
     devDependencies:
       '@formatjs/cli':
-        specifier: ^6.13.0
-        version: 6.13.0
+        specifier: ^6.13.1
+        version: 6.13.1
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -1929,8 +1929,8 @@ packages:
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
 
-  '@formatjs/cli@6.13.0':
-    resolution: {integrity: sha512-bl4+FNg7S6RPNa9cSAE8HqdXu84n7LpzDdkDAPqS0sk58XNbY/1Le6GdWqCKzELWX+FhI58gyZtZecmWsZ+Bhg==}
+  '@formatjs/cli@6.13.1':
+    resolution: {integrity: sha512-PbgAxCD5Eq6+/BUjYwzU3a2mPjaLZC0guhuVzJfC4FKQoT/kYHrjLRilSAqCD6WAYqcUZm59UYLXRwbJriYN2Q==}
     engines: {node: '>= 20.12.0'}
     hasBin: true
     peerDependencies:
@@ -1938,9 +1938,9 @@ packages:
       '@glimmer/reference': '*'
       '@glimmer/syntax': ^0.84.3 || ^0.95.0
       '@glimmer/validator': '*'
-      '@vue/compiler-core': 3.5.27
+      '@vue/compiler-core': ^3.5.0
       content-tag: ^4.1.0
-      vue: 3.5.27
+      vue: ^3.5.0
     peerDependenciesMeta:
       '@glimmer/env':
         optional: true
@@ -4731,10 +4731,10 @@ packages:
     peerDependencies:
       eslint: '>=4.19.1'
 
-  eslint-plugin-formatjs@6.2.0:
-    resolution: {integrity: sha512-JftP9glJrS4qdviqTyZ0Kk14hcHB8AJn2FP2W7dsMugOIHDgra30mTvGjRMohivDIaFXnPGCAOv/AYm55BMUBQ==}
+  eslint-plugin-formatjs@6.3.0:
+    resolution: {integrity: sha512-f3YKLJMnH0UCeyqbb6j6KUnZj3m8lGeSsdNvG4riJmbl+UUvPOZbw8+bplxe5N/9JNtifBqLvYxkhFdGFJt/Tg==}
     peerDependencies:
-      eslint: '9'
+      eslint: 9 || 10
 
   eslint-plugin-import@2.32.0:
     resolution: {integrity: sha512-whOE1HFo/qJDyX4SnXzP4N6zOWn79WhnCUY/iDR0mPfQZO8wcYE4JClzI2oZrhBnnMUCBCHZhO6VQyoBU95mZA==}
@@ -7899,7 +7899,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.10': {}
 
-  '@formatjs/cli@6.13.0': {}
+  '@formatjs/cli@6.13.1': {}
 
   '@formatjs/ecma402-abstract@3.1.1':
     dependencies:
@@ -11061,7 +11061,7 @@ snapshots:
       eslint-utils: 2.1.0
       regexpp: 3.2.0
 
-  eslint-plugin-formatjs@6.2.0(eslint@9.39.2(jiti@2.6.1)):
+  eslint-plugin-formatjs@6.3.0(eslint@9.39.2(jiti@2.6.1)):
     dependencies:
       '@formatjs/icu-messageformat-parser': 3.5.1
       '@formatjs/ts-transformer': 4.4.0
