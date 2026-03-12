@@ -29,7 +29,7 @@ import {
 } from "~/components/CareerDevelopmentPreferences/utils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-export const CareerDevelopment_Fragment = graphql(/* GraphQL */ `
+const CareerDevelopment_Fragment = graphql(/* GraphQL */ `
   fragment CareerDevelopment on EmployeeProfile {
     lateralMoveInterest
     lateralMoveTimeFrame {

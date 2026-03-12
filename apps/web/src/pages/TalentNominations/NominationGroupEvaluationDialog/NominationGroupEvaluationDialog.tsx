@@ -69,7 +69,7 @@ const statusColorMap = new Map<
   [TalentNominationGroupStatus.PartiallyApproved, "success"],
 ]);
 
-export interface NominationGroupEvaluationDialogProps {
+interface NominationGroupEvaluationDialogProps {
   query: FragmentType<typeof NominationGroupEvaluationDialog_Fragment>;
 }
 

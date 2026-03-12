@@ -67,7 +67,7 @@ export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export interface NominationGroupSidebarProps {
+interface NominationGroupSidebarProps {
   talentNominationGroupQuery: FragmentType<
     typeof NominationGroupSidebar_Fragment
   >;

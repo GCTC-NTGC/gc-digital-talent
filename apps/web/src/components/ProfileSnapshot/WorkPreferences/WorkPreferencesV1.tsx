@@ -39,12 +39,11 @@ export interface WorkPreferencesSnapshotV1 {
   flexibleWorkLocations: Maybe<Maybe<LocalizedFlexibleWorkLocation>[]>;
 }
 
-export type WorkPreferencesV1Props =
-  SnapshotProps<WorkPreferencesSnapshotV1> & {
-    optionsQuery:
-      | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
-      | undefined;
-  };
+type WorkPreferencesV1Props = SnapshotProps<WorkPreferencesSnapshotV1> & {
+  optionsQuery:
+    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
+    | undefined;
+};
 
 const WorkPreferencesV1 = ({
   snapshot,

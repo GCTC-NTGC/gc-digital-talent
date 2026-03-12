@@ -14,8 +14,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-import { DialogType } from "./useDialogType";
-import { DIALOG_TYPE } from "./utils";
+import { DIALOG_TYPE, DialogType } from "./utils";
 
 const ScreeningTriggerResult_Fragment = graphql(/** GraphQL */ `
   fragment ScreeningTriggerResult on AssessmentResult {

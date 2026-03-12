@@ -7,7 +7,7 @@ import { Ul } from "@gc-digital-talent/ui";
 
 import ComputedIcon from "./ComputedIcon";
 
-export const NominationGroupSidebarForList_Fragment = graphql(/* GraphQL */ `
+const NominationGroupSidebarForList_Fragment = graphql(/* GraphQL */ `
   fragment NominationGroupSidebarForList on TalentNominationGroup {
     advancementNominationCount
     advancementDecision {

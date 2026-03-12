@@ -19,7 +19,7 @@ import { Select } from "@gc-digital-talent/forms";
 
 import { FormValues } from "../types";
 
-export const JobPlacementFormFields_Fragment = graphql(/* GraphQL */ `
+const JobPlacementFormFields_Fragment = graphql(/* GraphQL */ `
   fragment JobPlacementFormFields on Query {
     placementTypes: localizedEnumOptions(enumName: "PlacementType") {
       ... on LocalizedPlacementType {

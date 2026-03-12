@@ -24,7 +24,7 @@ import JobPlacementForm, {
   JobPlacementOptions_Query,
 } from "./JobPlacementForm";
 
-export function formValuesToPlaceCandidateInput(formValues: FormValues) {
+function formValuesToPlaceCandidateInput(formValues: FormValues) {
   if (!formValues.placementType) {
     throw new Error("Missing placement type");
   }
@@ -58,28 +58,6 @@ const RevertPlaceCandidate_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
-  fragment JobPlacementDialog on PoolCandidate {
-    id
-    status {
-      value
-    }
-    placementType {
-      value
-      label {
-        localized
-      }
-    }
-    placedDepartment {
-      id
-      name {
-        en
-        fr
-      }
-    }
-  }
-`);
-
 export const JobPlacementDialogCandidateTable_Fragment = graphql(/* GraphQL */ `
   fragment JobPlacementDialogCandidateTable on PoolCandidateAdminView {
     id
@@ -103,7 +81,9 @@ export const JobPlacementDialogCandidateTable_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface JobPlacementDialogProps {
-  jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>;
+  jobPlacementDialogQuery: FragmentType<
+    typeof JobPlacementDialogCandidateTable_Fragment
+  >;
   optionsQuery?: FragmentType<typeof JobPlacementOptions_Query>;
   context?: "table" | "view";
   defaultOpen?: boolean;
@@ -134,7 +114,7 @@ const JobPlacementDialog = ({
   );
 
   const candidate = getFragment(
-    JobPlacementDialog_Fragment,
+    JobPlacementDialogCandidateTable_Fragment,
     jobPlacementDialogQuery,
   );
 
@@ -293,7 +273,9 @@ const JobPlacementDialog = ({
 };
 
 export function jobPlacementDialogAccessor(
-  jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>,
+  jobPlacementDialogQuery: FragmentType<
+    typeof JobPlacementDialogCandidateTable_Fragment
+  >,
   optionsQuery?: FragmentType<typeof JobPlacementOptions_Query>,
 ) {
   return (
