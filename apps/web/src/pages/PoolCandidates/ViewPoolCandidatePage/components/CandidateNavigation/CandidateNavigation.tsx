@@ -1,12 +1,21 @@
 import { defineMessages, useIntl } from "react-intl";
 import ChevronDoubleRightIcon from "@heroicons/react/16/solid/ChevronDoubleRightIcon";
 import ChevronDoubleLeftIcon from "@heroicons/react/16/solid/ChevronDoubleLeftIcon";
+import { useLocation } from "react-router";
 
-import { Card, LinkProps, Link, Separator } from "@gc-digital-talent/ui";
+import {
+  Card,
+  LinkProps,
+  Link,
+  Separator,
+  Loading,
+} from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
-import usePoolCandidateNavigation from "./usePoolCandidateNavigation";
+import usePoolCandidateNavigation, {
+  NavigationState,
+} from "./usePoolCandidateNavigation";
 
 const messages = defineMessages({
   nextCandidate: {
@@ -28,25 +37,25 @@ const messages = defineMessages({
   },
 });
 
-interface CandidateNavigationProps {
-  candidateId: string;
+const commonLinkProps: Partial<LinkProps> = {
+  color: "primary",
+  mode: "inline",
+  block: true,
+};
+
+interface LocationState {
+  state?: NavigationState;
 }
 
-const CandidateNavigation = ({ candidateId }: CandidateNavigationProps) => {
+const CandidateNavigation = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const candidateNavigation = usePoolCandidateNavigation(candidateId);
-  if (!candidateNavigation?.candidateIds) return null;
-  const { nextCandidate, previousCandidate, candidateIds, stepName } =
-    candidateNavigation;
-  if (!nextCandidate && !previousCandidate) return null;
+  const { state } = useLocation() as LocationState;
+  const { next, prev, fetching } = usePoolCandidateNavigation(state);
 
-  const commonLinkProps: Partial<LinkProps> = {
-    color: "primary",
-    mode: "inline",
-    state: { candidateIds, stepName },
-    block: true,
-  };
+  if (fetching) return <Loading inline />;
+
+  if (!next && !prev) return null;
 
   return (
     <Card
@@ -54,9 +63,10 @@ const CandidateNavigation = ({ candidateId }: CandidateNavigationProps) => {
       className="relative grid grid-cols-2 items-center justify-between gap-x-3"
     >
       <div>
-        {previousCandidate && (
+        {prev && (
           <Link
-            href={paths.poolCandidateApplication(previousCandidate)}
+            href={paths.poolCandidateApplication(prev.id)}
+            state={{ ...state, currentCursor: prev.cursor }}
             icon={ChevronDoubleLeftIcon}
             {...commonLinkProps}
           >
@@ -71,9 +81,10 @@ const CandidateNavigation = ({ candidateId }: CandidateNavigationProps) => {
         className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2"
       />
       <div>
-        {nextCandidate && (
+        {next && (
           <Link
-            href={paths.poolCandidateApplication(nextCandidate)}
+            href={paths.poolCandidateApplication(next.id)}
+            state={{ ...state, currentCursor: next.cursor }}
             utilityIcon={ChevronDoubleRightIcon}
             {...commonLinkProps}
           >

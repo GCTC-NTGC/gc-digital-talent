@@ -61,6 +61,7 @@ import CandidateFlag, {
 import PoolCandidateBookmark, {
   PoolCandidateBookmark_Fragment,
 } from "./PoolCandidateBookmark";
+import { SearchState } from "../Table/ResponsiveTable/types";
 
 export const priorityCell = (
   weight: number,
@@ -79,29 +80,6 @@ export const priorityCell = (
     >
       {getLocalizedName(label, intl)}
     </span>
-  );
-};
-
-export const candidateNameCell = (
-  candidateId: string,
-  paths: ReturnType<typeof useRoutes>,
-  intl: IntlShape,
-  tableCandidateIds?: string[],
-  candidateFirstName?: Maybe<string>,
-  candidateLastName?: Maybe<string>,
-) => {
-  const candidateName = getFullNameLabel(
-    candidateFirstName,
-    candidateLastName,
-    intl,
-  );
-  return (
-    <Link
-      href={paths.poolCandidateApplication(candidateId)}
-      state={{ candidateIds: tableCandidateIds, stepName: null }}
-    >
-      {candidateName}
-    </Link>
   );
 };
 
@@ -690,5 +668,60 @@ export const poolCandidateBookmarkCell = (
       firstName={firstName}
       lastName={lastName}
     />
+  );
+};
+
+interface GetQueryVariablesArgs {
+  filterState?: PoolCandidateSearchInput;
+  searchState?: SearchState;
+  sortState?: SortingState;
+  doNotUseFlag: boolean;
+  doNotUseBookmark: boolean;
+  locale: Locales;
+}
+
+export const getQueryVariables = ({
+  filterState,
+  searchState,
+  sortState,
+  doNotUseBookmark,
+  doNotUseFlag,
+  locale,
+}: GetQueryVariablesArgs) => ({
+  where: addSearchToPoolCandidateFilterInput(
+    filterState,
+    searchState?.term,
+    searchState?.type,
+  ),
+  orderByBaseInput: getBaseSort(doNotUseBookmark, doNotUseFlag),
+  poolNameSortingInput: getPoolNameSort(sortState, locale),
+  sortingInput: getSortOrder(sortState, filterState),
+  orderByEmployeeDepartment: getDepartmentSort(sortState),
+  orderByScreeningStage: getScreeningStageSort(sortState),
+  orderByClaimVerification: getClaimVerificationSort(sortState),
+});
+
+export type CandidateQueryVariables = ReturnType<typeof getQueryVariables>;
+
+export const candidateNameCell = (
+  candidateId: string,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+  queryVariables: CandidateQueryVariables,
+  candidateFirstName?: Maybe<string>,
+  candidateLastName?: Maybe<string>,
+) => {
+  const candidateName = getFullNameLabel(
+    candidateFirstName,
+    candidateLastName,
+    intl,
+  );
+  return (
+    <Link
+      href={paths.poolCandidateApplication(candidateId)}
+      state={{ queryVariables }}
+    >
+      {candidateName}
+    </Link>
   );
 };

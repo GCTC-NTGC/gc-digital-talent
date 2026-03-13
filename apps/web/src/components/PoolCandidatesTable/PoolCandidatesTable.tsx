@@ -65,19 +65,14 @@ import {
   priorityCell,
   transformFormValuesToFilterState,
   transformPoolCandidateSearchInputToFormValues,
-  getSortOrder,
   processCell,
-  getPoolNameSort,
-  getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
-  getDepartmentSort,
-  getScreeningStageSort,
   candidateStatusCell,
-  getBaseSort,
   poolCandidateBookmarkHeader,
   poolCandidateBookmarkCell,
   applicationStatusCell,
   screeningResultCell,
+  getQueryVariables,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -560,22 +555,21 @@ const PoolCandidatesTable = ({
     }
   };
 
+  const queryVariables = getQueryVariables({
+    filterState,
+    searchState,
+    sortState,
+    doNotUseFlag,
+    doNotUseBookmark,
+    locale,
+  });
+
   const [{ data, fetching }] = useQuery({
     query: CandidatesTableCandidatesPaginated_Query,
     variables: {
-      where: addSearchToPoolCandidateFilterInput(
-        filterState,
-        searchState?.term,
-        searchState?.type,
-      ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      orderByBaseInput: getBaseSort(doNotUseBookmark, doNotUseFlag),
-      poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(sortState, filterState),
-      orderByEmployeeDepartment: getDepartmentSort(sortState),
-      orderByScreeningStage: getScreeningStageSort(sortState),
-      orderByClaimVerification: getClaimVerificationSort(sortState),
+      ...queryVariables,
     },
   });
 
@@ -584,10 +578,6 @@ const PoolCandidatesTable = ({
       const poolCandidates = data?.poolCandidatesPaginatedAdminView.data ?? [];
       return poolCandidates.filter(notEmpty);
     }, [data?.poolCandidatesPaginatedAdminView.data]);
-
-  const candidateIdsFromFilterData = filteredData.map(
-    (iterator) => iterator.poolCandidate.id,
-  );
 
   const [{ data: tableData, fetching: fetchingTableData }] = useQuery({
     query: CandidatesTable_Query,
@@ -790,7 +780,7 @@ const PoolCandidatesTable = ({
             poolCandidate.id,
             paths,
             intl,
-            candidateIdsFromFilterData,
+            queryVariables,
             poolCandidate.user.firstName,
             poolCandidate.user.lastName,
           ),

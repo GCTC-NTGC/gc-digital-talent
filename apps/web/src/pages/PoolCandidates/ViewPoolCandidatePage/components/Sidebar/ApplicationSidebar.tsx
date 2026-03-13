@@ -73,7 +73,7 @@ const ApplicationSidebar = ({ query }: ApplicationSidebarProps) => {
         <Card.Separator />
         <ApplicationNotes query={application} />
       </Card>
-      <CandidateNavigation candidateId={application.id} />
+      <CandidateNavigation />
     </>
   );
 };
