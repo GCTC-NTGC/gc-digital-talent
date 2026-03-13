@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
 import { Card, Heading, Link } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
@@ -38,8 +39,8 @@ const FooterCard = ({ areOpportunitiesShowing }: FooterCardProps) => {
           <Heading level="h2" size="h6" className="mt-0 mb-3">
             {areOpportunitiesShowing
               ? intl.formatMessage({
-                  defaultMessage: "More opportunities are coming soon!",
-                  id: "g+JcDC",
+                  defaultMessage: "Check back for more opportunities!",
+                  id: "YDsuuC", //TODO translations
                   description:
                     "Heading for message about upcoming opportunities",
                 })
@@ -71,11 +72,19 @@ const FooterCard = ({ areOpportunitiesShowing }: FooterCardProps) => {
         </div>
         <div className="mt-6 shrink-0 xs:mt-0">
           <Link
-            color="primary"
+            color="secondary"
             mode="solid"
             href={profileLink.href}
             style={{ whiteSpace: "nowrap" }}
+            className="inline-flex items-center"
           >
+            {!loggedIn && (
+              <UserPlusIcon
+                className="mr-1.5 inline-block h-5 w-5 fill-current align-middle"
+                aria-hidden="true"
+              />
+            )}
+
             {profileLink.label}
           </Link>
         </div>
@@ -83,4 +92,5 @@ const FooterCard = ({ areOpportunitiesShowing }: FooterCardProps) => {
     </Card>
   );
 };
+
 export default FooterCard;

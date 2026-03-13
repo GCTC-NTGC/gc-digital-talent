@@ -8202,6 +8202,10 @@
     "defaultMessage": "Durée pendant laquelle le candidat sera pris en considération pour une affectation à la suite de cette procédure. La durée habituelle est de 2 ans.",
     "description": "Help text for setting a candidate expiry date"
   },
+  "YDsuuC": {
+    "defaultMessage": "Check back for more opportunities!",
+    "description": "Heading for message about upcoming opportunities"
+  },
   "YEYD5j": {
     "defaultMessage": "Créer<hidden> une possibilité de formation</hidden>",
     "description": "Breadcrumb title for the create training opportunity page link."
@@ -9933,10 +9937,6 @@
   "fRwqM9": {
     "defaultMessage": "Reliez une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
     "description": "Button text to open form to connect an experience to a skill"
-  },
-  "fSMBX0": {
-    "defaultMessage": "Open job opportunities",
-    "description": "Title for the current jobs recruiting candidates"
   },
   "fSeYdG": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
