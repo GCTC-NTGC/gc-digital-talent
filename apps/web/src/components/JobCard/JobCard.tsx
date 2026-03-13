@@ -270,7 +270,12 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           <div className="flex flex-col gap-3 font-normal text-gray-700 dark:text-gray-100">
             <IconLabel label={department} icon={BuildingOfficeIcon} />
             <IconLabel label={location} icon={MapPinIcon} />
-            <IconLabel label={salaryRange} icon={CurrencyDollarIcon} />
+            <IconLabel
+              label={
+                salaryRange ?? intl.formatMessage(commonMessages.notAvailable)
+              }
+              icon={CurrencyDollarIcon}
+            />
             <IconLabel
               label={languageLabel.get(languageRequirement)}
               icon={ChatBubbleLeftRightIcon}
