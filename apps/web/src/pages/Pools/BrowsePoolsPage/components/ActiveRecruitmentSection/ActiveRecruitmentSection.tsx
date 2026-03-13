@@ -37,12 +37,12 @@ const ActiveRecruitmentSection = ({
         level="h2"
         size="h3"
         icon={RocketLaunchIcon}
-        color="primary"
+        color="secondary"
         className="mt-0 mb-6 font-normal"
       >
         {intl.formatMessage({
-          defaultMessage: "Active talent recruitment processes",
-          id: "YImugL",
+          defaultMessage: "Open job opportunities",
+          id: "fSMBX0", //TODO translations
           description: "Title for the current jobs recruiting candidates",
         })}
       </Heading>

@@ -8222,10 +8222,6 @@
     "defaultMessage": "Après avoir choisi les compétences techniques, examinons les compétences comportementales. Sélectionnez des exemples de compétences comportementales qu’une personne candidate potentielle doit posséder pour réussir dans son rôle. N’oubliez pas qu’un modèle doit viser à fournir en tout 8 à 12 compétences parmi lesquelles un ou une gestionnaire peut choisir.",
     "description": "Lead-in text for job poster template behavioural skills section, paragraph 1"
   },
-  "YImugL": {
-    "defaultMessage": "Processus actifs de recrutement de talents",
-    "description": "Title for the current jobs recruiting candidates"
-  },
   "YIszvd": {
     "defaultMessage": "Définir et organiser les compétences",
     "description": "Heading for more info on skills"
@@ -9937,6 +9933,10 @@
   "fRwqM9": {
     "defaultMessage": "Reliez une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
     "description": "Button text to open form to connect an experience to a skill"
+  },
+  "fSMBX0": {
+    "defaultMessage": "Open job opportunities",
+    "description": "Title for the current jobs recruiting candidates"
   },
   "fSeYdG": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
