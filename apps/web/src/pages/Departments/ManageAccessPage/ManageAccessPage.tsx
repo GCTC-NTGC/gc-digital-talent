@@ -25,7 +25,6 @@ import {
   DepartmentMember,
   groupRoleAssignmentsByUserDepartments,
 } from "~/utils/departmentUtils";
-import { requireUser } from "~/routing/auth";
 import { graphqlClientContext, intlContext } from "~/routing/context";
 
 import type { Route } from "./+types/ManageAccessPage";
@@ -36,8 +35,8 @@ import {
   DepartmentManageAccessPageFragment,
 } from "./components/types";
 import { DepartmentManageAccessPage_DepartmentFragment } from "./components/operations";
-import { DepartmentTeams_Query } from "../utils";
 import messages from "../messages";
+import { checkPlatformAdminOrDepartmentRolesWithTeams } from "../roleChecks";
 
 const pageTitle = defineMessage({
   defaultMessage: "Department members",
@@ -163,39 +162,7 @@ const DepartmentMembersTable = ({
 };
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request, params }, next) => {
-    const intl = context.get(intlContext);
-    const client = context.get(graphqlClientContext);
-    const res = await client
-      .query(DepartmentTeams_Query, { id: params.departmentId })
-      .toPromise();
-
-    if (!res.data?.department) {
-      throw new NotFoundError(
-        intl.formatMessage(messages.departmentNotFound, {
-          departmentId: params.departmentId,
-        }),
-      );
-    }
-
-    requireUser(
-      context,
-      request,
-      [
-        { name: ROLE_NAME.PlatformAdmin },
-        {
-          name: ROLE_NAME.DepartmentAdmin,
-          teamId: res.data.department.teamIdForRoleAssignment,
-        },
-        {
-          name: ROLE_NAME.DepartmentHRAdvisor,
-          teamId: res.data.department.teamIdForRoleAssignment,
-        },
-      ],
-      true,
-    );
-    return await next();
-  },
+  checkPlatformAdminOrDepartmentRolesWithTeams,
 ];
 
 const ManageAccessDepartmentPage_Query = graphql(/* GraphQL */ `

@@ -21,7 +21,6 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
@@ -29,12 +28,12 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
-import { requireUser } from "~/routing/auth";
 import { graphqlClientContext, intlContext } from "~/routing/context";
 
 import type { Route } from "./+types/UpdateDepartmentPage";
 import FormFields, { DepartmentFormOptions_Fragment } from "./FormFields";
 import { DepartmentType, departmentTypeToInput } from "./utils";
+import { checkPlatformAdmin } from "./roleChecks";
 
 interface FormValues {
   name?: LocalizedStringInput;
@@ -209,10 +208,7 @@ const UpdateDepartment_Mutation = graphql(/* GraphQL */ `
 `);
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
-    return await next();
-  },
+  checkPlatformAdmin,
 ];
 
 export async function clientLoader({

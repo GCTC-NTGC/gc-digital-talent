@@ -12,7 +12,6 @@ import {
   Container,
 } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
@@ -21,13 +20,12 @@ import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import { graphqlClientContext, intlContext } from "~/routing/context";
-import { requireUser } from "~/routing/auth";
 
-import type { Route } from "./+types/ViewDepartmentPage";
 import labels from "./labels";
 import { ContextType } from "./ManageAccessPage/components/types";
 import messages from "./messages";
-import { DepartmentTeams_Query } from "./utils";
+import { checkPlatformAdminOrDepartmentRolesWithTeams } from "./roleChecks";
+import type { Route } from "./+types/ViewDepartmentPage";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentView on Department {
@@ -142,39 +140,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
 };
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request, params }, next) => {
-    const intl = context.get(intlContext);
-    const client = context.get(graphqlClientContext);
-    const res = await client
-      .query(DepartmentTeams_Query, { id: params.departmentId })
-      .toPromise();
-
-    if (!res.data?.department) {
-      throw new NotFoundError(
-        intl.formatMessage(messages.departmentNotFound, {
-          departmentId: params.departmentId,
-        }),
-      );
-    }
-
-    requireUser(
-      context,
-      request,
-      [
-        { name: ROLE_NAME.PlatformAdmin },
-        {
-          name: ROLE_NAME.DepartmentAdmin,
-          teamId: res.data.department.teamIdForRoleAssignment,
-        },
-        {
-          name: ROLE_NAME.DepartmentHRAdvisor,
-          teamId: res.data.department.teamIdForRoleAssignment,
-        },
-      ],
-      true,
-    );
-    return await next();
-  },
+  checkPlatformAdminOrDepartmentRolesWithTeams,
 ];
 
 const Department_Query = graphql(/* GraphQL */ `
