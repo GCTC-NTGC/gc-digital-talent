@@ -4843,6 +4843,10 @@
     "defaultMessage": "Modifier les compétences techniques pour améliorer",
     "description": "Link text for editing a users technical skills to improve"
   },
+  "IwVHgf": {
+    "defaultMessage": "Browse and apply to jobs in the Government of Canada",
+    "description": "Subtitle for the browse jobs page"
+  },
   "IxngA3": {
     "defaultMessage": "Masquer les détails de cette expérience",
     "description": "Button text to hide a miscellaneous experience's details"

@@ -69,10 +69,9 @@ const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
 `);
 
 const subTitle = defineMessage({
-  defaultMessage:
-    "Find and apply to digital talent opportunities in the Government of Canada.",
-  id: "2UDONd",
-  description: "Subtitle for the browse IT jobs page",
+  defaultMessage: "Browse and apply to jobs in the Government of Canada",
+  id: "IwVHgf", //TODO translations
+  description: "Subtitle for the browse jobs page",
 });
 
 export const Component = () => {
