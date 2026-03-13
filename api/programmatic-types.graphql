@@ -518,6 +518,39 @@ type PoolCandidateAdminViewWithSkillCountPaginator {
   data: [PoolCandidateAdminViewWithSkillCount!]!
 }
 
+"Information about pagination using a Relay style cursor connection."
+type PageInfo {
+  "When paginating forwards, are there more items?"
+  hasNextPage: Boolean!
+
+  "When paginating backwards, are there more items?"
+  hasPreviousPage: Boolean!
+
+  "The cursor to continue paginating backwards."
+  startCursor: String
+
+  "The cursor to continue paginating forwards."
+  endCursor: String
+}
+
+"A paginated list of PoolCandidateAdminView edges."
+type PoolCandidateAdminViewConnection {
+  "Pagination information about the list of edges."
+  pageInfo: PageInfo!
+
+  "A list of PoolCandidateAdminView edges."
+  edges: [PoolCandidateAdminViewEdge!]!
+}
+
+"An edge that contains a node of type PoolCandidateAdminView and a cursor."
+type PoolCandidateAdminViewEdge {
+  "The PoolCandidateAdminView node."
+  node: PoolCandidateAdminView!
+
+  "A unique cursor that can be used for pagination."
+  cursor: String!
+}
+
 "A paginated list of PoolCandidateSearchRequest items."
 type PoolCandidateSearchRequestPaginator {
   "Pagination information about the list of items."
@@ -729,6 +762,72 @@ input QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause {
 
   "Aggregate specification."
   assessmentStep: QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStep
+}
+
+"Allowed column names for Query.poolCandidatesCursor.orderBy."
+enum QueryPoolCandidatesCursorOrderByUserColumn {
+  PRIORITY_WEIGHT
+  FIRST_NAME
+  EMAIL
+  PREFERRED_LANG
+  PREFERRED_LANGUAGE_FOR_INTERVIEW
+  PREFERRED_LANGUAGE_FOR_EXAM
+  CURRENT_CITY
+}
+
+"Aggregate specification for Query.poolCandidatesCursor.orderBy.user."
+input QueryPoolCandidatesCursorOrderByUser {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolCandidatesCursorOrderByUserColumn
+}
+
+"Allowed column names for Query.poolCandidatesCursor.orderBy."
+enum QueryPoolCandidatesCursorOrderByPoolColumn {
+  PROCESS_NUMBER
+}
+
+"Aggregate specification for Query.poolCandidatesCursor.orderBy.pool."
+input QueryPoolCandidatesCursorOrderByPool {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolCandidatesCursorOrderByPoolColumn
+}
+
+"Allowed column names for Query.poolCandidatesCursor.orderBy."
+enum QueryPoolCandidatesCursorOrderByAssessmentStepColumn {
+  SORT_ORDER
+}
+
+"Aggregate specification for Query.poolCandidatesCursor.orderBy.assessmentStep."
+input QueryPoolCandidatesCursorOrderByAssessmentStep {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolCandidatesCursorOrderByAssessmentStepColumn
+}
+
+"Order by clause for Query.poolCandidatesCursor.orderBy."
+input QueryPoolCandidatesCursorOrderByRelationOrderByClause {
+  "The column that is used for ordering."
+  column: String
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+
+  "Aggregate specification."
+  user: QueryPoolCandidatesCursorOrderByUser
+
+  "Aggregate specification."
+  pool: QueryPoolCandidatesCursorOrderByPool
+
+  "Aggregate specification."
+  assessmentStep: QueryPoolCandidatesCursorOrderByAssessmentStep
 }
 
 "Allowed column names for Query.communityInterestsPaginated.orderBy."

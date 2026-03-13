@@ -1625,6 +1625,49 @@ type Query {
       scopes: ["whereSkillCount", "whereAuthorizedToViewPoolCandidateAdminView"]
       model: "App\\Models\\PoolCandidate"
     )
+  poolCandidatesCursor(
+    where: PoolCandidateSearchInput
+      @scope(name: "wherePoolCandidateSearchInputToSpecialLocationMatching")
+    orderByBase: PoolCandidatesBaseSort @scope
+    orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
+    orderByClaimVerification: ClaimVerificationSort @scope
+    orderByEmployeeDepartment: SortOrder @scope
+    orderByScreeningStage: SortOrder @scope
+    orderBy: _
+      @orderBy(
+        relations: [
+          {
+            relation: "user"
+            columns: [
+              "priority_weight"
+              "first_name"
+              "email"
+              "preferred_lang"
+              "preferred_language_for_interview"
+              "preferred_language_for_exam"
+              "current_city"
+            ]
+          }
+          { relation: "pool", columns: ["process_number"] }
+          { relation: "assessmentStep", columns: ["sort_order"] }
+        ]
+      )
+      @with(
+        relations: [
+          "user:id,first_name,last_name,email,preferred_lang,computed_department"
+          "user.poolCandidates.pool.team"
+          "user.poolCandidates.pool.community.team"
+          "user.communityInterests.community.team"
+          "pool:id,process_number"
+          "skills:id,name"
+        ]
+      ) # Limit fields for eager loading
+  ): [PoolCandidateAdminView]!
+    @guard
+    @cursorPaginate(
+      model: "PoolCandidate"
+      scopes: ["whereAuthorizedToViewPoolCandidateAdminView"]
+    )
   # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
   # Returns the number of candidates by filtering their parent applicant, grouped by pool.
   countPoolCandidatesByPool(
