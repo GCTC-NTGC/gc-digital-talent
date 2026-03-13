@@ -17,7 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TalentNominationEvent>
+ * @extends Factory<TalentNominationEvent>
  */
 class TalentNominationFactory extends Factory
 {

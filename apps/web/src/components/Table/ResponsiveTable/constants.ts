@@ -22,6 +22,3 @@ export const SEARCH_PARAM_KEY = {
   PAGE: "p",
   FILTERS: "f",
 } as const;
-
-export type SearchParamKey =
-  (typeof SEARCH_PARAM_KEY)[keyof typeof SEARCH_PARAM_KEY];

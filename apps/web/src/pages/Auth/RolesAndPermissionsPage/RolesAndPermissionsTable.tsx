@@ -11,7 +11,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 
 import { messages } from "./messages";
 
-export interface RolePermissionRow {
+interface RolePermissionRow {
   permission: string;
   [ROLE_NAME.ProcessOperator]: boolean;
   [ROLE_NAME.CommunityRecruiter]: boolean;

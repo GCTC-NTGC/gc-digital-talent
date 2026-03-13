@@ -12,7 +12,7 @@ import { RoleTableProps } from "../utils";
 import DepartmentRoleTable from "./DepartmentRoleTable";
 
 export const ROLE_PERMISSIONS_ID = "role-permissions";
-export const ROLE_TABLE_IDS = {
+const ROLE_TABLE_IDS = {
   INDIVIDUAL: "individual-roles",
   COMMUNITY: "community-roles",
   PROCESS: "process-roles",

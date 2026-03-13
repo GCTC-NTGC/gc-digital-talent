@@ -9,7 +9,7 @@ import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-export const DiversityEquityInfo_Fragment = graphql(/* GraphQL */ `
+const DiversityEquityInfo_Fragment = graphql(/* GraphQL */ `
   fragment DiversityEquityInfo on User {
     isWoman
     hasDisability

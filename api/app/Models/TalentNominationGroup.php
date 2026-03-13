@@ -5,12 +5,14 @@ namespace App\Models;
 use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentNominationGroupStatus;
 use App\Observers\TalentNominationGroupObserver;
+use Database\Factories\TalentNominationGroupFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -19,8 +21,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * Class TalentNominationGroup
  *
  * @property string $id
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property string $nominee_id
  * @property string $talent_nomination_event_id
  * @property int $advancement_nomination_count
@@ -41,7 +43,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class TalentNominationGroup extends Model
 {
-    /** @use HasFactory<\Database\Factories\TalentNominationGroupFactory> */
+    /** @use HasFactory<TalentNominationGroupFactory> */
     use HasFactory;
 
     use LogsActivity;
@@ -180,7 +182,7 @@ class TalentNominationGroup extends Model
 
     public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {

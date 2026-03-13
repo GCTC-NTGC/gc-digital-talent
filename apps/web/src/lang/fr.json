@@ -572,7 +572,7 @@
     "description": "Label displayed on Award form for awarded to input"
   },
   "0HPwnA": {
-    "defaultMessage": "Expérience combinée en sciences informatiques, en sciences, en technologie de l’information, en gestion de l’information ou en tout autre spécialité pertinente au présent concours, y compris n’importe quelle des expériences suivantes : ",
+    "defaultMessage": "Expérience combinée en sciences informatiques, en sciences, en technologie de l’information, en gestion de l’information ou toute autre spécialité pertinente au présent concours, y compris n’importe quelle des expériences suivantes : ",
     "description": "Descriptive text explaining valid applied work experiences."
   },
   "0IZsNR": {
@@ -1374,10 +1374,6 @@
   "3PwQT7": {
     "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
     "description": "Title for notice when there are no pool candidate search requests"
-  },
-  "3QGPJe": {
-    "defaultMessage": "Non intéressé(e)",
-    "description": "Status label for a qualified application the candidate has marked not interested"
   },
   "3RUGGK": {
     "defaultMessage": "Vous avez des questions? <link>Communiquez avec notre équipe de soutien</link>.",
@@ -4336,7 +4332,7 @@
     "description": "Placeholder displayed on the skill form skill families field."
   },
   "GSHQHG": {
-    "defaultMessage": "Autre experience connexe (p. ex., personnelle, communautaire, familiale).",
+    "defaultMessage": "Autre expérience connexe (p. ex., personnelle, communautaire, familiale).",
     "description": "Experience requirement, other."
   },
   "GSVZ7R": {
@@ -4726,10 +4722,6 @@
   "IIZNzj": {
     "defaultMessage": "L’ulu, un outil inuit utilisé par les femmes inuites.",
     "description": "Indigenous Apprenticeship ulu image text alternative"
-  },
-  "IJL2jN": {
-    "defaultMessage": "Embauché(e)",
-    "description": "Status label for a qualified application that has been hired"
   },
   "IJlJF1": {
     "defaultMessage": "Vos rôles",
@@ -7212,7 +7204,7 @@
     "description": "Label for the reference's input field in nominations details step"
   },
   "TiIkSF": {
-    "defaultMessage": "Études postsecondaires de deux ans",
+    "defaultMessage": "Deux années d'études postsecondaires",
     "description": "Option for education requirement, 2-year post-secondary"
   },
   "Tj1iyN": {
@@ -12237,10 +12229,6 @@
   "p4YIkl": {
     "defaultMessage": "Par compétences techniques, on entend les connaissances et les aptitudes techniques qui sont pertinentes pour des emplois ou des rôles particuliers au sein de l'organisation. Les compétences techniques sont en général acquises par le biais d'un apprentissage spécifique ou d'une expérience professionnelle dans l'application des connaissances et des compétences. Elles comprennent les niveaux suivants :",
     "description": "Lead-in text for the skills level definitions of technical skills"
-  },
-  "p4kAoz": {
-    "defaultMessage": "Ouvert(e) aux offres d'emploi",
-    "description": "Status label for a qualified application open for hiring"
   },
   "p5qn9H": {
     "defaultMessage": "Vous avez indiqué que vous répondez à <strong>l’exigence académique ou à l’expérience minimale (obtention d’un diplôme)</strong> avec les expériences suivantes dans le cadre de votre chronologie de carrière :",

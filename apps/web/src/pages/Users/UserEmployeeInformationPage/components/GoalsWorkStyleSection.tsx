@@ -7,7 +7,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-export const GoalsWorkStyle_Fragment = graphql(/* GraphQL */ `
+const GoalsWorkStyle_Fragment = graphql(/* GraphQL */ `
   fragment GoalsWorkStyle on EmployeeProfile {
     aboutYou
     learningGoals

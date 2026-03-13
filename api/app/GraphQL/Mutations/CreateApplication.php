@@ -5,9 +5,11 @@ namespace App\GraphQL\Mutations;
 use App\Enums\ApplicationStatus;
 use App\GraphQL\Validators\Mutation\CreateApplicationValidator;
 use App\Models\PoolCandidate;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
+use Nuwave\Lighthouse\Execution\ErrorPool;
 
 final class CreateApplication
 {
@@ -16,7 +18,7 @@ final class CreateApplication
      */
     public function __invoke($_, array $args)
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         try {
@@ -45,7 +47,7 @@ final class CreateApplication
             $application->save();
         } catch (\Throwable $error) {
             // Add the error to the pool
-            $errorPool = app(\Nuwave\Lighthouse\Execution\ErrorPool::class);
+            $errorPool = app(ErrorPool::class);
             $errorPool->record($error);
 
             // Partial error, lets return the found pool

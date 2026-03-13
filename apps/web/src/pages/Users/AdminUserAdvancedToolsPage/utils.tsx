@@ -113,7 +113,7 @@ export const getRoleTableFragments = ({
   return { user, options: unpackMaybes(options.roles) };
 };
 
-export const UpdateUserRoles_Mutation = graphql(/* GraphQL */ `
+const UpdateUserRoles_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserRoles($input: UpdateUserRolesInput!) {
     updateUserRoles(updateUserRolesInput: $input) {
       id
@@ -196,7 +196,7 @@ export type DepartmentTeamable = Pick<
 
 type TeamTeamable = Pick<Team, "id" | "__typename">;
 
-export type Teamable =
+type Teamable =
   | PoolTeamable
   | CommunityTeamable
   | TeamTeamable

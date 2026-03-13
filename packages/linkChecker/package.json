@@ -5,7 +5,7 @@
   "type": "module",
   "main": "src/checkExternalLinks.ts",
   "bin": {
-    "check-external-links": "./checkExternalLinks.ts"
+    "check-external-links": "./src/checkExternalLinks.ts"
   },
   "scripts": {
     "check": "tsc --noEmit",

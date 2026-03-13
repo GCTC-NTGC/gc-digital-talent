@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,7 @@ final readonly class UpdateSitewideAnnouncement
 {
     public function __invoke(null $_, array $args)
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
         throw_unless($user->isAbleTo('update-any-announcement'), AuthorizationException::class);
 

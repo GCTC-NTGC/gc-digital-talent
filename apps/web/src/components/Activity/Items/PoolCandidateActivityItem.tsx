@@ -16,7 +16,7 @@ import BaseItem, {
 } from "./BaseActivityItem";
 import { getEventInfo, parseAttributes } from "./utils";
 
-export type PoolCandidateActivityItemProps = CommonItemProps;
+type PoolCandidateActivityItemProps = CommonItemProps;
 
 function getDescription(propsObj?: Maybe<ActivityProperties>): ReactNode {
   if (propsObj && "attributes" in propsObj) {
