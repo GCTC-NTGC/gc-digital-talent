@@ -233,7 +233,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   return (
-    <Card className="relative pb-10">
+    <Card className="relative mt-1.5 pb-10">
       <div className="mr-6 mb-6 flex items-center justify-between">
         {pool.areaOfSelection && (
           <div className="-ml-8 flex flex-col gap-1.5 sm:flex-row sm:gap-0">
