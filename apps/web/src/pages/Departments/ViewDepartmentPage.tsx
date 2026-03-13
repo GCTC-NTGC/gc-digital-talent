@@ -1,12 +1,9 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useOutletContext } from "react-router";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
-  Pending,
-  NotFound,
   Heading,
   Link,
   Card,
@@ -14,24 +11,23 @@ import {
   Ul,
   Container,
 } from "@gc-digital-talent/ui";
-import {
-  FragmentType,
-  Scalars,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import { graphqlClientContext, intlContext } from "~/routing/context";
+import { requireUser } from "~/routing/auth";
 
+import type { Route } from "./+types/ViewDepartmentPage";
 import labels from "./labels";
 import { ContextType } from "./ManageAccessPage/components/types";
+import messages from "./messages";
+import { DepartmentTeams_Query } from "./utils";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentView on Department {
@@ -145,9 +141,41 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
   );
 };
 
-interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
-}
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request, params }, next) => {
+    const intl = context.get(intlContext);
+    const client = context.get(graphqlClientContext);
+    const res = await client
+      .query(DepartmentTeams_Query, { id: params.departmentId })
+      .toPromise();
+
+    if (!res.data?.department) {
+      throw new NotFoundError(
+        intl.formatMessage(messages.departmentNotFound, {
+          departmentId: params.departmentId,
+        }),
+      );
+    }
+
+    requireUser(
+      context,
+      request,
+      [
+        { name: ROLE_NAME.PlatformAdmin },
+        {
+          name: ROLE_NAME.DepartmentAdmin,
+          teamId: res.data.department.teamIdForRoleAssignment,
+        },
+        {
+          name: ROLE_NAME.DepartmentHRAdvisor,
+          teamId: res.data.department.teamIdForRoleAssignment,
+        },
+      ],
+      true,
+    );
+    return await next();
+  },
+];
 
 const Department_Query = graphql(/* GraphQL */ `
   query ViewDepartmentPage($id: UUID!) {
@@ -161,14 +189,32 @@ const Department_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const ViewDepartmentPage = () => {
-  const intl = useIntl();
-  const { departmentId } = useRequiredParams<RouteParams>("departmentId");
-  const [{ data: departmentData, fetching, error }] = useQuery({
-    query: Department_Query,
-    variables: { id: departmentId },
-  });
+export async function clientLoader({
+  context,
+  params,
+}: Route.ClientLoaderArgs) {
+  const intl = context.get(intlContext);
+  const client = context.get(graphqlClientContext);
+  const res = await client
+    .query(Department_Query, {
+      id: params.departmentId,
+    })
+    .toPromise();
 
+  if (!res.data?.department) {
+    throw new NotFoundError(
+      intl.formatMessage(messages.departmentNotFound, {
+        departmentId: params.departmentId,
+      }),
+    );
+  }
+
+  return {
+    department: res.data?.department,
+  };
+}
+
+const Component = ({ loaderData: { department } }: Route.ComponentProps) => {
   const {
     departmentName,
     navigationCrumbs: baseCrumbs,
@@ -180,51 +226,14 @@ const ViewDepartmentPage = () => {
   return (
     <>
       <SEO title={departmentName} />
-      <Hero
-        title={
-          fetching ? intl.formatMessage(commonMessages.loading) : departmentName
-        }
-        crumbs={crumbs}
-        navTabs={navTabs}
-      />
+      <Hero title={departmentName} crumbs={crumbs} navTabs={navTabs} />
       <Container className="my-18">
-        <Pending fetching={fetching} error={error}>
-          {departmentData?.department ? (
-            <ViewDepartmentForm query={departmentData?.department} />
-          ) : (
-            <NotFound
-              headingMessage={intl.formatMessage(commonMessages.notFound)}
-            >
-              <p>
-                {intl.formatMessage(
-                  {
-                    defaultMessage: "Department {departmentId} not found.",
-                    id: "8Otaw9",
-                    description: "Message displayed for department not found.",
-                  },
-                  { departmentId },
-                )}
-              </p>
-            </NotFound>
-          )}
-        </Pending>
+        <ViewDepartmentForm query={department} />
       </Container>
     </>
   );
 };
 
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.DepartmentAdmin,
-      ROLE_NAME.DepartmentHRAdvisor,
-    ]}
-  >
-    <ViewDepartmentPage />
-  </RequireAuth>
-);
-
-Component.displayName = "AdminUpdateDepartmentPage";
+Component.displayName = "AdminViewDepartmentPage";
 
 export default Component;

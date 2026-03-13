@@ -36,6 +36,8 @@ import {
   DepartmentManageAccessPageFragment,
 } from "./components/types";
 import { DepartmentManageAccessPage_DepartmentFragment } from "./components/operations";
+import { DepartmentTeams_Query } from "../utils";
+import messages from "../messages";
 
 const pageTitle = defineMessage({
   defaultMessage: "Department members",
@@ -160,14 +162,6 @@ const DepartmentMembersTable = ({
   );
 };
 
-const DepartmentTeams_Query = graphql(/** GraphQL */ `
-  query DepartmentTeams($id: UUID!) {
-    department(id: $id) {
-      teamIdForRoleAssignment
-    }
-  }
-`);
-
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request, params }, next) => {
     const intl = context.get(intlContext);
@@ -178,28 +172,28 @@ export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
 
     if (!res.data?.department) {
       throw new NotFoundError(
-        intl.formatMessage(
-          {
-            defaultMessage: "Department {departmentId} not found.",
-            id: "8Otaw9",
-            description: "Message displayed for department not found.",
-          },
-          { departmentId: params.departmentId },
-        ),
+        intl.formatMessage(messages.departmentNotFound, {
+          departmentId: params.departmentId,
+        }),
       );
     }
 
-    requireUser(context, request, [
-      { name: ROLE_NAME.PlatformAdmin },
-      {
-        name: ROLE_NAME.DepartmentAdmin,
-        teamId: res.data.department.teamIdForRoleAssignment,
-      },
-      {
-        name: ROLE_NAME.DepartmentHRAdvisor,
-        teamId: res.data.department.teamIdForRoleAssignment,
-      },
-    ]);
+    requireUser(
+      context,
+      request,
+      [
+        { name: ROLE_NAME.PlatformAdmin },
+        {
+          name: ROLE_NAME.DepartmentAdmin,
+          teamId: res.data.department.teamIdForRoleAssignment,
+        },
+        {
+          name: ROLE_NAME.DepartmentHRAdvisor,
+          teamId: res.data.department.teamIdForRoleAssignment,
+        },
+      ],
+      true,
+    );
     return await next();
   },
 ];
@@ -226,14 +220,9 @@ export async function clientLoader({
 
   if (!res.data?.department) {
     throw new NotFoundError(
-      intl.formatMessage(
-        {
-          defaultMessage: "Department {departmentId} not found.",
-          id: "8Otaw9",
-          description: "Message displayed for department not found.",
-        },
-        { departmentId: params.departmentId },
-      ),
+      intl.formatMessage(messages.departmentNotFound, {
+        departmentId: params.departmentId,
+      }),
     );
   }
 
