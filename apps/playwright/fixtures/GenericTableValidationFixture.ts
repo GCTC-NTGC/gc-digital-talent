@@ -164,14 +164,19 @@ class GenericTableValidationFixture extends AppPage {
     );
   }
 
-  async verifyScreeningStageResult(candidateName?: string) {
+  async verifyScreeningStageResultInTable(
+    expectedResult: "Demonstrated" | "Not demonstrated",
+    candidateName?: string,
+  ) {
     const talentTableCells = this.locators[FIELD.GENERIC_TABLE_ROW];
     const rowText =
       (await talentTableCells.first().textContent())?.toLowerCase() ?? "";
     if (candidateName) {
       expect(rowText).toContain(candidateName.toLowerCase());
     }
-    await expect(this.page.getByLabel(/demonstrated/i)).toBeVisible();
+    await expect(
+      this.page.getByLabel(expectedResult, { exact: true }),
+    ).toBeVisible();
   }
 }
 export default GenericTableValidationFixture;

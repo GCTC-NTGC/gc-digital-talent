@@ -1,6 +1,12 @@
 import {
+  ApplicationStatus,
   ArmedForcesStatus,
+  AssessmentDecision,
+  AssessmentDecisionLevel,
+  AssessmentResultJustification,
+  AssessmentResultType,
   CitizenshipStatus,
+  DisqualificationReason,
   FlexibleWorkLocation,
   PoolCandidate,
   PositionDuration,
@@ -225,18 +231,36 @@ test.describe("Pool candidates", () => {
     const poolSkillsID = await getPoolSkills(adminCtx, {
       poolId: poolId,
     }).then((poolSkills) => poolSkills.map((ps) => ps.id));
+
     // 1. Fetch available assessment steps in the pool
     const { screeningStepId, nextStepTitle, nextStepId } =
       await assessmentPage.fetchAndVerifyAssessmentSteps(adminCtx, poolId);
 
-    // 2. Complete screening stage validation i.e Assessing Application screening and updating screening stages
+    // 2. Assess Application screening stage by moving forward in the screening stages
     await assessmentPage.goToCandidateApplication(candidate.id);
-    await assessmentPage.completeCandidateScreening(
-      candidate.id,
-      adminCtx,
-      screeningStepId ?? "",
-      poolSkillsID[0] ?? "",
-    );
+    await expect(
+      appPage.page.getByRole("button", { name: /1. New application/i }),
+    ).toBeVisible();
+    await assessmentPage.assessCandidateApplicationScreeningStep({
+      candidateId: candidate.id,
+      ctx: adminCtx,
+      screeningStepId: screeningStepId ?? "",
+      results: [
+        {
+          type: AssessmentResultType.Education,
+          decision: AssessmentDecision.Successful,
+          justifications: [
+            AssessmentResultJustification.EducationAcceptedInformation,
+          ],
+        },
+        {
+          type: AssessmentResultType.Skill,
+          decision: AssessmentDecision.Successful,
+          skillId: poolSkillsID[0],
+          level: AssessmentDecisionLevel.AboveRequired,
+        },
+      ],
+    });
     await assessmentPage.goToCandidateApplication(candidate.id);
     await expect(
       appPage.page.getByRole("button", { name: /Demonstrated/i }).last(),
@@ -256,21 +280,21 @@ test.describe("Pool candidates", () => {
     );
 
     // 4. Verify the screening stage result is visible based on the 'Application Screening' assessment result
-    await genericTable.verifyScreeningStageResult(candidateName!);
+    await genericTable.verifyScreeningStageResultInTable(
+      "Demonstrated",
+      candidateName!,
+    );
 
     // 5. Assess the candidate assessment step such as interview and verify it is demonstrated
     await assessmentPage.goToCandidateApplication(candidate.id);
-    await assessmentPage.completeCandidateAssessments(
-      candidate.id,
-      adminCtx,
-      [
-        {
-          id: nextStepId ?? "",
-          title: { en: nextStepTitle },
-        },
-      ],
-      poolSkillsID[0] ?? "",
-    );
+    await assessmentPage.assessCandidateAssessmentSteps({
+      candidateId: candidate.id,
+      ctx: adminCtx,
+      assessmentSteps: [{ id: nextStepId ?? "", title: { en: nextStepTitle } }],
+      assessmentDecision: AssessmentDecision.Successful,
+      technicalPoolSkillId: poolSkillsID[0] ?? "",
+      assessmentDecisionLevel: AssessmentDecisionLevel.AboveAndBeyondRequired,
+    });
     await assessmentPage.goToCandidateApplication(candidate.id);
     await expect(
       appPage.page.getByRole("button", { name: /Demonstrated/i }).last(),
@@ -294,6 +318,122 @@ test.describe("Pool candidates", () => {
     );
 
     // 7. Revert the Qualified candidate status and verify the reverted candidate status in the table
+    await revertFinalDecision(adminCtx, { id: candidate.id });
+    const revertedCandidateStatus = await getCandidateScreeningStage(adminCtx, {
+      candidateId: candidate.id,
+    });
+    await genericTable.verifyCandidateStatusInTable(
+      poolId,
+      adminCtx,
+      candidateName!,
+      revertedCandidateStatus.replace(/_/g, " ").toLowerCase(),
+      undefined,
+      "To assess",
+      "Under review",
+    );
+  });
+
+  test("Validate application status for Disqualified Candidate", async ({
+    appPage,
+  }) => {
+    test.setTimeout(120_000);
+    const candidateName = user?.firstName;
+    const assessmentPage = new AssessmentPage(appPage.page);
+    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    const poolSkillsID = await getPoolSkills(adminCtx, {
+      poolId: poolId,
+    }).then((poolSkills) => poolSkills.map((ps) => ps.id));
+    // 1. Fetch available assessment steps in the pool
+    const { screeningStepId, nextStepTitle, nextStepId } =
+      await assessmentPage.fetchAndVerifyAssessmentSteps(adminCtx, poolId);
+
+    // 2. Complete screening stage validation i.e Assessing Application screening and updating screening stages
+    await assessmentPage.goToCandidateApplication(candidate.id);
+    await assessmentPage.assessCandidateApplicationScreeningStep({
+      candidateId: candidate.id,
+      ctx: adminCtx,
+      screeningStepId: screeningStepId ?? "",
+      results: [
+        {
+          type: AssessmentResultType.Education,
+          decision: AssessmentDecision.Successful,
+          justifications: [
+            AssessmentResultJustification.EducationAcceptedInformation,
+          ],
+        },
+        {
+          type: AssessmentResultType.Skill,
+          decision: AssessmentDecision.Unsuccessful,
+          skillId: poolSkillsID[0],
+          justifications: [
+            AssessmentResultJustification.FailedNotEnoughInformation,
+          ],
+        },
+      ],
+    });
+
+    await assessmentPage.goToCandidateApplication(candidate.id);
+    await expect(
+      appPage.page.getByRole("button", { name: /not demonstrated/i }).last(),
+    ).toBeVisible();
+    await expect(appPage.page.getByText(nextStepTitle)).toBeVisible();
+
+    // 3. Navigate to candidate table and verify the screening, assessment stages are updated for that candidate
+    const genericTable = new GenericTableValidationFixture(appPage.page);
+    await genericTable.verifyCandidateStatusInTable(
+      poolId,
+      adminCtx,
+      candidateName!,
+      "Advanced to assessment",
+      nextStepTitle,
+      "To assess",
+      "Under assessment",
+    );
+
+    // 4. Verify the screening stage result is visible based on the 'Application Screening' assessment result
+    await genericTable.verifyScreeningStageResultInTable(
+      "Not demonstrated",
+      candidateName!,
+    );
+
+    // 5. Assess the candidate assessment step such as interview
+    await assessmentPage.goToCandidateApplication(candidate.id);
+    await assessmentPage.assessCandidateAssessmentSteps({
+      candidateId: candidate.id,
+      ctx: adminCtx,
+      assessmentSteps: [
+        {
+          id: nextStepId ?? "",
+          title: { en: nextStepTitle },
+        },
+      ],
+      assessmentDecision: AssessmentDecision.Unsuccessful,
+      technicalPoolSkillId: poolSkillsID[0] ?? "",
+      assessmentResultJustifications: [
+        AssessmentResultJustification.SkillFailedInsufficientlyDemonstrated,
+      ],
+    });
+
+    // 6. Mark Application Status as Disqualified through UI
+    await assessmentPage.logApplicationStatusOnUI(
+      ApplicationStatus.Disqualified,
+      DisqualificationReason.ScreenedOutAssessment,
+    );
+    await appPage.waitForGraphqlResponse("DisqualifyCandidate");
+    await expect(
+      appPage.page.getByRole("button", { name: /disqualified/i }),
+    ).toBeVisible();
+    await genericTable.verifyCandidateStatusInTable(
+      poolId,
+      adminCtx,
+      candidateName!,
+      undefined,
+      undefined,
+      "Disqualified",
+      "Unsuccessful",
+    );
+
+    // 7. Revert the Disqualified candidate status and verify the reverted candidate status in the table
     await revertFinalDecision(adminCtx, { id: candidate.id });
     const revertedCandidateStatus = await getCandidateScreeningStage(adminCtx, {
       candidateId: candidate.id,

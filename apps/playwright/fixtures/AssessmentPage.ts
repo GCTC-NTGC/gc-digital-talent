@@ -9,10 +9,13 @@ import { GraphQLContext } from "~/utils/graphql";
 
 import AppPage from "./AppPage";
 import {
+  ApplicationStatus,
   AssessmentDecision,
   AssessmentDecisionLevel,
   AssessmentResultJustification,
   AssessmentResultType,
+  CandidateRemovalReason,
+  DisqualificationReason,
   ScreeningStage,
 } from "../../../packages/graphql/src/gql/graphql";
 
@@ -24,12 +27,9 @@ const FIELD = {
   ALERT_MESSAGE: "alertMessage",
   NO_ASSESSMENT_STEPS_PRESENT: "noAssessmentStepsPresent",
   QUALIFIED_STATUS: "qualifiedStatus",
-  NOT_PLACEMENT_LABEL: "notPlacementLabel",
-  NOT_PLACED_BUTTON: "notPlacedButton",
-  JOB_PLACEMENT_HEADING: "jobPlacementHeading",
-  CANCEL_BUTTON: "cancelButton",
-  ADD_BOOKMARK_BUTTON: "addBookmarkButton",
-  ADD_FLAG_BUTTON: "addFlagButton",
+  APPLICATION_SIDEBAR: "applicationSidebar",
+  TO_ASSESS_BUTTON: "toAssessButton",
+  APPLICATION_STATUS_HEADING: "applicationStatusHeading",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -67,22 +67,13 @@ class AssessmentPage extends AppPage {
       [FIELD.QUALIFIED_STATUS]: this.page.getByRole("button", {
         name: /qualified/i,
       }),
-      [FIELD.NOT_PLACEMENT_LABEL]: this.page.getByLabel(
-        /placement: not placed. edit./i,
-      ),
-      [FIELD.NOT_PLACED_BUTTON]: this.page.getByRole("button", {
-        name: /not placed/i,
+      [FIELD.APPLICATION_SIDEBAR]: this.page.getByRole("complementary").first(),
+      [FIELD.TO_ASSESS_BUTTON]: this.page.getByRole("button", {
+        name: /to assess/i,
       }),
-      [FIELD.JOB_PLACEMENT_HEADING]: this.page.getByRole("heading", {
-        name: /job placement/i,
+      [FIELD.APPLICATION_STATUS_HEADING]: this.page.getByRole("heading", {
+        name: /application status/i,
         level: 2,
-      }),
-      [FIELD.CANCEL_BUTTON]: this.page.getByRole("button", { name: /cancel/i }),
-      [FIELD.ADD_BOOKMARK_BUTTON]: this.page.getByRole("button", {
-        name: /add bookmark/i,
-      }),
-      [FIELD.ADD_FLAG_BUTTON]: this.page.getByRole("button", {
-        name: /add flag/i,
       }),
     };
   }
@@ -90,6 +81,65 @@ class AssessmentPage extends AppPage {
   async goToCandidateApplication(candidateId: string) {
     await this.page.goto(`/en/admin/candidates/${candidateId}/application`);
     await this.waitForGraphqlResponse("PoolCandidateSnapshot");
+  }
+
+  async createCandidateAssessmentResult(params: {
+    screeningStepId: string;
+    candidateId: string;
+    ctx: GraphQLContext;
+    resultType: AssessmentResultType;
+    assessmentDecision: AssessmentDecision;
+    technicalPoolSkillId?: string;
+    assessmentResultJustifications?: AssessmentResultJustification[];
+    assessmentDecisionLevel?: AssessmentDecisionLevel;
+  }) {
+    const {
+      screeningStepId,
+      candidateId,
+      ctx,
+      resultType,
+      assessmentDecision,
+      technicalPoolSkillId,
+      assessmentResultJustifications,
+      assessmentDecisionLevel,
+    } = params;
+
+    const isSuccessful = assessmentDecision === AssessmentDecision.Successful;
+
+    switch (resultType) {
+      case AssessmentResultType.Education:
+        await createAssessmentResult(ctx, {
+          assessmentResult: {
+            poolCandidateId: candidateId,
+            assessmentStepId: screeningStepId ?? "",
+            assessmentResultType: resultType,
+            assessmentDecision,
+            justifications: assessmentResultJustifications ?? [],
+          },
+        });
+        break;
+
+      case AssessmentResultType.Skill:
+        await createAssessmentResult(ctx, {
+          assessmentResult: {
+            poolCandidateId: candidateId,
+            assessmentStepId: screeningStepId ?? "",
+            assessmentResultType: resultType,
+            poolSkillId: technicalPoolSkillId,
+            assessmentDecision,
+            // If Successful -> choose DecisionLevel
+            // If Unsuccessful -> choose Justification
+            assessmentDecisionLevel: isSuccessful
+              ? assessmentDecisionLevel
+              : undefined,
+            justifications:
+              !isSuccessful && assessmentResultJustifications
+                ? assessmentResultJustifications
+                : [],
+          },
+        });
+        break;
+    }
   }
 
   async updateScreeningStage(
@@ -122,15 +172,24 @@ class AssessmentPage extends AppPage {
     })) as ScreeningStage;
   }
 
-  async completeCandidateScreening(
-    candidateId: string,
-    ctx: GraphQLContext,
-    screeningStepId: string,
-    technicalPoolSkillId?: string,
-  ) {
+  async assessCandidateApplicationScreeningStep(params: {
+    candidateId: string;
+    ctx: GraphQLContext;
+    screeningStepId: string;
+    results: {
+      type: AssessmentResultType;
+      decision: AssessmentDecision;
+      skillId?: string;
+      level?: AssessmentDecisionLevel;
+      justifications?: AssessmentResultJustification[];
+    }[];
+  }) {
+    const { candidateId, ctx, screeningStepId, results } = params;
+
     let currentStage = (await getCandidateScreeningStage(ctx, {
       candidateId,
     })) as ScreeningStage;
+
     while (currentStage !== ScreeningStage.UnderAssessment) {
       await expect(this.locators.noAssessmentStepsPresent).toBeVisible();
       currentStage = await this.updateScreeningStage(
@@ -138,64 +197,25 @@ class AssessmentPage extends AppPage {
         ctx,
         candidateId,
       );
+
       switch (currentStage) {
         case ScreeningStage.ApplicationReview:
-          await this.updateCandidateAssessmentResult(
-            screeningStepId,
-            candidateId,
-            ctx,
-            AssessmentResultType.Education,
-          );
-          break;
-        case ScreeningStage.ScreenedIn:
-          await this.updateCandidateAssessmentResult(
-            screeningStepId,
-            candidateId,
-            ctx,
-            AssessmentResultType.Skill,
-            technicalPoolSkillId,
-          );
+          for (const res of results) {
+            await this.createCandidateAssessmentResult({
+              screeningStepId,
+              candidateId,
+              ctx,
+              resultType: res.type,
+              assessmentDecision: res.decision,
+              technicalPoolSkillId: res.skillId,
+              assessmentDecisionLevel: res.level,
+              assessmentResultJustifications: res.justifications,
+            });
+          }
           break;
         default:
           break;
       }
-    }
-  }
-
-  async updateCandidateAssessmentResult(
-    screeningStepId: string,
-    candidateId: string,
-    ctx: GraphQLContext,
-    resultType: AssessmentResultType,
-    technicalPoolSkillId?: string,
-  ) {
-    switch (true) {
-      case resultType === AssessmentResultType.Education:
-        await createAssessmentResult(ctx, {
-          assessmentResult: {
-            poolCandidateId: candidateId,
-            assessmentStepId: screeningStepId ?? "",
-            assessmentResultType: resultType,
-            assessmentDecision: AssessmentDecision.Successful,
-            justifications: [
-              AssessmentResultJustification.EducationAcceptedInformation,
-            ],
-          },
-        });
-        break;
-
-      case resultType === AssessmentResultType.Skill:
-        await createAssessmentResult(ctx, {
-          assessmentResult: {
-            poolCandidateId: candidateId,
-            assessmentStepId: screeningStepId ?? "",
-            assessmentResultType: resultType,
-            poolSkillId: technicalPoolSkillId,
-            assessmentDecision: AssessmentDecision.Successful,
-            assessmentDecisionLevel: AssessmentDecisionLevel.AboveRequired,
-          },
-        });
-        break;
     }
   }
 
@@ -223,33 +243,100 @@ class AssessmentPage extends AppPage {
     };
   }
 
-  async completeCandidateAssessments(
-    candidateId: string,
-    ctx: GraphQLContext,
-    assessmentSteps: { id: string; title?: { en?: string | null } | null }[],
-    technicalPoolSkillId?: string,
-  ) {
+  async assessCandidateAssessmentSteps(params: {
+    candidateId: string;
+    ctx: GraphQLContext;
+    assessmentSteps: { id: string; title?: { en?: string | null } | null }[];
+    assessmentDecision: AssessmentDecision;
+    technicalPoolSkillId?: string;
+    assessmentDecisionLevel?: AssessmentDecisionLevel;
+    assessmentResultJustifications?: AssessmentResultJustification[];
+  }) {
+    const {
+      candidateId,
+      ctx,
+      assessmentSteps,
+      assessmentDecision,
+      technicalPoolSkillId,
+      assessmentDecisionLevel,
+      assessmentResultJustifications,
+    } = params;
+
     for (const step of assessmentSteps) {
       const stepTitle = step.title?.en ?? "";
-      const stepId = step.id;
       const updatedStepTitle = stepTitle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
       await this.page
         .getByRole("button", { name: new RegExp(updatedStepTitle, "i") })
         .click();
+
       const dropdown = this.page.getByRole("combobox", {
         name: /assessment stage/i,
       });
+
       await expect(dropdown).toBeVisible();
       await expect(dropdown).toHaveText(new RegExp(updatedStepTitle));
       await this.locators[FIELD.SAVE_CONTINUE_BUTTON].click();
-      await this.updateCandidateAssessmentResult(
-        stepId,
+
+      await this.createCandidateAssessmentResult({
+        screeningStepId: step.id,
         candidateId,
         ctx,
-        AssessmentResultType.Skill,
+        resultType: AssessmentResultType.Skill,
+        assessmentDecision,
         technicalPoolSkillId,
-      );
+        assessmentDecisionLevel,
+        assessmentResultJustifications,
+      });
     }
+  }
+
+  async logApplicationStatusOnUI(
+    targetStatus: ApplicationStatus,
+    disqualifiedDecision?: DisqualificationReason,
+    expiryDate?: string,
+    removalReason?: CandidateRemovalReason,
+  ) {
+    await expect(this.locators.applicationSidebar).toBeVisible();
+    await this.locators.toAssessButton.first().click();
+    const dialog = this.page.getByRole("dialog");
+    await dialog.getByLabel(new RegExp(`^${targetStatus}$`, "i")).check();
+
+    switch (targetStatus) {
+      case ApplicationStatus.Qualified:
+        if (expiryDate) {
+          const [year, month, day] = expiryDate.split("-");
+          const group = dialog.getByRole("group", { name: /expiry date/i });
+          await group.getByRole("spinbutton", { name: /year/i }).fill(year);
+          await group
+            .getByRole("combobox", { name: /month/i })
+            .selectOption(month);
+          await group.getByRole("spinbutton", { name: /day/i }).fill(day);
+        }
+        break;
+
+      case ApplicationStatus.Disqualified:
+        if (disqualifiedDecision) {
+          const keyword = disqualifiedDecision.split("_")[0];
+          await dialog
+            .getByRole("radio", { name: new RegExp(keyword, "i") })
+            .check();
+        }
+        break;
+
+      case ApplicationStatus.Removed:
+        if (removalReason) {
+          const keyword = removalReason.split("_")[0];
+          await dialog
+            .getByRole("radio", { name: new RegExp(keyword, "i") })
+            .check();
+        }
+        break;
+
+      case ApplicationStatus.ToAssess:
+        break;
+    }
+    await this.locators.saveContinueButton.click();
   }
 }
 export default AssessmentPage;
