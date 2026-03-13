@@ -4,14 +4,14 @@ import { useIntl } from "react-intl";
 import { Heading, Ul } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import PoolCard from "~/components/PoolCard/PoolCard";
+import JobCard from "~/components/JobCard/JobCard";
 
 export const ActiveRecruitmentSectionPool_Fragment = graphql(/* GraphQL */ `
   fragment ActiveRecruitmentSectionPool on Pool {
     id
     closingDate
     publishedAt
-    ...PoolCard
+    ...JobCard
   }
 `);
 
@@ -68,7 +68,7 @@ const ActiveRecruitmentSection = ({
         <Ul unStyled className="mt-6">
           {sortedPools.map((pool) => (
             <li key={pool.id}>
-              <PoolCard poolQuery={pool} />
+              <JobCard poolQuery={pool} />
             </li>
           ))}
         </Ul>
