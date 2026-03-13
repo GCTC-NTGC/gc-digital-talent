@@ -186,6 +186,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
     : pool.location?.localized;
   const salaryRange = getSalaryRange(locale, pool.classification);
   const languageRequirement = pool.language?.value;
+  const localizedLanguageLabel = pool.language?.label.localized;
 
   const bilingual = intl.formatMessage(commonMessages.bilingual);
 
@@ -216,9 +217,9 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
         </span>
       </>,
     ],
-    [PoolLanguage.English, languageRequirement],
-    [PoolLanguage.French, languageRequirement],
-    [PoolLanguage.Various, languageRequirement],
+    [PoolLanguage.English, localizedLanguageLabel],
+    [PoolLanguage.French, localizedLanguageLabel],
+    [PoolLanguage.Various, localizedLanguageLabel],
   ]);
 
   const deadline = pool.closingDate
