@@ -419,7 +419,6 @@ test.describe("Pool candidates", () => {
       targetStatus: ApplicationStatus.Disqualified,
       disqualifiedDecision: DisqualificationReason.ScreenedOutAssessment,
     });
-    await appPage.waitForGraphqlResponse("DisqualifyCandidate");
     await expect(
       appPage.page.getByRole("button", { name: /disqualified/i }),
     ).toBeVisible();
