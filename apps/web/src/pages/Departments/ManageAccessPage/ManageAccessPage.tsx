@@ -1,25 +1,21 @@
 import { useMemo } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { defineMessage, useIntl } from "react-intl";
-import { useQuery } from "urql";
 import { useOutletContext } from "react-router";
 
-import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { Container } from "@gc-digital-talent/ui";
+import {
+  notEmpty,
+  NotFoundError,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  getFragment,
-  graphql,
-  Scalars,
-  DepartmentMembersTeamQuery,
-} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -29,7 +25,10 @@ import {
   DepartmentMember,
   groupRoleAssignmentsByUserDepartments,
 } from "~/utils/departmentUtils";
+import { requireUser } from "~/routing/auth";
+import { graphqlClientContext, intlContext } from "~/routing/context";
 
+import type { Route } from "./+types/ManageAccessPage";
 import AddDepartmentMembershipDialog from "./components/AddDepartmentMembership";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
 import {
@@ -161,32 +160,94 @@ const DepartmentMembersTable = ({
   );
 };
 
-const DepartmentMembersTeam_Query = graphql(/* GraphQL */ `
-  query DepartmentMembersTeam($departmentId: UUID!) {
+const DepartmentTeams_Query = graphql(/** GraphQL */ `
+  query DepartmentTeams($id: UUID!) {
+    department(id: $id) {
+      teamIdForRoleAssignment
+    }
+  }
+`);
+
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request, params }, next) => {
+    const intl = context.get(intlContext);
+    const client = context.get(graphqlClientContext);
+    const res = await client
+      .query(DepartmentTeams_Query, { id: params.departmentId })
+      .toPromise();
+
+    if (!res.data?.department) {
+      throw new NotFoundError(
+        intl.formatMessage(
+          {
+            defaultMessage: "Department {departmentId} not found.",
+            id: "8Otaw9",
+            description: "Message displayed for department not found.",
+          },
+          { departmentId: params.departmentId },
+        ),
+      );
+    }
+
+    requireUser(context, request, [
+      { name: ROLE_NAME.PlatformAdmin },
+      {
+        name: ROLE_NAME.DepartmentAdmin,
+        teamId: res.data.department.teamIdForRoleAssignment,
+      },
+      {
+        name: ROLE_NAME.DepartmentHRAdvisor,
+        teamId: res.data.department.teamIdForRoleAssignment,
+      },
+    ]);
+    return await next();
+  },
+];
+
+const ManageAccessDepartmentPage_Query = graphql(/* GraphQL */ `
+  query ManageAccessDepartmentPage($departmentId: UUID!) {
     department(id: $departmentId) {
       ...DepartmentManageAccessPage_Department
     }
   }
 `);
 
-interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+export async function clientLoader({
+  context,
+  params,
+}: Route.ClientLoaderArgs) {
+  const intl = context.get(intlContext);
+  const client = context.get(graphqlClientContext);
+  const res = await client
+    .query(ManageAccessDepartmentPage_Query, {
+      departmentId: params.departmentId,
+    })
+    .toPromise();
+
+  if (!res.data?.department) {
+    throw new NotFoundError(
+      intl.formatMessage(
+        {
+          defaultMessage: "Department {departmentId} not found.",
+          id: "8Otaw9",
+          description: "Message displayed for department not found.",
+        },
+        { departmentId: params.departmentId },
+      ),
+    );
+  }
+
+  return {
+    departmentQuery: res.data?.department,
+  };
 }
 
-type DepartmentMembersQueryType = NonNullable<
-  DepartmentMembersTeamQuery["department"]
->;
-interface DepartmentManageAccessPageProps {
-  departmentQuery: DepartmentMembersQueryType;
-}
-
-const DepartmentManageAccessPage = ({
-  departmentQuery,
-}: DepartmentManageAccessPageProps) => {
+const Component = ({
+  loaderData: { departmentQuery },
+  params: { departmentId },
+}: Route.ComponentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-
-  const { departmentId } = useRequiredParams<RouteParams>("departmentId");
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
 
@@ -218,36 +279,6 @@ const DepartmentManageAccessPage = ({
     </>
   );
 };
-
-// Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
-const DepartmentManageAccessPageApiWrapper = () => {
-  const { departmentId } = useRequiredParams<RouteParams>("departmentId");
-  const [{ data, fetching, error }] = useQuery({
-    query: DepartmentMembersTeam_Query,
-    variables: { departmentId },
-  });
-  return (
-    <Pending fetching={fetching} error={error}>
-      {data?.department ? (
-        <DepartmentManageAccessPage departmentQuery={data.department} />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
-  );
-};
-
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.DepartmentAdmin,
-      ROLE_NAME.DepartmentHRAdvisor,
-    ]}
-  >
-    <DepartmentManageAccessPageApiWrapper />
-  </RequireAuth>
-);
 
 Component.displayName = "ManageAccessDepartmentPage";
 
