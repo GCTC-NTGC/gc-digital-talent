@@ -291,12 +291,15 @@ class AssessmentPage extends AppPage {
     }
   }
 
-  async logApplicationStatusOnUI(
-    targetStatus: ApplicationStatus,
-    disqualifiedDecision?: DisqualificationReason,
-    expiryDate?: string,
-    removalReason?: CandidateRemovalReason,
-  ) {
+  async logApplicationStatusOnUI(params: {
+    targetStatus: ApplicationStatus;
+    disqualifiedDecision?: DisqualificationReason;
+    expiryDate?: string;
+    removalReason?: CandidateRemovalReason;
+  }) {
+    const { targetStatus, disqualifiedDecision, expiryDate, removalReason } =
+      params;
+
     await expect(this.locators.applicationSidebar).toBeVisible();
     await this.locators.toAssessButton.first().click();
     const dialog = this.page.getByRole("dialog");
@@ -337,6 +340,9 @@ class AssessmentPage extends AppPage {
         break;
     }
     await this.locators.saveContinueButton.click();
+    await expect(this.locators[FIELD.ALERT_MESSAGE]).toHaveText(
+      /Application status updated successfully/i,
+    );
   }
 }
 export default AssessmentPage;

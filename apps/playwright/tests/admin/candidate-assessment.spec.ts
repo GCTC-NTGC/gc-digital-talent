@@ -415,10 +415,10 @@ test.describe("Pool candidates", () => {
     });
 
     // 6. Mark Application Status as Disqualified through UI
-    await assessmentPage.logApplicationStatusOnUI(
-      ApplicationStatus.Disqualified,
-      DisqualificationReason.ScreenedOutAssessment,
-    );
+    await assessmentPage.logApplicationStatusOnUI({
+      targetStatus: ApplicationStatus.Disqualified,
+      disqualifiedDecision: DisqualificationReason.ScreenedOutAssessment,
+    });
     await appPage.waitForGraphqlResponse("DisqualifyCandidate");
     await expect(
       appPage.page.getByRole("button", { name: /disqualified/i }),
