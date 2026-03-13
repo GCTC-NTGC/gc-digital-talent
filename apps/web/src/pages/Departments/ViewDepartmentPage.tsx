@@ -13,6 +13,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { NotFoundError } from "@gc-digital-talent/helpers";
+import { ROLE_NAME as ROLE } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -20,12 +21,13 @@ import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import { graphqlClientContext, intlContext } from "~/routing/context";
+import { requireUser } from "~/routing/auth";
 
 import labels from "./labels";
 import { ContextType } from "./ManageAccessPage/components/types";
 import messages from "./messages";
-import { checkPlatformAdminOrDepartmentRolesWithTeams } from "./roleChecks";
 import type { Route } from "./+types/ViewDepartmentPage";
+import { getTeamIdInMiddleware } from "./utils";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentView on Department {
@@ -140,7 +142,20 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
 };
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  checkPlatformAdminOrDepartmentRolesWithTeams,
+  async ({ context, request, params }, next) => {
+    const teamId = await getTeamIdInMiddleware(context, params.departmentId);
+    requireUser(
+      context,
+      request,
+      [
+        { name: ROLE.PlatformAdmin },
+        { name: ROLE.DepartmentAdmin, teamId: teamId },
+        { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
+      ],
+      true,
+    );
+    return await next();
+  },
 ];
 
 const Department_Query = graphql(/* GraphQL */ `

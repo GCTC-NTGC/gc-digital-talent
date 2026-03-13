@@ -1,28 +1,24 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { useOutletContext } from "react-router";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
-import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
-import {
-  FragmentType,
-  Scalars,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { Heading } from "@gc-digital-talent/ui";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import adminMessages from "~/messages/adminMessages";
+import { requireUser } from "~/routing/auth";
+import { graphqlClientContext, intlContext } from "~/routing/context";
 
 import { ArchiveDepartment } from "./components/ArchiveDepartment";
 import { RestoreDepartment } from "./components/RestoreDepartment";
 import { ContextType } from "./ManageAccessPage/components/types";
+import type { Route } from "./+types/AdvancedToolsDepartmentPage";
+import messages from "./messages";
 
 export const DepartmentAdvancedTools_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentAdvancedTools on Department {
@@ -82,10 +78,6 @@ export const AdvancedToolsDepartment = ({
   );
 };
 
-interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
-}
-
 const AdvancedToolsDepartment_Query = graphql(/* GraphQL */ `
   query AdvancedToolsDepartmentPage($id: UUID!) {
     department(id: $id) {
@@ -97,14 +89,42 @@ const AdvancedToolsDepartment_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const AdvancedToolsDepartmentPage = () => {
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request }, next) => {
+    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
+    return await next();
+  },
+];
+
+export async function clientLoader({
+  context,
+  params,
+}: Route.ClientLoaderArgs) {
+  const intl = context.get(intlContext);
+  const client = context.get(graphqlClientContext);
+  const res = await client
+    .query(AdvancedToolsDepartment_Query, { id: params.departmentId })
+    .toPromise();
+
+  if (!res.data?.department) {
+    throw new NotFoundError(
+      intl.formatMessage(messages.departmentNotFound, {
+        departmentId: params.departmentId,
+      }),
+    );
+  }
+
+  return {
+    departmentQuery: res.data?.department,
+  };
+}
+
+const Component = ({
+  loaderData: { departmentQuery },
+  params: { departmentId },
+}: Route.ComponentProps) => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { departmentId } = useRequiredParams<RouteParams>("departmentId");
-  const [{ data: departmentData, fetching, error }] = useQuery({
-    query: AdvancedToolsDepartment_Query,
-    variables: { id: departmentId },
-  });
 
   const {
     departmentName,
@@ -123,47 +143,15 @@ const AdvancedToolsDepartmentPage = () => {
   return (
     <>
       <SEO title={departmentName} />
-      <Hero
-        title={
-          fetching ? intl.formatMessage(commonMessages.loading) : departmentName
-        }
-        crumbs={crumbs}
-        navTabs={navTabs}
-      />
+      <Hero title={departmentName} crumbs={crumbs} navTabs={navTabs} />
       <div className="mw-full mx-auto max-w-6xl px-6">
         <div className="py-16">
-          <Pending fetching={fetching} error={error}>
-            {departmentData?.department ? (
-              <AdvancedToolsDepartment query={departmentData?.department} />
-            ) : (
-              <NotFound
-                headingMessage={intl.formatMessage(commonMessages.notFound)}
-              >
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: "Department {departmentId} not found.",
-                      id: "8Otaw9",
-                      description:
-                        "Message displayed for department not found.",
-                    },
-                    { departmentId },
-                  )}
-                </p>
-              </NotFound>
-            )}
-          </Pending>
+          <AdvancedToolsDepartment query={departmentQuery} />
         </div>
       </div>
     </>
   );
 };
-
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <AdvancedToolsDepartmentPage />
-  </RequireAuth>
-);
 
 Component.displayName = "AdminAdvancedToolsDepartmentPage";
 

@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -9,12 +10,12 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { requireUser } from "~/routing/auth";
 import { graphqlClientContext } from "~/routing/context";
 
 import DepartmentTable from "./components/DepartmentTable";
 import type { Route } from "./+types/IndexDepartmentPage";
 import { roleAssignmentsToRoleDepartmentArray } from "./utils";
-import { checkPlatformAdminOrDepartmentRoles } from "./roleChecks";
 
 const Departments_Query = graphql(/* GraphQL */ `
   query Departments($whereArchived: Boolean) {
@@ -33,7 +34,14 @@ const Departments_Query = graphql(/* GraphQL */ `
 `);
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  checkPlatformAdminOrDepartmentRoles,
+  async ({ context, request }, next) => {
+    requireUser(context, request, [
+      { name: ROLE_NAME.PlatformAdmin },
+      { name: ROLE_NAME.DepartmentAdmin },
+      { name: ROLE_NAME.DepartmentHRAdvisor },
+    ]);
+    return await next();
+  },
 ];
 
 export async function clientLoader({ context }: Route.ClientLoaderArgs) {

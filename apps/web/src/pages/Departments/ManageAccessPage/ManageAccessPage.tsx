@@ -9,7 +9,7 @@ import {
   NotFoundError,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { ROLE_NAME as ROLE, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
@@ -26,6 +26,7 @@ import {
   groupRoleAssignmentsByUserDepartments,
 } from "~/utils/departmentUtils";
 import { graphqlClientContext, intlContext } from "~/routing/context";
+import { requireUser } from "~/routing/auth";
 
 import type { Route } from "./+types/ManageAccessPage";
 import AddDepartmentMembershipDialog from "./components/AddDepartmentMembership";
@@ -36,7 +37,7 @@ import {
 } from "./components/types";
 import { DepartmentManageAccessPage_DepartmentFragment } from "./components/operations";
 import messages from "../messages";
-import { checkPlatformAdminOrDepartmentRolesWithTeams } from "../roleChecks";
+import { getTeamIdInMiddleware } from "../utils";
 
 const pageTitle = defineMessage({
   defaultMessage: "Department members",
@@ -63,7 +64,7 @@ const DepartmentMembersTable = ({
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
   const hasPlatformAdmin = checkRoleDepartments(
-    [ROLE_NAME.PlatformAdmin],
+    [ROLE.PlatformAdmin],
     roleAssignments,
   );
 
@@ -162,7 +163,20 @@ const DepartmentMembersTable = ({
 };
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  checkPlatformAdminOrDepartmentRolesWithTeams,
+  async ({ context, request, params }, next) => {
+    const teamId = await getTeamIdInMiddleware(context, params.departmentId);
+    requireUser(
+      context,
+      request,
+      [
+        { name: ROLE.PlatformAdmin },
+        { name: ROLE.DepartmentAdmin, teamId: teamId },
+        { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
+      ],
+      true,
+    );
+    return await next();
+  },
 ];
 
 const ManageAccessDepartmentPage_Query = graphql(/* GraphQL */ `

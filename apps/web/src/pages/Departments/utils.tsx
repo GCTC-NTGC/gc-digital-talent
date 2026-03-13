@@ -1,4 +1,5 @@
 import { IntlShape } from "react-intl";
+import { RouterContextProvider } from "react-router";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
@@ -9,6 +10,11 @@ import {
   LocalizedString,
 } from "@gc-digital-talent/graphql";
 import { Chip } from "@gc-digital-talent/ui";
+import { NotFoundError } from "@gc-digital-talent/helpers";
+
+import { graphqlClientContext, intlContext } from "~/routing/context";
+
+import messages from "./messages";
 
 export type DepartmentType =
   | "isCorePublicAdministration"
@@ -149,4 +155,34 @@ export function roleAssignmentsToRoleDepartmentArray(
   });
 
   return collection;
+}
+
+export const DepartmentTeams_Query = graphql(/** GraphQL */ `
+  query DepartmentTeams($id: UUID!) {
+    department(id: $id) {
+      teamIdForRoleAssignment
+    }
+  }
+`);
+
+export async function getTeamIdInMiddleware(
+  context: Readonly<RouterContextProvider>,
+  departmentId: string,
+) {
+  const intl = context.get(intlContext);
+  const client = context.get(graphqlClientContext);
+
+  const res = await client
+    .query(DepartmentTeams_Query, { id: departmentId })
+    .toPromise();
+
+  if (!res.data?.department) {
+    throw new NotFoundError(
+      intl.formatMessage(messages.departmentNotFound, {
+        departmentId: departmentId,
+      }),
+    );
+  }
+
+  return res.data.department.teamIdForRoleAssignment;
 }
