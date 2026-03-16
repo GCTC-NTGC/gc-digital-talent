@@ -162,12 +162,13 @@ export default [
                   "personal-information",
                   "./pages/Profile/ProfilePage/ProfilePage.tsx",
                 ),
+                route(
+                  "career-timeline",
+                  "./pages/Profile/CareerTimelinePage/CareerTimelinePage.tsx",
+                ),
               ]),
 
               ...prefix("career-timeline", [
-                index(
-                  "./pages/Profile/CareerTimelinePage/CareerTimelinePage.tsx",
-                ),
                 route(
                   ":experienceId/edit",
                   "./pages/Profile/ExperienceFormPage/EditExperienceFormPage.tsx",

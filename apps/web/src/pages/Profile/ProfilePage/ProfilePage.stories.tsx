@@ -5,7 +5,7 @@ import { Container } from "@gc-digital-talent/ui";
 
 import ProfilePage from "./ProfilePage";
 
-const fakeUserData = fakeUsers(1)[0];
+const mockUser = fakeUsers(1)[0];
 
 const meta = {
   component: ProfilePage,
@@ -25,7 +25,7 @@ type Story = StoryObj<typeof ProfilePage>;
 export const WithData: Story = {
   args: {
     loaderData: {
-      user: fakeUserData,
+      user: mockUser,
     },
   },
 };
