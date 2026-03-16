@@ -11,6 +11,8 @@ import { requireUser } from "~/routing/auth";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 
+import type { Route } from "./+types/ProfileLayout";
+
 interface ProfileHandle {
   pageTitle?: MessageDescriptor;
 }
