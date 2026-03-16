@@ -55,7 +55,7 @@ interface InvertedExperience extends SimpleAnyExperience {
   id: string;
 }
 
-export type InvertedSkillExperience = Skill & {
+type InvertedSkillExperience = Skill & {
   experiences: InvertedExperience[];
 };
 /**

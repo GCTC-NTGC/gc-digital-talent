@@ -13,7 +13,7 @@ import { useMetaDataTalentNominationChip } from "./hooks";
 import { NominationMetaDataDate } from "./NominationMetaDataDate";
 import ReviewTalentNominationDialog from "./ReviewTalentNominationDialog";
 
-export const PreviewListItemTalentNomination_Fragment = graphql(/* GraphQL */ `
+const PreviewListItemTalentNomination_Fragment = graphql(/* GraphQL */ `
   fragment PreviewListItemTalentNomination on TalentNomination {
     id
     createdAt

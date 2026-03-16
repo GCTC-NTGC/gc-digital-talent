@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export function useIsWindowActive(debounce = 150) {
+function useIsWindowActive(debounce = 150) {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [isActive, setIsActive] = useState<boolean>(
     !document.hidden && document.hasFocus(),

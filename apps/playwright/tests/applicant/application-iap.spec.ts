@@ -15,7 +15,7 @@ import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import ApplicationPage from "~/fixtures/ApplicationPage";
-import { createUserWithRoles } from "~/utils/user";
+import { createUserWithRoles, me } from "~/utils/user";
 import { createAndPublishPool } from "~/utils/pools";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
@@ -41,6 +41,7 @@ test.describe("IAP Application", () => {
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const createdUser = await createUserWithRoles(adminCtx, {
       user: {
         email: `${sub}@example.org`,
@@ -66,8 +67,9 @@ test.describe("IAP Application", () => {
       (c) => c.group == "IT" && c.level == 1,
     );
 
+    const admin = await me(adminCtx, {});
     const createdPool = await createAndPublishPool(adminCtx, {
-      userId: createdUser?.id ?? "",
+      userId: admin?.id ?? "",
       classificationId: classification?.id,
       input: {
         publishingGroup: PublishingGroup.Iap,

@@ -6,18 +6,19 @@ use App\Enums\DevelopmentProgramParticipationStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * Class DevelopmentProgramInterest
  *
  * @property string $id
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
- * @property ?\Illuminate\Support\Carbon $deleted_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
+ * @property ?Carbon $deleted_at
  * @property string $development_program_id
  * @property string $community_interest_id
  * @property string $participation_status
- * @property ?\Illuminate\Support\Carbon $completion_date
+ * @property ?Carbon $completion_date
  */
 class DevelopmentProgramInterest extends Model
 {

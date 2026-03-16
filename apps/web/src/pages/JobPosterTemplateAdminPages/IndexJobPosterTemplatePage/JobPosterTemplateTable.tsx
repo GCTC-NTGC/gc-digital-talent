@@ -21,7 +21,7 @@ import jobPosterTemplate from "~/messages/jobPosterTemplateMessages";
 
 const columnHelper = createColumnHelper<JobPosterTemplateTableRowFragment>();
 
-export const JobPosterTemplateTableRow_Fragment = graphql(/* GraphQL */ `
+const JobPosterTemplateTableRow_Fragment = graphql(/* GraphQL */ `
   fragment JobPosterTemplateTableRow on JobPosterTemplate {
     id
     workStream {
@@ -59,7 +59,7 @@ interface JobPosterTemplateTableProps {
   title: string;
 }
 
-export const JobPosterTemplateTable = ({
+const JobPosterTemplateTable = ({
   jobPosterTemplatesQuery,
   title,
 }: JobPosterTemplateTableProps) => {

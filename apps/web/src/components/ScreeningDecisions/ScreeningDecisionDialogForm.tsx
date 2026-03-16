@@ -14,9 +14,8 @@ import { Loading, Notice } from "@gc-digital-talent/ui";
 import { NO_DECISION } from "~/utils/assessmentResults";
 
 import useLabels from "./useLabels";
-import { DialogType } from "./useDialogType";
 import useOptions from "./useOptions";
-import { educationJustificationContext } from "./utils";
+import { educationJustificationContext, DialogType } from "./utils";
 import { FormValues } from "./types";
 
 const TEXT_AREA_ROWS = 3;

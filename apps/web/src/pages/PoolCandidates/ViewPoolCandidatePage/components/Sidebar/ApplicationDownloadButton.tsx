@@ -2,32 +2,41 @@ import { useIntl } from "react-intl";
 import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
 
 import { DropdownMenu } from "@gc-digital-talent/ui";
-import { Scalars } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
 import useUserDownloads from "~/hooks/useUserDownloads";
 import useApplicationDownloads from "~/hooks/useApplicationDownloads";
 
+const ApplicationDownloadButton_Fragment = graphql(/** GraphQL */ `
+  fragment ApplicationDownloadButton on PoolCandidate {
+    id
+    user {
+      id
+    }
+  }
+`);
+
 interface DownloadButtonProps {
-  id: Scalars["UUID"]["output"];
-  userId: Scalars["UUID"]["output"];
+  query: FragmentType<typeof ApplicationDownloadButton_Fragment>;
 }
 
-const DownloadButton = ({ id, userId }: DownloadButtonProps) => {
+const DownloadButton = ({ query }: DownloadButtonProps) => {
   const intl = useIntl();
+  const application = getFragment(ApplicationDownloadButton_Fragment, query);
   const profileDoc = useUserDownloads();
   const applicationDoc = useApplicationDownloads();
 
   const handleProfileDocDownload = (anonymous: boolean) => {
     profileDoc.downloadDoc({
-      id: userId,
+      id: application.user.id,
       anonymous,
     });
   };
 
   const handleApplicationDocDownload = () => {
-    applicationDoc.downloadDoc({ id });
+    applicationDoc.downloadDoc({ id: application.id });
   };
 
   const isDownloading =
@@ -41,11 +50,13 @@ const DownloadButton = ({ id, userId }: DownloadButtonProps) => {
           disabled: isDownloading,
           mode: "inline",
           color: "black",
-          className: "text-left",
+          className: "text-left [&>span]:gap-x-0.5",
           icon: isDownloading ? SpinnerIcon : ArrowDownTrayIcon,
         }}
       >
-        {intl.formatMessage(commonMessages.download)}
+        <span className="sr-only">
+          {intl.formatMessage(commonMessages.download)}
+        </span>
       </DropdownMenu.Trigger>
       <DropdownMenu.Popup
         positionerProps={{ align: "start", collisionPadding: 2 }}

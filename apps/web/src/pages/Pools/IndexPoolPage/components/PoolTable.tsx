@@ -7,6 +7,7 @@ import {
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useState, useMemo, useRef } from "react";
+import { useSearchParams } from "react-router";
 import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
@@ -34,6 +35,7 @@ import {
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import { parseFilterParam } from "~/components/Table/ResponsiveTable/utils";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
@@ -182,20 +184,19 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
   const [sortState, setSortState] = useState<SortingState | undefined>(
     initialState.sortState ?? [{ id: "createdDate", desc: false }],
   );
-  const searchParams = new URLSearchParams(window.location.search);
-  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+
+  const [searchParams] = useSearchParams();
+  // Uses pool-specific key
+  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.POOL_FILTERS);
   const initialFilters = useMemo(
     () =>
-      filtersEncoded
-        ? (JSON.parse(filtersEncoded) as PoolFilterInput)
-        : initialFilterInput,
+      parseFilterParam<PoolFilterInput>(filtersEncoded) ?? initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
   const filterRef = useRef<PoolFilterInput | undefined>(initialFilters);
   const [filterState, setFilterState] = useState<PoolFilterInput | undefined>(
     initialFilters,
   );
-
   const handlePaginationStateChange = ({
     pageIndex,
     pageSize,
@@ -421,6 +422,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       data={filteredData}
       columns={columns}
       isLoading={fetching}
+      filterParamKey={SEARCH_PARAM_KEY.POOL_FILTERS}
       hiddenColumnIds={[
         "id",
         "publishedAt",

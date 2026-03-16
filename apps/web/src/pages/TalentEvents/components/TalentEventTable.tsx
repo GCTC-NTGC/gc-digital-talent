@@ -19,7 +19,7 @@ import { nominationsCell, statusCell } from "./helpers";
 
 const columnHelper = createColumnHelper<TalentEventTableRowFragment>();
 
-export const TalentEventTableRow_Fragment = graphql(/* GraphQL */ `
+const TalentEventTableRow_Fragment = graphql(/* GraphQL */ `
   fragment TalentEventTableRow on TalentNominationEvent {
     id
     name {
@@ -44,7 +44,7 @@ interface TalentEventTableProps {
   title: string;
 }
 
-export const TalentEventTable = ({
+const TalentEventTable = ({
   talentNominationEventQuery,
   title,
 }: TalentEventTableProps) => {

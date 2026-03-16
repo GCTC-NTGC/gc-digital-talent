@@ -17,7 +17,12 @@ const permissionConstants: Readonly<Record<string, RoleName[]>> = {
     ROLE_NAME.DepartmentAdmin,
     ROLE_NAME.DepartmentHRAdvisor,
   ],
-  createProcess: [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+  createProcess: [
+    ROLE_NAME.CommunityRecruiter,
+    ROLE_NAME.CommunityAdmin,
+    ROLE_NAME.DepartmentAdmin,
+    ROLE_NAME.DepartmentHRAdvisor,
+  ],
   viewRequests: [
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
