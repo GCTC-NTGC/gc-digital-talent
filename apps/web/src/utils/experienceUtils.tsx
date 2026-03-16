@@ -152,10 +152,11 @@ export const getExperienceFormLabels = (
       id: "gnEK8V",
       description: "Label displayed on Award form for award scope input",
     }),
-    role: intl.formatMessage({
-      defaultMessage: "My role",
-      id: "nyQyqM",
-      description: "Label displayed on an Experience form for role input",
+    jobTitle: intl.formatMessage({
+      defaultMessage: "Job title",
+      id: "0DjWBj",
+      description:
+        "Label displayed on Work Experience form for job title input",
     }),
     currentRole,
     organization,
@@ -176,10 +177,10 @@ export const getExperienceFormLabels = (
       description: "Label displayed on an Experience form for end date input",
     }),
     expectedEndDate: intl.formatMessage({
-      defaultMessage: "Expected end date",
-      id: "0qwyH4",
+      defaultMessage: "Prospective end date",
+      id: "GUMYhp",
       description:
-        "Label displayed on an Experience form for expected end date input",
+        "Label displayed on an Experience form for prospective end date input",
     }),
     dateRange: intl.formatMessage({
       defaultMessage: "Start/end date",
@@ -238,10 +239,10 @@ export const getExperienceFormLabels = (
         "Label displayed on Personal Experience form for disclaimer bounded box",
     }),
     team: intl.formatMessage({
-      defaultMessage: "Team, group, or division",
-      id: "qn77WI",
+      defaultMessage: "Team or division",
+      id: "LcgdMY",
       description:
-        "Label displayed on Work Experience form for team/group/division input",
+        "Label displayed on Work Experience form for team/division input",
     }),
     details: intl.formatMessage({
       defaultMessage: "Additional details",
@@ -368,6 +369,13 @@ export const getExperienceFormLabels = (
       id: "0J8XAX",
       description:
         "Label displayed on Experience form for key tasks and responsibilities field.",
+    }),
+    keyTasksDescription: intl.formatMessage({
+      defaultMessage:
+        "The following section should be a high-level overview focusing on what you did in the role. Try to keep this field clear and concise as you'll be able to provide more detailed information when linking skills to this experience.",
+      id: "NEycpM",
+      description:
+        "Help text for the experience key tasks and responsibilities field",
     }),
     projectOrRole: intl.formatMessage({
       defaultMessage: "The project or role",
@@ -811,7 +819,7 @@ const getWorkExperienceDefaultValues = (
     organization,
     team: division,
     startDate,
-    currentRole,
+    roleStatus: currentRole ? "active" : "past",
     endDate,
     employmentCategory: employmentCategory?.value,
     extSizeOfOrganization: extSizeOfOrganization?.value,

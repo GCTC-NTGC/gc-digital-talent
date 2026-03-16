@@ -24,7 +24,17 @@ const WorkContent = ({
   switch (employmentCategory?.value) {
     case EmploymentCategory.ExternalOrganization:
       return (
-        <ExternalContent experience={experience} headingLevel={headingLevel} />
+        <>
+          <ExternalContent
+            experience={experience}
+            headingLevel={headingLevel}
+          />
+          <Separator space="sm" decorative />
+          <SupervisoryContent
+            experience={experience}
+            headingLevel={headingLevel}
+          />
+        </>
       );
     case EmploymentCategory.GovernmentOfCanada:
       return (

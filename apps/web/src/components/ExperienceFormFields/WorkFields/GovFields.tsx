@@ -1,69 +1,78 @@
-import { useIntl } from "react-intl";
+import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useQuery } from "urql";
 import uniqBy from "lodash/uniqBy";
 import { useEffect } from "react";
 
 import {
-  Checkbox,
+  Combobox,
   DATE_SEGMENT,
   DateInput,
   Input,
   localizedEnumToOptions,
+  Radio,
   RadioGroup,
   Select,
 } from "@gc-digital-talent/forms";
 import {
-  commonMessages,
   errorMessages,
-  getLocalizedName,
   uiMessages,
+  narrowEnumType,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
-  CSuiteRoleTitle,
   GovContractorType,
   GovEmployeeType,
   GovFieldOptionsQuery,
   GovPositionType,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { Loading } from "@gc-digital-talent/ui";
-import { nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
+import { Loading, Notice } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
 import { splitAndJoin } from "~/utils/nameUtils";
 
+import SupervisoryFields from "./SupervisoryFields";
+
 const GovFieldOptions_Query = graphql(/* GraphQL */ `
   query GovFieldOptions {
+    me {
+      workExperiences {
+        endDate
+        govPositionType {
+          value
+        }
+      }
+    }
     departments {
       id
       name {
-        en
-        fr
+        localized
       }
     }
     classifications {
       id
       name {
-        en
-        fr
+        localized
       }
       group
       level
     }
-    govEmploymentTypes: localizedEnumStrings(enumName: "GovEmployeeType") {
-      value
-      label {
-        en
-        fr
+    govEmploymentTypes: localizedEnumOptions(enumName: "GovEmployeeType") {
+      ... on LocalizedGovEmployeeType {
+        value
+        label {
+          localized
+        }
       }
     }
-    govPositionTypes: localizedEnumStrings(enumName: "GovPositionType") {
-      value
-      label {
-        en
-        fr
+    govPositionTypes: localizedEnumOptions(enumName: "GovPositionType") {
+      ... on LocalizedGovPositionType {
+        value
+        label {
+          localized
+        }
       }
     }
     govContractorRoleSeniorities: localizedEnumStrings(
@@ -71,26 +80,49 @@ const GovFieldOptions_Query = graphql(/* GraphQL */ `
     ) {
       value
       label {
-        en
-        fr
+        localized
       }
     }
     govContractorTypes: localizedEnumStrings(enumName: "GovContractorType") {
       value
       label {
-        en
-        fr
-      }
-    }
-    cSuiteRoleTitles: localizedEnumStrings(enumName: "cSuiteRoleTitle") {
-      value
-      label {
-        en
-        fr
+        localized
       }
     }
   }
 `);
+
+const govPositionTypeDescriptions: Record<GovPositionType, MessageDescriptor> =
+  {
+    SUBSTANTIVE: defineMessage({
+      defaultMessage:
+        "The position (classification, level, role, and department) to which you were indeterminately hired.",
+      id: "UpM9RV",
+      description:
+        "Description for the substantive government position option in work experience",
+    }),
+    ACTING: defineMessage({
+      defaultMessage:
+        "The temporary performance of responsibilities of a position that is at a higher level than your substantive position.",
+      id: "xeHfvB",
+      description:
+        "Description for the acting government position option in work experience",
+    }),
+    SECONDMENT: defineMessage({
+      defaultMessage:
+        "A temporary move at-level to another department or agency for which Treasury Board is the employer.",
+      id: "e8zukj",
+      description:
+        "Description for the secondment government position option in work experience",
+    }),
+    ASSIGNMENT: defineMessage({
+      defaultMessage:
+        "A temporary move to a vacant role at-level within your own department or agency.",
+      id: "iAAqjA",
+      description:
+        "Description for the assignment government position option in work experience",
+    }),
+  };
 
 const GovFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
@@ -100,10 +132,8 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
   const { resetField } = useFormContext<WorkFormValues>();
 
   const todayDate = new Date();
-  const watchStartDate = useWatch<WorkFormValues>({ name: "startDate" });
-  const watchCurrentRole = useWatch<WorkFormValues>({
-    name: "currentRole",
-  });
+  // to toggle whether expected End date is required, the state of the role status radio must be monitored and have to adjust the form accordingly
+  const isCurrent = useWatch<WorkFormValues>({ name: "roleStatus" }) !== "past";
   const watchGroupSelection = useWatch<WorkFormValues>({
     name: "classificationGroup",
   });
@@ -116,26 +146,65 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
   const watchGovContractorType = useWatch<WorkFormValues>({
     name: "govContractorType",
   });
-  const watchSupervisoryPosition = useWatch<WorkFormValues>({
-    name: "supervisoryPosition",
+
+  const govEmploymentTypeOrder: string[] = [
+    GovEmployeeType.Indeterminate,
+    GovEmployeeType.Term,
+    GovEmployeeType.Casual,
+    GovEmployeeType.Student,
+    GovEmployeeType.Interchange,
+    GovEmployeeType.Contractor,
+  ];
+  const govEmploymentTypeOptions: Radio[] = narrowEnumType(
+    unpackMaybes(data?.govEmploymentTypes),
+    "GovEmployeeType",
+  )
+    .sort((a, b) => {
+      return (
+        govEmploymentTypeOrder.indexOf(a.value) -
+        govEmploymentTypeOrder.indexOf(b.value)
+      );
+    })
+    .map(({ value, label }) => {
+      const contentBelow =
+        value == GovEmployeeType.Interchange
+          ? intl.formatMessage({
+              defaultMessage:
+                "(Non-government employee in a Government of Canada role)",
+              id: "dQUFph",
+              description:
+                "Description for the interchange employment type option in government work experience",
+            })
+          : null;
+      return {
+        value,
+        label: label.localized,
+        contentBelow,
+      };
+    });
+
+  const govPositionTypeOptions: Radio[] = narrowEnumType(
+    unpackMaybes(data?.govPositionTypes),
+    "GovPositionType",
+  ).map(({ value, label }) => {
+    const contentBelow = govPositionTypeDescriptions[value];
+    return {
+      label: label.localized,
+      value,
+      contentBelow: intl.formatMessage(contentBelow),
+    };
   });
-  const watchSupervisedEmployees = useWatch<WorkFormValues>({
-    name: "supervisedEmployees",
-  });
-  const watchBudgetManagement = useWatch<WorkFormValues>({
-    name: "budgetManagement",
-  });
-  const watchSeniorManagementStatus = useWatch<WorkFormValues>({
-    name: "seniorManagementStatus",
-  });
-  const watchCSuiteRoleTitle = useWatch<WorkFormValues>({
-    name: "cSuiteRoleTitle",
-  });
+
+  const hasCurrentSubstantiveExperience = data?.me?.workExperiences?.some(
+    (experience) =>
+      experience?.govPositionType?.value === GovPositionType.Substantive &&
+      !experience.endDate,
+  );
 
   const departmentOptions = unpackMaybes(data?.departments).map(
     ({ id, name }) => ({
       value: id,
-      label: getLocalizedName(name, intl),
+      label: name?.localized ?? "",
     }),
   );
 
@@ -154,7 +223,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
           id: "YA/7nb",
           description: "Error message if classification group is not defined.",
         }),
-      ariaLabel: `${getLocalizedName(classification.name, intl)} ${splitAndJoin(
+      ariaLabel: `${classification.name?.localized} ${splitAndJoin(
         classification.group,
       )}`,
     };
@@ -199,10 +268,11 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
     isIndeterminate && watchGovPositionType === GovPositionType.Secondment;
 
   const expectedEndDate =
-    watchCurrentRole &&
+    isCurrent &&
     (watchGovEmploymentType === GovEmployeeType.Student ||
       watchGovEmploymentType === GovEmployeeType.Casual ||
       watchGovEmploymentType === GovEmployeeType.Term ||
+      watchGovEmploymentType === GovEmployeeType.Interchange ||
       indeterminateActing ||
       indeterminateAssignment ||
       indeterminateSecondment);
@@ -241,160 +311,145 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
     }
   }, [resetField, watchGovEmploymentType, watchGovContractorType]);
 
-  /**
-   * Reset supervisory fields
-   */
-  useEffect(() => {
-    const resetDirtyField = (name: keyof WorkFormValues) => {
-      resetField(name, { keepDirty: false, defaultValue: null });
-    };
-
-    // reset all supervisory fields
-    if (!watchSupervisoryPosition) {
-      resetDirtyField("supervisedEmployees");
-      resetDirtyField("supervisedEmployeesNumber");
-      resetDirtyField("budgetManagement");
-      resetDirtyField("annualBudgetAllocation");
-      resetDirtyField("seniorManagementStatus");
-      resetDirtyField("cSuiteRoleTitle");
-      resetDirtyField("otherCSuiteRoleTitle");
-    }
-
-    // reset supervised supervisory fields
-    if (!watchSupervisedEmployees) {
-      resetDirtyField("supervisedEmployeesNumber");
-    }
-
-    // reset budget supervisory fields
-    if (!watchBudgetManagement) {
-      resetDirtyField("annualBudgetAllocation");
-    }
-
-    // reset senior management supervisory fields
-    if (!watchSeniorManagementStatus) {
-      resetDirtyField("cSuiteRoleTitle");
-      resetDirtyField("otherCSuiteRoleTitle");
-    }
-
-    // reset senior management supervisory other fields
-    if (watchCSuiteRoleTitle !== CSuiteRoleTitle.Other) {
-      resetDirtyField("otherCSuiteRoleTitle");
-    }
-  }, [
-    resetField,
-    watchSupervisoryPosition,
-    watchSupervisedEmployees,
-    watchBudgetManagement,
-    watchSeniorManagementStatus,
-    watchCSuiteRoleTitle,
-  ]);
-
   return (
     <>
       {fetching ? (
-        <div className="col-span-2">
-          <Loading inline />
-        </div>
+        <Loading inline />
       ) : (
         <>
-          <div className="col-span-2">
-            <Select
+          <div>
+            <Combobox
               id="department"
-              label={intl.formatMessage(commonMessages.department)}
+              label={labels.organization}
               name="department"
-              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
               options={departmentOptions}
               rules={{ required: intl.formatMessage(errorMessages.required) }}
+              trackUnsaved={false}
             />
+            <Notice.Root className="mt-1.5">
+              <Notice.Content>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "If the organization you work with is not listed, please select “External organization” as the “Employment category” for this experience.",
+                    id: "Ohmv/N",
+                    description:
+                      "Informational text for the government organization field of the work experience form.",
+                  })}
+                </p>
+              </Notice.Content>
+            </Notice.Root>
           </div>
-          <div className="col-span-2">
-            <Input
-              id="team"
-              label={labels.team}
-              name="team"
-              type="text"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-            />
-          </div>
-          <div className="col-span-2">
-            <RadioGroup
-              idPrefix="govEmploymentType"
-              name="govEmploymentType"
-              legend={labels.govEmploymentType}
-              items={localizedEnumToOptions(data?.govEmploymentTypes, intl)}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-            />
-          </div>
-          {watchGovEmploymentType === GovEmployeeType.Indeterminate && (
-            <div className="col-span-2">
-              <RadioGroup
-                idPrefix="govPositionType"
-                name="govPositionType"
-                legend={labels.positionType}
-                items={localizedEnumToOptions(data?.govPositionTypes, intl)}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-            </div>
+          <Input
+            id="team"
+            label={labels.team}
+            name="team"
+            type="text"
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+          />
+          <RadioGroup
+            idPrefix="govEmploymentType"
+            name="govEmploymentType"
+            legend={labels.govEmploymentType}
+            items={govEmploymentTypeOptions}
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+          />
+          {!watchGovEmploymentType && (
+            <Notice.Root>
+              <Notice.Content>
+                <p className="text-center">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Please select an employment type to continue.",
+                    id: "RYuIb2",
+                    description:
+                      "Text displayed on the work experience form when a user has not selected an employment type.",
+                  })}
+                </p>
+              </Notice.Content>
+            </Notice.Root>
           )}
+          {watchGovEmploymentType === GovEmployeeType.Indeterminate && (
+            <RadioGroup
+              idPrefix="govPositionType"
+              name="govPositionType"
+              legend={labels.positionType}
+              items={govPositionTypeOptions}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+          )}
+          {watchGovPositionType === GovPositionType.Acting &&
+            !hasCurrentSubstantiveExperience && (
+              <Notice.Root color="warning">
+                <Notice.Content>
+                  <p className="text-center">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You've indicated this role is an active acting role, however, you haven't added an active substantive role to your work experience. You'll be able to continue adding this experience, but we ask that you ensure that your substantive role is added as well.",
+                      id: "IGgfuh",
+                      description:
+                        "Text displayed on the work experience form when a user has not selected an employment type.",
+                    })}
+                  </p>
+                </Notice.Content>
+              </Notice.Root>
+            )}
           {watchGovEmploymentType === GovEmployeeType.Contractor && (
             <>
-              <div className="col-span-2">
-                <RadioGroup
-                  idPrefix="govContractorRoleSeniority"
-                  name="govContractorRoleSeniority"
-                  legend={labels.govContractorRoleSeniority}
-                  items={localizedEnumToOptions(
-                    data?.govContractorRoleSeniorities,
-                    intl,
-                  )}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
-              <div className="col-span-2">
-                <RadioGroup
-                  idPrefix="govContractorType"
-                  name="govContractorType"
-                  legend={labels.govContractorType}
-                  items={localizedEnumToOptions(data?.govContractorTypes, intl)}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
+              <RadioGroup
+                idPrefix="govContractorRoleSeniority"
+                name="govContractorRoleSeniority"
+                legend={labels.govContractorRoleSeniority}
+                items={localizedEnumToOptions(
+                  data?.govContractorRoleSeniorities,
+                  intl,
+                )}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <RadioGroup
+                idPrefix="govContractorType"
+                name="govContractorType"
+                legend={labels.govContractorType}
+                items={localizedEnumToOptions(data?.govContractorTypes, intl)}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
             </>
           )}
           {watchGovContractorType === GovContractorType.FirmOrAgency && (
-            <div className="col-span-2">
-              <Input
-                id="contractorFirmAgencyName"
-                name="contractorFirmAgencyName"
-                type="text"
-                label={labels.contractorFirmAgencyName}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-            </div>
+            <Input
+              id="contractorFirmAgencyName"
+              name="contractorFirmAgencyName"
+              type="text"
+              label={labels.contractorFirmAgencyName}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
           )}
           {(watchGovEmploymentType === GovEmployeeType.Casual ||
             watchGovEmploymentType === GovEmployeeType.Indeterminate ||
-            watchGovEmploymentType === GovEmployeeType.Term) && (
-            <>
-              <div>
-                <Select
-                  id="classificationGroup"
-                  label={labels.classificationGroup}
-                  name="classificationGroup"
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOptionGroup,
-                  )}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  options={groupOptions}
-                />
-              </div>
-              <div>
+            watchGovEmploymentType === GovEmployeeType.Term ||
+            watchGovEmploymentType === GovEmployeeType.Interchange) && (
+            <div>
+              <p className="mb-1.5 font-bold">{labels.classification}</p>
+              <div className="grid gap-3 xs:grid-cols-4">
+                <div className="xs:col-span-3">
+                  <Combobox
+                    id="classificationGroup"
+                    label={labels.classificationGroup}
+                    name="classificationGroup"
+                    placeholder={intl.formatMessage(
+                      uiMessages.nullSelectionOptionGroup,
+                    )}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    options={groupOptions}
+                    trackUnsaved={false}
+                  />
+                </div>
                 <Select
                   id="classificationLevel"
                   label={labels.classificationLevel}
@@ -409,258 +464,25 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
                   doNotSort
                 />
               </div>
-            </>
+            </div>
           )}
-          <div>
+          {expectedEndDate && (
             <DateInput
-              id="startDate"
-              legend={labels.startDate}
-              name="startDate"
-              round="floor"
+              id="endDate"
+              legend={labels.expectedEndDate}
+              name="endDate"
               show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+              round="ceil"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
-                max: {
+                min: {
                   value: strToFormDate(todayDate.toISOString()),
-                  message: intl.formatMessage(
-                    errorMessages.mustNotBeFutureStartDate,
-                  ),
+                  message: intl.formatMessage(errorMessages.futureDate),
                 },
               }}
             />
-          </div>
-          <div>
-            <div className="mt-6">
-              <Checkbox
-                boundingBox
-                boundingBoxLabel={labels.currentRole}
-                id="currentRole"
-                label={intl.formatMessage({
-                  defaultMessage: "I am currently active in this role",
-                  id: "mOx5K1",
-                  description: "Label displayed for current role input",
-                })}
-                name="currentRole"
-              />
-            </div>
-          </div>
-          <div>
-            {expectedEndDate ? (
-              <DateInput
-                id="endDate"
-                legend={labels.expectedEndDate}
-                name="endDate"
-                show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-                round="ceil"
-                rules={
-                  watchCurrentRole
-                    ? {
-                        required: intl.formatMessage(errorMessages.required),
-                        min: {
-                          value: strToFormDate(todayDate.toISOString()),
-                          message: intl.formatMessage(errorMessages.futureDate),
-                        },
-                      }
-                    : {
-                        required: intl.formatMessage(errorMessages.required),
-                        min: {
-                          value: watchStartDate ? String(watchStartDate) : "",
-                          message: intl.formatMessage(
-                            errorMessages.minDateSelfLabel,
-                            {
-                              labelSelf: nodeToString(
-                                labels.endDate,
-                              ).toLowerCase(),
-                              labelAssociated: nodeToString(
-                                labels.startDate,
-                              ).toLowerCase(),
-                            },
-                          ),
-                        },
-                        max: {
-                          value: strToFormDate(todayDate.toISOString()),
-                          message: intl.formatMessage(
-                            errorMessages.mustNotBeFutureEndDate,
-                          ),
-                        },
-                      }
-                }
-              />
-            ) : (
-              <>
-                {!watchCurrentRole && (
-                  <DateInput
-                    id="endDate"
-                    legend={labels.endDate}
-                    name="endDate"
-                    round="ceil"
-                    show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                      min: {
-                        value: watchStartDate ? String(watchStartDate) : "",
-                        message: intl.formatMessage(
-                          errorMessages.minDateSelfLabel,
-                          {
-                            labelSelf: nodeToString(
-                              labels.endDate,
-                            ).toLowerCase(),
-                            labelAssociated: nodeToString(
-                              labels.startDate,
-                            ).toLowerCase(),
-                          },
-                        ),
-                      },
-                      max: {
-                        value: strToFormDate(todayDate.toISOString()),
-                        message: intl.formatMessage(
-                          errorMessages.mustNotBeFutureEndDate,
-                        ),
-                      },
-                    }}
-                  />
-                )}
-              </>
-            )}
-          </div>
-          <div className="col-span-2">
-            <Checkbox
-              boundingBox
-              boundingBoxLabel={labels.supervisoryPosition}
-              id="supervisoryPosition"
-              name="supervisoryPosition"
-              label={intl.formatMessage({
-                defaultMessage:
-                  "This role was a management or supervisory position.",
-                id: "N/1OYS",
-                description: "Label displayed for supervisory position",
-              })}
-            />
-          </div>
-          {watchSupervisoryPosition && (
-            <>
-              <div className="col-span-2">
-                <Checkbox
-                  boundingBox
-                  boundingBoxLabel={labels.supervisedEmployees}
-                  id="supervisedEmployees"
-                  name="supervisedEmployees"
-                  label={intl.formatMessage({
-                    defaultMessage: "I supervised employees in this role.",
-                    id: "6RGluQ",
-                    description: "Label displayed for supervised employees",
-                  })}
-                />
-              </div>
-              {watchSupervisedEmployees && (
-                <div className="col-span-2">
-                  <Input
-                    id="supervisedEmployeesNumber"
-                    name="supervisedEmployeesNumber"
-                    label={labels.supervisedEmployeesNumber}
-                    type="number"
-                    min="1"
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                      min: {
-                        value: 1,
-                        message: intl.formatMessage(
-                          errorMessages.mustBeGreater,
-                          {
-                            value: 1,
-                          },
-                        ),
-                      },
-                    }}
-                  />
-                </div>
-              )}
-              <div className="col-span-2">
-                <Checkbox
-                  boundingBox
-                  boundingBoxLabel={labels.budgetManagement}
-                  id="budgetManagement"
-                  name="budgetManagement"
-                  label={intl.formatMessage({
-                    defaultMessage:
-                      "This role required that I managed a dedicated budget or had delegated signing authority for a budget.",
-                    id: "144l3L",
-                    description: "Label displayed for budget management",
-                  })}
-                />
-              </div>
-              {watchBudgetManagement && (
-                <div className="col-span-2">
-                  <Input
-                    id="annualBudgetAllocation"
-                    name="annualBudgetAllocation"
-                    label={labels.annualBudgetAllocation}
-                    type="number"
-                    min="1"
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                      min: {
-                        value: 1,
-                        message: intl.formatMessage(
-                          errorMessages.mustBeGreater,
-                          {
-                            value: 1,
-                          },
-                        ),
-                      },
-                    }}
-                  />
-                </div>
-              )}
-              <div className="col-span-2">
-                <Checkbox
-                  boundingBox
-                  boundingBoxLabel={labels.seniorManagementStatus}
-                  id="seniorManagementStatus"
-                  name="seniorManagementStatus"
-                  label={intl.formatMessage({
-                    defaultMessage:
-                      "This was a chief or deputy chief (C-suite) role.",
-                    id: "ZOKEiB",
-                    description: "Label displayed for senior management",
-                  })}
-                />
-              </div>
-              {watchSeniorManagementStatus && (
-                <div className="col-span-2">
-                  <Select
-                    id="cSuiteRoleTitle"
-                    name="cSuiteRoleTitle"
-                    label={labels.cSuiteRoleTitle}
-                    nullSelection={intl.formatMessage(
-                      uiMessages.nullSelectionOption,
-                    )}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                    options={localizedEnumToOptions(
-                      data?.cSuiteRoleTitles,
-                      intl,
-                    )}
-                    doNotSort
-                  />
-                </div>
-              )}
-              {watchCSuiteRoleTitle === CSuiteRoleTitle.Other && (
-                <div className="col-span-2">
-                  <Input
-                    id="otherCSuiteRoleTitle"
-                    name="otherCSuiteRoleTitle"
-                    label={labels.otherCSuiteRoleTitle}
-                    type="text"
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                </div>
-              )}
-            </>
           )}
+          <SupervisoryFields labels={labels} />
         </>
       )}
     </>

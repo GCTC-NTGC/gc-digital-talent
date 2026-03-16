@@ -584,6 +584,11 @@ const commonMessages = defineMessages({
     id: "se/c4O",
     description: "Placeholder text for an input with options list",
   },
+  searchOrSelectAnswer: {
+    defaultMessage: "Search for or select an option",
+    id: "AC2cAS",
+    description: "Placeholder text for a searchable select input",
+  },
 });
 
 export default commonMessages;
