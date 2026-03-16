@@ -14,11 +14,9 @@ import {
 import { Heading, Link, CardSeparator, Card } from "@gc-digital-talent/ui";
 import {
   DepartmentSize,
-  FragmentType,
   LocalizedStringInput,
   Maybe,
   UpdateDepartmentInput,
-  getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -33,7 +31,7 @@ import { requireUser } from "~/routing/auth";
 import { graphqlClientContext, intlContext } from "~/routing/context";
 
 import type { Route } from "./+types/UpdateDepartmentPage";
-import FormFields, { DepartmentFormOptions_Fragment } from "./FormFields";
+import FormFields from "./FormFields";
 import { DepartmentType, departmentTypeToInput } from "./utils";
 
 interface FormValues {
@@ -63,130 +61,6 @@ export function formValuesToUpdateInput({
   };
 }
 
-export const DepartmentForm_Fragment = graphql(/* GraphQL */ `
-  fragment DepartmentForm on Department {
-    id
-    departmentNumber
-    name {
-      en
-      fr
-    }
-    orgIdentifier
-    size {
-      value
-      label {
-        localized
-      }
-    }
-    isCorePublicAdministration
-    isCentralAgency
-    isScience
-    isRegulatory
-  }
-`);
-
-interface UpdateDepartmentProps {
-  query: FragmentType<typeof DepartmentForm_Fragment>;
-  optionsQuery: FragmentType<typeof DepartmentFormOptions_Fragment>;
-  handleUpdateDepartment: (
-    id: string,
-    data: UpdateDepartmentInput,
-  ) => Promise<FragmentType<typeof DepartmentForm_Fragment>>;
-}
-
-export const UpdateDepartmentForm = ({
-  query,
-  optionsQuery,
-  handleUpdateDepartment,
-}: UpdateDepartmentProps) => {
-  const intl = useIntl();
-  const navigate = useNavigate();
-  const paths = useRoutes();
-  const department = getFragment(DepartmentForm_Fragment, query);
-  const methods = useForm<FormValues>({
-    defaultValues: {
-      departmentNumber: department.departmentNumber,
-      name: department.name,
-      orgIdentifier: department.orgIdentifier,
-      size: department.size?.value,
-      departmentType: [
-        ...(department.isCorePublicAdministration
-          ? (["isCorePublicAdministration"] satisfies DepartmentType[])
-          : []),
-        ...(department.isCentralAgency
-          ? (["isCentralAgency"] satisfies DepartmentType[])
-          : []),
-        ...(department.isScience
-          ? (["isScience"] satisfies DepartmentType[])
-          : []),
-        ...(department.isRegulatory
-          ? (["isRegulatory"] satisfies DepartmentType[])
-          : []),
-      ],
-    },
-  });
-  const { handleSubmit } = methods;
-
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    return handleUpdateDepartment(department.id, formValuesToUpdateInput(data))
-      .then(async () => {
-        await navigate(paths.departmentView(department.id));
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Department updated successfully!",
-            id: "GTR9Pt",
-            description:
-              "Message displayed to user after department is updated successfully.",
-          }),
-        );
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating department failed",
-            id: "nXRLAX",
-            description:
-              "Message displayed to user after department fails to get updated.",
-          }),
-        );
-      });
-  };
-
-  return (
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Card>
-          <Heading
-            level="h2"
-            color="secondary"
-            icon={IdentificationIcon}
-            center
-            className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Department information",
-              id: "eNTKLK",
-              description: "Heading for the 'create a department' form",
-            })}
-          </Heading>
-          <FormFields optionsQuery={optionsQuery} />
-          <CardSeparator />
-          <div className="flex flex-col items-center gap-6 xs:flex-row">
-            <Submit text={intl.formatMessage(formMessages.saveChanges)} />
-            <Link
-              color="warning"
-              mode="inline"
-              href={paths.departmentView(department.id)}
-            >
-              {intl.formatMessage(commonMessages.cancel)}
-            </Link>
-          </div>
-        </Card>
-      </form>
-    </FormProvider>
-  );
-};
-
 const Department_Query = graphql(/* GraphQL */ `
   query Department($id: UUID!) {
     department(id: $id) {
@@ -194,7 +68,23 @@ const Department_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      ...DepartmentForm
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+      orgIdentifier
+      size {
+        value
+        label {
+          localized
+        }
+      }
+      isCorePublicAdministration
+      isCentralAgency
+      isScience
+      isRegulatory
     }
     ...DepartmentFormOptions
   }
@@ -203,7 +93,7 @@ const Department_Query = graphql(/* GraphQL */ `
 const UpdateDepartment_Mutation = graphql(/* GraphQL */ `
   mutation UpdateDepartment($id: ID!, $department: UpdateDepartmentInput!) {
     updateDepartment(id: $id, department: $department) {
-      ...DepartmentForm
+      id
     }
   }
 `);
@@ -240,18 +130,41 @@ export async function clientLoader({
 
   return {
     department: res.data.department,
-    departmentFormQuery: res.data?.department,
     departmentFormOptionsQuery: res.data,
   };
 }
 
 const Component = ({
-  loaderData: { department, departmentFormQuery, departmentFormOptionsQuery },
+  loaderData: { department, departmentFormOptionsQuery },
   params: { departmentId },
 }: Route.ComponentProps) => {
   const intl = useIntl();
-  const routes = useRoutes();
+  const navigate = useNavigate();
+  const paths = useRoutes();
   const [, executeMutation] = useMutation(UpdateDepartment_Mutation);
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      departmentNumber: department.departmentNumber,
+      name: department.name,
+      orgIdentifier: department.orgIdentifier,
+      size: department.size?.value,
+      departmentType: [
+        ...(department.isCorePublicAdministration
+          ? (["isCorePublicAdministration"] satisfies DepartmentType[])
+          : []),
+        ...(department.isCentralAgency
+          ? (["isCentralAgency"] satisfies DepartmentType[])
+          : []),
+        ...(department.isScience
+          ? (["isScience"] satisfies DepartmentType[])
+          : []),
+        ...(department.isRegulatory
+          ? (["isRegulatory"] satisfies DepartmentType[])
+          : []),
+      ],
+    },
+  });
+
   const handleUpdateDepartment = (
     id: string,
     updateDepartmentInput: UpdateDepartmentInput,
@@ -266,17 +179,44 @@ const Component = ({
       return Promise.reject(new Error(result.error?.toString()));
     });
 
+  const { handleSubmit } = methods;
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    return handleUpdateDepartment(department.id, formValuesToUpdateInput(data))
+      .then(async () => {
+        await navigate(paths.departmentView(department.id));
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Department updated successfully!",
+            id: "GTR9Pt",
+            description:
+              "Message displayed to user after department is updated successfully.",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating department failed",
+            id: "nXRLAX",
+            description:
+              "Message displayed to user after department fails to get updated.",
+          }),
+        );
+      });
+  };
+
   const departmentName = getLocalizedName(department?.name, intl);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
         label: intl.formatMessage(pageTitles.departments),
-        url: routes.departmentTable(),
+        url: paths.departmentTable(),
       },
       {
         label: departmentName,
-        url: routes.departmentView(departmentId),
+        url: paths.departmentView(departmentId),
       },
       ...(departmentId
         ? [
@@ -287,7 +227,7 @@ const Component = ({
                 description:
                   "Breadcrumb title for the edit department page link.",
               }),
-              url: routes.departmentUpdate(departmentId),
+              url: paths.departmentUpdate(departmentId),
             },
           ]
         : []),
@@ -305,11 +245,37 @@ const Component = ({
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div className="mb-18">
-          <UpdateDepartmentForm
-            query={departmentFormQuery}
-            optionsQuery={departmentFormOptionsQuery}
-            handleUpdateDepartment={handleUpdateDepartment}
-          />
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Card>
+                <Heading
+                  level="h2"
+                  color="secondary"
+                  icon={IdentificationIcon}
+                  center
+                  className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Department information",
+                    id: "eNTKLK",
+                    description: "Heading for the 'create a department' form",
+                  })}
+                </Heading>
+                <FormFields optionsQuery={departmentFormOptionsQuery} />
+                <CardSeparator />
+                <div className="flex flex-col items-center gap-6 xs:flex-row">
+                  <Submit text={intl.formatMessage(formMessages.saveChanges)} />
+                  <Link
+                    color="warning"
+                    mode="inline"
+                    href={paths.departmentView(department.id)}
+                  >
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Link>
+                </div>
+              </Card>
+            </form>
+          </FormProvider>
         </div>
       </Hero>
     </>
