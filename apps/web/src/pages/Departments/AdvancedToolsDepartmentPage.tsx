@@ -3,7 +3,7 @@ import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { useOutletContext } from "react-router";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 
@@ -20,71 +20,17 @@ import { ContextType } from "./ManageAccessPage/components/types";
 import type { Route } from "./+types/AdvancedToolsDepartmentPage";
 import messages from "./messages";
 
-export const DepartmentAdvancedTools_Fragment = graphql(/* GraphQL */ `
-  fragment DepartmentAdvancedTools on Department {
-    id
-    archivedAt
-    name {
-      localized
-    }
-  }
-`);
-
-interface AdvancedToolsDepartmentProps {
-  query: FragmentType<typeof DepartmentAdvancedTools_Fragment>;
-}
-
-export const AdvancedToolsDepartment = ({
-  query,
-}: AdvancedToolsDepartmentProps) => {
-  const intl = useIntl();
-  const department = getFragment(DepartmentAdvancedTools_Fragment, query);
-
-  return (
-    <>
-      <div className="flex justify-center sm:justify-start">
-        <Heading
-          level="h2"
-          color="secondary"
-          icon={Cog8ToothIcon}
-          className="mt-0 mb-7 font-normal"
-        >
-          {intl.formatMessage(adminMessages.advancedTools)}
-        </Heading>
-      </div>
-      <p className="mb-12">
-        {intl.formatMessage({
-          defaultMessage:
-            "Warning! These are sensitive actions that will affect the entire platform, please use extreme caution when changing these settings.",
-          id: "GkX/KN",
-          description:
-            "Warning that you are making changes of possibly very high impact",
-        })}
-      </p>
-
-      {department.archivedAt ? (
-        <RestoreDepartment
-          departmentId={department.id}
-          departmentNameLocalized={department.name.localized}
-          archivedAt={department.archivedAt}
-        />
-      ) : (
-        <ArchiveDepartment
-          departmentId={department.id}
-          departmentNameLocalized={department.name.localized}
-        />
-      )}
-    </>
-  );
-};
-
 const AdvancedToolsDepartment_Query = graphql(/* GraphQL */ `
   query AdvancedToolsDepartmentPage($id: UUID!) {
     department(id: $id) {
       name {
         localized
       }
-      ...DepartmentAdvancedTools
+      id
+      archivedAt
+      name {
+        localized
+      }
     }
   }
 `);
@@ -115,12 +61,12 @@ export async function clientLoader({
   }
 
   return {
-    departmentQuery: res.data?.department,
+    department: res.data.department,
   };
 }
 
 const Component = ({
-  loaderData: { departmentQuery },
+  loaderData: { department },
   params: { departmentId },
 }: Route.ComponentProps) => {
   const intl = useIntl();
@@ -145,9 +91,39 @@ const Component = ({
       <SEO title={departmentName} />
       <Hero title={departmentName} crumbs={crumbs} navTabs={navTabs} />
       <div className="mw-full mx-auto max-w-6xl px-6">
-        <div className="py-16">
-          <AdvancedToolsDepartment query={departmentQuery} />
+        <div className="py-16"></div>
+        <div className="flex justify-center sm:justify-start">
+          <Heading
+            level="h2"
+            color="secondary"
+            icon={Cog8ToothIcon}
+            className="mt-0 mb-7 font-normal"
+          >
+            {intl.formatMessage(adminMessages.advancedTools)}
+          </Heading>
         </div>
+        <p className="mb-12">
+          {intl.formatMessage({
+            defaultMessage:
+              "Warning! These are sensitive actions that will affect the entire platform, please use extreme caution when changing these settings.",
+            id: "GkX/KN",
+            description:
+              "Warning that you are making changes of possibly very high impact",
+          })}
+        </p>
+
+        {department.archivedAt ? (
+          <RestoreDepartment
+            departmentId={department.id}
+            departmentNameLocalized={department.name.localized}
+            archivedAt={department.archivedAt}
+          />
+        ) : (
+          <ArchiveDepartment
+            departmentId={department.id}
+            departmentNameLocalized={department.name.localized}
+          />
+        )}
       </div>
     </>
   );
