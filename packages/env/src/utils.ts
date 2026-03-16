@@ -43,7 +43,6 @@ export const getFeatureFlags = () => ({
   applicationEmailVerification: checkFeatureFlag(
     "FEATURE_APPLICATION_EMAIL_VERIFICATION",
   ),
-  holidayMessage: checkFeatureFlag("FEATURE_HOLIDAY_MESSAGE"),
   canadaLogin: checkFeatureFlag("FEATURE_CANADALOGIN"),
 });
 
