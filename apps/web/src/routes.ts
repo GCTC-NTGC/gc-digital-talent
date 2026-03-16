@@ -156,10 +156,13 @@ export default [
                 "employee-profile",
                 "./pages/EmployeeProfile/EmployeeProfilePage.tsx",
               ),
-              route(
-                "personal-information",
-                "./pages/Profile/ProfilePage/ProfilePage.tsx",
-              ),
+
+              layout("./pages/Profile/ProfileLayout.tsx", [
+                route(
+                  "personal-information",
+                  "./pages/Profile/ProfilePage/ProfilePage.tsx",
+                ),
+              ]),
 
               ...prefix("career-timeline", [
                 index(
