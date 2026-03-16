@@ -253,7 +253,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           />
         </div>
       </div>
-      <div className="relative mx-6 flex flex-col items-start justify-between gap-6 xs:flex-row xs:items-center">
+      <div className="relative mx-4 flex flex-col items-start justify-between gap-6 xs:flex-row xs:items-center">
         <div className="flex flex-col gap-3">
           <Heading
             level={headingLevel}
