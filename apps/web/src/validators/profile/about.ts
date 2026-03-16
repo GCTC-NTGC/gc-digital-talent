@@ -53,19 +53,12 @@ export function hasEmptyRequiredFields(
   applicant: PartialUser,
   pool?: Maybe<Pick<Pool, "areaOfSelection">>,
 ): boolean {
-  const applicationEmailVerification = checkFeatureFlag(
-    "FEATURE_APPLICATION_EMAIL_VERIFICATION",
-  );
-
-  // Refactor after feature flag is turned on #15052
   let isWorkEmailVerifiedForInternalJobs: boolean | undefined | null = true;
 
-  if (applicationEmailVerification) {
-    if (pool?.areaOfSelection?.value === PoolAreaOfSelection.Employees) {
-      isWorkEmailVerifiedForInternalJobs =
-        !!applicant.workEmail && applicant.isWorkEmailVerified;
-    }
-  } // Refactor after feature flag is turned on #15052
+  if (pool?.areaOfSelection?.value === PoolAreaOfSelection.Employees) {
+    isWorkEmailVerifiedForInternalJobs =
+      !!applicant.workEmail && applicant.isWorkEmailVerified;
+  }
 
   return (
     !applicant.firstName ||
@@ -77,7 +70,7 @@ export function hasEmptyRequiredFields(
     !applicant.preferredLanguageForExam ||
     !applicant.citizenship ||
     empty(applicant.armedForcesStatus) ||
-    (applicationEmailVerification && !applicant.isEmailVerified) ||
+    !applicant.isEmailVerified ||
     !isWorkEmailVerifiedForInternalJobs
   );
 }
