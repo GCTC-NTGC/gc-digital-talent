@@ -166,6 +166,7 @@ export default [
                   "career-timeline",
                   "./pages/Profile/CareerTimelinePage/CareerTimelinePage.tsx",
                 ),
+                route("skills", "./pages/Skills/SkillPortfolioPage.tsx"),
               ]),
 
               ...prefix("career-timeline", [
@@ -190,7 +191,6 @@ export default [
               ]),
 
               ...prefix("skills", [
-                index("./pages/Skills/SkillPortfolioPage.tsx"),
                 route(":skillId", "./pages/Skills/UpdateUserSkillPage.tsx"),
                 ...prefix("showcase", [
                   index("./pages/Skills/SkillShowcasePage.tsx"),
