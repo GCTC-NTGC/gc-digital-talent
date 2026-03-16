@@ -21,32 +21,3 @@ export const UpdateUserDepartmentRoles_Mutation = graphql(/* GraphQL */ `
     }
   }
 `);
-
-export const DepartmentManageAccessPage_DepartmentFragment = graphql(
-  /* GraphQL */ `
-    fragment DepartmentManageAccessPage_Department on Department {
-      id
-      name {
-        localized
-      }
-      roleAssignments {
-        id
-        role {
-          id
-          name
-          isTeamBased
-          displayName {
-            en
-            fr
-          }
-        }
-        user {
-          id
-          workEmail
-          firstName
-          lastName
-        }
-      }
-    }
-  `,
-);

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useOutletContext } from "react-router";
 
 import { Container } from "@gc-digital-talent/ui";
@@ -11,7 +11,7 @@ import {
 } from "@gc-digital-talent/helpers";
 import { ROLE_NAME as ROLE, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -31,35 +31,97 @@ import { requireUser } from "~/routing/auth";
 import type { Route } from "./+types/ManageAccessPage";
 import AddDepartmentMembershipDialog from "./components/AddDepartmentMembership";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
-import {
-  ContextType,
-  DepartmentManageAccessPageFragment,
-} from "./components/types";
-import { DepartmentManageAccessPage_DepartmentFragment } from "./components/operations";
+import { ContextType } from "./components/types";
 import messages from "../messages";
 import { getTeamIdInMiddleware } from "../utils";
 
-const pageTitle = defineMessage({
-  defaultMessage: "Department members",
-  id: "sBU6QB",
-  description: "Page title for the department manage access page",
-});
-
 const columnHelper = createColumnHelper<DepartmentMember>();
 
-interface DepartmentMembersTableProps {
-  departmentQuery: DepartmentManageAccessPageFragment;
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request, params }, next) => {
+    const teamId = await getTeamIdInMiddleware(context, params.departmentId);
+    requireUser(
+      context,
+      request,
+      [
+        { name: ROLE.PlatformAdmin },
+        { name: ROLE.DepartmentAdmin, teamId: teamId },
+        { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
+      ],
+      true,
+    );
+    return await next();
+  },
+];
+
+const ManageAccessDepartmentPage_Query = graphql(/* GraphQL */ `
+  query ManageAccessDepartmentPage($departmentId: UUID!) {
+    department(id: $departmentId) {
+      id
+      name {
+        localized
+      }
+      roleAssignments {
+        id
+        role {
+          id
+          name
+          isTeamBased
+          displayName {
+            en
+            fr
+          }
+        }
+        user {
+          id
+          workEmail
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`);
+
+export async function clientLoader({
+  context,
+  params,
+}: Route.ClientLoaderArgs) {
+  const intl = context.get(intlContext);
+  const client = context.get(graphqlClientContext);
+  const res = await client
+    .query(ManageAccessDepartmentPage_Query, {
+      departmentId: params.departmentId,
+    })
+    .toPromise();
+
+  if (!res.data?.department) {
+    throw new NotFoundError(
+      intl.formatMessage(messages.departmentNotFound, {
+        departmentId: params.departmentId,
+      }),
+    );
+  }
+
+  return {
+    department: res.data.department,
+  };
 }
 
-const DepartmentMembersTable = ({
-  departmentQuery,
-}: DepartmentMembersTableProps) => {
+const Component = ({
+  loaderData: { department },
+  params: { departmentId },
+}: Route.ComponentProps) => {
   const intl = useIntl();
-  const department = getFragment(
-    DepartmentManageAccessPage_DepartmentFragment,
-    departmentQuery,
-  );
-  const { canEditAdmin, canEditAdvisor } = useOutletContext<ContextType>();
+  const paths = useRoutes();
+
+  const {
+    departmentName,
+    navigationCrumbs: baseCrumbs,
+    navTabs,
+    canEditAdmin,
+    canEditAdvisor,
+  } = useOutletContext<ContextType>();
 
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
@@ -74,7 +136,23 @@ const DepartmentMembersTable = ({
     [department.roleAssignments],
   );
 
-  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageTitle = intl.formatMessage({
+    defaultMessage: "Department members",
+    id: "sBU6QB",
+    description: "Page title for the department manage access page",
+  });
+
+  const crumbs = [
+    ...(baseCrumbs ?? []),
+    {
+      label: intl.formatMessage({
+        defaultMessage: "Manage access",
+        id: "J0i4xY",
+        description: "Title for members page",
+      }),
+      url: paths.departmentManageAccess(departmentId),
+    },
+  ];
 
   const columns = [
     columnHelper.accessor(
@@ -127,124 +205,39 @@ const DepartmentMembersTable = ({
   return (
     <>
       <SEO title={formattedPageTitle} />
-      <Table
-        caption={formattedPageTitle}
-        data={data}
-        columns={columns}
-        sort={{
-          internal: true,
-        }}
-        pagination={{
-          internal: true,
-          total: data.length,
-          pageSizes: [10, 20, 50],
-        }}
-        search={{
-          internal: true,
-          label: intl.formatMessage(adminMessages.searchByKeyword),
-        }}
-        {...((canEditAdmin || canEditAdvisor) && {
-          add: {
-            component: (
-              <AddDepartmentMembershipDialog department={department} />
-            ),
-          },
-          nullMessage: {
-            description: intl.formatMessage({
-              defaultMessage: 'Use the "Add member" button to get started.',
-              id: "DrR/rp",
-              description: "Instructions for adding a member to a community.",
-            }),
-          },
-        })}
-      />
-    </>
-  );
-};
-
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request, params }, next) => {
-    const teamId = await getTeamIdInMiddleware(context, params.departmentId);
-    requireUser(
-      context,
-      request,
-      [
-        { name: ROLE.PlatformAdmin },
-        { name: ROLE.DepartmentAdmin, teamId: teamId },
-        { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
-      ],
-      true,
-    );
-    return await next();
-  },
-];
-
-const ManageAccessDepartmentPage_Query = graphql(/* GraphQL */ `
-  query ManageAccessDepartmentPage($departmentId: UUID!) {
-    department(id: $departmentId) {
-      ...DepartmentManageAccessPage_Department
-    }
-  }
-`);
-
-export async function clientLoader({
-  context,
-  params,
-}: Route.ClientLoaderArgs) {
-  const intl = context.get(intlContext);
-  const client = context.get(graphqlClientContext);
-  const res = await client
-    .query(ManageAccessDepartmentPage_Query, {
-      departmentId: params.departmentId,
-    })
-    .toPromise();
-
-  if (!res.data?.department) {
-    throw new NotFoundError(
-      intl.formatMessage(messages.departmentNotFound, {
-        departmentId: params.departmentId,
-      }),
-    );
-  }
-
-  return {
-    departmentQuery: res.data?.department,
-  };
-}
-
-const Component = ({
-  loaderData: { departmentQuery },
-  params: { departmentId },
-}: Route.ComponentProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-
-  const formattedPageTitle = intl.formatMessage(pageTitle);
-
-  const {
-    departmentName,
-    navigationCrumbs: baseCrumbs,
-    navTabs,
-  } = useOutletContext<ContextType>();
-
-  const crumbs = [
-    ...(baseCrumbs ?? []),
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Manage access",
-        id: "J0i4xY",
-        description: "Title for members page",
-      }),
-      url: paths.departmentManageAccess(departmentId),
-    },
-  ];
-
-  return (
-    <>
-      <SEO title={formattedPageTitle} />
       <Hero title={departmentName} crumbs={crumbs} navTabs={navTabs} />
       <Container className="my-12">
-        <DepartmentMembersTable departmentQuery={departmentQuery} />
+        <Table
+          caption={formattedPageTitle}
+          data={data}
+          columns={columns}
+          sort={{
+            internal: true,
+          }}
+          pagination={{
+            internal: true,
+            total: data.length,
+            pageSizes: [10, 20, 50],
+          }}
+          search={{
+            internal: true,
+            label: intl.formatMessage(adminMessages.searchByKeyword),
+          }}
+          {...((canEditAdmin || canEditAdvisor) && {
+            add: {
+              component: (
+                <AddDepartmentMembershipDialog department={department} />
+              ),
+            },
+            nullMessage: {
+              description: intl.formatMessage({
+                defaultMessage: 'Use the "Add member" button to get started.',
+                id: "DrR/rp",
+                description: "Instructions for adding a member to a community.",
+              }),
+            },
+          })}
+        />
       </Container>
     </>
   );
