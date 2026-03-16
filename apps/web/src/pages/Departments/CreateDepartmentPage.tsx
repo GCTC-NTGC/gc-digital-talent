@@ -9,10 +9,8 @@ import { Submit } from "@gc-digital-talent/forms";
 import {
   graphql,
   CreateDepartmentInput,
-  Scalars,
   LocalizedStringInput,
   DepartmentSize,
-  FragmentType,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Heading, Link, CardSeparator, Card } from "@gc-digital-talent/ui";
@@ -26,7 +24,7 @@ import { requireUser } from "~/routing/auth";
 import { graphqlClientContext } from "~/routing/context";
 
 import type { Route } from "./+types/CreateDepartmentPage";
-import FormFields, { DepartmentFormOptions_Fragment } from "./FormFields";
+import FormFields from "./FormFields";
 import { DepartmentType, departmentTypeToInput } from "./utils";
 
 interface FormValues {
@@ -53,28 +51,58 @@ export function formValuesToCreateInput({
   };
 }
 
+const CreateDepartment_Mutation = graphql(/* GraphQL */ `
+  mutation CreateDepartment($department: CreateDepartmentInput!) {
+    createDepartment(department: $department) {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 const CreateDepartmentOptions_Query = graphql(/* GraphQL */ `
   query CreateDepartmentOptions {
     ...DepartmentFormOptions
   }
 `);
 
-interface CreateDepartmentProps {
-  handleCreateDepartment: (
-    data: CreateDepartmentInput,
-  ) => Promise<Scalars["UUID"]["output"]>;
-  optionsQuery?: FragmentType<typeof DepartmentFormOptions_Fragment>;
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request }, next) => {
+    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
+    return await next();
+  },
+];
+
+export async function clientLoader({ context }: Route.ClientLoaderArgs) {
+  const client = context.get(graphqlClientContext);
+  const res = await client.query(CreateDepartmentOptions_Query, {}).toPromise();
+
+  return {
+    optionsQuery: res.data,
+  };
 }
 
-export const CreateDepartmentForm = ({
-  handleCreateDepartment,
-  optionsQuery,
-}: CreateDepartmentProps) => {
+export const Component = ({
+  loaderData: { optionsQuery },
+}: Route.ComponentProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
+
+  const [, executeMutation] = useMutation(CreateDepartment_Mutation);
+  const handleCreateDepartment = (data: CreateDepartmentInput) =>
+    executeMutation({ department: data }).then((result) => {
+      if (result.data?.createDepartment?.id) {
+        return result.data.createDepartment.id;
+      }
+      return Promise.reject(new Error(result.error?.toString()));
+    });
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return handleCreateDepartment(formValuesToCreateInput(values))
@@ -101,93 +129,11 @@ export const CreateDepartmentForm = ({
       });
   };
 
-  return (
-    <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Card>
-          <Heading
-            level="h2"
-            color="secondary"
-            icon={IdentificationIcon}
-            center
-            className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Department information",
-              id: "eNTKLK",
-              description: "Heading for the 'create a department' form",
-            })}
-          </Heading>
-          <FormFields optionsQuery={optionsQuery} />
-          <CardSeparator />
-          <div className="flex flex-col items-center gap-6 xs:flex-row">
-            <Submit
-              text={intl.formatMessage({
-                defaultMessage: "Create department",
-                id: "ZqjOM/",
-                description: "Button label to create a department",
-              })}
-            />
-            <Link color="warning" mode="inline" href={paths.departmentTable()}>
-              {intl.formatMessage({
-                defaultMessage: "Cancel and go back to departments",
-                id: "uqI3Vf",
-                description: "Button label to return to the departments table",
-              })}
-            </Link>
-          </div>
-        </Card>
-      </form>
-    </FormProvider>
-  );
-};
-
-const CreateDepartment_Mutation = graphql(/* GraphQL */ `
-  mutation CreateDepartment($department: CreateDepartmentInput!) {
-    createDepartment(department: $department) {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
-    }
-  }
-`);
-
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
-    return await next();
-  },
-];
-
-export async function clientLoader({ context }: Route.ClientLoaderArgs) {
-  const client = context.get(graphqlClientContext);
-  const res = await client.query(CreateDepartmentOptions_Query, {}).toPromise();
-
-  return {
-    options: res.data,
-  };
-}
-
-export const Component = ({ loaderData }: Route.ComponentProps) => {
-  const intl = useIntl();
-  const routes = useRoutes();
-  const [, executeMutation] = useMutation(CreateDepartment_Mutation);
-  const handleCreateDepartment = (data: CreateDepartmentInput) =>
-    executeMutation({ department: data }).then((result) => {
-      if (result.data?.createDepartment?.id) {
-        return result.data.createDepartment.id;
-      }
-      return Promise.reject(new Error(result.error?.toString()));
-    });
-
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
         label: intl.formatMessage(pageTitles.departments),
-        url: routes.departmentTable(),
+        url: paths.departmentTable(),
       },
       {
         label: intl.formatMessage({
@@ -195,7 +141,7 @@ export const Component = ({ loaderData }: Route.ComponentProps) => {
           id: "1XaX86",
           description: "Breadcrumb title for the create department page link.",
         }),
-        url: routes.departmentCreate(),
+        url: paths.departmentCreate(),
       },
     ],
   });
@@ -211,10 +157,48 @@ export const Component = ({ loaderData }: Route.ComponentProps) => {
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div className="mb-18">
-          <CreateDepartmentForm
-            handleCreateDepartment={handleCreateDepartment}
-            optionsQuery={loaderData.options}
-          />
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Card>
+                <Heading
+                  level="h2"
+                  color="secondary"
+                  icon={IdentificationIcon}
+                  center
+                  className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Department information",
+                    id: "eNTKLK",
+                    description: "Heading for the 'create a department' form",
+                  })}
+                </Heading>
+                <FormFields optionsQuery={optionsQuery} />
+                <CardSeparator />
+                <div className="flex flex-col items-center gap-6 xs:flex-row">
+                  <Submit
+                    text={intl.formatMessage({
+                      defaultMessage: "Create department",
+                      id: "ZqjOM/",
+                      description: "Button label to create a department",
+                    })}
+                  />
+                  <Link
+                    color="warning"
+                    mode="inline"
+                    href={paths.departmentTable()}
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Cancel and go back to departments",
+                      id: "uqI3Vf",
+                      description:
+                        "Button label to return to the departments table",
+                    })}
+                  </Link>
+                </div>
+              </Card>
+            </form>
+          </FormProvider>
         </div>
       </Hero>
     </>
