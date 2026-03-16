@@ -15,8 +15,6 @@ const RUNTIME_VARS = [
   "NOTIFICATION_POLLING_INTERVAL",
 ] as const;
 
-export type RuntimeVarKey = (typeof RUNTIME_VARS)[number];
-
 export const getRuntimeConfig = () => {
   const runtimeConfig: Record<string, string | undefined> = {};
   for (const key of RUNTIME_VARS) {

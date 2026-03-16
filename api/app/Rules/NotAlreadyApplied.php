@@ -5,21 +5,10 @@ namespace App\Rules;
 use App\Enums\ErrorCode;
 use App\Models\PoolCandidate;
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class NotAlreadyApplied implements Rule
 {
-    public string $poolId;
-
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct($poolId)
-    {
-        $this->poolId = $poolId;
-    }
-
     /**
      * Determine if the validation rule passes.
      *
@@ -29,8 +18,14 @@ class NotAlreadyApplied implements Rule
      */
     public function passes($attribute, $value)
     {
-        return ! PoolCandidate::where('user_id', $value)
-            ->where('pool_id', $this->poolId)
+        if (! Auth::check()) {
+            return false;
+        }
+
+        $userId = Auth::user()->id;
+
+        return ! PoolCandidate::where('user_id', $userId)
+            ->where('pool_id', $value)
             ->exists();
     }
 

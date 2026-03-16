@@ -117,7 +117,6 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
           }
         }
       }
-      screeningQuestionsCount
       opportunityLength {
         label {
           localized

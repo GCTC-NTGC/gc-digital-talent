@@ -26,7 +26,7 @@ import {
   isGovWorkExperience,
 } from "~/utils/experienceUtils";
 
-export const CurrentPositionExperiences_Fragment = graphql(/* GraphQL */ `
+const CurrentPositionExperiences_Fragment = graphql(/* GraphQL */ `
   fragment CurrentPositionExperiences on User {
     updatedDate
     experiences {

@@ -70,6 +70,9 @@ import ResourceBlock from "./components/ResourceBlock";
 import Separator, {
   type SeparatorProps,
 } from "./components/Separator/Separator";
+import StatusButton, {
+  StatusButtonProps,
+} from "./components/Button/StatusButton";
 import Sidebar, { SidebarProps } from "./components/Sidebar";
 import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
 import Stepper, { StepperProps } from "./components/Stepper/Stepper";
@@ -129,6 +132,7 @@ export type {
   SeparatorProps,
   SidebarProps,
   SpoilerProps,
+  StatusButtonProps,
   StepperProps,
   StepType,
   SwitchProps,
@@ -192,6 +196,7 @@ export {
   Separator,
   Sidebar,
   Spoiler,
+  StatusButton,
   Stepper,
   Switch,
   TableOfContents,

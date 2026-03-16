@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Lang;
 
 /**
@@ -15,13 +16,13 @@ use Illuminate\Support\Facades\Lang;
  * @property string $institution
  * @property string $area_of_study
  * @property string $thesis_title
- * @property ?\Illuminate\Support\Carbon $start_date
- * @property ?\Illuminate\Support\Carbon $end_date
+ * @property ?Carbon $start_date
+ * @property ?Carbon $end_date
  * @property string $type
  * @property string $status
  * @property string $details
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  */
 class EducationExperience extends Experience
 {

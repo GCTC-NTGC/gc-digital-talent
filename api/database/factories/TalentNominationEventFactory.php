@@ -8,7 +8,7 @@ use App\Models\TalentNominationEvent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TalentNominationEvent>
+ * @extends Factory<TalentNominationEvent>
  */
 class TalentNominationEventFactory extends Factory
 {

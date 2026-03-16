@@ -52,14 +52,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Not interested",
-    "fr": [
-      "Non intéressé(e)",
-      "Ce programme ne m'intéresse pas",
-      "Pas d'intérêt"
-    ]
-  },
-  {
     "en": "Add department role",
     "fr": [
       "Ajouter un rôle dans un ministère",
@@ -116,6 +108,14 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Not interested",
+    "fr": [
+      "Ce programme ne m'intéresse pas",
+      "Non intéressé(e)",
+      "Pas d'intérêt"
+    ]
+  },
+  {
     "en": "cyber security",
     "fr": [
       "la cybersécurité;",
@@ -169,13 +169,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "fr": [
       "Archivez le ministère",
       "Archivage du ministère"
-    ]
-  },
-  {
-    "en": "Remove candidate",
-    "fr": [
-      "Supprimer le (la) candidat(e)",
-      "Supprimez le (la) candidat(e)"
     ]
   },
   {

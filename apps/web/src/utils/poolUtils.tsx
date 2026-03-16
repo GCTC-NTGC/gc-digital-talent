@@ -64,6 +64,8 @@ export const isAdvertisementVisible = (
     ROLE_NAME.ProcessOperator,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
+    ROLE_NAME.DepartmentAdmin,
+    ROLE_NAME.DepartmentHRAdvisor,
   ];
   return (
     roleAssignments.filter(notEmpty).some((assignment) => {
@@ -211,12 +213,6 @@ export const poolTitle = (
     label: formattedTitle.label ?? fallbackTitle,
   };
 };
-
-export const getFullPoolTitleHtml = (
-  intl: IntlShape,
-  pool: PoolTitle,
-  options?: { defaultTitle?: string },
-): ReactNode => poolTitle(intl, pool, options).html;
 
 export const getFullPoolTitleLabel = (
   intl: IntlShape,

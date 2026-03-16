@@ -13,7 +13,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 
 import NextRoleDialog from "./NextRoleDialog";
 
-export const NextRolePreview_Fragment = graphql(/* GraphQL */ `
+const NextRolePreview_Fragment = graphql(/* GraphQL */ `
   fragment NextRolePreview on User {
     employeeProfile {
       nextRoleClassification {

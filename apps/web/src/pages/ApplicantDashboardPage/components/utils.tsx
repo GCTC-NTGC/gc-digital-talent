@@ -97,7 +97,7 @@ const candidateStatusDescMap = new Map<CandidateStatus, MessageDescriptor>([
   [CandidateStatus.Removed, applicationStatusDescriptions.REMOVED],
 ]);
 
-export const contactEmailTag = (chunks: ReactNode, email?: Maybe<string>) => {
+const contactEmailTag = (chunks: ReactNode, email?: Maybe<string>) => {
   return email ? (
     <Link external href={`mailto:${email}`}>
       {email}

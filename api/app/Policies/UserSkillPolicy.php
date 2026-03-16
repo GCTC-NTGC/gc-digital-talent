@@ -3,7 +3,9 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\UserSkill;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class UserSkillPolicy
 {
@@ -14,7 +16,7 @@ class UserSkillPolicy
      *
      * @param  $request:  The arguments included in the request, acquired with the injectArgs lighthouse directive
      *                   We need to use this because the model hasn't been created yet so we can't read from it
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function create(User $user, $request)
     {
@@ -26,9 +28,9 @@ class UserSkillPolicy
     /**
      * The ability to update UserSkill models is the ability to update the User.
      *
-     * @param  \App\Models\User  $user  *
-     * @param  \App\Models\UserSkill  $model
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param  User  $user  *
+     * @param  UserSkill  $model
+     * @return Response|bool
      */
     public function update(User $user, $model)
     {
@@ -38,9 +40,9 @@ class UserSkillPolicy
     /**
      * The ability to delete UserSkill models is the ability to update the User.
      *
-     * @param  \App\Models\User  $user  *
-     * @param  \App\Models\UserSkill  $model
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param  User  $user  *
+     * @param  UserSkill  $model
+     * @return Response|bool
      */
     public function delete(User $user, $model)
     {

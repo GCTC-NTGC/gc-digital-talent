@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Pool;
+use App\Models\PoolCandidate;
 use App\Notifications\ApplicationDeadlineApproaching;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
@@ -52,7 +53,7 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
 
         $this->info('Found '.$poolsClosingOnClosingDay->count().' pools.');
 
-        /** @var \App\Models\Pool $pool */
+        /** @var Pool $pool */
         foreach ($poolsClosingOnClosingDay as $pool) {
             $this->info('Searching pool '.$pool->id.' ('.$pool->name['en'].')');
 
@@ -63,7 +64,7 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
 
             $this->info('Found '.$draftApplications->count().' applications.');
 
-            /** @var \App\Models\PoolCandidate $poolCandidate */
+            /** @var PoolCandidate $poolCandidate */
             foreach ($draftApplications as $poolCandidate) {
                 $notification = new ApplicationDeadlineApproaching(
                     $closingDayInPacific,

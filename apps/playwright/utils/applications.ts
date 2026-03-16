@@ -21,15 +21,14 @@ const Test_UpdateApplicationMutationDocument = /* GraphQL */ `
 `;
 
 const Test_CreateApplicationMutationDocument = /* GraphQL */ `
-  mutation Test_CreateApplication($userId: ID!, $poolId: ID!) {
-    createApplication(userId: $userId, poolId: $poolId) {
+  mutation Test_CreateApplication($poolId: ID!) {
+    createApplication(poolId: $poolId) {
       id
     }
   }
 `;
 
 interface CreateApplicationInput {
-  userId: string;
   poolId: string;
   personalExperienceId: string;
 }
@@ -40,11 +39,10 @@ interface CreateApplicationInput {
 export const createApplication: GraphQLRequestFunc<
   PoolCandidate,
   CreateApplicationInput
-> = async (ctx, { userId, poolId, personalExperienceId }) => {
+> = async (ctx, { poolId, personalExperienceId }) => {
   return ctx
     .post(Test_CreateApplicationMutationDocument, {
       variables: {
-        userId,
         poolId,
       },
     })

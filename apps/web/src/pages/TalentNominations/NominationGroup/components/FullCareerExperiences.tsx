@@ -29,7 +29,7 @@ import {
   buildExperienceByWorkStreamData,
 } from "./fullCareerExperiencesUtils";
 
-export const FullCareerExperiencesUser_Fragment = graphql(/* GraphQL */ `
+const FullCareerExperiencesUser_Fragment = graphql(/* GraphQL */ `
   fragment FullCareerExperiencesUser on User {
     experiences {
       id

@@ -33,8 +33,7 @@ export interface PersonalInformationSnapshotV1 {
   armedForcesStatus: Maybe<LocalizedArmedForcesStatus>;
 }
 
-export type PersonalInformationV1Props =
-  SnapshotProps<PersonalInformationSnapshotV1>;
+type PersonalInformationV1Props = SnapshotProps<PersonalInformationSnapshotV1>;
 
 const PersonalInformationV1 = ({ snapshot }: PersonalInformationV1Props) => {
   const intl = useIntl();
