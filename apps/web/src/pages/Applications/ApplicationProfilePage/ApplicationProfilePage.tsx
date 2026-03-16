@@ -12,7 +12,6 @@ import {
   PoolAreaOfSelection,
   UserProfileFragment,
 } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";

@@ -8,7 +8,6 @@ import {
   PoolAreaOfSelection,
   User,
 } from "@gc-digital-talent/graphql";
-import { checkFeatureFlag } from "@gc-digital-talent/env";
 
 type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
 

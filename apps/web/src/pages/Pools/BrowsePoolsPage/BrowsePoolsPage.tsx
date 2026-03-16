@@ -12,7 +12,6 @@ import {
   PublishingGroup,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -78,7 +77,6 @@ export const Component = () => {
   const { mode } = useTheme();
   const intl = useIntl();
   const paths = useRoutes();
-  const featureFlags = useFeatureFlags();
 
   const [{ data, fetching, error }] = useQuery({
     query: BrowsePoolsPage_Query,
