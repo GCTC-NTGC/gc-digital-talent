@@ -189,9 +189,10 @@ export const DashboardPage = ({
                   href={paths.jobPosterTemplates()}
                   description={intl.formatMessage({
                     defaultMessage:
-                      "Explore a library of templates for job advertisements that provide a great starting point for your next hire.",
-                    id: "DJAk48",
-                    description: "Description below job templates link",
+                      "Browse a library of prebuilt job advertisements with key tasks and skills suggestions.",
+                    id: "2IWEV5",
+                    description:
+                      "Description for the page showing list of job poster templates",
                   })}
                 />
                 <ResourceBlock.SingleLinkItem
@@ -207,21 +208,6 @@ export const DashboardPage = ({
                       "Browse a complete list of available skills and learn how they’re organized.",
                     id: "mluvY2",
                     description: "the 'Learn about skills' tool description",
-                  })}
-                />
-                <ResourceBlock.SingleLinkItem
-                  as="h3"
-                  title={intl.formatMessage({
-                    defaultMessage: "Directive on Digital Talent",
-                    id: "xXwUGs",
-                    description: "Title for the digital talent directive page",
-                  })}
-                  href={paths.directive()}
-                  description={intl.formatMessage({
-                    defaultMessage:
-                      "Learn more about the directive, how it applies to your context, and understand your obligations.",
-                    id: "H4JBTP",
-                    description: "Description below directive link",
                   })}
                 />
               </ResourceBlock.Root>
