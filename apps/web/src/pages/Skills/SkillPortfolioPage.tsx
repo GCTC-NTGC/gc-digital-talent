@@ -28,7 +28,7 @@ export const handle = {
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request }, next) => {
-    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
+    requireUser(context, request, [{ name: ROLE_NAME.Applicant }]);
     return await next();
   },
 ];

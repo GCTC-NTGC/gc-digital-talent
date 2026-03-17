@@ -36,7 +36,7 @@ export const handle = {
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request }, next) => {
-    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
+    requireUser(context, request, [{ name: ROLE_NAME.Applicant }]);
     return await next();
   },
 ];
@@ -128,9 +128,7 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
           <Link href={paths.employeeProfile()}>
             {intl.formatMessage(navigationMessages.employeeProfileGC)}
           </Link>
-          <Link href={paths.accountSettings()}>
-            {intl.formatMessage(navigationMessages.accountSettings)}
-          </Link>
+          <Link href={paths.accountSettings()}></Link>
         </div>
       </TableOfContents.Navigation>
       <TableOfContents.Content>
