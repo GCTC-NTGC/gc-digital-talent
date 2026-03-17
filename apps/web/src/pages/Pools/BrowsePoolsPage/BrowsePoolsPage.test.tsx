@@ -83,7 +83,7 @@ describe("BrowsePoolsPage", () => {
     });
 
     const links = screen.queryAllByRole("link", {
-      name: /Apply to this recruitment/i,
+      name: /Apply now/i,
     });
 
     expect(links).toHaveLength(1);
@@ -107,7 +107,7 @@ describe("BrowsePoolsPage", () => {
     });
 
     const links = screen.queryAllByRole("link", {
-      name: /Apply to this recruitment/i,
+      name: /Apply now/i,
     });
 
     expect(links).toHaveLength(2);
