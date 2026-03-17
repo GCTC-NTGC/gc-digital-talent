@@ -11,7 +11,7 @@ import {
   Ul,
   Container,
 } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 import { ROLE_NAME as ROLE } from "@gc-digital-talent/auth";
 
@@ -28,118 +28,6 @@ import { ContextType } from "./ManageAccessPage/components/types";
 import messages from "./messages";
 import type { Route } from "./+types/ViewDepartmentPage";
 import { getTeamIdInMiddleware } from "./utils";
-
-export const DepartmentView_Fragment = graphql(/* GraphQL */ `
-  fragment DepartmentView on Department {
-    id
-    departmentNumber
-    name {
-      en
-      fr
-    }
-    orgIdentifier
-    size {
-      value
-      label {
-        localized
-      }
-    }
-    isCorePublicAdministration
-    isCentralAgency
-    isScience
-    isRegulatory
-  }
-`);
-
-interface ViewDepartmentProps {
-  query: FragmentType<typeof DepartmentView_Fragment>;
-}
-
-export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
-  const intl = useIntl();
-  const paths = useRoutes();
-  const department = getFragment(DepartmentView_Fragment, query);
-  const notProvided = intl.formatMessage(commonMessages.notProvided);
-
-  return (
-    <>
-      <Heading
-        level="h2"
-        color="secondary"
-        icon={IdentificationIcon}
-        className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Department information",
-          id: "eNTKLK",
-          description: "Heading for the 'create a department' form",
-        })}
-      </Heading>
-      <Card>
-        <div className="grid gap-6 xs:grid-cols-2">
-          <FieldDisplay
-            label={intl.formatMessage(commonMessages.name)}
-            appendLanguageToLabel={"en"}
-          >
-            {department.name.en}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage(commonMessages.name)}
-            appendLanguageToLabel={"fr"}
-          >
-            {department.name.fr}
-          </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(labels.departmentNumber)}>
-            {department.departmentNumber}
-          </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(labels.orgIdentifier)}>
-            {department.orgIdentifier ?? notProvided}
-          </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(labels.departmentType)}>
-            <Ul unStyled space="md">
-              <li>
-                <BoolCheckIcon value={department.isCorePublicAdministration}>
-                  {intl.formatMessage(labels.corePublicAdmin)}
-                </BoolCheckIcon>
-              </li>
-              <li>
-                <BoolCheckIcon value={department.isCentralAgency}>
-                  {intl.formatMessage(labels.centralAgency)}
-                </BoolCheckIcon>
-              </li>
-              <li>
-                <BoolCheckIcon value={department.isScience}>
-                  {intl.formatMessage(labels.science)}
-                </BoolCheckIcon>
-              </li>
-              <li>
-                <BoolCheckIcon value={department.isRegulatory}>
-                  {intl.formatMessage(labels.regulatory)}
-                </BoolCheckIcon>
-              </li>
-            </Ul>
-          </FieldDisplay>
-          <FieldDisplay label={intl.formatMessage(labels.departmentSize)}>
-            {department.size?.label.localized ?? notProvided}
-          </FieldDisplay>
-        </div>
-        <CardSeparator />
-        <div className="flex justify-center xs:justify-start">
-          <Link
-            href={paths.departmentUpdate(department.id)}
-            className="font-bold"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Edit department information",
-              id: "os2TYf",
-              description: "Link to edit the currently viewed department",
-            })}
-          </Link>
-        </div>
-      </Card>
-    </>
-  );
-};
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request, params }, next) => {
@@ -165,7 +53,23 @@ const Department_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      ...DepartmentView
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+      orgIdentifier
+      size {
+        value
+        label {
+          localized
+        }
+      }
+      isCorePublicAdministration
+      isCentralAgency
+      isScience
+      isRegulatory
     }
   }
 `);
@@ -191,11 +95,15 @@ export async function clientLoader({
   }
 
   return {
-    department: res.data?.department,
+    department: res.data.department,
   };
 }
 
 const Component = ({ loaderData: { department } }: Route.ComponentProps) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
+
   const {
     departmentName,
     navigationCrumbs: baseCrumbs,
@@ -209,7 +117,80 @@ const Component = ({ loaderData: { department } }: Route.ComponentProps) => {
       <SEO title={departmentName} />
       <Hero title={departmentName} crumbs={crumbs} navTabs={navTabs} />
       <Container className="my-18">
-        <ViewDepartmentForm query={department} />
+        <Heading
+          level="h2"
+          color="secondary"
+          icon={IdentificationIcon}
+          className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Department information",
+            id: "eNTKLK",
+            description: "Heading for the 'create a department' form",
+          })}
+        </Heading>
+        <Card>
+          <div className="grid gap-6 xs:grid-cols-2">
+            <FieldDisplay
+              label={intl.formatMessage(commonMessages.name)}
+              appendLanguageToLabel={"en"}
+            >
+              {department.name.en}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(commonMessages.name)}
+              appendLanguageToLabel={"fr"}
+            >
+              {department.name.fr}
+            </FieldDisplay>
+            <FieldDisplay label={intl.formatMessage(labels.departmentNumber)}>
+              {department.departmentNumber}
+            </FieldDisplay>
+            <FieldDisplay label={intl.formatMessage(labels.orgIdentifier)}>
+              {department.orgIdentifier ?? notProvided}
+            </FieldDisplay>
+            <FieldDisplay label={intl.formatMessage(labels.departmentType)}>
+              <Ul unStyled space="md">
+                <li>
+                  <BoolCheckIcon value={department.isCorePublicAdministration}>
+                    {intl.formatMessage(labels.corePublicAdmin)}
+                  </BoolCheckIcon>
+                </li>
+                <li>
+                  <BoolCheckIcon value={department.isCentralAgency}>
+                    {intl.formatMessage(labels.centralAgency)}
+                  </BoolCheckIcon>
+                </li>
+                <li>
+                  <BoolCheckIcon value={department.isScience}>
+                    {intl.formatMessage(labels.science)}
+                  </BoolCheckIcon>
+                </li>
+                <li>
+                  <BoolCheckIcon value={department.isRegulatory}>
+                    {intl.formatMessage(labels.regulatory)}
+                  </BoolCheckIcon>
+                </li>
+              </Ul>
+            </FieldDisplay>
+            <FieldDisplay label={intl.formatMessage(labels.departmentSize)}>
+              {department.size?.label.localized ?? notProvided}
+            </FieldDisplay>
+          </div>
+          <CardSeparator />
+          <div className="flex justify-center xs:justify-start">
+            <Link
+              href={paths.departmentUpdate(department.id)}
+              className="font-bold"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Edit department information",
+                id: "os2TYf",
+                description: "Link to edit the currently viewed department",
+              })}
+            </Link>
+          </div>
+        </Card>
       </Container>
     </>
   );

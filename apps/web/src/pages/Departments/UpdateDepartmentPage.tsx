@@ -33,6 +33,7 @@ import { graphqlClientContext, intlContext } from "~/routing/context";
 import type { Route } from "./+types/UpdateDepartmentPage";
 import FormFields from "./FormFields";
 import { DepartmentType, departmentTypeToInput } from "./utils";
+import messages from "./messages";
 
 interface FormValues {
   name?: LocalizedStringInput;
@@ -117,14 +118,9 @@ export async function clientLoader({
 
   if (!res.data?.department) {
     throw new NotFoundError(
-      intl.formatMessage(
-        {
-          defaultMessage: "Department {departmentId} not found.",
-          id: "8Otaw9",
-          description: "Message displayed for department not found.",
-        },
-        { departmentId: params.departmentId },
-      ),
+      intl.formatMessage(messages.departmentNotFound, {
+        departmentId: params.departmentId,
+      }),
     );
   }
 
