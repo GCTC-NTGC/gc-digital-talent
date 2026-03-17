@@ -41,6 +41,7 @@ const PersonalInformation_Fragment = graphql(/** GraphQL */ `
     isEmailVerified
     workEmail
     isWorkEmailVerified
+    isVerifiedGovEmployee
     preferredLang {
       value
     }
@@ -217,9 +218,11 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
               <Link href={paths.profile()}>
                 {intl.formatMessage(navigationMessages.applicantProfile)}
               </Link>
-              <Link href={paths.employeeProfile()}>
-                {intl.formatMessage(navigationMessages.employeeProfileGC)}
-              </Link>
+              {personalInfo.isVerifiedGovEmployee && (
+                <Link href={paths.employeeProfile()}>
+                  {intl.formatMessage(navigationMessages.employeeProfileGC)}
+                </Link>
+              )}
             </div>
           </TableOfContents.Navigation>
           <TableOfContents.Content>

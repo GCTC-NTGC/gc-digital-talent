@@ -44,6 +44,7 @@ export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
 const ProfileUser_Query = graphql(/* GraphQL */ `
   query ProfileUser {
     me {
+      isVerifiedGovEmployee
       ...ProfileWorkPreferences
       ...ProfileDiversityEquityInclusion
       ...ProfilePriorityEntitlements
@@ -125,9 +126,11 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
         </TableOfContents.List>
         <Separator space="sm" />
         <div className="flex flex-col gap-y-3">
-          <Link href={paths.employeeProfile()}>
-            {intl.formatMessage(navigationMessages.employeeProfileGC)}
-          </Link>
+          {user.isVerifiedGovEmployee && (
+            <Link href={paths.employeeProfile()}>
+              {intl.formatMessage(navigationMessages.employeeProfileGC)}
+            </Link>
+          )}
           <Link href={paths.accountSettings()}>
             {intl.formatMessage(navigationMessages.accountSettings)}
           </Link>
