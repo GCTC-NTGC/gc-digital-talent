@@ -2219,8 +2219,15 @@ input AssessmentStepBelongsTo {
   disconnect: Boolean
 }
 
+input ReferralPauseInput {
+  referralPauseLength: ReferralPauseLength
+  referralUnpauseAt: Date
+  referralPauseReason: String
+}
+
 input QualifyCandidateInput {
   expiryDate: Date!
+  referralPause: ReferralPauseInput
 }
 
 input PlaceCandidateInput {
@@ -2232,6 +2239,7 @@ input QualifyAndPlaceCandidateInput {
   expiryDate: Date!
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  referralPause: ReferralPauseInput
 }
 
 input CreateDepartmentInput {
@@ -3235,9 +3243,7 @@ type Mutation {
 
   pauseCandidateReferral(
     id: UUID!
-    referralPauseLength: ReferralPauseLength
-    referralUnpauseAt: Date
-    referralPauseReason: String
+    referralPause: ReferralPauseInput!
   ): PoolCandidate
     @guard
     @validator

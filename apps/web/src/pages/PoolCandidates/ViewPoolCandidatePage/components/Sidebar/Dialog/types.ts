@@ -6,6 +6,7 @@ import {
   CandidateRemovalReason,
   DisqualificationReason,
   PlacementType,
+  ReferralPauseLength,
   Scalars,
 } from "@gc-digital-talent/graphql";
 
@@ -17,6 +18,10 @@ export interface FormValues {
   disqualificationReason?: DisqualificationReason;
   removalReason?: CandidateRemovalReason;
   removalReasonOther?: Scalars["String"]["input"];
+  referralPauseStatus: boolean;
+  referralPauseLength?: ReferralPauseLength;
+  referralUnpauseAt?: Scalars["Date"]["input"];
+  referralPauseReason?: string;
 }
 
 export interface MutationMessages {

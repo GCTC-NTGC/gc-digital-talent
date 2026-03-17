@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
@@ -8,67 +8,34 @@ import {
   getFragment,
   graphql,
   ReferralPauseLength,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import {
-  Checkbox,
-  DateInput,
-  Select,
-  TextArea,
-} from "@gc-digital-talent/forms";
-import {
-  errorMessages,
-  sortLocalizedEnumOptions,
-  ENUM_SORT_ORDER,
-  narrowEnumType,
-  commonMessages,
-  Locales,
-  getLocale,
-} from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 import Footer from "./Footer";
+import PauseReferralFormFields from "./FormFields/PauseReferralFormFields";
+import { FormValues } from "./types";
 
-const ApplicationReferralPauseOptions_Query = graphql(/** GraphQL */ `
-  query ApplicationReferralPauseOptions {
-    referralPauseLengths: localizedEnumOptions(
-      enumName: "ReferralPauseLength"
-    ) {
-      ... on LocalizedReferralPauseLength {
-        value
-        label {
-          localized
-        }
-      }
-    }
+const ApplicationPauseReferralOptions_Query = graphql(/** GraphQL */ `
+  query ApplicationPauseReferralOptions {
+    ...PauseReferralFormFields
   }
 `);
 
 const ApplicationPauseReferralDialog_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationPauseReferralDialog on PoolCandidate {
     id
-    expiryDate
+
+    ...PauseReferralFormMeta
   }
 `);
 
 const ApplicationPauseReferralDialog_Mutation = graphql(/** GraphQL */ `
   mutation pauseCandidateReferral(
     $id: UUID!
-    $referralPauseLength: ReferralPauseLength
-    $referralUnpauseAt: Date
-    $referralPauseReason: String
+    $referralPause: ReferralPauseInput!
   ) {
-    pauseCandidateReferral(
-      id: $id
-      referralPauseLength: $referralPauseLength
-      referralUnpauseAt: $referralUnpauseAt
-      referralPauseReason: $referralPauseReason
-    ) {
+    pauseCandidateReferral(id: $id, referralPause: $referralPause) {
       id
       referralPauseAt
       referralUnpauseAt
@@ -76,16 +43,6 @@ const ApplicationPauseReferralDialog_Mutation = graphql(/** GraphQL */ `
     }
   }
 `);
-
-const TEXT_AREA_ROWS = 3;
-const TEXT_AREA_MAX_WORDS_EN = 200;
-
-interface FormValues {
-  referralPauseStatus: boolean;
-  referralPauseLength?: ReferralPauseLength;
-  referralUnpauseAt?: Scalars["Date"]["input"];
-  referralPauseReason?: string;
-}
 
 interface ApplicationPauseReferralDialogProps {
   query: FragmentType<typeof ApplicationPauseReferralDialog_Fragment>;
@@ -95,11 +52,10 @@ const ApplicationPauseReferralDialog = ({
   query,
 }: ApplicationPauseReferralDialogProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const [{ data: options, fetching, error }] = useQuery({
-    query: ApplicationReferralPauseOptions_Query,
+    query: ApplicationPauseReferralOptions_Query,
   });
   const application = getFragment(
     ApplicationPauseReferralDialog_Fragment,
@@ -116,9 +72,7 @@ const ApplicationPauseReferralDialog = ({
     },
   });
 
-  const { watch, handleSubmit: submit, resetField } = methods;
-  const pauseStatus = watch("referralPauseStatus");
-  const pauseLength = watch("referralPauseLength");
+  const { handleSubmit: submit } = methods;
 
   const handleError = () => {
     toast.error(
@@ -133,12 +87,14 @@ const ApplicationPauseReferralDialog = ({
   const handleSubmit = async (values: FormValues) => {
     await executePauseCandidateReferral({
       id: application.id,
-      referralPauseLength: values.referralPauseLength,
-      referralUnpauseAt:
-        values.referralPauseLength === ReferralPauseLength.Other
-          ? values.referralUnpauseAt
-          : null,
-      referralPauseReason: values.referralPauseReason,
+      referralPause: {
+        referralPauseLength: values.referralPauseLength,
+        referralUnpauseAt:
+          values.referralPauseLength === ReferralPauseLength.Other
+            ? values.referralUnpauseAt
+            : null,
+        referralPauseReason: values.referralPauseReason,
+      },
     })
       .then((res) => {
         if (!res.data || res.error) {
@@ -159,43 +115,6 @@ const ApplicationPauseReferralDialog = ({
       })
       .catch(handleError);
   };
-
-  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
-
-  const referralPauseLengthOptions = sortLocalizedEnumOptions(
-    ENUM_SORT_ORDER.REFERRAL_PAUSE_LENGTH,
-    narrowEnumType(
-      unpackMaybes(options?.referralPauseLengths),
-      "ReferralPauseLength",
-    ),
-  ).map((referralPauseLength) => ({
-    value: referralPauseLength.value,
-    label: referralPauseLength.label.localized ?? notAvailable,
-  }));
-
-  /**
-   * Reset all fields when employmentCategory field is changed
-   */
-  useEffect(() => {
-    const resetDirtyField = (name: keyof FormValues) => {
-      resetField(name, { keepDirty: false, defaultValue: undefined });
-    };
-
-    if (!pauseStatus) {
-      resetDirtyField("referralPauseLength");
-      resetDirtyField("referralPauseReason");
-      resetDirtyField("referralUnpauseAt");
-    }
-
-    if (pauseLength !== ReferralPauseLength.Other) {
-      resetDirtyField("referralUnpauseAt");
-    }
-  }, [pauseStatus, pauseLength]);
-
-  const wordCountLimits: Record<Locales, number> = {
-    en: TEXT_AREA_MAX_WORDS_EN,
-    fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
-  } as const;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
@@ -238,108 +157,10 @@ const ApplicationPauseReferralDialog = ({
             <FormProvider {...methods}>
               <form onSubmit={submit(handleSubmit)}>
                 <div className="flex flex-col gap-6">
-                  <Checkbox
-                    id="referralPauseStatus"
-                    name="referralPauseStatus"
-                    boundingBox
-                    boundingBoxLabel={intl.formatMessage({
-                      defaultMessage: "Paused referral status",
-                      id: "F/zEUH",
-                      description:
-                        "Bounding box label for pause referral status checkbox input",
-                    })}
-                    label={intl.formatMessage({
-                      defaultMessage: "Pause candidate referral",
-                      id: "Q/Fbat",
-                      description:
-                        "Label for pause referral status checkbox input",
-                    })}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
+                  <PauseReferralFormFields
+                    optionsQuery={options}
+                    metaQuery={application}
                   />
-                  {pauseStatus && (
-                    <>
-                      <Select
-                        id="referralPauseLength"
-                        name="referralPauseLength"
-                        options={referralPauseLengthOptions}
-                        label={intl.formatMessage({
-                          defaultMessage: "Pause length",
-                          id: "eUjL9C",
-                          description:
-                            "Label for pause referral status select input",
-                        })}
-                        nullSelection={intl.formatMessage({
-                          defaultMessage: "Select a pause length",
-                          id: "hGBUc+",
-                          description:
-                            "Null selection for pause referral select input",
-                        })}
-                        rules={{
-                          required: intl.formatMessage(errorMessages.required),
-                        }}
-                        doNotSort
-                      />
-                      {pauseLength === ReferralPauseLength.Other && (
-                        <DateInput
-                          id="referralUnpauseAt"
-                          name="referralUnpauseAt"
-                          rules={{
-                            required: intl.formatMessage(
-                              errorMessages.required,
-                            ),
-                            min: {
-                              value: strToFormDate(new Date().toISOString()),
-                              message: intl.formatMessage(
-                                errorMessages.invalidDate,
-                              ),
-                            },
-                            max: {
-                              value: strToFormDate(
-                                application.expiryDate ?? "",
-                              ),
-                              message: intl.formatMessage(
-                                {
-                                  defaultMessage:
-                                    "Pause end date cannot be after this candidate's pool expiry date ({date}).",
-                                  id: "yoSmU/",
-                                  description:
-                                    "Error message for pause referral status end date input",
-                                },
-                                {
-                                  date: strToFormDate(
-                                    application.expiryDate ?? notAvailable,
-                                  ),
-                                },
-                              ),
-                            },
-                          }}
-                          legend={intl.formatMessage({
-                            defaultMessage: "Pause referral end date",
-                            id: "u3ardU",
-                            description:
-                              "Label for pause referral status end date input",
-                          })}
-                        />
-                      )}
-                      <TextArea
-                        id="referralPauseReason"
-                        name="referralPauseReason"
-                        rows={TEXT_AREA_ROWS}
-                        wordLimit={wordCountLimits[locale]}
-                        label={intl.formatMessage({
-                          defaultMessage: "Pause reason",
-                          id: "Yo8gFh",
-                          description:
-                            "Label for pause referral status dialog reason input",
-                        })}
-                        rules={{
-                          required: intl.formatMessage(errorMessages.required),
-                        }}
-                      />
-                    </>
-                  )}
                 </div>
                 <Footer />
               </form>

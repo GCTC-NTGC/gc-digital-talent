@@ -7,6 +7,7 @@ import {
   FragmentType,
   getFragment,
   graphql,
+  PlacementType,
 } from "@gc-digital-talent/graphql";
 import { DateInput, RadioGroup, TextArea } from "@gc-digital-talent/forms";
 import {
@@ -28,10 +29,12 @@ import applicationMessages from "~/messages/applicationMessages";
 
 import { FormValues } from "../types";
 import JobPlacementFormFields from "../FormFields/JobPlacementFormFields";
+import PauseReferralFormFields from "./PauseReferralFormFields";
 
 const QualifiedFieldsOptions_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedFieldsOptions on Query {
     ...JobPlacementFormFields
+    ...PauseReferralFormFields
   }
 `);
 
@@ -45,6 +48,7 @@ export const QualifiedFields = ({ query }: QualifiedFieldsProps) => {
   const { watch } = useFormContext<FormValues>();
   const options = getFragment(QualifiedFieldsOptions_Fragment, query);
   const status = watch("status");
+  const placementType = watch("placementType");
 
   if (status !== ApplicationStatus.Qualified) return null;
 
@@ -79,7 +83,14 @@ export const QualifiedFields = ({ query }: QualifiedFieldsProps) => {
         }}
       />
 
-      {canPlace && <JobPlacementFormFields query={options} />}
+      {canPlace && (
+        <>
+          <JobPlacementFormFields query={options} />
+          {placementType !== PlacementType.PlacedIndeterminate && (
+            <PauseReferralFormFields optionsQuery={options} />
+          )}
+        </>
+      )}
     </>
   );
 };

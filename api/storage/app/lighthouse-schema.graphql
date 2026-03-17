@@ -594,7 +594,7 @@ type Mutation {
   placeCandidate(id: UUID!, poolCandidate: PlaceCandidateInput!): PoolCandidate
   revertPlaceCandidate(id: UUID!): PoolCandidate
   qualifyAndPlaceCandidate(id: UUID!, poolCandidate: QualifyAndPlaceCandidateInput!): PoolCandidate
-  pauseCandidateReferral(id: UUID!, referralPauseLength: ReferralPauseLength, referralUnpauseAt: Date, referralPauseReason: String): PoolCandidate
+  pauseCandidateReferral(id: UUID!, referralPause: ReferralPauseInput!): PoolCandidate
   unpauseCandidateReferral(id: UUID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
@@ -2186,8 +2186,15 @@ input AssessmentStepBelongsTo {
   disconnect: Boolean
 }
 
+input ReferralPauseInput {
+  referralPauseLength: ReferralPauseLength
+  referralUnpauseAt: Date
+  referralPauseReason: String
+}
+
 input QualifyCandidateInput {
   expiryDate: Date!
+  referralPause: ReferralPauseInput
 }
 
 input PlaceCandidateInput {
@@ -2199,6 +2206,7 @@ input QualifyAndPlaceCandidateInput {
   expiryDate: Date!
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  referralPause: ReferralPauseInput
 }
 
 input CreateDepartmentInput {
@@ -3721,6 +3729,7 @@ enum ErrorCode {
   ASSESSMENT_STEP_PROHIBITED
   ASSESSMENT_STEP_CANDIDATE_SAME_POOL
   INVALID_PAUSE_REFERRAL
+  INVALID_UNPAUSE_AT_DATE
   POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES
   POOL_SKILL_NOT_VALID
   TEAM_ID_REQUIRED
