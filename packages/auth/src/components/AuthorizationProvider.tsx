@@ -23,15 +23,6 @@ const authorizationQuery = graphql(/** GraphQL */ `
             fr
           }
         }
-        teamable {
-          id
-          ... on Community {
-            id
-          }
-          ... on Department {
-            id
-          }
-        }
         team {
           id
           name
