@@ -13,8 +13,12 @@ final class QualifyCandidate
     {
         $candidate = PoolCandidate::findOrFail($args['id']);
         $expiryDate = $args['expiryDate'];
+        $referralPauseLength = $args['referralPause']['referralPauseLength'] ?? null;
+        $referralPauseReason = $args['referralPause']['referralPauseReason'] ?? null;
+        $referralUnpauseAt = $args['referralPause']['referralUnpauseAt'] ?? null;
 
         $candidate->qualify($expiryDate);
+        $candidate->pauseReferral($referralPauseLength, $referralPauseReason, $referralUnpauseAt);
 
         return $candidate;
     }

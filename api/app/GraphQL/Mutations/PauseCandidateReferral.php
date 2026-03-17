@@ -13,9 +13,9 @@ final class PauseCandidateReferral
     {
         $candidate = PoolCandidate::findOrFail($args['id']);
 
-        $referralPauseLength = $args['referralPauseLength'] ?? null;
-        $referralPauseReason = $args['referralPauseReason'] ?? null;
-        $referralUnpauseAt = $args['referralUnpauseAt'] ?? null;
+        $referralPauseLength = $args['referralPause']['referralPauseLength'] ?? null;
+        $referralPauseReason = $args['referralPause']['referralPauseReason'] ?? null;
+        $referralUnpauseAt = $args['referralPause']['referralUnpauseAt'] ?? null;
 
         $candidate->pauseReferral($referralPauseLength, $referralPauseReason, $referralUnpauseAt);
 

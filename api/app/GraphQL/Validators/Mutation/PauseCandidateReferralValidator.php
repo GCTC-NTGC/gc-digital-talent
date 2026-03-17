@@ -29,14 +29,14 @@ final class PauseCandidateReferralValidator extends Validator
                 'exists:pool_candidates,id',
                 new CanPauseCandidateReferral,
             ],
-            'referralPauseLength' => ['required', Rule::in(array_column(ReferralPauseLength::cases(), 'name'))],
-            'referralUnpauseAt' => [
+            'referralPause.referralPauseLength' => ['required', Rule::in(array_column(ReferralPauseLength::cases(), 'name'))],
+            'referralPause.referralUnpauseAt' => [
                 Rule::when(
-                    fn (): bool => $this->arg('referralPauseLength') === ReferralPauseLength::OTHER->name,
+                    fn (): bool => $this->arg('referralPause.referralPauseLength') === ReferralPauseLength::OTHER->name,
                     ['required', 'date', 'after:today', 'before_or_equal:'.$candidate->expiry_date]
                 ),
             ],
-            'referralPauseReason' => ['required', 'string'],
+            'referralPause.referralPauseReason' => ['required', 'string'],
         ];
     }
 
