@@ -128,7 +128,9 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
           <Link href={paths.employeeProfile()}>
             {intl.formatMessage(navigationMessages.employeeProfileGC)}
           </Link>
-          <Link href={paths.accountSettings()}></Link>
+          <Link href={paths.accountSettings()}>
+            {intl.formatMessage(navigationMessages.accountSettings)}
+          </Link>
         </div>
       </TableOfContents.Navigation>
       <TableOfContents.Content>
