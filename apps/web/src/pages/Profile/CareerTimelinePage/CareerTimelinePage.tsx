@@ -85,10 +85,12 @@ const CareerTimelinePage = ({ loaderData }: Route.ComponentProps) => {
           description: "Descriptive paragraph for the career timeline page.",
         })}
       </p>
-      <CareerTimelineSection
-        experiencesQuery={unpackMaybes(user.experiences)}
-        userId={user.id}
-      />
+      <div className="mb-18">
+        <CareerTimelineSection
+          experiencesQuery={unpackMaybes(user.experiences)}
+          userId={user.id}
+        />
+      </div>
     </>
   );
 };
