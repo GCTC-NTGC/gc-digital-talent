@@ -433,6 +433,15 @@ class Pool extends Model
         return $this->team?->id;
     }
 
+    public function screeningStep(): Attribute
+    {
+        return Attribute::get(function () {
+            return $this->loadMissing(['assessmentSteps'])
+                ->assessmentSteps
+                ->firstWhere('type', AssessmentStepType::APPLICATION_SCREENING->name);
+        });
+    }
+
     /**
      * Get the display name (normal variant) for the model.
      */
@@ -441,7 +450,6 @@ class Pool extends Model
         return Attribute::make(
             get: function ($_, $attributes) {
                 $locale = app()->getLocale();
-                $this->loadMissing(['classification']);
                 $definitions = [];
                 if ($definition = $this->classification->getDefinition()) {
                     $definitions = [$definition];
@@ -467,7 +475,6 @@ class Pool extends Model
         return Attribute::make(
             get: function ($_, $attributes) {
                 $locale = app()->getLocale();
-                $this->loadMissing(['classification']);
                 $definitions = [];
                 if ($definition = $this->classification->getDefinition()) {
                     $definitions = [$definition];
@@ -500,7 +507,6 @@ class Pool extends Model
         $classification = $this->classification->formattedGroupAndLevel ?? '';
 
         if ($full) {
-            $this->loadMissing(['workStream']);
             $stream = $this->workStream?->name[$locale] ?? '';
             $append = match (true) {
                 $stream && $classification => " ($classification $stream)",

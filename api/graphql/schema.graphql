@@ -152,10 +152,11 @@ type User {
     @with(relation: "workExperiences")
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
-  topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
-  topBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills")
-  improveTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
-  improveBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills.skill")
+  topBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills.skill")
+  improveTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills.skill")
+  improveBehaviouralSkillsRanking: [UserSkill]
+    @with(relation: "userSkills.skill")
   # Profile Status
   isProfileComplete: Boolean
   priorityWeight: Int @rename(attribute: "priority_weight")
@@ -462,7 +463,10 @@ type Pool implements HasRoleAssignments {
   teamId: UUID! @rename(attribute: "team.id") @with(relation: "team")
   name: LocalizedString
   displayName: DefinedString
+    @with(relations: ["classification", "workStream"])
+    @rename(attribute: "display_name")
   fullDisplayName: DefinedString
+    @with(relations: ["classification", "workStream"])
   classification: Classification @belongsTo
   operationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "operational_requirements")
@@ -717,6 +721,7 @@ type PoolCandidateAdminView {
   isBookmarked: Boolean
   category: PoolCandidateCategory @with(relation: "user")
   screeningResult: LocalizedAssessmentDecision
+    @with(relation: "pool.assessmentSteps")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
   assessmentStep: AssessmentStep @belongsTo
@@ -910,6 +915,7 @@ type TalentNominationGroup {
   talentNominationEvent: TalentNominationEvent! @belongsTo
   advancementNominationCount: Int
     @rename(attribute: "advancement_nomination_count")
+    @with(relation: "nominations")
   advancementDecision: LocalizedTalentNominationGroupDecision
     @rename(attribute: "advancement_decision")
   advancementReferenceConfirmed: Boolean
@@ -917,16 +923,20 @@ type TalentNominationGroup {
   advancementNotes: String @rename(attribute: "advancement_notes")
   lateralMovementNominationCount: Int
     @rename(attribute: "lateral_movement_nomination_count")
+    @with(relation: "nominations")
   lateralMovementDecision: LocalizedTalentNominationGroupDecision
     @rename(attribute: "lateral_movement_decision")
   lateralMovementNotes: String @rename(attribute: "lateral_movement_notes")
   developmentProgramsNominationCount: Int
     @rename(attribute: "development_programs_nomination_count")
+    @with(relation: "nominations")
   developmentProgramsDecision: LocalizedTalentNominationGroupDecision
     @rename(attribute: "development_programs_decision")
   developmentProgramsNotes: String
     @rename(attribute: "development_programs_notes")
-  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  consentToShareProfile: Boolean
+    @rename(attribute: "consent_to_share_profile")
+    @with(relation: "talentNominationEvent")
   status: LocalizedTalentNominationGroupStatus
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
@@ -958,7 +968,7 @@ type Role {
 type RoleAssignment {
   id: ID!
   role: Role @belongsTo
-  teamable: HasRoleAssignments @guard # Returns the related team, if it has a teamable returns that instead, guarded in the accessor
+  teamable: HasRoleAssignments @guard @with(relation: "team.teamable") # Returns the related team, if it has a teamable returns that instead, guarded in the accessor
   team: Team @belongsTo
   user: UserPublicProfile @morphTo
 }
