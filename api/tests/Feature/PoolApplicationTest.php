@@ -77,8 +77,8 @@ class PoolApplicationTest extends TestCase
     protected $createMutationDocument =
         /** @lang GraphQL */
         '
-        mutation createApplication($userId: ID!, $poolId: ID!){
-            createApplication(userId: $userId, poolId: $poolId) {
+        mutation createApplication($poolId: ID!){
+            createApplication(poolId: $poolId) {
                 user {
                     id
                 }
@@ -181,7 +181,6 @@ class PoolApplicationTest extends TestCase
         ]);
 
         $variables = [
-            'userId' => $this->applicantUser->id,
             'poolId' => $pool->id,
         ];
 
@@ -203,7 +202,7 @@ class PoolApplicationTest extends TestCase
 
         // Guest users cannot create applications
         $this->graphQL($this->createMutationDocument, $variables)
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+            ->assertGraphQLErrorMessage('Unauthenticated.');
 
         // Assert creating a pool application succeeds
         // returns DRAFT as a result of application_status Accessor and unexpired pool
@@ -234,7 +233,6 @@ class PoolApplicationTest extends TestCase
         ]);
 
         $variables = [
-            'userId' => $this->applicantUser->id,
             'poolId' => $pool->id,
         ];
 

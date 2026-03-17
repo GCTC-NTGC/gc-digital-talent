@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef } from "react";
+import { useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import {
@@ -44,6 +45,7 @@ import useSelectedRows from "~/hooks/useSelectedRows";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { parseFilterParam } from "~/components/Table/ResponsiveTable/utils";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
@@ -87,8 +89,8 @@ import PoolCandidateFilterDialog, {
 } from "./PoolCandidateFilterDialog";
 import { FormValues } from "./types";
 import {
-  JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
+  JobPlacementDialogCandidateTable_Fragment,
 } from "../PoolCandidateDialogs/JobPlacementDialog";
 import { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
@@ -204,7 +206,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
         poolCandidate {
           ...JobPlacementDialogCandidateTable
           id
-          ...PoolCandidateTable_Flag
           notes
           status {
             value
@@ -287,7 +288,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             areaOfSelection {
               value
             }
-            screeningQuestionsCount
             contactEmail
           }
           assessmentStatus {
@@ -453,13 +453,14 @@ const PoolCandidatesTable = ({
     ...defaultState,
     sortState: defaultSortState,
   });
-  const searchParams = new URLSearchParams(window.location.search);
-  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+  const [searchParams] = useSearchParams();
+  const filtersEncoded = searchParams.get(
+    SEARCH_PARAM_KEY.POOL_CANDIDATE_FILTERS,
+  );
   const initialFilters = useMemo(
     () =>
-      filtersEncoded
-        ? (JSON.parse(filtersEncoded) as PoolCandidateSearchInput)
-        : initialFilterInput,
+      parseFilterParam<PoolCandidateSearchInput>(filtersEncoded) ??
+      initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
 
@@ -965,7 +966,9 @@ const PoolCandidatesTable = ({
           },
         }) =>
           jobPlacementDialogAccessor(
-            poolCandidate as FragmentType<typeof JobPlacementDialog_Fragment>,
+            poolCandidate as FragmentType<
+              typeof JobPlacementDialogCandidateTable_Fragment
+            >,
             tableData,
           ),
         enableSorting: false,
@@ -1119,6 +1122,7 @@ const PoolCandidatesTable = ({
       columns={columns}
       isLoading={fetching || fetchingTableData}
       hiddenColumnIds={hiddenColumnIds}
+      filterParamKey={SEARCH_PARAM_KEY.POOL_CANDIDATE_FILTERS}
       search={{
         internal: false,
         label: intl.formatMessage({

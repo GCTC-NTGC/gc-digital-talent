@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
 
 /**
  * Class ApplicantFilter
@@ -21,8 +22,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property array $location_preferences
  * @property array $operational_requirements
  * @property array $qualified_streams
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property array $flexible_work_locations
  */
 class ApplicantFilter extends Model

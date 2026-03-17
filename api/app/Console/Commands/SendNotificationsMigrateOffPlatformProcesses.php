@@ -42,7 +42,7 @@ class SendNotificationsMigrateOffPlatformProcesses extends Command
             $notification = new MigrateOffPlatformProcesses();
 
             $users->chunk(200, function (Collection $chunkOfUsers) use (&$successCount, &$failureCount, $progressBar, $notification) {
-                /** @var \App\Models\User $user */
+                /** @var User $user */
                 foreach ($chunkOfUsers as $user) {
                     try {
                         $user->notify($notification);

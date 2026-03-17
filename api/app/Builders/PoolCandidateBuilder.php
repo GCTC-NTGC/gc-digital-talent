@@ -84,7 +84,7 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this->whereHas('pool', function (Builder $query) use ($publishingGroups) {
-            /** @var \App\Builders\PoolBuilder $query */
+            /** @var PoolBuilder $query */
             $query->publishingGroups($publishingGroups);
         });
     }
@@ -501,7 +501,7 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this->whereHas('pool', function (Builder $query) use ($streams) {
-            /** @var \App\Builders\PoolBuilder $query */
+            /** @var PoolBuilder $query */
             $query->whereWorkStreamsIn($streams);
         });
     }
@@ -528,7 +528,7 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this->whereHas('pool', function (Builder $query) use ($processNumber) {
-            /** @var \App\Builders\PoolBuilder $query */
+            /** @var PoolBuilder $query */
             $query->processNumber($processNumber);
         });
     }
@@ -564,7 +564,7 @@ class PoolCandidateBuilder extends Builder
             return $this;
         }
 
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if ($user && ! empty($args['useBookmark'])) {
@@ -684,7 +684,7 @@ class PoolCandidateBuilder extends Builder
      */
     public function whereAuthorizedToView(?array $args = null): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -738,7 +738,7 @@ class PoolCandidateBuilder extends Builder
     // main authorization scope for viewing PoolCandidateAdminView
     public function whereAuthorizedToViewPoolCandidateAdminView(): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (! $user) {

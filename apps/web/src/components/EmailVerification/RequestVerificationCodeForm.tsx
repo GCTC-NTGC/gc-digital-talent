@@ -19,7 +19,7 @@ import {
 
 import { useEmailVerification } from "./EmailVerification";
 
-export const labels: Record<EmailType, MessageDescriptor> = {
+const labels: Record<EmailType, MessageDescriptor> = {
   WORK: commonMessages.workEmail,
   CONTACT: commonMessages.email,
 };

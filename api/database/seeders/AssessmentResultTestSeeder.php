@@ -22,7 +22,7 @@ class AssessmentResultTestSeeder extends Seeder
     /**
      * The current Faker instance.
      *
-     * @var \Faker\Generator
+     * @var Generator
      */
     protected $faker;
 
@@ -162,7 +162,7 @@ class AssessmentResultTestSeeder extends Seeder
                 null,
                 [AssessmentResultJustification::EDUCATION_ACCEPTED_WORK_EXPERIENCE_EQUIVALENCY->name],
                 AssessmentDecision::HOLD->name,
-                assessmentResultType::EDUCATION);
+                AssessmentResultType::EDUCATION);
             $this->assessSkillsWithLevelAndJustification(
                 $poolCandidate7,
                 $assessmentStep->poolSkills,
@@ -170,7 +170,7 @@ class AssessmentResultTestSeeder extends Seeder
                 null,
                 null,
                 AssessmentDecision::HOLD->name,
-                assessmentResultType::SKILL);
+                AssessmentResultType::SKILL);
 
             $user8 = User::select('id')->where('email', 'unsuccessful@test.com')->sole();
             $poolCandidate8 = PoolCandidate::select('id')->where('user_id', $user8->id)->where('pool_id', $publishedPool->id)->sole();

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * @template TModelClass of \Illuminate\Database\Eloquent\Model
  *
- * @extends \Illuminate\Database\Eloquent\Builder<TModelClass>
+ * @extends Builder<TModelClass>
  */
 class UserBuilder extends Builder
 {
@@ -479,9 +479,20 @@ class UserBuilder extends Builder
         return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
     }
 
+    // just calls another scope, but calling the scope from Lighthouse requires accepting an args array
+    public function whereWorkEmailSearch(?array $args): self
+    {
+        return $this->whereWorkEmail($args['search'] ?? null);
+    }
+
     public function whereExactWorkEmail(string $email): self
     {
         return $this->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
+    }
+
+    public function whereWorkEmailIsVerified(): self
+    {
+        return $this->whereNotNull('work_email_verified_at');
     }
 
     public function whereIsGovEmployee(?bool $isGovEmployee): self
@@ -563,7 +574,7 @@ class UserBuilder extends Builder
 
     public function whereAuthorizedToView(?array $args = null): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -637,7 +648,7 @@ class UserBuilder extends Builder
 
     public function whereAuthorizedToViewBasicInfo(): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         // special case: can see any basic info - return all users with no filters added
@@ -755,5 +766,14 @@ class UserBuilder extends Builder
         }
 
         return $this;
+    }
+
+    /**
+     * Used to limit rows for search results.
+     * This seems pretty silly but I haven't figured out how to enforce a server-side limit in Lighthouse directives.
+     */
+    public function limitFive(): void
+    {
+        $this->limit(5);
     }
 }

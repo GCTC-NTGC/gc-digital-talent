@@ -395,6 +395,7 @@ type MigrateOffPlatformProcessesNotification implements Notification {
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
+  workEmail: Email @rename(attribute: "work_email")
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
 }
@@ -408,6 +409,12 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")
+}
+
+# Mini type to support search by work email
+type UserWorkEmail @model(class: "\\App\\Models\\User") {
+  id: ID!
+  workEmail: Email @rename(attribute: "work_email")
 }
 
 type GeneralQuestion {
@@ -497,7 +504,6 @@ type Pool implements HasRoleAssignments {
   screeningQuestions: [ScreeningQuestion]
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
-  screeningQuestionsCount: Int @count(relation: "screeningQuestions")
   closingDate: DateTime @rename(attribute: "closing_date")
   closingReason: String @rename(attribute: "closing_reason")
   publishedAt: DateTime @rename(attribute: "published_at")
@@ -1476,6 +1482,13 @@ type Query {
     @guard
     @validator
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
+  workEmails(search: String): [UserWorkEmail!]!
+    @all(
+      model: "User"
+      scopes: ["whereWorkEmailIsVerified", "whereWorkEmailSearch", "limitFive"]
+    )
+    @guard
+    @canModel(ability: "viewAnyUserWorkEmail", model: "User")
   usersPaginated(
     where: UserFilterInput
       @scope(name: "whereUserFilterInputToSpecialLocationMatching")
@@ -2749,7 +2762,6 @@ input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   workStream: WorkStreamBelongsTo
   processNumber: String @rename(attribute: "process_number")
   # Closing date
@@ -3395,9 +3407,13 @@ type Mutation {
   # Pool mutations
   createPool(
     userId: ID! @rename(attribute: "user_id")
-    communityId: ID! @rename(attribute: "community_id")
+    communityId: ID @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
-  ): Pool @create @guard @canModel(ability: "create", injectArgs: true)
+  ): Pool
+    @create
+    @guard
+    @canModel(ability: "create", injectArgs: true)
+    @validator(class: "Mutation\\CreatePoolValidator")
   duplicatePool(id: ID!, pool: DuplicatePoolInput! @spread): Pool
     @guard
     @canModel(ability: "duplicate", injectArgs: true)
@@ -3459,7 +3475,8 @@ type Mutation {
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
     @guard
     @canFind(ability: "suspend", find: "id")
-  createApplication(userId: ID!, poolId: ID!): PoolCandidate
+  createApplication(poolId: ID!): PoolCandidate
+    @guard
     @canModel(ability: "createDraft")
   deleteApplication(id: ID!): PoolCandidate
     @guard

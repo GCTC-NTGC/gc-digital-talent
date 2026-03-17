@@ -143,6 +143,9 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
       community {
         teamIdForRoleAssignment
       }
+      department {
+        teamIdForRoleAssignment
+      }
       teamIdForRoleAssignment
     }
   }
@@ -186,6 +189,13 @@ export const AssessmentPlanBuilderPage = () => {
         (authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityAdmin &&
           authorizedRoleAssignment.team?.id ===
             queryData?.pool?.community?.teamIdForRoleAssignment) ||
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.DepartmentAdmin &&
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.department?.teamIdForRoleAssignment) ||
+        (authorizedRoleAssignment.role?.name ===
+          ROLE_NAME.DepartmentHRAdvisor &&
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.department?.teamIdForRoleAssignment) ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
     ) ?? false;
 
@@ -249,6 +259,8 @@ export const Component = () => (
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.ProcessOperator,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
     ]}
   >
     <AssessmentPlanBuilderPage />

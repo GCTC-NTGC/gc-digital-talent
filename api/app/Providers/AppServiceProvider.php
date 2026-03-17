@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use PhpOffice\PhpWord\Settings;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
 
         // https://github.com/PHPOffice/PHPWord/issues/2524#issuecomment-1847981808
         // https://phpoffice.github.io/PHPWord/usage/introduction.html#output-escaping
-        \PhpOffice\PhpWord\Settings::setOutputEscapingEnabled(true);
+        Settings::setOutputEscapingEnabled(true);
 
         // enable below for database debugging
         // DB::listen(function ($query) {

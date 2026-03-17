@@ -7,7 +7,7 @@ import { Card } from "@gc-digital-talent/ui";
  * @member {ReactNode} leftElement the JSX element to be displayed in the left half
  * @member {ReactNode} rightElement the JSX element to be displayed in the right half
  */
-export interface MessageTwoSectionsProps {
+interface MessageTwoSectionsProps {
   leftElement: ReactNode;
   rightElement: ReactNode;
 }

@@ -214,7 +214,6 @@ test.describe("Process activity log", () => {
       applicant = await me(applicantCtx, {});
 
       const application = await createAndSubmitApplication(applicantCtx, {
-        userId: applicant.id,
         poolId: poolId,
         personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
         signature: `${applicant.firstName} signature`,

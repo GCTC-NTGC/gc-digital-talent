@@ -27,9 +27,7 @@ export interface FormValues
   userId: string | null;
 }
 
-export function parseMaybeStringToBoolean(
-  value: string | null | undefined,
-): boolean {
+function parseMaybeStringToBoolean(value: string | null | undefined): boolean {
   if (typeof value === "string" && value.toLocaleLowerCase() === "true") {
     return true;
   }

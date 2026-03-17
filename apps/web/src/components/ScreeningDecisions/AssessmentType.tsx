@@ -9,9 +9,9 @@ import {
 
 import { ClassificationGroup } from "~/types/classificationGroup";
 
-import { DialogType } from "./useDialogType";
 import {
   DIALOG_TYPE,
+  DialogType,
   getEducationRequirementLabel,
   getSkillLevelMessage,
 } from "./utils";

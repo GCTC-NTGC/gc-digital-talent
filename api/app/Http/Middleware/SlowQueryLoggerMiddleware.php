@@ -13,7 +13,7 @@ use Psr\Log\LoggerInterface;
 class SlowQueryLoggerMiddleware
 {
     /**
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     protected $logger;
 
