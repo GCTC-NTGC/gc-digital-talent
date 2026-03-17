@@ -1,7 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { TableOfContents } from "@gc-digital-talent/ui";
+import { Link, Separator, TableOfContents } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -18,6 +18,7 @@ import DiversityEquityInclusion from "~/components/Profile/components/DiversityE
 import PriorityEntitlements from "~/components/Profile/components/PriorityEntitlements/PriorityEntitlements";
 import { requireUser } from "~/routing/auth";
 import { graphqlClientContext, intlContext } from "~/routing/context";
+import useRoutes from "~/hooks/useRoutes";
 
 import type { Route } from "./+types/ProfilePage";
 
@@ -69,6 +70,7 @@ export async function clientLoader({ context }: Route.ClientLoaderArgs) {
 
 const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
   const { user } = loaderData;
 
   const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
@@ -121,6 +123,15 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
             </TableOfContents.AnchorLink>
           </TableOfContents.ListItem>
         </TableOfContents.List>
+        <Separator space="sm" />
+        <div className="flex flex-col gap-y-3">
+          <Link href={paths.employeeProfile()}>
+            {intl.formatMessage(navigationMessages.employeeProfileGC)}
+          </Link>
+          <Link href={paths.accountSettings()}>
+            {intl.formatMessage(navigationMessages.accountSettings)}
+          </Link>
+        </div>
       </TableOfContents.Navigation>
       <TableOfContents.Content>
         <div className="flex flex-col gap-y-18">

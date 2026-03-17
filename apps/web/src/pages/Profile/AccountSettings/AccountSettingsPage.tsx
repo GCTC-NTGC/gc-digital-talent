@@ -4,14 +4,16 @@ import { useMutation, useQuery } from "urql";
 
 import {
   Container,
+  Link,
   NotFound,
   Pending,
+  Separator,
   TableOfContents,
 } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -210,6 +212,15 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
                 );
               })}
             </TableOfContents.List>
+            <Separator space="sm" />
+            <div className="flex flex-col gap-y-3">
+              <Link href={paths.profile()}>
+                {intl.formatMessage(navigationMessages.applicantProfile)}
+              </Link>
+              <Link href={paths.employeeProfile()}>
+                {intl.formatMessage(navigationMessages.employeeProfileGC)}
+              </Link>
+            </div>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <TableOfContents.Section id={sections.personalInfo.id}>
