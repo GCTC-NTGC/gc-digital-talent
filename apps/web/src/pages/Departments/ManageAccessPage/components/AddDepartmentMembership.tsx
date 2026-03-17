@@ -16,7 +16,9 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   RoleInput,
-  DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
+  graphql,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
@@ -27,16 +29,29 @@ import useAvailableUsers from "./useAvailableUsers";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserDepartmentRoles_Mutation } from "./operations";
 
+const AddDepartmentMembership_Fragment = graphql(/* GraphQL */ `
+  fragment AddDepartmentMembership on Department {
+    id
+    name {
+      localized
+    }
+  }
+`);
+
 interface AddDepartmentMembershipDialogProps {
-  department: DepartmentManageAccessPageDepartmentFragmentType;
+  departmentQuery: FragmentType<typeof AddDepartmentMembership_Fragment>;
 }
 
 const AddDepartmentMembershipDialog = ({
-  department,
+  departmentQuery,
 }: AddDepartmentMembershipDialogProps) => {
   const intl = useIntl();
   const [query, setQuery] = useState<string>("");
   const { users, fetching: usersFetching } = useAvailableUsers(query);
+  const department = getFragment(
+    AddDepartmentMembership_Fragment,
+    departmentQuery,
+  );
 
   const { teamId } = useOutletContext<ContextType>();
   const { roles, fetching: rolesFetching } = useAvailableRoles({

@@ -79,6 +79,7 @@ const ManageAccessDepartmentPage_Query = graphql(/* GraphQL */ `
           lastName
         }
       }
+      ...AddDepartmentMembership
     }
   }
 `);
@@ -105,11 +106,12 @@ export async function clientLoader({
 
   return {
     department: res.data.department,
+    addDepartmentMembershipQuery: res.data.department,
   };
 }
 
 const Component = ({
-  loaderData: { department },
+  loaderData: { department, addDepartmentMembershipQuery },
   params: { departmentId },
 }: Route.ComponentProps) => {
   const intl = useIntl();
@@ -226,7 +228,9 @@ const Component = ({
           {...((canEditAdmin || canEditAdvisor) && {
             add: {
               component: (
-                <AddDepartmentMembershipDialog department={department} />
+                <AddDepartmentMembershipDialog
+                  departmentQuery={addDepartmentMembershipQuery}
+                />
               ),
             },
             nullMessage: {
