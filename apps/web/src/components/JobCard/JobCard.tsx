@@ -123,14 +123,18 @@ export const JobCard_Fragment = graphql(/* GraphQL */ `
 const PostedOnDate = ({
   publishedAt,
   applicantsCount,
+  className,
 }: {
   publishedAt?: Maybe<string>;
   applicantsCount?: Maybe<number>;
+  className?: string;
 }) => {
   const intl = useIntl();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   return (
-    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-200">
+    <div
+      className={`flex items-center gap-3 text-gray-600 dark:text-gray-200 ${className}`}
+    >
       <p>
         {intl.formatMessage(
           {
@@ -378,6 +382,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           <PostedOnDate
             publishedAt={pool.publishedAt}
             applicantsCount={pool.applicantsCount}
+            className="flex-col items-start min-[480px]:flex-row min-[480px]:items-center"
           />
         </div>
       </div>
