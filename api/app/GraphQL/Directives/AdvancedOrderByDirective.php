@@ -59,11 +59,13 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
      */
     protected function applyOrderClause($builder, array $input): void
     {
-        $direction = $input['direction'] ?? 'ASC';
+        $grammar = $builder->getQuery()->getGrammar();
+
+        $direction = strtoupper($input['direction'] ?? 'ASC');
         $nulls = $input['nulls'] ?? null;
 
         if (isset($input['column'])) {
-            $expression = "\"{$input['column']}\"";
+            $expression = $grammar->wrap($input['column']);
         } elseif (isset($input['scope'])) {
             $this->handleScopeOrder($builder, $input['scope'], $direction, $input);
 
@@ -78,14 +80,17 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             $expression = "LOWER({$expression})";
         }
 
-        // NOTE: Apparently this can be quite slow, we might want to investigate that
         if ($input['accentInsensitive'] ?? false) {
-            $expression = "unaccent({$expression})";
+            $expression = "f_unaccent({$expression})";
         }
 
-        $nullsOrder = $nulls ? " NULLS {$nulls}" : '';
+        $orderClause = "{$expression} {$direction}";
 
-        $builder->orderByRaw("{$expression} {$direction}{$nullsOrder}");
+        if ($nulls && in_array(strtoupper($nulls), ['FIRST', 'LAST'])) {
+            $orderClause .= ' NULLS '.strtoupper($nulls);
+        }
+
+        $builder->orderByRaw($orderClause);
     }
 
     /**
@@ -126,20 +131,20 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
         $relationName = $relationData['name'];
         $column = $relationData['column'];
         $model = $builder->getModel();
+        $grammar = $builder->getQuery()->getGrammar();
+
+        if (! method_exists($model, $relationName)) {
+            return '';
+        }
 
         $relation = $model->{$relationName}();
         $relatedTable = $relation->getRelated()->getTable();
 
-        $subquery = $relation->getRelated()
-            ->newQuery()
-            ->select($column)
-            ->whereColumn(
-                "{$relatedTable}.{$relation->getOwnerKeyName()}",
-                "{$model->getTable()}.{$relation->getForeignKeyName()}"
-            )
-            ->limit(1);
+        $safeColumn = $grammar->wrap("{$relatedTable}.{$column}");
+        $ownerKey = $grammar->wrap("{$relatedTable}.{$relation->getOwnerKeyName()}");
+        $foreignKey = $grammar->wrap("{$model->getTable()}.{$relation->getForeignKeyName()}");
 
-        return "({$subquery->toSql()})";
+        return "(SELECT {$safeColumn} FROM {$grammar->wrap($relatedTable)} WHERE {$ownerKey} = {$foreignKey} LIMIT 1)";
     }
 
     /**
