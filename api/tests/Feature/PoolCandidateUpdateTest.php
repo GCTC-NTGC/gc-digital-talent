@@ -95,8 +95,8 @@ class PoolCandidateUpdateTest extends TestCase
     GRAPHQL;
 
     protected $pauseCandidateReferralMutation = <<<'GRAPHQL'
-        mutation pauseCandidateReferral($id: UUID!, $referralPauseLength: ReferralPauseLength, $referralPauseReason: String, $referralUnpauseAt: Date) {
-            pauseCandidateReferral (id: $id, referralPauseLength: $referralPauseLength, referralPauseReason: $referralPauseReason, referralUnpauseAt: $referralUnpauseAt){
+        mutation pauseCandidateReferral($id: UUID!, $referralPause: ReferralPauseInput!) {
+            pauseCandidateReferral (id: $id, referralPause: $referralPause){
                 id
                 referralPauseAt
                 referralPauseReason
@@ -998,8 +998,10 @@ class PoolCandidateUpdateTest extends TestCase
     {
         $input = [
             'id' => $this->poolCandidate->id,
-            'referralPauseLength' => ReferralPauseLength::ONE_MONTH->name,
-            'referralPauseReason' => 'Maternity leave',
+            'referralPause' => [
+                'referralPauseLength' => ReferralPauseLength::ONE_MONTH->name,
+                'referralPauseReason' => 'Maternity leave',
+            ]
         ];
         $now = Carbon::now()->format('Y-m-d H:i'); // remove seconds to prevent flaky test
 

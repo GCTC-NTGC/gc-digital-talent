@@ -18,7 +18,10 @@ final class QualifyCandidate
         $referralUnpauseAt = $args['referralPause']['referralUnpauseAt'] ?? null;
 
         $candidate->qualify($expiryDate);
-        $candidate->pauseReferral($referralPauseLength, $referralPauseReason, $referralUnpauseAt);
+
+        if ($referralPauseLength && $referralPauseReason) {
+            $candidate->pauseReferral($referralPauseLength, $referralPauseReason, $referralUnpauseAt);
+        }
 
         return $candidate;
     }

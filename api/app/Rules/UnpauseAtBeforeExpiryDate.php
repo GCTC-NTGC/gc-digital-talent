@@ -4,14 +4,19 @@ namespace App\Rules;
 
 use App\Enums\ErrorCode;
 use App\Enums\ReferralPauseLength;
+use App\Models\PoolCandidate;
 use Closure;
+use Error;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
+use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
 
 class UnpauseAtBeforeExpiryDate implements DataAwareRule, ValidationRule
 {
     protected $data = [];
+    protected $args;
 
     public function setData(array $data): static
     {
@@ -21,14 +26,26 @@ class UnpauseAtBeforeExpiryDate implements DataAwareRule, ValidationRule
     }
 
     /**
+     * Create a new rule instance.
+     *
+     * @param mixed
+     * @return void
+     */
+    public function __construct(mixed $args)
+    {
+        $this->args = $args;
+    }
+
+    /**
      * Run the validation rule.
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $now = Carbon::now();
-        $expiryDate = Carbon::parse($this->data['poolCandidate']['expiryDate']) ?? null;
-        $referralPauseLength = $this->data['poolCandidate']['referralPause']['referralPauseLength'];
-        $referralUnpauseAt = $this->data['poolCandidate']['referralPause']['referralUnpauseAt'];
+        $candidate = PoolCandidate::findOrFail($this->data['id']);
+        $expiryDate = isset($this->args['expiryDate']) ? Carbon::parse($this->args['expiryDate']) : $candidate->expiry_date;
+        $referralPauseLength = isset($this->args['referralPauseLength']) ? $this->args['referralPauseLength'] : null;
+        $referralUnpauseAt = isset($this->args['referralUnpauseAt']) ? $this->args['referralUnpauseAt'] : null;
 
         $lengthOfTime = match ($referralPauseLength) {
             ReferralPauseLength::ONE_MONTH->name => $now->addMonth(),
@@ -40,7 +57,7 @@ class UnpauseAtBeforeExpiryDate implements DataAwareRule, ValidationRule
             default => null,
         };
 
-        if ($expiryDate->lt($lengthOfTime)) {
+        if (isset($expiryDate) && $expiryDate->lt($lengthOfTime)) {
             $fail(ErrorCode::INVALID_UNPAUSE_AT_DATE->name);
         }
     }

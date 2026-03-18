@@ -43,6 +43,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Lang;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -849,6 +850,10 @@ class PoolCandidate extends Model
         $this->computed_final_decision = FinalDecision::QUALIFIED_PLACED->name;
         $this->computed_final_decision_weight = 30;
 
+        if ($this->placement_type === PlacementType::PLACED_INDETERMINATE->name) {
+            $this->pauseReferral(ReferralPauseLength::OTHER->name, Lang::get('common.successfully_placed'), $this->expiry_date);
+        }
+
         $this->save();
 
         $this->logActivity(ActivityEvent::PLACED, [
@@ -982,7 +987,7 @@ class PoolCandidate extends Model
         $properties['attributes']['pool_id'] = $this->pool->id ?? null;
     }
 
-    public function pauseReferral(string $referralPauseLength, string $reason, ?Carbon $referralUnpauseAt)
+    public function pauseReferral(?string $referralPauseLength, ?string $reason, ?Carbon $referralUnpauseAt)
     {
         $now = Carbon::now();
 

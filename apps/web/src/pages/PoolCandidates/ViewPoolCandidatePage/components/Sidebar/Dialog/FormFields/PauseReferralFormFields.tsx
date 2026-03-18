@@ -58,11 +58,13 @@ const TEXT_AREA_MAX_WORDS_EN = 200;
 interface PauseReferralFormFieldsProps {
   optionsQuery?: FragmentType<typeof PauseReferralFormFields_Fragment>;
   metaQuery?: FragmentType<typeof PauseReferralFormMeta_Fragment>;
+  required?: boolean;
 }
 
 const PauseReferralFormFields = ({
   optionsQuery,
   metaQuery,
+  required = false,
 }: PauseReferralFormFieldsProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -129,9 +131,9 @@ const PauseReferralFormFields = ({
           id: "Q/Fbat",
           description: "Label for pause referral status checkbox input",
         })}
-        rules={{
-          required: intl.formatMessage(errorMessages.required),
-        }}
+        {...(required
+          ? { rules: { required: intl.formatMessage(errorMessages.required) } }
+          : {})}
       />
       {pauseStatus && (
         <>

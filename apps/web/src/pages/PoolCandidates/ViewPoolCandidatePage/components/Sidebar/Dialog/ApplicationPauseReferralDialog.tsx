@@ -160,6 +160,7 @@ const ApplicationPauseReferralDialog = ({
                   <PauseReferralFormFields
                     optionsQuery={options}
                     metaQuery={application}
+                    required
                   />
                 </div>
                 <Footer />

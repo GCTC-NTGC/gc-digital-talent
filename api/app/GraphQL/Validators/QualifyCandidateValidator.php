@@ -37,17 +37,17 @@ final class QualifyCandidateValidator extends Validator
             'poolCandidate.referralPause.referralPauseLength' => [
                 Rule::when(
                     fn (): bool => $this->arg('poolCandidate.placementType') !== PlacementType::PLACED_INDETERMINATE->name,
-                    ['required', Rule::in(array_column(ReferralPauseLength::cases(), 'name'))]
+                    [Rule::in(array_column(ReferralPauseLength::cases(), 'name'))]
                 ),
-                new UnpauseAtBeforeExpiryDate,
+                new UnpauseAtBeforeExpiryDate($this->arg('poolCandidate.referralPause')),
             ],
             'poolCandidate.referralPause.referralUnpauseAt' => [
                 Rule::when(
                     fn (): bool => $this->arg('poolCandidate.referralPause.referralPauseLength') === ReferralPauseLength::OTHER->name,
-                    ['required', 'date', 'after:'.$startOfDay, 'before_or_equal:poolCandidate.expiryDate']
+                    ['date', 'after:'.$startOfDay, 'before_or_equal:poolCandidate.expiryDate']
                 ),
             ],
-            'poolCandidate.referralPause.referralPauseReason' => ['required', 'string'],
+            'poolCandidate.referralPause.referralPauseReason' => ['string'],
         ];
     }
 
