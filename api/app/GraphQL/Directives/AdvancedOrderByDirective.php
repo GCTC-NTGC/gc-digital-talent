@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Directives;
 
+use App\Support\Query\AdvancedOrder;
 use GraphQL\Error\UserError;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InterfaceTypeDefinitionNode;
@@ -9,6 +10,7 @@ use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\AST\TypeDefinitionNode;
 use GraphQL\Language\Parser;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -94,32 +96,21 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
     }
 
     /**
-     * Invokes a custom builder scope, handling inconsistent method signatures via reflection.
+     *  Invokes an orderBy scope on the builder using the AdvancedOrder contract.
      *
-     * NOTE: This is more complicated than it needs to be due to our orderBy scopes
-     * not being consistent. Recommendation is to find a way to make them consistent.
-     *
-     * @param  mixed  $builder  The current Eloquent Builder.
-     * @param  string  $scope  The method name on the builder.
-     * @param  string  $direction  ASC or DESC.
-     * @param  array  $input  The full input payload.
+     * This method ensures all dynamic ordering scopes receive a strongly-typed
+     * AdvancedOrder object, providing consistent behaviour across
+     * all custom Builders and Model scopes.
      */
-    protected function handleScopeOrder($builder, string $scope, string $direction, array $input): void
+    protected function handleScopeOrder($builder, array $input): void
     {
-        // Standardize the 'order' key for builders that expect it (e.g., orderByPoolName)
-        $input['order'] = $direction;
+        $scope = $input['scope'] ?? null;
 
-        $reflection = new \ReflectionMethod($builder, $scope);
-        $params = $reflection->getParameters();
-
-        // If the first parameter is type-hinted as an array, pass the full context.
-        // Otherwise, pass just the direction string.
-        $type = $params[0]->getType();
-        if ($type instanceof \ReflectionNamedType && $type->getName() === 'array') {
-            $builder->{$scope}($input);
-        } else {
-            $builder->{$scope}($direction);
+        if (! $scope || ! str_starts_with($scope, 'orderBy')) {
+            return;
         }
+
+        $builder->{$scope}(new AdvancedOrder($input));
     }
 
     /**
