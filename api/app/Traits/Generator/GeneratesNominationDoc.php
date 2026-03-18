@@ -74,9 +74,6 @@ trait GeneratesNominationDoc
 
         if ($talentNominationGroup->nominations()->count() > 0) {
             foreach ($nominations as $nomination) {
-
-                $nomination->loadMissing('nominator', 'submitter', 'advancementReferenceFallbackClassification', 'advancementReferenceFallbackDepartment');
-
                 if ($nomination->nominator) {
                     $nominatorFullName = $nomination->nominator->getFullName() ?? Lang::get('common.not_available', [], $this->lang);
                     $section->addTitle("{$this->localizeHeading('nominated_by')} {$nominatorFullName}", $headingRank + 1);
