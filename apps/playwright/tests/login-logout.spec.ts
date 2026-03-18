@@ -106,7 +106,7 @@ test.describe("Login and logout", () => {
   });
 
   test("refresh the token", async ({ page }) => {
-    await loginBySub(page, "applicant@test.com", false);
+    await loginBySub(page, "uatuser2210", false);
     const fixture = new AuthTokenFixture(page);
 
     // Get tokens and set clock

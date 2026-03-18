@@ -37,7 +37,9 @@ export async function loginBySub(
     .getByRole("link", { name: /sign in with gckey/i })
     .first()
     .click();
-  await page.getByPlaceholder("Enter any user/subject").fill(sub);
+  // await page.getByPlaceholder("Enter any user/subject").fill(sub);
+  await page.getByPlaceholder("Username").fill(sub);
+  await page.getByPlaceholder("Password").fill("applicantTest30$");
   await page.getByRole("button", { name: /sign in/i }).click();
   await expect(
     page.getByRole(
@@ -47,6 +49,7 @@ export async function loginBySub(
         : { name: /welcome/i, level: 1 },
     ),
   ).toBeVisible();
+  await page.getByText("Continue").click();
 }
 
 /**

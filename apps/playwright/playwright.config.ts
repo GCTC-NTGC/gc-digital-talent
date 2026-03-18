@@ -28,7 +28,9 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env.BASE_URL ?? "http://localhost:8000",
+    // baseURL: process.env.BASE_URL ?? "http://localhost:8000",
+    baseURL:
+      process.env.BASE_URL ?? "https://uat-talentcloud.tbs-sct.gc.ca/en/",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "retain-on-failure",
