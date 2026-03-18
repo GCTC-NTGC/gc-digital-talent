@@ -69,23 +69,6 @@ class AdvancedOrderByTest extends TestCase
         $this->setUpTestSchema();
     }
 
-    public function testItThrowsErrorWhenMultipleSourcesProvided(): void
-    {
-        $response = $this->actingAs($this->admin, 'api')->graphQL($this->query, [
-            'orderBy' => [[
-                'order' => [
-                    'column' => 'notes',
-                    'scope' => 'orderByFlagged',
-                ],
-                'direction' => 'ASC',
-            ]],
-        ]);
-
-        $response->assertGraphQLErrorMessage(
-            'AdvancedOrderSource is mutually exclusive. You provided: column, scope'
-        );
-    }
-
     #[DataProvider('orderByDataProvider')]
     public function testAdvancedOrderingLogic(array $setupData, array $orderByArgs, array $expectedOrder): void
     {
@@ -128,13 +111,13 @@ class AdvancedOrderByTest extends TestCase
         return [
             'Standard Column ASC' => [
                 [['notes' => 'C'], ['notes' => 'A'], ['notes' => 'B']],
-                [['order' => ['column' => 'notes'], 'direction' => 'ASC']],
+                [['column' => 'notes', 'direction' => 'ASC']],
                 ['A', 'B', 'C'],
             ],
             'Relation Column with Postgres Unaccent' => [
                 [['user_name' => 'Élodie'], ['user_name' => 'Alphonse']],
                 [[
-                    'order' => ['relation' => ['name' => 'user', 'column' => 'first_name']],
+                    'relation' => ['name' => 'user', 'column' => 'first_name'],
                     'direction' => 'ASC',
                     'accentInsensitive' => true,
                     'caseInsensitive' => true,
@@ -143,12 +126,12 @@ class AdvancedOrderByTest extends TestCase
             ],
             'Nulls Last' => [
                 [['notes' => null], ['notes' => 'Z']],
-                [['order' => ['column' => 'notes'], 'direction' => 'ASC', 'nulls' => 'LAST']],
+                [['column' => 'notes', 'direction' => 'ASC', 'nulls' => 'LAST']],
                 ['Z', null],
             ],
             'Case Insensitive Standard' => [
                 [['notes' => 'apple'], ['notes' => 'Banana'], ['notes' => 'Zebra']],
-                [['order' => ['column' => 'notes'], 'direction' => 'ASC', 'caseInsensitive' => true]],
+                [['column' => 'notes', 'direction' => 'ASC', 'caseInsensitive' => true]],
                 ['apple', 'Banana', 'Zebra'],
             ],
             'Builder Scope: orderByPoolName' => [
@@ -157,11 +140,34 @@ class AdvancedOrderByTest extends TestCase
                     ['notes' => 'Candidate A', 'pool_name' => 'Alpha Pool'],
                 ],
                 [[
-                    'order' => ['scope' => 'orderByPoolName'],
+                    'scope' => 'orderByPoolName',
                     'direction' => 'ASC',
                 ]],
                 ['Candidate A', 'Candidate B'],
             ],
         ];
+    }
+
+    public function testItThrowsValidationErrorWhenMultipleSourcesProvided(): void
+    {
+        $this->actingAs($this->admin, 'api')->graphQL($this->query, [
+            'orderBy' => [[
+                'column' => 'notes',
+                'scope' => 'orderByFlagged',
+                'direction' => 'ASC',
+            ]],
+        ])->assertGraphQLValidationError('orderBy.0.column', 'Column, scope and relation keys are mutually exclusive.');
+    }
+
+    /**
+     * Test that providing none of the required sources also fails
+     */
+    public function testItRequiresAtLeastOneSource(): void
+    {
+        $this->actingAs($this->admin, 'api')->graphQL($this->query, [
+            'orderBy' => [[
+                'direction' => 'DESC',
+            ]],
+        ])->assertGraphQLValidationError('orderBy.0.column', 'You must provide a column, scope, or relation.');
     }
 }

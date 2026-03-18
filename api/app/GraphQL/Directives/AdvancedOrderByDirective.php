@@ -60,27 +60,16 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
     protected function applyOrderClause($builder, array $input): void
     {
         $direction = $input['direction'] ?? 'ASC';
-        $order = $input['order'];
         $nulls = $input['nulls'] ?? null;
 
-        // Ensure only one of column, scope, or relation is provided
-        $presentKeys = array_keys(array_filter($order));
-        $sourceKeys = array_intersect(['column', 'scope', 'relation'], $presentKeys);
-
-        if (count($sourceKeys) > 1) {
-            throw new UserError(
-                'AdvancedOrderSource is mutually exclusive. You provided: '.implode(', ', $sourceKeys)
-            );
-        }
-
-        if (isset($order['column'])) {
-            $expression = "\"{$order['column']}\"";
-        } elseif (isset($order['scope'])) {
-            $this->handleScopeOrder($builder, $order['scope'], $direction, $input);
+        if (isset($input['column'])) {
+            $expression = "\"{$input['column']}\"";
+        } elseif (isset($input['scope'])) {
+            $this->handleScopeOrder($builder, $input['scope'], $direction, $input);
 
             return;
-        } elseif (isset($order['relation'])) {
-            $expression = $this->getRelationSubquery($builder, $order['relation']);
+        } elseif (isset($input['relation'])) {
+            $expression = $this->getRelationSubquery($builder, $input['relation']);
         } else {
             return;
         }
@@ -181,14 +170,6 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             }
             GRAPHQL,
 
-            'AdvancedOrderSource' => <<<'GRAPHQL'
-            input AdvancedOrderSource {
-                column: String
-                scope: String
-                relation: RelatedOrderInput
-            }
-            GRAPHQL,
-
             'RelatedOrderInput' => <<<'GRAPHQL'
             input RelatedOrderInput {
                 name: String!
@@ -197,8 +178,10 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             GRAPHQL,
 
             'AdvancedOrderByInput' => <<<'GRAPHQL'
-            input AdvancedOrderByInput {
-                order: AdvancedOrderSource!
+            input AdvancedOrderByInput @validator(class: "App\\GraphQL\\Validators\\AdvancedOrderByInputValidator") {
+                column: String
+                scope: String
+                relation: RelatedOrderInput
                 direction: SortOrder = ASC
                 nulls: NullsOrder
                 accentInsensitive: Boolean
