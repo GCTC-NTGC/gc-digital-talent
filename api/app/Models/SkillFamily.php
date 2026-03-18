@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * Class SkillFamily
@@ -15,8 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $key
  * @property array $name
  * @property array $description
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  */
 class SkillFamily extends Model
 {

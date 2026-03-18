@@ -23,6 +23,7 @@ use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
+use Nuwave\Lighthouse\Execution\ErrorPool;
 use Throwable;
 
 class AuthServiceProvider extends ServiceProvider
@@ -62,7 +63,7 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->app['auth']->viaRequest('api', function ($request) use ($tokenService) {
             $user = null;
-            $errorPool = app(\Nuwave\Lighthouse\Execution\ErrorPool::class);
+            $errorPool = app(ErrorPool::class);
             try {
                 $user = $this->resolveUserOrAbort($request->bearerToken(), $tokenService);
             } catch (Throwable $e) {

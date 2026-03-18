@@ -25,7 +25,7 @@ import {
 } from "@gc-digital-talent/auth";
 
 import JobPlacementDialog, {
-  JobPlacementDialog_Fragment,
+  JobPlacementDialogCandidateTable_Fragment,
 } from "./JobPlacementDialog";
 import { JobPlacementOptions_Query } from "./JobPlacementForm";
 
@@ -38,7 +38,7 @@ const placedData = makeFragmentData(
     placementType: toLocalizedEnum(PlacementType.PlacedCasual),
     placedDepartment: departments[0],
   },
-  JobPlacementDialog_Fragment,
+  JobPlacementDialogCandidateTable_Fragment,
 );
 const notPlacedData = makeFragmentData(
   {
@@ -46,7 +46,7 @@ const notPlacedData = makeFragmentData(
     status: toLocalizedEnum(ApplicationStatus.Qualified),
     placedDepartment: departments[0],
   },
-  JobPlacementDialog_Fragment,
+  JobPlacementDialogCandidateTable_Fragment,
 );
 
 export default {

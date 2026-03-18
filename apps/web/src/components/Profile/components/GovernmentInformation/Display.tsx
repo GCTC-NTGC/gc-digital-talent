@@ -18,7 +18,7 @@ import { formattedDate } from "~/utils/dateUtils";
 
 import EmailVerificationStatus from "../EmailVerificationStatus";
 
-export const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
+const GovernmentInformationDisplay_Fragment = graphql(/** GraphQL */ `
   fragment GovernmentInformationDisplay on User {
     workEmail
     isWorkEmailVerified

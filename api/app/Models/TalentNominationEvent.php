@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Casts\LocalizedString;
 use App\Enums\TalentNominationEventStatus;
 use Carbon\Carbon;
+use Database\Factories\TalentNominationEventFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,7 +33,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class TalentNominationEvent extends Model
 {
-    /** @use HasFactory<\Database\Factories\TalentNominationEventFactory> */
+    /** @use HasFactory<TalentNominationEventFactory> */
     use HasFactory;
 
     use LogsActivity;
@@ -113,7 +114,7 @@ class TalentNominationEvent extends Model
             return;
         }
 
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if ($user?->isAbleTo('update-team-talentNominationEvent')) {

@@ -36,7 +36,7 @@ class UpdateUserTextSearchIndexes extends Command
             $progressBar = $this->output->createProgressBar($userCount);
 
             $users->chunk(200, function ($chunkOfUsers) use (&$successCount, &$failureCount, $progressBar) {
-                /** @var \App\Models\User $user */
+                /** @var User $user */
                 foreach ($chunkOfUsers as $user) {
                     try {
                         $user->searchable();

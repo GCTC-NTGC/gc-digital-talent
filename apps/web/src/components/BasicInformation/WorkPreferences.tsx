@@ -21,7 +21,7 @@ import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import Caption from "./Caption";
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 
-export const WorkPreferences_Fragment = graphql(/* GraphQL */ `
+const WorkPreferences_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferences on User {
     acceptedOperationalRequirements {
       value
@@ -52,7 +52,7 @@ export const WorkPreferences_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const WorkPreferencesOptions_Fragment = graphql(/* GraphQL */ `
+const WorkPreferencesOptions_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferencesOptions on Query {
     operationalRequirements: localizedEnumStrings(
       enumName: "OperationalRequirement"

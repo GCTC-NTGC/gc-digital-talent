@@ -34,8 +34,6 @@ import ErrorMessage from "./Error";
 import { fragmentToEmployee, getDefaultValue, getErrors } from "./utils";
 import { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";
 
-export { fragmentToEmployee };
-
 const wrapper = tv({
   extend: inputStateStyles,
   base: "flex flex-col rounded-md border-1 focus-visible:border-focus",

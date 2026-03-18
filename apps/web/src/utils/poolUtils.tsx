@@ -214,12 +214,6 @@ export const poolTitle = (
   };
 };
 
-export const getFullPoolTitleHtml = (
-  intl: IntlShape,
-  pool: PoolTitle,
-  options?: { defaultTitle?: string },
-): ReactNode => poolTitle(intl, pool, options).html;
-
 export const getFullPoolTitleLabel = (
   intl: IntlShape,
   pool: PoolTitle,

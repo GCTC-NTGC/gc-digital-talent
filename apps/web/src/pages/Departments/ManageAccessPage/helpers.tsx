@@ -16,7 +16,7 @@ import { DepartmentMember } from "~/utils/departmentUtils";
 import EditDepartmentMembershipDialog from "./components/EditDepartmentMembership";
 import RemoveDepartmentMembershipDialog from "./components/RemoveDepartmentMembership";
 
-export function orderRoles(roles: Role[], intl: IntlShape) {
+function orderRoles(roles: Role[], intl: IntlShape) {
   return orderBy(roles, ({ displayName }) => {
     const value = getLocalizedName(displayName, intl);
 

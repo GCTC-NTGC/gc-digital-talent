@@ -52,14 +52,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Not interested",
-    "fr": [
-      "Non intéressé(e)",
-      "Ce programme ne m'intéresse pas",
-      "Pas d'intérêt"
-    ]
-  },
-  {
     "en": "Add department role",
     "fr": [
       "Ajouter un rôle dans un ministère",
@@ -113,6 +105,14 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "fr": [
       "Exigence linguistique",
       "Exigences relatives à la langue"
+    ]
+  },
+  {
+    "en": "Not interested",
+    "fr": [
+      "Ce programme ne m'intéresse pas",
+      "Non intéressé(e)",
+      "Pas d'intérêt"
     ]
   },
   {

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 /**
@@ -21,8 +22,8 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property int $min_salary
  * @property int $max_salary
  * @property string $formattedGroupAndLevel
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property bool $is_available_in_search
  * @property array $display_name
  */

@@ -7,7 +7,7 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import NextRole from "./NextRole";
 
-export const NextRoleDialog_Fragment = graphql(/* GraphQL */ `
+const NextRoleDialog_Fragment = graphql(/* GraphQL */ `
   fragment NextRoleDialog on User {
     firstName
     employeeProfile {

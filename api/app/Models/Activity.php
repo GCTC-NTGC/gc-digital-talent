@@ -206,7 +206,7 @@ class Activity extends SpatieActivity
 
     public function scopeAuthorizedToViewPoolActivity(Builder $query)
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if ($user?->isAbleTo('view-any-poolActivityLog')) {

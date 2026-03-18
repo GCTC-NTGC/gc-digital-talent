@@ -100,7 +100,7 @@ const AccountInformationForm_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-export const AccountInformationFormOptions_Fragment = graphql(/** GraphQL */ `
+const AccountInformationFormOptions_Fragment = graphql(/** GraphQL */ `
   fragment AccountInformationFormOptions on Query {
     languages: localizedEnumStrings(enumName: "Language") {
       value

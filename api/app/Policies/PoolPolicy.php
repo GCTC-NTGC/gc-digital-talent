@@ -17,7 +17,7 @@ class PoolPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAny(User $user)
     {
@@ -27,7 +27,7 @@ class PoolPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(?User $user, Pool $pool)
     {
@@ -71,7 +71,7 @@ class PoolPolicy
     /**
      * Determine whether the user can view all published pools.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAnyPublished(?User $user)
     {
@@ -83,7 +83,7 @@ class PoolPolicy
      *
      * @param  $request:  The arguments included in the request, acquired with the injectArgs lighthouse directive
      *                   We need to use this because the model hasn't been created yet so we can't read from it
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function create(User $user, $request)
     {
@@ -118,7 +118,7 @@ class PoolPolicy
     /**
      * Determine whether the user can duplicate pools.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function duplicate(User $user, $request)
     {
@@ -139,7 +139,7 @@ class PoolPolicy
     /**
      * Determine whether the user can update draft pools.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function updateDraft(User $user, Pool $pool)
     {
@@ -155,7 +155,7 @@ class PoolPolicy
     /**
      * Determine whether the user can update published pools.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function updatePublished(User $user, Pool $pool)
     {
@@ -180,7 +180,7 @@ class PoolPolicy
     /**
      * Determine whether the user can publish the pool.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function publish(User $user, Pool $pool)
     {
@@ -207,7 +207,7 @@ class PoolPolicy
     /**
      * Determine whether the user can change the pool's closing date.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function changePoolClosingDate(User $user, Pool $pool)
     {
@@ -221,7 +221,7 @@ class PoolPolicy
     /**
      * Determine whether the user can close the pool.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function closePool(User $user, Pool $pool)
     {
@@ -235,7 +235,7 @@ class PoolPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function deleteDraft(User $user, Pool $pool)
     {
@@ -258,7 +258,7 @@ class PoolPolicy
     /**
      * Determine whether the user can archive and un-archive the pool.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function archiveAndUnarchive(User $user, Pool $pool)
     {
@@ -273,7 +273,7 @@ class PoolPolicy
     /**
      * Determine whether the user can view pool's assessment plan
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAssessmentPlan(User $user, Pool $pool)
     {
@@ -292,7 +292,7 @@ class PoolPolicy
     /**
      * Determine whether the user can view the team members of a specific pools team
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewTeamMembers(User $user, Pool $pool)
     {

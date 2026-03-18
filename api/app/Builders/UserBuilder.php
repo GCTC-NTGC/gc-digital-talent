@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * @template TModelClass of \Illuminate\Database\Eloquent\Model
  *
- * @extends \Illuminate\Database\Eloquent\Builder<TModelClass>
+ * @extends Builder<TModelClass>
  */
 class UserBuilder extends Builder
 {
@@ -574,7 +574,7 @@ class UserBuilder extends Builder
 
     public function whereAuthorizedToView(?array $args = null): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -648,7 +648,7 @@ class UserBuilder extends Builder
 
     public function whereAuthorizedToViewBasicInfo(): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         // special case: can see any basic info - return all users with no filters added

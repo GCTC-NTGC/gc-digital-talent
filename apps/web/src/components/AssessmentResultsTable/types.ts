@@ -1,13 +1,10 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { IntlShape } from "react-intl";
-import { JSX } from "react";
 
 import {
   Maybe,
   PoolSkill,
   Skill,
   AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
-  Experience,
 } from "@gc-digital-talent/graphql";
 import { IconType } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -31,15 +28,6 @@ const assessmentResultsTableFragmentStepsUnpacked = unpackMaybes(
 );
 export type AssessmentResultsTableFragmentStepType =
   (typeof assessmentResultsTableFragmentStepsUnpacked)[number];
-
-export interface AssessmentTableRowColumnProps {
-  id: string;
-  poolCandidate: AssessmentResultsTableFragmentType;
-  experiences: Omit<Experience, "user">[];
-  assessmentStep: AssessmentResultsTableFragmentStepType;
-  intl: IntlShape;
-  header: JSX.Element;
-}
 
 export type StatusColor = "error" | "hold" | "toAssess" | "success" | "gray";
 

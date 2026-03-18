@@ -49,30 +49,30 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * Class PoolCandidate
  *
  * @property string $id
- * @property ?\Illuminate\Support\Carbon $expiry_date
- * @property ?\Illuminate\Support\Carbon $archived_at
- * @property ?\Illuminate\Support\Carbon $submitted_at
+ * @property ?Carbon $expiry_date
+ * @property ?Carbon $archived_at
+ * @property ?Carbon $submitted_at
  * @property ?string $signature
  * @property ?string $pool_candidate_status
  * @property ?string $application_status
  * @property ?int $status_weight
  * @property string $pool_id
  * @property string $user_id
- * @property ?\Illuminate\Support\Carbon $suspended_at
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?Carbon $suspended_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property array $submitted_steps
  * @property ?string $education_requirement_option
  * @property ?bool $is_flagged
- * @property ?\Illuminate\Support\Carbon $placed_at
+ * @property ?Carbon $placed_at
  * @property ?string $placed_department_id
- * @property ?\Illuminate\Support\Carbon $status_updated_at
+ * @property ?Carbon $status_updated_at
  * @property ?string $removal_reason
  * @property ?string $removal_reason_other
  * @property ?string $veteran_verification
- * @property ?\Illuminate\Support\Carbon $veteran_verification_expiry
+ * @property ?Carbon $veteran_verification_expiry
  * @property ?string $priority_verification
- * @property ?\Illuminate\Support\Carbon $priority_verification_expiry
+ * @property ?Carbon $priority_verification_expiry
  * @property array $computed_assessment_status
  * @property ?int $computed_final_decision_weight
  * @property ?string $computed_final_decision
@@ -510,7 +510,7 @@ class PoolCandidate extends Model
     {
         return Attribute::make(
             get: function () {
-                /** @var \App\Models\User | null */
+                /** @var User | null */
                 $user = Auth::user();
                 if (! $user) {
                     return null;

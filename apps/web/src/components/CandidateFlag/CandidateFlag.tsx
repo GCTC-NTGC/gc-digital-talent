@@ -33,18 +33,6 @@ export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const PoolCandidateCandidateTable_FlagFragment = graphql(/* GraphQL */ `
-  fragment PoolCandidateTable_Flag on PoolCandidateAdminView {
-    id
-    isFlagged
-    user {
-      id
-      firstName
-      lastName
-    }
-  }
-`);
-
 interface CandidateFlagProps {
   candidateQuery: FragmentType<typeof PoolCandidate_FlagFragment>;
   processTitle?: Maybe<string>;

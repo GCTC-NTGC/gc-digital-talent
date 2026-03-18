@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class DepartmentPolicy
 {
@@ -15,7 +16,7 @@ class DepartmentPolicy
      *
      * Note: This action is possible for everyone, including anonymous users
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAny(?User $user)
     {
@@ -27,7 +28,7 @@ class DepartmentPolicy
      *
      * Note: This action is possible for everyone, including anonymous users
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(?User $user)
     {
@@ -37,7 +38,7 @@ class DepartmentPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function create(User $user)
     {
@@ -47,7 +48,7 @@ class DepartmentPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function update(User $user)
     {
@@ -57,7 +58,7 @@ class DepartmentPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function delete(User $user)
     {
@@ -67,7 +68,7 @@ class DepartmentPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function restore(User $user)
     {
@@ -77,7 +78,7 @@ class DepartmentPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function forceDelete(User $user)
     {
@@ -87,7 +88,7 @@ class DepartmentPolicy
     /**
      * Determine whether the user can archive or unarchive a department.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function archiveAndUnarchive(User $user)
     {
@@ -97,7 +98,7 @@ class DepartmentPolicy
     /**
      * Determine whether the user can view department team members
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewTeamMembers(User $user, Department $department)
     {
