@@ -33,8 +33,6 @@ final readonly class DownloadApplicationDoc
                 ->where('id', $args['id'])
                 ->firstOrFail();
 
-            Log::debug($args);
-
             $generator = new ApplicationDocGenerator(
                 candidate: $targetApplicant,
                 dir: $user->id,
