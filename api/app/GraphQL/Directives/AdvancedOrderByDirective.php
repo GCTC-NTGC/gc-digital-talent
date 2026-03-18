@@ -10,10 +10,10 @@ use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\AST\TypeDefinitionNode;
 use GraphQL\Language\Parser;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Schema;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
@@ -23,12 +23,12 @@ use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
  * Class AdvancedOrderByDirective
  *
  * This directive automates the injection of complex ordering arguments into GraphQL fields.
- * It supports standard columns, subquery-based relation ordering, and custom Eloquent Builder scopes.
+ * It supports standard columns, subquery-based relation ordering, and scopes.
  *
  * Usage in Schema:
- * type Query {
- * candidates: [Candidate!]! @all @advancedOrderBy
- * }
+ *  type Query {
+ *      poolCandidates: [PoolCandidate!]! @all @advancedOrderBy
+ *  }
  */
 class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirective, FieldManipulator
 {
@@ -55,87 +55,93 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
 
     /**
      * Logic for processing a single ordering request.
-     * Handles mutual exclusivity validation and routes to specific sort handlers.
-     *
-     * @throws UserError If multiple order sources are provided.
      */
-    protected function applyOrderClause($builder, array $input): void
+    protected function applyOrderClause(QueryBuilder|EloquentBuilder|Relation $builder, array $input): void
     {
-        $grammar = $builder->getQuery()->getGrammar();
+        $args = new AdvancedOrder($input);
 
-        $direction = strtoupper($input['direction'] ?? 'ASC');
-        $nulls = $input['nulls'] ?? null;
+        $expression = match (true) {
+            isset($input['column']) => $this->resolveColumnExpression($builder, $input['column']),
+            isset($input['relation']) => $this->resolveRelationExpression($builder, $input['relation']),
+            isset($input['scope']) => $this->resolveScopeExpression($builder, $input['scope'], $args),
+            default => null,
+        };
 
-        if (isset($input['column'])) {
-            $expression = $grammar->wrap($input['column']);
-        } elseif (isset($input['scope'])) {
-            $this->handleScopeOrder($builder, $input['scope'], $direction, $input);
-
-            return;
-        } elseif (isset($input['relation'])) {
-            $expression = $this->getRelationSubquery($builder, $input['relation']);
-        } else {
+        if ($expression === null) {
             return;
         }
 
-        if ($input['caseInsensitive'] ?? false) {
+        if ($args->caseInsensitive) {
             $expression = "LOWER({$expression})";
         }
 
-        if ($input['accentInsensitive'] ?? false) {
+        if ($args->accentInsensitive) {
             $expression = "f_unaccent({$expression})";
         }
 
-        $orderClause = "{$expression} {$direction}";
+        $orderClause = "{$expression} {$args->direction}";
 
-        if ($nulls && in_array(strtoupper($nulls), ['FIRST', 'LAST'])) {
-            $orderClause .= ' NULLS '.strtoupper($nulls);
+        if ($args->nulls) {
+            $orderClause .= " NULLS {$args->nulls}";
         }
 
         $builder->orderByRaw($orderClause);
     }
 
     /**
-     *  Invokes an orderBy scope on the builder using the AdvancedOrder contract.
-     *
-     * This method ensures all dynamic ordering scopes receive a strongly-typed
-     * AdvancedOrder object, providing consistent behaviour across
-     * all custom Builders and Model scopes.
+     * Resolves a simple column name into a wrapped SQL identifier.
      */
-    protected function handleScopeOrder($builder, array $input): void
+    protected function resolveColumnExpression($builder, string $column): string
     {
-        $scope = $input['scope'] ?? null;
+        $table = $builder->getModel()->getTable();
 
-        if (! $scope || ! str_starts_with($scope, 'orderBy')) {
-            return;
+        if (! Schema::hasColumn($table, $column)) {
+            throw new UserError("Invalid column: {$column}");
         }
 
-        $builder->{$scope}(new AdvancedOrder($input));
+        return $builder->getQuery()->getGrammar()->wrap($column);
     }
 
     /**
-     * Generates a SQL subquery string for ordering by a related table's column.
-     * Currently optimized for BelongsTo relationships.
+     * Resolves a relation name and column into a SQL sub-query string.
      */
-    protected function getRelationSubquery($builder, array $relationData): string
+    protected function resolveRelationExpression($builder, array $relationData): string
     {
         $relationName = $relationData['name'];
         $column = $relationData['column'];
         $model = $builder->getModel();
         $grammar = $builder->getQuery()->getGrammar();
 
-        if (! method_exists($model, $relationName)) {
-            return '';
+        if (! method_exists($model, $relationName) ||
+            ! ($model->{$relationName}() instanceof Relation)) {
+            throw new UserError("Invalid relation: {$relationName}");
         }
 
         $relation = $model->{$relationName}();
         $relatedTable = $relation->getRelated()->getTable();
+
+        if (! $builder->getConnection()->getSchemaBuilder()->hasColumn($relatedTable, $column)) {
+            throw new UserError("Invalid related column: {$column}");
+        }
 
         $safeColumn = $grammar->wrap("{$relatedTable}.{$column}");
         $ownerKey = $grammar->wrap("{$relatedTable}.{$relation->getOwnerKeyName()}");
         $foreignKey = $grammar->wrap("{$model->getTable()}.{$relation->getForeignKeyName()}");
 
         return "(SELECT {$safeColumn} FROM {$grammar->wrap($relatedTable)} WHERE {$ownerKey} = {$foreignKey} LIMIT 1)";
+    }
+
+    /**
+     * Resolves a builder scope or model scope.
+     * Returns null because scopes apply the order to the builder directly.
+     */
+    protected function resolveScopeExpression($builder, string $scope, AdvancedOrder $args): ?string
+    {
+        if (! str_starts_with($scope, 'orderBy')) {
+            return null;
+        }
+
+        return $builder->{$scope}($args);
     }
 
     /**
