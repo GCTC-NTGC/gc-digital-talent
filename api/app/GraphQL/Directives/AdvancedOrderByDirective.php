@@ -141,7 +141,15 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             return null;
         }
 
-        return $builder->{$scope}($args);
+        $methodName = method_exists($builder, $scope) ? $scope : 'scope'.ucfirst($scope);
+
+        if (! method_exists($builder, $scope) && ! method_exists($builder->getModel(), $methodName)) {
+            throw new UserError("Invalid scope: {$scope}");
+        }
+
+        $builder->{$scope}($args);
+
+        return null;
     }
 
     /**
