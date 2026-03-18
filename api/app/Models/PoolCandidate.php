@@ -90,8 +90,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property bool $is_open_to_jobs
  * @property bool $is_hired
  * @property bool $referring
- * @property ?\Illuminate\Support\Carbon $referral_pause_at
- * @property ?\Illuminate\Support\Carbon $referral_unpause_at
+ * @property ?Carbon $referral_pause_at
+ * @property ?Carbon $referral_unpause_at
  * @property ?string $referral_pause_reason
  */
 class PoolCandidate extends Model

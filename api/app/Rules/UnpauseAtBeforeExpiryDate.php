@@ -6,16 +6,14 @@ use App\Enums\ErrorCode;
 use App\Enums\ReferralPauseLength;
 use App\Models\PoolCandidate;
 use Closure;
-use Error;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
-use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
 
 class UnpauseAtBeforeExpiryDate implements DataAwareRule, ValidationRule
 {
     protected $data = [];
+
     protected $args;
 
     public function setData(array $data): static

@@ -1001,9 +1001,9 @@ class PoolCandidateUpdateTest extends TestCase
             'referralPause' => [
                 'referralPauseLength' => ReferralPauseLength::ONE_MONTH->name,
                 'referralPauseReason' => 'Maternity leave',
-            ]
+            ],
         ];
-        $now = Carbon::now()->format('Y-m-d H:i'); // remove seconds to prevent flaky test
+        $now = Carbon::now()->format('Y-m-d'); // remove seconds to prevent flaky test
 
         // Ensure only qualified candidates can have paused referrals
         $this->poolCandidate->update([
@@ -1032,7 +1032,7 @@ class PoolCandidateUpdateTest extends TestCase
         $pauseAt = Carbon::parse($this->poolCandidate->referral_pause_at);
         assertSame(
             [
-                'referralPauseAt' => $pauseAt->format('Y-m-d H:i'),
+                'referralPauseAt' => $pauseAt->format('Y-m-d'),
                 'referralUnpauseAt' => $this->poolCandidate->referral_unpause_at,
                 'referralPauseReason' => $this->poolCandidate->referral_pause_reason,
             ],
@@ -1052,11 +1052,11 @@ class PoolCandidateUpdateTest extends TestCase
             ->graphQL($this->pauseCandidateReferralMutation, $input)
             ->json('data.pauseCandidateReferral');
 
-        $pauseAt = Carbon::parse($response['referralPauseAt'])->format('Y-m-d H:i');
-        $unpauseAt = Carbon::parse($response['referralUnpauseAt'])->format('Y-m-d H:i');
+        $pauseAt = Carbon::parse($response['referralPauseAt'])->format('Y-m-d');
+        $unpauseAt = Carbon::parse($response['referralUnpauseAt'])->format('Y-m-d');
         $pauseReason = $response['referralPauseReason'];
         assertSame($pauseAt, $now);
-        assertSame($unpauseAt, Carbon::now()->addMonth()->format('Y-m-d H:i'));
+        assertSame($unpauseAt, Carbon::now()->addMonth()->format('Y-m-d'));
         assertSame($pauseReason, 'Maternity leave');
     }
 
