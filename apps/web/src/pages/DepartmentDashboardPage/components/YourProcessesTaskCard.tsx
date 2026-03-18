@@ -80,8 +80,8 @@ const YourProcessesTaskCard = ({
                   as="h3"
                   subtitle={intl.formatMessage({
                     defaultMessage:
-                      "This section contains any process you have bookmarked.",
-                    id: "/Sps62",
+                      "This section contains any processes you have bookmarked.",
+                    id: "3uXEkO",
                     description:
                       "Subtitle explaining bookmarked processes expandable within task card",
                   })}

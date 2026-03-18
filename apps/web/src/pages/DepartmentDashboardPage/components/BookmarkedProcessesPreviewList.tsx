@@ -169,8 +169,8 @@ const BookmarkedProcessesPreviewList = ({
           <Notice.Title>
             {intl.formatMessage({
               defaultMessage:
-                "You don't have any recruitment processes at the moment.",
-              id: "27KZKI",
+                "You have no recruitment processes at the moment.",
+              id: "L7nLT4",
               description:
                 "Title for notice when there are no processes to view",
             })}
