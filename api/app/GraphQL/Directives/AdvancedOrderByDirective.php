@@ -147,7 +147,23 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             throw new UserError("Invalid scope: {$scope}");
         }
 
-        $builder->{$scope}($args);
+        // NOTE: Supports backwards compatibility with existing scopes
+        // Remove once poolCandidatesPaginatedAdminView has been refactored with this directive
+        $reflection = new \ReflectionMethod($builder, $scope);
+        $params = $reflection->getParameters();
+        $firstParamType = isset($params[0]) ? $params[0]->getType() : null;
+
+        if ($firstParamType instanceof \ReflectionNamedType && $firstParamType->getName() === AdvancedOrder::class) {
+            $builder->{$scope}($args);
+        } else {
+            $builder->{$scope}([
+                'direction' => $args->direction,
+                'order' => $args->direction,
+                'nulls' => $args->nulls,
+                'caseInsensitive' => $args->caseInsensitive,
+                'accentInsensitive' => $args->accentInsensitive,
+            ]);
+        }
 
         return null;
     }

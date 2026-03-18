@@ -13,7 +13,6 @@ use App\Enums\PublishingGroup;
 use App\Enums\ScreeningStage;
 use App\Models\Skill;
 use App\Models\User;
-use App\Support\Query\AdvancedOrder;
 use Database\Helpers\TeamHelpers as HelpersTeamHelpers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
@@ -633,16 +632,20 @@ class PoolCandidateBuilder extends Builder
      * The column used in the orderBy is `table_aggregate_column->property`
      * But is actually aliased to snake case `table_aggregate_columnproperty`
      */
-    public function orderByPoolName(AdvancedOrder $args): self
+    public function orderByPoolName(?array $args): self
     {
-        if (is_array($args)) {
-            $args = new AdvancedOrder($args);
+        extract($args);
+
+        $locale ??= app()->getLocale();
+
+        if (isset($order) && isset($locale)) {
+            return
+            $this->withMax('pool', 'name->'.$locale)
+                ->orderBy('pool_max_name'.$locale, $order)
+                ->orderBy('submitted_at', 'ASC');
         }
 
-        $locale = App::getLocale();
-
-        return $this->join('pools', 'pool_candidates.pool_id', '=', 'pools.id')
-            ->orderBy("pools.name->{$locale}", $args->direction);
+        return $this;
     }
 
     public function orderByEmployeeDepartment(?string $order): self
