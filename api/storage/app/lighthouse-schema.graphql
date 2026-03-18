@@ -576,8 +576,8 @@ type Mutation {
   removeUserWorkEmail(id: UUID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate @deprecated(reason: "Replaced by specific mutations")
-  togglePoolCandidateFlag(id: ID!): Boolean
-  togglePoolCandidateUserBookmark(poolCandidateId: UUID!): Boolean
+  togglePoolCandidateFlag(id: ID!): PoolCandidate
+  togglePoolCandidateUserBookmark(poolCandidateId: UUID!): PoolCandidate
   updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   updatePoolCandidateScreeningStage(poolCandidate: UpdatePoolCandidateScreeningStageInput!): PoolCandidate
