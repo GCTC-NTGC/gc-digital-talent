@@ -16,12 +16,18 @@ import { HiddenInput } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import Footer from "./Footer";
 
 const ApplicationUnpauseReferralDialog_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationUnpauseReferralDialog on PoolCandidate {
     id
+    user {
+      id
+      firstName
+      lastName
+    }
     referralPauseAt
     referralUnpauseAt
     referralPauseReason
@@ -81,12 +87,21 @@ const ApplicationUnpauseReferralDialog = ({
         }
 
         toast.success(
-          intl.formatMessage({
-            defaultMessage: "Candidate name will now actively be referred",
-            id: "6QhHsW",
-            description:
-              "Success message after unpausing referrals for a candidate",
-          }),
+          intl.formatMessage(
+            {
+              defaultMessage: "{name} will now actively be referred",
+              id: "wnj0ho",
+              description:
+                "Success message after unpausing referrals for a candidate",
+            },
+            {
+              name: getFullNameLabel(
+                application.user.firstName,
+                application.user.lastName,
+                intl,
+              ),
+            },
+          ),
         );
 
         setOpen(false);

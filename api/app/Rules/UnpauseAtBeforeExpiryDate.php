@@ -23,12 +23,6 @@ class UnpauseAtBeforeExpiryDate implements DataAwareRule, ValidationRule
         return $this;
     }
 
-    /**
-     * Create a new rule instance.
-     *
-     * @param mixed
-     * @return void
-     */
     public function __construct(mixed $args)
     {
         $this->args = $args;

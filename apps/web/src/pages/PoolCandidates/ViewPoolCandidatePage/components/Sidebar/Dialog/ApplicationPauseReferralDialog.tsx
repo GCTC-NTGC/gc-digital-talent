@@ -12,6 +12,8 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 
+import { getFullNameLabel } from "~/utils/nameUtils";
+
 import Footer from "./Footer";
 import PauseReferralFormFields from "./FormFields/PauseReferralFormFields";
 import { FormValues } from "./types";
@@ -25,7 +27,11 @@ const ApplicationPauseReferralOptions_Query = graphql(/** GraphQL */ `
 const ApplicationPauseReferralDialog_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationPauseReferralDialog on PoolCandidate {
     id
-
+    user {
+      id
+      firstName
+      lastName
+    }
     ...PauseReferralFormMeta
   }
 `);
@@ -103,12 +109,21 @@ const ApplicationPauseReferralDialog = ({
         }
 
         toast.success(
-          intl.formatMessage({
-            defaultMessage: "Candidate name will no longer be referred",
-            id: "48aunb",
-            description:
-              "Success message after pausing referrals for a candidate",
-          }),
+          intl.formatMessage(
+            {
+              defaultMessage: "{name} will no longer be referred",
+              id: "7e1zPh",
+              description:
+                "Success message after pausing referrals for a candidate",
+            },
+            {
+              name: getFullNameLabel(
+                application.user.firstName,
+                application.user.lastName,
+                intl,
+              ),
+            },
+          ),
         );
 
         setOpen(false);
