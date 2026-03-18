@@ -35,7 +35,7 @@ const FooterCard = ({ areOpportunitiesShowing }: FooterCardProps) => {
   return (
     <Card className="mt-6">
       <div className="items-center justify-between gap-18 xs:flex">
-        <div>
+        <div className="text-center xs:text-left">
           <Heading level="h2" size="h6" className="mt-0 mb-3">
             {areOpportunitiesShowing
               ? intl.formatMessage({
@@ -70,7 +70,7 @@ const FooterCard = ({ areOpportunitiesShowing }: FooterCardProps) => {
                 })}
           </p>
         </div>
-        <div className="mt-6 shrink-0 xs:mt-0">
+        <div className="mt-6 flex shrink-0 justify-center xs:mt-0 xs:block">
           <Link
             color="secondary"
             mode="solid"
