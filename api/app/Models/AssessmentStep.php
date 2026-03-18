@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -200,5 +201,10 @@ class AssessmentStep extends Model
 
             $step->logActivity(ActivityEvent::REMOVED, $step->only($loggedAttributes));
         });
+    }
+
+    public static function withPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['pool.team', 'pool.community.team', 'pool.department.team']);
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -222,5 +223,10 @@ class TalentNomination extends Model
     public function isOwn(User $user)
     {
         return $this->submitter_id === $user->id;
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['talentNominationEvent']);
     }
 }

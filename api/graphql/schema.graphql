@@ -190,7 +190,10 @@ type User {
 type CommunityInterest {
   id: UUID!
   community: Community! @belongsTo
-  user: User! @belongsTo @canRoot(ability: "viewUser")
+  user: User!
+    @belongsTo
+    @with(relation: "community.team")
+    @canRoot(ability: "viewUser")
   workStreams: [WorkStream!] @belongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
@@ -427,7 +430,9 @@ type GeneralQuestion {
 
 type ScreeningQuestion {
   id: ID!
-  assessmentStep: AssessmentStep @belongsTo @canResolved(ability: "view")
+  assessmentStep: AssessmentStep
+    @belongsTo
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
 }
@@ -463,10 +468,11 @@ type Pool implements HasRoleAssignments {
   teamId: UUID! @rename(attribute: "team.id") @with(relation: "team")
   name: LocalizedString
   displayName: DefinedString
-    @with(relations: ["classification", "workStream"])
-    @rename(attribute: "display_name")
+    @with(relation: "classification")
+    @with(relation: "workStream")
   fullDisplayName: DefinedString
-    @with(relations: ["classification", "workStream"])
+    @with(relation: "classification")
+    @with(relation: "workStream")
   classification: Classification @belongsTo
   operationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "operational_requirements")
@@ -516,11 +522,11 @@ type Pool implements HasRoleAssignments {
   assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
     @hasMany
-    @canRoot(ability: "viewAssessmentPlan")
+    @canRoot(ability: "viewAssessmentPlan", scopes: ["withPolicyEagerLoads"])
   poolSkills(type: PoolSkillType @where): [PoolSkill] @hasMany
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
-    @canRoot(ability: "viewTeamMembers")
+    @canRoot(ability: "viewTeamMembers", scopes: ["withPolicyEagerLoads"])
   teamIdForRoleAssignment: ID @with(relation: "team")
   department: Department @belongsTo
   areaOfSelection: LocalizedPoolAreaOfSelection
@@ -565,6 +571,13 @@ type AssessmentStep {
   poolSkills: [PoolSkill] @belongsToMany
   assessmentResults: [AssessmentResult]
     @hasMany
+    @with(
+      relations: [
+        "assessmentResult.pool.team"
+        "assessmentResult.pool.community.team"
+        "assessmentResult.department.team"
+      ]
+    )
     @canRoot(ability: "viewAssessmentResults")
   screeningQuestions: [ScreeningQuestion] @with(relation: "screeningQuestions")
 }
@@ -601,6 +614,9 @@ type PoolSkill {
   skill: Skill @belongsTo
   assessmentSteps: [AssessmentStep]
     @belongsToMany
+    @with(
+      relations: ["pool.team", "pool.community.team", "pool.department.team"]
+    )
     @canRoot(ability: "viewAssessmentSteps")
 }
 
@@ -800,6 +816,7 @@ type Community implements HasRoleAssignments {
   mandateAuthority: LocalizedString @rename(attribute: "mandate_authority")
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
+    @with(relation: "team")
     @canRoot(ability: "viewTeamMembers")
   teamIdForRoleAssignment: ID @with(relation: "team")
   pools: [Pool]
@@ -968,8 +985,8 @@ type Role {
 type RoleAssignment {
   id: ID!
   role: Role @belongsTo
-  teamable: HasRoleAssignments @guard @with(relation: "team.teamable") # Returns the related team, if it has a teamable returns that instead, guarded in the accessor
-  team: Team @belongsTo
+  teamable: HasRoleAssignments @guard @with(relation: "team") # Returns the related team, if it has a teamable returns that instead, guarded in the accessor
+  team: Team @belongsTo @with(relation: "team.teamable")
   user: UserPublicProfile @morphTo
 }
 
@@ -1517,7 +1534,9 @@ type Query {
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
-  pool(id: UUID! @eq): Pool @find @canQuery(ability: "view")
+  pool(id: UUID! @eq): Pool
+    @find
+    @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
     publishingGroup: PublishingGroup
@@ -1545,7 +1564,7 @@ type Query {
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard
-    @canQuery(ability: "view")
+    @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
@@ -1655,7 +1674,7 @@ type Query {
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
-    @canQuery(ability: "view")
+    @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
   poolCandidateSearchRequestsPaginated(
     where: PoolCandidateSearchRequestInput
     orderBy: [OrderByClause!] @orderBy
@@ -1697,12 +1716,12 @@ type Query {
   talentNomination(id: UUID! @eq): TalentNomination
     @find
     @guard
-    @canQuery(ability: "view")
+    @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
 
   talentNominationGroup(id: UUID! @eq): TalentNominationGroup
     @find
     @guard
-    @canQuery(ability: "view")
+    @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
 
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
@@ -3161,6 +3180,7 @@ type Mutation {
       find: "id"
       model: "PoolCandidate"
       injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
     )
   togglePoolCandidateUserBookmark(
     poolCandidateId: UUID! @rename(attribute: "pool_candidate_id")
@@ -3175,16 +3195,32 @@ type Mutation {
   updatePoolCandidateClaimVerification(
     id: UUID!
     poolCandidate: UpdatePoolCandidateClaimVerificationInput! @spread
-  ): PoolCandidate @update @guard @canFind(ability: "updateNotes", find: "id")
+  ): PoolCandidate
+    @update
+    @guard
+    @canFind(
+      ability: "updateNotes"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
     @update
     @guard
-    @canFind(ability: "updateNotes", find: "id")
+    @canFind(
+      ability: "updateNotes"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
   updatePoolCandidateScreeningStage(
     poolCandidate: UpdatePoolCandidateScreeningStageInput! @spread
   ): PoolCandidate
     @guard
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
   updatePoolCandidateExpiryDate(
     id: UUID!
     expiryDate: Date!
@@ -3193,7 +3229,12 @@ type Mutation {
   ): PoolCandidate
     @update
     @guard
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
   removeCandidate(
     id: UUID!
     removalReason: CandidateRemovalReason!
@@ -3201,39 +3242,74 @@ type Mutation {
   ): PoolCandidate
     @guard
     @validator
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
   reinstateCandidate(id: UUID!): PoolCandidate
     @guard
     @validator
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
   qualifyCandidate(
     id: UUID!
     poolCandidate: QualifyCandidateInput! @spread
   ): PoolCandidate
     @guard
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
   disqualifyCandidate(
     id: UUID!
     reason: DisqualificationReason!
   ): PoolCandidate
     @guard
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(class: "App\\GraphQL\\Validators\\DisqualifyCandidateValidator")
   revertFinalDecision(id: UUID!): PoolCandidate
     @guard
     @validator
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
   placeCandidate(
     id: UUID!
     poolCandidate: PlaceCandidateInput! @spread
   ): PoolCandidate
     @guard
-    @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updatePlacement"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
   revertPlaceCandidate(id: UUID!): PoolCandidate
     @guard
-    @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updatePlacement"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(class: "App\\GraphQL\\Validators\\RevertPlaceCandidateValidator")
 
   qualifyAndPlaceCandidate(
@@ -3241,8 +3317,18 @@ type Mutation {
     poolCandidate: QualifyAndPlaceCandidateInput! @spread
   ): PoolCandidate
     @guard
-    @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updatePlacement"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
     @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
 
@@ -3288,7 +3374,7 @@ type Mutation {
   ): PoolCandidateSearchRequest
     @update
     @guard
-    @canFind(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
 
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
@@ -3401,12 +3487,20 @@ type Mutation {
   updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
     @update
     @guard
-    @canFind(ability: "updateDraft", find: "id")
+    @canFind(
+      ability: "updateDraft"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(class: "Mutation\\UpdatePoolValidator")
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput! @spread): Pool
     @update
     @guard
-    @canFind(ability: "updatePublished", find: "id")
+    @canFind(
+      ability: "updatePublished"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
   togglePoolUserBookmark(poolId: UUID! @rename(attribute: "pool_id")): Pool
     @guard
     @canFind(ability: "view", find: "pool_id", model: "Pool", injectArgs: true)
@@ -3428,10 +3522,16 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id", model: "PoolSkill")
-  publishPool(id: ID!): Pool @guard @canFind(ability: "publish", find: "id")
+  publishPool(id: ID!): Pool
+    @guard
+    @canFind(ability: "publish", find: "id", scopes: ["withPolicyEagerLoads"])
   changePoolClosingDate(id: ID!, closingDate: DateTime!): Pool
     @guard
-    @canFind(ability: "changePoolClosingDate", find: "id")
+    @canFind(
+      ability: "changePoolClosingDate"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(
       class: "App\\GraphQL\\Validators\\ChangePoolClosingDateValidator"
     )
@@ -3444,13 +3544,25 @@ type Mutation {
   deletePool(id: ID! @whereKey): Pool
     @forceDelete(model: "Pool")
     @guard
-    @canFind(ability: "deleteDraft", find: "id")
+    @canFind(
+      ability: "deleteDraft"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
   archivePool(id: ID!): Pool
     @guard
-    @canFind(ability: "archiveAndUnarchive", find: "id")
+    @canFind(
+      ability: "archiveAndUnarchive"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
   unarchivePool(id: ID!): Pool
     @guard
-    @canFind(ability: "archiveAndUnarchive", find: "id")
+    @canFind(
+      ability: "archiveAndUnarchive"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
 
   # Application mutations
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
@@ -3522,7 +3634,7 @@ type Mutation {
   ): TalentNominationEvent
     @update
     @guard
-    @canFind(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
 
   # Talent nomination mutations
   createTalentNomination(
@@ -3551,7 +3663,7 @@ type Mutation {
   ): TalentNominationGroup
     @update
     @guard
-    @canFind(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
     @validator
 
   # Notifications
@@ -3614,7 +3726,10 @@ type Mutation {
     @canModel(ability: "create", injectArgs: true)
   updateAssessmentResult(
     updateAssessmentResult: UpdateAssessmentResultInput! @spread
-  ): AssessmentResult @update @guard @canFind(ability: "update", find: "id")
+  ): AssessmentResult
+    @update
+    @guard
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
   deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult
     @delete
     @canFind(ability: "update", find: "id")

@@ -225,7 +225,7 @@ class UserPolicy
         }
 
         $role = Role::findOrFail($roleId);
-        $team = Team::with(['teamable.team'])->findOrFail($teamId);
+        $team = Team::with(['teamable.team', 'teamable.community.team', 'teamable.department.team'])->findOrFail($teamId);
 
         switch ($role->name) {
             case 'process_operator':
@@ -233,8 +233,8 @@ class UserPolicy
                 // it should give them the ability to assign processOperator roles to pools in their community OR department.
                 // for assigning a process, team is a poolTeam so need to reach the community teamable for community checks
                 // or check through department
-                $poolCommunityTeam = $team->loadMissing(['teamable.community.team']);
-                $poolDepartmentTeam = $team->loadMissing(['teamable.department.team']);
+                $poolCommunityTeam = $team;
+                $poolDepartmentTeam = $team;
 
                 return
                     $actor->isAbleTo('update-any-processOperatorMembership') ||

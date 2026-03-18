@@ -302,4 +302,9 @@ class PoolCandidateSearchRequest extends Model
         $this->request_status = $statusInput;
         $this->request_status_changed_at = CarbonImmutable::now();
     }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['community.team']);
+    }
 }

@@ -232,4 +232,9 @@ class TalentNominationGroup extends Model
 
         return $query;
     }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['talentNominationEvent']);
+    }
 }
