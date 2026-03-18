@@ -11,6 +11,8 @@ use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\AST\TypeDefinitionNode;
 use GraphQL\Language\Parser;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Schema;
@@ -112,23 +114,37 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
         $model = $builder->getModel();
         $grammar = $builder->getQuery()->getGrammar();
 
-        if (! method_exists($model, $relationName) ||
-            ! ($model->{$relationName}() instanceof Relation)) {
+        if (! method_exists($model, $relationName)) {
             throw new UserError("Invalid relation: {$relationName}");
         }
 
         $relation = $model->{$relationName}();
+
+        if (! ($relation instanceof Relation)) {
+            throw new UserError("Method {$relationName} is not a valid Eloquent relation.");
+        }
+
         $relatedTable = $relation->getRelated()->getTable();
 
         if (! $builder->getConnection()->getSchemaBuilder()->hasColumn($relatedTable, $column)) {
             throw new UserError("Invalid related column: {$column}");
         }
 
-        $safeColumn = $grammar->wrap("{$relatedTable}.{$column}");
-        $ownerKey = $grammar->wrap("{$relatedTable}.{$relation->getOwnerKeyName()}");
-        $foreignKey = $grammar->wrap("{$model->getTable()}.{$relation->getForeignKeyName()}");
+        if ($relation instanceof BelongsTo) {
+            $ownerKey = $relation->getOwnerKeyName();
+            $foreignKey = $relation->getForeignKeyName();
+        } elseif ($relation instanceof HasOneOrMany) {
+            $ownerKey = $relation->getForeignKeyName();
+            $foreignKey = $relation->getLocalKeyName();
+        } else {
+            throw new UserError('Relation type '.get_class($relation).' is not supported for sub-query sorting.');
+        }
 
-        return "(SELECT {$safeColumn} FROM {$grammar->wrap($relatedTable)} WHERE {$ownerKey} = {$foreignKey} LIMIT 1)";
+        $safeColumn = $grammar->wrap("{$relatedTable}.{$column}");
+        $wrappedOwnerKey = $grammar->wrap("{$relatedTable}.{$ownerKey}");
+        $wrappedForeignKey = $grammar->wrap("{$model->getTable()}.{$foreignKey}");
+
+        return "(SELECT {$safeColumn} FROM {$grammar->wrap($relatedTable)} WHERE {$wrappedOwnerKey} = {$wrappedForeignKey} LIMIT 1)";
     }
 
     /**
