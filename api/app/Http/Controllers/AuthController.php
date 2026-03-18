@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\BearerTokenService;
 use App\Models\Role;
 use App\Models\User;
+use App\Rules\GovernmentEmailRegex;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
@@ -143,7 +144,42 @@ class AuthController extends Controller
             $userMatch->last_name = $idToken->claims()->get('family_name');
         }
         if ($idToken->claims()->has('email')) {
-            $userMatch->setVerifiedContactEmail($idToken->claims()->get('email'));
+            $incomingEmailAddress = $idToken->claims()->get('email');
+
+            // if existing users have this email address then take it from them
+            try {
+                $existingUser = User::where('sub', '!=', $sub)
+                    ->where(fn ($subquery) => $subquery
+                        ->where('email', 'ilike', $incomingEmailAddress)
+                        ->orWhere('work_email', 'ilike', $incomingEmailAddress)
+                    )->first();
+                if (strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
+                    $existingUser->email = $existingUser->email.'_taken_'.Carbon::now()->timestamp;
+                }
+                if (strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
+                    $existingUser->work_email = $existingUser->work_email.'_taken_'.Carbon::now()->timestamp;
+                }
+                $existingUser->save();
+            } catch (\Throwable $e) {
+                // log and continue - don't break log in for failure to take address
+                Log::error('Failed to take email address on log in.'.$e->getMessage(), [
+                    'sub' => $sub,
+                    'email address' => $incomingEmailAddress,
+                ]);
+            }
+
+            // email should be clear now so save if possible
+            if (User::where('sub', '!=', $sub)
+                ->where(fn ($subquery) => $subquery
+                    ->where('email', 'ilike', $incomingEmailAddress)
+                    ->orWhere('work_email', 'ilike', $incomingEmailAddress)
+                )->count() == 0
+            ) {
+                $userMatch->setVerifiedContactEmail($incomingEmailAddress);
+                if (preg_match(GovernmentEmailRegex::PATTERN, $incomingEmailAddress)) {
+                    $userMatch->setVerifiedWorkEmail($incomingEmailAddress);
+                }
+            }
         }
         if ($idToken->claims()->has('phone_number')) {
             $userMatch->telephone = $idToken->claims()->get('phone_number');
