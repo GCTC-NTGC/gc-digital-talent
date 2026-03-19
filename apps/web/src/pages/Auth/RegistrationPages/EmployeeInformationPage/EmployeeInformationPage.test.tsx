@@ -71,7 +71,7 @@ describe("Create Account Form tests", () => {
 
     expect(
       screen.getByRole("textbox", {
-        name: /my role/i,
+        name: /job title/i,
       }),
     ).toBeInTheDocument();
 
@@ -83,16 +83,10 @@ describe("Create Account Form tests", () => {
 
     // Ensure conditional form elements don't exist yet.
 
-    // first field for 'external'
+    // first field for 'external' and 'government'
     expect(
       screen.queryByRole("textbox", {
         name: /organization/i,
-      }),
-    ).not.toBeInTheDocument();
-    // first field for 'government'
-    expect(
-      screen.queryByRole("combobox", {
-        name: /department/i,
       }),
     ).not.toBeInTheDocument();
     // first field for 'caf'
