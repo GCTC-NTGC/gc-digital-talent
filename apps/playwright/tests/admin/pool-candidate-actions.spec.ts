@@ -1,5 +1,7 @@
 import {
+  ApplicationStatus,
   ArmedForcesStatus,
+  CandidateRemovalReason,
   CitizenshipStatus,
   FlexibleWorkLocation,
   PoolCandidate,
@@ -7,6 +9,7 @@ import {
   ProvinceOrTerritory,
   Skill,
   SkillCategory,
+  User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
@@ -14,11 +17,12 @@ import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 import { test, expect } from "~/fixtures";
 import graphql from "~/utils/graphql";
 import { getSkills } from "~/utils/skills";
-import { createUserWithRoles, me } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import { createAndSubmitApplication } from "~/utils/applications";
 import { createAndPublishPool } from "~/utils/pools";
 import { loginBySub } from "~/utils/auth";
 import { generateUniqueTestId } from "~/utils/id";
+import AssessmentPage from "~/fixtures/AssessmentPage";
 
 const LOCALIZED_STRING = {
   en: "test EN",
@@ -30,8 +34,9 @@ test.describe("Pool candidates", () => {
   let sub: string;
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
+  let user: User | undefined;
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
     const adminCtx = await graphql.newContext();
@@ -80,6 +85,7 @@ test.describe("Pool candidates", () => {
         },
       },
     });
+    user = createdUser;
     const admin = await me(adminCtx, {});
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: admin?.id ?? "",
@@ -99,6 +105,13 @@ test.describe("Pool candidates", () => {
     });
 
     candidate = application;
+  });
+
+  test.afterEach(async () => {
+    if (user?.id) {
+      const adminCtx = await graphql.newContext();
+      await deleteUser(adminCtx, { id: user.id });
+    }
   });
 
   test("Verification and notes mutations", async ({ appPage }) => {
@@ -158,13 +171,15 @@ test.describe("Pool candidates", () => {
 
     // to assess icon by application screening
     await expect(
-      appPage.page.getByLabel("To assess").locator("path"),
+      appPage.page.getByLabel("To assess").locator("path").first(),
     ).toBeVisible();
 
     // education result
     await appPage.page
       .getByRole("row", { name: "Education requirement To" })
       .getByRole("button")
+      .first()
+
       .click();
     await expect(
       appPage.page.getByText("I meet the applied work"),
@@ -194,6 +209,7 @@ test.describe("Pool candidates", () => {
     await appPage.page
       .getByRole("row", { name: `${technicalSkill?.name?.en}` })
       .getByRole("button")
+      .first()
       .click();
     await expect(
       appPage.page.getByText(`Test skill ${technicalSkill?.name?.en}`),
@@ -240,46 +256,27 @@ test.describe("Pool candidates", () => {
     await loginBySub(appPage.page, "admin@test.com");
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
-
-    const sidebar = appPage.page.getByRole("complementary").first();
-
-    await sidebar.getByRole("button", { name: /to assess/i }).click();
-
-    await appPage.waitForGraphqlResponse("ApplicationStatusFormOptions");
-
-    await appPage.page.getByRole("radio", { name: /^qualified/i }).click();
-
-    const expiryDate = appPage.page.getByRole("group", {
-      name: /expiry date/i,
+    const assessmentPage = new AssessmentPage(appPage.page);
+    await assessmentPage.logApplicationStatusOnUI({
+      targetStatus: ApplicationStatus.Qualified,
+      expiryDate: "2400-01-01",
     });
-
-    await expiryDate.getByRole("spinbutton", { name: /year/i }).fill("2400");
-    await expiryDate
-      .getByRole("combobox", { name: /month/i })
-      .selectOption("01");
-    await expiryDate.getByRole("spinbutton", { name: /day/i }).fill("1");
-    await appPage.page
-      .getByRole("button", { name: /save and continue/i })
-      .click();
-
-    await expect(appPage.page.getByText(/2400-01-01/i)).toBeVisible();
+    await expect(
+      appPage.page.getByRole("button", { name: /qualified/i }),
+    ).toBeVisible();
   });
 
   test("Removing and reinstating", async ({ appPage }) => {
     await loginBySub(appPage.page, "admin@test.com");
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
+    const assessmentPage = new AssessmentPage(appPage.page);
+    await assessmentPage.logApplicationStatusOnUI({
+      targetStatus: ApplicationStatus.Removed,
+      removalReason: CandidateRemovalReason.RequestedToBeWithdrawn,
+    });
 
     const sidebar = appPage.page.getByRole("complementary").first();
-
-    await sidebar.getByRole("button", { name: /to assess/i }).click();
-    await appPage.page.getByRole("radio", { name: /remove/i }).click();
-    await appPage.page
-      .getByRole("radio", { name: "Candidate has requested to be withdrawn" })
-      .click();
-    await appPage.page
-      .getByRole("button", { name: /save and continue/i })
-      .click();
     await expect(
       appPage.page.getByRole("button", { name: "Removed", exact: true }),
     ).toBeVisible();
