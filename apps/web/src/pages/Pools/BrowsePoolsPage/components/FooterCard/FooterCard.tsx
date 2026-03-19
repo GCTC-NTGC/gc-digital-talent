@@ -36,7 +36,7 @@ const FooterCard = ({ areOpportunitiesShowing }: FooterCardProps) => {
     <Card className="mt-6">
       <div className="items-center justify-between gap-18 xs:flex">
         <div className="text-center xs:text-left">
-          <Heading level="h2" size="h6" className="mt-0 mb-3">
+          <Heading level="h2" size="h6" className="mt-0 mb-3 lg:text-lg">
             {areOpportunitiesShowing
               ? intl.formatMessage({
                   defaultMessage: "Check back for more opportunities!",
