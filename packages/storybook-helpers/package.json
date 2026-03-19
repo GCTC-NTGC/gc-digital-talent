@@ -26,11 +26,11 @@
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@storybook/addon-themes": "^10.2.17",
-    "@storybook/react-vite": "^10.2.17",
+    "@storybook/addon-themes": "^10.3.0",
+    "@storybook/react-vite": "^10.3.0",
     "eslint": "^9.20.1",
     "react": "^19.2.4",
-    "storybook": "^10.2.17",
+    "storybook": "^10.3.0",
     "tsconfig": "workspace:*"
   }
 }
