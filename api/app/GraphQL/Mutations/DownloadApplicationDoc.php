@@ -20,6 +20,7 @@ final readonly class DownloadApplicationDoc
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
         try {
+            /** @var PoolCandidate $targetApplicant */
             $targetApplicant = PoolCandidate::with([
                 'educationRequirementAwardExperiences',
                 'educationRequirementCommunityExperiences',
@@ -30,8 +31,7 @@ final readonly class DownloadApplicationDoc
                 'screeningQuestionResponses' => ['screeningQuestion'],
                 'generalQuestionResponses' => ['generalQuestion'],
             ])
-                ->where('id', $args['id'])
-                ->firstOrFail();
+                ->findOrFail($args['id']);
 
             $generator = new ApplicationDocGenerator(
                 candidate: $targetApplicant,

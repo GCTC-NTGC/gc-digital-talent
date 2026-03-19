@@ -24,9 +24,7 @@ final readonly class DownloadUserDoc
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
         try {
-            $targetUser = User::with([
-                'experiences' => ['workStreams'],
-            ])->where('id', $args['id'])->firstOrFail();
+            $targetUser = User::findOrFail($args['id']);
 
             $generator = new UserDocGenerator(
                 user: $targetUser,

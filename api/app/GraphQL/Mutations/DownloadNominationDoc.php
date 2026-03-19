@@ -22,14 +22,13 @@ final readonly class DownloadNominationDoc
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
         try {
+            /** @var TalentNominationGroup $targetTalentNominationGroup */
             $targetTalentNominationGroup = TalentNominationGroup::with([
-                'nominations' => [
-                    'nominator',
-                    'submitter',
-                    'advancementReferenceFallbackClassification',
-                    'advancementReferenceFallbackDepartment',
-                ],
-            ])->where('id', $args['id'])->firstOrFail();
+                'nominations.nominator',
+                'nominations.submitter',
+                'nominations.advancementReferenceFallbackClassification',
+                'nominations.advancementReferenceFallbackDepartment',
+            ])->findOrFail($args['id']);
 
             $generator = new NominationDocGenerator(
                 talentNominationGroup: $targetTalentNominationGroup,
