@@ -317,29 +317,21 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
         <Loading inline />
       ) : (
         <>
-          <div>
-            <Combobox
-              id="department"
-              label={labels.organization}
-              name="department"
-              options={departmentOptions}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-              trackUnsaved={false}
-            />
-            <Notice.Root className="mt-1.5">
-              <Notice.Content>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "If the organization you work with is not listed, please select “External organization” as the “Employment category” for this experience.",
-                    id: "Ohmv/N",
-                    description:
-                      "Informational text for the government organization field of the work experience form.",
-                  })}
-                </p>
-              </Notice.Content>
-            </Notice.Root>
-          </div>
+          <Combobox
+            id="department"
+            label={labels.organization}
+            name="department"
+            options={departmentOptions}
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            trackUnsaved={false}
+            context={intl.formatMessage({
+              defaultMessage:
+                "If the organization you work with is not listed, please select “External organization” as the “Employment category” for this experience.",
+              id: "Ohmv/N",
+              description:
+                "Informational text for the government organization field of the work experience form.",
+            })}
+          />
           <Input
             id="team"
             label={labels.team}
