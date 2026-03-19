@@ -227,7 +227,7 @@ test.describe("Pool candidates", () => {
   test("Validate application status for Qualified Candidate", async ({
     appPage,
   }) => {
-    test.setTimeout(120_000);
+    test.setTimeout(90000);
     const candidateName = user?.firstName;
     const assessmentPage = new AssessmentPage(appPage.page);
     const genericTable = new GenericTableValidationFixture(appPage.page);
@@ -360,7 +360,7 @@ test.describe("Pool candidates", () => {
   test("Validate application status for Disqualified Candidate", async ({
     appPage,
   }) => {
-    test.setTimeout(120_000);
+    test.setTimeout(90000);
     const candidateName = user?.firstName;
     const assessmentPage = new AssessmentPage(appPage.page);
     await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
