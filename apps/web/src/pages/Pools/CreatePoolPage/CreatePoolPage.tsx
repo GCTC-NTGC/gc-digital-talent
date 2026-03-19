@@ -194,7 +194,8 @@ export const CreatePoolForm = ({
   return (
     <Card space="lg" className="mb-18">
       <Heading
-        level="h3"
+        level="h2"
+        size="h3"
         color="primary"
         icon={IdentificationIcon}
         className="mt-0 xs:justify-start xs:text-left"
@@ -218,9 +219,9 @@ export const CreatePoolForm = ({
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-y-3">
             <div>
-              <Card.Separator space="none" className="my-6 bg-gray-100" />
+              <Card.Separator space="none" className="my-6" />
               <YourRolesSection rolesArray={usersRelevantRoles} />
-              <Card.Separator space="none" className="my-6 bg-gray-100" />
+              <Card.Separator space="none" className="my-6" />
             </div>
             <div>
               <p className="mb-1.5 font-bold">
@@ -253,7 +254,7 @@ export const CreatePoolForm = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
               />
-              <Card.Separator space="none" className="my-6 bg-gray-100" />
+              <Card.Separator space="none" className="my-6" />
             </div>
             <div>
               <p className="mb-1.5 font-bold">
@@ -287,7 +288,7 @@ export const CreatePoolForm = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
               />
-              <Card.Separator space="none" className="my-6 bg-gray-100" />
+              <Card.Separator space="none" className="my-6" />
             </div>
             <div>
               <p className="mb-1.5 font-bold">
@@ -310,7 +311,7 @@ export const CreatePoolForm = ({
                 communities={communities}
                 canToggleFunctionalCommunity={canToggleFunctionalCommunity}
               />
-              <Card.Separator space="none" className="my-6 bg-gray-100" />
+              <Card.Separator space="none" className="my-6" />
             </div>
             <div className="flex items-center gap-6">
               <Submit
