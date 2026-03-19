@@ -408,7 +408,7 @@ export const Component = () => {
       });
   };
 
-  return application && application?.user ? (
+  return application?.user ? (
     <ApplicationSelfDeclaration
       application={application}
       indigenousCommunities={resolvedIndigenousCommunities?.map(

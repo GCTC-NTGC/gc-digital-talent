@@ -15,7 +15,7 @@ export function getAssessmentPlanStatus(
 ): PoolCompleteness {
   const pool = getFragment(AssessmentPlanStatus_Fragment, poolQuery);
 
-  if (!pool || !pool.assessmentPlanIsComplete) {
+  if (!pool?.assessmentPlanIsComplete) {
     return "incomplete";
   }
 

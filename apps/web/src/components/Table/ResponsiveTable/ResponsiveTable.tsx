@@ -98,7 +98,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   const { announce } = useAnnouncer();
   const hasUpdatedRows = useRef<boolean>(false);
   const [, setSearchParams] = useSearchParams();
-  const isInternalSearch = search && search.internal;
+  const isInternalSearch = !!search?.internal;
   const memoizedColumns = useMemo(() => {
     if (!rowSelect) return columns;
     // Inject the selection column if it is enabled
