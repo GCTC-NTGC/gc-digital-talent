@@ -82,8 +82,8 @@ class AssessmentResult extends Model
     {
         return $query->with([
             'assessmentStep.pool.team',
-            'assessmentStep.community.team',
-            'assessmentStep.pool.depratment.team',
+            'assessmentStep.pool.community.team',
+            'assessmentStep.pool.department.team',
         ]);
     }
 }

@@ -225,7 +225,7 @@ class UserPolicy
         }
 
         $role = Role::findOrFail($roleId);
-        $team = Team::with(['teamable.team', 'teamable.community.team', 'teamable.department.team'])->findOrFail($teamId);
+        $team = Team::with(['teamable.team'])->findOrFail($teamId);
 
         switch ($role->name) {
             case 'process_operator':
