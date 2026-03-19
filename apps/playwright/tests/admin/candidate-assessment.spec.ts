@@ -28,6 +28,7 @@ import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import {
   createAndSubmitApplication,
+  disqualifyCandidate,
   qualifyCandidate,
   revertFinalDecision,
 } from "~/utils/applications";
@@ -133,7 +134,9 @@ test.describe("Pool candidates", () => {
     }
   });
 
-  test("Completing an assessment step", async ({ appPage }) => {
+  test("Validate Application can be screened in with applied work", async ({
+    appPage,
+  }) => {
     await loginBySub(appPage.page, "admin@test.com");
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
@@ -227,6 +230,7 @@ test.describe("Pool candidates", () => {
     test.setTimeout(120_000);
     const candidateName = user?.firstName;
     const assessmentPage = new AssessmentPage(appPage.page);
+    const genericTable = new GenericTableValidationFixture(appPage.page);
     await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
     const poolSkillsID = await getPoolSkills(adminCtx, {
       poolId: poolId,
@@ -268,7 +272,6 @@ test.describe("Pool candidates", () => {
     await expect(appPage.page.getByText(nextStepTitle)).toBeVisible();
 
     // 3. Navigate to candidate table and verify the screening, assessment stages are updated for that candidate
-    const genericTable = new GenericTableValidationFixture(appPage.page);
     await genericTable.verifyCandidateStatusInTable(
       poolId,
       adminCtx,
@@ -316,12 +319,33 @@ test.describe("Pool candidates", () => {
       "Qualified",
       "Qualified in process",
     );
+  });
 
-    // 7. Revert the Qualified candidate status and verify the reverted candidate status in the table
-    await revertFinalDecision(adminCtx, { id: candidate.id });
+  test("Validate application status post reverting for Qualified candidate", async ({
+    appPage,
+  }) => {
+    const candidateName = user?.firstName;
+    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    const assessmentPage = new AssessmentPage(appPage.page);
+    await assessmentPage.goToCandidateApplication(candidate.id);
+
+    // 1. Qualify the candidate through UI
+    await assessmentPage.logApplicationStatusOnUI({
+      targetStatus: ApplicationStatus.Qualified,
+      expiryDate: "2400-01-01",
+    });
+    await expect(
+      appPage.page.getByRole("button", { name: /qualified/i }),
+    ).toBeVisible();
+
+    // 2. Revert the qualified candidate status and verify the reverted candidate status in the table
+    await assessmentPage.revertApplicationStatusOnUI(
+      ApplicationStatus.Qualified,
+    );
     const revertedCandidateStatus = await getCandidateScreeningStage(adminCtx, {
       candidateId: candidate.id,
     });
+    const genericTable = new GenericTableValidationFixture(appPage.page);
     await genericTable.verifyCandidateStatusInTable(
       poolId,
       adminCtx,
@@ -431,12 +455,31 @@ test.describe("Pool candidates", () => {
       "Disqualified",
       "Unsuccessful",
     );
+  });
 
-    // 7. Revert the Disqualified candidate status and verify the reverted candidate status in the table
+  test("Validate application status post reverting for disqualified candidate", async ({
+    appPage,
+  }) => {
+    const candidateName = user?.firstName;
+    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    const assessmentPage = new AssessmentPage(appPage.page);
+    await assessmentPage.goToCandidateApplication(candidate.id);
+    await expect(
+      appPage.page.getByRole("button", { name: /1. New application/i }),
+    ).toBeVisible();
+
+    // 1. Disqualify the candidate through Mutation/API
+    await disqualifyCandidate(adminCtx, {
+      id: candidate.id,
+      reason: DisqualificationReason.ScreenedOutApplication,
+    });
+
+    // 2. Revert the Disqualified candidate status and verify the reverted candidate status in the table
     await revertFinalDecision(adminCtx, { id: candidate.id });
     const revertedCandidateStatus = await getCandidateScreeningStage(adminCtx, {
       candidateId: candidate.id,
     });
+    const genericTable = new GenericTableValidationFixture(appPage.page);
     await genericTable.verifyCandidateStatusInTable(
       poolId,
       adminCtx,

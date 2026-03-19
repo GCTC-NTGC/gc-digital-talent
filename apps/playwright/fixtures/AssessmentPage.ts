@@ -26,10 +26,11 @@ const FIELD = {
   SAVE_CONTINUE_BUTTON: "saveContinueButton",
   ALERT_MESSAGE: "alertMessage",
   NO_ASSESSMENT_STEPS_PRESENT: "noAssessmentStepsPresent",
-  QUALIFIED_STATUS: "qualifiedStatus",
   APPLICATION_SIDEBAR: "applicationSidebar",
   TO_ASSESS_BUTTON: "toAssessButton",
   APPLICATION_STATUS_HEADING: "applicationStatusHeading",
+  REVERT_DIALOG_HEADING: "revertDialogHeading",
+  REVERT_BUTTON: "revertButton",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -64,9 +65,6 @@ class AssessmentPage extends AppPage {
       [FIELD.NO_ASSESSMENT_STEPS_PRESENT]: this.page.getByText(
         /available after screening stage/i,
       ),
-      [FIELD.QUALIFIED_STATUS]: this.page.getByRole("button", {
-        name: /qualified/i,
-      }),
       [FIELD.APPLICATION_SIDEBAR]: this.page.getByRole("complementary").first(),
       [FIELD.TO_ASSESS_BUTTON]: this.page.getByRole("button", {
         name: /to assess/i,
@@ -74,6 +72,13 @@ class AssessmentPage extends AppPage {
       [FIELD.APPLICATION_STATUS_HEADING]: this.page.getByRole("heading", {
         name: /application status/i,
         level: 2,
+      }),
+      [FIELD.REVERT_DIALOG_HEADING]: this.page.getByRole("heading", {
+        name: /revert final assessment decision/i,
+        level: 2,
+      }),
+      [FIELD.REVERT_BUTTON]: this.page.getByRole("button", {
+        name: /revert decision and update status/i,
       }),
     };
   }
@@ -343,6 +348,17 @@ class AssessmentPage extends AppPage {
     await expect(this.locators[FIELD.ALERT_MESSAGE]).toHaveText(
       /Application status updated successfully/i,
     );
+  }
+
+  async revertApplicationStatusOnUI(currentStatus: ApplicationStatus) {
+    await this.page.reload();
+    await this.page.getByRole("button", { name: currentStatus }).click();
+    await expect(this.locators.revertDialogHeading).toBeVisible();
+    await this.locators.revertButton.click();
+    await expect(this.locators[FIELD.ALERT_MESSAGE]).toHaveText(
+      /decision reverted successfully/i,
+    );
+    await expect(this.locators.toAssessButton.first()).toBeVisible();
   }
 }
 export default AssessmentPage;
