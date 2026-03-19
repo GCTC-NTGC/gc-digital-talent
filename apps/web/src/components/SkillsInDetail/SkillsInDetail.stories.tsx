@@ -10,8 +10,9 @@ export default {
   component: SkillsInDetail,
   args: {
     skills: [],
-    onDelete: (skillId: string) =>
-      action("Remove skill from experience")(skillId),
+    onDelete: (skillId: string) => {
+      action("Remove skill from experience")(skillId);
+    },
   },
 };
 

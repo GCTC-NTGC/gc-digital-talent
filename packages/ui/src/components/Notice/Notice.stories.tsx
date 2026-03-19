@@ -156,7 +156,9 @@ const Template = (props: NoticeProps) => {
 
 export const Default: StoryObj<typeof Notice.Root> = {
   args: {
-    onDismiss: () => action("dismiss")(),
+    onDismiss: () => {
+      action("dismiss")();
+    },
   },
   render: (args) => (
     <Container>
@@ -167,7 +169,9 @@ export const Default: StoryObj<typeof Notice.Root> = {
 
 export const Card: StoryObj<typeof Notice.Root> = {
   args: {
-    onDismiss: () => action("dismiss")(),
+    onDismiss: () => {
+      action("dismiss")();
+    },
     mode: "card",
   },
   render: (args) => (
@@ -192,7 +196,9 @@ export const Basic: StoryObj<typeof Notice.Root> = {
 
 export const Small: StoryObj<typeof Notice.Root> = {
   args: {
-    onDismiss: () => action("dismiss")(),
+    onDismiss: () => {
+      action("dismiss")();
+    },
     small: true,
     color: "gray",
   },
@@ -262,7 +268,9 @@ export const Small: StoryObj<typeof Notice.Root> = {
 
 export const NoIcon: StoryObj<typeof Notice.Root> = {
   args: {
-    onDismiss: () => action("dismiss")(),
+    onDismiss: () => {
+      action("dismiss")();
+    },
     color: "gray",
   },
   render: (args) => (
