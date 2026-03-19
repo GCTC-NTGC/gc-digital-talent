@@ -196,11 +196,7 @@ class AuthController extends Controller
         }
         $userMatch->save();
 
-        $returnedPayload = $response->json();
-        if ($newUserCreated) {
-            $returnedPayload['is_new_user'] = 'true';
-        }
-        $query = http_build_query($returnedPayload);
+        $query = http_build_query($response->json());
 
         $from = $request->session()->pull('from');
 
@@ -211,14 +207,27 @@ class AuthController extends Controller
             $from = null;
         } // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
 
-        $appUrl = config('app.url');
-        $postLoginRedirect = config('oauth.post_login_redirect');
-        if ($request->session()->pull('devServer')) {
-            $appUrl = config('app.dev_url');
-            $postLoginRedirect = config('oauth.dev_post_login_redirect');
+        if ($newUserCreated) {
+            // new user
+            $navigateToUri = config('oauth.post_login_registration_redirect');
+        } else {
+            // returning user
+            $appUrl = config('app.url');
+            $postLoginRedirect = config('oauth.post_login_redirect');
+            $navigateToUri = strlen($from) > 0 ? $appUrl.$from : $postLoginRedirect;
         }
 
-        $navigateToUri = strlen($from) > 0 ? $appUrl.$from : $postLoginRedirect;
+        if ($request->session()->pull('devServer')) {
+            if ($newUserCreated) {
+                // new user
+                $navigateToUri = config('oauth.dev_post_login_registration_redirect');
+            } else {
+                // returning user
+                $appUrl = config('app.dev_url');
+                $postLoginRedirect = config('oauth.dev_post_login_redirect');
+                $navigateToUri = strlen($from) > 0 ? $appUrl.$from : $postLoginRedirect;
+            }
+        }
 
         return redirect($navigateToUri.'?'.$query);
     }
