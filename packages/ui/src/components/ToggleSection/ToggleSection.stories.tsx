@@ -33,7 +33,11 @@ export default {
 
 const Template: StoryFn<ToggleSectionRootAndHeader> = () => {
   return (
-    <ToggleSection.Root onOpenChange={(open) => action("onOpenToggle")(open)}>
+    <ToggleSection.Root
+      onOpenChange={(open) => {
+        action("onOpenToggle")(open);
+      }}
+    >
       <ToggleSection.Header icon={AcademicCapIcon} toggle={<Toggle />}>
         Toggle section header
       </ToggleSection.Header>
@@ -59,7 +63,11 @@ export const Default = Template.bind({});
 
 const NestedTemplate: StoryFn<ToggleSectionRootAndHeader> = () => {
   return (
-    <ToggleSection.Root onOpenChange={(open) => action("onOpenToggle")(open)}>
+    <ToggleSection.Root
+      onOpenChange={(open) => {
+        action("onOpenToggle")(open);
+      }}
+    >
       <ToggleSection.Header icon={AcademicCapIcon} toggle={<Toggle />}>
         Toggle section header
       </ToggleSection.Header>

@@ -799,10 +799,6 @@
     "defaultMessage": "Vous pouvez demander un bon pour de nombreux domaines de certification des TI, notamment :",
     "description": "First paragraph of certification topics section"
   },
-  "16iCWc": {
-    "defaultMessage": "Vétéran",
-    "description": "Label for veteran chip on view candidate page"
-  },
   "16tGhC": {
     "defaultMessage": "Soumise",
     "description": "Label for application submitted"
@@ -14033,10 +14029,6 @@
   "xDfpkE": {
     "defaultMessage": "Pour communiquer avec des personnes qualifiées dont le nom figure dans notre base de données, les gestionnaires d’embauche peuvent présenter une demande dans la <link>page Trouver des talents</link>.",
     "description": "Paragraph two, answer about prequalified talent"
-  },
-  "xGMcBO": {
-    "defaultMessage": "Priorité",
-    "description": "Label for priority chip on view candidate page"
   },
   "xHAPBe": {
     "defaultMessage": "Félicitations! Vous faites maintenant partie de ce processus de recrutement! On communiquera avec vous pour vous informer des possibilités d'emploi. Vous pouvez modifier votre disponibilité si vous avez débuté récemment un nouvel emploi ou souhaitez ne plus recevoir de possibilités d'emploi. <strong>Vous pouvez modifier votre choix à tout moment si vous changez d'idée.</strong>.",

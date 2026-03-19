@@ -28,9 +28,9 @@
     "eslint": "^9.20.1",
     "eslint-plugin-playwright": "^2.9.0",
     "exceljs": "^4.4.0",
-    "mammoth": "^1.2.5",
+    "mammoth": "^1.12.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.0"
+    "typescript-eslint": "^8.57.1"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.11.1"
