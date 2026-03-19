@@ -10,6 +10,7 @@ import { useQuery } from "urql";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { empty } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -29,11 +30,13 @@ const Registration_Query = graphql(/** GraphQL */ `
  * redirect to the `/employee-registration` page
  */
 export const Component = () => {
+  const featureFlags = useFeatureFlags();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { loggedIn } = useAuthentication();
   const [{ data, fetching, stale }] = useQuery({
     query: Registration_Query,
+    pause: featureFlags.canadaLogin,
   });
 
   const email = data?.me?.email;
@@ -42,6 +45,13 @@ export const Component = () => {
   const isToExperiencePage = pathname === paths.registrationExperience();
 
   useEffect(() => {
+    /**
+     * Short circuit if CanadaLogin is enabled.  When transition
+     * is complete this component can be removed entirely.
+     */
+    if (featureFlags.canadaLogin) {
+      return;
+    }
     /**
      * Check the following then redirect to welcome page
      *  - User Logged in
