@@ -19,12 +19,12 @@ import GettingStartedForm, {
   sectionTitle as gettingStartedSectionTitle,
 } from "./GettingStartedForm";
 
-const GettingStarted_Query = graphql(/** GraphQL */ `
-  query GettingStarted {
+const GettingStartedDeprecated_Query = graphql(/** GraphQL */ `
+  query GettingStartedDeprecated {
     ...GettingStartedOptions
     me {
       id
-      ...GettingStartedInitialValues
+      ...GettingStartedInitialValuesDeprecated
     }
   }
 `);
@@ -50,7 +50,7 @@ export const GettingStartedPage = () => {
   const paths = useRoutes();
   const navigate = useNavigate();
   const [{ data, fetching, error }] = useQuery({
-    query: GettingStarted_Query,
+    query: GettingStartedDeprecated_Query,
   });
 
   const [, executeUpdateUserMutation] = useMutation(

@@ -1,8 +1,9 @@
 import { defineMessage, useIntl } from "react-intl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { FormProvider, useForm } from "react-hook-form";
+import { ReactNode } from "react";
 
-import { Heading, Separator } from "@gc-digital-talent/ui";
+import { Heading, Link, Notice, Separator } from "@gc-digital-talent/ui";
 import {
   Input,
   RadioGroup,
@@ -18,14 +19,17 @@ import {
   GettingStartedInitialValuesFragment,
   EmailType,
 } from "@gc-digital-talent/graphql";
+import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import EmailVerification, {
   useEmailVerification,
 } from "~/components/EmailVerification/EmailVerification";
 import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
 import Caption from "~/components/BasicInformation/Caption";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import labels from "./labels";
+import messages from "../messages";
 
 export const sectionTitle = defineMessage({
   defaultMessage: "Getting started",
@@ -38,9 +42,12 @@ export const GettingStartedInitialValues_Query = graphql(/** GraphQL */ `
     firstName
     lastName
     preferredLang {
-      value
+      label {
+        localized
+      }
     }
     email
+    telephone
   }
 `);
 
@@ -135,7 +142,7 @@ const GettingStartedForm = ({
         level="h2"
         size="h3"
         icon={FlagIcon}
-        color="secondary"
+        color="primary"
         className="mt-0 mb-6 font-normal"
       >
         {intl.formatMessage(sectionTitle)}
@@ -143,21 +150,51 @@ const GettingStartedForm = ({
       <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
-            "Before we take you to your profile, we need to collect some required information to complete your account set up.",
-          id: "x6saT3",
+            "Before we take you to your profile, we need to collect some required information to complete your account setup. We’ve collected the following profile information from CanadaLogin. The email address connected to your CanadaLogin account will be used for all contact and notifications received from GC Digital Talent.",
+          id: "BXawd7",
           description: "Message after main heading in create account page.",
         })}
       </p>
-      <div className="mb-6">
-        <EmailVerification.RequestVerificationCodeForm
-          emailType={EmailType.Contact}
-          emailAddress={initialValues.email ?? null}
-        />
-      </div>
-      <div className="mb-6">
-        <EmailVerification.RequestVerificationCodeContextMessage />
-      </div>
-
+      <Notice.Root className="mb-6">
+        <Notice.Title>
+          {getFullNameLabel(
+            initialValues.firstName,
+            initialValues.lastName,
+            intl,
+          )}
+        </Notice.Title>
+        <Notice.Content>
+          <p>{initialValues.email}</p>
+          {initialValues.telephone ? <p>{initialValues.telephone}</p> : null}
+          <p>
+            {intl.formatMessage(labels.preferredLang) +
+              intl.formatMessage(commonMessages.dividingColon) +
+              initialValues.preferredLang?.label.localized}
+          </p>
+        </Notice.Content>
+        <Notice.Footer>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Does this information look incorrect? You can update it by <a>visiting your profile on CanadaLogin</a>.",
+              id: "hbbeY8",
+              description: "Footer for create account page",
+            },
+            {
+              a: (chunks: ReactNode) => {
+                const uri = getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI");
+                return uri ? (
+                  <Link href={uri} color="black">
+                    {chunks}
+                  </Link>
+                ) : (
+                  <span>{chunks}</span>
+                );
+              },
+            },
+          )}
+        </Notice.Footer>
+      </Notice.Root>
       <FormProvider {...formMethods}>
         <form onSubmit={formMethods.handleSubmit(submitHandler)}>
           <div className="mb-6">
@@ -231,7 +268,7 @@ const GettingStartedForm = ({
               <Submit
                 mode="solid"
                 color="primary"
-                text={intl.formatMessage(commonMessages.saveAndContinue)}
+                text={intl.formatMessage(commonMessages.continue)}
                 submittedText={intl.formatMessage(
                   commonMessages.saveAndContinue,
                 )}

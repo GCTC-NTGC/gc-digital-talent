@@ -559,6 +559,11 @@ const commonMessages = defineMessages({
     id: "MQB4IA",
     description: "Button text to save a form step and continue to the next one",
   },
+  continue: {
+    defaultMessage: "Continue",
+    id: "XXXXX",
+    description: "Button to continue to the next step",
+  },
   updated: {
     defaultMessage: "Updated",
     id: "SyFJmn",

@@ -15,7 +15,7 @@ import {
   FragmentType,
   getFragment,
   Language,
-  GettingStartedInitialValuesFragment,
+  GettingStartedInitialValuesDeprecatedFragment,
   EmailType,
 } from "@gc-digital-talent/graphql";
 
@@ -33,16 +33,18 @@ export const sectionTitle = defineMessage({
   description: "Main heading in getting started page.",
 });
 
-export const GettingStartedInitialValues_Query = graphql(/** GraphQL */ `
-  fragment GettingStartedInitialValues on User {
-    firstName
-    lastName
-    preferredLang {
-      value
+export const GettingStartedInitialValuesDeprecated_Query = graphql(
+  /** GraphQL */ `
+    fragment GettingStartedInitialValuesDeprecated on User {
+      firstName
+      lastName
+      preferredLang {
+        value
+      }
+      email
     }
-    email
-  }
-`);
+  `,
+);
 
 export const GettingStartedOptions_Query = graphql(/** GraphQL */ `
   fragment GettingStartedOptions on Query {
@@ -65,7 +67,7 @@ export interface FormValues {
 }
 
 const initialValuesToFormValues = (
-  initialValues: GettingStartedInitialValuesFragment,
+  initialValues: GettingStartedInitialValuesDeprecatedFragment,
 ): FormValues => {
   return {
     firstName: initialValues.firstName ?? null,
@@ -77,7 +79,9 @@ const initialValuesToFormValues = (
 };
 
 export interface GettingStartedFormProps {
-  initialValuesQuery: FragmentType<typeof GettingStartedInitialValues_Query>;
+  initialValuesQuery: FragmentType<
+    typeof GettingStartedInitialValuesDeprecated_Query
+  >;
   optionsQuery: FragmentType<typeof GettingStartedOptions_Query>;
   onSubmit: (formValues: FormValues) => Promise<void>;
 }
@@ -95,7 +99,7 @@ const GettingStartedForm = ({
   } = useEmailVerification();
 
   const initialValues = getFragment(
-    GettingStartedInitialValues_Query,
+    GettingStartedInitialValuesDeprecated_Query,
     initialValuesQuery,
   );
 
