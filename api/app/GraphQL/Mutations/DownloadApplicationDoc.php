@@ -27,9 +27,9 @@ final readonly class DownloadApplicationDoc
                 'educationRequirementEducationExperiences',
                 'educationRequirementPersonalExperiences',
                 'educationRequirementWorkExperiences',
-                'pool' => ['poolSkills' => ['skill']],
-                'screeningQuestionResponses' => ['screeningQuestion'],
-                'generalQuestionResponses' => ['generalQuestion'],
+                'pool.poolSkills.skill',
+                'screeningQuestionResponses.screeningQuestion',
+                'generalQuestionResponses.generalQuestion',
             ])
                 ->findOrFail($args['id']);
 
