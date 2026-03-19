@@ -120,9 +120,12 @@ class AuthController extends Controller
             new InvalidArgumentException('Invalid session nonce')
         );
 
+        // track whether a new user was created
+        $newUserCreated = false;
+
         // find the corresponding User
         $sub = $idToken->claims()->get('sub');
-        $userMatch = User::where('sub', $sub)->withTrashed()->firstOr(function () use ($sub) {
+        $userMatch = User::where('sub', $sub)->withTrashed()->firstOr(function () use ($sub, &$newUserCreated) {
             // No user found for given subscriber - lets auto-register them
             $newUser = new User;
             $newUser->sub = $sub;
@@ -131,6 +134,7 @@ class AuthController extends Controller
                 Role::where('name', 'base_user')->sole(),
                 Role::where('name', 'applicant')->sole(),
             ], null);
+            $newUserCreated = true;
 
             return $newUser;
         });
@@ -192,7 +196,11 @@ class AuthController extends Controller
         }
         $userMatch->save();
 
-        $query = http_build_query($response->json());
+        $returnedPayload = $response->json();
+        if ($newUserCreated) {
+            $returnedPayload['is_new_user'] = 'true';
+        }
+        $query = http_build_query($returnedPayload);
 
         $from = $request->session()->pull('from');
 
