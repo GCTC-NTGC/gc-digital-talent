@@ -60,7 +60,7 @@ export default [
           ...prefix("registration", [
             route(
               "account",
-              "./pages/Auth/RegistrationPages/GettingStartedPage/GettingStartedPage.tsx",
+              "./pages/Auth/RegistrationPages/GettingStartedPage.tsx",
             ),
             route(
               "experience",
