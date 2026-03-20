@@ -204,13 +204,13 @@ class AuthController extends Controller
         ];
 
         // temporarily allow callback to the migration tool
-        if(env('OAUTH_MIGRATION_TOOL_CALLBACK')){
+        if (env('OAUTH_MIGRATION_TOOL_CALLBACK')) {
             $callbackUrls[] = env('OAUTH_MIGRATION_TOOL_CALLBACK');
         }
 
         return response(json_encode($callbackUrls, JSON_UNESCAPED_SLASHES))
             ->withHeaders([
-                    'Content-Type'=> 'application/json; charset=utf-8'
-                ]);
-        }
+                'Content-Type' => 'application/json; charset=utf-8',
+            ]);
+    }
 }
