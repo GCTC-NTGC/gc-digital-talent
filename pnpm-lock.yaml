@@ -296,8 +296,8 @@ importers:
         specifier: ^7.3.1
         version: 7.3.1(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
       vite-plugin-compression2:
-        specifier: ^2.5.1
-        version: 2.5.1(rollup@4.57.0)
+        specifier: ^2.5.2
+        version: 2.5.2(rollup@4.57.0)
       vitest:
         specifier: ^4.0.16
         version: 4.0.18(@types/node@25.5.0)(@vitest/browser-playwright@4.0.18)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.32.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
@@ -6959,8 +6959,8 @@ packages:
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
-  vite-plugin-compression2@2.5.1:
-    resolution: {integrity: sha512-2YpLZWs1ZRo9XwtSFA6/NVuBgOR+kvFk8M0HNDsP7Wu7OfJDOKT6fHB8kzuvw6jhgC9KYgDOttfaG2qC0wE9AQ==}
+  vite-plugin-compression2@2.5.2:
+    resolution: {integrity: sha512-a1eAY2Ux5JrflaWStWUa7yoMnjhw3tx7y6vQIp20QZ9K57wcKxYT+DUJiAG4VSEvmFMjeo9a5R2phdBriOJ/1A==}
 
   vite@7.3.1:
     resolution: {integrity: sha512-w+N7Hifpc3gRjZ63vYBXA56dvvRlNWRczTdmCBBa+CotUzAPf5b7YMdMR/8CQoeYE5LX3W4wj6RYTgonm1b9DA==}
@@ -13356,7 +13356,7 @@ snapshots:
       - tsx
       - yaml
 
-  vite-plugin-compression2@2.5.1(rollup@4.57.0):
+  vite-plugin-compression2@2.5.2(rollup@4.57.0):
     dependencies:
       '@rollup/pluginutils': 5.3.0(rollup@4.57.0)
       tar-mini: 0.2.0
