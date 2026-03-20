@@ -67,7 +67,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Classification $classification
  * @property ?Community $community
  * @property ?string $contact_email
- * @property ?string $screening_step
+ * @property ?AssessmentStep $screening_step
  */
 class Pool extends Model
 {

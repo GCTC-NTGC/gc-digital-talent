@@ -483,7 +483,7 @@ class PoolCandidate extends Model
 
             $result = Arr::first(
                 $this->computed_assessment_status['assessmentStepStatuses'],
-                fn ($status) => $status['step'] === $this->pool->screening_step?->id
+                fn ($status) => $status['step'] === $this->pool->screening_step->id
             );
 
             return $result ? $result['decision'] : null;
