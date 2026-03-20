@@ -154,7 +154,7 @@ const PostedOnDate = ({
         )}
       </p>
       <span
-        className="hidden text-gray-500 min-[480px]:inline-block dark:text-gray-200"
+        className="hidden text-gray-500 xxs:inline-block dark:text-gray-200"
         aria-hidden
       >
         {UNICODE_CHAR.BULLET}
@@ -382,7 +382,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           <PostedOnDate
             publishedAt={pool.publishedAt}
             applicantsCount={pool.applicantsCount}
-            className="flex-col items-start min-[480px]:flex-row min-[480px]:items-center"
+            className="flex-col items-start xxs:flex-row xxs:items-center"
           />
         </div>
       </div>
