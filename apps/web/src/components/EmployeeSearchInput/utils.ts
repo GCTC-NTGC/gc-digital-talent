@@ -66,7 +66,7 @@ export const fragmentToEmployee = (
   fragment?: FragmentType<typeof EmployeeSearchResult_Fragment> | null,
 ): EmployeeSearchResult | null => {
   const employee = getFragment(EmployeeSearchResult_Fragment, fragment);
-  if (!employee || !employee.workEmail) return null;
+  if (!employee?.workEmail) return null;
 
   return {
     ...employee,

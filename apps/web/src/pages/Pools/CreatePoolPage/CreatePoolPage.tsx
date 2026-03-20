@@ -181,13 +181,14 @@ export const CreatePoolForm = ({
     },
   );
 
-  const departmentOptions: Option[] = departments.map(
-    ({ id, departmentName }) => ({
+  const departmentOptions: Option[] = uniqBy(
+    departments.map(({ id, departmentName }) => ({
       value: id,
       label:
         departmentName?.localized ??
         intl.formatMessage(commonMessages.notAvailable),
-    }),
+    })),
+    "value",
   );
 
   return (
