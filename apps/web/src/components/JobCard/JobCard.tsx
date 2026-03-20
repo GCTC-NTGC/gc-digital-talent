@@ -242,7 +242,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
 
   return (
     <Card className="relative mt-1.5 pb-10">
-      <div className="mr-6 mb-6 flex items-center justify-between">
+      <div className="mr-6 mb-6 flex items-start justify-between">
         {pool.areaOfSelection && (
           <div className="-ml-8 flex flex-col gap-1.5 sm:flex-row sm:gap-0">
             <AreaOfSelectionFlag
@@ -260,7 +260,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           />
         </div>
       </div>
-      <div className="relative mx-4 flex flex-col items-start justify-between gap-6 xs:flex-row xs:items-center">
+      <div className="relative mx-4 flex flex-col items-start justify-between gap-4 xs:flex-row xs:items-center">
         <div className="flex flex-col gap-3">
           <Heading
             level={headingLevel}
