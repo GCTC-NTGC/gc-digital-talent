@@ -6,6 +6,7 @@ import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftR
 import { differenceInDays } from "date-fns/differenceInDays";
 import { isPast } from "date-fns/isPast";
 import { ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
 import {
   FragmentType,
@@ -39,6 +40,10 @@ import {
 import { getSalaryRange } from "~/utils/classification";
 
 import AreaOfSelectionFlag from "./AreaOfSelectionRibbon";
+
+const postedOnDate = tv({
+  base: "flex items-center gap-3 text-gray-600 dark:text-gray-200",
+});
 
 export const JobCard_Fragment = graphql(/* GraphQL */ `
   fragment JobCard on Pool {
@@ -132,9 +137,7 @@ const PostedOnDate = ({
   const intl = useIntl();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   return (
-    <div
-      className={`flex items-center gap-3 text-gray-600 dark:text-gray-200 ${className}`}
-    >
+    <div className={postedOnDate({ class: className })}>
       <p>
         {intl.formatMessage(
           {
