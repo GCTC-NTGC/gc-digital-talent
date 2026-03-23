@@ -799,10 +799,6 @@
     "defaultMessage": "Vous pouvez demander un bon pour de nombreux domaines de certification des TI, notamment :",
     "description": "First paragraph of certification topics section"
   },
-  "16iCWc": {
-    "defaultMessage": "Vétéran",
-    "description": "Label for veteran chip on view candidate page"
-  },
   "16tGhC": {
     "defaultMessage": "Soumise",
     "description": "Label for application submitted"
@@ -1979,10 +1975,6 @@
     "defaultMessage": "ne peut pas afficher et gérer les activités liées à la gestion des talents.",
     "description": "Description of the limitation of managing talent management events"
   },
-  "66WkNy": {
-    "defaultMessage": "Décrivez vos expériences professionnelles, scolaires et personnelles.",
-    "description": "Description for the Career timeline page in applicant profile."
-  },
   "66kU6k": {
     "defaultMessage": "Numéro de ministère",
     "description": "Label for department number"
@@ -2315,6 +2307,10 @@
     "defaultMessage": "Créer ou consulter des modèles d’offre d’emploi",
     "description": "Heading for the create or view section on the job templates index page"
   },
+  "7k+D5r": {
+    "defaultMessage": "Gérez votre profil de travail, vos préférences en matière d’emploi, votre expérience professionnelle et vos compétences.",
+    "description": "Description for the applicant profile section"
+  },
   "7lCUIL": {
     "defaultMessage": "Quel est le titre du poste?",
     "description": "Label for job title input in the request form"
@@ -2558,10 +2554,6 @@
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
-  },
-  "8nWMjm": {
-    "defaultMessage": "Consultez et mettez à jour les renseignements personnels, y compris les préférences de travail et le profil linguistique.",
-    "description": "subtitle for the profile page"
   },
   "8oFk6S": {
     "defaultMessage": "Mise à jour de la collectivité réussie!",
@@ -5923,10 +5915,6 @@
     "defaultMessage": "En savoir plus<hidden> sur le Bureau du dirigeant principal de l'information</hidden>",
     "description": "Link text for the Office of the Chief Information Officer"
   },
-  "NlYIHM": {
-    "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
-    "description": "Page description for the skill library page"
-  },
   "Nm+j2a": {
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
     "description": "Label for the new job posted notification"
@@ -9098,10 +9086,6 @@
     "defaultMessage": "Une femme autochtone porte un manteau de jeans qui est orné de plusieurs épinglettes.",
     "description": "Indigenous Apprenticeship woman smiling image text alternative"
   },
-  "cF0+Id": {
-    "defaultMessage": "À l'approche de la fin de l'exercice financier, nous gérons avec soin les fonds restants disponibles pour les formations. En raison du volume important de demandes de formation, nous fermons l'offre « Choisissez votre cours » aux nouvelles candidatures. Les demandes restantes seront évaluées dans l'ordre dans lequel elles ont été reçues, en fonction des fonds disponibles. Le budget sera réinitialisé avec le nouvel exercice financier le 1er avril 2026 et nous vous encourageons à postuler à ce moment-là.",
-    "description": "Body for a notice about no more choose your own course options for the year."
-  },
   "cF8idC": {
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
@@ -10126,10 +10110,6 @@
     "defaultMessage": "Soumettez l'évaluation",
     "description": "Button to submit an evaluation form"
   },
-  "g8Ur9z": {
-    "defaultMessage": "Renseignements personnels",
-    "description": "applicant dashboard card title for profile card"
-  },
   "gChYmW": {
     "defaultMessage": "Annonce à l’échelle du site",
     "description": "Page title for the update sitewide announcement page"
@@ -10605,10 +10585,6 @@
   "i9ovz7": {
     "defaultMessage": "Postes bilingues",
     "description": "Sub-heading for language requirements dialog"
-  },
-  "i9skPs": {
-    "defaultMessage": "Avis important : fermeture de l'option « Choisissez votre cours » pour l'exercice financier 2025/2026",
-    "description": "Title for a notice about no more choose your own course options for the year."
   },
   "iA1Q8d": {
     "defaultMessage": "Ainsi, ce processus n'apparaîtra plus automatiquement dans les recherches de requêtes et les tableaux de bord partout.",
@@ -14041,10 +14017,6 @@
   "xDfpkE": {
     "defaultMessage": "Pour communiquer avec des personnes qualifiées dont le nom figure dans notre base de données, les gestionnaires d’embauche peuvent présenter une demande dans la <link>page Trouver des talents</link>.",
     "description": "Paragraph two, answer about prequalified talent"
-  },
-  "xGMcBO": {
-    "defaultMessage": "Priorité",
-    "description": "Label for priority chip on view candidate page"
   },
   "xHAPBe": {
     "defaultMessage": "Félicitations! Vous faites maintenant partie de ce processus de recrutement! On communiquera avec vous pour vous informer des possibilités d'emploi. Vous pouvez modifier votre disponibilité si vous avez débuté récemment un nouvel emploi ou souhaitez ne plus recevoir de possibilités d'emploi. <strong>Vous pouvez modifier votre choix à tout moment si vous changez d'idée.</strong>.",
