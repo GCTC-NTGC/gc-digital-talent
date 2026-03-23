@@ -156,15 +156,20 @@ export default [
                 "employee-profile",
                 "./pages/EmployeeProfile/EmployeeProfilePage.tsx",
               ),
-              route(
-                "personal-information",
-                "./pages/Profile/ProfilePage/ProfilePage.tsx",
-              ),
 
-              ...prefix("career-timeline", [
-                index(
+              layout("./pages/Profile/ProfileLayout.tsx", [
+                route(
+                  "personal-information",
+                  "./pages/Profile/ProfilePage/ProfilePage.tsx",
+                ),
+                route(
+                  "career-timeline",
                   "./pages/Profile/CareerTimelinePage/CareerTimelinePage.tsx",
                 ),
+                route("skills", "./pages/Skills/SkillPortfolioPage.tsx"),
+              ]),
+
+              ...prefix("career-timeline", [
                 route(
                   ":experienceId/edit",
                   "./pages/Profile/ExperienceFormPage/EditExperienceFormPage.tsx",
@@ -186,7 +191,6 @@ export default [
               ]),
 
               ...prefix("skills", [
-                index("./pages/Skills/SkillPortfolioPage.tsx"),
                 route(":skillId", "./pages/Skills/UpdateUserSkillPage.tsx"),
                 ...prefix("showcase", [
                   index("./pages/Skills/SkillShowcasePage.tsx"),

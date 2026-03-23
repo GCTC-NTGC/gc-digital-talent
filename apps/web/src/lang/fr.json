@@ -1975,10 +1975,6 @@
     "defaultMessage": "ne peut pas afficher et gérer les activités liées à la gestion des talents.",
     "description": "Description of the limitation of managing talent management events"
   },
-  "66WkNy": {
-    "defaultMessage": "Décrivez vos expériences professionnelles, scolaires et personnelles.",
-    "description": "Description for the Career timeline page in applicant profile."
-  },
   "66kU6k": {
     "defaultMessage": "Numéro de ministère",
     "description": "Label for department number"
@@ -2311,6 +2307,10 @@
     "defaultMessage": "Créer ou consulter des modèles d’offre d’emploi",
     "description": "Heading for the create or view section on the job templates index page"
   },
+  "7k+D5r": {
+    "defaultMessage": "Gérez votre profil de travail, vos préférences en matière d’emploi, votre expérience professionnelle et vos compétences.",
+    "description": "Description for the applicant profile section"
+  },
   "7lCUIL": {
     "defaultMessage": "Quel est le titre du poste?",
     "description": "Label for job title input in the request form"
@@ -2554,10 +2554,6 @@
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
-  },
-  "8nWMjm": {
-    "defaultMessage": "Consultez et mettez à jour les renseignements personnels, y compris les préférences de travail et le profil linguistique.",
-    "description": "subtitle for the profile page"
   },
   "8oFk6S": {
     "defaultMessage": "Mise à jour de la collectivité réussie!",
@@ -5918,10 +5914,6 @@
   "NjHXGh": {
     "defaultMessage": "En savoir plus<hidden> sur le Bureau du dirigeant principal de l'information</hidden>",
     "description": "Link text for the Office of the Chief Information Officer"
-  },
-  "NlYIHM": {
-    "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
-    "description": "Page description for the skill library page"
   },
   "Nm+j2a": {
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
@@ -10117,10 +10109,6 @@
   "g82nk3": {
     "defaultMessage": "Soumettez l'évaluation",
     "description": "Button to submit an evaluation form"
-  },
-  "g8Ur9z": {
-    "defaultMessage": "Renseignements personnels",
-    "description": "applicant dashboard card title for profile card"
   },
   "gChYmW": {
     "defaultMessage": "Annonce à l’échelle du site",

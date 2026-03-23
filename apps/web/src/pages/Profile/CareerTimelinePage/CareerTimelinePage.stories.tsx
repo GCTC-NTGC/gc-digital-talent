@@ -1,38 +1,45 @@
-import { StoryFn, Meta } from "@storybook/react-vite";
+import { Meta, StoryObj } from "@storybook/react-vite";
 
 import { fakeExperiences } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
-
-import CareerTimeline, {
-  CareerTimelineExperience_Fragment,
-} from "./components/CareerTimeline";
-
-export default {
-  component: CareerTimeline,
-  args: {
-    userId: "test",
-    experiencesQuery: [],
-    applicationsQuery: [],
-  },
-} as Meta<typeof CareerTimeline>;
-
-const CareerTimelineTemplate: StoryFn<typeof CareerTimeline> = (args) => {
-  return <CareerTimeline {...args} />;
-};
-
-export const NoExperiences = CareerTimelineTemplate.bind({});
-export const WithExperiences = CareerTimelineTemplate.bind({});
-export const NoExperiencesMissingSkills = CareerTimelineTemplate.bind({});
-export const WithExperiencesMissingSkills = CareerTimelineTemplate.bind({});
+import { Container } from "@gc-digital-talent/ui";
 
 const mockExperiences = fakeExperiences(10);
 
-NoExperiences.args = {
-  experiencesQuery: [],
+import CareerTimelinePage from "./CareerTimelinePage";
+
+const meta = {
+  component: CareerTimelinePage,
+  decorators: [
+    (Comp) => (
+      <Container className="mt-18">
+        <Comp />
+      </Container>
+    ),
+  ],
+} satisfies Meta<typeof CareerTimelinePage>;
+
+export default meta;
+
+type Story = StoryObj<typeof CareerTimelinePage>;
+
+export const WithExperiences: Story = {
+  args: {
+    loaderData: {
+      user: {
+        id: "test-user",
+        experiences: mockExperiences,
+      },
+    },
+  },
 };
 
-WithExperiences.args = {
-  experiencesQuery: mockExperiences.map((experience) =>
-    makeFragmentData(experience, CareerTimelineExperience_Fragment),
-  ),
+export const NoExperiences: Story = {
+  args: {
+    loaderData: {
+      user: {
+        id: "test-user",
+        experiences: [],
+      },
+    },
+  },
 };
