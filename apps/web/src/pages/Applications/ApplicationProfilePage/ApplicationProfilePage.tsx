@@ -8,7 +8,6 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { graphql, PoolAreaOfSelection } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -74,7 +73,6 @@ export const getPageInfo: GetPageNavInfo = ({
 export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { applicationEmailVerification } = useFeatureFlags();
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -119,46 +117,43 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
           <div className="col-span-2">
             <PersonalInformation {...sectionProps} query={application.user} />
           </div>
-          {/* Refactor after feature flag is turned on #15052 */}
-          {applicationEmailVerification && (
-            <>
-              {!application.user.isEmailVerified && (
-                <Notice.Root color="error" className="col-span-2">
-                  <Notice.Content>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "A verified contact email is required",
-                        id: "O7ubAh",
-                        description:
-                          "Error message displayed during application when missing a verified email",
-                      })}
-                    </p>
-                  </Notice.Content>
-                </Notice.Root>
-              )}
-              {application.pool.areaOfSelection?.value ===
-                PoolAreaOfSelection.Employees && (
-                <>
-                  {(!application.user.isWorkEmailVerified ||
-                    !application.user.workEmail) && (
-                    <Notice.Root color="error" className="col-span-2">
-                      <Notice.Content>
-                        <p>
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
-                            id: "KWgx7f",
-                            description:
-                              "Body for a message informing the user that a contact email is required.",
-                          })}
-                        </p>
-                      </Notice.Content>
-                    </Notice.Root>
-                  )}
-                </>
-              )}
-            </>
-          )}
+          <>
+            {!application.user.isEmailVerified && (
+              <Notice.Root color="error" className="col-span-2">
+                <Notice.Content>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "A verified contact email is required",
+                      id: "O7ubAh",
+                      description:
+                        "Error message displayed during application when missing a verified email",
+                    })}
+                  </p>
+                </Notice.Content>
+              </Notice.Root>
+            )}
+            {application.pool.areaOfSelection?.value ===
+              PoolAreaOfSelection.Employees && (
+              <>
+                {(!application.user.isWorkEmailVerified ||
+                  !application.user.workEmail) && (
+                  <Notice.Root color="error" className="col-span-2">
+                    <Notice.Content>
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
+                          id: "KWgx7f",
+                          description:
+                            "Body for a message informing the user that a contact email is required.",
+                        })}
+                      </p>
+                    </Notice.Content>
+                  </Notice.Root>
+                )}
+              </>
+            )}
+          </>
           <ContactEmailCard query={application.user} />
           <WorkEmailCard query={application.user} />
         </div>
