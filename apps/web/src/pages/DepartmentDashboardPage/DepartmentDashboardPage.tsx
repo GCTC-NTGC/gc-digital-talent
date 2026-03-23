@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
@@ -15,6 +16,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
+import { canAccessProtectedEndpoint } from "@gc-digital-talent/client";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -23,6 +25,8 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import messages from "~/messages/profileMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import { requireUser } from "~/routing/auth";
+import { graphqlClientContext, intlContext } from "~/routing/context";
 
 import YourProcessesTaskCard from "./components/YourProcessesTaskCard";
 import ResourcesDepartmentLink from "./components/ResourcesDepartmentLink";
@@ -31,6 +35,7 @@ import {
   isDepartmentTeamable,
   RoleAssignmentObject,
 } from "./utils";
+import type { Route } from "./+types/DepartmentDashboardPage";
 
 export const DepartmentDashboardPage_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentDashboardPage on User {
@@ -256,3 +261,23 @@ export const Component = () => (
 Component.displayName = "DepartmentDashboardPage";
 
 export default Component;
+
+// export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+//   async ({ context, request }, next) => {
+//     if (!(await canAccessProtectedEndpoint())) {
+//       throw new Error();
+//     }
+
+//     requireUser(context, request, [
+//       { name: ROLE_NAME.DepartmentAdmin },
+//       { name: ROLE_NAME.DepartmentHRAdvisor },
+//     ]);
+//     return await next();
+//   },
+// ];
+
+// export const Component = () => <DepartmentDashboardPageApi />;
+
+// Component.displayName = "DepartmentDashboardPage";
+
+// export default Component;
