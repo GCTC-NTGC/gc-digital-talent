@@ -5447,6 +5447,9 @@
     "defaultMessage": "4. Suivez le processus de vérification de l’adresse de courriel. <strong>Un code unique</strong> vous sera envoyé par courriel et vous devrez le saisir dans la CléGC.",
     "description": "Text for fourth sign up -> create step."
   },
+  "LcgdMY": {
+    "defaultMessage": "Équipe ou division"
+  },
   "LdlxBV": {
     "defaultMessage": "Numéro du processus de sélection",
     "description": "Label for a process number"
@@ -6811,6 +6814,9 @@
     "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
     "description": "Error message for closing date on a process advertisement."
   },
+  "RYuIb2": {
+    "defaultMessage": "Veuillez sélectionner un type d'emploi pour continuer."
+  },
   "RZIivj": {
     "defaultMessage": "Dupliquer et visualiser le nouveau processus",
     "description": "Button text to duplicate a process"
@@ -7417,6 +7423,9 @@
   "UoUzWJ": {
     "defaultMessage": "Voyez les filtres de recherche choisis ainsi que toute autre information fournie avec cette demande.",
     "description": "Subtitle for the 'review talent request' dialog"
+  },
+  "UpM9RV": {
+    "defaultMessage": "Le poste (classification, niveau, rôle et ministère) auquel vous avez été nommé pour une durée indéterminée."
   },
   "UpwY5+": {
     "defaultMessage": "Pour vous aider, nous avons préparé d’autres conseils dans la prochaine section.",
@@ -9562,6 +9571,9 @@
     "defaultMessage": "Inscrivez-vous en utilisant CléGC",
     "description": "Page title for the registration page for applicant profiles"
   },
+  "e8zukj": {
+    "defaultMessage": "Un déplacement temporaire au même niveau vers un autre ministère ou organisme pour lequel le Conseil du Trésor est l'employeur."
+  },
   "e9FxXq": {
     "defaultMessage": "Déterminer les personnes qui pourraient être admissibles à des possibilités particulières dans les organisations où un groupe visé par l’équité en matière d’emploi est sous-représenté;",
     "description": "List item 1, how self-declaration data is used"
@@ -10570,6 +10582,9 @@
     "defaultMessage": "Ainsi, ce processus n'apparaîtra plus automatiquement dans les recherches de requêtes et les tableaux de bord partout.",
     "description": "Text explaining what will happen when archiving a process"
   },
+  "iAAqjA": {
+    "defaultMessage": "Un déplacement temporaire vers un poste vacant de même niveau au sein de votre ministère ou organisme."
+  },
   "iC/wHw": {
     "defaultMessage": "Classification de la personne déposante",
     "description": "Label for the submitter's classification"
@@ -11538,10 +11553,6 @@
     "defaultMessage": "La cote de fiabilité et l'autorisation de sécurité de niveau secret sont valides pour une période maximale de 10 ans, et l'autorisation de sécurité de niveau très secret est valide pour une période maximale de cinq ans.",
     "description": "Third paragraph for the obtaining security clearance section"
   },
-  "mOx5K1": {
-    "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
-    "description": "Label displayed for current role input"
-  },
   "mPxtB3": {
     "defaultMessage": "Motif de retrait",
     "description": "Label for the reason a candidate was removed"
@@ -11925,10 +11936,6 @@
   "nxAw/X": {
     "defaultMessage": "Cet avis a été préparé pour expliquer la façon dont le gouvernement du Canada interagit avec le public sur les plateformes de médias sociaux.",
     "description": "Paragraph describing social media section"
-  },
-  "nyQyqM": {
-    "defaultMessage": "Mon rôle",
-    "description": "Label displayed on an Experience form for role input"
   },
   "nym1M2": {
     "defaultMessage": "Ministère ou organisme",
@@ -12589,10 +12596,6 @@
   "qlVBtp": {
     "defaultMessage": "Embaucher un·e apprenti·e",
     "description": "Link to send an email to the team"
-  },
-  "qn77WI": {
-    "defaultMessage": "Équipe, groupe ou division",
-    "description": "Label displayed on Work Experience form for team/group/division input"
   },
   "qo/Sx2": {
     "defaultMessage": "L'utilisateur a été archivé avec succès!",
@@ -14073,6 +14076,9 @@
   "xdojyj": {
     "defaultMessage": "Politique et rétroaction",
     "description": "Label for the policy, conditions and feedback navigation"
+  },
+  "xeHfvB": {
+    "defaultMessage": "L'exercice temporaire des fonctions d'un poste d'un niveau supérieur à votre poste d'attache."
   },
   "xeMOuD": {
     "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil. Une fois que vous aurez soumis cette mise en candidature, nous l'informerons par courriel.",
