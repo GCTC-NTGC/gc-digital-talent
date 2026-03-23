@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Log;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -109,8 +108,6 @@ class PoolSkill extends Model
 
     public static function scopeWithPolicyEagerLoads(Builder $query): Builder
     {
-        Log::debug('APPLYING SCOPES');
-
         return $query->with(['pool.team', 'pool.community.team', 'pool.department.team']);
     }
 }
