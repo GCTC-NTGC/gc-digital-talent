@@ -22,7 +22,7 @@ return new class extends Migration
         DB::statement(<<<'SQL'
             UPDATE pool_candidates
             SET pause_referrals_at = NOW(), resume_referrals_at = expiry_date
-            WHERE referring = TRUE;
+            WHERE referring = FALSE;
         SQL);
     }
 
