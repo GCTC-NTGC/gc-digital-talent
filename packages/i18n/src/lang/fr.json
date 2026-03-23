@@ -1683,6 +1683,10 @@
     "defaultMessage": "J'accepte d'avoir un emploi où je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
+  "uzB/k/": {
+    "defaultMessage": "Tableau de bord du ministère",
+    "description": "Name of the department dashboard page"
+  },
   "vGENdP": {
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
