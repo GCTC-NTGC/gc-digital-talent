@@ -207,6 +207,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           ...JobPlacementDialogCandidateTable
           id
           notes
+          isFlagged
           status {
             value
             label {

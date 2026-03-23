@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { ComponentRef, ReactNode, forwardRef } from "react";
+import { ReactNode } from "react";
 
-import { AlertDialog, Button, DropdownMenu } from "@gc-digital-talent/ui";
+import { AlertDialog, Button } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Scalars } from "@gc-digital-talent/graphql";
 
@@ -16,10 +16,13 @@ interface RemoveDialogProps {
   onOpenChange?: (newOpen: boolean) => void;
 }
 
-const RemoveDialog = forwardRef<
-  ComponentRef<typeof DropdownMenu.Item>,
-  RemoveDialogProps
->(({ id, message, date, isOpen, onOpenChange }) => {
+const RemoveDialog = ({
+  id,
+  message,
+  date,
+  isOpen,
+  onOpenChange,
+}: RemoveDialogProps) => {
   const intl = useIntl();
 
   const [{ fetching: deleting }, executeDeleteMutation] = useMutation(
@@ -71,6 +74,6 @@ const RemoveDialog = forwardRef<
       </AlertDialog.Content>
     </AlertDialog.Root>
   );
-});
+};
 
 export default RemoveDialog;
