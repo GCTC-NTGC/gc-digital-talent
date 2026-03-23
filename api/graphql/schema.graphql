@@ -130,8 +130,8 @@ type User {
 
   # Pool info
   poolCandidates: [PoolCandidate]
-    @hasMany(scopes: ["whereAuthorizedToView"])
-    @canResolved(ability: "view") # PoolCandidate objects associate the user with a pool
+    @hasMany(scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"])
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"]) # PoolCandidate objects associate the user with a pool
   # Experiences
   experiences: [Experience]
     @with(relation: "awardExperiences")
@@ -152,11 +152,10 @@ type User {
     @with(relation: "workExperiences")
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
-  topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills.skill")
-  topBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills.skill")
-  improveTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills.skill")
-  improveBehaviouralSkillsRanking: [UserSkill]
-    @with(relation: "userSkills.skill")
+  topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  topBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  improveTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  improveBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills")
   # Profile Status
   isProfileComplete: Boolean
   priorityWeight: Int @rename(attribute: "priority_weight")
@@ -192,8 +191,7 @@ type CommunityInterest {
   community: Community! @belongsTo
   user: User!
     @belongsTo
-    @with(relation: "community.team")
-    @canRoot(ability: "viewUser")
+    @canRoot(ability: "viewUser", scopes: ["withPolicyEagerLoads"])
   workStreams: [WorkStream!] @belongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
@@ -297,8 +295,8 @@ type EmployeeProfile {
     @rename(attribute: "career_objective_c_suite_role_title")
 
   communityInterests(id: UUID @eq): [CommunityInterest!]
-    @belongsToMany(scopes: ["authorizedToView"])
-    @canResolved(ability: "view")
+    @belongsToMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
 
   userPublicProfile: UserPublicProfile
 }
@@ -523,7 +521,8 @@ type Pool implements HasRoleAssignments {
   assessmentSteps: [AssessmentStep]
     @hasMany
     @canRoot(ability: "viewAssessmentPlan", scopes: ["withPolicyEagerLoads"])
-  poolSkills(type: PoolSkillType @where): [PoolSkill] @hasMany
+  poolSkills(type: PoolSkillType @where): [PoolSkill]
+    @hasMany(scopes: ["withPolicyEagerLoads"])
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers", scopes: ["withPolicyEagerLoads"])
@@ -614,10 +613,7 @@ type PoolSkill {
   skill: Skill @belongsTo
   assessmentSteps: [AssessmentStep]
     @belongsToMany
-    @with(
-      relations: ["pool.team", "pool.community.team", "pool.department.team"]
-    )
-    @canRoot(ability: "viewAssessmentSteps")
+    @canRoot(ability: "viewAssessmentSteps", scopes: ["withPolicyEagerLoads"])
 }
 
 type PoolCandidateCategory {
@@ -849,10 +845,17 @@ type TalentNominationEvent {
   community: Community! @belongsTo
   developmentPrograms: [DevelopmentProgram!] @belongsToMany
   talentNominationGroups: [TalentNominationGroup!]
-    @hasMany(scopes: ["authorizedToView"])
-    @canResolved(ability: "view", model: "TalentNominationGroup")
+    @hasMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
+    @canResolved(
+      ability: "view"
+      model: "TalentNominationGroup"
+      scopes: ["withPolicyEagerLoads"]
+    )
   countTalentNominationGroups: Int!
-    @count(relation: "talentNominationGroups", scopes: ["authorizedToView"])
+    @count(
+      relation: "talentNominationGroups"
+      scopes: ["withPolicyEagerLoads", "authorizedToView"]
+    )
   status: LocalizedTalentNominationEventStatus
 }
 
@@ -1559,8 +1562,12 @@ type Query {
         ]
       )
   ): [Pool]!
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
-    @canResolved(ability: "view")
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["withPolicyEagerLoads", "authorizedToView"]
+    )
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard
@@ -1765,7 +1772,12 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 500
-      scopes: ["authorizedToView", "isVerifiedGovEmployee", "withSkillCount"]
+      scopes: [
+        "withPolicyEagerLoads"
+        "authorizedToView"
+        "isVerifiedGovEmployee"
+        "withSkillCount"
+      ]
       model: "App\\Models\\CommunityInterest"
     )
 }
