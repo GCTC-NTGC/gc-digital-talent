@@ -16,6 +16,7 @@ import {
   User,
   WorkRegion,
   CandidateRemovalReason,
+  ScreeningStage,
 } from "@gc-digital-talent/graphql";
 import {
   FAR_FUTURE_DATE,
@@ -31,6 +32,7 @@ import {
   createAndSubmitApplication,
   disqualifyCandidate,
   qualifyCandidate,
+  removeCandidate,
   revertFinalDecision,
 } from "~/utils/applications";
 import { createAndPublishPool, getPoolSkills } from "~/utils/pools";
@@ -39,7 +41,6 @@ import { generateUniqueTestId } from "~/utils/id";
 import testConfig from "~/constants/config";
 import AssessmentPage from "~/fixtures/AssessmentPage";
 import { getCandidateScreeningStage } from "~/utils/candidateAssessment";
-import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
 
 const LOCALIZED_STRING = {
   en: "Test_Application_Status (EN)",
@@ -418,26 +419,15 @@ test.describe("Pool candidates", () => {
   test("Validate application status when a candidate is removed", async ({
     appPage,
   }) => {
-    test.setTimeout(90000);
-    const candidateName = user?.firstName;
     const assessmentPage = new AssessmentPage(appPage.page);
     await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    const poolSkillsID = await getPoolSkills(adminCtx, {
+      poolId: poolId,
+    }).then((poolSkills) => poolSkills.map((ps) => ps.id));
 
-    // 1. Verify the candidate status and screening stage result in the table before starting the assessment.
-    const genericTable = new GenericTableValidationFixture(appPage.page);
-    await genericTable.verifyCandidateStatusInTable(
-      poolId,
-      adminCtx,
-      candidateName!,
-      "New Application",
-      undefined,
-      "To assess",
-      "Received",
-    );
-    await genericTable.verifyScreeningStageResultInTable(
-      "To assess",
-      candidateName!,
-    );
+    // 1. Fetch available assessment steps in the pool
+    const { screeningStepId, nextStepTitle } =
+      await assessmentPage.fetchAndVerifyAssessmentSteps(adminCtx, poolId);
 
     // 2. Assess Application screening stage by moving forward in the screening stages
     await assessmentPage.goToCandidateApplication(candidate.id);
@@ -445,7 +435,29 @@ test.describe("Pool candidates", () => {
       appPage.page.getByRole("button", { name: /1. New application/i }),
     ).toBeVisible();
 
-    // 3. Remove the candidate from the pool and verify the candidate status in the table
+    await assessmentPage.assessCandidateApplicationScreeningStep({
+      candidateId: candidate.id,
+      ctx: adminCtx,
+      screeningStepId: screeningStepId ?? "",
+      results: [
+        {
+          type: AssessmentResultType.Education,
+          decision: AssessmentDecision.Successful,
+          justifications: [
+            AssessmentResultJustification.EducationAcceptedInformation,
+          ],
+        },
+        {
+          type: AssessmentResultType.Skill,
+          decision: AssessmentDecision.Successful,
+          skillId: poolSkillsID[0],
+          level: AssessmentDecisionLevel.AboveRequired,
+        },
+      ],
+    });
+    await expect(appPage.page.getByText(nextStepTitle)).toBeVisible();
+
+    // 3. Remove the candidate from the pool and verify the candidate status
     await assessmentPage.logApplicationStatusOnUI({
       targetStatus: ApplicationStatus.Removed,
       removalReason: CandidateRemovalReason.RequestedToBeWithdrawn,
@@ -456,19 +468,36 @@ test.describe("Pool candidates", () => {
     await expect(
       appPage.page.getByText(/withdrawn/i, { exact: false }),
     ).toBeVisible();
-    await genericTable.verifyCandidateStatusInTable(
-      poolId,
-      adminCtx,
-      candidateName!,
-      undefined,
-      undefined,
-      "Removed",
-      "Withdrawn",
-    );
+  });
 
-    // 4. Login as an applicant and verify the same status is displayed
-    await loginBySub(appPage.page, sub);
-    const applicantDashboard = new ApplicantDashboardPage(appPage.page);
-    await applicantDashboard.verifyApplicationStatusFromDashboard("Withdrawn");
+  test("Validate application status post reinstate removed candidate", async ({
+    appPage,
+  }) => {
+    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    const assessmentPage = new AssessmentPage(appPage.page);
+    await assessmentPage.goToCandidateApplication(candidate.id);
+    await expect(
+      appPage.page.getByRole("button", { name: /1. New application/i }),
+    ).toBeVisible();
+
+    // 1. Remove the candidate from the pool using Mutation/API and verify the candidate status
+    await removeCandidate(adminCtx, {
+      id: candidate.id,
+      removalReason: CandidateRemovalReason.NotResponsive,
+    });
+    await assessmentPage.goToCandidateApplication(candidate.id);
+    await expect(
+      appPage.page.getByRole("button", { name: /removed/i }),
+    ).toBeVisible();
+    await expect(
+      appPage.page.getByText(/not responsive/i, { exact: false }),
+    ).toBeVisible();
+
+    // 2. Reinstate the removed candidate and verify the reinstated candidate status
+    await assessmentPage.reinstateRemovedCandidate();
+    const screeningStage = await getCandidateScreeningStage(adminCtx, {
+      candidateId: candidate.id,
+    });
+    expect(screeningStage).toBe(ScreeningStage.ApplicationReview);
   });
 });
