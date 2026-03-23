@@ -6,12 +6,7 @@ import { ReactNode } from "react";
 import { Heading, Link, Notice } from "@gc-digital-talent/ui";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import {
-  graphql,
-  FragmentType,
-  getFragment,
-  GettingStartedInitialValuesFragment,
-} from "@gc-digital-talent/graphql";
+import { graphql, FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -45,17 +40,10 @@ export const GettingStartedInitialValues_Query = graphql(/** GraphQL */ `
 `);
 
 export interface FormValues {
-  isEmployee: string | null;
+  isEmployee: "true" | "false" | null;
 }
 
-const initialValuesToFormValues = (
-  initialValues: GettingStartedInitialValuesFragment,
-): FormValues => {
-  return {
-    isEmployee: initialValues.workEmail ? "true" : "false",
-  };
-};
-
+// figure out what the second half of the page should look like
 const chooseBottomHalf = (
   isEmployee: boolean,
   workEmail: string | null | undefined,
@@ -91,7 +79,9 @@ const GettingStartedForm = ({
   );
 
   const formMethods = useForm<FormValues>({
-    defaultValues: initialValuesToFormValues(initialValues),
+    defaultValues: {
+      isEmployee: initialValues.workEmail ? "true" : "false",
+    },
   });
 
   const watchIsEmployee = formMethods.watch("isEmployee");
@@ -179,8 +169,8 @@ const GettingStartedForm = ({
                   value: "false",
                   label: intl.formatMessage({
                     defaultMessage: "I’m not an employee",
-                    id: "t/RX4k",
-                    description: "Not an employee",
+                    id: "4+/L3a",
+                    description: "Is not an employee",
                   }),
                 },
                 {
@@ -198,6 +188,7 @@ const GettingStartedForm = ({
           </form>
         </FormProvider>
       </div>
+      {/* bottom half of page changes depending on user state */}
       {bottomHalf}
     </>
   );

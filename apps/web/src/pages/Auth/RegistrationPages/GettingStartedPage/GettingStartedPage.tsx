@@ -17,7 +17,6 @@ import GettingStartedForm, {
 
 const GettingStarted_Query = graphql(/** GraphQL */ `
   query GettingStarted {
-    ...GettingStartedOptions
     me {
       id
       ...GettingStartedInitialValues
