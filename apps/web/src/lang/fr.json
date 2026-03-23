@@ -1467,6 +1467,10 @@
     "defaultMessage": "Télécharger la demande d'emploi",
     "description": "Button label for downloading an application snapshots"
   },
+  "3uXEkO": {
+    "defaultMessage": "Cette section contient tous les processus que vous avez ajoutés à vos favoris.",
+    "description": "Subtitle explaining bookmarked processes expandable within task card"
+  },
   "3wbcnZ": {
     "defaultMessage": "Voir les résultats",
     "description": "A link to view the pools that contain matching talent."
@@ -1975,10 +1979,6 @@
     "defaultMessage": "ne peut pas afficher et gérer les activités liées à la gestion des talents.",
     "description": "Description of the limitation of managing talent management events"
   },
-  "66WkNy": {
-    "defaultMessage": "Décrivez vos expériences professionnelles, scolaires et personnelles.",
-    "description": "Description for the Career timeline page in applicant profile."
-  },
   "66kU6k": {
     "defaultMessage": "Numéro de ministère",
     "description": "Label for department number"
@@ -2311,6 +2311,10 @@
     "defaultMessage": "Créer ou consulter des modèles d’offre d’emploi",
     "description": "Heading for the create or view section on the job templates index page"
   },
+  "7k+D5r": {
+    "defaultMessage": "Gérez votre profil de travail, vos préférences en matière d’emploi, votre expérience professionnelle et vos compétences.",
+    "description": "Description for the applicant profile section"
+  },
   "7lCUIL": {
     "defaultMessage": "Quel est le titre du poste?",
     "description": "Label for job title input in the request form"
@@ -2554,10 +2558,6 @@
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
-  },
-  "8nWMjm": {
-    "defaultMessage": "Consultez et mettez à jour les renseignements personnels, y compris les préférences de travail et le profil linguistique.",
-    "description": "subtitle for the profile page"
   },
   "8oFk6S": {
     "defaultMessage": "Mise à jour de la collectivité réussie!",
@@ -3199,6 +3199,10 @@
     "defaultMessage": "Rôles dans des collectivités",
     "description": "Heading for updating a user's community roles"
   },
+  "B8N4yZ": {
+    "defaultMessage": "Consulter tous les processus",
+    "description": "Link to view all processes"
+  },
   "B9dbbl": {
     "defaultMessage": "Lorsque vous liez une expérience, essayez de répondre à au moins l’une de ces questions :",
     "description": "Lead-in text for the list of skill experience questions"
@@ -3226,6 +3230,10 @@
   "BH5pJe": {
     "defaultMessage": "Réduire tout<hidden> les nominations</hidden>",
     "description": "Button label to collapse all nominations"
+  },
+  "BKKZUH": {
+    "defaultMessage": "Consulter et gérer le ministère.",
+    "description": "Link to department page"
   },
   "BLOt/e": {
     "defaultMessage": "Cette adresse courriel ne semble pas être une adresse courriel du gouvernement du Canada. Si vous entrez une adresse courriel du gouvernement du Canada et que vous obtenez toujours ce message d'erreur, veuillez communiquer avec notre équipe de soutien.",
@@ -3294,6 +3302,10 @@
   "BhWVby": {
     "defaultMessage": "Proposez-vous pour passer quelques heures à participer à une équipe interministérielle qui évaluera des candidats et exécutera des processus d’emploi sur la plateforme Talents numériques du GC.",
     "description": "Paragraph two, summary on getting hiring experience"
+  },
+  "BiRxFg": {
+    "defaultMessage": "Vos processus",
+    "description": "Task card title for department tools"
   },
   "BlFUsz": {
     "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez présenter une demande et satisfaire aux conditions préalables.",
@@ -3634,6 +3646,10 @@
   "DNLEfN": {
     "defaultMessage": "Courriel de correspondance",
     "description": "Title of contact email"
+  },
+  "DNUZPm": {
+    "defaultMessage": "Processus ajouté à vos favoris",
+    "description": "Bookmarked processes expandable"
   },
   "DOQi5y": {
     "defaultMessage": "Pour confirmer, veuillez écrire le nom de l'utilisateur au complet",
@@ -5259,6 +5275,10 @@
     "defaultMessage": "Ressources",
     "description": "Heading for section for the group-specific resources section."
   },
+  "KxJcav": {
+    "defaultMessage": "Parcourir les modèles d’emplois",
+    "description": "Link to job templates"
+  },
   "KxsYhl": {
     "defaultMessage": "Nominations",
     "description": "Header for Nominations"
@@ -5306,6 +5326,10 @@
   "L7PqXn": {
     "defaultMessage": "Décrivez comment vous avez utilisé cette compétence",
     "description": "Label for skill experience details input"
+  },
+  "L7nLT4": {
+    "defaultMessage": "Vous n’avez aucun processus de recrutement à l’heure actuelle.",
+    "description": "Title for notice when there are no processes to view"
   },
   "L8iCCj": {
     "defaultMessage": "{developmentProgramsNominationCount, plural, =0 {Perfectionnement } other {Perfectionnement (#)}}",
@@ -5787,6 +5811,10 @@
     "defaultMessage": "Définition de la compétence",
     "description": "Label for the definition of a specific skill"
   },
+  "N5FFar": {
+    "defaultMessage": "Vos renseignements",
+    "description": "Resource section heading above user's information"
+  },
   "N5qMql": {
     "defaultMessage": "Veillez à fournir <strong>au moins une expérience de parcours professionnel</strong> pour chaque compétence requise, ainsi qu’une description concise des raisons pour lesquelles cette expérience met en évidence vos capacités dans cette compétence.",
     "description": "Instructions on requiring information for skills"
@@ -5918,10 +5946,6 @@
   "NjHXGh": {
     "defaultMessage": "En savoir plus<hidden> sur le Bureau du dirigeant principal de l'information</hidden>",
     "description": "Link text for the Office of the Chief Information Officer"
-  },
-  "NlYIHM": {
-    "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
-    "description": "Page description for the skill library page"
   },
   "Nm+j2a": {
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
@@ -10118,10 +10142,6 @@
     "defaultMessage": "Soumettez l'évaluation",
     "description": "Button to submit an evaluation form"
   },
-  "g8Ur9z": {
-    "defaultMessage": "Renseignements personnels",
-    "description": "applicant dashboard card title for profile card"
-  },
   "gChYmW": {
     "defaultMessage": "Annonce à l’échelle du site",
     "description": "Page title for the update sitewide announcement page"
@@ -13661,6 +13681,10 @@
   "vc9lfk": {
     "defaultMessage": "Raison d’être de la bibliothèque de compétences",
     "description": "Heading for section describing the purpose of the skills library"
+  },
+  "vd8CrA": {
+    "defaultMessage": "{applicantsCount, plural, =0 {0 candidature} one {# candidature} other {# candidatures}}",
+    "description": "Applications count for process"
   },
   "veZI+j": {
     "defaultMessage": "<strong>{name}</strong> a soumis",
