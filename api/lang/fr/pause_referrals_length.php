@@ -8,5 +8,5 @@ return [
     'six_months' => '6 mois',
     'one_year' => '12 mois',
     'until_expiry' => "Jusqu'à l'expiration de leur candidature",
-    'other' => Lang::get('common.other', [], 'en'),
+    'other' => Lang::get('common.other', [], 'fr'),
 ];
