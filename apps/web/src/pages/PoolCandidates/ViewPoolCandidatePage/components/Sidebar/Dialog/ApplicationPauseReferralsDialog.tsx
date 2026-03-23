@@ -83,8 +83,8 @@ const ApplicationPauseReferralsDialog = ({
   const handleError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Failed to update referral pause status",
-        id: "xa2D5p",
+        defaultMessage: "Failed to update referral status",
+        id: "pFBkiu",
         description: "Error message for updating referral pause status",
       }),
     );
@@ -111,8 +111,8 @@ const ApplicationPauseReferralsDialog = ({
         toast.success(
           intl.formatMessage(
             {
-              defaultMessage: "{name} will no longer be referred",
-              id: "7e1zPh",
+              defaultMessage: "{name} will no longer be referred.",
+              id: "LWI0Ds",
               description:
                 "Success message after pausing referrals for a candidate",
             },
@@ -136,9 +136,9 @@ const ApplicationPauseReferralsDialog = ({
       <Dialog.Trigger>
         <Button mode="text" color="success" className="text-left">
           {intl.formatMessage({
-            defaultMessage: "Actively being referred",
-            id: "mAtGlT",
-            description: "Dialog trigger for pause referral status dialog",
+            defaultMessage: "Available for referral",
+            id: "WDFayO",
+            description: "Dialog trigger for pause referrals status dialog",
           })}
         </Button>
       </Dialog.Trigger>
@@ -146,14 +146,14 @@ const ApplicationPauseReferralsDialog = ({
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:
-              "Manage when this candidate appears on talent requests.",
-            id: "uUOZbw",
+              "Manage this candidate's visibility in talent requests.",
+            id: "dqC81Y",
             description: "Subtitle for the pause candidate's referral status",
           })}
         >
           {intl.formatMessage({
-            defaultMessage: "Pause candidate's referral status",
-            id: "n/Y1Ex",
+            defaultMessage: "Pause referral status for this candidate",
+            id: "CWWDgb",
             description:
               "Title for the pause candidate's referral status dialog",
           })}
@@ -163,8 +163,8 @@ const ApplicationPauseReferralsDialog = ({
             <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage:
-                  "If you would like to temporarily prevent this candidate from appearing on talent requests, you use the following option.",
-                id: "VuXPU8",
+                  "To temporarily prevent this candidate from appearing in talent requests, use the following option.",
+                id: "u+3kse",
                 description:
                   "Blurb for the pause candidate's referral status dialog",
               })}

@@ -235,9 +235,8 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description: "Error message that pausing referrals for a candidate failed",
   },
   [ErrorCode.InvalidUnpauseAtDate]: {
-    defaultMessage:
-      "Pause end date cannot be after this candidate's pool expiry date.",
-    id: "hTDO68",
+    defaultMessage: "Pause end date can’t be after expiry date of pool.",
+    id: "F6BSah",
     description: "Error message for pause referral status end date input",
   },
 

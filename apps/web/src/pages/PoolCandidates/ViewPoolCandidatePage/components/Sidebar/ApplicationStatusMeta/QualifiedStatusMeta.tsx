@@ -67,8 +67,8 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
                   >
                     {intl.formatMessage({
                       defaultMessage:
-                        "Candidate has been successfully placed and won't be referred anymore.",
-                      id: "sT+RuT",
+                        "Candidate placed and will no longer be referred.",
+                      id: "ASs8KF",
                       description:
                         "Message for not referred notice when placed indeterminate",
                     })}

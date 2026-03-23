@@ -121,8 +121,8 @@ const PauseReferralsFormFields = ({
         name="referralPauseStatus"
         boundingBox
         boundingBoxLabel={intl.formatMessage({
-          defaultMessage: "Paused referral status",
-          id: "F/zEUH",
+          defaultMessage: "Referral status paused",
+          id: "GIm3Iq",
           description:
             "Bounding box label for pause referral status checkbox input",
         })}
@@ -171,8 +171,8 @@ const PauseReferralsFormFields = ({
                   message: intl.formatMessage(
                     {
                       defaultMessage:
-                        "Pause end date cannot be after this candidate's pool expiry date ({date}).",
-                      id: "yoSmU/",
+                        "Pause end date can't be after expiry date of pool ({date}).",
+                      id: "na1ci7",
                       description:
                         "Error message for pause referral status end date input",
                     },

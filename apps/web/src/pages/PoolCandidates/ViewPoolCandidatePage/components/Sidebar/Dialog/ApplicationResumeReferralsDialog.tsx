@@ -71,8 +71,8 @@ const ApplicationResumeReferralsDialog = ({
   const handleError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Failed to update referral pause status",
-        id: "xa2D5p",
+        defaultMessage: "Failed to update referral status",
+        id: "pFBkiu",
         description: "Error message for updating referral pause status",
       }),
     );
@@ -89,8 +89,8 @@ const ApplicationResumeReferralsDialog = ({
         toast.success(
           intl.formatMessage(
             {
-              defaultMessage: "{name} will now actively be referred",
-              id: "wnj0ho",
+              defaultMessage: "{name} will now actively be referred.",
+              id: "ji56hs",
               description:
                 "Success message after unpausing referrals for a candidate",
             },
@@ -124,12 +124,12 @@ const ApplicationResumeReferralsDialog = ({
         <li>
           {intl.formatMessage(
             {
-              defaultMessage: "Until {referralUnpauseDate}",
-              id: "bI9M3A",
-              description: "Meta for the referral unpause date",
+              defaultMessage: "Until {resumeReferralsAt}",
+              id: "rhD0HK",
+              description: "Meta for the resume referrals date",
             },
             {
-              referralUnpauseDate: strToFormDate(
+              resumeReferralsAt: strToFormDate(
                 application.resumeReferralsAt ?? "",
               ),
             },
@@ -140,16 +140,16 @@ const ApplicationResumeReferralsDialog = ({
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:
-              "Manage when this candidate appears on talent requests.",
-            id: "uUOZbw",
+              "Manage this candidate's visibility in talent requests.",
+            id: "dqC81Y",
             description: "Subtitle for the pause candidate's referral status",
           })}
         >
           {intl.formatMessage({
-            defaultMessage: "Unpause candidate's referral status",
-            id: "iObwWy",
+            defaultMessage: "Resume referrals for this candidate",
+            id: "Aq7OCi",
             description:
-              "Title for the pause candidate's referral status dialog",
+              "Title for the resume candidate's referral status dialog",
           })}
         </Dialog.Header>
         <Dialog.Body>
@@ -159,10 +159,10 @@ const ApplicationResumeReferralsDialog = ({
               <div className="flex flex-col gap-6">
                 <p>
                   {intl.formatMessage({
-                    defaultMessage: "This candidate is not being referred.",
-                    id: "vVMVRz",
+                    defaultMessage: "Candidate not being referred.",
+                    id: "/v7hGH",
                     description:
-                      "Blurb for the unpause candidate's referral status dialog",
+                      "Blurb for the resume candidate's referral status dialog",
                   })}
                 </p>
                 <FieldDisplay
@@ -207,9 +207,9 @@ const ApplicationResumeReferralsDialog = ({
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Do you wish to unpause this candidate's referral?",
-                    id: "cC0vKC",
-                    description: "Final question in unpause referral dialog",
+                      "Do you want to resume referrals for this candidate?",
+                    id: "vGusoy",
+                    description: "Final question in resume referrals dialog",
                   })}
                 </p>
               </div>
@@ -217,10 +217,10 @@ const ApplicationResumeReferralsDialog = ({
                 submitProps={{
                   color: "warning",
                   label: intl.formatMessage({
-                    defaultMessage: "Unpause candidate referral",
-                    id: "ezHMWk",
+                    defaultMessage: "Resume candidate referral",
+                    id: "mU4oY+",
                     description:
-                      "Submit button label for unpause referral dialog",
+                      "Submit button label for resume referrals dialog",
                   }),
                 }}
               />
