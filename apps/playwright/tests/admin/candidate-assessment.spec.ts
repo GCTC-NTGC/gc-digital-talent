@@ -15,6 +15,7 @@ import {
   SkillCategory,
   User,
   WorkRegion,
+  CandidateRemovalReason,
 } from "@gc-digital-talent/graphql";
 import {
   FAR_FUTURE_DATE,
@@ -39,10 +40,11 @@ import testConfig from "~/constants/config";
 import AssessmentPage from "~/fixtures/AssessmentPage";
 import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
 import { getCandidateScreeningStage } from "~/utils/candidateAssessment";
+import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
 
 const LOCALIZED_STRING = {
-  en: "test EN",
-  fr: "test FR",
+  en: "Test_Application_Status (EN)",
+  fr: "Test_Application_Status (FR)",
 };
 
 test.describe("Pool candidates", () => {
@@ -489,5 +491,62 @@ test.describe("Pool candidates", () => {
       "To assess",
       "Under review",
     );
+  });
+
+  test("Validate application status when a candidate is removed", async ({
+    appPage,
+  }) => {
+    test.setTimeout(90000);
+    const candidateName = user?.firstName;
+    const assessmentPage = new AssessmentPage(appPage.page);
+    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+
+    // 1. Verify the candidate status and screening stage result in the table before starting the assessment.
+    const genericTable = new GenericTableValidationFixture(appPage.page);
+    await genericTable.verifyCandidateStatusInTable(
+      poolId,
+      adminCtx,
+      candidateName!,
+      "New Application",
+      undefined,
+      "To assess",
+      "Received",
+    );
+    await genericTable.verifyScreeningStageResultInTable(
+      "To assess",
+      candidateName!,
+    );
+
+    // 2. Assess Application screening stage by moving forward in the screening stages
+    await assessmentPage.goToCandidateApplication(candidate.id);
+    await expect(
+      appPage.page.getByRole("button", { name: /1. New application/i }),
+    ).toBeVisible();
+
+    // 3. Remove the candidate from the pool and verify the candidate status in the table
+    await assessmentPage.logApplicationStatusOnUI({
+      targetStatus: ApplicationStatus.Removed,
+      removalReason: CandidateRemovalReason.RequestedToBeWithdrawn,
+    });
+    await expect(
+      appPage.page.getByRole("button", { name: /removed/i }),
+    ).toBeVisible();
+    await expect(
+      appPage.page.getByText(/withdrawn/i, { exact: false }),
+    ).toBeVisible();
+    await genericTable.verifyCandidateStatusInTable(
+      poolId,
+      adminCtx,
+      candidateName!,
+      undefined,
+      undefined,
+      "Removed",
+      "Withdrawn",
+    );
+
+    // 4. Login as an applicant and verify the same status is displayed
+    await loginBySub(appPage.page, sub);
+    const applicantDashboard = new ApplicantDashboardPage(appPage.page);
+    await applicantDashboard.verifyApplicationStatusFromDashboard("Withdrawn");
   });
 });

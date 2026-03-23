@@ -165,7 +165,7 @@ class GenericTableValidationFixture extends AppPage {
   }
 
   async verifyScreeningStageResultInTable(
-    expectedResult: "Demonstrated" | "Not demonstrated",
+    expectedResult: "Demonstrated" | "Not demonstrated" | "To assess",
     candidateName?: string,
   ) {
     const talentTableCells = this.locators[FIELD.GENERIC_TABLE_ROW];
