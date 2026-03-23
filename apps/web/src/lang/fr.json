@@ -543,6 +543,9 @@
     "defaultMessage": "Deux plumes attachées l’une à l’autre.",
     "description": "Indigenous Apprenticeship feathers image text alternative"
   },
+  "0DjWBj": {
+    "defaultMessage": "Titre du poste"
+  },
   "0Dp1N4": {
     "defaultMessage": "Type de poste",
     "description": "Label for the position type radio group"
@@ -4351,6 +4354,9 @@
     "defaultMessage": "Campagne de recrutement au MDN",
     "description": "Heading for DND recruitment campaign section"
   },
+  "GUMYhp": {
+    "defaultMessage": "Date de fin prévue"
+  },
   "GVShpq": {
     "defaultMessage": "Intérêt pour la mobilité",
     "description": "Legend for mobility interest checklist in community talent filter dialog"
@@ -4698,6 +4704,9 @@
   "IFjA9G": {
     "defaultMessage": "Vue collectivité",
     "description": "Community role name for nav menu"
+  },
+  "IGgfuh": {
+    "defaultMessage": "Vous avez indiqué qu'il s'agit d'un poste intérimaire actif. Toutefois, vous n'avez pas ajouté de poste d'attache actif à votre expérience de travail. Vous pouvez continuer à ajouter cette expérience, mais assurez-vous d'ajouter également votre poste d'attache."
   },
   "IH+bPG": {
     "defaultMessage": "Reçue",
@@ -6101,6 +6110,9 @@
   "OgizOq": {
     "defaultMessage": "Vous êtes à l'aise de partager vos renseignements sur l'équité en matière d'emploi pour des possibilités de recrutement et à des fins de statistiques anonymisées.",
     "description": "Second condition for selecting an employment equity group"
+  },
+  "Ohmv/N": {
+    "defaultMessage": "Si l'organisation pour laquelle vous travaillez n'est pas indiquée, veuillez sélectionner « Organisation externe » comme « Catégorie d'emploi » pour cette expérience."
   },
   "OjI368": {
     "defaultMessage": "Présenter une demande",
@@ -9355,6 +9367,9 @@
     "defaultMessage": "Il s’agissait d'un rôle dans la force régulière ou de réserve de l’Armée canadienne, de l'Aviation royale canadienne ou de la Marine royale canadienne.",
     "description": "Description for the caf employment category option in work experience"
   },
+  "dQUFph": {
+    "defaultMessage": "(Employé non gouvernemental occupant un poste au sein du gouvernement du Canada)"
+  },
   "dRJLsv": {
     "defaultMessage": "Enregistrer votre prochain type de poste",
     "description": "Text on a button to save your next role form"
@@ -9572,7 +9587,7 @@
     "description": "Page title for the registration page for applicant profiles"
   },
   "e8zukj": {
-    "defaultMessage": "Un déplacement temporaire au même niveau vers un autre ministère ou organisme pour lequel le Conseil du Trésor est l'employeur."
+    "defaultMessage": "Un déplacement temporaire au même niveau vers un autre ministère ou organisme pour lequel le Conseil du Trésor est lemployeur."
   },
   "e9FxXq": {
     "defaultMessage": "Déterminer les personnes qui pourraient être admissibles à des possibilités particulières dans les organisations où un groupe visé par l’équité en matière d’emploi est sous-représenté;",
@@ -13864,6 +13879,9 @@
   "wdFBSc": {
     "defaultMessage": "Merci d'avoir proposé la candidature de {name}! L'équipe de gestion des talents de {community} examinera bientôt votre mise en candidature. En attendant, vous pouvez consulter votre demande et son état d'avancement à partir de votre tableau de bord.",
     "description": "First paragraph on success step of a talent nomination"
+  },
+  "wdvv4j": {
+    "defaultMessage": "Veuillez sélectionner une catégorie d'emploi pour continuer."
   },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
