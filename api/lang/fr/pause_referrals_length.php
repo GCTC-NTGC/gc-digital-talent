@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Lang;
 
 return [
-    'one_month' => '1 month',
-    'three_months' => '3 months',
-    'six_months' => '6 months',
-    'one_year' => '12 months',
-    'until_expiry' => 'Until their candidacy expires',
+    'one_month' => '1 mois',
+    'three_months' => '3 mois',
+    'six_months' => '6 mois',
+    'one_year' => '12 mois',
+    'until_expiry' => "Jusqu'à l'expiration de leur candidature",
     'other' => Lang::get('common.other', [], 'en'),
 ];
