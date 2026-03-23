@@ -3,14 +3,7 @@ import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTria
 import { OperationContext, useQuery } from "urql";
 import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
 
-import {
-  NotFound,
-  Pending,
-  Heading,
-  Sidebar,
-  Chip,
-  Chips,
-} from "@gc-digital-talent/ui";
+import { NotFound, Pending, Heading, Sidebar } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -18,7 +11,6 @@ import {
   Scalars,
   Maybe,
   graphql,
-  ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
   FragmentType,
 } from "@gc-digital-talent/graphql";
@@ -28,7 +20,6 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
-import { getApplicationStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
@@ -150,7 +141,6 @@ export const ViewPoolCandidate = ({
     String(poolCandidate.profileSnapshot),
   ) as Maybe<User>;
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
-  const statusChip = getApplicationStatusChip(poolCandidate.status, intl);
 
   const candidateName = getFullNameLabel(
     poolCandidate.user.firstName,
@@ -189,34 +179,6 @@ export const ViewPoolCandidate = ({
       <Hero
         title={candidateName}
         crumbs={navigationCrumbs}
-        status={
-          <Chips>
-            <Chip key="status" color={statusChip.color}>
-              {statusChip.label}
-            </Chip>
-            {poolCandidate.user.hasPriorityEntitlement ||
-            poolCandidate.user.priorityWeight === 10 ? (
-              <Chip key="priority" color="gray">
-                {intl.formatMessage({
-                  defaultMessage: "Priority",
-                  id: "xGMcBO",
-                  description: "Label for priority chip on view candidate page",
-                })}
-              </Chip>
-            ) : null}
-            {poolCandidate.user.armedForcesStatus?.value ===
-              ArmedForcesStatus.Veteran ||
-            poolCandidate.user.priorityWeight === 20 ? (
-              <Chip key="veteran" color="gray">
-                {intl.formatMessage({
-                  defaultMessage: "Veteran",
-                  id: "16iCWc",
-                  description: "Label for veteran chip on view candidate page",
-                })}
-              </Chip>
-            ) : null}
-          </Chips>
-        }
         additionalContent={<ProfileDetails userQuery={poolCandidate.user} />}
       />
       <AdminContentWrapper table overflowScrollbar>
