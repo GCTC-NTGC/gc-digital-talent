@@ -36,7 +36,7 @@ const BottomHalfNotEmployee = () => {
             isEmployee: false,
           })}
         >
-          {intl.formatMessage(commonMessages.continue)}
+          {intl.formatMessage(commonMessages.saveAndContinue)}
         </Link>
       </div>
     </>

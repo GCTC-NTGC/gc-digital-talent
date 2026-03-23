@@ -214,6 +214,7 @@ const RequestVerificationCodeForm = ({
           </div>
           <div className="w-full self-center xs:w-auto xs:self-end">
             <Submit
+              color="secondary"
               className="block w-full"
               text={intl.formatMessage({
                 defaultMessage: "Send verification email",

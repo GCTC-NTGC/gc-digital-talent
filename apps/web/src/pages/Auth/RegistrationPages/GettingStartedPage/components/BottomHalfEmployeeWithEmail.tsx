@@ -58,7 +58,7 @@ const BottomHalfEmployeeWithEmail = () => {
             isEmployee: true,
           })}
         >
-          {intl.formatMessage(commonMessages.continue)}
+          {intl.formatMessage(commonMessages.saveAndContinue)}
         </Link>
       </div>
     </>

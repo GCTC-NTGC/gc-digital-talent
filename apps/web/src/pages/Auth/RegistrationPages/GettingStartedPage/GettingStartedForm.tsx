@@ -14,9 +14,8 @@ import {
 } from "@gc-digital-talent/graphql";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 
-import { useEmailVerification } from "~/components/EmailVerification/EmailVerification";
-import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
 import labels from "./labels";
 import BottomHalfNotEmployee from "./components/BottomHalfNotEmployee";
@@ -47,7 +46,6 @@ export const GettingStartedInitialValues_Query = graphql(/** GraphQL */ `
 
 export interface FormValues {
   isEmployee: string | null;
-  verificationCode: string | null;
 }
 
 const initialValuesToFormValues = (
@@ -55,7 +53,6 @@ const initialValuesToFormValues = (
 ): FormValues => {
   return {
     isEmployee: initialValues.workEmail ? "true" : "false",
-    verificationCode: null, // not stored in db
   };
 };
 
@@ -72,24 +69,21 @@ const chooseBottomHalf = (
     return <BottomHalfEmployeeWithEmail />;
 
   // employee, but no work email
-  return <BottomHalfEmployeeNoEmail initialWorkEmail={workEmail} />;
+  return (
+    <EmailVerification.Provider>
+      <BottomHalfEmployeeNoEmail initialWorkEmail={workEmail} />
+    </EmailVerification.Provider>
+  );
 };
 
 export interface GettingStartedFormProps {
   initialValuesQuery: FragmentType<typeof GettingStartedInitialValues_Query>;
-  onSubmit: (formValues: FormValues) => Promise<void>;
 }
 
 const GettingStartedForm = ({
   initialValuesQuery,
-  onSubmit,
 }: GettingStartedFormProps) => {
   const intl = useIntl();
-
-  const {
-    state: { emailAddressContacted },
-    actions: { setSubmitVerificationCodeContextMessage: setSubmitCodeMessage },
-  } = useEmailVerification();
 
   const initialValues = getFragment(
     GettingStartedInitialValues_Query,
@@ -107,30 +101,6 @@ const GettingStartedForm = ({
     initialValues.workEmail,
     initialValues.isWorkEmailVerified,
   );
-
-  const submitHandler = (formValues: FormValues): Promise<void> => {
-    if (!emailAddressContacted) {
-      // the user hasn't tried to get a verification email yet
-      setSubmitCodeMessage("must-request-code");
-      return Promise.resolve(); // block form submission
-    }
-    return onSubmit(formValues).catch((reason: Error) => {
-      if (reason.message == API_CODE_VERIFICATION_FAILED) {
-        formMethods.setError(
-          "verificationCode",
-          {
-            message: intl.formatMessage({
-              defaultMessage:
-                "The code you entered is not valid. Please check that the code entered matches the one you received in the email specified. If you’re still experiencing issues, try requesting a new code.",
-              id: "s/+kmV",
-              description: "Error message when the code is not valid.",
-            }),
-          },
-          { shouldFocus: true },
-        );
-      }
-    });
-  };
 
   return (
     <>
@@ -194,7 +164,7 @@ const GettingStartedForm = ({
 
       <div className="mb-6">
         <FormProvider {...formMethods}>
-          <form onSubmit={formMethods.handleSubmit(submitHandler)}>
+          <form>
             <RadioGroup
               idPrefix="isEmployee"
               name="isEmployee"
