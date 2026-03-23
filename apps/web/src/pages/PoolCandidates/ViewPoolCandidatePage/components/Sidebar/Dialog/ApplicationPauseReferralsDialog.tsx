@@ -7,7 +7,7 @@ import {
   FragmentType,
   getFragment,
   graphql,
-  ReferralPauseLength,
+  PauseReferralsLength,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
@@ -15,66 +15,66 @@ import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import Footer from "./Footer";
-import PauseReferralFormFields from "./FormFields/PauseReferralFormFields";
+import PauseReferralsFormFields from "./FormFields/PauseReferralsFormFields";
 import { FormValues } from "./types";
 
-const ApplicationPauseReferralOptions_Query = graphql(/** GraphQL */ `
-  query ApplicationPauseReferralOptions {
-    ...PauseReferralFormFields
+const ApplicationPauseReferralsOptions_Query = graphql(/** GraphQL */ `
+  query ApplicationPauseReferralsOptions {
+    ...PauseReferralsFormFields
   }
 `);
 
-const ApplicationPauseReferralDialog_Fragment = graphql(/** GraphQL */ `
-  fragment ApplicationPauseReferralDialog on PoolCandidate {
+const ApplicationPauseReferralsDialog_Fragment = graphql(/** GraphQL */ `
+  fragment ApplicationPauseReferralsDialog on PoolCandidate {
     id
     user {
       id
       firstName
       lastName
     }
-    ...PauseReferralFormMeta
+    ...PauseReferralsFormMeta
   }
 `);
 
-const ApplicationPauseReferralDialog_Mutation = graphql(/** GraphQL */ `
-  mutation pauseCandidateReferral(
+const ApplicationPauseReferralsDialog_Mutation = graphql(/** GraphQL */ `
+  mutation pauseCandidateReferrals(
     $id: UUID!
-    $referralPause: ReferralPauseInput!
+    $pauseReferrals: PauseReferralsInput!
   ) {
-    pauseCandidateReferral(id: $id, referralPause: $referralPause) {
+    pauseCandidateReferrals(id: $id, pauseReferrals: $pauseReferrals) {
       id
-      referralPauseAt
-      referralUnpauseAt
-      referralPauseReason
+      pauseReferralsAt
+      resumeReferralsAt
+      pauseReferralsReason
     }
   }
 `);
 
-interface ApplicationPauseReferralDialogProps {
-  query: FragmentType<typeof ApplicationPauseReferralDialog_Fragment>;
+interface ApplicationPauseReferralsDialogProps {
+  query: FragmentType<typeof ApplicationPauseReferralsDialog_Fragment>;
 }
 
-const ApplicationPauseReferralDialog = ({
+const ApplicationPauseReferralsDialog = ({
   query,
-}: ApplicationPauseReferralDialogProps) => {
+}: ApplicationPauseReferralsDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const [{ data: options, fetching, error }] = useQuery({
-    query: ApplicationPauseReferralOptions_Query,
+    query: ApplicationPauseReferralsOptions_Query,
   });
   const application = getFragment(
-    ApplicationPauseReferralDialog_Fragment,
+    ApplicationPauseReferralsDialog_Fragment,
     query,
   );
   const [, executePauseCandidateReferral] = useMutation(
-    ApplicationPauseReferralDialog_Mutation,
+    ApplicationPauseReferralsDialog_Mutation,
   );
 
   const methods = useForm<FormValues>({
     defaultValues: {
       referralPauseStatus: false,
-      referralUnpauseAt: undefined,
+      resumeReferralsAt: undefined,
     },
   });
 
@@ -93,13 +93,13 @@ const ApplicationPauseReferralDialog = ({
   const handleSubmit = async (values: FormValues) => {
     await executePauseCandidateReferral({
       id: application.id,
-      referralPause: {
-        referralPauseLength: values.referralPauseLength,
-        referralUnpauseAt:
-          values.referralPauseLength === ReferralPauseLength.Other
-            ? values.referralUnpauseAt
+      pauseReferrals: {
+        pauseReferralsLength: values.pauseReferralsLength,
+        resumeReferralsAt:
+          values.pauseReferralsLength === PauseReferralsLength.Other
+            ? values.resumeReferralsAt
             : null,
-        referralPauseReason: values.referralPauseReason,
+        pauseReferralsReason: values.pauseReferralsReason,
       },
     })
       .then((res) => {
@@ -172,7 +172,7 @@ const ApplicationPauseReferralDialog = ({
             <FormProvider {...methods}>
               <form onSubmit={submit(handleSubmit)}>
                 <div className="flex flex-col gap-6">
-                  <PauseReferralFormFields
+                  <PauseReferralsFormFields
                     optionsQuery={options}
                     metaQuery={application}
                     required
@@ -188,4 +188,4 @@ const ApplicationPauseReferralDialog = ({
   );
 };
 
-export default ApplicationPauseReferralDialog;
+export default ApplicationPauseReferralsDialog;

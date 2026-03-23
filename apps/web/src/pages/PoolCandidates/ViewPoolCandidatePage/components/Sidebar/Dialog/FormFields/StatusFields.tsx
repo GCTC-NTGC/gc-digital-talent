@@ -29,12 +29,12 @@ import applicationMessages from "~/messages/applicationMessages";
 
 import { FormValues } from "../types";
 import JobPlacementFormFields from "../FormFields/JobPlacementFormFields";
-import PauseReferralFormFields from "./PauseReferralFormFields";
+import PauseReferralsFormFields from "./PauseReferralsFormFields";
 
 const QualifiedFieldsOptions_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedFieldsOptions on Query {
     ...JobPlacementFormFields
-    ...PauseReferralFormFields
+    ...PauseReferralsFormFields
   }
 `);
 
@@ -87,7 +87,7 @@ export const QualifiedFields = ({ query }: QualifiedFieldsProps) => {
         <>
           <JobPlacementFormFields query={options} />
           {placementType !== PlacementType.PlacedIndeterminate && (
-            <PauseReferralFormFields optionsQuery={options} />
+            <PauseReferralsFormFields optionsQuery={options} />
           )}
         </>
       )}

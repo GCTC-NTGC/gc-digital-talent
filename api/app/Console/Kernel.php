@@ -3,9 +3,9 @@
 namespace App\Console;
 
 use App\Console\Commands\PruneUserGeneratedFiles;
+use App\Console\Commands\ResumeReferrals;
 use App\Console\Commands\SendNotificationsApplicationDeadlineApproaching;
 use App\Console\Commands\SendNotificationsPoolPublished;
-use App\GraphQL\Mutations\UnpauseCandidateReferral;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -43,11 +43,11 @@ class Kernel extends ConsoleKernel
             ->appendOutputTo(storage_path('logs/send-notifications-pool-published.log'));
 
         // Unpause candidate referrals if date is up, every day at 1:00 AM
-        $schedule->command(UnpauseCandidateReferral::class)
+        $schedule->command(ResumeReferrals::class)
             ->timezone('America/Toronto')
             ->dailyAt('1:00')
             ->withoutOverlapping()
-            ->appendOutputTo(storage_path('logs/unpause-referrals.log'));
+            ->appendOutputTo(storage_path('logs/resume-referrals.log'));
     }
 
     /**

@@ -20,23 +20,23 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 
 import Footer from "./Footer";
 
-const ApplicationUnpauseReferralDialog_Fragment = graphql(/** GraphQL */ `
-  fragment ApplicationUnpauseReferralDialog on PoolCandidate {
+const ApplicationResumeReferralsDialog_Fragment = graphql(/** GraphQL */ `
+  fragment ApplicationResumeReferralsDialog on PoolCandidate {
     id
     user {
       id
       firstName
       lastName
     }
-    referralPauseAt
-    referralUnpauseAt
-    referralPauseReason
+    pauseReferralsAt
+    resumeReferralsAt
+    pauseReferralsReason
   }
 `);
 
-const ApplicationUnpauseReferralDialog_Mutation = graphql(/** GraphQL */ `
-  mutation unpauseCandidateReferral($id: UUID!) {
-    unpauseCandidateReferral(id: $id) {
+const ApplicationResumeReferralsDialog_Mutation = graphql(/** GraphQL */ `
+  mutation resumeCandidateReferrals($id: UUID!) {
+    resumeCandidateReferrals(id: $id) {
       id
     }
   }
@@ -46,22 +46,22 @@ interface FormValues {
   id: Scalars["UUID"]["input"];
 }
 
-interface ApplicationUnpauseReferralDialogProps {
-  query: FragmentType<typeof ApplicationUnpauseReferralDialog_Fragment>;
+interface ApplicationResumeReferralsDialogProps {
+  query: FragmentType<typeof ApplicationResumeReferralsDialog_Fragment>;
 }
 
-const ApplicationUnpauseReferralDialog = ({
+const ApplicationResumeReferralsDialog = ({
   query,
-}: ApplicationUnpauseReferralDialogProps) => {
+}: ApplicationResumeReferralsDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const application = getFragment(
-    ApplicationUnpauseReferralDialog_Fragment,
+    ApplicationResumeReferralsDialog_Fragment,
     query,
   );
-  const [, executeUnpauseCandidateReferral] = useMutation(
-    ApplicationUnpauseReferralDialog_Mutation,
+  const [, executeResumeCandidateReferrals] = useMutation(
+    ApplicationResumeReferralsDialog_Mutation,
   );
 
   const methods = useForm<FormValues>({
@@ -79,7 +79,7 @@ const ApplicationUnpauseReferralDialog = ({
   };
 
   const handleSubmit = async () => {
-    await executeUnpauseCandidateReferral({ id: application.id })
+    await executeResumeCandidateReferrals({ id: application.id })
       .then((res) => {
         if (!res.data || res.error) {
           handleError();
@@ -130,7 +130,7 @@ const ApplicationUnpauseReferralDialog = ({
             },
             {
               referralUnpauseDate: strToFormDate(
-                application.referralUnpauseAt ?? "",
+                application.resumeReferralsAt ?? "",
               ),
             },
           )}
@@ -173,7 +173,7 @@ const ApplicationUnpauseReferralDialog = ({
                   })}
                 >
                   <Ul space="sm">
-                    <li>{strToFormDate(application.referralPauseAt ?? "")}</li>
+                    <li>{strToFormDate(application.pauseReferralsAt ?? "")}</li>
                   </Ul>
                 </FieldDisplay>
                 <FieldDisplay
@@ -185,7 +185,7 @@ const ApplicationUnpauseReferralDialog = ({
                 >
                   <Ul space="sm">
                     <li>
-                      {strToFormDate(application.referralUnpauseAt ?? "")}
+                      {strToFormDate(application.resumeReferralsAt ?? "")}
                     </li>
                   </Ul>
                 </FieldDisplay>
@@ -199,7 +199,7 @@ const ApplicationUnpauseReferralDialog = ({
                   <Ul space="sm">
                     <li>
                       {intl.formatMessage(commonMessages.quotes, {
-                        text: application.referralPauseReason,
+                        text: application.pauseReferralsReason,
                       })}
                     </li>
                   </Ul>
@@ -232,4 +232,4 @@ const ApplicationUnpauseReferralDialog = ({
   );
 };
 
-export default ApplicationUnpauseReferralDialog;
+export default ApplicationResumeReferralsDialog;

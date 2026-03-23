@@ -368,7 +368,7 @@ class PoolCandidatePolicy
             || ($pool->department?->team && $user->isAbleTo($permission, $pool->department->team));
     }
 
-    public function updateReferral(User $user, PoolCandidate $poolCandidate)
+    public function updateReferrals(User $user, PoolCandidate $poolCandidate)
     {
         if ($user->isAbleTo('update-any-applicationDecision')) {
             return true;

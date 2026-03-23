@@ -13,7 +13,7 @@ import {
   makeFragmentData,
   PlacementType,
   PoolCandidate,
-  ReferralPauseLength,
+  PauseReferralsLength,
 } from "@gc-digital-talent/graphql";
 import {
   MockGraphqlDecorator,
@@ -43,9 +43,9 @@ type ApplicationSidebarData = Pick<
   | "expiryDate"
   | "screeningStage"
   | "assessmentStep"
-  | "referralPauseAt"
-  | "referralUnpauseAt"
-  | "referralPauseReason"
+  | "pauseReferralsAt"
+  | "resumeReferralsAt"
+  | "pauseReferralsReason"
 >;
 
 const makeApplication = (data?: ApplicationSidebarData) =>
@@ -135,7 +135,7 @@ const meta = {
       },
       ApplicationReferralPauseOptions: {
         data: {
-          referralPauseLengths: fakeLocalizedEnum(ReferralPauseLength).map(
+          referralPauseLengths: fakeLocalizedEnum(PauseReferralsLength).map(
             (value) => ({
               __typename: "LocalizedReferralPauseLength",
               ...value,
@@ -183,9 +183,9 @@ export const QualifiedUnpaused: Story = {
   args: {
     query: makeApplication({
       status: toLocalizedEnum(ApplicationStatus.Qualified),
-      referralPauseAt: null,
-      referralUnpauseAt: null,
-      referralPauseReason: null,
+      pauseReferralsAt: null,
+      resumeReferralsAt: null,
+      pauseReferralsReason: null,
     }),
   },
 };

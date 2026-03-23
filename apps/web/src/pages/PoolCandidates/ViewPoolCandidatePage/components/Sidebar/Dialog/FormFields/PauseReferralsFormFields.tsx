@@ -6,7 +6,7 @@ import {
   FragmentType,
   getFragment,
   graphql,
-  ReferralPauseLength,
+  PauseReferralsLength,
 } from "@gc-digital-talent/graphql";
 import {
   errorMessages,
@@ -30,12 +30,12 @@ import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants
 
 import { FormValues } from "../types";
 
-export const PauseReferralFormFields_Fragment = graphql(/* GraphQL */ `
-  fragment PauseReferralFormFields on Query {
-    referralPauseLengths: localizedEnumOptions(
-      enumName: "ReferralPauseLength"
+export const PauseReferralsFormFields_Fragment = graphql(/* GraphQL */ `
+  fragment PauseReferralsFormFields on Query {
+    pauseReferralsLengths: localizedEnumOptions(
+      enumName: "PauseReferralsLength"
     ) {
-      ... on LocalizedReferralPauseLength {
+      ... on LocalizedPauseReferralsLength {
         value
         label {
           localized
@@ -45,8 +45,8 @@ export const PauseReferralFormFields_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const PauseReferralFormMeta_Fragment = graphql(/** GraphQL */ `
-  fragment PauseReferralFormMeta on PoolCandidate {
+const PauseReferralsFormMeta_Fragment = graphql(/** GraphQL */ `
+  fragment PauseReferralsFormMeta on PoolCandidate {
     id
     expiryDate
   }
@@ -55,39 +55,39 @@ const PauseReferralFormMeta_Fragment = graphql(/** GraphQL */ `
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS_EN = 200;
 
-interface PauseReferralFormFieldsProps {
-  optionsQuery?: FragmentType<typeof PauseReferralFormFields_Fragment>;
-  metaQuery?: FragmentType<typeof PauseReferralFormMeta_Fragment>;
+interface PauseReferralsFormFieldsProps {
+  optionsQuery?: FragmentType<typeof PauseReferralsFormFields_Fragment>;
+  metaQuery?: FragmentType<typeof PauseReferralsFormMeta_Fragment>;
   required?: boolean;
 }
 
-const PauseReferralFormFields = ({
+const PauseReferralsFormFields = ({
   optionsQuery,
   metaQuery,
   required = false,
-}: PauseReferralFormFieldsProps) => {
+}: PauseReferralsFormFieldsProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const options = getFragment(PauseReferralFormFields_Fragment, optionsQuery);
+  const options = getFragment(PauseReferralsFormFields_Fragment, optionsQuery);
 
-  const application = getFragment(PauseReferralFormMeta_Fragment, metaQuery);
+  const application = getFragment(PauseReferralsFormMeta_Fragment, metaQuery);
 
   const { watch, resetField } = useFormContext<FormValues>();
   const pauseStatus = watch("referralPauseStatus");
-  const pauseLength = watch("referralPauseLength");
+  const pauseLength = watch("pauseReferralsLength");
   const expiryDate = application?.expiryDate ?? watch("expiryDate");
 
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
-  const referralPauseLengthOptions = sortLocalizedEnumOptions(
-    ENUM_SORT_ORDER.REFERRAL_PAUSE_LENGTH,
+  const pauseReferralsLengthOptions = sortLocalizedEnumOptions(
+    ENUM_SORT_ORDER.PAUSE_REFERRALS_LENGTH,
     narrowEnumType(
-      unpackMaybes(options?.referralPauseLengths),
-      "ReferralPauseLength",
+      unpackMaybes(options?.pauseReferralsLengths),
+      "PauseReferralsLength",
     ),
-  ).map((referralPauseLength) => ({
-    value: referralPauseLength.value,
-    label: referralPauseLength.label.localized ?? notAvailable,
+  ).map((pauseReferralsLength) => ({
+    value: pauseReferralsLength.value,
+    label: pauseReferralsLength.label.localized ?? notAvailable,
   }));
 
   /**
@@ -99,13 +99,13 @@ const PauseReferralFormFields = ({
     };
 
     if (!pauseStatus) {
-      resetDirtyField("referralPauseLength");
-      resetDirtyField("referralPauseReason");
-      resetDirtyField("referralUnpauseAt");
+      resetDirtyField("pauseReferralsLength");
+      resetDirtyField("pauseReferralsReason");
+      resetDirtyField("resumeReferralsAt");
     }
 
-    if (pauseLength !== ReferralPauseLength.Other) {
-      resetDirtyField("referralUnpauseAt");
+    if (pauseLength !== PauseReferralsLength.Other) {
+      resetDirtyField("resumeReferralsAt");
     }
   }, [pauseStatus, pauseLength]);
 
@@ -138,9 +138,9 @@ const PauseReferralFormFields = ({
       {pauseStatus && (
         <>
           <Select
-            id="referralPauseLength"
-            name="referralPauseLength"
-            options={referralPauseLengthOptions}
+            id="pauseReferralsLength"
+            name="pauseReferralsLength"
+            options={pauseReferralsLengthOptions}
             label={intl.formatMessage({
               defaultMessage: "Pause length",
               id: "eUjL9C",
@@ -156,10 +156,10 @@ const PauseReferralFormFields = ({
             }}
             doNotSort
           />
-          {pauseLength === ReferralPauseLength.Other && (
+          {pauseLength === PauseReferralsLength.Other && (
             <DateInput
-              id="referralUnpauseAt"
-              name="referralUnpauseAt"
+              id="resumeReferralsAt"
+              name="resumeReferralsAt"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
                 min: {
@@ -192,8 +192,8 @@ const PauseReferralFormFields = ({
             />
           )}
           <TextArea
-            id="referralPauseReason"
-            name="referralPauseReason"
+            id="pauseReferralsReason"
+            name="pauseReferralsReason"
             rows={TEXT_AREA_ROWS}
             wordLimit={wordCountLimits[locale]}
             label={intl.formatMessage({
@@ -212,4 +212,4 @@ const PauseReferralFormFields = ({
   );
 };
 
-export default PauseReferralFormFields;
+export default PauseReferralsFormFields;

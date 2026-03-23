@@ -6,7 +6,7 @@ namespace App\GraphQL\Validators\Mutation;
 
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class UnpauseCandidateReferralValidator extends Validator
+final class ResumeCandidateReferralsValidator extends Validator
 {
     /**
      * Return the validation rules.

@@ -86,9 +86,9 @@ const generatePoolCandidate = (
       .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
       .toISOString()
       .substring(0, 10),
-    referralPauseAt: faker.date.past().toISOString(),
-    referralUnpauseAt: expiryDate,
-    referralPauseReason: faker.lorem.sentence(),
+    pauseReferralsAt: faker.date.past().toISOString(),
+    resumeReferralsAt: expiryDate,
+    pauseReferralsReason: faker.lorem.sentence(),
   };
 };
 

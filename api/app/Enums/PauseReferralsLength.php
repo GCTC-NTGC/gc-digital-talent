@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use App\Traits\HasLocalization;
 
-enum ReferralPauseLength
+enum PauseReferralsLength
 {
     use HasLocalization;
 
@@ -18,6 +18,6 @@ enum ReferralPauseLength
     public static function getLangFilename(): string
     {
 
-        return 'referral_pause_length';
+        return 'pause_referrals_length';
     }
 }

@@ -13,15 +13,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->timestamp('referral_pause_at')->nullable();
-            $table->timestamp('referral_unpause_at')->nullable();
-            $table->string('referral_pause_reason')->nullable();
+            $table->timestamp('pause_referrals_at')->nullable();
+            $table->timestamp('resume_referrals_at')->nullable();
+            $table->string('pause_referrals_reason')->nullable();
         });
 
         // Update the existing records
         DB::statement(<<<'SQL'
             UPDATE pool_candidates
-            SET referral_pause_at = NOW(), referral_unpause_at = expiry_date
+            SET pause_referrals_at = NOW(), resume_referrals_at = expiry_date
             WHERE referring = TRUE;
         SQL);
     }
@@ -32,9 +32,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->dropColumn('referral_pause_at');
-            $table->dropColumn('referral_unpause_at');
-            $table->dropColumn('referral_pause_reason');
+            $table->dropColumn('pause_referrals_at');
+            $table->dropColumn('resume_referrals_at');
+            $table->dropColumn('pause_referrals_reason');
         });
     }
 };

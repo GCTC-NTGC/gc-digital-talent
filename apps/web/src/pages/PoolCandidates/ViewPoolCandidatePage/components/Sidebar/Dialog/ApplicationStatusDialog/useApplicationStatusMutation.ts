@@ -3,7 +3,7 @@ import { useMemo } from "react";
 
 import {
   ApplicationStatus,
-  ReferralPauseLength,
+  PauseReferralsLength,
 } from "@gc-digital-talent/graphql";
 
 import { FormValues } from "../types";
@@ -42,13 +42,13 @@ const useApplicationStatusMutation = () => {
                   expiryDate: data.expiryDate,
                   placementType: data.placementType,
                   department: { connect: data.department },
-                  referralPause: {
-                    referralPauseLength: data.referralPauseLength,
-                    referralUnpauseAt:
-                      data.referralPauseLength === ReferralPauseLength.Other
-                        ? data.referralUnpauseAt
+                  pauseReferrals: {
+                    pauseReferralsLength: data.pauseReferralsLength,
+                    resumeReferralsAt:
+                      data.pauseReferralsLength === PauseReferralsLength.Other
+                        ? data.resumeReferralsAt
                         : null,
-                    referralPauseReason: data.referralPauseReason,
+                    pauseReferralsReason: data.pauseReferralsReason,
                   },
                 },
               });
@@ -57,13 +57,13 @@ const useApplicationStatusMutation = () => {
               id,
               poolCandidate: {
                 expiryDate: data.expiryDate,
-                referralPause: {
-                  referralPauseLength: data.referralPauseLength,
-                  referralUnpauseAt:
-                    data.referralPauseLength === ReferralPauseLength.Other
-                      ? data.referralUnpauseAt
+                pauseReferrals: {
+                  pauseReferralsLength: data.pauseReferralsLength,
+                  resumeReferralsAt:
+                    data.pauseReferralsLength === PauseReferralsLength.Other
+                      ? data.resumeReferralsAt
                       : null,
-                  referralPauseReason: data.referralPauseReason,
+                  pauseReferralsReason: data.pauseReferralsReason,
                 },
               },
             });

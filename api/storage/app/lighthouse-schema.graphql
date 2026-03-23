@@ -258,6 +258,11 @@ type LocalizedOrganizationTypeInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedPauseReferralsLength implements LocalizedEnumOption {
+  value: PauseReferralsLength!
+  label: LocalizedString!
+}
+
 type LocalizedPlacementType implements LocalizedEnumOption {
   value: PlacementType!
   label: LocalizedString!
@@ -330,11 +335,6 @@ type LocalizedProvinceOrTerritory implements LocalizedEnumOption {
 
 type LocalizedPublishingGroup implements LocalizedEnumOption {
   value: PublishingGroup!
-  label: LocalizedString!
-}
-
-type LocalizedReferralPauseLength implements LocalizedEnumOption {
-  value: ReferralPauseLength!
   label: LocalizedString!
 }
 
@@ -595,8 +595,8 @@ type Mutation {
   placeCandidate(id: UUID!, poolCandidate: PlaceCandidateInput!): PoolCandidate
   revertPlaceCandidate(id: UUID!): PoolCandidate
   qualifyAndPlaceCandidate(id: UUID!, poolCandidate: QualifyAndPlaceCandidateInput!): PoolCandidate
-  pauseCandidateReferral(id: UUID!, referralPause: ReferralPauseInput!): PoolCandidate
-  unpauseCandidateReferral(id: UUID!): PoolCandidate
+  pauseCandidateReferrals(id: UUID!, pauseReferrals: PauseReferralsInput!): PoolCandidate
+  resumeCandidateReferrals(id: UUID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
   deleteClassification(id: ID!): Classification
@@ -1196,9 +1196,9 @@ type PoolCandidate {
   placementType: LocalizedPlacementType
   placedAt: DateTime
   placedDepartment: Department
-  referralPauseAt: DateTime
-  referralUnpauseAt: DateTime
-  referralPauseReason: String
+  pauseReferralsAt: DateTime
+  resumeReferralsAt: DateTime
+  pauseReferralsReason: String
   veteranVerification: ClaimVerificationResult
   veteranVerificationExpiry: Date
   priorityVerification: ClaimVerificationResult
@@ -2192,15 +2192,15 @@ input AssessmentStepBelongsTo {
   disconnect: Boolean
 }
 
-input ReferralPauseInput {
-  referralPauseLength: ReferralPauseLength
-  referralUnpauseAt: Date
-  referralPauseReason: String
+input PauseReferralsInput {
+  pauseReferralsLength: PauseReferralsLength
+  resumeReferralsAt: Date
+  pauseReferralsReason: String
 }
 
 input QualifyCandidateInput {
   expiryDate: Date!
-  referralPause: ReferralPauseInput
+  pauseReferrals: PauseReferralsInput
 }
 
 input PlaceCandidateInput {
@@ -2212,7 +2212,7 @@ input QualifyAndPlaceCandidateInput {
   expiryDate: Date!
   placementType: PlacementType!
   department: DepartmentBelongsTo!
-  referralPause: ReferralPauseInput
+  pauseReferrals: PauseReferralsInput
 }
 
 input CreateDepartmentInput {
@@ -3976,6 +3976,15 @@ enum OverallAssessmentStatus {
   QUALIFIED
 }
 
+enum PauseReferralsLength {
+  ONE_MONTH
+  THREE_MONTHS
+  SIX_MONTHS
+  ONE_YEAR
+  UNTIL_EXPIRY
+  OTHER
+}
+
 enum PlacementType {
   NOT_PLACED
   UNDER_CONSIDERATION
@@ -4100,15 +4109,6 @@ enum PublishingGroup {
   IAP
   IT_JOBS
   EXECUTIVE_JOBS
-  OTHER
-}
-
-enum ReferralPauseLength {
-  ONE_MONTH
-  THREE_MONTHS
-  SIX_MONTHS
-  ONE_YEAR
-  UNTIL_EXPIRY
   OTHER
 }
 

@@ -269,6 +269,11 @@ type LocalizedOrganizationTypeInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedPauseReferralsLength implements LocalizedEnumOption {
+  value: PauseReferralsLength!
+  label: LocalizedString!
+}
+
 type LocalizedPlacementType implements LocalizedEnumOption {
   value: PlacementType!
   label: LocalizedString!
@@ -341,11 +346,6 @@ type LocalizedProvinceOrTerritory implements LocalizedEnumOption {
 
 type LocalizedPublishingGroup implements LocalizedEnumOption {
   value: PublishingGroup!
-  label: LocalizedString!
-}
-
-type LocalizedReferralPauseLength implements LocalizedEnumOption {
-  value: ReferralPauseLength!
   label: LocalizedString!
 }
 
@@ -1517,6 +1517,15 @@ enum OverallAssessmentStatus {
   QUALIFIED
 }
 
+enum PauseReferralsLength {
+  ONE_MONTH
+  THREE_MONTHS
+  SIX_MONTHS
+  ONE_YEAR
+  UNTIL_EXPIRY
+  OTHER
+}
+
 enum PlacementType {
   NOT_PLACED
   UNDER_CONSIDERATION
@@ -1641,15 +1650,6 @@ enum PublishingGroup {
   IAP
   IT_JOBS
   EXECUTIVE_JOBS
-  OTHER
-}
-
-enum ReferralPauseLength {
-  ONE_MONTH
-  THREE_MONTHS
-  SIX_MONTHS
-  ONE_YEAR
-  UNTIL_EXPIRY
   OTHER
 }
 

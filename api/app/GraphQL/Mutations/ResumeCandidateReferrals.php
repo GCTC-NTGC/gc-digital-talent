@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\PoolCandidate;
 
-final class UnpauseCandidateReferral
+final class ResumeCandidateReferrals
 {
     /**
      * Unpause referrals for a candidate
@@ -13,7 +13,7 @@ final class UnpauseCandidateReferral
     {
         $candidate = PoolCandidate::findOrFail($args['id']);
 
-        $candidate->unpauseReferral();
+        $candidate->resumeReferrals();
 
         return $candidate;
     }

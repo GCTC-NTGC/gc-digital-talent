@@ -3,14 +3,14 @@
 namespace App\Rules;
 
 use App\Enums\ErrorCode;
-use App\Enums\ReferralPauseLength;
+use App\Enums\PauseReferralsLength;
 use App\Models\PoolCandidate;
 use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Carbon;
 
-class UnpauseAtBeforeExpiryDate implements DataAwareRule, ValidationRule
+class ResumeReferralsBeforeExpiryDate implements DataAwareRule, ValidationRule
 {
     protected $data = [];
 
@@ -36,16 +36,16 @@ class UnpauseAtBeforeExpiryDate implements DataAwareRule, ValidationRule
         $now = Carbon::now();
         $candidate = PoolCandidate::findOrFail($this->data['id']);
         $expiryDate = isset($this->args['expiryDate']) ? Carbon::parse($this->args['expiryDate']) : $candidate->expiry_date;
-        $referralPauseLength = isset($this->args['referralPauseLength']) ? $this->args['referralPauseLength'] : null;
-        $referralUnpauseAt = isset($this->args['referralUnpauseAt']) ? $this->args['referralUnpauseAt'] : null;
+        $pauseReferralsLength = isset($this->args['pauseReferralsLength']) ? $this->args['pauseReferralsLength'] : null;
+        $resumeReferralsAt = isset($this->args['resumeReferralsAt']) ? $this->args['resumeReferralsAt'] : null;
 
-        $lengthOfTime = match ($referralPauseLength) {
-            ReferralPauseLength::ONE_MONTH->name => $now->addMonth(),
-            ReferralPauseLength::THREE_MONTHS->name => $now->addMonths(3),
-            ReferralPauseLength::SIX_MONTHS->name => $now->addMonths(6),
-            ReferralPauseLength::ONE_YEAR->name => $now->addYear(),
-            ReferralPauseLength::UNTIL_EXPIRY->name => $expiryDate,
-            ReferralPauseLength::OTHER->name => $referralUnpauseAt,
+        $lengthOfTime = match ($pauseReferralsLength) {
+            PauseReferralsLength::ONE_MONTH->name => $now->addMonth(),
+            PauseReferralsLength::THREE_MONTHS->name => $now->addMonths(3),
+            PauseReferralsLength::SIX_MONTHS->name => $now->addMonths(6),
+            PauseReferralsLength::ONE_YEAR->name => $now->addYear(),
+            PauseReferralsLength::UNTIL_EXPIRY->name => $expiryDate,
+            PauseReferralsLength::OTHER->name => $resumeReferralsAt,
             default => null,
         };
 

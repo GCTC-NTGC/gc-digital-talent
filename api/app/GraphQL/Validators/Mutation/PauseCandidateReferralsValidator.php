@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators\Mutation;
 
-use App\Enums\ReferralPauseLength;
+use App\Enums\PauseReferralsLength;
 use App\Models\PoolCandidate;
 use App\Rules\CanPauseCandidateReferral;
-use App\Rules\UnpauseAtBeforeExpiryDate;
+use App\Rules\ResumeReferralsBeforeExpiryDate;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class PauseCandidateReferralValidator extends Validator
+final class PauseCandidateReferralsValidator extends Validator
 {
     /**
      * Return the validation rules.
@@ -30,18 +30,18 @@ final class PauseCandidateReferralValidator extends Validator
                 'exists:pool_candidates,id',
                 new CanPauseCandidateReferral,
             ],
-            'referralPause.referralPauseLength' => [
+            'pauseReferrals.pauseReferralsLength' => [
                 'required',
-                Rule::in(array_column(ReferralPauseLength::cases(), 'name')),
-                new UnpauseAtBeforeExpiryDate($this->arg('referralPause')),
+                Rule::in(array_column(PauseReferralsLength::cases(), 'name')),
+                new ResumeReferralsBeforeExpiryDate($this->arg('pauseReferrals')),
             ],
-            'referralPause.referralUnpauseAt' => [
+            'pauseReferrals.resumeReferralsAt' => [
                 Rule::when(
-                    fn (): bool => $this->arg('referralPause.referralPauseLength') === ReferralPauseLength::OTHER->name,
+                    fn (): bool => $this->arg('pauseReferralsLength') === PauseReferralsLength::OTHER->name,
                     ['required', 'date', 'after:today', 'before_or_equal:'.$candidate->expiry_date]
                 ),
             ],
-            'referralPause.referralPauseReason' => ['required', 'string'],
+            'pauseReferrals.pauseReferralsReason' => ['required', 'string'],
         ];
     }
 

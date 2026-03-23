@@ -13,8 +13,8 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import ApplicationExpiryDateDialog from "../Dialog/ApplicationExpiryDateDialog";
 import ApplicationPlacementDialog from "../Dialog/ApplicationPlacementDialog";
-import ApplicationPauseReferralDialog from "../Dialog/ApplicationPauseReferralDialog";
-import ApplicationUnpauseReferralDialog from "../Dialog/ApplicationUnpauseReferralDialog";
+import ApplicationPauseReferralsDialog from "../Dialog/ApplicationPauseReferralsDialog";
+import ApplicationResumeReferralsDialog from "../Dialog/ApplicationResumeReferralsDialog";
 
 const QualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedStatusMeta on PoolCandidate {
@@ -26,11 +26,11 @@ const QualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `
     placementType {
       value
     }
-    referralUnpauseAt
+    resumeReferralsAt
 
     ...ApplicationPlacementDialog
-    ...ApplicationPauseReferralDialog
-    ...ApplicationUnpauseReferralDialog
+    ...ApplicationPauseReferralsDialog
+    ...ApplicationResumeReferralsDialog
     ...ApplicationExpiryDateDialog
   }
 `);
@@ -81,10 +81,10 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
       </FieldDisplay>
       {!isPlacedIndeterminate && (
         <FieldDisplay label={intl.formatMessage(commonMessages.referralStatus)}>
-          {application.referralUnpauseAt ? (
-            <ApplicationUnpauseReferralDialog query={application} />
+          {application.resumeReferralsAt ? (
+            <ApplicationResumeReferralsDialog query={application} />
           ) : (
-            <ApplicationPauseReferralDialog query={application} />
+            <ApplicationPauseReferralsDialog query={application} />
           )}
         </FieldDisplay>
       )}
