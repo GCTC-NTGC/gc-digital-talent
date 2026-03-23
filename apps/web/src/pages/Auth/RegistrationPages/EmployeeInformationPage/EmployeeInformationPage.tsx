@@ -43,7 +43,16 @@ export const EmployeeInformationForm = ({
   onSubmit,
 }: EmployeeInformationFormProps) => {
   const intl = useIntl();
-  const methods = useForm<WorkFormValues>();
+  const [searchParams] = useSearchParams();
+  const initialIsEmployee = searchParams.get("isEmployee");
+  const methods = useForm<WorkFormValues>({
+    defaultValues: {
+      employmentCategory:
+        initialIsEmployee == "true"
+          ? EmploymentCategory.GovernmentOfCanada
+          : EmploymentCategory.ExternalOrganization,
+    },
+  });
   const labels = getExperienceFormLabels(intl, "work");
   return (
     <>
