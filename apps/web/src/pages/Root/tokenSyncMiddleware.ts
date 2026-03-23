@@ -13,8 +13,13 @@ const tokenSyncMiddleware: Route.ClientMiddlewareFunction = (
 
   if (tokensFound) {
     // saved in local storage, then clear query parameters.
+    url.searchParams.delete("token_type");
+    url.searchParams.delete("id_token");
+    url.searchParams.delete("access_token");
+    url.searchParams.delete("refresh_token");
+    url.searchParams.delete("expires_in");
     // eslint-disable-next-line @typescript-eslint/only-throw-error
-    throw redirect(url.pathname);
+    throw redirect(url.href);
   }
 
   return next();
