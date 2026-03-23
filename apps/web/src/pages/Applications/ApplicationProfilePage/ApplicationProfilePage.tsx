@@ -7,11 +7,7 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import {
-  graphql,
-  PoolAreaOfSelection,
-  UserProfileFragment,
-} from "@gc-digital-talent/graphql";
+import { graphql, PoolAreaOfSelection } from "@gc-digital-talent/graphql";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -99,7 +95,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
   };
 
   const sectionProps = {
-    query: application.user as UserProfileFragment,
+    query: application.user,
     isUpdating,
     onUpdate: handleUpdate,
     pool: application.pool,
@@ -171,9 +167,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
           <DiversityEquityInclusion {...sectionProps} />
         </div>
         <PriorityEntitlements {...sectionProps} />
-        <GovernmentInformation
-          query={application.user as UserProfileFragment}
-        />
+        <GovernmentInformation query={application.user} />
         <LanguageProfile
           {...sectionProps}
           application={{
