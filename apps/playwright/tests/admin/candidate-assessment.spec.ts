@@ -11,6 +11,7 @@ import {
   PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
+  ScreeningStage,
   Skill,
   SkillCategory,
   User,
@@ -314,12 +315,10 @@ test.describe("Pool candidates", () => {
     await assessmentPage.revertApplicationStatusOnUI(
       ApplicationStatus.Qualified,
     );
-    await getCandidateScreeningStage(adminCtx, {
+    const screeningStage = await getCandidateScreeningStage(adminCtx, {
       candidateId: candidate.id,
     });
-    await expect(
-      appPage.page.getByRole("button", { name: /to assess/i }).first(),
-    ).toBeVisible();
+    expect(screeningStage).toBe(ScreeningStage.ApplicationReview);
   });
 
   test("Validate application status for Disqualified Candidate", async ({
@@ -408,12 +407,13 @@ test.describe("Pool candidates", () => {
 
     // 2. Revert the Disqualified candidate status and verify the reverted candidate status in the table
     await revertFinalDecision(adminCtx, { id: candidate.id });
-    await getCandidateScreeningStage(adminCtx, {
+    const screeningStage = await getCandidateScreeningStage(adminCtx, {
       candidateId: candidate.id,
     });
     await expect(
       appPage.page.getByRole("button", { name: /to assess/i }).first(),
     ).toBeVisible();
+    expect(screeningStage).toBe(ScreeningStage.ApplicationReview);
   });
 
   test("Validate application status when a candidate is removed", async ({
