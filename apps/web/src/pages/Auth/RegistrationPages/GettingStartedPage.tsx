@@ -8,8 +8,7 @@ import { GettingStartedPage as GettingStartedPageDeprecated } from "./GettingSta
 
 /**
  * This is a simple component to conditionally render the two versions of the page.
- * Once the transition is complete, the component can be moved back into the
- * newer version of the page and the older one can get removed.
+ * Once the transition is complete the older page and this switcher can get removed.
  */
 export const Component = () => {
   const featureFlags = useFeatureFlags();

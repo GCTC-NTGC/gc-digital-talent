@@ -3,33 +3,25 @@ import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { FormProvider, useForm } from "react-hook-form";
 import { ReactNode } from "react";
 
-import { Heading, Link, Notice, Separator } from "@gc-digital-talent/ui";
-import {
-  Input,
-  RadioGroup,
-  Submit,
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
+import { Heading, Link, Notice } from "@gc-digital-talent/ui";
+import { RadioGroup } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
   graphql,
   FragmentType,
   getFragment,
-  Language,
   GettingStartedInitialValuesFragment,
-  EmailType,
 } from "@gc-digital-talent/graphql";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 
-import EmailVerification, {
-  useEmailVerification,
-} from "~/components/EmailVerification/EmailVerification";
+import { useEmailVerification } from "~/components/EmailVerification/EmailVerification";
 import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
-import Caption from "~/components/BasicInformation/Caption";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import labels from "./labels";
-import messages from "../messages";
+import BottomHalfNotEmployee from "./components/BottomHalfNotEmployee";
+import BottomHalfEmployeeWithEmail from "./components/BottomHalfEmployeeWithEmail";
+import BottomHalfEmployeeNoEmail from "./components/BottomHalfEmployeeNoEmail";
 
 export const sectionTitle = defineMessage({
   defaultMessage: "Getting started",
@@ -47,27 +39,14 @@ export const GettingStartedInitialValues_Query = graphql(/** GraphQL */ `
       }
     }
     email
+    workEmail
+    isWorkEmailVerified
     telephone
   }
 `);
 
-export const GettingStartedOptions_Query = graphql(/** GraphQL */ `
-  fragment GettingStartedOptions on Query {
-    languages: localizedEnumStrings(enumName: "Language") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-  }
-`);
-
 export interface FormValues {
-  firstName: string | null;
-  lastName: string | null;
-  email: string | null;
-  preferredLang: string | null;
+  isEmployee: string | null;
   verificationCode: string | null;
 }
 
@@ -75,23 +54,34 @@ const initialValuesToFormValues = (
   initialValues: GettingStartedInitialValuesFragment,
 ): FormValues => {
   return {
-    firstName: initialValues.firstName ?? null,
-    lastName: initialValues.lastName ?? null,
-    email: initialValues.email ?? null,
-    preferredLang: initialValues.preferredLang?.value ?? null,
+    isEmployee: initialValues.workEmail ? "true" : "false",
     verificationCode: null, // not stored in db
   };
 };
 
+const chooseBottomHalf = (
+  isEmployee: boolean,
+  workEmail: string | null | undefined,
+  isWorkEmailVerified: boolean | null | undefined,
+): ReactNode => {
+  // not an employee
+  if (!isEmployee) return <BottomHalfNotEmployee />;
+
+  // employee with verified work email
+  if (workEmail?.length && isWorkEmailVerified)
+    return <BottomHalfEmployeeWithEmail />;
+
+  // employee, but no work email
+  return <BottomHalfEmployeeNoEmail initialWorkEmail={workEmail} />;
+};
+
 export interface GettingStartedFormProps {
   initialValuesQuery: FragmentType<typeof GettingStartedInitialValues_Query>;
-  optionsQuery: FragmentType<typeof GettingStartedOptions_Query>;
   onSubmit: (formValues: FormValues) => Promise<void>;
 }
 
 const GettingStartedForm = ({
   initialValuesQuery,
-  optionsQuery,
   onSubmit,
 }: GettingStartedFormProps) => {
   const intl = useIntl();
@@ -106,11 +96,17 @@ const GettingStartedForm = ({
     initialValuesQuery,
   );
 
-  const options = getFragment(GettingStartedOptions_Query, optionsQuery);
-
   const formMethods = useForm<FormValues>({
     defaultValues: initialValuesToFormValues(initialValues),
   });
+
+  const watchIsEmployee = formMethods.watch("isEmployee");
+
+  const bottomHalf = chooseBottomHalf(
+    watchIsEmployee == "true",
+    initialValues.workEmail,
+    initialValues.isWorkEmailVerified,
+  );
 
   const submitHandler = (formValues: FormValues): Promise<void> => {
     if (!emailAddressContacted) {
@@ -195,88 +191,44 @@ const GettingStartedForm = ({
           )}
         </Notice.Footer>
       </Notice.Root>
-      <FormProvider {...formMethods}>
-        <form onSubmit={formMethods.handleSubmit(submitHandler)}>
-          <div className="mb-6">
-            <EmailVerification.SubmitVerificationCodeContextMessage />
-          </div>
-          {/* only show personal information inputs if a code has already been requested */}
-          {emailAddressContacted ? (
-            <>
-              <div className="mb-6">
-                <Input
-                  id="verificationCode"
-                  name="verificationCode"
-                  type="text"
-                  label={intl.formatMessage(labels.verificationCode)}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
-              <div className="mb-6 grid gap-6 xs:grid-cols-2">
-                <Input
-                  id="firstName"
-                  name="firstName"
-                  type="text"
-                  label={intl.formatMessage(labels.firstName)}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-                <Input
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  label={intl.formatMessage(labels.lastName)}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
-              <div className="mb-6">
-                <RadioGroup
-                  idPrefix="required-lang-preferences"
-                  legend={intl.formatMessage(labels.preferredLang)}
-                  id="preferredLang"
-                  name="preferredLang"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  items={localizedEnumToOptions(options?.languages, intl)}
-                  defaultSelected={Language.En}
-                />
-              </div>
-            </>
-          ) : null}
-          <div className="mb-6">
-            <Caption>
-              {intl.formatMessage({
-                defaultMessage:
-                  "By registering and providing your email address, you agree to receive email communication from GC Digital Talent and its partner functional communities in the Government of Canada. You can control which types of notifications you receive and how you receive them in your account settings page.",
-                id: "sHEsjv",
+
+      <div className="mb-6">
+        <FormProvider {...formMethods}>
+          <form onSubmit={formMethods.handleSubmit(submitHandler)}>
+            <RadioGroup
+              idPrefix="isEmployee"
+              name="isEmployee"
+              legend={intl.formatMessage({
+                defaultMessage: "Government employee status",
+                id: "44R2Zx",
                 description:
-                  "Message on getting started page about the contact email address",
+                  "Label to select if the uer is a government employee or not",
               })}
-            </Caption>
-          </div>
-          <div className="-mx-6 sm:-mx-9">
-            <Separator decorative orientation="horizontal" />
-          </div>
-          <div className="flex flex-col items-center gap-x-3 gap-y-1.5 sm:flex-row sm:justify-end">
-            <div>
-              <Submit
-                mode="solid"
-                color="primary"
-                text={intl.formatMessage(commonMessages.continue)}
-                submittedText={intl.formatMessage(
-                  commonMessages.saveAndContinue,
-                )}
-              />
-            </div>
-          </div>
-        </form>
-      </FormProvider>
+              items={[
+                {
+                  value: "false",
+                  label: intl.formatMessage({
+                    defaultMessage: "I’m not an employee",
+                    id: "t/RX4k",
+                    description: "Not an employee",
+                  }),
+                },
+                {
+                  value: "true",
+                  label: intl.formatMessage({
+                    defaultMessage:
+                      "I currently work for the Government of Canada",
+                    id: "ub5Bh5",
+                    description: "Is an employee",
+                  }),
+                },
+              ]}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+          </form>
+        </FormProvider>
+      </div>
+      {bottomHalf}
     </>
   );
 };

@@ -145,7 +145,6 @@ export const GettingStartedPage = () => {
                 <EmailVerification.Provider>
                   <GettingStartedForm
                     initialValuesQuery={data.me}
-                    optionsQuery={data}
                     onSubmit={handleSubmit}
                   />
                 </EmailVerification.Provider>
