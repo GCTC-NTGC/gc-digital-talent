@@ -12346,10 +12346,6 @@
     "defaultMessage": "Échec de la mise à jour de l'état de recommandation",
     "description": "Error message for updating referral pause status"
   },
-  "pFOjuY": {
-    "defaultMessage": "Joyeux temps des Fêtes!",
-    "description": "Heading to exclaim holiday greetings"
-  },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
     "description": "Label for the row-selection column in the tables column-selection modal."
