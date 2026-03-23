@@ -6,8 +6,8 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\ApplicationStatus;
 use App\Enums\ErrorCode;
-use App\Enums\PlacementType;
 use App\Enums\PauseReferralsLength;
+use App\Enums\PlacementType;
 use App\Models\PoolCandidate;
 use App\Rules\ResumeReferralsBeforeExpiryDate;
 use Carbon\Carbon;

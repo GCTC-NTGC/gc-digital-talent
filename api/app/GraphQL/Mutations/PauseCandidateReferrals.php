@@ -3,7 +3,6 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\PoolCandidate;
-use Illuminate\Support\Facades\Log;
 
 final class PauseCandidateReferrals
 {
