@@ -132,7 +132,8 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <html lang="en">
+    // Suppress hydration warning coming from `initTheme.js` when running watch mode
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           nonce="**CSP_NONCE**"
