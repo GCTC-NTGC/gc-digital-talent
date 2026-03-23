@@ -1839,6 +1839,10 @@
     "defaultMessage": "Courriel professionnel de l'auteur(trice) de la mise en candidature",
     "description": "Label for the text input for the nominators work email"
   },
+  "5JByxj": {
+    "defaultMessage": "<strong>Clientèle visée</strong> : membres admissibles du groupe TI qui veulent acquérir des connaissances spécialisées ou les approfondir dans des domaines en forte demande.",
+    "description": "An item in a list of points about instructor-led classes"
+  },
   "5LTlSA": {
     "defaultMessage": "la réalisation et l’examen des évaluations automatisées d’accessibilité, notamment :",
     "description": "List item three, things developers consider for accessibility"
@@ -3374,10 +3378,6 @@
   "CCyraT": {
     "defaultMessage": "Sélectionnez la méthode qui décrit le mieux la façon dont votre organisation prévoit évaluer ces compétences. Vous pouvez renommer cette évaluation au besoin.",
     "description": "description of 'basic details' section of the 'assessment details' dialog"
-  },
-  "CDO5vW": {
-    "defaultMessage": "<strong>Clientèle visée</strong> : membres admissibles du groupe TI qui préfèrent un mode d’apprentissage structuré et veulent acquérir des connaissances spécialisées ou les approfondir dans des domaines en forte demande.",
-    "description": "An item in a list of points about instructor-led classes"
   },
   "CDV1Cw": {
     "defaultMessage": "Modifier {experienceName}",
@@ -9941,6 +9941,10 @@
   "fa+z9W": {
     "defaultMessage": "Vous recevrez à cette adresse courriel les offres d'emploi provenant des équipes du recrutement et des ressources humaines ainsi que les notifications liées à vos demandes et aux autres éléments de la plateforme.",
     "description": "Contact email title paragraph"
+  },
+  "fcJRy1": {
+    "defaultMessage": "Vous avez activé votre compte Navigar.",
+    "description": "Fifth item in list of eligibility requirements section"
   },
   "fdSRLv": {
     "defaultMessage": "Vous pouvez les ajouter en cliquant sur le bouton « Ajouter des volets de travail ».",
