@@ -931,7 +931,9 @@ type TalentNominationGroup {
   nominee: BasicGovEmployeeProfile
     @belongsTo
     @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
-  nominations: [TalentNomination!] @hasMany @canResolved(ability: "view")
+  nominations: [TalentNomination!]
+    @hasMany
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentNominationEvent: TalentNominationEvent! @belongsTo
   advancementNominationCount: Int
     @rename(attribute: "advancement_nomination_count")
