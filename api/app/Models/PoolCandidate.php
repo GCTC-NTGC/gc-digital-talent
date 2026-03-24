@@ -72,6 +72,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?Carbon $veteran_verification_expiry
  * @property ?string $priority_verification
  * @property ?Carbon $priority_verification_expiry
+ * @property array $computed_assessment_status
  * @property array<string, mixed> $profile_snapshot
  * @property array $flexible_work_locations
  * @property array<string> $education_requirement_experience_ids
