@@ -40,7 +40,7 @@ test.describe("Support page", () => {
     test("send POST request to existing API endpoint", async ({ request }) => {
       const newTicket = await request.post("/api/support/tickets", {
         headers: {
-          'Accept': 'application/json',
+          Accept: "application/json",
         },
         data: {
           name: "Test Person",
