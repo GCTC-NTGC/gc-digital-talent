@@ -265,7 +265,7 @@ export default Component;
 // export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
 //   async ({ context, request }, next) => {
 //     if (!(await canAccessProtectedEndpoint())) {
-//       throw new Error();
+//       throw new Error("useVPN");
 //     }
 
 //     requireUser(context, request, [

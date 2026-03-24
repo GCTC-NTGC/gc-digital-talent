@@ -42,6 +42,16 @@ export const routeErrorMessages = defineMessages({
     id: "Q6ws0E",
     description: "Body text for the 404 page not found page.",
   },
+  useVPNTitle: {
+    defaultMessage: "useVPNTitle",
+    id: "if8XBi",
+    description: "Title for the 404 page not found page.",
+  },
+  useVPNBody: {
+    defaultMessage: "useVPNBody",
+    id: "8aZJAF",
+    description: "Body text for the 404 page not found page.",
+  },
 });
 
 const errorStatusMap: Record<string, number> = {
@@ -79,6 +89,18 @@ const useErrorMessages = (): ErrorWithMessages => {
           messages: knownErrorMessages[errorStatusMap[error.name]],
         };
       }
+    }
+  }
+
+  if (error instanceof Error) {
+    if ("useVPN" === error.message) {
+      return {
+        error: new Error(),
+        messages: {
+          title: intl.formatMessage(routeErrorMessages.useVPNTitle),
+          body: intl.formatMessage(routeErrorMessages.useVPNBody),
+        },
+      };
     }
   }
 
