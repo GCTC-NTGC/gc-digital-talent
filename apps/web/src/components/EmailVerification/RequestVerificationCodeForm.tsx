@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { MessageDescriptor, useIntl } from "react-intl";
+import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
@@ -20,7 +20,11 @@ import {
 import { useEmailVerification } from "./EmailVerification";
 
 const labels: Record<EmailType, MessageDescriptor> = {
-  WORK: commonMessages.workEmail,
+  WORK: defineMessage({
+    defaultMessage: "Government work email",
+    id: "2SU37a",
+    description: "Label for work email in the verification form",
+  }),
   CONTACT: commonMessages.email,
 };
 
