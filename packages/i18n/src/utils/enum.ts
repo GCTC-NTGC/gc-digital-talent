@@ -184,6 +184,7 @@ export const ENUM_SORT_ORDER = {
     PlacementType.PlacedTentative,
     PlacementType.PlacedCasual,
     PlacementType.PlacedTerm,
+    PlacementType.PlacedActing,
     PlacementType.PlacedIndeterminate,
   ],
   PRIORITY_WEIGHT: [
