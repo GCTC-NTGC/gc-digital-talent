@@ -8,7 +8,7 @@ import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
 import GettingStartedForm, {
-  GettingStartedInitialValues_Query,
+  GettingStartedInitialValuesDeprecated_Query,
   GettingStartedOptions_Query,
 } from "./GettingStartedForm";
 
@@ -16,7 +16,7 @@ const mockInitialValuesData = makeFragmentData(
   {
     email: "example@example.org",
   },
-  GettingStartedInitialValues_Query,
+  GettingStartedInitialValuesDeprecated_Query,
 );
 
 const mockOptionsData = makeFragmentData(
