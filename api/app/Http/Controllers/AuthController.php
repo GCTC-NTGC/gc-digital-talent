@@ -48,10 +48,13 @@ class AuthController extends Controller
         $requestedLocale = $request->input('locale');
         if (strcasecmp($requestedLocale, 'en') == 0) {
             $ui_locales = 'en-CA en';
+            $lang = 'en';
         } elseif (strcasecmp($requestedLocale, 'fr') == 0) {
             $ui_locales = 'fr-CA fr';
+            $lang = 'fr';
         } else {
             $ui_locales = $requestedLocale;
+            $lang = $requestedLocale;
         }
 
         $scope = 'openid offline_access';
@@ -65,7 +68,7 @@ class AuthController extends Controller
             'nonce' => $nonce,
             'acr_values' => config('oauth.acr_values'),
             'ui_locales' => $ui_locales, // This is what SIC wants
-            'lang' => $ui_locales,  // This is what CanadaLogin wants
+            'lang' => $lang,  // This is what CanadaLogin wants
         ]);
 
         return redirect(config('oauth.authorize_uri').'?'.$query);
@@ -247,16 +250,22 @@ class AuthController extends Controller
         return response($response)->header('Content-Type', 'application/json');
     }
 
+    // generates an allow-list of auth callbacks for our domain
     public function sectorIdentifier(Request $request)
     {
-        return response()->json([
+        $callbackUrls = [
             // our actual auth callback
             config('oauth.redirect_uri'),
+        ];
 
-            // auth callbacks for the Sign In Canada to CanadaLogin migration tool
-            'https://api.migration.signin-connexion.cdssandbox.xyz/v1/auth/callback',
-            'https://api.migration.signin-connexion.cdssandbox.xyz/v1/auth/legacy/callback',
+        // temporarily allow callback to the migration tool
+        if (config('oauth.migration_tool_callback')) {
+            $callbackUrls[] = config('oauth.migration_tool_callback');
+        }
 
-        ]);
+        return response(json_encode($callbackUrls, JSON_UNESCAPED_SLASHES))
+            ->withHeaders([
+                'Content-Type' => 'application/json; charset=utf-8',
+            ]);
     }
 }
