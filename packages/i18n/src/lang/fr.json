@@ -123,6 +123,10 @@
     "defaultMessage": "Juin",
     "description": "Name of the sixth month"
   },
+  "1go1mo": {
+    "defaultMessage": "Une erreur s’est produite lors de l’interruption des recommandations. Communiquez avec le service de soutien si ce problème persiste.",
+    "description": "Error message that pausing referrals for a candidate failed"
+  },
   "1i0PsT": {
     "defaultMessage": "Talents numériques du GC",
     "description": "Title of GC Digital Talent"
@@ -455,6 +459,10 @@
     "defaultMessage": "Non disponible",
     "description": "Message displayed when specific information is not available"
   },
+  "F6BSah": {
+    "defaultMessage": "La date de fin de l’interruption ne peut être ultérieure à la date d’expiration du bassin",
+    "description": "Error message for pause referral status end date input"
+  },
   "F6j96P": {
     "defaultMessage": "Refaire",
     "description": "Label for redoing an action in the rich text editor"
@@ -646,6 +654,10 @@
   "NCQBQz": {
     "defaultMessage": "La date d’expiration du statut d’ancien combattant ne peut pas être dans le passé. Entrez une date dans le futur.",
     "description": "Error message that the veteran status date cannot be in the past."
+  },
+  "NG15dv": {
+    "defaultMessage": "État de recommandation",
+    "description": "Label for the referral status field display"
   },
   "NQspkZ": {
     "defaultMessage": "Tableau de bord de la collectivité",
@@ -856,7 +868,7 @@
     "description": "Label for a created at date"
   },
   "TiIkSF": {
-    "defaultMessage": "Deux années post-secondaire",
+    "defaultMessage": "Deux années d'études postsecondaires",
     "description": "Option for education requirement, 2-year post-secondary"
   },
   "TnmQ2Q": {
@@ -1683,6 +1695,10 @@
     "defaultMessage": "J'accepte d'avoir un emploi où je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
+  "uzB/k/": {
+    "defaultMessage": "Tableau de bord du ministère",
+    "description": "Name of the department dashboard page"
+  },
   "vGENdP": {
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
@@ -1690,6 +1706,10 @@
   "vMc12L": {
     "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un autre domaine politique.",
     "description": "The talent nomination lateral movement option description for policy experience"
+  },
+  "vNVMlM": {
+    "defaultMessage": "« {text} »",
+    "description": "Text within double quotes"
   },
   "vOCLQA": {
     "defaultMessage": "Incomplet",

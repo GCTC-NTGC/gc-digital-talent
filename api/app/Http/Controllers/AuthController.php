@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Contracts\BearerTokenService;
 use App\Models\Role;
 use App\Models\User;
+use App\Rules\GovernmentEmailRegex;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
@@ -92,7 +94,7 @@ class AuthController extends Controller
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
         ]);
-        assert($response instanceof \Illuminate\Http\Client\Response);
+        assert($response instanceof Response);
         if ($response->failed()) {
             Log::error('Failed when POSTing to the token URI in authCallback');
             Log::debug((string) $response->getBody());
@@ -101,44 +103,97 @@ class AuthController extends Controller
         }
         // decode id_token stage
         // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
-        $idToken = $response->json('id_token');
+        $encodedIdToken = $response->json('id_token');
 
-        if (! ($idToken && is_string($idToken))) {
+        if (! ($encodedIdToken && is_string($encodedIdToken))) {
             Log::debug((string) $response->body());
-            throw new InvalidArgumentException('id token is a '.gettype($idToken));
+            throw new InvalidArgumentException('id token is a '.gettype($encodedIdToken));
         }
 
         $config = $this->fastSigner;
         assert($config instanceof Configuration);
 
-        $token = $config->parser()->parse($idToken);
-        assert($token instanceof UnencryptedToken);
+        $idToken = $config->parser()->parse($encodedIdToken);
+        assert($idToken instanceof UnencryptedToken);
 
         // grab the tokenNonce out of the unencrypted thing and compare to original nonce, and throw_unless if mismatch
-        $tokenNonce = $token->claims()->get('nonce');
+        $tokenNonce = $idToken->claims()->get('nonce');
         throw_unless(
             strlen($tokenNonce) > 0 && $tokenNonce === $nonce,
             new InvalidArgumentException('Invalid session nonce')
         );
 
-        // nothing to break the session now, mark login successful with a last active update
-        $sub = $token->claims()->get('sub');
-        $userMatch = User::where('sub', $sub)->withTrashed()->first();
-        $now = Carbon::now();
-        if (isset($userMatch)) {
-            $userMatch->last_sign_in_at = $now;
-            $userMatch->save();
-        } else {
+        // find the corresponding User
+        $sub = $idToken->claims()->get('sub');
+        $userMatch = User::where('sub', $sub)->withTrashed()->firstOr(function () use ($sub) {
             // No user found for given subscriber - lets auto-register them
             $newUser = new User;
             $newUser->sub = $sub;
-            $newUser->last_sign_in_at = $now;
             $newUser->save();
             $newUser->syncRoles([  // every new user is automatically an base_user and an applicant
                 Role::where('name', 'base_user')->sole(),
                 Role::where('name', 'applicant')->sole(),
             ], null);
+
+            return $newUser;
+        });
+
+        // update the user with values from logging in
+        $userMatch->last_sign_in_at = Carbon::now();
+        if ($idToken->claims()->has('given_name')) {
+            $userMatch->first_name = $idToken->claims()->get('given_name');
         }
+        if ($idToken->claims()->has('family_name')) {
+            $userMatch->last_name = $idToken->claims()->get('family_name');
+        }
+        if ($idToken->claims()->has('email')) {
+            $incomingEmailAddress = $idToken->claims()->get('email');
+
+            // if existing users have this email address then take it from them
+            try {
+                $existingUser = User::where('sub', '!=', $sub)
+                    ->where(fn ($subquery) => $subquery
+                        ->where('email', 'ilike', $incomingEmailAddress)
+                        ->orWhere('work_email', 'ilike', $incomingEmailAddress)
+                    )->first();
+                if (strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
+                    $existingUser->email = $existingUser->email.'_taken_'.Carbon::now()->timestamp;
+                }
+                if (strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
+                    $existingUser->work_email = $existingUser->work_email.'_taken_'.Carbon::now()->timestamp;
+                }
+                $existingUser->save();
+            } catch (\Throwable $e) {
+                // log and continue - don't break log in for failure to take address
+                Log::error('Failed to take email address on log in.'.$e->getMessage(), [
+                    'sub' => $sub,
+                    'email address' => $incomingEmailAddress,
+                ]);
+            }
+
+            // email should be clear now so save if possible
+            if (User::where('sub', '!=', $sub)
+                ->where(fn ($subquery) => $subquery
+                    ->where('email', 'ilike', $incomingEmailAddress)
+                    ->orWhere('work_email', 'ilike', $incomingEmailAddress)
+                )->count() == 0
+            ) {
+                $userMatch->setVerifiedContactEmail($incomingEmailAddress);
+                if (preg_match(GovernmentEmailRegex::PATTERN, $incomingEmailAddress)) {
+                    $userMatch->setVerifiedWorkEmail($incomingEmailAddress);
+                }
+            }
+        }
+        if ($idToken->claims()->has('phone_number')) {
+            $userMatch->telephone = $idToken->claims()->get('phone_number');
+        }
+        if ($idToken->claims()->has('locale')) {
+            $normalizedValue = strtolower(substr($idToken->claims()->get('locale'), 0, 2));
+            if ($normalizedValue == 'en' || $normalizedValue == 'fr') {
+                $userMatch->preferred_lang = $normalizedValue;
+            }
+        }
+        $userMatch->save();
 
         $query = http_build_query($response->json());
 
@@ -176,7 +231,7 @@ class AuthController extends Controller
                 'client_secret' => config('oauth.client_secret'),
                 'refresh_token' => $refreshToken,
             ]);
-        assert($response instanceof \Illuminate\Http\Client\Response);
+        assert($response instanceof Response);
         if ($response->failed()) {
             $errorCode = $response->json('error');
             $isNormalErrorCode = $errorCode == 'invalid_grant';

@@ -14,8 +14,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "../ExperienceCard/ExperienceCard";
-import { DialogType } from "./useDialogType";
-import { DIALOG_TYPE } from "./utils";
+import { DIALOG_TYPE, DialogType } from "./utils";
 
 const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
   fragment ScreeningDialogSupportingEvidence on PoolCandidate {

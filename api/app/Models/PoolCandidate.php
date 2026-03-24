@@ -18,6 +18,7 @@ use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\FinalDecision;
 use App\Enums\OverallAssessmentStatus;
+use App\Enums\PauseReferralsLength;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
@@ -40,7 +41,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Lang;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -48,30 +51,30 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * Class PoolCandidate
  *
  * @property string $id
- * @property ?\Illuminate\Support\Carbon $expiry_date
- * @property ?\Illuminate\Support\Carbon $archived_at
- * @property ?\Illuminate\Support\Carbon $submitted_at
+ * @property ?Carbon $expiry_date
+ * @property ?Carbon $archived_at
+ * @property ?Carbon $submitted_at
  * @property ?string $signature
  * @property ?string $pool_candidate_status
  * @property ?string $application_status
  * @property ?int $status_weight
  * @property string $pool_id
  * @property string $user_id
- * @property ?\Illuminate\Support\Carbon $suspended_at
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?Carbon $suspended_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property array $submitted_steps
  * @property ?string $education_requirement_option
  * @property ?bool $is_flagged
- * @property ?\Illuminate\Support\Carbon $placed_at
+ * @property ?Carbon $placed_at
  * @property ?string $placed_department_id
- * @property ?\Illuminate\Support\Carbon $status_updated_at
+ * @property ?Carbon $status_updated_at
  * @property ?string $removal_reason
  * @property ?string $removal_reason_other
  * @property ?string $veteran_verification
- * @property ?\Illuminate\Support\Carbon $veteran_verification_expiry
+ * @property ?Carbon $veteran_verification_expiry
  * @property ?string $priority_verification
- * @property ?\Illuminate\Support\Carbon $priority_verification_expiry
+ * @property ?Carbon $priority_verification_expiry
  * @property array $computed_assessment_status
  * @property ?int $computed_final_decision_weight
  * @property ?string $computed_final_decision
@@ -87,6 +90,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property bool $is_open_to_jobs
  * @property bool $is_hired
  * @property bool $referring
+ * @property ?Carbon $pause_referrals_at
+ * @property ?Carbon $resume_referrals_at
+ * @property ?string $pause_referrals_reason
  */
 class PoolCandidate extends Model
 {
@@ -147,6 +153,9 @@ class PoolCandidate extends Model
         'disqualification_reason',
         'computed_final_decision',
         'placement_type',
+        'pause_referrals_at',
+        'resume_referrals_at',
+        'pause_referrals_reason',
     ];
 
     protected $touches = ['user'];
@@ -505,6 +514,29 @@ class PoolCandidate extends Model
         return is_null($this->submitted_at) || $this->submitted_at->isFuture();
     }
 
+    protected function isBookmarked(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                /** @var User | null */
+                $user = Auth::user();
+                if (! $user) {
+                    return null;
+                }
+
+                static $bookmarkedIds = null;
+
+                if ($bookmarkedIds === null) {
+                    $bookmarkedIds = $user->poolCandidateBookmarks()
+                        ->pluck('pool_candidate_id')
+                        ->all();
+                }
+
+                return in_array($this->id, $bookmarkedIds);
+            }
+        );
+    }
+
     /**
      * Take the new application step to insert and add it to the array, preserving uniqueness
      */
@@ -818,6 +850,10 @@ class PoolCandidate extends Model
         $this->computed_final_decision = FinalDecision::QUALIFIED_PLACED->name;
         $this->computed_final_decision_weight = 30;
 
+        if ($this->placement_type === PlacementType::PLACED_INDETERMINATE->name) {
+            $this->pauseReferrals(PauseReferralsLength::OTHER->name, Lang::get('common.successfully_placed'), $this->expiry_date);
+        }
+
         $this->save();
 
         $this->logActivity(ActivityEvent::PLACED, [
@@ -935,6 +971,7 @@ class PoolCandidate extends Model
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
         $this->disqualification_reason = null;
         $this->computed_final_decision_weight = 40;
+        $this->resumeReferrals();
 
         $this->save();
 
@@ -948,5 +985,35 @@ class PoolCandidate extends Model
     {
         $properties['attributes']['user_name'] = $this->user->fullName ?? null;
         $properties['attributes']['pool_id'] = $this->pool->id ?? null;
+    }
+
+    public function pauseReferrals(?string $pauseReferralsLength, ?string $reason, ?Carbon $referralResumeAt)
+    {
+        $now = Carbon::now();
+
+        $lengthOfTime = match ($pauseReferralsLength) {
+            PauseReferralsLength::ONE_MONTH->name => $now->addMonth(),
+            PauseReferralsLength::THREE_MONTHS->name => $now->addMonths(3),
+            PauseReferralsLength::SIX_MONTHS->name => $now->addMonths(6),
+            PauseReferralsLength::ONE_YEAR->name => $now->addYear(),
+            PauseReferralsLength::UNTIL_EXPIRY->name => $this->expiry_date,
+            PauseReferralsLength::OTHER->name => $referralResumeAt,
+            default => null,
+        };
+
+        $this->pause_referrals_at = Carbon::now();
+        $this->pause_referrals_reason = $reason;
+        $this->resume_referrals_at = $lengthOfTime;
+
+        $this->save();
+    }
+
+    public function resumeReferrals()
+    {
+        $this->pause_referrals_at = null;
+        $this->pause_referrals_reason = null;
+        $this->resume_referrals_at = null;
+
+        $this->save();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class TeamPolicy
 {
@@ -14,7 +15,7 @@ class TeamPolicy
      * Determine whether the user can view any models.
      * Everyone is allowed to view the team including guests
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAny(?User $user)
     {
@@ -26,7 +27,7 @@ class TeamPolicy
      * To be sketched in later with roles and permissions work
      * Everyone is allowed to view the team including guests
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(?User $user, ?Team $team = null)
     {
@@ -36,7 +37,7 @@ class TeamPolicy
     /**
      * Determine whether the user can assign any user to this team (giving them any team-based role)
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function assignTeamMembers(User $user, Team $team)
     {
@@ -46,7 +47,7 @@ class TeamPolicy
     /**
      * Determine whether the user can view the teams Teamable
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewTeamable(User $user, Team $team)
     {

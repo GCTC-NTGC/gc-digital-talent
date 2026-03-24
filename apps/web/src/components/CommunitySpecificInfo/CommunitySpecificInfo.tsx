@@ -7,7 +7,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import CommunityInterest from "../CommunityInterest/CommunityInterest";
 
-export const CommunitySpecificInfo_Fragment = graphql(/* GraphQL */ `
+const CommunitySpecificInfo_Fragment = graphql(/* GraphQL */ `
   fragment CommunitySpecificInfo on EmployeeProfile {
     communityInterests {
       community {
@@ -21,7 +21,7 @@ export const CommunitySpecificInfo_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const CommunitySpecificInfoOptions_Fragment = graphql(/* GraphQL */ `
+const CommunitySpecificInfoOptions_Fragment = graphql(/* GraphQL */ `
   fragment CommunitySpecificInfoOptions on Query {
     ...CommunityInterestOptions
   }

@@ -6,6 +6,7 @@ use App\Enums\ApplicationStatus;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class PoolCandidatePolicy
 {
@@ -14,7 +15,7 @@ class PoolCandidatePolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAny()
     {
@@ -25,7 +26,7 @@ class PoolCandidatePolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(User $user, PoolCandidate $poolCandidate)
     {
@@ -61,7 +62,7 @@ class PoolCandidatePolicy
     /**
      * Determine whether the user can create draft models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function createDraft(User $user)
     {
@@ -71,7 +72,7 @@ class PoolCandidatePolicy
     /**
      * Determine whether the user can create models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function create(User $user)
     {
@@ -81,7 +82,7 @@ class PoolCandidatePolicy
     /**
      * Determine whether a user can update the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function update(User $user, PoolCandidate $poolCandidate)
     {
@@ -102,7 +103,7 @@ class PoolCandidatePolicy
      *
      * If using this  policy method, please validate all data as well.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function submit(User $user, PoolCandidate $poolCandidate)
     {
@@ -117,7 +118,7 @@ class PoolCandidatePolicy
      *
      * If using this  policy method, please validate all data as well.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function archive(User $user, PoolCandidate $poolCandidate)
     {
@@ -132,7 +133,7 @@ class PoolCandidatePolicy
      *
      * If using this  policy method, please validate all data as well.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function suspend(User $user, PoolCandidate $poolCandidate)
     {
@@ -145,7 +146,7 @@ class PoolCandidatePolicy
      * Note: Everyone needs to be able to count applicants
      * for now
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function count()
     {
@@ -160,7 +161,7 @@ class PoolCandidatePolicy
      *
      * If using this  policy method, please validate all data as well.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function delete(User $user, PoolCandidate $poolCandidate)
     {
@@ -187,7 +188,7 @@ class PoolCandidatePolicy
      * Determine whether the user can update status fields for a pool candidate
      * Note: this refers to a pool candidate's status and expiry fields together
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function updateStatusLegacy(User $user, PoolCandidate $poolCandidate)
     {
@@ -321,7 +322,7 @@ class PoolCandidatePolicy
      * Branches depending on input status
      *
      * @param  array{id: ?string, expiry_date: ?string, application_status: ?string }  $args
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function updateStatus(User $user, PoolCandidate $poolCandidate, $args)
     {
@@ -365,5 +366,18 @@ class PoolCandidatePolicy
             ($pool->team && $user->isAbleTo($permission, $pool->team))
             || ($pool->community?->team && $user->isAbleTo($permission, $pool->community->team))
             || ($pool->department?->team && $user->isAbleTo($permission, $pool->department->team));
+    }
+
+    public function updateReferrals(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('update-any-applicationDecision')) {
+            return true;
+        }
+        $poolCandidate->loadMissing(['pool.team', 'pool.community.team', 'pool.department.team']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationDecision', $poolCandidate->pool->team);
+        $communityPermission = ! is_null($poolCandidate->pool?->community?->team) && $user->isAbleTo('update-team-applicationDecision', $poolCandidate->pool->community->team);
+        $departmentPermission = ! is_null($poolCandidate->pool?->department?->team) && $user->isAbleTo('update-team-applicationDecision', $poolCandidate->pool->department->team);
+
+        return $teamPermission || $communityPermission || $departmentPermission;
     }
 }

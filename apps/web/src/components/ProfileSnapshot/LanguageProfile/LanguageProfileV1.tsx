@@ -59,7 +59,7 @@ export interface LanguageProfileSnapshotV1 {
   bilingualEvaluation?: Maybe<BilingualEvaluation>;
 }
 
-export type LanguageProfileV1Props = SnapshotProps<LanguageProfileSnapshotV1>;
+type LanguageProfileV1Props = SnapshotProps<LanguageProfileSnapshotV1>;
 
 const LanguageProfileV1 = ({ snapshot }: LanguageProfileV1Props) => {
   const intl = useIntl();

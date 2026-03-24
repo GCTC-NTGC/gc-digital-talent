@@ -16,7 +16,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import EmailVerificationStatus from "../EmailVerificationStatus";
 
-export const PersonalInformationDisplay_Fragment = graphql(/** GraphQL */ `
+const PersonalInformationDisplay_Fragment = graphql(/** GraphQL */ `
   fragment PersonalInformationDisplay on User {
     firstName
     lastName
