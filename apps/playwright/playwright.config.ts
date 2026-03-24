@@ -18,7 +18,7 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? Number(process.env.PLAYWRIGHT_RETRIES ?? 1) : 0,
   /* Keep CI parallelism configurable with a conservative default to avoid shard oversubscription. */
-  workers: process.env.CI ? process.env.PLAYWRIGHT_WORKERS ?? "25%" : "25%",
+  workers: process.env.CI ? (process.env.PLAYWRIGHT_WORKERS ?? "25%") : "25%",
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
     ? "blob"
