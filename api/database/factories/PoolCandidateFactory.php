@@ -235,7 +235,7 @@ class PoolCandidateFactory extends BaseFactory
         $type = constant(PlacementType::class.'::'.$name);
 
         return $this->placed($type)->state(fn () => [
-            'referring' => true,
+            'pause_referrals_at' => null,
             'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
         ]);
     }

@@ -84,7 +84,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property bool $is_suspended
  * @property bool $is_open_to_jobs
  * @property bool $is_hired
- * @property bool $referring
  * @property ?Carbon $pause_referrals_at
  * @property ?Carbon $resume_referrals_at
  * @property ?string $pause_referrals_reason

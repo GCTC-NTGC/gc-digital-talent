@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
             $table->dropColumn([
+                'referring',
                 'pool_candidate_status',
                 'computed_final_decision',
                 'computed_final_decision_weight',
