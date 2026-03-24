@@ -348,8 +348,8 @@ export const Component = () => {
                     <li>
                       {intl.formatMessage({
                         defaultMessage:
-                          "<strong>Who it is for</strong>: All eligible IT-classified employees who prefer structured learning and want to gain or deepen expertise in specific high-demand areas.",
-                        id: "CDO5vW",
+                          "<strong>Who it is for</strong>: All eligible IT-classified employees who want to gain or deepen expertise in specific high-demand areas.",
+                        id: "5JByxj",
                         description:
                           "An item in a list of points about instructor-led classes",
                       })}
