@@ -18,6 +18,8 @@ const tokenSyncMiddleware: Route.ClientMiddlewareFunction = (
     url.searchParams.delete("access_token");
     url.searchParams.delete("refresh_token");
     url.searchParams.delete("expires_in");
+    url.searchParams.delete("grant_id");
+    url.searchParams.delete("scope");
     // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw redirect(url.href);
   }

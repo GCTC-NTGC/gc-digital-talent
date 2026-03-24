@@ -243,4 +243,4 @@ export const Component = () => (
   </RequireAuth>
 );
 
-export default EmployeeInformationPage;
+export default Component;

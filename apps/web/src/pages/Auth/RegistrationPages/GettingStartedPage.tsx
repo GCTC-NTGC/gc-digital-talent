@@ -23,4 +23,4 @@ export const Component = () => {
   );
 };
 
-export default GettingStartedPage;
+export default Component;
