@@ -14,14 +14,17 @@ class StoreSupportTicketRequest extends FormRequest
 
     protected function prepareForValidation()
     {
+        $sanitizePlain = fn ($key) => $this->has($key) ? Sanitizer::plain($this->input($key)) : null;
+
         $this->merge([
             'email' => Sanitizer::plain($this->input('email')),
             'name' => Sanitizer::plain($this->input('name')),
             'subject' => Sanitizer::plain($this->input('subject')),
             'description' => Sanitizer::html($this->input('description'), escape: true),
-            'previous_url' => Sanitizer::plain($this->input('previous_url')),
-            'user_agent' => Sanitizer::plain($this->input('user_agent')),
-            'user_id' => Sanitizer::plain($this->input('user_id')),
+            // Optional fields:
+            'previous_url' => $sanitizePlain('previous_url'),
+            'user_agent' => $sanitizePlain('user_agent'),
+            'user_id' => $sanitizePlain('user_id'),
         ]);
     }
 
