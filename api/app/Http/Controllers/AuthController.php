@@ -259,8 +259,8 @@ class AuthController extends Controller
         ];
 
         // temporarily allow callback to the migration tool
-        if (env('OAUTH_MIGRATION_TOOL_CALLBACK')) {
-            $callbackUrls[] = env('OAUTH_MIGRATION_TOOL_CALLBACK');
+        if (config('oauth.migration_tool_callback')) {
+            $callbackUrls[] = config('oauth.migration_tool_callback');
         }
 
         return response(json_encode($callbackUrls, JSON_UNESCAPED_SLASHES))
