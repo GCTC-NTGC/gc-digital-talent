@@ -191,13 +191,13 @@ class AssessmentPage extends AppPage {
       ScreeningStage.ScreenedIn,
       ScreeningStage.UnderAssessment,
     ];
-    let currentStage = (await getCandidateScreeningStage(ctx, {
+    const currentStage = (await getCandidateScreeningStage(ctx, {
       candidateId,
     })) as ScreeningStage;
     const startIndex = stageOrder.indexOf(currentStage);
 
     for (const stage of stageOrder.slice(startIndex, -1)) {
-      currentStage = await this.updateScreeningStage(stage, ctx, candidateId);
+      await this.updateScreeningStage(stage, ctx, candidateId);
       if (stage === ScreeningStage.ApplicationReview) {
         for (const res of results) {
           await this.recordCandidateAssessmentDecision({
