@@ -3955,10 +3955,6 @@
     "defaultMessage": "Type de poste",
     "description": "Position classification section"
   },
-  "EUDRhe": {
-    "defaultMessage": "Entrevues de vive voix",
-    "description": "Label for preferred lang for interviews in profile details box."
-  },
   "EVkmeA": {
     "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
@@ -8217,10 +8213,6 @@
   "Y63cqS": {
     "defaultMessage": "À qui s'adresse ce processus de recrutement?",
     "description": "Button text to toggle the accordion for who can apply"
-  },
-  "Y6X4Ok": {
-    "defaultMessage": "Communication générale",
-    "description": "Label for preferred language in profile details box."
   },
   "Y82TrM": {
     "defaultMessage": "Les préférences de l’employé·e en matière d’organisation, de promotion, de mentorat et de possibilités pour les cadres.",
@@ -13054,10 +13046,6 @@
     "defaultMessage": "La Bibliothèque de compétences est une ressource centralisée dans laquelle les principales compétences des collectivités fonctionnelles qui utilisent la plateforme sont définies et organisées. Elle fournit des descriptions claires de chacune des compétences, pour que les gestionnaires d’embauche, les spécialistes des RH et les personnes qui postulent comprennent la même chose.",
     "description": "Description of the skills library"
   },
-  "sYdl0V": {
-    "defaultMessage": "Examens écrits",
-    "description": "Label for preferred lang for exams in profile details box."
-  },
   "sZhjI3": {
     "defaultMessage": "Veuillez sélectionner une collectivité fonctionnelle pour continuer.",
     "description": "Message displayed when no functional community is selected"
@@ -14481,10 +14469,6 @@
   "yaf/jx": {
     "defaultMessage": "Un code d’identification de dossier personnel (CIDP)",
     "description": "Item 4 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
-  },
-  "ycXoSE": {
-    "defaultMessage": "Statut de citoyen",
-    "description": "Label for citizenship status field"
   },
   "yd+VEB": {
     "defaultMessage": "Date de la formation",
