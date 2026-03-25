@@ -114,7 +114,7 @@ export interface RootProps extends RootVariants {
     href: LinkProps["href"];
   };
   headingAs?: HeadingLevel;
-  children?: ReactElement<ItemProps> | ReactElement<ItemProps>[]; // Restricts children to only expected items;
+  children?: ReactElement<ItemProps> | (ReactElement<ItemProps> | null)[]; // Restricts children to only expected items;
 }
 
 const Root = ({
