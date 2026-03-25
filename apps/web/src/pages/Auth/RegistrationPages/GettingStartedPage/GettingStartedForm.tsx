@@ -43,12 +43,18 @@ export interface FormValues {
   isEmployee: "true" | "false" | null;
 }
 
-// figure out what the second half of the page should look like
-const chooseBottomHalf = (
-  isEmployee: boolean,
-  workEmail: string | null | undefined,
-  isWorkEmailVerified: boolean | null | undefined,
-): ReactNode => {
+interface BottomHalfProps {
+  isEmployee: boolean;
+  workEmail: string | null | undefined;
+  isWorkEmailVerified: boolean | null | undefined;
+}
+
+// dynamically swap out the bottom half of the form depending on state
+const BottomHalf = ({
+  isEmployee,
+  workEmail,
+  isWorkEmailVerified,
+}: BottomHalfProps) => {
   // not an employee
   if (!isEmployee) return <BottomHalfNotEmployee />;
 
@@ -85,12 +91,6 @@ const GettingStartedForm = ({
   });
 
   const watchIsEmployee = formMethods.watch("isEmployee");
-
-  const bottomHalf = chooseBottomHalf(
-    watchIsEmployee == "true",
-    initialValues.workEmail,
-    initialValues.isWorkEmailVerified,
-  );
 
   return (
     <>
@@ -189,7 +189,11 @@ const GettingStartedForm = ({
         </FormProvider>
       </div>
       {/* bottom half of page changes depending on user state */}
-      {bottomHalf}
+      <BottomHalf
+        isEmployee={watchIsEmployee == "true"}
+        workEmail={initialValues.workEmail}
+        isWorkEmailVerified={initialValues.isWorkEmailVerified}
+      />
     </>
   );
 };
