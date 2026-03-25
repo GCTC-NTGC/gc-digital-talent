@@ -3039,10 +3039,6 @@
     "defaultMessage": "{count, plural, =0 {0 élément sélectionné} one {# élément sélectionné} other {# éléments sélectionnés}}",
     "description": "Message displayed for the number of rows selected in a table"
   },
-  "AWk4BX": {
-    "defaultMessage": "Nom du propriétaire",
-    "description": "Title displayed for the Pool table Owner Name column"
-  },
   "AXJKYq": {
     "defaultMessage": "Filtres de profils d'employé(e)",
     "description": "Heading for filters associated with employee profiles"
@@ -12449,10 +12445,6 @@
   "pcAgJh": {
     "defaultMessage": "Nous choisirons les personnes participantes en fonction de leur admissibilité, de leurs compétences ou de leur expérience, et de la représentation des groupes visés par l’équité en matière d’emploi au sein de l’effectif de la TI du gouvernement du Canada. Nous communiquerons avec vous dans les huit jours ouvrables suivant la date limite de présentation des demandes. Si vous faites partie des personnes choisies, vous aurez trois jours ouvrables pour confirmer votre participation.",
     "description": "Second paragraph of apply and share section"
-  },
-  "pe5WkF": {
-    "defaultMessage": "Courriel du propriétaire",
-    "description": "Title displayed for the Pool table Owner Email column"
   },
   "peTSHR": {
     "defaultMessage": "Notes sur cette demande",
