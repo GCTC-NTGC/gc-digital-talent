@@ -155,7 +155,7 @@ const YourProcessesTaskCard = ({
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <YourProcessesPreviewList
-                      yourProcessesQuery={poolsFromTeamable}
+                      yourProcessesQuery={poolsFromTeamableUnique}
                     />
                   </Accordion.Content>
                 </Accordion.Item>
