@@ -13,7 +13,7 @@ import EmailVerification from "~/components/EmailVerification/EmailVerification"
 
 import GettingStartedForm, {
   GettingStartedFormProps,
-  GettingStartedInitialValues_Query,
+  GettingStartedInitialValuesDeprecated_Query,
   GettingStartedOptions_Query,
 } from "./GettingStartedForm";
 
@@ -35,7 +35,7 @@ const mockClient = {
 
 const mockInitialValuesData = makeFragmentData(
   {},
-  GettingStartedInitialValues_Query,
+  GettingStartedInitialValuesDeprecated_Query,
 );
 
 const mockOptionsData = makeFragmentData(
