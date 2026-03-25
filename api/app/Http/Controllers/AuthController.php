@@ -207,23 +207,35 @@ class AuthController extends Controller
         if (substr($from, 0, 1) != '/') {
             $from = null;
         } // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
-        if ($from) {
-            $authCallbackResponseQuery['from'] = $from;
+
+        if ($newUserCreated) {
+            // new user, go to registration
+            if (strlen($from) > 0) {
+                $authCallbackResponseQuery['from'] = $from;
+            }
+            $redirectUrl = config('oauth.post_login_registration_redirect');
+        } else {
+            // existing user, go where they want
+            $appUrl = config('app.url');
+            $redirectUrl = strlen($from) > 0 ? $appUrl.$from : config('oauth.post_login_redirect');
         }
 
-        $postLoginRedirect = match ($newUserCreated) {
-            true => config('oauth.post_login_registration_redirect'),
-            default => config('oauth.post_login_redirect'),
-        };
-
+        // duplicate logic for running with watch mode
         if ($request->session()->pull('devServer')) {
-            $postLoginRedirect = match ($newUserCreated) {
-                true => config('oauth.dev_post_login_registration_redirect'),
-                default => config('oauth.dev_post_login_redirect'),
-            };
+            if ($newUserCreated) {
+                // new user, go to registration
+                if (strlen($from) > 0) {
+                    $authCallbackResponseQuery['from'] = $from;
+                }
+                $redirectUrl = config('oauth.dev_post_login_registration_redirect');
+            } else {
+                // existing user, go where they want
+                $appUrl = config('app.url');
+                $redirectUrl = strlen($from) > 0 ? $appUrl.$from : config('oauth.dev_post_login_redirect');
+            }
         }
 
-        return redirect($postLoginRedirect.'?'.http_build_query($authCallbackResponseQuery));
+        return redirect($redirectUrl.'?'.http_build_query($authCallbackResponseQuery));
     }
 
     public function refresh(Request $request)
