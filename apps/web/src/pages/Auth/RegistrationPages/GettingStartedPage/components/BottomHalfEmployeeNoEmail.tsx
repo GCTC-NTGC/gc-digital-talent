@@ -97,7 +97,7 @@ const BottomHalfEmployeeNoEmail = ({
         }
       })
       .then(() => {
-        // finally, navigate away
+        // if successful, navigate away
         return navigate(
           paths.registrationExperience({
             from: from ?? undefined,
