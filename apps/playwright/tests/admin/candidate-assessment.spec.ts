@@ -17,7 +17,6 @@ import {
   User,
   WorkRegion,
   CandidateRemovalReason,
-  ScreeningStage,
 } from "@gc-digital-talent/graphql";
 import {
   FAR_FUTURE_DATE,
@@ -426,7 +425,7 @@ test.describe("Pool candidates", () => {
 
     // 1. Fetch available assessment steps in the pool
     const { screeningStepId, nextStepTitle } =
-      await assessmentPage.fetchAndVerifyAssessmentSteps(adminCtx, poolId);
+      await assessmentPage.fetchAssessmentSteps(adminCtx, poolId);
 
     // 2. Assess Application screening stage by moving forward in the screening stages
     await assessmentPage.goToCandidateApplication(candidate.id);
@@ -434,10 +433,10 @@ test.describe("Pool candidates", () => {
       appPage.page.getByRole("button", { name: /1. New application/i }),
     ).toBeVisible();
 
-    await assessmentPage.assessCandidateApplicationScreeningStep({
+    await assessmentPage.assessCandidateApplicationScreening({
       candidateId: candidate.id,
       ctx: adminCtx,
-      screeningStepId: screeningStepId ?? "",
+      assessmentStepId: screeningStepId ?? "",
       results: [
         {
           type: AssessmentResultType.Education,
@@ -457,7 +456,7 @@ test.describe("Pool candidates", () => {
     await expect(appPage.page.getByText(nextStepTitle)).toBeVisible();
 
     // 3. Remove the candidate from the pool and verify the candidate status
-    await assessmentPage.logApplicationStatusOnUI({
+    await assessmentPage.updateCandidateApplicationStatus({
       targetStatus: ApplicationStatus.Removed,
       removalReason: CandidateRemovalReason.RequestedToBeWithdrawn,
     });
