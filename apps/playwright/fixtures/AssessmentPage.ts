@@ -116,7 +116,7 @@ class AssessmentPage extends AppPage {
         await createAssessmentResult(ctx, {
           assessmentResult: {
             poolCandidateId: candidateId,
-            assessmentStepId: assessmentStepId ?? "",
+            assessmentStepId: assessmentStepId,
             assessmentResultType: resultType,
             assessmentDecision,
             justifications: assessmentResultJustifications ?? [],
@@ -128,7 +128,7 @@ class AssessmentPage extends AppPage {
         await createAssessmentResult(ctx, {
           assessmentResult: {
             poolCandidateId: candidateId,
-            assessmentStepId: assessmentStepId ?? "",
+            assessmentStepId: assessmentStepId,
             assessmentResultType: resultType,
             poolSkillId: technicalPoolSkillId,
             assessmentDecision,
