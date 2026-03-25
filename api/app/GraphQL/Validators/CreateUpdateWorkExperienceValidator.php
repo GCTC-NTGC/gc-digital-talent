@@ -160,6 +160,9 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                     ) ||
                     (
                         $this->arg('workExperience.govEmploymentType') === GovEmployeeType::INDETERMINATE->name
+                    ) ||
+                    (
+                        $this->arg('workExperience.govEmploymentType') === GovEmployeeType::INTERCHANGE->name
                     )
                 ),
                 // This does not work without proper connect/disconnect in the schema
