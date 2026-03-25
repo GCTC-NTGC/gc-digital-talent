@@ -239,17 +239,17 @@ test.describe("Pool candidates", () => {
 
     // 1. Fetch available assessment steps in the pool
     const { screeningStepId, nextStepTitle, nextStepId } =
-      await assessmentPage.fetchAndVerifyAssessmentSteps(adminCtx, poolId);
+      await assessmentPage.fetchAssessmentSteps(adminCtx, poolId);
 
     // 2. Assess Application screening stage by moving forward in the screening stages
     await assessmentPage.goToCandidateApplication(candidate.id);
     await expect(
       appPage.page.getByRole("button", { name: /1. New application/i }),
     ).toBeVisible();
-    await assessmentPage.assessCandidateApplicationScreeningStep({
+    await assessmentPage.assessCandidateApplicationScreening({
       candidateId: candidate.id,
       ctx: adminCtx,
-      screeningStepId: screeningStepId ?? "",
+      assessmentStepId: screeningStepId ?? "",
       results: [
         {
           type: AssessmentResultType.Education,
@@ -269,7 +269,7 @@ test.describe("Pool candidates", () => {
     await expect(appPage.page.getByText(nextStepTitle)).toBeVisible();
 
     // 3. Assess the candidate assessment step such as interview and verify it is demonstrated
-    await assessmentPage.assessCandidateAssessmentSteps({
+    await assessmentPage.assessCandidateAssessment({
       candidateId: candidate.id,
       ctx: adminCtx,
       assessmentSteps: [{ id: nextStepId ?? "", title: { en: nextStepTitle } }],
@@ -303,7 +303,7 @@ test.describe("Pool candidates", () => {
     await assessmentPage.goToCandidateApplication(candidate.id);
 
     // 1. Qualify the candidate through UI
-    await assessmentPage.logApplicationStatusOnUI({
+    await assessmentPage.updateCandidateApplicationStatus({
       targetStatus: ApplicationStatus.Qualified,
       expiryDate: "2400-01-01",
     });
@@ -312,9 +312,7 @@ test.describe("Pool candidates", () => {
     ).toBeVisible();
 
     // 2. Revert the qualified candidate status and verify the reverted candidate status
-    await assessmentPage.revertApplicationStatusOnUI(
-      ApplicationStatus.Qualified,
-    );
+    await assessmentPage.revertApplicationStatus(ApplicationStatus.Qualified);
     const screeningStage = await getCandidateScreeningStage(adminCtx, {
       candidateId: candidate.id,
     });
@@ -331,14 +329,14 @@ test.describe("Pool candidates", () => {
     }).then((poolSkills) => poolSkills.map((ps) => ps.id));
     // 1. Fetch available assessment steps in the pool
     const { screeningStepId, nextStepTitle, nextStepId } =
-      await assessmentPage.fetchAndVerifyAssessmentSteps(adminCtx, poolId);
+      await assessmentPage.fetchAssessmentSteps(adminCtx, poolId);
 
     // 2. Complete screening stage validation i.e Assessing Application screening and updating screening stages
     await assessmentPage.goToCandidateApplication(candidate.id);
-    await assessmentPage.assessCandidateApplicationScreeningStep({
+    await assessmentPage.assessCandidateApplicationScreening({
       candidateId: candidate.id,
       ctx: adminCtx,
-      screeningStepId: screeningStepId ?? "",
+      assessmentStepId: screeningStepId ?? "",
       results: [
         {
           type: AssessmentResultType.Education,
@@ -360,7 +358,7 @@ test.describe("Pool candidates", () => {
     await expect(appPage.page.getByText(nextStepTitle)).toBeVisible();
 
     // 3. Assess the candidate assessment step such as interview
-    await assessmentPage.assessCandidateAssessmentSteps({
+    await assessmentPage.assessCandidateAssessment({
       candidateId: candidate.id,
       ctx: adminCtx,
       assessmentSteps: [
@@ -380,7 +378,7 @@ test.describe("Pool candidates", () => {
     ).toBeVisible();
 
     // 4. Mark Application Status as Disqualified through UI and verify the updated candidate status
-    await assessmentPage.logApplicationStatusOnUI({
+    await assessmentPage.updateCandidateApplicationStatus({
       targetStatus: ApplicationStatus.Disqualified,
       disqualifiedDecision: DisqualificationReason.ScreenedOutAssessment,
     });
@@ -407,6 +405,7 @@ test.describe("Pool candidates", () => {
 
     // 2. Revert the Disqualified candidate status and verify the reverted candidate status in the table
     await revertFinalDecision(adminCtx, { id: candidate.id });
+    await assessmentPage.goToCandidateApplication(candidate.id);
     const screeningStage = await getCandidateScreeningStage(adminCtx, {
       candidateId: candidate.id,
     });

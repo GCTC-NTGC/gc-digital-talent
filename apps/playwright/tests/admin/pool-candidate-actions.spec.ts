@@ -257,7 +257,7 @@ test.describe("Pool candidates", () => {
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
     const assessmentPage = new AssessmentPage(appPage.page);
-    await assessmentPage.logApplicationStatusOnUI({
+    await assessmentPage.updateCandidateApplicationStatus({
       targetStatus: ApplicationStatus.Qualified,
       expiryDate: "2400-01-01",
     });
@@ -271,7 +271,7 @@ test.describe("Pool candidates", () => {
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
     const assessmentPage = new AssessmentPage(appPage.page);
-    await assessmentPage.logApplicationStatusOnUI({
+    await assessmentPage.updateCandidateApplicationStatus({
       targetStatus: ApplicationStatus.Removed,
       removalReason: CandidateRemovalReason.RequestedToBeWithdrawn,
     });

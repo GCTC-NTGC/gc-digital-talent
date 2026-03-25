@@ -97,8 +97,8 @@ class AssessmentPage extends AppPage {
     await this.waitForGraphqlResponse("PoolCandidateSnapshot");
   }
 
-  async createCandidateAssessmentResult(params: {
-    screeningStepId: string;
+  async recordCandidateAssessmentDecision(params: {
+    assessmentStepId: string;
     candidateId: string;
     ctx: GraphQLContext;
     resultType: AssessmentResultType;
@@ -108,7 +108,7 @@ class AssessmentPage extends AppPage {
     assessmentDecisionLevel?: AssessmentDecisionLevel;
   }) {
     const {
-      screeningStepId,
+      assessmentStepId,
       candidateId,
       ctx,
       resultType,
@@ -125,7 +125,7 @@ class AssessmentPage extends AppPage {
         await createAssessmentResult(ctx, {
           assessmentResult: {
             poolCandidateId: candidateId,
-            assessmentStepId: screeningStepId ?? "",
+            assessmentStepId: assessmentStepId ?? "",
             assessmentResultType: resultType,
             assessmentDecision,
             justifications: assessmentResultJustifications ?? [],
@@ -137,7 +137,7 @@ class AssessmentPage extends AppPage {
         await createAssessmentResult(ctx, {
           assessmentResult: {
             poolCandidateId: candidateId,
-            assessmentStepId: screeningStepId ?? "",
+            assessmentStepId: assessmentStepId ?? "",
             assessmentResultType: resultType,
             poolSkillId: technicalPoolSkillId,
             assessmentDecision,
@@ -162,19 +162,14 @@ class AssessmentPage extends AppPage {
     candidateId: string,
   ) {
     const stageKeys = Array.from(this.screeningStageMap.keys());
-    const currentIndex = stageKeys.findIndex(
-      (key) => key.toLowerCase() === currentStage.toLowerCase(),
+    const currentIndex = stageKeys.indexOf(currentStage);
+    const currentStageUIRegex = this.screeningStageMap.get(
+      stageKeys[currentIndex],
     );
-    const nextStageKey = stageKeys[currentIndex + 1];
-    const currentStageUIRegex = this.screeningStageMap.get(currentStage);
-    await this.page
-      .getByRole("button", {
-        name: currentStageUIRegex,
-      })
-      .click();
+    await this.page.getByRole("button", { name: currentStageUIRegex }).click();
     await expect(this.locators.screeningStageDialogHeading).toBeVisible();
     await this.locators[FIELD.SCREENING_STAGE].selectOption({
-      value: nextStageKey,
+      value: stageKeys[currentIndex + 1],
     });
     await this.locators[FIELD.SAVE_CONTINUE_BUTTON].click();
     await this.waitForGraphqlResponse("UpdateScreeningStage");
@@ -186,10 +181,10 @@ class AssessmentPage extends AppPage {
     })) as ScreeningStage;
   }
 
-  async assessCandidateApplicationScreeningStep(params: {
+  async assessCandidateApplicationScreening(params: {
     candidateId: string;
     ctx: GraphQLContext;
-    screeningStepId: string;
+    assessmentStepId: string;
     results: {
       type: AssessmentResultType;
       decision: AssessmentDecision;
@@ -198,42 +193,38 @@ class AssessmentPage extends AppPage {
       justifications?: AssessmentResultJustification[];
     }[];
   }) {
-    const { candidateId, ctx, screeningStepId, results } = params;
-
-    let currentStage = (await getCandidateScreeningStage(ctx, {
+    const { candidateId, ctx, assessmentStepId, results } = params;
+    const stageOrder = [
+      ScreeningStage.NewApplication,
+      ScreeningStage.ApplicationReview,
+      ScreeningStage.ScreenedIn,
+      ScreeningStage.UnderAssessment,
+    ];
+    const currentStage = (await getCandidateScreeningStage(ctx, {
       candidateId,
     })) as ScreeningStage;
+    const startIndex = stageOrder.indexOf(currentStage);
 
-    while (currentStage !== ScreeningStage.UnderAssessment) {
-      await expect(this.locators.noAssessmentStepsPresent).toBeVisible();
-      currentStage = await this.updateScreeningStage(
-        currentStage,
-        ctx,
-        candidateId,
-      );
-
-      switch (currentStage) {
-        case ScreeningStage.ApplicationReview:
-          for (const res of results) {
-            await this.createCandidateAssessmentResult({
-              screeningStepId,
-              candidateId,
-              ctx,
-              resultType: res.type,
-              assessmentDecision: res.decision,
-              technicalPoolSkillId: res.skillId,
-              assessmentDecisionLevel: res.level,
-              assessmentResultJustifications: res.justifications,
-            });
-          }
-          break;
-        default:
-          break;
+    for (const stage of stageOrder.slice(startIndex, -1)) {
+      await this.updateScreeningStage(stage, ctx, candidateId);
+      if (stage === ScreeningStage.ApplicationReview) {
+        for (const res of results) {
+          await this.recordCandidateAssessmentDecision({
+            assessmentStepId,
+            candidateId,
+            ctx,
+            resultType: res.type,
+            assessmentDecision: res.decision,
+            technicalPoolSkillId: res.skillId,
+            assessmentDecisionLevel: res.level,
+            assessmentResultJustifications: res.justifications,
+          });
+        }
       }
     }
   }
 
-  async fetchAndVerifyAssessmentSteps(ctx: GraphQLContext, poolId: string) {
+  async fetchAssessmentSteps(ctx: GraphQLContext, poolId: string) {
     const steps = await getPoolAssessmentSteps(ctx, { poolId });
     const screeningStep = steps.find(
       (s) => s.type?.value?.toString() === "APPLICATION_SCREENING",
@@ -257,7 +248,7 @@ class AssessmentPage extends AppPage {
     };
   }
 
-  async assessCandidateAssessmentSteps(params: {
+  async assessCandidateAssessment(params: {
     candidateId: string;
     ctx: GraphQLContext;
     assessmentSteps: { id: string; title?: { en?: string | null } | null }[];
@@ -292,8 +283,8 @@ class AssessmentPage extends AppPage {
       await expect(dropdown).toHaveText(new RegExp(updatedStepTitle));
       await this.locators[FIELD.SAVE_CONTINUE_BUTTON].click();
 
-      await this.createCandidateAssessmentResult({
-        screeningStepId: step.id,
+      await this.recordCandidateAssessmentDecision({
+        assessmentStepId: step.id,
         candidateId,
         ctx,
         resultType: AssessmentResultType.Skill,
@@ -305,7 +296,7 @@ class AssessmentPage extends AppPage {
     }
   }
 
-  async logApplicationStatusOnUI(params: {
+  async updateCandidateApplicationStatus(params: {
     targetStatus: ApplicationStatus;
     disqualifiedDecision?: DisqualificationReason;
     expiryDate?: string;
@@ -359,7 +350,7 @@ class AssessmentPage extends AppPage {
     );
   }
 
-  async revertApplicationStatusOnUI(currentStatus: ApplicationStatus) {
+  async revertApplicationStatus(currentStatus: ApplicationStatus) {
     await this.page.reload();
     await this.page.getByRole("button", { name: currentStatus }).click();
     await expect(this.locators.revertDialogHeading).toBeVisible();
