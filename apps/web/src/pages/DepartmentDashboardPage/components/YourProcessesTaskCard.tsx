@@ -130,38 +130,36 @@ const YourProcessesTaskCard = ({
               </Accordion.Item>
             </Accordion.Root>
           </TaskCard.Item>
-          {poolsFromTeamableUnique.length > 0 ? (
-            <TaskCard.Item>
-              <Accordion.Root type="multiple">
-                <Accordion.Item value="your_shared_processes">
-                  <Accordion.Trigger
-                    as="h3"
-                    subtitle={intl.formatMessage({
-                      defaultMessage:
-                        "This section contains processes shared with you by a different department or community.",
-                      id: "KvhRNR",
-                      description:
-                        "Subtitle explaining shared processes expandable within task card",
-                    })}
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Shared processes",
-                      id: "Ozwufr",
-                      description: "Shared processes expandable",
-                    })}
-                    <span className="ml-1">
-                      {wrapParens(poolsFromTeamableUnique.length ?? 0)}
-                    </span>
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <YourProcessesPreviewList
-                      yourProcessesQuery={poolsFromTeamableUnique}
-                    />
-                  </Accordion.Content>
-                </Accordion.Item>
-              </Accordion.Root>
-            </TaskCard.Item>
-          ) : null}
+          <TaskCard.Item>
+            <Accordion.Root type="multiple">
+              <Accordion.Item value="your_shared_processes">
+                <Accordion.Trigger
+                  as="h3"
+                  subtitle={intl.formatMessage({
+                    defaultMessage:
+                      "This section contains processes shared with you by a different department or community.",
+                    id: "KvhRNR",
+                    description:
+                      "Subtitle explaining shared processes expandable within task card",
+                  })}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Shared processes",
+                    id: "Ozwufr",
+                    description: "Shared processes expandable",
+                  })}
+                  <span className="ml-1">
+                    {wrapParens(poolsFromTeamableUnique.length ?? 0)}
+                  </span>
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <YourProcessesPreviewList
+                    yourProcessesQuery={poolsFromTeamableUnique}
+                  />
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion.Root>
+          </TaskCard.Item>
         </TaskCard.Root>
       </div>
     </>
