@@ -9,6 +9,7 @@ use App\Enums\ClaimVerificationResult;
 use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\ErrorCode;
+use App\Enums\PauseReferralsLength;
 use App\Enums\PlacementType;
 use App\Enums\ScreeningStage;
 use App\Facades\Notify;
@@ -20,9 +21,11 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
+use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Lang;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
@@ -87,6 +90,28 @@ class PoolCandidateUpdateTest extends TestCase
                 status { value }
                 removalReason { value }
                 removalReasonOther
+            }
+        }
+    GRAPHQL;
+
+    protected $pauseCandidateReferralsMutation = <<<'GRAPHQL'
+        mutation pauseCandidateReferrals($id: UUID!, $pauseReferrals: PauseReferralsInput!) {
+            pauseCandidateReferrals (id: $id, pauseReferrals: $pauseReferrals){
+                id
+                pauseReferralsAt
+                resumeReferralsAt
+                pauseReferralsReason
+            }
+        }
+    GRAPHQL;
+
+    protected $resumeCandidateReferralsMutation = <<<'GRAPHQL'
+        mutation resumeCandidateReferrals($id: UUID!) {
+            resumeCandidateReferrals (id: $id){
+                id
+                pauseReferralsAt
+                resumeReferralsAt
+                pauseReferralsReason
             }
         }
     GRAPHQL;
@@ -967,5 +992,125 @@ class PoolCandidateUpdateTest extends TestCase
         $this->actingAs($this->communityAdminUser, 'api')
             ->graphQL($this->revertFinalDecisionMutation, $input)
             ->assertJsonFragment($res);
+    }
+
+    public function testPauseReferrals()
+    {
+        $input = [
+            'id' => $this->poolCandidate->id,
+            'pauseReferrals' => [
+                'pauseReferralsLength' => PauseReferralsLength::ONE_MONTH->name,
+                'pauseReferralsReason' => 'Maternity leave',
+            ],
+        ];
+        $now = Carbon::now()->format('Y-m-d'); // remove seconds to prevent flaky test
+
+        // Ensure only qualified candidates can have paused referrals
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+        ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->pauseCandidateReferralsMutation, $input)
+            ->assertGraphQLValidationError('id', ErrorCode::INVALID_PAUSE_REFERRAL->name);
+
+        // Ensure candidate that is placed indeterminate has paused referrals till expiry date
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => null,
+        ]);
+        $department = Department::factory()->create();
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->placeCandidateMutation, [
+                'id' => $this->poolCandidate->id,
+                'poolCandidate' => [
+                    'placementType' => PlacementType::PLACED_INDETERMINATE->name,
+                    'department' => ['connect' => $department->id],
+                ],
+            ]);
+
+        $this->poolCandidate = $this->poolCandidate->fresh();
+        $pauseAt = Carbon::parse($this->poolCandidate->pause_referrals_at);
+        assertSame(
+            [
+                'pauseReferralsAt' => $pauseAt->format('Y-m-d'),
+                'resumeReferralsAt' => $this->poolCandidate->resume_referrals_at,
+                'pauseReferralsReason' => $this->poolCandidate->pause_referrals_reason,
+            ],
+            [
+                'pauseReferralsAt' => $now,
+                'resumeReferralsAt' => $this->poolCandidate->expiry_date,
+                'pauseReferralsReason' => Lang::get('common.successfully_placed'),
+            ]
+        );
+
+        // Ensure pausing candidate referrals works correctly
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => null,
+        ]);
+        $response = $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->pauseCandidateReferralsMutation, $input)
+            ->json('data.pauseCandidateReferrals');
+
+        $pauseAt = Carbon::parse($response['pauseReferralsAt'])->format('Y-m-d');
+        $unpauseAt = Carbon::parse($response['resumeReferralsAt'])->format('Y-m-d');
+        $pauseReason = $response['pauseReferralsReason'];
+        assertSame($pauseAt, $now);
+        assertSame($unpauseAt, Carbon::now()->addMonth()->format('Y-m-d'));
+        assertSame($pauseReason, 'Maternity leave');
+    }
+
+    public function testResumeReferrals()
+    {
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => null,
+            'expiry_date' => config('constants.far_future_date'),
+        ]);
+
+        // Ensure unpausing candidate sets all referral fields to null
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->resumeCandidateReferralsMutation, [
+                'id' => $this->poolCandidate->id,
+            ])
+            ->assertJsonFragment([
+                'pauseReferralsAt' => null,
+                'resumeReferralsAt' => null,
+                'pauseReferralsReason' => null,
+            ]);
+
+        // Ensure reverting final decision sets pause referral fields to null
+        $department = Department::factory()->create();
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->placeCandidateMutation, [
+                'id' => $this->poolCandidate->id,
+                'poolCandidate' => [
+                    'placementType' => PlacementType::PLACED_INDETERMINATE->name,
+                    'department' => ['connect' => $department->id],
+                ],
+            ]);
+
+        $this->poolCandidate = $this->poolCandidate->fresh();
+
+        assertNotNull($this->poolCandidate->pause_referrals_at);
+        assertNotNull($this->poolCandidate->resume_referrals_at);
+        assertNotNull($this->poolCandidate->pause_referrals_reason);
+
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->revertPlaceCandidateMutation, [
+                'id' => $this->poolCandidate->id,
+            ]);
+
+        $this->poolCandidate = $this->poolCandidate->fresh();
+
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->revertFinalDecisionMutation, ['id' => $this->poolCandidate->id])
+            ->assertJsonFragment(['status' => ['value' => ApplicationStatus::TO_ASSESS->name]]);
+
+        $this->poolCandidate = $this->poolCandidate->fresh();
+
+        assertNull($this->poolCandidate->pause_referrals_at);
+        assertNull($this->poolCandidate->resume_referrals_at);
+        assertNull($this->poolCandidate->pause_referrals_reason);
     }
 }

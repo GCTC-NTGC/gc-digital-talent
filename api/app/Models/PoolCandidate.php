@@ -18,6 +18,7 @@ use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\FinalDecision;
 use App\Enums\OverallAssessmentStatus;
+use App\Enums\PauseReferralsLength;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
@@ -42,6 +43,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Lang;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -88,6 +90,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property bool $is_open_to_jobs
  * @property bool $is_hired
  * @property bool $referring
+ * @property ?Carbon $pause_referrals_at
+ * @property ?Carbon $resume_referrals_at
+ * @property ?string $pause_referrals_reason
  */
 class PoolCandidate extends Model
 {
@@ -148,6 +153,9 @@ class PoolCandidate extends Model
         'disqualification_reason',
         'computed_final_decision',
         'placement_type',
+        'pause_referrals_at',
+        'resume_referrals_at',
+        'pause_referrals_reason',
     ];
 
     protected $touches = ['user'];
@@ -836,6 +844,10 @@ class PoolCandidate extends Model
         $this->computed_final_decision = FinalDecision::QUALIFIED_PLACED->name;
         $this->computed_final_decision_weight = 30;
 
+        if ($this->placement_type === PlacementType::PLACED_INDETERMINATE->name) {
+            $this->pauseReferrals(PauseReferralsLength::OTHER->name, Lang::get('common.successfully_placed'), $this->expiry_date);
+        }
+
         $this->save();
 
         $this->logActivity(ActivityEvent::PLACED, [
@@ -953,6 +965,7 @@ class PoolCandidate extends Model
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
         $this->disqualification_reason = null;
         $this->computed_final_decision_weight = 40;
+        $this->resumeReferrals();
 
         $this->save();
 
@@ -966,5 +979,35 @@ class PoolCandidate extends Model
     {
         $properties['attributes']['user_name'] = $this->user->fullName ?? null;
         $properties['attributes']['pool_id'] = $this->pool->id ?? null;
+    }
+
+    public function pauseReferrals(?string $pauseReferralsLength, ?string $reason, ?Carbon $referralResumeAt)
+    {
+        $now = Carbon::now();
+
+        $lengthOfTime = match ($pauseReferralsLength) {
+            PauseReferralsLength::ONE_MONTH->name => $now->addMonth(),
+            PauseReferralsLength::THREE_MONTHS->name => $now->addMonths(3),
+            PauseReferralsLength::SIX_MONTHS->name => $now->addMonths(6),
+            PauseReferralsLength::ONE_YEAR->name => $now->addYear(),
+            PauseReferralsLength::UNTIL_EXPIRY->name => $this->expiry_date,
+            PauseReferralsLength::OTHER->name => $referralResumeAt,
+            default => null,
+        };
+
+        $this->pause_referrals_at = Carbon::now();
+        $this->pause_referrals_reason = $reason;
+        $this->resume_referrals_at = $lengthOfTime;
+
+        $this->save();
+    }
+
+    public function resumeReferrals()
+    {
+        $this->pause_referrals_at = null;
+        $this->pause_referrals_reason = null;
+        $this->resume_referrals_at = null;
+
+        $this->save();
     }
 }

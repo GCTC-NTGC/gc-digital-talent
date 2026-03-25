@@ -264,3 +264,35 @@ export const reinstateCandidate: GraphQLRequestFunc<
         res.reinstateCandidate,
     );
 };
+
+const Test_RevertFinalDecisionMutationDocument = /* GraphQL */ `
+  mutation Test_RevertFinalDecision($id: UUID!) {
+    revertFinalDecision(id: $id) {
+      id
+    }
+  }
+`;
+
+interface RevertFinalDecisionArgs {
+  id: string;
+}
+
+/**
+ * Revert a candidate's final decision using graphql API
+ */
+export const revertFinalDecision: GraphQLRequestFunc<
+  PoolCandidate,
+  RevertFinalDecisionArgs
+> = async (ctx, { id }) => {
+  return ctx
+    .post(Test_RevertFinalDecisionMutationDocument, {
+      isPrivileged: true,
+      variables: {
+        id,
+      },
+    })
+    .then(
+      (res: GraphQLResponse<"revertFinalDecision", PoolCandidate>) =>
+        res.revertFinalDecision,
+    );
+};
