@@ -199,11 +199,7 @@ const Display = ({
       </FieldDisplay>
       <FieldDisplay
         hasError={!citizenship}
-        label={intl.formatMessage({
-          defaultMessage: "Citizenship status",
-          id: "4v9y7U",
-          description: "Citizenship status label",
-        })}
+        label={intl.formatMessage(profileMessages.citizenship)}
         className="xs:col-span-2 sm:col-span-3"
       >
         {citizenship?.value
