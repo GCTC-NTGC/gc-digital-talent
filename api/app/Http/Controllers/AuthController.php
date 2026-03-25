@@ -230,7 +230,7 @@ class AuthController extends Controller
                 $navigateToUri = config('oauth.dev_post_login_registration_redirect');
             } else {
                 // existing user, go where they want
-                $appUrl = config('app.url');
+                $appUrl = config('app.dev_url');
                 $navigateToUri = strlen($from) > 0 ? $appUrl.$from : config('oauth.dev_post_login_redirect');
             }
         }
