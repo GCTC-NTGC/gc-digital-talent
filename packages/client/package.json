@@ -42,6 +42,6 @@
     "tsconfig": "workspace:*",
     "typescript": "^5.9.3",
     "vitest": "^4.0.16",
-    "wonka": "^6.3.5"
+    "wonka": "^6.3.6"
   }
 }
