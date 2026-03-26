@@ -4840,7 +4840,7 @@
     "description": "Link text for editing a users technical skills to improve"
   },
   "IwVHgf": {
-    "defaultMessage": "Browse and apply to jobs in the Government of Canada",
+    "defaultMessage": "Parcourez les offres d’emploi au gouvernement du Canada et postulez-y",
     "description": "Subtitle for the browse jobs page"
   },
   "IxngA3": {
@@ -8199,7 +8199,7 @@
     "description": "Help text for setting a candidate expiry date"
   },
   "YDsuuC": {
-    "defaultMessage": "Check back for more opportunities!",
+    "defaultMessage": "Revenez plus tard pour découvrir d’autres possibilités!",
     "description": "Heading for message about upcoming opportunities"
   },
   "YEYD5j": {
@@ -9929,6 +9929,10 @@
   "fRwqM9": {
     "defaultMessage": "Reliez une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
     "description": "Button text to open form to connect an experience to a skill"
+  },
+  "fSMBX0": {
+    "defaultMessage": "Possibilités d’emploi actuelles",
+    "description": "Title for the current jobs recruiting candidates page"
   },
   "fSeYdG": {
     "defaultMessage": "Connaissance de l’autre langue officielle",

@@ -40,7 +40,7 @@ const FooterCard = ({ areOpportunitiesShowing }: FooterCardProps) => {
             {areOpportunitiesShowing
               ? intl.formatMessage({
                   defaultMessage: "Check back for more opportunities!",
-                  id: "YDsuuC", //TODO translations
+                  id: "YDsuuC",
                   description:
                     "Heading for message about upcoming opportunities",
                 })

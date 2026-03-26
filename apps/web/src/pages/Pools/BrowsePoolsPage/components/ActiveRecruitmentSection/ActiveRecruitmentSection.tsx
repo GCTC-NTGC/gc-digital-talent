@@ -42,7 +42,7 @@ const ActiveRecruitmentSection = ({
       >
         {intl.formatMessage({
           defaultMessage: "Open job opportunities",
-          id: "fSMBX0", //TODO translations
+          id: "fSMBX0",
           description: "Title for the current jobs recruiting candidates",
         })}
       </Heading>

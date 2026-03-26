@@ -68,7 +68,7 @@ const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
 
 const subTitle = defineMessage({
   defaultMessage: "Browse and apply to jobs in the Government of Canada",
-  id: "IwVHgf", //TODO translations
+  id: "IwVHgf",
   description: "Subtitle for the browse jobs page",
 });
 
