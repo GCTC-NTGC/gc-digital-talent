@@ -10,12 +10,12 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { Notice, Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import ApplicationExpiryDateDialog from "../Dialog/ApplicationExpiryDateDialog";
 import ApplicationPlacementDialog from "../Dialog/ApplicationPlacementDialog";
 import ApplicationPauseReferralsDialog from "../Dialog/ApplicationPauseReferralsDialog";
 import ApplicationResumeReferralsDialog from "../Dialog/ApplicationResumeReferralsDialog";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 const QualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedStatusMeta on PoolCandidate {
