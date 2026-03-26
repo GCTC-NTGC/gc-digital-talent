@@ -39,15 +39,15 @@ const FooterCard = ({ areOpportunitiesShowing }: FooterCardProps) => {
           <Heading level="h2" size="h6" className="mt-0 mb-3 lg:text-lg">
             {areOpportunitiesShowing
               ? intl.formatMessage({
-                  defaultMessage: "Check back for more opportunities!",
-                  id: "YDsuuC",
+                  defaultMessage: "Check back for more opportunities",
+                  id: "1mjUju",
                   description:
                     "Heading for message about upcoming opportunities",
                 })
               : intl.formatMessage({
                   defaultMessage:
-                    "No opportunities are available right now, but more are coming soon!",
-                  id: "xHjgXz",
+                    "No opportunities are available right now, but more are coming soon",
+                  id: "EtAtP4",
                   description:
                     "Text displayed when there are no pool advertisements to display",
                 })}

@@ -955,6 +955,10 @@
     "defaultMessage": "Note spéciale<hidden> relative aux compétences techniques constituant un atout</hidden>",
     "description": "The nonessential technical skills special note for a job poster template"
   },
+  "1mjUju": {
+    "defaultMessage": "Revenez plus tard pour découvrir d’autres possibilités",
+    "description": "Heading for message about upcoming opportunities"
+  },
   "1mYPEx": {
     "defaultMessage": "Je ne suis <strong>pas disponible</strong> et je ne veux pas que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for not available for opportunities option"
@@ -4006,6 +4010,10 @@
   "Et46bc": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
     "description": "Message displayed to user after pool fails to get closed."
+  },
+  "EtAtP4": {
+    "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu",
+    "description": "Text displayed when there are no pool advertisements to display"
   },
   "EtOnRo": {
     "defaultMessage": "Femme autochtone qui prend une pause du programme de prestation de travail sur son portable.",
@@ -8241,10 +8249,6 @@
   "YCv/4v": {
     "defaultMessage": "Durée pendant laquelle le candidat sera pris en considération pour une affectation à la suite de cette procédure. La durée habituelle est de 2 ans.",
     "description": "Help text for setting a candidate expiry date"
-  },
-  "YDsuuC": {
-    "defaultMessage": "Revenez plus tard pour découvrir d’autres possibilités!",
-    "description": "Heading for message about upcoming opportunities"
   },
   "YEYD5j": {
     "defaultMessage": "Créer<hidden> une possibilité de formation</hidden>",
@@ -14129,10 +14133,6 @@
   "xHAPBe": {
     "defaultMessage": "Félicitations! Vous faites maintenant partie de ce processus de recrutement! On communiquera avec vous pour vous informer des possibilités d'emploi. Vous pouvez modifier votre disponibilité si vous avez débuté récemment un nouvel emploi ou souhaitez ne plus recevoir de possibilités d'emploi. <strong>Vous pouvez modifier votre choix à tout moment si vous changez d'idée.</strong>.",
     "description": "Message congratulating the applicant into the recruitment process."
-  },
-  "xHjgXz": {
-    "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu!",
-    "description": "Text displayed when there are no pool advertisements to display"
   },
   "xIniPc": {
     "defaultMessage": "Critères de compétences essentielles",
