@@ -5,16 +5,22 @@ namespace Tests\Feature;
 use App\Enums\ApplicationStatus;
 use App\Models\PoolCandidate;
 use Carbon\Carbon;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class PoolCandidateReferralTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @dataProvider referralStatusProvider
-     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(RolePermissionSeeder::class);
+    }
+
+    #[DataProvider('referralStatusProvider')]
     public function testIsBeingReferredLogic(
         string $status,
         ?Carbon $pauseAt,
