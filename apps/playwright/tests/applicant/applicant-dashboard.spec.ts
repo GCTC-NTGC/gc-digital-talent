@@ -122,7 +122,7 @@ test.describe("Applicant dashboard update", () => {
     await expect(
       appPage.page.getByRole("heading", { name: /welcome back/i, level: 1 }),
     ).toBeVisible();
-    await dashboardPage.verifyDashboardUpdate(isGovEmployee);
+    await dashboardPage.performDashboardUpdates(isGovEmployee);
   });
 
   test("validate applicant dashboard update for non-government employee", async ({
@@ -135,6 +135,6 @@ test.describe("Applicant dashboard update", () => {
     await expect(
       appPage.page.getByRole("heading", { name: /welcome back/i, level: 1 }),
     ).toBeVisible();
-    await dashboardPage.verifyDashboardUpdate(isGovEmployee);
+    await dashboardPage.performDashboardUpdates(isGovEmployee);
   });
 });
