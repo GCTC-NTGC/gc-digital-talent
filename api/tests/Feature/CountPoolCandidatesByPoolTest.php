@@ -47,7 +47,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'user_id' => $user,
             'application_status' => ApplicationStatus::QUALIFIED->name,
             'placement_type' => PlacementType::NOT_PLACED->name,
-            'referring' => $available,
+            'pause_referrals_at' => $available ? null : config('constants.past_date'),
             'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date'),
         ];
     }
@@ -883,7 +883,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
         PoolCandidate::factory()->availableInSearch()
             ->create([
                 'pool_id' => $pool->id,
-                'referring' => false,
+                'pause_referrals_at' => config('constants.past_date'),
             ]);
 
         // Expected

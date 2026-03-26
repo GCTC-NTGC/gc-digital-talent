@@ -32,7 +32,6 @@ import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/compo
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
-import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import ClaimVerification from "./components/ClaimVerification/ClaimVerification";
 import ApplicationSidebar from "./components/Sidebar/ApplicationSidebar";
 
@@ -68,7 +67,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         }
       }
       user {
-        ...ApplicationProfileDetails
         ...PoolStatusTable
         firstName
         lastName
@@ -176,11 +174,7 @@ export const ViewPoolCandidate = ({
 
   return (
     <>
-      <Hero
-        title={candidateName}
-        crumbs={navigationCrumbs}
-        additionalContent={<ProfileDetails userQuery={poolCandidate.user} />}
-      />
+      <Hero title={candidateName} crumbs={navigationCrumbs} />
       <AdminContentWrapper table overflowScrollbar>
         <Sidebar.Wrapper scrollbar>
           <Sidebar.Sidebar scrollbar>
