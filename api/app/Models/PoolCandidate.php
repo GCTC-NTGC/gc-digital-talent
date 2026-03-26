@@ -469,6 +469,25 @@ class PoolCandidate extends Model
         });
     }
 
+    /*
+    * Determine if the candidate being referred
+    *
+    * @return bool
+    */
+    public function isBeingReferred(): Attribute
+    {
+        return Attribute::get(function () {
+            if ($this->application_status !== ApplicationStatus::QUALIFIED->name) {
+                return false;
+            }
+
+            $hasNotStartedPause = is_null($this->pause_referrals_at) || $this->pause_referrals_at->isFuture();
+            $hasAlreadyResumed = $this->resume_referrals_at?->isPast();
+
+            return $hasNotStartedPause || $hasAlreadyResumed;
+        });
+    }
+
     /**
      * Determine result of the first step (application screening)
      * of the assessment status
