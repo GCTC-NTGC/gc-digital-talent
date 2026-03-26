@@ -1,5 +1,6 @@
 <?php
 
+use App\Logging\Azure\CreateAzureLogger;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -133,7 +134,7 @@ return [
 
         'azure' => [
             'driver' => 'custom',
-            'via' => App\Logging\Azure\CreateAzureLogger::class,
+            'via' => CreateAzureLogger::class,
             'level' => env('LOG_LEVEL', 'debug'),
             'bufferLimit' => 30,
             'endpoint' => env('AZURE_LOG_INGESTION_ENDPOINT'),

@@ -4,6 +4,7 @@ namespace App\Logging\Azure;
 
 use App\Contracts\ManagedIdentityService;
 use App\Logging\TbsLoggingStandardProcessor;
+use Illuminate\Queue\Events\Looping;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
 use Monolog\Handler\BufferHandler;
@@ -35,7 +36,7 @@ class CreateAzureLogger
         );
 
         // manually flush the buffer when the queue worker cycles
-        Event::listen(function (\Illuminate\Queue\Events\Looping $event) use ($wrappingHandler) {
+        Event::listen(function (Looping $event) use ($wrappingHandler) {
             $wrappingHandler->flush();
         });
 
