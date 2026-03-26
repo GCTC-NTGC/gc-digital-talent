@@ -69,7 +69,6 @@ interface HeroSharedProps {
   buttonLinks?: ButtonLinkType[];
   children?: ReactNode;
   status?: ReactNode;
-  additionalContent?: ReactNode;
 }
 
 interface HeroNavAndImgProps extends HeroSharedProps {
@@ -108,15 +107,7 @@ const Hero = (
     | HeroOverlapAndCenteredProps,
 ) => {
   // shared props
-  const {
-    title,
-    subtitle,
-    crumbs,
-    buttonLinks,
-    children,
-    status,
-    additionalContent,
-  } = props;
+  const { title, subtitle, crumbs, buttonLinks, children, status } = props;
   // conditional props
   const navTabs = "navTabs" in props ? props.navTabs : null;
   const overlap = "overlap" in props ? props.overlap : false;
@@ -234,13 +225,6 @@ const Hero = (
             {status}
           </div>
         )}
-        {additionalContent ? (
-          <>
-            <Container size="lg" className="relative z-3 pb-12">
-              {additionalContent}
-            </Container>
-          </>
-        ) : null}
       </div>
       {children ? (
         <Container size="lg" className="relative z-3 mx-auto -mt-30 mb-0">
