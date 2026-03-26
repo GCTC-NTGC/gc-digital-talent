@@ -29,7 +29,7 @@
     "eslint": "^9.20.1",
     "timezone-mock": "^1.4.2",
     "tsconfig": "workspace:*",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "vitest": "^4.0.16"
   }
 }
