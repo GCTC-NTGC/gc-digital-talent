@@ -4,7 +4,6 @@ namespace Tests\Feature\ActivityLog;
 
 use App\Enums\ActivityEvent;
 use App\Enums\AssessmentStepType;
-use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\SkillLevel;
 use App\Models\AssessmentStep;
@@ -125,7 +124,6 @@ class ProcessActivityLogTest extends TestCase
         $this->candidate = PoolCandidate::factory()->create([
             'pool_id' => $this->process->id,
             'user_id' => $needleUser->id,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
 
         // Reset time to have different createdAt

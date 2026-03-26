@@ -2,11 +2,11 @@
 
 namespace App\Builders;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
-use App\Enums\PoolCandidateStatus;
 use App\Models\User;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
@@ -135,7 +135,7 @@ class UserBuilder extends Builder
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => CandidateExpiryFilter::ACTIVE->name,
-                'statuses' => PoolCandidateStatus::qualifiedEquivalentGroup(),
+                'statuses' => [ApplicationStatus::QUALIFIED->name],
                 'suspendedStatus' => CandidateSuspendedFilter::ACTIVE->name,
             ];
         }
