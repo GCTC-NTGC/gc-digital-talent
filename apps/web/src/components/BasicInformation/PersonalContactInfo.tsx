@@ -5,6 +5,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import profileMessages from "~/messages/profileMessages";
 
 const PersonalContact_Fragment = graphql(/* GraphQL */ `
   fragment PersonalContact on User {
@@ -81,11 +82,7 @@ const PersonalContactInfo = ({ personalContactQuery }: DisplayProps) => {
       </FieldDisplay>
       <FieldDisplay
         className="col-span-2"
-        label={intl.formatMessage({
-          defaultMessage: "Citizenship status",
-          id: "ycXoSE",
-          description: "Label for citizenship status field",
-        })}
+        label={intl.formatMessage(profileMessages.citizenship)}
       >
         {citizenship?.label.localized ?? notProvided}
       </FieldDisplay>

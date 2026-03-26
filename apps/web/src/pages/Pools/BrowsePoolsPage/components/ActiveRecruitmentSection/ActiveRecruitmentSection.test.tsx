@@ -69,7 +69,7 @@ describe("BrowsePoolsPage", () => {
 
     // find the rendered links
     const links = screen.queryAllByRole("link", {
-      name: /Apply to this recruitment/i,
+      name: /Apply to/i,
     });
 
     // ensure there are the right number and in the right order
