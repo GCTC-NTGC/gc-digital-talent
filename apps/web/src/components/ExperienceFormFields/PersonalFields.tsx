@@ -99,7 +99,9 @@ const PersonalFields = ({
             required: intl.formatMessage(errorMessages.required),
             max: {
               value: strToFormDate(todayDate.toISOString()),
-              message: intl.formatMessage(errorMessages.mustNotBeFuture),
+              message: intl.formatMessage(
+                errorMessages.mustNotBeFutureStartDate,
+              ),
             },
           }}
         />
