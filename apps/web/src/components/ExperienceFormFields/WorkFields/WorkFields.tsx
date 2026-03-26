@@ -150,6 +150,16 @@ const WorkFields = ({
   } as const;
 
   /**
+   * Reset endDate when roleStatus field is changed
+   */
+  useEffect(() => {
+    resetField("endDate", {
+      keepDirty: false,
+      defaultValue: null,
+    });
+  }, [resetField, isCurrent]);
+
+  /**
    * Reset all fields when employmentCategory field is changed
    */
   useEffect(() => {
@@ -271,6 +281,12 @@ const WorkFields = ({
                                 labels.startDate,
                               ).toLowerCase(),
                             },
+                          ),
+                        },
+                        max: {
+                          value: strToFormDate(todayDate.toISOString()),
+                          message: intl.formatMessage(
+                            errorMessages.mustNotBeFutureEndDate,
                           ),
                         },
                       }
