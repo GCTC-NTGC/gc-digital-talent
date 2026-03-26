@@ -253,6 +253,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               }
             }
           }
+          isBeingReferred
           screeningResult {
             value
             label {
@@ -983,6 +984,31 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.placedDepartment),
         enableColumnFilter: false,
         enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
+      (row) =>
+        row.poolCandidate.isBeingReferred
+          ? intl.formatMessage({
+              defaultMessage: "Actively being referred",
+              id: "4TsmrB",
+              description: "A candidate is being referred for new positions",
+            })
+          : intl.formatMessage({
+              defaultMessage: "Not referred",
+              id: "fwgM7Y",
+              description:
+                "A candidate is not being referred for new positions",
+            }),
+      {
+        id: "referralStatus",
+        header: intl.formatMessage({
+          defaultMessage: "Referral status",
+          id: "tZN+WQ",
+          description: "Label for a candidates referral status",
+        }),
+        enableSorting: false,
+        enableColumnFilter: false,
       },
     ),
     columnHelper.accessor(
