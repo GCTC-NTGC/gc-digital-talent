@@ -116,6 +116,8 @@ class PoolCandidate extends Model
         'veteran_verification_expiry' => 'date',
         'priority_verification_expiry' => 'date',
         'computed_assessment_status' => 'array',
+        'pause_referrals_at' => 'datetime',
+        'resume_referrals_at' => 'datetime',
     ];
 
     /**
