@@ -636,6 +636,8 @@ class PoolCandidateBuilder extends Builder
     {
         extract($args);
 
+        $locale ??= app()->getLocale();
+
         if (isset($order) && isset($locale)) {
             return
             $this->withMax('pool', 'name->'.$locale)
