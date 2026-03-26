@@ -15,6 +15,7 @@ import ApplicationExpiryDateDialog from "../Dialog/ApplicationExpiryDateDialog";
 import ApplicationPlacementDialog from "../Dialog/ApplicationPlacementDialog";
 import ApplicationPauseReferralsDialog from "../Dialog/ApplicationPauseReferralsDialog";
 import ApplicationResumeReferralsDialog from "../Dialog/ApplicationResumeReferralsDialog";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 const QualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedStatusMeta on PoolCandidate {
@@ -58,12 +59,9 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
               <Notice.Root>
                 <Notice.Content>
                   <FieldDisplay
-                    label={intl.formatMessage({
-                      defaultMessage: "Not referred",
-                      id: "sp0Pgt",
-                      description:
-                        "Label for not referred notice when placed indeterminate",
-                    })}
+                    label={intl.formatMessage(
+                      poolCandidateMessages.notReferred,
+                    )}
                   >
                     {intl.formatMessage({
                       defaultMessage:

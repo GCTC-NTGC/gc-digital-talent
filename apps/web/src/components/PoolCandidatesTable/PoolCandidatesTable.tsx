@@ -989,17 +989,8 @@ const PoolCandidatesTable = ({
     columnHelper.accessor(
       (row) =>
         row.poolCandidate.isBeingReferred
-          ? intl.formatMessage({
-              defaultMessage: "Actively being referred",
-              id: "4TsmrB",
-              description: "A candidate is being referred for new positions",
-            })
-          : intl.formatMessage({
-              defaultMessage: "Not referred",
-              id: "fwgM7Y",
-              description:
-                "A candidate is not being referred for new positions",
-            }),
+          ? intl.formatMessage(poolCandidateMessages.activelyReferred)
+          : intl.formatMessage(poolCandidateMessages.notReferred),
       {
         id: "referralStatus",
         header: intl.formatMessage({
