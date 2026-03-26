@@ -25,7 +25,6 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
  * @property bool $is_available_in_search
- * @property array $display_name
  */
 class Classification extends Model
 {
@@ -40,7 +39,6 @@ class Classification extends Model
      */
     protected $casts = [
         'name' => LocalizedString::class,
-        'display_name' => LocalizedString::class,
     ];
 
     /** @return HasMany<GenericJobTitle, $this> */

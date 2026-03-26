@@ -1254,7 +1254,6 @@ type Classification {
   maxSalary: Int
   genericJobTitles: [GenericJobTitle]
   isAvailableInSearch: Boolean
-  displayName: LocalizedString
 }
 
 type GenericJobTitle {
@@ -2143,7 +2142,6 @@ input CreateClassificationInput {
   minSalary: Int
   maxSalary: Int
   isAvailableInSearch: Boolean!
-  displayName: LocalizedStringInput
 }
 
 input ClassificationBelongsToMany {
@@ -2165,7 +2163,6 @@ input UpdateClassificationInput {
   minSalary: Int
   maxSalary: Int
   isAvailableInSearch: Boolean
-  displayName: LocalizedStringInput
 }
 
 input UpdatePoolCandidateStatusInput {
