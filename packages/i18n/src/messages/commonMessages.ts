@@ -549,11 +549,6 @@ const commonMessages = defineMessages({
     id: "Phlp8j",
     description: "Label displayed for organization input",
   },
-  displayName: {
-    defaultMessage: "Display name",
-    id: "/l02AA",
-    description: "Label displayed for a display name field",
-  },
   dismiss: {
     defaultMessage: "Dismiss",
     id: "FO4QJP",
