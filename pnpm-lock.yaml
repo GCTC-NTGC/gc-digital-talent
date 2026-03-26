@@ -972,8 +972,8 @@ importers:
         specifier: ^5.2.0
         version: 5.2.0(graphql@16.13.2)
       chromatic:
-        specifier: ^15.3.0
-        version: 15.3.0
+        specifier: ^16.0.0
+        version: 16.0.0
       graphql:
         specifier: ^16.13.2
         version: 16.13.2
@@ -1142,8 +1142,8 @@ importers:
         specifier: ^1.1.11
         version: 1.1.11(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       chromatic:
-        specifier: ^15.3.0
-        version: 15.3.0
+        specifier: ^16.0.0
+        version: 16.0.0
       lodash:
         specifier: ^4.17.23
         version: 4.17.23
@@ -4325,8 +4325,8 @@ packages:
     resolution: {integrity: sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==}
     engines: {node: '>= 14.16.0'}
 
-  chromatic@15.3.0:
-    resolution: {integrity: sha512-ficw/Pz9OpBnPoWDRmuwFDwzLPSN0o90x6X+0+rbnMFYtDTPWXddW6R14jQ56SgYSByJ67OyHZg2gW6U6HF2Qw==}
+  chromatic@16.0.0:
+    resolution: {integrity: sha512-O81RVGDXXoreNeG894hjaUx08xep+C/BA6aJNMZkwSjH7Lln8IweZekBpBEoQPNNpjmHyZvcTIwN/aGitdK53Q==}
     hasBin: true
     peerDependencies:
       '@chromatic-com/cypress': ^0.*.* || ^1.0.0
@@ -10475,7 +10475,7 @@ snapshots:
     dependencies:
       readdirp: 4.1.2
 
-  chromatic@15.3.0: {}
+  chromatic@16.0.0: {}
 
   cli-cursor@5.0.0:
     dependencies:
