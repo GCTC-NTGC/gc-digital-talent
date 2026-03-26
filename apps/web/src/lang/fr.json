@@ -955,13 +955,13 @@
     "defaultMessage": "Note spéciale<hidden> relative aux compétences techniques constituant un atout</hidden>",
     "description": "The nonessential technical skills special note for a job poster template"
   },
-  "1mjUju": {
-    "defaultMessage": "Revenez plus tard pour découvrir d’autres possibilités",
-    "description": "Heading for message about upcoming opportunities"
-  },
   "1mYPEx": {
     "defaultMessage": "Je ne suis <strong>pas disponible</strong> et je ne veux pas que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for not available for opportunities option"
+  },
+  "1mjUju": {
+    "defaultMessage": "Revenez plus tard pour découvrir d’autres possibilités",
+    "description": "Heading for message about upcoming opportunities"
   },
   "1moJ8r": {
     "defaultMessage": "Vous approchez de la limite!",
