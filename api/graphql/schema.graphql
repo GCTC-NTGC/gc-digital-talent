@@ -1465,6 +1465,7 @@ input ProcessActivityFilterInput {
 }
 
 type Query {
+  poolsOrderTest: [Pool!] @all @advancedOrderBy
   myAuth: UserAuthInfo @auth
   me: User @auth
   user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")

@@ -31,6 +31,12 @@ class AdvancedOrderByTest extends TestCase
                 user {
                     firstName
                 }
+                pool {
+                    name {
+                        en
+                        fr
+                    }
+                }
             }
         }
     GRAPHQL;
@@ -94,12 +100,16 @@ class AdvancedOrderByTest extends TestCase
         ]);
 
         foreach ($expectedOrder as $index => $expectedValue) {
-            $path = is_string($expectedValue) && str_starts_with($expectedValue, 'user:')
-                ? "data.testCandidates.{$index}.user.firstName"
-                : "data.testCandidates.{$index}.notes";
+            if (is_string($expectedValue) && str_starts_with($expectedValue, 'user:')) {
+                $path = "data.testCandidates.{$index}.user.firstName";
+            } elseif (is_string($expectedValue) && str_starts_with($expectedValue, 'pool:')) {
+                $path = "data.testCandidates.{$index}.pool.name.en";
+            } else {
+                $path = "data.testCandidates.{$index}.notes";
+            }
 
             $cleanValue = (is_string($expectedValue))
-                ? str_replace('user:', '', $expectedValue)
+                ? str_replace(['user:', 'pool:'], '', $expectedValue)
                 : $expectedValue;
 
             $response->assertJsonPath($path, $cleanValue);
@@ -144,6 +154,30 @@ class AdvancedOrderByTest extends TestCase
                     'direction' => 'ASC',
                 ]],
                 ['Candidate A', 'Candidate B'],
+            ],
+            'JSON Column ASC' => [
+                [
+                    ['notes' => 'A', 'pool_name' => 'Zebra'],
+                    ['notes' => 'B', 'pool_name' => 'Apple'],
+                ],
+                [[
+                    'relation' => ['name' => 'pool', 'column' => 'name->en'],
+                    'direction' => 'ASC',
+                ]],
+                ['pool:Apple', 'pool:Zebra'],
+            ],
+
+            'JSON with Accents' => [
+                [
+                    ['notes' => 'Item 1', 'pool_name' => 'École'],
+                    ['notes' => 'Item 2', 'pool_name' => 'Alphonse'],
+                ],
+                [[
+                    'relation' => ['name' => 'pool', 'column' => 'name->en'],
+                    'direction' => 'ASC',
+                    'accentInsensitive' => true,
+                ]],
+                ['pool:Alphonse', 'pool:École'],
             ],
         ];
     }

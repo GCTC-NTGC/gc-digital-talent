@@ -95,10 +95,11 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
      */
     protected function resolveColumnExpression($builder, string $column): string
     {
+        $baseColumn = $this->getBaseColumn($column);
         $table = $builder->getModel()->getTable();
 
-        if (! Schema::hasColumn($table, $column)) {
-            throw new UserError("Invalid column: {$column}");
+        if (! Schema::hasColumn($table, $baseColumn)) {
+            throw new UserError("Invalid column: {$baseColumn}");
         }
 
         return $builder->getQuery()->getGrammar()->wrap($column);
@@ -124,10 +125,11 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             throw new UserError("Method {$relationName} is not a valid Eloquent relation.");
         }
 
+        $baseColumn = $this->getBaseColumn($column);
         $relatedTable = $relation->getRelated()->getTable();
 
-        if (! $builder->getConnection()->getSchemaBuilder()->hasColumn($relatedTable, $column)) {
-            throw new UserError("Invalid related column: {$column}");
+        if (! $builder->getConnection()->getSchemaBuilder()->hasColumn($relatedTable, $baseColumn)) {
+            throw new UserError("Invalid related column: {$baseColumn}");
         }
 
         if ($relation instanceof BelongsTo) {
@@ -182,6 +184,15 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
         }
 
         return null;
+    }
+
+    /**
+     * Extract the base column name from a string that might contain JSON paths.
+     * Example: "name->fr" returns "name"
+     */
+    protected function getBaseColumn(string $column): string
+    {
+        return str_contains($column, '->') ? explode('->', $column, 2)[0] : $column;
     }
 
     /**

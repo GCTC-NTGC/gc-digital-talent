@@ -409,6 +409,7 @@ type LocalizedWorkRegion implements LocalizedEnumOption {
 }
 
 type Query {
+  poolsOrderTest(orderBy: [AdvancedOrderByInput!]): [Pool!]
   myAuth: UserAuthInfo
   me: User
   user(
@@ -2918,6 +2919,26 @@ type ActivityPaginator {
 
   "A list of Activity items."
   data: [Activity!]!
+}
+
+enum NullsOrder {
+  FIRST
+  LAST
+}
+
+input RelatedOrderInput {
+  name: String!
+  column: String!
+}
+
+input AdvancedOrderByInput {
+  column: String
+  scope: String
+  relation: RelatedOrderInput
+  direction: SortOrder = ASC
+  nulls: NullsOrder
+  accentInsensitive: Boolean
+  caseInsensitive: Boolean
 }
 
 "A paginated list of User items."
