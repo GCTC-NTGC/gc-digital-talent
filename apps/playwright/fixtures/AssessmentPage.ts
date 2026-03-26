@@ -31,6 +31,8 @@ const FIELD = {
   APPLICATION_STATUS_HEADING: "applicationStatusHeading",
   REVERT_DIALOG_HEADING: "revertDialogHeading",
   REVERT_BUTTON: "revertButton",
+  REINSTATE_DIALOG_HEADING: "reinstateDialogHeading",
+  REINSTATE_BUTTON: "reinstateButton",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -79,6 +81,13 @@ class AssessmentPage extends AppPage {
       }),
       [FIELD.REVERT_BUTTON]: this.page.getByRole("button", {
         name: /revert decision and update status/i,
+      }),
+      [FIELD.REINSTATE_DIALOG_HEADING]: this.page.getByRole("heading", {
+        name: /reinstate candidate/i,
+        level: 2,
+      }),
+      [FIELD.REINSTATE_BUTTON]: this.page.getByRole("button", {
+        name: /reinstate candidate and update status/i,
       }),
     };
   }
@@ -348,6 +357,17 @@ class AssessmentPage extends AppPage {
     await this.locators.revertButton.click();
     await expect(this.locators[FIELD.ALERT_MESSAGE]).toHaveText(
       /decision reverted successfully/i,
+    );
+    await expect(this.locators.toAssessButton.first()).toBeVisible();
+  }
+
+  async reinstateRemovedCandidate() {
+    await this.page.reload();
+    await this.page.getByRole("button", { name: /removed/i }).click();
+    await expect(this.locators.reinstateDialogHeading).toBeVisible();
+    await this.locators.reinstateButton.click();
+    await expect(this.locators[FIELD.ALERT_MESSAGE]).toHaveText(
+      /candidate reinstated successfully./i,
     );
     await expect(this.locators.toAssessButton.first()).toBeVisible();
   }
