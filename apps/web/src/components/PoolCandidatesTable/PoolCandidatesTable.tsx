@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef } from "react";
+import { useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import {
@@ -44,12 +45,14 @@ import useSelectedRows from "~/hooks/useSelectedRows";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { parseFilterParam } from "~/components/Table/ResponsiveTable/utils";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import useAsyncFileDownload from "~/hooks/useAsyncFileDownload";
 import applicationMessages from "~/messages/applicationMessages";
 import { isLegacyAssessmentStepType } from "~/utils/poolCandidate";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -76,6 +79,7 @@ import {
   poolCandidateBookmarkHeader,
   poolCandidateBookmarkCell,
   applicationStatusCell,
+  screeningResultCell,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -85,8 +89,8 @@ import PoolCandidateFilterDialog, {
 } from "./PoolCandidateFilterDialog";
 import { FormValues } from "./types";
 import {
-  JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
+  JobPlacementDialogCandidateTable_Fragment,
 } from "../PoolCandidateDialogs/JobPlacementDialog";
 import { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
@@ -202,8 +206,8 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
         poolCandidate {
           ...JobPlacementDialogCandidateTable
           id
-          ...PoolCandidateTable_Flag
           notes
+          isFlagged
           status {
             value
             label {
@@ -249,12 +253,11 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               }
             }
           }
-
-          assessmentStatus {
-            assessmentStepStatuses {
-              step
+          screeningResult {
+            value
+            label {
+              localized
             }
-            overallAssessmentStatus
           }
           pool {
             id
@@ -286,7 +289,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             areaOfSelection {
               value
             }
-            screeningQuestionsCount
             contactEmail
           }
           assessmentStatus {
@@ -433,7 +435,7 @@ const PoolCandidatesTable = ({
   availableSteps,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pick<Pool, "id">>;
+  currentPool?: Maybe<Pick<Pool, "id" | "displayName">>;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
@@ -452,13 +454,14 @@ const PoolCandidatesTable = ({
     ...defaultState,
     sortState: defaultSortState,
   });
-  const searchParams = new URLSearchParams(window.location.search);
-  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+  const [searchParams] = useSearchParams();
+  const filtersEncoded = searchParams.get(
+    SEARCH_PARAM_KEY.POOL_CANDIDATE_FILTERS,
+  );
   const initialFilters = useMemo(
     () =>
-      filtersEncoded
-        ? (JSON.parse(filtersEncoded) as PoolCandidateSearchInput)
-        : initialFilterInput,
+      parseFilterParam<PoolCandidateSearchInput>(filtersEncoded) ??
+      initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
 
@@ -767,6 +770,7 @@ const PoolCandidatesTable = ({
                 poolCandidate as FragmentType<
                   typeof PoolCandidate_FlagFragment
                 >,
+                currentPool?.displayName?.display.localized,
               ),
             meta: {
               shrink: true,
@@ -886,6 +890,31 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
+      ({ poolCandidate: { screeningResult } }) =>
+        screeningResult?.label?.localized ?? "",
+      {
+        id: "screeningResult",
+        header: intl.formatMessage({
+          defaultMessage: "Screening result",
+          id: "qwLrrx",
+          description: "Label for the result of an application screening",
+        }),
+        enableSorting: false,
+        enableColumnFilter: false,
+        cell: ({
+          row: {
+            original: {
+              poolCandidate: { screeningResult },
+            },
+          },
+        }) =>
+          screeningResultCell(
+            screeningResult,
+            intl.formatMessage(poolCandidateMessages.toAssess),
+          ),
+      },
+    ),
+    columnHelper.accessor(
       ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
       {
         id: "applicationStatus",
@@ -938,7 +967,9 @@ const PoolCandidatesTable = ({
           },
         }) =>
           jobPlacementDialogAccessor(
-            poolCandidate as FragmentType<typeof JobPlacementDialog_Fragment>,
+            poolCandidate as FragmentType<
+              typeof JobPlacementDialogCandidateTable_Fragment
+            >,
             tableData,
           ),
         enableSorting: false,
@@ -1092,6 +1123,7 @@ const PoolCandidatesTable = ({
       columns={columns}
       isLoading={fetching || fetchingTableData}
       hiddenColumnIds={hiddenColumnIds}
+      filterParamKey={SEARCH_PARAM_KEY.POOL_CANDIDATE_FILTERS}
       search={{
         internal: false,
         label: intl.formatMessage({

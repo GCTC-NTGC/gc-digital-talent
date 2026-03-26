@@ -39,7 +39,7 @@ import OutlineTwoBarsIcon from "./Icons/outline/TwoBarsIcon";
 import SolidTwoBarsIcon from "./Icons/solid/TwoBarsIcon";
 import OutlineThreeBarsIcon from "./Icons/outline/ThreeBarsIcon";
 import SolidThreeBarsIcon from "./Icons/solid/ThreeBarsIcon";
-import { DialogType } from "./useDialogType";
+import { DialogType } from "./utils";
 
 const ScreeningOptions_Query = graphql(/* GraphQL */ `
   query ScreeningOptions {

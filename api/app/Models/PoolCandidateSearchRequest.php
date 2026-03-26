@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -30,10 +31,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $request_status_weight
  * @property string $manager_job_title
  * @property string $position_type
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
- * @property ?\Illuminate\Support\Carbon $deleted_at
- * @property ?\Carbon\CarbonImmutable $request_status_changed_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
+ * @property ?Carbon $deleted_at
+ * @property ?CarbonImmutable $request_status_changed_at
  * @property string $reason
  * @property string $community_id
  * @property int $initial_result_count
@@ -61,7 +62,7 @@ class PoolCandidateSearchRequest extends Model
      */
     protected static function boot()
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         parent::boot();
@@ -265,7 +266,7 @@ class PoolCandidateSearchRequest extends Model
      */
     public function scopeAuthorizedToView(Builder $query)
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if ($user?->isAbleTo('view-any-searchRequest')) {

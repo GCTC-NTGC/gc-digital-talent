@@ -15,20 +15,6 @@ export interface PartialUser extends Pick<
   >;
 }
 
-export function anyCriteriaSelected({
-  isWoman,
-  hasDisability,
-  isVisibleMinority,
-  indigenousCommunities,
-}: PartialUser): boolean {
-  return !!(
-    isWoman ||
-    isVisibleMinority ||
-    hasDisability ||
-    (indigenousCommunities && indigenousCommunities.length > 0)
-  );
-}
-
 export function hasEmptyRequiredFields(
   applicant: PartialUser,
   pool?: Maybe<Pick<Pool, "publishingGroup">>,

@@ -15,6 +15,7 @@ export const NAV_ROLES_BY_PRIVILEGE = [
   null,
   "applicant",
   "community",
+  "department",
   "admin",
 ] as const;
 
@@ -24,6 +25,7 @@ export const isNavRole = (x: unknown): x is NavRole => {
   switch (x) {
     case "applicant":
     case "community":
+    case "department":
     case "admin":
       return true;
     default:
@@ -48,8 +50,9 @@ export function convertRoleToNavRole(role: RoleName): NavRole {
     case "guest":
     case "base_user":
       return null;
-    case "department_admin": // temporary to allow login
-    case "department_hr_advisor": // temporary to allow login
+    case "department_admin":
+    case "department_hr_advisor":
+      return "department";
     case "applicant":
       return "applicant";
     case "process_operator":

@@ -24,7 +24,7 @@ interface SkillBrowserProps extends BaseSkillBrowserProps {
 const SkillBrowser = ({
   skills,
   name,
-  rules = {},
+  rules,
   isMulti = true,
 }: SkillBrowserProps) => {
   const intl = useIntl();

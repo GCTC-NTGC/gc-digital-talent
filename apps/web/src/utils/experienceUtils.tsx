@@ -152,6 +152,16 @@ export const getExperienceFormLabels = (
       id: "gnEK8V",
       description: "Label displayed on Award form for award scope input",
     }),
+    employmentCategory: intl.formatMessage({
+      defaultMessage: "Employment category",
+      id: "BdpXAF",
+      description: "Label for the employment category radio group",
+    }),
+    department: intl.formatMessage({
+      defaultMessage: "Department",
+      id: "9aW0M6",
+      description: "Title for department",
+    }),
     role: intl.formatMessage({
       defaultMessage: "My role",
       id: "nyQyqM",
@@ -294,6 +304,11 @@ export const getExperienceFormLabels = (
       defaultMessage: "Rank category",
       id: "4fV+wX",
       description: "Label for the rank category radio group",
+    }),
+    cafForce: intl.formatMessage({
+      defaultMessage: "Military force",
+      id: "kdXBAS",
+      description: "Label for the military force radio group",
     }),
     supervisoryPosition: intl.formatMessage({
       defaultMessage: "Management or supervisory status",

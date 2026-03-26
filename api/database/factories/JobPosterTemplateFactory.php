@@ -13,7 +13,7 @@ use App\Models\WorkStream;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\JobPosterTemplate>
+ * @extends Factory<JobPosterTemplate>
  */
 class JobPosterTemplateFactory extends Factory
 {

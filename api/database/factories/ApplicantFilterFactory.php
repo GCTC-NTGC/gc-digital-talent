@@ -12,7 +12,9 @@ use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\Skill;
+use App\Models\WorkStream;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Collection;
 
 class ApplicantFilterFactory extends Factory
 {
@@ -62,7 +64,7 @@ class ApplicantFilterFactory extends Factory
     /**
      * Create an ApplicantFilter where fields have a 50% chance to be null.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function sparse()
     {
@@ -82,7 +84,7 @@ class ApplicantFilterFactory extends Factory
      * Create an ApplicantFilter where skills, classifications and pools have been added.
      * NOTE: before using this method, you must have already generated skills, classifications and Pools
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function withRelationships(bool $sparse = false)
     {
@@ -123,9 +125,9 @@ class ApplicantFilterFactory extends Factory
     /**
      * Create an ApplicantFilter with specific work streams
      *
-     * @var \Illuminate\Support\Collection<array-key, \App\Models\WorkStream>
+     * @var Collection<array-key, WorkStream>
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function withWorkStreams(array $workStreams)
     {

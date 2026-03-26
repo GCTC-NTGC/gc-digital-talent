@@ -2,6 +2,7 @@
 
 namespace App\Traits\Generator;
 
+use App\Builders\PoolCandidateBuilder;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AwardedScope;
 use App\Enums\AwardedTo;
@@ -702,7 +703,7 @@ trait GeneratesUserDoc
             'userSkills',
             'employeeProfile',
             'poolCandidates' => function ($query) {
-                /** @var \App\Builders\PoolCandidateBuilder $query */
+                /** @var PoolCandidateBuilder $query */
                 $query
                     ->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
                     ->whereQualified();
@@ -792,7 +793,7 @@ trait GeneratesUserDoc
             $section->addTitle($candidate->pool->name[$this->lang] ?? '', $headingRank + 2);
             $this->addLabelText($section, $this->localize('headings.classification'), $candidate->pool->classification->formattedGroupAndLevel);
             $this->addLabelText($section, $this->localizeHeading('process_number'), $candidate->pool->process_number);
-            $this->addLabelText($section, $this->localizeHeading('functional_community'), $candidate->pool->community->name[$this->lang] ?? '');
+            $this->addLabelText($section, $this->localizeHeading('functional_community'), $candidate->pool->community?->name[$this->lang] ?? '');
             $this->addLabelText($section, $this->localizeHeading('availability'), $this->yesOrNo(! isset($candidate->suspended_at)));
         });
 

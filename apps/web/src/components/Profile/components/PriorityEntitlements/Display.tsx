@@ -8,7 +8,7 @@ import profileMessages from "~/messages/profileMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import governmentMessages from "~/messages/governmentMessages";
 
-export const PriorityEntitlementDisplay_Fragment = graphql(/** GraphQL */ `
+const PriorityEntitlementDisplay_Fragment = graphql(/** GraphQL */ `
   fragment PriorityEntitlementDisplay on User {
     hasPriorityEntitlement
     priorityNumber

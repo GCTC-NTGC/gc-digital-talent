@@ -27,6 +27,7 @@ use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PoolCandidateFactory extends BaseFactory
 {
@@ -275,7 +276,7 @@ class PoolCandidateFactory extends BaseFactory
 
     /** Add assessment results to the pool candidate
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function withAssessmentResults(): self
     {

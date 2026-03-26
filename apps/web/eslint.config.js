@@ -3,6 +3,9 @@ import baseConfig from "@gc-digital-talent/eslint-config/react";
 export default [
   ...baseConfig,
   {
+    ignores: ["src/utils/initTheme.js"],
+  },
+  {
     languageOptions: {
       parserOptions: {
         projectService: true,

@@ -18,12 +18,26 @@ import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { checkRole } from "~/utils/teamUtils";
-import { formValuesToPlaceCandidateInput } from "~/components/PoolCandidateDialogs/formUtils";
 
 import JobPlacementForm, {
   FormValues,
   JobPlacementOptions_Query,
 } from "./JobPlacementForm";
+
+function formValuesToPlaceCandidateInput(formValues: FormValues) {
+  if (!formValues.placementType) {
+    throw new Error("Missing placement type");
+  }
+  if (formValues.placementType === PlacementType.NotPlaced) {
+    throw new Error("Invalid placement type");
+  }
+  return {
+    poolCandidate: {
+      department: { connect: formValues.placedDepartment ?? "" },
+      placementType: formValues.placementType,
+    },
+  };
+}
 
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(
@@ -40,28 +54,6 @@ const RevertPlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation RevertPlaceCandidate_Mutation($id: UUID!) {
     revertPlaceCandidate(id: $id) {
       id
-    }
-  }
-`);
-
-export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
-  fragment JobPlacementDialog on PoolCandidate {
-    id
-    status {
-      value
-    }
-    placementType {
-      value
-      label {
-        localized
-      }
-    }
-    placedDepartment {
-      id
-      name {
-        en
-        fr
-      }
     }
   }
 `);
@@ -89,7 +81,9 @@ export const JobPlacementDialogCandidateTable_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface JobPlacementDialogProps {
-  jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>;
+  jobPlacementDialogQuery: FragmentType<
+    typeof JobPlacementDialogCandidateTable_Fragment
+  >;
   optionsQuery?: FragmentType<typeof JobPlacementOptions_Query>;
   context?: "table" | "view";
   defaultOpen?: boolean;
@@ -110,12 +104,17 @@ const JobPlacementDialog = ({
 
   const { roleAssignments } = useAuthorization();
   const canPlace = checkRole(
-    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+    [
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
+    ],
     roleAssignments,
   );
 
   const candidate = getFragment(
-    JobPlacementDialog_Fragment,
+    JobPlacementDialogCandidateTable_Fragment,
     jobPlacementDialogQuery,
   );
 
@@ -274,7 +273,9 @@ const JobPlacementDialog = ({
 };
 
 export function jobPlacementDialogAccessor(
-  jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>,
+  jobPlacementDialogQuery: FragmentType<
+    typeof JobPlacementDialogCandidateTable_Fragment
+  >,
   optionsQuery?: FragmentType<typeof JobPlacementOptions_Query>,
 ) {
   return (

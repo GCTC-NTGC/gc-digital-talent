@@ -7,6 +7,7 @@ import {
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useState, useMemo, useRef } from "react";
+import { useSearchParams } from "react-router";
 import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
@@ -34,6 +35,7 @@ import {
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import { parseFilterParam } from "~/components/Table/ResponsiveTable/utils";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
@@ -43,10 +45,6 @@ import permissionConstants from "~/constants/permissionConstants";
 import {
   classificationAccessor,
   classificationCell,
-  emailLinkAccessor,
-  fullNameCell,
-  ownerEmailAccessor,
-  ownerNameAccessor,
   poolNameAccessor,
   viewCell,
   transformPoolInput,
@@ -105,12 +103,6 @@ const PoolTable_PoolFragment = graphql(/* GraphQL */ `
       id
       group
       level
-    }
-    owner {
-      id
-      firstName
-      lastName
-      email
     }
   }
 `);
@@ -182,20 +174,19 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
   const [sortState, setSortState] = useState<SortingState | undefined>(
     initialState.sortState ?? [{ id: "createdDate", desc: false }],
   );
-  const searchParams = new URLSearchParams(window.location.search);
-  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+
+  const [searchParams] = useSearchParams();
+  // Uses pool-specific key
+  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.POOL_FILTERS);
   const initialFilters = useMemo(
     () =>
-      filtersEncoded
-        ? (JSON.parse(filtersEncoded) as PoolFilterInput)
-        : initialFilterInput,
+      parseFilterParam<PoolFilterInput>(filtersEncoded) ?? initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
   const filterRef = useRef<PoolFilterInput | undefined>(initialFilters);
   const [filterState, setFilterState] = useState<PoolFilterInput | undefined>(
     initialFilters,
   );
-
   const handlePaginationStateChange = ({
     pageIndex,
     pageSize,
@@ -344,45 +335,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       id: "processNumber",
       header: intl.formatMessage(processMessages.processNumber),
     }),
-    columnHelper.accessor((row) => ownerNameAccessor(row), {
-      id: "ownerName",
-      // Note: Being removed with communities
-      enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Owner Name",
-        id: "AWk4BX",
-        description: "Title displayed for the Pool table Owner Name column",
-      }),
-      cell: ({ row: { original: pool } }) =>
-        fullNameCell(
-          {
-            owner: {
-              firstName: pool.owner?.firstName,
-              lastName: pool.owner?.lastName,
-            },
-          },
-          intl,
-        ),
-    }),
-    columnHelper.accessor((row) => ownerEmailAccessor(row), {
-      id: "ownerEmail",
-      // Note: Being removed with communities
-      enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Owner Email",
-        id: "pe5WkF",
-        description: "Title displayed for the Pool table Owner Email column",
-      }),
-      cell: ({ row: { original: pool } }) =>
-        emailLinkAccessor(
-          {
-            owner: {
-              email: pool.owner?.email,
-            },
-          },
-          intl,
-        ),
-    }),
     columnHelper.accessor(({ publishedAt }) => accessors.date(publishedAt), {
       id: "publishedAt",
       enableColumnFilter: false,
@@ -421,13 +373,8 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       data={filteredData}
       columns={columns}
       isLoading={fetching}
-      hiddenColumnIds={[
-        "id",
-        "publishedAt",
-        "createdDate",
-        "ownerEmail",
-        "ownerName",
-      ]}
+      filterParamKey={SEARCH_PARAM_KEY.POOL_FILTERS}
+      hiddenColumnIds={["id", "publishedAt", "createdDate"]}
       search={{
         internal: false,
         label: intl.formatMessage({

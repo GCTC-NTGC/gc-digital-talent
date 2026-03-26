@@ -33,8 +33,7 @@ export interface PersonalInformationSnapshotV1 {
   armedForcesStatus: Maybe<LocalizedArmedForcesStatus>;
 }
 
-export type PersonalInformationV1Props =
-  SnapshotProps<PersonalInformationSnapshotV1>;
+type PersonalInformationV1Props = SnapshotProps<PersonalInformationSnapshotV1>;
 
 const PersonalInformationV1 = ({ snapshot }: PersonalInformationV1Props) => {
   const intl = useIntl();
@@ -107,33 +106,19 @@ const PersonalInformationV1 = ({ snapshot }: PersonalInformationV1Props) => {
       </FieldDisplay>
       <FieldDisplay
         hasError={!preferredLang}
-        label={intl.formatMessage({
-          defaultMessage: "Communication language",
-          id: "ceofev",
-          description: "Legend text for communication language preference",
-        })}
+        label={intl.formatMessage(profileMessages.communicationLanguage)}
       >
         {preferredLang?.label.localized ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!preferredLanguageForInterview}
-        label={intl.formatMessage({
-          defaultMessage: "Spoken interview language",
-          id: "ehrsDa",
-          description:
-            "Legend text for spoken interview language preference for interviews",
-        })}
+        label={intl.formatMessage(profileMessages.spokenLanguage)}
       >
         {preferredLanguageForInterview?.label.localized ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         hasError={!preferredLanguageForExam}
-        label={intl.formatMessage({
-          defaultMessage: "Written exam language",
-          id: "boPmF+",
-          description:
-            "Legend text for written exam language preference for exams",
-        })}
+        label={intl.formatMessage(profileMessages.writtenLanguage)}
       >
         {preferredLanguageForExam?.label.localized ?? notProvided}
       </FieldDisplay>
@@ -150,11 +135,7 @@ const PersonalInformationV1 = ({ snapshot }: PersonalInformationV1Props) => {
       </FieldDisplay>
       <FieldDisplay
         hasError={!citizenship}
-        label={intl.formatMessage({
-          defaultMessage: "Citizenship status",
-          id: "4v9y7U",
-          description: "Citizenship status label",
-        })}
+        label={intl.formatMessage(profileMessages.citizenship)}
         className="xs:col-span-2 sm:col-span-3"
       >
         {citizenship?.value

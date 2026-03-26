@@ -210,6 +210,7 @@ class RolePermissionTest extends TestCase
             'view-any-communityInterest',
             'view-any-talentNomination',
             'view-any-talentNominationGroup',
+            'view-any-userWorkEmail',
         ];
 
         $allPermissions = Permission::all()->pluck('name')->toArray();
@@ -314,6 +315,7 @@ class RolePermissionTest extends TestCase
             'view-team-communityInterest',
             'view-team-communityTalent',
             'view-team-poolActivityLog',
+            'view-any-userWorkEmail',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
         $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
@@ -377,6 +379,7 @@ class RolePermissionTest extends TestCase
             'create-team-talentNominationEvent',
             'update-team-talentNominationEvent',
             'update-team-communityTalentCoordinatorMembership',
+            'view-any-userWorkEmail',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
         $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
@@ -451,6 +454,26 @@ class RolePermissionTest extends TestCase
             'update-team-processOperatorMembership',
             'update-team-departmentHRAdvisorMembership',
             'view-team-departmentTeamMembers',
+            'view-team-draftPool',
+            'create-team-draftPool',
+            'update-team-draftPool',
+            'delete-team-draftPool',
+            'publish-team-draftPool',
+            'archive-team-publishedPool',
+            'view-team-poolTeamMembers',
+            'view-team-poolActivityLog',
+            'view-team-assessmentPlan',
+            'update-team-assessmentPlan',
+            'view-team-applicantProfile',
+            'view-team-submittedApplication',
+            'view-team-applicationStatus',
+            'view-team-applicationAssessment',
+            'update-team-applicationAssessment',
+            'view-team-applicationDecision',
+            'update-team-applicationDecision',
+            'view-team-applicationPlacement',
+            'update-team-applicationPlacement',
+            'view-any-userWorkEmail',
         ];
 
         $allPermissions = Permission::all()->pluck('name')->toArray();
@@ -486,6 +509,26 @@ class RolePermissionTest extends TestCase
             'view-any-userBasicInfo',
             'update-team-processOperatorMembership',
             'view-team-departmentTeamMembers',
+            'view-team-draftPool',
+            'create-team-draftPool',
+            'update-team-draftPool',
+            'delete-team-draftPool',
+            'publish-team-draftPool',
+            'archive-team-publishedPool',
+            'view-team-poolTeamMembers',
+            'view-team-poolActivityLog',
+            'view-team-assessmentPlan',
+            'update-team-assessmentPlan',
+            'view-team-applicantProfile',
+            'view-team-submittedApplication',
+            'view-team-applicationStatus',
+            'view-team-applicationAssessment',
+            'update-team-applicationAssessment',
+            'view-team-applicationDecision',
+            'update-team-applicationDecision',
+            'view-team-applicationPlacement',
+            'update-team-applicationPlacement',
+            'view-any-userWorkEmail',
         ];
 
         $allPermissions = Permission::all()->pluck('name')->toArray();

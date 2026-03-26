@@ -23,7 +23,7 @@ export interface DiversityEquityInclusionSnapshotV1 {
   indigenousCommunities?: Maybe<Maybe<LocalizedIndigenousCommunity>[]>;
 }
 
-export type DiversityEquityInclusionV1Props =
+type DiversityEquityInclusionV1Props =
   SnapshotProps<DiversityEquityInclusionSnapshotV1>;
 
 const DiversityEquityInclusionV1 = ({

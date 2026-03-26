@@ -204,6 +204,18 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Error message that reverting the final decision for a candidate failed",
   },
+  [ErrorCode.InvalidRevertDecisionPlaced]: {
+    defaultMessage:
+      "An error occurred while reverting final decision. Candidate has been placed.",
+    id: "JPBRgs",
+    description:
+      "Error message that reverting the final decision for a placed candidate failed",
+  },
+  [ErrorCode.CandidateNotFound]: {
+    defaultMessage: "Candidate not found.",
+    id: "PPOcri",
+    description: "Error message for when a pool candidate could not be found",
+  },
   [ErrorCode.InvalidStatusPlacing]: {
     defaultMessage:
       "An error occurred while placing the candidate. Contact support if this problem persists.",
@@ -215,6 +227,17 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
       "An error occurred while placing the candidate. Contact support if this problem persists.",
     id: "8kUa5H",
     description: "Error message that placing a candidate failed",
+  },
+  [ErrorCode.InvalidPauseReferral]: {
+    defaultMessage:
+      "An error occurred while pausing referrals. Contact support if this problem persists.",
+    id: "1go1mo",
+    description: "Error message that pausing referrals for a candidate failed",
+  },
+  [ErrorCode.InvalidUnpauseAtDate]: {
+    defaultMessage: "Pause end date can’t be after expiry date of pool.",
+    id: "F6BSah",
+    description: "Error message for pause referral status end date input",
   },
 
   // pool updating

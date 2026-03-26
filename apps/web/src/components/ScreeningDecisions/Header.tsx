@@ -5,9 +5,8 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Dialog } from "@gc-digital-talent/ui";
 
-import { DialogType } from "./useDialogType";
 import screeningDialogMessages from "./messages";
-import { DIALOG_TYPE, getSkillLevelMessage } from "./utils";
+import { DIALOG_TYPE, DialogType, getSkillLevelMessage } from "./utils";
 
 const ScreeningDialogHeaderStep_Fragment = graphql(/** GraphQL */ `
   fragment ScreeningDialogHeaderStep on AssessmentStep {

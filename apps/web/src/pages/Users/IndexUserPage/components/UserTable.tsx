@@ -152,10 +152,9 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
 
 interface UserTableProps {
   title: string;
-  newSearch?: boolean;
 }
 
-const UserTable = ({ title, newSearch = false }: UserTableProps) => {
+const UserTable = ({ title }: UserTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
@@ -219,7 +218,6 @@ const UserTable = ({ title, newSearch = false }: UserTableProps) => {
         filterState,
         searchState?.term,
         searchState?.type,
-        newSearch,
       ),
     });
   };
@@ -395,7 +393,6 @@ const UserTable = ({ title, newSearch = false }: UserTableProps) => {
         filterState,
         searchState?.term,
         searchState?.type,
-        newSearch,
       ),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,

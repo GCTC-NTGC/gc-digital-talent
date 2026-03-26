@@ -61,8 +61,8 @@ const SubmitForPublishingDialog = ({
           <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
-                " Your advertisement information and assessment plan are complete.",
-              id: "SQJgGP",
+                "Your advertisement information and assessment plan are complete.",
+              id: "phluwu",
               description:
                 "Lead-in text on a complete process, ready for publishing",
             })}

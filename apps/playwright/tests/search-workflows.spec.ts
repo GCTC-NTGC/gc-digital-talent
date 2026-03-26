@@ -4,7 +4,6 @@ import {
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
 import {
-  ApplicationStatus,
   Classification,
   EstimatedLanguageAbility,
   FlexibleWorkLocation,
@@ -21,7 +20,7 @@ import { test, expect } from "~/fixtures";
 import { getSkills } from "~/utils/skills";
 import {
   createAndSubmitApplication,
-  updateCandidateStatus,
+  qualifyCandidate,
 } from "~/utils/applications";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import graphql, { GraphQLContext } from "~/utils/graphql";
@@ -122,16 +121,16 @@ test.describe("Talent search", () => {
     const applicant = await me(applicantCtx, {});
 
     const application = await createAndSubmitApplication(applicantCtx, {
-      userId: applicant.id,
       poolId: createdPool.id,
       personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName}`,
     });
 
-    await updateCandidateStatus(adminCtx, {
+    await qualifyCandidate(adminCtx, {
       id: application.id,
-      status: ApplicationStatus.Qualified,
-      expiryDate: FAR_FUTURE_DATE,
+      poolCandidate: {
+        expiryDate: FAR_FUTURE_DATE,
+      },
     });
     user = createdUser;
   });

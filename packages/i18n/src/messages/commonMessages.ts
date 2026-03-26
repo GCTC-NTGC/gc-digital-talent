@@ -80,6 +80,7 @@ const commonMessages = defineMessages({
     description: "Message when name value not found",
   },
   dividingColon: {
+    // eslint-disable-next-line formatjs/prefer-full-sentence
     defaultMessage: ": ",
     id: "i3Jl6C",
     description: "Dividing colon with trailing space",
@@ -233,6 +234,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Job placement",
     id: "u/+Nrd",
     description: "Label for job placement",
+  },
+  referralStatus: {
+    defaultMessage: "Referral status",
+    id: "NG15dv",
+    description: "Label for the referral status field display",
   },
   warning: {
     defaultMessage: "Warning!",
@@ -582,6 +588,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Select or type an answer",
     id: "se/c4O",
     description: "Placeholder text for an input with options list",
+  },
+  quotes: {
+    defaultMessage: '"{text}"',
+    id: "vNVMlM",
+    description: "Text within double quotes",
   },
 });
 

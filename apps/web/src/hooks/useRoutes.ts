@@ -4,8 +4,8 @@ import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
 import { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
 
-export const FromIapDraftQueryKey = "fromIapDraft";
-export const FromIapSuccessQueryKey = "fromIapSuccess";
+const FromIapDraftQueryKey = "fromIapDraft";
+const FromIapSuccessQueryKey = "fromIapSuccess";
 
 const createSearchQuery = (parameters: Map<string, string>): string => {
   if (parameters.size === 0) return "";
@@ -25,6 +25,7 @@ const getRoutes = (lang: Locales) => {
   const communityUrl = [baseUrl, "community"].join("/");
   const showcase = [applicantUrl, "skills", "showcase"].join("/");
   const communitiesUrl = [baseUrl, "communities"].join("/");
+  const departmentUrl = [baseUrl, "department"].join("/");
 
   return {
     // Main Routes
@@ -55,6 +56,9 @@ const getRoutes = (lang: Locales) => {
 
     // Admin
     adminDashboard: () => adminUrl,
+
+    // Department
+    departmentDashboard: () => departmentUrl,
 
     // Admin - Communities
     communityDashboard: () => communityUrl,

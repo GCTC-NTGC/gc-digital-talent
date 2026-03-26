@@ -395,6 +395,7 @@ type MigrateOffPlatformProcessesNotification implements Notification {
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
+  workEmail: Email @rename(attribute: "work_email")
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
 }
@@ -408,6 +409,12 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")
+}
+
+# Mini type to support search by work email
+type UserWorkEmail @model(class: "\\App\\Models\\User") {
+  id: ID!
+  workEmail: Email @rename(attribute: "work_email")
 }
 
 type GeneralQuestion {
@@ -450,7 +457,6 @@ interface HasRoleAssignments {
 
 type Pool implements HasRoleAssignments {
   id: ID!
-  owner: UserPublicProfile @belongsTo(relation: "user")
   community: Community @belongsTo(relation: "community")
   teamId: UUID! @rename(attribute: "team.id") @with(relation: "team")
   name: LocalizedString
@@ -497,7 +503,6 @@ type Pool implements HasRoleAssignments {
   screeningQuestions: [ScreeningQuestion]
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
-  screeningQuestionsCount: Int @count(relation: "screeningQuestions")
   closingDate: DateTime @rename(attribute: "closing_date")
   closingReason: String @rename(attribute: "closing_reason")
   publishedAt: DateTime @rename(attribute: "published_at")
@@ -627,6 +632,7 @@ type PoolCandidate {
   isFlagged: Boolean
     @rename(attribute: "is_flagged")
     @canRoot(ability: "viewNotes")
+  isBookmarked: Boolean
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
     @canRoot(ability: "viewStatus")
@@ -671,6 +677,15 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+  pauseReferralsAt: DateTime
+    @rename(attribute: "pause_referrals_at")
+    @canRoot(ability: "viewStatus")
+  resumeReferralsAt: DateTime
+    @rename(attribute: "resume_referrals_at")
+    @canRoot(ability: "viewStatus")
+  pauseReferralsReason: String
+    @rename(attribute: "pause_referrals_reason")
+    @canRoot(ability: "viewStatus")
 
   # claim verification
   veteranVerification: ClaimVerificationResult
@@ -702,12 +717,14 @@ type PoolCandidateAdminView {
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   status: LocalizedApplicationStatus @rename(attribute: "application_status")
-  candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
-  candidateInterest: LocalizedCandidateInterest @canRoot(ability: "viewStatus")
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   notes: String
   isFlagged: Boolean @rename(attribute: "is_flagged")
+  isBookmarked: Boolean
   category: PoolCandidateCategory @with(relation: "user")
+  screeningResult: LocalizedAssessmentDecision
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
   assessmentStep: AssessmentStep @belongsTo
@@ -1262,7 +1279,6 @@ input UserFilterInput {
   workEmail: String @scope(name: "whereWorkEmail")
   name: String @scope(name: "whereName")
   generalSearch: String @scope(name: "whereGeneralSearch")
-  generalSearchBeta: String @scope(name: "whereGeneralSearchBeta")
   roles: [ID] @scope(name: "whereRoleIn")
   trashed: Trashed @trashed
 }
@@ -1465,6 +1481,13 @@ type Query {
     @guard
     @validator
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
+  workEmails(search: String): [UserWorkEmail!]!
+    @all(
+      model: "User"
+      scopes: ["whereWorkEmailIsVerified", "whereWorkEmailSearch", "limitFive"]
+    )
+    @guard
+    @canModel(ability: "viewAnyUserWorkEmail", model: "User")
   usersPaginated(
     where: UserFilterInput
       @scope(name: "whereUserFilterInputToSpecialLocationMatching")
@@ -2208,8 +2231,15 @@ input AssessmentStepBelongsTo {
   disconnect: Boolean
 }
 
+input PauseReferralsInput {
+  pauseReferralsLength: PauseReferralsLength
+  resumeReferralsAt: Date
+  pauseReferralsReason: String
+}
+
 input QualifyCandidateInput {
   expiryDate: Date!
+  pauseReferrals: PauseReferralsInput @spread
 }
 
 input PlaceCandidateInput {
@@ -2221,6 +2251,7 @@ input QualifyAndPlaceCandidateInput {
   expiryDate: Date!
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  pauseReferrals: PauseReferralsInput @spread
 }
 
 input CreateDepartmentInput {
@@ -2730,7 +2761,6 @@ input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   workStream: WorkStreamBelongsTo
   processNumber: String @rename(attribute: "process_number")
   # Closing date
@@ -3126,6 +3156,7 @@ type Mutation {
     id: UUID!
     poolCandidate: UpdatePoolCandidateStatusInput! @spread
   ): PoolCandidate
+    @deprecated(reason: "Replaced by specific mutations")
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
@@ -3160,15 +3191,26 @@ type Mutation {
   ): PoolCandidate
     @guard
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+  updatePoolCandidateExpiryDate(
+    id: UUID!
+    expiryDate: Date!
+      @rename(attribute: "expiry_date")
+      @rules(apply: ["after_or_equal:today"])
+  ): PoolCandidate
+    @update
+    @guard
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   removeCandidate(
     id: UUID!
     removalReason: CandidateRemovalReason!
     removalReasonOther: String
   ): PoolCandidate
     @guard
+    @validator
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   reinstateCandidate(id: UUID!): PoolCandidate
     @guard
+    @validator
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   qualifyCandidate(
     id: UUID!
@@ -3186,8 +3228,8 @@ type Mutation {
     @validator(class: "App\\GraphQL\\Validators\\DisqualifyCandidateValidator")
   revertFinalDecision(id: UUID!): PoolCandidate
     @guard
+    @validator
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
-    @validator(class: "App\\GraphQL\\Validators\\RevertFinalDecisionValidator")
   placeCandidate(
     id: UUID!
     poolCandidate: PlaceCandidateInput! @spread
@@ -3209,6 +3251,18 @@ type Mutation {
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
     @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
+
+  pauseCandidateReferrals(
+    id: UUID!
+    pauseReferrals: PauseReferralsInput! @spread
+  ): PoolCandidate
+    @guard
+    @validator
+    @canFind(ability: "updateReferrals", find: "id", injectArgs: true)
+  resumeCandidateReferrals(id: UUID!): PoolCandidate
+    @guard
+    @validator
+    @canFind(ability: "updateReferrals", find: "id", injectArgs: true)
 
   createClassification(
     classification: CreateClassificationInput! @spread
@@ -3352,9 +3406,13 @@ type Mutation {
   # Pool mutations
   createPool(
     userId: ID! @rename(attribute: "user_id")
-    communityId: ID! @rename(attribute: "community_id")
+    communityId: ID @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
-  ): Pool @create @guard @canModel(ability: "create", injectArgs: true)
+  ): Pool
+    @create
+    @guard
+    @canModel(ability: "create", injectArgs: true)
+    @validator(class: "Mutation\\CreatePoolValidator")
   duplicatePool(id: ID!, pool: DuplicatePoolInput! @spread): Pool
     @guard
     @canModel(ability: "duplicate", injectArgs: true)
@@ -3416,7 +3474,8 @@ type Mutation {
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
     @guard
     @canFind(ability: "suspend", find: "id")
-  createApplication(userId: ID!, poolId: ID!): PoolCandidate
+  createApplication(poolId: ID!): PoolCandidate
+    @guard
     @canModel(ability: "createDraft")
   deleteApplication(id: ID!): PoolCandidate
     @guard

@@ -29,7 +29,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
 
-export const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
+const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferencesFormOptions on Query {
     workRegions: localizedEnumStrings(enumName: "WorkRegion") {
       value

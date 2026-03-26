@@ -2,6 +2,7 @@ import { StoryFn, Meta } from "@storybook/react-vite";
 
 import { fakeDepartments } from "@gc-digital-talent/fake-data";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import {
   DepartmentTable,
@@ -18,12 +19,24 @@ export default {
 } as Meta<typeof DepartmentTable>;
 
 const Template: StoryFn<typeof DepartmentTable> = (args) => {
-  const { departmentsQuery, title } = args;
-  return <DepartmentTable departmentsQuery={departmentsQuery} title={title} />;
+  const { departmentsQuery, title, myRolesAndTeams } = args;
+  return (
+    <DepartmentTable
+      departmentsQuery={departmentsQuery}
+      title={title}
+      myRolesAndTeams={myRolesAndTeams}
+    />
+  );
 };
 
 export const Default = Template.bind({});
 Default.args = {
   departmentsQuery: departmentFragments,
   title: "Departments",
+  myRolesAndTeams: [
+    {
+      departmentId: mockDepartments[0].id,
+      roleName: { en: ROLE_NAME.DepartmentAdmin },
+    },
+  ],
 };

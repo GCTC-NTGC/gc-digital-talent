@@ -53,7 +53,6 @@ import {
   classificationAccessor,
   getClassificationSort,
   interestAccessor,
-  removeDuplicateIds,
   transformCommunityInterestFilterInputToFormValues,
   transformCommunityTalentInput,
   transformFormValuesToCommunityInterestFilterInput,
@@ -259,7 +258,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
-    const uniqueIds = removeDuplicateIds(selectedRows);
+    const uniqueIds = extractUserIdsFromSelectedRows(selectedRows);
     if (uniqueIds.length === 1) {
       downloadDoc({
         id: uniqueIds[0],

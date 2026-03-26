@@ -10,6 +10,7 @@ use Error;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Cache;
+use Random\Randomizer;
 
 // based on Illuminate\Auth\Notifications\VerifyEmail.php
 class VerifyEmails extends Notification implements CanBeSentViaGcNotifyEmail
@@ -81,7 +82,7 @@ class VerifyEmails extends Notification implements CanBeSentViaGcNotifyEmail
     {
         $key = 'email-verification-'.$user->id;
 
-        $randomizer = new \Random\Randomizer();
+        $randomizer = new Randomizer();
         $code = $randomizer->getBytesFromString('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6);
 
         $token = [

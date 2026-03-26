@@ -1,5 +1,4 @@
 import { IntlShape, MessageDescriptor } from "react-intl";
-import uniq from "lodash/uniq";
 import { ReactNode } from "react";
 
 import {
@@ -72,7 +71,7 @@ export function deriveSingleString<T>(
   const localizedStrings = values.map(localizedMapper);
   localizedStrings.sort((a, b) => compareStrings(a, b, "asc"));
 
-  const uniqueStrings = uniq(localizedStrings);
+  const uniqueStrings = [...new Set(localizedStrings)];
   const joinedStrings = uniqueStrings.join(", ");
 
   return joinedStrings;
@@ -98,7 +97,7 @@ const candidateStatusDescMap = new Map<CandidateStatus, MessageDescriptor>([
   [CandidateStatus.Removed, applicationStatusDescriptions.REMOVED],
 ]);
 
-export const contactEmailTag = (chunks: ReactNode, email?: Maybe<string>) => {
+const contactEmailTag = (chunks: ReactNode, email?: Maybe<string>) => {
   return email ? (
     <Link external href={`mailto:${email}`}>
       {email}

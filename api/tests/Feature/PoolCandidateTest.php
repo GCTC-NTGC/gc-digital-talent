@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
 use App\Models\Community;
+use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\Pool;
@@ -35,9 +36,15 @@ class PoolCandidateTest extends TestCase
 
     protected $unAssociatedCommunityUser;
 
+    protected $departmentUser;
+
+    protected $unAssociatedDepartmentUser;
+
     protected $community;
 
     protected $pool;
+
+    protected $department;
 
     protected PoolCandidate $candidate;
 
@@ -48,9 +55,11 @@ class PoolCandidateTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->community = Community::factory()->create();
+        $this->department = Department::factory()->create();
 
         $this->pool = Pool::factory()->create([
             'community_id' => $this->community->id,
+            'department_id' => $this->department->id,
         ]);
 
         $this->adminUser = User::factory()
@@ -83,8 +92,17 @@ class PoolCandidateTest extends TestCase
                 'sub' => 'community-admin@test.com',
             ]);
 
+        $this->departmentUser = User::factory()
+            ->asApplicant()
+            ->asDepartmentAdmin($this->department->id)
+            ->create([
+                'email' => 'department-admin@test.com',
+                'sub' => 'department-admin@test.com',
+            ]);
+
         // Community and users not associated with the Pool we are testing against
         $unAssociatedCommunity = Community::factory()->create();
+        $unAssociatedDepartment = Department::factory()->create();
 
         $this->unAssociatedCommunityUser = User::factory()
             ->asApplicant()
@@ -92,6 +110,13 @@ class PoolCandidateTest extends TestCase
             ->create([
                 'email' => 'unassociated-community-admin@test.com',
                 'sub' => 'unassociated-community-admin@test.com',
+            ]);
+        $this->unAssociatedDepartmentUser = User::factory()
+            ->asApplicant()
+            ->asDepartmentAdmin($unAssociatedDepartment->id)
+            ->create([
+                'email' => 'unassociated-department-admin@test.com',
+                'sub' => 'unassociated-department-admin@test.com',
             ]);
 
         $this->candidate = PoolCandidate::factory()
@@ -347,6 +372,21 @@ class PoolCandidateTest extends TestCase
         $this->actingAs($this->unAssociatedCommunityUser, 'api')
             ->graphQL($notesQuery, ['id' => $this->candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        // Assert only associated through pool->department department user can query notes
+        $this->actingAs($this->departmentUser, 'api')
+            ->graphQL($notesQuery, ['id' => $this->candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'notes' => $this->candidate->notes,
+                    ],
+                ],
+            ]);
+        $this->actingAs($this->unAssociatedDepartmentUser, 'api')
+            ->graphQL($notesQuery, ['id' => $this->candidate->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
     }
 
     public function testNotesUpdate(): void
@@ -379,6 +419,18 @@ class PoolCandidateTest extends TestCase
                     'updatePoolCandidateNotes' => $notesVariables,
                 ],
             ]);
+
+        // Assert department user can update notes
+        $this->actingAs($this->departmentUser, 'api')
+            ->graphQL($notesMutation, $notesVariables)
+            ->assertJson([
+                'data' => [
+                    'updatePoolCandidateNotes' => $notesVariables,
+                ],
+            ]);
+        $this->actingAs($this->unAssociatedDepartmentUser, 'api')
+            ->graphQL($notesMutation, $notesVariables)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
     /**
@@ -452,6 +504,23 @@ class PoolCandidateTest extends TestCase
         $this->actingAs($this->unAssociatedCommunityUser, 'api')
             ->graphQL($statusQuery, ['id' => $this->candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        // Assert only associated through pool->department department user can query status
+        $this->actingAs($this->departmentUser, 'api')
+            ->graphQL($statusQuery, ['id' => $this->candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'status' => [
+                            'value' => $this->candidate->application_status,
+                        ],
+                    ],
+                ],
+            ]);
+        $this->actingAs($this->unAssociatedDepartmentUser, 'api')
+            ->graphQL($statusQuery, ['id' => $this->candidate->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
     }
 
     public function testOrderByPoolName(): void

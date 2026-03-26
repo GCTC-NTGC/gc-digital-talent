@@ -149,6 +149,8 @@ export const Component = () => (
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.ProcessOperator,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
     ]}
   >
     <AdminUserAdvancedToolsPage />

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * @template TModelClass of \Illuminate\Database\Eloquent\Model
  *
- * @extends \Illuminate\Database\Eloquent\Builder<TModelClass>
+ * @extends Builder<TModelClass>
  */
 class UserBuilder extends Builder
 {
@@ -479,9 +479,20 @@ class UserBuilder extends Builder
         return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
     }
 
+    // just calls another scope, but calling the scope from Lighthouse requires accepting an args array
+    public function whereWorkEmailSearch(?array $args): self
+    {
+        return $this->whereWorkEmail($args['search'] ?? null);
+    }
+
     public function whereExactWorkEmail(string $email): self
     {
         return $this->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
+    }
+
+    public function whereWorkEmailIsVerified(): self
+    {
+        return $this->whereNotNull('work_email_verified_at');
     }
 
     public function whereIsGovEmployee(?bool $isGovEmployee): self
@@ -563,7 +574,7 @@ class UserBuilder extends Builder
 
     public function whereAuthorizedToView(?array $args = null): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -595,6 +606,9 @@ class UserBuilder extends Builder
                                         return $query->whereIn('teams.id', $teamIds);
                                     })
                                     ->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('teams.id', $teamIds);
+                                    })
+                                    ->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
                                         return $query->whereIn('teams.id', $teamIds);
                                     });
                             });
@@ -634,7 +648,7 @@ class UserBuilder extends Builder
 
     public function whereAuthorizedToViewBasicInfo(): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         // special case: can see any basic info - return all users with no filters added
@@ -711,85 +725,10 @@ class UserBuilder extends Builder
 
     public function whereGeneralSearch(?string $searchTerm): self
     {
-        if ($searchTerm) {
-            $combinedSearchTerm = trim(preg_replace('/\s{2,}/', ' ', $searchTerm));
-
-            $this
-                ->join('user_search_indices', 'users.id', '=', 'user_search_indices.id')
-                // attach the tsquery to every row to use for filtering
-                ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
-                    $query->selectRaw(
-                        'websearch_to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
-                        [config('scout.pgsql.config'), $combinedSearchTerm]
-                    );
-                }, 'calculations')
-                // add the calculated rank column to allow for ordering by text search rank
-                ->addSelect(DB::raw('ts_rank(user_search_indices.searchable, calculations.tsquery) AS rank'))
-                // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
-                ->addSelect(['users.*'])
-                ->from('users');
-
-            // negation setup
-            preg_match_all('/(^|\s)[-!][^\s]+\b/', $combinedSearchTerm, $negationMatches);
-            $matchesWithoutOperatorOrStartingSpace = array_map(fn ($string) => ltrim($string, " \-"), $negationMatches[0]); // 0th item is full matched
-            $negationRemovedSearchTerm = preg_replace('/(^|\s)[-!][^\s]+\b/', '', $combinedSearchTerm);
-
-            // remove text in quotation marks for partial matching
-            $negationQuotedRemovedSearchTerm = preg_replace('/\"([^\"]*)\"/', '', $negationRemovedSearchTerm);
-
-            // clear characters or search operators out, then array split for easy OR matching
-            $filterToEmptySpace = ['"', '"', ':', '!'];
-            $filterToSingleSpace = [' AND ', ' OR ', ' & '];
-            $filtered = str_ireplace($filterToEmptySpace, '', $negationQuotedRemovedSearchTerm);
-            $filtered = str_ireplace($filterToSingleSpace, ' ', $filtered);
-            $whiteSpacingRemoved = trim($filtered);
-
-            // if the remaining string is empty, don't turn into an array to avoid matching to ""
-            $arrayed = $whiteSpacingRemoved === '' ? null : explode(' ', $whiteSpacingRemoved);
-
-            // this scope combines two clauses with an OR so it needs to be wrapped
-            $this->where(function ($query) use ($arrayed, $matchesWithoutOperatorOrStartingSpace) {
-
-                // clause 1: filter rows against the tsquery
-                $query->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery');
-
-                // clause 2: add "ilike" filters
-                $query->orWhere(function ($ilikeSubquery) use ($arrayed, $matchesWithoutOperatorOrStartingSpace) {
-
-                    // positive matching ilike filters
-                    if (count($arrayed ?? []) > 0) {
-                        $ilikeSubquery->where(function ($positiveIlikeSubquery) use ($arrayed) {
-                            foreach ($arrayed as $term) {
-                                $positiveIlikeSubquery
-                                    ->orWhereRaw("f_unaccent(first_name) ilike ('%' || f_unaccent(?) || '%')", $term)
-                                    ->orWhereRaw("f_unaccent(last_name) ilike ('%' || f_unaccent(?) || '%')", $term)
-                                    ->orWhereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", $term);
-                            }
-                        });
-                    }
-
-                    //  negative ilike filters
-                    if (count($matchesWithoutOperatorOrStartingSpace) > 0) {
-                        $ilikeSubquery->whereNot(function ($negativeIlikeSubquery) use ($matchesWithoutOperatorOrStartingSpace) {
-                            foreach ($matchesWithoutOperatorOrStartingSpace as $term) {
-                                $negativeIlikeSubquery
-                                    ->orWhereRaw('f_unaccent(first_name) ilike f_unaccent(?)', $term)
-                                    ->orWhereRaw('f_unaccent(last_name) ilike f_unaccent(?)', $term)
-                                    ->orWhereRaw('f_unaccent(email) ilike f_unaccent(?)', $term);
-                            }
-                        });
-                    }
-                });
-
-            });
-
+        if (empty($searchTerm)) {
+            return $this;
         }
 
-        return $this;
-    }
-
-    public function whereGeneralSearchBeta(?string $searchTerm): self
-    {
         $queryTextPrefixMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::PREFIX);
         $queryTextExactMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::EXACT);
 
@@ -827,5 +766,14 @@ class UserBuilder extends Builder
         }
 
         return $this;
+    }
+
+    /**
+     * Used to limit rows for search results.
+     * This seems pretty silly but I haven't figured out how to enforce a server-side limit in Lighthouse directives.
+     */
+    public function limitFive(): void
+    {
+        $this->limit(5);
     }
 }

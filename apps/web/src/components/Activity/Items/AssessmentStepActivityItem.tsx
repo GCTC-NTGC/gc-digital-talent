@@ -14,7 +14,7 @@ import BaseItem, {
 } from "./BaseActivityItem";
 import { getDeepAttribute, getEventInfo, parseAttributes } from "./utils";
 
-export type AssessmentStepActivityItemProps = CommonItemProps;
+type AssessmentStepActivityItemProps = CommonItemProps;
 
 function getDescription(
   locale: Locales,

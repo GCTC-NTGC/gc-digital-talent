@@ -25,6 +25,11 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
   query IndexPoolCandidatePage($id: UUID!) {
     pool(id: $id) {
       id
+      displayName {
+        display {
+          localized
+        }
+      }
       assessmentSteps {
         id
         sortOrder
@@ -89,6 +94,7 @@ export const IndexPoolCandidatePage = () => {
               currentPool
                 ? {
                     id: currentPool.id,
+                    displayName: currentPool.displayName,
                   }
                 : null
             }
@@ -107,6 +113,8 @@ export const Component = () => (
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.ProcessOperator,
       ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
     ]}
   >
     <IndexPoolCandidatePage />

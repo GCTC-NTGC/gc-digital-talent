@@ -1729,7 +1729,7 @@ class UserTest extends TestCase
         ]);
         User::factory()->create([
             'first_name' => 'dan',
-            'last_name' => 'man',
+            'last_name' => 'manny',
             'email' => 'dan@user.com',
             'telephone' => '99999',
         ]);
@@ -1791,7 +1791,7 @@ class UserTest extends TestCase
             ], 1],
             'assert email filter with partial email returns correct count' => [['email' => 'user.com'], 4],
             'assert more than one search term results in AND filtering' => [['generalSearch' => 'sam 67890'], 1],
-            'assert filtering for last name in general search returns correct count' => [['generalSearch' => 'man'], 1],
+            'assert filtering for last name in general search returns correct count' => [['generalSearch' => 'manny'], 1],
             'assert filtering general search and name search (both subqueries) filter as AND' => [[
                 'generalSearch' => '@user.com',
                 'name' => 'zak',

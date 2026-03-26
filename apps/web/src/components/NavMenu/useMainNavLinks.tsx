@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-deprecated */
 import { useIntl } from "react-intl";
-import uniqBy from "lodash/unionBy";
+import uniqBy from "lodash/uniqBy";
 import { useLocation } from "react-router";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
@@ -82,6 +82,14 @@ const useMainNavLinks = () => {
     <NavItem
       key="adminDashboard"
       href={paths.adminDashboard()}
+      title={intl.formatMessage(navigationMessages.dashboard)}
+    />
+  );
+
+  const DepartmentDashboard = (
+    <NavItem
+      key="departmentDashboard"
+      href={paths.departmentDashboard()}
       title={intl.formatMessage(navigationMessages.dashboard)}
     />
   );
@@ -268,7 +276,7 @@ const useMainNavLinks = () => {
 
   const manageAuthAccountLink = getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI");
   const ManageAuthAccount =
-    featureFlags.gcSignIn && manageAuthAccountLink ? (
+    featureFlags.canadaLogin && manageAuthAccountLink ? (
       <NavItem
         key="manageAuthAccount"
         href={manageAuthAccountLink}
@@ -285,6 +293,8 @@ const useMainNavLinks = () => {
     ["community_talent_coordinator"]: intl.formatMessage(
       navMenuMessages.community,
     ),
+    ["department_admin"]: intl.formatMessage(navMenuMessages.department),
+    ["department_hr_advisor"]: intl.formatMessage(navMenuMessages.department),
     ["platform_admin"]: intl.formatMessage(navMenuMessages.admin),
   };
 
@@ -294,6 +304,8 @@ const useMainNavLinks = () => {
     ["community_recruiter"]: paths.communityDashboard(),
     ["community_admin"]: paths.communityDashboard(),
     ["community_talent_coordinator"]: paths.communityDashboard(),
+    ["department_admin"]: paths.departmentDashboard(),
+    ["department_hr_advisor"]: paths.departmentDashboard(),
     ["platform_admin"]: paths.adminDashboard(),
   };
 
@@ -359,6 +371,15 @@ const useMainNavLinks = () => {
       return {
         ...defaultLinks,
         mainLinks: [CommunityDashboard, Processes, Candidates, Requests],
+        accountLinks: loggedIn
+          ? [AccountSettings, ManageAuthAccount, SignOut]
+          : null,
+        resourceLinks: [ContactSupport, SkillLibrary, JobTemplates],
+      };
+    case "department":
+      return {
+        ...defaultLinks,
+        mainLinks: [DepartmentDashboard, Processes, Candidates],
         accountLinks: loggedIn
           ? [AccountSettings, ManageAuthAccount, SignOut]
           : null,

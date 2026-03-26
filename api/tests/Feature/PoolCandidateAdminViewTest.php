@@ -6,6 +6,7 @@ use App\Enums\ApplicationStatus;
 use App\Enums\ScreeningStage;
 use App\Models\Community;
 use App\Models\CommunityInterest;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\TalentNomination;
@@ -38,6 +39,10 @@ class PoolCandidateAdminViewTest extends TestCase
 
     public Community $otherCommunity;
 
+    protected Department $department;
+
+    protected Department $otherDepartment;
+
     public User $applicant;
 
     public User $platformAdmin;
@@ -53,6 +58,14 @@ class PoolCandidateAdminViewTest extends TestCase
     public User $communityRecruiter;
 
     public User $otherCommunityRecruiter;
+
+    protected $departmentAdmin;
+
+    protected $otherDepartmentAdmin;
+
+    protected $departmentHRAdvisor;
+
+    protected $otherDepartmentHRAdvisor;
 
     public PoolCandidate $applicantPoolCandidate;
 
@@ -81,14 +94,18 @@ class PoolCandidateAdminViewTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        // Community/Pool
+        // Community/Pool/Department
         $this->community = Community::factory()->create();
+        $this->department = Department::factory()->create();
         $this->pool = Pool::factory()->create([
             'community_id' => $this->community->id,
+            'department_id' => $this->department->id,
         ]);
         $this->otherCommunity = Community::factory()->create();
+        $this->otherDepartment = Department::factory()->create();
         $this->otherPool = Pool::factory()->create([
             'community_id' => $this->otherCommunity->id,
+            'department_id' => $this->otherDepartment->id,
         ]);
 
         // Users
@@ -100,6 +117,10 @@ class PoolCandidateAdminViewTest extends TestCase
         $this->otherProcessOperator = User::factory()->asProcessOperator($this->otherPool->id)->create();
         $this->communityRecruiter = User::factory()->asCommunityRecruiter($this->community->id)->create();
         $this->otherCommunityRecruiter = User::factory()->asCommunityRecruiter($this->otherCommunity->id)->create();
+        $this->departmentAdmin = User::factory()->asDepartmentAdmin($this->department->id)->create();
+        $this->otherDepartmentAdmin = User::factory()->asDepartmentAdmin($this->otherDepartment->id)->create();
+        $this->departmentHRAdvisor = User::factory()->asDepartmentHRAdvisor($this->department->id)->create();
+        $this->otherDepartmentHRAdvisor = User::factory()->asDepartmentHRAdvisor($this->otherDepartment->id)->create();
 
         // PoolCandidates
         $this->applicantPoolCandidate = PoolCandidate::factory()->availableInSearch()->create(
@@ -120,7 +141,10 @@ class PoolCandidateAdminViewTest extends TestCase
         $this->thirdPoolCandidate = PoolCandidate::factory()->availableInSearch()->create(
             [
                 'user_id' => User::factory()->create(),
-                'pool_id' => Pool::factory()->create(['community_id' => Community::factory()->create()]),
+                'pool_id' => Pool::factory()->create([
+                    'community_id' => Community::factory()->create(),
+                    'department_id' => Department::factory()->create(),
+                ]),
                 'application_status' => ApplicationStatus::TO_ASSESS->name,
                 'screening_stage' => ScreeningStage::NEW_APPLICATION->name,
             ]
@@ -208,6 +232,24 @@ class PoolCandidateAdminViewTest extends TestCase
         $this->assertPaginatedResponse($this->otherCommunityRecruiter, 0, []);
     }
 
+    // views only applications in their community/team/department
+    public function testDepartmentAdminsViewExpected(): void
+    {
+        $this->assertPaginatedResponse($this->departmentAdmin, 1, [
+            $this->applicantPoolCandidate->id,
+        ]);
+        $this->assertPaginatedResponse($this->otherDepartmentAdmin, 0, []);
+    }
+
+    // views only applications in their community/team/department
+    public function testDepartmentAdvisorsViewExpected(): void
+    {
+        $this->assertPaginatedResponse($this->departmentHRAdvisor, 1, [
+            $this->applicantPoolCandidate->id,
+        ]);
+        $this->assertPaginatedResponse($this->otherDepartmentHRAdvisor, 0, []);
+    }
+
     // create a community interest for the user applying to external pool/community
     public function testCommunityInterestDoesNotExposeCandidate(): void
     {
@@ -234,6 +276,14 @@ class PoolCandidateAdminViewTest extends TestCase
             $this->applicantPoolCandidate->id,
         ]);
         $this->assertPaginatedResponse($this->otherCommunityRecruiter, 0, []);
+        $this->assertPaginatedResponse($this->departmentAdmin, 1, [
+            $this->applicantPoolCandidate->id,
+        ]);
+        $this->assertPaginatedResponse($this->otherDepartmentAdmin, 0, []);
+        $this->assertPaginatedResponse($this->departmentHRAdvisor, 1, [
+            $this->applicantPoolCandidate->id,
+        ]);
+        $this->assertPaginatedResponse($this->otherDepartmentHRAdvisor, 0, []);
     }
 
     // create nominations for the user applying to external pool/community
@@ -277,6 +327,14 @@ class PoolCandidateAdminViewTest extends TestCase
             $this->applicantPoolCandidate->id,
         ]);
         $this->assertPaginatedResponse($this->otherCommunityRecruiter, 0, []);
+        $this->assertPaginatedResponse($this->departmentAdmin, 1, [
+            $this->applicantPoolCandidate->id,
+        ]);
+        $this->assertPaginatedResponse($this->otherDepartmentAdmin, 0, []);
+        $this->assertPaginatedResponse($this->departmentHRAdvisor, 1, [
+            $this->applicantPoolCandidate->id,
+        ]);
+        $this->assertPaginatedResponse($this->otherDepartmentHRAdvisor, 0, []);
     }
 
     // for the sake of thoroughness, leverage random seeding to try and see if any gaps appear
@@ -291,7 +349,10 @@ class PoolCandidateAdminViewTest extends TestCase
                 'user_id' => User::factory()
                     ->asApplicant()
                     ->withGovEmployeeProfile(),
-                'pool_id' => Pool::factory()->create(['community_id' => Community::factory()->create()]),
+                'pool_id' => Pool::factory()->create([
+                    'community_id' => Community::factory()->create(),
+                    'department_id' => Department::factory()->create(),
+                ]),
             ]);
 
         // platform admin can see any submitted, the rest should not see any due to no overlap in teams
@@ -301,6 +362,10 @@ class PoolCandidateAdminViewTest extends TestCase
         $this->assertPaginatedResponse($this->otherProcessOperator, 0, []);
         $this->assertPaginatedResponse($this->communityRecruiter, 0, []);
         $this->assertPaginatedResponse($this->otherCommunityRecruiter, 0, []);
+        $this->assertPaginatedResponse($this->departmentAdmin, 0, []);
+        $this->assertPaginatedResponse($this->otherDepartmentAdmin, 0, []);
+        $this->assertPaginatedResponse($this->departmentHRAdvisor, 0, []);
+        $this->assertPaginatedResponse($this->otherDepartmentHRAdvisor, 0, []);
     }
 
     // Test in isolation the scope PoolCandidate::orderByBase() used by the query

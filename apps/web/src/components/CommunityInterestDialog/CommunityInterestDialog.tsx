@@ -11,7 +11,7 @@ import CommunityInterest, {
   CommunityInterestOptions_Fragment,
 } from "../CommunityInterest/CommunityInterest";
 
-export const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `
+const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterestDialog on CommunityInterest {
     id
     community {

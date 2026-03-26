@@ -29,7 +29,7 @@ import {
   workPreferencesSectionHasEmptyRequiredFields,
   priorityEntitlementsHasEmptyRequiredFields,
 } from "~/validators/profile";
-import { careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile";
+import { hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile/careerDevelopment";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
 import StatusItem from "~/components/StatusItem/StatusItem";

@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laratrust\Contracts\LaratrustUser;
@@ -47,7 +48,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  *
  * @property string $id
  * @property ?string $email
- * @property ?\Illuminate\Support\Carbon $email_verified_at
+ * @property ?Carbon $email_verified_at
  * @property string $sub
  * @property ?string $first_name
  * @property ?string $last_name
@@ -68,7 +69,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?bool $computed_is_gov_employee
  * @property bool $isVerifiedGovEmployee
  * @property ?string $work_email
- * @property ?\Illuminate\Support\Carbon $work_email_verified_at
+ * @property ?Carbon $work_email_verified_at
  * @property ?bool $has_priority_entitlement
  * @property ?string $priority_number
  * @property ?string $computed_department
@@ -86,27 +87,27 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $computed_gov_employee_type
  * @property ?string $computed_gov_role
  * @property ?string $computed_gov_position_type
- * @property ?\Illuminate\Support\Carbon $computed_gov_end_date
+ * @property ?Carbon $computed_gov_end_date
  * @property ?int $priority_weight
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
- * @property ?\Illuminate\Support\Carbon $deleted_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
+ * @property ?Carbon $deleted_at
  * @property ?string $indigenous_declaration_signature
  * @property ?array $indigenous_communities
  * @property ?string $preferred_language_for_interview
  * @property ?string $preferred_language_for_exam
  * @property ?array $enabled_email_notifications
  * @property ?array $enabled_in_app_notifications
- * @property \App\Models\Notification $unreadNotifications
- * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
+ * @property Notification $unreadNotifications
+ * @property Collection<Notification> $notifications
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
- * @property ?\App\Models\WorkExperience $latest_current_government_work_experience
- * @property ?\App\Models\WorkExperience $current_substantive_experiences
- * @property ?\Illuminate\Support\Carbon $last_sign_in_at
+ * @property ?WorkExperience $latest_current_government_work_experience
+ * @property ?WorkExperience $current_substantive_experiences
+ * @property ?Carbon $last_sign_in_at
  * @property array $flexible_work_locations
- * @property \App\Models\OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
- * @property ?\App\Models\EmployeeProfile $employeeProfile
+ * @property OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
+ * @property ?EmployeeProfile $employeeProfile
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -346,7 +347,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(WorkExperience::class);
     }
 
-    /** @return \Illuminate\Support\Collection<string|int, Experience> */
+    /** @return Collection<string|int, Experience> */
     public function getExperiencesAttribute()
     {
         $collection = collect();
