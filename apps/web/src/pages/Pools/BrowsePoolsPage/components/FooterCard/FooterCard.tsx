@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
 import { Card, Heading, Link } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
@@ -34,19 +35,19 @@ const FooterCard = ({ areOpportunitiesShowing }: FooterCardProps) => {
   return (
     <Card className="mt-6">
       <div className="items-center justify-between gap-18 xs:flex">
-        <div>
-          <Heading level="h2" size="h6" className="mt-0 mb-3">
+        <div className="text-center xs:text-left">
+          <Heading level="h2" size="h6" className="mt-0 mb-3 lg:text-lg">
             {areOpportunitiesShowing
               ? intl.formatMessage({
-                  defaultMessage: "More opportunities are coming soon!",
-                  id: "g+JcDC",
+                  defaultMessage: "Check back for more opportunities",
+                  id: "1mjUju",
                   description:
                     "Heading for message about upcoming opportunities",
                 })
               : intl.formatMessage({
                   defaultMessage:
-                    "No opportunities are available right now, but more are coming soon!",
-                  id: "xHjgXz",
+                    "No opportunities are available right now, but more are coming soon",
+                  id: "EtAtP4",
                   description:
                     "Text displayed when there are no pool advertisements to display",
                 })}
@@ -69,13 +70,21 @@ const FooterCard = ({ areOpportunitiesShowing }: FooterCardProps) => {
                 })}
           </p>
         </div>
-        <div className="mt-6 shrink-0 xs:mt-0">
+        <div className="mt-6 flex shrink-0 justify-center xs:mt-0 xs:block">
           <Link
-            color="primary"
+            color="secondary"
             mode="solid"
             href={profileLink.href}
             style={{ whiteSpace: "nowrap" }}
+            className="inline-flex items-center"
           >
+            {!loggedIn && (
+              <UserPlusIcon
+                className="mr-1.5 inline-block h-5 w-5 fill-current align-middle"
+                aria-hidden="true"
+              />
+            )}
+
             {profileLink.label}
           </Link>
         </div>
@@ -83,4 +92,5 @@ const FooterCard = ({ areOpportunitiesShowing }: FooterCardProps) => {
     </Card>
   );
 };
+
 export default FooterCard;

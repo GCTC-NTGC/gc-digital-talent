@@ -178,11 +178,6 @@ type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedFinalDecision implements LocalizedEnumOption {
-  value: FinalDecision!
-  label: LocalizedString!
-}
-
 type LocalizedFinanceChiefDuty implements LocalizedEnumOption {
   value: FinanceChiefDuty!
   label: LocalizedString!
@@ -258,6 +253,11 @@ type LocalizedOrganizationTypeInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedPauseReferralsLength implements LocalizedEnumOption {
+  value: PauseReferralsLength!
+  label: LocalizedString!
+}
+
 type LocalizedPlacementType implements LocalizedEnumOption {
   value: PlacementType!
   label: LocalizedString!
@@ -280,11 +280,6 @@ type LocalizedPoolCandidateSearchRequestReason implements LocalizedEnumOption {
 
 type LocalizedPoolCandidateSearchStatus implements LocalizedEnumOption {
   value: PoolCandidateSearchStatus!
-  label: LocalizedString!
-}
-
-type LocalizedPoolCandidateStatus implements LocalizedEnumOption {
-  value: PoolCandidateStatus!
   label: LocalizedString!
 }
 
@@ -590,6 +585,8 @@ type Mutation {
   placeCandidate(id: UUID!, poolCandidate: PlaceCandidateInput!): PoolCandidate
   revertPlaceCandidate(id: UUID!): PoolCandidate
   qualifyAndPlaceCandidate(id: UUID!, poolCandidate: QualifyAndPlaceCandidateInput!): PoolCandidate
+  pauseCandidateReferrals(id: UUID!, pauseReferrals: PauseReferralsInput!): PoolCandidate
+  resumeCandidateReferrals(id: UUID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
   deleteClassification(id: ID!): Classification
@@ -1037,7 +1034,6 @@ interface HasRoleAssignments {
 
 type Pool implements HasRoleAssignments {
   id: ID!
-  owner: UserPublicProfile
   community: Community
   teamId: UUID!
   name: LocalizedString
@@ -1189,6 +1185,9 @@ type PoolCandidate {
   placementType: LocalizedPlacementType
   placedAt: DateTime
   placedDepartment: Department
+  pauseReferralsAt: DateTime
+  resumeReferralsAt: DateTime
+  pauseReferralsReason: String
   veteranVerification: ClaimVerificationResult
   veteranVerificationExpiry: Date
   priorityVerification: ClaimVerificationResult
@@ -2182,8 +2181,15 @@ input AssessmentStepBelongsTo {
   disconnect: Boolean
 }
 
+input PauseReferralsInput {
+  pauseReferralsLength: PauseReferralsLength
+  resumeReferralsAt: Date
+  pauseReferralsReason: String
+}
+
 input QualifyCandidateInput {
   expiryDate: Date!
+  pauseReferrals: PauseReferralsInput
 }
 
 input PlaceCandidateInput {
@@ -2195,6 +2201,7 @@ input QualifyAndPlaceCandidateInput {
   expiryDate: Date!
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  pauseReferrals: PauseReferralsInput
 }
 
 input CreateDepartmentInput {
@@ -3716,6 +3723,8 @@ enum ErrorCode {
   SCREENING_STAGE_NOT_UNDER_ASSESSMENT
   ASSESSMENT_STEP_PROHIBITED
   ASSESSMENT_STEP_CANDIDATE_SAME_POOL
+  INVALID_PAUSE_REFERRAL
+  INVALID_UNPAUSE_AT_DATE
   POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES
   POOL_SKILL_NOT_VALID
   TEAM_ID_REQUIRED
@@ -3800,20 +3809,6 @@ enum ExternalSizeOfOrganization {
   THIRTY_SIX_TO_ONE_HUNDRED
   ONE_HUNDRED_ONE_TO_ONE_THOUSAND
   ONE_THOUSAND_PLUS
-}
-
-enum FinalDecision {
-  DISQUALIFIED
-  DISQUALIFIED_PENDING
-  DISQUALIFIED_REMOVED
-  QUALIFIED
-  QUALIFIED_EXPIRED
-  QUALIFIED_PENDING
-  QUALIFIED_PLACED
-  QUALIFIED_REMOVED
-  REMOVED
-  TO_ASSESS
-  TO_ASSESS_REMOVED
 }
 
 enum FinanceChiefDuty {
@@ -3956,6 +3951,15 @@ enum OverallAssessmentStatus {
   QUALIFIED
 }
 
+enum PauseReferralsLength {
+  ONE_MONTH
+  THREE_MONTHS
+  SIX_MONTHS
+  ONE_YEAR
+  UNTIL_EXPIRY
+  OTHER
+}
+
 enum PlacementType {
   NOT_PLACED
   UNDER_CONSIDERATION
@@ -3989,29 +3993,6 @@ enum PoolCandidateSearchStatus {
   DONE
   DONE_NO_CANDIDATES
   NOT_COMPLIANT
-}
-
-enum PoolCandidateStatus {
-  DRAFT
-  DRAFT_EXPIRED
-  NEW_APPLICATION
-  APPLICATION_REVIEW
-  SCREENED_IN
-  SCREENED_OUT_APPLICATION
-  SCREENED_OUT_NOT_INTERESTED
-  SCREENED_OUT_NOT_RESPONSIVE
-  UNDER_ASSESSMENT
-  SCREENED_OUT_ASSESSMENT
-  QUALIFIED_AVAILABLE
-  QUALIFIED_UNAVAILABLE
-  QUALIFIED_WITHDREW
-  UNDER_CONSIDERATION
-  PLACED_TENTATIVE
-  PLACED_CASUAL
-  PLACED_TERM
-  PLACED_INDETERMINATE
-  EXPIRED
-  REMOVED
 }
 
 enum PoolLanguage {

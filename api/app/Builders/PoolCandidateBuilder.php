@@ -274,7 +274,7 @@ class PoolCandidateBuilder extends Builder
                 $query->whereIn('placement_type', PlacementType::searchable())
                     ->orWhereNull('placement_type');
             })
-            ->where('referring', true)
+            ->whereNull('pause_referrals_at')
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');

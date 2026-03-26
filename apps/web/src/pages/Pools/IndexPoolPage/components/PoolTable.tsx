@@ -45,10 +45,6 @@ import permissionConstants from "~/constants/permissionConstants";
 import {
   classificationAccessor,
   classificationCell,
-  emailLinkAccessor,
-  fullNameCell,
-  ownerEmailAccessor,
-  ownerNameAccessor,
   poolNameAccessor,
   viewCell,
   transformPoolInput,
@@ -107,12 +103,6 @@ const PoolTable_PoolFragment = graphql(/* GraphQL */ `
       id
       group
       level
-    }
-    owner {
-      id
-      firstName
-      lastName
-      email
     }
   }
 `);
@@ -345,45 +335,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       id: "processNumber",
       header: intl.formatMessage(processMessages.processNumber),
     }),
-    columnHelper.accessor((row) => ownerNameAccessor(row), {
-      id: "ownerName",
-      // Note: Being removed with communities
-      enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Owner Name",
-        id: "AWk4BX",
-        description: "Title displayed for the Pool table Owner Name column",
-      }),
-      cell: ({ row: { original: pool } }) =>
-        fullNameCell(
-          {
-            owner: {
-              firstName: pool.owner?.firstName,
-              lastName: pool.owner?.lastName,
-            },
-          },
-          intl,
-        ),
-    }),
-    columnHelper.accessor((row) => ownerEmailAccessor(row), {
-      id: "ownerEmail",
-      // Note: Being removed with communities
-      enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Owner Email",
-        id: "pe5WkF",
-        description: "Title displayed for the Pool table Owner Email column",
-      }),
-      cell: ({ row: { original: pool } }) =>
-        emailLinkAccessor(
-          {
-            owner: {
-              email: pool.owner?.email,
-            },
-          },
-          intl,
-        ),
-    }),
     columnHelper.accessor(({ publishedAt }) => accessors.date(publishedAt), {
       id: "publishedAt",
       enableColumnFilter: false,
@@ -423,13 +374,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       columns={columns}
       isLoading={fetching}
       filterParamKey={SEARCH_PARAM_KEY.POOL_FILTERS}
-      hiddenColumnIds={[
-        "id",
-        "publishedAt",
-        "createdDate",
-        "ownerEmail",
-        "ownerName",
-      ]}
+      hiddenColumnIds={["id", "publishedAt", "createdDate"]}
       search={{
         internal: false,
         label: intl.formatMessage({

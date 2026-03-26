@@ -1658,7 +1658,7 @@ class UserTest extends TestCase
         ]);
         // User status inactive - should not appear in searches
         PoolCandidate::factory()->qualified()->for($pool1)->create([
-            'referring' => false,
+            'pause_referrals_at' => config('constants.past_date'),
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,

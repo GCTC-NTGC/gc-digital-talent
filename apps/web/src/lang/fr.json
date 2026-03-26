@@ -463,6 +463,10 @@
     "defaultMessage": "Validité de l’examen",
     "description": "Label for exam validity in language information form"
   },
+  "/v7hGH": {
+    "defaultMessage": "Cette candidature n’est pas recommandée.",
+    "description": "Blurb for the resume candidate's referral status dialog"
+  },
   "/vclbm": {
     "defaultMessage": "Créer un modèle d’offre d’emploi",
     "description": "Long title for the create job poster template page"
@@ -955,6 +959,10 @@
     "defaultMessage": "Je ne suis <strong>pas disponible</strong> et je ne veux pas que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for not available for opportunities option"
   },
+  "1mjUju": {
+    "defaultMessage": "Revenez plus tard pour découvrir d’autres possibilités",
+    "description": "Heading for message about upcoming opportunities"
+  },
   "1moJ8r": {
     "defaultMessage": "Vous approchez de la limite!",
     "description": "Title for warning message when the user has added many assessments to the assessment plan"
@@ -1122,10 +1130,6 @@
   "2TPpyp": {
     "defaultMessage": "Les processus de recrutement pour lesquels la personne candidate a été qualifiée sur d'autres plateformes du gouvernement du Canada. Il est à noter que ces renseignements sont fournis par la personne candidate sans vérification. Veillez à vérifier la validité des renseignements relatifs au processus avant de les utiliser à des fins d'embauche ou de placement.",
     "description": "Off-platform section information"
-  },
-  "2UDONd": {
-    "defaultMessage": "Trouvez des occasions d’emploi pour les talents numériques au sein du gouvernement du Canada et posez votre candidature.",
-    "description": "Subtitle for the browse IT jobs page"
   },
   "2W6Q3k": {
     "defaultMessage": "Commencez <hidden> par indiquer vos préférences en matière de travail</hidden>",
@@ -1886,6 +1890,10 @@
   "5cll86": {
     "defaultMessage": "Date de publication (UTC)",
     "description": "A date at which data will be published, in the UTC time standard"
+  },
+  "5cnajL": {
+    "defaultMessage": "Raison de l'interruption",
+    "description": "Label for pause reason"
   },
   "5dFzBc": {
     "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
@@ -3015,6 +3023,10 @@
     "defaultMessage": "Notre application Web doit s’adapter aisément à différentes tailles d’écran et permettre à nos utilisateurs d’accéder à la plateforme sur des appareils qui répondent à leurs besoins. Chaque fonctionnalité que nous créons doit être accessible, mais, comme pour préparer une bonne assiette de nachos, il faut les bons ingrédients pour commencer. Nous partons donc de ces ingrédients pratiques : ",
     "description": "Lead in text for list of items we consider for accessibility"
   },
+  "ASs8KF": {
+    "defaultMessage": "Placement fait, la candidature ne sera plus recommandée.",
+    "description": "Message for not referred notice when placed indeterminate"
+  },
   "ASz5R4": {
     "defaultMessage": "Soumettre",
     "description": "Link text for submit step of a talent nomination"
@@ -3026,10 +3038,6 @@
   "AVlXEr": {
     "defaultMessage": "{count, plural, =0 {0 élément sélectionné} one {# élément sélectionné} other {# éléments sélectionnés}}",
     "description": "Message displayed for the number of rows selected in a table"
-  },
-  "AWk4BX": {
-    "defaultMessage": "Nom du propriétaire",
-    "description": "Title displayed for the Pool table Owner Name column"
   },
   "AXJKYq": {
     "defaultMessage": "Filtres de profils d'employé(e)",
@@ -3098,6 +3106,10 @@
   "AlhZFb": {
     "defaultMessage": "* Il s’agit d’une offre d’emploi au sein d’un ministère ou d’un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>. Par conséquent, le processus d’embauche et la terminologie employée peuvent différer de ceux habituellement utilisés dans la fonction publique fédérale.",
     "description": "Body p2 of a note describing that a pool is only open to canadian citizens"
+  },
+  "Aq7OCi": {
+    "defaultMessage": "Reprendre la recommandation pour cette candidature",
+    "description": "Title for the resume candidate's referral status dialog"
   },
   "Aqz3Ma": {
     "defaultMessage": "La spécialisation est pertinente à l’exigence du diplôme",
@@ -3454,6 +3466,10 @@
   "CWC5/C": {
     "defaultMessage": "Statut de supervision",
     "description": "The supervisory status on a job poster template"
+  },
+  "CWWDgb": {
+    "defaultMessage": "Interrompre l’état de recommandation pour cette candidature",
+    "description": "Title for the pause candidate's referral status dialog"
   },
   "CWy2xr": {
     "defaultMessage": "Vous pouvez autodéclarer votre appartenance à une ou plusieurs des communautés énumérées alphabétiquement ci-dessous.",
@@ -3939,10 +3955,6 @@
     "defaultMessage": "Type de poste",
     "description": "Position classification section"
   },
-  "EUDRhe": {
-    "defaultMessage": "Entrevues de vive voix",
-    "description": "Label for preferred lang for interviews in profile details box."
-  },
   "EVkmeA": {
     "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
@@ -3998,6 +4010,10 @@
   "Et46bc": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
     "description": "Message displayed to user after pool fails to get closed."
+  },
+  "EtAtP4": {
+    "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu",
+    "description": "Text displayed when there are no pool advertisements to display"
   },
   "EtOnRo": {
     "defaultMessage": "Femme autochtone qui prend une pause du programme de prestation de travail sur son portable.",
@@ -4319,6 +4335,10 @@
     "defaultMessage": "Expiré",
     "description": "Expired status"
   },
+  "GIm3Iq": {
+    "defaultMessage": "Interruption de l’état de recommandation",
+    "description": "Bounding box label for pause referral status checkbox input"
+  },
   "GK8s3M": {
     "defaultMessage": "Toutes les collectivités fonctionnelles ne se sont pas encore jointes à cette plateforme; il se peut donc que vous recherchiez une collectivité qui n'est pas encore disponible. Si vous ne trouvez pas de correspondance entre votre expérience professionnelle et une collectivité fonctionnelle sur notre plateforme, sautez cette section.",
     "description": "Description for work streams paragraph 3 on Experience form"
@@ -4422,6 +4442,10 @@
   "Gnlt31": {
     "defaultMessage": "À niveau seulement",
     "description": "Admin interface label for the at-level-only selection limitation"
+  },
+  "Gqm8TR": {
+    "defaultMessage": "Date de fin de l’interruption",
+    "description": "Label for pause end date"
   },
   "GrHEFV": {
     "defaultMessage": "Aucune",
@@ -4850,6 +4874,10 @@
   "Iw+DU/": {
     "defaultMessage": "Modifier les compétences techniques pour améliorer",
     "description": "Link text for editing a users technical skills to improve"
+  },
+  "IwVHgf": {
+    "defaultMessage": "Parcourez les offres d’emploi au gouvernement du Canada et postulez-y",
+    "description": "Subtitle for the browse jobs page"
   },
   "IxngA3": {
     "defaultMessage": "Masquer les détails de cette expérience",
@@ -5438,6 +5466,10 @@
   "LVQu1R": {
     "defaultMessage": "Processus supprimé avec succès!",
     "description": "Message displayed to user after pool is deleted"
+  },
+  "LWI0Ds": {
+    "defaultMessage": "{name} ne sera plus recommandée.",
+    "description": "Success message after pausing referrals for a candidate"
   },
   "LWtWs1": {
     "defaultMessage": "Scolarité",
@@ -6406,6 +6438,10 @@
   "Q+7LUo": {
     "defaultMessage": "Trouver et associer une compétence à votre expérience de parcours professionnel",
     "description": "Title for the find a skill dialog within an experience"
+  },
+  "Q/Fbat": {
+    "defaultMessage": "Interrompre la recommandation de la candidature",
+    "description": "Label for pause referral status checkbox input"
   },
   "Q3adCp": {
     "defaultMessage": "Modifier le plan d’évaluation",
@@ -7758,6 +7794,10 @@
     "defaultMessage": "Enregistrer le numéro de processus",
     "description": "Text on a button to save the process number"
   },
+  "WDFayO": {
+    "defaultMessage": "Disponible aux fins de recommandation",
+    "description": "Dialog trigger for pause referrals status dialog"
+  },
   "WDKT2K": {
     "defaultMessage": "Qu'est-ce qu'une CléGC?",
     "description": "GCKey question for what is GCKey"
@@ -8182,10 +8222,6 @@
     "defaultMessage": "À qui s'adresse ce processus de recrutement?",
     "description": "Button text to toggle the accordion for who can apply"
   },
-  "Y6X4Ok": {
-    "defaultMessage": "Communication générale",
-    "description": "Label for preferred language in profile details box."
-  },
   "Y82TrM": {
     "defaultMessage": "Les préférences de l’employé·e en matière d’organisation, de promotion, de mentorat et de possibilités pour les cadres.",
     "description": "Title for Career development preferences section of user employee information page"
@@ -8234,10 +8270,6 @@
     "defaultMessage": "Après avoir choisi les compétences techniques, examinons les compétences comportementales. Sélectionnez des exemples de compétences comportementales qu’une personne candidate potentielle doit posséder pour réussir dans son rôle. N’oubliez pas qu’un modèle doit viser à fournir en tout 8 à 12 compétences parmi lesquelles un ou une gestionnaire peut choisir.",
     "description": "Lead-in text for job poster template behavioural skills section, paragraph 1"
   },
-  "YImugL": {
-    "defaultMessage": "Processus actifs de recrutement de talents",
-    "description": "Title for the current jobs recruiting candidates"
-  },
   "YIszvd": {
     "defaultMessage": "Définir et organiser les compétences",
     "description": "Heading for more info on skills"
@@ -8245,6 +8277,10 @@
   "YIt7Su": {
     "defaultMessage": "Effectuez le suivi de cette demande en réglant l’état approprié.",
     "description": "Text describing the input to change request status"
+  },
+  "YJ9DuG": {
+    "defaultMessage": "Pas de recommandation",
+    "description": "Dialog trigger for unpause referral status dialog"
   },
   "YJIOOh": {
     "defaultMessage": "Vous n’avez pas encore mis en vedette une compétence pour cette expérience.",
@@ -8389,6 +8425,10 @@
   "Ynxi7g": {
     "defaultMessage": "Note spéciale relative aux compétences techniques constituant un atout",
     "description": "The nonessential technical skills special note for a job poster template"
+  },
+  "Yo8gFh": {
+    "defaultMessage": "Raison de l'interruption",
+    "description": "Label for pause referral status dialog reason input"
   },
   "YoIRbn": {
     "defaultMessage": "Autochtone",
@@ -9514,6 +9554,10 @@
     "defaultMessage": "Entrepreneur ou entrepreneuse",
     "description": "Label for contractor employment type on work experience card metadata"
   },
+  "dqC81Y": {
+    "defaultMessage": "Gérer la visibilité de cette candidature dans les demandes de talents.",
+    "description": "Subtitle for the pause candidate's referral status"
+  },
   "drDPf3": {
     "defaultMessage": "Parcourez les offres dans le domaine des <abbreviation>TI</abbreviation> pour la communauté autochtone",
     "description": "Title for Indigenous community job opportunities on Browse IT jobs page"
@@ -9677,6 +9721,10 @@
   "eTOg2E": {
     "defaultMessage": "Exploitez toutes les compétences sur notre site",
     "description": "Subtitle for explore skills page"
+  },
+  "eUjL9C": {
+    "defaultMessage": "Durée de l'interruption",
+    "description": "Label for pause referral status select input"
   },
   "eUnUZo": {
     "defaultMessage": "Le nombre de compétences comportementales sélectionnées ici, combiné aux compétences techniques essentielles dans la section précédente, contribue au nombre total de compétences essentielles.",
@@ -9945,6 +9993,10 @@
   "fRwqM9": {
     "defaultMessage": "Reliez une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
     "description": "Button text to open form to connect an experience to a skill"
+  },
+  "fSMBX0": {
+    "defaultMessage": "Possibilités d’emploi actuelles",
+    "description": "Title for the current jobs recruiting candidates page"
   },
   "fSeYdG": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
@@ -10413,6 +10465,10 @@
   "hFm9sL": {
     "defaultMessage": "Nous avons trouvé un utilisateur avec cette adresse de courriel.",
     "description": "Label for when an employee was found"
+  },
+  "hGBUc+": {
+    "defaultMessage": "Sélectionner la durée de l'interruption",
+    "description": "Null selection for pause referral select input"
   },
   "hGlM9B": {
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
@@ -10973,6 +11029,10 @@
   "jfCwes": {
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when signed in"
+  },
+  "ji56hs": {
+    "defaultMessage": "{name} sera maintenant activement recommandée.",
+    "description": "Success message after unpausing referrals for a candidate"
   },
   "jjI+kS": {
     "defaultMessage": "Les compétences sont divisées en deux catégories : les compétences techniques et les compétences comportementales.",
@@ -11618,6 +11678,10 @@
     "defaultMessage": "Sélectionnez un rôle",
     "description": "Placeholder text for role selection input"
   },
+  "mU4oY+": {
+    "defaultMessage": "Reprendre la recommandation de la candidature",
+    "description": "Submit button label for resume referrals dialog"
+  },
   "mV1/kq": {
     "defaultMessage": "À quoi s’attendre au moment de créer un compte",
     "description": "Heading at the top of the sign up page for applicant profiles"
@@ -11913,6 +11977,10 @@
   "nZj1Gb": {
     "defaultMessage": "Supprimer le processus",
     "description": "Title to delete a process"
+  },
+  "na1ci7": {
+    "defaultMessage": "La date de fin de l'interruption ne peut être ultérieure à la date d'expiration du bassin, soit le ({date}).",
+    "description": "Error message for pause referral status end date input"
   },
   "ndW6vI": {
     "defaultMessage": "En attente d’une évaluation",
@@ -12270,6 +12338,10 @@
     "defaultMessage": "Postulez à un emploi, poursuivez vos ébauches ou suivez vos candidatures soumises tout au long du processus d'évaluation.",
     "description": "Subtitle explaining job applications expandable within applications and processes card"
   },
+  "pFBkiu": {
+    "defaultMessage": "Échec de la mise à jour de l'état de recommandation",
+    "description": "Error message for updating referral pause status"
+  },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
     "description": "Label for the row-selection column in the tables column-selection modal."
@@ -12373,10 +12445,6 @@
   "pcAgJh": {
     "defaultMessage": "Nous choisirons les personnes participantes en fonction de leur admissibilité, de leurs compétences ou de leur expérience, et de la représentation des groupes visés par l’équité en matière d’emploi au sein de l’effectif de la TI du gouvernement du Canada. Nous communiquerons avec vous dans les huit jours ouvrables suivant la date limite de présentation des demandes. Si vous faites partie des personnes choisies, vous aurez trois jours ouvrables pour confirmer votre participation.",
     "description": "Second paragraph of apply and share section"
-  },
-  "pe5WkF": {
-    "defaultMessage": "Courriel du propriétaire",
-    "description": "Title displayed for the Pool table Owner Email column"
   },
   "peTSHR": {
     "defaultMessage": "Notes sur cette demande",
@@ -12830,6 +12898,10 @@
     "defaultMessage": "Nom de la personne déposante",
     "description": "Label for the submitter's name"
   },
+  "rhD0HK": {
+    "defaultMessage": "Jusqu’au {resumeReferralsAt}",
+    "description": "Meta for the resume referrals date"
+  },
   "rhW3iW": {
     "defaultMessage": "Gérez votre carrière",
     "description": "Heading for featured items on the manager homepage"
@@ -12982,10 +13054,6 @@
     "defaultMessage": "La Bibliothèque de compétences est une ressource centralisée dans laquelle les principales compétences des collectivités fonctionnelles qui utilisent la plateforme sont définies et organisées. Elle fournit des descriptions claires de chacune des compétences, pour que les gestionnaires d’embauche, les spécialistes des RH et les personnes qui postulent comprennent la même chose.",
     "description": "Description of the skills library"
   },
-  "sYdl0V": {
-    "defaultMessage": "Examens écrits",
-    "description": "Label for preferred lang for exams in profile details box."
-  },
   "sZhjI3": {
     "defaultMessage": "Veuillez sélectionner une collectivité fonctionnelle pour continuer.",
     "description": "Message displayed when no functional community is selected"
@@ -13045,6 +13113,10 @@
   "sozTPf": {
     "defaultMessage": "Nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
     "description": "Text describing our user testing for accessibility"
+  },
+  "sp0Pgt": {
+    "defaultMessage": "Pas de recommandation",
+    "description": "Label for not referred notice when placed indeterminate"
   },
   "spzerx": {
     "defaultMessage": "Modifier une compétence",
@@ -13182,6 +13254,10 @@
     "defaultMessage": "Date de clôture",
     "description": "Header for Closing date"
   },
+  "tQdIlW": {
+    "defaultMessage": "Date de début de l'interruption",
+    "description": "Label for pause start date"
+  },
   "tQxwgs": {
     "defaultMessage": "Connaître l’infrastructure et les protocoles informatiques militaires constitue un atout, sans toutefois être obligatoire.",
     "description": "Note about military IT being an asset"
@@ -13318,9 +13394,17 @@
     "defaultMessage": "La mise à jour des compétences comportementales essentielles a échoué.",
     "description": "Message displayed when a user fails to update the essential behavioural skills"
   },
+  "u+3kse": {
+    "defaultMessage": "Pour empêcher temporairement cette candidature de figurer dans les demandes de talents, utilisez l'option suivante.",
+    "description": "Blurb for the pause candidate's referral status dialog"
+  },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
     "description": "Subtitle for job alerts checklist"
+  },
+  "u3ardU": {
+    "defaultMessage": "Date de fin de l'interruption de la recommandation",
+    "description": "Label for pause referral status end date input"
   },
   "u3eefq": {
     "defaultMessage": "Demander des candidats faisant partie d’un bassin",
@@ -13569,6 +13653,10 @@
   "vFV5N8": {
     "defaultMessage": "Les postes au niveau de la direction ne m'intéressent pas.",
     "description": "The executive interest described as not interested."
+  },
+  "vGusoy": {
+    "defaultMessage": "Voulez-vous reprendre la recommandation pour cette candidature?",
+    "description": "Final question in resume referrals dialog"
   },
   "vIzha1": {
     "defaultMessage": "Autre relation",
@@ -14046,10 +14134,6 @@
     "defaultMessage": "Félicitations! Vous faites maintenant partie de ce processus de recrutement! On communiquera avec vous pour vous informer des possibilités d'emploi. Vous pouvez modifier votre disponibilité si vous avez débuté récemment un nouvel emploi ou souhaitez ne plus recevoir de possibilités d'emploi. <strong>Vous pouvez modifier votre choix à tout moment si vous changez d'idée.</strong>.",
     "description": "Message congratulating the applicant into the recruitment process."
   },
-  "xHjgXz": {
-    "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu!",
-    "description": "Text displayed when there are no pool advertisements to display"
-  },
   "xIniPc": {
     "defaultMessage": "Critères de compétences essentielles",
     "description": "Sub title for the pool essential skills"
@@ -14389,10 +14473,6 @@
   "yaf/jx": {
     "defaultMessage": "Un code d’identification de dossier personnel (CIDP)",
     "description": "Item 4 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
-  },
-  "ycXoSE": {
-    "defaultMessage": "Statut de citoyen",
-    "description": "Label for citizenship status field"
   },
   "yd+VEB": {
     "defaultMessage": "Date de la formation",

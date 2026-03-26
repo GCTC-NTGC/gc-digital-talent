@@ -19,6 +19,7 @@ import {
   PoolLanguage,
   PoolOpportunityLength,
   PriorityWeight,
+  PauseReferralsLength,
   ScreeningStage,
   SecurityStatus,
   WorkRegion,
@@ -212,6 +213,14 @@ export const ENUM_SORT_ORDER = {
     WorkRegion.North,
     WorkRegion.Prairie,
     WorkRegion.BritishColumbia,
+  ],
+  PAUSE_REFERRALS_LENGTH: [
+    PauseReferralsLength.OneMonth,
+    PauseReferralsLength.ThreeMonths,
+    PauseReferralsLength.SixMonths,
+    PauseReferralsLength.OneYear,
+    PauseReferralsLength.UntilExpiry,
+    PauseReferralsLength.Other,
   ],
 };
 

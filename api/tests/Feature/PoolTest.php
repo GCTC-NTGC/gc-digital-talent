@@ -1684,9 +1684,6 @@ class PoolTest extends TestCase
             mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
                 createPool(userId: $userId, communityId: $communityId, pool: $pool) {
                     id
-                    owner {
-                        id
-                    }
                     community {
                         id
                     }
@@ -1713,8 +1710,6 @@ class PoolTest extends TestCase
             );
 
         $response->assertJsonFragment([
-            'owner' => ['id' => $this->communityRecruiter->id],
-        ])->assertJsonFragment([
             'community' => ['id' => $this->community->id],
         ])->assertJsonFragment([
             'classification' => ['id' => $classification->id],
@@ -1740,9 +1735,6 @@ class PoolTest extends TestCase
             mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
                 createPool(userId: $userId, communityId: $communityId, pool: $pool) {
                     id
-                    owner {
-                        id
-                    }
                     community {
                         id
                     }
@@ -1768,8 +1760,6 @@ class PoolTest extends TestCase
             );
 
         $response->assertJsonFragment([
-            'owner' => ['id' => $departmentAdmin->id],
-        ])->assertJsonFragment([
             'community' => null,
         ])->assertJsonFragment([
             'classification' => ['id' => $classification->id],
@@ -1798,9 +1788,6 @@ class PoolTest extends TestCase
             mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
                 createPool(userId: $userId, communityId: $communityId, pool: $pool) {
                     id
-                    owner {
-                        id
-                    }
                     community {
                         id
                     }
