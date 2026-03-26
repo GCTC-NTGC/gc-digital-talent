@@ -49,25 +49,12 @@ test.describe("Block job applications", () => {
     const adminUser = await me(adminCtx, {});
     adminUserId = adminUser.id;
     uniqueTestId = generateUniqueTestId();
-    const unverifiedContactEmail = `verified.${uniqueTestId}@gc.ca`;
-    const unverifiedWorkEmail = `unverified.${uniqueTestId}@gc.ca`;
-
-    communityId = await getCommunities(adminCtx, {}).then(
-      (communities) => communities[0]?.id,
-    );
-    const classifications = await getClassifications(adminCtx, {});
-    classification = classifications[0];
-
-    const workStreams = await getWorkStreams(adminCtx, {});
-    workStream = workStreams[0];
-
-    technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
-      return skills.find((s) => s.category.value === SkillCategory.Technical);
-    });
+    const unverifiedContactEmail = `unverified.contact.${uniqueTestId}@gc.ca`;
+    const unverifiedWorkEmail = `unverified.work.${uniqueTestId}@gc.ca`;
 
     const unverifiedContactUser = await createUserWithRoles(adminCtx, {
       user: {
-        email: `${unverifiedContactEmail}@example.org`,
+        email: unverifiedContactEmail,
         sub: unverifiedContactEmail,
         currentProvince: ProvinceOrTerritory.Ontario,
         currentCity: "Test City",
@@ -94,7 +81,7 @@ test.describe("Block job applications", () => {
 
     const unverifiedWorkUser = await createUserWithRoles(adminCtx, {
       user: {
-        email: `${unverifiedWorkEmail}@example.org`,
+        email: unverifiedWorkEmail,
         sub: unverifiedWorkEmail,
         currentProvince: ProvinceOrTerritory.Ontario,
         currentCity: "Test City",
@@ -118,6 +105,19 @@ test.describe("Block job applications", () => {
       sub: unverifiedWorkEmail,
       id: unverifiedWorkUser?.id ?? "",
     };
+
+    communityId = await getCommunities(adminCtx, {}).then(
+      (communities) => communities[0]?.id,
+    );
+    const classifications = await getClassifications(adminCtx, {});
+    classification = classifications[0];
+
+    const workStreams = await getWorkStreams(adminCtx, {});
+    workStream = workStreams[0];
+
+    technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
+      return skills.find((s) => s.category.value === SkillCategory.Technical);
+    });
 
     // Pool Creation
     const publicPool = await createAndPublishPool(adminCtx, {
@@ -167,7 +167,7 @@ test.describe("Block job applications", () => {
     internalPoolId = internalPool.id;
   });
 
-  test.afterEach(async () => {
+  test.afterAll(async () => {
     if (unverifiedContactEmailUser.id && unverifiedWorkEmailUser.id) {
       adminCtx = await graphql.newContext();
       await deleteUser(adminCtx, { id: unverifiedContactEmailUser.id });
