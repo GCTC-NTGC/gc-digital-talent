@@ -3,7 +3,6 @@
 use App\Http\Controllers\CspReportController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserGeneratedFilesController;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
