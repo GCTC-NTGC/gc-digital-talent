@@ -91,4 +91,10 @@ return [
      * How many times should requests to the OAUTH server be retried when there are errors
      */
     'request_retries' => env('OAUTH_REQUEST_RETRIES', 3),
+
+    /**
+     * What is the callback for the migration tool?
+     * Can be removed when the migration tool is.
+     */
+    'migration_tool_callback' => env('OAUTH_MIGRATION_TOOL_CALLBACK'),
 ];

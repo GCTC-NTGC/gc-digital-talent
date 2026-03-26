@@ -2,8 +2,12 @@ import { expect, Locator, Page } from "playwright/test";
 
 import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
 
+import { getPoolCandidatesTable } from "~/utils/candidateAssessment";
+import { GraphQLContext } from "~/utils/graphql";
+
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
+import AssessmentPage from "./AssessmentPage";
 
 const FIELD = {
   GENERIC_TABLE_ROW: "genericTableRow",
@@ -24,6 +28,8 @@ export type Field = ObjectValues<typeof FIELD>;
 class GenericTableValidationFixture extends AppPage {
   readonly locators: Record<Field, Locator>;
   locPrefUpdateFixture: LocationPreferenceUpdatePage;
+  assessmentPageFixture: AssessmentPage;
+
   constructor(page: Page) {
     super(page);
     this.locators = {
@@ -49,6 +55,14 @@ class GenericTableValidationFixture extends AppPage {
       }),
     };
     this.locPrefUpdateFixture = new LocationPreferenceUpdatePage(this.page);
+    this.assessmentPageFixture = new AssessmentPage(this.page);
+  }
+
+  async goToPoolCandidateTable(poolId: string) {
+    await this.page.goto(`/en/admin/pools/${poolId}/pool-candidates`);
+    await this.waitForGraphqlResponse(
+      "CandidatesTableCandidatesPaginated_Query",
+    );
   }
 
   async setFlexibleWorkLocationColumn() {
@@ -117,6 +131,51 @@ class GenericTableValidationFixture extends AppPage {
     ).toBeTruthy();
     await expect(
       talentTableCells.filter({ hasText: userName ?? "" }).first(),
+    ).toBeVisible();
+  }
+
+  async verifyCandidateStatusInTable(
+    poolId: string,
+    ctx: GraphQLContext,
+    candidateName?: string,
+    screeningStage?: string,
+    assessmentStep?: string,
+    applicationStatus?: string,
+    candidateFacingStatus?: string,
+  ) {
+    await this.goToPoolCandidateTable(poolId);
+    const tableRows = await getPoolCandidatesTable(ctx, { poolId });
+    const poolCandidate = tableRows.find(
+      (c) => c.user.firstName === candidateName,
+    );
+    expect(
+      poolCandidate,
+      `Candidate '${candidateName}' should be present in the pool table`,
+    ).toBeDefined();
+    expect(poolCandidate!.screeningStage?.label.localized?.toLowerCase()).toBe(
+      screeningStage?.toLowerCase(),
+    );
+    expect(poolCandidate!.assessmentStep?.title?.localized).toBe(
+      assessmentStep,
+    );
+    expect(poolCandidate?.status?.label?.localized).toBe(applicationStatus);
+    expect(poolCandidate!.candidateStatus?.label.localized).toBe(
+      candidateFacingStatus,
+    );
+  }
+
+  async verifyScreeningStageResultInTable(
+    expectedResult: "Demonstrated" | "Not demonstrated",
+    candidateName?: string,
+  ) {
+    const talentTableCells = this.locators[FIELD.GENERIC_TABLE_ROW];
+    const rowText =
+      (await talentTableCells.first().textContent())?.toLowerCase() ?? "";
+    if (candidateName) {
+      expect(rowText).toContain(candidateName.toLowerCase());
+    }
+    await expect(
+      this.page.getByLabel(expectedResult, { exact: true }),
     ).toBeVisible();
   }
 }

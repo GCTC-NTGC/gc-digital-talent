@@ -181,20 +181,22 @@ export const CreatePoolForm = ({
     },
   );
 
-  const departmentOptions: Option[] = departments.map(
-    ({ id, departmentName }) => ({
+  const departmentOptions: Option[] = uniqBy(
+    departments.map(({ id, departmentName }) => ({
       value: id,
       label:
         departmentName?.localized ??
         intl.formatMessage(commonMessages.notAvailable),
-    }),
+    })),
+    "value",
   );
 
   return (
-    <Card className="mb-18">
+    <Card space="lg" className="mb-18">
       <Heading
         level="h2"
-        color="secondary"
+        size="h3"
+        color="primary"
         icon={IdentificationIcon}
         className="mt-0 xs:justify-start xs:text-left"
         center
@@ -313,7 +315,7 @@ export const CreatePoolForm = ({
             </div>
             <div className="flex items-center gap-6">
               <Submit
-                color="secondary"
+                color="primary"
                 text={intl.formatMessage({
                   defaultMessage: "Create process",
                   id: "rRREuF",
