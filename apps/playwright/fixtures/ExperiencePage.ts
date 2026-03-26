@@ -561,13 +561,6 @@ class ExperiencePage extends AppPage {
       .selectOption({ label: "1" });
 
     await this.page
-      .getByRole("group", { name: /employment type/i })
-      .getByRole("radio", {
-        name: /casual/i,
-      })
-      .click();
-
-    await this.page
       .getByRole("textbox", { name: /key tasks/i })
       .fill(input.details ?? "test details");
 
