@@ -16,12 +16,13 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   FragmentType,
   getFragment,
   graphql,
   PoolStatus,
+  RoleAssignment,
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -99,6 +100,7 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
 export interface ViewPoolProps {
   poolQuery: FragmentType<typeof ViewPool_Fragment>;
   departmentsQuery: FragmentType<typeof DuplicatePoolDepartment_Fragment>[];
+  roleAssignments: RoleAssignment[];
   isFetching: boolean;
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;
@@ -114,6 +116,7 @@ export interface ViewPoolProps {
 export const ViewPool = ({
   poolQuery,
   departmentsQuery,
+  roleAssignments,
   isFetching,
   onPublish,
   onDelete,
@@ -125,7 +128,6 @@ export const ViewPool = ({
 }: ViewPoolProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { roleAssignments } = useAuthorization();
   const pool = getFragment(ViewPool_Fragment, poolQuery);
   const poolName = getShortPoolTitleHtml(intl, {
     workStream: pool.workStream,
@@ -492,6 +494,36 @@ const ViewPoolPage_Query = graphql(/* GraphQL */ `
     departments {
       ...DuplicatePoolDepartment
     }
+    myAuth {
+      roleAssignments {
+        id
+        role {
+          id
+          name
+          isTeamBased
+          displayName {
+            en
+            fr
+          }
+        }
+        teamable {
+          id
+          ... on Pool {
+            id
+          }
+          ... on Community {
+            id
+          }
+          ... on Department {
+            id
+          }
+        }
+        team {
+          id
+          name
+        }
+      }
+    }
   }
 `);
 
@@ -511,6 +543,7 @@ const ViewPoolPage = () => {
           <ViewPool
             poolQuery={data.pool}
             departmentsQuery={unpackMaybes(data?.departments)}
+            roleAssignments={unpackMaybes(data.myAuth?.roleAssignments)}
             isFetching={isFetching}
             onExtend={async (newClosingDate: string) => {
               return mutations.extend(poolId, newClosingDate);

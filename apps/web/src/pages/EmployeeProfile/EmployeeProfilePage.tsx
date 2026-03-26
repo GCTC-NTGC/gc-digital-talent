@@ -7,7 +7,9 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Container,
   Heading,
+  Link,
   Pending,
+  Separator,
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
@@ -277,6 +279,15 @@ const EmployeeProfile = ({
                 </TableOfContents.List>
               </TableOfContents.ListItem>
             </TableOfContents.List>
+            <Separator space="sm" />
+            <div className="flex flex-col gap-y-3">
+              <Link href={paths.profile()}>
+                {intl.formatMessage(navigationMessages.applicantProfile)}
+              </Link>
+              <Link href={paths.accountSettings()}>
+                {intl.formatMessage(navigationMessages.accountSettings)}
+              </Link>
+            </div>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <div className="flex flex-col gap-y-18">

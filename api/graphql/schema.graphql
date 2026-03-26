@@ -450,7 +450,6 @@ interface HasRoleAssignments {
 
 type Pool implements HasRoleAssignments {
   id: ID!
-  owner: UserPublicProfile @belongsTo(relation: "user")
   community: Community @belongsTo(relation: "community")
   teamId: UUID! @rename(attribute: "team.id") @with(relation: "team")
   name: LocalizedString
@@ -671,6 +670,15 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+  pauseReferralsAt: DateTime
+    @rename(attribute: "pause_referrals_at")
+    @canRoot(ability: "viewStatus")
+  resumeReferralsAt: DateTime
+    @rename(attribute: "resume_referrals_at")
+    @canRoot(ability: "viewStatus")
+  pauseReferralsReason: String
+    @rename(attribute: "pause_referrals_reason")
+    @canRoot(ability: "viewStatus")
 
   # claim verification
   veteranVerification: ClaimVerificationResult
@@ -2216,8 +2224,15 @@ input AssessmentStepBelongsTo {
   disconnect: Boolean
 }
 
+input PauseReferralsInput {
+  pauseReferralsLength: PauseReferralsLength
+  resumeReferralsAt: Date
+  pauseReferralsReason: String
+}
+
 input QualifyCandidateInput {
   expiryDate: Date!
+  pauseReferrals: PauseReferralsInput @spread
 }
 
 input PlaceCandidateInput {
@@ -2229,6 +2244,7 @@ input QualifyAndPlaceCandidateInput {
   expiryDate: Date!
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  pauseReferrals: PauseReferralsInput @spread
 }
 
 input CreateDepartmentInput {
@@ -3228,6 +3244,18 @@ type Mutation {
     @canFind(ability: "updateDecision", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
     @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
+
+  pauseCandidateReferrals(
+    id: UUID!
+    pauseReferrals: PauseReferralsInput! @spread
+  ): PoolCandidate
+    @guard
+    @validator
+    @canFind(ability: "updateReferrals", find: "id", injectArgs: true)
+  resumeCandidateReferrals(id: UUID!): PoolCandidate
+    @guard
+    @validator
+    @canFind(ability: "updateReferrals", find: "id", injectArgs: true)
 
   createClassification(
     classification: CreateClassificationInput! @spread

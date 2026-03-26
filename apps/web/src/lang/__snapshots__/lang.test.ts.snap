@@ -66,13 +66,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Citizenship status",
-    "fr": [
-      "Statut de citoyenneté",
-      "Statut de citoyen"
-    ]
-  },
-  {
     "en": "Department information",
     "fr": [
       "Renseignements sur le ministère",

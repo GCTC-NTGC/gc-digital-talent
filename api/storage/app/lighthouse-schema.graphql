@@ -258,6 +258,11 @@ type LocalizedOrganizationTypeInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedPauseReferralsLength implements LocalizedEnumOption {
+  value: PauseReferralsLength!
+  label: LocalizedString!
+}
+
 type LocalizedPlacementType implements LocalizedEnumOption {
   value: PlacementType!
   label: LocalizedString!
@@ -590,6 +595,8 @@ type Mutation {
   placeCandidate(id: UUID!, poolCandidate: PlaceCandidateInput!): PoolCandidate
   revertPlaceCandidate(id: UUID!): PoolCandidate
   qualifyAndPlaceCandidate(id: UUID!, poolCandidate: QualifyAndPlaceCandidateInput!): PoolCandidate
+  pauseCandidateReferrals(id: UUID!, pauseReferrals: PauseReferralsInput!): PoolCandidate
+  resumeCandidateReferrals(id: UUID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
   deleteClassification(id: ID!): Classification
@@ -1030,7 +1037,6 @@ interface HasRoleAssignments {
 
 type Pool implements HasRoleAssignments {
   id: ID!
-  owner: UserPublicProfile
   community: Community
   teamId: UUID!
   name: LocalizedString
@@ -1182,6 +1188,9 @@ type PoolCandidate {
   placementType: LocalizedPlacementType
   placedAt: DateTime
   placedDepartment: Department
+  pauseReferralsAt: DateTime
+  resumeReferralsAt: DateTime
+  pauseReferralsReason: String
   veteranVerification: ClaimVerificationResult
   veteranVerificationExpiry: Date
   priorityVerification: ClaimVerificationResult
@@ -2175,8 +2184,15 @@ input AssessmentStepBelongsTo {
   disconnect: Boolean
 }
 
+input PauseReferralsInput {
+  pauseReferralsLength: PauseReferralsLength
+  resumeReferralsAt: Date
+  pauseReferralsReason: String
+}
+
 input QualifyCandidateInput {
   expiryDate: Date!
+  pauseReferrals: PauseReferralsInput
 }
 
 input PlaceCandidateInput {
@@ -2188,6 +2204,7 @@ input QualifyAndPlaceCandidateInput {
   expiryDate: Date!
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  pauseReferrals: PauseReferralsInput
 }
 
 input CreateDepartmentInput {
@@ -3709,6 +3726,8 @@ enum ErrorCode {
   SCREENING_STAGE_NOT_UNDER_ASSESSMENT
   ASSESSMENT_STEP_PROHIBITED
   ASSESSMENT_STEP_CANDIDATE_SAME_POOL
+  INVALID_PAUSE_REFERRAL
+  INVALID_UNPAUSE_AT_DATE
   POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES
   POOL_SKILL_NOT_VALID
   TEAM_ID_REQUIRED
@@ -3947,6 +3966,15 @@ enum OverallAssessmentStatus {
   TO_ASSESS
   DISQUALIFIED
   QUALIFIED
+}
+
+enum PauseReferralsLength {
+  ONE_MONTH
+  THREE_MONTHS
+  SIX_MONTHS
+  ONE_YEAR
+  UNTIL_EXPIRY
+  OTHER
 }
 
 enum PlacementType {

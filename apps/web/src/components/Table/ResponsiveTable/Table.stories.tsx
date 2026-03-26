@@ -129,7 +129,9 @@ export const RowSelection = Template.bind({});
 RowSelection.args = {
   rowSelect: {
     getRowId: (row) => row.id,
-    onRowSelection: (rows) => action("onRowSelection")(rows),
+    onRowSelection: (rows) => {
+      action("onRowSelection")(rows);
+    },
     cell: rowSelectCell,
   },
 };
@@ -173,7 +175,9 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
       .then((res) => {
         setSearchState(res);
       })
-      .catch((err) => action("search error")(err))
+      .catch((err) => {
+        action("search error")(err);
+      })
       .finally(() => setLoading(false));
   };
 
@@ -185,7 +189,9 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
         const newSelection = mockUsers.filter(({ id }) => rows.includes(id));
         setRowSelection(newSelection);
       })
-      .catch((err) => action("selection error")(err))
+      .catch((err) => {
+        action("selection error")(err);
+      })
       .finally(() => setLoading(false));
   };
 

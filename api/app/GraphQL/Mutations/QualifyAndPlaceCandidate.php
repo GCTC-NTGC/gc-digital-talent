@@ -15,10 +15,16 @@ final class QualifyAndPlaceCandidate
         $expiryDate = $args['expiryDate'];
         $placementType = $args['placementType'];
         $departmentId = $args['department']['connect']; // validator asserts this value is valid
+        $pauseReferralsLength = $args['pauseReferralsLength'] ?? null;
+        $pauseReferralsReason = $args['pauseReferralsReason'] ?? null;
+        $resumeReferralsAt = $args['resumeReferralsAt'] ?? null;
 
         $candidate->disableLogging();
         $candidate->qualify($expiryDate);
         $candidate->place($placementType, $departmentId);
+        if ($pauseReferralsLength && $pauseReferralsReason) {
+            $candidate->pauseReferrals($pauseReferralsLength, $pauseReferralsReason, $resumeReferralsAt);
+        }
 
         return $candidate;
     }
