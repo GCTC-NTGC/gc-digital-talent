@@ -8955,7 +8955,7 @@
     "description": "Header for the form to add a process membership to a user"
   },
   "bNc3Zd": {
-    "defaultMessage": "Rechercher des rôles dans les ministères",
+    "defaultMessage": "Rechercher des rôles liés à un ministère",
     "description": "Label for the department roles table search input"
   },
   "bOAF9o": {
