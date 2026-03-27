@@ -12,7 +12,6 @@ import {
   PublishingGroup,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -24,7 +23,6 @@ import flourishTopLight from "~/assets/img/browse_top_light.webp";
 import flourishBottomLight from "~/assets/img/browse_bottom_light.webp";
 import flourishTopDark from "~/assets/img/browse_top_dark.webp";
 import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
-import HolidayMessage from "~/components/HolidayMessage/HolidayMessage";
 
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 import FooterCard from "./components/FooterCard/FooterCard";
@@ -69,17 +67,15 @@ const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
 `);
 
 const subTitle = defineMessage({
-  defaultMessage:
-    "Find and apply to digital talent opportunities in the Government of Canada.",
-  id: "2UDONd",
-  description: "Subtitle for the browse IT jobs page",
+  defaultMessage: "Browse and apply to jobs in the Government of Canada",
+  id: "IwVHgf",
+  description: "Subtitle for the browse jobs page",
 });
 
 export const Component = () => {
   const { mode } = useTheme();
   const intl = useIntl();
   const paths = useRoutes();
-  const featureFlags = useFeatureFlags();
 
   const [{ data, fetching, error }] = useQuery({
     query: BrowsePoolsPage_Query,
@@ -126,11 +122,7 @@ export const Component = () => {
         />
         <Container className="relative z-[2]">
           <ActiveRecruitmentSection poolsQuery={activeRecruitmentPools} />
-          {!areOpportunitiesShowing && featureFlags.holidayMessage ? (
-            <HolidayMessage />
-          ) : (
-            <FooterCard areOpportunitiesShowing={areOpportunitiesShowing} />
-          )}
+          <FooterCard areOpportunitiesShowing={areOpportunitiesShowing} />
         </Container>
         <img
           alt=""

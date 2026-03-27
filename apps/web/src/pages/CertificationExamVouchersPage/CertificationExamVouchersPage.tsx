@@ -250,6 +250,14 @@ export const Component = () => {
                     "Fourth item in list of eligibility requirements section",
                 })}
               </li>
+              <li>
+                {intl.formatMessage({
+                  defaultMessage: "You have activated your Navigar account",
+                  id: "fcJRy1",
+                  description:
+                    "Fifth item in list of eligibility requirements section",
+                })}
+              </li>
             </Ul>
           </p>
         </div>

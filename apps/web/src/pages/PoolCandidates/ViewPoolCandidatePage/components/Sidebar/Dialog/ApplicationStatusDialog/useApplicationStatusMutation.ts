@@ -1,7 +1,10 @@
 import { OperationResult, useMutation } from "urql";
 import { useMemo } from "react";
 
-import { ApplicationStatus } from "@gc-digital-talent/graphql";
+import {
+  ApplicationStatus,
+  PauseReferralsLength,
+} from "@gc-digital-talent/graphql";
 
 import { FormValues } from "../types";
 import {
@@ -39,12 +42,30 @@ const useApplicationStatusMutation = () => {
                   expiryDate: data.expiryDate,
                   placementType: data.placementType,
                   department: { connect: data.department },
+                  pauseReferrals: {
+                    pauseReferralsLength: data.pauseReferralsLength,
+                    resumeReferralsAt:
+                      data.pauseReferralsLength === PauseReferralsLength.Other
+                        ? data.resumeReferralsAt
+                        : null,
+                    pauseReferralsReason: data.pauseReferralsReason,
+                  },
                 },
               });
             }
             return qualify({
               id,
-              poolCandidate: { expiryDate: data.expiryDate },
+              poolCandidate: {
+                expiryDate: data.expiryDate,
+                pauseReferrals: {
+                  pauseReferralsLength: data.pauseReferralsLength,
+                  resumeReferralsAt:
+                    data.pauseReferralsLength === PauseReferralsLength.Other
+                      ? data.resumeReferralsAt
+                      : null,
+                  pauseReferralsReason: data.pauseReferralsReason,
+                },
+              },
             });
           },
         ],

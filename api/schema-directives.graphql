@@ -8,6 +8,9 @@ Will be replaced by a generated type during schema manipulation.
 """
 scalar _
 
+# Directive class: App\GraphQL\Directives\AdvancedOrderByDirective
+directive @advancedOrderBy on FIELD_DEFINITION
+
 # Directive class: App\GraphQL\Directives\InjectNowDirective
 """
 Inject the current DateTime into the arguments.

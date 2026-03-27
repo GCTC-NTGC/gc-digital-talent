@@ -228,6 +228,17 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "8kUa5H",
     description: "Error message that placing a candidate failed",
   },
+  [ErrorCode.InvalidPauseReferral]: {
+    defaultMessage:
+      "An error occurred while pausing referrals. Contact support if this problem persists.",
+    id: "1go1mo",
+    description: "Error message that pausing referrals for a candidate failed",
+  },
+  [ErrorCode.InvalidUnpauseAtDate]: {
+    defaultMessage: "Pause end date can’t be after expiry date of pool.",
+    id: "F6BSah",
+    description: "Error message for pause referral status end date input",
+  },
 
   // pool updating
   [ErrorCode.ProcessClosingDateFuture]: {

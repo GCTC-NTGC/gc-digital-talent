@@ -13,6 +13,7 @@ import {
   makeFragmentData,
   PlacementType,
   PoolCandidate,
+  PauseReferralsLength,
 } from "@gc-digital-talent/graphql";
 import {
   MockGraphqlDecorator,
@@ -36,11 +37,15 @@ type ApplicationSidebarData = Pick<
   PoolCandidate,
   | "status"
   | "placementType"
+  | "placedDepartment"
   | "disqualificationReason"
   | "removalReason"
   | "expiryDate"
   | "screeningStage"
   | "assessmentStep"
+  | "pauseReferralsAt"
+  | "resumeReferralsAt"
+  | "pauseReferralsReason"
 >;
 
 const makeApplication = (data?: ApplicationSidebarData) =>
@@ -128,6 +133,16 @@ const meta = {
           departments: fakeDepartments(),
         },
       },
+      ApplicationReferralPauseOptions: {
+        data: {
+          referralPauseLengths: fakeLocalizedEnum(PauseReferralsLength).map(
+            (value) => ({
+              __typename: "LocalizedReferralPauseLength",
+              ...value,
+            }),
+          ),
+        },
+      },
     },
   },
 } satisfies Meta;
@@ -164,7 +179,18 @@ export const Removed: Story = {
   },
 };
 
-export const Qualified: Story = {
+export const QualifiedUnpaused: Story = {
+  args: {
+    query: makeApplication({
+      status: toLocalizedEnum(ApplicationStatus.Qualified),
+      pauseReferralsAt: null,
+      resumeReferralsAt: null,
+      pauseReferralsReason: null,
+    }),
+  },
+};
+
+export const QualifiedPaused: Story = {
   args: {
     query: makeApplication({
       status: toLocalizedEnum(ApplicationStatus.Qualified),
@@ -177,6 +203,17 @@ export const Placed: Story = {
     query: makeApplication({
       status: toLocalizedEnum(ApplicationStatus.Qualified),
       placementType: toLocalizedEnum(PlacementType.PlacedTerm),
+      placedDepartment: fakeDepartments()[0],
+    }),
+  },
+};
+
+export const PlacedIndeterminate: Story = {
+  args: {
+    query: makeApplication({
+      status: toLocalizedEnum(ApplicationStatus.Qualified),
+      placementType: toLocalizedEnum(PlacementType.PlacedIndeterminate),
+      placedDepartment: fakeDepartments()[0],
     }),
   },
 };
