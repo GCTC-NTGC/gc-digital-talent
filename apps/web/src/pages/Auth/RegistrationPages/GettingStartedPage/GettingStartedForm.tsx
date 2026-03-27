@@ -120,7 +120,14 @@ const GettingStartedForm = ({
           )}
         </Notice.Title>
         <Notice.Content>
-          <p>{initialValues.email}</p>
+          {initialValues.email ? (
+            <p>
+              <Link href={`mailto:${initialValues.email}`} color="black">
+                {initialValues.email}
+              </Link>
+            </p>
+          ) : null}
+
           {initialValues.telephone ? <p>{initialValues.telephone}</p> : null}
           <p>
             {intl.formatMessage(labels.preferredLang) +
