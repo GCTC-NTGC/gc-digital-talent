@@ -173,7 +173,7 @@ type User {
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
 
   # Bookmarks
-  poolBookmarks: [Pool] @belongsToMany
+  poolBookmarks: [Pool] @belongsToMany @canResolved(ability: "view")
   poolCandidateBookmarks: [PoolCandidate]
     @guard
     @belongsToMany(scopes: ["whereAuthorizedToView"])
