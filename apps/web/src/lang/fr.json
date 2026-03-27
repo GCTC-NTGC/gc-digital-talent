@@ -5287,6 +5287,10 @@
     "defaultMessage": "Votre rôle",
     "description": "Label for the role of the user submitting a nomination"
   },
+  "KvhRNR": {
+    "defaultMessage": "Cette section contient des processus partagés avec vous par un autre ministère ou une autre collectivité.",
+    "description": "Subtitle explaining shared processes expandable within task card"
+  },
   "KwJigi": {
     "defaultMessage": "Compétences comportementales essentielles - Exemples",
     "description": "Long title of the 'essential behavioural skills' section of the job poster template page"
@@ -6186,6 +6190,10 @@
   "OvusdX": {
     "defaultMessage": "Confirmer une adresse courriel professionnelle",
     "description": "Label to go to email verification"
+  },
+  "Ozwufr": {
+    "defaultMessage": "Processus partagés",
+    "description": "Shared processes expandable"
   },
   "P/DHOG": {
     "defaultMessage": "Modèles d'emplois",
