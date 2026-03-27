@@ -60,7 +60,7 @@ class ApplicantDashboardPage extends AppPage {
     await this.locators[FIELD.JOB_APPLICATIONS].click();
   }
 
-  async performDashboardUpdates(isGovEmployee: boolean) {
+  async updateDashboard(isGovEmployee: boolean) {
     await expect(this.locators[FIELD.YOUR_ACCOUNT]).toBeVisible();
     await this.verifyApplicantProfileSection();
     await this.verifyGCEmployeeProfileSection(isGovEmployee);
