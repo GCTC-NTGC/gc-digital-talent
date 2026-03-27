@@ -158,7 +158,7 @@ return [
     'core_public_administration' => 'Administration publique centrale',
     'central_agency' => 'Organisme central',
     'science' => 'Sciences',
-    'regulatory' => 'Réglementaire',
+    'regulatory' => 'Réglementation',
 
     'awarded_to' => 'Accordé à',
     'issuing_organization' => 'Organisation émettrice',
