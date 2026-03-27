@@ -3740,7 +3740,7 @@
     "description": "Description of a talent event"
   },
   "DbWxZl": {
-    "defaultMessage": "Cherchez les rôles dans des processus",
+    "defaultMessage": "Rechercher des rôles liés à un processus",
     "description": "Label for the process roles table search input"
   },
   "DcEinN": {
