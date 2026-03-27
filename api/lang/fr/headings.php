@@ -157,7 +157,7 @@ return [
     'award_recipient' => 'Lauréat ou lauréate du prix',
     'core_public_administration' => 'Administration publique centrale',
     'central_agency' => 'Organisme central',
-    'science' => 'Scientifique',
+    'science' => 'Sciences',
     'regulatory' => 'Réglementaire',
 
     'awarded_to' => 'Accordé à',
