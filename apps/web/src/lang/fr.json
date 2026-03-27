@@ -2632,7 +2632,7 @@
     "description": "Message displayed for skill not found."
   },
   "95aNQ1": {
-    "defaultMessage": "Vous êtes sur le point de retirer ce ou cette membre :",
+    "defaultMessage": "Vous êtes sur le point de retirer cette personne :",
     "description": "Lead in text for removing roles on user form."
   },
   "96/yI/": {
