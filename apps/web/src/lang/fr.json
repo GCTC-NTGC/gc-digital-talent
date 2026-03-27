@@ -1408,7 +1408,7 @@
     "description": "Description for position duration field display"
   },
   "3bgFky": {
-    "defaultMessage": "Ajouter un rôle dans un ministère",
+    "defaultMessage": "Ajouter un rôle lié à un ministère",
     "description": "Button label for the form to add a department membership to a user"
   },
   "3c2YZs": {

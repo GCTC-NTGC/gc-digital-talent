@@ -54,7 +54,7 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Add department role",
     "fr": [
-      "Ajouter un rôle dans un ministère",
+      "Ajouter un rôle lié à un ministère",
       "Ajouter un rôle dans le ministère :"
     ]
   },
