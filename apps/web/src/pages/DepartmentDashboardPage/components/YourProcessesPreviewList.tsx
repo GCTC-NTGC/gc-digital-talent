@@ -17,8 +17,8 @@ import {
 } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
-const BookmarkedProcessesPreviewList_Fragment = graphql(/* GraphQL */ `
-  fragment BookmarkedProcessesPreviewList on Pool {
+const YourProcessesPreviewList_Fragment = graphql(/* GraphQL */ `
+  fragment YourProcessesPreviewList on Pool {
     id
     name {
       localized
@@ -43,21 +43,19 @@ const BookmarkedProcessesPreviewList_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-interface BookmarkedProcessesPreviewListProps {
-  bookmarkedProcessesQuery: FragmentType<
-    typeof BookmarkedProcessesPreviewList_Fragment
-  >[];
+interface YourProcessesPreviewListProps {
+  yourProcessesQuery: FragmentType<typeof YourProcessesPreviewList_Fragment>[];
 }
 
-const BookmarkedProcessesPreviewList = ({
-  bookmarkedProcessesQuery,
-}: BookmarkedProcessesPreviewListProps) => {
+const YourProcessesPreviewList = ({
+  yourProcessesQuery,
+}: YourProcessesPreviewListProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
   const processes = getFragment(
-    BookmarkedProcessesPreviewList_Fragment,
-    bookmarkedProcessesQuery,
+    YourProcessesPreviewList_Fragment,
+    yourProcessesQuery,
   );
 
   const poolStatusEnumSortOrder: (PoolStatus | null)[] = [
@@ -181,4 +179,4 @@ const BookmarkedProcessesPreviewList = ({
   );
 };
 
-export default BookmarkedProcessesPreviewList;
+export default YourProcessesPreviewList;

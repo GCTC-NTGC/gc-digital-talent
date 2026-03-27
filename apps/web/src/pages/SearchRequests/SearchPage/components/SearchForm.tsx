@@ -41,10 +41,7 @@ import NoResults from "./NoResults";
 import SearchResultCard from "./SearchResultCard";
 
 interface SearchFormProps {
-  classifications: Pick<
-    Classification,
-    "group" | "level" | "id" | "name" | "displayName"
-  >[];
+  classifications: Pick<Classification, "group" | "level" | "id" | "name">[];
   skills: Skill[];
   workStreams: WorkStream[];
 }
@@ -349,9 +346,6 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       group
       level
       name {
-        localized
-      }
-      displayName {
         localized
       }
     }

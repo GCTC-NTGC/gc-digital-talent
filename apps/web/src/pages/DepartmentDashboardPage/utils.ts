@@ -35,6 +35,15 @@ export const isDepartmentTeamable = (
   return false;
 };
 
+export const isPoolTeamable = (
+  teamable: Teamable | undefined | null,
+): teamable is PoolTeamable => {
+  if (teamable?.__typename === "Pool") {
+    return true;
+  }
+  return false;
+};
+
 export interface RoleAssignmentObject {
   role?: Pick<Role, "name" | "displayName"> | null;
   teamable?: {

@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
+import uniqBy from "lodash/uniqBy";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -12,12 +13,23 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
-import BookmarkedProcessesPreviewList from "./BookmarkedProcessesPreviewList";
+import YourProcessesPreviewList from "./YourProcessesPreviewList";
+import { isPoolTeamable } from "../utils";
 
 const YourProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
   fragment YourProcessesTaskCard on User {
     poolBookmarks {
-      ...BookmarkedProcessesPreviewList
+      ...YourProcessesPreviewList
+    }
+    authInfo {
+      roleAssignments {
+        teamable {
+          ... on Pool {
+            id
+            ...YourProcessesPreviewList
+          }
+        }
+      }
     }
   }
 `);
@@ -41,6 +53,20 @@ const YourProcessesTaskCard = ({
   const processesUnpacked = unpackMaybes(
     yourProcessesTaskCardFragment?.poolBookmarks,
   );
+  const roleAssignmentsUnpacked = unpackMaybes(
+    yourProcessesTaskCardFragment?.authInfo?.roleAssignments,
+  );
+
+  const poolsFromTeamable = unpackMaybes(
+    roleAssignmentsUnpacked.map((roleAssign) => {
+      if (isPoolTeamable(roleAssign.teamable)) {
+        return roleAssign.teamable;
+      }
+
+      return undefined;
+    }),
+  );
+  const poolsFromTeamableUnique = uniqBy(poolsFromTeamable, "id");
 
   const bookmarkedProcessesMetaData: AccordionMetaData = [
     {
@@ -97,8 +123,38 @@ const YourProcessesTaskCard = ({
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={bookmarkedProcessesMetaData} />
                 <Accordion.Content>
-                  <BookmarkedProcessesPreviewList
-                    bookmarkedProcessesQuery={processesUnpacked}
+                  <YourProcessesPreviewList
+                    yourProcessesQuery={processesUnpacked}
+                  />
+                </Accordion.Content>
+              </Accordion.Item>
+            </Accordion.Root>
+          </TaskCard.Item>
+          <TaskCard.Item>
+            <Accordion.Root type="multiple">
+              <Accordion.Item value="your_shared_processes">
+                <Accordion.Trigger
+                  as="h3"
+                  subtitle={intl.formatMessage({
+                    defaultMessage:
+                      "This section contains processes shared with you by a different department or community.",
+                    id: "KvhRNR",
+                    description:
+                      "Subtitle explaining shared processes expandable within task card",
+                  })}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Shared processes",
+                    id: "Ozwufr",
+                    description: "Shared processes expandable",
+                  })}
+                  <span className="ml-1">
+                    {wrapParens(poolsFromTeamableUnique.length ?? 0)}
+                  </span>
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <YourProcessesPreviewList
+                    yourProcessesQuery={poolsFromTeamableUnique}
                   />
                 </Accordion.Content>
               </Accordion.Item>
