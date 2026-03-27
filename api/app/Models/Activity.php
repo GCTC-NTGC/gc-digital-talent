@@ -206,7 +206,10 @@ class Activity extends SpatieActivity
 
     public function scopeAuthorizedToViewPoolActivity(Builder $query)
     {
-        /** @var User | null */
+        // Dont allow anyone to view this
+        return $query->whereRaw('0 = 1');
+
+        // @phpstan-ignore-next-line
         $user = Auth::user();
 
         if ($user?->isAbleTo('view-any-poolActivityLog')) {
@@ -223,7 +226,11 @@ class Activity extends SpatieActivity
                     return $poolQuery->where(function (Builder $query) use ($teamIds) {
                         $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
                             return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                        });
+                        $query->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        });
+                        $query->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
                             return $query->whereIn('id', $teamIds);
                         });
                     });
