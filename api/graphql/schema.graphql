@@ -533,8 +533,8 @@ type Pool implements HasRoleAssignments {
       builder: "App\\Models\\Pool@aggregateActivities"
       defaultCount: 50
       maxCount: 1000
+      scopes: ["authorizedToViewPoolActivity"]
     )
-    @scope(name: ["authorizedToViewPoolActivity"])
   applicantsCount: Int
     @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
 }
