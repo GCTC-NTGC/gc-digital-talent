@@ -10,6 +10,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { Notice, Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import ApplicationExpiryDateDialog from "../Dialog/ApplicationExpiryDateDialog";
 import ApplicationPlacementDialog from "../Dialog/ApplicationPlacementDialog";
@@ -58,12 +59,9 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
               <Notice.Root>
                 <Notice.Content>
                   <FieldDisplay
-                    label={intl.formatMessage({
-                      defaultMessage: "Not referred",
-                      id: "sp0Pgt",
-                      description:
-                        "Label for not referred notice when placed indeterminate",
-                    })}
+                    label={intl.formatMessage(
+                      poolCandidateMessages.notReferred,
+                    )}
                   >
                     {intl.formatMessage({
                       defaultMessage:

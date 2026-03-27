@@ -677,6 +677,7 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+  isBeingReferred: Boolean
   pauseReferralsAt: DateTime
     @rename(attribute: "pause_referrals_at")
     @canRoot(ability: "viewStatus")
@@ -732,6 +733,7 @@ type PoolCandidateAdminView {
   placedDepartment: Department @belongsTo
   closingDate: DateTime @rename(attribute: "closing_date")
   statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
+  isBeingReferred: Boolean
 }
 
 type PoolCandidateAdminViewWithSkillCount {

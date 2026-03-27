@@ -116,6 +116,8 @@ class PoolCandidate extends Model
         'veteran_verification_expiry' => 'date',
         'priority_verification_expiry' => 'date',
         'computed_assessment_status' => 'array',
+        'pause_referrals_at' => 'datetime',
+        'resume_referrals_at' => 'datetime',
     ];
 
     /**
@@ -466,6 +468,25 @@ class PoolCandidate extends Model
     {
         return Attribute::get(function () {
             return $this->expiry_date && $this->expiry_date->isPast();
+        });
+    }
+
+    /*
+    * Determine if the candidate being referred
+    *
+    * @return bool
+    */
+    public function isBeingReferred(): Attribute
+    {
+        return Attribute::get(function () {
+            if ($this->application_status !== ApplicationStatus::QUALIFIED->name) {
+                return false;
+            }
+
+            $hasNotStartedPause = is_null($this->pause_referrals_at) || $this->pause_referrals_at->isFuture();
+            $hasAlreadyResumed = $this->resume_referrals_at?->isPast();
+
+            return $hasNotStartedPause || $hasAlreadyResumed;
         });
     }
 

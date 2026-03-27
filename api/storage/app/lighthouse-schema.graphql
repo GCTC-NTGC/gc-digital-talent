@@ -1185,6 +1185,7 @@ type PoolCandidate {
   placementType: LocalizedPlacementType
   placedAt: DateTime
   placedDepartment: Department
+  isBeingReferred: Boolean
   pauseReferralsAt: DateTime
   resumeReferralsAt: DateTime
   pauseReferralsReason: String
@@ -1221,6 +1222,7 @@ type PoolCandidateAdminView {
   placedDepartment: Department
   closingDate: DateTime
   statusUpdatedAt: DateTime
+  isBeingReferred: Boolean
 }
 
 type PoolCandidateAdminViewWithSkillCount {

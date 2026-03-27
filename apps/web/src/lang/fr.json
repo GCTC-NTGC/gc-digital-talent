@@ -1619,6 +1619,10 @@
     "defaultMessage": "Modifier un volet de travail",
     "description": "Page title for the work stream edit page"
   },
+  "4TsmrB": {
+    "defaultMessage": "En cours de recommandation",
+    "description": "A candidate is being referred for new positions"
+  },
   "4V/DsD": {
     "defaultMessage": "En savoir plus<hidden> à propos de la collectivité des gestionnaires</hidden>",
     "description": "Link text to the managers community"
@@ -13297,6 +13301,10 @@
   "tY1JG4": {
     "defaultMessage": "Non intéressé(e)",
     "description": "Not interested in job offers"
+  },
+  "tZN+WQ": {
+    "defaultMessage": "État de recommandation",
+    "description": "Label for a candidates referral status"
   },
   "tZsKb7": {
     "defaultMessage": "Échanger avec nous sur les médias sociaux",
