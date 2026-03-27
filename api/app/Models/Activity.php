@@ -209,7 +209,7 @@ class Activity extends SpatieActivity
         // Dont allow anyone to view this
         return $query->whereRaw('0 = 1');
 
-        /** @var User | null */
+        // @phpstan-ignore-next-line
         $user = Auth::user();
 
         if ($user?->isAbleTo('view-any-poolActivityLog')) {
