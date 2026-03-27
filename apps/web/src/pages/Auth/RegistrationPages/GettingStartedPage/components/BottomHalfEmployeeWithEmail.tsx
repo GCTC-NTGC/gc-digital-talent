@@ -36,7 +36,7 @@ const BottomHalfEmployeeWithEmail = () => {
           </Notice.Content>
         </Notice.Root>
       </div>
-      <div className="mb-6">
+      <div className="mb-9">
         <Caption>
           {intl.formatMessage({
             defaultMessage:
@@ -48,9 +48,9 @@ const BottomHalfEmployeeWithEmail = () => {
         </Caption>
       </div>
       <div className="-mx-6 sm:-mx-9">
-        <Separator decorative orientation="horizontal" />
+        <Separator decorative orientation="horizontal" space="none" />
       </div>
-      <div className="flex flex-col items-center sm:flex-row sm:justify-end">
+      <div className="mt-6 flex flex-col items-center sm:flex-row sm:justify-end">
         <Link
           mode="solid"
           href={paths.registrationExperience({

@@ -146,7 +146,7 @@ const BottomHalfEmployeeNoEmail = ({
           <div className="mb-6">
             <EmailVerification.SubmitVerificationCodeContextMessage />
           </div>
-          <div className="mb-6">
+          <div className="mb-9">
             <Caption>
               {intl.formatMessage({
                 defaultMessage:
@@ -158,9 +158,9 @@ const BottomHalfEmployeeNoEmail = ({
             </Caption>
           </div>
           <div className="-mx-6 sm:-mx-9">
-            <Separator decorative orientation="horizontal" />
+            <Separator decorative orientation="horizontal" space="none" />
           </div>
-          <div className="flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-end">
+          <div className="mt-6 flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-end">
             <Link
               mode="inline"
               href={paths.registrationExperience({
