@@ -13387,7 +13387,7 @@
     "description": "Paragraph describing accessibility standards"
   },
   "tuMmWm": {
-    "defaultMessage": "Filtrer par ordre de {column}",
+    "defaultMessage": "Appliquer un filtre {column}",
     "description": "Button text to filter by specific columns in table"
   },
   "tuXnJB": {
