@@ -6,6 +6,7 @@ use App\Providers\BearerTokenServiceProvider;
 use App\Providers\ClockInterfaceProvider;
 use App\Providers\EventServiceProvider;
 use App\Providers\GraphQLServiceProvider;
+use App\Providers\ManagedIdentityProvider;
 use App\Providers\NotifyServiceProvider;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\AuthServiceProvider;
@@ -264,6 +265,7 @@ return [
         EventServiceProvider::class,
         RouteServiceProvider::class,
         ClockInterfaceProvider::class,
+        ManagedIdentityProvider::class,
 
         // Additional Providers
         LighthouseServiceProvider::class,

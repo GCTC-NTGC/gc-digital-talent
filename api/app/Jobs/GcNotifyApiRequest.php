@@ -2,10 +2,10 @@
 
 namespace App\Jobs;
 
+use App\Enums\TbsSecurityLoggingEventId;
 use App\Exceptions\ExternalServiceException;
 use App\Facades\Notify;
 use App\Notifications\Messages\GcNotifyEmailMessage;
-use DateTime;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -37,8 +37,10 @@ class GcNotifyApiRequest implements ShouldQueue
 
     /**
      * Determine the time at which the job should timeout.
+     *
+     * @inherit-doc
      */
-    public function retryUntil(): DateTime
+    public function retryUntil()
     {
         return now()->addHours(12);
     }
@@ -56,8 +58,9 @@ class GcNotifyApiRequest implements ShouldQueue
     public function handle(): void
     {
         Log::shareContext([
-            'job-id' => $this->job->getJobId(),
-            'email-address' => $this->message->emailAddress,
+            'JobID' => $this->job->getJobId(),
+            'EmailAddress' => $this->message->emailAddress,
+            'TemplateID' => $this->message->templateId,
         ]);
 
         $response = Notify::sendEmail(
@@ -66,7 +69,11 @@ class GcNotifyApiRequest implements ShouldQueue
             $this->message->messageVariables
         );
 
-        Log::channel('jobs')->info('Sent message: '.$response->status(), $this->message->messageVariables);
+        Log::channel('jobs')->info('Sent message: '.$response->status(),
+            [
+                'EventID' => TbsSecurityLoggingEventId::EMAIL_SENT->value,
+                'MessageVariables' => $this->message->messageVariables,
+            ]);
 
         // special case: too many requests so we can retry later
         if ($response->tooManyRequests()) {
