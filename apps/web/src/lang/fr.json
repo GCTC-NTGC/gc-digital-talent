@@ -1507,10 +1507,6 @@
     "defaultMessage": "Expérience mise à jour avec succès!",
     "description": "Success message displayed after updating an experience"
   },
-  "44R2Zx": {
-    "defaultMessage": "Statut d’emploi au gouvernement",
-    "description": "Label to select if the uer is a government employee or not"
-  },
   "45ber4": {
     "defaultMessage": "À qui s'adresse cette page?",
     "description": "Section heading, explain audience"

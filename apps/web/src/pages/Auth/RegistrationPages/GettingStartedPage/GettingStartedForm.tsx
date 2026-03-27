@@ -167,9 +167,8 @@ const GettingStartedForm = ({
               name="isEmployee"
               legend={intl.formatMessage({
                 defaultMessage: "Government employee status",
-                id: "44R2Zx",
-                description:
-                  "Label to select if the uer is a government employee or not",
+                id: "YMAXhb",
+                description: "Employee status label",
               })}
               items={[
                 {
