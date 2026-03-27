@@ -4968,7 +4968,7 @@
     "description": "Combined eligibility string for 'employees only' and 'at-level only'"
   },
   "JCZlxS": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans le processus » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle lié à un processus » pour commencer.",
     "description": "Instructions for adding process membership to a user."
   },
   "JEKihk": {
