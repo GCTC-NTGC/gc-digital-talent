@@ -10111,7 +10111,7 @@
     "description": "Title for education level on summary of filters section"
   },
   "fuGqZQ": {
-    "defaultMessage": "Sélectionnez l’utilisateur à ajouter à {teamName}, ainsi que les rôles à lui attribuer.",
+    "defaultMessage": "Sélectionnez la personne que vous souhaitez ajouter à l’organisation suivante : {teamName}. Sélectionnez également les rôles à lui attribuer.",
     "description": "Subtitle for the add member to team form"
   },
   "fugmiC": {
