@@ -524,6 +524,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     GovEmployeeType::STUDENT->name,
                     GovEmployeeType::CASUAL->name,
                     GovEmployeeType::CONTRACTOR->name,
+                    GovEmployeeType::INTERCHANGE->name,
                 ])
                 ->where(function (Builder $query) {
                     $query->whereNull('end_date')

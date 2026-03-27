@@ -4,6 +4,8 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { useEffect, useRef } from "react";
 
 import {
+  DATE_SEGMENT,
+  DateInput,
   FieldLabels,
   Input,
   Radio,
@@ -12,18 +14,18 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   errorMessages,
-  getLocalizedName,
   narrowEnumType,
   getLocale,
   Locales,
 } from "@gc-digital-talent/i18n";
-import { Heading, Loading } from "@gc-digital-talent/ui";
+import { Loading, Notice } from "@gc-digital-talent/ui";
 import {
   EmploymentCategory,
   graphql,
   WorkFieldOptionsQuery,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes, nodeToString } from "@gc-digital-talent/helpers";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
@@ -41,8 +43,7 @@ const WorkFieldOptions_Query = graphql(/* GraphQL */ `
       ... on LocalizedEmploymentCategory {
         value
         label {
-          en
-          fr
+          localized
         }
       }
     }
@@ -118,6 +119,12 @@ const WorkFields = ({
 
   const { resetField, formState } = useFormContext<WorkFormValues>();
 
+  const todayDate = new Date();
+  // to toggle whether End date is required, the state of the role status radio must be monitored and have to adjust the form accordingly
+  const isCurrent = useWatch<WorkFormValues>({ name: "roleStatus" }) !== "past";
+  // ensuring end date isn't before the start date, using this as a minimum value
+  const watchStartDate = useWatch<WorkFormValues>({ name: "startDate" });
+
   const prevEmploymentCategory = useRef<EmploymentCategory | null | undefined>(
     formState.defaultValues?.employmentCategory,
   );
@@ -131,7 +138,7 @@ const WorkFields = ({
   ).map(({ value, label }) => {
     const contentBelow = employmentCategoryDescriptions[value];
     return {
-      label: getLocalizedName(label, intl),
+      label: label.localized,
       value,
       contentBelow: intl.formatMessage(contentBelow),
     };
@@ -141,6 +148,16 @@ const WorkFields = ({
     en: TEXT_AREA_MAX_WORDS_EN,
     fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
   } as const;
+
+  /**
+   * Reset endDate when roleStatus field is changed
+   */
+  useEffect(() => {
+    resetField("endDate", {
+      keepDirty: false,
+      defaultValue: null,
+    });
+  }, [resetField, isCurrent]);
 
   /**
    * Reset all fields when employmentCategory field is changed
@@ -157,6 +174,14 @@ const WorkFields = ({
       resetDirtyField("organization");
       resetDirtyField("extSizeOfOrganization");
       resetDirtyField("extRoleSeniority");
+      resetDirtyField("supervisoryPosition");
+      resetDirtyField("supervisedEmployees");
+      resetDirtyField("supervisedEmployeesNumber");
+      resetDirtyField("budgetManagement");
+      resetDirtyField("annualBudgetAllocation");
+      resetDirtyField("seniorManagementStatus");
+      resetDirtyField("cSuiteRoleTitle");
+      resetDirtyField("otherCSuiteRoleTitle");
 
       // goc fields
       resetDirtyField("department");
@@ -191,60 +216,129 @@ const WorkFields = ({
         <Loading inline />
       ) : (
         <>
-          <div className="grid gap-6 xs:grid-cols-2">
-            <div className="col-span-2">
-              <Input
-                id="role"
-                label={labels.role}
-                name="role"
-                type="text"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-            </div>
-            <div className="col-span-2">
-              <RadioGroup
-                idPrefix="employmentCategory"
-                name="employmentCategory"
-                legend={intl.formatMessage({
-                  defaultMessage: "Employment category",
-                  id: "BdpXAF",
-                  description: "Label for the employment category radio group",
-                })}
-                items={employmentCategories}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-            </div>
-            <EmploymentCategoryFields
-              employmentCategory={watchEmploymentCategory}
-              labels={labels}
-              organizationSuggestions={organizationSuggestions}
-            />
-          </div>
-          <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
-            {intl.formatMessage({
-              defaultMessage: "Highlight additional details",
-              id: "6v+j79",
-              description: "Title for additional details section",
-            })}
-          </Heading>
-          <div>
-            <p className="mb-6">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important. Try to keep this field concise as you'll be able to provide more detailed information when linking skills to this experience.",
-                id: "yZ0kfQ",
-                description:
-                  "Help text for the experience additional details field",
-              })}
-            </p>
-            <TextArea
-              id={"details"}
-              name={"details"}
-              rows={TEXT_AREA_ROWS}
-              wordLimit={wordCountLimits[locale]}
-              label={experienceLabels.details}
+          <div className="grid gap-6">
+            <Input
+              id="role"
+              label={labels.jobTitle}
+              name="role"
+              type="text"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
+            <RadioGroup
+              idPrefix="roleStatus"
+              name="roleStatus"
+              legend={labels.roleStatus}
+              items={[
+                {
+                  value: "active",
+                  label: labels.activeRole,
+                },
+                {
+                  value: "past",
+                  label: labels.pastRole,
+                },
+              ]}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+            <DateInput
+              id="startDate"
+              legend={labels.startDate}
+              name="startDate"
+              round="floor"
+              show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                max: {
+                  value: strToFormDate(todayDate.toISOString()),
+                  message: intl.formatMessage(
+                    errorMessages.mustNotBeFutureStartDate,
+                  ),
+                },
+              }}
+            />
+            {/* conditionally render the end-date based off the state attached to the radio input */}
+            {!isCurrent && (
+              <DateInput
+                id="endDate"
+                legend={labels.endDate}
+                name="endDate"
+                show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+                round="ceil"
+                rules={
+                  isCurrent
+                    ? {}
+                    : {
+                        required: intl.formatMessage(errorMessages.required),
+                        min: {
+                          value: watchStartDate ? String(watchStartDate) : "",
+                          message: intl.formatMessage(
+                            errorMessages.minDateSelfLabel,
+                            {
+                              labelSelf: nodeToString(
+                                labels.endDate,
+                              ).toLowerCase(),
+                              labelAssociated: nodeToString(
+                                labels.startDate,
+                              ).toLowerCase(),
+                            },
+                          ),
+                        },
+                        max: {
+                          value: strToFormDate(todayDate.toISOString()),
+                          message: intl.formatMessage(
+                            errorMessages.mustNotBeFutureEndDate,
+                          ),
+                        },
+                      }
+                }
+              />
+            )}
+            <RadioGroup
+              idPrefix="employmentCategory"
+              name="employmentCategory"
+              legend={intl.formatMessage({
+                defaultMessage: "Employment category",
+                id: "BdpXAF",
+                description: "Label for the employment category radio group",
+              })}
+              items={employmentCategories}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+
+            {watchEmploymentCategory ? (
+              <>
+                <EmploymentCategoryFields
+                  employmentCategory={watchEmploymentCategory}
+                  labels={labels}
+                  organizationSuggestions={organizationSuggestions}
+                />
+                <p>{experienceLabels.keyTasksDescription}</p>
+                <TextArea
+                  id={"details"}
+                  name={"details"}
+                  rows={TEXT_AREA_ROWS}
+                  wordLimit={wordCountLimits[locale]}
+                  label={experienceLabels.keyTasksAndResponsibilities}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
+              </>
+            ) : (
+              <Notice.Root>
+                <Notice.Content>
+                  <p className="text-center">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Please select an employment category to continue.",
+                      id: "wdvv4j",
+                      description:
+                        "Text displayed on the work experience form when a user has not selected an employment category.",
+                    })}
+                  </p>
+                </Notice.Content>
+              </Notice.Root>
+            )}
           </div>
         </>
       )}

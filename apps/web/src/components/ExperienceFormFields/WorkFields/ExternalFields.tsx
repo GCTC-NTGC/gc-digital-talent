@@ -1,25 +1,21 @@
 import { useIntl } from "react-intl";
-import { useWatch } from "react-hook-form";
 import { useQuery } from "urql";
 
 import {
-  Checkbox,
-  DATE_SEGMENT,
-  DateInput,
   Input,
   localizedEnumToOptions,
   RadioGroup,
 } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import {
   ExternalWorkFieldOptionsQuery,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
-import { nodeToString } from "@gc-digital-talent/helpers";
 
-import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
+import { SubExperienceFormProps } from "~/types/experience";
+
+import SupervisoryFields from "./SupervisoryFields";
 
 const ExternalWorkFieldOptions_Query = graphql(/* GraphQL */ `
   query ExternalWorkFieldOptions {
@@ -28,8 +24,7 @@ const ExternalWorkFieldOptions_Query = graphql(/* GraphQL */ `
     ) {
       value
       label {
-        en
-        fr
+        localized
       }
     }
     extRoleSeniorities: localizedEnumStrings(
@@ -37,8 +32,7 @@ const ExternalWorkFieldOptions_Query = graphql(/* GraphQL */ `
     ) {
       value
       label {
-        en
-        fr
+        localized
       }
     }
   }
@@ -53,133 +47,54 @@ const ExternalFields = ({
     query: ExternalWorkFieldOptions_Query,
   });
 
-  const todayDate = new Date();
-  // to toggle whether End date is required, the state of the Current role checkbox must be monitored and have to adjust the form accordingly
-  const watchCurrentRole = useWatch<WorkFormValues>({ name: "currentRole" });
-  // ensuring end date isn't before the start date, using this as a minimum value
-  const watchStartDate = useWatch<WorkFormValues>({ name: "startDate" });
   return (
     <>
       {fetching ? (
-        <div className="col-span-2">
-          <Loading inline />
-        </div>
+        <Loading inline />
       ) : (
         <>
-          <div className="col-span-2">
-            <Input
-              id="organization"
-              label={labels.organization}
-              name="organization"
-              type="text"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-              list={
-                organizationSuggestions.length
-                  ? "organizationSuggestions"
-                  : undefined
-              }
-            />
-            {organizationSuggestions.length > 0 && (
-              <datalist id="organizationSuggestions">
-                {organizationSuggestions.map((suggestion) => {
-                  return <option key={suggestion} value={suggestion}></option>;
-                })}
-              </datalist>
-            )}
-          </div>
-          <div className="col-span-2">
-            <Input
-              id="team"
-              label={labels.team}
-              name="team"
-              type="text"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-            />
-          </div>
-          <div className="col-span-2">
-            <RadioGroup
-              idPrefix="extSizeOfOrganization"
-              name="extSizeOfOrganization"
-              legend={labels.extSizeOfOrganization}
-              items={localizedEnumToOptions(data?.extSizeOfOrganizations, intl)}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-            />
-          </div>
-          <div className="col-span-2">
-            <RadioGroup
-              idPrefix="extRoleSeniority"
-              name="extRoleSeniority"
-              legend={labels.extRoleSeniority}
-              items={localizedEnumToOptions(data?.extRoleSeniorities, intl)}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
-            />
-          </div>
-          <div>
-            <DateInput
-              id="startDate"
-              legend={labels.startDate}
-              name="startDate"
-              round="floor"
-              show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                max: {
-                  value: strToFormDate(todayDate.toISOString()),
-                  message: intl.formatMessage(
-                    errorMessages.mustNotBeFutureStartDate,
-                  ),
-                },
-              }}
-            />
-          </div>
-          <div>
-            <div className="mt-6">
-              <Checkbox
-                boundingBox
-                boundingBoxLabel={labels.currentRole}
-                id="currentRole"
-                label={intl.formatMessage({
-                  defaultMessage: "I am currently active in this role",
-                  id: "mOx5K1",
-                  description: "Label displayed for current role input",
-                })}
-                name="currentRole"
-              />
-            </div>
-          </div>
-          <div>
-            {/* conditionally render the end-date based off the state attached to the checkbox input */}
-            {!watchCurrentRole && (
-              <DateInput
-                id="endDate"
-                legend={labels.endDate}
-                name="endDate"
-                show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-                round="ceil"
-                rules={
-                  watchCurrentRole
-                    ? {}
-                    : {
-                        required: intl.formatMessage(errorMessages.required),
-                        min: {
-                          value: watchStartDate ? String(watchStartDate) : "",
-                          message: intl.formatMessage(
-                            errorMessages.minDateSelfLabel,
-                            {
-                              labelSelf: nodeToString(
-                                labels.endDate,
-                              ).toLowerCase(),
-                              labelAssociated: nodeToString(
-                                labels.startDate,
-                              ).toLowerCase(),
-                            },
-                          ),
-                        },
-                      }
-                }
-              />
-            )}
-          </div>
+          <Input
+            id="organization"
+            label={labels.organization}
+            placeholder={intl.formatMessage(commonMessages.selectOrTypeAnswer)}
+            name="organization"
+            type="text"
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            list={
+              organizationSuggestions.length
+                ? "organizationSuggestions"
+                : undefined
+            }
+          />
+          {organizationSuggestions.length > 0 && (
+            <datalist id="organizationSuggestions">
+              {organizationSuggestions.map((suggestion) => {
+                return <option key={suggestion} value={suggestion}></option>;
+              })}
+            </datalist>
+          )}
+          <Input
+            id="team"
+            label={labels.team}
+            name="team"
+            type="text"
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+          />
+          <RadioGroup
+            idPrefix="extSizeOfOrganization"
+            name="extSizeOfOrganization"
+            legend={labels.extSizeOfOrganization}
+            items={localizedEnumToOptions(data?.extSizeOfOrganizations, intl)}
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+          />
+          <RadioGroup
+            idPrefix="extRoleSeniority"
+            name="extRoleSeniority"
+            legend={labels.extRoleSeniority}
+            items={localizedEnumToOptions(data?.extRoleSeniorities, intl)}
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+          />
+          <SupervisoryFields labels={labels} />
         </>
       )}
     </>

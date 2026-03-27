@@ -118,7 +118,7 @@ export type WorkFormValues = FormValueDateRange & {
   cafEmploymentType?: CafEmploymentType | null;
   cafForce?: CafForce | null;
   cafRank?: CafRank | null;
-  currentRole: boolean;
+  roleStatus: "active" | "past";
   workStreams?: string[];
   supervisoryPosition?: boolean;
   supervisedEmployees?: boolean;

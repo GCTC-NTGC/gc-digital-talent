@@ -27,14 +27,15 @@ const FIELD = {
   PREFERRED_CONTACT_LANGUAGE: "preferredContactLanguage",
   SAVE_AND_CONTINUE_BUTTON: "saveAndContinueButton",
   ADD_MOST_RECENT_WORK_EXPERIENCE: "addMostRecentWorkExperience",
-  MY_ROLE: "selectMyRole",
+  JOB_TITLE: "jobTitle",
   EMPLOYMENT_CATEGORY: "selectEmploymentCategory",
   ORGANIZATION: "organization",
   TEAM: "team",
   SIZE: "size",
   SENIORITY: "seniority",
-  ADDITIONAL_DETAILS: "additionalDetails",
+  KEY_TASKS: "keyTasks",
   SKIP_ADD_WORK_EXPERIENCE: "skipAddWorkExperience",
+  STATUS: "status",
 } as const;
 type ObjectValues<T> = T[keyof T];
 export type Field = ObjectValues<typeof FIELD>;
@@ -86,8 +87,8 @@ class Registration extends AppPage {
         name: /add your most recent work experience/i,
         level: 2,
       }),
-      [FIELD.MY_ROLE]: this.page.getByRole("textbox", {
-        name: /my role/i,
+      [FIELD.JOB_TITLE]: this.page.getByRole("textbox", {
+        name: /job title/i,
       }),
       [FIELD.EMPLOYMENT_CATEGORY]: this.page.getByRole("group", {
         name: /employment category/i,
@@ -100,12 +101,15 @@ class Registration extends AppPage {
       }),
       [FIELD.SIZE]: this.page.getByRole("group", { name: /size/i }),
       [FIELD.SENIORITY]: this.page.getByRole("group", { name: /seniority/i }),
-      [FIELD.ADDITIONAL_DETAILS]: this.page.getByRole("textbox", {
-        name: /additional details/i,
+      [FIELD.KEY_TASKS]: this.page.getByRole("textbox", {
+        name: /key tasks/i,
       }),
       [FIELD.SKIP_ADD_WORK_EXPERIENCE]: this.page.getByRole("link", {
         name: /Skip this step/i,
         exact: true,
+      }),
+      [FIELD.STATUS]: this.page.getByRole("group", {
+        name: /status of this role/i,
       }),
     };
   }
@@ -137,18 +141,9 @@ class Registration extends AppPage {
   }
 
   async addMostRecentWorkExperience() {
-    await this.locators[FIELD.MY_ROLE].fill("test role");
-    await this.locators[FIELD.EMPLOYMENT_CATEGORY]
-      .getByRole("radio", { name: /external organization/i })
-      .click();
-    await this.locators[FIELD.ORGANIZATION].fill("test organization");
-    await this.locators[FIELD.TEAM].fill("test team");
-    await this.locators[FIELD.SIZE]
-      // eslint-disable-next-line no-useless-escape
-      .getByRole("radio", { name: /1\-35/i })
-      .click();
-    await this.locators[FIELD.SENIORITY]
-      .getByRole("radio", { name: /intern/i })
+    await this.locators[FIELD.JOB_TITLE].fill("test role");
+    await this.locators[FIELD.STATUS]
+      .getByRole("radio", { name: /role I held in the past/i })
       .click();
     const startDate = this.page.getByRole("group", {
       name: /start date/i,
@@ -163,7 +158,19 @@ class Registration extends AppPage {
     });
     await endDate.getByRole("spinbutton", { name: /year/i }).fill("2001");
     await endDate.getByRole("combobox", { name: /month/i }).selectOption("01");
-    await this.locators[FIELD.ADDITIONAL_DETAILS].fill("additional details");
+    await this.locators[FIELD.EMPLOYMENT_CATEGORY]
+      .getByRole("radio", { name: /external organization/i })
+      .click();
+    await this.locators[FIELD.ORGANIZATION].fill("test organization");
+    await this.locators[FIELD.TEAM].fill("test team");
+    await this.locators[FIELD.SIZE]
+      // eslint-disable-next-line no-useless-escape
+      .getByRole("radio", { name: /1\-35/i })
+      .click();
+    await this.locators[FIELD.SENIORITY]
+      .getByRole("radio", { name: /intern/i })
+      .click();
+    await this.locators[FIELD.KEY_TASKS].fill("additional details");
     await this.locators[FIELD.SAVE_AND_CONTINUE_BUTTON].click();
     // Need tp figure out the way to delete this UI created user
   }
