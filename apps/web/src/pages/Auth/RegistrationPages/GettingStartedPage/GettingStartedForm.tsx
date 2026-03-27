@@ -140,7 +140,7 @@ const GettingStartedForm = ({
               a: (chunks: ReactNode) => {
                 const uri = getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI");
                 return uri ? (
-                  <Link href={uri} color="black">
+                  <Link href={uri} color="black" size="sm">
                     {chunks}
                   </Link>
                 ) : (
