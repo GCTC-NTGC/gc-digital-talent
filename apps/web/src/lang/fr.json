@@ -8547,7 +8547,7 @@
     "description": "Second part of bilingual intermediate pool language"
   },
   "ZJpfIZ": {
-    "defaultMessage": "L’utilisateur perdra tous les rôles suivants dans le ministère :",
+    "defaultMessage": "Cette personne perdra tous les rôles suivants liés au ministère :",
     "description": "Text notifying user which department roles will be removed from the user"
   },
   "ZJsUbj": {
