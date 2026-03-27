@@ -30,7 +30,6 @@ class ClassificationFactory extends Factory
             'min_salary' => $faker->randomElement([50000, 60000, 70000]),
             'max_salary' => $faker->randomElement([80000, 90000, 100000]),
             'is_available_in_search' => $faker->boolean(),
-            'display_name' => ['en' => $faker->name, 'fr' => $faker->name],
         ];
     }
 }

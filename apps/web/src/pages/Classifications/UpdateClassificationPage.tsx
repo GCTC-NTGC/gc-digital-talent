@@ -46,10 +46,6 @@ export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
     level
     minSalary
     maxSalary
-    displayName {
-      en
-      fr
-    }
     isAvailableInSearch
   }
 `);
@@ -130,10 +126,6 @@ export const UpdateClassificationForm = ({
       group: data.group?.toUpperCase(),
       minSalary: Number(data.minSalary),
       maxSalary: Number(data.maxSalary),
-      displayName: {
-        en: data.displayName?.en,
-        fr: data.displayName?.fr,
-      },
       isAvailableInSearch: data.isAvailableInSearch ?? false,
     };
     return executeMutation({
@@ -279,22 +271,6 @@ export const UpdateClassificationForm = ({
                     label={intl.formatMessage(commonMessages.onFindTalent)}
                   />
                 </div>
-                <Input
-                  id="displayName_en"
-                  name="displayName.en"
-                  autoComplete="off"
-                  label={intl.formatMessage(commonMessages.displayName)}
-                  appendLanguageToLabel={"en"}
-                  type="text"
-                />
-                <Input
-                  id="displayName_fr"
-                  name="displayName.fr"
-                  autoComplete="off"
-                  label={intl.formatMessage(commonMessages.displayName)}
-                  appendLanguageToLabel={"fr"}
-                  type="text"
-                />
               </div>
               <CardSeparator />
               <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-left">
