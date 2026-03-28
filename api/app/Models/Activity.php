@@ -216,20 +216,23 @@ class Activity extends SpatieActivity
         if ($user?->isAbleTo('view-team-poolActivityLog')) {
             $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-poolActivityLog');
 
-            return $query->whereExists(function ($sub) use ($teamIds) {
-                $sub->selectRaw('1')
-                    ->from('pools')
-                    ->where(function ($poolQuery) {
-                        $poolQuery->whereColumn('pools.id', 'activity_log.subject_id')
-                            ->orWhereRaw("pools.id = (activity_log.properties->'attributes'->>'pool_id')::uuid");
-                    })
-                    ->where(function ($teamQuery) use ($teamIds) {
-                        $teamQuery->whereIn('pools.community_id', function ($q) use ($teamIds) {
-                            $q->select('teamable_id')->from('teams')->whereIn('id', $teamIds);
-                        })
-                            ->orWhereIn('pools.department_id', function ($q) use ($teamIds) {
-                                $q->select('teamable_id')->from('teams')->whereIn('id', $teamIds);
-                            });
+            $authorizedPoolIds = Pool::query()
+                ->where(function ($q) use ($teamIds) {
+                    $q->whereHas('team', fn ($sub) => $sub->whereIn('id', $teamIds))
+                        ->orWhereHas('community.team', fn ($sub) => $sub->whereIn('id', $teamIds))
+                        ->orWhereHas('department.team', fn ($sub) => $sub->whereIn('id', $teamIds));
+                })
+                ->select('id');
+
+            return $query->where(function (Builder $authQuery) use ($authorizedPoolIds) {
+                $authQuery->where(function ($q) use ($authorizedPoolIds) {
+                    $q->where('subject_type', (new Pool)->getMorphClass())
+                        ->whereIn('subject_id', $authorizedPoolIds);
+                })
+                    ->orWhere(function ($q) use ($authorizedPoolIds) {
+                        foreach ($authorizedPoolIds->get() as $pool) {
+                            $q->orWhereJsonContains('properties->attributes', ['pool_id' => $pool->id]);
+                        }
                     });
             });
         }
