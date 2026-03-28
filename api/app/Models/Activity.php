@@ -206,10 +206,7 @@ class Activity extends SpatieActivity
 
     public function scopeAuthorizedToViewPoolActivity(Builder $query)
     {
-        // Dont allow anyone to view this
-        return $query->whereRaw('0 = 1');
-
-        // @phpstan-ignore-next-line
+        /** @var User $user */
         $user = Auth::user();
 
         if ($user?->isAbleTo('view-any-poolActivityLog')) {
@@ -219,25 +216,24 @@ class Activity extends SpatieActivity
         if ($user?->isAbleTo('view-team-poolActivityLog')) {
             $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-poolActivityLog');
 
-            return $query->whereHasMorph(
-                'subject',
-                [Pool::class],
-                function ($poolQuery) use ($teamIds) {
-                    return $poolQuery->where(function (Builder $query) use ($teamIds) {
-                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
-                        $query->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
-                        $query->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
+            return $query->whereExists(function ($sub) use ($teamIds) {
+                $sub->selectRaw('1')
+                    ->from('pools')
+                    ->where(function ($poolQuery) {
+                        $poolQuery->whereColumn('pools.id', 'activity_log.subject_id')
+                            ->orWhereRaw("pools.id = (activity_log.properties->'attributes'->>'pool_id')::uuid");
+                    })
+                    ->where(function ($teamQuery) use ($teamIds) {
+                        $teamQuery->whereIn('pools.community_id', function ($q) use ($teamIds) {
+                            $q->select('teamable_id')->from('teams')->whereIn('id', $teamIds);
+                        })
+                            ->orWhereIn('pools.department_id', function ($q) use ($teamIds) {
+                                $q->select('teamable_id')->from('teams')->whereIn('id', $teamIds);
+                            });
                     });
-                }
-            );
+            });
         }
 
-        return $query->where('id', null);
+        return $query->whereRaw('1 = 0');
     }
 }
