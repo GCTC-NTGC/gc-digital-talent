@@ -41,6 +41,8 @@ class ProcessActivityLogTest extends TestCase
 
     protected AssessmentStep $step;
 
+    protected int $logsCreated = 15;
+
     protected $query = <<<'GRAPHQL'
     query ProcessActivitySearch($id: UUID!, $where: ProcessActivityFilterInput) {
         pool(id: $id) {
@@ -427,7 +429,7 @@ class ProcessActivityLogTest extends TestCase
             ->graphQL($this->query, [
                 'id' => $this->process->id,
             ])
-            ->assertJsonCount(0, 'data.pool.activities.data');
+            ->assertJsonCount($this->logsCreated, 'data.pool.activities.data');
     }
 
     public function testOtherProcessOperatorCannotViewActivities(): void
@@ -454,7 +456,7 @@ class ProcessActivityLogTest extends TestCase
             ->graphQL($this->query, [
                 'id' => $this->process->id,
             ])
-            ->assertJsonCount(15, 'data.pool.activities.data');
+            ->assertJsonCount($this->logsCreated, 'data.pool.activities.data');
     }
 
     public function testOtherCommunityRecruiterCannotViewActivities(): void
@@ -548,7 +550,7 @@ class ProcessActivityLogTest extends TestCase
         $this->actingAs($advisor, 'api')
             ->graphQL($this->query, ['id' => $this->process->id])
             ->assertGraphQLErrorFree()
-            ->assertJsonCount(15, 'data.pool.activities.data');
+            ->assertJsonCount($this->logsCreated, 'data.pool.activities.data');
     }
 
     public function testOtherDepartmentHrAdvisorCannotViewActivities(): void
@@ -573,7 +575,7 @@ class ProcessActivityLogTest extends TestCase
         $this->actingAs($deptAdmin, 'api')
             ->graphQL($this->query, ['id' => $this->process->id])
             ->assertGraphQLErrorFree()
-            ->assertJsonCount(15, 'data.pool.activities.data');
+            ->assertJsonCount($this->logsCreated, 'data.pool.activities.data');
     }
 
     public function testOtherDepartmentAdminCannotViewActivities(): void
@@ -598,6 +600,6 @@ class ProcessActivityLogTest extends TestCase
         $this->actingAs($admin, 'api')
             ->graphQL($this->query, ['id' => $this->process->id])
             ->assertGraphQLErrorFree()
-            ->assertJsonCount(15, 'data.pool.activities.data');
+            ->assertJsonCount($this->logsCreated, 'data.pool.activities.data');
     }
 }
