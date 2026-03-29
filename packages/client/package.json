@@ -27,6 +27,7 @@
     "graphql": "^16.13.2",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.23",
+    "pusher-js": "^8.4.3",
     "react-intl": "^10.1.0",
     "urql": "^5.0.1"
   },

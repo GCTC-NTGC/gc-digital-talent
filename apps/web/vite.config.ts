@@ -104,6 +104,7 @@ export default defineConfig(({ command }) => ({
     BUILD_DATE: JSON.stringify(new Date()),
     APP_TITLE: getEnvVar("APP_TITLE"),
     APP_DESCRIPTION: getEnvVar("APP_DESCRIPTION"),
+    REVERB_APP_KEY: getEnvVar("REVERB_APP_KEY"),
 
     // run-time variables
     __RUNTIME_VARS__: JSON.stringify(runtimeConfig),

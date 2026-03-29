@@ -5,6 +5,7 @@ import {
   createClient,
   fetchExchange,
   mapExchange,
+  subscriptionExchange,
 } from "urql";
 import { authExchange } from "@urql/exchange-auth";
 
@@ -33,6 +34,7 @@ import {
 } from "./errors";
 import specialErrorExchange from "../exchanges/specialErrorExchange";
 import { isTokenProbablyExpired } from "./isTokenProbablyExpired";
+import createPusher from "./createPusher";
 
 interface GetClientArgs {
   intl: IntlShape;
@@ -43,6 +45,7 @@ export function getClient({ intl, authState }: GetClientArgs): Client {
   const locale = getLocale(intl);
   const logger = getLogger();
   const auth = authState ?? getAuthenticationState({ locale });
+  const forwardSubscription = createPusher();
 
   return createClient({
     url: `${apiHost}${apiUri}`,
@@ -137,6 +140,7 @@ export function getClient({ intl, authState }: GetClientArgs): Client {
           },
         };
       }),
+      subscriptionExchange({ forwardSubscription }),
       specialErrorExchange({ intl }),
       fetchExchange,
     ],

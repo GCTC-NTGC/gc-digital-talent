@@ -65,7 +65,13 @@ export default tseslint.config(
       camelcase: [
         "error",
         {
-          allow: ["w*Query$", "w*Fragment$", "w*Mutation$", "w*Document$"],
+          allow: [
+            "w*Query$",
+            "w*Fragment$",
+            "w*Mutation$",
+            "w*Document$",
+            "w*Subscription$",
+          ],
         },
       ],
 
