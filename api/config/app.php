@@ -75,6 +75,7 @@ use Nuwave\Lighthouse\GlobalId\GlobalIdServiceProvider;
 use Nuwave\Lighthouse\LighthouseServiceProvider;
 use Nuwave\Lighthouse\OrderBy\OrderByServiceProvider;
 use Nuwave\Lighthouse\SoftDeletes\SoftDeletesServiceProvider;
+use Nuwave\Lighthouse\Subscriptions\SubscriptionServiceProvider;
 use Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider;
 use ScoutEngines\Postgres\PostgresEngineServiceProvider;
 
@@ -277,6 +278,7 @@ return [
         SoftDeletesServiceProvider::class,
         Nuwave\Lighthouse\Validation\ValidationServiceProvider::class,
         WhereConditionsServiceProvider::class,
+        SubscriptionServiceProvider::class,
         // \Nuwave\Lighthouse\Tracing\TracingServiceProvider::class,
         GraphiQLServiceProvider::class,
         TinkerServiceProvider::class,
