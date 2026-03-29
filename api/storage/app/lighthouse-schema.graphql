@@ -681,6 +681,10 @@ type Mutation {
   downloadNominationDoc(id: UUID!): String
 }
 
+type Subscription {
+  notificationReceived: UserNotification
+}
+
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date
 
@@ -2887,6 +2891,13 @@ input UpdateJobPosterTemplateInput {
 input SendUserEmailsVerificationInput {
   emailAddress: String!
   emailTypes: [EmailType]
+}
+
+type UserNotification {
+  id: String
+  type: String
+  userId: String
+  data: JSON
 }
 
 "Information about pagination using a fully featured paginator."
