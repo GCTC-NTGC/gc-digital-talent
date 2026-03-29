@@ -19,6 +19,7 @@ services:
       - postgres
     ports:
       - 8080:8080
+      - 6001:6001
 
   webserver:
     build:
