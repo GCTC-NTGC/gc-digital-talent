@@ -3684,7 +3684,7 @@ type Mutation {
 
 type UserNotification {
   id: String
-  type: String
+  type: NotificationType
   userId: String @rename(attribute: "user_id")
   data: JSON
 }

@@ -920,6 +920,11 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
+enum NotificationType {
+  UserFileGenerated
+  UserFileGenerationError
+}
+
 enum ActivityEvent {
   CREATED
   UPDATED

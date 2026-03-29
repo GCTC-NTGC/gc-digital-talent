@@ -2895,7 +2895,7 @@ input SendUserEmailsVerificationInput {
 
 type UserNotification {
   id: String
-  type: String
+  type: NotificationType
   userId: String
   data: JSON
 }
@@ -3387,6 +3387,11 @@ as they may not be parsed correctly on the server side. Use `String` literals if
 dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
+
+enum NotificationType {
+  UserFileGenerated
+  UserFileGenerationError
+}
 
 enum ActivityEvent {
   CREATED
