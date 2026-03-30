@@ -182,6 +182,9 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             })}
             appendLanguageToLabel={"en"}
             type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
           />
           <Input
             id="mandateAuthority.fr"
@@ -194,6 +197,9 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             })}
             appendLanguageToLabel={"fr"}
             type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
           />
           <div className="xs:col-span-2">
             <Input
