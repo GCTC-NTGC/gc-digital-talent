@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\AwardedScope;
+use App\Enums\AwardedTo;
 use App\Models\AwardExperience;
 use App\Models\User;
 use App\Traits\ExperienceFactoryWithSkills;
@@ -25,31 +27,17 @@ class AwardExperienceFactory extends Factory
      */
     public function definition()
     {
+        $awardedTo = $this->faker->randomElement(array_column(AwardedTo::cases(), 'name'));
+
         return [
             'user_id' => User::factory(),
             'title' => $this->faker->jobTitle(),
             'issued_by' => $this->faker->company(),
             'awarded_date' => $this->faker->dateTimeBetween('2010-01-01', '2019-12-31')->format('Y-m-d'),
-            'awarded_to' => $this->faker->randomElement(
-                [
-                    'ME',
-                    'MY_TEAM',
-                    'MY_PROJECT',
-                    'MY_ORGANIZATION',
-                ]
-            ),
-            'awarded_scope' => $this->faker->randomElement(
-                [
-                    'INTERNATIONAL',
-                    'NATIONAL',
-                    'PROVINCIAL',
-                    'LOCAL',
-                    'COMMUNITY',
-                    'ORGANIZATIONAL',
-                    'SUB_ORGANIZATIONAL',
-                ]
-            ),
+            'awarded_to' => $awardedTo,
+            'awarded_scope' => $this->faker->randomElement(array_column(AwardedScope::cases(), 'name')),
             'details' => $this->faker->text(),
+            'project_name' => $awardedTo === AwardedTo::MY_PROJECT->name ? $this->faker->words(3, true) : null
         ];
     }
 }
