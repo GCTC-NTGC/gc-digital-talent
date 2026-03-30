@@ -154,6 +154,8 @@ return [
 
     'awarded_to' => 'Awarded to',
     'issuing_organization' => 'Issuing organization',
+    'project_name' => 'Name of the project',
+    'related_experience' => 'Related experience',
     'project' => 'Project or product',
     'area_of_study' => 'Area of study',
     'thesis_title' => 'Thesis title',

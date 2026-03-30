@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'international' => 'International',
-    'national' => 'National',
-    'provincial' => 'Provincial',
-    'local' => 'Local',
-    'community' => 'Community',
-    'organizational' => 'Organizational',
-    'sub_organizational' => 'Sub-Organizational (Branch)',
+    'international' => 'International award',
+    'national' => 'National award',
+    'provincial' => 'Provincial or territorial award',
+    'local' => 'Local award',
+    'community' => 'Community award',
+    'organizational' => 'Organizational award',
+    'sub_organizational' => 'Sub-organizational award',
 ];
