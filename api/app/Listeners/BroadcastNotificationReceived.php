@@ -8,9 +8,6 @@ use Illuminate\Notifications\Events\NotificationSent;
 use Illuminate\Notifications\Notification;
 use Nuwave\Lighthouse\Execution\Utils\Subscription;
 
-/**
- * @phpstan-import-type NotificationArray from \Illuminate\Notifications\Notification
- */
 class BroadcastNotificationReceived
 {
     /**
@@ -30,7 +27,7 @@ class BroadcastNotificationReceived
         /** @var Notification $notification */
         $notification = $event->notification;
 
-        if (! $notifiable instanceof User || ! $notification instanceof SubscriptionNotification) {
+        if (! $notification instanceof SubscriptionNotification) {
             return;
         }
 
