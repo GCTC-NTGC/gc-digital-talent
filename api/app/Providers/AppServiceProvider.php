@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
@@ -52,5 +53,12 @@ class AppServiceProvider extends ServiceProvider
 
         // rate limiter for GC Notify API
         RateLimiter::for('gcnotify_api', fn () => Limit::perMinute(config('notify.client.max_requests_per_minute')));
+
+        Relation::morphMap([
+            'WorkExperience' => \App\Models\WorkExperience::class,
+            'PersonalExperience' => \App\Models\PersonalExperience::class,
+            'CommunityExperience' => \App\Models\CommunityExperience::class,
+            'EducationExperience' => \App\Models\EducationExperience::class,
+        ]);
     }
 }
