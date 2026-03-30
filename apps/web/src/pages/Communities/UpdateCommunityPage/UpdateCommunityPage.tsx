@@ -49,6 +49,8 @@ interface FormValues {
   nameFr: string;
   descriptionEn: string;
   descriptionFr: string;
+  informationUrlEn: string;
+  informationUrlFr: string;
   mandateAuthorityEn: string;
   mandateAuthorityFr: string;
 }
