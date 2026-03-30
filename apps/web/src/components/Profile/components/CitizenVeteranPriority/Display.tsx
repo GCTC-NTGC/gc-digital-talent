@@ -8,20 +8,20 @@ import profileMessages from "~/messages/profileMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import governmentMessages from "~/messages/governmentMessages";
 
-const PriorityEntitlementDisplay_Fragment = graphql(/** GraphQL */ `
-  fragment PriorityEntitlementDisplay on User {
+const CitizenVeteranPriorityDisplay_Fragment = graphql(/** GraphQL */ `
+  fragment CitizenVeteranPriorityDisplay on User {
     hasPriorityEntitlement
     priorityNumber
   }
 `);
 
 interface DisplayProps {
-  query: FragmentType<typeof PriorityEntitlementDisplay_Fragment>;
+  query: FragmentType<typeof CitizenVeteranPriorityDisplay_Fragment>;
 }
 
 const Display = ({ query }: DisplayProps) => {
   const intl = useIntl();
-  const user = getFragment(PriorityEntitlementDisplay_Fragment, query);
+  const user = getFragment(CitizenVeteranPriorityDisplay_Fragment, query);
   const { hasPriorityEntitlement, priorityNumber } = user;
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);

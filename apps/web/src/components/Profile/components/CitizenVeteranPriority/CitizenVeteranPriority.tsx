@@ -29,31 +29,31 @@ import FormFields from "./FormFields";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 
-const ProfilePriorityEntitlements_Fragment = graphql(/** GraphQL */ `
-  fragment ProfilePriorityEntitlements on User {
+const ProfileCitizenVeteranPriority_Fragment = graphql(/** GraphQL */ `
+  fragment ProfileCitizenVeteranPriority on User {
     id
     hasPriorityEntitlement
     priorityNumber
-    ...PriorityEntitlementDisplay
+    ...CitizenVeteranPriorityDisplay
   }
 `);
 
-interface PriorityEntitlementsProps extends SectionProps<Pick<Pool, "id">> {
-  query: FragmentType<typeof ProfilePriorityEntitlements_Fragment>;
+interface CitizenVeteranPriorityProps extends SectionProps<Pick<Pool, "id">> {
+  query: FragmentType<typeof ProfileCitizenVeteranPriority_Fragment>;
 }
 
-const PriorityEntitlements = ({
+const CitizenVeteranPriority = ({
   query,
   onUpdate,
   isUpdating,
   pool,
-}: PriorityEntitlementsProps) => {
-  const user = getFragment(ProfilePriorityEntitlements_Fragment, query);
+}: CitizenVeteranPriorityProps) => {
+  const user = getFragment(ProfileCitizenVeteranPriority_Fragment, query);
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
   const intl = useIntl();
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
-    section: "priority",
+    section: "citizen-veteran-priority",
     isNull,
     emptyRequired,
     fallbackIcon: BuildingLibraryIcon,
@@ -144,4 +144,4 @@ const PriorityEntitlements = ({
   );
 };
 
-export default PriorityEntitlements;
+export default CitizenVeteranPriority;
