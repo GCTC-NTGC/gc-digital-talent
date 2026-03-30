@@ -1,5 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
+import { useRevalidator } from "react-router";
 
 import { Link, Separator, TableOfContents } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -72,6 +73,7 @@ export async function clientLoader({ context }: Route.ClientLoaderArgs) {
 const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const revalidator = useRevalidator();
   const { user } = loaderData;
 
   const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
@@ -82,7 +84,10 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
     return executeUpdateMutation({
       id: userId,
       user: userData,
-    }).then((res) => res.data?.updateUserAsUser);
+    }).then(async (res) => {
+      await revalidator.revalidate();
+      return res.data?.updateUserAsUser;
+    });
   };
 
   const sectionProps = {
