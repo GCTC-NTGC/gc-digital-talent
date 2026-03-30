@@ -634,7 +634,12 @@ const ExperienceCard = ({
               <>
                 <Separator space="sm" />
                 <ContentSection
-                  title={experienceLabels.details}
+                  title={
+                    isCommunityExperience(experience) ||
+                    isWorkExperience(experience)
+                      ? experienceLabels.keyTasksAndResponsibilities
+                      : experienceLabels.details
+                  }
                   headingLevel={headingLevel}
                 >
                   {experience.details ??

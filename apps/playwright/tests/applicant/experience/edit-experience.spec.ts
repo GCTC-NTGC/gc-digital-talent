@@ -34,6 +34,6 @@ test("Can edit work experience", async ({ appPage }) => {
   await experiencePage.editWorkExperience(`${workExperience?.id}`, {
     role,
     startDate: "2001-01",
-    endDate: "2200-01",
+    endDate: "2020-01",
   });
 });

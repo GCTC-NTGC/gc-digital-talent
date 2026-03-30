@@ -499,6 +499,33 @@ trait GeneratesUserDoc
                     $this->localize('headings.seniority_role'),
                     $this->localizeEnum($experience->ext_role_seniority, ExternalRoleSeniority::class)
                 );
+                $this->addLabelText($section, $this->localize('headings.supervisory_position'), $this->yesOrNo($experience->supervisory_position));
+                if ($experience->supervisory_position === true) {
+                    $this->addLabelText($section, $this->localize('headings.supervised_employees'), $this->yesOrNo($experience->supervised_employees));
+                    if ($experience->supervised_employees === true) {
+                        $this->addLabelText(
+                            $section,
+                            $this->localize('headings.supervised_employees_number'),
+                            Number::format($experience->supervised_employees_number, precision: 0, locale: App::getLocale()),
+                        );
+                    }
+                    $this->addLabelText($section, $this->localize('headings.budget_management'), $this->yesOrNo($experience->budget_management));
+
+                    if ($experience->budget_management === true) {
+                        $this->addLabelText(
+                            $section,
+                            $this->localize('headings.annual_budget_allocation'),
+                            Number::format($experience->annual_budget_allocation, precision: 0, locale: App::getLocale()),
+                        );
+                    }
+                    $this->addLabelText($section, $this->localize('gc_employee.senior_management_status'), $experience->senior_management_status ? Lang::get('gc_employee.senior_management_true') : Lang::get('gc_employee.senior_management_false'));
+                    if ($experience->senior_management_status === true) {
+                        $this->addLabelText($section, $this->localize('headings.c_suite_role_title'), $this->localizeEnum($experience->c_suite_role_title, CSuiteRoleTitle::class));
+                    }
+                    if ($experience->c_suite_role_title === CSuiteRoleTitle::OTHER->name) {
+                        $this->addLabelText($section, $this->localize('headings.other_c_suite_role_title'), $experience->other_c_suite_role_title);
+                    }
+                }
             } elseif ($experience->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
                 $section->addTitle(
                     sprintf(
@@ -618,7 +645,7 @@ trait GeneratesUserDoc
                 $this->addLabelText($section, $this->localize('headings.team_group_division'), $experience->division);
             }
 
-            $this->addLabelText($section, $this->localize('headings.additional_details'), $experience->details);
+            $this->addLabelText($section, $this->localize('headings.key_tasks_and_responsibilities'), $experience->details);
 
             if ($withSkills) {
                 $experience->load(['userSkills' => ['skill']]);

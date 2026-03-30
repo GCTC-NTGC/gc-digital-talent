@@ -156,8 +156,8 @@ test.describe("Process activity log", () => {
           personalExperiences: {
             create: [
               {
-                description: "Test Experience Description",
-                details: "A Playwright test personal experience",
+                learningDescription: "Test Experience Description",
+                organization: "A Playwright organization",
                 skills: {
                   sync: [
                     {

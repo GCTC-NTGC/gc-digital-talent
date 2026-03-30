@@ -164,9 +164,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'gc_employment_type',
         'gov_position_type',
         'classification',
-        'gc_management_or_supervisory_status',
-        'gc_number_of_supervised_employees',
-        'gc_annual_budget_allocation',
+        'management_or_supervisory_status',
+        'number_of_supervised_employees',
+        'annual_budget_allocation',
         'c_suite_title',
         'other_c_suite_title',
         'caf_employment_type',
@@ -498,11 +498,11 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $this->localizeEnum($exp->gov_employment_type, GovEmployeeType::class), // gc employment type
             $this->localizeEnum($exp->gov_position_type, GovPositionType::class), // gc position type
             $exp->classification?->group.($exp->classification?->level ? '-'.$exp->classification->level : ''), // Classification: group-level
-            $this->yesOrNo($exp->supervisory_position), // gc management or supervisory status: Yes, No, empty
-            $exp->supervised_employees_number ?? '', // GC number of supervised employees
-            $exp->annual_budget_allocation ?? '', // GC annual budget allocation
-            $this->localizeEnum($exp->c_suite_role_title, CSuiteRoleTitle::class), // GC C-suite role
-            $exp->other_c_suite_title ?? '', // Other C-suite role title
+            $this->yesOrNo($exp->supervisory_position), // management or supervisory status: Yes, No, empty
+            $exp->supervised_employees_number ?? '', // number of supervised employees
+            $exp->annual_budget_allocation ?? '', // annual budget allocation
+            $this->localizeEnum($exp->c_suite_role_title, CSuiteRoleTitle::class), // C-suite role
+            $exp->other_c_suite_role_title ?? '', // Other C-suite role title
             $this->localizeEnum($exp->caf_employment_type, CafEmploymentType::class), // CAF employment type
             $this->localizeEnum($exp->caf_rank, CafRank::class), // CAF rank category
             $workStreams, // Work streams: work streams linked to the experience separated by commas
@@ -580,9 +580,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // gc_employment_type
             '', // gc_position_type
             '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
+            '', // management_or_supervisory_status
+            '', // number_of_supervised_employees
+            '', // annual_budget_allocation
             '', // c_suite_title
             '', // other_c_suite_title
             '', // caf_employment_type
@@ -659,9 +659,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // gc_employment_type
             '', // gc_position_type
             '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
+            '', // management_or_supervisory_status
+            '', // number_of_supervised_employees
+            '', // annual_budget_allocation
             '', // c_suite_title
             '', // other_c_suite_title
             '', // caf_employment_type
@@ -742,9 +742,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // gc_employment_type
             '', // gc_position_type
             '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
+            '', // management_or_supervisory_status
+            '', // number_of_supervised_employees
+            '', // annual_budget_allocation
             '', // c_suite_title
             '', // other_c_suite_title
             '', // caf_employment_type
@@ -822,9 +822,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // gc_employment_type
             '', // gc_position_type
             '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
+            '', // management_or_supervisory_status
+            '', // number_of_supervised_employees
+            '', // annual_budget_allocation
             '', // c_suite_title
             '', // other_c_suite_title
             '', // caf_employment_type

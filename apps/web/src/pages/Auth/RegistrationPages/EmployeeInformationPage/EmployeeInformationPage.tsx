@@ -103,7 +103,7 @@ const formValuesToSubmitData = (
     team,
     startDate,
     endDate,
-    currentRole,
+    roleStatus,
     employmentCategory,
     extSizeOfOrganization,
     extRoleSeniority,
@@ -139,7 +139,10 @@ const formValuesToSubmitData = (
     organization: organization ?? undefined, // this is different from the shared version but not sure why
     division: team,
     startDate,
-    endDate: allowExpectedEndDate || (!currentRole && endDate) ? endDate : null,
+    endDate:
+      allowExpectedEndDate || (roleStatus === "past" && endDate)
+        ? endDate
+        : null,
     employmentCategory,
     extSizeOfOrganization,
     extRoleSeniority,
