@@ -9,8 +9,6 @@ import { useQuery, UseQueryExecute, useSubscription } from "urql";
 import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import {
   graphql,
-  Maybe,
-  NotificationSubscription,
   NotificationType,
   UserNotification,
 } from "@gc-digital-talent/graphql";
