@@ -1291,6 +1291,8 @@ type Community implements HasRoleAssignments {
   pools: [Pool]
   workStreams: [WorkStream!]
   developmentPrograms: [DevelopmentProgram!]
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+  developmentProgramsThroughPivot: [DevelopmentProgram!]
 }
 
 type DevelopmentProgram {
@@ -1300,6 +1302,16 @@ type DevelopmentProgram {
   descriptionForNominations: LocalizedString
   community: Community
   eligibleClassifications: [Classification!]
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+  communitiesThroughPivot: [Community!]
+}
+
+type CommunityDevelopmentProgram {
+  id: UUID!
+  community: Community
+  developmentProgram: DevelopmentProgram
+  descriptionForNominations: LocalizedString
+  classifications: [Classification!]
 }
 
 type TalentNominationEvent {

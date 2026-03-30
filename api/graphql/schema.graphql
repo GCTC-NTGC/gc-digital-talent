@@ -811,6 +811,8 @@ type Community implements HasRoleAssignments {
     @canResolved(ability: "view")
   workStreams: [WorkStream!] @hasMany
   developmentPrograms: [DevelopmentProgram!] @hasMany
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
+  developmentProgramsThroughPivot: [DevelopmentProgram!] @hasMany
 }
 
 type DevelopmentProgram {
@@ -822,6 +824,17 @@ type DevelopmentProgram {
     @rename(attribute: "description_for_nominations")
   community: Community @belongsTo
   eligibleClassifications: [Classification!] @belongsToMany
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
+  communitiesThroughPivot: [Community!] @hasMany
+}
+
+type CommunityDevelopmentProgram {
+  id: UUID!
+  community: Community @belongsTo
+  developmentProgram: DevelopmentProgram @belongsTo
+  descriptionForNominations: LocalizedString
+    @rename(attribute: "description_for_nominations")
+  classifications: [Classification!] @belongsToMany
 }
 
 type TalentNominationEvent {
