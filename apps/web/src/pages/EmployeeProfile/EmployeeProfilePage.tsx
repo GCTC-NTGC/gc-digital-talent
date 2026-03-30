@@ -18,7 +18,6 @@ import { NotFoundError, UnauthorizedError } from "@gc-digital-talent/helpers";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
@@ -110,30 +109,28 @@ const EmployeeProfile = ({
   }
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "Your GC employee profile",
-    id: "cUSI4/",
+    defaultMessage: "GC employee profile",
+    id: "V2ML6q",
     description: "Page title for a user's GC employee profile",
   });
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "Manage your government employee information, including career development preferences and work styles.",
-    id: "+RDFZH",
+      "Manage government employee information, including verification and career development preferences",
+    id: "S6fUdZ",
     description: "Description of the employee profile page",
   });
 
-  const crumbs = useBreadcrumbs({
-    crumbs: [
-      {
-        label: intl.formatMessage(navigationMessages.applicantDashboard),
-        url: paths.applicantDashboard(),
-      },
-      {
-        url: paths.employeeProfile(),
-        label: intl.formatMessage(navigationMessages.employeeProfileGC),
-      },
-    ],
-  });
+  const crumbs = [
+    {
+      label: intl.formatMessage(navigationMessages.applicantDashboard),
+      url: paths.applicantDashboard(),
+    },
+    {
+      url: paths.employeeProfile(),
+      label: intl.formatMessage(navigationMessages.employeeProfileGC),
+    },
+  ];
 
   // for validation
   const careerDevelopment = getFragment(
