@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
@@ -248,5 +249,10 @@ class WorkExperience extends Experience
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function awardExperiences(): MorphMany
+    {
+        return $this->morphMany(AwardExperience::class, 'relatedExperience');
     }
 }

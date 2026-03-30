@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 
@@ -48,6 +49,11 @@ class EducationExperience extends Experience
         'start_date' => 'startDate',
         'end_date' => 'endDate',
     ];
+
+    public function awardExperiences(): MorphMany
+    {
+        return $this->morphMany(AwardExperience::class, 'relatedExperience');
+    }
 
     public function getTitle(?string $lang = 'en'): string
     {
