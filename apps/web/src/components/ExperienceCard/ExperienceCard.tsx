@@ -95,6 +95,55 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      projectName
+      relatedExperience {
+        ... on CommunityExperience {
+          __typename
+          id
+          title
+          organization
+        }
+        ... on EducationExperience {
+          __typename
+          id
+          type {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          areaOfStudy
+          institution
+        }
+        ... on PersonalExperience {
+          __typename
+          id
+          title
+        }
+        ... on WorkExperience {
+          __typename
+          id
+          role
+          organization
+          employmentCategory {
+            value
+          }
+          department {
+            id
+            name {
+              en
+              fr
+            }
+          }
+          cafForce {
+            label {
+              en
+              fr
+            }
+          }
+        }
+      }
     }
     ... on CommunityExperience {
       details

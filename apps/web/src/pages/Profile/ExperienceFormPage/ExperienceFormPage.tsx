@@ -167,6 +167,21 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      projectName
+      relatedExperience {
+        ... on CommunityExperience {
+          id
+        }
+        ... on EducationExperience {
+          id
+        }
+        ... on PersonalExperience {
+          id
+        }
+        ... on WorkExperience {
+          id
+        }
+      }
     }
     ... on CommunityExperience {
       details

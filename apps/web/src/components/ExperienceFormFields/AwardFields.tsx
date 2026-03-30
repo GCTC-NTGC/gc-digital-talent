@@ -1,28 +1,36 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { useFormContext, useWatch } from "react-hook-form";
+import { useEffect } from "react";
 
 import {
   DateInput,
   Input,
-  Select,
   DATE_SEGMENT,
   localizedEnumToOptions,
   TextArea,
+  RadioGroup,
+  Select,
 } from "@gc-digital-talent/forms";
 import {
   errorMessages,
-  uiMessages,
-  sortAwardedScope,
   sortAwardedTo,
+  sortAwardedScope,
   getLocale,
   Locales,
+  uiMessages,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import { graphql } from "@gc-digital-talent/graphql";
-import { Heading } from "@gc-digital-talent/ui";
+import { AwardedScope, AwardedTo, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Loading } from "@gc-digital-talent/ui";
 
-import { SubExperienceFormProps } from "~/types/experience";
-import { getExperienceFormLabels } from "~/utils/experienceUtils";
+import { AwardFormValues, SubExperienceFormProps } from "~/types/experience";
+import {
+  getExperienceFormLabels,
+  getExperienceName,
+  isAwardExperience,
+} from "~/utils/experienceUtils";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 const AwardOptions_Query = graphql(/* GraphQL */ `
@@ -30,15 +38,65 @@ const AwardOptions_Query = graphql(/* GraphQL */ `
     awardedTo: localizedEnumStrings(enumName: "AwardedTo") {
       value
       label {
-        en
-        fr
+        localized
       }
     }
     awardedScopes: localizedEnumStrings(enumName: "AwardedScope") {
       value
       label {
-        en
-        fr
+        localized
+      }
+    }
+    me {
+      id
+      experiences {
+        id
+        ... on CommunityExperience {
+          __typename
+          id
+          title
+          organization
+        }
+        ... on EducationExperience {
+          __typename
+          id
+          type {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          areaOfStudy
+          institution
+        }
+        ... on PersonalExperience {
+          __typename
+          id
+          title
+        }
+        ... on WorkExperience {
+          __typename
+          id
+          role
+          organization
+          employmentCategory {
+            value
+          }
+          department {
+            id
+            name {
+              en
+              fr
+            }
+          }
+          cafForce {
+            label {
+              en
+              fr
+            }
+          }
+        }
       }
     }
   }
@@ -55,120 +113,169 @@ const AwardFields = ({
   const locale = getLocale(intl);
   const experienceLabels = getExperienceFormLabels(intl);
   const todayDate = new Date();
-  const [{ data }] = useQuery({ query: AwardOptions_Query });
+  const [{ data, fetching }] = useQuery({ query: AwardOptions_Query });
+  const myExperiences = unpackMaybes(data?.me?.experiences).filter(
+    (experience) => !isAwardExperience(experience),
+  );
 
   const wordCountLimits: Record<Locales, number> = {
     en: TEXT_AREA_MAX_WORDS_EN,
     fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
   } as const;
 
+  const { resetField, setValue } = useFormContext<AwardFormValues>();
+  const watchAwardedTo = useWatch<AwardFormValues>({
+    name: "awardedTo",
+  });
+  const watchRelatedExperienceId = useWatch<AwardFormValues>({
+    name: "relatedExperienceId",
+  });
+
+  useEffect(() => {
+    const resetDirtyField = (name: keyof AwardFormValues) => {
+      resetField(name, { keepDirty: false, defaultValue: undefined });
+    };
+
+    // Reset the project name if awarded to changes
+    if (watchAwardedTo) {
+      resetDirtyField("projectName");
+    }
+
+    // Set the related experience type
+    const relatedExperienceType = myExperiences.find(
+      (experience) => experience.id === watchRelatedExperienceId,
+    );
+    if (relatedExperienceType) {
+      setValue("relatedExperienceType", relatedExperienceType.__typename);
+    }
+  }, [watchAwardedTo, watchRelatedExperienceId, resetField]);
+
   return (
     <>
-      <div className="grid gap-6 xs:grid-cols-2">
-        <div className="self-end">
-          <Input
-            id="awardTitle"
-            label={labels.awardTitle}
-            name="awardTitle"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
+      {fetching ? (
+        <div className="col-span-2">
+          <Loading inline />
         </div>
-        <div>
-          <Select
-            id="awardedTo"
-            label={labels.awardedTo}
-            name="awardedTo"
-            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            options={localizedEnumToOptions(
-              sortAwardedTo(data?.awardedTo),
-              intl,
+      ) : (
+        <>
+          <div className="flex flex-col gap-6 xs:grid-cols-2">
+            <Input
+              id="awardTitle"
+              label={labels.awardTitle}
+              name="awardTitle"
+              type="text"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+            <DateInput
+              id="awardedDate"
+              legend={labels.awardedDate}
+              name="awardedDate"
+              show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                max: {
+                  value: strToFormDate(todayDate.toISOString()),
+                  message: intl.formatMessage(
+                    errorMessages.mustNotBeFutureAwardedDate,
+                  ),
+                },
+              }}
+            />
+            <Input
+              id="issuedBy"
+              label={labels.issuedBy}
+              name="issuedBy"
+              type="text"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              list={
+                organizationSuggestions.length
+                  ? "organizationSuggestions"
+                  : undefined
+              }
+            />
+            {organizationSuggestions.length > 0 && (
+              <datalist id="organizationSuggestions">
+                {organizationSuggestions.map((suggestion) => {
+                  return <option key={suggestion} value={suggestion}></option>;
+                })}
+              </datalist>
             )}
-          />
-        </div>
-        <div>
-          <Input
-            id="issuedBy"
-            label={labels.issuedBy}
-            name="issuedBy"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-            list={
-              organizationSuggestions.length
-                ? "organizationSuggestions"
-                : undefined
-            }
-          />
-          {organizationSuggestions.length > 0 && (
-            <datalist id="organizationSuggestions">
-              {organizationSuggestions.map((suggestion) => {
-                return <option key={suggestion} value={suggestion}></option>;
+            <Select
+              id="relatedExperienceId"
+              label={labels.relatedExperience}
+              name="relatedExperienceId"
+              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+              options={myExperiences.map((experience) => ({
+                value: experience.id,
+                label: getExperienceName(experience, intl),
+              }))}
+            />
+            <RadioGroup
+              idPrefix="awardedTo"
+              name="awardedTo"
+              legend={labels.awardedTo}
+              items={localizedEnumToOptions(
+                sortAwardedTo(data?.awardedTo),
+                intl,
+              )}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+
+            {watchAwardedTo === AwardedTo.MyTeam && (
+              <Input
+                id="projectName"
+                label={labels.projectName}
+                name="projectName"
+                type="text"
+              />
+            )}
+            <RadioGroup
+              idPrefix="awardedScope"
+              name="awardedScope"
+              legend={labels.awardedScope}
+              items={localizedEnumToOptions(
+                sortAwardedScope(data?.awardedScopes),
+                intl,
+              ).map(({ value, label }) => {
+                return {
+                  label,
+                  value,
+                  contentBelow:
+                    value === AwardedScope.SubOrganizational.toString()
+                      ? intl.formatMessage({
+                          defaultMessage:
+                            "Recognized by the branch, team, etc.",
+                          id: "5hHlpL",
+                          description:
+                            "Additional info on sub org radio button",
+                        })
+                      : null,
+                };
               })}
-            </datalist>
-          )}
-        </div>
-        <div>
-          <Select
-            id="awardedScope"
-            label={labels.awardedScope}
-            name="awardedScope"
-            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            options={localizedEnumToOptions(
-              sortAwardedScope(data?.awardedScopes),
-              intl,
-            )}
-          />
-        </div>
-        <div className="xs:col-span-2">
-          <DateInput
-            id="awardedDate"
-            legend={labels.awardedDate}
-            name="awardedDate"
-            show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              max: {
-                value: strToFormDate(todayDate.toISOString()),
-                message: intl.formatMessage(
-                  errorMessages.mustNotBeFutureAwardedDate,
-                ),
-              },
-            }}
-          />
-        </div>
-      </div>
-      <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
-        {intl.formatMessage({
-          defaultMessage: "Highlight additional details",
-          id: "6v+j79",
-          description: "Title for additional details section",
-        })}
-      </Heading>
-      <div>
-        <p className="mb-6">
-          {intl.formatMessage({
-            defaultMessage:
-              "Describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important. Try to keep this field concise as you'll be able to provide more detailed information when linking skills to this experience.",
-            id: "yZ0kfQ",
-            description:
-              "Help text for the experience additional details field",
-          })}
-        </p>
-        <TextArea
-          id={"details"}
-          name={"details"}
-          rows={TEXT_AREA_ROWS}
-          wordLimit={wordCountLimits[locale]}
-          label={experienceLabels.details}
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-        />
-      </div>
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "If there are any other relevant details about this experience you'd like to share, you can do so here.",
+                id: "ioYWI6",
+                description:
+                  "Help text for the experience additional details field",
+              })}
+            </p>
+            <TextArea
+              id={"details"}
+              name={"details"}
+              rows={TEXT_AREA_ROWS}
+              wordLimit={wordCountLimits[locale]}
+              label={experienceLabels.details}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 };

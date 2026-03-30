@@ -247,13 +247,13 @@ export function sortAwardedTo(awardTo?: MaybeLocalizedEnums) {
 export function sortAwardedScope(awardedScopes?: MaybeLocalizedEnums) {
   return sortLocalizedEnums(
     [
-      AwardedScope.International,
-      AwardedScope.National,
-      AwardedScope.Provincial,
       AwardedScope.Local,
       AwardedScope.Community,
-      AwardedScope.Organizational,
       AwardedScope.SubOrganizational,
+      AwardedScope.Organizational,
+      AwardedScope.Provincial,
+      AwardedScope.National,
+      AwardedScope.International,
     ],
     awardedScopes,
   );
