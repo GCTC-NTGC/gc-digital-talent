@@ -43,7 +43,7 @@ class Community extends Model
         'description',
         'information_url',
         'mandate_authority',
-        'contact_email'
+        'contact_email',
     ];
 
     public $guarded = [];
