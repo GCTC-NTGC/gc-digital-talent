@@ -53,6 +53,7 @@ interface FormValues {
   informationUrlFr: string;
   mandateAuthorityEn: string;
   mandateAuthorityFr: string;
+  contactEmail: string;
 }
 
 const UpdateCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
