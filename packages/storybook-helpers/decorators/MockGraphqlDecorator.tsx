@@ -88,6 +88,8 @@ const MockGraphqlDecorator: Decorator = (Story) => {
     executeQuery: ({ query }) => mockRequest(query, responseData, mergedConfig),
     executeMutation: ({ query }) =>
       mockRequest(query, responseData, mergedConfig),
+    executeSubscription: ({ query }) =>
+      mockRequest(query, responseData, mergedConfig),
   } as Client;
 
   return (
