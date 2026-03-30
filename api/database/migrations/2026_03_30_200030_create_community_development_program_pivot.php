@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -37,6 +38,32 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->unique(['classification_id', 'community_development_program_id'], 'classification_community_development_program_unique');
         });
+
+        // fill in table community_development_program
+        $developmentPrograms = DB::table('development_programs')->get();
+        foreach ($developmentPrograms as $developmentProgram) {
+            DB::table('community_development_program')->insert([
+                'community_id' => $developmentProgram->community_id,
+                'development_program_id' => $developmentProgram->id,
+                'description_for_nominations' => $developmentProgram->description_for_nominations,
+            ]);
+        }
+
+        // fill in table classification_community_development_program
+        // done second so as to reference the above
+        $classificationDevelopmentPrograms = DB::table('classification_development_program')->get();
+        $communityDevelopmentPrograms = DB::table('community_development_program')->get();
+        foreach ($classificationDevelopmentPrograms as $classificationDevelopmentProgram) {
+            $relevantCommunityDevelopmentProgramId = $communityDevelopmentPrograms
+                ->where('development_program_id', $classificationDevelopmentProgram->development_program_id)
+                ->sole()
+                ->id;
+
+            DB::table('classification_community_development_program')->insert([
+                'classification_id' => $classificationDevelopmentProgram->classification_id,
+                'community_development_program_id' => $relevantCommunityDevelopmentProgramId,
+            ]);
+        }
     }
 
     /**
