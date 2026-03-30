@@ -1,6 +1,10 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getArmedForcesStatusesProfile,
+  getCitizenshipStatusesProfile,
+} from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
@@ -12,6 +16,18 @@ const CitizenVeteranPriorityDisplay_Fragment = graphql(/** GraphQL */ `
   fragment CitizenVeteranPriorityDisplay on User {
     hasPriorityEntitlement
     priorityNumber
+    citizenship {
+      value
+      label {
+        localized
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        localized
+      }
+    }
   }
 `);
 
@@ -22,7 +38,12 @@ interface DisplayProps {
 const Display = ({ query }: DisplayProps) => {
   const intl = useIntl();
   const user = getFragment(CitizenVeteranPriorityDisplay_Fragment, query);
-  const { hasPriorityEntitlement, priorityNumber } = user;
+  const {
+    hasPriorityEntitlement,
+    priorityNumber,
+    citizenship,
+    armedForcesStatus,
+  } = user;
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
@@ -32,6 +53,28 @@ const Display = ({ query }: DisplayProps) => {
 
   return (
     <div className="flex flex-col gap-y-6">
+      <FieldDisplay
+        hasError={!citizenship}
+        label={intl.formatMessage(profileMessages.citizenship)}
+        className="xs:col-span-2 sm:col-span-3"
+      >
+        {citizenship?.value
+          ? intl.formatMessage(getCitizenshipStatusesProfile(citizenship.value))
+          : notProvided}
+      </FieldDisplay>
+
+      <FieldDisplay
+        hasError={empty(armedForcesStatus)}
+        label={intl.formatMessage(profileMessages.veteranStatus)}
+        className="xs:col-span-2 sm:col-span-3"
+      >
+        {armedForcesStatus?.value
+          ? intl.formatMessage(
+              getArmedForcesStatusesProfile(armedForcesStatus.value, false),
+            )
+          : notProvided}
+      </FieldDisplay>
+
       <FieldDisplay
         hasError={empty(hasPriorityEntitlement)}
         label={intl.formatMessage(profileMessages.priorityStatus)}

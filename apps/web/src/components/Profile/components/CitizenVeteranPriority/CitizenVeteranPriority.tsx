@@ -34,6 +34,12 @@ const ProfileCitizenVeteranPriority_Fragment = graphql(/** GraphQL */ `
     id
     hasPriorityEntitlement
     priorityNumber
+    citizenship {
+      value
+    }
+    armedForcesStatus {
+      value
+    }
     ...CitizenVeteranPriorityDisplay
   }
 `);
@@ -65,10 +71,11 @@ const CitizenVeteranPriority = ({
         if (response) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Priority entitlements updated successfully!",
-              id: "xOCF/f",
+              defaultMessage:
+                "Citizenship, veteran status and priority entitlements updated successfully!",
+              id: "sZv6bv",
               description:
-                "Message displayed when a user successfully updates their priority entitlements.",
+                "Message displayed when a user successfully updates their citizen/veteran/priority.",
             }),
           );
           setIsEditing(false);
