@@ -1,12 +1,35 @@
 import ChevronRightIcon from "@heroicons/react/16/solid/ChevronRightIcon";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { useIntl } from "react-intl";
+import HomeIcon from "@heroicons/react/20/solid/HomeIcon";
+import EnvelopeIcon from "@heroicons/react/20/solid/EnvelopeIcon";
+import PhoneIcon from "@heroicons/react/20/solid/PhoneIcon";
+import GlobeAltIcon from "@heroicons/react/20/solid/GlobeAltIcon";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Button, Collapsible, Link } from "@gc-digital-talent/ui";
+import { Button, Collapsible, IconType, Link } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import { formatLocation } from "~/utils/userUtils";
+import profileMessages from "~/messages/profileMessages";
+
+interface IconLabelProps {
+  icon: IconType;
+  label: string;
+  children: ReactNode;
+}
+
+const IconLabel = ({ icon, label, children }: IconLabelProps) => {
+  const Icon = icon;
+
+  return (
+    <span className="flex items-center gap-x-1.5">
+      <Icon aria-hidden="false" aria-label={label} className="size-4.5" />
+      <span>{children}</span>
+    </span>
+  );
+};
 
 const ApplicantContactInformation_Fragment = graphql(/** GraphQL */ `
   fragment ApplicantContactInformation on PoolCandidate {
@@ -14,7 +37,28 @@ const ApplicantContactInformation_Fragment = graphql(/** GraphQL */ `
       email
       workEmail
       telephone
+      currentCity
+      currentProvince {
+        label {
+          localized
+        }
+      }
+      citizenship {
+        label {
+          localized
+        }
+      }
       preferredLang {
+        label {
+          localized
+        }
+      }
+      preferredLanguageForExam {
+        label {
+          localized
+        }
+      }
+      preferredLanguageForInterview {
         label {
           localized
         }
@@ -57,7 +101,20 @@ const ApplicantContactInformation = ({
         </Button>
       </Collapsible.Trigger>
       <Collapsible.Content className="flex flex-col gap-y-6 pt-6 pl-6.5">
-        <FieldDisplay label={intl.formatMessage(commonMessages.email)}>
+        <IconLabel
+          icon={HomeIcon}
+          label={intl.formatMessage(profileMessages.currentLocation)}
+        >
+          {formatLocation({
+            city: application.user.currentCity,
+            region: application.user.currentProvince,
+            intl,
+          })}
+        </IconLabel>
+        <IconLabel
+          icon={EnvelopeIcon}
+          label={intl.formatMessage(commonMessages.email)}
+        >
           {application.user.email ? (
             <Link
               href={`mailto:${application.user.email}`}
@@ -69,21 +126,11 @@ const ApplicantContactInformation = ({
           ) : (
             notAvailable
           )}
-        </FieldDisplay>
-        <FieldDisplay label={intl.formatMessage(commonMessages.workEmail)}>
-          {application.user.workEmail ? (
-            <Link
-              href={`mailto:${application.user.workEmail}`}
-              mode="text"
-              color="black"
-            >
-              {application.user.workEmail}
-            </Link>
-          ) : (
-            notAvailable
-          )}
-        </FieldDisplay>
-        <FieldDisplay label={intl.formatMessage(commonMessages.telephone)}>
+        </IconLabel>
+        <IconLabel
+          icon={PhoneIcon}
+          label={intl.formatMessage(commonMessages.telephone)}
+        >
           {application.user.telephone ? (
             <Link
               href={`tel:${application.user.telephone}`}
@@ -95,15 +142,30 @@ const ApplicantContactInformation = ({
           ) : (
             notAvailable
           )}
-        </FieldDisplay>
+        </IconLabel>
+        <IconLabel
+          icon={GlobeAltIcon}
+          label={intl.formatMessage(profileMessages.citizenship)}
+        >
+          {application.user.citizenship?.label.localized ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </IconLabel>
         <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Preferred contact language",
-            id: "lHmump",
-            description: "Label for preferred contact language field",
-          })}
+          label={intl.formatMessage(profileMessages.communicationLanguage)}
         >
           {application.user.preferredLang?.label.localized ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage(profileMessages.spokenLanguage)}
+        >
+          {application.user.preferredLanguageForInterview?.label.localized ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage(profileMessages.writtenLanguage)}
+        >
+          {application.user.preferredLanguageForExam?.label.localized ??
             intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
       </Collapsible.Content>

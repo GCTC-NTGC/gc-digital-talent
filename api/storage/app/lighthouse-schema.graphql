@@ -178,11 +178,6 @@ type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedFinalDecision implements LocalizedEnumOption {
-  value: FinalDecision!
-  label: LocalizedString!
-}
-
 type LocalizedFinanceChiefDuty implements LocalizedEnumOption {
   value: FinanceChiefDuty!
   label: LocalizedString!
@@ -285,11 +280,6 @@ type LocalizedPoolCandidateSearchRequestReason implements LocalizedEnumOption {
 
 type LocalizedPoolCandidateSearchStatus implements LocalizedEnumOption {
   value: PoolCandidateSearchStatus!
-  label: LocalizedString!
-}
-
-type LocalizedPoolCandidateStatus implements LocalizedEnumOption {
-  value: PoolCandidateStatus!
   label: LocalizedString!
 }
 
@@ -1195,6 +1185,7 @@ type PoolCandidate {
   placementType: LocalizedPlacementType
   placedAt: DateTime
   placedDepartment: Department
+  isBeingReferred: Boolean
   pauseReferralsAt: DateTime
   resumeReferralsAt: DateTime
   pauseReferralsReason: String
@@ -1231,6 +1222,7 @@ type PoolCandidateAdminView {
   placedDepartment: Department
   closingDate: DateTime
   statusUpdatedAt: DateTime
+  isBeingReferred: Boolean
 }
 
 type PoolCandidateAdminViewWithSkillCount {
@@ -1254,7 +1246,6 @@ type Classification {
   maxSalary: Int
   genericJobTitles: [GenericJobTitle]
   isAvailableInSearch: Boolean
-  displayName: LocalizedString
 }
 
 type GenericJobTitle {
@@ -2143,7 +2134,6 @@ input CreateClassificationInput {
   minSalary: Int
   maxSalary: Int
   isAvailableInSearch: Boolean!
-  displayName: LocalizedStringInput
 }
 
 input ClassificationBelongsToMany {
@@ -2165,7 +2155,6 @@ input UpdateClassificationInput {
   minSalary: Int
   maxSalary: Int
   isAvailableInSearch: Boolean
-  displayName: LocalizedStringInput
 }
 
 input UpdatePoolCandidateStatusInput {
@@ -3821,20 +3810,6 @@ enum ExternalSizeOfOrganization {
   ONE_THOUSAND_PLUS
 }
 
-enum FinalDecision {
-  DISQUALIFIED
-  DISQUALIFIED_PENDING
-  DISQUALIFIED_REMOVED
-  QUALIFIED
-  QUALIFIED_EXPIRED
-  QUALIFIED_PENDING
-  QUALIFIED_PLACED
-  QUALIFIED_REMOVED
-  REMOVED
-  TO_ASSESS
-  TO_ASSESS_REMOVED
-}
-
 enum FinanceChiefDuty {
   CORPORATE_COMMUNICATIONS
   FACILITIES_MANAGEMENT_AND_SECURITY
@@ -3988,6 +3963,7 @@ enum PlacementType {
   NOT_PLACED
   UNDER_CONSIDERATION
   PLACED_TENTATIVE
+  PLACED_ACTING
   PLACED_CASUAL
   PLACED_TERM
   PLACED_INDETERMINATE
@@ -4017,29 +3993,6 @@ enum PoolCandidateSearchStatus {
   DONE
   DONE_NO_CANDIDATES
   NOT_COMPLIANT
-}
-
-enum PoolCandidateStatus {
-  DRAFT
-  DRAFT_EXPIRED
-  NEW_APPLICATION
-  APPLICATION_REVIEW
-  SCREENED_IN
-  SCREENED_OUT_APPLICATION
-  SCREENED_OUT_NOT_INTERESTED
-  SCREENED_OUT_NOT_RESPONSIVE
-  UNDER_ASSESSMENT
-  SCREENED_OUT_ASSESSMENT
-  QUALIFIED_AVAILABLE
-  QUALIFIED_UNAVAILABLE
-  QUALIFIED_WITHDREW
-  UNDER_CONSIDERATION
-  PLACED_TENTATIVE
-  PLACED_CASUAL
-  PLACED_TERM
-  PLACED_INDETERMINATE
-  EXPIRED
-  REMOVED
 }
 
 enum PoolLanguage {
@@ -4208,6 +4161,10 @@ enum TargetRole {
   ASSISTANT_DEPUTY_MINISTER
   DEPUTY_MINISTER
   OTHER
+}
+
+enum TbsSecurityLoggingEventId {
+  EMAIL_SENT
 }
 
 enum TimeFrame {

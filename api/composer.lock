@@ -8,26 +8,26 @@
     "packages": [
         {
             "name": "beyondcode/laravel-server-timing",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beyondcode/laravel-server-timing.git",
-                "reference": "a0068d3d954b222ae8402fa2f1653cd068fbf270"
+                "reference": "5c1ba31086e0c6324001cb810c0aca6b28b34e55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beyondcode/laravel-server-timing/zipball/a0068d3d954b222ae8402fa2f1653cd068fbf270",
-                "reference": "a0068d3d954b222ae8402fa2f1653cd068fbf270",
+                "url": "https://api.github.com/repos/beyondcode/laravel-server-timing/zipball/5c1ba31086e0c6324001cb810c0aca6b28b34e55",
+                "reference": "5c1ba31086e0c6324001cb810c0aca6b28b34e55",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "5.8.*|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/support": "5.8.*|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0|^13.0",
                 "php": "^7.2|^8.0",
                 "symfony/stopwatch": "^4.0|^5.0|^6.0|^7.0"
             },
             "require-dev": {
-                "orchestra/testbench": "^4.6|^5.0|^6.0|^8.0|^10.0",
-                "phpunit/phpunit": "^8.0|^9.0|^11.5.3"
+                "orchestra/testbench": "^4.6|^5.0|^6.0|^8.0|^10.0|^11.0",
+                "phpunit/phpunit": "^8.0|^9.0|^11.5.3|^12.5.12"
             },
             "type": "library",
             "extra": {
@@ -68,9 +68,9 @@
             ],
             "support": {
                 "issues": "https://github.com/beyondcode/laravel-server-timing/issues",
-                "source": "https://github.com/beyondcode/laravel-server-timing/tree/1.6.0"
+                "source": "https://github.com/beyondcode/laravel-server-timing/tree/1.7.0"
             },
-            "time": "2025-04-04T13:24:24+00:00"
+            "time": "2026-03-23T11:20:58+00:00"
         },
         {
             "name": "brick/math",
@@ -1970,16 +1970,16 @@
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.3.15",
+            "version": "v0.3.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "4bb8107ec97651fd3f17f897d6489dbc4d8fb999"
+                "reference": "11e7d5f93803a2190b00e145142cb00a33d17ad2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/4bb8107ec97651fd3f17f897d6489dbc4d8fb999",
-                "reference": "4bb8107ec97651fd3f17f897d6489dbc4d8fb999",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/11e7d5f93803a2190b00e145142cb00a33d17ad2",
+                "reference": "11e7d5f93803a2190b00e145142cb00a33d17ad2",
                 "shasum": ""
             },
             "require": {
@@ -2023,9 +2023,9 @@
             "description": "Add beautiful and user-friendly forms to your command-line applications.",
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.3.15"
+                "source": "https://github.com/laravel/prompts/tree/v0.3.16"
             },
-            "time": "2026-03-17T13:45:17+00:00"
+            "time": "2026-03-23T14:35:33+00:00"
         },
         {
             "name": "laravel/scout",
@@ -2565,16 +2565,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.32.0",
+            "version": "3.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "254b1595b16b22dbddaaef9ed6ca9fdac4956725"
+                "reference": "570b8871e0ce693764434b29154c54b434905350"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/254b1595b16b22dbddaaef9ed6ca9fdac4956725",
-                "reference": "254b1595b16b22dbddaaef9ed6ca9fdac4956725",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/570b8871e0ce693764434b29154c54b434905350",
+                "reference": "570b8871e0ce693764434b29154c54b434905350",
                 "shasum": ""
             },
             "require": {
@@ -2642,9 +2642,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.32.0"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.33.0"
             },
-            "time": "2026-02-25T17:01:41+00:00"
+            "time": "2026-03-25T07:59:30+00:00"
         },
         {
             "name": "league/flysystem-local",
