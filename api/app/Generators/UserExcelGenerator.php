@@ -182,6 +182,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'award_recipient',
         'issuing_org',
         'awarded_scope',
+        'project_name',
+        'related_experience',
         'date_awarded',
         'details_or_key_tasks',
         'featured_skills',
@@ -679,6 +681,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $this->localizeEnum($exp->awarded_to, AwardedTo::class), // award_recipient
             '', // issued by
             $this->localizeEnum($exp->awarded_scope, AwardedScope::class), // award
+            $exp->project_name ?? '', // project_name
+            $exp->relatedExperience->getTitle(), // related experience
             $exp->awarded_date?->format('Y-m-d') ?? '', // date awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp), // featured skills
