@@ -1,5 +1,5 @@
 {
-  "extends": "./react-lib.json",
+  "extends": "./base.json",
   "compilerOptions": {
     "paths": {
       "~/*": [

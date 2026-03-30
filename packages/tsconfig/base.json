@@ -1,26 +1,25 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "target": "es6",
-    "module": "ES2020",
+    "target": "ES2022",
+    "module": "ESNext",
     "lib": [
-      "ES2020",
-      "dom"
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
     ],
-    "sourceMap": true,
-    "inlineSourceMap": false,
     "strict": true,
-    "strictNullChecks": true,
+    "jsx": "react-jsx",
     "moduleResolution": "bundler",
-    "isolatedModules": true,
     "moduleDetection": "force",
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "isolatedModules": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "sourceMap": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "preserveSymlinks": true,
+    "preserveValueImports": false,
+    "importsNotUsedAsValues": "remove",
     "types": [
       "node",
       "vitest/globals",

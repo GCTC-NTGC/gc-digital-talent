@@ -1,8 +1,5 @@
 {
-  "extends": "tsconfig/react-lib.json",
+  "extends": "tsconfig/base.json",
   "include": ["src"],
   "exclude": ["**/node_modules", "**/.*/"],
-  "compilerOptions": {
-    "rootDir": "./src"
-  },
 }
