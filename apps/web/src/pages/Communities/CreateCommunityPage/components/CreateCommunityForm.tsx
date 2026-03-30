@@ -27,6 +27,7 @@ const TEXT_AREA_MAX_WORDS_FR = Math.round(
 interface FormValues {
   key: string;
   name?: Maybe<LocalizedStringInput>;
+  informationUrl?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
   mandateAuthority?: Maybe<LocalizedStringInput>;
   contactEmail: string;
