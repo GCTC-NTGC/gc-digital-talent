@@ -28,6 +28,10 @@ class CommunitySeeder extends Seeder
                         en
                         fr
                     }
+                    informationUrl {
+                        en
+                        fr
+                    }
                     mandateAuthority {
                         en
                         fr
@@ -59,6 +63,10 @@ class CommunitySeeder extends Seeder
                     'description' => [
                         'en' => $model->description?->en,
                         'fr' => $model->description?->fr,
+                    ],
+                    'information_url' => [
+                        'en' => $model->informationUrl?->en,
+                        'fr' => $model->informationUrl?->fr,
                     ],
                     'mandate_authority' => [
                         'en' => $model->mandateAuthority?->en,

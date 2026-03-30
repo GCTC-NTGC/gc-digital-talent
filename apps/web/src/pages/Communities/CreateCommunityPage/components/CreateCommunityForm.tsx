@@ -38,6 +38,10 @@ const formValuesToSubmitData = (data: FormValues): CreateCommunityInput => {
       en: data.name?.en,
       fr: data.name?.fr,
     },
+    informationUrl: {
+      en: data.informationUrl?.en,
+      fr: data.informationUrl?.fr,
+    },
     description: {
       en: data.description?.en,
       fr: data.description?.fr,
@@ -139,6 +143,30 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
               required: intl.formatMessage(errorMessages.required),
             }}
             wordLimit={TEXT_AREA_MAX_WORDS_FR}
+          />
+          <Input
+            id="informationUrl.en"
+            name="informationUrl.en"
+            label={intl.formatMessage({
+              defaultMessage: "External link to information",
+              id: "fWNqcM",
+              description:
+                "Label displayed on the community form information URL field",
+            })}
+            appendLanguageToLabel={"en"}
+            type="text"
+          />
+          <Input
+            id="informationUrl.fr"
+            name="informationUrl.fr"
+            label={intl.formatMessage({
+              defaultMessage: "External link to information",
+              id: "fWNqcM",
+              description:
+                "Label displayed on the community form information URL field",
+            })}
+            appendLanguageToLabel={"fr"}
+            type="text"
           />
           <Input
             id="mandateAuthority.en"

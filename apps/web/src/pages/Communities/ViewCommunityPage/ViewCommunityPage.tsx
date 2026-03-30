@@ -49,6 +49,10 @@ const ViewCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    informationUrl {
+      en
+      fr
+    }
     mandateAuthority {
       en
       fr
@@ -125,6 +129,30 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
             ) : (
               notProvided
             )}
+          </FieldDisplay>
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "External link to information",
+              id: "fWNqcM",
+              description:
+                "Label displayed on the community form information URL field",
+            })}
+            appendLanguageToLabel={"en"}
+          >
+            {community.informationUrl?.en ??
+              intl.formatMessage(commonMessages.notProvided)}
+          </FieldDisplay>
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "External link to information",
+              id: "fWNqcM",
+              description:
+                "Label displayed on the community form information URL field",
+            })}
+            appendLanguageToLabel={"fr"}
+          >
+            {community.informationUrl?.fr ??
+              intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({

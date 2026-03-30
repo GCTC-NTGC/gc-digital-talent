@@ -7,6 +7,10 @@
           "fr": "La collectivité de l’AIPRP rassemble des professionnels déterminés à renforcer la confiance et la transparence du gouvernement, en offrant des emplois, des formations et des opportunités de gestion des talents pour soutenir leur carrière et leur impact."
         },
         "key": "atip",
+        "informationUrl": {
+          "en": null,
+          "fr": null
+        },
         "mandateAuthority": {
           "en": null,
           "fr": null
@@ -22,6 +26,10 @@
           "fr": "La collectivité numérique est un réseau de spécialistes pour faire avancer l'innovation numérique au service des Canadiennes et Canadiens. Elle favorise la collaboration, le développement de carrière, la formation et les possibilités de réseautage dans divers domaines numériques."
         },
         "key": "digital",
+        "informationUrl": {
+          "en": null,
+          "fr": null
+        },
         "mandateAuthority": {
           "en": null,
           "fr": null
@@ -37,6 +45,10 @@
           "fr": "La collectivité de la gestion financière relie les professionnels de la gestion financière (CT-FIN et cadres) au sein du gouvernement du Canada afin d'améliorer leurs compétences et de progresser dans leur carrière par le biais de la planification de carrière, de programmes de développement et de l'apprentissage."
         },
         "key": "finance",
+        "informationUrl": {
+          "en": null,
+          "fr": null
+        },
         "mandateAuthority": {
           "en": null,
           "fr": null

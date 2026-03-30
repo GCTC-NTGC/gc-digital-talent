@@ -801,6 +801,7 @@ type Community implements HasRoleAssignments {
   key: String!
   name: LocalizedString
   description: LocalizedString
+  informationUrl: LocalizedString @rename(attribute: "information_url")
   mandateAuthority: LocalizedString @rename(attribute: "mandate_authority")
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
@@ -2331,6 +2332,7 @@ input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
   description: LocalizedStringInput
+  informationUrl: LocalizedStringInput @rename(attribute: "information_url")
   mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 
@@ -2338,6 +2340,7 @@ input UpdateCommunityInput {
   key: String
   name: LocalizedStringInput
   description: LocalizedStringInput
+  informationUrl: LocalizedStringInput @rename(attribute: "information_url")
   mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
 }
 

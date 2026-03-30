@@ -65,6 +65,10 @@ const UpdateCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    informationUrl {
+      en
+      fr
+    }
     mandateAuthority {
       en
       fr
@@ -80,6 +84,8 @@ const apiDataToFormValues = (
   nameFr: apiData?.name?.fr ?? "",
   descriptionEn: apiData?.description?.en ?? "",
   descriptionFr: apiData?.description?.fr ?? "",
+  informationUrlEn: apiData?.informationUrl?.en ?? "",
+  informationUrlFr: apiData?.informationUrl?.fr ?? "",
   mandateAuthorityEn: apiData?.mandateAuthority?.en ?? "",
   mandateAuthorityFr: apiData?.mandateAuthority?.fr ?? "",
 });
@@ -93,6 +99,10 @@ const formValuesToApiData = (formValues: FormValues): UpdateCommunityInput => ({
   description: {
     en: formValues.descriptionEn,
     fr: formValues.descriptionFr,
+  },
+  informationUrl: {
+    en: formValues.informationUrlEn,
+    fr: formValues.informationUrlFr,
   },
   mandateAuthority: {
     en: formValues.mandateAuthorityEn,
@@ -197,6 +207,30 @@ const CommunityForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
               wordLimit={TEXT_AREA_MAX_WORDS_FR}
+            />
+            <Input
+              id="informationUrlEn"
+              name="informationUrlEn"
+              label={intl.formatMessage({
+                defaultMessage: "External link to information",
+                id: "fWNqcM",
+                description:
+                  "Label displayed on the community form information URL field",
+              })}
+              appendLanguageToLabel={"en"}
+              type="text"
+            />
+            <Input
+              id="informationUrlFr"
+              name="informationUrlFr"
+              label={intl.formatMessage({
+                defaultMessage: "External link to information",
+                id: "fWNqcM",
+                description:
+                  "Label displayed on the community form information URL field",
+              })}
+              appendLanguageToLabel={"fr"}
+              type="text"
             />
             <Input
               id="mandateAuthorityEn"
