@@ -53,6 +53,7 @@ const ViewCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    contactEmail
     mandateAuthority {
       en
       fr
@@ -178,6 +179,19 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
             {community.mandateAuthority?.fr ??
               intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
+          <div className="xs:col-span-2">
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Generic contact email",
+                id: "iVe7JX",
+                description:
+                  "Label displayed on the community form contact email field",
+              })}
+            >
+              {community.contactEmail ??
+                intl.formatMessage(commonMessages.notProvided)}
+            </FieldDisplay>
+          </div>
           <div className="xs:col-span-2">
             <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
               {community.key}

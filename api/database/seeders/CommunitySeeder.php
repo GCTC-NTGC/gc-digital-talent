@@ -36,6 +36,7 @@ class CommunitySeeder extends Seeder
                         en
                         fr
                     }
+                    contact_email
                 }
             }
 
@@ -72,7 +73,8 @@ class CommunitySeeder extends Seeder
                         'en' => $model->mandateAuthority?->en,
                         'fr' => $model->mandateAuthority?->fr,
                     ],
-                ]
+                ],
+                ['contact_email' => $model->contact_email],
             );
         }
 

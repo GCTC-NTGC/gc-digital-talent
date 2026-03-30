@@ -22,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property array $description
  * @property array $information_url
  * @property array $mandate_authority
+ * @property ?string $contact_email
  */
 class Community extends Model
 {
@@ -34,6 +35,7 @@ class Community extends Model
         'description' => LocalizedString::class,
         'information_url' => LocalizedString::class,
         'mandate_authority' => LocalizedString::class,
+
     ];
 
     protected $fillable = [
@@ -41,6 +43,7 @@ class Community extends Model
         'description',
         'information_url',
         'mandate_authority',
+        'contact_email'
     ];
 
     public $guarded = [];

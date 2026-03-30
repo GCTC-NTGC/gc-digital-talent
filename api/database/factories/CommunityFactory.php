@@ -38,6 +38,7 @@ class CommunityFactory extends Factory
             'mandate_authority' => ! is_null($mandateAuthority)
                 ? ['en' => $mandateAuthority.' EN', 'fr' => $mandateAuthority.' FR']
                 : ['en' => '', 'fr' => ''],
+            'contact_email' => $this->faker->email(),
         ];
     }
 

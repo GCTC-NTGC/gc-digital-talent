@@ -803,6 +803,7 @@ type Community implements HasRoleAssignments {
   description: LocalizedString
   informationUrl: LocalizedString @rename(attribute: "information_url")
   mandateAuthority: LocalizedString @rename(attribute: "mandate_authority")
+  contactEmail: String @rename(attribute: "contact_email")
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
@@ -2334,6 +2335,7 @@ input CreateCommunityInput {
   description: LocalizedStringInput
   informationUrl: LocalizedStringInput @rename(attribute: "information_url")
   mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input UpdateCommunityInput {
@@ -2342,6 +2344,7 @@ input UpdateCommunityInput {
   description: LocalizedStringInput
   informationUrl: LocalizedStringInput @rename(attribute: "information_url")
   mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input DevelopmentProgramBelongsToMany {

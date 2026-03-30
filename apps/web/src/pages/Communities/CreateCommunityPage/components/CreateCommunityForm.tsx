@@ -29,6 +29,7 @@ interface FormValues {
   name?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
   mandateAuthority?: Maybe<LocalizedStringInput>;
+  contactEmail: string;
 }
 
 const formValuesToSubmitData = (data: FormValues): CreateCommunityInput => {
@@ -50,6 +51,7 @@ const formValuesToSubmitData = (data: FormValues): CreateCommunityInput => {
       en: data.mandateAuthority?.en,
       fr: data.mandateAuthority?.fr,
     },
+    contactEmail: data.contactEmail,
   };
 };
 
@@ -192,6 +194,19 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             appendLanguageToLabel={"fr"}
             type="text"
           />
+          <div className="xs:col-span-2">
+            <Input
+              id="contactEmail"
+              label={intl.formatMessage({
+                defaultMessage: "Generic contact email",
+                id: "iVe7JX",
+                description:
+                  "Label displayed on the community form contact email field",
+              })}
+              name="contactEmail"
+              type="email"
+            />
+          </div>
           <div className="xs:col-span-2">
             <Input
               id="key"

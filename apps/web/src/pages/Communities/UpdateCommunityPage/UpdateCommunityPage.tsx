@@ -69,6 +69,7 @@ const UpdateCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    contactEmail
     mandateAuthority {
       en
       fr
@@ -86,6 +87,7 @@ const apiDataToFormValues = (
   descriptionFr: apiData?.description?.fr ?? "",
   informationUrlEn: apiData?.informationUrl?.en ?? "",
   informationUrlFr: apiData?.informationUrl?.fr ?? "",
+  contactEmail: apiData?.contactEmail ?? "",
   mandateAuthorityEn: apiData?.mandateAuthority?.en ?? "",
   mandateAuthorityFr: apiData?.mandateAuthority?.fr ?? "",
 });
@@ -104,6 +106,7 @@ const formValuesToApiData = (formValues: FormValues): UpdateCommunityInput => ({
     en: formValues.informationUrlEn,
     fr: formValues.informationUrlFr,
   },
+  contactEmail: formValues.contactEmail,
   mandateAuthority: {
     en: formValues.mandateAuthorityEn,
     fr: formValues.mandateAuthorityFr,
@@ -256,6 +259,19 @@ const CommunityForm = ({
               appendLanguageToLabel={"fr"}
               type="text"
             />
+            <div className="xs:col-span-2">
+              <Input
+                id="contactEmail"
+                name="contactEmail"
+                label={intl.formatMessage({
+                  defaultMessage: "Generic contact email",
+                  id: "iVe7JX",
+                  description:
+                    "Label displayed on the community form contact email field",
+                })}
+                type="email"
+              />
+            </div>
             <div className="xs:col-span-2">
               <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
                 {community.key}

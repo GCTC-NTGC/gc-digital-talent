@@ -18,7 +18,8 @@
         "name": {
           "en": "Access to Information and Privacy (ATIP) Community",
           "fr": "Collectivité de l'accès à l'information et de protection des renseignements personnels (AIPRP)"
-        }
+        },
+        "contact_email": null
       },
       {
         "description": {
@@ -37,7 +38,8 @@
         "name": {
           "en": "Digital Community",
           "fr": "Collectivité numérique"
-        }
+        },
+        "contact_email": null
       },
       {
         "description": {
@@ -56,7 +58,8 @@
         "name": {
           "en": "Financial Management Community",
           "fr": "Collectivité de la gestion financière"
-        }
+        },
+        "contact_email": null
       }
     ]
   }
