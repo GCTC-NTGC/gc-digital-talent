@@ -12,7 +12,6 @@
     "jsx": "react-jsx",
     "moduleResolution": "bundler",
     "moduleDetection": "force",
-    "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "isolatedModules": true,
     "resolveJsonModule": true,
