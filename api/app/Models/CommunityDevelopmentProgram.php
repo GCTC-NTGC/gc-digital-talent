@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
- * Class PoolSkill
+ * Class CommunityDevelopmentProgram
  *
  * @property string $id
  * @property ?Carbon $created_at
