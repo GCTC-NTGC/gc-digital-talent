@@ -9,6 +9,7 @@ enum ErrorCode
     case EXPIRY_DATE_REQUIRED;
     case EXPIRY_DATE_AFTER_TODAY;
     case ARRAY_CONTAINS_DUPLICATES;
+    case INVALID_URL;
 
     // Application
     case APPLICATION_ALREADY_SUBMITTED;
