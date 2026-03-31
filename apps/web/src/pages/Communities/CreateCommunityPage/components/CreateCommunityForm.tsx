@@ -157,7 +157,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
                 "Label displayed on the community form information URL field",
             })}
             appendLanguageToLabel={"en"}
-            type="text"
+            type="url"
           />
           <Input
             id="informationUrl.fr"
@@ -169,7 +169,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
                 "Label displayed on the community form information URL field",
             })}
             appendLanguageToLabel={"fr"}
-            type="text"
+            type="url"
           />
           <Input
             id="mandateAuthority.en"

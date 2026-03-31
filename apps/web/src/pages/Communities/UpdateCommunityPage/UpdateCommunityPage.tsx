@@ -224,7 +224,7 @@ const CommunityForm = ({
                   "Label displayed on the community form information URL field",
               })}
               appendLanguageToLabel={"en"}
-              type="text"
+              type="url"
             />
             <Input
               id="informationUrlFr"
@@ -236,7 +236,7 @@ const CommunityForm = ({
                   "Label displayed on the community form information URL field",
               })}
               appendLanguageToLabel={"fr"}
-              type="text"
+              type="url"
             />
             <Input
               id="mandateAuthorityEn"
