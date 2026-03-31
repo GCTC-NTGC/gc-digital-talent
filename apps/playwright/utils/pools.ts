@@ -468,12 +468,12 @@ export const changePoolClosingDate: GraphQLRequestFunc<
   ChangePoolClosingDateArgs
 > = async (ctx, { id, closingDate }) => {
   return await ctx
-    .post(Test_ChangePoolClosingDateMutationDocument, {
-      isPrivileged: true,
-      variables: { id, closingDate },
-    })
-    .then(
-      (res: GraphQLResponse<"changePoolClosingDate", Pool>) =>
-        res.changePoolClosingDate,
-    );
+    .post<GraphQLResponse<"changePoolClosingDate", Pool>>(
+      Test_ChangePoolClosingDateMutationDocument,
+      {
+        isPrivileged: true,
+        variables: { id, closingDate },
+      },
+    )
+    .then((res) => res.changePoolClosingDate);
 };
