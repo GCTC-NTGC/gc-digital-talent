@@ -623,6 +623,7 @@ export const addSearchToPoolCandidateFilterInput = (
     priorityWeight: fancyFilterState?.priorityWeight,
     expiryStatus: fancyFilterState?.expiryStatus,
     suspendedStatus: fancyFilterState?.suspendedStatus,
+    referralStatus: fancyFilterState?.referralStatus,
     isGovEmployee: fancyFilterState?.isGovEmployee,
     publishingGroups: fancyFilterState?.publishingGroups,
     appliedClassifications: fancyFilterState?.appliedClassifications,
