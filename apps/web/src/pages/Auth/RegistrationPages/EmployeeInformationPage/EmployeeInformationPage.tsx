@@ -33,6 +33,15 @@ const addWorkExperienceSectionTitle = defineMessage({
   description: "Section title for the Add work experience section.",
 });
 
+// decide what the default value of employment category should be in the form
+const defaultEmploymentCategory = (
+  isEmployee: string | null,
+): EmploymentCategory | undefined => {
+  if (isEmployee == "true") return EmploymentCategory.GovernmentOfCanada;
+  if (isEmployee == "false") return EmploymentCategory.ExternalOrganization;
+  return undefined;
+};
+
 export interface EmployeeInformationFormProps {
   navigationTarget: string;
   onSubmit: (formValues: WorkFormValues) => Promise<void>;
@@ -43,7 +52,14 @@ export const EmployeeInformationForm = ({
   onSubmit,
 }: EmployeeInformationFormProps) => {
   const intl = useIntl();
-  const methods = useForm<WorkFormValues>();
+  const [searchParams] = useSearchParams();
+  const methods = useForm<WorkFormValues>({
+    defaultValues: {
+      employmentCategory: defaultEmploymentCategory(
+        searchParams.get("isEmployee"),
+      ),
+    },
+  });
   const labels = getExperienceFormLabels(intl, "work");
   return (
     <>
@@ -234,4 +250,4 @@ export const Component = () => (
   </RequireAuth>
 );
 
-export default EmployeeInformationPage;
+export default Component;
