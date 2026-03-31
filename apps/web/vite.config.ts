@@ -57,14 +57,11 @@ const gitVersionPlugin = () => {
 };
 
 export default defineConfig(({ command }) => ({
-  publicDir: "./public",
   build: {
-    outDir: "dist",
-    emptyOutDir: true,
-    chunkSizeWarningLimit: 1000,
-    sourcemap: true,
+    cache: {
+      enabled: true,
+    },
     rollupOptions: {
-      // NOTE: We don't want node_module source maps so ignore warnings about them
       onLog(level, log, handler) {
         if (log.code === "SOURCEMAP_ERROR") return;
         handler(level, log);
@@ -74,14 +71,21 @@ export default defineConfig(({ command }) => ({
         sourcemapIgnoreList: (relativeSourcePath) => {
           return relativeSourcePath.includes("node_modules");
         },
-        manualChunks: {
-          graphql: ["@gc-digital-talent/graphql"],
-        },
+        // advancedChunks: {
+        //   groups: [
+        //     {
+        //       name: "graphql",
+        //       test: /@gc-digital-talent\/graphql/,
+        //       priority: 10,
+        //     },
+        //   ],
+        // },
       },
     },
   },
   server: {
     port: 3000,
+    forwardConsole: true,
   },
   html: {
     cspNonce: "**CSP_NONCE**",
@@ -93,32 +97,17 @@ export default defineConfig(({ command }) => ({
     alias: {
       "~": path.resolve(__dirname, "src"),
     },
+    tsconfigPaths: true,
   },
   define: {
     IS_DEV_SERVER: command === "serve",
     API_HOST: getEnvVar("API_HOST"),
-
-    // Vite requires build-time env variables to have the VITE_ prefix
     API_URI: getEnvVar("VITE_API_URI"),
     API_PROTECTED_URI: getEnvVar("VITE_API_PROTECTED_URI"),
     BUILD_DATE: JSON.stringify(new Date()),
     APP_TITLE: getEnvVar("APP_TITLE"),
     APP_DESCRIPTION: getEnvVar("APP_DESCRIPTION"),
-
-    // run-time variables
     __RUNTIME_VARS__: JSON.stringify(runtimeConfig),
   },
-  plugins: [
-    reactRouter(),
-    gitVersionPlugin(),
-    tailwindcss(),
-    /**
-     * NOTE: We are not compressing the index.html
-     * so we can use the ngx_http_sub_module to
-     * replace values at runtime
-     *
-     * REF: https://nginx.org/en/docs/http/ngx_http_sub_module.html
-     */
-    compression({ exclude: /index\.html/i }),
-  ],
+  plugins: [reactRouter(), tailwindcss(), compression(), gitVersionPlugin()],
 }));
