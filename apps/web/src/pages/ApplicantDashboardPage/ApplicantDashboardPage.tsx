@@ -394,12 +394,9 @@ export const DashboardPage = ({
                         <Button className="align-top" mode="text" color="black">
                           <StatusItem
                             status={employeeVerificationState}
-                            title={intl.formatMessage({
-                              defaultMessage: "Employee verification",
-                              id: "VpjQL1",
-                              description:
-                                "Label for status of employee verification",
-                            })}
+                            title={intl.formatMessage(
+                              commonMessages.employeeVerification,
+                            )}
                             hiddenContextPrefix={intl.formatMessage(
                               stateDescriptions[employeeVerificationState],
                             )}

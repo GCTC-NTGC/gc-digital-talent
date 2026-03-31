@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
+import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -53,6 +54,7 @@ import CareerObjectiveSection, {
 } from "./components/CareerObjective/CareerObjectiveSection";
 
 const SECTION_ID = {
+  EMPLOYEE_VERIFICATION: "employee-verification-section",
   CAREER_PLANNING: "career-planning-section",
   CAREER_DEVELOPMENT: "career-development-section",
   NEXT_ROLE: "next-role-section",
@@ -168,6 +170,21 @@ const EmployeeProfile = ({
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation>
             <TableOfContents.List className="list-none">
+              <TableOfContents.ListItem>
+                <StatusItem
+                  asListItem={false}
+                  title={intl.formatMessage(
+                    commonMessages.employeeVerification,
+                  )}
+                  status={user.isVerifiedGovEmployee ? "success" : "optional"}
+                  scrollTo={SECTION_ID.EMPLOYEE_VERIFICATION}
+                  hiddenContextPrefix={intl.formatMessage(
+                    user.isVerifiedGovEmployee
+                      ? commonMessages.complete
+                      : commonMessages.optional,
+                  )}
+                />
+              </TableOfContents.ListItem>
               <TableOfContents.ListItem>
                 <StatusItem
                   asListItem={false}
@@ -288,6 +305,25 @@ const EmployeeProfile = ({
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <div className="flex flex-col gap-y-18">
+              <TableOfContents.Section id={SECTION_ID.EMPLOYEE_VERIFICATION}>
+                <Heading
+                  level="h2"
+                  icon={IdentificationIcon}
+                  color="primary"
+                  className="mt-0 font-normal sm:text-left"
+                >
+                  {intl.formatMessage(commonMessages.employeeVerification)}
+                </Heading>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Verify your Government of Canada work email address and update your career experience with your latest Government of Canada role to gain access to useful career management tools and profile settings.",
+                    id: "gikOBE",
+                    description:
+                      "Lead-in text explaining employee verification",
+                  })}
+                </p>
+              </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
                 <Heading
                   level="h2"

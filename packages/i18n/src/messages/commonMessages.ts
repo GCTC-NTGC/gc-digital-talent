@@ -589,6 +589,12 @@ const commonMessages = defineMessages({
     id: "vNVMlM",
     description: "Text within double quotes",
   },
+  employeeVerification: {
+    defaultMessage: "Employee verification",
+    id: "VpjQL1",
+    description:
+      "Label for status of employee verification",
+  },
 });
 
 export default commonMessages;
