@@ -1357,6 +1357,7 @@ input PoolCandidateSearchInput {
   statuses: [ApplicationStatus] @scope(name: "whereStatusIn")
   expiryStatus: CandidateExpiryFilter @scope(name: "whereExpiryStatus")
   suspendedStatus: CandidateSuspendedFilter @scope(name: "whereSuspendedStatus")
+  referralStatus: CandidateReferralFilter @scope(name: "whereReferralStatus")
   publishingGroups: [PublishingGroup] @scope(name: "wherePublishingGroupsIn") # Filters applicants based on the publishing group of the pool
   # Filters applicants based on the classification of all pools they are currently in.
   # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.

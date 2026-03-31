@@ -4,6 +4,7 @@ namespace App\Builders;
 
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateReferralFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
@@ -308,6 +309,32 @@ class PoolCandidateBuilder extends Builder
             });
         } elseif ($expiryStatus == CandidateExpiryFilter::EXPIRED->name) {
             return $this->whereDate('expiry_date', '<', date('Y-m-d'));
+        }
+
+        return $this;
+    }
+
+    public function whereReferralStatus(?string $referralStatus): self
+    {
+        $referral = $referralStatus ?? CandidateReferralFilter::ALL->name;
+        $now = now();
+
+        if ($referral === CandidateReferralFilter::REFERRING->name) {
+            return $this->where(function ($query) use ($now) {
+                $query->whereNull('pause_referrals_at')
+                    ->orWhere('pause_referrals_at', '>', $now)
+                    ->orWhere('resume_referrals_at', '<=', $now);
+            });
+
+        }
+
+        if ($referral === CandidateReferralFilter::NOT_REFERRING->name) {
+            return $this->whereNotNull('pause_referrals_at')
+                ->where('pause_referrals_at', '<=', $now)
+                ->where(function ($query) use ($now) {
+                    $query->whereNull('resume_referrals_at')
+                        ->orWhere('resume_referrals_at', '>', $now);
+                });
         }
 
         return $this;
