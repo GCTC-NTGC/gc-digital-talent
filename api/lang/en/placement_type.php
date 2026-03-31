@@ -4,6 +4,7 @@ return [
     'not_placed' => 'Not placed',
     'under_consideration' => 'Under consideration',
     'placed_tentative' => 'Offer in progress',
+    'placed_acting' => 'Placed acting',
     'placed_casual' => 'Placed casual',
     'placed_term' => 'Placed term',
     'placed_indeterminate' => 'Placed indeterminate',

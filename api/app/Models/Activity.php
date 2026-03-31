@@ -206,7 +206,7 @@ class Activity extends SpatieActivity
 
     public function scopeAuthorizedToViewPoolActivity(Builder $query)
     {
-        /** @var User | null */
+        /** @var ?User $user */
         $user = Auth::user();
 
         if ($user?->isAbleTo('view-any-poolActivityLog')) {
@@ -216,21 +216,27 @@ class Activity extends SpatieActivity
         if ($user?->isAbleTo('view-team-poolActivityLog')) {
             $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-poolActivityLog');
 
-            return $query->whereHasMorph(
-                'subject',
-                [Pool::class],
-                function ($poolQuery) use ($teamIds) {
-                    return $poolQuery->where(function (Builder $query) use ($teamIds) {
-                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
+            $authorizedPoolIds = Pool::query()
+                ->where(function ($q) use ($teamIds) {
+                    $q->whereHas('team', fn ($sub) => $sub->whereIn('id', $teamIds))
+                        ->orWhereHas('community.team', fn ($sub) => $sub->whereIn('id', $teamIds))
+                        ->orWhereHas('department.team', fn ($sub) => $sub->whereIn('id', $teamIds));
+                })
+                ->select('id');
+
+            return $query->where(function (Builder $authQuery) use ($authorizedPoolIds) {
+                $authQuery->where(function ($q) use ($authorizedPoolIds) {
+                    $q->where('subject_type', (new Pool)->getMorphClass())
+                        ->whereIn('subject_id', $authorizedPoolIds);
+                })
+                    ->orWhere(function ($q) use ($authorizedPoolIds) {
+                        foreach ($authorizedPoolIds->get() as $pool) {
+                            $q->orWhereJsonContains('properties->attributes', ['pool_id' => $pool->id]);
+                        }
                     });
-                }
-            );
+            });
         }
 
-        return $query->where('id', null);
+        return $query->whereRaw('1 = 0');
     }
 }

@@ -170,7 +170,7 @@ type User {
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
 
   # Bookmarks
-  poolBookmarks: [Pool] @belongsToMany
+  poolBookmarks: [Pool] @guard @belongsToMany(scopes: ["authorizedToView"])
   poolCandidateBookmarks: [PoolCandidate]
     @guard
     @belongsToMany(scopes: ["whereAuthorizedToView"])
@@ -529,8 +529,8 @@ type Pool implements HasRoleAssignments {
       builder: "App\\Models\\Pool@aggregateActivities"
       defaultCount: 50
       maxCount: 1000
+      scopes: ["authorizedToViewPoolActivity"]
     )
-    @scope(name: ["authorizedToViewPoolActivity"])
   applicantsCount: Int
     @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
 }
@@ -674,6 +674,7 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+  isBeingReferred: Boolean
   pauseReferralsAt: DateTime
     @rename(attribute: "pause_referrals_at")
     @canRoot(ability: "viewStatus")
@@ -729,6 +730,7 @@ type PoolCandidateAdminView {
   placedDepartment: Department @belongsTo
   closingDate: DateTime @rename(attribute: "closing_date")
   statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
+  isBeingReferred: Boolean
 }
 
 type PoolCandidateAdminViewWithSkillCount {
@@ -752,7 +754,6 @@ type Classification {
   maxSalary: Int @rename(attribute: "max_salary")
   genericJobTitles: [GenericJobTitle] @belongsToMany
   isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
-  displayName: LocalizedString @rename(attribute: "display_name")
 }
 
 type GenericJobTitle {
@@ -797,7 +798,9 @@ type Community implements HasRoleAssignments {
   key: String!
   name: LocalizedString
   description: LocalizedString
+  informationUrl: LocalizedString @rename(attribute: "information_url")
   mandateAuthority: LocalizedString @rename(attribute: "mandate_authority")
+  contactEmail: String @rename(attribute: "contact_email")
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
@@ -2164,7 +2167,6 @@ input CreateClassificationInput {
     @rename(attribute: "max_salary")
     @rules(apply: ["numeric", "min:0", "gte:minSalary"])
   isAvailableInSearch: Boolean! @rename(attribute: "is_available_in_search")
-  displayName: LocalizedStringInput @rename(attribute: "display_name")
 }
 
 input ClassificationBelongsToMany {
@@ -2190,7 +2192,6 @@ input UpdateClassificationInput {
     @rename(attribute: "max_salary")
     @rules(apply: ["numeric", "min:0", "gte:minSalary"])
   isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
-  displayName: LocalizedStringInput @rename(attribute: "display_name")
 }
 
 input UpdatePoolCandidateStatusInput {
@@ -2323,14 +2324,18 @@ input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
   description: LocalizedStringInput
+  informationUrl: LocalizedStringInput @rename(attribute: "information_url")
   mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input UpdateCommunityInput {
   key: String
   name: LocalizedStringInput
   description: LocalizedStringInput
+  informationUrl: LocalizedStringInput @rename(attribute: "information_url")
   mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input DevelopmentProgramBelongsToMany {

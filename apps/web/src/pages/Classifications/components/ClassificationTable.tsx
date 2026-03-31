@@ -30,9 +30,6 @@ export const ClassificationTableRow_Fragment = graphql(/* GraphQL */ `
     level
     minSalary
     maxSalary
-    displayName {
-      localized
-    }
     isAvailableInSearch
   }
 `);
@@ -103,12 +100,6 @@ export const ClassificationTable = ({
         description:
           "Title displayed for the Classification table Maximum Salary column.",
       }),
-    }),
-    columnHelper.accessor((row) => row.displayName?.localized, {
-      id: "displayName",
-      enableColumnFilter: false,
-      sortingFn: normalizedText,
-      header: intl.formatMessage(commonMessages.displayName),
     }),
     columnHelper.accessor((row) => row.isAvailableInSearch, {
       id: "isAvailableInSearch",

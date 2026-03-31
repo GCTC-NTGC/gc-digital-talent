@@ -431,3 +431,31 @@ export const createAndPublishInternalPool: GraphQLRequestFunc<
     },
   });
 };
+
+const Test_ChangePoolClosingDateMutationDocument = /* GraphQL */ `
+  mutation Test_ChangePoolClosingDate($id: ID!, $closingDate: DateTime!) {
+    changePoolClosingDate(id: $id, closingDate: $closingDate) {
+      id
+    }
+  }
+`;
+
+interface ChangePoolClosingDateArgs {
+  id: string;
+  closingDate: string;
+}
+
+export const changePoolClosingDate: GraphQLRequestFunc<
+  Pool,
+  ChangePoolClosingDateArgs
+> = async (ctx, { id, closingDate }) => {
+  return await ctx
+    .post(Test_ChangePoolClosingDateMutationDocument, {
+      isPrivileged: true,
+      variables: { id, closingDate },
+    })
+    .then(
+      (res: GraphQLResponse<"changePoolClosingDate", Pool>) =>
+        res.changePoolClosingDate,
+    );
+};

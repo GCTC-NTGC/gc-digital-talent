@@ -25,7 +25,6 @@ const getRoutes = (lang: Locales) => {
   const communityUrl = [baseUrl, "community"].join("/");
   const showcase = [applicantUrl, "skills", "showcase"].join("/");
   const communitiesUrl = [baseUrl, "communities"].join("/");
-  const departmentUrl = [baseUrl, "department"].join("/");
 
   return {
     // Main Routes
@@ -41,8 +40,23 @@ const getRoutes = (lang: Locales) => {
     loggedOut: () => [baseUrl, "logged-out"].join("/"),
     userDeleted: () => [baseUrl, "user-deleted"].join("/"),
     registrationAccount: () => [baseUrl, "registration", "account"].join("/"),
-    registrationExperience: () =>
-      [baseUrl, "registration", "experience"].join("/"),
+    registrationExperience: (opts?: {
+      from?: string;
+      isEmployee?: boolean;
+    }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.from) {
+        searchParams.set("from", opts.from);
+      }
+      if (typeof opts?.isEmployee == "boolean") {
+        searchParams.set("isEmployee", opts.isEmployee.toString());
+      }
+
+      return (
+        [baseUrl, "registration", "experience"].join("/") +
+        createSearchQuery(searchParams)
+      );
+    },
     termsAndConditions: () => [baseUrl, "terms-and-conditions"].join("/"),
     privacyPolicy: () => [baseUrl, "privacy-policy"].join("/"),
     accessibility: () => [baseUrl, "accessibility-statement"].join("/"),
@@ -56,9 +70,6 @@ const getRoutes = (lang: Locales) => {
 
     // Admin
     adminDashboard: () => adminUrl,
-
-    // Department
-    departmentDashboard: () => departmentUrl,
 
     // Admin - Communities
     communityDashboard: () => communityUrl,
@@ -176,6 +187,9 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "settings", "departments", departmentId, "manage-access"].join(
         "/",
       ),
+
+    // Admin - Department (singular)
+    departmentDashboard: () => [adminUrl, "department"].join("/"),
 
     // Admin - Announcements
     announcements: () => [adminUrl, "settings", "announcements"].join("/"),

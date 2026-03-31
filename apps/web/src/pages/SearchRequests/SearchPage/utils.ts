@@ -28,14 +28,12 @@ export const getClassificationLabel = (
     group,
     level,
     name: genericName,
-    displayName,
-  }: Pick<Classification, "group" | "level" | "name" | "displayName">,
+  }: Pick<Classification, "group" | "level" | "name">,
   intl: IntlShape,
 ) => {
   const groupAndLevel = formatClassificationString({ group, level });
   const separator = intl.formatMessage(commonMessages.dividingColon);
-  const name =
-    emptyToNull(displayName?.localized) ?? emptyToNull(genericName?.localized);
+  const name = emptyToNull(genericName?.localized);
 
   if (name) {
     return `${groupAndLevel}${separator}${name}`;
@@ -47,12 +45,10 @@ export const getClassificationAriaLabel = ({
   group,
   level,
   name: genericName,
-  displayName,
-}: Pick<Classification, "group" | "level" | "name" | "displayName">) => {
+}: Pick<Classification, "group" | "level" | "name">) => {
   const groupAndLevel = formatClassificationAriaString({ group, level });
   const separator = " ";
-  const name =
-    emptyToNull(displayName?.localized) ?? emptyToNull(genericName?.localized);
+  const name = emptyToNull(genericName?.localized);
 
   if (name) {
     return `${name}${separator}${groupAndLevel}`;

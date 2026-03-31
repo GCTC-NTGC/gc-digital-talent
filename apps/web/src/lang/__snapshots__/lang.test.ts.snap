@@ -116,13 +116,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Submit",
-    "fr": [
-      "Soumettre",
-      "Soumettez"
-    ]
-  },
-  {
     "en": "Preferred contact language",
     "fr": [
       "Langue de contact préférée",

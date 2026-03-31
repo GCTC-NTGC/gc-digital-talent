@@ -955,6 +955,10 @@
     "defaultMessage": "Je ne suis <strong>pas disponible</strong> et je ne veux pas que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for not available for opportunities option"
   },
+  "1mjUju": {
+    "defaultMessage": "Revenez plus tard pour découvrir d’autres possibilités",
+    "description": "Heading for message about upcoming opportunities"
+  },
   "1moJ8r": {
     "defaultMessage": "Vous approchez de la limite!",
     "description": "Title for warning message when the user has added many assessments to the assessment plan"
@@ -1107,6 +1111,10 @@
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Success message after submission for the application review page."
   },
+  "2SU37a": {
+    "defaultMessage": "Adresse courriel professionnelle du gouvernement",
+    "description": "Label for work email in the verification form"
+  },
   "2SnhXV": {
     "defaultMessage": "Marquer comme non lue",
     "description": "Button text to mark a notification as unread"
@@ -1118,10 +1126,6 @@
   "2TPpyp": {
     "defaultMessage": "Les processus de recrutement pour lesquels la personne candidate a été qualifiée sur d'autres plateformes du gouvernement du Canada. Il est à noter que ces renseignements sont fournis par la personne candidate sans vérification. Veillez à vérifier la validité des renseignements relatifs au processus avant de les utiliser à des fins d'embauche ou de placement.",
     "description": "Off-platform section information"
-  },
-  "2UDONd": {
-    "defaultMessage": "Trouvez des occasions d’emploi pour les talents numériques au sein du gouvernement du Canada et posez votre candidature.",
-    "description": "Subtitle for the browse IT jobs page"
   },
   "2W6Q3k": {
     "defaultMessage": "Commencez <hidden> par indiquer vos préférences en matière de travail</hidden>",
@@ -1471,6 +1475,10 @@
     "defaultMessage": "l'examen des résultats d’évaluation d’acceptation par les utilisateurs.",
     "description": "List item four, things developers consider for accessibility"
   },
+  "4+/L3a": {
+    "defaultMessage": "Je ne suis pas employé(e)",
+    "description": "Is not an employee"
+  },
   "404R1N": {
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
     "description": "testimonial number one"
@@ -1610,6 +1618,10 @@
   "4SdmnS": {
     "defaultMessage": "Modifier un volet de travail",
     "description": "Page title for the work stream edit page"
+  },
+  "4TsmrB": {
+    "defaultMessage": "En cours de recommandation",
+    "description": "A candidate is being referred for new positions"
   },
   "4V/DsD": {
     "defaultMessage": "En savoir plus<hidden> à propos de la collectivité des gestionnaires</hidden>",
@@ -3279,6 +3291,10 @@
     "defaultMessage": "Renseignements personnels et coordonnées",
     "description": "Title for the personal and contact information section"
   },
+  "BXawd7": {
+    "defaultMessage": "Avant de vous diriger vers votre profil, nous devons recueillir certains renseignements obligatoires afin de compléter la configuration de votre compte. Nous avons récupéré les renseignements de profil suivants depuis ConnexionCanada. L’adresse courriel associée à votre compte ConnexionCanada sera utilisée pour toutes les communications et notifications provenant de Talents numériques du GC. ",
+    "description": "Message after main heading in create account page."
+  },
   "Bb9Pe0": {
     "defaultMessage": "Veuillez sélectionner l'évaluation de cette nomination pour continuer.",
     "description": "Prompt for the user to evaluate the nomination before continuing"
@@ -3476,7 +3492,7 @@
     "description": "Message displayed when a use has not selected an experience"
   },
   "CZ3wxJ": {
-    "defaultMessage": "Soumettez un nouveau message",
+    "defaultMessage": "Soumettre un nouveau message",
     "description": "Support form success action"
   },
   "CZGta2": {
@@ -4002,6 +4018,10 @@
   "Et46bc": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
     "description": "Message displayed to user after pool fails to get closed."
+  },
+  "EtAtP4": {
+    "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu",
+    "description": "Text displayed when there are no pool advertisements to display"
   },
   "EtOnRo": {
     "defaultMessage": "Femme autochtone qui prend une pause du programme de prestation de travail sur son portable.",
@@ -4683,6 +4703,10 @@
     "defaultMessage": "Commentaires supplémentaires",
     "description": "Label for additional comments on a nomination's rationale"
   },
+  "IBoqn2": {
+    "defaultMessage": "Nous utiliserons cette adresse courriel, en combinaison avec votre expérience de travail actuelle, pour vérifier automatiquement votre statut d’employé.",
+    "description": "Title for a message that the work email address is verified"
+  },
   "ICKgvh": {
     "defaultMessage": "Inscrivez le nom complet du ministère pour confirmer cette action.",
     "description": "Sentence explaining how to archive/restore a department"
@@ -4863,6 +4887,10 @@
     "defaultMessage": "Modifier les compétences techniques pour améliorer",
     "description": "Link text for editing a users technical skills to improve"
   },
+  "IwVHgf": {
+    "defaultMessage": "Parcourez les offres d’emploi au gouvernement du Canada et postulez-y",
+    "description": "Subtitle for the browse jobs page"
+  },
   "IxngA3": {
     "defaultMessage": "Masquer les détails de cette expérience",
     "description": "Button text to hide a miscellaneous experience's details"
@@ -4955,6 +4983,10 @@
     "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans le processus » pour commencer.",
     "description": "Instructions for adding process membership to a user."
   },
+  "JDjqIL": {
+    "defaultMessage": "Vérifier plus tard",
+    "description": "Button to skip the verification step"
+  },
   "JEKihk": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez perfectionné vos compétences et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, un profil solide vous préparera pour de nouvelles possibilités.",
     "description": "Description of how application profiles works for managers/executives."
@@ -4972,7 +5004,7 @@
     "description": "Label for a start date input in a range"
   },
   "JGC9Pp": {
-    "defaultMessage": "Enregistrer et soumettez",
+    "defaultMessage": "Enregistrer et soumettre",
     "description": "Text for the submit button"
   },
   "JGRer4": {
@@ -5270,6 +5302,10 @@
   "Kv7YgK": {
     "defaultMessage": "Votre rôle",
     "description": "Label for the role of the user submitting a nomination"
+  },
+  "KvhRNR": {
+    "defaultMessage": "Cette section contient des processus partagés avec vous par un autre ministère ou une autre collectivité.",
+    "description": "Subtitle explaining shared processes expandable within task card"
   },
   "KwJigi": {
     "defaultMessage": "Compétences comportementales essentielles - Exemples",
@@ -6166,6 +6202,10 @@
   "OvusdX": {
     "defaultMessage": "Confirmer une adresse courriel professionnelle",
     "description": "Label to go to email verification"
+  },
+  "Ozwufr": {
+    "defaultMessage": "Processus partagés",
+    "description": "Shared processes expandable"
   },
   "P/DHOG": {
     "defaultMessage": "Modèles d'emplois",
@@ -8250,10 +8290,6 @@
     "defaultMessage": "Après avoir choisi les compétences techniques, examinons les compétences comportementales. Sélectionnez des exemples de compétences comportementales qu’une personne candidate potentielle doit posséder pour réussir dans son rôle. N’oubliez pas qu’un modèle doit viser à fournir en tout 8 à 12 compétences parmi lesquelles un ou une gestionnaire peut choisir.",
     "description": "Lead-in text for job poster template behavioural skills section, paragraph 1"
   },
-  "YImugL": {
-    "defaultMessage": "Processus actifs de recrutement de talents",
-    "description": "Title for the current jobs recruiting candidates"
-  },
   "YIszvd": {
     "defaultMessage": "Définir et organiser les compétences",
     "description": "Heading for more info on skills"
@@ -8555,7 +8591,7 @@
     "description": "Link text to start a new talent request"
   },
   "ZNgKK4": {
-    "defaultMessage": "Soumettez la mise en candidature",
+    "defaultMessage": "Soumettre la mise en candidature",
     "description": "Button text to submit a talent nomination"
   },
   "ZOKEiB": {
@@ -9113,6 +9149,10 @@
   "c70xDW": {
     "defaultMessage": "Requises",
     "description": "Label for a required skill"
+  },
+  "c8DrIs": {
+    "defaultMessage": "Prenez une longueur d’avance pour accéder aux outils destinés aux employé(e)s en vérifiant votre adresse courriel professionnelle. Si vous le préférez, vous pouvez passer cette étape et vérifier votre adresse courriel plus tard dans votre profil d’employé(e) du GC, accessible à partir de votre tableau de bord.",
+    "description": "Description about verifying work email on the getting started page"
   },
   "cAOf3a": {
     "defaultMessage": "Je suis <strong>disponible</strong> à des fins d’embauche, et je souhaite que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
@@ -9978,6 +10018,10 @@
     "defaultMessage": "Reliez une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
     "description": "Button text to open form to connect an experience to a skill"
   },
+  "fSMBX0": {
+    "defaultMessage": "Possibilités d’emploi actuelles",
+    "description": "Title for the current jobs recruiting candidates page"
+  },
   "fSeYdG": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
     "description": "Sub-heading for language requirements dialog"
@@ -9985,6 +10029,10 @@
   "fVbf8w": {
     "defaultMessage": "Gérer les activités liées à la gestion des talents et les mises en candidature",
     "description": "Permissions related to managing talent events and nominations"
+  },
+  "fWNqcM": {
+    "defaultMessage": "Lien externe vers de l'information",
+    "description": "Label displayed on the community form information URL field"
   },
   "fXl3Cm": {
     "defaultMessage": "Talents numériques du GC offre plusieurs ressources utiles pour faciliter l’exécution de vos responsabilités en vertu de la Directive sur les talents numériques. Il s’agit notamment d’un formulaire en ligne, de conseils de mise en œuvre et de liens vers la Directive.",
@@ -10171,7 +10219,7 @@
     "description": "Heading for section for the downloadable forms section"
   },
   "g82nk3": {
-    "defaultMessage": "Soumettez l'évaluation",
+    "defaultMessage": "Soumettre l'évaluation",
     "description": "Button to submit an evaluation form"
   },
   "gChYmW": {
@@ -10514,6 +10562,10 @@
     "defaultMessage": "Dans de rares cas, vous pouvez être informé d’une offre d’emploi qui indique ensuite qu’elle a été « fermée prématurément ». Cela se produit lorsque l’offre d’emploi est publiée avec des informations incorrectes ou qu’un besoin en ressources humaines doit être modifié. Dans un souci d’équité, ces offres d’emploi sont fermées afin que les mises à jour puissent être effectuées et publiées sous la forme d’une nouvelle annonce.",
     "description": "First paragraph for the closed early pool deadlines dialog"
   },
+  "hbbeY8": {
+    "defaultMessage": " Ces renseignements sont-ils inexacts? Vous pouvez les mettre à jour en accédant à votre profil ConnexionCanada.",
+    "description": "Footer for create account page"
+  },
   "hbcdJm": {
     "defaultMessage": "Notifications",
     "description": "Page title for the notifications page"
@@ -10729,6 +10781,10 @@
   "iVAPnW": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
+  },
+  "iVe7JX": {
+    "defaultMessage": "Courriel de contact général",
+    "description": "Label displayed on the community form contact email field"
   },
   "iYD0eJ": {
     "defaultMessage": "Le candidat/la candidate a confirmé ce qui suit :",
@@ -13106,6 +13162,10 @@
     "defaultMessage": "Ce candidat a revendiqué le <strong>statut de vétéran</strong>.",
     "description": "Message for a candidates veteran status claim"
   },
+  "stViWQ": {
+    "defaultMessage": "L’adresse courriel fournie par ConnexionCanada est une adresse professionnelle vérifiée.",
+    "description": "Title for a message that the work email address is verified"
+  },
   "sty2no": {
     "defaultMessage": "Détails sur le candidat",
     "description": "Heading for filters directly related to the candidates"
@@ -13261,6 +13321,10 @@
   "tY1JG4": {
     "defaultMessage": "Non intéressé(e)",
     "description": "Not interested in job offers"
+  },
+  "tZN+WQ": {
+    "defaultMessage": "État de recommandation",
+    "description": "Label for a candidates referral status"
   },
   "tZsKb7": {
     "defaultMessage": "Échanger avec nous sur les médias sociaux",
@@ -13501,6 +13565,10 @@
   "uaVogJ": {
     "defaultMessage": "{name}<hidden> mise en candidature des talents</hidden>",
     "description": "Label for talent nomination review dialog button"
+  },
+  "ub5Bh5": {
+    "defaultMessage": "Je travaille actuellement pour le gouvernement du Canada",
+    "description": "Is an employee"
   },
   "ucT19y": {
     "defaultMessage": "Description",
@@ -14105,10 +14173,6 @@
   "xHAPBe": {
     "defaultMessage": "Félicitations! Vous faites maintenant partie de ce processus de recrutement! On communiquera avec vous pour vous informer des possibilités d'emploi. Vous pouvez modifier votre disponibilité si vous avez débuté récemment un nouvel emploi ou souhaitez ne plus recevoir de possibilités d'emploi. <strong>Vous pouvez modifier votre choix à tout moment si vous changez d'idée.</strong>.",
     "description": "Message congratulating the applicant into the recruitment process."
-  },
-  "xHjgXz": {
-    "defaultMessage": "Aucune possibilité n’est disponible actuellement, mais d’autres viendront sous peu!",
-    "description": "Text displayed when there are no pool advertisements to display"
   },
   "xIniPc": {
     "defaultMessage": "Critères de compétences essentielles",
