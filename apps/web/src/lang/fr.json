@@ -10018,6 +10018,10 @@
     "defaultMessage": "Gérer les activités liées à la gestion des talents et les mises en candidature",
     "description": "Permissions related to managing talent events and nominations"
   },
+  "fWNqcM": {
+    "defaultMessage": "Lien externe vers de l'information",
+    "description": "Label displayed on the community form information URL field"
+  },
   "fXl3Cm": {
     "defaultMessage": "Talents numériques du GC offre plusieurs ressources utiles pour faciliter l’exécution de vos responsabilités en vertu de la Directive sur les talents numériques. Il s’agit notamment d’un formulaire en ligne, de conseils de mise en œuvre et de liens vers la Directive.",
     "description": "Summary of the directive on digital talent"
@@ -10765,6 +10769,10 @@
   "iVAPnW": {
     "defaultMessage": "À partir d’ici, vous pouvez modifier cette expérience. N’oubliez pas, les expériences de travail devraient miser sur une description d’expériences vécues dans le cadre de postes à temps partiel, à plein temps, d’emplois autonomes, de bourses, de postes bénévoles, et de stages.",
     "description": "Description for editing an experience."
+  },
+  "iVe7JX": {
+    "defaultMessage": "Courriel de contact général",
+    "description": "Label displayed on the community form contact email field"
   },
   "iYD0eJ": {
     "defaultMessage": "Le candidat/la candidate a confirmé ce qui suit :",
