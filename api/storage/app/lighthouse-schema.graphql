@@ -669,6 +669,9 @@ type Mutation {
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
   updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
+  createCommunityDevelopmentProgram(createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
+  updateCommunityDevelopmentProgram(updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
+  deleteCommunityDevelopmentProgram(id: UUID!): CommunityDevelopmentProgram
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
   downloadCommunityInterestUsersExcel(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
@@ -1308,8 +1311,8 @@ type DevelopmentProgram {
 
 type CommunityDevelopmentProgram {
   id: UUID!
-  community: Community
-  developmentProgram: DevelopmentProgram
+  community: Community!
+  developmentProgram: DevelopmentProgram!
   descriptionForNominations: LocalizedString
   classifications: [Classification!]
 }
@@ -2280,6 +2283,14 @@ input CommunityBelongsTo {
   disconnect: Boolean
 }
 
+input CommunityBelongsToConnect {
+  connect: UUID!
+}
+
+input DevelopmentProgramBelongsToConnect {
+  connect: UUID!
+}
+
 input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
@@ -2899,6 +2910,19 @@ input UpdateJobPosterTemplateInput {
 input SendUserEmailsVerificationInput {
   emailAddress: String!
   emailTypes: [EmailType]
+}
+
+input CreateCommunityDevelopmentProgramInput {
+  community: CommunityBelongsToConnect!
+  developmentProgram: DevelopmentProgramBelongsToConnect!
+  descriptionForNominations: LocalizedStringInput
+  classifications: ClassificationBelongsToMany
+}
+
+input UpdateCommunityDevelopmentProgramInput {
+  id: UUID!
+  descriptionForNominations: LocalizedStringInput
+  classifications: ClassificationBelongsToMany
 }
 
 "Information about pagination using a fully featured paginator."

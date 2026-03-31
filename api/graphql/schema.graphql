@@ -830,8 +830,8 @@ type DevelopmentProgram {
 
 type CommunityDevelopmentProgram {
   id: UUID!
-  community: Community @belongsTo
-  developmentProgram: DevelopmentProgram @belongsTo
+  community: Community! @belongsTo
+  developmentProgram: DevelopmentProgram! @belongsTo
   descriptionForNominations: LocalizedString
     @rename(attribute: "description_for_nominations")
   classifications: [Classification!] @belongsToMany
@@ -2340,6 +2340,14 @@ input CommunityBelongsTo {
   disconnect: Boolean
 }
 
+input CommunityBelongsToConnect {
+  connect: UUID!
+}
+
+input DevelopmentProgramBelongsToConnect {
+  connect: UUID!
+}
+
 input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
@@ -3073,6 +3081,21 @@ input SendUserEmailsVerificationInput @validator {
   emailTypes: [EmailType]
 }
 
+input CreateCommunityDevelopmentProgramInput {
+  community: CommunityBelongsToConnect!
+  developmentProgram: DevelopmentProgramBelongsToConnect!
+  descriptionForNominations: LocalizedStringInput
+    @rename(attribute: "description_for_nominations")
+  classifications: ClassificationBelongsToMany
+}
+
+input UpdateCommunityDevelopmentProgramInput {
+  id: UUID!
+  descriptionForNominations: LocalizedStringInput
+    @rename(attribute: "description_for_nominations")
+  classifications: ClassificationBelongsToMany
+}
+
 type Mutation {
   # User mutations
   createUser(user: CreateUserInput! @spread): User
@@ -3659,6 +3682,19 @@ type Mutation {
   updateTrainingOpportunity(
     updateTrainingOpportunity: UpdateTrainingOpportunityInput! @spread
   ): TrainingOpportunity @update @guard @canModel(ability: "update")
+
+  # Development/professionalization mutations
+  createCommunityDevelopmentProgram(
+    createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!
+      @spread
+  ): CommunityDevelopmentProgram @guard @create
+  updateCommunityDevelopmentProgram(
+    updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!
+      @spread
+  ): CommunityDevelopmentProgram @guard @update
+  deleteCommunityDevelopmentProgram(
+    id: UUID! @whereKey
+  ): CommunityDevelopmentProgram @guard @delete
 
   # Excel file downloads
   downloadPoolCandidatesExcel(
