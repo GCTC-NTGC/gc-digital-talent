@@ -6,6 +6,7 @@ import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftR
 import { differenceInDays } from "date-fns/differenceInDays";
 import { isPast } from "date-fns/isPast";
 import { ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
 import {
   FragmentType,
@@ -39,6 +40,10 @@ import {
 import { getSalaryRange } from "~/utils/classification";
 
 import AreaOfSelectionFlag from "./AreaOfSelectionRibbon";
+
+const postedOnDate = tv({
+  base: "flex items-center gap-3 text-gray-600 dark:text-gray-200",
+});
 
 export const JobCard_Fragment = graphql(/* GraphQL */ `
   fragment JobCard on Pool {
@@ -123,14 +128,16 @@ export const JobCard_Fragment = graphql(/* GraphQL */ `
 const PostedOnDate = ({
   publishedAt,
   applicantsCount,
+  className,
 }: {
   publishedAt?: Maybe<string>;
   applicantsCount?: Maybe<number>;
+  className?: string;
 }) => {
   const intl = useIntl();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   return (
-    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-200">
+    <div className={postedOnDate({ class: className })}>
       <p>
         {intl.formatMessage(
           {
@@ -150,7 +157,7 @@ const PostedOnDate = ({
         )}
       </p>
       <span
-        className="text-gray-500 xs:inline-block dark:text-gray-200"
+        className="hidden text-gray-500 xxs:inline-block dark:text-gray-200"
         aria-hidden
       >
         {UNICODE_CHAR.BULLET}
@@ -186,6 +193,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
     : pool.location?.localized;
   const salaryRange = getSalaryRange(locale, pool.classification);
   const languageRequirement = pool.language?.value;
+  const localizedLanguageLabel = pool.language?.label.localized;
 
   const bilingual = intl.formatMessage(commonMessages.bilingual);
 
@@ -216,9 +224,9 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
         </span>
       </>,
     ],
-    [PoolLanguage.English, languageRequirement],
-    [PoolLanguage.French, languageRequirement],
-    [PoolLanguage.Various, languageRequirement],
+    [PoolLanguage.English, localizedLanguageLabel],
+    [PoolLanguage.French, localizedLanguageLabel],
+    [PoolLanguage.Various, localizedLanguageLabel],
   ]);
 
   const deadline = pool.closingDate
@@ -233,8 +241,8 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   return (
-    <Card className="relative pb-10">
-      <div className="mr-6 mb-6 flex items-center justify-between">
+    <Card className="relative mt-1.5 pb-10">
+      <div className="mr-6 mb-6 flex items-start justify-between">
         {pool.areaOfSelection && (
           <div className="-ml-8 flex flex-col gap-1.5 sm:flex-row sm:gap-0">
             <AreaOfSelectionFlag
@@ -252,7 +260,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           />
         </div>
       </div>
-      <div className="relative mx-6 flex flex-col items-start justify-between gap-6 xs:flex-row xs:items-center">
+      <div className="relative mx-4 flex flex-col items-start justify-between gap-4 xs:flex-row xs:items-center">
         <div className="flex flex-col gap-3">
           <Heading
             level={headingLevel}
@@ -269,7 +277,12 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           <div className="flex flex-col gap-3 font-normal text-gray-700 dark:text-gray-100">
             <IconLabel label={department} icon={BuildingOfficeIcon} />
             <IconLabel label={location} icon={MapPinIcon} />
-            <IconLabel label={salaryRange} icon={CurrencyDollarIcon} />
+            <IconLabel
+              label={
+                salaryRange ?? intl.formatMessage(commonMessages.notAvailable)
+              }
+              icon={CurrencyDollarIcon}
+            />
             <IconLabel
               label={languageLabel.get(languageRequirement)}
               icon={ChatBubbleLeftRightIcon}
@@ -372,6 +385,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           <PostedOnDate
             publishedAt={pool.publishedAt}
             applicantsCount={pool.applicantsCount}
+            className="flex-col items-start xxs:flex-row xxs:items-center"
           />
         </div>
       </div>

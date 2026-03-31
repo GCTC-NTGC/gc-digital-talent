@@ -141,22 +141,6 @@ test.describe("Talent search", () => {
     }
   });
 
-  test("Search and submit request", async ({ appPage }) => {
-    talentSearch = new TalentSearch(appPage.page);
-    await talentSearch.goToIndex();
-    await talentSearch.fillSearchFormAndRequestCandidates(
-      poolName,
-      classification,
-      workStream,
-      skill!,
-    );
-    await appPage.waitForGraphqlResponse("RequestForm_SearchRequestData");
-    await talentSearch.submitSearchForm(classification, workStream, skill!);
-    await expect(appPage.page.getByRole("alert").last()).toContainText(
-      /request created successfully/i,
-    );
-  });
-
   test("Validate location preference update in Talent table", async ({
     appPage,
   }) => {

@@ -19,7 +19,6 @@ import {
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { emptyToNull } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -44,10 +43,6 @@ const ViewClassification_Fragment = graphql(/* GraphQL */ `
     level
     minSalary
     maxSalary
-    displayName {
-      en
-      fr
-    }
     isAvailableInSearch
   }
 `);
@@ -149,20 +144,6 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
               {classification.isAvailableInSearch
                 ? intl.formatMessage(commonMessages.yes)
                 : intl.formatMessage(commonMessages.no)}
-            </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(commonMessages.displayName)}
-              appendLanguageToLabel={"en"}
-            >
-              {emptyToNull(classification.displayName?.en) ??
-                intl.formatMessage(commonMessages.notProvided)}
-            </FieldDisplay>
-            <FieldDisplay
-              label={intl.formatMessage(commonMessages.displayName)}
-              appendLanguageToLabel={"fr"}
-            >
-              {emptyToNull(classification.displayName?.fr) ??
-                intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
           </div>
           <CardSeparator />

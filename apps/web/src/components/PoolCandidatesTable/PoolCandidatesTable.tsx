@@ -253,6 +253,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               }
             }
           }
+          isBeingReferred
           screeningResult {
             value
             label {
@@ -983,6 +984,22 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.placedDepartment),
         enableColumnFilter: false,
         enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
+      (row) =>
+        row.poolCandidate.isBeingReferred
+          ? intl.formatMessage(poolCandidateMessages.activelyReferred)
+          : intl.formatMessage(poolCandidateMessages.notReferred),
+      {
+        id: "referralStatus",
+        header: intl.formatMessage({
+          defaultMessage: "Referral status",
+          id: "tZN+WQ",
+          description: "Label for a candidates referral status",
+        }),
+        enableSorting: false,
+        enableColumnFilter: false,
       },
     ),
     columnHelper.accessor(

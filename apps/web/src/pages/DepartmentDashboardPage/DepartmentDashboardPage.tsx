@@ -48,7 +48,7 @@ export const DepartmentDashboardPage_Fragment = graphql(/* GraphQL */ `
         teamable {
           ... on Department {
             id
-            name {
+            departmentName: name {
               localized
             }
           }
@@ -95,7 +95,7 @@ export const DashboardPage = ({
           role: roleAssign.role,
           teamable: {
             id: roleAssign.teamable.id,
-            name: roleAssign.teamable.name,
+            name: roleAssign.teamable.departmentName,
           },
         };
       }
