@@ -2344,14 +2344,6 @@ input CommunityBelongsTo {
   disconnect: Boolean
 }
 
-input CommunityBelongsToConnect {
-  connect: UUID!
-}
-
-input DevelopmentProgramBelongsToConnect {
-  connect: UUID!
-}
-
 input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
@@ -3090,8 +3082,8 @@ input SendUserEmailsVerificationInput @validator {
 }
 
 input CreateCommunityDevelopmentProgramInput {
-  community: CommunityBelongsToConnect!
-  developmentProgram: DevelopmentProgramBelongsToConnect!
+  communityId: UUID! @rename(attribute: "community_id")
+  developmentProgramId: UUID! @rename(attribute: "development_program_id")
   descriptionForNominations: LocalizedStringInput
     @rename(attribute: "description_for_nominations")
   classifications: ClassificationBelongsToMany
