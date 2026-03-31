@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { CardSeparator, Ul } from "@gc-digital-talent/ui";
+import { CardSeparator, Separator, Ul } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -61,9 +61,10 @@ const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
 
 interface DisplayProps {
   query: FragmentType<typeof LanguageProfileDisplay_Fragment>;
+  context: "applicant-view" | "admin-view";
 }
 
-const Display = ({ query }: DisplayProps) => {
+const Display = ({ query, context }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const labels = getLabels(intl);
@@ -194,7 +195,11 @@ const Display = ({ query }: DisplayProps) => {
           ) : null}
         </>
       )}
-      <CardSeparator space="none" />
+      {context == "admin-view" ? (
+        <Separator space="none" />
+      ) : (
+        <CardSeparator space="none" />
+      )}
       <div className="grid gap-6 sm:grid-cols-2">
         <FieldDisplay
           hasError={!preferredLanguageForInterview}

@@ -175,7 +175,11 @@ const LanguageProfile = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display query={user} />}
+          {isNull ? (
+            <NullDisplay />
+          ) : (
+            <Display query={user} context="applicant-view" />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           {fetching ? (
