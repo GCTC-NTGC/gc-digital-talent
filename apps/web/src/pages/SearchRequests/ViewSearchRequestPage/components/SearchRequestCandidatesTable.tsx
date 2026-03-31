@@ -68,6 +68,7 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
       PlacementType.NotPlaced,
       PlacementType.PlacedTentative,
       PlacementType.PlacedCasual,
+      PlacementType.PlacedActing,
     ],
   };
 };

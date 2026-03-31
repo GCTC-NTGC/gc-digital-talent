@@ -85,7 +85,6 @@ const Test_CreateCommunityInterestMutation = /* GraphQL */ `
   ) {
     createCommunityInterest(communityInterest: $communityInterest) {
       id
-      __typename
     }
   }
 `;

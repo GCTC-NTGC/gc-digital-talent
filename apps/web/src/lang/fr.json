@@ -1119,6 +1119,10 @@
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Success message after submission for the application review page."
   },
+  "2SU37a": {
+    "defaultMessage": "Adresse courriel professionnelle du gouvernement",
+    "description": "Label for work email in the verification form"
+  },
   "2SnhXV": {
     "defaultMessage": "Marquer comme non lue",
     "description": "Button text to mark a notification as unread"
@@ -1478,6 +1482,10 @@
   "3zbSfP": {
     "defaultMessage": "l'examen des résultats d’évaluation d’acceptation par les utilisateurs.",
     "description": "List item four, things developers consider for accessibility"
+  },
+  "4+/L3a": {
+    "defaultMessage": "Je ne suis pas employé(e)",
+    "description": "Is not an employee"
   },
   "404R1N": {
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
@@ -3291,6 +3299,10 @@
     "defaultMessage": "Renseignements personnels et coordonnées",
     "description": "Title for the personal and contact information section"
   },
+  "BXawd7": {
+    "defaultMessage": "Avant de vous diriger vers votre profil, nous devons recueillir certains renseignements obligatoires afin de compléter la configuration de votre compte. Nous avons récupéré les renseignements de profil suivants depuis ConnexionCanada. L’adresse courriel associée à votre compte ConnexionCanada sera utilisée pour toutes les communications et notifications provenant de Talents numériques du GC. ",
+    "description": "Message after main heading in create account page."
+  },
   "Bb9Pe0": {
     "defaultMessage": "Veuillez sélectionner l'évaluation de cette nomination pour continuer.",
     "description": "Prompt for the user to evaluate the nomination before continuing"
@@ -4699,6 +4711,10 @@
     "defaultMessage": "Commentaires supplémentaires",
     "description": "Label for additional comments on a nomination's rationale"
   },
+  "IBoqn2": {
+    "defaultMessage": "Nous utiliserons cette adresse courriel, en combinaison avec votre expérience de travail actuelle, pour vérifier automatiquement votre statut d’employé.",
+    "description": "Title for a message that the work email address is verified"
+  },
   "ICKgvh": {
     "defaultMessage": "Inscrivez le nom complet du ministère pour confirmer cette action.",
     "description": "Sentence explaining how to archive/restore a department"
@@ -4974,6 +4990,10 @@
   "JCZlxS": {
     "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans le processus » pour commencer.",
     "description": "Instructions for adding process membership to a user."
+  },
+  "JDjqIL": {
+    "defaultMessage": "Vérifier plus tard",
+    "description": "Button to skip the verification step"
   },
   "JEKihk": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez perfectionné vos compétences et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, un profil solide vous préparera pour de nouvelles possibilités.",
@@ -9142,6 +9162,10 @@
     "defaultMessage": "Requises",
     "description": "Label for a required skill"
   },
+  "c8DrIs": {
+    "defaultMessage": "Prenez une longueur d’avance pour accéder aux outils destinés aux employé(e)s en vérifiant votre adresse courriel professionnelle. Si vous le préférez, vous pouvez passer cette étape et vérifier votre adresse courriel plus tard dans votre profil d’employé(e) du GC, accessible à partir de votre tableau de bord.",
+    "description": "Description about verifying work email on the getting started page"
+  },
   "cAOf3a": {
     "defaultMessage": "Je suis <strong>disponible</strong> à des fins d’embauche, et je souhaite que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for available for opportunities option"
@@ -10549,6 +10573,10 @@
   "hXWO/r": {
     "defaultMessage": "Dans de rares cas, vous pouvez être informé d’une offre d’emploi qui indique ensuite qu’elle a été « fermée prématurément ». Cela se produit lorsque l’offre d’emploi est publiée avec des informations incorrectes ou qu’un besoin en ressources humaines doit être modifié. Dans un souci d’équité, ces offres d’emploi sont fermées afin que les mises à jour puissent être effectuées et publiées sous la forme d’une nouvelle annonce.",
     "description": "First paragraph for the closed early pool deadlines dialog"
+  },
+  "hbbeY8": {
+    "defaultMessage": " Ces renseignements sont-ils inexacts? Vous pouvez les mettre à jour en accédant à votre profil ConnexionCanada.",
+    "description": "Footer for create account page"
   },
   "hbcdJm": {
     "defaultMessage": "Notifications",
@@ -13146,6 +13174,10 @@
     "defaultMessage": "Ce candidat a revendiqué le <strong>statut de vétéran</strong>.",
     "description": "Message for a candidates veteran status claim"
   },
+  "stViWQ": {
+    "defaultMessage": "L’adresse courriel fournie par ConnexionCanada est une adresse professionnelle vérifiée.",
+    "description": "Title for a message that the work email address is verified"
+  },
   "sty2no": {
     "defaultMessage": "Détails sur le candidat",
     "description": "Heading for filters directly related to the candidates"
@@ -13545,6 +13577,10 @@
   "uaVogJ": {
     "defaultMessage": "{name}<hidden> mise en candidature des talents</hidden>",
     "description": "Label for talent nomination review dialog button"
+  },
+  "ub5Bh5": {
+    "defaultMessage": "Je travaille actuellement pour le gouvernement du Canada",
+    "description": "Is an employee"
   },
   "ucT19y": {
     "defaultMessage": "Description",
