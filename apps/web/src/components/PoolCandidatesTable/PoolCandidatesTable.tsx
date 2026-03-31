@@ -214,6 +214,12 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               localized
             }
           }
+          placementType {
+            value
+            label {
+              localized
+            }
+          }
           placedDepartment {
             id
             name {
@@ -952,7 +958,9 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
+      ({ poolCandidate: { placementType } }) =>
+        placementType?.label?.localized ??
+        intl.formatMessage(poolCandidateMessages.notPlaced),
       {
         id: "jobPlacement",
         header: intl.formatMessage(tableMessages.jobPlacement),
