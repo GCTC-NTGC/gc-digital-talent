@@ -101,8 +101,8 @@ export const getLabels = (intl: IntlShape) => ({
     description: "Label for exam validity in language information form",
   }),
   prefSpokenInterviewLang: intl.formatMessage({
-    defaultMessage: "Preferred spoken interview language",
-    id: "DB9pFd",
+    defaultMessage: "Preferred interview language",
+    id: "m6vOLM",
     description: "Title for preferred spoken interview language",
   }),
   prefWrittenExamLang: intl.formatMessage({

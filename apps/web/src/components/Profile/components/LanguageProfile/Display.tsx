@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Ul } from "@gc-digital-talent/ui";
+import { CardSeparator, Ul } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -44,6 +44,18 @@ const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
         localized
       }
     }
+    preferredLanguageForInterview {
+      value
+      label {
+        localized
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        localized
+      }
+    }
   }
 `);
 
@@ -67,6 +79,8 @@ const Display = ({ query }: DisplayProps) => {
     writtenLevel,
     comprehensionLevel,
     verbalLevel,
+    preferredLanguageForInterview,
+    preferredLanguageForExam,
   } = user;
 
   let examValidity = null;
@@ -87,6 +101,14 @@ const Display = ({ query }: DisplayProps) => {
 
   return (
     <div className="grid gap-6">
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "This section of your applicant profile focuses on the official languages you want to work in, as well as the official languages you would prefer to be tested in.",
+          id: "5csRb4",
+          description: "Introduction for the language profile form",
+        })}
+      </p>
       <FieldDisplay
         hasError={
           !lookingForEnglish && !lookingForFrench && !lookingForBilingual
@@ -172,6 +194,29 @@ const Display = ({ query }: DisplayProps) => {
           ) : null}
         </>
       )}
+      <CardSeparator space="none" />
+      <div className="grid gap-6 sm:grid-cols-2">
+        <FieldDisplay
+          hasError={!preferredLanguageForInterview}
+          label={intl.formatMessage({
+            defaultMessage: "Preferred interview language",
+            id: "m6vOLM",
+            description: "Title for preferred spoken interview language",
+          })}
+        >
+          {preferredLanguageForInterview?.label.localized ?? notProvided}
+        </FieldDisplay>
+        <FieldDisplay
+          hasError={!preferredLanguageForExam}
+          label={intl.formatMessage({
+            defaultMessage: "Preferred written exam language",
+            id: "fg2wla",
+            description: "Title for preferred written exam language",
+          })}
+        >
+          {preferredLanguageForExam?.label.localized ?? notProvided}
+        </FieldDisplay>
+      </div>
     </div>
   );
 };

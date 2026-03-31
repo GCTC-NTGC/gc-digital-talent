@@ -61,6 +61,12 @@ const ProfileLanguageProfile_Fragment = graphql(/** GraphQL */ `
     verbalLevel {
       value
     }
+    preferredLanguageForInterview {
+      value
+    }
+    preferredLanguageForExam {
+      value
+    }
     ...LanguageProfileDisplay
   }
 `);
