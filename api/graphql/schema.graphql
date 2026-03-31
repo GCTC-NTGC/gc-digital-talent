@@ -814,7 +814,8 @@ type Community implements HasRoleAssignments {
   workStreams: [WorkStream!] @hasMany
   developmentPrograms: [DevelopmentProgram!] @hasMany
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
-  developmentProgramsThroughPivot: [DevelopmentProgram!] @hasMany
+  associatedDevelopmentPrograms: [DevelopmentProgram!]
+    @hasMany(relation: "developmentProgramsThroughPivot")
 }
 
 type DevelopmentProgram {
@@ -827,7 +828,8 @@ type DevelopmentProgram {
   community: Community @belongsTo
   eligibleClassifications: [Classification!] @belongsToMany
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
-  communitiesThroughPivot: [Community!] @hasMany
+  associatedCommunities: [Community!]
+    @hasMany(relation: "communitiesThroughPivot")
 }
 
 type CommunityDevelopmentProgram {
