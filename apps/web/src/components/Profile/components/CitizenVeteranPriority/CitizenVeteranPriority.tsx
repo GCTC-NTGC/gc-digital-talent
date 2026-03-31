@@ -17,7 +17,7 @@ import profileMessages from "~/messages/profileMessages";
 import {
   hasEmptyRequiredFields,
   hasAllEmptyFields,
-} from "~/validators/profile/priorityEntitlements";
+} from "~/validators/profile/citizenVeteranPriority";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
 import { SectionProps } from "../../types";
