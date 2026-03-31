@@ -20,14 +20,12 @@ import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import createStep1Image from "~/assets/img/sign-up-step-1-light.webp";
-import createStep2Image from "~/assets/img/sign-up-step-2-light.webp";
-import createStep3Image from "~/assets/img/sign-up-step-3-light.webp";
-import createStep4Image from "~/assets/img/sign-up-step-4-light.webp";
-import createStep1ImageDark from "~/assets/img/sign-up-step-1-dark.webp";
-import createStep2ImageDark from "~/assets/img/sign-up-step-2-dark.webp";
-import createStep3ImageDark from "~/assets/img/sign-up-step-3-dark.webp";
-import createStep4ImageDark from "~/assets/img/sign-up-step-4-dark.webp";
+import canadaLoginStep1 from "~/assets/img/canada_login_registration_step_1_light.webp";
+import canadaLoginStep1Dark from "~/assets/img/canada_login_registration_step_1_dark.webp";
+import canadaLoginStep2 from "~/assets/img/canada_login_registration_step_2_light.webp";
+import canadaLoginStep2Dark from "~/assets/img/canada_login_registration_step_2_dark.webp";
+import canadaLoginStep3 from "~/assets/img/canada_login_registration_step_3_light.webp";
+import canadaLoginStep3Dark from "~/assets/img/canada_login_registration_step_3_dark.webp";
 import mfaStep1Image from "~/assets/img/mfa-step-1-light.webp";
 import mfaStep2Image from "~/assets/img/mfa-step-2-light.webp";
 import mfaStep3Image from "~/assets/img/mfa-step-3-light.webp";
@@ -38,6 +36,9 @@ import mfaStep3ImageDark from "~/assets/img/mfa-step-3-dark.webp";
 import mfaStep4ImageDark from "~/assets/img/mfa-step-4-dark.webp";
 import Instructions from "~/components/Instructions";
 import gckeyMessages from "~/messages/gckeyMessages";
+import InstructionsStepCard, {
+  InstructionsCardGrid,
+} from "~/components/Instructions/RegisterInstructionStep";
 
 const helpLink = (chunks: ReactNode, path: string) => (
   <Link href={path} state={{ referrer: window.location.href }}>
@@ -141,7 +142,7 @@ export const Component = () => {
                     href={paths.registrationExperience()} // TODO
                     mode="inline"
                     external
-                    className="ml-4"
+                    className="ml-2"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Instructions on how to register",
@@ -160,65 +161,96 @@ export const Component = () => {
       <Container className="my-18">
         {!iapMode ? (
           <>
-            <Heading level="h3" size="h4" className="mt-12 mb-6 font-bold">
+            <Heading level="h3" size="h4" className="mt-6 mb-6">
               {intl.formatMessage({
-                defaultMessage: "Part 1: Creating a GCKey account",
-                id: "u98IOx",
+                defaultMessage: "Part 1: Create a CanadaLogin account",
+                id: "Su2+bZ", // TODO
                 description:
-                  "Heading for section of the sign up page showing the create steps",
+                  "Heading for section of the registration page showing the create steps",
               })}
             </Heading>
-            <Heading level="h4" size="h6" className="mt-12 mb-3 font-bold">
-              {intl.formatMessage({
-                defaultMessage: "Steps to create your GCKey account",
-                id: "lZwkcR",
-                description:
-                  "Subtitle for a section explaining the create steps",
-              })}
-            </Heading>
-            <Instructions.List>
-              <Instructions.Step
-                img={{ src: createStep1Image, darkSrc: createStep1ImageDark }}
+
+            <InstructionsCardGrid columns={3}>
+              <InstructionsStepCard
+                className="rounded-r-none"
+                img={{ src: canadaLoginStep1, darkSrc: canadaLoginStep1Dark }}
               >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "1. Select <strong>sign up</strong> on the welcome page. This is <strong>located after the sign in</strong> section.",
-                  id: "MUYJr1",
-                  description: "Text for first sign up -> create step.",
-                })}
-              </Instructions.Step>
-              <Instructions.Step
-                img={{ src: createStep2Image, darkSrc: createStep2ImageDark }}
+                <h3 className="font-bold">
+                  {intl.formatMessage({
+                    defaultMessage: "Head to CanadaLogin.",
+                    id: "sRUaI5",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </h3>
+                <h3 className="mt-4 font-bold">
+                  {intl.formatMessage({
+                    defaultMessage: "Agree to the summary of terms.",
+                    id: "qSNLSc",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </h3>
+                <span className="mt-6 font-light">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "If you've already used CanadaLogin on another service, you can enter your email and password and skip to step 2.",
+                    id: "fqX7jB",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </span>
+              </InstructionsStepCard>
+
+              <InstructionsStepCard
+                className="bg-gray-250 rounded-none dark:bg-gray-700"
+                img={{ src: canadaLoginStep2, darkSrc: canadaLoginStep2Dark }}
               >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "2. Create a username and password. Don’t forget to <strong>save your username</strong> separately from your <strong>email address</strong>.",
-                  id: "Jp/oeD",
-                  description: "Text for second sign up -> create step.",
-                })}
-              </Instructions.Step>
-              <Instructions.Step
-                img={{ src: createStep3Image, darkSrc: createStep3ImageDark }}
-              >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "3. Complete your <strong>recovery questions</strong>. You are required to use a memorable <strong>person</strong> and <strong>date</strong>.",
-                  id: "3GkMHE",
-                  description: "Text for third sign up -> create step.",
-                })}
-              </Instructions.Step>
-              <Instructions.Step
+                <h3 className="font-bold">
+                  {intl.formatMessage({
+                    defaultMessage: "Enter your first and last name.",
+                    id: "FD+jX4",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </h3>
+                <span className="mt-10 font-light">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "The name you use here will be on your GC Digital Talent profile.",
+                    id: "8dctGM",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </span>
+              </InstructionsStepCard>
+
+              <InstructionsStepCard
+                className="rounded-l-none"
                 includeArrow={false}
-                img={{ src: createStep4Image, darkSrc: createStep4ImageDark }}
+                img={{ src: canadaLoginStep3, darkSrc: canadaLoginStep3Dark }}
               >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "4. Complete the email verification process. <strong>A unique one time code</strong> will be emailed to you to enter into GCKey.",
-                  id: "LbtstO",
-                  description: "Text for fourth sign up -> create step.",
-                })}
-              </Instructions.Step>
-            </Instructions.List>
+                <h3 className="font-bold">
+                  {intl.formatMessage({
+                    defaultMessage: "Verify your personal email address.",
+                    id: "Ip9S/o",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </h3>
+                <h3 className="mt-4 font-bold">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Enter the code sent to your email into CanadaLogin.",
+                    id: "XLJuh+",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </h3>
+                <span className="mt-6 font-light">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Using a personal email address will help ensure you don't lose access if you change jobs.",
+                    id: "OG/Fbe",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </span>
+              </InstructionsStepCard>
+            </InstructionsCardGrid>
+
             <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage: "Part 2: Setting up two-factor authentication",
