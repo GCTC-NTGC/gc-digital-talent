@@ -71,15 +71,28 @@ export default defineConfig(({ command }) => ({
         sourcemapIgnoreList: (relativeSourcePath) => {
           return relativeSourcePath.includes("node_modules");
         },
-        // advancedChunks: {
-        //   groups: [
-        //     {
-        //       name: "graphql",
-        //       test: /@gc-digital-talent\/graphql/,
-        //       priority: 10,
-        //     },
-        //   ],
-        // },
+        advancedChunks: {
+          groups: [
+            {
+              name: "graphql",
+              test: /@gc-digital-talent\/graphql|packages\/graphql/,
+              priority: 30,
+              minSize: 0,
+            },
+            {
+              name: "framework",
+              test: /[\\/]node_modules[\\/](react|react-dom|react-router|@react-router|urql|@urql|wonka)/,
+              priority: 20,
+              minSize: 10000,
+            },
+            {
+              name: "vendor",
+              test: /[\\/]node_modules[\\/]/,
+              priority: 10,
+              minSize: 50000, // Don't even bother splitting unless it's over 50kb
+            },
+          ],
+        },
       },
     },
   },
