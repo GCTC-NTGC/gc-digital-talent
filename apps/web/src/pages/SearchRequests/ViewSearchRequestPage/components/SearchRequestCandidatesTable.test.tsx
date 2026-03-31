@@ -73,6 +73,11 @@ const mockClient = {
         placements: [
           {
             __typename: "LocalizedPlacementType",
+            value: PlacementType.NotPlaced,
+            label: { localized: "Not placed" },
+          },
+          {
+            __typename: "LocalizedPlacementType",
             value: PlacementType.PlacedCasual,
             label: { localized: "Placed casual" },
           },
@@ -80,6 +85,11 @@ const mockClient = {
             __typename: "LocalizedPlacementType",
             value: PlacementType.PlacedTentative,
             label: { localized: "Offer in progress" },
+          },
+          {
+            __typename: "LocalizedPlacementType",
+            value: PlacementType.PlacedActing,
+            label: { localized: "Placed acting" },
           },
         ],
       },
@@ -105,13 +115,16 @@ describe("Search Request Candidates Table", () => {
     const filters = screen.getByRole("dialog", { name: /filters/i });
 
     // Checking for 2 of each due to option and chip in combobox
-    expect(await within(filters).findAllByText(/placed casual/i)).toHaveLength(
-      2,
-    );
-    expect(await within(filters).findAllByText(/qualified/i)).toHaveLength(2);
-
+    expect(await within(filters).findAllByText(/not placed/i)).toHaveLength(2);
     expect(
       await within(filters).findAllByText(/offer in progress/i),
     ).toHaveLength(2);
+    expect(await within(filters).findAllByText(/placed casual/i)).toHaveLength(
+      2,
+    );
+    expect(await within(filters).findAllByText(/placed acting/i)).toHaveLength(
+      2,
+    );
+    expect(await within(filters).findAllByText(/qualified/i)).toHaveLength(2);
   });
 });
