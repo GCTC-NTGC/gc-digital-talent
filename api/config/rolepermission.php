@@ -94,6 +94,7 @@ return [
         'communityInterest' => 'communityInterest',
         'communityTalent' => 'communityTalent',
         'basicGovEmployeeProfile' => 'basicGovEmployeeProfile',
+        'communityDevelopmentProgram' => 'communityDevelopmentProgram',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
@@ -721,6 +722,19 @@ return [
             'en' => 'View team Pool Activity Log',
             'fr' => 'Afficher le journal d\'activité du pool d\'équipes',
         ],
+
+        'create-team-communityDevelopmentProgram' => [
+            'en' => 'Create a Community Development Program record for a team',
+            'fr' => 'Créer une fiche de programme de développement communautaire pour une équipe',
+        ],
+        'update-team-communityDevelopmentProgram' => [
+            'en' => 'Update a Community Development Program record for a team',
+            'fr' => 'Mettre à jour la fiche d\'un programme de développement communautaire pour une équipe',
+        ],
+        'delete-team-communityDevelopmentProgram' => [
+            'en' => 'Delete a Community Development Program record for a team',
+            'fr' => 'Supprimer une fiche du programme de développement communautaire pour une équipe',
+        ],
     ],
 
     /*
@@ -1150,6 +1164,9 @@ return [
             'communityTalentCoordinatorMembership' => [
                 'team' => ['update'],
             ],
+            'communityDevelopmentProgram' => [
+                'team' => ['create', 'update', 'delete'],
+            ],
         ],
 
         'platform_admin' => [
@@ -1290,6 +1307,9 @@ return [
             ],
             'talentNominationGroup' => [
                 'team' => ['update', 'view'],
+            ],
+            'communityDevelopmentProgram' => [
+                'team' => ['create', 'update', 'delete'],
             ],
         ],
 
