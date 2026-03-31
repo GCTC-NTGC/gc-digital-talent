@@ -531,6 +531,11 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Error message for when user submits an application to an internal pool with an unverified work email",
   },
+  [ErrorCode.InvalidUrl]: {
+    defaultMessage: "Invalid URL",
+    id: "4Uwcxk",
+    description: "Error message for invalid URL",
+  },
 });
 
 export const tryFindMessageDescriptor = (
