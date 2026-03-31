@@ -32,15 +32,12 @@ import canadaLoginStep5 from "~/assets/img/canada_login_registration_step_5_ligh
 import canadaLoginStep5Dark from "~/assets/img/canada_login_registration_step_5_dark.webp";
 import canadaLoginStep6 from "~/assets/img/canada_login_registration_step_6_light.webp";
 import canadaLoginStep6Dark from "~/assets/img/canada_login_registration_step_6_dark.webp";
-import mfaStep1Image from "~/assets/img/mfa-step-1-light.webp";
-import mfaStep2Image from "~/assets/img/mfa-step-2-light.webp";
-import mfaStep3Image from "~/assets/img/mfa-step-3-light.webp";
-import mfaStep4Image from "~/assets/img/mfa-step-4-light.webp";
-import mfaStep1ImageDark from "~/assets/img/mfa-step-1-dark.webp";
-import mfaStep2ImageDark from "~/assets/img/mfa-step-2-dark.webp";
-import mfaStep3ImageDark from "~/assets/img/mfa-step-3-dark.webp";
-import mfaStep4ImageDark from "~/assets/img/mfa-step-4-dark.webp";
-import Instructions from "~/components/Instructions";
+import canadaLoginStep7 from "~/assets/img/canada_login_registration_step_7_light.webp";
+import canadaLoginStep7Dark from "~/assets/img/canada_login_registration_step_7_dark.webp";
+import canadaLoginStep8 from "~/assets/img/canada_login_registration_step_8_light.webp";
+import canadaLoginStep8Dark from "~/assets/img/canada_login_registration_step_8_dark.webp";
+import canadaLoginStep9 from "~/assets/img/canada_login_registration_step_9_light.webp";
+import canadaLoginStep9Dark from "~/assets/img/canada_login_registration_step_9_dark.webp";
 import gckeyMessages from "~/messages/gckeyMessages";
 import InstructionsStepCard, {
   InstructionsCardGrid,
@@ -178,23 +175,23 @@ export const Component = () => {
 
             <InstructionsCardGrid columns={3}>
               <InstructionsStepCard
-                className="shadow-r-none rounded-r-none"
+                className="rounded-r-none shadow-none"
                 img={{ src: canadaLoginStep1, darkSrc: canadaLoginStep1Dark }}
               >
-                <h3>
+                <h2>
                   {intl.formatMessage({
                     defaultMessage: "Head to CanadaLogin.",
                     id: "sRUaI5",
                     description: "Text for first registration -> create step.",
                   })}
-                </h3>
-                <h3 className="mt-4">
+                </h2>
+                <h2 className="mt-4">
                   {intl.formatMessage({
                     defaultMessage: "Agree to the summary of terms.",
                     id: "qSNLSc",
                     description: "Text for first registration -> create step.",
                   })}
-                </h3>
+                </h2>
                 <span className="mt-6 font-light">
                   {intl.formatMessage({
                     defaultMessage:
@@ -206,16 +203,16 @@ export const Component = () => {
               </InstructionsStepCard>
 
               <InstructionsStepCard
-                className="bg-gray-250 shadow-l-none shadow-r-none rounded-none dark:bg-gray-700"
+                className="bg-gray-250 rounded-l-none rounded-r-none shadow-none dark:bg-gray-700"
                 img={{ src: canadaLoginStep2, darkSrc: canadaLoginStep2Dark }}
               >
-                <h3>
+                <h2>
                   {intl.formatMessage({
                     defaultMessage: "Enter your first and last name.",
                     id: "FD+jX4",
                     description: "Text for first registration -> create step.",
                   })}
-                </h3>
+                </h2>
                 <span className="mt-12 font-light">
                   {intl.formatMessage({
                     defaultMessage:
@@ -227,25 +224,25 @@ export const Component = () => {
               </InstructionsStepCard>
 
               <InstructionsStepCard
-                className="shadow-l-none rounded-l-none"
+                className="rounded-l-none shadow-none"
                 includeArrow={false}
                 img={{ src: canadaLoginStep3, darkSrc: canadaLoginStep3Dark }}
               >
-                <h3>
+                <h2>
                   {intl.formatMessage({
                     defaultMessage: "Verify your personal email address.",
                     id: "Ip9S/o",
                     description: "Text for first registration -> create step.",
                   })}
-                </h3>
-                <h3 className="mt-4">
+                </h2>
+                <h2 className="mt-4">
                   {intl.formatMessage({
                     defaultMessage:
                       "Enter the code sent to your email into CanadaLogin.",
                     id: "XLJuh+",
                     description: "Text for first registration -> create step.",
                   })}
-                </h3>
+                </h2>
                 <span className="mt-6 font-light">
                   {intl.formatMessage({
                     defaultMessage:
@@ -268,23 +265,23 @@ export const Component = () => {
 
             <InstructionsCardGrid columns={3}>
               <InstructionsStepCard
-                className="shadow-r-none rounded-r-none"
+                className="rounded-r-none shadow-none"
                 img={{ src: canadaLoginStep4, darkSrc: canadaLoginStep4Dark }}
               >
-                <h3>
+                <h2>
                   {intl.formatMessage({
                     defaultMessage: "Set up two-step verification.",
                     id: "D/Tcaj", //TODO
                     description: "Text for first registration -> create step.",
                   })}
-                </h3>
-                <h3 className="mt-4">
+                </h2>
+                <h2 className="mt-4">
                   {intl.formatMessage({
                     defaultMessage: "Enter your personal phone number.",
                     id: "XUt7q+", // TODO
                     description: "Text for first registration -> create step.",
                   })}
-                </h3>
+                </h2>
                 <span className="mt-6 font-light">
                   {intl.formatMessage({
                     defaultMessage:
@@ -296,24 +293,24 @@ export const Component = () => {
               </InstructionsStepCard>
 
               <InstructionsStepCard
-                className="bg-gray-250 shadow-l-none shadow-r-none rounded-none dark:bg-gray-700"
+                className="bg-gray-250 rounded-none shadow-none dark:bg-gray-700"
                 img={{ src: canadaLoginStep5, darkSrc: canadaLoginStep5Dark }}
               >
-                <h3>
+                <h2>
                   {intl.formatMessage({
                     defaultMessage:
                       "You will be sent a code to the number you provided.",
                     id: "QU8yQJ", // TODO
                     description: "Text for first registration -> create step.",
                   })}
-                </h3>
-                <h3 className="mt-4">
+                </h2>
+                <h2 className="mt-4">
                   {intl.formatMessage({
                     defaultMessage: "Enter the code into CanadaLogin.",
                     id: "pTOGhN", // TODO
                     description: "Text for first registration -> create step.",
                   })}
-                </h3>
+                </h2>
                 <span className="mt-6 font-light">
                   {intl.formatMessage({
                     defaultMessage:
@@ -325,99 +322,110 @@ export const Component = () => {
               </InstructionsStepCard>
 
               <InstructionsStepCard
-                className="shadow-l-none rounded-l-none"
+                className="rounded-l-none shadow-none"
                 includeArrow={false}
                 img={{ src: canadaLoginStep6, darkSrc: canadaLoginStep6Dark }}
               >
-                <h3>
+                <h2>
                   {intl.formatMessage({
                     defaultMessage:
                       "You've successfully created your CanadaLogin.",
                     id: "To1Tf5", // TODO
                     description: "Text for first registration -> create step.",
                   })}
-                </h3>
-                <h3 className="mt-4">
+                </h2>
+                <h2 className="mt-4">
                   {intl.formatMessage({
                     defaultMessage:
                       "You will be returned to the GC Digital Talent platform.",
                     id: "FJU6Pr", // TODO
                     description: "Text for first registration -> create step.",
                   })}
-                </h3>
+                </h2>
               </InstructionsStepCard>
             </InstructionsCardGrid>
 
-            <Instructions.List>
-              <Instructions.Step
-                img={{
-                  src: mfaStep1Image,
-                  darkSrc: mfaStep1ImageDark,
-                  lazy: true,
-                  width: 700,
-                  height: 507,
-                }}
+            <Heading level="h3" size="h4" className="mt-14 mb-6">
+              {intl.formatMessage({
+                defaultMessage: "Part 3: Access your account",
+                id: "WsnfHy", // TODO
+                description:
+                  "Heading for section of the registration page showing the create steps",
+              })}
+            </Heading>
+
+            <InstructionsCardGrid columns={3}>
+              <InstructionsStepCard
+                className="rounded-r-none shadow-none"
+                img={{ src: canadaLoginStep7, darkSrc: canadaLoginStep7Dark }}
               >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "1. <strong>Prepare your device</strong> by downloading your preferred two-factor authentication app.",
-                  id: "D6f8hs",
-                  description: "Text for first sign up -> mfa step.",
-                })}
-              </Instructions.Step>
-              <Instructions.Step
-                img={{
-                  src: mfaStep2Image,
-                  darkSrc: mfaStep2ImageDark,
-                  lazy: true,
-                  width: 700,
-                  height: 507,
-                }}
+                <h2>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "View your details sent from CanadaLogin, linked to your GC Digital Talent profile.",
+                    id: "IHcJGO", //TODO
+                    description: "Text for first registration -> create step.",
+                  })}
+                </h2>
+                <span className="mt-12 font-light">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "You can manage your CanadaLogin profile and security setting on the CanadaLogin website.",
+                    id: "dzXJ2h", // TODO
+                    description: "Text for first registration -> create step.",
+                  })}
+                </span>
+              </InstructionsStepCard>
+
+              <InstructionsStepCard
+                className="bg-gray-250 rounded-none shadow-none dark:bg-gray-700"
+                img={{ src: canadaLoginStep8, darkSrc: canadaLoginStep8Dark }}
               >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "2. <strong>Scan the QR code</strong> or <strong>enter your secret code</strong> using your two-factor authenticator app.",
-                  id: "mVqKm+",
-                  description: "Text for second sign up -> mfa step.",
-                })}
-              </Instructions.Step>
-              <Instructions.Step
-                img={{
-                  src: mfaStep3Image,
-                  darkSrc: mfaStep3ImageDark,
-                  lazy: true,
-                  width: 700,
-                  height: 507,
-                }}
-              >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "3. <strong>Enter</strong> the code generated <strong>from your authenticator app</strong> into the verification bar.",
-                  id: "W5vrNy",
-                  description: "Text for third sign up -> mfa step.",
-                })}
-              </Instructions.Step>
-              <Instructions.Step
+                <h2>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Verify your Government of Canada work email to unlock employee tools",
+                    id: "BtIFVy", // TODO
+                    description: "Text for first registration -> create step.",
+                  })}
+                </h2>
+                <span className="mt-12 font-light">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "This feature is only available to current Government of Canada employees.",
+                    id: "Bo2POt", // TODO
+                    description: "Text for first registration -> create step.",
+                  })}
+                </span>
+              </InstructionsStepCard>
+
+              <InstructionsStepCard
+                className="rounded-l-none shadow-none"
                 includeArrow={false}
-                img={{
-                  src: mfaStep4Image,
-                  darkSrc: mfaStep4ImageDark,
-                  lazy: true,
-                  width: 700,
-                  height: 507,
-                }}
+                img={{ src: canadaLoginStep9, darkSrc: canadaLoginStep9Dark }}
               >
-                {intl.formatMessage({
-                  defaultMessage:
-                    "4. Hooray! You’ve completed your GCKey account and will be <strong>returned to the GC Digital Talent platform</strong>.",
-                  id: "d0EUOF",
-                  description: "Text for fourth sign up -> mfa step.",
-                })}
-              </Instructions.Step>
-            </Instructions.List>
+                <h2>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Add your current work experience to your GC Digital Talent profile",
+                    id: "8JrwqT", // TODO
+                    description: "Text for first registration -> create step.",
+                  })}
+                </h2>
+                <span className="mt-12 font-light">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "If you are a government employee this is the final step in-order to unlock your employee tools.",
+                    id: "2bKnmd", // TODO
+                    description: "Text for first registration -> create step.",
+                  })}
+                </span>
+              </InstructionsStepCard>
+            </InstructionsCardGrid>
+
             <Heading
               icon={InformationCircleIcon}
-              color="error"
+              color="primary"
               level="h2"
               size="h3"
               className="mt-18 mb-6 font-normal"

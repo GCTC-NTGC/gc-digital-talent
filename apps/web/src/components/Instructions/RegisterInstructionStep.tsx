@@ -28,19 +28,23 @@ const InstructionsStepCard = ({
   const imgSrc = mode === "dark" && darkSrc ? darkSrc : src;
 
   return (
-    <Card className={`h-full ${className} text-center`}>
-      <div className="mb-4 flex justify-center">
-        <Image {...imgProps} src={imgSrc} alt="" />
-      </div>
-      <div>{children}</div>
-
-      {/* Mobile arrow */}
-      {includeArrow && (
-        <div className="mt-6 block xs:hidden">
-          <ArrowDownCircleIcon className="mx-auto h-8 w-8 text-gray" />
+    <div className="h-full rounded-md shadow-xl">
+      <Card
+        className={`h-full shadow-none ${className} rounded-none text-center`}
+      >
+        <div className="mb-4 flex justify-center">
+          <Image {...imgProps} src={imgSrc} alt="" />
         </div>
-      )}
-    </Card>
+        <div>{children}</div>
+
+        {/* Mobile arrow */}
+        {includeArrow && (
+          <div className="mt-6 block xs:hidden">
+            <ArrowDownCircleIcon className="mx-auto h-8 w-8 text-gray" />
+          </div>
+        )}
+      </Card>
+    </div>
   );
 };
 
