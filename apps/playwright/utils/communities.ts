@@ -28,10 +28,10 @@ const Test_CommunitiesQueryDocument = /* GraphQL */ `
  */
 export const getCommunities: GraphQLRequestFunc<Community[]> = async (ctx) => {
   return await ctx
-    .post(Test_CommunitiesQueryDocument)
-    .then(
-      (res: GraphQLResponse<"communities", Community[]>) => res.communities,
-    );
+    .post<
+      GraphQLResponse<"communities", Community[]>
+    >(Test_CommunitiesQueryDocument)
+    .then((res) => res.communities);
 };
 
 const uniqueTestId = generateUniqueTestId();
@@ -64,19 +64,19 @@ export const createCommunity: GraphQLRequestFunc<
   Partial<CreateCommunityInput>
 > = async (ctx, community) => {
   return ctx
-    .post(Test_CreateCommunityMutation, {
-      isPrivileged: true,
-      variables: {
-        community: {
-          ...defaultCommunity,
-          ...community,
+    .post<GraphQLResponse<"createCommunity", Community>>(
+      Test_CreateCommunityMutation,
+      {
+        isPrivileged: true,
+        variables: {
+          community: {
+            ...defaultCommunity,
+            ...community,
+          },
         },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"createCommunity", Community>) =>
-        res.createCommunity,
-    );
+    )
+    .then((res) => res.createCommunity);
 };
 
 const Test_CreateCommunityInterestMutation = /* GraphQL */ `
@@ -94,12 +94,12 @@ export const createCommunityInterest: GraphQLRequestFunc<
   CreateCommunityInterestInput
 > = async (ctx, communityInterest) => {
   return await ctx
-    .post(Test_CreateCommunityInterestMutation, {
-      isPrivileged: false,
-      variables: { communityInterest },
-    })
-    .then(
-      (res: GraphQLResponse<"createCommunityInterest", CommunityInterest>) =>
-        res.createCommunityInterest,
-    );
+    .post<GraphQLResponse<"createCommunityInterest", CommunityInterest>>(
+      Test_CreateCommunityInterestMutation,
+      {
+        isPrivileged: false,
+        variables: { communityInterest },
+      },
+    )
+    .then((res) => res.createCommunityInterest);
 };
