@@ -1730,6 +1730,7 @@ input PoolCandidateSearchInput {
   statuses: [ApplicationStatus]
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
+  referralStatus: CandidateReferralFilter
   publishingGroups: [PublishingGroup]
   appliedClassifications: [ClassificationFilterInput]
   workStreams: [IdInput]
@@ -3534,6 +3535,12 @@ enum CandidateInterest {
   NOT_INTERESTED
   HIRED
   EXPIRED
+}
+
+enum CandidateReferralFilter {
+  REFERRING
+  NOT_REFERRING
+  ALL
 }
 
 enum CandidateRemovalReason {

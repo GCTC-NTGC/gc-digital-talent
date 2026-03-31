@@ -1073,6 +1073,12 @@ enum CandidateInterest {
   EXPIRED
 }
 
+enum CandidateReferralFilter {
+  REFERRING
+  NOT_REFERRING
+  ALL
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
