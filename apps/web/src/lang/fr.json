@@ -1619,10 +1619,6 @@
     "defaultMessage": "Modifier un volet de travail",
     "description": "Page title for the work stream edit page"
   },
-  "4TsmrB": {
-    "defaultMessage": "En cours de recommandation",
-    "description": "A candidate is being referred for new positions"
-  },
   "4V/DsD": {
     "defaultMessage": "En savoir plus<hidden> à propos de la collectivité des gestionnaires</hidden>",
     "description": "Link text to the managers community"
@@ -4771,6 +4767,10 @@
     "defaultMessage": " Préférences en matière de gestion des talents",
     "description": "Title for talent management preferences section"
   },
+  "ILThW5": {
+    "defaultMessage": "Disponible aux fins de recommandation",
+    "description": "A candidate is being referred for new positions"
+  },
   "IMGvOV": {
     "defaultMessage": "{candidateCount, plural, one {<testId>#</testId> concordance approximative} other {<testId>#</testId> concordances approximatives} }",
     "description": "Message for total estimated matching candidates in pool"
@@ -7805,10 +7805,6 @@
   "WBvYyt": {
     "defaultMessage": "Enregistrer le numéro de processus",
     "description": "Text on a button to save the process number"
-  },
-  "WDFayO": {
-    "defaultMessage": "Disponible aux fins de recommandation",
-    "description": "Dialog trigger for pause referrals status dialog"
   },
   "WDKT2K": {
     "defaultMessage": "Qu'est-ce qu'une CléGC?",
