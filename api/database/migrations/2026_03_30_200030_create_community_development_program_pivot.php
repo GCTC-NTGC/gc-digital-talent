@@ -16,6 +16,7 @@ return new class extends Migration
         // create tables
         // community - development program pivot
         // classification - community development program pivot
+        // nullable community on development_programs
         Schema::create('community_development_program', function (Blueprint $table) {
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->timestamps();
@@ -37,6 +38,11 @@ return new class extends Migration
                 ->constrained('community_development_program', 'id')
                 ->onDelete('cascade');
             $table->unique(['classification_id', 'community_development_program_id'], 'classification_community_development_program_unique');
+        });
+        Schema::table('development_programs', function (Blueprint $table) {
+            $table->foreignUuid('community_id')
+                ->nullable(true)
+                ->change();
         });
 
         // fill in table community_development_program
@@ -71,6 +77,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('development_programs', function (Blueprint $table) {
+            $table->foreignUuid('community_id')
+                ->nullable(false)
+                ->change();
+        });
         Schema::dropIfExists('classification_community_development_program');
         Schema::dropIfExists('community_development_program');
     }
