@@ -1130,7 +1130,7 @@ type WorkExperience implements Experience {
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "c_suite_role_title")
   otherCSuiteRoleTitle: String @rename(attribute: "other_c_suite_role_title")
-  relatedExperiences: [AwardExperience]! @morphMany
+  awardExperiences: [AwardExperience] @morphMany
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -1145,7 +1145,7 @@ type PersonalExperience implements Experience {
   deletedDate: DateTime @rename(attribute: "deleted_at")
   learningDescription: String @rename(attribute: "learning_description")
   organization: String
-  relatedExperiences: [AwardExperience]! @morphMany
+  awardExperiences: [AwardExperience] @morphMany
 }
 type CommunityExperience implements Experience {
   id: ID!
@@ -1161,7 +1161,7 @@ type CommunityExperience implements Experience {
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
-  relatedExperiences: [AwardExperience]! @morphMany
+  awardExperiences: [AwardExperience] @morphMany
 }
 type EducationExperience implements Experience {
   id: ID!
@@ -1179,7 +1179,7 @@ type EducationExperience implements Experience {
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
-  relatedExperiences: [AwardExperience]! @morphMany
+  awardExperiences: [AwardExperience] @morphMany
 }
 type AwardExperience implements Experience {
   id: ID!

@@ -37,7 +37,7 @@ class AwardExperienceFactory extends Factory
             'awarded_to' => $awardedTo,
             'awarded_scope' => $this->faker->randomElement(array_column(AwardedScope::cases(), 'name')),
             'details' => $this->faker->text(),
-            'project_name' => $awardedTo === AwardedTo::MY_PROJECT->name ? $this->faker->words(3, true) : null
+            'project_name' => $awardedTo === AwardedTo::MY_PROJECT->name ? $this->faker->words(3, true) : null,
         ];
     }
 }

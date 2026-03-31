@@ -9,7 +9,6 @@ use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\User;
 use App\Models\WorkExperience;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -24,7 +23,6 @@ final class AwardExperienceInputValidator extends Validator
     public function rules(): array
     {
         $user = User::findOrFail(Auth::id());
-
 
         $experiences = match ($this->arg('relatedExperienceType')) {
             CommunityExperience::class => $user->communityExperiences->pluck('id'),
@@ -50,13 +48,13 @@ final class AwardExperienceInputValidator extends Validator
             'relatedExperienceId' => [
                 'uuid',
                 'nullable',
-                Rule::in($experiences)
+                Rule::in($experiences),
             ],
             'relatedExperienceType' => [
                 'string',
                 'nullable',
                 'required_with:relatedExperienceId',
-                'in:' . implode(',', array_values(Relation::morphMap()))
+                'in:App\Models\WorkExperience,App\Models\PersonalExperience,App\Models\CommunityExperience,App\Models\EducationExperience',
             ], // Restrict allowed types
         ];
     }

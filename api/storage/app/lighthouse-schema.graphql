@@ -1531,7 +1531,7 @@ type WorkExperience implements Experience {
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
   otherCSuiteRoleTitle: String
-  relatedExperiences: [AwardExperience]!
+  awardExperiences: [AwardExperience]
 }
 
 type PersonalExperience implements Experience {
@@ -1545,7 +1545,7 @@ type PersonalExperience implements Experience {
   deletedDate: DateTime
   learningDescription: String
   organization: String
-  relatedExperiences: [AwardExperience]!
+  awardExperiences: [AwardExperience]
 }
 
 type CommunityExperience implements Experience {
@@ -1560,7 +1560,7 @@ type CommunityExperience implements Experience {
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
-  relatedExperiences: [AwardExperience]!
+  awardExperiences: [AwardExperience]
 }
 
 type EducationExperience implements Experience {
@@ -1577,7 +1577,7 @@ type EducationExperience implements Experience {
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
-  relatedExperiences: [AwardExperience]!
+  awardExperiences: [AwardExperience]
 }
 
 type AwardExperience implements Experience {

@@ -72,7 +72,7 @@ export interface AwardFormValues {
   issuedBy: string;
   awardedScope: AwardedScope;
   awardedDate: Scalars["Date"]["input"];
-  projectName?: string;
+  projectName?: string | null;
   relatedExperienceId?: string;
   relatedExperienceType?: string;
 }
@@ -211,9 +211,9 @@ export interface ExperienceDetailsSubmissionData {
   cSuiteRoleTitle?: CSuiteRoleTitle | null;
   otherCSuiteRoleTitle?: string | null;
   learningDescription?: string;
-  projectName?: string;
+  projectName?: string | null;
   relatedExperienceId?: string;
-  relatedExperienceType?: string;
+  relatedExperienceType?: string | null;
 }
 
 type ExperienceMutations = CreateAwardExperienceMutation &

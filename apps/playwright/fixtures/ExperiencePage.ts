@@ -646,24 +646,31 @@ class ExperiencePage extends AppPage {
   async addAwardExperience(input: AwardExperienceInput) {
     await this.create();
     await this.typeLocator.selectOption("award");
+    await this.waitForGraphqlResponse("AwardOptions");
 
     await this.page
-      .getByRole("textbox", { name: /award title/i })
+      .getByRole("textbox", { name: /title of the award/i })
       .fill(input.title ?? "test award title");
 
-    await this.page
-      .getByRole("combobox", { name: /awarded to/i })
-      .selectOption({ label: "Me" });
+    await this.fillDate(input.awardedDate, false, /date awarded/i);
 
     await this.page
-      .getByLabel(/issuing organization/i)
+      .getByLabel(/issuing organization or institution/i)
       .fill(input?.issuedBy ?? "test org");
 
     await this.page
-      .getByRole("combobox", { name: /award scope/i })
-      .selectOption({ label: "Local" });
+      .getByRole("group", { name: /recipient/i })
+      .getByRole("radio", {
+        name: /awarded to your team/i,
+      })
+      .click();
 
-    await this.fillDate(input.awardedDate, false, /date awarded/i);
+    await this.page
+      .getByRole("group", { name: /scope of the award/i })
+      .getByRole("radio", {
+        name: /local award/i,
+      })
+      .click();
 
     await this.page
       .getByRole("textbox", { name: /additional details/i })

@@ -132,13 +132,9 @@ const AwardFields = ({
   });
 
   useEffect(() => {
-    const resetDirtyField = (name: keyof AwardFormValues) => {
-      resetField(name, { keepDirty: false, defaultValue: undefined });
-    };
-
     // Reset the project name if awarded to changes
     if (watchAwardedTo) {
-      resetDirtyField("projectName");
+      resetField("projectName", { keepDirty: false, defaultValue: null });
     }
 
     // Set the related experience type
@@ -223,12 +219,13 @@ const AwardFields = ({
               }}
             />
 
-            {watchAwardedTo === AwardedTo.MyTeam && (
+            {watchAwardedTo === AwardedTo.MyProject && (
               <Input
                 id="projectName"
                 label={labels.projectName}
                 name="projectName"
                 type="text"
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
             )}
             <RadioGroup
@@ -266,8 +263,8 @@ const AwardFields = ({
               })}
             </p>
             <TextArea
-              id={"details"}
-              name={"details"}
+              id="details"
+              name="details"
               rows={TEXT_AREA_ROWS}
               wordLimit={wordCountLimits[locale]}
               label={experienceLabels.details}

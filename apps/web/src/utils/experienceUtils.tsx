@@ -490,7 +490,9 @@ export const formValuesToSubmitData = (
       awardedScope,
       projectName,
       relatedExperienceId,
-      relatedExperienceType: `App\\Models\\${relatedExperienceType}`,
+      relatedExperienceType: relatedExperienceType
+        ? `App\\Models\\${relatedExperienceType}`
+        : null,
     },
     community: {
       title: role,
