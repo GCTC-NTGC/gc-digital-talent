@@ -33,7 +33,7 @@ class CommunityFactory extends Factory
             'name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
             'description' => ['en' => $description.' EN', 'fr' => $description.' FR'],
             'information_url' => ! is_null($informationUrl)
-                ? ['en' => $informationUrl.' EN', 'fr' => $informationUrl.' FR']
+                ? ['en' => $informationUrl.'EN', 'fr' => $informationUrl.'FR']
                 : ['en' => '', 'fr' => ''],
             'mandate_authority' => ! is_null($mandateAuthority)
                 ? ['en' => $mandateAuthority.' EN', 'fr' => $mandateAuthority.' FR']
