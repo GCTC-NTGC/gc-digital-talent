@@ -20,6 +20,8 @@ final class UpdateCommunityValidator extends Validator
                 'sometimes',
                 Rule::unique('communities', 'key')->ignore($this->arg('id'), 'id'),
             ],
+            'community.informationUrl.en' => ['required_with:community.informationUrl.fr', 'string', 'nullable', 'url:http,https'],
+            'community.informationUrl.fr' => ['required_with:community.informationUrl.en', 'string', 'nullable', 'url:http,https'],
         ];
     }
 
@@ -30,6 +32,7 @@ final class UpdateCommunityValidator extends Validator
     {
         return [
             'community.key.unique' => ErrorCode::KEY_IN_USE->name,
+            'community.informationUrl.*.url' => ErrorCode::INVALID_URL->name,
         ];
     }
 }
