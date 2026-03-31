@@ -66,7 +66,7 @@ const staticDates = {
 
 // 5 generators to generate experiences of a certain type
 // actual generators start here
-const generateAward = (): GeneratedAwardExperience => {
+const generateAward = (): Omit<AwardExperience, "relatedExperience"> => {
   return {
     __typename: "AwardExperience",
     user: sampleApp,

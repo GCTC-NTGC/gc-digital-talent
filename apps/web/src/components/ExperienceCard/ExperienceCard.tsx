@@ -98,12 +98,18 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       projectName
       relatedExperience {
         ... on CommunityExperience {
+          user {
+            id
+          }
           __typename
           id
           title
           organization
         }
         ... on EducationExperience {
+          user {
+            id
+          }
           __typename
           id
           type {
@@ -117,17 +123,27 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
           institution
         }
         ... on PersonalExperience {
+          user {
+            id
+          }
           __typename
           id
           title
         }
         ... on WorkExperience {
+          user {
+            id
+          }
           __typename
           id
           role
           organization
           employmentCategory {
             value
+            label {
+              en
+              fr
+            }
           }
           department {
             id
@@ -135,8 +151,10 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
               en
               fr
             }
+            departmentNumber
           }
           cafForce {
+            value
             label {
               en
               fr
