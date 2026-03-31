@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\ApplicationStatus;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateReferralFilter;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
@@ -908,5 +909,90 @@ class PoolCandidateSearchTest extends TestCase
                     ],
                 ]]);
 
+    }
+
+    public function testReferralStatusScope()
+    {
+        $now = Carbon::now();
+
+        // 1. REFERRING: No pause set
+        $referringCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->qualified()
+            ->for($this->pool)
+            ->create([
+                'pause_referrals_at' => null,
+            ]);
+
+        // 2. NOT_REFERRING: Currently paused (Started yesterday, no resume date)
+        $pausedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->qualified()
+            ->for($this->pool)
+            ->create([
+                'pause_referrals_at' => $now->copy()->subDay(),
+                'resume_referrals_at' => null,
+            ]);
+
+        // 3. REFERRING: Resume date has passed (Was paused last week, resumed yesterday)
+        $resumedCandidate = PoolCandidate::factory()
+            ->availableInSearch()
+            ->qualified()
+            ->for($this->pool)
+            ->create([
+                'pause_referrals_at' => $now->copy()->subWeek(),
+                'resume_referrals_at' => $now->copy()->subDay(),
+            ]);
+
+        $query = <<<'GRAPHQL'
+        query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                paginatorInfo {
+                    count
+                }
+                data {
+                    id
+                }
+            }
+        }
+        GRAPHQL;
+
+        // Assert REFERRING returns 2 ($referringCandidate and $resumedCandidate)
+        $this->actingAs($this->processOperator, 'api')->graphQL($query, [
+            'where' => ['referralStatus' => CandidateReferralFilter::REFERRING->name],
+        ])->assertJson([
+            'data' => [
+                'poolCandidatesPaginatedAdminView' => [
+                    'paginatorInfo' => [
+                        'count' => 2,
+                    ],
+                ],
+            ],
+        ]);
+
+        // Assert NOT_REFERRING returns 1 ($pausedCandidate)
+        $this->actingAs($this->processOperator, 'api')->graphQL($query, [
+            'where' => ['referralStatus' => CandidateReferralFilter::NOT_REFERRING->name],
+        ])->assertJson([
+            'data' => [
+                'poolCandidatesPaginatedAdminView' => [
+                    'paginatorInfo' => [
+                        'count' => 1,
+                    ],
+                ],
+            ],
+        ]);
+
+        $this->actingAs($this->processOperator, 'api')->graphQL($query, [
+            'where' => ['referralStatus' => CandidateReferralFilter::ALL->name],
+        ])->assertJson([
+            'data' => [
+                'poolCandidatesPaginatedAdminView' => [
+                    'paginatorInfo' => [
+                        'count' => 3,
+                    ],
+                ],
+            ],
+        ]);
     }
 }
