@@ -36,9 +36,15 @@ const ProfileCitizenVeteranPriority_Fragment = graphql(/** GraphQL */ `
     priorityNumber
     citizenship {
       value
+      label {
+        localized
+      }
     }
     armedForcesStatus {
       value
+      label {
+        localized
+      }
     }
     ...CitizenVeteranPriorityDisplay
   }
@@ -101,8 +107,9 @@ const CitizenVeteranPriority = ({
           !isNull ? (
             <ToggleForm.Trigger
               aria-label={intl.formatMessage({
-                defaultMessage: "Edit priority entitlements",
-                id: "TIu/WA",
+                defaultMessage:
+                  "Edit citizenship, veteran status and priority entitlements",
+                id: "EX82UF",
                 description:
                   "Button text to start editing priority entitlements",
               })}
@@ -120,8 +127,8 @@ const CitizenVeteranPriority = ({
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "You are missing required priority entitlement information.",
-                id: "3MhIFU",
+                  "You are missing required citizenship, veteran status and priority entitlement information.",
+                id: "/WUaCi",
                 description:
                   "Error message displayed when a users priority entitlements is incomplete",
               })}

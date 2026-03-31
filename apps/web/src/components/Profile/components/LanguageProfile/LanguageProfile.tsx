@@ -63,9 +63,15 @@ const ProfileLanguageProfile_Fragment = graphql(/** GraphQL */ `
     }
     preferredLanguageForInterview {
       value
+      label {
+        localized
+      }
     }
     preferredLanguageForExam {
       value
+      label {
+        localized
+      }
     }
     ...LanguageProfileDisplay
   }

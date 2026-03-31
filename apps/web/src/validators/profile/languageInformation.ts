@@ -23,6 +23,8 @@ export interface PartialUser extends Pick<
   | "lookingForBilingual"
   | "secondLanguageExamCompleted"
   | "secondLanguageExamValidity"
+  | "preferredLanguageForInterview"
+  | "preferredLanguageForExam"
 > {
   firstOfficialLanguage?: PartialLanguage;
   estimatedLanguageAbility?: Maybe<
@@ -37,8 +39,16 @@ export function hasAllEmptyFields({
   lookingForEnglish,
   lookingForFrench,
   lookingForBilingual,
+  preferredLanguageForInterview,
+  preferredLanguageForExam,
 }: PartialUser): boolean {
-  return !lookingForEnglish && !lookingForFrench && !lookingForBilingual;
+  return (
+    !lookingForEnglish &&
+    !lookingForFrench &&
+    !lookingForBilingual &&
+    !preferredLanguageForInterview &&
+    !preferredLanguageForExam
+  );
 }
 
 export function hasEmptyRequiredFields({
@@ -52,6 +62,8 @@ export function hasEmptyRequiredFields({
   writtenLevel,
   comprehensionLevel,
   verbalLevel,
+  preferredLanguageForInterview,
+  preferredLanguageForExam,
 }: PartialUser): boolean {
   return !!(
     (!lookingForEnglish && !lookingForFrench && !lookingForBilingual) ||
@@ -62,7 +74,9 @@ export function hasEmptyRequiredFields({
         secondLanguageExamValidity === undefined ||
         isEmpty(writtenLevel) ||
         isEmpty(comprehensionLevel) ||
-        isEmpty(verbalLevel)))
+        isEmpty(verbalLevel))) ||
+    isEmpty(preferredLanguageForInterview) ||
+    isEmpty(preferredLanguageForExam)
   );
 }
 
