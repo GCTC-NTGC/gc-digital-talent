@@ -21,8 +21,7 @@ class CommunityDevelopmentProgramPolicy
      */
     public function create(User $user, $request)
     {
-        $communityId = (isset($request['community']) && isset($request['community']['connect'])) ?
-            $request['community']['connect'] : null;
+        $communityId = isset($request['community_id']) ? $request['community_id'] : null;
 
         if ($communityId) {
             $community = Community::with('team')->findOrFail($communityId);
