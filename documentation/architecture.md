@@ -60,13 +60,13 @@ graph TB
     user["End User (Browser)"]
     admin["Admin (GC network required)"]
     
-    f5["F5"]
+    f5["Firewall"]
 
     subgraph azure["Azure"]
         subgraph appservice["Azure App Service"]
             nginx2["Nginx + PHP-FPM"]
         end
-        db["Azure Database\nfor PostgreSQL"]
+        db["Postgres"]
         storage["Azure Blob Storage\n(static files)"]
         insights["Azure Application Insights\n(monitoring)"]
     end
