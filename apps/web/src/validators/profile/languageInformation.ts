@@ -23,8 +23,6 @@ export interface PartialUser extends Pick<
   | "lookingForBilingual"
   | "secondLanguageExamCompleted"
   | "secondLanguageExamValidity"
-  | "preferredLanguageForInterview"
-  | "preferredLanguageForExam"
 > {
   firstOfficialLanguage?: PartialLanguage;
   estimatedLanguageAbility?: Maybe<
@@ -33,6 +31,8 @@ export interface PartialUser extends Pick<
   writtenLevel?: PartialEvaluatedLanguage;
   comprehensionLevel?: PartialEvaluatedLanguage;
   verbalLevel?: PartialEvaluatedLanguage;
+  preferredLanguageForInterview?: PartialLanguage;
+  preferredLanguageForExam?: PartialLanguage;
 }
 
 export function hasAllEmptyFields({

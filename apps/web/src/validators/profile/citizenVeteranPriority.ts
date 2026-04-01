@@ -1,13 +1,18 @@
 import { empty } from "@gc-digital-talent/helpers";
-import { User } from "@gc-digital-talent/graphql";
+import {
+  LocalizedArmedForcesStatus,
+  LocalizedCitizenshipStatus,
+  Maybe,
+  User,
+} from "@gc-digital-talent/graphql";
 
 export type PartialUser = Pick<
   User,
-  | "hasPriorityEntitlement"
-  | "priorityNumber"
-  | "citizenship"
-  | "armedForcesStatus"
->;
+  "hasPriorityEntitlement" | "priorityNumber"
+> & {
+  citizenship?: Maybe<Pick<LocalizedCitizenshipStatus, "value">>;
+  armedForcesStatus?: Maybe<Pick<LocalizedArmedForcesStatus, "value">>;
+};
 
 export function hasAllEmptyFields({
   hasPriorityEntitlement,
