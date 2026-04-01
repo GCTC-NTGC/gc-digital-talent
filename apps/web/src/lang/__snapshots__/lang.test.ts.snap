@@ -76,7 +76,7 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "en": "Community roles",
     "fr": [
       "Rôles dans la collectivité",
-      "Rôles dans des collectivités"
+      "Rôles dans les collectivités"
     ]
   },
   {
