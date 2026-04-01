@@ -21,7 +21,7 @@ export interface FormValues {
   departments: string[];
   equity: string[];
   expiryStatus?: CandidateExpiryFilter;
-  referralStatus?: CandidateReferralFilter;
+  referralStatuses?: CandidateReferralFilter[];
   statuses: ApplicationStatus[];
   flexibleWorkLocations: FlexibleWorkLocation[];
   govEmployee?: string;

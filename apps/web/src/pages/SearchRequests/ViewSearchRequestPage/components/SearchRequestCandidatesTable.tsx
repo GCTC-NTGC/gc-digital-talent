@@ -95,7 +95,7 @@ const SingleSearchRequestTableApi = ({
               ...applicantFilterInput,
               suspendedStatus: CandidateSuspendedFilter.Active, // add default filters
               expiryStatus: CandidateExpiryFilter.Active,
-              referralStatus: CandidateReferralFilter.Referring,
+              referralStatuses: [CandidateReferralFilter.Referring],
             }
       }
       title={intl.formatMessage(adminMessages.poolCandidates)}

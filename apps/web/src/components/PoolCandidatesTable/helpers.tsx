@@ -40,7 +40,6 @@ import {
   LocalizedApplicationStatus,
   LocalizedAssessmentDecision,
   AssessmentDecision,
-  CandidateReferralFilter,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Radio } from "@gc-digital-talent/forms";
@@ -537,7 +536,7 @@ export function transformPoolCandidateSearchInputToFormValues(
     priorityWeight: unpackMaybes(input?.priorityWeight),
     expiryStatus: input?.expiryStatus ?? CandidateExpiryFilter.Active,
     suspendedStatus: input?.suspendedStatus ?? CandidateSuspendedFilter.Active,
-    referralStatus: input?.referralStatus ?? CandidateReferralFilter.All,
+    referralStatuses: unpackMaybes(input?.referralStatuses),
     govEmployee: input?.isGovEmployee ? "true" : "",
     departments: input?.departments ?? [],
     community: input?.applicantFilter?.community?.id ?? "",
@@ -575,7 +574,7 @@ export function transformFormValuesToFilterState(
     priorityWeight: data.priorityWeight,
     expiryStatus: data.expiryStatus,
     suspendedStatus: data.suspendedStatus,
-    referralStatus: data.referralStatus,
+    referralStatuses: data.referralStatuses,
     isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
     departments: data.departments,
     publishingGroups: data.publishingGroups,
@@ -626,7 +625,7 @@ export const addSearchToPoolCandidateFilterInput = (
     priorityWeight: fancyFilterState?.priorityWeight,
     expiryStatus: fancyFilterState?.expiryStatus,
     suspendedStatus: fancyFilterState?.suspendedStatus,
-    referralStatus: fancyFilterState?.referralStatus,
+    referralStatuses: fancyFilterState?.referralStatuses,
     isGovEmployee: fancyFilterState?.isGovEmployee,
     publishingGroups: fancyFilterState?.publishingGroups,
     appliedClassifications: fancyFilterState?.appliedClassifications,

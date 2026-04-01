@@ -431,6 +431,20 @@ const PoolCandidateFilterDialog = ({
           }))}
         />
       </div>
+      <Combobox
+        id="referralStatuses"
+        name="referralStatuses"
+        isMulti
+        doNotSort
+        label={intl.formatMessage(tableMessages.referralStatus)}
+        options={narrowEnumType(
+          unpackMaybes(data?.referralFilters),
+          "CandidateReferralFilter",
+        ).map((referralFilter) => ({
+          value: referralFilter.value,
+          label: referralFilter.label?.localized ?? notAvailable,
+        }))}
+      />
 
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
