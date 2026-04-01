@@ -418,18 +418,6 @@ const PoolCandidateFilterDialog = ({
             intl,
           )}
         />
-        <RadioGroup
-          idPrefix="referralStatus"
-          name="referralStatus"
-          legend={intl.formatMessage(tableMessages.referralStatus)}
-          items={narrowEnumType(
-            unpackMaybes(data?.referralFilters),
-            "CandidateReferralFilter",
-          ).map((referralFilter) => ({
-            value: referralFilter.value,
-            label: referralFilter.label?.localized ?? notAvailable,
-          }))}
-        />
       </div>
       <Combobox
         id="referralStatuses"
