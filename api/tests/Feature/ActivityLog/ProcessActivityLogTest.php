@@ -7,6 +7,8 @@ use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Enums\SkillLevel;
 use App\Models\AssessmentStep;
+use App\Models\Community;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
@@ -39,6 +41,8 @@ class ProcessActivityLogTest extends TestCase
 
     protected AssessmentStep $step;
 
+    protected int $logsCreated = 15;
+
     protected $query = <<<'GRAPHQL'
     query ProcessActivitySearch($id: UUID!, $where: ProcessActivityFilterInput) {
         pool(id: $id) {
@@ -55,8 +59,6 @@ class ProcessActivityLogTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->markTestSkipped('Skipping until we fix returning activity');
 
         $this->seed(RolePermissionSeeder::class);
 
@@ -396,19 +398,73 @@ class ProcessActivityLogTest extends TestCase
 
     public function testUnauthorizedUserCannotViewActivities(): void
     {
-        /** @var User $stranger */
-        $stranger = User::factory()->create();
+        /** @var User $guest */
+        $guest = User::factory()->create();
 
-        $this->actingAs($stranger, 'api')
+        $this->actingAs($guest, 'api')
             ->graphQL($this->query, [
                 'id' => $this->process->id,
             ])
             ->assertJsonCount(0, 'data.pool.activities.data');
     }
 
-    public function testUserFromDifferentTeamCannotViewActivities(): void
+    public function testApplicantCannotViewActivities(): void
+    {
+        $applicant = User::factory()->asApplicant()->create();
+
+        $this->actingAs($applicant, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+            ])
+            ->assertJsonCount(0, 'data.pool.activities.data');
+    }
+
+    public function testProcessOperatorCanViewActivities(): void
+    {
+        $operator = User::factory()
+            ->asProcessOperator($this->process->id)
+            ->create();
+
+        $this->actingAs($operator, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+            ])
+            ->assertJsonCount($this->logsCreated, 'data.pool.activities.data');
+    }
+
+    public function testOtherProcessOperatorCannotViewActivities(): void
     {
         $otherPool = Pool::factory()->create();
+        $operator = User::factory()
+            ->asProcessOperator($otherPool->id)
+            ->create();
+
+        $this->actingAs($operator, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+            ])
+            ->assertJsonCount(0, 'data.pool.activities.data');
+    }
+
+    public function testCommunityRecruiterCanViewActivities(): void
+    {
+        $recuiter = User::factory()
+            ->asCommunityRecruiter($this->process->community_id)
+            ->create();
+
+        $this->actingAs($recuiter, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+            ])
+            ->assertJsonCount($this->logsCreated, 'data.pool.activities.data');
+    }
+
+    public function testOtherCommunityRecruiterCannotViewActivities(): void
+    {
+        $otherCommunity = Community::factory()->create();
+        $otherPool = Pool::factory()->create([
+            'community_id' => $otherCommunity->id,
+        ]);
 
         $otherRecruiter = User::factory()
             ->asCommunityRecruiter($otherPool->community_id)
@@ -419,5 +475,131 @@ class ProcessActivityLogTest extends TestCase
                 'id' => $this->process->id,
             ])
             ->assertJsonCount(0, 'data.pool.activities.data');
+    }
+
+    public function testOtherCommunityAdminCannotViewActivities(): void
+    {
+        $otherCommunity = Community::factory()->create();
+        $otherPool = Pool::factory()->create([
+            'community_id' => $otherCommunity->id,
+        ]);
+
+        $otherAdmin = User::factory()
+            ->asCommunityAdmin($otherPool->community_id)
+            ->create();
+
+        $this->actingAs($otherAdmin, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+            ])
+            ->assertJsonCount(0, 'data.pool.activities.data');
+    }
+
+    public function testCommunityAdminCannotViewActivities(): void
+    {
+
+        $admin = User::factory()
+            ->asCommunityAdmin($this->process->community_id)
+            ->create();
+
+        $this->actingAs($admin, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+            ])
+            ->assertJsonCount(0, 'data.pool.activities.data');
+    }
+
+    public function testCommunityTalentCoordinatorCannotViewActivities(): void
+    {
+
+        $coordinator = User::factory()
+            ->asCommunityTalentCoordinator($this->process->community_id)
+            ->create();
+
+        $this->actingAs($coordinator, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+            ])
+            ->assertJsonCount(0, 'data.pool.activities.data');
+    }
+
+    public function testOtherCommunityTalentCoordinatorCannotViewActivities(): void
+    {
+        $otherCommunity = Community::factory()->create();
+        $otherPool = Pool::factory()->create([
+            'community_id' => $otherCommunity->id,
+        ]);
+
+        $otherCoordinator = User::factory()
+            ->asCommunityTalentCoordinator($otherPool->community_id)
+            ->create();
+
+        $this->actingAs($otherCoordinator, 'api')
+            ->graphQL($this->query, [
+                'id' => $this->process->id,
+            ])
+            ->assertJsonCount(0, 'data.pool.activities.data');
+    }
+
+    public function testDepartmentHrAdvisorCanViewActivities(): void
+    {
+        $advisor = User::factory()
+            ->asDepartmentHrAdvisor($this->process->department->id)
+            ->create();
+
+        $this->actingAs($advisor, 'api')
+            ->graphQL($this->query, ['id' => $this->process->id])
+            ->assertGraphQLErrorFree()
+            ->assertJsonCount($this->logsCreated, 'data.pool.activities.data');
+    }
+
+    public function testOtherDepartmentHrAdvisorCannotViewActivities(): void
+    {
+        $department = Department::factory()->create();
+        $advisor = User::factory()
+            ->asDepartmentHrAdvisor($department->id)
+            ->create();
+
+        $this->actingAs($advisor, 'api')
+            ->graphQL($this->query, ['id' => $this->process->id])
+            ->assertGraphQLErrorFree()
+            ->assertJsonCount(0, 'data.pool.activities.data');
+    }
+
+    public function testDepartmentAdminCanViewActivities(): void
+    {
+        $deptAdmin = User::factory()
+            ->asDepartmentAdmin($this->process->department->id)
+            ->create();
+
+        $this->actingAs($deptAdmin, 'api')
+            ->graphQL($this->query, ['id' => $this->process->id])
+            ->assertGraphQLErrorFree()
+            ->assertJsonCount($this->logsCreated, 'data.pool.activities.data');
+    }
+
+    public function testOtherDepartmentAdminCannotViewActivities(): void
+    {
+        $department = Department::factory()->create();
+        $deptAdmin = User::factory()
+            ->asDepartmentAdmin($department->id)
+            ->create();
+
+        $this->actingAs($deptAdmin, 'api')
+            ->graphQL($this->query, ['id' => $this->process->id])
+            ->assertGraphQLErrorFree()
+            ->assertJsonCount(0, 'data.pool.activities.data');
+    }
+
+    public function testPlatformAdminCanViewActivities(): void
+    {
+        $admin = User::factory()
+            ->asAdmin()
+            ->create();
+
+        $this->actingAs($admin, 'api')
+            ->graphQL($this->query, ['id' => $this->process->id])
+            ->assertGraphQLErrorFree()
+            ->assertJsonCount($this->logsCreated, 'data.pool.activities.data');
     }
 }

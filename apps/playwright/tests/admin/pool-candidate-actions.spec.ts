@@ -44,7 +44,7 @@ test.describe("Pool candidates", () => {
       );
     });
 
-    const createdUser = await createUserWithRoles(adminCtx, {
+    user = await createUserWithRoles(adminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `${sub}@example.org`,
@@ -82,7 +82,6 @@ test.describe("Pool candidates", () => {
         },
       },
     });
-    user = createdUser;
     const admin = await me(adminCtx, {});
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: admin?.id ?? "",
@@ -91,7 +90,7 @@ test.describe("Pool candidates", () => {
     });
 
     const applicantCtx = await graphql.newContext(
-      createdUser?.authInfo?.sub ?? "applicant@test.com",
+      user?.authInfo?.sub ?? "applicant@test.com",
     );
     const applicant = await me(applicantCtx, {});
 
@@ -154,7 +153,7 @@ test.describe("Pool candidates", () => {
       .fill("Notes notes notes");
     await appPage.page.getByRole("button", { name: "Save changes" }).click();
     await appPage.waitForGraphqlResponse("UpdateApplicationNotes");
-    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`); // refresh to tackle test flakiness, sad
+    // await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await expect(
       appPage.page.getByRole("button", { name: /edit notes/i }),
     ).toBeVisible();

@@ -7,6 +7,10 @@
           "fr": "La collectivité de l’AIPRP rassemble des professionnels déterminés à renforcer la confiance et la transparence du gouvernement, en offrant des emplois, des formations et des opportunités de gestion des talents pour soutenir leur carrière et leur impact."
         },
         "key": "atip",
+        "informationUrl": {
+          "en": null,
+          "fr": null
+        },
         "mandateAuthority": {
           "en": null,
           "fr": null
@@ -14,7 +18,8 @@
         "name": {
           "en": "Access to Information and Privacy (ATIP) Community",
           "fr": "Collectivité de l'accès à l'information et de protection des renseignements personnels (AIPRP)"
-        }
+        },
+        "contact_email": null
       },
       {
         "description": {
@@ -22,6 +27,10 @@
           "fr": "La collectivité numérique est un réseau de spécialistes pour faire avancer l'innovation numérique au service des Canadiennes et Canadiens. Elle favorise la collaboration, le développement de carrière, la formation et les possibilités de réseautage dans divers domaines numériques."
         },
         "key": "digital",
+        "informationUrl": {
+          "en": null,
+          "fr": null
+        },
         "mandateAuthority": {
           "en": null,
           "fr": null
@@ -29,7 +38,8 @@
         "name": {
           "en": "Digital Community",
           "fr": "Collectivité numérique"
-        }
+        },
+        "contact_email": null
       },
       {
         "description": {
@@ -37,6 +47,10 @@
           "fr": "La collectivité de la gestion financière relie les professionnels de la gestion financière (CT-FIN et cadres) au sein du gouvernement du Canada afin d'améliorer leurs compétences et de progresser dans leur carrière par le biais de la planification de carrière, de programmes de développement et de l'apprentissage."
         },
         "key": "finance",
+        "informationUrl": {
+          "en": null,
+          "fr": null
+        },
         "mandateAuthority": {
           "en": null,
           "fr": null
@@ -44,7 +58,8 @@
         "name": {
           "en": "Financial Management Community",
           "fr": "Collectivité de la gestion financière"
-        }
+        },
+        "contact_email": null
       }
     ]
   }

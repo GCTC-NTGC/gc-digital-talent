@@ -187,6 +187,10 @@
     "defaultMessage": "aaaa",
     "description": "Placeholder for a year input"
   },
+  "4Uwcxk": {
+    "defaultMessage": "URL invalide",
+    "description": "Error message for invalid URL"
+  },
   "4WvSir": {
     "defaultMessage": "Agrandir tout",
     "description": "Generic link text to expand all accordions in a section"

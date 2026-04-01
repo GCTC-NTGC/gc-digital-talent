@@ -1289,7 +1289,9 @@ type Community implements HasRoleAssignments {
   key: String!
   name: LocalizedString
   description: LocalizedString
+  informationUrl: LocalizedString
   mandateAuthority: LocalizedString
+  contactEmail: String
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
   pools: [Pool]
@@ -2276,14 +2278,18 @@ input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
   description: LocalizedStringInput
+  informationUrl: LocalizedStringInput
   mandateAuthority: LocalizedStringInput
+  contactEmail: String
 }
 
 input UpdateCommunityInput {
   key: String
   name: LocalizedStringInput
   description: LocalizedStringInput
+  informationUrl: LocalizedStringInput
   mandateAuthority: LocalizedStringInput
+  contactEmail: String
 }
 
 input DevelopmentProgramBelongsToMany {
@@ -3662,6 +3668,7 @@ enum ErrorCode {
   EXPIRY_DATE_REQUIRED
   EXPIRY_DATE_AFTER_TODAY
   ARRAY_CONTAINS_DUPLICATES
+  INVALID_URL
   APPLICATION_ALREADY_SUBMITTED
   APPLICATION_NOT_SUBMITTED
   APPLICATION_EDUCATION_REQUIREMENT_INCOMPLETE

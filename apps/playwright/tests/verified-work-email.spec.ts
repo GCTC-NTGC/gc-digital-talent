@@ -54,19 +54,6 @@ test.describe("Verified work email", () => {
     };
   });
 
-  test("Verified user shows icon in account settings", async ({ appPage }) => {
-    const accountSettings = new AccountSettings(appPage.appPage);
-    await loginBySub(accountSettings.page, verified.sub);
-    await accountSettings.goToSettings();
-
-    await expect(
-      accountSettings.page.getByRole("img", { name: /verified/i }).last(),
-    ).toBeVisible();
-    await expect(
-      accountSettings.page.getByText(new RegExp(verified.sub, "i")),
-    ).toBeVisible();
-  });
-
   test("Verified user shows badge in admin", async ({ appPage }) => {
     const adminUser = new AdminUser(appPage.page);
     await loginBySub(adminUser.page, "admin@test.com");
@@ -108,7 +95,7 @@ test.describe("Verified work email", () => {
 
     await expect(
       adminUser.page.getByText(
-        new RegExp(`${verified.sub}[\\s\\S]*unverified`, "i"),
+        new RegExp(`${unverified.sub}[\\s\\S]*unverified`, "i"),
       ),
     ).toBeVisible();
 

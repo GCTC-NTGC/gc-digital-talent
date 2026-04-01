@@ -33,6 +33,6 @@ const Test_SkillsQueryDocument = /* GraphQL */ `
  */
 export const getSkills: GraphQLRequestFunc<Skill[]> = async (ctx) => {
   return ctx
-    .post(Test_SkillsQueryDocument)
-    .then((res: GraphQLResponse<"skills", Skill[]>) => res.skills);
+    .post<GraphQLResponse<"skills", Skill[]>>(Test_SkillsQueryDocument)
+    .then((res) => res.skills);
 };
