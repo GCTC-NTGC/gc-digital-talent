@@ -270,13 +270,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Remove from community",
-    "fr": [
-      "Retirez de la collectivité",
-      "Retirer de la collectivité"
-    ]
-  },
-  {
     "en": "About this role",
     "fr": [
       "À propos de ce rôle",

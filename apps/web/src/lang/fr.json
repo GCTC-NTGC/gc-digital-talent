@@ -3208,7 +3208,7 @@
     "description": "Text label for button to download a csv file of all items in a table."
   },
   "B6cKp+": {
-    "defaultMessage": "Rôles dans des collectivités",
+    "defaultMessage": "Rôles dans les collectivités",
     "description": "Heading for updating a user's community roles"
   },
   "B8N4yZ": {
@@ -5816,7 +5816,7 @@
     "description": "Label for language for bilingual field"
   },
   "MxmB1v": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans la collectivité » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans une collectivité » pour commencer.",
     "description": "Instructions for adding community membership to a user."
   },
   "Mz7sON": {
@@ -7931,7 +7931,7 @@
     "description": "Label for a employee profile target classification group field"
   },
   "WovyCU": {
-    "defaultMessage": "Ajouter un rôle dans la collectivité",
+    "defaultMessage": "Ajouter un rôle dans une collectivité",
     "description": "Header for the form to add a community membership to a user"
   },
   "WpA63g": {
@@ -12963,7 +12963,7 @@
     "description": "Heading for the experience type section fo the experience form"
   },
   "ryeKXV": {
-    "defaultMessage": "Cherchez les rôles dans des collectivités",
+    "defaultMessage": "Rechercher les rôles dans les collectivités",
     "description": "Label for the community roles table search input"
   },
   "rz21yp": {
@@ -13451,7 +13451,7 @@
     "description": "Description for work streams for an experience dialog"
   },
   "uG1ZWN": {
-    "defaultMessage": "Retirez de la collectivité",
+    "defaultMessage": "Retirer de la collectivité",
     "description": "Button label for the form to remove a community role from a user"
   },
   "uIUSdN": {
@@ -14563,7 +14563,7 @@
     "description": "Status description for a reviewed application awaiting assessment"
   },
   "yzvT6g": {
-    "defaultMessage": "Ajouter un rôle dans la collectivité",
+    "defaultMessage": "Ajouter un rôle dans une collectivité",
     "description": "Button label for the form to add a community membership to a user"
   },
   "z+Pc2D": {
