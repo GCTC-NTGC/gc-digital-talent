@@ -989,7 +989,7 @@ const PoolCandidatesTable = ({
     columnHelper.accessor(
       (row) =>
         row.poolCandidate.isBeingReferred
-          ? intl.formatMessage(poolCandidateMessages.activelyReferred)
+          ? intl.formatMessage(poolCandidateMessages.availableForReferral)
           : intl.formatMessage(poolCandidateMessages.notReferred),
       {
         id: "referralStatus",

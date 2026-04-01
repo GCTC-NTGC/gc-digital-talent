@@ -1,4 +1,4 @@
-import { CodegenConfig } from "@graphql-codegen/cli";
+import { type CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   schema: "../../api/storage/app/lighthouse-schema.graphql",
@@ -8,6 +8,9 @@ const config: CodegenConfig = {
     "../../apps/web/src/**/*.ts",
   ],
   ignoreNoDocuments: true,
+  config: {
+    useTypeImports: true,
+  },
   generates: {
     "./src/gql/": {
       preset: "client",

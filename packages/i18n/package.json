@@ -46,7 +46,7 @@
     "react-router": "^7.13.2",
     "tsconfig": "workspace:*",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.0",
     "vitest": "^4.0.16",
     "yargs": "^18.0.0"
   }
