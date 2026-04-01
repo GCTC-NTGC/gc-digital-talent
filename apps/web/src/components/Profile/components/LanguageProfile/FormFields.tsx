@@ -71,7 +71,6 @@ const FormFields = ({ labels, optionsQuery }: FormFieldProps) => {
           items={languageOptions}
         />
       </div>
-      <CardSeparator space="none" />
     </div>
   );
 };

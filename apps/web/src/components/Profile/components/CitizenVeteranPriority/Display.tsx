@@ -53,6 +53,14 @@ const Display = ({ query }: DisplayProps) => {
 
   return (
     <div className="flex flex-col gap-y-6">
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "The following information is used by recruitment teams and hiring managers to evaluate eligibility during a hiring process.",
+          id: "pNCpED",
+          description: "Preamble for citizen/veteran/priority edit form",
+        })}
+      </p>
       <FieldDisplay
         hasError={!citizenship}
         label={intl.formatMessage(profileMessages.citizenship)}
