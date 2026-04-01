@@ -18,12 +18,20 @@ return new class extends Migration
             $table->string('pause_referrals_reason')->nullable();
         });
 
-        // Update the existing records
-        DB::statement(<<<'SQL'
-            UPDATE pool_candidates
-            SET pause_referrals_at = NOW(), resume_referrals_at = expiry_date
-            WHERE referring = FALSE;
-        SQL);
+        DB::table('pool_candidates')
+            ->where('referring', false)
+            ->update([
+                'pause_referrals_at' => DB::raw('NOW()'),
+                'resume_referrals_at' => DB::raw('expiry_date'),
+            ]);
+
+        DB::table('pool_candidates')
+            ->where('placement_type', 'PLACED_INDETERMINATE')
+            ->update([
+                'pause_referrals_at' => DB::raw('NOW()'),
+                'pause_referrals_reason' => 'Successfully placed',
+                'resume_referrals_at' => DB::raw('expiry_date'),
+            ]);
     }
 
     /**
