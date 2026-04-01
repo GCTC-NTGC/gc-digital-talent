@@ -993,11 +993,7 @@ const PoolCandidatesTable = ({
           : intl.formatMessage(poolCandidateMessages.notReferred),
       {
         id: "referralStatus",
-        header: intl.formatMessage({
-          defaultMessage: "Referral status",
-          id: "tZN+WQ",
-          description: "Label for a candidates referral status",
-        }),
+        header: intl.formatMessage(tableMessages.referralStatus),
         enableSorting: false,
         enableColumnFilter: false,
       },

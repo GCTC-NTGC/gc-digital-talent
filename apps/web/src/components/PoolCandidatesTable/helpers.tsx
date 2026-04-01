@@ -40,6 +40,7 @@ import {
   LocalizedApplicationStatus,
   LocalizedAssessmentDecision,
   AssessmentDecision,
+  CandidateReferralFilter,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Radio } from "@gc-digital-talent/forms";
@@ -536,6 +537,7 @@ export function transformPoolCandidateSearchInputToFormValues(
     priorityWeight: unpackMaybes(input?.priorityWeight),
     expiryStatus: input?.expiryStatus ?? CandidateExpiryFilter.Active,
     suspendedStatus: input?.suspendedStatus ?? CandidateSuspendedFilter.Active,
+    referralStatus: input?.referralStatus ?? CandidateReferralFilter.All,
     govEmployee: input?.isGovEmployee ? "true" : "",
     departments: input?.departments ?? [],
     community: input?.applicantFilter?.community?.id ?? "",
@@ -573,6 +575,7 @@ export function transformFormValuesToFilterState(
     priorityWeight: data.priorityWeight,
     expiryStatus: data.expiryStatus,
     suspendedStatus: data.suspendedStatus,
+    referralStatus: data.referralStatus,
     isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
     departments: data.departments,
     publishingGroups: data.publishingGroups,

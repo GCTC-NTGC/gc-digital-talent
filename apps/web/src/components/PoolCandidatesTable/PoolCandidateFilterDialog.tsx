@@ -137,6 +137,14 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
         }
       }
     }
+    referralFilters: localizedEnumOptions(enumName: "CandidateReferralFilter") {
+      ... on LocalizedCandidateReferralFilter {
+        value
+        label {
+          localized
+        }
+      }
+    }
     removalReasons: localizedEnumOptions(enumName: "CandidateRemovalReason") {
       ... on LocalizedCandidateRemovalReason {
         value
@@ -409,6 +417,18 @@ const PoolCandidateFilterDialog = ({
             ),
             intl,
           )}
+        />
+        <RadioGroup
+          idPrefix="referralStatus"
+          name="referralStatus"
+          legend={intl.formatMessage(tableMessages.referralStatus)}
+          items={narrowEnumType(
+            unpackMaybes(data?.referralFilters),
+            "CandidateReferralFilter",
+          ).map((referralFilter) => ({
+            value: referralFilter.value,
+            label: referralFilter.label?.localized ?? notAvailable,
+          }))}
         />
       </div>
 
