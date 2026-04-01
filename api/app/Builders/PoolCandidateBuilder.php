@@ -324,17 +324,25 @@ class PoolCandidateBuilder extends Builder
                 $query->whereNull('pause_referrals_at')
                     ->orWhere('pause_referrals_at', '>', $now)
                     ->orWhere('resume_referrals_at', '<=', $now);
-            });
-
+            })
+                ->where('application_status', ApplicationStatus::QUALIFIED->name)
+                ->where(function ($query) {
+                    $query->whereIn('placement_type', PlacementType::searchable())
+                        ->orWhereNull('placement_type');
+                });
         }
 
         if ($referral === CandidateReferralFilter::NOT_REFERRING->name) {
-            return $this->whereNotNull('pause_referrals_at')
-                ->where('pause_referrals_at', '<=', $now)
-                ->where(function ($query) use ($now) {
-                    $query->whereNull('resume_referrals_at')
-                        ->orWhere('resume_referrals_at', '>', $now);
-                });
+            return $this->where(function ($query) use ($now) {
+                $query->whereNotNull('pause_referrals_at')
+                    ->where('pause_referrals_at', '<=', $now)
+                    ->where(function ($query) use ($now) {
+                        $query->whereNull('resume_referrals_at')
+                            ->orWhere('resume_referrals_at', '>', $now);
+                    });
+            })
+                ->orWhere('application_status', '!=', ApplicationStatus::QUALIFIED->name)
+                ->orWhereNotIn('placement_type', PlacementType::searchable());
         }
 
         return $this;

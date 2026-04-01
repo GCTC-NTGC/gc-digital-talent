@@ -479,7 +479,10 @@ class PoolCandidate extends Model
     public function isBeingReferred(): Attribute
     {
         return Attribute::get(function () {
-            if ($this->application_status !== ApplicationStatus::QUALIFIED->name) {
+            if (
+                $this->application_status !== ApplicationStatus::QUALIFIED->name
+                || ! in_array($this->placement_type, PlacementType::searchable())
+            ) {
                 return false;
             }
 
