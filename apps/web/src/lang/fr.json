@@ -11850,6 +11850,10 @@
     "defaultMessage": "Confirmer à nouveau l'adresse courriel",
     "description": "Link to redo email verification"
   },
+  "ms0CBt": {
+    "defaultMessage": "Lien de mise en candidature copié",
+    "description": "Button text to indicate that a talent event nomination URL has been copied"
+  },
   "msr1cl": {
     "defaultMessage": "Compétences comportementales essentielles",
     "description": "Title for the essential behavioural skills"
@@ -13778,6 +13782,10 @@
     "defaultMessage": "{title} à {organization}",
     "description": "Title at organization"
   },
+  "vV5a2X": {
+    "defaultMessage": "Copier le lien de mise en candidature",
+    "description": "Button text to copy a nomination URL"
+  },
   "vVAqzB": {
     "defaultMessage": "Vous n'avez aucun processus de recrutement actif pour I'instant.",
     "description": "Title for notice when there are no recruitment processes"
@@ -14881,6 +14889,10 @@
   "zvXWQB": {
     "defaultMessage": "Télécharger la trousse du gestionnaire pour plus de renseignements et contactez l’équipe pour lancer le processus.",
     "description": "Paragraph 1 for the 'How to begin hiring an apprentice' section"
+  },
+  "zxHKZ2": {
+    "defaultMessage": "Copier le lien de mise en candidature {title} dans le presse-papiers",
+    "description": "Button text to copy a create talent event URL"
   },
   "zxLL3N": {
     "defaultMessage": "Afficher les détails de cette expérience",
