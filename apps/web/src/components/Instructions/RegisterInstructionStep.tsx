@@ -20,7 +20,6 @@ interface InstructionsStepCardProps {
 
 const InstructionsStepCard = ({
   img: { src, darkSrc, lazy, ...imgProps },
-  includeArrow = true,
   children,
   className = "",
 }: InstructionsStepCardProps) => {
@@ -28,23 +27,12 @@ const InstructionsStepCard = ({
   const imgSrc = mode === "dark" && darkSrc ? darkSrc : src;
 
   return (
-    <div className="h-full rounded-md shadow-xl">
-      <Card
-        className={`h-full shadow-none ${className} rounded-none text-center`}
-      >
-        <div className="mb-4 flex justify-center">
-          <Image {...imgProps} src={imgSrc} alt="" />
-        </div>
-        <div>{children}</div>
-
-        {/* Mobile arrow */}
-        {includeArrow && (
-          <div className="mt-6 block xs:hidden">
-            <ArrowDownCircleIcon className="mx-auto h-8 w-8 text-gray" />
-          </div>
-        )}
-      </Card>
-    </div>
+    <Card shadow={false} className={`h-full ${className} text-center`}>
+      <div className="mb-4 flex justify-center">
+        <Image {...imgProps} src={imgSrc} alt="" />
+      </div>
+      <div>{children}</div>
+    </Card>
   );
 };
 
@@ -62,23 +50,31 @@ export const InstructionsCardGrid = ({
 
   return (
     <div className="relative">
-      <div className="hidden xs:flex">
+      <div className="hidden shadow-xl xs:flex">
         {childrenArray.map((child, index) => (
           <div key={index} className="relative flex-1">
             {child}
             {index < totalCards - 1 && (
               <div className="absolute top-1/2 -right-4 z-10 -translate-y-1/2">
-                <ArrowRightCircleIcon className="h-8 w-8 text-gray" />
+                <ArrowRightCircleIcon className="h-8 w-8 overflow-visible align-middle text-gray" />
               </div>
             )}
           </div>
         ))}
       </div>
 
-      {/* Mobile layout */}
-      <div className="block space-y-6 xs:hidden">
+      {/* Mobile */}
+      <div className="block shadow-xl xs:hidden">
         {childrenArray.map((child, index) => (
-          <div key={index}>{child}</div>
+          <div key={index} className="relative">
+            <div className="h-full">{child}</div>
+
+            {index < totalCards - 1 && (
+              <div className="pointer-events-none absolute -bottom-4 left-1/2 z-10 -translate-x-1/2">
+                <ArrowDownCircleIcon className="h-8 w-8 text-gray" />
+              </div>
+            )}
+          </div>
         ))}
       </div>
     </div>
