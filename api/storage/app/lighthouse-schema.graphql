@@ -83,6 +83,11 @@ type LocalizedCandidateInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateReferralFilter implements LocalizedEnumOption {
+  value: CandidateReferralFilter!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
   label: LocalizedString!
