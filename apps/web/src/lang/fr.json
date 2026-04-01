@@ -2951,10 +2951,6 @@
     "defaultMessage": "Lorsque vous envoyez votre candidature, une copie de votre profil est automatiquement créée.",
     "description": "List item note 1 for the application review page."
   },
-  "AA3OTc": {
-    "defaultMessage": "Réintégrer le candidat et mettre à jour le statut",
-    "description": "Button text to reinstate a candidate"
-  },
   "AANjDd": {
     "defaultMessage": "Mettre à jour l’expérience",
     "description": "Button to submit the link experience to skill form"
@@ -11098,10 +11094,6 @@
     "defaultMessage": "Modifier la planification de carrière",
     "description": "Link to a page to edit your career planning information"
   },
-  "jo9Uct": {
-    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir le candidat au statut « En cours d’évaluation »?",
-    "description": "Confirmation question for reverting a decision of an application"
-  },
   "joXPYW": {
     "defaultMessage": "Composantes clés",
     "description": "Heading for section describing the different components"
@@ -14053,10 +14045,6 @@
   "waEO78": {
     "defaultMessage": "Présence du GSN aux salons de l’emploi pour les personnes aux études ou récemment diplômées",
     "description": "Heading for DSG job fairs section"
-  },
-  "wb/hvK": {
-    "defaultMessage": "Annuler la décision finale d’évaluation",
-    "description": "Heading for dialog to revert an application assessment decision"
   },
   "wdFBSc": {
     "defaultMessage": "Merci d'avoir proposé la candidature de {name}! L'équipe de gestion des talents de {community} examinera bientôt votre mise en candidature. En attendant, vous pouvez consulter votre demande et son état d'avancement à partir de votre tableau de bord.",
