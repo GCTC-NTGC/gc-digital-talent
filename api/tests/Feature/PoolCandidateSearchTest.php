@@ -959,7 +959,7 @@ class PoolCandidateSearchTest extends TestCase
 
         // Assert REFERRING returns 2 ($referringCandidate and $resumedCandidate)
         $this->actingAs($this->processOperator, 'api')->graphQL($query, [
-            'where' => ['referralStatus' => CandidateReferralFilter::REFERRING->name],
+            'where' => ['referralStatuses' => [CandidateReferralFilter::REFERRING->name]],
         ])->assertJson([
             'data' => [
                 'poolCandidatesPaginatedAdminView' => [
@@ -972,7 +972,7 @@ class PoolCandidateSearchTest extends TestCase
 
         // Assert NOT_REFERRING returns 1 ($pausedCandidate)
         $this->actingAs($this->processOperator, 'api')->graphQL($query, [
-            'where' => ['referralStatus' => CandidateReferralFilter::NOT_REFERRING->name],
+            'where' => ['referralStatuses' => [CandidateReferralFilter::NOT_REFERRING->name]],
         ])->assertJson([
             'data' => [
                 'poolCandidatesPaginatedAdminView' => [
@@ -984,7 +984,7 @@ class PoolCandidateSearchTest extends TestCase
         ]);
 
         $this->actingAs($this->processOperator, 'api')->graphQL($query, [
-            'where' => ['referralStatus' => CandidateReferralFilter::ALL->name],
+            'where' => ['referralStatuses' => array_column(CandidateReferralFilter::cases(), 'name')],
         ])->assertJson([
             'data' => [
                 'poolCandidatesPaginatedAdminView' => [
