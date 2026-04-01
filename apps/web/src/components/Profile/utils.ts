@@ -48,8 +48,8 @@ const sectionTitles = new Map<SectionKey, MessageDescriptor>([
   [
     "language",
     defineMessage({
-      defaultMessage: "Your language profile",
-      id: "5yVtsm",
+      defaultMessage: "Language profile",
+      id: "Rn3HMc",
       description:
         "Heading for the language profile section on the application profile",
     }),
