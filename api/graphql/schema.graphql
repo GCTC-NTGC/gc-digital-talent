@@ -940,7 +940,7 @@ type TalentNominationGroup {
     @belongsTo
     @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   nominations: [TalentNomination!]
-    @hasMany
+    @hasMany(scopes: ["withPolicyEagerLoads"])
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentNominationEvent: TalentNominationEvent! @belongsTo
   advancementNominationCount: Int
