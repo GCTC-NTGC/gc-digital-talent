@@ -136,31 +136,15 @@ const CareerDevelopmentTaskCard = ({
     description: "Link to a page to edit your career planning information",
   });
 
-  const careerPlanningMetaData: AccordionMetaData = isVerifiedGovEmployee
-    ? // if verified, then a link to the employee profile page
-      [
-        {
-          key: "edit-career-planning-key",
-          type: "link",
-          href: `${paths.employeeProfile()}#career-planning-section`,
-          color: "primary",
-          children: <>{editCareerPlanningLinkText}</>,
-        },
-      ]
-    : // if not verified, then a dialog to get verified
-      [
-        {
-          key: "edit-career-planning-key",
-          type: "button-component",
-          component: (
-            <UnlockEmployeeToolsDialog query={userFragment}>
-              <Button mode="inline" size="sm">
-                {editCareerPlanningLinkText}
-              </Button>
-            </UnlockEmployeeToolsDialog>
-          ),
-        },
-      ];
+  const careerPlanningMetaData: AccordionMetaData = [
+    {
+      key: "edit-career-planning-key",
+      type: "link",
+      href: `${paths.employeeProfile()}#career-planning-section`,
+      color: "primary",
+      children: <>{editCareerPlanningLinkText}</>,
+    },
+  ];
 
   const addACommunityLinkText = intl.formatMessage({
     defaultMessage: "Add a community",

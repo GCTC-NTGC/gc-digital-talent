@@ -218,11 +218,9 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
               <Link href={paths.profile()}>
                 {intl.formatMessage(navigationMessages.applicantProfile)}
               </Link>
-              {personalInfo.isVerifiedGovEmployee && (
-                <Link href={paths.employeeProfile()}>
-                  {intl.formatMessage(navigationMessages.employeeProfileGC)}
-                </Link>
-              )}
+              <Link href={paths.employeeProfile()}>
+                {intl.formatMessage(navigationMessages.employeeProfileGC)}
+              </Link>
             </div>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
