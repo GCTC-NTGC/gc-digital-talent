@@ -10,7 +10,6 @@ enum CandidateReferralFilter
 
     case REFERRING;
     case NOT_REFERRING;
-    case ALL;
 
     public static function getLangFilename(): string
     {

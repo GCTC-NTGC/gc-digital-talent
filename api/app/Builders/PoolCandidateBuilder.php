@@ -314,38 +314,50 @@ class PoolCandidateBuilder extends Builder
         return $this;
     }
 
-    public function whereReferralStatus(?string $referralStatus): self
+    public function whereReferralStatusIn(?array $referralStatuses): self
     {
-        $referral = $referralStatus ?? CandidateReferralFilter::ALL->name;
+        if (empty($referralStatuses)) {
+            return $this;
+        }
+
+        $hasReferring = in_array(CandidateReferralFilter::REFERRING->name, $referralStatuses, true);
+        $hasNotReferring = in_array(CandidateReferralFilter::NOT_REFERRING->name, $referralStatuses, true);
+
+        // We have both present so show all candidates
+        if ($hasReferring === $hasNotReferring) {
+            return $this;
+        }
+
+        return $hasReferring
+            ? $this->whereBeingReferred()
+            : $this->whereNotBeingReferred();
+    }
+
+    public function whereBeingReferred(): self
+    {
         $now = now();
 
-        if ($referral === CandidateReferralFilter::REFERRING->name) {
-            return $this->where(function ($query) use ($now) {
-                $query->whereNull('pause_referrals_at')
-                    ->orWhere('pause_referrals_at', '>', $now)
-                    ->orWhere('resume_referrals_at', '<=', $now);
-            })
-                ->where('application_status', ApplicationStatus::QUALIFIED->name)
-                ->where(function ($query) {
-                    $query->whereIn('placement_type', PlacementType::searchable())
-                        ->orWhereNull('placement_type');
+        return $this->where(function ($query) use ($now) {
+            $query->whereNull('pause_referrals_at')
+                ->orWhere('pause_referrals_at', '>', $now)
+                ->orWhere('resume_referrals_at', '<=', $now);
+        })
+            ->where('application_status', ApplicationStatus::QUALIFIED->name);
+    }
+
+    public function whereNotBeingReferred(): self
+    {
+        $now = now();
+
+        return $this->where(function ($query) use ($now) {
+            $query->whereNotNull('pause_referrals_at')
+                ->where('pause_referrals_at', '<=', $now)
+                ->where(function ($query) use ($now) {
+                    $query->whereNull('resume_referrals_at')
+                        ->orWhere('resume_referrals_at', '>', $now);
                 });
-        }
-
-        if ($referral === CandidateReferralFilter::NOT_REFERRING->name) {
-            return $this->where(function ($query) use ($now) {
-                $query->whereNotNull('pause_referrals_at')
-                    ->where('pause_referrals_at', '<=', $now)
-                    ->where(function ($query) use ($now) {
-                        $query->whereNull('resume_referrals_at')
-                            ->orWhere('resume_referrals_at', '>', $now);
-                    });
-            })
-                ->orWhere('application_status', '!=', ApplicationStatus::QUALIFIED->name)
-                ->orWhereNotIn('placement_type', PlacementType::searchable());
-        }
-
-        return $this;
+        })
+            ->orWhere('application_status', '!=', ApplicationStatus::QUALIFIED->name);
     }
 
     public function whereSuspendedStatus(?string $suspendedStatus): self

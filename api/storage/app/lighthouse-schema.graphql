@@ -1735,7 +1735,7 @@ input PoolCandidateSearchInput {
   statuses: [ApplicationStatus]
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
-  referralStatus: CandidateReferralFilter
+  referralStatuses: [CandidateReferralFilter!]
   publishingGroups: [PublishingGroup]
   appliedClassifications: [ClassificationFilterInput]
   workStreams: [IdInput]
@@ -3545,7 +3545,6 @@ enum CandidateInterest {
 enum CandidateReferralFilter {
   REFERRING
   NOT_REFERRING
-  ALL
 }
 
 enum CandidateRemovalReason {
