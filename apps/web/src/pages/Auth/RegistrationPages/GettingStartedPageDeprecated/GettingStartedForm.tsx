@@ -2,7 +2,7 @@ import { defineMessage, useIntl } from "react-intl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { Heading, Separator } from "@gc-digital-talent/ui";
+import { Caption, Heading, Separator } from "@gc-digital-talent/ui";
 import {
   Input,
   RadioGroup,
@@ -23,7 +23,6 @@ import EmailVerification, {
   useEmailVerification,
 } from "~/components/EmailVerification/EmailVerification";
 import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
-import Caption from "~/components/BasicInformation/Caption";
 
 import labels from "./labels";
 
