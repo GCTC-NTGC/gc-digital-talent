@@ -31,11 +31,7 @@ const sectionTitles = new Map<SectionKey, MessageDescriptor>([
   ["dei", defineMessage(navigationMessages.diversityEquityInclusion)],
   [
     "citizen-veteran-priority",
-    defineMessage({
-      defaultMessage: "Citizenship, veteran status and priority entitlements",
-      id: "ltYqKQ",
-      description: "Title for the citizen/veteran/priority section",
-    }),
+    defineMessage(navigationMessages.citizenVeteranPriority),
   ],
   [
     "government",
