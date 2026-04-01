@@ -70,9 +70,9 @@ trait GeneratesNominationDoc
 
         $section->addTitle($this->localizeHeading('nomination_details'), $headingRank);
 
-        $nominations = $talentNominationGroup->nominations()->get();
+        $nominations = $talentNominationGroup->nominations;
 
-        if ($talentNominationGroup->nominations()->count() > 0) {
+        if (count($talentNominationGroup->nominations) > 0) {
             foreach ($nominations as $nomination) {
                 if ($nomination->nominator) {
                     $nominatorFullName = $nomination->nominator->getFullName() ?? Lang::get('common.not_available', [], $this->lang);
@@ -164,12 +164,14 @@ trait GeneratesNominationDoc
                     $section->addListItem("{$this->localizeHeading('other')} {$nomination->lateral_movement_options_other}");
                 }
 
-                if ($nomination->developmentPrograms()->count() > 0 || $nomination->development_program_options_other) {
+                $hasDevelopmentPrograms = count($nomination->developmentPrograms) > 0;
+
+                if ($hasDevelopmentPrograms || $nomination->development_program_options_other) {
                     $this->addLabelText($section, $this->localizeHeading('development_program_recommendations'), '');
                 }
 
-                if ($nomination->developmentPrograms()->count() > 0) {
-                    $developmentPrograms = $nomination->developmentPrograms()->get();
+                if ($hasDevelopmentPrograms) {
+                    $developmentPrograms = $nomination->developmentPrograms;
                     foreach ($developmentPrograms as $developmentProgram) {
                         $section->addListItem($developmentProgram->name[$this->lang]);
                     }
@@ -183,8 +185,8 @@ trait GeneratesNominationDoc
                     $this->addLabelText($section, $this->localizeHeading('rationale'), $nomination->nomination_rationale);
                 }
 
-                $skills = $nomination->skills()->get();
-                if ($skills->count() > 0) {
+                $skills = $nomination->skills;
+                if (count($skills) > 0) {
                     $this->addLabelText($section, $this->localizeHeading('leadership_competencies'), '');
                     foreach ($skills as $skill) {
                         $section->addListItem($skill->name[$this->lang]);

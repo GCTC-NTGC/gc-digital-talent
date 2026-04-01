@@ -24,8 +24,11 @@ final readonly class DownloadNominationDoc
         try {
             /** @var TalentNominationGroup $targetTalentNominationGroup */
             $targetTalentNominationGroup = TalentNominationGroup::with([
+                'nominations',
                 'nominations.nominator',
                 'nominations.submitter',
+                'nominations.developmentPrograms',
+                'nominations.skills',
                 'nominations.advancementReferenceFallbackClassification',
                 'nominations.advancementReferenceFallbackDepartment',
             ])->findOrFail($args['id']);
