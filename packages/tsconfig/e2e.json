@@ -1,9 +1,13 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "module": "ES2020",
-    "moduleResolution": "Bundler"
+    "moduleResolution": "bundler"
   },
-  "include": ["**/*.ts"]
+  "include": [
+    "**/*.ts"
+  ]
 }

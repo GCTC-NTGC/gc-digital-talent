@@ -1,9 +1,7 @@
 {
-  "extends": "tsconfig/lib.json",
+  "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "baseUrl": "./src"
+    "rootDir": ".",
   },
   "include": [
     "codegen.ts"
