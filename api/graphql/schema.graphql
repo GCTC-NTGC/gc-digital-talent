@@ -1405,6 +1405,8 @@ type SitewideAnnouncement {
   expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
+  updatedAt: DateTime!
+  isDismissible: Boolean!
 }
 
 type TrainingOpportunity {
@@ -1432,6 +1434,7 @@ input SitewideAnnouncementInput {
   expiryDate: DateTime! @rules(apply: ["after:publishDate"])
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isDismissible: Boolean!
 }
 
 input ClaimVerificationSort {
