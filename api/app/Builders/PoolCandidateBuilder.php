@@ -323,14 +323,18 @@ class PoolCandidateBuilder extends Builder
         $hasReferring = in_array(CandidateReferralFilter::REFERRING->name, $referralStatuses, true);
         $hasNotReferring = in_array(CandidateReferralFilter::NOT_REFERRING->name, $referralStatuses, true);
 
-        // We have both present so show all candidates
-        if ($hasReferring === $hasNotReferring) {
-            return $this;
+        // only has referring
+        if ($hasReferring && ! $hasNotReferring) {
+            return $this->whereBeingReferred();
         }
 
-        return $hasReferring
-            ? $this->whereBeingReferred()
-            : $this->whereNotBeingReferred();
+        // only has not referring
+        if (! $hasReferring && $hasNotReferring) {
+            return $this->whereNotBeingReferred();
+        }
+
+        // none selected or both selected - no filtering
+        return $this;
     }
 
     public function whereBeingReferred(): self
