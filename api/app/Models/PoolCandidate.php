@@ -335,8 +335,6 @@ class PoolCandidate extends Model
     {
         $category = PriorityWeight::OTHER;
 
-        $this->loadMissing(['user']);
-
         if ($this->user->has_priority_entitlement && $this->priority_verification !== ClaimVerificationResult::REJECTED->name) {
             $category = PriorityWeight::PRIORITY_ENTITLEMENT;
         } elseif ($this->user->armed_forces_status == ArmedForcesStatus::VETERAN->name && $this->veteran_verification !== ClaimVerificationResult::REJECTED->name) {
@@ -497,18 +495,14 @@ class PoolCandidate extends Model
     public function screeningResult(): Attribute
     {
         return Attribute::get(function () {
-            $screeningStep = $this->loadMissing('pool.assessmentSteps')->pool->assessmentSteps->sortBy('sort_order')
-                ->firstWhere(function ($step) {
-                    return $step->type === AssessmentStepType::APPLICATION_SCREENING->name;
-                })->id ?? null;
 
-            if (! $screeningStep) {
+            if (! $this->pool?->screening_step?->id) {
                 return null;
             }
 
             $result = Arr::first(
                 $this->computed_assessment_status['assessmentStepStatuses'],
-                fn ($status) => $status['step'] === $screeningStep
+                fn ($status) => $status['step'] === $this->pool->screening_step->id
             );
 
             return $result ? $result['decision'] : null;

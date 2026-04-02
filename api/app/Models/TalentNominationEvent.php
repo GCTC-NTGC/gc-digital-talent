@@ -141,4 +141,9 @@ class TalentNominationEvent extends Model
     {
         return $this->hasMany(TalentNominationGroup::class);
     }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['community.team']);
+    }
 }
