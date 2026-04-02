@@ -385,6 +385,9 @@ const getRoutes = (lang: Locales) => {
     // Talent management
     talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
     adminTalentManagementEvents: () => `${adminUrl}/talent-events`,
+    createTalentManagementEvent: () => `${adminUrl}/talent-events/create`,
+    updateTalentManagementEvent: (eventId: string) =>
+      `${adminUrl}/talent-events/${eventId}/edit`,
     adminTalentManagementEvent: (eventId: string) =>
       `${adminUrl}/talent-events/${eventId}`,
     adminTalentManagementEventNominations: (eventId: string) =>
