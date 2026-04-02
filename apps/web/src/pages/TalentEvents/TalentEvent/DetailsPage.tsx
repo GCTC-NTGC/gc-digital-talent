@@ -24,6 +24,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import permissionConstants from "~/constants/permissionConstants";
+import useRoutes from "~/hooks/useRoutes";
 
 import { RouteParams } from "./types";
 
@@ -59,6 +60,7 @@ interface TalentEventDetailsProps {
 
 const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
 
   const talentEvent = getFragment(TalentEventDetails_Fragment, query);
   const developmentPrograms = unpackMaybes(
@@ -237,6 +239,21 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             intl.formatMessage(commonMessages.notProvided)
           )}
         </FieldDisplay>
+        <div className="self-start sm:col-span-2">
+          <CardSeparator />
+          <div>
+            <Link
+              href={paths.updateTalentManagementEvent(talentEvent.id)}
+              className="font-bold"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Edit talent management event",
+                id: "+d2xgV",
+                description: "Link to edit the currently viewed community",
+              })}
+            </Link>
+          </div>
+        </div>
       </Card>
     </>
   );
