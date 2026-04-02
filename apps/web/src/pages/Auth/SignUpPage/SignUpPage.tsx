@@ -13,7 +13,6 @@ import {
   Link,
   Separator,
   Ul,
-  Caption,
 } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
@@ -230,7 +229,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-4">
-                    <Caption>
+                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
                       {intl.formatMessage({
                         defaultMessage:
                           "If you've already used CanadaLogin on another service, you can enter your email and password and skip to step 2.",
@@ -238,12 +237,12 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </Caption>
+                    </span>
                   </div>
                 </InstructionsStepCard>
 
                 <InstructionsStepCard
-                  className="rounded-none bg-gray-100/50 dark:bg-gray-600/70"
+                  className="rounded-none bg-gray-100/40 dark:bg-gray-600/70"
                   img={{ src: canadaLoginStep2, darkSrc: canadaLoginStep2Dark }}
                 >
                   <p>
@@ -255,7 +254,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-4">
-                    <Caption>
+                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
                       {intl.formatMessage({
                         defaultMessage:
                           "The name you use here will be on your GC Digital Talent profile.",
@@ -263,7 +262,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </Caption>
+                    </span>
                   </div>
                 </InstructionsStepCard>
 
@@ -290,7 +289,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-4">
-                    <Caption>
+                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
                       {intl.formatMessage({
                         defaultMessage:
                           "Using a personal email address will help ensure you don't lose access if you change jobs.",
@@ -298,7 +297,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </Caption>
+                    </span>
                   </div>
                 </InstructionsStepCard>
               </InstructionsCardGrid>
@@ -334,7 +333,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-6">
-                    <Caption>
+                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
                       {intl.formatMessage({
                         defaultMessage:
                           "Using a personal phone number will help ensure you don't lose access if you change jobs.",
@@ -342,12 +341,12 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </Caption>
+                    </span>
                   </div>
                 </InstructionsStepCard>
 
                 <InstructionsStepCard
-                  className="rounded-none bg-gray-100/50 dark:bg-gray-600/70"
+                  className="rounded-none bg-gray-100/40 dark:bg-gray-600/70"
                   img={{ src: canadaLoginStep5, darkSrc: canadaLoginStep5Dark }}
                 >
                   <p>
@@ -368,7 +367,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-6">
-                    <Caption>
+                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
                       {intl.formatMessage({
                         defaultMessage:
                           "This code will be sent by either text or phone call, and will expire after ten minutes.",
@@ -376,7 +375,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </Caption>
+                    </span>
                   </div>
                 </InstructionsStepCard>
 
@@ -429,8 +428,8 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <div className="mt-4">
-                    <Caption>
+                  <div className="mt-6">
+                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
                       {intl.formatMessage({
                         defaultMessage:
                           "You can manage your CanadaLogin profile and security setting on the CanadaLogin website.",
@@ -438,12 +437,12 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </Caption>
+                    </span>
                   </div>
                 </InstructionsStepCard>
 
                 <InstructionsStepCard
-                  className="rounded-none bg-gray-100/50 dark:bg-gray-600/70"
+                  className="rounded-none bg-gray-100/40 dark:bg-gray-600/70"
                   img={{ src: canadaLoginStep8, darkSrc: canadaLoginStep8Dark }}
                 >
                   <p>
@@ -455,8 +454,8 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <div className="mt-10">
-                    <Caption>
+                  <div className="mt-6">
+                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
                       {intl.formatMessage({
                         defaultMessage:
                           "This feature is only available to current Government of Canada employees.",
@@ -464,7 +463,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </Caption>
+                    </span>
                   </div>
                 </InstructionsStepCard>
 
@@ -482,8 +481,8 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <div className="mt-10">
-                    <Caption>
+                  <div className="mt-6">
+                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
                       {intl.formatMessage({
                         defaultMessage:
                           "If you are a government employee this is the final step in-order to unlock your employee tools.",
@@ -491,7 +490,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </Caption>
+                    </span>
                   </div>
                 </InstructionsStepCard>
               </InstructionsCardGrid>
