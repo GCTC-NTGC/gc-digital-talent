@@ -14,8 +14,8 @@ final class NotificationTypeRegistrar implements TypeRegistrarInterface
 
     public static function register(TypeRegistry $typeRegistry): void
     {
-        $typeRegistry->registerLazy('NotificationType',
-            // @phpstan-ignore-next-line
+        $typeRegistry->registerLazy(
+            'NotificationType',
             function (): Type&NamedType {
                 $notifications = SubscriptionNotificationDiscoverer::discover();
                 $values = [];
