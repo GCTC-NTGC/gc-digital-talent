@@ -249,11 +249,8 @@ const UpdateTalentEventForm = ({
 
   return (
     <FormProvider {...methods}>
-      <form
-        onSubmit={methods.handleSubmit(onSubmit)}
-        className="grid grid-cols-1 gap-6"
-      >
-        <div className="mb-6 grid grid-cols-1 gap-6 xs:grid-cols-2">
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <div className="grid grid-cols-1 gap-6 xs:grid-cols-2">
           <Input
             id="name_en"
             name="name.en"
@@ -355,60 +352,61 @@ const UpdateTalentEventForm = ({
               required: intl.formatMessage(errorMessages.required),
             }}
           />
-        </div>
-        <div>
-          <Checkbox
-            id="includeLeadershipCompetencies"
-            boundingBox
-            boundingBoxLabel={intl.formatMessage({
-              defaultMessage: "Leadership competencies",
-              id: "dOH084",
-              description:
-                "Bounding box label for the include leadership competencies",
-            })}
-            label={intl.formatMessage({
-              defaultMessage:
-                "Leadership competencies are required to be nominated for this event",
-              id: "A3m7l/",
-              description: "Label for the include leadership competencies",
-            })}
-            name="includeLeadershipCompetencies"
-          />
-        </div>
-        <div>
-          <Select
-            id="community"
-            name="community"
-            label={intl.formatMessage({
-              defaultMessage: "Communities",
-              id: "5/8d3J",
-              description: "Label for the select community input",
-            })}
-            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-            options={communityOptions}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-        </div>
-        {watchCommunity && (
-          <div>
-            <Checklist
-              idPrefix="developmentPrograms"
-              name="developmentPrograms"
-              legend={intl.formatMessage({
-                defaultMessage: "Relevant development programs",
-                id: "awwnr3",
+          <div className="col-span-2">
+            <Checkbox
+              id="includeLeadershipCompetencies"
+              boundingBox
+              boundingBoxLabel={intl.formatMessage({
+                defaultMessage: "Leadership competencies",
+                id: "dOH084",
                 description:
-                  "Label for the input for selecting development programs for a talent nomination event",
+                  "Bounding box label for the include leadership competencies",
               })}
-              items={developmentProgramOptions}
+              label={intl.formatMessage({
+                defaultMessage:
+                  "Leadership competencies are required to be nominated for this event",
+                id: "A3m7l/",
+                description: "Label for the include leadership competencies",
+              })}
+              name="includeLeadershipCompetencies"
+            />
+          </div>
+          <div className="col-span-2">
+            <Select
+              id="community"
+              name="community"
+              label={intl.formatMessage({
+                defaultMessage: "Communities",
+                id: "5/8d3J",
+                description: "Label for the select community input",
+              })}
+              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+              options={communityOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
           </div>
-        )}
+
+          {watchCommunity && (
+            <div className="col-span-2">
+              <Checklist
+                idPrefix="developmentPrograms"
+                name="developmentPrograms"
+                legend={intl.formatMessage({
+                  defaultMessage: "Relevant development programs",
+                  id: "awwnr3",
+                  description:
+                    "Label for the input for selecting development programs for a talent nomination event",
+                })}
+                items={developmentProgramOptions}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            </div>
+          )}
+        </div>
         <CardSeparator />
         <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-left">
           <Submit text={intl.formatMessage(formMessages.saveChanges)} />
