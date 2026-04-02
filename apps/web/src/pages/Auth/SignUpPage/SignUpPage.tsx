@@ -134,7 +134,7 @@ export const Component = () => {
       <>
         <SEO title={pageTitle} />
         <Hero title={pageTitle} crumbs={crumbs} overlap={true} centered={true}>
-          <div className="mt-0 rounded-md bg-white px-6 py-12 shadow-sm sm:mt-14 dark:bg-gray-600">
+          <div className="mt-0 rounded-md bg-white px-6 py-12 shadow-sm sm:mt-10 dark:bg-gray-600">
             {!iapMode && (
               <div className="px-2">
                 <Heading
