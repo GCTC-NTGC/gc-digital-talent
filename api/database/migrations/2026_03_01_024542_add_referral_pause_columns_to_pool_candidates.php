@@ -30,7 +30,7 @@ return new class extends Migration
             ->update([
                 'pause_referrals_at' => DB::raw('NOW()'),
                 'pause_referrals_reason' => 'Successfully placed',
-                'resume_referrals_at' => DB::raw('expiry_date'),
+                'resume_referrals_at' => null,
             ]);
     }
 
