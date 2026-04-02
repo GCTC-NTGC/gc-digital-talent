@@ -21,8 +21,6 @@ class AssessmentResultPolicy
             return true;
         }
 
-        $assessmentResult->loadMissing(['assessmentStep.pool.team', 'assessmentStep.pool.community.team', 'assessmentStep.pool.department.team']);
-
         $teamPermission = ! is_null($assessmentResult->assessmentStep->pool->team)
             && $user->isAbleTo('view-team-applicationAssessment', $assessmentResult->assessmentStep->pool->team);
         $communityPermission = ! is_null($assessmentResult->assessmentStep->pool->community?->team)
@@ -65,8 +63,6 @@ class AssessmentResultPolicy
      */
     public function update(User $user, AssessmentResult $assessmentResult)
     {
-        $assessmentResult->loadMissing(['assessmentStep.pool.team', 'assessmentStep.pool.community.team', 'assessmentStep.pool.department.team']);
-
         $teamPermission = ! is_null($assessmentResult->assessmentStep->pool->team)
             && $user->isAbleTo('update-team-applicationAssessment', $assessmentResult->assessmentStep->pool->team);
         $communityPermission = ! is_null($assessmentResult->assessmentStep->pool->community?->team)

@@ -3,12 +3,11 @@ import { useNavigate, useSearchParams } from "react-router";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Link, Separator } from "@gc-digital-talent/ui";
+import { Caption, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import { Input, Submit } from "@gc-digital-talent/forms";
 
-import Caption from "~/components/BasicInformation/Caption";
 import useRoutes from "~/hooks/useRoutes";
 import EmailVerification, {
   useEmailVerification,

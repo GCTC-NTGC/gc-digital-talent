@@ -36,6 +36,8 @@ class UserSkill extends Model
 
     protected $touches = ['user'];
 
+    protected $with = ['skill'];
+
     protected $casts = [
         'top_skills_rank' => 'integer',
         'improve_skills_rank' => 'integer',
