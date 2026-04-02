@@ -44,6 +44,7 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -51,6 +52,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { RouteParams } from "./TalentEvent/types";
 
@@ -536,4 +538,14 @@ const UpdateTalentEventPage = () => {
   );
 };
 
-export default UpdateTalentEventPage;
+export const Component = () => (
+  <RequireAuth
+    roles={[ROLE_NAME.CommunityAdmin, ROLE_NAME.CommunityTalentCoordinator]}
+  >
+    <UpdateTalentEventPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminUpdateTalentEventPage";
+
+export default Component;
