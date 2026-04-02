@@ -915,8 +915,8 @@ class PoolCandidateSearchTest extends TestCase
     {
         $now = Carbon::now();
 
-        // 1. REFERRING: No pause set
-        $referringCandidate = PoolCandidate::factory()
+        // REFERRING: No pause set
+        PoolCandidate::factory()
             ->availableInSearch()
             ->qualified()
             ->for($this->pool)
@@ -924,8 +924,18 @@ class PoolCandidateSearchTest extends TestCase
                 'pause_referrals_at' => null,
             ]);
 
-        // 2. NOT_REFERRING: Currently paused (Started yesterday, no resume date)
-        $pausedCandidate = PoolCandidate::factory()
+        // REFERRING: Resume date has passed (Was paused last week, resumed yesterday)
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->qualified()
+            ->for($this->pool)
+            ->create([
+                'pause_referrals_at' => $now->copy()->subWeek(),
+                'resume_referrals_at' => $now->copy()->subDay(),
+            ]);
+
+        // NOT_REFERRING: Currently paused (Started yesterday, no resume date)
+        PoolCandidate::factory()
             ->availableInSearch()
             ->qualified()
             ->for($this->pool)
@@ -934,14 +944,14 @@ class PoolCandidateSearchTest extends TestCase
                 'resume_referrals_at' => null,
             ]);
 
-        // 3. REFERRING: Resume date has passed (Was paused last week, resumed yesterday)
-        $resumedCandidate = PoolCandidate::factory()
+        // NOT_REFERRING: Current paused (Started yesterday, resumes tomorrow)
+        PoolCandidate::factory()
             ->availableInSearch()
             ->qualified()
             ->for($this->pool)
             ->create([
-                'pause_referrals_at' => $now->copy()->subWeek(),
-                'resume_referrals_at' => $now->copy()->subDay(),
+                'pause_referrals_at' => $now->copy()->subDay(),
+                'resume_referrals_at' => $now->copy()->addDay(),
             ]);
 
         $query = <<<'GRAPHQL'
@@ -957,7 +967,7 @@ class PoolCandidateSearchTest extends TestCase
         }
         GRAPHQL;
 
-        // Assert REFERRING returns 2 ($referringCandidate and $resumedCandidate)
+        // Assert REFERRING returns 2 (no pause, paused but resumed)
         $this->actingAs($this->processOperator, 'api')->graphQL($query, [
             'where' => ['referralStatuses' => [CandidateReferralFilter::REFERRING->name]],
         ])->assertJson([
@@ -970,26 +980,40 @@ class PoolCandidateSearchTest extends TestCase
             ],
         ]);
 
-        // Assert NOT_REFERRING returns 1 ($pausedCandidate)
+        // Assert NOT_REFERRING returns 1 (paused with no resume date, paused with future resume date)
         $this->actingAs($this->processOperator, 'api')->graphQL($query, [
             'where' => ['referralStatuses' => [CandidateReferralFilter::NOT_REFERRING->name]],
         ])->assertJson([
             'data' => [
                 'poolCandidatesPaginatedAdminView' => [
                     'paginatorInfo' => [
-                        'count' => 1,
+                        'count' => 2,
                     ],
                 ],
             ],
         ]);
 
+        // Assert both REFERRING, NOT_REFERRING returns 4 (all candidates) when all options supplied
         $this->actingAs($this->processOperator, 'api')->graphQL($query, [
             'where' => ['referralStatuses' => array_column(CandidateReferralFilter::cases(), 'name')],
         ])->assertJson([
             'data' => [
                 'poolCandidatesPaginatedAdminView' => [
                     'paginatorInfo' => [
-                        'count' => 3,
+                        'count' => 4,
+                    ],
+                ],
+            ],
+        ]);
+
+        // Assert both REFERRING, NOT_REFERRING returns 4 (all candidates) when no options supplied
+        $this->actingAs($this->processOperator, 'api')->graphQL($query, [
+            'where' => ['referralStatuses' => []],
+        ])->assertJson([
+            'data' => [
+                'poolCandidatesPaginatedAdminView' => [
+                    'paginatorInfo' => [
+                        'count' => 4,
                     ],
                 ],
             ],
