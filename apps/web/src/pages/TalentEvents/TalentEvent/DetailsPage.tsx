@@ -25,6 +25,8 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import permissionConstants from "~/constants/permissionConstants";
 import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import { RouteParams } from "./types";
 
@@ -45,6 +47,13 @@ const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
     }
     openDate
     closeDate
+    includeLeadershipCompetencies
+    community {
+      id
+      name {
+        localized
+      }
+    }
     developmentPrograms {
       id
       name {
@@ -214,9 +223,33 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
               })
             : intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Leadership competencies",
+            id: "LSErl5",
+            description: "label for the include leadership competencies",
+          })}
+        >
+          <BoolCheckIcon value={talentEvent.includeLeadershipCompetencies}>
+            {intl.formatMessage({
+              defaultMessage:
+                "Leadership competencies are required to be nominated for this event",
+              id: "A3m7l/",
+              description: "Label for the include leadership competencies",
+            })}
+          </BoolCheckIcon>
+        </FieldDisplay>
         <div className="sm:col-span-2">
           <CardSeparator space="none" decorative />
         </div>
+        <FieldDisplay
+          label={intl.formatMessage(adminMessages.community)}
+          className="sm:col-span-2"
+        >
+          {talentEvent.community
+            ? talentEvent.community.name.localized
+            : intl.formatMessage(commonMessages.notProvided)}
+        </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Relevant development programs",
