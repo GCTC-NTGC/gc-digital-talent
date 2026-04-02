@@ -8,6 +8,7 @@ import Alert, { type AlertProps } from "./components/Alert/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Button, { type ButtonProps } from "./components/Button";
+import Caption from "./components/Caption";
 import Counter from "./components/Button/Counter";
 import Breadcrumbs, {
   type BreadcrumbsProps,
@@ -153,6 +154,7 @@ export {
   Breadcrumbs,
   Crumb,
   Button,
+  Caption,
   Card,
   CardFlat,
   CardRepeater,

@@ -1,10 +1,9 @@
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router";
 
-import { Link, Separator } from "@gc-digital-talent/ui";
+import { Caption, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import Caption from "~/components/BasicInformation/Caption";
 import useRoutes from "~/hooks/useRoutes";
 
 const BottomHalfNotEmployee = () => {
