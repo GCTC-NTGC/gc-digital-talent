@@ -131,7 +131,11 @@ trait GeneratesNominationDoc
                 }
 
                 if ($nomination->advancement_reference_id) {
-                    $advancementReference = User::findOrFail($nomination->advancement_reference_id);
+                    $advancementReference = User::with([
+                        'currentClassification',
+                        'department',
+                    ])
+                        ->findOrFail($nomination->advancement_reference_id);
                     $this->addLabelText($section, $this->localizeHeading('advancement_secondary_reference'), $advancementReference->getFullName() ?? Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('references_work_email'), $advancementReference->work_email ?? Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('references_classification'), $advancementReference->currentClassification ? $advancementReference->currentClassification->formattedGroupAndLevel : Lang::get('common.not_available', [], $this->lang));

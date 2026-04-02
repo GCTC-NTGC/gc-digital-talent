@@ -26,7 +26,11 @@ final readonly class DownloadNominationDoc
             $targetTalentNominationGroup = TalentNominationGroup::with([
                 'nominations',
                 'nominations.nominator',
+                'nominations.nominator.currentClassification',
+                'nominations.nominator.department',
                 'nominations.submitter',
+                'nominations.submitter.currentClassification',
+                'nominations.submitter.department',
                 'nominations.developmentPrograms',
                 'nominations.skills',
                 'nominations.advancementReferenceFallbackClassification',
