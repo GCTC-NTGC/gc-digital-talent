@@ -830,7 +830,9 @@ type Community implements HasRoleAssignments {
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
   workStreams: [WorkStream!] @hasMany
-  developmentPrograms: [DevelopmentProgram!] @hasMany
+  developmentPrograms: [DevelopmentProgram!]
+    @hasMany
+    @deprecated(reason: "use associatedDevelopmentPrograms")
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
   associatedDevelopmentPrograms: [DevelopmentProgram!]
     @hasMany(relation: "developmentProgramsThroughPivot")
@@ -843,7 +845,9 @@ type DevelopmentProgram {
     @rename(attribute: "description_for_profile")
   descriptionForNominations: LocalizedString
     @rename(attribute: "description_for_nominations")
-  community: Community @belongsTo
+  community: Community
+    @belongsTo
+    @deprecated(reason: "use associatedCommunities")
   eligibleClassifications: [Classification!] @belongsToMany
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
   associatedCommunities: [Community!]
