@@ -63,6 +63,7 @@ import InstructionsStepCard, {
   InstructionsCardGrid,
 } from "~/components/Instructions/RegisterInstructionStep";
 import gckeyMessages from "~/messages/gckeyMessages";
+import canadaLoginMessages from "~/messages/canadaLoginMessages";
 import authMessages from "~/messages/authMessages";
 
 const helpLink = (chunks: ReactNode, path: string) => (
@@ -92,16 +93,31 @@ export const Component = () => {
   // feature flag
   const featureFlags = useFeatureFlags();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Sign up using GCKey",
-    id: "e8SFXx",
-    description: "Page title for the registration page for applicant profiles",
-  });
+  const pageTitle = featureFlags?.canadaLogin
+    ? intl.formatMessage({
+        defaultMessage: "Register using CanadaLogin",
+        id: "O4O6Rn", // TODO
+        description: "Page title for the registration page",
+      })
+    : intl.formatMessage({
+        defaultMessage: "Sign up using GCKey",
+        id: "e8SFXx",
+        description:
+          "Page title for the registration page for applicant profiles",
+      });
+
+  const breadcrumbLabel = featureFlags?.canadaLogin
+    ? intl.formatMessage({
+        defaultMessage: "Register",
+        id: "BN4cj6", // TODO
+        description: "Breadcrumb label for the Canada Login registration page",
+      })
+    : pageTitle;
 
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: pageTitle,
+        label: breadcrumbLabel,
         url: paths.register(),
       },
     ],
@@ -124,7 +140,6 @@ export const Component = () => {
               <div className="px-2">
                 <Heading
                   level="h3"
-                  size="h4"
                   color="primary"
                   icon={SparklesIcon}
                   className="mt-0 font-normal"
@@ -504,128 +519,42 @@ export const Component = () => {
               >
                 <Accordion.Item value="one">
                   <Accordion.Trigger as="h3">
-                    {intl.formatMessage(gckeyMessages.questionWhatGCKey)}
+                    {intl.formatMessage(canadaLoginMessages.haveCanadaLogin)}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <p>{intl.formatMessage(gckeyMessages.answerWhatGCKey)}</p>
+                    <p>
+                      {intl.formatMessage(
+                        canadaLoginMessages.haveCanadaLoginAnswer,
+                      )}
+                    </p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="two">
                   <Accordion.Trigger as="h3">
-                    {intl.formatMessage(gckeyMessages.questionContactGCkey)}
+                    {intl.formatMessage(canadaLoginMessages.whatIsCanadaLogin)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p className="mb-3">
-                      {intl.formatMessage(gckeyMessages.answerContactGCkey1)}
-                    </p>
-                    <p className="mb-3">
-                      {intl.formatMessage(gckeyMessages.answerContactGCkey2)}
-                    </p>
-                    <p className="mb-3">
-                      <Link
-                        color="black"
-                        external
-                        href="tel:1-855-438-1102"
-                        aria-label="1 8 5 5 4 3 8 1 1 0 2"
-                      >
-                        1-855-438-1102
-                      </Link>
-                    </p>
-                    <p className="mb-3">
-                      {intl.formatMessage(gckeyMessages.answerContactGCkey3)}
-                    </p>
-                    <p className="mb-3">
-                      <Link
-                        color="black"
-                        external
-                        href="tel:1-855-438-1103"
-                        aria-label="1 8 5 5 4 3 8 1 1 0 3"
-                      >
-                        1-855-438-1103
-                      </Link>
-                    </p>
-                    <p className="mb-3">
-                      {intl.formatMessage(gckeyMessages.answerContactGCkey4)}
-                    </p>
-                    <p className="mb-3">
-                      <Link
-                        color="black"
-                        external
-                        href="tel:1-800-2318-6290"
-                        aria-label="1 8 0 0 2 3 1 8 6 2 9 0"
-                      >
-                        1-800-2318-6290
-                      </Link>
-                    </p>
-                    <p>
-                      {intl.formatMessage(gckeyMessages.answerContactGCkey5)}
+                      {intl.formatMessage(
+                        canadaLoginMessages.whatIsCanadaLoginAnswer,
+                      )}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="three">
                   <Accordion.Trigger as="h3">
-                    {intl.formatMessage(gckeyMessages.questionAuthApp)}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <p>{intl.formatMessage(gckeyMessages.answerAuthApp)}</p>
-                  </Accordion.Content>
-                </Accordion.Item>
-                <Accordion.Item value="four">
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage(gckeyMessages.questionRecoveryCodes)}
+                    {intl.formatMessage(canadaLoginMessages.contactCanadaLogin)}
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {intl.formatMessage(gckeyMessages.answerRecoveryCodes, {
-                        helpLink: (chunks: ReactNode) =>
-                          helpLink(chunks, paths.support()),
-                      })}
+                      {intl.formatMessage(
+                        canadaLoginMessages.answerContactCanadaLogin1,
+                      )}
                     </p>
-                  </Accordion.Content>
-                </Accordion.Item>
-                <Accordion.Item value="five">
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage(gckeyMessages.questionAuthAlternative)}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
                     <p>
-                      {intl.formatMessage(gckeyMessages.answerAuthAlternative)}
-                    </p>
-                  </Accordion.Content>
-                </Accordion.Item>
-                <Accordion.Item value="six">
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage(gckeyMessages.questionRemove2FA)}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <p>
-                      {intl.formatMessage(gckeyMessages.answerRemove2FA, {
-                        helpLink: (chunks: ReactNode) =>
-                          helpLink(chunks, paths.support()),
-                      })}
-                    </p>
-                  </Accordion.Content>
-                </Accordion.Item>
-                <Accordion.Item value="seven">
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage(gckeyMessages.questionAuthCodes)}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <p>
-                      {intl.formatMessage(gckeyMessages.answerAuthCodes, {
-                        helpLink: (chunks: ReactNode) =>
-                          helpLink(chunks, paths.support()),
-                      })}
-                    </p>
-                  </Accordion.Content>
-                </Accordion.Item>
-                <Accordion.Item value="eight">
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage(gckeyMessages.questionExistingAccount)}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <p>
-                      {intl.formatMessage(gckeyMessages.answerExistingAccount)}
+                      {intl.formatMessage(
+                        canadaLoginMessages.answerContactCanadaLogin2,
+                      )}
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
