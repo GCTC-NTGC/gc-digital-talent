@@ -140,6 +140,7 @@ export const Component = () => {
               <div className="px-2">
                 <Heading
                   level="h3"
+                  size="h4"
                   color="primary"
                   icon={SparklesIcon}
                   className="mt-0 font-normal"
@@ -151,7 +152,7 @@ export const Component = () => {
                       "Welcome heading at the top of the registration page",
                   })}
                 </Heading>
-                <p className="pt-2 pl-2">
+                <p className="pt-4 pl-2">
                   {intl.formatMessage({
                     defaultMessage:
                       "You'll be leaving our site to register with CanadaLogin. We have prepared additional guidance in the next section to help.",
@@ -175,7 +176,7 @@ export const Component = () => {
                         "CanadaLogin sign up link text on the registration page",
                     })}
                   </Link>
-                  <p className="m-0 flex items-center lg:pl-2">
+                  <p className="m-0 flex items-center lg:pl-4">
                     <Link
                       href={paths.registrationExperience()} // TODO
                       mode="inline"
@@ -199,7 +200,7 @@ export const Component = () => {
         <Container className="my-12">
           {!iapMode ? (
             <>
-              <Heading level="h3" size="h4" className="mt-6 mb-6">
+              <Heading level="h3" size="h4" className="mt-6 mb-4">
                 {intl.formatMessage({
                   defaultMessage: "Part 1: Create a CanadaLogin account",
                   id: "Su2+bZ", // TODO
@@ -303,7 +304,7 @@ export const Component = () => {
                 </InstructionsStepCard>
               </InstructionsCardGrid>
 
-              <Heading level="h3" size="h4" className="mt-14 mb-6">
+              <Heading level="h3" size="h4" className="mt-14 mb-4">
                 {intl.formatMessage({
                   defaultMessage: "Part 2: Set up two-step verification",
                   id: "OxuU1/", // TODO
@@ -406,7 +407,7 @@ export const Component = () => {
                 </InstructionsStepCard>
               </InstructionsCardGrid>
 
-              <Heading level="h3" size="h4" className="mt-14 mb-6">
+              <Heading level="h3" size="h4" className="mt-14 mb-4">
                 {intl.formatMessage({
                   defaultMessage: "Part 3: Access your account",
                   id: "WsnfHy", // TODO
@@ -499,9 +500,9 @@ export const Component = () => {
               <Heading
                 icon={InformationCircleIcon}
                 color="primary"
-                level="h2"
-                size="h3"
-                className="mt-18 mb-6 font-normal"
+                level="h3"
+                size="h4"
+                className="mt-12 font-normal"
               >
                 {intl.formatMessage({
                   defaultMessage: "Frequently Asked Questions (FAQs)",
@@ -515,7 +516,7 @@ export const Component = () => {
                 size="sm"
                 mode="card"
                 collapsible
-                className="my-16"
+                className="my-16 mt-8"
               >
                 <Accordion.Item value="one">
                   <Accordion.Trigger as="h3">
