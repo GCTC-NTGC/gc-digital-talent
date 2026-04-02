@@ -247,7 +247,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           className="sm:col-span-2"
         >
           {talentEvent.community
-            ? talentEvent.community.name.localized
+            ? talentEvent.community.name?.localized
             : intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
         <FieldDisplay
