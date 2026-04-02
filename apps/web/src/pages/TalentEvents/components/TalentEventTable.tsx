@@ -1,5 +1,6 @@
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
@@ -11,9 +12,11 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import useRoutes from "~/hooks/useRoutes";
+import { checkRole } from "~/utils/teamUtils";
 
 import { nominationsCell, statusCell } from "./helpers";
 
@@ -54,6 +57,9 @@ const TalentEventTable = ({
     TalentEventTableRow_Fragment,
     talentNominationEventQuery,
   );
+
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
 
   const columns = [
     columnHelper.accessor((row) => row?.name?.localized, {
@@ -134,6 +140,12 @@ const TalentEventTable = ({
 
   const data = talentNominationEvents.filter(notEmpty);
 
+  const { roleAssignments } = useAuthorization();
+  const canCreateMembers = checkRole(
+    [ROLE_NAME.CommunityAdmin, ROLE_NAME.CommunityTalentCoordinator],
+    roleAssignments,
+  );
+
   return (
     <Table<TalentEventTableRowFragment>
       data={data}
@@ -147,6 +159,30 @@ const TalentEventTable = ({
         total: data.length,
         pageSizes: [10, 20, 50],
       }}
+      {...(canCreateMembers
+        ? {
+            add: {
+              linkProps: {
+                href: routes.createTalentManagementEvent(),
+                label: intl.formatMessage({
+                  defaultMessage: "Create talent nomination event",
+                  id: "r19RWV",
+                  description: "Text to create a talent nomination event",
+                }),
+                from: currentUrl,
+              },
+            },
+            nullMessage: {
+              description: intl.formatMessage({
+                defaultMessage:
+                  'Use the "Create talent nomination event" button to get started.',
+                id: "eVffLG",
+                description:
+                  "Instructions for adding a talent nomination event item",
+              }),
+            },
+          }
+        : undefined)}
     />
   );
 };
