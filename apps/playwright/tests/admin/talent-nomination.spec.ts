@@ -207,6 +207,7 @@ test.describe("Talent nomination management", () => {
     await skillCombobox.press("ArrowDown");
     await skillCombobox.press("Enter");
     await appPage.page.getByRole("button", { name: /next step/i }).click();
+    await appPage.waitForGraphqlResponse("NominateTalentUpdate");
 
     // Submit the nomination and confirm it appears in the dashboard
     await appPage.page
