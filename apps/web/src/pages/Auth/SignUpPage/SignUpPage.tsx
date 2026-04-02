@@ -550,10 +550,18 @@ export const Component = () => {
                         canadaLoginMessages.answerContactCanadaLogin1,
                       )}
                     </p>
-                    <p>
-                      {intl.formatMessage(
-                        canadaLoginMessages.answerContactCanadaLogin2,
-                      )}
+                    <p className="mb-3">
+                      <Link
+                        color="black"
+                        external
+                        href="https://login.canada.ca/en/users/contact-us/"
+                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                        aria-label="Contact CanadaLogin"
+                      >
+                        {intl.formatMessage(
+                          canadaLoginMessages.answerContactCanadaLogin2,
+                        )}
+                      </Link>
                     </p>
                   </Accordion.Content>
                 </Accordion.Item>
