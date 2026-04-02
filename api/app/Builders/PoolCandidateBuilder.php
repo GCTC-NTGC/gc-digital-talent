@@ -354,7 +354,7 @@ class PoolCandidateBuilder extends Builder
         $now = now();
 
         return $this->where(function ($query) use ($now) {
-            $query->whereNotNull('pause_referrals_at')
+            $query
                 ->where('pause_referrals_at', '<=', $now)
                 ->where(function ($query) use ($now) {
                     $query->whereNull('resume_referrals_at')
