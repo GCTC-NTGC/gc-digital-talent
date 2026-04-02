@@ -135,12 +135,11 @@ export const Component = () => {
       <>
         <SEO title={pageTitle} />
         <Hero title={pageTitle} crumbs={crumbs} overlap={true} centered={true}>
-          <div className="rounded-md bg-white px-6 py-12 shadow-sm dark:bg-gray-600">
+          <div className="mt-14 rounded-md bg-white px-6 py-12 shadow-sm dark:bg-gray-600">
             {!iapMode && (
               <div className="px-2">
                 <Heading
-                  level="h3"
-                  size="h4"
+                  level="h2"
                   color="primary"
                   icon={SparklesIcon}
                   className="mt-0 font-normal"
@@ -214,7 +213,7 @@ export const Component = () => {
                   className="rounded-t-md rounded-b-none xs:rounded-l-md xs:rounded-r-none"
                   img={{ src: canadaLoginStep1, darkSrc: canadaLoginStep1Dark }}
                 >
-                  <p className="font-semibold">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage: "Head to CanadaLogin.",
                       id: "sRUaI5", // TODO
@@ -222,7 +221,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <p className="mt-4 font-semibold">
+                  <p className="mt-4">
                     {intl.formatMessage({
                       defaultMessage: "Agree to the summary of terms.",
                       id: "qSNLSc", // TODO
@@ -247,7 +246,7 @@ export const Component = () => {
                   className="rounded-none bg-gray-100/50 dark:bg-gray-600/70"
                   img={{ src: canadaLoginStep2, darkSrc: canadaLoginStep2Dark }}
                 >
-                  <p className="font-semibold">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage: "Enter your first and last name.",
                       id: "FD+jX4", // TODO
@@ -273,7 +272,7 @@ export const Component = () => {
                   includeArrow={false}
                   img={{ src: canadaLoginStep3, darkSrc: canadaLoginStep3Dark }}
                 >
-                  <p className="font-semibold">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage: "Verify your personal email address.",
                       id: "Ip9S/o", // TODO
@@ -281,7 +280,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <p className="mt-4 font-semibold">
+                  <p className="mt-4">
                     {intl.formatMessage({
                       defaultMessage:
                         "Enter the code sent to your email into CanadaLogin.",
@@ -318,7 +317,7 @@ export const Component = () => {
                   className="rounded-t-md rounded-b-none xs:rounded-l-md xs:rounded-r-none"
                   img={{ src: canadaLoginStep4, darkSrc: canadaLoginStep4Dark }}
                 >
-                  <p className="font-semibold">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage: "Set up two-step verification.",
                       id: "D/Tcaj", //TODO
@@ -326,7 +325,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <p className="mt-10 font-semibold">
+                  <p className="mt-10">
                     {intl.formatMessage({
                       defaultMessage: "Enter your personal phone number.",
                       id: "XUt7q+", // TODO
@@ -351,7 +350,7 @@ export const Component = () => {
                   className="rounded-none bg-gray-100/50 dark:bg-gray-600/70"
                   img={{ src: canadaLoginStep5, darkSrc: canadaLoginStep5Dark }}
                 >
-                  <p className="font-semibold">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage:
                         "You will be sent a code to the number you provided.",
@@ -360,7 +359,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <p className="mt-4 font-semibold">
+                  <p className="mt-4">
                     {intl.formatMessage({
                       defaultMessage: "Enter the code into CanadaLogin.",
                       id: "pTOGhN", // TODO
@@ -386,7 +385,7 @@ export const Component = () => {
                   includeArrow={false}
                   img={{ src: canadaLoginStep6, darkSrc: canadaLoginStep6Dark }}
                 >
-                  <p className="font-semibold">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage:
                         "You've successfully created your CanadaLogin.",
@@ -395,7 +394,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <p className="mt-4 font-semibold">
+                  <p className="mt-4">
                     {intl.formatMessage({
                       defaultMessage:
                         "You will be returned to the GC Digital Talent platform.",
@@ -421,7 +420,7 @@ export const Component = () => {
                   className="rounded-t-md rounded-b-none xs:rounded-l-md xs:rounded-r-none"
                   img={{ src: canadaLoginStep7, darkSrc: canadaLoginStep7Dark }}
                 >
-                  <p className="font-semibold">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage:
                         "View your details sent from CanadaLogin, linked to your GC Digital Talent profile.",
@@ -447,7 +446,7 @@ export const Component = () => {
                   className="rounded-none bg-gray-100/50 dark:bg-gray-600/70"
                   img={{ src: canadaLoginStep8, darkSrc: canadaLoginStep8Dark }}
                 >
-                  <p className="font-semibold">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage:
                         "Verify your Government of Canada work email to unlock employee tools.",
@@ -474,7 +473,7 @@ export const Component = () => {
                   includeArrow={false}
                   img={{ src: canadaLoginStep9, darkSrc: canadaLoginStep9Dark }}
                 >
-                  <p className="font-semibold">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage:
                         "Add your current work experience to your GC Digital Talent profile.",
