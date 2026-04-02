@@ -2,6 +2,7 @@ import { useQuery } from "urql";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import { useIntl } from "react-intl";
 import { useState } from "react";
+import { isFuture } from "date-fns/isFuture";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -73,6 +74,8 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
   ).sort(
     sortAlphaBy((developmentProgram) => developmentProgram.name?.localized),
   );
+  const showCopyButton =
+    !talentEvent.closeDate || isFuture(parseDateTimeUtc(talentEvent.closeDate));
   return (
     <>
       <Heading
@@ -96,62 +99,66 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
         })}
       </p>
       <Card className="grid gap-6 sm:grid-cols-2">
-        <div className="text-right sm:col-span-2">
-          <Button
-            mode="inline"
-            color="primary"
-            icon={linkCopied ? CheckIcon : undefined}
-            onClick={async () => {
-              await navigator.clipboard.writeText(
-                window.location.protocol +
-                  "//" +
-                  window.location.host +
-                  paths.createTalentNomination(talentEvent.id),
-              );
-              setLinkCopied(true);
-              setTimeout(() => {
-                setLinkCopied(false);
-              }, 2000);
-            }}
-            aria-label={
-              linkCopied
-                ? intl.formatMessage({
-                    defaultMessage: "Nomination link copied",
-                    id: "ms0CBt",
-                    description:
-                      "Button text to indicate that a talent event nomination URL has been copied",
-                  })
-                : intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "Copy {title} nomination URL to clipboard",
-                      id: "zxHKZ2",
+        {showCopyButton && (
+          <>
+            <div className="text-right sm:col-span-2">
+              <Button
+                mode="inline"
+                color="primary"
+                icon={linkCopied ? CheckIcon : undefined}
+                onClick={async () => {
+                  await navigator.clipboard.writeText(
+                    window.location.protocol +
+                      "//" +
+                      window.location.host +
+                      paths.createTalentNomination(talentEvent.id),
+                  );
+                  setLinkCopied(true);
+                  setTimeout(() => {
+                    setLinkCopied(false);
+                  }, 2000);
+                }}
+                aria-label={
+                  linkCopied
+                    ? intl.formatMessage({
+                        defaultMessage: "Nomination link copied",
+                        id: "ms0CBt",
+                        description:
+                          "Button text to indicate that a talent event nomination URL has been copied",
+                      })
+                    : intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "Copy {title} nomination URL to clipboard",
+                          id: "zxHKZ2",
+                          description:
+                            "Button text to copy a create talent event URL",
+                        },
+                        {
+                          title: talentEvent.name.localized,
+                        },
+                      )
+                }
+              >
+                {linkCopied
+                  ? intl.formatMessage({
+                      defaultMessage: "Nomination link copied",
+                      id: "ms0CBt",
                       description:
-                        "Button text to copy a create talent event URL",
-                    },
-                    {
-                      title: talentEvent.name.localized,
-                    },
-                  )
-            }
-          >
-            {linkCopied
-              ? intl.formatMessage({
-                  defaultMessage: "Nomination link copied",
-                  id: "ms0CBt",
-                  description:
-                    "Button text to indicate that a talent event nomination URL has been copied",
-                })
-              : intl.formatMessage({
-                  defaultMessage: "Copy nomination link",
-                  id: "vV5a2X",
-                  description: "Button text to copy a nomination URL",
-                })}
-          </Button>
-        </div>
-        <div className="sm:col-span-2">
-          <CardSeparator space="none" decorative />
-        </div>
+                        "Button text to indicate that a talent event nomination URL has been copied",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Copy nomination link",
+                      id: "vV5a2X",
+                      description: "Button text to copy a nomination URL",
+                    })}
+              </Button>
+            </div>
+            <div className="sm:col-span-2">
+              <CardSeparator space="none" decorative />
+            </div>
+          </>
+        )}
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Event name",
