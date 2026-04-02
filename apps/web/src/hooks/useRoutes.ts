@@ -40,8 +40,23 @@ const getRoutes = (lang: Locales) => {
     loggedOut: () => [baseUrl, "logged-out"].join("/"),
     userDeleted: () => [baseUrl, "user-deleted"].join("/"),
     registrationAccount: () => [baseUrl, "registration", "account"].join("/"),
-    registrationExperience: () =>
-      [baseUrl, "registration", "experience"].join("/"),
+    registrationExperience: (opts?: {
+      from?: string;
+      isEmployee?: boolean;
+    }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.from) {
+        searchParams.set("from", opts.from);
+      }
+      if (typeof opts?.isEmployee == "boolean") {
+        searchParams.set("isEmployee", opts.isEmployee.toString());
+      }
+
+      return (
+        [baseUrl, "registration", "experience"].join("/") +
+        createSearchQuery(searchParams)
+      );
+    },
     termsAndConditions: () => [baseUrl, "terms-and-conditions"].join("/"),
     privacyPolicy: () => [baseUrl, "privacy-policy"].join("/"),
     accessibility: () => [baseUrl, "accessibility-statement"].join("/"),

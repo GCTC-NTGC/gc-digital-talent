@@ -24,11 +24,11 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     return { hasError: true };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+  public override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     defaultLogger.error(JSON.stringify({ error, errorInfo }));
   }
 
-  public render() {
+  public override render() {
     const { state, props } = this;
 
     if (state.hasError) {

@@ -49,8 +49,11 @@ interface FormValues {
   nameFr: string;
   descriptionEn: string;
   descriptionFr: string;
+  informationUrlEn: string;
+  informationUrlFr: string;
   mandateAuthorityEn: string;
   mandateAuthorityFr: string;
+  contactEmail: string;
 }
 
 const UpdateCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
@@ -65,6 +68,11 @@ const UpdateCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    informationUrl {
+      en
+      fr
+    }
+    contactEmail
     mandateAuthority {
       en
       fr
@@ -80,6 +88,9 @@ const apiDataToFormValues = (
   nameFr: apiData?.name?.fr ?? "",
   descriptionEn: apiData?.description?.en ?? "",
   descriptionFr: apiData?.description?.fr ?? "",
+  informationUrlEn: apiData?.informationUrl?.en ?? "",
+  informationUrlFr: apiData?.informationUrl?.fr ?? "",
+  contactEmail: apiData?.contactEmail ?? "",
   mandateAuthorityEn: apiData?.mandateAuthority?.en ?? "",
   mandateAuthorityFr: apiData?.mandateAuthority?.fr ?? "",
 });
@@ -94,6 +105,11 @@ const formValuesToApiData = (formValues: FormValues): UpdateCommunityInput => ({
     en: formValues.descriptionEn,
     fr: formValues.descriptionFr,
   },
+  informationUrl: {
+    en: formValues.informationUrlEn,
+    fr: formValues.informationUrlFr,
+  },
+  contactEmail: formValues.contactEmail,
   mandateAuthority: {
     en: formValues.mandateAuthorityEn,
     fr: formValues.mandateAuthorityFr,
@@ -199,6 +215,30 @@ const CommunityForm = ({
               wordLimit={TEXT_AREA_MAX_WORDS_FR}
             />
             <Input
+              id="informationUrlEn"
+              name="informationUrlEn"
+              label={intl.formatMessage({
+                defaultMessage: "External link to information",
+                id: "fWNqcM",
+                description:
+                  "Label displayed on the community form information URL field",
+              })}
+              appendLanguageToLabel={"en"}
+              type="url"
+            />
+            <Input
+              id="informationUrlFr"
+              name="informationUrlFr"
+              label={intl.formatMessage({
+                defaultMessage: "External link to information",
+                id: "fWNqcM",
+                description:
+                  "Label displayed on the community form information URL field",
+              })}
+              appendLanguageToLabel={"fr"}
+              type="url"
+            />
+            <Input
               id="mandateAuthorityEn"
               name="mandateAuthorityEn"
               label={intl.formatMessage({
@@ -209,6 +249,9 @@ const CommunityForm = ({
               })}
               appendLanguageToLabel={"en"}
               type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="mandateAuthorityFr"
@@ -221,7 +264,23 @@ const CommunityForm = ({
               })}
               appendLanguageToLabel={"fr"}
               type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
+            <div className="xs:col-span-2">
+              <Input
+                id="contactEmail"
+                name="contactEmail"
+                label={intl.formatMessage({
+                  defaultMessage: "Generic contact email",
+                  id: "iVe7JX",
+                  description:
+                    "Label displayed on the community form contact email field",
+                })}
+                type="email"
+              />
+            </div>
             <div className="xs:col-span-2">
               <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
                 {community.key}

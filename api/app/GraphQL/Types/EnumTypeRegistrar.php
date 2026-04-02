@@ -19,25 +19,17 @@ final class EnumTypeRegistrar implements TypeRegistrarInterface
         foreach ($enums as $enum) {
             $name = class_basename($enum);
 
-            /**
-             * @return EnumType
-             */
-            $callback = static function () use ($name, $enum): EnumType {
-                /** @var array<int, \UnitEnum> $cases */
-                $cases = $enum::cases();
-                $values = array_column($cases, 'name');
-
-                return new EnumType([
-                    'name' => $name,
-                    'values' => $values,
-                ]);
-            };
-
             $typeRegistry->registerLazy(
                 $name,
-                // Note: PHPStan isn't working well with the union type here
-                // @phpstan-ignore-next-line
-                $callback
+                function () use ($name, $enum): EnumType {
+                    $cases = $enum::cases();
+                    $values = array_column($cases, 'name');
+
+                    return new EnumType([
+                        'name' => $name,
+                        'values' => $values,
+                    ]);
+                }
             );
         }
     }

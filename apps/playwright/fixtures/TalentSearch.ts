@@ -13,9 +13,9 @@ import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
 
 class TalentSearch extends AppPage {
   readonly baseUrl: string = "/en/search";
-  readonly classification: Classification;
-  readonly workStream: WorkStream;
-  readonly skill: Skill;
+  readonly classification?: Classification;
+  readonly workStream?: WorkStream;
+  readonly skill?: Skill;
   readonly optionsMap = new Map<FlexibleWorkLocation, string>([
     [FlexibleWorkLocation.Hybrid, "Hybrid work"],
     [FlexibleWorkLocation.Remote, "Remote work"],
