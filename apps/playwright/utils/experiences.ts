@@ -33,14 +33,14 @@ export const createWorkExperience: GraphQLRequestFunc<
   CreateWorkExperienceInput
 > = async (ctx, { userId, workExperience }) => {
   return ctx
-    .post(Test_CreateWorkExperienceMutationDocument, {
-      variables: {
-        userId,
-        workExperience,
+    .post<GraphQLResponse<"createWorkExperience", WorkExperience>>(
+      Test_CreateWorkExperienceMutationDocument,
+      {
+        variables: {
+          userId,
+          workExperience,
+        },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"createWorkExperience", WorkExperience>) =>
-        res.createWorkExperience,
-    );
+    )
+    .then((res) => res.createWorkExperience);
 };
