@@ -244,7 +244,7 @@ export const Component = () => {
                 </InstructionsStepCard>
 
                 <InstructionsStepCard
-                  className="rounded-none bg-gray-100/30 dark:bg-gray-700/50"
+                  className="rounded-none bg-gray-100/50 dark:bg-gray-600/70"
                   img={{ src: canadaLoginStep2, darkSrc: canadaLoginStep2Dark }}
                 >
                   <p className="font-semibold">
@@ -348,7 +348,7 @@ export const Component = () => {
                 </InstructionsStepCard>
 
                 <InstructionsStepCard
-                  className="rounded-none bg-gray-100/30 dark:bg-gray-700/50"
+                  className="rounded-none bg-gray-100/50 dark:bg-gray-600/70"
                   img={{ src: canadaLoginStep5, darkSrc: canadaLoginStep5Dark }}
                 >
                   <p className="font-semibold">
@@ -444,7 +444,7 @@ export const Component = () => {
                 </InstructionsStepCard>
 
                 <InstructionsStepCard
-                  className="rounded-none bg-gray-100/30 dark:bg-gray-700/50"
+                  className="rounded-none bg-gray-100/50 dark:bg-gray-600/70"
                   img={{ src: canadaLoginStep8, darkSrc: canadaLoginStep8Dark }}
                 >
                   <p className="font-semibold">

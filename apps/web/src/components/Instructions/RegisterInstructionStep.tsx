@@ -1,6 +1,7 @@
 import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ArrowDownCircleIcon from "@heroicons/react/24/solid/ArrowDownCircleIcon";
 import { ReactNode, Children } from "react";
+import { tv } from "tailwind-variants";
 
 import { useTheme } from "@gc-digital-talent/theme";
 import { Image, Card } from "@gc-digital-talent/ui";
@@ -18,6 +19,10 @@ interface InstructionsStepCardProps {
   className?: string;
 }
 
+const instructionStepCard = tv({
+  base: "h-full text-center",
+});
+
 const InstructionsStepCard = ({
   img: { src, darkSrc, lazy, ...imgProps },
   children,
@@ -27,7 +32,7 @@ const InstructionsStepCard = ({
   const imgSrc = mode === "dark" && darkSrc ? darkSrc : src;
 
   return (
-    <Card shadow={false} className={`h-full ${className} text-center`}>
+    <Card shadow={false} className={instructionStepCard({ class: className })}>
       <div className="mb-4 flex justify-center">
         <Image {...imgProps} src={imgSrc} alt="" />
       </div>
