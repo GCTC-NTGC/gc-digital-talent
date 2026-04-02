@@ -396,4 +396,9 @@ class CommunityInterest extends Model
                 ->select(DB::raw('null as skill_count')),
         ]);
     }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['community.team']);
+    }
 }

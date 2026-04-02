@@ -768,8 +768,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getTopTechnicalSkillsRankingAttribute()
     {
-        $this->userSkills->loadMissing('skill');
-
         return $this->userSkills
             ->whereNotNull('top_skills_rank')
             ->where('skill.category', 'TECHNICAL')
@@ -778,8 +776,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getTopBehaviouralSkillsRankingAttribute()
     {
-        $this->userSkills->loadMissing('skill');
-
         return $this->userSkills
             ->whereNotNull('top_skills_rank')
             ->where('skill.category', 'BEHAVIOURAL')
@@ -788,8 +784,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getImproveTechnicalSkillsRankingAttribute()
     {
-        $this->userSkills->loadMissing('skill');
-
         return $this->userSkills
             ->whereNotNull('improve_skills_rank')
             ->where('skill.category', 'TECHNICAL')
@@ -798,8 +792,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getImproveBehaviouralSkillsRankingAttribute()
     {
-        $this->userSkills->loadMissing('skill');
-
         return $this->userSkills
             ->whereNotNull('improve_skills_rank')
             ->where('skill.category', 'BEHAVIOURAL')

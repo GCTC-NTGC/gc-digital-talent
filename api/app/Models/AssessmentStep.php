@@ -7,6 +7,7 @@ use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
 use App\Traits\LogsCustomActivity;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -200,5 +201,10 @@ class AssessmentStep extends Model
 
             $step->logActivity(ActivityEvent::REMOVED, $step->only($loggedAttributes));
         });
+    }
+
+    public static function withPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['pool.team', 'pool.community.team', 'pool.department.team']);
     }
 }

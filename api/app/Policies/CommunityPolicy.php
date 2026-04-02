@@ -59,8 +59,6 @@ class CommunityPolicy
      */
     public function viewTeamMembers(User $user, Community $community)
     {
-        $community->loadMissing('team');
-
         return $user->isAbleTo('view-any-communityTeamMembers') || $user->isAbleTo('view-team-communityTeamMembers', $community->team);
     }
 }

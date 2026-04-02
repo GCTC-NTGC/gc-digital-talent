@@ -53,8 +53,6 @@ class TalentNominationEventPolicy
      */
     public function update(User $user, TalentNominationEvent $talentNominationEvent): bool
     {
-        $talentNominationEvent->loadMissing(['community.team']);
-
         return $user->isAbleTo('update-team-talentNominationEvent', $talentNominationEvent->community->team);
     }
 

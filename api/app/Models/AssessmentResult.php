@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Events\AssessmentResultSaved;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -75,5 +76,14 @@ class AssessmentResult extends Model
     public function poolSkill(): BelongsTo
     {
         return $this->belongsTo(PoolSkill::class);
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with([
+            'assessmentStep.pool.team',
+            'assessmentStep.pool.community.team',
+            'assessmentStep.pool.department.team',
+        ]);
     }
 }
