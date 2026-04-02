@@ -840,6 +840,13 @@ class PoolCandidate extends Model
     {
         $this->disableLogging();
 
+        // Make sure candidate is being referred when not being placed as indeterminate
+        if ($placementType !== PlacementType::PLACED_INDETERMINATE->name) {
+            $this->pause_referrals_at = null;
+            $this->pause_referrals_reason = null;
+            $this->resume_referrals_at = null;
+        }
+
         $this->placement_type = $placementType;
         $this->placed_at = Carbon::now();
         $this->placed_department_id = $departmentId;
@@ -906,6 +913,9 @@ class PoolCandidate extends Model
         $this->placement_type = null;
         $this->placed_at = null;
         $this->placed_department_id = null;
+        $this->pause_referrals_at = null;
+        $this->pause_referrals_reason = null;
+        $this->resume_referrals_at = null;
 
         $this->save();
 
