@@ -17,7 +17,6 @@ class TalentNominationGroupPolicy
             return true;
         }
 
-        $talentNominationGroup->loadMissing('talentNominationEvent');
         $communityTeam = Team::with(['teamable.team'])
             ->where('teamable_type', 'App\Models\Community')
             ->where('teamable_id', $talentNominationGroup->talentNominationEvent->community_id)
@@ -43,7 +42,6 @@ class TalentNominationGroupPolicy
      */
     public function update(User $actor, TalentNominationGroup $talentNominationGroup): bool
     {
-        $talentNominationGroup->loadMissing('talentNominationEvent');
         $communityTeam = Team::with(['teamable.team'])
             ->where('teamable_type', 'App\Models\Community')
             ->where('teamable_id', $talentNominationGroup->talentNominationEvent->community_id)

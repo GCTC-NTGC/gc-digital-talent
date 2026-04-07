@@ -102,8 +102,6 @@ class TalentNominationGroup extends Model
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                $this->loadMissing('nominations');
-
                 return $this->nominations->filter(fn (TalentNomination $nomination) => $nomination->nominate_for_advancement)->count();
             }
         );
@@ -116,8 +114,6 @@ class TalentNominationGroup extends Model
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                $this->loadMissing('nominations');
-
                 return $this->nominations->filter(fn (TalentNomination $nomination) => $nomination->nominate_for_lateral_movement)->count();
             }
         );
@@ -130,8 +126,6 @@ class TalentNominationGroup extends Model
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                $this->loadMissing('nominations');
-
                 return $this->nominations->filter(fn (TalentNomination $nomination) => $nomination->nominate_for_development_programs)->count();
             }
         );
@@ -216,8 +210,6 @@ class TalentNominationGroup extends Model
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                $this->loadMissing('talentNominationEvent');
-
                 // get the nominee's user id
                 $userId = $this->nominee_id;
                 // get the community id from the talent nomination event
@@ -239,5 +231,10 @@ class TalentNominationGroup extends Model
         });
 
         return $query;
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['talentNominationEvent']);
     }
 }
