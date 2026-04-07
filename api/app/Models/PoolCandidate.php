@@ -855,7 +855,7 @@ class PoolCandidate extends Model
         $this->assessment_step_id = null;
 
         if ($this->placement_type === PlacementType::PLACED_INDETERMINATE->name) {
-            $this->pauseReferrals(PauseReferralsLength::OTHER->name, Lang::get('common.successfully_placed'), $this->expiry_date);
+            $this->pauseReferrals(PauseReferralsLength::OTHER->name, Lang::get('common.successfully_placed'), null);
         }
 
         $this->save();
