@@ -1883,6 +1883,10 @@
     "defaultMessage": "Modifier<hidden> le groupe de compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
   },
+  "5W/J8m": {
+    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir la candidature au statut « À évaluer »?",
+    "description": "Confirmation question for reverting a decision of an application"
+  },
   "5WEzE3": {
     "defaultMessage": "Cherchez dans notre base de données de compétences et associez-en une à votre profil.",
     "description": "Subtitle for the find a skill dialog within the skill portfolio"
@@ -3086,6 +3090,10 @@
   "AhZlU1": {
     "defaultMessage": "Prévisualiser l’annonce",
     "description": "Link text to preview a specific pool advertisement"
+  },
+  "AhcYq4": {
+    "defaultMessage": "Rétablir le statut de la candidature",
+    "description": "Heading for dialog to revert an application status"
   },
   "Aip5WP": {
     "defaultMessage": "Préférence pour le lieu de travail en personne",
