@@ -688,7 +688,7 @@
     "description": "Title for goals and work style section"
   },
   "0cevfA": {
-    "defaultMessage": "Vous êtes sur le point d'ajouter des rôles pour ce ou cette membre :",
+    "defaultMessage": "Vous êtes sur le point d'ajouter des rôles pour la personne suivante :",
     "description": "Lead in text for the add role to user form."
   },
   "0cieq3": {
@@ -1384,7 +1384,7 @@
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
   },
   "3XvHVf": {
-    "defaultMessage": "Rôles dans le ministère",
+    "defaultMessage": "Rôles liés à un ministère",
     "description": "Heading for updating a user's department roles"
   },
   "3YO9gR": {
@@ -1412,7 +1412,7 @@
     "description": "Description for position duration field display"
   },
   "3bgFky": {
-    "defaultMessage": "Ajouter un rôle dans un ministère",
+    "defaultMessage": "Ajouter un rôle lié à un ministère",
     "description": "Button label for the form to add a department membership to a user"
   },
   "3c2YZs": {
@@ -2284,7 +2284,7 @@
     "description": "Text on a button to save the nonessential technical skills form"
   },
   "7Rllrl": {
-    "defaultMessage": "Activer tout",
+    "defaultMessage": "Tout cocher",
     "description": "Label for checkbox to toggle visibility of all columns"
   },
   "7STO48": {
@@ -2432,7 +2432,7 @@
     "description": "Label displayed on the community form mandate authority field"
   },
   "84XrK+": {
-    "defaultMessage": "On ne trouve aucun élément ici.",
+    "defaultMessage": "Aucun élément trouvé.",
     "description": "Default message for an empty table"
   },
   "84rSVg": {
@@ -2636,7 +2636,7 @@
     "description": "Message displayed for skill not found."
   },
   "95aNQ1": {
-    "defaultMessage": "Vous êtes sur le point de retirer ce ou cette membre :",
+    "defaultMessage": "Vous êtes sur le point de retirer cette personne :",
     "description": "Lead in text for removing roles on user form."
   },
   "96/yI/": {
@@ -3212,7 +3212,7 @@
     "description": "Text label for button to download a csv file of all items in a table."
   },
   "B6cKp+": {
-    "defaultMessage": "Rôles dans des collectivités",
+    "defaultMessage": "Rôles dans les collectivités",
     "description": "Heading for updating a user's community roles"
   },
   "B8N4yZ": {
@@ -3748,7 +3748,7 @@
     "description": "Description of a talent event"
   },
   "DbWxZl": {
-    "defaultMessage": "Cherchez les rôles dans des processus",
+    "defaultMessage": "Rechercher des rôles liés à un processus",
     "description": "Label for the process roles table search input"
   },
   "DcEinN": {
@@ -4744,7 +4744,7 @@
     "description": "Status label for a submitted (but not reviewed) application"
   },
   "IHyNL8": {
-    "defaultMessage": "Ajouter un membre",
+    "defaultMessage": "Ajouter comme membre",
     "description": "Title for the add member to community form"
   },
   "II4+N3": {
@@ -4756,7 +4756,7 @@
     "description": "Link text to email the ATIP community"
   },
   "IIKzsd": {
-    "defaultMessage": "Afficher ou masquer les colonnes du tableau",
+    "defaultMessage": "Afficher ou masquer des colonnes dans le tableau",
     "description": "Label for checkboxes used for disabling or enabling table column display"
   },
   "IIZNzj": {
@@ -4980,7 +4980,7 @@
     "description": "Combined eligibility string for 'employees only' and 'at-level only'"
   },
   "JCZlxS": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans le processus » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle lié à un processus » pour commencer.",
     "description": "Instructions for adding process membership to a user."
   },
   "JDjqIL": {
@@ -5760,7 +5760,7 @@
     "description": "Error message for updating a candidates assessment stage"
   },
   "MkUz+j": {
-    "defaultMessage": "Ajouter un membre",
+    "defaultMessage": "Ajouter comme membre",
     "description": "Label for the add member to community form (action)"
   },
   "MmTWYV": {
@@ -5832,7 +5832,7 @@
     "description": "Label for language for bilingual field"
   },
   "MxmB1v": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans la collectivité » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans une collectivité » pour commencer.",
     "description": "Instructions for adding community membership to a user."
   },
   "Mz7sON": {
@@ -7216,7 +7216,7 @@
     "description": "Comments or contributions list item"
   },
   "TSYfZE": {
-    "defaultMessage": "Ajouter un rôle dans le processus",
+    "defaultMessage": "Ajouter un rôle lié à un processus",
     "description": "Button label for the form to add a process membership to a user"
   },
   "TU9sk7": {
@@ -7935,7 +7935,7 @@
     "description": "Label for a employee profile target classification group field"
   },
   "WovyCU": {
-    "defaultMessage": "Ajouter un rôle dans la collectivité",
+    "defaultMessage": "Ajouter un rôle dans une collectivité",
     "description": "Header for the form to add a community membership to a user"
   },
   "WpA63g": {
@@ -8551,7 +8551,7 @@
     "description": "Second part of bilingual intermediate pool language"
   },
   "ZJpfIZ": {
-    "defaultMessage": "L’utilisateur perdra tous les rôles suivants dans le ministère :",
+    "defaultMessage": "Cette personne perdra tous les rôles suivants liés au ministère :",
     "description": "Text notifying user which department roles will be removed from the user"
   },
   "ZJsUbj": {
@@ -8959,7 +8959,7 @@
     "description": "Header for the form to add a process membership to a user"
   },
   "bNc3Zd": {
-    "defaultMessage": "Rechercher des rôles dans les ministères",
+    "defaultMessage": "Rechercher des rôles liés à un ministère",
     "description": "Label for the department roles table search input"
   },
   "bOAF9o": {
@@ -9379,7 +9379,7 @@
     "description": "Explanation of how the list of notifications work"
   },
   "d4r7rO": {
-    "defaultMessage": "Afficher ou masquer les colonnes",
+    "defaultMessage": "Afficher ou masquer des colonnes",
     "description": "Button text to open the dialog for disabling or enabling column display"
   },
   "d5X1iR": {
@@ -9695,7 +9695,7 @@
     "description": "Introduction for form to evaluate a nomination group"
   },
   "eGqjYh": {
-    "defaultMessage": "Rôles dans le processus",
+    "defaultMessage": "Rôles liés à un processus",
     "description": "Heading for updating a user's process roles"
   },
   "eJPU4G": {
@@ -10119,7 +10119,7 @@
     "description": "Title for education level on summary of filters section"
   },
   "fuGqZQ": {
-    "defaultMessage": "Sélectionnez l’utilisateur à ajouter à {teamName}, ainsi que les rôles à lui attribuer.",
+    "defaultMessage": "Sélectionnez la personne que vous souhaitez ajouter à l’organisation suivante : {teamName}. Sélectionnez également les rôles à lui attribuer.",
     "description": "Subtitle for the add member to team form"
   },
   "fugmiC": {
@@ -11635,7 +11635,7 @@
     "description": "The award title is issued by some group, HTML"
   },
   "mKrj0x": {
-    "defaultMessage": "Enregistrer et ajouter un membre",
+    "defaultMessage": "Enregistrer et ajouter comme membre",
     "description": "Label for add member to a community form"
   },
   "mKzQwr": {
@@ -11911,7 +11911,7 @@
     "description": "Card title for a 'resources' card"
   },
   "nGx7Xt": {
-    "defaultMessage": "Mesures",
+    "defaultMessage": "Actions",
     "description": "Title displayed for actions column"
   },
   "nGy9DA": {
@@ -12463,7 +12463,7 @@
     "description": "Message for the advanced language ability option"
   },
   "paTLlJ": {
-    "defaultMessage": "Chercher les rôles",
+    "defaultMessage": "Rechercher les rôles",
     "description": "Label for the roles table search input"
   },
   "pcAgJh": {
@@ -12879,7 +12879,7 @@
     "description": "Page title for the training opportunity creation page (infinitive in French)"
   },
   "rUNQVc": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans le ministère » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle lié à un ministère » pour commencer.",
     "description": "Instructions for adding department membership to a user."
   },
   "rVgBGi": {
@@ -12979,7 +12979,7 @@
     "description": "Heading for the experience type section fo the experience form"
   },
   "ryeKXV": {
-    "defaultMessage": "Cherchez les rôles dans des collectivités",
+    "defaultMessage": "Rechercher les rôles dans les collectivités",
     "description": "Label for the community roles table search input"
   },
   "rz21yp": {
@@ -13411,7 +13411,7 @@
     "description": "Paragraph describing accessibility standards"
   },
   "tuMmWm": {
-    "defaultMessage": "Filtrer par ordre de {column}",
+    "defaultMessage": "Appliquer un filtre {column}",
     "description": "Button text to filter by specific columns in table"
   },
   "tuXnJB": {
@@ -13475,7 +13475,7 @@
     "description": "Description for work streams for an experience dialog"
   },
   "uG1ZWN": {
-    "defaultMessage": "Retirez de la collectivité",
+    "defaultMessage": "Retirer de la collectivité",
     "description": "Button label for the form to remove a community role from a user"
   },
   "uIUSdN": {
@@ -13575,7 +13575,7 @@
     "description": "Heading for form to update a users subject"
   },
   "uhoPHh": {
-    "defaultMessage": "Réglementaire",
+    "defaultMessage": "Réglementation",
     "description": "Label for a regulatory department"
   },
   "ukcsxj": {
@@ -14595,7 +14595,7 @@
     "description": "Status description for a reviewed application awaiting assessment"
   },
   "yzvT6g": {
-    "defaultMessage": "Ajouter un rôle dans la collectivité",
+    "defaultMessage": "Ajouter un rôle dans une collectivité",
     "description": "Button label for the form to add a community membership to a user"
   },
   "z+Pc2D": {
@@ -14627,7 +14627,7 @@
     "description": "Default text in table search form column dropdown when no column is selected"
   },
   "z6EMbE": {
-    "defaultMessage": "Scientifique",
+    "defaultMessage": "Sciences",
     "description": "Label for a science department"
   },
   "z6omvn": {
