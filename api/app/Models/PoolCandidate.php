@@ -480,7 +480,7 @@ class PoolCandidate extends Model
     {
         return Attribute::get(function () {
             if ($this->application_status !== ApplicationStatus::QUALIFIED->name) {
-                return false;
+                return null;
             }
 
             $hasNotStartedPause = is_null($this->pause_referrals_at) || $this->pause_referrals_at->isFuture();
@@ -829,6 +829,9 @@ class PoolCandidate extends Model
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
+        $this->pause_referrals_at = null;
+        $this->pause_referrals_reason = null;
+        $this->resume_referrals_at = null;
 
         $this->save();
 
@@ -879,6 +882,9 @@ class PoolCandidate extends Model
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
+        $this->pause_referrals_at = null;
+        $this->pause_referrals_reason = null;
+        $this->resume_referrals_at = null;
 
         $this->save();
 
@@ -954,7 +960,7 @@ class PoolCandidate extends Model
         $properties['attributes']['pool_id'] = $this->pool->id ?? null;
     }
 
-    public function pauseReferrals(?string $pauseReferralsLength, ?string $reason, ?Carbon $referralResumeAt)
+    public function pauseReferrals(?string $pauseReferralsLength = null, ?string $reason = null, ?Carbon $referralResumeAt = null)
     {
         $now = Carbon::now();
 

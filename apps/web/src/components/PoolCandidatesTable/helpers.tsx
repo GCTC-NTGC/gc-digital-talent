@@ -536,6 +536,7 @@ export function transformPoolCandidateSearchInputToFormValues(
     priorityWeight: unpackMaybes(input?.priorityWeight),
     expiryStatus: input?.expiryStatus ?? CandidateExpiryFilter.Active,
     suspendedStatus: input?.suspendedStatus ?? CandidateSuspendedFilter.Active,
+    referralStatuses: unpackMaybes(input?.referralStatuses),
     govEmployee: input?.isGovEmployee ? "true" : "",
     departments: input?.departments ?? [],
     community: input?.applicantFilter?.community?.id ?? "",
@@ -573,6 +574,7 @@ export function transformFormValuesToFilterState(
     priorityWeight: data.priorityWeight,
     expiryStatus: data.expiryStatus,
     suspendedStatus: data.suspendedStatus,
+    referralStatuses: data.referralStatuses,
     isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
     departments: data.departments,
     publishingGroups: data.publishingGroups,
@@ -623,6 +625,7 @@ export const addSearchToPoolCandidateFilterInput = (
     priorityWeight: fancyFilterState?.priorityWeight,
     expiryStatus: fancyFilterState?.expiryStatus,
     suspendedStatus: fancyFilterState?.suspendedStatus,
+    referralStatuses: fancyFilterState?.referralStatuses,
     isGovEmployee: fancyFilterState?.isGovEmployee,
     publishingGroups: fancyFilterState?.publishingGroups,
     appliedClassifications: fancyFilterState?.appliedClassifications,
