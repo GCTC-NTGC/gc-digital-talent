@@ -1084,7 +1084,7 @@ class PoolCandidateUpdateTest extends TestCase
             ],
             [
                 'pauseReferralsAt' => $now,
-                'resumeReferralsAt' => $this->poolCandidate->expiry_date,
+                'resumeReferralsAt' => null,
                 'pauseReferralsReason' => Lang::get('common.successfully_placed'),
             ]
         );
@@ -1139,7 +1139,7 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate = $this->poolCandidate->fresh();
 
         assertNotNull($this->poolCandidate->pause_referrals_at);
-        assertNotNull($this->poolCandidate->resume_referrals_at);
+        assertNull($this->poolCandidate->resume_referrals_at);
         assertNotNull($this->poolCandidate->pause_referrals_reason);
 
         $this->actingAs($this->communityAdminUser, 'api')
