@@ -1875,6 +1875,10 @@
     "defaultMessage": "Modifier<hidden> le groupe de compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
   },
+  "5W/J8m": {
+    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir la candidature au statut « À évaluer »?",
+    "description": "Confirmation question for reverting a decision of an application"
+  },
   "5WEzE3": {
     "defaultMessage": "Cherchez dans notre base de données de compétences et associez-en une à votre profil.",
     "description": "Subtitle for the find a skill dialog within the skill portfolio"
@@ -2943,10 +2947,6 @@
     "defaultMessage": "Lorsque vous envoyez votre candidature, une copie de votre profil est automatiquement créée.",
     "description": "List item note 1 for the application review page."
   },
-  "AA3OTc": {
-    "defaultMessage": "Réintégrer le candidat et mettre à jour le statut",
-    "description": "Button text to reinstate a candidate"
-  },
   "AANjDd": {
     "defaultMessage": "Mettre à jour l’expérience",
     "description": "Button to submit the link experience to skill form"
@@ -3086,6 +3086,10 @@
   "AhZlU1": {
     "defaultMessage": "Prévisualiser l’annonce",
     "description": "Link text to preview a specific pool advertisement"
+  },
+  "AhcYq4": {
+    "defaultMessage": "Rétablir le statut de la candidature",
+    "description": "Heading for dialog to revert an application status"
   },
   "Aip5WP": {
     "defaultMessage": "Préférence pour le lieu de travail en personne",
@@ -11062,10 +11066,6 @@
     "defaultMessage": "Modifier la planification de carrière",
     "description": "Link to a page to edit your career planning information"
   },
-  "jo9Uct": {
-    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir le candidat au statut « En cours d’évaluation »?",
-    "description": "Confirmation question for reverting a decision of an application"
-  },
   "joXPYW": {
     "defaultMessage": "Composantes clés",
     "description": "Heading for section describing the different components"
@@ -14009,10 +14009,6 @@
   "waEO78": {
     "defaultMessage": "Présence du GSN aux salons de l’emploi pour les personnes aux études ou récemment diplômées",
     "description": "Heading for DSG job fairs section"
-  },
-  "wb/hvK": {
-    "defaultMessage": "Annuler la décision finale d’évaluation",
-    "description": "Heading for dialog to revert an application assessment decision"
   },
   "wdFBSc": {
     "defaultMessage": "Merci d'avoir proposé la candidature de {name}! L'équipe de gestion des talents de {community} examinera bientôt votre mise en candidature. En attendant, vous pouvez consulter votre demande et son état d'avancement à partir de votre tableau de bord.",
