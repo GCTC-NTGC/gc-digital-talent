@@ -987,10 +987,13 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      (row) =>
-        row.poolCandidate.isBeingReferred
+      (row) => {
+        if (row.poolCandidate.isBeingReferred === null) return null;
+
+        return row.poolCandidate.isBeingReferred
           ? intl.formatMessage(poolCandidateMessages.availableForReferral)
-          : intl.formatMessage(poolCandidateMessages.notReferred),
+          : intl.formatMessage(poolCandidateMessages.notReferred);
+      },
       {
         id: "referralStatus",
         header: intl.formatMessage(tableMessages.referralStatus),

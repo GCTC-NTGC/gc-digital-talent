@@ -480,7 +480,7 @@ class PoolCandidate extends Model
     {
         return Attribute::get(function () {
             if ($this->application_status !== ApplicationStatus::QUALIFIED->name) {
-                return false;
+                return null;
             }
 
             $hasNotStartedPause = is_null($this->pause_referrals_at) || $this->pause_referrals_at->isFuture();
