@@ -9,8 +9,10 @@ import {
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { CardSeparator } from "@gc-digital-talent/ui";
+import { removeFromLocalStorage } from "@gc-digital-talent/storage";
 
 import { getConsideredLangItems } from "~/utils/languageUtils";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
 import useDirtyFields from "../../hooks/useDirtyFields";
 import ConsideredLanguages, {
@@ -30,6 +32,9 @@ const FormFields = ({ labels, optionsQuery }: FormFieldProps) => {
   const options = getFragment(LanguageProfileOptions_Fragment, optionsQuery);
 
   const languageOptions = localizedEnumToOptions(options?.languages, intl);
+
+  // once they open the form we can remove the helper message
+  removeFromLocalStorage(KEY_NEW_USER_LANGUAGE_PRESET);
 
   return (
     <div className="flex flex-col gap-6">

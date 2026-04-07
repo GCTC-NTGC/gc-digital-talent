@@ -3,10 +3,12 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { CardSeparator, Notice, Separator, Ul } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { getFromLocalStorage } from "@gc-digital-talent/storage";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
 const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
   fragment LanguageProfileDisplay on User {
@@ -67,6 +69,10 @@ interface DisplayProps {
 
 const Display = ({ query, context }: DisplayProps) => {
   const intl = useIntl();
+  const showHelperMessage = getFromLocalStorage<boolean>(
+    KEY_NEW_USER_LANGUAGE_PRESET,
+    false,
+  );
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const labels = getLabels(intl);
   const user = getFragment(LanguageProfileDisplay_Fragment, query);
@@ -111,33 +117,35 @@ const Display = ({ query, context }: DisplayProps) => {
           description: "Introduction for the language profile form",
         })}
       </p>
-      <Notice.Root color="error">
-        <Notice.Content>
-          {intl.formatMessage(
-            {
-              defaultMessage: `The current information was inferred based on your choice of contact language during registration. Please use the "{buttonLabel}" button to review these settings.`,
-              id: "ADUuJh",
-              description:
-                "Helper message that the language settings were preset",
-            },
-            {
-              buttonLabel: (
-                <ToggleForm.Trigger
-                  aria-label={intl.formatMessage({
-                    defaultMessage: "Edit language profile",
-                    id: "fxPLAl",
-                    description:
-                      "Button text to start editing language profile",
-                  })}
-                  color="error"
-                >
-                  {intl.formatMessage(commonMessages.editThisSection)}
-                </ToggleForm.Trigger>
-              ),
-            },
-          )}
-        </Notice.Content>
-      </Notice.Root>
+      {showHelperMessage ? (
+        <Notice.Root color="error">
+          <Notice.Content>
+            {intl.formatMessage(
+              {
+                defaultMessage: `The current information was inferred based on your choice of contact language during registration. Please use the "{buttonLabel}" button to review these settings.`,
+                id: "ADUuJh",
+                description:
+                  "Helper message that the language settings were preset",
+              },
+              {
+                buttonLabel: (
+                  <ToggleForm.Trigger
+                    aria-label={intl.formatMessage({
+                      defaultMessage: "Edit language profile",
+                      id: "fxPLAl",
+                      description:
+                        "Button text to start editing language profile",
+                    })}
+                    color="error"
+                  >
+                    {intl.formatMessage(commonMessages.editThisSection)}
+                  </ToggleForm.Trigger>
+                ),
+              },
+            )}
+          </Notice.Content>
+        </Notice.Root>
+      ) : null}
       <FieldDisplay
         hasError={
           !lookingForEnglish && !lookingForFrench && !lookingForBilingual
