@@ -1,11 +1,12 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { CardSeparator, Separator, Ul } from "@gc-digital-talent/ui";
+import { CardSeparator, Notice, Separator, Ul } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
 const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
   fragment LanguageProfileDisplay on User {
@@ -110,6 +111,33 @@ const Display = ({ query, context }: DisplayProps) => {
           description: "Introduction for the language profile form",
         })}
       </p>
+      <Notice.Root color="error">
+        <Notice.Content>
+          {intl.formatMessage(
+            {
+              defaultMessage: `The current information was inferred based on your choice of contact language during registration. Please use the "{buttonLabel}" button to review these settings.`,
+              id: "ADUuJh",
+              description:
+                "Helper message that the language settings were preset",
+            },
+            {
+              buttonLabel: (
+                <ToggleForm.Trigger
+                  aria-label={intl.formatMessage({
+                    defaultMessage: "Edit language profile",
+                    id: "fxPLAl",
+                    description:
+                      "Button text to start editing language profile",
+                  })}
+                  color="error"
+                >
+                  {intl.formatMessage(commonMessages.editThisSection)}
+                </ToggleForm.Trigger>
+              ),
+            },
+          )}
+        </Notice.Content>
+      </Notice.Root>
       <FieldDisplay
         hasError={
           !lookingForEnglish && !lookingForFrench && !lookingForBilingual
