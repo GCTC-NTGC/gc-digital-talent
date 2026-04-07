@@ -345,7 +345,8 @@ class PoolCandidateBuilder extends Builder
             $query->whereNull('pause_referrals_at')
                 ->orWhere('pause_referrals_at', '>', $now)
                 ->orWhere('resume_referrals_at', '<=', $now);
-        });
+        })
+            ->where('application_status', ApplicationStatus::QUALIFIED->name);
     }
 
     public function whereNotBeingReferred(): self
@@ -359,7 +360,8 @@ class PoolCandidateBuilder extends Builder
                     $query->whereNull('resume_referrals_at')
                         ->orWhere('resume_referrals_at', '>', $now);
                 });
-        });
+        })
+            ->orWhere('application_status', '!=', ApplicationStatus::QUALIFIED->name);
     }
 
     public function whereSuspendedStatus(?string $suspendedStatus): self
