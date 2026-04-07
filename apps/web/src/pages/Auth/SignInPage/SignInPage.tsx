@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import ArrowLeftEndOnRectangleIcon from "@heroicons/react/24/outline/ArrowLeftEndOnRectangleIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
+import { FormProvider, useForm } from "react-hook-form";
 import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 
 import { appInsights } from "@gc-digital-talent/app-insights";
@@ -18,6 +19,7 @@ import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useTheme } from "@gc-digital-talent/theme";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { RadioGroup } from "@gc-digital-talent/forms";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -90,6 +92,12 @@ export const Component = () => {
     ],
   });
 
+  const methods = useForm({
+    defaultValues: {
+      signInMethod: featureFlags.canadaLogin ? "canadaLogin" : "gckey",
+    },
+  });
+
   useEffect(() => {
     if (iapMode && themeKey !== "iap") {
       setThemeKey("iap");
@@ -136,39 +144,91 @@ export const Component = () => {
                       "Copy under welcome heading at the top of the sign in page",
                   })}
                 </p>
-                <div className="flex flex-col items-start gap-4 pt-6 pl-2 xs:flex-row xs:items-center">
-                  <Link
-                    href={paths.registrationExperience()} // TODO
-                    mode="solid"
-                    color="primary"
-                    utilityIcon={ChevronDoubleRightIcon}
-                    external
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "Get started",
-                      id: "ci28W3", // TODO
-                      description:
-                        "CanadaLogin sign up link text on the sign in page",
-                    })}
-                  </Link>
-                  <p className="m-0 flex items-center lg:pl-4">
-                    <Link
-                      href={paths.registrationExperience()} // TODO
-                      mode="inline"
-                      external
-                      className="lg:ml-2"
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "I need help",
-                        id: "+G1WRn", // TODO
-                        description:
-                          "Heading for the instructions resource block on the sign in page",
-                      })}
-                    </Link>
-                  </p>
+
+                <p className="pt-6 pl-2">
+                  {intl.formatMessage({
+                    defaultMessage: "How did you last sign in?",
+                    id: "CIDrn4", // TODO
+                    description:
+                      "Heading for the section asking users how they last signed in on the sign in page",
+                  })}
+                </p>
+
+                <div className="pl-2">
+                  <FormProvider {...methods}>
+                    <RadioGroup
+                      idPrefix="signin-method"
+                      name="signInMethod"
+                      legend=""
+                      columns={1}
+                      items={[
+                        {
+                          value: "canadaLogin",
+                          label: "CanadaLogin",
+                          contentBelow: featureFlags.canadaLogin ? (
+                            <p>
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  "Your last sign in was recent and used your email to create a CanadaLogin account",
+                                id: "KG4nJL", //TODO
+                                description:
+                                  "Message shown under CanadaLogin option on sign in page",
+                              })}
+                            </p>
+                          ) : null,
+                        },
+                        {
+                          value: "gckey",
+                          label: "GCKey",
+                          contentBelow: (
+                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  "Your last sign in was before April 2026 and used a GCKey username",
+                                id: "5V6IMt", // TODO
+                                description:
+                                  "Message shown under GCKey option on sign in page",
+                              })}
+                            </p>
+                          ),
+                        },
+                      ]}
+                    />
+                  </FormProvider>
                 </div>
               </div>
             )}
+            <div className="flex flex-col items-start gap-4 pt-6 pl-2 xs:flex-row xs:items-center">
+              <Link
+                href={paths.registrationExperience()} // TODO
+                mode="solid"
+                color="primary"
+                utilityIcon={ChevronDoubleRightIcon}
+                external
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Get started",
+                  id: "ci28W3", // TODO
+                  description:
+                    "CanadaLogin sign up link text on the sign in page",
+                })}
+              </Link>
+              <p className="m-0 flex items-center lg:pl-4">
+                <Link
+                  href={paths.registrationExperience()} // TODO
+                  mode="inline"
+                  external
+                  className="lg:ml-2"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "I need help",
+                    id: "+G1WRn", // TODO
+                    description:
+                      "Heading for the instructions resource block on the sign in page",
+                  })}
+                </Link>
+              </p>
+            </div>
           </div>
         </Hero>
 
