@@ -335,4 +335,9 @@ class PoolBuilder extends Builder
         // fall through - anyone can view a published pool
         return $this->wherePublished();
     }
+
+    public function withPolicyEagerLoads(): self
+    {
+        return $this->with(['team', 'community.team', 'department.team']);
+    }
 }

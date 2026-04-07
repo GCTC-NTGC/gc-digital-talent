@@ -23,10 +23,10 @@ final class CreatePoolValidator extends Validator
         // this must be validated in the scenario of users with multiple roles allowing more options
         $user = User::find($this->arg('userId'));
         $community = ! is_null($this->arg('communityId')) ?
-            Community::find($this->arg('communityId'))->loadMissing('team')
+            Community::find($this->arg('communityId'))
             : null;
         $department = ($this->arg('pool'))['department'] && ($this->arg('pool'))['department']['connect'] ?
-            Department::find(($this->arg('pool'))['department']['connect'])->loadMissing('team')
+            Department::find(($this->arg('pool'))['department']['connect'])
              : null;
 
         /**

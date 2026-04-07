@@ -680,6 +680,11 @@ class PoolCandidateBuilder extends Builder
         return $this->orderByRaw('array_position(ARRAY[?, ?, ?, ?]::varchar[], screening_stage) '.$order, $enumOrder);
     }
 
+    public function withPolicyEagerLoads(): self
+    {
+        return $this->with(['pool.team', 'pool.community.team', 'pool.department.team']);
+    }
+
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
