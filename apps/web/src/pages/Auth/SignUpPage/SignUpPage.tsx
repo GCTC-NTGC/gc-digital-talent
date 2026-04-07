@@ -347,7 +347,7 @@ export const Component = () => {
               size="sm"
               mode="card"
               collapsible
-              className="my-16"
+              className="my-6"
             >
               <Accordion.Item value="one">
                 <Accordion.Trigger as="h3">
@@ -413,28 +413,8 @@ export const Component = () => {
                   <p>{intl.formatMessage(gckeyMessages.answerContactGCkey5)}</p>
                 </Accordion.Content>
               </Accordion.Item>
+
               <Accordion.Item value="three">
-                <Accordion.Trigger as="h3">
-                  {intl.formatMessage(gckeyMessages.questionAuthApp)}
-                </Accordion.Trigger>
-                <Accordion.Content>
-                  <p>{intl.formatMessage(gckeyMessages.answerAuthApp)}</p>
-                </Accordion.Content>
-              </Accordion.Item>
-              <Accordion.Item value="four">
-                <Accordion.Trigger as="h3">
-                  {intl.formatMessage(gckeyMessages.questionRecoveryCodes)}
-                </Accordion.Trigger>
-                <Accordion.Content>
-                  <p>
-                    {intl.formatMessage(gckeyMessages.answerRecoveryCodes, {
-                      helpLink: (chunks: ReactNode) =>
-                        helpLink(chunks, paths.support()),
-                    })}
-                  </p>
-                </Accordion.Content>
-              </Accordion.Item>
-              <Accordion.Item value="five">
                 <Accordion.Trigger as="h3">
                   {intl.formatMessage(gckeyMessages.questionAuthAlternative)}
                 </Accordion.Trigger>
@@ -444,33 +424,8 @@ export const Component = () => {
                   </p>
                 </Accordion.Content>
               </Accordion.Item>
-              <Accordion.Item value="six">
-                <Accordion.Trigger as="h3">
-                  {intl.formatMessage(gckeyMessages.questionRemove2FA)}
-                </Accordion.Trigger>
-                <Accordion.Content>
-                  <p>
-                    {intl.formatMessage(gckeyMessages.answerRemove2FA, {
-                      helpLink: (chunks: ReactNode) =>
-                        helpLink(chunks, paths.support()),
-                    })}
-                  </p>
-                </Accordion.Content>
-              </Accordion.Item>
-              <Accordion.Item value="seven">
-                <Accordion.Trigger as="h3">
-                  {intl.formatMessage(gckeyMessages.questionAuthCodes)}
-                </Accordion.Trigger>
-                <Accordion.Content>
-                  <p>
-                    {intl.formatMessage(gckeyMessages.answerAuthCodes, {
-                      helpLink: (chunks: ReactNode) =>
-                        helpLink(chunks, paths.support()),
-                    })}
-                  </p>
-                </Accordion.Content>
-              </Accordion.Item>
-              <Accordion.Item value="eight">
+
+              <Accordion.Item value="four">
                 <Accordion.Trigger as="h3">
                   {intl.formatMessage(gckeyMessages.questionExistingAccount)}
                 </Accordion.Trigger>
