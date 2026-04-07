@@ -46,9 +46,6 @@ class PoolPolicy
             return true;
         }
 
-        // Load team only when needed to check if team owns draft.
-        $pool->loadMissing(['team', 'community.team', 'department.team']);
-
         // Check permissions for pool team.
         if ($pool->team && $user->isAbleTo('view-team-draftPool', $pool->team)) {
             return true;
@@ -143,7 +140,6 @@ class PoolPolicy
      */
     public function updateDraft(User $user, Pool $pool)
     {
-        $pool->loadMissing(['team', 'community.team', 'department.team']);
         $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-draftPool', $pool->team);
         $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('update-team-draftPool', $pool->community->team);
         $departmentPermission = ! is_null($pool->department->team) && $user->isAbleTo('update-team-draftPool', $pool->department->team);
@@ -167,7 +163,6 @@ class PoolPolicy
             return true;
         }
 
-        $pool->loadMissing(['community.team']);
         $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
 
         if ($communityPermission) {
@@ -192,8 +187,6 @@ class PoolPolicy
             return true;
         }
 
-        $pool->loadMissing(['community.team', 'department.team']);
-
         if (
             (! is_null($pool->community?->team) && $user->isAbleTo('publish-team-draftPool', $pool->community->team))
             || (isset($pool->department->team) && $user->isAbleTo('publish-team-draftPool', $pool->department->team))
@@ -211,7 +204,6 @@ class PoolPolicy
      */
     public function changePoolClosingDate(User $user, Pool $pool)
     {
-        $pool->loadMissing(['team', 'community.team']);
         $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-publishedPool', $pool->team);
         $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
 
@@ -225,7 +217,6 @@ class PoolPolicy
      */
     public function closePool(User $user, Pool $pool)
     {
-        $pool->loadMissing(['team', 'community.team']);
         $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-publishedPool', $pool->team);
         $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
 
@@ -240,7 +231,6 @@ class PoolPolicy
     public function deleteDraft(User $user, Pool $pool)
     {
         if ($pool->status === PoolStatus::DRAFT->name) {
-            $pool->loadMissing(['team', 'community.team', 'department.team']);
             $teamPermission = ! is_null($pool->team) && $user->isAbleTo('delete-team-draftPool', $pool->team);
             $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('delete-team-draftPool', $pool->community->team);
             $departmentPermission = ! is_null($pool->department->team) && $user->isAbleTo('delete-team-draftPool', $pool->department->team);
@@ -262,7 +252,6 @@ class PoolPolicy
      */
     public function archiveAndUnarchive(User $user, Pool $pool)
     {
-        $pool->loadMissing(['team', 'community.team', 'department.team']);
         $teamPermission = ! is_null($pool->team) && $user->isAbleTo('archive-team-publishedPool', $pool->team);
         $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('archive-team-publishedPool', $pool->community->team);
         $departmentPermission = ! is_null($pool->department->team) && $user->isAbleTo('archive-team-publishedPool', $pool->department->team);
@@ -281,7 +270,6 @@ class PoolPolicy
             return true;
         }
 
-        $pool->loadMissing(['team', 'community.team', 'department.team']);
         $teamPermission = ! is_null($pool->team) && $user->isAbleTo('view-team-assessmentPlan', $pool->team);
         $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('view-team-assessmentPlan', $pool->community->team);
         $departmentPermission = ! is_null($pool->department->team) && $user->isAbleTo('view-team-assessmentPlan', $pool->department->team);
@@ -300,7 +288,6 @@ class PoolPolicy
             return true;
         }
 
-        $pool->loadMissing(['team', 'community.team', 'department.team']);
         $teamPermission = ! is_null($pool->team) && ($user->isAbleTo('view-team-poolTeamMembers', $pool->team));
         $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('view-team-poolTeamMembers', $pool->community->team);
         $departmentPermission = ! is_null($pool->department->team) && $user->isAbleTo('view-team-poolTeamMembers', $pool->department->team);

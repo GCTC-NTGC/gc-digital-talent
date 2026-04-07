@@ -36,8 +36,6 @@ class PoolCandidateSearchRequestPolicy
             return true;
         }
 
-        $poolCandidateSearchRequest->loadMissing('community.team');
-
         if (isset($poolCandidateSearchRequest->community->team)) {
             return $user->isAbleTo('view-team-searchRequest', $poolCandidateSearchRequest->community->team);
         }
@@ -67,8 +65,6 @@ class PoolCandidateSearchRequestPolicy
             return true;
         }
 
-        $poolCandidateSearchRequest->loadMissing('community.team');
-
         if (isset($poolCandidateSearchRequest->community->team)) {
             return $user->isAbleTo('update-team-searchRequest', $poolCandidateSearchRequest->community->team);
         }
@@ -86,8 +82,6 @@ class PoolCandidateSearchRequestPolicy
         if ($user->isAbleTo('delete-any-searchRequest')) {
             return true;
         }
-
-        $poolCandidateSearchRequest->loadMissing('community.team');
 
         if (isset($poolCandidateSearchRequest->community->team)) {
             return $user->isAbleTo('delete-team-searchRequest', $poolCandidateSearchRequest->community->team);

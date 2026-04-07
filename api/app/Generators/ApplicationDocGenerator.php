@@ -22,7 +22,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
     public function __construct(protected PoolCandidate $candidate, public ?string $dir, protected ?string $lang)
     {
-        $candidate->loadMissing(['user', 'pool' => ['classification']]);
         $fileName = sprintf(
             '%s %s - Application - Candidature',
             $this->sanitizeFileNameString($candidate->user?->first_name),

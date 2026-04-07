@@ -1619,10 +1619,6 @@
     "defaultMessage": "Modifier un volet de travail",
     "description": "Page title for the work stream edit page"
   },
-  "4TsmrB": {
-    "defaultMessage": "En cours de recommandation",
-    "description": "A candidate is being referred for new positions"
-  },
   "4V/DsD": {
     "defaultMessage": "En savoir plus<hidden> à propos de la collectivité des gestionnaires</hidden>",
     "description": "Link text to the managers community"
@@ -2574,10 +2570,6 @@
   "8oFk6S": {
     "defaultMessage": "Mise à jour de la collectivité réussie!",
     "description": "Message displayed after a community is updated"
-  },
-  "8oOKi9": {
-    "defaultMessage": "Erreur : impossible de mettre à jour le statut du placement du candidat",
-    "description": "Message displayed when an error occurs while updating pool candidate's job placement status"
   },
   "8p4ty0": {
     "defaultMessage": "Qu’est-ce que le Fonds de formation et de perfectionnement de la collectivité de la TI?",
@@ -3835,10 +3827,6 @@
     "defaultMessage": "Masquer plus de renseignements sur les types d’expériences que vous pouvez ajouter à votre chronologie de carrière",
     "description": "Button text to close accordion describing skill experience"
   },
-  "DyHuZi": {
-    "defaultMessage": "Enregistrer la décision",
-    "description": "Submit message for job placement dialog"
-  },
   "DzCUmx": {
     "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà en poste, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
     "description": "Description of the application on the homepage"
@@ -4778,6 +4766,10 @@
   "IKaWRI": {
     "defaultMessage": " Préférences en matière de gestion des talents",
     "description": "Title for talent management preferences section"
+  },
+  "ILThW5": {
+    "defaultMessage": "Disponible aux fins de recommandation",
+    "description": "A candidate is being referred for new positions"
   },
   "IMGvOV": {
     "defaultMessage": "{candidateCount, plural, one {<testId>#</testId> concordance approximative} other {<testId>#</testId> concordances approximatives} }",
@@ -6567,10 +6559,6 @@
     "defaultMessage": "Modifier votre expérience",
     "description": "Page title for the application career timeline edit experience page"
   },
-  "QSbP/J": {
-    "defaultMessage": "Suivre le placement de ce candidat à l'aide des options suivantes.",
-    "description": "Subtitle for job placement dialog"
-  },
   "QSrnA8": {
     "defaultMessage": "Modifier l’information de la collectivité et gérer les rôles",
     "description": "Permissions related to managing the community and its users"
@@ -7778,10 +7766,6 @@
     "defaultMessage": "Vous avez déjà un compte de CléGC?",
     "description": "GCKey question for when user already has an account"
   },
-  "W3NvhG": {
-    "defaultMessage": "Placement professionnel",
-    "description": "Heading job placement dialog"
-  },
   "W58QTT": {
     "defaultMessage": "Cet utilisateur n'est encore dans aucun bassin",
     "description": "Message on view-user page that the user is not in any pools"
@@ -7813,10 +7797,6 @@
   "WBvYyt": {
     "defaultMessage": "Enregistrer le numéro de processus",
     "description": "Text on a button to save the process number"
-  },
-  "WDFayO": {
-    "defaultMessage": "Disponible aux fins de recommandation",
-    "description": "Dialog trigger for pause referrals status dialog"
   },
   "WDKT2K": {
     "defaultMessage": "Qu'est-ce qu'une CléGC?",
@@ -9422,10 +9402,6 @@
     "defaultMessage": "Vérifier les informations incorrectes ou obsolètes",
     "description": "Label for review of nominee information"
   },
-  "dDrs39": {
-    "defaultMessage": "La candidate ou le candidat n’apparaîtra pas dans les résultats de recherche des talents liés à ce processus.",
-    "description": "Notice that candidates under consideration do not appear in talent search requests"
-  },
   "dE2WB1": {
     "defaultMessage": "Équité en matière d’emploi ({equityFiltersActive})",
     "description": "Employment equity with a number in parentheses"
@@ -10393,10 +10369,6 @@
   "gpcHeU": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Header."
-  },
-  "gr8+Es": {
-    "defaultMessage": "Le statut du placement a été enregistré avec succès",
-    "description": "Message displayed when a job placement status has been saved."
   },
   "gsjH8R": {
     "defaultMessage": "Je souhaite bénéficier des possibilités de formation et des programmes de perfectionnement au sein de cette collectivité.",
@@ -11833,6 +11805,10 @@
   "mriIoW": {
     "defaultMessage": "Confirmer à nouveau l'adresse courriel",
     "description": "Link to redo email verification"
+  },
+  "ms0CBt": {
+    "defaultMessage": "Lien de mise en candidature copié",
+    "description": "Button text to indicate that a talent event nomination URL has been copied"
   },
   "msr1cl": {
     "defaultMessage": "Compétences comportementales essentielles",
@@ -13758,6 +13734,10 @@
     "defaultMessage": "{title} à {organization}",
     "description": "Title at organization"
   },
+  "vV5a2X": {
+    "defaultMessage": "Copier le lien de mise en candidature",
+    "description": "Button text to copy a nomination URL"
+  },
   "vVAqzB": {
     "defaultMessage": "Vous n'avez aucun processus de recrutement actif pour I'instant.",
     "description": "Title for notice when there are no recruitment processes"
@@ -14861,6 +14841,10 @@
   "zvXWQB": {
     "defaultMessage": "Télécharger la trousse du gestionnaire pour plus de renseignements et contactez l’équipe pour lancer le processus.",
     "description": "Paragraph 1 for the 'How to begin hiring an apprentice' section"
+  },
+  "zxHKZ2": {
+    "defaultMessage": "Copier le lien de mise en candidature {title} dans le presse-papiers",
+    "description": "Button text to copy a create talent event URL"
   },
   "zxLL3N": {
     "defaultMessage": "Afficher les détails de cette expérience",

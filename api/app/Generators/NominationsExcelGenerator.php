@@ -499,8 +499,6 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function getLeadershipCompetencies(TalentNomination $nomination): string
     {
-        $nomination->loadMissing('skills');
-
         if ($nomination->skills->isEmpty()) {
             return '';
         }
