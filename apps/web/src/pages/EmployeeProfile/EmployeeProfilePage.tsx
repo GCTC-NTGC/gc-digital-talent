@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -15,30 +16,14 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { NotFoundError, UnauthorizedError } from "@gc-digital-talent/helpers";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
-import StatusItem, { Status } from "~/components/StatusItem/StatusItem";
-import {
-  hasAllEmptyFields as careerDevelopmentHasAllEmptyFields,
-  hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields,
-} from "~/validators/employeeProfile/careerDevelopment";
-import {
-  hasAllEmptyFields as nextRoleHasAllEmptyFields,
-  hasEmptyRequiredFields as nextRoleHasEmptyRequiredFields,
-} from "~/validators/employeeProfile/nextRole";
-import {
-  hasAllEmptyFields as careerObjectiveHasAllEmptyFields,
-  hasEmptyRequiredFields as careerObjectiveHasEmptyRequiredFields,
-} from "~/validators/employeeProfile/careerObjective";
-import {
-  hasAllEmptyFields as goalsWorkStyleHasAllEmptyFields,
-  hasEmptyRequiredFields as goalsWorkStyleHasEmptyRequiredFields,
-} from "~/validators/employeeProfile/goalsWorkStyle";
+import StatusItem from "~/components/StatusItem/StatusItem";
 
 import messages from "./messages";
 import GoalsWorkStyleSection, {
@@ -52,6 +37,13 @@ import NextRoleSection, {
 import CareerObjectiveSection, {
   EmployeeProfileCareerObjective_Fragment,
 } from "./components/CareerObjective/CareerObjectiveSection";
+import {
+  getCareerDevelopmentStatus,
+  getCareerObjectiveStatus,
+  getGoalsWorkStyleStatus,
+  getNextRoleStatus,
+  getOverallStatus,
+} from "./utils";
 
 const SECTION_ID = {
   EMPLOYEE_VERIFICATION: "employee-verification-section",
@@ -100,16 +92,6 @@ const EmployeeProfile = ({
     throw new NotFoundError();
   }
 
-  if (!user?.isVerifiedGovEmployee) {
-    throw new UnauthorizedError(
-      intl.formatMessage({
-        defaultMessage: "Not a verified employee",
-        id: "Ljv0T9",
-        description: "Error message for unauthorized employee access",
-      }),
-    );
-  }
-
   const pageTitle = intl.formatMessage({
     defaultMessage: "GC employee profile",
     id: "V2ML6q",
@@ -152,15 +134,36 @@ const EmployeeProfile = ({
     user.employeeProfile,
   );
 
-  let overallStatus: Status = "success";
-  if (
-    careerDevelopmentHasEmptyRequiredFields(careerDevelopment) ||
-    nextRoleHasEmptyRequiredFields(nextRole) ||
-    careerObjectiveHasEmptyRequiredFields(careerObjective) ||
-    goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
-  ) {
-    overallStatus = "error";
-  }
+  const statusDescriptions = {
+    error: commonMessages.incomplete,
+    success: commonMessages.complete,
+    optional: commonMessages.optional,
+    locked: commonMessages.notAvailable,
+  };
+
+  const overallStatus = getOverallStatus(
+    !!user.isVerifiedGovEmployee,
+    careerDevelopment,
+    nextRole,
+    careerObjective,
+    goalsWorkStyle,
+  );
+  const careerDevelopmentStatus = getCareerDevelopmentStatus(
+    !!user.isVerifiedGovEmployee,
+    careerDevelopment,
+  );
+  const nextRoleStatus = getNextRoleStatus(
+    !!user.isVerifiedGovEmployee,
+    nextRole,
+  );
+  const careerObjectiveStatus = getCareerObjectiveStatus(
+    !!user.isVerifiedGovEmployee,
+    careerObjective,
+  );
+  const goalsWorkStyleStatus = getGoalsWorkStyleStatus(
+    !!user.isVerifiedGovEmployee,
+    goalsWorkStyle,
+  );
 
   return (
     <>
@@ -192,9 +195,7 @@ const EmployeeProfile = ({
                   status={overallStatus}
                   scrollTo={SECTION_ID.CAREER_PLANNING}
                   hiddenContextPrefix={intl.formatMessage(
-                    overallStatus === "error"
-                      ? commonMessages.incomplete
-                      : commonMessages.complete,
+                    statusDescriptions[overallStatus],
                   )}
                 />
                 <TableOfContents.List className="list-none pl-3">
@@ -202,28 +203,10 @@ const EmployeeProfile = ({
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.careerDevelopment)}
-                      status={
-                        careerDevelopmentHasEmptyRequiredFields(
-                          careerDevelopment,
-                        )
-                          ? "error"
-                          : careerDevelopmentHasAllEmptyFields(
-                                careerDevelopment,
-                              )
-                            ? "optional"
-                            : "success"
-                      }
+                      status={careerDevelopmentStatus}
                       scrollTo={SECTION_ID.CAREER_DEVELOPMENT}
                       hiddenContextPrefix={intl.formatMessage(
-                        careerDevelopmentHasEmptyRequiredFields(
-                          careerDevelopment,
-                        )
-                          ? commonMessages.incomplete
-                          : careerDevelopmentHasAllEmptyFields(
-                                careerDevelopment,
-                              )
-                            ? commonMessages.optional
-                            : commonMessages.complete,
+                        statusDescriptions[careerDevelopmentStatus],
                       )}
                     />
                   </TableOfContents.ListItem>
@@ -231,20 +214,10 @@ const EmployeeProfile = ({
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.yourNextRole)}
-                      status={
-                        nextRoleHasEmptyRequiredFields(nextRole)
-                          ? "error"
-                          : nextRoleHasAllEmptyFields(nextRole)
-                            ? "optional"
-                            : "success"
-                      }
+                      status={nextRoleStatus}
                       scrollTo={SECTION_ID.NEXT_ROLE}
                       hiddenContextPrefix={intl.formatMessage(
-                        nextRoleHasEmptyRequiredFields(nextRole)
-                          ? commonMessages.incomplete
-                          : nextRoleHasAllEmptyFields(nextRole)
-                            ? commonMessages.optional
-                            : commonMessages.complete,
+                        statusDescriptions[nextRoleStatus],
                       )}
                     />
                   </TableOfContents.ListItem>
@@ -252,20 +225,10 @@ const EmployeeProfile = ({
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.careerObjective)}
-                      status={
-                        careerObjectiveHasEmptyRequiredFields(careerObjective)
-                          ? "error"
-                          : careerObjectiveHasAllEmptyFields(careerObjective)
-                            ? "optional"
-                            : "success"
-                      }
+                      status={careerObjectiveStatus}
                       scrollTo={SECTION_ID.CAREER_OBJECTIVE}
                       hiddenContextPrefix={intl.formatMessage(
-                        careerObjectiveHasEmptyRequiredFields(careerObjective)
-                          ? commonMessages.incomplete
-                          : careerObjectiveHasAllEmptyFields(careerObjective)
-                            ? commonMessages.optional
-                            : commonMessages.complete,
+                        statusDescriptions[careerObjectiveStatus],
                       )}
                     />
                   </TableOfContents.ListItem>
@@ -273,20 +236,10 @@ const EmployeeProfile = ({
                     <StatusItem
                       asListItem={false}
                       title={intl.formatMessage(messages.goalsWorkStyle)}
-                      status={
-                        goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
-                          ? "error"
-                          : goalsWorkStyleHasAllEmptyFields(goalsWorkStyle)
-                            ? "optional"
-                            : "success"
-                      }
+                      status={goalsWorkStyleStatus}
                       scrollTo={SECTION_ID.GOALS_WORK_STYLE}
                       hiddenContextPrefix={intl.formatMessage(
-                        goalsWorkStyleHasEmptyRequiredFields(goalsWorkStyle)
-                          ? commonMessages.incomplete
-                          : goalsWorkStyleHasAllEmptyFields(goalsWorkStyle)
-                            ? commonMessages.optional
-                            : commonMessages.complete,
+                        statusDescriptions[goalsWorkStyleStatus],
                       )}
                     />
                   </TableOfContents.ListItem>
@@ -327,8 +280,12 @@ const EmployeeProfile = ({
               <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
                 <Heading
                   level="h2"
-                  icon={ChartBarSquareIcon}
-                  color="primary"
+                  icon={
+                    user.isVerifiedGovEmployee
+                      ? ChartBarSquareIcon
+                      : LockClosedIcon
+                  }
+                  color={user.isVerifiedGovEmployee ? "primary" : "black"}
                   className="mt-0 font-normal sm:text-left"
                 >
                   {intl.formatMessage(commonMessages.careerPlanning)}
@@ -347,23 +304,27 @@ const EmployeeProfile = ({
                 <CareerDevelopmentSection
                   employeeProfileQuery={user.employeeProfile}
                   careerDevelopmentOptionsQuery={options}
+                  isVerifiedGovEmployee={!!user.isVerifiedGovEmployee}
                 />
               </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.NEXT_ROLE}>
                 <NextRoleSection
                   employeeProfileQuery={user.employeeProfile}
                   optionsQuery={options}
+                  isVerifiedGovEmployee={!!user.isVerifiedGovEmployee}
                 />
               </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.CAREER_OBJECTIVE}>
                 <CareerObjectiveSection
                   employeeProfileQuery={user.employeeProfile}
                   optionsQuery={options}
+                  isVerifiedGovEmployee={!!user.isVerifiedGovEmployee}
                 />
               </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.GOALS_WORK_STYLE}>
                 <GoalsWorkStyleSection
                   employeeProfileQuery={user.employeeProfile}
+                  isVerifiedGovEmployee={!!user.isVerifiedGovEmployee}
                 />
               </TableOfContents.Section>
             </div>
