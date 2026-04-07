@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -16,7 +15,6 @@ use Illuminate\Support\Carbon;
  * @property ?Carbon $updated_at
  * @property string $community_id
  * @property string $development_program_id
- * @property array $description_for_nominations
  */
 class CommunityDevelopmentProgram extends Model
 {
@@ -32,12 +30,9 @@ class CommunityDevelopmentProgram extends Model
     protected $fillable = [
         'community_id',
         'development_program_id',
-        'description_for_nominations',
     ];
 
-    protected $casts = [
-        'description_for_nominations' => LocalizedString::class,
-    ];
+    protected $casts = [];
 
     //
     // Relations

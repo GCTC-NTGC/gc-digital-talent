@@ -858,8 +858,6 @@ type CommunityDevelopmentProgram {
   id: UUID!
   community: Community! @belongsTo
   developmentProgram: DevelopmentProgram! @belongsTo
-  descriptionForNominations: LocalizedString
-    @rename(attribute: "description_for_nominations")
   classifications: [Classification!] @belongsToMany
 }
 
@@ -3135,15 +3133,11 @@ input SendUserEmailsVerificationInput @validator {
 input CreateCommunityDevelopmentProgramInput {
   communityId: UUID! @rename(attribute: "community_id")
   developmentProgramId: UUID! @rename(attribute: "development_program_id")
-  descriptionForNominations: LocalizedStringInput
-    @rename(attribute: "description_for_nominations")
   classifications: ClassificationBelongsToMany
 }
 
 input UpdateCommunityDevelopmentProgramInput {
   id: UUID!
-  descriptionForNominations: LocalizedStringInput
-    @rename(attribute: "description_for_nominations")
   classifications: ClassificationBelongsToMany
 }
 

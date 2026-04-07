@@ -27,7 +27,6 @@ return new class extends Migration
                 ->constrained('development_programs', 'id')
                 ->onDelete('cascade');
             $table->unique(['community_id', 'development_program_id']);
-            $table->jsonb('description_for_nominations')->default(json_encode(['en' => '', 'fr' => '']))->nullable();
         });
         Schema::create('classification_community_development_program', function (Blueprint $table) {
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
@@ -51,7 +50,6 @@ return new class extends Migration
             DB::table('community_development_program')->insert([
                 'community_id' => $developmentProgram->community_id,
                 'development_program_id' => $developmentProgram->id,
-                'description_for_nominations' => $developmentProgram->description_for_nominations,
             ]);
         }
 

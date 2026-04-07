@@ -1315,7 +1315,6 @@ type CommunityDevelopmentProgram {
   id: UUID!
   community: Community!
   developmentProgram: DevelopmentProgram!
-  descriptionForNominations: LocalizedString
   classifications: [Classification!]
 }
 
@@ -2913,13 +2912,11 @@ input SendUserEmailsVerificationInput {
 input CreateCommunityDevelopmentProgramInput {
   communityId: UUID!
   developmentProgramId: UUID!
-  descriptionForNominations: LocalizedStringInput
   classifications: ClassificationBelongsToMany
 }
 
 input UpdateCommunityDevelopmentProgramInput {
   id: UUID!
-  descriptionForNominations: LocalizedStringInput
   classifications: ClassificationBelongsToMany
 }
 
