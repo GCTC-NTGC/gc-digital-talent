@@ -124,6 +124,7 @@ class AuthController extends Controller
         );
 
         // preferred language
+        $idTokenLocaleCode = null;
         if ($idToken->claims()->has('locale')) {
             $normalizedValue = strtolower(substr($idToken->claims()->get('locale'), 0, 2));
             if ($normalizedValue == 'en' || $normalizedValue == 'fr') {
