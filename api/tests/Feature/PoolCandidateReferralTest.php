@@ -25,7 +25,7 @@ class PoolCandidateReferralTest extends TestCase
         string $status,
         ?Carbon $pauseAt,
         ?Carbon $resumeAt,
-        bool $expected
+        ?bool $expected
     ) {
         $candidate = PoolCandidate::factory()->create([
             'application_status' => $status,
