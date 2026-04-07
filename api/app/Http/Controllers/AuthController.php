@@ -123,15 +123,33 @@ class AuthController extends Controller
             new InvalidArgumentException('Invalid session nonce')
         );
 
+        // preferred language
+        if ($idToken->claims()->has('locale')) {
+            $normalizedValue = strtolower(substr($idToken->claims()->get('locale'), 0, 2));
+            if ($normalizedValue == 'en' || $normalizedValue == 'fr') {
+                $idTokenLocaleCode = $normalizedValue;
+            }
+        }
+
         // track whether a new user was created
         $newUserCreated = false;
 
         // find the corresponding User
         $sub = $idToken->claims()->get('sub');
-        $userMatch = User::where('sub', $sub)->withTrashed()->firstOr(function () use ($sub, &$newUserCreated) {
+        $userMatch = User::where('sub', $sub)->withTrashed()->firstOr(function () use ($sub, &$newUserCreated, $idTokenLocaleCode) {
             // No user found for given subscriber - lets auto-register them
             $newUser = new User;
             $newUser->sub = $sub;
+            if ($idTokenLocaleCode == 'en') {
+                $newUser->looking_for_english = true;
+            }
+            if ($idTokenLocaleCode == 'fr') {
+                $newUser->looking_for_french = true;
+            }
+            if (! empty($idTokenLocaleCode)) {
+                $newUser->preferred_language_for_interview = $idTokenLocaleCode;
+                $newUser->preferred_language_for_exam = $idTokenLocaleCode;
+            }
             $newUser->save();
             $newUser->syncRoles([  // every new user is automatically an base_user and an applicant
                 Role::where('name', 'base_user')->sole(),
@@ -191,11 +209,8 @@ class AuthController extends Controller
         if ($idToken->claims()->has('phone_number')) {
             $userMatch->telephone = $idToken->claims()->get('phone_number');
         }
-        if ($idToken->claims()->has('locale')) {
-            $normalizedValue = strtolower(substr($idToken->claims()->get('locale'), 0, 2));
-            if ($normalizedValue == 'en' || $normalizedValue == 'fr') {
-                $userMatch->preferred_lang = $normalizedValue;
-            }
+        if (! empty($idTokenLocaleCode)) {
+            $userMatch->preferred_lang = $idTokenLocaleCode;
         }
         $userMatch->save();
 
