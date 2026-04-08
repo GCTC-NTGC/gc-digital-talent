@@ -8,6 +8,7 @@ import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRight
 
 import {
   Accordion,
+  Caption,
   Container,
   Heading,
   Link,
@@ -161,11 +162,12 @@ export const Component = () => {
                 </p>
                 <div className="flex flex-col items-start gap-4 pt-6 pl-2 xs:flex-row xs:items-center">
                   <Link
-                    href={paths.registrationExperience()} // TODO
+                    href={paths.login()}
                     mode="solid"
                     color="primary"
                     utilityIcon={ChevronDoubleRightIcon}
                     external
+                    className="xxs:px-3"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Proceed to CanadaLogin",
@@ -174,12 +176,13 @@ export const Component = () => {
                         "CanadaLogin sign up link text on the registration page",
                     })}
                   </Link>
-                  <p className="m-0 flex items-center lg:pl-4">
+
+                  <p className="m-0 flex items-center pl-2">
                     <Link
-                      href={paths.registrationExperience()} // TODO
+                      href="#registrationInstructions"
                       mode="inline"
                       external
-                      className="lg:ml-2"
+                      className="sm:ml-4"
                     >
                       {intl.formatMessage({
                         defaultMessage: "Instructions on how to register",
@@ -202,6 +205,7 @@ export const Component = () => {
                 level="h3"
                 size="h4"
                 className="mt-6 mb-4 text-center font-normal xs:text-left"
+                id="registrationInstructions"
               >
                 {intl.formatMessage({
                   defaultMessage: "Part 1: Create a CanadaLogin account",
@@ -233,7 +237,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-4">
-                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
+                    <Caption>
                       {intl.formatMessage({
                         defaultMessage:
                           "If you've already used CanadaLogin on another service, you can enter your email and password and skip to step 2.",
@@ -241,7 +245,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </span>
+                    </Caption>
                   </div>
                 </InstructionsStepCard>
 
@@ -258,7 +262,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-4">
-                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
+                    <Caption>
                       {intl.formatMessage({
                         defaultMessage:
                           "The name you use here will be on your GC Digital Talent profile.",
@@ -266,7 +270,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </span>
+                    </Caption>
                   </div>
                 </InstructionsStepCard>
 
@@ -293,7 +297,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-4">
-                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
+                    <Caption>
                       {intl.formatMessage({
                         defaultMessage:
                           "Using a personal email address will help ensure you don't lose access if you change jobs.",
@@ -301,7 +305,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </span>
+                    </Caption>
                   </div>
                 </InstructionsStepCard>
               </InstructionsCardGrid>
@@ -341,7 +345,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-6">
-                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
+                    <Caption>
                       {intl.formatMessage({
                         defaultMessage:
                           "Using a personal phone number will help ensure you don't lose access if you change jobs.",
@@ -349,7 +353,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </span>
+                    </Caption>
                   </div>
                 </InstructionsStepCard>
 
@@ -375,7 +379,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-6">
-                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
+                    <Caption>
                       {intl.formatMessage({
                         defaultMessage:
                           "This code will be sent by either text or phone call, and will expire after ten minutes.",
@@ -383,7 +387,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </span>
+                    </Caption>
                   </div>
                 </InstructionsStepCard>
 
@@ -441,7 +445,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-6">
-                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
+                    <Caption>
                       {intl.formatMessage({
                         defaultMessage:
                           "You can manage your CanadaLogin profile and security setting on the CanadaLogin website.",
@@ -449,7 +453,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </span>
+                    </Caption>
                   </div>
                 </InstructionsStepCard>
 
@@ -467,7 +471,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-6">
-                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
+                    <Caption>
                       {intl.formatMessage({
                         defaultMessage:
                           "This feature is only available to current Government of Canada employees.",
@@ -475,7 +479,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </span>
+                    </Caption>
                   </div>
                 </InstructionsStepCard>
 
@@ -494,7 +498,7 @@ export const Component = () => {
                     })}
                   </p>
                   <div className="mt-6">
-                    <span className="text-base font-normal text-gray-500 dark:text-gray-200">
+                    <Caption>
                       {intl.formatMessage({
                         defaultMessage:
                           "If you are a government employee this is the final step in-order to unlock your employee tools.",
@@ -502,7 +506,7 @@ export const Component = () => {
                         description:
                           "Text for first registration -> create step.",
                       })}
-                    </span>
+                    </Caption>
                   </div>
                 </InstructionsStepCard>
               </InstructionsCardGrid>
@@ -512,7 +516,7 @@ export const Component = () => {
                 color="primary"
                 level="h3"
                 size="h4"
-                className="mt-12 justify-center font-normal xs:justify-start"
+                className="mt-12 mb-4 justify-center font-normal xs:justify-start"
               >
                 {intl.formatMessage({
                   defaultMessage: "Frequently Asked Questions (FAQs)",
@@ -526,7 +530,7 @@ export const Component = () => {
                 size="sm"
                 mode="card"
                 collapsible
-                className="my-16 mt-8"
+                className="my-16 mt-4"
               >
                 <Accordion.Item value="one">
                   <Accordion.Trigger as="h3">
