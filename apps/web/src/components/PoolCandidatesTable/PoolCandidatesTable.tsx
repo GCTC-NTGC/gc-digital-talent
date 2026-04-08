@@ -978,17 +978,16 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      (row) =>
-        row.poolCandidate.isBeingReferred
+      (row) => {
+        if (row.poolCandidate.isBeingReferred === null) return null;
+
+        return row.poolCandidate.isBeingReferred
           ? intl.formatMessage(poolCandidateMessages.availableForReferral)
-          : intl.formatMessage(poolCandidateMessages.notReferred),
+          : intl.formatMessage(poolCandidateMessages.notReferred);
+      },
       {
         id: "referralStatus",
-        header: intl.formatMessage({
-          defaultMessage: "Referral status",
-          id: "tZN+WQ",
-          description: "Label for a candidates referral status",
-        }),
+        header: intl.formatMessage(tableMessages.referralStatus),
         enableSorting: false,
         enableColumnFilter: false,
       },

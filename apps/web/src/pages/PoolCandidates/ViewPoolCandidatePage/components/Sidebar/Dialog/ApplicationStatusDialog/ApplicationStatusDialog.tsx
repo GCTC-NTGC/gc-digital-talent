@@ -48,7 +48,7 @@ const statusHeaderMap = new Map<ApplicationStatus, MessageDescriptor>([
   [ApplicationStatus.ToAssess, applicationMessages.applicationStatus],
   [ApplicationStatus.Qualified, messages.revertHeader],
   [ApplicationStatus.Disqualified, messages.revertHeader],
-  [ApplicationStatus.Removed, applicationMessages.reinstate],
+  [ApplicationStatus.Removed, messages.revertHeader],
 ]);
 
 interface ApplicationStatusDialogProps {

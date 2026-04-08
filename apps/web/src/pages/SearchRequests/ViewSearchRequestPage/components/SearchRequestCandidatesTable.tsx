@@ -7,6 +7,7 @@ import {
   CandidateExpiryFilter,
   PlacementType,
   ApplicationStatus,
+  CandidateReferralFilter,
 } from "@gc-digital-talent/graphql";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
@@ -94,6 +95,7 @@ const SingleSearchRequestTableApi = ({
               ...applicantFilterInput,
               suspendedStatus: CandidateSuspendedFilter.Active, // add default filters
               expiryStatus: CandidateExpiryFilter.Active,
+              referralStatuses: [CandidateReferralFilter.Referring],
             }
       }
       title={intl.formatMessage(adminMessages.poolCandidates)}
