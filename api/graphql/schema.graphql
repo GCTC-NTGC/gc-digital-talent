@@ -833,7 +833,7 @@ type Community implements HasRoleAssignments {
   developmentPrograms: [DevelopmentProgram!]
     @hasMany
     @deprecated(reason: "use associatedDevelopmentPrograms")
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
   associatedDevelopmentPrograms: [DevelopmentProgram!]
     @hasMany(relation: "developmentProgramsThroughPivot")
 }
