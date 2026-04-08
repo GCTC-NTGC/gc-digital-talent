@@ -53,6 +53,8 @@ jobs:
           fi
           php artisan lighthouse:print-schema --write
         displayName: Build Backend
+        env:
+          BROADCAST_CONNECTION: "null"
 
       - script: |
           export NVM_DIR="$HOME/.nvm"
