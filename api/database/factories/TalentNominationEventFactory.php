@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Community;
+use App\Models\CommunityDevelopmentProgram;
 use App\Models\DevelopmentProgram;
 use App\Models\TalentNominationEvent;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -56,9 +57,22 @@ class TalentNominationEventFactory extends Factory
         $count = $this->faker->numberBetween($min, $max);
 
         return $this->afterCreating(function (TalentNominationEvent $talentNominationEvent) use ($count) {
-            $developmentPrograms = DevelopmentProgram::factory()->count($count)->create(['community_id' => $talentNominationEvent->community_id]);
+            $developmentPrograms = DevelopmentProgram::factory()
+                ->count($count)
+                ->create();
 
-            $talentNominationEvent->developmentPrograms()->attach($developmentPrograms);
+            $communityDevelopmentPrograms = [];
+            foreach ($developmentPrograms as $developmentProgram) {
+                $created = CommunityDevelopmentProgram::create(
+                    [
+                        'community_id' => $talentNominationEvent->community_id,
+                        'development_program_id' => $developmentProgram->id,
+                    ]
+                );
+                array_push($communityDevelopmentPrograms, $created);
+            }
+
+            $talentNominationEvent->communityDevelopmentPrograms()->sync($communityDevelopmentPrograms);
         });
     }
 }
