@@ -221,7 +221,9 @@ type OffPlatformRecruitmentProcess {
 # A pivot table for employees to express interest in the development programs of a community.
 type DevelopmentProgramInterest {
   id: UUID!
-  developmentProgram: DevelopmentProgram! @belongsTo
+  communityDevelopmentProgram: CommunityDevelopmentProgram! @belongsTo
+  developmentProgram: DevelopmentProgram!
+    @hasOne(relation: "developmentProgramThroughPivot")
   participationStatus: DevelopmentProgramParticipationStatus
     @rename(attribute: "participation_status")
   completionDate: Date @rename(attribute: "completion_date")
@@ -2200,7 +2202,8 @@ input UpdateDevelopmentProgramInterestHasMany {
 }
 
 input CreateDevelopmentProgramInterestInput @validator {
-  developmentProgramId: UUID! @rename(attribute: "development_program_id")
+  communityDevelopmentProgramId: UUID!
+    @rename(attribute: "community_development_program_id")
   participationStatus: DevelopmentProgramParticipationStatus
     @rename(attribute: "participation_status")
   completionDate: Date @rename(attribute: "completion_date")

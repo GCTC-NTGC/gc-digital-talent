@@ -844,6 +844,7 @@ type OffPlatformRecruitmentProcess {
 
 type DevelopmentProgramInterest {
   id: UUID!
+  communityDevelopmentProgram: CommunityDevelopmentProgram!
   developmentProgram: DevelopmentProgram!
   participationStatus: DevelopmentProgramParticipationStatus
   completionDate: Date
@@ -2120,7 +2121,7 @@ input UpdateDevelopmentProgramInterestHasMany {
 }
 
 input CreateDevelopmentProgramInterestInput {
-  developmentProgramId: UUID!
+  communityDevelopmentProgramId: UUID!
   participationStatus: DevelopmentProgramParticipationStatus
   completionDate: Date
 }
