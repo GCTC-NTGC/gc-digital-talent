@@ -35,7 +35,7 @@ const FormFields = ({ labels }: FormFieldsProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  useDirtyFields("government");
+  useDirtyFields("citizen-veteran-priority");
   const { watch, resetField } = useFormContext<FormValues>();
   // hooks to watch, needed for conditional rendering
   const priorityEntitlement = watch("priorityEntitlementYesNo");
