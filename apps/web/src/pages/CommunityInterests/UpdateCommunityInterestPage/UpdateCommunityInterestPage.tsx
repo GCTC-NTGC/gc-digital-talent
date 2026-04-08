@@ -67,10 +67,13 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
     }
     additionalInformation
     interestInDevelopmentPrograms {
-      developmentProgram {
+      communityDevelopmentProgram {
         id
-        name {
-          localized
+        developmentProgram {
+          id
+          name {
+            localized
+          }
         }
       }
       participationStatus
