@@ -422,9 +422,10 @@ const CreateTalentEventPage = () => {
                   <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-left">
                     <Submit
                       text={intl.formatMessage({
-                        defaultMessage: "Create talent event page",
-                        id: "iH3wTR",
-                        description: "Button text to create talent event page",
+                        defaultMessage: "Create talent nomination event",
+                        id: "Ju0qLf",
+                        description:
+                          "Button text to create talent nomination event",
                       })}
                     />
                     <Link
