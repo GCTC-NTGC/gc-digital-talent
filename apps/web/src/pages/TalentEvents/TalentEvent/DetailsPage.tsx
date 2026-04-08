@@ -350,9 +350,10 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
               className="font-bold"
             >
               {intl.formatMessage({
-                defaultMessage: "Edit talent management event",
-                id: "+d2xgV",
-                description: "Link to edit the currently viewed community",
+                defaultMessage: "Edit talent nomination event",
+                id: "eEVJFa",
+                description:
+                  "Link to edit the currently viewed talent nomination event",
               })}
             </Link>
           </div>
