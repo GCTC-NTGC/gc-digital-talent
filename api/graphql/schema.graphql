@@ -830,7 +830,12 @@ type Community implements HasRoleAssignments {
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
   workStreams: [WorkStream!] @hasMany
-  developmentPrograms: [DevelopmentProgram!] @hasMany
+  developmentPrograms: [DevelopmentProgram!]
+    @hasMany
+    @deprecated(reason: "use associatedDevelopmentPrograms")
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
+  associatedDevelopmentPrograms: [DevelopmentProgram!]
+    @hasMany(relation: "developmentProgramsThroughPivot")
 }
 
 type DevelopmentProgram {
@@ -840,8 +845,20 @@ type DevelopmentProgram {
     @rename(attribute: "description_for_profile")
   descriptionForNominations: LocalizedString
     @rename(attribute: "description_for_nominations")
-  community: Community @belongsTo
+  community: Community
+    @belongsTo
+    @deprecated(reason: "use associatedCommunities")
   eligibleClassifications: [Classification!] @belongsToMany
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
+  associatedCommunities: [Community!]
+    @hasMany(relation: "communitiesThroughPivot")
+}
+
+type CommunityDevelopmentProgram {
+  id: UUID!
+  community: Community! @belongsTo
+  developmentProgram: DevelopmentProgram! @belongsTo
+  classifications: [Classification!] @belongsToMany
 }
 
 type TalentNominationEvent {
@@ -1439,6 +1456,8 @@ type SitewideAnnouncement {
   expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
+  updatedAt: DateTime!
+  isDismissible: Boolean!
 }
 
 type TrainingOpportunity {
@@ -1466,6 +1485,7 @@ input SitewideAnnouncementInput {
   expiryDate: DateTime! @rules(apply: ["after:publishDate"])
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isDismissible: Boolean!
 }
 
 input ClaimVerificationSort {
@@ -3115,6 +3135,17 @@ input SendUserEmailsVerificationInput @validator {
   emailTypes: [EmailType]
 }
 
+input CreateCommunityDevelopmentProgramInput {
+  communityId: UUID! @rename(attribute: "community_id")
+  developmentProgramId: UUID! @rename(attribute: "development_program_id")
+  classifications: ClassificationBelongsToMany
+}
+
+input UpdateCommunityDevelopmentProgramInput {
+  id: UUID!
+  classifications: ClassificationBelongsToMany
+}
+
 type Mutation {
   # User mutations
   createUser(user: CreateUserInput! @spread): User
@@ -3797,6 +3828,28 @@ type Mutation {
   updateTrainingOpportunity(
     updateTrainingOpportunity: UpdateTrainingOpportunityInput! @spread
   ): TrainingOpportunity @update @guard @canModel(ability: "update")
+
+  # Development/professionalization mutations
+  createCommunityDevelopmentProgram(
+    createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!
+      @spread
+  ): CommunityDevelopmentProgram
+    @guard
+    @create
+    @canModel(ability: "create", injectArgs: true)
+  updateCommunityDevelopmentProgram(
+    updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!
+      @spread
+  ): CommunityDevelopmentProgram
+    @guard
+    @update
+    @canFind(ability: "update", find: "id")
+  deleteCommunityDevelopmentProgram(
+    id: UUID! @whereKey
+  ): CommunityDevelopmentProgram
+    @guard
+    @delete
+    @canFind(ability: "delete", find: "id")
 
   # Excel file downloads
   downloadPoolCandidatesExcel(

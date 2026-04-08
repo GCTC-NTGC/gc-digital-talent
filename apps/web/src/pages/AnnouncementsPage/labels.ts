@@ -6,6 +6,11 @@ const labels = {
     id: "QpghXO",
     description: "A switch to enable or disable a setting",
   }),
+  isDismissible: defineMessage({
+    defaultMessage: "Dismissible",
+    id: "S+Hv6S",
+    description: "A switch to enable or disable a setting",
+  }),
   publishDateUtc: defineMessage({
     defaultMessage: "Publish date (UTC)",
     id: "5cll86",

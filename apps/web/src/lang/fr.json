@@ -5391,10 +5391,6 @@
     "defaultMessage": "Précédent",
     "description": "Back button located next to the submit button on the request form."
   },
-  "L9IkrB": {
-    "defaultMessage": "Que puis-je faire si mes codes d'authentification ne sont plus acceptés?",
-    "description": "GCKey question for when user authenticator codes not accepted"
-  },
   "L9Tc5u": {
     "defaultMessage": "Le processus annuel de gestion des talents des cadres permet aux ministères et organismes d'échanger des renseignements sur les aspirations professionnelles et le potentiel de leurs cadres des finances. Il garantit ainsi que les talents appropriés sont prêts à occuper des postes de direction au fur et à mesure qu'ils deviennent disponibles.",
     "description": "Card description, for process"
@@ -6791,10 +6787,6 @@
     "defaultMessage": "Renseignements de base",
     "description": "Title for basic information"
   },
-  "RDHbAx": {
-    "defaultMessage": "Qu'est-ce que je fais si j'ai effacé l'appli ou changé de téléphone et que je n'ai pas les codes de récupération?",
-    "description": "GCKey question for when user does not have recovery codes"
-  },
   "RDkTqP": {
     "defaultMessage": "Date d’attribution",
     "description": "Label displayed on award form for date awarded input"
@@ -6958,6 +6950,10 @@
   "S+GQc9": {
     "defaultMessage": "Je ne cherche pas de travail dans cette collectivité pour le moment.",
     "description": "Label for the community not interested in work opportunities radio option"
+  },
+  "S+Hv6S": {
+    "defaultMessage": "Peut être fermée",
+    "description": "A switch to enable or disable a setting"
   },
   "S/PXt/": {
     "defaultMessage": "Des possibilités existent au sein d’un grand nombre de ministères et d’organismes du gouvernement du Canada. Le programme tentera de jumeler les apprentis à des possibilités qui correspondent le mieux à leurs intérêts.",
@@ -7478,10 +7474,6 @@
   "Ulbls0": {
     "defaultMessage": "Un agencement d'études, de formation ou d'expérience.",
     "description": "Applied work experience description for CR group"
-  },
-  "Un0ubb": {
-    "defaultMessage": "Pouvez-vous supprimer l'authentification à deux facteurs de mon compte afin que je puisse le réinitialiser?",
-    "description": "GCKey question for ability to remove two-factor authentication"
   },
   "UnAF+3": {
     "defaultMessage": "À moins d’avis contraire, vous pouvez reproduire le contenu en totalité ou en partie à des fins non commerciales, dans tout format, sans frais ni autre permission, à condition :"
@@ -9990,10 +9982,6 @@
     "defaultMessage": "Cette revendication ne s’applique pas à ce processus.",
     "description": "Message when a claim does not apply to the specific process"
   },
-  "fQ7zxR": {
-    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for ability to remove two-factor authentication"
-  },
   "fQiUXz": {
     "defaultMessage": "Préférence ministérielle",
     "description": "Combined eligibility string for 'employees only' and 'departmental preference'"
@@ -10985,10 +10973,6 @@
   "jJCDGc": {
     "defaultMessage": "Mise à jour de la classification réussie!",
     "description": "Message displayed to user after classification is updated successfully."
-  },
-  "jMx7Kb": {
-    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for when user does not have recovery codes"
   },
   "jO8i+2": {
     "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions en lien avec ce processus? Veuillez communiquer avec le Bureau des initiatives pour les Autochtones si vous avez besoin de mesures d’adaptation au cours de ce processus de demande <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
@@ -13865,10 +13849,6 @@
   "vvnsjr": {
     "defaultMessage": "Votre objectif de carrière",
     "description": "Title for the career objective section"
-  },
-  "vweW8X": {
-    "defaultMessage": "Veuillez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for when user authenticator codes not accepted"
   },
   "w/qZsH": {
     "defaultMessage": "Classification",
