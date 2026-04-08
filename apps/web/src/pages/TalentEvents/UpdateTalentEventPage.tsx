@@ -42,6 +42,7 @@ import {
   DATETIME_FORMAT_STRING,
   formatDate,
   parseDateTimeUtc,
+  strToFormDate,
 } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -154,8 +155,8 @@ const UpdateTalentEventForm = ({
         en: talentNominationEvent.learnMoreUrl?.en,
         fr: talentNominationEvent.learnMoreUrl?.fr,
       },
-      openDate: talentNominationEvent.openDate,
-      closeDate: talentNominationEvent.closeDate,
+      openDate: strToFormDate(talentNominationEvent.openDate),
+      closeDate: strToFormDate(talentNominationEvent.closeDate),
       includeLeadershipCompetencies:
         talentNominationEvent.includeLeadershipCompetencies,
       community: talentNominationEvent.community.id,
@@ -243,7 +244,7 @@ const UpdateTalentEventForm = ({
 
   useEffect(() => {
     if (!watchCommunity) {
-      methods.resetField("developmentPrograms");
+      methods.resetField("developmentPrograms", { keepDirty: false });
     }
   }, [watchCommunity]);
 
