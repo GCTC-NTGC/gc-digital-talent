@@ -6955,6 +6955,10 @@
     "defaultMessage": "Je ne cherche pas de travail dans cette collectivité pour le moment.",
     "description": "Label for the community not interested in work opportunities radio option"
   },
+  "S+Hv6S": {
+    "defaultMessage": "Peut être fermée",
+    "description": "A switch to enable or disable a setting"
+  },
   "S/PXt/": {
     "defaultMessage": "Des possibilités existent au sein d’un grand nombre de ministères et d’organismes du gouvernement du Canada. Le programme tentera de jumeler les apprentis à des possibilités qui correspondent le mieux à leurs intérêts.",
     "description": "Learn more dialog question nine paragraph one"
