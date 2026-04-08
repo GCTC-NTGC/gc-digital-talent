@@ -217,7 +217,7 @@ export const Component = () => {
 
               <InstructionsCardGrid columns={3}>
                 <InstructionsStepCard
-                  className="rounded-t-md rounded-b-none xs:rounded-l-md xs:rounded-r-none"
+                  className="rounded-t-md rounded-b-none pt-12 pb-7.5 xs:rounded-l-md xs:rounded-r-none"
                   img={{ src: canadaLoginStep1, darkSrc: canadaLoginStep1Dark }}
                 >
                   <p>
@@ -236,7 +236,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <div className="mt-4">
+                  <div className="mt-4 mb-6.75">
                     <Caption>
                       {intl.formatMessage({
                         defaultMessage:
@@ -250,7 +250,7 @@ export const Component = () => {
                 </InstructionsStepCard>
 
                 <InstructionsStepCard
-                  className="rounded-none bg-gray-100/40 dark:bg-gray-600/70"
+                  className="rounded-none bg-gray-100/40 pt-12 pb-7.5 dark:bg-gray-600/70"
                   img={{ src: canadaLoginStep2, darkSrc: canadaLoginStep2Dark }}
                 >
                   <p>
@@ -261,7 +261,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <div className="mt-4">
+                  <div className="mt-4 mb-6.75">
                     <Caption>
                       {intl.formatMessage({
                         defaultMessage:
@@ -275,7 +275,7 @@ export const Component = () => {
                 </InstructionsStepCard>
 
                 <InstructionsStepCard
-                  className="rounded-t-none rounded-b-md xs:rounded-l-none xs:rounded-r-md"
+                  className="rounded-t-none rounded-b-md pt-12 pb-7.5 xs:rounded-l-none xs:rounded-r-md"
                   includeArrow={false}
                   img={{ src: canadaLoginStep3, darkSrc: canadaLoginStep3Dark }}
                 >
@@ -296,7 +296,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <div className="mt-4">
+                  <div className="mt-4 mb-6.75">
                     <Caption>
                       {intl.formatMessage({
                         defaultMessage:
@@ -325,7 +325,7 @@ export const Component = () => {
 
               <InstructionsCardGrid columns={3}>
                 <InstructionsStepCard
-                  className="rounded-t-md rounded-b-none xs:rounded-l-md xs:rounded-r-none"
+                  className="rounded-t-md rounded-b-none pt-12 pb-7.5 xs:rounded-l-md xs:rounded-r-none"
                   img={{ src: canadaLoginStep4, darkSrc: canadaLoginStep4Dark }}
                 >
                   <p>
@@ -336,7 +336,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <p className="mt-10">
+                  <p className="mt-4">
                     {intl.formatMessage({
                       defaultMessage: "Enter your personal phone number.",
                       id: "XUt7q+", // TODO
@@ -344,7 +344,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <div className="mt-6">
+                  <div className="mt-6 mb-6.75">
                     <Caption>
                       {intl.formatMessage({
                         defaultMessage:
@@ -358,7 +358,7 @@ export const Component = () => {
                 </InstructionsStepCard>
 
                 <InstructionsStepCard
-                  className="rounded-none bg-gray-100/40 dark:bg-gray-600/70"
+                  className="rounded-none bg-gray-100/40 pt-12 pb-7.5 dark:bg-gray-600/70"
                   img={{ src: canadaLoginStep5, darkSrc: canadaLoginStep5Dark }}
                 >
                   <p>
@@ -378,7 +378,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <div className="mt-6">
+                  <div className="mt-6 mb-6.75">
                     <Caption>
                       {intl.formatMessage({
                         defaultMessage:
@@ -392,7 +392,7 @@ export const Component = () => {
                 </InstructionsStepCard>
 
                 <InstructionsStepCard
-                  className="rounded-t-none rounded-b-md xs:rounded-l-none xs:rounded-r-md"
+                  className="rounded-t-none rounded-b-md pt-12 pb-7.5 xs:rounded-l-none xs:rounded-r-md"
                   includeArrow={false}
                   img={{ src: canadaLoginStep6, darkSrc: canadaLoginStep6Dark }}
                 >
@@ -405,7 +405,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <p className="mt-4">
+                  <p className="mt-4 mb-6.75">
                     {intl.formatMessage({
                       defaultMessage:
                         "You will be returned to the GC Digital Talent platform.",
@@ -432,7 +432,7 @@ export const Component = () => {
 
               <InstructionsCardGrid columns={3}>
                 <InstructionsStepCard
-                  className="rounded-t-md rounded-b-none xs:rounded-l-md xs:rounded-r-none"
+                  className="rounded-t-md rounded-b-none pt-12 pb-7.5 xs:rounded-l-md xs:rounded-r-none"
                   img={{ src: canadaLoginStep7, darkSrc: canadaLoginStep7Dark }}
                 >
                   <p>
@@ -444,7 +444,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <div className="mt-6">
+                  <div className="mt-6 mb-6.75">
                     <Caption>
                       {intl.formatMessage({
                         defaultMessage:
@@ -458,7 +458,7 @@ export const Component = () => {
                 </InstructionsStepCard>
 
                 <InstructionsStepCard
-                  className="rounded-none bg-gray-100/40 dark:bg-gray-600/70"
+                  className="rounded-none bg-gray-100/40 pt-12 pb-7.5 dark:bg-gray-600/70"
                   img={{ src: canadaLoginStep8, darkSrc: canadaLoginStep8Dark }}
                 >
                   <p>
@@ -470,7 +470,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <div className="mt-6">
+                  <div className="mt-6 mb-6.75">
                     <Caption>
                       {intl.formatMessage({
                         defaultMessage:
@@ -484,7 +484,7 @@ export const Component = () => {
                 </InstructionsStepCard>
 
                 <InstructionsStepCard
-                  className="rounded-t-none rounded-b-md xs:rounded-l-none xs:rounded-r-md"
+                  className="rounded-t-none rounded-b-md pt-12 pb-7.5 xs:rounded-l-none xs:rounded-r-md"
                   includeArrow={false}
                   img={{ src: canadaLoginStep9, darkSrc: canadaLoginStep9Dark }}
                 >
@@ -497,7 +497,7 @@ export const Component = () => {
                         "Text for first registration -> create step.",
                     })}
                   </p>
-                  <div className="mt-6">
+                  <div className="mt-6 mb-6.75">
                     <Caption>
                       {intl.formatMessage({
                         defaultMessage:

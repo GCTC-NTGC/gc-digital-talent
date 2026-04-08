@@ -75,8 +75,8 @@ export const InstructionsCardGrid = ({
             <div className="h-full">{child}</div>
 
             {index < totalCards - 1 && (
-              <div className="pointer-events-none absolute -bottom-4 left-1/2 z-10 -translate-x-1/2">
-                <ArrowDownCircleIcon className="h-8 w-8 text-gray" />
+              <div className="pointer-events-none absolute -bottom-6 left-1/2 z-10 -translate-x-1/2">
+                <ArrowDownCircleIcon className="mb-2 h-8 w-8 text-gray" />
               </div>
             )}
           </div>
