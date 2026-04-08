@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class TalentNomination
@@ -57,6 +59,7 @@ class TalentNomination extends Model
     /** @use HasFactory<TalentNominationFactory> */
     use HasFactory;
 
+    use HasRelationships;
     use LogsActivity;
 
     protected $keyType = 'string';
@@ -153,6 +156,17 @@ class TalentNomination extends Model
     public function advancementReferenceFallbackDepartment(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'advancement_reference_fallback_department_id');
+    }
+
+    /** @return BelongsToMany<CommunityDevelopmentProgram, $this> */
+    public function communityDevelopmentPrograms(): BelongsToMany
+    {
+        return $this->belongsToMany(CommunityDevelopmentProgram::class, 'community_development_program_talent_nomination');
+    }
+
+    public function developmentProgramsThroughPivot(): HasManyDeep
+    {
+        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram)->developmentProgram());
     }
 
     /** @return BelongsToMany<DevelopmentProgram, $this> */
