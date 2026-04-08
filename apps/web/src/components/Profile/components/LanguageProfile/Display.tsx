@@ -138,6 +138,7 @@ const Display = ({ query, context }: DisplayProps) => {
                         "Button text to start editing language profile",
                     })}
                     color="error"
+                    className="font-normal"
                   >
                     {intl.formatMessage(commonMessages.editThisSection)}
                   </ToggleForm.Trigger>
