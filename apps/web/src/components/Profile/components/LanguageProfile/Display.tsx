@@ -69,10 +69,11 @@ interface DisplayProps {
 
 const Display = ({ query, context }: DisplayProps) => {
   const intl = useIntl();
-  const showHelperMessage = getFromLocalStorage<boolean>(
+  const newUserFlagIsSet = getFromLocalStorage<boolean>(
     KEY_NEW_USER_LANGUAGE_PRESET,
     false,
   );
+  const showHelperMessage = newUserFlagIsSet && context == "applicant-view";
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const labels = getLabels(intl);
   const user = getFragment(LanguageProfileDisplay_Fragment, query);
