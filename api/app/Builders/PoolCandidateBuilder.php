@@ -359,9 +359,9 @@ class PoolCandidateBuilder extends Builder
                 ->where(function ($query) use ($now) {
                     $query->whereNull('resume_referrals_at')
                         ->orWhere('resume_referrals_at', '>', $now);
-                });
-        })
-            ->orWhere('application_status', '!=', ApplicationStatus::QUALIFIED->name);
+                })
+                ->orWhere('application_status', '!=', ApplicationStatus::QUALIFIED->name);
+        });
     }
 
     public function whereSuspendedStatus(?string $suspendedStatus): self
