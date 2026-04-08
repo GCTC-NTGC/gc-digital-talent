@@ -873,7 +873,9 @@ type TalentNominationEvent {
   includeLeadershipCompetencies: Boolean!
     @rename(attribute: "include_leadership_competencies")
   community: Community! @belongsTo
-  developmentPrograms: [DevelopmentProgram!] @belongsToMany
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
+  developmentPrograms: [DevelopmentProgram!]
+    @hasMany(relation: "developmentProgramsThroughPivot")
   talentNominationGroups: [TalentNominationGroup!]
     @hasMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
     @canResolved(
@@ -946,7 +948,9 @@ type TalentNomination {
   lateralMovementOptionsOther: String
     @rename(attribute: "lateral_movement_options_other")
 
-  developmentPrograms: [DevelopmentProgram!] @belongsToMany
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
+  developmentPrograms: [DevelopmentProgram!]
+    @hasMany(relation: "developmentProgramsThroughPivot")
   developmentProgramOptionsOther: String
     @rename(attribute: "development_program_options_other")
 

@@ -1333,6 +1333,7 @@ type TalentNominationEvent {
   learnMoreUrl: LocalizedString
   includeLeadershipCompetencies: Boolean!
   community: Community!
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   developmentPrograms: [DevelopmentProgram!]
   talentNominationGroups: [TalentNominationGroup!]
   countTalentNominationGroups: Int!
@@ -1370,6 +1371,7 @@ type TalentNomination {
   advancementReferenceFallbackDepartment: Department
   lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   developmentPrograms: [DevelopmentProgram!]
   developmentProgramOptionsOther: String
   nominationRationale: String
