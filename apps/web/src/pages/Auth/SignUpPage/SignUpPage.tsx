@@ -141,7 +141,7 @@ export const Component = () => {
                   level="h2"
                   color="primary"
                   icon={SparklesIcon}
-                  className="mt-0 font-normal"
+                  className="mt-0 justify-center font-normal xs:justify-start"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Welcome",
@@ -198,7 +198,11 @@ export const Component = () => {
         <Container className="my-12">
           {!iapMode ? (
             <>
-              <Heading level="h3" size="h4" className="mt-6 mb-4">
+              <Heading
+                level="h3"
+                size="h4"
+                className="mt-6 mb-4 text-center font-normal xs:text-left"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Part 1: Create a CanadaLogin account",
                   id: "Su2+bZ", // TODO
@@ -302,7 +306,11 @@ export const Component = () => {
                 </InstructionsStepCard>
               </InstructionsCardGrid>
 
-              <Heading level="h3" size="h4" className="mt-14 mb-4">
+              <Heading
+                level="h3"
+                size="h4"
+                className="mt-14 mb-4 text-center font-normal xs:text-left"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Part 2: Set up two-step verification",
                   id: "OxuU1/", // TODO
@@ -405,7 +413,11 @@ export const Component = () => {
                 </InstructionsStepCard>
               </InstructionsCardGrid>
 
-              <Heading level="h3" size="h4" className="mt-14 mb-4">
+              <Heading
+                level="h3"
+                size="h4"
+                className="mt-14 mb-4 text-center font-normal xs:text-left"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Part 3: Access your account",
                   id: "WsnfHy", // TODO
@@ -500,7 +512,7 @@ export const Component = () => {
                 color="primary"
                 level="h3"
                 size="h4"
-                className="mt-12 font-normal"
+                className="mt-12 justify-center font-normal xs:justify-start"
               >
                 {intl.formatMessage({
                   defaultMessage: "Frequently Asked Questions (FAQs)",
