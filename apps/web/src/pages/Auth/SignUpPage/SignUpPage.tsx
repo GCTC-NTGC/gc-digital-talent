@@ -413,8 +413,15 @@ export const Component = () => {
                   <p>{intl.formatMessage(gckeyMessages.answerContactGCkey5)}</p>
                 </Accordion.Content>
               </Accordion.Item>
-
               <Accordion.Item value="three">
+                <Accordion.Trigger as="h3">
+                  {intl.formatMessage(gckeyMessages.questionAuthApp)}
+                </Accordion.Trigger>
+                <Accordion.Content>
+                  <p>{intl.formatMessage(gckeyMessages.answerAuthApp)}</p>
+                </Accordion.Content>
+              </Accordion.Item>
+              <Accordion.Item value="four">
                 <Accordion.Trigger as="h3">
                   {intl.formatMessage(gckeyMessages.questionAuthAlternative)}
                 </Accordion.Trigger>
@@ -425,7 +432,7 @@ export const Component = () => {
                 </Accordion.Content>
               </Accordion.Item>
 
-              <Accordion.Item value="four">
+              <Accordion.Item value="five">
                 <Accordion.Trigger as="h3">
                   {intl.formatMessage(gckeyMessages.questionExistingAccount)}
                 </Accordion.Trigger>
