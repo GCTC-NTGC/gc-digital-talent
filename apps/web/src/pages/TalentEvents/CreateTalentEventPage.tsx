@@ -33,10 +33,9 @@ import {
   TextArea,
 } from "@gc-digital-talent/forms";
 import {
+  convertDateTimeZone,
   DATE_FORMAT_STRING,
-  DATETIME_FORMAT_STRING,
   formatDate,
-  parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -135,16 +134,16 @@ const CreateTalentEventPage = () => {
     return executeMutation({
       talentNominationEvent: {
         ...formValues,
-        openDate: formatDate({
-          date: parseDateTimeUtc(formValues.openDate),
-          formatString: DATETIME_FORMAT_STRING,
-          intl,
-        }),
-        closeDate: formatDate({
-          date: parseDateTimeUtc(formValues.closeDate),
-          formatString: DATETIME_FORMAT_STRING,
-          intl,
-        }),
+        openDate: convertDateTimeZone(
+          `${formValues.openDate} 23:59:59`,
+          "Canada/Pacific",
+          "UTC",
+        ),
+        closeDate: convertDateTimeZone(
+          `${formValues.closeDate} 23:59:59`,
+          "Canada/Pacific",
+          "UTC",
+        ),
         community: { connect: formValues.community },
         developmentPrograms: { sync: formValues.developmentPrograms },
       },

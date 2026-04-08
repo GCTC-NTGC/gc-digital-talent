@@ -38,11 +38,10 @@ import {
   TextArea,
 } from "@gc-digital-talent/forms";
 import {
+  convertDateTimeToDate,
+  convertDateTimeZone,
   DATE_FORMAT_STRING,
-  DATETIME_FORMAT_STRING,
   formatDate,
-  parseDateTimeUtc,
-  strToFormDate,
 } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -156,8 +155,20 @@ const UpdateTalentEventForm = ({
         en: talentNominationEvent.learnMoreUrl?.en,
         fr: talentNominationEvent.learnMoreUrl?.fr,
       },
-      openDate: strToFormDate(talentNominationEvent.openDate),
-      closeDate: strToFormDate(talentNominationEvent.closeDate),
+      openDate: convertDateTimeToDate(
+        convertDateTimeZone(
+          talentNominationEvent.openDate,
+          "UTC",
+          "Canada/Pacific",
+        ),
+      ),
+      closeDate: convertDateTimeToDate(
+        convertDateTimeZone(
+          talentNominationEvent.closeDate,
+          "UTC",
+          "Canada/Pacific",
+        ),
+      ),
       includeLeadershipCompetencies:
         talentNominationEvent.includeLeadershipCompetencies,
       community: talentNominationEvent.community.id,
@@ -187,16 +198,16 @@ const UpdateTalentEventForm = ({
       id: talentNominationEvent.id,
       talentNominationEvent: {
         ...formValues,
-        openDate: formatDate({
-          date: parseDateTimeUtc(formValues.openDate),
-          formatString: DATETIME_FORMAT_STRING,
-          intl,
-        }),
-        closeDate: formatDate({
-          date: parseDateTimeUtc(formValues.closeDate),
-          formatString: DATETIME_FORMAT_STRING,
-          intl,
-        }),
+        openDate: convertDateTimeZone(
+          `${formValues.openDate} 23:59:59`,
+          "Canada/Pacific",
+          "UTC",
+        ),
+        closeDate: convertDateTimeZone(
+          `${formValues.closeDate} 23:59:59`,
+          "Canada/Pacific",
+          "UTC",
+        ),
         community: { connect: formValues.community },
         developmentPrograms: { sync: formValues.developmentPrograms },
       },
