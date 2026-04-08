@@ -224,11 +224,12 @@ const UpdateTalentEventForm = ({
   };
 
   const watchOpenDate = methods.watch("openDate");
+  const watchCommunity = methods.watch("community");
+
   const communityOptions = communities.map((community) => ({
     label: community.name?.localized,
     value: community.id,
   }));
-  const watchCommunity = methods.watch("community");
   const developmentProgramOptions = communities
     .filter((community) => community.id === watchCommunity)
     .reduce(
@@ -243,8 +244,13 @@ const UpdateTalentEventForm = ({
       value: developmentProgram.id,
     }));
 
+  const { isDirty: communityIsDirty } = methods.getFieldState(
+    "community",
+    methods.formState,
+  );
+
   useEffect(() => {
-    if (watchCommunity) {
+    if (watchCommunity && communityIsDirty) {
       methods.resetField("developmentPrograms", {
         keepDirty: false,
         defaultValue: [],

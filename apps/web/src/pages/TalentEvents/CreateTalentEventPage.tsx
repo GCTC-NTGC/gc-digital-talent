@@ -220,8 +220,13 @@ const CreateTalentEventPage = () => {
       value: developmentProgram.id,
     }));
 
+  const { isDirty: communityIsDirty } = methods.getFieldState(
+    "community",
+    methods.formState,
+  );
+
   useEffect(() => {
-    if (watchCommunity) {
+    if (watchCommunity && communityIsDirty) {
       methods.resetField("developmentPrograms", {
         keepDirty: false,
         defaultValue: [],
