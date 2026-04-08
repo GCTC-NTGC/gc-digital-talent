@@ -246,7 +246,7 @@ const UpdateTalentEventForm = ({
     .reduce(
       (acc: DevelopmentProgram[], curr: Community) => [
         ...acc,
-        ...(curr.developmentPrograms ?? []),
+        ...(curr.associatedDevelopmentPrograms ?? []),
       ],
       [],
     )
@@ -464,7 +464,7 @@ const UpdateTalentNominationEvent_Query = graphql(/* GraphQL */ `
               name {
                 localized
               }
-              developmentPrograms {
+              associatedDevelopmentPrograms {
                 id
                 name {
                   localized

@@ -62,7 +62,7 @@ const CreateTalentNominationEvent_Query = graphql(/* GraphQL */ `
               name {
                 localized
               }
-              developmentPrograms {
+              associatedDevelopmentPrograms {
                 id
                 name {
                   localized
@@ -210,7 +210,7 @@ const CreateTalentEventPage = () => {
     .reduce(
       (acc: DevelopmentProgram[], curr: Community) => [
         ...acc,
-        ...(curr.developmentPrograms ?? []),
+        ...(curr.associatedDevelopmentPrograms ?? []),
       ],
       [],
     )
