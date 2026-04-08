@@ -29,8 +29,8 @@ const mailLink = (chunks: ReactNode) => (
 );
 
 const requestAVoucherUrl = {
-  en: "https://forms-formulaires.alpha.canada.ca/en/id/cmndat13k00imxb01zpk1e78b",
-  fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cmndat13k00imxb01zpk1e78b",
+  en: "https://forms-formulaires.alpha.canada.ca/en/id/cmnojw0ds00kcyf01ejznmsfa",
+  fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cmnojw0ds00kcyf01ejznmsfa",
 } as const;
 
 const pageSubtitle = defineMessage({

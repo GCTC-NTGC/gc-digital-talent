@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('pool_candidate_status', 255)->nullable();
             $table->string('computed_final_decision')->nullable();
             $table->integer('computed_final_decision_weight')->nullable();
+            $table->boolean('referring')->default(true);
         });
 
         // This reverses the logic in add_application_status_column_pool_candidates_table
