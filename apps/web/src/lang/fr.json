@@ -323,10 +323,6 @@
     "defaultMessage": "Tâches principales - Exemples",
     "description": "Long title of the 'key tasks' section of the job poster template page"
   },
-  "/HdHpe": {
-    "defaultMessage": "Droits de priorité",
-    "description": "Title for the priority entitlements section"
-  },
   "/I7wrY": {
     "defaultMessage": "Lier des compétences en vedette",
     "description": "Title for skills on Experience form"
@@ -370,6 +366,10 @@
   "/WLsRj": {
     "defaultMessage": "Vous aurez besoin d’une application d’authentification.",
     "description": "Subtitle for a section explaining mfa apps"
+  },
+  "/WUaCi": {
+    "defaultMessage": "Des renseignements requis sur votre citoyenneté, votre statut d’ancien combattant et vos droits de priorité sont manquants.",
+    "description": "Error message displayed when a users priority entitlements is incomplete"
   },
   "/Wgawu": {
     "defaultMessage": "Courriel professionnel de la personne déposante",
@@ -422,10 +422,6 @@
   "/fvZtZ": {
     "defaultMessage": "Cette occasion ne s’adresse qu’aux candidat(e)s autochtones seulement.",
     "description": "Error message displayed when a user's equity information does not match an opportunity"
-  },
-  "/h9mNu": {
-    "defaultMessage": "Avez-vous un droit de priorité?",
-    "description": "Priority Entitlement Status in Government Info Form"
   },
   "/lByjT": {
     "defaultMessage": "Qui peut postuler",
@@ -1359,10 +1355,6 @@
     "defaultMessage": "Les informations sur votre prochain type de poste ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
   },
-  "3MhIFU": {
-    "defaultMessage": "Il manque des renseignements requis concernant votre droit de priorité.",
-    "description": "Error message displayed when a users priority entitlements is incomplete"
-  },
   "3NW70Q": {
     "defaultMessage": "Demandes de talents",
     "description": "Title for the index search request page"
@@ -1590,6 +1582,10 @@
   "4MAklr": {
     "defaultMessage": "intégration de systèmes",
     "description": "The cloud computing skill"
+  },
+  "4Ncmb0": {
+    "defaultMessage": "Cette section porte sur votre citoyenneté, votre statut d’ancien combattant et vos droits de priorité.",
+    "description": "Descriptive text explaining the priority entitlement section of the application profile"
   },
   "4NtC0R": {
     "defaultMessage": "La personne candidate n'a ajouté aucun processus hors plateforme.",
@@ -1906,6 +1902,10 @@
   "5cnajL": {
     "defaultMessage": "Raison de l'interruption",
     "description": "Label for pause reason"
+  },
+  "5csRb4": {
+    "defaultMessage": "Cette section de votre profil de candidature porte sur les langues officielles dans lesquelles vous souhaitez travailler, ainsi que celles dans lesquelles vous préférez être évalué.",
+    "description": "Introduction for the language profile form"
   },
   "5dFzBc": {
     "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
@@ -2799,6 +2799,10 @@
     "defaultMessage": "La Directive sur les talents numériques clarifie les exigences de la Politique sur les services et le numérique en ce qui concerne les nominations des dirigeantes principales et dirigeants principals de l'information et la gestion des talents. L’objectif est de continuer à soutenir les parcours professionnels des cadres, en mettant l’accent sur la prestation de services publics numériques modernes.",
     "description": "The directives digital executive roles and structures component"
   },
+  "9g0IoZ": {
+    "defaultMessage": "Commencer<hidden> à fournir les renseignements sur votre citoyenneté, votre statut d’ancien combattant et vos droits de priorité</hidden>",
+    "description": "Call to action to begin editing priority entitlement"
+  },
   "9g11GN": {
     "defaultMessage": "Créer une classification",
     "description": "Page title for the classification creation page"
@@ -3647,10 +3651,6 @@
     "defaultMessage": "Identifiant",
     "description": "Title for unique ID of a resource"
   },
-  "DB9pFd": {
-    "defaultMessage": "Langue préférée pour l'entrevue orale",
-    "description": "Title for preferred spoken interview language"
-  },
   "DBczOG": {
     "defaultMessage": "Stratégie",
     "description": "Heading for strategy for the indigenous talent portal"
@@ -3970,6 +3970,10 @@
   "EWq+u3": {
     "defaultMessage": "Évaluation des langues officielles dans le processus de nomination",
     "description": "Link to second language evaluations PSC info page on language requirements dialog"
+  },
+  "EX82UF": {
+    "defaultMessage": "Modifier la citoyenneté, le statut d’ancien combattant et les droits de priorité",
+    "description": "Button text to start editing priority entitlements"
   },
   "EY7YQM": {
     "defaultMessage": "Il manque au moins 1 évaluation pour les compétences suivantes",
@@ -5322,6 +5326,10 @@
   "Kwfc/6": {
     "defaultMessage": "Ressources",
     "description": "Heading for section for the group-specific resources section."
+  },
+  "KwzVtv": {
+    "defaultMessage": "Droits de priorité",
+    "description": "Label for the Priority Entitlement Status"
   },
   "KxJcav": {
     "defaultMessage": "Parcourir les modèles d’emplois",
@@ -7190,10 +7198,6 @@
   "TIAla1": {
     "defaultMessage": "Non retenue",
     "description": "Message displayed when candidate has not passed an assessment step"
-  },
-  "TIu/WA": {
-    "defaultMessage": "Modifier les droits de priorité",
-    "description": "Button text to start editing priority entitlements"
   },
   "TK0b6n": {
     "defaultMessage": "Vous pouvez vous server du bouton « Lier une expérience » qui sert à mettre cette compétence en évidence.",
@@ -11438,10 +11442,6 @@
     "defaultMessage": "Commentaires et échanges",
     "description": "Heading for comments and interaction section"
   },
-  "lSKm4M": {
-    "defaultMessage": "Vous pouvez indiquer dans cette section vos droits de priorité.",
-    "description": "Descriptive text explaining the priority entitlement section of the application profile"
-  },
   "lSSz6L": {
     "defaultMessage": "Gérer {notificationName}",
     "description": "Button text for managing a notification"
@@ -11510,6 +11510,10 @@
     "defaultMessage": "À propos du Portail des talents autochtones",
     "description": "Talent Portal information heading"
   },
+  "ltYqKQ": {
+    "defaultMessage": "Citoyenneté, statut d’ancien combattant et droits de priorité",
+    "description": "Title for the citizen/veteran/priority section"
+  },
   "ltzA7w": {
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
     "description": "How to get help from the support team - IAP variant"
@@ -11569,6 +11573,10 @@
   "m6eIBH": {
     "defaultMessage": "Votre prochain type de poste",
     "description": "Title for the next role section"
+  },
+  "m6vOLM": {
+    "defaultMessage": "Langue de préférence pour l’entrevue",
+    "description": "Title for preferred spoken interview language"
   },
   "mAN6yW": {
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
@@ -12394,6 +12402,10 @@
     "defaultMessage": "Masquer les détails de {experienceName}",
     "description": "Button text to hide a specific experience's details"
   },
+  "pNCpED": {
+    "defaultMessage": "Les renseignements suivants sont utilisés par les équipes de recrutement et les gestionnaires d’embauche pour évaluer votre admissibilité dans le cadre d’un processus de dotation.",
+    "description": "Preamble for citizen/veteran/priority edit form"
+  },
   "pOazxP": {
     "defaultMessage": "Mises en candidature des talent ({nominationCount})",
     "description": "Collapsible header, Talent nominations and then count"
@@ -12870,10 +12882,6 @@
     "defaultMessage": "La soumission de votre demande est réussie.",
     "description": "Subtitle for the request confirmation page."
   },
-  "rWs8MO": {
-    "defaultMessage": "Commencez<hidden> par fournir les renseignements concernant les droits de priorité</hidden>",
-    "description": "Call to action to begin editing priority entitlement"
-  },
   "rXd18V": {
     "defaultMessage": "Détachement",
     "description": "Label for Government position type secondment"
@@ -13065,6 +13073,10 @@
   "sZhjI3": {
     "defaultMessage": "Veuillez sélectionner une collectivité fonctionnelle pour continuer.",
     "description": "Message displayed when no functional community is selected"
+  },
+  "sZv6bv": {
+    "defaultMessage": "Citoyenneté, statut d’ancien combattant et droits de priorité mis à jour avec succès.",
+    "description": "Message displayed when a user successfully updates their citizen/veteran/priority."
   },
   "sapxcU": {
     "defaultMessage": "Avertissement",
@@ -14165,10 +14177,6 @@
   "xKvQtM": {
     "defaultMessage": "Consultez, créez ou modifiez des modèles d’offre d’emploi.",
     "description": "Subtitle for the index job poster template page"
-  },
-  "xOCF/f": {
-    "defaultMessage": "Les droits de priorité ont été mis à jour avec succès.",
-    "description": "Message displayed when a user successfully updates their priority entitlements."
   },
   "xQSZ+V": {
     "defaultMessage": "Les récompenses et reconnaissances comprennent les distinctions précises que vous avez reçues pour avoir dépassé les attentes.",

@@ -10,7 +10,7 @@ export type SectionKey =
   | "personal"
   | "work"
   | "dei"
-  | "priority"
+  | "citizen-veteran-priority"
   | "government"
   | "language"
   | "account";

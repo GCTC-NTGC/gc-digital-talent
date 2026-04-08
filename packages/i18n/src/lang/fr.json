@@ -1407,6 +1407,10 @@
     "defaultMessage": "Août",
     "description": "Name of the eighth month"
   },
+  "ltYqKQ": {
+    "defaultMessage": "Citoyenneté, statut d’ancien combattant et droits de priorité",
+    "description": "Title for the citizen/veteran/priority section"
+  },
   "m/VZ/H": {
     "defaultMessage": "Cet utilisateur n'a pas vérifié son statut d'employé(e)",
     "description": "Error message for when a user is not verified"

@@ -20,7 +20,7 @@ const LanguageProfile = ({ query }: LanguageProfileProps) => {
 
   return (
     <TableOfContents.Section id={LANGUAGE_PROFILE_ID}>
-      <Display query={user} />
+      <Display query={user} context="admin-view" />
     </TableOfContents.Section>
   );
 };
