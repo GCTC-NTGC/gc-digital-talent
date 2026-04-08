@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class DevelopmentProgram
@@ -24,6 +27,7 @@ use Illuminate\Support\Carbon;
 class DevelopmentProgram extends Model
 {
     use HasFactory;
+    use HasRelationships;
 
     protected $keyType = 'string';
 
@@ -46,5 +50,16 @@ class DevelopmentProgram extends Model
     public function eligibleClassifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class);
+    }
+
+    /** @return HasMany<CommunityDevelopmentProgram, $this> */
+    public function communityDevelopmentPrograms(): HasMany
+    {
+        return $this->hasMany(CommunityDevelopmentProgram::class);
+    }
+
+    public function communitiesThroughPivot(): HasManyDeep
+    {
+        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram)->community());
     }
 }

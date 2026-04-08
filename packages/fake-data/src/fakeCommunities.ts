@@ -19,7 +19,7 @@ const generateCommunity = (
     key: faker.helpers.slugify(faker.lorem.word()),
     name: toLocalizedString(faker.company.name()),
     description: toLocalizedString(faker.lorem.paragraph()),
-    developmentPrograms:
+    associatedDevelopmentPrograms:
       faker.helpers.arrayElements<DevelopmentProgram>(developmentPrograms),
     workStreams: faker.helpers.arrayElements<WorkStream>(workStreams),
   };
