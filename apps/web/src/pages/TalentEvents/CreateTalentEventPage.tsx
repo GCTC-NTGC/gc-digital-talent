@@ -221,8 +221,11 @@ const CreateTalentEventPage = () => {
     }));
 
   useEffect(() => {
-    if (!watchCommunity) {
-      methods.resetField("developmentPrograms");
+    if (watchCommunity) {
+      methods.resetField("developmentPrograms", {
+        keepDirty: false,
+        defaultValue: [],
+      });
     }
   }, [watchCommunity]);
 
