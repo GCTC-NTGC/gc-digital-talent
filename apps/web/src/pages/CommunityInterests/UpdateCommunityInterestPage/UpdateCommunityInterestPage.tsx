@@ -208,8 +208,11 @@ const UpdateCommunityInterest_Query = graphql(/* GraphQL */ `
           ...UpdateCommunityInterestFormData_Fragment
           interestInDevelopmentPrograms {
             id
-            developmentProgram {
+            communityDevelopmentProgram {
               id
+              developmentProgram {
+                id
+              }
             }
           }
         }
@@ -290,7 +293,7 @@ export const UpdateCommunityInterestPage = () => {
         communityInterest.interestInDevelopmentPrograms?.forEach(
           (interestedDevProgram) => {
             interestedDevPrograms.set(
-              interestedDevProgram.developmentProgram.id,
+              interestedDevProgram.communityDevelopmentProgram.id,
               interestedDevProgram.id,
             );
           },
