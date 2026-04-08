@@ -48,18 +48,29 @@ import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
+import { isCommunity } from "./TalentEvent/util";
+
 const CreateTalentNominationEvent_Query = graphql(/* GraphQL */ `
   query CreateTalentNominationEventQuery {
-    communities {
-      id
-      key
-      name {
-        localized
-      }
-      developmentPrograms {
-        id
-        name {
-          localized
+    me {
+      authInfo {
+        roleAssignments {
+          teamable {
+            ... on Community {
+              __typename
+              id
+              key
+              name {
+                localized
+              }
+              developmentPrograms {
+                id
+                name {
+                  localized
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -184,13 +195,17 @@ const CreateTalentEventPage = () => {
     ],
   });
 
-  const communities = unpackMaybes(data?.communities);
   const watchOpenDate = methods.watch("openDate");
+  const watchCommunity = methods.watch("community");
+
+  const roles = unpackMaybes(data?.me?.authInfo?.roleAssignments);
+  const communities = unpackMaybes(roles.map((r) => r.teamable)).filter((c) =>
+    isCommunity(c),
+  );
   const communityOptions = communities.map((community) => ({
     label: community.name?.localized,
     value: community.id,
   }));
-  const watchCommunity = methods.watch("community");
   const developmentProgramOptions = communities
     .filter((community) => community.id === watchCommunity)
     .reduce(
@@ -399,9 +414,9 @@ const CreateTalentEventPage = () => {
                   <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-left">
                     <Submit
                       text={intl.formatMessage({
-                        defaultMessage: "Create skill family",
-                        id: "qkuRs8",
-                        description: "Button text to create a skill family",
+                        defaultMessage: "Create talent event page",
+                        id: "iH3wTR",
+                        description: "Button text to create talent event page",
                       })}
                     />
                     <Link

@@ -56,6 +56,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { RouteParams } from "./TalentEvent/types";
+import { isCommunity } from "./TalentEvent/util";
 
 const UpdateTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
   fragment UpdateTalentNominationEvent_Fragment on TalentNominationEvent {
@@ -432,16 +433,25 @@ const UpdateTalentNominationEvent_Query = graphql(/* GraphQL */ `
         localized
       }
     }
-    communities {
-      id
-      key
-      name {
-        localized
-      }
-      developmentPrograms {
-        id
-        name {
-          localized
+    me {
+      authInfo {
+        roleAssignments {
+          teamable {
+            ... on Community {
+              __typename
+              id
+              key
+              name {
+                localized
+              }
+              developmentPrograms {
+                id
+                name {
+                  localized
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -486,13 +496,18 @@ const UpdateTalentEventPage = () => {
     ],
   });
 
+  const roles = unpackMaybes(data?.me?.authInfo?.roleAssignments);
+  const communities = unpackMaybes(roles.map((r) => r.teamable)).filter((c) =>
+    isCommunity(c),
+  );
+
   return (
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={crumbs} centered overlap>
         <div className="mb-18">
           <Pending fetching={fetching} error={error}>
-            {data?.talentNominationEvent && data?.communities ? (
+            {data?.talentNominationEvent && data?.me ? (
               <Card>
                 <Heading
                   level="h2"
@@ -509,7 +524,7 @@ const UpdateTalentEventPage = () => {
                 </Heading>
                 <UpdateTalentEventForm
                   query={data.talentNominationEvent}
-                  communities={unpackMaybes(data.communities)}
+                  communities={communities}
                 />
               </Card>
             ) : (
