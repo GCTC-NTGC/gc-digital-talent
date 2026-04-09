@@ -1,8 +1,8 @@
-import { AnchorHTMLAttributes, DetailedHTMLProps, forwardRef } from "react";
+import { type AnchorHTMLAttributes, type DetailedHTMLProps, forwardRef } from "react";
 import {
   Link as RouterLink,
-  LinkProps as RouterLinkProps,
-  To,
+  type LinkProps as RouterLinkProps,
+  type To,
 } from "react-router";
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";

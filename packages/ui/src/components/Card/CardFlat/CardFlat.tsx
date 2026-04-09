@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import { type ReactNode } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
 
 import Heading from "../../Heading";
 import CardFlatRegularLink, {
-  CardFlatRegularLinkProps,
+  type CardFlatRegularLinkProps,
 } from "./CardFlatRegularLink";
 import CardFlatScrollToLink, {
-  CardFlatScrollToLinkProps,
+  type CardFlatScrollToLinkProps,
 } from "./CardFlatScrollToLink";
 import { hrefToString } from "../../../utils";
 

@@ -1,4 +1,4 @@
-import { ReactElement, createContext } from "react";
+import { type ReactElement, createContext } from "react";
 
 import { reactPlugin } from "../utils/reactPlugin";
 

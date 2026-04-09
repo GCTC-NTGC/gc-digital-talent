@@ -1,4 +1,4 @@
-import { JwtPayload, jwtDecode } from "jwt-decode";
+import { type JwtPayload, jwtDecode } from "jwt-decode";
 
 import { allowableClockSkewSeconds } from "../constants";
 

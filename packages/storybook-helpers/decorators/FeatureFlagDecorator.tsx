@@ -1,7 +1,7 @@
 import type { Decorator } from "@storybook/react-vite";
 import { useParameter } from "storybook/preview-api";
 
-import { FeatureFlagProvider, FeatureFlags } from "@gc-digital-talent/env";
+import { FeatureFlagProvider, type FeatureFlags } from "@gc-digital-talent/env";
 
 const FeatureFlagDecorator: Decorator = (Story) => {
   const flags = useParameter<FeatureFlags | undefined>(

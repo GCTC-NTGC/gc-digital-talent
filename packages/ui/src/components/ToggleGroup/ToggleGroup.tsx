@@ -4,9 +4,9 @@
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
 import {
   forwardRef,
-  ComponentRef,
-  ComponentPropsWithoutRef,
-  ReactNode,
+  type ComponentRef,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
 } from "react";
 
 const Item = forwardRef<

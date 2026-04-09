@@ -1,4 +1,4 @@
-import { StoryFn } from "@storybook/react-vite";
+import { type StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import SolidHandThumbUpIcon from "@heroicons/react/24/solid/HandThumbUpIcon";
 import OutlineHandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
@@ -7,7 +7,7 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import CardOptionGroup, { CardOption } from "./CardOptionGroup";
+import CardOptionGroup, { type CardOption } from "./CardOptionGroup";
 
 export default {
   component: CardOptionGroup,

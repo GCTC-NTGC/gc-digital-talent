@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { useReducedMotion } from "motion/react";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 import Field from "../Field";

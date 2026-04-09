@@ -1,15 +1,15 @@
 import { format } from "date-fns/format";
-import { IntlShape } from "react-intl";
+import { type IntlShape } from "react-intl";
 import { getDaysInMonth } from "date-fns/getDaysInMonth";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
 
 import {
-  DateSegment,
+  type DateSegment,
   DATE_SEGMENT,
-  SegmentObject,
-  RoundingMethod,
+  type SegmentObject,
+  type RoundingMethod,
 } from "./types";
 
 /**

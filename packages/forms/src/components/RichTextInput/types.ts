@@ -1,4 +1,4 @@
-import { ReactNode, JSX } from "react";
+import { type ReactNode, type JSX } from "react";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type Attrs = Readonly<Record<string, any>>;

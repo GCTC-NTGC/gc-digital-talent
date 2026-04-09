@@ -1,4 +1,4 @@
-import { defineMessages, MessageDescriptor } from "react-intl";
+import { defineMessages, type MessageDescriptor } from "react-intl";
 
 import { ErrorCode } from "@gc-digital-talent/graphql";
 

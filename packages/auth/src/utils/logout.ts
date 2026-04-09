@@ -1,6 +1,6 @@
-import { jwtDecode, JwtPayload } from "jwt-decode";
+import { jwtDecode, type JwtPayload } from "jwt-decode";
 
-import { Locales } from "@gc-digital-talent/i18n";
+import { type Locales } from "@gc-digital-talent/i18n";
 import { getRuntimeVariableNotNull } from "@gc-digital-talent/env";
 import { defaultLogger } from "@gc-digital-talent/logger";
 import { appInsights } from "@gc-digital-talent/app-insights";
@@ -23,7 +23,7 @@ import {
   ACCESS_TOKEN,
   ID_TOKEN,
   LOGOUT_REASON_KEY,
-  LogoutReason,
+  type LogoutReason,
   NAV_ROLE_KEY,
   POST_LOGOUT_OVERRIDE_PATH_KEY,
   REFRESH_TOKEN,

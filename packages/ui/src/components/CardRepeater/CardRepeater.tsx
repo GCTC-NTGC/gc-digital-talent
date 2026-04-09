@@ -1,14 +1,14 @@
-import { KeyboardEventHandler, ReactElement, ReactNode, useId } from "react";
+import { type KeyboardEventHandler, type ReactElement, type ReactNode, useId } from "react";
 
 import { ARROW_KEY, isArrowKey } from "../../utils/keyboard";
 import {
   CardRepeaterProvider,
-  CardRepeaterProviderProps,
+  type CardRepeaterProviderProps,
   useCardRepeaterContext,
 } from "./CardRepeaterProvider";
-import { BaseItem } from "./types";
+import { type BaseItem } from "./types";
 import { Add, Edit, Remove } from "./Button";
-import Card, { CARD_CLASS_NAME, CardProps } from "./Card";
+import Card, { CARD_CLASS_NAME, type CardProps } from "./Card";
 import List from "./List";
 
 interface RootProps<T extends BaseItem> extends Omit<

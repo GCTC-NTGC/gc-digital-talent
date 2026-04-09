@@ -1,13 +1,13 @@
-import { motion, Transition, Variants } from "motion/react";
+import { motion, type Transition, type Variants } from "motion/react";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
-import { DetailedHTMLProps, HTMLAttributes, forwardRef } from "react";
+import { type DetailedHTMLProps, type HTMLAttributes, forwardRef } from "react";
 import { tv } from "tailwind-variants";
 
 import { Separator as SeparatorPrimitive } from "@gc-digital-talent/ui";
 
-import { HTMLSpanProps } from "./types";
+import { type HTMLSpanProps } from "./types";
 
 const layout = tv({
   base: "flex shrink-0 items-center px-2",

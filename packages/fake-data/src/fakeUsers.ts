@@ -1,34 +1,34 @@
 import { faker } from "@faker-js/faker/locale/en";
 
 import {
-  User,
+  type User,
   Language,
   ProvinceOrTerritory,
   EvaluatedLanguageAbility,
   EstimatedLanguageAbility,
-  Classification,
+  type Classification,
   OperationalRequirement,
   GovEmployeeType,
-  Department,
+  type Department,
   CitizenshipStatus,
   ArmedForcesStatus,
   PositionDuration,
   IndigenousCommunity,
-  Maybe,
+  type Maybe,
   FlexibleWorkLocation,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 
 import {
-  GeneratedAwardExperience,
-  GeneratedCommunityExperience,
-  GeneratedEducationExperience,
-  GeneratedPersonalExperience,
-  GeneratedWorkExperience,
+  type GeneratedAwardExperience,
+  type GeneratedCommunityExperience,
+  type GeneratedEducationExperience,
+  type GeneratedPersonalExperience,
+  type GeneratedWorkExperience,
 } from "./fakeExperiences";
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
-import { GeneratedPoolCandidate } from "./fakePoolCandidateTypes";
+import { type GeneratedPoolCandidate } from "./fakePoolCandidateTypes";
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
 type GeneratedUser = User & {

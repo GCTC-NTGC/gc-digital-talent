@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import { DevelopmentProgram } from "@gc-digital-talent/graphql";
+import { type DevelopmentProgram } from "@gc-digital-talent/graphql";
 
 import toLocalizedString from "./fakeLocalizedString";
 

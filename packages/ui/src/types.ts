@@ -1,10 +1,10 @@
 import {
-  PropsWithoutRef,
-  SVGProps,
-  RefAttributes,
-  ElementType,
-  ForwardRefExoticComponent,
-  JSX,
+  type PropsWithoutRef,
+  type SVGProps,
+  type RefAttributes,
+  type ElementType,
+  type ForwardRefExoticComponent,
+  type JSX,
 } from "react";
 
 export type Color =

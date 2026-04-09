@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, forwardRef, HTMLAttributes } from "react";
+import { type DetailedHTMLProps, forwardRef, type HTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
 const container = tv({

@@ -1,5 +1,5 @@
 import {
-  ReactNode,
+  type ReactNode,
   createContext,
   useContext,
   useCallback,
@@ -7,7 +7,7 @@ import {
   useRef,
 } from "react";
 
-import { AriaMessage, createMessageQueue } from "./PriorityQueue";
+import { type AriaMessage, createMessageQueue } from "./PriorityQueue";
 
 const TIMEOUT = 1000;
 

@@ -1,10 +1,10 @@
 import { faker } from "@faker-js/faker/locale/en";
 
 import {
-  PoolSkill,
-  AssessmentStep,
-  Maybe,
-  AssessmentResult,
+  type PoolSkill,
+  type AssessmentStep,
+  type Maybe,
+  type AssessmentResult,
   AssessmentDecision,
   AssessmentDecisionLevel,
   AssessmentResultType,

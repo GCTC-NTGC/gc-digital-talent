@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useRef } from "react";
+import { createContext, type ReactNode, useContext, useRef } from "react";
 
 const numberRegex = /(\d+)/g;
 

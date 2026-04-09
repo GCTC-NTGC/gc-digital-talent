@@ -1,12 +1,12 @@
 import ArrowLongRightIcon from "@heroicons/react/16/solid/ArrowLongRightIcon";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import Link, { LinkProps } from "../Link";
-import BaseItem, { BaseItemProps } from "./BaseItem";
-import { HeadingRank } from "../../types";
+import Link, { type LinkProps } from "../Link";
+import BaseItem, { type BaseItemProps } from "./BaseItem";
+import { type HeadingRank } from "../../types";
 
 interface WrapperProps {
   as?: HeadingRank;

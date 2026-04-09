@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import { Classification } from "@gc-digital-talent/graphql";
+import { type Classification } from "@gc-digital-talent/graphql";
 
 export default (): Classification[] => {
   faker.seed(0); // repeatable results

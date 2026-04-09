@@ -1,6 +1,6 @@
 import {
   createContext,
-  ReactNode,
+  type ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -9,13 +9,13 @@ import {
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import {
-  ThemeMode,
-  ThemeKey,
-  SetThemeFunc,
-  SetThemeKeyFunc,
-  SetThemeModeFunc,
-  Theme,
-  ThemeOverride,
+  type ThemeMode,
+  type ThemeKey,
+  type SetThemeFunc,
+  type SetThemeKeyFunc,
+  type SetThemeModeFunc,
+  type Theme,
+  type ThemeOverride,
 } from "../types";
 
 export interface ThemeState {

@@ -1,7 +1,7 @@
-import { ReactNode, forwardRef } from "react";
+import { type ReactNode, forwardRef } from "react";
 import { tv } from "tailwind-variants";
 
-import { Button, ButtonProps } from "@gc-digital-talent/ui";
+import { Button, type ButtonProps } from "@gc-digital-talent/ui";
 
 const menuBtn = tv({
   base: "font-normal",

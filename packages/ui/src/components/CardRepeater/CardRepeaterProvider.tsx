@@ -1,10 +1,10 @@
 import { useIntl } from "react-intl";
-import { createContext, ReactNode, useMemo, useContext } from "react";
+import { createContext, type ReactNode, useMemo, useContext } from "react";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
 import useControllableState from "../../hooks/useControllableState";
-import { BaseItem, CardRepeaterContextProps, ItemWithId } from "./types";
+import { type BaseItem, type CardRepeaterContextProps, type ItemWithId } from "./types";
 import { useAnnouncer } from "../Announcer/Announcer";
 
 const CardRepeaterContext = createContext<CardRepeaterContextProps | undefined>(

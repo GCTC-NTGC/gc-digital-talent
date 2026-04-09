@@ -9,8 +9,8 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
-import Combobox, { ComboboxProps } from "./Combobox";
-import { Option } from "./types";
+import Combobox, { type ComboboxProps } from "./Combobox";
+import { type Option } from "./types";
 
 faker.seed(0);
 

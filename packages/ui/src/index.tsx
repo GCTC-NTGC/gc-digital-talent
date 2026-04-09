@@ -1,6 +1,6 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
-import { Color, HeadingRank, IconType, IconProps } from "./types";
+import { type Color, type HeadingRank, type IconType, type IconProps } from "./types";
 import Accordion, {
   type AccordionMetaData,
 } from "./components/Accordion/Accordion";
@@ -15,10 +15,10 @@ import Breadcrumbs, {
 } from "./components/Breadcrumbs/Breadcrumbs";
 import { Container } from "./components/Container/Container";
 import Crumb from "./components/Breadcrumbs/Crumb";
-import CTAButton, { CTAButtonProps } from "./components/CallToAction/CTAButton";
-import CTALink, { CTALinkProps } from "./components/CallToAction/CTALink";
+import CTAButton, { type CTAButtonProps } from "./components/CallToAction/CTAButton";
+import CTALink, { type CTALinkProps } from "./components/CallToAction/CTALink";
 import Card, { type CardProps } from "./components/Card/Card";
-import CardFlat, { CardFlatProps } from "./components/Card/CardFlat/CardFlat";
+import CardFlat, { type CardFlatProps } from "./components/Card/CardFlat/CardFlat";
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
@@ -31,9 +31,9 @@ import Dialog from "./components/Dialog/Dialog";
 import DropdownMenu from "./components/DropdownMenu/DropdownMenu";
 import Flourish from "./components/Flourish/Flourish";
 import Heading, {
-  HeadingProps,
-  HeadingLevel,
-  HeadingRef,
+  type HeadingProps,
+  type HeadingLevel,
+  type HeadingRef,
 } from "./components/Heading";
 import IconButton, {
   type IconButtonProps,
@@ -54,7 +54,7 @@ import Link, {
 import Ol from "./components/List/Ol";
 import Ul from "./components/List/Ul";
 import Loading, { type LoadingProps } from "./components/Loading";
-import Metadata, { MetadataItemProps } from "./components/Metadata/Metadata";
+import Metadata, { type MetadataItemProps } from "./components/Metadata/Metadata";
 import NavMenu from "./components/NavMenu/NavMenu";
 import NavMenuProvider from "./components/NavMenu/NavMenuProvider";
 import NavTabs from "./components/Tabs/NavTabs";
@@ -72,20 +72,20 @@ import Separator, {
   type SeparatorProps,
 } from "./components/Separator/Separator";
 import StatusButton, {
-  StatusButtonProps,
+  type StatusButtonProps,
 } from "./components/Button/StatusButton";
-import Sidebar, { SidebarProps } from "./components/Sidebar";
-import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
-import Stepper, { StepperProps } from "./components/Stepper/Stepper";
-import { StepType } from "./components/Stepper/types";
-import Switch, { SwitchProps } from "./components/Switch/Switch";
+import Sidebar, { type SidebarProps } from "./components/Sidebar";
+import Spoiler, { type SpoilerProps } from "./components/Spoiler/Spoiler";
+import Stepper, { type StepperProps } from "./components/Stepper/Stepper";
+import { type StepType } from "./components/Stepper/types";
+import Switch, { type SwitchProps } from "./components/Switch/Switch";
 import TableOfContents, {
   type TocAnchorLinkProps,
-  TocHeadingProps,
-  TocSectionProps,
-  TocListItemProps,
-  TocListProps,
-  TocSidebarProps,
+  type TocHeadingProps,
+  type TocSectionProps,
+  type TocListItemProps,
+  type TocListProps,
+  type TocSidebarProps,
 } from "./components/TableOfContents";
 import Tabs from "./components/Tabs/Tabs";
 import ToggleGroup from "./components/ToggleGroup/ToggleGroup";

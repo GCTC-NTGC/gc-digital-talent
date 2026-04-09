@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Editor, useEditorState } from "@tiptap/react";
+import { type Editor, useEditorState } from "@tiptap/react";
 import ListBulletIcon from "@heroicons/react/20/solid/ListBulletIcon";
 import ArrowUturnLeftIcon from "@heroicons/react/20/solid/ArrowUturnLeftIcon";
 import ArrowUturnRightIcon from "@heroicons/react/20/solid/ArrowUturnRightIcon";

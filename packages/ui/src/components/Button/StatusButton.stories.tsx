@@ -1,9 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+import { type Meta, type StoryObj } from "@storybook/react-vite";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import StatusButton, { StatusButtonProps } from "./StatusButton";
+import StatusButton, { type StatusButtonProps } from "./StatusButton";
 
 const meta = {
   component: StatusButton,

@@ -1,6 +1,6 @@
-import { DetailedHTMLProps, forwardRef, HTMLAttributes } from "react";
+import { type DetailedHTMLProps, forwardRef, type HTMLAttributes } from "react";
 
-import { list, ListVariants } from "./styles";
+import { list, type ListVariants } from "./styles";
 
 interface ULProps
   extends

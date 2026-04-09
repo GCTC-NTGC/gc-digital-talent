@@ -1,7 +1,7 @@
-import { IntlShape } from "react-intl";
+import { type IntlShape } from "react-intl";
 import {
   cacheExchange,
-  Client,
+  type Client,
   createClient,
   fetchExchange,
   mapExchange,
@@ -15,10 +15,10 @@ import {
   ACCESS_TOKEN,
   getAuthenticationState,
   LOGOUT_REASON_KEY,
-  LogoutReason,
+  type LogoutReason,
   NAV_ROLE_KEY,
   REFRESH_TOKEN,
-  AuthenticationState,
+  type AuthenticationState,
 } from "@gc-digital-talent/auth";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 

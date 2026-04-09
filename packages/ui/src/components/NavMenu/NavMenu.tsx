@@ -5,22 +5,22 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { useLocation } from "react-router";
 import {
   forwardRef,
-  ComponentRef,
-  ComponentPropsWithoutRef,
+  type ComponentRef,
+  type ComponentPropsWithoutRef,
   useRef,
   useEffect,
 } from "react";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
-import { tv, VariantProps } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
-import OurLink, { LinkProps as BaseLinkProps } from "../Link/Link";
+import OurLink, { type LinkProps as BaseLinkProps } from "../Link/Link";
 import OurIconLink, {
-  IconLinkProps as BaseIconLinkProps,
+  type IconLinkProps as BaseIconLinkProps,
 } from "../Link/IconLink";
 import { useNavMenuContext } from "./NavMenuProvider";
-import Button, { ButtonProps } from "../Button";
+import Button, { type ButtonProps } from "../Button";
 
 const Root = forwardRef<
   ComponentRef<typeof NavigationMenuPrimitive.Root>,

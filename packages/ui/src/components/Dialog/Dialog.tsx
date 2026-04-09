@@ -6,12 +6,12 @@ import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { useIntl } from "react-intl";
 import {
   forwardRef,
-  ComponentRef,
-  ComponentPropsWithoutRef,
-  ReactNode,
-  HTMLProps,
+  type ComponentRef,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+  type HTMLProps,
 } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 

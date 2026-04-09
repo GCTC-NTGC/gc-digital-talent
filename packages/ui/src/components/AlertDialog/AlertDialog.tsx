@@ -4,9 +4,9 @@
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 import {
   forwardRef,
-  ComponentRef,
-  ComponentPropsWithoutRef,
-  ReactNode,
+  type ComponentRef,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
 } from "react";
 
 import Separator from "../Separator";

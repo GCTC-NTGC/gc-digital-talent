@@ -3,7 +3,7 @@ import { screen } from "@testing-library/react";
 
 import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 
-import Notice, { NoticeProps } from "./Notice";
+import Notice, { type NoticeProps } from "./Notice";
 
 function renderNotice(props: NoticeProps) {
   return renderWithProviders(<Notice.Root {...props} />);

@@ -8,7 +8,8 @@
     ".": "./src/index.tsx"
   },
   "scripts": {
-    "lint": "eslint",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "tsc": "tsc --project tsconfig.json --noEmit",

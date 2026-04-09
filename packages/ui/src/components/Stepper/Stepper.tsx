@@ -1,13 +1,13 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
-import { Maybe } from "@gc-digital-talent/graphql";
+import { type Maybe } from "@gc-digital-talent/graphql";
 
-import Heading, { HeadingLevel } from "../Heading";
+import Heading, { type HeadingLevel } from "../Heading";
 import Step from "./Step";
-import { StepType } from "./types";
-import { StepState } from "./utils";
+import { type StepType } from "./types";
+import { type StepState } from "./utils";
 
 const deriveStepState = (
   stepIndex: number,

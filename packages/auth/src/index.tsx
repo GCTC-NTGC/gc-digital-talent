@@ -20,17 +20,16 @@ import {
   ID_TOKEN,
   POST_LOGOUT_OVERRIDE_PATH_KEY,
   ROLE_NAME,
-  RoleName,
+  type RoleName,
   LOGOUT_REASON_KEY,
   NAV_ROLE_KEY,
   COMMUNITY_ROLES,
   ASSESSMENT_MEMBER_ROLES,
   PROCESS_ACTIVITY_LOG_ROLES,
   DEPARTMENT_ROLES,
-} from "./const";
-import type { LogoutReason } from "./const";
+ type LogoutReason } from "./const";
 import getAuthenticationState from "./utils/authenticationState";
-import { AuthenticationState } from "./types";
+import { type AuthenticationState } from "./types";
 import { setTokensFromLocation } from "./utils/setTokensFromLocation";
 
 export {

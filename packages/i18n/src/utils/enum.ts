@@ -1,4 +1,4 @@
-import { IntlShape } from "react-intl";
+import { type IntlShape } from "react-intl";
 
 import {
   ApplicationStatus,
@@ -10,9 +10,9 @@ import {
   EducationType,
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
-  LocalizedEnumString,
-  LocalizedString,
-  Maybe,
+  type LocalizedEnumString,
+  type LocalizedString,
+  type Maybe,
   PlacementType,
   PoolCandidateSearchRequestReason,
   PoolCandidateSearchStatus,

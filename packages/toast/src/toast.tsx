@@ -1,4 +1,4 @@
-import { toast as toastify, ToastOptions } from "react-toastify/unstyled";
+import { toast as toastify, type ToastOptions } from "react-toastify/unstyled";
 
 import ToastAlert, {
   type ToastMessage,

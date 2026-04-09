@@ -1,5 +1,5 @@
-import CsvDownloader, { ICsvProps } from "react-csv-downloader";
-import { ReactNode } from "react";
+import CsvDownloader, { type ICsvProps } from "react-csv-downloader";
+import { type ReactNode } from "react";
 
 import type { LinkProps } from "./Link";
 import { btn } from "../../utils/btnStyles";

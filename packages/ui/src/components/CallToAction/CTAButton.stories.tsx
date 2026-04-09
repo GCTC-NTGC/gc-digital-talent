@@ -1,5 +1,5 @@
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
-import { StoryObj, Meta } from "@storybook/react-vite";
+import { type StoryObj, type Meta } from "@storybook/react-vite";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 

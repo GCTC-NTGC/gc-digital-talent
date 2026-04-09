@@ -5,9 +5,9 @@ import {
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
 import {
-  PoolCandidate,
-  Pool,
-  User,
+  type PoolCandidate,
+  type Pool,
+  type User,
   EducationRequirementOption,
   OverallAssessmentStatus,
   ScreeningStage,

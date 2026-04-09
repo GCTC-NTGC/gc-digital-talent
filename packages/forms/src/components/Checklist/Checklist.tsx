@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { Fragment, ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 import Checkbox from "../Checkbox/Checkbox";

@@ -1,10 +1,10 @@
 import { IntlProvider } from "react-intl";
-import { ReactNode, useMemo } from "react";
+import { type ReactNode, useMemo } from "react";
 
 import defaultRichTextElements from "@gc-digital-talent/rich-text-elements";
 
 import useLocale from "../hooks/useLocale";
-import { Messages } from "../types";
+import { type Messages } from "../types";
 import { combineMessages } from "../utils/utils";
 
 interface LanguageProviderProps {

@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HTMLAttributes, forwardRef } from "react";
+import { type DetailedHTMLProps, type HTMLAttributes, forwardRef } from "react";
 import { tv } from "tailwind-variants";
 
 const counter = tv({

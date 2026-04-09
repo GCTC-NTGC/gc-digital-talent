@@ -1,7 +1,7 @@
 import type { StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker/locale/en";
-import { useState, ChangeEventHandler, SubmitEvent } from "react";
+import { useState, type ChangeEventHandler, type SubmitEvent } from "react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 

@@ -7,23 +7,23 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import {
   PoolStatus,
-  Classification,
-  Pool,
+  type Classification,
+  type Pool,
   PoolLanguage,
   PublishingGroup,
   SecurityStatus,
-  Skill,
-  GeneralQuestion,
-  ScreeningQuestion,
+  type Skill,
+  type GeneralQuestion,
+  type ScreeningQuestion,
   AssessmentStepType,
   PoolSkillType,
-  PoolSkill,
+  type PoolSkill,
   SkillLevel,
-  Department,
+  type Department,
   PoolOpportunityLength,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
-  WorkStream,
+  type WorkStream,
 } from "@gc-digital-talent/graphql";
 
 import fakePaginatorInfo, { fakePaginateData } from "./fakePaginatorInfo";

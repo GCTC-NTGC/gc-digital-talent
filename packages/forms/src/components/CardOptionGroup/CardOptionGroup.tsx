@@ -1,8 +1,8 @@
 import { useFormContext } from "react-hook-form";
-import { ReactNode } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import { type ReactNode } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
 
-import { IconType } from "@gc-digital-talent/ui";
+import { type IconType } from "@gc-digital-talent/ui";
 
 import Field from "../Field";
 import type { CommonInputProps, HTMLFieldsetProps } from "../../types";

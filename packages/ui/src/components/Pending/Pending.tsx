@@ -1,11 +1,11 @@
 import { useIntl } from "react-intl";
 import type { CombinedError } from "urql";
-import { ReactNode, Suspense } from "react";
+import { type ReactNode, Suspense } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { isUuidError, NotFoundError } from "@gc-digital-talent/helpers";
 
-import Loading, { LoadingProps } from "../Loading";
+import Loading, { type LoadingProps } from "../Loading";
 import ErrorMessage from "./ErrorMessage";
 
 export interface PendingProps extends LoadingProps {

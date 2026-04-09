@@ -5,8 +5,8 @@ import Content from "../Sidebar/Content";
 import Heading, { type TocHeadingProps } from "./Heading";
 import List, {
   ListItem,
-  ListProps as TocListProps,
-  ListItemProps as TocListItemProps,
+  type ListProps as TocListProps,
+  type ListItemProps as TocListItemProps,
 } from "./List";
 import Navigation from "./Navigation";
 import Section, { type SectionProps as TocSectionProps } from "./Section";

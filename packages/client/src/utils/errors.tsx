@@ -1,7 +1,7 @@
-import { GraphQLError } from "graphql";
-import { CombinedError } from "urql";
-import { IntlShape } from "react-intl";
-import { ReactNode } from "react";
+import { type GraphQLError } from "graphql";
+import { type CombinedError } from "urql";
+import { type IntlShape } from "react-intl";
+import { type ReactNode } from "react";
 
 import { tryFindMessageDescriptor } from "@gc-digital-talent/i18n";
 

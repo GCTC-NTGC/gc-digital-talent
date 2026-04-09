@@ -6,7 +6,7 @@ import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { useFormContext } from "react-hook-form";
-import { ReactNode, HTMLProps, useId } from "react";
+import { type ReactNode, type HTMLProps, useId } from "react";
 import { tv } from "tailwind-variants";
 
 import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";

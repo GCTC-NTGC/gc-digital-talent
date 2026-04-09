@@ -4,28 +4,28 @@
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import React, {
-  ComponentPropsWithoutRef,
+  type ComponentPropsWithoutRef,
   forwardRef,
-  ComponentRef,
-  ReactNode,
+  type ComponentRef,
+  type ReactNode,
   Fragment,
   createContext,
   useContext,
-  ReactElement,
-  ComponentProps,
+  type ReactElement,
+  type ComponentProps,
 } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import type { HeadingRank, IconType } from "../../types";
-import Chip, { ChipVariants } from "../Chip/Chip";
-import Link, { LinkProps } from "../Link";
+import Chip, { type ChipVariants } from "../Chip/Chip";
+import Link, { type LinkProps } from "../Link";
 import MetaDataStatusItem, {
-  MetaDataStatusItemProps,
+  type MetaDataStatusItemProps,
 } from "./MetaDataStatusItem";
 import MetaDataButton from "./MetaDataButton";
-import { ButtonProps } from "../Button";
+import { type ButtonProps } from "../Button";
 import { UNICODE_CHAR } from "../../utils/unicode";
 
 const root = tv({

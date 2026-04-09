@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import {
   AuthorizationContext,
-  AuthorizationState,
+  type AuthorizationState,
 } from "../components/AuthorizationContainer";
 
 const useAuthorization = (): AuthorizationState => {

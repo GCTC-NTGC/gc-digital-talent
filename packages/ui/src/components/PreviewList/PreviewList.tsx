@@ -1,15 +1,15 @@
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
-import { forwardRef, Fragment, ReactElement, ReactNode } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import { forwardRef, Fragment, type ReactElement, type ReactNode } from "react";
+import { tv, type VariantProps } from "tailwind-variants";
 
 import BaseButton, {
-  IconButtonProps as BaseButtonProps,
-  IconButtonProps,
+  type IconButtonProps as BaseButtonProps,
+  type IconButtonProps,
 } from "../Button/IconButton";
-import BaseLink, { IconLinkProps as BaseLinkProps } from "../Link/IconLink";
-import Chip, { ChipProps } from "../Chip/Chip";
-import Heading, { HeadingLevel } from "../Heading";
-import { BaseIconButtonLinkProps } from "../../utils/btnStyles";
+import BaseLink, { type IconLinkProps as BaseLinkProps } from "../Link/IconLink";
+import Chip, { type ChipProps } from "../Chip/Chip";
+import Heading, { type HeadingLevel } from "../Heading";
+import { type BaseIconButtonLinkProps } from "../../utils/btnStyles";
 import { UNICODE_CHAR } from "../../utils/unicode";
 import { deriveTimelinePlacement } from "./utils";
 

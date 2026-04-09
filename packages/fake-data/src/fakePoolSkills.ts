@@ -2,8 +2,8 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import {
   PoolSkillType,
-  PoolSkill,
-  Skill,
+  type PoolSkill,
+  type Skill,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
 

@@ -4,16 +4,16 @@ import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
 import { motion, useReducedMotion } from "motion/react";
 import omit from "lodash/omit";
 import {
-  DetailedHTMLProps,
-  HTMLAttributes,
+  type DetailedHTMLProps,
+  type HTMLAttributes,
   forwardRef,
-  LiHTMLAttributes,
+  type LiHTMLAttributes,
 } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
-import { HTMLSpanProps } from "./types";
+import { type HTMLSpanProps } from "./types";
 import { inputStyles } from "../../styles";
 
 const wrapper = tv({

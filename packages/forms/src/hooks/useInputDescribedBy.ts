@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 /** Keys for the different types of descriptions we are using */
 type InputDescription = "error" | "context" | "unsaved";

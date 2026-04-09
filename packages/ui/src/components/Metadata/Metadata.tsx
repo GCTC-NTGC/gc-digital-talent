@@ -1,7 +1,7 @@
-import { Fragment, ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import Chip, { ChipProps } from "../Chip/Chip";
+import Chip, { type ChipProps } from "../Chip/Chip";
 import { UNICODE_CHAR } from "../../utils/unicode";
 
 interface MetaDataBase {

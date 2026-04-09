@@ -2,15 +2,15 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import {
   // experiences
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  WorkExperience,
+  type AwardExperience,
+  type CommunityExperience,
+  type EducationExperience,
+  type PersonalExperience,
+  type WorkExperience,
   // required imports to generate an Experience to export
-  User,
-  ExperienceSkillRecord,
-  Skill,
+  type User,
+  type ExperienceSkillRecord,
+  type Skill,
   // imports required by specific experiences and are linked
   AwardedTo,
   AwardedScope,
