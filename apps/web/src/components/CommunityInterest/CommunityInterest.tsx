@@ -26,7 +26,7 @@ export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
-      developmentPrograms {
+      associatedDevelopmentPrograms {
         id
         name {
           localized
@@ -102,7 +102,7 @@ const CommunityInterest = ({
     communityInterest.community.workStreams,
   );
   const communityDevelopmentPrograms = unpackMaybes(
-    communityInterest?.community.developmentPrograms,
+    communityInterest?.community.associatedDevelopmentPrograms,
   );
   const interestedWorkStreams = unpackMaybes(
     communityInterest?.workStreams,

@@ -19,8 +19,9 @@ final class CreateCommunityInterestInputValidator extends Validator
     public function rules(): array
     {
         $communityId = $this->arg('community.connect');
-        $community = Community::with(['workStreams'])->find($communityId);
+        $community = Community::with(['workStreams', 'communityDevelopmentPrograms'])->find($communityId);
         $workStreamIds = $community?->workStreams->pluck('id')->toArray() ?? [];
+        $communityDevelopmentProgramIds = $community?->communityDevelopmentPrograms->pluck('id')->toArray() ?? [];
 
         return [
             'userId' => ['uuid', 'required', 'exists:users,id'],
@@ -31,6 +32,7 @@ final class CreateCommunityInterestInputValidator extends Validator
             'jobInterest' => ['nullable', 'boolean'],
             'trainingInterest' => ['nullable', 'boolean'],
             'additionalInformation' => ['nullable', 'string'],
+            'interestInDevelopmentPrograms.create.*.communityDevelopmentProgramId' => ['uuid', Rule::in($communityDevelopmentProgramIds)],
             'financeIsChief' => [
                 'nullable',
                 Rule::when($community?->key === 'finance',
