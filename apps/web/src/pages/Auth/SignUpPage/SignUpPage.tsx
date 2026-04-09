@@ -323,7 +323,7 @@ export const Component = () => {
               <Heading
                 level="h3"
                 size="h4"
-                className="mt-14 mb-4 text-center font-normal xs:text-left"
+                className="mt-20 mb-3.5 text-center font-normal xs:text-left"
               >
                 {intl.formatMessage({
                   defaultMessage: "Part 2: Set up two-step verification",
@@ -431,7 +431,7 @@ export const Component = () => {
               <Heading
                 level="h3"
                 size="h4"
-                className="mt-14 mb-4 text-center font-normal xs:text-left"
+                className="mt-20 mb-3.5 text-center font-normal xs:text-left"
               >
                 {intl.formatMessage({
                   defaultMessage: "Part 3: Access your account",
@@ -528,7 +528,7 @@ export const Component = () => {
                 color="primary"
                 level="h3"
                 size="h4"
-                className="mt-12 mb-4 justify-center font-normal xs:justify-start"
+                className="mt-12 mb-5 justify-center font-normal xs:justify-start"
               >
                 {intl.formatMessage({
                   defaultMessage: "Frequently Asked Questions (FAQs)",
@@ -542,7 +542,7 @@ export const Component = () => {
                 size="sm"
                 mode="card"
                 collapsible
-                className="my-16 mt-4"
+                className="my-5 mt-4"
               >
                 <Accordion.Item value="one">
                   <Accordion.Trigger as="h3">
@@ -578,7 +578,7 @@ export const Component = () => {
                         canadaLoginMessages.answerContactCanadaLogin1,
                       )}
                     </p>
-                    <p className="mb-3">
+                    <p className="mt-4 mb-3">
                       <Link
                         color="black"
                         external
@@ -599,7 +599,7 @@ export const Component = () => {
                   </Accordion.Content>
                 </Accordion.Item>
               </Accordion.Root>
-              <p className="mt-6">
+              <p className="mt-5">
                 {intl.formatMessage(gckeyMessages.moreQuestions, {
                   helpLink: (chunks: ReactNode) =>
                     helpLink(chunks, paths.support()),
@@ -746,7 +746,7 @@ export const Component = () => {
                 description: "GCKey sign up link text on the sign up page",
               })}
             </Link>
-            <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+            <Heading level="h3" size="h4" className="mt-20 mb-3.5 font-bold">
               {intl.formatMessage({
                 defaultMessage: "Part 1: Creating a GCKey account",
                 id: "u98IOx",

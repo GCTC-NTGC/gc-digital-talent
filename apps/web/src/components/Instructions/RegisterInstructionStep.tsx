@@ -24,8 +24,8 @@ const instructionStepCard = tv({
   base: "h-full text-center",
   variants: {
     background: {
-      default: "transparent",
-      darker: "bg-gray-100/40 dark:bg-gray-600/70",
+      default: "bg-transparent",
+      darker: "bg-gray-100/30 dark:bg-gray-700/50",
     },
   },
   defaultVariants: {
@@ -71,33 +71,35 @@ export const InstructionsCardGrid = ({
   const totalCards = childrenArray.length;
 
   return (
-    <div className="relative">
-      <div className="hidden shadow-xl xs:flex">
-        {childrenArray.map((child, index) => (
-          <div key={index} className="relative flex-1">
-            {child}
-            {index < totalCards - 1 && (
-              <div className="absolute top-1/2 -right-4 z-10 -translate-y-1/2">
-                <ArrowRightCircleIcon className="h-8 w-8 overflow-visible align-middle text-gray" />
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+    <div className="bg-white dark:bg-gray-600">
+      <div className="relative">
+        <div className="hidden shadow-xl xs:flex">
+          {childrenArray.map((child, index) => (
+            <div key={index} className="relative flex-1">
+              {child}
+              {index < totalCards - 1 && (
+                <div className="absolute top-1/2 -right-4 z-10 -translate-y-1/2">
+                  <ArrowRightCircleIcon className="h-8 w-8 overflow-visible align-middle text-gray" />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
 
-      {/* Mobile */}
-      <div className="block shadow-xl xs:hidden">
-        {childrenArray.map((child, index) => (
-          <div key={index} className="relative">
-            <div className="h-full">{child}</div>
+        {/* Mobile */}
+        <div className="block shadow-xl xs:hidden">
+          {childrenArray.map((child, index) => (
+            <div key={index} className="relative">
+              <div className="h-full">{child}</div>
 
-            {index < totalCards - 1 && (
-              <div className="pointer-events-none absolute -bottom-6 left-1/2 z-10 -translate-x-1/2">
-                <ArrowDownCircleIcon className="mb-2 h-8 w-8 text-gray" />
-              </div>
-            )}
-          </div>
-        ))}
+              {index < totalCards - 1 && (
+                <div className="pointer-events-none absolute -bottom-6 left-1/2 z-10 -translate-x-1/2">
+                  <ArrowDownCircleIcon className="mb-2 h-8 w-8 text-gray" />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
