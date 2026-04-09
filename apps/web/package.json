@@ -6,7 +6,7 @@
   "license": "AGPL-3.0",
   "description": "",
   "scripts": {
-    "build": "react-router build && tsx scripts/prerender-restricted.tsx",
+    "build": "react-router build && tsx scripts/prerender-static.tsx",
     "optimize": "vite optimize",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "react-router build --sourcemapClient --mode=development",

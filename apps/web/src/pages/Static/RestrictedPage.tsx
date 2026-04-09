@@ -2,23 +2,11 @@
 import GocLogoEn from "../../components/Svg/GocLogoEn";
 import GocLogoFr from "../../components/Svg/GocLogoFr";
 
-/**
- * Standalone bilingual "access restricted" page.
- *
- * Intentionally avoids imports that require a browser runtime (react-intl,
- * react-router, window, etc.) so it can be rendered with
- * renderToStaticMarkup in the post-build prerender script.
- *
- * The Tailwind classes used here are picked up by the @tailwindcss/vite
- * plugin during the normal Vite build, so they are included in the
- * generated CSS bundle without any extra configuration.
- */
+export const title = "Unauthorized | Non autorisé";
+
 const RestrictedPage = () => (
   <div className="flex min-h-screen flex-col font-sans">
-    {/* Flourish bar */}
     <div className="block h-6 bg-linear-(--gradient-main-linear)" />
-
-    {/* Header */}
     <div className="mx-auto w-full max-w-6xl px-6">
       <div className="mt-6 flex flex-col items-center justify-between gap-6 xs:flex-row xs:items-start">
         <a
@@ -37,8 +25,6 @@ const RestrictedPage = () => (
         </a>
       </div>
     </div>
-
-    {/* Content */}
     <div className="flex flex-1 items-center bg-gray-100 py-18 text-black">
       <div className="mx-auto w-full max-w-6xl px-6 text-center">
         <h1 className="mb-6 mt-0 text-4xl/[1.1] font-bold lg:text-5xl/[1.1]">
@@ -56,8 +42,6 @@ const RestrictedPage = () => (
         </p>
       </div>
     </div>
-
-    {/* Flourish bar */}
     <div className="block h-6 bg-linear-(--gradient-main-linear)" />
   </div>
 );
