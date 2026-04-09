@@ -632,10 +632,10 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     private function getDevelopmentPrograms(TalentNomination $nomination): string
     {
         $developmentProgramsStr = '';
-        if ($nomination->developmentPrograms->count() > 0 || $nomination->development_program_options_other) {
+        if ($nomination->developmentProgramsThroughPivot->count() > 0 || $nomination->development_program_options_other) {
             $developmentPrograms = [];
 
-            foreach ($nomination->developmentPrograms as $developmentProgram) {
+            foreach ($nomination->developmentProgramsThroughPivot as $developmentProgram) {
                 $developmentPrograms[] = $developmentProgram->name[$this->lang];
             }
 
@@ -767,7 +767,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                 'nominatorFallbackDepartment',
                 'advancementReferenceFallbackClassification',
                 'advancementReferenceFallbackDepartment',
-                'developmentPrograms',
+                'developmentProgramsThroughPivot',
                 'skills',
             ],
         ])->where('talent_nomination_event_id', $this->talentNominationEventId);

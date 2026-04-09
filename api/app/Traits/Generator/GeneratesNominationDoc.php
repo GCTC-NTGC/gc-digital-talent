@@ -168,14 +168,14 @@ trait GeneratesNominationDoc
                     $section->addListItem("{$this->localizeHeading('other')} {$nomination->lateral_movement_options_other}");
                 }
 
-                $hasDevelopmentPrograms = count($nomination->developmentPrograms) > 0;
+                $hasDevelopmentPrograms = count($nomination->developmentProgramsThroughPivot) > 0;
 
                 if ($hasDevelopmentPrograms || $nomination->development_program_options_other) {
                     $this->addLabelText($section, $this->localizeHeading('development_program_recommendations'), '');
                 }
 
                 if ($hasDevelopmentPrograms) {
-                    $developmentPrograms = $nomination->developmentPrograms;
+                    $developmentPrograms = $nomination->developmentProgramsThroughPivot;
                     foreach ($developmentPrograms as $developmentProgram) {
                         $section->addListItem($developmentProgram->name[$this->lang]);
                     }

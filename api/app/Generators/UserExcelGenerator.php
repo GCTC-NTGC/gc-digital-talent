@@ -47,6 +47,7 @@ use App\Models\User;
 use App\Models\WorkExperience;
 use App\Traits\Generator\Filterable;
 use App\Traits\Generator\GeneratesFile;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -1094,9 +1095,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             ->get('community_id')
             ->pluck('community_id')
             ->unique();
-        $developmentPrograms = DevelopmentProgram::whereIn('community_id', $communityIds)
-            ->orderByDesc('community_id')
-            ->get();
+
+        // fetch development program directly thru CommunityDevelopmentProgram
+        $developmentPrograms = DevelopmentProgram::whereHas(
+            'communityDevelopmentPrograms',
+            function (Builder $query) use ($communityIds) {
+                $query->whereIn('community_id', $communityIds);
+            })->get();
 
         $generatedHeaders = [];
         $developmentProgramIds = [];
@@ -1116,7 +1121,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         CommunityInterest::authorizedToView(['userId' => $this->authenticatedUserId])
             ->whereIn('user_id', $userIds)
             ->isVerifiedGovEmployee()
-            ->with(['user', 'community', 'workStreams', 'interestInDevelopmentPrograms'])
+            ->with(['user', 'community', 'workStreams', 'interestInDevelopmentPrograms', 'interestInDevelopmentPrograms.developmentProgramThroughPivot'])
             ->chunk(200, function ($interests) use ($sheet, &$currentRow, $developmentProgramIds) {
                 foreach ($interests as $interest) {
                     $rowData = $this->buildCommunityInterestRow($interest, $developmentProgramIds);
@@ -1159,7 +1164,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     private function getDevelopmentProgramInterest(string $programId, CommunityInterest $communityInterest)
     {
         $programInterest = $communityInterest->interestInDevelopmentPrograms->first(function ($interest) use ($programId) {
-            return $interest->development_program_id === $programId;
+            return $interest->developmentProgramThroughPivot->id === $programId;
         });
 
         if (is_null($programInterest)) {
