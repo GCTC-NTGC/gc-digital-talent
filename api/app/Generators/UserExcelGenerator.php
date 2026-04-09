@@ -1164,7 +1164,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     private function getDevelopmentProgramInterest(string $programId, CommunityInterest $communityInterest)
     {
         $programInterest = $communityInterest->interestInDevelopmentPrograms->first(function ($interest) use ($programId) {
-            return $interest->developmentProgramThroughPivot->id === $programId;
+            /** @var DevelopmentProgram $devProgram */
+            $devProgram = $interest->developmentProgramThroughPivot;
+
+            return $devProgram->id === $programId;
         });
 
         if (is_null($programInterest)) {

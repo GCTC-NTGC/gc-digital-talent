@@ -8,6 +8,7 @@ use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Models\Classification;
 use App\Models\Department;
+use App\Models\DevelopmentProgram;
 use App\Models\TalentNominationGroup;
 use App\Models\User;
 use Illuminate\Support\Facades\Lang;
@@ -176,6 +177,7 @@ trait GeneratesNominationDoc
 
                 if ($hasDevelopmentPrograms) {
                     $developmentPrograms = $nomination->developmentProgramsThroughPivot;
+                    /** @var DevelopmentProgram $developmentProgram */
                     foreach ($developmentPrograms as $developmentProgram) {
                         $section->addListItem($developmentProgram->name[$this->lang]);
                     }
