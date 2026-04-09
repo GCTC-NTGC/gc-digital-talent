@@ -133,7 +133,7 @@ const AwardFields = ({
 
   useEffect(() => {
     // Reset the project name if awarded to changes
-    if (watchAwardedTo) {
+    if (watchAwardedTo !== AwardedTo.MyProject) {
       resetField("projectName", { keepDirty: false, defaultValue: null });
     }
 
