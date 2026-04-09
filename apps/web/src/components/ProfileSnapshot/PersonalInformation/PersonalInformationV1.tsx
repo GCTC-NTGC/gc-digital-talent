@@ -1,18 +1,8 @@
 import { useIntl } from "react-intl";
 
-import {
-  LocalizedArmedForcesStatus,
-  LocalizedCitizenshipStatus,
-  LocalizedLanguage,
-  Maybe,
-} from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  getArmedForcesStatusesProfile,
-  getCitizenshipStatusesProfile,
-} from "@gc-digital-talent/i18n";
+import { LocalizedLanguage, Maybe } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-import { empty } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import EmailVerificationStatus from "~/components/Profile/components/EmailVerificationStatus";
@@ -27,10 +17,6 @@ export interface PersonalInformationSnapshotV1 {
   isEmailVerified: Maybe<boolean>;
   telephone: Maybe<string>;
   preferredLang: Maybe<LocalizedLanguage>;
-  preferredLanguageForInterview: Maybe<LocalizedLanguage>;
-  preferredLanguageForExam: Maybe<LocalizedLanguage>;
-  citizenship: Maybe<LocalizedCitizenshipStatus>;
-  armedForcesStatus: Maybe<LocalizedArmedForcesStatus>;
 }
 
 type PersonalInformationV1Props = SnapshotProps<PersonalInformationSnapshotV1>;
@@ -45,10 +31,6 @@ const PersonalInformationV1 = ({ snapshot }: PersonalInformationV1Props) => {
     isEmailVerified,
     telephone,
     preferredLang,
-    preferredLanguageForInterview,
-    preferredLanguageForExam,
-    citizenship,
-    armedForcesStatus,
   } = snapshot;
 
   return (
@@ -109,38 +91,6 @@ const PersonalInformationV1 = ({ snapshot }: PersonalInformationV1Props) => {
         label={intl.formatMessage(profileMessages.communicationLanguage)}
       >
         {preferredLang?.label.localized ?? notProvided}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={!preferredLanguageForInterview}
-        label={intl.formatMessage(profileMessages.spokenLanguage)}
-      >
-        {preferredLanguageForInterview?.label.localized ?? notProvided}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={!preferredLanguageForExam}
-        label={intl.formatMessage(profileMessages.writtenLanguage)}
-      >
-        {preferredLanguageForExam?.label.localized ?? notProvided}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={empty(armedForcesStatus)}
-        label={intl.formatMessage(profileMessages.veteranStatus)}
-        className="xs:col-span-2 sm:col-span-3"
-      >
-        {armedForcesStatus?.value
-          ? intl.formatMessage(
-              getArmedForcesStatusesProfile(armedForcesStatus.value, false),
-            )
-          : notProvided}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={!citizenship}
-        label={intl.formatMessage(profileMessages.citizenship)}
-        className="xs:col-span-2 sm:col-span-3"
-      >
-        {citizenship?.value
-          ? intl.formatMessage(getCitizenshipStatusesProfile(citizenship.value))
-          : notProvided}
       </FieldDisplay>
     </div>
   );

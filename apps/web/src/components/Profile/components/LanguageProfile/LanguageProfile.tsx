@@ -61,6 +61,18 @@ const ProfileLanguageProfile_Fragment = graphql(/** GraphQL */ `
     verbalLevel {
       value
     }
+    preferredLanguageForInterview {
+      value
+      label {
+        localized
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        localized
+      }
+    }
     ...LanguageProfileDisplay
   }
 `);
@@ -163,7 +175,11 @@ const LanguageProfile = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display query={user} />}
+          {isNull ? (
+            <NullDisplay />
+          ) : (
+            <Display query={user} context="applicant-view" />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           {fetching ? (
