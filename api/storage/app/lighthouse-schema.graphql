@@ -2315,6 +2315,10 @@ input DevelopmentProgramBelongsToMany {
   sync: [UUID!]
 }
 
+input CommunityDevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
 input CreateTalentNominationEventInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
@@ -2323,7 +2327,7 @@ input CreateTalentNominationEventInput {
   learnMoreUrl: LocalizedStringInput
   includeLeadershipCompetencies: Boolean
   community: CommunityBelongsTo!
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
 }
 
 input UpdateTalentNominationEventInput {
@@ -2334,7 +2338,7 @@ input UpdateTalentNominationEventInput {
   learnMoreUrl: LocalizedStringInput
   includeLeadershipCompetencies: Boolean
   community: CommunityBelongsTo
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
 }
 
 input TalentNominationEventBelongsTo {
@@ -2366,7 +2370,7 @@ input CreateTalentNominationInput {
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
   developmentProgramOptionsOther: String
   nominationRationale: String
   skills: SkillBelongsToMany
@@ -2398,7 +2402,7 @@ input UpdateTalentNominationInput {
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
   developmentProgramOptionsOther: String
   nominationRationale: String
   skills: SkillBelongsToMany

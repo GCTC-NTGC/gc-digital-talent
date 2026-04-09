@@ -2424,6 +2424,10 @@ input DevelopmentProgramBelongsToMany {
   sync: [UUID!]
 }
 
+input CommunityDevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
 input CreateTalentNominationEventInput @validator {
   name: LocalizedStringInput!
   description: LocalizedStringInput
@@ -2433,7 +2437,7 @@ input CreateTalentNominationEventInput @validator {
   includeLeadershipCompetencies: Boolean
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo!
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
 }
 
 input UpdateTalentNominationEventInput @validator {
@@ -2445,7 +2449,7 @@ input UpdateTalentNominationEventInput @validator {
   includeLeadershipCompetencies: Boolean
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
 }
 
 input TalentNominationEventBelongsTo {
@@ -2495,7 +2499,7 @@ input CreateTalentNominationInput @validator {
   lateralMovementOptionsOther: String
     @rename(attribute: "lateral_movement_options_other")
 
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
   developmentProgramOptionsOther: String
     @rename(attribute: "development_program_options_other")
 
@@ -2547,7 +2551,7 @@ input UpdateTalentNominationInput @validator {
   lateralMovementOptionsOther: String
     @rename(attribute: "lateral_movement_options_other")
 
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
   developmentProgramOptionsOther: String
     @rename(attribute: "development_program_options_other")
 

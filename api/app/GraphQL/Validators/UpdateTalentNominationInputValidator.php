@@ -112,10 +112,10 @@ final class UpdateTalentNominationInputValidator extends Validator
                 Rule::prohibitedIf(! in_array(TalentNominationLateralMovementOption::OTHER->name, $this->arg('lateralMovementOptions') ?? [])),
             ],
 
-            'developmentPrograms' => ['required_array_keys:sync'],
-            'developmentPrograms.sync' => [
+            'communityDevelopmentPrograms' => ['required_array_keys:sync'],
+            'communityDevelopmentPrograms.sync' => [
                 'array',
-                'exists:development_programs,id',
+                'exists:community_development_programs,id',
             ],
             'developmentProgramOptionsOther' => ['string', 'nullable'],
 
