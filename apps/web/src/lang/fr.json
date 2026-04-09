@@ -2228,7 +2228,7 @@
     "description": "Notice's text when there are no nominations"
   },
   "74ANSM": {
-    "defaultMessage": "Vous avez déjà un compte ConnexionCanada?",
+    "defaultMessage": "Vous avez déjà un identifiant ConnexionCanada?",
     "description": "CanadaLogin title for users who may already have an account"
   },
   "74Npts": {
@@ -7188,7 +7188,7 @@
     "description": "Title for next role dialog"
   },
   "Su2+bZ": {
-    "defaultMessage": "Partie 1 : Créer un compte ConnexionCanada",
+    "defaultMessage": "Partie 1 : Créer un identifiant ConnexionCanada",
     "description": "Heading for section of the registration page showing the create steps"
   },
   "SumvTY": {
@@ -7372,7 +7372,7 @@
     "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples page"
   },
   "To1Tf5": {
-    "defaultMessage": "Vous avez créé votre compte ConnexionCanada avec succès.",
+    "defaultMessage": "Vous avez créé votre identifiant ConnexionCanada avec succès.",
     "description": "Text for first registration step, successful account creation"
   },
   "Tp7hml": {
@@ -13603,7 +13603,7 @@
     "description": "Subtitle for form to update a candidates assessment stage"
   },
   "u98IOx": {
-    "defaultMessage": "Partie 1 : Création d’un compte CléGC",
+    "defaultMessage": "Partie 1 : Création d’un identifiant CléGC",
     "description": "Heading for section of the sign up page showing the create steps"
   },
   "uD105N": {
@@ -13851,7 +13851,7 @@
     "description": "Heading for nominator step of a talent nomination"
   },
   "vKdE5N": {
-    "defaultMessage": "Si vous avez déjà un compte ConnexionCanada, vous pouvez vous connecter à votre profil Talents numériques du GC avec celui-ci, même si vous n’avez jamais utilisé Talents numériques du GC auparavant. Si vous n’êtes pas certain d’avoir un compte ConnexionCanada, accédez au site et tentez de vous connecter. Si vous ne vous souvenez plus de votre mot de passe, vous pouvez le réinitialiser à cet endroit.",
+    "defaultMessage": "Si vous avez déjà un identifiant ConnexionCanada, vous pouvez vous connecter à votre profil Talents numériques du GC avec celui-ci, même si vous n’avez jamais utilisé Talents numériques du GC auparavant. Si vous n’êtes pas certain d’avoir un identifiant ConnexionCanada, accédez au site et tentez de vous connecter. Si vous ne vous souvenez plus de votre mot de passe, vous pouvez le réinitialiser à cet endroit.",
     "description": "CanadaLogin instructions for users who may already have an account"
   },
   "vKzPT0": {
