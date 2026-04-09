@@ -99,6 +99,11 @@ const mockClient = {
           },
           {
             __typename: "LocalizedPlacementType",
+            value: PlacementType.PlacedTerm,
+            label: { localized: "Placed term" },
+          },
+          {
+            __typename: "LocalizedPlacementType",
             value: PlacementType.PlacedActing,
             label: { localized: "Placed acting" },
           },
@@ -136,6 +141,7 @@ describe("Search Request Candidates Table", () => {
     expect(await within(filters).findAllByText(/placed acting/i)).toHaveLength(
       2,
     );
+    expect(await within(filters).findAllByText(/placed term/i)).toHaveLength(2);
     expect(await within(filters).findAllByText(/qualified/i)).toHaveLength(2);
     expect(
       await within(filters).findAllByText(/available for referral/i),

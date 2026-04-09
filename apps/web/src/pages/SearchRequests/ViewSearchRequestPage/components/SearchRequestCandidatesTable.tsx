@@ -68,6 +68,7 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
     placementTypes: [
       PlacementType.NotPlaced,
       PlacementType.PlacedTentative,
+      PlacementType.PlacedTerm,
       PlacementType.PlacedCasual,
       PlacementType.PlacedActing,
     ],
