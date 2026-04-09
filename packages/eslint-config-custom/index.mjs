@@ -1,5 +1,3 @@
-// @ts-check
-
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import { flatConfigs as importFlatConfigs } from "eslint-plugin-import";
@@ -141,6 +139,14 @@ export default tseslint.config(
           checksVoidReturn: {
             attributes: false,
           },
+        },
+      ],
+
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          prefer: "type-imports",
+          fixStyle: "inline-type-imports",
         },
       ],
 
