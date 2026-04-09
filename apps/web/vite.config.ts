@@ -2,7 +2,6 @@ import path from "path";
 import { defineConfig } from "vite";
 import dotenv from "dotenv";
 
-// Plugins
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { compression } from "vite-plugin-compression2";
@@ -22,8 +21,6 @@ const getEnvVar = (
 const runtimeConfig = getRuntimeConfig();
 
 export default defineConfig(({ command }) => {
-  const isDev = command === "serve";
-
   return {
     resolve: {
       alias: { "~": path.resolve(__dirname, "src") },
@@ -39,13 +36,13 @@ export default defineConfig(({ command }) => {
     build: {
       outDir: "dist",
       sourcemap: true,
-      rollupOptions: {
+      rolldownOptions: {
         onLog(level, log, handler) {
           if (log.code === "SOURCEMAP_ERROR") return;
           handler(level, log);
         },
         output: {
-          advancedChunks: {
+          codeSplitting: {
             groups: [
               {
                 name: "graphql",
