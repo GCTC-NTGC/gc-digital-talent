@@ -96,7 +96,7 @@ export const Component = () => {
   const pageTitle = featureFlags?.canadaLogin
     ? intl.formatMessage({
         defaultMessage: "Register using CanadaLogin",
-        id: "O4O6Rn", // TODO
+        id: "O4O6Rn",
         description: "Page title for the registration page",
       })
     : intl.formatMessage({
@@ -109,7 +109,7 @@ export const Component = () => {
   const breadcrumbLabel = featureFlags?.canadaLogin
     ? intl.formatMessage({
         defaultMessage: "Register",
-        id: "BN4cj6", // TODO
+        id: "BN4cj6",
         description: "Breadcrumb label for the Canada Login registration page",
       })
     : pageTitle;
@@ -146,7 +146,7 @@ export const Component = () => {
                 >
                   {intl.formatMessage({
                     defaultMessage: "Welcome",
-                    id: "qrd+vb", // TODO
+                    id: "qrd+vb",
                     description:
                       "Welcome heading at the top of the registration page",
                   })}
@@ -155,7 +155,7 @@ export const Component = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "You'll be leaving our site to register with CanadaLogin. We have prepared additional guidance in the next section to help.",
-                    id: "xgrysZ", // TODO
+                    id: "xgrysZ",
                     description:
                       "Copy under welcome heading at the top of the registration page",
                   })}
@@ -171,7 +171,7 @@ export const Component = () => {
                   >
                     {intl.formatMessage({
                       defaultMessage: "Proceed to CanadaLogin",
-                      id: "KorMJQ", // TODO
+                      id: "KorMJQ",
                       description:
                         "CanadaLogin sign up link text on the registration page",
                     })}
@@ -186,7 +186,7 @@ export const Component = () => {
                     >
                       {intl.formatMessage({
                         defaultMessage: "Instructions on how to register",
-                        id: "FnXbHv", // TODO
+                        id: "FnXbHv",
                         description:
                           "Heading for the instructions resource block on the registration page",
                       })}
@@ -209,7 +209,7 @@ export const Component = () => {
                 >
                   {intl.formatMessage({
                     defaultMessage: "Part 1: Create a CanadaLogin account",
-                    id: "Su2+bZ", // TODO
+                    id: "Su2+bZ",
                     description:
                       "Heading for section of the registration page showing the create steps",
                   })}
@@ -226,7 +226,7 @@ export const Component = () => {
                     <p>
                       {intl.formatMessage({
                         defaultMessage: "Head to CanadaLogin.",
-                        id: "sRUaI5", // TODO
+                        id: "sRUaI5",
                         description:
                           "Text for first registration -> create step.",
                       })}
@@ -234,7 +234,7 @@ export const Component = () => {
                     <p className="mt-4">
                       {intl.formatMessage({
                         defaultMessage: "Agree to the summary of terms.",
-                        id: "qSNLSc", // TODO
+                        id: "qSNLSc",
                         description:
                           "Text for first registration -> create step.",
                       })}
@@ -244,7 +244,7 @@ export const Component = () => {
                         {intl.formatMessage({
                           defaultMessage:
                             "If you've already used CanadaLogin on another service, you can enter your email and password and skip to step 2.",
-                          id: "fqX7jB", // TODO
+                          id: "fqX7jB",
                           description:
                             "Text for first registration -> create step.",
                         })}
@@ -263,7 +263,7 @@ export const Component = () => {
                     <p>
                       {intl.formatMessage({
                         defaultMessage: "Enter your first and last name.",
-                        id: "FD+jX4", // TODO
+                        id: "FD+jX4",
                         description:
                           "Text for first registration -> create step.",
                       })}
@@ -273,7 +273,7 @@ export const Component = () => {
                         {intl.formatMessage({
                           defaultMessage:
                             "The name you use here will be on your GC Digital Talent profile.",
-                          id: "8dctGM", // TODO
+                          id: "8dctGM",
                           description:
                             "Text for first registration -> create step.",
                         })}
@@ -292,7 +292,7 @@ export const Component = () => {
                     <p>
                       {intl.formatMessage({
                         defaultMessage: "Verify your personal email address.",
-                        id: "Ip9S/o", // TODO
+                        id: "Ip9S/o",
                         description:
                           "Text for first registration -> create step.",
                       })}
@@ -301,7 +301,7 @@ export const Component = () => {
                       {intl.formatMessage({
                         defaultMessage:
                           "Enter the code sent to your email into CanadaLogin.",
-                        id: "XLJuh+", // TODO
+                        id: "XLJuh+",
                         description:
                           "Text for first registration -> create step.",
                       })}
@@ -311,7 +311,7 @@ export const Component = () => {
                         {intl.formatMessage({
                           defaultMessage:
                             "Using a personal email address will help ensure you don't lose access if you change jobs.",
-                          id: "OG/Fbe", // TODO
+                          id: "OG/Fbe",
                           description:
                             "Text for first registration -> create step.",
                         })}
@@ -327,7 +327,7 @@ export const Component = () => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Part 2: Set up two-step verification",
-                  id: "OxuU1/", // TODO
+                  id: "OxuU1/",
                   description:
                     "Heading for section of the registration page showing the create steps",
                 })}
@@ -341,7 +341,7 @@ export const Component = () => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage: "Set up two-step verification.",
-                      id: "D/Tcaj", //TODO
+                      id: "D/Tcaj",
                       description:
                         "Text for first registration -> create step.",
                     })}
@@ -349,7 +349,7 @@ export const Component = () => {
                   <p className="mt-4">
                     {intl.formatMessage({
                       defaultMessage: "Enter your personal phone number.",
-                      id: "XUt7q+", // TODO
+                      id: "XUt7q+",
                       description:
                         "Text for first registration -> create step.",
                     })}
@@ -359,7 +359,7 @@ export const Component = () => {
                       {intl.formatMessage({
                         defaultMessage:
                           "Using a personal phone number will help ensure you don't lose access if you change jobs.",
-                        id: "QbJmAL", // TODO
+                        id: "QbJmAL",
                         description:
                           "Text for first registration -> create step.",
                       })}
@@ -376,7 +376,7 @@ export const Component = () => {
                     {intl.formatMessage({
                       defaultMessage:
                         "You will be sent a code to the number you provided.",
-                      id: "QU8yQJ", // TODO
+                      id: "QU8yQJ",
                       description:
                         "Text for first registration -> create step.",
                     })}
@@ -384,7 +384,7 @@ export const Component = () => {
                   <p className="mt-4">
                     {intl.formatMessage({
                       defaultMessage: "Enter the code into CanadaLogin.",
-                      id: "pTOGhN", // TODO
+                      id: "pTOGhN",
                       description:
                         "Text for first registration -> create step.",
                     })}
@@ -394,7 +394,7 @@ export const Component = () => {
                       {intl.formatMessage({
                         defaultMessage:
                           "This code will be sent by either text or phone call, and will expire after ten minutes.",
-                        id: "As56gg", // TODO
+                        id: "As56gg",
                         description:
                           "Text for first registration -> create step.",
                       })}
@@ -411,7 +411,7 @@ export const Component = () => {
                     {intl.formatMessage({
                       defaultMessage:
                         "You've successfully created your CanadaLogin.",
-                      id: "To1Tf5", // TODO
+                      id: "To1Tf5",
                       description:
                         "Text for first registration -> create step.",
                     })}
@@ -420,7 +420,7 @@ export const Component = () => {
                     {intl.formatMessage({
                       defaultMessage:
                         "You will be returned to the GC Digital Talent platform.",
-                      id: "FJU6Pr", // TODO
+                      id: "FJU6Pr",
                       description:
                         "Text for first registration -> create step.",
                     })}
@@ -435,7 +435,7 @@ export const Component = () => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Part 3: Access your account",
-                  id: "WsnfHy", // TODO
+                  id: "WsnfHy",
                   description:
                     "Heading for section of the registration page showing the create steps",
                 })}
@@ -450,7 +450,7 @@ export const Component = () => {
                     {intl.formatMessage({
                       defaultMessage:
                         "View your details sent from CanadaLogin, linked to your GC Digital Talent profile.",
-                      id: "IHcJGO", //TODO
+                      id: "IHcJGO",
                       description:
                         "Text for first registration -> create step.",
                     })}
@@ -460,7 +460,7 @@ export const Component = () => {
                       {intl.formatMessage({
                         defaultMessage:
                           "You can manage your CanadaLogin profile and security setting on the CanadaLogin website.",
-                        id: "dzXJ2h", // TODO
+                        id: "dzXJ2h",
                         description:
                           "Text for first registration -> create step.",
                       })}
@@ -477,7 +477,7 @@ export const Component = () => {
                     {intl.formatMessage({
                       defaultMessage:
                         "Verify your Government of Canada work email to unlock employee tools.",
-                      id: "jrDcs6", // TODO
+                      id: "jrDcs6",
                       description:
                         "Text for first registration -> create step.",
                     })}
@@ -487,7 +487,7 @@ export const Component = () => {
                       {intl.formatMessage({
                         defaultMessage:
                           "This feature is only available to current Government of Canada employees.",
-                        id: "Bo2POt", // TODO
+                        id: "Bo2POt",
                         description:
                           "Text for first registration -> create step.",
                       })}
@@ -504,7 +504,7 @@ export const Component = () => {
                     {intl.formatMessage({
                       defaultMessage:
                         "Add your current work experience to your GC Digital Talent profile.",
-                      id: "eg07u9", // TODO
+                      id: "eg07u9",
                       description:
                         "Text for first registration -> create step.",
                     })}
@@ -514,7 +514,7 @@ export const Component = () => {
                       {intl.formatMessage({
                         defaultMessage:
                           "If you are a government employee this is the final step in-order to unlock your employee tools.",
-                        id: "2bKnmd", // TODO
+                        id: "2bKnmd",
                         description:
                           "Text for first registration -> create step.",
                       })}
@@ -582,9 +582,14 @@ export const Component = () => {
                       <Link
                         color="black"
                         external
-                        href="https://login.canada.ca/en/users/contact-us/"
-                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                        aria-label="Contact CanadaLogin"
+                        aria-label={intl.formatMessage(
+                          canadaLoginMessages.answerContactCanadaLogin2,
+                        )}
+                        href={
+                          intl.locale === "fr"
+                            ? "https://connexion.canada.ca/fr/utilisateurs/nous-contacter/"
+                            : "https://login.canada.ca/en/users/contact-us/"
+                        }
                       >
                         {intl.formatMessage(
                           canadaLoginMessages.answerContactCanadaLogin2,
