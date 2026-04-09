@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { IntlShape, useIntl } from "react-intl";
+import { type IntlShape, useIntl } from "react-intl";
 import { Outlet } from "react-router";
-import { OperationContext, useQuery } from "urql";
+import { type OperationContext, useQuery } from "urql";
 
 import {
   Pending,
@@ -10,8 +10,8 @@ import {
   useAnnouncer,
 } from "@gc-digital-talent/ui";
 import {
-  FragmentType,
-  PoolLayoutFragment,
+  type FragmentType,
+  type PoolLayoutFragment,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -25,9 +25,9 @@ import {
   getShortPoolTitleLabel,
   useAdminPoolPages,
 } from "~/utils/poolUtils";
-import { PageNavKeys } from "~/types/pool";
+import { type PageNavKeys } from "~/types/pool";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { PageNavInfo } from "~/types/pages";
+import { type PageNavInfo } from "~/types/pages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";

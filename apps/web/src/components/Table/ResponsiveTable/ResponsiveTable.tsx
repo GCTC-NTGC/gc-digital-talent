@@ -19,7 +19,7 @@ import { Loading, useAnnouncer } from "@gc-digital-talent/ui";
 import Table from "./Table";
 import SearchForm from "./SearchForm";
 import ColumnDialog from "./ColumnDialog";
-import NullMessage, { NullMessageProps } from "./NullMessage";
+import NullMessage, { type NullMessageProps } from "./NullMessage";
 import RowSelection, {
   getRowSelectionColumn,
   useRowSelection,

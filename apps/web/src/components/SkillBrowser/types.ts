@@ -1,9 +1,9 @@
 import {
-  Scalars,
-  Skill,
-  SkillCategory,
-  SkillLevel,
-  WhenSkillUsed,
+  type Scalars,
+  type Skill,
+  type SkillCategory,
+  type SkillLevel,
+  type WhenSkillUsed,
 } from "@gc-digital-talent/graphql";
 
 export type SkillBrowserDialogContext =

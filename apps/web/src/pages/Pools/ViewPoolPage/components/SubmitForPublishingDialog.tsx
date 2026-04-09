@@ -1,9 +1,9 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Maybe } from "@gc-digital-talent/graphql";
+import { type Maybe } from "@gc-digital-talent/graphql";
 
 const contactLink = (chunks: ReactNode) => (
   <Link external href="mailto:recruitmentIMIT-recrutementGITI@tbs-sct.gc.ca">

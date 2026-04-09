@@ -2,10 +2,10 @@ import { useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 import uniqBy from "lodash/uniqBy";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
-  AccordionMetaData,
+  type AccordionMetaData,
   TaskCard,
   wrapParens,
 } from "@gc-digital-talent/ui";

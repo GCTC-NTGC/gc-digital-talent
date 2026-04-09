@@ -2,8 +2,8 @@ import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import { OperationContext, useQuery } from "urql";
-import { useMemo, JSX } from "react";
+import { type OperationContext, useQuery } from "urql";
+import { useMemo, type JSX } from "react";
 
 import {
   NotFound,
@@ -21,15 +21,15 @@ import {
 } from "@gc-digital-talent/helpers";
 import {
   graphql,
-  Scalars,
-  Skill,
-  FragmentType,
+  type Scalars,
+  type Skill,
+  type FragmentType,
   getFragment,
-  UpdatePublishedPoolInput,
+  type UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import { EditPoolSectionMetadata } from "~/types/pool";
+import { type EditPoolSectionMetadata } from "~/types/pool";
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -54,7 +54,7 @@ import { requireUser } from "~/routing/auth";
 import { graphqlClientContext } from "~/routing/context";
 
 import PoolNameSection, {
-  PoolClassification_Fragment,
+  type PoolClassification_Fragment,
   type PoolNameSubmitData,
 } from "./components/PoolNameSection/PoolNameSection";
 import ProcessNumberSection, {
@@ -79,21 +79,21 @@ import GeneralQuestionsSection, {
   type GeneralQuestionsSubmitData,
 } from "./components/GeneralQuestionsSection/GeneralQuestionsSection";
 import SpecialNoteSection, {
-  SpecialNoteSubmitData,
+  type SpecialNoteSubmitData,
 } from "./components/SpecialNoteSection/SpecialNoteSection";
 import WhatToExpectSection, {
   type WhatToExpectSubmitData,
 } from "./components/WhatToExpectSection/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
-import { PoolSkillMutationsType, SectionKey } from "./types";
+import { type PoolSkillMutationsType, type SectionKey } from "./types";
 import AboutUsSection, {
-  AboutUsSubmitData,
+  type AboutUsSubmitData,
 } from "./components/AboutUsSection/AboutUsSection";
 import WhatToExpectAdmissionSection, {
-  WhatToExpectAdmissionSubmitData,
+  type WhatToExpectAdmissionSubmitData,
 } from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
 import ContactEmailSection, {
-  ContactEmailSubmitData,
+  type ContactEmailSubmitData,
 } from "./components/ContactEmailSection/ContactEmailSection";
 import type { Route } from "./+types/EditPoolPage";
 

@@ -13,13 +13,13 @@ import {
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
-  ExternalWorkFieldOptionsQuery,
+  type ExternalWorkFieldOptionsQuery,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
+import { type SubExperienceFormProps, type WorkFormValues } from "~/types/experience";
 
 const ExternalWorkFieldOptions_Query = graphql(/* GraphQL */ `
   query ExternalWorkFieldOptions {

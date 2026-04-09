@@ -5,11 +5,11 @@ import { useMutation } from "urql";
 import { toast } from "@gc-digital-talent/toast";
 import {
   graphql,
-  UpdatePoolInput,
-  Scalars,
-  CreatePoolSkillInput,
-  UpdatePoolSkillInput,
-  UpdatePublishedPoolInput,
+  type UpdatePoolInput,
+  type Scalars,
+  type CreatePoolSkillInput,
+  type UpdatePoolSkillInput,
+  type UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";

@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { type ReactNode, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";

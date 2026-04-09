@@ -4,19 +4,19 @@ import { useIntl } from "react-intl";
 
 import { Accordion, Heading, Ul, Notice } from "@gc-digital-talent/ui";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Pool,
-  UpdateUserAsUserInput,
+  type Pool,
+  type UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
-import { EquityKeys } from "~/components/EmploymentEquity/types";
+import { type EquityKeys } from "~/components/EmploymentEquity/types";
 import { hasEmptyRequiredFields } from "~/validators/profile/diversityEquityInclusion";
 import applicationMessages from "~/messages/applicationMessages";
 
-import { SectionProps } from "../../types";
+import { type SectionProps } from "../../types";
 import { getSectionTitle } from "../../utils";
 
 type AccordionItems = "information" | "";

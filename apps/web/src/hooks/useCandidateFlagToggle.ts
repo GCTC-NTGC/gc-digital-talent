@@ -1,7 +1,7 @@
 import { useMutation } from "urql";
 import { useIntl } from "react-intl";
 
-import { graphql, Scalars } from "@gc-digital-talent/graphql";
+import { graphql, type Scalars } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useControllableState } from "@gc-digital-talent/ui";
 

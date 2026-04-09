@@ -3,10 +3,10 @@ import { useQuery } from "urql";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import {
   Container,

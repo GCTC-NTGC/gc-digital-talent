@@ -1,7 +1,7 @@
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { PoolCompleteness } from "~/types/pool";
+import { type PoolCompleteness } from "~/types/pool";
 
 const AssessmentPlanStatus_Fragment = graphql(/* GraphQL */ `
   fragment AssessmentPlanStatus on Pool {

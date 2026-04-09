@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -20,12 +20,12 @@ import {
   Card,
 } from "@gc-digital-talent/ui";
 import {
-  DepartmentSize,
-  FragmentType,
-  LocalizedStringInput,
-  Maybe,
-  Scalars,
-  UpdateDepartmentInput,
+  type DepartmentSize,
+  type FragmentType,
+  type LocalizedStringInput,
+  type Maybe,
+  type Scalars,
+  type UpdateDepartmentInput,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -39,8 +39,8 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 
-import FormFields, { DepartmentFormOptions_Fragment } from "./FormFields";
-import { DepartmentType, departmentTypeToInput } from "./utils";
+import FormFields, { type DepartmentFormOptions_Fragment } from "./FormFields";
+import { type DepartmentType, departmentTypeToInput } from "./utils";
 
 interface FormValues {
   name?: LocalizedStringInput;

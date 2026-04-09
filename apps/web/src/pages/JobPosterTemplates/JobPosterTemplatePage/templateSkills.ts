@@ -1,10 +1,11 @@
 import {
   graphql,
-  JobPosterTemplateSkillsFragment,
+  type JobPosterTemplateSkillsFragment,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
-import PoolSkillAccordion, {
+import type PoolSkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
+import {
   PoolSkillAccordion_Fragment,
 } from "~/components/PoolSkillAccordion/PoolSkillAccordion";
 

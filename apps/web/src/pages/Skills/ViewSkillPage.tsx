@@ -15,8 +15,8 @@ import {
   Container,
 } from "@gc-digital-talent/ui";
 import {
-  FragmentType,
-  Scalars,
+  type FragmentType,
+  type Scalars,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

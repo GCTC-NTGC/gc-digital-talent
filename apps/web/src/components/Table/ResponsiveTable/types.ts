@@ -6,14 +6,14 @@ import type {
   Table,
 } from "@tanstack/react-table";
 import {
-  AriaAttributes,
-  HTMLAttributes,
-  HTMLProps,
-  ReactNode,
-  JSX,
+  type AriaAttributes,
+  type HTMLAttributes,
+  type HTMLProps,
+  type ReactNode,
+  type JSX,
 } from "react";
 
-import { DownloadCsvProps } from "@gc-digital-talent/ui";
+import { type DownloadCsvProps } from "@gc-digital-talent/ui";
 
 export interface SearchState {
   /** The current search term */

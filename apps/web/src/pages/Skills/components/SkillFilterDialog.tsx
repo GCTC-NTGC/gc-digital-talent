@@ -4,14 +4,14 @@ import { useQuery } from "urql";
 import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
-  SkillCategory,
-  SkillFamily,
+  type SkillCategory,
+  type SkillFamily,
   graphql,
 } from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 import FilterDialog, {
-  CommonFilterDialogProps,
+  type CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 
 const SkillFilterOptions_Query = graphql(/* GraphQL */ `

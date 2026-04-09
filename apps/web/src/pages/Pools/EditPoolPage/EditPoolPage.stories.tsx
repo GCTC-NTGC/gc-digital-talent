@@ -1,5 +1,5 @@
-import { JSX } from "react";
-import { Meta, StoryFn } from "@storybook/react-vite";
+import { type JSX } from "react";
+import { type Meta, type StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
 import {
@@ -18,7 +18,7 @@ import { PoolStatus, makeFragmentData } from "@gc-digital-talent/graphql";
 
 import {
   EditPoolForm,
-  EditPoolFormProps,
+  type EditPoolFormProps,
   EditPool_Fragment,
 } from "./EditPoolPage";
 

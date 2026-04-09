@@ -1,8 +1,8 @@
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pool, SkillCategory, PoolSkillType } from "@gc-digital-talent/graphql";
+import { type Pool, SkillCategory, PoolSkillType } from "@gc-digital-talent/graphql";
 
 import {
-  AddedSkill,
+  type AddedSkill,
   filterPoolSkillsByType,
   filterSkillsByCategory,
   getMissingSkills,

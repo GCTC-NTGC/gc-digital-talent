@@ -5,7 +5,7 @@ import {
   Container,
   hrefToString,
   Link,
-  LinkProps,
+  type LinkProps,
 } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";

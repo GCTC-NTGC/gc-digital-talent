@@ -1,7 +1,7 @@
-import { FragmentType, User } from "@gc-digital-talent/graphql";
+import { type FragmentType, type User } from "@gc-digital-talent/graphql";
 
 import ChangeDateDialog, {
-  ChangeDateDialog_PoolCandidateFragment,
+  type ChangeDateDialog_PoolCandidateFragment,
 } from "~/components/CandidateDialog/ChangeDateDialog";
 
 export const expiryCell = (

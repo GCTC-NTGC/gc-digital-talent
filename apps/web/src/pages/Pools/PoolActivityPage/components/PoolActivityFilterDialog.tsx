@@ -3,10 +3,10 @@ import { useQuery } from "urql";
 import { useWatch } from "react-hook-form";
 
 import {
-  ActivityEvent,
+  type ActivityEvent,
   graphql,
-  Maybe,
-  Scalars,
+  type Maybe,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -18,7 +18,7 @@ import { Combobox, DateInput } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FilterDialog, {
-  CommonFilterDialogProps,
+  type CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 
 import CandidatesFilterInput from "./CandidatesFilterInput";

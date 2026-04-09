@@ -13,7 +13,7 @@ import {
   formMessages,
 } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
-import { RoleName, DEPARTMENT_ROLES } from "@gc-digital-talent/auth";
+import { type RoleName, DEPARTMENT_ROLES } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
@@ -22,7 +22,7 @@ import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPage
 import {
   getRoleTableFragments,
   isDepartmentTeamable,
-  RoleTableProps,
+  type RoleTableProps,
   useUpdateRolesMutation,
 } from "../utils";
 

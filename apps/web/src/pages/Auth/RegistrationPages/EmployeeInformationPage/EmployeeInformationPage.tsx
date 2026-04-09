@@ -20,8 +20,8 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import WorkFields from "~/components/ExperienceFormFields/WorkFields/WorkFields";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import {
-  ExperienceDetailsSubmissionData,
-  WorkFormValues,
+  type ExperienceDetailsSubmissionData,
+  type WorkFormValues,
 } from "~/types/experience";
 import { useExperienceMutations } from "~/hooks/useExperienceMutations";
 

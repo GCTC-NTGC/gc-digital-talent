@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useMutation } from "urql";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import {
   Button,
@@ -17,11 +17,11 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
   graphql,
-  IndigenousCommunity,
+  type IndigenousCommunity,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
+import { type GetPageNavInfo } from "~/types/applicationStep";
 import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
 import SelfDeclarationDialog from "~/components/IAPDialog/SelfDeclarationDialog";
 import VerificationDialog from "~/components/IAPDialog/VerificationDialog";
@@ -36,7 +36,7 @@ import HelpLink from "~/components/SelfDeclaration/HelpLink";
 import CommunitySelection from "~/components/SelfDeclaration/CommunitySelection";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-import { ApplicationPageProps } from "../ApplicationApi";
+import { type ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import useApplication from "../useApplication";
 

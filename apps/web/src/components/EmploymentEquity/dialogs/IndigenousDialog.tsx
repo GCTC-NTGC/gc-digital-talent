@@ -15,11 +15,11 @@ import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
 import { CommunityList } from "~/components/SelfDeclaration/CommunitySelection";
 import {
   apiCommunitiesToFormValuesWithBoolean as apiCommunitiesToFormValues,
-  FormValuesWithBoolean as FormValues,
+  type FormValuesWithBoolean as FormValues,
   formValuesToApiCommunities,
 } from "~/utils/indigenousDeclaration";
 
-import { IndigenousDialogProps } from "../types";
+import { type IndigenousDialogProps } from "../types";
 import Definition from "./Definition";
 import DialogFooter from "./DialogFooter";
 import UnderReview from "./UnderReview";

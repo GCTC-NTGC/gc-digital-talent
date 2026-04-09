@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import ChatBubbleLeftRightIcon from "@heroicons/react/20/solid/ChatBubbleLeftRightIcon";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 

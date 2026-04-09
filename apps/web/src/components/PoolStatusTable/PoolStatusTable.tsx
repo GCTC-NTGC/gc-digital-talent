@@ -1,4 +1,4 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { isPast } from "date-fns/isPast";
 
@@ -7,12 +7,12 @@ import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   ApplicationStatus,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  PoolCandidate,
-  PoolStatusTableFragment,
-  Scalars,
+  type PoolCandidate,
+  type PoolStatusTableFragment,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";

@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getEmploymentEquityGroup,

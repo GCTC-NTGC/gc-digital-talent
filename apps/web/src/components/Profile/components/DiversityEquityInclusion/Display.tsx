@@ -7,7 +7,7 @@ import {
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   IndigenousCommunity,

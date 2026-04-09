@@ -1,10 +1,10 @@
 import uniqBy from "lodash/uniqBy";
-import { ReactNode, useEffect } from "react";
-import { RegisterOptions, useFormContext } from "react-hook-form";
+import { type ReactNode, useEffect } from "react";
+import { type RegisterOptions, useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Combobox, HiddenInput, Select } from "@gc-digital-talent/forms";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 

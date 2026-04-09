@@ -2,10 +2,10 @@ import { useIntl } from "react-intl";
 
 import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import {
-  FragmentType,
-  PoolStatus,
-  PublishingGroup,
-  Scalars,
+  type FragmentType,
+  type PoolStatus,
+  type PublishingGroup,
+  type Scalars,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -13,7 +13,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import FilterDialog, {
-  CommonFilterDialogProps,
+  type CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 

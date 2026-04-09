@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
-import { ReactNode, JSX } from "react";
+import { type ReactNode, type JSX } from "react";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { DateInput, Submit } from "@gc-digital-talent/forms";
@@ -14,11 +14,11 @@ import {
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   PoolStatus,
-  Pool,
-  UpdatePoolInput,
+  type Pool,
+  type UpdatePoolInput,
   graphql,
   getFragment,
-  FragmentType,
+  type FragmentType,
 } from "@gc-digital-talent/graphql";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
@@ -32,7 +32,7 @@ import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
-import { SectionProps } from "../../types";
+import { type SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
 import ClosingDateDialog from "./ClosingDateDialog";
 

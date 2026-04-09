@@ -1,9 +1,9 @@
-import { FieldLabels } from "@gc-digital-talent/forms";
+import { type FieldLabels } from "@gc-digital-talent/forms";
 import {
-  Application_PoolCandidateFragment,
-  Maybe,
-  UpdateUserAsUserInput,
-  UpdateUserAsUserMutation,
+  type Application_PoolCandidateFragment,
+  type Maybe,
+  type UpdateUserAsUserInput,
+  type UpdateUserAsUserMutation,
 } from "@gc-digital-talent/graphql";
 
 export type SectionKey =

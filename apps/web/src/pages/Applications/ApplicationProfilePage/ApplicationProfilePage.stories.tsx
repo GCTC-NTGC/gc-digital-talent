@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+import { type Meta, type StoryFn } from "@storybook/react-vite";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 

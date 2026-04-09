@@ -1,6 +1,6 @@
-import { IntlShape, useIntl } from "react-intl";
+import { type IntlShape, useIntl } from "react-intl";
 
-import { FieldLabels } from "@gc-digital-talent/forms";
+import { type FieldLabels } from "@gc-digital-talent/forms";
 
 const getLabels = (intl: IntlShape) => {
   return {

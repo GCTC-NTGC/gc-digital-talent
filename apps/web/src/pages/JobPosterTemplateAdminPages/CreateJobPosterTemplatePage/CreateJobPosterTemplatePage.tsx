@@ -1,17 +1,17 @@
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
-  CreateJobPosterTemplateInput,
-  CreateJobPosterTemplateSkillInput,
-  FragmentType,
+  type CreateJobPosterTemplateInput,
+  type CreateJobPosterTemplateSkillInput,
+  type FragmentType,
   getFragment,
   graphql,
   PoolSkillType,
-  SupervisoryStatus,
+  type SupervisoryStatus,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
@@ -41,19 +41,19 @@ import KeyTasksFrontMatter from "../components/KeyTasksFrontMatter";
 import TechnicalSkillsFrontMatter from "../components/TechnicalSkillsFrontMatter";
 import BehaviouralSkillsFrontMatter from "../components/BehaviouralSkillsFrontMatter";
 import JobDetailsForm, {
-  FormValues as JobDetailsFormValues,
+  type FormValues as JobDetailsFormValues,
 } from "../components/JobDetailsForm";
 import KeyTasksForm, {
-  FormValues as KeyTasksFormValues,
+  type FormValues as KeyTasksFormValues,
 } from "../components/KeyTasksForm";
 import EssentialTechnicalSkillsForm, {
-  FormValues as EssentialTechnicalSkillsFormValues,
+  type FormValues as EssentialTechnicalSkillsFormValues,
 } from "../components/EssentialTechnicalSkillsForm";
 import NonessentialTechnicalSkillsForm, {
-  FormValues as NonessentialTechnicalSkillsFormValues,
+  type FormValues as NonessentialTechnicalSkillsFormValues,
 } from "../components/NonessentialTechnicalSkillsForm";
 import EssentialBehaviouralSkillsForm, {
-  FormValues as EssentialBehaviouralSkillsFormValues,
+  type FormValues as EssentialBehaviouralSkillsFormValues,
 } from "../components/EssentialBehaviouralSkillsForm";
 
 const CreateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `

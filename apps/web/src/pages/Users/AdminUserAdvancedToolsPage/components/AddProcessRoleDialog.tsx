@@ -23,7 +23,7 @@ import useAvailablePools from "../useAvailablePools";
 import {
   getRoleTableFragments,
   isPoolTeamable,
-  RoleTableProps,
+  type RoleTableProps,
   useUpdateRolesMutation,
 } from "../utils";
 

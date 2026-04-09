@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   PauseReferralsLength,
@@ -17,7 +17,7 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import Footer from "./Footer";
 import PauseReferralsFormFields from "./FormFields/PauseReferralsFormFields";
-import { FormValues } from "./types";
+import { type FormValues } from "./types";
 
 const ApplicationPauseReferralsOptions_Query = graphql(/** GraphQL */ `
   query ApplicationPauseReferralsOptions {

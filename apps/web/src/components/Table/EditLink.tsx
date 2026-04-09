@@ -1,9 +1,9 @@
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
-import { Maybe } from "@gc-digital-talent/graphql";
+import { type Maybe } from "@gc-digital-talent/graphql";
 
 interface EditLinkProps {
   /** Id of the object in the table. */

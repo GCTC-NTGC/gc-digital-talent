@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 

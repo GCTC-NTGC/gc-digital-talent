@@ -3,9 +3,9 @@ import { useMutation } from "urql";
 
 import {
   graphql,
-  InputMaybe,
-  Scalars,
-  UserFilterInput,
+  type InputMaybe,
+  type Scalars,
+  type UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";

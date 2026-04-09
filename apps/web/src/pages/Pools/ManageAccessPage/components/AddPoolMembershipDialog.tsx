@@ -15,13 +15,13 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
-  RoleInput,
-  ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
+  type RoleInput,
+  type ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import { ManageAccessFormValues, PoolTeamMember } from "./types";
+import { type ManageAccessFormValues, type PoolTeamMember } from "./types";
 import useAvailableUsers from "./useAvailableUsers";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserProcessRoles_Mutation } from "./operations";

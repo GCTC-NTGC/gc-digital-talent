@@ -7,7 +7,7 @@ import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   hasRole,
   ROLE_NAME,
-  RoleName,
+  type RoleName,
   useAuthentication,
   useAuthorization,
 } from "@gc-digital-talent/auth";

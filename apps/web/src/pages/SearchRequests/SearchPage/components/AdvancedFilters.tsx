@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IntlShape, useIntl } from "react-intl";
+import { type IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useQuery } from "urql";
 
@@ -19,7 +19,7 @@ import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
-import { NullSelection, FormValues } from "~/types/searchRequest";
+import { NullSelection, type FormValues } from "~/types/searchRequest";
 
 import FilterBlock from "./FilterBlock";
 

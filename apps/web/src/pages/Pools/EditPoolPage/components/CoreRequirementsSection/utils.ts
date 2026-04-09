@@ -1,11 +1,11 @@
 import { empty } from "@gc-digital-talent/helpers";
 import {
-  LocalizedString,
-  Maybe,
-  Pool,
-  PoolLanguage,
-  SecurityStatus,
-  UpdatePoolInput,
+  type LocalizedString,
+  type Maybe,
+  type Pool,
+  type PoolLanguage,
+  type SecurityStatus,
+  type UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 
 export enum LocationOption {

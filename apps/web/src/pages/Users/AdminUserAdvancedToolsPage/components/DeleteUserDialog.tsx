@@ -13,9 +13,9 @@ import {
   formMessages,
 } from "@gc-digital-talent/i18n";
 import {
-  Scalars,
+  type Scalars,
   graphql,
-  FragmentType,
+  type FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 

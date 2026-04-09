@@ -1,7 +1,7 @@
 import { useQuery } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";
-import { ASSESSMENT_MEMBER_ROLES, RoleName } from "@gc-digital-talent/auth";
+import { ASSESSMENT_MEMBER_ROLES, type RoleName } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 const AssessmentMemberRoles_Query = graphql(/** GraphQL */ `

@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
 import { useEffect } from "react";
@@ -27,14 +27,14 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   graphql,
-  FragmentType,
+  type FragmentType,
   getFragment,
-  EmployeeProfile,
-  UpdateEmployeeProfileInput,
-  TimeFrame,
-  OrganizationTypeInterest,
-  LearningOpportunitiesInterest,
-  Scalars,
+  type EmployeeProfile,
+  type UpdateEmployeeProfileInput,
+  type TimeFrame,
+  type OrganizationTypeInterest,
+  type LearningOpportunitiesInterest,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import {
   boolToYesNo,

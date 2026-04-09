@@ -5,10 +5,10 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";

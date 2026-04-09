@@ -1,8 +1,8 @@
-import { HTMLAttributes, ReactNode } from "react";
+import { type HTMLAttributes, type ReactNode } from "react";
 import { tv } from "tailwind-variants";
 import { useIntl } from "react-intl";
 
-import { appendLanguageName, Locales } from "@gc-digital-talent/i18n";
+import { appendLanguageName, type Locales } from "@gc-digital-talent/i18n";
 
 const fieldDisplay = tv({
   base: "",

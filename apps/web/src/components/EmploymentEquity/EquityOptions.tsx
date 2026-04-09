@@ -10,9 +10,9 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
-  LocalizedIndigenousCommunity,
-  Maybe,
-  UpdateUserAsUserInput,
+  type LocalizedIndigenousCommunity,
+  type Maybe,
+  type UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";

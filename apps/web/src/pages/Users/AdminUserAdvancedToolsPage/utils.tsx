@@ -1,17 +1,17 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { DefaultValues, FieldValues, useForm } from "react-hook-form";
+import { type DefaultValues, type FieldValues, useForm } from "react-hook-form";
 
 import {
-  Community,
-  Department,
-  FragmentType,
+  type Community,
+  type Department,
+  type FragmentType,
   getFragment,
   graphql,
-  Pool,
-  Role,
-  Team,
-  UpdateUserRolesInput,
+  type Pool,
+  type Role,
+  type Team,
+  type UpdateUserRolesInput,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Chip, Chips } from "@gc-digital-talent/ui";

@@ -21,7 +21,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import { RouteParams } from "./types";
+import { type RouteParams } from "./types";
 import Nominator from "./components/Nominator";
 import Nominee from "./components/Nominee";
 import Details from "./components/Details";

@@ -1,12 +1,12 @@
 import isEmpty from "lodash/isEmpty";
 
 import {
-  User,
-  Pool,
-  LocalizedLanguage,
-  Maybe,
-  LocalizedEstimatedLanguageAbility,
-  LocalizedEvaluatedLanguageAbility,
+  type User,
+  type Pool,
+  type LocalizedLanguage,
+  type Maybe,
+  type LocalizedEstimatedLanguageAbility,
+  type LocalizedEvaluatedLanguageAbility,
 } from "@gc-digital-talent/graphql";
 
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";

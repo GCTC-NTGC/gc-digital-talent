@@ -1,9 +1,9 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
-import { Container, Heading, HeadingRank } from "@gc-digital-talent/ui";
+import { Container, Heading, type HeadingRank } from "@gc-digital-talent/ui";
 
 import GradientImage, {
-  ImgProps,
+  type ImgProps,
 } from "~/components/GradientImage/GradientImage";
 
 interface HomeHeroProps {

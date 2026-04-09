@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { IntlShape, useIntl } from "react-intl";
+import { type IntlShape, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
@@ -16,31 +16,31 @@ import { toast } from "@gc-digital-talent/toast";
 import { ErrorMessage, Field, HiddenInput } from "@gc-digital-talent/forms";
 import { groupBy, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  Experience,
+  type Experience,
   ApplicationStep,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
-import { ExperienceForDate, ExperienceType } from "~/types/experience";
+import { type GetPageNavInfo } from "~/types/applicationStep";
+import { type ExperienceForDate, type ExperienceType } from "~/types/experience";
 import {
   deriveExperienceType,
-  SimpleAnyExperience,
+  type SimpleAnyExperience,
 } from "~/utils/experienceUtils";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "~/components/ExperienceCard/ExperienceCard";
 import applicationMessages from "~/messages/applicationMessages";
 import ExperienceSortAndFilter, {
-  FormValues as ExperienceSortAndFilterFormValues,
+  type FormValues as ExperienceSortAndFilterFormValues,
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
-import { ApplicationPageProps } from "../ApplicationApi";
+import { type ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import useApplication from "../useApplication";
 

@@ -6,7 +6,7 @@ import { vi } from "vitest";
 
 import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 
-import { EditPoolForm, EditPoolFormProps } from "./EditPoolPage";
+import { EditPoolForm, type EditPoolFormProps } from "./EditPoolPage";
 import EditPoolStory, { DraftPool } from "./EditPoolPage.stories";
 
 vi.setConfig({ testTimeout: 500 * 1000 });

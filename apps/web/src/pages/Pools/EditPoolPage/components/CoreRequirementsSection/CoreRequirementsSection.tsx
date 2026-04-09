@@ -21,7 +21,7 @@ import {
 import {
   PoolStatus,
   graphql,
-  FragmentType,
+  type FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 
@@ -34,12 +34,12 @@ import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import { SectionProps } from "../../types";
+import { type SectionProps } from "../../types";
 import Display from "./Display";
 import {
-  FormValues,
+  type FormValues,
   LocationOption,
-  CoreRequirementsSubmitData,
+  type CoreRequirementsSubmitData,
   dataToFormValues,
   formValuesToSubmitData,
 } from "./utils";

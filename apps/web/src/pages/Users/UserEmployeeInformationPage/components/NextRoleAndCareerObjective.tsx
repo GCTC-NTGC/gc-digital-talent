@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { Notice } from "@gc-digital-talent/ui";
 
 import { hasAllEmptyFields as hasAllEmptyFieldsNextRole } from "~/validators/employeeProfile/nextRole";

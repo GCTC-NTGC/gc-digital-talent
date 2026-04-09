@@ -1,6 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 import { CardFlat, Container, Flourish, Pending } from "@gc-digital-talent/ui";

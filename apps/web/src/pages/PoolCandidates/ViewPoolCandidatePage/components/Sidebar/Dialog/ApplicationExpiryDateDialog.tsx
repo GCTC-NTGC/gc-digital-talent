@@ -4,10 +4,10 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog } from "@gc-digital-talent/ui";

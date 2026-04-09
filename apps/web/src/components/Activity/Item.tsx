@@ -1,19 +1,19 @@
-import { JSX } from "react";
+import { type JSX } from "react";
 
 import {
-  Activity,
-  FragmentType,
+  type Activity,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 
 import AssessmentStepActivityItem from "./Items/AssessmentStepActivityItem";
 import PoolActivityItem, {
-  PoolActivityItemProps,
+  type PoolActivityItemProps,
 } from "./Items/PoolActivityItem";
 import PoolCandidateActivityItem from "./Items/PoolCandidateActivityItem";
 import PoolSkillActivityItem from "./Items/PoolSkillActivityItem";
-import { CommonItemProps } from "./Items/BaseActivityItem";
+import { type CommonItemProps } from "./Items/BaseActivityItem";
 
 type SubComponentProps = Omit<PoolActivityItemProps, "query"> & CommonItemProps;
 

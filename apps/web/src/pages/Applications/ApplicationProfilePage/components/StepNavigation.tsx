@@ -7,18 +7,18 @@ import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import {
   ApplicationStep,
-  Application_PoolCandidateFragment,
+  type Application_PoolCandidateFragment,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
 import {
   getMissingLanguageRequirements,
-  PartialUser as LanguageUser,
+  type PartialUser as LanguageUser,
 } from "~/utils/languageUtils";
 import {
   hasEmptyRequiredFields as hasEmptyDEIRequiredFields,
-  PartialUser as DeiUser,
+  type PartialUser as DeiUser,
 } from "~/validators/profile/diversityEquityInclusion";
 import { useProfileFormContext } from "~/components/Profile/components/ProfileFormContext";
 

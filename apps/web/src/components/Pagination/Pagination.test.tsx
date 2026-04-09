@@ -4,7 +4,7 @@ import { vi } from "vitest";
 
 import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 
-import Pagination, { PaginationProps } from "./Pagination";
+import Pagination, { type PaginationProps } from "./Pagination";
 import { DOTS, usePagination } from "./usePagination";
 
 const onCurrentPageChange = vi.fn();

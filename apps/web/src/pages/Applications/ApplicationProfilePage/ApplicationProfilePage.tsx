@@ -10,8 +10,8 @@ import {
 import { graphql, PoolAreaOfSelection } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
-import { SectionProps } from "~/components/Profile/types";
+import { type GetPageNavInfo } from "~/types/applicationStep";
+import { type SectionProps } from "~/components/Profile/types";
 import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
@@ -24,7 +24,7 @@ import WorkEmailCard from "~/components/WorkEmailCard.tsx/WorkEmailCard";
 import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
 
 import StepNavigation from "./components/StepNavigation";
-import { ApplicationPageProps } from "../ApplicationApi";
+import { type ApplicationPageProps } from "../ApplicationApi";
 import stepHasError from "../profileStep/profileStepValidation";
 import { useApplicationContext } from "../ApplicationContext";
 import useApplication from "../useApplication";

@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { Maybe, WorkStream } from "@gc-digital-talent/graphql";
-import { HeadingRank, Separator, Ul } from "@gc-digital-talent/ui";
+import { type Maybe, type WorkStream } from "@gc-digital-talent/graphql";
+import { type HeadingRank, Separator, Ul } from "@gc-digital-talent/ui";
 import {
   groupBy,
   sortAlphaBy,

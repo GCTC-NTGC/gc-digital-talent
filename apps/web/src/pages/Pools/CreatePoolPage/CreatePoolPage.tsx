@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import uniqBy from "lodash/uniqBy";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Option, Select, Submit } from "@gc-digital-talent/forms";
+import { type Option, Select, Submit } from "@gc-digital-talent/forms";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
@@ -17,13 +17,13 @@ import {
 import { Pending, Link, Card, Heading } from "@gc-digital-talent/ui";
 import {
   graphql,
-  CreatePoolInput,
-  CreatePoolMutation,
-  FragmentType,
+  type CreatePoolInput,
+  type CreatePoolMutation,
+  type FragmentType,
   getFragment,
-  Maybe,
+  type Maybe,
 } from "@gc-digital-talent/graphql";
-import { hasRequiredRoles, ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import { hasRequiredRoles, ROLE_NAME, type RoleName } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";

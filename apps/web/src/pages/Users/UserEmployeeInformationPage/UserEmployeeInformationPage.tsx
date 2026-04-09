@@ -13,8 +13,8 @@ import {
   Separator,
 } from "@gc-digital-talent/ui";
 import {
-  FragmentType,
-  Scalars,
+  type FragmentType,
+  type Scalars,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -26,12 +26,12 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import CommunityInterest, {
-  CommunityInterestOptions_Fragment,
+  type CommunityInterestOptions_Fragment,
 } from "~/components/CommunityInterest/CommunityInterest";
-import { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
+import { type NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
 
 import CareerDevelopmentSection, {
-  CareerDevelopmentOptions_Fragment,
+  type CareerDevelopmentOptions_Fragment,
 } from "./components/CareerDevelopmentSection";
 import NextRoleAndCareerObjective from "./components/NextRoleAndCareerObjective";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection";

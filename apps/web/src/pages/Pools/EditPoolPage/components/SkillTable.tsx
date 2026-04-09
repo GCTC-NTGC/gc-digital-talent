@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
@@ -10,12 +10,12 @@ import {
   getSkillLevelName,
 } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
-import { SkillLevel, Skill } from "@gc-digital-talent/graphql";
+import { type SkillLevel, type Skill } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { normalizedText } from "~/components/Table/sortingFns";
-import { NullMessageProps } from "~/components/Table/ResponsiveTable/NullMessage";
+import { type NullMessageProps } from "~/components/Table/ResponsiveTable/NullMessage";
 import tableMessages from "~/components/Table/tableMessages";
 
 const columnHelper = createColumnHelper<

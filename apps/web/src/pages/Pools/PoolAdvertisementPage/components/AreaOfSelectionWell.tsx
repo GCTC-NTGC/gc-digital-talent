@@ -1,8 +1,8 @@
-import { IntlShape, useIntl } from "react-intl";
-import { JSX, ReactNode } from "react";
+import { type IntlShape, useIntl } from "react-intl";
+import { type JSX, type ReactNode } from "react";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   PoolAreaOfSelection,
@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Link, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { getLocale, getLocalizedName, Locales } from "@gc-digital-talent/i18n";
+import { getLocale, getLocalizedName, type Locales } from "@gc-digital-talent/i18n";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 

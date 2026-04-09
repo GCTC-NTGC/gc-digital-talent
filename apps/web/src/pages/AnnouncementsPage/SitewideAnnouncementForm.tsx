@@ -1,4 +1,4 @@
-import { FormProvider, ValidateResult, useForm } from "react-hook-form";
+import { FormProvider, type ValidateResult, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 
 import {
@@ -6,9 +6,9 @@ import {
   nowUTCDateTime,
 } from "@gc-digital-talent/date-helpers";
 import {
-  Scalars,
-  SitewideAnnouncement,
-  SitewideAnnouncementInput,
+  type Scalars,
+  type SitewideAnnouncement,
+  type SitewideAnnouncementInput,
 } from "@gc-digital-talent/graphql";
 import {
   Input,

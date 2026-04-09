@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import ChatBubbleBottomCenterIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterIcon";
 import { useMutation } from "urql";
 import isEmpty from "lodash/isEmpty";
@@ -12,8 +12,8 @@ import {
   Submit,
 } from "@gc-digital-talent/forms";
 import {
-  FragmentType,
-  TalentNominationGroup,
+  type FragmentType,
+  type TalentNominationGroup,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

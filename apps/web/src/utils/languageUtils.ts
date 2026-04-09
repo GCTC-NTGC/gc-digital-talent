@@ -1,8 +1,8 @@
-import { IntlShape, MessageDescriptor } from "react-intl";
+import { type IntlShape, type MessageDescriptor } from "react-intl";
 
 import {
-  User,
-  Pool,
+  type User,
+  type Pool,
   PoolLanguage,
   EstimatedLanguageAbility,
 } from "@gc-digital-talent/graphql";

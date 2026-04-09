@@ -4,8 +4,8 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
 import {
-  FragmentType,
-  UpdatePublishedPoolInput,
+  type FragmentType,
+  type UpdatePublishedPoolInput,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -19,7 +19,7 @@ import { TextArea } from "@gc-digital-talent/forms";
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
-import { PublishedEditableSectionProps } from "../../types";
+import { type PublishedEditableSectionProps } from "../../types";
 
 const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment UpdatePublishedProcessDialog on Pool {

@@ -3,11 +3,11 @@ import { useIntl } from "react-intl";
 import { Fragment } from "react/jsx-runtime";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
-  GovPositionType,
+  type GovPositionType,
   graphql,
-  WorkExperience,
+  type WorkExperience,
 } from "@gc-digital-talent/graphql";
 import { empty, groupBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import {

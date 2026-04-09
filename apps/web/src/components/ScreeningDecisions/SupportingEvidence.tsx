@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
 
 import {
-  Experience,
-  FragmentType,
+  type Experience,
+  type FragmentType,
   getFragment,
   graphql,
   makeFragmentData,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -14,7 +14,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "../ExperienceCard/ExperienceCard";
-import { DIALOG_TYPE, DialogType } from "./utils";
+import { DIALOG_TYPE, type DialogType } from "./utils";
 
 const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
   fragment ScreeningDialogSupportingEvidence on PoolCandidate {

@@ -1,5 +1,5 @@
-import { IntlShape } from "react-intl";
-import { SortingState } from "@tanstack/react-table";
+import { type IntlShape } from "react-intl";
+import { type SortingState } from "@tanstack/react-table";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
@@ -9,42 +9,42 @@ import { tv } from "tailwind-variants";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
 import {
-  Locales,
+  type Locales,
   commonMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Link, Chip, Spoiler, IconType } from "@gc-digital-talent/ui";
+import { Link, Chip, Spoiler, type IconType } from "@gc-digital-talent/ui";
 import {
   CandidateExpiryFilter,
-  Maybe,
-  Pool,
-  PoolCandidatePoolNameOrderByInput,
+  type Maybe,
+  type Pool,
+  type PoolCandidatePoolNameOrderByInput,
   OrderByRelationWithColumnAggregateFunction,
-  PoolCandidateSearchInput,
-  QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn,
+  type PoolCandidateSearchInput,
+  type QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn,
   CandidateSuspendedFilter,
   SortOrder,
-  FragmentType,
-  LocalizedProvinceOrTerritory,
-  Classification,
-  InputMaybe,
-  LocalizedString,
-  ClaimVerificationSort,
-  QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause,
-  QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
-  QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
-  LocalizedCandidateSuspendedFilter,
-  PoolCandidatesBaseSort,
-  LocalizedCandidateStatus,
-  LocalizedApplicationStatus,
-  LocalizedAssessmentDecision,
+  type FragmentType,
+  type LocalizedProvinceOrTerritory,
+  type Classification,
+  type InputMaybe,
+  type LocalizedString,
+  type ClaimVerificationSort,
+  type QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause,
+  type QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
+  type QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
+  type LocalizedCandidateSuspendedFilter,
+  type PoolCandidatesBaseSort,
+  type LocalizedCandidateStatus,
+  type LocalizedApplicationStatus,
+  type LocalizedAssessmentDecision,
   AssessmentDecision,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { Radio } from "@gc-digital-talent/forms";
+import { type Radio } from "@gc-digital-talent/forms";
 
-import useRoutes from "~/hooks/useRoutes";
+import type useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
   candidateStatusChip,
@@ -53,13 +53,13 @@ import {
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
-import { FormValues } from "./types";
+import { type FormValues } from "./types";
 import tableMessages from "./tableMessages";
 import CandidateFlag, {
-  PoolCandidate_FlagFragment,
+  type PoolCandidate_FlagFragment,
 } from "../CandidateFlag/CandidateFlag";
 import PoolCandidateBookmark, {
-  PoolCandidateBookmark_Fragment,
+  type PoolCandidateBookmark_Fragment,
 } from "./PoolCandidateBookmark";
 
 export const priorityCell = (

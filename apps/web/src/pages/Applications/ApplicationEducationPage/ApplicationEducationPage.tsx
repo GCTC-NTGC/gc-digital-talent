@@ -15,7 +15,7 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
   EducationRequirementOption,
-  Experience,
+  type Experience,
 } from "@gc-digital-talent/graphql";
 import { getLogger } from "@gc-digital-talent/logger";
 
@@ -26,20 +26,20 @@ import {
   isCommunityExperience,
   isPersonalExperience,
   isWorkExperience,
-  SimpleAnyExperience,
+  type SimpleAnyExperience,
 } from "~/utils/experienceUtils";
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
-import { ExperienceForDate } from "~/types/experience";
+import { type GetPageNavInfo } from "~/types/applicationStep";
+import { type ExperienceForDate } from "~/types/experience";
 import { getEducationRequirementOptions } from "~/utils/educationUtils";
 import {
-  ClassificationGroup,
+  type ClassificationGroup,
   isClassificationGroup,
 } from "~/types/classificationGroup";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
-import { ApplicationPageProps } from "../ApplicationApi";
+import { type ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
 import useApplication from "../useApplication";

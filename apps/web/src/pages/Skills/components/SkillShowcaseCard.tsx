@@ -4,14 +4,14 @@ import { useMutation } from "urql";
 import { getLocalizedName, getSkillLevelName } from "@gc-digital-talent/i18n";
 import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
 import {
-  UpdateUserSkillRankingsInput,
-  Skill,
+  type UpdateUserSkillRankingsInput,
+  type Skill,
   SkillCategory,
-  UserSkill,
+  type UserSkill,
 } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 
-import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
+import { type FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
 import RemoveDialog from "./RemoveDialog";
 import { UpdateUserSkillRankings_Mutation } from "../operations";

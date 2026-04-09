@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import {
   ApplicationStatus,
   CandidateRemovalReason,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   PlacementType,
@@ -27,7 +27,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
 
-import { FormValues } from "../types";
+import { type FormValues } from "../types";
 import JobPlacementFormFields from "../FormFields/JobPlacementFormFields";
 import PauseReferralsFormFields from "./PauseReferralsFormFields";
 

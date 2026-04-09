@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
-import { Maybe } from "@gc-digital-talent/graphql";
+import { type Maybe } from "@gc-digital-talent/graphql";
 
 type ErrorMessageKey =
   | "NO_PROFILE"

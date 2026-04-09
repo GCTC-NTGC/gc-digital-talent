@@ -1,8 +1,8 @@
-import { JSX, ReactNode } from "react";
-import { IntlShape, useIntl } from "react-intl";
+import { type JSX, type ReactNode } from "react";
+import { type IntlShape, useIntl } from "react-intl";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   PoolAreaOfSelection,
@@ -12,7 +12,7 @@ import {
   commonMessages,
   getLocale,
   getLocalizedName,
-  Locales,
+  type Locales,
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 

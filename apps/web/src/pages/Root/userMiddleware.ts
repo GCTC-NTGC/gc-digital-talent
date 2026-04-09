@@ -1,5 +1,5 @@
 import { ACCESS_TOKEN } from "@gc-digital-talent/auth";
-import { graphql, UserMiddlewareQuery } from "@gc-digital-talent/graphql";
+import { graphql, type UserMiddlewareQuery } from "@gc-digital-talent/graphql";
 
 import { graphqlClientContext, userContext } from "~/routing/context";
 

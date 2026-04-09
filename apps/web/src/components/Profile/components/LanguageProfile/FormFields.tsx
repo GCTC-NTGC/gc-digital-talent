@@ -2,12 +2,12 @@ import { useIntl } from "react-intl";
 
 import {
   Checklist,
-  FieldLabels,
+  type FieldLabels,
   localizedEnumToOptions,
   RadioGroup,
 } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { CardSeparator } from "@gc-digital-talent/ui";
 
 import { getConsideredLangItems } from "~/utils/languageUtils";

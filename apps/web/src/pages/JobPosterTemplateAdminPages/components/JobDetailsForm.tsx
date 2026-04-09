@@ -4,16 +4,16 @@ import { useId } from "react";
 import {
   Input,
   localizedEnumToOptions,
-  Option,
+  type Option,
   RadioGroup,
   Select,
   TextArea,
 } from "@gc-digital-talent/forms";
-import { errorMessages, Locales, uiMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, type Locales, uiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  Classification,
-  FragmentType,
+  type Classification,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

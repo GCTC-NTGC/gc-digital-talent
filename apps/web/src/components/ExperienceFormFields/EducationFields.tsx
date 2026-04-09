@@ -17,7 +17,7 @@ import {
   sortEducationStatus,
   sortEducationType,
   getLocale,
-  Locales,
+  type Locales,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { graphql } from "@gc-digital-talent/graphql";
@@ -25,8 +25,8 @@ import { nodeToString } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 
 import {
-  SubExperienceFormProps,
-  EducationFormValues,
+  type SubExperienceFormProps,
+  type EducationFormValues,
 } from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";

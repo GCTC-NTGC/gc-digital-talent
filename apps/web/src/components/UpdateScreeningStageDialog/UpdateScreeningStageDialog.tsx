@@ -1,10 +1,10 @@
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   ScreeningStage,
@@ -26,7 +26,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getScreeningStageIndex } from "~/utils/poolCandidate";
 import applicationMessages from "~/messages/applicationMessages";
 
-import { FormValues } from "./types";
+import { type FormValues } from "./types";
 import CandidateFacingScreeningStageNotice from "./CandidateFacingScreeningStageNotice";
 import MoveToPreviousStepNotice from "./MoveToPreviousStepNotice";
 

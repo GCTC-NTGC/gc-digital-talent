@@ -9,7 +9,7 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import profileMessages from "~/messages/profileMessages";
-import { SectionProps } from "~/components/Profile/types";
+import { type SectionProps } from "~/components/Profile/types";
 import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
 import { getSectionTitle } from "~/components/Profile/utils";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";

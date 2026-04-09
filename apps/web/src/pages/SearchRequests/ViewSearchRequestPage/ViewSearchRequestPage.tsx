@@ -1,4 +1,4 @@
-import { Scalars } from "@gc-digital-talent/graphql";
+import { type Scalars } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRequiredParams from "~/hooks/useRequiredParams";

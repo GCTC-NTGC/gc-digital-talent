@@ -1,6 +1,6 @@
 import { act, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { Provider as GraphqlProvider, GraphQLRequest } from "urql";
+import { Provider as GraphqlProvider, type GraphQLRequest } from "urql";
 import { fromValue } from "wonka";
 import { Kind } from "graphql";
 import { vi } from "vitest";
@@ -12,7 +12,7 @@ import {
 
 import {
   EmployeeInformationForm,
-  EmployeeInformationFormProps,
+  type EmployeeInformationFormProps,
 } from "./EmployeeInformationPage";
 import { getFakeWorkFieldOptionsResponse } from "./testUtils";
 

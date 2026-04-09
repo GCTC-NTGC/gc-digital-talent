@@ -1,17 +1,17 @@
-import { IntlShape } from "react-intl";
+import { type IntlShape } from "react-intl";
 
 import { boolToYesNo } from "@gc-digital-talent/helpers";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
-  ProfileCitizenVeteranPriorityFragment,
-  UpdateUserAsUserInput,
-  User,
+  type ProfileCitizenVeteranPriorityFragment,
+  type UpdateUserAsUserInput,
+  type User,
 } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 
-import { FormValues } from "./types";
+import { type FormValues } from "./types";
 
 export const formValuesToSubmitData = (
   values: FormValues,

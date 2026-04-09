@@ -1,4 +1,4 @@
-import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import { ROLE_NAME, type RoleName } from "@gc-digital-talent/auth";
 
 const permissionConstants: Readonly<Record<string, RoleName[]>> = {
   viewCandidates: [

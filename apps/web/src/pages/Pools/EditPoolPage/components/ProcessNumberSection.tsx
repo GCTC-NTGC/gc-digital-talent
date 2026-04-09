@@ -3,12 +3,12 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Maybe,
+  type Maybe,
   PoolStatus,
-  UpdatePoolInput,
+  type UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
@@ -20,7 +20,7 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "./EditPoolContext";
-import { PublishedEditableSectionProps, SectionProps } from "../types";
+import { type PublishedEditableSectionProps, type SectionProps } from "../types";
 import UpdatePublishedProcessDialog, {
   type FormValues as UpdateFormValues,
 } from "./UpdatePublishedProcessDialog/UpdatePublishedProcessDialog";

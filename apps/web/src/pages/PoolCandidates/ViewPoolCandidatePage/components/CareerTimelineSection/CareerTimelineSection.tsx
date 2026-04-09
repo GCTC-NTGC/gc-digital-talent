@@ -11,12 +11,12 @@ import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSortAndFilter, {
-  FormValues as ExperienceSortAndFilterFormValues,
+  type FormValues as ExperienceSortAndFilterFormValues,
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
 import experienceMessages from "~/messages/experienceMessages";
-import { SnapshotExperience } from "~/utils/experienceUtils";
+import { type SnapshotExperience } from "~/utils/experienceUtils";
 
 interface CareerTimelineSectionProps {
   experiences: SnapshotExperience[];

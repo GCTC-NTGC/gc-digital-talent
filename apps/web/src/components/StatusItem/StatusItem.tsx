@@ -2,11 +2,11 @@ import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
-import { tv, VariantProps } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 
-import { Link, IconType, ScrollToLink } from "@gc-digital-talent/ui";
+import { Link, type IconType, ScrollToLink } from "@gc-digital-talent/ui";
 
 export type Status =
   | "error"

@@ -8,7 +8,7 @@ import {
   getLocale,
   errorMessages,
   getLocalizedName,
-  Locales,
+  type Locales,
 } from "@gc-digital-talent/i18n";
 
 import type { FormSkills } from "~/types/experience";

@@ -1,6 +1,6 @@
 import {
-  Pool,
-  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
+  type Pool,
+  type Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";
 
 const stepHasError = (

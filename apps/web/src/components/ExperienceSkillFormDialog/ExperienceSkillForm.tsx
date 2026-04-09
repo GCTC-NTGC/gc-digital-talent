@@ -7,15 +7,15 @@ import {
   errorMessages,
   formMessages,
   getLocale,
-  Locales,
+  type Locales,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
-  Experience,
-  FragmentType,
+  type Experience,
+  type FragmentType,
   getFragment,
   graphql,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 
 import {

@@ -1,4 +1,4 @@
-import { defineMessage, MessageDescriptor } from "react-intl";
+import { defineMessage, type MessageDescriptor } from "react-intl";
 
 import { EstimatedLanguageAbility, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";

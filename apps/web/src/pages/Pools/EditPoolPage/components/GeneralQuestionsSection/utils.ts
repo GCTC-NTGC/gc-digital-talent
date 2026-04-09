@@ -1,6 +1,6 @@
 import { defineMessages } from "react-intl";
 
-import { GeneralQuestion, UpdatePoolInput } from "@gc-digital-talent/graphql";
+import { type GeneralQuestion, type UpdatePoolInput } from "@gc-digital-talent/graphql";
 
 type QuestionDialogAction = "save" | "delete";
 

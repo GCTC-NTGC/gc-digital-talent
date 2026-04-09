@@ -12,14 +12,14 @@ import {
   commonMessages,
   errorMessages,
   getLocale,
-  Locales,
+  type Locales,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
 import {
-  SubExperienceFormProps,
-  CommunityFormValues,
+  type SubExperienceFormProps,
+  type CommunityFormValues,
 } from "~/types/experience";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";

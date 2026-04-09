@@ -1,6 +1,6 @@
 import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router";
-import { OperationContext, useQuery } from "urql";
+import { type OperationContext, useQuery } from "urql";
 import { useEffect } from "react";
 
 import {
@@ -16,7 +16,7 @@ import {
   NotFoundError,
 } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -36,7 +36,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
 import useApplicationId from "./useApplicationId";
-import { ContextType } from "./useApplication";
+import { type ContextType } from "./useApplication";
 import Application_PoolCandidateFragment from "./fragment";
 import { getApplicationSteps } from "./utils";
 

@@ -1,9 +1,9 @@
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import { defineMessage, type MessageDescriptor, useIntl } from "react-intl";
 
-import { Stepper, StepType } from "@gc-digital-talent/ui";
+import { Stepper, type StepType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   TalentNominationStep,
@@ -19,7 +19,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
 import useCurrentStep, { stepOrder } from "../useCurrentStep";
-import { RouteParams } from "../types";
+import { type RouteParams } from "../types";
 
 const stepLabels = new Map<TalentNominationStep, MessageDescriptor>([
   [

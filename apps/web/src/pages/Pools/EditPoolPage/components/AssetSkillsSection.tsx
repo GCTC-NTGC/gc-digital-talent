@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { type JSX } from "react";
 import { useIntl } from "react-intl";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
@@ -7,19 +7,19 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   PoolSkillType,
   SkillCategory,
-  SkillLevel,
+  type SkillLevel,
   PoolStatus,
-  Skill,
-  FragmentType,
+  type Skill,
+  type FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
-import { EditPoolSectionMetadata } from "~/types/pool";
+import { type EditPoolSectionMetadata } from "~/types/pool";
 import { hasEmptyRequiredFields } from "~/validators/process/nonEssentialSkills";
 
 import SkillTable from "./SkillTable";
-import { PoolSkillMutationsType } from "../types";
+import { type PoolSkillMutationsType } from "../types";
 import { EditPoolSkills_Fragment } from "../fragments";
 
 interface AssetSkillsSectionProps {

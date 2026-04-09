@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   SkillCategory,
 } from "@gc-digital-talent/graphql";

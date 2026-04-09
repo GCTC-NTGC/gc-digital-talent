@@ -1,15 +1,15 @@
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useMutation, useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
-  CreateTrainingOpportunityInput,
-  FragmentType,
+  type CreateTrainingOpportunityInput,
+  type FragmentType,
   graphql,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -30,9 +30,9 @@ import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { convertFormValuesToCreateInput, FormValues } from "./apiUtils";
+import { convertFormValuesToCreateInput, type FormValues } from "./apiUtils";
 import TrainingOpportunityForm, {
-  TrainingOpportunityFormOptions_Fragment,
+  type TrainingOpportunityFormOptions_Fragment,
 } from "./components/TrainingOpportunityForm";
 
 interface CreateTrainingOpportunityFormProps {

@@ -3,7 +3,7 @@ import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Container,
   Heading,
@@ -22,7 +22,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
-import StatusItem, { Status } from "~/components/StatusItem/StatusItem";
+import StatusItem, { type Status } from "~/components/StatusItem/StatusItem";
 import {
   hasAllEmptyFields as careerDevelopmentHasAllEmptyFields,
   hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields,

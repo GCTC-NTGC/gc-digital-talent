@@ -1,5 +1,5 @@
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Pool, PoolSkillType } from "@gc-digital-talent/graphql";
+import { type Pool, PoolSkillType } from "@gc-digital-talent/graphql";
 
 // Note: Only one field to check here
 export function hasEmptyRequiredFields({

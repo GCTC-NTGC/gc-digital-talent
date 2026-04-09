@@ -12,12 +12,12 @@ import {
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
-  AssessmentResult,
+  type AssessmentResult,
   AssessmentResultType,
-  AssessmentStep,
+  type AssessmentStep,
   AssessmentStepType,
-  PoolCandidate,
-  PoolSkill,
+  type PoolCandidate,
+  type PoolSkill,
   PoolSkillType,
   SkillLevel,
 } from "@gc-digital-talent/graphql";

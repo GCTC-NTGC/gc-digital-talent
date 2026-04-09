@@ -12,10 +12,10 @@ import {
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
   graphql,
-  FragmentType,
+  type FragmentType,
   getFragment,
   Language,
-  GettingStartedInitialValuesDeprecatedFragment,
+  type GettingStartedInitialValuesDeprecatedFragment,
   EmailType,
 } from "@gc-digital-talent/graphql";
 

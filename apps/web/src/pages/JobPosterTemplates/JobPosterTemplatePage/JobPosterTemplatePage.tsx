@@ -1,11 +1,11 @@
-import { OperationContext, useQuery } from "urql";
+import { type OperationContext, useQuery } from "urql";
 import { useIntl } from "react-intl";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import {
   Container,

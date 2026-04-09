@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import { defineMessage, type MessageDescriptor, useIntl } from "react-intl";
 
 import { ApplicationStatus, graphql } from "@gc-digital-talent/graphql";
 import { Dialog, Pending } from "@gc-digital-talent/ui";
@@ -17,9 +17,9 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import applicationMessages from "~/messages/applicationMessages";
 
 import {
-  ApplicationStatusFormProps,
-  FormValues,
-  MutationMessages,
+  type ApplicationStatusFormProps,
+  type FormValues,
+  type MutationMessages,
 } from "../types";
 import useApplicationStatusMutation from "./useApplicationStatusMutation";
 import {

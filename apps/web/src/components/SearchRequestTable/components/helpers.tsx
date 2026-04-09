@@ -1,4 +1,4 @@
-import { IntlShape } from "react-intl";
+import { type IntlShape } from "react-intl";
 
 import {
   Link,
@@ -10,12 +10,12 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
-  Classification,
-  Maybe,
-  PoolCandidateSearchRequest,
+  type Classification,
+  type Maybe,
+  type PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
+import type useRoutes from "~/hooks/useRoutes";
 
 export function classificationAccessor(
   classifications:

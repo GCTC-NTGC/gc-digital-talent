@@ -2,13 +2,13 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
 import {
-  ApplicantFilterInput,
-  Classification,
+  type ApplicantFilterInput,
+  type Classification,
 } from "@gc-digital-talent/graphql";
 import { Card } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
-import { FormValues as SearchFormValues } from "~/types/searchRequest";
+import { type FormValues as SearchFormValues } from "~/types/searchRequest";
 
 import CreateRequest from "./components/RequestForm";
 

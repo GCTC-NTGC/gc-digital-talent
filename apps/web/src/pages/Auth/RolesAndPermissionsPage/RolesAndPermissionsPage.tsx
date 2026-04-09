@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
@@ -11,7 +11,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   Container,
-  IconType,
+  type IconType,
   TableOfContents,
   Ul,
 } from "@gc-digital-talent/ui";

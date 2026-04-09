@@ -1,18 +1,18 @@
 import { defineMessage, useIntl } from "react-intl";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
-import { OperationContext, useQuery } from "urql";
+import { type OperationContext, useQuery } from "urql";
 import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
 
 import { NotFound, Pending, Heading, Sidebar } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  User,
-  Scalars,
-  Maybe,
+  type User,
+  type Scalars,
+  type Maybe,
   graphql,
-  PoolCandidateSnapshotQuery,
-  FragmentType,
+  type PoolCandidateSnapshotQuery,
+  type FragmentType,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -28,7 +28,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
-import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import { type FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";

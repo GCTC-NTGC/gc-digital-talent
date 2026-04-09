@@ -1,10 +1,10 @@
-import { IntlShape, useIntl } from "react-intl";
+import { type IntlShape, useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 
 import { Button, Card } from "@gc-digital-talent/ui";
 import {
   EmailType,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

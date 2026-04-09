@@ -9,18 +9,18 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { Option, Select } from "@gc-digital-talent/forms";
+import { type Option, Select } from "@gc-digital-talent/forms";
 import {
-  FragmentType,
-  RoleAssignment,
-  Scalars,
+  type FragmentType,
+  type RoleAssignment,
+  type Scalars,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { hasRequiredRoles, ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import { hasRequiredRoles, ROLE_NAME, type RoleName } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { ProcessDialogProps } from "./types";
+import { type ProcessDialogProps } from "./types";
 
 export const DuplicatePoolDepartment_Fragment = graphql(/* GraphQL */ `
   fragment DuplicatePoolDepartment on Department {

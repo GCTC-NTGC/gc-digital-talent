@@ -1,6 +1,6 @@
-import { forwardRef, MouseEventHandler, ReactNode } from "react";
+import { forwardRef, type MouseEventHandler, type ReactNode } from "react";
 
-import { Scalars } from "@gc-digital-talent/graphql";
+import { type Scalars } from "@gc-digital-talent/graphql";
 import { getLogger } from "@gc-digital-talent/logger";
 
 import { linkStyles } from "./styles";

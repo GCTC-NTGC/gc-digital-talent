@@ -2,8 +2,8 @@ import { useIntl } from "react-intl";
 
 import {
   IndigenousCommunity,
-  LocalizedIndigenousCommunity,
-  Maybe,
+  type LocalizedIndigenousCommunity,
+  type Maybe,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -14,7 +14,7 @@ import { Ul } from "@gc-digital-talent/ui";
 
 import CommunityIcon from "~/components/Profile/components/DiversityEquityInclusion/CommunityIcon";
 
-import { SnapshotProps } from "../types";
+import { type SnapshotProps } from "../types";
 
 export interface DiversityEquityInclusionSnapshotV1 {
   isWoman?: Maybe<boolean>;

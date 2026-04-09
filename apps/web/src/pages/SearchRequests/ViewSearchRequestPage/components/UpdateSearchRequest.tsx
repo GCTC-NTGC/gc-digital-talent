@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
@@ -17,15 +17,15 @@ import {
   sortPoolCandidateSearchStatus,
 } from "@gc-digital-talent/i18n";
 import {
-  LocalizedEnumString,
-  UpdatePoolCandidateSearchRequestInput,
+  type LocalizedEnumString,
+  type UpdatePoolCandidateSearchRequestInput,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useReturnPath from "~/hooks/useReturnPath";
-import { PartialSearchRequest } from "~/types/searchRequest";
+import { type PartialSearchRequest } from "~/types/searchRequest";
 
 type FormValues = UpdatePoolCandidateSearchRequestInput;
 

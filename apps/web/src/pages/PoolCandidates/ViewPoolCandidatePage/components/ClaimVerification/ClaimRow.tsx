@@ -2,12 +2,12 @@ import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
-import { PropsWithoutRef, ReactNode, SVGProps } from "react";
+import { type PropsWithoutRef, type ReactNode, type SVGProps } from "react";
 
 import {
   ClaimVerificationResult,
-  Maybe,
-  Scalars,
+  type Maybe,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { Heading } from "@gc-digital-talent/ui";
 import {

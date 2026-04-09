@@ -1,9 +1,9 @@
 import { useIntl } from "react-intl";
 
 import {
-  FinanceChiefDuty,
-  FinanceChiefRole,
-  FragmentType,
+  type FinanceChiefDuty,
+  type FinanceChiefRole,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

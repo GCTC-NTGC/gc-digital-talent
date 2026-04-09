@@ -6,14 +6,14 @@
  * For utilities general to the PoolCandidate object, or specific to the Admin side, see ./poolCandidates.ts
  */
 
-import { StepType } from "@gc-digital-talent/ui";
+import { type StepType } from "@gc-digital-talent/ui";
 import {
-  ApplicationStep,
-  Maybe,
-  Application_PoolCandidateFragment,
+  type ApplicationStep,
+  type Maybe,
+  type Application_PoolCandidateFragment,
 } from "@gc-digital-talent/graphql";
 
-import { ApplicationStepInfo } from "~/types/applicationStep";
+import { type ApplicationStepInfo } from "~/types/applicationStep";
 
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
 const missingPrerequisitesFromThisApplication = (

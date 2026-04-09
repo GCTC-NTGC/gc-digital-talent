@@ -1,15 +1,15 @@
-import { IntlShape } from "react-intl";
+import { type IntlShape } from "react-intl";
 
 import {
-  ApplicationStep,
-  Pool,
-  Scalars,
-  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
+  type ApplicationStep,
+  type Pool,
+  type Scalars,
+  type Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
+import type useRoutes from "~/hooks/useRoutes";
 
-import { PageNavInfo } from "./pages";
+import { type PageNavInfo } from "./pages";
 
 interface GetApplicationStepInfoArgs {
   application: ApplicationPoolCandidateFragmentType;

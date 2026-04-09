@@ -4,7 +4,7 @@ import PresentationChartBarIcon from "@heroicons/react/24/outline/PresentationCh
 import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useIntl } from "react-intl";
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import {
   Accordion,

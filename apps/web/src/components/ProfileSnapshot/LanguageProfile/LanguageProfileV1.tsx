@@ -1,10 +1,10 @@
-import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
+import { defineMessages, type MessageDescriptor, useIntl } from "react-intl";
 
 import {
-  LocalizedEstimatedLanguageAbility,
-  LocalizedEvaluatedLanguageAbility,
-  LocalizedLanguage,
-  Maybe,
+  type LocalizedEstimatedLanguageAbility,
+  type LocalizedEvaluatedLanguageAbility,
+  type LocalizedLanguage,
+  type Maybe,
 } from "@gc-digital-talent/graphql";
 import { getOrThrowError } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -14,7 +14,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
-import { SnapshotProps } from "../types";
+import { type SnapshotProps } from "../types";
 
 export enum BilingualEvaluation {
   CompletedEnglish = "COMPLETED_ENGLISH",

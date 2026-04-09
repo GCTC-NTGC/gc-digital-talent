@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Dialog } from "@gc-digital-talent/ui";
 
 import screeningDialogMessages from "./messages";
-import { DIALOG_TYPE, DialogType, getSkillLevelMessage } from "./utils";
+import { DIALOG_TYPE, type DialogType, getSkillLevelMessage } from "./utils";
 
 const ScreeningDialogHeaderStep_Fragment = graphql(/** GraphQL */ `
   fragment ScreeningDialogHeaderStep on AssessmentStep {

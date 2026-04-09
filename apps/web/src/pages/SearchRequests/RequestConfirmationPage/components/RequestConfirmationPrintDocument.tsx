@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { ReactNode, forwardRef } from "react";
+import { type ReactNode, forwardRef } from "react";
 
 import { Heading } from "@gc-digital-talent/ui";
 

@@ -1,13 +1,13 @@
 import { useQuery } from "urql";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import permissionConstants from "~/constants/permissionConstants";
 
-import { RouteParams } from "./types";
+import { type RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
 import FullCareerExperiences from "./components/FullCareerExperiences";
 

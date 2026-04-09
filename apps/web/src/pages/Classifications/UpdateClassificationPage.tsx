@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -15,8 +15,8 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   graphql,
-  UpdateClassificationInput,
-  FragmentType,
+  type UpdateClassificationInput,
+  type FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";

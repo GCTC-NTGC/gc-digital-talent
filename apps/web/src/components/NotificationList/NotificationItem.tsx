@@ -1,10 +1,10 @@
 import { useIntl } from "react-intl";
 import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
 import { useMutation } from "urql";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { tv } from "tailwind-variants";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Card,
   DialogPrimitive,

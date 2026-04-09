@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import {
   ApplicationStatus,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

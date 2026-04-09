@@ -12,7 +12,7 @@ import {
 
 import ActiveRecruitmentSection, {
   ActiveRecruitmentSectionPool_Fragment,
-  ActiveRecruitmentSectionProps,
+  type ActiveRecruitmentSectionProps,
 } from "./ActiveRecruitmentSection";
 
 const publishedPool = makeFragmentData(

@@ -9,12 +9,12 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import {
-  ExecCoaching,
-  FragmentType,
+  type ExecCoaching,
+  type FragmentType,
   getFragment,
   graphql,
-  Mentorship,
-  OrganizationTypeInterest,
+  type Mentorship,
+  type OrganizationTypeInterest,
 } from "@gc-digital-talent/graphql";
 import {
   formatDate,

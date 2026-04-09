@@ -10,8 +10,8 @@ import SolidPauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import { useQuery } from "urql";
 
 import {
-  CardOption,
-  CheckboxOption,
+  type CardOption,
+  type CheckboxOption,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import {
@@ -39,7 +39,7 @@ import OutlineTwoBarsIcon from "./Icons/outline/TwoBarsIcon";
 import SolidTwoBarsIcon from "./Icons/solid/TwoBarsIcon";
 import OutlineThreeBarsIcon from "./Icons/outline/ThreeBarsIcon";
 import SolidThreeBarsIcon from "./Icons/solid/ThreeBarsIcon";
-import { DialogType } from "./utils";
+import { type DialogType } from "./utils";
 
 const ScreeningOptions_Query = graphql(/* GraphQL */ `
   query ScreeningOptions {

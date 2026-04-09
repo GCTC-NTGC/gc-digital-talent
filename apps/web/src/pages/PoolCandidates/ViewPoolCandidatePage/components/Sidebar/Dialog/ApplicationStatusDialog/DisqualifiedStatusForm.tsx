@@ -3,16 +3,16 @@ import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { Dialog } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { HiddenInput } from "@gc-digital-talent/forms";
 
-import { ApplicationStatusFormProps, MutationMessages } from "../types";
+import { type ApplicationStatusFormProps, type MutationMessages } from "../types";
 import { RevertDecision_Mutation } from "./mutations";
 import messages from "./messages";
 import { Content } from "./StatusContent";

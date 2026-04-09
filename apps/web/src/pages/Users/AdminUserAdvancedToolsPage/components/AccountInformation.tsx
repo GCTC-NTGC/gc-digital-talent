@@ -5,10 +5,10 @@ import { useWatch } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Language,
+  type Language,
 } from "@gc-digital-talent/graphql";
 import { Button, TableOfContents } from "@gc-digital-talent/ui";
 import {

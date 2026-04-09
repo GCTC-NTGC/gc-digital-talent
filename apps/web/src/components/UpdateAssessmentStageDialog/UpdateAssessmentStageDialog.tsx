@@ -1,14 +1,14 @@
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
   AssessmentStepType,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Maybe,
+  type Maybe,
   ScreeningStage,
 } from "@gc-digital-talent/graphql";
 import { Button, Dialog } from "@gc-digital-talent/ui";
@@ -24,7 +24,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
 
-import { FormValues } from "./types";
+import { type FormValues } from "./types";
 
 const hiddenSteps = [
   AssessmentStepType.ApplicationScreening,

@@ -1,4 +1,4 @@
-import { IntlShape, useIntl } from "react-intl";
+import { type IntlShape, useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
 import {

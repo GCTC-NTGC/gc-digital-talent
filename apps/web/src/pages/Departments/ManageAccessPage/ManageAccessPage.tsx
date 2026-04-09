@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useOutletContext } from "react-router";
@@ -11,8 +11,8 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   getFragment,
   graphql,
-  Scalars,
-  DepartmentMembersTeamQuery,
+  type Scalars,
+  type DepartmentMembersTeamQuery,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -26,15 +26,15 @@ import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import {
   checkRoleDepartments,
-  DepartmentMember,
+  type DepartmentMember,
   groupRoleAssignmentsByUserDepartments,
 } from "~/utils/departmentUtils";
 
 import AddDepartmentMembershipDialog from "./components/AddDepartmentMembership";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
 import {
-  ContextType,
-  DepartmentManageAccessPageFragment,
+  type ContextType,
+  type DepartmentManageAccessPageFragment,
 } from "./components/types";
 import { DepartmentManageAccessPage_DepartmentFragment } from "./components/operations";
 

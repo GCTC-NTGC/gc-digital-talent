@@ -1,6 +1,6 @@
 import { HelmetProvider } from "@dr.pogodin/react-helmet";
 import { MotionConfig, LazyMotion, domAnimation } from "motion/react";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import ReactDOM from "react-dom";
 
 import { AppInsightsProvider } from "@gc-digital-talent/app-insights";

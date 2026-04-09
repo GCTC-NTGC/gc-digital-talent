@@ -7,9 +7,9 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
-  CandidateInterest,
+  type CandidateInterest,
   CandidateStatus,
-  Maybe,
+  type Maybe,
 } from "@gc-digital-talent/graphql";
 
 import { deadlineToApply } from "~/utils/poolCandidate";

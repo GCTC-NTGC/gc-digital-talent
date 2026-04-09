@@ -4,10 +4,10 @@ import ChatBubbleBottomCenterIcon from "@heroicons/react/24/outline/ChatBubbleBo
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";

@@ -1,38 +1,38 @@
 import {
-  ChangeEventHandler,
-  KeyboardEvent,
-  MouseEvent,
+  type ChangeEventHandler,
+  type KeyboardEvent,
+  type MouseEvent,
   useId,
   useRef,
   useState,
 } from "react";
 import {
-  ControllerRenderProps,
-  FieldValues,
-  UseFormStateReturn,
+  type ControllerRenderProps,
+  type FieldValues,
+  type UseFormStateReturn,
 } from "react-hook-form";
-import { CombinedError, useClient } from "urql";
+import { type CombinedError, useClient } from "urql";
 import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
 import { useIntl } from "react-intl";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { tv } from "tailwind-variants";
 
 import {
-  FieldState,
+  type FieldState,
   useFieldState,
   inputStyles,
   useInputDescribedBy,
   inputStateStyles,
 } from "@gc-digital-talent/forms";
-import { graphql, Maybe } from "@gc-digital-talent/graphql";
+import { graphql, type Maybe } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
-import Result, { SearchMessageCases } from "./Result";
+import Result, { type SearchMessageCases } from "./Result";
 import ErrorMessage from "./Error";
 import { fragmentToEmployee, getDefaultValue, getErrors } from "./utils";
-import { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";
+import { type EmployeeSearchResult, type ErrorMessages, type ErrorSeverities } from "./types";
 
 const wrapper = tv({
   extend: inputStateStyles,

@@ -1,17 +1,17 @@
-import { IntlShape } from "react-intl";
+import { type IntlShape } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
-  UpdateUserAsUserInput,
-  User,
-  ProfilePersonalInformationFragment as UserProfileFragmentType,
+  type UpdateUserAsUserInput,
+  type User,
+  type ProfilePersonalInformationFragment as UserProfileFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 
-import { FormValues } from "./types";
+import { type FormValues } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
   preferredLang: intl.formatMessage({

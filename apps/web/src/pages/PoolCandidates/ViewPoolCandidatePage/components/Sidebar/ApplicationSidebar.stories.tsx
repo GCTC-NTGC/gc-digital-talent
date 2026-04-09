@@ -1,4 +1,4 @@
-import { Decorator, Meta, StoryObj } from "@storybook/react-vite";
+import { type Decorator, type Meta, type StoryObj } from "@storybook/react-vite";
 
 import {
   fakeDepartments,
@@ -12,7 +12,7 @@ import {
   DisqualificationReason,
   makeFragmentData,
   PlacementType,
-  PoolCandidate,
+  type PoolCandidate,
   PauseReferralsLength,
 } from "@gc-digital-talent/graphql";
 import {

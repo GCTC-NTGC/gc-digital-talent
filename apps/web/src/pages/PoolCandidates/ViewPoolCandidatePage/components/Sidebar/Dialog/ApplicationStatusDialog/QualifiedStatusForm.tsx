@@ -3,10 +3,10 @@ import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { Dialog } from "@gc-digital-talent/ui";
 import { HiddenInput } from "@gc-digital-talent/forms";
@@ -14,7 +14,7 @@ import { HiddenInput } from "@gc-digital-talent/forms";
 import { RevertDecision_Mutation } from "./mutations";
 import messages from "./messages";
 import { Content } from "./StatusContent";
-import { ApplicationStatusFormProps, MutationMessages } from "../types";
+import { type ApplicationStatusFormProps, type MutationMessages } from "../types";
 
 const QualifiedStatusForm_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedStatusForm on PoolCandidate {

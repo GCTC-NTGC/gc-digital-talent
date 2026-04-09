@@ -1,15 +1,15 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
-import { ReactNode, useEffect } from "react";
+import { type ReactNode, useEffect } from "react";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { Select } from "@gc-digital-talent/forms";
 import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  WorkExperience,
+  type AwardExperience,
+  type CommunityExperience,
+  type EducationExperience,
+  type PersonalExperience,
+  type WorkExperience,
 } from "@gc-digital-talent/graphql";
 
 import experienceMessages from "~/messages/experienceMessages";

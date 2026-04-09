@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+import { type Meta, type StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker";
 
 import {
@@ -20,13 +20,13 @@ import {
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
-  AssessmentResult,
+  type AssessmentResult,
   AssessmentResultJustification,
   AssessmentStepType,
   makeFragmentData,
-  Pool,
-  PoolCandidate,
-  User,
+  type Pool,
+  type PoolCandidate,
+  type User,
 } from "@gc-digital-talent/graphql";
 
 import ScreeningDecisionDialog, {

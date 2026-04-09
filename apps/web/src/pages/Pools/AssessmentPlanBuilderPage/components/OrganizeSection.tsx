@@ -13,10 +13,10 @@ import {
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
-  AssessmentStep,
+  type AssessmentStep,
   AssessmentStepType,
   PoolStatus,
-  FragmentType,
+  type FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 

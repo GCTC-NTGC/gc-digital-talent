@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { SubmitHandler } from "react-hook-form";
+import { type SubmitHandler } from "react-hook-form";
 import LanguageIcon from "@heroicons/react/24/outline/LanguageIcon";
 import { useQuery } from "urql";
 
@@ -8,10 +8,10 @@ import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Pool,
+  type Pool,
 } from "@gc-digital-talent/graphql";
 
 import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
@@ -23,11 +23,11 @@ import {
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
-import { SectionProps } from "../../types";
+import { type SectionProps } from "../../types";
 import FormActions from "../FormActions";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
-import { FormValues } from "./types";
+import { type FormValues } from "./types";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 import FormFields from "./FormFields";

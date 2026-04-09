@@ -10,17 +10,17 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { Scalars, Maybe } from "@gc-digital-talent/graphql";
+import { type Scalars, type Maybe } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { COMMUNITY_ROLES, RoleName } from "@gc-digital-talent/auth";
+import { COMMUNITY_ROLES, type RoleName } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 import {
-  CommunityAssignment,
+  type CommunityAssignment,
   getRoleTableFragments,
-  RoleTableProps,
+  type RoleTableProps,
   useUpdateRolesMutation,
 } from "../utils";
 

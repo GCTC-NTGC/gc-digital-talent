@@ -4,7 +4,7 @@ import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import {
   Heading,
@@ -15,7 +15,7 @@ import {
   Flourish,
 } from "@gc-digital-talent/ui";
 import {
-  Locales,
+  type Locales,
   navigationMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";

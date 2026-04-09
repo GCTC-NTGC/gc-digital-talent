@@ -1,8 +1,8 @@
-import { IntlShape } from "react-intl";
+import { type IntlShape } from "react-intl";
 import uniqBy from "lodash/uniqBy";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Classification } from "@gc-digital-talent/graphql";
+import { type Classification } from "@gc-digital-talent/graphql";
 
 import { splitAndJoin } from "~/utils/nameUtils";
 

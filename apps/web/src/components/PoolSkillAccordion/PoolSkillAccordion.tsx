@@ -8,7 +8,7 @@ import {
   getSkillLevelMessages,
 } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
+  type FragmentType,
   SkillCategory,
   getFragment,
   graphql,

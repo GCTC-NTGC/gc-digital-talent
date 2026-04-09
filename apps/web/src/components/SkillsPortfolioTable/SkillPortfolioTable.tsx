@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { ColumnDef, createColumnHelper, Row } from "@tanstack/react-table";
+import { type ColumnDef, createColumnHelper, type Row } from "@tanstack/react-table";
 import { useMutation } from "urql";
 
 import {
@@ -10,12 +10,12 @@ import {
 import { Link } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   SkillCategory,
   SkillLevel,
-  SkillPortfolioTable_UserSkillFragment as SkillPortfolioTableUserSkillFragmentType,
+  type SkillPortfolioTable_UserSkillFragment as SkillPortfolioTableUserSkillFragmentType,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 

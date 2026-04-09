@@ -1,7 +1,7 @@
 import {
   useState,
-  ComponentPropsWithoutRef,
-  ComponentRef,
+  type ComponentPropsWithoutRef,
+  type ComponentRef,
   forwardRef,
 } from "react";
 import { useIntl } from "react-intl";
@@ -22,16 +22,16 @@ import {
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
-  RoleInput,
-  CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
+  type RoleInput,
+  type CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { CommunityMember } from "~/utils/communityUtils";
+import { type CommunityMember } from "~/utils/communityUtils";
 
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
-import { ContextType } from "./types";
+import { type ContextType } from "./types";
 
 interface RemoveCommunityMemberDialogProps extends ComponentPropsWithoutRef<
   typeof DropdownMenu.Item

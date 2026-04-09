@@ -1,4 +1,4 @@
-import { Scalars } from "@gc-digital-talent/graphql";
+import { type Scalars } from "@gc-digital-talent/graphql";
 
 export interface RouteParams extends Record<string, string> {
   id: Scalars["ID"]["output"];

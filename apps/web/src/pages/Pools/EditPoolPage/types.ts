@@ -1,25 +1,25 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import {
-  CreatePoolSkillInput,
-  UpdatePoolSkillInput,
-  UpdatePublishedPoolInput,
-  EditPoolWhatToExpectAdmissionFragment,
-  EditPoolAboutUsFragment,
-  EditPoolClosingDateFragment,
-  EditPoolCoreRequirementsFragment,
-  EditPoolEducationRequirementsFragment,
-  EditPoolGeneralQuestionsFragment,
-  EditPoolKeyTasksFragment,
-  EditPoolNameFragment,
-  EditPoolSkillsFragment,
-  EditPoolSpecialNoteFragment,
-  EditPoolWhatToExpectFragment,
-  EditPoolYourImpactFragment,
-  EditPoolContactEmailFragment,
+  type CreatePoolSkillInput,
+  type UpdatePoolSkillInput,
+  type UpdatePublishedPoolInput,
+  type EditPoolWhatToExpectAdmissionFragment,
+  type EditPoolAboutUsFragment,
+  type EditPoolClosingDateFragment,
+  type EditPoolCoreRequirementsFragment,
+  type EditPoolEducationRequirementsFragment,
+  type EditPoolGeneralQuestionsFragment,
+  type EditPoolKeyTasksFragment,
+  type EditPoolNameFragment,
+  type EditPoolSkillsFragment,
+  type EditPoolSpecialNoteFragment,
+  type EditPoolWhatToExpectFragment,
+  type EditPoolYourImpactFragment,
+  type EditPoolContactEmailFragment,
 } from "@gc-digital-talent/graphql";
 
-import { EditPoolSectionMetadata } from "~/types/pool";
+import { type EditPoolSectionMetadata } from "~/types/pool";
 
 type PoolDisplayFragments =
   | EditPoolAboutUsFragment

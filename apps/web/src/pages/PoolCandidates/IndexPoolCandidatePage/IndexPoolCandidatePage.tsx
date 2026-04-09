@@ -6,7 +6,7 @@ import {
   graphql,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";

@@ -1,10 +1,10 @@
-import { ReactElement } from "react";
+import { type ReactElement } from "react";
 
 import CitizenVeteranPriorityV1, {
-  CitizenVeteranPrioritySnapshotV1,
+  type CitizenVeteranPrioritySnapshotV1,
 } from "./CitizenVeteranPriorityV1";
 import { getSupportedVersionComponent } from "../utils";
-import { SnapshotProps } from "../types";
+import { type SnapshotProps } from "../types";
 
 type CitizenVeteranPrioritySnapshotProps =
   SnapshotProps<CitizenVeteranPrioritySnapshotV1>;

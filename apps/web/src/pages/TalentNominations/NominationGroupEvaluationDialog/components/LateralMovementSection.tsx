@@ -10,7 +10,7 @@ import {
 import { Heading, Ul, Notice } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   TalentNominationGroupDecision,
@@ -23,7 +23,7 @@ import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import { formMessages as talentNominationGroupMessages } from "../../NominationGroup/messages";
 import { formMessages } from "../messages";
-import { FormValues } from "../form";
+import { type FormValues } from "../form";
 
 const NominationGroupEvaluationDialogLateralMovementOptions_Fragment = graphql(
   /* GraphQL */ `

@@ -1,4 +1,4 @@
-import { IntlShape, useIntl } from "react-intl";
+import { type IntlShape, useIntl } from "react-intl";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
@@ -7,7 +7,7 @@ import { tv } from "tailwind-variants";
 
 import {
   Heading,
-  HeadingRank,
+  type HeadingRank,
   Link,
   Chip,
   Chips,
@@ -20,7 +20,7 @@ import {
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
+  type FragmentType,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
   PoolSkillType,

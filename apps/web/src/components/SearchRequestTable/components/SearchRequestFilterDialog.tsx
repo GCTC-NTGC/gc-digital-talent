@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
+import { type OperationContext, useQuery } from "urql";
 
 import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -8,10 +8,10 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 import FilterDialog, {
-  CommonFilterDialogProps,
+  type CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 
-import { FormValues } from "./utils";
+import { type FormValues } from "./utils";
 
 const RequestFilterDepartment_Fragment = graphql(/* GraphQL */ `
   fragment RequestFilterDepartment on Department {

@@ -1,5 +1,5 @@
 // versionHelpers.ts
-import { ComponentType } from "react";
+import { type ComponentType } from "react";
 
 /**
  * Returns the closest supported component ≤ requested version

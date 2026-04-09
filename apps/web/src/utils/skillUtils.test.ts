@@ -1,9 +1,9 @@
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 import {
-  Experience,
-  Skill,
+  type Experience,
+  type Skill,
   SkillCategory,
-  SkillFamily,
+  type SkillFamily,
 } from "@gc-digital-talent/graphql";
 
 import {

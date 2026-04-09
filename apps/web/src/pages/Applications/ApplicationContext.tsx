@@ -1,13 +1,13 @@
 import {
   createContext,
   useContext,
-  ReactNode,
+  type ReactNode,
   useMemo,
   useEffect,
 } from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
-import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
+import { type Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
 import { isIAPPool } from "~/utils/poolUtils";
 

@@ -1,16 +1,16 @@
 import { useIntl } from "react-intl";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import uniqueId from "lodash/uniqueId";
 
 import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   AssessmentResultType,
-  AssessmentStep,
-  FragmentType,
+  type AssessmentStep,
+  type FragmentType,
   getFragment,
   graphql,
   PoolSkillType,
-  AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
+  type AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Notice } from "@gc-digital-talent/ui";
@@ -23,8 +23,8 @@ import processMessages from "~/messages/processMessages";
 import cells from "../Table/cells";
 import { buildColumn, columnHeader, columnStatus } from "./utils";
 import {
-  AssessmentResultsTableFragmentStepType,
-  AssessmentTableRow,
+  type AssessmentResultsTableFragmentStepType,
+  type AssessmentTableRow,
 } from "./types";
 
 const columnHelper = createColumnHelper<AssessmentTableRow>();

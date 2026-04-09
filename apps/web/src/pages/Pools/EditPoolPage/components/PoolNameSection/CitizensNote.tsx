@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { useIntl } from "react-intl";
 
-import { getLocale, Locales } from "@gc-digital-talent/i18n";
+import { getLocale, type Locales } from "@gc-digital-talent/i18n";
 import { Link, Notice } from "@gc-digital-talent/ui";
 
 const pseaUrl: Record<Locales, string> = {

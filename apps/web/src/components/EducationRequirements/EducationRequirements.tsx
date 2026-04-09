@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
-import { HTMLProps, ReactNode } from "react";
+import { type HTMLProps, type ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import { Link, Heading, HeadingLevel, Card, Ul } from "@gc-digital-talent/ui";
+import { Link, Heading, type HeadingLevel, Card, Ul } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
@@ -14,7 +14,7 @@ import {
   foreignDegreeLink,
   postSecondaryLink,
 } from "~/utils/educationUtils";
-import { ClassificationGroup } from "~/types/classificationGroup";
+import { type ClassificationGroup } from "~/types/classificationGroup";
 
 type TextProps = HTMLProps<HTMLParagraphElement>;
 

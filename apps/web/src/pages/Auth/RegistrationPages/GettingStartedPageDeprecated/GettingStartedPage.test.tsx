@@ -12,7 +12,7 @@ import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
 import GettingStartedForm, {
-  GettingStartedFormProps,
+  type GettingStartedFormProps,
   GettingStartedInitialValuesDeprecated_Query,
   GettingStartedOptions_Query,
 } from "./GettingStartedForm";

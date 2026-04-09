@@ -1,28 +1,28 @@
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { ReactNode, useEffect } from "react";
+import { type ReactNode, useEffect } from "react";
 
 import {
   RadioGroup,
-  FieldLabels,
+  type FieldLabels,
   Checkbox,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import {
-  Locales,
+  type Locales,
   errorMessages,
   getLocale,
   sortEvaluatedLanguageAbility,
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import {
   getEstimatedAbilityOptions,
   getExamValidityOptions,
 } from "~/utils/languageUtils";
 
-import { FormValues } from "./types";
+import { type FormValues } from "./types";
 
 const languageEvaluationPageLink = (msg: ReactNode, locale: Locales) => {
   return (

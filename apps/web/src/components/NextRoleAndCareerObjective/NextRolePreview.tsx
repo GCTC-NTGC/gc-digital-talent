@@ -1,10 +1,10 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
-  HeadingLevel,
+  type HeadingLevel,
   PreviewList,
-  PreviewMetaData,
+  type PreviewMetaData,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 

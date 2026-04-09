@@ -3,7 +3,7 @@ import { useQuery } from "urql";
 
 import {
   ApplicationStatus,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -12,7 +12,7 @@ import {
   Heading,
   Pending,
   PreviewList,
-  PreviewMetaData,
+  type PreviewMetaData,
   Separator,
   Notice,
 } from "@gc-digital-talent/ui";

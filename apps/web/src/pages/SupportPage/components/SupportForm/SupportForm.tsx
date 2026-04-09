@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 // Note: Disable camelcase since variables are being used by API
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
-import { useLocation, Location, useSearchParams } from "react-router";
+import { useLocation, type Location, useSearchParams } from "react-router";
 import { useQuery } from "urql";
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
@@ -16,13 +16,13 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Heading, Pending, Button } from "@gc-digital-talent/ui";
 import { getLogger } from "@gc-digital-talent/logger";
-import { User, graphql } from "@gc-digital-talent/graphql";
+import { type User, graphql } from "@gc-digital-talent/graphql";
 import { appInsights } from "@gc-digital-talent/app-insights";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 
-import { FormValues, submitTicket, SUPPORT_TICKET_ERROR } from "./utils";
+import { type FormValues, submitTicket, SUPPORT_TICKET_ERROR } from "./utils";
 
 interface SupportFormProps {
   showSupportForm: boolean;

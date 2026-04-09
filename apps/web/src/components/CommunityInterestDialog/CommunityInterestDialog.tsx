@@ -1,14 +1,14 @@
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import CommunityInterest, {
-  CommunityInterestOptions_Fragment,
+  type CommunityInterestOptions_Fragment,
 } from "../CommunityInterest/CommunityInterest";
 
 const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `

@@ -1,14 +1,14 @@
 import { useState, useMemo, useRef } from "react";
 import { useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
-import { SubmitHandler } from "react-hook-form";
+import { type SubmitHandler } from "react-hook-form";
 import {
-  ColumnDef,
-  PaginationState,
-  SortingState,
+  type ColumnDef,
+  type PaginationState,
+  type SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { OperationContext, useMutation, useQuery } from "urql";
+import { type OperationContext, useMutation, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
 
 import {
@@ -25,12 +25,12 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import {
   graphql,
-  PoolCandidateSearchInput,
-  Pool,
-  Maybe,
+  type PoolCandidateSearchInput,
+  type Pool,
+  type Maybe,
   PublishingGroup,
-  FragmentType,
-  CandidatesTableCandidatesPaginated_QueryQuery,
+  type FragmentType,
+  type CandidatesTableCandidatesPaginated_QueryQuery,
 } from "@gc-digital-talent/graphql";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
@@ -56,7 +56,7 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
-import { SearchState } from "../Table/ResponsiveTable/types";
+import { type SearchState } from "../Table/ResponsiveTable/types";
 import {
   flagCell,
   flagHeader,
@@ -85,10 +85,10 @@ import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
 import PoolCandidateFilterDialog, {
-  PoolCandidateFilterDialogProps,
+  type PoolCandidateFilterDialogProps,
 } from "./PoolCandidateFilterDialog";
-import { FormValues } from "./types";
-import { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
+import { type FormValues } from "./types";
+import { type PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
 import DownloadCandidateExcelButton from "../DownloadButton/DownloadCandidateExcelButton";
 import DownloadAllCandidateTableExcelButton from "../DownloadButton/DownloadAllCandidateTableExcelButton";

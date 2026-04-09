@@ -1,4 +1,4 @@
-import { forwardRef, ReactNode, SVGProps as ReactSVGProps } from "react";
+import { forwardRef, type ReactNode, type SVGProps as ReactSVGProps } from "react";
 
 export type SVGProps = ReactSVGProps<SVGSVGElement>;
 

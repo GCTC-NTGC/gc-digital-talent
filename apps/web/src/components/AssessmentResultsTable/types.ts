@@ -1,12 +1,12 @@
-import { ColumnDef } from "@tanstack/react-table";
+import { type ColumnDef } from "@tanstack/react-table";
 
 import {
-  Maybe,
-  PoolSkill,
-  Skill,
-  AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
+  type Maybe,
+  type PoolSkill,
+  type Skill,
+  type AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
 } from "@gc-digital-talent/graphql";
-import { IconType } from "@gc-digital-talent/ui";
+import { type IconType } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 type PoolSkillForTableRow = Pick<PoolSkill, "id" | "requiredLevel" | "type"> & {

@@ -1,9 +1,9 @@
 import { useIntl } from "react-intl";
 
 import {
-  LocalizedGovEmployeeType,
-  LocalizedGovPositionType,
-  Maybe,
+  type LocalizedGovEmployeeType,
+  type LocalizedGovPositionType,
+  type Maybe,
   GovEmployeeType,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -15,7 +15,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 import EmailVerificationStatus from "~/components/Profile/components/EmailVerificationStatus";
 import { formattedDate } from "~/utils/dateUtils";
 
-import { RelatedSnapshotModel, SnapshotProps } from "../types";
+import { type RelatedSnapshotModel, type SnapshotProps } from "../types";
 
 export interface GovernmentInformationSnapshotV1 {
   isGovEmployee?: Maybe<boolean>;

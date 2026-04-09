@@ -1,11 +1,11 @@
-import { IntlShape, useIntl } from "react-intl";
+import { type IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
 import uniqBy from "lodash/uniqBy";
 
-import { Option, Select, Checkbox } from "@gc-digital-talent/forms";
+import { type Option, Select, Checkbox } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { CreatePoolCommunityFragment as CreatePoolCommunityFragmentType } from "@gc-digital-talent/graphql";
+import { type CreatePoolCommunityFragment as CreatePoolCommunityFragmentType } from "@gc-digital-talent/graphql";
 import { Notice, Ul } from "@gc-digital-talent/ui";
 
 import messages from "~/messages/adminMessages";

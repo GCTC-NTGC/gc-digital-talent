@@ -1,13 +1,13 @@
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
-  UpdateCommunityInterestInput,
-  FragmentType,
+  type UpdateCommunityInterestInput,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -24,7 +24,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { messages } from "./messages";
 import {
   apiDataToFormValues,
-  FormValues,
+  type FormValues,
   formValuesToApiUpdateInput,
 } from "../form";
 import FindANewCommunity from "../sections/FindANewCommunity";

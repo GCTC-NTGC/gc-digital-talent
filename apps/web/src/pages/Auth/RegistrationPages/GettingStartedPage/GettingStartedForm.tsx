@@ -1,12 +1,12 @@
 import { defineMessage, useIntl } from "react-intl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { FormProvider, useForm } from "react-hook-form";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { Heading, Link, Notice } from "@gc-digital-talent/ui";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { graphql, FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import { graphql, type FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import { getFullNameLabel } from "~/utils/nameUtils";

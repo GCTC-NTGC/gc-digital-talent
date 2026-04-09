@@ -1,13 +1,13 @@
 import {
-  VisibilityState,
-  ColumnFiltersState,
-  Column,
-  ColumnMeta,
+  type VisibilityState,
+  type ColumnFiltersState,
+  type Column,
+  type ColumnMeta,
 } from "@tanstack/react-table";
 
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import { SearchState } from "./types";
+import { type SearchState } from "./types";
 
 export const getColumnVisibility = (
   allColumnsIds: string[],

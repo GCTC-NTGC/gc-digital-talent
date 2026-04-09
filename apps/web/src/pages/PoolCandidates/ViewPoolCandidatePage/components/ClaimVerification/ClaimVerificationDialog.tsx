@@ -1,13 +1,13 @@
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import { useState } from "react";
 
 import {
   ClaimVerificationResult,
-  Maybe,
-  Scalars,
-  UpdatePoolCandidateClaimVerificationInput,
+  type Maybe,
+  type Scalars,
+  type UpdatePoolCandidateClaimVerificationInput,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";

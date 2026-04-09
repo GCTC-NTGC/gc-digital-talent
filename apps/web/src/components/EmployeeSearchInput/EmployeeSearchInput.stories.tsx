@@ -10,7 +10,7 @@ import { BasicForm, Submit } from "@gc-digital-talent/forms";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import EmployeeSearchInput, {
-  EmployeeSearchInputProps,
+  type EmployeeSearchInputProps,
 } from "./EmployeeSearchInput";
 import { EmployeeSearchResult_Fragment, fragmentToEmployee } from "./utils";
 faker.seed(0);

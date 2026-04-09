@@ -1,11 +1,11 @@
 import { useIntl } from "react-intl";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
-import { ReactNode, JSX } from "react";
+import { type ReactNode, type JSX } from "react";
 
 import { Heading, Link, ScrollToLink, Notice } from "@gc-digital-talent/ui";
-import { Locales, getLocale } from "@gc-digital-talent/i18n";
+import { type Locales, getLocale } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
+  type FragmentType,
   PublishingGroup,
   getFragment,
   graphql,
@@ -17,11 +17,11 @@ import { isInNullState } from "~/validators/process/classification";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
-  ClassificationGroup,
+  type ClassificationGroup,
   isClassificationGroup,
 } from "~/types/classificationGroup";
 
-import { SectionProps } from "../types";
+import { type SectionProps } from "../types";
 
 const qualityStandardsLink = (chunks: ReactNode, locale: Locales) => {
   const href =

@@ -2,12 +2,12 @@ import omit from "lodash/omit";
 import compact from "lodash/compact";
 
 import {
-  Maybe,
-  ProfileLanguageProfileFragment,
-  UpdateUserAsUserInput,
+  type Maybe,
+  type ProfileLanguageProfileFragment,
+  type UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 
-import { FormValues } from "./types";
+import { type FormValues } from "./types";
 
 export const formValuesToSubmitData = (
   formValues: FormValues,

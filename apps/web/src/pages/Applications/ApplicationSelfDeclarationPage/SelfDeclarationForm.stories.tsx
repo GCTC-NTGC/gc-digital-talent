@@ -1,11 +1,11 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+import { type Meta, type StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
 import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import {
   IndigenousCommunity,
-  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
+  type Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import { ApplicationSelfDeclaration } from "./ApplicationSelfDeclarationPage";

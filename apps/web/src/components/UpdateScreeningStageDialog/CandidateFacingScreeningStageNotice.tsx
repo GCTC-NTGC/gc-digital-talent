@@ -1,5 +1,5 @@
 import { useWatch } from "react-hook-form";
-import { MessageDescriptor, useIntl } from "react-intl";
+import { type MessageDescriptor, useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Heading, Notice } from "@gc-digital-talent/ui";
@@ -10,7 +10,7 @@ import {
   applicationStatusLabels,
 } from "~/utils/poolCandidate";
 
-import { FormValues } from "./types";
+import { type FormValues } from "./types";
 
 interface CandidateFacingScreeningStageMessage {
   title: MessageDescriptor;

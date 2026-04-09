@@ -1,4 +1,4 @@
-import { Pool } from "@gc-digital-talent/graphql";
+import { type Pool } from "@gc-digital-talent/graphql";
 
 import {
   aboutSectionHasEmptyRequiredFields,
@@ -7,11 +7,11 @@ import {
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
   workPreferencesSectionHasEmptyRequiredFields,
-  PartialUserAbout,
-  PartialUserDei,
-  PartialUserPriority,
-  PartialUserLanguage,
-  PartialUserPreferences,
+  type PartialUserAbout,
+  type PartialUserDei,
+  type PartialUserPriority,
+  type PartialUserLanguage,
+  type PartialUserPreferences,
 } from "~/validators/profile";
 
 interface PartialUser

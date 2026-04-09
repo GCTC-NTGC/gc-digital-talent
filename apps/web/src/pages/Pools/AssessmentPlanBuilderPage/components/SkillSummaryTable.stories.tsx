@@ -8,9 +8,9 @@ import {
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
-  AssessmentStep,
+  type AssessmentStep,
   AssessmentStepType,
-  PoolSkill,
+  type PoolSkill,
   PoolSkillType,
   SkillCategory,
   makeFragmentData,

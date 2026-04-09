@@ -2,10 +2,10 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import {
   Container,

@@ -1,11 +1,11 @@
 import { useMutation } from "urql";
 
 import {
-  CreateAwardExperienceMutation,
-  CreateCommunityExperienceMutation,
-  CreateEducationExperienceMutation,
-  CreatePersonalExperienceMutation,
-  CreateWorkExperienceMutation,
+  type CreateAwardExperienceMutation,
+  type CreateCommunityExperienceMutation,
+  type CreateEducationExperienceMutation,
+  type CreatePersonalExperienceMutation,
+  type CreateWorkExperienceMutation,
   GovEmployeeType,
   graphql,
 } from "@gc-digital-talent/graphql";

@@ -1,7 +1,7 @@
 import { useQuery } from "urql";
 import { useMemo } from "react";
 
-import { Role, graphql } from "@gc-digital-talent/graphql";
+import { type Role, graphql } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 const ManageAccessPool_AvailableRolesQuery = graphql(/* GraphQL */ `

@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { ReactNode, useEffect } from "react";
+import { type ReactNode, useEffect } from "react";
 
 import {
   Button,
@@ -17,7 +17,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
   ErrorCode,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   PoolSkillType,
@@ -26,14 +26,14 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
-import { GetPageNavInfo } from "~/types/applicationStep";
+import { type GetPageNavInfo } from "~/types/applicationStep";
 import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import { isIncomplete } from "~/validators/profile/skillRequirements";
 import SkillTree from "~/components/SkillTree/SkillTree";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
-import { ApplicationPageProps } from "../ApplicationApi";
+import { type ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 import useApplication from "../useApplication";

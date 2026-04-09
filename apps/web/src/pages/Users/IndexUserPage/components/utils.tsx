@@ -1,5 +1,5 @@
-import { IntlShape } from "react-intl";
-import { SortingState } from "@tanstack/react-table";
+import { type IntlShape } from "react-intl";
+import { type SortingState } from "@tanstack/react-table";
 
 import {
   notEmpty,
@@ -8,18 +8,18 @@ import {
 } from "@gc-digital-talent/helpers";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 import {
-  InputMaybe,
-  OrderByClause,
+  type InputMaybe,
+  type OrderByClause,
   PositionDuration,
-  RoleAssignment,
+  type RoleAssignment,
   SortOrder,
   Trashed,
-  UserFilterInput,
+  type UserFilterInput,
 } from "@gc-digital-talent/graphql";
 
 import { durationToEnumPositionDuration } from "~/utils/userUtils";
 
-import { FormValues, OTHER_FILTER, OtherFilter } from "./UserFilterDialog";
+import { type FormValues, OTHER_FILTER, type OtherFilter } from "./UserFilterDialog";
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
 export function rolesAccessor(

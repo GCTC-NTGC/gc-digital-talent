@@ -4,7 +4,7 @@ import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { Notice } from "@gc-digital-talent/ui";
 import {
   ApplicationStatus,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -14,7 +14,7 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 
-import Footer, { FooterProps } from "../Footer";
+import Footer, { type FooterProps } from "../Footer";
 
 export const StatusChangeNotice = () => {
   const intl = useIntl();

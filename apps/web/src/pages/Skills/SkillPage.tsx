@@ -1,5 +1,5 @@
 import { defineMessage, useIntl } from "react-intl";
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 

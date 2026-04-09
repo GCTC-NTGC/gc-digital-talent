@@ -3,13 +3,13 @@ import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriver
 
 import {
   ApplicationStatus,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import {
   Accordion,
-  AccordionMetaData,
+  type AccordionMetaData,
   TaskCard,
   wrapParens,
 } from "@gc-digital-talent/ui";

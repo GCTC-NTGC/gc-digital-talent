@@ -1,6 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
-import { ReactNode } from "react";
+import { type OperationContext, useQuery } from "urql";
+import { type ReactNode } from "react";
 
 import {
   commonMessages,
@@ -16,10 +16,10 @@ import {
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 

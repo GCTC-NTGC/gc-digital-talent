@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
-import { DefaultValues, FormProvider, useForm } from "react-hook-form";
+import { type ReactNode } from "react";
+import { type DefaultValues, FormProvider, useForm } from "react-hook-form";
 
-import { UpdateTalentNominationInput } from "@gc-digital-talent/graphql";
+import { type UpdateTalentNominationInput } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 
-import { BaseFormValues } from "../types";
+import { type BaseFormValues } from "../types";
 import useMutations from "../useMutations";
 import useCurrentStep from "../useCurrentStep";
 import Actions from "./Actions";

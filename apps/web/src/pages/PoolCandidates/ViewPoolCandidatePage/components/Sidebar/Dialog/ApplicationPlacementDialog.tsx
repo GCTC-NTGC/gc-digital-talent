@@ -4,11 +4,11 @@ import { useMutation, useQuery } from "urql";
 import { useState } from "react";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   PlacementType,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";

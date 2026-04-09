@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
@@ -33,13 +33,13 @@ import {
   Card,
 } from "@gc-digital-talent/ui";
 import {
-  Skill,
-  UpdateSkillInput,
-  UpdateSkillMutation,
-  Scalars,
-  SkillCategory,
+  type Skill,
+  type UpdateSkillInput,
+  type UpdateSkillMutation,
+  type Scalars,
+  type SkillCategory,
   graphql,
-  FragmentType,
+  type FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";

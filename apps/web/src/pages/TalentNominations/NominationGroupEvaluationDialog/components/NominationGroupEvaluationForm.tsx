@@ -1,13 +1,13 @@
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Button, Dialog, Separator, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import talentNominationMessages from "~/messages/talentNominationMessages";
 
-import { convertQueryDataToFormData, FormValues } from "../form";
+import { convertQueryDataToFormData, type FormValues } from "../form";
 import AdvancementSection from "./AdvancementSection";
 import LateralMovementSection from "./LateralMovementSection";
 import DevelopmentProgramsSection from "./DevelopmentProgramsSection";

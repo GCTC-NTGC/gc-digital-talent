@@ -1,5 +1,5 @@
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
-import { IntlShape, useIntl } from "react-intl";
+import { type IntlShape, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
 import { useCallback, useMemo } from "react";
@@ -20,11 +20,11 @@ import {
   type PreviewMetaData,
 } from "@gc-digital-talent/ui";
 import {
-  Classification,
+  type Classification,
   graphql,
-  Maybe,
-  SupervisoryStatus,
-  WorkStream,
+  type Maybe,
+  type SupervisoryStatus,
+  type WorkStream,
 } from "@gc-digital-talent/graphql";
 import {
   alphaSortOptions,

@@ -2,11 +2,11 @@ import isEmpty from "lodash/isEmpty";
 
 import {
   FlexibleWorkLocation,
-  LocalizedFlexibleWorkLocation,
-  LocalizedProvinceOrTerritory,
-  LocalizedWorkRegion,
-  Maybe,
-  User,
+  type LocalizedFlexibleWorkLocation,
+  type LocalizedProvinceOrTerritory,
+  type LocalizedWorkRegion,
+  type Maybe,
+  type User,
 } from "@gc-digital-talent/graphql";
 
 export interface PartialUser extends Pick<

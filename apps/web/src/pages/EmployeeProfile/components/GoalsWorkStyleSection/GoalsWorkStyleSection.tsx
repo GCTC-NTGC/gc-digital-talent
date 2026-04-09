@@ -9,13 +9,13 @@ import {
   commonMessages,
   formMessages,
   getLocale,
-  Locales,
+  type Locales,
 } from "@gc-digital-talent/i18n";
 import {
   graphql,
-  FragmentType,
+  type FragmentType,
   getFragment,
-  EmployeeProfile,
+  type EmployeeProfile,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";

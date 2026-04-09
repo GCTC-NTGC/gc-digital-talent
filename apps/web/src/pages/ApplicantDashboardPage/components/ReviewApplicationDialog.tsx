@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import {
   CandidateStatus,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   PoolAreaOfSelection,

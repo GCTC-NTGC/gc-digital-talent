@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -8,10 +8,10 @@ import { toast } from "@gc-digital-talent/toast";
 import { Submit } from "@gc-digital-talent/forms";
 import {
   graphql,
-  CreateDepartmentInput,
-  Scalars,
-  LocalizedStringInput,
-  DepartmentSize,
+  type CreateDepartmentInput,
+  type Scalars,
+  type LocalizedStringInput,
+  type DepartmentSize,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
@@ -30,7 +30,7 @@ import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 
 import FormFields from "./FormFields";
-import { DepartmentType, departmentTypeToInput } from "./utils";
+import { type DepartmentType, departmentTypeToInput } from "./utils";
 
 interface FormValues {
   name?: LocalizedStringInput;

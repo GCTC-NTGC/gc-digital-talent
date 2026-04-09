@@ -11,7 +11,7 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   graphql,
   getFragment,
-  DepartmentDashboardQuery,
+  type DepartmentDashboardQuery,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -29,7 +29,7 @@ import ResourcesDepartmentLink from "./components/ResourcesDepartmentLink";
 import {
   departmentAssignmentsToDepartmentRolesObjects,
   isDepartmentTeamable,
-  RoleAssignmentObject,
+  type RoleAssignmentObject,
 } from "./utils";
 
 export const DepartmentDashboardPage_Fragment = graphql(/* GraphQL */ `

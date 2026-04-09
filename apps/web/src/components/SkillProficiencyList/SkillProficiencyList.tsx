@@ -2,11 +2,11 @@ import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  SkillCategory,
-  SkillLevel,
+  type SkillCategory,
+  type SkillLevel,
 } from "@gc-digital-talent/graphql";
 import { Accordion, Button, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";

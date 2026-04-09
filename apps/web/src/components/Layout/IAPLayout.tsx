@@ -6,7 +6,7 @@ import { AnimatePresence } from "motion/react";
 
 import {
   NestedLanguageProvider,
-  Messages,
+  type Messages,
   commonMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";

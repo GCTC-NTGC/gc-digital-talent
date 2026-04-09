@@ -11,9 +11,9 @@ import {
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
-  CreateTalentNominationInput,
+  type CreateTalentNominationInput,
   graphql,
-  Scalars,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";

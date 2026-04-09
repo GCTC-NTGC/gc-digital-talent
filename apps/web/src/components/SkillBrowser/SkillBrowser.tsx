@@ -1,12 +1,12 @@
 import { useId, useMemo, useEffect } from "react";
 import { useIntl } from "react-intl";
-import { RegisterOptions, useFormContext } from "react-hook-form";
+import { type RegisterOptions, useFormContext } from "react-hook-form";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Combobox, Select } from "@gc-digital-talent/forms";
 import { normalizeString } from "@gc-digital-talent/helpers";
 
-import { BaseSkillBrowserProps, FormValues } from "./types";
+import { type BaseSkillBrowserProps, type FormValues } from "./types";
 import skillBrowserMessages from "./messages";
 import {
   INPUT_NAME,

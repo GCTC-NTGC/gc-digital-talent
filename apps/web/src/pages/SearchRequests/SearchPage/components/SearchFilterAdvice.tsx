@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
 
-import { LinkProps, ScrollToLink, UNICODE_CHAR } from "@gc-digital-talent/ui";
+import { type LinkProps, ScrollToLink, UNICODE_CHAR } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { ApplicantFilterInput } from "@gc-digital-talent/graphql";
+import { type ApplicantFilterInput } from "@gc-digital-talent/graphql";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
 

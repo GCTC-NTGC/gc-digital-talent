@@ -7,11 +7,11 @@ import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   PoolStatus,
-  LocalizedString,
-  Pool,
-  UpdatePoolInput,
+  type LocalizedString,
+  type Pool,
+  type UpdatePoolInput,
   graphql,
-  FragmentType,
+  type FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 
@@ -25,7 +25,7 @@ import useUserCanEditPool from "~/hooks/useCanUserEditPool";
 import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import { PublishedEditableSectionProps, SectionProps } from "../../types";
+import { type PublishedEditableSectionProps, type SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 import UpdatePublishedProcessDialog, {

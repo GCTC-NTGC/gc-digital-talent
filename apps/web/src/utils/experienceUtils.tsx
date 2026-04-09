@@ -1,33 +1,33 @@
-import { IntlShape, useIntl } from "react-intl";
+import { type IntlShape, useIntl } from "react-intl";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { parseISO } from "date-fns/parseISO";
 import { differenceInMonths } from "date-fns/differenceInMonths";
 import { isPast } from "date-fns/isPast";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { IconType } from "@gc-digital-talent/ui";
+import { type IconType } from "@gc-digital-talent/ui";
 import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
+  type AwardExperience,
+  type CommunityExperience,
+  type EducationExperience,
   EducationType,
   EmploymentCategory,
   GovEmployeeType,
   GovPositionType,
-  LocalizedCafForce,
-  LocalizedEducationType,
-  LocalizedEmploymentCategory,
-  LocalizedString,
-  Maybe,
-  PersonalExperience,
-  Skill,
-  WorkExperience,
+  type LocalizedCafForce,
+  type LocalizedEducationType,
+  type LocalizedEmploymentCategory,
+  type LocalizedString,
+  type Maybe,
+  type PersonalExperience,
+  type Skill,
+  type WorkExperience,
 } from "@gc-digital-talent/graphql";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
@@ -40,13 +40,13 @@ import {
 import { defaultLogger } from "@gc-digital-talent/logger";
 
 import {
-  AllExperienceFormValues,
-  AnyExperience,
-  ExperienceDetailsDefaultValues,
-  ExperienceDetailsSubmissionData,
-  ExperienceForDate,
-  ExperienceFormValues,
-  ExperienceType,
+  type AllExperienceFormValues,
+  type AnyExperience,
+  type ExperienceDetailsDefaultValues,
+  type ExperienceDetailsSubmissionData,
+  type ExperienceForDate,
+  type ExperienceFormValues,
+  type ExperienceType,
 } from "~/types/experience";
 
 import { formattedDate, getDateRange } from "./dateUtils";

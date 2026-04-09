@@ -4,10 +4,10 @@ import { m, AnimatePresence } from "motion/react";
 import {
   useEffect,
   useState,
-  KeyboardEventHandler,
+  type KeyboardEventHandler,
   useRef,
-  ReactNode,
-  ReactElement,
+  type ReactNode,
+  type ReactElement,
 } from "react";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";

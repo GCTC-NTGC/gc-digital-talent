@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { RichTextInput } from "@gc-digital-talent/forms";
-import { errorMessages, Locales } from "@gc-digital-talent/i18n";
+import { errorMessages, type Locales } from "@gc-digital-talent/i18n";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";

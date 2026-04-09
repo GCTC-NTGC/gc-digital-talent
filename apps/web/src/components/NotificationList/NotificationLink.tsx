@@ -1,7 +1,7 @@
-import { ComponentRef, forwardRef, MouseEventHandler, ReactNode } from "react";
+import { type ComponentRef, forwardRef, type MouseEventHandler, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router";
 
-import { Scalars } from "@gc-digital-talent/graphql";
+import { type Scalars } from "@gc-digital-talent/graphql";
 import { getLogger } from "@gc-digital-talent/logger";
 
 import { linkStyles } from "./styles";

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
@@ -11,7 +11,7 @@ import {
   errorMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { graphql, CreateClassificationInput } from "@gc-digital-talent/graphql";
+import { graphql, type CreateClassificationInput } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Card, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 

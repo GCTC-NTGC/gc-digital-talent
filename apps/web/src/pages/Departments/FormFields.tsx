@@ -8,7 +8,7 @@ import {
 } from "@gc-digital-talent/forms";
 import {
   DepartmentSize,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

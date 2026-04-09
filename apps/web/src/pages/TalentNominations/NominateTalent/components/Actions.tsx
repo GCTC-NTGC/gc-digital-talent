@@ -8,7 +8,7 @@ import { Button, Link, Separator } from "@gc-digital-talent/ui";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
 
-import { RouteParams } from "../types";
+import { type RouteParams } from "../types";
 import useCurrentStep from "../useCurrentStep";
 
 const Actions = () => {

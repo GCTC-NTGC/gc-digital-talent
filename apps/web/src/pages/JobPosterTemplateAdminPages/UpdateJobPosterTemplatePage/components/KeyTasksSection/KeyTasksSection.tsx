@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
 
@@ -8,11 +8,11 @@ import { Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   graphql,
-  FragmentType,
+  type FragmentType,
   getFragment,
-  UpdateJobPosterTemplateInput,
-  UpdateJobPosterTemplateKeyTasksFragment,
-  Scalars,
+  type UpdateJobPosterTemplateInput,
+  type UpdateJobPosterTemplateKeyTasksFragment,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -20,7 +20,7 @@ import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
 
-import KeyTasksForm, { FormValues } from "../../../components/KeyTasksForm";
+import KeyTasksForm, { type FormValues } from "../../../components/KeyTasksForm";
 import Display from "./Display";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
 

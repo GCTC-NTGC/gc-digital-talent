@@ -1,31 +1,31 @@
-import { IntlShape, useIntl } from "react-intl";
+import { type IntlShape, useIntl } from "react-intl";
 import {
-  Row,
-  Table,
-  ColumnDef,
-  CellContext,
-  ColumnDefTemplate,
-  RowSelectionState,
-  OnChangeFn,
-  Updater,
+  type Row,
+  type Table,
+  type ColumnDef,
+  type CellContext,
+  type ColumnDefTemplate,
+  type RowSelectionState,
+  type OnChangeFn,
+  type Updater,
 } from "@tanstack/react-table";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import {
-  DetailedHTMLProps,
-  Dispatch,
-  HTMLAttributes,
-  MouseEventHandler,
-  SetStateAction,
+  type DetailedHTMLProps,
+  type Dispatch,
+  type HTMLAttributes,
+  type MouseEventHandler,
+  type SetStateAction,
   useCallback,
   useEffect,
   useState,
 } from "react";
 import { tv } from "tailwind-variants";
 
-import { CheckButton, CheckButtonProps } from "@gc-digital-talent/forms";
+import { CheckButton, type CheckButtonProps } from "@gc-digital-talent/forms";
 import {
   Button,
-  ButtonProps,
+  type ButtonProps,
   DownloadCsv,
   Loading,
   UNICODE_CHAR,
@@ -33,7 +33,7 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
-import { DownloadDef, RowSelectDef } from "./types";
+import { type DownloadDef, type RowSelectDef } from "./types";
 import SpinnerIcon from "../../SpinnerIcon/SpinnerIcon";
 import tableMessages from "../tableMessages";
 

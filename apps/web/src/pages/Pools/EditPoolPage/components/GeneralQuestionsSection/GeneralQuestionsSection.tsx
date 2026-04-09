@@ -6,19 +6,19 @@ import sortBy from "lodash/sortBy";
 import { TableOfContents, CardRepeater, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  FragmentType,
-  GeneralQuestion,
+  type FragmentType,
+  type GeneralQuestion,
   PoolStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 
-import { EditPoolSectionMetadata } from "~/types/pool";
+import { type EditPoolSectionMetadata } from "~/types/pool";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import {
-  GeneralQuestionsSubmit,
-  GeneralQuestionsSubmitData,
+  type GeneralQuestionsSubmit,
+  type GeneralQuestionsSubmitData,
   repeaterQuestionsToSubmitData,
 } from "./utils";
 import GeneralQuestionCard from "./GeneralQuestionCard";

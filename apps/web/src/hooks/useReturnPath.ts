@@ -1,4 +1,4 @@
-import { Location, useLocation } from "react-router";
+import { type Location, useLocation } from "react-router";
 
 interface LocationState {
   from?: string;

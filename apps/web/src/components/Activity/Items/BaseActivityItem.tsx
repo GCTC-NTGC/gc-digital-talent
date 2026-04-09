@@ -1,8 +1,8 @@
-import { MessageDescriptor, useIntl } from "react-intl";
+import { type MessageDescriptor, useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   TIME_FORMAT_LOCALIZED,
@@ -13,7 +13,7 @@ import { getLogger } from "@gc-digital-talent/logger";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
-import { ActivityEventInfo, icon, normalizePropKeys } from "./utils";
+import { type ActivityEventInfo, icon, normalizePropKeys } from "./utils";
 
 const activityItem = tv({
   base: "flex flex-col justify-between gap-6 border-gray-200 py-6 not-first:border-t-2 sm:flex-row dark:border-gray-500",

@@ -1,12 +1,12 @@
-import { useIntl, defineMessage, MessageDescriptor } from "react-intl";
+import { useIntl, defineMessage, type MessageDescriptor } from "react-intl";
 import { useQuery } from "urql";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useEffect, useRef } from "react";
 
 import {
-  FieldLabels,
+  type FieldLabels,
   Input,
-  Radio,
+  type Radio,
   RadioGroup,
   TextArea,
 } from "@gc-digital-talent/forms";
@@ -15,17 +15,17 @@ import {
   getLocalizedName,
   narrowEnumType,
   getLocale,
-  Locales,
+  type Locales,
 } from "@gc-digital-talent/i18n";
 import { Heading, Loading } from "@gc-digital-talent/ui";
 import {
   EmploymentCategory,
   graphql,
-  WorkFieldOptionsQuery,
+  type WorkFieldOptionsQuery,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
+import { type SubExperienceFormProps, type WorkFormValues } from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 

@@ -14,9 +14,9 @@ import {
   Container,
 } from "@gc-digital-talent/ui";
 import {
-  FragmentType,
-  Scalars,
-  ViewCommunityQuery,
+  type FragmentType,
+  type Scalars,
+  type ViewCommunityQuery,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -31,7 +31,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
 import Hero from "~/components/Hero";
 
-import { ContextType } from "../CommunityMembersPage/components/types";
+import { type ContextType } from "../CommunityMembersPage/components/types";
 
 interface RouteParams extends Record<string, string> {
   communityId: Scalars["ID"]["output"];

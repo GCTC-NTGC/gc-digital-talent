@@ -1,5 +1,5 @@
 import isEqual from "lodash/isEqual";
-import { useRef, useEffect, EffectCallback, DependencyList } from "react";
+import { useRef, useEffect, type EffectCallback, type DependencyList } from "react";
 
 function useDeepCompareMemoize(value: unknown) {
   const ref = useRef<unknown>(undefined);

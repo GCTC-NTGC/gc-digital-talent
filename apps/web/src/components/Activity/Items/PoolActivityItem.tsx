@@ -1,13 +1,13 @@
 import ExclamationTriangleIcon from "@heroicons/react/16/solid/ExclamationTriangleIcon";
 import { isAfter } from "date-fns/isAfter";
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
-import { ReactNode } from "react";
+import { defineMessage, type MessageDescriptor, useIntl } from "react-intl";
+import { type ReactNode } from "react";
 
 import {
   ActivityEvent,
   getFragment,
-  Maybe,
-  Scalars,
+  type Maybe,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
@@ -19,7 +19,7 @@ import processMessages from "~/messages/processMessages";
 
 import BaseItem, {
   BaseItem_Fragment,
-  CommonItemProps,
+  type CommonItemProps,
 } from "./BaseActivityItem";
 import { getEventInfo } from "./utils";
 

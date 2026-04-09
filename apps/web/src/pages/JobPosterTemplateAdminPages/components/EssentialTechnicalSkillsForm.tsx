@@ -3,9 +3,9 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { useEffect } from "react";
 
 import { Checkbox, TextArea } from "@gc-digital-talent/forms";
-import { errorMessages, Locales } from "@gc-digital-talent/i18n";
+import { errorMessages, type Locales } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   SkillCategory,
@@ -14,8 +14,8 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import SkillProficiencyList, {
-  ListItem as SkillProficiencyListItem,
-  SkillProficiencyListProps,
+  type ListItem as SkillProficiencyListItem,
+  type SkillProficiencyListProps,
 } from "~/components/SkillProficiencyList/SkillProficiencyList";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 

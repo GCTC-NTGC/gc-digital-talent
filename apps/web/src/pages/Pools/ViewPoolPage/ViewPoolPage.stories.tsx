@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Meta, StoryFn } from "@storybook/react-vite";
+import { type Meta, type StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
 import {
@@ -15,7 +15,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { PoolStatus, makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { ViewPool, ViewPoolProps, ViewPool_Fragment } from "./ViewPoolPage";
+import { ViewPool, type ViewPoolProps, ViewPool_Fragment } from "./ViewPoolPage";
 
 const classifications = fakeClassifications();
 const skills = fakeSkills(100, fakeSkillFamilies(10));

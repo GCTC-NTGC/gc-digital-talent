@@ -1,8 +1,8 @@
-import { IntlShape } from "react-intl";
+import { type IntlShape } from "react-intl";
 import orderBy from "lodash/orderBy";
 
-import { RoleName } from "@gc-digital-talent/auth";
-import { Maybe, Role, RoleAssignment } from "@gc-digital-talent/graphql";
+import { type RoleName } from "@gc-digital-talent/auth";
+import { type Maybe, type Role, type RoleAssignment } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 /**

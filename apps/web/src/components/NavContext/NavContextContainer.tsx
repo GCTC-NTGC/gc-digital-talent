@@ -1,7 +1,7 @@
-import { createContext, ReactNode, useEffect, useMemo } from "react";
+import { createContext, type ReactNode, useEffect, useMemo } from "react";
 
 import {
-  RoleName,
+  type RoleName,
   NAV_ROLE_KEY,
   useAuthentication,
   useAuthorization,

@@ -1,8 +1,8 @@
 import { useNavigate, useLocation } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import {
   Checkbox,
@@ -29,20 +29,20 @@ import {
   setInSessionStorage,
 } from "@gc-digital-talent/storage";
 import {
-  EquitySelections,
-  CreatePoolCandidateSearchRequestInput,
-  Maybe,
-  DepartmentBelongsTo,
-  Classification,
-  OperationalRequirement,
-  Pool,
-  Skill,
-  ApplicantFilter,
-  ApplicantFilterInput,
+  type EquitySelections,
+  type CreatePoolCandidateSearchRequestInput,
+  type Maybe,
+  type DepartmentBelongsTo,
+  type Classification,
+  type OperationalRequirement,
+  type Pool,
+  type Skill,
+  type ApplicantFilter,
+  type ApplicantFilterInput,
   PoolCandidateSearchPositionType,
   type RequestForm_CreateRequestMutation as CreateRequestMutation,
   graphql,
-  FragmentType,
+  type FragmentType,
   getFragment,
   FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
@@ -51,9 +51,9 @@ import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
 import {
-  BrowserHistoryState,
-  PartialApplicantFilter,
-  FormValues as SearchFormValues,
+  type BrowserHistoryState,
+  type PartialApplicantFilter,
+  type FormValues as SearchFormValues,
 } from "~/types/searchRequest";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 

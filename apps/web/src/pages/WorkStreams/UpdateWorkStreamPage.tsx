@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -7,7 +7,7 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { toast } from "@gc-digital-talent/toast";
 import {
   Input,
-  OptGroupOrOption,
+  type OptGroupOrOption,
   Select,
   Submit,
   SwitchInput,
@@ -26,12 +26,12 @@ import {
   Card,
 } from "@gc-digital-talent/ui";
 import {
-  FragmentType,
-  InputMaybe,
-  LocalizedStringInput,
-  Scalars,
-  UpdateWorkStreamInput,
-  WorkStreamQuery,
+  type FragmentType,
+  type InputMaybe,
+  type LocalizedStringInput,
+  type Scalars,
+  type UpdateWorkStreamInput,
+  type WorkStreamQuery,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

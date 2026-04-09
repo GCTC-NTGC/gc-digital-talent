@@ -16,14 +16,14 @@ import {
   formMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { Role, RoleInput, Scalars, Maybe } from "@gc-digital-talent/graphql";
+import { type Role, type RoleInput, type Scalars, type Maybe } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 import {
-  CommunityTeamable,
+  type CommunityTeamable,
   getUserRoleDialogFragment,
-  UserRoleDialogBaseProps,
+  type UserRoleDialogBaseProps,
   useUpdateRolesMutation,
 } from "../utils";
 

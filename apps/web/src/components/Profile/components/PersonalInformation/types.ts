@@ -1,8 +1,8 @@
 import {
-  ArmedForcesStatus,
-  CitizenshipStatus,
-  Language,
-  Maybe,
+  type ArmedForcesStatus,
+  type CitizenshipStatus,
+  type Language,
+  type Maybe,
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {

@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+import { type Meta, type StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
 import {
@@ -11,7 +11,7 @@ import {
   fakeWorkStreams,
 } from "@gc-digital-talent/fake-data";
 import {
-  CreatePoolCandidateSearchRequestInput,
+  type CreatePoolCandidateSearchRequestInput,
   FlexibleWorkLocation,
   LanguageAbility,
   makeFragmentData,
@@ -28,7 +28,7 @@ import {
   RequestForm,
   RequestFormClassification_Fragment,
   RequestFormDepartment_Fragment,
-  RequestFormProps,
+  type RequestFormProps,
 } from "./RequestForm";
 
 const classifications = fakeClassifications();

@@ -1,14 +1,14 @@
 import { useIntl } from "react-intl";
 import {
-  FieldValues,
+  type FieldValues,
   FormProvider,
-  SubmitHandler,
-  UseFormProps,
+  type SubmitHandler,
+  type UseFormProps,
   useForm,
-  DefaultValues,
+  type DefaultValues,
 } from "react-hook-form";
 import AdjustmentsVerticalIcon from "@heroicons/react/20/solid/AdjustmentsVerticalIcon";
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";

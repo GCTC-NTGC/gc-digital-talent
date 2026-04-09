@@ -1,6 +1,6 @@
 import { useQuery } from "urql";
 
-import { UserWorkEmail, graphql } from "@gc-digital-talent/graphql";
+import { type UserWorkEmail, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 const ManageAccessDepartment_AvailableUsersQuery = graphql(/* GraphQL */ `

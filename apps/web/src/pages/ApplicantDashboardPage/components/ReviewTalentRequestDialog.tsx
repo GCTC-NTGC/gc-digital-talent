@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import {
   Accordion,
@@ -15,7 +15,7 @@ import {
 import { commonMessages, getEmploymentDuration } from "@gc-digital-talent/i18n";
 import {
   graphql,
-  ReviewTalentRequestDialogQuery,
+  type ReviewTalentRequestDialogQuery,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 

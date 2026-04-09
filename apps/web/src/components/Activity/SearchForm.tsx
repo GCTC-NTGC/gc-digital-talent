@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
-import { Maybe } from "@gc-digital-talent/graphql";
+import { type Maybe } from "@gc-digital-talent/graphql";
 import { Field, inputStyles } from "@gc-digital-talent/forms";
 import { Button } from "@gc-digital-talent/ui";
 

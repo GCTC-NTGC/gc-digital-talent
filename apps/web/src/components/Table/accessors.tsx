@@ -1,5 +1,5 @@
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Maybe, Scalars } from "@gc-digital-talent/graphql";
+import { type Maybe, type Scalars } from "@gc-digital-talent/graphql";
 
 function dateAccessor(
   value: Maybe<Scalars["DateTime"]["output"]> | undefined,

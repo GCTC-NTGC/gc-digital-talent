@@ -20,11 +20,11 @@ import {
   Link,
 } from "@gc-digital-talent/ui";
 import {
-  Scalars,
+  type Scalars,
   graphql,
-  FragmentType,
+  type FragmentType,
   getFragment,
-  UpdateCommunityInput,
+  type UpdateCommunityInput,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -37,7 +37,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
-import { ContextType } from "../CommunityMembersPage/components/types";
+import { type ContextType } from "../CommunityMembersPage/components/types";
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = Math.round(

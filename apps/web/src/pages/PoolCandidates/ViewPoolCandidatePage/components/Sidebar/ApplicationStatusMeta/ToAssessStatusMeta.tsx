@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   ScreeningStage,

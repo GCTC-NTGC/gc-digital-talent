@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import {
   ApplicationStatus,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -10,7 +10,7 @@ import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
   Heading,
   PreviewList,
-  PreviewMetaData,
+  type PreviewMetaData,
   Notice,
 } from "@gc-digital-talent/ui";
 import {

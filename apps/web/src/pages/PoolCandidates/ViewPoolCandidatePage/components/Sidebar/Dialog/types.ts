@@ -1,13 +1,13 @@
-import { MessageDescriptor } from "react-intl";
-import { OperationResult } from "urql";
+import { type MessageDescriptor } from "react-intl";
+import { type OperationResult } from "urql";
 
 import {
-  ApplicationStatus,
-  CandidateRemovalReason,
-  DisqualificationReason,
-  PlacementType,
-  PauseReferralsLength,
-  Scalars,
+  type ApplicationStatus,
+  type CandidateRemovalReason,
+  type DisqualificationReason,
+  type PlacementType,
+  type PauseReferralsLength,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {

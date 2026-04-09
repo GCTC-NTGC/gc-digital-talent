@@ -1,9 +1,9 @@
 import { empty } from "@gc-digital-talent/helpers";
 import {
-  LocalizedArmedForcesStatus,
-  LocalizedCitizenshipStatus,
-  Maybe,
-  User,
+  type LocalizedArmedForcesStatus,
+  type LocalizedCitizenshipStatus,
+  type Maybe,
+  type User,
 } from "@gc-digital-talent/graphql";
 
 export type PartialUser = Pick<

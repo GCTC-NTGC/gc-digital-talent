@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
-import { ReactNode, JSX } from "react";
+import { type ReactNode, type JSX } from "react";
 
-import { Button, Dialog, Link, LinkProps } from "@gc-digital-talent/ui";
+import { Button, Dialog, Link, type LinkProps } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 

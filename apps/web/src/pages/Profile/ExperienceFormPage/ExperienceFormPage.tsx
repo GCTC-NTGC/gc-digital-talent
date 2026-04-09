@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { Location, useLocation, useNavigate, useParams } from "react-router";
+import { type Location, useLocation, useNavigate, useParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { OperationContext, useQuery } from "urql";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
+import { type OperationContext, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -21,8 +21,8 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
-  Scalars,
+  type FragmentType,
+  type Scalars,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

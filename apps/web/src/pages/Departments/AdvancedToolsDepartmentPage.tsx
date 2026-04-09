@@ -6,8 +6,8 @@ import { useOutletContext } from "react-router";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 import {
-  FragmentType,
-  Scalars,
+  type FragmentType,
+  type Scalars,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -22,7 +22,7 @@ import adminMessages from "~/messages/adminMessages";
 
 import { ArchiveDepartment } from "./components/ArchiveDepartment";
 import { RestoreDepartment } from "./components/RestoreDepartment";
-import { ContextType } from "./ManageAccessPage/components/types";
+import { type ContextType } from "./ManageAccessPage/components/types";
 
 export const DepartmentAdvancedTools_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentAdvancedTools on Department {

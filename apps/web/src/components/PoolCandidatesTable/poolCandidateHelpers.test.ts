@@ -1,11 +1,11 @@
 import {
-  ApplicantFilter,
+  type ApplicantFilter,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
 } from "@gc-digital-talent/graphql";
 
 import { transformFormValuesToFilterState } from "./helpers";
-import { FormValues } from "./types";
+import { type FormValues } from "./types";
 
 const defaultFormValues: FormValues = {
   publishingGroups: [],

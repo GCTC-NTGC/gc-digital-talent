@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   PoolSkillType,

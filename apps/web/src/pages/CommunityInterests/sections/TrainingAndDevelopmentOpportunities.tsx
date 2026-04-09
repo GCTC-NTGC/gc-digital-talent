@@ -6,7 +6,7 @@ import { Chip, Chips, Heading } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import {
   DevelopmentProgramParticipationStatus,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -15,7 +15,7 @@ import { DATE_SEGMENT, DateInput, RadioGroup } from "@gc-digital-talent/forms";
 
 import { getClassificationName } from "~/utils/poolUtils";
 
-import { FormValues } from "../form";
+import { type FormValues } from "../form";
 
 const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
   /* GraphQL */ `

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { isFuture } from "date-fns/isFuture";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Button,
   Card,
@@ -30,7 +30,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import permissionConstants from "~/constants/permissionConstants";
 import useRoutes from "~/hooks/useRoutes";
 
-import { RouteParams } from "./types";
+import { type RouteParams } from "./types";
 
 const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
   fragment TalentEventDetails on TalentNominationEvent {

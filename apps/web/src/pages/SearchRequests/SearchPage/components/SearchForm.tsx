@@ -21,15 +21,15 @@ import {
 } from "@gc-digital-talent/helpers";
 import {
   graphql,
-  Classification,
-  ApplicantFilterInput,
-  Skill,
-  WorkStream,
+  type Classification,
+  type ApplicantFilterInput,
+  type Skill,
+  type WorkStream,
   FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { FormValues } from "~/types/searchRequest";
+import { type FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
 
 import { formValuesToData } from "../utils";

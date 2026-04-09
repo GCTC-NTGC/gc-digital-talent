@@ -4,10 +4,10 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { tv } from "tailwind-variants";
 
 import {
-  FragmentType,
+  type FragmentType,
   PoolSkillType,
   SkillCategory,
-  User,
+  type User,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -24,7 +24,7 @@ import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
 import profileMessages from "~/messages/profileMessages";
-import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import { type FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 import PersonalInformationSnapshot from "~/components/ProfileSnapshot/PersonalInformation/PersonalInformationSnapshot";
 import EducationRequirementSnapshot from "~/components/ProfileSnapshot/EducationRequirment/EducationRequirementSnapshot";
 import LanguageProfileSnapshot from "~/components/ProfileSnapshot/LanguageProfile/LanguageProfileSnapshot";

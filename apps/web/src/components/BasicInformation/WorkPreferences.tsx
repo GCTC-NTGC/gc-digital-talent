@@ -7,7 +7,7 @@ import {
   getEmploymentDuration,
 } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   PositionDuration,

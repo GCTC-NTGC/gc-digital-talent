@@ -8,13 +8,13 @@ import { tv } from "tailwind-variants";
 
 import {
   DevelopmentProgramParticipationStatus,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Maybe,
+  type Maybe,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { IconType } from "@gc-digital-talent/ui";
+import { type IconType } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 interface StatusInfo {

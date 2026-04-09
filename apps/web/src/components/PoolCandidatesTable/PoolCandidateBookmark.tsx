@@ -4,8 +4,8 @@ import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
 import { IconButton } from "@gc-digital-talent/ui";
 import {
-  FragmentType,
-  Maybe,
+  type FragmentType,
+  type Maybe,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

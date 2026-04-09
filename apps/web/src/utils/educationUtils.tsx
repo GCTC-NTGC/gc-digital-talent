@@ -1,15 +1,15 @@
-import { IntlShape } from "react-intl";
+import { type IntlShape } from "react-intl";
 import uniqueId from "lodash/uniqueId";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
-import { Locales } from "@gc-digital-talent/i18n";
+import { type Locales } from "@gc-digital-talent/i18n";
 import { Link, Ul } from "@gc-digital-talent/ui";
-import { Radio } from "@gc-digital-talent/forms";
+import { type Radio } from "@gc-digital-talent/forms";
 import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
-import { ClassificationGroup } from "~/types/classificationGroup";
+import { type ClassificationGroup } from "~/types/classificationGroup";
 
 export const foreignDegreeLink = (chunks: ReactNode, locale: Locales) => {
   const href =

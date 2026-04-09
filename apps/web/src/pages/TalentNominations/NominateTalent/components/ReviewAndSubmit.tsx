@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   TalentNominationStep,
@@ -13,7 +13,7 @@ import { Separator } from "@gc-digital-talent/ui";
 import pageTitles from "~/messages/pageTitles";
 
 import useCurrentStep from "../useCurrentStep";
-import { BaseFormValues } from "../types";
+import { type BaseFormValues } from "../types";
 import Actions from "./Actions";
 import SubHeading from "./SubHeading";
 import useMutations from "../useMutations";

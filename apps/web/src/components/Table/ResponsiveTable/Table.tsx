@@ -3,10 +3,10 @@ import { flexRender } from "@tanstack/react-table";
 import type { Header, Cell } from "@tanstack/react-table";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import {
-  DetailedHTMLProps,
-  HTMLAttributes,
-  TableHTMLAttributes,
-  ReactNode,
+  type DetailedHTMLProps,
+  type HTMLAttributes,
+  type TableHTMLAttributes,
+  type ReactNode,
 } from "react";
 import { tv } from "tailwind-variants";
 
@@ -14,7 +14,7 @@ import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SortButton from "./SortButton";
-import { AddDef } from "./types";
+import { type AddDef } from "./types";
 import { getColumnHeader } from "./utils";
 
 const wrapper = tv({ base: "relative overflow-hidden" });

@@ -1,12 +1,12 @@
 import { empty } from "@gc-digital-talent/helpers";
 import {
-  LocalizedArmedForcesStatus,
-  LocalizedCitizenshipStatus,
-  LocalizedLanguage,
-  Maybe,
-  Pool,
+  type LocalizedArmedForcesStatus,
+  type LocalizedCitizenshipStatus,
+  type LocalizedLanguage,
+  type Maybe,
+  type Pool,
   PoolAreaOfSelection,
-  User,
+  type User,
 } from "@gc-digital-talent/graphql";
 
 type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;

@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import {
   Button,
@@ -7,18 +7,18 @@ import {
   Heading,
   TreeView,
   Notice,
-  HeadingLevel,
+  type HeadingLevel,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Skill,
+  type Skill,
 } from "@gc-digital-talent/graphql";
 
-import { ExperienceWithSkills, getExperienceSkills } from "~/utils/skillUtils";
+import { type ExperienceWithSkills, getExperienceSkills } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 

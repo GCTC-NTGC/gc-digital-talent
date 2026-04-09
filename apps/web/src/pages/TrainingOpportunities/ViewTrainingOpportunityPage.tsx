@@ -14,11 +14,11 @@ import {
   Container,
 } from "@gc-digital-talent/ui";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  Scalars,
-  ViewTrainingOpportunityPageQuery,
+  type Scalars,
+  type ViewTrainingOpportunityPageQuery,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";

@@ -1,16 +1,16 @@
 import { useFormContext, Controller } from "react-hook-form";
-import { ComponentPropsWithoutRef } from "react";
+import { type ComponentPropsWithoutRef } from "react";
 
 import {
-  CommonInputProps,
+  type CommonInputProps,
   Field,
   useFieldState,
 } from "@gc-digital-talent/forms";
-import { Maybe } from "@gc-digital-talent/graphql";
+import { type Maybe } from "@gc-digital-talent/graphql";
 
 import ControlledInput from "./ControlledInput";
-import { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";
-import { SearchMessageCases } from "./Result";
+import { type EmployeeSearchResult, type ErrorMessages, type ErrorSeverities } from "./types";
+import { type SearchMessageCases } from "./Result";
 export type { ErrorMessages } from "./types";
 
 export interface EmployeeSearchInputProps

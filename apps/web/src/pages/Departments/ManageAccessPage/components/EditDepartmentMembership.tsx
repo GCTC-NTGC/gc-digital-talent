@@ -1,7 +1,7 @@
 import {
   useState,
-  ComponentPropsWithoutRef,
-  ComponentRef,
+  type ComponentPropsWithoutRef,
+  type ComponentRef,
   forwardRef,
 } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -18,16 +18,16 @@ import {
   formMessages,
 } from "@gc-digital-talent/i18n";
 import {
-  RoleInput,
-  DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
+  type RoleInput,
+  type DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
-import { DepartmentMember } from "~/utils/departmentUtils";
+import { type DepartmentMember } from "~/utils/departmentUtils";
 
-import { DepartmentManageAccessFormValues, ContextType } from "./types";
+import { type DepartmentManageAccessFormValues, type ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserDepartmentRoles_Mutation } from "./operations";

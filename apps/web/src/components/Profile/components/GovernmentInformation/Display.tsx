@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   GovEmployeeType,

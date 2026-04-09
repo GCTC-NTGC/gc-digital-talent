@@ -18,12 +18,12 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   PoolStatus,
-  RoleAssignment,
-  Scalars,
+  type RoleAssignment,
+  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -47,7 +47,7 @@ import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLi
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog, {
-  DuplicatePoolDepartment_Fragment,
+  type DuplicatePoolDepartment_Fragment,
 } from "./components/DuplicateProcessDialog";
 import ArchiveProcessDialog from "./components/ArchiveProcessDialog";
 import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";

@@ -1,4 +1,4 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useMemo } from "react";
 
@@ -13,11 +13,11 @@ import tableMessages from "~/components/Table/tableMessages";
 
 import AddCommunityRoleDialog from "./AddCommunityRoleDialog";
 import {
-  CommunityAssignment,
+  type CommunityAssignment,
   getRoleTableFragments,
   isCommunityTeamable,
   roleCell,
-  RoleTableProps,
+  type RoleTableProps,
 } from "../utils";
 import RemoveCommunityRoleDialog from "./RemoveCommunityRoleDialog";
 import EditCommunityRoleDialog from "./EditCommunityRoleDialog";

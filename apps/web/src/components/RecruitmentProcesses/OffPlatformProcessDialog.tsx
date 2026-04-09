@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
@@ -13,14 +13,14 @@ import {
   formMessages,
 } from "@gc-digital-talent/i18n";
 import {
-  Classification,
-  CreateOffPlatformRecruitmentProcessInput,
-  FragmentType,
+  type Classification,
+  type CreateOffPlatformRecruitmentProcessInput,
+  type FragmentType,
   getFragment,
   graphql,
   HiringPlatform,
-  OffPlatformRecruitmentProcess,
-  UpdateOffPlatformRecruitmentProcessInput,
+  type OffPlatformRecruitmentProcess,
+  type UpdateOffPlatformRecruitmentProcessInput,
 } from "@gc-digital-talent/graphql";
 import {
   Combobox,

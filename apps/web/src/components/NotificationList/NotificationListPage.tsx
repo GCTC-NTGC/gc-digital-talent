@@ -3,7 +3,7 @@ import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
 import { useRef } from "react";
 
-import { Scalars, graphql } from "@gc-digital-talent/graphql";
+import { type Scalars, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, Notice } from "@gc-digital-talent/ui";
 

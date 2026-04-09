@@ -1,12 +1,12 @@
-import { useState, ReactNode } from "react";
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import { useState, type ReactNode } from "react";
+import { defineMessage, type MessageDescriptor, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-import { EmailType, graphql } from "@gc-digital-talent/graphql";
+import { type EmailType, graphql } from "@gc-digital-talent/graphql";
 
 import { API_CODE_VERIFICATION_FAILED } from "../EmailVerification/constants";
 import EmailVerification, {

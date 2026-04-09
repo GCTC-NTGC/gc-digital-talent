@@ -1,4 +1,4 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { useQuery } from "urql";
@@ -8,8 +8,8 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Pending } from "@gc-digital-talent/ui";
 import {
   graphql,
-  JobPosterTemplateTableRowFragment,
-  FragmentType,
+  type JobPosterTemplateTableRowFragment,
+  type FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 

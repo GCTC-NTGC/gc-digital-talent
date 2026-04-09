@@ -1,21 +1,21 @@
 import { useMemo, useRef, useState } from "react";
 import {
-  ColumnDef,
-  PaginationState,
-  SortingState,
+  type ColumnDef,
+  type PaginationState,
+  type SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { SubmitHandler } from "react-hook-form";
+import { type SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
-  CommunityTalentTableCommunityInterestFragment as CommunityTalentTableCommunityInterestFragmentType,
+  type CommunityTalentTableCommunityInterestFragment as CommunityTalentTableCommunityInterestFragmentType,
   getFragment,
-  CommunityInterestFilterInput,
+  type CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -35,7 +35,7 @@ import useRoutes from "~/hooks/useRoutes";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
-import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import { type SearchState } from "~/components/Table/ResponsiveTable/types";
 import useUserDownloads from "~/hooks/useUserDownloads";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
@@ -47,7 +47,7 @@ import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import accessors from "~/components/Table/accessors";
 
 import CommunityTalentFilterDialog, {
-  FormValues,
+  type FormValues,
 } from "./components/CommunityTalentFilterDialog";
 import {
   classificationAccessor,

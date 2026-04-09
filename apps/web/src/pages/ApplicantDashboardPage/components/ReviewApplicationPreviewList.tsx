@@ -3,12 +3,12 @@ import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
 import {
   CandidateStatus,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
-import { PreviewList, PreviewMetaData, Notice } from "@gc-digital-talent/ui";
+import { PreviewList, type PreviewMetaData, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getClassificationName } from "~/utils/poolUtils";

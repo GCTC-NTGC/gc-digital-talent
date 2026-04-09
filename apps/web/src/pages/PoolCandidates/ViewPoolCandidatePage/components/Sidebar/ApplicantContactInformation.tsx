@@ -1,14 +1,14 @@
 import ChevronRightIcon from "@heroicons/react/16/solid/ChevronRightIcon";
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useIntl } from "react-intl";
 import HomeIcon from "@heroicons/react/20/solid/HomeIcon";
 import EnvelopeIcon from "@heroicons/react/20/solid/EnvelopeIcon";
 import PhoneIcon from "@heroicons/react/20/solid/PhoneIcon";
 import GlobeAltIcon from "@heroicons/react/20/solid/GlobeAltIcon";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Button, Collapsible, IconType, Link } from "@gc-digital-talent/ui";
+import { Button, Collapsible, type IconType, Link } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { formatLocation } from "~/utils/userUtils";

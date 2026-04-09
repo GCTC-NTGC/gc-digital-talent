@@ -1,9 +1,9 @@
 import {
   PoolSkillType,
   SkillCategory,
-  UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment,
-  UpdateJobPosterTemplateEssentialTechnicalSkillsFragment,
-  UpdateJobPosterTemplateEssentialBehaviouralSkillsFragment,
+  type UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment,
+  type UpdateJobPosterTemplateEssentialTechnicalSkillsFragment,
+  type UpdateJobPosterTemplateEssentialBehaviouralSkillsFragment,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 

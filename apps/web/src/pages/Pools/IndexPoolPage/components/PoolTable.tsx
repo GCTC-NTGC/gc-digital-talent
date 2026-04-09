@@ -1,14 +1,14 @@
 import {
-  ColumnDef,
-  PaginationState,
-  SortingState,
+  type ColumnDef,
+  type PaginationState,
+  type SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useState, useMemo, useRef } from "react";
 import { useSearchParams } from "react-router";
-import { SubmitHandler } from "react-hook-form";
+import { type SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -18,11 +18,11 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
-  PoolFilterInput,
-  PoolTable_PoolFragment as PoolTablePoolFragmentType,
+  type PoolFilterInput,
+  type PoolTable_PoolFragment as PoolTablePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
 
@@ -34,7 +34,7 @@ import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
-import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import { type SearchState } from "~/components/Table/ResponsiveTable/types";
 import { parseFilterParam } from "~/components/Table/ResponsiveTable/utils";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
@@ -57,7 +57,7 @@ import {
   getOrderByColumnSort,
   getWorkStreamNameSort,
 } from "./helpers";
-import PoolFilterDialog, { FormValues } from "./PoolFilterDialog";
+import PoolFilterDialog, { type FormValues } from "./PoolFilterDialog";
 import { PoolBookmark_Fragment } from "./PoolBookmark";
 
 const columnHelper = createColumnHelper<PoolTablePoolFragmentType>();

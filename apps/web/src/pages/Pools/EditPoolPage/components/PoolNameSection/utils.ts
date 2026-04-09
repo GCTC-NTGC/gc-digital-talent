@@ -1,20 +1,20 @@
-import { IntlShape } from "react-intl";
+import { type IntlShape } from "react-intl";
 
-import { Option } from "@gc-digital-talent/forms";
+import { type Option } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
-  PoolOpportunityLength,
-  Classification,
-  LocalizedString,
-  Maybe,
-  Pool,
-  PublishingGroup,
-  UpdatePoolInput,
-  Department,
-  PoolAreaOfSelection,
-  PoolSelectionLimitation,
-  WorkStream,
+  type PoolOpportunityLength,
+  type Classification,
+  type LocalizedString,
+  type Maybe,
+  type Pool,
+  type PublishingGroup,
+  type UpdatePoolInput,
+  type Department,
+  type PoolAreaOfSelection,
+  type PoolSelectionLimitation,
+  type WorkStream,
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {

@@ -1,20 +1,20 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import {
   AssessmentDecision,
-  FragmentType,
+  type FragmentType,
   getFragment,
   graphql,
   PoolSkillType,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
-import { Button, ButtonProps, Dialog } from "@gc-digital-talent/ui";
+import { Button, type ButtonProps, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-import { DIALOG_TYPE, DialogType } from "./utils";
+import { DIALOG_TYPE, type DialogType } from "./utils";
 
 const ScreeningTriggerResult_Fragment = graphql(/** GraphQL */ `
   fragment ScreeningTriggerResult on AssessmentResult {

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useMutation, useQuery } from "urql";
@@ -20,9 +20,9 @@ import {
   Pending,
 } from "@gc-digital-talent/ui";
 import {
-  FragmentType,
-  Scalars,
-  UpdateTrainingOpportunityInput,
+  type FragmentType,
+  type Scalars,
+  type UpdateTrainingOpportunityInput,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -37,13 +37,13 @@ import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 
 import {
-  FormValues,
+  type FormValues,
   TrainingOpportunityForm_Fragment,
   convertApiFragmentToFormValues,
   convertFormValuesToUpdateInput,
 } from "./apiUtils";
 import TrainingOpportunityForm, {
-  TrainingOpportunityFormOptions_Fragment,
+  type TrainingOpportunityFormOptions_Fragment,
 } from "./components/TrainingOpportunityForm";
 
 interface UpdateTrainingOpportunityFormProps {

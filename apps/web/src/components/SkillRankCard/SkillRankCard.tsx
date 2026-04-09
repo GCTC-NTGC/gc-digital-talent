@@ -1,19 +1,19 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import {
   Card,
   Heading,
-  HeadingLevel,
+  type HeadingLevel,
   Link,
   Separator,
   Ul,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SkillRankListItem from "./SkillRankListItem";
-import NullMessage, { NullMessageProps } from "./NullMessage";
+import NullMessage, { type NullMessageProps } from "./NullMessage";
 
 const SkillRankCard_Fragment = graphql(/** GraphQL */ `
   fragment SkillRankCard on UserSkill {

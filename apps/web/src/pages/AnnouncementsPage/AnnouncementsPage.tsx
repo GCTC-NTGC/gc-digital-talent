@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery, useMutation } from "urql";
 
-import { SitewideAnnouncementInput, graphql } from "@gc-digital-talent/graphql";
+import { type SitewideAnnouncementInput, graphql } from "@gc-digital-talent/graphql";
 import { Container, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME } from "@gc-digital-talent/auth";

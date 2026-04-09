@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "urql";
 import { createSearchParams, useNavigate, useSearchParams } from "react-router";
 
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { graphql, Language } from "@gc-digital-talent/graphql";
+import { graphql, type Language } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -15,7 +15,7 @@ import EmailVerification from "~/components/EmailVerification/EmailVerification"
 
 import messages from "../messages";
 import GettingStartedForm, {
-  FormValues,
+  type FormValues,
   sectionTitle as gettingStartedSectionTitle,
 } from "./GettingStartedForm";
 

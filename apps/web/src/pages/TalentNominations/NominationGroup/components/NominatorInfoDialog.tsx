@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { IntlShape, useIntl } from "react-intl";
+import { type IntlShape, useIntl } from "react-intl";
 
 import { Dialog, Button, Separator } from "@gc-digital-talent/ui";
 import {
   graphql,
-  FragmentType,
+  type FragmentType,
   getFragment,
   TalentNominationNomineeRelationshipToNominator,
-  NominatorInfoDialog_NominationFragment as NominatorInfoDialogNominationFragmentType,
+  type NominatorInfoDialog_NominationFragment as NominatorInfoDialogNominationFragmentType,
   TalentNominationSubmitterRelationshipToNominator,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";

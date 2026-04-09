@@ -1,13 +1,13 @@
 import {
   getFragment,
   PositionDuration,
-  ProfileWorkPreferencesFragment,
-  UpdateUserAsUserInput,
+  type ProfileWorkPreferencesFragment,
+  type UpdateUserAsUserInput,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { FormValues } from "./types";
+import { type FormValues } from "./types";
 import { WorkPreferencesDisplay_Fragment } from "./Display";
 
 export const dataToFormValues = (

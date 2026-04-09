@@ -1,4 +1,4 @@
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { TableOfContents } from "@gc-digital-talent/ui";
 
 import Display from "~/components/Profile/components/PersonalInformation/Display";

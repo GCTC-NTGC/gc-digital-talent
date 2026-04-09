@@ -1,5 +1,5 @@
-import { defineMessage, IntlShape, useIntl } from "react-intl";
-import { ReactNode, useMemo } from "react";
+import { defineMessage, type IntlShape, useIntl } from "react-intl";
+import { type ReactNode, useMemo } from "react";
 import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useQuery } from "urql";
@@ -20,7 +20,7 @@ import {
   Link,
   Loading,
   Metadata,
-  MetadataItemProps,
+  type MetadataItemProps,
   UNICODE_CHAR,
   Notice,
 } from "@gc-digital-talent/ui";
@@ -28,7 +28,7 @@ import {
   CourseLanguage,
   graphql,
   SortOrder,
-  TrainingOpportunity,
+  type TrainingOpportunity,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {

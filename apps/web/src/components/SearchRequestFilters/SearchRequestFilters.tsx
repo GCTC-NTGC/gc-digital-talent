@@ -14,10 +14,10 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
-  Classification,
+  type Classification,
   FlexibleWorkLocation,
-  LocalizedEnumString,
-  Maybe,
+  type LocalizedEnumString,
+  type Maybe,
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -30,8 +30,8 @@ import {
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import messages from "~/messages/profileMessages";
 import {
-  PartialApplicantFilter,
-  PartialPoolCandidateFilter,
+  type PartialApplicantFilter,
+  type PartialPoolCandidateFilter,
 } from "~/types/searchRequest";
 
 import FilterBlock from "./FilterBlock";
