@@ -1,11 +1,11 @@
-import { expect, Page } from "playwright/test";
+import { expect, type Page } from "playwright/test";
 
 import {
-  Classification,
+  type Classification,
   FlexibleWorkLocation,
-  Skill,
+  type Skill,
   WorkRegion,
-  WorkStream,
+  type WorkStream,
 } from "@gc-digital-talent/graphql";
 
 import AppPage from "./AppPage";

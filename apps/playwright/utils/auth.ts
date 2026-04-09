@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { Cookie, Page, expect, request } from "@playwright/test";
-import { JwtPayload, jwtDecode } from "jwt-decode";
+import { type Cookie, type Page, expect, request } from "@playwright/test";
+import { type JwtPayload, jwtDecode } from "jwt-decode";
 
 export interface AuthTokens {
   idToken?: string | null;

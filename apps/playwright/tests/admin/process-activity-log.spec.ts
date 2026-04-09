@@ -12,9 +12,9 @@ import {
   FlexibleWorkLocation,
   PositionDuration,
   ProvinceOrTerritory,
-  Skill,
+  type Skill,
   SkillCategory,
-  User,
+  type User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 
@@ -30,7 +30,7 @@ import {
   revertFinalDecision,
 } from "~/utils/applications";
 import { loginBySub } from "~/utils/auth";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import graphql, { type GraphQLContext } from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createAndPublishPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";

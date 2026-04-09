@@ -1,10 +1,10 @@
-import { Page } from "@playwright/test";
+import { type Page } from "@playwright/test";
 
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
   FlexibleWorkLocation,
-  Pool,
+  type Pool,
   PositionDuration,
   ProvinceOrTerritory,
   PublishingGroup,

@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
 
 import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
 

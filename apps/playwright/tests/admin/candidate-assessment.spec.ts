@@ -8,13 +8,13 @@ import {
   CitizenshipStatus,
   DisqualificationReason,
   FlexibleWorkLocation,
-  PoolCandidate,
+  type PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
   ScreeningStage,
-  Skill,
+  type Skill,
   SkillCategory,
-  User,
+  type User,
   WorkRegion,
   CandidateRemovalReason,
 } from "@gc-digital-talent/graphql";
@@ -25,7 +25,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import graphql, { type GraphQLContext } from "~/utils/graphql";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import {

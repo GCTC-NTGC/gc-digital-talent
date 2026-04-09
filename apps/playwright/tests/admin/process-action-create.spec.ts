@@ -10,7 +10,7 @@ import PoolPage from "~/fixtures/PoolPage";
 import { loginBySub } from "~/utils/auth";
 import { getClassifications } from "~/utils/classification";
 import { getCommunities } from "~/utils/communities";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import graphql, { type GraphQLContext } from "~/utils/graphql";
 import { fetchIdentificationNumber, generateUniqueTestId } from "~/utils/id";
 import {
   createAssessmentStep,

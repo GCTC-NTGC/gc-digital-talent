@@ -6,9 +6,9 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import {
   CandidateRemovalReason,
-  PoolCandidate,
+  type PoolCandidate,
   SkillCategory,
-  User,
+  type User,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
@@ -18,7 +18,7 @@ import {
   removeCandidate,
 } from "~/utils/applications";
 import { loginBySub } from "~/utils/auth";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import graphql, { type GraphQLContext } from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createAndPublishPool, deletePool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";

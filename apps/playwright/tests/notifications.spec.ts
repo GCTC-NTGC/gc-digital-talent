@@ -4,9 +4,9 @@ import {
   FlexibleWorkLocation,
   PositionDuration,
   ProvinceOrTerritory,
-  Skill,
+  type Skill,
   SkillCategory,
-  User,
+  type User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
@@ -14,7 +14,7 @@ import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import graphql, { type GraphQLContext } from "~/utils/graphql";
 import { changePoolClosingDate, createAndPublishPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";

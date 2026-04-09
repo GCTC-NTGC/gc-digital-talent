@@ -1,11 +1,11 @@
 import {
-  AssessmentStep,
-  CreateAssessmentResultInput,
-  PoolCandidate,
-  PoolCandidateAdminView,
+  type AssessmentStep,
+  type CreateAssessmentResultInput,
+  type PoolCandidate,
+  type PoolCandidateAdminView,
 } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import { type GraphQLRequestFunc, type GraphQLResponse } from "./graphql";
 
 const Candidate_ScreeningStageQueryDocument = /* GraphQL */ `
   query Candidate_ScreeningStage($candidateId: UUID!) {

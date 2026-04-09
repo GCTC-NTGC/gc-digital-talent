@@ -1,12 +1,12 @@
-import { Locator, type Page, expect } from "@playwright/test";
+import { type Locator, type Page, expect } from "@playwright/test";
 
 import {
-  InputMaybe,
-  WorkExperienceInput,
-  PersonalExperienceInput,
-  CommunityExperienceInput,
-  AwardExperienceInput,
-  EducationExperienceInput,
+  type InputMaybe,
+  type WorkExperienceInput,
+  type PersonalExperienceInput,
+  type CommunityExperienceInput,
+  type AwardExperienceInput,
+  type EducationExperienceInput,
 } from "@gc-digital-talent/graphql";
 
 import AppPage from "./AppPage";

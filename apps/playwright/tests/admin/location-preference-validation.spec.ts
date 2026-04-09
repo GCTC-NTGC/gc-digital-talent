@@ -5,11 +5,11 @@ import {
   FlexibleWorkLocation,
   GovEmployeeType,
   GovPositionType,
-  PoolCandidate,
+  type PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
   SkillCategory,
-  User,
+  type User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import {
@@ -18,7 +18,7 @@ import {
   nowUTCDateTime,
 } from "@gc-digital-talent/date-helpers";
 
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import graphql, { type GraphQLContext } from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import UserPage from "~/fixtures/UserPage";

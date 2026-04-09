@@ -1,4 +1,4 @@
-import { Pool, SkillCategory } from "@gc-digital-talent/graphql";
+import { type Pool, SkillCategory } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import { getSkills } from "~/utils/skills";
@@ -6,7 +6,7 @@ import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import { me } from "~/utils/user";
 import { loginBySub } from "~/utils/auth";
-import AppPage from "~/fixtures/AppPage";
+import type AppPage from "~/fixtures/AppPage";
 
 const UPDATE_PUBLISHED_MUTATION = "UpdatePublishedPool";
 

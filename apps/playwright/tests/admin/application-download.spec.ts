@@ -3,11 +3,11 @@ import {
   ArmedForcesStatus,
   CitizenshipStatus,
   FlexibleWorkLocation,
-  PoolCandidate,
+  type PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
   SkillCategory,
-  User,
+  type User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 

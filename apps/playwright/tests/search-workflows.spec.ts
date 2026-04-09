@@ -4,16 +4,16 @@ import {
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
 import {
-  Classification,
+  type Classification,
   EstimatedLanguageAbility,
   FlexibleWorkLocation,
   Language,
   OperationalRequirement,
-  Skill,
+  type Skill,
   SkillCategory,
-  User,
+  type User,
   WorkRegion,
-  WorkStream,
+  type WorkStream,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
@@ -23,7 +23,7 @@ import {
   qualifyCandidate,
 } from "~/utils/applications";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import graphql, { type GraphQLContext } from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import { getClassifications } from "~/utils/classification";
 import { getWorkStreams } from "~/utils/workStreams";

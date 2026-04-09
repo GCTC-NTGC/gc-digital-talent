@@ -1,11 +1,11 @@
-import { Locator, type Page } from "@playwright/test";
+import { type Locator, type Page } from "@playwright/test";
 
 import {
-  CreateDepartmentInput,
+  type CreateDepartmentInput,
   DepartmentSize,
-  InputMaybe,
-  LocalizedStringInput,
-  UpdateDepartmentInput,
+  type InputMaybe,
+  type LocalizedStringInput,
+  type UpdateDepartmentInput,
 } from "@gc-digital-talent/graphql";
 
 import dConfig from "~/constants/config";

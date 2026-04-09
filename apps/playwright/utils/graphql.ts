@@ -1,6 +1,6 @@
-import { APIRequestContext, request } from "@playwright/test";
+import { type APIRequestContext, request } from "@playwright/test";
 
-import { AuthTokens, getTokenForSub } from "./auth";
+import { type AuthTokens, getTokenForSub } from "./auth";
 
 interface GraphQLRequestOptions {
   variables?: Record<string, unknown>;

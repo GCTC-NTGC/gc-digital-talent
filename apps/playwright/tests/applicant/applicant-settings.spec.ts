@@ -1,5 +1,5 @@
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
-import { User } from "@gc-digital-talent/graphql";
+import { type User } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import AccountSettings from "~/fixtures/AccountSettings";

@@ -4,9 +4,9 @@ import {
   FlexibleWorkLocation,
   PositionDuration,
   ProvinceOrTerritory,
-  Skill,
+  type Skill,
   SkillCategory,
-  User,
+  type User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { PAST_DATE } from "@gc-digital-talent/date-helpers";

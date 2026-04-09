@@ -1,6 +1,6 @@
-import { CreateDepartmentInput, Department } from "@gc-digital-talent/graphql";
+import { type CreateDepartmentInput, type Department } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import { type GraphQLRequestFunc, type GraphQLResponse } from "./graphql";
 
 const Test_DepartmentsQueryDocument = /* GraphQL */ `
   query Test_Departments {

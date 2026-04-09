@@ -1,9 +1,9 @@
 import {
-  CreateTalentNominationEventInput,
-  TalentNominationEvent,
+  type CreateTalentNominationEventInput,
+  type TalentNominationEvent,
 } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import { type GraphQLRequestFunc, type GraphQLResponse } from "./graphql";
 import { getCommunities } from "./communities";
 
 const oldDate = new Date();
