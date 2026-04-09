@@ -1301,7 +1301,6 @@ type Community implements HasRoleAssignments {
   teamIdForRoleAssignment: ID
   pools: [Pool]
   workStreams: [WorkStream!]
-  developmentPrograms: [DevelopmentProgram!] @deprecated(reason: "use associatedDevelopmentPrograms")
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   associatedDevelopmentPrograms: [DevelopmentProgram!]
 }
@@ -1311,7 +1310,6 @@ type DevelopmentProgram {
   name: LocalizedString
   descriptionForProfile: LocalizedString
   descriptionForNominations: LocalizedString
-  community: Community @deprecated(reason: "use associatedCommunities")
   eligibleClassifications: [Classification!]
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   associatedCommunities: [Community!]

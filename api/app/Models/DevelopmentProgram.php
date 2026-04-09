@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Casts\LocalizedString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
@@ -39,12 +38,6 @@ class DevelopmentProgram extends Model
         'description_for_profile' => LocalizedString::class,
         'description_for_nominations' => LocalizedString::class,
     ];
-
-    /** @return BelongsTo<Community, $this> */
-    public function community(): BelongsTo
-    {
-        return $this->belongsTo(Community::class);
-    }
 
     /** @return BelongsToMany<Classification, $this> */
     public function eligibleClassifications(): BelongsToMany
