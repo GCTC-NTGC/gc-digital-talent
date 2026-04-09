@@ -4,9 +4,10 @@ import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 interface BannerContentProps {
   title: string;
   message: string;
+  onDismiss: (() => void) | undefined;
 }
 
-const BannerContent = ({ title, message }: BannerContentProps) => (
+const BannerContent = ({ title, message, onDismiss }: BannerContentProps) => (
   <div className="bg-white py-6 dark:bg-gray-700">
     <Container size="lg" className="xs:px-6" center>
       <Notice.Root
@@ -14,6 +15,7 @@ const BannerContent = ({ title, message }: BannerContentProps) => (
         className="-mx-6 mb-0 shadow-none"
         role="alert"
         mode="card"
+        onDismiss={onDismiss}
       >
         <Notice.Title as="p" defaultIcon>
           {title}

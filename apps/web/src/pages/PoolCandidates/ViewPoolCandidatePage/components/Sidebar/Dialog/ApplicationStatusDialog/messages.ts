@@ -2,10 +2,9 @@ import { defineMessages } from "react-intl";
 
 export default defineMessages({
   revertHeader: {
-    defaultMessage: "Revert final assessment decision",
-    id: "wb/hvK",
-    description:
-      "Heading for dialog to revert an application assessment decision",
+    defaultMessage: "Revert application status",
+    id: "AhcYq4",
+    description: "Heading for dialog to revert an application status",
   },
   revertSuccess: {
     defaultMessage: "Decision reverted successfully.",
