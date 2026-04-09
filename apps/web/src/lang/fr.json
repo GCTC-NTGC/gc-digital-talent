@@ -10198,10 +10198,6 @@
     "defaultMessage": "Modifier les informations sur le volet de travail",
     "description": "Link to edit the currently viewed work stream"
   },
-  "fqX7jB": {
-    "defaultMessage": "Si vous avez déjà utilisé ConnexionCanada pour un autre service, vous pouvez entrer votre adresse courriel et votre mot de passe et passer directement à l’étape 2.",
-    "description": "Text for first registrion step if user has an existing canada login account"
-  },
   "fqa45V": {
     "defaultMessage": "Définition du niveau",
     "description": "Label for the definition of a specific skill level"
@@ -10541,6 +10537,10 @@
   "h3mdZ3": {
     "defaultMessage": "URL de la demande",
     "description": "The application URL of the training opportunity"
+  },
+  "h4BQ8C": {
+    "defaultMessage": "Si vous avez déjà utilisé ConnexionCanada pour un autre service, vous pouvez entrer votre adresse courriel et votre mot de passe et passer directement à l’étape 2.",
+    "description": "Text for first registrion step if user has an existing canada login account"
   },
   "h4E9+K": {
     "defaultMessage": "De quelle manière sera vérifié le statut?",
