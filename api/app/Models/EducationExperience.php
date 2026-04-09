@@ -30,6 +30,19 @@ class EducationExperience extends Experience
     use HasUuids;
     use SoftDeletes;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($experience) {
+            // Delete all related award experiences
+            $experience->awardExperiences->each(function ($award) {
+                $award->relatedExperience()->dissociate();
+                $award->save();
+            });
+        });
+    }
+
     /**
      * The attributes that should be cast.
      *
@@ -52,7 +65,7 @@ class EducationExperience extends Experience
 
     public function awardExperiences(): MorphMany
     {
-        return $this->morphMany(AwardExperience::class, 'relatedExperience');
+        return $this->morphMany(AwardExperience::class, 'related_experience');
     }
 
     public function getTitle(?string $lang = 'en'): string

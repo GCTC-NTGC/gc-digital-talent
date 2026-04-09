@@ -32,8 +32,11 @@ class PersonalExperience extends Experience
         parent::boot();
 
         static::deleting(function ($experience) {
-            // Delete all related experiences
-            $experience->relatedExperiences()->delete();
+            // Delete all related award experiences
+            $experience->awardExperiences->each(function ($award) {
+                $award->relatedExperience()->dissociate();
+                $award->save();
+            });
         });
     }
 
@@ -57,7 +60,7 @@ class PersonalExperience extends Experience
 
     public function awardExperiences(): MorphMany
     {
-        return $this->morphMany(AwardExperience::class, 'relatedExperience');
+        return $this->morphMany(AwardExperience::class, 'related_experience');
     }
 
     public function getTitle(): string
