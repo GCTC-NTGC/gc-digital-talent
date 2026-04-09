@@ -16,7 +16,7 @@ final class UpdateTalentNominationEventInputValidator extends Validator
     {
         return [
             'community.connect' => ['uuid', 'exists:communities,id'],
-            'developmentPrograms.sync.*' => ['uuid', 'exists:community_development_programs,id'],
+            'communityDevelopmentPrograms.sync.*' => ['uuid', 'exists:community_development_program,id'],
             'description.en' => ['nullable', 'required_with:description.fr', 'string'],
             'description.fr' => ['nullable', 'required_with:description.en', 'string'],
             'learnMoreUrl.en' => ['nullable', 'required_with:learnMoreUrl.fr', 'string', 'url'],

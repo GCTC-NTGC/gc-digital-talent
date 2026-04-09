@@ -115,7 +115,7 @@ final class UpdateTalentNominationInputValidator extends Validator
             'communityDevelopmentPrograms' => ['required_array_keys:sync'],
             'communityDevelopmentPrograms.sync' => [
                 'array',
-                'exists:community_development_programs,id',
+                'exists:community_development_program,id',
             ],
             'developmentProgramOptionsOther' => ['string', 'nullable'],
 
