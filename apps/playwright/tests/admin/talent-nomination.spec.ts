@@ -215,6 +215,12 @@ test.describe("Talent nomination management", () => {
       .getByRole("button", { name: /submit nomination/i })
       .click();
     await appPage.waitForGraphqlResponse("NominateTalentSubmit");
+    await expect(
+      appPage.page.getByRole("heading", {
+        name: /We’ve received your nomination/i,
+        level: 2,
+      }),
+    ).toBeVisible();
     await appPage.page
       .getByRole("link", { name: /return to your dashboard/i })
       .click();
