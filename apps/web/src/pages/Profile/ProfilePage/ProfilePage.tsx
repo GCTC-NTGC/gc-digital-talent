@@ -1,5 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
+import { useRevalidator } from "react-router";
 
 import { Link, Separator, TableOfContents } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -15,7 +16,7 @@ import WorkPreferences from "~/components/Profile/components/WorkPreferences/Wor
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
-import PriorityEntitlements from "~/components/Profile/components/PriorityEntitlements/PriorityEntitlements";
+import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
 import { requireUser } from "~/routing/auth";
 import { graphqlClientContext, intlContext } from "~/routing/context";
 import useRoutes from "~/hooks/useRoutes";
@@ -47,7 +48,7 @@ const ProfileUser_Query = graphql(/* GraphQL */ `
       isVerifiedGovEmployee
       ...ProfileWorkPreferences
       ...ProfileDiversityEquityInclusion
-      ...ProfilePriorityEntitlements
+      ...ProfileCitizenVeteranPriority
       ...ProfileGovernmentInformation
       ...ProfileLanguageProfile
     }
@@ -72,6 +73,7 @@ export async function clientLoader({ context }: Route.ClientLoaderArgs) {
 const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const revalidator = useRevalidator();
   const { user } = loaderData;
 
   const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
@@ -82,7 +84,10 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
     return executeUpdateMutation({
       id: userId,
       user: userData,
-    }).then((res) => res.data?.updateUserAsUser);
+    }).then(async (res) => {
+      await revalidator.revalidate();
+      return res.data?.updateUserAsUser;
+    });
   };
 
   const sectionProps = {
@@ -108,9 +113,9 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
           </TableOfContents.ListItem>
           <TableOfContents.ListItem>
             <TableOfContents.AnchorLink
-              id={PAGE_SECTION_ID.PRIORITY_ENTITLEMENTS}
+              id={PAGE_SECTION_ID.CITIZEN_VETERAN_PRIORITY}
             >
-              {intl.formatMessage(getSectionTitle("priority"))}
+              {intl.formatMessage(getSectionTitle("citizen-veteran-priority"))}
             </TableOfContents.AnchorLink>
           </TableOfContents.ListItem>
           <TableOfContents.ListItem>
@@ -144,8 +149,10 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
           <TableOfContents.Section id={PAGE_SECTION_ID.DEI}>
             <DiversityEquityInclusion {...sectionProps} />
           </TableOfContents.Section>
-          <TableOfContents.Section id={PAGE_SECTION_ID.PRIORITY_ENTITLEMENTS}>
-            <PriorityEntitlements {...sectionProps} />
+          <TableOfContents.Section
+            id={PAGE_SECTION_ID.CITIZEN_VETERAN_PRIORITY}
+          >
+            <CitizenVeteranPriority {...sectionProps} />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.GOVERNMENT}>
             <GovernmentInformation query={user} />

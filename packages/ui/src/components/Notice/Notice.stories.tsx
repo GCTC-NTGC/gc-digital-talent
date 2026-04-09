@@ -401,3 +401,70 @@ export const NonDismissible: StoryObj<typeof Notice.Root> = {
     </Container>
   ),
 };
+
+export const NonDismissibleNoIcon: StoryObj<typeof Notice.Root> = {
+  args: {
+    small: false,
+    color: "gray",
+  },
+  render: (args) => (
+    <Container>
+      <div className="flex flex-col gap-y-6">
+        <Notice.Root {...args} mode="inline">
+          <Notice.Title as="h2">Non-Dismissible (inline)</Notice.Title>
+          <Notice.Content>
+            <p>{faker.lorem.paragraph()}</p>
+          </Notice.Content>
+          <Notice.Actions>
+            <Button
+              mode="inline"
+              size="sm"
+              color={args.color === "gray" ? "black" : args.color}
+            >
+              Button
+            </Button>
+            <Link
+              mode="inline"
+              color={args.color === "gray" ? "black" : args.color}
+              href="#"
+              size="sm"
+            >
+              Link
+            </Link>
+          </Notice.Actions>
+          <Notice.Footer>
+            <p>{faker.lorem.sentence()}</p>
+          </Notice.Footer>
+        </Notice.Root>
+        <Notice.Root {...args} mode="card">
+          <Notice.Title icon={AcademicCapIcon} as="h2">
+            Non-Dismissible (card)
+          </Notice.Title>
+          <Notice.Content>
+            <p>{faker.lorem.paragraph()}</p>
+          </Notice.Content>
+          <Notice.Actions>
+            <Button
+              mode="inline"
+              size="sm"
+              color={args.color === "gray" ? "black" : args.color}
+            >
+              Button
+            </Button>
+            <Link
+              mode="inline"
+              color={args.color === "gray" ? "black" : args.color}
+              href="#"
+              size="sm"
+            >
+              Link
+            </Link>
+          </Notice.Actions>
+          <Notice.Footer>
+            <p>{faker.lorem.sentence()}</p>
+          </Notice.Footer>
+        </Notice.Root>
+      </div>
+    </Container>
+  ),
+};

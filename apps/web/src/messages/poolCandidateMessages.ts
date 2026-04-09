@@ -109,9 +109,9 @@ const messages = defineMessages({
     id: "sp0Pgt",
     description: "Label for not referred notice when placed indeterminate",
   },
-  activelyReferred: {
-    defaultMessage: "Actively being referred",
-    id: "4TsmrB",
+  availableForReferral: {
+    defaultMessage: "Available for referral",
+    id: "ILThW5",
     description: "A candidate is being referred for new positions",
   },
 });

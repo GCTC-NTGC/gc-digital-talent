@@ -30,6 +30,8 @@ class Team extends LaratrustTeam
 
     public $guarded = [];
 
+    protected $with = ['teamable'];
+
     /** @return HasMany<Pool, $this> */
     public function pools(): HasMany
     {

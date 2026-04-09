@@ -31,6 +31,8 @@ final readonly class UpdateSitewideAnnouncement
                 'en' => strval($args['message']['en']),
                 'fr' => strval($args['message']['fr']),
             ],
+            'updatedAt' => Carbon::now()->toDateTimeString(),
+            'isDismissible' => boolval($args['isDismissible']),
         ];
 
         DB::table('settings')

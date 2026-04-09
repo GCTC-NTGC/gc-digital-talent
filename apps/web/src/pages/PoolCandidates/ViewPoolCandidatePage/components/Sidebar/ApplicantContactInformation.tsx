@@ -24,8 +24,12 @@ const IconLabel = ({ icon, label, children }: IconLabelProps) => {
   const Icon = icon;
 
   return (
-    <span className="flex items-center gap-x-1.5">
-      <Icon aria-hidden="false" aria-label={label} className="size-4.5" />
+    <span className="flex items-start gap-x-1.5">
+      <Icon
+        aria-hidden="false"
+        aria-label={label}
+        className="mt-1 size-4.5 shrink-0"
+      />
       <span>{children}</span>
     </span>
   );
@@ -120,6 +124,7 @@ const ApplicantContactInformation = ({
               href={`mailto:${application.user.email}`}
               mode="text"
               color="black"
+              className="wrap-anywhere"
             >
               {application.user.email}
             </Link>
@@ -136,6 +141,7 @@ const ApplicantContactInformation = ({
               href={`tel:${application.user.telephone}`}
               mode="text"
               color="black"
+              className="wrap-anywhere"
             >
               {application.user.telephone}
             </Link>

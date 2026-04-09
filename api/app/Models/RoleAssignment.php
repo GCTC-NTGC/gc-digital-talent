@@ -47,8 +47,6 @@ class RoleAssignment extends Model
     /* Return the related team, if it has a teamable return that instead */
     public function getTeamableAttribute()
     {
-        $this->loadMissing('team', 'team.teamable');
-
         if (is_null($this->team)) {
             return null;
         }

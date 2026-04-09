@@ -335,8 +335,6 @@ class PoolCandidate extends Model
     {
         $category = PriorityWeight::OTHER;
 
-        $this->loadMissing(['user']);
-
         if ($this->user->has_priority_entitlement && $this->priority_verification !== ClaimVerificationResult::REJECTED->name) {
             $category = PriorityWeight::PRIORITY_ENTITLEMENT;
         } elseif ($this->user->armed_forces_status == ArmedForcesStatus::VETERAN->name && $this->veteran_verification !== ClaimVerificationResult::REJECTED->name) {
@@ -480,7 +478,7 @@ class PoolCandidate extends Model
     {
         return Attribute::get(function () {
             if ($this->application_status !== ApplicationStatus::QUALIFIED->name) {
-                return false;
+                return null;
             }
 
             $hasNotStartedPause = is_null($this->pause_referrals_at) || $this->pause_referrals_at->isFuture();
@@ -497,18 +495,14 @@ class PoolCandidate extends Model
     public function screeningResult(): Attribute
     {
         return Attribute::get(function () {
-            $screeningStep = $this->loadMissing('pool.assessmentSteps')->pool->assessmentSteps->sortBy('sort_order')
-                ->firstWhere(function ($step) {
-                    return $step->type === AssessmentStepType::APPLICATION_SCREENING->name;
-                })->id ?? null;
 
-            if (! $screeningStep) {
+            if (! $this->pool?->screening_step?->id) {
                 return null;
             }
 
             $result = Arr::first(
                 $this->computed_assessment_status['assessmentStepStatuses'],
-                fn ($status) => $status['step'] === $screeningStep
+                fn ($status) => $status['step'] === $this->pool->screening_step->id
             );
 
             return $result ? $result['decision'] : null;
@@ -829,6 +823,9 @@ class PoolCandidate extends Model
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
+        $this->pause_referrals_at = null;
+        $this->pause_referrals_reason = null;
+        $this->resume_referrals_at = null;
 
         $this->save();
 
@@ -840,6 +837,13 @@ class PoolCandidate extends Model
     {
         $this->disableLogging();
 
+        // Make sure candidate is being referred when not being placed as indeterminate
+        if ($placementType !== PlacementType::PLACED_INDETERMINATE->name) {
+            $this->pause_referrals_at = null;
+            $this->pause_referrals_reason = null;
+            $this->resume_referrals_at = null;
+        }
+
         $this->placement_type = $placementType;
         $this->placed_at = Carbon::now();
         $this->placed_department_id = $departmentId;
@@ -848,7 +852,7 @@ class PoolCandidate extends Model
         $this->assessment_step_id = null;
 
         if ($this->placement_type === PlacementType::PLACED_INDETERMINATE->name) {
-            $this->pauseReferrals(PauseReferralsLength::OTHER->name, Lang::get('common.successfully_placed'), $this->expiry_date);
+            $this->pauseReferrals(PauseReferralsLength::OTHER->name, Lang::get('common.successfully_placed'), null);
         }
 
         $this->save();
@@ -872,6 +876,9 @@ class PoolCandidate extends Model
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
+        $this->pause_referrals_at = null;
+        $this->pause_referrals_reason = null;
+        $this->resume_referrals_at = null;
 
         $this->save();
 
@@ -906,6 +913,9 @@ class PoolCandidate extends Model
         $this->placement_type = null;
         $this->placed_at = null;
         $this->placed_department_id = null;
+        $this->pause_referrals_at = null;
+        $this->pause_referrals_reason = null;
+        $this->resume_referrals_at = null;
 
         $this->save();
 
@@ -944,7 +954,7 @@ class PoolCandidate extends Model
         $properties['attributes']['pool_id'] = $this->pool->id ?? null;
     }
 
-    public function pauseReferrals(?string $pauseReferralsLength, ?string $reason, ?Carbon $referralResumeAt)
+    public function pauseReferrals(?string $pauseReferralsLength = null, ?string $reason = null, ?Carbon $referralResumeAt = null)
     {
         $now = Carbon::now();
 

@@ -187,6 +187,10 @@
     "defaultMessage": "aaaa",
     "description": "Placeholder for a year input"
   },
+  "4Uwcxk": {
+    "defaultMessage": "URL invalide",
+    "description": "Error message for invalid URL"
+  },
   "4WvSir": {
     "defaultMessage": "Agrandir tout",
     "description": "Generic link text to expand all accordions in a section"
@@ -1296,7 +1300,7 @@
     "description": "declare self to be a CAF member"
   },
   "ijGl5r": {
-    "defaultMessage": "Souhaitez-vous poursuivre?",
+    "defaultMessage": "Voulez-vous continuer?",
     "description": "A request to confirm that the user wants to continue"
   },
   "imR1U4": {
@@ -1402,6 +1406,10 @@
   "ldthVj": {
     "defaultMessage": "Août",
     "description": "Name of the eighth month"
+  },
+  "ltYqKQ": {
+    "defaultMessage": "Citoyenneté, statut d’ancien combattant et droits de priorité",
+    "description": "Title for the citizen/veteran/priority section"
   },
   "m/VZ/H": {
     "defaultMessage": "Cet utilisateur n'a pas vérifié son statut d'employé(e)",

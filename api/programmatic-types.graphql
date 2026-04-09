@@ -94,6 +94,11 @@ type LocalizedCandidateInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateReferralFilter implements LocalizedEnumOption {
+  value: CandidateReferralFilter!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
   label: LocalizedString!
@@ -1073,6 +1078,11 @@ enum CandidateInterest {
   EXPIRED
 }
 
+enum CandidateReferralFilter {
+  REFERRING
+  NOT_REFERRING
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
@@ -1189,6 +1199,7 @@ enum ErrorCode {
   EXPIRY_DATE_REQUIRED
   EXPIRY_DATE_AFTER_TODAY
   ARRAY_CONTAINS_DUPLICATES
+  INVALID_URL
   APPLICATION_ALREADY_SUBMITTED
   APPLICATION_NOT_SUBMITTED
   APPLICATION_EDUCATION_REQUIREMENT_INCOMPLETE

@@ -21,9 +21,8 @@ export const getClassifications: GraphQLRequestFunc<Classification[]> = async (
   ctx,
 ) => {
   return await ctx
-    .post(Test_ClassificationsQueryDocument)
-    .then(
-      (res: GraphQLResponse<"classifications", Classification[]>) =>
-        res.classifications,
-    );
+    .post<
+      GraphQLResponse<"classifications", Classification[]>
+    >(Test_ClassificationsQueryDocument)
+    .then((res) => res.classifications);
 };
