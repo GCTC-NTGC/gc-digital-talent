@@ -43,6 +43,9 @@ const manifest: Record<string, ManifestEntry> = JSON.parse(
 );
 
 // The entry key is the source path of the CSS file as Vite sees it.
+// This matches the import in src/root.tsx: `import "~/assets/css/tailwind.css"`
+// (Vite normalises the `~` alias to the literal source path for the manifest key).
+// If the CSS file is ever moved or renamed, update this constant to match.
 const cssEntryKey = "src/assets/css/tailwind.css";
 const cssEntry = manifest[cssEntryKey];
 
