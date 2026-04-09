@@ -2980,7 +2980,7 @@
     "description": "Button to start the email address verification process"
   },
   "ADUuJh": {
-    "defaultMessage": "Les renseignements actuels ont été établis en fonction de la langue de communication choisie lors de votre inscription. Utilisez le bouton \"{buttonLabel}\" pour revoir ces paramètres.",
+    "defaultMessage": "Les renseignements actuels ont été établis en fonction de la langue de communication choisie lors de votre inscription. Utilisez le bouton « {buttonLabel} » pour revoir ces paramètres.",
     "description": "Helper message that the language settings were preset"
   },
   "ADk6dX": {
