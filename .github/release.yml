@@ -1,0 +1,41 @@
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+  categories:
+    - title: "🚀 Features and Enhancements"
+      labels:
+        - Feature
+        - feature
+        - enhancement
+    - title: "🐛 Bug Fixes"
+      labels:
+        - Bug
+        - bug
+        - fix
+    - title: "🧹 Refactors & Code Quality"
+      labels:
+        - Refactor
+        - refactor
+        - code-quality
+    - title: "🧪 Testing"
+      labels:
+        - Testing
+        - testing
+        - test
+    - title: "📝 Copy & Content"
+      labels:
+        - Copy
+        - copy
+        - content
+    - title: "🔨 Technical Debt"
+      labels:
+        - Debt
+        - debt
+        - technical-debt
+    - title: "⬆️ Dependency Updates"
+      labels:
+        - dependencies
+    - title: "🏗️ Other"
+      labels:
+        - "*"
