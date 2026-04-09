@@ -56,6 +56,9 @@ enum ErrorCode
     case DEPARTMENT_NOT_FOUND;
     case DEPARTMENT_MUST_NOT_BE_ARCHIVED;
 
+    // Community Development Program
+    case COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND;
+
     // Development Program
     case DEVELOPMENT_PROGRAM_NOT_FOUND;
     case DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED;
