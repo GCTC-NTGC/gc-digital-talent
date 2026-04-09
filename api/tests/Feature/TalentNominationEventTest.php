@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\ErrorCode;
 use App\Models\Community;
+use App\Models\CommunityDevelopmentProgram;
 use App\Models\DevelopmentProgram;
 use App\Models\TalentNominationEvent;
 use App\Models\User;
@@ -34,6 +35,8 @@ class TalentNominationEventTest extends TestCase
 
     protected $developmentProgramId;
 
+    protected $communityDevelopmentProgramId;
+
     protected $input = [
         'name' => ['en' => 'Test event EN', 'fr' => 'Test event FR'],
         'description' => ['en' => 'Test EN', 'fr' => 'Test FR'],
@@ -52,6 +55,7 @@ class TalentNominationEventTest extends TestCase
                 learnMoreUrl { en fr }
                 includeLeadershipCompetencies
                 community { id }
+                communityDevelopmentPrograms { id }
                 developmentPrograms { id }
             }
         }
@@ -69,7 +73,15 @@ class TalentNominationEventTest extends TestCase
         $otherCommunity = Community::factory()->create();
         $this->otherCommunityId = $otherCommunity->id;
 
-        $this->developmentProgramId = DevelopmentProgram::factory()->create(['community_id' => $this->communityId]);
+        $this->developmentProgramId = DevelopmentProgram::factory()
+            ->withCommunity($this->communityId)
+            ->create()
+            ->id;
+
+        $this->communityDevelopmentProgramId =
+            CommunityDevelopmentProgram::where('development_program_id', $this->developmentProgramId)
+                ->sole()
+                ->id;
 
         $this->admin = User::factory()
             ->asGuest()
@@ -92,8 +104,6 @@ class TalentNominationEventTest extends TestCase
             ->asCommunityTalentCoordinator([$this->communityId])
             ->create();
 
-        $this->developmentProgramId = $community->developmentPrograms()->sole()->pluck('id')[0];
-
         $this->input = [
             ...$this->input,
             'openDate' => config('constants.past_datetime'),
@@ -110,7 +120,7 @@ class TalentNominationEventTest extends TestCase
                 'talentNominationEvent' => [
                     ...$this->input,
                     'community' => ['connect' => $this->communityId],
-                    'developmentPrograms' => ['sync' => [$this->developmentProgramId]],
+                    'communityDevelopmentPrograms' => ['sync' => [$this->communityDevelopmentProgramId]],
                 ],
             ])
             ->assertJson([
@@ -118,6 +128,7 @@ class TalentNominationEventTest extends TestCase
                     'createTalentNominationEvent' => [
                         ...$this->input,
                         'community' => ['id' => $this->communityId],
+                        'communityDevelopmentPrograms' => [['id' => $this->communityDevelopmentProgramId]],
                         'developmentPrograms' => [['id' => $this->developmentProgramId]],
                     ],
                 ],
@@ -260,25 +271,5 @@ class TalentNominationEventTest extends TestCase
                 ],
             ])
             ->assertGraphQLValidationError('talentNominationEvent.community.connect', ErrorCode::COMMUNITY_NOT_FOUND->name);
-    }
-
-    public function testDevelopmentProgramInCommunityValidation()
-    {
-        $community = Community::factory()->create(); // No development programs
-        $developmentProgram = DevelopmentProgram::factory()->create([
-            'community_id' => $this->communityId,
-        ]);
-
-        $this->actingAs($this->admin, 'api')
-            ->graphQL($this->createMutation, [
-                'talentNominationEvent' => [
-                    ...$this->input,
-                    'community' => ['connect' => $community->id],
-                    'developmentPrograms' => [
-                        'sync' => ['id' => $developmentProgram->id],
-                    ],
-                ],
-            ])
-            ->assertGraphQLValidationError('talentNominationEvent.developmentPrograms.sync.0', ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name);
     }
 }
