@@ -17,22 +17,39 @@ interface InstructionsStepCardProps {
   includeArrow?: boolean;
   children: ReactNode;
   className?: string;
+  background?: "default" | "darker";
 }
 
 const instructionStepCard = tv({
   base: "h-full text-center",
+  variants: {
+    background: {
+      default: "transparent",
+      darker: "bg-gray-100/40 dark:bg-gray-600/70",
+    },
+  },
+  defaultVariants: {
+    background: "default",
+  },
 });
 
 const InstructionsStepCard = ({
   img: { src, darkSrc, lazy, ...imgProps },
   children,
   className = "",
+  background = "default",
 }: InstructionsStepCardProps) => {
   const { mode } = useTheme();
   const imgSrc = mode === "dark" && darkSrc ? darkSrc : src;
 
   return (
-    <Card shadow={false} className={instructionStepCard({ class: className })}>
+    <Card
+      shadow={false}
+      className={instructionStepCard({
+        class: [className],
+        background,
+      })}
+    >
       <div className="mb-4 flex justify-center">
         <Image {...imgProps} src={imgSrc} alt="" />
       </div>
