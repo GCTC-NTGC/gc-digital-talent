@@ -15,6 +15,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { ApplicationStatusFormProps, MutationMessages } from "../types";
 import { ReinstateCandidate_Mutation } from "./mutations";
 import { Content } from "./StatusContent";
+import messages from "./messages";
 
 const RemovedStatusForm_Fragment = graphql(/** GraphQL */ `
   fragment RemovedStatusForm on PoolCandidate {
@@ -74,11 +75,7 @@ const RemovedStatusForm = ({ id, onSubmit, query }: RemovedStatusFormProps) => {
             }
             submitProps={{
               color: "warning",
-              label: intl.formatMessage({
-                defaultMessage: "Reinstate candidate and update status",
-                id: "AA3OTc",
-                description: "Button text to reinstate a candidate",
-              }),
+              label: intl.formatMessage(messages.revertSubmit),
             }}
           />
         </Dialog.Body>

@@ -39,6 +39,9 @@ import WorkPreferences, {
 import DiversityEquityInclusion, {
   DEI_ID,
 } from "./components/DiversityEquityInclusion";
+import CitizenVeteranPriority, {
+  CITIZEN_VETERAN_PRIORITY_ID,
+} from "./components/CitizenVeteranPriority";
 import GovernmentInformation, {
   GOV_INFO_ID,
 } from "./components/GovernmentInformation";
@@ -51,6 +54,7 @@ const AdminApplicantProfile_Fragment = graphql(/** GraphQL */ `
     ...LanguageProfile
     ...AdminWorkPreferences
     ...DiversityEquityInclusion
+    ...CitizenVeteranPriority
     ...GovernmentInformation
   }
 `);
@@ -112,6 +116,17 @@ const AdminApplicantProfile = ({
                     {intl.formatMessage(
                       navigationMessages.diversityEquityInclusion,
                     )}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={CITIZEN_VETERAN_PRIORITY_ID}>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Citizenship, veteran status and priority entitlements",
+                      id: "ltYqKQ",
+                      description:
+                        "Title for the citizen/veteran/priority section",
+                    })}
                   </TableOfContents.AnchorLink>
                 </TableOfContents.ListItem>
                 <TableOfContents.ListItem>
@@ -211,6 +226,23 @@ const AdminApplicantProfile = ({
               </Accordion.Trigger>
               <Accordion.Content>
                 <DiversityEquityInclusion query={user} />
+              </Accordion.Content>
+            </Accordion.Item>
+
+            <Accordion.Item
+              value={SECTION_KEY.CITIZEN_VETERAN_PRIORITY_ID}
+              id={CITIZEN_VETERAN_PRIORITY_ID}
+            >
+              <Accordion.Trigger as="h3">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Citizenship, veteran status and priority entitlements",
+                  id: "ltYqKQ",
+                  description: "Title for the citizen/veteran/priority section",
+                })}
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <CitizenVeteranPriority query={user} />
               </Accordion.Content>
             </Accordion.Item>
 

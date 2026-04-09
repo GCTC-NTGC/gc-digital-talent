@@ -100,8 +100,8 @@ export const Content = ({ query, reason, submitProps }: ContentProps) => {
       <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
-            'Do you wish to revert this decision and set candidate status to "Under assessment"?',
-          id: "jo9Uct",
+            'Do you wish to revert this decision and set the application status to "To assess"?',
+          id: "5W/J8m",
           description:
             "Confirmation question for reverting a decision of an application",
         })}

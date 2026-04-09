@@ -31,6 +31,7 @@ import LanguageProfileSnapshot from "~/components/ProfileSnapshot/LanguageProfil
 import GovernmentInformationSnapshot from "~/components/ProfileSnapshot/GovernmentInformation/GovernmentInformationSnapshot";
 import DiversityEquityInclusionSnapshot from "~/components/ProfileSnapshot/DiversityEquityInclusion/DiversityEquityInclusionSnapshot";
 import WorkPreferencesSnapshot from "~/components/ProfileSnapshot/WorkPreferences/WorkPreferencesSnapshot";
+import CitizenVeteranPrioritySnapshot from "~/components/ProfileSnapshot/CitizenVeteranPriority/CitizenVeteranPrioritySnapshot";
 
 import SkillDisplay from "./SkillDisplay";
 import { SECTION_KEY } from "./types";
@@ -385,6 +386,14 @@ const ApplicationInformation = ({
           </Accordion.Trigger>
           <Accordion.Content>
             <DiversityEquityInclusionSnapshot snapshot={snapshot} />
+          </Accordion.Content>
+        </Accordion.Item>
+        <Accordion.Item value={SECTION_KEY.CITIZEN_VETERAN_PRIORITY}>
+          <Accordion.Trigger as="h3">
+            {intl.formatMessage(navigationMessages.citizenVeteranPriority)}
+          </Accordion.Trigger>
+          <Accordion.Content>
+            <CitizenVeteranPrioritySnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.SIGNATURE}>

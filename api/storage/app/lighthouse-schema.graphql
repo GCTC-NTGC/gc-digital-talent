@@ -83,6 +83,11 @@ type LocalizedCandidateInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateReferralFilter implements LocalizedEnumOption {
+  value: CandidateReferralFilter!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
   label: LocalizedString!
@@ -669,6 +674,9 @@ type Mutation {
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
   updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
+  createCommunityDevelopmentProgram(createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
+  updateCommunityDevelopmentProgram(updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
+  deleteCommunityDevelopmentProgram(id: UUID!): CommunityDevelopmentProgram
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
   downloadCommunityInterestUsersExcel(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
@@ -1291,7 +1299,9 @@ type Community implements HasRoleAssignments {
   teamIdForRoleAssignment: ID
   pools: [Pool]
   workStreams: [WorkStream!]
-  developmentPrograms: [DevelopmentProgram!]
+  developmentPrograms: [DevelopmentProgram!] @deprecated(reason: "use associatedDevelopmentPrograms")
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+  associatedDevelopmentPrograms: [DevelopmentProgram!]
 }
 
 type DevelopmentProgram {
@@ -1299,8 +1309,17 @@ type DevelopmentProgram {
   name: LocalizedString
   descriptionForProfile: LocalizedString
   descriptionForNominations: LocalizedString
-  community: Community
+  community: Community @deprecated(reason: "use associatedCommunities")
   eligibleClassifications: [Classification!]
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+  associatedCommunities: [Community!]
+}
+
+type CommunityDevelopmentProgram {
+  id: UUID!
+  community: Community!
+  developmentProgram: DevelopmentProgram!
+  classifications: [Classification!]
 }
 
 type TalentNominationEvent {
@@ -1729,6 +1748,7 @@ input PoolCandidateSearchInput {
   statuses: [ApplicationStatus]
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
+  referralStatuses: [CandidateReferralFilter!]
   publishingGroups: [PublishingGroup]
   appliedClassifications: [ClassificationFilterInput]
   workStreams: [IdInput]
@@ -1771,6 +1791,8 @@ type SitewideAnnouncement {
   expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
+  updatedAt: DateTime!
+  isDismissible: Boolean!
 }
 
 type TrainingOpportunity {
@@ -1798,6 +1820,7 @@ input SitewideAnnouncementInput {
   expiryDate: DateTime!
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isDismissible: Boolean!
 }
 
 input ClaimVerificationSort {
@@ -2891,6 +2914,17 @@ input SendUserEmailsVerificationInput {
   emailTypes: [EmailType]
 }
 
+input CreateCommunityDevelopmentProgramInput {
+  communityId: UUID!
+  developmentProgramId: UUID!
+  classifications: ClassificationBelongsToMany
+}
+
+input UpdateCommunityDevelopmentProgramInput {
+  id: UUID!
+  classifications: ClassificationBelongsToMany
+}
+
 "Information about pagination using a fully featured paginator."
 type PaginatorInfo {
   "Number of items in the current page."
@@ -3530,6 +3564,11 @@ enum CandidateInterest {
   NOT_INTERESTED
   HIRED
   EXPIRED
+}
+
+enum CandidateReferralFilter {
+  REFERRING
+  NOT_REFERRING
 }
 
 enum CandidateRemovalReason {

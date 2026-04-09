@@ -319,10 +319,6 @@
     "defaultMessage": "Tâches principales - Exemples",
     "description": "Long title of the 'key tasks' section of the job poster template page"
   },
-  "/HdHpe": {
-    "defaultMessage": "Droits de priorité",
-    "description": "Title for the priority entitlements section"
-  },
   "/I7wrY": {
     "defaultMessage": "Lier des compétences en vedette",
     "description": "Title for skills on Experience form"
@@ -366,6 +362,10 @@
   "/WLsRj": {
     "defaultMessage": "Vous aurez besoin d’une application d’authentification.",
     "description": "Subtitle for a section explaining mfa apps"
+  },
+  "/WUaCi": {
+    "defaultMessage": "Des renseignements requis sur votre citoyenneté, votre statut d’ancien combattant et vos droits de priorité sont manquants.",
+    "description": "Error message displayed when a users priority entitlements is incomplete"
   },
   "/Wgawu": {
     "defaultMessage": "Courriel professionnel de la personne déposante",
@@ -418,10 +418,6 @@
   "/fvZtZ": {
     "defaultMessage": "Cette occasion ne s’adresse qu’aux candidat(e)s autochtones seulement.",
     "description": "Error message displayed when a user's equity information does not match an opportunity"
-  },
-  "/h9mNu": {
-    "defaultMessage": "Avez-vous un droit de priorité?",
-    "description": "Priority Entitlement Status in Government Info Form"
   },
   "/lByjT": {
     "defaultMessage": "Qui peut postuler",
@@ -684,7 +680,7 @@
     "description": "Title for goals and work style section"
   },
   "0cevfA": {
-    "defaultMessage": "Vous êtes sur le point d'ajouter des rôles pour ce ou cette membre :",
+    "defaultMessage": "Vous êtes sur le point d'ajouter des rôles pour la personne suivante :",
     "description": "Lead in text for the add role to user form."
   },
   "0cieq3": {
@@ -1351,10 +1347,6 @@
     "defaultMessage": "Les informations sur votre prochain type de poste ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
   },
-  "3MhIFU": {
-    "defaultMessage": "Il manque des renseignements requis concernant votre droit de priorité.",
-    "description": "Error message displayed when a users priority entitlements is incomplete"
-  },
   "3NW70Q": {
     "defaultMessage": "Demandes de talents",
     "description": "Title for the index search request page"
@@ -1376,7 +1368,7 @@
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
   },
   "3XvHVf": {
-    "defaultMessage": "Rôles dans le ministère",
+    "defaultMessage": "Rôles liés à un ministère",
     "description": "Heading for updating a user's department roles"
   },
   "3YO9gR": {
@@ -1404,7 +1396,7 @@
     "description": "Description for position duration field display"
   },
   "3bgFky": {
-    "defaultMessage": "Ajouter un rôle dans un ministère",
+    "defaultMessage": "Ajouter un rôle lié à un ministère",
     "description": "Button label for the form to add a department membership to a user"
   },
   "3c2YZs": {
@@ -1582,6 +1574,10 @@
   "4MAklr": {
     "defaultMessage": "intégration de systèmes",
     "description": "The cloud computing skill"
+  },
+  "4Ncmb0": {
+    "defaultMessage": "Cette section porte sur votre citoyenneté, votre statut d’ancien combattant et vos droits de priorité.",
+    "description": "Descriptive text explaining the priority entitlement section of the application profile"
   },
   "4NtC0R": {
     "defaultMessage": "La personne candidate n'a ajouté aucun processus hors plateforme.",
@@ -1875,6 +1871,10 @@
     "defaultMessage": "Modifier<hidden> le groupe de compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
   },
+  "5W/J8m": {
+    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir la candidature au statut « À évaluer »?",
+    "description": "Confirmation question for reverting a decision of an application"
+  },
   "5WEzE3": {
     "defaultMessage": "Cherchez dans notre base de données de compétences et associez-en une à votre profil.",
     "description": "Subtitle for the find a skill dialog within the skill portfolio"
@@ -1894,6 +1894,10 @@
   "5cnajL": {
     "defaultMessage": "Raison de l'interruption",
     "description": "Label for pause reason"
+  },
+  "5csRb4": {
+    "defaultMessage": "Cette section de votre profil de candidature porte sur les langues officielles dans lesquelles vous souhaitez travailler, ainsi que celles dans lesquelles vous préférez être évalué.",
+    "description": "Introduction for the language profile form"
   },
   "5dFzBc": {
     "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
@@ -2276,7 +2280,7 @@
     "description": "Text on a button to save the nonessential technical skills form"
   },
   "7Rllrl": {
-    "defaultMessage": "Activer tout",
+    "defaultMessage": "Tout cocher",
     "description": "Label for checkbox to toggle visibility of all columns"
   },
   "7STO48": {
@@ -2424,7 +2428,7 @@
     "description": "Label displayed on the community form mandate authority field"
   },
   "84XrK+": {
-    "defaultMessage": "On ne trouve aucun élément ici.",
+    "defaultMessage": "Aucun élément trouvé.",
     "description": "Default message for an empty table"
   },
   "84rSVg": {
@@ -2628,7 +2632,7 @@
     "description": "Message displayed for skill not found."
   },
   "95aNQ1": {
-    "defaultMessage": "Vous êtes sur le point de retirer ce ou cette membre :",
+    "defaultMessage": "Vous êtes sur le point de retirer cette personne :",
     "description": "Lead in text for removing roles on user form."
   },
   "96/yI/": {
@@ -2787,6 +2791,10 @@
     "defaultMessage": "La Directive sur les talents numériques clarifie les exigences de la Politique sur les services et le numérique en ce qui concerne les nominations des dirigeantes principales et dirigeants principals de l'information et la gestion des talents. L’objectif est de continuer à soutenir les parcours professionnels des cadres, en mettant l’accent sur la prestation de services publics numériques modernes.",
     "description": "The directives digital executive roles and structures component"
   },
+  "9g0IoZ": {
+    "defaultMessage": "Commencer<hidden> à fournir les renseignements sur votre citoyenneté, votre statut d’ancien combattant et vos droits de priorité</hidden>",
+    "description": "Call to action to begin editing priority entitlement"
+  },
   "9g11GN": {
     "defaultMessage": "Créer une classification",
     "description": "Page title for the classification creation page"
@@ -2939,10 +2947,6 @@
     "defaultMessage": "Lorsque vous envoyez votre candidature, une copie de votre profil est automatiquement créée.",
     "description": "List item note 1 for the application review page."
   },
-  "AA3OTc": {
-    "defaultMessage": "Réintégrer le candidat et mettre à jour le statut",
-    "description": "Button text to reinstate a candidate"
-  },
   "AANjDd": {
     "defaultMessage": "Mettre à jour l’expérience",
     "description": "Button to submit the link experience to skill form"
@@ -3083,6 +3087,10 @@
     "defaultMessage": "Prévisualiser l’annonce",
     "description": "Link text to preview a specific pool advertisement"
   },
+  "AhcYq4": {
+    "defaultMessage": "Rétablir le statut de la candidature",
+    "description": "Heading for dialog to revert an application status"
+  },
   "Aip5WP": {
     "defaultMessage": "Préférence pour le lieu de travail en personne",
     "description": "Profile form header for preferences section"
@@ -3204,7 +3212,7 @@
     "description": "Text label for button to download a csv file of all items in a table."
   },
   "B6cKp+": {
-    "defaultMessage": "Rôles dans des collectivités",
+    "defaultMessage": "Rôles dans les collectivités",
     "description": "Heading for updating a user's community roles"
   },
   "B8N4yZ": {
@@ -3635,10 +3643,6 @@
     "defaultMessage": "Identifiant",
     "description": "Title for unique ID of a resource"
   },
-  "DB9pFd": {
-    "defaultMessage": "Langue préférée pour l'entrevue orale",
-    "description": "Title for preferred spoken interview language"
-  },
   "DBczOG": {
     "defaultMessage": "Stratégie",
     "description": "Heading for strategy for the indigenous talent portal"
@@ -3740,7 +3744,7 @@
     "description": "Description of a talent event"
   },
   "DbWxZl": {
-    "defaultMessage": "Cherchez les rôles dans des processus",
+    "defaultMessage": "Rechercher des rôles liés à un processus",
     "description": "Label for the process roles table search input"
   },
   "DcEinN": {
@@ -3958,6 +3962,10 @@
   "EWq+u3": {
     "defaultMessage": "Évaluation des langues officielles dans le processus de nomination",
     "description": "Link to second language evaluations PSC info page on language requirements dialog"
+  },
+  "EX82UF": {
+    "defaultMessage": "Modifier la citoyenneté, le statut d’ancien combattant et les droits de priorité",
+    "description": "Button text to start editing priority entitlements"
   },
   "EY7YQM": {
     "defaultMessage": "Il manque au moins 1 évaluation pour les compétences suivantes",
@@ -4736,7 +4744,7 @@
     "description": "Status label for a submitted (but not reviewed) application"
   },
   "IHyNL8": {
-    "defaultMessage": "Ajouter un membre",
+    "defaultMessage": "Ajouter comme membre",
     "description": "Title for the add member to community form"
   },
   "II4+N3": {
@@ -4748,7 +4756,7 @@
     "description": "Link text to email the ATIP community"
   },
   "IIKzsd": {
-    "defaultMessage": "Afficher ou masquer les colonnes du tableau",
+    "defaultMessage": "Afficher ou masquer des colonnes dans le tableau",
     "description": "Label for checkboxes used for disabling or enabling table column display"
   },
   "IIZNzj": {
@@ -4972,7 +4980,7 @@
     "description": "Combined eligibility string for 'employees only' and 'at-level only'"
   },
   "JCZlxS": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans le processus » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle lié à un processus » pour commencer.",
     "description": "Instructions for adding process membership to a user."
   },
   "JDjqIL": {
@@ -5311,6 +5319,10 @@
     "defaultMessage": "Ressources",
     "description": "Heading for section for the group-specific resources section."
   },
+  "KwzVtv": {
+    "defaultMessage": "Droits de priorité",
+    "description": "Label for the Priority Entitlement Status"
+  },
   "KxJcav": {
     "defaultMessage": "Parcourir les modèles d’emplois",
     "description": "Link to job templates"
@@ -5378,10 +5390,6 @@
   "L8k+lC": {
     "defaultMessage": "Précédent",
     "description": "Back button located next to the submit button on the request form."
-  },
-  "L9IkrB": {
-    "defaultMessage": "Que puis-je faire si mes codes d'authentification ne sont plus acceptés?",
-    "description": "GCKey question for when user authenticator codes not accepted"
   },
   "L9Tc5u": {
     "defaultMessage": "Le processus annuel de gestion des talents des cadres permet aux ministères et organismes d'échanger des renseignements sur les aspirations professionnelles et le potentiel de leurs cadres des finances. Il garantit ainsi que les talents appropriés sont prêts à occuper des postes de direction au fur et à mesure qu'ils deviennent disponibles.",
@@ -5748,7 +5756,7 @@
     "description": "Error message for updating a candidates assessment stage"
   },
   "MkUz+j": {
-    "defaultMessage": "Ajouter un membre",
+    "defaultMessage": "Ajouter comme membre",
     "description": "Label for the add member to community form (action)"
   },
   "MmTWYV": {
@@ -5820,7 +5828,7 @@
     "description": "Label for language for bilingual field"
   },
   "MxmB1v": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans la collectivité » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans une collectivité » pour commencer.",
     "description": "Instructions for adding community membership to a user."
   },
   "Mz7sON": {
@@ -6775,10 +6783,6 @@
     "defaultMessage": "Renseignements de base",
     "description": "Title for basic information"
   },
-  "RDHbAx": {
-    "defaultMessage": "Qu'est-ce que je fais si j'ai effacé l'appli ou changé de téléphone et que je n'ai pas les codes de récupération?",
-    "description": "GCKey question for when user does not have recovery codes"
-  },
   "RDkTqP": {
     "defaultMessage": "Date d’attribution",
     "description": "Label displayed on award form for date awarded input"
@@ -6942,6 +6946,10 @@
   "S+GQc9": {
     "defaultMessage": "Je ne cherche pas de travail dans cette collectivité pour le moment.",
     "description": "Label for the community not interested in work opportunities radio option"
+  },
+  "S+Hv6S": {
+    "defaultMessage": "Peut être fermée",
+    "description": "A switch to enable or disable a setting"
   },
   "S/PXt/": {
     "defaultMessage": "Des possibilités existent au sein d’un grand nombre de ministères et d’organismes du gouvernement du Canada. Le programme tentera de jumeler les apprentis à des possibilités qui correspondent le mieux à leurs intérêts.",
@@ -7179,10 +7187,6 @@
     "defaultMessage": "Non retenue",
     "description": "Message displayed when candidate has not passed an assessment step"
   },
-  "TIu/WA": {
-    "defaultMessage": "Modifier les droits de priorité",
-    "description": "Button text to start editing priority entitlements"
-  },
   "TK0b6n": {
     "defaultMessage": "Vous pouvez vous server du bouton « Lier une expérience » qui sert à mettre cette compétence en évidence.",
     "description": "Instructions displayed when user has experiences but hasn't featured any."
@@ -7204,7 +7208,7 @@
     "description": "Comments or contributions list item"
   },
   "TSYfZE": {
-    "defaultMessage": "Ajouter un rôle dans le processus",
+    "defaultMessage": "Ajouter un rôle lié à un processus",
     "description": "Button label for the form to add a process membership to a user"
   },
   "TU9sk7": {
@@ -7462,10 +7466,6 @@
   "Ulbls0": {
     "defaultMessage": "Un agencement d'études, de formation ou d'expérience.",
     "description": "Applied work experience description for CR group"
-  },
-  "Un0ubb": {
-    "defaultMessage": "Pouvez-vous supprimer l'authentification à deux facteurs de mon compte afin que je puisse le réinitialiser?",
-    "description": "GCKey question for ability to remove two-factor authentication"
   },
   "UnAF+3": {
     "defaultMessage": "À moins d’avis contraire, vous pouvez reproduire le contenu en totalité ou en partie à des fins non commerciales, dans tout format, sans frais ni autre permission, à condition :"
@@ -7923,7 +7923,7 @@
     "description": "Label for a employee profile target classification group field"
   },
   "WovyCU": {
-    "defaultMessage": "Ajouter un rôle dans la collectivité",
+    "defaultMessage": "Ajouter un rôle dans une collectivité",
     "description": "Header for the form to add a community membership to a user"
   },
   "WpA63g": {
@@ -8539,7 +8539,7 @@
     "description": "Second part of bilingual intermediate pool language"
   },
   "ZJpfIZ": {
-    "defaultMessage": "L’utilisateur perdra tous les rôles suivants dans le ministère :",
+    "defaultMessage": "Cette personne perdra tous les rôles suivants liés au ministère :",
     "description": "Text notifying user which department roles will be removed from the user"
   },
   "ZJsUbj": {
@@ -8947,7 +8947,7 @@
     "description": "Header for the form to add a process membership to a user"
   },
   "bNc3Zd": {
-    "defaultMessage": "Rechercher des rôles dans les ministères",
+    "defaultMessage": "Rechercher des rôles liés à un ministère",
     "description": "Label for the department roles table search input"
   },
   "bOAF9o": {
@@ -9367,7 +9367,7 @@
     "description": "Explanation of how the list of notifications work"
   },
   "d4r7rO": {
-    "defaultMessage": "Afficher ou masquer les colonnes",
+    "defaultMessage": "Afficher ou masquer des colonnes",
     "description": "Button text to open the dialog for disabling or enabling column display"
   },
   "d5X1iR": {
@@ -9683,7 +9683,7 @@
     "description": "Introduction for form to evaluate a nomination group"
   },
   "eGqjYh": {
-    "defaultMessage": "Rôles dans le processus",
+    "defaultMessage": "Rôles liés à un processus",
     "description": "Heading for updating a user's process roles"
   },
   "eJPU4G": {
@@ -9974,10 +9974,6 @@
     "defaultMessage": "Cette revendication ne s’applique pas à ce processus.",
     "description": "Message when a claim does not apply to the specific process"
   },
-  "fQ7zxR": {
-    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for ability to remove two-factor authentication"
-  },
   "fQiUXz": {
     "defaultMessage": "Préférence ministérielle",
     "description": "Combined eligibility string for 'employees only' and 'departmental preference'"
@@ -10107,7 +10103,7 @@
     "description": "Title for education level on summary of filters section"
   },
   "fuGqZQ": {
-    "defaultMessage": "Sélectionnez l’utilisateur à ajouter à {teamName}, ainsi que les rôles à lui attribuer.",
+    "defaultMessage": "Sélectionnez la personne que vous souhaitez ajouter à l’organisation suivante : {teamName}. Sélectionnez également les rôles à lui attribuer.",
     "description": "Subtitle for the add member to team form"
   },
   "fugmiC": {
@@ -10966,10 +10962,6 @@
     "defaultMessage": "Mise à jour de la classification réussie!",
     "description": "Message displayed to user after classification is updated successfully."
   },
-  "jMx7Kb": {
-    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for when user does not have recovery codes"
-  },
   "jO8i+2": {
     "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions en lien avec ce processus? Veuillez communiquer avec le Bureau des initiatives pour les Autochtones si vous avez besoin de mesures d’adaptation au cours de ce processus de demande <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
     "description": "First paragraph of the accessibility and accommodations information dialog"
@@ -11057,10 +11049,6 @@
   "jno96W": {
     "defaultMessage": "Modifier la planification de carrière",
     "description": "Link to a page to edit your career planning information"
-  },
-  "jo9Uct": {
-    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir le candidat au statut « En cours d’évaluation »?",
-    "description": "Confirmation question for reverting a decision of an application"
   },
   "joXPYW": {
     "defaultMessage": "Composantes clés",
@@ -11438,10 +11426,6 @@
     "defaultMessage": "Commentaires et échanges",
     "description": "Heading for comments and interaction section"
   },
-  "lSKm4M": {
-    "defaultMessage": "Vous pouvez indiquer dans cette section vos droits de priorité.",
-    "description": "Descriptive text explaining the priority entitlement section of the application profile"
-  },
   "lSSz6L": {
     "defaultMessage": "Gérer {notificationName}",
     "description": "Button text for managing a notification"
@@ -11510,6 +11494,10 @@
     "defaultMessage": "À propos du Portail des talents autochtones",
     "description": "Talent Portal information heading"
   },
+  "ltYqKQ": {
+    "defaultMessage": "Citoyenneté, statut d’ancien combattant et droits de priorité",
+    "description": "Title for the citizen/veteran/priority section"
+  },
   "ltzA7w": {
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
     "description": "How to get help from the support team - IAP variant"
@@ -11570,6 +11558,10 @@
     "defaultMessage": "Votre prochain type de poste",
     "description": "Title for the next role section"
   },
+  "m6vOLM": {
+    "defaultMessage": "Langue de préférence pour l’entrevue",
+    "description": "Title for preferred spoken interview language"
+  },
   "mAN6yW": {
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
     "description": "Button text to show help information about skills"
@@ -11619,7 +11611,7 @@
     "description": "The award title is issued by some group, HTML"
   },
   "mKrj0x": {
-    "defaultMessage": "Enregistrer et ajouter un membre",
+    "defaultMessage": "Enregistrer et ajouter comme membre",
     "description": "Label for add member to a community form"
   },
   "mKzQwr": {
@@ -11895,7 +11887,7 @@
     "description": "Card title for a 'resources' card"
   },
   "nGx7Xt": {
-    "defaultMessage": "Mesures",
+    "defaultMessage": "Actions",
     "description": "Title displayed for actions column"
   },
   "nGy9DA": {
@@ -12394,6 +12386,10 @@
     "defaultMessage": "Masquer les détails de {experienceName}",
     "description": "Button text to hide a specific experience's details"
   },
+  "pNCpED": {
+    "defaultMessage": "Les renseignements suivants sont utilisés par les équipes de recrutement et les gestionnaires d’embauche pour évaluer votre admissibilité dans le cadre d’un processus de dotation.",
+    "description": "Preamble for citizen/veteran/priority edit form"
+  },
   "pOazxP": {
     "defaultMessage": "Mises en candidature des talent ({nominationCount})",
     "description": "Collapsible header, Talent nominations and then count"
@@ -12447,7 +12443,7 @@
     "description": "Message for the advanced language ability option"
   },
   "paTLlJ": {
-    "defaultMessage": "Chercher les rôles",
+    "defaultMessage": "Rechercher les rôles",
     "description": "Label for the roles table search input"
   },
   "pcAgJh": {
@@ -12859,16 +12855,12 @@
     "description": "Page title for the training opportunity creation page (infinitive in French)"
   },
   "rUNQVc": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans le ministère » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle lié à un ministère » pour commencer.",
     "description": "Instructions for adding department membership to a user."
   },
   "rVgBGi": {
     "defaultMessage": "La soumission de votre demande est réussie.",
     "description": "Subtitle for the request confirmation page."
-  },
-  "rWs8MO": {
-    "defaultMessage": "Commencez<hidden> par fournir les renseignements concernant les droits de priorité</hidden>",
-    "description": "Call to action to begin editing priority entitlement"
   },
   "rXd18V": {
     "defaultMessage": "Détachement",
@@ -12959,7 +12951,7 @@
     "description": "Heading for the experience type section fo the experience form"
   },
   "ryeKXV": {
-    "defaultMessage": "Cherchez les rôles dans des collectivités",
+    "defaultMessage": "Rechercher les rôles dans les collectivités",
     "description": "Label for the community roles table search input"
   },
   "rz21yp": {
@@ -13061,6 +13053,10 @@
   "sZhjI3": {
     "defaultMessage": "Veuillez sélectionner une collectivité fonctionnelle pour continuer.",
     "description": "Message displayed when no functional community is selected"
+  },
+  "sZv6bv": {
+    "defaultMessage": "Citoyenneté, statut d’ancien combattant et droits de priorité mis à jour avec succès.",
+    "description": "Message displayed when a user successfully updates their citizen/veteran/priority."
   },
   "sapxcU": {
     "defaultMessage": "Avertissement",
@@ -13391,7 +13387,7 @@
     "description": "Paragraph describing accessibility standards"
   },
   "tuMmWm": {
-    "defaultMessage": "Filtrer par ordre de {column}",
+    "defaultMessage": "Appliquer un filtre {column}",
     "description": "Button text to filter by specific columns in table"
   },
   "tuXnJB": {
@@ -13455,7 +13451,7 @@
     "description": "Description for work streams for an experience dialog"
   },
   "uG1ZWN": {
-    "defaultMessage": "Retirez de la collectivité",
+    "defaultMessage": "Retirer de la collectivité",
     "description": "Button label for the form to remove a community role from a user"
   },
   "uIUSdN": {
@@ -13555,7 +13551,7 @@
     "description": "Heading for form to update a users subject"
   },
   "uhoPHh": {
-    "defaultMessage": "Réglementaire",
+    "defaultMessage": "Réglementation",
     "description": "Label for a regulatory department"
   },
   "ukcsxj": {
@@ -13846,10 +13842,6 @@
     "defaultMessage": "Votre objectif de carrière",
     "description": "Title for the career objective section"
   },
-  "vweW8X": {
-    "defaultMessage": "Veuillez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for when user authenticator codes not accepted"
-  },
   "w/qZsH": {
     "defaultMessage": "Classification",
     "description": "Label displayed on the pool form classification field."
@@ -14018,10 +14010,6 @@
     "defaultMessage": "Présence du GSN aux salons de l’emploi pour les personnes aux études ou récemment diplômées",
     "description": "Heading for DSG job fairs section"
   },
-  "wb/hvK": {
-    "defaultMessage": "Annuler la décision finale d’évaluation",
-    "description": "Heading for dialog to revert an application assessment decision"
-  },
   "wdFBSc": {
     "defaultMessage": "Merci d'avoir proposé la candidature de {name}! L'équipe de gestion des talents de {community} examinera bientôt votre mise en candidature. En attendant, vous pouvez consulter votre demande et son état d'avancement à partir de votre tableau de bord.",
     "description": "First paragraph on success step of a talent nomination"
@@ -14169,10 +14157,6 @@
   "xKvQtM": {
     "defaultMessage": "Consultez, créez ou modifiez des modèles d’offre d’emploi.",
     "description": "Subtitle for the index job poster template page"
-  },
-  "xOCF/f": {
-    "defaultMessage": "Les droits de priorité ont été mis à jour avec succès.",
-    "description": "Message displayed when a user successfully updates their priority entitlements."
   },
   "xQSZ+V": {
     "defaultMessage": "Les récompenses et reconnaissances comprennent les distinctions précises que vous avez reçues pour avoir dépassé les attentes.",
@@ -14575,7 +14559,7 @@
     "description": "Status description for a reviewed application awaiting assessment"
   },
   "yzvT6g": {
-    "defaultMessage": "Ajouter un rôle dans la collectivité",
+    "defaultMessage": "Ajouter un rôle dans une collectivité",
     "description": "Button label for the form to add a community membership to a user"
   },
   "z+Pc2D": {
@@ -14607,7 +14591,7 @@
     "description": "Default text in table search form column dropdown when no column is selected"
   },
   "z6EMbE": {
-    "defaultMessage": "Scientifique",
+    "defaultMessage": "Sciences",
     "description": "Label for a science department"
   },
   "z6omvn": {

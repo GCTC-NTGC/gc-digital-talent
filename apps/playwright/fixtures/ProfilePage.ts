@@ -48,7 +48,9 @@ class ProfilePage extends AppPage {
 
   async updatePriorityEntitlements() {
     await this.page
-      .getByRole("button", { name: /edit priority entitlements/i })
+      .getByRole("button", {
+        name: /edit citizenship, veteran status and priority entitlements/i,
+      })
       .click();
     await this.page
       .getByRole("radio", { name: /yes, I do have a priority entitlement./i })
