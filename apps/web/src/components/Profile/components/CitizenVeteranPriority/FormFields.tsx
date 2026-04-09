@@ -4,10 +4,16 @@ import { ReactNode, useEffect } from "react";
 
 import { Link, Notice } from "@gc-digital-talent/ui";
 import { FieldLabels, Input, RadioGroup } from "@gc-digital-talent/forms";
-import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  getArmedForcesStatusesProfile,
+  getCitizenshipStatusesProfile,
+  getLocale,
+} from "@gc-digital-talent/i18n";
 
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { FormValues } from "./types";
+import { armedForcesStatusOrdered, citizenshipStatusesOrdered } from "./utils";
 
 const priorityEntitlementLink = (locale: string, chunks: ReactNode) => {
   const href =
@@ -29,7 +35,7 @@ const FormFields = ({ labels }: FormFieldsProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  useDirtyFields("government");
+  useDirtyFields("citizen-veteran-priority");
   const { watch, resetField } = useFormContext<FormValues>();
   // hooks to watch, needed for conditional rendering
   const priorityEntitlement = watch("priorityEntitlementYesNo");
@@ -54,6 +60,39 @@ const FormFields = ({ labels }: FormFieldsProps) => {
 
   return (
     <div className="flex flex-col gap-y-6">
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "The following information is used by recruitment teams and hiring managers to evaluate eligibility during a hiring process.",
+          id: "pNCpED",
+          description: "Preamble for citizen/veteran/priority edit form",
+        })}
+      </p>
+
+      <RadioGroup
+        idPrefix="citizenship"
+        legend={labels.citizenship}
+        name="citizenship"
+        id="citizenship"
+        rules={{ required: intl.formatMessage(errorMessages.required) }}
+        items={citizenshipStatusesOrdered.map((status) => ({
+          value: status,
+          label: intl.formatMessage(getCitizenshipStatusesProfile(status)),
+        }))}
+      />
+
+      <RadioGroup
+        idPrefix="armedForcesStatus"
+        legend={labels.armedForcesStatus}
+        name="armedForcesStatus"
+        id="armedForcesStatus"
+        rules={{ required: intl.formatMessage(errorMessages.required) }}
+        items={armedForcesStatusOrdered.map((status) => ({
+          value: status,
+          label: intl.formatMessage(getArmedForcesStatusesProfile(status)),
+        }))}
+      />
+
       <RadioGroup
         idPrefix="priorityEntitlementYesNo"
         legend={labels.priorityEntitlementYesNo}

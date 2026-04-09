@@ -137,6 +137,14 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
         }
       }
     }
+    referralFilters: localizedEnumOptions(enumName: "CandidateReferralFilter") {
+      ... on LocalizedCandidateReferralFilter {
+        value
+        label {
+          localized
+        }
+      }
+    }
     removalReasons: localizedEnumOptions(enumName: "CandidateRemovalReason") {
       ... on LocalizedCandidateRemovalReason {
         value
@@ -411,6 +419,20 @@ const PoolCandidateFilterDialog = ({
           )}
         />
       </div>
+      <Combobox
+        id="referralStatuses"
+        name="referralStatuses"
+        isMulti
+        doNotSort
+        label={intl.formatMessage(tableMessages.referralStatus)}
+        options={narrowEnumType(
+          unpackMaybes(data?.referralFilters),
+          "CandidateReferralFilter",
+        ).map((referralFilter) => ({
+          value: referralFilter.value,
+          label: referralFilter.label?.localized ?? notAvailable,
+        }))}
+      />
 
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({

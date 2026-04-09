@@ -701,6 +701,7 @@ trait GeneratesUserDoc
             'personalExperiences',
             'workExperiences',
             'userSkills',
+            'userSkills.skill',
             'employeeProfile',
             'poolCandidates' => function ($query) {
                 /** @var PoolCandidateBuilder $query */

@@ -19,6 +19,7 @@ const AnnouncementPage_Query = graphql(/* GraphQL */ `
   query AnnouncementPage {
     sitewideAnnouncement {
       isEnabled
+      isDismissible
       publishDate
       expiryDate
       title {
@@ -29,6 +30,7 @@ const AnnouncementPage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
+      updatedAt
     }
   }
 `);
@@ -41,6 +43,7 @@ const UpdateSitewideAnnouncement_Mutation = graphql(/* GraphQL */ `
       sitewideAnnouncementInput: $sitewideAnnouncementInput
     ) {
       isEnabled
+      isDismissible
       publishDate
       expiryDate
       title {

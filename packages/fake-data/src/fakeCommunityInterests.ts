@@ -21,7 +21,7 @@ const generateCommunityInterest = (
   );
   const interestedDevelopmentPrograms =
     faker.helpers.arrayElements<DevelopmentProgram>(
-      community?.developmentPrograms ?? [],
+      community?.associatedDevelopmentPrograms ?? [],
     );
   return {
     id: faker.string.uuid(),

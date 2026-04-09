@@ -39,6 +39,8 @@ export const formValuesToSubmitData = (
     firstOfficialLanguage: formValues.firstOfficialLanguage ?? undefined,
     secondLanguageExamCompleted: formValues.secondLanguageExamCompleted,
     secondLanguageExamValidity,
+    preferredLanguageForInterview: formValues.preferredLanguageForInterview,
+    preferredLanguageForExam: formValues.preferredLanguageForExam,
   };
 
   // various IF statements are to clean up cases where user toggles the conditionally rendered stuff before submitting
@@ -91,5 +93,7 @@ export const dataToFormValues = (
     firstOfficialLanguage: data?.firstOfficialLanguage?.value,
     secondLanguageExamCompleted: data?.secondLanguageExamCompleted,
     secondLanguageExamValidity,
+    preferredLanguageForInterview: data?.preferredLanguageForInterview?.value,
+    preferredLanguageForExam: data?.preferredLanguageForExam?.value,
   };
 };

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Observers\TalentNominationObserver;
 use Database\Factories\TalentNominationFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -222,5 +223,10 @@ class TalentNomination extends Model
     public function isOwn(User $user)
     {
         return $this->submitter_id === $user->id;
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['talentNominationEvent']);
     }
 }

@@ -17,7 +17,7 @@ import profileMessages from "~/messages/profileMessages";
 import {
   hasEmptyRequiredFields,
   hasAllEmptyFields,
-} from "~/validators/profile/priorityEntitlements";
+} from "~/validators/profile/citizenVeteranPriority";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
 import { SectionProps } from "../../types";
@@ -29,31 +29,43 @@ import FormFields from "./FormFields";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 
-const ProfilePriorityEntitlements_Fragment = graphql(/** GraphQL */ `
-  fragment ProfilePriorityEntitlements on User {
+const ProfileCitizenVeteranPriority_Fragment = graphql(/** GraphQL */ `
+  fragment ProfileCitizenVeteranPriority on User {
     id
     hasPriorityEntitlement
     priorityNumber
-    ...PriorityEntitlementDisplay
+    citizenship {
+      value
+      label {
+        localized
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        localized
+      }
+    }
+    ...CitizenVeteranPriorityDisplay
   }
 `);
 
-interface PriorityEntitlementsProps extends SectionProps<Pick<Pool, "id">> {
-  query: FragmentType<typeof ProfilePriorityEntitlements_Fragment>;
+interface CitizenVeteranPriorityProps extends SectionProps<Pick<Pool, "id">> {
+  query: FragmentType<typeof ProfileCitizenVeteranPriority_Fragment>;
 }
 
-const PriorityEntitlements = ({
+const CitizenVeteranPriority = ({
   query,
   onUpdate,
   isUpdating,
   pool,
-}: PriorityEntitlementsProps) => {
-  const user = getFragment(ProfilePriorityEntitlements_Fragment, query);
+}: CitizenVeteranPriorityProps) => {
+  const user = getFragment(ProfileCitizenVeteranPriority_Fragment, query);
   const isNull = hasAllEmptyFields(user);
   const emptyRequired = hasEmptyRequiredFields(user);
   const intl = useIntl();
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
-    section: "priority",
+    section: "citizen-veteran-priority",
     isNull,
     emptyRequired,
     fallbackIcon: BuildingLibraryIcon,
@@ -65,10 +77,11 @@ const PriorityEntitlements = ({
         if (response) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Priority entitlements updated successfully!",
-              id: "xOCF/f",
+              defaultMessage:
+                "Citizenship, veteran status and priority entitlements updated successfully!",
+              id: "sZv6bv",
               description:
-                "Message displayed when a user successfully updates their priority entitlements.",
+                "Message displayed when a user successfully updates their citizen/veteran/priority.",
             }),
           );
           setIsEditing(false);
@@ -94,8 +107,9 @@ const PriorityEntitlements = ({
           !isNull ? (
             <ToggleForm.Trigger
               aria-label={intl.formatMessage({
-                defaultMessage: "Edit priority entitlements",
-                id: "TIu/WA",
+                defaultMessage:
+                  "Edit citizenship, veteran status and priority entitlements",
+                id: "EX82UF",
                 description:
                   "Button text to start editing priority entitlements",
               })}
@@ -113,8 +127,8 @@ const PriorityEntitlements = ({
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "You are missing required priority entitlement information.",
-                id: "3MhIFU",
+                  "You are missing required citizenship, veteran status and priority entitlement information.",
+                id: "/WUaCi",
                 description:
                   "Error message displayed when a users priority entitlements is incomplete",
               })}
@@ -144,4 +158,4 @@ const PriorityEntitlements = ({
   );
 };
 
-export default PriorityEntitlements;
+export default CitizenVeteranPriority;
