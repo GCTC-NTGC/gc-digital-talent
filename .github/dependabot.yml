@@ -16,6 +16,12 @@ updates:
       - "tc-report"
     open-pull-requests-limit: 50
     groups:
+      applicationinsights:
+        patterns:
+          - "@microsoft/applicationinsights*"
+        update-types:
+          - "minor"
+          - "patch"
       formatjs:
         patterns:
           - "react-intl"
