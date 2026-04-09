@@ -45,21 +45,14 @@ export default defineConfig(({ command }) => {
           codeSplitting: {
             groups: [
               {
+                name: "telemetry",
+                test: /[\\/]node_modules[\\/](@microsoft|applicationinsights)/,
+                priority: 100,
+              },
+              {
                 name: "graphql",
-                test: /@gc-digital-talent\/graphql|packages\/graphql/,
-                priority: 30,
-                minSize: 0,
-              },
-              {
-                name: "framework",
-                test: /[\\/]node_modules[\\/](react|react-dom|react-router|@react-router|urql|@urql|wonka)/,
-                priority: 20,
-              },
-              {
-                name: "vendor",
-                test: /[\\/]node_modules[\\/]/,
-                priority: 10,
-                minSize: 50000,
+                test: /packages\/graphql\/src\/gql\/graphql\.ts/,
+                priority: 90,
               },
             ],
           },
