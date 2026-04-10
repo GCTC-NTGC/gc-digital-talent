@@ -2368,7 +2368,7 @@ input DepartmentBelongsToMany {
   sync: [ID!]
 }
 
-input CreateDevelopmentProgramInput {
+input CreateDevelopmentProgramInput @validator {
   name: LocalizedStringInput
   descriptionForProfile: LocalizedStringInput
     @rename(attribute: "description_for_profile")
@@ -2376,7 +2376,7 @@ input CreateDevelopmentProgramInput {
   abbreviation: LocalizedStringInput
 }
 
-input UpdateDevelopmentProgramInput {
+input UpdateDevelopmentProgramInput @validator {
   name: LocalizedStringInput
   descriptionForProfile: LocalizedStringInput
     @rename(attribute: "description_for_profile")
@@ -3472,11 +3472,11 @@ type Mutation {
 
   # Development program mutations
   createDevelopmentProgram(
-    developmentProgram: CreateDevelopmentProgramInput! @spread @validator
+    developmentProgram: CreateDevelopmentProgramInput! @spread
   ): DevelopmentProgram @create @guard @canModel(ability: "create")
   updateDevelopmentProgram(
     id: ID!
-    developmentProgram: UpdateDevelopmentProgramInput! @spread @validator
+    developmentProgram: UpdateDevelopmentProgramInput! @spread
   ): DevelopmentProgram @update @canFind(ability: "update", find: "id")
 
   # SearchRequest mutations
