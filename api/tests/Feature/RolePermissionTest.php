@@ -17,11 +17,11 @@ class RolePermissionTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $user;
+    private User $user;
 
-    private $ownedTeam;
+    private Team $ownedTeam;
 
-    private $unownedTeam;
+    private Team $unownedTeam;
 
     protected function setUp(): void
     {
@@ -67,7 +67,7 @@ class RolePermissionTest extends TestCase
             'view-any-community',
         ], true)); // The `true` as a second argument means user must have ALL permissions, instead of just one.
 
-        $this->assertFalse(($this->user->isAbleTo('view-any-user')));
+        $this->assertFalse($this->user->isAbleTo('view-any-user'));
 
         $this->cleanup();
     }
@@ -96,7 +96,7 @@ class RolePermissionTest extends TestCase
             'view-any-community',
         ], true));
 
-        $this->assertFalse(($this->user->isAbleTo('view-any-user')));
+        $this->assertFalse($this->user->isAbleTo('view-any-user'));
 
         $this->cleanup();
     }
@@ -128,7 +128,7 @@ class RolePermissionTest extends TestCase
             'view-own-searchRequest',
         ], true));
 
-        $this->assertFalse(($this->user->isAbleTo('view-any-user')));
+        $this->assertFalse($this->user->isAbleTo('view-any-user'));
 
         $this->cleanup();
     }
