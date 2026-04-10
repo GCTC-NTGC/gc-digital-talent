@@ -69,7 +69,7 @@ class TalentNominationEvent extends Model
         return $this->belongsTo(Community::class);
     }
 
-    /** @return BelongsToMany<CommunityDevelopmentProgram, $this> */
+    /** @return BelongsToMany<CommunityDevelopmentProgram, $this, CommunityDevelopmentProgramTalentNominationEvent> */
     public function communityDevelopmentPrograms(): BelongsToMany
     {
         return $this->belongsToMany(CommunityDevelopmentProgram::class, 'community_development_program_talent_nomination_event')
