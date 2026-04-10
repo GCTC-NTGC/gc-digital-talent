@@ -243,6 +243,6 @@ export const Component = () => (
   </RequireAuth>
 );
 
-Component.displayName = "AdminUpdateDevelopmentProgramPage";
+Component.displayName = "AdminViewDevelopmentProgramPage";
 
 export default Component;
