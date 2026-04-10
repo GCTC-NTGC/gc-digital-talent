@@ -13,7 +13,10 @@ import {
   Application_PoolCandidateFragment,
 } from "@gc-digital-talent/graphql";
 
-import { ApplicationStepInfo } from "~/types/applicationStep";
+import {
+  ApplicationBrowserState,
+  ApplicationStepInfo,
+} from "~/types/applicationStep";
 
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
 const missingPrerequisitesFromThisApplication = (
@@ -89,6 +92,7 @@ export function isOnDisabledPage(
 export function applicationStepsToStepperArgs(
   applicationSteps: ApplicationStepInfo[],
   application: Application_PoolCandidateFragment,
+  browserState: ApplicationBrowserState,
 ): StepType[] {
   return applicationSteps
     .filter((step) => step.showInStepper)
@@ -104,7 +108,12 @@ export function applicationStepsToStepperArgs(
           step.prerequisites,
           application.submittedSteps,
         )?.length,
-        error: step.hasError?.(application.user, application.pool, application),
+        error: step.hasError?.(
+          application.user,
+          application.pool,
+          application,
+          browserState,
+        ),
       };
     });
 }
