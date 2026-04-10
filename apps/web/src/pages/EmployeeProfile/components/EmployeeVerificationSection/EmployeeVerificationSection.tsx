@@ -3,8 +3,9 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
+import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 
-import { Button, Card, Heading, Link } from "@gc-digital-talent/ui";
+import { Button, Card, Heading, Link, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   EmailType,
@@ -90,7 +91,7 @@ const EmployeeVerificationSection = ({
       </p>
       <div className="mt-6 grid grid-cols-1 gap-3 xs:grid-cols-3">
         <Card className="grid gap-3">
-          <div className="flex min-h-8.5 flex-col justify-between gap-6">
+          <div className="flex min-h-8.5 flex-col gap-3">
             <p className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "Work email verification",
@@ -103,7 +104,7 @@ const EmployeeVerificationSection = ({
                 <span className="flex gap-1.5">
                   {user.isWorkEmailVerified ? (
                     <CheckCircleIcon
-                      className="size-6 text-success"
+                      className="mt-1 size-4.5 shrink-0 text-success"
                       aria-hidden="false"
                       aria-label={intl.formatMessage({
                         defaultMessage: "Verified",
@@ -114,7 +115,7 @@ const EmployeeVerificationSection = ({
                     />
                   ) : (
                     <ExclamationCircleIcon
-                      className="size-6 text-error"
+                      className="mt-1 size-4.5 shrink-0 text-error"
                       aria-hidden="false"
                       aria-label={intl.formatMessage({
                         defaultMessage: "Not verified",
@@ -129,7 +130,7 @@ const EmployeeVerificationSection = ({
               ) : (
                 <span className="flex gap-1.5">
                   <XCircleIcon
-                    className="size-6 text-gray"
+                    className="mt-1 size-4.5 shrink-0 text-gray"
                     aria-hidden="false"
                     aria-label={intl.formatMessage(commonMessages.notProvided)}
                   />
@@ -145,40 +146,42 @@ const EmployeeVerificationSection = ({
               )}
             </p>
           </div>
-          <Card.Separator space="xs" />
-          <div className="items-center">
-            <EmailVerificationDialog
-              emailType={EmailType.Work}
-              emailAddress={user.workEmail ?? null}
-            >
-              <Button
-                color="secondary"
-                mode="inline"
-                className="text-center xs:text-left"
+          <div className="mt-auto">
+            <Card.Separator space="xs" />
+            <div className="items-center">
+              <EmailVerificationDialog
+                emailType={EmailType.Work}
+                emailAddress={user.workEmail ?? null}
               >
-                {user.workEmail
-                  ? user.isWorkEmailVerified
-                    ? intl.formatMessage({
-                        defaultMessage: "Update work email",
-                        id: "9jO3/H",
-                        description: "Link to update email",
-                      })
+                <Button
+                  color="secondary"
+                  mode="inline"
+                  className="text-center xs:text-left"
+                >
+                  {user.workEmail
+                    ? user.isWorkEmailVerified
+                      ? intl.formatMessage({
+                          defaultMessage: "Update work email",
+                          id: "9jO3/H",
+                          description: "Link to update email",
+                        })
+                      : intl.formatMessage({
+                          defaultMessage: "Re-verify work email",
+                          id: "mriIoW",
+                          description: "Link to redo email verification",
+                        })
                     : intl.formatMessage({
-                        defaultMessage: "Re-verify work email",
-                        id: "mriIoW",
-                        description: "Link to redo email verification",
-                      })
-                  : intl.formatMessage({
-                      defaultMessage: "Verify work email",
-                      id: "OvusdX",
-                      description: "Label to go to email verification",
-                    })}
-              </Button>
-            </EmailVerificationDialog>
+                        defaultMessage: "Verify work email",
+                        id: "OvusdX",
+                        description: "Label to go to email verification",
+                      })}
+                </Button>
+              </EmailVerificationDialog>
+            </div>
           </div>
         </Card>
         <Card className="grid gap-3">
-          <div className="flex min-h-8.5 flex-col justify-between gap-6">
+          <div className="flex min-h-8.5 flex-col gap-3">
             <p className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "Current work experience",
@@ -191,7 +194,7 @@ const EmployeeVerificationSection = ({
               {user.latestCurrentGovernmentWorkExperience ? (
                 <span className="flex gap-1.5">
                   <CheckCircleIcon
-                    className="size-6 text-success"
+                    className="mt-1 size-4.5 shrink-0 text-success"
                     aria-hidden="false"
                     aria-label={intl.formatMessage(commonMessages.complete)}
                   />
@@ -205,7 +208,7 @@ const EmployeeVerificationSection = ({
               ) : (
                 <span className="flex gap-1.5">
                   <XCircleIcon
-                    className="size-6 text-gray"
+                    className="mt-1 size-4.5 shrink-0 text-gray"
                     aria-hidden="false"
                     aria-label={intl.formatMessage(commonMessages.notProvided)}
                   />
@@ -222,36 +225,38 @@ const EmployeeVerificationSection = ({
               )}
             </p>
           </div>
-          <Card.Separator space="xs" />
-          <div className="items-center">
-            {user.latestCurrentGovernmentWorkExperience ? (
-              <Link
-                href={paths.editExperience(
-                  user.latestCurrentGovernmentWorkExperience.id,
-                )}
-                mode="inline"
-                color="secondary"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Update work experience",
-                  id: "LUh/KI",
-                  description:
-                    "Link to edit the users current government experience",
-                })}
-              </Link>
-            ) : (
-              <Link
-                href={paths.createExperience()}
-                mode="inline"
-                color="secondary"
-              >
-                {intl.formatMessage(experienceMessages.addNewExperience)}
-              </Link>
-            )}
+          <div className="mt-auto">
+            <Card.Separator space="xs" />
+            <div className="items-center">
+              {user.latestCurrentGovernmentWorkExperience ? (
+                <Link
+                  href={paths.editExperience(
+                    user.latestCurrentGovernmentWorkExperience.id,
+                  )}
+                  mode="inline"
+                  color="secondary"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Update work experience",
+                    id: "LUh/KI",
+                    description:
+                      "Link to edit the users current government experience",
+                  })}
+                </Link>
+              ) : (
+                <Link
+                  href={paths.createExperience()}
+                  mode="inline"
+                  color="secondary"
+                >
+                  {intl.formatMessage(experienceMessages.addNewExperience)}
+                </Link>
+              )}
+            </div>
           </div>
         </Card>
         <Card className="grid gap-3">
-          <div className="flex min-h-8.5 flex-col justify-between gap-6">
+          <div className="flex min-h-8.5 flex-col gap-3">
             <p className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "Functional communities",
@@ -262,21 +267,28 @@ const EmployeeVerificationSection = ({
             <p>
               {user.isVerifiedGovEmployee ? (
                 communityInterests.length > 0 ? (
-                  <span className="flex gap-1.5">
-                    <CheckCircleIcon
-                      className="size-6 text-success"
-                      aria-hidden="false"
-                      aria-label={intl.formatMessage(commonMessages.complete)}
-                    />
-                    <span>
-                      {/* TODO: Display all community interests */}
-                      {communityInterests[0].community?.name?.localized}
-                    </span>
-                  </span>
+                  <Ul unStyled space="md">
+                    {communityInterests.map((interest) => {
+                      return (
+                        <li key={interest.id}>
+                          <div className="flex items-start gap-1.5">
+                            <CheckCircleIcon
+                              className="mt-1 size-4.5 shrink-0 text-success"
+                              aria-hidden="false"
+                              aria-label={intl.formatMessage(
+                                commonMessages.complete,
+                              )}
+                            />
+                            <span>{interest.community?.name?.localized}</span>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </Ul>
                 ) : (
                   <span className="flex gap-1.5">
-                    <CheckCircleIcon
-                      className="size-6 text-gray"
+                    <XCircleIcon
+                      className="mt-1 size-4.5 shrink-0 text-gray"
                       aria-hidden="false"
                       aria-label={intl.formatMessage(
                         commonMessages.notSelected,
@@ -294,8 +306,8 @@ const EmployeeVerificationSection = ({
                 )
               ) : (
                 <span className="flex gap-1.5">
-                  <XCircleIcon
-                    className="size-6 text-gray"
+                  <LockClosedIcon
+                    className="mt-1 size-4.5 shrink-0 text-gray"
                     aria-hidden="false"
                     aria-label={intl.formatMessage(commonMessages.notAvailable)}
                   />
@@ -312,34 +324,46 @@ const EmployeeVerificationSection = ({
               )}
             </p>
           </div>
-          <Card.Separator space="xs" />
-          <div className="items-center">
-            {user.isVerifiedGovEmployee && communityInterests.length > 0 ? (
-              <Link
-                href={paths.applicantDashboard()}
-                mode="inline"
-                color="secondary"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Manage communities",
-                  id: "NxIPbD",
-                  description: "Link to manage the users community interests",
-                })}
-              </Link>
-            ) : (
-              <Link
-                href={paths.createCommunityInterest()}
-                mode="inline"
-                color="secondary"
-                disabled={!user.isVerifiedGovEmployee} // TODO: Replace this with just text or something instead of fake disabling
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Join a community",
-                  id: "BeCVcA",
-                  description: "Link to add a community interest",
-                })}
-              </Link>
-            )}
+          <div className="mt-auto">
+            <Card.Separator space="xs" />
+            <div className="items-center">
+              {user.isVerifiedGovEmployee ? (
+                communityInterests.length > 0 ? (
+                  <Link
+                    href={paths.applicantDashboard()}
+                    mode="inline"
+                    color="secondary"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Manage communities",
+                      id: "NxIPbD",
+                      description:
+                        "Link to manage the users community interests",
+                    })}
+                  </Link>
+                ) : (
+                  <Link
+                    href={paths.createCommunityInterest()}
+                    mode="inline"
+                    color="secondary"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Join a community",
+                      id: "BeCVcA",
+                      description: "Link to add a community interest",
+                    })}
+                  </Link>
+                )
+              ) : (
+                <span className="font-bold text-gray underline">
+                  {intl.formatMessage({
+                    defaultMessage: "Join a community",
+                    id: "BeCVcA",
+                    description: "Link to add a community interest",
+                  })}
+                </span>
+              )}
+            </div>
           </div>
         </Card>
       </div>
