@@ -39,13 +39,19 @@ import createPusher from "./createPusher";
 interface GetClientArgs {
   intl: IntlShape;
   authState?: AuthenticationState;
+  // Control if we connect to the websocket server
+  withSubscriptions?: boolean;
 }
 
-export function getClient({ intl, authState }: GetClientArgs): Client {
+export function getClient({
+  intl,
+  authState,
+  withSubscriptions = false,
+}: GetClientArgs): Client {
   const locale = getLocale(intl);
   const logger = getLogger();
   const auth = authState ?? getAuthenticationState({ locale });
-  const forwardSubscription = createPusher();
+  const forwardSubscription = withSubscriptions ? createPusher() : null;
 
   return createClient({
     url: `${apiHost}${apiUri}`,
@@ -140,7 +146,9 @@ export function getClient({ intl, authState }: GetClientArgs): Client {
           },
         };
       }),
-      subscriptionExchange({ forwardSubscription }),
+      ...(withSubscriptions && forwardSubscription
+        ? [subscriptionExchange({ forwardSubscription })]
+        : []),
       specialErrorExchange({ intl }),
       fetchExchange,
     ],

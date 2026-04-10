@@ -27,7 +27,7 @@ const ClientProvider = ({
   }, [authContext]);
 
   const internalClient = useMemo(
-    () => client ?? getClient({ intl }),
+    () => client ?? getClient({ intl, withSubscriptions: true }),
     [client, intl],
   );
 
