@@ -79,6 +79,8 @@ const ProfileLanguageProfile_Fragment = graphql(/** GraphQL */ `
 
 interface LanguageProfileProps extends SectionProps<Pick<Pool, "id">> {
   query: FragmentType<typeof ProfileLanguageProfile_Fragment>;
+  languagePresetNoticeIsVisible: boolean;
+  setLanguagePresetNoticeIsVisible: (isVisible: boolean) => void;
 }
 
 const LanguageProfile = ({
@@ -87,11 +89,15 @@ const LanguageProfile = ({
   onUpdate,
   isUpdating,
   pool,
+  languagePresetNoticeIsVisible,
+  setLanguagePresetNoticeIsVisible,
 }: LanguageProfileProps) => {
   const intl = useIntl();
   const user = getFragment(ProfileLanguageProfile_Fragment, query);
   const isNull = hasAllEmptyFields(user);
-  const emptyRequired = hasEmptyRequiredFields(user);
+  const hasUnacknowledgedNotices = languagePresetNoticeIsVisible;
+  const emptyRequired =
+    hasEmptyRequiredFields(user) || hasUnacknowledgedNotices;
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
     section: "language",
     isNull,
@@ -192,7 +198,13 @@ const LanguageProfile = ({
                 defaultValues: dataToFormValues(user),
               }}
             >
-              <FormFields labels={labels} optionsQuery={data} />
+              <FormFields
+                labels={labels}
+                optionsQuery={data}
+                setLanguagePresetNoticeIsVisible={
+                  setLanguagePresetNoticeIsVisible
+                }
+              />
               <FormActions isUpdating={isUpdating} />
             </BasicForm>
           )}

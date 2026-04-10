@@ -1,11 +1,11 @@
 import { useIntl } from "react-intl";
 import { type ReactNode } from "react";
 
-import { Button, ToggleSection } from "@gc-digital-talent/ui";
+import { Button, ButtonProps, ToggleSection } from "@gc-digital-talent/ui";
 
 const { useContext } = ToggleSection;
 
-interface TriggerProps {
+interface TriggerProps extends ButtonProps {
   children: ReactNode;
   className?: string;
 }

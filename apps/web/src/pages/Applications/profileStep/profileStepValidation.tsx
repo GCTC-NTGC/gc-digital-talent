@@ -1,5 +1,9 @@
-import { type Pool } from "@gc-digital-talent/graphql";
+import type {
+  Application_PoolCandidateFragment,
+  Pool,
+} from "@gc-digital-talent/graphql";
 
+import type { ApplicationBrowserState } from "~/types/applicationStep";
 import {
   aboutSectionHasEmptyRequiredFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,
@@ -25,6 +29,8 @@ interface PartialUser
 const stepHasError = (
   user: PartialUser,
   pool: Omit<Pool, "activities" | "teamId">,
+  _application: Application_PoolCandidateFragment | null | undefined,
+  browserState: ApplicationBrowserState | null | undefined,
 ) => {
   const hasEmptyRequiredFields =
     aboutSectionHasEmptyRequiredFields(user, pool) ||
@@ -33,7 +39,9 @@ const stepHasError = (
     languageInformationSectionHasEmptyRequiredFields(user) ||
     workPreferencesSectionHasEmptyRequiredFields(user) ||
     languageInformationSectionHasUnsatisfiedRequirements(user, pool);
-  return hasEmptyRequiredFields;
+  const hasUnacknowledgedNotices =
+    !!browserState?.languagePresetNoticeIsVisible;
+  return hasEmptyRequiredFields || hasUnacknowledgedNotices;
 };
 
 export default stepHasError;

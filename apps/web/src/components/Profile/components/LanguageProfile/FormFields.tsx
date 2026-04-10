@@ -20,9 +20,14 @@ import ConsideredLanguages, {
 interface FormFieldProps {
   labels: FieldLabels;
   optionsQuery?: FragmentType<typeof LanguageProfileOptions_Fragment>;
+  setLanguagePresetNoticeIsVisible: (isVisible: boolean) => void;
 }
 
-const FormFields = ({ labels, optionsQuery }: FormFieldProps) => {
+const FormFields = ({
+  labels,
+  optionsQuery,
+  setLanguagePresetNoticeIsVisible,
+}: FormFieldProps) => {
   const intl = useIntl();
   const consideredLangOptions = getConsideredLangItems(intl);
   useDirtyFields("language");
@@ -30,6 +35,9 @@ const FormFields = ({ labels, optionsQuery }: FormFieldProps) => {
   const options = getFragment(LanguageProfileOptions_Fragment, optionsQuery);
 
   const languageOptions = localizedEnumToOptions(options?.languages, intl);
+
+  // once they open the form we can remove the helper message
+  setLanguagePresetNoticeIsVisible(false);
 
   return (
     <div className="flex flex-col gap-6">

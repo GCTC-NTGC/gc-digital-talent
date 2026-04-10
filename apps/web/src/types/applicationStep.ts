@@ -19,6 +19,10 @@ interface GetApplicationStepInfoArgs {
   stepOrdinal?: number;
 }
 
+export interface ApplicationBrowserState {
+  languagePresetNoticeIsVisible: boolean;
+}
+
 export interface ApplicationStepInfo {
   // the enum in the API that represents this step
   applicationStep?: ApplicationStep;
@@ -37,6 +41,7 @@ export interface ApplicationStepInfo {
     user: ApplicationPoolCandidateFragmentType["user"],
     pool: Omit<Pool, "activities" | "teamId">,
     application: ApplicationPoolCandidateFragmentType,
+    browserState: ApplicationBrowserState | undefined,
   ) => boolean;
 }
 
