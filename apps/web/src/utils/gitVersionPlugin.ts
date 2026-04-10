@@ -3,7 +3,10 @@ import childProcess from "node:child_process";
 export const gitVersionPlugin = () => {
   const execGit = (cmd: string) => {
     try {
-      return childProcess.execSync(`git ${cmd}`).toString().trim();
+      return childProcess
+        .execSync(`git ${cmd}`, { stdio: "pipe", timeout: 2000 })
+        .toString()
+        .trim();
     } catch {
       return null;
     }
