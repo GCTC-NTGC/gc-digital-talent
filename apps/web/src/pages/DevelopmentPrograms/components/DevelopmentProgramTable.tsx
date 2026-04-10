@@ -14,6 +14,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import useRoutes from "~/hooks/useRoutes";
+import adminMessages from "~/messages/adminMessages";
 
 const columnHelper = createColumnHelper<DevelopmentProgramTableRowFragment>();
 
@@ -76,6 +77,10 @@ const DevelopmentProgramTable = ({
         internal: true,
         total: data.length,
         pageSizes: [10, 20, 50],
+      }}
+      search={{
+        internal: true,
+        label: intl.formatMessage(adminMessages.searchByKeyword),
       }}
       add={{
         linkProps: {
