@@ -71,7 +71,7 @@ export const InstructionsCardGrid = ({
   const totalCards = childrenArray.length;
 
   return (
-    <div className="bg-white dark:bg-gray-600">
+    <div className="overflow-hidden rounded-md bg-white shadow-xl dark:bg-gray-600">
       <div className="relative">
         <div className="hidden shadow-xl xs:flex">
           {childrenArray.map((child, index) => (
