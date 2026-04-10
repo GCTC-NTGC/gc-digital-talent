@@ -41,13 +41,12 @@ const SupportingEvidence = ({
     ScreeningDialogSupportingEvidence_Fragment,
     query,
   );
-  const educationRequirementExperienceIds = unpackMaybes(
-    candidate.educationRequirementExperienceIds,
-  );
+  const educationRequirementExperienceIds =
+    unpackMaybes(candidate.educationRequirementExperienceIds) ?? [];
   const experiencesFiltered =
     dialogType === DIALOG_TYPE.Education
       ? experiences.filter((experience) =>
-          educationRequirementExperienceIds?.includes(experience.id),
+          educationRequirementExperienceIds.includes(experience.id),
         )
       : experiences.filter((experience) =>
           experience.skills?.some((skill) => skill?.id === skillId),
@@ -71,7 +70,7 @@ const SupportingEvidence = ({
                 experience,
                 ExperienceCard_Fragment,
               )}
-              headingLevel="h3"
+              headingLevel="h4"
               showEdit={false}
               {...(skillId && {
                 showSkills: { id: skillId },
