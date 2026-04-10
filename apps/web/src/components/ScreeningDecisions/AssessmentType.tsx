@@ -5,7 +5,7 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { Accordion, Notice } from "@gc-digital-talent/ui";
+import { Accordion, Heading, Notice } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getSkillLevelDefinition,
@@ -82,14 +82,14 @@ const AssessmentType = ({
   if (dialogType === DIALOG_TYPE.Education) {
     return (
       <>
-        <p className="mb-3">
+        <Heading level="h3" size="h6" className="mt-0 mb-3">
           {intl.formatMessage({
             defaultMessage: "Selected requirement option:",
             id: "FS4Dg5",
             description:
               "Header for selected requirement option in education requirement screening decision dialog.",
           })}
-        </p>
+        </Heading>
         {educationRequirementOption ? (
           <Notice.Root className="mb-6 text-left">
             <Notice.Content>{educationRequirementOption}</Notice.Content>
