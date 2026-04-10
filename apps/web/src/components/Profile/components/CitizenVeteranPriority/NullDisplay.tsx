@@ -8,8 +8,9 @@ const NullDisplay = () => {
     <div className="text-center">
       <p className="mb-6 font-bold">
         {intl.formatMessage({
-          defaultMessage: "This section asks about your priority entitlements.",
-          id: "lSKm4M",
+          defaultMessage:
+            "This section asks about your citizenship, veteran status and priority entitlements.",
+          id: "4Ncmb0",
           description:
             "Descriptive text explaining the priority entitlement section of the application profile",
         })}
@@ -19,8 +20,8 @@ const NullDisplay = () => {
           <Button mode="inline" color="primary">
             {intl.formatMessage({
               defaultMessage:
-                "Get started<hidden> with providing priority entitlement information</hidden>",
-              id: "rWs8MO",
+                "Get started<hidden> with providing citizenship, veteran status and priority entitlement information</hidden>",
+              id: "9g0IoZ",
               description:
                 "Call to action to begin editing priority entitlement",
             })}

@@ -61,12 +61,26 @@ const ProfileLanguageProfile_Fragment = graphql(/** GraphQL */ `
     verbalLevel {
       value
     }
+    preferredLanguageForInterview {
+      value
+      label {
+        localized
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        localized
+      }
+    }
     ...LanguageProfileDisplay
   }
 `);
 
 interface LanguageProfileProps extends SectionProps<Pick<Pool, "id">> {
   query: FragmentType<typeof ProfileLanguageProfile_Fragment>;
+  languagePresetNoticeIsVisible: boolean;
+  setLanguagePresetNoticeIsVisible: (isVisible: boolean) => void;
 }
 
 const LanguageProfile = ({
@@ -75,11 +89,15 @@ const LanguageProfile = ({
   onUpdate,
   isUpdating,
   pool,
+  languagePresetNoticeIsVisible,
+  setLanguagePresetNoticeIsVisible,
 }: LanguageProfileProps) => {
   const intl = useIntl();
   const user = getFragment(ProfileLanguageProfile_Fragment, query);
   const isNull = hasAllEmptyFields(user);
-  const emptyRequired = hasEmptyRequiredFields(user);
+  const hasUnacknowledgedNotices = languagePresetNoticeIsVisible;
+  const emptyRequired =
+    hasEmptyRequiredFields(user) || hasUnacknowledgedNotices;
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
     section: "language",
     isNull,
@@ -163,7 +181,11 @@ const LanguageProfile = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display query={user} />}
+          {isNull ? (
+            <NullDisplay />
+          ) : (
+            <Display query={user} context="applicant-view" />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           {fetching ? (
@@ -176,7 +198,13 @@ const LanguageProfile = ({
                 defaultValues: dataToFormValues(user),
               }}
             >
-              <FormFields labels={labels} optionsQuery={data} />
+              <FormFields
+                labels={labels}
+                optionsQuery={data}
+                setLanguagePresetNoticeIsVisible={
+                  setLanguagePresetNoticeIsVisible
+                }
+              />
               <FormActions isUpdating={isUpdating} />
             </BasicForm>
           )}

@@ -227,6 +227,11 @@ const navigationMessages = defineMessages({
     id: "g8Ur9z",
     description: "applicant dashboard card title for profile card",
   },
+  citizenVeteranPriority: {
+    defaultMessage: "Citizenship, veteran status and priority entitlements",
+    id: "ltYqKQ",
+    description: "Title for the citizen/veteran/priority section",
+  },
 });
 
 export default navigationMessages;
