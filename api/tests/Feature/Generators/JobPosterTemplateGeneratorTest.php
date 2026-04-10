@@ -12,6 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Snapshots\MatchesSnapshots;
+use Tests\SeededFaker;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertGreaterThan;
@@ -21,6 +22,7 @@ class JobPosterTemplateGeneratorTest extends TestCase
 {
     use MatchesSnapshots;
     use RefreshDatabase;
+    use SeededFaker;
     use WithFaker;
 
     protected JobPosterTemplateGenerator $generator;
@@ -30,7 +32,7 @@ class JobPosterTemplateGeneratorTest extends TestCase
         parent::setUp();
 
         $this->setUpFaker();
-        $this->faker->seed(0);
+        $this->seedFaker(0);
 
         $this->seed(RolePermissionSeeder::class);
 
