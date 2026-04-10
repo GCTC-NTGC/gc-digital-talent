@@ -16,7 +16,7 @@ final class CreateTalentNominationEventInputValidator extends Validator
     {
         return [
             'community.connect' => ['uuid', 'required', 'exists:communities,id'],
-            'communityDevelopmentPrograms.sync.*' => ['uuid', 'exists:community_development_program,id'],
+            'communityDevelopmentPrograms.connect.*.id' => ['uuid', 'exists:community_development_program,id'],
             'name.en' => ['required', 'string'],
             'name.fr' => ['required', 'string'],
             'description.en' => ['nullable', 'required_with:description.fr', 'string'],
@@ -33,7 +33,7 @@ final class CreateTalentNominationEventInputValidator extends Validator
     {
         return [
             'community.connect.exists' => ErrorCode::COMMUNITY_NOT_FOUND->name,
-            'communityDevelopmentPrograms.sync.*.exists' => ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND->name,
+            'communityDevelopmentPrograms.connect.*.exists' => ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND->name,
         ];
     }
 }
