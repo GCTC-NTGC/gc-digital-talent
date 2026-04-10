@@ -77,6 +77,7 @@ final class CreateCommunityInterestInputValidator extends Validator
             'community.connect.unique' => ErrorCode::COMMUNITY_INTEREST_EXISTS->name,
             'workStreams.sync.*.in' => ErrorCode::WORK_STREAM_NOT_IN_COMMUNITY->name,
             'workStreams.sync.*.exists' => ErrorCode::WORK_STREAM_NOT_FOUND->name,
+            'interestInDevelopmentPrograms.create.*.communityDevelopmentProgramId.in' => ErrorCode::COMMUNITY_DEVELOPMENT_INVALID_SELECTION->name,
         ];
     }
 }

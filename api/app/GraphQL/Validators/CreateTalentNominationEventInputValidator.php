@@ -33,6 +33,7 @@ final class CreateTalentNominationEventInputValidator extends Validator
     {
         return [
             'community.connect.exists' => ErrorCode::COMMUNITY_NOT_FOUND->name,
+            'communityDevelopmentPrograms.sync.*.exists' => ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND->name,
         ];
     }
 }

@@ -58,6 +58,7 @@ enum ErrorCode
 
     // Community Development Program
     case COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND;
+    case COMMUNITY_DEVELOPMENT_INVALID_SELECTION;
 
     // Development Program
     case DEVELOPMENT_PROGRAM_NOT_FOUND;
