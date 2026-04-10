@@ -9,10 +9,8 @@ import {
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
 import { CardSeparator } from "@gc-digital-talent/ui";
-import { removeFromLocalStorage } from "@gc-digital-talent/storage";
 
 import { getConsideredLangItems } from "~/utils/languageUtils";
-import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
 import useDirtyFields from "../../hooks/useDirtyFields";
 import ConsideredLanguages, {
@@ -22,9 +20,14 @@ import ConsideredLanguages, {
 interface FormFieldProps {
   labels: FieldLabels;
   optionsQuery?: FragmentType<typeof LanguageProfileOptions_Fragment>;
+  setLanguagePresetNoticeIsVisible: (isVisible: boolean) => void;
 }
 
-const FormFields = ({ labels, optionsQuery }: FormFieldProps) => {
+const FormFields = ({
+  labels,
+  optionsQuery,
+  setLanguagePresetNoticeIsVisible,
+}: FormFieldProps) => {
   const intl = useIntl();
   const consideredLangOptions = getConsideredLangItems(intl);
   useDirtyFields("language");
@@ -34,7 +37,7 @@ const FormFields = ({ labels, optionsQuery }: FormFieldProps) => {
   const languageOptions = localizedEnumToOptions(options?.languages, intl);
 
   // once they open the form we can remove the helper message
-  removeFromLocalStorage(KEY_NEW_USER_LANGUAGE_PRESET);
+  setLanguagePresetNoticeIsVisible(false);
 
   return (
     <div className="flex flex-col gap-6">

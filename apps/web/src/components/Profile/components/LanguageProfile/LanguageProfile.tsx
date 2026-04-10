@@ -13,7 +13,6 @@ import {
   graphql,
   Pool,
 } from "@gc-digital-talent/graphql";
-import { getFromLocalStorage } from "@gc-digital-talent/storage";
 
 import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
 import profileMessages from "~/messages/profileMessages";
@@ -23,7 +22,6 @@ import {
 } from "~/validators/profile/languageInformation";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
 import { SectionProps } from "../../types";
 import FormActions from "../FormActions";
@@ -81,6 +79,8 @@ const ProfileLanguageProfile_Fragment = graphql(/** GraphQL */ `
 
 interface LanguageProfileProps extends SectionProps<Pick<Pool, "id">> {
   query: FragmentType<typeof ProfileLanguageProfile_Fragment>;
+  languagePresetNoticeIsVisible: boolean;
+  setLanguagePresetNoticeIsVisible: (isVisible: boolean) => void;
 }
 
 const LanguageProfile = ({
@@ -89,14 +89,13 @@ const LanguageProfile = ({
   onUpdate,
   isUpdating,
   pool,
+  languagePresetNoticeIsVisible,
+  setLanguagePresetNoticeIsVisible,
 }: LanguageProfileProps) => {
   const intl = useIntl();
   const user = getFragment(ProfileLanguageProfile_Fragment, query);
   const isNull = hasAllEmptyFields(user);
-  const hasUnacknowledgedNotices = getFromLocalStorage<boolean>(
-    KEY_NEW_USER_LANGUAGE_PRESET,
-    false,
-  );
+  const hasUnacknowledgedNotices = languagePresetNoticeIsVisible;
   const emptyRequired =
     hasEmptyRequiredFields(user) || hasUnacknowledgedNotices;
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
@@ -199,7 +198,13 @@ const LanguageProfile = ({
                 defaultValues: dataToFormValues(user),
               }}
             >
-              <FormFields labels={labels} optionsQuery={data} />
+              <FormFields
+                labels={labels}
+                optionsQuery={data}
+                setLanguagePresetNoticeIsVisible={
+                  setLanguagePresetNoticeIsVisible
+                }
+              />
               <FormActions isUpdating={isUpdating} />
             </BasicForm>
           )}
