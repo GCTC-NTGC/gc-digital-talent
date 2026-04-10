@@ -1315,11 +1315,16 @@ type DevelopmentProgram {
   associatedCommunities: [Community!]
 }
 
+type CommunityDevelopmentProgramTalentEventRecord {
+  descriptionForNominations: LocalizedString
+}
+
 type CommunityDevelopmentProgram {
   id: UUID!
   community: Community!
   developmentProgram: DevelopmentProgram!
   classifications: [Classification!]
+  pivot: CommunityDevelopmentProgramTalentEventRecord
 }
 
 type TalentNominationEvent {

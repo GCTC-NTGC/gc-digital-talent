@@ -16,6 +16,8 @@ class CommunityDevelopmentProgramTalentNominationEvent extends Pivot
 
     protected $keyType = 'string';
 
+    public $timestamps = false;
+
     /**
      * The attributes that should be cast.
      */

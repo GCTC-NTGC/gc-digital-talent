@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Community;
 use App\Models\CommunityDevelopmentProgram;
+use App\Models\CommunityDevelopmentProgramTalentNominationEvent;
 use App\Models\DevelopmentProgram;
 use App\Models\TalentNominationEvent;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -62,18 +63,19 @@ class TalentNominationEventFactory extends Factory
                 ->create();
 
             foreach ($developmentPrograms as $developmentProgram) {
-                $created = CommunityDevelopmentProgram::create(
+
+                $createdCommunityDevelopmentProgram = CommunityDevelopmentProgram::create(
                     [
                         'community_id' => $talentNominationEvent->community_id,
                         'development_program_id' => $developmentProgram->id,
                     ]
                 );
-
                 $description = $this->faker->sentence();
 
-                $talentNominationEvent->communityDevelopmentPrograms()->attach(
-                    $created->id,
+                CommunityDevelopmentProgramTalentNominationEvent::create(
                     [
+                        'community_development_program_id' => $createdCommunityDevelopmentProgram->id,
+                        'talent_nomination_event_id' => $talentNominationEvent->id,
                         'description_for_nominations' => [
                             'en' => $description.' EN',
                             'fr' => $description.' FR',

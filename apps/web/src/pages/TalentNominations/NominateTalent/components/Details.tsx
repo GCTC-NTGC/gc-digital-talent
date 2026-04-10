@@ -475,8 +475,7 @@ const DetailsFields = ({
                     value: cdp.id,
                     label: cdp.developmentProgram.name?.localized ?? "",
                     contentBelow:
-                      cdp.developmentProgram.descriptionForNominations
-                        ?.localized ?? "",
+                      cdp.pivot?.descriptionForNominations?.localized ?? "",
                   })),
                   {
                     value: "other",
@@ -509,12 +508,14 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
     talentNominationEvent {
       communityDevelopmentPrograms {
         id
+        pivot {
+          descriptionForNominations {
+            localized
+          }
+        }
         developmentProgram {
           id
           name {
-            localized
-          }
-          descriptionForNominations {
             localized
           }
         }

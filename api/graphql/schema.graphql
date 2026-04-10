@@ -853,11 +853,19 @@ type DevelopmentProgram {
     @hasMany(relation: "communitiesThroughPivot")
 }
 
+type CommunityDevelopmentProgramTalentEventRecord {
+  descriptionForNominations: LocalizedString
+    @rename(attribute: "description_for_nominations")
+}
+
 type CommunityDevelopmentProgram {
   id: UUID!
   community: Community! @belongsTo
   developmentProgram: DevelopmentProgram! @belongsTo
   classifications: [Classification!] @belongsToMany
+  # CommunityDevelopmentProgramTalentEventRecord is the pivot data
+  # it may be be queried thru TalentNominationEvent->communityDevelopmentPrograms->pivot->CommunityDevelopmentProgramTalentEventRecord
+  pivot: CommunityDevelopmentProgramTalentEventRecord
 }
 
 type TalentNominationEvent {
