@@ -101,10 +101,10 @@ export default defineConfig(({ command }) => ({
     // Vite requires build-time env variables to have the VITE_ prefix
     API_URI: getEnvVar("VITE_API_URI"),
     API_PROTECTED_URI: getEnvVar("VITE_API_PROTECTED_URI"),
+    REVERB_APP_KEY: getEnvVar("VITE_REVERB_APP_KEY"),
     BUILD_DATE: JSON.stringify(new Date()),
     APP_TITLE: getEnvVar("APP_TITLE"),
     APP_DESCRIPTION: getEnvVar("APP_DESCRIPTION"),
-    REVERB_APP_KEY: getEnvVar("REVERB_APP_KEY"),
 
     // run-time variables
     __RUNTIME_VARS__: JSON.stringify(runtimeConfig),
