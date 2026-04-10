@@ -41,8 +41,9 @@ const SupportingEvidence = ({
     ScreeningDialogSupportingEvidence_Fragment,
     query,
   );
-  const educationRequirementExperienceIds =
-    unpackMaybes(candidate.educationRequirementExperienceIds) ?? [];
+  const educationRequirementExperienceIds = unpackMaybes(
+    candidate.educationRequirementExperienceIds,
+  );
   const experiencesFiltered =
     dialogType === DIALOG_TYPE.Education
       ? experiences.filter((experience) =>
