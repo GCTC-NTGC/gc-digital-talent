@@ -844,6 +844,9 @@ type DevelopmentProgram {
     @rename(attribute: "description_for_profile")
   descriptionForNominations: LocalizedString
     @rename(attribute: "description_for_nominations")
+    @deprecated(
+      reason: "replaced by description on community_development_program_talent_nomination_event pivot"
+    )
   eligibleClassifications: [Classification!] @belongsToMany
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
   associatedCommunities: [Community!]

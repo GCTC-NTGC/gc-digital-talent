@@ -27,7 +27,6 @@ class DevelopmentProgramFactory extends Factory
         return [
             'name' => FactoryHelpers::toFakeLocalizedString($this->faker->company()),
             'description_for_profile' => FactoryHelpers::toFakeLocalizedString($this->faker->sentence()),
-            'description_for_nominations' => FactoryHelpers::toFakeLocalizedString($this->faker->sentence()),
         ];
     }
 

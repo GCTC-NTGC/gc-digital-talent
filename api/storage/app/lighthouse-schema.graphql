@@ -1309,7 +1309,7 @@ type DevelopmentProgram {
   id: UUID!
   name: LocalizedString
   descriptionForProfile: LocalizedString
-  descriptionForNominations: LocalizedString
+  descriptionForNominations: LocalizedString @deprecated(reason: "replaced by description on community_development_program_talent_nomination_event pivot")
   eligibleClassifications: [Classification!]
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   associatedCommunities: [Community!]
@@ -3731,6 +3731,7 @@ enum ErrorCode {
   DEPARTMENT_NOT_FOUND
   DEPARTMENT_MUST_NOT_BE_ARCHIVED
   COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND
+  COMMUNITY_DEVELOPMENT_INVALID_SELECTION
   DEVELOPMENT_PROGRAM_NOT_FOUND
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED

@@ -61,7 +61,6 @@ class TalentNominationEventFactory extends Factory
                 ->count($count)
                 ->create();
 
-            $communityDevelopmentPrograms = [];
             foreach ($developmentPrograms as $developmentProgram) {
                 $created = CommunityDevelopmentProgram::create(
                     [
@@ -69,10 +68,19 @@ class TalentNominationEventFactory extends Factory
                         'development_program_id' => $developmentProgram->id,
                     ]
                 );
-                array_push($communityDevelopmentPrograms, $created);
-            }
 
-            $talentNominationEvent->communityDevelopmentPrograms()->sync($communityDevelopmentPrograms);
+                $description = $this->faker->sentence();
+
+                $talentNominationEvent->communityDevelopmentPrograms()->attach(
+                    $created->id,
+                    [
+                        'description_for_nominations' => [
+                            'en' => $description.' EN',
+                            'fr' => $description.' FR',
+                        ],
+                    ]
+                );
+            }
         });
     }
 }

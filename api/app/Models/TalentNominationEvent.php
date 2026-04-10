@@ -72,7 +72,8 @@ class TalentNominationEvent extends Model
     /** @return BelongsToMany<CommunityDevelopmentProgram, $this> */
     public function communityDevelopmentPrograms(): BelongsToMany
     {
-        return $this->belongsToMany(CommunityDevelopmentProgram::class, 'community_development_program_talent_nomination_event');
+        return $this->belongsToMany(CommunityDevelopmentProgram::class, 'community_development_program_talent_nomination_event')
+            ->using(CommunityDevelopmentProgramTalentNominationEvent::class);
     }
 
     public function developmentProgramsThroughPivot(): HasManyDeep
