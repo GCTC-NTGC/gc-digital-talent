@@ -2991,6 +2991,10 @@
     "defaultMessage": "Confirmer maintenant",
     "description": "Button to start the email address verification process"
   },
+  "ADUuJh": {
+    "defaultMessage": "Les renseignements actuels ont été établis en fonction de la langue de communication choisie lors de votre inscription. Utilisez le bouton « {buttonLabel} » pour revoir ces paramètres.",
+    "description": "Helper message that the language settings were preset"
+  },
   "ADk6dX": {
     "defaultMessage": "Filtrer les demandes et consigner les résultats de l’évaluation",
     "description": "Permissions related to assessing candidates"
