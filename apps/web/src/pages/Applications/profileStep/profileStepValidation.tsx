@@ -40,7 +40,7 @@ const stepHasError = (
     workPreferencesSectionHasEmptyRequiredFields(user) ||
     languageInformationSectionHasUnsatisfiedRequirements(user, pool);
   const hasUnacknowledgedNotices =
-    !!browserState?.newUserLanguagePresetFlagIsSet;
+    !!browserState?.languagePresetNoticeIsVisible;
   return hasEmptyRequiredFields || hasUnacknowledgedNotices;
 };
 

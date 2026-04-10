@@ -63,7 +63,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
     experienceId,
   });
   const browserState = {
-    newUserLanguagePresetFlagIsSet: getFromLocalStorage<boolean>(
+    languagePresetNoticeIsVisible: getFromLocalStorage<boolean>(
       KEY_NEW_USER_LANGUAGE_PRESET,
       false,
     ),

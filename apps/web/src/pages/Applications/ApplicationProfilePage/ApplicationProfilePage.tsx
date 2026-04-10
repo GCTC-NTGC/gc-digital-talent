@@ -185,7 +185,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
         user={application.user}
         isValid={
           !stepHasError(application.user, application.pool, null, {
-            newUserLanguagePresetFlagIsSet: languagePresetNoticeIsVisible,
+            languagePresetNoticeIsVisible,
           })
         }
       />

@@ -20,7 +20,7 @@ interface GetApplicationStepInfoArgs {
 }
 
 export interface ApplicationBrowserState {
-  newUserLanguagePresetFlagIsSet: boolean;
+  languagePresetNoticeIsVisible: boolean;
 }
 
 export interface ApplicationStepInfo {
@@ -41,11 +41,7 @@ export interface ApplicationStepInfo {
     user: ApplicationPoolCandidateFragmentType["user"],
     pool: Omit<Pool, "activities" | "teamId">,
     application: ApplicationPoolCandidateFragmentType,
-    browserState:
-      | {
-          newUserLanguagePresetFlagIsSet: boolean;
-        }
-      | undefined,
+    browserState: ApplicationBrowserState | undefined,
   ) => boolean;
 }
 
