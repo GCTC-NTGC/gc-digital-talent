@@ -32,18 +32,25 @@ class JobPosterTemplateGeneratorTest extends TestCase
         parent::setUp();
 
         $this->setUpFaker();
-        $this->seedFaker(0);
 
         $this->seed(RolePermissionSeeder::class);
 
+        // Reseed faker before each factory to isolate random sequences.
+        // This ensures changes to any factory's faker usage won't affect
+        // the output of other factories in these snapshot tests.
+        $this->seedFaker(1);
         Classification::factory()->create();
+
+        $this->seedFaker(2);
         WorkStream::factory()->create();
 
+        $this->seedFaker(3);
         $adminUser = User::factory()
             ->asApplicant()
             ->asAdmin()
             ->create();
 
+        $this->seedFaker(4);
         $jobPosterTemplate = JobPosterTemplate::factory()
             ->withSkills()
             ->create();

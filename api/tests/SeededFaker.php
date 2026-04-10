@@ -11,16 +11,32 @@ use Faker\Generator as FakerGenerator;
  * factories use the same seeded random sequence. This is essential for snapshot
  * tests where any change to factory faker usage could cause false positive diffs.
  *
+ * IMPORTANT: The seed must be reset BEFORE each factory create() call to ensure
+ * stability. If any factory definition changes its faker usage (adds/removes calls),
+ * it would shift the random sequence for all subsequent factory calls.
+ *
  * Usage:
  *   use Tests\SeededFaker;
  *
  *   class MyTest extends TestCase {
  *       use SeededFaker;
- *       // ...
+ *
+ *       public function setUp(): void {
+ *           parent::setUp();
+ *           // Seed once at start
+ *           $this->seedFaker(0);
+ *
+ *           // Or reseed before each factory for maximum stability
+ *           $this->seedFaker(1);
+ *           Community::factory()->create();
+ *
+ *           $this->seedFaker(2);
+ *           User::factory()->create();
+ *       }
  *   }
  *
- * The seedFaker() method should be called in setUp() after parent::setUp().
- * This seeds the container's Faker instance that all factories share.
+ * For snapshot tests, consider using seedFaker() with different seeds before
+ * each factory create() to isolate each factory's random sequence.
  */
 trait SeededFaker
 {

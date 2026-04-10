@@ -41,14 +41,19 @@ class ApplicationDocGeneratorTest extends TestCase
     {
         parent::setUp();
         $this->setUpFaker();
-        $this->seedFaker(0);
 
         $this->seed([
             RolePermissionSeeder::class,
             CommunitySeeder::class,
         ]);
 
+        // Reseed faker before each factory to isolate random sequences.
+        // This ensures changes to any factory's faker usage won't affect
+        // the output of other factories in these snapshot tests.
+        $this->seedFaker(1);
         Department::factory()->create();
+
+        $this->seedFaker(2);
         Classification::factory()->create([
             'group' => 'XX',
             'level' => 1,
@@ -56,17 +61,21 @@ class ApplicationDocGeneratorTest extends TestCase
 
         $community = Community::where('key', 'digital')->sole();
 
+        $this->seedFaker(3);
         $adminUser = User::factory()->asApplicant()->asAdmin()->create();
 
+        $this->seedFaker(4);
         $user = User::factory()
             ->asApplicant()
             ->withGovEmployeeProfile()
             ->withCommunityInterests([$community->id])
             ->create();
 
+        $this->seedFaker(5);
         $edu = EducationExperience::factory()->for($user)->create();
         $work = $user->workExperiences()->first();
 
+        $this->seedFaker(6);
         $fixedSkill = Skill::factory()->create([
             'name' => [
                 'en' => 'Snapshot skill EN',
@@ -75,6 +84,7 @@ class ApplicationDocGeneratorTest extends TestCase
             'category' => SkillCategory::TECHNICAL->name,
         ]);
 
+        $this->seedFaker(7);
         $pool = Pool::factory()->published()->create([
             'process_number' => '12345',
             'name' => [
@@ -98,6 +108,7 @@ class ApplicationDocGeneratorTest extends TestCase
         $edu->userSkills()->attach($userSkill->id, ['details' => 'Deterministic snapshot detail.']);
         $work->userSkills()->attach($userSkill->id, ['details' => 'Deterministic snapshot detail.']);
 
+        $this->seedFaker(8);
         $application = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()

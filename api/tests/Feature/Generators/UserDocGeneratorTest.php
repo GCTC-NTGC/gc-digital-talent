@@ -35,26 +35,38 @@ class UserDocGeneratorTest extends TestCase
         parent::setUp();
 
         $this->setUpFaker();
-        $this->seedFaker(0);
 
         $this->seed(RolePermissionSeeder::class);
 
+        // Reseed faker before each factory to isolate random sequences.
+        // This ensures changes to any factory's faker usage won't affect
+        // the output of other factories in these snapshot tests.
+        $this->seedFaker(1);
         $community = Community::factory()->create();
+
+        $this->seedFaker(2);
         Department::factory()->create();
+
+        $this->seedFaker(3);
         Classification::factory()->create();
+
+        $this->seedFaker(4);
         WorkStream::factory()->create();
 
+        $this->seedFaker(5);
         $adminUser = User::factory()
             ->asApplicant()
             ->asAdmin()
             ->create();
 
+        $this->seedFaker(6);
         $targetUser = User::factory()
             ->asApplicant()
             ->withGovEmployeeProfile()
             ->withCommunityInterests([$community->id])
             ->create();
 
+        $this->seedFaker(7);
         $skills = Skill::factory()->count(4)->create();
 
         $targetUser->userSkills()->delete();
