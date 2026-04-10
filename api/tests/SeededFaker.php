@@ -19,13 +19,16 @@ use Faker\Generator as FakerGenerator;
  *       // ...
  *   }
  *
- * The trait automatically seeds faker with seed 0 in setUp().
- * Call seedFaker($seed) to re-seed with a specific value if needed.
+ * The seedFaker() method should be called in setUp() after parent::setUp().
+ * This seeds the container's Faker instance that all factories share.
  */
 trait SeededFaker
 {
     /**
      * Seed the global Faker instance in Laravel's container.
+     *
+     * Call this method in setUp() to ensure all factories produce
+     * reproducible data. Must be called after parent::setUp().
      *
      * @param  int  $seed  The seed value for reproducible random data
      */
@@ -34,14 +37,5 @@ trait SeededFaker
         // Seed the Faker instance in the container that factories use
         $faker = app(FakerGenerator::class);
         $faker->seed($seed);
-    }
-
-    /**
-     * Boot the SeededFaker trait.
-     * This is called automatically by Laravel's testing framework.
-     */
-    protected function setUpSeededFaker(): void
-    {
-        $this->seedFaker(0);
     }
 }
