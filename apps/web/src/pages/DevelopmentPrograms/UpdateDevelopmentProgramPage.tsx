@@ -18,6 +18,7 @@ import {
 import {
   FragmentType,
   LocalizedStringInput,
+  Maybe,
   Scalars,
   UpdateDevelopmentProgramInput,
   getFragment,
@@ -32,10 +33,10 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import FormFields from "./FormFields";
 
 interface FormValues {
-  name?: LocalizedStringInput;
-  descriptionForProfile?: LocalizedStringInput;
-  informationUrl?: LocalizedStringInput;
-  abbreviation?: LocalizedStringInput;
+  name: LocalizedStringInput;
+  descriptionForProfile: LocalizedStringInput;
+  informationUrl?: Maybe<LocalizedStringInput>;
+  abbreviation?: Maybe<LocalizedStringInput>;
 }
 
 export function formValuesToUpdateInput({
