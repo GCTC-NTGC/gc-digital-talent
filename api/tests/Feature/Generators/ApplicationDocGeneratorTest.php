@@ -16,13 +16,13 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserSkill;
+use App\Models\WorkExperience;
 use Database\Seeders\CommunitySeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Snapshots\MatchesSnapshots;
 use Tests\TestCase;
-use Tests\UsesSeededFaker;
 
 use function PHPUnit\Framework\assertGreaterThan;
 use function PHPUnit\Framework\assertTrue;
@@ -31,7 +31,6 @@ class ApplicationDocGeneratorTest extends TestCase
 {
     use MatchesSnapshots;
     use RefreshDatabase;
-    use UsesSeededFaker;
 
     protected ApplicationDocGenerator $generator;
 
@@ -39,35 +38,54 @@ class ApplicationDocGeneratorTest extends TestCase
     {
         parent::setUp();
 
-        // Seed the container's Faker instance BEFORE any factory calls.
-        // This ensures all factories (including nested ones) use the same
-        // seeded Faker, producing deterministic output.
-        $this->seedFaker(54321);
-
         $this->seed([
             RolePermissionSeeder::class,
             CommunitySeeder::class,
         ]);
 
-        Department::factory()->create();
+        // Create all models with explicit data for deterministic snapshots
+        $department = Department::factory()->create([
+            'name' => ['en' => 'Test Department EN', 'fr' => 'Test Department FR'],
+        ]);
 
-        Classification::factory()->create([
-            'group' => 'XX',
-            'level' => 1,
+        $classification = Classification::factory()->create([
+            'group' => 'IT',
+            'level' => 3,
+            'name' => ['en' => 'Information Technology', 'fr' => 'Technologie de l\'information'],
         ]);
 
         $community = Community::where('key', 'digital')->sole();
 
-        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create([
+            'first_name' => 'Admin',
+            'last_name' => 'User',
+            'email' => 'admin@test.com',
+        ]);
 
+        // Create user with explicit data - avoid withGovEmployeeProfile which uses inRandomOrder
         $user = User::factory()
             ->asApplicant()
-            ->withGovEmployeeProfile()
-            ->withCommunityInterests([$community->id])
-            ->create();
+            ->create([
+                'first_name' => 'Test',
+                'last_name' => 'Applicant',
+                'email' => 'applicant@test.com',
+                'telephone' => '+16135551234',
+                'current_city' => 'Ottawa',
+            ]);
 
-        $edu = EducationExperience::factory()->for($user)->create();
-        $work = $user->workExperiences()->first();
+        // Create education experience with explicit data
+        $edu = EducationExperience::factory()->for($user)->create([
+            'institution' => 'Test University',
+            'area_of_study' => 'Computer Science',
+            'thesis_title' => 'Test Thesis Title',
+        ]);
+
+        // Create work experience with explicit data
+        $work = WorkExperience::factory()->for($user)->create([
+            'role' => 'Software Developer',
+            'organization' => 'Test Organization',
+            'division' => 'Technology Division',
+        ]);
 
         $fixedSkill = Skill::factory()->create([
             'name' => [
@@ -77,6 +95,7 @@ class ApplicationDocGeneratorTest extends TestCase
             'category' => SkillCategory::TECHNICAL->name,
         ]);
 
+        // Create pool with explicit data
         $pool = Pool::factory()->published()->create([
             'process_number' => '12345',
             'name' => [

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Generators;
 
+use App\Enums\SkillCategory;
 use App\Enums\SkillLevel;
 use App\Generators\UserDocGenerator;
 use App\Models\Classification;
@@ -15,7 +16,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Snapshots\MatchesSnapshots;
 use Tests\TestCase;
-use Tests\UsesSeededFaker;
 
 use function PHPUnit\Framework\assertGreaterThan;
 use function PHPUnit\Framework\assertTrue;
@@ -24,7 +24,6 @@ class UserDocGeneratorTest extends TestCase
 {
     use MatchesSnapshots;
     use RefreshDatabase;
-    use UsesSeededFaker;
 
     protected UserDocGenerator $generator;
 
@@ -32,38 +31,74 @@ class UserDocGeneratorTest extends TestCase
     {
         parent::setUp();
 
-        // Seed the container's Faker instance BEFORE any factory calls.
-        // This ensures all factories (including nested ones) use the same
-        // seeded Faker, producing deterministic output.
-        $this->seedFaker(12345);
-
         $this->seed(RolePermissionSeeder::class);
 
-        $community = Community::factory()->create();
-        Department::factory()->create();
-        Classification::factory()->create();
-        WorkStream::factory()->create();
+        // Create all models with explicit, deterministic data for snapshot stability
+        $department = Department::factory()->create([
+            'name' => ['en' => 'Test Department EN', 'fr' => 'Test Department FR'],
+        ]);
+
+        $classification = Classification::factory()->create([
+            'group' => 'IT',
+            'level' => 3,
+            'name' => ['en' => 'Information Technology', 'fr' => 'Technologie de l\'information'],
+        ]);
+
+        $community = Community::factory()->create([
+            'name' => ['en' => 'Test Community EN', 'fr' => 'Test Community FR'],
+        ]);
+
+        WorkStream::factory()->create([
+            'name' => ['en' => 'Software Development EN', 'fr' => 'Développement de logiciels FR'],
+            'community_id' => $community->id,
+        ]);
 
         $adminUser = User::factory()
             ->asApplicant()
             ->asAdmin()
-            ->create();
+            ->create([
+                'first_name' => 'Admin',
+                'last_name' => 'User',
+                'email' => 'admin@test.com',
+            ]);
 
+        // Create target user with explicit data - don't use withGovEmployeeProfile
+        // as it uses inRandomOrder() internally
         $targetUser = User::factory()
             ->asApplicant()
-            ->withGovEmployeeProfile()
-            ->withCommunityInterests([$community->id])
-            ->create();
+            ->create([
+                'first_name' => 'Test',
+                'last_name' => 'Candidate',
+                'email' => 'candidate@test.com',
+                'telephone' => '+16135551234',
+                'current_city' => 'Ottawa',
+            ]);
 
-        $skills = Skill::factory()->count(4)->create();
+        // Create skills with fixed categories
+        $technicalSkill1 = Skill::factory()->create([
+            'name' => ['en' => 'Technical Skill 1 EN', 'fr' => 'Compétence technique 1 FR'],
+            'category' => SkillCategory::TECHNICAL->name,
+        ]);
+        $technicalSkill2 = Skill::factory()->create([
+            'name' => ['en' => 'Technical Skill 2 EN', 'fr' => 'Compétence technique 2 FR'],
+            'category' => SkillCategory::TECHNICAL->name,
+        ]);
+        $behaviouralSkill1 = Skill::factory()->create([
+            'name' => ['en' => 'Behavioural Skill 1 EN', 'fr' => 'Compétence comportementale 1 FR'],
+            'category' => SkillCategory::BEHAVIOURAL->name,
+        ]);
+        $behaviouralSkill2 = Skill::factory()->create([
+            'name' => ['en' => 'Behavioural Skill 2 EN', 'fr' => 'Compétence comportementale 2 FR'],
+            'category' => SkillCategory::BEHAVIOURAL->name,
+        ]);
 
         $targetUser->userSkills()->delete();
 
         $targetUser->userSkills()->createMany([
-            ['skill_id' => $skills[0]->id, 'top_skills_rank' => 1, 'improve_skills_rank' => null, 'skill_level' => SkillLevel::ADVANCED->name],
-            ['skill_id' => $skills[1]->id, 'top_skills_rank' => 2, 'improve_skills_rank' => null, 'skill_level' => SkillLevel::LEAD->name],
-            ['skill_id' => $skills[2]->id, 'top_skills_rank' => null, 'improve_skills_rank' => 1, 'skill_level' => SkillLevel::BEGINNER->name],
-            ['skill_id' => $skills[3]->id, 'top_skills_rank' => null, 'improve_skills_rank' => 2, 'skill_level' => SkillLevel::INTERMEDIATE->name],
+            ['skill_id' => $technicalSkill1->id, 'top_skills_rank' => 1, 'improve_skills_rank' => null, 'skill_level' => SkillLevel::ADVANCED->name],
+            ['skill_id' => $behaviouralSkill1->id, 'top_skills_rank' => 2, 'improve_skills_rank' => null, 'skill_level' => SkillLevel::LEAD->name],
+            ['skill_id' => $technicalSkill2->id, 'top_skills_rank' => null, 'improve_skills_rank' => 1, 'skill_level' => SkillLevel::BEGINNER->name],
+            ['skill_id' => $behaviouralSkill2->id, 'top_skills_rank' => null, 'improve_skills_rank' => 2, 'skill_level' => SkillLevel::INTERMEDIATE->name],
         ]);
 
         $targetUser->refresh();
