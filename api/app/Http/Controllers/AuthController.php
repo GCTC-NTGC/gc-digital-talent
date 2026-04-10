@@ -180,10 +180,10 @@ class AuthController extends Controller
                         ->orWhere('work_email', 'ilike', $incomingEmailAddress)
                     )->first();
                 if (strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
-                    $existingUser->email = $existingUser->email.'_taken_'.Carbon::now()->timestamp;
+                    $existingUser->email = $existingUser->email.'-taken-at-'.Carbon::now()->timestamp;
                 }
                 if (strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
-                    $existingUser->work_email = $existingUser->work_email.'_taken_'.Carbon::now()->timestamp;
+                    $existingUser->work_email = $existingUser->work_email.'-taken-at-'.Carbon::now()->timestamp;
                 }
                 $existingUser->save();
             } catch (\Throwable $e) {

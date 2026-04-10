@@ -157,8 +157,8 @@ class AuthControllerTest extends TestCase
 
         // The existing user's email should be updated
         $existingUser->refresh();
-        $this->assertStringContainsString('_taken_', $existingUser->email);
-        $this->assertStringContainsString('_taken_', $existingUser->work_email);
+        $this->assertStringContainsString('-taken-at-', $existingUser->email);
+        $this->assertStringContainsString('-taken-at-', $existingUser->work_email);
 
         // The new user should have the duplicate email
         $newUser = User::where('sub', 'newsub')->sole();
