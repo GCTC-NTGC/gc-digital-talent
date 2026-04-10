@@ -19,7 +19,6 @@ use App\Models\UserSkill;
 use Database\Seeders\CommunitySeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Snapshots\MatchesSnapshots;
 use Tests\TestCase;
@@ -33,7 +32,6 @@ class ApplicationDocGeneratorTest extends TestCase
     use MatchesSnapshots;
     use RefreshDatabase;
     use UsesSeededFaker;
-    use WithFaker;
 
     protected ApplicationDocGenerator $generator;
 

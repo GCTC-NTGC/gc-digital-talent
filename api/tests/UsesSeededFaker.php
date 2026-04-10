@@ -4,6 +4,7 @@ namespace Tests;
 
 use Faker\Factory as FakerFactory;
 use Faker\Generator as FakerGenerator;
+use Illuminate\Container\Container;
 use Illuminate\Database\DatabaseServiceProvider;
 use ReflectionClass;
 
@@ -32,9 +33,10 @@ trait UsesSeededFaker
      * This replaces the container's Faker instance with a seeded one,
      * ensuring all factories use deterministic random values.
      *
-     * IMPORTANT: Laravel caches Faker instances in a static array inside
-     * DatabaseServiceProvider. We must clear that cache before binding
-     * our seeded instance.
+     * Laravel factories use Container::getInstance()->make(Generator::class)
+     * in their withFaker() method. We need to:
+     * 1. Clear Laravel's static Faker cache in DatabaseServiceProvider
+     * 2. Bind the seeded instance to the container as a singleton
      */
     protected function seedFaker(int $seed = 1): FakerGenerator
     {
@@ -54,7 +56,13 @@ trait UsesSeededFaker
         $fakers[$locale] = $faker;
         $property->setValue(null, $fakers);
 
-        // Also bind to container for any direct resolution
+        // Bind to the container singleton that factories use.
+        // Factories call Container::getInstance()->make(Generator::class)
+        // so we need to bind to the Container singleton directly.
+        $container = Container::getInstance();
+        $container->instance(FakerGenerator::class, $faker);
+
+        // Also bind to $this->app for any direct resolution in tests
         $this->app->instance(FakerGenerator::class, $faker);
 
         return $faker;

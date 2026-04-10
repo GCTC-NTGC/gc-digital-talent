@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Snapshots\MatchesSnapshots;
 use Tests\TestCase;
@@ -23,7 +22,6 @@ class JobPosterTemplateGeneratorTest extends TestCase
     use MatchesSnapshots;
     use RefreshDatabase;
     use UsesSeededFaker;
-    use WithFaker;
 
     protected JobPosterTemplateGenerator $generator;
 
