@@ -1,6 +1,10 @@
 import { useIntl } from "react-intl";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { Card, Heading, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";

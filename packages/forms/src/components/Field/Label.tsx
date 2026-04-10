@@ -1,4 +1,8 @@
-import { type DetailedHTMLProps, type LabelHTMLAttributes, forwardRef } from "react";
+import {
+  type DetailedHTMLProps,
+  type LabelHTMLAttributes,
+  forwardRef,
+} from "react";
 import { useIntl } from "react-intl";
 
 import { appendLanguageName, type Locales } from "@gc-digital-talent/i18n";

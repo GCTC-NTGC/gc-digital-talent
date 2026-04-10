@@ -32,7 +32,10 @@ import adminMessages from "~/messages/adminMessages";
 
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
-import { type CommunityMembersPageFragment, type ContextType } from "./components/types";
+import {
+  type CommunityMembersPageFragment,
+  type ContextType,
+} from "./components/types";
 import { CommunityMembersPage_CommunityFragment } from "./components/operations";
 
 const pageTitle = defineMessage({

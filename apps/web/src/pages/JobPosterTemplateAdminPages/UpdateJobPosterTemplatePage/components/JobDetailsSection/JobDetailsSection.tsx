@@ -22,7 +22,9 @@ import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
 
-import JobDetailsForm, { type FormValues } from "../../../components/JobDetailsForm";
+import JobDetailsForm, {
+  type FormValues,
+} from "../../../components/JobDetailsForm";
 import Display from "./Display";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
 

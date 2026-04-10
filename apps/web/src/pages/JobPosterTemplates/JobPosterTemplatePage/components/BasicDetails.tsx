@@ -2,7 +2,11 @@ import { useIntl } from "react-intl";
 import pick from "lodash/pick";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
-import { graphql, type FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  type FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getLocale,

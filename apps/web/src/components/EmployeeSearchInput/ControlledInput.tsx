@@ -32,7 +32,11 @@ import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import Result, { type SearchMessageCases } from "./Result";
 import ErrorMessage from "./Error";
 import { fragmentToEmployee, getDefaultValue, getErrors } from "./utils";
-import { type EmployeeSearchResult, type ErrorMessages, type ErrorSeverities } from "./types";
+import {
+  type EmployeeSearchResult,
+  type ErrorMessages,
+  type ErrorSeverities,
+} from "./types";
 
 const wrapper = tv({
   extend: inputStateStyles,

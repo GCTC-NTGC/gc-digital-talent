@@ -3,7 +3,11 @@ import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
 import { type HeadingRank, Link, Notice } from "@gc-digital-talent/ui";
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";

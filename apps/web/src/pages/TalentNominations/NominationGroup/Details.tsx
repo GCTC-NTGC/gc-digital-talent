@@ -3,7 +3,11 @@ import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import { useState } from "react";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import {
   Accordion,
   Button,

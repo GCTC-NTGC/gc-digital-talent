@@ -8,7 +8,10 @@ import {
 } from "@gc-digital-talent/forms";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
-import { type AllExperienceFormValues, type ExperienceType } from "~/types/experience";
+import {
+  type AllExperienceFormValues,
+  type ExperienceType,
+} from "~/types/experience";
 
 interface ErrorSummaryProps {
   experienceType?: ExperienceType | "";

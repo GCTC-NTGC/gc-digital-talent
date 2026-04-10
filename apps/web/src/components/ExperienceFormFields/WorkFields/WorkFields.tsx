@@ -25,7 +25,10 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { type SubExperienceFormProps, type WorkFormValues } from "~/types/experience";
+import {
+  type SubExperienceFormProps,
+  type WorkFormValues,
+} from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 

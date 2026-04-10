@@ -2,7 +2,11 @@ import { useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import { type ReactNode } from "react";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 

@@ -23,7 +23,12 @@ import {
   notEmpty,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import { type ChipProps, type IconType, Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
+import {
+  type ChipProps,
+  type IconType,
+  Link,
+  UNICODE_CHAR,
+} from "@gc-digital-talent/ui";
 import {
   PublishingGroup,
   type RoleAssignment,

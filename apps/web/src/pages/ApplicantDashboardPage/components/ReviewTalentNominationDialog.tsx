@@ -1,7 +1,11 @@
 import { useIntl } from "react-intl";
 import { useState } from "react";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Button,

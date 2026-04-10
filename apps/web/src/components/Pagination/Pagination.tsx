@@ -6,7 +6,11 @@ import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import { type DetailedHTMLProps, type HTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
-import { type ButtonProps, DropdownMenu, UNICODE_CHAR } from "@gc-digital-talent/ui";
+import {
+  type ButtonProps,
+  DropdownMenu,
+  UNICODE_CHAR,
+} from "@gc-digital-talent/ui";
 
 import { DOTS, usePagination } from "./usePagination";
 import PageButton from "./PageButton";

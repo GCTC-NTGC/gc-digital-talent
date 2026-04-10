@@ -10,7 +10,11 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Link, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { getLocale, getLocalizedName, type Locales } from "@gc-digital-talent/i18n";
+import {
+  getLocale,
+  getLocalizedName,
+  type Locales,
+} from "@gc-digital-talent/i18n";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 

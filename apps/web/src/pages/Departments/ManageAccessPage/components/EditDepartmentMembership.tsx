@@ -27,7 +27,10 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 import { type DepartmentMember } from "~/utils/departmentUtils";
 
-import { type DepartmentManageAccessFormValues, type ContextType } from "./types";
+import {
+  type DepartmentManageAccessFormValues,
+  type ContextType,
+} from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserDepartmentRoles_Mutation } from "./operations";

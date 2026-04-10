@@ -1,4 +1,9 @@
-import { type KeyboardEventHandler, type ReactElement, type ReactNode, useId } from "react";
+import {
+  type KeyboardEventHandler,
+  type ReactElement,
+  type ReactNode,
+  useId,
+} from "react";
 
 import { ARROW_KEY, isArrowKey } from "../../utils/keyboard";
 import {

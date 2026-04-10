@@ -26,7 +26,10 @@ import processMessages from "~/messages/processMessages";
 import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import { type PublishedEditableSectionProps, type SectionProps } from "../../types";
+import {
+  type PublishedEditableSectionProps,
+  type SectionProps,
+} from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 import UpdatePublishedProcessDialog, {

@@ -7,7 +7,10 @@ import {
   getLocalizedName,
   type Locales,
 } from "@gc-digital-talent/i18n";
-import { type GeneralQuestion, type ScreeningQuestion } from "@gc-digital-talent/graphql";
+import {
+  type GeneralQuestion,
+  type ScreeningQuestion,
+} from "@gc-digital-talent/graphql";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 

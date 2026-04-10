@@ -1,4 +1,7 @@
-import { type RegisterOptions, type ValidationValueMessage } from "react-hook-form";
+import {
+  type RegisterOptions,
+  type ValidationValueMessage,
+} from "react-hook-form";
 
 export const DATE_SEGMENT = {
   Year: "YEAR",

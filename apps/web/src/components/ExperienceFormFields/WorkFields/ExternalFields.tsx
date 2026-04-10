@@ -19,7 +19,10 @@ import {
 import { Loading } from "@gc-digital-talent/ui";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import { type SubExperienceFormProps, type WorkFormValues } from "~/types/experience";
+import {
+  type SubExperienceFormProps,
+  type WorkFormValues,
+} from "~/types/experience";
 
 const ExternalWorkFieldOptions_Query = graphql(/* GraphQL */ `
   query ExternalWorkFieldOptions {

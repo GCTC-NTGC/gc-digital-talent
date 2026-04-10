@@ -3,7 +3,11 @@ import { Outlet, useLocation } from "react-router";
 import { useQuery } from "urql";
 
 import { ThrowNotFound, Pending, Notice } from "@gc-digital-talent/ui";
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 

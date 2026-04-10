@@ -1,7 +1,11 @@
 import { useIntl } from "react-intl";
 
 import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import {
   appendLanguageName,
   commonMessages,

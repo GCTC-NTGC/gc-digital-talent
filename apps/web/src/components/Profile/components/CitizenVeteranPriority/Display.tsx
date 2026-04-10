@@ -6,7 +6,11 @@ import {
   getCitizenshipStatusesProfile,
 } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";

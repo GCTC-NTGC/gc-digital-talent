@@ -6,7 +6,9 @@ import BaseButton, {
   type IconButtonProps as BaseButtonProps,
   type IconButtonProps,
 } from "../Button/IconButton";
-import BaseLink, { type IconLinkProps as BaseLinkProps } from "../Link/IconLink";
+import BaseLink, {
+  type IconLinkProps as BaseLinkProps,
+} from "../Link/IconLink";
 import Chip, { type ChipProps } from "../Chip/Chip";
 import Heading, { type HeadingLevel } from "../Heading";
 import { type BaseIconButtonLinkProps } from "../../utils/btnStyles";

@@ -1,4 +1,8 @@
-import { type Decorator, type Meta, type StoryObj } from "@storybook/react-vite";
+import {
+  type Decorator,
+  type Meta,
+  type StoryObj,
+} from "@storybook/react-vite";
 
 import {
   fakeDepartments,

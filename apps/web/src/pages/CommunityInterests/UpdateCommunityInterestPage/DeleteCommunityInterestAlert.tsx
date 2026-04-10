@@ -3,7 +3,11 @@ import { useMutation } from "urql";
 import { useNavigate } from "react-router";
 
 import { AlertDialog, Button } from "@gc-digital-talent/ui";
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 

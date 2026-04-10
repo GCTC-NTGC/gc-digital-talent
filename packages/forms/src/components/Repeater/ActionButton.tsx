@@ -1,4 +1,8 @@
-import { type DetailedHTMLProps, type ButtonHTMLAttributes, forwardRef } from "react";
+import {
+  type DetailedHTMLProps,
+  type ButtonHTMLAttributes,
+  forwardRef,
+} from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 import { type IconType, UNICODE_CHAR } from "@gc-digital-talent/ui";

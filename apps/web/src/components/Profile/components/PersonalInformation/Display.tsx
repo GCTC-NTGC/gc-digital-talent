@@ -1,7 +1,11 @@
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 import {

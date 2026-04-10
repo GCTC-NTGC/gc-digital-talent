@@ -16,7 +16,10 @@ import {
 } from "@gc-digital-talent/vitest-helpers";
 
 import Input, { type InputProps } from "../Input/Input";
-import Repeater, { type RepeaterProps, type RepeaterFieldsetProps } from "./Repeater";
+import Repeater, {
+  type RepeaterProps,
+  type RepeaterFieldsetProps,
+} from "./Repeater";
 
 interface RenderRepeaterProps {
   formProps: Omit<FormProps, "children">;

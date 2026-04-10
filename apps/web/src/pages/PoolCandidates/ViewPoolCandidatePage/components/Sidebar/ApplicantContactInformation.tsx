@@ -6,9 +6,18 @@ import EnvelopeIcon from "@heroicons/react/20/solid/EnvelopeIcon";
 import PhoneIcon from "@heroicons/react/20/solid/PhoneIcon";
 import GlobeAltIcon from "@heroicons/react/20/solid/GlobeAltIcon";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Button, Collapsible, type IconType, Link } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Collapsible,
+  type IconType,
+  Link,
+} from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { formatLocation } from "~/utils/userUtils";

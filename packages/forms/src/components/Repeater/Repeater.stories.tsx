@@ -11,7 +11,10 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import TextArea from "../TextArea/TextArea";
-import Repeater, { type RepeaterFieldsetProps, type RepeaterProps } from "./Repeater";
+import Repeater, {
+  type RepeaterFieldsetProps,
+  type RepeaterProps,
+} from "./Repeater";
 
 type StoryProps = RepeaterProps &
   Pick<RepeaterFieldsetProps, "hideLegend" | "moveDisabledIndexes"> & {

@@ -1,7 +1,16 @@
-import { type FieldError, type FieldErrors, type FieldValues, get } from "react-hook-form";
+import {
+  type FieldError,
+  type FieldErrors,
+  type FieldValues,
+  get,
+} from "react-hook-form";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import { type EmployeeSearchResult } from "./types";
 

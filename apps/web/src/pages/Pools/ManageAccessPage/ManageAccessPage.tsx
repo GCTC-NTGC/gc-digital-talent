@@ -24,7 +24,10 @@ import {
   roleAccessor,
   roleCell,
 } from "./components/helpers";
-import { type ManageAccessPageFragment, type PoolTeamMember } from "./components/types";
+import {
+  type ManageAccessPageFragment,
+  type PoolTeamMember,
+} from "./components/types";
 import { ManageAccessPage_PoolFragment } from "./components/operations";
 import AddPoolMembershipDialog from "./components/AddPoolMembershipDialog";
 

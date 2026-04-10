@@ -20,7 +20,10 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "./EditPoolContext";
-import { type PublishedEditableSectionProps, type SectionProps } from "../types";
+import {
+  type PublishedEditableSectionProps,
+  type SectionProps,
+} from "../types";
 import UpdatePublishedProcessDialog, {
   type FormValues as UpdateFormValues,
 } from "./UpdatePublishedProcessDialog/UpdatePublishedProcessDialog";

@@ -6,7 +6,11 @@ import { type ReactNode } from "react";
 import { Heading } from "@gc-digital-talent/ui";
 import { Checkbox, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import pageTitles from "~/messages/pageTitles";
 

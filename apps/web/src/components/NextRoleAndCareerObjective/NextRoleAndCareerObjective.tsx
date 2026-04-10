@@ -1,6 +1,10 @@
 import { useIntl } from "react-intl";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { Accordion, PreviewList, Notice } from "@gc-digital-talent/ui";
 
 import { hasAllEmptyFields as hasAllEmptyFieldsNextRole } from "~/validators/employeeProfile/nextRole";

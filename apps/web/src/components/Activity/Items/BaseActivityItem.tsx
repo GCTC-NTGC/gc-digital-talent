@@ -2,7 +2,11 @@ import { type MessageDescriptor, useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 import { type ReactNode } from "react";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   TIME_FORMAT_LOCALIZED,

@@ -8,7 +8,11 @@ import {
   PoolStatus,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { PreviewList, type PreviewMetaData, Notice } from "@gc-digital-talent/ui";
+import {
+  PreviewList,
+  type PreviewMetaData,
+  Notice,
+} from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {

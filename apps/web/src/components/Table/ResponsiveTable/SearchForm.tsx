@@ -1,13 +1,23 @@
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
-import { type ChangeEvent, useCallback, useMemo, useRef, useState } from "react";
+import {
+  type ChangeEvent,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { tv } from "tailwind-variants";
 
 import { DropdownMenu } from "@gc-digital-talent/ui";
 import { inputStyles, Field } from "@gc-digital-talent/forms";
 
 import ResetButton from "../ResetButton";
-import { type SearchFormProps, type SearchColumn, type SearchState } from "./types";
+import {
+  type SearchFormProps,
+  type SearchColumn,
+  type SearchState,
+} from "./types";
 
 const input = tv({
   extend: inputStyles,

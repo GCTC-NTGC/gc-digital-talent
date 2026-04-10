@@ -7,7 +7,10 @@ import {
   fakeCommunities,
   fakeDepartments,
 } from "@gc-digital-talent/fake-data";
-import { type CreatePoolInput, makeFragmentData } from "@gc-digital-talent/graphql";
+import {
+  type CreatePoolInput,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import {

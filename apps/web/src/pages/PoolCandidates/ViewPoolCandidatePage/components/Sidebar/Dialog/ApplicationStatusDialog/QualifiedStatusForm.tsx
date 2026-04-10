@@ -14,7 +14,10 @@ import { HiddenInput } from "@gc-digital-talent/forms";
 import { RevertDecision_Mutation } from "./mutations";
 import messages from "./messages";
 import { Content } from "./StatusContent";
-import { type ApplicationStatusFormProps, type MutationMessages } from "../types";
+import {
+  type ApplicationStatusFormProps,
+  type MutationMessages,
+} from "../types";
 
 const QualifiedStatusForm_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedStatusForm on PoolCandidate {

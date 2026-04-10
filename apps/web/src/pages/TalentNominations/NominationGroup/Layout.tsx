@@ -2,7 +2,11 @@ import { useIntl } from "react-intl";
 import { Outlet } from "react-router";
 import { useQuery } from "urql";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { Pending, Sidebar, ThrowNotFound } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 

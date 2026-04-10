@@ -11,7 +11,10 @@ import {
   errorMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { graphql, type CreateClassificationInput } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  type CreateClassificationInput,
+} from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Card, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 

@@ -6,7 +6,11 @@ import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import { type Pool, PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
+import {
+  type Pool,
+  PoolStatus,
+  PublishingGroup,
+} from "@gc-digital-talent/graphql";
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 
 import BrowsePools from "./BrowsePoolsPage";

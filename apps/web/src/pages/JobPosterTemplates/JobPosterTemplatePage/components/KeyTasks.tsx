@@ -1,7 +1,11 @@
 import { useIntl } from "react-intl";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";

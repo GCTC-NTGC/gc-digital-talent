@@ -1,4 +1,8 @@
-import { type AnchorHTMLAttributes, type DetailedHTMLProps, forwardRef } from "react";
+import {
+  type AnchorHTMLAttributes,
+  type DetailedHTMLProps,
+  forwardRef,
+} from "react";
 import {
   Link as RouterLink,
   type LinkProps as RouterLinkProps,

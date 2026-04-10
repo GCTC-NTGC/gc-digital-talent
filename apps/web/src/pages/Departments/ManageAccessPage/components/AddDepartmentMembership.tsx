@@ -21,7 +21,10 @@ import {
 
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import { type DepartmentManageAccessFormValues, type ContextType } from "./types";
+import {
+  type DepartmentManageAccessFormValues,
+  type ContextType,
+} from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableUsers from "./useAvailableUsers";
 import useAvailableRoles from "./useAvailableRoles";

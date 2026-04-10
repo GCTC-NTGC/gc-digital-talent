@@ -11,7 +11,11 @@ import {
   Select,
 } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 
 import formLabels from "../formLabels";

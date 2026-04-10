@@ -20,7 +20,9 @@ import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
 
-import KeyTasksForm, { type FormValues } from "../../../components/KeyTasksForm";
+import KeyTasksForm, {
+  type FormValues,
+} from "../../../components/KeyTasksForm";
 import Display from "./Display";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
 

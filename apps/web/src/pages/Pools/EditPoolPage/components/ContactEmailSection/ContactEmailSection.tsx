@@ -18,7 +18,10 @@ import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
-import { type PublishedEditableSectionProps, type SectionProps } from "../../types";
+import {
+  type PublishedEditableSectionProps,
+  type SectionProps,
+} from "../../types";
 import { useEditPoolContext } from "../EditPoolContext";
 import UpdatePublishedProcessDialog, {
   type FormValues as UpdateFormValues,

@@ -27,7 +27,8 @@ import {
   ASSESSMENT_MEMBER_ROLES,
   PROCESS_ACTIVITY_LOG_ROLES,
   DEPARTMENT_ROLES,
- type LogoutReason } from "./const";
+  type LogoutReason,
+} from "./const";
 import getAuthenticationState from "./utils/authenticationState";
 import { type AuthenticationState } from "./types";
 import { setTokensFromLocation } from "./utils/setTokensFromLocation";

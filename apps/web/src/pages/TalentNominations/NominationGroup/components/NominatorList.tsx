@@ -1,7 +1,11 @@
 import { useIntl } from "react-intl";
 import { Fragment } from "react";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { UNICODE_CHAR } from "@gc-digital-talent/ui";
 

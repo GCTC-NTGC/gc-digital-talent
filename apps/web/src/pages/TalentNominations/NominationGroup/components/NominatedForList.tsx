@@ -2,7 +2,11 @@
 // NOTE: Not really plural, I guess?
 import { useIntl } from "react-intl";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { Ul } from "@gc-digital-talent/ui";
 
 import ComputedIcon from "./ComputedIcon";

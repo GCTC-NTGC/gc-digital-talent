@@ -12,7 +12,10 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import CommunityIcon from "~/components/Profile/components/DiversityEquityInclusion/CommunityIcon";
 
 import { IndigenousDialog } from "./dialogs";
-import { type IndigenousDialogProps, type IndigenousUpdateProps } from "./types";
+import {
+  type IndigenousDialogProps,
+  type IndigenousUpdateProps,
+} from "./types";
 
 type EquityGroup = "indigenous";
 

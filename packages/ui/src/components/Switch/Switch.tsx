@@ -1,6 +1,10 @@
 import * as SwitchPrimitive from "@radix-ui/react-switch";
 import { tv, type VariantProps } from "tailwind-variants";
-import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef } from "react";
+import {
+  type ComponentPropsWithoutRef,
+  type ComponentRef,
+  forwardRef,
+} from "react";
 
 import { type IconType } from "../../types";
 import useControllableState from "../../hooks/useControllableState";

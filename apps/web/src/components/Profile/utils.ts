@@ -1,4 +1,8 @@
-import { type IntlShape, type MessageDescriptor, defineMessage } from "react-intl";
+import {
+  type IntlShape,
+  type MessageDescriptor,
+  defineMessage,
+} from "react-intl";
 
 import { type FieldLabels } from "@gc-digital-talent/forms";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";

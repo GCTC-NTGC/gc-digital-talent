@@ -1,6 +1,9 @@
 import { useIntl } from "react-intl";
 
-import { CSuiteRoleTitle, type WorkExperience } from "@gc-digital-talent/graphql";
+import {
+  CSuiteRoleTitle,
+  type WorkExperience,
+} from "@gc-digital-talent/graphql";
 import { Separator } from "@gc-digital-talent/ui";
 import {
   commonMessages,

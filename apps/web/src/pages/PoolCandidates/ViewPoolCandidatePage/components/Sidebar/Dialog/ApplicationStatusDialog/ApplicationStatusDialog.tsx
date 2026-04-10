@@ -8,14 +8,21 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { Dialog, StatusButton, type StatusButtonProps } from "@gc-digital-talent/ui";
+import {
+  Dialog,
+  StatusButton,
+  type StatusButtonProps,
+} from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import applicationMessages from "~/messages/applicationMessages";
 
 import ToAssessStatusForm from "./ToAssessStatusForm";
-import { type ApplicationStatusFormProps, type MutationHandler } from "../types";
+import {
+  type ApplicationStatusFormProps,
+  type MutationHandler,
+} from "../types";
 import DisqualifiedStatusForm from "./DisqualifiedStatusForm";
 import QualifiedStatusForm from "./QualifiedStatusForm";
 import RemovedStatusForm from "./RemovedStatusForm";

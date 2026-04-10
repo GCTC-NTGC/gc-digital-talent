@@ -15,7 +15,11 @@ import {
   nodeToString,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import { type FormValues } from "../form";
 

@@ -19,7 +19,11 @@ import {
 
 import { durationToEnumPositionDuration } from "~/utils/userUtils";
 
-import { type FormValues, OTHER_FILTER, type OtherFilter } from "./UserFilterDialog";
+import {
+  type FormValues,
+  OTHER_FILTER,
+  type OtherFilter,
+} from "./UserFilterDialog";
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
 export function rolesAccessor(

@@ -5,9 +5,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import type PoolSkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
-import {
-  PoolSkillAccordion_Fragment,
-} from "~/components/PoolSkillAccordion/PoolSkillAccordion";
+import { PoolSkillAccordion_Fragment } from "~/components/PoolSkillAccordion/PoolSkillAccordion";
 
 export const JobPosterTemplateSkills_Fragment = graphql(/* GraphQL */ `
   fragment JobPosterTemplateSkills on JobPosterTemplate {

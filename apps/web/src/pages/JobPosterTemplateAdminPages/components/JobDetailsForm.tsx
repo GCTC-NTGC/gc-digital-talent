@@ -9,7 +9,11 @@ import {
   Select,
   TextArea,
 } from "@gc-digital-talent/forms";
-import { errorMessages, type Locales, uiMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  type Locales,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   type Classification,

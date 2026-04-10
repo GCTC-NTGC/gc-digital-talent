@@ -31,7 +31,10 @@ import {
 import { Loading } from "@gc-digital-talent/ui";
 import { nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { type SubExperienceFormProps, type WorkFormValues } from "~/types/experience";
+import {
+  type SubExperienceFormProps,
+  type WorkFormValues,
+} from "~/types/experience";
 import { splitAndJoin } from "~/utils/nameUtils";
 
 const GovFieldOptions_Query = graphql(/* GraphQL */ `

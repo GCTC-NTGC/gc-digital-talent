@@ -2,7 +2,11 @@ import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { CardSeparator, Separator, Ul } from "@gc-digital-talent/ui";
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";

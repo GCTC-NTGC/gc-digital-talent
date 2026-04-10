@@ -6,7 +6,11 @@ import { useMutation } from "urql";
 import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import { graphql, type FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  type FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";

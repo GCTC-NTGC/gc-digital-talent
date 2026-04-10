@@ -9,7 +9,11 @@ import {
 
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
-import { type CheckboxOption, Checklist, Select } from "@gc-digital-talent/forms";
+import {
+  type CheckboxOption,
+  Checklist,
+  Select,
+} from "@gc-digital-talent/forms";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import pageTitles from "~/messages/pageTitles";

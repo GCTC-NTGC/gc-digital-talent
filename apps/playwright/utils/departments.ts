@@ -1,4 +1,7 @@
-import { type CreateDepartmentInput, type Department } from "@gc-digital-talent/graphql";
+import {
+  type CreateDepartmentInput,
+  type Department,
+} from "@gc-digital-talent/graphql";
 
 import { type GraphQLRequestFunc, type GraphQLResponse } from "./graphql";
 

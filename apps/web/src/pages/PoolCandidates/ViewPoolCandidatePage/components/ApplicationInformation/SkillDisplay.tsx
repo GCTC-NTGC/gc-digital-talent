@@ -10,7 +10,10 @@ import {
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import { getExperienceName, type SnapshotExperience } from "~/utils/experienceUtils";
+import {
+  getExperienceName,
+  type SnapshotExperience,
+} from "~/utils/experienceUtils";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "~/components/ExperienceCard/ExperienceCard";

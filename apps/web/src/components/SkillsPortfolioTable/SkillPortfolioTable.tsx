@@ -1,5 +1,9 @@
 import { useIntl } from "react-intl";
-import { type ColumnDef, createColumnHelper, type Row } from "@tanstack/react-table";
+import {
+  type ColumnDef,
+  createColumnHelper,
+  type Row,
+} from "@tanstack/react-table";
 import { useMutation } from "urql";
 
 import {

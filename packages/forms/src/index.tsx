@@ -14,7 +14,9 @@ import Checklist, {
 } from "./components/Checklist/Checklist";
 import Combobox, { type ComboboxProps } from "./components/Combobox/Combobox";
 import { type Option as ComboboxOption } from "./components/Combobox/types";
-import DateInput, { type DateInputProps } from "./components/DateInput/DateInput";
+import DateInput, {
+  type DateInputProps,
+} from "./components/DateInput/DateInput";
 import { type DateSegment, DATE_SEGMENT } from "./components/DateInput/types";
 import Field, {
   type DescriptionsProps,

@@ -4,7 +4,11 @@ import { type RegisterOptions, useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Combobox, HiddenInput, Select } from "@gc-digital-talent/forms";
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 

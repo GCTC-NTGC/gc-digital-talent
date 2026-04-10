@@ -17,7 +17,11 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { hasRequiredRoles, ROLE_NAME, type RoleName } from "@gc-digital-talent/auth";
+import {
+  hasRequiredRoles,
+  ROLE_NAME,
+  type RoleName,
+} from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { type ProcessDialogProps } from "./types";

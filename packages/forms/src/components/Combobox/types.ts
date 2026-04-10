@@ -1,4 +1,8 @@
-import { type ReactNode, type DetailedHTMLProps, type HTMLAttributes } from "react";
+import {
+  type ReactNode,
+  type DetailedHTMLProps,
+  type HTMLAttributes,
+} from "react";
 
 import { type FieldState, type HTMLInputProps } from "../../types";
 

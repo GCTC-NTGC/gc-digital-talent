@@ -24,7 +24,10 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { type GetPageNavInfo } from "~/types/applicationStep";
-import { type ExperienceForDate, type ExperienceType } from "~/types/experience";
+import {
+  type ExperienceForDate,
+  type ExperienceType,
+} from "~/types/experience";
 import {
   deriveExperienceType,
   type SimpleAnyExperience,

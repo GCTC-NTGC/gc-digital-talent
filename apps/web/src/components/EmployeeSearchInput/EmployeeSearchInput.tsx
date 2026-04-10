@@ -9,7 +9,11 @@ import {
 import { type Maybe } from "@gc-digital-talent/graphql";
 
 import ControlledInput from "./ControlledInput";
-import { type EmployeeSearchResult, type ErrorMessages, type ErrorSeverities } from "./types";
+import {
+  type EmployeeSearchResult,
+  type ErrorMessages,
+  type ErrorSeverities,
+} from "./types";
 import { type SearchMessageCases } from "./Result";
 export type { ErrorMessages } from "./types";
 

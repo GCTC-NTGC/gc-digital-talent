@@ -23,7 +23,11 @@ import {
   getFragment,
   type Maybe,
 } from "@gc-digital-talent/graphql";
-import { hasRequiredRoles, ROLE_NAME, type RoleName } from "@gc-digital-talent/auth";
+import {
+  hasRequiredRoles,
+  ROLE_NAME,
+  type RoleName,
+} from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";

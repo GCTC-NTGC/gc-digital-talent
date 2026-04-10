@@ -11,7 +11,11 @@ import {
   Notice,
   wrapParens,
 } from "@gc-digital-talent/ui";
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import {
   assertUnreachable,
   notEmpty,

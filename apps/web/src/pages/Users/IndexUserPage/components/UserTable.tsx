@@ -17,7 +17,11 @@ import {
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { type User, type UserFilterInput, graphql } from "@gc-digital-talent/graphql";
+import {
+  type User,
+  type UserFilterInput,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import Table, {
   getTableStateFromSearchParams,

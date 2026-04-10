@@ -4,7 +4,11 @@ import { useMutation } from "urql";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { tv } from "tailwind-variants";
 
-import { type FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  type FragmentType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import {
   Card,
   DialogPrimitive,

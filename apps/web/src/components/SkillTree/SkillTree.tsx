@@ -18,7 +18,10 @@ import {
   type Skill,
 } from "@gc-digital-talent/graphql";
 
-import { type ExperienceWithSkills, getExperienceSkills } from "~/utils/skillUtils";
+import {
+  type ExperienceWithSkills,
+  getExperienceSkills,
+} from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 

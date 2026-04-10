@@ -2,7 +2,13 @@ import { useIntl } from "react-intl";
 import { type HTMLProps, type ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import { Link, Heading, type HeadingLevel, Card, Ul } from "@gc-digital-talent/ui";
+import {
+  Link,
+  Heading,
+  type HeadingLevel,
+  Card,
+  Ul,
+} from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 

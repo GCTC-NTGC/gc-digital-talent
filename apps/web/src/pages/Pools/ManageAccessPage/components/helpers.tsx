@@ -10,7 +10,10 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import RemovePoolMembershipDialog from "./RemovePoolMembershipDialog";
-import { type ManageAccessPagePoolFragmentRoleType, type PoolTeamMember } from "./types";
+import {
+  type ManageAccessPagePoolFragmentRoleType,
+  type PoolTeamMember,
+} from "./types";
 
 function orderRoles(
   roles: ManageAccessPagePoolFragmentRoleType[],

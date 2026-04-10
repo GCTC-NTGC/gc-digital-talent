@@ -12,7 +12,11 @@ import {
   Link,
   Ul,
 } from "@gc-digital-talent/ui";
-import { type Locales, commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import {
+  type Locales,
+  commonMessages,
+  getLocale,
+} from "@gc-digital-talent/i18n";
 
 const selfAssessmentLink = (locale: Locales, chunks: ReactNode) => (
   <Link
