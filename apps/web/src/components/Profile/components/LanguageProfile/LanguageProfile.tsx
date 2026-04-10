@@ -13,6 +13,7 @@ import {
   graphql,
   Pool,
 } from "@gc-digital-talent/graphql";
+import { getFromLocalStorage } from "@gc-digital-talent/storage";
 
 import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
 import profileMessages from "~/messages/profileMessages";
@@ -22,6 +23,7 @@ import {
 } from "~/validators/profile/languageInformation";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
 import { SectionProps } from "../../types";
 import FormActions from "../FormActions";
@@ -91,7 +93,12 @@ const LanguageProfile = ({
   const intl = useIntl();
   const user = getFragment(ProfileLanguageProfile_Fragment, query);
   const isNull = hasAllEmptyFields(user);
-  const emptyRequired = hasEmptyRequiredFields(user);
+  const hasUnacknowledgedNotices = getFromLocalStorage<boolean>(
+    KEY_NEW_USER_LANGUAGE_PRESET,
+    false,
+  );
+  const emptyRequired =
+    hasEmptyRequiredFields(user) || hasUnacknowledgedNotices;
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
     section: "language",
     isNull,

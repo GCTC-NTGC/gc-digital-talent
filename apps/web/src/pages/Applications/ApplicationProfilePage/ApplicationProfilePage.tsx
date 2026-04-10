@@ -8,6 +8,7 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { graphql, PoolAreaOfSelection } from "@gc-digital-talent/graphql";
+import { getFromLocalStorage } from "@gc-digital-talent/storage";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -22,6 +23,7 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
 import WorkEmailCard from "~/components/WorkEmailCard.tsx/WorkEmailCard";
 import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
 import StepNavigation from "./components/StepNavigation";
 import { ApplicationPageProps } from "../ApplicationApi";
@@ -80,6 +82,12 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
     application,
     stepOrdinal: currentStepOrdinal,
   });
+  const browserState = {
+    newUserLanguagePresetFlagIsSet: getFromLocalStorage<boolean>(
+      KEY_NEW_USER_LANGUAGE_PRESET,
+      false,
+    ),
+  };
 
   const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
     Application_UpdateProfileMutation,
@@ -176,7 +184,9 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
       <StepNavigation
         application={application}
         user={application.user}
-        isValid={!stepHasError(application.user, application.pool)}
+        isValid={
+          !stepHasError(application.user, application.pool, null, browserState)
+        }
       />
     </ProfileFormProvider>
   );
