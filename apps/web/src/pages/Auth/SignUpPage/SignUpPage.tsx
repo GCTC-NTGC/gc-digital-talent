@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
-import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
+import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 
 import {
@@ -141,7 +141,7 @@ export const Component = () => {
                   level="h2"
                   color="primary"
                   icon={SparklesIcon}
-                  className="mt-0 justify-center font-normal xs:justify-start"
+                  className="mt-0 font-normal"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Welcome",
