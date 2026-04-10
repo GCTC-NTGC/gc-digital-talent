@@ -2436,6 +2436,16 @@ input CommunityDevelopmentProgramBelongsToMany {
   sync: [UUID!]
 }
 
+input CommunityDevelopmentProgramBelongsToManyWithPivot {
+  connect: [ConnectCommunityDevelopmentProgramWithPivot!]
+}
+
+input ConnectCommunityDevelopmentProgramWithPivot {
+  id: ID!
+  descriptionForNominations: LocalizedStringInput
+    @rename(attribute: "description_for_nominations")
+}
+
 input CreateTalentNominationEventInput @validator {
   name: LocalizedStringInput!
   description: LocalizedStringInput
@@ -2445,7 +2455,7 @@ input CreateTalentNominationEventInput @validator {
   includeLeadershipCompetencies: Boolean
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo!
-  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
 input UpdateTalentNominationEventInput @validator {
@@ -2457,7 +2467,7 @@ input UpdateTalentNominationEventInput @validator {
   includeLeadershipCompetencies: Boolean
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo
-  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
 input TalentNominationEventBelongsTo {

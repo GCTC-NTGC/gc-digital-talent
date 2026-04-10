@@ -55,7 +55,14 @@ class TalentNominationEventTest extends TestCase
                 learnMoreUrl { en fr }
                 includeLeadershipCompetencies
                 community { id }
-                communityDevelopmentPrograms { id }
+                communityDevelopmentPrograms {
+                     id
+                     pivot {
+                        descriptionForNominations {
+                            localized
+                        }
+                     }
+                     }
                 developmentPrograms { id }
             }
         }
@@ -120,7 +127,17 @@ class TalentNominationEventTest extends TestCase
                 'talentNominationEvent' => [
                     ...$this->input,
                     'community' => ['connect' => $this->communityId],
-                    'communityDevelopmentPrograms' => ['sync' => [$this->communityDevelopmentProgramId]],
+                    'communityDevelopmentPrograms' => [
+                        'connect' => [
+                            [
+                                'id' => $this->communityDevelopmentProgramId,
+                                'descriptionForNominations' => [
+                                    'en' => 'abc',
+                                    'fr' => 'def',
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
             ])
             ->assertJson([
@@ -128,7 +145,14 @@ class TalentNominationEventTest extends TestCase
                     'createTalentNominationEvent' => [
                         ...$this->input,
                         'community' => ['id' => $this->communityId],
-                        'communityDevelopmentPrograms' => [['id' => $this->communityDevelopmentProgramId]],
+                        'communityDevelopmentPrograms' => [
+                            [
+                                'id' => $this->communityDevelopmentProgramId,
+                                'pivot' => [
+                                    'descriptionForNominations' => ['localized' => 'abc'],
+                                ],
+                            ],
+                        ],
                         'developmentPrograms' => [['id' => $this->developmentProgramId]],
                     ],
                 ],
