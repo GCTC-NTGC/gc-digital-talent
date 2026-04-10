@@ -840,8 +840,8 @@ type Community implements HasRoleAssignments {
 
 type DevelopmentProgram {
   id: UUID!
-  name: LocalizedString
-  descriptionForProfile: LocalizedString
+  name: LocalizedString!
+  descriptionForProfile: LocalizedString!
     @rename(attribute: "description_for_profile")
   descriptionForNominations: LocalizedString
     @rename(attribute: "description_for_nominations")
