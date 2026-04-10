@@ -674,6 +674,9 @@ type Mutation {
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
   updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
+  createCommunityDevelopmentProgram(createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
+  updateCommunityDevelopmentProgram(updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
+  deleteCommunityDevelopmentProgram(id: UUID!): CommunityDevelopmentProgram
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
   downloadCommunityInterestUsersExcel(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
@@ -1301,7 +1304,9 @@ type Community implements HasRoleAssignments {
   teamIdForRoleAssignment: ID
   pools: [Pool]
   workStreams: [WorkStream!]
-  developmentPrograms: [DevelopmentProgram!]
+  developmentPrograms: [DevelopmentProgram!] @deprecated(reason: "use associatedDevelopmentPrograms")
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+  associatedDevelopmentPrograms: [DevelopmentProgram!]
 }
 
 type DevelopmentProgram {
@@ -1309,8 +1314,17 @@ type DevelopmentProgram {
   name: LocalizedString
   descriptionForProfile: LocalizedString
   descriptionForNominations: LocalizedString
-  community: Community
+  community: Community @deprecated(reason: "use associatedCommunities")
   eligibleClassifications: [Classification!]
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+  associatedCommunities: [Community!]
+}
+
+type CommunityDevelopmentProgram {
+  id: UUID!
+  community: Community!
+  developmentProgram: DevelopmentProgram!
+  classifications: [Classification!]
 }
 
 type TalentNominationEvent {
@@ -1782,6 +1796,8 @@ type SitewideAnnouncement {
   expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
+  updatedAt: DateTime!
+  isDismissible: Boolean!
 }
 
 type TrainingOpportunity {
@@ -1809,6 +1825,7 @@ input SitewideAnnouncementInput {
   expiryDate: DateTime!
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isDismissible: Boolean!
 }
 
 input ClaimVerificationSort {
@@ -2903,6 +2920,17 @@ input UpdateJobPosterTemplateInput {
 input SendUserEmailsVerificationInput {
   emailAddress: String!
   emailTypes: [EmailType]
+}
+
+input CreateCommunityDevelopmentProgramInput {
+  communityId: UUID!
+  developmentProgramId: UUID!
+  classifications: ClassificationBelongsToMany
+}
+
+input UpdateCommunityDevelopmentProgramInput {
+  id: UUID!
+  classifications: ClassificationBelongsToMany
 }
 
 type UserNotification {

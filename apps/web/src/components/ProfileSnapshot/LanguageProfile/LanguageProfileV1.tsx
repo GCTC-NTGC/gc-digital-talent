@@ -57,6 +57,8 @@ export interface LanguageProfileSnapshotV1 {
   comprehensionLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
   verbalLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
   bilingualEvaluation?: Maybe<BilingualEvaluation>;
+  preferredLanguageForInterview?: Maybe<LocalizedLanguage>;
+  preferredLanguageForExam: Maybe<LocalizedLanguage>;
 }
 
 type LanguageProfileV1Props = SnapshotProps<LanguageProfileSnapshotV1>;
@@ -77,6 +79,8 @@ const LanguageProfileV1 = ({ snapshot }: LanguageProfileV1Props) => {
     comprehensionLevel,
     verbalLevel,
     bilingualEvaluation,
+    preferredLanguageForInterview,
+    preferredLanguageForExam,
   } = snapshot;
 
   let examValidity = null;
@@ -231,6 +235,18 @@ const LanguageProfileV1 = ({ snapshot }: LanguageProfileV1Props) => {
                     <FieldDisplay label={labels.verbalLevel}>
                       {verbalLevel?.label
                         ? verbalLevel.label.localized
+                        : notProvided}
+                    </FieldDisplay>
+                  </div>
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <FieldDisplay label={labels.prefSpokenInterviewLang}>
+                      {preferredLanguageForInterview?.label
+                        ? preferredLanguageForInterview.label.localized
+                        : notProvided}
+                    </FieldDisplay>
+                    <FieldDisplay label={labels.prefWrittenExamLang}>
+                      {preferredLanguageForExam?.label
+                        ? preferredLanguageForExam.label.localized
                         : notProvided}
                     </FieldDisplay>
                   </div>
