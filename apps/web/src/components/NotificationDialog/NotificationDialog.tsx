@@ -4,14 +4,13 @@ import { AnimatePresence, m, usePresence } from "motion/react";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import { useQuery, UseQueryExecute, useSubscription } from "urql";
+import type { UseQueryExecute } from "urql";
+import { useQuery, useSubscription } from "urql";
 
 import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
-import {
-  graphql,
-  NotificationType,
-  UserNotification,
-} from "@gc-digital-talent/graphql";
+import type { UserNotification } from "@gc-digital-talent/graphql";
+import { graphql, NotificationType } from "@gc-digital-talent/graphql";
+import type { ButtonProps } from "@gc-digital-talent/ui";
 import {
   DialogPrimitive,
   Button,
@@ -19,7 +18,6 @@ import {
   Dialog,
   Link,
   IconButton,
-  ButtonProps,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -267,8 +265,8 @@ const NotificationDialog = ({
           toast.success(
             intl.formatMessage({
               defaultMessage:
-                "Your file is ready for download. Check your noficiations.",
-              id: "lTjAhK",
+                "Your file is ready for download. Check your notifications.",
+              id: "8p8Xug",
               description: "Message displayed when file download is complete",
             }),
           );
