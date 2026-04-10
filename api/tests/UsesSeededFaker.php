@@ -36,7 +36,7 @@ trait UsesSeededFaker
      * Laravel factories use Container::getInstance()->make(Generator::class)
      * in their withFaker() method. We need to:
      * 1. Clear Laravel's static Faker cache in DatabaseServiceProvider
-     * 2. Bind the seeded instance to the container as a singleton
+     * 2. Forget any existing binding and re-bind as instance
      */
     protected function seedFaker(int $seed = 1): FakerGenerator
     {
@@ -52,17 +52,28 @@ trait UsesSeededFaker
         $reflection = new ReflectionClass(DatabaseServiceProvider::class);
         $property = $reflection->getProperty('fakers');
         $property->setAccessible(true);
-        $fakers = $property->getValue();
-        $fakers[$locale] = $faker;
-        $property->setValue(null, $fakers);
+        // Replace the entire array with just our seeded faker
+        $property->setValue(null, [$locale => $faker]);
 
-        // Bind to the container singleton that factories use.
-        // Factories call Container::getInstance()->make(Generator::class)
-        // so we need to bind to the Container singleton directly.
+        // Get the container - need to use the same instance factories use
         $container = Container::getInstance();
+
+        // Remove any existing binding/singleton/instance
+        $container->forgetInstance(FakerGenerator::class);
+        if ($container->bound(FakerGenerator::class)) {
+            // Use reflection to remove the binding
+            $bindingsProperty = new \ReflectionProperty($container, 'bindings');
+            $bindingsProperty->setAccessible(true);
+            $bindings = $bindingsProperty->getValue($container);
+            unset($bindings[FakerGenerator::class]);
+            $bindingsProperty->setValue($container, $bindings);
+        }
+
+        // Now bind our seeded faker as a singleton instance
         $container->instance(FakerGenerator::class, $faker);
 
         // Also bind to $this->app for any direct resolution in tests
+        $this->app->forgetInstance(FakerGenerator::class);
         $this->app->instance(FakerGenerator::class, $faker);
 
         return $faker;
