@@ -18,9 +18,6 @@ const card = tv({
       true: "shadow-xl",
       false: "shadow-none",
     },
-    defaultVariant: {
-      shadow: true,
-    },
   },
 });
 
