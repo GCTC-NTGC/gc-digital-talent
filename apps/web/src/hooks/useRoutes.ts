@@ -191,6 +191,24 @@ const getRoutes = (lang: Locales) => {
     // Admin - Department (singular)
     departmentDashboard: () => [adminUrl, "department"].join("/"),
 
+    // Admin - Development Programs
+    developmentProgramTable: () =>
+      [adminUrl, "settings", "development-programs"].join("/"),
+    developmentProgramCreate: () =>
+      [adminUrl, "settings", "development-programs", "create"].join("/"),
+    developmentProgramView: (developmentProgramId: string) =>
+      [adminUrl, "settings", "development-programs", developmentProgramId].join(
+        "/",
+      ),
+    developmentProgramUpdate: (developmentProgramId: string) =>
+      [
+        adminUrl,
+        "settings",
+        "development-programs",
+        developmentProgramId,
+        "edit",
+      ].join("/"),
+
     // Admin - Announcements
     announcements: () => [adminUrl, "settings", "announcements"].join("/"),
 

@@ -34,6 +34,8 @@ class DevelopmentProgramFactory extends Factory
 
                 return $community->id;
             },
+            'information_url' => FactoryHelpers::toFakeLocalizedString($this->faker->url()),
+            'abbreviation' => FactoryHelpers::toFakeLocalizedString(strtoupper($this->faker->text(5))),
         ];
     }
 

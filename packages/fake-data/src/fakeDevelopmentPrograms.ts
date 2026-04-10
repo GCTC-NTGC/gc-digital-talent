@@ -8,6 +8,8 @@ const generateDevelopmentProgram = (): DevelopmentProgram => {
   return {
     id: faker.string.uuid(),
     name: toLocalizedString(faker.company.name()),
+    informationUrl: toLocalizedString(faker.internet.url()),
+    abbreviation: toLocalizedString(faker.hacker.abbreviation()),
   };
 };
 
