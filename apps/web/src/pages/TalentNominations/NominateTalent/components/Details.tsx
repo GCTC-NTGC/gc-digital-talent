@@ -105,7 +105,10 @@ type DetailsFieldsOptionsFragmentType = FragmentType<
 >;
 
 interface DetailsFieldsProps {
-  developmentProgramOptions: DevelopmentProgram[];
+  developmentProgramOptions: Omit<
+    DevelopmentProgram,
+    "descriptionForProfile"
+  >[];
   optionsQuery?: DetailsFieldsOptionsFragmentType;
   employeeQuery?: FragmentType<typeof DetailsEmployee_Fragment>;
 }
