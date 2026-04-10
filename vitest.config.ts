@@ -14,7 +14,13 @@ const dirname =
 export default defineConfig({
   ...uiConfig,
   optimizeDeps: {
-    include: ["react/jsx-dev-runtime"],
+    include: [
+      "react/jsx-dev-runtime",
+      "react",
+      "react-dom",
+      "@storybook/test",
+      "@storybook/addon-vitest/vitest-plugin",
+    ],
   },
   test: {
     ...uiConfig.test,
@@ -62,7 +68,6 @@ export default defineConfig({
               },
             ],
           },
-          setupFiles: [".storybook/vitest.setup.ts"],
         },
       },
     ],
