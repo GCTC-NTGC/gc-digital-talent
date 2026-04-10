@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
@@ -26,6 +25,7 @@ import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
 
 import messages from "./messages";
+import EmployeeVerificationSection from "./components/EmployeeVerificationSection/EmployeeVerificationSection";
 import GoalsWorkStyleSection, {
   EmployeeProfileGoalsWorkStyle_Fragment,
 } from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
@@ -65,6 +65,7 @@ const EmployeeProfileOptions_Fragment = graphql(/** GraphQL */ `
 const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeProfile on User {
     isVerifiedGovEmployee
+    ...UserEmployeeVerification
     employeeProfile {
       ...EmployeeProfileCareerDevelopment
       ...EmployeeProfileCareerObjective
@@ -259,23 +260,7 @@ const EmployeeProfile = ({
           <TableOfContents.Content>
             <div className="flex flex-col gap-y-18">
               <TableOfContents.Section id={SECTION_ID.EMPLOYEE_VERIFICATION}>
-                <Heading
-                  level="h2"
-                  icon={IdentificationIcon}
-                  color="primary"
-                  className="mt-0 font-normal sm:text-left"
-                >
-                  {intl.formatMessage(commonMessages.employeeVerification)}
-                </Heading>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Verify your Government of Canada work email address and update your career experience with your latest Government of Canada role to gain access to useful career management tools and profile settings.",
-                    id: "gikOBE",
-                    description:
-                      "Lead-in text explaining employee verification",
-                  })}
-                </p>
+                <EmployeeVerificationSection userQuery={user} />
               </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
                 <Heading
