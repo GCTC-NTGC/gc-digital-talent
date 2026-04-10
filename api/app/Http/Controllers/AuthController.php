@@ -69,6 +69,7 @@ class AuthController extends Controller
             'acr_values' => config('oauth.acr_values'),
             'ui_locales' => $ui_locales, // This is what SIC wants
             'lang' => $lang,  // This is what CanadaLogin wants
+            'skipmigration' => $request->input('skipmigration', null),
         ]);
 
         return redirect(config('oauth.authorize_uri').'?'.$query);
