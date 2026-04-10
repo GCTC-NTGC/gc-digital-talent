@@ -7,7 +7,8 @@ VARIABLES_TO_EXPAND=$3
 
 if [ -z "$VARIABLES_TO_EXPAND" ]; then
     # no variables specified, substitute everything
-    envsubst < $ORIG_FILE_NAME > $NEW_FILE_NAME
+    VARS=$(printf '$%s ' $(env | cut -d= -f1))
+    envsubst "$VARS" < "$ORIG_FILE_NAME" > "$NEW_FILE_NAME"
 else
     # variables specified, do only those
     envsubst "$VARIABLES_TO_EXPAND" < $ORIG_FILE_NAME > $NEW_FILE_NAME
