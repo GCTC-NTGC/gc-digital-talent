@@ -62,7 +62,7 @@ const EmployeeProfileOptions_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
+export const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeProfile on User {
     isVerifiedGovEmployee
     ...UserEmployeeVerification
@@ -80,7 +80,7 @@ interface EmployeeProfileProps {
   optionsQuery: FragmentType<typeof EmployeeProfileOptions_Fragment>;
 }
 
-const EmployeeProfile = ({
+export const EmployeeProfile = ({
   employeeProfileQuery,
   optionsQuery,
 }: EmployeeProfileProps) => {

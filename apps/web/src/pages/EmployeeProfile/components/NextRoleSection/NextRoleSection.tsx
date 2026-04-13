@@ -460,7 +460,7 @@ const NextRoleSection = ({
   ];
 
   const workStreamOptions: ComponentProps<typeof Checklist>["items"] =
-    options.communities
+    unpackMaybes(options.communities)
       .find((community) => community?.id === watchCommunityId)
       ?.workStreams?.map((workStream) => ({
         value: workStream.id,
