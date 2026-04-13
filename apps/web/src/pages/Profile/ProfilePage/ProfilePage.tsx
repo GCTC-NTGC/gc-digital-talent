@@ -7,6 +7,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError } from "@gc-digital-talent/helpers";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import profileMessages from "~/messages/profileMessages";
 import { SectionProps } from "~/components/Profile/types";
@@ -20,6 +21,7 @@ import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeter
 import { requireUser } from "~/routing/auth";
 import { graphqlClientContext, intlContext } from "~/routing/context";
 import useRoutes from "~/hooks/useRoutes";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
 import type { Route } from "./+types/ProfilePage";
 
@@ -75,6 +77,9 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
   const paths = useRoutes();
   const revalidator = useRevalidator();
   const { user } = loaderData;
+
+  const [languagePresetNoticeIsVisible, setLanguagePresetNoticeIsVisible] =
+    useLocalStorage<boolean>(KEY_NEW_USER_LANGUAGE_PRESET, false);
 
   const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
     ProfileUpdateUser_Mutation,
@@ -158,7 +163,13 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
             <GovernmentInformation query={user} />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.LANGUAGE}>
-            <LanguageProfile {...sectionProps} />
+            <LanguageProfile
+              languagePresetNoticeIsVisible={languagePresetNoticeIsVisible}
+              setLanguagePresetNoticeIsVisible={
+                setLanguagePresetNoticeIsVisible
+              }
+              {...sectionProps}
+            />
           </TableOfContents.Section>
         </div>
       </TableOfContents.Content>

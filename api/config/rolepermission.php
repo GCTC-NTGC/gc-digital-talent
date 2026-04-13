@@ -1171,22 +1171,22 @@ return [
 
         'platform_admin' => [
             'classification' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'department' => [
-                'any' => ['create', 'view', 'update', 'delete', 'archive'],
+                'any' => ['create', 'update', 'delete', 'archive'],
             ],
             'genericJobTitle' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'skill' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'skillFamily' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'community' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'user' => [
                 'any' => ['create', 'view', 'update', 'delete'], // create needs to remain for playwright tests.
@@ -1228,16 +1228,16 @@ return [
                 'any' => ['view'],
             ],
             'jobPosterTemplate' => [
-                'any' => ['view', 'create', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'searchRequest' => [
                 'any' => ['view'],
             ],
             'role' => [
-                'any' => ['view', 'assign'],
+                'any' => ['assign'],
             ],
             'announcement' => [
-                'any' => ['view', 'update'],
+                'any' => ['update'],
             ],
             'platformAdminMembership' => [
                 'any' => ['update'],
