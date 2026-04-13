@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class Talent nomination event
@@ -36,6 +38,7 @@ class TalentNominationEvent extends Model
     /** @use HasFactory<TalentNominationEventFactory> */
     use HasFactory;
 
+    use HasRelationships;
     use LogsActivity;
 
     protected $keyType = 'string';
@@ -66,10 +69,17 @@ class TalentNominationEvent extends Model
         return $this->belongsTo(Community::class);
     }
 
-    /** @return BelongsToMany<DevelopmentProgram, $this> */
-    public function developmentPrograms(): BelongsToMany
+    /** @return BelongsToMany<CommunityDevelopmentProgram, $this, CommunityDevelopmentProgramTalentNominationEvent> */
+    public function communityDevelopmentPrograms(): BelongsToMany
     {
-        return $this->belongsToMany(DevelopmentProgram::class);
+        return $this->belongsToMany(CommunityDevelopmentProgram::class, 'community_development_program_talent_nomination_event')
+            ->using(CommunityDevelopmentProgramTalentNominationEvent::class)
+            ->withPivot(['description_for_nominations']);
+    }
+
+    public function developmentProgramsThroughPivot(): HasManyDeep
+    {
+        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram)->developmentProgram());
     }
 
     protected function status(): Attribute
