@@ -1,8 +1,8 @@
-import { IntlShape } from "react-intl";
-import { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
+import type { ReactNode } from "react";
 
 import { commonMessages } from "../messages";
-import { Locales } from "../types";
+import type { Locales } from "../types";
 
 // style should be the same as gray in packages/i18n/src/components/richTextElements.tsx.
 const Gray = ({ children }: { children: ReactNode }) => (

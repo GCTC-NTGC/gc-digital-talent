@@ -1,5 +1,9 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
+import type {
+  LocalizedEnumString,
+  LocalizedString,
+  Maybe} from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   AwardedScope,
@@ -10,9 +14,6 @@ import {
   EducationType,
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
-  LocalizedEnumString,
-  LocalizedString,
-  Maybe,
   PlacementType,
   PoolCandidateSearchRequestReason,
   PoolCandidateSearchStatus,
