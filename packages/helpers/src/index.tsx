@@ -25,7 +25,7 @@ import {
   unpackMaybes,
 } from "./utils/util";
 import useIsSmallScreen from "./hooks/useIsSmallScreen";
-import { GraphqlType } from "./types/graphql";
+import type { GraphqlType } from "./types/graphql";
 import { NotFoundError, UnauthorizedError } from "./errors";
 
 export {
