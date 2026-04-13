@@ -6,6 +6,7 @@ import {
   AuthenticationState,
   useAuthentication,
 } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import { isTokenProbablyExpired } from "../../utils/isTokenProbablyExpired";
 import { getClient } from "../../utils/getClient";
@@ -19,6 +20,7 @@ const ClientProvider = ({
 }) => {
   const intl = useIntl();
   const authContext = useAuthentication();
+  const { graphqlSubscriptions } = useFeatureFlags();
   // Create a mutable object to hold the auth state
   const authRef = useRef<AuthenticationState>(authContext);
   // Keep the contents of that mutable object up to date
@@ -27,7 +29,8 @@ const ClientProvider = ({
   }, [authContext]);
 
   const internalClient = useMemo(
-    () => client ?? getClient({ intl, withSubscriptions: true }),
+    () =>
+      client ?? getClient({ intl, withSubscriptions: graphqlSubscriptions }),
     [client, intl],
   );
 
