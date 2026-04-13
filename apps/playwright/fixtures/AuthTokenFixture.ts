@@ -1,4 +1,4 @@
-import type { Request, type Page } from "@playwright/test";
+import type { Request, Page } from "@playwright/test";
 
 import type { AuthTokens } from "~/utils/auth";
 import { getAuthTokens, jumpPastExpiryDate } from "~/utils/auth";

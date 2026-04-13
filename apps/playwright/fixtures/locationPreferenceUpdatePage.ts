@@ -1,4 +1,5 @@
-import type { Locator, expect, type Page } from "@playwright/test";
+import { expect } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import type { Key } from "react";
 
 import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";

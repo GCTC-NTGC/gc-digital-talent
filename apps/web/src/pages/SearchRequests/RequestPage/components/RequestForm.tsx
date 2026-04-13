@@ -29,6 +29,12 @@ import {
   removeFromSessionStorage,
   setInSessionStorage,
 } from "@gc-digital-talent/storage";
+import {
+  graphql,
+  getFragment,
+  PoolCandidateSearchPositionType,
+  FlexibleWorkLocation,
+} from "@gc-digital-talent/graphql";
 import type {
   EquitySelections,
   CreatePoolCandidateSearchRequestInput,
@@ -41,11 +47,7 @@ import type {
   ApplicantFilter,
   ApplicantFilterInput,
   FragmentType,
-  PoolCandidateSearchPositionType,
-  type RequestForm_CreateRequestMutation as CreateRequestMutation,
-  graphql,
-  getFragment,
-  FlexibleWorkLocation,
+  RequestForm_CreateRequestMutation as CreateRequestMutation,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
