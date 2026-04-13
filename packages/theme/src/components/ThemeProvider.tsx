@@ -1,6 +1,7 @@
+import type {
+  ReactNode} from "react";
 import {
   createContext,
-  ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -8,7 +9,7 @@ import {
 
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
-import {
+import type {
   ThemeMode,
   ThemeKey,
   SetThemeFunc,
