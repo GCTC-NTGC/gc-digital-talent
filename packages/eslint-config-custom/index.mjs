@@ -1,4 +1,5 @@
-import { defineConfig } from "eslint/config";
+// @ts-check
+
 import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import { flatConfigs as importFlatConfigs } from "eslint-plugin-import";
@@ -7,7 +8,7 @@ import testingLibrary from "eslint-plugin-testing-library";
 import noOnlyTests from "eslint-plugin-no-only-tests";
 import prettierConfig from "eslint-config-prettier/flat";
 
-export default defineConfig(
+export default tseslint.config(
   eslint.configs.recommended,
   tseslint.configs.recommendedTypeChecked,
   tseslint.configs.stylisticTypeChecked,
