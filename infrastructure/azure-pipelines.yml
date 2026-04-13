@@ -54,6 +54,7 @@ jobs:
           php artisan lighthouse:print-schema --write
         displayName: Build Backend
         env:
+          # Required for bootstrap during lighthouse schema printing
           BROADCAST_CONNECTION: "null"
 
       - script: |
