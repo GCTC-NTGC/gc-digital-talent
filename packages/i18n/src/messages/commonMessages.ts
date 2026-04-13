@@ -592,8 +592,7 @@ const commonMessages = defineMessages({
   employeeVerification: {
     defaultMessage: "Employee verification",
     id: "VpjQL1",
-    description:
-      "Label for status of employee verification",
+    description: "Label for status of employee verification",
   },
 });
 
