@@ -69,6 +69,7 @@ class AuthController extends Controller
             'acr_values' => config('oauth.acr_values'),
             'ui_locales' => $ui_locales, // This is what SIC wants
             'lang' => $lang,  // This is what CanadaLogin wants
+            'skipmigration' => $request->input('skipmigration', null),
         ]);
 
         return redirect(config('oauth.authorize_uri').'?'.$query);
@@ -163,6 +164,7 @@ class AuthController extends Controller
 
         // update the user with values from logging in
         $userMatch->last_sign_in_at = Carbon::now();
+        $userMatch->last_sign_in_iss = $idToken->claims()->get('iss', null);
         if ($idToken->claims()->has('given_name')) {
             $userMatch->first_name = $idToken->claims()->get('given_name');
         }
