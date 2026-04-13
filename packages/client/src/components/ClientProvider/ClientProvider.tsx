@@ -1,9 +1,12 @@
-import { ReactNode, useEffect, useMemo, useRef } from "react";
-import { Client, Provider } from "urql";
+import type { ReactNode} from "react";
+import { useEffect, useMemo, useRef } from "react";
+import type { Client} from "urql";
+import { Provider } from "urql";
 import { useIntl } from "react-intl";
 
+import type {
+  AuthenticationState} from "@gc-digital-talent/auth";
 import {
-  AuthenticationState,
   useAuthentication,
 } from "@gc-digital-talent/auth";
 
