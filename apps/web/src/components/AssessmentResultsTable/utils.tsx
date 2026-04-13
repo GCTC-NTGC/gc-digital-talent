@@ -3,16 +3,17 @@ import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 import { tv } from "tailwind-variants";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import {
-  AssessmentDecision,
+import type {
   AssessmentResultStatus,
   AssessmentStep,
-  AssessmentStepType,
-  Maybe,
+  Maybe} from "@gc-digital-talent/graphql";
+import {
+  AssessmentDecision,
+  AssessmentStepType
 } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -20,14 +21,15 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { NO_DECISION } from "~/utils/assessmentResults";
 
-import {
+import type {
   AssessmentTableRow,
   AssessmentTableRowColumn,
   ColumnStatus,
 } from "./types";
-import ScreeningDecisionDialog, {
+import type {
   ScreeningDecisionDialogProps,
 } from "../ScreeningDecisions/ScreeningDecisionDialog";
+import ScreeningDecisionDialog from "../ScreeningDecisions/ScreeningDecisionDialog";
 
 const iconStyles = tv({
   base: "h-auto w-5 shrink-0 align-middle xs:inline-block",

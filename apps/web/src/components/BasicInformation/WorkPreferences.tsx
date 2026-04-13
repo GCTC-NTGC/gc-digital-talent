@@ -6,8 +6,9 @@ import {
   EmploymentDuration,
   getEmploymentDuration,
 } from "@gc-digital-talent/i18n";
+import type {
+  FragmentType} from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   PositionDuration,

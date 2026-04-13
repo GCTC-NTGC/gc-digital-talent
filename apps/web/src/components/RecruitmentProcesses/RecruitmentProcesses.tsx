@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 
+import type {
+  FragmentType} from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
-  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

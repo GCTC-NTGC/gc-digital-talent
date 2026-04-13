@@ -1,7 +1,9 @@
-import { createContext, ReactNode, useEffect, useMemo } from "react";
+import type { ReactNode} from "react";
+import { createContext, useEffect, useMemo } from "react";
 
+import type {
+  RoleName} from "@gc-digital-talent/auth";
 import {
-  RoleName,
   NAV_ROLE_KEY,
   useAuthentication,
   useAuthorization,

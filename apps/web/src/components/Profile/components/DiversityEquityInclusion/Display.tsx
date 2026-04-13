@@ -6,8 +6,9 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import type {
+  FragmentType} from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   IndigenousCommunity,

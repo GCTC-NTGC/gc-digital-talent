@@ -1,10 +1,11 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
-import LanguageProfileV1, {
+import type {
   LanguageProfileSnapshotV1,
 } from "./LanguageProfileV1";
+import LanguageProfileV1 from "./LanguageProfileV1";
 import { getSupportedVersionComponent } from "../utils";
-import { SnapshotProps } from "../types";
+import type { SnapshotProps } from "../types";
 
 type LanguageProfileSnapshotProps = SnapshotProps<LanguageProfileSnapshotV1>;
 

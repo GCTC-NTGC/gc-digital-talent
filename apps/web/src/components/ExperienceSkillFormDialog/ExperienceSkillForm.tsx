@@ -3,19 +3,21 @@ import { useForm, FormProvider } from "react-hook-form";
 
 import { Dialog, Button, Heading, Notice, Ul } from "@gc-digital-talent/ui";
 import { Select, TextArea } from "@gc-digital-talent/forms";
+import type {
+  Locales} from "@gc-digital-talent/i18n";
 import {
   errorMessages,
   formMessages,
-  getLocale,
-  Locales,
+  getLocale
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import {
+import type {
   Experience,
   FragmentType,
+  Scalars} from "@gc-digital-talent/graphql";
+import {
   getFragment,
-  graphql,
-  Scalars,
+  graphql
 } from "@gc-digital-talent/graphql";
 
 import {

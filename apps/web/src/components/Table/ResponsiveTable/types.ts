@@ -5,7 +5,7 @@ import type {
   SortingState,
   Table,
 } from "@tanstack/react-table";
-import {
+import type {
   AriaAttributes,
   HTMLAttributes,
   HTMLProps,
@@ -13,7 +13,7 @@ import {
   JSX,
 } from "react";
 
-import { DownloadCsvProps } from "@gc-digital-talent/ui";
+import type { DownloadCsvProps } from "@gc-digital-talent/ui";
 
 export interface SearchState {
   /** The current search term */

@@ -1,14 +1,16 @@
 import { useIntl } from "react-intl";
-import { Fragment, ReactNode } from "react";
+import type { ReactNode } from "react";
+import { Fragment } from "react";
 import { tv } from "tailwind-variants";
 
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
-import {
+import type {
   FragmentType,
+  Scalars} from "@gc-digital-talent/graphql";
+import {
   getFragment,
-  graphql,
-  Scalars,
+  graphql
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";

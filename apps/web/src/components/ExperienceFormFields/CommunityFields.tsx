@@ -8,16 +8,17 @@ import {
   RadioGroup,
   TextArea,
 } from "@gc-digital-talent/forms";
+import type {
+  Locales} from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   errorMessages,
-  getLocale,
-  Locales,
+  getLocale
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import {
+import type {
   SubExperienceFormProps,
   CommunityFormValues,
 } from "~/types/experience";

@@ -2,7 +2,8 @@ import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { CardSeparator, Notice, Separator, Ul } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { getFromLocalStorage } from "@gc-digital-talent/storage";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";

@@ -1,24 +1,27 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
+import type {
+  HeadingLevel} from "@gc-digital-talent/ui";
 import {
   Button,
   Card,
   Heading,
   TreeView,
   Notice,
-  HeadingLevel,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import {
+import type {
   FragmentType,
+  Skill} from "@gc-digital-talent/graphql";
+import {
   getFragment,
-  graphql,
-  Skill,
+  graphql
 } from "@gc-digital-talent/graphql";
 
-import { ExperienceWithSkills, getExperienceSkills } from "~/utils/skillUtils";
+import type { ExperienceWithSkills} from "~/utils/skillUtils";
+import { getExperienceSkills } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 

@@ -1,5 +1,6 @@
+import type {
+  CareerDevelopmentPreferencesFragment} from "@gc-digital-talent/graphql";
 import {
-  CareerDevelopmentPreferencesFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import {

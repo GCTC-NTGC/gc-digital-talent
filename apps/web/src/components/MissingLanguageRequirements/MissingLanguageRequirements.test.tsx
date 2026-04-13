@@ -9,7 +9,8 @@ import {
   fakePools,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import { Pool, PoolLanguage, User } from "@gc-digital-talent/graphql";
+import type { Pool, User } from "@gc-digital-talent/graphql";
+import { PoolLanguage } from "@gc-digital-talent/graphql";
 
 import MissingLanguageRequirements, {
   type MissingLanguageRequirementsProps,

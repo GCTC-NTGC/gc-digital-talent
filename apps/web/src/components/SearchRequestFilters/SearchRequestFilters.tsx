@@ -13,11 +13,12 @@ import {
   commonMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
+import type {
   Classification,
-  FlexibleWorkLocation,
   LocalizedEnumString,
-  Maybe,
+  Maybe} from "@gc-digital-talent/graphql";
+import {
+  FlexibleWorkLocation
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -29,7 +30,7 @@ import {
 } from "~/utils/searchRequestUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import messages from "~/messages/profileMessages";
-import {
+import type {
   PartialApplicantFilter,
   PartialPoolCandidateFilter,
 } from "~/types/searchRequest";

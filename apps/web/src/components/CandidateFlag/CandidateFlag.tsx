@@ -3,11 +3,12 @@ import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
 import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
 
 import { IconButton } from "@gc-digital-talent/ui";
-import {
+import type {
   FragmentType,
+  Maybe} from "@gc-digital-talent/graphql";
+import {
   getFragment,
-  graphql,
-  Maybe,
+  graphql
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 

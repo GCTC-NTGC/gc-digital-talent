@@ -1,9 +1,10 @@
-import { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
+import type {
+  ImgProps as BaseImgProps} from "@gc-digital-talent/ui";
 import {
-  Image as BaseImage,
-  ImgProps as BaseImgProps,
+  Image as BaseImage
 } from "@gc-digital-talent/ui";
 
 export interface ImgProps extends BaseImgProps {

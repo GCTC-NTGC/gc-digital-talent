@@ -4,18 +4,20 @@ import { AnimatePresence, m, usePresence } from "motion/react";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import { useQuery, UseQueryExecute } from "urql";
+import type { UseQueryExecute } from "urql";
+import { useQuery } from "urql";
 
 import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
+import type {
+  ButtonProps} from "@gc-digital-talent/ui";
 import {
   DialogPrimitive,
   Button,
   Heading,
   Dialog,
   Link,
-  IconButton,
-  ButtonProps,
+  IconButton
 } from "@gc-digital-talent/ui";
 
 import usePollingQuery from "~/hooks/usePollingQuery";

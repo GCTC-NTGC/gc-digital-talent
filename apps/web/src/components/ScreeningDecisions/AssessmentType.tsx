@@ -1,17 +1,19 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Accordion, Heading, Notice } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getSkillLevelDefinition,
 } from "@gc-digital-talent/i18n";
 
-import { ClassificationGroup } from "~/types/classificationGroup";
+import type { ClassificationGroup } from "~/types/classificationGroup";
 
+import type {
+  DialogType} from "./utils";
 import {
   DIALOG_TYPE,
-  DialogType,
   getEducationRequirementLabel,
   getSkillLevelMessage,
 } from "./utils";

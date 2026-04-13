@@ -5,21 +5,23 @@ import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import { differenceInDays } from "date-fns/differenceInDays";
 import { isPast } from "date-fns/isPast";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import {
+import type {
   FragmentType,
+  Maybe} from "@gc-digital-talent/graphql";
+import {
   getFragment,
   graphql,
-  Maybe,
   PoolLanguage,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import type {
+  HeadingLevel} from "@gc-digital-talent/ui";
 import {
   Card,
   Heading,
-  HeadingLevel,
   Link,
   IconLabel,
   UNICODE_CHAR,

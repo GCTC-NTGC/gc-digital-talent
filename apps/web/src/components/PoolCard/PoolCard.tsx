@@ -1,13 +1,15 @@
-import { IntlShape, useIntl } from "react-intl";
+import type { IntlShape} from "react-intl";
+import { useIntl } from "react-intl";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { tv } from "tailwind-variants";
 
+import type {
+  HeadingRank} from "@gc-digital-talent/ui";
 import {
   Heading,
-  HeadingRank,
   Link,
   Chip,
   Chips,
@@ -19,8 +21,9 @@ import {
   getLocalizedName,
   commonMessages,
 } from "@gc-digital-talent/i18n";
+import type {
+  FragmentType} from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
   PoolSkillType,

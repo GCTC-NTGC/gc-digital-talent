@@ -1,16 +1,17 @@
 import { useIntl } from "react-intl";
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";
 
 import { ToggleSection, Notice } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
+import type {
   FragmentType,
+  Pool} from "@gc-digital-talent/graphql";
+import {
   getFragment,
-  graphql,
-  Pool,
+  graphql
 } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
@@ -20,11 +21,11 @@ import {
 } from "~/validators/profile/citizenVeteranPriority";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
-import { SectionProps } from "../../types";
+import type { SectionProps } from "../../types";
 import FormActions from "../FormActions";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 import FormFields from "./FormFields";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";

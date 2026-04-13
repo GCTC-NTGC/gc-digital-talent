@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { IntlShape, useIntl } from "react-intl";
+import type { IntlShape} from "react-intl";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Button, Dialog, Pending, Separator, Ul } from "@gc-digital-talent/ui";
-import {
+import type {
   Maybe,
   Skill,
+  Scalars} from "@gc-digital-talent/graphql";
+import {
   graphql,
-  Scalars,
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";

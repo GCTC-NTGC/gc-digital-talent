@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { MessageDescriptor} from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
+import type { SubmitHandler} from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Input, Submit } from "@gc-digital-talent/forms";

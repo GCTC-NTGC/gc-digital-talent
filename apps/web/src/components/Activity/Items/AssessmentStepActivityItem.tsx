@@ -1,16 +1,19 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
 
-import {
+import type {
   ActivityProperties,
-  getFragment,
-  Maybe,
+  Maybe} from "@gc-digital-talent/graphql";
+import {
+  getFragment
 } from "@gc-digital-talent/graphql";
-import { getLocale, Locales } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
+import type {
+  CommonItemProps} from "./BaseActivityItem";
 import BaseItem, {
-  BaseItem_Fragment,
-  CommonItemProps,
+  BaseItem_Fragment
 } from "./BaseActivityItem";
 import { getDeepAttribute, getEventInfo, parseAttributes } from "./utils";
 

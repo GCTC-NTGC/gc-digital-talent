@@ -1,13 +1,14 @@
 import { useIntl } from "react-intl";
 
-import {
+import type {
   FragmentType,
-  getFragment,
   LocalizedFlexibleWorkLocation,
   LocalizedOperationalRequirement,
   LocalizedProvinceOrTerritory,
   LocalizedWorkRegion,
-  Maybe,
+  Maybe} from "@gc-digital-talent/graphql";
+import {
+  getFragment,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
 import {
@@ -25,7 +26,7 @@ import { formatLocation } from "~/utils/userUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
-import { SnapshotProps } from "../types";
+import type { SnapshotProps } from "../types";
 
 export interface WorkPreferencesSnapshotV1 {
   acceptedOperationalRequirements: Maybe<

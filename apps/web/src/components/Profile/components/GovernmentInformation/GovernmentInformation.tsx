@@ -1,14 +1,15 @@
 import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Heading, Link, Notice } from "@gc-digital-talent/ui";
-import {
+import type {
   FragmentType,
-  getFragment,
-  graphql,
   Maybe,
-  Pool,
+  Pool} from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";

@@ -1,12 +1,13 @@
 import { useMutation } from "urql";
 
+import type {
+  Scalars} from "@gc-digital-talent/graphql";
 import {
   AssessmentResultType,
-  graphql,
-  Scalars,
+  graphql
 } from "@gc-digital-talent/graphql";
 
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 import {
   convertFormValuesToApiCreateInput,
   convertFormValuesToApiUpdateInput,
