@@ -7,23 +7,24 @@ import { isSameMonth } from "date-fns/isSameMonth";
 import { isSameYear } from "date-fns/isSameYear";
 import { isValid } from "date-fns/isValid";
 import { useFormContext, Controller } from "react-hook-form";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
 
 import Field from "../Field";
-import { CommonInputProps, HTMLFieldsetProps } from "../../types";
+import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import ControlledInput from "./ControlledInput";
 import { splitSegments } from "./utils";
-import {
+import type {
   DateRegisterOptions,
   DateSegment,
-  DATE_SEGMENT,
-  RoundingMethod,
+  RoundingMethod} from "./types";
+import {
+  DATE_SEGMENT
 } from "./types";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
 

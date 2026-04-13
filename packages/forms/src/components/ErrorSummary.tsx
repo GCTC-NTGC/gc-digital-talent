@@ -1,12 +1,15 @@
 import { useIntl } from "react-intl";
-import { FieldErrors, FieldValues, useFormState } from "react-hook-form";
+import type { FieldErrors, FieldValues} from "react-hook-form";
+import { useFormState } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { ReactNode, forwardRef, ComponentRef } from "react";
+import type { ReactNode, ComponentRef } from "react";
+import { forwardRef } from "react";
 
+import type {
+  ScrollLinkClickFunc} from "@gc-digital-talent/ui";
 import {
   Notice,
   ScrollToLink,
-  ScrollLinkClickFunc,
   Link,
   Ul,
 } from "@gc-digital-talent/ui";
