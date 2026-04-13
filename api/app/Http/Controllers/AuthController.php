@@ -175,7 +175,7 @@ class AuthController extends Controller
             // if email is not null, check if existing users have this email and take it from them
             if (! empty($incomingEmailAddress)) {
                 try {
-                    $existingUser = User::where('sub', '!=', $sub)
+                    $existingUser = User::where('id', '!=', $userMatch->id)
                         ->where(fn ($subquery) => $subquery
                             ->where('email', 'ilike', $incomingEmailAddress)
                             ->orWhere('work_email', 'ilike', $incomingEmailAddress)
