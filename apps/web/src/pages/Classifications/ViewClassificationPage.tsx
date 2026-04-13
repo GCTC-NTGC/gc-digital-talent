@@ -12,11 +12,12 @@ import {
   Container,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
+import type {
   FragmentType,
+  Scalars} from "@gc-digital-talent/graphql";
+import {
   getFragment,
-  graphql,
-  Scalars,
+  graphql
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 

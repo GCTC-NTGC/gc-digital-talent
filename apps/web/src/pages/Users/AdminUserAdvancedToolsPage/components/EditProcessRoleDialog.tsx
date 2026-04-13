@@ -10,17 +10,18 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { Scalars, Maybe } from "@gc-digital-talent/graphql";
+import type { Scalars, Maybe } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
+import type {
+  PoolAssignment,
+  RoleTableProps} from "../utils";
 import {
   getRoleTableFragments,
-  PoolAssignment,
-  RoleTableProps,
   useUpdateRolesMutation,
 } from "../utils";
 

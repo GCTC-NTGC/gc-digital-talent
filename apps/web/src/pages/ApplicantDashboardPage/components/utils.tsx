@@ -1,14 +1,16 @@
-import { IntlShape, MessageDescriptor } from "react-intl";
-import { ReactNode } from "react";
+import type { IntlShape, MessageDescriptor } from "react-intl";
+import type { ReactNode } from "react";
 
+import type {
+  Maybe} from "@gc-digital-talent/graphql";
 import {
   CandidateInterest,
   CandidateStatus,
-  Maybe,
   PoolCandidateSearchStatus,
 } from "@gc-digital-talent/graphql";
 import { assertUnreachable, compareStrings } from "@gc-digital-talent/helpers";
-import { ChipProps, Link } from "@gc-digital-talent/ui";
+import type { ChipProps} from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import {

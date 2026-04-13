@@ -1,16 +1,17 @@
 import { useIntl } from "react-intl";
 import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMagnifyingGlassIcon";
 import { useFormContext } from "react-hook-form";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { Checkbox, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import pageTitles from "~/messages/pageTitles";
 
-import { FormValues } from "../form";
+import type { FormValues } from "../form";
 
 const ReviewAndSubmitOptions_Fragment = graphql(/* GraphQL */ `
   fragment ReviewAndSubmitOptions_Fragment on Query {

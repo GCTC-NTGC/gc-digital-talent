@@ -1,12 +1,13 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import type {
+  FragmentType,
+  LocalizedString} from "@gc-digital-talent/graphql";
 import {
   DepartmentSize,
-  FragmentType,
   getFragment,
-  graphql,
-  LocalizedString,
+  graphql
 } from "@gc-digital-talent/graphql";
 import { Chip } from "@gc-digital-talent/ui";
 

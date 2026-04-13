@@ -1,5 +1,7 @@
-import { JSX, useEffect } from "react";
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import type { JSX} from "react";
+import { useEffect } from "react";
+import type { MessageDescriptor} from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { useQuery } from "urql";
@@ -12,8 +14,9 @@ import {
   sortOpportunityLength,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import type {
+  CheckboxOption} from "@gc-digital-talent/forms";
 import {
-  CheckboxOption,
   Checklist,
   Input,
   RadioGroup,
@@ -21,9 +24,10 @@ import {
   Submit,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
+import type {
+  FragmentType} from "@gc-digital-talent/graphql";
 import {
   PoolStatus,
-  FragmentType,
   getFragment,
   graphql,
   PoolSelectionLimitation,
@@ -41,14 +45,15 @@ import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
-import {
+import type {
   FormValues,
-  PoolNameSubmitData,
+  PoolNameSubmitData} from "./utils";
+import {
   dataToFormValues,
   formValuesToSubmitData,
   getClassificationOptions,
 } from "./utils";
-import { SectionProps } from "../../types";
+import type { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
 import CitizensNote from "./CitizensNote";
 

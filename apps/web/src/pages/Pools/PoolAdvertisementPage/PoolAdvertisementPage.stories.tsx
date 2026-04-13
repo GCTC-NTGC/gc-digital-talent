@@ -1,7 +1,8 @@
-import { StoryFn, Meta } from "@storybook/react-vite";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
-import { makeFragmentData, Pool, PoolStatus } from "@gc-digital-talent/graphql";
+import type { Pool} from "@gc-digital-talent/graphql";
+import { makeFragmentData, PoolStatus } from "@gc-digital-talent/graphql";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,

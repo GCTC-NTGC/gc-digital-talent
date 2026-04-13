@@ -1,13 +1,14 @@
 import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
+import type {
+  LinkProps} from "@gc-digital-talent/ui";
 import {
   Button,
   Dialog,
   IconButton,
-  Link,
-  LinkProps,
+  Link
 } from "@gc-digital-talent/ui";
 import { formatDate } from "@gc-digital-talent/date-helpers";
 

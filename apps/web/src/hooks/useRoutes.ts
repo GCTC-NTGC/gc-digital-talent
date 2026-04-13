@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 
-import { Locales, getLocale } from "@gc-digital-talent/i18n";
+import type { Locales} from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
-import { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
+import type { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
 
 const FromIapDraftQueryKey = "fromIapDraft";
 const FromIapSuccessQueryKey = "fromIapSuccess";

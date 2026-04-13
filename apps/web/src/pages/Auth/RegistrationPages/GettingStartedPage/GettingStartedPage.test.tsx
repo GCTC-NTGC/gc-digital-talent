@@ -11,8 +11,9 @@ import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
+import type {
+  GettingStartedFormProps} from "./GettingStartedForm";
 import GettingStartedForm, {
-  GettingStartedFormProps,
   GettingStartedInitialValues_Query,
 } from "./GettingStartedForm";
 

@@ -3,14 +3,15 @@ import { m } from "motion/react";
 import orderBy from "lodash/orderBy";
 import { useSearchParams } from "react-router";
 import { useQuery } from "urql";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Container, Link, Pending, Image } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
+import type {
+  FragmentType} from "@gc-digital-talent/graphql";
 import {
   graphql,
   PublishingGroup,
-  FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 

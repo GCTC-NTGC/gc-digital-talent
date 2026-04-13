@@ -4,10 +4,11 @@ import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
 import { IconButton } from "@gc-digital-talent/ui";
-import {
+import type {
   FragmentType,
   LocalizedString,
-  Maybe,
+  Maybe} from "@gc-digital-talent/graphql";
+import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

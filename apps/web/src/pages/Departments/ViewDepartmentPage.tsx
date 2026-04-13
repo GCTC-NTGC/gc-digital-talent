@@ -14,9 +14,10 @@ import {
   Ul,
   Container,
 } from "@gc-digital-talent/ui";
-import {
+import type {
   FragmentType,
-  Scalars,
+  Scalars} from "@gc-digital-talent/graphql";
+import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -31,7 +32,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import labels from "./labels";
-import { ContextType } from "./ManageAccessPage/components/types";
+import type { ContextType } from "./ManageAccessPage/components/types";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentView on Department {

@@ -1,4 +1,5 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef} from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useMemo } from "react";
 
@@ -12,12 +13,13 @@ import { normalizedText } from "~/components/Table/sortingFns";
 import tableMessages from "~/components/Table/tableMessages";
 
 import AddDepartmentRoleDialog from "./AddDepartmentRoleDialog";
-import {
+import type {
   DepartmentAssignment,
+  RoleTableProps} from "../utils";
+import {
   getRoleTableFragments,
   isDepartmentTeamable,
-  roleCell,
-  RoleTableProps,
+  roleCell
 } from "../utils";
 import RemoveDepartmentRoleDialog from "./RemoveDepartmentRoleDialog";
 import EditDepartmentRoleDialog from "./EditDepartmentRoleDialog";

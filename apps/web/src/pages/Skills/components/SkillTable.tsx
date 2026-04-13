@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
-import {
+import type {
   ColumnDef,
-  PaginationState,
+  PaginationState} from "@tanstack/react-table";
+import {
   createColumnHelper,
 } from "@tanstack/react-table";
 import { createIntl, createIntlCache, useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
+import type { OperationContext} from "urql";
+import { useQuery } from "urql";
 import { useLocation, useSearchParams } from "react-router";
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 
 import {
   commonMessages,
@@ -16,7 +18,8 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, LoadingErrorMessage } from "@gc-digital-talent/ui";
-import { Skill, SkillCategory, graphql } from "@gc-digital-talent/graphql";
+import type { Skill} from "@gc-digital-talent/graphql";
+import { SkillCategory, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -33,7 +36,8 @@ import {
   familiesAccessor,
   skillFamiliesCell,
 } from "./tableHelpers";
-import SkillFilterDialog, { FormValues } from "./SkillFilterDialog";
+import type { FormValues } from "./SkillFilterDialog";
+import SkillFilterDialog from "./SkillFilterDialog";
 import { getSkillCsvData, getSkillCsvHeaders } from "./skillCsv";
 
 type SkillFilterInput = FormValues;

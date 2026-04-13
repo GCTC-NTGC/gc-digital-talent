@@ -1,4 +1,4 @@
-import { Experience } from "@gc-digital-talent/graphql";
+import type { Experience } from "@gc-digital-talent/graphql";
 
 type Experiences = Pick<Experience, "id">[] | undefined | null;
 

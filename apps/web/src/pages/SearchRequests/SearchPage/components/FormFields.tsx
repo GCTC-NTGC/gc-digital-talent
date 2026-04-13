@@ -1,9 +1,10 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
+import type {
+  CheckboxOption} from "@gc-digital-talent/forms";
 import {
-  CheckboxOption,
   Checklist,
   Field,
   RadioGroup,
@@ -18,12 +19,13 @@ import {
   sortFlexibleWorkLocations,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
-import {
+import type {
   Classification,
-  FlexibleWorkLocation,
   Skill,
+  WorkStream} from "@gc-digital-talent/graphql";
+import {
+  FlexibleWorkLocation,
   WorkRegion,
-  WorkStream,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";

@@ -1,18 +1,20 @@
 import { defineMessages, useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
+import type {
+  HeadingProps} from "@gc-digital-talent/ui";
 import {
   Button,
   DescriptionList,
   Dialog,
   Heading,
-  HeadingProps,
   IconButton,
   Link,
   Ul,
 } from "@gc-digital-talent/ui";
-import { Locales, commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import type { Locales} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 const selfAssessmentLink = (locale: Locales, chunks: ReactNode) => (
   <Link

@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef} from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useOutletContext } from "react-router";
@@ -8,18 +9,20 @@ import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
+import type {
   CommunityMembersTeamQuery,
+  Scalars} from "@gc-digital-talent/graphql";
+import {
   getFragment,
-  graphql,
-  Scalars,
+  graphql
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import type {
+  CommunityMember} from "~/utils/communityUtils";
 import {
   groupRoleAssignmentsByUser,
-  CommunityMember,
   checkRole,
 } from "~/utils/communityUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -32,7 +35,7 @@ import adminMessages from "~/messages/adminMessages";
 
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
-import { CommunityMembersPageFragment, ContextType } from "./components/types";
+import type { CommunityMembersPageFragment, ContextType } from "./components/types";
 import { CommunityMembersPage_CommunityFragment } from "./components/operations";
 
 const pageTitle = defineMessage({

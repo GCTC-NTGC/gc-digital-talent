@@ -1,13 +1,15 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
-import { Chip, ChipProps, Link } from "@gc-digital-talent/ui";
-import {
+import type { ChipProps} from "@gc-digital-talent/ui";
+import { Chip, Link } from "@gc-digital-talent/ui";
+import type {
   LocalizedTalentNominationEventStatus,
-  Maybe,
+  Maybe} from "@gc-digital-talent/graphql";
+import {
   TalentNominationEventStatus,
 } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
+import type useRoutes from "~/hooks/useRoutes";
 
 const getTalentNominationEventStatusColor = (
   talentNominationEventStatus?: Maybe<TalentNominationEventStatus>,

@@ -14,10 +14,11 @@ import {
   CardSeparator,
   Container,
 } from "@gc-digital-talent/ui";
-import {
+import type {
   Scalars,
+  FragmentType} from "@gc-digital-talent/graphql";
+import {
   graphql,
-  FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";

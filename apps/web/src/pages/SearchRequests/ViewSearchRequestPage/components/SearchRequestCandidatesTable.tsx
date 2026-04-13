@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import type {
+  PoolCandidateSearchInput} from "@gc-digital-talent/graphql";
 import {
-  PoolCandidateSearchInput,
   CandidateSuspendedFilter,
   CandidateExpiryFilter,
   PlacementType,
@@ -12,7 +13,7 @@ import {
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import adminMessages from "~/messages/adminMessages";
-import {
+import type {
   PartialApplicantFilter,
   PartialPoolCandidateFilter,
 } from "~/types/searchRequest";

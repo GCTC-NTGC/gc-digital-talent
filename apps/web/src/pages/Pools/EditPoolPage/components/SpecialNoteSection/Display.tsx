@@ -3,12 +3,12 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Notice } from "@gc-digital-talent/ui";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
-import { EditPoolSpecialNoteFragment } from "@gc-digital-talent/graphql";
+import type { EditPoolSpecialNoteFragment } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 
-import { DisplayProps } from "../../types";
+import type { DisplayProps } from "../../types";
 import { hasAllEmptyFields } from "../../../../../validators/process/specialNote";
 
 const Display = ({

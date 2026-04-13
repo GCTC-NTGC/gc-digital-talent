@@ -1,18 +1,19 @@
-import {
+import type {
   CreateCommunityInterestInput,
   CreateDevelopmentProgramInterestInput,
-  DevelopmentProgramParticipationStatus,
   Maybe,
   UpdateCommunityInterestFormData_FragmentFragment,
   UpdateCommunityInterestInput,
-  UpdateDevelopmentProgramInterestHasMany,
+  UpdateDevelopmentProgramInterestHasMany} from "@gc-digital-talent/graphql";
+import {
+  DevelopmentProgramParticipationStatus
 } from "@gc-digital-talent/graphql";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { SubformValues as FindANewCommunitySubformValues } from "./sections/FindANewCommunity";
-import { SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues } from "./sections/TrainingAndDevelopmentOpportunities";
-import { SubformValues as AdditionalInformationSubformValues } from "./sections/AdditionalInformation";
-import { SubformValues as ReviewAndSubmitSubformValues } from "./sections/ReviewAndSubmit";
+import type { SubformValues as FindANewCommunitySubformValues } from "./sections/FindANewCommunity";
+import type { SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues } from "./sections/TrainingAndDevelopmentOpportunities";
+import type { SubformValues as AdditionalInformationSubformValues } from "./sections/AdditionalInformation";
+import type { SubformValues as ReviewAndSubmitSubformValues } from "./sections/ReviewAndSubmit";
 import {
   stringArrayToEnumsFinanceChiefDuty,
   stringArrayToEnumsFinanceChiefRole,

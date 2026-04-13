@@ -1,25 +1,22 @@
-import { IntlShape, useIntl } from "react-intl";
+import type { IntlShape} from "react-intl";
+import { useIntl } from "react-intl";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { parseISO } from "date-fns/parseISO";
 import { differenceInMonths } from "date-fns/differenceInMonths";
 import { isPast } from "date-fns/isPast";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { IconType } from "@gc-digital-talent/ui";
-import {
+import type { IconType } from "@gc-digital-talent/ui";
+import type {
   AwardExperience,
   CommunityExperience,
   EducationExperience,
-  EducationType,
-  EmploymentCategory,
-  GovEmployeeType,
-  GovPositionType,
   LocalizedCafForce,
   LocalizedEducationType,
   LocalizedEmploymentCategory,
@@ -27,7 +24,12 @@ import {
   Maybe,
   PersonalExperience,
   Skill,
-  WorkExperience,
+  WorkExperience} from "@gc-digital-talent/graphql";
+import {
+  EducationType,
+  EmploymentCategory,
+  GovEmployeeType,
+  GovPositionType
 } from "@gc-digital-talent/graphql";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
@@ -39,7 +41,7 @@ import {
 } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
-import {
+import type {
   AllExperienceFormValues,
   AnyExperience,
   ExperienceDetailsDefaultValues,

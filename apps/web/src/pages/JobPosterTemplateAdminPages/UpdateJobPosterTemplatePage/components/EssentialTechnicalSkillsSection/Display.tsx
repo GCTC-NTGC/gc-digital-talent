@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
+import type {
+  FragmentType} from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   SkillCategory,
 } from "@gc-digital-talent/graphql";

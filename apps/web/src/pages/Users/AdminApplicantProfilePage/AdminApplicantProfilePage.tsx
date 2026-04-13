@@ -3,11 +3,12 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
-import {
+import type {
   FragmentType,
+  Scalars} from "@gc-digital-talent/graphql";
+import {
   getFragment,
-  graphql,
-  Scalars,
+  graphql
 } from "@gc-digital-talent/graphql";
 import {
   Accordion,
@@ -24,7 +25,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
-import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import type { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import { SECTION_KEY } from "./types";
 import PersonalAndContactInformation, {

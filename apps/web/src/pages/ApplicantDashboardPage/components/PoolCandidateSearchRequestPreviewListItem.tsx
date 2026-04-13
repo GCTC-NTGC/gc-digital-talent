@@ -1,10 +1,12 @@
-import { IntlShape, useIntl } from "react-intl";
+import type { IntlShape} from "react-intl";
+import { useIntl } from "react-intl";
 
-import {
+import type {
   FragmentType,
+  PreviewListItemSearchRequestFragment} from "@gc-digital-talent/graphql";
+import {
   getFragment,
-  graphql,
-  PreviewListItemSearchRequestFragment,
+  graphql
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { PreviewList } from "@gc-digital-talent/ui";

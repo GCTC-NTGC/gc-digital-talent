@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler} from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useMutation } from "urql";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import {
   Button,
@@ -14,14 +15,15 @@ import { Input, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import type {
+  IndigenousCommunity} from "@gc-digital-talent/graphql";
 import {
   ApplicationStep,
-  graphql,
-  IndigenousCommunity,
+  graphql
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
 import SelfDeclarationDialog from "~/components/IAPDialog/SelfDeclarationDialog";
 import VerificationDialog from "~/components/IAPDialog/VerificationDialog";
@@ -36,7 +38,7 @@ import HelpLink from "~/components/SelfDeclaration/HelpLink";
 import CommunitySelection from "~/components/SelfDeclaration/CommunitySelection";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-import { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import useApplication from "../useApplication";
 

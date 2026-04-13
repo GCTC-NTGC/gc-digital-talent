@@ -1,8 +1,9 @@
-import {
+import type {
   LocalizedTalentNominationGroupDecision,
   NominationGroupEvaluationFormFragment,
-  TalentNominationGroupDecision,
-  UpdateTalentNominationGroupInput,
+  UpdateTalentNominationGroupInput} from "@gc-digital-talent/graphql";
+import {
+  TalentNominationGroupDecision
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {

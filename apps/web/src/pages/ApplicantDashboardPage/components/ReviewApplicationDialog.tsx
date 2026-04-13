@@ -1,9 +1,10 @@
 import { useIntl } from "react-intl";
 import { useState } from "react";
 
+import type {
+  FragmentType} from "@gc-digital-talent/graphql";
 import {
   CandidateStatus,
-  FragmentType,
   getFragment,
   graphql,
   PoolAreaOfSelection,

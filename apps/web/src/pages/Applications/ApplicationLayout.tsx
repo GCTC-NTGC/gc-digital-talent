@@ -1,6 +1,7 @@
 import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router";
-import { OperationContext, useQuery } from "urql";
+import type { OperationContext} from "urql";
+import { useQuery } from "urql";
 import { useEffect } from "react";
 
 import {
@@ -16,7 +17,8 @@ import {
   NotFoundError,
 } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { getFromLocalStorage } from "@gc-digital-talent/storage";
 
@@ -38,7 +40,7 @@ import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
 import useApplicationId from "./useApplicationId";
-import { ContextType } from "./useApplication";
+import type { ContextType } from "./useApplication";
 import Application_PoolCandidateFragment from "./fragment";
 import { getApplicationSteps } from "./utils";
 

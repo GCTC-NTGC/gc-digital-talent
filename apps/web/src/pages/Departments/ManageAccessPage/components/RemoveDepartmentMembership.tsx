@@ -1,7 +1,8 @@
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef} from "react";
 import {
   useState,
-  ComponentPropsWithoutRef,
-  ComponentRef,
   forwardRef,
 } from "react";
 import { useIntl } from "react-intl";
@@ -21,16 +22,16 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
+import type {
   RoleInput,
   DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { DepartmentMember } from "~/utils/departmentUtils";
+import type { DepartmentMember } from "~/utils/departmentUtils";
 
-import { ContextType } from "./types";
+import type { ContextType } from "./types";
 import { UpdateUserDepartmentRoles_Mutation } from "./operations";
 
 interface RemoveDepartmentMembershipDialogProps extends ComponentPropsWithoutRef<

@@ -1,18 +1,21 @@
-import { JSX, ReactNode } from "react";
-import { IntlShape, useIntl } from "react-intl";
+import type { JSX, ReactNode } from "react";
+import type { IntlShape} from "react-intl";
+import { useIntl } from "react-intl";
 
+import type {
+  FragmentType} from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
+import type {
+  Locales} from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocale,
-  getLocalizedName,
-  Locales,
+  getLocalizedName
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 

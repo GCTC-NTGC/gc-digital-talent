@@ -1,9 +1,10 @@
-import {
+import type {
   User,
   Maybe,
   Pool,
-  PublishingGroup,
-  LocalizedIndigenousCommunity,
+  LocalizedIndigenousCommunity} from "@gc-digital-talent/graphql";
+import {
+  PublishingGroup
 } from "@gc-digital-talent/graphql";
 
 export interface PartialUser extends Pick<

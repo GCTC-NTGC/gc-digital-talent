@@ -12,10 +12,11 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import {
+import type {
   Scalars,
+  FragmentType} from "@gc-digital-talent/graphql";
+import {
   graphql,
-  FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 

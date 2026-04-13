@@ -1,4 +1,4 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import {
   unpackMaybes,
@@ -7,16 +7,18 @@ import {
   emptyToNull,
 } from "@gc-digital-talent/helpers";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
-import {
+import type {
   ApplicantFilterInput,
   Classification,
   CandidateCountQueryVariables,
-  Maybe,
+  Maybe} from "@gc-digital-talent/graphql";
+import {
   PositionDuration,
   FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 
-import { FormValues, NullSelection } from "~/types/searchRequest";
+import type { FormValues} from "~/types/searchRequest";
+import { NullSelection } from "~/types/searchRequest";
 import {
   formatClassificationAriaString,
   formatClassificationString,

@@ -1,13 +1,14 @@
-import {
+import type {
   EmployeeProfile,
+  UpdateEmployeeProfileInput} from "@gc-digital-talent/graphql";
+import {
   ExecCoaching,
   graphql,
-  Mentorship,
-  UpdateEmployeeProfileInput,
+  Mentorship
 } from "@gc-digital-talent/graphql";
 import { ExecCoachingStatus, MentorshipStatus } from "@gc-digital-talent/i18n";
 
-import { FormValues } from "./CareerDevelopmentSection";
+import type { FormValues } from "./CareerDevelopmentSection";
 
 export const EmployeeProfileCareerDevelopmentOptions_Fragment = graphql(
   /* GraphQL */ `

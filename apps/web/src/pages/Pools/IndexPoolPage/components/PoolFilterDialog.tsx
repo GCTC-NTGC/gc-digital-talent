@@ -1,20 +1,22 @@
 import { useIntl } from "react-intl";
 
 import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
-import {
+import type {
   FragmentType,
   PoolStatus,
   PublishingGroup,
-  Scalars,
+  Scalars} from "@gc-digital-talent/graphql";
+import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
-import FilterDialog, {
+import type {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
+import FilterDialog from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 
 export interface FormValues {

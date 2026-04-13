@@ -1,7 +1,8 @@
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef} from "react";
 import {
   useState,
-  ComponentPropsWithoutRef,
-  ComponentRef,
   forwardRef,
 } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -18,16 +19,16 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
+import type {
   RoleInput,
   CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { CommunityMember } from "~/utils/communityUtils";
+import type { CommunityMember } from "~/utils/communityUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import { CommunityMemberFormValues, ContextType } from "./types";
+import type { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";

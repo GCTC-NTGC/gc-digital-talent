@@ -4,26 +4,28 @@
  *
  * For utilities specific to the Applicant-side UI, see ./applicationUtils.ts
  */
-import { IntlShape, defineMessages } from "react-intl";
+import type { IntlShape} from "react-intl";
+import { defineMessages } from "react-intl";
 import sortBy from "lodash/sortBy";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { differenceInDays } from "date-fns/differenceInDays";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages, ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
-import { ChipProps } from "@gc-digital-talent/ui";
-import {
+import type { ChipProps } from "@gc-digital-talent/ui";
+import type {
   Maybe,
   AssessmentStep,
   Pool,
   ScreeningStage,
   AssessmentStepType,
   LocalizedCandidateStatus,
+  LocalizedCandidateInterest,
+  LocalizedApplicationStatus} from "@gc-digital-talent/graphql";
+import {
   CandidateStatus,
   CandidateInterest,
-  LocalizedCandidateInterest,
-  ApplicationStatus,
-  LocalizedApplicationStatus,
+  ApplicationStatus
 } from "@gc-digital-talent/graphql";
 
 import { LEGACY_ASSESSMENT_STEP_TYPES } from "~/constants/poolCandidate";

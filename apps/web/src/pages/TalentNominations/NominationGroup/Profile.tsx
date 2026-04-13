@@ -24,7 +24,8 @@ import GoalsAndWorkStyle from "~/components/GoalsAndWorkStyle/GoalsAndWorkStyle"
 import RecruitmentProcesses from "~/components/RecruitmentProcesses/RecruitmentProcesses";
 import permissionConstants from "~/constants/permissionConstants";
 
-import { RouteParams, SECTION_KEY } from "./types";
+import type { RouteParams} from "./types";
+import { SECTION_KEY } from "./types";
 
 const Nominee_Query = graphql(/* GraphQL */ `
   query Nominee($nomineeId: UUID!) {

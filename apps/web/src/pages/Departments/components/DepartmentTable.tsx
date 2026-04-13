@@ -1,4 +1,5 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef} from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { useQuery } from "urql";
@@ -6,10 +7,11 @@ import { useQuery } from "urql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Pending } from "@gc-digital-talent/ui";
+import type {
+  DepartmentTableRowFragment,
+  FragmentType} from "@gc-digital-talent/graphql";
 import {
   graphql,
-  DepartmentTableRowFragment,
-  FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 
@@ -18,9 +20,10 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
 
+import type {
+  MyRoleDepartment} from "../utils";
 import {
   departmentStatusAccessor,
-  MyRoleDepartment,
   myRolesAccessor,
   myRolesCell,
   roleAssignmentsToRoleDepartmentArray,

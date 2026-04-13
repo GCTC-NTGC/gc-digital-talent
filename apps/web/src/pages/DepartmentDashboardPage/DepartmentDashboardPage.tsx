@@ -8,10 +8,11 @@ import {
   Container,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type {
+  DepartmentDashboardQuery} from "@gc-digital-talent/graphql";
 import {
   graphql,
-  getFragment,
-  DepartmentDashboardQuery,
+  getFragment
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -26,10 +27,11 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import YourProcessesTaskCard from "./components/YourProcessesTaskCard";
 import ResourcesDepartmentLink from "./components/ResourcesDepartmentLink";
+import type {
+  RoleAssignmentObject} from "./utils";
 import {
   departmentAssignmentsToDepartmentRolesObjects,
-  isDepartmentTeamable,
-  RoleAssignmentObject,
+  isDepartmentTeamable
 } from "./utils";
 
 export const DepartmentDashboardPage_Fragment = graphql(/* GraphQL */ `

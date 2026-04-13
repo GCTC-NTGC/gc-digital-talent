@@ -1,25 +1,27 @@
 import { useNavigate } from "react-router";
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
+import type {
+  OptGroupOrOption} from "@gc-digital-talent/forms";
 import {
   BasicForm,
   Input,
-  OptGroupOrOption,
   Select,
   Submit,
   SwitchInput,
 } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import {
-  graphql,
+import type {
   Scalars,
   CreateWorkStreamInput,
   LocalizedStringInput,
-  InputMaybe,
+  InputMaybe} from "@gc-digital-talent/graphql";
+import {
+  graphql
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {

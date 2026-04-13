@@ -3,13 +3,14 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  graphql,
+import type {
   UpdatePoolInput,
   Scalars,
   CreatePoolSkillInput,
   UpdatePoolSkillInput,
-  UpdatePublishedPoolInput,
+  UpdatePublishedPoolInput} from "@gc-digital-talent/graphql";
+import {
+  graphql
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";

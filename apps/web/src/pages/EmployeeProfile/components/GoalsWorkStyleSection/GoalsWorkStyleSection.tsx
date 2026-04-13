@@ -5,17 +5,19 @@ import { useMutation } from "urql";
 
 import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 import { Submit, TextArea } from "@gc-digital-talent/forms";
+import type {
+  Locales} from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   formMessages,
-  getLocale,
-  Locales,
+  getLocale
 } from "@gc-digital-talent/i18n";
+import type {
+  FragmentType,
+  EmployeeProfile} from "@gc-digital-talent/graphql";
 import {
   graphql,
-  FragmentType,
-  getFragment,
-  EmployeeProfile,
+  getFragment
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";

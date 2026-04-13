@@ -1,17 +1,19 @@
-import { IntlShape } from "react-intl";
-import { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
+import type { ReactNode } from "react";
 
-import {
+import type {
   LocalizedEvaluatedLanguageAbility,
   LocalizedProvinceOrTerritory,
-  Maybe,
+  Maybe} from "@gc-digital-talent/graphql";
+import {
   PositionDuration,
 } from "@gc-digital-talent/graphql";
+import type {
+  TEmploymentDuration} from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   EmploymentDuration,
-  getLocalizedName,
-  TEmploymentDuration,
+  getLocalizedName
 } from "@gc-digital-talent/i18n";
 
 // options on copy are TERM or INDETERMINATE

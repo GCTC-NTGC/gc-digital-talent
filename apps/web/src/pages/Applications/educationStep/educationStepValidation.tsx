@@ -1,10 +1,11 @@
-import {
-  EducationRequirementOption,
+import type {
   Pool,
-  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
+  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType} from "@gc-digital-talent/graphql";
+import {
+  EducationRequirementOption
 } from "@gc-digital-talent/graphql";
 
-import { ExperienceForDate } from "~/types/experience";
+import type { ExperienceForDate } from "~/types/experience";
 import { isEducationExperience } from "~/utils/experienceUtils";
 
 const stepHasError = (

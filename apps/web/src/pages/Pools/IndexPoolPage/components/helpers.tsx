@@ -1,32 +1,35 @@
-import { IntlShape } from "react-intl";
-import { SortingState } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
+import type { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
-import { Locales, getLocalizedName } from "@gc-digital-talent/i18n";
+import type { Locales} from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip, UNICODE_CHAR } from "@gc-digital-talent/ui";
-import {
+import type {
   Classification,
   FragmentType,
   LocalizedString,
   Maybe,
-  NullsOption,
   OrderByColumnInput,
-  OrderByRelationWithColumnAggregateFunction,
   Pool,
   PoolBookmarksOrderByInput,
   PoolFilterInput,
   PoolWorkStreamNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
-  QueryPoolsPaginatedOrderByRelationOrderByClause,
+  QueryPoolsPaginatedOrderByRelationOrderByClause} from "@gc-digital-talent/graphql";
+import {
+  NullsOption,
+  OrderByRelationWithColumnAggregateFunction,
   SortOrder,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 
-import { FormValues } from "./PoolFilterDialog";
-import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
+import type { FormValues } from "./PoolFilterDialog";
+import type { PoolBookmark_Fragment } from "./PoolBookmark";
+import PoolBookmark from "./PoolBookmark";
 
 export function poolNameAccessor(
   pool: Pick<Pool, "name" | "workStream">,

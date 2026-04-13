@@ -9,13 +9,14 @@ import {
   formMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { Role } from "@gc-digital-talent/graphql";
+import type { Role } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
+import type {
+  UserRoleDialogBaseProps} from "../utils";
 import {
   getUserRoleDialogFragment,
-  UserRoleDialogBaseProps,
   useUpdateRolesMutation,
 } from "../utils";
 

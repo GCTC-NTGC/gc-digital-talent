@@ -13,9 +13,10 @@ import {
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
+import type {
+  RoleTableProps} from "../utils";
 import {
   getRoleTableFragments,
-  RoleTableProps,
   useUpdateRolesMutation,
 } from "../utils";
 

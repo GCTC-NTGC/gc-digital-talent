@@ -8,13 +8,14 @@ import {
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
-import {
+import type {
   ExecCoaching,
   FragmentType,
-  getFragment,
-  graphql,
   Mentorship,
-  OrganizationTypeInterest,
+  OrganizationTypeInterest} from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql
 } from "@gc-digital-talent/graphql";
 import {
   formatDate,

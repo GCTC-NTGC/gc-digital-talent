@@ -14,9 +14,10 @@ import {
   Card,
   Container,
 } from "@gc-digital-talent/ui";
-import {
+import type {
   FragmentType,
-  Scalars,
+  Scalars} from "@gc-digital-talent/graphql";
+import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

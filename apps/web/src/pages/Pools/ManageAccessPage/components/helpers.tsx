@@ -1,16 +1,16 @@
 import orderBy from "lodash/orderBy";
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip, Chips } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
+import type {
   Maybe,
   ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import RemovePoolMembershipDialog from "./RemovePoolMembershipDialog";
-import { ManageAccessPagePoolFragmentRoleType, PoolTeamMember } from "./types";
+import type { ManageAccessPagePoolFragmentRoleType, PoolTeamMember } from "./types";
 
 function orderRoles(
   roles: ManageAccessPagePoolFragmentRoleType[],

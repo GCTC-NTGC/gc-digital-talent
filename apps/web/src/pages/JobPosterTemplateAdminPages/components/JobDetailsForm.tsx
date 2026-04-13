@@ -1,19 +1,22 @@
 import { useIntl } from "react-intl";
 import { useId } from "react";
 
+import type {
+  Option} from "@gc-digital-talent/forms";
 import {
   Input,
   localizedEnumToOptions,
-  Option,
   RadioGroup,
   Select,
   TextArea,
 } from "@gc-digital-talent/forms";
-import { errorMessages, Locales, uiMessages } from "@gc-digital-talent/i18n";
+import type { Locales} from "@gc-digital-talent/i18n";
+import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
+import type {
   Classification,
-  FragmentType,
+  FragmentType} from "@gc-digital-talent/graphql";
+import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

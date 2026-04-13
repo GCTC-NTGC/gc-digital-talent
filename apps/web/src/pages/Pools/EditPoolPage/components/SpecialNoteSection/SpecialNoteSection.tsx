@@ -5,12 +5,13 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { Checkbox, RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import {
+import type {
   LocalizedString,
   Pool,
   UpdatePoolInput,
+  FragmentType} from "@gc-digital-talent/graphql";
+import {
   graphql,
-  FragmentType,
   getFragment,
   PoolStatus,
 } from "@gc-digital-talent/graphql";
@@ -21,7 +22,7 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import { PublishedEditableSectionProps, SectionProps } from "../../types";
+import type { PublishedEditableSectionProps, SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 import UpdatePublishedProcessDialog, {

@@ -2,23 +2,26 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
-import { ComponentProps, useEffect, useId } from "react";
+import type { ComponentProps} from "react";
+import { useEffect, useId } from "react";
 
 import { Button, ToggleSection, Notice } from "@gc-digital-talent/ui";
+import type {
+  Locales} from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   errorMessages,
   formMessages,
   getLocale,
-  Locales,
   uiMessages,
 } from "@gc-digital-talent/i18n";
+import type {
+  FragmentType,
+  CSuiteRoleTitle} from "@gc-digital-talent/graphql";
 import {
   graphql,
-  FragmentType,
   getFragment,
-  TargetRole,
-  CSuiteRoleTitle,
+  TargetRole
 } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import {
