@@ -1,6 +1,6 @@
-import { Locator, type Page, expect } from "@playwright/test";
+import type { Locator, type Page, expect } from "@playwright/test";
 
-import {
+import type {
   InputMaybe,
   WorkExperienceInput,
   PersonalExperienceInput,

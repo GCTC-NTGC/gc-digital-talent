@@ -1,20 +1,22 @@
+import type {
+  Classification,
+  Skill,
+  WorkStream} from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
-  Classification,
   FlexibleWorkLocation,
   PositionDuration,
   ProvinceOrTerritory,
-  Skill,
   SkillCategory,
-  WorkRegion,
-  WorkStream,
+  WorkRegion
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import {
   createAndPublishInternalPool,
   createAndPublishPool,

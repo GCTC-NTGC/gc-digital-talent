@@ -1,12 +1,13 @@
+import type {
+  Skill,
+  User} from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
   FlexibleWorkLocation,
   PositionDuration,
   ProvinceOrTerritory,
-  Skill,
   SkillCategory,
-  User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { PAST_DATE } from "@gc-digital-talent/date-helpers";

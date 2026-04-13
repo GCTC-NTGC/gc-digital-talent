@@ -1,3 +1,6 @@
+import type {
+  PoolCandidate,
+  User} from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
@@ -5,11 +8,9 @@ import {
   FlexibleWorkLocation,
   GovEmployeeType,
   GovPositionType,
-  PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
   SkillCategory,
-  User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import {
@@ -18,7 +19,8 @@ import {
   nowUTCDateTime,
 } from "@gc-digital-talent/date-helpers";
 
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import UserPage from "~/fixtures/UserPage";
