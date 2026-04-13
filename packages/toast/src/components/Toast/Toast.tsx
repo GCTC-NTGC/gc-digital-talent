@@ -1,11 +1,9 @@
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import type {
   CloseButton as ReactToastifyCloseButton,
-  ToastContainerProps} from "react-toastify/unstyled";
-import {
-  ToastContainer,
-  Slide
+  ToastContainerProps,
 } from "react-toastify/unstyled";
+import { ToastContainer, Slide } from "react-toastify/unstyled";
 import { useIntl } from "react-intl";
 import type { ComponentPropsWithoutRef } from "react";
 import { tv } from "tailwind-variants";
