@@ -1,10 +1,10 @@
-import { ValidationRule } from "react-hook-form";
+import type { ValidationRule } from "react-hook-form";
 import orderBy from "lodash/orderBy";
 import { tv } from "tailwind-variants";
 
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import { ComboboxValue, Option } from "./types";
+import type { ComboboxValue, Option } from "./types";
 import { inputStyles } from "../../styles";
 
 const orderItems = (options: Option[]): Option[] => {

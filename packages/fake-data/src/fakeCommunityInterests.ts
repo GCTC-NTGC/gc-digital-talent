@@ -1,12 +1,12 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import {
+import type {
   Community,
   CommunityInterest,
   DevelopmentProgram,
-  DevelopmentProgramParticipationStatus,
   WorkStream,
 } from "@gc-digital-talent/graphql";
+import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import fakeCommunities from "./fakeCommunities";

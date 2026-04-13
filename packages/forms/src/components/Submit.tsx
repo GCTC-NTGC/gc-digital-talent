@@ -1,8 +1,9 @@
 import { useFormState } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { ButtonProps, Button } from "@gc-digital-talent/ui";
+import type { ButtonProps } from "@gc-digital-talent/ui";
+import { Button } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 
 export interface SubmitProps extends Omit<ButtonProps, "ref" | "type"> {

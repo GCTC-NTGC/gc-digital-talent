@@ -1,12 +1,7 @@
-import {
-  ComponentPropsWithoutRef,
-  createContext,
-  forwardRef,
-  ReactNode,
-  use,
-  useCallback,
-} from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { createContext, forwardRef, use, useCallback } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 import { twMerge } from "tailwind-merge";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { useIntl } from "react-intl";
@@ -17,9 +12,10 @@ import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTria
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import { HeadingRank, IconType } from "../../types";
+import type { HeadingRank, IconType } from "../../types";
 import Separator from "../Separator";
-import IconButton, { IconButtonProps } from "../Button/IconButton";
+import type { IconButtonProps } from "../Button/IconButton";
+import IconButton from "../Button/IconButton";
 
 type DivProps = ComponentPropsWithoutRef<"div">;
 

@@ -1,4 +1,4 @@
-import { StoryFn, Meta } from "@storybook/react-vite";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";

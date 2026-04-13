@@ -1,6 +1,7 @@
-import { jwtDecode, JwtPayload } from "jwt-decode";
+import type { JwtPayload } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
-import { Locales } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
 import { getRuntimeVariableNotNull } from "@gc-digital-talent/env";
 import { defaultLogger } from "@gc-digital-talent/logger";
 import { appInsights } from "@gc-digital-talent/app-insights";
@@ -19,11 +20,11 @@ export function getLogoutVars(locale: Locales) {
   };
 }
 
+import type { LogoutReason } from "../const";
 import {
   ACCESS_TOKEN,
   ID_TOKEN,
   LOGOUT_REASON_KEY,
-  LogoutReason,
   NAV_ROLE_KEY,
   POST_LOGOUT_OVERRIDE_PATH_KEY,
   REFRESH_TOKEN,
