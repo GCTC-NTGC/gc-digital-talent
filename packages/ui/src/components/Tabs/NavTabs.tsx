@@ -7,10 +7,11 @@
  */
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { Link as RouterLink, useLocation } from "react-router";
+import type {
+  ComponentRef,
+  ComponentPropsWithoutRef} from "react";
 import {
   forwardRef,
-  ComponentRef,
-  ComponentPropsWithoutRef,
   useRef,
   useEffect,
 } from "react";

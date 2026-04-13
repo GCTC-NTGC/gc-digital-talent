@@ -1,13 +1,16 @@
-import { ReactNode } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ReactNode } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import Heading from "../../Heading";
-import CardFlatRegularLink, {
+import type {
   CardFlatRegularLinkProps,
 } from "./CardFlatRegularLink";
-import CardFlatScrollToLink, {
+import CardFlatRegularLink from "./CardFlatRegularLink";
+import type {
   CardFlatScrollToLinkProps,
 } from "./CardFlatScrollToLink";
+import CardFlatScrollToLink from "./CardFlatScrollToLink";
 import { hrefToString } from "../../../utils";
 
 function isRegularLinkItem(

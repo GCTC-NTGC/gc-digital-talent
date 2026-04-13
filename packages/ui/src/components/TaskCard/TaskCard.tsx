@@ -1,10 +1,12 @@
-import { ReactElement, ReactNode } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ReactElement, ReactNode } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
-import { IconType } from "../../types";
-import Link, { LinkProps } from "../Link";
-import { HeadingLevel } from "../Heading";
+import type { IconType } from "../../types";
+import type { LinkProps } from "../Link";
+import Link from "../Link";
+import type { HeadingLevel } from "../Heading";
 
 interface ItemProps {
   children?: ReactNode;
