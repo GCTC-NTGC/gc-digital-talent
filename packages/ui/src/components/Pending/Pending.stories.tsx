@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { StoryFn, Meta } from "@storybook/react-vite";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 import type { CombinedError } from "urql";
 import isChromatic from "chromatic/isChromatic";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import NotFound from "../NotFound";
-import Pending, { PendingProps } from "./Pending";
+import type { PendingProps } from "./Pending";
+import Pending from "./Pending";
 
 interface PendingArgs extends Omit<PendingProps, "error"> {
   wait?: number;

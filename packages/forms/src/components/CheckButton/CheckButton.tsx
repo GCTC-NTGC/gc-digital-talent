@@ -1,10 +1,11 @@
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import MinusIcon from "@heroicons/react/24/outline/MinusIcon";
-import { tv, VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import { formMessages } from "@gc-digital-talent/i18n";
-import { IconType } from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
 
 const checkBtn = tv({
   slots: {

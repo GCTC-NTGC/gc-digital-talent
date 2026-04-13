@@ -10,7 +10,8 @@
   "scripts": {
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",

@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HTMLAttributes } from "react";
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import Required from "./Required";
 import { labelStyles } from "./styles";

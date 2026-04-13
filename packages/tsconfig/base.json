@@ -17,8 +17,7 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "preserveValueImports": false,
-    "importsNotUsedAsValues": "remove",
+    "verbatimModuleSyntax": true,
     "types": [
       "node",
       "vitest/globals",

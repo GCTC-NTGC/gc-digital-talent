@@ -1,5 +1,5 @@
 import { composeStories } from "@storybook/react-vite";
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 
 import {
   renderWithProviders,
@@ -7,7 +7,7 @@ import {
 } from "@gc-digital-talent/vitest-helpers";
 
 import * as stories from "./ResourceBlock.stories";
-import { RootProps } from "./Root";
+import type { RootProps } from "./Root";
 
 import ResourceBlock from "./";
 

@@ -1,8 +1,9 @@
-import { ComponentPropsWithoutRef } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ComponentPropsWithoutRef } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import Separator from "../Separator";
-import { SeparatorProps } from "../Separator/Separator";
+import type { SeparatorProps } from "../Separator/Separator";
 import { Grid, GridItem } from "./CardGrid";
 
 const card = tv({

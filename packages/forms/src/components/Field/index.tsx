@@ -1,12 +1,17 @@
 import BoundingBox from "./BoundingBox";
 import Context from "./Context";
-import Descriptions, { DescriptionsProps } from "./Descriptions";
+import type { DescriptionsProps } from "./Descriptions";
+import Descriptions from "./Descriptions";
 import Error from "./Error";
 import Fieldset from "./Fieldset";
-import Label, { LabelProps } from "./Label";
-import Legend, { LegendProps } from "./Legend";
-import Required, { RequiredProps } from "./Required";
-import Wrapper, { WrapperProps } from "./Wrapper";
+import type { LabelProps } from "./Label";
+import Label from "./Label";
+import type { LegendProps } from "./Legend";
+import Legend from "./Legend";
+import type { RequiredProps } from "./Required";
+import Required from "./Required";
+import type { WrapperProps } from "./Wrapper";
+import Wrapper from "./Wrapper";
 
 export default {
   BoundingBox,
