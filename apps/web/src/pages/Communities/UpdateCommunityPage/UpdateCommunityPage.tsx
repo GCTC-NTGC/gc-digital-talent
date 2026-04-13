@@ -412,7 +412,7 @@ export const UpdateCommunity = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin, ROLE_NAME.CommunityAdmin]}>
     <UpdateCommunity />
   </RequireAuth>
 );
