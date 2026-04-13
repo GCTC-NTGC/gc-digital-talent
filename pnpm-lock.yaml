@@ -1233,8 +1233,8 @@ importers:
         specifier: ^7.14.0
         version: 7.14.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       vite:
-        specifier: ^8.0.3
-        version: 8.0.8(@types/node@25.5.2)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
+        specifier: ^7.3.2
+        version: 7.3.2(@types/node@25.5.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
       vitest:
         specifier: ^4.0.16
         version: 4.0.18(@types/node@25.5.2)(@vitest/browser-playwright@4.0.18)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.32.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
@@ -1243,7 +1243,7 @@ importers:
         version: 1.0.0-pre.5(vitest@4.0.18)
       vitest-fail-on-console:
         specifier: ^0.10.1
-        version: 0.10.1(@vitest/utils@4.0.18)(vite@8.0.8(@types/node@25.5.2)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))(vitest@4.0.18)
+        version: 0.10.1(@vitest/utils@4.0.18)(vite@7.3.2(@types/node@25.5.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))(vitest@4.0.18)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -13265,11 +13265,11 @@ snapshots:
       lodash-es: 4.17.23
       vitest: 4.0.18(@types/node@25.5.2)(@vitest/browser-playwright@4.0.18)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.32.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
 
-  vitest-fail-on-console@0.10.1(@vitest/utils@4.0.18)(vite@8.0.8(@types/node@25.5.2)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))(vitest@4.0.18):
+  vitest-fail-on-console@0.10.1(@vitest/utils@4.0.18)(vite@7.3.2(@types/node@25.5.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))(vitest@4.0.18):
     dependencies:
       '@vitest/utils': 4.0.18
       chalk: 5.6.2
-      vite: 8.0.8(@types/node@25.5.2)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
+      vite: 7.3.2(@types/node@25.5.2)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
       vitest: 4.0.18(@types/node@25.5.2)(@vitest/browser-playwright@4.0.18)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.32.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2)
 
   vitest@4.0.18(@types/node@25.5.2)(@vitest/browser-playwright@4.0.18)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.32.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2):
