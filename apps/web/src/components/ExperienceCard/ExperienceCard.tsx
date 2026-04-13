@@ -2,8 +2,7 @@ import { useIntl } from "react-intl";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
 import type { ReactNode } from "react";
 
-import type {
-  HeadingRank} from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
   Collapsible,
   Heading,
@@ -16,14 +15,12 @@ import {
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type {
-  FragmentType,
-  Skill} from "@gc-digital-talent/graphql";
+import type { FragmentType, Skill } from "@gc-digital-talent/graphql";
 import {
   EmploymentCategory,
   getFragment,
   GovEmployeeType,
-  graphql
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import {

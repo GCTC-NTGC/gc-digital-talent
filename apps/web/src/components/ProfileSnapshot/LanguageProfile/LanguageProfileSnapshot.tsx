@@ -1,8 +1,6 @@
 import type { ReactElement } from "react";
 
-import type {
-  LanguageProfileSnapshotV1,
-} from "./LanguageProfileV1";
+import type { LanguageProfileSnapshotV1 } from "./LanguageProfileV1";
 import LanguageProfileV1 from "./LanguageProfileV1";
 import { getSupportedVersionComponent } from "../utils";
 import type { SnapshotProps } from "../types";

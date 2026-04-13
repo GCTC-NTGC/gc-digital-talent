@@ -1,6 +1,6 @@
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useMemo } from "react";
 import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
@@ -13,8 +13,7 @@ import {
   getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import type {
-  MetadataItemProps} from "@gc-digital-talent/ui";
+import type { MetadataItemProps } from "@gc-digital-talent/ui";
 import {
   Button,
   Card,
@@ -27,13 +26,8 @@ import {
   UNICODE_CHAR,
   Notice,
 } from "@gc-digital-talent/ui";
-import type {
-  TrainingOpportunity} from "@gc-digital-talent/graphql";
-import {
-  CourseLanguage,
-  graphql,
-  SortOrder
-} from "@gc-digital-talent/graphql";
+import type { TrainingOpportunity } from "@gc-digital-talent/graphql";
+import { CourseLanguage, graphql, SortOrder } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   DATE_FORMAT_LOCALIZED,

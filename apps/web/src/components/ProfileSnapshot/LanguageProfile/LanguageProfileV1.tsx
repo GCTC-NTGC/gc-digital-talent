@@ -1,4 +1,4 @@
-import type { MessageDescriptor} from "react-intl";
+import type { MessageDescriptor } from "react-intl";
 import { defineMessages, useIntl } from "react-intl";
 
 import type {

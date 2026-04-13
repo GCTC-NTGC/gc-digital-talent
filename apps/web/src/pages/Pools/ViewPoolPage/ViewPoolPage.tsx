@@ -20,12 +20,9 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type {
   FragmentType,
   RoleAssignment,
-  Scalars} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
-  PoolStatus
+  Scalars,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
@@ -47,9 +44,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
-import type {
-  DuplicatePoolDepartment_Fragment,
-} from "./components/DuplicateProcessDialog";
+import type { DuplicatePoolDepartment_Fragment } from "./components/DuplicateProcessDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
 import ArchiveProcessDialog from "./components/ArchiveProcessDialog";
 import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";

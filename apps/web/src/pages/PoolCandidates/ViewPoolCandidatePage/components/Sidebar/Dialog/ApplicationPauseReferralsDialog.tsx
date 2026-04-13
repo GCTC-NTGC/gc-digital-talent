@@ -3,8 +3,7 @@ import { useMutation, useQuery } from "urql";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,

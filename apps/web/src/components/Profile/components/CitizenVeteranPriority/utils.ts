@@ -4,10 +4,11 @@ import { boolToYesNo } from "@gc-digital-talent/helpers";
 import type {
   ProfileCitizenVeteranPriorityFragment,
   UpdateUserAsUserInput,
-  User} from "@gc-digital-talent/graphql";
+  User,
+} from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
-  CitizenshipStatus
+  CitizenshipStatus,
 } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";

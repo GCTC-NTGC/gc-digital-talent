@@ -7,8 +7,7 @@ import {
   getLocalizedName,
   getSkillLevelMessages,
 } from "@gc-digital-talent/i18n";
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   SkillCategory,
   getFragment,

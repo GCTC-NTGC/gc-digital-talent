@@ -1,20 +1,13 @@
 import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
 
-import type {
-  ActivityProperties,
-  Maybe} from "@gc-digital-talent/graphql";
-import {
-  getFragment
-} from "@gc-digital-talent/graphql";
+import type { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
+import { getFragment } from "@gc-digital-talent/graphql";
 import type { Locales } from "@gc-digital-talent/i18n";
 import { getLocale } from "@gc-digital-talent/i18n";
 
-import type {
-  CommonItemProps} from "./BaseActivityItem";
-import BaseItem, {
-  BaseItem_Fragment
-} from "./BaseActivityItem";
+import type { CommonItemProps } from "./BaseActivityItem";
+import BaseItem, { BaseItem_Fragment } from "./BaseActivityItem";
 import { getDeepAttribute, getEventInfo, parseAttributes } from "./utils";
 
 type AssessmentStepActivityItemProps = CommonItemProps;

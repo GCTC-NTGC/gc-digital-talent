@@ -8,12 +8,8 @@ import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { tv } from "tailwind-variants";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
-import type {
-  Locales} from "@gc-digital-talent/i18n";
-import {
-  commonMessages,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type { IconType } from "@gc-digital-talent/ui";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
@@ -36,7 +32,8 @@ import type {
   PoolCandidatesBaseSort,
   LocalizedCandidateStatus,
   LocalizedApplicationStatus,
-  LocalizedAssessmentDecision} from "@gc-digital-talent/graphql";
+  LocalizedAssessmentDecision,
+} from "@gc-digital-talent/graphql";
 import {
   CandidateExpiryFilter,
   OrderByRelationWithColumnAggregateFunction,
@@ -58,13 +55,9 @@ import processMessages from "~/messages/processMessages";
 
 import type { FormValues } from "./types";
 import tableMessages from "./tableMessages";
-import type {
-  PoolCandidate_FlagFragment,
-} from "../CandidateFlag/CandidateFlag";
+import type { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import CandidateFlag from "../CandidateFlag/CandidateFlag";
-import type {
-  PoolCandidateBookmark_Fragment,
-} from "./PoolCandidateBookmark";
+import type { PoolCandidateBookmark_Fragment } from "./PoolCandidateBookmark";
 import PoolCandidateBookmark from "./PoolCandidateBookmark";
 
 export const priorityCell = (

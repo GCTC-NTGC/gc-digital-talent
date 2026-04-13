@@ -16,12 +16,8 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { PoolStatus, makeFragmentData } from "@gc-digital-talent/graphql";
 
-import type {
-  EditPoolFormProps} from "./EditPoolPage";
-import {
-  EditPoolForm,
-  EditPool_Fragment,
-} from "./EditPoolPage";
+import type { EditPoolFormProps } from "./EditPoolPage";
+import { EditPoolForm, EditPool_Fragment } from "./EditPoolPage";
 
 const classifications = fakeClassifications();
 const departments = fakeDepartments();

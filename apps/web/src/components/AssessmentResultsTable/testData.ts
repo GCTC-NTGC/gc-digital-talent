@@ -13,7 +13,8 @@ import type {
   AssessmentResult,
   AssessmentStep,
   PoolCandidate,
-  PoolSkill} from "@gc-digital-talent/graphql";
+  PoolSkill,
+} from "@gc-digital-talent/graphql";
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,

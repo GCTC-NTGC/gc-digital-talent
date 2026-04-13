@@ -9,15 +9,14 @@ import { useQuery } from "urql";
 
 import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
-import type {
-  ButtonProps} from "@gc-digital-talent/ui";
+import type { ButtonProps } from "@gc-digital-talent/ui";
 import {
   DialogPrimitive,
   Button,
   Heading,
   Dialog,
   Link,
-  IconButton
+  IconButton,
 } from "@gc-digital-talent/ui";
 
 import usePollingQuery from "~/hooks/usePollingQuery";

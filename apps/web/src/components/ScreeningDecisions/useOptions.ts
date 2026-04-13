@@ -9,12 +9,8 @@ import OutlinePauseCircleIcon from "@heroicons/react/24/outline/PauseCircleIcon"
 import SolidPauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 import { useQuery } from "urql";
 
-import type {
-  CardOption,
-  CheckboxOption} from "@gc-digital-talent/forms";
-import {
-  localizedEnumToOptions,
-} from "@gc-digital-talent/forms";
+import type { CardOption, CheckboxOption } from "@gc-digital-talent/forms";
+import { localizedEnumToOptions } from "@gc-digital-talent/forms";
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,

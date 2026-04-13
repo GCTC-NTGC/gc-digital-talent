@@ -1,8 +1,8 @@
-import type { FieldError, FieldErrors, FieldValues} from "react-hook-form";
+import type { FieldError, FieldErrors, FieldValues } from "react-hook-form";
 import { get } from "react-hook-form";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import type { FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import type { EmployeeSearchResult } from "./types";

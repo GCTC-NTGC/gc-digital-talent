@@ -1,13 +1,11 @@
 import { useCallback, useMemo } from "react";
-import type { MessageDescriptor} from "react-intl";
+import type { MessageDescriptor } from "react-intl";
 import { useIntl } from "react-intl";
 
 import type { IconType } from "@gc-digital-talent/ui";
 import type { FieldLabels } from "@gc-digital-talent/forms";
 
-import type {
-  SectionIcon,
-} from "~/hooks/useToggleSectionInfo";
+import type { SectionIcon } from "~/hooks/useToggleSectionInfo";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 
 import { useProfileFormContext } from "../components/ProfileFormContext";

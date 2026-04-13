@@ -1,17 +1,11 @@
 import { useState } from "react";
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Button, Dialog, Pending, Separator, Ul } from "@gc-digital-talent/ui";
-import type {
-  Maybe,
-  Skill,
-  Scalars} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  getFragment,
-} from "@gc-digital-talent/graphql";
+import type { Maybe, Skill, Scalars } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 

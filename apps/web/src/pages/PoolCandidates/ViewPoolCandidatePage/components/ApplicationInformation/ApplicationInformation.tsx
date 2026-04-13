@@ -3,9 +3,7 @@ import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { tv } from "tailwind-variants";
 
-import type {
-  FragmentType,
-  User} from "@gc-digital-talent/graphql";
+import type { FragmentType, User } from "@gc-digital-talent/graphql";
 import {
   PoolSkillType,
   SkillCategory,

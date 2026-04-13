@@ -6,8 +6,7 @@ import {
   localizedEnumToOptions,
   Select,
 } from "@gc-digital-talent/forms";
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   DepartmentSize,
   getFragment,

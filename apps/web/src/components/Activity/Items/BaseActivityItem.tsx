@@ -1,9 +1,9 @@
-import type { MessageDescriptor} from "react-intl";
+import type { MessageDescriptor } from "react-intl";
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 import type { ReactNode } from "react";
 
-import type { FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
@@ -15,7 +15,7 @@ import { getLogger } from "@gc-digital-talent/logger";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
-import type { ActivityEventInfo} from "./utils";
+import type { ActivityEventInfo } from "./utils";
 import { icon, normalizePropKeys } from "./utils";
 
 const activityItem = tv({

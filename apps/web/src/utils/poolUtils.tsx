@@ -12,8 +12,7 @@ import {
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import type {
-  RoleName} from "@gc-digital-talent/auth";
+import type { RoleName } from "@gc-digital-talent/auth";
 import {
   PROCESS_ACTIVITY_LOG_ROLES,
   ROLE_NAME,
@@ -24,7 +23,7 @@ import {
   notEmpty,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import type { ChipProps, IconType} from "@gc-digital-talent/ui";
+import type { ChipProps, IconType } from "@gc-digital-talent/ui";
 import { Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
 import type {
   RoleAssignment,
@@ -32,11 +31,9 @@ import type {
   Classification,
   Pool,
   LocalizedPoolStatus,
-  WorkStream} from "@gc-digital-talent/graphql";
-import {
-  PublishingGroup,
-  PoolStatus
+  WorkStream,
 } from "@gc-digital-talent/graphql";
+import { PublishingGroup, PoolStatus } from "@gc-digital-talent/graphql";
 
 import type { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";

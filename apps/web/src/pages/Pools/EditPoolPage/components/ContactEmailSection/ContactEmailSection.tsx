@@ -5,12 +5,9 @@ import { useIntl } from "react-intl";
 import type {
   FragmentType,
   Pool,
-  UpdatePoolInput} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
-  PoolStatus
+  UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";

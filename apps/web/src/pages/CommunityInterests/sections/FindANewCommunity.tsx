@@ -1,7 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useFormContext } from "react-hook-form";
-import type { ComponentProps} from "react";
+import type { ComponentProps } from "react";
 import { useId } from "react";
 
 import { Heading, Notice } from "@gc-digital-talent/ui";
@@ -16,7 +16,7 @@ import {
   nodeToString,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import type { FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import type { FormValues } from "../form";

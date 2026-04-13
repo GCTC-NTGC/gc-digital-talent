@@ -7,13 +7,8 @@ import { Loading, ToggleSection, Notice } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type {
-  FragmentType,
-  Pool} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Pool } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {

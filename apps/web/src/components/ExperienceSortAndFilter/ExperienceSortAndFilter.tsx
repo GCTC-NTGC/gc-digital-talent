@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useEffect } from "react";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";

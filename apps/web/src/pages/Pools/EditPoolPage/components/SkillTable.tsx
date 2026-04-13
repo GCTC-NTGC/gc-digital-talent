@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import type { ColumnDef} from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";

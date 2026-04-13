@@ -4,8 +4,7 @@ import { useFormContext } from "react-hook-form";
 
 import { Chip, Chips, Heading } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   DevelopmentProgramParticipationStatus,
   getFragment,

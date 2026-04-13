@@ -7,11 +7,9 @@ import { IconButton } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
   LocalizedString,
-  Maybe} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
+  Maybe,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 

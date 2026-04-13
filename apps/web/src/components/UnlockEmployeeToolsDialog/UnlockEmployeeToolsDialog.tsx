@@ -1,10 +1,10 @@
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useState } from "react";
 import { defineMessage, useIntl } from "react-intl";
 
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";

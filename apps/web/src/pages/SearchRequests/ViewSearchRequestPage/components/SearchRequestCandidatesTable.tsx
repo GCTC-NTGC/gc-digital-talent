@@ -1,8 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type {
-  PoolCandidateSearchInput} from "@gc-digital-talent/graphql";
+import type { PoolCandidateSearchInput } from "@gc-digital-talent/graphql";
 import {
   CandidateSuspendedFilter,
   CandidateExpiryFilter,

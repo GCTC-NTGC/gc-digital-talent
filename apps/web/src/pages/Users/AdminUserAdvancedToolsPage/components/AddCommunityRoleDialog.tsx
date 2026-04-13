@@ -20,8 +20,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import type {
-  RoleTableProps} from "../utils";
+import type { RoleTableProps } from "../utils";
 import {
   getRoleTableFragments,
   isCommunityTeamable,

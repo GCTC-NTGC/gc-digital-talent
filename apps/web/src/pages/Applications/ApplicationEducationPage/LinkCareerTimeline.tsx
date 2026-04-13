@@ -7,21 +7,17 @@ import type { CheckboxOption } from "@gc-digital-talent/forms";
 import { Checklist } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Heading, Link, Ul, Notice } from "@gc-digital-talent/ui";
-import type {
-  Classification} from "@gc-digital-talent/graphql";
-import {
-  EducationRequirementOption,
-} from "@gc-digital-talent/graphql";
+import type { Classification } from "@gc-digital-talent/graphql";
+import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
-import type {
-  SimpleAnyExperience} from "~/utils/experienceUtils";
+import type { SimpleAnyExperience } from "~/utils/experienceUtils";
 import {
   getExperienceName,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
   isPersonalExperience,
-  isWorkExperience
+  isWorkExperience,
 } from "~/utils/experienceUtils";
 
 const essentialExperienceMessages = defineMessages({

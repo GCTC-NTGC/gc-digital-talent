@@ -4,10 +4,9 @@ import type {
   Maybe,
   UpdateCommunityInterestFormData_FragmentFragment,
   UpdateCommunityInterestInput,
-  UpdateDevelopmentProgramInterestHasMany} from "@gc-digital-talent/graphql";
-import {
-  DevelopmentProgramParticipationStatus
+  UpdateDevelopmentProgramInterestHasMany,
 } from "@gc-digital-talent/graphql";
+import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import type { SubformValues as FindANewCommunitySubformValues } from "./sections/FindANewCommunity";

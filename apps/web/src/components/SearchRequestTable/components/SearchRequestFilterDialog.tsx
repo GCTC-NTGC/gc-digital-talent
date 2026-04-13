@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import type { OperationContext} from "urql";
+import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 
 import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
@@ -8,9 +8,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
-import type {
-  CommonFilterDialogProps,
-} from "~/components/FilterDialog/FilterDialog";
+import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDialog";
 import FilterDialog from "~/components/FilterDialog/FilterDialog";
 
 import type { FormValues } from "./utils";

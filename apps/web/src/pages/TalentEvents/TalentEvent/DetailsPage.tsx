@@ -5,7 +5,7 @@ import { useState } from "react";
 import { isFuture } from "date-fns/isFuture";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
-import type { FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Button,

@@ -1,5 +1,5 @@
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
@@ -24,10 +24,9 @@ import type {
   Classification,
   Maybe,
   SupervisoryStatus,
-  WorkStream} from "@gc-digital-talent/graphql";
-import {
-  graphql
+  WorkStream,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   alphaSortOptions,
   Checklist,

@@ -6,12 +6,10 @@ import {
   fakeUsers,
   fakePools,
 } from "@gc-digital-talent/fake-data";
-import type {
-  GeneralQuestionResponse,
-  User} from "@gc-digital-talent/graphql";
+import type { GeneralQuestionResponse, User } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
-  makeFragmentData
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";

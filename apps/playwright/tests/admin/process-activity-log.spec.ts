@@ -4,9 +4,7 @@ import {
   FAR_PAST_DATE,
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import type {
-  Skill,
-  User} from "@gc-digital-talent/graphql";
+import type { Skill, User } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CandidateRemovalReason,

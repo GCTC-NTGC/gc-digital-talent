@@ -1,8 +1,6 @@
 import type { ReactElement } from "react";
 
-import type {
-  PersonalInformationSnapshotV1,
-} from "./PersonalInformationV1";
+import type { PersonalInformationSnapshotV1 } from "./PersonalInformationV1";
 import PersonalInformationV1 from "./PersonalInformationV1";
 import { getSupportedVersionComponent } from "../utils";
 import type { SnapshotProps } from "../types";

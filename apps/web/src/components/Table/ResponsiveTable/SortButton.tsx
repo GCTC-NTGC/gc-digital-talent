@@ -4,7 +4,7 @@ import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
 import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
 import ArrowsUpDownIcon from "@heroicons/react/20/solid/ArrowsUpDownIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useId } from "react";
 import { tv } from "tailwind-variants";
 

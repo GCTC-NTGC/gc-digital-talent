@@ -18,13 +18,8 @@ import { COMMUNITY_ROLES } from "@gc-digital-talent/auth";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import type {
-  CommunityAssignment,
-  RoleTableProps} from "../utils";
-import {
-  getRoleTableFragments,
-  useUpdateRolesMutation,
-} from "../utils";
+import type { CommunityAssignment, RoleTableProps } from "../utils";
+import { getRoleTableFragments, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
   roleIds: Scalars["UUID"]["input"][];

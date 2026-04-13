@@ -25,9 +25,7 @@ import {
 import Pagination from "~/components/Pagination";
 import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
 
-import type {
-  FormValues,
-} from "./components/PoolActivityFilterDialog";
+import type { FormValues } from "./components/PoolActivityFilterDialog";
 import PoolActivityFilterDialog from "./components/PoolActivityFilterDialog";
 import {
   getTotalPages,

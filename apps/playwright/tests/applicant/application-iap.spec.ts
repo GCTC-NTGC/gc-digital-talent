@@ -1,7 +1,6 @@
 import type { Page } from "@playwright/test";
 
-import type {
-  Pool} from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,

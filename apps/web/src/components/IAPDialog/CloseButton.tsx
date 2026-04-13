@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ComponentRef} from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 import { useIntl } from "react-intl";
 

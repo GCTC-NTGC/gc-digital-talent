@@ -1,8 +1,8 @@
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
-import type { ColumnDef} from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 

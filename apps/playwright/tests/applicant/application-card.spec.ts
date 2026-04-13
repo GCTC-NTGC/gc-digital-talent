@@ -4,12 +4,10 @@ import {
   PAST_DATE,
   rawFormat,
 } from "@gc-digital-talent/date-helpers";
-import type {
-  PoolCandidate,
-  User} from "@gc-digital-talent/graphql";
+import type { PoolCandidate, User } from "@gc-digital-talent/graphql";
 import {
   CandidateRemovalReason,
-  SkillCategory
+  SkillCategory,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";

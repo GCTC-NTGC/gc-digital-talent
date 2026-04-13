@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type { FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Accordion, Heading, Notice } from "@gc-digital-talent/ui";
 import {
@@ -10,8 +10,7 @@ import {
 
 import type { ClassificationGroup } from "~/types/classificationGroup";
 
-import type {
-  DialogType} from "./utils";
+import type { DialogType } from "./utils";
 import {
   DIALOG_TYPE,
   getEducationRequirementLabel,

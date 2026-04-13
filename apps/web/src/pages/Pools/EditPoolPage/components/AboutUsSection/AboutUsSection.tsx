@@ -10,12 +10,9 @@ import type {
   LocalizedString,
   Pool,
   UpdatePoolInput,
-  FragmentType} from "@gc-digital-talent/graphql";
-import {
-  PoolStatus,
-  getFragment,
-  graphql,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { PoolStatus, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import {
   hasAllEmptyFields,

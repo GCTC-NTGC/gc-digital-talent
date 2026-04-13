@@ -9,14 +9,15 @@ import type {
   PartialUserDei,
   PartialUserPriority,
   PartialUserLanguage,
-  PartialUserPreferences} from "~/validators/profile";
+  PartialUserPreferences,
+} from "~/validators/profile";
 import {
   aboutSectionHasEmptyRequiredFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,
   priorityEntitlementsHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
-  workPreferencesSectionHasEmptyRequiredFields
+  workPreferencesSectionHasEmptyRequiredFields,
 } from "~/validators/profile";
 
 interface PartialUser

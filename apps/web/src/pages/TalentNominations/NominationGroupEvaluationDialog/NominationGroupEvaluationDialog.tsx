@@ -4,22 +4,22 @@ import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import type { SubmitHandler } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 
-import type {
-  StatusButtonProps} from "@gc-digital-talent/ui";
+import type { StatusButtonProps } from "@gc-digital-talent/ui";
 import {
   Dialog,
   Pending,
   ThrowNotFound,
-  StatusButton
+  StatusButton,
 } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
   Scalars,
-  UpdateTalentNominationGroupInput} from "@gc-digital-talent/graphql";
+  UpdateTalentNominationGroupInput,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
-  TalentNominationGroupStatus
+  TalentNominationGroupStatus,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";

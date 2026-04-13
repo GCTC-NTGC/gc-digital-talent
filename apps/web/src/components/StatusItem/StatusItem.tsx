@@ -7,7 +7,7 @@ import { tv } from "tailwind-variants";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 
-import type { IconType} from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
 import { Link, ScrollToLink } from "@gc-digital-talent/ui";
 
 export type Status =

@@ -21,13 +21,14 @@ import type {
   AssessmentResult,
   Pool,
   PoolCandidate,
-  User} from "@gc-digital-talent/graphql";
+  User,
+} from "@gc-digital-talent/graphql";
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
   AssessmentResultJustification,
   AssessmentStepType,
-  makeFragmentData
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
 import ScreeningDecisionDialog, {

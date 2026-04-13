@@ -1,4 +1,4 @@
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
@@ -24,12 +24,13 @@ import type {
   Maybe,
   PersonalExperience,
   Skill,
-  WorkExperience} from "@gc-digital-talent/graphql";
+  WorkExperience,
+} from "@gc-digital-talent/graphql";
 import {
   EducationType,
   EmploymentCategory,
   GovEmployeeType,
-  GovPositionType
+  GovPositionType,
 } from "@gc-digital-talent/graphql";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {

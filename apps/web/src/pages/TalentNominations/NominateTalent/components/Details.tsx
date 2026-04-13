@@ -8,13 +8,14 @@ import type {
   FragmentType,
   Maybe,
   Scalars,
-  UpdateTalentNominationInput} from "@gc-digital-talent/graphql";
+  UpdateTalentNominationInput,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   TalentNominationLateralMovementOption,
   TalentNominationStep,
-  TalentNominationUserReview
+  TalentNominationUserReview,
 } from "@gc-digital-talent/graphql";
 import {
   Checklist,

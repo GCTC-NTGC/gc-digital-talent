@@ -4,10 +4,9 @@ import type {
   CreateDepartmentInput,
   InputMaybe,
   LocalizedStringInput,
-  UpdateDepartmentInput} from "@gc-digital-talent/graphql";
-import {
-  DepartmentSize
+  UpdateDepartmentInput,
 } from "@gc-digital-talent/graphql";
+import { DepartmentSize } from "@gc-digital-talent/graphql";
 
 import dConfig from "~/constants/config";
 import { loginBySub } from "~/utils/auth";

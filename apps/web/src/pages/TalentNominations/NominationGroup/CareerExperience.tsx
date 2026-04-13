@@ -1,6 +1,6 @@
 import { useQuery } from "urql";
 
-import type { FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 

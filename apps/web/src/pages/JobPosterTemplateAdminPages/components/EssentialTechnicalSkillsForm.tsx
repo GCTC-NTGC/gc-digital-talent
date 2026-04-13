@@ -5,8 +5,7 @@ import { useEffect } from "react";
 import { Checkbox, TextArea } from "@gc-digital-talent/forms";
 import type { Locales } from "@gc-digital-talent/i18n";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,

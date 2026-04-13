@@ -5,10 +5,9 @@ import type {
   LocalizedProvinceOrTerritory,
   LocalizedWorkRegion,
   Maybe,
-  User} from "@gc-digital-talent/graphql";
-import {
-  FlexibleWorkLocation
+  User,
 } from "@gc-digital-talent/graphql";
+import { FlexibleWorkLocation } from "@gc-digital-talent/graphql";
 
 export interface PartialUser extends Pick<
   User,

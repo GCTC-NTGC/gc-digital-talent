@@ -1,10 +1,9 @@
 import { useState } from "react";
-import type { MessageDescriptor} from "react-intl";
+import type { MessageDescriptor } from "react-intl";
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/16/solid/PencilSquareIcon";
 
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   getFragment,

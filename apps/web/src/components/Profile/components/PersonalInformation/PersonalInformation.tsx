@@ -8,13 +8,8 @@ import { Link, Loading, ToggleSection, Notice } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type {
-  FragmentType,
-  Pool} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Pool } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import profileMessages from "~/messages/profileMessages";

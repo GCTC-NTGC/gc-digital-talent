@@ -15,12 +15,9 @@ import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import type {
   Pool,
   UpdatePoolInput,
-  FragmentType} from "@gc-digital-talent/graphql";
-import {
-  PoolStatus,
-  graphql,
-  getFragment
+  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { PoolStatus, graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 import {

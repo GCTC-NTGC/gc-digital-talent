@@ -15,8 +15,7 @@ import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/con
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
 import messages from "../messages";
-import type {
-  FormValues} from "./GettingStartedForm";
+import type { FormValues } from "./GettingStartedForm";
 import GettingStartedForm, {
   sectionTitle as gettingStartedSectionTitle,
 } from "./GettingStartedForm";

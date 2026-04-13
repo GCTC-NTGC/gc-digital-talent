@@ -2,10 +2,9 @@ import { useIntl } from "react-intl";
 import type {
   ColumnDef,
   PaginationState,
-  SortingState} from "@tanstack/react-table";
-import {
-  createColumnHelper,
+  SortingState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import isEqual from "lodash/isEqual";
 import type { SubmitHandler } from "react-hook-form";
 import { useQuery } from "urql";
@@ -18,7 +17,7 @@ import {
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import type { User, UserFilterInput} from "@gc-digital-talent/graphql";
+import type { User, UserFilterInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 
 import Table, {

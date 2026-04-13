@@ -6,7 +6,7 @@ import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 
-import type { IconType} from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
 import { Card, Heading, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";

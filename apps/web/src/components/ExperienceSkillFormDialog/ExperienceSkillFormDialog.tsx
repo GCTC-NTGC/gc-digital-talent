@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useState } from "react";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
@@ -9,11 +9,9 @@ import type {
   Skill,
   Experience,
   Scalars,
-  FragmentType} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  getFragment,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import ExperienceSkillForm from "./ExperienceSkillForm";
 

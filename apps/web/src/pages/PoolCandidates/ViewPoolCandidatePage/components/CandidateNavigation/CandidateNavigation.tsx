@@ -2,7 +2,7 @@ import { defineMessages, useIntl } from "react-intl";
 import ChevronDoubleRightIcon from "@heroicons/react/16/solid/ChevronDoubleRightIcon";
 import ChevronDoubleLeftIcon from "@heroicons/react/16/solid/ChevronDoubleLeftIcon";
 
-import type { LinkProps} from "@gc-digital-talent/ui";
+import type { LinkProps } from "@gc-digital-talent/ui";
 import { Card, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";

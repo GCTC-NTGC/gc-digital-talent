@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
-import type { SubmitHandler} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
@@ -22,12 +22,8 @@ import {
   Link,
   CardSeparator,
 } from "@gc-digital-talent/ui";
-import type {
-  Skill,
-  CreateSkillFamilyInput} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { Skill, CreateSkillFamilyInput } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";

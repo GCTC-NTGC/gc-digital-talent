@@ -19,7 +19,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import type { ExecutiveHomePageQuery} from "@gc-digital-talent/graphql";
+import type { ExecutiveHomePageQuery } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";

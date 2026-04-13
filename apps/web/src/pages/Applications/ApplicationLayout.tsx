@@ -1,6 +1,6 @@
 import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router";
-import type { OperationContext} from "urql";
+import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 import { useEffect } from "react";
 
@@ -17,7 +17,7 @@ import {
   NotFoundError,
 } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import type { FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { getFromLocalStorage } from "@gc-digital-talent/storage";

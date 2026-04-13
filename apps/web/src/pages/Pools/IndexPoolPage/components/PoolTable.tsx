@@ -1,10 +1,9 @@
 import type {
   ColumnDef,
   PaginationState,
-  SortingState} from "@tanstack/react-table";
-import {
-  createColumnHelper,
+  SortingState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useState, useMemo, useRef } from "react";
@@ -21,11 +20,9 @@ import {
 import type {
   FragmentType,
   PoolFilterInput,
-  PoolTable_PoolFragment as PoolTablePoolFragmentType} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql
+  PoolTable_PoolFragment as PoolTablePoolFragmentType,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";

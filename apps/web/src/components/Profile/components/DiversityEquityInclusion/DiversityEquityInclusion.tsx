@@ -6,11 +6,9 @@ import { Accordion, Heading, Ul, Notice } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
   Pool,
-  UpdateUserAsUserInput} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql
+  UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
 import type { EquityKeys } from "~/components/EmploymentEquity/types";

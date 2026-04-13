@@ -1,13 +1,12 @@
 import type { IntlShape } from "react-intl";
 
-import type { ChipProps} from "@gc-digital-talent/ui";
+import type { ChipProps } from "@gc-digital-talent/ui";
 import { Chip, Link } from "@gc-digital-talent/ui";
 import type {
   LocalizedTalentNominationEventStatus,
-  Maybe} from "@gc-digital-talent/graphql";
-import {
-  TalentNominationEventStatus,
+  Maybe,
 } from "@gc-digital-talent/graphql";
+import { TalentNominationEventStatus } from "@gc-digital-talent/graphql";
 
 import type useRoutes from "~/hooks/useRoutes";
 

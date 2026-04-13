@@ -13,12 +13,8 @@ import { tv } from "tailwind-variants";
 import { isValid } from "date-fns/isValid";
 import { format } from "date-fns/format";
 
-import type {
-  ActivityProperties,
-  Maybe} from "@gc-digital-talent/graphql";
-import {
-  ActivityEvent
-} from "@gc-digital-talent/graphql";
+import type { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
+import { ActivityEvent } from "@gc-digital-talent/graphql";
 import type { IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type { Logger } from "@gc-digital-talent/logger";

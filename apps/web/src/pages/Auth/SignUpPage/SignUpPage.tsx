@@ -1,4 +1,4 @@
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router";

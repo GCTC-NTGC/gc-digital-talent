@@ -16,10 +16,9 @@ import {
 import type {
   Classification,
   LocalizedEnumString,
-  Maybe} from "@gc-digital-talent/graphql";
-import {
-  FlexibleWorkLocation
+  Maybe,
 } from "@gc-digital-talent/graphql";
+import { FlexibleWorkLocation } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";

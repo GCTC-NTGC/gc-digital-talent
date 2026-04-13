@@ -13,12 +13,8 @@ import type { Role } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-import type {
-  UserRoleDialogBaseProps} from "../utils";
-import {
-  getUserRoleDialogFragment,
-  useUpdateRolesMutation,
-} from "../utils";
+import type { UserRoleDialogBaseProps } from "../utils";
+import { getUserRoleDialogFragment, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
   userId: string;

@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import type { OperationContext} from "urql";
+import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 
 import {
@@ -11,12 +11,8 @@ import {
   Button,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type {
-  ApplicantDashboardQuery} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  getFragment
-} from "@gc-digital-talent/graphql";
+import type { ApplicantDashboardQuery } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 import { getFromLocalStorage } from "@gc-digital-talent/storage";

@@ -11,11 +11,8 @@ import {
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 
-import type {
-  EmployeeInformationFormProps} from "./EmployeeInformationPage";
-import {
-  EmployeeInformationForm
-} from "./EmployeeInformationPage";
+import type { EmployeeInformationFormProps } from "./EmployeeInformationPage";
+import { EmployeeInformationForm } from "./EmployeeInformationPage";
 import { getFakeWorkFieldOptionsResponse } from "./testUtils";
 
 export const tryGetOperationName = (request: GraphQLRequest): string | null => {

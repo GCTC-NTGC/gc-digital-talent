@@ -1,4 +1,4 @@
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
@@ -17,21 +17,15 @@ import {
   Pending,
   Ul,
 } from "@gc-digital-talent/ui";
-import type {
-  RoleName} from "@gc-digital-talent/auth";
-import {
-  useAuthorization,
-  hasRole,
-  ROLE_NAME
-} from "@gc-digital-talent/auth";
+import type { RoleName } from "@gc-digital-talent/auth";
+import { useAuthorization, hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
 import type {
   Maybe,
   Role,
   RoleAssignment,
-  User} from "@gc-digital-talent/graphql";
-import {
-  graphql,
+  User,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getLocalizedName,

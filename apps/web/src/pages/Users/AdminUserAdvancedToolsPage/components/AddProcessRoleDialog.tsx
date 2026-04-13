@@ -20,8 +20,7 @@ import messages from "~/messages/processMessages";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
 import useAvailablePools from "../useAvailablePools";
-import type {
-  RoleTableProps} from "../utils";
+import type { RoleTableProps } from "../utils";
 import {
   getRoleTableFragments,
   isPoolTeamable,

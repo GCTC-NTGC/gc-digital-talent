@@ -10,10 +10,11 @@ import type { ReactNode } from "react";
 import type {
   AssessmentResultStatus,
   AssessmentStep,
-  Maybe} from "@gc-digital-talent/graphql";
+  Maybe,
+} from "@gc-digital-talent/graphql";
 import {
   AssessmentDecision,
-  AssessmentStepType
+  AssessmentStepType,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -26,9 +27,7 @@ import type {
   AssessmentTableRowColumn,
   ColumnStatus,
 } from "./types";
-import type {
-  ScreeningDecisionDialogProps,
-} from "../ScreeningDecisions/ScreeningDecisionDialog";
+import type { ScreeningDecisionDialogProps } from "../ScreeningDecisions/ScreeningDecisionDialog";
 import ScreeningDecisionDialog from "../ScreeningDecisions/ScreeningDecisionDialog";
 
 const iconStyles = tv({

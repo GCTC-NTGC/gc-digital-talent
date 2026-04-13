@@ -12,7 +12,8 @@ import {
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
-  GettingStartedInitialValuesDeprecatedFragment} from "@gc-digital-talent/graphql";
+  GettingStartedInitialValuesDeprecatedFragment,
+} from "@gc-digital-talent/graphql";
 import {
   graphql,
   getFragment,

@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useEffect } from "react";
 
 import {
@@ -15,8 +15,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { ErrorMessage, Field, HiddenInput } from "@gc-digital-talent/forms";
 import { apiMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStep,
   ErrorCode,

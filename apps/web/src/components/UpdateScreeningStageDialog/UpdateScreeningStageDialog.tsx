@@ -1,11 +1,10 @@
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,

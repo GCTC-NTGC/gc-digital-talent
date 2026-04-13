@@ -8,17 +8,10 @@ import { isPast } from "date-fns/isPast";
 import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import type {
-  FragmentType,
-  Maybe} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
-  PoolLanguage,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, PoolLanguage } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
-import type {
-  HeadingLevel} from "@gc-digital-talent/ui";
+import type { HeadingLevel } from "@gc-digital-talent/ui";
 import {
   Card,
   Heading,

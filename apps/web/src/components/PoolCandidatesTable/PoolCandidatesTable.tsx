@@ -5,11 +5,10 @@ import type { SubmitHandler } from "react-hook-form";
 import type {
   ColumnDef,
   PaginationState,
-  SortingState} from "@tanstack/react-table";
-import {
-  createColumnHelper,
+  SortingState,
 } from "@tanstack/react-table";
-import type { OperationContext} from "urql";
+import { createColumnHelper } from "@tanstack/react-table";
+import type { OperationContext } from "urql";
 import { useMutation, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
 
@@ -30,11 +29,9 @@ import type {
   Pool,
   Maybe,
   FragmentType,
-  CandidatesTableCandidatesPaginated_QueryQuery} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  PublishingGroup
+  CandidatesTableCandidatesPaginated_QueryQuery,
 } from "@gc-digital-talent/graphql";
+import { graphql, PublishingGroup } from "@gc-digital-talent/graphql";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -87,9 +84,7 @@ import {
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
-import type {
-  PoolCandidateFilterDialogProps,
-} from "./PoolCandidateFilterDialog";
+import type { PoolCandidateFilterDialogProps } from "./PoolCandidateFilterDialog";
 import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
 import type { FormValues } from "./types";
 import type { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";

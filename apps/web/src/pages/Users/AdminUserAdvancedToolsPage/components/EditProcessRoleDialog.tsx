@@ -17,13 +17,8 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import type {
-  PoolAssignment,
-  RoleTableProps} from "../utils";
-import {
-  getRoleTableFragments,
-  useUpdateRolesMutation,
-} from "../utils";
+import type { PoolAssignment, RoleTableProps } from "../utils";
+import { getRoleTableFragments, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
   roleIds: Scalars["UUID"]["input"][];

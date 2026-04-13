@@ -3,10 +3,9 @@ import { useIntl } from "react-intl";
 import type {
   LocalizedGovEmployeeType,
   LocalizedGovPositionType,
-  Maybe} from "@gc-digital-talent/graphql";
-import {
-  GovEmployeeType,
+  Maybe,
 } from "@gc-digital-talent/graphql";
+import { GovEmployeeType } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
 

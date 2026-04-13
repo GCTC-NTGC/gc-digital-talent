@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import type { SubmitHandler} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
@@ -9,11 +9,12 @@ import type {
   CreateJobPosterTemplateInput,
   CreateJobPosterTemplateSkillInput,
   FragmentType,
-  SupervisoryStatus} from "@gc-digital-talent/graphql";
+  SupervisoryStatus,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
-  PoolSkillType
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
@@ -42,25 +43,15 @@ import JobDetailsFrontMatter from "../components/JobDetailsFrontMatter";
 import KeyTasksFrontMatter from "../components/KeyTasksFrontMatter";
 import TechnicalSkillsFrontMatter from "../components/TechnicalSkillsFrontMatter";
 import BehaviouralSkillsFrontMatter from "../components/BehaviouralSkillsFrontMatter";
-import type {
-  FormValues as JobDetailsFormValues,
-} from "../components/JobDetailsForm";
+import type { FormValues as JobDetailsFormValues } from "../components/JobDetailsForm";
 import JobDetailsForm from "../components/JobDetailsForm";
-import type {
-  FormValues as KeyTasksFormValues,
-} from "../components/KeyTasksForm";
+import type { FormValues as KeyTasksFormValues } from "../components/KeyTasksForm";
 import KeyTasksForm from "../components/KeyTasksForm";
-import type {
-  FormValues as EssentialTechnicalSkillsFormValues,
-} from "../components/EssentialTechnicalSkillsForm";
+import type { FormValues as EssentialTechnicalSkillsFormValues } from "../components/EssentialTechnicalSkillsForm";
 import EssentialTechnicalSkillsForm from "../components/EssentialTechnicalSkillsForm";
-import type {
-  FormValues as NonessentialTechnicalSkillsFormValues,
-} from "../components/NonessentialTechnicalSkillsForm";
+import type { FormValues as NonessentialTechnicalSkillsFormValues } from "../components/NonessentialTechnicalSkillsForm";
 import NonessentialTechnicalSkillsForm from "../components/NonessentialTechnicalSkillsForm";
-import type {
-  FormValues as EssentialBehaviouralSkillsFormValues,
-} from "../components/EssentialBehaviouralSkillsForm";
+import type { FormValues as EssentialBehaviouralSkillsFormValues } from "../components/EssentialBehaviouralSkillsForm";
 import EssentialBehaviouralSkillsForm from "../components/EssentialBehaviouralSkillsForm";
 
 const CreateJobPosterTemplateOptions_Fragment = graphql(/** GraphQL */ `

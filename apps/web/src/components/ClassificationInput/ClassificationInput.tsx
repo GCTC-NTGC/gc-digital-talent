@@ -1,12 +1,12 @@
 import uniqBy from "lodash/uniqBy";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useEffect } from "react";
-import type { RegisterOptions} from "react-hook-form";
+import type { RegisterOptions } from "react-hook-form";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Combobox, HiddenInput, Select } from "@gc-digital-talent/forms";
-import type { FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";

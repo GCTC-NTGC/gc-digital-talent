@@ -2,10 +2,9 @@ import { useMemo, useRef, useState } from "react";
 import type {
   ColumnDef,
   PaginationState,
-  SortingState} from "@tanstack/react-table";
-import {
-  createColumnHelper,
+  SortingState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import type { SubmitHandler } from "react-hook-form";
@@ -14,11 +13,9 @@ import isEqual from "lodash/isEqual";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   CommunityTalentTableCommunityInterestFragment as CommunityTalentTableCommunityInterestFragmentType,
-  CommunityInterestFilterInput} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  getFragment
+  CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getEmploymentDuration,
@@ -48,9 +45,7 @@ import profileMessages from "~/messages/profileMessages";
 import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import accessors from "~/components/Table/accessors";
 
-import type {
-  FormValues,
-} from "./components/CommunityTalentFilterDialog";
+import type { FormValues } from "./components/CommunityTalentFilterDialog";
 import CommunityTalentFilterDialog from "./components/CommunityTalentFilterDialog";
 import {
   classificationAccessor,

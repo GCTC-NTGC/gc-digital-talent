@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
 import { Container, Flourish, Heading, Link } from "@gc-digital-talent/ui";
-import type { Locales} from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";

@@ -7,8 +7,7 @@ import type { ReactNode } from "react";
 
 import { Container, Link, Pending, Image } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   graphql,
   PublishingGroup,

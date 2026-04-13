@@ -1,11 +1,7 @@
 import { useMutation } from "urql";
 
-import type {
-  Scalars} from "@gc-digital-talent/graphql";
-import {
-  AssessmentResultType,
-  graphql
-} from "@gc-digital-talent/graphql";
+import type { Scalars } from "@gc-digital-talent/graphql";
+import { AssessmentResultType, graphql } from "@gc-digital-talent/graphql";
 
 import type { FormValues } from "./types";
 import {

@@ -2,10 +2,9 @@ import { useIntl } from "react-intl";
 
 import type {
   LocalizedIndigenousCommunity,
-  Maybe} from "@gc-digital-talent/graphql";
-import {
-  IndigenousCommunity
+  Maybe,
 } from "@gc-digital-talent/graphql";
+import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,

@@ -6,7 +6,8 @@ import { ToggleSection } from "@gc-digital-talent/ui";
 import type {
   SkillLevel,
   Skill,
-  FragmentType} from "@gc-digital-talent/graphql";
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   PoolSkillType,
   SkillCategory,

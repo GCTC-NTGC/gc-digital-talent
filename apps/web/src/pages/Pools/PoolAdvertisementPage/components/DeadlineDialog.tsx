@@ -2,14 +2,8 @@ import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 import type { ReactNode } from "react";
 
-import type {
-  LinkProps} from "@gc-digital-talent/ui";
-import {
-  Button,
-  Dialog,
-  IconButton,
-  Link
-} from "@gc-digital-talent/ui";
+import type { LinkProps } from "@gc-digital-talent/ui";
+import { Button, Dialog, IconButton, Link } from "@gc-digital-talent/ui";
 import { formatDate } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";

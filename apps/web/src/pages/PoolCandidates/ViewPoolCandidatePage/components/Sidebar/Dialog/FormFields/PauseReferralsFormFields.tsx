@@ -2,15 +2,13 @@ import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useEffect } from "react";
 
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   PauseReferralsLength,
 } from "@gc-digital-talent/graphql";
-import type {
-  Locales} from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   errorMessages,
   sortLocalizedEnumOptions,

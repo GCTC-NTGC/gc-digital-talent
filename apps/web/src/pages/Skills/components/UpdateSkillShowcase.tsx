@@ -6,7 +6,8 @@ import { useId, useState } from "react";
 import type {
   IconType,
   BreadcrumbsProps,
-  ButtonProps} from "@gc-digital-talent/ui";
+  ButtonProps,
+} from "@gc-digital-talent/ui";
 import {
   TableOfContents,
   Separator,
@@ -21,10 +22,9 @@ import type {
   UpdateUserSkillRankingsInput,
   Scalars,
   UpdateSkillShowcase_UserSkillFragment as UpdateSkillShowcaseUserSkillFragmentType,
-  UpdateSkillShowcase_SkillFragment as UpdateSkillShowcaseSkillFragmentType} from "@gc-digital-talent/graphql";
-import {
-  graphql
+  UpdateSkillShowcase_SkillFragment as UpdateSkillShowcaseSkillFragmentType,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";

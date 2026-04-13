@@ -4,7 +4,7 @@
  *
  * For utilities specific to the Applicant-side UI, see ./applicationUtils.ts
  */
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { defineMessages } from "react-intl";
 import sortBy from "lodash/sortBy";
 import type { ReactNode } from "react";
@@ -21,11 +21,12 @@ import type {
   AssessmentStepType,
   LocalizedCandidateStatus,
   LocalizedCandidateInterest,
-  LocalizedApplicationStatus} from "@gc-digital-talent/graphql";
+  LocalizedApplicationStatus,
+} from "@gc-digital-talent/graphql";
 import {
   CandidateStatus,
   CandidateInterest,
-  ApplicationStatus
+  ApplicationStatus,
 } from "@gc-digital-talent/graphql";
 
 import { LEGACY_ASSESSMENT_STEP_TYPES } from "~/constants/poolCandidate";

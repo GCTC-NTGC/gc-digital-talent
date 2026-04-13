@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type {
-  CheckboxOption} from "@gc-digital-talent/forms";
+import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
   Checklist,
   Field,
@@ -18,8 +17,7 @@ import {
   sortFlexibleWorkLocations,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
   getFragment,

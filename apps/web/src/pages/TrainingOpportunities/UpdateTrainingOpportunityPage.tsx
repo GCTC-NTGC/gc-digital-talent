@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import type { SubmitHandler} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -23,11 +23,9 @@ import {
 import type {
   FragmentType,
   Scalars,
-  UpdateTrainingOpportunityInput} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
+  UpdateTrainingOpportunityInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -38,16 +36,13 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 
-import type {
-  FormValues} from "./apiUtils";
+import type { FormValues } from "./apiUtils";
 import {
   TrainingOpportunityForm_Fragment,
   convertApiFragmentToFormValues,
   convertFormValuesToUpdateInput,
 } from "./apiUtils";
-import type {
-  TrainingOpportunityFormOptions_Fragment,
-} from "./components/TrainingOpportunityForm";
+import type { TrainingOpportunityFormOptions_Fragment } from "./components/TrainingOpportunityForm";
 import TrainingOpportunityForm from "./components/TrainingOpportunityForm";
 
 interface UpdateTrainingOpportunityFormProps {

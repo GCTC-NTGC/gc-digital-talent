@@ -3,14 +3,8 @@ import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircle
 import type { ReactNode } from "react";
 
 import { Heading, Link, Notice } from "@gc-digital-talent/ui";
-import type {
-  FragmentType,
-  Maybe,
-  Pool} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Maybe, Pool } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 

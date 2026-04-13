@@ -3,11 +3,8 @@ import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import type { ReactNode, JSX } from "react";
 
 import { Button, Card, Ul } from "@gc-digital-talent/ui";
-import type {
-  LocalizedIndigenousCommunity} from "@gc-digital-talent/graphql";
-import {
-  IndigenousCommunity
-} from "@gc-digital-talent/graphql";
+import type { LocalizedIndigenousCommunity } from "@gc-digital-talent/graphql";
+import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import CommunityIcon from "~/components/Profile/components/DiversityEquityInclusion/CommunityIcon";

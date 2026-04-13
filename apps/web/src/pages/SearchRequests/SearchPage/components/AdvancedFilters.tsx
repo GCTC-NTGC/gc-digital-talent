@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useQuery } from "urql";

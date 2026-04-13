@@ -1,5 +1,4 @@
-import type {
-  ApplicantFilter} from "@gc-digital-talent/graphql";
+import type { ApplicantFilter } from "@gc-digital-talent/graphql";
 import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,

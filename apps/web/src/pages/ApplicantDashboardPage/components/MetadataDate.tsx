@@ -6,12 +6,8 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type {
-  CandidateInterest,
-  Maybe} from "@gc-digital-talent/graphql";
-import {
-  CandidateStatus
-} from "@gc-digital-talent/graphql";
+import type { CandidateInterest, Maybe } from "@gc-digital-talent/graphql";
+import { CandidateStatus } from "@gc-digital-talent/graphql";
 
 import { deadlineToApply } from "~/utils/poolCandidate";
 

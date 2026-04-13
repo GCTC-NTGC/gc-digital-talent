@@ -1,6 +1,6 @@
 import { useAuthorization, ROLE_NAME } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import type { Maybe} from "@gc-digital-talent/graphql";
+import type { Maybe } from "@gc-digital-talent/graphql";
 import { PoolStatus } from "@gc-digital-talent/graphql";
 
 import { checkRole } from "../utils/teamUtils";

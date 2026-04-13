@@ -1,6 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
-import type { OperationContext} from "urql";
+import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
 
@@ -12,10 +12,9 @@ import type {
   Scalars,
   Maybe,
   PoolCandidateSnapshotQuery,
-  FragmentType} from "@gc-digital-talent/graphql";
-import {
-  graphql
+  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";

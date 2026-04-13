@@ -1,11 +1,8 @@
 import type {
   EmployeeProfile,
-  UpdateEmployeeProfileInput} from "@gc-digital-talent/graphql";
-import {
-  ExecCoaching,
-  graphql,
-  Mentorship
+  UpdateEmployeeProfileInput,
 } from "@gc-digital-talent/graphql";
+import { ExecCoaching, graphql, Mentorship } from "@gc-digital-talent/graphql";
 import { ExecCoachingStatus, MentorshipStatus } from "@gc-digital-talent/i18n";
 
 import type { FormValues } from "./CareerDevelopmentSection";

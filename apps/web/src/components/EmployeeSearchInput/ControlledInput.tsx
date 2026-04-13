@@ -1,26 +1,18 @@
-import type {
-  ChangeEventHandler,
-  KeyboardEvent,
-  MouseEvent} from "react";
-import {
-  useId,
-  useRef,
-  useState,
-} from "react";
+import type { ChangeEventHandler, KeyboardEvent, MouseEvent } from "react";
+import { useId, useRef, useState } from "react";
 import type {
   ControllerRenderProps,
   FieldValues,
   UseFormStateReturn,
 } from "react-hook-form";
-import type { CombinedError} from "urql";
+import type { CombinedError } from "urql";
 import { useClient } from "urql";
 import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
 import { useIntl } from "react-intl";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { tv } from "tailwind-variants";
 
-import type {
-  FieldState} from "@gc-digital-talent/forms";
+import type { FieldState } from "@gc-digital-talent/forms";
 import {
   useFieldState,
   inputStyles,
@@ -37,7 +29,11 @@ import type { SearchMessageCases } from "./Result";
 import Result from "./Result";
 import ErrorMessage from "./Error";
 import { fragmentToEmployee, getDefaultValue, getErrors } from "./utils";
-import type { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";
+import type {
+  EmployeeSearchResult,
+  ErrorMessages,
+  ErrorSeverities,
+} from "./types";
 
 const wrapper = tv({
   extend: inputStateStyles,

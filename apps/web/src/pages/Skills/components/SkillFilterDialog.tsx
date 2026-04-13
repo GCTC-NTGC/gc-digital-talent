@@ -3,17 +3,11 @@ import { useQuery } from "urql";
 
 import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import type {
-  SkillCategory,
-  SkillFamily} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
-import type {
-  CommonFilterDialogProps,
-} from "~/components/FilterDialog/FilterDialog";
+import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDialog";
 import FilterDialog from "~/components/FilterDialog/FilterDialog";
 
 const SkillFilterOptions_Query = graphql(/* GraphQL */ `

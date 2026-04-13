@@ -12,33 +12,28 @@ import { toast } from "@gc-digital-talent/toast";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type {
-  Experience} from "@gc-digital-talent/graphql";
+import type { Experience } from "@gc-digital-talent/graphql";
 import {
   ApplicationStep,
-  EducationRequirementOption
+  EducationRequirementOption,
 } from "@gc-digital-talent/graphql";
 import { getLogger } from "@gc-digital-talent/logger";
 
 import applicationMessages from "~/messages/applicationMessages";
-import type {
-  SimpleAnyExperience} from "~/utils/experienceUtils";
+import type { SimpleAnyExperience } from "~/utils/experienceUtils";
 import {
   isEducationExperience,
   isAwardExperience,
   isCommunityExperience,
   isPersonalExperience,
-  isWorkExperience
+  isWorkExperience,
 } from "~/utils/experienceUtils";
 import useRoutes from "~/hooks/useRoutes";
 import type { GetPageNavInfo } from "~/types/applicationStep";
 import type { ExperienceForDate } from "~/types/experience";
 import { getEducationRequirementOptions } from "~/utils/educationUtils";
-import type {
-  ClassificationGroup} from "~/types/classificationGroup";
-import {
-  isClassificationGroup,
-} from "~/types/classificationGroup";
+import type { ClassificationGroup } from "~/types/classificationGroup";
+import { isClassificationGroup } from "~/types/classificationGroup";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";

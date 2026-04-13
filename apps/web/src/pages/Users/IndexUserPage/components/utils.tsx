@@ -11,11 +11,12 @@ import type {
   InputMaybe,
   OrderByClause,
   RoleAssignment,
-  UserFilterInput} from "@gc-digital-talent/graphql";
+  UserFilterInput,
+} from "@gc-digital-talent/graphql";
 import {
   PositionDuration,
   SortOrder,
-  Trashed
+  Trashed,
 } from "@gc-digital-talent/graphql";
 
 import { durationToEnumPositionDuration } from "~/utils/userUtils";

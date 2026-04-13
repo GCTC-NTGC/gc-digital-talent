@@ -1,4 +1,4 @@
-import type { Pool} from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql";
 import { SkillCategory } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";

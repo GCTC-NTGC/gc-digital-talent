@@ -5,11 +5,9 @@ import { Fragment } from "react/jsx-runtime";
 import type {
   FragmentType,
   GovPositionType,
-  WorkExperience} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql
+  WorkExperience,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { empty, groupBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   currentDate,

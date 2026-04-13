@@ -5,10 +5,9 @@ import type {
   ColumnDef,
   CellContext,
   SortingState,
-  PaginationState} from "@tanstack/react-table";
-import {
-  createColumnHelper
+  PaginationState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 
 import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
 import { fakeUsers } from "@gc-digital-talent/fake-data";

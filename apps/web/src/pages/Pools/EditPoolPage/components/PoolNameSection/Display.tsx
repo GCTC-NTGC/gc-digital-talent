@@ -1,11 +1,10 @@
-import type { MessageDescriptor} from "react-intl";
+import type { MessageDescriptor } from "react-intl";
 import { useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type {
-  EditPoolNameFragment} from "@gc-digital-talent/graphql";
+import type { EditPoolNameFragment } from "@gc-digital-talent/graphql";
 import {
   PoolAreaOfSelection,
   PoolSelectionLimitation,

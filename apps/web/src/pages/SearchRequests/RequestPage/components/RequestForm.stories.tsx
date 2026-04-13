@@ -10,8 +10,7 @@ import {
   fakeSkills,
   fakeWorkStreams,
 } from "@gc-digital-talent/fake-data";
-import type {
-  CreatePoolCandidateSearchRequestInput} from "@gc-digital-talent/graphql";
+import type { CreatePoolCandidateSearchRequestInput } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
   LanguageAbility,
@@ -25,12 +24,11 @@ import {
 } from "@gc-digital-talent/storybook-helpers";
 import { OperationalRequirements } from "@gc-digital-talent/i18n";
 
-import type {
-  RequestFormProps} from "./RequestForm";
+import type { RequestFormProps } from "./RequestForm";
 import {
   RequestForm,
   RequestFormClassification_Fragment,
-  RequestFormDepartment_Fragment
+  RequestFormDepartment_Fragment,
 } from "./RequestForm";
 
 const classifications = fakeClassifications();

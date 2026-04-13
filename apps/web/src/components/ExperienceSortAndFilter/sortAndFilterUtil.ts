@@ -5,7 +5,8 @@ import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import type {
   ExperienceName,
-  SimpleAnyExperience} from "~/utils/experienceUtils";
+  SimpleAnyExperience,
+} from "~/utils/experienceUtils";
 import {
   compareByDate,
   getExperienceName,
@@ -13,7 +14,7 @@ import {
   isCommunityExperience,
   isEducationExperience,
   isPersonalExperience,
-  isWorkExperience
+  isWorkExperience,
 } from "~/utils/experienceUtils";
 import type { ExperienceForDate } from "~/types/experience";
 

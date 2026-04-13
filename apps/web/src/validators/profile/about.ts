@@ -5,10 +5,9 @@ import type {
   LocalizedLanguage,
   Maybe,
   Pool,
-  User} from "@gc-digital-talent/graphql";
-import {
-  PoolAreaOfSelection
+  User,
 } from "@gc-digital-talent/graphql";
+import { PoolAreaOfSelection } from "@gc-digital-talent/graphql";
 
 type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
 

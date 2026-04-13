@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { DefaultValues} from "react-hook-form";
+import type { DefaultValues } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 
 import type { UpdateTalentNominationInput } from "@gc-digital-talent/graphql";

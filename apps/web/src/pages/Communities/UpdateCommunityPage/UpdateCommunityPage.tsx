@@ -22,11 +22,9 @@ import {
 import type {
   Scalars,
   FragmentType,
-  UpdateCommunityInput} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  getFragment
+  UpdateCommunityInput,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";

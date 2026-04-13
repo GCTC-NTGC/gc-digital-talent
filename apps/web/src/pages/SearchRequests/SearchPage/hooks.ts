@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
-import type { Location} from "react-router";
+import type { Location } from "react-router";
 import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
@@ -8,10 +8,9 @@ import { useAnnouncer } from "@gc-digital-talent/ui";
 import type {
   ApplicantFilterInput,
   CandidateSearchPoolResult,
-  SearchResultCard_PoolFragment} from "@gc-digital-talent/graphql";
-import {
-  graphql
+  SearchResultCard_PoolFragment,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import type { FormValues, LocationState } from "~/types/searchRequest";
 

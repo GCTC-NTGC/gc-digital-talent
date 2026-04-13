@@ -23,11 +23,9 @@ import type {
   Classification,
   ApplicantFilterInput,
   Skill,
-  WorkStream} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  FlexibleWorkLocation,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
+import { graphql, FlexibleWorkLocation } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import type { FormValues } from "~/types/searchRequest";

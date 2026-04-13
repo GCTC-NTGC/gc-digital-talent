@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { ColumnDef} from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
@@ -13,14 +13,8 @@ import { normalizedText } from "~/components/Table/sortingFns";
 import tableMessages from "~/components/Table/tableMessages";
 
 import AddProcessRoleDialog from "./AddProcessRoleDialog";
-import type {
-  PoolAssignment,
-  RoleTableProps} from "../utils";
-import {
-  getRoleTableFragments,
-  isPoolTeamable,
-  roleCell
-} from "../utils";
+import type { PoolAssignment, RoleTableProps } from "../utils";
+import { getRoleTableFragments, isPoolTeamable, roleCell } from "../utils";
 import RemoveProcessRoleDialog from "./RemoveProcessRoleDialog";
 import EditProcessRoleDialog from "./EditProcessRoleDialog";
 

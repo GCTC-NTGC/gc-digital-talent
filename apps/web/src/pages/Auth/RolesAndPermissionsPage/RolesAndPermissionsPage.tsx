@@ -9,13 +9,8 @@ import TableCellsIcon from "@heroicons/react/24/outline/TableCellsIcon";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type {
-  IconType} from "@gc-digital-talent/ui";
-import {
-  Container,
-  TableOfContents,
-  Ul,
-} from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
+import { Container, TableOfContents, Ul } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";

@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -13,9 +12,7 @@ import { Heading, UNICODE_CHAR } from "@gc-digital-talent/ui";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { getClassificationName } from "~/utils/poolUtils";
 
-import type {
-  OffPlatformProcessDialog_Fragment,
-} from "./OffPlatformProcessDialog";
+import type { OffPlatformProcessDialog_Fragment } from "./OffPlatformProcessDialog";
 import OffPlatformProcessDialog from "./OffPlatformProcessDialog";
 
 const OffPlatformRecruitmentProcessList_Fragment = graphql(/* GraphQL */ `

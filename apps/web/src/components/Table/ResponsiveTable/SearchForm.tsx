@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
-import type { ChangeEvent} from "react";
+import type { ChangeEvent } from "react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { tv } from "tailwind-variants";
 

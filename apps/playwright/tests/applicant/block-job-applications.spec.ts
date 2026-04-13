@@ -1,7 +1,8 @@
 import type {
   Classification,
   Skill,
-  WorkStream} from "@gc-digital-talent/graphql";
+  WorkStream,
+} from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
@@ -9,7 +10,7 @@ import {
   PositionDuration,
   ProvinceOrTerritory,
   SkillCategory,
-  WorkRegion
+  WorkRegion,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";

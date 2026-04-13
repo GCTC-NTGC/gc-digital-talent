@@ -10,9 +10,7 @@ import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "~/components/ExperienceCard/ExperienceCard";
-import type {
-  FormValues as ExperienceSortAndFilterFormValues,
-} from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
+import type { FormValues as ExperienceSortAndFilterFormValues } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import ExperienceSortAndFilter from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";

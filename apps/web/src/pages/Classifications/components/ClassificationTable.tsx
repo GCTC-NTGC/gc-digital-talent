@@ -1,7 +1,7 @@
-import type { ColumnDef} from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import type { OperationContext} from "urql";
+import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 import { useLocation } from "react-router";
 
@@ -10,11 +10,9 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { Link, Pending } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  ClassificationTableRowFragment} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  getFragment
+  ClassificationTableRowFragment,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";

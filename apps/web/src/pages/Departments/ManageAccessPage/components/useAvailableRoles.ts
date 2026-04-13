@@ -2,7 +2,7 @@ import { useQuery } from "urql";
 import { useMemo } from "react";
 import { useOutletContext } from "react-router";
 
-import type { Role} from "@gc-digital-talent/graphql";
+import type { Role } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import type { RoleName } from "@gc-digital-talent/auth";

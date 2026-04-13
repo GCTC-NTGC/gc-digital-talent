@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
-import type { SubmitHandler} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
@@ -39,11 +39,9 @@ import type {
   UpdateSkillMutation,
   Scalars,
   SkillCategory,
-  FragmentType} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  getFragment,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";

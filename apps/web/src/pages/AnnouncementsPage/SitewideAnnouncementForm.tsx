@@ -1,4 +1,4 @@
-import type { ValidateResult} from "react-hook-form";
+import type { ValidateResult } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 

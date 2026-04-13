@@ -3,11 +3,12 @@ import { useIntl } from "react-intl";
 import type {
   Experience,
   FragmentType,
-  Scalars} from "@gc-digital-talent/graphql";
+  Scalars,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
-  makeFragmentData
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";

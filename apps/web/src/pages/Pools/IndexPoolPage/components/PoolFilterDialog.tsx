@@ -5,17 +5,13 @@ import type {
   FragmentType,
   PoolStatus,
   PublishingGroup,
-  Scalars} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
+  Scalars,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
-import type {
-  CommonFilterDialogProps,
-} from "~/components/FilterDialog/FilterDialog";
+import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDialog";
 import FilterDialog from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 

@@ -1,10 +1,7 @@
 import ChatBubbleBottomCenterTextIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterTextIcon";
 import { defineMessage, useIntl } from "react-intl";
 
-import type {
-  FragmentType,
-  Maybe,
-  Scalars} from "@gc-digital-talent/graphql";
+import type { FragmentType, Maybe, Scalars } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,

@@ -7,13 +7,14 @@ import type {
   FragmentType,
   Maybe,
   Scalars,
-  UpdateTalentNominationInput} from "@gc-digital-talent/graphql";
+  UpdateTalentNominationInput,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   TalentNominationStep,
   TalentNominationSubmitterRelationshipToNominator,
-  TalentNominationUserReview
+  TalentNominationUserReview,
 } from "@gc-digital-talent/graphql";
 import {
   HiddenInput,

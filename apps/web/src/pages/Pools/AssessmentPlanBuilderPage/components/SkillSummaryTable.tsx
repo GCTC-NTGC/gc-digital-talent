@@ -1,7 +1,7 @@
 import type { JSX } from "react";
-import type { ColumnDef} from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
@@ -12,13 +12,14 @@ import type {
   Maybe,
   Skill,
   SkillSummaryPoolSkillFragment as SkillSummaryPoolSkillFragmentType,
-  SkillSummaryTableAssessmentStepFragment as SkillSummaryAssessmentStepFragmentType} from "@gc-digital-talent/graphql";
+  SkillSummaryTableAssessmentStepFragment as SkillSummaryAssessmentStepFragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
   PoolSkillType,
   SkillCategory,
   getFragment,
-  graphql
+  graphql,
 } from "@gc-digital-talent/graphql";
 import { Chip } from "@gc-digital-talent/ui";
 

@@ -6,8 +6,7 @@ import {
   fakePoolCandidates,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import type {
-  PoolCandidate} from "@gc-digital-talent/graphql";
+import type { PoolCandidate } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   CandidateRemovalReason,

@@ -9,14 +9,13 @@ import {
   localizedEnumToOptions,
   TextArea,
 } from "@gc-digital-talent/forms";
-import type {
-  Locales} from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   errorMessages,
   uiMessages,
   sortAwardedScope,
   sortAwardedTo,
-  getLocale
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { graphql } from "@gc-digital-talent/graphql";

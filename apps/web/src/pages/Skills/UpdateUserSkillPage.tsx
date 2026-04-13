@@ -29,7 +29,8 @@ import type {
   FragmentType,
   Scalars,
   SkillLevel,
-  WhenSkillUsed} from "@gc-digital-talent/graphql";
+  WhenSkillUsed,
+} from "@gc-digital-talent/graphql";
 import {
   SkillCategory,
   getFragment,

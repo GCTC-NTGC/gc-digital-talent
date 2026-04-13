@@ -7,7 +7,8 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import type {
   SkillLevel,
   Skill,
-  FragmentType} from "@gc-digital-talent/graphql";
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   PoolSkillType,
   SkillCategory,

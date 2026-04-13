@@ -3,9 +3,7 @@ import type { ReactNode } from "react";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import { Container, Heading } from "@gc-digital-talent/ui";
 
-import type {
-  ImgProps,
-} from "~/components/GradientImage/GradientImage";
+import type { ImgProps } from "~/components/GradientImage/GradientImage";
 import GradientImage from "~/components/GradientImage/GradientImage";
 
 interface HomeHeroProps {

@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import type { ButtonProps} from "@gc-digital-talent/ui";
+import type { ButtonProps } from "@gc-digital-talent/ui";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 
 export interface FooterProps {

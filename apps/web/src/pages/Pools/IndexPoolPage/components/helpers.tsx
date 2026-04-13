@@ -2,7 +2,7 @@ import type { IntlShape } from "react-intl";
 import type { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
-import type { Locales} from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip, UNICODE_CHAR } from "@gc-digital-talent/ui";
 import type {
@@ -16,7 +16,8 @@ import type {
   PoolFilterInput,
   PoolWorkStreamNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
-  QueryPoolsPaginatedOrderByRelationOrderByClause} from "@gc-digital-talent/graphql";
+  QueryPoolsPaginatedOrderByRelationOrderByClause,
+} from "@gc-digital-talent/graphql";
 import {
   NullsOption,
   OrderByRelationWithColumnAggregateFunction,

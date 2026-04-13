@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import type { SubmitHandler} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
@@ -7,7 +7,7 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import uniqBy from "lodash/uniqBy";
 
 import { toast } from "@gc-digital-talent/toast";
-import type { Option} from "@gc-digital-talent/forms";
+import type { Option } from "@gc-digital-talent/forms";
 import { Select, Submit } from "@gc-digital-talent/forms";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -21,11 +21,9 @@ import type {
   CreatePoolInput,
   CreatePoolMutation,
   FragmentType,
-  Maybe} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  getFragment
+  Maybe,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import type { RoleName } from "@gc-digital-talent/auth";
 import { hasRequiredRoles, ROLE_NAME } from "@gc-digital-talent/auth";
 

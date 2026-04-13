@@ -3,10 +3,9 @@ import type {
   DisqualificationReason,
   PoolCandidate,
   QualifyCandidateInput,
-  Scalars} from "@gc-digital-talent/graphql";
-import {
-  EducationRequirementOption
+  Scalars,
 } from "@gc-digital-talent/graphql";
+import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 

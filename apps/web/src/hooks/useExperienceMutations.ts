@@ -5,11 +5,9 @@ import type {
   CreateCommunityExperienceMutation,
   CreateEducationExperienceMutation,
   CreatePersonalExperienceMutation,
-  CreateWorkExperienceMutation} from "@gc-digital-talent/graphql";
-import {
-  GovEmployeeType,
-  graphql,
+  CreateWorkExperienceMutation,
 } from "@gc-digital-talent/graphql";
+import { GovEmployeeType, graphql } from "@gc-digital-talent/graphql";
 
 import type {
   ExperienceDetailsSubmissionData,

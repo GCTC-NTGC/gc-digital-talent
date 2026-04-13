@@ -14,12 +14,8 @@ import {
   Container,
   Flourish,
 } from "@gc-digital-talent/ui";
-import type {
-  Locales} from "@gc-digital-talent/i18n";
-import {
-  navigationMessages,
-  getLocale,
-} from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { navigationMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";

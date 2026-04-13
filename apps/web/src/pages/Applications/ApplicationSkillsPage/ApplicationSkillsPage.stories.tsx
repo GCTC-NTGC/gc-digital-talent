@@ -6,17 +6,13 @@ import {
   fakeExperiences,
 } from "@gc-digital-talent/fake-data";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import type {
-  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType} from "@gc-digital-talent/graphql";
-import {
-  makeFragmentData,
-} from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import type {
-  ApplicationSkillsProps} from "./ApplicationSkillsPage";
+import type { ApplicationSkillsProps } from "./ApplicationSkillsPage";
 import {
   ApplicationSkills,
-  ApplicationSkillsExperience_Fragment
+  ApplicationSkillsExperience_Fragment,
 } from "./ApplicationSkillsPage";
 
 faker.seed(0);

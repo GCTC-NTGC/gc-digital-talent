@@ -1,12 +1,10 @@
 import { useIntl } from "react-intl";
 
-import type {
-  FragmentType,
-  Maybe} from "@gc-digital-talent/graphql";
+import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
-  makeFragmentData
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,

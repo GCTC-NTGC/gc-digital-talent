@@ -3,10 +3,9 @@ import type { SortingState } from "@tanstack/react-table";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import type {
   PoolCandidateSearchRequestInput,
-  OrderByClause} from "@gc-digital-talent/graphql";
-import {
-  SortOrder,
+  OrderByClause,
 } from "@gc-digital-talent/graphql";
+import { SortOrder } from "@gc-digital-talent/graphql";
 
 import { stringToEnumRequestStatus } from "~/utils/requestUtils";
 

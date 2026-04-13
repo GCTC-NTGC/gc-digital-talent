@@ -1,4 +1,4 @@
-import type { SetStateAction, Dispatch} from "react";
+import type { SetStateAction, Dispatch } from "react";
 import { useState, useMemo } from "react";
 import type {
   OnChangeFn,

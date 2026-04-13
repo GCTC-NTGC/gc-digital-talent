@@ -3,13 +3,11 @@ import type {
   FieldValues,
   SubmitHandler,
   UseFormProps,
-  DefaultValues} from "react-hook-form";
-import {
-  FormProvider,
-  useForm
+  DefaultValues,
 } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import AdjustmentsVerticalIcon from "@heroicons/react/20/solid/AdjustmentsVerticalIcon";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useState } from "react";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";

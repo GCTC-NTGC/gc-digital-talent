@@ -4,10 +4,11 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   UpdateUserAsUserInput,
   User,
-  ProfilePersonalInformationFragment as UserProfileFragmentType} from "@gc-digital-talent/graphql";
+  ProfilePersonalInformationFragment as UserProfileFragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
-  CitizenshipStatus
+  CitizenshipStatus,
 } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";

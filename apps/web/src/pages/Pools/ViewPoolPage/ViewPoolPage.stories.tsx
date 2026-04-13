@@ -15,7 +15,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { PoolStatus, makeFragmentData } from "@gc-digital-talent/graphql";
 
-import type { ViewPoolProps} from "./ViewPoolPage";
+import type { ViewPoolProps } from "./ViewPoolPage";
 import { ViewPool, ViewPool_Fragment } from "./ViewPoolPage";
 
 const classifications = fakeClassifications();

@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
-import type { MessageDescriptor} from "react-intl";
+import type { MessageDescriptor } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
 
 import { ApplicationStatus, graphql } from "@gc-digital-talent/graphql";

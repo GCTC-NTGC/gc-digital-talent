@@ -1,14 +1,13 @@
 import { useIntl } from "react-intl";
 
-import type {
-  FieldLabels} from "@gc-digital-talent/forms";
+import type { FieldLabels } from "@gc-digital-talent/forms";
 import {
   Checklist,
   localizedEnumToOptions,
   RadioGroup,
 } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import type { FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment } from "@gc-digital-talent/graphql";
 import { CardSeparator } from "@gc-digital-talent/ui";
 

@@ -5,8 +5,7 @@ import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
-import type {
-  OptGroupOrOption} from "@gc-digital-talent/forms";
+import type { OptGroupOrOption } from "@gc-digital-talent/forms";
 import {
   BasicForm,
   Input,
@@ -19,10 +18,9 @@ import type {
   Scalars,
   CreateWorkStreamInput,
   LocalizedStringInput,
-  InputMaybe} from "@gc-digital-talent/graphql";
-import {
-  graphql
+  InputMaybe,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   Heading,

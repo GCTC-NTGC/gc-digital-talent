@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -16,29 +16,20 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { ErrorMessage, Field, HiddenInput } from "@gc-digital-talent/forms";
 import { groupBy, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type {
-  Experience} from "@gc-digital-talent/graphql";
-import {
-  ApplicationStep,
-  makeFragmentData,
-} from "@gc-digital-talent/graphql";
+import type { Experience } from "@gc-digital-talent/graphql";
+import { ApplicationStep, makeFragmentData } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import type { GetPageNavInfo } from "~/types/applicationStep";
 import type { ExperienceForDate, ExperienceType } from "~/types/experience";
-import type {
-  SimpleAnyExperience} from "~/utils/experienceUtils";
-import {
-  deriveExperienceType
-} from "~/utils/experienceUtils";
+import type { SimpleAnyExperience } from "~/utils/experienceUtils";
+import { deriveExperienceType } from "~/utils/experienceUtils";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "~/components/ExperienceCard/ExperienceCard";
 import applicationMessages from "~/messages/applicationMessages";
-import type {
-  FormValues as ExperienceSortAndFilterFormValues,
-} from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
+import type { FormValues as ExperienceSortAndFilterFormValues } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import ExperienceSortAndFilter from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";

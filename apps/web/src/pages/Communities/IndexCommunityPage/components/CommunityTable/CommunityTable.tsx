@@ -1,4 +1,4 @@
-import type { ColumnDef} from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
@@ -9,11 +9,9 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   FragmentType,
-  CommunityTable_CommunityFragment as CommunityTableCommunityFragmentType} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql
+  CommunityTable_CommunityFragment as CommunityTableCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";

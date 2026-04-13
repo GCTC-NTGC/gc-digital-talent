@@ -7,11 +7,9 @@ import type {
   Skill,
   SkillFamily,
   PoolSkill,
-  PoolSkillType} from "@gc-digital-talent/graphql";
-import {
-  SkillLevel,
-  SkillCategory
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
+import { SkillLevel, SkillCategory } from "@gc-digital-talent/graphql";
 
 import type { SimpleAnyExperience } from "./experienceUtils";
 

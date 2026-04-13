@@ -4,11 +4,9 @@ import { expect } from "playwright/test";
 import type {
   Classification,
   Skill,
-  WorkStream} from "@gc-digital-talent/graphql";
-import {
-  FlexibleWorkLocation,
-  WorkRegion
+  WorkStream,
 } from "@gc-digital-talent/graphql";
+import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
 
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";

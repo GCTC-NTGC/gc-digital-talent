@@ -12,13 +12,14 @@ import type {
   Scalars,
   SkillCategory,
   SkillLevel,
-  UpdateAssessmentResultInput} from "@gc-digital-talent/graphql";
+  UpdateAssessmentResultInput,
+} from "@gc-digital-talent/graphql";
 import {
   AssessmentDecision,
   AssessmentResultJustification,
   AssessmentStepType,
   getFragment,
-  graphql
+  graphql,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -30,11 +31,8 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type { NullableDecision } from "~/utils/assessmentResults";
 import { NO_DECISION } from "~/utils/assessmentResults";
 import { getExperienceSkills } from "~/utils/skillUtils";
-import type {
-  ClassificationGroup} from "~/types/classificationGroup";
-import {
-  isClassificationGroup,
-} from "~/types/classificationGroup";
+import type { ClassificationGroup } from "~/types/classificationGroup";
+import { isClassificationGroup } from "~/types/classificationGroup";
 import { getEducationRequirementOptions } from "~/utils/educationUtils";
 import { isIAPPool } from "~/utils/poolUtils";
 

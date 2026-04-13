@@ -1,12 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import type {
-  ColumnDef,
-  PaginationState} from "@tanstack/react-table";
-import {
-  createColumnHelper,
-} from "@tanstack/react-table";
+import type { ColumnDef, PaginationState } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { createIntl, createIntlCache, useIntl } from "react-intl";
-import type { OperationContext} from "urql";
+import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 import { useLocation, useSearchParams } from "react-router";
 import type { SubmitHandler } from "react-hook-form";
@@ -18,7 +14,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, LoadingErrorMessage } from "@gc-digital-talent/ui";
-import type { Skill} from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql";
 import { SkillCategory, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";

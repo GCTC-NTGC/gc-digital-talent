@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useState, useEffect } from "react";
 
 import { Button, Chip, Chips, Dialog, Notice } from "@gc-digital-talent/ui";
@@ -11,8 +11,7 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import type {
-  CheckboxOption} from "@gc-digital-talent/forms";
+import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
   Select,
   Input,
@@ -29,7 +28,8 @@ import type {
   PoolSkill,
   ScreeningQuestion,
   Scalars,
-  FragmentType} from "@gc-digital-talent/graphql";
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   graphql,
   AssessmentStepType,

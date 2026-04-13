@@ -1,4 +1,4 @@
-import type { MessageDescriptor} from "react-intl";
+import type { MessageDescriptor } from "react-intl";
 import { useIntl } from "react-intl";
 
 import {
@@ -9,9 +9,7 @@ import {
   SwitchInput,
   Select,
 } from "@gc-digital-talent/forms";
-import type {
-  FragmentType,
-  AssessmentStep} from "@gc-digital-talent/graphql";
+import type { FragmentType, AssessmentStep } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -33,9 +31,7 @@ import { Heading } from "@gc-digital-talent/ui";
 import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 
-import type {
-  CommonFilterDialogProps,
-} from "../FilterDialog/FilterDialog";
+import type { CommonFilterDialogProps } from "../FilterDialog/FilterDialog";
 import FilterDialog from "../FilterDialog/FilterDialog";
 import type { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";

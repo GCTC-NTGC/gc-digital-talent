@@ -8,10 +8,9 @@ import type {
   Scalars,
   CreatePoolSkillInput,
   UpdatePoolSkillInput,
-  UpdatePublishedPoolInput} from "@gc-digital-talent/graphql";
-import {
-  graphql
+  UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 

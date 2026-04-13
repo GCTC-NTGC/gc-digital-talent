@@ -1,6 +1,7 @@
 import type {
   ProfileWorkPreferencesFragment,
-  UpdateUserAsUserInput} from "@gc-digital-talent/graphql";
+  UpdateUserAsUserInput,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   PositionDuration,

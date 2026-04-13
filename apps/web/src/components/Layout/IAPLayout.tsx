@@ -4,8 +4,7 @@ import { useLocation, Outlet } from "react-router";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { AnimatePresence } from "motion/react";
 
-import type {
-  Messages} from "@gc-digital-talent/i18n";
+import type { Messages } from "@gc-digital-talent/i18n";
 import {
   NestedLanguageProvider,
   commonMessages,

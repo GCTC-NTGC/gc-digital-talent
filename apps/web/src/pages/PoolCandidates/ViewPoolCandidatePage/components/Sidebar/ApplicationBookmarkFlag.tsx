@@ -6,7 +6,7 @@ import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
 import type { ButtonProps } from "@gc-digital-talent/ui";
 import { Button } from "@gc-digital-talent/ui";
-import type { FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 

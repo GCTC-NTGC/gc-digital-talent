@@ -1,4 +1,4 @@
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
 import { useIntl } from "react-intl";
 import type { VariantProps } from "tailwind-variants";

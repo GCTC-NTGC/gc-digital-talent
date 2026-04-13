@@ -1,4 +1,4 @@
-import type { LinkProps} from "@gc-digital-talent/ui";
+import type { LinkProps } from "@gc-digital-talent/ui";
 import { NavMenu } from "@gc-digital-talent/ui";
 
 interface MenuItemProps {

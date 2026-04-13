@@ -1,17 +1,12 @@
-import type { SubmitHandler} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 
-import type {
-  CheckboxOption} from "@gc-digital-talent/forms";
-import {
-  Checkbox,
-  Field,
-  Submit,
-} from "@gc-digital-talent/forms";
-import type { NotificationFamily} from "@gc-digital-talent/graphql";
+import type { CheckboxOption } from "@gc-digital-talent/forms";
+import { Checkbox, Field, Submit } from "@gc-digital-talent/forms";
+import type { NotificationFamily } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { Card } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";

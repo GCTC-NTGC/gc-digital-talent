@@ -5,11 +5,9 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  UpdatePublishedPoolInput} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
+  UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,

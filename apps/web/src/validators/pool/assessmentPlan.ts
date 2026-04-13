@@ -1,5 +1,5 @@
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import type { FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import type { PoolCompleteness } from "~/types/pool";

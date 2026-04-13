@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import type { SubmitHandler} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useMutation } from "urql";
@@ -15,12 +15,8 @@ import { Input, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import type {
-  IndigenousCommunity} from "@gc-digital-talent/graphql";
-import {
-  ApplicationStep,
-  graphql
-} from "@gc-digital-talent/graphql";
+import type { IndigenousCommunity } from "@gc-digital-talent/graphql";
+import { ApplicationStep, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import type { GetPageNavInfo } from "~/types/applicationStep";

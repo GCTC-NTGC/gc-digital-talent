@@ -5,12 +5,13 @@ import type {
   FragmentType,
   Maybe,
   Scalars,
-  User} from "@gc-digital-talent/graphql";
+  User,
+} from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
   getFragment,
   graphql,
-  SkillCategory
+  SkillCategory,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Button, Dialog } from "@gc-digital-talent/ui";

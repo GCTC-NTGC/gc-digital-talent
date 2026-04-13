@@ -5,7 +5,8 @@ import type {
   LocalizedString,
   Pool,
   PoolSkill,
-  UpdatePoolInput} from "@gc-digital-talent/graphql";
+  UpdatePoolInput,
+} from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
   PoolAreaOfSelection,
@@ -15,7 +16,7 @@ import {
   PublishingGroup,
   SecurityStatus,
   SkillCategory,
-  SkillLevel
+  SkillLevel,
 } from "@gc-digital-talent/graphql";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 

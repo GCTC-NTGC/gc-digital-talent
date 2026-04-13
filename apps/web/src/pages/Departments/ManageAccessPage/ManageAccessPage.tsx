@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { ColumnDef} from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
@@ -11,11 +11,9 @@ import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   Scalars,
-  DepartmentMembersTeamQuery} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql
+  DepartmentMembersTeamQuery,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -26,8 +24,7 @@ import tableMessages from "~/components/Table/tableMessages";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
-import type {
-  DepartmentMember} from "~/utils/departmentUtils";
+import type { DepartmentMember } from "~/utils/departmentUtils";
 import {
   checkRoleDepartments,
   groupRoleAssignmentsByUserDepartments,

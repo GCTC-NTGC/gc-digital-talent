@@ -10,7 +10,7 @@ import {
   TableOfContents,
   Ul,
 } from "@gc-digital-talent/ui";
-import type { Locales} from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";

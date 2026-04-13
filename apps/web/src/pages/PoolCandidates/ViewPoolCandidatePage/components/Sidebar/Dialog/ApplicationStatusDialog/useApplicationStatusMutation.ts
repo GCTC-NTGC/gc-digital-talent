@@ -1,4 +1,4 @@
-import type { OperationResult} from "urql";
+import type { OperationResult } from "urql";
 import { useMutation } from "urql";
 import { useMemo } from "react";
 

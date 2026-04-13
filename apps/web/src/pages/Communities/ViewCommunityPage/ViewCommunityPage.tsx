@@ -16,11 +16,9 @@ import {
 import type {
   FragmentType,
   Scalars,
-  ViewCommunityQuery} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
+  ViewCommunityQuery,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 

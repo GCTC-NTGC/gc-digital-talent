@@ -1,10 +1,10 @@
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useEffect } from "react";
 
 import { Link, Notice } from "@gc-digital-talent/ui";
-import type { FieldLabels} from "@gc-digital-talent/forms";
+import type { FieldLabels } from "@gc-digital-talent/forms";
 import { Input, RadioGroup } from "@gc-digital-talent/forms";
 import {
   errorMessages,

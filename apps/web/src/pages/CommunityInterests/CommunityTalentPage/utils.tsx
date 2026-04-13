@@ -8,11 +8,12 @@ import type {
   QueryCommunityInterestsPaginatedOrderByUserColumn,
   CommunityInterestFilterInput,
   InputMaybe,
-  UserFilterInput} from "@gc-digital-talent/graphql";
+  UserFilterInput,
+} from "@gc-digital-talent/graphql";
 import {
   SortOrder,
   OrderByRelationWithColumnAggregateFunction,
-  PositionDuration
+  PositionDuration,
 } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";

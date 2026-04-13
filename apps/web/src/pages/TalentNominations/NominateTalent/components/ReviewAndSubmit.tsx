@@ -2,8 +2,7 @@ import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMag
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,

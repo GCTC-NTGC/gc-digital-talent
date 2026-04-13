@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import { Outlet } from "react-router";
-import type { OperationContext} from "urql";
+import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 
 import {
@@ -13,11 +13,9 @@ import {
 } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  PoolLayoutFragment} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
+  PoolLayoutFragment,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";

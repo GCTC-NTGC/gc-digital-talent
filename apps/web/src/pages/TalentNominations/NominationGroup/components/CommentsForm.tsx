@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import type { SubmitHandler} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import ChatBubbleBottomCenterIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterIcon";
 import { useMutation } from "urql";
@@ -14,11 +14,9 @@ import {
 } from "@gc-digital-talent/forms";
 import type {
   FragmentType,
-  TalentNominationGroup} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
+  TalentNominationGroup,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
 

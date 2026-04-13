@@ -8,7 +8,7 @@ import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCirc
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useState } from "react";
 
 import {
@@ -26,23 +26,20 @@ import {
   Ul,
   Container,
 } from "@gc-digital-talent/ui";
-import type {
-  Locales} from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   getLocale,
   localizeSalaryRange,
   commonMessages,
   getLocalizedName,
   navigationMessages,
-  uiMessages
+  uiMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
-import type {
-  Scalars,
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { Scalars, FragmentType } from "@gc-digital-talent/graphql";
 import {
   graphql,
   PoolStatus,
@@ -66,16 +63,11 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
-import type {
-  ApplicationLinkProps,
-} from "~/components/ApplicationLink/ApplicationLink";
+import type { ApplicationLinkProps } from "~/components/ApplicationLink/ApplicationLink";
 import ApplicationLink from "~/components/ApplicationLink/ApplicationLink";
 import SkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
-import type {
-  ClassificationGroup} from "~/types/classificationGroup";
-import {
-  isClassificationGroup,
-} from "~/types/classificationGroup";
+import type { ClassificationGroup } from "~/types/classificationGroup";
+import { isClassificationGroup } from "~/types/classificationGroup";
 import DataRow from "~/components/DataRow/DataRow";
 import processMessages from "~/messages/processMessages";
 

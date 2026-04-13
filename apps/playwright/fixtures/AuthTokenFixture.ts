@@ -1,6 +1,6 @@
-import type { Request , type Page } from "@playwright/test";
+import type { Request, type Page } from "@playwright/test";
 
-import type { AuthTokens} from "~/utils/auth";
+import type { AuthTokens } from "~/utils/auth";
 import { getAuthTokens, jumpPastExpiryDate } from "~/utils/auth";
 import type { GraphQLOperation } from "~/utils/graphql";
 

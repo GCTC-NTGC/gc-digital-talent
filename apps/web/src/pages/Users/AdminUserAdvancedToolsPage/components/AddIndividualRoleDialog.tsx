@@ -13,12 +13,8 @@ import {
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-import type {
-  RoleTableProps} from "../utils";
-import {
-  getRoleTableFragments,
-  useUpdateRolesMutation,
-} from "../utils";
+import type { RoleTableProps } from "../utils";
+import { getRoleTableFragments, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
   roles: string[];

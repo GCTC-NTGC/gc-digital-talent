@@ -1,9 +1,9 @@
 import { useIntl } from "react-intl";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useId } from "react";
 import { tv } from "tailwind-variants";
 
-import type { HeadingRank} from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
 import { Card, Heading, Notice } from "@gc-digital-talent/ui";
 
 import Item from "./Item";

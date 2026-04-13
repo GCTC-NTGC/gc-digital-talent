@@ -11,13 +11,14 @@ import type {
   ApplicantFilterInput,
   Classification,
   CandidateCountQueryVariables,
-  Maybe} from "@gc-digital-talent/graphql";
+  Maybe,
+} from "@gc-digital-talent/graphql";
 import {
   PositionDuration,
   FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 
-import type { FormValues} from "~/types/searchRequest";
+import type { FormValues } from "~/types/searchRequest";
 import { NullSelection } from "~/types/searchRequest";
 import {
   formatClassificationAriaString,

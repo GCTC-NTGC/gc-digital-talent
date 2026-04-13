@@ -2,10 +2,9 @@ import { useRef, useMemo, useState } from "react";
 import type {
   ColumnDef,
   PaginationState,
-  SortingState} from "@tanstack/react-table";
-import {
-  createColumnHelper,
+  SortingState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
@@ -16,10 +15,9 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type {
   InputMaybe,
   PoolCandidateSearchRequestInput,
-  SearchRequestTableQuery as SearchRequestTableQueryType} from "@gc-digital-talent/graphql";
-import {
-  graphql
+  SearchRequestTableQuery as SearchRequestTableQueryType,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
@@ -41,8 +39,7 @@ import {
   SEARCH_PARAM_KEY,
 } from "../Table/ResponsiveTable/constants";
 import SearchRequestFilterDialog from "./components/SearchRequestFilterDialog";
-import type {
-  FormValues} from "./components/utils";
+import type { FormValues } from "./components/utils";
 import {
   transformFormValuesToSearchRequestFilterInput,
   transformSearchRequestFilterInputToFormValues,

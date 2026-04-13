@@ -24,7 +24,7 @@ import GoalsAndWorkStyle from "~/components/GoalsAndWorkStyle/GoalsAndWorkStyle"
 import RecruitmentProcesses from "~/components/RecruitmentProcesses/RecruitmentProcesses";
 import permissionConstants from "~/constants/permissionConstants";
 
-import type { RouteParams} from "./types";
+import type { RouteParams } from "./types";
 import { SECTION_KEY } from "./types";
 
 const Nominee_Query = graphql(/* GraphQL */ `

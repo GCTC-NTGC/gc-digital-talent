@@ -12,11 +12,9 @@ import type {
   ExecCoaching,
   FragmentType,
   Mentorship,
-  OrganizationTypeInterest} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql
+  OrganizationTypeInterest,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   formatDate,
   formDateStringToDate,

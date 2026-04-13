@@ -13,7 +13,8 @@ import type {
   AssessmentDecisionLevel,
   AssessmentResultJustification,
   CandidateRemovalReason,
-  DisqualificationReason} from "../../../packages/graphql/src/gql/graphql";
+  DisqualificationReason,
+} from "../../../packages/graphql/src/gql/graphql";
 import {
   ApplicationStatus,
   AssessmentDecision,

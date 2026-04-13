@@ -12,12 +12,13 @@ import { Link } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import type {
   FragmentType,
-  SkillPortfolioTable_UserSkillFragment as SkillPortfolioTableUserSkillFragmentType} from "@gc-digital-talent/graphql";
+  SkillPortfolioTable_UserSkillFragment as SkillPortfolioTableUserSkillFragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   SkillCategory,
-  SkillLevel
+  SkillLevel,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 

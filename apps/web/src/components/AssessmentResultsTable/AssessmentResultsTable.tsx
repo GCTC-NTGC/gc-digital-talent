@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import type { ColumnDef} from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import uniqueId from "lodash/uniqueId";
 
@@ -7,12 +7,13 @@ import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
 import type {
   AssessmentStep,
   FragmentType,
-  AssessmentResultsTableFragment as AssessmentResultsTableFragmentType} from "@gc-digital-talent/graphql";
+  AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   AssessmentResultType,
   getFragment,
   graphql,
-  PoolSkillType
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Notice } from "@gc-digital-talent/ui";

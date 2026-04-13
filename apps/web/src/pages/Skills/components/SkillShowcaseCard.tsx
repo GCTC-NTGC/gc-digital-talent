@@ -6,10 +6,9 @@ import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
 import type {
   UpdateUserSkillRankingsInput,
   Skill,
-  UserSkill} from "@gc-digital-talent/graphql";
-import {
-  SkillCategory
+  UserSkill,
 } from "@gc-digital-talent/graphql";
+import { SkillCategory } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 
 import type { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";

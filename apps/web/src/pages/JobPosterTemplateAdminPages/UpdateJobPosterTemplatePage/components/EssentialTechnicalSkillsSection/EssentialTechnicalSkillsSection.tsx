@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import type { SubmitHandler} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
@@ -14,11 +14,12 @@ import type {
   UpdateJobPosterTemplateEssentialTechnicalSkillsFragment,
   CreateJobPosterTemplateSkillInput,
   UpdateJobPosterTemplateSkillsInput,
-  Scalars} from "@gc-digital-talent/graphql";
+  Scalars,
+} from "@gc-digital-talent/graphql";
 import {
   graphql,
   getFragment,
-  PoolSkillType
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -28,9 +29,7 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
 import type { ListItem as SkillProficiencyListItem } from "~/components/SkillProficiencyList/SkillProficiencyList";
 
-import type {
-  FormValues,
-} from "../../../components/EssentialTechnicalSkillsForm";
+import type { FormValues } from "../../../components/EssentialTechnicalSkillsForm";
 import EssentialTechnicalSkillsForm from "../../../components/EssentialTechnicalSkillsForm";
 import Display from "./Display";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";

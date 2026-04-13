@@ -1,4 +1,4 @@
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 
 import type { FieldLabels } from "@gc-digital-talent/forms";

@@ -1,12 +1,11 @@
-import type { FieldValues, FormState} from "react-hook-form";
+import type { FieldValues, FormState } from "react-hook-form";
 import { useFormContext } from "react-hook-form";
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useEffect, useId } from "react";
 
-import type {
-  FieldLabels} from "@gc-digital-talent/forms";
+import type { FieldLabels } from "@gc-digital-talent/forms";
 import {
   Checklist,
   Field,

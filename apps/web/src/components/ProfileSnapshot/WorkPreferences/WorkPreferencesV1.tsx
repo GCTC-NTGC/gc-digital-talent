@@ -6,11 +6,9 @@ import type {
   LocalizedOperationalRequirement,
   LocalizedProvinceOrTerritory,
   LocalizedWorkRegion,
-  Maybe} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  PositionDuration,
+  Maybe,
 } from "@gc-digital-talent/graphql";
+import { getFragment, PositionDuration } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getOperationalRequirement,

@@ -1,6 +1,6 @@
 import { useQuery } from "urql";
 
-import type { UserWorkEmail} from "@gc-digital-talent/graphql";
+import type { UserWorkEmail } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 

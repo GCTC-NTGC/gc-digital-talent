@@ -1,8 +1,7 @@
 import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
-import type {
-  HeadingLevel} from "@gc-digital-talent/ui";
+import type { HeadingLevel } from "@gc-digital-talent/ui";
 import {
   Button,
   Card,
@@ -12,15 +11,10 @@ import {
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import type {
-  FragmentType,
-  Skill} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Skill } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import type { ExperienceWithSkills} from "~/utils/skillUtils";
+import type { ExperienceWithSkills } from "~/utils/skillUtils";
 import { getExperienceSkills } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";

@@ -6,13 +6,11 @@ import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircle
 import BuildingLibraryIcon from "@heroicons/react/20/solid/BuildingLibraryIcon";
 import { tv } from "tailwind-variants";
 
-import type {
-  FragmentType,
-  Maybe} from "@gc-digital-talent/graphql";
+import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
 import {
   DevelopmentProgramParticipationStatus,
   getFragment,
-  graphql
+  graphql,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type { IconType } from "@gc-digital-talent/ui";

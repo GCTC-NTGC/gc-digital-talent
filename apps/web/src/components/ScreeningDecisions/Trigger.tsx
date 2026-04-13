@@ -1,8 +1,7 @@
 import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   AssessmentDecision,
   getFragment,
@@ -10,7 +9,7 @@ import {
   PoolSkillType,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
-import type { ButtonProps} from "@gc-digital-talent/ui";
+import type { ButtonProps } from "@gc-digital-talent/ui";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 

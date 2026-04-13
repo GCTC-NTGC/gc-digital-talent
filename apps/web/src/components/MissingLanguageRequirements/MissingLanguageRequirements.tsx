@@ -3,21 +3,12 @@ import ExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriang
 import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import type {
-  ChipProps,
-  HeadingRank} from "@gc-digital-talent/ui";
-import {
-  Chip,
-  Chips,
-  Heading
-} from "@gc-digital-talent/ui";
+import type { ChipProps, HeadingRank } from "@gc-digital-talent/ui";
+import { Chip, Chips, Heading } from "@gc-digital-talent/ui";
 import type { Pool } from "@gc-digital-talent/graphql";
 
-import type {
-  PartialUser} from "~/utils/languageUtils";
-import {
-  getMissingLanguageRequirements
-} from "~/utils/languageUtils";
+import type { PartialUser } from "~/utils/languageUtils";
+import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 const reqBlock = tv({ base: "flex gap-x-3 rounded-md p-6" });
 

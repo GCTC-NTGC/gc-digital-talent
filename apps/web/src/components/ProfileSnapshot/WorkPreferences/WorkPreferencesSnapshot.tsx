@@ -4,9 +4,7 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 
 import type { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
-import type {
-  WorkPreferencesSnapshotV1,
-} from "./WorkPreferencesV1";
+import type { WorkPreferencesSnapshotV1 } from "./WorkPreferencesV1";
 import WorkPreferencesV1 from "./WorkPreferencesV1";
 import { getSupportedVersionComponent } from "../utils";
 import type { SnapshotProps } from "../types";

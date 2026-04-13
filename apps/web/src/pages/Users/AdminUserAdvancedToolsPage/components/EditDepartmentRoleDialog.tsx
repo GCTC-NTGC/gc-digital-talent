@@ -12,19 +12,14 @@ import {
 } from "@gc-digital-talent/i18n";
 import type { Scalars, Maybe } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import type { RoleName} from "@gc-digital-talent/auth";
+import type { RoleName } from "@gc-digital-talent/auth";
 import { DEPARTMENT_ROLES } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import type {
-  DepartmentAssignment,
-  RoleTableProps} from "../utils";
-import {
-  getRoleTableFragments,
-  useUpdateRolesMutation,
-} from "../utils";
+import type { DepartmentAssignment, RoleTableProps } from "../utils";
+import { getRoleTableFragments, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
   roleIds: Scalars["UUID"]["input"][];

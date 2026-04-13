@@ -7,14 +7,15 @@ import type {
   Classification,
   Skill,
   User,
-  WorkStream} from "@gc-digital-talent/graphql";
+  WorkStream,
+} from "@gc-digital-talent/graphql";
 import {
   EstimatedLanguageAbility,
   FlexibleWorkLocation,
   Language,
   OperationalRequirement,
   SkillCategory,
-  WorkRegion
+  WorkRegion,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";

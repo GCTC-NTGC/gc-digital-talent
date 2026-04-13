@@ -1,6 +1,6 @@
 import { useId, useMemo, useEffect } from "react";
 import { useIntl } from "react-intl";
-import type { RegisterOptions} from "react-hook-form";
+import type { RegisterOptions } from "react-hook-form";
 import { useFormContext } from "react-hook-form";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";

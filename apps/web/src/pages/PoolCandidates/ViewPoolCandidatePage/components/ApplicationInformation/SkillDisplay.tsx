@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type { Skill} from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 import {
   Heading,

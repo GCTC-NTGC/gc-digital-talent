@@ -1,6 +1,4 @@
-import type {
-  PoolCandidate,
-  User} from "@gc-digital-talent/graphql";
+import type { PoolCandidate, User } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,

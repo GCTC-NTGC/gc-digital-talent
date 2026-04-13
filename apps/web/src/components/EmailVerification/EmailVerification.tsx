@@ -1,9 +1,8 @@
 import { useContext } from "react";
 
-import type {
-  Value as ProviderValue} from "./EmailVerificationProvider";
+import type { Value as ProviderValue } from "./EmailVerificationProvider";
 import Provider, {
-  EmailVerificationContext
+  EmailVerificationContext,
 } from "./EmailVerificationProvider";
 import RequestVerificationCodeContextMessage from "./RequestVerificationCodeContextMessage";
 import RequestVerificationCodeForm from "./RequestVerificationCodeForm";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import type { SubmitHandler} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 
@@ -13,14 +13,8 @@ import {
   formMessages,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import type {
-  FragmentType,
-  Scalars} from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  PoolStatus,
-  getFragment
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import { graphql, PoolStatus, getFragment } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";

@@ -1,4 +1,4 @@
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
 import type { ReactNode } from "react";
 

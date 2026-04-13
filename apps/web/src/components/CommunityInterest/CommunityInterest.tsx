@@ -3,11 +3,9 @@ import { useIntl } from "react-intl";
 import type {
   FinanceChiefDuty,
   FinanceChiefRole,
-  FragmentType} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";

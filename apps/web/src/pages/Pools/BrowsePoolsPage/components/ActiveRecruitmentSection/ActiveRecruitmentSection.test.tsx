@@ -10,10 +10,9 @@ import {
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
-import type {
-  ActiveRecruitmentSectionProps} from "./ActiveRecruitmentSection";
+import type { ActiveRecruitmentSectionProps } from "./ActiveRecruitmentSection";
 import ActiveRecruitmentSection, {
-  ActiveRecruitmentSectionPool_Fragment
+  ActiveRecruitmentSectionPool_Fragment,
 } from "./ActiveRecruitmentSection";
 
 const publishedPool = makeFragmentData(

@@ -2,8 +2,7 @@ import { useIntl } from "react-intl";
 
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { Notice } from "@gc-digital-talent/ui";
-import type {
-  FragmentType} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   getFragment,

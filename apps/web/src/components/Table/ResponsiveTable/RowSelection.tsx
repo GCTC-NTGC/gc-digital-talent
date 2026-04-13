@@ -1,4 +1,4 @@
-import type { IntlShape} from "react-intl";
+import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import type {
   Row,
@@ -16,18 +16,14 @@ import type {
   Dispatch,
   HTMLAttributes,
   MouseEventHandler,
-  SetStateAction} from "react";
-import {
-  useCallback,
-  useEffect,
-  useState,
+  SetStateAction,
 } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { tv } from "tailwind-variants";
 
 import type { CheckButtonProps } from "@gc-digital-talent/forms";
 import { CheckButton } from "@gc-digital-talent/forms";
-import type {
-  ButtonProps} from "@gc-digital-talent/ui";
+import type { ButtonProps } from "@gc-digital-talent/ui";
 import {
   Button,
   DownloadCsv,
