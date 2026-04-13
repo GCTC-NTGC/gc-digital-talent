@@ -4,7 +4,8 @@ import type {
   LocalizedEnumString,
   LocalizedString,
   Maybe,
-
+} from "@gc-digital-talent/graphql";
+import {
   ApplicationStatus,
   AwardedScope,
   AwardedTo,
@@ -23,7 +24,8 @@ import type {
   PauseReferralsLength,
   ScreeningStage,
   SecurityStatus,
-  WorkRegion} from "@gc-digital-talent/graphql";
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getLocalizedName } from "./localize";
