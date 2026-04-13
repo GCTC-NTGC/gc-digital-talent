@@ -198,6 +198,9 @@ importers:
       react-hook-form:
         specifier: ^7.72.1
         version: 7.72.1(react@19.2.5)
+      react-idle-timer:
+        specifier: ^5.7.3
+        version: 5.7.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       react-intl:
         specifier: ^10.1.2
         version: 10.1.2(@types/react@19.2.14)(react@19.2.5)
@@ -6131,6 +6134,12 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
+
+  react-idle-timer@5.7.3:
+    resolution: {integrity: sha512-7QuPkJ8ffraiECVRP1KlzHOocvkvN1XEPeOevnfMLNc7A6O/TMZo11j5sPfYvftvkOqNA84iCc5dYXoX+m2raQ==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
 
   react-intl@10.1.2:
     resolution: {integrity: sha512-53iYLo+Sl6Qw1+/7VJ2v7mB2A8XHYeVFRujmoo8qVvvym4/WL9COKCcXKUyCYBwKgZNghKrgyQILx7qbrsdZ/w==}
@@ -12260,6 +12269,11 @@ snapshots:
   react-hook-form@7.72.1(react@19.2.5):
     dependencies:
       react: 19.2.5
+
+  react-idle-timer@5.7.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
+    dependencies:
+      react: 19.2.5
+      react-dom: 19.2.5(react@19.2.5)
 
   react-intl@10.1.2(@types/react@19.2.14)(react@19.2.5):
     dependencies:
