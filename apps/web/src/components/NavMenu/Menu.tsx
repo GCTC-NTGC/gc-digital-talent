@@ -29,6 +29,7 @@ import {
   Container,
 } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
@@ -84,6 +85,8 @@ const Menu = ({
 
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
+  // feature flag
+  const featureFlags = useFeatureFlags();
 
   const handleOpenToggle = () => {
     setMenuOpen((prevOpen) => {
@@ -201,11 +204,19 @@ const Menu = ({
                           title={intl.formatMessage(authMessages.signIn)}
                           className="sm:ml-initial ml-auto"
                         />
-                        <NavItem
-                          key="signUp"
-                          href={`${paths.register()}${authParams ?? ""}`}
-                          title={intl.formatMessage(authMessages.signUp)}
-                        />
+                        {featureFlags.canadaLogin ? (
+                          <NavItem
+                            key="signUp"
+                            href={`${paths.register()}${authParams ?? ""}`}
+                            title={intl.formatMessage(authMessages.register)}
+                          />
+                        ) : (
+                          <NavItem
+                            key="signUp"
+                            href={`${paths.register()}${authParams ?? ""}`}
+                            title={intl.formatMessage(authMessages.signUp)}
+                          />
+                        )}
                       </>
                     ) : null}
                   </NavMenu.List>
