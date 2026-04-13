@@ -25,5 +25,9 @@ export default [
         node: true,
       },
     },
+
+    rules: {
+      "@typescript-eslint/consistent-type-imports": "off",
+    },
   },
 ];
