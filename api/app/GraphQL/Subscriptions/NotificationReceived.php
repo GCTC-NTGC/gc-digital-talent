@@ -11,7 +11,9 @@ class NotificationReceived extends GraphQLSubscription
 {
     public function authorize(Subscriber $subscriber, Request $request): bool
     {
-        return true;
+        $user = $subscriber->context->user();
+
+        return $user instanceof User;
     }
 
     public function filter(Subscriber $subscriber, mixed $root): bool
