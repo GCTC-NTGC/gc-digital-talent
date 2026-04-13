@@ -3,13 +3,9 @@ import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
 import Heading from "../../Heading";
-import type {
-  CardFlatRegularLinkProps,
-} from "./CardFlatRegularLink";
+import type { CardFlatRegularLinkProps } from "./CardFlatRegularLink";
 import CardFlatRegularLink from "./CardFlatRegularLink";
-import type {
-  CardFlatScrollToLinkProps,
-} from "./CardFlatScrollToLink";
+import type { CardFlatScrollToLinkProps } from "./CardFlatScrollToLink";
 import CardFlatScrollToLink from "./CardFlatScrollToLink";
 import { hrefToString } from "../../../utils";
 

@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { createContext, useMemo, useContext } from "react";
 
 import { formMessages } from "@gc-digital-talent/i18n";

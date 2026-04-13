@@ -4,7 +4,8 @@ import type {
   User,
   Classification,
   Department,
-  Maybe} from "@gc-digital-talent/graphql";
+  Maybe,
+} from "@gc-digital-talent/graphql";
 import {
   Language,
   ProvinceOrTerritory,

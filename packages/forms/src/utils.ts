@@ -9,8 +9,7 @@ import type {
   Maybe,
   Scalars,
 } from "@gc-digital-talent/graphql";
-import type {
-  Locales} from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocale,

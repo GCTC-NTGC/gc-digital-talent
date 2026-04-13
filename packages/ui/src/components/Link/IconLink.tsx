@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import type { BaseIconButtonLinkProps} from "../../utils/btnStyles";
+import type { BaseIconButtonLinkProps } from "../../utils/btnStyles";
 import { iconBtn } from "../../utils/btnStyles";
 import type { BaseLinkProps } from "./BaseLink";
 import BaseLink from "./BaseLink";

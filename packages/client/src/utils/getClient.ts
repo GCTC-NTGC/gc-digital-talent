@@ -1,12 +1,6 @@
 import type { IntlShape } from "react-intl";
-import type {
-  Client} from "urql";
-import {
-  cacheExchange,
-  createClient,
-  fetchExchange,
-  mapExchange,
-} from "urql";
+import type { Client } from "urql";
+import { cacheExchange, createClient, fetchExchange, mapExchange } from "urql";
 import { authExchange } from "@urql/exchange-auth";
 
 import { getLocale } from "@gc-digital-talent/i18n";
@@ -14,13 +8,14 @@ import { getLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import type {
   LogoutReason,
-  AuthenticationState} from "@gc-digital-talent/auth";
+  AuthenticationState,
+} from "@gc-digital-talent/auth";
 import {
   ACCESS_TOKEN,
   getAuthenticationState,
   LOGOUT_REASON_KEY,
   NAV_ROLE_KEY,
-  REFRESH_TOKEN
+  REFRESH_TOKEN,
 } from "@gc-digital-talent/auth";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 

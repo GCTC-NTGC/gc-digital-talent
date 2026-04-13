@@ -19,13 +19,8 @@ import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import ControlledInput from "./ControlledInput";
 import { splitSegments } from "./utils";
-import type {
-  DateRegisterOptions,
-  DateSegment,
-  RoundingMethod} from "./types";
-import {
-  DATE_SEGMENT
-} from "./types";
+import type { DateRegisterOptions, DateSegment, RoundingMethod } from "./types";
+import { DATE_SEGMENT } from "./types";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
 
 const legendStyles = tv({

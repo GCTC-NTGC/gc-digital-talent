@@ -2,7 +2,7 @@ import { useFormState } from "react-hook-form";
 import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
-import type { ButtonProps} from "@gc-digital-talent/ui";
+import type { ButtonProps } from "@gc-digital-talent/ui";
 import { Button } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 

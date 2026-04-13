@@ -10,7 +10,8 @@ import type {
   // required imports to generate an Experience to export
   User,
   ExperienceSkillRecord,
-  Skill} from "@gc-digital-talent/graphql";
+  Skill,
+} from "@gc-digital-talent/graphql";
 import {
   // imports required by specific experiences and are linked
   AwardedTo,

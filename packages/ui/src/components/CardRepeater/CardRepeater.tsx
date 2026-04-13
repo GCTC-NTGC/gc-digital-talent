@@ -1,9 +1,8 @@
-import type { KeyboardEventHandler, ReactElement, ReactNode} from "react";
+import type { KeyboardEventHandler, ReactElement, ReactNode } from "react";
 import { useId } from "react";
 
 import { ARROW_KEY, isArrowKey } from "../../utils/keyboard";
-import type {
-  CardRepeaterProviderProps} from "./CardRepeaterProvider";
+import type { CardRepeaterProviderProps } from "./CardRepeaterProvider";
 import {
   CardRepeaterProvider,
   useCardRepeaterContext,

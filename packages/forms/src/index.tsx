@@ -5,9 +5,7 @@ import CardOptionGroup, {
   type CardOptionGroupProps,
 } from "./components/CardOptionGroup/CardOptionGroup";
 import Checkbox, { type CheckboxProps } from "./components/Checkbox/Checkbox";
-import type {
-  CheckButtonProps,
-} from "./components/CheckButton/CheckButton";
+import type { CheckButtonProps } from "./components/CheckButton/CheckButton";
 import CheckButton from "./components/CheckButton/CheckButton";
 import Checklist, {
   type ChecklistProps,
@@ -18,7 +16,7 @@ import Combobox from "./components/Combobox/Combobox";
 import type { Option as ComboboxOption } from "./components/Combobox/types";
 import type { DateInputProps } from "./components/DateInput/DateInput";
 import DateInput from "./components/DateInput/DateInput";
-import type { DateSegment} from "./components/DateInput/types";
+import type { DateSegment } from "./components/DateInput/types";
 import { DATE_SEGMENT } from "./components/DateInput/types";
 import type {
   DescriptionsProps,

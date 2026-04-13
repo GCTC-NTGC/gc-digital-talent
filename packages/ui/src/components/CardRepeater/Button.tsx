@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
-import type { ComponentPropsWithoutRef} from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import { forwardRef } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";

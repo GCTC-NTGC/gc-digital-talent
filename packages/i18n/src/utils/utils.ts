@@ -1,4 +1,4 @@
-import type { Messages , Locales } from "../types";
+import type { Messages, Locales } from "../types";
 import CommonFrench from "../lang/frCompiled.json";
 import { isLocale } from "./localize";
 

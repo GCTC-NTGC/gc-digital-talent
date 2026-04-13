@@ -1,4 +1,4 @@
-import type { DetailedHTMLProps, LabelHTMLAttributes} from "react";
+import type { DetailedHTMLProps, LabelHTMLAttributes } from "react";
 import { forwardRef } from "react";
 import { useIntl } from "react-intl";
 

@@ -1,5 +1,5 @@
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
-import type { ComponentPropsWithoutRef, ComponentRef} from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";

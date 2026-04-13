@@ -1,4 +1,4 @@
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { createContext, useMemo } from "react";
 
 import type { FeatureFlags } from "./utils";

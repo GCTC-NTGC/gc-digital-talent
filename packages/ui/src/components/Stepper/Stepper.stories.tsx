@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router";
-import type { Args, Decorator , StoryFn, Meta } from "@storybook/react-vite";
+import type { Args, Decorator, StoryFn, Meta } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker/locale/en";
 

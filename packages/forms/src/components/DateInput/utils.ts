@@ -5,13 +5,8 @@ import { getDaysInMonth } from "date-fns/getDaysInMonth";
 import { dateMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
 
-import type {
-  DateSegment,
-  SegmentObject,
-  RoundingMethod} from "./types";
-import {
-  DATE_SEGMENT
-} from "./types";
+import type { DateSegment, SegmentObject, RoundingMethod } from "./types";
+import { DATE_SEGMENT } from "./types";
 
 /**
  * Split the form value into each segment

@@ -1,4 +1,4 @@
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { createContext, useEffect, useMemo } from "react";
 
 import type { Locales } from "@gc-digital-talent/i18n";

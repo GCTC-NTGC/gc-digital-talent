@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, DetailedHTMLProps} from "react";
+import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 import { forwardRef } from "react";
 
 import type { BaseButtonLinkProps } from "../../utils/btnStyles";

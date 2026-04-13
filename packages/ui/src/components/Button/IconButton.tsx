@@ -1,7 +1,7 @@
-import type { ButtonHTMLAttributes, DetailedHTMLProps} from "react";
+import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 import { forwardRef } from "react";
 
-import type { BaseIconButtonLinkProps} from "../../utils/btnStyles";
+import type { BaseIconButtonLinkProps } from "../../utils/btnStyles";
 import { iconBtn } from "../../utils/btnStyles";
 
 export interface IconButtonProps

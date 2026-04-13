@@ -13,7 +13,8 @@ import type {
   ScreeningQuestion,
   PoolSkill,
   Department,
-  WorkStream} from "@gc-digital-talent/graphql";
+  WorkStream,
+} from "@gc-digital-talent/graphql";
 import {
   PoolStatus,
   PoolLanguage,
@@ -24,7 +25,7 @@ import {
   SkillLevel,
   PoolOpportunityLength,
   PoolAreaOfSelection,
-  PoolSelectionLimitation
+  PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
 
 import fakePaginatorInfo, { fakePaginateData } from "./fakePaginatorInfo";

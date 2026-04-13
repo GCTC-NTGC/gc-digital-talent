@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
-import type { DetailedHTMLProps, HTMLAttributes} from "react";
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import { forwardRef } from "react";
 import { tv } from "tailwind-variants";
 

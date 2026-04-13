@@ -6,10 +6,9 @@ import type {
   HTMLAttributes,
   MouseEventHandler,
   KeyboardEventHandler,
-  KeyboardEvent} from "react";
-import {
-  useRef
+  KeyboardEvent,
 } from "react";
+import { useRef } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 

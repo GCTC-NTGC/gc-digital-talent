@@ -3,7 +3,7 @@ import { useLocation, Link } from "react-router";
 import type { MouseEvent, KeyboardEvent } from "react";
 import { useState, useEffect } from "react";
 
-import type { BaseButtonLinkProps} from "../../utils/btnStyles";
+import type { BaseButtonLinkProps } from "../../utils/btnStyles";
 import { btn } from "../../utils/btnStyles";
 
 type ClickEvent =

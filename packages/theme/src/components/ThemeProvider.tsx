@@ -1,11 +1,5 @@
-import type {
-  ReactNode} from "react";
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-} from "react";
+import type { ReactNode } from "react";
+import { createContext, useCallback, useEffect, useMemo } from "react";
 
 import { useLocalStorage } from "@gc-digital-talent/storage";
 

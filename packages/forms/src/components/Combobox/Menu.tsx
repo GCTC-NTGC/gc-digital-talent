@@ -6,10 +6,9 @@ import omit from "lodash/omit";
 import type {
   DetailedHTMLProps,
   HTMLAttributes,
-  LiHTMLAttributes} from "react";
-import {
-  forwardRef
+  LiHTMLAttributes,
 } from "react";
+import { forwardRef } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 

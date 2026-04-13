@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
-import type { BaseCTAProps} from "./utils";
+import type { BaseCTAProps } from "./utils";
 import { cta } from "./utils";
 
 export interface CTAButtonProps

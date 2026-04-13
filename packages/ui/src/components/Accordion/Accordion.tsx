@@ -8,13 +8,9 @@ import type {
   ComponentRef,
   ReactNode,
   ReactElement,
-  ComponentProps} from "react";
-import React, {
-  forwardRef,
-  Fragment,
-  createContext,
-  useContext
+  ComponentProps,
 } from "react";
+import React, { forwardRef, Fragment, createContext, useContext } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
@@ -25,9 +21,7 @@ import type { ChipVariants } from "../Chip/Chip";
 import Chip from "../Chip/Chip";
 import type { LinkProps } from "../Link";
 import Link from "../Link";
-import type {
-  MetaDataStatusItemProps,
-} from "./MetaDataStatusItem";
+import type { MetaDataStatusItemProps } from "./MetaDataStatusItem";
 import MetaDataStatusItem from "./MetaDataStatusItem";
 import MetaDataButton from "./MetaDataButton";
 import type { ButtonProps } from "../Button";

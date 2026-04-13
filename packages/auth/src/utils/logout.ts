@@ -20,8 +20,7 @@ export function getLogoutVars(locale: Locales) {
   };
 }
 
-import type {
-  LogoutReason} from "../const";
+import type { LogoutReason } from "../const";
 import {
   ACCESS_TOKEN,
   ID_TOKEN,

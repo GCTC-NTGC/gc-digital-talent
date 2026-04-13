@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import type { CombinedError } from "urql";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { Suspense } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";

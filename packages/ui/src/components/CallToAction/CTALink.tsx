@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import type { BaseCTAProps} from "./utils";
+import type { BaseCTAProps } from "./utils";
 import { cta } from "./utils";
 import type { BaseLinkProps } from "../Link/BaseLink";
 import BaseLink from "../Link/BaseLink";

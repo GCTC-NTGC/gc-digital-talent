@@ -3,14 +3,8 @@
  */
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { useLocation } from "react-router";
-import type {
-  ComponentRef,
-  ComponentPropsWithoutRef} from "react";
-import {
-  forwardRef,
-  useRef,
-  useEffect,
-} from "react";
+import type { ComponentRef, ComponentPropsWithoutRef } from "react";
+import { forwardRef, useRef, useEffect } from "react";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
@@ -19,9 +13,7 @@ import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import type { LinkProps as BaseLinkProps } from "../Link/Link";
 import OurLink from "../Link/Link";
-import type {
-  IconLinkProps as BaseIconLinkProps,
-} from "../Link/IconLink";
+import type { IconLinkProps as BaseIconLinkProps } from "../Link/IconLink";
 import OurIconLink from "../Link/IconLink";
 import { useNavMenuContext } from "./NavMenuProvider";
 import type { ButtonProps } from "../Button";

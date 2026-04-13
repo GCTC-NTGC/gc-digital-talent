@@ -7,12 +7,9 @@ import type {
   ComponentPropsWithoutRef,
   HTMLAttributes,
   MouseEventHandler,
-  ReactElement} from "react";
-import {
-  forwardRef,
-  useCallback,
-  useId
+  ReactElement,
 } from "react";
+import { forwardRef, useCallback, useId } from "react";
 import { tv } from "tailwind-variants";
 
 import type { HeadingProps } from "../Heading";

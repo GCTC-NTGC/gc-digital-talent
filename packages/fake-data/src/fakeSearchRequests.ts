@@ -3,7 +3,8 @@ import { faker } from "@faker-js/faker/locale/en";
 import type {
   ApplicantFilter,
   Department,
-  PoolCandidateSearchRequest} from "@gc-digital-talent/graphql";
+  PoolCandidateSearchRequest,
+} from "@gc-digital-talent/graphql";
 import {
   PoolCandidateSearchPositionType,
   PoolCandidateSearchRequestReason,

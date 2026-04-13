@@ -1,6 +1,6 @@
 import type { AnchorHTMLAttributes, JSX } from "react";
 
-import type { LinkProps} from "@gc-digital-talent/ui";
+import type { LinkProps } from "@gc-digital-talent/ui";
 import { Heading, Link, Ul } from "@gc-digital-talent/ui";
 
 import type { RenderMap, Node, NodeRenderer } from "./types";

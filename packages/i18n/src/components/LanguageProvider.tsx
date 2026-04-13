@@ -1,5 +1,5 @@
 import { IntlProvider } from "react-intl";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import { useMemo } from "react";
 
 import defaultRichTextElements from "@gc-digital-talent/rich-text-elements";

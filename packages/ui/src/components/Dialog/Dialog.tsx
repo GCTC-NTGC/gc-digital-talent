@@ -8,10 +8,9 @@ import type {
   ComponentRef,
   ComponentPropsWithoutRef,
   ReactNode,
-  HTMLProps} from "react";
-import {
-  forwardRef
+  HTMLProps,
 } from "react";
+import { forwardRef } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 

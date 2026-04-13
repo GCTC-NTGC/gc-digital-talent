@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from "react";
 
-import type { ScrollLinkClickFunc} from "../Link";
+import type { ScrollLinkClickFunc } from "../Link";
 import { ScrollToLink } from "../Link";
 
 export interface AnchorLinkProps extends HTMLAttributes<HTMLAnchorElement> {

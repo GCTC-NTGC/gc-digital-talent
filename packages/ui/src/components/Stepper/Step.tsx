@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
-import type { StepVariants} from "./utils";
+import type { StepVariants } from "./utils";
 import { getIconFromState, messageMap, step } from "./utils";
 import Link from "../Link";
 

@@ -1,9 +1,9 @@
-import type { DetailedHTMLProps, ButtonHTMLAttributes} from "react";
+import type { DetailedHTMLProps, ButtonHTMLAttributes } from "react";
 import { forwardRef } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
-import type { IconType} from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
 import { UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 const DisabledIcon = () => (

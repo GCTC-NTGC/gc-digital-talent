@@ -1,4 +1,4 @@
-import type { ReactElement, ReactNode} from "react";
+import type { ReactElement, ReactNode } from "react";
 import { useId } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";

@@ -4,7 +4,8 @@ import type {
   ApplicantFilter,
   Pool,
   Skill,
-  WorkStream} from "@gc-digital-talent/graphql";
+  WorkStream,
+} from "@gc-digital-talent/graphql";
 import {
   OperationalRequirement,
   WorkRegion,
