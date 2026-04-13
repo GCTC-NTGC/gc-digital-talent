@@ -125,8 +125,8 @@ export const UpdateDevelopmentProgramForm = ({
         await navigate(paths.developmentProgramView(developmentProgram.id));
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Development program updated successfully!",
-            id: "D8DlUn",
+            defaultMessage: "Development program updated successfully.",
+            id: "PfsAGV",
             description:
               "Message displayed to user after development program is updated successfully.",
           }),

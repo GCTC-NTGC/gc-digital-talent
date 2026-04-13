@@ -66,8 +66,8 @@ export const CreateDevelopmentProgramForm = ({
         await navigate(paths.developmentProgramView(id));
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Development program created successfully!",
-            id: "rcQw/L",
+            defaultMessage: "Development program created successfully.",
+            id: "OtZDuZ",
             description:
               "Message displayed to user after development program is created successfully.",
           }),
