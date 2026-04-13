@@ -1,8 +1,11 @@
-import { ReactElement, ReactNode, useId } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ReactElement, ReactNode } from "react";
+import { useId } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
-import Heading, { HeadingLevel } from "../Heading";
-import { BaseItemProps } from "./BaseItem";
+import type { HeadingLevel } from "../Heading";
+import Heading from "../Heading";
+import type { BaseItemProps } from "./BaseItem";
 
 const heading = tv({
   base: "rounded-t-md border-b p-6 text-center sm:px-8",

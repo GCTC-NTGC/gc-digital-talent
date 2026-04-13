@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 

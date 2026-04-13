@@ -1,5 +1,6 @@
-import { HTMLProps, ReactNode } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { HTMLProps, ReactNode } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 const sidebarWrapper = tv({
   base: "mb-18 flex flex-col gap-y-6 sm:grid sm:grid-cols-4 sm:gap-x-18 sm:gap-y-0",

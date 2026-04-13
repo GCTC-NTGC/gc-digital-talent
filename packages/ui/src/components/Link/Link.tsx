@@ -4,8 +4,10 @@ import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import { btn, BaseButtonLinkProps } from "../../utils/btnStyles";
-import BaseLink, { BaseLinkProps } from "./BaseLink";
+import type { BaseButtonLinkProps } from "../../utils/btnStyles";
+import { btn } from "../../utils/btnStyles";
+import type { BaseLinkProps } from "./BaseLink";
+import BaseLink from "./BaseLink";
 
 export interface LinkProps
   extends BaseButtonLinkProps, Omit<BaseLinkProps, "color"> {

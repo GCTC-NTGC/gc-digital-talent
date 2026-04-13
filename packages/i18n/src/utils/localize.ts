@@ -1,9 +1,10 @@
-import { createPath, parsePath, Path } from "history";
+import type { Path } from "history";
+import { createPath, parsePath } from "history";
 import type { IntlShape } from "react-intl";
 
 import type { LocalizedString, Maybe } from "@gc-digital-talent/graphql";
 
-import { Locales } from "../types";
+import type { Locales } from "../types";
 import { commonMessages } from "../messages";
 
 export function isLocale(locale?: string): locale is Locales {

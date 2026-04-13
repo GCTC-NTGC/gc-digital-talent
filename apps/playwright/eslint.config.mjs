@@ -23,6 +23,7 @@ export default [
       ],
       "testing-library/prefer-screen-queries": "off",
       "testing-library/no-node-access": "off",
+      "@typescript-eslint/consistent-type-imports": "off",
     },
   },
   {

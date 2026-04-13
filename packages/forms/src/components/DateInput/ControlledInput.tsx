@@ -1,24 +1,25 @@
-import {
+import type {
   ControllerFieldState,
   ControllerRenderProps,
   FieldValues,
   UseFormStateReturn,
 } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { ChangeEvent } from "react";
+import type { ChangeEvent } from "react";
 import get from "lodash/get";
 import { tv } from "tailwind-variants";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 
-import { DateSegment, DATE_SEGMENT, RoundingMethod } from "./types";
+import type { DateSegment, RoundingMethod } from "./types";
+import { DATE_SEGMENT } from "./types";
 import {
   getMonthOptions,
   getMonthSpan,
   setComputedValue,
   splitSegments,
 } from "./utils";
-import { FieldState } from "../../types";
+import type { FieldState } from "../../types";
 import Field from "../Field";
 import { inputStyles, selectStyles } from "../../styles";
 

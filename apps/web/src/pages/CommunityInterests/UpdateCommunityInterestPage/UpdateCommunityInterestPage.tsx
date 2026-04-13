@@ -43,7 +43,7 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
 
     communities {
       id
-      developmentPrograms {
+      associatedDevelopmentPrograms {
         id
         name {
           localized
@@ -67,10 +67,13 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
     }
     additionalInformation
     interestInDevelopmentPrograms {
-      developmentProgram {
+      communityDevelopmentProgram {
         id
-        name {
-          localized
+        developmentProgram {
+          id
+          name {
+            localized
+          }
         }
       }
       participationStatus
@@ -125,7 +128,7 @@ const UpdateCommunityInterestForm = ({
   const developmentProgramsForCommunity = unpackMaybes(
     formOptions?.communities?.find(
       (community) => community?.id === formData.community.id,
-    )?.developmentPrograms,
+    )?.associatedDevelopmentPrograms,
   );
 
   const developmentProgramCount: number =
@@ -205,8 +208,11 @@ const UpdateCommunityInterest_Query = graphql(/* GraphQL */ `
           ...UpdateCommunityInterestFormData_Fragment
           interestInDevelopmentPrograms {
             id
-            developmentProgram {
+            communityDevelopmentProgram {
               id
+              developmentProgram {
+                id
+              }
             }
           }
         }
@@ -287,7 +293,7 @@ export const UpdateCommunityInterestPage = () => {
         communityInterest.interestInDevelopmentPrograms?.forEach(
           (interestedDevProgram) => {
             interestedDevPrograms.set(
-              interestedDevProgram.developmentProgram.id,
+              interestedDevProgram.communityDevelopmentProgram.id,
               interestedDevProgram.id,
             );
           },

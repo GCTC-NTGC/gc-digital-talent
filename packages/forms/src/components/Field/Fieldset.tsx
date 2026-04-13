@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import { tv } from "tailwind-variants";
 
-import { HTMLFieldsetProps } from "../../types";
+import type { HTMLFieldsetProps } from "../../types";
 
 const fieldSet = tv({
   base: "flex flex-col gap-y-1.5 border-none p-0",

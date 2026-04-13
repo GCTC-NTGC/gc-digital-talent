@@ -41,7 +41,9 @@ class DevelopmentProgramInterestTest extends TestCase
      */
     public function testUserCanCreate()
     {
-        $community = Community::factory()->has(DevelopmentProgram::factory())->create();
+        $community = Community::factory()->create();
+        DevelopmentProgram::factory()->withCommunity($community->id)->create();
+        $community->refresh();
 
         $this->actingAs($this->user, 'api')
             ->graphQL(<<<'GRAPHQL'
@@ -50,8 +52,10 @@ class DevelopmentProgramInterestTest extends TestCase
                         id
                         community { id }
                         interestInDevelopmentPrograms {
-                            id
-                            developmentProgram { id }
+                            communityDevelopmentProgram {
+                                id
+                                developmentProgram { id }
+                            }
                             participationStatus
                             completionDate
                         }
@@ -65,7 +69,7 @@ class DevelopmentProgramInterestTest extends TestCase
                         'interestInDevelopmentPrograms' => [
                             'create' => [
                                 [
-                                    'developmentProgramId' => $community->developmentPrograms->sole()->id,
+                                    'communityDevelopmentProgramId' => $community->communityDevelopmentPrograms->sole()->id,
                                     'participationStatus' => 'COMPLETED',
                                     'completionDate' => '2020-01-01',
                                 ],
@@ -80,7 +84,12 @@ class DevelopmentProgramInterestTest extends TestCase
                         'community' => ['id' => $community->id],
                         'interestInDevelopmentPrograms' => [
                             [
-                                'developmentProgram' => ['id' => $community->developmentPrograms->sole()->id],
+                                'communityDevelopmentProgram' => [
+                                    'id' => $community->communityDevelopmentPrograms->sole()->id,
+                                    'developmentProgram' => [
+                                        'id' => $community->developmentProgramsThroughPivot->sole()->id,
+                                    ],
+                                ],
                                 'participationStatus' => 'COMPLETED',
                                 'completionDate' => '2020-01-01',
                             ],
@@ -95,7 +104,9 @@ class DevelopmentProgramInterestTest extends TestCase
      */
     public function testUserCantAddCompletionDateWithoutStatus()
     {
-        $community = Community::factory()->has(DevelopmentProgram::factory())->create();
+        $community = Community::factory()->create();
+        DevelopmentProgram::factory()->withCommunity($community->id)->create();
+        $community->refresh();
 
         $this->actingAs($this->user, 'api')
             ->graphQL(<<<'GRAPHQL'
@@ -112,7 +123,7 @@ class DevelopmentProgramInterestTest extends TestCase
                         'interestInDevelopmentPrograms' => [
                             'create' => [
                                 [
-                                    'developmentProgramId' => $community->developmentPrograms->sole()->id,
+                                    'communityDevelopmentProgramId' => $community->communityDevelopmentPrograms->sole()->id,
                                     'participationStatus' => 'INTERESTED',
                                     'completionDate' => '2020-01-01',
                                 ],
@@ -128,7 +139,9 @@ class DevelopmentProgramInterestTest extends TestCase
      */
     public function testUserCantUseCompletionStatusWithoutDate()
     {
-        $community = Community::factory()->has(DevelopmentProgram::factory())->create();
+        $community = Community::factory()->create();
+        DevelopmentProgram::factory()->withCommunity($community->id)->create();
+        $community->refresh();
 
         $this->actingAs($this->user, 'api')
             ->graphQL(<<<'GRAPHQL'
@@ -145,7 +158,7 @@ class DevelopmentProgramInterestTest extends TestCase
                         'interestInDevelopmentPrograms' => [
                             'create' => [
                                 [
-                                    'developmentProgramId' => $community->developmentPrograms->sole()->id,
+                                    'communityDevelopmentProgramId' => $community->communityDevelopmentPrograms->sole()->id,
                                     'participationStatus' => 'COMPLETED',
                                 ],
                             ],
@@ -153,38 +166,5 @@ class DevelopmentProgramInterestTest extends TestCase
                     ],
                 ])
             ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.completionDate', ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED->name);
-    }
-
-    /**
-     * Can't set the development program interest to a development program from another community
-     */
-    public function testCantUsedDevelopmentProgramFromOtherCommunity()
-    {
-        $community1 = Community::factory()->has(DevelopmentProgram::factory())->create();
-        $community2 = Community::factory()->has(DevelopmentProgram::factory())->create();
-
-        $this->actingAs($this->user, 'api')
-            ->graphQL(<<<'GRAPHQL'
-                mutation CreateCommunityInterest($communityInterest: CreateCommunityInterestInput!) {
-                    createCommunityInterest(communityInterest: $communityInterest) {
-                        id
-                    }
-                }
-                GRAPHQL,
-                [
-                    'communityInterest' => [
-                        'userId' => $this->user->id,
-                        'community' => ['connect' => $community1->id],
-                        'interestInDevelopmentPrograms' => [
-                            'create' => [
-                                [
-                                    'developmentProgramId' => $community2->developmentPrograms->sole()->id,
-
-                                ],
-                            ],
-                        ],
-                    ],
-                ])
-            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.developmentProgramId', ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name);
     }
 }

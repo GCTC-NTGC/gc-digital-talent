@@ -123,6 +123,7 @@ class SnapshotShapeTest extends TestCase
             'nextRoleCSuiteRoleTitle',
             'careerObjectiveCSuiteRoleTitle',
             'careerPlanningLearningOpportunitiesInterest',
+            'lastSignInIss',
         ],
         UserSkill::class => [
             'userId',

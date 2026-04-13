@@ -7,13 +7,8 @@
  */
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { Link as RouterLink, useLocation } from "react-router";
-import {
-  forwardRef,
-  ComponentRef,
-  ComponentPropsWithoutRef,
-  useRef,
-  useEffect,
-} from "react";
+import type { ComponentRef, ComponentPropsWithoutRef } from "react";
+import { forwardRef, useRef, useEffect } from "react";
 
 import { handleTabFocus, inner, list, root, trigger, divide } from "./utils";
 
