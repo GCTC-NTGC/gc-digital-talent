@@ -1,25 +1,26 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import {
+import type {
   User,
+  Classification,
+  Department,
+  Maybe} from "@gc-digital-talent/graphql";
+import {
   Language,
   ProvinceOrTerritory,
   EvaluatedLanguageAbility,
   EstimatedLanguageAbility,
-  Classification,
   OperationalRequirement,
   GovEmployeeType,
-  Department,
   CitizenshipStatus,
   ArmedForcesStatus,
   PositionDuration,
   IndigenousCommunity,
-  Maybe,
   FlexibleWorkLocation,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 
-import {
+import type {
   GeneratedAwardExperience,
   GeneratedCommunityExperience,
   GeneratedEducationExperience,
@@ -28,7 +29,7 @@ import {
 } from "./fakeExperiences";
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
-import { GeneratedPoolCandidate } from "./fakePoolCandidateTypes";
+import type { GeneratedPoolCandidate } from "./fakePoolCandidateTypes";
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
 type GeneratedUser = User & {

@@ -1,10 +1,11 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import {
+import type {
   AssessmentStep,
-  AssessmentStepType,
   Maybe,
-  PoolSkill,
+  PoolSkill} from "@gc-digital-talent/graphql";
+import {
+  AssessmentStepType
 } from "@gc-digital-talent/graphql";
 
 import toLocalizedString from "./fakeLocalizedString";
