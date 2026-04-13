@@ -8,6 +8,7 @@ use App\Enums\TalentNominationStep;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TalentNominationUserReview;
 use App\Models\Classification;
+use App\Models\CommunityDevelopmentProgram;
 use App\Models\Department;
 use App\Models\SkillFamily;
 use App\Models\TalentNomination;
@@ -132,7 +133,7 @@ class TalentNominationFactory extends Factory
 
                     'nominate_for_advancement' => $this->faker->boolean(),
                     'nominate_for_lateral_movement' => $this->faker->boolean(),
-                    'nominate_for_development_programs' => $parentEvent->developmentPrograms->count() > 0 && $this->faker->boolean(),
+                    'nominate_for_development_programs' => $parentEvent->developmentProgramsThroughPivot->count() > 0 && $this->faker->boolean(),
 
                     'advancement_reference_id' => fn ($attributes) => $attributes['nominate_for_advancement'] && $this->faker->boolean()
                         // nominated for advancement and we have the user id
@@ -168,7 +169,7 @@ class TalentNominationFactory extends Factory
                         // if nomination for development programs was selected then it is possible to have an 'other' program
                         $nominateForDevelopmentProgramsOptionsSelected = $attributes['nominate_for_development_programs'];
                         // if nominated for development programs then it is possible to have an 'other' program
-                        $thereAreDevelopmentProgramsForEvent = $parentEvent->developmentPrograms->count() > 0;
+                        $thereAreDevelopmentProgramsForEvent = $parentEvent->developmentProgramsThroughPivot->count() > 0;
 
                         $fakedOtherOption = $this->faker->jobTitle();
 
@@ -190,15 +191,26 @@ class TalentNominationFactory extends Factory
                 ];
             })
             ->afterCreating(function (TalentNomination $talentNomination) {
-                $developmentProgramIdsForEvent = $talentNomination->talentNominationEvent->developmentPrograms->pluck('id')->toArray();
+                $developmentProgramIdsForEvent = $talentNomination->talentNominationEvent->developmentProgramsThroughPivot->pluck('id')->toArray();
+
+                $communityDevelopmentProgramIds = [];
+                foreach ($developmentProgramIdsForEvent as $developmentProgramId) {
+                    $created = CommunityDevelopmentProgram::firstOrCreate(
+                        [
+                            'community_id' => $talentNomination->talentNominationEvent->community_id,
+                            'development_program_id' => $developmentProgramId,
+                        ]
+                    );
+                    array_push($communityDevelopmentProgramIds, $created->id);
+                }
 
                 if ($talentNomination->nominate_for_development_programs) {
-                    $talentNomination->developmentPrograms()->attach(
+                    $talentNomination->communityDevelopmentPrograms()->attach(
                         $this->faker->randomElements(
-                            $developmentProgramIdsForEvent,
+                            $communityDevelopmentProgramIds,
                             $this->faker->numberBetween(
                                 ! is_null($talentNomination->development_program_options_other) ? 0 : 1, // if there is an "other" option already, we can select 0 programs
-                                count($developmentProgramIdsForEvent)
+                                count($communityDevelopmentProgramIds)
                             )
                         )
                     );

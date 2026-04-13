@@ -19,10 +19,9 @@ const generateCommunityInterest = (
   const workStreams = faker.helpers.arrayElements<WorkStream>(
     community.workStreams ?? [],
   );
-  const interestedDevelopmentPrograms =
-    faker.helpers.arrayElements<DevelopmentProgram>(
-      community?.associatedDevelopmentPrograms ?? [],
-    );
+  const developmentPrograms = faker.helpers.arrayElements<DevelopmentProgram>(
+    community?.associatedDevelopmentPrograms ?? [],
+  );
   return {
     id: faker.string.uuid(),
     community,
@@ -31,9 +30,14 @@ const generateCommunityInterest = (
     jobInterest: faker.datatype.boolean(),
     trainingInterest: faker.datatype.boolean(),
     additionalInformation: faker.lorem.paragraph(),
-    interestInDevelopmentPrograms: interestedDevelopmentPrograms.map(
+    interestInDevelopmentPrograms: developmentPrograms.map(
       (developmentProgram) => ({
         id: faker.string.uuid(),
+        communityDevelopmentProgram: {
+          id: faker.string.uuid(),
+          community: community,
+          developmentProgram: developmentProgram,
+        },
         developmentProgram,
         completionDate: FAR_PAST_DATE,
         participationStatus: faker.helpers.arrayElement(
