@@ -171,8 +171,8 @@ async function main() {
       const results: LinkStatus[] = [];
       for (const link of retryLinks) {
         global.currentLinkFile = link.file;
-        const { status } = await fetchLink(link.url);
-        results.push({ file: link.file, url: link.url, status });
+        const { status, isLegacyTLS } = await fetchLink(link.url);
+        results.push({ file: link.file, url: link.url, status, isLegacyTLS });
       }
       // Save broken links - only report errors that fail on retry
       const brokenLinks = results.filter((r) => r.status !== 200);
