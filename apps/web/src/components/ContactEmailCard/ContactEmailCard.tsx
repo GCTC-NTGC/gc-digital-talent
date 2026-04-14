@@ -2,12 +2,8 @@ import { useIntl } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 
 import { Button, Card } from "@gc-digital-talent/ui";
-import {
-  EmailType,
-  FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { EmailType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import EmailVerificationDialog from "../EmailVerificationDialog/EmailVerificationDialog";

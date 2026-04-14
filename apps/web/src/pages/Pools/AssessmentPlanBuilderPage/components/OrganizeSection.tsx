@@ -11,12 +11,11 @@ import {
   Notice,
 } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import type { AssessmentStep, FragmentType } from "@gc-digital-talent/graphql";
 import {
   graphql,
-  AssessmentStep,
   AssessmentStepType,
   PoolStatus,
-  FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 

@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { EmployeeProfileGoalsWorkStyleFragment } from "@gc-digital-talent/graphql";
+import type { EmployeeProfileGoalsWorkStyleFragment } from "@gc-digital-talent/graphql";
 import { CardSeparator, Notice } from "@gc-digital-talent/ui";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";

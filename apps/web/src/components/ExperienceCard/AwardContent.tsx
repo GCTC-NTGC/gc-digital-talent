@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { AwardExperience } from "@gc-digital-talent/graphql";
+import type { AwardExperience } from "@gc-digital-talent/graphql";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";
-import { ContentProps } from "./types";
+import type { ContentProps } from "./types";
 
 const AwardContent = ({
   experience: { awardedTo, issuedBy, awardedScope },

@@ -1,17 +1,17 @@
 import orderBy from "lodash/orderBy";
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { DropdownMenu, IconButton, Link, Ul } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
+import type {
   Maybe,
   Role,
   DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
 } from "@gc-digital-talent/graphql";
 
-import { DepartmentMember } from "~/utils/departmentUtils";
+import type { DepartmentMember } from "~/utils/departmentUtils";
 
 import EditDepartmentMembershipDialog from "./components/EditDepartmentMembership";
 import RemoveDepartmentMembershipDialog from "./components/RemoveDepartmentMembership";

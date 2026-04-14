@@ -9,12 +9,13 @@ import { Accordion, DescriptionList, Heading } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 import experienceMessages from "~/messages/experienceMessages";
 import { organizationSuggestionsFromExperiences } from "~/utils/experienceUtils";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
+import ApplicationApi from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import AddExperienceForm from "./components/AddExperienceForm";
 

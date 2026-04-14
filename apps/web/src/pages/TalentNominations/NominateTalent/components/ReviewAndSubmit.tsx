@@ -2,8 +2,8 @@ import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMag
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   TalentNominationStep,
@@ -13,7 +13,7 @@ import { Separator } from "@gc-digital-talent/ui";
 import pageTitles from "~/messages/pageTitles";
 
 import useCurrentStep from "../useCurrentStep";
-import { BaseFormValues } from "../types";
+import type { BaseFormValues } from "../types";
 import Actions from "./Actions";
 import SubHeading from "./SubHeading";
 import useMutations from "../useMutations";

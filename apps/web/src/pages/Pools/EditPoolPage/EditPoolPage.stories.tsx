@@ -1,5 +1,5 @@
-import { JSX } from "react";
-import { Meta, StoryFn } from "@storybook/react-vite";
+import type { JSX } from "react";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
 import {
@@ -16,11 +16,8 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { PoolStatus, makeFragmentData } from "@gc-digital-talent/graphql";
 
-import {
-  EditPoolForm,
-  EditPoolFormProps,
-  EditPool_Fragment,
-} from "./EditPoolPage";
+import type { EditPoolFormProps } from "./EditPoolPage";
+import { EditPoolForm, EditPool_Fragment } from "./EditPoolPage";
 
 const classifications = fakeClassifications();
 const departments = fakeDepartments();

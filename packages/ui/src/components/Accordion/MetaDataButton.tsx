@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 
-import Button, { ButtonProps } from "../Button";
+import type { ButtonProps } from "../Button";
+import Button from "../Button";
 
 const MetaDataButton = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, ...rest }, forwardedRef) => (

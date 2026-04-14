@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker/locale/en";
-import { Meta, StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 
 import { GLOBAL_A11Y_EXCLUDES } from "@gc-digital-talent/storybook-helpers";
 

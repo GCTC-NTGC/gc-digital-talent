@@ -1,11 +1,11 @@
-import { StoryFn } from "@storybook/react-vite";
+import type { StoryFn } from "@storybook/react-vite";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Button from "./Button";
 import type { ButtonProps } from "./Button";
-import { BaseButtonLinkProps } from "../../utils/btnStyles";
+import type { BaseButtonLinkProps } from "../../utils/btnStyles";
 
 export default {
   component: Button,

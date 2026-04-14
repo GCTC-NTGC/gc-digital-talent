@@ -1,4 +1,4 @@
-import { RoleAssignment } from "@gc-digital-talent/graphql";
+import type { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import { ROLE_NAME } from "../const";
 import { hasRequiredRoles } from "./hasRequiredRoles";

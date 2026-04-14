@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
 import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 import { formMessages } from "@gc-digital-talent/i18n";

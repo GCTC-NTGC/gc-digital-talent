@@ -1,11 +1,12 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import AdjustmentsHorizontalIcon from "@heroicons/react/24/outline/AdjustmentsHorizontalIcon";
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 
 import { Container, Link, TableOfContents, Ul } from "@gc-digital-talent/ui";
-import { Locales, commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";

@@ -1,13 +1,13 @@
 import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { TalentNominationStep } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
-import { BaseFormValues } from "../types";
+import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
 import SubHeading from "./SubHeading";
 import UpdateForm from "./UpdateForm";

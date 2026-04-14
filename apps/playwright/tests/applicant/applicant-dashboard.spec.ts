@@ -12,7 +12,8 @@ import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import { getClassifications } from "~/utils/classification";
 import { getDepartments } from "~/utils/departments";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
 import { defaultWorkExperience } from "~/utils/experiences";
