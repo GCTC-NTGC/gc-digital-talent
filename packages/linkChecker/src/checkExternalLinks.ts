@@ -48,9 +48,12 @@ async function fetchLink(
       redirect: "follow",
       signal: controller.signal,
       headers: {
-        // Use a generic User-Agent string to avoid frequent updates
+        // Use a browser-like User-Agent to avoid being blocked by sites that filter bots
         "User-Agent":
-          "Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)",
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        Accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
       },
     });
     return { status: res.status, isLegacyTLS: false };
