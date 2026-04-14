@@ -566,10 +566,6 @@
     "defaultMessage": "Cote de fiabilité",
     "description": "Reliability status level of security clearance"
   },
-  "0H0CLx": {
-    "defaultMessage": "Accordé à",
-    "description": "Label displayed on Award form for awarded to input"
-  },
   "0HPwnA": {
     "defaultMessage": "Expérience combinée en sciences informatiques, en sciences, en technologie de l’information, en gestion de l’information ou en tout autre spécialité pertinente au présent concours, y compris n’importe quelle des expériences suivantes : ",
     "description": "Descriptive text explaining valid applied work experiences."
@@ -853,6 +849,10 @@
   "1MJGsD": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
+  },
+  "1NdwmN": {
+    "defaultMessage": "Nom du projet",
+    "description": "Label displayed on Award form for awarded to project name input"
   },
   "1PYGkw": {
     "defaultMessage": "Télécharger Excel profils",
@@ -1918,6 +1918,10 @@
     "defaultMessage": "<strong>Description</strong> : cours à la demande à rythme libre traitant des compétences techniques et comportementales.",
     "description": "An item in a list of points about online learning"
   },
+  "5hHlpL": {
+    "defaultMessage": "Reconnu par la direction générale, l'équipe, etc.",
+    "description": "Additional info on sub org radio button"
+  },
   "5i2G4O": {
     "defaultMessage": "Notre équipe s’engage à s’informer en permanence sur la manière dont la plateforme et ses processus de recrutement façonnent l’équité et la diversité dans l’embauche. Nous utilisons ce que nous apprenons pour concevoir des améliorations aux caractéristiques et de nouvelles fonctionnalités, et pour peaufiner les efforts de recrutement afin de mieux soutenir une expérience inclusive pour tous.",
     "description": "Paragraph 3, our commitment to inclusivity and equity"
@@ -2417,6 +2421,10 @@
   "84rSVg": {
     "defaultMessage": "Permettre une croissance dans le cadre de sa portée de recrutement, en ciblant d’autres domaines professionnels à l’avenir.",
     "description": "Talent portal strategy item 2 content"
+  },
+  "850QUT": {
+    "defaultMessage": "Récipiendaire",
+    "description": "Label displayed on Award form for awarded to input"
   },
   "86Y8lx": {
     "defaultMessage": "Votre nom",
@@ -4218,6 +4226,10 @@
     "defaultMessage": "Mutation latérale",
     "description": "Label for the lateral movement nomination type"
   },
+  "G/VuSY": {
+    "defaultMessage": "Expérience associée",
+    "description": "Label displayed on Award form for related experience input"
+  },
   "G0AEfY": {
     "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <gcDigitalTalentLink>créer une CléGC</gcDigitalTalentLink> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
     "description": "Text explaining the importance of starting an application early"
@@ -5846,10 +5858,6 @@
   "NEycpM": {
     "defaultMessage": "La section suivante doit présenter un aperçu général axé sur ce que vous avez fait dans ce rôle. Essayez de garder ce champ clair et concis, puisque vous pourrez fournir des renseignements plus détaillés lorsque vous associerez des compétences à cette expérience.",
     "description": "Help text for the experience key tasks and responsibilities field"
-  },
-  "NGEgVN": {
-    "defaultMessage": "Organisation émettrice",
-    "description": "Label displayed on award form for organization section"
   },
   "NIaXPz": {
     "defaultMessage": "Cette page vous permet de gérer tous les modèles d’emploi existants sur la plateforme. À partir de là, vous pouvez créer des ébauches, publier de nouveaux modèles pour le public ou archiver des modèles qui ne devraient plus être disponibles.",
@@ -8675,6 +8683,10 @@
     "defaultMessage": "Candidatures",
     "description": "Job applications expandable"
   },
+  "aDzHrq": {
+    "defaultMessage": "Titre du prix",
+    "description": "Label displayed on award form for award title input"
+  },
   "aEbSvx": {
     "defaultMessage": "Compétences techniques constituant un atout",
     "description": "The asset technical skills of a job poster template"
@@ -8914,6 +8926,10 @@
   "bW4lM0": {
     "defaultMessage": "Formation non classique",
     "description": "Experience requirement, non-conventional training."
+  },
+  "bW9d6v": {
+    "defaultMessage": "Organisation ou institution émettrice",
+    "description": "Label displayed on award form for organization section"
   },
   "baAj/Z": {
     "defaultMessage": "Sélectionner une expérience",
@@ -9254,6 +9270,10 @@
   "ctOBXo": {
     "defaultMessage": "L’employé n’a ajouté aucun renseignement concernant son prochain poste ni son objectif de carrière à son profil.",
     "description": "Message displayed if employee hasn't filled out next role or career objective"
+  },
+  "cvI3z6": {
+    "defaultMessage": "Porté du prix",
+    "description": "Label displayed on Award form for award scope input"
   },
   "cw6MTQ": {
     "defaultMessage": "Pour que votre adresse courriel professionnelle puisse être confirmée, son domaine doit correspondre à un modèle connu du gouvernement du Canada (par exemple @canada.ca, @ministère.gc.ca, etc.).",
@@ -10261,10 +10281,6 @@
     "defaultMessage": "date de début",
     "description": "Label for a start date input in a range"
   },
-  "gnEK8V": {
-    "defaultMessage": "Portée du prix",
-    "description": "Label displayed on Award form for award scope input"
-  },
   "gnGAe8": {
     "defaultMessage": "Niveau de classification actuel",
     "description": "Label displayed on classification level input"
@@ -10727,6 +10743,10 @@
   "imNqyO": {
     "defaultMessage": "Rédaction (ou expression écrite))",
     "description": "Proficiency level related skill on language requirements dialog"
+  },
+  "ioYWI6": {
+    "defaultMessage": "S’il y a d’autres détails pertinents concernant cette expérience que vous souhaitez partager, vous pouvez le faire ici.",
+    "description": "Help text for the experience additional details field"
   },
   "ipDTrs": {
     "defaultMessage": "Historique des notifications",
@@ -11392,10 +11412,6 @@
     "defaultMessage": "Cette nomination pour un avancement est approuvée.",
     "description": "Label for advancement nomination is approved"
   },
-  "lhCCs2": {
-    "defaultMessage": "Titre du prix",
-    "description": "Label displayed on award form for award title input"
-  },
   "lhLfd7": {
     "defaultMessage": "Créer une collectivité",
     "description": "Text to create a community"
@@ -11951,6 +11967,10 @@
   "nxAw/X": {
     "defaultMessage": "Cet avis a été préparé pour expliquer la façon dont le gouvernement du Canada interagit avec le public sur les plateformes de médias sociaux.",
     "description": "Paragraph describing social media section"
+  },
+  "nyQyqM": {
+    "defaultMessage": "Mon rôle",
+    "description": "Label displayed on an Experience form for role input"
   },
   "nym1M2": {
     "defaultMessage": "Ministère ou organisme",
@@ -12599,6 +12619,10 @@
   "qek0N+": {
     "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",
     "description": "Instructions on how to manage notifications"
+  },
+  "qgp94h": {
+    "defaultMessage": "Veuillez noter qu'en supprimant cette expérience, elle n’apparaîtra plus dans les expériences liées à un prix.",
+    "description": "Note displayed when a user attempts to delete an experience from their profile with related experiences attached"
   },
   "qhws/V": {
     "defaultMessage": "Erreur : l'archivage du processus a échoué",
