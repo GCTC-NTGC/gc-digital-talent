@@ -1,6 +1,6 @@
-import type { MessageDescriptor} from "react-intl";
+import type { MessageDescriptor } from "react-intl";
 import { useIntl } from "react-intl";
-import type { UIMatch} from "react-router";
+import type { UIMatch } from "react-router";
 import { Outlet, useMatches } from "react-router";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";

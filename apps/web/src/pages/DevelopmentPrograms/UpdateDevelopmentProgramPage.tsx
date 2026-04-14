@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import type { SubmitHandler} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
@@ -21,11 +21,9 @@ import type {
   LocalizedStringInput,
   Maybe,
   Scalars,
-  UpdateDevelopmentProgramInput} from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
+  UpdateDevelopmentProgramInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";

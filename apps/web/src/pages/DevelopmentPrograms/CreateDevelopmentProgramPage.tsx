@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import type { SubmitHandler} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
@@ -10,10 +10,9 @@ import { Submit } from "@gc-digital-talent/forms";
 import type {
   CreateDevelopmentProgramInput,
   Scalars,
-  LocalizedStringInput} from "@gc-digital-talent/graphql";
-import {
-  graphql
+  LocalizedStringInput,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Heading, Link, CardSeparator, Card } from "@gc-digital-talent/ui";
 
