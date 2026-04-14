@@ -1,10 +1,10 @@
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   CandidateRemovalReason,
-  FragmentType,
   getFragment,
   graphql,
   PlacementType,
@@ -27,7 +27,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
 
-import { FormValues } from "../types";
+import type { FormValues } from "../types";
 import JobPlacementFormFields from "../FormFields/JobPlacementFormFields";
 import PauseReferralsFormFields from "./PauseReferralsFormFields";
 

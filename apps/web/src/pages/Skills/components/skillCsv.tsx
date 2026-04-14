@@ -1,7 +1,7 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
-import { DownloadCsvProps } from "@gc-digital-talent/ui";
-import { Skill } from "@gc-digital-talent/graphql";
+import type { DownloadCsvProps } from "@gc-digital-talent/ui";
+import type { Skill } from "@gc-digital-talent/graphql";
 import { appendLanguageName, commonMessages } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";
 

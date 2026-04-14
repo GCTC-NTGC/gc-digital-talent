@@ -3,17 +3,18 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
 
-import {
-  DevelopmentProgram,
+import type {
   FragmentType,
-  getFragment,
-  graphql,
   Maybe,
   Scalars,
+  UpdateTalentNominationInput,
+} from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
   TalentNominationLateralMovementOption,
   TalentNominationStep,
   TalentNominationUserReview,
-  UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import {
   Checklist,
@@ -35,9 +36,10 @@ import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearch
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
 import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 
-import { BaseFormValues } from "../types";
+import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
-import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
+import type { SubmitDataTransformer } from "./UpdateForm";
+import UpdateForm from "./UpdateForm";
 import SubHeading from "./SubHeading";
 import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
@@ -96,7 +98,7 @@ interface FormValues extends BaseFormValues {
   advancementReferenceFallbackDepartment: Scalars["UUID"]["input"];
   lateralMovementOptions: Maybe<TalentNominationLateralMovementOption[]>;
   lateralMovementOptionsOther: Maybe<string>;
-  developmentPrograms: Scalars["UUID"]["input"][];
+  communityDevelopmentPrograms: Scalars["UUID"]["input"][];
   developmentProgramOptionsOther: Maybe<string>;
 }
 
@@ -116,7 +118,7 @@ interface DetailsFieldsProps {
 const DetailsFields = ({
   optionsQuery,
   employeeQuery,
-  developmentProgramOptions,
+  communityDevelopmentProgramOptions,
 }: DetailsFieldsProps) => {
   const intl = useIntl();
 
@@ -131,12 +133,12 @@ const DetailsFields = ({
     nominationOptions,
     advancementReference,
     lateralMovementOptions,
-    developmentPrograms,
+    communityDevelopmentPrograms,
   ] = watch([
     "nominationOptions",
     "advancementReference",
     "lateralMovementOptions",
-    "developmentPrograms",
+    "communityDevelopmentPrograms",
   ]);
 
   const noOptionsSelected = nominationOptions?.length === 0;
@@ -151,7 +153,8 @@ const DetailsFields = ({
   );
 
   const developmentProgram = nominationOptions.includes("developmentProgram");
-  const developmentProgramOptionOther = developmentPrograms.includes("other");
+  const developmentProgramOptionOther =
+    communityDevelopmentPrograms.includes("other");
 
   const resetField = useCallback(
     (name: keyof FormValues) =>
@@ -458,8 +461,8 @@ const DetailsFields = ({
                 </p>
               </div>
               <Checklist
-                idPrefix="developmentPrograms"
-                name="developmentPrograms"
+                idPrefix="communityDevelopmentPrograms"
+                name="communityDevelopmentPrograms"
                 legend={intl.formatMessage({
                   defaultMessage: "Development program options",
                   id: "OTI+Kb",
@@ -470,10 +473,11 @@ const DetailsFields = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
                 items={[
-                  ...developmentProgramOptions.map((dp) => ({
-                    value: dp.id,
-                    label: dp.name?.localized ?? "",
-                    contentBelow: dp.descriptionForNominations?.localized ?? "",
+                  ...communityDevelopmentProgramOptions.map((cdp) => ({
+                    value: cdp.id,
+                    label: cdp.developmentProgram.name?.localized ?? "",
+                    contentBelow:
+                      cdp.pivot?.descriptionForNominations?.localized ?? "",
                   })),
                   {
                     value: "other",
@@ -504,13 +508,18 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentDetails on TalentNomination {
     id
     talentNominationEvent {
-      developmentPrograms {
+      communityDevelopmentPrograms {
         id
-        name {
-          localized
+        pivot {
+          descriptionForNominations {
+            localized
+          }
         }
-        descriptionForNominations {
-          localized
+        developmentProgram {
+          id
+          name {
+            localized
+          }
         }
       }
     }
@@ -538,11 +547,14 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
       value
     }
     lateralMovementOptionsOther
-    developmentPrograms {
+    communityDevelopmentPrograms {
       id
-      name {
-        en
-        fr
+      developmentProgram {
+        id
+        name {
+          en
+          fr
+        }
       }
     }
     developmentProgramOptionsOther
@@ -598,17 +610,19 @@ const transformSubmitData: SubmitDataTransformer<FormValues> = (values) => {
       )
         ? values.lateralMovementOptionsOther
         : null,
-    developmentPrograms: hasDevelopmentProgram
+    communityDevelopmentPrograms: hasDevelopmentProgram
       ? {
           sync: unpackMaybes(
-            values.developmentPrograms.filter(
-              (developmentProgram) => developmentProgram !== "other",
+            values.communityDevelopmentPrograms.filter(
+              (communityDevelopmentProgram) =>
+                communityDevelopmentProgram !== "other",
             ),
           ),
         }
       : { sync: [] },
     developmentProgramOptionsOther:
-      hasDevelopmentProgram && values.developmentPrograms.includes("other")
+      hasDevelopmentProgram &&
+      values.communityDevelopmentPrograms.includes("other")
         ? values.developmentProgramOptionsOther
         : null,
   };
@@ -694,10 +708,10 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
           talentNomination?.lateralMovementOptions?.map((x) => x.value) ?? null,
         lateralMovementOptionsOther:
           talentNomination?.lateralMovementOptionsOther ?? "",
-        developmentPrograms: [
+        communityDevelopmentPrograms: [
           ...unpackMaybes(
-            talentNomination?.developmentPrograms?.flatMap(
-              (developmentProgram) => developmentProgram.id,
+            talentNomination?.communityDevelopmentPrograms?.flatMap(
+              (cdp) => cdp.id,
             ),
           ),
           talentNomination?.developmentProgramOptionsOther
@@ -720,9 +734,10 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
         })}
       </p>
       <DetailsFields
-        developmentProgramOptions={
+        communityDevelopmentProgramOptions={
           unpackMaybes(
-            talentNomination?.talentNominationEvent?.developmentPrograms,
+            talentNomination?.talentNominationEvent
+              ?.communityDevelopmentPrograms,
           ) ?? []
         }
         optionsQuery={optionsQuery}

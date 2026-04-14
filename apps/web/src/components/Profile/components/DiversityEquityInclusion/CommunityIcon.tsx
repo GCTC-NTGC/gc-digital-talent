@@ -1,4 +1,5 @@
-import { IndigenousCommunity, Maybe } from "@gc-digital-talent/graphql";
+import type { Maybe } from "@gc-digital-talent/graphql";
+import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 
 import firstNationsIcon from "~/assets/img/first-nations-true.webp";
 import inuitIcon from "~/assets/img/inuit-true.webp";

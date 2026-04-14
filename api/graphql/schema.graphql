@@ -221,7 +221,9 @@ type OffPlatformRecruitmentProcess {
 # A pivot table for employees to express interest in the development programs of a community.
 type DevelopmentProgramInterest {
   id: UUID!
-  developmentProgram: DevelopmentProgram! @belongsTo
+  communityDevelopmentProgram: CommunityDevelopmentProgram! @belongsTo
+  developmentProgram: DevelopmentProgram!
+    @hasOne(relation: "developmentProgramThroughPivot")
   participationStatus: DevelopmentProgramParticipationStatus
     @rename(attribute: "participation_status")
   completionDate: Date @rename(attribute: "completion_date")
@@ -830,9 +832,6 @@ type Community implements HasRoleAssignments {
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
   workStreams: [WorkStream!] @hasMany
-  developmentPrograms: [DevelopmentProgram!]
-    @hasMany
-    @deprecated(reason: "use associatedDevelopmentPrograms")
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
   associatedDevelopmentPrograms: [DevelopmentProgram!]
     @hasMany(relation: "developmentProgramsThroughPivot")
@@ -845,9 +844,9 @@ type DevelopmentProgram {
     @rename(attribute: "description_for_profile")
   descriptionForNominations: LocalizedString
     @rename(attribute: "description_for_nominations")
-  community: Community
-    @belongsTo
-    @deprecated(reason: "use associatedCommunities")
+    @deprecated(
+      reason: "replaced by description on community_development_program_talent_nomination_event pivot"
+    )
   eligibleClassifications: [Classification!] @belongsToMany
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
   associatedCommunities: [Community!]
@@ -856,11 +855,19 @@ type DevelopmentProgram {
   abbreviation: LocalizedString
 }
 
+type CommunityDevelopmentProgramTalentEventRecord {
+  descriptionForNominations: LocalizedString
+    @rename(attribute: "description_for_nominations")
+}
+
 type CommunityDevelopmentProgram {
   id: UUID!
   community: Community! @belongsTo
   developmentProgram: DevelopmentProgram! @belongsTo
   classifications: [Classification!] @belongsToMany
+  # CommunityDevelopmentProgramTalentEventRecord is the pivot data
+  # it may be be queried thru TalentNominationEvent->communityDevelopmentPrograms->pivot->CommunityDevelopmentProgramTalentEventRecord
+  pivot: CommunityDevelopmentProgramTalentEventRecord
 }
 
 type TalentNominationEvent {
@@ -873,7 +880,9 @@ type TalentNominationEvent {
   includeLeadershipCompetencies: Boolean!
     @rename(attribute: "include_leadership_competencies")
   community: Community! @belongsTo
-  developmentPrograms: [DevelopmentProgram!] @belongsToMany
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
+  developmentPrograms: [DevelopmentProgram!]
+    @hasMany(relation: "developmentProgramsThroughPivot")
   talentNominationGroups: [TalentNominationGroup!]
     @hasMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
     @canResolved(
@@ -946,7 +955,9 @@ type TalentNomination {
   lateralMovementOptionsOther: String
     @rename(attribute: "lateral_movement_options_other")
 
-  developmentPrograms: [DevelopmentProgram!] @belongsToMany
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
+  developmentPrograms: [DevelopmentProgram!]
+    @hasMany(relation: "developmentProgramsThroughPivot")
   developmentProgramOptionsOther: String
     @rename(attribute: "development_program_options_other")
 
@@ -2209,7 +2220,8 @@ input UpdateDevelopmentProgramInterestHasMany {
 }
 
 input CreateDevelopmentProgramInterestInput @validator {
-  developmentProgramId: UUID! @rename(attribute: "development_program_id")
+  communityDevelopmentProgramId: UUID!
+    @rename(attribute: "community_development_program_id")
   participationStatus: DevelopmentProgramParticipationStatus
     @rename(attribute: "participation_status")
   completionDate: Date @rename(attribute: "completion_date")
@@ -2442,6 +2454,20 @@ input DevelopmentProgramBelongsToMany {
   sync: [UUID!]
 }
 
+input CommunityDevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
+input CommunityDevelopmentProgramBelongsToManyWithPivot {
+  connect: [ConnectCommunityDevelopmentProgramWithPivot!]
+}
+
+input ConnectCommunityDevelopmentProgramWithPivot {
+  id: ID!
+  descriptionForNominations: LocalizedStringInput
+    @rename(attribute: "description_for_nominations")
+}
+
 input CreateTalentNominationEventInput @validator {
   name: LocalizedStringInput!
   description: LocalizedStringInput
@@ -2451,7 +2477,7 @@ input CreateTalentNominationEventInput @validator {
   includeLeadershipCompetencies: Boolean
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo!
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
 input UpdateTalentNominationEventInput @validator {
@@ -2463,7 +2489,7 @@ input UpdateTalentNominationEventInput @validator {
   includeLeadershipCompetencies: Boolean
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
 input TalentNominationEventBelongsTo {
@@ -2513,7 +2539,7 @@ input CreateTalentNominationInput @validator {
   lateralMovementOptionsOther: String
     @rename(attribute: "lateral_movement_options_other")
 
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
   developmentProgramOptionsOther: String
     @rename(attribute: "development_program_options_other")
 
@@ -2565,7 +2591,7 @@ input UpdateTalentNominationInput @validator {
   lateralMovementOptionsOther: String
     @rename(attribute: "lateral_movement_options_other")
 
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
   developmentProgramOptionsOther: String
     @rename(attribute: "development_program_options_other")
 

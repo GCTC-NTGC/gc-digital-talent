@@ -6,7 +6,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { Chip, Chips } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import { RoleObject } from "./CreatePoolPage";
+import type { RoleObject } from "./CreatePoolPage";
 
 interface YourRolesSectionProps {
   rolesArray: RoleObject[];

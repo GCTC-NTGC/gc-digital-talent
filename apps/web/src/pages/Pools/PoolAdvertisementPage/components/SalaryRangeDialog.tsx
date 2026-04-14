@@ -1,15 +1,9 @@
 import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import {
-  Button,
-  Dialog,
-  IconButton,
-  Link,
-  LinkProps,
-  Ol,
-} from "@gc-digital-talent/ui";
+import type { LinkProps } from "@gc-digital-talent/ui";
+import { Button, Dialog, IconButton, Link, Ol } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 const generateLink = (href: LinkProps["href"], chunks: ReactNode) => (

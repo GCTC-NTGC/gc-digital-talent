@@ -1,5 +1,5 @@
 import { empty } from "@gc-digital-talent/helpers";
-import {
+import type {
   LocalizedArmedForcesStatus,
   LocalizedCitizenshipStatus,
   Maybe,

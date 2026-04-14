@@ -7,7 +7,6 @@
     "esModuleInterop": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
-    "verbatimModuleSyntax": false,
     "paths": {
       "~/*": ["./*"]
     }

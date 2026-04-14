@@ -1,4 +1,4 @@
-import {
+import type {
   VisibilityState,
   ColumnFiltersState,
   Column,
@@ -7,7 +7,7 @@ import {
 
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import { SearchState } from "./types";
+import type { SearchState } from "./types";
 
 export const getColumnVisibility = (
   allColumnsIds: string[],

@@ -1,4 +1,4 @@
-import { IntlShape, MessageDescriptor } from "react-intl";
+import type { IntlShape, MessageDescriptor } from "react-intl";
 import PlusIcon from "@heroicons/react/16/solid/PlusIcon";
 import MinusIcon from "@heroicons/react/16/solid/MinusIcon";
 import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
@@ -8,18 +8,16 @@ import UserPlusIcon from "@heroicons/react/16/solid/UserPlusIcon";
 import UserMinusIcon from "@heroicons/react/16/solid/UserMinusIcon";
 import BriefcaseIcon from "@heroicons/react/16/solid/BriefcaseIcon";
 import DocumentArrowUpIcon from "@heroicons/react/16/solid/DocumentArrowUpIcon";
-import { tv, VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 import { isValid } from "date-fns/isValid";
 import { format } from "date-fns/format";
 
-import {
-  ActivityEvent,
-  ActivityProperties,
-  Maybe,
-} from "@gc-digital-talent/graphql";
-import { IconType } from "@gc-digital-talent/ui";
+import type { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
+import { ActivityEvent } from "@gc-digital-talent/graphql";
+import type { IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Logger } from "@gc-digital-talent/logger";
+import type { Logger } from "@gc-digital-talent/logger";
 import {
   DATE_FORMAT_LOCALIZED,
   formatDate,

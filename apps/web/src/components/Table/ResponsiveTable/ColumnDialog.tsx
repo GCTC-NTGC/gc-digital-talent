@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { useIntl } from "react-intl";
-import { Table } from "@tanstack/react-table";
+import type { Table } from "@tanstack/react-table";
 import TableCellsIcon from "@heroicons/react/20/solid/TableCellsIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";

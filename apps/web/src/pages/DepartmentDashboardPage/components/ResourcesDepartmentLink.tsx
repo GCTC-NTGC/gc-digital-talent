@@ -1,9 +1,10 @@
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/solid/UserCircleIcon";
 import ArrowLongRightIcon from "@heroicons/react/16/solid/ArrowLongRightIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { Link, HeadingRank } from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
