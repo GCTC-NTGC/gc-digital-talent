@@ -39,9 +39,6 @@ async function fetchLink(
   url: string,
   timeoutMs = 30000,
 ): Promise<{ status: number | string; isLegacyTLS: boolean }> {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), timeoutMs);
-
   const headers = {
     // Use a browser-like User-Agent to avoid being blocked by sites that filter bots.
     // Note: The Chrome version is intentionally generic (120.x) as most sites only check
@@ -53,19 +50,25 @@ async function fetchLink(
     "Accept-Language": "en-US,en;q=0.5",
   };
 
+  // Status codes that indicate HEAD is not supported and we should try GET
+  // 405 = Method Not Allowed, 403 = Forbidden (some servers block HEAD), 501 = Not Implemented
+  const headNotSupportedCodes = [405, 403, 501];
+
+  const headController = new AbortController();
+  const headTimeout = setTimeout(() => headController.abort(), timeoutMs);
+
   try {
     // Try HEAD first (faster, no body download)
     let res = await fetch(url, {
       method: "HEAD",
       redirect: "follow",
-      signal: controller.signal,
+      signal: headController.signal,
       headers,
     });
+    clearTimeout(headTimeout);
 
-    // If HEAD returns 405 (Method Not Allowed) or 403, try GET as fallback
-    // Some servers don't support HEAD or block it specifically
-    if (res.status === 405 || res.status === 403) {
-      clearTimeout(timeout);
+    // If HEAD returns a code indicating it's not supported, try GET as fallback
+    if (headNotSupportedCodes.includes(res.status)) {
       const getController = new AbortController();
       const getTimeout = setTimeout(() => getController.abort(), timeoutMs);
       try {
@@ -117,7 +120,7 @@ async function fetchLink(
     }
     return { status: reason, isLegacyTLS: isLegacyRenegotiation };
   } finally {
-    clearTimeout(timeout);
+    clearTimeout(headTimeout);
   }
 }
 
