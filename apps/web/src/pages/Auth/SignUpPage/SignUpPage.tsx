@@ -459,7 +459,7 @@ export const Component = () => {
                       {intl.formatMessage({
                         defaultMessage:
                           "You can manage your CanadaLogin profile and security settings on the CanadaLogin website.",
-                        id: "dzXJ2h",
+                        id: "nup4Ey",
                         description:
                           "Text for first registration -> create step.",
                       })}
@@ -513,7 +513,7 @@ export const Component = () => {
                       {intl.formatMessage({
                         defaultMessage:
                           "If you are a government employee this is the final step in order to unlock your employee tools.",
-                        id: "2bKnmd",
+                        id: "3lu+JJ",
                         description:
                           "Text for first registration -> create step.",
                       })}
