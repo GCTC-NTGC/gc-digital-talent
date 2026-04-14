@@ -16,6 +16,7 @@ import {
   Link,
   Notice,
   Separator,
+  Chip,
 } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
@@ -638,7 +639,29 @@ export const Component = () => {
                       items={[
                         {
                           value: "canadaLogin",
-                          label: "CanadaLogin",
+                          label: (
+                            <div className="flex items-center gap-2">
+                              <span>
+                                {intl.formatMessage({
+                                  defaultMessage: "CanadaLogin",
+                                  id: "signInPage.canadaLogin",
+                                  description:
+                                    "CanadaLogin sign in method label",
+                                })}
+                              </span>
+                              <Chip color="primary" icon={SparklesIcon}>
+                                <span>
+                                  {intl.formatMessage({
+                                    defaultMessage: "New",
+                                    id: "N0zaCd",
+                                    description:
+                                      "Chip label for CanadaLogin option",
+                                  })}
+                                </span>
+                              </Chip>
+                            </div>
+                          ),
+
                           contentBelow: featureFlags.canadaLogin ? (
                             <p className="font-normal text-gray-500 dark:text-gray-100">
                               {intl.formatMessage({
