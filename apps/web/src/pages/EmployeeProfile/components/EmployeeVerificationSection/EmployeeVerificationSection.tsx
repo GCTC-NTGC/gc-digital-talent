@@ -91,7 +91,7 @@ const EmployeeVerificationSection = ({
       </p>
       <div className="mt-6 grid grid-cols-1 gap-3 xs:grid-cols-3">
         <Card className="grid gap-3">
-          <div className="flex min-h-8.5 flex-col gap-3">
+          <div className="flex min-h-8.5 flex-col gap-3 wrap-break-word">
             <p className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "Work email verification",
@@ -125,7 +125,7 @@ const EmployeeVerificationSection = ({
                       })}
                     />
                   )}
-                  <span>{user.workEmail}</span>
+                  <span className="grid grid-cols-1">{user.workEmail}</span>
                 </span>
               ) : (
                 <span className="flex gap-1.5">
