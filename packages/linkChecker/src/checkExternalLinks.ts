@@ -16,7 +16,7 @@ interface LinkStatus {
   file: string;
   url: string;
   status: number | string;
-  isLegacyTLS?: boolean; // Track if this link requires legacy TLS
+  isLegacyTLS?: boolean;
 }
 
 // Use a global variable for currentLinkFile instead of an interface
@@ -179,7 +179,7 @@ async function main() {
         const { status, isLegacyTLS } = await fetchLink(link.url);
         results.push({ file: link.file, url: link.url, status, isLegacyTLS });
       }
-      // Save broken links - only report errors that fail on retry
+      // Filter for broken links - only report errors that fail on retry
       const brokenLinks = results.filter((r) => !isSuccessStatus(r.status));
       const brokenLinksPath = path.resolve("external-broken-links.json");
       await fs.writeFile(
@@ -229,7 +229,7 @@ async function main() {
     for (const link of allLinks) {
       global.currentLinkFile = link.file;
       const { status, isLegacyTLS } = await fetchLink(link.url);
-      // Track all failed links for retry (not just legacy TLS)
+      // Track all non-success statuses for retry
       if (!isSuccessStatus(status)) {
         failedLinks.push({ file: link.file, url: link.url, isLegacyTLS });
       } else {
@@ -237,22 +237,20 @@ async function main() {
       }
     }
     // Retry all failed links once
-    // If any links require legacy TLS, use the legacy TLS flag for the entire retry batch
-    if (failedLinks.length > 0 && !process.env._RETRY_FAILED_LINKS) {
-      const hasLegacyTLSLinks = failedLinks.some((link) => link.isLegacyTLS);
-      spawnSync(process.execPath, process.argv.slice(1), {
+    if (failedLinks.length > 0) {
+      const result = spawnSync(process.execPath, process.argv.slice(1), {
         env: {
           ...process.env,
-          ...(hasLegacyTLSLinks
-            ? { NODE_OPTIONS: "--tls-legacy-renegotiation" }
-            : {}),
           _RETRY_FAILED_LINKS: JSON.stringify(failedLinks),
         },
         stdio: "inherit",
       });
+      // Exit with the subprocess exit code if it failed
+      if (result.status !== 0) {
+        process.exit(result.status ?? 1);
+      }
     }
-    // When there are no failed links, no broken links file needed
-    // The retry subprocess will handle creating the broken links file
+    // If we get here with no failed links, all links passed - exit successfully
   } catch (err) {
     let msg: string;
     if (err instanceof Error) {
