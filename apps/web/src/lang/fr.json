@@ -323,10 +323,6 @@
     "defaultMessage": "Tâches principales - Exemples",
     "description": "Long title of the 'key tasks' section of the job poster template page"
   },
-  "/HdHpe": {
-    "defaultMessage": "Droits de priorité",
-    "description": "Title for the priority entitlements section"
-  },
   "/I7wrY": {
     "defaultMessage": "Lier des compétences en vedette",
     "description": "Title for skills on Experience form"
@@ -370,6 +366,10 @@
   "/WLsRj": {
     "defaultMessage": "Vous aurez besoin d’une application d’authentification.",
     "description": "Subtitle for a section explaining mfa apps"
+  },
+  "/WUaCi": {
+    "defaultMessage": "Des renseignements requis sur votre citoyenneté, votre statut d’ancien combattant et vos droits de priorité sont manquants.",
+    "description": "Error message displayed when a users priority entitlements is incomplete"
   },
   "/Wgawu": {
     "defaultMessage": "Courriel professionnel de la personne déposante",
@@ -422,10 +422,6 @@
   "/fvZtZ": {
     "defaultMessage": "Cette occasion ne s’adresse qu’aux candidat(e)s autochtones seulement.",
     "description": "Error message displayed when a user's equity information does not match an opportunity"
-  },
-  "/h9mNu": {
-    "defaultMessage": "Avez-vous un droit de priorité?",
-    "description": "Priority Entitlement Status in Government Info Form"
   },
   "/lByjT": {
     "defaultMessage": "Qui peut postuler",
@@ -688,7 +684,7 @@
     "description": "Title for goals and work style section"
   },
   "0cevfA": {
-    "defaultMessage": "Vous êtes sur le point d'ajouter des rôles pour ce ou cette membre :",
+    "defaultMessage": "Vous êtes sur le point d'ajouter des rôles pour la personne suivante :",
     "description": "Lead in text for the add role to user form."
   },
   "0cieq3": {
@@ -1155,6 +1151,10 @@
     "defaultMessage": "Autorisations de la collectivité",
     "description": "Title for section describing roles and permissions for communities"
   },
+  "2bKnmd": {
+    "defaultMessage": "Si vous êtes à l'emploi du gouvernement, il s’agit de la dernière étape pour déverrouiller les outils destinés aux employés.",
+    "description": "Text for first registration step, final step for government employees"
+  },
   "2cTfGX": {
     "defaultMessage": "À quoi s’attendre",
     "description": "Label for What to expect textarea in the edit pool page."
@@ -1359,10 +1359,6 @@
     "defaultMessage": "Les informations sur votre prochain type de poste ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
   },
-  "3MhIFU": {
-    "defaultMessage": "Il manque des renseignements requis concernant votre droit de priorité.",
-    "description": "Error message displayed when a users priority entitlements is incomplete"
-  },
   "3NW70Q": {
     "defaultMessage": "Demandes de talents",
     "description": "Title for the index search request page"
@@ -1384,7 +1380,7 @@
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
   },
   "3XvHVf": {
-    "defaultMessage": "Rôles dans le ministère",
+    "defaultMessage": "Rôles liés à un ministère",
     "description": "Heading for updating a user's department roles"
   },
   "3YO9gR": {
@@ -1412,7 +1408,7 @@
     "description": "Description for position duration field display"
   },
   "3bgFky": {
-    "defaultMessage": "Ajouter un rôle dans un ministère",
+    "defaultMessage": "Ajouter un rôle lié à un ministère",
     "description": "Button label for the form to add a department membership to a user"
   },
   "3c2YZs": {
@@ -1590,6 +1586,10 @@
   "4MAklr": {
     "defaultMessage": "intégration de systèmes",
     "description": "The cloud computing skill"
+  },
+  "4Ncmb0": {
+    "defaultMessage": "Cette section porte sur votre citoyenneté, votre statut d’ancien combattant et vos droits de priorité.",
+    "description": "Descriptive text explaining the priority entitlement section of the application profile"
   },
   "4NtC0R": {
     "defaultMessage": "La personne candidate n'a ajouté aucun processus hors plateforme.",
@@ -1883,6 +1883,10 @@
     "defaultMessage": "Modifier<hidden> le groupe de compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
   },
+  "5W/J8m": {
+    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir la candidature au statut « À évaluer »?",
+    "description": "Confirmation question for reverting a decision of an application"
+  },
   "5WEzE3": {
     "defaultMessage": "Cherchez dans notre base de données de compétences et associez-en une à votre profil.",
     "description": "Subtitle for the find a skill dialog within the skill portfolio"
@@ -1902,6 +1906,10 @@
   "5cnajL": {
     "defaultMessage": "Raison de l'interruption",
     "description": "Label for pause reason"
+  },
+  "5csRb4": {
+    "defaultMessage": "Cette section de votre profil de candidature porte sur les langues officielles dans lesquelles vous souhaitez travailler, ainsi que celles dans lesquelles vous préférez être évalué.",
+    "description": "Introduction for the language profile form"
   },
   "5dFzBc": {
     "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
@@ -2219,6 +2227,10 @@
     "defaultMessage": "Vous pouvez lancer une mise en candidature en parcourant les événements de gestion des talents actifs à l'aide du lien « Nouvelle mise en candidature ».",
     "description": "Notice's text when there are no nominations"
   },
+  "74ANSM": {
+    "defaultMessage": "Vous avez déjà un identifiant ConnexionCanada?",
+    "description": "CanadaLogin title for users who may already have an account"
+  },
   "74Npts": {
     "defaultMessage": "Examiner et évaluer les preuves fournies par {candidateName} par rapport aux études requises ou à l’expérience équivalente.",
     "description": "Subtitle for education requirement screening decision dialog."
@@ -2284,7 +2296,7 @@
     "description": "Text on a button to save the nonessential technical skills form"
   },
   "7Rllrl": {
-    "defaultMessage": "Activer tout",
+    "defaultMessage": "Tout cocher",
     "description": "Label for checkbox to toggle visibility of all columns"
   },
   "7STO48": {
@@ -2432,7 +2444,7 @@
     "description": "Label displayed on the community form mandate authority field"
   },
   "84XrK+": {
-    "defaultMessage": "On ne trouve aucun élément ici.",
+    "defaultMessage": "Aucun élément trouvé.",
     "description": "Default message for an empty table"
   },
   "84rSVg": {
@@ -2543,6 +2555,10 @@
     "defaultMessage": "remplissez le <questionsLink>formulaire pour questions et commentaires</questionsLink>",
     "description": "Commercial reproduction list item"
   },
+  "8dctGM": {
+    "defaultMessage": "Le nom que vous indiquez ici apparaîtra dans votre profil Talents numériques du GC.",
+    "description": "Text for first registrion step name instructions additional context"
+  },
   "8gyWTT": {
     "defaultMessage": "Voir l’annonce",
     "description": "Link text to view a specific pool advertisement"
@@ -2636,7 +2652,7 @@
     "description": "Message displayed for skill not found."
   },
   "95aNQ1": {
-    "defaultMessage": "Vous êtes sur le point de retirer ce ou cette membre :",
+    "defaultMessage": "Vous êtes sur le point de retirer cette personne :",
     "description": "Lead in text for removing roles on user form."
   },
   "96/yI/": {
@@ -2795,6 +2811,10 @@
     "defaultMessage": "La Directive sur les talents numériques clarifie les exigences de la Politique sur les services et le numérique en ce qui concerne les nominations des dirigeantes principales et dirigeants principals de l'information et la gestion des talents. L’objectif est de continuer à soutenir les parcours professionnels des cadres, en mettant l’accent sur la prestation de services publics numériques modernes.",
     "description": "The directives digital executive roles and structures component"
   },
+  "9g0IoZ": {
+    "defaultMessage": "Commencer<hidden> à fournir les renseignements sur votre citoyenneté, votre statut d’ancien combattant et vos droits de priorité</hidden>",
+    "description": "Call to action to begin editing priority entitlement"
+  },
   "9g11GN": {
     "defaultMessage": "Créer une classification",
     "description": "Page title for the classification creation page"
@@ -2947,10 +2967,6 @@
     "defaultMessage": "Lorsque vous envoyez votre candidature, une copie de votre profil est automatiquement créée.",
     "description": "List item note 1 for the application review page."
   },
-  "AA3OTc": {
-    "defaultMessage": "Réintégrer le candidat et mettre à jour le statut",
-    "description": "Button text to reinstate a candidate"
-  },
   "AANjDd": {
     "defaultMessage": "Mettre à jour l’expérience",
     "description": "Button to submit the link experience to skill form"
@@ -2974,6 +2990,10 @@
   "ADPfNp": {
     "defaultMessage": "Confirmer maintenant",
     "description": "Button to start the email address verification process"
+  },
+  "ADUuJh": {
+    "defaultMessage": "Les renseignements actuels ont été établis en fonction de la langue de communication choisie lors de votre inscription. Utilisez le bouton « {buttonLabel} » pour revoir ces paramètres.",
+    "description": "Helper message that the language settings were preset"
   },
   "ADk6dX": {
     "defaultMessage": "Filtrer les demandes et consigner les résultats de l’évaluation",
@@ -3022,6 +3042,10 @@
   "ARdTh3": {
     "defaultMessage": "Nom de famille",
     "description": "Label displayed for the last name field in getting started form."
+  },
+  "ASTsAw": {
+    "defaultMessage": "S’inscrire",
+    "description": "Message displayed to users to register for an account"
   },
   "ASYJlr": {
     "defaultMessage": "Notre application Web doit s’adapter aisément à différentes tailles d’écran et permettre à nos utilisateurs d’accéder à la plateforme sur des appareils qui répondent à leurs besoins. Chaque fonctionnalité que nous créons doit être accessible, mais, comme pour préparer une bonne assiette de nachos, il faut les bons ingrédients pour commencer. Nous partons donc de ces ingrédients pratiques : ",
@@ -3091,6 +3115,10 @@
     "defaultMessage": "Prévisualiser l’annonce",
     "description": "Link text to preview a specific pool advertisement"
   },
+  "AhcYq4": {
+    "defaultMessage": "Rétablir le statut de la candidature",
+    "description": "Heading for dialog to revert an application status"
+  },
   "Aip5WP": {
     "defaultMessage": "Préférence pour le lieu de travail en personne",
     "description": "Profile form header for preferences section"
@@ -3126,6 +3154,10 @@
   "ArwIQV": {
     "defaultMessage": "Tableau de bord",
     "description": "Title for dashboard"
+  },
+  "As56gg": {
+    "defaultMessage": "Ce code sera envoyé par message texte ou appel téléphonique et expirera après dix minutes.",
+    "description": "Text for first registration step, code expiration information"
   },
   "AscIUu": {
     "defaultMessage": "Modifiez les rôles de {userName} dans {communityName}.",
@@ -3212,7 +3244,7 @@
     "description": "Text label for button to download a csv file of all items in a table."
   },
   "B6cKp+": {
-    "defaultMessage": "Rôles dans des collectivités",
+    "defaultMessage": "Rôles dans les collectivités",
     "description": "Heading for updating a user's community roles"
   },
   "B8N4yZ": {
@@ -3258,6 +3290,10 @@
   "BM8p9E": {
     "defaultMessage": "Communiquer avec l’équipe du Corps d’innovation",
     "description": "Link text to start an email to the innovation corps"
+  },
+  "BN4cj6": {
+    "defaultMessage": "S’inscrire",
+    "description": "Breadcrumb label for the Canada Login registration page"
   },
   "BNSbyC": {
     "defaultMessage": "Autre possibilité de mutation latérale",
@@ -3330,6 +3366,10 @@
   "BlFUsz": {
     "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez présenter une demande et satisfaire aux conditions préalables.",
     "description": "An item in a list of points about instructor-led classes"
+  },
+  "Bo2POt": {
+    "defaultMessage": "Cette fonctionnalité est offerte uniquement au personnel actuel du gouvernement du Canada.",
+    "description": "Text for first registration step, government employee only feature"
   },
   "Bpr9Cs": {
     "defaultMessage": "Travaillez avec notre équipe pour exécuter votre propre processus de recrutement sur la plateforme Talents numériques du GC et profitez de fonctionnalités modernes telles que notre système de suivi des candidats, l’embauche fondée sur les compétences et les approches d’avancement tenant compte de l’équité.",
@@ -3595,6 +3635,10 @@
     "defaultMessage": "Restaurer l'utilisateur",
     "description": "Label for restoring a user"
   },
+  "D/Tcaj": {
+    "defaultMessage": "Configurez la vérification en deux étapes.",
+    "description": "Text for first registration step, set up two-step verification"
+  },
   "D/Ymty": {
     "defaultMessage": "Ministère d’attache",
     "description": "Label displayed on the pool form department field."
@@ -3642,10 +3686,6 @@
   "DA7fMg": {
     "defaultMessage": "Identifiant",
     "description": "Title for unique ID of a resource"
-  },
-  "DB9pFd": {
-    "defaultMessage": "Langue préférée pour l'entrevue orale",
-    "description": "Title for preferred spoken interview language"
   },
   "DBczOG": {
     "defaultMessage": "Stratégie",
@@ -3748,7 +3788,7 @@
     "description": "Description of a talent event"
   },
   "DbWxZl": {
-    "defaultMessage": "Cherchez les rôles dans des processus",
+    "defaultMessage": "Rechercher des rôles liés à un processus",
     "description": "Label for the process roles table search input"
   },
   "DcEinN": {
@@ -3967,6 +4007,10 @@
     "defaultMessage": "Évaluation des langues officielles dans le processus de nomination",
     "description": "Link to second language evaluations PSC info page on language requirements dialog"
   },
+  "EX82UF": {
+    "defaultMessage": "Modifier la citoyenneté, le statut d’ancien combattant et les droits de priorité",
+    "description": "Button text to start editing priority entitlements"
+  },
   "EY7YQM": {
     "defaultMessage": "Il manque au moins 1 évaluation pour les compétences suivantes",
     "description": "Warning message for skills with missing assessment on the 'assessment details' dialog"
@@ -4087,6 +4131,10 @@
     "defaultMessage": "Voir sur GCpédia*",
     "description": "Link text displayed on the job poster template 'generic work description' field. With an asterisk for fine print."
   },
+  "FD+jX4": {
+    "defaultMessage": "Entrez votre prénom et votre nom de famille.",
+    "description": "Text for first registrion step enter name instructions"
+  },
   "FDZh4D": {
     "defaultMessage": "Vous êtes sur le point de publier l'annonce de ce processus : {poolName}",
     "description": "Text to confirm the process to be published"
@@ -4098,6 +4146,10 @@
   "FGzaie": {
     "defaultMessage": "Statut officiel de l’examen",
     "description": "Bounding box label for official exam status in language information form"
+  },
+  "FJU6Pr": {
+    "defaultMessage": "Vous serez redirigé vers la plateforme Talents numériques du GC.",
+    "description": ""
   },
   "FKfj8D": {
     "defaultMessage": "Compétences essentielles",
@@ -4182,6 +4234,10 @@
   "FkwGWO": {
     "defaultMessage": "Notre engagement envers la conception, l’élaboration et la prestation de services accessibles.",
     "description": "Subtitle for the accessibility statement page."
+  },
+  "FnXbHv": {
+    "defaultMessage": "Instructions pour s’inscrire",
+    "description": "Heading for the instructions section of the registration page"
   },
   "FnvqtK": {
     "defaultMessage": "Seuls les utilisateurs ayant une adresse courriel professionnelle vérifiée peuvent être ajoutés à cette communauté.",
@@ -4743,8 +4799,12 @@
     "defaultMessage": "Reçue",
     "description": "Status label for a submitted (but not reviewed) application"
   },
+  "IHcJGO": {
+    "defaultMessage": "Consultez les renseignements transmis depuis ConnexionCanada et liés à votre profil Talents numériques du GC.",
+    "description": "Text for first registration step, view details from CanadaLogin"
+  },
   "IHyNL8": {
-    "defaultMessage": "Ajouter un membre",
+    "defaultMessage": "Ajouter comme membre",
     "description": "Title for the add member to community form"
   },
   "II4+N3": {
@@ -4756,7 +4816,7 @@
     "description": "Link text to email the ATIP community"
   },
   "IIKzsd": {
-    "defaultMessage": "Afficher ou masquer les colonnes du tableau",
+    "defaultMessage": "Afficher ou masquer des colonnes dans le tableau",
     "description": "Label for checkboxes used for disabling or enabling table column display"
   },
   "IIZNzj": {
@@ -4862,6 +4922,10 @@
   "ImTMRk": {
     "defaultMessage": "Mettez à jour et passez en revue vos renseignements personnels, vos coordonnées et vos préférences.",
     "description": "Subtitle for the application profile  page"
+  },
+  "Ip9S/o": {
+    "defaultMessage": "Confirmez votre adresse courriel personnelle.",
+    "description": "Text for first registrion step confirm personal email"
   },
   "IqZ6W0": {
     "defaultMessage": "Informations sur la collectivité",
@@ -4980,7 +5044,7 @@
     "description": "Combined eligibility string for 'employees only' and 'at-level only'"
   },
   "JCZlxS": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans le processus » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle lié à un processus » pour commencer.",
     "description": "Instructions for adding process membership to a user."
   },
   "JDjqIL": {
@@ -5287,6 +5351,10 @@
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
     "description": "Radio group option for education requirement filter in search form."
   },
+  "KorMJQ": {
+    "defaultMessage": "Accéder à ConnexionCanada",
+    "description": "CanadaLogin sign up link text on the registration page"
+  },
   "KqEyqD": {
     "defaultMessage": "Désignation professionnelle",
     "description": "Title for the professional designation requirement."
@@ -5318,6 +5386,10 @@
   "Kwfc/6": {
     "defaultMessage": "Ressources",
     "description": "Heading for section for the group-specific resources section."
+  },
+  "KwzVtv": {
+    "defaultMessage": "Droits de priorité",
+    "description": "Label for the Priority Entitlement Status"
   },
   "KxJcav": {
     "defaultMessage": "Parcourir les modèles d’emplois",
@@ -5386,10 +5458,6 @@
   "L8k+lC": {
     "defaultMessage": "Précédent",
     "description": "Back button located next to the submit button on the request form."
-  },
-  "L9IkrB": {
-    "defaultMessage": "Que puis-je faire si mes codes d'authentification ne sont plus acceptés?",
-    "description": "GCKey question for when user authenticator codes not accepted"
   },
   "L9Tc5u": {
     "defaultMessage": "Le processus annuel de gestion des talents des cadres permet aux ministères et organismes d'échanger des renseignements sur les aspirations professionnelles et le potentiel de leurs cadres des finances. Il garantit ainsi que les talents appropriés sont prêts à occuper des postes de direction au fur et à mesure qu'ils deviennent disponibles.",
@@ -5760,7 +5828,7 @@
     "description": "Error message for updating a candidates assessment stage"
   },
   "MkUz+j": {
-    "defaultMessage": "Ajouter un membre",
+    "defaultMessage": "Ajouter comme membre",
     "description": "Label for the add member to community form (action)"
   },
   "MmTWYV": {
@@ -5832,7 +5900,7 @@
     "description": "Label for language for bilingual field"
   },
   "MxmB1v": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans la collectivité » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans une collectivité » pour commencer.",
     "description": "Instructions for adding community membership to a user."
   },
   "Mz7sON": {
@@ -6019,6 +6087,10 @@
     "defaultMessage": "Évaluations manquantes",
     "description": "No assessments for a skill"
   },
+  "O4O6Rn": {
+    "defaultMessage": "S’inscrire avec ConnexionCanada",
+    "description": "Page title for registration page"
+  },
   "O5dDCM": {
     "defaultMessage": "Aller à la page suivante",
     "description": "Aria label for next page button in pagination nav"
@@ -6070,6 +6142,10 @@
   "OFGtZr": {
     "defaultMessage": "Annuler et retourner aux collectivités",
     "description": "Link text to cancel updating a community"
+  },
+  "OG/Fbe": {
+    "defaultMessage": "L’utilisation d’une adresse courriel personnelle vous permettra de conserver l’accès à votre compte si vous changez d’emploi.",
+    "description": "Text for first registrion step personal email usage explanation"
   },
   "OH0wqV": {
     "defaultMessage": "Collectivités fonctionnelles",
@@ -6206,6 +6282,10 @@
   "OvusdX": {
     "defaultMessage": "Confirmer une adresse courriel professionnelle",
     "description": "Label to go to email verification"
+  },
+  "OxuU1/": {
+    "defaultMessage": "Partie 2 : Configurer la vérification en deux étapes",
+    "description": "Heading for section of the registration page showing the two step verification instructions"
   },
   "Ozwufr": {
     "defaultMessage": "Processus partagés",
@@ -6579,6 +6659,10 @@
     "defaultMessage": "Étapes de la nomination",
     "description": "Label for the talent nomination stepper navigation"
   },
+  "QU8yQJ": {
+    "defaultMessage": "Un code sera envoyé au numéro que vous avez fourni.",
+    "description": "Text for first registration step, code sent to phone number"
+  },
   "QXB3EX": {
     "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classification} ou un équivalent organisationnel. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
     "description": "Body of a note describing that a pool is only open to employees at-level"
@@ -6618,6 +6702,10 @@
   "QbEUq9": {
     "defaultMessage": "L'intérêt de la personne candidate pour les possibilités dans la {communityName}.",
     "description": "Subtitle for community-specific information section"
+  },
+  "QbJmAL": {
+    "defaultMessage": "L’utilisation d’un numéro de téléphone personnel vous permettra de conserver l’accès à votre compte si vous changez d’emploi.",
+    "description": "Text for first registration step, personal phone number usage explanation"
   },
   "QcPUyM": {
     "defaultMessage": "Publier un modèle",
@@ -6787,10 +6875,6 @@
     "defaultMessage": "Renseignements de base",
     "description": "Title for basic information"
   },
-  "RDHbAx": {
-    "defaultMessage": "Qu'est-ce que je fais si j'ai effacé l'appli ou changé de téléphone et que je n'ai pas les codes de récupération?",
-    "description": "GCKey question for when user does not have recovery codes"
-  },
   "RDkTqP": {
     "defaultMessage": "Date d’attribution",
     "description": "Label displayed on award form for date awarded input"
@@ -6955,6 +7039,10 @@
     "defaultMessage": "Je ne cherche pas de travail dans cette collectivité pour le moment.",
     "description": "Label for the community not interested in work opportunities radio option"
   },
+  "S+Hv6S": {
+    "defaultMessage": "Peut être fermée",
+    "description": "A switch to enable or disable a setting"
+  },
   "S/PXt/": {
     "defaultMessage": "Des possibilités existent au sein d’un grand nombre de ministères et d’organismes du gouvernement du Canada. Le programme tentera de jumeler les apprentis à des possibilités qui correspondent le mieux à leurs intérêts.",
     "description": "Learn more dialog question nine paragraph one"
@@ -7103,6 +7191,10 @@
     "defaultMessage": "Prochain type de poste",
     "description": "Title for next role dialog"
   },
+  "Su2+bZ": {
+    "defaultMessage": "Partie 1 : Créer un identifiant ConnexionCanada",
+    "description": "Heading for section of the registration page showing the create steps"
+  },
   "SumvTY": {
     "defaultMessage": "Dans ce poste, vous participez à la création d’ontologies et de graphes de connaissances, ce qui favorise la transmission et la récupération efficaces de l’information dans toute l’organisation. Vous excellez en communication et vous contribuez à la diffusion des pratiques exemplaires.",
     "description": "Description of the data analyst role"
@@ -7191,10 +7283,6 @@
     "defaultMessage": "Non retenue",
     "description": "Message displayed when candidate has not passed an assessment step"
   },
-  "TIu/WA": {
-    "defaultMessage": "Modifier les droits de priorité",
-    "description": "Button text to start editing priority entitlements"
-  },
   "TK0b6n": {
     "defaultMessage": "Vous pouvez vous server du bouton « Lier une expérience » qui sert à mettre cette compétence en évidence.",
     "description": "Instructions displayed when user has experiences but hasn't featured any."
@@ -7216,7 +7304,7 @@
     "description": "Comments or contributions list item"
   },
   "TSYfZE": {
-    "defaultMessage": "Ajouter un rôle dans le processus",
+    "defaultMessage": "Ajouter un rôle lié à un processus",
     "description": "Button label for the form to add a process membership to a user"
   },
   "TU9sk7": {
@@ -7286,6 +7374,10 @@
   "TjvnvR": {
     "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
     "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples page"
+  },
+  "To1Tf5": {
+    "defaultMessage": "Vous avez créé votre identifiant ConnexionCanada avec succès.",
+    "description": "Text for first registration step, successful account creation"
   },
   "Tp7hml": {
     "defaultMessage": "Des représentants du service à la clientèle sont disponibles pour vous aider par téléphone toute l'année, 24 heures sur 24, 7 jours sur 7.",
@@ -7474,10 +7566,6 @@
   "Ulbls0": {
     "defaultMessage": "Un agencement d'études, de formation ou d'expérience.",
     "description": "Applied work experience description for CR group"
-  },
-  "Un0ubb": {
-    "defaultMessage": "Pouvez-vous supprimer l'authentification à deux facteurs de mon compte afin que je puisse le réinitialiser?",
-    "description": "GCKey question for ability to remove two-factor authentication"
   },
   "UnAF+3": {
     "defaultMessage": "À moins d’avis contraire, vous pouvez reproduire le contenu en totalité ou en partie à des fins non commerciales, dans tout format, sans frais ni autre permission, à condition :"
@@ -7806,6 +7894,10 @@
     "defaultMessage": "{title} évaluation - {skillName}",
     "description": "Header for application screening decision dialog."
   },
+  "WArY/n": {
+    "defaultMessage": "Si vous avez des questions concernant ConnexionCanada ou avez besoin d’aide supplémentaire, veuillez communiquer avec l’équipe de ConnexionCanada",
+    "description": "CanadaLogin contact information for additional help"
+  },
   "WBvYyt": {
     "defaultMessage": "Enregistrer le numéro de processus",
     "description": "Text on a button to save the process number"
@@ -7935,7 +8027,7 @@
     "description": "Label for a employee profile target classification group field"
   },
   "WovyCU": {
-    "defaultMessage": "Ajouter un rôle dans la collectivité",
+    "defaultMessage": "Ajouter un rôle dans une collectivité",
     "description": "Header for the form to add a community membership to a user"
   },
   "WpA63g": {
@@ -7957,6 +8049,10 @@
   "WrTLaB": {
     "defaultMessage": "Les fonctionnaires qui désirent devenir des cadres de la gestion financière",
     "description": "Employee group list item label"
+  },
+  "WsnfHy": {
+    "defaultMessage": "Partie 3 : Accéder à votre compte",
+    "description": "Heading for section of the registration page showing the access steps"
   },
   "Wss2iW": {
     "defaultMessage": "Collectivité de la gestion financière",
@@ -8070,6 +8166,10 @@
     "defaultMessage": "La possibilité de formation a été créée avec succès!",
     "description": "Message displayed to user after a training opportunity is created successfully."
   },
+  "XLJuh+": {
+    "defaultMessage": "Entrez le code envoyé à votre adresse courriel dans ConnexionCanada.",
+    "description": "Text for first registrion step enter code sent to email"
+  },
   "XNNBCv": {
     "defaultMessage": "Je consens à travailler constamment sur place dans un lieu ministériel désigné.",
     "description": "Checklist option explanatory note"
@@ -8097,6 +8197,10 @@
   "XUmyGM": {
     "defaultMessage": "Aux fins de la vérification de vos antécédents, vous devrez fournir des renseignements personnels dans certaines sections du <link>Formulaire de consentement et de demande de filtrage de sécurité.</link>",
     "description": "First paragraph for the obtaining security clearance section"
+  },
+  "XUt7q+": {
+    "defaultMessage": "Entrez votre numéro de téléphone personnel.",
+    "description": "Text for first registration step, enter personal phone number"
   },
   "XWyKqc": {
     "defaultMessage": "Télécharger Excel demandes d'emploi",
@@ -8551,7 +8655,7 @@
     "description": "Second part of bilingual intermediate pool language"
   },
   "ZJpfIZ": {
-    "defaultMessage": "L’utilisateur perdra tous les rôles suivants dans le ministère :",
+    "defaultMessage": "Cette personne perdra tous les rôles suivants liés au ministère :",
     "description": "Text notifying user which department roles will be removed from the user"
   },
   "ZJsUbj": {
@@ -8959,7 +9063,7 @@
     "description": "Header for the form to add a process membership to a user"
   },
   "bNc3Zd": {
-    "defaultMessage": "Rechercher des rôles dans les ministères",
+    "defaultMessage": "Rechercher des rôles liés à un ministère",
     "description": "Label for the department roles table search input"
   },
   "bOAF9o": {
@@ -9379,7 +9483,7 @@
     "description": "Explanation of how the list of notifications work"
   },
   "d4r7rO": {
-    "defaultMessage": "Afficher ou masquer les colonnes",
+    "defaultMessage": "Afficher ou masquer des colonnes",
     "description": "Button text to open the dialog for disabling or enabling column display"
   },
   "d5X1iR": {
@@ -9614,6 +9718,10 @@
     "defaultMessage": "Sauvegarder l’annonce à l’échelle du site",
     "description": "Text on a button to save the sitewide announcement"
   },
+  "dzXJ2h": {
+    "defaultMessage": "Vous pouvez gérer votre profil et vos paramètres de sécurité ConnexionCanada sur le site de ConnexionCanada.",
+    "description": "Text for first registration step, manage CanadaLogin profile and security settings"
+  },
   "dztCCI": {
     "defaultMessage": "Pour continuer, veuillez nous indiquer qui est la personne de référence.",
     "description": "Error message when a reference has not been set for a nomination"
@@ -9695,7 +9803,7 @@
     "description": "Introduction for form to evaluate a nomination group"
   },
   "eGqjYh": {
-    "defaultMessage": "Rôles dans le processus",
+    "defaultMessage": "Rôles liés à un processus",
     "description": "Heading for updating a user's process roles"
   },
   "eJPU4G": {
@@ -9785,6 +9893,10 @@
   "efBMD2": {
     "defaultMessage": "Gestion des comptes",
     "description": "Title for the account management."
+  },
+  "eg07u9": {
+    "defaultMessage": "Ajoutez votre expérience de travail actuelle à votre profil Talents numériques du GC.",
+    "description": "Text for first registration step, add current work experience"
   },
   "eg8/kP": {
     "defaultMessage": "Le profil de la personne candidate n'indique pas de poste actuel au sein du gouvernement du Canada.",
@@ -9986,10 +10098,6 @@
     "defaultMessage": "Cette revendication ne s’applique pas à ce processus.",
     "description": "Message when a claim does not apply to the specific process"
   },
-  "fQ7zxR": {
-    "defaultMessage": "Nous ne pouvons pas supprimer l'authentification à deux facteurs, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for ability to remove two-factor authentication"
-  },
   "fQiUXz": {
     "defaultMessage": "Préférence ministérielle",
     "description": "Combined eligibility string for 'employees only' and 'departmental preference'"
@@ -10119,7 +10227,7 @@
     "description": "Title for education level on summary of filters section"
   },
   "fuGqZQ": {
-    "defaultMessage": "Sélectionnez l’utilisateur à ajouter à {teamName}, ainsi que les rôles à lui attribuer.",
+    "defaultMessage": "Sélectionnez la personne que vous souhaitez ajouter à l’organisation suivante : {teamName}. Sélectionnez également les rôles à lui attribuer.",
     "description": "Subtitle for the add member to team form"
   },
   "fugmiC": {
@@ -10434,6 +10542,10 @@
     "defaultMessage": "URL de la demande",
     "description": "The application URL of the training opportunity"
   },
+  "h4BQ8C": {
+    "defaultMessage": "Si vous avez déjà utilisé ConnexionCanada pour un autre service, vous pouvez entrer votre adresse courriel et votre mot de passe et passer directement à l’étape 2.",
+    "description": "Text for first registrion step if user has an existing canada login account"
+  },
   "h4E9+K": {
     "defaultMessage": "De quelle manière sera vérifié le statut?",
     "description": "Heading for the self-declaration verification dialog"
@@ -10465,6 +10577,10 @@
   "hBDz/h": {
     "defaultMessage": "Commencez<hidden> à remplir votre profil linguistique</hidden>",
     "description": "Call to action to begin editing language profile"
+  },
+  "hC3ODU": {
+    "defaultMessage": "Qui dois-je contacter si j’ai des questions au sujet de ConnexionCanada?",
+    "description": "CanadaLogin contact information for questions"
   },
   "hCJfYi": {
     "defaultMessage": "<strong>Les postes sur place</strong> requièrent une présence à temps plein au bureau, sans possibilité de travailler à distance.",
@@ -10810,6 +10926,10 @@
     "defaultMessage": "Le Programme d'apprentissage en TI pour les personnes autochtones a pour but d'aider à éliminer les obstacles en matière d'emploi pour les personnes autochtones dans le domaine numérique au sein du gouvernement du Canada. Devenez un partenaire de recrutement dès aujourd'hui et découvrez comment vous pouvez renforcer votre équipe en embauchant des talents autochtones en informatique et aider à bâtir à une fonction publique plus inclusive. Votre participation contribue à l'objectif plus large de promouvoir l'inclusion, l'équité et la réconciliation au Canada.",
     "description": "Paragraph for IT Apprenticeship Program for Indigenous Peoples search card"
   },
+  "igTwND": {
+    "defaultMessage": "Nous contacter - ConnexionCanada",
+    "description": "CanadaLogin contact us link"
+  },
   "iiEGjW": {
     "defaultMessage": "Nous avons bien reçu votre message.",
     "description": "Support form success title"
@@ -10982,10 +11102,6 @@
     "defaultMessage": "Mise à jour de la classification réussie!",
     "description": "Message displayed to user after classification is updated successfully."
   },
-  "jMx7Kb": {
-    "defaultMessage": "Vous ne pouvez pas récupérer vos informations de connexion, mais vous pouvez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for when user does not have recovery codes"
-  },
   "jO8i+2": {
     "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions en lien avec ce processus? Veuillez communiquer avec le Bureau des initiatives pour les Autochtones si vous avez besoin de mesures d’adaptation au cours de ce processus de demande <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
     "description": "First paragraph of the accessibility and accommodations information dialog"
@@ -11074,10 +11190,6 @@
     "defaultMessage": "Modifier la planification de carrière",
     "description": "Link to a page to edit your career planning information"
   },
-  "jo9Uct": {
-    "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir le candidat au statut « En cours d’évaluation »?",
-    "description": "Confirmation question for reverting a decision of an application"
-  },
   "joXPYW": {
     "defaultMessage": "Composantes clés",
     "description": "Heading for section describing the different components"
@@ -11089,6 +11201,10 @@
   "jphtnM": {
     "defaultMessage": "Travail à distance facultatif (recommandé)",
     "description": "Label displayed for 'remote optional' option"
+  },
+  "jrDcs6": {
+    "defaultMessage": "Confirmez votre adresse courriel professionnelle du gouvernement du Canada pour déverrouiller les outils destinés aux employés.",
+    "description": "Text for first registration step, verify government email"
   },
   "js5ZcB": {
     "defaultMessage": "Cela indiquera aux candidats que les personnes employées par les ministères liés à cette possibilité seront accordées la préférence lors de la sélection.",
@@ -11454,10 +11570,6 @@
     "defaultMessage": "Commentaires et échanges",
     "description": "Heading for comments and interaction section"
   },
-  "lSKm4M": {
-    "defaultMessage": "Vous pouvez indiquer dans cette section vos droits de priorité.",
-    "description": "Descriptive text explaining the priority entitlement section of the application profile"
-  },
   "lSSz6L": {
     "defaultMessage": "Gérer {notificationName}",
     "description": "Button text for managing a notification"
@@ -11526,6 +11638,10 @@
     "defaultMessage": "À propos du Portail des talents autochtones",
     "description": "Talent Portal information heading"
   },
+  "ltYqKQ": {
+    "defaultMessage": "Citoyenneté, statut d’ancien combattant et droits de priorité",
+    "description": "Title for the citizen/veteran/priority section"
+  },
   "ltzA7w": {
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
     "description": "How to get help from the support team - IAP variant"
@@ -11586,6 +11702,10 @@
     "defaultMessage": "Votre prochain type de poste",
     "description": "Title for the next role section"
   },
+  "m6vOLM": {
+    "defaultMessage": "Langue de préférence pour l’entrevue",
+    "description": "Title for preferred spoken interview language"
+  },
   "mAN6yW": {
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
     "description": "Button text to show help information about skills"
@@ -11635,7 +11755,7 @@
     "description": "The award title is issued by some group, HTML"
   },
   "mKrj0x": {
-    "defaultMessage": "Enregistrer et ajouter un membre",
+    "defaultMessage": "Enregistrer et ajouter comme membre",
     "description": "Label for add member to a community form"
   },
   "mKzQwr": {
@@ -11911,7 +12031,7 @@
     "description": "Card title for a 'resources' card"
   },
   "nGx7Xt": {
-    "defaultMessage": "Mesures",
+    "defaultMessage": "Actions",
     "description": "Title displayed for actions column"
   },
   "nGy9DA": {
@@ -12274,6 +12394,10 @@
     "defaultMessage": "Sauvegarder cette question",
     "description": "Button text to save a general question"
   },
+  "orxWUM": {
+    "defaultMessage": "Qu’est-ce que ConnexionCanada?",
+    "description": "CanadaLogin title for explaining what CanadaLogin is"
+  },
   "os2TYf": {
     "defaultMessage": "Modifier les informations sur le ministère",
     "description": "Link to edit the currently viewed department"
@@ -12410,6 +12534,10 @@
     "defaultMessage": "Masquer les détails de {experienceName}",
     "description": "Button text to hide a specific experience's details"
   },
+  "pNCpED": {
+    "defaultMessage": "Les renseignements suivants sont utilisés par les équipes de recrutement et les gestionnaires d’embauche pour évaluer votre admissibilité dans le cadre d’un processus de dotation.",
+    "description": "Preamble for citizen/veteran/priority edit form"
+  },
   "pOazxP": {
     "defaultMessage": "Mises en candidature des talent ({nominationCount})",
     "description": "Collapsible header, Talent nominations and then count"
@@ -12438,6 +12566,10 @@
     "defaultMessage": "Vous pouvez ajouter une collectivité de façon facultative.",
     "description": "Flexible option for process creation"
   },
+  "pTOGhN": {
+    "defaultMessage": "Entrez le code dans ConnexionCanada.",
+    "description": "Text for first registration step, enter code sent to phone number"
+  },
   "pVCsBB": {
     "defaultMessage": "Catégorie de travail",
     "description": "Label for pool advertisement stream"
@@ -12463,7 +12595,7 @@
     "description": "Message for the advanced language ability option"
   },
   "paTLlJ": {
-    "defaultMessage": "Chercher les rôles",
+    "defaultMessage": "Rechercher les rôles",
     "description": "Label for the roles table search input"
   },
   "pcAgJh": {
@@ -12505,6 +12637,10 @@
   "pkFLpT": {
     "defaultMessage": "Si vous avez un intérêt et une passion pour la technologie et que vous vous identifiez comme Autochtone, ce programme est pour vous.",
     "description": "Learn more dialog question seven paragraph one"
+  },
+  "plueeQ": {
+    "defaultMessage": "ConnexionCanada est le nouveau système central de comptes du gouvernement du Canada qui permet d’accéder à différents services gouvernementaux. Vous pouvez utiliser la même adresse courriel et le même mot de passe ConnexionCanada pour tous les comptes que vous y associez.",
+    "description": "CanadaLogin description explaining what it is"
   },
   "pm1xpZ": {
     "defaultMessage": "Faites-nous part de votre intérêt pour une promotion, une possibilité d'emploi à un poste de direction ou un mentorat. Faites part de vos aspirations professionnelles, de vos objectifs et de votre style de travail.",
@@ -12662,6 +12798,10 @@
     "defaultMessage": "Autre poste de cadre supérieur délégué (CSD)",
     "description": "Label for the 'Other role' input"
   },
+  "qSNLSc": {
+    "defaultMessage": "Acceptez le résumé des conditions d'utilisation.",
+    "description": "Text for first registrion step, agree to terms of use summary"
+  },
   "qSTIKZ": {
     "defaultMessage": "Échec de la mise à jour de la date d'expiration",
     "description": "Toast for failed expiry date update on view-user page"
@@ -12721,6 +12861,10 @@
   "qo/Sx2": {
     "defaultMessage": "L'utilisateur a été archivé avec succès!",
     "description": "Success message after soft-deleting a user"
+  },
+  "qrd+vb": {
+    "defaultMessage": "Bienvenue",
+    "description": ""
   },
   "qs09PP": {
     "defaultMessage": "Vous avez atteint le nombre maximum (3) de questions filtres par poste annoncé.",
@@ -12879,16 +13023,12 @@
     "description": "Page title for the training opportunity creation page (infinitive in French)"
   },
   "rUNQVc": {
-    "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans le ministère » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Ajouter un rôle lié à un ministère » pour commencer.",
     "description": "Instructions for adding department membership to a user."
   },
   "rVgBGi": {
     "defaultMessage": "La soumission de votre demande est réussie.",
     "description": "Subtitle for the request confirmation page."
-  },
-  "rWs8MO": {
-    "defaultMessage": "Commencez<hidden> par fournir les renseignements concernant les droits de priorité</hidden>",
-    "description": "Call to action to begin editing priority entitlement"
   },
   "rXd18V": {
     "defaultMessage": "Détachement",
@@ -12979,7 +13119,7 @@
     "description": "Heading for the experience type section fo the experience form"
   },
   "ryeKXV": {
-    "defaultMessage": "Cherchez les rôles dans des collectivités",
+    "defaultMessage": "Rechercher les rôles dans les collectivités",
     "description": "Label for the community roles table search input"
   },
   "rz21yp": {
@@ -13070,6 +13210,10 @@
     "defaultMessage": "Une fois que vous avez sélectionné les critères auxquels vous répondez, cette section vous demande de nous indiquer quels sont les éléments spécifiques de votre parcours professionnel qui répondent à cette option. Si vous devez ajouter quelque chose à votre parcours professionnel, vous pouvez le faire en retournant à l’étape du parcours professionnel dans le formulaire de candidature.",
     "description": "Description for checklist section in application education page."
   },
+  "sRUaI5": {
+    "defaultMessage": "Accédez à ConnexionCanada.",
+    "description": "Text for first registrion step, head to canada login"
+  },
   "sSE4kt": {
     "defaultMessage": "Je suis un membre des Premières Nations sans statut",
     "description": "Text for the option to self-declare as a non-status first nations"
@@ -13081,6 +13225,10 @@
   "sZhjI3": {
     "defaultMessage": "Veuillez sélectionner une collectivité fonctionnelle pour continuer.",
     "description": "Message displayed when no functional community is selected"
+  },
+  "sZv6bv": {
+    "defaultMessage": "Citoyenneté, statut d’ancien combattant et droits de priorité mis à jour avec succès.",
+    "description": "Message displayed when a user successfully updates their citizen/veteran/priority."
   },
   "sapxcU": {
     "defaultMessage": "Avertissement",
@@ -13411,7 +13559,7 @@
     "description": "Paragraph describing accessibility standards"
   },
   "tuMmWm": {
-    "defaultMessage": "Filtrer par ordre de {column}",
+    "defaultMessage": "Appliquer un filtre {column}",
     "description": "Button text to filter by specific columns in table"
   },
   "tuXnJB": {
@@ -13459,7 +13607,7 @@
     "description": "Subtitle for form to update a candidates assessment stage"
   },
   "u98IOx": {
-    "defaultMessage": "Partie 1 : Création d’un compte CléGC",
+    "defaultMessage": "Partie 1 : Création d’un identifiant CléGC",
     "description": "Heading for section of the sign up page showing the create steps"
   },
   "uD105N": {
@@ -13475,7 +13623,7 @@
     "description": "Description for work streams for an experience dialog"
   },
   "uG1ZWN": {
-    "defaultMessage": "Retirez de la collectivité",
+    "defaultMessage": "Retirer de la collectivité",
     "description": "Button label for the form to remove a community role from a user"
   },
   "uIUSdN": {
@@ -13575,7 +13723,7 @@
     "description": "Heading for form to update a users subject"
   },
   "uhoPHh": {
-    "defaultMessage": "Réglementaire",
+    "defaultMessage": "Réglementation",
     "description": "Label for a regulatory department"
   },
   "ukcsxj": {
@@ -13705,6 +13853,10 @@
   "vJD6dl": {
     "defaultMessage": "Informations sur l'autrice ou l'auteur de la mise en de candidature",
     "description": "Heading for nominator step of a talent nomination"
+  },
+  "vKdE5N": {
+    "defaultMessage": "Si vous avez déjà un identifiant ConnexionCanada, vous pouvez vous connecter à votre profil Talents numériques du GC avec celui-ci, même si vous n’avez jamais utilisé Talents numériques du GC auparavant. Si vous n’êtes pas certain d’avoir un identifiant ConnexionCanada, accédez au site et tentez de vous connecter. Si vous ne vous souvenez plus de votre mot de passe, vous pouvez le réinitialiser à cet endroit.",
+    "description": "CanadaLogin instructions for users who may already have an account"
   },
   "vKzPT0": {
     "defaultMessage": "La mise à jour des informations sur votre objectif de carrière a échoué",
@@ -13865,10 +14017,6 @@
   "vvnsjr": {
     "defaultMessage": "Votre objectif de carrière",
     "description": "Title for the career objective section"
-  },
-  "vweW8X": {
-    "defaultMessage": "Veuillez contacter notre <helpLink>équipe de soutien</helpLink> qui vous aidera à récupérer votre compte.",
-    "description": "GCKey answer for when user authenticator codes not accepted"
   },
   "w/qZsH": {
     "defaultMessage": "Classification",
@@ -14038,10 +14186,6 @@
     "defaultMessage": "Présence du GSN aux salons de l’emploi pour les personnes aux études ou récemment diplômées",
     "description": "Heading for DSG job fairs section"
   },
-  "wb/hvK": {
-    "defaultMessage": "Annuler la décision finale d’évaluation",
-    "description": "Heading for dialog to revert an application assessment decision"
-  },
   "wdFBSc": {
     "defaultMessage": "Merci d'avoir proposé la candidature de {name}! L'équipe de gestion des talents de {community} examinera bientôt votre mise en candidature. En attendant, vous pouvez consulter votre demande et son état d'avancement à partir de votre tableau de bord.",
     "description": "First paragraph on success step of a talent nomination"
@@ -14190,10 +14334,6 @@
     "defaultMessage": "Consultez, créez ou modifiez des modèles d’offre d’emploi.",
     "description": "Subtitle for the index job poster template page"
   },
-  "xOCF/f": {
-    "defaultMessage": "Les droits de priorité ont été mis à jour avec succès.",
-    "description": "Message displayed when a user successfully updates their priority entitlements."
-  },
   "xQSZ+V": {
     "defaultMessage": "Les récompenses et reconnaissances comprennent les distinctions précises que vous avez reçues pour avoir dépassé les attentes.",
     "description": "Description for award experience card header"
@@ -14265,6 +14405,10 @@
   "xggOcb": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez développé vos compétences et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, votre profil est votre outil pour être découvert par les responsables du recrutement.",
     "description": "Description du fonctionnement des profils de candidature"
+  },
+  "xgrysZ": {
+    "defaultMessage": "Vous allez quitter notre site pour vous inscrire avec ConnexionCanada. Nous avons préparé des instructions supplémentaires dans la section suivante pour vous aider.",
+    "description": "Copy under welcome heading at the top of the registration page"
   },
   "xhJI+V": {
     "defaultMessage": "Soutien en matière d’analyse et de planification",
@@ -14595,7 +14739,7 @@
     "description": "Status description for a reviewed application awaiting assessment"
   },
   "yzvT6g": {
-    "defaultMessage": "Ajouter un rôle dans la collectivité",
+    "defaultMessage": "Ajouter un rôle dans une collectivité",
     "description": "Button label for the form to add a community membership to a user"
   },
   "z+Pc2D": {
@@ -14627,7 +14771,7 @@
     "description": "Default text in table search form column dropdown when no column is selected"
   },
   "z6EMbE": {
-    "defaultMessage": "Scientifique",
+    "defaultMessage": "Sciences",
     "description": "Label for a science department"
   },
   "z6omvn": {

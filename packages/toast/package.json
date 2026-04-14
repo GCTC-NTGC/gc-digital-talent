@@ -11,6 +11,7 @@
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "tsc": "tsc --project tsconfig.json --noEmit"
   },
   "dependencies": {
@@ -27,7 +28,7 @@
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@types/react": "^19.2.14",
     "eslint": "^9.20.1",
-    "react": "^19.2.4",
+    "react": "^19.2.5",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.0"
   }

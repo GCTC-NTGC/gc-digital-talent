@@ -94,6 +94,11 @@ type LocalizedCandidateInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateReferralFilter implements LocalizedEnumOption {
+  value: CandidateReferralFilter!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
   label: LocalizedString!
@@ -1073,6 +1078,11 @@ enum CandidateInterest {
   EXPIRED
 }
 
+enum CandidateReferralFilter {
+  REFERRING
+  NOT_REFERRING
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
@@ -1223,6 +1233,8 @@ enum ErrorCode {
   DEPARTMENT_NUMBER_IN_USE
   DEPARTMENT_NOT_FOUND
   DEPARTMENT_MUST_NOT_BE_ARCHIVED
+  COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND
+  COMMUNITY_DEVELOPMENT_INVALID_SELECTION
   DEVELOPMENT_PROGRAM_NOT_FOUND
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED

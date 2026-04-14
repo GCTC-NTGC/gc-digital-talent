@@ -4,6 +4,7 @@ namespace App\Builders;
 
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateReferralFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
@@ -311,6 +312,56 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this;
+    }
+
+    public function whereReferralStatusIn(?array $referralStatuses): self
+    {
+        if (empty($referralStatuses)) {
+            return $this;
+        }
+
+        $hasReferring = in_array(CandidateReferralFilter::REFERRING->name, $referralStatuses, true);
+        $hasNotReferring = in_array(CandidateReferralFilter::NOT_REFERRING->name, $referralStatuses, true);
+
+        // only has referring
+        if ($hasReferring && ! $hasNotReferring) {
+            return $this->whereBeingReferred();
+        }
+
+        // only has not referring
+        if (! $hasReferring && $hasNotReferring) {
+            return $this->whereNotBeingReferred();
+        }
+
+        // none selected or both selected - no filtering
+        return $this;
+    }
+
+    public function whereBeingReferred(): self
+    {
+        $now = now();
+
+        return $this->where(function ($query) use ($now) {
+            $query->whereNull('pause_referrals_at')
+                ->orWhere('pause_referrals_at', '>', $now)
+                ->orWhere('resume_referrals_at', '<=', $now);
+        })
+            ->where('application_status', ApplicationStatus::QUALIFIED->name);
+    }
+
+    public function whereNotBeingReferred(): self
+    {
+        $now = now();
+
+        return $this->where(function ($query) use ($now) {
+            $query
+                ->where('pause_referrals_at', '<=', $now)
+                ->where(function ($query) use ($now) {
+                    $query->whereNull('resume_referrals_at')
+                        ->orWhere('resume_referrals_at', '>', $now);
+                })
+                ->orWhere('application_status', '!=', ApplicationStatus::QUALIFIED->name);
+        });
     }
 
     public function whereSuspendedStatus(?string $suspendedStatus): self

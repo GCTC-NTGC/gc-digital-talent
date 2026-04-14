@@ -1,12 +1,12 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import {
+import type {
   Community,
   CommunityInterest,
   DevelopmentProgram,
-  DevelopmentProgramParticipationStatus,
   WorkStream,
 } from "@gc-digital-talent/graphql";
+import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import fakeCommunities from "./fakeCommunities";
@@ -19,10 +19,9 @@ const generateCommunityInterest = (
   const workStreams = faker.helpers.arrayElements<WorkStream>(
     community.workStreams ?? [],
   );
-  const interestedDevelopmentPrograms =
-    faker.helpers.arrayElements<DevelopmentProgram>(
-      community?.developmentPrograms ?? [],
-    );
+  const developmentPrograms = faker.helpers.arrayElements<DevelopmentProgram>(
+    community?.associatedDevelopmentPrograms ?? [],
+  );
   return {
     id: faker.string.uuid(),
     community,
@@ -31,9 +30,14 @@ const generateCommunityInterest = (
     jobInterest: faker.datatype.boolean(),
     trainingInterest: faker.datatype.boolean(),
     additionalInformation: faker.lorem.paragraph(),
-    interestInDevelopmentPrograms: interestedDevelopmentPrograms.map(
+    interestInDevelopmentPrograms: developmentPrograms.map(
       (developmentProgram) => ({
         id: faker.string.uuid(),
+        communityDevelopmentProgram: {
+          id: faker.string.uuid(),
+          community: community,
+          developmentProgram: developmentProgram,
+        },
         developmentProgram,
         completionDate: FAR_PAST_DATE,
         participationStatus: faker.helpers.arrayElement(

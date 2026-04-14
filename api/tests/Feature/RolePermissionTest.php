@@ -145,27 +145,21 @@ class RolePermissionTest extends TestCase
 
         $permissionsToCheck = [
             'create-any-classification',
-            'view-any-classification',
             'update-any-classification',
             'delete-any-classification',
             'create-any-department',
-            'view-any-department',
             'update-any-department',
             'delete-any-department',
             'create-any-genericJobTitle',
-            'view-any-genericJobTitle',
             'update-any-genericJobTitle',
             'delete-any-genericJobTitle',
             'create-any-skill',
-            'view-any-skill',
             'update-any-skill',
             'delete-any-skill',
             'create-any-skillFamily',
-            'view-any-skillFamily',
             'update-any-skillFamily',
             'delete-any-skillFamily',
             'create-any-community',
-            'view-any-community',
             'update-any-community',
             'delete-any-community',
             'create-any-user',
@@ -185,7 +179,6 @@ class RolePermissionTest extends TestCase
             'view-any-applicationDecision',
             'view-any-applicationPlacement',
             'view-any-searchRequest',
-            'view-any-announcement',
             'update-any-announcement',
             'update-any-platformAdminMembership',
             'update-any-communityRecruiterMembership',
@@ -196,8 +189,6 @@ class RolePermissionTest extends TestCase
             'view-any-communityTeamMembers',
             'view-any-poolTeamMembers',
             'view-any-departmentTeamMembers',
-            'view-any-role',
-            'view-any-jobPosterTemplate',
             'create-any-jobPosterTemplate',
             'update-any-jobPosterTemplate',
             'delete-any-jobPosterTemplate',
@@ -380,6 +371,9 @@ class RolePermissionTest extends TestCase
             'update-team-talentNominationEvent',
             'update-team-communityTalentCoordinatorMembership',
             'view-any-userWorkEmail',
+            'create-team-communityDevelopmentProgram',
+            'update-team-communityDevelopmentProgram',
+            'delete-team-communityDevelopmentProgram',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
         $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
@@ -419,6 +413,9 @@ class RolePermissionTest extends TestCase
             'view-team-talentNomination',
             'update-team-talentNominationGroup',
             'view-team-talentNominationGroup',
+            'create-team-communityDevelopmentProgram',
+            'update-team-communityDevelopmentProgram',
+            'delete-team-communityDevelopmentProgram',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
         $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);

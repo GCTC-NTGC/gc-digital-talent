@@ -11,7 +11,11 @@ import {
   fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
-import { ApplicationStatus, PlacementType } from "@gc-digital-talent/graphql";
+import {
+  ApplicationStatus,
+  CandidateReferralFilter,
+  PlacementType,
+} from "@gc-digital-talent/graphql";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 
@@ -70,6 +74,13 @@ const mockClient = {
             label: { localized: "Qualified" },
           },
         ],
+        referralFilters: [
+          {
+            __typename: "LocalizedCandidateReferralFilter",
+            value: CandidateReferralFilter.Referring,
+            label: { localized: "Available for referral" },
+          },
+        ],
         placements: [
           {
             __typename: "LocalizedPlacementType",
@@ -85,6 +96,11 @@ const mockClient = {
             __typename: "LocalizedPlacementType",
             value: PlacementType.PlacedTentative,
             label: { localized: "Offer in progress" },
+          },
+          {
+            __typename: "LocalizedPlacementType",
+            value: PlacementType.PlacedTerm,
+            label: { localized: "Placed term" },
           },
           {
             __typename: "LocalizedPlacementType",
@@ -125,6 +141,10 @@ describe("Search Request Candidates Table", () => {
     expect(await within(filters).findAllByText(/placed acting/i)).toHaveLength(
       2,
     );
+    expect(await within(filters).findAllByText(/placed term/i)).toHaveLength(2);
     expect(await within(filters).findAllByText(/qualified/i)).toHaveLength(2);
+    expect(
+      await within(filters).findAllByText(/available for referral/i),
+    ).toHaveLength(2);
   });
 });

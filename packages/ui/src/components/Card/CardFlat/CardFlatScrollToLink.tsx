@@ -1,5 +1,5 @@
 import omit from "lodash/omit";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { ScrollToLink, type ScrollToLinkProps } from "../../Link";
 

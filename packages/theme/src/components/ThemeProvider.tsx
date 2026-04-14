@@ -1,14 +1,9 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-} from "react";
+import type { ReactNode } from "react";
+import { createContext, useCallback, useEffect, useMemo } from "react";
 
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
-import {
+import type {
   ThemeMode,
   ThemeKey,
   SetThemeFunc,

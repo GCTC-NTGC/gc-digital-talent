@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Carbon;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class Community
@@ -27,6 +29,7 @@ use Illuminate\Support\Carbon;
 class Community extends Model
 {
     use HasFactory;
+    use HasRelationships;
 
     protected $keyType = 'string';
 
@@ -99,6 +102,17 @@ class Community extends Model
         // I think this only works because we use UUIDs
         // There might be a better way to do this
         return $this->hasManyThrough(RoleAssignment::class, Team::class, 'teamable_id');
+    }
+
+    /** @return HasMany<CommunityDevelopmentProgram, $this> */
+    public function communityDevelopmentPrograms(): HasMany
+    {
+        return $this->hasMany(CommunityDevelopmentProgram::class);
+    }
+
+    public function developmentProgramsThroughPivot(): HasManyDeep
+    {
+        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram)->developmentProgram());
     }
 
     /**
@@ -174,15 +188,6 @@ class Community extends Model
     public function getTeamIdForRoleAssignmentAttribute()
     {
         return $this->team?->id;
-    }
-
-    /** A community has 0..* associated development programs
-     *
-     * @return HasMany<DevelopmentProgram, $this>
-     */
-    public function developmentPrograms(): HasMany
-    {
-        return $this->hasMany(DevelopmentProgram::class);
     }
 
     /**

@@ -7,6 +7,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError } from "@gc-digital-talent/helpers";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import profileMessages from "~/messages/profileMessages";
 import { SectionProps } from "~/components/Profile/types";
@@ -16,10 +17,11 @@ import WorkPreferences from "~/components/Profile/components/WorkPreferences/Wor
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
-import PriorityEntitlements from "~/components/Profile/components/PriorityEntitlements/PriorityEntitlements";
+import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
 import { requireUser } from "~/routing/auth";
 import { graphqlClientContext, intlContext } from "~/routing/context";
 import useRoutes from "~/hooks/useRoutes";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
 import type { Route } from "./+types/ProfilePage";
 
@@ -48,7 +50,7 @@ const ProfileUser_Query = graphql(/* GraphQL */ `
       isVerifiedGovEmployee
       ...ProfileWorkPreferences
       ...ProfileDiversityEquityInclusion
-      ...ProfilePriorityEntitlements
+      ...ProfileCitizenVeteranPriority
       ...ProfileGovernmentInformation
       ...ProfileLanguageProfile
     }
@@ -75,6 +77,9 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
   const paths = useRoutes();
   const revalidator = useRevalidator();
   const { user } = loaderData;
+
+  const [languagePresetNoticeIsVisible, setLanguagePresetNoticeIsVisible] =
+    useLocalStorage<boolean>(KEY_NEW_USER_LANGUAGE_PRESET, false);
 
   const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
     ProfileUpdateUser_Mutation,
@@ -113,9 +118,9 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
           </TableOfContents.ListItem>
           <TableOfContents.ListItem>
             <TableOfContents.AnchorLink
-              id={PAGE_SECTION_ID.PRIORITY_ENTITLEMENTS}
+              id={PAGE_SECTION_ID.CITIZEN_VETERAN_PRIORITY}
             >
-              {intl.formatMessage(getSectionTitle("priority"))}
+              {intl.formatMessage(getSectionTitle("citizen-veteran-priority"))}
             </TableOfContents.AnchorLink>
           </TableOfContents.ListItem>
           <TableOfContents.ListItem>
@@ -149,14 +154,22 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
           <TableOfContents.Section id={PAGE_SECTION_ID.DEI}>
             <DiversityEquityInclusion {...sectionProps} />
           </TableOfContents.Section>
-          <TableOfContents.Section id={PAGE_SECTION_ID.PRIORITY_ENTITLEMENTS}>
-            <PriorityEntitlements {...sectionProps} />
+          <TableOfContents.Section
+            id={PAGE_SECTION_ID.CITIZEN_VETERAN_PRIORITY}
+          >
+            <CitizenVeteranPriority {...sectionProps} />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.GOVERNMENT}>
             <GovernmentInformation query={user} />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.LANGUAGE}>
-            <LanguageProfile {...sectionProps} />
+            <LanguageProfile
+              languagePresetNoticeIsVisible={languagePresetNoticeIsVisible}
+              setLanguagePresetNoticeIsVisible={
+                setLanguagePresetNoticeIsVisible
+              }
+              {...sectionProps}
+            />
           </TableOfContents.Section>
         </div>
       </TableOfContents.Content>

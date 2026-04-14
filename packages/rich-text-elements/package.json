@@ -10,14 +10,15 @@
   "scripts": {
     "prettier": "prettier --check . --ignore-path=../../.prettierignore",
     "prettier:fix": "prettier --write . --ignore-path=../../.prettierignore",
-    "lint": "eslint \"src/**/*.ts*\"",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "tsc": "tsc --project tsconfig.json --noEmit"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@types/react": "^19.2.14",
     "eslint": "^9.20.1",
-    "react": "^19.2.4",
+    "react": "^19.2.5",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.0"
   }

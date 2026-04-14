@@ -9,5 +9,6 @@ export const SECTION_KEY = {
   WORK_PREF: "workPref",
   GOV_INFO: "govInfo",
   DEI: "dei",
+  CITIZEN_VETERAN_PRIORITY: "citizenVeteranPriority",
   SIGNATURE: "signature",
 } as const;

@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\ApplicationStatus;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateReferralFilter;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
@@ -908,5 +909,114 @@ class PoolCandidateSearchTest extends TestCase
                     ],
                 ]]);
 
+    }
+
+    public function testReferralStatusScope()
+    {
+        $now = Carbon::now();
+
+        // REFERRING: No pause set
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->qualified()
+            ->for($this->pool)
+            ->create([
+                'pause_referrals_at' => null,
+            ]);
+
+        // REFERRING: Resume date has passed (Was paused last week, resumed yesterday)
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->qualified()
+            ->for($this->pool)
+            ->create([
+                'pause_referrals_at' => $now->copy()->subWeek(),
+                'resume_referrals_at' => $now->copy()->subDay(),
+            ]);
+
+        // NOT_REFERRING: Currently paused (Started yesterday, no resume date)
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->qualified()
+            ->for($this->pool)
+            ->create([
+                'pause_referrals_at' => $now->copy()->subDay(),
+                'resume_referrals_at' => null,
+            ]);
+
+        // NOT_REFERRING: Current paused (Started yesterday, resumes tomorrow)
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->qualified()
+            ->for($this->pool)
+            ->create([
+                'pause_referrals_at' => $now->copy()->subDay(),
+                'resume_referrals_at' => $now->copy()->addDay(),
+            ]);
+
+        $query = <<<'GRAPHQL'
+        query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginatedAdminView(where: $where) {
+                paginatorInfo {
+                    count
+                }
+                data {
+                    id
+                }
+            }
+        }
+        GRAPHQL;
+
+        // Assert REFERRING returns 2 (no pause, paused but resumed)
+        $this->actingAs($this->processOperator, 'api')->graphQL($query, [
+            'where' => ['referralStatuses' => [CandidateReferralFilter::REFERRING->name]],
+        ])->assertJson([
+            'data' => [
+                'poolCandidatesPaginatedAdminView' => [
+                    'paginatorInfo' => [
+                        'count' => 2,
+                    ],
+                ],
+            ],
+        ]);
+
+        // Assert NOT_REFERRING returns 1 (paused with no resume date, paused with future resume date)
+        $this->actingAs($this->processOperator, 'api')->graphQL($query, [
+            'where' => ['referralStatuses' => [CandidateReferralFilter::NOT_REFERRING->name]],
+        ])->assertJson([
+            'data' => [
+                'poolCandidatesPaginatedAdminView' => [
+                    'paginatorInfo' => [
+                        'count' => 2,
+                    ],
+                ],
+            ],
+        ]);
+
+        // Assert both REFERRING, NOT_REFERRING returns 4 (all candidates) when all options supplied
+        $this->actingAs($this->processOperator, 'api')->graphQL($query, [
+            'where' => ['referralStatuses' => array_column(CandidateReferralFilter::cases(), 'name')],
+        ])->assertJson([
+            'data' => [
+                'poolCandidatesPaginatedAdminView' => [
+                    'paginatorInfo' => [
+                        'count' => 4,
+                    ],
+                ],
+            ],
+        ]);
+
+        // Assert both REFERRING, NOT_REFERRING returns 4 (all candidates) when no options supplied
+        $this->actingAs($this->processOperator, 'api')->graphQL($query, [
+            'where' => ['referralStatuses' => []],
+        ])->assertJson([
+            'data' => [
+                'poolCandidatesPaginatedAdminView' => [
+                    'paginatorInfo' => [
+                        'count' => 4,
+                    ],
+                ],
+            ],
+        ]);
     }
 }
