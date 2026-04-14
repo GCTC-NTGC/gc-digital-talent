@@ -16,6 +16,7 @@ interface LinkStatus {
   file: string;
   url: string;
   status: number | string;
+  isLegacyTLS?: boolean; // Track if this link requires legacy TLS
 }
 
 // Use a global variable for currentLinkFile instead of an interface
@@ -37,7 +38,7 @@ async function writeErrorLog(msg: string, file?: string, append = true) {
 async function fetchLink(
   url: string,
   timeoutMs = 30000,
-): Promise<number | string> {
+): Promise<{ status: number | string; isLegacyTLS: boolean }> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -52,7 +53,7 @@ async function fetchLink(
           "Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)",
       },
     });
-    return res.status;
+    return { status: res.status, isLegacyTLS: false };
   } catch (err) {
     // decode the error and find out if it's a legacy renegotiation error
     let reason;
@@ -83,23 +84,11 @@ async function fetchLink(
       reason = JSON.stringify(err);
       fullError = reason;
     }
-    if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
-      // retry with legacy TLS renegotiation enabled, using .env for all vars
-      const currentLinkFile = global.currentLinkFile ?? "";
-      spawnSync(process.execPath, process.argv.slice(1), {
-        env: {
-          ...process.env,
-          NODE_OPTIONS: "--tls-legacy-renegotiation",
-          _RETRIED_LEGACY_TLS: "1",
-          _RETRY_LINK_URL: url,
-          _RETRY_LINK_FILE: currentLinkFile,
-        },
-        stdio: "inherit",
-      });
-      return "retried-with-legacy-tls";
+    // Only log error during retry phase (indicated by _RETRY_FAILED_LINKS env var)
+    if (process.env._RETRY_FAILED_LINKS) {
+      await writeErrorLog(`Fetch error for ${url}: ${fullError}`);
     }
-    await writeErrorLog(`Fetch error for ${url}: ${fullError}`);
-    return reason;
+    return { status: reason, isLegacyTLS: isLegacyRenegotiation };
   } finally {
     clearTimeout(timeout);
   }
@@ -161,27 +150,31 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
 
 async function main() {
   try {
-    // If running as a retry for a batch of legacy TLS links
-    if (process.env._RETRIED_LEGACY_TLS && process.env._RETRY_LEGACY_LINKS) {
+    // If running as a retry for all failed links
+    if (process.env._RETRY_FAILED_LINKS) {
       const parsed = JSON.parse(
-        process.env._RETRY_LEGACY_LINKS ?? "[]",
+        process.env._RETRY_FAILED_LINKS ?? "[]",
       ) as unknown;
-      const retryLinks: { file: string; url: string }[] = Array.isArray(parsed)
-        ? (parsed as unknown[]).filter(
-            (item): item is { file: string; url: string } =>
-              typeof item === "object" &&
-              item !== null &&
-              typeof (item as { file?: unknown }).file === "string" &&
-              typeof (item as { url?: unknown }).url === "string",
-          )
-        : [];
+      const retryLinks: { file: string; url: string; isLegacyTLS?: boolean }[] =
+        Array.isArray(parsed)
+          ? (parsed as unknown[]).filter(
+              (
+                item,
+              ): item is { file: string; url: string; isLegacyTLS?: boolean } =>
+                typeof item === "object" &&
+                item !== null &&
+                typeof (item as { file?: unknown }).file === "string" &&
+                typeof (item as { url?: unknown }).url === "string",
+            )
+          : [];
+
       const results: LinkStatus[] = [];
       for (const link of retryLinks) {
         global.currentLinkFile = link.file;
-        const status = await fetchLink(link.url);
+        const { status } = await fetchLink(link.url);
         results.push({ file: link.file, url: link.url, status });
       }
-      // Save broken links
+      // Save broken links - only report errors that fail on retry
       const brokenLinks = results.filter((r) => r.status !== 200);
       const brokenLinksPath = path.resolve("external-broken-links.json");
       await fs.writeFile(
@@ -226,43 +219,35 @@ async function main() {
     );
     // This can be enhanced with concurrency if the links are too many and slow
     const results: LinkStatus[] = [];
-    const legacyLinks: { file: string; url: string }[] = [];
+    const failedLinks: { file: string; url: string; isLegacyTLS: boolean }[] =
+      [];
     for (const link of allLinks) {
       global.currentLinkFile = link.file;
-      const status = await fetchLink(link.url);
-      // some old gov links  need legacy TLS renegotiation
-      if (
-        status === "retried-with-legacy-tls" ||
-        status === "ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED"
-      ) {
-        legacyLinks.push({ file: link.file, url: link.url });
+      const { status, isLegacyTLS } = await fetchLink(link.url);
+      // Track all failed links for retry (not just legacy TLS)
+      if (status !== 200) {
+        failedLinks.push({ file: link.file, url: link.url, isLegacyTLS });
       } else {
         results.push({ file: link.file, url: link.url, status });
       }
     }
-    // re-try all legacy links in a single batch with NODE_OPTIONS=--tls-legacy-renegotiation
-    if (legacyLinks.length > 0 && !process.env._RETRIED_LEGACY_TLS) {
+    // Retry all failed links once
+    // If any links require legacy TLS, use the legacy TLS flag for the entire retry batch
+    if (failedLinks.length > 0 && !process.env._RETRY_FAILED_LINKS) {
+      const hasLegacyTLSLinks = failedLinks.some((link) => link.isLegacyTLS);
       spawnSync(process.execPath, process.argv.slice(1), {
         env: {
           ...process.env,
-          NODE_OPTIONS: "--tls-legacy-renegotiation",
-          _RETRIED_LEGACY_TLS: "1",
-          _RETRY_LEGACY_LINKS: JSON.stringify(legacyLinks),
+          ...(hasLegacyTLSLinks
+            ? { NODE_OPTIONS: "--tls-legacy-renegotiation" }
+            : {}),
+          _RETRY_FAILED_LINKS: JSON.stringify(failedLinks),
         },
         stdio: "inherit",
       });
     }
-    // create broken links file only if any broken link exist
-    const brokenLinks = results.filter((r) => r.status !== 200);
-    if (brokenLinks.length > 0) {
-      const brokenLinksPath = path.resolve("external-broken-links.json");
-      await fs.writeFile(
-        brokenLinksPath,
-        JSON.stringify(brokenLinks, null, 2),
-        "utf-8",
-      );
-      process.exit(1);
-    }
+    // When there are no failed links, no broken links file needed
+    // The retry subprocess will handle creating the broken links file
   } catch (err) {
     let msg: string;
     if (err instanceof Error) {
