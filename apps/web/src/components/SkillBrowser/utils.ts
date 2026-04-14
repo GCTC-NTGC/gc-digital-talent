@@ -1,12 +1,16 @@
-import { IntlShape } from "react-intl";
-import { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
+import type { ReactNode } from "react";
 
-import { Option } from "@gc-digital-talent/forms";
-import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
+import type { Option } from "@gc-digital-talent/forms";
+import type {
+  Skill,
+  SkillCategory,
+  SkillFamily,
+} from "@gc-digital-talent/graphql";
 
 import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
 
-import { FormValues, SkillBrowserDialogContext } from "./types";
+import type { FormValues, SkillBrowserDialogContext } from "./types";
 
 export const INPUT_NAME = {
   CATEGORY: "skill-browser-category",

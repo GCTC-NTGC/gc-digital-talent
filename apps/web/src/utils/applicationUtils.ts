@@ -6,14 +6,14 @@
  * For utilities general to the PoolCandidate object, or specific to the Admin side, see ./poolCandidates.ts
  */
 
-import { StepType } from "@gc-digital-talent/ui";
-import {
+import type { StepType } from "@gc-digital-talent/ui";
+import type {
   ApplicationStep,
   Maybe,
   Application_PoolCandidateFragment,
 } from "@gc-digital-talent/graphql";
 
-import {
+import type {
   ApplicationBrowserState,
   ApplicationStepInfo,
 } from "~/types/applicationStep";

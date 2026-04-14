@@ -4,7 +4,7 @@ import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import { useMutation, useQuery } from "urql";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import {
   ThrowNotFound,
@@ -25,12 +25,14 @@ import {
 import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import {
+import type {
   FragmentType,
   Scalars,
-  SkillCategory,
   SkillLevel,
   WhenSkillUsed,
+} from "@gc-digital-talent/graphql";
+import {
+  SkillCategory,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

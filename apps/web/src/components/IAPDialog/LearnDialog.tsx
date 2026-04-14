@@ -4,7 +4,7 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 
 import Heading from "../IAPHeading/Heading";
 import CloseButton from "./CloseButton";
-import { BasicDialogProps } from "./types";
+import type { BasicDialogProps } from "./types";
 
 const LearnDialog = ({ btnProps }: BasicDialogProps) => {
   const intl = useIntl();

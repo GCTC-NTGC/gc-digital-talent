@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 export const LOAD_MORE_ROOT_ID = "notification-load-more";

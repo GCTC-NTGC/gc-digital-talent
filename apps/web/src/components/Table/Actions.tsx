@@ -3,7 +3,7 @@ import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
 import { useLocation } from "react-router";
 
 import { Link } from "@gc-digital-talent/ui";
-import { Maybe } from "@gc-digital-talent/graphql";
+import type { Maybe } from "@gc-digital-talent/graphql";
 
 export interface ActionsProps {
   id: string;

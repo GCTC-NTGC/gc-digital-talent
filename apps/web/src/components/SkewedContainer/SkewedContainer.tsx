@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
 import { Container, Flourish } from "@gc-digital-talent/ui";

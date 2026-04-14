@@ -1,17 +1,17 @@
 import orderBy from "lodash/orderBy";
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { DropdownMenu, IconButton, Link, Ul } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
+import type {
   Maybe,
   Role,
   CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
 
-import { CommunityMember } from "~/utils/communityUtils";
+import type { CommunityMember } from "~/utils/communityUtils";
 
 import EditCommunityMemberDialog from "./components/EditCommunityMemberDialog";
 import RemoveCommunityMemberDialog from "./components/RemoveCommunityMemberDialog";

@@ -1,10 +1,10 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 
 import {
   fakeExperiences,
   fakePoolCandidates,
 } from "@gc-digital-talent/fake-data";
-import { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
 
 import { ApplicationCareerTimeline } from "./ApplicationCareerTimelinePage";
 
