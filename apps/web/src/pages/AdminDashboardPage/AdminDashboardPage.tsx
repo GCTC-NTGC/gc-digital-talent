@@ -169,6 +169,11 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       roles: [ROLE_NAME.PlatformAdmin],
     },
     {
+      label: intl.formatMessage(adminMessages.developmentPrograms),
+      href: adminRoutes.developmentProgramTable(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
       label: intl.formatMessage(adminMessages.rolesAndPermissions),
       href: adminRoutes.rolesAndPermissions(),
       roles: [
