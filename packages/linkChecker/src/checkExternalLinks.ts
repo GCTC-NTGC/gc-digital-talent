@@ -236,8 +236,8 @@ async function main() {
         results.push({ file: link.file, url: link.url, status });
       }
     }
-    // Retry all failed links once
-    if (failedLinks.length > 0) {
+    // Retry all failed links once (only in first pass, not during retry)
+    if (failedLinks.length > 0 && !process.env._RETRY_FAILED_LINKS) {
       const result = spawnSync(process.execPath, process.argv.slice(1), {
         env: {
           ...process.env,
