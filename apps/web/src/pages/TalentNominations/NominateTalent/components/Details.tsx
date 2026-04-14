@@ -81,6 +81,23 @@ const DetailsEmployee_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const DetailsCommunityDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
+  fragment DetailsCommunityDevelopmentProgram on CommunityDevelopmentProgram {
+    id
+    pivot {
+      descriptionForNominations {
+        localized
+      }
+    }
+    developmentProgram {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
+
 type NominationOption =
   | "advancement"
   | "lateralMovement"
@@ -107,25 +124,30 @@ type DetailsFieldsOptionsFragmentType = FragmentType<
 >;
 
 interface DetailsFieldsProps {
-  developmentProgramOptions: Omit<
-    DevelopmentProgram,
-    "descriptionForProfile"
-  >[];
   optionsQuery?: DetailsFieldsOptionsFragmentType;
   employeeQuery?: FragmentType<typeof DetailsEmployee_Fragment>;
+  communityDevelopmentProgramQuery?: FragmentType<
+    typeof DetailsCommunityDevelopmentProgram_Fragment
+  >[];
 }
 
 const DetailsFields = ({
   optionsQuery,
   employeeQuery,
-  communityDevelopmentProgramOptions,
+  communityDevelopmentProgramQuery,
 }: DetailsFieldsProps) => {
   const intl = useIntl();
 
   const options = getFragment(DetailsFieldsOptions_Fragment, optionsQuery);
+
   const advancementReferenceData = getFragment(
     DetailsEmployee_Fragment,
     employeeQuery,
+  );
+
+  const communityDevelopmentProgramData = getFragment(
+    DetailsCommunityDevelopmentProgram_Fragment,
+    communityDevelopmentProgramQuery,
   );
 
   const { watch, resetField: baseReset } = useFormContext<FormValues>();
@@ -473,12 +495,14 @@ const DetailsFields = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
                 items={[
-                  ...communityDevelopmentProgramOptions.map((cdp) => ({
-                    value: cdp.id,
-                    label: cdp.developmentProgram.name?.localized ?? "",
-                    contentBelow:
-                      cdp.pivot?.descriptionForNominations?.localized ?? "",
-                  })),
+                  ...unpackMaybes(communityDevelopmentProgramData).map(
+                    (cdp) => ({
+                      value: cdp.id,
+                      label: cdp.developmentProgram.name?.localized ?? "",
+                      contentBelow:
+                        cdp.pivot?.descriptionForNominations?.localized ?? "",
+                    }),
+                  ),
                   {
                     value: "other",
                     label: intl.formatMessage(commonMessages.other),
@@ -510,17 +534,7 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
     talentNominationEvent {
       communityDevelopmentPrograms {
         id
-        pivot {
-          descriptionForNominations {
-            localized
-          }
-        }
-        developmentProgram {
-          id
-          name {
-            localized
-          }
-        }
+        ...DetailsCommunityDevelopmentProgram
       }
     }
     nominateForAdvancement
@@ -734,14 +748,11 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
         })}
       </p>
       <DetailsFields
-        communityDevelopmentProgramOptions={
-          unpackMaybes(
-            talentNomination?.talentNominationEvent
-              ?.communityDevelopmentPrograms,
-          ) ?? []
-        }
         optionsQuery={optionsQuery}
         employeeQuery={talentNomination?.advancementReference ?? undefined}
+        communityDevelopmentProgramQuery={unpackMaybes(
+          talentNomination?.talentNominationEvent?.communityDevelopmentPrograms,
+        )}
       />
     </UpdateForm>
   );
