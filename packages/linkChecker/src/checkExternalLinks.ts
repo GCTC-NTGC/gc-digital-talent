@@ -112,6 +112,11 @@ async function getAllFiles(): Promise<string[]> {
   return files;
 }
 
+// Check if a status indicates a successful response (2xx range)
+function isSuccessStatus(status: number | string): boolean {
+  return typeof status === "number" && status >= 200 && status < 300;
+}
+
 function isValidExternalLink(url: string): boolean {
   const whiteListedDomains = [
     "https://fonts.googleapis.com",
@@ -175,7 +180,7 @@ async function main() {
         results.push({ file: link.file, url: link.url, status, isLegacyTLS });
       }
       // Save broken links - only report errors that fail on retry
-      const brokenLinks = results.filter((r) => r.status !== 200);
+      const brokenLinks = results.filter((r) => !isSuccessStatus(r.status));
       const brokenLinksPath = path.resolve("external-broken-links.json");
       await fs.writeFile(
         brokenLinksPath,
@@ -225,7 +230,7 @@ async function main() {
       global.currentLinkFile = link.file;
       const { status, isLegacyTLS } = await fetchLink(link.url);
       // Track all failed links for retry (not just legacy TLS)
-      if (status !== 200) {
+      if (!isSuccessStatus(status)) {
         failedLinks.push({ file: link.file, url: link.url, isLegacyTLS });
       } else {
         results.push({ file: link.file, url: link.url, status });
