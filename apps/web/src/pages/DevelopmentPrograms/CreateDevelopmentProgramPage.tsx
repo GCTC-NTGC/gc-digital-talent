@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler} from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Submit } from "@gc-digital-talent/forms";
-import {
-  graphql,
+import type {
   CreateDevelopmentProgramInput,
   Scalars,
-  LocalizedStringInput,
+  LocalizedStringInput} from "@gc-digital-talent/graphql";
+import {
+  graphql
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Heading, Link, CardSeparator, Card } from "@gc-digital-talent/ui";

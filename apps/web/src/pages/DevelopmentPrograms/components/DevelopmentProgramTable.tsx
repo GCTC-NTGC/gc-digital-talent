@@ -1,13 +1,15 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef} from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
+import type {
+  DevelopmentProgramTableRowFragment,
+  FragmentType} from "@gc-digital-talent/graphql";
 import {
   graphql,
-  DevelopmentProgramTableRowFragment,
-  FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
