@@ -7846,10 +7846,6 @@
     "defaultMessage": "Options de lieu de travail flexible",
     "description": "Legend for the flexible work location preferences section"
   },
-  "W2s794": {
-    "defaultMessage": "Programme de perfectionnement",
-    "description": "Label for the development program nomination type"
-  },
   "W3KFtQ": {
     "defaultMessage": "Vous avez déjà un compte de CléGC?",
     "description": "GCKey question for when user already has an account"
