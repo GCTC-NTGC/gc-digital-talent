@@ -119,7 +119,6 @@ const DetailsFields = ({
   communityDevelopmentProgramOptions,
 }: DetailsFieldsProps) => {
   const intl = useIntl();
-  console.log(communityDevelopmentProgramOptions);
 
   const options = getFragment(DetailsFieldsOptions_Fragment, optionsQuery);
   const advancementReferenceData = getFragment(
