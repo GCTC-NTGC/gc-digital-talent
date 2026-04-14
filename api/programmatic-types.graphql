@@ -1422,6 +1422,7 @@ enum GovEmployeeType {
   TERM
   INDETERMINATE
   CONTRACTOR
+  INTERCHANGE
 }
 
 enum GovPositionType {

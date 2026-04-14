@@ -361,8 +361,14 @@ trait GeneratesUserDoc
             $section->addTitle($experience->getTitle(), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('headings.awarded_to'), $this->localizeEnum($experience->awarded_to, AwardedTo::class));
+            if ($experience->project_name) {
+                $this->addLabelText($section, $this->localize('headings.project_name'), $experience->project_name);
+            }
             $this->addLabelText($section, $this->localize('headings.issuing_organization'), $experience->issued_by);
             $this->addLabelText($section, $this->localize('headings.awarded_scope'), $this->localizeEnum($experience->awarded_scope, AwardedScope::class));
+            if ($experience->relatedExperience) {
+                $this->addLabelText($section, $this->localize('headings.related_experience'), $experience->relatedExperience->getTitle());
+            }
             $this->addLabelText($section, $this->localize('headings.additional_details'), $experience->details);
 
             if ($withSkills) {

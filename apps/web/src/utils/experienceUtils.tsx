@@ -128,8 +128,8 @@ export const getExperienceFormLabels = (
         "Heading for the experience type section fo the experience form",
     }),
     awardTitle: intl.formatMessage({
-      defaultMessage: "Award title",
-      id: "lhCCs2",
+      defaultMessage: "Title of the award",
+      id: "aDzHrq",
       description: "Label displayed on award form for award title input",
     }),
     awardedDate: intl.formatMessage({
@@ -138,19 +138,45 @@ export const getExperienceFormLabels = (
       description: "Label displayed on award form for date awarded input",
     }),
     awardedTo: intl.formatMessage({
-      defaultMessage: "Awarded to",
-      id: "0H0CLx",
+      defaultMessage: "Recipient",
+      id: "850QUT",
       description: "Label displayed on Award form for awarded to input",
     }),
     issuedBy: intl.formatMessage({
-      defaultMessage: "Issuing organization",
-      id: "NGEgVN",
+      defaultMessage: "Issuing organization or institution",
+      id: "bW9d6v",
       description: "Label displayed on award form for organization section",
     }),
     awardedScope: intl.formatMessage({
-      defaultMessage: "Award scope",
-      id: "gnEK8V",
+      defaultMessage: "Scope of the award",
+      id: "cvI3z6",
       description: "Label displayed on Award form for award scope input",
+    }),
+    relatedExperience: intl.formatMessage({
+      defaultMessage: "Related experience",
+      id: "G/VuSY",
+      description: "Label displayed on Award form for related experience input",
+    }),
+    projectName: intl.formatMessage({
+      defaultMessage: "Name of the project",
+      id: "1NdwmN",
+      description:
+        "Label displayed on Award form for awarded to project name input",
+    }),
+    employmentCategory: intl.formatMessage({
+      defaultMessage: "Employment category",
+      id: "BdpXAF",
+      description: "Label for the employment category radio group",
+    }),
+    department: intl.formatMessage({
+      defaultMessage: "Department",
+      id: "9aW0M6",
+      description: "Title for department",
+    }),
+    role: intl.formatMessage({
+      defaultMessage: "My role",
+      id: "nyQyqM",
+      description: "Label displayed on an Experience form for role input",
     }),
     jobTitle: intl.formatMessage({
       defaultMessage: "Job title",
@@ -444,6 +470,9 @@ export const formValuesToSubmitData = (
     seniorManagementStatus,
     cSuiteRoleTitle,
     otherCSuiteRoleTitle,
+    projectName,
+    relatedExperienceId,
+    relatedExperienceType,
   } = data;
 
   // for government employee experiences only, expected end date is present in end date field
@@ -459,6 +488,11 @@ export const formValuesToSubmitData = (
       awardedDate,
       awardedTo,
       awardedScope,
+      projectName,
+      relatedExperienceId,
+      relatedExperienceType: relatedExperienceType
+        ? `App\\Models\\${relatedExperienceType}`
+        : null,
     },
     community: {
       title: role,
@@ -658,14 +692,25 @@ export const deriveExperienceType = (
 const getAwardExperienceDefaultValues = (
   experience: Omit<AwardExperience, "user">,
 ) => {
-  const { title, issuedBy, awardedDate, awardedTo, awardedScope, details } =
-    experience;
+  const {
+    title,
+    issuedBy,
+    awardedDate,
+    awardedTo,
+    awardedScope,
+    projectName,
+    relatedExperience,
+    details,
+  } = experience;
   return {
     awardTitle: title,
     issuedBy,
     awardedDate,
     awardedTo: awardedTo?.value,
     awardedScope: awardedScope?.value,
+    projectName,
+    relatedExperienceId: relatedExperience?.id,
+    relatedExperienceType: relatedExperience?.__typename,
     details,
   };
 };

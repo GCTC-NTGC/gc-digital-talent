@@ -19,6 +19,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $details
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property string $project_name
+ * @property Experience $relatedExperience
  */
 class AwardExperience extends Experience
 {
@@ -42,6 +44,11 @@ class AwardExperience extends Experience
         'awarded_to' => 'awardedTo',
         'awarded_scope' => 'awardedScope',
     ];
+
+    public function relatedExperience()
+    {
+        return $this->morphTo();
+    }
 
     public function getTitle(): string
     {

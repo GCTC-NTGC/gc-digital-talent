@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 
@@ -26,6 +27,19 @@ class PersonalExperience extends Experience
     use HasUuids;
     use SoftDeletes;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($experience) {
+            // Delete all related award experiences
+            $experience->awardExperiences->each(function ($award) {
+                $award->relatedExperience()->dissociate();
+                $award->save();
+            });
+        });
+    }
+
     /**
      * The attributes that should be cast.
      *
@@ -43,6 +57,11 @@ class PersonalExperience extends Experience
         'learning_description' => 'learningDescription',
         'organization' => 'organization',
     ];
+
+    public function awardExperiences(): MorphMany
+    {
+        return $this->morphMany(AwardExperience::class, 'related_experience');
+    }
 
     public function getTitle(): string
     {

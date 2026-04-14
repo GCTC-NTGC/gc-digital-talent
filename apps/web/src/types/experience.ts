@@ -66,12 +66,15 @@ interface FormValueDateRange {
   endDate?: Scalars["Date"]["input"] | null;
 }
 
-interface AwardFormValues {
+export interface AwardFormValues {
   awardTitle: string;
   awardedTo: AwardedTo;
   issuedBy: string;
   awardedScope: AwardedScope;
   awardedDate: Scalars["Date"]["input"];
+  projectName?: string | null;
+  relatedExperienceId?: string;
+  relatedExperienceType?: string;
 }
 
 export type CommunityFormValues = FormValueDateRange & {
@@ -208,6 +211,9 @@ export interface ExperienceDetailsSubmissionData {
   cSuiteRoleTitle?: CSuiteRoleTitle | null;
   otherCSuiteRoleTitle?: string | null;
   learningDescription?: string;
+  projectName?: string | null;
+  relatedExperienceId?: string;
+  relatedExperienceType?: string | null;
 }
 
 type ExperienceMutations = CreateAwardExperienceMutation &
@@ -288,4 +294,7 @@ export interface ExperienceDetailsDefaultValues {
   cSuiteRoleTitle?: CSuiteRoleTitle;
   otherCSuiteRoleTitle?: string;
   learningDescription?: string;
+  projectName?: string;
+  relatedExperienceId?: string;
+  relatedExperienceType?: string;
 }
