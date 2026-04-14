@@ -48,7 +48,9 @@ async function fetchLink(
       redirect: "follow",
       signal: controller.signal,
       headers: {
-        // Use a browser-like User-Agent to avoid being blocked by sites that filter bots
+        // Use a browser-like User-Agent to avoid being blocked by sites that filter bots.
+        // Note: The Chrome version is intentionally generic (120.x) as most sites only check
+        // for a valid-looking browser string rather than exact version matching.
         "User-Agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         Accept:
