@@ -91,8 +91,8 @@ const NominateTalent_Query = graphql(/* GraphQL */ `
 
 const subTitle = defineMessage({
   defaultMessage:
-    "Nominate talent for advancement, lateral movement, or development programs.",
-  id: "4adKE5",
+    "Nominate talent for advancement, lateral movement, or development opportunities.",
+  id: "OoPiFu",
   description: "Subtitle for the form to nominate talent",
 });
 

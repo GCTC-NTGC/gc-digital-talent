@@ -119,6 +119,7 @@ const DetailsFields = ({
   communityDevelopmentProgramOptions,
 }: DetailsFieldsProps) => {
   const intl = useIntl();
+  console.log(communityDevelopmentProgramOptions);
 
   const options = getFragment(DetailsFieldsOptions_Fragment, optionsQuery);
   const advancementReferenceData = getFragment(
@@ -212,7 +213,7 @@ const DetailsFields = ({
           },
           {
             value: "developmentProgram",
-            label: intl.formatMessage(labels.developmentProgram),
+            label: intl.formatMessage(labels.developmentOpportunities),
             contentBelow: intl.formatMessage({
               defaultMessage:
                 "The employee would benefit from a development or learning opportunity to help prepare them for their next role.",
@@ -441,18 +442,13 @@ const DetailsFields = ({
             <div className="flex flex-col gap-6">
               <div>
                 <Heading level="h3" size="h6">
-                  {intl.formatMessage({
-                    defaultMessage: "Development program options",
-                    id: "PZEAt8",
-                    description:
-                      "Title for development program options section in nominations details step",
-                  })}
+                  {intl.formatMessage(labels.developmentOpportunities)}
                 </Heading>
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Indicate one or more options that are recommended for the nominee.",
-                    id: "lu11dr",
+                      "Select one or more programs, certifications or accreditations that this nominee would benefit from participating in.",
+                    id: "MnwLD0",
                     description:
                       "Description for development program options section in nominations details step",
                   })}
@@ -461,12 +457,7 @@ const DetailsFields = ({
               <Checklist
                 idPrefix="communityDevelopmentPrograms"
                 name="communityDevelopmentPrograms"
-                legend={intl.formatMessage({
-                  defaultMessage: "Development program options",
-                  id: "OTI+Kb",
-                  description:
-                    "Label for the development program options checklist on the details step",
-                })}
+                legend={intl.formatMessage(labels.developmentOpportunities)}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -474,8 +465,31 @@ const DetailsFields = ({
                   ...communityDevelopmentProgramOptions.map((cdp) => ({
                     value: cdp.id,
                     label: cdp.developmentProgram.name?.localized ?? "",
-                    contentBelow:
-                      cdp.pivot?.descriptionForNominations?.localized ?? "",
+                    contentBelow: (
+                      <>
+                        {cdp.classifications &&
+                        cdp?.classifications.length > 0 ? (
+                          <>
+                            {intl.formatMessage({
+                              defaultMessage: "Restricted to",
+                              id: "622Kr4",
+                              description:
+                                "List of classifications that development programs are limited to",
+                            })}
+                            {intl.formatMessage(commonMessages.dividingColon)}
+
+                            {cdp.classifications
+                              .map(
+                                (classification) =>
+                                  `${classification.group}-${classification.level}`,
+                              )
+                              .join(", ")}
+                            <br />
+                          </>
+                        ) : null}
+                        {cdp.pivot?.descriptionForNominations?.localized}
+                      </>
+                    ),
                   })),
                   {
                     value: "other",
@@ -512,6 +526,10 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
           descriptionForNominations {
             localized
           }
+        }
+        classifications {
+          group
+          level
         }
         developmentProgram {
           id

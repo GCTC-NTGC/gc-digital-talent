@@ -116,7 +116,7 @@ const NominationDetailsReview = ({
       ...types,
       {
         key: "nominationForDevelopmentPrograms",
-        name: intl.formatMessage(labels.developmentProgram),
+        name: intl.formatMessage(labels.developmentOpportunities),
       },
     ];
   }

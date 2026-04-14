@@ -1655,10 +1655,6 @@
     "defaultMessage": "Parlez-nous de <strong>votre expérience professionnelle, de votre participation à la vie de la collectivité, des prix que vous avez reçus, de vos initiatives personnelles et de vos études</strong>. Vous utiliserez ces renseignements ultérieurement dans votre candidature pour nous aider à comprendre comment vous répondez aux exigences en matière d’éducation et de compétences de ce poste.",
     "description": "Application step to begin working on career timeline, paragraph two"
   },
-  "4adKE5": {
-    "defaultMessage": "Nommez des talents pour de l'avancement, de la mutation latérale ou des programmes de perfectionnement.",
-    "description": "Subtitle for the form to nominate talent"
-  },
   "4bWCNR": {
     "defaultMessage": "(Aucun fourni)",
     "description": "Message displayed when a given field has no values to display, that no information is present."
@@ -6175,10 +6171,6 @@
     "defaultMessage": "Il semble que vous n'ayez pas encore répondu aux questions générales.",
     "description": "Null state message in general questions section of the application review page."
   },
-  "OTI+Kb": {
-    "defaultMessage": "Options du programme de perfectionnement",
-    "description": "Label for the development program options checklist on the details step"
-  },
   "OTWd3v": {
     "defaultMessage": "Sélectionnez la collectivité",
     "description": "Placeholder text for community selection input"
@@ -6442,10 +6434,6 @@
   "PYeS11": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} one {# expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
     "description": "list a number of award experiences"
-  },
-  "PZEAt8": {
-    "defaultMessage": "Options du programme de perfectionnement",
-    "description": "Title for development program options section in nominations details step"
   },
   "Pasf+O": {
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
@@ -10390,10 +10378,6 @@
     "defaultMessage": "« Mes trois examens de niveau linguistique sont <strong>actuellement valides</strong>. »",
     "description": "Radio option for exam validity input on language information form."
   },
-  "gSyRKu": {
-    "defaultMessage": "Programme de perfectionnement",
-    "description": "Label for the development program nomination option on the details step"
-  },
   "gU/nxf": {
     "defaultMessage": "Ajoutez une expérience à votre parcours professionnel",
     "description": "Title for application career timeline add experience"
@@ -11645,10 +11629,6 @@
   "ltzA7w": {
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
     "description": "How to get help from the support team - IAP variant"
-  },
-  "lu11dr": {
-    "defaultMessage": "Indiquez une ou plusieurs options recommandées pour la personne candidate.",
-    "description": "Description for development program options section in nominations details step"
   },
   "luj0xr": {
     "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada.",
@@ -14417,10 +14397,6 @@
   "xhdl6Q": {
     "defaultMessage": "Modifier <hidden>la possibilité de formation</hidden>",
     "description": "Breadcrumb title for the edit training opportunity page link."
-  },
-  "xidShX": {
-    "defaultMessage": "Autre possibilité de programme de perfectionnement",
-    "description": "Label other development program option input on the details step"
   },
   "xjdD1/": {
     "defaultMessage": "Retirer de la collectivité",

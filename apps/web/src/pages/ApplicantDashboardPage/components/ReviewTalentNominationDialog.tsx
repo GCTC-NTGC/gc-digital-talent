@@ -398,8 +398,8 @@ const ReviewTalentNominationDialog = ({
                     <FieldDisplay
                       className="xs:col-span-2"
                       label={intl.formatMessage({
-                        defaultMessage: "Other development program option",
-                        id: "xidShX",
+                        defaultMessage: "Other development opportunity name",
+                        id: "ncVR6j",
                         description:
                           "Label other development program option input on the details step",
                       })}
