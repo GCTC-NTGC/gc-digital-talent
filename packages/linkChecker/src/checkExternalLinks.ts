@@ -42,22 +42,44 @@ async function fetchLink(
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
+  const headers = {
+    // Use a browser-like User-Agent to avoid being blocked by sites that filter bots.
+    // Note: The Chrome version is intentionally generic (120.x) as most sites only check
+    // for a valid-looking browser string rather than exact version matching.
+    "User-Agent":
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    Accept:
+      "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.5",
+  };
+
   try {
-    const res = await fetch(url, {
-      method: "GET",
+    // Try HEAD first (faster, no body download)
+    let res = await fetch(url, {
+      method: "HEAD",
       redirect: "follow",
       signal: controller.signal,
-      headers: {
-        // Use a browser-like User-Agent to avoid being blocked by sites that filter bots.
-        // Note: The Chrome version is intentionally generic (120.x) as most sites only check
-        // for a valid-looking browser string rather than exact version matching.
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        Accept:
-          "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-      },
+      headers,
     });
+
+    // If HEAD returns 405 (Method Not Allowed) or 403, try GET as fallback
+    // Some servers don't support HEAD or block it specifically
+    if (res.status === 405 || res.status === 403) {
+      clearTimeout(timeout);
+      const getController = new AbortController();
+      const getTimeout = setTimeout(() => getController.abort(), timeoutMs);
+      try {
+        res = await fetch(url, {
+          method: "GET",
+          redirect: "follow",
+          signal: getController.signal,
+          headers,
+        });
+      } finally {
+        clearTimeout(getTimeout);
+      }
+    }
+
     return { status: res.status, isLegacyTLS: false };
   } catch (err) {
     // decode the error and find out if it's a legacy renegotiation error
