@@ -146,7 +146,7 @@ test.describe("Talent nomination management", () => {
       .getByRole("checkbox", { name: /lateral movement/i })
       .click();
     await appPage.page
-      .getByRole("checkbox", { name: /development program/i })
+      .getByRole("checkbox", { name: /development opportunities/i })
       .click();
     await appPage.page
       .getByRole("textbox", { name: /Search reference's work email/i })
