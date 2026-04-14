@@ -18,12 +18,8 @@ import {
   sortPoolLanguage,
   sortSecurityStatus,
 } from "@gc-digital-talent/i18n";
-import {
-  PoolStatus,
-  graphql,
-  FragmentType,
-  getFragment,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { PoolStatus, graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import {
   hasAllEmptyFields,
@@ -34,12 +30,11 @@ import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import { SectionProps } from "../../types";
+import type { SectionProps } from "../../types";
 import Display from "./Display";
+import type { FormValues, CoreRequirementsSubmitData } from "./utils";
 import {
-  FormValues,
   LocationOption,
-  CoreRequirementsSubmitData,
   dataToFormValues,
   formValuesToSubmitData,
 } from "./utils";

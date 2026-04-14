@@ -10,7 +10,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import messages from "~/messages/talentNominationMessages";
 import permissionConstants from "~/constants/permissionConstants";
 
-import { RouteParams } from "./types";
+import type { RouteParams } from "./types";
 import TalentEventNominationsTable from "./TalentEventNominationsTable";
 
 const TalentEventNominations_Query = graphql(/* GraphQL */ `

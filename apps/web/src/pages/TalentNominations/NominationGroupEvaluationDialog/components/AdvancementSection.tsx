@@ -5,8 +5,8 @@ import { useEffect } from "react";
 import { Checkbox, RadioGroup, RichTextInput } from "@gc-digital-talent/forms";
 import { Heading, Notice } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   TalentNominationGroupDecision,
@@ -16,7 +16,7 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import { formMessages } from "../messages";
-import { FormValues } from "../form";
+import type { FormValues } from "../form";
 
 const NominationGroupEvaluationDialogAdvancement_Fragment = graphql(
   /* GraphQL */ `

@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { Container, Heading, HeadingRank } from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
+import { Container, Heading } from "@gc-digital-talent/ui";
 
-import GradientImage, {
-  ImgProps,
-} from "~/components/GradientImage/GradientImage";
+import type { ImgProps } from "~/components/GradientImage/GradientImage";
+import GradientImage from "~/components/GradientImage/GradientImage";
 
 interface HomeHeroProps {
   callToAction?: ReactNode;

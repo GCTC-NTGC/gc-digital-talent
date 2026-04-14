@@ -1,5 +1,5 @@
-import { FieldLabels } from "@gc-digital-talent/forms";
-import {
+import type { FieldLabels } from "@gc-digital-talent/forms";
+import type {
   Application_PoolCandidateFragment,
   Maybe,
   UpdateUserAsUserInput,

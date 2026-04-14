@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";

@@ -6,8 +6,7 @@
       "~/*": ["./src/*"],
       "./+types/*": ["./.react-router/types/src/+types/*"]
     },
-    "rootDirs": [".", "./.react-router/types"],
-    "verbatimModuleSyntax": false
+    "rootDirs": [".", "./.react-router/types"]
   },
   "include": [
     "src/**/*.ts",

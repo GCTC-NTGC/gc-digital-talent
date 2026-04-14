@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router";
 
-import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
 export interface ContextType {
   application: Application_PoolCandidateFragment;

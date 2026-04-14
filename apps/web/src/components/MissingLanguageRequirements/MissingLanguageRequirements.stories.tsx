@@ -1,11 +1,12 @@
-import { StoryFn, Meta } from "@storybook/react-vite";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 
 import {
   fakePools,
   fakeUsers,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import { User, Pool, PoolLanguage } from "@gc-digital-talent/graphql";
+import type { User, Pool } from "@gc-digital-talent/graphql";
+import { PoolLanguage } from "@gc-digital-talent/graphql";
 
 import MissingLanguageRequirements from "./MissingLanguageRequirements";
 

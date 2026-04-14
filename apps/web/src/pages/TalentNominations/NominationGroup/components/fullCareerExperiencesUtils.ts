@@ -1,6 +1,6 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
-import {
+import type {
   AwardExperience,
   FullCareerExperiencesTalentNominationGroupFragment,
   FullCareerExperiencesUserFragment,

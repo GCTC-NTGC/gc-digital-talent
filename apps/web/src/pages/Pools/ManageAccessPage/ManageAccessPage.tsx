@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
@@ -7,7 +8,8 @@ import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
+import type { Scalars } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -24,7 +26,10 @@ import {
   roleAccessor,
   roleCell,
 } from "./components/helpers";
-import { ManageAccessPageFragment, PoolTeamMember } from "./components/types";
+import type {
+  ManageAccessPageFragment,
+  PoolTeamMember,
+} from "./components/types";
 import { ManageAccessPage_PoolFragment } from "./components/operations";
 import AddPoolMembershipDialog from "./components/AddPoolMembershipDialog";
 

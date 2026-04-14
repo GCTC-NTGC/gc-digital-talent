@@ -3,10 +3,11 @@ import ChevronDoubleLeftIcon from "@heroicons/react/24/solid/ChevronDoubleLeftIc
 import ChevronLeftIcon from "@heroicons/react/24/solid/ChevronLeftIcon";
 import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
-import { DetailedHTMLProps, HTMLAttributes } from "react";
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
-import { ButtonProps, DropdownMenu, UNICODE_CHAR } from "@gc-digital-talent/ui";
+import type { ButtonProps } from "@gc-digital-talent/ui";
+import { DropdownMenu, UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 import { DOTS, usePagination } from "./usePagination";
 import PageButton from "./PageButton";

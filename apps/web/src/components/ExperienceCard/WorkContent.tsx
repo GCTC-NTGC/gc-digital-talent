@@ -1,13 +1,14 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { EmploymentCategory, WorkExperience } from "@gc-digital-talent/graphql";
+import type { WorkExperience } from "@gc-digital-talent/graphql";
+import { EmploymentCategory } from "@gc-digital-talent/graphql";
 import { Separator } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";
-import { ContentProps } from "./types";
+import type { ContentProps } from "./types";
 import ExternalContent from "./WorkContent/ExternalContent";
 import CafContent from "./WorkContent/CafContent";
 import GovContent from "./WorkContent/GovContent";
