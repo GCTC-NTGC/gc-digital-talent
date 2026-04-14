@@ -1,8 +1,9 @@
-import { type HTMLAttributes, forwardRef } from "react";
+import type { HTMLAttributes } from "react";
+import { forwardRef } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
-import { type IconType } from "../../types";
-import { type HeadingRef } from "./types";
+import type { IconType } from "../../types";
+import type { HeadingRef } from "./types";
 
 const heading = tv({
   slots: {

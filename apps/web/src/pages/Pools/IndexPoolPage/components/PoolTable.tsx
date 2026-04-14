@@ -1,14 +1,14 @@
-import {
-  type ColumnDef,
-  type PaginationState,
-  type SortingState,
-  createColumnHelper,
+import type {
+  ColumnDef,
+  PaginationState,
+  SortingState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useState, useMemo, useRef } from "react";
 import { useSearchParams } from "react-router";
-import { type SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -17,13 +17,12 @@ import {
   getLocalizedName,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-  type PoolFilterInput,
-  type PoolTable_PoolFragment as PoolTablePoolFragmentType,
+import type {
+  FragmentType,
+  PoolFilterInput,
+  PoolTable_PoolFragment as PoolTablePoolFragmentType,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -34,7 +33,7 @@ import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
-import { type SearchState } from "~/components/Table/ResponsiveTable/types";
+import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import { parseFilterParam } from "~/components/Table/ResponsiveTable/utils";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
@@ -57,7 +56,8 @@ import {
   getOrderByColumnSort,
   getWorkStreamNameSort,
 } from "./helpers";
-import PoolFilterDialog, { type FormValues } from "./PoolFilterDialog";
+import type { FormValues } from "./PoolFilterDialog";
+import PoolFilterDialog from "./PoolFilterDialog";
 import { PoolBookmark_Fragment } from "./PoolBookmark";
 
 const columnHelper = createColumnHelper<PoolTablePoolFragmentType>();

@@ -1,16 +1,17 @@
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
-import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useMutation, useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import {
-  type CreateTrainingOpportunityInput,
-  type FragmentType,
-  graphql,
-  type Scalars,
+import type {
+  CreateTrainingOpportunityInput,
+  FragmentType,
+  Scalars,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import {
   Card,
@@ -30,10 +31,10 @@ import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { convertFormValuesToCreateInput, type FormValues } from "./apiUtils";
-import TrainingOpportunityForm, {
-  type TrainingOpportunityFormOptions_Fragment,
-} from "./components/TrainingOpportunityForm";
+import type { FormValues } from "./apiUtils";
+import { convertFormValuesToCreateInput } from "./apiUtils";
+import type { TrainingOpportunityFormOptions_Fragment } from "./components/TrainingOpportunityForm";
+import TrainingOpportunityForm from "./components/TrainingOpportunityForm";
 
 interface CreateTrainingOpportunityFormProps {
   handleCreateTrainingOpportunity: (

@@ -11,16 +11,14 @@ import {
 } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import {
-  type CafFieldsOptionsQuery,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { CafFieldsOptionsQuery } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import {
-  type SubExperienceFormProps,
-  type WorkFormValues,
+import type {
+  SubExperienceFormProps,
+  WorkFormValues,
 } from "~/types/experience";
 
 const CafFieldsOptions_Query = graphql(/* GraphQL */ `

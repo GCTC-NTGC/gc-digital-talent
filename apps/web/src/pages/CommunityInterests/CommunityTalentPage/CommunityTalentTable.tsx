@@ -1,22 +1,21 @@
 import { useMemo, useRef, useState } from "react";
-import {
-  type ColumnDef,
-  type PaginationState,
-  type SortingState,
-  createColumnHelper,
+import type {
+  ColumnDef,
+  PaginationState,
+  SortingState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { type SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  graphql,
-  type CommunityTalentTableCommunityInterestFragment as CommunityTalentTableCommunityInterestFragmentType,
-  getFragment,
-  type CommunityInterestFilterInput,
+import type {
+  CommunityTalentTableCommunityInterestFragment as CommunityTalentTableCommunityInterestFragmentType,
+  CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getEmploymentDuration,
@@ -35,7 +34,7 @@ import useRoutes from "~/hooks/useRoutes";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
-import { type SearchState } from "~/components/Table/ResponsiveTable/types";
+import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import useUserDownloads from "~/hooks/useUserDownloads";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
@@ -46,9 +45,8 @@ import profileMessages from "~/messages/profileMessages";
 import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import accessors from "~/components/Table/accessors";
 
-import CommunityTalentFilterDialog, {
-  type FormValues,
-} from "./components/CommunityTalentFilterDialog";
+import type { FormValues } from "./components/CommunityTalentFilterDialog";
+import CommunityTalentFilterDialog from "./components/CommunityTalentFilterDialog";
 import {
   classificationAccessor,
   getClassificationSort,

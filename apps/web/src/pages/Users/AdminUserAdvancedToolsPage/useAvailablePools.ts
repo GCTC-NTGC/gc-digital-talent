@@ -1,10 +1,7 @@
 import { useQuery } from "urql";
 
-import {
-  type Pool,
-  type PoolFilterInput,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { Pool, PoolFilterInput } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 const EditUserPage_AvailablePoolsQuery = graphql(/* GraphQL */ `

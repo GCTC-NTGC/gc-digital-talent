@@ -1,12 +1,14 @@
-import { type Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
-import { SkillCategory, type User } from "@gc-digital-talent/graphql";
+import type { User } from "@gc-digital-talent/graphql";
+import { SkillCategory } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import { getSkills } from "~/utils/skills";
-import graphql, { type GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import { createUserWithRoles } from "~/utils/user";
 import type AppPage from "~/fixtures/AppPage";
 import { generateUniqueTestId } from "~/utils/id";

@@ -14,17 +14,14 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import {
-  type RoleInput,
-  type DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
+import type {
+  RoleInput,
+  DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import {
-  type DepartmentManageAccessFormValues,
-  type ContextType,
-} from "./types";
+import type { DepartmentManageAccessFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableUsers from "./useAvailableUsers";
 import useAvailableRoles from "./useAvailableRoles";

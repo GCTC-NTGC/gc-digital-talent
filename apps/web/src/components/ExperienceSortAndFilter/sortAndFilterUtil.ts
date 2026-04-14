@@ -1,22 +1,24 @@
-import { type IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { nodeToString, notEmpty } from "@gc-digital-talent/helpers";
 import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 
+import type {
+  ExperienceName,
+  SimpleAnyExperience,
+} from "~/utils/experienceUtils";
 import {
   compareByDate,
-  type ExperienceName,
   getExperienceName,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
-  type SimpleAnyExperience,
 } from "~/utils/experienceUtils";
-import { type ExperienceForDate } from "~/types/experience";
+import type { ExperienceForDate } from "~/types/experience";
 
-import { type FormValues as SortAndFilterValues } from "./ExperienceSortAndFilter";
+import type { FormValues as SortAndFilterValues } from "./ExperienceSortAndFilter";
 
 interface SortAndFilterExperience
   extends SimpleAnyExperience, ExperienceName, ExperienceForDate {

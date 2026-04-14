@@ -1,18 +1,17 @@
 import uniqBy from "lodash/uniqBy";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  SkillLevel,
-  type Experience,
-  type Maybe,
-  type Skill,
-  SkillCategory,
-  type SkillFamily,
-  type PoolSkill,
-  type PoolSkillType,
+import type {
+  Experience,
+  Maybe,
+  Skill,
+  SkillFamily,
+  PoolSkill,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
+import { SkillLevel, SkillCategory } from "@gc-digital-talent/graphql";
 
-import { type SimpleAnyExperience } from "./experienceUtils";
+import type { SimpleAnyExperience } from "./experienceUtils";
 
 /**
  * Transforms an array of skills with child skill families into a tree of skill families with child skills.

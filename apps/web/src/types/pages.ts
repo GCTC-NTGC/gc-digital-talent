@@ -1,6 +1,6 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { type BreadcrumbsProps, type IconType } from "@gc-digital-talent/ui";
+import type { BreadcrumbsProps, IconType } from "@gc-digital-talent/ui";
 
 interface PageNavLink {
   label?: ReactNode;

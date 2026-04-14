@@ -10,11 +10,8 @@ import {
   Separator,
   TableOfContents,
 } from "@gc-digital-talent/ui";
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
@@ -25,8 +22,9 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
-import { type SectionProps } from "~/components/Profile/types";
-import StatusItem, { type Status } from "~/components/StatusItem/StatusItem";
+import type { SectionProps } from "~/components/Profile/types";
+import type { Status } from "~/components/StatusItem/StatusItem";
+import StatusItem from "~/components/StatusItem/StatusItem";
 import { aboutSectionHasEmptyRequiredFields } from "~/validators/profile";
 import messages from "~/messages/profileMessages";
 import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";

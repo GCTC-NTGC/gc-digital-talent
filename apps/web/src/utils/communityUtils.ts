@@ -1,10 +1,10 @@
-import { type RoleName } from "@gc-digital-talent/auth";
+import type { RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  type Maybe,
-  type Role,
-  type RoleAssignment,
-  type UserPublicProfile,
+import type {
+  Maybe,
+  Role,
+  RoleAssignment,
+  UserPublicProfile,
 } from "@gc-digital-talent/graphql";
 
 export type CommunityMember = {

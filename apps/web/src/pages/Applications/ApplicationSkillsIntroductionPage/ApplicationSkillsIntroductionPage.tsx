@@ -4,10 +4,11 @@ import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import { type GetPageNavInfo } from "~/types/applicationStep";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 
-import ApplicationApi, { type ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
+import ApplicationApi from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetPageNavInfo = ({

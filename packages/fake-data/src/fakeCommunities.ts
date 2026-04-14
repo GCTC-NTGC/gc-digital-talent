@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import {
-  type Community,
-  type DevelopmentProgram,
-  type WorkStream,
+import type {
+  Community,
+  DevelopmentProgram,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
 
 import toLocalizedString from "./fakeLocalizedString";

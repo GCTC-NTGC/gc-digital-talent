@@ -9,15 +9,17 @@ import {
   fakeUserSkills,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
+import type {
+  AssessmentResult,
+  AssessmentStep,
+  PoolCandidate,
+  PoolSkill,
+} from "@gc-digital-talent/graphql";
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
-  type AssessmentResult,
   AssessmentResultType,
-  type AssessmentStep,
   AssessmentStepType,
-  type PoolCandidate,
-  type PoolSkill,
   PoolSkillType,
   SkillLevel,
 } from "@gc-digital-talent/graphql";

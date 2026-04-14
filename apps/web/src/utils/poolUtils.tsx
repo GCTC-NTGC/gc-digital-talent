@@ -1,21 +1,21 @@
-import { type IntlShape, type MessageDescriptor } from "react-intl";
+import type { IntlShape, MessageDescriptor } from "react-intl";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import {
   commonMessages,
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
+import type { RoleName } from "@gc-digital-talent/auth";
 import {
   PROCESS_ACTIVITY_LOG_ROLES,
   ROLE_NAME,
-  type RoleName,
   useAuthorization,
 } from "@gc-digital-talent/auth";
 import {
@@ -23,27 +23,22 @@ import {
   notEmpty,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import {
-  type ChipProps,
-  type IconType,
-  Link,
-  UNICODE_CHAR,
-} from "@gc-digital-talent/ui";
-import {
-  PublishingGroup,
-  type RoleAssignment,
-  PoolStatus,
-  type Maybe,
-  type Classification,
-  type Pool,
-  type LocalizedPoolStatus,
-  type WorkStream,
+import type { ChipProps, IconType } from "@gc-digital-talent/ui";
+import { Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
+import type {
+  RoleAssignment,
+  Maybe,
+  Classification,
+  Pool,
+  LocalizedPoolStatus,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
+import { PublishingGroup, PoolStatus } from "@gc-digital-talent/graphql";
 
-import { type PageNavInfo } from "~/types/pages";
+import type { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
 import poolMessages from "~/messages/poolMessages";
-import { type PageNavKeys, type PoolCompleteness } from "~/types/pool";
+import type { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";

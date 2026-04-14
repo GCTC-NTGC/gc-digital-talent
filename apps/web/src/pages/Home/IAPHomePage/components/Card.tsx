@@ -1,4 +1,4 @@
-import { type HTMLAttributes, type ReactElement, type ReactNode } from "react";
+import type { HTMLAttributes, ReactElement, ReactNode } from "react";
 
 import Heading from "~/components/IAPHeading/Heading";
 

@@ -1,16 +1,16 @@
-import { type IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 import { generateJSON } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
-import { type FieldErrors, type FieldValues } from "react-hook-form";
+import type { FieldErrors, FieldValues } from "react-hook-form";
 
-import {
-  type LocalizedEnumString,
-  type LocalizedString,
-  type Maybe,
-  type Scalars,
+import type {
+  LocalizedEnumString,
+  LocalizedString,
+  Maybe,
+  Scalars,
 } from "@gc-digital-talent/graphql";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
-  type Locales,
   commonMessages,
   getLocale,
   getLocalizedName,
@@ -18,8 +18,8 @@ import {
 import { getId, nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
-import { type Node } from "./components/RichTextInput/types";
-import { type OptGroupOrOption } from "./types";
+import type { Node } from "./components/RichTextInput/types";
+import type { OptGroupOrOption } from "./types";
 
 /**
  * Filters out empty data from data response, and returns list of ids.

@@ -1,5 +1,5 @@
 import { m, useReducedMotion } from "motion/react";
-import { type HTMLProps, type ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 const loading = tv({

@@ -1,4 +1,4 @@
-import { type PaginatorInfo } from "@gc-digital-talent/graphql";
+import type { PaginatorInfo } from "@gc-digital-talent/graphql";
 
 export default function (
   total: number,

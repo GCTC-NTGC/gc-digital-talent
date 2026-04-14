@@ -1,10 +1,8 @@
-import {
-  type ButtonHTMLAttributes,
-  type DetailedHTMLProps,
-  forwardRef,
-} from "react";
+import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+import { forwardRef } from "react";
 
-import { btn, type BaseButtonLinkProps } from "../../utils/btnStyles";
+import type { BaseButtonLinkProps } from "../../utils/btnStyles";
+import { btn } from "../../utils/btnStyles";
 import Counter from "./Counter";
 
 export interface ButtonProps

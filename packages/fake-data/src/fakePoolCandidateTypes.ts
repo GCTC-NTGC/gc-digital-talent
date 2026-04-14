@@ -1,11 +1,11 @@
-import { type PoolCandidate } from "@gc-digital-talent/graphql";
+import type { PoolCandidate } from "@gc-digital-talent/graphql";
 
-import {
-  type GeneratedAwardExperience,
-  type GeneratedCommunityExperience,
-  type GeneratedEducationExperience,
-  type GeneratedPersonalExperience,
-  type GeneratedWorkExperience,
+import type {
+  GeneratedAwardExperience,
+  GeneratedCommunityExperience,
+  GeneratedEducationExperience,
+  GeneratedPersonalExperience,
+  GeneratedWorkExperience,
 } from "./fakeExperiences";
 
 export type GeneratedPoolCandidate = PoolCandidate & {

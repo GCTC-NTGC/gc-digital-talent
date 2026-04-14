@@ -11,22 +11,22 @@ import {
   TextArea,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   errorMessages,
   uiMessages,
   sortEducationStatus,
   sortEducationType,
   getLocale,
-  type Locales,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { graphql } from "@gc-digital-talent/graphql";
 import { nodeToString } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 
-import {
-  type SubExperienceFormProps,
-  type EducationFormValues,
+import type {
+  SubExperienceFormProps,
+  EducationFormValues,
 } from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";

@@ -1,10 +1,10 @@
-import {
-  type AssessmentDecisionLevel,
-  type AssessmentResultJustification,
-  type Maybe,
+import type {
+  AssessmentDecisionLevel,
+  AssessmentResultJustification,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 
-import { type NullableDecision } from "~/utils/assessmentResults";
+import type { NullableDecision } from "~/utils/assessmentResults";
 
 export interface FormValues {
   assessmentDecision?: Maybe<NullableDecision>;

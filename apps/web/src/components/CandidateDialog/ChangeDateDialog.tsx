@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
@@ -13,14 +14,13 @@ import {
 } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
-import {
-  type PoolCandidate,
-  type UpdatePoolCandidateStatusInput,
-  graphql,
-  type FragmentType,
-  getFragment,
-  type User,
+import type {
+  PoolCandidate,
+  UpdatePoolCandidateStatusInput,
+  FragmentType,
+  User,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";

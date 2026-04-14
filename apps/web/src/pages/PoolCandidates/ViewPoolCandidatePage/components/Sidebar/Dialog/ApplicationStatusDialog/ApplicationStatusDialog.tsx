@@ -1,28 +1,23 @@
 import { useState } from "react";
-import { type MessageDescriptor, useIntl } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/16/solid/PencilSquareIcon";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
-  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import {
-  Dialog,
-  StatusButton,
-  type StatusButtonProps,
-} from "@gc-digital-talent/ui";
+import type { StatusButtonProps } from "@gc-digital-talent/ui";
+import { Dialog, StatusButton } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import applicationMessages from "~/messages/applicationMessages";
 
 import ToAssessStatusForm from "./ToAssessStatusForm";
-import {
-  type ApplicationStatusFormProps,
-  type MutationHandler,
-} from "../types";
+import type { ApplicationStatusFormProps, MutationHandler } from "../types";
 import DisqualifiedStatusForm from "./DisqualifiedStatusForm";
 import QualifiedStatusForm from "./QualifiedStatusForm";
 import RemovedStatusForm from "./RemovedStatusForm";

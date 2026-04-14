@@ -68,11 +68,11 @@ class CommunityInterestFactory extends Factory
     public function withDevelopmentProgramInterests(int $limit = 3)
     {
         return $this->afterCreating(function (CommunityInterest $communityInterest) use ($limit) {
-            $developmentPrograms = $communityInterest->community->developmentPrograms()->limit($limit)->get();
-            foreach ($developmentPrograms as $developmentProgram) {
+            $communityDevelopmentPrograms = $communityInterest->community->communityDevelopmentPrograms()->limit($limit)->get();
+            foreach ($communityDevelopmentPrograms as $communityDevelopmentProgram) {
                 DevelopmentProgramInterest::factory()
                     ->create([
-                        'development_program_id' => $developmentProgram->id,
+                        'community_development_program_id' => $communityDevelopmentProgram->id,
                         'community_interest_id' => $communityInterest->id,
                     ]);
             }

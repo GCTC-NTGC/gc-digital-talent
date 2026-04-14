@@ -1,6 +1,6 @@
-import { type Role } from "@gc-digital-talent/graphql";
+import type { Role } from "@gc-digital-talent/graphql";
 
-import { type GraphQLContext } from "./graphql";
+import type { GraphQLContext } from "./graphql";
 
 const Test_RolesQueryDocument = /* GraphQL */ `
   query Test_Roles {

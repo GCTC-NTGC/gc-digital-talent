@@ -1,4 +1,4 @@
-import { type StoryFn, type Meta } from "@storybook/react-vite";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 
 import { fakeUserSkills, fakeSkills } from "@gc-digital-talent/fake-data";
 import { makeFragmentData, SkillCategory } from "@gc-digital-talent/graphql";

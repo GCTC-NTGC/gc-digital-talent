@@ -1,24 +1,26 @@
+import type {
+  AssessmentStep,
+  AssessmentStepInput,
+  CreatePoolSkillInput,
+  LocalizedString,
+  Pool,
+  PoolSkill,
+  UpdatePoolInput,
+} from "@gc-digital-talent/graphql";
 import {
-  type AssessmentStep,
-  type AssessmentStepInput,
   AssessmentStepType,
-  type CreatePoolSkillInput,
-  type LocalizedString,
-  type Pool,
   PoolAreaOfSelection,
   PoolLanguage,
   PoolOpportunityLength,
-  type PoolSkill,
   PoolSkillType,
   PublishingGroup,
   SecurityStatus,
   SkillCategory,
   SkillLevel,
-  type UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
-import { type GraphQLRequestFunc, type GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getCommunities } from "./communities";
 import { getClassifications } from "./classification";
 import { getDepartments } from "./departments";

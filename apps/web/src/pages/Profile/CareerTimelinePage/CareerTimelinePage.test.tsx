@@ -1,10 +1,10 @@
-import {
-  type AwardExperience,
-  type CommunityExperience,
-  type EducationExperience,
-  type PersonalExperience,
-  type User,
-  type WorkExperience,
+import type {
+  AwardExperience,
+  CommunityExperience,
+  EducationExperience,
+  PersonalExperience,
+  User,
+  WorkExperience,
 } from "@gc-digital-talent/graphql";
 
 import { compareByDate } from "~/utils/experienceUtils";

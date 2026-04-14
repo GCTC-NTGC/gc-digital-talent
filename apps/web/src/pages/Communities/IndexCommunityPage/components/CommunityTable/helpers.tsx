@@ -1,15 +1,11 @@
-import { type IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { Link, Chip } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-  type Maybe,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { type MyRoleTeam } from "./types";
+import type { MyRoleTeam } from "./types";
 
 export function viewCell(
   url: string,

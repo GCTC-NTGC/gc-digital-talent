@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import {
-  graphql,
-  type InputMaybe,
-  type Scalars,
-  type UserFilterInput,
+import type {
+  InputMaybe,
+  Scalars,
+  UserFilterInput,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { useApiRoutes } from "@gc-digital-talent/auth";

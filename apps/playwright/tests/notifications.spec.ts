@@ -1,12 +1,11 @@
+import type { Skill, User } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
   FlexibleWorkLocation,
   PositionDuration,
   ProvinceOrTerritory,
-  type Skill,
   SkillCategory,
-  type User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
@@ -14,7 +13,8 @@ import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
-import graphql, { type GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import { changePoolClosingDate, createAndPublishPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";

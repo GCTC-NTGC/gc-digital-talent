@@ -1,32 +1,35 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { useId, useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
+import { useId, useState } from "react";
 
+import type {
+  IconType,
+  BreadcrumbsProps,
+  ButtonProps,
+} from "@gc-digital-talent/ui";
 import {
   TableOfContents,
-  type IconType,
   Separator,
   CardRepeater,
   Link,
-  type BreadcrumbsProps,
-  type ButtonProps,
   Container,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  type UpdateUserSkillRankingsInput,
-  type Scalars,
-  graphql,
-  type UpdateSkillShowcase_UserSkillFragment as UpdateSkillShowcaseUserSkillFragmentType,
-  type UpdateSkillShowcase_SkillFragment as UpdateSkillShowcaseSkillFragmentType,
+import type {
+  UpdateUserSkillRankingsInput,
+  Scalars,
+  UpdateSkillShowcase_UserSkillFragment as UpdateSkillShowcaseUserSkillFragmentType,
+  UpdateSkillShowcase_SkillFragment as UpdateSkillShowcaseSkillFragmentType,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
-import { type FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
+import type { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
 import {
   CreateUserSkill_Mutation,

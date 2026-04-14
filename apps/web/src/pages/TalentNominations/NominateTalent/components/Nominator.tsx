@@ -3,16 +3,18 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
 
+import type {
+  FragmentType,
+  Maybe,
+  Scalars,
+  UpdateTalentNominationInput,
+} from "@gc-digital-talent/graphql";
 import {
-  type FragmentType,
   getFragment,
   graphql,
-  type Maybe,
-  type Scalars,
   TalentNominationStep,
   TalentNominationSubmitterRelationshipToNominator,
   TalentNominationUserReview,
-  type UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import {
   HiddenInput,
@@ -29,9 +31,10 @@ import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearch
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
 import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 
-import { type BaseFormValues } from "../types";
+import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
-import UpdateForm, { type SubmitDataTransformer } from "./UpdateForm";
+import type { SubmitDataTransformer } from "./UpdateForm";
+import UpdateForm from "./UpdateForm";
 import SubHeading from "./SubHeading";
 import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";

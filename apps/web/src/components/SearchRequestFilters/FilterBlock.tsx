@@ -1,9 +1,9 @@
 import { useIntl } from "react-intl";
 import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { type Maybe } from "@gc-digital-talent/graphql";
+import type { Maybe } from "@gc-digital-talent/graphql";
 import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";

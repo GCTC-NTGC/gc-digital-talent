@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export const UNICODE_CHAR = {
   BULLET: "\u2022",

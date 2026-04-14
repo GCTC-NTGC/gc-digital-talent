@@ -1,4 +1,4 @@
-import { type HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 
 const Calendar = (props: HTMLAttributes<HTMLOrSVGElement>) => (
   <svg

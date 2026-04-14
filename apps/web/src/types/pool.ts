@@ -1,6 +1,6 @@
-import { type HeadingProps, type IconType } from "@gc-digital-talent/ui";
+import type { HeadingProps, IconType } from "@gc-digital-talent/ui";
 
-import { type Status } from "~/components/StatusItem/StatusItem";
+import type { Status } from "~/components/StatusItem/StatusItem";
 
 export interface EditPoolSectionMetadata {
   id: string;

@@ -1,6 +1,6 @@
 import pick from "lodash/pick";
 
-import { type InputMaybe, type Maybe } from "@gc-digital-talent/graphql";
+import type { InputMaybe, Maybe } from "@gc-digital-talent/graphql";
 
 /**
  * Returns true if value is not null or undefined.

@@ -7,10 +7,9 @@ import {
   fakeSkills,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
+import type { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 import {
-  type AssessmentStep,
   AssessmentStepType,
-  type PoolSkill,
   PoolSkillType,
   SkillCategory,
   makeFragmentData,

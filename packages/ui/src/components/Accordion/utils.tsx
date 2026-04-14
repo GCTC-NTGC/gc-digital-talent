@@ -1,6 +1,6 @@
 import { action } from "storybook/actions";
 
-import { type AccordionMetaDataProps } from "./Accordion";
+import type { AccordionMetaDataProps } from "./Accordion";
 import MetaDataButton from "./MetaDataButton";
 
 export const testMetaData: AccordionMetaDataProps["metadata"] = [

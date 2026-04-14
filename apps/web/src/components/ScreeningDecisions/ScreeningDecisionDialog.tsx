@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
+import type {
+  FragmentType,
+  Maybe,
+  Scalars,
+  User,
+} from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
-  type FragmentType,
   getFragment,
   graphql,
-  type Maybe,
-  type Scalars,
   SkillCategory,
-  type User,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Button, Dialog } from "@gc-digital-talent/ui";
@@ -17,7 +19,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
 
-import { type FormValues } from "./types";
+import type { FormValues } from "./types";
 import {
   convertApiToFormValues,
   DIALOG_TYPE,

@@ -1,10 +1,9 @@
-import { type ReactElement } from "react";
+import type { ReactElement } from "react";
 
-import GovernmentInformationV1, {
-  type GovernmentInformationSnapshotV1,
-} from "./GovernmentInformationV1";
+import type { GovernmentInformationSnapshotV1 } from "./GovernmentInformationV1";
+import GovernmentInformationV1 from "./GovernmentInformationV1";
 import { getSupportedVersionComponent } from "../utils";
-import { type SnapshotProps } from "../types";
+import type { SnapshotProps } from "../types";
 
 type GovernmentInformationSnapshotProps =
   SnapshotProps<GovernmentInformationSnapshotV1>;

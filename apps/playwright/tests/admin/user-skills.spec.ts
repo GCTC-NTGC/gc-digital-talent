@@ -1,5 +1,5 @@
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
-import { type Skill, type User } from "@gc-digital-talent/graphql";
+import type { Skill, User } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import AdminUser from "~/fixtures/AdminUser";

@@ -1,21 +1,25 @@
-import { type JSX } from "react";
-import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { type IntlShape, useIntl } from "react-intl";
+import type { JSX } from "react";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import type {
+  FragmentType,
+  LocalizedAssessmentStepType,
+  Maybe,
+  Skill,
+  SkillSummaryPoolSkillFragment as SkillSummaryPoolSkillFragmentType,
+  SkillSummaryTableAssessmentStepFragment as SkillSummaryAssessmentStepFragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
-  type FragmentType,
-  type LocalizedAssessmentStepType,
-  type Maybe,
   PoolSkillType,
-  type Skill,
   SkillCategory,
   getFragment,
   graphql,
-  type SkillSummaryPoolSkillFragment as SkillSummaryPoolSkillFragmentType,
-  type SkillSummaryTableAssessmentStepFragment as SkillSummaryAssessmentStepFragmentType,
 } from "@gc-digital-talent/graphql";
 import { Chip } from "@gc-digital-talent/ui";
 

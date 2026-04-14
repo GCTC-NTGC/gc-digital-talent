@@ -1,8 +1,9 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Container, Flourish } from "@gc-digital-talent/ui";
 
-import GradientImage, { type ImgProps } from "../GradientImage/GradientImage";
+import type { ImgProps } from "../GradientImage/GradientImage";
+import GradientImage from "../GradientImage/GradientImage";
 
 interface SkewedImageContainerProps {
   children: ReactNode;

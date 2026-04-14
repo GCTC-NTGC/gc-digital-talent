@@ -2,11 +2,13 @@
  * Documentation: https://base-ui.com/react/components/menu
  */
 import { Menu } from "@base-ui/react/menu";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 import ChevronDownIcon from "@heroicons/react/16/solid/ChevronDownIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
-import Button, { type ButtonProps } from "../Button";
+import type { ButtonProps } from "../Button";
+import Button from "../Button";
 
 interface TriggerProps extends Menu.Trigger.Props {
   btnProps?: ButtonProps;

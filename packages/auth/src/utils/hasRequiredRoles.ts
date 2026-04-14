@@ -1,6 +1,6 @@
-import { type Maybe, type RoleAssignment } from "@gc-digital-talent/graphql";
+import type { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 
-import { type RoleName } from "../const";
+import type { RoleName } from "../const";
 
 export interface RoleRequirement {
   name: RoleName;

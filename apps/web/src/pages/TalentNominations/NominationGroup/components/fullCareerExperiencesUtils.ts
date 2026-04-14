@@ -1,9 +1,9 @@
-import { type IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
-import {
-  type AwardExperience,
-  type FullCareerExperiencesTalentNominationGroupFragment,
-  type FullCareerExperiencesUserFragment,
+import type {
+  AwardExperience,
+  FullCareerExperiencesTalentNominationGroupFragment,
+  FullCareerExperiencesUserFragment,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";

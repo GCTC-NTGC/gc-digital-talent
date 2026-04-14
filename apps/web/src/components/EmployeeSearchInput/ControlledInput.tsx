@@ -1,41 +1,38 @@
-import {
-  type ChangeEventHandler,
-  type KeyboardEvent,
-  type MouseEvent,
-  useId,
-  useRef,
-  useState,
-} from "react";
-import {
-  type ControllerRenderProps,
-  type FieldValues,
-  type UseFormStateReturn,
+import type { ChangeEventHandler, KeyboardEvent, MouseEvent } from "react";
+import { useId, useRef, useState } from "react";
+import type {
+  ControllerRenderProps,
+  FieldValues,
+  UseFormStateReturn,
 } from "react-hook-form";
-import { type CombinedError, useClient } from "urql";
+import type { CombinedError } from "urql";
+import { useClient } from "urql";
 import MagnifyingGlassIcon from "@heroicons/react/20/solid/MagnifyingGlassIcon";
 import { useIntl } from "react-intl";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { tv } from "tailwind-variants";
 
+import type { FieldState } from "@gc-digital-talent/forms";
 import {
-  type FieldState,
   useFieldState,
   inputStyles,
   useInputDescribedBy,
   inputStateStyles,
 } from "@gc-digital-talent/forms";
-import { graphql, type Maybe } from "@gc-digital-talent/graphql";
+import type { Maybe } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
-import Result, { type SearchMessageCases } from "./Result";
+import type { SearchMessageCases } from "./Result";
+import Result from "./Result";
 import ErrorMessage from "./Error";
 import { fragmentToEmployee, getDefaultValue, getErrors } from "./utils";
-import {
-  type EmployeeSearchResult,
-  type ErrorMessages,
-  type ErrorSeverities,
+import type {
+  EmployeeSearchResult,
+  ErrorMessages,
+  ErrorSeverities,
 } from "./types";
 
 const wrapper = tv({

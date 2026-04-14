@@ -1,17 +1,12 @@
 import { faker } from "@faker-js/faker/locale/en";
 import { UniqueEnforcer } from "enforce-unique";
 
-import {
-  type Skill,
-  SkillLevel,
-  type User,
-  type UserSkill,
-  WhenSkillUsed,
-} from "@gc-digital-talent/graphql";
+import type { Skill, User, UserSkill } from "@gc-digital-talent/graphql";
+import { SkillLevel, WhenSkillUsed } from "@gc-digital-talent/graphql";
 
 import fakeUsers from "./fakeUsers";
 import { getStaticSkills } from "./fakeSkills";
-import { type AnyGeneratedExperience } from "./fakeExperiences";
+import type { AnyGeneratedExperience } from "./fakeExperiences";
 
 const staticSkills = getStaticSkills();
 const randomSkill = faker.helpers.arrayElement<Skill>(staticSkills);

@@ -1,4 +1,4 @@
-import { type EmployeeProfile } from "@gc-digital-talent/graphql";
+import type { EmployeeProfile } from "@gc-digital-talent/graphql";
 
 type EmployeeProfileNextRoleFragment = Pick<
   EmployeeProfile,

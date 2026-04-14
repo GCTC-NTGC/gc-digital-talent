@@ -1,17 +1,17 @@
-import {
-  type ApplicationStatus,
-  type CandidateExpiryFilter,
-  type CandidateReferralFilter,
-  type CandidateRemovalReason,
-  type CandidateSuspendedFilter,
-  type FlexibleWorkLocation,
-  type LanguageAbility,
-  type OperationalRequirement,
-  type PlacementType,
-  type PriorityWeight,
-  type PublishingGroup,
-  type ScreeningStage,
-  type WorkRegion,
+import type {
+  ApplicationStatus,
+  CandidateExpiryFilter,
+  CandidateReferralFilter,
+  CandidateRemovalReason,
+  CandidateSuspendedFilter,
+  FlexibleWorkLocation,
+  LanguageAbility,
+  OperationalRequirement,
+  PlacementType,
+  PriorityWeight,
+  PublishingGroup,
+  ScreeningStage,
+  WorkRegion,
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {

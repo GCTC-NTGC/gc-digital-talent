@@ -1,10 +1,7 @@
-import {
-  type IntlShape,
-  type MessageDescriptor,
-  defineMessage,
-} from "react-intl";
+import type { IntlShape, MessageDescriptor } from "react-intl";
+import { defineMessage } from "react-intl";
 
-import { type FieldLabels } from "@gc-digital-talent/forms";
+import type { FieldLabels } from "@gc-digital-talent/forms";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import { getLabels as getLangLabels } from "~/utils/languageUtils";
@@ -13,7 +10,7 @@ import { getLabels as getWorkLabels } from "~/utils/workPreferenceUtils";
 import { getLabels as getPersonalLabels } from "./components/PersonalInformation/utils";
 import { getLabels as getGovLabels } from "./components/GovernmentInformation/utils";
 import { getLabels as getCitizenVeteranPriorityLabels } from "./components/CitizenVeteranPriority/utils";
-import { type SectionKey } from "./types";
+import type { SectionKey } from "./types";
 
 const sectionTitles = new Map<SectionKey, MessageDescriptor>([
   [

@@ -1,10 +1,6 @@
-import {
-  type ReactNode,
-  type DetailedHTMLProps,
-  type HTMLAttributes,
-} from "react";
+import type { ReactNode, DetailedHTMLProps, HTMLAttributes } from "react";
 
-import { type FieldState, type HTMLInputProps } from "../../types";
+import type { FieldState, HTMLInputProps } from "../../types";
 
 export type ComboboxValue = string | (string | undefined)[] | undefined;
 

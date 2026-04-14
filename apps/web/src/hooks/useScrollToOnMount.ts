@@ -1,4 +1,5 @@
-import { type RefObject, useEffect, useRef } from "react";
+import type { RefObject } from "react";
+import { useEffect, useRef } from "react";
 
 interface UseScrollToOnMountOptions extends ScrollToOptions {
   preventAutoFocus?: boolean;

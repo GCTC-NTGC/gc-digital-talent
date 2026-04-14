@@ -1,17 +1,18 @@
 import type { IntlShape } from "react-intl";
 import { add } from "date-fns/add";
-import { format, type FormatOptions } from "date-fns/format";
+import type { FormatOptions } from "date-fns/format";
+import { format } from "date-fns/format";
 import { parse } from "date-fns/parse";
 import { parseISO } from "date-fns/parseISO";
 import { enCA as en } from "date-fns/locale/en-CA";
 import { fr } from "date-fns/locale/fr";
-import { type Locale } from "date-fns/locale";
+import type { Locale } from "date-fns/locale";
 import { tz, TZDate } from "@date-fns/tz";
 
 import { getLocale, dateMessages } from "@gc-digital-talent/i18n";
-import { type Scalars } from "@gc-digital-talent/graphql";
+import type { Scalars } from "@gc-digital-talent/graphql";
 
-import { type FormatDateOptions } from "./types";
+import type { FormatDateOptions } from "./types";
 import {
   DATETIME_FORMAT_LOCALIZED,
   DATETIME_FORMAT_STRING,

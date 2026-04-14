@@ -1,10 +1,10 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { AlertDialog, Button } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { type Scalars } from "@gc-digital-talent/graphql";
+import type { Scalars } from "@gc-digital-talent/graphql";
 
 import { DeleteNotification_Mutation } from "./mutations";
 

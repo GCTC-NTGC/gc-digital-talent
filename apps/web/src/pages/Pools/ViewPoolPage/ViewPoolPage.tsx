@@ -17,14 +17,12 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-  PoolStatus,
-  type RoleAssignment,
-  type Scalars,
+import type {
+  FragmentType,
+  RoleAssignment,
+  Scalars,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
@@ -46,9 +44,8 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
-import DuplicateProcessDialog, {
-  type DuplicatePoolDepartment_Fragment,
-} from "./components/DuplicateProcessDialog";
+import type { DuplicatePoolDepartment_Fragment } from "./components/DuplicateProcessDialog";
+import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
 import ArchiveProcessDialog from "./components/ArchiveProcessDialog";
 import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 import DeleteProcessDialog from "./components/DeleteProcessDialog";

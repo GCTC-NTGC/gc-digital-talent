@@ -4,12 +4,8 @@ import { useMutation } from "urql";
 import { useWatch } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-  type Language,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Language } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Button, TableOfContents } from "@gc-digital-talent/ui";
 import {
   BasicForm,

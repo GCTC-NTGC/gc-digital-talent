@@ -3,12 +3,11 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
-import {
-  type FragmentType,
-  type UpdatePublishedPoolInput,
-  getFragment,
-  graphql,
+import type {
+  FragmentType,
+  UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
@@ -19,7 +18,7 @@ import { TextArea } from "@gc-digital-talent/forms";
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
-import { type PublishedEditableSectionProps } from "../../types";
+import type { PublishedEditableSectionProps } from "../../types";
 
 const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment UpdatePublishedProcessDialog on Pool {

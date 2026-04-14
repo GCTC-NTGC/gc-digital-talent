@@ -2,13 +2,12 @@ import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { useIntl } from "react-intl";
 import { Fragment } from "react/jsx-runtime";
 
-import {
-  type FragmentType,
-  getFragment,
-  type GovPositionType,
-  graphql,
-  type WorkExperience,
+import type {
+  FragmentType,
+  GovPositionType,
+  WorkExperience,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { empty, groupBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   currentDate,

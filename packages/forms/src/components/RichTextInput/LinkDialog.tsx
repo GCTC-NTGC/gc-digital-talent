@@ -1,8 +1,11 @@
 import { useIntl } from "react-intl";
-import { type Editor, useEditorState } from "@tiptap/react";
-import { useForm, FormProvider, type SubmitHandler } from "react-hook-form";
+import type { Editor } from "@tiptap/react";
+import { useEditorState } from "@tiptap/react";
+import type { SubmitHandler } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import LinkIcon from "@heroicons/react/20/solid/LinkIcon";
-import { type KeyboardEventHandler, useState } from "react";
+import type { KeyboardEventHandler } from "react";
+import { useState } from "react";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import {

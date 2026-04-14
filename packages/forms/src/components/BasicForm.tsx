@@ -1,21 +1,14 @@
-import {
-  type PropsWithChildren,
-  type ReactElement,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import {
-  type FieldValues,
-  FormProvider,
-  type Path,
-  type PathValue,
-  type SubmitErrorHandler,
-  type SubmitHandler,
-  useForm,
-  type UseFormProps,
+import type { PropsWithChildren, ReactElement } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type {
+  FieldValues,
+  Path,
+  PathValue,
+  SubmitErrorHandler,
+  SubmitHandler,
+  UseFormProps,
 } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import {
@@ -27,7 +20,7 @@ import {
 import ErrorSummary from "./ErrorSummary";
 import UnsavedChanges from "./UnsavedChanges";
 import { flattenErrors } from "../utils";
-import { type FieldLabels } from "../types";
+import type { FieldLabels } from "../types";
 import { FormLabelsProvider } from "./FormLabelsProvider";
 
 /**

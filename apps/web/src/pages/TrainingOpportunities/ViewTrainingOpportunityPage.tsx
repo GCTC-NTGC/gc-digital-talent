@@ -13,13 +13,12 @@ import {
   Chip,
   Container,
 } from "@gc-digital-talent/ui";
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-  type Scalars,
-  type ViewTrainingOpportunityPageQuery,
+import type {
+  FragmentType,
+  Scalars,
+  ViewTrainingOpportunityPageQuery,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 

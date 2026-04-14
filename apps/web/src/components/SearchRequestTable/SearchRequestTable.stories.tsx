@@ -1,4 +1,4 @@
-import { type Meta, type StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 
 import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
 

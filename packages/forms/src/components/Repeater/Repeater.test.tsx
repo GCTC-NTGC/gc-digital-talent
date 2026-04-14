@@ -7,7 +7,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { vi } from "vitest";
 
 import {
@@ -15,11 +15,10 @@ import {
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 
-import Input, { type InputProps } from "../Input/Input";
-import Repeater, {
-  type RepeaterProps,
-  type RepeaterFieldsetProps,
-} from "./Repeater";
+import type { InputProps } from "../Input/Input";
+import Input from "../Input/Input";
+import type { RepeaterProps, RepeaterFieldsetProps } from "./Repeater";
+import Repeater from "./Repeater";
 
 interface RenderRepeaterProps {
   formProps: Omit<FormProps, "children">;

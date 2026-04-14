@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
+import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
-  type CheckboxOption,
   Checklist,
   Field,
   Input,
@@ -17,16 +17,16 @@ import {
   sortFlexibleWorkLocations,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
-  type FragmentType,
   getFragment,
   graphql,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { type FormFieldProps } from "../../types";
+import type { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
 
 const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `

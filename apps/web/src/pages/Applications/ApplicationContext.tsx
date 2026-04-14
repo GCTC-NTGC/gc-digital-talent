@@ -1,13 +1,8 @@
-import {
-  createContext,
-  useContext,
-  type ReactNode,
-  useMemo,
-  useEffect,
-} from "react";
+import type { ReactNode } from "react";
+import { createContext, useContext, useMemo, useEffect } from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
-import { type Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
 import { isIAPPool } from "~/utils/poolUtils";
 

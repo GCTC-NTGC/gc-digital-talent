@@ -1,16 +1,16 @@
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import {
-  type UpdateCommunityInterestInput,
-  type FragmentType,
-  getFragment,
-  graphql,
+import type {
+  UpdateCommunityInterestInput,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -22,11 +22,8 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { messages } from "./messages";
-import {
-  apiDataToFormValues,
-  type FormValues,
-  formValuesToApiUpdateInput,
-} from "../form";
+import type { FormValues } from "../form";
+import { apiDataToFormValues, formValuesToApiUpdateInput } from "../form";
 import FindANewCommunity from "../sections/FindANewCommunity";
 import ReviewAndSubmit from "../sections/ReviewAndSubmit";
 import AdditionalInformation from "../sections/AdditionalInformation";
@@ -43,7 +40,7 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
 
     communities {
       id
-      developmentPrograms {
+      associatedDevelopmentPrograms {
         id
         name {
           localized
@@ -67,10 +64,13 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
     }
     additionalInformation
     interestInDevelopmentPrograms {
-      developmentProgram {
+      communityDevelopmentProgram {
         id
-        name {
-          localized
+        developmentProgram {
+          id
+          name {
+            localized
+          }
         }
       }
       participationStatus
@@ -125,7 +125,7 @@ const UpdateCommunityInterestForm = ({
   const developmentProgramsForCommunity = unpackMaybes(
     formOptions?.communities?.find(
       (community) => community?.id === formData.community.id,
-    )?.developmentPrograms,
+    )?.associatedDevelopmentPrograms,
   );
 
   const developmentProgramCount: number =
@@ -205,8 +205,11 @@ const UpdateCommunityInterest_Query = graphql(/* GraphQL */ `
           ...UpdateCommunityInterestFormData_Fragment
           interestInDevelopmentPrograms {
             id
-            developmentProgram {
+            communityDevelopmentProgram {
               id
+              developmentProgram {
+                id
+              }
             }
           }
         }
@@ -287,7 +290,7 @@ export const UpdateCommunityInterestPage = () => {
         communityInterest.interestInDevelopmentPrograms?.forEach(
           (interestedDevProgram) => {
             interestedDevPrograms.set(
-              interestedDevProgram.developmentProgram.id,
+              interestedDevProgram.communityDevelopmentProgram.id,
               interestedDevProgram.id,
             );
           },

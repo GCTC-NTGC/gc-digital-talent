@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
-import {
-  type ColumnDef,
-  type PaginationState,
-  type SortingState,
-  createColumnHelper,
+import type {
+  ColumnDef,
+  PaginationState,
+  SortingState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import isEqual from "lodash/isEqual";
-import { type SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { useQuery } from "urql";
 import { useState, useMemo, useRef } from "react";
 
@@ -17,17 +17,14 @@ import {
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import {
-  type User,
-  type UserFilterInput,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { User, UserFilterInput } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
-import { type SearchState } from "~/components/Table/ResponsiveTable/types";
+import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
@@ -48,7 +45,8 @@ import {
   transformUserFilterInputToFormValues,
   transformUserInput,
 } from "./utils";
-import UserFilterDialog, { type FormValues } from "./UserFilterDialog";
+import type { FormValues } from "./UserFilterDialog";
+import UserFilterDialog from "./UserFilterDialog";
 
 const columnHelper = createColumnHelper<User>();
 

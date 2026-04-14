@@ -1,9 +1,9 @@
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
-import {
-  type DetailedHTMLProps,
-  type TextareaHTMLAttributes,
-  type FocusEvent,
+import type {
+  DetailedHTMLProps,
+  TextareaHTMLAttributes,
+  FocusEvent,
 } from "react";
 import { tv } from "tailwind-variants";
 

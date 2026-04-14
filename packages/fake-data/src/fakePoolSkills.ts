@@ -1,11 +1,7 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import {
-  PoolSkillType,
-  type PoolSkill,
-  type Skill,
-  SkillLevel,
-} from "@gc-digital-talent/graphql";
+import type { PoolSkill, Skill } from "@gc-digital-talent/graphql";
+import { PoolSkillType, SkillLevel } from "@gc-digital-talent/graphql";
 
 import fakeSkills from "./fakeSkills";
 import toLocalizedEnum from "./fakeLocalizedEnum";

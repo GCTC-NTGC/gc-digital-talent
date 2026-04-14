@@ -4,11 +4,12 @@ import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
 import BuildingLibraryIcon from "@heroicons/react/20/solid/BuildingLibraryIcon";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
-import { type IconType } from "../../types";
+import type { IconType } from "../../types";
 
 const statusItem = tv({
   slots: {

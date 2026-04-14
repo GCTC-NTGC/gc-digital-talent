@@ -1,6 +1,7 @@
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
-import { type IconButtonProps } from "@gc-digital-talent/ui";
+import type { IconButtonProps } from "@gc-digital-talent/ui";
 
 const statusBtn = tv({
   slots: {

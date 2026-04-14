@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router";
 
-import { useTheme, type ThemeKey } from "@gc-digital-talent/theme";
+import type { ThemeKey } from "@gc-digital-talent/theme";
+import { useTheme } from "@gc-digital-talent/theme";
 
 type UseLayoutTheme = (layoutKey: ThemeKey) => void;
 

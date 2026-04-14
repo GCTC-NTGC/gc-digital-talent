@@ -1,28 +1,22 @@
-import { type ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
-import {
-  FormProvider,
-  type SubmitHandler,
-  useForm,
-  useFormContext,
-} from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
 
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Notice } from "@gc-digital-talent/ui";
-import {
-  type CheckboxOption,
-  Checklist,
-  Select,
-} from "@gc-digital-talent/forms";
+import type { CheckboxOption } from "@gc-digital-talent/forms";
+import { Checklist, Select } from "@gc-digital-talent/forms";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import pageTitles from "~/messages/pageTitles";
-import { type WorkFormValues } from "~/types/experience";
+import type { WorkFormValues } from "~/types/experience";
 
-import {
-  type CommunityWithoutKey,
-  type WorkStreamsWithCommunity,
-  type WorkStreamWithoutKey,
+import type {
+  CommunityWithoutKey,
+  WorkStreamsWithCommunity,
+  WorkStreamWithoutKey,
 } from "./types";
 
 interface FormValues {

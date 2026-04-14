@@ -1,9 +1,9 @@
 import { NotificationFamily } from "@gc-digital-talent/graphql";
 
-import {
-  type FormValues,
-  type UpdateNotificationInput,
-  type NotificationType,
+import type {
+  FormValues,
+  UpdateNotificationInput,
+  NotificationType,
 } from "./types";
 
 const inputNameToFamilyMap: Record<keyof FormValues, NotificationFamily> = {

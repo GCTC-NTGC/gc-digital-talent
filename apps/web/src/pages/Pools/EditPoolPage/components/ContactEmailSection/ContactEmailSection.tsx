@@ -2,14 +2,12 @@ import InboxIcon from "@heroicons/react/24/outline/InboxIcon";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-  type Pool,
-  PoolStatus,
-  type UpdatePoolInput,
+import type {
+  FragmentType,
+  Pool,
+  UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
@@ -18,10 +16,7 @@ import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
-import {
-  type PublishedEditableSectionProps,
-  type SectionProps,
-} from "../../types";
+import type { PublishedEditableSectionProps, SectionProps } from "../../types";
 import { useEditPoolContext } from "../EditPoolContext";
 import UpdatePublishedProcessDialog, {
   type FormValues as UpdateFormValues,

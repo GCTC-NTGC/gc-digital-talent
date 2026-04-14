@@ -5,22 +5,17 @@ import sortBy from "lodash/sortBy";
 
 import { TableOfContents, CardRepeater, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  type FragmentType,
-  type GeneralQuestion,
-  PoolStatus,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, GeneralQuestion } from "@gc-digital-talent/graphql";
+import { PoolStatus, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { type EditPoolSectionMetadata } from "~/types/pool";
+import type { EditPoolSectionMetadata } from "~/types/pool";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import {
-  type GeneralQuestionsSubmit,
-  type GeneralQuestionsSubmitData,
-  repeaterQuestionsToSubmitData,
+import type {
+  GeneralQuestionsSubmit,
+  GeneralQuestionsSubmitData,
 } from "./utils";
+import { repeaterQuestionsToSubmitData } from "./utils";
 import GeneralQuestionCard from "./GeneralQuestionCard";
 import GeneralQuestionDialog from "./GeneralQuestionDialog";
 

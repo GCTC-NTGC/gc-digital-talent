@@ -1,19 +1,13 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import UserMinusIcon from "@heroicons/react/16/solid/UserMinusIcon";
 import UserPlusIcon from "@heroicons/react/16/solid/UserPlusIcon";
 import { useIntl } from "react-intl";
 
-import {
-  ActivityEvent,
-  type ActivityProperties,
-  getFragment,
-  type Maybe,
-} from "@gc-digital-talent/graphql";
+import type { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
+import { ActivityEvent, getFragment } from "@gc-digital-talent/graphql";
 
-import BaseItem, {
-  BaseItem_Fragment,
-  type CommonItemProps,
-} from "./BaseActivityItem";
+import type { CommonItemProps } from "./BaseActivityItem";
+import BaseItem, { BaseItem_Fragment } from "./BaseActivityItem";
 import { getEventInfo, parseAttributes } from "./utils";
 
 type PoolCandidateActivityItemProps = CommonItemProps;

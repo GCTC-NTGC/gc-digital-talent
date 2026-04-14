@@ -10,15 +10,15 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  type RoleInput,
-  type ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
+import type {
+  RoleInput,
+  ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import { UpdateUserProcessRoles_Mutation } from "./operations";
-import { type PoolTeamMember } from "./types";
+import type { PoolTeamMember } from "./types";
 
 interface RemovePoolMembershipDialogProps {
   user: PoolTeamMember;

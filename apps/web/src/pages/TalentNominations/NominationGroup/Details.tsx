@@ -3,11 +3,8 @@ import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import { useState } from "react";
 
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
   Button,
@@ -22,7 +19,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import permissionConstants from "~/constants/permissionConstants";
 
-import { type RouteParams } from "./types";
+import type { RouteParams } from "./types";
 import { detailTabMessages } from "./messages";
 import TalentNominationAccordionItem from "./components/TalentNominationAccordionItem";
 

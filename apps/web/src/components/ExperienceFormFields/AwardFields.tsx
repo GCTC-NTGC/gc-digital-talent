@@ -9,19 +9,19 @@ import {
   localizedEnumToOptions,
   TextArea,
 } from "@gc-digital-talent/forms";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   errorMessages,
   uiMessages,
   sortAwardedScope,
   sortAwardedTo,
   getLocale,
-  type Locales,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { graphql } from "@gc-digital-talent/graphql";
 import { Heading } from "@gc-digital-talent/ui";
 
-import { type SubExperienceFormProps } from "~/types/experience";
+import type { SubExperienceFormProps } from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 

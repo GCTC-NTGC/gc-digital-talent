@@ -1,12 +1,13 @@
-import { expect, type Locator, type Page } from "playwright/test";
+import type { Locator, Page } from "playwright/test";
+import { expect } from "playwright/test";
 
-import {
-  type FlexibleWorkLocation,
-  type WorkRegion,
+import type {
+  FlexibleWorkLocation,
+  WorkRegion,
 } from "@gc-digital-talent/graphql";
 
 import { getPoolCandidatesTable } from "~/utils/candidateAssessment";
-import { type GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
 
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";

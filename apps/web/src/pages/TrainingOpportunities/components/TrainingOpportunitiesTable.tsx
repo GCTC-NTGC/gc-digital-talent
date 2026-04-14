@@ -1,35 +1,35 @@
 import { useQuery } from "urql";
 import { useMemo, useState } from "react";
-import {
-  type ColumnDef,
-  createColumnHelper,
-  type PaginationState,
-  type SortingState,
+import type {
+  ColumnDef,
+  PaginationState,
+  SortingState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
-import {
-  type DeadlineStatus,
-  graphql,
-  type OrderByClause,
-  SortOrder,
-  type TrainingOpportunitiesFilterInput,
-  type TrainingOpportunity,
+import type {
+  DeadlineStatus,
+  OrderByClause,
+  TrainingOpportunitiesFilterInput,
+  TrainingOpportunity,
 } from "@gc-digital-talent/graphql";
+import { graphql, SortOrder } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocale,
   getLocalizedName,
-  type Locales,
 } from "@gc-digital-talent/i18n";
-import { Chip, type ChipProps, Link } from "@gc-digital-talent/ui";
+import type { ChipProps } from "@gc-digital-talent/ui";
+import { Chip, Link } from "@gc-digital-talent/ui";
 
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import { type InitialState } from "~/components/Table/ResponsiveTable/types";
+import type { InitialState } from "~/components/Table/ResponsiveTable/types";
 import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
 import accessors from "~/components/Table/accessors";

@@ -1,7 +1,7 @@
-import { type Meta, type StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import BasicForm from "./BasicForm";
 import Repeater from "./Repeater/Repeater";

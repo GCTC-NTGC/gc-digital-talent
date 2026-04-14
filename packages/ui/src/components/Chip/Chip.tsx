@@ -1,18 +1,18 @@
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { useIntl } from "react-intl";
 import { tv, type VariantProps } from "tailwind-variants";
-import {
-  type DetailedHTMLProps,
-  type HTMLAttributes,
-  useRef,
-  type MouseEventHandler,
-  type KeyboardEventHandler,
-  type KeyboardEvent,
+import type {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  MouseEventHandler,
+  KeyboardEventHandler,
+  KeyboardEvent,
 } from "react";
+import { useRef } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import { type IconType } from "../../types";
+import type { IconType } from "../../types";
 
 /**
  * List of acceptable key presses

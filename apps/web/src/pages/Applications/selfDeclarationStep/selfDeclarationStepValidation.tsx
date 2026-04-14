@@ -1,6 +1,6 @@
-import {
-  type Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
-  type Pool,
+import type {
+  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
+  Pool,
 } from "@gc-digital-talent/graphql";
 
 import { diversityEquityInclusionSectionHasEmptyRequiredFields } from "~/validators/profile";

@@ -1,12 +1,12 @@
-import { type IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  type LocalizedSkillCategory,
-  type Maybe,
-  type Skill,
-  type SkillFamily,
+import type {
+  LocalizedSkillCategory,
+  Maybe,
+  Skill,
+  SkillFamily,
 } from "@gc-digital-talent/graphql";
 
 export function categoryAccessor(

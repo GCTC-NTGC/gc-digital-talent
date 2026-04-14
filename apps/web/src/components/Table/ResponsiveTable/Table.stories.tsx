@@ -1,22 +1,23 @@
 import { useState } from "react";
-import { type StoryFn, type Meta } from "@storybook/react-vite";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 import { action } from "storybook/actions";
-import {
-  type ColumnDef,
-  createColumnHelper,
-  type CellContext,
-  type SortingState,
-  type PaginationState,
+import type {
+  ColumnDef,
+  CellContext,
+  SortingState,
+  PaginationState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 
 import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
-import { Language, type User } from "@gc-digital-talent/graphql";
+import type { User } from "@gc-digital-talent/graphql";
+import { Language } from "@gc-digital-talent/graphql";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Table from "./ResponsiveTable";
 import Selection from "./RowSelection";
-import { type SearchState } from "./types";
+import type { SearchState } from "./types";
 
 const mockUsers = fakeUsers(100);
 const columnHelper = createColumnHelper<User>();

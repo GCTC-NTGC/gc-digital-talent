@@ -1,23 +1,26 @@
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { useIntl } from "react-intl";
+import type {
+  ComponentPropsWithoutRef,
+  ComponentRef,
+  HTMLProps,
+  ReactNode,
+} from "react";
 import {
   createContext,
-  type ComponentPropsWithoutRef,
   forwardRef,
-  type ComponentRef,
   useState,
   useMemo,
-  type HTMLProps,
-  type ReactNode,
   useContext,
 } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import Separator from "../Separator";
 import { iconMap, getAlertLevelTitle } from "./utils";
-import { type AlertHeadingLevel, type AlertType } from "./types";
+import type { AlertHeadingLevel, AlertType } from "./types";
 
 interface AlertContextValue {
   type: AlertType;

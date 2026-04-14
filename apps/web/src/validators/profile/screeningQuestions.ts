@@ -1,5 +1,5 @@
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { type Pool, type PoolCandidate } from "@gc-digital-talent/graphql";
+import type { Pool, PoolCandidate } from "@gc-digital-talent/graphql";
 
 type PartialPoolCandidate = Pick<PoolCandidate, "screeningQuestionResponses">;
 

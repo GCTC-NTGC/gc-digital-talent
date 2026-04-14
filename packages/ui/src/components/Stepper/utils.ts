@@ -1,11 +1,12 @@
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import { type MessageDescriptor } from "react-intl";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { MessageDescriptor } from "react-intl";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import { type IconType } from "../../types";
+import type { IconType } from "../../types";
 
 export const step = tv({
   slots: {

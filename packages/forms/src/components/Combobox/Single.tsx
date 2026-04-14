@@ -5,7 +5,7 @@ import isEqual from "lodash/isEqual";
 import Field from "../Field";
 import Menu from "./Menu";
 import Input from "./Input";
-import { type BaseProps, type Option } from "./types";
+import type { BaseProps, Option } from "./types";
 import { comboboxInput, getSingleFilteredItems, itemToString } from "./utils";
 
 interface SingleProps extends BaseProps {

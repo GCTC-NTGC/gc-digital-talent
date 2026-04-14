@@ -1,4 +1,4 @@
-import { type StoryFn, type Meta } from "@storybook/react-vite";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 
 import HeaderComponent from "./Header";
 

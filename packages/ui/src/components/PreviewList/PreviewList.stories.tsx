@@ -1,10 +1,11 @@
-import { type Meta, type StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import PreviewList, { type MetaDataProps } from "./PreviewList";
+import type { MetaDataProps } from "./PreviewList";
+import PreviewList from "./PreviewList";
 
 faker.seed(0);
 

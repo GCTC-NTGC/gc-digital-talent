@@ -1,7 +1,7 @@
-import {
-  type Pool,
-  type Experience,
-  type Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
+import type {
+  Pool,
+  Experience,
+  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 

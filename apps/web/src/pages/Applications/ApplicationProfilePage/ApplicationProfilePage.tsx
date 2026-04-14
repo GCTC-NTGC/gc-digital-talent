@@ -11,8 +11,8 @@ import { graphql, PoolAreaOfSelection } from "@gc-digital-talent/graphql";
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import useRoutes from "~/hooks/useRoutes";
-import { type GetPageNavInfo } from "~/types/applicationStep";
-import { type SectionProps } from "~/components/Profile/types";
+import type { GetPageNavInfo } from "~/types/applicationStep";
+import type { SectionProps } from "~/components/Profile/types";
 import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
@@ -26,7 +26,7 @@ import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeter
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
 import StepNavigation from "./components/StepNavigation";
-import { type ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
 import stepHasError from "../profileStep/profileStepValidation";
 import { useApplicationContext } from "../ApplicationContext";
 import useApplication from "../useApplication";

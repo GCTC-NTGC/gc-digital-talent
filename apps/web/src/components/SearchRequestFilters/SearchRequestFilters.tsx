@@ -13,12 +13,12 @@ import {
   commonMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
-  type Classification,
-  FlexibleWorkLocation,
-  type LocalizedEnumString,
-  type Maybe,
+import type {
+  Classification,
+  LocalizedEnumString,
+  Maybe,
 } from "@gc-digital-talent/graphql";
+import { FlexibleWorkLocation } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -29,9 +29,9 @@ import {
 } from "~/utils/searchRequestUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import messages from "~/messages/profileMessages";
-import {
-  type PartialApplicantFilter,
-  type PartialPoolCandidateFilter,
+import type {
+  PartialApplicantFilter,
+  PartialPoolCandidateFilter,
 } from "~/types/searchRequest";
 
 import FilterBlock from "./FilterBlock";

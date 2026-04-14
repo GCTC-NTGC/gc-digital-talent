@@ -1,8 +1,8 @@
-import {
-  type EstimatedLanguageAbility,
-  type EvaluatedLanguageAbility,
-  type Language,
-  type Maybe,
+import type {
+  EstimatedLanguageAbility,
+  EvaluatedLanguageAbility,
+  Language,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {

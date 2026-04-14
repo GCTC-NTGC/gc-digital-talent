@@ -1,15 +1,16 @@
-import { useState, type SetStateAction, type Dispatch, useMemo } from "react";
-import {
-  type OnChangeFn,
-  type ColumnFiltersState,
-  type PaginationState,
-  type SortingState,
-  type TableState,
-  type Updater,
-  type VisibilityState,
+import type { SetStateAction, Dispatch } from "react";
+import { useState, useMemo } from "react";
+import type {
+  OnChangeFn,
+  ColumnFiltersState,
+  PaginationState,
+  SortingState,
+  TableState,
+  Updater,
+  VisibilityState,
 } from "@tanstack/react-table";
 
-import { type InitialState } from "./types";
+import type { InitialState } from "./types";
 import { INITIAL_STATE, SEARCH_PARAM_KEY } from "./constants";
 import { getColumnVisibility, getColumnFilters } from "./utils";
 

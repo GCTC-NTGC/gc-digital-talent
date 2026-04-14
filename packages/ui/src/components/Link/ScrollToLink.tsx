@@ -1,12 +1,10 @@
-import { useLocation, Link, type LinkProps, type Location } from "react-router";
-import {
-  useState,
-  useEffect,
-  type MouseEvent,
-  type KeyboardEvent,
-} from "react";
+import type { LinkProps, Location } from "react-router";
+import { useLocation, Link } from "react-router";
+import type { MouseEvent, KeyboardEvent } from "react";
+import { useState, useEffect } from "react";
 
-import { type BaseButtonLinkProps, btn } from "../../utils/btnStyles";
+import type { BaseButtonLinkProps } from "../../utils/btnStyles";
+import { btn } from "../../utils/btnStyles";
 
 type ClickEvent =
   | MouseEvent<HTMLAnchorElement | undefined>

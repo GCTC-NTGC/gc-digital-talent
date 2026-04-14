@@ -1,21 +1,24 @@
-import { expect, type Locator, type Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
+import { expect } from "@playwright/test";
 
 import {
   createAssessmentResult,
   getCandidateScreeningStage,
   getPoolAssessmentSteps,
 } from "~/utils/candidateAssessment";
-import { type GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
 
 import AppPage from "./AppPage";
+import type {
+  AssessmentDecisionLevel,
+  AssessmentResultJustification,
+  CandidateRemovalReason,
+  DisqualificationReason,
+} from "../../../packages/graphql/src/gql/graphql";
 import {
   ApplicationStatus,
   AssessmentDecision,
-  type AssessmentDecisionLevel,
-  type AssessmentResultJustification,
   AssessmentResultType,
-  type CandidateRemovalReason,
-  type DisqualificationReason,
   ScreeningStage,
 } from "../../../packages/graphql/src/gql/graphql";
 

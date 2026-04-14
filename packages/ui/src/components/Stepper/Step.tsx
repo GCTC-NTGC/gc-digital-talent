@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { getIconFromState, messageMap, type StepVariants, step } from "./utils";
+import type { StepVariants } from "./utils";
+import { getIconFromState, messageMap, step } from "./utils";
 import Link from "../Link";
 
 interface StepLinkProps {

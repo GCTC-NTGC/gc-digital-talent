@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
-import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -28,16 +29,15 @@ import {
   Link,
   Pending,
 } from "@gc-digital-talent/ui";
-import {
-  type Skill,
-  type SkillFamily,
-  type CreateSkillInput,
-  type SkillCategory,
-  graphql,
-  type Scalars,
-  getFragment,
-  type FragmentType,
+import type {
+  Skill,
+  SkillFamily,
+  CreateSkillInput,
+  SkillCategory,
+  Scalars,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";

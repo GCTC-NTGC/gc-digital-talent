@@ -1,5 +1,5 @@
 import { defineMessage, useIntl } from "react-intl";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";

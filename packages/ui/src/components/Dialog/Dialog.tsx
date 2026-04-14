@@ -4,14 +4,15 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { useIntl } from "react-intl";
-import {
-  forwardRef,
-  type ComponentRef,
-  type ComponentPropsWithoutRef,
-  type ReactNode,
-  type HTMLProps,
+import type {
+  ComponentRef,
+  ComponentPropsWithoutRef,
+  ReactNode,
+  HTMLProps,
 } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import { forwardRef } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 

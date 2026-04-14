@@ -1,10 +1,8 @@
-import { type IntlShape } from "react-intl";
-import { type JSX } from "react";
+import type { IntlShape } from "react-intl";
+import type { JSX } from "react";
 
-import {
-  type TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType,
-  TalentNominationGroupStatus,
-} from "@gc-digital-talent/graphql";
+import type { TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType } from "@gc-digital-talent/graphql";
+import { TalentNominationGroupStatus } from "@gc-digital-talent/graphql";
 import { Chip, Link } from "@gc-digital-talent/ui";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 

@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
-import { type ReactNode } from "react";
-import { type ClientLoaderFunction, redirect } from "react-router";
+import type { ReactNode } from "react";
+import type { ClientLoaderFunction } from "react-router";
+import { redirect } from "react-router";
 
 import {
   AlertDialog,
@@ -11,9 +12,9 @@ import {
   Ul,
   Container,
 } from "@gc-digital-talent/ui";
+import type { LogoutReason } from "@gc-digital-talent/auth";
 import {
   LOGOUT_REASON_KEY,
-  type LogoutReason,
   POST_LOGOUT_OVERRIDE_PATH_KEY,
   useAuthentication,
 } from "@gc-digital-talent/auth";

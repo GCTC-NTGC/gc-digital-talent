@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 
-import { expect, type Locator, type Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
+import { expect } from "@playwright/test";
 
 import { loginBySub } from "~/utils/auth";
 import { deleteUser, me } from "~/utils/user";

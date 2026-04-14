@@ -19,17 +19,17 @@ final class UpdateCommunityInterestInputValidator extends Validator
     public function rules(): array
     {
         $communityInterestId = $this->arg('id');
-        $communityInterest = CommunityInterest::with(['community', 'community.workStreams', 'community.developmentPrograms'])->find($communityInterestId);
+        $communityInterest = CommunityInterest::with(['community', 'community.workStreams', 'community.communityDevelopmentPrograms'])->find($communityInterestId);
         $community = $communityInterest?->community;
         $workStreamIds = $community?->workStreams->pluck('id')->toArray() ?? [];
-        $developmentProgramIds = $community?->developmentPrograms->pluck('id')->toArray() ?? [];
+        $communityDevelopmentProgramIds = $community?->communityDevelopmentPrograms->pluck('id')->toArray() ?? [];
 
         return [
             'workStreams.sync.*' => ['uuid', 'exists:work_streams,id', Rule::in($workStreamIds)],
             'jobInterest' => ['nullable', 'boolean'],
             'trainingInterest' => ['nullable', 'boolean'],
             'additionalInformation' => ['nullable', 'string'],
-            'interestInDevelopmentPrograms.create.*.developmentProgramId' => ['uuid', Rule::in($developmentProgramIds)],
+            'interestInDevelopmentPrograms.create.*.communityDevelopmentProgramId' => ['uuid', Rule::in($communityDevelopmentProgramIds)],
             'financeIsChief' => [
                 'nullable',
                 Rule::when($community?->key === 'finance',

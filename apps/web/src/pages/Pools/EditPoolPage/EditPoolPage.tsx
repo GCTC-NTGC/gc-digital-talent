@@ -2,8 +2,10 @@ import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import { type OperationContext, useQuery } from "urql";
-import { useMemo, type JSX } from "react";
+import type { OperationContext } from "urql";
+import { useQuery } from "urql";
+import type { JSX } from "react";
+import { useMemo } from "react";
 
 import {
   NotFound,
@@ -19,17 +21,16 @@ import {
   NotFoundError,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import {
-  graphql,
-  type Scalars,
-  type Skill,
-  type FragmentType,
-  getFragment,
-  type UpdatePublishedPoolInput,
+import type {
+  Scalars,
+  Skill,
+  FragmentType,
+  UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import { type EditPoolSectionMetadata } from "~/types/pool";
+import type { EditPoolSectionMetadata } from "~/types/pool";
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -53,10 +54,11 @@ import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLi
 import { requireUser } from "~/routing/auth";
 import { graphqlClientContext } from "~/routing/context";
 
-import PoolNameSection, {
-  type PoolClassification_Fragment,
-  type PoolNameSubmitData,
+import type {
+  PoolClassification_Fragment,
+  PoolNameSubmitData,
 } from "./components/PoolNameSection/PoolNameSection";
+import PoolNameSection from "./components/PoolNameSection/PoolNameSection";
 import ProcessNumberSection, {
   type ProcessNumberSubmitData,
 } from "./components/ProcessNumberSection";
@@ -78,23 +80,19 @@ import EducationRequirementsSection from "./components/EducationRequirementsSect
 import GeneralQuestionsSection, {
   type GeneralQuestionsSubmitData,
 } from "./components/GeneralQuestionsSection/GeneralQuestionsSection";
-import SpecialNoteSection, {
-  type SpecialNoteSubmitData,
-} from "./components/SpecialNoteSection/SpecialNoteSection";
+import type { SpecialNoteSubmitData } from "./components/SpecialNoteSection/SpecialNoteSection";
+import SpecialNoteSection from "./components/SpecialNoteSection/SpecialNoteSection";
 import WhatToExpectSection, {
   type WhatToExpectSubmitData,
 } from "./components/WhatToExpectSection/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
-import { type PoolSkillMutationsType, type SectionKey } from "./types";
-import AboutUsSection, {
-  type AboutUsSubmitData,
-} from "./components/AboutUsSection/AboutUsSection";
-import WhatToExpectAdmissionSection, {
-  type WhatToExpectAdmissionSubmitData,
-} from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
-import ContactEmailSection, {
-  type ContactEmailSubmitData,
-} from "./components/ContactEmailSection/ContactEmailSection";
+import type { PoolSkillMutationsType, SectionKey } from "./types";
+import type { AboutUsSubmitData } from "./components/AboutUsSection/AboutUsSection";
+import AboutUsSection from "./components/AboutUsSection/AboutUsSection";
+import type { WhatToExpectAdmissionSubmitData } from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
+import WhatToExpectAdmissionSection from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
+import type { ContactEmailSubmitData } from "./components/ContactEmailSection/ContactEmailSection";
+import ContactEmailSection from "./components/ContactEmailSection/ContactEmailSection";
 import type { Route } from "./+types/EditPoolPage";
 
 export const EditPool_Fragment = graphql(/* GraphQL */ `

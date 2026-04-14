@@ -1,8 +1,5 @@
-import {
-  Heading,
-  type HeadingProps,
-  type HeadingRef,
-} from "@gc-digital-talent/ui";
+import type { HeadingProps, HeadingRef } from "@gc-digital-talent/ui";
+import { Heading } from "@gc-digital-talent/ui";
 
 import useScrollToOnMount from "~/hooks/useScrollToOnMount";
 

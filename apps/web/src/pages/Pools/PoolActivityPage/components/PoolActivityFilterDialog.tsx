@@ -2,12 +2,8 @@ import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useWatch } from "react-hook-form";
 
-import {
-  type ActivityEvent,
-  graphql,
-  type Maybe,
-  type Scalars,
-} from "@gc-digital-talent/graphql";
+import type { ActivityEvent, Maybe, Scalars } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
@@ -17,9 +13,8 @@ import { Heading } from "@gc-digital-talent/ui";
 import { Combobox, DateInput } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import FilterDialog, {
-  type CommonFilterDialogProps,
-} from "~/components/FilterDialog/FilterDialog";
+import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDialog";
+import FilterDialog from "~/components/FilterDialog/FilterDialog";
 
 import CandidatesFilterInput from "./CandidatesFilterInput";
 import AssessmentMembersFilterInput from "./AssessmentMembersFilterInput";

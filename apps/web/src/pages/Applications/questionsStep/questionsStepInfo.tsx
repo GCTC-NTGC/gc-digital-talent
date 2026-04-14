@@ -1,8 +1,8 @@
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
-import {
-  type ApplicationStepInfo,
-  type GetApplicationStepInfo,
+import type {
+  ApplicationStepInfo,
+  GetApplicationStepInfo,
 } from "~/types/applicationStep";
 
 import { getPageInfo as questionsPageInfo } from "../ApplicationQuestionsPage/ApplicationQuestionsPage";

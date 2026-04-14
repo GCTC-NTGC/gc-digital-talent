@@ -10,7 +10,7 @@ import { NotFoundError } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import profileMessages from "~/messages/profileMessages";
-import { type SectionProps } from "~/components/Profile/types";
+import type { SectionProps } from "~/components/Profile/types";
 import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
 import { getSectionTitle } from "~/components/Profile/utils";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";

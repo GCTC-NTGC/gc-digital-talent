@@ -1,15 +1,15 @@
 import { useMemo, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
-import {
-  type ControllerRenderProps,
-  type FieldValues,
-  type UseFormStateReturn,
+import type {
+  ControllerRenderProps,
+  FieldValues,
+  UseFormStateReturn,
 } from "react-hook-form";
 import { tv } from "tailwind-variants";
 
 import MenuBar from "./MenuBar";
 import Footer from "./Footer";
-import { type FieldState } from "../../types";
+import type { FieldState } from "../../types";
 import { buildExtensions } from "./utils";
 import { inputStyles } from "../../styles";
 

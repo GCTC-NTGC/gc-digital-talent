@@ -1,8 +1,5 @@
-import {
-  defineMessage,
-  defineMessages,
-  type MessageDescriptor,
-} from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessage, defineMessages } from "react-intl";
 
 import {
   WorkRegion,

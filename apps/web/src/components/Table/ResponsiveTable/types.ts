@@ -5,15 +5,15 @@ import type {
   SortingState,
   Table,
 } from "@tanstack/react-table";
-import {
-  type AriaAttributes,
-  type HTMLAttributes,
-  type HTMLProps,
-  type ReactNode,
-  type JSX,
+import type {
+  AriaAttributes,
+  HTMLAttributes,
+  HTMLProps,
+  ReactNode,
+  JSX,
 } from "react";
 
-import { type DownloadCsvProps } from "@gc-digital-talent/ui";
+import type { DownloadCsvProps } from "@gc-digital-talent/ui";
 
 export interface SearchState {
   /** The current search term */

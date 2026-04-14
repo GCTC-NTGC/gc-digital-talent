@@ -16,21 +16,17 @@ import {
   formMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import {
-  type Role,
-  type RoleInput,
-  type Scalars,
-  type Maybe,
+import type {
+  Role,
+  RoleInput,
+  Scalars,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-import {
-  type CommunityTeamable,
-  getUserRoleDialogFragment,
-  type UserRoleDialogBaseProps,
-  useUpdateRolesMutation,
-} from "../utils";
+import type { CommunityTeamable, UserRoleDialogBaseProps } from "../utils";
+import { getUserRoleDialogFragment, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
   roleIds: Scalars["UUID"]["input"][];

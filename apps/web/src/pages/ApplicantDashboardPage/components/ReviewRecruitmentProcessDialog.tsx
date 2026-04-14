@@ -3,11 +3,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useState } from "react";
 import { useMutation } from "urql";
 
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   formMessages,

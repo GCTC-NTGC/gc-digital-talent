@@ -1,17 +1,17 @@
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
-import { type ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  type Skill,
-  type Experience,
-  type Scalars,
-  graphql,
-  type FragmentType,
-  getFragment,
+import type {
+  Skill,
+  Experience,
+  Scalars,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import ExperienceSkillForm from "./ExperienceSkillForm";
 

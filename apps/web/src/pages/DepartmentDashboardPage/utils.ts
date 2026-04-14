@@ -1,16 +1,16 @@
-import { type IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
-import {
-  type Community,
-  type Department,
-  type Pool,
-  type Role,
-  type Team,
+import type {
+  Community,
+  Department,
+  Pool,
+  Role,
+  Team,
 } from "@gc-digital-talent/graphql";
 import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { type DepartmentWithRolesObject } from "./components/ResourcesDepartmentLink";
+import type { DepartmentWithRolesObject } from "./components/ResourcesDepartmentLink";
 
 type PoolTeamable = Pick<Pool, "__typename">;
 

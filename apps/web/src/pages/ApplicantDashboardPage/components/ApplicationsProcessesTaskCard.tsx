@@ -1,18 +1,14 @@
 import { useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
-  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import {
-  Accordion,
-  type AccordionMetaData,
-  TaskCard,
-  wrapParens,
-} from "@gc-digital-talent/ui";
+import type { AccordionMetaData } from "@gc-digital-talent/ui";
+import { Accordion, TaskCard, wrapParens } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 

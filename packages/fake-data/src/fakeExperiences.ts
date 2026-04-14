@@ -1,16 +1,18 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import {
+import type {
   // experiences
-  type AwardExperience,
-  type CommunityExperience,
-  type EducationExperience,
-  type PersonalExperience,
-  type WorkExperience,
+  AwardExperience,
+  CommunityExperience,
+  EducationExperience,
+  PersonalExperience,
+  WorkExperience,
   // required imports to generate an Experience to export
-  type User,
-  type ExperienceSkillRecord,
-  type Skill,
+  User,
+  ExperienceSkillRecord,
+  Skill,
+} from "@gc-digital-talent/graphql";
+import {
   // imports required by specific experiences and are linked
   AwardedTo,
   AwardedScope,

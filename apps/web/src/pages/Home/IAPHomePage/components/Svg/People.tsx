@@ -1,4 +1,4 @@
-import { type HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 
 const People = (props: HTMLAttributes<HTMLOrSVGElement>) => (
   <svg

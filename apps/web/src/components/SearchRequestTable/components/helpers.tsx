@@ -1,4 +1,4 @@
-import { type IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import {
   Link,
@@ -9,10 +9,10 @@ import {
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  type Classification,
-  type Maybe,
-  type PoolCandidateSearchRequest,
+import type {
+  Classification,
+  Maybe,
+  PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
 
 import type useRoutes from "~/hooks/useRoutes";

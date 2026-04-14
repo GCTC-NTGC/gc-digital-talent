@@ -1,12 +1,10 @@
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
-import { type HeadingLevel, PreviewList } from "@gc-digital-talent/ui";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { HeadingLevel } from "@gc-digital-talent/ui";
+import { PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 

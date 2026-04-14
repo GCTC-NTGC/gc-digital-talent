@@ -1,12 +1,13 @@
-import {
-  type DetailedHTMLProps,
-  type HTMLAttributes,
-  type ReactNode,
-  type ReactElement,
+import type {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  ReactNode,
+  ReactElement,
 } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
-import { type IconType } from "../../types";
+import type { IconType } from "../../types";
 
 const item = tv({
   slots: {

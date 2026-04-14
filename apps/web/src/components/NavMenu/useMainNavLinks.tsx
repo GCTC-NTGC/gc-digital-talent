@@ -4,10 +4,10 @@ import uniqBy from "lodash/uniqBy";
 import { useLocation } from "react-router";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import type { RoleName } from "@gc-digital-talent/auth";
 import {
   hasRole,
   ROLE_NAME,
-  type RoleName,
   useAuthentication,
   useAuthorization,
 } from "@gc-digital-talent/auth";

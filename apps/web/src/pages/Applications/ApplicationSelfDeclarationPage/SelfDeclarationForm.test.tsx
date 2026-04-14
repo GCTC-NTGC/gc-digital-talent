@@ -8,7 +8,7 @@ import {
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-import { type Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
 
 import { ApplicationSelfDeclaration } from "./ApplicationSelfDeclarationPage";
 

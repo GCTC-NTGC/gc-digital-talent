@@ -8,7 +8,7 @@ import adminMessages from "~/messages/adminMessages";
 import IndividualRoleTable from "./IndividualRoleTable";
 import CommunityRoleTable from "./CommunityRoleTable";
 import ProcessRoleTable from "./ProcessRoleTable";
-import { type RoleTableProps } from "../utils";
+import type { RoleTableProps } from "../utils";
 import DepartmentRoleTable from "./DepartmentRoleTable";
 
 export const ROLE_PERMISSIONS_ID = "role-permissions";

@@ -1,16 +1,16 @@
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router";
 
 import { Card, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import {
-  type CreateCommunityInterestInput,
-  type FragmentType,
-  getFragment,
-  graphql,
+import type {
+  CreateCommunityInterestInput,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -21,7 +21,8 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { messages } from "./messages";
-import { type FormValues, formValuesToApiCreateInput } from "../form";
+import type { FormValues } from "../form";
+import { formValuesToApiCreateInput } from "../form";
 import FindANewCommunity from "../sections/FindANewCommunity";
 import ReviewAndSubmit from "../sections/ReviewAndSubmit";
 import AdditionalInformation from "../sections/AdditionalInformation";
@@ -37,7 +38,7 @@ const CreateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
 
     communities {
       id
-      developmentPrograms {
+      associatedDevelopmentPrograms {
         id
       }
     }
@@ -69,7 +70,7 @@ const CreateCommunityInterestForm = ({
   const developmentProgramCount: number =
     formOptions?.communities?.find(
       (community) => community?.id === selectedCommunityId,
-    )?.developmentPrograms?.length ?? 0;
+    )?.associatedDevelopmentPrograms?.length ?? 0;
 
   return (
     <>

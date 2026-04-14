@@ -1,5 +1,5 @@
-import { type Locales } from "@gc-digital-talent/i18n";
-import { type Logger } from "@gc-digital-talent/logger";
+import type { Locales } from "@gc-digital-talent/i18n";
+import type { Logger } from "@gc-digital-talent/logger";
 
 import { API_SUPPORT_ENDPOINT } from "~/constants/talentSearchConstants";
 

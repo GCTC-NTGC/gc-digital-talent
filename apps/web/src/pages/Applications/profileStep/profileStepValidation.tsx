@@ -4,6 +4,13 @@ import type {
 } from "@gc-digital-talent/graphql";
 
 import type { ApplicationBrowserState } from "~/types/applicationStep";
+import type {
+  PartialUserAbout,
+  PartialUserDei,
+  PartialUserPriority,
+  PartialUserLanguage,
+  PartialUserPreferences,
+} from "~/validators/profile";
 import {
   aboutSectionHasEmptyRequiredFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,
@@ -11,11 +18,6 @@ import {
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
   workPreferencesSectionHasEmptyRequiredFields,
-  type PartialUserAbout,
-  type PartialUserDei,
-  type PartialUserPriority,
-  type PartialUserLanguage,
-  type PartialUserPreferences,
 } from "~/validators/profile";
 
 interface PartialUser

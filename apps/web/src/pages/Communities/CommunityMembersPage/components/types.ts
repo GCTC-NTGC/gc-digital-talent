@@ -1,8 +1,8 @@
-import { type FragmentType, type Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
 
 import type Hero from "~/components/Hero";
 
-import { type CommunityMembersPage_CommunityFragment } from "./operations";
+import type { CommunityMembersPage_CommunityFragment } from "./operations";
 
 export interface CommunityMemberFormValues {
   communityId: Scalars["UUID"]["output"];

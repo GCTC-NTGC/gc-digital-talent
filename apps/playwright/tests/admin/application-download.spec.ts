@@ -1,13 +1,12 @@
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
+import type { PoolCandidate, User } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
   FlexibleWorkLocation,
-  type PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
   SkillCategory,
-  type User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 

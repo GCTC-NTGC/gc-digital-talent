@@ -8,18 +8,18 @@ import {
   RadioGroup,
   TextArea,
 } from "@gc-digital-talent/forms";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   errorMessages,
   getLocale,
-  type Locales,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import {
-  type SubExperienceFormProps,
-  type CommunityFormValues,
+import type {
+  SubExperienceFormProps,
+  CommunityFormValues,
 } from "~/types/experience";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";

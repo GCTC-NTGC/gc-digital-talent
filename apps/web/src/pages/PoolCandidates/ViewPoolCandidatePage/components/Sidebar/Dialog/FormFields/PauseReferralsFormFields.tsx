@@ -2,19 +2,19 @@ import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useEffect } from "react";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  type FragmentType,
   getFragment,
   graphql,
   PauseReferralsLength,
 } from "@gc-digital-talent/graphql";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   errorMessages,
   sortLocalizedEnumOptions,
   ENUM_SORT_ORDER,
   narrowEnumType,
   commonMessages,
-  type Locales,
   getLocale,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -28,7 +28,7 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
-import { type FormValues } from "../types";
+import type { FormValues } from "../types";
 
 export const PauseReferralsFormFields_Fragment = graphql(/* GraphQL */ `
   fragment PauseReferralsFormFields on Query {

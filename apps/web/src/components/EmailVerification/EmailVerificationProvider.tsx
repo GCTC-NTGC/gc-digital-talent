@@ -1,4 +1,5 @@
-import { createContext, type ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { createContext, useState } from "react";
 
 import type { ContextMessage as RequestCodeMessage } from "./RequestVerificationCodeContextMessage";
 import type { ContextMessage as SubmitCodeMessage } from "./SubmitVerificationCodeContextMessage";

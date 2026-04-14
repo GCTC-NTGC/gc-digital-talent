@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { CardFlat, Container, Heading } from "@gc-digital-talent/ui";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";

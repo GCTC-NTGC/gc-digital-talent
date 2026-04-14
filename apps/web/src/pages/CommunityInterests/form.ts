@@ -1,18 +1,18 @@
-import {
-  type CreateCommunityInterestInput,
-  type CreateDevelopmentProgramInterestInput,
-  DevelopmentProgramParticipationStatus,
-  type Maybe,
-  type UpdateCommunityInterestFormData_FragmentFragment,
-  type UpdateCommunityInterestInput,
-  type UpdateDevelopmentProgramInterestHasMany,
+import type {
+  CreateCommunityInterestInput,
+  CreateDevelopmentProgramInterestInput,
+  Maybe,
+  UpdateCommunityInterestFormData_FragmentFragment,
+  UpdateCommunityInterestInput,
+  UpdateDevelopmentProgramInterestHasMany,
 } from "@gc-digital-talent/graphql";
+import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { type SubformValues as FindANewCommunitySubformValues } from "./sections/FindANewCommunity";
-import { type SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues } from "./sections/TrainingAndDevelopmentOpportunities";
-import { type SubformValues as AdditionalInformationSubformValues } from "./sections/AdditionalInformation";
-import { type SubformValues as ReviewAndSubmitSubformValues } from "./sections/ReviewAndSubmit";
+import type { SubformValues as FindANewCommunitySubformValues } from "./sections/FindANewCommunity";
+import type { SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues } from "./sections/TrainingAndDevelopmentOpportunities";
+import type { SubformValues as AdditionalInformationSubformValues } from "./sections/AdditionalInformation";
+import type { SubformValues as ReviewAndSubmitSubformValues } from "./sections/ReviewAndSubmit";
 import {
   stringArrayToEnumsFinanceChiefDuty,
   stringArrayToEnumsFinanceChiefRole,
@@ -82,11 +82,12 @@ export function formValuesToApiCreateInput(
         (interest) => {
           if (
             typeof interest.participationStatus === "string" &&
-            typeof interest.developmentProgramId === "string"
+            typeof interest.communityDevelopmentProgramId === "string"
           ) {
             // valid interest
             return {
-              developmentProgramId: interest.developmentProgramId,
+              communityDevelopmentProgramId:
+                interest.communityDevelopmentProgramId,
               participationStatus: interest.participationStatus,
               completionDate:
                 interest.participationStatus ===
@@ -128,9 +129,11 @@ export function formValuesToApiUpdateInput(
     {};
 
   formValues.interestInDevelopmentPrograms?.forEach((input) => {
-    if (!input.developmentProgramId) return;
+    if (!input.communityDevelopmentProgramId) return;
 
-    const existingInterest = interestedPrograms.get(input.developmentProgramId);
+    const existingInterest = interestedPrograms.get(
+      input.communityDevelopmentProgramId,
+    );
 
     if (existingInterest) {
       interestInDevelopmentPrograms.update = [
@@ -149,7 +152,7 @@ export function formValuesToApiUpdateInput(
       interestInDevelopmentPrograms.create = [
         ...(interestInDevelopmentPrograms.create ?? []),
         {
-          developmentProgramId: input.developmentProgramId,
+          communityDevelopmentProgramId: input.communityDevelopmentProgramId,
           participationStatus: input.participationStatus,
           completionDate:
             input.participationStatus ===
@@ -212,10 +215,12 @@ export function apiDataToFormValues(
     developmentProgramsForCommunity.map((developmentProgram) => {
       const correspondingProgram = usersInterestDevelopmentPrograms.find(
         (userDevPro) =>
-          userDevPro.developmentProgram.id === developmentProgram.id,
+          userDevPro.communityDevelopmentProgram?.developmentProgram?.id ===
+          developmentProgram.id,
       );
       return {
-        developmentProgramId: developmentProgram.id,
+        communityDevelopmentProgramId:
+          correspondingProgram?.communityDevelopmentProgram.id ?? "",
         participationStatus: correspondingProgram?.participationStatus ?? null,
         completionDate: correspondingProgram?.completionDate ?? null,
       };

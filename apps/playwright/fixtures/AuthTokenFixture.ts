@@ -1,11 +1,8 @@
-import { type Page, type Request } from "@playwright/test";
+import type { Request, Page } from "@playwright/test";
 
-import {
-  type AuthTokens,
-  getAuthTokens,
-  jumpPastExpiryDate,
-} from "~/utils/auth";
-import { type GraphQLOperation } from "~/utils/graphql";
+import type { AuthTokens } from "~/utils/auth";
+import { getAuthTokens, jumpPastExpiryDate } from "~/utils/auth";
+import type { GraphQLOperation } from "~/utils/graphql";
 
 class AuthTokenFixture {
   public readonly page: Page;

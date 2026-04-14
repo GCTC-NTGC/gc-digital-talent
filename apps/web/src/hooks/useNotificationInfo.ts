@@ -1,16 +1,17 @@
-import { defineMessage, type IntlShape, useIntl } from "react-intl";
-import { type ReactNode } from "react";
+import type { IntlShape } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
+import type { ReactNode } from "react";
 
-import {
-  type ApplicationDeadlineApproachingNotification,
-  type ApplicationDeadlineExtendedNotification,
-  type ApplicationStatusChangedNotification,
-  type MigrateOffPlatformProcessesNotification,
-  type NewJobPostedNotification,
-  type Notification,
-  type SystemNotification,
-  type UserFileGeneratedNotification,
-  type UserFileGenerationErrorNotification,
+import type {
+  ApplicationDeadlineApproachingNotification,
+  ApplicationDeadlineExtendedNotification,
+  ApplicationStatusChangedNotification,
+  MigrateOffPlatformProcessesNotification,
+  NewJobPostedNotification,
+  Notification,
+  SystemNotification,
+  UserFileGeneratedNotification,
+  UserFileGenerationErrorNotification,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -24,7 +25,7 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { getLogger } from "@gc-digital-talent/logger";
-import { type GraphqlType } from "@gc-digital-talent/helpers";
+import type { GraphqlType } from "@gc-digital-talent/helpers";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "./useRoutes";

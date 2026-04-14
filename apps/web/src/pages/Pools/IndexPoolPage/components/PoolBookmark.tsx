@@ -4,13 +4,12 @@ import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
 import { IconButton } from "@gc-digital-talent/ui";
-import {
-  type FragmentType,
-  type LocalizedString,
-  type Maybe,
-  getFragment,
-  graphql,
+import type {
+  FragmentType,
+  LocalizedString,
+  Maybe,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 

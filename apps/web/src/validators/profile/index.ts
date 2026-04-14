@@ -36,7 +36,6 @@ export {
   generalQuestionsSectionHasMissingResponses,
   screeningQuestionsSectionHasMissingResponses,
 };
-
 export type {
   PartialUserAbout,
   PartialUserDei,

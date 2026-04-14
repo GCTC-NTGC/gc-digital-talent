@@ -844,6 +844,7 @@ type OffPlatformRecruitmentProcess {
 
 type DevelopmentProgramInterest {
   id: UUID!
+  communityDevelopmentProgram: CommunityDevelopmentProgram!
   developmentProgram: DevelopmentProgram!
   participationStatus: DevelopmentProgramParticipationStatus
   completionDate: Date
@@ -1300,7 +1301,6 @@ type Community implements HasRoleAssignments {
   teamIdForRoleAssignment: ID
   pools: [Pool]
   workStreams: [WorkStream!]
-  developmentPrograms: [DevelopmentProgram!] @deprecated(reason: "use associatedDevelopmentPrograms")
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   associatedDevelopmentPrograms: [DevelopmentProgram!]
 }
@@ -1309,11 +1309,14 @@ type DevelopmentProgram {
   id: UUID!
   name: LocalizedString
   descriptionForProfile: LocalizedString
-  descriptionForNominations: LocalizedString
-  community: Community @deprecated(reason: "use associatedCommunities")
+  descriptionForNominations: LocalizedString @deprecated(reason: "replaced by description on community_development_program_talent_nomination_event pivot")
   eligibleClassifications: [Classification!]
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   associatedCommunities: [Community!]
+}
+
+type CommunityDevelopmentProgramTalentEventRecord {
+  descriptionForNominations: LocalizedString
 }
 
 type CommunityDevelopmentProgram {
@@ -1321,6 +1324,7 @@ type CommunityDevelopmentProgram {
   community: Community!
   developmentProgram: DevelopmentProgram!
   classifications: [Classification!]
+  pivot: CommunityDevelopmentProgramTalentEventRecord
 }
 
 type TalentNominationEvent {
@@ -1332,6 +1336,7 @@ type TalentNominationEvent {
   learnMoreUrl: LocalizedString
   includeLeadershipCompetencies: Boolean!
   community: Community!
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   developmentPrograms: [DevelopmentProgram!]
   talentNominationGroups: [TalentNominationGroup!]
   countTalentNominationGroups: Int!
@@ -1369,6 +1374,7 @@ type TalentNomination {
   advancementReferenceFallbackDepartment: Department
   lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   developmentPrograms: [DevelopmentProgram!]
   developmentProgramOptionsOther: String
   nominationRationale: String
@@ -2123,7 +2129,7 @@ input UpdateDevelopmentProgramInterestHasMany {
 }
 
 input CreateDevelopmentProgramInterestInput {
-  developmentProgramId: UUID!
+  communityDevelopmentProgramId: UUID!
   participationStatus: DevelopmentProgramParticipationStatus
   completionDate: Date
 }
@@ -2315,6 +2321,19 @@ input DevelopmentProgramBelongsToMany {
   sync: [UUID!]
 }
 
+input CommunityDevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
+input CommunityDevelopmentProgramBelongsToManyWithPivot {
+  connect: [ConnectCommunityDevelopmentProgramWithPivot!]
+}
+
+input ConnectCommunityDevelopmentProgramWithPivot {
+  id: ID!
+  descriptionForNominations: LocalizedStringInput
+}
+
 input CreateTalentNominationEventInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
@@ -2323,7 +2342,7 @@ input CreateTalentNominationEventInput {
   learnMoreUrl: LocalizedStringInput
   includeLeadershipCompetencies: Boolean
   community: CommunityBelongsTo!
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
 input UpdateTalentNominationEventInput {
@@ -2334,7 +2353,7 @@ input UpdateTalentNominationEventInput {
   learnMoreUrl: LocalizedStringInput
   includeLeadershipCompetencies: Boolean
   community: CommunityBelongsTo
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
 input TalentNominationEventBelongsTo {
@@ -2366,7 +2385,7 @@ input CreateTalentNominationInput {
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
   developmentProgramOptionsOther: String
   nominationRationale: String
   skills: SkillBelongsToMany
@@ -2398,7 +2417,7 @@ input UpdateTalentNominationInput {
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
   developmentProgramOptionsOther: String
   nominationRationale: String
   skills: SkillBelongsToMany
@@ -3725,6 +3744,8 @@ enum ErrorCode {
   DEPARTMENT_NUMBER_IN_USE
   DEPARTMENT_NOT_FOUND
   DEPARTMENT_MUST_NOT_BE_ARCHIVED
+  COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND
+  COMMUNITY_DEVELOPMENT_INVALID_SELECTION
   DEVELOPMENT_PROGRAM_NOT_FOUND
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED

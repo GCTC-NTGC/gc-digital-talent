@@ -3,12 +3,8 @@ import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
 import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
 
 import { IconButton } from "@gc-digital-talent/ui";
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-  type Maybe,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { getFullNameLabel } from "~/utils/nameUtils";

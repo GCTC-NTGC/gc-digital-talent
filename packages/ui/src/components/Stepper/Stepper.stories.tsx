@@ -8,7 +8,7 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Stepper from "./Stepper";
 import { defaultSteps } from "./testUtils";
-import { type StepType } from "./types";
+import type { StepType } from "./types";
 
 faker.seed(0);
 

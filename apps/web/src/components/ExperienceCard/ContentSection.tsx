@@ -1,6 +1,6 @@
-import { type HTMLProps, type ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 
-import { type HeadingRank } from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
 
 interface ContentSectionProps extends HTMLProps<HTMLDivElement> {
   title: string;

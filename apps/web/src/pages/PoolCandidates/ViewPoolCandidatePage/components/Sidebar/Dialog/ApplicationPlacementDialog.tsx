@@ -3,12 +3,11 @@ import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import { useState } from "react";
 
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
 import {
-  type FragmentType,
   getFragment,
   graphql,
   PlacementType,
-  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";

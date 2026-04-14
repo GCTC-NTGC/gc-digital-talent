@@ -1,4 +1,4 @@
-import { type GraphQLErrorExtensions } from "graphql";
+import type { GraphQLErrorExtensions } from "graphql";
 
 // corresponds to the ClientSafeTooManyRequestsException
 const tooManyRequestsKey = "too_many_requests";

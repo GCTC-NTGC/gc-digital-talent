@@ -1,4 +1,5 @@
-import { Component, type ErrorInfo, type ReactNode } from "react";
+import type { ErrorInfo, ReactNode } from "react";
+import { Component } from "react";
 import { FormattedMessage } from "react-intl";
 
 import { defaultLogger } from "@gc-digital-talent/logger";

@@ -1,14 +1,14 @@
-import {
-  type Scalars,
-  type ApplicantFilterInput,
-  type LanguageAbility,
-  type UserPoolFilterInput,
-  type Classification,
-  type ApplicantFilter,
-  type Pool,
-  type Maybe,
-  type PoolCandidateFilter,
-  type PoolCandidateSearchRequest,
+import type {
+  Scalars,
+  ApplicantFilterInput,
+  LanguageAbility,
+  UserPoolFilterInput,
+  Classification,
+  ApplicantFilter,
+  Pool,
+  Maybe,
+  PoolCandidateFilter,
+  PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
 
 export const NullSelection = "NULL_SELECTION";

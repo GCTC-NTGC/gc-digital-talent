@@ -5,9 +5,11 @@ import {
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 import { fakePools } from "@gc-digital-talent/fake-data";
-import { makeFragmentData, type Pool } from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import PoolCard, { type PoolCardProps, PoolCard_Fragment } from "./PoolCard";
+import type { PoolCardProps } from "./PoolCard";
+import PoolCard, { PoolCard_Fragment } from "./PoolCard";
 
 const fakedPool = fakePools(1)[0];
 const nullPool: Omit<Pool, "activities" | "teamId"> = {

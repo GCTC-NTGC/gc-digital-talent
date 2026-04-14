@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import { type ScreeningQuestion } from "@gc-digital-talent/graphql";
+import type { ScreeningQuestion } from "@gc-digital-talent/graphql";
 
 import toLocalizedString from "./fakeLocalizedString";
 

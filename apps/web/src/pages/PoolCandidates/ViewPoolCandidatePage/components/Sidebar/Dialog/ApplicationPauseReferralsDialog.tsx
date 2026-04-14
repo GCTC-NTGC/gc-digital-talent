@@ -3,8 +3,8 @@ import { useMutation, useQuery } from "urql";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  type FragmentType,
   getFragment,
   graphql,
   PauseReferralsLength,
@@ -17,7 +17,7 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import Footer from "./Footer";
 import PauseReferralsFormFields from "./FormFields/PauseReferralsFormFields";
-import { type FormValues } from "./types";
+import type { FormValues } from "./types";
 
 const ApplicationPauseReferralsOptions_Query = graphql(/** GraphQL */ `
   query ApplicationPauseReferralsOptions {

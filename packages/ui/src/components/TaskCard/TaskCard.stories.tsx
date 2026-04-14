@@ -5,7 +5,8 @@ import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Notice from "../Notice/Notice";
-import TaskCard, { type RootProps } from "./TaskCard";
+import type { RootProps } from "./TaskCard";
+import TaskCard from "./TaskCard";
 
 const colorOptions: RootProps["headingColor"][] = [
   "primary",

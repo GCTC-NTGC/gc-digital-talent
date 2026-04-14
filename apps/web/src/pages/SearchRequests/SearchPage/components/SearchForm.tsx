@@ -19,17 +19,16 @@ import {
   notEmpty,
   buildMailToUri,
 } from "@gc-digital-talent/helpers";
-import {
-  graphql,
-  type Classification,
-  type ApplicantFilterInput,
-  type Skill,
-  type WorkStream,
-  FlexibleWorkLocation,
+import type {
+  Classification,
+  ApplicantFilterInput,
+  Skill,
+  WorkStream,
 } from "@gc-digital-talent/graphql";
+import { graphql, FlexibleWorkLocation } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { type FormValues } from "~/types/searchRequest";
+import type { FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
 
 import { formValuesToData } from "../utils";

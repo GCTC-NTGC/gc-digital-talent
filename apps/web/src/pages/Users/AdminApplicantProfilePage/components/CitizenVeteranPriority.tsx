@@ -1,8 +1,5 @@
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { TableOfContents } from "@gc-digital-talent/ui";
 
 import Display from "~/components/Profile/components/CitizenVeteranPriority/Display";

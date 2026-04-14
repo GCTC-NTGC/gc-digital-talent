@@ -1,7 +1,7 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import BaseItem from "./BaseItem";
-import { type HeadingRank } from "../../types";
+import type { HeadingRank } from "../../types";
 
 interface WrapperProps {
   as?: HeadingRank;

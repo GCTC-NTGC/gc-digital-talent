@@ -1,11 +1,11 @@
-import {
-  type Community,
-  type CommunityInterest,
-  type CreateCommunityInput,
-  type CreateCommunityInterestInput,
+import type {
+  Community,
+  CommunityInterest,
+  CreateCommunityInput,
+  CreateCommunityInterestInput,
 } from "@gc-digital-talent/graphql";
 
-import { type GraphQLRequestFunc, type GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { generateUniqueTestId } from "./id";
 
 const Test_CommunitiesQueryDocument = /* GraphQL */ `

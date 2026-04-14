@@ -2,14 +2,12 @@ import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-  type Maybe,
-  PoolStatus,
-  type UpdatePoolInput,
+import type {
+  FragmentType,
+  Maybe,
+  UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { Input, Submit } from "@gc-digital-talent/forms";
@@ -20,10 +18,7 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "./EditPoolContext";
-import {
-  type PublishedEditableSectionProps,
-  type SectionProps,
-} from "../types";
+import type { PublishedEditableSectionProps, SectionProps } from "../types";
 import UpdatePublishedProcessDialog, {
   type FormValues as UpdateFormValues,
 } from "./UpdatePublishedProcessDialog/UpdatePublishedProcessDialog";

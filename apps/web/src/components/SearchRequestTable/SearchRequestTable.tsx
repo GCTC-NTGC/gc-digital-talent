@@ -1,23 +1,23 @@
 import { useRef, useMemo, useState } from "react";
-import {
-  type ColumnDef,
-  type PaginationState,
-  type SortingState,
-  createColumnHelper,
+import type {
+  ColumnDef,
+  PaginationState,
+  SortingState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { type SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 import { useQuery } from "urql";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  type InputMaybe,
-  type PoolCandidateSearchRequestInput,
-  graphql,
-  type SearchRequestTableQuery as SearchRequestTableQueryType,
+import type {
+  InputMaybe,
+  PoolCandidateSearchRequestInput,
+  SearchRequestTableQuery as SearchRequestTableQueryType,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
@@ -33,14 +33,14 @@ import {
 } from "./components/helpers";
 import cells from "../Table/cells";
 import accessors from "../Table/accessors";
-import { type SearchState } from "../Table/ResponsiveTable/types";
+import type { SearchState } from "../Table/ResponsiveTable/types";
 import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "../Table/ResponsiveTable/constants";
 import SearchRequestFilterDialog from "./components/SearchRequestFilterDialog";
+import type { FormValues } from "./components/utils";
 import {
-  type FormValues,
   transformFormValuesToSearchRequestFilterInput,
   transformSearchRequestFilterInputToFormValues,
   transformSortStateToOrderByClause,

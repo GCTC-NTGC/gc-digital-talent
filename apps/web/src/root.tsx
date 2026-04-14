@@ -1,5 +1,5 @@
 /* eslint-disable formatjs/no-literal-string-in-jsx */
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
 import { Loading } from "@gc-digital-talent/ui";

@@ -1,4 +1,5 @@
-import { type MessageDescriptor, useIntl } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { useIntl } from "react-intl";
 
 import {
   Checklist,
@@ -8,12 +9,11 @@ import {
   SwitchInput,
   Select,
 } from "@gc-digital-talent/forms";
+import type { FragmentType, AssessmentStep } from "@gc-digital-talent/graphql";
 import {
-  type FragmentType,
   getFragment,
   graphql,
   WorkRegion,
-  type AssessmentStep,
   AssessmentStepType,
   ApplicationStatus,
 } from "@gc-digital-talent/graphql";
@@ -31,10 +31,9 @@ import { Heading } from "@gc-digital-talent/ui";
 import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 
-import FilterDialog, {
-  type CommonFilterDialogProps,
-} from "../FilterDialog/FilterDialog";
-import { type FormValues } from "./types";
+import type { CommonFilterDialogProps } from "../FilterDialog/FilterDialog";
+import FilterDialog from "../FilterDialog/FilterDialog";
+import type { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
 import tableMessages from "./tableMessages";
 import { candidateSuspendedFilterToCustomOptions } from "./helpers";

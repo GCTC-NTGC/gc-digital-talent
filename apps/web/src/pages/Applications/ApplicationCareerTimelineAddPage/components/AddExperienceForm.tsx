@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
-import { useForm, FormProvider, type SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { Select } from "@gc-digital-talent/forms";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { type Scalars } from "@gc-digital-talent/graphql";
+import type { Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -19,10 +20,10 @@ import {
   formValuesToSubmitData,
   getExperienceFormLabels,
 } from "~/utils/experienceUtils";
-import {
-  type ExperienceFormValues,
-  type AllExperienceFormValues,
-  type ExperienceType,
+import type {
+  ExperienceFormValues,
+  AllExperienceFormValues,
+  ExperienceType,
 } from "~/types/experience";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";

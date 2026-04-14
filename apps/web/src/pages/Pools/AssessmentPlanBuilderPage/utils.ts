@@ -1,10 +1,7 @@
-import { type IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  type AssessmentStep,
-  type PoolSkill,
-} from "@gc-digital-talent/graphql";
+import type { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 
 export const assessmentStepDisplayName = (
   assessmentStep: Pick<AssessmentStep, "type" | "title">,

@@ -10,19 +10,15 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { type Scalars, type Maybe } from "@gc-digital-talent/graphql";
+import type { Scalars, Maybe } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import {
-  getRoleTableFragments,
-  type PoolAssignment,
-  type RoleTableProps,
-  useUpdateRolesMutation,
-} from "../utils";
+import type { PoolAssignment, RoleTableProps } from "../utils";
+import { getRoleTableFragments, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
   roleIds: Scalars["UUID"]["input"][];

@@ -1,4 +1,5 @@
-import { type ReactNode, useId, useState } from "react";
+import type { ReactNode } from "react";
+import { useId, useState } from "react";
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
@@ -11,11 +12,8 @@ import {
   Notice,
   wrapParens,
 } from "@gc-digital-talent/ui";
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   assertUnreachable,
   notEmpty,
@@ -27,8 +25,8 @@ import experienceMessages from "~/messages/experienceMessages";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import processMessages from "~/messages/processMessages";
 
+import type { AccordionSection } from "./fullCareerExperiencesUtils";
 import {
-  type AccordionSection,
   buildExperienceByTypeData,
   buildExperienceByWorkStreamData,
 } from "./fullCareerExperiencesUtils";

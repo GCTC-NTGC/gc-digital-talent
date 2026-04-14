@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import { type ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 
 import {
   renderWithProviders,

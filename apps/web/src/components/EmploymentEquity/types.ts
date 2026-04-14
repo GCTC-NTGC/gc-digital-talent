@@ -1,9 +1,9 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import {
-  type IndigenousCommunity,
-  type LocalizedIndigenousCommunity,
-  type UpdateUserAsUserMutation,
+import type {
+  IndigenousCommunity,
+  LocalizedIndigenousCommunity,
+  UpdateUserAsUserMutation,
 } from "@gc-digital-talent/graphql";
 
 export type EquityKeys =

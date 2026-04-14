@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
 
 import {
@@ -6,11 +6,10 @@ import {
   fakeUsers,
   fakePools,
 } from "@gc-digital-talent/fake-data";
+import type { GeneralQuestionResponse, User } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
-  type GeneralQuestionResponse,
   makeFragmentData,
-  type User,
 } from "@gc-digital-talent/graphql";
 
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";

@@ -1,11 +1,11 @@
-import { type ReactNode, useEffect, useMemo, useRef } from "react";
-import { type Client, Provider } from "urql";
+import type { ReactNode } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import type { Client } from "urql";
+import { Provider } from "urql";
 import { useIntl } from "react-intl";
 
-import {
-  type AuthenticationState,
-  useAuthentication,
-} from "@gc-digital-talent/auth";
+import type { AuthenticationState } from "@gc-digital-talent/auth";
+import { useAuthentication } from "@gc-digital-talent/auth";
 
 import { isTokenProbablyExpired } from "../../utils/isTokenProbablyExpired";
 import { getClient } from "../../utils/getClient";

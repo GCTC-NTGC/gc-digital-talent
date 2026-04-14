@@ -1,33 +1,26 @@
-import { useIntl, defineMessage, type MessageDescriptor } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { useIntl, defineMessage } from "react-intl";
 import { useQuery } from "urql";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useEffect, useRef } from "react";
 
-import {
-  type FieldLabels,
-  Input,
-  type Radio,
-  RadioGroup,
-  TextArea,
-} from "@gc-digital-talent/forms";
+import type { FieldLabels, Radio } from "@gc-digital-talent/forms";
+import { Input, RadioGroup, TextArea } from "@gc-digital-talent/forms";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   errorMessages,
   getLocalizedName,
   narrowEnumType,
   getLocale,
-  type Locales,
 } from "@gc-digital-talent/i18n";
 import { Heading, Loading } from "@gc-digital-talent/ui";
-import {
-  EmploymentCategory,
-  graphql,
-  type WorkFieldOptionsQuery,
-} from "@gc-digital-talent/graphql";
+import type { WorkFieldOptionsQuery } from "@gc-digital-talent/graphql";
+import { EmploymentCategory, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import {
-  type SubExperienceFormProps,
-  type WorkFormValues,
+import type {
+  SubExperienceFormProps,
+  WorkFormValues,
 } from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";

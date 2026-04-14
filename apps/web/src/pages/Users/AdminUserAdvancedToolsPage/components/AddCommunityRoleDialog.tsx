@@ -13,16 +13,17 @@ import {
   formMessages,
 } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
-import { COMMUNITY_ROLES, type RoleName } from "@gc-digital-talent/auth";
+import type { RoleName } from "@gc-digital-talent/auth";
+import { COMMUNITY_ROLES } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
+import type { RoleTableProps } from "../utils";
 import {
   getRoleTableFragments,
   isCommunityTeamable,
-  type RoleTableProps,
   useUpdateRolesMutation,
 } from "../utils";
 

@@ -1,9 +1,9 @@
 import { useIntl } from "react-intl";
 
-import {
-  type LocalizedArmedForcesStatus,
-  type LocalizedCitizenshipStatus,
-  type Maybe,
+import type {
+  LocalizedArmedForcesStatus,
+  LocalizedCitizenshipStatus,
+  Maybe,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -16,7 +16,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import profileMessages from "~/messages/profileMessages";
 import governmentMessages from "~/messages/governmentMessages";
 
-import { type SnapshotProps } from "../types";
+import type { SnapshotProps } from "../types";
 
 export interface CitizenVeteranPrioritySnapshotV1 {
   citizenship: Maybe<LocalizedCitizenshipStatus>;

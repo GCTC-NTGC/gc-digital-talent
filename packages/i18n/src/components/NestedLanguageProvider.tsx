@@ -1,10 +1,10 @@
 import { IntlProvider, useIntl } from "react-intl";
 import { useSearchParams } from "react-router";
-import { type ReactNode, type JSX } from "react";
+import type { ReactNode, JSX } from "react";
 
 import defaultRichTextElements from "@gc-digital-talent/rich-text-elements";
 
-import { type Messages } from "../types";
+import type { Messages } from "../types";
 
 interface NestedLanguageProvider {
   messages: Map<string | null, Messages>;

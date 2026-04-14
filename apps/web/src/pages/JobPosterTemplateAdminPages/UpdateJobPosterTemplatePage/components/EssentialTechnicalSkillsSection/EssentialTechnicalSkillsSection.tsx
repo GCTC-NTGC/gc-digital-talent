@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
-import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
 import sortBy from "lodash/sortBy";
@@ -7,16 +8,18 @@ import sortBy from "lodash/sortBy";
 import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import type {
+  FragmentType,
+  UpdateJobPosterTemplateInput,
+  UpdateJobPosterTemplateEssentialTechnicalSkillsFragment,
+  CreateJobPosterTemplateSkillInput,
+  UpdateJobPosterTemplateSkillsInput,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 import {
   graphql,
-  type FragmentType,
   getFragment,
-  type UpdateJobPosterTemplateInput,
-  type UpdateJobPosterTemplateEssentialTechnicalSkillsFragment,
   PoolSkillType,
-  type CreateJobPosterTemplateSkillInput,
-  type UpdateJobPosterTemplateSkillsInput,
-  type Scalars,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -24,11 +27,10 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
-import { type ListItem as SkillProficiencyListItem } from "~/components/SkillProficiencyList/SkillProficiencyList";
+import type { ListItem as SkillProficiencyListItem } from "~/components/SkillProficiencyList/SkillProficiencyList";
 
-import EssentialTechnicalSkillsForm, {
-  type FormValues,
-} from "../../../components/EssentialTechnicalSkillsForm";
+import type { FormValues } from "../../../components/EssentialTechnicalSkillsForm";
+import EssentialTechnicalSkillsForm from "../../../components/EssentialTechnicalSkillsForm";
 import Display from "./Display";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
 import { isEssentialTechnicalSkill } from "../../utils";

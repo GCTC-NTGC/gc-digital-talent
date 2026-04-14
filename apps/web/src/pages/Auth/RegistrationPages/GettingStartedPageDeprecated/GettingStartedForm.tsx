@@ -10,12 +10,14 @@ import {
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import type {
+  FragmentType,
+  GettingStartedInitialValuesDeprecatedFragment,
+} from "@gc-digital-talent/graphql";
 import {
   graphql,
-  type FragmentType,
   getFragment,
   Language,
-  type GettingStartedInitialValuesDeprecatedFragment,
   EmailType,
 } from "@gc-digital-talent/graphql";
 

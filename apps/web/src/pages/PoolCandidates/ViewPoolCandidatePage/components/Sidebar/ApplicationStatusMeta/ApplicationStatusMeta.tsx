@@ -1,6 +1,6 @@
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
-  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

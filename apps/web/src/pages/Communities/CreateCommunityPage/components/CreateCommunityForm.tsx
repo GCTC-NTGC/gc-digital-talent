@@ -1,4 +1,4 @@
-import { type SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import kebabCase from "lodash/kebabCase";
@@ -7,11 +7,11 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { Card, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 import { BasicForm, Input, Submit, TextArea } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  type CreateCommunityInput,
-  type LocalizedStringInput,
-  type Maybe,
-  type Scalars,
+import type {
+  CreateCommunityInput,
+  LocalizedStringInput,
+  Maybe,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 

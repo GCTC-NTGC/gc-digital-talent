@@ -1,7 +1,5 @@
-import {
-  type CareerDevelopmentPreferencesFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { CareerDevelopmentPreferencesFragment } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   ExecCoachingStatus,

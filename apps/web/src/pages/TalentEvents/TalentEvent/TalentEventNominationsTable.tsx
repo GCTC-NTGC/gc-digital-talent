@@ -1,13 +1,13 @@
-import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-  type TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType,
+import type {
+  FragmentType,
+  TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";

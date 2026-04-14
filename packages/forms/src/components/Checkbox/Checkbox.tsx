@@ -1,7 +1,9 @@
 import { useFormContext } from "react-hook-form";
 import { useReducedMotion } from "motion/react";
-import { type ReactNode, Fragment } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { ReactNode } from "react";
+import { Fragment } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import Field from "../Field";
 import type { CommonInputProps, HTMLInputProps } from "../../types";

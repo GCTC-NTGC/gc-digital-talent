@@ -1,10 +1,8 @@
-import {
-  type DetailedHTMLProps,
-  forwardRef,
-  type OlHTMLAttributes,
-} from "react";
+import type { DetailedHTMLProps, OlHTMLAttributes } from "react";
+import { forwardRef } from "react";
 
-import { list, type ListVariants } from "./styles";
+import type { ListVariants } from "./styles";
+import { list } from "./styles";
 
 interface OLProps
   extends

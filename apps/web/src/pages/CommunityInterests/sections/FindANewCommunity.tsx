@@ -1,7 +1,8 @@
 import { defineMessage, useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useFormContext } from "react-hook-form";
-import { type ComponentProps, useId } from "react";
+import type { ComponentProps } from "react";
+import { useId } from "react";
 
 import { Heading, Notice } from "@gc-digital-talent/ui";
 import { Checklist, RadioGroup, Select } from "@gc-digital-talent/forms";
@@ -15,13 +16,10 @@ import {
   nodeToString,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { type FormValues } from "../form";
+import type { FormValues } from "../form";
 
 const FindANewCommunityOptions_Fragment = graphql(/* GraphQL */ `
   fragment FindANewCommunityOptions_Fragment on Query {

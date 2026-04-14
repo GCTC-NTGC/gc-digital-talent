@@ -1,9 +1,10 @@
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
-import { type ReactNode, useId } from "react";
+import type { ReactNode } from "react";
+import { useId } from "react";
 import { tv } from "tailwind-variants";
 
-import { type Maybe } from "@gc-digital-talent/graphql";
+import type { Maybe } from "@gc-digital-talent/graphql";
 
 const boolCheck = tv({
   slots: {

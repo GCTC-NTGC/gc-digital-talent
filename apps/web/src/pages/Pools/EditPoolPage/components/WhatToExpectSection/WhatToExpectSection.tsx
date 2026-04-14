@@ -5,15 +5,13 @@ import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCirc
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import {
-  PoolStatus,
-  type LocalizedString,
-  type Pool,
-  type UpdatePoolInput,
-  graphql,
-  type FragmentType,
-  getFragment,
+import type {
+  LocalizedString,
+  Pool,
+  UpdatePoolInput,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { PoolStatus, graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import { hasAllEmptyFields } from "~/validators/process/whatToExpect";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
@@ -21,10 +19,7 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import {
-  type PublishedEditableSectionProps,
-  type SectionProps,
-} from "../../types";
+import type { PublishedEditableSectionProps, SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 import UpdatePublishedProcessDialog, {

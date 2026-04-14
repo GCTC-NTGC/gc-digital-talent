@@ -1,18 +1,21 @@
-import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { isPast } from "date-fns/isPast";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import type {
+  FragmentType,
+  PoolCandidate,
+  PoolStatusTableFragment,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
-  type FragmentType,
   getFragment,
   graphql,
-  type PoolCandidate,
-  type PoolStatusTableFragment,
-  type Scalars,
 } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";

@@ -1,15 +1,12 @@
 import { useIntl } from "react-intl";
 
-import {
-  type FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { TableOfContents } from "@gc-digital-talent/ui";
 
 import Display from "~/components/Profile/components/WorkPreferences/Display";
 import { getLabels } from "~/utils/workPreferenceUtils";
-import { type FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import type { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 const WorkPreferences_Fragment = graphql(/** GraphQL */ `
   fragment AdminWorkPreferences on User {

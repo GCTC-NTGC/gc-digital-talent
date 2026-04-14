@@ -1,4 +1,4 @@
-import { type Meta, type StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { fakePools, fakeTeams } from "@gc-digital-talent/fake-data";
 

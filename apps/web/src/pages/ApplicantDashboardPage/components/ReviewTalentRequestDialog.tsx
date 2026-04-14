@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { type ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 
 import {
   Accordion,
@@ -13,10 +14,8 @@ import {
   Ul,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getEmploymentDuration } from "@gc-digital-talent/i18n";
-import {
-  graphql,
-  type ReviewTalentRequestDialogQuery,
-} from "@gc-digital-talent/graphql";
+import type { ReviewTalentRequestDialogQuery } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";

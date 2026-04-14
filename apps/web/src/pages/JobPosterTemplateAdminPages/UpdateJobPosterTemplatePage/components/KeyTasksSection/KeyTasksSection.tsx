@@ -1,28 +1,27 @@
 import { useIntl } from "react-intl";
-import { FormProvider, type SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
 
 import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import {
-  graphql,
-  type FragmentType,
-  getFragment,
-  type UpdateJobPosterTemplateInput,
-  type UpdateJobPosterTemplateKeyTasksFragment,
-  type Scalars,
+import type {
+  FragmentType,
+  UpdateJobPosterTemplateInput,
+  UpdateJobPosterTemplateKeyTasksFragment,
+  Scalars,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
 
-import KeyTasksForm, {
-  type FormValues,
-} from "../../../components/KeyTasksForm";
+import type { FormValues } from "../../../components/KeyTasksForm";
+import KeyTasksForm from "../../../components/KeyTasksForm";
 import Display from "./Display";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
 

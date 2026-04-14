@@ -4,7 +4,6 @@ import { vi } from "vitest";
 import failOnConsole from "vitest-fail-on-console";
 
 failOnConsole({
-  shouldFailOnWarn: false,
   silenceMessage: (errorMessage: string) =>
     errorMessage.includes("Missing mandatory runtime variable"),
 });

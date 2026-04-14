@@ -14,11 +14,12 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { ErrorCode, type Pool, type Scalars } from "@gc-digital-talent/graphql";
+import type { Pool, Scalars } from "@gc-digital-talent/graphql";
+import { ErrorCode } from "@gc-digital-talent/graphql";
 
 import processMessages from "~/messages/processMessages";
 
-import { type ProcessDialogProps } from "./types";
+import type { ProcessDialogProps } from "./types";
 
 interface FormValues {
   type?: "extend" | "close";

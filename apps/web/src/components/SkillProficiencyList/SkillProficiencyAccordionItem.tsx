@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { type ComponentProps } from "react";
+import type { ComponentProps } from "react";
 
 import { Accordion } from "@gc-digital-talent/ui";
 import {
@@ -7,14 +7,14 @@ import {
   getSkillLevelDefinition,
   getSkillLevelName,
 } from "@gc-digital-talent/i18n";
-import {
-  type SkillCategory,
-  type SkillLevel,
-  type SkillProficiencyListOptionsFragment,
+import type {
+  SkillCategory,
+  SkillLevel,
+  SkillProficiencyListOptionsFragment,
 } from "@gc-digital-talent/graphql";
 
 import SkillBrowserDialog from "../SkillBrowser/SkillBrowserDialog";
-import { type FormValues as SkillBrowserDialogFormValues } from "../SkillBrowser/types";
+import type { FormValues as SkillBrowserDialogFormValues } from "../SkillBrowser/types";
 
 interface SkillProficiencyAccordionItemProps {
   skillId: string;

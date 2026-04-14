@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
-import { type ReactNode, type JSX } from "react";
+import type { ReactNode, JSX } from "react";
 
 import { Button, Card } from "@gc-digital-talent/ui";
 
@@ -9,7 +9,7 @@ import {
   VisibleMinorityDialog,
   WomanDialog,
 } from "./dialogs";
-import { type EquityDialogProps } from "./types";
+import type { EquityDialogProps } from "./types";
 
 type EquityGroup = "woman" | "minority" | "disability";
 

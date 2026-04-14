@@ -5,25 +5,27 @@ import {
   FAR_PAST_DATE,
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
+import type {
+  Classification,
+  Pool,
+  Skill,
+  GeneralQuestion,
+  ScreeningQuestion,
+  PoolSkill,
+  Department,
+  WorkStream,
+} from "@gc-digital-talent/graphql";
 import {
   PoolStatus,
-  type Classification,
-  type Pool,
   PoolLanguage,
   PublishingGroup,
   SecurityStatus,
-  type Skill,
-  type GeneralQuestion,
-  type ScreeningQuestion,
   AssessmentStepType,
   PoolSkillType,
-  type PoolSkill,
   SkillLevel,
-  type Department,
   PoolOpportunityLength,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
-  type WorkStream,
 } from "@gc-digital-talent/graphql";
 
 import fakePaginatorInfo, { fakePaginateData } from "./fakePaginatorInfo";

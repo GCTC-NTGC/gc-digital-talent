@@ -1,7 +1,8 @@
 import { Link } from "react-router";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
-import { type ReactNode } from "react";
-import { tv, type VariantProps } from "tailwind-variants";
+import type { ReactNode } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 const crumb = tv({
   base: "text-sm text-white outline-none hover:text-primary-200 focus-visible:bg-focus focus-visible:text-black iap:hover:text-secondary-100",

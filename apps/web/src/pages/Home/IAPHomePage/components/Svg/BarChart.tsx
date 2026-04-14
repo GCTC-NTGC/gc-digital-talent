@@ -1,4 +1,4 @@
-import { type HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 
 const BarChart = (props: HTMLAttributes<HTMLOrSVGElement>) => (
   <svg

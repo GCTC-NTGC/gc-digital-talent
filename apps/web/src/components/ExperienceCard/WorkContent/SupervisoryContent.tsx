@@ -1,9 +1,7 @@
 import { useIntl } from "react-intl";
 
-import {
-  CSuiteRoleTitle,
-  type WorkExperience,
-} from "@gc-digital-talent/graphql";
+import type { WorkExperience } from "@gc-digital-talent/graphql";
+import { CSuiteRoleTitle } from "@gc-digital-talent/graphql";
 import { Separator } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -14,7 +12,7 @@ import {
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "../ContentSection";
-import { type ContentProps } from "../types";
+import type { ContentProps } from "../types";
 
 const SupervisoryContent = ({
   experience: {

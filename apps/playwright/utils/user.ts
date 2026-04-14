@@ -1,18 +1,20 @@
+import type {
+  CreateUserInput,
+  User,
+  UpdateUserAsUserInput,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 import {
   Language,
   ProvinceOrTerritory,
   PositionDuration,
   CitizenshipStatus,
   ArmedForcesStatus,
-  type CreateUserInput,
-  type User,
-  type UpdateUserAsUserInput,
-  type Scalars,
   FlexibleWorkLocation,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 
-import { type GraphQLRequestFunc, type GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getRoles } from "./roles";
 
 export const defaultUser: Partial<CreateUserInput> = {

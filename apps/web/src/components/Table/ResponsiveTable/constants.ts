@@ -1,4 +1,4 @@
-import { type InitialState } from "./types";
+import type { InitialState } from "./types";
 
 export const INITIAL_STATE: InitialState = {
   hiddenColumnIds: [],

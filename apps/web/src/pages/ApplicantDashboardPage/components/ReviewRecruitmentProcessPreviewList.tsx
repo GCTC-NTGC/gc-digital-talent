@@ -1,18 +1,18 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
-  type FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import type { PreviewMetaData } from "@gc-digital-talent/ui";
 import {
   Heading,
   Pending,
   PreviewList,
-  type PreviewMetaData,
   Separator,
   Notice,
 } from "@gc-digital-talent/ui";

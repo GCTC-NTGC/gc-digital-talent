@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
-import { type ReactElement } from "react";
+import type { ReactElement } from "react";
 
-import { Link, type LinkProps } from "@gc-digital-talent/ui";
+import type { LinkProps } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 
 interface ViewLinkProps extends LinkProps {
   /** The destination url. */

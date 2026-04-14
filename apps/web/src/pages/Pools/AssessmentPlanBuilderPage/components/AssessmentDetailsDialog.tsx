@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
-import { type ReactNode, useState, useEffect } from "react";
+import type { ReactNode } from "react";
+import { useState, useEffect } from "react";
 
 import { Button, Chip, Chips, Dialog, Notice } from "@gc-digital-talent/ui";
 import {
@@ -10,27 +11,29 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
+import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
   Select,
   Input,
   Repeater,
   TextArea,
   Checklist,
-  type CheckboxOption,
   Field,
   alphaSortOptions,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
+import type {
+  Maybe,
+  PoolSkill,
+  ScreeningQuestion,
+  Scalars,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   graphql,
   AssessmentStepType,
-  type Maybe,
-  type PoolSkill,
-  type ScreeningQuestion,
-  type Scalars,
   PoolSkillType,
-  type FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";

@@ -1,12 +1,11 @@
 import { useIntl } from "react-intl";
 
-import {
-  type FinanceChiefDuty,
-  type FinanceChiefRole,
-  type FragmentType,
-  getFragment,
-  graphql,
+import type {
+  FinanceChiefDuty,
+  FinanceChiefRole,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -26,7 +25,7 @@ export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
-      developmentPrograms {
+      associatedDevelopmentPrograms {
         id
         name {
           localized
@@ -102,7 +101,7 @@ const CommunityInterest = ({
     communityInterest.community.workStreams,
   );
   const communityDevelopmentPrograms = unpackMaybes(
-    communityInterest?.community.developmentPrograms,
+    communityInterest?.community.associatedDevelopmentPrograms,
   );
   const interestedWorkStreams = unpackMaybes(
     communityInterest?.workStreams,
