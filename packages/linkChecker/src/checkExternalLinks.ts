@@ -26,10 +26,10 @@ async function writeErrorLog(msg: string, file?: string, append = true) {
 }
 
 // Configuration for retries
-const MAX_RETRIES = 3; // Retry 3 times for transient failures
-const RETRY_DELAY_MS = 2000; // 2 second delay between retries
-const TIMEOUT_MS = 30000; // 30 second timeout per request
-const CONCURRENCY = 5; // Lower concurrency to avoid rate limiting
+const MAX_RETRIES = 2; // Retry once for transient failures (fast)
+const RETRY_DELAY_MS = 500; // 0.5 second delay between retries
+const TIMEOUT_MS = 10000; // 10 second timeout per request (fast)
+const CONCURRENCY = 20; // Check 20 links in parallel for speed
 
 // HTTP status codes that indicate HEAD is not supported (should fall back to GET)
 const HEAD_NOT_SUPPORTED_CODES = [405, 501]; // Method Not Allowed, Not Implemented
@@ -59,7 +59,7 @@ function delay(ms: number): Promise<void> {
 /**
  * Fetch a link with automatic retry logic.
  * Retries up to MAX_RETRIES times with a short delay between attempts.
- * Falls back to GET if HEAD times out or fails.
+ * Falls back to GET if HEAD times out or isn't supported.
  */
 async function fetchLink(url: string): Promise<number | string> {
   const headers = {
@@ -69,100 +69,98 @@ async function fetchLink(url: string): Promise<number | string> {
     Accept:
       "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.5",
-    Connection: "keep-alive",
   };
 
-  // Try HEAD first, then fall back to GET if needed
-  const methods = ["HEAD", "GET"] as const;
+  let lastError = "Unknown error";
+  let useGet = false; // If HEAD fails/times out, switch to GET
 
-  for (const method of methods) {
-    let lastError = "Unknown error";
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
+    const method = useGet ? "GET" : "HEAD";
 
-    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
+    try {
+      let res = await fetch(url, {
+        method,
+        redirect: "follow",
+        signal: controller.signal,
+        headers,
+      });
 
-      try {
-        const res = await fetch(url, {
-          method,
-          redirect: "follow",
-          signal: controller.signal,
-          headers,
-        });
-
+      // If HEAD returns a code indicating it's not supported, try GET as fallback
+      if (!useGet && HEAD_NOT_SUPPORTED_CODES.includes(res.status)) {
         clearTimeout(timeout);
-
-        // If HEAD returns a code indicating it's not supported, try GET
-        if (
-          method === "HEAD" &&
-          HEAD_NOT_SUPPORTED_CODES.includes(res.status)
-        ) {
-          break; // Exit retry loop and try GET
+        const getController = new AbortController();
+        const getTimeout = setTimeout(() => getController.abort(), TIMEOUT_MS);
+        try {
+          res = await fetch(url, {
+            method: "GET",
+            redirect: "follow",
+            signal: getController.signal,
+            headers,
+          });
+        } finally {
+          clearTimeout(getTimeout);
         }
-
-        // Success - return the status code
-        if (ACCEPTABLE_STATUS_CODES.includes(res.status)) {
-          return res.status;
-        }
-
-        // Retry for server errors and rate limiting
-        if (
-          RETRYABLE_STATUS_CODES.includes(res.status) &&
-          attempt < MAX_RETRIES
-        ) {
-          await delay(RETRY_DELAY_MS * attempt); // Exponential backoff
-          continue;
-        }
-
-        // Non-retryable error or final attempt
-        if (method === "GET") {
-          return res.status;
-        }
-        // If HEAD failed with non-retryable, try GET
-        break;
-      } catch (err) {
-        clearTimeout(timeout);
-
-        if (err instanceof Error) {
-          lastError = err.message;
-          // On timeout with HEAD, try GET instead (many servers don't support HEAD well)
-          if (
-            method === "HEAD" &&
-            (err.name === "AbortError" || lastError.includes("aborted"))
-          ) {
-            break; // Exit retry loop and try GET
-          }
-
-          // Retry on timeout errors with GET
-          if (err.name === "AbortError" || lastError.includes("aborted")) {
-            if (attempt < MAX_RETRIES) {
-              await delay(RETRY_DELAY_MS * attempt);
-              continue;
-            }
-            return "timeout";
-          }
-        } else {
-          lastError = JSON.stringify(err);
-        }
-
-        // Retry on network errors
-        if (attempt < MAX_RETRIES) {
-          await delay(RETRY_DELAY_MS * attempt);
-          continue;
-        }
-
-        // All retries exhausted for this method
-        if (method === "GET") {
-          return lastError;
-        }
-        // If HEAD exhausted retries, try GET
-        break;
       }
+
+      clearTimeout(timeout);
+
+      // Success - return the status code
+      if (ACCEPTABLE_STATUS_CODES.includes(res.status)) {
+        return res.status;
+      }
+
+      // Retry for server errors and rate limiting
+      if (
+        RETRYABLE_STATUS_CODES.includes(res.status) &&
+        attempt < MAX_RETRIES
+      ) {
+        await delay(RETRY_DELAY_MS * attempt);
+        continue;
+      }
+
+      // Non-retryable error or final attempt, return the status code
+      return res.status;
+    } catch (err) {
+      clearTimeout(timeout);
+
+      if (err instanceof Error) {
+        lastError = err.message;
+        // On timeout with HEAD, switch to GET for next attempt
+        if (
+          !useGet &&
+          (err.name === "AbortError" || lastError.includes("aborted"))
+        ) {
+          useGet = true;
+          continue; // Don't count this as a retry attempt
+        }
+
+        // Retry on timeout errors with GET
+        if (err.name === "AbortError" || lastError.includes("aborted")) {
+          if (attempt < MAX_RETRIES) {
+            await delay(RETRY_DELAY_MS * attempt);
+            continue;
+          }
+          return "timeout";
+        }
+      } else {
+        lastError = JSON.stringify(err);
+      }
+
+      // Retry on network errors
+      if (attempt < MAX_RETRIES) {
+        await delay(RETRY_DELAY_MS * attempt);
+        continue;
+      }
+
+      // All retries exhausted, return the error message
+      return lastError;
     }
   }
 
   // This should not be reached
-  return "Unknown error";
+  return lastError;
 }
 
 async function getAllFiles(): Promise<string[]> {
@@ -226,7 +224,7 @@ async function processInParallel<T, R>(
   items: T[],
   processor: (item: T) => Promise<R>,
   concurrency: number,
-  onProgress?: (completed: number, total: number) => void,
+  onProgress?: (completed: number, total: number, result: R) => void,
 ): Promise<R[]> {
   const results: R[] = [];
   let index = 0;
@@ -235,10 +233,11 @@ async function processInParallel<T, R>(
   async function worker(): Promise<void> {
     while (index < items.length) {
       const currentIndex = index++;
-      results[currentIndex] = await processor(items[currentIndex]);
+      const result = await processor(items[currentIndex]);
+      results[currentIndex] = result;
       completed++;
       if (onProgress) {
-        onProgress(completed, items.length);
+        onProgress(completed, items.length, result);
       }
     }
   }
@@ -293,22 +292,29 @@ async function main() {
     // eslint-disable-next-line no-console
     console.log(`Checking ${allLinks.length} external links (${CONCURRENCY} in parallel)...`);
 
-    let lastProgressPct = 0;
+    const startTime = Date.now();
+    let okCount = 0;
+    let warnCount = 0;
+    
     // Check links in parallel for speed
     const statuses = await processInParallel(
       allLinks,
       async (link) => fetchLink(link.url),
       CONCURRENCY,
-      (completed, total) => {
-        const pct = Math.floor((completed / total) * 100);
-        // Only log every 10%
-        if (pct >= lastProgressPct + 10) {
-          lastProgressPct = pct;
-          // eslint-disable-next-line no-console
-          console.log(`Progress: ${completed}/${total} (${pct}%)`);
+      (completed, total, status) => {
+        // Track counts live
+        if (typeof status === "number" && ACCEPTABLE_STATUS_CODES.includes(status)) {
+          okCount++;
+        } else if (status === "timeout" || (typeof status === "number" && RETRYABLE_STATUS_CODES.includes(status))) {
+          warnCount++;
         }
+        const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+        process.stdout.write(`\r[${elapsed}s] ${completed}/${total} checked (${okCount} ok, ${warnCount} warnings)`);
       },
     );
+
+    // eslint-disable-next-line no-console
+    console.log(""); // New line after progress
 
     const results: LinkStatus[] = [];
     const brokenLinks: LinkStatus[] = [];
