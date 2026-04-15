@@ -1,9 +1,8 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { EmploymentDuration } from "@gc-digital-talent/i18n";
+import type { EquitySelections, Maybe } from "@gc-digital-talent/graphql";
 import {
-  EquitySelections,
-  Maybe,
   PoolCandidateSearchPositionType,
   PositionDuration,
 } from "@gc-digital-talent/graphql";

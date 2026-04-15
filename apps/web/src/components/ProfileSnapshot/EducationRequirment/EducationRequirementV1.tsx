@@ -1,11 +1,10 @@
 import { useIntl } from "react-intl";
 
+import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   makeFragmentData,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -17,9 +16,9 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import ExperienceTreeItems, {
   ExperienceTreeItems_Fragment,
 } from "~/components/ExperienceTreeItems/ExperienceTreeItems";
-import { SnapshotExperience } from "~/utils/experienceUtils";
+import type { SnapshotExperience } from "~/utils/experienceUtils";
 
-import { SnapshotProps } from "../types";
+import type { SnapshotProps } from "../types";
 
 const EducationRequirement_PoolCandidateFragment = graphql(/* GraphQL */ `
   fragment EducationRequirement_PoolCandidate on PoolCandidate {

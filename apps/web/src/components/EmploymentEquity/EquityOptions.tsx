@@ -9,7 +9,7 @@ import {
   getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
+import type {
   LocalizedIndigenousCommunity,
   Maybe,
   UpdateUserAsUserInput,

@@ -1,4 +1,5 @@
-import { OperationResult, useMutation } from "urql";
+import type { OperationResult } from "urql";
+import { useMutation } from "urql";
 import { useMemo } from "react";
 
 import {
@@ -6,7 +7,7 @@ import {
   PauseReferralsLength,
 } from "@gc-digital-talent/graphql";
 
-import { FormValues } from "../types";
+import type { FormValues } from "../types";
 import {
   DisqualifyCandidate_Mutation,
   QualifyAndPlaceCandidate_Mutation,

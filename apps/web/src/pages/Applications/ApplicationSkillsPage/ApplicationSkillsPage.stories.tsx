@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
 
 import {
@@ -6,15 +6,13 @@ import {
   fakeExperiences,
 } from "@gc-digital-talent/fake-data";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
-  makeFragmentData,
-} from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
+import type { ApplicationSkillsProps } from "./ApplicationSkillsPage";
 import {
   ApplicationSkills,
   ApplicationSkillsExperience_Fragment,
-  ApplicationSkillsProps,
 } from "./ApplicationSkillsPage";
 
 faker.seed(0);

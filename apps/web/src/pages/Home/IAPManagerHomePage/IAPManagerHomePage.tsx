@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import EnvelopeIcon from "@heroicons/react/24/outline/EnvelopeIcon";
 import EnvelopeSolid from "@heroicons/react/24/solid/EnvelopeIcon";
 import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { getLocale } from "@gc-digital-talent/i18n";
 import {

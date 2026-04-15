@@ -1,6 +1,9 @@
-import { CreateWorkStreamInput, WorkStream } from "@gc-digital-talent/graphql";
+import type {
+  CreateWorkStreamInput,
+  WorkStream,
+} from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getCommunities } from "./communities";
 import { generateUniqueTestId } from "./id";
 

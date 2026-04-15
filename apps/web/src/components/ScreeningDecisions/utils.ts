@@ -1,17 +1,12 @@
-import { IntlShape } from "react-intl";
-import { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
+import type { ReactNode } from "react";
 
-import {
-  AssessmentDecision,
-  AssessmentResultJustification,
+import type {
   AssessmentResultType,
-  AssessmentStepType,
   CreateAssessmentResultInput,
   EducationRequirementOption,
   Experience,
   FragmentType,
-  getFragment,
-  graphql,
   Maybe,
   PublishingGroup,
   Scalars,
@@ -20,22 +15,28 @@ import {
   UpdateAssessmentResultInput,
 } from "@gc-digital-talent/graphql";
 import {
+  AssessmentDecision,
+  AssessmentResultJustification,
+  AssessmentStepType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
+import {
   commonMessages,
   getLocale,
   getSkillLevelName,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
+import type { NullableDecision } from "~/utils/assessmentResults";
+import { NO_DECISION } from "~/utils/assessmentResults";
 import { getExperienceSkills } from "~/utils/skillUtils";
-import {
-  ClassificationGroup,
-  isClassificationGroup,
-} from "~/types/classificationGroup";
+import type { ClassificationGroup } from "~/types/classificationGroup";
+import { isClassificationGroup } from "~/types/classificationGroup";
 import { getEducationRequirementOptions } from "~/utils/educationUtils";
 import { isIAPPool } from "~/utils/poolUtils";
 
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 
 interface FormValuesToApiCreateInputArgs {
   formValues: FormValues;

@@ -1,11 +1,11 @@
-import { StoryFn, Meta } from "@storybook/react-vite";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker";
 import { parseISO } from "date-fns/parseISO";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
+import type { Pool } from "@gc-digital-talent/graphql";
 import {
   makeFragmentData,
-  Pool,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";

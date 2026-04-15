@@ -1,6 +1,12 @@
 import type { IntlShape } from "react-intl";
 import type { Client } from "urql";
-import { cacheExchange, createClient, fetchExchange, mapExchange } from "urql";
+import {
+  cacheExchange,
+  createClient,
+  fetchExchange,
+  mapExchange,
+  subscriptionExchange,
+} from "urql";
 import { authExchange } from "@urql/exchange-auth";
 
 import { getLocale } from "@gc-digital-talent/i18n";
@@ -30,16 +36,24 @@ import {
 } from "./errors";
 import specialErrorExchange from "../exchanges/specialErrorExchange";
 import { isTokenProbablyExpired } from "./isTokenProbablyExpired";
+import createPusher from "./createPusher";
 
 interface GetClientArgs {
   intl: IntlShape;
   authState?: AuthenticationState;
+  // Control if we connect to the websocket server
+  withSubscriptions?: boolean;
 }
 
-export function getClient({ intl, authState }: GetClientArgs): Client {
+export function getClient({
+  intl,
+  authState,
+  withSubscriptions = false,
+}: GetClientArgs): Client {
   const locale = getLocale(intl);
   const logger = getLogger();
   const auth = authState ?? getAuthenticationState({ locale });
+  const forwardSubscription = withSubscriptions ? createPusher() : null;
 
   return createClient({
     url: `${apiHost}${apiUri}`,
@@ -134,6 +148,9 @@ export function getClient({ intl, authState }: GetClientArgs): Client {
           },
         };
       }),
+      ...(withSubscriptions && forwardSubscription
+        ? [subscriptionExchange({ forwardSubscription })]
+        : []),
       specialErrorExchange({ intl }),
       fetchExchange,
     ],

@@ -1,6 +1,7 @@
 import { tv } from "tailwind-variants";
 
-import { Separator, SeparatorProps } from "@gc-digital-talent/ui";
+import type { SeparatorProps } from "@gc-digital-talent/ui";
+import { Separator } from "@gc-digital-talent/ui";
 
 const separator = tv({
   base: "bg-black/20 dark:bg-white/20",
