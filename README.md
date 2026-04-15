@@ -53,20 +53,20 @@ Then, follow the instructions in [`/maintenance/README.md`](/maintenance/README.
 
 #### Development Environment (with Hot Reloading)
 
-For a better development experience with Hot Module Replacement (HMR) and automatic reloading, use the development docker-compose configuration by setting `COMPOSE=docker-compose.dev.yml`:
+For a better development experience with Hot Module Replacement (HMR) and automatic reloading, use the development docker-compose configuration:
 
 ```bash
 # Start the development environment
-make COMPOSE=docker-compose.dev.yml up
+make dev-up
 
 # Run setup scripts (first time only)
-make COMPOSE=docker-compose.dev.yml setup
+make dev-setup
 
 # View logs
-make COMPOSE=docker-compose.dev.yml logs
+make dev-logs
 
 # Stop the containers
-make COMPOSE=docker-compose.dev.yml down
+make dev-down
 ```
 
 This development setup uses separate containers:
