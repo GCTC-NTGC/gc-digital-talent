@@ -1,4 +1,4 @@
-.PHONY: up down logs setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api
+.PHONY: up down logs setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api reverb-start start-services
 
 # Environment selection: use `make up ENV=dev` for development with hot reloading
 ifeq ($(ENV),dev)
@@ -62,6 +62,9 @@ phpstan:
 
 queue-work:
 	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"
+
+reverb-start:
+	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan reverb:start"
 
 test:
 	$(DOCKER_API) "php artisan test $(CMD)"

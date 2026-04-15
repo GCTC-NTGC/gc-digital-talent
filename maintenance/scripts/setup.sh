@@ -31,7 +31,7 @@ source ${parent_path}/lib/common.sh
 # setup api project
 cd /var/www/html/api
 cp .env.example .env --preserve=all
-${parent_path}/update_env_appkey.sh .env
+${parent_path}/update_env_secrets.sh .env
 touch ./storage/logs/laravel.log
 rm ./bootstrap/cache/*.php --force
 composer install --prefer-dist
