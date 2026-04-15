@@ -3203,6 +3203,10 @@
     "defaultMessage": "Rechercher le courriel professionnel de la personne candidate",
     "description": "Label for search nominee input field on a nomination"
   },
+  "AxLO/M": {
+    "defaultMessage": "Renseignements sur le programme de perfectionnement",
+    "description": "Heading for the 'create a development program' form"
+  },
   "AxRGK2": {
     "defaultMessage": "Cacher les renseignements sur les choses à faire si vous ne trouvez pas une compétence",
     "description": "Button text to hide help information about skills"
@@ -4491,6 +4495,10 @@
     "defaultMessage": "Notre équipe de développement prête une attention particulière aux éléments suivants :",
     "description": "Intro to list of items developers consider for accessibility"
   },
+  "GhZU2m": {
+    "defaultMessage": "Programme de perfectionnement",
+    "description": "Title for development program"
+  },
   "GhszAa": {
     "defaultMessage": "Sélectionnez une compétence ou plus",
     "description": "Placeholder displayed on the skill family form skills field."
@@ -4618,6 +4626,10 @@
   "HR2ouB": {
     "defaultMessage": "En savoir plus sur CléGC et gérer vos notifications.",
     "description": "Subtitle for the account settings page."
+  },
+  "HVrV+A": {
+    "defaultMessage": "Créer un programme de perfectionnement",
+    "description": "Breadcrumb title for the create development program page link."
   },
   "HXF9GA": {
     "defaultMessage": "Bassin demandé",
@@ -6283,6 +6295,10 @@
     "defaultMessage": "Découvrez les ressources d'aide aux spécialistes en RH et en recrutement au sein du gouvernement, dont la bibliothèque de compétences et les modèles d'offre d'emploi.",
     "description": "Description of platform resources for HR."
   },
+  "OtZDuZ": {
+    "defaultMessage": "Programme de perfectionnement créé avec succès.",
+    "description": "Message displayed to user after development program is created successfully."
+  },
   "OvL68O": {
     "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
     "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
@@ -6475,6 +6491,10 @@
     "defaultMessage": "Reproduction non commerciale",
     "description": "Non commercial reproduction list in ownership and usage section"
   },
+  "PfsAGV": {
+    "defaultMessage": "Programme de perfectionnement mis à jour avec succès.",
+    "description": "Message displayed to user after development program is updated successfully."
+  },
   "Pi5icf": {
     "defaultMessage": "Gérer un critère de compétences",
     "description": "Title for the find a skill dialog within a pool"
@@ -6614,6 +6634,10 @@
   "QDjfw4": {
     "defaultMessage": "Ébauche",
     "description": "Status label for a draft application"
+  },
+  "QEwqmf": {
+    "defaultMessage": "Abréviation",
+    "description": "Label displayed for abbreviation field"
   },
   "QF/z5s": {
     "defaultMessage": "Copier {title} l'URL dans le presse-papiers",
@@ -7151,6 +7175,10 @@
     "defaultMessage": "Vous recevrez des candidats qui ont :",
     "description": "Title for the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
+  "SfNeqY": {
+    "defaultMessage": "Programmes de perfectionnement",
+    "description": "Title for development programs"
+  },
   "SfhT1q": {
     "defaultMessage": "Acquérir de l'expérience en matière d'embauche",
     "description": "Title to get hiring experience"
@@ -7230,6 +7258,10 @@
   "T3aDLD": {
     "defaultMessage": "Les renseignements suivants sont facultatifs, mais ils visent à aider les candidates et candidats à mieux comprendre le processus d'embauche. Vos réponses à ces questions apparaîtront avec d'autres renseignements importants, comme l'équité, les mesures d'adaptation et les coordonnées.",
     "description": "Sub title for common questions"
+  },
+  "T3qkMJ": {
+    "defaultMessage": "Créer un programme de perfectionnement",
+    "description": "Page title for the development program creation page"
   },
   "T4LCrR": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez-nous votre histoire en mettant l'accent sur votre avancement professionnel et vos compétences. Votre profil éclairera les décisions en matière de gestion des talents et orientera la planification stratégique en ce qui a trait au recrutement, à la planification de la relève et au perfectionnement de nos cadres de la gestion financière.",
@@ -8926,6 +8958,10 @@
     "defaultMessage": "Autorité d’embauche",
     "description": "Position department section"
   },
+  "aaPfXH": {
+    "defaultMessage": "Annuler et revenir aux programmes de perfectionnement",
+    "description": "Button label to return to the development programs table"
+  },
   "ac1z9L": {
     "defaultMessage": "Quelles tâches ou activités avez-vous effectuées en rapport avec cette compétence?",
     "description": "Question about related tasks to a skill"
@@ -9153,6 +9189,10 @@
   "blvpQr": {
     "defaultMessage": "Ces notifications sont obligatoires et comprennent la vérification de l'adresse électronique et d'autres communications importantes.",
     "description": "Subtitle for system messages checklist"
+  },
+  "bmLEAN": {
+    "defaultMessage": "Créer un programme de perfectionnement",
+    "description": "Button label to create a development program"
   },
   "bmOZXl": {
     "defaultMessage": "La mise à jour du rôle a échoué",
@@ -9818,6 +9858,10 @@
     "defaultMessage": "Modifier les informations sur la compétence",
     "description": "Link to edit the currently viewed skill"
   },
+  "eK+8dS": {
+    "defaultMessage": "Site web officiel ou documentation",
+    "description": "Label displayed for information URL field"
+  },
   "eKPE3F": {
     "defaultMessage": "Vous ne recevez pas de possibilités découlant de ce recrutement.",
     "description": "Message displayed when a user has suspended an application to a recruitment"
@@ -9945,6 +9989,10 @@
   "epqtpM": {
     "defaultMessage": "Le cas échéant, cette compétence <strong>sera supprimée de toutes vos présentations de compétences.</strong>",
     "description": "Notice that deleting a skill removes it from a users skill showcase"
+  },
+  "epvtIj": {
+    "defaultMessage": "Créer un programme de perfectionnement",
+    "description": "Text to create a development program"
   },
   "eqX3mk": {
     "defaultMessage": "Retirer {skillName}",
@@ -10474,6 +10522,10 @@
     "defaultMessage": "date de début",
     "description": "Label for a start date input in a range"
   },
+  "gmymLN": {
+    "defaultMessage": "Programme de perfectionnement {developmentProgramId} introuvable.",
+    "description": "Message displayed for development program not found."
+  },
   "gnEK8V": {
     "defaultMessage": "Portée du prix",
     "description": "Label displayed on Award form for award scope input"
@@ -10501,6 +10553,10 @@
   "gsjH8R": {
     "defaultMessage": "Je souhaite bénéficier des possibilités de formation et des programmes de perfectionnement au sein de cette collectivité.",
     "description": "Label for the community interest in training opportunities radio option"
+  },
+  "gsscSp": {
+    "defaultMessage": "Erreur : la mise à jour du programme de perfectionnement a échoué.",
+    "description": "Message displayed to user after development program fails to get updated."
   },
   "gtU+9w": {
     "defaultMessage": "Bienvenue aux cadres",
@@ -11030,6 +11086,10 @@
     "defaultMessage": "Pourquoi cette offre d’emploi n’est-elle plus disponible?",
     "description": "Heading for the closed early pool deadlines dialog"
   },
+  "j69CvA": {
+    "defaultMessage": "Modifier les renseignements du programme de perfectionnement",
+    "description": "Link to edit the currently viewed development program"
+  },
   "j7+E9C": {
     "defaultMessage": "Vous êtes à la limite!",
     "description": "Title for warning message when the user has added the maximum assessments to the assessment plan"
@@ -11365,6 +11425,10 @@
   "kWfAux": {
     "defaultMessage": "Échec de la mise à jour des commentaires sur les nominations de cette personne candidate pour {eventName}.",
     "description": "Message displayed when an error occurs while an admin updates a nomination group"
+  },
+  "kX3dVQ": {
+    "defaultMessage": "Erreur : la création du programme de perfectionnement a échoué.",
+    "description": "Message displayed to user after development program fails to get created."
   },
   "kXd/03": {
     "defaultMessage": "Objectif de carrière de {firstName}",
@@ -13062,6 +13126,10 @@
     "defaultMessage": "Échelle salariale",
     "description": "Heading for the salary ranges dialog"
   },
+  "rdyy/m": {
+    "defaultMessage": "Consulter et modifier les détails de ce programme",
+    "description": "Description for the applicant profile section"
+  },
   "rfDHc0": {
     "defaultMessage": "(Aucun changement)",
     "description": "Null state, nothing changed yet."
@@ -13826,6 +13894,10 @@
     "defaultMessage": "Un processus de demande en ligne sera bientôt disponible afin de permettre aux gens d’exprimer leur intérêt. Entre-temps, nous vous encourageons à envoyer votre curriculum vitae et votre lettre de présentation par courriel, à edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca.",
     "description": "Learn more dialog question eleven paragraph one"
   },
+  "vAkaZH": {
+    "defaultMessage": "Renseignements sur le programme de perfectionnement",
+    "description": "Heading for the 'create a developmentProgram' form"
+  },
   "vB6jX+": {
     "defaultMessage": "Date limite de présentation des demandes",
     "description": "Label for application deadline meta data"
@@ -14377,6 +14449,10 @@
   "xZr1kv": {
     "defaultMessage": "<strong>Ma situation correspond à l'option de deux années d'études secondaires</strong>",
     "description": "Radio group option for education requirement filter in application education form."
+  },
+  "xa2uKa": {
+    "defaultMessage": "Pour commencer, utilisez le bouton « Créer un programme de perfectionnement ».",
+    "description": "Instructions for adding a development program item"
   },
   "xb4jXA": {
     "defaultMessage": "Apprentissage intégré au travail et formation en TI",

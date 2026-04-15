@@ -428,6 +428,8 @@ type Query {
   classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
   departments(whereArchived: Boolean = false): [Department]!
+  developmentProgram(id: UUID!): DevelopmentProgram
+  developmentPrograms: [DevelopmentProgram]!
   jobPosterTemplate(id: UUID!): JobPosterTemplate
   jobPosterTemplates: [JobPosterTemplate!]
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
@@ -600,6 +602,8 @@ type Mutation {
   deleteDepartment(id: ID!): Department
   archiveDepartment(id: ID!): Department
   unarchiveDepartment(id: ID!): Department
+  createDevelopmentProgram(developmentProgram: CreateDevelopmentProgramInput!): DevelopmentProgram
+  updateDevelopmentProgram(id: ID!, developmentProgram: UpdateDevelopmentProgramInput!): DevelopmentProgram
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
@@ -1311,12 +1315,14 @@ type Community implements HasRoleAssignments {
 
 type DevelopmentProgram {
   id: UUID!
-  name: LocalizedString
-  descriptionForProfile: LocalizedString
+  name: LocalizedString!
+  descriptionForProfile: LocalizedString!
   descriptionForNominations: LocalizedString @deprecated(reason: "replaced by description on community_development_program_talent_nomination_event pivot")
   eligibleClassifications: [Classification!]
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   associatedCommunities: [Community!]
+  informationUrl: LocalizedString
+  abbreviation: LocalizedString
 }
 
 type CommunityDevelopmentProgramTalentEventRecord {
@@ -2267,6 +2273,20 @@ input DepartmentBelongsTo {
 
 input DepartmentBelongsToMany {
   sync: [ID!]
+}
+
+input CreateDevelopmentProgramInput {
+  name: LocalizedStringInput
+  descriptionForProfile: LocalizedStringInput
+  informationUrl: LocalizedStringInput
+  abbreviation: LocalizedStringInput
+}
+
+input UpdateDevelopmentProgramInput {
+  name: LocalizedStringInput
+  descriptionForProfile: LocalizedStringInput
+  informationUrl: LocalizedStringInput
+  abbreviation: LocalizedStringInput
 }
 
 input CreateWorkStreamInput {
