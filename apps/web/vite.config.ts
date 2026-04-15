@@ -39,6 +39,13 @@ export default defineConfig(({ command }) => {
       watch: {
         usePolling: process.env.NODE_ENV === "development",
       },
+      // HMR configuration for Docker environment
+      hmr: {
+        // Hide error overlay during rebuilds to reduce visual noise
+        overlay: process.env.DOCKER_DEV !== "true",
+        // Increase timeout for Docker environment where file changes may be slower
+        timeout: 5000,
+      },
     },
 
     build: {
