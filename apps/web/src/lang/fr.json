@@ -835,6 +835,10 @@
     "defaultMessage": "Copier le lien",
     "description": "Button text to copy a pool advertisements URL"
   },
+  "1HsWK9": {
+    "defaultMessage": "Que faire si j’ai supprimé l’application, changé de téléphone ou si je n’ai plus mes codes de récupération?",
+    "description": "CanadaLogin title if user has issues signing in with CanadaLogin"
+  },
   "1JCjTP": {
     "defaultMessage": "Aucun courriel fourni",
     "description": "Fallback for email value"
@@ -2887,6 +2891,10 @@
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the community members table roles column."
   },
+  "9sFait": {
+    "defaultMessage": "Si vous n’avez plus accès à ces codes non plus, il ne sera malheureusement pas possible de récupérer votre compte actuel.",
+    "description": "CanadaLogin answer if user has issues signing in with CanadaLogin"
+  },
   "9t56Ev": {
     "defaultMessage": "Nombre d’évaluations",
     "description": "Title for a column that displays the number of assessments planned for a skill."
@@ -4246,6 +4254,10 @@
   "FpDMGu": {
     "defaultMessage": "Lien avec l’expérience supprimé!",
     "description": "Success message displayed after unlinking an experience to a skill"
+  },
+  "FrIH2K": {
+    "defaultMessage": "L’authentification multifacteur pour la CléGC est gérée directement par le service CléGC et ne peut pas être réinitialisée à partir de la plateforme Talents numériques du GC.",
+    "description": "CanadaLogin answer if user has issues signing in with CanadaLogin"
   },
   "FrQmN+": {
     "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
@@ -13101,6 +13113,10 @@
   "rsmf+3": {
     "defaultMessage": "détient uniquement les autorisations des processus de recrutement qui lui ont été expressément attribués;",
     "description": "Description of the limitation that process operators can only interact with processes they are assigned to"
+  },
+  "rtQjtJ": {
+    "defaultMessage": "Si vous n’avez plus accès à la méthode d’authentification à deux facteurs que vous avez configurée lors de votre inscription à Talents numériques du GC, vous pouvez toujours vous connecter à l’aide de l’un des cinq codes de récupération reçus au moment de l’inscription. Ces codes sont personnels et ne sont accessibles qu’à vous.",
+    "description": "CanadaLogin answer if user has issues signing in with CanadaLogin"
   },
   "ruEs9/": {
     "defaultMessage": "Cette demande n’a résulté en aucun appariement. Veuillez nous en parler davantage dans le champ réservé aux commentaires, à la fin du présent formulaire.",
