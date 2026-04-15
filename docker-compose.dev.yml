@@ -30,6 +30,7 @@ services:
       retries: 5
 
   # Adminer database UI (optional, useful for debugging)
+  # Note: Uses port 8081 to avoid conflict with nginx-proxy on 8080
   adminer:
     image: adminer
     restart: always
@@ -38,7 +39,7 @@ services:
     depends_on:
       - postgres
     ports:
-      - "8080:8080"
+      - "8081:8080"
 
   # Mock OAuth2 server for local authentication
   mock-auth:

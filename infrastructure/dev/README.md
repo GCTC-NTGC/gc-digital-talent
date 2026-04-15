@@ -64,6 +64,14 @@ docker compose -f docker-compose.dev.yml up --build
 - **Separate containers**: API and frontend run independently for cleaner logs and easier debugging
 - **Same URL**: Access everything at `http://localhost:8000` (same as production-like setup)
 
+## Ports
+
+| Service | URL |
+|---------|-----|
+| Application | http://localhost:8000 |
+| Adminer (database UI) | http://localhost:8081 |
+| PostgreSQL | localhost:5432 |
+
 ## Differences from Production-like Setup
 
 | Feature | Production-like (`docker-compose.yml`) | Development (`docker-compose.dev.yml`) |
