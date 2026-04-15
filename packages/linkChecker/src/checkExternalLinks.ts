@@ -27,9 +27,9 @@ async function writeErrorLog(msg: string, file?: string, append = true) {
 
 // Configuration for retries
 const MAX_RETRIES = 3; // Retry 3 times for transient failures
-const RETRY_DELAY_MS = 1000; // 1 second delay between retries
-const TIMEOUT_MS = 15000; // 15 second timeout per request (shorter to fail fast)
-const CONCURRENCY = 20; // Check 20 links in parallel for speed
+const RETRY_DELAY_MS = 2000; // 2 second delay between retries
+const TIMEOUT_MS = 30000; // 30 second timeout per request
+const CONCURRENCY = 5; // Lower concurrency to avoid rate limiting
 
 // HTTP status codes that indicate HEAD is not supported (should fall back to GET)
 const HEAD_NOT_SUPPORTED_CODES = [405, 501]; // Method Not Allowed, Not Implemented
@@ -59,6 +59,7 @@ function delay(ms: number): Promise<void> {
 /**
  * Fetch a link with automatic retry logic.
  * Retries up to MAX_RETRIES times with a short delay between attempts.
+ * Falls back to GET if HEAD times out or fails.
  */
 async function fetchLink(url: string): Promise<number | string> {
   const headers = {
@@ -68,90 +69,100 @@ async function fetchLink(url: string): Promise<number | string> {
     Accept:
       "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.5",
+    Connection: "keep-alive",
   };
 
-  let lastError = "Unknown error";
-  let lastStatus: number | undefined;
+  // Try HEAD first, then fall back to GET if needed
+  const methods = ["HEAD", "GET"] as const;
 
-  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  for (const method of methods) {
+    let lastError = "Unknown error";
 
-    try {
-      // Try HEAD first (faster, no body download)
-      let res = await fetch(url, {
-        method: "HEAD",
-        redirect: "follow",
-        signal: controller.signal,
-        headers,
-      });
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
-      // If HEAD returns a code indicating it's not supported, try GET as fallback
-      if (HEAD_NOT_SUPPORTED_CODES.includes(res.status)) {
+      try {
+        const res = await fetch(url, {
+          method,
+          redirect: "follow",
+          signal: controller.signal,
+          headers,
+        });
+
         clearTimeout(timeout);
-        const getController = new AbortController();
-        const getTimeout = setTimeout(() => getController.abort(), TIMEOUT_MS);
-        try {
-          res = await fetch(url, {
-            method: "GET",
-            redirect: "follow",
-            signal: getController.signal,
-            headers,
-          });
-        } finally {
-          clearTimeout(getTimeout);
+
+        // If HEAD returns a code indicating it's not supported, try GET
+        if (
+          method === "HEAD" &&
+          HEAD_NOT_SUPPORTED_CODES.includes(res.status)
+        ) {
+          break; // Exit retry loop and try GET
         }
-      }
 
-      clearTimeout(timeout);
-      lastStatus = res.status;
+        // Success - return the status code
+        if (ACCEPTABLE_STATUS_CODES.includes(res.status)) {
+          return res.status;
+        }
 
-      // Success - return the status code
-      if (ACCEPTABLE_STATUS_CODES.includes(res.status)) {
-        return res.status;
-      }
+        // Retry for server errors and rate limiting
+        if (
+          RETRYABLE_STATUS_CODES.includes(res.status) &&
+          attempt < MAX_RETRIES
+        ) {
+          await delay(RETRY_DELAY_MS * attempt); // Exponential backoff
+          continue;
+        }
 
-      // Retry for server errors and rate limiting
-      if (
-        RETRYABLE_STATUS_CODES.includes(res.status) &&
-        attempt < MAX_RETRIES
-      ) {
-        await delay(RETRY_DELAY_MS * attempt); // Exponential backoff
-        continue;
-      }
+        // Non-retryable error or final attempt
+        if (method === "GET") {
+          return res.status;
+        }
+        // If HEAD failed with non-retryable, try GET
+        break;
+      } catch (err) {
+        clearTimeout(timeout);
 
-      // Non-retryable error or final attempt, return the status code
-      return res.status;
-    } catch (err) {
-      clearTimeout(timeout);
-
-      if (err instanceof Error) {
-        lastError = err.message;
-        // Retry on timeout errors too - they might succeed on retry
-        if (err.name === "AbortError" || lastError.includes("aborted")) {
-          if (attempt < MAX_RETRIES) {
-            await delay(RETRY_DELAY_MS * attempt);
-            continue;
+        if (err instanceof Error) {
+          lastError = err.message;
+          // On timeout with HEAD, try GET instead (many servers don't support HEAD well)
+          if (
+            method === "HEAD" &&
+            (err.name === "AbortError" || lastError.includes("aborted"))
+          ) {
+            break; // Exit retry loop and try GET
           }
-          return "timeout";
+
+          // Retry on timeout errors with GET
+          if (err.name === "AbortError" || lastError.includes("aborted")) {
+            if (attempt < MAX_RETRIES) {
+              await delay(RETRY_DELAY_MS * attempt);
+              continue;
+            }
+            return "timeout";
+          }
+        } else {
+          lastError = JSON.stringify(err);
         }
-      } else {
-        lastError = JSON.stringify(err);
-      }
 
-      // Retry on network errors
-      if (attempt < MAX_RETRIES) {
-        await delay(RETRY_DELAY_MS * attempt);
-        continue;
-      }
+        // Retry on network errors
+        if (attempt < MAX_RETRIES) {
+          await delay(RETRY_DELAY_MS * attempt);
+          continue;
+        }
 
-      // All retries exhausted, return the error message
-      return lastError;
+        // All retries exhausted for this method
+        if (method === "GET") {
+          return lastError;
+        }
+        // If HEAD exhausted retries, try GET
+        break;
+      }
     }
   }
 
-  // This should not be reached, but return last known status/error as fallback
-  return lastStatus ?? lastError;
+  // This should not be reached
+  return "Unknown error";
 }
 
 async function getAllFiles(): Promise<string[]> {
