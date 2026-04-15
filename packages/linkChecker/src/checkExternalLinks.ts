@@ -25,9 +25,11 @@ async function writeErrorLog(msg: string, file?: string, append = true) {
   }
 }
 
-// Configuration - keep it simple like the original working version
-const TIMEOUT_MS = 30000; // 30 second timeout (original used 30s and worked)
-const CONCURRENCY = 20; // Check 20 links in parallel for speed
+// Configuration for retry logic
+const MAX_RETRIES = 3; // Retry up to 3 times for flaky links
+const INITIAL_RETRY_DELAY_MS = 1000; // 1 second initial delay, doubles each retry
+const TIMEOUT_MS = 30000; // 30 second timeout per request
+const CONCURRENCY = 10; // Lower concurrency to avoid overwhelming servers
 
 // HTTP status codes that are acceptable (not broken links)
 const ACCEPTABLE_STATUS_CODES = [
@@ -36,11 +38,25 @@ const ACCEPTABLE_STATUS_CODES = [
   403, // Forbidden - usually bot blocking, link is likely fine
 ];
 
+// HTTP status codes that are worth retrying (server errors and rate limiting)
+const RETRYABLE_STATUS_CODES = [
+  408, // Request Timeout
+  429, // Too Many Requests
+  500, // Internal Server Error
+  502, // Bad Gateway
+  503, // Service Unavailable
+  504, // Gateway Timeout
+];
+
+// Helper to delay execution
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 /**
- * Fetch a link using GET (like the original working version).
- * Simple approach: single request, 30s timeout, no retries.
+ * Make a single fetch request with timeout.
  */
-async function fetchLink(url: string): Promise<number | string> {
+async function singleFetch(url: string): Promise<number | string> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
@@ -70,6 +86,47 @@ async function fetchLink(url: string): Promise<number | string> {
   } finally {
     clearTimeout(timeout);
   }
+}
+
+/**
+ * Fetch a link with automatic retry logic for flaky links.
+ * Retries up to MAX_RETRIES times with exponential backoff.
+ */
+async function fetchLink(url: string): Promise<number | string> {
+  let lastResult: number | string = "Unknown error";
+
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    const result = await singleFetch(url);
+
+    // Success - return immediately
+    if (typeof result === "number" && ACCEPTABLE_STATUS_CODES.includes(result)) {
+      return result;
+    }
+
+    // Check if we should retry
+    const isRetryable =
+      result === "timeout" ||
+      (typeof result === "string" && result.includes("ECONNRESET")) ||
+      (typeof result === "string" && result.includes("ETIMEDOUT")) ||
+      (typeof result === "string" && result.includes("socket hang up")) ||
+      (typeof result === "number" && RETRYABLE_STATUS_CODES.includes(result));
+
+    lastResult = result;
+
+    // If it's a non-retryable error (like 404), return immediately
+    if (!isRetryable) {
+      return result;
+    }
+
+    // If we have more retries, wait with exponential backoff
+    if (attempt < MAX_RETRIES) {
+      const delayMs = INITIAL_RETRY_DELAY_MS * Math.pow(2, attempt - 1);
+      await delay(delayMs);
+    }
+  }
+
+  // All retries exhausted
+  return lastResult;
 }
 
 async function getAllFiles(): Promise<string[]> {
@@ -199,11 +256,29 @@ async function main() {
     );
 
     // eslint-disable-next-line no-console
-    console.log(`Checking ${allLinks.length} external links (${CONCURRENCY} in parallel)...`);
+    console.log(`Checking ${allLinks.length} external links (${CONCURRENCY} in parallel, ${MAX_RETRIES} retries each)...`);
 
     const startTime = Date.now();
     let okCount = 0;
-    let failCount = 0;
+    let warnCount = 0;
+    let brokenCount = 0;
+    
+    // Helper to classify status for progress display
+    const classifyStatus = (status: number | string): "ok" | "warn" | "broken" => {
+      if (typeof status === "number" && ACCEPTABLE_STATUS_CODES.includes(status)) {
+        return "ok";
+      }
+      if (
+        status === "timeout" ||
+        (typeof status === "string" && status.includes("ECONNRESET")) ||
+        (typeof status === "string" && status.includes("ETIMEDOUT")) ||
+        (typeof status === "string" && status.includes("socket hang up")) ||
+        (typeof status === "number" && RETRYABLE_STATUS_CODES.includes(status))
+      ) {
+        return "warn";
+      }
+      return "broken";
+    };
     
     // Check links in parallel for speed
     const statuses = await processInParallel(
@@ -212,13 +287,12 @@ async function main() {
       CONCURRENCY,
       (completed, total, status) => {
         // Track counts live
-        if (typeof status === "number" && ACCEPTABLE_STATUS_CODES.includes(status)) {
-          okCount++;
-        } else {
-          failCount++;
-        }
+        const classification = classifyStatus(status);
+        if (classification === "ok") okCount++;
+        else if (classification === "warn") warnCount++;
+        else brokenCount++;
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-        process.stdout.write(`\r[${elapsed}s] ${completed}/${total} checked (${okCount} ok, ${failCount} issues)`);
+        process.stdout.write(`\r[${elapsed}s] ${completed}/${total} (${okCount} ok, ${warnCount} warn, ${brokenCount} broken)`);
       },
     );
 
@@ -227,6 +301,7 @@ async function main() {
 
     const results: LinkStatus[] = [];
     const brokenLinks: LinkStatus[] = [];
+    const warnings: LinkStatus[] = [];
 
     for (let i = 0; i < allLinks.length; i++) {
       const link = allLinks[i];
@@ -236,17 +311,38 @@ async function main() {
       // Check if it's an acceptable status
       if (typeof status === "number" && ACCEPTABLE_STATUS_CODES.includes(status)) {
         results.push(linkStatus);
+      } else if (
+        // Transient failures after retries are warnings, not failures
+        status === "timeout" ||
+        (typeof status === "string" && status.includes("ECONNRESET")) ||
+        (typeof status === "string" && status.includes("ETIMEDOUT")) ||
+        (typeof status === "string" && status.includes("socket hang up")) ||
+        (typeof status === "number" && RETRYABLE_STATUS_CODES.includes(status))
+      ) {
+        warnings.push(linkStatus);
       } else {
-        // Broken links: 404, timeouts, network errors, etc.
+        // True broken links: 404, 410, invalid URLs, etc.
         brokenLinks.push(linkStatus);
       }
     }
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     // eslint-disable-next-line no-console
-    console.log(`\nCompleted in ${elapsed}s: ${results.length} OK, ${brokenLinks.length} broken`);
+    console.log(`\nCompleted in ${elapsed}s: ${results.length} OK, ${warnings.length} warnings, ${brokenLinks.length} broken`);
 
-    // Write broken links report
+    // Write warnings report (informational only, doesn't fail the build)
+    if (warnings.length > 0) {
+      const warningsPath = path.resolve("external-link-warnings.json");
+      await fs.writeFile(
+        warningsPath,
+        JSON.stringify(warnings, null, 2),
+        "utf-8",
+      );
+      // eslint-disable-next-line no-console
+      console.log(`${warnings.length} links had transient issues (timeouts/server errors after ${MAX_RETRIES} retries). See external-link-warnings.json`);
+    }
+
+    // Write broken links report (fails the build)
     if (brokenLinks.length > 0) {
       const brokenLinksPath = path.resolve("external-broken-links.json");
       await fs.writeFile(
