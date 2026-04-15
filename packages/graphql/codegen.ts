@@ -11,6 +11,11 @@ const config: CodegenConfig = {
   config: {
     useTypeImports: true,
   },
+  // Watch mode configuration to reduce HMR refresh spam
+  // Debounce waits for file changes to settle before regenerating
+  watchConfig: {
+    debounce: 500,
+  },
   generates: {
     "./src/gql/": {
       preset: "client",
