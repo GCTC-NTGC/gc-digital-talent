@@ -30,6 +30,19 @@ const MAX_RETRIES = 3;
 const RETRY_DELAY_MS = 1000; // 1 second delay between retries
 const TIMEOUT_MS = 10000; // 10 second timeout per request (shorter for faster completion)
 
+// HTTP status codes that indicate HEAD is not supported (should fall back to GET)
+const HEAD_NOT_SUPPORTED_CODES = [405, 403, 501]; // Method Not Allowed, Forbidden, Not Implemented
+
+// HTTP status codes that are worth retrying (server errors and rate limiting)
+const RETRYABLE_STATUS_CODES = [
+  408, // Request Timeout
+  429, // Too Many Requests
+  500, // Internal Server Error
+  502, // Bad Gateway
+  503, // Service Unavailable
+  504, // Gateway Timeout
+];
+
 // Helper to delay execution
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -50,6 +63,7 @@ async function fetchLink(url: string): Promise<number | string> {
   };
 
   let lastError = "Unknown error";
+  let lastStatus: number | undefined;
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     const controller = new AbortController();
@@ -64,8 +78,8 @@ async function fetchLink(url: string): Promise<number | string> {
         headers,
       });
 
-      // If HEAD returns 405/403/501, try GET as fallback
-      if ([405, 403, 501].includes(res.status)) {
+      // If HEAD returns a code indicating it's not supported, try GET as fallback
+      if (HEAD_NOT_SUPPORTED_CODES.includes(res.status)) {
         clearTimeout(timeout);
         const getController = new AbortController();
         const getTimeout = setTimeout(() => getController.abort(), TIMEOUT_MS);
@@ -82,20 +96,23 @@ async function fetchLink(url: string): Promise<number | string> {
       }
 
       clearTimeout(timeout);
+      lastStatus = res.status;
 
       // Success - return the status code
       if (res.status >= 200 && res.status < 300) {
         return res.status;
       }
 
-      // Non-success status code, might be transient - retry
-      lastError = `HTTP ${res.status}`;
-      if (attempt < MAX_RETRIES) {
+      // Only retry for server errors and rate limiting, not client errors (4xx except 408/429)
+      if (
+        RETRYABLE_STATUS_CODES.includes(res.status) &&
+        attempt < MAX_RETRIES
+      ) {
         await delay(RETRY_DELAY_MS);
         continue;
       }
 
-      // Final attempt failed, return the status code
+      // Non-retryable error or final attempt, return the status code
       return res.status;
     } catch (err) {
       clearTimeout(timeout);
@@ -106,18 +123,19 @@ async function fetchLink(url: string): Promise<number | string> {
         lastError = JSON.stringify(err);
       }
 
-      // If we have retries left, wait and try again
+      // Network errors are always worth retrying
       if (attempt < MAX_RETRIES) {
         await delay(RETRY_DELAY_MS);
         continue;
       }
 
-      // All retries exhausted, return the error
+      // All retries exhausted, return the error message
       return lastError;
     }
   }
 
-  return lastError;
+  // This should not be reached, but return last known status/error as fallback
+  return lastStatus ?? lastError;
 }
 
 async function getAllFiles(): Promise<string[]> {
