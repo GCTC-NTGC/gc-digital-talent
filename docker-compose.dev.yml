@@ -53,6 +53,9 @@ services:
       - ./node_modules:/var/www/html/node_modules
     env_file:
       - ./apps/web/.env
+    environment:
+      # Disable devServer redirect since nginx proxy handles routing
+      DOCKER_DEV: "true"
 
   # Nginx reverse proxy to route requests between api and web
   nginx-proxy:
