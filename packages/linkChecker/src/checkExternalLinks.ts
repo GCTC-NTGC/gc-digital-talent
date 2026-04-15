@@ -26,16 +26,16 @@ async function writeErrorLog(msg: string, file?: string, append = true) {
 }
 
 // Configuration for retries
-const MAX_RETRIES = 3;
-const RETRY_DELAY_MS = 1000; // 1 second delay between retries
-const TIMEOUT_MS = 10000; // 10 second timeout per request (shorter for faster completion)
+const MAX_RETRIES = 2; // Retry twice for transient failures
+const RETRY_DELAY_MS = 500; // 500ms delay between retries
+const TIMEOUT_MS = 30000; // 30 second timeout per request
+const CONCURRENCY = 10; // Check 10 links in parallel for speed
 
 // HTTP status codes that indicate HEAD is not supported (should fall back to GET)
 const HEAD_NOT_SUPPORTED_CODES = [405, 403, 501]; // Method Not Allowed, Forbidden, Not Implemented
 
 // HTTP status codes that are worth retrying (server errors and rate limiting)
 const RETRYABLE_STATUS_CODES = [
-  408, // Request Timeout
   429, // Too Many Requests
   500, // Internal Server Error
   502, // Bad Gateway
@@ -119,11 +119,15 @@ async function fetchLink(url: string): Promise<number | string> {
 
       if (err instanceof Error) {
         lastError = err.message;
+        // Don't retry on timeout errors - they're unlikely to succeed on retry
+        if (err.name === "AbortError" || lastError.includes("aborted")) {
+          return lastError;
+        }
       } else {
         lastError = JSON.stringify(err);
       }
 
-      // Network errors are always worth retrying
+      // Retry on other network errors (connection reset, DNS failure, etc.)
       if (attempt < MAX_RETRIES) {
         await delay(RETRY_DELAY_MS);
         continue;
@@ -192,6 +196,34 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
   return links;
 }
 
+/**
+ * Process items in parallel with a concurrency limit.
+ */
+async function processInParallel<T, R>(
+  items: T[],
+  processor: (item: T) => Promise<R>,
+  concurrency: number,
+): Promise<R[]> {
+  const results: R[] = [];
+  let index = 0;
+
+  async function worker(): Promise<void> {
+    while (index < items.length) {
+      const currentIndex = index++;
+      results[currentIndex] = await processor(items[currentIndex]);
+    }
+  }
+
+  // Start workers up to concurrency limit
+  const workers = Array.from(
+    { length: Math.min(concurrency, items.length) },
+    () => worker(),
+  );
+  await Promise.all(workers);
+
+  return results;
+}
+
 async function main() {
   try {
     const files = await getAllFiles();
@@ -229,12 +261,22 @@ async function main() {
       "utf-8",
     );
 
-    // Check each link (fetchLink already handles retries internally)
+    // eslint-disable-next-line no-console
+    console.log(`Checking ${allLinks.length} external links...`);
+
+    // Check links in parallel for speed
+    const statuses = await processInParallel(
+      allLinks,
+      async (link) => fetchLink(link.url),
+      CONCURRENCY,
+    );
+
     const results: LinkStatus[] = [];
     const brokenLinks: LinkStatus[] = [];
 
-    for (const link of allLinks) {
-      const status = await fetchLink(link.url);
+    for (let i = 0; i < allLinks.length; i++) {
+      const link = allLinks[i];
+      const status = statuses[i];
       const linkStatus: LinkStatus = { file: link.file, url: link.url, status };
 
       // Check if it's a success status (2xx range)
@@ -242,10 +284,6 @@ async function main() {
         results.push(linkStatus);
       } else {
         brokenLinks.push(linkStatus);
-        await writeErrorLog(
-          `Broken link: ${link.url} (status: ${status})`,
-          link.file,
-        );
       }
     }
 
@@ -257,6 +295,8 @@ async function main() {
         JSON.stringify(brokenLinks, null, 2),
         "utf-8",
       );
+      // eslint-disable-next-line no-console
+      console.log(`Found ${brokenLinks.length} broken links. See external-broken-links.json for details.`);
       process.exit(1);
     }
 
