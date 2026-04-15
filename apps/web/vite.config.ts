@@ -84,6 +84,8 @@ export default defineConfig(({ command }) => ({
     port: 3000,
     // Allow connections from Docker container network
     host: true,
+    // Allow requests from nginx proxy in Docker dev environment
+    allowedHosts: ["web", "localhost"],
     // Watch files for changes in Docker environment
     watch: {
       usePolling: process.env.NODE_ENV === "development",
