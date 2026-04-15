@@ -26,13 +26,13 @@ async function writeErrorLog(msg: string, file?: string, append = true) {
 }
 
 // Configuration for retries
-const MAX_RETRIES = 2; // Retry twice for transient failures
-const RETRY_DELAY_MS = 500; // 500ms delay between retries
-const TIMEOUT_MS = 30000; // 30 second timeout per request
-const CONCURRENCY = 10; // Check 10 links in parallel for speed
+const MAX_RETRIES = 3; // Retry 3 times for transient failures
+const RETRY_DELAY_MS = 1000; // 1 second delay between retries
+const TIMEOUT_MS = 15000; // 15 second timeout per request (shorter to fail fast)
+const CONCURRENCY = 20; // Check 20 links in parallel for speed
 
 // HTTP status codes that indicate HEAD is not supported (should fall back to GET)
-const HEAD_NOT_SUPPORTED_CODES = [405, 403, 501]; // Method Not Allowed, Forbidden, Not Implemented
+const HEAD_NOT_SUPPORTED_CODES = [405, 501]; // Method Not Allowed, Not Implemented
 
 // HTTP status codes that are worth retrying (server errors and rate limiting)
 const RETRYABLE_STATUS_CODES = [
@@ -41,6 +41,14 @@ const RETRYABLE_STATUS_CODES = [
   502, // Bad Gateway
   503, // Service Unavailable
   504, // Gateway Timeout
+];
+
+// HTTP status codes that are acceptable (not broken links)
+// 403 = bot blocking (many sites do this but work in browser)
+const ACCEPTABLE_STATUS_CODES = [
+  200, 201, 202, 203, 204, 205, 206, // 2xx success
+  301, 302, 303, 307, 308, // redirects (should have been followed but sometimes not)
+  403, // Forbidden - usually bot blocking, link is likely fine
 ];
 
 // Helper to delay execution
@@ -99,16 +107,16 @@ async function fetchLink(url: string): Promise<number | string> {
       lastStatus = res.status;
 
       // Success - return the status code
-      if (res.status >= 200 && res.status < 300) {
+      if (ACCEPTABLE_STATUS_CODES.includes(res.status)) {
         return res.status;
       }
 
-      // Only retry for server errors and rate limiting, not client errors (4xx except 408/429)
+      // Retry for server errors and rate limiting
       if (
         RETRYABLE_STATUS_CODES.includes(res.status) &&
         attempt < MAX_RETRIES
       ) {
-        await delay(RETRY_DELAY_MS);
+        await delay(RETRY_DELAY_MS * attempt); // Exponential backoff
         continue;
       }
 
@@ -119,17 +127,21 @@ async function fetchLink(url: string): Promise<number | string> {
 
       if (err instanceof Error) {
         lastError = err.message;
-        // Don't retry on timeout errors - they're unlikely to succeed on retry
+        // Retry on timeout errors too - they might succeed on retry
         if (err.name === "AbortError" || lastError.includes("aborted")) {
-          return lastError;
+          if (attempt < MAX_RETRIES) {
+            await delay(RETRY_DELAY_MS * attempt);
+            continue;
+          }
+          return "timeout";
         }
       } else {
         lastError = JSON.stringify(err);
       }
 
-      // Retry on other network errors (connection reset, DNS failure, etc.)
+      // Retry on network errors
       if (attempt < MAX_RETRIES) {
-        await delay(RETRY_DELAY_MS);
+        await delay(RETRY_DELAY_MS * attempt);
         continue;
       }
 
@@ -197,20 +209,26 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
 }
 
 /**
- * Process items in parallel with a concurrency limit.
+ * Process items in parallel with a concurrency limit and progress reporting.
  */
 async function processInParallel<T, R>(
   items: T[],
   processor: (item: T) => Promise<R>,
   concurrency: number,
+  onProgress?: (completed: number, total: number) => void,
 ): Promise<R[]> {
   const results: R[] = [];
   let index = 0;
+  let completed = 0;
 
   async function worker(): Promise<void> {
     while (index < items.length) {
       const currentIndex = index++;
       results[currentIndex] = await processor(items[currentIndex]);
+      completed++;
+      if (onProgress) {
+        onProgress(completed, items.length);
+      }
     }
   }
 
@@ -262,29 +280,62 @@ async function main() {
     );
 
     // eslint-disable-next-line no-console
-    console.log(`Checking ${allLinks.length} external links...`);
+    console.log(`Checking ${allLinks.length} external links (${CONCURRENCY} in parallel)...`);
 
+    let lastProgressPct = 0;
     // Check links in parallel for speed
     const statuses = await processInParallel(
       allLinks,
       async (link) => fetchLink(link.url),
       CONCURRENCY,
+      (completed, total) => {
+        const pct = Math.floor((completed / total) * 100);
+        // Only log every 10%
+        if (pct >= lastProgressPct + 10) {
+          lastProgressPct = pct;
+          // eslint-disable-next-line no-console
+          console.log(`Progress: ${completed}/${total} (${pct}%)`);
+        }
+      },
     );
 
     const results: LinkStatus[] = [];
     const brokenLinks: LinkStatus[] = [];
+    const warnings: LinkStatus[] = [];
 
     for (let i = 0; i < allLinks.length; i++) {
       const link = allLinks[i];
       const status = statuses[i];
       const linkStatus: LinkStatus = { file: link.file, url: link.url, status };
 
-      // Check if it's a success status (2xx range)
-      if (typeof status === "number" && status >= 200 && status < 300) {
+      // Check if it's an acceptable status
+      if (typeof status === "number" && ACCEPTABLE_STATUS_CODES.includes(status)) {
         results.push(linkStatus);
+      } else if (status === "timeout") {
+        // Timeouts are warnings, not failures (site might be slow but valid)
+        warnings.push(linkStatus);
+      } else if (typeof status === "number" && RETRYABLE_STATUS_CODES.includes(status)) {
+        // Server errors after retries are warnings (transient issues)
+        warnings.push(linkStatus);
       } else {
+        // True broken links: 404, invalid URLs, etc.
         brokenLinks.push(linkStatus);
       }
+    }
+
+    // eslint-disable-next-line no-console
+    console.log(`\nResults: ${results.length} OK, ${warnings.length} warnings, ${brokenLinks.length} broken`);
+
+    // Write warnings report
+    if (warnings.length > 0) {
+      const warningsPath = path.resolve("external-link-warnings.json");
+      await fs.writeFile(
+        warningsPath,
+        JSON.stringify(warnings, null, 2),
+        "utf-8",
+      );
+      // eslint-disable-next-line no-console
+      console.log(`${warnings.length} links had warnings (timeouts/server errors). See external-link-warnings.json`);
     }
 
     // Write broken links report
@@ -296,7 +347,7 @@ async function main() {
         "utf-8",
       );
       // eslint-disable-next-line no-console
-      console.log(`Found ${brokenLinks.length} broken links. See external-broken-links.json for details.`);
+      console.log(`${brokenLinks.length} broken links found. See external-broken-links.json for details.`);
       process.exit(1);
     }
 
