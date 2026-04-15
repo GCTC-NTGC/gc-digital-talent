@@ -76,8 +76,7 @@ export default defineConfig(({ command }) => {
     define: {
       // IS_DEV_SERVER is true when running Vite dev server directly (without nginx proxy)
       // In Docker dev environment with nginx, we set DOCKER_DEV=true to disable this
-      IS_DEV_SERVER:
-        command === "serve" && process.env.DOCKER_DEV !== "true",
+      IS_DEV_SERVER: command === "serve" && process.env.DOCKER_DEV !== "true",
       API_HOST: getEnvVar("API_HOST"),
 
       // Vite requires build-time env variables to have the VITE_ prefix
