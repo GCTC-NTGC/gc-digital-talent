@@ -39,6 +39,11 @@ export default defineConfig(({ command }) => {
       watch: {
         usePolling: process.env.NODE_ENV === "development",
       },
+      // Increase HMR timeout to batch multiple file changes together
+      // This prevents multiple refreshes when GraphQL codegen writes several files
+      hmr: {
+        timeout: 500,
+      },
     },
 
     build: {
