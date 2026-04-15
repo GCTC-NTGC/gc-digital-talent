@@ -1,11 +1,7 @@
 #!/usr/bin/env node
 
-/* suppress the turbo warning about undeclared env vars as we decide to use it from .env file */
-/* eslint-disable turbo/no-undeclared-env-vars */
-
 import fs from "node:fs/promises";
 import path from "node:path";
-import { spawnSync } from "node:child_process";
 
 import { glob } from "glob";
 import dotenv from "dotenv";
@@ -16,12 +12,6 @@ interface LinkStatus {
   file: string;
   url: string;
   status: number | string;
-  isLegacyTLS?: boolean;
-}
-
-// Use a global variable for currentLinkFile instead of an interface
-declare global {
-  var currentLinkFile: string | undefined;
 }
 
 // Write error to external-link-errors.log
@@ -35,14 +25,23 @@ async function writeErrorLog(msg: string, file?: string, append = true) {
   }
 }
 
-async function fetchLink(
-  url: string,
-  timeoutMs = 30000,
-): Promise<{ status: number | string; isLegacyTLS: boolean }> {
+// Configuration for retries
+const MAX_RETRIES = 3;
+const RETRY_DELAY_MS = 1000; // 1 second delay between retries
+const TIMEOUT_MS = 10000; // 10 second timeout per request (shorter for faster completion)
+
+// Helper to delay execution
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Fetch a link with automatic retry logic.
+ * Retries up to MAX_RETRIES times with a short delay between attempts.
+ */
+async function fetchLink(url: string): Promise<number | string> {
   const headers = {
     // Use a browser-like User-Agent to avoid being blocked by sites that filter bots.
-    // Note: The Chrome version is intentionally generic (120.x) as most sites only check
-    // for a valid-looking browser string rather than exact version matching.
     "User-Agent":
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     Accept:
@@ -50,78 +49,75 @@ async function fetchLink(
     "Accept-Language": "en-US,en;q=0.5",
   };
 
-  // Status codes that indicate HEAD is not supported and we should try GET
-  // 405 = Method Not Allowed, 403 = Forbidden (some servers block HEAD), 501 = Not Implemented
-  const headNotSupportedCodes = [405, 403, 501];
+  let lastError = "Unknown error";
 
-  const headController = new AbortController();
-  const headTimeout = setTimeout(() => headController.abort(), timeoutMs);
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
-  try {
-    // Try HEAD first (faster, no body download)
-    let res = await fetch(url, {
-      method: "HEAD",
-      redirect: "follow",
-      signal: headController.signal,
-      headers,
-    });
-    clearTimeout(headTimeout);
+    try {
+      // Try HEAD first (faster, no body download)
+      let res = await fetch(url, {
+        method: "HEAD",
+        redirect: "follow",
+        signal: controller.signal,
+        headers,
+      });
 
-    // If HEAD returns a code indicating it's not supported, try GET as fallback
-    if (headNotSupportedCodes.includes(res.status)) {
-      const getController = new AbortController();
-      const getTimeout = setTimeout(() => getController.abort(), timeoutMs);
-      try {
-        res = await fetch(url, {
-          method: "GET",
-          redirect: "follow",
-          signal: getController.signal,
-          headers,
-        });
-      } finally {
-        clearTimeout(getTimeout);
+      // If HEAD returns 405/403/501, try GET as fallback
+      if ([405, 403, 501].includes(res.status)) {
+        clearTimeout(timeout);
+        const getController = new AbortController();
+        const getTimeout = setTimeout(() => getController.abort(), TIMEOUT_MS);
+        try {
+          res = await fetch(url, {
+            method: "GET",
+            redirect: "follow",
+            signal: getController.signal,
+            headers,
+          });
+        } finally {
+          clearTimeout(getTimeout);
+        }
       }
-    }
 
-    return { status: res.status, isLegacyTLS: false };
-  } catch (err) {
-    // decode the error and find out if it's a legacy renegotiation error
-    let reason;
-    let fullError = "";
-    let isLegacyRenegotiation = false;
-    if (err instanceof Error) {
-      reason = err.message;
-      fullError = err.stack ?? err.message;
-      // Log all enumerable properties
-      const props = Object.getOwnPropertyNames(err).reduce(
-        (acc: Record<string, unknown>, key) => {
-          acc[key] = (err as unknown as Record<string, unknown>)[key];
-          return acc;
-        },
-        {},
-      );
-      fullError += "\n" + JSON.stringify(props, null, 2);
-      // Check for legacy renegotiation error
-      if (
-        props.cause &&
-        typeof props.cause === "object" &&
-        (props.cause as Record<string, unknown>).code ===
-          "ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED"
-      ) {
-        isLegacyRenegotiation = true;
+      clearTimeout(timeout);
+
+      // Success - return the status code
+      if (res.status >= 200 && res.status < 300) {
+        return res.status;
       }
-    } else {
-      reason = JSON.stringify(err);
-      fullError = reason;
+
+      // Non-success status code, might be transient - retry
+      lastError = `HTTP ${res.status}`;
+      if (attempt < MAX_RETRIES) {
+        await delay(RETRY_DELAY_MS);
+        continue;
+      }
+
+      // Final attempt failed, return the status code
+      return res.status;
+    } catch (err) {
+      clearTimeout(timeout);
+
+      if (err instanceof Error) {
+        lastError = err.message;
+      } else {
+        lastError = JSON.stringify(err);
+      }
+
+      // If we have retries left, wait and try again
+      if (attempt < MAX_RETRIES) {
+        await delay(RETRY_DELAY_MS);
+        continue;
+      }
+
+      // All retries exhausted, return the error
+      return lastError;
     }
-    // Only log error during retry phase (indicated by _RETRY_FAILED_LINKS env var)
-    if (process.env._RETRY_FAILED_LINKS) {
-      await writeErrorLog(`Fetch error for ${url}: ${fullError}`);
-    }
-    return { status: reason, isLegacyTLS: isLegacyRenegotiation };
-  } finally {
-    clearTimeout(headTimeout);
   }
+
+  return lastError;
 }
 
 async function getAllFiles(): Promise<string[]> {
@@ -140,11 +136,6 @@ async function getAllFiles(): Promise<string[]> {
   });
 
   return files;
-}
-
-// Check if a status indicates a successful response (2xx range)
-function isSuccessStatus(status: number | string): boolean {
-  return typeof status === "number" && status >= 200 && status < 300;
 }
 
 function isValidExternalLink(url: string): boolean {
@@ -185,45 +176,11 @@ async function extractExternalLinks(filePath: string): Promise<string[]> {
 
 async function main() {
   try {
-    // If running as a retry for all failed links
-    if (process.env._RETRY_FAILED_LINKS) {
-      const parsed = JSON.parse(
-        process.env._RETRY_FAILED_LINKS ?? "[]",
-      ) as unknown;
-      const retryLinks: { file: string; url: string; isLegacyTLS?: boolean }[] =
-        Array.isArray(parsed)
-          ? (parsed as unknown[]).filter(
-              (
-                item,
-              ): item is { file: string; url: string; isLegacyTLS?: boolean } =>
-                typeof item === "object" &&
-                item !== null &&
-                typeof (item as { file?: unknown }).file === "string" &&
-                typeof (item as { url?: unknown }).url === "string",
-            )
-          : [];
-
-      const results: LinkStatus[] = [];
-      for (const link of retryLinks) {
-        global.currentLinkFile = link.file;
-        const { status, isLegacyTLS } = await fetchLink(link.url);
-        results.push({ file: link.file, url: link.url, status, isLegacyTLS });
-      }
-      // Filter for broken links - only report errors that fail on retry
-      const brokenLinks = results.filter((r) => !isSuccessStatus(r.status));
-      const brokenLinksPath = path.resolve("external-broken-links.json");
-      await fs.writeFile(
-        brokenLinksPath,
-        JSON.stringify(brokenLinks, null, 2),
-        "utf-8",
-      );
-      if (brokenLinks.length > 0) process.exit(1);
-      return;
-    }
-
     const files = await getAllFiles();
     const allLinks: { file: string; url: string }[] = [];
     const seenUrls = new Set<string>();
+
+    // Extract all unique external links from source files
     for (const file of files) {
       try {
         const stat = await fs.lstat(file);
@@ -245,6 +202,7 @@ async function main() {
         await writeErrorLog(msg, file);
       }
     }
+
     // Save all unique links so that we can cross verify later
     const allLinksPath = path.resolve("external-links.json");
     await fs.writeFile(
@@ -252,35 +210,41 @@ async function main() {
       JSON.stringify(allLinks, null, 2),
       "utf-8",
     );
-    // This can be enhanced with concurrency if the links are too many and slow
+
+    // Check each link (fetchLink already handles retries internally)
     const results: LinkStatus[] = [];
-    const failedLinks: { file: string; url: string; isLegacyTLS: boolean }[] =
-      [];
+    const brokenLinks: LinkStatus[] = [];
+
     for (const link of allLinks) {
-      global.currentLinkFile = link.file;
-      const { status, isLegacyTLS } = await fetchLink(link.url);
-      // Track all non-success statuses for retry
-      if (!isSuccessStatus(status)) {
-        failedLinks.push({ file: link.file, url: link.url, isLegacyTLS });
+      const status = await fetchLink(link.url);
+      const linkStatus: LinkStatus = { file: link.file, url: link.url, status };
+
+      // Check if it's a success status (2xx range)
+      if (typeof status === "number" && status >= 200 && status < 300) {
+        results.push(linkStatus);
       } else {
-        results.push({ file: link.file, url: link.url, status });
+        brokenLinks.push(linkStatus);
+        await writeErrorLog(
+          `Broken link: ${link.url} (status: ${status})`,
+          link.file,
+        );
       }
     }
-    // Retry all failed links once (only in first pass, not during retry)
-    if (failedLinks.length > 0 && !process.env._RETRY_FAILED_LINKS) {
-      const result = spawnSync(process.execPath, process.argv.slice(1), {
-        env: {
-          ...process.env,
-          _RETRY_FAILED_LINKS: JSON.stringify(failedLinks),
-        },
-        stdio: "inherit",
-      });
-      // Exit with the subprocess exit code if it failed
-      if (result.status !== 0) {
-        process.exit(result.status ?? 1);
-      }
+
+    // Write broken links report
+    if (brokenLinks.length > 0) {
+      const brokenLinksPath = path.resolve("external-broken-links.json");
+      await fs.writeFile(
+        brokenLinksPath,
+        JSON.stringify(brokenLinks, null, 2),
+        "utf-8",
+      );
+      process.exit(1);
     }
-    // If we get here with no failed links, all links passed - exit successfully
+
+    // All links passed
+    // eslint-disable-next-line no-console
+    console.log(`All ${allLinks.length} external links are valid.`);
   } catch (err) {
     let msg: string;
     if (err instanceof Error) {
