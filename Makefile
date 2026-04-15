@@ -1,14 +1,50 @@
-.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api
+.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api dev-up dev-down dev-setup dev-logs
 
 DOCKER_RUN=docker compose run --rm maintenance bash
 DOCKER_API=docker compose run --rm -w /var/www/html/api maintenance sh -c
 DOCKER_PNPM=docker compose run -w /var/www/html --rm maintenance pnpm
+
+# Development environment commands (with hot reloading)
+DOCKER_DEV_RUN=docker compose -f docker-compose.dev.yml run --rm maintenance bash
+DOCKER_DEV_API=docker compose -f docker-compose.dev.yml run --rm -w /var/www/html/api maintenance sh -c
 
 up:
 	docker compose up --build --detach
 
 down:
 	docker compose down
+
+# ============================================
+# Development environment targets
+# ============================================
+
+dev-up:
+	docker compose -f docker-compose.dev.yml up --build --detach
+
+dev-down:
+	docker compose -f docker-compose.dev.yml down
+
+dev-setup:
+	$(DOCKER_DEV_RUN) setup.sh
+
+dev-logs:
+	docker compose -f docker-compose.dev.yml logs -f
+
+dev-logs-api:
+	docker compose -f docker-compose.dev.yml logs -f api
+
+dev-logs-web:
+	docker compose -f docker-compose.dev.yml logs -f web
+
+dev-seed-fresh:
+	$(DOCKER_DEV_API) "php artisan migrate:fresh --seed"
+
+dev-migrate:
+	$(DOCKER_DEV_API) "php artisan migrate"
+
+# ============================================
+# Original production-like environment targets
+# ============================================
 
 setup:
 	$(DOCKER_RUN) setup.sh

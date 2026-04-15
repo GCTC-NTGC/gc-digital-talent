@@ -82,6 +82,12 @@ export default defineConfig(({ command }) => ({
   },
   server: {
     port: 3000,
+    // Allow connections from Docker container network
+    host: true,
+    // Watch files for changes in Docker environment
+    watch: {
+      usePolling: process.env.NODE_ENV === "development",
+    },
   },
   html: {
     cspNonce: "**CSP_NONCE**",
