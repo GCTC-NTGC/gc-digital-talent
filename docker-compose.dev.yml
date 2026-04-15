@@ -32,6 +32,9 @@ services:
       - ./api/.env
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    depends_on:
+      - postgres
+      - redis
 
   # Vite/React development server with HMR
   web:
