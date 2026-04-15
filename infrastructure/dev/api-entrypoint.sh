@@ -21,6 +21,7 @@ php artisan lighthouse:print-schema --write
 # Start background workers
 echo "Starting background jobs..."
 php artisan queue:work &
+php artisan reverb:start &
 
 # Start the Laravel development server
 exec php artisan serve --host=0.0.0.0 --port=8080
