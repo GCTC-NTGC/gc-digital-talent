@@ -17,7 +17,10 @@ const config: CodegenConfig = {
     debounce: 500,
   },
   generates: {
-    "./src/gql/": {
+    // Output to a single file to prevent multiple HMR refreshes
+    // When using directory output, each file (gql.ts, graphql.ts, fragment-masking.ts)
+    // triggers a separate HMR update causing 3+ page refreshes per change
+    "./src/gql/index.ts": {
       preset: "client",
       config: {
         scalars: {
@@ -33,6 +36,8 @@ const config: CodegenConfig = {
         fragmentMasking: {
           unmaskFunctionName: "getFragment",
         },
+        // Generate all code in a single file instead of multiple files
+        emitLegacySingleFile: true,
       },
     },
   },
