@@ -266,7 +266,7 @@ export const Component = () => {
             })}
           </Heading>
 
-          <InstructionsCardGrid columns={3}>
+          <InstructionsCardGrid columns={6}>
             <InstructionsStepCard
               className="rounded-t-md rounded-b-none pt-12 pb-7.5 xs:rounded-l-md xs:rounded-r-none"
               img={{
@@ -361,10 +361,9 @@ export const Component = () => {
                 </span>
               </div>
             </InstructionsStepCard>
-          </InstructionsCardGrid>
-          <InstructionsCardGrid columns={3}>
+
             <InstructionsStepCard
-              className="rounded-t-none rounded-b-md pt-12 pb-7.5 xs:rounded-l-md xs:rounded-r-none"
+              className="!rounded-t-none !rounded-b-none rounded-b-md pt-12 pb-7.5 xs:rounded-l-md xs:rounded-r-none"
               background="darker"
               img={{
                 src: canadaLoginStep4,
@@ -431,7 +430,7 @@ export const Component = () => {
             </InstructionsStepCard>
 
             <InstructionsStepCard
-              className="rounded-t-none rounded-b-md pt-12 pb-7.5 xs:rounded-l-none xs:rounded-r-md"
+              className="!rounded-t-none rounded-b-md pt-12 pb-7.5 xs:rounded-l-none xs:rounded-r-md"
               background="darker"
               includeArrow={false}
               img={{
