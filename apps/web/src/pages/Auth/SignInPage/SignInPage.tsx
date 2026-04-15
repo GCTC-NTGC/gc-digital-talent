@@ -256,7 +256,7 @@ export const Component = () => {
           <Heading
             level="h3"
             size="h4"
-            className="mt-6 mb-3.5 text-center font-normal xs:text-left"
+            className="mt-13.5 mb-3.5 text-center font-normal xs:text-left"
           >
             {intl.formatMessage({
               defaultMessage: "Step 1: Create a CanadaLogin or sign in",
@@ -507,7 +507,7 @@ export const Component = () => {
               </div>
             </InstructionsStepCard>
             <InstructionsStepCard
-              className="rounded-none pt-12 pb-7.5"
+              className="rounded-none pt-12 pb-15"
               background="darker"
               img={{
                 src: canadaLoginStepAuthenticator,
@@ -524,7 +524,7 @@ export const Component = () => {
             </InstructionsStepCard>
 
             <InstructionsStepCard
-              className="rounded-t-none rounded-b-md pt-12 pb-7.5 xs:rounded-l-none xs:rounded-r-md"
+              className="rounded-t-none rounded-b-md pt-12 pb-15 xs:rounded-l-none xs:rounded-r-md"
               includeArrow={false}
               img={{
                 src: canadaLoginEnterCode,
@@ -545,7 +545,7 @@ export const Component = () => {
           <Heading
             level="h3"
             size="h4"
-            className="mt-20 mb-3.5 text-center font-normal xs:text-left"
+            className="mt-13.5 mb-3.5 text-center font-normal xs:text-left"
           >
             {intl.formatMessage({
               defaultMessage: "Step 3: Access your existing account",
@@ -628,7 +628,7 @@ export const Component = () => {
                   })}
                 </p>
 
-                <div className="pl-2">
+                <div className="p-2">
                   <FormProvider {...methods}>
                     <RadioGroup
                       idPrefix="signin-method"
@@ -762,7 +762,7 @@ export const Component = () => {
                 </Notice.Root>
               </div>
             )}
-            <div className="flex flex-col items-start gap-4 pt-6 pl-4 xs:flex-row xs:items-center">
+            <div className="flex flex-row items-center gap-4 pt-6 pl-4 lg:flex-col lg:items-start">
               <Link
                 href={`${loginPath}&skipmigration=true`}
                 mode="solid"
@@ -807,7 +807,7 @@ export const Component = () => {
                   color="primary"
                   level="h3"
                   size="h4"
-                  className="mt-12 mb-5 justify-center font-normal xs:justify-start"
+                  className="mt-20 mb-5 justify-center font-normal xs:justify-start"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Frequently Asked Questions (FAQs)",
