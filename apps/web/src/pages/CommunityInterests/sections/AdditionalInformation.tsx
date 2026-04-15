@@ -12,16 +12,16 @@ import {
   TextArea,
 } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   FinanceChiefRole,
-  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
-import { FormValues } from "../form";
+import type { FormValues } from "../form";
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 const TEXT_AREA_MAX_WORDS_FR = Math.round(

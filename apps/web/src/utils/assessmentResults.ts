@@ -1,4 +1,4 @@
-import { AssessmentDecision } from "@gc-digital-talent/graphql";
+import type { AssessmentDecision } from "@gc-digital-talent/graphql";
 
 export const NO_DECISION = "noDecision";
 

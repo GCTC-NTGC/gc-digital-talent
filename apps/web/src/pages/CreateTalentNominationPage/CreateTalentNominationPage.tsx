@@ -10,11 +10,11 @@ import {
   errorMessages,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import {
+import type {
   CreateTalentNominationInput,
-  graphql,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";

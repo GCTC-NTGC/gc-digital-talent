@@ -1,10 +1,10 @@
 import { useFormContext, Controller } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { DetailedHTMLProps, HTMLAttributes } from "react";
+import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
-import { CommonInputProps } from "../../types";
+import type { CommonInputProps } from "../../types";
 import Field from "../Field";
 import ControlledInput from "./ControlledInput";
 import { countNumberOfWordsAfterReplacingHTML } from "../../utils";

@@ -1,7 +1,7 @@
-import { OperationResult } from "urql";
+import type { OperationResult } from "urql";
 
-import { FieldLabels } from "@gc-digital-talent/forms";
-import {
+import type { FieldLabels } from "@gc-digital-talent/forms";
+import type {
   AwardExperience,
   AwardExperienceInput,
   AwardedScope,
@@ -39,7 +39,7 @@ import {
   DepartmentBelongsTo,
 } from "@gc-digital-talent/graphql";
 
-import { SimpleAnyExperience } from "~/utils/experienceUtils";
+import type { SimpleAnyExperience } from "~/utils/experienceUtils";
 
 export type ExperienceType =
   | "award"

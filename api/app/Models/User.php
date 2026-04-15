@@ -107,6 +107,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property array $flexible_work_locations
  * @property OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
  * @property ?EmployeeProfile $employeeProfile
+ * @property ?string $last_sign_in_iss
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {

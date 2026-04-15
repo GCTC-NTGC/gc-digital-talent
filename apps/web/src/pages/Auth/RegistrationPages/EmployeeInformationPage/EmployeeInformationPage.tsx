@@ -19,7 +19,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import WorkFields from "~/components/ExperienceFormFields/WorkFields/WorkFields";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
-import {
+import type {
   ExperienceDetailsSubmissionData,
   WorkFormValues,
 } from "~/types/experience";

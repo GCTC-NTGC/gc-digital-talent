@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
 
 import { DropdownMenu } from "@gc-digital-talent/ui";
-import { Scalars } from "@gc-digital-talent/graphql";
+import type { Scalars } from "@gc-digital-talent/graphql";
 
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
 import useUserDownloads from "~/hooks/useUserDownloads";

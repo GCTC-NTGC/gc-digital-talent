@@ -1,14 +1,16 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import {
+import type {
   ApplicantFilter,
-  OperationalRequirement,
   Pool,
+  Skill,
+  WorkStream,
+} from "@gc-digital-talent/graphql";
+import {
+  OperationalRequirement,
   WorkRegion,
   LanguageAbility,
   PositionDuration,
-  Skill,
-  WorkStream,
   FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 

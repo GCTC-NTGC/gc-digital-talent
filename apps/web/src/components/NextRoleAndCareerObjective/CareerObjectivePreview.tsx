@@ -1,11 +1,9 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import {
-  HeadingLevel,
-  PreviewList,
-  PreviewMetaData,
-} from "@gc-digital-talent/ui";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { HeadingLevel, PreviewMetaData } from "@gc-digital-talent/ui";
+import { PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";
 

@@ -31,7 +31,7 @@ final readonly class DownloadNominationDoc
                 'nominations.submitter',
                 'nominations.submitter.currentClassification',
                 'nominations.submitter.department',
-                'nominations.developmentPrograms',
+                'nominations.developmentProgramsThroughPivot',
                 'nominations.skills',
                 'nominations.advancementReferenceFallbackClassification',
                 'nominations.advancementReferenceFallbackDepartment',

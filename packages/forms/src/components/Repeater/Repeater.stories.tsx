@@ -3,7 +3,7 @@ import { action } from "storybook/actions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import { LocalizedString } from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 import { Announcer } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
@@ -11,7 +11,8 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import TextArea from "../TextArea/TextArea";
-import Repeater, { RepeaterFieldsetProps, RepeaterProps } from "./Repeater";
+import type { RepeaterFieldsetProps, RepeaterProps } from "./Repeater";
+import Repeater from "./Repeater";
 
 type StoryProps = RepeaterProps &
   Pick<RepeaterFieldsetProps, "hideLegend" | "moveDisabledIndexes"> & {

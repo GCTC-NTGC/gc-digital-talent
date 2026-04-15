@@ -5,7 +5,7 @@ import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 
-import { HeadingProps, IconType } from "@gc-digital-talent/ui";
+import type { HeadingProps, IconType } from "@gc-digital-talent/ui";
 
 interface GetToggleSectionIconArgs {
   isEditing: boolean;

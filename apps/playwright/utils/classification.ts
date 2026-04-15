@@ -1,6 +1,6 @@
-import { Classification } from "@gc-digital-talent/graphql";
+import type { Classification } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 const Test_ClassificationsQueryDocument = /* GraphQL */ `
   query Test_Classifications {

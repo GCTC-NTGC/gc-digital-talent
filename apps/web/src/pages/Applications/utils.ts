@@ -1,9 +1,9 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
-import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
-import { ApplicationStepInfo } from "~/types/applicationStep";
+import type useRoutes from "~/hooks/useRoutes";
+import type { ApplicationStepInfo } from "~/types/applicationStep";
 import { isIAPPool } from "~/utils/poolUtils";
 
 import welcomeStepInfo from "./welcomeStep/welcomeStepInfo";

@@ -1,12 +1,12 @@
-import {
+import type {
   FragmentType,
   RoleAssignment,
   Scalars,
 } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/Hero";
+import type Hero from "~/components/Hero";
 
-import { DepartmentManageAccessPage_DepartmentFragment } from "./operations";
+import type { DepartmentManageAccessPage_DepartmentFragment } from "./operations";
 
 export interface DepartmentManageAccessFormValues {
   departmentId: Scalars["UUID"]["output"];

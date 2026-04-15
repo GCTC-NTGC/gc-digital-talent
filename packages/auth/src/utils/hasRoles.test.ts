@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-deprecated */
-import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
+import type { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
 
-import { RoleName } from "../const";
+import type { RoleName } from "../const";
 import hasRole from "./hasRole";
 
 describe("hasRole tests", () => {

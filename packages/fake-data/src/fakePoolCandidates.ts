@@ -4,10 +4,8 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
+import type { PoolCandidate, Pool, User } from "@gc-digital-talent/graphql";
 import {
-  PoolCandidate,
-  Pool,
-  User,
   EducationRequirementOption,
   OverallAssessmentStatus,
   ScreeningStage,

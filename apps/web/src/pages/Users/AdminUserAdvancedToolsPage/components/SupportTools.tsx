@@ -4,7 +4,8 @@ import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Button,
   Heading,

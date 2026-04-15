@@ -1,4 +1,4 @@
-import { Decorator, Meta, StoryObj } from "@storybook/react-vite";
+import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 
 import {
   fakeDepartments,
@@ -6,13 +6,13 @@ import {
   fakePoolCandidates,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
+import type { PoolCandidate } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   CandidateRemovalReason,
   DisqualificationReason,
   makeFragmentData,
   PlacementType,
-  PoolCandidate,
   PauseReferralsLength,
 } from "@gc-digital-talent/graphql";
 import {
