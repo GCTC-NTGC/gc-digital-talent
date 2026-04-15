@@ -51,11 +51,15 @@ services:
       - ./turbo.json:/var/www/html/turbo.json
       - ./.git:/var/www/html/.git:ro
       - ./node_modules:/var/www/html/node_modules
+      # Share the API storage directory for GraphQL codegen to access the lighthouse schema
+      - ./api/storage/app:/var/www/html/api/storage/app:ro
     env_file:
       - ./apps/web/.env
     environment:
       # Disable devServer redirect since nginx proxy handles routing
       DOCKER_DEV: "true"
+    depends_on:
+      - api
 
   # Nginx reverse proxy to route requests between api and web
   nginx-proxy:
