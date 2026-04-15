@@ -25,142 +25,51 @@ async function writeErrorLog(msg: string, file?: string, append = true) {
   }
 }
 
-// Configuration for retries
-const MAX_RETRIES = 2; // Retry once for transient failures (fast)
-const RETRY_DELAY_MS = 500; // 0.5 second delay between retries
-const TIMEOUT_MS = 10000; // 10 second timeout per request (fast)
+// Configuration - keep it simple like the original working version
+const TIMEOUT_MS = 30000; // 30 second timeout (original used 30s and worked)
 const CONCURRENCY = 20; // Check 20 links in parallel for speed
 
-// HTTP status codes that indicate HEAD is not supported (should fall back to GET)
-const HEAD_NOT_SUPPORTED_CODES = [405, 501]; // Method Not Allowed, Not Implemented
-
-// HTTP status codes that are worth retrying (server errors and rate limiting)
-const RETRYABLE_STATUS_CODES = [
-  429, // Too Many Requests
-  500, // Internal Server Error
-  502, // Bad Gateway
-  503, // Service Unavailable
-  504, // Gateway Timeout
-];
-
 // HTTP status codes that are acceptable (not broken links)
-// 403 = bot blocking (many sites do this but work in browser)
 const ACCEPTABLE_STATUS_CODES = [
   200, 201, 202, 203, 204, 205, 206, // 2xx success
   301, 302, 303, 307, 308, // redirects (should have been followed but sometimes not)
   403, // Forbidden - usually bot blocking, link is likely fine
 ];
 
-// Helper to delay execution
-function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 /**
- * Fetch a link with automatic retry logic.
- * Retries up to MAX_RETRIES times with a short delay between attempts.
- * Falls back to GET if HEAD times out or isn't supported.
+ * Fetch a link using GET (like the original working version).
+ * Simple approach: single request, 30s timeout, no retries.
  */
 async function fetchLink(url: string): Promise<number | string> {
-  const headers = {
-    // Use a browser-like User-Agent to avoid being blocked by sites that filter bots.
-    "User-Agent":
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    Accept:
-      "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "Accept-Language": "en-US,en;q=0.5",
-  };
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
-  let lastError = "Unknown error";
-  let useGet = false; // If HEAD fails/times out, switch to GET
-
-  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
-    const method = useGet ? "GET" : "HEAD";
-
-    try {
-      let res = await fetch(url, {
-        method,
-        redirect: "follow",
-        signal: controller.signal,
-        headers,
-      });
-
-      // If HEAD returns a code indicating it's not supported, try GET as fallback
-      if (!useGet && HEAD_NOT_SUPPORTED_CODES.includes(res.status)) {
-        clearTimeout(timeout);
-        const getController = new AbortController();
-        const getTimeout = setTimeout(() => getController.abort(), TIMEOUT_MS);
-        try {
-          res = await fetch(url, {
-            method: "GET",
-            redirect: "follow",
-            signal: getController.signal,
-            headers,
-          });
-        } finally {
-          clearTimeout(getTimeout);
-        }
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      redirect: "follow",
+      signal: controller.signal,
+      headers: {
+        // Use a browser-like User-Agent to avoid being blocked by sites that filter bots.
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        Accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.5",
+      },
+    });
+    return res.status;
+  } catch (err) {
+    if (err instanceof Error) {
+      if (err.name === "AbortError") {
+        return "timeout";
       }
-
-      clearTimeout(timeout);
-
-      // Success - return the status code
-      if (ACCEPTABLE_STATUS_CODES.includes(res.status)) {
-        return res.status;
-      }
-
-      // Retry for server errors and rate limiting
-      if (
-        RETRYABLE_STATUS_CODES.includes(res.status) &&
-        attempt < MAX_RETRIES
-      ) {
-        await delay(RETRY_DELAY_MS * attempt);
-        continue;
-      }
-
-      // Non-retryable error or final attempt, return the status code
-      return res.status;
-    } catch (err) {
-      clearTimeout(timeout);
-
-      if (err instanceof Error) {
-        lastError = err.message;
-        // On timeout with HEAD, switch to GET for next attempt
-        if (
-          !useGet &&
-          (err.name === "AbortError" || lastError.includes("aborted"))
-        ) {
-          useGet = true;
-          continue; // Don't count this as a retry attempt
-        }
-
-        // Retry on timeout errors with GET
-        if (err.name === "AbortError" || lastError.includes("aborted")) {
-          if (attempt < MAX_RETRIES) {
-            await delay(RETRY_DELAY_MS * attempt);
-            continue;
-          }
-          return "timeout";
-        }
-      } else {
-        lastError = JSON.stringify(err);
-      }
-
-      // Retry on network errors
-      if (attempt < MAX_RETRIES) {
-        await delay(RETRY_DELAY_MS * attempt);
-        continue;
-      }
-
-      // All retries exhausted, return the error message
-      return lastError;
+      return err.message;
     }
+    return JSON.stringify(err);
+  } finally {
+    clearTimeout(timeout);
   }
-
-  // This should not be reached
-  return lastError;
 }
 
 async function getAllFiles(): Promise<string[]> {
@@ -294,7 +203,7 @@ async function main() {
 
     const startTime = Date.now();
     let okCount = 0;
-    let warnCount = 0;
+    let failCount = 0;
     
     // Check links in parallel for speed
     const statuses = await processInParallel(
@@ -305,11 +214,11 @@ async function main() {
         // Track counts live
         if (typeof status === "number" && ACCEPTABLE_STATUS_CODES.includes(status)) {
           okCount++;
-        } else if (status === "timeout" || (typeof status === "number" && RETRYABLE_STATUS_CODES.includes(status))) {
-          warnCount++;
+        } else {
+          failCount++;
         }
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-        process.stdout.write(`\r[${elapsed}s] ${completed}/${total} checked (${okCount} ok, ${warnCount} warnings)`);
+        process.stdout.write(`\r[${elapsed}s] ${completed}/${total} checked (${okCount} ok, ${failCount} issues)`);
       },
     );
 
@@ -318,7 +227,6 @@ async function main() {
 
     const results: LinkStatus[] = [];
     const brokenLinks: LinkStatus[] = [];
-    const warnings: LinkStatus[] = [];
 
     for (let i = 0; i < allLinks.length; i++) {
       const link = allLinks[i];
@@ -328,32 +236,15 @@ async function main() {
       // Check if it's an acceptable status
       if (typeof status === "number" && ACCEPTABLE_STATUS_CODES.includes(status)) {
         results.push(linkStatus);
-      } else if (status === "timeout") {
-        // Timeouts are warnings, not failures (site might be slow but valid)
-        warnings.push(linkStatus);
-      } else if (typeof status === "number" && RETRYABLE_STATUS_CODES.includes(status)) {
-        // Server errors after retries are warnings (transient issues)
-        warnings.push(linkStatus);
       } else {
-        // True broken links: 404, invalid URLs, etc.
+        // Broken links: 404, timeouts, network errors, etc.
         brokenLinks.push(linkStatus);
       }
     }
 
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     // eslint-disable-next-line no-console
-    console.log(`\nResults: ${results.length} OK, ${warnings.length} warnings, ${brokenLinks.length} broken`);
-
-    // Write warnings report
-    if (warnings.length > 0) {
-      const warningsPath = path.resolve("external-link-warnings.json");
-      await fs.writeFile(
-        warningsPath,
-        JSON.stringify(warnings, null, 2),
-        "utf-8",
-      );
-      // eslint-disable-next-line no-console
-      console.log(`${warnings.length} links had warnings (timeouts/server errors). See external-link-warnings.json`);
-    }
+    console.log(`\nCompleted in ${elapsed}s: ${results.length} OK, ${brokenLinks.length} broken`);
 
     // Write broken links report
     if (brokenLinks.length > 0) {
