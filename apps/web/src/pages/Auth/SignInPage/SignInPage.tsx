@@ -109,8 +109,8 @@ export const Component = () => {
   const breadcrumbLabel = featureFlags?.canadaLogin
     ? intl.formatMessage({
         defaultMessage: "Sign in",
-        id: "s8eL7k", // TODO
-        description: "Breadcrumb label for the Canada Login sign in page",
+        id: "4ljE/r",
+        description: "Message displayed to users to sign in to the application",
       })
     : pageTitle;
 
@@ -178,7 +178,7 @@ export const Component = () => {
                 darkSrc: step1bImageDark,
               }}
             >
-              <p className="mt-8 mb-6.75">
+              <p className="mt-12 mb-6.75">
                 {intl.formatMessage({
                   defaultMessage: "Enter your CanadaLogin password.",
                   id: "JsPXch", // TODO
@@ -248,7 +248,7 @@ export const Component = () => {
           >
             {intl.formatMessage({
               defaultMessage: "Your account transition journey",
-              id: "2b7CQ/",
+              id: "2b7CQ/", // TODO
               description:
                 "Heading for the account transition journey section on the sign in page",
             })}
@@ -644,7 +644,7 @@ export const Component = () => {
                               <span>
                                 {intl.formatMessage({
                                   defaultMessage: "CanadaLogin",
-                                  id: "signInPage.canadaLogin",
+                                  id: "t0iSsj", // TODO
                                   description:
                                     "CanadaLogin sign in method label",
                                 })}
@@ -653,7 +653,7 @@ export const Component = () => {
                                 <span>
                                   {intl.formatMessage({
                                     defaultMessage: "New",
-                                    id: "N0zaCd",
+                                    id: "N0zaCd", // TODO
                                     description:
                                       "Chip label for CanadaLogin option",
                                   })}
@@ -666,8 +666,8 @@ export const Component = () => {
                             <p className="font-normal text-gray-500 dark:text-gray-100">
                               {intl.formatMessage({
                                 defaultMessage:
-                                  "Your last sign in was recent and used your email to create a CanadaLogin account",
-                                id: "KG4nJL",
+                                  "You have signed in recently and created a CanadaLogin account using your email",
+                                id: "wxXlyJ", // TODO
                                 description:
                                   "Message shown under CanadaLogin option on sign in page",
                               })}
@@ -682,7 +682,7 @@ export const Component = () => {
                               {intl.formatMessage({
                                 defaultMessage:
                                   "Your last sign in was before April 2026 and used a GCKey username",
-                                id: "5V6IMt",
+                                id: "5V6IMt", // TODO
                                 description:
                                   "Message shown under GCKey option on sign in page",
                               })}
@@ -773,7 +773,7 @@ export const Component = () => {
               >
                 {intl.formatMessage({
                   defaultMessage: "Get started",
-                  id: "ci28W3",
+                  id: "ci28W3", // TODO
                   description:
                     "CanadaLogin sign up link text on the sign in page",
                 })}
@@ -787,7 +787,7 @@ export const Component = () => {
                 >
                   {intl.formatMessage({
                     defaultMessage: "I need help",
-                    id: "+G1WRn",
+                    id: "+G1WRn", // TODO
                     description:
                       "Heading for the instructions resource block on the sign in page",
                   })}
