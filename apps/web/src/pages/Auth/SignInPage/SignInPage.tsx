@@ -765,7 +765,7 @@ export const Component = () => {
             )}
             <div className="flex flex-col items-start gap-4 pt-6 pl-4 xs:flex-row xs:items-center">
               <Link
-                href={paths.registrationExperience()}
+                href={`${loginPath}&skipmigration=true`}
                 mode="solid"
                 color="primary"
                 utilityIcon={ChevronDoubleRightIcon}
@@ -780,7 +780,7 @@ export const Component = () => {
               </Link>
               <p className="m-0 flex items-center lg:pl-4">
                 <Link
-                  href={paths.registrationExperience()}
+                  href="#registrationInstructions"
                   mode="inline"
                   external
                   className="lg:ml-2"
@@ -800,173 +800,179 @@ export const Component = () => {
         <Container className="my-10">
           {!iapMode ? (
             <>
-              {renderInstructionCards()}
+              <div id="registrationInstructions" className="scroll-mt-20">
+                {renderInstructionCards()}
 
-              <Heading
-                icon={InformationCircleIcon}
-                color="primary"
-                level="h3"
-                size="h4"
-                className="mt-12 mb-5 justify-center font-normal xs:justify-start"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Frequently Asked Questions (FAQs)",
-                  id: "AUtIo9",
-                  description:
-                    "Heading for Frequently Asked Questions section on sign in page",
-                })}
-              </Heading>
-              <Accordion.Root
-                type="single"
-                size="sm"
-                mode="card"
-                collapsible
-                className="my-5 mt-4"
-              >
-                <Accordion.Item value="one">
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage(
-                      canadaLoginMessages.signInWithCanadaLogin,
-                    )}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <p className="mb-3">
+                <Heading
+                  icon={InformationCircleIcon}
+                  color="primary"
+                  level="h3"
+                  size="h4"
+                  className="mt-12 mb-5 justify-center font-normal xs:justify-start"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Frequently Asked Questions (FAQs)",
+                    id: "AUtIo9",
+                    description:
+                      "Heading for Frequently Asked Questions section on sign in page",
+                  })}
+                </Heading>
+                <Accordion.Root
+                  type="single"
+                  size="sm"
+                  mode="card"
+                  collapsible
+                  className="my-5 mt-4"
+                >
+                  <Accordion.Item value="one">
+                    <Accordion.Trigger as="h3">
                       {intl.formatMessage(
-                        canadaLoginMessages.answerSignInWithCanadaLogin1,
+                        canadaLoginMessages.signInWithCanadaLogin,
                       )}
-                    </p>
-                    <p className="mb-3">
-                      {intl.formatMessage(
-                        canadaLoginMessages.answerSignInWithCanadaLogin2,
-                      )}
-                    </p>
-                    <p className="mb-3">
-                      {intl.formatMessage(
-                        canadaLoginMessages.answerSignInWithCanadaLogin3,
-                      )}
-                    </p>
-                  </Accordion.Content>
-                </Accordion.Item>
-                <Accordion.Item value="two">
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage(gckeyMessages.questionContactGCkey)}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <p className="mb-3">
-                      {intl.formatMessage(gckeyMessages.answerContactGCkey1)}
-                    </p>
-                    <p className="mb-3">
-                      {intl.formatMessage(gckeyMessages.answerContactGCkey2)}
-                    </p>
-                    <p className="mb-3">
-                      <Link
-                        color="black"
-                        external
-                        href="tel:1-855-438-1102"
-                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                        aria-label="1 8 5 5 4 3 8 1 1 0 2"
-                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                      >
-                        1-855-438-1102
-                      </Link>
-                    </p>
-                    <p className="mb-3">
-                      {intl.formatMessage(gckeyMessages.answerContactGCkey3)}
-                    </p>
-                    <p className="mb-3">
-                      <Link
-                        color="black"
-                        external
-                        href="tel:1-855-438-1103"
-                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                        aria-label="1 8 5 5 4 3 8 1 1 0 3"
-                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                      >
-                        1-855-438-1103
-                      </Link>
-                    </p>
-                    <p className="mb-3">
-                      {intl.formatMessage(gckeyMessages.answerContactGCkey4)}
-                    </p>
-                    <p className="mb-3">
-                      <Link
-                        color="black"
-                        external
-                        href="tel:1-800-2318-6290"
-                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                        aria-label="1 8 0 0 2 3 1 8 6 2 9 0"
-                        // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                      >
-                        1-800-2318-6290
-                      </Link>
-                    </p>
-                    <p>
-                      {intl.formatMessage(gckeyMessages.answerContactGCkey5)}
-                    </p>
-                  </Accordion.Content>
-                </Accordion.Item>
-
-                <Accordion.Item value="three">
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage(canadaLoginMessages.haveCanadaLogin)}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <p>
-                      {intl.formatMessage(
-                        canadaLoginMessages.haveCanadaLoginAnswer,
-                      )}
-                    </p>
-                  </Accordion.Content>
-                </Accordion.Item>
-                <Accordion.Item value="four">
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage(canadaLoginMessages.whatIsCanadaLogin)}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <p>
-                      {intl.formatMessage(
-                        canadaLoginMessages.whatIsCanadaLoginAnswer,
-                      )}
-                    </p>
-                  </Accordion.Content>
-                </Accordion.Item>
-                <Accordion.Item value="five">
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage(canadaLoginMessages.contactCanadaLogin)}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <p>
-                      {intl.formatMessage(
-                        canadaLoginMessages.answerContactCanadaLogin1,
-                      )}
-                    </p>
-                    <p className="mt-4 mb-3">
-                      <Link
-                        color="black"
-                        external
-                        aria-label={intl.formatMessage(
-                          canadaLoginMessages.answerContactCanadaLogin2,
-                        )}
-                        href={
-                          intl.locale === "fr"
-                            ? "https://connexion.canada.ca/fr/utilisateurs/nous-contacter/"
-                            : "https://login.canada.ca/en/users/contact-us/"
-                        }
-                      >
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <p className="mb-3">
                         {intl.formatMessage(
-                          canadaLoginMessages.answerContactCanadaLogin2,
+                          canadaLoginMessages.answerSignInWithCanadaLogin1,
                         )}
-                      </Link>
-                    </p>
-                  </Accordion.Content>
-                </Accordion.Item>
-              </Accordion.Root>
-              <p className="mt-6">
-                {intl.formatMessage(gckeyMessages.moreQuestions, {
-                  helpLink: (chunks: ReactNode) =>
-                    helpLink(chunks, paths.support()),
-                })}
-              </p>
+                      </p>
+                      <p className="mb-3">
+                        {intl.formatMessage(
+                          canadaLoginMessages.answerSignInWithCanadaLogin2,
+                        )}
+                      </p>
+                      <p className="mb-3">
+                        {intl.formatMessage(
+                          canadaLoginMessages.answerSignInWithCanadaLogin3,
+                        )}
+                      </p>
+                    </Accordion.Content>
+                  </Accordion.Item>
+                  <Accordion.Item value="two">
+                    <Accordion.Trigger as="h3">
+                      {intl.formatMessage(gckeyMessages.questionContactGCkey)}
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <p className="mb-3">
+                        {intl.formatMessage(gckeyMessages.answerContactGCkey1)}
+                      </p>
+                      <p className="mb-3">
+                        {intl.formatMessage(gckeyMessages.answerContactGCkey2)}
+                      </p>
+                      <p className="mb-3">
+                        <Link
+                          color="black"
+                          external
+                          href="tel:1-855-438-1102"
+                          // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                          aria-label="1 8 5 5 4 3 8 1 1 0 2"
+                          // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                        >
+                          1-855-438-1102
+                        </Link>
+                      </p>
+                      <p className="mb-3">
+                        {intl.formatMessage(gckeyMessages.answerContactGCkey3)}
+                      </p>
+                      <p className="mb-3">
+                        <Link
+                          color="black"
+                          external
+                          href="tel:1-855-438-1103"
+                          // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                          aria-label="1 8 5 5 4 3 8 1 1 0 3"
+                          // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                        >
+                          1-855-438-1103
+                        </Link>
+                      </p>
+                      <p className="mb-3">
+                        {intl.formatMessage(gckeyMessages.answerContactGCkey4)}
+                      </p>
+                      <p className="mb-3">
+                        <Link
+                          color="black"
+                          external
+                          href="tel:1-800-2318-6290"
+                          // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                          aria-label="1 8 0 0 2 3 1 8 6 2 9 0"
+                          // eslint-disable-next-line formatjs/no-literal-string-in-jsx
+                        >
+                          1-800-2318-6290
+                        </Link>
+                      </p>
+                      <p>
+                        {intl.formatMessage(gckeyMessages.answerContactGCkey5)}
+                      </p>
+                    </Accordion.Content>
+                  </Accordion.Item>
+
+                  <Accordion.Item value="three">
+                    <Accordion.Trigger as="h3">
+                      {intl.formatMessage(canadaLoginMessages.haveCanadaLogin)}
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <p>
+                        {intl.formatMessage(
+                          canadaLoginMessages.haveCanadaLoginAnswer,
+                        )}
+                      </p>
+                    </Accordion.Content>
+                  </Accordion.Item>
+                  <Accordion.Item value="four">
+                    <Accordion.Trigger as="h3">
+                      {intl.formatMessage(
+                        canadaLoginMessages.whatIsCanadaLogin,
+                      )}
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <p>
+                        {intl.formatMessage(
+                          canadaLoginMessages.whatIsCanadaLoginAnswer,
+                        )}
+                      </p>
+                    </Accordion.Content>
+                  </Accordion.Item>
+                  <Accordion.Item value="five">
+                    <Accordion.Trigger as="h3">
+                      {intl.formatMessage(
+                        canadaLoginMessages.contactCanadaLogin,
+                      )}
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <p>
+                        {intl.formatMessage(
+                          canadaLoginMessages.answerContactCanadaLogin1,
+                        )}
+                      </p>
+                      <p className="mt-4 mb-3">
+                        <Link
+                          color="black"
+                          external
+                          aria-label={intl.formatMessage(
+                            canadaLoginMessages.answerContactCanadaLogin2,
+                          )}
+                          href={
+                            intl.locale === "fr"
+                              ? "https://connexion.canada.ca/fr/utilisateurs/nous-contacter/"
+                              : "https://login.canada.ca/en/users/contact-us/"
+                          }
+                        >
+                          {intl.formatMessage(
+                            canadaLoginMessages.answerContactCanadaLogin2,
+                          )}
+                        </Link>
+                      </p>
+                    </Accordion.Content>
+                  </Accordion.Item>
+                </Accordion.Root>
+                <p className="mt-6">
+                  {intl.formatMessage(gckeyMessages.moreQuestions, {
+                    helpLink: (chunks: ReactNode) =>
+                      helpLink(chunks, paths.support()),
+                  })}
+                </p>
+              </div>
             </>
           ) : (
             <>
