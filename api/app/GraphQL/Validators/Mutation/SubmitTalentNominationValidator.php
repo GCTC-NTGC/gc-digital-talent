@@ -105,7 +105,7 @@ final class SubmitTalentNominationValidator extends Validator
             ],
             'nominate_for_development_programs' => [
                 'required',
-                Rule::when(fn () => $this->nomination->developmentPrograms->count() > 0 || ! empty($this->nomination->development_program_options_other),
+                Rule::when(fn () => $this->nomination->communityDevelopmentPrograms->count() > 0 || ! empty($this->nomination->development_program_options_other),
                     ['accepted'],
                     ['declined']),
             ],
@@ -149,7 +149,7 @@ final class SubmitTalentNominationValidator extends Validator
                 Rule::prohibitedIf(! in_array(TalentNominationLateralMovementOption::OTHER->name, $this->nomination->lateral_movement_options)),
             ],
 
-            'development_programs' => ['array'],
+            'community_development_programs' => ['array'],
             'development_program_options_other' => [
                 'prohibited_unless:nominate_for_development_programs,true',
             ],

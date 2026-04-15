@@ -3,12 +3,12 @@ import { useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { Accordion, Heading, Ul, Notice } from "@gc-digital-talent/ui";
-import { Skill } from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql";
 
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 import type { ExperienceType, FormSkill, FormSkills } from "~/types/experience";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
-import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
+import type { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 import NullExperienceType from "~/components/ExperienceFormFields/NullExperienceType";
 
 interface ExperienceSkillValues {

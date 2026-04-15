@@ -5,15 +5,13 @@ import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import {
-  PoolStatus,
+import type {
   LocalizedString,
   Pool,
   UpdatePoolInput,
-  graphql,
   FragmentType,
-  getFragment,
 } from "@gc-digital-talent/graphql";
+import { PoolStatus, graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import {
   hasEmptyRequiredFields,
@@ -25,7 +23,7 @@ import useUserCanEditPool from "~/hooks/useCanUserEditPool";
 import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import { PublishedEditableSectionProps, SectionProps } from "../../types";
+import type { PublishedEditableSectionProps, SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 import UpdatePublishedProcessDialog, {

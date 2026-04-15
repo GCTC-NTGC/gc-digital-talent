@@ -1,10 +1,9 @@
-import {
-  PoolSkillType,
-  SkillCategory,
+import type {
   UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment,
   UpdateJobPosterTemplateEssentialTechnicalSkillsFragment,
   UpdateJobPosterTemplateEssentialBehaviouralSkillsFragment,
 } from "@gc-digital-talent/graphql";
+import { PoolSkillType, SkillCategory } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 export const isEssentialTechnicalSkill = (

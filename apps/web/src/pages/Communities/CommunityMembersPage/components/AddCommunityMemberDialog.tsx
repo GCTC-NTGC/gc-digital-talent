@@ -15,14 +15,14 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
+import type {
   RoleInput,
   CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import { CommunityMemberFormValues, ContextType } from "./types";
+import type { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableUsers from "./useAvailableUsers";
 import useAvailableRoles from "./useAvailableRoles";

@@ -1,9 +1,11 @@
-import { FieldError, FieldErrors, FieldValues, get } from "react-hook-form";
+import type { FieldError, FieldErrors, FieldValues } from "react-hook-form";
+import { get } from "react-hook-form";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { EmployeeSearchResult } from "./types";
+import type { EmployeeSearchResult } from "./types";
 
 const isRecord = (value?: unknown): value is Record<string, unknown> => {
   return value !== null && typeof value === "object";

@@ -1,4 +1,5 @@
-import { createIntl, createIntlCache, MessageFormatElement } from "react-intl";
+import type { MessageFormatElement } from "react-intl";
+import { createIntl, createIntlCache } from "react-intl";
 
 import { getDesiredLocale, combineMessages } from "./utils";
 

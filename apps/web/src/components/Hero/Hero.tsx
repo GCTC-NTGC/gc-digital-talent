@@ -1,6 +1,8 @@
-import { ReactNode, useEffect, useRef } from "react";
+import type { ReactNode } from "react";
+import { useEffect, useRef } from "react";
 import { useIntl } from "react-intl";
-import { tv, VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import {
   Heading,
@@ -13,7 +15,8 @@ import {
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import BackgroundGraphic from "./BackgroundPattern";
-import ButtonLinksArray, { ButtonLinkType } from "./ButtonLinksArray";
+import type { ButtonLinkType } from "./ButtonLinksArray";
+import ButtonLinksArray from "./ButtonLinksArray";
 
 const hero = tv({
   slots: {

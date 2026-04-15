@@ -4,9 +4,10 @@ import { Notice, Link, Ul } from "@gc-digital-talent/ui";
 import { getLocale, navigationMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
+import ApplicationApi from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 
 export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {

@@ -1,6 +1,6 @@
 import { useLocation } from "react-router";
 
-import { PageNavInfo, PageNavMap } from "../types/pages";
+import type { PageNavInfo, PageNavMap } from "../types/pages";
 
 /**
  * Get the current page

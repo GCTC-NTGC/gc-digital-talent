@@ -1,10 +1,10 @@
-import { Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
+import type { Pool } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
   FlexibleWorkLocation,
-  Pool,
   PositionDuration,
   ProvinceOrTerritory,
   PublishingGroup,

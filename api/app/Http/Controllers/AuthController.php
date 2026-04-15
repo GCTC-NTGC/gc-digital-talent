@@ -164,6 +164,7 @@ class AuthController extends Controller
 
         // update the user with values from logging in
         $userMatch->last_sign_in_at = Carbon::now();
+        $userMatch->last_sign_in_iss = $idToken->claims()->get('iss', null);
         if ($idToken->claims()->has('given_name')) {
             $userMatch->first_name = $idToken->claims()->get('given_name');
         }
@@ -173,26 +174,28 @@ class AuthController extends Controller
         if ($idToken->claims()->has('email')) {
             $incomingEmailAddress = $idToken->claims()->get('email');
 
-            // if existing users have this email address then take it from them
-            try {
-                $existingUser = User::where('sub', '!=', $sub)
-                    ->where(fn ($subquery) => $subquery
-                        ->where('email', 'ilike', $incomingEmailAddress)
-                        ->orWhere('work_email', 'ilike', $incomingEmailAddress)
-                    )->first();
-                if (strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
-                    $existingUser->email = $existingUser->email.'_taken_'.Carbon::now()->timestamp;
+            // if email is not null, check if existing users have this email and take it from them
+            if (! empty($incomingEmailAddress)) {
+                try {
+                    $existingUser = User::where('id', '!=', $userMatch->id)
+                        ->where(fn ($subquery) => $subquery
+                            ->where('email', 'ilike', $incomingEmailAddress)
+                            ->orWhere('work_email', 'ilike', $incomingEmailAddress)
+                        )->first();
+                    if (strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
+                        $existingUser->email = $existingUser->email.'-taken-at-'.Carbon::now()->timestamp;
+                    }
+                    if (strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
+                        $existingUser->work_email = $existingUser->work_email.'-taken-at-'.Carbon::now()->timestamp;
+                    }
+                    $existingUser->save();
+                } catch (\Throwable $e) {
+                    // log and continue - don't break log in for failure to take address
+                    Log::error('Failed to take email address on log in.'.$e->getMessage(), [
+                        'sub' => $sub,
+                        'email address' => $incomingEmailAddress,
+                    ]);
                 }
-                if (strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
-                    $existingUser->work_email = $existingUser->work_email.'_taken_'.Carbon::now()->timestamp;
-                }
-                $existingUser->save();
-            } catch (\Throwable $e) {
-                // log and continue - don't break log in for failure to take address
-                Log::error('Failed to take email address on log in.'.$e->getMessage(), [
-                    'sub' => $sub,
-                    'email address' => $incomingEmailAddress,
-                ]);
             }
 
             // email should be clear now so save if possible

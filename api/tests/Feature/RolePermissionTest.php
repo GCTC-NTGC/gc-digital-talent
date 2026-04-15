@@ -65,6 +65,7 @@ class RolePermissionTest extends TestCase
             'create-any-searchRequest',
             'view-any-role',
             'view-any-community',
+            'view-any-developmentProgram',
         ], true)); // The `true` as a second argument means user must have ALL permissions, instead of just one.
 
         $this->assertFalse(($this->user->isAbleTo('view-any-user')));
@@ -94,6 +95,7 @@ class RolePermissionTest extends TestCase
             'create-any-searchRequest',
             'view-any-role',
             'view-any-community',
+            'view-any-developmentProgram',
         ], true));
 
         $this->assertFalse(($this->user->isAbleTo('view-any-user')));
@@ -202,6 +204,8 @@ class RolePermissionTest extends TestCase
             'view-any-talentNomination',
             'view-any-talentNominationGroup',
             'view-any-userWorkEmail',
+            'create-any-developmentProgram',
+            'update-any-developmentProgram',
         ];
 
         $allPermissions = Permission::all()->pluck('name')->toArray();

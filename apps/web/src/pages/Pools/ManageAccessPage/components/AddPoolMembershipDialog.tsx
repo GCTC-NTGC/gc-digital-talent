@@ -14,14 +14,14 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
+import type {
   RoleInput,
   ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import { ManageAccessFormValues, PoolTeamMember } from "./types";
+import type { ManageAccessFormValues, PoolTeamMember } from "./types";
 import useAvailableUsers from "./useAvailableUsers";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserProcessRoles_Mutation } from "./operations";

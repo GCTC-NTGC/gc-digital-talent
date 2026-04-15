@@ -1,7 +1,10 @@
-import { DetailedHTMLProps, ButtonHTMLAttributes, forwardRef } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { DetailedHTMLProps, ButtonHTMLAttributes } from "react";
+import { forwardRef } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
-import { IconType, UNICODE_CHAR } from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
+import { UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 const DisabledIcon = () => (
   <span className="w-4.5 text-gray/50 dark:text-gray/50">

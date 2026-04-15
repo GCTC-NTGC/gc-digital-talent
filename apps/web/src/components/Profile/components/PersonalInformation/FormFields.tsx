@@ -11,9 +11,10 @@ import {
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
 } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { FormFieldProps } from "../../types";
+import type { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { armedForcesStatusOrdered, citizenshipStatusesOrdered } from "./utils";
 

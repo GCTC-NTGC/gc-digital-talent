@@ -1,9 +1,12 @@
-import { FieldValues, FormState, useFormContext } from "react-hook-form";
-import { IntlShape, useIntl } from "react-intl";
-import { ReactNode, useEffect, useId } from "react";
+import type { FieldValues, FormState } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
+import type { ReactNode } from "react";
+import { useEffect, useId } from "react";
 
+import type { FieldLabels } from "@gc-digital-talent/forms";
 import {
-  FieldLabels,
   Checklist,
   Field,
   Checkbox,
@@ -12,7 +15,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 
-import { FirstNationsStatus } from "~/utils/indigenousDeclaration";
+import type { FirstNationsStatus } from "~/utils/indigenousDeclaration";
 
 import { hasCommunityAndOther } from "./utils";
 import CommunityIcon from "./CommunityIcon";
