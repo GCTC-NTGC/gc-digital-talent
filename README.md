@@ -46,57 +46,35 @@ As much as possible, we aspire to make these runnable on:
 
 We strongly recommend running the project entirely with Docker. In this case the only dependency you must install on your machine is [Docker Desktop](https://www.docker.com/products/docker-desktop).
 
+Then, follow the instructions in [`/maintenance/README.md`](/maintenance/README.md) to build the project docker containers and run the build scripts. That should handle everything!
+
 > [!TIP]
 > If using Docker Desktop, make sure virtualization is enabled in your machine's BIOS.
 
-#### Production-like Environment (default)
-
-The default docker-compose setup mirrors the production environment with a single webserver container serving both the API and pre-built frontend.
-
-```bash
-# Start the containers
-make up
-
-# Run setup scripts
-make setup
-
-# Access at http://localhost:8000
-```
-
-Then, follow the instructions in [`/maintenance/README.md`](/maintenance/README.md) to build the project docker containers and run the build scripts.
-
 #### Development Environment (with Hot Reloading)
 
-For a better development experience with Hot Module Replacement (HMR) and automatic reloading, use the development docker-compose configuration:
+For a better development experience with Hot Module Replacement (HMR) and automatic reloading, use the development docker-compose configuration by setting `COMPOSE=docker-compose.dev.yml`:
 
 ```bash
 # Start the development environment
-make dev-up
+make COMPOSE=docker-compose.dev.yml up
 
 # Run setup scripts (first time only)
-make dev-setup
-
-# Seed the database (first time only)
-make dev-seed-fresh
+make COMPOSE=docker-compose.dev.yml setup
 
 # View logs
-make dev-logs
+make COMPOSE=docker-compose.dev.yml logs
 
 # Stop the containers
-make dev-down
+make COMPOSE=docker-compose.dev.yml down
 ```
 
 This development setup uses separate containers:
 - **api**: Laravel's built-in dev server (auto-reloads on PHP changes)
 - **web**: Vite dev server with HMR (instant UI updates)
 - **nginx-proxy**: Routes requests to the appropriate container
-- **postgres**: Database
-- **mock-auth**: OAuth2 mock server
 
 Access the application at: http://localhost:8000
-
-> [!NOTE]
-> The development environment uses the same port (8000) as the production-like setup, so only run one at a time.
 
 ## Thanks
 
