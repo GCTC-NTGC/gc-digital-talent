@@ -1,14 +1,24 @@
-.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api
+.PHONY: up down logs setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api
 
-DOCKER_RUN=docker compose run --rm maintenance bash
-DOCKER_API=docker compose run --rm -w /var/www/html/api maintenance sh -c
-DOCKER_PNPM=docker compose run -w /var/www/html --rm maintenance pnpm
+# Environment selection: use `make up ENV=dev` for development with hot reloading
+ifeq ($(ENV),dev)
+COMPOSE := docker-compose.dev.yml
+else
+COMPOSE ?= docker-compose.yml
+endif
+
+DOCKER_RUN=docker compose -f $(COMPOSE) run --rm maintenance bash
+DOCKER_API=docker compose -f $(COMPOSE) run --rm -w /var/www/html/api maintenance sh -c
+DOCKER_PNPM=docker compose -f $(COMPOSE) run -w /var/www/html --rm maintenance pnpm
 
 up:
-	docker compose up --build --detach
+	docker compose -f $(COMPOSE) up --build --detach
 
 down:
-	docker compose down
+	docker compose -f $(COMPOSE) down
+
+logs:
+	docker compose -f $(COMPOSE) logs -f
 
 setup:
 	$(DOCKER_RUN) setup.sh
