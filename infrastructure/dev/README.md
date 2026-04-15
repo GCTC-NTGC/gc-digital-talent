@@ -10,13 +10,13 @@ This directory contains configuration files for the development Docker environme
 
 ## Usage
 
-From the repository root, add `dev=1` to any make command:
+From the repository root, add `ENV=dev` to any make command:
 
 ```bash
-make up dev=1      # Start
-make setup dev=1   # Run setup (first time)
-make logs dev=1    # View logs
-make down dev=1    # Stop
+make up ENV=dev      # Start
+make setup ENV=dev   # Run setup (first time)
+make logs ENV=dev    # View logs
+make down ENV=dev    # Stop
 ```
 
 Or using docker compose directly:

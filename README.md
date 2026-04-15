@@ -53,20 +53,20 @@ Then, follow the instructions in [`/maintenance/README.md`](/maintenance/README.
 
 #### Development Environment (with Hot Reloading)
 
-For a better development experience with Hot Module Replacement (HMR) and automatic reloading, add `dev=1` to any make command:
+For a better development experience with Hot Module Replacement (HMR) and automatic reloading, add `ENV=dev` to any make command:
 
 ```bash
 # Start the development environment
-make up dev=1
+make up ENV=dev
 
 # Run setup scripts (first time only)
-make setup dev=1
+make setup ENV=dev
 
 # View logs
-make logs dev=1
+make logs ENV=dev
 
 # Stop the containers
-make down dev=1
+make down ENV=dev
 ```
 
 This development setup uses separate containers:

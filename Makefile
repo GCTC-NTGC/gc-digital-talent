@@ -1,7 +1,7 @@
 .PHONY: up down logs setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api
 
-# Compose file selection: use `make up dev=1` for development environment
-ifdef dev
+# Environment selection: use `make up ENV=dev` for development with hot reloading
+ifeq ($(ENV),dev)
 COMPOSE := docker-compose.dev.yml
 else
 COMPOSE ?= docker-compose.yml
