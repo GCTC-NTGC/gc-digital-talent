@@ -1,7 +1,11 @@
-.PHONY: up down logs setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api dev-up dev-down dev-logs dev-setup
+.PHONY: up down logs setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api
 
-# Default compose file (can be overridden with: make COMPOSE=docker-compose.dev.yml up)
+# Compose file selection: use `make up dev=1` for development environment
+ifdef dev
+COMPOSE := docker-compose.dev.yml
+else
 COMPOSE ?= docker-compose.yml
+endif
 
 DOCKER_RUN=docker compose -f $(COMPOSE) run --rm maintenance bash
 DOCKER_API=docker compose -f $(COMPOSE) run --rm -w /var/www/html/api maintenance sh -c
@@ -18,19 +22,6 @@ logs:
 
 setup:
 	$(DOCKER_RUN) setup.sh
-
-# Development environment shortcuts
-dev-up:
-	docker compose -f docker-compose.dev.yml up --build --detach
-
-dev-down:
-	docker compose -f docker-compose.dev.yml down
-
-dev-logs:
-	docker compose -f docker-compose.dev.yml logs -f
-
-dev-setup:
-	docker compose -f docker-compose.dev.yml run --rm maintenance bash setup.sh
 
 refresh:
 	$(DOCKER_RUN) refresh_all.sh
