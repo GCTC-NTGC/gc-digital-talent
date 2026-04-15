@@ -1,9 +1,9 @@
-import {
+import type {
   WorkExperience,
   WorkExperienceInput,
 } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 export const defaultWorkExperience: Partial<WorkExperienceInput> = {
   role: "Playwright tester",
@@ -33,14 +33,14 @@ export const createWorkExperience: GraphQLRequestFunc<
   CreateWorkExperienceInput
 > = async (ctx, { userId, workExperience }) => {
   return ctx
-    .post(Test_CreateWorkExperienceMutationDocument, {
-      variables: {
-        userId,
-        workExperience,
+    .post<GraphQLResponse<"createWorkExperience", WorkExperience>>(
+      Test_CreateWorkExperienceMutationDocument,
+      {
+        variables: {
+          userId,
+          workExperience,
+        },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"createWorkExperience", WorkExperience>) =>
-        res.createWorkExperience,
-    );
+    )
+    .then((res) => res.createWorkExperience);
 };

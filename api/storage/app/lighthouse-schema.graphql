@@ -83,6 +83,11 @@ type LocalizedCandidateInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateReferralFilter implements LocalizedEnumOption {
+  value: CandidateReferralFilter!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
   label: LocalizedString!
@@ -423,6 +428,8 @@ type Query {
   classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
   departments(whereArchived: Boolean = false): [Department]!
+  developmentProgram(id: UUID!): DevelopmentProgram
+  developmentPrograms: [DevelopmentProgram]!
   jobPosterTemplate(id: UUID!): JobPosterTemplate
   jobPosterTemplates: [JobPosterTemplate!]
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
@@ -595,6 +602,8 @@ type Mutation {
   deleteDepartment(id: ID!): Department
   archiveDepartment(id: ID!): Department
   unarchiveDepartment(id: ID!): Department
+  createDevelopmentProgram(developmentProgram: CreateDevelopmentProgramInput!): DevelopmentProgram
+  updateDevelopmentProgram(id: ID!, developmentProgram: UpdateDevelopmentProgramInput!): DevelopmentProgram
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
@@ -669,6 +678,9 @@ type Mutation {
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
   updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
+  createCommunityDevelopmentProgram(createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
+  updateCommunityDevelopmentProgram(updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
+  deleteCommunityDevelopmentProgram(id: UUID!): CommunityDevelopmentProgram
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
   downloadCommunityInterestUsersExcel(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
@@ -679,6 +691,10 @@ type Mutation {
   downloadApplicationDoc(id: UUID!): String
   downloadJobPosterTemplateDoc(id: UUID!): String
   downloadNominationDoc(id: UUID!): String
+}
+
+type Subscription {
+  notificationReceived: UserNotification
 }
 
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
@@ -836,6 +852,7 @@ type OffPlatformRecruitmentProcess {
 
 type DevelopmentProgramInterest {
   id: UUID!
+  communityDevelopmentProgram: CommunityDevelopmentProgram!
   developmentProgram: DevelopmentProgram!
   participationStatus: DevelopmentProgramParticipationStatus
   completionDate: Date
@@ -1285,21 +1302,39 @@ type Community implements HasRoleAssignments {
   key: String!
   name: LocalizedString
   description: LocalizedString
+  informationUrl: LocalizedString
   mandateAuthority: LocalizedString
+  contactEmail: String
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
   pools: [Pool]
   workStreams: [WorkStream!]
-  developmentPrograms: [DevelopmentProgram!]
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+  associatedDevelopmentPrograms: [DevelopmentProgram!]
 }
 
 type DevelopmentProgram {
   id: UUID!
-  name: LocalizedString
-  descriptionForProfile: LocalizedString
-  descriptionForNominations: LocalizedString
-  community: Community
+  name: LocalizedString!
+  descriptionForProfile: LocalizedString!
+  descriptionForNominations: LocalizedString @deprecated(reason: "replaced by description on community_development_program_talent_nomination_event pivot")
   eligibleClassifications: [Classification!]
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+  associatedCommunities: [Community!]
+  informationUrl: LocalizedString
+  abbreviation: LocalizedString
+}
+
+type CommunityDevelopmentProgramTalentEventRecord {
+  descriptionForNominations: LocalizedString
+}
+
+type CommunityDevelopmentProgram {
+  id: UUID!
+  community: Community!
+  developmentProgram: DevelopmentProgram!
+  classifications: [Classification!]
+  pivot: CommunityDevelopmentProgramTalentEventRecord
 }
 
 type TalentNominationEvent {
@@ -1311,6 +1346,7 @@ type TalentNominationEvent {
   learnMoreUrl: LocalizedString
   includeLeadershipCompetencies: Boolean!
   community: Community!
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   developmentPrograms: [DevelopmentProgram!]
   talentNominationGroups: [TalentNominationGroup!]
   countTalentNominationGroups: Int!
@@ -1348,6 +1384,7 @@ type TalentNomination {
   advancementReferenceFallbackDepartment: Department
   lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   developmentPrograms: [DevelopmentProgram!]
   developmentProgramOptionsOther: String
   nominationRationale: String
@@ -1728,6 +1765,7 @@ input PoolCandidateSearchInput {
   statuses: [ApplicationStatus]
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
+  referralStatuses: [CandidateReferralFilter!]
   publishingGroups: [PublishingGroup]
   appliedClassifications: [ClassificationFilterInput]
   workStreams: [IdInput]
@@ -1770,6 +1808,8 @@ type SitewideAnnouncement {
   expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
+  updatedAt: DateTime!
+  isDismissible: Boolean!
 }
 
 type TrainingOpportunity {
@@ -1797,6 +1837,7 @@ input SitewideAnnouncementInput {
   expiryDate: DateTime!
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isDismissible: Boolean!
 }
 
 input ClaimVerificationSort {
@@ -2098,7 +2139,7 @@ input UpdateDevelopmentProgramInterestHasMany {
 }
 
 input CreateDevelopmentProgramInterestInput {
-  developmentProgramId: UUID!
+  communityDevelopmentProgramId: UUID!
   participationStatus: DevelopmentProgramParticipationStatus
   completionDate: Date
 }
@@ -2234,6 +2275,20 @@ input DepartmentBelongsToMany {
   sync: [ID!]
 }
 
+input CreateDevelopmentProgramInput {
+  name: LocalizedStringInput
+  descriptionForProfile: LocalizedStringInput
+  informationUrl: LocalizedStringInput
+  abbreviation: LocalizedStringInput
+}
+
+input UpdateDevelopmentProgramInput {
+  name: LocalizedStringInput
+  descriptionForProfile: LocalizedStringInput
+  informationUrl: LocalizedStringInput
+  abbreviation: LocalizedStringInput
+}
+
 input CreateWorkStreamInput {
   key: String
   name: LocalizedStringInput!
@@ -2272,18 +2327,35 @@ input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
   description: LocalizedStringInput
+  informationUrl: LocalizedStringInput
   mandateAuthority: LocalizedStringInput
+  contactEmail: String
 }
 
 input UpdateCommunityInput {
   key: String
   name: LocalizedStringInput
   description: LocalizedStringInput
+  informationUrl: LocalizedStringInput
   mandateAuthority: LocalizedStringInput
+  contactEmail: String
 }
 
 input DevelopmentProgramBelongsToMany {
   sync: [UUID!]
+}
+
+input CommunityDevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
+input CommunityDevelopmentProgramBelongsToManyWithPivot {
+  connect: [ConnectCommunityDevelopmentProgramWithPivot!]
+}
+
+input ConnectCommunityDevelopmentProgramWithPivot {
+  id: ID!
+  descriptionForNominations: LocalizedStringInput
 }
 
 input CreateTalentNominationEventInput {
@@ -2294,7 +2366,7 @@ input CreateTalentNominationEventInput {
   learnMoreUrl: LocalizedStringInput
   includeLeadershipCompetencies: Boolean
   community: CommunityBelongsTo!
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
 input UpdateTalentNominationEventInput {
@@ -2305,7 +2377,7 @@ input UpdateTalentNominationEventInput {
   learnMoreUrl: LocalizedStringInput
   includeLeadershipCompetencies: Boolean
   community: CommunityBelongsTo
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
 input TalentNominationEventBelongsTo {
@@ -2337,7 +2409,7 @@ input CreateTalentNominationInput {
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
   developmentProgramOptionsOther: String
   nominationRationale: String
   skills: SkillBelongsToMany
@@ -2369,7 +2441,7 @@ input UpdateTalentNominationInput {
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
   developmentProgramOptionsOther: String
   nominationRationale: String
   skills: SkillBelongsToMany
@@ -2889,6 +2961,24 @@ input SendUserEmailsVerificationInput {
   emailTypes: [EmailType]
 }
 
+input CreateCommunityDevelopmentProgramInput {
+  communityId: UUID!
+  developmentProgramId: UUID!
+  classifications: ClassificationBelongsToMany
+}
+
+input UpdateCommunityDevelopmentProgramInput {
+  id: UUID!
+  classifications: ClassificationBelongsToMany
+}
+
+type UserNotification {
+  id: String
+  type: NotificationType
+  userId: String
+  data: JSON
+}
+
 "Information about pagination using a fully featured paginator."
 type PaginatorInfo {
   "Number of items in the current page."
@@ -3377,6 +3467,11 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
+enum NotificationType {
+  UserFileGenerated
+  UserFileGenerationError
+}
+
 enum ActivityEvent {
   CREATED
   UPDATED
@@ -3530,6 +3625,11 @@ enum CandidateInterest {
   EXPIRED
 }
 
+enum CandidateReferralFilter {
+  REFERRING
+  NOT_REFERRING
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
@@ -3646,6 +3746,7 @@ enum ErrorCode {
   EXPIRY_DATE_REQUIRED
   EXPIRY_DATE_AFTER_TODAY
   ARRAY_CONTAINS_DUPLICATES
+  INVALID_URL
   APPLICATION_ALREADY_SUBMITTED
   APPLICATION_NOT_SUBMITTED
   APPLICATION_EDUCATION_REQUIREMENT_INCOMPLETE
@@ -3679,6 +3780,8 @@ enum ErrorCode {
   DEPARTMENT_NUMBER_IN_USE
   DEPARTMENT_NOT_FOUND
   DEPARTMENT_MUST_NOT_BE_ARCHIVED
+  COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND
+  COMMUNITY_DEVELOPMENT_INVALID_SELECTION
   DEVELOPMENT_PROGRAM_NOT_FOUND
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED

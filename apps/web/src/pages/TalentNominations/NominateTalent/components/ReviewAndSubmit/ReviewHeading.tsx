@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { TalentNominationStep } from "@gc-digital-talent/graphql";
+import type { TalentNominationStep } from "@gc-digital-talent/graphql";
 import { Heading, Link } from "@gc-digital-talent/ui";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
 
-import { RouteParams } from "../../types";
+import type { RouteParams } from "../../types";
 
 interface ReviewHeadingProps {
   children: ReactNode;

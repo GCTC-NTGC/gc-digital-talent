@@ -1,5 +1,5 @@
+import type { ReactNode } from "react";
 import {
-  ReactNode,
   createContext,
   useCallback,
   useContext,
@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 
-import { SectionKey } from "../types";
+import type { SectionKey } from "../types";
 
 interface ProfileFormContextState {
   dirtySections: SectionKey[];

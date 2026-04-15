@@ -1,5 +1,5 @@
 import "@tanstack/react-table";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 declare module "@tanstack/table-core" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

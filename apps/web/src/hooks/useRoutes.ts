@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 
-import { Locales, getLocale } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
-import { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
+import type { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
 
 const FromIapDraftQueryKey = "fromIapDraft";
 const FromIapSuccessQueryKey = "fromIapSuccess";
@@ -40,8 +41,23 @@ const getRoutes = (lang: Locales) => {
     loggedOut: () => [baseUrl, "logged-out"].join("/"),
     userDeleted: () => [baseUrl, "user-deleted"].join("/"),
     registrationAccount: () => [baseUrl, "registration", "account"].join("/"),
-    registrationExperience: () =>
-      [baseUrl, "registration", "experience"].join("/"),
+    registrationExperience: (opts?: {
+      from?: string;
+      isEmployee?: boolean;
+    }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.from) {
+        searchParams.set("from", opts.from);
+      }
+      if (typeof opts?.isEmployee == "boolean") {
+        searchParams.set("isEmployee", opts.isEmployee.toString());
+      }
+
+      return (
+        [baseUrl, "registration", "experience"].join("/") +
+        createSearchQuery(searchParams)
+      );
+    },
     termsAndConditions: () => [baseUrl, "terms-and-conditions"].join("/"),
     privacyPolicy: () => [baseUrl, "privacy-policy"].join("/"),
     accessibility: () => [baseUrl, "accessibility-statement"].join("/"),
@@ -175,6 +191,24 @@ const getRoutes = (lang: Locales) => {
 
     // Admin - Department (singular)
     departmentDashboard: () => [adminUrl, "department"].join("/"),
+
+    // Admin - Development Programs
+    developmentProgramTable: () =>
+      [adminUrl, "settings", "development-programs"].join("/"),
+    developmentProgramCreate: () =>
+      [adminUrl, "settings", "development-programs", "create"].join("/"),
+    developmentProgramView: (developmentProgramId: string) =>
+      [adminUrl, "settings", "development-programs", developmentProgramId].join(
+        "/",
+      ),
+    developmentProgramUpdate: (developmentProgramId: string) =>
+      [
+        adminUrl,
+        "settings",
+        "development-programs",
+        developmentProgramId,
+        "edit",
+      ].join("/"),
 
     // Admin - Announcements
     announcements: () => [adminUrl, "settings", "announcements"].join("/"),

@@ -26,7 +26,6 @@ class TalentNominationPolicy
         }
 
         // can view if the nomination is submitted and is for an event in their community
-        $talentNomination->loadMissing('talentNominationEvent');
         $communityTeam = Team::with(['teamable.team'])
             ->where('teamable_type', 'App\Models\Community')
             ->where('teamable_id', $talentNomination->talentNominationEvent->community_id)

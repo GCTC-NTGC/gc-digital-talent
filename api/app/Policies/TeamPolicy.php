@@ -51,8 +51,6 @@ class TeamPolicy
      */
     public function viewTeamable(User $user, Team $team)
     {
-        $team->loadMissing('teamable');
-
         // Allow any user to see if there is no teamable
         return is_null($team->teamable) || $user->can('view', $team->teamable);
     }

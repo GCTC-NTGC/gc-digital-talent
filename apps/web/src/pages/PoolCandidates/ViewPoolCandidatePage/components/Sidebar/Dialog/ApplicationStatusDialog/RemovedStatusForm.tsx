@@ -2,19 +2,16 @@ import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Dialog } from "@gc-digital-talent/ui";
 import { HiddenInput } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { ApplicationStatusFormProps, MutationMessages } from "../types";
+import type { ApplicationStatusFormProps, MutationMessages } from "../types";
 import { ReinstateCandidate_Mutation } from "./mutations";
 import { Content } from "./StatusContent";
+import messages from "./messages";
 
 const RemovedStatusForm_Fragment = graphql(/** GraphQL */ `
   fragment RemovedStatusForm on PoolCandidate {
@@ -74,11 +71,7 @@ const RemovedStatusForm = ({ id, onSubmit, query }: RemovedStatusFormProps) => {
             }
             submitProps={{
               color: "warning",
-              label: intl.formatMessage({
-                defaultMessage: "Reinstate candidate and update status",
-                id: "AA3OTc",
-                description: "Button text to reinstate a candidate",
-              }),
+              label: intl.formatMessage(messages.revertSubmit),
             }}
           />
         </Dialog.Body>

@@ -1,8 +1,9 @@
-import { AnchorHTMLAttributes, JSX } from "react";
+import type { AnchorHTMLAttributes, JSX } from "react";
 
-import { Heading, Link, LinkProps, Ul } from "@gc-digital-talent/ui";
+import type { LinkProps } from "@gc-digital-talent/ui";
+import { Heading, Link, Ul } from "@gc-digital-talent/ui";
 
-import { RenderMap, Node, NodeRenderer } from "./types";
+import type { RenderMap, Node, NodeRenderer } from "./types";
 
 const NoNode: NodeRenderer = ({ children }) => {
   return <>{children}</>;

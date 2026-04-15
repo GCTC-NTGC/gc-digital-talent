@@ -1,4 +1,4 @@
-import {
+import type {
   EstimatedLanguageAbility,
   EvaluatedLanguageAbility,
   Language,
@@ -14,4 +14,6 @@ export interface FormValues {
   secondLanguageExamCompleted?: Maybe<boolean>;
   consideredPositionLanguages: string[];
   secondLanguageExamValidity?: "currently_valid" | "expired" | null;
+  preferredLanguageForInterview?: Maybe<Language>;
+  preferredLanguageForExam?: Maybe<Language>;
 }

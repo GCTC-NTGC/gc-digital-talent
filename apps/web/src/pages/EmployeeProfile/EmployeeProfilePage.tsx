@@ -4,7 +4,8 @@ import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Container,
   Heading,

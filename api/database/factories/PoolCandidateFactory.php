@@ -26,6 +26,7 @@ use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Lang;
 
 class PoolCandidateFactory extends BaseFactory
 {
@@ -193,18 +194,23 @@ class PoolCandidateFactory extends BaseFactory
 
     public function placed(?PlacementType $placementType = null, ?string $deptId = null): self
     {
-        return $this->qualified()->state(function (array $atts) use ($deptId, $placementType) {
-            $type = $placementType?->name ?? $this->randomEnum(PlacementType::class);
-            $dept = $deptId ?? $this->firstOrCreate(Department::class)->id;
+        $type = $placementType?->name ?? $this->randomEnum(PlacementType::class);
+        $factory = $this->qualified();
 
-            return [
-                'placement_type' => $type,
-                'placed_at' => $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', $atts['expiry_date'] ?? 'now'),
-                'placed_department_id' => $dept,
-                'screening_stage' => null,
-                'assessment_step_id' => null,
-            ];
-        });
+        // pause referrals if being placed as indeterminate
+        if ($type === PlacementType::PLACED_INDETERMINATE->name) {
+            $factory = $factory->referring(false)->state([
+                'pause_referrals_reason' => Lang::get('common.successfully_placed'),
+            ]);
+        }
+
+        return $factory->state(fn (array $atts) => [
+            'placement_type' => $type,
+            'placed_at' => $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', $atts['expiry_date'] ?? 'now'),
+            'placed_department_id' => $deptId ?? $this->firstOrCreate(Department::class)->id,
+            'screening_stage' => null,
+            'assessment_step_id' => null,
+        ]);
     }
 
     public function removed(?CandidateRemovalReason $reason = null, ?string $otherReason = null): self
@@ -234,10 +240,31 @@ class PoolCandidateFactory extends BaseFactory
         $name = $this->faker->randomElement(PlacementType::searchable());
         $type = constant(PlacementType::class.'::'.$name);
 
-        return $this->placed($type)->state(fn () => [
-            'pause_referrals_at' => null,
+        return $this->placed($type)->referring(true)->state(fn () => [
             'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
         ]);
+    }
+
+    /**
+     * Control the referral status of the candidate.
+     */
+    public function referring(bool $isReferring = true): self
+    {
+        return $this->state(function (array $atts) use ($isReferring) {
+            if ($isReferring) {
+                return [
+                    'pause_referrals_at' => null,
+                    'resume_referrals_at' => null,
+                    'pause_referrals_reason' => null,
+                ];
+            }
+
+            return [
+                'pause_referrals_at' => $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', 'now'),
+                'pause_referrals_reason' => 'Manually paused',
+                'resume_referrals_at' => $atts['expiry_date'] ?? now()->addMonths(6),
+            ];
+        });
     }
 
     /**

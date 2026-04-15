@@ -1,4 +1,4 @@
-import { ProcessActivityFilterInput } from "@gc-digital-talent/graphql";
+import type { ProcessActivityFilterInput } from "@gc-digital-talent/graphql";
 import {
   getUtcStartOfDayForLocalDate,
   getUserTimeZone,
@@ -7,7 +7,7 @@ import {
 
 import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
 
-import { FormValues } from "./components/PoolActivityFilterDialog";
+import type { FormValues } from "./components/PoolActivityFilterDialog";
 
 export function safeGetPageState(
   key: string,

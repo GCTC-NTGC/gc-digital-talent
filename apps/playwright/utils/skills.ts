@@ -1,6 +1,6 @@
-import { Skill } from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 const Test_SkillsQueryDocument = /* GraphQL */ `
   query Skills {
@@ -33,6 +33,6 @@ const Test_SkillsQueryDocument = /* GraphQL */ `
  */
 export const getSkills: GraphQLRequestFunc<Skill[]> = async (ctx) => {
   return ctx
-    .post(Test_SkillsQueryDocument)
-    .then((res: GraphQLResponse<"skills", Skill[]>) => res.skills);
+    .post<GraphQLResponse<"skills", Skill[]>>(Test_SkillsQueryDocument)
+    .then((res) => res.skills);
 };

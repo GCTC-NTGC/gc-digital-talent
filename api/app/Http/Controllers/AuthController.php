@@ -69,6 +69,7 @@ class AuthController extends Controller
             'acr_values' => config('oauth.acr_values'),
             'ui_locales' => $ui_locales, // This is what SIC wants
             'lang' => $lang,  // This is what CanadaLogin wants
+            'skipmigration' => $request->input('skipmigration', null),
         ]);
 
         return redirect(config('oauth.authorize_uri').'?'.$query);
@@ -85,7 +86,7 @@ class AuthController extends Controller
             new InvalidArgumentException('Invalid session state')
         );
 
-        $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+        $tokenResponse = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
             return $exception instanceof ConnectionException;
         }, throw: false)->asForm()->post(config('oauth.token_uri'), [
             'grant_type' => 'authorization_code',
@@ -94,19 +95,19 @@ class AuthController extends Controller
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
         ]);
-        assert($response instanceof Response);
-        if ($response->failed()) {
+        assert($tokenResponse instanceof Response);
+        if ($tokenResponse->failed()) {
             Log::error('Failed when POSTing to the token URI in authCallback');
-            Log::debug((string) $response->getBody());
+            Log::debug((string) $tokenResponse->getBody());
 
             return response('Failed to get token', 400);
         }
         // decode id_token stage
         // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
-        $encodedIdToken = $response->json('id_token');
+        $encodedIdToken = $tokenResponse->json('id_token');
 
         if (! ($encodedIdToken && is_string($encodedIdToken))) {
-            Log::debug((string) $response->body());
+            Log::debug((string) $tokenResponse->body());
             throw new InvalidArgumentException('id token is a '.gettype($encodedIdToken));
         }
 
@@ -123,23 +124,47 @@ class AuthController extends Controller
             new InvalidArgumentException('Invalid session nonce')
         );
 
+        // preferred language
+        $idTokenLocaleCode = null;
+        if ($idToken->claims()->has('locale')) {
+            $normalizedValue = strtolower(substr($idToken->claims()->get('locale'), 0, 2));
+            if ($normalizedValue == 'en' || $normalizedValue == 'fr') {
+                $idTokenLocaleCode = $normalizedValue;
+            }
+        }
+
+        // track whether a new user was created
+        $newUserCreated = false;
+
         // find the corresponding User
         $sub = $idToken->claims()->get('sub');
-        $userMatch = User::where('sub', $sub)->withTrashed()->firstOr(function () use ($sub) {
+        $userMatch = User::where('sub', $sub)->withTrashed()->firstOr(function () use ($sub, &$newUserCreated, $idTokenLocaleCode) {
             // No user found for given subscriber - lets auto-register them
             $newUser = new User;
             $newUser->sub = $sub;
+            if ($idTokenLocaleCode == 'en') {
+                $newUser->looking_for_english = true;
+            }
+            if ($idTokenLocaleCode == 'fr') {
+                $newUser->looking_for_french = true;
+            }
+            if (! empty($idTokenLocaleCode)) {
+                $newUser->preferred_language_for_interview = $idTokenLocaleCode;
+                $newUser->preferred_language_for_exam = $idTokenLocaleCode;
+            }
             $newUser->save();
             $newUser->syncRoles([  // every new user is automatically an base_user and an applicant
                 Role::where('name', 'base_user')->sole(),
                 Role::where('name', 'applicant')->sole(),
             ], null);
+            $newUserCreated = true;
 
             return $newUser;
         });
 
         // update the user with values from logging in
         $userMatch->last_sign_in_at = Carbon::now();
+        $userMatch->last_sign_in_iss = $idToken->claims()->get('iss', null);
         if ($idToken->claims()->has('given_name')) {
             $userMatch->first_name = $idToken->claims()->get('given_name');
         }
@@ -149,26 +174,28 @@ class AuthController extends Controller
         if ($idToken->claims()->has('email')) {
             $incomingEmailAddress = $idToken->claims()->get('email');
 
-            // if existing users have this email address then take it from them
-            try {
-                $existingUser = User::where('sub', '!=', $sub)
-                    ->where(fn ($subquery) => $subquery
-                        ->where('email', 'ilike', $incomingEmailAddress)
-                        ->orWhere('work_email', 'ilike', $incomingEmailAddress)
-                    )->first();
-                if (strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
-                    $existingUser->email = $existingUser->email.'_taken_'.Carbon::now()->timestamp;
+            // if email is not null, check if existing users have this email and take it from them
+            if (! empty($incomingEmailAddress)) {
+                try {
+                    $existingUser = User::where('id', '!=', $userMatch->id)
+                        ->where(fn ($subquery) => $subquery
+                            ->where('email', 'ilike', $incomingEmailAddress)
+                            ->orWhere('work_email', 'ilike', $incomingEmailAddress)
+                        )->first();
+                    if (strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
+                        $existingUser->email = $existingUser->email.'-taken-at-'.Carbon::now()->timestamp;
+                    }
+                    if (strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
+                        $existingUser->work_email = $existingUser->work_email.'-taken-at-'.Carbon::now()->timestamp;
+                    }
+                    $existingUser->save();
+                } catch (\Throwable $e) {
+                    // log and continue - don't break log in for failure to take address
+                    Log::error('Failed to take email address on log in.'.$e->getMessage(), [
+                        'sub' => $sub,
+                        'email address' => $incomingEmailAddress,
+                    ]);
                 }
-                if (strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
-                    $existingUser->work_email = $existingUser->work_email.'_taken_'.Carbon::now()->timestamp;
-                }
-                $existingUser->save();
-            } catch (\Throwable $e) {
-                // log and continue - don't break log in for failure to take address
-                Log::error('Failed to take email address on log in.'.$e->getMessage(), [
-                    'sub' => $sub,
-                    'email address' => $incomingEmailAddress,
-                ]);
             }
 
             // email should be clear now so save if possible
@@ -187,15 +214,13 @@ class AuthController extends Controller
         if ($idToken->claims()->has('phone_number')) {
             $userMatch->telephone = $idToken->claims()->get('phone_number');
         }
-        if ($idToken->claims()->has('locale')) {
-            $normalizedValue = strtolower(substr($idToken->claims()->get('locale'), 0, 2));
-            if ($normalizedValue == 'en' || $normalizedValue == 'fr') {
-                $userMatch->preferred_lang = $normalizedValue;
-            }
+        if (! empty($idTokenLocaleCode)) {
+            $userMatch->preferred_lang = $idTokenLocaleCode;
         }
         $userMatch->save();
 
-        $query = http_build_query($response->json());
+        // start with token payload
+        $authCallbackResponseQuery = $tokenResponse->json();
 
         $from = $request->session()->pull('from');
 
@@ -206,16 +231,34 @@ class AuthController extends Controller
             $from = null;
         } // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
 
-        $appUrl = config('app.url');
-        $postLoginRedirect = config('oauth.post_login_redirect');
-        if ($request->session()->pull('devServer')) {
-            $appUrl = config('app.dev_url');
-            $postLoginRedirect = config('oauth.dev_post_login_redirect');
+        if ($newUserCreated) {
+            // new user, go to registration
+            if (strlen($from) > 0) {
+                $authCallbackResponseQuery['from'] = $from;
+            }
+            $navigateToUri = config('oauth.post_login_registration_redirect');
+        } else {
+            // existing user, go where they want
+            $appUrl = config('app.url');
+            $navigateToUri = strlen($from) > 0 ? $appUrl.$from : config('oauth.post_login_redirect');
         }
 
-        $navigateToUri = strlen($from) > 0 ? $appUrl.$from : $postLoginRedirect;
+        // duplicate logic for running with watch mode
+        if ($request->session()->pull('devServer')) {
+            if ($newUserCreated) {
+                // new user, go to registration
+                if (strlen($from) > 0) {
+                    $authCallbackResponseQuery['from'] = $from;
+                }
+                $navigateToUri = config('oauth.dev_post_login_registration_redirect');
+            } else {
+                // existing user, go where they want
+                $appUrl = config('app.dev_url');
+                $navigateToUri = strlen($from) > 0 ? $appUrl.$from : config('oauth.dev_post_login_redirect');
+            }
+        }
 
-        return redirect($navigateToUri.'?'.$query);
+        return redirect($navigateToUri.'?'.http_build_query($authCallbackResponseQuery));
     }
 
     public function refresh(Request $request)

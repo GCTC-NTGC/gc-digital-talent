@@ -9,6 +9,7 @@ enum ErrorCode
     case EXPIRY_DATE_REQUIRED;
     case EXPIRY_DATE_AFTER_TODAY;
     case ARRAY_CONTAINS_DUPLICATES;
+    case INVALID_URL;
 
     // Application
     case APPLICATION_ALREADY_SUBMITTED;
@@ -54,6 +55,10 @@ enum ErrorCode
     case DEPARTMENT_NUMBER_IN_USE;
     case DEPARTMENT_NOT_FOUND;
     case DEPARTMENT_MUST_NOT_BE_ARCHIVED;
+
+    // Community Development Program
+    case COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND;
+    case COMMUNITY_DEVELOPMENT_INVALID_SELECTION;
 
     // Development Program
     case DEVELOPMENT_PROGRAM_NOT_FOUND;

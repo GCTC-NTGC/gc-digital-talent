@@ -3,11 +3,10 @@ import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { tv } from "tailwind-variants";
 
+import type { FragmentType, User } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   PoolSkillType,
   SkillCategory,
-  User,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -24,13 +23,14 @@ import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
 import profileMessages from "~/messages/profileMessages";
-import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import type { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 import PersonalInformationSnapshot from "~/components/ProfileSnapshot/PersonalInformation/PersonalInformationSnapshot";
 import EducationRequirementSnapshot from "~/components/ProfileSnapshot/EducationRequirment/EducationRequirementSnapshot";
 import LanguageProfileSnapshot from "~/components/ProfileSnapshot/LanguageProfile/LanguageProfileSnapshot";
 import GovernmentInformationSnapshot from "~/components/ProfileSnapshot/GovernmentInformation/GovernmentInformationSnapshot";
 import DiversityEquityInclusionSnapshot from "~/components/ProfileSnapshot/DiversityEquityInclusion/DiversityEquityInclusionSnapshot";
 import WorkPreferencesSnapshot from "~/components/ProfileSnapshot/WorkPreferences/WorkPreferencesSnapshot";
+import CitizenVeteranPrioritySnapshot from "~/components/ProfileSnapshot/CitizenVeteranPriority/CitizenVeteranPrioritySnapshot";
 
 import SkillDisplay from "./SkillDisplay";
 import { SECTION_KEY } from "./types";
@@ -385,6 +385,14 @@ const ApplicationInformation = ({
           </Accordion.Trigger>
           <Accordion.Content>
             <DiversityEquityInclusionSnapshot snapshot={snapshot} />
+          </Accordion.Content>
+        </Accordion.Item>
+        <Accordion.Item value={SECTION_KEY.CITIZEN_VETERAN_PRIORITY}>
+          <Accordion.Trigger as="h3">
+            {intl.formatMessage(navigationMessages.citizenVeteranPriority)}
+          </Accordion.Trigger>
+          <Accordion.Content>
+            <CitizenVeteranPrioritySnapshot snapshot={snapshot} />
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.SIGNATURE}>

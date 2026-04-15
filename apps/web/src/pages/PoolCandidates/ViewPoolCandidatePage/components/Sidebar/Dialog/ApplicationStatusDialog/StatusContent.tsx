@@ -2,9 +2,9 @@ import { useIntl } from "react-intl";
 
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { Notice } from "@gc-digital-talent/ui";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
-  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -14,7 +14,8 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 
-import Footer, { FooterProps } from "../Footer";
+import type { FooterProps } from "../Footer";
+import Footer from "../Footer";
 
 export const StatusChangeNotice = () => {
   const intl = useIntl();
@@ -100,8 +101,8 @@ export const Content = ({ query, reason, submitProps }: ContentProps) => {
       <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
-            'Do you wish to revert this decision and set candidate status to "Under assessment"?',
-          id: "jo9Uct",
+            'Do you wish to revert this decision and set the application status to "To assess"?',
+          id: "5W/J8m",
           description:
             "Confirmation question for reverting a decision of an application",
         })}

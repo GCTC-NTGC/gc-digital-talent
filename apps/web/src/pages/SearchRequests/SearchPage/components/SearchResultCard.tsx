@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import { ReactNode, Fragment } from "react";
+import type { ReactNode } from "react";
+import { Fragment } from "react";
 
 import {
   Button,
@@ -10,11 +11,8 @@ import {
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  SearchResultCard_PoolFragment as SearchResultCardPoolFragmentType,
-  graphql,
-  PoolSkillType,
-} from "@gc-digital-talent/graphql";
+import type { SearchResultCard_PoolFragment as SearchResultCardPoolFragmentType } from "@gc-digital-talent/graphql";
+import { graphql, PoolSkillType } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";

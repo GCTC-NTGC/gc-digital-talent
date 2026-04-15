@@ -1,7 +1,8 @@
 import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { TableOfContents } from "@gc-digital-talent/ui";
 
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";

@@ -1,13 +1,13 @@
-import {
+import type {
   CandidateRemovalReason,
   DisqualificationReason,
-  EducationRequirementOption,
   PoolCandidate,
   QualifyCandidateInput,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 const Test_UpdateApplicationMutationDocument = /* GraphQL */ `
   mutation Test_UpdateApplication(
@@ -41,33 +41,33 @@ export const createApplication: GraphQLRequestFunc<
   CreateApplicationInput
 > = async (ctx, { poolId, personalExperienceId }) => {
   return ctx
-    .post(Test_CreateApplicationMutationDocument, {
-      variables: {
-        poolId,
+    .post<GraphQLResponse<"createApplication", PoolCandidate>>(
+      Test_CreateApplicationMutationDocument,
+      {
+        variables: {
+          poolId,
+        },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"createApplication", PoolCandidate>) =>
-        res.createApplication,
     )
+    .then((res) => res?.createApplication)
     .then(async (application) => {
       return ctx
-        .post(Test_UpdateApplicationMutationDocument, {
-          variables: {
-            id: application.id,
-            application: {
-              educationRequirementOption:
-                EducationRequirementOption.AppliedWork,
-              educationRequirementPersonalExperiences: {
-                sync: [personalExperienceId],
+        .post<GraphQLResponse<"updateApplication", PoolCandidate>>(
+          Test_UpdateApplicationMutationDocument,
+          {
+            variables: {
+              id: application.id,
+              application: {
+                educationRequirementOption:
+                  EducationRequirementOption.AppliedWork,
+                educationRequirementPersonalExperiences: {
+                  sync: [personalExperienceId],
+                },
               },
             },
           },
-        })
-        .then(
-          (res: GraphQLResponse<"updateApplication", PoolCandidate>) =>
-            res.updateApplication,
-        );
+        )
+        .then((res) => res.updateApplication);
     });
 };
 
@@ -92,16 +92,16 @@ export const submitApplication: GraphQLRequestFunc<
   SubmitApplicationInput
 > = async (ctx, { id, signature }) => {
   return ctx
-    .post(Test_SubmitApplicationMutationDocument, {
-      variables: {
-        id,
-        signature,
+    .post<GraphQLResponse<"submitApplication", PoolCandidate>>(
+      Test_SubmitApplicationMutationDocument,
+      {
+        variables: {
+          id,
+          signature,
+        },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"submitApplication", PoolCandidate>) =>
-        res.submitApplication,
-    );
+    )
+    .then((res) => res.submitApplication);
 };
 
 type CreateAndSubmitApplicationInput = {
@@ -141,17 +141,17 @@ export const qualifyCandidate: GraphQLRequestFunc<
   QualifyCandidateArgs
 > = async (ctx, { id, poolCandidate }) => {
   return ctx
-    .post(Test_QualifyCandidateMutationDocument, {
-      isPrivileged: true,
-      variables: {
-        id,
-        poolCandidate,
+    .post<GraphQLResponse<"qualifyCandidate", PoolCandidate>>(
+      Test_QualifyCandidateMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          id,
+          poolCandidate,
+        },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"qualifyCandidate", PoolCandidate>) =>
-        res.qualifyCandidate,
-    );
+    )
+    .then((res) => res.qualifyCandidate);
 };
 
 const Test_RemoveCandidateMutationDocument = /* GraphQL */ `
@@ -182,18 +182,18 @@ export const removeCandidate: GraphQLRequestFunc<
   RemoveCandidateArgs
 > = async (ctx, { id, removalReason, removalReasonOther }) => {
   return ctx
-    .post(Test_RemoveCandidateMutationDocument, {
-      isPrivileged: true,
-      variables: {
-        id,
-        removalReason,
-        removalReasonOther,
+    .post<GraphQLResponse<"removeCandidate", PoolCandidate>>(
+      Test_RemoveCandidateMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          id,
+          removalReason,
+          removalReasonOther,
+        },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"removeCandidate", PoolCandidate>) =>
-        res.removeCandidate,
-    );
+    )
+    .then((res) => res.removeCandidate);
 };
 
 const Test_DisqualifyCandidateMutationDocument = /* GraphQL */ `
@@ -220,17 +220,17 @@ export const disqualifyCandidate: GraphQLRequestFunc<
   DisqualifyCandidateArgs
 > = async (ctx, { id, reason }) => {
   return ctx
-    .post(Test_DisqualifyCandidateMutationDocument, {
-      isPrivileged: true,
-      variables: {
-        id,
-        reason,
+    .post<GraphQLResponse<"disqualifyCandidate", PoolCandidate>>(
+      Test_DisqualifyCandidateMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          id,
+          reason,
+        },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"disqualifyCandidate", PoolCandidate>) =>
-        res.disqualifyCandidate,
-    );
+    )
+    .then((res) => res.disqualifyCandidate);
 };
 
 const Test_ReinstateCandidateMutationDocument = /* GraphQL */ `
@@ -253,16 +253,16 @@ export const reinstateCandidate: GraphQLRequestFunc<
   ReinstateCandidateArgs
 > = async (ctx, { id }) => {
   return ctx
-    .post(Test_ReinstateCandidateMutationDocument, {
-      isPrivileged: true,
-      variables: {
-        id,
+    .post<GraphQLResponse<"reinstateCandidate", PoolCandidate>>(
+      Test_ReinstateCandidateMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          id,
+        },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"reinstateCandidate", PoolCandidate>) =>
-        res.reinstateCandidate,
-    );
+    )
+    .then((res) => res.reinstateCandidate);
 };
 
 const Test_RevertFinalDecisionMutationDocument = /* GraphQL */ `
@@ -285,14 +285,14 @@ export const revertFinalDecision: GraphQLRequestFunc<
   RevertFinalDecisionArgs
 > = async (ctx, { id }) => {
   return ctx
-    .post(Test_RevertFinalDecisionMutationDocument, {
-      isPrivileged: true,
-      variables: {
-        id,
+    .post<GraphQLResponse<"revertFinalDecision", PoolCandidate>>(
+      Test_RevertFinalDecisionMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          id,
+        },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"revertFinalDecision", PoolCandidate>) =>
-        res.revertFinalDecision,
-    );
+    )
+    .then((res) => res.revertFinalDecision);
 };

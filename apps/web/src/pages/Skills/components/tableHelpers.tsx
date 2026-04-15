@@ -1,8 +1,8 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
+import type {
   LocalizedSkillCategory,
   Maybe,
   Skill,

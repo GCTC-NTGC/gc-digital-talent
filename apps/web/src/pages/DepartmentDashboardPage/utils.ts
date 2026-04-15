@@ -1,6 +1,6 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
-import {
+import type {
   Community,
   Department,
   Pool,
@@ -10,7 +10,7 @@ import {
 import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { DepartmentWithRolesObject } from "./components/ResourcesDepartmentLink";
+import type { DepartmentWithRolesObject } from "./components/ResourcesDepartmentLink";
 
 type PoolTeamable = Pick<Pool, "__typename">;
 

@@ -1,8 +1,9 @@
 import { useNavigate, useLocation } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import {
   Checkbox,
@@ -29,6 +30,12 @@ import {
   setInSessionStorage,
 } from "@gc-digital-talent/storage";
 import {
+  graphql,
+  getFragment,
+  PoolCandidateSearchPositionType,
+  FlexibleWorkLocation,
+} from "@gc-digital-talent/graphql";
+import type {
   EquitySelections,
   CreatePoolCandidateSearchRequestInput,
   Maybe,
@@ -39,18 +46,14 @@ import {
   Skill,
   ApplicantFilter,
   ApplicantFilterInput,
-  PoolCandidateSearchPositionType,
-  type RequestForm_CreateRequestMutation as CreateRequestMutation,
-  graphql,
   FragmentType,
-  getFragment,
-  FlexibleWorkLocation,
+  RequestForm_CreateRequestMutation as CreateRequestMutation,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
-import {
+import type {
   BrowserHistoryState,
   PartialApplicantFilter,
   FormValues as SearchFormValues,

@@ -1,12 +1,11 @@
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
+import type { PoolCandidate, Skill } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
   FlexibleWorkLocation,
-  PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
-  Skill,
   SkillCategory,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
@@ -171,9 +170,9 @@ test.describe("Snapshot", () => {
     ).toBeVisible();
     await expect(workPreferences.getByText(/Test city/i)).toBeVisible();
 
-    // government employee
+    // Citizenship, veteran status and priority entitlements
     const govEmployee = appPage.page.getByRole("region", {
-      name: /government employee information/i,
+      name: /citizenship, veteran status and priority entitlements/i,
     });
     await expect(
       govEmployee.getByText(/Yes, I do have a priority/i),

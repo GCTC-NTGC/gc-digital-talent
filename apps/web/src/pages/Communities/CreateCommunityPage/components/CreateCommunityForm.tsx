@@ -1,4 +1,4 @@
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import kebabCase from "lodash/kebabCase";
@@ -7,7 +7,7 @@ import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { Card, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 import { BasicForm, Input, Submit, TextArea } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import {
+import type {
   CreateCommunityInput,
   LocalizedStringInput,
   Maybe,
@@ -27,8 +27,10 @@ const TEXT_AREA_MAX_WORDS_FR = Math.round(
 interface FormValues {
   key: string;
   name?: Maybe<LocalizedStringInput>;
+  informationUrl?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
   mandateAuthority?: Maybe<LocalizedStringInput>;
+  contactEmail: string;
 }
 
 const formValuesToSubmitData = (data: FormValues): CreateCommunityInput => {
@@ -38,6 +40,10 @@ const formValuesToSubmitData = (data: FormValues): CreateCommunityInput => {
       en: data.name?.en,
       fr: data.name?.fr,
     },
+    informationUrl: {
+      en: data.informationUrl?.en,
+      fr: data.informationUrl?.fr,
+    },
     description: {
       en: data.description?.en,
       fr: data.description?.fr,
@@ -46,6 +52,7 @@ const formValuesToSubmitData = (data: FormValues): CreateCommunityInput => {
       en: data.mandateAuthority?.en,
       fr: data.mandateAuthority?.fr,
     },
+    contactEmail: data.contactEmail,
   };
 };
 
@@ -141,6 +148,30 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             wordLimit={TEXT_AREA_MAX_WORDS_FR}
           />
           <Input
+            id="informationUrl.en"
+            name="informationUrl.en"
+            label={intl.formatMessage({
+              defaultMessage: "External link to information",
+              id: "fWNqcM",
+              description:
+                "Label displayed on the community form information URL field",
+            })}
+            appendLanguageToLabel={"en"}
+            type="url"
+          />
+          <Input
+            id="informationUrl.fr"
+            name="informationUrl.fr"
+            label={intl.formatMessage({
+              defaultMessage: "External link to information",
+              id: "fWNqcM",
+              description:
+                "Label displayed on the community form information URL field",
+            })}
+            appendLanguageToLabel={"fr"}
+            type="url"
+          />
+          <Input
             id="mandateAuthority.en"
             name="mandateAuthority.en"
             label={intl.formatMessage({
@@ -151,6 +182,9 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             })}
             appendLanguageToLabel={"en"}
             type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
           />
           <Input
             id="mandateAuthority.fr"
@@ -163,7 +197,23 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
             })}
             appendLanguageToLabel={"fr"}
             type="text"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
           />
+          <div className="xs:col-span-2">
+            <Input
+              id="contactEmail"
+              label={intl.formatMessage({
+                defaultMessage: "Generic contact email",
+                id: "iVe7JX",
+                description:
+                  "Label displayed on the community form contact email field",
+              })}
+              name="contactEmail"
+              type="email"
+            />
+          </div>
           <div className="xs:col-span-2">
             <Input
               id="key"

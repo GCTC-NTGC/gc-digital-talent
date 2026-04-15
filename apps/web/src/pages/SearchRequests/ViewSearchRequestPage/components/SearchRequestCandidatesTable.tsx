@@ -1,17 +1,18 @@
 import { useIntl } from "react-intl";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import type { PoolCandidateSearchInput } from "@gc-digital-talent/graphql";
 import {
-  PoolCandidateSearchInput,
   CandidateSuspendedFilter,
   CandidateExpiryFilter,
   PlacementType,
   ApplicationStatus,
+  CandidateReferralFilter,
 } from "@gc-digital-talent/graphql";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import adminMessages from "~/messages/adminMessages";
-import {
+import type {
   PartialApplicantFilter,
   PartialPoolCandidateFilter,
 } from "~/types/searchRequest";
@@ -67,7 +68,9 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
     placementTypes: [
       PlacementType.NotPlaced,
       PlacementType.PlacedTentative,
+      PlacementType.PlacedTerm,
       PlacementType.PlacedCasual,
+      PlacementType.PlacedActing,
     ],
   };
 };
@@ -93,6 +96,7 @@ const SingleSearchRequestTableApi = ({
               ...applicantFilterInput,
               suspendedStatus: CandidateSuspendedFilter.Active, // add default filters
               expiryStatus: CandidateExpiryFilter.Active,
+              referralStatuses: [CandidateReferralFilter.Referring],
             }
       }
       title={intl.formatMessage(adminMessages.poolCandidates)}

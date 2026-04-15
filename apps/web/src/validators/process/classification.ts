@@ -1,4 +1,4 @@
-import { Pool } from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql";
 
 /*
   Checks null state for advertisement details section of edit pool page.

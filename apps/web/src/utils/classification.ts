@@ -1,4 +1,4 @@
-import { Classification, Maybe } from "@gc-digital-talent/graphql";
+import type { Classification, Maybe } from "@gc-digital-talent/graphql";
 import { localizeSalaryRange } from "@gc-digital-talent/i18n";
 
 /**

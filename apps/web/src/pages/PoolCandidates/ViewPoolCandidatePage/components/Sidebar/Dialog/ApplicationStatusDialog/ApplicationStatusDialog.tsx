@@ -1,21 +1,23 @@
 import { useState } from "react";
-import { MessageDescriptor, useIntl } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/16/solid/PencilSquareIcon";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
-  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { Dialog, StatusButton, StatusButtonProps } from "@gc-digital-talent/ui";
+import type { StatusButtonProps } from "@gc-digital-talent/ui";
+import { Dialog, StatusButton } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import applicationMessages from "~/messages/applicationMessages";
 
 import ToAssessStatusForm from "./ToAssessStatusForm";
-import { ApplicationStatusFormProps, MutationHandler } from "../types";
+import type { ApplicationStatusFormProps, MutationHandler } from "../types";
 import DisqualifiedStatusForm from "./DisqualifiedStatusForm";
 import QualifiedStatusForm from "./QualifiedStatusForm";
 import RemovedStatusForm from "./RemovedStatusForm";
@@ -48,7 +50,7 @@ const statusHeaderMap = new Map<ApplicationStatus, MessageDescriptor>([
   [ApplicationStatus.ToAssess, applicationMessages.applicationStatus],
   [ApplicationStatus.Qualified, messages.revertHeader],
   [ApplicationStatus.Disqualified, messages.revertHeader],
-  [ApplicationStatus.Removed, applicationMessages.reinstate],
+  [ApplicationStatus.Removed, messages.revertHeader],
 ]);
 
 interface ApplicationStatusDialogProps {

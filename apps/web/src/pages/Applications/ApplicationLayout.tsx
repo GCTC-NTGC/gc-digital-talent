@@ -1,6 +1,7 @@
 import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router";
-import { OperationContext, useQuery } from "urql";
+import type { OperationContext } from "urql";
+import { useQuery } from "urql";
 import { useEffect } from "react";
 
 import {
@@ -16,8 +17,10 @@ import {
   NotFoundError,
 } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { getFromLocalStorage } from "@gc-digital-talent/storage";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -32,11 +35,12 @@ import {
   isOnDisabledPage,
 } from "~/utils/applicationUtils";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
 import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
 import useApplicationId from "./useApplicationId";
-import { ContextType } from "./useApplication";
+import type { ContextType } from "./useApplication";
 import Application_PoolCandidateFragment from "./fragment";
 import { getApplicationSteps } from "./utils";
 
@@ -60,6 +64,12 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
     application,
     experienceId,
   });
+  const browserState = {
+    languagePresetNoticeIsVisible: getFromLocalStorage<boolean>(
+      KEY_NEW_USER_LANGUAGE_PRESET,
+      false,
+    ),
+  };
   const title = poolTitle(intl, application.pool);
   const isIAP = isIAPPool(application.pool.publishingGroup?.value);
 
@@ -153,7 +163,11 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
                 description: "Label for the application stepper navigation",
               })}
               currentIndex={currentStepIndex}
-              steps={applicationStepsToStepperArgs(steps, application)}
+              steps={applicationStepsToStepperArgs(
+                steps,
+                application,
+                browserState,
+              )}
             />
             {isIAP && (
               <div className="my-6">

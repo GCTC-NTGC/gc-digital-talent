@@ -1,5 +1,5 @@
-import { FieldLabels } from "@gc-digital-talent/forms";
-import {
+import type { FieldLabels } from "@gc-digital-talent/forms";
+import type {
   Application_PoolCandidateFragment,
   Maybe,
   UpdateUserAsUserInput,
@@ -10,7 +10,7 @@ export type SectionKey =
   | "personal"
   | "work"
   | "dei"
-  | "priority"
+  | "citizen-veteran-priority"
   | "government"
   | "language"
   | "account";

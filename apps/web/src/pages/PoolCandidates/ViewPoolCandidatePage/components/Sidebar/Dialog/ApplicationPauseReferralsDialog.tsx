@@ -3,8 +3,8 @@ import { useMutation, useQuery } from "urql";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   PauseReferralsLength,
@@ -13,10 +13,11 @@ import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import Footer from "./Footer";
 import PauseReferralsFormFields from "./FormFields/PauseReferralsFormFields";
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 
 const ApplicationPauseReferralsOptions_Query = graphql(/** GraphQL */ `
   query ApplicationPauseReferralsOptions {
@@ -135,11 +136,7 @@ const ApplicationPauseReferralsDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button mode="text" color="success" className="text-left">
-          {intl.formatMessage({
-            defaultMessage: "Available for referral",
-            id: "WDFayO",
-            description: "Dialog trigger for pause referrals status dialog",
-          })}
+          {intl.formatMessage(poolCandidateMessages.availableForReferral)}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>

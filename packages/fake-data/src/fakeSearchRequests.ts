@@ -1,11 +1,13 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import {
+import type {
   ApplicantFilter,
   Department,
+  PoolCandidateSearchRequest,
+} from "@gc-digital-talent/graphql";
+import {
   PoolCandidateSearchPositionType,
   PoolCandidateSearchRequestReason,
-  PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
 } from "@gc-digital-talent/graphql";
 

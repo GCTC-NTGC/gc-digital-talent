@@ -1,32 +1,24 @@
+import type { Skill, User } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
-  Classification,
   FlexibleWorkLocation,
   PositionDuration,
   ProvinceOrTerritory,
-  Skill,
   SkillCategory,
-  User,
   WorkRegion,
-  WorkStream,
 } from "@gc-digital-talent/graphql";
 import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
-import graphql, { GraphQLContext } from "~/utils/graphql";
-import {
-  createAndPublishInternalPool,
-  createAndPublishPool,
-} from "~/utils/pools";
+import graphql from "~/utils/graphql";
+import { createAndPublishPool } from "~/utils/pools";
 import ApplicationPage from "~/fixtures/ApplicationPage";
 import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";
 import { getClassifications } from "~/utils/classification";
-import { getCommunities } from "~/utils/communities";
-import { getWorkStreams } from "~/utils/workStreams";
 
 test.describe("Application", () => {
   let uniqueTestId: string;
@@ -491,219 +483,5 @@ test.describe("Application", () => {
         name: new RegExp(`continue application for ${poolName}`, "i"),
       }),
     ).toBeVisible();
-  });
-});
-
-test.describe("Block job applications", () => {
-  let adminCtx: GraphQLContext;
-  let adminUserId: string;
-  let poolId: string;
-  let uniqueTestId: string;
-  let classification: Classification;
-  let workStream: WorkStream;
-  let communityId: string;
-  let technicalSkill: Skill | undefined;
-
-  test.beforeAll(async () => {
-    adminCtx = await graphql.newContext();
-    const adminUser = await me(adminCtx, {});
-    adminUserId = adminUser.id;
-
-    communityId = await getCommunities(adminCtx, {}).then(
-      (communities) => communities[0]?.id,
-    );
-    const classifications = await getClassifications(adminCtx, {});
-    classification = classifications[0];
-
-    const workStreams = await getWorkStreams(adminCtx, {});
-    workStream = workStreams[0];
-
-    technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
-      return skills.find((s) => s.category.value === SkillCategory.Technical);
-    });
-  });
-
-  test.describe("For unverified contact email", () => {
-    let user: User;
-    let sub: string;
-
-    test.beforeEach(async () => {
-      uniqueTestId = generateUniqueTestId();
-      sub = `playwright.unverified.contact.email${uniqueTestId}`;
-      adminCtx = await graphql.newContext();
-      const unverifiedUser = await createUserWithRoles(adminCtx, {
-        user: {
-          email: `${sub}@example.org`,
-          sub,
-          currentProvince: ProvinceOrTerritory.Ontario,
-          currentCity: "Test City",
-          telephone: "+10123456789",
-          armedForcesStatus: ArmedForcesStatus.NonCaf,
-          citizenship: CitizenshipStatus.Citizen,
-          lookingForEnglish: true,
-          isGovEmployee: false,
-          hasPriorityEntitlement: false,
-          locationPreferences: [WorkRegion.Ontario],
-          flexibleWorkLocations: [
-            FlexibleWorkLocation.Remote,
-            FlexibleWorkLocation.Hybrid,
-          ],
-          positionDuration: [PositionDuration.Permanent],
-        },
-        roles: ["guest", "base_user", "applicant"],
-      });
-      user = unverifiedUser!;
-      const pool = await createAndPublishPool(adminCtx, {
-        userId: adminUserId,
-        skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
-        communityId: communityId,
-        classificationId: classification.id,
-        input: {
-          generalQuestions: {
-            create: [
-              {
-                question: { en: "Question EN", fr: "Question FR" },
-                sortOrder: 1,
-              },
-            ],
-          },
-        },
-        workStreamId: workStream.id,
-        name: {
-          en: "Block Job application unverified contact email [EN]",
-          fr: "Block Job application unverified contact email [FR]",
-        },
-      });
-      poolId = pool.id;
-    });
-
-    test.afterEach(async () => {
-      if (user) {
-        adminCtx = await graphql.newContext();
-        await deleteUser(adminCtx, { id: user.id });
-      }
-    });
-
-    test("Block job application for unverified contact email", async ({
-      appPage,
-    }) => {
-      const application = new ApplicationPage(appPage.page, poolId);
-      await loginBySub(application.page, sub, false);
-
-      await application.create();
-
-      // Welcome page - step one
-      await application.expectOnStep(application.page, 1);
-      await application.page.getByRole("button", { name: /let's go/i }).click();
-
-      // Review profile page - step two
-      await application.expectOnStep(application.page, 2);
-      await expect(
-        appPage.page.getByRole("img", { name: /verified/i }),
-      ).toBeHidden();
-      await expect(
-        appPage.page.getByText(
-          /You are missing required personal information/i,
-        ),
-      ).toBeVisible();
-      await expect(
-        appPage.page.getByText(/a verified contact email is required/i),
-      ).toBeVisible();
-      await application.saveAndContinue();
-      await expect(appPage.page.getByRole("alert").last()).toContainText(
-        /please complete all required fields before continuing./i,
-      );
-    });
-  });
-
-  test.describe("For unverified work email", () => {
-    let user: User;
-    let sub: string;
-
-    test.beforeEach(async () => {
-      uniqueTestId = generateUniqueTestId();
-      sub = `playwright.unverified.work.email${uniqueTestId}`;
-      adminCtx = await graphql.newContext();
-      const unverifiedUser = await createUserWithRoles(adminCtx, {
-        user: {
-          email: `${sub}@gc.ca`,
-          workEmail: `${sub}@gc.ca`,
-          sub,
-          currentProvince: ProvinceOrTerritory.Ontario,
-          currentCity: "Test City",
-          telephone: "+10123456789",
-          armedForcesStatus: ArmedForcesStatus.NonCaf,
-          citizenship: CitizenshipStatus.Citizen,
-          lookingForEnglish: true,
-          isGovEmployee: false,
-          hasPriorityEntitlement: false,
-          locationPreferences: [WorkRegion.Ontario],
-          flexibleWorkLocations: [
-            FlexibleWorkLocation.Remote,
-            FlexibleWorkLocation.Hybrid,
-          ],
-          positionDuration: [PositionDuration.Permanent],
-        },
-        roles: ["guest", "base_user", "applicant"],
-      });
-      user = unverifiedUser!;
-      const pool = await createAndPublishInternalPool(adminCtx, {
-        userId: adminUserId,
-        skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
-        communityId: communityId,
-        classificationId: classification.id,
-        input: {
-          generalQuestions: {
-            create: [
-              {
-                question: { en: "Question EN", fr: "Question FR" },
-                sortOrder: 1,
-              },
-            ],
-          },
-        },
-        workStreamId: workStream.id,
-        name: {
-          en: "Block Job application unverified work email [EN]",
-          fr: "Block Job application unverified work email [FR]",
-        },
-      });
-      poolId = pool.id;
-    });
-
-    test.afterEach(async () => {
-      if (user) {
-        adminCtx = await graphql.newContext();
-        await deleteUser(adminCtx, { id: user.id });
-      }
-    });
-
-    test("Block job application for unverified work email", async ({
-      appPage,
-    }) => {
-      const application = new ApplicationPage(appPage.page, poolId);
-      await loginBySub(application.page, sub, false);
-
-      await application.create();
-
-      // Welcome page - step one
-      await application.expectOnStep(application.page, 1);
-      await application.page.getByRole("button", { name: /let's go/i }).click();
-
-      // Review profile page - step two
-      await application.expectOnStep(application.page, 2);
-      await expect(
-        appPage.page.getByRole("img", { name: /verified/i }),
-      ).toBeHidden();
-      await expect(
-        appPage.page.getByText(
-          /a verified Government of Canada work email is required/i,
-        ),
-      ).toBeVisible();
-      await application.saveAndContinue();
-      await expect(appPage.page.getByRole("alert").last()).toContainText(
-        /please complete all required fields before continuing./i,
-      );
-    });
   });
 });

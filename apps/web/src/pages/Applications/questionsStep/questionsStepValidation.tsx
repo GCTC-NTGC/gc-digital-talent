@@ -1,4 +1,4 @@
-import {
+import type {
   Pool,
   Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";

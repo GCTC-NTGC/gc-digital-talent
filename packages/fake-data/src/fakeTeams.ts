@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import { Team } from "@gc-digital-talent/graphql";
+import type { Team } from "@gc-digital-talent/graphql";
 
 const generateTeam = (): Team => {
   return {

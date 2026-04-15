@@ -1,14 +1,17 @@
 import ChevronRightIcon from "@heroicons/react/16/solid/ChevronRightIcon";
-import { ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import HomeIcon from "@heroicons/react/20/solid/HomeIcon";
 import EnvelopeIcon from "@heroicons/react/20/solid/EnvelopeIcon";
 import PhoneIcon from "@heroicons/react/20/solid/PhoneIcon";
 import GlobeAltIcon from "@heroicons/react/20/solid/GlobeAltIcon";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Button, Collapsible, IconType, Link } from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
+import { Button, Collapsible, Link } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { formatLocation } from "~/utils/userUtils";
@@ -24,8 +27,12 @@ const IconLabel = ({ icon, label, children }: IconLabelProps) => {
   const Icon = icon;
 
   return (
-    <span className="flex items-center gap-x-1.5">
-      <Icon aria-hidden="false" aria-label={label} className="size-4.5" />
+    <span className="flex items-start gap-x-1.5">
+      <Icon
+        aria-hidden="false"
+        aria-label={label}
+        className="mt-1 size-4.5 shrink-0"
+      />
       <span>{children}</span>
     </span>
   );
@@ -120,6 +127,7 @@ const ApplicantContactInformation = ({
               href={`mailto:${application.user.email}`}
               mode="text"
               color="black"
+              className="wrap-anywhere"
             >
               {application.user.email}
             </Link>
@@ -136,6 +144,7 @@ const ApplicantContactInformation = ({
               href={`tel:${application.user.telephone}`}
               mode="text"
               color="black"
+              className="wrap-anywhere"
             >
               {application.user.telephone}
             </Link>

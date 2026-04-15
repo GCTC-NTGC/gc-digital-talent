@@ -1,4 +1,5 @@
-import { expect, Locator, type Page } from "@playwright/test";
+import { expect } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 
 import AppPage from "./AppPage";
 import ExperiencePage from "./ExperiencePage";
@@ -60,31 +61,31 @@ class ApplicantDashboardPage extends AppPage {
     await this.locators[FIELD.JOB_APPLICATIONS].click();
   }
 
-  async verifyDashboardUpdate(isGovEmployee: boolean) {
+  async updateDashboard(isGovEmployee: boolean) {
     await expect(this.locators[FIELD.YOUR_ACCOUNT]).toBeVisible();
-    await this.verifyApplicantProfile();
-    await this.verifyGCEmployeeProfile(isGovEmployee);
+    await this.verifyApplicantProfileSection();
+    await this.verifyGCEmployeeProfileSection(isGovEmployee);
   }
 
-  async verifyApplicantProfile() {
+  async verifyApplicantProfileSection() {
     await expect(this.locators[FIELD.APPLICANT_PROFILE]).toBeVisible();
     const sectionName = "Applicant profile";
-    await this.VerifyAndFillSectionDetails(sectionName);
+    await this.updateSectionToCompletion(sectionName);
   }
 
-  async verifyGCEmployeeProfile(isGovEmployee: boolean) {
+  async verifyGCEmployeeProfileSection(isGovEmployee: boolean) {
     await expect(this.locators[FIELD.GC_EMPLOYEE_PROFILE]).toBeVisible();
     const sectionName = "GC employee profile";
     if (isGovEmployee) {
-      await this.VerifyAndFillSectionDetails(sectionName);
+      await this.updateSectionToCompletion(sectionName);
     } else {
-      await this.verifyNonGCEmployeeSections(sectionName);
+      await this.handleLockedGCEmployeeSections(sectionName);
     }
   }
 
-  async verifyNonGCEmployeeSections(sectionName: string) {
+  async handleLockedGCEmployeeSections(sectionName: string) {
     const employeeProfilePage = new EmployeeProfile(this.page);
-    const { subSections, status } = await this.fetchYourAccountSubSections(
+    const { subSections, status } = await this.fetchSubSections(
       sectionName,
       "button",
     );
@@ -112,10 +113,7 @@ class ApplicantDashboardPage extends AppPage {
     }
   }
 
-  async fetchYourAccountSubSections(
-    sectionName: string,
-    locatorType: "link" | "button",
-  ) {
+  async fetchSubSections(sectionName: string, locatorType: "link" | "button") {
     const subSections = this.page.getByRole("listitem").filter({
       has: this.page.getByRole("heading", { name: sectionName }),
     });
@@ -124,8 +122,8 @@ class ApplicantDashboardPage extends AppPage {
     return { subSections, status };
   }
 
-  async VerifyAndFillSectionDetails(section: string) {
-    const { status } = await this.fetchYourAccountSubSections(section, "link");
+  async updateSectionToCompletion(section: string) {
+    const { status } = await this.fetchSubSections(section, "link");
 
     for (const rawText of status) {
       const trimmed = rawText.trim().toLowerCase();
@@ -137,13 +135,13 @@ class ApplicantDashboardPage extends AppPage {
         trimmed.startsWith("missing optional information")
       ) {
         const subSectionName = rawText.split("-").slice(1).join("-").trim();
-        await this.fillInCompleteAndMissingSections([subSectionName]);
+        await this.addDetailsToInCompleteAndMissingSections([subSectionName]);
         break;
       }
     }
   }
 
-  async fillInCompleteAndMissingSections(subSectionNames: string[]) {
+  async addDetailsToInCompleteAndMissingSections(subSectionNames: string[]) {
     const experiencePage = new ExperiencePage(this.page);
     const employeeProfilePage = new EmployeeProfile(this.page);
     const profilePage = new ProfilePage(this.page);
@@ -198,10 +196,6 @@ class ApplicantDashboardPage extends AppPage {
           );
           break;
         }
-
-        case "career planning":
-          await employeeProfilePage.fillCareerPlanningSection();
-          break;
       }
       await this.goToDashboard();
     }
@@ -210,21 +204,47 @@ class ApplicantDashboardPage extends AppPage {
   async verifyApplicationStatusFromDashboard(expectedStatus: string) {
     await this.goToDashboard();
     await this.toggleJobApplications();
+
     const applicationLink = this.page
-      .getByRole("link", {
-        name: /\(EN\)/i,
-      })
+      .getByRole("link", { name: /\(EN\)/i })
+      .or(this.page.getByRole("button", { name: /\(EN\)/i }))
       .first();
 
     const applicationCard = applicationLink.locator("..");
-
-    const cardText = await applicationCard.textContent();
-
-    const actualStatus = cardText?.match(
+    await expect(applicationCard).toContainText(
       new RegExp(`\\b${expectedStatus}\\b`, "i"),
-    )?.[0];
+    );
+  }
 
-    expect(actualStatus).toBe(expectedStatus);
+  async viewNotifications(poolName: string, action: "Visible" | "Not Visible") {
+    await this.page
+      .getByRole("button", { name: /view notifications/i })
+      .click();
+
+    await expect(
+      this.page.getByRole("link", { name: /view all notifications/i }),
+    ).toBeVisible();
+
+    await this.page
+      .getByRole("button", { name: /refresh notifications/i })
+      .click();
+
+    const notificationLink = this.page.getByRole("link", {
+      name: new RegExp(
+        `deadline for ${poolName}.*extended.*continue your application`,
+        "i",
+      ),
+    });
+
+    if (action === "Visible") {
+      await expect(notificationLink).toBeVisible();
+    } else {
+      await expect(notificationLink).toBeHidden();
+    }
+
+    await this.page
+      .getByRole("button", { name: /close notifications/i })
+      .click();
   }
 }
 export default ApplicantDashboardPage;

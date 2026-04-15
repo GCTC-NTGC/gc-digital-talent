@@ -57,6 +57,7 @@ return [
     'resources' => [
         'classification' => 'classification',
         'department' => 'department',
+        'developmentProgram' => 'developmentProgram',
         'genericJobTitle' => 'genericJobTitle',
         'skill' => 'skill',
         'skillFamily' => 'skillFamily',
@@ -94,6 +95,7 @@ return [
         'communityInterest' => 'communityInterest',
         'communityTalent' => 'communityTalent',
         'basicGovEmployeeProfile' => 'basicGovEmployeeProfile',
+        'communityDevelopmentProgram' => 'communityDevelopmentProgram',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
@@ -151,6 +153,19 @@ return [
         'archive-any-department' => [
             'en' => 'Archive any Department',
             'fr' => 'Archiver tout ministère',
+        ],
+
+        'view-any-developmentProgram' => [
+            'en' => 'View Any Development program',
+            'fr' => 'Visionner tout programme de perfectionnement',
+        ],
+        'create-any-developmentProgram' => [
+            'en' => 'Create Any Development program',
+            'fr' => 'Créer tout programme de perfectionnement',
+        ],
+        'update-any-developmentProgram' => [
+            'en' => 'Update Any Development program',
+            'fr' => 'Mettre à jour tout programme de perfectionnement',
         ],
 
         'view-any-genericJobTitle' => [
@@ -721,6 +736,19 @@ return [
             'en' => 'View team Pool Activity Log',
             'fr' => 'Afficher le journal d\'activité du pool d\'équipes',
         ],
+
+        'create-team-communityDevelopmentProgram' => [
+            'en' => 'Create a Community Development Program record for a team',
+            'fr' => 'Créer une fiche de programme de développement communautaire pour une équipe',
+        ],
+        'update-team-communityDevelopmentProgram' => [
+            'en' => 'Update a Community Development Program record for a team',
+            'fr' => 'Mettre à jour la fiche d\'un programme de développement communautaire pour une équipe',
+        ],
+        'delete-team-communityDevelopmentProgram' => [
+            'en' => 'Delete a Community Development Program record for a team',
+            'fr' => 'Supprimer une fiche du programme de développement communautaire pour une équipe',
+        ],
     ],
 
     /*
@@ -880,6 +908,9 @@ return [
             'department' => [
                 'any' => ['view'],
             ],
+            'developmentProgram' => [
+                'any' => ['view'],
+            ],
             'genericJobTitle' => [
                 'any' => ['view'],
             ],
@@ -920,6 +951,9 @@ return [
                 'any' => ['view'],
             ],
             'department' => [
+                'any' => ['view'],
+            ],
+            'developmentProgram' => [
                 'any' => ['view'],
             ],
             'genericJobTitle' => [
@@ -1150,26 +1184,32 @@ return [
             'communityTalentCoordinatorMembership' => [
                 'team' => ['update'],
             ],
+            'communityDevelopmentProgram' => [
+                'team' => ['create', 'update', 'delete'],
+            ],
         ],
 
         'platform_admin' => [
             'classification' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'department' => [
-                'any' => ['create', 'view', 'update', 'delete', 'archive'],
+                'any' => ['create', 'update', 'delete', 'archive'],
+            ],
+            'developmentProgram' => [
+                'any' => ['create', 'update'],
             ],
             'genericJobTitle' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'skill' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'skillFamily' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'community' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'user' => [
                 'any' => ['create', 'view', 'update', 'delete'], // create needs to remain for playwright tests.
@@ -1211,16 +1251,16 @@ return [
                 'any' => ['view'],
             ],
             'jobPosterTemplate' => [
-                'any' => ['view', 'create', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'searchRequest' => [
                 'any' => ['view'],
             ],
             'role' => [
-                'any' => ['view', 'assign'],
+                'any' => ['assign'],
             ],
             'announcement' => [
-                'any' => ['view', 'update'],
+                'any' => ['update'],
             ],
             'platformAdminMembership' => [
                 'any' => ['update'],
@@ -1290,6 +1330,9 @@ return [
             ],
             'talentNominationGroup' => [
                 'team' => ['update', 'view'],
+            ],
+            'communityDevelopmentProgram' => [
+                'team' => ['create', 'update', 'delete'],
             ],
         ],
 

@@ -1,6 +1,7 @@
-import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessages, useIntl } from "react-intl";
 
-import {
+import type {
   LocalizedEstimatedLanguageAbility,
   LocalizedEvaluatedLanguageAbility,
   LocalizedLanguage,
@@ -14,7 +15,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
-import { SnapshotProps } from "../types";
+import type { SnapshotProps } from "../types";
 
 export enum BilingualEvaluation {
   CompletedEnglish = "COMPLETED_ENGLISH",
@@ -57,6 +58,8 @@ export interface LanguageProfileSnapshotV1 {
   comprehensionLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
   verbalLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
   bilingualEvaluation?: Maybe<BilingualEvaluation>;
+  preferredLanguageForInterview?: Maybe<LocalizedLanguage>;
+  preferredLanguageForExam: Maybe<LocalizedLanguage>;
 }
 
 type LanguageProfileV1Props = SnapshotProps<LanguageProfileSnapshotV1>;
@@ -77,6 +80,8 @@ const LanguageProfileV1 = ({ snapshot }: LanguageProfileV1Props) => {
     comprehensionLevel,
     verbalLevel,
     bilingualEvaluation,
+    preferredLanguageForInterview,
+    preferredLanguageForExam,
   } = snapshot;
 
   let examValidity = null;
@@ -231,6 +236,18 @@ const LanguageProfileV1 = ({ snapshot }: LanguageProfileV1Props) => {
                     <FieldDisplay label={labels.verbalLevel}>
                       {verbalLevel?.label
                         ? verbalLevel.label.localized
+                        : notProvided}
+                    </FieldDisplay>
+                  </div>
+                  <div className="grid gap-6 sm:grid-cols-2">
+                    <FieldDisplay label={labels.prefSpokenInterviewLang}>
+                      {preferredLanguageForInterview?.label
+                        ? preferredLanguageForInterview.label.localized
+                        : notProvided}
+                    </FieldDisplay>
+                    <FieldDisplay label={labels.prefWrittenExamLang}>
+                      {preferredLanguageForExam?.label
+                        ? preferredLanguageForExam.label.localized
                         : notProvided}
                     </FieldDisplay>
                   </div>

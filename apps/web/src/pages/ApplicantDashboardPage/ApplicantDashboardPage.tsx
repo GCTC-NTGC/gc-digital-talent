@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
+import type { OperationContext } from "urql";
+import { useQuery } from "urql";
 
 import {
   Pending,
@@ -10,13 +11,11 @@ import {
   Button,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import {
-  graphql,
-  getFragment,
-  ApplicantDashboardQuery,
-} from "@gc-digital-talent/graphql";
+import type { ApplicantDashboardQuery } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { NotFoundError } from "@gc-digital-talent/helpers";
+import { getFromLocalStorage } from "@gc-digital-talent/storage";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -33,6 +32,7 @@ import { hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields } fro
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
 import StatusItem from "~/components/StatusItem/StatusItem";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
@@ -209,6 +209,11 @@ export const DashboardPage = ({
     ],
   });
 
+  const newUserLanguagePresetFlagIsSet = getFromLocalStorage<boolean>(
+    KEY_NEW_USER_LANGUAGE_PRESET,
+    false,
+  );
+
   const currentUser = getFragment(
     ApplicantDashboardPage_Fragment,
     applicantDashboardQuery.me,
@@ -225,6 +230,7 @@ export const DashboardPage = ({
   const personalInformationState =
     workPreferencesSectionHasEmptyRequiredFields(currentUser) ||
     languageInformationSectionHasEmptyRequiredFields(currentUser) ||
+    newUserLanguagePresetFlagIsSet ||
     priorityEntitlementsHasEmptyRequiredFields(currentUser)
       ? "error"
       : "success";

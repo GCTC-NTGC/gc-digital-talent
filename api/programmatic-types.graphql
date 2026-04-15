@@ -94,6 +94,11 @@ type LocalizedCandidateInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateReferralFilter implements LocalizedEnumOption {
+  value: CandidateReferralFilter!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
   label: LocalizedString!
@@ -920,6 +925,11 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
+enum NotificationType {
+  UserFileGenerated
+  UserFileGenerationError
+}
+
 enum ActivityEvent {
   CREATED
   UPDATED
@@ -1073,6 +1083,11 @@ enum CandidateInterest {
   EXPIRED
 }
 
+enum CandidateReferralFilter {
+  REFERRING
+  NOT_REFERRING
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
@@ -1189,6 +1204,7 @@ enum ErrorCode {
   EXPIRY_DATE_REQUIRED
   EXPIRY_DATE_AFTER_TODAY
   ARRAY_CONTAINS_DUPLICATES
+  INVALID_URL
   APPLICATION_ALREADY_SUBMITTED
   APPLICATION_NOT_SUBMITTED
   APPLICATION_EDUCATION_REQUIREMENT_INCOMPLETE
@@ -1222,6 +1238,8 @@ enum ErrorCode {
   DEPARTMENT_NUMBER_IN_USE
   DEPARTMENT_NOT_FOUND
   DEPARTMENT_MUST_NOT_BE_ARCHIVED
+  COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND
+  COMMUNITY_DEVELOPMENT_INVALID_SELECTION
   DEVELOPMENT_PROGRAM_NOT_FOUND
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED

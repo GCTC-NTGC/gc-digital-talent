@@ -10,13 +10,13 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { PageNavInfo } from "~/types/pages";
+import type { PageNavInfo } from "~/types/pages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { checkRole } from "~/utils/communityUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
 
-import { ContextType } from "./CommunityMembersPage/components/types";
+import type { ContextType } from "./CommunityMembersPage/components/types";
 
 type PageNavKeys = "manage-access" | "view";
 

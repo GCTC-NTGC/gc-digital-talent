@@ -21,6 +21,11 @@ const messages = defineMessages({
     id: "WogJ4I",
     description: "Message displayed to users to manage their auth account",
   },
+  register: {
+    defaultMessage: "Register",
+    id: "ASTsAw",
+    description: "Message displayed to users to register for an account",
+  },
 });
 
 export default messages;

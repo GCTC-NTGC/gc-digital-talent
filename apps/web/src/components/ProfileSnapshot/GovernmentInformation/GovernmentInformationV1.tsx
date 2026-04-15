@@ -1,11 +1,11 @@
 import { useIntl } from "react-intl";
 
-import {
+import type {
   LocalizedGovEmployeeType,
   LocalizedGovPositionType,
   Maybe,
-  GovEmployeeType,
 } from "@gc-digital-talent/graphql";
+import { GovEmployeeType } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
 
@@ -13,10 +13,9 @@ import governmentMessages from "~/messages/governmentMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { wrapAbbr } from "~/utils/nameUtils";
 import EmailVerificationStatus from "~/components/Profile/components/EmailVerificationStatus";
-import profileMessages from "~/messages/profileMessages";
 import { formattedDate } from "~/utils/dateUtils";
 
-import { RelatedSnapshotModel, SnapshotProps } from "../types";
+import type { RelatedSnapshotModel, SnapshotProps } from "../types";
 
 export interface GovernmentInformationSnapshotV1 {
   isGovEmployee?: Maybe<boolean>;
@@ -46,8 +45,6 @@ const GovernmentInformationV1 = ({
     govPositionType,
     govEndDate,
     currentClassification,
-    hasPriorityEntitlement,
-    priorityNumber,
     workEmail,
     isWorkEmailVerified,
   } = snapshot;
@@ -55,10 +52,6 @@ const GovernmentInformationV1 = ({
   const govEmployeeMessage = isGovEmployee
     ? intl.formatMessage(governmentMessages.yesGovEmployee)
     : intl.formatMessage(governmentMessages.noGovEmployee);
-
-  const priorityMessage = hasPriorityEntitlement
-    ? intl.formatMessage(governmentMessages.yesPriorityEntitlement)
-    : intl.formatMessage(governmentMessages.noPriorityEntitlement);
 
   //check for employment type
   const isIndeterminate =
@@ -154,23 +147,6 @@ const GovernmentInformationV1 = ({
             </div>
           </FieldDisplay>
         </>
-      )}
-      <FieldDisplay
-        hasError={empty(hasPriorityEntitlement)}
-        label={intl.formatMessage(profileMessages.priorityStatus)}
-      >
-        {empty(hasPriorityEntitlement) ? notProvided : priorityMessage}
-      </FieldDisplay>
-      {hasPriorityEntitlement && (
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Priority number",
-            id: "hRzk4m",
-            description: "Priority number label",
-          })}
-        >
-          {priorityNumber ?? notProvided}
-        </FieldDisplay>
       )}
     </div>
   );

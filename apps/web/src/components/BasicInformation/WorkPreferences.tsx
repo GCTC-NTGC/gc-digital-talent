@@ -6,19 +6,18 @@ import {
   EmploymentDuration,
   getEmploymentDuration,
 } from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
-import { Ul } from "@gc-digital-talent/ui";
+import { Caption, Ul } from "@gc-digital-talent/ui";
 
 import profileMessages from "~/messages/profileMessages";
 import { formatLocation } from "~/utils/userUtils";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
-import Caption from "./Caption";
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 
 const WorkPreferences_Fragment = graphql(/* GraphQL */ `

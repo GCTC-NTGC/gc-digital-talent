@@ -19,9 +19,9 @@ final class CreateCommunityInterestInputValidator extends Validator
     public function rules(): array
     {
         $communityId = $this->arg('community.connect');
-        $community = Community::with(['workStreams', 'developmentPrograms'])->find($communityId);
+        $community = Community::with(['workStreams', 'communityDevelopmentPrograms'])->find($communityId);
         $workStreamIds = $community?->workStreams->pluck('id')->toArray() ?? [];
-        $developmentProgramIds = $community?->developmentPrograms->pluck('id')->toArray() ?? [];
+        $communityDevelopmentProgramIds = $community?->communityDevelopmentPrograms->pluck('id')->toArray() ?? [];
 
         return [
             'userId' => ['uuid', 'required', 'exists:users,id'],
@@ -32,7 +32,7 @@ final class CreateCommunityInterestInputValidator extends Validator
             'jobInterest' => ['nullable', 'boolean'],
             'trainingInterest' => ['nullable', 'boolean'],
             'additionalInformation' => ['nullable', 'string'],
-            'interestInDevelopmentPrograms.create.*.developmentProgramId' => ['uuid', Rule::in($developmentProgramIds)],
+            'interestInDevelopmentPrograms.create.*.communityDevelopmentProgramId' => ['uuid', Rule::in($communityDevelopmentProgramIds)],
             'financeIsChief' => [
                 'nullable',
                 Rule::when($community?->key === 'finance',
@@ -77,7 +77,7 @@ final class CreateCommunityInterestInputValidator extends Validator
             'community.connect.unique' => ErrorCode::COMMUNITY_INTEREST_EXISTS->name,
             'workStreams.sync.*.in' => ErrorCode::WORK_STREAM_NOT_IN_COMMUNITY->name,
             'workStreams.sync.*.exists' => ErrorCode::WORK_STREAM_NOT_FOUND->name,
-            'interestInDevelopmentPrograms.create.*.developmentProgramId.in' => ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name,
+            'interestInDevelopmentPrograms.create.*.communityDevelopmentProgramId.in' => ErrorCode::COMMUNITY_DEVELOPMENT_INVALID_SELECTION->name,
         ];
     }
 }

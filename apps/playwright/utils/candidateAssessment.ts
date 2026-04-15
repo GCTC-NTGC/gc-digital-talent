@@ -1,11 +1,11 @@
-import {
+import type {
   AssessmentStep,
   CreateAssessmentResultInput,
   PoolCandidate,
   PoolCandidateAdminView,
 } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 const Candidate_ScreeningStageQueryDocument = /* GraphQL */ `
   query Candidate_ScreeningStage($candidateId: UUID!) {
@@ -25,18 +25,16 @@ export const getCandidateScreeningStage: GraphQLRequestFunc<
   { candidateId: string }
 > = async (ctx, { candidateId }) => {
   return ctx
-    .post(Candidate_ScreeningStageQueryDocument, {
+    .post<
+      GraphQLResponse<
+        "poolCandidate",
+        { id: string; screeningStage: { value: string } }
+      >
+    >(Candidate_ScreeningStageQueryDocument, {
       isPrivileged: true,
       variables: { candidateId },
     })
-    .then(
-      (
-        res: GraphQLResponse<
-          "poolCandidate",
-          { id: string; screeningStage: { value: string } }
-        >,
-      ) => res.poolCandidate.screeningStage.value,
-    );
+    .then((res) => res.poolCandidate.screeningStage.value);
 };
 
 const Pool_AssessmentStepsQueryDocument = /* GraphQL */ `
@@ -62,18 +60,13 @@ export const getPoolAssessmentSteps: GraphQLRequestFunc<
   { poolId: string }
 > = async (ctx, { poolId }) => {
   return ctx
-    .post(Pool_AssessmentStepsQueryDocument, {
+    .post<
+      GraphQLResponse<"pool", { id: string; assessmentSteps: AssessmentStep[] }>
+    >(Pool_AssessmentStepsQueryDocument, {
       isPrivileged: true,
       variables: { poolId },
     })
-    .then(
-      (
-        res: GraphQLResponse<
-          "pool",
-          { id: string; assessmentSteps: AssessmentStep[] }
-        >,
-      ) => res.pool.assessmentSteps,
-    );
+    .then((res) => res.pool.assessmentSteps);
 };
 
 const Test_CreateAssessmentResultMutationDocument = /* GraphQL */ `
@@ -96,16 +89,16 @@ export const createAssessmentResult: GraphQLRequestFunc<
   CreateAssessmentResultArgs
 > = async (ctx, { assessmentResult }) => {
   return ctx
-    .post(Test_CreateAssessmentResultMutationDocument, {
-      isPrivileged: true,
-      variables: {
-        input: assessmentResult,
+    .post<GraphQLResponse<"createAssessmentResult", PoolCandidate>>(
+      Test_CreateAssessmentResultMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          input: assessmentResult,
+        },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"createAssessmentResult", PoolCandidate>) =>
-        res.createAssessmentResult,
-    );
+    )
+    .then((res) => res.createAssessmentResult);
 };
 
 const CandidatesTableCandidatesPaginatedDocument = /* GraphQL */ `
@@ -154,7 +147,12 @@ export const getPoolCandidatesTable: GraphQLRequestFunc<
   { poolId: string }
 > = async (ctx, { poolId }) => {
   return ctx
-    .post(CandidatesTableCandidatesPaginatedDocument, {
+    .post<
+      GraphQLResponse<
+        "poolCandidatesPaginatedAdminView",
+        { data: { poolCandidate: PoolCandidateAdminView }[] }
+      >
+    >(CandidatesTableCandidatesPaginatedDocument, {
       isPrivileged: true,
       variables: {
         where: {
@@ -164,16 +162,9 @@ export const getPoolCandidatesTable: GraphQLRequestFunc<
         },
       },
     })
-    .then(
-      (
-        res: GraphQLResponse<
-          "poolCandidatesPaginatedAdminView",
-          { data: { poolCandidate: PoolCandidateAdminView }[] }
-        >,
-      ) => {
-        return res.poolCandidatesPaginatedAdminView.data.map(
-          (item) => item.poolCandidate,
-        );
-      },
-    );
+    .then((res) => {
+      return res.poolCandidatesPaginatedAdminView.data.map(
+        (item) => item.poolCandidate,
+      );
+    });
 };

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Traits\LogsCustomActivity;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -103,5 +104,10 @@ class PoolSkill extends Model
     public function assessmentResults(): HasMany
     {
         return $this->hasMany(AssessmentResult::class);
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['pool.team', 'pool.community.team', 'pool.department.team']);
     }
 }

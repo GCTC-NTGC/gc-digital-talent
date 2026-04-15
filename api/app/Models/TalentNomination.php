@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Observers\TalentNominationObserver;
 use Database\Factories\TalentNominationFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class TalentNomination
@@ -56,6 +59,7 @@ class TalentNomination extends Model
     /** @use HasFactory<TalentNominationFactory> */
     use HasFactory;
 
+    use HasRelationships;
     use LogsActivity;
 
     protected $keyType = 'string';
@@ -154,6 +158,17 @@ class TalentNomination extends Model
         return $this->belongsTo(Department::class, 'advancement_reference_fallback_department_id');
     }
 
+    /** @return BelongsToMany<CommunityDevelopmentProgram, $this> */
+    public function communityDevelopmentPrograms(): BelongsToMany
+    {
+        return $this->belongsToMany(CommunityDevelopmentProgram::class, 'community_development_program_talent_nomination');
+    }
+
+    public function developmentProgramsThroughPivot(): HasManyDeep
+    {
+        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram)->developmentProgram());
+    }
+
     /** @return BelongsToMany<DevelopmentProgram, $this> */
     public function developmentPrograms(): BelongsToMany
     {
@@ -222,5 +237,10 @@ class TalentNomination extends Model
     public function isOwn(User $user)
     {
         return $this->submitter_id === $user->id;
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['talentNominationEvent']);
     }
 }

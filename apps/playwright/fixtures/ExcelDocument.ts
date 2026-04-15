@@ -10,7 +10,7 @@ class ExcelDocument {
     const workbook = new ExcelJS.Workbook();
     await workbook.xlsx.readFile(path);
 
-    const data: Record<string, object>[] = [];
+    const data: Record<string, string>[] = [];
     const headers: string[] = [];
 
     const worksheet = workbook.getWorksheet(1);
@@ -24,7 +24,7 @@ class ExcelDocument {
       worksheet.eachRow((row, rowNumber) => {
         // Skip header row
         if (rowNumber > 1) {
-          const rowData = {};
+          const rowData: Record<string, string> = {};
           row.eachCell((cell, colNumber) => {
             rowData[headers[colNumber - 1]] = cell.text;
           });

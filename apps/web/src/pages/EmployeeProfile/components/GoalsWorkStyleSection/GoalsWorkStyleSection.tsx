@@ -11,26 +11,21 @@ import {
   ToggleSection,
 } from "@gc-digital-talent/ui";
 import { Submit, TextArea } from "@gc-digital-talent/forms";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   formMessages,
   getLocale,
-  Locales,
 } from "@gc-digital-talent/i18n";
-import {
-  graphql,
-  FragmentType,
-  getFragment,
-  EmployeeProfile,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, EmployeeProfile } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
 
 import { hasAllEmptyFields } from "~/validators/employeeProfile/goalsWorkStyle";
-import useToggleSectionInfo, {
-  SectionIcon,
-} from "~/hooks/useToggleSectionInfo";
+import type { SectionIcon } from "~/hooks/useToggleSectionInfo";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";

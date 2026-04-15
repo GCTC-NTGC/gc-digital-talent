@@ -1,14 +1,15 @@
 import { useState, useMemo, useRef } from "react";
 import { useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
-import { SubmitHandler } from "react-hook-form";
-import {
+import type { SubmitHandler } from "react-hook-form";
+import type {
   ColumnDef,
   PaginationState,
   SortingState,
-  createColumnHelper,
 } from "@tanstack/react-table";
-import { OperationContext, useMutation, useQuery } from "urql";
+import { createColumnHelper } from "@tanstack/react-table";
+import type { OperationContext } from "urql";
+import { useMutation, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
 
 import {
@@ -23,15 +24,14 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  graphql,
+import type {
   PoolCandidateSearchInput,
   Pool,
   Maybe,
-  PublishingGroup,
   FragmentType,
   CandidatesTableCandidatesPaginated_QueryQuery,
 } from "@gc-digital-talent/graphql";
+import { graphql, PublishingGroup } from "@gc-digital-talent/graphql";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -56,7 +56,7 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import skillMatchDialogAccessor from "../Table/SkillMatchDialog";
 import tableMessages from "./tableMessages";
-import { SearchState } from "../Table/ResponsiveTable/types";
+import type { SearchState } from "../Table/ResponsiveTable/types";
 import {
   flagCell,
   flagHeader,
@@ -84,15 +84,10 @@ import {
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
 import accessors from "../Table/accessors";
-import PoolCandidateFilterDialog, {
-  PoolCandidateFilterDialogProps,
-} from "./PoolCandidateFilterDialog";
-import { FormValues } from "./types";
-import {
-  jobPlacementDialogAccessor,
-  JobPlacementDialogCandidateTable_Fragment,
-} from "../PoolCandidateDialogs/JobPlacementDialog";
-import { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
+import type { PoolCandidateFilterDialogProps } from "./PoolCandidateFilterDialog";
+import PoolCandidateFilterDialog from "./PoolCandidateFilterDialog";
+import type { FormValues } from "./types";
+import type { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
 import DownloadDocxButton from "../DownloadButton/DownloadDocxButton";
 import DownloadCandidateExcelButton from "../DownloadButton/DownloadCandidateExcelButton";
 import DownloadAllCandidateTableExcelButton from "../DownloadButton/DownloadAllCandidateTableExcelButton";
@@ -106,7 +101,6 @@ const columnHelper =
 const CandidatesTable_Query = graphql(/* GraphQL */ `
   query CandidatesTable_Query {
     ...PoolCandidateFilterDialog
-    ...JobPlacementOptions
     suspendedStatuses: localizedEnumStrings(
       enumName: "CandidateSuspendedFilter"
     ) {
@@ -204,7 +198,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       data {
         id
         poolCandidate {
-          ...JobPlacementDialogCandidateTable
           id
           notes
           isFlagged
@@ -215,6 +208,12 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             }
           }
           candidateStatus {
+            value
+            label {
+              localized
+            }
+          }
+          placementType {
             value
             label {
               localized
@@ -958,21 +957,12 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
+      ({ poolCandidate: { placementType } }) =>
+        placementType?.label?.localized ??
+        intl.formatMessage(poolCandidateMessages.notPlaced),
       {
         id: "jobPlacement",
         header: intl.formatMessage(tableMessages.jobPlacement),
-        cell: ({
-          row: {
-            original: { poolCandidate },
-          },
-        }) =>
-          jobPlacementDialogAccessor(
-            poolCandidate as FragmentType<
-              typeof JobPlacementDialogCandidateTable_Fragment
-            >,
-            tableData,
-          ),
         enableSorting: false,
       },
     ),
@@ -987,17 +977,16 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      (row) =>
-        row.poolCandidate.isBeingReferred
-          ? intl.formatMessage(poolCandidateMessages.activelyReferred)
-          : intl.formatMessage(poolCandidateMessages.notReferred),
+      (row) => {
+        if (row.poolCandidate.isBeingReferred === null) return null;
+
+        return row.poolCandidate.isBeingReferred
+          ? intl.formatMessage(poolCandidateMessages.availableForReferral)
+          : intl.formatMessage(poolCandidateMessages.notReferred);
+      },
       {
         id: "referralStatus",
-        header: intl.formatMessage({
-          defaultMessage: "Referral status",
-          id: "tZN+WQ",
-          description: "Label for a candidates referral status",
-        }),
+        header: intl.formatMessage(tableMessages.referralStatus),
         enableSorting: false,
         enableColumnFilter: false,
       },

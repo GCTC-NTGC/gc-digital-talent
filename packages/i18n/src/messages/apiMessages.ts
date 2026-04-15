@@ -1,4 +1,5 @@
-import { defineMessages, MessageDescriptor } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessages } from "react-intl";
 
 import { ErrorCode } from "@gc-digital-talent/graphql";
 
@@ -530,6 +531,11 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "OJVUdM",
     description:
       "Error message for when user submits an application to an internal pool with an unverified work email",
+  },
+  [ErrorCode.InvalidUrl]: {
+    defaultMessage: "Invalid URL",
+    id: "4Uwcxk",
+    description: "Error message for invalid URL",
   },
 });
 

@@ -25,7 +25,7 @@ class PoolCandidateReferralTest extends TestCase
         string $status,
         ?Carbon $pauseAt,
         ?Carbon $resumeAt,
-        bool $expected
+        ?bool $expected
     ) {
         $candidate = PoolCandidate::factory()->create([
             'application_status' => $status,
@@ -39,8 +39,8 @@ class PoolCandidateReferralTest extends TestCase
     public static function referralStatusProvider(): array
     {
         return [
-            'Not qualified returns false' => [
-                ApplicationStatus::TO_ASSESS->name, null, null, false,
+            'Not qualified returns null' => [
+                ApplicationStatus::TO_ASSESS->name, null, null, null,
             ],
             'Qualified with no pause returns true' => [
                 ApplicationStatus::QUALIFIED->name, null, null, true,

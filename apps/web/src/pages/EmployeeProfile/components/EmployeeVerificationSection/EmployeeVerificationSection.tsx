@@ -7,12 +7,8 @@ import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 
 import { Button, Card, Heading, Link, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  EmailType,
-  FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { EmailType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import EmailVerificationDialog from "~/components/EmailVerificationDialog/EmailVerificationDialog";
 import { getExperienceName } from "~/utils/experienceUtils";

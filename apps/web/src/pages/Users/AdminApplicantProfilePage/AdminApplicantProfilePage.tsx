@@ -3,12 +3,8 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
   Button,
@@ -24,7 +20,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
-import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import type { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import { SECTION_KEY } from "./types";
 import PersonalAndContactInformation, {
@@ -39,6 +35,9 @@ import WorkPreferences, {
 import DiversityEquityInclusion, {
   DEI_ID,
 } from "./components/DiversityEquityInclusion";
+import CitizenVeteranPriority, {
+  CITIZEN_VETERAN_PRIORITY_ID,
+} from "./components/CitizenVeteranPriority";
 import GovernmentInformation, {
   GOV_INFO_ID,
 } from "./components/GovernmentInformation";
@@ -51,6 +50,7 @@ const AdminApplicantProfile_Fragment = graphql(/** GraphQL */ `
     ...LanguageProfile
     ...AdminWorkPreferences
     ...DiversityEquityInclusion
+    ...CitizenVeteranPriority
     ...GovernmentInformation
   }
 `);
@@ -112,6 +112,17 @@ const AdminApplicantProfile = ({
                     {intl.formatMessage(
                       navigationMessages.diversityEquityInclusion,
                     )}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={CITIZEN_VETERAN_PRIORITY_ID}>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Citizenship, veteran status and priority entitlements",
+                      id: "ltYqKQ",
+                      description:
+                        "Title for the citizen/veteran/priority section",
+                    })}
                   </TableOfContents.AnchorLink>
                 </TableOfContents.ListItem>
                 <TableOfContents.ListItem>
@@ -211,6 +222,23 @@ const AdminApplicantProfile = ({
               </Accordion.Trigger>
               <Accordion.Content>
                 <DiversityEquityInclusion query={user} />
+              </Accordion.Content>
+            </Accordion.Item>
+
+            <Accordion.Item
+              value={SECTION_KEY.CITIZEN_VETERAN_PRIORITY_ID}
+              id={CITIZEN_VETERAN_PRIORITY_ID}
+            >
+              <Accordion.Trigger as="h3">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Citizenship, veteran status and priority entitlements",
+                  id: "ltYqKQ",
+                  description: "Title for the citizen/veteran/priority section",
+                })}
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <CitizenVeteranPriority query={user} />
               </Accordion.Content>
             </Accordion.Item>
 

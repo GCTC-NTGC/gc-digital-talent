@@ -1,10 +1,11 @@
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { AccordionMetaData } from "@gc-digital-talent/ui";
 import {
   Accordion,
-  AccordionMetaData,
   Button,
   PreviewList,
   TaskCard,
