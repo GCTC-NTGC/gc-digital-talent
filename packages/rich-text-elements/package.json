@@ -10,7 +10,8 @@
   "scripts": {
     "prettier": "prettier --check . --ignore-path=../../.prettierignore",
     "prettier:fix": "prettier --write . --ignore-path=../../.prettierignore",
-    "lint": "eslint \"src/**/*.ts*\"",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "tsc": "tsc --project tsconfig.json --noEmit"
   },
   "devDependencies": {

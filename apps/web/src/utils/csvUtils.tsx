@@ -1,8 +1,8 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { insertBetween, notEmpty } from "@gc-digital-talent/helpers";
-import { Skill } from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql";
 
 /**
  * Converts a possible array to

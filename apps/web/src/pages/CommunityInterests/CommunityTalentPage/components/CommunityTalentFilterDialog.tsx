@@ -1,10 +1,11 @@
 import { useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
+import type { OperationContext } from "urql";
+import { useQuery } from "urql";
 
+import type { TEmploymentDuration } from "@gc-digital-talent/i18n";
 import {
   ENUM_SORT_ORDER,
   EmploymentDuration,
-  TEmploymentDuration,
   commonMessages,
   getEmploymentDuration,
   narrowEnumType,
@@ -18,18 +19,16 @@ import {
   enumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
+import type {
   FlexibleWorkLocation,
-  graphql,
   LanguageAbility,
   OperationalRequirement,
-  WorkRegion,
 } from "@gc-digital-talent/graphql";
+import { graphql, WorkRegion } from "@gc-digital-talent/graphql";
 import { Heading } from "@gc-digital-talent/ui";
 
-import FilterDialog, {
-  CommonFilterDialogProps,
-} from "~/components/FilterDialog/FilterDialog";
+import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDialog";
+import FilterDialog from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 
 export interface FormValues {

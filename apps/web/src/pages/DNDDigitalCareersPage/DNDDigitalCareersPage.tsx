@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import { tv } from "tailwind-variants";
 

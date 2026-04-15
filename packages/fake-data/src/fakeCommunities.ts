@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import {
+import type {
   Community,
   DevelopmentProgram,
   WorkStream,

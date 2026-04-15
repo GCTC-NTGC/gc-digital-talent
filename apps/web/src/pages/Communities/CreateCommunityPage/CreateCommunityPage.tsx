@@ -1,7 +1,8 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { graphql, CreateCommunityInput } from "@gc-digital-talent/graphql";
+import type { CreateCommunityInput } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";

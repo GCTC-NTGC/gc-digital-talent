@@ -40,8 +40,8 @@ class DevelopmentProgramInterestFactory extends Factory
         return $this
             ->afterMaking(function (DevelopmentProgramInterest $model) {
                 // https://laravel.com/docs/10.x/eloquent-factories#belongs-to-relationships
-                if (is_null($model->development_program_id)) {
-                    throw new ErrorException('development_program_id must be set to use this factory.  Try calling this factory with the `for` method to specify the parent development program.');
+                if (is_null($model->community_development_program_id)) {
+                    throw new ErrorException('community_development_program_id must be set to use this factory.  Try calling this factory with the `for` method to specify the parent development program.');
                 }
                 if (is_null($model->community_interest_id)) {
                     throw new ErrorException('community_interest_id must be set to use this factory.  Try calling this factory with the `for` method to specify the parent community interest.');

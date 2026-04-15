@@ -528,6 +528,31 @@ export default [
                 ]),
               ]),
 
+              // Admin - Development programs
+              ...prefix("development-programs", [
+                index(
+                  "./pages/DevelopmentPrograms/IndexDevelopmentProgramPage.tsx",
+                ),
+                route(
+                  "create",
+                  "./pages/DevelopmentPrograms/CreateDevelopmentProgramPage.tsx",
+                ),
+                ...prefix(":developmentProgramId", [
+                  layout(
+                    "./pages/DevelopmentPrograms/DevelopmentProgramLayout.tsx",
+                    [
+                      index(
+                        "./pages/DevelopmentPrograms/ViewDevelopmentProgramPage.tsx",
+                      ),
+                      route(
+                        "edit",
+                        "./pages/DevelopmentPrograms/UpdateDevelopmentProgramPage.tsx",
+                      ),
+                    ],
+                  ),
+                ]),
+              ]),
+
               // Admin - Job templates
               ...prefix("job-templates", [
                 index(

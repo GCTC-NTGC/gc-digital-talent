@@ -20,18 +20,21 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import type { GovFieldOptionsQuery } from "@gc-digital-talent/graphql";
 import {
   CSuiteRoleTitle,
   GovContractorType,
   GovEmployeeType,
-  GovFieldOptionsQuery,
   GovPositionType,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
 import { nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
+import type {
+  SubExperienceFormProps,
+  WorkFormValues,
+} from "~/types/experience";
 import { splitAndJoin } from "~/utils/nameUtils";
 
 const GovFieldOptions_Query = graphql(/* GraphQL */ `

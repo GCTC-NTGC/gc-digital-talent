@@ -57,6 +57,7 @@ return [
     'resources' => [
         'classification' => 'classification',
         'department' => 'department',
+        'developmentProgram' => 'developmentProgram',
         'genericJobTitle' => 'genericJobTitle',
         'skill' => 'skill',
         'skillFamily' => 'skillFamily',
@@ -152,6 +153,19 @@ return [
         'archive-any-department' => [
             'en' => 'Archive any Department',
             'fr' => 'Archiver tout ministère',
+        ],
+
+        'view-any-developmentProgram' => [
+            'en' => 'View Any Development program',
+            'fr' => 'Visionner tout programme de perfectionnement',
+        ],
+        'create-any-developmentProgram' => [
+            'en' => 'Create Any Development program',
+            'fr' => 'Créer tout programme de perfectionnement',
+        ],
+        'update-any-developmentProgram' => [
+            'en' => 'Update Any Development program',
+            'fr' => 'Mettre à jour tout programme de perfectionnement',
         ],
 
         'view-any-genericJobTitle' => [
@@ -894,6 +908,9 @@ return [
             'department' => [
                 'any' => ['view'],
             ],
+            'developmentProgram' => [
+                'any' => ['view'],
+            ],
             'genericJobTitle' => [
                 'any' => ['view'],
             ],
@@ -934,6 +951,9 @@ return [
                 'any' => ['view'],
             ],
             'department' => [
+                'any' => ['view'],
+            ],
+            'developmentProgram' => [
                 'any' => ['view'],
             ],
             'genericJobTitle' => [
@@ -1175,6 +1195,9 @@ return [
             ],
             'department' => [
                 'any' => ['create', 'update', 'delete', 'archive'],
+            ],
+            'developmentProgram' => [
+                'any' => ['create', 'update'],
             ],
             'genericJobTitle' => [
                 'any' => ['create', 'update', 'delete'],

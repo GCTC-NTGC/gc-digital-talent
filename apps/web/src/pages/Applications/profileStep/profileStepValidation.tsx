@@ -1,9 +1,16 @@
-import {
+import type {
   Application_PoolCandidateFragment,
   Pool,
 } from "@gc-digital-talent/graphql";
 
-import { ApplicationBrowserState } from "~/types/applicationStep";
+import type { ApplicationBrowserState } from "~/types/applicationStep";
+import type {
+  PartialUserAbout,
+  PartialUserDei,
+  PartialUserPriority,
+  PartialUserLanguage,
+  PartialUserPreferences,
+} from "~/validators/profile";
 import {
   aboutSectionHasEmptyRequiredFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,
@@ -11,11 +18,6 @@ import {
   languageInformationSectionHasEmptyRequiredFields,
   languageInformationSectionHasUnsatisfiedRequirements,
   workPreferencesSectionHasEmptyRequiredFields,
-  PartialUserAbout,
-  PartialUserDei,
-  PartialUserPriority,
-  PartialUserLanguage,
-  PartialUserPreferences,
 } from "~/validators/profile";
 
 interface PartialUser

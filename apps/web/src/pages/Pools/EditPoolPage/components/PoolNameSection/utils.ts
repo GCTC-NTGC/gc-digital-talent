@@ -1,9 +1,9 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
-import { Option } from "@gc-digital-talent/forms";
+import type { Option } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import {
+import type {
   PoolOpportunityLength,
   Classification,
   LocalizedString,

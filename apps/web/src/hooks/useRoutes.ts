@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 
-import { Locales, getLocale } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
-import { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
+import type { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
 
 const FromIapDraftQueryKey = "fromIapDraft";
 const FromIapSuccessQueryKey = "fromIapSuccess";
@@ -190,6 +191,24 @@ const getRoutes = (lang: Locales) => {
 
     // Admin - Department (singular)
     departmentDashboard: () => [adminUrl, "department"].join("/"),
+
+    // Admin - Development Programs
+    developmentProgramTable: () =>
+      [adminUrl, "settings", "development-programs"].join("/"),
+    developmentProgramCreate: () =>
+      [adminUrl, "settings", "development-programs", "create"].join("/"),
+    developmentProgramView: (developmentProgramId: string) =>
+      [adminUrl, "settings", "development-programs", developmentProgramId].join(
+        "/",
+      ),
+    developmentProgramUpdate: (developmentProgramId: string) =>
+      [
+        adminUrl,
+        "settings",
+        "development-programs",
+        developmentProgramId,
+        "edit",
+      ].join("/"),
 
     // Admin - Announcements
     announcements: () => [adminUrl, "settings", "announcements"].join("/"),

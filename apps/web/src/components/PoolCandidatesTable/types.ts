@@ -1,4 +1,4 @@
-import {
+import type {
   ApplicationStatus,
   CandidateExpiryFilter,
   CandidateReferralFilter,

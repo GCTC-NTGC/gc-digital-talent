@@ -1,14 +1,15 @@
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   CandidateStatus,
-  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
-import { PreviewList, PreviewMetaData, Notice } from "@gc-digital-talent/ui";
+import type { PreviewMetaData } from "@gc-digital-talent/ui";
+import { PreviewList, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getClassificationName } from "~/utils/poolUtils";

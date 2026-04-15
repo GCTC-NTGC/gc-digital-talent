@@ -1,6 +1,7 @@
-import { defineMessages, MessageDescriptor, useIntl } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessages, useIntl } from "react-intl";
 
-import {
+import type {
   LocalizedEstimatedLanguageAbility,
   LocalizedEvaluatedLanguageAbility,
   LocalizedLanguage,
@@ -14,7 +15,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
-import { SnapshotProps } from "../types";
+import type { SnapshotProps } from "../types";
 
 export enum BilingualEvaluation {
   CompletedEnglish = "COMPLETED_ENGLISH",

@@ -355,7 +355,7 @@ return [
          *
          * Any Laravel supported cache driver options are available here.
          */
-        'storage' => env('LIGHTHOUSE_SUBSCRIPTION_STORAGE', 'redis'),
+        'storage' => env('LIGHTHOUSE_SUBSCRIPTION_STORAGE', 'file'),
 
         /*
          * Default subscription storage time to live in seconds.
@@ -369,7 +369,7 @@ return [
         /*
          * Default subscription broadcaster.
          */
-        'broadcaster' => env('LIGHTHOUSE_BROADCASTER', 'pusher'),
+        'broadcaster' => env('LIGHTHOUSE_BROADCASTER', 'reverb'),
 
         /*
          * Subscription broadcasting drivers with config options.
@@ -387,6 +387,11 @@ return [
                 'driver' => 'echo',
                 'connection' => env('LIGHTHOUSE_SUBSCRIPTION_REDIS_CONNECTION', 'default'),
                 'routes' => SubscriptionRouter::class.'@echoRoutes',
+            ],
+            'reverb' => [
+                'driver' => 'pusher',
+                'connection' => 'reverb',
+                'routes' => SubscriptionRouter::class.'@reverb',
             ],
         ],
 

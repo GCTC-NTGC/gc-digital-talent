@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { AnyVariables, UseQueryArgs, useQuery } from "urql";
+import type { AnyVariables, UseQueryArgs } from "urql";
+import { useQuery } from "urql";
 
 import useIsWindowActive from "./useIsWindowActive";
 

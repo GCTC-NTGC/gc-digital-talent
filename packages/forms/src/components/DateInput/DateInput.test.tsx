@@ -2,7 +2,7 @@ import { screen, waitFor, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { FormProvider, useForm } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { vi } from "vitest";
 
 import {
@@ -10,7 +10,8 @@ import {
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 
-import DateInput, { DateInputProps } from "./DateInput";
+import type { DateInputProps } from "./DateInput";
+import DateInput from "./DateInput";
 
 interface FormProps {
   onSubmit: SubmitHandler<FieldValues>;

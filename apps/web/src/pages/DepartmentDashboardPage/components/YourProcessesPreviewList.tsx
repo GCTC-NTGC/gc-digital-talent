@@ -1,14 +1,11 @@
 import { useIntl } from "react-intl";
 import ArrowRightStartOnRectangleIcon from "@heroicons/react/24/outline/ArrowRightStartOnRectangleIcon";
 
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  PoolStatus,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { PreviewList, PreviewMetaData, Notice } from "@gc-digital-talent/ui";
+import type { PreviewMetaData } from "@gc-digital-talent/ui";
+import { PreviewList, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {

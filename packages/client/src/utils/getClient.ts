@@ -1,24 +1,27 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
+import type { Client } from "urql";
 import {
   cacheExchange,
-  Client,
   createClient,
   fetchExchange,
   mapExchange,
+  subscriptionExchange,
 } from "urql";
 import { authExchange } from "@urql/exchange-auth";
 
 import { getLocale } from "@gc-digital-talent/i18n";
 import { getLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
+import type {
+  LogoutReason,
+  AuthenticationState,
+} from "@gc-digital-talent/auth";
 import {
   ACCESS_TOKEN,
   getAuthenticationState,
   LOGOUT_REASON_KEY,
-  LogoutReason,
   NAV_ROLE_KEY,
   REFRESH_TOKEN,
-  AuthenticationState,
 } from "@gc-digital-talent/auth";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 
@@ -33,16 +36,24 @@ import {
 } from "./errors";
 import specialErrorExchange from "../exchanges/specialErrorExchange";
 import { isTokenProbablyExpired } from "./isTokenProbablyExpired";
+import createPusher from "./createPusher";
 
 interface GetClientArgs {
   intl: IntlShape;
   authState?: AuthenticationState;
+  // Control if we connect to the websocket server
+  withSubscriptions?: boolean;
 }
 
-export function getClient({ intl, authState }: GetClientArgs): Client {
+export function getClient({
+  intl,
+  authState,
+  withSubscriptions = false,
+}: GetClientArgs): Client {
   const locale = getLocale(intl);
   const logger = getLogger();
   const auth = authState ?? getAuthenticationState({ locale });
+  const forwardSubscription = withSubscriptions ? createPusher() : null;
 
   return createClient({
     url: `${apiHost}${apiUri}`,
@@ -137,6 +148,9 @@ export function getClient({ intl, authState }: GetClientArgs): Client {
           },
         };
       }),
+      ...(withSubscriptions && forwardSubscription
+        ? [subscriptionExchange({ forwardSubscription })]
+        : []),
       specialErrorExchange({ intl }),
       fetchExchange,
     ],

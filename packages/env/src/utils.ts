@@ -1,4 +1,4 @@
-import { HasServerConfig } from "./types";
+import type { HasServerConfig } from "./types";
 
 function isStringTrue(str: string | undefined): boolean {
   return str?.toLocaleUpperCase() === "TRUE";
@@ -44,6 +44,7 @@ export const getFeatureFlags = () => ({
     "FEATURE_APPLICATION_EMAIL_VERIFICATION",
   ),
   canadaLogin: checkFeatureFlag("FEATURE_CANADALOGIN"),
+  graphqlSubscriptions: checkFeatureFlag("FEATURE_GRAPHQL_SUBSCRIPTIONS"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;
