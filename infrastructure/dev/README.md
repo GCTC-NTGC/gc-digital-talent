@@ -5,8 +5,8 @@ This directory contains configuration files for the development Docker environme
 ## Files
 
 - **default**: Reverse proxy configuration that routes API requests to the Laravel container and all other requests to the Vite dev server
-- **Dockerfile.api**: PHP development container running `php artisan serve`
-- **Dockerfile.web**: Node.js container running `pnpm run watch`
+- **api.Dockerfile**: PHP development container running `php artisan serve`
+- **web.Dockerfile**: Node.js container running `pnpm run watch`
 
 ## Usage
 
