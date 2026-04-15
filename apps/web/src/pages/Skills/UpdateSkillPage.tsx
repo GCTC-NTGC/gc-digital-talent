@@ -445,8 +445,8 @@ export const UpdateSkill = () => {
         ? [
             {
               label: intl.formatMessage({
-                defaultMessage: "Edit<hidden> community</hidden>",
-                id: "/zsCRf",
+                defaultMessage: "Edit<hidden> skill</hidden>",
+                id: "M2LfhH",
                 description: "Breadcrumb title for the edit skill page link.",
               }),
               url: routes.skillUpdate(skillId),

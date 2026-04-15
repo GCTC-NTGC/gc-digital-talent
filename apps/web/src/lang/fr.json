@@ -5731,6 +5731,10 @@
     "defaultMessage": "Afficher tous<hidden> les renseignements liés à l’expérience</hidden>",
     "description": "Button label to expand all experiences"
   },
+  "M2LfhH": {
+    "defaultMessage": "Modifier<hidden> une compétence</hidden>",
+    "description": "Breadcrumb title for the edit skill page link."
+  },
   "M2MQu7": {
     "defaultMessage": "Aidez le Bureau du contrôleur général à recueillir des renseignements importants sur l'effectif des cadres de la gestion financière afin d'élaborer des programmes stratégiques, d'appuyer la planification de la relève et de renforcer notre collectivité.",
     "description": "Page subtitle for the comptrollership executives talent management page"
