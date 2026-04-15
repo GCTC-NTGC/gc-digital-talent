@@ -1,4 +1,4 @@
-import {
+import type {
   EstimatedLanguageAbility,
   EvaluatedLanguageAbility,
   Language,

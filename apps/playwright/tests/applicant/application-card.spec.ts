@@ -4,11 +4,10 @@ import {
   PAST_DATE,
   rawFormat,
 } from "@gc-digital-talent/date-helpers";
+import type { PoolCandidate, User } from "@gc-digital-talent/graphql";
 import {
   CandidateRemovalReason,
-  PoolCandidate,
   SkillCategory,
-  User,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
@@ -18,7 +17,8 @@ import {
   removeCandidate,
 } from "~/utils/applications";
 import { loginBySub } from "~/utils/auth";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createAndPublishPool, deletePool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";

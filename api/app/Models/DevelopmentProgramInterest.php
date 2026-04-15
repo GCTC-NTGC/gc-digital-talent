@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Staudenmeir\EloquentHasManyDeep\HasOneDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class DevelopmentProgramInterest
@@ -23,6 +25,7 @@ use Illuminate\Support\Carbon;
 class DevelopmentProgramInterest extends Model
 {
     use HasFactory;
+    use HasRelationships;
 
     protected $keyType = 'string';
 
@@ -42,9 +45,14 @@ class DevelopmentProgramInterest extends Model
         return $this->belongsTo(CommunityInterest::class, 'community_interest_id');
     }
 
-    /** @return BelongsTo<DevelopmentProgram, $this> */
-    public function developmentProgram(): BelongsTo
+    public function developmentProgramThroughPivot(): HasOneDeep
     {
-        return $this->belongsTo(DevelopmentProgram::class, 'development_program_id');
+        return $this->hasOneDeepFromRelations($this->communityDevelopmentProgram(), (new CommunityDevelopmentProgram)->developmentProgram());
+    }
+
+    /** @return BelongsTo<CommunityDevelopmentProgram, $this> */
+    public function communityDevelopmentProgram(): BelongsTo
+    {
+        return $this->belongsTo(CommunityDevelopmentProgram::class, 'community_development_program_id');
     }
 }

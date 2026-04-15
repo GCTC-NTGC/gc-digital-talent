@@ -14,12 +14,8 @@ import {
   CardSeparator,
   Container,
 } from "@gc-digital-talent/ui";
-import {
-  Scalars,
-  graphql,
-  FragmentType,
-  getFragment,
-} from "@gc-digital-talent/graphql";
+import type { Scalars, FragmentType } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 

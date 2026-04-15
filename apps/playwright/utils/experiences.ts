@@ -1,9 +1,9 @@
-import {
+import type {
   WorkExperience,
   WorkExperienceInput,
 } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 export const defaultWorkExperience: Partial<WorkExperienceInput> = {
   role: "Playwright tester",

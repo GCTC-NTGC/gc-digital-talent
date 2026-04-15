@@ -1,4 +1,4 @@
-import { Scalars } from "@gc-digital-talent/graphql";
+import type { Scalars } from "@gc-digital-talent/graphql";
 
 interface QuestionResponse {
   id: Scalars["ID"]["output"];

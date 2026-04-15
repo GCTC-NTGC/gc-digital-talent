@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import type { JSX } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
@@ -6,15 +6,13 @@ import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import {
-  PoolStatus,
+import type {
   LocalizedString,
   Pool,
   UpdatePoolInput,
   FragmentType,
-  getFragment,
-  graphql,
 } from "@gc-digital-talent/graphql";
+import { PoolStatus, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import {
   hasAllEmptyFields,
@@ -26,7 +24,7 @@ import processMessages from "~/messages/processMessages";
 import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import { PublishedEditableSectionProps, SectionProps } from "../../types";
+import type { PublishedEditableSectionProps, SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 import UpdatePublishedProcessDialog, {

@@ -26,6 +26,7 @@ use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
 use App\Enums\WorkRegion;
+use App\Models\DevelopmentProgram;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationGroup;
 use App\Models\User;
@@ -632,10 +633,11 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     private function getDevelopmentPrograms(TalentNomination $nomination): string
     {
         $developmentProgramsStr = '';
-        if ($nomination->developmentPrograms->count() > 0 || $nomination->development_program_options_other) {
+        if ($nomination->developmentProgramsThroughPivot->count() > 0 || $nomination->development_program_options_other) {
             $developmentPrograms = [];
 
-            foreach ($nomination->developmentPrograms as $developmentProgram) {
+            /** @var DevelopmentProgram $developmentProgram */
+            foreach ($nomination->developmentProgramsThroughPivot as $developmentProgram) {
                 $developmentPrograms[] = $developmentProgram->name[$this->lang];
             }
 
@@ -767,7 +769,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                 'nominatorFallbackDepartment',
                 'advancementReferenceFallbackClassification',
                 'advancementReferenceFallbackDepartment',
-                'developmentPrograms',
+                'developmentProgramsThroughPivot',
                 'skills',
             ],
         ])->where('talent_nomination_event_id', $this->talentNominationEventId);

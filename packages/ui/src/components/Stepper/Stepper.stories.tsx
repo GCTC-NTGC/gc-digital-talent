@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router";
-import type { Args, Decorator } from "@storybook/react-vite";
-import { StoryFn, Meta } from "@storybook/react-vite";
+import type { Args, Decorator, StoryFn, Meta } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker/locale/en";
 
@@ -9,7 +8,7 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Stepper from "./Stepper";
 import { defaultSteps } from "./testUtils";
-import { StepType } from "./types";
+import type { StepType } from "./types";
 
 faker.seed(0);
 

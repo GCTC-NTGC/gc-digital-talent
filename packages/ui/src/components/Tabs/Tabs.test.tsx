@@ -1,6 +1,6 @@
 import { userEvent } from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
-import { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import { vi } from "vitest";
 
 import {

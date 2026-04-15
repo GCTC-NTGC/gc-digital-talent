@@ -1,7 +1,7 @@
 import { test, expect } from "~/fixtures";
 import AuthTokenFixture from "~/fixtures/AuthTokenFixture";
 import { getAuthTokens, loginBySub } from "~/utils/auth";
-import { GraphQLOperation } from "~/utils/graphql";
+import type { GraphQLOperation } from "~/utils/graphql";
 
 test.describe("Login and logout", () => {
   test.beforeEach(async ({ page }) => {

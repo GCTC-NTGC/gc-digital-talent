@@ -1,7 +1,7 @@
-import { MessageDescriptor } from "react-intl";
-import { OperationResult } from "urql";
+import type { MessageDescriptor } from "react-intl";
+import type { OperationResult } from "urql";
 
-import {
+import type {
   ApplicationStatus,
   CandidateRemovalReason,
   DisqualificationReason,
