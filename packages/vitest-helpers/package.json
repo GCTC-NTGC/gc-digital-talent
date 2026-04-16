@@ -24,8 +24,8 @@
   "dependencies": {
     "@dr.pogodin/react-helmet": "^3.1.1",
     "@gc-digital-talent/rich-text-elements": "workspace:*",
-    "axe-core": "^4.11.2",
-    "react-intl": "^10.1.1",
+    "axe-core": "^4.11.3",
+    "react-intl": "^10.1.2",
     "react-router": "^7.14.1",
     "vite": "^7.3.2",
     "vitest": "^4.0.16",
