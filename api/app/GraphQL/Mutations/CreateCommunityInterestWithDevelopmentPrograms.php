@@ -1,0 +1,60 @@
+<?php
+
+namespace App\GraphQL\Mutations;
+
+use App\Models\CommunityInterest;
+use App\Models\DevelopmentProgramUser;
+
+final class CreateCommunityInterestWithDevelopmentPrograms
+{
+    /**
+     * Handle creating a community interest plus development programs
+     */
+    public function __invoke($_, array $args)
+    {
+        $userId = $args['user_id'];
+        $communityInterestInput = $args['communityInterest'];
+        $developmentProgramUserInput = $args['developmentPrograms'];
+
+        // start with the community interest
+        $communityInterest = CommunityInterest::create(
+            [
+                'community_id' => $communityInterestInput['community_id'],
+                'user_id' => $userId,
+                'job_interest' => $communityInterestInput['job_interest'] ?? null,
+                'training_interest' => $communityInterestInput['training_interest'] ?? null,
+                'additional_information' => $communityInterestInput['additional_information'] ?? null,
+                'finance_is_chief' => $communityInterestInput['finance_is_chief'] ?? null,
+                'finance_additional_duties' => $communityInterestInput['finance_additional_duties'] ?? null,
+                'finance_other_roles' => $communityInterestInput['finance_other_roles'] ?? null,
+                'finance_other_roles_other' => $communityInterestInput['finance_other_roles_other'] ?? null,
+                'consent_to_share_profile' => $communityInterestInput['consent_to_share_profile'] ?? null,
+            ],
+        );
+
+        // sync the workstreams relation if applicable
+        if (
+            $communityInterestInput['workStreams'] &&
+            $communityInterestInput['workStreams']['sync']
+        ) {
+            $communityInterest->workStreams()->sync($communityInterestInput['workStreams']['sync']);
+        }
+
+        // next the development programs
+        foreach ($developmentProgramUserInput as $input) {
+            DevelopmentProgramUser::updateOrCreate(
+                [
+                    'development_program_id' => $input['development_program_id'],
+                    'user_id' => $userId,
+                ],
+                [
+                    'education_experience_id' => $input['education_experience_id'] ?? null,
+                    'participation_status' => $input['participation_status'] ?? null,
+                    'completion_date' => $input['completion_date'] ?? null,
+                ]
+            );
+        }
+
+        return $communityInterest;
+    }
+}

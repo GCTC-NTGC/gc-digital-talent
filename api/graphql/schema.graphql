@@ -2170,14 +2170,12 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "career_objective_c_suite_role_title")
 }
 
-input CreateCommunityInterestInput @validator {
-  userId: UUID! @rename(attribute: "user_id")
-  community: CommunityBelongsTo!
+input CreateCommunityInterestInput {
+  communityId: UUID! @rename(attribute: "community_id")
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
-  interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
   #finance-only fields
   financeIsChief: Boolean @rename(attribute: "finance_is_chief")
   financeAdditionalDuties: [FinanceChiefDuty!]
@@ -2186,6 +2184,20 @@ input CreateCommunityInterestInput @validator {
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+}
+
+input CreateDevelopmentProgramUserInput {
+  developmentProgramId: UUID! @rename(attribute: "development_program_id")
+  educationExperienceId: UUID @rename(attribute: "education_experience_id")
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
+}
+
+input CreateCommunityInterestWithDevelopmentProgramsInput {
+  userId: UUID! @rename(attribute: "user_id")
+  communityInterest: CreateCommunityInterestInput!
+  developmentPrograms: [CreateDevelopmentProgramUserInput]
 }
 
 input UpdateCommunityInterestInput @validator {
@@ -3248,6 +3260,10 @@ type Mutation {
     @guard
     @create
     @canModel(ability: "create", injectArgs: true)
+  createCommunityInterestWithDevelopmentPrograms(
+    communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!
+      @spread
+  ): CommunityInterest @guard @canModel(ability: "create", injectArgs: true)
   updateCommunityInterest(
     communityInterest: UpdateCommunityInterestInput! @spread
   ): CommunityInterest

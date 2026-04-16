@@ -32,6 +32,9 @@ class DevelopmentProgramUser extends Model
     protected $fillable = [
         'development_program_id',
         'user_id',
+        'education_experience_id',
+        'participation_status',
+        'completion_date',
     ];
 
     protected $casts = [];

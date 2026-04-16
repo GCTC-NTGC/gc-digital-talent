@@ -566,6 +566,7 @@ type Mutation {
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
   createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
+  createCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
   updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
   createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
@@ -2092,18 +2093,29 @@ input UpdateEmployeeProfileInput {
 }
 
 input CreateCommunityInterestInput {
-  userId: UUID!
-  community: CommunityBelongsTo!
+  communityId: UUID!
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
-  interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
   financeIsChief: Boolean
   financeAdditionalDuties: [FinanceChiefDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+}
+
+input CreateDevelopmentProgramUserInput {
+  developmentProgramId: UUID!
+  educationExperienceId: UUID
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date
+}
+
+input CreateCommunityInterestWithDevelopmentProgramsInput {
+  userId: UUID!
+  communityInterest: CreateCommunityInterestInput!
+  developmentPrograms: [CreateDevelopmentProgramUserInput]
 }
 
 input UpdateCommunityInterestInput {
