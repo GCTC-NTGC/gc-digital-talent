@@ -1,6 +1,5 @@
-/// <reference types="vitest" />
 import { defineConfig, mergeConfig } from "vitest/config";
-import baseConfig from "./base-config.mts";
+import baseConfig from "./base-config.mjs";
 
 export default mergeConfig(
   baseConfig,
