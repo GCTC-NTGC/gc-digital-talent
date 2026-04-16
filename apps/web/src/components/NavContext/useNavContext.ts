@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
-import { NavContext, NavContextState } from "./NavContextContainer";
+import type { NavContextState } from "./NavContextContainer";
+import { NavContext } from "./NavContextContainer";
 
 const useNavContext = (): NavContextState => {
   const ctx = useContext(NavContext);

@@ -44,6 +44,7 @@ export const getFeatureFlags = () => ({
     "FEATURE_APPLICATION_EMAIL_VERIFICATION",
   ),
   canadaLogin: checkFeatureFlag("FEATURE_CANADALOGIN"),
+  graphqlSubscriptions: checkFeatureFlag("FEATURE_GRAPHQL_SUBSCRIPTIONS"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;

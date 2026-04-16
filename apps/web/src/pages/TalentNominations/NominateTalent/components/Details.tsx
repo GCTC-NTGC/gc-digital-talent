@@ -3,17 +3,18 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
 
-import {
-  CommunityDevelopmentProgram,
+import type {
   FragmentType,
-  getFragment,
-  graphql,
   Maybe,
   Scalars,
+  UpdateTalentNominationInput,
+} from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
   TalentNominationLateralMovementOption,
   TalentNominationStep,
   TalentNominationUserReview,
-  UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import {
   Checklist,
@@ -35,9 +36,10 @@ import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearch
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
 import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 
-import { BaseFormValues } from "../types";
+import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
-import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
+import type { SubmitDataTransformer } from "./UpdateForm";
+import UpdateForm from "./UpdateForm";
 import SubHeading from "./SubHeading";
 import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
@@ -79,6 +81,23 @@ const DetailsEmployee_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const DetailsCommunityDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
+  fragment DetailsCommunityDevelopmentProgram on CommunityDevelopmentProgram {
+    id
+    pivot {
+      descriptionForNominations {
+        localized
+      }
+    }
+    developmentProgram {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
+
 type NominationOption =
   | "advancement"
   | "lateralMovement"
@@ -105,25 +124,30 @@ type DetailsFieldsOptionsFragmentType = FragmentType<
 >;
 
 interface DetailsFieldsProps {
-  communityDevelopmentProgramOptions: Omit<
-    CommunityDevelopmentProgram,
-    "community"
-  >[];
   optionsQuery?: DetailsFieldsOptionsFragmentType;
   employeeQuery?: FragmentType<typeof DetailsEmployee_Fragment>;
+  communityDevelopmentProgramQuery?: FragmentType<
+    typeof DetailsCommunityDevelopmentProgram_Fragment
+  >[];
 }
 
 const DetailsFields = ({
   optionsQuery,
   employeeQuery,
-  communityDevelopmentProgramOptions,
+  communityDevelopmentProgramQuery,
 }: DetailsFieldsProps) => {
   const intl = useIntl();
 
   const options = getFragment(DetailsFieldsOptions_Fragment, optionsQuery);
+
   const advancementReferenceData = getFragment(
     DetailsEmployee_Fragment,
     employeeQuery,
+  );
+
+  const communityDevelopmentProgramData = getFragment(
+    DetailsCommunityDevelopmentProgram_Fragment,
+    communityDevelopmentProgramQuery,
   );
 
   const { watch, resetField: baseReset } = useFormContext<FormValues>();
@@ -471,12 +495,14 @@ const DetailsFields = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
                 items={[
-                  ...communityDevelopmentProgramOptions.map((cdp) => ({
-                    value: cdp.id,
-                    label: cdp.developmentProgram.name?.localized ?? "",
-                    contentBelow:
-                      cdp.pivot?.descriptionForNominations?.localized ?? "",
-                  })),
+                  ...unpackMaybes(communityDevelopmentProgramData).map(
+                    (cdp) => ({
+                      value: cdp.id,
+                      label: cdp.developmentProgram.name?.localized ?? "",
+                      contentBelow:
+                        cdp.pivot?.descriptionForNominations?.localized ?? "",
+                    }),
+                  ),
                   {
                     value: "other",
                     label: intl.formatMessage(commonMessages.other),
@@ -508,17 +534,7 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
     talentNominationEvent {
       communityDevelopmentPrograms {
         id
-        pivot {
-          descriptionForNominations {
-            localized
-          }
-        }
-        developmentProgram {
-          id
-          name {
-            localized
-          }
-        }
+        ...DetailsCommunityDevelopmentProgram
       }
     }
     nominateForAdvancement
@@ -732,14 +748,11 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
         })}
       </p>
       <DetailsFields
-        communityDevelopmentProgramOptions={
-          unpackMaybes(
-            talentNomination?.talentNominationEvent
-              ?.communityDevelopmentPrograms,
-          ) ?? []
-        }
         optionsQuery={optionsQuery}
         employeeQuery={talentNomination?.advancementReference ?? undefined}
+        communityDevelopmentProgramQuery={unpackMaybes(
+          talentNomination?.talentNominationEvent?.communityDevelopmentPrograms,
+        )}
       />
     </UpdateForm>
   );

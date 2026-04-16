@@ -1,13 +1,13 @@
-import {
+import type {
   CandidateRemovalReason,
   DisqualificationReason,
-  EducationRequirementOption,
   PoolCandidate,
   QualifyCandidateInput,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 const Test_UpdateApplicationMutationDocument = /* GraphQL */ `
   mutation Test_UpdateApplication(

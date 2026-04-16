@@ -1,6 +1,6 @@
 import isEmpty from "lodash/isEmpty";
 
-import {
+import type {
   User,
   Pool,
   LocalizedLanguage,

@@ -1,8 +1,8 @@
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   PlacementType,
@@ -17,7 +17,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Select } from "@gc-digital-talent/forms";
 
-import { FormValues } from "../types";
+import type { FormValues } from "../types";
 
 const JobPlacementFormFields_Fragment = graphql(/* GraphQL */ `
   fragment JobPlacementFormFields on Query {

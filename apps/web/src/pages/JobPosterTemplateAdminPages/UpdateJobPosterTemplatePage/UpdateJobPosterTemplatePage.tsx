@@ -2,12 +2,8 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Container,
   Pending,

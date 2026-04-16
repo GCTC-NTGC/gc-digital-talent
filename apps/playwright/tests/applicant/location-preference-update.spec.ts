@@ -1,13 +1,11 @@
 /* eslint-disable playwright/no-conditional-in-test */
-import {
-  FlexibleWorkLocation,
-  User,
-  WorkRegion,
-} from "@gc-digital-talent/graphql";
+import type { User } from "@gc-digital-talent/graphql";
+import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
 
 import { expect, test } from "~/fixtures";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
 import testConfig from "~/constants/config";

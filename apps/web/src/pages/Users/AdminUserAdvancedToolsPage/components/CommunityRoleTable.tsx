@@ -1,4 +1,5 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useMemo } from "react";
 
@@ -12,13 +13,8 @@ import { normalizedText } from "~/components/Table/sortingFns";
 import tableMessages from "~/components/Table/tableMessages";
 
 import AddCommunityRoleDialog from "./AddCommunityRoleDialog";
-import {
-  CommunityAssignment,
-  getRoleTableFragments,
-  isCommunityTeamable,
-  roleCell,
-  RoleTableProps,
-} from "../utils";
+import type { CommunityAssignment, RoleTableProps } from "../utils";
+import { getRoleTableFragments, isCommunityTeamable, roleCell } from "../utils";
 import RemoveCommunityRoleDialog from "./RemoveCommunityRoleDialog";
 import EditCommunityRoleDialog from "./EditCommunityRoleDialog";
 
