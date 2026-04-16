@@ -14,7 +14,7 @@ final class CreateCommunityInterestWithDevelopmentPrograms
     {
         $userId = $args['user_id'];
         $communityInterestInput = $args['communityInterest'];
-        $developmentProgramUserInput = $args['developmentPrograms'];
+        $developmentProgramUserInput = array_key_exists('developmentPrograms', $args) ? $args['developmentPrograms'] : [];
 
         // start with the community interest
         $communityInterest = CommunityInterest::create(

@@ -36,7 +36,13 @@ final class CreateCommunityInterestWithDevelopmentProgramsInputValidator extends
 
             // Community interest block
             'communityInterest' => ['array', 'required'],
-            'communityInterest.communityId' => ['uuid', 'required', 'exists:communities,id'],
+            'communityInterest.communityId' => [
+                'uuid',
+                'required',
+                'exists:communities,id',
+                Rule::unique('community_interests', 'community_id')->where(function ($query) use ($userId) {
+                    return $query->where('user_id', $userId);
+                })],
             'communityInterest.workStreams.sync.*' => ['uuid', 'exists:work_streams,id', Rule::in($workStreamIds)],
             'communityInterest.jobInterest' => ['nullable', 'boolean'],
             'communityInterest.trainingInterest' => ['nullable', 'boolean'],
@@ -102,6 +108,7 @@ final class CreateCommunityInterestWithDevelopmentProgramsInputValidator extends
     public function messages(): array
     {
         return [
+            'communityInterest.communityId.unique' => ErrorCode::COMMUNITY_INTEREST_EXISTS->name,
             'communityInterest.communityId.exists' => ErrorCode::COMMUNITY_NOT_FOUND->name,
             'communityInterest.workStreams.sync.*.in' => ErrorCode::WORK_STREAM_NOT_IN_COMMUNITY->name,
             'communityInterest.workStreams.sync.*.exists' => ErrorCode::WORK_STREAM_NOT_FOUND->name,

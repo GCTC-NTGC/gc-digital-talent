@@ -2,14 +2,18 @@
 
 namespace Tests\Feature;
 
+use App\Enums\DevelopmentProgramParticipationStatus;
 use App\Enums\ErrorCode;
 use App\Models\Community;
 use App\Models\CommunityInterest;
+use App\Models\DevelopmentProgram;
+use App\Models\EducationExperience;
 use App\Models\Pool;
 use App\Models\User;
 use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -51,9 +55,17 @@ class CommunityInterestTest extends TestCase
     ];
 
     protected $createMutation = <<<'GRAPHQL'
-        mutation CreateCommunityInterest($communityInterest: CreateCommunityInterestInput!) {
-            createCommunityInterest(communityInterest: $communityInterest) {
-                id
+        mutation createCommunityInterestWithDevelopmentPrograms($communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!) {
+            createCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: $communityInterestWithDevelopmentPrograms) {
+                jobInterest
+                trainingInterest
+                additionalInformation
+                community {
+                    id
+                }
+                workStreams {
+                    id
+                }
             }
         }
     GRAPHQL;
@@ -121,46 +133,83 @@ class CommunityInterestTest extends TestCase
     }
 
     /**
-     * Test applicant can create
+     * Test applicant can create just the community interest
      */
-    public function testApplicantCanCreateOwn()
+    public function testApplicantCanCreateOwnCommunityInterest()
     {
 
         $this->actingAs($this->applicant, 'api')
-            ->graphQL(<<<'GRAPHQL'
-                mutation CreateCommunityInterest($communityInterest: CreateCommunityInterestInput!) {
-                    createCommunityInterest(communityInterest: $communityInterest) {
-                        id
-                        jobInterest
-                        trainingInterest
-                        additionalInformation
-                        community { id }
-                        workStreams { id }
-                    }
-                }
-                GRAPHQL,
+            ->graphQL(
+                $this->createMutation,
                 [
-                    'communityInterest' => [
-                        ...$this->input,
+                    'communityInterestWithDevelopmentPrograms' => [
                         'userId' => $this->applicant->id,
-                        'community' => ['connect' => $this->communityId],
-                        'consentToShareProfile' => true,
-                        'workStreams' => [
-                            'sync' => [
-                                $this->workStreamIds[0],
+                        'communityInterest' => [
+                            'communityId' => $this->communityId,
+                            ...$this->input,
+                            'consentToShareProfile' => true,
+                            'workStreams' => [
+                                'sync' => [
+                                    $this->workStreamIds[0],
+                                ],
                             ],
                         ],
                     ],
                 ])
             ->assertJson([
                 'data' => [
-                    'createCommunityInterest' => [
+                    'createCommunityInterestWithDevelopmentPrograms' => [
                         ...$this->input,
                         'community' => ['id' => $this->communityId],
-                        'workStreams' => [['id' => $this->workStreamIds[0]]],
+                        'workStreams' => [
+                            ['id' => $this->workStreamIds[0]],
+                        ],
                     ],
                 ],
             ]);
+    }
+
+    /**
+     * Test applicant can create with development programs
+     */
+    public function testApplicantCanCreateOwnCommunityInterestWithDevelopmentPrograms()
+    {
+        $developmentProgram = DevelopmentProgram::factory()->create();
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $this->applicant->id]);
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL(
+                $this->createMutation,
+                [
+                    'communityInterestWithDevelopmentPrograms' => [
+                        'userId' => $this->applicant->id,
+                        'communityInterest' => [
+                            'communityId' => $this->communityId,
+                            ...$this->input,
+                            'consentToShareProfile' => true,
+                            'workStreams' => [
+                                'sync' => [
+                                    $this->workStreamIds[0],
+                                ],
+                            ],
+                        ],
+                        'developmentPrograms' => [
+                            [
+                                'developmentProgramId' => $developmentProgram->id,
+                                'educationExperienceId' => $educationExperience->id,
+                                'participationStatus' => DevelopmentProgramParticipationStatus::ENROLLED->name,
+                            ],
+                        ],
+                    ],
+                ])
+            ->assertGraphQLErrorFree();
+
+        // record in pivot table created
+        $developmentProgramUserRecord = DB::table('development_program_user')->sole();
+        assertEquals($developmentProgramUserRecord->development_program_id, $developmentProgram->id);
+        assertEquals($developmentProgramUserRecord->user_id, $this->applicant->id);
+        assertEquals($developmentProgramUserRecord->education_experience_id, $educationExperience->id);
+        assertEquals($developmentProgramUserRecord->participation_status, DevelopmentProgramParticipationStatus::ENROLLED->name);
     }
 
     /**
@@ -230,12 +279,18 @@ class CommunityInterestTest extends TestCase
 
         $this->actingAs($this->applicant, 'api')
             ->graphQL($this->createMutation, [
-                'communityInterest' => [
-                    ...$this->input,
+                'communityInterestWithDevelopmentPrograms' => [
                     'userId' => $otherId,
-                    'consentToShareProfile' => true,
-                    'community' => ['connect' => $this->communityId],
-                    'workStreams' => ['sync' => $this->workStreamIds],
+                    'communityInterest' => [
+                        'communityId' => $this->communityId,
+                        ...$this->input,
+                        'consentToShareProfile' => true,
+                        'workStreams' => [
+                            'sync' => [
+                                $this->workStreamIds[0],
+                            ],
+                        ],
+                    ],
                 ],
             ])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
@@ -245,28 +300,35 @@ class CommunityInterestTest extends TestCase
     {
         $this->actingAs($this->applicant, 'api')
             ->graphQL($this->createMutation, [
-                'communityInterest' => [
-                    ...$this->input,
+                'communityInterestWithDevelopmentPrograms' => [
                     'userId' => $this->applicant->id,
-                    'community' => ['connect' => Str::uuid()],
+                    'communityInterest' => [
+                        'communityId' => Str::uuid(),
+                        ...$this->input,
+                        'consentToShareProfile' => true,
+
+                    ],
                 ],
             ])
-            ->assertGraphQLValidationError('communityInterest.community.connect', ErrorCode::COMMUNITY_NOT_FOUND->name);
+            ->assertGraphQLValidationError('communityInterestWithDevelopmentPrograms.communityInterest.communityId', ErrorCode::COMMUNITY_NOT_FOUND->name);
     }
 
     public function testUniqueValidation()
     {
-        $community = $this->applicant->employeeProfile->communityInterests()->first()->community->id;
+        $communityId = $this->applicant->employeeProfile->communityInterests()->first()->community->id;
 
         $this->actingAs($this->applicant, 'api')
             ->graphQL($this->createMutation, [
-                'communityInterest' => [
-                    ...$this->input,
+                'communityInterestWithDevelopmentPrograms' => [
                     'userId' => $this->applicant->id,
-                    'community' => ['connect' => $community],
+                    'communityInterest' => [
+                        'communityId' => $communityId,
+                        ...$this->input,
+                        'consentToShareProfile' => true,
+                    ],
                 ],
             ])
-            ->assertGraphQLValidationError('communityInterest.community.connect', ErrorCode::COMMUNITY_INTEREST_EXISTS->name);
+            ->assertGraphQLValidationError('communityInterestWithDevelopmentPrograms.communityInterest.communityId', ErrorCode::COMMUNITY_INTEREST_EXISTS->name);
     }
 
     public function testWorkStreamInCommunityValidation()
@@ -278,16 +340,21 @@ class CommunityInterestTest extends TestCase
 
         $this->actingAs($this->applicant, 'api')
             ->graphQL($this->createMutation, [
-                'communityInterest' => [
-                    ...$this->input,
+                'communityInterestWithDevelopmentPrograms' => [
                     'userId' => $this->applicant->id,
-                    'community' => ['connect' => $community->id],
-                    'workStreams' => [
-                        'sync' => ['id' => $workStream->id],
+                    'communityInterest' => [
+                        'communityId' => $community->id,
+                        ...$this->input,
+                        'consentToShareProfile' => true,
+                        'workStreams' => [
+                            'sync' => [
+                                $workStream->id,
+                            ],
+                        ],
                     ],
                 ],
             ])
-            ->assertGraphQLValidationError('communityInterest.workStreams.sync.0', ErrorCode::WORK_STREAM_NOT_IN_COMMUNITY->name);
+            ->assertGraphQLValidationError('communityInterestWithDevelopmentPrograms.communityInterest.workStreams.sync.0', ErrorCode::WORK_STREAM_NOT_IN_COMMUNITY->name);
     }
 
     // test querying CommunityInterests with various roles
