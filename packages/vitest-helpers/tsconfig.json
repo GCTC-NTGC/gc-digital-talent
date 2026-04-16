@@ -3,6 +3,7 @@
   "include": ["src"],
   "exclude": ["**/node_modules", "**/.*/", "eslint.config.js"],
   "compilerOptions": {
-    "allowJs": true
+    "allowJs": true,
+    "allowImportingTsExtensions": true,
   }
 }
