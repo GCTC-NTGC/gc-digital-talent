@@ -9700,20 +9700,20 @@
         },
         {
             "name": "web-token/jwt-library",
-            "version": "4.1.4",
+            "version": "4.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-token/jwt-library.git",
-                "reference": "690d4dd47b78f423cb90457f858e4106e1deb728"
+                "reference": "e8ab00927a3856f3f0c8218226382cd6a58928a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-token/jwt-library/zipball/690d4dd47b78f423cb90457f858e4106e1deb728",
-                "reference": "690d4dd47b78f423cb90457f858e4106e1deb728",
+                "url": "https://api.github.com/repos/web-token/jwt-library/zipball/e8ab00927a3856f3f0c8218226382cd6a58928a1",
+                "reference": "e8ab00927a3856f3f0c8218226382cd6a58928a1",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.12|^0.13|^0.14",
+                "brick/math": "^0.12|^0.13|^0.14|^0.15|^0.16|^0.17",
                 "php": ">=8.2",
                 "psr/clock": "^1.0",
                 "spomky-labs/pki-framework": "^1.2.1"
@@ -9773,7 +9773,7 @@
             ],
             "support": {
                 "issues": "https://github.com/web-token/jwt-library/issues",
-                "source": "https://github.com/web-token/jwt-library/tree/4.1.4"
+                "source": "https://github.com/web-token/jwt-library/tree/4.1.6"
             },
             "funding": [
                 {
@@ -9785,7 +9785,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2025-12-18T14:27:35+00:00"
+            "time": "2026-04-14T07:44:20+00:00"
         },
         {
             "name": "webonyx/graphql-php",
