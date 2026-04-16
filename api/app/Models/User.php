@@ -399,6 +399,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(OffPlatformRecruitmentProcess::class);
     }
 
+    public function developmentProgramUserRecords(): HasMany
+    {
+        return $this->hasMany(DevelopmentProgramUser::class);
+    }
+
     // This method will add the specified skills to UserSkills if they don't exist yet.
     public function addSkills($skill_ids)
     {
