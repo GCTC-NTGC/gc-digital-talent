@@ -6,10 +6,8 @@ use App\Models\Classification;
 use App\Models\Community;
 use App\Models\CommunityDevelopmentProgram;
 use App\Models\DevelopmentProgram;
-use Database\Helpers\FactoryHelpers;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
-class DevelopmentProgramFactory extends Factory
+class DevelopmentProgramFactory extends BaseFactory
 {
     /**
      * The name of the factory's corresponding model.
@@ -26,16 +24,16 @@ class DevelopmentProgramFactory extends Factory
     public function definition()
     {
         return [
-            'name' => FactoryHelpers::toFakeLocalizedString($this->faker->company()),
-            'description_for_profile' => FactoryHelpers::toFakeLocalizedString($this->faker->sentence()),
-            'description_for_nominations' => FactoryHelpers::toFakeLocalizedString($this->faker->sentence()),
+            'name' => $this->localizedString($this->faker->company()),
+            'description_for_profile' => $this->localizedString($this->faker->sentence()),
+            'description_for_nominations' => $this->localizedString($this->faker->sentence()),
             'community_id' => function () {
                 $community = Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create());
 
                 return $community->id;
             },
-            'information_url' => FactoryHelpers::toFakeLocalizedString($this->faker->url()),
-            'abbreviation' => FactoryHelpers::toFakeLocalizedString(strtoupper($this->faker->text(5))),
+            'information_url' => $this->localizedString($this->faker->url()),
+            'abbreviation' => $this->localizedString(strtoupper($this->faker->text(5))),
         ];
     }
 
