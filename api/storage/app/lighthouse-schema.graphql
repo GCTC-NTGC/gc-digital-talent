@@ -795,6 +795,7 @@ type User {
   positionDuration: [PositionDuration]
   employeeProfile: EmployeeProfile
   govEmployeeProfile: BasicGovEmployeeProfile
+  developmentProgramUserRecords: [DevelopmentProgramUser]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -831,7 +832,7 @@ type CommunityInterest {
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
-  interestInDevelopmentPrograms: [DevelopmentProgramInterest!]
+  interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   financeIsChief: Boolean
   financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
   financeOtherRoles: [LocalizedFinanceChiefRole!]
@@ -1335,6 +1336,15 @@ type CommunityDevelopmentProgram {
   developmentProgram: DevelopmentProgram!
   classifications: [Classification!]
   pivot: CommunityDevelopmentProgramTalentEventRecord
+}
+
+type DevelopmentProgramUser {
+  id: UUID!
+  developmentProgram: DevelopmentProgram!
+  user: User!
+  educationExperience: EducationExperience
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date
 }
 
 type TalentNominationEvent {

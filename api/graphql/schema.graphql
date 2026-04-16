@@ -127,6 +127,10 @@ type User {
   # Employee profile info
   employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
   govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
+  developmentProgramUserRecords: [DevelopmentProgramUser]
+    @hasMany
+    @guard
+    @canFind(ability: "view")
 
   # Pool info
   poolCandidates: [PoolCandidate]
@@ -196,7 +200,9 @@ type CommunityInterest {
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
-  interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @hasMany
+  interestInDevelopmentPrograms: [DevelopmentProgramInterest!]
+    @hasMany
+    @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   #finance-only fields
   financeIsChief: Boolean @rename(attribute: "finance_is_chief")
   financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
@@ -868,6 +874,16 @@ type CommunityDevelopmentProgram {
   # CommunityDevelopmentProgramTalentEventRecord is the pivot data
   # it may be be queried thru TalentNominationEvent->communityDevelopmentPrograms->pivot->CommunityDevelopmentProgramTalentEventRecord
   pivot: CommunityDevelopmentProgramTalentEventRecord
+}
+
+type DevelopmentProgramUser {
+  id: UUID!
+  developmentProgram: DevelopmentProgram! @belongsTo
+  user: User! @belongsTo
+  educationExperience: EducationExperience @belongsTo
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
 }
 
 type TalentNominationEvent {
