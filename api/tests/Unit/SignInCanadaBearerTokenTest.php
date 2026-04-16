@@ -322,7 +322,7 @@ class SignInCanadaBearerTokenTest extends TestCase
         Http::assertSentCount(3); // calls config, jwks, and introspection
 
         // advance the clock by cache time
-        $this->travel(config('oauth.introspection_cache_time'))->seconds();
+        $this->travel((int) config('oauth.introspection_cache_time'))->seconds();
         $this->service_provider->validateAndGetClaims($token);
         Http::assertSentCount(4); // made an extra call since it's not cached anymore
     }
