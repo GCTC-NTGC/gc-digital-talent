@@ -1,11 +1,16 @@
 import { useIntl, defineMessage } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import { useMutation, useQuery } from "urql";
+import { useQuery } from "urql";
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
+import type { ReactNode } from "react";
 
 import {
+  Card,
+  CardSeparator,
   Container,
   Link,
   NotFound,
+  Notice,
   Pending,
   Separator,
   TableOfContents,
@@ -15,20 +20,17 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
-import type { SectionProps } from "~/components/Profile/types";
 import type { Status } from "~/components/StatusItem/StatusItem";
 import StatusItem from "~/components/StatusItem/StatusItem";
-import { aboutSectionHasEmptyRequiredFields } from "~/validators/profile";
 import messages from "~/messages/profileMessages";
-import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
-import WorkEmailCard from "~/components/WorkEmailCard.tsx/WorkEmailCard";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import AccountManagement from "./AccountManagement";
 import NotificationSettings from "./NotificationSettings";
@@ -40,43 +42,19 @@ const PersonalInformation_Fragment = graphql(/** GraphQL */ `
     lastName
     telephone
     email
-    isEmailVerified
-    workEmail
-    isWorkEmailVerified
-    isVerifiedGovEmployee
     preferredLang {
       value
-    }
-    preferredLanguageForInterview {
-      value
-    }
-    preferredLanguageForExam {
-      value
-    }
-    citizenship {
-      value
-    }
-    armedForcesStatus {
-      value
+      label {
+        localized
+      }
     }
     enabledEmailNotifications
     enabledInAppNotifications
-    ...ProfilePersonalInformation
-    ...ContactEmailCard
-    ...WorkEmailCard
-  }
-`);
-
-const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
-    updateUserAsUser(id: $id, user: $user) {
-      id
-    }
   }
 `);
 
 export type SectionKey =
-  | "personalInfo"
+  | "accountAndContact"
   | "notificationSettings"
   | "accountManagement";
 
@@ -93,8 +71,9 @@ const pageTitle = defineMessage({
 });
 
 const subTitle = defineMessage({
-  defaultMessage: "Learn about GCKey and manage your notifications.",
-  id: "HR2ouB",
+  defaultMessage:
+    "Update your personal and employee information, manage notifications, and update your availability.",
+  id: "SdglrJ",
   description: "Subtitle for the account settings page.",
 });
 
@@ -122,16 +101,14 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
   const formattedSubTitle = intl.formatMessage(subTitle);
 
   const sections: Record<SectionKey, Section> = {
-    personalInfo: {
-      id: "personal-info",
+    accountAndContact: {
+      id: "account-and-contact",
       title: intl.formatMessage({
-        defaultMessage: "Personal and contact information",
-        id: "BWh6S1",
-        description: "Title for the personal and contact information section",
+        defaultMessage: "Account and contact information",
+        id: "sx79Vq",
+        description:
+          "Title for the account and contact information information section",
       }),
-      status: aboutSectionHasEmptyRequiredFields(personalInfo)
-        ? "error"
-        : "success",
     },
     notificationSettings: {
       id: "notification-settings",
@@ -160,23 +137,7 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
     ],
   });
 
-  const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
-    ProfileUpdateUser_Mutation,
-  );
-
-  const handleUpdate: SectionProps["onUpdate"] = async (userId, userData) => {
-    return executeUpdateMutation({
-      id: userId,
-      user: userData,
-    }).then((res) => res.data?.updateUserAsUser);
-  };
-
-  const sectionProps = {
-    query: personalInfo,
-    isUpdating,
-    onUpdate: handleUpdate,
-    pool: null,
-  };
+  const manageAccountUri = getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI");
 
   return (
     <>
@@ -193,10 +154,7 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
               {Object.values(sections).map((section) => {
                 if (section.status) {
                   return (
-                    <TableOfContents.ListItem
-                      key={section.id}
-                      className="-ml-7px list-none"
-                    >
+                    <TableOfContents.ListItem key={section.id}>
                       <StatusItem
                         asListItem={false}
                         title={section.title}
@@ -226,14 +184,97 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
             </div>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
-            <TableOfContents.Section id={sections.personalInfo.id}>
-              <div className="grid grid-cols-1 gap-1.5 xs:grid-cols-2">
-                <div className="col-span-2">
-                  <PersonalInformation {...sectionProps} />
+            <TableOfContents.Section id={sections.accountAndContact.id}>
+              <Card space="lg">
+                <TableOfContents.Heading
+                  size="h3"
+                  icon={UserCircleIcon}
+                  color="primary"
+                  className="mt-0 mb-6"
+                >
+                  {sections.accountAndContact.title}
+                </TableOfContents.Heading>
+                <div className="mb-6">
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "GC Digital Talent partners with the Government of Canada’s credential service, CanadaLogin, to provide you with account access using a single username and password. You can <a>manage related data on the CanadaLogin website</a> and it will automatically reflect here when you access your account.",
+                      id: "zLaAer",
+                      description:
+                        "Description for the account and information section",
+                    },
+                    {
+                      a: (chunks: ReactNode) => {
+                        return manageAccountUri ? (
+                          <Link href={manageAccountUri} color="black">
+                            {chunks}
+                          </Link>
+                        ) : (
+                          <span>{chunks}</span>
+                        );
+                      },
+                    },
+                  )}
                 </div>
-                <ContactEmailCard query={personalInfo} />
-                <WorkEmailCard query={personalInfo} />
-              </div>
+                <Notice.Root className="mb-9">
+                  <Notice.Title>
+                    {getFullNameLabel(
+                      personalInfo.firstName,
+                      personalInfo.lastName,
+                      intl,
+                    )}
+                  </Notice.Title>
+                  <Notice.Content>
+                    {personalInfo.email ? (
+                      <p>
+                        <Link
+                          href={`mailto:${personalInfo.email}`}
+                          color="black"
+                        >
+                          {personalInfo.email}
+                        </Link>
+                      </p>
+                    ) : null}
+
+                    {personalInfo.telephone ? (
+                      <p>{personalInfo.telephone}</p>
+                    ) : null}
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage: "Preferred contact language",
+                        id: "AumMAr",
+                        description:
+                          "Legend text for required language preference in getting started form",
+                      }) +
+                        intl.formatMessage(commonMessages.dividingColon) +
+                        personalInfo.preferredLang?.label.localized}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
+                {manageAccountUri ? (
+                  <>
+                    <CardSeparator
+                      space="lg"
+                      orientation="horizontal"
+                      className="my-0"
+                    />
+                    <div className="mt-6">
+                      <Link
+                        href={manageAccountUri}
+                        external
+                        className="font-bold"
+                      >
+                        {intl.formatMessage({
+                          defaultMessage: "Update CanadaLogin information",
+                          id: "vdPlPP",
+                          description:
+                            "Link to update your CanadaLogin information",
+                        })}
+                      </Link>
+                    </div>
+                  </>
+                ) : null}
+              </Card>
             </TableOfContents.Section>
             <TableOfContents.Section
               id={sections.notificationSettings.id}
