@@ -25,7 +25,6 @@ import type { Status } from "~/components/StatusItem/StatusItem";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import messages from "~/messages/profileMessages";
 
-import AccountManagement from "./AccountManagement";
 import NotificationSettings from "./NotificationSettings";
 import AccountAndContactInformation from "./AccountAndContactInformation";
 
@@ -38,10 +37,7 @@ const PersonalInformation_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-export type SectionKey =
-  | "accountAndContact"
-  | "notificationSettings"
-  | "accountManagement";
+export type SectionKey = "accountAndContact" | "notificationSettings";
 
 interface Section {
   id: string;
@@ -101,14 +97,6 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
         defaultMessage: "Notification settings",
         id: "mZ1C/0",
         description: "Title for the notification settings.",
-      }),
-    },
-    accountManagement: {
-      id: "account-management",
-      title: intl.formatMessage({
-        defaultMessage: "Account management",
-        id: "efBMD2",
-        description: "Title for the account management.",
       }),
     },
   };
@@ -195,29 +183,6 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
                 enabledEmailNotifications={enabledEmailNotifications}
                 enabledInAppNotifications={enabledInAppNotifications}
               />
-            </TableOfContents.Section>
-            <TableOfContents.Section
-              id={sections.accountManagement.id}
-              className="mt-12 xs:mt-18"
-            >
-              <TableOfContents.Heading
-                size="h3"
-                icon={Cog8ToothIcon}
-                color="primary"
-                className="mt-0 mb-6"
-              >
-                {sections.accountManagement.title}
-              </TableOfContents.Heading>
-              <p className="mb-6">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "This section focuses on general account management and information related to how we link to your GCKey.",
-                  id: "G6PxDn",
-                  description:
-                    "Subtitle for account management section on account settings page.",
-                })}
-              </p>
-              <AccountManagement />
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
