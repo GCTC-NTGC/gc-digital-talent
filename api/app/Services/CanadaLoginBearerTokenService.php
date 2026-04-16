@@ -61,20 +61,22 @@ class CanadaLoginBearerTokenService implements BearerTokenService
     // get a configuration property from the openid configuration json document
     private function getConfigProperty(string $propertyName): string
     {
-        $jsonString = Cache::remember('openid_config_json_string', 60, function () { // only get content every minute
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
-                return $exception instanceof ConnectionException;
-            }, throw: false)->get($this->configUri);
-            assert($response instanceof Response);
+        // only get content every so often (default: 30min)
+        $jsonString = Cache::remember('openid_config_json_string', config('oauth.config_cache_timea'),
+            function () {
+                $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+                    return $exception instanceof ConnectionException;
+                }, throw: false)->get($this->configUri);
+                assert($response instanceof Response);
 
-            if ($response->failed()) {
-                Log::error('Failed when GETting the OpenID configuration in getConfigProperty');
-                Log::debug((string) $response->getBody());
-                throw new Exception('Failed to get config');
-            }
+                if ($response->failed()) {
+                    Log::error('Failed when GETting the OpenID configuration in getConfigProperty');
+                    Log::debug((string) $response->getBody());
+                    throw new Exception('Failed to get config');
+                }
 
-            return $response->body();
-        });
+                return $response->body();
+            });
 
         $obj = json_decode($jsonString);
         $uri = data_get($obj, $propertyName);
@@ -93,20 +95,22 @@ class CanadaLoginBearerTokenService implements BearerTokenService
         }
 
         $jwks_uri = $this->getConfigProperty('jwks_uri');
-        $jsonString = Cache::remember('jwks_json_string', 60, function () use ($jwks_uri) { // only get jwks content every minute
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
-                return $exception instanceof ConnectionException;
-            }, throw: false)->get($jwks_uri);
-            assert($response instanceof Response);
+        // only get jwks content every so often (default: 30min)
+        $jsonString = Cache::remember('jwks_json_string', config('oauth.config_cache_time'),
+            function () use ($jwks_uri) {
+                $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+                    return $exception instanceof ConnectionException;
+                }, throw: false)->get($jwks_uri);
+                assert($response instanceof Response);
 
-            if ($response->failed()) {
-                Log::error('Failed when GETting the JWKS in getConfiguration');
-                Log::debug((string) $response->getBody());
-                throw new Exception('Failed to get config');
-            }
+                if ($response->failed()) {
+                    Log::error('Failed when GETting the JWKS in getConfiguration');
+                    Log::debug((string) $response->getBody());
+                    throw new Exception('Failed to get config');
+                }
 
-            return $response->body();
-        });
+                return $response->body();
+            });
 
         // Uses web-token/jwt-core to generate public key from "e" and "n" in JWKS.
         // Source: https://github.com/lcobucci/jwt/issues/32#issuecomment-907556410
@@ -170,7 +174,8 @@ class CanadaLoginBearerTokenService implements BearerTokenService
         $nowTimestamp = $this->clock->now()->getTimestamp();
         // only cache active token
         if ($isTokenActive && $expiryTimestamp > $nowTimestamp) {
-            $cacheTime = min(10, $expiryTimestamp - $nowTimestamp); // cache for a few seconds, or up to expiry time
+            // cache for a few seconds (default: 120s), or up to expiry time
+            $cacheTime = min(config('oauth.introspection_cache_time'), $expiryTimestamp - $nowTimestamp);
             Cache::put($cacheKey, $values, $cacheTime);
         }
 
