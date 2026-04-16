@@ -69,7 +69,7 @@
     "tailwind-merge": "^3.5.0",
     "tailwind-variants": "^3.2.2",
     "tailwindcss": "^4.2.2",
-    "urql": "^5.0.1"
+    "urql": "^5.0.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.4.0",
