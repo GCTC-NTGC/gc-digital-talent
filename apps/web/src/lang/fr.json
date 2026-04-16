@@ -483,10 +483,6 @@
     "defaultMessage": "Collectivité des cadres",
     "description": "Heading for executive jobs in government"
   },
-  "/zsCRf": {
-    "defaultMessage": "Modifier<hidden> la collectivité</hidden>",
-    "description": "Breadcrumb title for the edit skill page link."
-  },
   "0/jj1v": {
     "defaultMessage": "Réinitialisez tous les filtres",
     "description": "Button text to reset a filter form"
@@ -5730,6 +5726,10 @@
   "M1en14": {
     "defaultMessage": "Afficher tous<hidden> les renseignements liés à l’expérience</hidden>",
     "description": "Button label to expand all experiences"
+  },
+  "M2LfhH": {
+    "defaultMessage": "Modifier<hidden> une compétence</hidden>",
+    "description": "Breadcrumb title for the edit skill page link."
   },
   "M2MQu7": {
     "defaultMessage": "Aidez le Bureau du contrôleur général à recueillir des renseignements importants sur l'effectif des cadres de la gestion financière afin d'élaborer des programmes stratégiques, d'appuyer la planification de la relève et de renforcer notre collectivité.",
@@ -14509,6 +14509,10 @@
   "xjdD1/": {
     "defaultMessage": "Retirer de la collectivité",
     "description": "Header for the form to remove a community role from a user"
+  },
+  "xk9i5D": {
+    "defaultMessage": "Modifier<hidden> la collectivité</hidden>",
+    "description": "Breadcrumb title for the edit community page link."
   },
   "xkJAuq": {
     "defaultMessage": "Ajouter cette compétence",
