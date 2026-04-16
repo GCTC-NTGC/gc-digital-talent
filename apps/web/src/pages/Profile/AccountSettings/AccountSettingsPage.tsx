@@ -1,16 +1,11 @@
 import { useIntl, defineMessage } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { useQuery } from "urql";
-import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
-import type { ReactNode } from "react";
 
 import {
-  Card,
-  CardSeparator,
   Container,
   Link,
   NotFound,
-  Notice,
   Pending,
   Separator,
   TableOfContents,
@@ -20,7 +15,6 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -30,26 +24,17 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import type { Status } from "~/components/StatusItem/StatusItem";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import messages from "~/messages/profileMessages";
-import { getFullNameLabel } from "~/utils/nameUtils";
 
 import AccountManagement from "./AccountManagement";
 import NotificationSettings from "./NotificationSettings";
+import AccountAndContactInformation from "./AccountAndContactInformation";
 
 const PersonalInformation_Fragment = graphql(/** GraphQL */ `
   fragment PersonalInformation on User {
     id
-    firstName
-    lastName
-    telephone
-    email
-    preferredLang {
-      value
-      label {
-        localized
-      }
-    }
     enabledEmailNotifications
     enabledInAppNotifications
+    ...AccountAndContactInformation
   }
 `);
 
@@ -137,8 +122,6 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
     ],
   });
 
-  const manageAccountUri = getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI");
-
   return (
     <>
       <SEO title={formattedPageTitle} description={formattedSubTitle} />
@@ -185,96 +168,7 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <TableOfContents.Section id={sections.accountAndContact.id}>
-              <Card space="lg">
-                <TableOfContents.Heading
-                  size="h3"
-                  icon={UserCircleIcon}
-                  color="primary"
-                  className="mt-0 mb-6"
-                >
-                  {sections.accountAndContact.title}
-                </TableOfContents.Heading>
-                <div className="mb-6">
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "GC Digital Talent partners with the Government of Canada’s credential service, CanadaLogin, to provide you with account access using a single username and password. You can <a>manage related data on the CanadaLogin website</a> and it will automatically reflect here when you access your account.",
-                      id: "zLaAer",
-                      description:
-                        "Description for the account and information section",
-                    },
-                    {
-                      a: (chunks: ReactNode) => {
-                        return manageAccountUri ? (
-                          <Link href={manageAccountUri} color="black">
-                            {chunks}
-                          </Link>
-                        ) : (
-                          <span>{chunks}</span>
-                        );
-                      },
-                    },
-                  )}
-                </div>
-                <Notice.Root className="mb-9">
-                  <Notice.Title>
-                    {getFullNameLabel(
-                      personalInfo.firstName,
-                      personalInfo.lastName,
-                      intl,
-                    )}
-                  </Notice.Title>
-                  <Notice.Content>
-                    {personalInfo.email ? (
-                      <p>
-                        <Link
-                          href={`mailto:${personalInfo.email}`}
-                          color="black"
-                        >
-                          {personalInfo.email}
-                        </Link>
-                      </p>
-                    ) : null}
-
-                    {personalInfo.telephone ? (
-                      <p>{personalInfo.telephone}</p>
-                    ) : null}
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "Preferred contact language",
-                        id: "AumMAr",
-                        description:
-                          "Legend text for required language preference in getting started form",
-                      }) +
-                        intl.formatMessage(commonMessages.dividingColon) +
-                        personalInfo.preferredLang?.label.localized}
-                    </p>
-                  </Notice.Content>
-                </Notice.Root>
-                {manageAccountUri ? (
-                  <>
-                    <CardSeparator
-                      space="lg"
-                      orientation="horizontal"
-                      className="my-0"
-                    />
-                    <div className="mt-6">
-                      <Link
-                        href={manageAccountUri}
-                        external
-                        className="font-bold"
-                      >
-                        {intl.formatMessage({
-                          defaultMessage: "Update CanadaLogin information",
-                          id: "vdPlPP",
-                          description:
-                            "Link to update your CanadaLogin information",
-                        })}
-                      </Link>
-                    </div>
-                  </>
-                ) : null}
-              </Card>
+              <AccountAndContactInformation personalInfoQuery={personalInfo} />
             </TableOfContents.Section>
             <TableOfContents.Section
               id={sections.notificationSettings.id}
