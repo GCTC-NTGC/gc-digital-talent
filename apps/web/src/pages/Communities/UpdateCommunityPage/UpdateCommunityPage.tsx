@@ -146,8 +146,8 @@ const CommunityForm = ({
           }),
         );
       })
-      .catch(() => {
-        throw new Error("Failed to save community");
+      .catch((error: unknown) => {
+        throw new Error("Failed to save community", { cause: error });
       });
   };
   return (
@@ -337,7 +337,7 @@ export const UpdateCommunity = () => {
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
     query: UpdateCommunityPage_Query,
-    variables: { id: communityId || "" },
+    variables: { id: communityId },
   });
 
   const [{ fetching: isSubmitting }, executeMutation] = useMutation(
@@ -363,7 +363,7 @@ export const UpdateCommunity = () => {
       label: intl.formatMessage({
         defaultMessage: "Edit<hidden> community</hidden>",
         id: "/zsCRf",
-        description: "Breadcrumb title for the edit skill page link.",
+        description: "Breadcrumb title for the edit community page link.",
       }),
       url: paths.communityUpdate(communityId),
     },
