@@ -4,6 +4,6 @@
   "exclude": ["**/node_modules", "**/.*/", "eslint.config.js"],
   "compilerOptions": {
     "allowJs": true,
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": true
   }
 }
