@@ -41,7 +41,7 @@ jobs:
         run: |
           cp .env.example .env
 
-      - uses: pnpm/action-setup@v5
+      - uses: pnpm/action-setup@v6
         with:
           version: ${{ env.PNPM_VERSION }}
 

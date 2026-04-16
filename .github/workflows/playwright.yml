@@ -62,7 +62,7 @@ jobs:
       - name: "Run: setup.sh"
         run: docker compose run --rm maintenance bash setup.sh -c
 
-      - uses: pnpm/action-setup@v5
+      - uses: pnpm/action-setup@v6
         with:
           version: ${{ env.PNPM_VERSION }}
 
@@ -109,7 +109,7 @@ jobs:
     env:
       PNPM_VERSION: "10.27.0"
     steps:
-      - uses: pnpm/action-setup@v5
+      - uses: pnpm/action-setup@v6
         with:
           version: ${{ env.PNPM_VERSION }}
       - uses: actions/checkout@v6
