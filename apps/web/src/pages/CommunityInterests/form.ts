@@ -1,6 +1,6 @@
 import type {
-  CreateCommunityInterestInput,
-  CreateDevelopmentProgramInterestInput,
+  CreateCommunityInterestWithDevelopmentProgramsInput,
+  CreateDevelopmentProgramUserInput,
   Maybe,
   UpdateCommunityInterestFormData_FragmentFragment,
   UpdateCommunityInterestInput,
@@ -37,7 +37,7 @@ function parseMaybeStringToBoolean(value: string | null | undefined): boolean {
 
 export function formValuesToApiCreateInput(
   formValues: FormValues,
-): CreateCommunityInterestInput {
+): CreateCommunityInterestWithDevelopmentProgramsInput {
   if (!formValues.userId) {
     throw new Error("User ID is required");
   }
@@ -46,10 +46,10 @@ export function formValuesToApiCreateInput(
   }
 
   // mandatory fields
-  const apiInput: CreateCommunityInterestInput = {
+  const apiInput: CreateCommunityInterestWithDevelopmentProgramsInput = {
     userId: formValues.userId,
-    community: {
-      connect: formValues.communityId,
+    communityInterest: {
+      communityId: formValues.communityId,
     },
   };
 
@@ -57,37 +57,40 @@ export function formValuesToApiCreateInput(
     formValues.interestInWorkStreamIds !== null &&
     Array.isArray(formValues.interestInWorkStreamIds)
   ) {
-    apiInput.workStreams = {
+    apiInput.communityInterest.workStreams = {
       sync: formValues.interestInWorkStreamIds,
     };
   }
 
   if (formValues.jobInterest !== null) {
-    apiInput.jobInterest = parseMaybeStringToBoolean(formValues.jobInterest);
+    apiInput.communityInterest.jobInterest = parseMaybeStringToBoolean(
+      formValues.jobInterest,
+    );
   }
 
   if (formValues.trainingInterest !== null) {
-    apiInput.trainingInterest = parseMaybeStringToBoolean(
+    apiInput.communityInterest.trainingInterest = parseMaybeStringToBoolean(
       formValues.trainingInterest,
     );
   }
 
   if (formValues.additionalInformation !== null) {
-    apiInput.additionalInformation = formValues.additionalInformation;
+    apiInput.communityInterest.additionalInformation =
+      formValues.additionalInformation;
   }
 
   if (formValues.interestInDevelopmentPrograms !== null) {
     const interests =
-      formValues.interestInDevelopmentPrograms?.map<CreateDevelopmentProgramInterestInput | null>(
+      formValues.interestInDevelopmentPrograms?.map<CreateDevelopmentProgramUserInput | null>(
         (interest) => {
           if (
             typeof interest.participationStatus === "string" &&
-            typeof interest.communityDevelopmentProgramId === "string"
+            typeof interest.developmentProgramId === "string"
           ) {
             // valid interest
             return {
-              communityDevelopmentProgramId:
-                interest.communityDevelopmentProgramId,
+              developmentProgramId: interest.developmentProgramId,
+              educationExperienceId: null, // for later
               participationStatus: interest.participationStatus,
               completionDate:
                 interest.participationStatus ===
@@ -100,22 +103,22 @@ export function formValuesToApiCreateInput(
           return null;
         },
       );
-    apiInput.interestInDevelopmentPrograms = {
-      create: unpackMaybes(interests),
-    };
+    apiInput.developmentPrograms = unpackMaybes(interests);
   }
 
   // finance-only fields
-  apiInput.financeIsChief = formValues.financeIsChief;
-  apiInput.financeAdditionalDuties = formValues.financeAdditionalDuties
-    ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
-    : null;
-  apiInput.financeOtherRoles = formValues.financeOtherRoles
+  apiInput.communityInterest.financeIsChief = formValues.financeIsChief;
+  apiInput.communityInterest.financeAdditionalDuties =
+    formValues.financeAdditionalDuties
+      ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
+      : null;
+  apiInput.communityInterest.financeOtherRoles = formValues.financeOtherRoles
     ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
     : null;
-  apiInput.financeOtherRolesOther = formValues.financeOtherRolesOther;
+  apiInput.communityInterest.financeOtherRolesOther =
+    formValues.financeOtherRolesOther;
 
-  apiInput.consentToShareProfile = formValues.consent;
+  apiInput.communityInterest.consentToShareProfile = formValues.consent;
 
   return apiInput;
 }
@@ -129,11 +132,9 @@ export function formValuesToApiUpdateInput(
     {};
 
   formValues.interestInDevelopmentPrograms?.forEach((input) => {
-    if (!input.communityDevelopmentProgramId) return;
+    if (!input.developmentProgramId) return;
 
-    const existingInterest = interestedPrograms.get(
-      input.communityDevelopmentProgramId,
-    );
+    const existingInterest = interestedPrograms.get(input.developmentProgramId);
 
     if (existingInterest) {
       interestInDevelopmentPrograms.update = [
@@ -152,7 +153,7 @@ export function formValuesToApiUpdateInput(
       interestInDevelopmentPrograms.create = [
         ...(interestInDevelopmentPrograms.create ?? []),
         {
-          communityDevelopmentProgramId: input.communityDevelopmentProgramId,
+          communityDevelopmentProgramId: input.developmentProgramId,
           participationStatus: input.participationStatus,
           completionDate:
             input.participationStatus ===
@@ -219,8 +220,9 @@ export function apiDataToFormValues(
           developmentProgram.id,
       );
       return {
-        communityDevelopmentProgramId:
-          correspondingProgram?.communityDevelopmentProgram.id ?? "",
+        developmentProgramId:
+          correspondingProgram?.communityDevelopmentProgram.developmentProgram
+            .id ?? "",
         participationStatus: correspondingProgram?.participationStatus ?? null,
         completionDate: correspondingProgram?.completionDate ?? null,
       };

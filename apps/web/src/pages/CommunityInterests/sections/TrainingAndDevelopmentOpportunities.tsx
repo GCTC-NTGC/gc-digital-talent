@@ -47,7 +47,7 @@ const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
 export interface SubformValues {
   interestInDevelopmentPrograms:
     | {
-        communityDevelopmentProgramId: string | null;
+        developmentProgramId: string | null;
         participationStatus: DevelopmentProgramParticipationStatus | null;
         completionDate: string | null;
       }[]
@@ -180,9 +180,9 @@ const TrainingAndDevelopmentOpportunities = ({
               <input
                 type="hidden"
                 {...register(
-                  `interestInDevelopmentPrograms.${index}.communityDevelopmentProgramId`,
+                  `interestInDevelopmentPrograms.${index}.developmentProgramId`,
                 )}
-                value={communityDevelopmentProgram.id}
+                value={communityDevelopmentProgram.developmentProgram.id}
               />
               <RadioGroup
                 idPrefix={`interestInDevelopmentPrograms.${index}.participationStatus`}
