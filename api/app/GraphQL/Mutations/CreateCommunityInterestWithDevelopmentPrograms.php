@@ -34,8 +34,8 @@ final class CreateCommunityInterestWithDevelopmentPrograms
 
         // sync the workstreams relation if applicable
         if (
-            $communityInterestInput['workStreams'] &&
-            $communityInterestInput['workStreams']['sync']
+            array_key_exists('workStreams', $communityInterestInput) &&
+            array_key_exists('sync', $communityInterestInput['workStreams'])
         ) {
             $communityInterest->workStreams()->sync($communityInterestInput['workStreams']['sync']);
         }
