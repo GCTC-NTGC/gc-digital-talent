@@ -2194,7 +2194,7 @@ input CreateDevelopmentProgramUserInput {
   completionDate: Date @rename(attribute: "completion_date")
 }
 
-input CreateCommunityInterestWithDevelopmentProgramsInput {
+input CreateCommunityInterestWithDevelopmentProgramsInput @validator {
   userId: UUID! @rename(attribute: "user_id")
   communityInterest: CreateCommunityInterestInput!
   developmentPrograms: [CreateDevelopmentProgramUserInput]
