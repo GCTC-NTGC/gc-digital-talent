@@ -1,15 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { fakeUser } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import {
+  makeFragmentData,
+  OrganizationTypeInterest,
+  TimeFrame,
+} from "@gc-digital-talent/graphql";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
-
-import { CommunityInterestUsersDevelopmentProgramRecords_Fragment } from "~/components/CommunityInterest/CommunityInterest";
 
 import {
   DashboardPage as ApplicantDashboardPage,
   ApplicantDashboardPage_Fragment,
 } from "./ApplicantDashboardPage";
+import { CareerDevelopmentTaskCardOptions_Fragment } from "./components/CareerDevelopmentTaskCard";
 
 const mockUser = fakeUser();
 
@@ -46,15 +49,30 @@ export const VerifiedGovernmentEmployee: Story = {
           ApplicantDashboardPage_Fragment,
         ),
       },
-    },
-    usersDevelopmentProgramRecordsQuery: {
       ...makeFragmentData(
         {
-          me: {
-            developmentProgramUserRecords: [],
-          },
+          organizationTypeInterest: [
+            {
+              label: {
+                en: "Current organization",
+                fr: "Current organization fr",
+                localized: "Current organization",
+              },
+              value: OrganizationTypeInterest.Current,
+            },
+          ],
+          timeFrame: [
+            {
+              label: {
+                en: "This year",
+                fr: "This year fr",
+                localized: "This year",
+              },
+              value: TimeFrame.ThisYear,
+            },
+          ],
         },
-        CommunityInterestUsersDevelopmentProgramRecords_Fragment,
+        CareerDevelopmentTaskCardOptions_Fragment,
       ),
     },
   },
@@ -78,15 +96,30 @@ export const NonEmployee: Story = {
           ApplicantDashboardPage_Fragment,
         ),
       },
-    },
-    usersDevelopmentProgramRecordsQuery: {
       ...makeFragmentData(
         {
-          me: {
-            developmentProgramUserRecords: [],
-          },
+          organizationTypeInterest: [
+            {
+              label: {
+                en: "Current organization",
+                fr: "Current organization fr",
+                localized: "Current organization",
+              },
+              value: OrganizationTypeInterest.Current,
+            },
+          ],
+          timeFrame: [
+            {
+              label: {
+                en: "This year",
+                fr: "This year fr",
+                localized: "This year",
+              },
+              value: TimeFrame.ThisYear,
+            },
+          ],
         },
-        CommunityInterestUsersDevelopmentProgramRecords_Fragment,
+        CareerDevelopmentTaskCardOptions_Fragment,
       ),
     },
   },
