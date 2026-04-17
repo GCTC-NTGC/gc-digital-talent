@@ -218,12 +218,14 @@ export const Component = () => {
                 "Heading for section of the signin page showing the create steps",
             })}
           </Heading>
-          <InstructionsCardGrid columns={2}>
+          <InstructionsCardGrid columns={1}>
             <InstructionsStepCard
-              className="rounded-t-md rounded-b-none xs:rounded-l-md xs:rounded-r-none"
+              className="rounded-t-md rounded-b-none p-10 xs:rounded-l-md xs:rounded-r-none"
               img={{
                 src: canadaLoginStep3,
                 darkSrc: canadaLoginStep3Dark,
+                width: 700,
+                height: 200,
               }}
             >
               <p className="font-normal text-gray-500 dark:text-gray-100">

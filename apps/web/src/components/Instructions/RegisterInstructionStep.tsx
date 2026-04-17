@@ -61,7 +61,7 @@ const InstructionsStepCard = ({
 
 interface InstructionsCardGridProps {
   children: ReactNode;
-  columns?: 2 | 3 | 4 | 6;
+  columns?: 1 | 2 | 3 | 4 | 6;
   className?: string;
 }
 
