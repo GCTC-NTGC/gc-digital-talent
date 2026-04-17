@@ -22,6 +22,10 @@ const DEFAULT_TIMEOUT_MS = 30000;
 const MAX_RETRIES = 2;
 const RETRY_BACKOFF_MS = 750;
 const RETRYABLE_HTTP_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504]);
+const SECONDARY_BROWSER_PROBE_HOSTS = new Set([
+  "connexion.canada.ca",
+  "login.canada.ca",
+]);
 
 // Use a global variable for currentLinkFile instead of an interface
 declare global {
@@ -81,6 +85,52 @@ function shouldRetryFromError(err: unknown): boolean {
   return false;
 }
 
+function shouldUseSecondaryBrowserProbe(url: string): boolean {
+  try {
+    const parsedUrl = new URL(url);
+    return SECONDARY_BROWSER_PROBE_HOSTS.has(parsedUrl.hostname.toLowerCase());
+  } catch {
+    return false;
+  }
+}
+
+async function fetchLinkWithBrowserHeaders(
+  url: string,
+  timeoutMs = DEFAULT_TIMEOUT_MS,
+): Promise<number | string> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      method: "GET",
+      redirect: "follow",
+      signal: controller.signal,
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+        Accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-CA,en;q=0.9,fr-CA;q=0.8,fr;q=0.7",
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache",
+        Referer: "https://www.canada.ca/",
+      },
+    });
+    return res.status;
+  } catch (err) {
+    if (err instanceof Error) {
+      return err.message;
+    }
+    return JSON.stringify(err);
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function isBrokenStatus(status: number | string): boolean {
+  return status !== 200;
+}
+
 async function fetchLink(
   url: string,
   timeoutMs = DEFAULT_TIMEOUT_MS,
@@ -107,6 +157,10 @@ async function fetchLink(
       ) {
         await sleep(RETRY_BACKOFF_MS * (attempt + 1));
         continue;
+      }
+
+      if (res.status === 403 && shouldUseSecondaryBrowserProbe(url)) {
+        return fetchLinkWithBrowserHeaders(url, timeoutMs);
       }
 
       return res.status;
@@ -249,7 +303,7 @@ async function main() {
         results.push({ file: link.file, url: link.url, status });
       }
       // Save broken links
-      const brokenLinks = results.filter((r) => r.status !== 200);
+      const brokenLinks = results.filter((r) => isBrokenStatus(r.status));
       const brokenLinksPath = path.resolve("external-broken-links.json");
       await fs.writeFile(
         brokenLinksPath,
@@ -320,7 +374,7 @@ async function main() {
       });
     }
     // create broken links file only if any broken link exist
-    const brokenLinks = results.filter((r) => r.status !== 200);
+    const brokenLinks = results.filter((r) => isBrokenStatus(r.status));
     if (brokenLinks.length > 0) {
       const brokenLinksPath = path.resolve("external-broken-links.json");
       await fs.writeFile(
