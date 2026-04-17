@@ -222,6 +222,42 @@ class CommunityInterestTest extends TestCase
     }
 
     /**
+     * Test applicant cannot connect someone else's experience
+     */
+    public function testApplicantCannotConnectOtherUsersEducationExperience()
+    {
+        $developmentProgram = DevelopmentProgram::factory()->create();
+        $otherUserEducationExperience = EducationExperience::factory()->create(['user_id' => User::factory()->create()]);
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL(
+                $this->createMutation,
+                [
+                    'communityInterestWithDevelopmentPrograms' => [
+                        'userId' => $this->applicant->id,
+                        'communityInterest' => [
+                            'communityId' => $this->communityId,
+                            ...$this->input,
+                            'consentToShareProfile' => true,
+                            'workStreams' => [
+                                'sync' => [
+                                    $this->workStreamIds[0],
+                                ],
+                            ],
+                        ],
+                        'developmentPrograms' => [
+                            [
+                                'developmentProgramId' => $developmentProgram->id,
+                                'educationExperienceId' => $otherUserEducationExperience->id,
+                                'participationStatus' => DevelopmentProgramParticipationStatus::ENROLLED->name,
+                            ],
+                        ],
+                    ],
+                ])
+            ->assertGraphQLValidationError('communityInterestWithDevelopmentPrograms.developmentPrograms.0.educationExperienceId', ErrorCode::DEVELOPMENT_PROGRAM_MUST_CONNECT_OWN_EDUCATION_EXPERIENCE->name);
+    }
+
+    /**
      * Test applicant can update own
      */
     public function testApplicantCanUpdateOwn()
