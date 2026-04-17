@@ -165,8 +165,10 @@ export const UserEmployeeInformation = ({
                       key={communityInterest.id}
                     >
                       <Accordion.Trigger as="h3">
-                        {communityInterest.community?.name?.localized ??
-                          intl.formatMessage(commonMessages.notAvailable)}
+                        <span className="font-normal">
+                          {communityInterest.community?.name?.localized ??
+                            intl.formatMessage(commonMessages.notAvailable)}
+                        </span>
                       </Accordion.Trigger>
                       <Accordion.Content>
                         <CommunityInterest
