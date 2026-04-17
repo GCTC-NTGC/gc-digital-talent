@@ -2186,7 +2186,22 @@ input CreateCommunityInterestInput {
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
-input CreateDevelopmentProgramUserInput {
+input UpdateCommunityInterestInput {
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean @rename(attribute: "job_interest")
+  trainingInterest: Boolean @rename(attribute: "training_interest")
+  additionalInformation: String @rename(attribute: "additional_information")
+  #finance-only fields
+  financeIsChief: Boolean @rename(attribute: "finance_is_chief")
+  financeAdditionalDuties: [FinanceChiefDuty!]
+    @rename(attribute: "finance_additional_duties")
+  financeOtherRoles: [FinanceChiefRole!]
+    @rename(attribute: "finance_other_roles")
+  financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+}
+
+input UpsertDevelopmentProgramUserInput {
   developmentProgramId: UUID! @rename(attribute: "development_program_id")
   educationExperienceId: UUID @rename(attribute: "education_experience_id")
   participationStatus: DevelopmentProgramParticipationStatus
@@ -2197,25 +2212,13 @@ input CreateDevelopmentProgramUserInput {
 input CreateCommunityInterestWithDevelopmentProgramsInput @validator {
   userId: UUID! @rename(attribute: "user_id")
   communityInterest: CreateCommunityInterestInput!
-  developmentPrograms: [CreateDevelopmentProgramUserInput]
+  developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
-input UpdateCommunityInterestInput @validator {
-  # Usually the ID parameter is at the mutation level but we need it here for the validator.
+input UpdateCommunityInterestWithDevelopmentProgramsInput {
   id: UUID!
-  workStreams: WorkStreamBelongsToMany
-  jobInterest: Boolean @rename(attribute: "job_interest")
-  trainingInterest: Boolean @rename(attribute: "training_interest")
-  additionalInformation: String @rename(attribute: "additional_information")
-  interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
-  #finance-only fields
-  financeIsChief: Boolean @rename(attribute: "finance_is_chief")
-  financeAdditionalDuties: [FinanceChiefDuty!]
-    @rename(attribute: "finance_additional_duties")
-  financeOtherRoles: [FinanceChiefRole!]
-    @rename(attribute: "finance_other_roles")
-  financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
-  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  communityInterest: UpdateCommunityInterestInput!
+  developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
 input CreateOffPlatformRecruitmentProcessInput @validator {
@@ -3272,6 +3275,15 @@ type Mutation {
   ): CommunityInterest
     @guard
     @update(model: "CommunityInterest")
+    @canFind(ability: "update", find: "id", model: "CommunityInterest")
+    @deprecated(
+      reason: "replaced by updateCommunityInterestWithDevelopmentPrograms"
+    )
+  updateCommunityInterestWithDevelopmentPrograms(
+    communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!
+      @spread
+  ): CommunityInterest
+    @guard
     @canFind(ability: "update", find: "id", model: "CommunityInterest")
   deleteCommunityInterest(id: UUID! @whereKey): CommunityInterest
     @delete

@@ -567,7 +567,8 @@ type Mutation {
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
   createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest @deprecated(reason: "replaced by createCommunityInterestWithDevelopmentPrograms")
   createCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
-  updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
+  updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest @deprecated(reason: "replaced by updateCommunityInterestWithDevelopmentPrograms")
+  updateCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
   createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
   updateOffPlatformRecruitmentProcess(process: UpdateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
@@ -2105,7 +2106,19 @@ input CreateCommunityInterestInput {
   consentToShareProfile: Boolean
 }
 
-input CreateDevelopmentProgramUserInput {
+input UpdateCommunityInterestInput {
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean
+  trainingInterest: Boolean
+  additionalInformation: String
+  financeIsChief: Boolean
+  financeAdditionalDuties: [FinanceChiefDuty!]
+  financeOtherRoles: [FinanceChiefRole!]
+  financeOtherRolesOther: String
+  consentToShareProfile: Boolean
+}
+
+input UpsertDevelopmentProgramUserInput {
   developmentProgramId: UUID!
   educationExperienceId: UUID
   participationStatus: DevelopmentProgramParticipationStatus
@@ -2115,21 +2128,13 @@ input CreateDevelopmentProgramUserInput {
 input CreateCommunityInterestWithDevelopmentProgramsInput {
   userId: UUID!
   communityInterest: CreateCommunityInterestInput!
-  developmentPrograms: [CreateDevelopmentProgramUserInput]
+  developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
-input UpdateCommunityInterestInput {
+input UpdateCommunityInterestWithDevelopmentProgramsInput {
   id: UUID!
-  workStreams: WorkStreamBelongsToMany
-  jobInterest: Boolean
-  trainingInterest: Boolean
-  additionalInformation: String
-  interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
-  financeIsChief: Boolean
-  financeAdditionalDuties: [FinanceChiefDuty!]
-  financeOtherRoles: [FinanceChiefRole!]
-  financeOtherRolesOther: String
-  consentToShareProfile: Boolean
+  communityInterest: UpdateCommunityInterestInput!
+  developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
 input CreateOffPlatformRecruitmentProcessInput {
