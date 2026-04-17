@@ -7,8 +7,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./config": {
-      "import": "./src/config/index.mts",
-      "types": "./src/config/index.mts"
+      "import": "./src/config/index.ts",
+      "types": "./src/config/index.ts"
     },
     "./setup": {
       "import": "./src/setup.ts",

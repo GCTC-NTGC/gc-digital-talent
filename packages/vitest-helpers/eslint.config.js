@@ -18,12 +18,18 @@ export default [
             1,
             {
               unusedExports: true,
-              ignoreExports: ["src/index.ts", "src/config/config.d.ts"],
+              ignoreExports: ["src/index.ts", "src/config/index.ts"],
             },
           ];
         }
         return "off";
       })(),
+    },
+  },
+  {
+    files: ["src/config/**/*.ts"],
+    rules: {
+      "import/extensions": ["error", "ignorePackages", { ts: "always" }],
     },
   },
 ];
