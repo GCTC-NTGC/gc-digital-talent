@@ -771,12 +771,19 @@ export const Component = () => {
                 utilityIcon={ChevronDoubleRightIcon}
                 external
               >
-                {intl.formatMessage({
-                  defaultMessage: "Get started",
-                  id: "ci28W3", // TODO
-                  description:
-                    "CanadaLogin sign up link text on the sign in page",
-                })}
+                {selectedMethod === "canadaLogin"
+                  ? intl.formatMessage({
+                      defaultMessage: "Proceed to CanadaLogin",
+                      id: "KorMJQ",
+                      description:
+                        "CanadaLogin sign up link text on the registration page",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Get started",
+                      id: "ci28W3", // TODO
+                      description:
+                        "CanadaLogin sign up link text on the sign in page",
+                    })}
               </Link>
               <p className="m-0 flex items-center lg:pl-4">
                 <Link
@@ -784,6 +791,7 @@ export const Component = () => {
                   mode="inline"
                   external
                   className="lg:ml-2"
+                  color="warning"
                 >
                   {intl.formatMessage({
                     defaultMessage: "I need help",
