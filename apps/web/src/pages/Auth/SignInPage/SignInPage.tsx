@@ -220,7 +220,7 @@ export const Component = () => {
           </Heading>
           <InstructionsCardGrid columns={1}>
             <InstructionsStepCard
-              className="rounded-t-md rounded-b-none p-10 xs:rounded-l-md xs:rounded-r-none"
+              className="rounded-t-md rounded-b-none xs:rounded-l-md xs:rounded-r-none lg:p-10"
               img={{
                 src: canadaLoginStep3,
                 darkSrc: canadaLoginStep3Dark,
@@ -557,12 +557,14 @@ export const Component = () => {
                 "Heading for section of the signin page showing the access steps",
             })}
           </Heading>
-          <InstructionsCardGrid columns={2}>
+          <InstructionsCardGrid columns={1}>
             <InstructionsStepCard
-              className="rounded-md"
+              className="rounded-md lg:p-10"
               img={{
                 src: canadaLoginStep3,
                 darkSrc: canadaLoginStep3Dark,
+                width: 700,
+                height: 200,
               }}
             >
               <p className="font-normal text-gray-500 dark:text-gray-100">
@@ -765,7 +767,7 @@ export const Component = () => {
                 </Notice.Root>
               </div>
             )}
-            <div className="flex flex-row items-center gap-4 pt-6 pl-4 lg:flex-col lg:items-start">
+            <div className="flex flex-col items-start gap-4 pt-6 pl-4 xs:flex-row xs:items-center">
               <Link
                 href={`${loginPath}&skipmigration=true`}
                 mode="solid"
