@@ -7,6 +7,7 @@ import { fakeCommunityInterests } from "@gc-digital-talent/fake-data";
 import CommunityInterest, {
   CommunityInterest_Fragment,
   CommunityInterestOptions_Fragment,
+  CommunityInterestUsersDevelopmentProgramRecords_Fragment,
 } from "../CommunityInterest/CommunityInterest";
 
 const meta = {
@@ -39,11 +40,34 @@ const communityInterestOptionsQuery = makeFragmentData(
   CommunityInterestOptions_Fragment,
 );
 
+const usersDevelopmentProgramRecordsQuery = makeFragmentData(
+  {
+    me: {
+      developmentProgramUserRecords:
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
+        mockCommunityInterests[0].interestInDevelopmentPrograms?.map(
+          (item, index) => {
+            return {
+              id: index.toString(),
+              developmentProgram: {
+                id: item.developmentProgram.id,
+              },
+              participationStatus: item.participationStatus,
+              completionDate: item.completionDate,
+            };
+          },
+        ),
+    },
+  },
+  CommunityInterestUsersDevelopmentProgramRecords_Fragment,
+);
+
 export const Default: StoryObj<typeof CommunityInterest> = {
   render: () => (
     <CommunityInterest
       communityInterestQuery={communityInterestQuery}
       communityInterestOptionsQuery={communityInterestOptionsQuery}
+      usersDevelopmentProgramRecordsQuery={usersDevelopmentProgramRecordsQuery}
     />
   ),
 };
