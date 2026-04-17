@@ -44,8 +44,8 @@ const InactivityDialog = ({
           </div>
         </Dialog.Header>
         <Dialog.Body>
-          <div className="flex flex-col gap-(--text-sm)">
-            <span>
+          <div className="grid gap-(--text-sm) xs:grid-cols-[3fr_2fr]">
+            <span className="order-1 xs:col-span-2">
               {intl.formatMessage({
                 defaultMessage:
                   "If you do not continue your session you will be signed out automatically and unsaved changes will be lost.",
@@ -53,7 +53,7 @@ const InactivityDialog = ({
                 description: "Body for the inactivity dialog",
               })}
             </span>
-            <div className="flex flex-row gap-[--spacing(6*0.3)]">
+            <div className="order-2 flex flex-row gap-[--spacing(6*0.3)]">
               <ClockIcon
                 className="h-6"
                 aria-hidden="false"
@@ -80,15 +80,14 @@ const InactivityDialog = ({
                 )}
               </span>
             </div>
-            <span>
+            <span className="order-3 xs:order-4">
               {intl.formatMessage({
                 defaultMessage: "Do you wish to continue your session?",
                 id: "m163e9",
                 description: "Call to action in the inactivity dialog",
               })}
             </span>
-
-            <div className="-mb-12 self-center">
+            <div className="order-4 -mb-12 place-self-center xs:order-3 xs:row-span-2">
               <Image src={pug} alt="" width="357" height="190" />
             </div>
           </div>
