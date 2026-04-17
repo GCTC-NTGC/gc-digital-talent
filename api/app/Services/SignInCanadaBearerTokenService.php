@@ -59,7 +59,7 @@ class SignInCanadaBearerTokenService implements BearerTokenService
     // get a configuration property from the openid configuration json document
     private function getConfigProperty(string $propertyName): string
     {
-        $jsonString = Cache::remember('openid_config_json_string', config('oauth.config_cache_time'), function () { // only get content every minute
+        $jsonString = Cache::remember('openid_config_json_string', config('oauth.config_cache_time'), function () { // only get content every so often (default: 30min)
             $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->get($this->configUri);
@@ -90,7 +90,7 @@ class SignInCanadaBearerTokenService implements BearerTokenService
         }
 
         $jwks_uri = $this->getConfigProperty('jwks_uri');
-        $jsonString = Cache::remember('jwks_json_string', config('oauth.config_cache_time'), function () use ($jwks_uri) { // only get jwks content every minute
+        $jsonString = Cache::remember('jwks_json_string', config('oauth.config_cache_time'), function () use ($jwks_uri) { // only get jwks content every so often (default: 30min)
             $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->get($jwks_uri);

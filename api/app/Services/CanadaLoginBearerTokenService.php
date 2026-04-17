@@ -62,7 +62,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
     private function getConfigProperty(string $propertyName): string
     {
         // only get content every so often (default: 30min)
-        $jsonString = Cache::remember('openid_config_json_string', config('oauth.config_cache_timea'),
+        $jsonString = Cache::remember('openid_config_json_string', config('oauth.config_cache_time'),
             function () {
                 $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
                     return $exception instanceof ConnectionException;
