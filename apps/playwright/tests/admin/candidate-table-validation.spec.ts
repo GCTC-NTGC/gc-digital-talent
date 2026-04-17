@@ -249,7 +249,6 @@ test.describe("Candidate Table Validation", () => {
         adminCtx,
         candidates[2].user!.firstName!,
         {
-          screening: ScreeningStage.NewApplication,
           appStatus: ApplicationStatus.Qualified,
           facingStatus: "Qualified in process",
         },
@@ -274,7 +273,6 @@ test.describe("Candidate Table Validation", () => {
         adminCtx,
         candidates[4].user!.firstName!,
         {
-          screening: ScreeningStage.NewApplication,
           appStatus: ApplicationStatus.Removed,
           facingStatus: "Unresponsive",
         },
@@ -384,7 +382,9 @@ test.describe("Candidate Table Validation", () => {
         adminCtx,
         candidates[1].user!.firstName!,
         {
-          screening: ScreeningStage.UnderAssessment,
+          screening: AssessmentPage.screeningStageMap.get(
+            ScreeningStage.UnderAssessment,
+          )?.source,
           assessment: nextStepTitle,
           appStatus: ApplicationStatus.ToAssess,
           facingStatus: CandidateStatus.UnderAssessment,
@@ -416,7 +416,6 @@ test.describe("Candidate Table Validation", () => {
         adminCtx,
         candidates[2].user!.firstName!,
         {
-          screening: ScreeningStage.NewApplication,
           appStatus: ApplicationStatus.Qualified,
           facingStatus: "Qualified in process",
         },
@@ -449,7 +448,6 @@ test.describe("Candidate Table Validation", () => {
         adminCtx,
         candidates[4].user!.firstName!,
         {
-          screening: ScreeningStage.NewApplication,
           appStatus: ApplicationStatus.Removed,
           facingStatus: "Unresponsive",
         },

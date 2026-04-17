@@ -212,18 +212,10 @@ class GenericTableValidationFixture extends AppPage {
   }
 
   async clearAllFilters() {
-    await this.locators[FIELD.CLEAR_FILTERS]
-      .first()
-      .isVisible()
-      .then(async (isVisible) => {
-        if (isVisible) {
-          const clearButtons = this.locators[FIELD.CLEAR_FILTERS];
-          const count = await clearButtons.count();
-          for (let i = 0; i < count; ++i) {
-            await clearButtons.nth(i).click();
-          }
-        }
-      });
+    const clearButtons = this.locators[FIELD.CLEAR_FILTERS];
+    while (await clearButtons.first().isVisible()) {
+      await clearButtons.first().click();
+    }
   }
 
   async filterCandidateByApplicationFilters(
