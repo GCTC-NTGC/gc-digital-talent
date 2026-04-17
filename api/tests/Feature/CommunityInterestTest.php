@@ -70,6 +70,15 @@ class CommunityInterestTest extends TestCase
         }
     GRAPHQL;
 
+    protected $updateMutation = <<<'GRAPHQL'
+        mutation updateCommunityInterestWithDevelopmentPrograms($communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!) {
+            updateCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: $communityInterestWithDevelopmentPrograms) {
+                id
+                additionalInformation
+            }
+        }
+    GRAPHQL;
+
     protected $paginatedCommunityInterestsQuery =
         /** @lang GraphQL */
         '
@@ -220,23 +229,19 @@ class CommunityInterestTest extends TestCase
         $communityInterestId = $this->applicant->employeeProfile->communityInterests[0]?->id;
 
         $this->actingAs($this->applicant, 'api')
-            ->graphQL(<<<'GRAPHQL'
-                mutation UpdateCommunityInterest($communityInterest: UpdateCommunityInterestInput!) {
-                    updateCommunityInterest(communityInterest: $communityInterest) {
-                        id
-                        additionalInformation
-                    }
-                }
-                GRAPHQL, [
-                'communityInterest' => [
-                    'id' => $communityInterestId,
-                    'additionalInformation' => 'new info',
-                    'consentToShareProfile' => true,
-                ],
-            ])
+            ->graphQL($this->updateMutation,
+                [
+                    'communityInterestWithDevelopmentPrograms' => [
+                        'id' => $communityInterestId,
+                        'communityInterest' => [
+                            'additionalInformation' => 'new info',
+                            'consentToShareProfile' => true,
+                        ],
+                    ],
+                ])
             ->assertJson([
                 'data' => [
-                    'updateCommunityInterest' => [
+                    'updateCommunityInterestWithDevelopmentPrograms' => [
                         'id' => $communityInterestId,
                         'additionalInformation' => 'new info',
                     ],
