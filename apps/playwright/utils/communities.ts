@@ -81,10 +81,10 @@ export const createCommunity: GraphQLRequestFunc<
 
 const Test_CreateCommunityInterestMutation = /* GraphQL */ `
   mutation Test_CreateCommunityInterest(
-    $input: CreateCommunityInterestWithDevelopmentProgramsInput!
+    $communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!
   ) {
     createCommunityInterestWithDevelopmentPrograms(
-      communityInterestWithDevelopmentPrograms: $input
+      communityInterestWithDevelopmentPrograms: $communityInterestWithDevelopmentPrograms
     ) {
       id
     }
@@ -94,7 +94,7 @@ const Test_CreateCommunityInterestMutation = /* GraphQL */ `
 export const createCommunityInterest: GraphQLRequestFunc<
   CommunityInterest,
   CreateCommunityInterestWithDevelopmentProgramsInput
-> = async (ctx, communityInterest) => {
+> = async (ctx, communityInterestWithDevelopmentPrograms) => {
   return await ctx
     .post<
       GraphQLResponse<
@@ -103,7 +103,7 @@ export const createCommunityInterest: GraphQLRequestFunc<
       >
     >(Test_CreateCommunityInterestMutation, {
       isPrivileged: false,
-      variables: { communityInterest },
+      variables: { communityInterestWithDevelopmentPrograms },
     })
     .then((res) => res.createCommunityInterestWithDevelopmentPrograms);
 };
