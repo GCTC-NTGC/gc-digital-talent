@@ -919,6 +919,10 @@
     "defaultMessage": "Soumis",
     "description": "Item's state is submitted"
   },
+  "VpjQL1": {
+    "defaultMessage": "Confirmation des membres du personnel",
+    "description": "Label for status of employee verification"
+  },
   "VqrVpT": {
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
     "description": "Error message that the given email address is already in use when updating."

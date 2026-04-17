@@ -131,8 +131,7 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
               id
               name
               displayName {
-                en
-                fr
+                localized
               }
             }
           }
