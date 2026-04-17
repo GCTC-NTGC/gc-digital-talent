@@ -2215,7 +2215,7 @@ input CreateCommunityInterestWithDevelopmentProgramsInput @validator {
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
-input UpdateCommunityInterestWithDevelopmentProgramsInput {
+input UpdateCommunityInterestWithDevelopmentProgramsInput @validator {
   id: UUID!
   communityInterest: UpdateCommunityInterestInput!
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
