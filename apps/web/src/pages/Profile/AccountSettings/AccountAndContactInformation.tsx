@@ -23,7 +23,8 @@ const AccountAndContactInformation = ({
   query,
 }: AccountAndContactInformationProps) => {
   const intl = useIntl();
-  const manageAccountUri = getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI");
+  const manageAccountUri =
+    getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI") ?? "#";
 
   const data = getFragment(AccountAndContactInformation_Fragment, query);
 
@@ -51,37 +52,29 @@ const AccountAndContactInformation = ({
             description: "Description for the account and information section",
           },
           {
-            a: (chunks: ReactNode) => {
-              return manageAccountUri ? (
-                <Link href={manageAccountUri} color="black">
-                  {chunks}
-                </Link>
-              ) : (
-                <span>{chunks}</span>
-              );
-            },
+            a: (chunks: ReactNode) => (
+              <Link href={manageAccountUri} color="black">
+                {chunks}
+              </Link>
+            ),
           },
         )}
       </div>
       <div className="mb-9">
         <PersonalInfoBox query={data} />
       </div>
-      {manageAccountUri ? (
-        <>
-          <div className="-x-6 sm:-mx-9" /*Match card padding*/>
-            <Separator space="none" orientation="horizontal" decorative />
-          </div>
-          <div className="mt-6">
-            <Link href={manageAccountUri} external newTab className="font-bold">
-              {intl.formatMessage({
-                defaultMessage: "Update CanadaLogin information",
-                id: "vdPlPP",
-                description: "Link to update your CanadaLogin information",
-              })}
-            </Link>
-          </div>
-        </>
-      ) : null}
+      <div className="-x-6 sm:-mx-9" /*Match card padding*/>
+        <Separator space="none" orientation="horizontal" decorative />
+      </div>
+      <div className="mt-6">
+        <Link href={manageAccountUri} external newTab className="font-bold">
+          {intl.formatMessage({
+            defaultMessage: "Update CanadaLogin information",
+            id: "vdPlPP",
+            description: "Link to update your CanadaLogin information",
+          })}
+        </Link>
+      </div>
     </Card>
   );
 };
