@@ -119,10 +119,6 @@
     "defaultMessage": "Correspondance des compétences",
     "description": "Heading displayed on the candidate skill match dialog."
   },
-  "+RDFZH": {
-    "defaultMessage": "Gérez vos renseignements professionnels au sein du gouvernement, y compris vos préférences en matière de développement de carrière et vos modes de travail.",
-    "description": "Description of the employee profile page"
-  },
   "+SbEuu": {
     "defaultMessage": "Ajouter {name} à vos signets.",
     "description": "Bookmarking button label for an object"
@@ -1010,6 +1006,10 @@
   "1yrLje": {
     "defaultMessage": "Avant de supprimer ces renseignements, assurez-vous d'avoir ajouté vos processus de recrutement hors plateforme en utilisant le nouveau bouton « Ajouter un processus hors plateforme » sur votre tableau de bord.",
     "description": "Explanation of delete old off platform processes dialog part 1"
+  },
+  "1zsfA7": {
+    "defaultMessage": "Confirmation de l'adresse courriel professionnelle",
+    "description": "Label for gov of canada work email verification"
   },
   "2/S+Ro": {
     "defaultMessage": "Confirmer votre adresse courriel",
@@ -3359,6 +3359,10 @@
     "defaultMessage": "Postes en français uniquement",
     "description": "Message for the french positions option"
   },
+  "BeCVcA": {
+    "defaultMessage": "Joindre une collectivité",
+    "description": "Link to add a community interest"
+  },
   "BfrCXV": {
     "defaultMessage": "Attendez-vous à passer environ 20 minutes à configurer la CléGC et l’application d’authentification.",
     "description": "A _what to expect_ point on the sign up page"
@@ -3502,6 +3506,10 @@
   "CR/mkO": {
     "defaultMessage": "Les quatre groupes visés par l'équité en matière d'emploi sont les femmes, les Autochtones, les personnes en situation de handicap et les membres des minorités visibles.",
     "description": "Second paragraph for employment equity information."
+  },
+  "CTk374": {
+    "defaultMessage": "Aucune adresse courriel professionnelle du gouvernement du Canada n'a été fournie.",
+    "description": "Error message when work email is null."
   },
   "CTl5IT": {
     "defaultMessage": "Modifier notes",
@@ -5191,6 +5199,10 @@
     "defaultMessage": "Passez en revue les <link>rôles et les autorisations</link> pour comprendre ce que chaque rôle peut ou ne peut pas faire.",
     "description": "Help text to direct users to more information on roles and permissions"
   },
+  "JqCgiW": {
+    "defaultMessage": "Aucune expérience de travail actuelle au gouvernement du Canada n'a été fournie.",
+    "description": "Error message when user has no current government experience."
+  },
   "Jqt2vB": {
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
     "description": "Label for a process' closing date in pacific timezone"
@@ -5567,6 +5579,10 @@
     "defaultMessage": "À propos de nous",
     "description": "Title for about us section on a pool advertisement."
   },
+  "LUh/KI": {
+    "defaultMessage": "Mettre à jour l'expérience de travail",
+    "description": "Link to edit the users current government experience"
+  },
   "LVQu1R": {
     "defaultMessage": "Processus supprimé avec succès!",
     "description": "Message displayed to user after pool is deleted"
@@ -5610,10 +5626,6 @@
   "LjYzkS": {
     "defaultMessage": "Postulez le ou avant le {closingDate}",
     "description": "Message to apply to the pool before deadline"
-  },
-  "Ljv0T9": {
-    "defaultMessage": "Pas une employée ou un employé vérifié",
-    "description": "Error message for unauthorized employee access"
   },
   "LlE+CS": {
     "defaultMessage": "Note spéciale",
@@ -6090,6 +6102,10 @@
   "NngAJq": {
     "defaultMessage": "Erreur : impossible de mettre à jour le signet du candidat.",
     "description": "Alert displayed to the user when failing to (un-)bookmark a candidate"
+  },
+  "NxIPbD": {
+    "defaultMessage": "Gérer les collectivités",
+    "description": "Link to manage the users community interests"
   },
   "Ny56Y7": {
     "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
@@ -7095,6 +7111,10 @@
     "defaultMessage": "Veuillez indiquer votre rôle pour continuer.",
     "description": "Message displayed when submitter has not selected their role in a nomination"
   },
+  "S6fUdZ": {
+    "defaultMessage": "Gérer vos renseignements, y compris la confirmation de votre statut et vos préférences en matière de perfectionnement de carrière,",
+    "description": "Description of the employee profile page"
+  },
   "S6x9Sg": {
     "defaultMessage": "Catégorie",
     "description": "Title for category"
@@ -7323,6 +7343,10 @@
     "defaultMessage": "Non retenue",
     "description": "Message displayed when candidate has not passed an assessment step"
   },
+  "TIuM+L": {
+    "defaultMessage": "Si vous travaillez actuellement au gouvernement du Canada, confirmez votre adresse courriel professionnelle et assurez-vous que votre expérience de travail est à jour afin d'accéder aux outils destinés au personnel.",
+    "description": "Notice description on sections for employee profile page when not a verified employee."
+  },
   "TK0b6n": {
     "defaultMessage": "Vous pouvez vous server du bouton « Lier une expérience » qui sert à mettre cette compétence en évidence.",
     "description": "Instructions displayed when user has experiences but hasn't featured any."
@@ -7474,6 +7498,10 @@
   "U0MY+6": {
     "defaultMessage": "À quoi vous attendre après avoir soumis votre demande",
     "description": "Title for the what to expect section"
+  },
+  "U56T9c": {
+    "defaultMessage": "Non vérifiée",
+    "description": "The email address has not been verified to be owned by user"
   },
   "U5plJQ": {
     "defaultMessage": "L’employé n’a fourni aucun renseignement sur le prochain poste qu’il aimerait occuper.",
@@ -7666,6 +7694,10 @@
     "defaultMessage": "Protection des renseignements personnels",
     "description": "Heading for comments and interaction section"
   },
+  "V2ML6q": {
+    "defaultMessage": "Profil d'employé(e) du GC",
+    "description": "Page title for a user's GC employee profile"
+  },
   "V3phA5": {
     "defaultMessage": "Si vous n’êtes pas satisfait de notre réponse à votre plainte, veuillez contacter la CCDP :",
     "description": "Description of what to do if users are not content with complaint response"
@@ -7833,10 +7865,6 @@
   "VotRI3": {
     "defaultMessage": "Toute personne ayant la citoyenneté canadienne",
     "description": "Canadian citizen only application criteria"
-  },
-  "VpjQL1": {
-    "defaultMessage": "Confirmation des membres du personnel",
-    "description": "Label for status of employee verification"
   },
   "VrLfLw": {
     "defaultMessage": "Courriel du (de la) conseiller(-ère) en RH",
@@ -9062,6 +9090,10 @@
     "defaultMessage": "Classification de l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's classification"
   },
+  "b9aCAt": {
+    "defaultMessage": "Expérience de travail actuelle",
+    "description": "Title for current experience part of employee verification "
+  },
   "b9gGFH": {
     "defaultMessage": "Nous traitons les billets pendant les heures normales de travail. Si vous signalez un problème tard le soir, juste avant la date limite d’une annonce d’emploi, attendez vous à une réponse dans les deux jours ouvrables. Pour éviter les problèmes de dernière minute, nous vous encourageons à soumettre votre demande le plus tôt possible.",
     "description": "Text explaining the average time spent on applications"
@@ -9381,10 +9413,6 @@
   "cU+2HB": {
     "defaultMessage": "La plateforme recueille des données aux fins de planification de l’effectif : ces données font ressortir les compétences en demande, les lacunes dans les équipes et les emplois auxquels les gens postulent. Elles aident en outre les RH et la direction à faire en sorte que l’embauche, la formation et le perfectionnement correspondent aux futures priorités numériques.",
     "description": "Description of analytics and planning for HR professionals"
-  },
-  "cUSI4/": {
-    "defaultMessage": "Votre profil d'employée ou d'employé du GC",
-    "description": "Page title for a user's GC employee profile"
   },
   "cXszfI": {
     "defaultMessage": "Sélectionnez l’option qui représente le mieux votre raison pour soumettre la présente demande de talent",
@@ -10505,6 +10533,10 @@
   "giUfys": {
     "defaultMessage": "Expérience professionnelle",
     "description": "Title for work experience section"
+  },
+  "gikOBE": {
+    "defaultMessage": "Confirmez votre adresse courriel professionnelle du gouvernement du Canada et mettez à jour votre expérience de travail avec votre rôle actuel afin d’accéder à des outils utiles de gestion de carrière et aux paramètres du profil.",
+    "description": "Lead-in text explaining employee verification"
   },
   "gj0bQO": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
@@ -12310,6 +12342,10 @@
     "defaultMessage": "Voir les définitions pour « {skillName} » et « {skillLevel} »",
     "description": "Accordion title for skill and skill level header on screening decision dialog."
   },
+  "o7j1Gc": {
+    "defaultMessage": "Vous n'avez rejoint aucune collectivité fonctionnelle.",
+    "description": "Label for when user has not expressed interest in any communities"
+  },
   "oCFoWU": {
     "defaultMessage": "Informations sur la compétence",
     "description": "Heading for the 'create a skill' form"
@@ -13093,6 +13129,10 @@
   "rTBi+P": {
     "defaultMessage": "Créer une possibilité de formation",
     "description": "Page title for the training opportunity creation page (infinitive in French)"
+  },
+  "rTu/kK": {
+    "defaultMessage": "Confirmez votre courriel et ajoutez votre expérience de travail au GC pour pouvoir rejoindre une collectivité fonctionnelle.",
+    "description": "Message displayed for community interests when the user is not a verified employee"
   },
   "rUNQVc": {
     "defaultMessage": "Utilisez le bouton « Ajouter un rôle lié à un ministère » pour commencer.",
@@ -14397,6 +14437,10 @@
   "xHAPBe": {
     "defaultMessage": "Félicitations! Vous faites maintenant partie de ce processus de recrutement! On communiquera avec vous pour vous informer des possibilités d'emploi. Vous pouvez modifier votre disponibilité si vous avez débuté récemment un nouvel emploi ou souhaitez ne plus recevoir de possibilités d'emploi. <strong>Vous pouvez modifier votre choix à tout moment si vous changez d'idée.</strong>.",
     "description": "Message congratulating the applicant into the recruitment process."
+  },
+  "xHQdue": {
+    "defaultMessage": "Cet outil est réservé au personnel du gouvernement du Canada.",
+    "description": "Notice title on sections for employee profile page when not a verified employee."
   },
   "xIniPc": {
     "defaultMessage": "Critères de compétences essentielles",
