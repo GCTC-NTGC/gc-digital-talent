@@ -21,7 +21,6 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
 import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
-import type { CommunityInterestUsersDevelopmentProgramRecords_Fragment } from "~/components/CommunityInterest/CommunityInterest";
 
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 
@@ -91,15 +90,11 @@ export const CareerDevelopmentTaskCardOptions_Fragment = graphql(/* GraphQL */ `
 interface CareerDevelopmentTaskCardProps {
   userQuery: FragmentType<typeof CareerDevelopmentTaskCardUser_Fragment>;
   optionsQuery: FragmentType<typeof CareerDevelopmentTaskCardOptions_Fragment>;
-  usersDevelopmentProgramRecordsQuery: FragmentType<
-    typeof CommunityInterestUsersDevelopmentProgramRecords_Fragment
-  >;
 }
 
 const CareerDevelopmentTaskCard = ({
   userQuery,
   optionsQuery,
-  usersDevelopmentProgramRecordsQuery,
 }: CareerDevelopmentTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -417,9 +412,6 @@ const CareerDevelopmentTaskCard = ({
                               }
                               functionalCommunityListItemOptionsQuery={
                                 optionsFragment
-                              }
-                              usersDevelopmentProgramRecordsQuery={
-                                usersDevelopmentProgramRecordsQuery
                               }
                               headingAs="h4"
                             />

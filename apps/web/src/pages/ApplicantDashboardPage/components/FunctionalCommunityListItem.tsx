@@ -7,7 +7,6 @@ import { PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import CommunityInterestDialog from "~/components/CommunityInterestDialog/CommunityInterestDialog";
-import type { CommunityInterestUsersDevelopmentProgramRecords_Fragment } from "~/components/CommunityInterest/CommunityInterest";
 
 import { MetaDataJobInterest, MetaDataTrainingInterest } from "./iconElements";
 
@@ -45,16 +44,12 @@ interface FunctionalCommunityListItemProps {
   functionalCommunityListItemOptionsQuery: FragmentType<
     typeof PreviewListItemFunctionalCommunityOptions_Fragment
   >;
-  usersDevelopmentProgramRecordsQuery: FragmentType<
-    typeof CommunityInterestUsersDevelopmentProgramRecords_Fragment
-  >;
 }
 
 const FunctionalCommunityListItem = ({
   headingAs,
   functionalCommunityListItemQuery,
   functionalCommunityListItemOptionsQuery,
-  usersDevelopmentProgramRecordsQuery,
 }: FunctionalCommunityListItemProps) => {
   const intl = useIntl();
 
@@ -119,9 +114,6 @@ const FunctionalCommunityListItem = ({
             communityInterestQuery={functionalCommunityListItemFragment}
             communityInterestOptionsQuery={
               functionalCommunityListItemOptionsFragment
-            }
-            usersDevelopmentProgramRecordsQuery={
-              usersDevelopmentProgramRecordsQuery
             }
             trigger={<PreviewList.Button label={buttonLabel} />}
           />

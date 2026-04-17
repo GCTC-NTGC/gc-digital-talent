@@ -16,6 +16,15 @@ import DevelopmentProgramInterestItem from "./DevelopmentProgramInterestItem";
 export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterest on CommunityInterest {
     id
+    user {
+      developmentProgramUserRecords {
+        id
+        developmentProgram {
+          id
+        }
+        ...CommunityInterestDevelopmentProgramUser
+      }
+    }
     community {
       id
       key
@@ -69,29 +78,10 @@ export const CommunityInterestOptions_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const CommunityInterestUsersDevelopmentProgramRecords_Fragment = graphql(
-  /* GraphQL */ `
-    fragment CommunityInterestUsersDevelopmentProgramRecords on Query {
-      me {
-        developmentProgramUserRecords {
-          id
-          developmentProgram {
-            id
-          }
-          ...CommunityInterestDevelopmentProgramUser
-        }
-      }
-    }
-  `,
-);
-
 interface CommunityInterestProps {
   communityInterestQuery: FragmentType<typeof CommunityInterest_Fragment>;
   communityInterestOptionsQuery: FragmentType<
     typeof CommunityInterestOptions_Fragment
-  >;
-  usersDevelopmentProgramRecordsQuery: FragmentType<
-    typeof CommunityInterestUsersDevelopmentProgramRecords_Fragment
   >;
   context?: "admin" | "applicant";
 }
@@ -99,7 +89,6 @@ interface CommunityInterestProps {
 const CommunityInterest = ({
   communityInterestQuery,
   communityInterestOptionsQuery,
-  usersDevelopmentProgramRecordsQuery,
   context = "applicant",
 }: CommunityInterestProps) => {
   const intl = useIntl();
@@ -122,9 +111,8 @@ const CommunityInterest = ({
     communityInterest?.workStreams,
   ).flatMap((workStream) => workStream.id);
 
-  const usersDevelopmentProgramRecords = getFragment(
-    CommunityInterestUsersDevelopmentProgramRecords_Fragment,
-    usersDevelopmentProgramRecordsQuery,
+  const usersDevelopmentProgramRecords = unpackMaybes(
+    communityInterest.user?.developmentProgramUserRecords,
   );
 
   const asterisk =
@@ -265,11 +253,10 @@ const CommunityInterest = ({
                 ),
               )
               .map((developmentProgram) => {
-                const interestedProgram =
-                  usersDevelopmentProgramRecords.me?.developmentProgramUserRecords?.find(
-                    (record) =>
-                      record?.developmentProgram.id === developmentProgram.id,
-                  );
+                const interestedProgram = usersDevelopmentProgramRecords.find(
+                  (record) =>
+                    record?.developmentProgram.id === developmentProgram.id,
+                );
 
                 return (
                   <DevelopmentProgramInterestItem

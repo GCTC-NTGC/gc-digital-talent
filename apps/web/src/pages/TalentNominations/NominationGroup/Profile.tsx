@@ -42,7 +42,6 @@ const Nominee_Query = graphql(/* GraphQL */ `
     ...BasicInformationOptions
     ...CommunitySpecificInfoOptions
     ...TalentManagementPreferencesOptions
-    ...CommunityInterestUsersDevelopmentProgramRecords
   }
 `);
 
@@ -164,7 +163,6 @@ const TalentNominationGroupProfile = ({
             sectionKey={SECTION_KEY.COMMUNITY}
             communitySpecificInfoQuery={data.user.employeeProfile}
             communitySpecificInfoOptionsQuery={data}
-            usersDevelopmentProgramRecordsQuery={data}
             communityId={communityId}
           />
           <TalentManagementPreferences

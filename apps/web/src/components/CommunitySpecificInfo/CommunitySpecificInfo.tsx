@@ -6,7 +6,6 @@ import { Accordion, ThrowNotFound } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import type { CommunityInterestUsersDevelopmentProgramRecords_Fragment } from "../CommunityInterest/CommunityInterest";
 import CommunityInterest from "../CommunityInterest/CommunityInterest";
 
 const CommunitySpecificInfo_Fragment = graphql(/* GraphQL */ `
@@ -36,9 +35,6 @@ interface CommunitySpecificInfoProps {
   communitySpecificInfoOptionsQuery: FragmentType<
     typeof CommunitySpecificInfoOptions_Fragment
   >;
-  usersDevelopmentProgramRecordsQuery: FragmentType<
-    typeof CommunityInterestUsersDevelopmentProgramRecords_Fragment
-  >;
   sectionKey: string;
   communityId: string;
 }
@@ -46,7 +42,6 @@ interface CommunitySpecificInfoProps {
 const CommunitySpecificInfo = ({
   communitySpecificInfoQuery,
   communitySpecificInfoOptionsQuery,
-  usersDevelopmentProgramRecordsQuery,
   sectionKey,
   communityId,
 }: CommunitySpecificInfoProps) => {
@@ -101,9 +96,6 @@ const CommunitySpecificInfo = ({
           <CommunityInterest
             communityInterestQuery={communityInterest}
             communityInterestOptionsQuery={communitySpecificInfoOptions}
-            usersDevelopmentProgramRecordsQuery={
-              usersDevelopmentProgramRecordsQuery
-            }
             context="admin"
           />
         </Accordion.Content>

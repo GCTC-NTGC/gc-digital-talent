@@ -21,10 +21,7 @@ import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import type {
-  CommunityInterestOptions_Fragment,
-  CommunityInterestUsersDevelopmentProgramRecords_Fragment,
-} from "~/components/CommunityInterest/CommunityInterest";
+import type { CommunityInterestOptions_Fragment } from "~/components/CommunityInterest/CommunityInterest";
 import CommunityInterest from "~/components/CommunityInterest/CommunityInterest";
 import type { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
 
@@ -69,9 +66,6 @@ interface UserEmployeeInformationProps {
     typeof CareerDevelopmentOptions_Fragment
   >;
   userQuery: FragmentType<typeof NextRoleAndCareerObjective_Fragment>;
-  usersDevelopmentProgramRecordsQuery: FragmentType<
-    typeof CommunityInterestUsersDevelopmentProgramRecords_Fragment
-  >;
 }
 
 export const UserEmployeeInformation = ({
@@ -80,7 +74,6 @@ export const UserEmployeeInformation = ({
   careerDevelopmentOptionsQuery,
   communityInterestOptionsQuery,
   userQuery,
-  usersDevelopmentProgramRecordsQuery,
 }: UserEmployeeInformationProps) => {
   const intl = useIntl();
 
@@ -182,9 +175,6 @@ export const UserEmployeeInformation = ({
                           communityInterestQuery={communityInterest}
                           communityInterestOptionsQuery={
                             communityInterestOptionsQuery
-                          }
-                          usersDevelopmentProgramRecordsQuery={
-                            usersDevelopmentProgramRecordsQuery
                           }
                         />
                       </Accordion.Content>
@@ -348,7 +338,6 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
     }
     ...CareerDevelopmentOptions
     ...CommunityInterestOptions
-    ...CommunityInterestUsersDevelopmentProgramRecords
   }
 `);
 
@@ -375,7 +364,6 @@ const UserEmployeeInformationPage = () => {
             userQuery={data.user}
             careerDevelopmentOptionsQuery={data}
             communityInterestOptionsQuery={data}
-            usersDevelopmentProgramRecordsQuery={data}
           />
         ) : (
           <ThrowNotFound />
