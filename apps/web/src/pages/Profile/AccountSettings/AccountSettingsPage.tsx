@@ -28,7 +28,7 @@ import messages from "~/messages/profileMessages";
 import NotificationSettings from "./NotificationSettings";
 import AccountAndContactInformation from "./AccountAndContactInformation";
 
-const PersonalInformation_Fragment = graphql(/** GraphQL */ `
+export const PersonalInformation_Fragment = graphql(/** GraphQL */ `
   fragment PersonalInformation on User {
     id
     enabledEmailNotifications
@@ -62,7 +62,9 @@ interface AccountSettingsProps {
   personalInfoQuery: FragmentType<typeof PersonalInformation_Fragment>;
 }
 
-const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
+export const AccountSettings = ({
+  personalInfoQuery,
+}: AccountSettingsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
