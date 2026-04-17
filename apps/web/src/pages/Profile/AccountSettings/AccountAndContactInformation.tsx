@@ -4,9 +4,9 @@ import type { ReactNode } from "react";
 
 import {
   Card,
-  CardSeparator,
   Link,
   Notice,
+  Separator,
   TableOfContents,
 } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -115,7 +115,9 @@ const AccountAndContactInformation = ({
       </Notice.Root>
       {manageAccountUri ? (
         <>
-          <CardSeparator space="lg" orientation="horizontal" className="my-0" />
+          <div className="-x-6 sm:-mx-9" /*Match card padding*/>
+            <Separator space="none" orientation="horizontal" decorative />
+          </div>
           <div className="mt-6">
             <Link href={manageAccountUri} external newTab className="font-bold">
               {intl.formatMessage({
