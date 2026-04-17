@@ -38,12 +38,6 @@ export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
     workStreams {
       id
     }
-    interestInDevelopmentPrograms {
-      developmentProgram {
-        id
-      }
-      ...CommunityInterestDevelopmentProgramInterest
-    }
     jobInterest
     trainingInterest
     additionalInformation
@@ -74,10 +68,30 @@ export const CommunityInterestOptions_Fragment = graphql(/* GraphQL */ `
     }
   }
 `);
+
+export const CommunityInterestUsersDevelopmentProgramRecords_Fragment = graphql(
+  /* GraphQL */ `
+    fragment CommunityInterestUsersDevelopmentProgramRecords on Query {
+      me {
+        developmentProgramUserRecords {
+          id
+          developmentProgram {
+            id
+          }
+          ...CommunityInterestDevelopmentProgramUser
+        }
+      }
+    }
+  `,
+);
+
 interface CommunityInterestProps {
   communityInterestQuery: FragmentType<typeof CommunityInterest_Fragment>;
   communityInterestOptionsQuery: FragmentType<
     typeof CommunityInterestOptions_Fragment
+  >;
+  usersDevelopmentProgramRecordsQuery: FragmentType<
+    typeof CommunityInterestUsersDevelopmentProgramRecords_Fragment
   >;
   context?: "admin" | "applicant";
 }
@@ -85,6 +99,7 @@ interface CommunityInterestProps {
 const CommunityInterest = ({
   communityInterestQuery,
   communityInterestOptionsQuery,
+  usersDevelopmentProgramRecordsQuery,
   context = "applicant",
 }: CommunityInterestProps) => {
   const intl = useIntl();
@@ -106,6 +121,11 @@ const CommunityInterest = ({
   const interestedWorkStreams = unpackMaybes(
     communityInterest?.workStreams,
   ).flatMap((workStream) => workStream.id);
+
+  const usersDevelopmentProgramRecords = getFragment(
+    CommunityInterestUsersDevelopmentProgramRecords_Fragment,
+    usersDevelopmentProgramRecordsQuery,
+  );
 
   const asterisk =
     context === "applicant"
@@ -246,16 +266,17 @@ const CommunityInterest = ({
               )
               .map((developmentProgram) => {
                 const interestedProgram =
-                  communityInterest?.interestInDevelopmentPrograms?.find(
-                    (interest) =>
-                      interest?.developmentProgram?.id ===
-                      developmentProgram.id,
+                  usersDevelopmentProgramRecords.me?.developmentProgramUserRecords?.find(
+                    (record) =>
+                      record?.developmentProgram.id === developmentProgram.id,
                   );
 
                 return (
                   <DevelopmentProgramInterestItem
                     key={developmentProgram.id}
-                    developmentProgramInterestQuery={interestedProgram}
+                    developmentProgramInterestQuery={
+                      interestedProgram ?? undefined
+                    }
                     label={developmentProgram?.name?.localized ?? notAvailable}
                   />
                 );

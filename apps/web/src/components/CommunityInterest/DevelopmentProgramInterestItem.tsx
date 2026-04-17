@@ -151,7 +151,7 @@ const devProgram = tv({
 });
 
 const CommunityInterestDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
-  fragment CommunityInterestDevelopmentProgramInterest on DevelopmentProgramInterest {
+  fragment CommunityInterestDevelopmentProgramUser on DevelopmentProgramUser {
     participationStatus
     completionDate
   }

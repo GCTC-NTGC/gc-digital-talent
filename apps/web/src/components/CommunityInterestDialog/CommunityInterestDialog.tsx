@@ -9,7 +9,10 @@ import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
-import type { CommunityInterestOptions_Fragment } from "../CommunityInterest/CommunityInterest";
+import type {
+  CommunityInterestOptions_Fragment,
+  CommunityInterestUsersDevelopmentProgramRecords_Fragment,
+} from "../CommunityInterest/CommunityInterest";
 import CommunityInterest from "../CommunityInterest/CommunityInterest";
 
 const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `
@@ -29,6 +32,9 @@ interface CommunityInterestDialogProps {
   communityInterestOptionsQuery: FragmentType<
     typeof CommunityInterestOptions_Fragment
   >;
+  usersDevelopmentProgramRecordsQuery: FragmentType<
+    typeof CommunityInterestUsersDevelopmentProgramRecords_Fragment
+  >;
   trigger?: ReactNode;
   defaultOpen?: boolean;
 }
@@ -36,6 +42,7 @@ interface CommunityInterestDialogProps {
 const CommunityInterestDialog = ({
   communityInterestQuery,
   communityInterestOptionsQuery,
+  usersDevelopmentProgramRecordsQuery,
   trigger,
   defaultOpen = false,
 }: CommunityInterestDialogProps) => {
@@ -66,6 +73,9 @@ const CommunityInterestDialog = ({
           <CommunityInterest
             communityInterestQuery={communityInterest}
             communityInterestOptionsQuery={communityInterestOptionsQuery}
+            usersDevelopmentProgramRecordsQuery={
+              usersDevelopmentProgramRecordsQuery
+            }
           />
           <Dialog.Footer>
             <Link

@@ -11,7 +11,10 @@ import {
   Button,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type { ApplicantDashboardQuery } from "@gc-digital-talent/graphql";
+import type {
+  ApplicantDashboardQuery,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { NotFoundError } from "@gc-digital-talent/helpers";
@@ -33,6 +36,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import type { CommunityInterestUsersDevelopmentProgramRecords_Fragment } from "~/components/CommunityInterest/CommunityInterest";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
@@ -192,10 +196,14 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
 
 interface DashboardPageProps {
   applicantDashboardQuery: ApplicantDashboardQuery;
+  usersDevelopmentProgramRecordsQuery: FragmentType<
+    typeof CommunityInterestUsersDevelopmentProgramRecords_Fragment
+  >;
 }
 
 export const DashboardPage = ({
   applicantDashboardQuery,
+  usersDevelopmentProgramRecordsQuery,
 }: DashboardPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -318,6 +326,9 @@ export const DashboardPage = ({
                 <CareerDevelopmentTaskCard
                   userQuery={currentUser}
                   optionsQuery={applicantDashboardQuery}
+                  usersDevelopmentProgramRecordsQuery={
+                    usersDevelopmentProgramRecordsQuery
+                  }
                 />
               ) : null}
               {displayTalentManagementTaskCard ? (
@@ -573,6 +584,7 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
       ...ApplicantDashboardPage
     }
     ...CareerDevelopmentTaskCardOptions
+    ...CommunityInterestUsersDevelopmentProgramRecords
   }
 `);
 
@@ -586,7 +598,10 @@ export const ApplicantDashboardPageApi = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <DashboardPage applicantDashboardQuery={data} />
+        <DashboardPage
+          applicantDashboardQuery={data}
+          usersDevelopmentProgramRecordsQuery={data}
+        />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>{intl.formatMessage(messages.userNotFound)}</p>
