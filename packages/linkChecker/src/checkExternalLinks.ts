@@ -18,6 +18,11 @@ interface LinkStatus {
   status: number | string;
 }
 
+const DEFAULT_TIMEOUT_MS = 30000;
+const MAX_RETRIES = 2;
+const RETRY_BACKOFF_MS = 750;
+const RETRYABLE_HTTP_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504]);
+
 // Use a global variable for currentLinkFile instead of an interface
 declare global {
   var currentLinkFile: string | undefined;
@@ -34,75 +39,137 @@ async function writeErrorLog(msg: string, file?: string, append = true) {
   }
 }
 
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function getErrorCode(err: unknown): string | undefined {
+  if (!err || typeof err !== "object") return undefined;
+  const maybeCode = (err as Record<string, unknown>).code;
+  return typeof maybeCode === "string" ? maybeCode : undefined;
+}
+
+function shouldRetryFromError(err: unknown): boolean {
+  const retryableErrorCodes = new Set([
+    "ECONNRESET",
+    "ECONNREFUSED",
+    "ETIMEDOUT",
+    "ENOTFOUND",
+    "EAI_AGAIN",
+    "UND_ERR_CONNECT_TIMEOUT",
+    "UND_ERR_HEADERS_TIMEOUT",
+    "UND_ERR_BODY_TIMEOUT",
+    "UND_ERR_SOCKET",
+  ]);
+
+  const code = getErrorCode(err);
+  if (code && retryableErrorCodes.has(code)) {
+    return true;
+  }
+
+  if (err instanceof Error) {
+    const message = err.message.toLowerCase();
+    return (
+      message.includes("fetch failed") ||
+      message.includes("networkerror") ||
+      message.includes("socket") ||
+      message.includes("timed out") ||
+      message.includes("timeout")
+    );
+  }
+
+  return false;
+}
+
 async function fetchLink(
   url: string,
-  timeoutMs = 30000,
+  timeoutMs = DEFAULT_TIMEOUT_MS,
 ): Promise<number | string> {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
-  try {
-    const res = await fetch(url, {
-      method: "GET",
-      redirect: "follow",
-      signal: controller.signal,
-      headers: {
-        // Use a generic User-Agent string to avoid frequent updates
-        "User-Agent":
-          "Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)",
-      },
-    });
-    return res.status;
-  } catch (err) {
-    // decode the error and find out if it's a legacy renegotiation error
-    let reason;
-    let fullError = "";
-    let isLegacyRenegotiation = false;
-    if (err instanceof Error) {
-      reason = err.message;
-      fullError = err.stack ?? err.message;
-      // Log all enumerable properties
-      const props = Object.getOwnPropertyNames(err).reduce(
-        (acc: Record<string, unknown>, key) => {
-          acc[key] = (err as unknown as Record<string, unknown>)[key];
-          return acc;
+    try {
+      const res = await fetch(url, {
+        method: "GET",
+        redirect: "follow",
+        signal: controller.signal,
+        headers: {
+          // Use a generic User-Agent string to avoid frequent updates
+          "User-Agent":
+            "Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)",
         },
-        {},
-      );
-      fullError += "\n" + JSON.stringify(props, null, 2);
-      // Check for legacy renegotiation error
-      if (
-        props.cause &&
-        typeof props.cause === "object" &&
-        (props.cause as Record<string, unknown>).code ===
-          "ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED"
-      ) {
-        isLegacyRenegotiation = true;
-      }
-    } else {
-      reason = JSON.stringify(err);
-      fullError = reason;
-    }
-    if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
-      // retry with legacy TLS renegotiation enabled, using .env for all vars
-      const currentLinkFile = global.currentLinkFile ?? "";
-      spawnSync(process.execPath, process.argv.slice(1), {
-        env: {
-          ...process.env,
-          NODE_OPTIONS: "--tls-legacy-renegotiation",
-          _RETRIED_LEGACY_TLS: "1",
-          _RETRY_LINK_URL: url,
-          _RETRY_LINK_FILE: currentLinkFile,
-        },
-        stdio: "inherit",
       });
-      return "retried-with-legacy-tls";
+
+      if (
+        RETRYABLE_HTTP_STATUSES.has(res.status) &&
+        attempt < MAX_RETRIES
+      ) {
+        await sleep(RETRY_BACKOFF_MS * (attempt + 1));
+        continue;
+      }
+
+      return res.status;
+    } catch (err) {
+      // decode the error and find out if it's a legacy renegotiation error
+      let reason;
+      let fullError = "";
+      let isLegacyRenegotiation = false;
+      if (err instanceof Error) {
+        reason = err.message;
+        fullError = err.stack ?? err.message;
+        // Log all enumerable properties
+        const props = Object.getOwnPropertyNames(err).reduce(
+          (acc: Record<string, unknown>, key) => {
+            acc[key] = (err as unknown as Record<string, unknown>)[key];
+            return acc;
+          },
+          {},
+        );
+        fullError += "\n" + JSON.stringify(props, null, 2);
+        // Check for legacy renegotiation error
+        if (
+          props.cause &&
+          typeof props.cause === "object" &&
+          (props.cause as Record<string, unknown>).code ===
+            "ERR_SSL_UNSAFE_LEGACY_RENEGOTIATION_DISABLED"
+        ) {
+          isLegacyRenegotiation = true;
+        }
+      } else {
+        reason = JSON.stringify(err);
+        fullError = reason;
+      }
+
+      if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
+        // retry with legacy TLS renegotiation enabled, using .env for all vars
+        const currentLinkFile = global.currentLinkFile ?? "";
+        spawnSync(process.execPath, process.argv.slice(1), {
+          env: {
+            ...process.env,
+            NODE_OPTIONS: "--tls-legacy-renegotiation",
+            _RETRIED_LEGACY_TLS: "1",
+            _RETRY_LINK_URL: url,
+            _RETRY_LINK_FILE: currentLinkFile,
+          },
+          stdio: "inherit",
+        });
+        return "retried-with-legacy-tls";
+      }
+
+      if (shouldRetryFromError(err) && attempt < MAX_RETRIES) {
+        await sleep(RETRY_BACKOFF_MS * (attempt + 1));
+        continue;
+      }
+
+      await writeErrorLog(`Fetch error for ${url}: ${fullError}`);
+      return reason;
+    } finally {
+      clearTimeout(timeout);
     }
-    await writeErrorLog(`Fetch error for ${url}: ${fullError}`);
-    return reason;
-  } finally {
-    clearTimeout(timeout);
   }
+
+  return "Unknown retry error";
 }
 
 async function getAllFiles(): Promise<string[]> {
