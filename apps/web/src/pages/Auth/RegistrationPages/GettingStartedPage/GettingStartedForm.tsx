@@ -1,19 +1,16 @@
 import { defineMessage, useIntl } from "react-intl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { FormProvider, useForm } from "react-hook-form";
-import type { ReactNode } from "react";
 
-import { Heading, Link, Notice } from "@gc-digital-talent/ui";
+import { Heading } from "@gc-digital-talent/ui";
 import { RadioGroup } from "@gc-digital-talent/forms";
-import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
-import { getRuntimeVariable } from "@gc-digital-talent/env";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
+import PersonalInfoBox from "~/components/PersonalInfoBox/PersonalInfoBox";
 
-import labels from "./labels";
 import BottomHalfNotEmployee from "./components/BottomHalfNotEmployee";
 import BottomHalfEmployeeWithEmail from "./components/BottomHalfEmployeeWithEmail";
 import BottomHalfEmployeeNoEmail from "./components/BottomHalfEmployeeNoEmail";
@@ -26,17 +23,9 @@ export const sectionTitle = defineMessage({
 
 export const GettingStartedInitialValues_Query = graphql(/** GraphQL */ `
   fragment GettingStartedInitialValues on User {
-    firstName
-    lastName
-    preferredLang {
-      label {
-        localized
-      }
-    }
-    email
     workEmail
     isWorkEmailVerified
-    telephone
+    ...PersonalInfoBox
   }
 `);
 
@@ -112,54 +101,12 @@ const GettingStartedForm = ({
           description: "Message after main heading in create account page.",
         })}
       </p>
-      <Notice.Root className="mb-6">
-        <Notice.Title>
-          {getFullNameLabel(
-            initialValues.firstName,
-            initialValues.lastName,
-            intl,
-          )}
-        </Notice.Title>
-        <Notice.Content>
-          {initialValues.email ? (
-            <p>
-              <Link href={`mailto:${initialValues.email}`} color="black">
-                {initialValues.email}
-              </Link>
-            </p>
-          ) : null}
-
-          {initialValues.telephone ? <p>{initialValues.telephone}</p> : null}
-          <p>
-            {intl.formatMessage(labels.preferredLang) +
-              intl.formatMessage(commonMessages.dividingColon) +
-              initialValues.preferredLang?.label.localized}
-          </p>
-        </Notice.Content>
-        <Notice.Footer>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "Does this information look incorrect? You can update it by <a>visiting your profile on CanadaLogin</a>.",
-              id: "hbbeY8",
-              description: "Footer for create account page",
-            },
-            {
-              a: (chunks: ReactNode) => {
-                const uri = getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI");
-                return uri ? (
-                  <Link href={uri} color="black" size="sm">
-                    {chunks}
-                  </Link>
-                ) : (
-                  <span>{chunks}</span>
-                );
-              },
-            },
-          )}
-        </Notice.Footer>
-      </Notice.Root>
-
+      <div className="mb-6">
+        <PersonalInfoBox
+          query={initialValues}
+          footer="does-it-look-incorrect"
+        />
+      </div>
       <div className="mb-6">
         <FormProvider {...formMethods}>
           <form>

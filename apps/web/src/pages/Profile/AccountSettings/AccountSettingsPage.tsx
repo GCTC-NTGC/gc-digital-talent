@@ -156,7 +156,7 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <TableOfContents.Section id={sections.accountAndContact.id}>
-              <AccountAndContactInformation personalInfoQuery={personalInfo} />
+              <AccountAndContactInformation query={personalInfo} />
             </TableOfContents.Section>
             <TableOfContents.Section
               id={sections.notificationSettings.id}

@@ -2,50 +2,30 @@ import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import type { ReactNode } from "react";
 
-import {
-  Card,
-  Link,
-  Notice,
-  Separator,
-  TableOfContents,
-} from "@gc-digital-talent/ui";
+import { Card, Link, Separator, TableOfContents } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 
-import { getFullNameLabel } from "~/utils/nameUtils";
+import PersonalInfoBox from "~/components/PersonalInfoBox/PersonalInfoBox";
 
 const AccountAndContactInformation_Fragment = graphql(/** GraphQL */ `
   fragment AccountAndContactInformation on User {
-    id
-    firstName
-    lastName
-    telephone
-    email
-    preferredLang {
-      value
-      label {
-        localized
-      }
-    }
+    ...PersonalInfoBox
   }
 `);
 
 interface AccountAndContactInformationProps {
-  personalInfoQuery: FragmentType<typeof AccountAndContactInformation_Fragment>;
+  query: FragmentType<typeof AccountAndContactInformation_Fragment>;
 }
 
 const AccountAndContactInformation = ({
-  personalInfoQuery,
+  query,
 }: AccountAndContactInformationProps) => {
   const intl = useIntl();
   const manageAccountUri = getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI");
 
-  const personalInfo = getFragment(
-    AccountAndContactInformation_Fragment,
-    personalInfoQuery,
-  );
+  const data = getFragment(AccountAndContactInformation_Fragment, query);
 
   return (
     <Card space="lg">
@@ -83,36 +63,9 @@ const AccountAndContactInformation = ({
           },
         )}
       </div>
-      <Notice.Root className="mb-9">
-        <Notice.Title>
-          {getFullNameLabel(
-            personalInfo.firstName,
-            personalInfo.lastName,
-            intl,
-          )}
-        </Notice.Title>
-        <Notice.Content>
-          {personalInfo.email ? (
-            <p>
-              <Link href={`mailto:${personalInfo.email}`} color="black">
-                {personalInfo.email}
-              </Link>
-            </p>
-          ) : null}
-
-          {personalInfo.telephone ? <p>{personalInfo.telephone}</p> : null}
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Preferred contact language",
-              id: "AumMAr",
-              description:
-                "Legend text for required language preference in getting started form",
-            }) +
-              intl.formatMessage(commonMessages.dividingColon) +
-              personalInfo.preferredLang?.label.localized}
-          </p>
-        </Notice.Content>
-      </Notice.Root>
+      <div className="mb-9">
+        <PersonalInfoBox query={data} />
+      </div>
       {manageAccountUri ? (
         <>
           <div className="-x-6 sm:-mx-9" /*Match card padding*/>
