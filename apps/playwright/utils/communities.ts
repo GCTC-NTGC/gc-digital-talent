@@ -2,7 +2,7 @@ import type {
   Community,
   CommunityInterest,
   CreateCommunityInput,
-  CreateCommunityInterestInput,
+  CreateCommunityInterestWithDevelopmentProgramsInput,
 } from "@gc-digital-talent/graphql";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
@@ -81,9 +81,11 @@ export const createCommunity: GraphQLRequestFunc<
 
 const Test_CreateCommunityInterestMutation = /* GraphQL */ `
   mutation Test_CreateCommunityInterest(
-    $communityInterest: CreateCommunityInterestInput!
+    $input: CreateCommunityInterestWithDevelopmentProgramsInput!
   ) {
-    createCommunityInterest(communityInterest: $communityInterest) {
+    createCommunityInterestWithDevelopmentPrograms(
+      communityInterestWithDevelopmentPrograms: $input
+    ) {
       id
     }
   }
@@ -91,15 +93,17 @@ const Test_CreateCommunityInterestMutation = /* GraphQL */ `
 
 export const createCommunityInterest: GraphQLRequestFunc<
   CommunityInterest,
-  CreateCommunityInterestInput
+  CreateCommunityInterestWithDevelopmentProgramsInput
 > = async (ctx, communityInterest) => {
   return await ctx
-    .post<GraphQLResponse<"createCommunityInterest", CommunityInterest>>(
-      Test_CreateCommunityInterestMutation,
-      {
-        isPrivileged: false,
-        variables: { communityInterest },
-      },
-    )
-    .then((res) => res.createCommunityInterest);
+    .post<
+      GraphQLResponse<
+        "createCommunityInterestWithDevelopmentPrograms",
+        CommunityInterest
+      >
+    >(Test_CreateCommunityInterestMutation, {
+      isPrivileged: false,
+      variables: { communityInterest },
+    })
+    .then((res) => res.createCommunityInterestWithDevelopmentPrograms);
 };
