@@ -22,27 +22,39 @@ const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
     fragment TrainingAndDevelopmentOpportunitiesOptions_Fragment on Query {
       communities {
         id
-        communityDevelopmentPrograms {
+        associatedDevelopmentPrograms {
           id
-          developmentProgram {
+          name {
+            localized
+          }
+          descriptionForProfile {
+            localized
+          }
+          eligibleClassifications {
             id
-            name {
-              localized
-            }
-            descriptionForProfile {
-              localized
-            }
-            eligibleClassifications {
-              id
-              group
-              level
-            }
+            group
+            level
           }
         }
       }
     }
   `,
 );
+
+const DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment =
+  graphql(/* GraphQL */ `
+    fragment DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment on DevelopmentProgramUser {
+      id
+      developmentProgram {
+        id
+      }
+      educationExperience {
+        id
+      }
+      participationStatus
+      completionDate
+    }
+  `);
 
 export interface SubformValues {
   interestInDevelopmentPrograms:
@@ -55,15 +67,21 @@ export interface SubformValues {
 }
 
 interface TrainingAndDevelopmentOpportunitiesProps {
+  selectedCommunityId: string;
   optionsQuery: FragmentType<
     typeof TrainingAndDevelopmentOpportunitiesOptions_Fragment
   >;
   formDisabled: boolean;
+  developmentProgramUserRecordsQuery: FragmentType<
+    typeof DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment
+  >[];
 }
 
 const TrainingAndDevelopmentOpportunities = ({
+  selectedCommunityId,
   optionsQuery,
   formDisabled,
+  developmentProgramUserRecordsQuery,
 }: TrainingAndDevelopmentOpportunitiesProps) => {
   const intl = useIntl();
   const optionsData = getFragment(
@@ -71,34 +89,50 @@ const TrainingAndDevelopmentOpportunities = ({
     optionsQuery,
   );
 
+  const developmentProgramUserRecords = getFragment(
+    DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment,
+    developmentProgramUserRecordsQuery,
+  );
+  const developmentProgramUserRecordsUnpacked = unpackMaybes(
+    developmentProgramUserRecords,
+  );
+  const arrayOfDefaultValues: {
+    developmentProgramId: string;
+    participationStatus?:
+      | DevelopmentProgramParticipationStatus
+      | null
+      | undefined;
+    completionDate?: string | null | undefined;
+    // add education experience here maybe
+  }[] = developmentProgramUserRecordsUnpacked.map((record) => {
+    return {
+      developmentProgramId: record.developmentProgram.id,
+      participationStatus: record.participationStatus,
+      completionDate: record.completionDate,
+    };
+  });
+
   const { watch, register } = useFormContext<FormValues>();
-  const [selectedCommunityId, selectedInterestInDevelopmentPrograms] = watch([
-    "communityId",
+  const [selectedInterestInDevelopmentPrograms] = watch([
     "interestInDevelopmentPrograms",
   ]);
 
-  const communityDevelopmentPrograms =
+  const developmentPrograms =
     optionsData.communities.find(
       (community) => community?.id === selectedCommunityId,
-    )?.communityDevelopmentPrograms ?? [];
+    )?.associatedDevelopmentPrograms ?? [];
 
   // sort programs
-  communityDevelopmentPrograms.sort(
-    sortAlphaBy(
-      (communityDevelopmentProgram) =>
-        communityDevelopmentProgram.developmentProgram?.name?.localized,
-    ),
+  developmentPrograms.sort(
+    sortAlphaBy((developmentProgram) => developmentProgram.name?.localized),
   );
 
-  communityDevelopmentPrograms.forEach((communityDevelopmentProgram) => {
-    if (
-      communityDevelopmentProgram.developmentProgram.eligibleClassifications
-    ) {
-      communityDevelopmentProgram.developmentProgram.eligibleClassifications.sort(
-        (a, b) =>
-          getClassificationName(a, intl).localeCompare(
-            getClassificationName(b, intl),
-          ),
+  developmentPrograms.forEach((developmentProgram) => {
+    if (developmentProgram.eligibleClassifications) {
+      developmentProgram.eligibleClassifications.sort((a, b) =>
+        getClassificationName(a, intl).localeCompare(
+          getClassificationName(b, intl),
+        ),
       );
     }
   });
@@ -132,138 +166,139 @@ const TrainingAndDevelopmentOpportunities = ({
       </div>
       {/* list of programs */}
       <div className="flex flex-col gap-9">
-        {communityDevelopmentPrograms.map(
-          (communityDevelopmentProgram, index) => (
-            <div
-              key={communityDevelopmentProgram.developmentProgram.id}
-              className="flex flex-col gap-6"
-            >
-              {/* titles */}
-              <div>
-                <Heading level="h3" size="h6" className="m-0 font-bold">
-                  {communityDevelopmentProgram.developmentProgram.name
-                    ?.localized ??
-                    intl.formatMessage(commonMessages.notProvided)}
-                </Heading>
-                <p>
-                  {communityDevelopmentProgram.developmentProgram
-                    .descriptionForProfile?.localized ??
-                    intl.formatMessage(commonMessages.notProvided)}
-                </p>
-              </div>
-              {/* classification list */}
-              {communityDevelopmentProgram.developmentProgram
-                ?.eligibleClassifications?.length ? (
-                <div className="flex gap-1.5">
-                  <span>
-                    {intl.formatMessage({
-                      defaultMessage: "Available to",
-                      id: "nCqQlv",
-                      description: "Title for the classification list",
-                    })}
-                    {intl.formatMessage(commonMessages.dividingColon)}
-                  </span>
-                  <Chips>
-                    {unpackMaybes(
-                      communityDevelopmentProgram.developmentProgram
-                        ?.eligibleClassifications,
-                    ).map((classification) => (
-                      <Chip key={classification.id} color="secondary">
-                        {getClassificationName(classification, intl)}
-                      </Chip>
-                    ))}
-                  </Chips>
-                </div>
-              ) : null}
-              {/* radio group */}
-
-              <input
-                type="hidden"
-                {...register(
-                  `interestInDevelopmentPrograms.${index}.developmentProgramId`,
-                )}
-                value={communityDevelopmentProgram.developmentProgram.id}
-              />
-              <RadioGroup
-                idPrefix={`interestInDevelopmentPrograms.${index}.participationStatus`}
-                name={`interestInDevelopmentPrograms.${index}.participationStatus`}
-                legend={intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "Program participation<hidden> for {name}</hidden>",
-                    id: "c667HQ",
-                    description:
-                      "Legend for the radio group of program participation",
-                  },
-                  {
-                    name:
-                      communityDevelopmentProgram.developmentProgram.name
-                        ?.localized ??
-                      intl.formatMessage(commonMessages.notProvided),
-                  },
-                )}
-                items={[
-                  {
-                    value: DevelopmentProgramParticipationStatus.NotInterested,
-                    label: intl.formatMessage({
-                      defaultMessage: "I’m not interested right now.",
-                      id: "gg0yRf",
-                      description:
-                        "Option for the 'not interested' choice of program participation",
-                    }),
-                  },
-                  {
-                    value: DevelopmentProgramParticipationStatus.Interested,
-                    label: intl.formatMessage({
-                      defaultMessage:
-                        "I’m interested in participating in this program.",
-                      id: "r6WWEn",
-                      description:
-                        "Option for the 'interested' choice of program participation",
-                    }),
-                  },
-                  {
-                    value: DevelopmentProgramParticipationStatus.Completed,
-                    label: intl.formatMessage({
-                      defaultMessage:
-                        "I’ve successfully completed this program.",
-                      id: "tGTM5i",
-                      description:
-                        "Option for the 'completed' choice of program participation",
-                    }),
-                  },
-                  {
-                    value: DevelopmentProgramParticipationStatus.Enrolled,
-                    label: intl.formatMessage({
-                      defaultMessage: "I’m currently enrolled in this program.",
-                      id: "oYEBcP",
-                      description:
-                        "Option for the 'enrolled' choice of program participation",
-                    }),
-                  },
-                ]}
-                disabled={formDisabled}
-              />
-              {selectedInterestInDevelopmentPrograms?.[index]
-                ?.participationStatus ===
-              DevelopmentProgramParticipationStatus.Completed ? (
-                <DateInput
-                  id={`interestInDevelopmentPrograms.${index}.completionDate`}
-                  name={`interestInDevelopmentPrograms.${index}.completionDate`}
-                  legend={intl.formatMessage({
-                    defaultMessage: "Program completion date",
-                    id: "JGhMIC",
-                    description: "Legend for the program completion date input",
-                  })}
-                  show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              ) : null}
+        {developmentPrograms.map((developmentProgram, index) => (
+          <div key={developmentProgram.id} className="flex flex-col gap-6">
+            {/* titles */}
+            <div>
+              <Heading level="h3" size="h6" className="m-0 font-bold">
+                {developmentProgram.name?.localized ??
+                  intl.formatMessage(commonMessages.notProvided)}
+              </Heading>
+              <p>
+                {developmentProgram.descriptionForProfile?.localized ??
+                  intl.formatMessage(commonMessages.notProvided)}
+              </p>
             </div>
-          ),
-        )}
+            {/* classification list */}
+            {developmentProgram?.eligibleClassifications?.length ? (
+              <div className="flex gap-1.5">
+                <span>
+                  {intl.formatMessage({
+                    defaultMessage: "Available to",
+                    id: "nCqQlv",
+                    description: "Title for the classification list",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                </span>
+                <Chips>
+                  {unpackMaybes(
+                    developmentProgram?.eligibleClassifications,
+                  ).map((classification) => (
+                    <Chip key={classification.id} color="secondary">
+                      {getClassificationName(classification, intl)}
+                    </Chip>
+                  ))}
+                </Chips>
+              </div>
+            ) : null}
+            {/* radio group */}
+
+            <input
+              type="hidden"
+              {...register(
+                `interestInDevelopmentPrograms.${index}.developmentProgramId`,
+              )}
+              value={developmentProgram.id}
+            />
+            <RadioGroup
+              idPrefix={`interestInDevelopmentPrograms.${index}.participationStatus`}
+              name={`interestInDevelopmentPrograms.${index}.participationStatus`}
+              legend={intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Program participation<hidden> for {name}</hidden>",
+                  id: "c667HQ",
+                  description:
+                    "Legend for the radio group of program participation",
+                },
+                {
+                  name:
+                    developmentProgram.name?.localized ??
+                    intl.formatMessage(commonMessages.notProvided),
+                },
+              )}
+              items={[
+                {
+                  value: DevelopmentProgramParticipationStatus.NotInterested,
+                  label: intl.formatMessage({
+                    defaultMessage: "I’m not interested right now.",
+                    id: "gg0yRf",
+                    description:
+                      "Option for the 'not interested' choice of program participation",
+                  }),
+                },
+                {
+                  value: DevelopmentProgramParticipationStatus.Interested,
+                  label: intl.formatMessage({
+                    defaultMessage:
+                      "I’m interested in participating in this program.",
+                    id: "r6WWEn",
+                    description:
+                      "Option for the 'interested' choice of program participation",
+                  }),
+                },
+                {
+                  value: DevelopmentProgramParticipationStatus.Completed,
+                  label: intl.formatMessage({
+                    defaultMessage: "I’ve successfully completed this program.",
+                    id: "tGTM5i",
+                    description:
+                      "Option for the 'completed' choice of program participation",
+                  }),
+                },
+                {
+                  value: DevelopmentProgramParticipationStatus.Enrolled,
+                  label: intl.formatMessage({
+                    defaultMessage: "I’m currently enrolled in this program.",
+                    id: "oYEBcP",
+                    description:
+                      "Option for the 'enrolled' choice of program participation",
+                  }),
+                },
+              ]}
+              disabled={formDisabled}
+              defaultSelected={
+                arrayOfDefaultValues.find(
+                  (array) =>
+                    array.developmentProgramId === developmentProgram.id,
+                )?.participationStatus ?? undefined
+              }
+            />
+            {selectedInterestInDevelopmentPrograms?.[index]
+              ?.participationStatus ===
+            DevelopmentProgramParticipationStatus.Completed ? (
+              <DateInput
+                id={`interestInDevelopmentPrograms.${index}.completionDate`}
+                name={`interestInDevelopmentPrograms.${index}.completionDate`}
+                legend={intl.formatMessage({
+                  defaultMessage: "Program completion date",
+                  id: "JGhMIC",
+                  description: "Legend for the program completion date input",
+                })}
+                show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                defaultValue={
+                  arrayOfDefaultValues.find(
+                    (array) =>
+                      array.developmentProgramId === developmentProgram.id,
+                  )?.completionDate ?? undefined
+                }
+              />
+            ) : null}
+          </div>
+        ))}
       </div>
     </div>
   );

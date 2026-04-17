@@ -13,6 +13,7 @@ import type {
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -41,6 +42,15 @@ const CreateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
       associatedDevelopmentPrograms {
         id
       }
+    }
+
+    me {
+      developmentProgramUserRecords {
+        ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
+      }
+      # educationExperiences {
+      #   id
+      # }
     }
   }
 `);
@@ -98,6 +108,10 @@ const CreateCommunityInterestForm = ({
                       <TrainingAndDevelopmentOpportunities
                         optionsQuery={formOptions}
                         formDisabled={formDisabled}
+                        developmentProgramUserRecordsQuery={unpackMaybes(
+                          formOptions.me?.developmentProgramUserRecords,
+                        )}
+                        selectedCommunityId={selectedCommunityId}
                       />
                     </>
                   ) : null}
