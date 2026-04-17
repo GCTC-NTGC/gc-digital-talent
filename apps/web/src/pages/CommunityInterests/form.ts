@@ -1,10 +1,10 @@
 import type {
   CreateCommunityInterestWithDevelopmentProgramsInput,
-  CreateDevelopmentProgramUserInput,
   Maybe,
   UpdateCommunityInterestFormData_FragmentFragment,
-  UpdateCommunityInterestInput,
-  UpdateDevelopmentProgramInterestHasMany,
+  UpdateCommunityInterestWithDevelopmentProgramsInput,
+  UpsertDevelopmentProgramUserInput,
+  DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragmentFragment as DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragmentType,
 } from "@gc-digital-talent/graphql";
 import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -81,7 +81,7 @@ export function formValuesToApiCreateInput(
 
   if (formValues.interestInDevelopmentPrograms !== null) {
     const interests =
-      formValues.interestInDevelopmentPrograms?.map<CreateDevelopmentProgramUserInput | null>(
+      formValues.interestInDevelopmentPrograms?.map<UpsertDevelopmentProgramUserInput | null>(
         (interest) => {
           if (
             typeof interest.participationStatus === "string" &&
@@ -125,67 +125,62 @@ export function formValuesToApiCreateInput(
 
 export function formValuesToApiUpdateInput(
   communityInterestId: string,
-  interestedPrograms: Map<string, string>,
   formValues: FormValues,
-): UpdateCommunityInterestInput {
-  const interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany =
-    {};
+): UpdateCommunityInterestWithDevelopmentProgramsInput {
+  let interests: UpsertDevelopmentProgramUserInput[] | undefined = undefined;
 
-  formValues.interestInDevelopmentPrograms?.forEach((input) => {
-    if (!input.developmentProgramId) return;
-
-    const existingInterest = interestedPrograms.get(input.developmentProgramId);
-
-    if (existingInterest) {
-      interestInDevelopmentPrograms.update = [
-        ...(interestInDevelopmentPrograms.update ?? []),
-        {
-          id: existingInterest,
-          participationStatus: input.participationStatus,
-          completionDate:
-            input.participationStatus ===
-            DevelopmentProgramParticipationStatus.Completed
-              ? input.completionDate
-              : null,
+  if (formValues.interestInDevelopmentPrograms !== null) {
+    const interestsWithNulls =
+      formValues.interestInDevelopmentPrograms?.map<UpsertDevelopmentProgramUserInput | null>(
+        (interest) => {
+          if (
+            typeof interest.participationStatus === "string" &&
+            typeof interest.developmentProgramId === "string"
+          ) {
+            // valid interest
+            return {
+              developmentProgramId: interest.developmentProgramId,
+              educationExperienceId: null, // for later
+              participationStatus: interest.participationStatus,
+              completionDate:
+                interest.participationStatus ===
+                DevelopmentProgramParticipationStatus.Completed
+                  ? interest.completionDate
+                  : null,
+            };
+          }
+          // no participation status or development program ID
+          return null;
         },
-      ];
-    } else {
-      interestInDevelopmentPrograms.create = [
-        ...(interestInDevelopmentPrograms.create ?? []),
-        {
-          communityDevelopmentProgramId: input.developmentProgramId,
-          participationStatus: input.participationStatus,
-          completionDate:
-            input.participationStatus ===
-            DevelopmentProgramParticipationStatus.Completed
-              ? input.completionDate
-              : null,
-        },
-      ];
-    }
-  });
+      );
+
+    interests = unpackMaybes(interestsWithNulls);
+  }
 
   return {
     id: communityInterestId,
-    workStreams: {
-      sync: formValues.interestInWorkStreamIds,
+    communityInterest: {
+      jobInterest: parseMaybeStringToBoolean(formValues.jobInterest),
+      trainingInterest: parseMaybeStringToBoolean(formValues.trainingInterest),
+      additionalInformation: formValues.additionalInformation,
+
+      // finance-only fields
+      financeIsChief: formValues.financeIsChief,
+      financeAdditionalDuties: formValues.financeAdditionalDuties
+        ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
+        : null,
+      financeOtherRoles: formValues.financeOtherRoles
+        ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
+        : null,
+      financeOtherRolesOther: formValues.financeOtherRolesOther,
+
+      consentToShareProfile: formValues.consent,
+
+      workStreams: {
+        sync: formValues.interestInWorkStreamIds,
+      },
     },
-    jobInterest: parseMaybeStringToBoolean(formValues.jobInterest),
-    trainingInterest: parseMaybeStringToBoolean(formValues.trainingInterest),
-    additionalInformation: formValues.additionalInformation,
-    interestInDevelopmentPrograms,
-
-    // finance-only fields
-    financeIsChief: formValues.financeIsChief,
-    financeAdditionalDuties: formValues.financeAdditionalDuties
-      ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
-      : null,
-    financeOtherRoles: formValues.financeOtherRoles
-      ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
-      : null,
-    financeOtherRolesOther: formValues.financeOtherRolesOther,
-
-    consentToShareProfile: formValues.consent,
+    developmentPrograms: interests,
   };
 }
 
@@ -196,16 +191,13 @@ interface DevelopmentProgramSlice {
 
 export function apiDataToFormValues(
   userId: string | null | undefined,
+  developmentProgramUserRecords: DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragmentType[],
   communityInterest:
     | UpdateCommunityInterestFormData_FragmentFragment
     | null
     | undefined,
   developmentProgramsForCommunity: DevelopmentProgramSlice[],
 ): FormValues {
-  const usersInterestDevelopmentPrograms = unpackMaybes(
-    communityInterest?.interestInDevelopmentPrograms,
-  );
-
   // the initial values for FormValues.interestInDevelopmentPrograms must have the maximum length possible, otherwise values are skewed
   // 22 possible programs but 21 interests marked means a skew of one
   // thus build the initial value off community.developmentPrograms instead of communityInterest.interestInDevelopmentPrograms
@@ -214,15 +206,13 @@ export function apiDataToFormValues(
   );
   const initialInterestInDevelopmentPrograms: FormValues["interestInDevelopmentPrograms"] =
     developmentProgramsForCommunity.map((developmentProgram) => {
-      const correspondingProgram = usersInterestDevelopmentPrograms.find(
-        (userDevPro) =>
-          userDevPro.communityDevelopmentProgram?.developmentProgram?.id ===
+      const correspondingProgram = developmentProgramUserRecords.find(
+        (developmentProgramUser) =>
+          developmentProgramUser.developmentProgram.id ===
           developmentProgram.id,
       );
       return {
-        developmentProgramId:
-          correspondingProgram?.communityDevelopmentProgram.developmentProgram
-            .id ?? "",
+        developmentProgramId: developmentProgram.id,
         participationStatus: correspondingProgram?.participationStatus ?? null,
         completionDate: correspondingProgram?.completionDate ?? null,
       };

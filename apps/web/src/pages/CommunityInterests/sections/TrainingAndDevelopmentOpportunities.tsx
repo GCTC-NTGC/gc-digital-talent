@@ -41,7 +41,7 @@ const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
   `,
 );
 
-const DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment =
+export const DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment =
   graphql(/* GraphQL */ `
     fragment DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment on DevelopmentProgramUser {
       id
