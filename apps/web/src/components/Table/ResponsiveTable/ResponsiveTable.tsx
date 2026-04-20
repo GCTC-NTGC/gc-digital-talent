@@ -95,6 +95,9 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 }: TableProps<TData, TFilters>) => {
   const id = useId();
   const intl = useIntl();
+  // Tracks the URL params this table last wrote. Compared against desired state before
+  // each write so back-button navigation (which changes URL but not table state) doesn't
+  // trigger a competing setSearchParams call during the route transition.
   const lastWrittenTableParamsRef = useRef<Record<string, string | null>>({});
   const { announce } = useAnnouncer();
   const hasUpdatedRows = useRef<boolean>(false);
@@ -264,6 +267,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
         newParams.set(filterParamKey, JSON.stringify(filter?.state));
       }
 
+      // Only write if the table's desired params changed — not if unrelated URL state changed.
       const managedKeys = [
         SEARCH_PARAM_KEY.SORT_RULE,
         SEARCH_PARAM_KEY.HIDDEN_COLUMNS,
