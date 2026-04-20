@@ -101,8 +101,8 @@ final class UpdateCommunityInterestWithDevelopmentProgramsInputValidator extends
             'communityInterest.workStreams.sync.*.exists' => ErrorCode::WORK_STREAM_NOT_FOUND->name,
             'developmentPrograms.*.developmentProgramId.exists' => ErrorCode::DEVELOPMENT_PROGRAM_NOT_FOUND->name,
             'developmentPrograms.*.educationExperienceId.in' => ErrorCode::DEVELOPMENT_PROGRAM_MUST_CONNECT_OWN_EDUCATION_EXPERIENCE->name,
-            'developmentPrograms.0.completionDate.prohibited_unless' => ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED->name,
-            'developmentPrograms.0.completionDate.required_if' => ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED->name,
+            'developmentPrograms.*.completionDate.prohibited_unless' => ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED->name,
+            'developmentPrograms.*.completionDate.required_if' => ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED->name,
         ];
     }
 }
