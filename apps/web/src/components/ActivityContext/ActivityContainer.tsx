@@ -2,6 +2,7 @@ import { type ReactNode, useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
 
 import { useAuthentication } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import InactivityDialog from "./InactivityDialog";
 
@@ -91,8 +92,9 @@ interface ActivityContainerProps {
 
 const ActivityContainer = ({ children }: ActivityContainerProps) => {
   const { loggedIn, logout } = useAuthentication();
+  const featureFlags = useFeatureFlags();
 
-  if (loggedIn) {
+  if (loggedIn && featureFlags.activityTimer) {
     return (
       <InnerActivityContainer logout={logout}>
         {children}
