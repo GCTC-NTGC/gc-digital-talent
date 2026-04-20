@@ -14,7 +14,7 @@ interface InnerActivityContainerProps {
   children?: ReactNode;
 }
 
-// The inner container is only swapped in when the user is logged in
+// The inner container is only swapped in when the user is logged in and the feature flag is active
 const InnerActivityContainer = ({
   logout,
   children,
@@ -47,6 +47,9 @@ const InnerActivityContainer = ({
     timeout,
     promptBeforeIdle,
     throttle: 500,
+    crossTab: true,
+    leaderElection: true,
+    syncTimers: 200,
   });
 
   useEffect(() => {
@@ -61,10 +64,12 @@ const InnerActivityContainer = ({
 
   const handleOpenChange = () => {
     // console.debug("handleOpenChange");
+    setDialogOpen(false); // shouldn't be necessary as `activate()` should call onActive but this covers a condition where a new tab is opened and the old tab is stuck with the dialog open
     activate();
   };
   const handleStaySignedIn = () => {
     // console.debug("handleStaySignedIn");
+    setDialogOpen(false); // shouldn't be necessary as `activate()` should call onActive but this covers a condition where a new tab is opened and the old tab is stuck with the dialog open
     activate();
   };
   const handleSignOut = () => {
@@ -102,7 +107,7 @@ const ActivityContainer = ({ children }: ActivityContainerProps) => {
     );
   }
 
-  // bypass if not logged in
+  // bypass if not logged in or feature flag not enabled
   return <>{children}</>;
 };
 
