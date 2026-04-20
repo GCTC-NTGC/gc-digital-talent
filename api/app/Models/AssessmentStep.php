@@ -7,6 +7,7 @@ use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
 use App\Traits\LogsCustomActivity;
+use Database\Helpers\TeamHelpers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -206,5 +208,33 @@ class AssessmentStep extends Model
     public static function withPolicyEagerLoads(Builder $query): Builder
     {
         return $query->with(['pool.team', 'pool.community.team', 'pool.department.team']);
+    }
+
+    public function scopeWhereAuthorizedToView(Builder $query)
+    {
+        /** @var User | null */
+        $user = Auth::user();
+
+        if ($user?->isAbleTo('view-any-assessmentPlan')) {
+            return $query;
+        }
+
+        if ($user?->isAbleTo('view-team-assessmentPlan')) {
+            $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-assessmentPlan');
+
+            return $query->whereHas('pool', function (Builder $poolQuery) use ($teamIds) {
+                return $poolQuery->where(function (Builder $poolQuery) use ($teamIds) {
+                    $poolQuery->orWhereHas('team', function (Builder $poolQuery) use ($teamIds) {
+                        return $poolQuery->whereIn('id', $teamIds);
+                    })->orWhereHas('community.team', function (Builder $poolQuery) use ($teamIds) {
+                        return $poolQuery->whereIn('id', $teamIds);
+                    })->orWhereHas('department.team', function (Builder $poolQuery) use ($teamIds) {
+                        return $poolQuery->whereIn('id', $teamIds);
+                    });
+                });
+            });
+        }
+
+        return $query->whereRaw('0 = 1');
     }
 }

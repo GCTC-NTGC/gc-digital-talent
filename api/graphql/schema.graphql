@@ -603,8 +603,7 @@ type PoolSkill {
   requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
   skill: Skill @belongsTo
   assessmentSteps: [AssessmentStep]
-    @belongsToMany
-    @canRoot(ability: "viewAssessmentSteps", scopes: ["withPolicyEagerLoads"])
+    @belongsToMany(scopes: ["whereAuthorizedToView"])
 }
 
 type PoolCandidateCategory {
