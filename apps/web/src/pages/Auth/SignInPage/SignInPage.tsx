@@ -52,14 +52,16 @@ import canadaLoginStepAuthenticator from "~/assets/img/canada_login_registration
 import canadaLoginStepAuthenticatorDark from "~/assets/img/canada_login_registration_dark_2.webp";
 import canadaLoginEnterCode from "~/assets/img/canada_login_registration_light_3.webp";
 import canadaLoginEnterCodeDark from "~/assets/img/canada_login_registration_dark_3.webp";
+import canadaLoginStep1Image from "~/assets/img/sign-in-step-1-light.webp";
+import canadaLoginStep1ImageDark from "~/assets/img/sign-in-step-1-dark.webp";
 import step1Image from "~/assets/img/canada-login-sign-in-step-1-light.webp";
-import step1bImage from "~/assets/img/canada-login-sign-in-step-1b-light.webp";
-import step1cImage from "~/assets/img/canada-login-sign-in-step-1c-light.webp";
+import canadaLoginStep1bImage from "~/assets/img/sign-in-step-1b-light.webp";
+import canadaLoginStep1cImage from "~/assets/img/sign-in-step-1c-light.webp";
 import step2Image from "~/assets/img/sign-in-step-2-light.webp";
 import step4Image from "~/assets/img/sign-in-step-4-light.webp";
 import step1ImageDark from "~/assets/img/canada-login-sign-in-step-1-dark.webp";
-import step1bImageDark from "~/assets/img/canada-login-sign-in-step-1b-dark.webp";
-import step1cImageDark from "~/assets/img/canada-login-sign-in-step-1c-dark.webp";
+import canadaLoginStep1bImageDark from "~/assets/img/sign-in-step-1b-dark.webp";
+import canadaLoginStep1cImageDark from "~/assets/img/sign-in-step-1c-dark.webp";
 import step2ImageDark from "~/assets/img/sign-in-step-2-dark.webp";
 import step3Image from "~/assets/img/sign-in-step-3-light.webp";
 import step3ImageDark from "~/assets/img/sign-in-step-3-dark.webp";
@@ -159,11 +161,11 @@ export const Component = () => {
             <InstructionsStepCard
               className="rounded-t-md rounded-b-none pt-12 pb-7.5 xs:rounded-l-md xs:rounded-r-none"
               img={{
-                src: step1Image,
-                darkSrc: step1ImageDark,
+                src: canadaLoginStep1Image,
+                darkSrc: canadaLoginStep1ImageDark,
               }}
             >
-              <p className="mt-4 mb-6.75">
+              <p className="mt-8 mb-6.75">
                 {intl.formatMessage({
                   defaultMessage: "Sign in with your CanadaLogin email.",
                   id: "IVba2H", // TODO
@@ -175,11 +177,11 @@ export const Component = () => {
               className="rounded-none pt-12 pb-7.5"
               background="darker"
               img={{
-                src: step1bImage,
-                darkSrc: step1bImageDark,
+                src: canadaLoginStep1bImage,
+                darkSrc: canadaLoginStep1bImageDark,
               }}
             >
-              <p className="mt-12 mb-6.75">
+              <p className="mt-8 mb-6.75">
                 {intl.formatMessage({
                   defaultMessage: "Enter your CanadaLogin password.",
                   id: "JsPXch", // TODO
@@ -192,11 +194,11 @@ export const Component = () => {
               className="rounded-t-none rounded-b-md pt-12 pb-7.5 xs:rounded-l-none xs:rounded-r-md"
               includeArrow={false}
               img={{
-                src: step1cImage,
-                darkSrc: step1cImageDark,
+                src: canadaLoginStep1cImage,
+                darkSrc: canadaLoginStep1cImageDark,
               }}
             >
-              <p className="mt-4 mb-6.75">
+              <p className="mt-8 mb-6.75">
                 {intl.formatMessage({
                   defaultMessage: "Enter the six-digit code from your phone.",
                   id: "DcABwS", // TODO
