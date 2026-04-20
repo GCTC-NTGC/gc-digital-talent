@@ -1995,6 +1995,10 @@
     "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
     "description": "Page title for the improve behavioural skills page"
   },
+  "622Kr4": {
+    "defaultMessage": "Réservé à",
+    "description": "List of classifications that development programs are limited to"
+  },
   "64yExe": {
     "defaultMessage": "ne peut pas afficher et gérer les activités liées à la gestion des talents.",
     "description": "Description of the limitation of managing talent management events"
@@ -3695,10 +3699,6 @@
     "defaultMessage": "{count, plural, one {# évaluation} other {# évaluations}}",
     "description": "Number of assessments for a skill"
   },
-  "DHIa69": {
-    "defaultMessage": "Recommandations pour des programmes de perfectionnement",
-    "description": "Label for selected development program items"
-  },
   "DJL4F5": {
     "defaultMessage": "Vous n'avez pas encore ajouté de compétences constituant un atout.",
     "description": "Null message title for asset skills table."
@@ -4054,6 +4054,10 @@
   "EqUTLs": {
     "defaultMessage": "Si vous êtes prêt à publier cette annonce, veuillez <a>contacter un administrateur</a>.",
     "description": "Instructions on how to submit a process for publishing"
+  },
+  "EsNdLS": {
+    "defaultMessage": "Occasions de perfectionnement recommandées",
+    "description": "Trigger title for development programs"
   },
   "Et46bc": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
@@ -5799,6 +5803,10 @@
     "defaultMessage": "Ajouter un partenariat avec une collectivité",
     "description": "Input to select to add a community partnership"
   },
+  "MawH92": {
+    "defaultMessage": "Occasions de perfectionnement",
+    "description": "Label for the development program nomination option on the details step"
+  },
   "MchJcM": {
     "defaultMessage": "Parcourez la liste complète des compétences figurant sur notre plateforme et examinez les différentes compétences que vous pourriez mettre dans votre <link>portfolio de compétences</link>.",
     "description": "Paragraph one, describing the skills on the platform"
@@ -5846,6 +5854,10 @@
   "Mmz8u3": {
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
     "description": "Description of complaints to the Canadian Human Rights Commission"
+  },
+  "MnwLD0": {
+    "defaultMessage": "Sélectionnez un ou plusieurs programmes, certifications ou accréditations dont cette personne bénéficierait en y participant.",
+    "description": "Description for development program options section in nominations details step"
   },
   "MptxTu": {
     "defaultMessage": "Cette section vous permet de présenter des informations sur vous-même et sur votre façon de travailler, y compris sur vos objectifs pour l'avenir et sur les environnements qui vous permettent de donner le meilleur de vous-même.",
@@ -6266,6 +6278,10 @@
   "OleLgS": {
     "defaultMessage": "Ajouter « {title} » à votre profil",
     "description": "Heading for the add employment equity option to profile dialogs"
+  },
+  "OoPiFu": {
+    "defaultMessage": "Recommander une personne pour une promotion, une mutation latérale ou des occassions de perfectionnement.",
+    "description": "Subtitle for the form to nominate talent"
   },
   "OoYh86": {
     "defaultMessage": "Les coordonnées suivantes seront fournies. Elles serviront aux personnes candidates qui ont des questions et des demandes d'accommodements, ainsi qu'aux membres du personnel qui souhaitent discuter de leur demande rejetée.",
@@ -12054,10 +12070,6 @@
     "defaultMessage": "Disponible pour",
     "description": "Title for the classification list"
   },
-  "nF//P1": {
-    "defaultMessage": "Recommandations pour des programmes de perfectionnement",
-    "description": "Trigger title for development programs"
-  },
   "nF3JZd": {
     "defaultMessage": "J'occupe actuellement ce rôle.",
     "description": "Label displayed on Experience form for currently active option"
@@ -12165,6 +12177,10 @@
   "na1ci7": {
     "defaultMessage": "La date de fin de l'interruption ne peut être ultérieure à la date d'expiration du bassin, soit le ({date}).",
     "description": "Error message for pause referral status end date input"
+  },
+  "ncVR6j": {
+    "defaultMessage": "Nom de l'occasion de perfectionnement",
+    "description": "Label other development program option input on the details step"
   },
   "ndW6vI": {
     "defaultMessage": "En attente d’une évaluation",
@@ -14977,6 +14993,10 @@
   "zkoW6g": {
     "defaultMessage": "Dans ce poste axé sur l’analyse, vous faites la collecte et l’étude des critères, puis vous formulez des observations critiques pour optimiser les projets de développement Web. Votre savoir-faire contribue à l’exécution d’applications Web de grande qualité qui répondent aux normes de sécurité et aux attentes d’utilisation les plus élevées.",
     "description": "Description of the web developer role"
+  },
+  "zkwquN": {
+    "defaultMessage": "Occasions de perfectionnement recommandées",
+    "description": "Label for selected development program items"
   },
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
