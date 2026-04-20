@@ -102,10 +102,7 @@ const GettingStartedForm = ({
         })}
       </p>
       <div className="mb-6">
-        <PersonalInfoBox
-          query={initialValues}
-          footer="does-it-look-incorrect"
-        />
+        <PersonalInfoBox query={initialValues} footer />
       </div>
       <div className="mb-6">
         <FormProvider {...formMethods}>

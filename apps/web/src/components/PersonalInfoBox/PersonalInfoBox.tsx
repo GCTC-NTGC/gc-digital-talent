@@ -30,7 +30,7 @@ const PersonalInfoBox_Fragment = graphql(/** GraphQL */ `
 
 interface AccountAndContactInformationProps {
   query: FragmentType<typeof PersonalInfoBox_Fragment>;
-  footer?: "does-it-look-incorrect";
+  footer?: boolean;
 }
 
 const PersonalInfoBox = ({
@@ -67,7 +67,7 @@ const PersonalInfoBox = ({
             personalInfo.preferredLang?.label.localized}
         </p>
       </Notice.Content>
-      {footer === "does-it-look-incorrect" ? (
+      {footer ? (
         <Notice.Footer>
           {intl.formatMessage(
             {
