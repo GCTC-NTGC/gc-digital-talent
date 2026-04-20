@@ -40,7 +40,7 @@ export type Field = ObjectValues<typeof FIELD>;
 
 class AssessmentPage extends AppPage {
   readonly locators: Record<Field, Locator>;
-  readonly screeningStageMap = new Map<ScreeningStage, RegExp>([
+  static readonly screeningStageMap = new Map<ScreeningStage, RegExp>([
     [ScreeningStage.NewApplication, /new application/i],
     [ScreeningStage.ApplicationReview, /application review/i],
     [ScreeningStage.ScreenedIn, /application retained/i],
@@ -150,9 +150,9 @@ class AssessmentPage extends AppPage {
     ctx: GraphQLContext,
     candidateId: string,
   ) {
-    const stageKeys = Array.from(this.screeningStageMap.keys());
+    const stageKeys = Array.from(AssessmentPage.screeningStageMap.keys());
     const currentIndex = stageKeys.indexOf(currentStage);
-    const currentStageUIRegex = this.screeningStageMap.get(
+    const currentStageUIRegex = AssessmentPage.screeningStageMap.get(
       stageKeys[currentIndex],
     );
     await this.page.getByRole("button", { name: currentStageUIRegex }).click();
