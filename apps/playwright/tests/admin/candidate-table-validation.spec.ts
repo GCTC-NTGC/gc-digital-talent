@@ -38,7 +38,7 @@ import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createAndPublishPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
-import { createUserWithRoles, me } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 
 const LOCALIZED_STRING = {
   en: "test pool EN",
@@ -76,7 +76,7 @@ test.describe("Candidate Table Validation", () => {
 
     await test.step("Create test users and candidate applications", async () => {
       users = await Promise.all(
-        Array.from({ length: 7 }, (_, i) =>
+        Array.from({ length: 8 }, (_, i) =>
           createUserWithRoles(adminCtx, {
             roles: ["guest", "base_user", "applicant"],
             user: {
@@ -143,55 +143,73 @@ test.describe("Candidate Table Validation", () => {
     });
 
     await test.step("Set up candidate application statuses", async () => {
-      // 1st candidate application status remains as is
+      // 1st candidate application status remains as is in 'New Application'
 
-      // 2nd candidate application status = Screening stage = Under assessment & Assessment step = 1st assessment step from pool
+      // 2nd candidate application status = Screening stage = Application retained
       await updateScreeningStage(adminCtx, {
         input: {
           id: candidates[1].poolCandidate.id,
+          screeningStage: ScreeningStage.ScreenedIn,
+        },
+      });
+
+      // 3rd candidate application status = Screening stage = Under assessment & Assessment step = 1st assessment step from pool
+      await updateScreeningStage(adminCtx, {
+        input: {
+          id: candidates[2].poolCandidate.id,
           screeningStage: ScreeningStage.UnderAssessment,
         },
       });
 
-      // 3rd candidate application status = Qualified
+      // 4th candidate application status = Qualified
       await qualifyCandidate(adminCtx, {
-        id: candidates[2].poolCandidate.id,
+        id: candidates[3].poolCandidate.id,
         poolCandidate: {
           expiryDate: FAR_FUTURE_DATE,
         },
       });
 
-      // 4th candidate application status = Disqualified
+      // 5th candidate application status = Disqualified
       await disqualifyCandidate(adminCtx, {
-        id: candidates[3].poolCandidate.id,
+        id: candidates[4].poolCandidate.id,
         reason: DisqualificationReason.ScreenedOutApplication,
       });
 
-      // 5th candidate application status = Removed
+      // 6th candidate application status = Removed
       await removeCandidate(adminCtx, {
-        id: candidates[4].poolCandidate.id,
+        id: candidates[5].poolCandidate.id,
         removalReason: CandidateRemovalReason.NotResponsive,
       });
 
-      // 6th candidate application status = Reverted after being qualified
+      // 7th candidate application status = Reverted after being qualified
       await qualifyCandidate(adminCtx, {
-        id: candidates[5].poolCandidate.id,
+        id: candidates[6].poolCandidate.id,
         poolCandidate: {
           expiryDate: FAR_FUTURE_DATE,
         },
       });
       await revertFinalDecision(adminCtx, {
-        id: candidates[5].poolCandidate.id,
+        id: candidates[6].poolCandidate.id,
       });
 
-      // 7th candidate application status = Reinstated after being removed
+      // 8th candidate application status = Reinstated after being removed
       await removeCandidate(adminCtx, {
-        id: candidates[6].poolCandidate.id,
+        id: candidates[7].poolCandidate.id,
         removalReason: CandidateRemovalReason.NotResponsive,
       });
       await reinstateCandidate(adminCtx, {
-        id: candidates[6].poolCandidate.id,
+        id: candidates[7].poolCandidate.id,
       });
+    });
+  });
+
+  test.afterAll(async () => {
+    await test.step("Delete test users", async () => {
+      await Promise.all(
+        users
+          .filter((user) => !!user)
+          .map((user) => deleteUser(adminCtx, { id: user.id })),
+      );
     });
   });
 
@@ -221,6 +239,21 @@ test.describe("Candidate Table Validation", () => {
       );
     });
 
+    await test.step("Verify 'Application Retained' statuses in the table", async () => {
+      await tableValidation.verifyCandidateStatusesInTable(
+        poolId,
+        adminCtx,
+        candidates[1].user!.firstName!,
+        {
+          screening: AssessmentPage.screeningStageMap.get(
+            ScreeningStage.ScreenedIn,
+          )?.source,
+          appStatus: ApplicationStatus.ToAssess,
+          facingStatus: CandidateStatus.ApplicationReviewed,
+        },
+      );
+    });
+
     await test.step("Candidate application status when 'Under Assessment'", async () => {
       const assessmentPage = new AssessmentPage(appPage.page);
       const { nextStepTitle } = await assessmentPage.fetchAssessmentSteps(
@@ -233,7 +266,7 @@ test.describe("Candidate Table Validation", () => {
       await tableValidation.verifyCandidateStatusesInTable(
         poolId,
         adminCtx,
-        candidates[1].user!.firstName!,
+        candidates[2].user!.firstName!,
         {
           screening: stage,
           assessment: nextStepTitle,
@@ -247,7 +280,7 @@ test.describe("Candidate Table Validation", () => {
       await tableValidation.verifyCandidateStatusesInTable(
         poolId,
         adminCtx,
-        candidates[2].user!.firstName!,
+        candidates[3].user!.firstName!,
         {
           appStatus: ApplicationStatus.Qualified,
           facingStatus: "Qualified in process",
@@ -259,7 +292,7 @@ test.describe("Candidate Table Validation", () => {
       await tableValidation.verifyCandidateStatusesInTable(
         poolId,
         adminCtx,
-        candidates[3].user!.firstName!,
+        candidates[4].user!.firstName!,
         {
           appStatus: ApplicationStatus.Disqualified,
           facingStatus: CandidateStatus.Unsuccessful,
@@ -271,7 +304,7 @@ test.describe("Candidate Table Validation", () => {
       await tableValidation.verifyCandidateStatusesInTable(
         poolId,
         adminCtx,
-        candidates[4].user!.firstName!,
+        candidates[5].user!.firstName!,
         {
           appStatus: ApplicationStatus.Removed,
           facingStatus: "Unresponsive",
@@ -283,7 +316,7 @@ test.describe("Candidate Table Validation", () => {
       await tableValidation.verifyCandidateStatusesInTable(
         poolId,
         adminCtx,
-        candidates[5].user!.firstName!,
+        candidates[6].user!.firstName!,
         {
           screening: ScreeningStage.ApplicationReview,
           appStatus: ApplicationStatus.ToAssess,
@@ -296,7 +329,7 @@ test.describe("Candidate Table Validation", () => {
       await tableValidation.verifyCandidateStatusesInTable(
         poolId,
         adminCtx,
-        candidates[6].user!.firstName!,
+        candidates[7].user!.firstName!,
         {
           screening: ScreeningStage.ApplicationReview,
           appStatus: ApplicationStatus.ToAssess,
@@ -344,11 +377,11 @@ test.describe("Candidate Table Validation", () => {
       );
       const expectedCandidates = [
         {
-          name: candidates[5].user!.firstName!,
+          name: candidates[6].user!.firstName!,
           status: CandidateStatus.UnderReview,
         },
         {
-          name: candidates[6].user!.firstName!,
+          name: candidates[7].user!.firstName!,
           status: CandidateStatus.UnderReview,
         },
       ];
@@ -366,6 +399,26 @@ test.describe("Candidate Table Validation", () => {
       }
     });
 
+    await test.step("Filter with 'To assess' and Screening stage as 'Application Retained'", async () => {
+      await tableValidation.filterCandidateByApplicationFilters(
+        ApplicationStatus.ToAssess,
+        [ScreeningStage.ScreenedIn],
+      );
+
+      await tableValidation.verifyCandidateStatusesInTable(
+        poolId,
+        adminCtx,
+        candidates[1].user!.firstName!,
+        {
+          screening: AssessmentPage.screeningStageMap.get(
+            ScreeningStage.ScreenedIn,
+          )?.source,
+          appStatus: ApplicationStatus.ToAssess,
+          facingStatus: CandidateStatus.ApplicationReviewed,
+        },
+      );
+    });
+
     await test.step("Filter with 'To assess' and Screening stage as 'Under Assessment'", async () => {
       await tableValidation.filterCandidateByApplicationFilters(
         ApplicationStatus.ToAssess,
@@ -380,7 +433,7 @@ test.describe("Candidate Table Validation", () => {
       await tableValidation.verifyCandidateStatusesInTable(
         poolId,
         adminCtx,
-        candidates[1].user!.firstName!,
+        candidates[2].user!.firstName!,
         {
           screening: AssessmentPage.screeningStageMap.get(
             ScreeningStage.UnderAssessment,
@@ -414,7 +467,7 @@ test.describe("Candidate Table Validation", () => {
       await tableValidation.verifyCandidateStatusesInTable(
         poolId,
         adminCtx,
-        candidates[2].user!.firstName!,
+        candidates[3].user!.firstName!,
         {
           appStatus: ApplicationStatus.Qualified,
           facingStatus: "Qualified in process",
@@ -430,7 +483,7 @@ test.describe("Candidate Table Validation", () => {
       await tableValidation.verifyCandidateStatusesInTable(
         poolId,
         adminCtx,
-        candidates[3].user!.firstName!,
+        candidates[4].user!.firstName!,
         {
           appStatus: ApplicationStatus.Disqualified,
           facingStatus: CandidateStatus.Unsuccessful,
@@ -446,7 +499,7 @@ test.describe("Candidate Table Validation", () => {
       await tableValidation.verifyCandidateStatusesInTable(
         poolId,
         adminCtx,
-        candidates[4].user!.firstName!,
+        candidates[5].user!.firstName!,
         {
           appStatus: ApplicationStatus.Removed,
           facingStatus: "Unresponsive",
