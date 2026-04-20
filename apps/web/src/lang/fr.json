@@ -1651,10 +1651,6 @@
     "defaultMessage": "Parlez-nous de <strong>votre expérience professionnelle, de votre participation à la vie de la collectivité, des prix que vous avez reçus, de vos initiatives personnelles et de vos études</strong>. Vous utiliserez ces renseignements ultérieurement dans votre candidature pour nous aider à comprendre comment vous répondez aux exigences en matière d’éducation et de compétences de ce poste.",
     "description": "Application step to begin working on career timeline, paragraph two"
   },
-  "4adKE5": {
-    "defaultMessage": "Nommez des talents pour de l'avancement, de la mutation latérale ou des programmes de perfectionnement.",
-    "description": "Subtitle for the form to nominate talent"
-  },
   "4bWCNR": {
     "defaultMessage": "(Aucun fourni)",
     "description": "Message displayed when a given field has no values to display, that no information is present."
@@ -1998,6 +1994,10 @@
   "6+TjHb": {
     "defaultMessage": "Trois compétences comportementales que vous aimeriez améliorer",
     "description": "Page title for the improve behavioural skills page"
+  },
+  "622Kr4": {
+    "defaultMessage": "Réservé à",
+    "description": "List of classifications that development programs are limited to"
   },
   "64yExe": {
     "defaultMessage": "ne peut pas afficher et gérer les activités liées à la gestion des talents.",
@@ -3711,10 +3711,6 @@
     "defaultMessage": "{count, plural, one {# évaluation} other {# évaluations}}",
     "description": "Number of assessments for a skill"
   },
-  "DHIa69": {
-    "defaultMessage": "Recommandations pour des programmes de perfectionnement",
-    "description": "Label for selected development program items"
-  },
   "DJL4F5": {
     "defaultMessage": "Vous n'avez pas encore ajouté de compétences constituant un atout.",
     "description": "Null message title for asset skills table."
@@ -4070,6 +4066,10 @@
   "EqUTLs": {
     "defaultMessage": "Si vous êtes prêt à publier cette annonce, veuillez <a>contacter un administrateur</a>.",
     "description": "Instructions on how to submit a process for publishing"
+  },
+  "EsNdLS": {
+    "defaultMessage": "Occasions de perfectionnement recommandées",
+    "description": "Trigger title for development programs"
   },
   "Et46bc": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
@@ -5823,6 +5823,10 @@
     "defaultMessage": "Ajouter un partenariat avec une collectivité",
     "description": "Input to select to add a community partnership"
   },
+  "MawH92": {
+    "defaultMessage": "Occasions de perfectionnement",
+    "description": "Label for the development program nomination option on the details step"
+  },
   "MchJcM": {
     "defaultMessage": "Parcourez la liste complète des compétences figurant sur notre plateforme et examinez les différentes compétences que vous pourriez mettre dans votre <link>portfolio de compétences</link>.",
     "description": "Paragraph one, describing the skills on the platform"
@@ -5870,6 +5874,10 @@
   "Mmz8u3": {
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
     "description": "Description of complaints to the Canadian Human Rights Commission"
+  },
+  "MnwLD0": {
+    "defaultMessage": "Sélectionnez un ou plusieurs programmes, certifications ou accréditations dont cette personne bénéficierait en y participant.",
+    "description": "Description for development program options section in nominations details step"
   },
   "MptxTu": {
     "defaultMessage": "Cette section vous permet de présenter des informations sur vous-même et sur votre façon de travailler, y compris sur vos objectifs pour l'avenir et sur les environnements qui vous permettent de donner le meilleur de vous-même.",
@@ -6211,10 +6219,6 @@
     "defaultMessage": "Il semble que vous n'ayez pas encore répondu aux questions générales.",
     "description": "Null state message in general questions section of the application review page."
   },
-  "OTI+Kb": {
-    "defaultMessage": "Options du programme de perfectionnement",
-    "description": "Label for the development program options checklist on the details step"
-  },
   "OTWd3v": {
     "defaultMessage": "Sélectionnez la collectivité",
     "description": "Placeholder text for community selection input"
@@ -6298,6 +6302,10 @@
   "OleLgS": {
     "defaultMessage": "Ajouter « {title} » à votre profil",
     "description": "Heading for the add employment equity option to profile dialogs"
+  },
+  "OoPiFu": {
+    "defaultMessage": "Recommander une personne pour une promotion, une mutation latérale ou des occassions de perfectionnement.",
+    "description": "Subtitle for the form to nominate talent"
   },
   "OoYh86": {
     "defaultMessage": "Les coordonnées suivantes seront fournies. Elles serviront aux personnes candidates qui ont des questions et des demandes d'accommodements, ainsi qu'aux membres du personnel qui souhaitent discuter de leur demande rejetée.",
@@ -6482,10 +6490,6 @@
   "PYeS11": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} one {# expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
     "description": "list a number of award experiences"
-  },
-  "PZEAt8": {
-    "defaultMessage": "Options du programme de perfectionnement",
-    "description": "Title for development program options section in nominations details step"
   },
   "Pasf+O": {
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
@@ -7925,10 +7929,6 @@
   "W2619r": {
     "defaultMessage": "Options de lieu de travail flexible",
     "description": "Legend for the flexible work location preferences section"
-  },
-  "W2s794": {
-    "defaultMessage": "Programme de perfectionnement",
-    "description": "Label for the development program nomination type"
   },
   "W3KFtQ": {
     "defaultMessage": "Vous avez déjà un compte de CléGC?",
@@ -10474,10 +10474,6 @@
     "defaultMessage": "« Mes trois examens de niveau linguistique sont <strong>actuellement valides</strong>. »",
     "description": "Radio option for exam validity input on language information form."
   },
-  "gSyRKu": {
-    "defaultMessage": "Programme de perfectionnement",
-    "description": "Label for the development program nomination option on the details step"
-  },
   "gU/nxf": {
     "defaultMessage": "Ajoutez une expérience à votre parcours professionnel",
     "description": "Title for application career timeline add experience"
@@ -11750,10 +11746,6 @@
     "defaultMessage": "Si vous avez des questions concernant cette étape, ou si vous ne savez pas trop comment procéder, veuillez communiquer avec notre équipe de soutien, à <a>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>.",
     "description": "How to get help from the support team - IAP variant"
   },
-  "lu11dr": {
-    "defaultMessage": "Indiquez une ou plusieurs options recommandées pour la personne candidate.",
-    "description": "Description for development program options section in nominations details step"
-  },
   "luj0xr": {
     "defaultMessage": "Lors d’une étape ultérieure de la procédure de demande, vous aurez peut-être à fournir une preuve que vous êtes une personne autochtone. Certains moyens d’y parvenir sont inclus dans l’énoncé de définition au début de cette demande, notamment une carte de certificat de statut d’Indien, une carte de bénéficiaire inuit, une carte de citoyenneté métisse, une lettre d’un représentant autorisé d’une communauté autochtone reconnue, en plus d’un formulaire d’attestation. Aux fins d’inclusion, l’objet de ces mesures est de garantir que ce programme reste accessible aux peuples autochtones du Canada.",
     "description": "Content for the self-declaration verification dialog"
@@ -12118,10 +12110,6 @@
     "defaultMessage": "Disponible pour",
     "description": "Title for the classification list"
   },
-  "nF//P1": {
-    "defaultMessage": "Recommandations pour des programmes de perfectionnement",
-    "description": "Trigger title for development programs"
-  },
   "nF3JZd": {
     "defaultMessage": "J'occupe actuellement ce rôle.",
     "description": "Label displayed on Experience form for currently active option"
@@ -12229,6 +12217,10 @@
   "na1ci7": {
     "defaultMessage": "La date de fin de l'interruption ne peut être ultérieure à la date d'expiration du bassin, soit le ({date}).",
     "description": "Error message for pause referral status end date input"
+  },
+  "ncVR6j": {
+    "defaultMessage": "Nom de l'occasion de perfectionnement",
+    "description": "Label other development program option input on the details step"
   },
   "ndW6vI": {
     "defaultMessage": "En attente d’une évaluation",
@@ -14546,10 +14538,6 @@
     "defaultMessage": "Modifier <hidden>la possibilité de formation</hidden>",
     "description": "Breadcrumb title for the edit training opportunity page link."
   },
-  "xidShX": {
-    "defaultMessage": "Autre possibilité de programme de perfectionnement",
-    "description": "Label other development program option input on the details step"
-  },
   "xjdD1/": {
     "defaultMessage": "Retirer de la collectivité",
     "description": "Header for the form to remove a community role from a user"
@@ -15061,6 +15049,10 @@
   "zkoW6g": {
     "defaultMessage": "Dans ce poste axé sur l’analyse, vous faites la collecte et l’étude des critères, puis vous formulez des observations critiques pour optimiser les projets de développement Web. Votre savoir-faire contribue à l’exécution d’applications Web de grande qualité qui répondent aux normes de sécurité et aux attentes d’utilisation les plus élevées.",
     "description": "Description of the web developer role"
+  },
+  "zkwquN": {
+    "defaultMessage": "Occasions de perfectionnement recommandées",
+    "description": "Label for selected development program items"
   },
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
