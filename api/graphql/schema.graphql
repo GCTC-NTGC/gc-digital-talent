@@ -3933,3 +3933,14 @@ type Mutation {
     @guard
     @canFind(ability: "view", find: "id", model: "TalentNominationGroup")
 }
+
+type UserNotification {
+  id: String
+  type: NotificationType
+  userId: String @rename(attribute: "user_id")
+  data: JSON
+}
+
+type Subscription {
+  notificationReceived: UserNotification
+}

@@ -53,6 +53,9 @@ jobs:
           fi
           php artisan lighthouse:print-schema --write
         displayName: Build Backend
+        env:
+          # Required for bootstrap during lighthouse schema printing
+          BROADCAST_CONNECTION: "null"
 
       - script: |
           export NVM_DIR="$HOME/.nvm"
@@ -68,6 +71,7 @@ jobs:
           # Vite requires build-time variable to have the VITE_ prefix
           VITE_API_URI: /graphql
           VITE_API_PROTECTED_URI: /admin/graphql
+          VITE_REVERB_APP_KEY: gcdt
 
       - task: CopyFiles@2
         displayName: "Copy files to staging directory"

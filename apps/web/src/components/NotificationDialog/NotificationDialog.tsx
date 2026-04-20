@@ -5,10 +5,11 @@ import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import type { UseQueryExecute } from "urql";
-import { useQuery } from "urql";
+import { useQuery, useSubscription } from "urql";
 
 import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
-import { graphql } from "@gc-digital-talent/graphql";
+import type { UserNotification } from "@gc-digital-talent/graphql";
+import { graphql, NotificationType } from "@gc-digital-talent/graphql";
 import type { ButtonProps } from "@gc-digital-talent/ui";
 import {
   DialogPrimitive,
@@ -18,6 +19,7 @@ import {
   Link,
   IconButton,
 } from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
 import useRoutes from "~/hooks/useRoutes";
@@ -169,6 +171,15 @@ const DialogPortalWithPresence = ({
   ) : null;
 };
 
+const Notification_Subscription = graphql(/** GraphQL */ `
+  subscription Notification {
+    notificationReceived {
+      id
+      type
+    }
+  }
+`);
+
 // For the sake of the bell icon, we only care if the user has at least 1 unread notification
 // This is to query to minimal amount of data to display the badge
 const NotificationCount_Query = graphql(/* GraphQL */ `
@@ -241,6 +252,43 @@ const NotificationDialog = ({
               : "",
         },
       );
+
+  useSubscription(
+    { query: Notification_Subscription },
+    (prev, result): UserNotification[] => {
+      const notification = result.notificationReceived;
+
+      if (!notification) return prev ?? [];
+
+      switch (notification.type) {
+        case NotificationType.UserFileGenerated:
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "Your file is ready for download. Check your notifications.",
+              id: "8p8Xug",
+              description: "Message displayed when file download is complete",
+            }),
+          );
+          break;
+        case NotificationType.UserFileGenerationError:
+          toast.error(
+            intl.formatMessage({
+              defaultMessage: "Could not create your file.",
+              id: "5zL4bG",
+              description: "Message displayed when file download is complete",
+            }),
+          );
+          break;
+        default:
+        // PASS: do nothing
+      }
+
+      executeQuery({ requestPolicy: "network-only" });
+
+      return [...(prev ?? []), notification];
+    },
+  );
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
