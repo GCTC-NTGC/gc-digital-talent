@@ -1126,7 +1126,6 @@ type AssessmentStep {
   sortOrder: Int
   title: LocalizedString
   poolSkills: [PoolSkill]
-  assessmentResults: [AssessmentResult]
   screeningQuestions: [ScreeningQuestion]
 }
 

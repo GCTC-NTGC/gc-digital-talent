@@ -569,16 +569,6 @@ type AssessmentStep {
   sortOrder: Int @rename(attribute: "sort_order")
   title: LocalizedString
   poolSkills: [PoolSkill] @belongsToMany
-  assessmentResults: [AssessmentResult]
-    @hasMany
-    @with(
-      relations: [
-        "assessmentResult.pool.team"
-        "assessmentResult.pool.community.team"
-        "assessmentResult.department.team"
-      ]
-    )
-    @canRoot(ability: "viewAssessmentResults")
   screeningQuestions: [ScreeningQuestion] @with(relation: "screeningQuestions")
 }
 
