@@ -95,7 +95,6 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 }: TableProps<TData, TFilters>) => {
   const id = useId();
   const intl = useIntl();
-  const isFirstRender = useRef(true);
   const lastWrittenTableParamsRef = useRef<Record<string, string | null>>({});
   const { announce } = useAnnouncer();
   const hasUpdatedRows = useRef<boolean>(false);
@@ -278,11 +277,6 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
         Object.fromEntries(managedKeys.map((key) => [key, newParams.get(key)]));
 
       if (!isEqual(desiredTableParams, lastWrittenTableParamsRef.current)) {
-        if (isFirstRender.current) {
-          isFirstRender.current = false;
-          lastWrittenTableParamsRef.current = desiredTableParams;
-          return;
-        }
         setSearchParams(newParams, { replace: true });
         lastWrittenTableParamsRef.current = desiredTableParams;
       }
