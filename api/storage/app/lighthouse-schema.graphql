@@ -1307,7 +1307,6 @@ type Community implements HasRoleAssignments {
   contactEmail: String
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
-  pools: [Pool]
   workStreams: [WorkStream!]
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   associatedDevelopmentPrograms: [DevelopmentProgram!]

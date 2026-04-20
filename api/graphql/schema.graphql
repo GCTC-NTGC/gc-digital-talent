@@ -828,9 +828,6 @@ type Community implements HasRoleAssignments {
     @with(relation: "team")
     @canRoot(ability: "viewTeamMembers")
   teamIdForRoleAssignment: ID @with(relation: "team")
-  pools: [Pool]
-    @hasMany(scopes: ["authorizedToView"])
-    @canResolved(ability: "view")
   workStreams: [WorkStream!] @hasMany
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
   associatedDevelopmentPrograms: [DevelopmentProgram!]
