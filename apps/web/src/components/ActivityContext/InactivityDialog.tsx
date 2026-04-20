@@ -112,8 +112,6 @@ const InactivityDialog = ({
                 src={imgSrcs[themeMode]}
                 sources={imgSources[themeMode]}
                 alt=""
-                width="357"
-                height="190"
               />
             </div>
           </div>
