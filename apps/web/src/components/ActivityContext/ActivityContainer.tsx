@@ -23,18 +23,18 @@ const InnerActivityContainer = ({
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const onIdle = () => {
-    console.debug("onIdle");
+    // console.debug("onIdle");
     setDialogOpen(false);
     logout();
   };
 
   const onActive = () => {
-    console.debug("onActive");
+    // console.debug("onActive");
     setDialogOpen(false);
   };
 
   const onPrompt = () => {
-    console.debug("onPrompt");
+    // console.debug("onPrompt");
     setDialogOpen(true);
   };
 
@@ -60,15 +60,15 @@ const InnerActivityContainer = ({
   });
 
   const handleOpenChange = () => {
-    console.debug("handleOpenChange");
+    // console.debug("handleOpenChange");
     activate();
   };
   const handleStaySignedIn = () => {
-    console.debug("handleStaySignedIn");
+    // console.debug("handleStaySignedIn");
     activate();
   };
   const handleSignOut = () => {
-    console.debug("handleSignOut");
+    // console.debug("handleSignOut");
     logout();
   };
 
