@@ -224,12 +224,12 @@ class AssessmentStep extends Model
 
             return $query->whereHas('pool', function (Builder $poolQuery) use ($teamIds) {
                 return $poolQuery->where(function (Builder $poolQuery) use ($teamIds) {
-                    $poolQuery->orWhereHas('team', function (Builder $poolQuery) use ($teamIds) {
-                        return $poolQuery->whereIn('id', $teamIds);
-                    })->orWhereHas('community.team', function (Builder $poolQuery) use ($teamIds) {
-                        return $poolQuery->whereIn('id', $teamIds);
-                    })->orWhereHas('department.team', function (Builder $poolQuery) use ($teamIds) {
-                        return $poolQuery->whereIn('id', $teamIds);
+                    $poolQuery->orWhereHas('team', function (Builder $teamQuery) use ($teamIds) {
+                        return $teamQuery->whereIn('id', $teamIds);
+                    })->orWhereHas('community.team', function (Builder $communityQuery) use ($teamIds) {
+                        return $communityQuery->whereIn('id', $teamIds);
+                    })->orWhereHas('department.team', function (Builder $deptQuery) use ($teamIds) {
+                        return $deptQuery->whereIn('id', $teamIds);
                     });
                 });
             });
