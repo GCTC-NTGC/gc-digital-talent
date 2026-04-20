@@ -228,7 +228,7 @@ export const Component = () => {
                 height: 200,
               }}
             >
-              <p className="font-normal text-gray-500 dark:text-gray-100">
+              <p>
                 {intl.formatMessage({
                   defaultMessage:
                     "Hooray! You've signed in with CanadaLogin and will be returned to the GC Digital Talent platform.",
@@ -567,7 +567,7 @@ export const Component = () => {
                 height: 200,
               }}
             >
-              <p className="font-normal text-gray-500 dark:text-gray-100">
+              <p>
                 {intl.formatMessage({
                   defaultMessage:
                     "Hooray! You've completed your account transition journey and will be brought back to your GC Digital Talent account.",
@@ -644,8 +644,8 @@ export const Component = () => {
                         {
                           value: "canadaLogin",
                           label: (
-                            <div className="flex items-center gap-2">
-                              <span>
+                            <div className="flex-col gap-2 xxs:flex-row xxs:items-center">
+                              <span className="mr-2">
                                 {intl.formatMessage({
                                   defaultMessage: "CanadaLogin",
                                   id: "t0iSsj", // TODO
@@ -789,7 +789,7 @@ export const Component = () => {
                         "CanadaLogin sign up link text on the sign in page",
                     })}
               </Link>
-              <p className="m-0 flex items-center lg:pl-4">
+              <p className="m-0 flex items-center pl-6 lg:pl-4">
                 <Link
                   href="#registrationInstructions"
                   mode="inline"
