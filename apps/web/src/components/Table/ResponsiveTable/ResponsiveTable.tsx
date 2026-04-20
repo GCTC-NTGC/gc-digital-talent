@@ -96,6 +96,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   const id = useId();
   const intl = useIntl();
   const isFirstRender = useRef(true);
+  const lastWrittenTableParamsRef = useRef<Record<string, string | null>>({});
   const { announce } = useAnnouncer();
   const hasUpdatedRows = useRef<boolean>(false);
   const [, setSearchParams] = useSearchParams();
@@ -171,7 +172,6 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 
   useEffect(() => {
     if (urlSync) {
-      const currentParams = new URLSearchParams(window.location.search);
       const newParams = new URLSearchParams(window.location.search);
 
       let searchState: SearchState = {
@@ -265,17 +265,26 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
         newParams.set(filterParamKey, JSON.stringify(filter?.state));
       }
 
-      if (
-        !isEqual(
-          Object.fromEntries(currentParams),
-          Object.fromEntries(newParams),
-        )
-      ) {
+      const managedKeys = [
+        SEARCH_PARAM_KEY.SORT_RULE,
+        SEARCH_PARAM_KEY.HIDDEN_COLUMNS,
+        SEARCH_PARAM_KEY.PAGE_SIZE,
+        SEARCH_PARAM_KEY.PAGE,
+        SEARCH_PARAM_KEY.SEARCH_COLUMN,
+        SEARCH_PARAM_KEY.SEARCH_TERM,
+        filterParamKey,
+      ];
+      const desiredTableParams: Record<string, string | null> =
+        Object.fromEntries(managedKeys.map((key) => [key, newParams.get(key)]));
+
+      if (!isEqual(desiredTableParams, lastWrittenTableParamsRef.current)) {
         if (isFirstRender.current) {
           isFirstRender.current = false;
+          lastWrittenTableParamsRef.current = desiredTableParams;
           return;
         }
         setSearchParams(newParams, { replace: true });
+        lastWrittenTableParamsRef.current = desiredTableParams;
       }
     }
   }, [
