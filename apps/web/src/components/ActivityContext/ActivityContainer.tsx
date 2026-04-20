@@ -1,7 +1,7 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { type ReactNode, createContext, useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
 
-import { ActivityState } from "./types";
+import type { ActivityState } from "./types";
 import InactivityDialog from "./InactivityDialog";
 
 const timeout = 10_000;
