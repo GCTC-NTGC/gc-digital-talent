@@ -15,6 +15,13 @@ interface InstructionsStepCardProps {
     width?: number;
     height?: number;
   };
+  mobileImg?: {
+    src: string;
+    darkSrc?: string;
+    lazy?: boolean;
+    width?: number;
+    height?: number;
+  };
   includeArrow?: boolean;
   children: ReactNode;
   className?: string;
@@ -36,6 +43,7 @@ const instructionStepCard = tv({
 
 const InstructionsStepCard = ({
   img: { src, darkSrc, lazy, ...imgProps },
+  mobileImg,
   children,
   className = "",
   background = "default",
@@ -52,7 +60,27 @@ const InstructionsStepCard = ({
       })}
     >
       <div className="mb-4 flex justify-center">
-        <Image {...imgProps} src={imgSrc} alt="" />
+        {mobileImg ? (
+          <>
+            <div className="hidden xxs:block">
+              <Image {...imgProps} src={imgSrc} alt="" />
+            </div>
+
+            <div className="block xxs:hidden">
+              <Image
+                {...mobileImg}
+                src={
+                  mode === "dark" && mobileImg.darkSrc
+                    ? mobileImg.darkSrc
+                    : mobileImg.src
+                }
+                alt=""
+              />
+            </div>
+          </>
+        ) : (
+          <Image {...imgProps} src={imgSrc} alt="" />
+        )}
       </div>
       <div>{children}</div>
     </Card>

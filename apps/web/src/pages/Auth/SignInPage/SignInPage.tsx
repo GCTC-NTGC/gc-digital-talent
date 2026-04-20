@@ -48,6 +48,8 @@ import canadaLoginStep2a from "~/assets/img/canada_login_registration_light_1.we
 import canadaLoginStep2aDark from "~/assets/img/canada_login_registration_dark_1.webp";
 import canadaLoginStep3 from "~/assets/img/canada_login_banner_light.webp";
 import canadaLoginStep3Dark from "~/assets/img/canada_login_banner_dark.webp";
+import canadaLoginStep3Mobile from "~/assets/img/canada_login_banner_mobile_light.webp";
+import canadaLoginStep3MobileDark from "~/assets/img/canada_login_banner_mobile_dark.webp";
 import canadaLoginStepAuthenticator from "~/assets/img/canada_login_registration_light_2.webp";
 import canadaLoginStepAuthenticatorDark from "~/assets/img/canada_login_registration_dark_2.webp";
 import canadaLoginEnterCode from "~/assets/img/canada_login_registration_light_3.webp";
@@ -228,6 +230,12 @@ export const Component = () => {
                 darkSrc: canadaLoginStep3Dark,
                 width: 700,
                 height: 200,
+              }}
+              mobileImg={{
+                src: canadaLoginStep3Mobile,
+                darkSrc: canadaLoginStep3MobileDark,
+                width: 400,
+                height: 210,
               }}
             >
               <p>
@@ -567,6 +575,12 @@ export const Component = () => {
                 darkSrc: canadaLoginStep3Dark,
                 width: 700,
                 height: 200,
+              }}
+              mobileImg={{
+                src: canadaLoginStep3Mobile,
+                darkSrc: canadaLoginStep3MobileDark,
+                width: 400,
+                height: 210,
               }}
             >
               <p>
