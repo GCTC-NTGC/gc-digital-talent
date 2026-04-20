@@ -8,18 +8,23 @@ import InactivityDialog from "./InactivityDialog";
 const timeout = 10_000;
 const promptBeforeIdle = 4_000;
 
-interface ActivityContainerProps {
+interface InnerActivityContainerProps {
+  logout: ReturnType<typeof useAuthentication>["logout"];
   children?: ReactNode;
 }
 
-const ActivityContainer = ({ children }: ActivityContainerProps) => {
+// The inner container is only swapped in when the user is logged in
+const InnerActivityContainer = ({
+  logout,
+  children,
+}: InnerActivityContainerProps) => {
   const [remainingMinutes, setRemainingMinutes] = useState<number>(timeout);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const { logout } = useAuthentication();
 
   const onIdle = () => {
     console.debug("onIdle");
     setDialogOpen(false);
+    logout();
   };
 
   const onActive = () => {
@@ -78,6 +83,25 @@ const ActivityContainer = ({ children }: ActivityContainerProps) => {
       {children}
     </>
   );
+};
+
+interface ActivityContainerProps {
+  children?: ReactNode;
+}
+
+const ActivityContainer = ({ children }: ActivityContainerProps) => {
+  const { loggedIn, logout } = useAuthentication();
+
+  if (loggedIn) {
+    return (
+      <InnerActivityContainer logout={logout}>
+        {children}
+      </InnerActivityContainer>
+    );
+  }
+
+  // bypass if not logged in
+  return <>{children}</>;
 };
 
 export default ActivityContainer;
