@@ -18,7 +18,7 @@ import Toast from "@gc-digital-talent/toast";
 import frMessages from "~/lang/frCompiled.json";
 
 import NavContextProvider from "../NavContext/NavContextProvider";
-import ActivityProvider from "../ActivityContext/ActivityProvider";
+import ActivityContainer from "../ActivityContext/ActivityContainer";
 
 const ToastPortal = () => ReactDOM.createPortal(<Toast />, document.body);
 
@@ -36,7 +36,7 @@ const ContextContainer = ({ children }: ContextContainerProps) => (
             <ClientProvider>
               <AppInsightsProvider>
                 <AuthorizationProvider>
-                  <ActivityProvider>
+                  <ActivityContainer>
                     <NavContextProvider>
                       <LazyMotion features={domAnimation}>
                         <MotionConfig reducedMotion="user">
@@ -44,7 +44,7 @@ const ContextContainer = ({ children }: ContextContainerProps) => (
                         </MotionConfig>
                       </LazyMotion>
                     </NavContextProvider>
-                  </ActivityProvider>
+                  </ActivityContainer>
                 </AuthorizationProvider>
               </AppInsightsProvider>
             </ClientProvider>

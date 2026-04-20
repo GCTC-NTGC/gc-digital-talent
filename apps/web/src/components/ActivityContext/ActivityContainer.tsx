@@ -1,50 +1,34 @@
-import { type ReactNode, createContext, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
 
 import { useAuthentication } from "@gc-digital-talent/auth";
 
-import type { ActivityState } from "./types";
 import InactivityDialog from "./InactivityDialog";
 
 const timeout = 10_000;
 const promptBeforeIdle = 4_000;
 
-const defaultActivityState: ActivityState = {
-  state: "Active",
-  remaining: timeout,
-  open: false,
-};
-
-export const ActivityContext =
-  createContext<ActivityState>(defaultActivityState);
-
-interface AuthenticationContainerProps {
+interface ActivityContainerProps {
   children?: ReactNode;
 }
 
-const ActivityContainer = ({ children }: AuthenticationContainerProps) => {
-  const [userState, setUserState] = useState<"Idle" | "Active" | "Prompted">(
-    "Active",
-  );
+const ActivityContainer = ({ children }: ActivityContainerProps) => {
   const [remainingMinutes, setRemainingMinutes] = useState<number>(timeout);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const { logout } = useAuthentication();
 
   const onIdle = () => {
-    // console.debug("onIdle");
-    setUserState("Idle");
+    console.debug("onIdle");
     setDialogOpen(false);
   };
 
   const onActive = () => {
-    // console.debug("onActive");
-    setUserState("Active");
+    console.debug("onActive");
     setDialogOpen(false);
   };
 
   const onPrompt = () => {
-    // console.debug("onPrompt");
-    setUserState("Prompted");
+    console.debug("onPrompt");
     setDialogOpen(true);
   };
 
@@ -70,26 +54,20 @@ const ActivityContainer = ({ children }: AuthenticationContainerProps) => {
   });
 
   const handleOpenChange = () => {
-    // console.debug("handleOpenChange");
+    console.debug("handleOpenChange");
     activate();
   };
   const handleStaySignedIn = () => {
-    // console.debug("handleStaySignedIn");
+    console.debug("handleStaySignedIn");
     activate();
   };
   const handleSignOut = () => {
-    // console.debug("handleSignOut");
+    console.debug("handleSignOut");
     logout();
   };
 
   return (
-    <ActivityContext.Provider
-      value={{
-        state: userState,
-        remaining: remainingMinutes,
-        open: dialogOpen,
-      }}
-    >
+    <>
       <InactivityDialog
         open={dialogOpen}
         onOpenChange={handleOpenChange}
@@ -98,7 +76,7 @@ const ActivityContainer = ({ children }: AuthenticationContainerProps) => {
         onSignOut={handleSignOut}
       />
       {children}
-    </ActivityContext.Provider>
+    </>
   );
 };
 
