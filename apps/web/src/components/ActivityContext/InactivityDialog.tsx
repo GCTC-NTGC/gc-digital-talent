@@ -3,9 +3,13 @@ import ClockIcon from "@heroicons/react/24/outline/ClockIcon";
 import { useIntl } from "react-intl";
 
 import { Button, Dialog, Image } from "@gc-digital-talent/ui";
+import { useTheme } from "@gc-digital-talent/theme";
 
 import authMessages from "~/messages/authMessages";
-import pug from "~/assets/img/572675090-cd64c467-98d9-4c7a-bfee-954303d8bf88.png";
+import pugDarkLg from "~/assets/img/inactive-pug-dark-lg.webp";
+import pugLightLg from "~/assets/img/inactive-pug-light-lg.webp";
+import pugDarkSm from "~/assets/img/inactive-pug-dark-sm.webp";
+import pugLightSm from "~/assets/img/inactive-pug-light-sm.webp";
 
 interface InactivityDialogProps {
   open: boolean;
@@ -19,6 +23,22 @@ const InactivityDialog = ({
   remainingMinutes,
 }: InactivityDialogProps) => {
   const intl = useIntl();
+  const theme = useTheme();
+  const themeMode = theme.mode as "dark" | "light"; // can remove type override when #16536 is fixed
+
+  const imgSrcs = {
+    light: pugLightLg,
+    dark: pugDarkLg,
+  };
+  const imgSources = {
+    light: {
+      xs: pugLightSm,
+    },
+    dark: {
+      xs: pugDarkSm,
+    },
+  };
+
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Content>
@@ -88,7 +108,13 @@ const InactivityDialog = ({
               })}
             </span>
             <div className="order-4 -mb-12 place-self-center xs:order-3 xs:row-span-2">
-              <Image src={pug} alt="" width="357" height="190" />
+              <Image
+                src={imgSrcs[themeMode]}
+                sources={imgSources[themeMode]}
+                alt=""
+                width="357"
+                height="190"
+              />
             </div>
           </div>
 
