@@ -6,8 +6,8 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import InactivityDialog from "./InactivityDialog";
 
-const timeout = 10_000;
-const promptBeforeIdle = 4_000;
+const timeout = 1000 * 60 * 60; // 60 minutes to milliseconds
+const promptBeforeIdle = 1000 * 60 * 55; // prompt five minutes before timing out
 
 interface InnerActivityContainerProps {
   logout: ReturnType<typeof useAuthentication>["logout"];
