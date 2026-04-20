@@ -116,7 +116,7 @@ const NominationDetailsReview = ({
       ...types,
       {
         key: "nominationForDevelopmentPrograms",
-        name: intl.formatMessage(labels.developmentProgram),
+        name: intl.formatMessage(labels.developmentOpportunities),
       },
     ];
   }
@@ -249,8 +249,8 @@ const NominationDetailsReview = ({
               <FieldDisplay
                 className="col-span-2"
                 label={intl.formatMessage({
-                  defaultMessage: "Development program recommendations",
-                  id: "DHIa69",
+                  defaultMessage: "Recommended development opportunities",
+                  id: "zkwquN",
                   description: "Label for selected development program items",
                 })}
               >
