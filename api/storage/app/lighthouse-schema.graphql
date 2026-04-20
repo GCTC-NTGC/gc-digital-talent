@@ -2155,28 +2155,6 @@ input UpdateOffPlatformRecruitmentProcessInput {
   platformOther: String
 }
 
-input CreateDevelopmentProgramInterestHasMany {
-  create: [CreateDevelopmentProgramInterestInput!]
-}
-
-input UpdateDevelopmentProgramInterestHasMany {
-  create: [CreateDevelopmentProgramInterestInput!]
-  update: [UpdateDevelopmentProgramInterestInput!]
-  delete: [UUID!]
-}
-
-input CreateDevelopmentProgramInterestInput {
-  communityDevelopmentProgramId: UUID!
-  participationStatus: DevelopmentProgramParticipationStatus
-  completionDate: Date
-}
-
-input UpdateDevelopmentProgramInterestInput {
-  id: UUID!
-  participationStatus: DevelopmentProgramParticipationStatus
-  completionDate: Date
-}
-
 input LocalizedStringInput {
   en: String
   fr: String

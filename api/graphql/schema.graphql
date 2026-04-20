@@ -2240,31 +2240,6 @@ input UpdateOffPlatformRecruitmentProcessInput @validator {
   platformOther: String @rename(attribute: "platform_other")
 }
 
-input CreateDevelopmentProgramInterestHasMany {
-  create: [CreateDevelopmentProgramInterestInput!]
-}
-
-input UpdateDevelopmentProgramInterestHasMany {
-  create: [CreateDevelopmentProgramInterestInput!]
-  update: [UpdateDevelopmentProgramInterestInput!]
-  delete: [UUID!]
-}
-
-input CreateDevelopmentProgramInterestInput @validator {
-  communityDevelopmentProgramId: UUID!
-    @rename(attribute: "community_development_program_id")
-  participationStatus: DevelopmentProgramParticipationStatus
-    @rename(attribute: "participation_status")
-  completionDate: Date @rename(attribute: "completion_date")
-}
-
-input UpdateDevelopmentProgramInterestInput @validator {
-  id: UUID!
-  participationStatus: DevelopmentProgramParticipationStatus
-    @rename(attribute: "participation_status")
-  completionDate: Date @rename(attribute: "completion_date")
-}
-
 input LocalizedStringInput {
   en: String
   fr: String
