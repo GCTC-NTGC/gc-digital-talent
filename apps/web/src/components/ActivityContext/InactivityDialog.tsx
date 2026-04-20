@@ -15,12 +15,16 @@ interface InactivityDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   remainingMinutes: number;
+  onStaySignedIn: () => void;
+  onSignOut: () => void;
 }
 
 const InactivityDialog = ({
   open,
   onOpenChange,
   remainingMinutes,
+  onStaySignedIn,
+  onSignOut,
 }: InactivityDialogProps) => {
   const intl = useIntl();
   const theme = useTheme();
@@ -117,8 +121,10 @@ const InactivityDialog = ({
           </div>
 
           <Dialog.Footer>
-            <Button>{intl.formatMessage(authMessages.staySignedIn)}</Button>
-            <Button mode="inline">
+            <Button onClick={onStaySignedIn}>
+              {intl.formatMessage(authMessages.staySignedIn)}
+            </Button>
+            <Button mode="inline" onClick={onSignOut}>
               {intl.formatMessage(authMessages.signOut)}
             </Button>
           </Dialog.Footer>
