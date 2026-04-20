@@ -136,11 +136,9 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
         </TableOfContents.List>
         <Separator space="sm" />
         <div className="flex flex-col gap-y-3">
-          {user.isVerifiedGovEmployee && (
-            <Link href={paths.employeeProfile()}>
-              {intl.formatMessage(navigationMessages.employeeProfileGC)}
-            </Link>
-          )}
+          <Link href={paths.employeeProfile()}>
+            {intl.formatMessage(navigationMessages.employeeProfileGC)}
+          </Link>
           <Link href={paths.accountSettings()}>
             {intl.formatMessage(navigationMessages.accountSettings)}
           </Link>

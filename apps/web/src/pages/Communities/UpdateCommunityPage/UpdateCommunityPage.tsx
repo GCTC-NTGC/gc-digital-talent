@@ -362,8 +362,8 @@ export const UpdateCommunity = () => {
     {
       label: intl.formatMessage({
         defaultMessage: "Edit<hidden> community</hidden>",
-        id: "/zsCRf",
-        description: "Breadcrumb title for the edit skill page link.",
+        id: "xk9i5D",
+        description: "Breadcrumb title for the edit community page link.",
       }),
       url: paths.communityUpdate(communityId),
     },

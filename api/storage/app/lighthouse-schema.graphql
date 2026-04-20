@@ -693,6 +693,10 @@ type Mutation {
   downloadNominationDoc(id: UUID!): String
 }
 
+type Subscription {
+  notificationReceived: UserNotification
+}
+
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date
 
@@ -2961,6 +2965,13 @@ input UpdateCommunityDevelopmentProgramInput {
   classifications: ClassificationBelongsToMany
 }
 
+type UserNotification {
+  id: String
+  type: NotificationType
+  userId: String
+  data: JSON
+}
+
 "Information about pagination using a fully featured paginator."
 type PaginatorInfo {
   "Number of items in the current page."
@@ -3448,6 +3459,11 @@ as they may not be parsed correctly on the server side. Use `String` literals if
 dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
+
+enum NotificationType {
+  UserFileGenerated
+  UserFileGenerationError
+}
 
 enum ActivityEvent {
   CREATED

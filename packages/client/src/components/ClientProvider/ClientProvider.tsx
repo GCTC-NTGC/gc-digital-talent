@@ -4,6 +4,7 @@ import type { Client } from "urql";
 import { Provider } from "urql";
 import { useIntl } from "react-intl";
 
+import { useFeatureFlags } from "@gc-digital-talent/env";
 import type { AuthenticationState } from "@gc-digital-talent/auth";
 import { useAuthentication } from "@gc-digital-talent/auth";
 
@@ -19,6 +20,7 @@ const ClientProvider = ({
 }) => {
   const intl = useIntl();
   const authContext = useAuthentication();
+  const { graphqlSubscriptions } = useFeatureFlags();
   // Create a mutable object to hold the auth state
   const authRef = useRef<AuthenticationState>(authContext);
   // Keep the contents of that mutable object up to date
@@ -27,7 +29,8 @@ const ClientProvider = ({
   }, [authContext]);
 
   const internalClient = useMemo(
-    () => client ?? getClient({ intl }),
+    () =>
+      client ?? getClient({ intl, withSubscriptions: graphqlSubscriptions }),
     [client, intl],
   );
 

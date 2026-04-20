@@ -18,6 +18,7 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
     "types": [
       "node",
       "vitest/globals",
