@@ -4147,6 +4147,10 @@
     "defaultMessage": "Voir sur GCpédia*",
     "description": "Link text displayed on the job poster template 'generic work description' field. With an asterisk for fine print."
   },
+  "FC9V56": {
+    "defaultMessage": "Pour vous reconnecter, veuillez utiliser l'adresse courriel et le mot de passe associés à votre identifiant ConnexionCanada. Au plaisir de vous revoir bientôt.",
+    "description": "Message displayed to a user after signing out"
+  },
   "FD+jX4": {
     "defaultMessage": "Entrez votre prénom et votre nom de famille.",
     "description": "Text for first registrion step enter name instructions"
@@ -6070,10 +6074,6 @@
   "NW7sCE": {
     "defaultMessage": "Créer une classification",
     "description": "Button text to create classification"
-  },
-  "NZ3laJ": {
-    "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt!",
-    "description": "Message displayed to a user after signing out"
   },
   "NaF4Iu": {
     "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
@@ -12225,6 +12225,10 @@
   "ndW6vI": {
     "defaultMessage": "En attente d’une évaluation",
     "description": "Message displayed when candidate is on hold at a specific assessment step"
+  },
+  "neMFtr": {
+    "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt.",
+    "description": "Message displayed to a user after signing out"
   },
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
