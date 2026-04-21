@@ -91,8 +91,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "To sign back in, you’ll need to use your CanadaLogin email and password. We hope to see you soon!",
-                  id: "iAUbLS", // TODO
+                    "To sign back in, you’ll need to use your CanadaLogin email and password. We hope to see you soon",
+                  id: "dz8SoG",
                   description: "Message displayed to a user after signing out",
                 })}
               </p>
@@ -157,8 +157,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "To sign back in, you’ll need to use your CanadaLogin email and password. We hope to see you soon!",
-                  id: "iAUbLS", // TODO
+                    "To sign back in, you’ll need to use your CanadaLogin email and password. We hope to see you soon",
+                  id: "dz8SoG",
                   description: "Message displayed to a user after signing out",
                 })}
               </p>

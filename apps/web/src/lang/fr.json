@@ -15105,5 +15105,9 @@
   "zzf16k": {
     "defaultMessage": "Candidats",
     "description": "Breadcrumb for the All Candidates page"
+  },
+  "dz8SoG": {
+    "defaultMessage": "Pour vous reconnecter, veuillez utiliser l'adresse courriel et le mot de passe associés à votre identifiant ConnexionCanada. Au plaisir de vous revoir bientôt",
+    "description": "Message displayed to a user after signing out"
   }
 }
