@@ -27,7 +27,7 @@ const TechnicalEssentialSkillsSnapshot_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface TechnicalEssentialSkillsSnapshotProps {
-  query: FragmentType<typeof TechnicalEssentialSkillsSnapshot_Fragment>;
+  query?: FragmentType<typeof TechnicalEssentialSkillsSnapshot_Fragment>;
   experiences: SnapshotExperience[];
 }
 
@@ -41,7 +41,7 @@ const TechnicalEssentialSkillsSnapshot = ({
   );
 
   const technicalEssentialSkills = unpackMaybes(
-    application.pool.essentialSkills
+    application?.pool.essentialSkills
       ?.filter(
         (poolSkill) =>
           poolSkill?.skill?.category?.value === SkillCategory.Technical,

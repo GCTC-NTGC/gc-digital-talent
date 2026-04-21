@@ -3,6 +3,7 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import QuestionResponses from "./QuestionResponses";
 
@@ -12,6 +13,7 @@ const GeneralQuestionResponsesSnapshot_Fragment = graphql(/** GraphQL */ `
       id
       answer
       generalQuestion {
+        id
         question {
           localized
         }
@@ -21,7 +23,7 @@ const GeneralQuestionResponsesSnapshot_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface GeneralQuestionResponsesSnapshotProps {
-  query: FragmentType<typeof GeneralQuestionResponsesSnapshot_Fragment>;
+  query?: FragmentType<typeof GeneralQuestionResponsesSnapshot_Fragment>;
 }
 
 const GeneralQuestionResponsesSnapshot = ({
@@ -32,7 +34,11 @@ const GeneralQuestionResponsesSnapshot = ({
     query,
   );
 
-  return <QuestionResponses responses={application.generalQuestionResponses} />;
+  return (
+    <QuestionResponses
+      responses={unpackMaybes(application?.generalQuestionResponses)}
+    />
+  );
 };
 
 export default GeneralQuestionResponsesSnapshot;

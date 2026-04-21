@@ -35,13 +35,13 @@ import { getEducationRequirementOptions } from "~/utils/educationUtils";
 import type { ClassificationGroup } from "~/types/classificationGroup";
 import { isClassificationGroup } from "~/types/classificationGroup";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import processMessages from "~/messages/processMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
 import useApplication from "../useApplication";
-import processMessages from "~/messages/processMessages";
 
 interface EducationRequirementExperiences {
   educationRequirementAwardExperiences: { sync: string[] };

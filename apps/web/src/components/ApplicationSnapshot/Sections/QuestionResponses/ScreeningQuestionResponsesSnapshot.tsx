@@ -4,6 +4,7 @@ import {
   type FragmentType,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+
 import QuestionResponses from "./QuestionResponses";
 
 const ScreeningQuestionResponsesSnapshot_Fragment = graphql(/** GraphQL */ `
@@ -12,6 +13,7 @@ const ScreeningQuestionResponsesSnapshot_Fragment = graphql(/** GraphQL */ `
       id
       answer
       screeningQuestion {
+        id
         question {
           localized
         }
@@ -21,7 +23,7 @@ const ScreeningQuestionResponsesSnapshot_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface ScreeningQuestionResponsesSnapshotProps {
-  query: FragmentType<typeof ScreeningQuestionResponsesSnapshot_Fragment>;
+  query?: FragmentType<typeof ScreeningQuestionResponsesSnapshot_Fragment>;
 }
 
 const ScreeningQuestionResponsesSnapshot = ({
@@ -33,7 +35,9 @@ const ScreeningQuestionResponsesSnapshot = ({
   );
 
   return (
-    <QuestionResponses responses={application.screeningQuestionResponses} />
+    <QuestionResponses
+      responses={unpackMaybes(application?.screeningQuestionResponses)}
+    />
   );
 };
 

@@ -13,7 +13,7 @@ import {
   Separator,
   Notice,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
 import type { SnapshotExperience } from "~/utils/experienceUtils";
@@ -144,7 +144,7 @@ const SkillSnapshot = ({ query, experiences }: SkillSnapshotProps) => {
             {skill.name?.localized ?? notAvailable}
           </Heading>
           {skill.description?.localized && (
-            <p className="mb-6">{skill.description.id}</p>
+            <p className="mb-6">{skill.description.localized}</p>
           )}
 
           <Separator className="bg-error" space="sm" />
