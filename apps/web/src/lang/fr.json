@@ -851,6 +851,10 @@
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
   },
+  "1Ooizo": {
+    "defaultMessage": "minuteur",
+    "description": "Accessible label for a clock icon"
+  },
   "1PYGkw": {
     "defaultMessage": "Télécharger Excel profils",
     "description": "Button label to download users associated with selected candidates as Excel"
@@ -4579,6 +4583,10 @@
     "defaultMessage": "Apprenez-en davantage sur cette possibilité d’emploi et commencez à rédiger votre candidature.",
     "description": "Subtitle for a pool advertisement page"
   },
+  "H69949": {
+    "defaultMessage": "Temps restant : <strong>{remainingMinutes, plural, zero {0 minute} one {# minute} other {# minutes} }</strong>",
+    "description": "Inactivity timer remaining time"
+  },
   "H6FgWU": {
     "defaultMessage": "Inscription",
     "description": "Breadcrumb for the registration pages"
@@ -6458,6 +6466,10 @@
   "PRRKAq": {
     "defaultMessage": "Visionnez et modifiez vos paramètres pour cette collectivité.",
     "description": "Subtitle for dialog viewing a community interest"
+  },
+  "PRaqZT": {
+    "defaultMessage": "Si vous ne continuez pas votre session, la déconnexion se fera automatiquement et toute modification non enregistrée sera perdue.",
+    "description": "Body for the inactivity dialog"
   },
   "PSIaKn": {
     "defaultMessage": "Statut de direction ou de supervision",
@@ -8606,6 +8618,10 @@
     "defaultMessage": "arrive à échéance le {expiryDate}",
     "description": "Message part for expiry date"
   },
+  "Yn2mVD": {
+    "defaultMessage": "Avertissement",
+    "description": "Accessible label for a warning icon"
+  },
   "Ynxi7g": {
     "defaultMessage": "Note spéciale relative aux compétences techniques constituant un atout",
     "description": "The nonessential technical skills special note for a job poster template"
@@ -9173,6 +9189,10 @@
   "bW4lM0": {
     "defaultMessage": "Formation non classique",
     "description": "Experience requirement, non-conventional training."
+  },
+  "bZP+NM": {
+    "defaultMessage": "Continuer la session",
+    "description": "Choose to stay signed in to the app"
   },
   "baAj/Z": {
     "defaultMessage": "Sélectionner une expérience",
@@ -9893,6 +9913,10 @@
   "eKPE3F": {
     "defaultMessage": "Vous ne recevez pas de possibilités découlant de ce recrutement.",
     "description": "Message displayed when a user has suspended an application to a recruitment"
+  },
+  "eMMDjW": {
+    "defaultMessage": "Votre session va bientôt se terminer en raison de l'inactivité",
+    "description": "Title for the inactivity dialog"
   },
   "eMrYDr": {
     "defaultMessage": "Compte d'utilisateur supprimé",
@@ -11773,6 +11797,10 @@
   "m0Qcow": {
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the search request table requested date column."
+  },
+  "m163e9": {
+    "defaultMessage": "Voulez-vous continuer votre session?",
+    "description": "Call to action in the inactivity dialog"
   },
   "m1eQrS": {
     "defaultMessage": "Canada.ca",
