@@ -142,7 +142,7 @@ export const Component = () => {
     }
   }, [iapMode, themeKey, setThemeKey]);
 
-  const renderInstructionCards = () => {
+  const InstructionCards = () => {
     if (selectedMethod === "canadaLogin") {
       return (
         <>
@@ -855,7 +855,7 @@ export const Component = () => {
           {!iapMode ? (
             <>
               <div id="registrationInstructions" className="scroll-mt-20">
-                {renderInstructionCards()}
+                <InstructionCards />
 
                 <Heading
                   icon={InformationCircleIcon}
