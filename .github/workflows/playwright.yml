@@ -27,7 +27,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ${{ github.ref_name == 'main' && fromJSON('["chromium", "webkit"]') || fromJSON('["chromium"]') }}
+        project: ${{ fromJSON('["chromium"]') }}
         shardIndex: [1, 2, 3, 4]
         shardTotal: [4]
     env:
