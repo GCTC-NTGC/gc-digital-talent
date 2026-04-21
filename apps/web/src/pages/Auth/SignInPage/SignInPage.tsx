@@ -102,7 +102,7 @@ export const Component = () => {
   const pageTitle = featureFlags?.canadaLogin
     ? intl.formatMessage({
         defaultMessage: "Sign in using CanadaLogin",
-        id: "q9LrNV", // TODO
+        id: "q9LrNV",
         description: "Page title for the sign in page using CanadaLogin",
       })
     : intl.formatMessage({
@@ -156,7 +156,7 @@ export const Component = () => {
           >
             {intl.formatMessage({
               defaultMessage: "Sign into CanadaLogin",
-              id: "Q/ROAL", // TODO
+              id: "Q/ROAL",
               description:
                 "Heading for section of the sign in page showing the create steps",
             })}
@@ -174,7 +174,7 @@ export const Component = () => {
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Sign in with your CanadaLogin email.",
-                    id: "IVba2H", // TODO
+                    id: "IVba2H",
                     description: "Text for first registration -> create step.",
                   })}
                 </li>
@@ -192,7 +192,7 @@ export const Component = () => {
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Enter your CanadaLogin password.",
-                    id: "JsPXch", // TODO
+                    id: "JsPXch",
                     description: "Text for first registration -> create step.",
                   })}
                 </li>
@@ -211,7 +211,7 @@ export const Component = () => {
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Enter the six-digit code from your phone.",
-                    id: "DcABwS", // TODO
+                    id: "DcABwS",
                     description: "Text for first registration -> create step.",
                   })}
                 </li>
@@ -226,7 +226,7 @@ export const Component = () => {
           >
             {intl.formatMessage({
               defaultMessage: "Access your existing account",
-              id: "1OOvpY", // TODO
+              id: "1OOvpY",
               description:
                 "Heading for section of the signin page showing the create steps",
             })}
@@ -252,7 +252,7 @@ export const Component = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "Hooray! You've signed in with CanadaLogin and will be returned to the GC Digital Talent platform.",
-                  id: "jOjLtT", // TODO
+                  id: "jOjLtT",
                   description: "Text for first registration -> create step.",
                 })}
               </p>
@@ -271,7 +271,7 @@ export const Component = () => {
           >
             {intl.formatMessage({
               defaultMessage: "Your account transition journey",
-              id: "2b7CQ/", // TODO
+              id: "2b7CQ/",
               description:
                 "Heading for the account transition journey section on the sign in page",
             })}
@@ -283,7 +283,7 @@ export const Component = () => {
           >
             {intl.formatMessage({
               defaultMessage: "Step 1: Create a CanadaLogin or sign in",
-              id: "p2LOIV", // TODO
+              id: "p2LOIV",
               description:
                 "Heading for section of the sign in page showing the create steps",
             })}
@@ -483,7 +483,7 @@ export const Component = () => {
                 <li className="mt-4">
                   {intl.formatMessage({
                     defaultMessage: "Proceed to step two.",
-                    id: "UwU+X9", // TODO
+                    id: "UwU+X9",
                     description: "Text for first registration -> create step.",
                   })}
                 </li>
@@ -493,7 +493,7 @@ export const Component = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "CanadaLogin can be used to access various Government of Canada accounts.",
-                    id: "LTd4Kw", // TODO
+                    id: "LTd4Kw",
                     description: "Text for first registration -> create step.",
                   })}
                 </p>
@@ -508,7 +508,7 @@ export const Component = () => {
           >
             {intl.formatMessage({
               defaultMessage: "Step 2: Link your GCKey",
-              id: "hvGIMU", // TODO
+              id: "hvGIMU",
               description:
                 "Heading for section of the sign in page showing the create steps",
             })}
@@ -526,7 +526,7 @@ export const Component = () => {
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Sign into your GCKey account.",
-                    id: "KCQ2es", // TODO
+                    id: "KCQ2es",
                     description: "Text for step two link your GCKey account.",
                   })}
                 </li>
@@ -536,7 +536,7 @@ export const Component = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "This is the username and password you usually sign into GC Digital Talent with.",
-                    id: "+2z44i", // TODO
+                    id: "+2z44i",
                     description: "Text for step two link your GCKey account.",
                   })}
                 </p>
@@ -555,7 +555,7 @@ export const Component = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "Open the authenticator app on your device.",
-                    id: "jh/UHf", // TODO
+                    id: "jh/UHf",
                     description: "Text for step two link your GCKey account.",
                   })}
                 </li>
@@ -575,7 +575,7 @@ export const Component = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "Enter the code from your authenticator app into GCKey.",
-                    id: "HzvS7w", // TODO
+                    id: "HzvS7w",
                     description: "Text for step two link your GCKey account.",
                   })}
                 </li>
@@ -590,7 +590,7 @@ export const Component = () => {
           >
             {intl.formatMessage({
               defaultMessage: "Step 3: Access your existing account",
-              id: "pNA402", // TODO
+              id: "pNA402",
               description:
                 "Heading for section of the signin page showing the access steps",
             })}
@@ -616,7 +616,7 @@ export const Component = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "Hooray! You've completed your account transition journey and will be brought back to your GC Digital Talent account.",
-                  id: "MmzsE6", // TODO
+                  id: "MmzsE6",
                   description: "Text for first registration -> create step.",
                 })}
               </p>
@@ -645,7 +645,7 @@ export const Component = () => {
                 >
                   {intl.formatMessage({
                     defaultMessage: "Welcome back",
-                    id: "nmBkRg", // TODO
+                    id: "nmBkRg",
                     description:
                       "Welcome heading at the top of the sign in page",
                   })}
@@ -654,7 +654,7 @@ export const Component = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "We're upgrading from GCKey sign in experience to the government's new central account system called CanadaLogin.",
-                    id: "OgTBmm", // TODO
+                    id: "OgTBmm",
                     description:
                       "Copy under welcome heading at the top of the sign in page",
                   })}
@@ -663,7 +663,7 @@ export const Component = () => {
                   {intl.formatMessage({
                     defaultMessage:
                       "You'll be leaving our site to sign in with CanadaLogin. If anything goes wrong, we have prepared additional guidance for you.",
-                    id: "vC8yrC", // TODO
+                    id: "vC8yrC",
                     description:
                       "Copy under welcome heading at the top of the sign in page",
                   })}
@@ -672,7 +672,7 @@ export const Component = () => {
                 <p className="pt-6 pl-2 font-normal">
                   {intl.formatMessage({
                     defaultMessage: "How did you last sign in?",
-                    id: "CIDrn4", // TODO
+                    id: "CIDrn4",
                     description:
                       "Heading for the section asking users how they last signed in on the sign in page",
                   })}
@@ -693,7 +693,7 @@ export const Component = () => {
                               <span className="mr-2">
                                 {intl.formatMessage({
                                   defaultMessage: "CanadaLogin",
-                                  id: "t0iSsj", // TODO
+                                  id: "t0iSsj",
                                   description:
                                     "CanadaLogin sign in method label",
                                 })}
@@ -702,7 +702,7 @@ export const Component = () => {
                                 <span>
                                   {intl.formatMessage({
                                     defaultMessage: "New",
-                                    id: "N0zaCd", // TODO
+                                    id: "N0zaCd",
                                     description:
                                       "Chip label for CanadaLogin option",
                                   })}
@@ -716,7 +716,7 @@ export const Component = () => {
                               {intl.formatMessage({
                                 defaultMessage:
                                   "You have signed in recently and created a CanadaLogin account using your email",
-                                id: "wxXlyJ", // TODO
+                                id: "wxXlyJ",
                                 description:
                                   "Message shown under CanadaLogin option on sign in page",
                               })}
@@ -731,7 +731,7 @@ export const Component = () => {
                               {intl.formatMessage({
                                 defaultMessage:
                                   "Your last sign in was before April 2026 and used a GCKey username",
-                                id: "5V6IMt", // TODO
+                                id: "5V6IMt",
                                 description:
                                   "Message shown under GCKey option on sign in page",
                               })}
@@ -755,12 +755,12 @@ export const Component = () => {
                     {selectedMethod === "gckey"
                       ? intl.formatMessage({
                           defaultMessage: "GCKey is being replaced",
-                          id: "AHlRZt", // TODO
+                          id: "AHlRZt",
                           description: "Title for important update notice",
                         })
                       : intl.formatMessage({
                           defaultMessage: "Use CanadaLogin",
-                          id: "299Vg4", // TODO
+                          id: "299Vg4",
                           description:
                             "Confirmation notice for CanadaLogin selection",
                         })}
@@ -770,14 +770,14 @@ export const Component = () => {
                       ? intl.formatMessage({
                           defaultMessage:
                             "We'll help you with a one-time switch from GCKey to CanadaLogin",
-                          id: "ScdEWz", // TODO
+                          id: "ScdEWz",
                           description:
                             "Copy under welcome heading at the top of the sign in page",
                         })
                       : intl.formatMessage({
                           defaultMessage:
                             "If you're unsure or have completed the transition, select CanadaLogin.",
-                          id: "kUOZ8e", // TODO
+                          id: "kUOZ8e",
                           description: "Redirect notice text",
                         })}
 
@@ -786,7 +786,7 @@ export const Component = () => {
                         <li>
                           {intl.formatMessage({
                             defaultMessage: "Create a CanadaLogin account",
-                            id: "faKH/0", // TODO
+                            id: "faKH/0",
                             description: "First note about GCKey migration",
                           })}
                         </li>
@@ -794,7 +794,7 @@ export const Component = () => {
                           {intl.formatMessage({
                             defaultMessage:
                               "Link your GCKey to your CanadaLogin",
-                            id: "B+y8nm", // TODO
+                            id: "B+y8nm",
                             description: "Second note about GCKey migration",
                           })}
                         </li>
@@ -802,7 +802,7 @@ export const Component = () => {
                           {intl.formatMessage({
                             defaultMessage:
                               "Continue signing into GC Digital Talent",
-                            id: "Ftr7tt", // TODO
+                            id: "Ftr7tt",
                             description: "Third note about GCKey migration",
                           })}
                         </li>
@@ -829,7 +829,7 @@ export const Component = () => {
                     })
                   : intl.formatMessage({
                       defaultMessage: "Get started",
-                      id: "ci28W3", // TODO
+                      id: "ci28W3",
                       description:
                         "CanadaLogin sign up link text on the sign in page",
                     })}
@@ -844,7 +844,7 @@ export const Component = () => {
                 >
                   {intl.formatMessage({
                     defaultMessage: "I need help",
-                    id: "+G1WRn", // TODO
+                    id: "+G1WRn",
                     description:
                       "Heading for the instructions resource block on the sign in page",
                   })}
