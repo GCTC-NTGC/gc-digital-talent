@@ -136,6 +136,9 @@ export const Component = () => {
 
   const selectedMethod = methods.watch("signInMethod");
 
+  const skipMigration =
+    selectedMethod === "canadaLogin" ? "&skipmigration=true" : "";
+
   useEffect(() => {
     if (iapMode && themeKey !== "iap") {
       setThemeKey("iap");
@@ -811,7 +814,7 @@ export const Component = () => {
             )}
             <div className="flex flex-col items-start gap-4 pt-6 pl-4 xs:flex-row xs:items-center">
               <Link
-                href={`${loginPath}&skipmigration=true`}
+                href={`${loginPath}${skipMigration}`}
                 mode="solid"
                 color="primary"
                 utilityIcon={ChevronDoubleRightIcon}
