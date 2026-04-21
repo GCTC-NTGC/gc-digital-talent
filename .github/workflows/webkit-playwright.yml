@@ -1,20 +1,10 @@
-name: Playwright
+name: Weekly Webkit-Playwright Execution
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - "**.md"
-
-  pull_request:
-    paths:
-      - .github/workflows/*playwright*.yml
-      - apps/**
-      - packages/**
-      - api/**
-  merge_group:
-    branches: [main]
+  schedule:
+    # Runs every Monday at 8 AM
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref_name }}-${{ github.job }}
@@ -27,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ${{ fromJSON('["chromium"]') }}
+        project: ${{ fromJSON('["webkit"]') }}
         shardIndex: [1, 2, 3, 4]
         shardTotal: [4]
     env:
