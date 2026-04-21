@@ -14,13 +14,15 @@ interface InstructionsStepCardProps {
     lazy?: boolean;
     width?: number;
     height?: number;
-  };
-  mobileImg?: {
-    src: string;
-    darkSrc?: string;
-    lazy?: boolean;
-    width?: number;
-    height?: number;
+    sources?: {
+      xxs?: string;
+      xs?: string;
+    };
+    darkSources?: {
+      xxs?: string;
+      xs?: string;
+    };
+    className?: string;
   };
   includeArrow?: boolean;
   children: ReactNode;
@@ -42,14 +44,24 @@ const instructionStepCard = tv({
 });
 
 const InstructionsStepCard = ({
-  img: { src, darkSrc, lazy, ...imgProps },
-  mobileImg,
+  img: {
+    src,
+    darkSrc,
+    sources,
+    darkSources,
+    lazy,
+    width,
+    height,
+    className: imgClassName,
+    ...imgProps
+  },
   children,
   className = "",
   background = "default",
 }: InstructionsStepCardProps) => {
   const { mode } = useTheme();
   const imgSrc = mode === "dark" && darkSrc ? darkSrc : src;
+  const imgSources = mode === "dark" && darkSources ? darkSources : sources;
 
   return (
     <Card
@@ -60,27 +72,16 @@ const InstructionsStepCard = ({
       })}
     >
       <div className="mb-4 flex justify-center">
-        {mobileImg ? (
-          <>
-            <div className="hidden xxs:block">
-              <Image {...imgProps} src={imgSrc} alt="" />
-            </div>
-
-            <div className="block xxs:hidden">
-              <Image
-                {...mobileImg}
-                src={
-                  mode === "dark" && mobileImg.darkSrc
-                    ? mobileImg.darkSrc
-                    : mobileImg.src
-                }
-                alt=""
-              />
-            </div>
-          </>
-        ) : (
-          <Image {...imgProps} src={imgSrc} alt="" />
-        )}
+        <Image
+          {...imgProps}
+          src={imgSrc}
+          sources={imgSources}
+          alt=""
+          width={width}
+          height={height}
+          loading={lazy ? "lazy" : "eager"}
+          className={imgClassName}
+        />
       </div>
       <div>{children}</div>
     </Card>

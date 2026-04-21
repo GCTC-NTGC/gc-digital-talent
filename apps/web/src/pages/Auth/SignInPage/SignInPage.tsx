@@ -228,14 +228,15 @@ export const Component = () => {
               img={{
                 src: canadaLoginStep3,
                 darkSrc: canadaLoginStep3Dark,
+                sources: {
+                  xxs: canadaLoginStep3Mobile,
+                },
+                darkSources: {
+                  xxs: canadaLoginStep3MobileDark,
+                },
+                className: "xxs:max-w-[400px] sm:max-w-[700px] mx-auto w-full",
                 width: 700,
                 height: 200,
-              }}
-              mobileImg={{
-                src: canadaLoginStep3Mobile,
-                darkSrc: canadaLoginStep3MobileDark,
-                width: 400,
-                height: 210,
               }}
             >
               <p>
@@ -573,14 +574,15 @@ export const Component = () => {
               img={{
                 src: canadaLoginStep3,
                 darkSrc: canadaLoginStep3Dark,
+                sources: {
+                  xxs: canadaLoginStep3Mobile,
+                },
+                darkSources: {
+                  xxs: canadaLoginStep3MobileDark,
+                },
+                className: "xxs:max-w-[400px] sm:max-w-[700px] mx-auto w-full",
                 width: 700,
                 height: 200,
-              }}
-              mobileImg={{
-                src: canadaLoginStep3Mobile,
-                darkSrc: canadaLoginStep3MobileDark,
-                width: 400,
-                height: 210,
               }}
             >
               <p>
