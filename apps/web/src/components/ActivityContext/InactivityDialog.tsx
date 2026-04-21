@@ -49,7 +49,8 @@ const InactivityDialog = ({
         <Dialog.Header>
           <div className="flex flex-row gap-3 self-start">
             <ExclamationTriangleIcon
-              className="h-9 text-warning lg:h-12"
+              // StyleTitle in packages/ui/src/components/Dialog/Dialog.tsx: 90% of "text-2xl lg:text-3xl"
+              className="h-[--spacing(9*0.9)] min-w-9 pt-[--spacing(9*0.1)] text-warning lg:h-[--spacing(10.5*0.9)] lg:min-w-10.5 lg:pt-[--spacing(10.5*0.1)]"
               aria-hidden="false"
               aria-label={intl.formatMessage({
                 defaultMessage: "Warning",
