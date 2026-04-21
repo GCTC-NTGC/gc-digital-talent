@@ -100,8 +100,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
-                  id: "NZ3laJ",
+                    "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon",
+                  id: "4F4zsu",
                   description: "Message displayed to a user after signing out",
                 })}
               </p>
@@ -166,8 +166,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
-                  id: "NZ3laJ",
+                    "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon",
+                  id: "4F4zsu",
                   description: "Message displayed to a user after signing out",
                 })}
               </p>

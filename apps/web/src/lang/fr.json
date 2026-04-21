@@ -1551,6 +1551,10 @@
     "defaultMessage": "Contactez l’autrice ou l’auteur de mise en candidature ou la personne déposante afin qu'elle fasse un suivi auprès de la personne candidate :",
     "description": "Instruction to contact nominator or submitter for follow up"
   },
+  "4F4zsu": {
+    "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt",
+    "description": "Message displayed to a user after signing out"
+  },
   "4Hyg4Y": {
     "defaultMessage": "Malgré tous les efforts déployés pour rendre notre site Web entièrement accessible, si vous avez besoin d’aide pour accéder aux renseignements ou si vous avez besoin d’un format différent, nous vous encourageons à communiquer avec nous. Votre rétroaction sur nos efforts d’accessibilité est également la bienvenue. Veuillez communiquer avec nous à <supportMailLink>{emailAddress}</supportMailLink>.",
     "description": "Lead in text for accessibility contact information"
@@ -6070,10 +6074,6 @@
   "NW7sCE": {
     "defaultMessage": "Créer une classification",
     "description": "Button text to create classification"
-  },
-  "NZ3laJ": {
-    "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt!",
-    "description": "Message displayed to a user after signing out"
   },
   "NaF4Iu": {
     "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
