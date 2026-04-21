@@ -11,6 +11,7 @@ import {
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Accordion, Button, Heading, NotFound } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import profileMessages from "~/messages/profileMessages";
 import processMessages from "~/messages/processMessages";
@@ -19,6 +20,9 @@ import { ALL_SECTIONS, SECTION_KEY } from "./types";
 import PersonalInformationSnapshot from "./Sections/PersonalInformation/PersonalInformationSnapshot";
 import ScreeningQuestionResponsesSnapshot from "./Sections/QuestionResponses/ScreeningQuestionResponsesSnapshot";
 import GeneralQuestionResponsesSnapshot from "./Sections/QuestionResponses/GeneralQuestionResponsesSnapshot";
+import EducationRequirementSnapshot from "./Sections/EducationRequirment/EducationRequirementSnapshot";
+import TechnicalAssetSkillsSnapshot from "./Sections/Skills/TechnicalAssetSkillsSnapshot";
+import TechnicalEssentialSkillsSnapshot from "./Sections/Skills/TechnicalEssentialSkillsSnapshot";
 
 const ApplicationSnapshot_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationSnapshot on PoolCandidate {
@@ -27,6 +31,9 @@ const ApplicationSnapshot_Fragment = graphql(/** GraphQL */ `
 
     ...ScreeningQuestionResponsesSnapshot
     ...GeneralQuestionResponsesSnapshot
+    ...EducationRequirement_PoolCandidate
+    ...TechnicalEssentialSkillsSnapshot
+    ...TechnicalAssetSkillsSnapshot
   }
 `);
 
@@ -58,6 +65,8 @@ const ApplicationSnapshot = ({
   const snapshot = application?.profileSnapshot
     ? (JSON.parse(String(application.profileSnapshot)) as ParsedSnapshot)
     : undefined;
+
+  const experiences = unpackMaybes(snapshot?.experiences);
 
   if (!snapshot) {
     return (
@@ -159,6 +168,49 @@ const ApplicationSnapshot = ({
             </Accordion.Trigger>
             <Accordion.Content>
               <GeneralQuestionResponsesSnapshot query={application} />
+            </Accordion.Content>
+          </Accordion.Item>
+
+          <Accordion.Item value={SECTION_KEY.EDUCATION}>
+            <Accordion.Trigger as="h3">
+              {intl.formatMessage(processMessages.minEducationRequirement)}
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <EducationRequirementSnapshot
+                snapshot={snapshot}
+                educationRequirementQuery={application}
+              />
+            </Accordion.Content>
+          </Accordion.Item>
+
+          <Accordion.Item value={SECTION_KEY.ESSENTIAL}>
+            <Accordion.Trigger as="h3">
+              {intl.formatMessage({
+                defaultMessage: "Essential skills",
+                id: "w7E0He",
+                description: "Title for the required skills snapshot section",
+              })}
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <TechnicalEssentialSkillsSnapshot
+                query={application}
+                experiences={experiences}
+              />
+            </Accordion.Content>
+          </Accordion.Item>
+          <Accordion.Item value={SECTION_KEY.ASSET}>
+            <Accordion.Trigger as="h3">
+              {intl.formatMessage({
+                defaultMessage: "Asset skills",
+                id: "K0Zkdw",
+                description: "Title for optional skills",
+              })}
+            </Accordion.Trigger>
+            <Accordion.Content>
+              <TechnicalAssetSkillsSnapshot
+                query={application}
+                experiences={experiences}
+              />
             </Accordion.Content>
           </Accordion.Item>
         </Accordion.Item>

@@ -292,12 +292,7 @@ const ApplicationInformation = ({
         ) : null}
         <Accordion.Item value={SECTION_KEY.EDUCATION}>
           <Accordion.Trigger as="h3">
-            {intl.formatMessage({
-              defaultMessage: "Minimum experience or equivalent education",
-              id: "LvYEdh",
-              description:
-                "Title for Minimum experience or equivalent education",
-            })}
+            {intl.formatMessage(processMessages.minEducationRequirement)}
           </Accordion.Trigger>
           <Accordion.Content>
             <EducationRequirementSnapshot

@@ -41,6 +41,7 @@ import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
 import useApplication from "../useApplication";
+import processMessages from "~/messages/processMessages";
 
 interface EducationRequirementExperiences {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -66,11 +67,7 @@ export const getPageInfo: GetPageNavInfo = ({
 }) => {
   const path = paths.applicationEducation(application.id);
   return {
-    title: intl.formatMessage({
-      defaultMessage: "Minimum experience or equivalent education",
-      id: "LvYEdh",
-      description: "Title for Minimum experience or equivalent education",
-    }),
+    title: intl.formatMessage(processMessages.minEducationRequirement),
     subtitle: intl.formatMessage({
       defaultMessage:
         "Confirm you have the minimum experience or equivalent education for the role.",
