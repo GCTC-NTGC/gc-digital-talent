@@ -167,13 +167,15 @@ export const Component = () => {
                 darkSrc: canadaLoginStep1ImageDark,
               }}
             >
-              <p className="mt-8 mb-6.75">
-                {intl.formatMessage({
-                  defaultMessage: "Sign in with your CanadaLogin email.",
-                  id: "IVba2H", // TODO
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
+              <ol className="mb-6.75 space-y-4 text-center">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage: "Sign in with your CanadaLogin email.",
+                    id: "IVba2H", // TODO
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+              </ol>
             </InstructionsStepCard>
             <InstructionsStepCard
               className="rounded-none pt-12 pb-7.5"
@@ -183,13 +185,15 @@ export const Component = () => {
                 darkSrc: canadaLoginStep1bImageDark,
               }}
             >
-              <p className="mt-8 mb-6.75">
-                {intl.formatMessage({
-                  defaultMessage: "Enter your CanadaLogin password.",
-                  id: "JsPXch", // TODO
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
+              <ol className="mb-6.75 space-y-4 text-center">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage: "Enter your CanadaLogin password.",
+                    id: "JsPXch", // TODO
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+              </ol>
             </InstructionsStepCard>
 
             <InstructionsStepCard
@@ -200,13 +204,15 @@ export const Component = () => {
                 darkSrc: canadaLoginStep1cImageDark,
               }}
             >
-              <p className="mt-8 mb-6.75">
-                {intl.formatMessage({
-                  defaultMessage: "Enter the six-digit code from your phone.",
-                  id: "DcABwS", // TODO
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
+              <ol className="mb-6.75 space-y-4 text-center">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage: "Enter the six-digit code from your phone.",
+                    id: "DcABwS", // TODO
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+              </ol>
             </InstructionsStepCard>
           </InstructionsCardGrid>
 
@@ -268,7 +274,7 @@ export const Component = () => {
             })}
           </Heading>
           <Heading
-            level="h3"
+            level="h4"
             size="h4"
             className="mt-13.5 mb-3.5 text-center font-normal xs:text-left"
           >
@@ -288,30 +294,32 @@ export const Component = () => {
                 darkSrc: canadaLoginStep1Dark,
               }}
             >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Head to CanadaLogin.",
-                  id: "sRUaI5",
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
-              <p className="mt-4">
-                {intl.formatMessage({
-                  defaultMessage: "Agree to the summary of terms.",
-                  id: "qSNLSc",
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
+              <ol className="space-y-4 text-center">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage: "Head to CanadaLogin.",
+                    id: "sRUaI5",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage: "Agree to the summary of terms.",
+                    id: "qSNLSc",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+              </ol>
 
-              <div className="mt-2 mb-6.75">
-                <span className="text-sm font-normal text-gray-500 dark:text-gray-100">
+              <div className="mt-4 mb-6.75">
+                <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
                   {intl.formatMessage({
                     defaultMessage:
                       "If you've already used CanadaLogin on another service, you can enter your email and password and skip to step two.",
                     id: "h4BQ8C",
                     description: "Text for first registration -> create step.",
                   })}
-                </span>
+                </p>
               </div>
             </InstructionsStepCard>
             <InstructionsStepCard
@@ -322,22 +330,24 @@ export const Component = () => {
                 darkSrc: canadaLoginStep2bDark,
               }}
             >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Enter your first and last name.",
-                  id: "FD+jX4",
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
-              <div className="mt-2 mb-6.75">
-                <span className="text-sm font-normal text-gray-600 dark:text-gray-100">
+              <ol className="space-y-4 text-center">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage: "Enter your first and last name.",
+                    id: "FD+jX4",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+              </ol>
+              <div className="mt-4 mb-6.75">
+                <p className="text-sm font-normal text-gray-600 dark:text-gray-100">
                   {intl.formatMessage({
                     defaultMessage:
                       "The name you use here will be on your GC Digital Talent profile.",
                     id: "8dctGM",
                     description: "Text for first registration -> create step.",
                   })}
-                </span>
+                </p>
               </div>
             </InstructionsStepCard>
 
@@ -349,30 +359,32 @@ export const Component = () => {
                 darkSrc: canadaLoginStep2cDark,
               }}
             >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Verify your personal email address.",
-                  id: "Ip9S/o",
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
-              <p className="mt-4">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Enter the code sent to your email into CanadaLogin.",
-                  id: "XLJuh+",
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
-              <div className="mt-2 mb-6.75">
-                <span className="text-sm font-normal text-gray-500 dark:text-gray-100">
+              <ol className="space-y-4 text-center">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage: "Verify your personal email address.",
+                    id: "Ip9S/o",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Enter the code sent to your email into CanadaLogin.",
+                    id: "XLJuh+",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+              </ol>
+              <div className="mt-4 mb-6.75">
+                <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
                   {intl.formatMessage({
                     defaultMessage:
                       "Using a personal email address will help ensure you don't lose access if you change jobs.",
                     id: "OG/Fbe",
                     description: "Text for first registration -> create step.",
                   })}
-                </span>
+                </p>
               </div>
             </InstructionsStepCard>
 
@@ -384,29 +396,31 @@ export const Component = () => {
                 darkSrc: canadaLoginStep4Dark,
               }}
             >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Set up two-step verification.",
-                  id: "D/Tcaj",
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
-              <p className="mt-4">
-                {intl.formatMessage({
-                  defaultMessage: "Enter your personal phone number.",
-                  id: "XUt7q+",
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
-              <div className="mt-2 mb-6.75">
-                <span className="text-sm font-normal text-gray-500 dark:text-gray-100">
+              <ol className="space-y-4 text-center">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage: "Set up two-step verification.",
+                    id: "D/Tcaj",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+                <li className="mt-6">
+                  {intl.formatMessage({
+                    defaultMessage: "Enter your personal phone number.",
+                    id: "XUt7q+",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+              </ol>
+              <div className="mt-4 mb-6.75">
+                <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
                   {intl.formatMessage({
                     defaultMessage:
                       "Using a personal phone number will help ensure you don't lose access if you change jobs.",
                     id: "QbJmAL",
                     description: "Text for first registration -> create step.",
                   })}
-                </span>
+                </p>
               </div>
             </InstructionsStepCard>
             <InstructionsStepCard
@@ -416,30 +430,32 @@ export const Component = () => {
                 darkSrc: canadaLoginStep5Dark,
               }}
             >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "You will be sent a code to the number you provided.",
-                  id: "QU8yQJ",
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
-              <p className="mt-4">
-                {intl.formatMessage({
-                  defaultMessage: "Enter the code into CanadaLogin.",
-                  id: "pTOGhN",
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
+              <ol className="space-y-4 text-center">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "You will be sent a code to the number you provided.",
+                    id: "QU8yQJ",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+                <li className="mt-2">
+                  {intl.formatMessage({
+                    defaultMessage: "Enter the code into CanadaLogin.",
+                    id: "pTOGhN",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+              </ol>
               <div className="mt-2 mb-6.75">
-                <span className="text-sm font-normal text-gray-600 dark:text-gray-100">
+                <p className="text-sm font-normal text-gray-600 dark:text-gray-100">
                   {intl.formatMessage({
                     defaultMessage:
                       "This code will be sent by either text or phone call, and will expire after ten minutes.",
                     id: "As56gg",
                     description: "Text for first registration -> create step.",
                   })}
-                </span>
+                </p>
               </div>
             </InstructionsStepCard>
 
@@ -452,36 +468,38 @@ export const Component = () => {
                 darkSrc: canadaLoginStep6Dark,
               }}
             >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "You've successfully created your CanadaLogin.",
-                  id: "To1Tf5",
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
-              <p className="mt-4 mb-6.75">
-                {intl.formatMessage({
-                  defaultMessage: "Proceed to step two.",
-                  id: "UwU+X9", // TODO
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
+              <ol className="space-y-4 text-center">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "You've successfully created your CanadaLogin.",
+                    id: "To1Tf5",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+                <li className="mt-4">
+                  {intl.formatMessage({
+                    defaultMessage: "Proceed to step two.",
+                    id: "UwU+X9", // TODO
+                    description: "Text for first registration -> create step.",
+                  })}
+                </li>
+              </ol>
               <div className="mt-2 mb-6.75">
-                <span className="text-sm font-normal text-gray-600 dark:text-gray-100">
+                <p className="text-sm font-normal text-gray-600 dark:text-gray-100">
                   {intl.formatMessage({
                     defaultMessage:
                       "CanadaLogin can be used to access various Government of Canada accounts.",
                     id: "LTd4Kw", // TODO
                     description: "Text for first registration -> create step.",
                   })}
-                </span>
+                </p>
               </div>
             </InstructionsStepCard>
           </InstructionsCardGrid>
 
           <Heading
-            level="h3"
+            level="h4"
             size="h4"
             className="mt-18 mb-3.5 text-center font-normal xs:text-left"
           >
@@ -501,23 +519,24 @@ export const Component = () => {
                 darkSrc: canadaLoginStep2aDark,
               }}
             >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Sign into your GCKey account.",
-                  id: "KCQ2es", // TODO
-                  description: "Text for step two link your GCKey account.",
-                })}
-              </p>
-
+              <ol className="space-y-4 text-center">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage: "Sign into your GCKey account.",
+                    id: "KCQ2es", // TODO
+                    description: "Text for step two link your GCKey account.",
+                  })}
+                </li>
+              </ol>
               <div className="mt-2 mb-6.75">
-                <span className="text-sm font-normal text-gray-500 dark:text-gray-100">
+                <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
                   {intl.formatMessage({
                     defaultMessage:
                       "This is the username and password you usually sign into GC Digital Talent with.",
                     id: "+2z44i", // TODO
                     description: "Text for step two link your GCKey account.",
                   })}
-                </span>
+                </p>
               </div>
             </InstructionsStepCard>
             <InstructionsStepCard
@@ -528,13 +547,16 @@ export const Component = () => {
                 darkSrc: canadaLoginStepAuthenticatorDark,
               }}
             >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Open the authenticator app on your device.",
-                  id: "jh/UHf", // TODO
-                  description: "Text for step two link your GCKey account.",
-                })}
-              </p>
+              <ol className="space-y-4 text-center">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Open the authenticator app on your device.",
+                    id: "jh/UHf", // TODO
+                    description: "Text for step two link your GCKey account.",
+                  })}
+                </li>
+              </ol>
             </InstructionsStepCard>
 
             <InstructionsStepCard
@@ -545,19 +567,21 @@ export const Component = () => {
                 darkSrc: canadaLoginEnterCodeDark,
               }}
             >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Enter the code from your authenticator app into GCKey.",
-                  id: "HzvS7w", // TODO
-                  description: "Text for step two link your GCKey account.",
-                })}
-              </p>
+              <ol className="space-y-4 text-center">
+                <li>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Enter the code from your authenticator app into GCKey.",
+                    id: "HzvS7w", // TODO
+                    description: "Text for step two link your GCKey account.",
+                  })}
+                </li>
+              </ol>
             </InstructionsStepCard>
           </InstructionsCardGrid>
 
           <Heading
-            level="h3"
+            level="h4"
             size="h4"
             className="mt-13.5 mb-3.5 text-center font-normal xs:text-left"
           >
@@ -855,7 +879,7 @@ export const Component = () => {
                   className="my-5 mt-4"
                 >
                   <Accordion.Item value="one">
-                    <Accordion.Trigger as="h3">
+                    <Accordion.Trigger as="h4">
                       {intl.formatMessage(
                         canadaLoginMessages.signInWithCanadaLogin,
                       )}
@@ -879,7 +903,7 @@ export const Component = () => {
                     </Accordion.Content>
                   </Accordion.Item>
                   <Accordion.Item value="two">
-                    <Accordion.Trigger as="h3">
+                    <Accordion.Trigger as="h4">
                       {intl.formatMessage(gckeyMessages.questionContactGCkey)}
                     </Accordion.Trigger>
                     <Accordion.Content>
@@ -938,7 +962,7 @@ export const Component = () => {
                   </Accordion.Item>
 
                   <Accordion.Item value="three">
-                    <Accordion.Trigger as="h3">
+                    <Accordion.Trigger as="h4">
                       {intl.formatMessage(canadaLoginMessages.haveCanadaLogin)}
                     </Accordion.Trigger>
                     <Accordion.Content>
@@ -950,7 +974,7 @@ export const Component = () => {
                     </Accordion.Content>
                   </Accordion.Item>
                   <Accordion.Item value="four">
-                    <Accordion.Trigger as="h3">
+                    <Accordion.Trigger as="h4">
                       {intl.formatMessage(
                         canadaLoginMessages.whatIsCanadaLogin,
                       )}
@@ -964,7 +988,7 @@ export const Component = () => {
                     </Accordion.Content>
                   </Accordion.Item>
                   <Accordion.Item value="five">
-                    <Accordion.Trigger as="h3">
+                    <Accordion.Trigger as="h4">
                       {intl.formatMessage(
                         canadaLoginMessages.contactCanadaLogin,
                       )}
