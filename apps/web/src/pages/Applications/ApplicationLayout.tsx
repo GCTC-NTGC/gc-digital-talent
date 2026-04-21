@@ -18,7 +18,11 @@ import {
 } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  ApplicationStatus,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { getFromLocalStorage } from "@gc-digital-talent/storage";
 
@@ -125,6 +129,10 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
     application.submittedSteps,
   );
 
+  const isSubmitted =
+    !!application.submittedAt ||
+    application.status?.value !== ApplicationStatus.Draft;
+
   // If we cannot find the current page, redirect to the first step
   // that has not been submitted yet, or the last step
   useEffect(() => {
@@ -163,6 +171,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
                 description: "Label for the application stepper navigation",
               })}
               currentIndex={currentStepIndex}
+              readOnly={isSubmitted}
               steps={applicationStepsToStepperArgs(
                 steps,
                 application,
