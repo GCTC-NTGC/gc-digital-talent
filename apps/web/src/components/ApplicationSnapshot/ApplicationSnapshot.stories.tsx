@@ -36,17 +36,20 @@ const generalQuestionResponses: GeneralQuestionResponse[] = [
 ];
 
 const mockPool = fakePools(1)[0];
-const mockUser: User = fakeUsers(1)[0];
 let mockPoolCandidate = fakePoolCandidates(1)[0];
+let mockUser: User = fakeUsers(1)[0];
+mockUser = {
+  ...mockUser,
+  experiences: mockPoolCandidate.educationRequirementExperiences,
+  poolCandidates: [mockPoolCandidate],
+};
+
 mockPoolCandidate = {
   __typename: "PoolCandidate",
   ...mockPoolCandidate,
   pool: mockPool,
-  user: {
-    ...mockUser,
-    experiences: mockPoolCandidate.educationRequirementExperiences,
-    poolCandidates: [mockPoolCandidate],
-  },
+  user: mockUser,
+  profileSnapshot: JSON.stringify(mockUser),
   generalQuestionResponses,
 };
 
