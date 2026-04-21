@@ -130,7 +130,7 @@ export const Component = () => {
 
   const methods = useForm({
     defaultValues: {
-      signInMethod: featureFlags.canadaLogin ? "gckey" : "canadaLogin",
+      signInMethod: "gckey",
     },
   });
 
