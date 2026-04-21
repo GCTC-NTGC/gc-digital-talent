@@ -91,8 +91,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "To sign back in, you’ll need to use your CanadaLogin email and password. We hope to see you soon",
-                  id: "dz8SoG",
+                    "To sign back in, you’ll need to use your CanadaLogin email and password. We hope to see you soon.",
+                  id: "FC9V56",
                   description: "Message displayed to a user after signing out",
                 })}
               </p>
@@ -100,8 +100,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon",
-                  id: "4F4zsu",
+                    "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon.",
+                  id: "neMFtr",
                   description: "Message displayed to a user after signing out",
                 })}
               </p>
@@ -157,8 +157,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "To sign back in, you’ll need to use your CanadaLogin email and password. We hope to see you soon",
-                  id: "dz8SoG",
+                    "To sign back in, you’ll need to use your CanadaLogin email and password. We hope to see you soon.",
+                  id: "FC9V56",
                   description: "Message displayed to a user after signing out",
                 })}
               </p>
@@ -166,8 +166,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon",
-                  id: "4F4zsu",
+                    "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon.",
+                  id: "neMFtr",
                   description: "Message displayed to a user after signing out",
                 })}
               </p>

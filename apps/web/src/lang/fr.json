@@ -1551,10 +1551,6 @@
     "defaultMessage": "Contactez l’autrice ou l’auteur de mise en candidature ou la personne déposante afin qu'elle fasse un suivi auprès de la personne candidate :",
     "description": "Instruction to contact nominator or submitter for follow up"
   },
-  "4F4zsu": {
-    "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt",
-    "description": "Message displayed to a user after signing out"
-  },
   "4Hyg4Y": {
     "defaultMessage": "Malgré tous les efforts déployés pour rendre notre site Web entièrement accessible, si vous avez besoin d’aide pour accéder aux renseignements ou si vous avez besoin d’un format différent, nous vous encourageons à communiquer avec nous. Votre rétroaction sur nos efforts d’accessibilité est également la bienvenue. Veuillez communiquer avec nous à <supportMailLink>{emailAddress}</supportMailLink>.",
     "description": "Lead in text for accessibility contact information"
@@ -4150,6 +4146,10 @@
   "FAioB7": {
     "defaultMessage": "Voir sur GCpédia*",
     "description": "Link text displayed on the job poster template 'generic work description' field. With an asterisk for fine print."
+  },
+  "FC9V56": {
+    "defaultMessage": "Pour vous reconnecter, veuillez utiliser l'adresse courriel et le mot de passe associés à votre identifiant ConnexionCanada. Au plaisir de vous revoir bientôt.",
+    "description": "Message displayed to a user after signing out"
   },
   "FD+jX4": {
     "defaultMessage": "Entrez votre prénom et votre nom de famille.",
@@ -9794,10 +9794,6 @@
     "defaultMessage": "Sauvegarder l’annonce à l’échelle du site",
     "description": "Text on a button to save the sitewide announcement"
   },
-  "dz8SoG": {
-    "defaultMessage": "Pour vous reconnecter, veuillez utiliser l'adresse courriel et le mot de passe associés à votre identifiant ConnexionCanada. Au plaisir de vous revoir bientôt",
-    "description": "Message displayed to a user after signing out"
-  },
   "dzXJ2h": {
     "defaultMessage": "Vous pouvez gérer votre profil et vos paramètres de sécurité ConnexionCanada sur le site de ConnexionCanada.",
     "description": "Text for first registration step, manage CanadaLogin profile and security settings"
@@ -12229,6 +12225,10 @@
   "ndW6vI": {
     "defaultMessage": "En attente d’une évaluation",
     "description": "Message displayed when candidate is on hold at a specific assessment step"
+  },
+  "neMFtr": {
+    "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt.",
+    "description": "Message displayed to a user after signing out"
   },
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
