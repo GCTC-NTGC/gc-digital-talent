@@ -222,6 +222,45 @@ class CommunityInterestTest extends TestCase
     }
 
     /**
+     * Test applicant can create a community interest for Finance
+     */
+    public function testApplicantCanCreateOwnCommunityInterestForFinance()
+    {
+        $financeCommunity = Community::factory()->create([
+            'key' => 'finance',
+            'name' => [
+                'en' => 'Financial Management Community',
+                'fr' => 'Collectivité de la gestion financière',
+            ],
+        ]);
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL(
+                $this->createMutation,
+                [
+                    'communityInterestWithDevelopmentPrograms' => [
+                        'userId' => $this->applicant->id,
+                        'communityInterest' => [
+                            'communityId' => $financeCommunity->id,
+                            ...$this->input,
+                            'financeIsChief' => true,
+                            'financeAdditionalDuties' => null,
+                            'financeOtherRoles' => null,
+                            'consentToShareProfile' => true,
+                        ],
+                    ],
+                ])
+            ->assertJson([
+                'data' => [
+                    'createCommunityInterestWithDevelopmentPrograms' => [
+                        ...$this->input,
+                        'community' => ['id' => $financeCommunity->id],
+                    ],
+                ],
+            ]);
+    }
+
+    /**
      * Test applicant cannot connect someone else's experience
      */
     public function testApplicantCannotConnectOtherUsersEducationExperience()
