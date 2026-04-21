@@ -9794,6 +9794,10 @@
     "defaultMessage": "Sauvegarder l’annonce à l’échelle du site",
     "description": "Text on a button to save the sitewide announcement"
   },
+  "dz8SoG": {
+    "defaultMessage": "Pour vous reconnecter, veuillez utiliser l'adresse courriel et le mot de passe associés à votre identifiant ConnexionCanada. Au plaisir de vous revoir bientôt",
+    "description": "Message displayed to a user after signing out"
+  },
   "dzXJ2h": {
     "defaultMessage": "Vous pouvez gérer votre profil et vos paramètres de sécurité ConnexionCanada sur le site de ConnexionCanada.",
     "description": "Text for first registration step, manage CanadaLogin profile and security settings"
@@ -15141,9 +15145,5 @@
   "zzf16k": {
     "defaultMessage": "Candidats",
     "description": "Breadcrumb for the All Candidates page"
-  },
-  "dz8SoG": {
-    "defaultMessage": "Pour vous reconnecter, veuillez utiliser l'adresse courriel et le mot de passe associés à votre identifiant ConnexionCanada. Au plaisir de vous revoir bientôt",
-    "description": "Message displayed to a user after signing out"
   }
 }

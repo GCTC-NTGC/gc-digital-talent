@@ -71,7 +71,7 @@ export const Component = () => {
   ) as LogoutReason | null; // no way to make compile time guarantees on this
 
   // feature flag
-  const featureFlags = useFeatureFlags();
+  const { canadaLogin } = useFeatureFlags();
 
   let alert;
   switch (logoutReason) {
@@ -87,7 +87,7 @@ export const Component = () => {
             })}
           </Notice.Title>
           <Notice.Content>
-            {featureFlags.canadaLogin ? (
+            {canadaLogin ? (
               <p>
                 {intl.formatMessage({
                   defaultMessage:
@@ -153,7 +153,7 @@ export const Component = () => {
             })}
           </Notice.Title>
           <Notice.Content>
-            {featureFlags.canadaLogin ? (
+            {canadaLogin ? (
               <p>
                 {intl.formatMessage({
                   defaultMessage:
