@@ -139,7 +139,7 @@ const ErrorSummary = forwardRef<ComponentRef<"div">, ErrorSummaryProps>(
     return invalidFieldNames.length > 0 ? (
       <Notice.Root
         color="error"
-        mode="inline"
+        mode="card"
         role="alert"
         ref={forwardedRef}
         tabIndex={-1}
