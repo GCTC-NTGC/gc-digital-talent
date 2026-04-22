@@ -1,16 +1,10 @@
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import { useNavigate } from "react-router";
 
-import {
-  Card,
-  CardSeparator,
-  Heading,
-  Link,
-  Notice,
-} from "@gc-digital-talent/ui";
+import { CardSeparator, Heading, Link, Notice } from "@gc-digital-talent/ui";
 import type {
   Community,
   CommunityDevelopmentProgram,
@@ -41,12 +35,6 @@ import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import DevelopmentProgramCard from "./DevelopmentProgramCard";
 import DevelopmentProgramDialog from "./DevelopmentProgramDialog";
-
-const openDateLabel = defineMessage({
-  defaultMessage: "Open date",
-  id: "Qxxop2",
-  description: "Label for open date",
-});
 
 const UpdateTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
   fragment UpdateTalentNominationEvent_Fragment on TalentNominationEvent {
