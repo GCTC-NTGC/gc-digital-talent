@@ -152,12 +152,15 @@ async function probeWithHead(
   }
 }
 
+const HEAD_TIMEOUT_MS = 10000;
+
 async function fetchLink(
   url: string,
   timeoutMs = DEFAULT_TIMEOUT_MS,
 ): Promise<number | string> {
-  // Probe with HEAD first — faster, avoids downloading response bodies
-  const headStatus = await probeWithHead(url, timeoutMs);
+  // Probe with HEAD first — faster, avoids downloading response bodies.
+  // Use a shorter timeout so a hanging server doesn't double the per-URL budget.
+  const headStatus = await probeWithHead(url, HEAD_TIMEOUT_MS);
   if (headStatus !== null && !RETRYABLE_HTTP_STATUSES.has(headStatus)) {
     if (headStatus === 403 && shouldUseSecondaryBrowserProbe(url)) {
       const secondaryStatus = await fetchLinkWithBrowserHeaders(url, timeoutMs);
