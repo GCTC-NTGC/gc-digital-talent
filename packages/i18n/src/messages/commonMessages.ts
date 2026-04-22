@@ -589,6 +589,11 @@ const commonMessages = defineMessages({
     id: "vNVMlM",
     description: "Text within double quotes",
   },
+  selectOneOrMore: {
+    defaultMessage: "Select one or more options",
+    id: "wOKjIf",
+    description: "Null selection value for select one or more options",
+  },
 });
 
 export default commonMessages;
