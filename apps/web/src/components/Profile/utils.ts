@@ -8,7 +8,6 @@ import { getLabels as getLangLabels } from "~/utils/languageUtils";
 import { getLabels as getWorkLabels } from "~/utils/workPreferenceUtils";
 
 import { getLabels as getPersonalLabels } from "./components/PersonalInformation/utils";
-import { getLabels as getGovLabels } from "./components/GovernmentInformation/utils";
 import { getLabels as getCitizenVeteranPriorityLabels } from "./components/CitizenVeteranPriority/utils";
 import type { SectionKey } from "./types";
 
@@ -65,7 +64,6 @@ const labelAccessorMap = new Map<SectionKey, LabelAccessorFunc>([
   ["personal", getPersonalLabels],
   ["work", getWorkLabels],
   ["citizen-veteran-priority", getCitizenVeteranPriorityLabels],
-  ["government", getGovLabels],
   ["language", getLangLabels],
 ]);
 
