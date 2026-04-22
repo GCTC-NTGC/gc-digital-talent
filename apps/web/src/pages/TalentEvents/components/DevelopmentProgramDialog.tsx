@@ -62,7 +62,6 @@ const DevelopmentProgramDialog = ({
           icon={edit ? undefined : PlusCircleIcon}
           className="w-full"
         >
-          {/* TODO: Move messages to map */}
           {edit
             ? intl.formatMessage({
                 defaultMessage: "Edit details",
@@ -81,7 +80,6 @@ const DevelopmentProgramDialog = ({
       <Dialog.Content>
         <Dialog.Header
           subtitle={
-            // TODO: Move messages to map
             edit
               ? intl.formatMessage({
                   defaultMessage:
@@ -97,7 +95,6 @@ const DevelopmentProgramDialog = ({
                 })
           }
         >
-          {/* TODO: Move messages to map */}
           {edit
             ? intl.formatMessage({
                 defaultMessage: "Edit a development opportunity",

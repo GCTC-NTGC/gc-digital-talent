@@ -1,10 +1,10 @@
 import { defineMessage, useIntl } from "react-intl";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
 import {
   Card,
@@ -289,8 +289,8 @@ const CreateTalentEventPage = () => {
             <Card>
               <Heading
                 level="h2"
-                color="secondary"
-                icon={IdentificationIcon}
+                color="primary"
+                icon={QueueListIcon}
                 center
                 className="mt-0 mb-6 font-normal xs:justify-start xs:text-left"
               >
@@ -311,8 +311,8 @@ const CreateTalentEventPage = () => {
               </p>
               <FormProvider {...methods}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="grid grid-cols-1 gap-6 xs:grid-cols-2">
-                    <div className="col-span-2">
+                  <div className="grid gap-6 xs:grid-cols-2">
+                    <div className="xs:col-span-2">
                       <Select
                         id="community"
                         name="community"
@@ -396,9 +396,9 @@ const CreateTalentEventPage = () => {
                     />
                   </div>
                   <CardSeparator />
-                  <div className="grid grid-cols-1 gap-6 xs:grid-cols-2">
-                    <div className="col-span-2">
-                      <Heading level="h3" size="h6">
+                  <div className="grid gap-6 xs:grid-cols-2">
+                    <div className="xs:col-span-2">
+                      <Heading level="h3" size="h6" className="mt-0">
                         {intl.formatMessage({
                           defaultMessage: "Nomination settings",
                           id: "eWP5gJ",
@@ -416,7 +416,7 @@ const CreateTalentEventPage = () => {
                         })}
                       </p>
                     </div>
-                    <div className="col-span-2">
+                    <div className="xs:col-span-2">
                       <Checkbox
                         id="includeLeadershipCompetencies"
                         boundingBox

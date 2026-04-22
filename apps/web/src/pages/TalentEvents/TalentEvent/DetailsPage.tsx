@@ -1,9 +1,9 @@
 import { useQuery } from "urql";
-import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import { useIntl } from "react-intl";
 import { useState } from "react";
 import { isFuture } from "date-fns/isFuture";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -101,30 +101,22 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
 
   return (
     <>
-      <Heading
-        level="h2"
-        icon={CalendarIcon}
-        color="secondary"
-        className="mt-0"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Event details",
-          id: "PnHH9A",
-          description: "Subheading for nomination event details",
-        })}
-      </Heading>
-      <p className="my-6">
-        {intl.formatMessage({
-          defaultMessage:
-            "Review and edit the details of this talent management event.",
-          id: "7E14Li",
-          description: "Description for the details of a nomination event",
-        })}
-      </p>
       <Card className="grid gap-6 sm:grid-cols-2">
-        {showCopyButton && (
-          <>
-            <div className="text-right sm:col-span-2">
+        <div className="col-span-2 flex items-center justify-between">
+          <Heading
+            level="h2"
+            icon={QueueListIcon}
+            color="primary"
+            className="m-0"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Event details",
+              id: "PnHH9A",
+              description: "Subheading for nomination event details",
+            })}
+          </Heading>
+          {showCopyButton && (
+            <div className="flex flex-col items-center justify-center gap-6 text-right sm:col-span-2 sm:flex-row">
               <Button
                 mode="inline"
                 color="primary"
@@ -176,160 +168,141 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                       description: "Button text to copy a nomination URL",
                     })}
               </Button>
-              <span className="ml-6">{StatusChip}</span>
+              <span>{StatusChip}</span>
             </div>
-            <div className="sm:col-span-2">
-              <CardSeparator space="none" decorative />
-            </div>
-          </>
-        )}
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Event name",
-            id: "XFF/p+",
-            description: "Label for nomination event name",
+          )}
+        </div>
+        <p className="col-span-2 my-6">
+          {intl.formatMessage({
+            defaultMessage:
+              "The event name, description and information link in both official languages, as well as potential roundtable event dates.",
+            id: "W6rIE7",
+            description: "Description for the details of a nomination event",
           })}
-          appendLanguageToLabel={"en"}
-        >
+        </p>
+        <p className="font-bold">
           {talentEvent.name.en ??
             intl.formatMessage(commonMessages.notProvided)}
-        </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Event name",
-            id: "XFF/p+",
-            description: "Label for nomination event name",
-          })}
-          appendLanguageToLabel={"fr"}
-        >
+        </p>
+        <p className="font-bold">
           {talentEvent.name.fr ??
             intl.formatMessage(commonMessages.notProvided)}
-        </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Event description",
-            id: "9mrSt3",
-            description: "Label for nomination event description",
-          })}
-          appendLanguageToLabel={"en"}
-        >
-          {talentEvent.description?.en ??
-            intl.formatMessage(commonMessages.notProvided)}
-        </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Event description",
-            id: "9mrSt3",
-            description: "Label for nomination event description",
-          })}
-          appendLanguageToLabel={"fr"}
-        >
-          {talentEvent.description?.fr ??
-            intl.formatMessage(commonMessages.notProvided)}
-        </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Link to external information",
-            id: "dKbiao",
-            description: "Label for nomination event more information link",
-          })}
-          appendLanguageToLabel={"en"}
-        >
+        </p>
+        <>
           {talentEvent.learnMoreUrl?.en ? (
             <Link
               mode="text"
               external
               newTab
               href={talentEvent.learnMoreUrl.en}
-              className="break-all"
+              className="-mt-6 break-all"
             >
               {talentEvent.learnMoreUrl.en}
             </Link>
           ) : (
             intl.formatMessage(commonMessages.notProvided)
           )}
-        </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Link to external information",
-            id: "dKbiao",
-            description: "Label for nomination event more information link",
-          })}
-          appendLanguageToLabel={"fr"}
-        >
+        </>
+        <>
           {talentEvent.learnMoreUrl?.fr ? (
             <Link
               mode="text"
               external
               newTab
               href={talentEvent.learnMoreUrl.fr}
-              className="break-all"
+              className="-mt-6 break-all"
             >
               {talentEvent.learnMoreUrl.fr}
             </Link>
           ) : (
             intl.formatMessage(commonMessages.notProvided)
           )}
-        </FieldDisplay>
+        </>
+        <p>
+          {talentEvent.description?.en ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </p>
+        <p>
+          {talentEvent.description?.fr ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </p>
         <div className="sm:col-span-2">
           <CardSeparator space="none" decorative />
         </div>
+        <Heading
+          level="h3"
+          color="primary"
+          className="col-span-2 m-0"
+          size="h6"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Nomination settings",
+            id: "cM66Sh",
+            description: "Subheading for nomination event details",
+          })}
+        </Heading>
+        <p className="col-span-2 -mt-3">
+          {intl.formatMessage({
+            defaultMessage:
+              "The start and end dates for the nomination period, the types of nominations that can be submitted and whether leadership competencies are required upon submission.",
+            id: "zgLR8q",
+            description: "Description before nomination settings",
+          })}
+        </p>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Nomination opening date",
-            id: "JhEMHT",
-            description:
-              "Label for nomination event date to start accepting nominations",
+            defaultMessage: "Nomination submission period",
+            id: "THsT/q",
+            description: "Label for nomination event submission period",
           })}
+          className="col-span-2"
         >
-          {talentEvent.openDate
-            ? formatDate({
-                date: parseDateTimeUtc(talentEvent.openDate),
-                formatString: DATE_FORMAT_LOCALIZED,
-                intl,
-                timeZone: "Canada/Pacific",
-              })
-            : intl.formatMessage(commonMessages.notProvided)}
+          <span>
+            {intl.formatMessage(
+              {
+                defaultMessage: "{openDate} to {closeDate}",
+                id: "FBXx0v",
+                description:
+                  "Message for submission period for nomination event",
+              },
+              {
+                openDate: talentEvent.openDate
+                  ? formatDate({
+                      date: parseDateTimeUtc(talentEvent.openDate),
+                      formatString: DATE_FORMAT_LOCALIZED,
+                      intl,
+                      timeZone: "Canada/Pacific",
+                    })
+                  : intl.formatMessage(commonMessages.notProvided),
+                closeDate: talentEvent.closeDate
+                  ? formatDate({
+                      date: parseDateTimeUtc(talentEvent.closeDate),
+                      formatString: DATE_FORMAT_LOCALIZED,
+                      intl,
+                      timeZone: "Canada/Pacific",
+                    })
+                  : intl.formatMessage(commonMessages.notProvided),
+              },
+            )}
+          </span>
         </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Nomination closing date",
-            id: "pq/4js",
-            description:
-              "Label for nomination event date to stop accepting nominations",
+        <BoolCheckIcon
+          value={talentEvent.includeLeadershipCompetencies}
+          className="col-span-2"
+        >
+          {intl.formatMessage({
+            defaultMessage:
+              "Leadership competencies are required to be nominated for this event",
+            id: "A3m7l/",
+            description: "Label for the include leadership competencies",
           })}
-        >
-          {talentEvent.closeDate
-            ? formatDate({
-                date: parseDateTimeUtc(talentEvent.closeDate),
-                formatString: DATE_FORMAT_LOCALIZED,
-                intl,
-                timeZone: "Canada/Pacific",
-              })
-            : intl.formatMessage(commonMessages.notProvided)}
-        </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Leadership competencies",
-            id: "LSErl5",
-            description: "label for the include leadership competencies",
-          })}
-        >
-          <BoolCheckIcon value={talentEvent.includeLeadershipCompetencies}>
-            {intl.formatMessage({
-              defaultMessage:
-                "Leadership competencies are required to be nominated for this event",
-              id: "A3m7l/",
-              description: "Label for the include leadership competencies",
-            })}
-          </BoolCheckIcon>
-        </FieldDisplay>
-        <div className="sm:col-span-2">
+        </BoolCheckIcon>
+        <div className="col-span-2">
           <CardSeparator space="none" decorative />
         </div>
         <FieldDisplay
           label={intl.formatMessage(adminMessages.community)}
-          className="sm:col-span-2"
+          className="col-span-2"
         >
           {talentEvent.community
             ? talentEvent.community.name?.localized
@@ -342,9 +315,9 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             description:
               "Label for development programs relevant to a nomination event",
           })}
-          className="sm:col-span-2"
+          className="col-span-2"
         >
-          <p className="my-6">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
                 "Professionalization options provided to nominators as potential development opportunity recommendations during the nomination process.",
@@ -367,8 +340,10 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             intl.formatMessage(commonMessages.notProvided)
           )}
         </FieldDisplay>
-        <div className="self-start sm:col-span-2">
-          <CardSeparator />
+        <div className="col-span-2">
+          <CardSeparator space="none" decorative />
+        </div>
+        <div className="col-span-2">
           <div>
             <Link
               href={paths.updateTalentManagementEvent(talentEvent.id)}

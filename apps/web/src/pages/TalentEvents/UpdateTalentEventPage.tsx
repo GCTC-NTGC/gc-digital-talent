@@ -1,10 +1,10 @@
 import { defineMessage, useIntl } from "react-intl";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
+import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
 import {
   Card,
@@ -322,8 +322,8 @@ const UpdateTalentEventForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 gap-6 xs:grid-cols-2">
-          <div className="col-span-2">
+        <div className="grid gap-6 xs:grid-cols-2">
+          <div className="xs:col-span-2">
             <Select
               id="community"
               name="community"
@@ -405,9 +405,9 @@ const UpdateTalentEventForm = ({
           />
         </div>
         <CardSeparator />
-        <div className="grid grid-cols-1 gap-6 xs:grid-cols-2">
-          <div className="col-span-2">
-            <Heading level="h3" size="h6">
+        <div className="grid gap-6 xs:grid-cols-2">
+          <div className="xs:col-span-2">
+            <Heading level="h3" size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Nomination settings",
                 id: "eWP5gJ",
@@ -425,7 +425,7 @@ const UpdateTalentEventForm = ({
               })}
             </p>
           </div>
-          <div className="col-span-2">
+          <div className="xs:col-span-2">
             <Checkbox
               id="includeLeadershipCompetencies"
               boundingBox
@@ -484,7 +484,7 @@ const UpdateTalentEventForm = ({
             <CardSeparator />
             <div className="grid gap-6">
               <div>
-                <Heading level="h3" size="h6" className="mt-0">
+                <Heading level="h3" size="h6" className="mt-0 mb-3">
                   {intl.formatMessage({
                     defaultMessage: "Development opportunities",
                     id: "p+JlKG",
@@ -511,7 +511,7 @@ const UpdateTalentEventForm = ({
               <>
                 {fields.length === 0 ? (
                   <Notice.Root>
-                    <Notice.Content>
+                    <Notice.Content className="text-center">
                       {intl.formatMessage({
                         defaultMessage:
                           "Please add at least one development opportunity for nominators to select from.",
@@ -673,15 +673,15 @@ const UpdateTalentEventPage = () => {
               <Card>
                 <Heading
                   level="h2"
-                  color="secondary"
-                  icon={IdentificationIcon}
+                  color="primary"
+                  icon={QueueListIcon}
                   center
-                  className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
+                  className="mt-0 mb-6 font-normal xs:justify-start xs:text-left"
                 >
                   {intl.formatMessage({
-                    defaultMessage: "Talent event information",
-                    id: "RhWnEX",
-                    description: "Subtitle for update talent event page",
+                    defaultMessage: "Event details",
+                    id: "PnHH9A",
+                    description: "Subheading for nomination event details",
                   })}
                 </Heading>
                 <p className="mb-6">

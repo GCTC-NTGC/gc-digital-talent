@@ -1,6 +1,8 @@
-import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
 import { useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
+import { useState } from "react";
+import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
 import type { Maybe } from "@gc-digital-talent/graphql";
 import { DropdownMenu, IconButton } from "@gc-digital-talent/ui";
@@ -33,18 +35,19 @@ const DevelopmentProgramCard = ({
   actions = true,
 }: DevelopmentProgramCardProps) => {
   const intl = useIntl();
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="border-b border-gray-200 p-6 last:border-b-0 odd:bg-gray-100/30 dark:odd:bg-gray-700/50 dark:even:bg-gray-700/30">
       <div className="grid w-full grid-cols-12">
         <div className="col-span-1">
           {actions && (
-            <DropdownMenu.Root>
+            <DropdownMenu.Root open={open} onOpenChange={setOpen}>
               <DropdownMenu.Trigger
                 render={
                   <IconButton
-                    icon={EllipsisVerticalIcon}
-                    color="black"
+                    icon={open ? XMarkIcon : PencilSquareIcon}
+                    color="primary"
                     label={intl.formatMessage(
                       {
                         defaultMessage:
@@ -61,7 +64,7 @@ const DevelopmentProgramCard = ({
                 }
               />
               <DropdownMenu.Popup
-                className="grid gap-3 p-3"
+                className="flex flex-col items-start gap-3 p-3"
                 portalProps={{ keepMounted: true }}
               >
                 {developmentProgramOptions && onEdit ? (

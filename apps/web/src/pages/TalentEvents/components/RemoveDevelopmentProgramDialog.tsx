@@ -29,7 +29,7 @@ const RemoveDevelopmentProgramDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <p className="m-6">
+          <p className="mb-6">
             {intl.formatMessage(
               {
                 defaultMessage:
