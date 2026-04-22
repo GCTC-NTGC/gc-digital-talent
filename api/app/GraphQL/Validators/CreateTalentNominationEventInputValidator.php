@@ -16,7 +16,7 @@ final class CreateTalentNominationEventInputValidator extends Validator
     {
         return [
             'community.connect' => ['uuid', 'required', 'exists:communities,id'],
-            'communityDevelopmentPrograms.connect.*.id' => ['uuid', 'exists:community_development_program,id'],
+            'communityDevelopmentPrograms.sync.*.id' => ['uuid', 'exists:community_development_program,id'],
             'name.en' => ['required', 'string'],
             'name.fr' => ['required', 'string'],
             'description.en' => ['nullable', 'required_with:description.fr', 'string'],

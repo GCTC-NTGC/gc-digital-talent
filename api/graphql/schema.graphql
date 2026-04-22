@@ -2459,7 +2459,7 @@ input CommunityDevelopmentProgramBelongsToMany {
 }
 
 input CommunityDevelopmentProgramBelongsToManyWithPivot {
-  connect: [ConnectCommunityDevelopmentProgramWithPivot!]
+  sync: [ConnectCommunityDevelopmentProgramWithPivot!]
 }
 
 input ConnectCommunityDevelopmentProgramWithPivot {
