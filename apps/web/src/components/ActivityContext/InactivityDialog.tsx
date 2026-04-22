@@ -112,7 +112,7 @@ const InactivityDialog = ({
                 description: "Call to action in the inactivity dialog",
               })}
             </p>
-            <div className="order-4 -mb-12 place-self-center xs:order-3 xs:row-span-2">
+            <div className="order-4 mt-6 -mb-12 place-self-center xs:order-3 xs:row-span-2 xs:mt-0">
               <Image
                 src={imgSrcs[themeMode]}
                 sources={imgSources[themeMode]}
