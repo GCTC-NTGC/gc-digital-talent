@@ -15,7 +15,6 @@ import {
   Link,
   Pending,
   ThrowNotFound,
-  Ul,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
@@ -34,6 +33,8 @@ import adminMessages from "~/messages/adminMessages";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import type { RouteParams } from "./types";
+import DevelopmentProgramCard from "../components/DevelopmentProgramCard";
+import { statusCell } from "../components/helpers";
 
 const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
   fragment TalentEventDetails on TalentNominationEvent {
@@ -65,6 +66,15 @@ const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
       name {
         localized
       }
+      descriptionForProfile {
+        localized
+      }
+    }
+    status {
+      value
+      label {
+        localized
+      }
     }
   }
 `);
@@ -86,6 +96,9 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
   );
   const showCopyButton =
     !talentEvent.closeDate || isFuture(parseDateTimeUtc(talentEvent.closeDate));
+
+  const StatusChip = statusCell(talentEvent.status);
+
   return (
     <>
       <Heading
@@ -163,6 +176,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                       description: "Button text to copy a nomination URL",
                     })}
               </Button>
+              <span className="ml-6">{StatusChip}</span>
             </div>
             <div className="sm:col-span-2">
               <CardSeparator space="none" decorative />
@@ -215,8 +229,8 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "More information link",
-            id: "uWNoOD",
+            defaultMessage: "Link to external information",
+            id: "dKbiao",
             description: "Label for nomination event more information link",
           })}
           appendLanguageToLabel={"en"}
@@ -237,8 +251,8 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "More information link",
-            id: "uWNoOD",
+            defaultMessage: "Link to external information",
+            id: "dKbiao",
             description: "Label for nomination event more information link",
           })}
           appendLanguageToLabel={"fr"}
@@ -323,22 +337,32 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Relevant development programs",
-            id: "nhqlFu",
+            defaultMessage: "Development opportunities",
+            id: "lODN9M",
             description:
               "Label for development programs relevant to a nomination event",
           })}
           className="sm:col-span-2"
         >
+          <p className="my-6">
+            {intl.formatMessage({
+              defaultMessage:
+                "Professionalization options provided to nominators as potential development opportunity recommendations during the nomination process.",
+              id: "Ktxmhc",
+              description: "Description above development opportunities",
+            })}
+          </p>
           {developmentPrograms.length > 0 ? (
-            <Ul>
-              {developmentPrograms.map((program) => (
-                <li key={program.id}>
-                  {program.name?.localized ??
-                    intl.formatMessage(commonMessages.notAvailable)}
-                </li>
+            <div className="rounded-md border border-gray-200">
+              {developmentPrograms.map((dp) => (
+                <DevelopmentProgramCard
+                  key={dp.id}
+                  title={dp.name.localized}
+                  description={dp.descriptionForProfile.localized}
+                  actions={false}
+                />
               ))}
-            </Ul>
+            </div>
           ) : (
             intl.formatMessage(commonMessages.notProvided)
           )}
