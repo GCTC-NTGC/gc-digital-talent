@@ -63,8 +63,9 @@ const DevelopmentProgramCard = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage: "Restricted to",
-                  id: "DLVOeZ",
-                  description: "Label before restricted classifications",
+                  id: "622Kr4",
+                  description:
+                    "List of classifications that development programs are limited to",
                 })}
                 {intl.formatMessage(commonMessages.dividingColon)}
               </p>
