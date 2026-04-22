@@ -408,18 +408,25 @@ async function main() {
       });
       legacySpawnFailed = spawnResult.status !== 0;
     }
-    // create broken links file only if any broken link exist
+    // Merge non-legacy broken links with any legacy broken links the child wrote
+    const brokenLinksPath = path.resolve("external-broken-links.json");
     const brokenLinks = results.filter((r) => isBrokenStatus(r.status));
-    if (brokenLinks.length > 0) {
-      const brokenLinksPath = path.resolve("external-broken-links.json");
+    let legacyBrokenLinks: LinkStatus[] = [];
+    if (legacySpawnFailed) {
+      try {
+        const raw = await fs.readFile(brokenLinksPath, "utf-8");
+        legacyBrokenLinks = JSON.parse(raw) as LinkStatus[];
+      } catch {
+        // child didn't write the file (e.g. it crashed before writing)
+      }
+    }
+    const allBrokenLinks = [...legacyBrokenLinks, ...brokenLinks];
+    if (allBrokenLinks.length > 0) {
       await fs.writeFile(
         brokenLinksPath,
-        JSON.stringify(brokenLinks, null, 2),
+        JSON.stringify(allBrokenLinks, null, 2),
         "utf-8",
       );
-      process.exit(1);
-    } else if (legacySpawnFailed) {
-      // child already wrote external-broken-links.json; propagate the failure
       process.exit(1);
     }
   } catch (err) {
