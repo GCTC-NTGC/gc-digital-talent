@@ -343,8 +343,9 @@ async function main() {
       }
     }
     // re-try all legacy links in a single batch with NODE_OPTIONS=--tls-legacy-renegotiation
+    let legacySpawnFailed = false;
     if (legacyLinks.length > 0 && !process.env._RETRIED_LEGACY_TLS) {
-      spawnSync(process.execPath, process.argv.slice(1), {
+      const spawnResult = spawnSync(process.execPath, process.argv.slice(1), {
         env: {
           ...process.env,
           NODE_OPTIONS: "--tls-legacy-renegotiation",
@@ -353,6 +354,7 @@ async function main() {
         },
         stdio: "inherit",
       });
+      legacySpawnFailed = spawnResult.status !== 0;
     }
     // create broken links file only if any broken link exist
     const brokenLinks = results.filter((r) => isBrokenStatus(r.status));
@@ -363,6 +365,9 @@ async function main() {
         JSON.stringify(brokenLinks, null, 2),
         "utf-8",
       );
+      process.exit(1);
+    } else if (legacySpawnFailed) {
+      // child already wrote external-broken-links.json; propagate the failure
       process.exit(1);
     }
   } catch (err) {
