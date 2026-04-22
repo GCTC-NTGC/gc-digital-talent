@@ -2,11 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Enums\DevelopmentProgramParticipationStatus;
 use App\Enums\FinanceChiefDuty;
 use App\Enums\FinanceChiefRole;
 use App\Models\Community;
 use App\Models\CommunityInterest;
-use App\Models\DevelopmentProgramInterest;
+use App\Models\DevelopmentProgramUser;
+use App\Models\EducationExperience;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -68,13 +70,24 @@ class CommunityInterestFactory extends Factory
     public function withDevelopmentProgramInterests(int $limit = 3)
     {
         return $this->afterCreating(function (CommunityInterest $communityInterest) use ($limit) {
-            $communityDevelopmentPrograms = $communityInterest->community->communityDevelopmentPrograms()->limit($limit)->get();
-            foreach ($communityDevelopmentPrograms as $communityDevelopmentProgram) {
-                DevelopmentProgramInterest::factory()
-                    ->create([
-                        'community_development_program_id' => $communityDevelopmentProgram->id,
-                        'community_interest_id' => $communityInterest->id,
-                    ]);
+            $associatedDevelopmentPrograms = $communityInterest->community->developmentProgramsThroughPivot()->limit($limit)->get();
+
+            foreach ($associatedDevelopmentPrograms as $developmentProgram) {
+                $participationValue = $this->faker
+                    ->optional()
+                    ->randomElement(array_column(DevelopmentProgramParticipationStatus::cases(), 'name'));
+
+                DevelopmentProgramUser::create([
+                    'development_program_id' => $developmentProgram->id,
+                    'user_id' => $communityInterest->user_id,
+                    'education_experience_id' => $this->faker->boolean() ?
+                        EducationExperience::factory()->create(['user_id' => $communityInterest->user_id])->id
+                        : null,
+                    'participation_status' => $participationValue,
+                    'completion_date' => $participationValue === DevelopmentProgramParticipationStatus::COMPLETED->name
+                            ? $this->faker->dateTimeBetween('-1 year', 'now')
+                            : null,
+                ]);
             }
         });
     }
