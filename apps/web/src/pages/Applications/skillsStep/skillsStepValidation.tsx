@@ -1,4 +1,4 @@
-import {
+import type {
   Pool,
   Experience,
   Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,

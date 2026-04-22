@@ -35,6 +35,8 @@ export {
   skillRequirementsIsIncomplete,
   generalQuestionsSectionHasMissingResponses,
   screeningQuestionsSectionHasMissingResponses,
+};
+export type {
   PartialUserAbout,
   PartialUserDei,
   PartialUserPriority,

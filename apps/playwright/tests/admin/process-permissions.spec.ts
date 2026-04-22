@@ -1,4 +1,4 @@
-import { Pool } from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";

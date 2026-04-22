@@ -1,9 +1,16 @@
-import { expect, Locator, Page } from "playwright/test";
+import type { Locator, Page } from "playwright/test";
+import { expect } from "playwright/test";
 
-import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
+import type {
+  CandidateRemovalReason,
+  FlexibleWorkLocation,
+  ScreeningStage,
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
+import { ApplicationStatus } from "@gc-digital-talent/graphql";
 
+import type { GraphQLContext } from "~/utils/graphql";
 import { getPoolCandidatesTable } from "~/utils/candidateAssessment";
-import { GraphQLContext } from "~/utils/graphql";
 
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
@@ -20,6 +27,8 @@ const FIELD = {
   WORK_LOCATION_PREFERENCE: "workLocationPreference",
   TALENT_TABLE_ROW: "talentTableRow",
   FLEXIBLE_WORK_LOCATION_TITLE: "flexibleWorkLocationTitle",
+  APPLICATION_STATUS_FILTER: "applicationStatusFilter",
+  CLEAR_FILTERS: "clearFilters",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -52,6 +61,12 @@ class GenericTableValidationFixture extends AppPage {
       [FIELD.TALENT_TABLE_ROW]: page.locator("table tbody tr td"),
       [FIELD.FLEXIBLE_WORK_LOCATION_TITLE]: page.getByRole("group", {
         name: /Flexible work location options/i,
+      }),
+      [FIELD.APPLICATION_STATUS_FILTER]: page.getByRole("combobox", {
+        name: /application status/i,
+      }),
+      [FIELD.CLEAR_FILTERS]: page.getByRole("button", {
+        name: /clear all selections/i,
       }),
     };
     this.locPrefUpdateFixture = new LocationPreferenceUpdatePage(this.page);
@@ -134,33 +149,41 @@ class GenericTableValidationFixture extends AppPage {
     ).toBeVisible();
   }
 
-  async verifyCandidateStatusInTable(
+  async verifyCandidateStatusesInTable(
     poolId: string,
     ctx: GraphQLContext,
-    candidateName?: string,
-    screeningStage?: string,
-    assessmentStep?: string,
-    applicationStatus?: string,
-    candidateFacingStatus?: string,
+    candidateName: string,
+    expected: {
+      screening?: ScreeningStage | string | RegExp;
+      assessment?: string;
+      appStatus?: ApplicationStatus | string;
+      facingStatus?: string;
+    },
   ) {
-    await this.goToPoolCandidateTable(poolId);
     const tableRows = await getPoolCandidatesTable(ctx, { poolId });
     const poolCandidate = tableRows.find(
       (c) => c.user.firstName === candidateName,
     );
+
     expect(
       poolCandidate,
       `Candidate '${candidateName}' should be present in the pool table`,
     ).toBeDefined();
+
     expect(poolCandidate!.screeningStage?.label.localized?.toLowerCase()).toBe(
-      screeningStage?.toLowerCase(),
+      expected.screening?.toString().toLowerCase().replace(/_/g, " "),
     );
-    expect(poolCandidate!.assessmentStep?.title?.localized).toBe(
-      assessmentStep,
+
+    expect(poolCandidate!.assessmentStep?.title?.localized?.toLowerCase()).toBe(
+      expected.assessment?.toLowerCase().replace(/_/g, " "),
     );
-    expect(poolCandidate?.status?.label?.localized).toBe(applicationStatus);
-    expect(poolCandidate!.candidateStatus?.label.localized).toBe(
-      candidateFacingStatus,
+
+    expect(poolCandidate?.status?.label?.localized?.toLowerCase()).toBe(
+      expected.appStatus?.toLowerCase().replace(/_/g, " "),
+    );
+
+    expect(poolCandidate!.candidateStatus?.label.localized?.toLowerCase()).toBe(
+      expected.facingStatus?.toLowerCase().replace(/_/g, " "),
     );
   }
 
@@ -177,6 +200,60 @@ class GenericTableValidationFixture extends AppPage {
     await expect(
       this.page.getByLabel(expectedResult, { exact: true }),
     ).toBeVisible();
+  }
+
+  private async selectOptionFromCombobox(
+    label: string,
+    option: string | RegExp,
+  ) {
+    const combobox = this.page.getByRole("combobox", { name: label });
+    await combobox.click();
+    await this.page.getByRole("option", { name: option, exact: true }).click();
+  }
+
+  async clearAllFilters() {
+    const clearButtons = this.locators[FIELD.CLEAR_FILTERS];
+    while (await clearButtons.first().isVisible()) {
+      await clearButtons.first().click();
+    }
+  }
+
+  async filterCandidateByApplicationFilters(
+    applicationStatus: ApplicationStatus,
+    screeningStage?: ScreeningStage | ScreeningStage[] | string | string[],
+    assessmentStep?: string,
+    removalReason?: CandidateRemovalReason | string,
+  ) {
+    await this.locators[FIELD.FILTERS].click();
+    await this.clearAllFilters();
+
+    const statusValue = applicationStatus.toLowerCase().replace(/_/g, " ");
+    const formattedStatus =
+      statusValue.charAt(0).toUpperCase() + statusValue.slice(1);
+
+    await this.selectOptionFromCombobox("Application status", formattedStatus);
+
+    if (applicationStatus === ApplicationStatus.ToAssess && screeningStage) {
+      const stages = Array.isArray(screeningStage)
+        ? screeningStage
+        : [screeningStage];
+
+      for (const stage of stages) {
+        const mappedValue: RegExp | undefined =
+          AssessmentPage.screeningStageMap.get(stage as ScreeningStage);
+        const uiValue: string | RegExp = mappedValue ?? stage;
+        await this.selectOptionFromCombobox("Screening stage", uiValue);
+      }
+    }
+
+    if (applicationStatus === ApplicationStatus.ToAssess && assessmentStep) {
+      await this.selectOptionFromCombobox("Assessment stage", assessmentStep);
+    }
+
+    if (removalReason) {
+      await this.selectOptionFromCombobox("Reason for removal", removalReason);
+    }
+    await this.locators[FIELD.SHOW_RESULTS].click();
   }
 }
 export default GenericTableValidationFixture;

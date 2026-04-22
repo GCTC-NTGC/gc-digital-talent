@@ -1,12 +1,14 @@
-import { IntlShape } from "react-intl";
-import { AriaAttributes, JSX } from "react";
+import type { IntlShape } from "react-intl";
+import type { AriaAttributes, JSX } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
-import { Scalars, Maybe } from "@gc-digital-talent/graphql";
+import type { Scalars, Maybe } from "@gc-digital-talent/graphql";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-import Actions, { ActionsProps } from "./Actions";
-import CommaList, { CommaListProps } from "./CommaList";
+import type { ActionsProps } from "./Actions";
+import Actions from "./Actions";
+import type { CommaListProps } from "./CommaList";
+import CommaList from "./CommaList";
 import EditLink from "./EditLink";
 import ViewLink from "./ViewLink";
 

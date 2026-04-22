@@ -1,4 +1,4 @@
-.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api
+.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api reverb-start start-services
 
 DOCKER_RUN=docker compose run --rm maintenance bash
 DOCKER_API=docker compose run --rm -w /var/www/html/api maintenance sh -c
@@ -52,6 +52,9 @@ phpstan:
 
 queue-work:
 	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"
+
+reverb-start:
+	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan reverb:start"
 
 test:
 	$(DOCKER_API) "php artisan test $(CMD)"

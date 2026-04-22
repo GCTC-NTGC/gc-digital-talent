@@ -12,12 +12,8 @@ import {
   Notice,
   Separator,
 } from "@gc-digital-talent/ui";
-import {
-  FragmentType,
-  Scalars,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
@@ -25,14 +21,12 @@ import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import CommunityInterest, {
-  CommunityInterestOptions_Fragment,
-} from "~/components/CommunityInterest/CommunityInterest";
-import { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
+import type { CommunityInterestOptions_Fragment } from "~/components/CommunityInterest/CommunityInterest";
+import CommunityInterest from "~/components/CommunityInterest/CommunityInterest";
+import type { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
 
-import CareerDevelopmentSection, {
-  CareerDevelopmentOptions_Fragment,
-} from "./components/CareerDevelopmentSection";
+import type { CareerDevelopmentOptions_Fragment } from "./components/CareerDevelopmentSection";
+import CareerDevelopmentSection from "./components/CareerDevelopmentSection";
 import NextRoleAndCareerObjective from "./components/NextRoleAndCareerObjective";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection";
 import DownloadButton from "../DownloadButton";
@@ -171,8 +165,10 @@ export const UserEmployeeInformation = ({
                       key={communityInterest.id}
                     >
                       <Accordion.Trigger as="h3">
-                        {communityInterest.community?.name?.localized ??
-                          intl.formatMessage(commonMessages.notAvailable)}
+                        <span className="font-normal">
+                          {communityInterest.community?.name?.localized ??
+                            intl.formatMessage(commonMessages.notAvailable)}
+                        </span>
                       </Accordion.Trigger>
                       <Accordion.Content>
                         <CommunityInterest

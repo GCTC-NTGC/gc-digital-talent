@@ -99,4 +99,15 @@ return [
      * Can be removed when the migration tool is.
      */
     'migration_tool_callback' => env('OAUTH_MIGRATION_TOOL_CALLBACK'),
+
+    /**
+     * Cache times for HTTP requests
+     *
+     * Used to prevent sending out too many unnecessary outbound requests
+     * and shorten response time.
+     *
+     * Values are in defined in seconds
+     */
+    'config_cache_time' => env('OAUTH_CONFIG_CACHE_TIME', 1800), // 30m
+    'introspection_cache_time' => env('OAUTH_INTROSPECTION_CACHE_TIME', 120), // 2m
 ];

@@ -1,11 +1,12 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
-import EducationRequirementV1, {
+import type {
   EducationRequirementSnapshotV1,
   EducationRequirementV1Props,
 } from "./EducationRequirementV1";
+import EducationRequirementV1 from "./EducationRequirementV1";
 import { getSupportedVersionComponent } from "../utils";
-import { SnapshotProps } from "../types";
+import type { SnapshotProps } from "../types";
 
 interface EducationRequirementSnapshotProps extends SnapshotProps<EducationRequirementSnapshotV1> {
   educationRequirementQuery?: EducationRequirementV1Props["educationRequirementQuery"];

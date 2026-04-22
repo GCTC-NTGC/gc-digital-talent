@@ -3,17 +3,18 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
 
-import {
-  CommunityDevelopmentProgram,
+import type {
   FragmentType,
-  getFragment,
-  graphql,
   Maybe,
   Scalars,
+  UpdateTalentNominationInput,
+} from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
   TalentNominationLateralMovementOption,
   TalentNominationStep,
   TalentNominationUserReview,
-  UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import {
   Checklist,
@@ -35,9 +36,10 @@ import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearch
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
 import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 
-import { BaseFormValues } from "../types";
+import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
-import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
+import type { SubmitDataTransformer } from "./UpdateForm";
+import UpdateForm from "./UpdateForm";
 import SubHeading from "./SubHeading";
 import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
@@ -79,6 +81,27 @@ const DetailsEmployee_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const DetailsCommunityDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
+  fragment DetailsCommunityDevelopmentProgram on CommunityDevelopmentProgram {
+    id
+    pivot {
+      descriptionForNominations {
+        localized
+      }
+    }
+    classifications {
+      group
+      level
+    }
+    developmentProgram {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
+
 type NominationOption =
   | "advancement"
   | "lateralMovement"
@@ -105,25 +128,30 @@ type DetailsFieldsOptionsFragmentType = FragmentType<
 >;
 
 interface DetailsFieldsProps {
-  communityDevelopmentProgramOptions: Omit<
-    CommunityDevelopmentProgram,
-    "community"
-  >[];
   optionsQuery?: DetailsFieldsOptionsFragmentType;
   employeeQuery?: FragmentType<typeof DetailsEmployee_Fragment>;
+  communityDevelopmentProgramQuery?: FragmentType<
+    typeof DetailsCommunityDevelopmentProgram_Fragment
+  >[];
 }
 
 const DetailsFields = ({
   optionsQuery,
   employeeQuery,
-  communityDevelopmentProgramOptions,
+  communityDevelopmentProgramQuery,
 }: DetailsFieldsProps) => {
   const intl = useIntl();
 
   const options = getFragment(DetailsFieldsOptions_Fragment, optionsQuery);
+
   const advancementReferenceData = getFragment(
     DetailsEmployee_Fragment,
     employeeQuery,
+  );
+
+  const communityDevelopmentProgramData = getFragment(
+    DetailsCommunityDevelopmentProgram_Fragment,
+    communityDevelopmentProgramQuery,
   );
 
   const { watch, resetField: baseReset } = useFormContext<FormValues>();
@@ -212,7 +240,7 @@ const DetailsFields = ({
           },
           {
             value: "developmentProgram",
-            label: intl.formatMessage(labels.developmentProgram),
+            label: intl.formatMessage(labels.developmentOpportunities),
             contentBelow: intl.formatMessage({
               defaultMessage:
                 "The employee would benefit from a development or learning opportunity to help prepare them for their next role.",
@@ -441,18 +469,13 @@ const DetailsFields = ({
             <div className="flex flex-col gap-6">
               <div>
                 <Heading level="h3" size="h6">
-                  {intl.formatMessage({
-                    defaultMessage: "Development program options",
-                    id: "PZEAt8",
-                    description:
-                      "Title for development program options section in nominations details step",
-                  })}
+                  {intl.formatMessage(labels.developmentOpportunities)}
                 </Heading>
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Indicate one or more options that are recommended for the nominee.",
-                    id: "lu11dr",
+                      "Select one or more programs, certifications or accreditations that this nominee would benefit from participating in.",
+                    id: "MnwLD0",
                     description:
                       "Description for development program options section in nominations details step",
                   })}
@@ -461,22 +484,42 @@ const DetailsFields = ({
               <Checklist
                 idPrefix="communityDevelopmentPrograms"
                 name="communityDevelopmentPrograms"
-                legend={intl.formatMessage({
-                  defaultMessage: "Development program options",
-                  id: "OTI+Kb",
-                  description:
-                    "Label for the development program options checklist on the details step",
-                })}
+                legend={intl.formatMessage(labels.developmentOpportunities)}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
                 items={[
-                  ...communityDevelopmentProgramOptions.map((cdp) => ({
-                    value: cdp.id,
-                    label: cdp.developmentProgram.name?.localized ?? "",
-                    contentBelow:
-                      cdp.pivot?.descriptionForNominations?.localized ?? "",
-                  })),
+                  ...unpackMaybes(communityDevelopmentProgramData).map(
+                    (cdp) => ({
+                      value: cdp.id,
+                      label: cdp.developmentProgram.name?.localized ?? "",
+                      contentBelow: (
+                        <>
+                          {cdp.classifications &&
+                          cdp?.classifications.length > 0 ? (
+                            <>
+                              {intl.formatMessage({
+                                defaultMessage: "Restricted to",
+                                id: "622Kr4",
+                                description:
+                                  "List of classifications that development programs are limited to",
+                              })}
+                              {intl.formatMessage(commonMessages.dividingColon)}
+
+                              {cdp.classifications
+                                .map(
+                                  (classification) =>
+                                    `${classification.group}-${classification.level}`,
+                                )
+                                .join(", ")}
+                              <br />
+                            </>
+                          ) : null}
+                          {cdp.pivot?.descriptionForNominations?.localized}
+                        </>
+                      ),
+                    }),
+                  ),
                   {
                     value: "other",
                     label: intl.formatMessage(commonMessages.other),
@@ -508,17 +551,7 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
     talentNominationEvent {
       communityDevelopmentPrograms {
         id
-        pivot {
-          descriptionForNominations {
-            localized
-          }
-        }
-        developmentProgram {
-          id
-          name {
-            localized
-          }
-        }
+        ...DetailsCommunityDevelopmentProgram
       }
     }
     nominateForAdvancement
@@ -732,14 +765,11 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
         })}
       </p>
       <DetailsFields
-        communityDevelopmentProgramOptions={
-          unpackMaybes(
-            talentNomination?.talentNominationEvent
-              ?.communityDevelopmentPrograms,
-          ) ?? []
-        }
         optionsQuery={optionsQuery}
         employeeQuery={talentNomination?.advancementReference ?? undefined}
+        communityDevelopmentProgramQuery={unpackMaybes(
+          talentNomination?.talentNominationEvent?.communityDevelopmentPrograms,
+        )}
       />
     </UpdateForm>
   );

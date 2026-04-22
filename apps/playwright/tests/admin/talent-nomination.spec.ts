@@ -1,5 +1,5 @@
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
-import { Skill } from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import TalentManagement from "~/fixtures/TalentManagement";
@@ -146,7 +146,7 @@ test.describe("Talent nomination management", () => {
       .getByRole("checkbox", { name: /lateral movement/i })
       .click();
     await appPage.page
-      .getByRole("checkbox", { name: /development program/i })
+      .getByRole("checkbox", { name: /development opportunities/i })
       .click();
     await appPage.page
       .getByRole("textbox", { name: /Search reference's work email/i })
@@ -183,12 +183,12 @@ test.describe("Talent nomination management", () => {
       .fill("Right");
     await appPage.page
       .getByRole("group", {
-        name: /development program options/i,
+        name: /development opportunities/i,
       })
       .getByRole("checkbox", { name: /other/i })
       .click();
     await appPage.page
-      .getByRole("textbox", { name: /other development program option/i })
+      .getByRole("textbox", { name: /other development opportunity name/i })
       .fill("Sidekick training");
     await appPage.page.getByRole("button", { name: /next step/i }).click();
 

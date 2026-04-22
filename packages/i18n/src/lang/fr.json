@@ -216,7 +216,7 @@
     "description": "Not supported status"
   },
   "5RTQe6": {
-    "defaultMessage": "Préparation de votre fichier pour le téléchargement. Une fois celle-ci terminée, vous recevrez une notification.",
+    "defaultMessage": "Préparation de votre fichier pour le téléchargement. Vous recevrez une notification lorsqu’il sera prêt.",
     "description": "Message to user when they request a file for download"
   },
   "5Skje0": {
@@ -918,6 +918,10 @@
   "Vnygk+": {
     "defaultMessage": "Soumis",
     "description": "Item's state is submitted"
+  },
+  "VpjQL1": {
+    "defaultMessage": "Confirmation des membres du personnel",
+    "description": "Label for status of employee verification"
   },
   "VqrVpT": {
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",

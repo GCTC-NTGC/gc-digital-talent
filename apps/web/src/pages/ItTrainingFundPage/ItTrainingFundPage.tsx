@@ -2,7 +2,7 @@ import { defineMessage, useIntl } from "react-intl";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import {
   Card,

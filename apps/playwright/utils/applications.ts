@@ -1,13 +1,14 @@
-import {
+import type {
   CandidateRemovalReason,
   DisqualificationReason,
-  EducationRequirementOption,
   PoolCandidate,
   QualifyCandidateInput,
   Scalars,
+  UpdatePoolCandidateScreeningStageInput,
 } from "@gc-digital-talent/graphql";
+import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 const Test_UpdateApplicationMutationDocument = /* GraphQL */ `
   mutation Test_UpdateApplication(
@@ -295,4 +296,38 @@ export const revertFinalDecision: GraphQLRequestFunc<
       },
     )
     .then((res) => res.revertFinalDecision);
+};
+
+const Test_UpdateScreeningStageMutationDocument = /* GraphQL */ `
+  mutation UpdateScreeningStage(
+    $input: UpdatePoolCandidateScreeningStageInput!
+  ) {
+    updatePoolCandidateScreeningStage(poolCandidate: $input) {
+      id
+    }
+  }
+`;
+
+interface UpdateScreeningStageArgs {
+  input: UpdatePoolCandidateScreeningStageInput;
+}
+
+/**
+ * Update a candidate's screening stage
+ */
+export const updateScreeningStage: GraphQLRequestFunc<
+  PoolCandidate,
+  UpdateScreeningStageArgs
+> = async (ctx, { input }) => {
+  return ctx
+    .post<GraphQLResponse<"UpdateScreeningStage", PoolCandidate>>(
+      Test_UpdateScreeningStageMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          input,
+        },
+      },
+    )
+    .then((res) => res.UpdateScreeningStage);
 };

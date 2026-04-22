@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
+import type { OperationContext } from "urql";
+import { useQuery } from "urql";
 
 import {
   Pending,
@@ -10,11 +11,8 @@ import {
   Button,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import {
-  graphql,
-  getFragment,
-  ApplicantDashboardQuery,
-} from "@gc-digital-talent/graphql";
+import type { ApplicantDashboardQuery } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 import { getFromLocalStorage } from "@gc-digital-talent/storage";
@@ -265,11 +263,11 @@ export const DashboardPage = ({
     locked: commonMessages.notAvailable,
   };
 
-  const careerPlanningState = careerDevelopmentHasEmptyRequiredFields(
-    currentUser.employeeProfile ?? {},
-  )
-    ? "error"
-    : "success";
+  const careerPlanningState = !currentUser.isVerifiedGovEmployee
+    ? "locked"
+    : careerDevelopmentHasEmptyRequiredFields(currentUser.employeeProfile ?? {})
+      ? "error"
+      : "success";
 
   return (
     <>
@@ -402,12 +400,9 @@ export const DashboardPage = ({
                         <Button className="align-top" mode="text" color="black">
                           <StatusItem
                             status={employeeVerificationState}
-                            title={intl.formatMessage({
-                              defaultMessage: "Employee verification",
-                              id: "VpjQL1",
-                              description:
-                                "Label for status of employee verification",
-                            })}
+                            title={intl.formatMessage(
+                              commonMessages.employeeVerification,
+                            )}
                             hiddenContextPrefix={intl.formatMessage(
                               stateDescriptions[employeeVerificationState],
                             )}
@@ -460,39 +455,17 @@ export const DashboardPage = ({
                       )}
                     </li>
                     <li>
-                      {currentUser.isVerifiedGovEmployee ? (
-                        // is a verified gov employee
-                        <StatusItem
-                          status={careerPlanningState}
-                          title={intl.formatMessage(
-                            commonMessages.careerPlanning,
-                          )}
-                          hiddenContextPrefix={intl.formatMessage(
-                            stateDescriptions[careerPlanningState],
-                          )}
-                          href={`${paths.employeeProfile()}#career-planning-section`}
-                          asListItem={false}
-                        />
-                      ) : (
-                        // is not a verified gov employee
-                        <UnlockEmployeeToolsDialog query={currentUser}>
-                          <Button
-                            className="align-top"
-                            mode="text"
-                            color="black"
-                          >
-                            <StatusItem
-                              status="locked"
-                              title={intl.formatMessage(
-                                commonMessages.careerPlanning,
-                              )}
-                              hiddenContextPrefix={intl.formatMessage(
-                                stateDescriptions.locked,
-                              )}
-                            />
-                          </Button>
-                        </UnlockEmployeeToolsDialog>
-                      )}
+                      <StatusItem
+                        status={careerPlanningState}
+                        title={intl.formatMessage(
+                          commonMessages.careerPlanning,
+                        )}
+                        hiddenContextPrefix={intl.formatMessage(
+                          stateDescriptions[careerPlanningState],
+                        )}
+                        href={`${paths.employeeProfile()}#career-planning-section`}
+                        asListItem={false}
+                      />
                     </li>
                   </Ul>
                 </ResourceBlock.RawContentItem>

@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 import { useState } from "react";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Button,
@@ -379,8 +380,8 @@ const ReviewTalentNominationDialog = ({
                     <FieldDisplay
                       className="xs:col-span-2"
                       label={intl.formatMessage({
-                        defaultMessage: "Development program recommendations",
-                        id: "DHIa69",
+                        defaultMessage: "Recommended development opportunities",
+                        id: "zkwquN",
                         description:
                           "Label for selected development program items",
                       })}
@@ -398,8 +399,8 @@ const ReviewTalentNominationDialog = ({
                     <FieldDisplay
                       className="xs:col-span-2"
                       label={intl.formatMessage({
-                        defaultMessage: "Other development program option",
-                        id: "xidShX",
+                        defaultMessage: "Other development opportunity name",
+                        id: "ncVR6j",
                         description:
                           "Label other development program option input on the details step",
                       })}

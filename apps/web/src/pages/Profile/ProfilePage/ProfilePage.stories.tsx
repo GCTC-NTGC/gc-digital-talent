@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { fakeUsers } from "@gc-digital-talent/fake-data";
 import { Container } from "@gc-digital-talent/ui";
