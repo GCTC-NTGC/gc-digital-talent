@@ -51,6 +51,15 @@ class CommunityInterest extends Model
      * The attributes that can be filled using mass-assignment.
      */
     protected $fillable = [
+        'community_id',
+        'user_id',
+        'job_interest',
+        'training_interest',
+        'additional_information',
+        'finance_is_chief',
+        'finance_additional_duties',
+        'finance_other_roles',
+        'finance_other_roles_other',
         'consent_to_share_profile',
     ];
 
