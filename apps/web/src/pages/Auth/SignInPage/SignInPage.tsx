@@ -738,7 +738,15 @@ export const Component = () => {
                         },
                         {
                           value: "gckey",
-                          label: "GCKey",
+                          label: (
+                            <span className="mr-2">
+                              {intl.formatMessage({
+                                defaultMessage: "GCKey",
+                                id: "o6FC2W",
+                                description: "GCKey sign in method label",
+                              })}
+                            </span>
+                          ),
                           contentBelow: (
                             <p className="font-normal text-gray-500 dark:text-gray-100">
                               {intl.formatMessage({
