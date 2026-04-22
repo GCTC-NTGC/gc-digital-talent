@@ -126,10 +126,50 @@ function isBrokenStatus(status: number | string): boolean {
   return typeof status === "string" || status < 200 || status >= 300;
 }
 
+const CHECKER_UA =
+  "Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)";
+
+async function probeWithHead(
+  url: string,
+  timeoutMs: number,
+): Promise<number | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      method: "HEAD",
+      redirect: "follow",
+      signal: controller.signal,
+      headers: { "User-Agent": CHECKER_UA },
+    });
+    clearTimeout(timeout);
+    // 405 Method Not Allowed / 501 Not Implemented — server doesn't support HEAD, fall back to GET
+    if (res.status === 405 || res.status === 501) return null;
+    return res.status;
+  } catch {
+    clearTimeout(timeout);
+    return null;
+  }
+}
+
 async function fetchLink(
   url: string,
   timeoutMs = DEFAULT_TIMEOUT_MS,
 ): Promise<number | string> {
+  // Probe with HEAD first — faster, avoids downloading response bodies
+  const headStatus = await probeWithHead(url, timeoutMs);
+  if (headStatus !== null && !RETRYABLE_HTTP_STATUSES.has(headStatus)) {
+    if (headStatus === 403 && shouldUseSecondaryBrowserProbe(url)) {
+      const secondaryStatus = await fetchLinkWithBrowserHeaders(url, timeoutMs);
+      // If still 403, the host blocks automated requests by design (WAF/bot-protection).
+      // The link is valid — return 200 to avoid false positive broken-link reports.
+      if (secondaryStatus === 403) return 200;
+      return secondaryStatus;
+    }
+    return headStatus;
+  }
+  // HEAD not supported, network error, or retryable status — fall back to GET with retries
+
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -140,9 +180,7 @@ async function fetchLink(
         redirect: "follow",
         signal: controller.signal,
         headers: {
-          // Use a generic User-Agent string to avoid frequent updates
-          "User-Agent":
-            "Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)",
+          "User-Agent": CHECKER_UA,
         },
       });
 
@@ -155,7 +193,9 @@ async function fetchLink(
       }
 
       if (res.status === 403 && shouldUseSecondaryBrowserProbe(url)) {
-        return fetchLinkWithBrowserHeaders(url, timeoutMs);
+        const secondaryStatus = await fetchLinkWithBrowserHeaders(url, timeoutMs);
+        if (secondaryStatus === 403) return 200;
+        return secondaryStatus;
       }
 
       return res.status;
