@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class AuthPing extends Command
 {
@@ -29,10 +30,8 @@ class AuthPing extends Command
      */
     public function handle()
     {
-        $successCount = 0;
-        $failureCount = 0;
-
         $url = config('oauth.token_uri');
+        // typical payload for requesting a login in the auth callback
         $data = [
             'grant_type' => 'authorization_code',
             'client_id' => config('oauth.client_id'),
@@ -42,9 +41,20 @@ class AuthPing extends Command
         ];
 
         $results = $this->pingTokenUri($url, $data);
-        $this->info('Average transfer time: '.$results->avg('transferTime').' ms');
-        $this->info('Max transfer time: '.$results->max('transferTime').' ms');
-        $this->info('Percent success: '.$results->percentage(fn ($r) => $r['success']).'%');
+        $avgTransferTime = $results->avg('transferTime');
+        $maxTransferTime = $results->max('transferTime');
+        $percentageSuccess = $results->percentage(fn ($r) => $r['success']);
+
+        $this->info('Average transfer time: '.$avgTransferTime.' ms');
+        $this->info('Max transfer time: '.$maxTransferTime.' ms');
+        $this->info('Percentage success: '.$percentageSuccess.'%');
+
+        Log::channel('jobs')->info('Auth ping complete',
+            [
+                'AvgTransferTime' => $avgTransferTime,
+                'MaxTransferTime' => $maxTransferTime,
+                'PercentageSuccess' => $percentageSuccess,
+            ]);
 
         return Command::SUCCESS;
     }
@@ -53,19 +63,22 @@ class AuthPing extends Command
     {
         $results = collect();
         for ($i = 0; $i < 10; $i++) {
-            $response = Http::asForm()->post($url, $data);
+            try {
+                $response = Http::asForm()->post($url, $data);
+                $transferStats = $response->transferStats;
 
-            $transferStats = $response->transferStats;
+                $results->push([
+                    'transferTime' => $transferStats->getTransferTime() * 1000, // s -> ms
+                    // since we don't have a real code we're expecting the invalid_grant error
+                    'success' => $response->status() == 400 && $response->json('error') == 'invalid_grant',
+                ]);
+            } catch (\Throwable $_) {
+                $results->push([
+                    'transferTime' => null,
+                    'success' => false,
+                ]);
+            }
 
-            $transferTime = $transferStats->getTransferTime() * 1000; // s->ms
-
-            $this->info('Transfer time: '.$transferTime.' ms');
-            $this->info('Status: '.$response->status());
-            $this->info('Error message: '.$response->json('error'));
-            $results->push([
-                'transferTime' => $transferTime,
-                'success' => $response->status() == 400 && $response->json('error') == 'invalid_grant',
-            ]);
         }
 
         return $results;
