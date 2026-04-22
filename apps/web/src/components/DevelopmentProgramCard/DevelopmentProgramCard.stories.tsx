@@ -2,7 +2,6 @@ import type { StoryFn, Meta } from "@storybook/react-vite";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 import { fakeClassifications } from "@gc-digital-talent/fake-data";
-import { DropdownMenu } from "@gc-digital-talent/ui";
 
 import DevelopmentProgramCard from "./DevelopmentProgramCard";
 import fakeDevelopmentPrograms from "../../../../../packages/fake-data/src/fakeDevelopmentPrograms";
@@ -28,7 +27,7 @@ export default {
 
 const Template: StoryFn<typeof DevelopmentProgramCard> = () => {
   return (
-    <div>
+    <div className="bg-white">
       {developmentPrograms.map((d) => (
         <DevelopmentProgramCard
           key={d.id}

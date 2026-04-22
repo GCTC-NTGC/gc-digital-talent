@@ -32,28 +32,27 @@ const DevelopmentProgramCard = ({
 
   return (
     <div className="border-b border-gray-200 p-6 last:border-b-0 odd:bg-gray-100/30 dark:odd:bg-gray-700/50 dark:even:bg-gray-700/30">
-      <div className="grid w-full grid-cols-12">
-        <div className="col-span-1">
-          <DropdownMenu.Root open={open} onOpenChange={setOpen}>
-            <DropdownMenu.Trigger
-              render={
-                <IconButton
-                  icon={open ? XMarkIcon : PencilSquareIcon}
-                  color="primary"
-                  label={iconLabel}
-                />
-              }
-            />
-            <DropdownMenu.Popup
-              className="flex flex-col items-start gap-3 p-3"
-              portalProps={{ keepMounted: true }}
-            >
-              {edit && <DropdownMenu.Item>{edit}</DropdownMenu.Item>}
-              {remove && <DropdownMenu.Item>{remove}</DropdownMenu.Item>}
-            </DropdownMenu.Popup>
-          </DropdownMenu.Root>
-        </div>
-        <div className="col-span-11 flex flex-col items-start gap-6">
+      <div className="flex items-start gap-6">
+        <DropdownMenu.Root open={open} onOpenChange={setOpen}>
+          <DropdownMenu.Trigger
+            render={
+              <IconButton
+                icon={open ? XMarkIcon : PencilSquareIcon}
+                color="primary"
+                label={iconLabel}
+                className="m-0 p-0"
+              />
+            }
+          />
+          <DropdownMenu.Popup
+            className="flex flex-col items-start gap-3 p-3"
+            portalProps={{ keepMounted: true }}
+          >
+            {edit && <DropdownMenu.Item>{edit}</DropdownMenu.Item>}
+            {remove && <DropdownMenu.Item>{remove}</DropdownMenu.Item>}
+          </DropdownMenu.Popup>
+        </DropdownMenu.Root>
+        <div className="flex flex-col items-start gap-6">
           <span>
             <p className="font-bold">{title}</p>
             {description && <p>{description}</p>}
