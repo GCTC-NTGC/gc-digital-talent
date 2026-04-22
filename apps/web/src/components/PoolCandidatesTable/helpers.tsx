@@ -44,6 +44,7 @@ import {
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type { Radio } from "@gc-digital-talent/forms";
 
+import type { CandidateNavigationState } from "~/pages/PoolCandidates/ViewPoolCandidatePage/components/CandidateNavigation/usePoolCandidateNavigation";
 import type useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
@@ -84,7 +85,7 @@ export const candidateNameCell = (
   candidateId: string,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
-  tableCandidateIds?: string[],
+  navigationState?: CandidateNavigationState,
   candidateFirstName?: Maybe<string>,
   candidateLastName?: Maybe<string>,
 ) => {
@@ -96,7 +97,7 @@ export const candidateNameCell = (
   return (
     <Link
       href={paths.poolCandidateApplication(candidateId)}
-      state={{ candidateIds: tableCandidateIds, stepName: null }}
+      state={{ navigationState, stepName: null }}
     >
       {candidateName}
     </Link>
