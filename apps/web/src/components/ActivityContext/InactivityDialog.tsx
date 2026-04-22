@@ -69,7 +69,7 @@ const InactivityDialog = ({
           </div>
         </Dialog.Header>
         <Dialog.Body>
-          <div className="grid gap-(--text-sm) xs:grid-cols-[3fr_2fr]">
+          <div className="grid gap-(--text-sm) xs:grid-cols-[1fr_1fr]">
             <p className="order-1 xs:col-span-2">
               {intl.formatMessage({
                 defaultMessage:
@@ -117,6 +117,7 @@ const InactivityDialog = ({
                 src={imgSrcs[themeMode]}
                 sources={imgSources[themeMode]}
                 alt=""
+                className="max-h-25"
               />
             </div>
           </div>
