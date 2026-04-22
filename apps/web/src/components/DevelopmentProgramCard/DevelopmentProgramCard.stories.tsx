@@ -15,7 +15,9 @@ export default {
     chromatic: {
       modes: {
         light: allModes.light,
+        "light mobile": allModes["light mobile"],
         dark: allModes.dark,
+        "dark mobile": allModes["dark mobile"],
       },
     },
     design: {
