@@ -1,6 +1,7 @@
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
@@ -11,15 +12,19 @@ import {
   Heading,
   Link,
   NotFound,
+  Notice,
   Pending,
 } from "@gc-digital-talent/ui";
-import {
+import type {
   Community,
-  DevelopmentProgram,
+  CommunityDevelopmentProgram,
   FragmentType,
+  Scalars,
+} from "@gc-digital-talent/graphql";
+import {
   getFragment,
   graphql,
-  Scalars,
+  TalentNominationEventStatus,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -30,7 +35,6 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   Checkbox,
-  Checklist,
   DateInput,
   Input,
   Select,
@@ -53,9 +57,19 @@ import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import processMessages from "~/messages/processMessages";
 
-import { RouteParams } from "./TalentEvent/types";
+import type { RouteParams } from "./TalentEvent/types";
 import { isCommunity } from "./TalentEvent/util";
+import DevelopmentProgramCard from "./components/DevelopmentProgramCard";
+import DevelopmentProgramDialog from "./components/DevelopmentProgramDialog";
+import ActiveTalentEventForm from "./components/ActiveTalentEventForm";
+
+const openDate = defineMessage({
+  defaultMessage: "Open date",
+  id: "Qxxop2",
+  description: "Label for open date",
+});
 
 const UpdateTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
   fragment UpdateTalentNominationEvent_Fragment on TalentNominationEvent {
@@ -83,10 +97,22 @@ const UpdateTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
-    developmentPrograms {
+    communityDevelopmentPrograms {
       id
-      name {
-        localized
+      developmentProgram {
+        id
+        name {
+          localized
+        }
+        descriptionForProfile {
+          localized
+        }
+      }
+      pivot {
+        descriptionForNominations {
+          en
+          fr
+        }
       }
     }
   }
@@ -123,7 +149,13 @@ interface FormValues {
   };
   includeLeadershipCompetencies: boolean;
   community: string;
-  developmentPrograms: string[] | undefined;
+  communityDevelopmentPrograms: {
+    value: string;
+    description: {
+      en: string | null;
+      fr: string | null;
+    };
+  }[];
 }
 
 const UpdateTalentEventForm = ({
@@ -172,10 +204,20 @@ const UpdateTalentEventForm = ({
       includeLeadershipCompetencies:
         talentNominationEvent.includeLeadershipCompetencies,
       community: talentNominationEvent.community.id,
-      developmentPrograms: talentNominationEvent.developmentPrograms?.map(
-        (dp) => dp.id,
-      ),
+      communityDevelopmentPrograms:
+        talentNominationEvent.communityDevelopmentPrograms?.map((cdp) => ({
+          value: cdp.id,
+          description: {
+            en: cdp.pivot?.descriptionForNominations?.en,
+            fr: cdp.pivot?.descriptionForNominations?.fr,
+          },
+        })),
     },
+  });
+
+  const { fields, append, update, remove } = useFieldArray<FormValues>({
+    name: "communityDevelopmentPrograms",
+    control: methods.control,
   });
 
   const [, executeMutation] = useMutation(UpdateTalentNominationEvent_Mutation);
@@ -209,7 +251,14 @@ const UpdateTalentEventForm = ({
           "UTC",
         ),
         community: { connect: formValues.community },
-        developmentPrograms: { sync: formValues.developmentPrograms },
+        communityDevelopmentPrograms: {
+          sync: [
+            ...formValues.communityDevelopmentPrograms.map((d) => ({
+              id: d.value,
+              descriptionForNominations: d.description,
+            })),
+          ],
+        },
       },
     })
       .then(async (result) => {
@@ -244,15 +293,16 @@ const UpdateTalentEventForm = ({
   const developmentProgramOptions = communities
     .filter((community) => community.id === watchCommunity)
     .reduce(
-      (acc: DevelopmentProgram[], curr: Community) => [
+      (acc: CommunityDevelopmentProgram[], curr: Community) => [
         ...acc,
-        ...(curr.associatedDevelopmentPrograms ?? []),
+        ...(curr.communityDevelopmentPrograms ?? []),
       ],
       [],
     )
-    .map((developmentProgram) => ({
-      label: developmentProgram.name?.localized,
-      value: developmentProgram.id,
+    .map((cdp) => ({
+      label: cdp.developmentProgram.name.localized,
+      value: cdp.id,
+      description: cdp.developmentProgram.descriptionForProfile.localized,
     }));
 
   const { isDirty: communityIsDirty } = methods.getFieldState(
@@ -262,7 +312,7 @@ const UpdateTalentEventForm = ({
 
   useEffect(() => {
     if (watchCommunity && communityIsDirty) {
-      methods.resetField("developmentPrograms", {
+      methods.resetField("communityDevelopmentPrograms", {
         keepDirty: false,
         defaultValue: [],
       });
@@ -273,6 +323,22 @@ const UpdateTalentEventForm = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 gap-6 xs:grid-cols-2">
+          <div className="col-span-2">
+            <Select
+              id="community"
+              name="community"
+              label={intl.formatMessage({
+                defaultMessage: "Functional community",
+                id: "FILFak",
+                description: "Label for the select community input",
+              })}
+              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+              options={communityOptions}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+          </div>
           <Input
             id="name_en"
             name="name.en"
@@ -317,8 +383,8 @@ const UpdateTalentEventForm = ({
             id="learnMoreUrl_en"
             name="learnMoreUrl.en"
             label={intl.formatMessage({
-              defaultMessage: "More information link",
-              id: "HHa3+K",
+              defaultMessage: "Link to external information",
+              id: "PWqfaJ",
               description:
                 "Label displayed on the talent nomination event more info link field",
             })}
@@ -329,22 +395,59 @@ const UpdateTalentEventForm = ({
             id="learnMoreUrl_fr"
             name="learnMoreUrl.fr"
             label={intl.formatMessage({
-              defaultMessage: "More information link",
-              id: "HHa3+K",
+              defaultMessage: "Link to external information",
+              id: "PWqfaJ",
               description:
                 "Label displayed on the talent nomination event more info link field",
             })}
             appendLanguageToLabel={"fr"}
             type="url"
           />
+        </div>
+        <CardSeparator />
+        <div className="grid grid-cols-1 gap-6 xs:grid-cols-2">
+          <div className="col-span-2">
+            <Heading level="h3" size="h6">
+              {intl.formatMessage({
+                defaultMessage: "Nomination settings",
+                id: "eWP5gJ",
+                description:
+                  "Title for subsection of create talent management form",
+              })}
+            </Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "These options allow you to specify classification restrictions, the type of nominations that are accepted, and the period of time the event will be accepting nomination submissions.",
+                id: "Qds8Yz",
+                description:
+                  "Description for subsection create talent management event",
+              })}
+            </p>
+          </div>
+          <div className="col-span-2">
+            <Checkbox
+              id="includeLeadershipCompetencies"
+              boundingBox
+              boundingBoxLabel={intl.formatMessage({
+                defaultMessage: "Leadership competency requirement",
+                id: "eBH+tH",
+                description:
+                  "Bounding box label for the include leadership competencies",
+              })}
+              label={intl.formatMessage({
+                defaultMessage:
+                  "The nomination must include the nominee's top 3 leadership competencies",
+                id: "4rkX89",
+                description: "Label for the include leadership competencies",
+              })}
+              name="includeLeadershipCompetencies"
+            />
+          </div>
           <DateInput
             id="openDate"
             name="openDate"
-            legend={intl.formatMessage({
-              defaultMessage: "Open date",
-              id: "Qxxop2",
-              description: "Label for open date",
-            })}
+            legend={intl.formatMessage(openDate)}
             rules={{
               min: {
                 value: formatDate({
@@ -364,71 +467,88 @@ const UpdateTalentEventForm = ({
           <DateInput
             id="closeDate"
             name="closeDate"
-            legend={intl.formatMessage({
-              defaultMessage: "Closing date",
-              id: "h0LeQH",
-              description: "Label for open date",
-            })}
+            legend={intl.formatMessage(processMessages.closingDate)}
             rules={{
-              validate: (closeDate) => closeDate > watchOpenDate,
-              required: intl.formatMessage(errorMessages.required),
+              min: {
+                value: watchOpenDate ? String(watchOpenDate) : "",
+                message: intl.formatMessage(errorMessages.minDateSelfLabel, {
+                  labelSelf: intl.formatMessage(processMessages.closingDate),
+                  labelAssociated: intl.formatMessage(openDate),
+                }),
+              },
             }}
           />
-          <div className="col-span-2">
-            <Checkbox
-              id="includeLeadershipCompetencies"
-              boundingBox
-              boundingBoxLabel={intl.formatMessage({
-                defaultMessage: "Leadership competencies",
-                id: "dOH084",
-                description:
-                  "Bounding box label for the include leadership competencies",
-              })}
-              label={intl.formatMessage({
-                defaultMessage:
-                  "Leadership competencies are required to be nominated for this event",
-                id: "A3m7l/",
-                description: "Label for the include leadership competencies",
-              })}
-              name="includeLeadershipCompetencies"
-            />
-          </div>
-          <div className="col-span-2">
-            <Select
-              id="community"
-              name="community"
-              label={intl.formatMessage({
-                defaultMessage: "Communities",
-                id: "5/8d3J",
-                description: "Label for the select community input",
-              })}
-              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-              options={communityOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-          </div>
-
-          {watchCommunity && (
-            <div className="col-span-2">
-              <Checklist
-                idPrefix="developmentPrograms"
-                name="developmentPrograms"
-                legend={intl.formatMessage({
-                  defaultMessage: "Relevant development programs",
-                  id: "awwnr3",
-                  description:
-                    "Label for the input for selecting development programs for a talent nomination event",
-                })}
-                items={developmentProgramOptions}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-            </div>
-          )}
         </div>
+        {watchCommunity && (
+          <>
+            <CardSeparator />
+            <div className="grid gap-6">
+              <div>
+                <Heading level="h3" size="h6" className="mt-0">
+                  {intl.formatMessage({
+                    defaultMessage: "Development opportunities",
+                    id: "p+JlKG",
+                    description:
+                      "Title for subsection of create talent management form",
+                  })}
+                </Heading>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Specify which professionalization options nominators can choose from when nominating an employee for development opportunities. You can also optionally provide extra context for nominators to better understand their choices if need be,. If you can’t find the program or certificate you need, contact your community administrator and work with them to add the options you need.",
+                    id: "atLy8S",
+                    description:
+                      "Description for subsection create talent management event",
+                  })}
+                </p>
+              </div>
+
+              <DevelopmentProgramDialog
+                developmentProgramOptions={developmentProgramOptions}
+                onSubmit={(values) => append(values)}
+              />
+
+              <>
+                {fields.length === 0 ? (
+                  <Notice.Root>
+                    <Notice.Content>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Please add at least one development opportunity for nominators to select from.",
+                        id: "6akdUp",
+                        description:
+                          "Notice message to add at least one development opportunity",
+                      })}
+                    </Notice.Content>
+                  </Notice.Root>
+                ) : (
+                  <div className="rounded-md border border-gray-200">
+                    {fields.map((field, index) => {
+                      const developmentProgram = developmentProgramOptions.find(
+                        ({ value }) => value === field.value,
+                      );
+
+                      return (
+                        <DevelopmentProgramCard
+                          key={field.id}
+                          title={developmentProgram?.label}
+                          description={developmentProgram?.description}
+                          developmentProgramOptions={developmentProgramOptions}
+                          defaultValues={{
+                            value: field.value,
+                            description: field.description,
+                          }}
+                          onEdit={(values) => update(index, values)}
+                          onRemove={() => remove(index)}
+                        />
+                      );
+                    })}
+                  </div>
+                )}
+              </>
+            </div>
+          </>
+        )}
         <CardSeparator />
         <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-left">
           <Submit text={intl.formatMessage(formMessages.saveChanges)} />
@@ -452,6 +572,9 @@ const UpdateTalentNominationEvent_Query = graphql(/* GraphQL */ `
       name {
         localized
       }
+      status {
+        value
+      }
     }
     me {
       authInfo {
@@ -464,10 +587,16 @@ const UpdateTalentNominationEvent_Query = graphql(/* GraphQL */ `
               name {
                 localized
               }
-              associatedDevelopmentPrograms {
+              communityDevelopmentPrograms {
                 id
-                name {
-                  localized
+                developmentProgram {
+                  id
+                  name {
+                    localized
+                  }
+                  descriptionForProfile {
+                    localized
+                  }
                 }
               }
             }
@@ -497,7 +626,7 @@ const UpdateTalentEventPage = () => {
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(adminMessages.talentEvent),
+        label: intl.formatMessage(adminMessages.talentManagementEvents),
         url: paths.adminTalentManagementEvents(),
       },
       {
@@ -524,7 +653,20 @@ const UpdateTalentEventPage = () => {
   return (
     <>
       <SEO title={pageTitle} />
-      <Hero title={pageTitle} crumbs={crumbs} centered overlap>
+      <Hero
+        title={pageTitle}
+        subtitle={intl.formatMessage(
+          {
+            defaultMessage: "Edit details about {name}",
+            id: "5qiuq2",
+            description: "Description for update talent management event",
+          },
+          { name: data?.talentNominationEvent?.name.localized },
+        )}
+        crumbs={crumbs}
+        centered
+        overlap
+      >
         <div className="mb-18">
           <Pending fetching={fetching} error={error}>
             {data?.talentNominationEvent && data?.me ? (
@@ -542,10 +684,27 @@ const UpdateTalentEventPage = () => {
                     description: "Subtitle for update talent event page",
                   })}
                 </Heading>
-                <UpdateTalentEventForm
-                  query={data.talentNominationEvent}
-                  communities={communities}
-                />
+                <p className="mb-6">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Talent management events allow the community to open a nomination period where employees can be nominated for advancement, lateral movement or development opportunities. This form allows you to customize the event’s details, including when the nomination period is, what type of nominations will be accepted, and whether the event is targeted at specific classifications.",
+                    id: "1gAJVq",
+                    description:
+                      "Subtitle for update talent management event page",
+                  })}
+                </p>
+                {data?.talentNominationEvent.status?.value ===
+                TalentNominationEventStatus.Active ? (
+                  <ActiveTalentEventForm
+                    query={data.talentNominationEvent}
+                    communities={communities}
+                  />
+                ) : (
+                  <UpdateTalentEventForm
+                    query={data.talentNominationEvent}
+                    communities={communities}
+                  />
+                )}
               </Card>
             ) : (
               <NotFound
