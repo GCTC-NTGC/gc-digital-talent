@@ -824,7 +824,7 @@ export const Component = () => {
                 </Notice.Root>
               </div>
             )}
-            <div className="flex flex-col items-start gap-4 pt-6 pl-4 xs:flex-row xs:items-center">
+            <div className="mt-6 flex w-full flex-col items-center gap-6 px-4.5 xs:flex-row xs:justify-start">
               <Link
                 href={`${loginPath}${skipMigration}`}
                 mode="solid"
@@ -846,12 +846,11 @@ export const Component = () => {
                         "CanadaLogin sign up link text on the sign in page",
                     })}
               </Link>
-              <p className="m-0 flex items-center pl-6 lg:pl-4">
+              <p>
                 <Link
                   href="#registrationInstructions"
                   mode="inline"
                   external
-                  className="lg:ml-2"
                   color="warning"
                 >
                   {intl.formatMessage({
