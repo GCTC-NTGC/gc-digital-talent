@@ -1209,14 +1209,14 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    {featureFlags?.canadaLogin ? ( //Feature flag
+                    {featureFlags?.canadaLogin ? (
                       <>
                         <Text className="m-y0">
                           {intl.formatMessage(
                             {
                               defaultMessage:
                                 "We’ve set up <linkToRegisterGuidance>a guide explaining how to create a CanadaLogin and set up two-step verification</linkToRegisterGuidance>. We also have <linkToSignInGuidance>instructions on how to sign in using CanadaLogin</linkToSignInGuidance>. If the issue persists, contact the <linkToCanadaLoginTeam>CanadaLogin team</linkToCanadaLoginTeam>.",
-                              id: "1EGyaU", // TODO
+                              id: "1EGyaU",
                               description:
                                 "Text explaining where to get support for Canada Login sign up or sign in issues",
                             },
