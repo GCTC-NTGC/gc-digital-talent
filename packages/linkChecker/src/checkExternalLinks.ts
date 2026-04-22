@@ -284,9 +284,18 @@ function isValidExternalLink(url: string): boolean {
 }
 
 async function extractExternalLinks(filePath: string): Promise<string[]> {
-  const content = await fs.readFile(filePath, "utf-8");
+  const raw = await fs.readFile(filePath, "utf-8");
   const links: string[] = [];
   const ext = path.extname(filePath).slice(1);
+
+  // Strip single-line comments from TS/JS files to avoid checking commented-out URLs
+  const content =
+    ext !== "html"
+      ? raw
+          .split("\n")
+          .filter((line) => !line.trimStart().startsWith("//"))
+          .join("\n")
+      : raw;
 
   // Determine regex based on file extension
   const regex =
