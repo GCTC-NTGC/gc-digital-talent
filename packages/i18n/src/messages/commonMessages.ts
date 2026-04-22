@@ -594,6 +594,11 @@ const commonMessages = defineMessages({
     id: "wOKjIf",
     description: "Null selection value for select one or more options",
   },
+  employeeVerification: {
+    defaultMessage: "Employee verification",
+    id: "VpjQL1",
+    description: "Label for status of employee verification",
+  },
 });
 
 export default commonMessages;

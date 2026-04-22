@@ -234,7 +234,7 @@ return [
     'references_classification' => 'References classification',
     'references_department' => 'Reference’s department or agency',
     'lateral_movement_options' => 'Lateral movement options',
-    'development_program_recommendations' => 'Development program recommendations',
+    'development_program_recommendations' => 'Recommended development opportunities',
     'other' => 'Other:',
     'rationale' => 'Rationale',
     'leadership_competencies' => 'Top 3 key leadership competencies',
@@ -305,7 +305,7 @@ return [
     'reference_department' => 'Reference\'s department',
     'lateral_experience_recommendations' => 'Lateral experience recommendations',
     'other_lateral_experience' => 'Other lateral experience recommendations',
-    'development_program_recommendations' => 'Development program recommendations',
     'other_development_program_experience' => 'Other development program recommendations',
 
+    'updated_at' => 'Updated',
 ];

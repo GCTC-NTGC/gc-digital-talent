@@ -181,9 +181,11 @@ const AdminApplicantProfile = ({
               id={PERSONAL_CONTACT_INFO_ID}
             >
               <Accordion.Trigger as="h3">
-                {intl.formatMessage(
-                  profileMessages.personalAndContactInformation,
-                )}
+                <span className="font-normal">
+                  {intl.formatMessage(
+                    profileMessages.personalAndContactInformation,
+                  )}
+                </span>
               </Accordion.Trigger>
               <Accordion.Content>
                 <PersonalAndContactInformation query={user} />
@@ -195,7 +197,9 @@ const AdminApplicantProfile = ({
               id={LANGUAGE_PROFILE_ID}
             >
               <Accordion.Trigger as="h3">
-                {intl.formatMessage(profileMessages.languageProfile)}
+                <span className="font-normal">
+                  {intl.formatMessage(profileMessages.languageProfile)}
+                </span>
               </Accordion.Trigger>
               <Accordion.Content>
                 <LanguageProfile query={user} />
@@ -207,7 +211,9 @@ const AdminApplicantProfile = ({
               id={WORK_PREFERENCES_ID}
             >
               <Accordion.Trigger as="h3">
-                {intl.formatMessage(navigationMessages.workPreferences)}
+                <span className="font-normal">
+                  {intl.formatMessage(navigationMessages.workPreferences)}
+                </span>
               </Accordion.Trigger>
               <Accordion.Content>
                 <WorkPreferences query={user} optionsQuery={optionsQuery} />
@@ -216,9 +222,11 @@ const AdminApplicantProfile = ({
 
             <Accordion.Item value={SECTION_KEY.DEI} id={DEI_ID}>
               <Accordion.Trigger as="h3">
-                {intl.formatMessage(
-                  navigationMessages.diversityEquityInclusion,
-                )}
+                <span className="font-normal">
+                  {intl.formatMessage(
+                    navigationMessages.diversityEquityInclusion,
+                  )}
+                </span>
               </Accordion.Trigger>
               <Accordion.Content>
                 <DiversityEquityInclusion query={user} />
@@ -230,12 +238,15 @@ const AdminApplicantProfile = ({
               id={CITIZEN_VETERAN_PRIORITY_ID}
             >
               <Accordion.Trigger as="h3">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Citizenship, veteran status and priority entitlements",
-                  id: "ltYqKQ",
-                  description: "Title for the citizen/veteran/priority section",
-                })}
+                <span className="font-normal">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Citizenship, veteran status and priority entitlements",
+                    id: "ltYqKQ",
+                    description:
+                      "Title for the citizen/veteran/priority section",
+                  })}
+                </span>
               </Accordion.Trigger>
               <Accordion.Content>
                 <CitizenVeteranPriority query={user} />
@@ -244,7 +255,9 @@ const AdminApplicantProfile = ({
 
             <Accordion.Item value={SECTION_KEY.GOV_INFO} id={GOV_INFO_ID}>
               <Accordion.Trigger as="h3">
-                {intl.formatMessage(profileMessages.govEmployeeInformation)}
+                <span className="font-normal">
+                  {intl.formatMessage(profileMessages.govEmployeeInformation)}
+                </span>
               </Accordion.Trigger>
               <Accordion.Content>
                 <GovernmentInformation query={user} />

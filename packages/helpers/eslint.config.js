@@ -17,7 +17,7 @@ export default [
             1,
             {
               unusedExports: true,
-              ignoreExports: ["src/index.{ts,tsx}"],
+              ignoreExports: ["src/index.{ts,tsx}", "vitest.config.ts"],
             },
           ];
         }
