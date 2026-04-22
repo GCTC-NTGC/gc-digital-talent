@@ -297,7 +297,7 @@ export const Component = () => {
                 darkSrc: canadaLoginStep1Dark,
               }}
             >
-              <ol className="space-y-4 text-center">
+              <ol className="mb-6.75 space-y-4 text-center">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Head to CanadaLogin.",
@@ -312,18 +312,19 @@ export const Component = () => {
                     description: "Text for first registration -> create step.",
                   })}
                 </li>
-              </ol>
 
-              <div className="mt-4 mb-6.75">
-                <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "If you've already used CanadaLogin on another service, you can enter your email and password and skip to step two.",
-                    id: "h4BQ8C",
-                    description: "Text for first registration -> create step.",
-                  })}
-                </p>
-              </div>
+                <li className="mt-4">
+                  <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "If you've already used CanadaLogin on another service, you can enter your email and password and skip to step two.",
+                      id: "h4BQ8C",
+                      description:
+                        "Text for first registration -> create step.",
+                    })}
+                  </p>
+                </li>
+              </ol>
             </InstructionsStepCard>
             <InstructionsStepCard
               className="rounded-none pt-12 pb-7.5"
@@ -333,7 +334,7 @@ export const Component = () => {
                 darkSrc: canadaLoginStep2bDark,
               }}
             >
-              <ol className="space-y-4 text-center">
+              <ol className="mb-6.75 space-y-4 text-center">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Enter your first and last name.",
@@ -341,17 +342,19 @@ export const Component = () => {
                     description: "Text for first registration -> create step.",
                   })}
                 </li>
+
+                <li className="mt-4">
+                  <p className="text-sm font-normal text-gray-600 dark:text-gray-100">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The name you use here will be on your GC Digital Talent profile.",
+                      id: "8dctGM",
+                      description:
+                        "Text for first registration -> create step.",
+                    })}
+                  </p>
+                </li>
               </ol>
-              <div className="mt-4 mb-6.75">
-                <p className="text-sm font-normal text-gray-600 dark:text-gray-100">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "The name you use here will be on your GC Digital Talent profile.",
-                    id: "8dctGM",
-                    description: "Text for first registration -> create step.",
-                  })}
-                </p>
-              </div>
             </InstructionsStepCard>
 
             <InstructionsStepCard
@@ -362,7 +365,7 @@ export const Component = () => {
                 darkSrc: canadaLoginStep2cDark,
               }}
             >
-              <ol className="space-y-4 text-center">
+              <ol className="mb-6.75 space-y-4 text-center">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Verify your personal email address.",
@@ -378,17 +381,19 @@ export const Component = () => {
                     description: "Text for first registration -> create step.",
                   })}
                 </li>
+
+                <li className="mt-4">
+                  <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Using a personal email address will help ensure you don't lose access if you change jobs.",
+                      id: "OG/Fbe",
+                      description:
+                        "Text for first registration -> create step.",
+                    })}
+                  </p>
+                </li>
               </ol>
-              <div className="mt-4 mb-6.75">
-                <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Using a personal email address will help ensure you don't lose access if you change jobs.",
-                    id: "OG/Fbe",
-                    description: "Text for first registration -> create step.",
-                  })}
-                </p>
-              </div>
             </InstructionsStepCard>
 
             <InstructionsStepCard
@@ -399,7 +404,7 @@ export const Component = () => {
                 darkSrc: canadaLoginStep4Dark,
               }}
             >
-              <ol className="space-y-4 text-center">
+              <ol className="mb-6.75 space-y-4 text-center">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Set up two-step verification.",
@@ -414,17 +419,19 @@ export const Component = () => {
                     description: "Text for first registration -> create step.",
                   })}
                 </li>
+
+                <li className="mt-4">
+                  <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Using a personal phone number will help ensure you don't lose access if you change jobs.",
+                      id: "QbJmAL",
+                      description:
+                        "Text for first registration -> create step.",
+                    })}
+                  </p>
+                </li>
               </ol>
-              <div className="mt-4 mb-6.75">
-                <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Using a personal phone number will help ensure you don't lose access if you change jobs.",
-                    id: "QbJmAL",
-                    description: "Text for first registration -> create step.",
-                  })}
-                </p>
-              </div>
             </InstructionsStepCard>
             <InstructionsStepCard
               className="rounded-none pt-12 pb-7.5"
@@ -433,7 +440,7 @@ export const Component = () => {
                 darkSrc: canadaLoginStep5Dark,
               }}
             >
-              <ol className="space-y-4 text-center">
+              <ol className="mb-6.75 space-y-4 text-center">
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
@@ -449,17 +456,19 @@ export const Component = () => {
                     description: "Text for first registration -> create step.",
                   })}
                 </li>
+
+                <li className="mt-2">
+                  <p className="text-sm font-normal text-gray-600 dark:text-gray-100">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "This code will be sent by either text or phone call, and will expire after ten minutes.",
+                      id: "As56gg",
+                      description:
+                        "Text for first registration -> create step.",
+                    })}
+                  </p>
+                </li>
               </ol>
-              <div className="mt-2 mb-6.75">
-                <p className="text-sm font-normal text-gray-600 dark:text-gray-100">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "This code will be sent by either text or phone call, and will expire after ten minutes.",
-                    id: "As56gg",
-                    description: "Text for first registration -> create step.",
-                  })}
-                </p>
-              </div>
             </InstructionsStepCard>
 
             <InstructionsStepCard
@@ -471,7 +480,7 @@ export const Component = () => {
                 darkSrc: canadaLoginStep6Dark,
               }}
             >
-              <ol className="space-y-4 text-center">
+              <ol className="mb-6.75 space-y-4 text-center">
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
@@ -487,17 +496,19 @@ export const Component = () => {
                     description: "Text for first registration -> create step.",
                   })}
                 </li>
+
+                <li className="mt-2">
+                  <p className="text-sm font-normal text-gray-600 dark:text-gray-100">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "CanadaLogin can be used to access various Government of Canada accounts.",
+                      id: "LTd4Kw",
+                      description:
+                        "Text for first registration -> create step.",
+                    })}
+                  </p>
+                </li>
               </ol>
-              <div className="mt-2 mb-6.75">
-                <p className="text-sm font-normal text-gray-600 dark:text-gray-100">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "CanadaLogin can be used to access various Government of Canada accounts.",
-                    id: "LTd4Kw",
-                    description: "Text for first registration -> create step.",
-                  })}
-                </p>
-              </div>
             </InstructionsStepCard>
           </InstructionsCardGrid>
 
@@ -522,7 +533,7 @@ export const Component = () => {
                 darkSrc: canadaLoginStep2aDark,
               }}
             >
-              <ol className="space-y-4 text-center">
+              <ol className="mb-6.75 space-y-4 text-center">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Sign into your GCKey account.",
@@ -530,17 +541,18 @@ export const Component = () => {
                     description: "Text for step two link your GCKey account.",
                   })}
                 </li>
+
+                <li className="mt-2">
+                  <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "This is the username and password you usually sign into GC Digital Talent with.",
+                      id: "+2z44i",
+                      description: "Text for step two link your GCKey account.",
+                    })}
+                  </p>
+                </li>
               </ol>
-              <div className="mt-2 mb-6.75">
-                <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "This is the username and password you usually sign into GC Digital Talent with.",
-                    id: "+2z44i",
-                    description: "Text for step two link your GCKey account.",
-                  })}
-                </p>
-              </div>
             </InstructionsStepCard>
             <InstructionsStepCard
               className="rounded-none pt-12 pb-15"
@@ -550,7 +562,7 @@ export const Component = () => {
                 darkSrc: canadaLoginStepAuthenticatorDark,
               }}
             >
-              <ol className="space-y-4 text-center">
+              <ol className="mb-6.75 space-y-4 text-center">
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
@@ -570,7 +582,7 @@ export const Component = () => {
                 darkSrc: canadaLoginEnterCodeDark,
               }}
             >
-              <ol className="space-y-4 text-center">
+              <ol className="mb-6.75 space-y-4 text-center">
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
