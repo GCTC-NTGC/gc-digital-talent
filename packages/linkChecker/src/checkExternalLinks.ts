@@ -27,11 +27,6 @@ const SECONDARY_BROWSER_PROBE_HOSTS = new Set([
   "login.canada.ca",
 ]);
 
-// Use a global variable for currentLinkFile instead of an interface
-declare global {
-  var currentLinkFile: string | undefined;
-}
-
 // Write error to external-link-errors.log
 async function writeErrorLog(msg: string, file?: string, append = true) {
   const errorLogPath = path.resolve("external-link-errors.log");
@@ -196,18 +191,6 @@ async function fetchLink(
       }
 
       if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
-        // retry with legacy TLS renegotiation enabled, using .env for all vars
-        const currentLinkFile = global.currentLinkFile ?? "";
-        spawnSync(process.execPath, process.argv.slice(1), {
-          env: {
-            ...process.env,
-            NODE_OPTIONS: "--tls-legacy-renegotiation",
-            _RETRIED_LEGACY_TLS: "1",
-            _RETRY_LINK_URL: url,
-            _RETRY_LINK_FILE: currentLinkFile,
-          },
-          stdio: "inherit",
-        });
         return "retried-with-legacy-tls";
       }
 
@@ -298,7 +281,6 @@ async function main() {
         : [];
       const results: LinkStatus[] = [];
       for (const link of retryLinks) {
-        global.currentLinkFile = link.file;
         const status = await fetchLink(link.url);
         results.push({ file: link.file, url: link.url, status });
       }
@@ -349,7 +331,6 @@ async function main() {
     const results: LinkStatus[] = [];
     const legacyLinks: { file: string; url: string }[] = [];
     for (const link of allLinks) {
-      global.currentLinkFile = link.file;
       const status = await fetchLink(link.url);
       // some old gov links  need legacy TLS renegotiation
       if (
