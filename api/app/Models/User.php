@@ -620,7 +620,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 is_null($this->attributes['looking_for_french']) &&
                 is_null($this->attributes['looking_for_bilingual'])
             ) or
-            is_null($this->attributes['computed_is_gov_employee']) or
             is_null($this->attributes['has_priority_entitlement']) or
             ($this->attributes['has_priority_entitlement'] && is_null($this->attributes['priority_number'])) or
             is_null($this->attributes['flexible_work_locations']) or
