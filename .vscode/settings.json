@@ -122,6 +122,4 @@
   "tailwindCSS.experimental.classRegex": [
     ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"]
   ]
-  ,
-  "terminal.integrated.scrollback": 20000
 }
