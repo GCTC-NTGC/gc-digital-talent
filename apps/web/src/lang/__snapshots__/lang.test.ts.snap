@@ -297,5 +297,12 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
       "Profil du (de la) candidat(e)"
     ]
   }
+  {
+    "en": "Welcome back",
+    "fr": [
+      "Bon retour!",
+      "Bon retour"
+    ]
+  }
 ]"
 `;
