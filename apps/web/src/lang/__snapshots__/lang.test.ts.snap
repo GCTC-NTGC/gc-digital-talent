@@ -261,7 +261,7 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
       "Bon retour!",
       "Bon retour"
     ]
-  }
+  },
   {
     "en": "Request a voucher",
     "fr": [
