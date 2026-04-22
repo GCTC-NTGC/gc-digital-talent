@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\AuthPing;
 use App\Console\Commands\PruneUserGeneratedFiles;
 use App\Console\Commands\ResumeReferrals;
 use App\Console\Commands\SendNotificationsApplicationDeadlineApproaching;
@@ -48,6 +49,11 @@ class Kernel extends ConsoleKernel
             ->dailyAt('1:00')
             ->withoutOverlapping()
             ->appendOutputTo(storage_path('logs/resume-referrals.log'));
+
+        // Check the health of the auth provider
+        $schedule->command(AuthPing::class)
+            ->everyFiveMinutes()
+            ->appendOutputTo(storage_path('logs/auth-ping.log'));
     }
 
     /**
