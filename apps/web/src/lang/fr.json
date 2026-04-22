@@ -851,10 +851,6 @@
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
   },
-  "1Ooizo": {
-    "defaultMessage": "minuteur",
-    "description": "Accessible label for a clock icon"
-  },
   "1PYGkw": {
     "defaultMessage": "Télécharger Excel profils",
     "description": "Button label to download users associated with selected candidates as Excel"

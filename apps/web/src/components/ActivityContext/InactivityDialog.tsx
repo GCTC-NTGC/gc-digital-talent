@@ -79,15 +79,7 @@ const InactivityDialog = ({
               })}
             </p>
             <p className="order-2 flex flex-row gap-[--spacing(6*0.3)]">
-              <ClockIcon
-                className="h-6"
-                aria-hidden="false"
-                aria-label={intl.formatMessage({
-                  defaultMessage: "timer",
-                  id: "1Ooizo",
-                  description: "Accessible label for a clock icon",
-                })}
-              />
+              <ClockIcon className="h-6" />
               <span>
                 {intl.formatMessage(
                   {
