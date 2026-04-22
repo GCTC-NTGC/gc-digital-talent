@@ -2,7 +2,7 @@ import ExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriang
 import ClockIcon from "@heroicons/react/24/outline/ClockIcon";
 import { useIntl } from "react-intl";
 
-import { Button, Dialog, Image } from "@gc-digital-talent/ui";
+import { Button, Dialog, IconLabel, Image } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
 
 import authMessages from "~/messages/authMessages";
@@ -78,10 +78,9 @@ const InactivityDialog = ({
                 description: "Body for the inactivity dialog",
               })}
             </p>
-            <p className="order-2 flex flex-row gap-[--spacing(6*0.3)]">
-              <ClockIcon className="h-6" />
-              <span>
-                {intl.formatMessage(
+            <div className="order-2">
+              <IconLabel
+                label={intl.formatMessage(
                   {
                     defaultMessage: `Time remaining: <strong>{remainingMinutes, plural,
                   zero {0 minutes}
@@ -95,8 +94,9 @@ const InactivityDialog = ({
                     remainingMinutes,
                   },
                 )}
-              </span>
-            </p>
+                icon={ClockIcon}
+              />
+            </div>
             <p className="order-3 xs:order-4">
               {intl.formatMessage({
                 defaultMessage: "Do you wish to continue your session?",
