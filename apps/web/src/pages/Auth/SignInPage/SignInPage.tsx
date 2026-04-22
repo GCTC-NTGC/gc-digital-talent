@@ -723,7 +723,7 @@ export const Component = () => {
                             </div>
                           ),
 
-                          contentBelow: featureFlags.canadaLogin ? (
+                          contentBelow: (
                             <p className="font-normal text-gray-500 dark:text-gray-100">
                               {intl.formatMessage({
                                 defaultMessage:
@@ -733,7 +733,7 @@ export const Component = () => {
                                   "Message shown under CanadaLogin option on sign in page",
                               })}
                             </p>
-                          ) : null,
+                          ),
                         },
                         {
                           value: "gckey",
