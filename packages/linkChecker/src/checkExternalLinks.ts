@@ -128,7 +128,7 @@ async function fetchLinkWithBrowserHeaders(
 }
 
 function isBrokenStatus(status: number | string): boolean {
-  return status !== 200;
+  return typeof status === "string" || status < 200 || status >= 300;
 }
 
 async function fetchLink(
