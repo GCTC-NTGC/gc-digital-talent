@@ -215,6 +215,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'additional_duties',
         'other_roles',
         'other_sdo_position',
+        'procurement_sdo_status',
     ];
 
     public function __construct(public string $fileName, public ?string $dir, protected ?string $lang = 'en')
@@ -1165,6 +1166,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $this->localizeEnumArray($interest->additional_duties, CommunityInterestAdditionalDuty::class), // additional duties
             $this->localizeEnumArray($interest->finance_other_roles, FinanceChiefRole::class), // other roles
             $interest->finance_other_roles_other, // other SDO position
+            $interest->community->key === 'procurement' ? $this->yesOrNo($interest->procurement_is_sdo) : '', // Procurement SDO status
         ];
     }
 
