@@ -43,7 +43,7 @@ test.describe("Applicant settings page", () => {
     const settingsPage = new AccountSettings(appPage.page);
     await loginBySub(appPage.page, sub);
     await settingsPage.goToSettings();
-    await appPage.waitForGraphqlResponse("AccountSettings");
+    await appPage.waitForGraphqlResponse("AccountSettingsDeprecated");
     await settingsPage.removeWorkEmail();
     // check changes
     await expect(
@@ -84,7 +84,7 @@ test.describe("Applicant settings page", () => {
     const settingsPage = new AccountSettings(appPage.page);
     await loginBySub(appPage.page, sub);
     await settingsPage.goToSettings();
-    await appPage.waitForGraphqlResponse("AccountSettings");
+    await appPage.waitForGraphqlResponse("AccountSettingsDeprecated");
     await expect(
       settingsPage.page.getByRole("img", { name: /verified/i }).last(),
     ).toBeVisible({ timeout: 30000 });

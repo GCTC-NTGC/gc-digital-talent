@@ -307,4 +307,5 @@ return [
     'other_lateral_experience' => 'Other lateral experience recommendations',
     'other_development_program_experience' => 'Other development program recommendations',
 
+    'updated_at' => 'Updated',
 ];
