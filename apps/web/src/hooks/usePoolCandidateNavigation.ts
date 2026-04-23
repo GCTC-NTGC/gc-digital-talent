@@ -111,8 +111,6 @@ const usePoolCandidateNavigation = (
   const hasNext =
     (navigationState?.currentPage ?? 0) < (navigationState?.totalCount ?? 0);
 
-  console.log({ _candidateId, navigationState });
-
   const [{ data, fetching }] = useQuery({
     query: CandidateNavigation_Query,
     variables: {

@@ -44,7 +44,6 @@ import {
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type { Radio } from "@gc-digital-talent/forms";
 
-import type { CandidateNavigationState } from "~/pages/PoolCandidates/ViewPoolCandidatePage/components/CandidateNavigation/usePoolCandidateNavigation";
 import type useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
@@ -53,6 +52,7 @@ import {
 } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
+import type { CandidateNavigationState } from "~/hooks/usePoolCandidateNavigation";
 
 import type { FormValues } from "./types";
 import tableMessages from "./tableMessages";
