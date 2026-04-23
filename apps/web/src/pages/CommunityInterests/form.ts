@@ -108,10 +108,10 @@ export function formValuesToApiCreateInput(
 
   // finance-only fields
   apiInput.communityInterest.financeIsChief = formValues.financeIsChief;
-  apiInput.communityInterest.financeAdditionalDuties =
-    formValues.financeAdditionalDuties
+  apiInput.communityInterest.communityInterestAdditionalDuties =
+    formValues.communityInterestAdditionalDuties
       ? stringArrayToEnumsCommunityInterestAdditionalDuty(
-          formValues.financeAdditionalDuties,
+          formValues.communityInterestAdditionalDuties,
         )
       : null;
   apiInput.communityInterest.financeOtherRoles = formValues.financeOtherRoles
@@ -168,11 +168,12 @@ export function formValuesToApiUpdateInput(
 
       // finance-only fields
       financeIsChief: formValues.financeIsChief,
-      financeAdditionalDuties: formValues.financeAdditionalDuties
-        ? stringArrayToEnumsCommunityInterestAdditionalDuty(
-            formValues.financeAdditionalDuties,
-          )
-        : null,
+      communityInterestAdditionalDuties:
+        formValues.communityInterestAdditionalDuties
+          ? stringArrayToEnumsCommunityInterestAdditionalDuty(
+              formValues.communityInterestAdditionalDuties,
+            )
+          : null,
       financeOtherRoles: formValues.financeOtherRoles
         ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
         : null,
@@ -234,9 +235,12 @@ export function apiDataToFormValues(
 
     // finance-only fields
     financeIsChief: communityInterest?.financeIsChief ?? null,
-    financeAdditionalDuties: communityInterest?.financeAdditionalDuties
-      ? communityInterest.financeAdditionalDuties.map((duty) => duty.value)
-      : null,
+    communityInterestAdditionalDuties:
+      communityInterest?.communityInterestAdditionalDuties
+        ? communityInterest.communityInterestAdditionalDuties.map(
+            (duty) => duty.value,
+          )
+        : null,
     financeOtherRoles: communityInterest?.financeOtherRoles
       ? communityInterest.financeOtherRoles.map((role) => role.value)
       : null,

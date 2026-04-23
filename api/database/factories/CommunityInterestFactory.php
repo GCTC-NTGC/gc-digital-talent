@@ -37,7 +37,7 @@ class CommunityInterestFactory extends Factory
             'finance_is_chief' => fn ($attributes) => Community::find($attributes['community_id'])->key === 'finance'
                 ? $this->faker->boolean()
                 : null,
-            'finance_additional_duties' => fn ($attributes) => $attributes['finance_is_chief'] === true
+            'additional_duties' => fn ($attributes) => $attributes['finance_is_chief'] === true
                 ? $this->faker->randomElements(array_column(CommunityInterestAdditionalDuty::cases(), 'name'), $this->faker->numberBetween(0, count(CommunityInterestAdditionalDuty::cases())))
                 : [],
             'finance_other_roles' => fn ($attributes) => $attributes['finance_is_chief'] === true

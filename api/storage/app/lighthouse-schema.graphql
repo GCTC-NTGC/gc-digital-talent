@@ -836,7 +836,7 @@ type CommunityInterest {
   additionalInformation: String
   interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   financeIsChief: Boolean
-  financeAdditionalDuties: [LocalizedCommunityInterestAdditionalDuty!]
+  communityInterestAdditionalDuties: [LocalizedCommunityInterestAdditionalDuty!]
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
@@ -2100,7 +2100,7 @@ input CreateCommunityInterestInput {
   trainingInterest: Boolean
   additionalInformation: String
   financeIsChief: Boolean
-  financeAdditionalDuties: [CommunityInterestAdditionalDuty!]
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
@@ -2112,7 +2112,7 @@ input UpdateCommunityInterestInput {
   trainingInterest: Boolean
   additionalInformation: String
   financeIsChief: Boolean
-  financeAdditionalDuties: [CommunityInterestAdditionalDuty!]
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean

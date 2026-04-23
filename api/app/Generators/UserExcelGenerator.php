@@ -1162,7 +1162,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $interest->additional_information, // additional information
             ...$developmentProgramInterests, // Generated leadership and development columns
             $interest->community->key === 'finance' ? $this->yesOrNo($interest->finance_is_chief) : '', // CFO status
-            $this->localizeEnumArray($interest->finance_additional_duties, CommunityInterestAdditionalDuty::class), // additional duties
+            $this->localizeEnumArray($interest->additional_duties, CommunityInterestAdditionalDuty::class), // additional duties
             $this->localizeEnumArray($interest->finance_other_roles, FinanceChiefRole::class), // other roles
             $interest->finance_other_roles_other, // other SDO position
         ];

@@ -51,7 +51,7 @@ export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
     trainingInterest
     additionalInformation
     financeIsChief
-    financeAdditionalDuties {
+    communityInterestAdditionalDuties {
       value
     }
     financeOtherRoles {
@@ -320,7 +320,7 @@ const CommunityInterest = ({
                       (dutyOption) => (
                         <li key={dutyOption.value}>
                           <BoolCheckIcon
-                            value={communityInterest.financeAdditionalDuties
+                            value={communityInterest.communityInterestAdditionalDuties
                               ?.map((selectedDuty) => selectedDuty.value)
                               .includes(
                                 dutyOption.value as CommunityInterestAdditionalDuty,

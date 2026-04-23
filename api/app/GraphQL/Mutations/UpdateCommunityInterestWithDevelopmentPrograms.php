@@ -37,8 +37,8 @@ final class UpdateCommunityInterestWithDevelopmentPrograms
             if (array_key_exists('finance_is_chief', $communityInterestInput)) {
                 $communityInterest->finance_is_chief = $communityInterestInput['finance_is_chief'];
             }
-            if (array_key_exists('finance_additional_duties', $communityInterestInput)) {
-                $communityInterest->finance_additional_duties = $communityInterestInput['finance_additional_duties'];
+            if (array_key_exists('additional_duties', $communityInterestInput)) {
+                $communityInterest->additional_duties = $communityInterestInput['additional_duties'];
             }
             if (array_key_exists('finance_other_roles', $communityInterestInput)) {
                 $communityInterest->finance_other_roles = $communityInterestInput['finance_other_roles'];

@@ -55,7 +55,7 @@ const AdditionalInformationOptions_Fragment = graphql(/* GraphQL */ `
 
 export interface SubformValues {
   financeIsChief: boolean | null;
-  financeAdditionalDuties: string[] | null;
+  communityInterestAdditionalDuties: string[] | null;
   financeOtherRoles: string[] | null;
   financeOtherRolesOther: string | null;
   additionalInformation: string | null;
@@ -96,7 +96,7 @@ const AdditionalInformation = ({
 
     // if not a finance chief then clear all finance fields
     if (!selectedFinanceIsChief) {
-      resetDirtyField("financeAdditionalDuties", []);
+      resetDirtyField("communityInterestAdditionalDuties", []);
       resetDirtyField("financeOtherRoles", []);
       resetDirtyField("financeOtherRolesOther", null);
     }
@@ -180,8 +180,8 @@ const AdditionalInformation = ({
                   })}
                 </p>
                 <Checklist
-                  idPrefix="financeAdditionalDuties"
-                  name="financeAdditionalDuties"
+                  idPrefix="communityInterestAdditionalDuties"
+                  name="communityInterestAdditionalDuties"
                   legend={intl.formatMessage({
                     defaultMessage: "Additional duties",
                     id: "E32ToC",

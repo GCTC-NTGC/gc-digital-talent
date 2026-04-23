@@ -75,7 +75,7 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
     }
     additionalInformation
     financeIsChief
-    financeAdditionalDuties {
+    communityInterestAdditionalDuties {
       value
       label {
         localized

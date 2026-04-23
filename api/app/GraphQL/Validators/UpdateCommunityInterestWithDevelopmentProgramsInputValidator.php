@@ -49,14 +49,14 @@ final class UpdateCommunityInterestWithDevelopmentProgramsInputValidator extends
                     ['prohibited']
                 ),
             ],
-            'communityInterest.financeAdditionalDuties' => [
+            'communityInterest.communityInterestAdditionalDuties' => [
                 'nullable',
                 Rule::when($community?->key === 'finance',
                     ['array', 'distinct'],
                     ['prohibited']
                 ),
             ],
-            'communityInterest.financeAdditionalDuties.*' => [Rule::in(array_column(CommunityInterestAdditionalDuty::cases(), 'name'))],
+            'communityInterest.communityInterestAdditionalDuties.*' => [Rule::in(array_column(CommunityInterestAdditionalDuty::cases(), 'name'))],
             'communityInterest.financeOtherRoles' => [
                 'nullable',
                 Rule::when($community?->key === 'finance',

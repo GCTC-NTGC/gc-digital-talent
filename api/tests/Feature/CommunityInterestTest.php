@@ -244,7 +244,7 @@ class CommunityInterestTest extends TestCase
                             'communityId' => $financeCommunity->id,
                             ...$this->input,
                             'financeIsChief' => true,
-                            'financeAdditionalDuties' => null,
+                            'communityInterestAdditionalDuties' => null,
                             'financeOtherRoles' => null,
                             'consentToShareProfile' => true,
                         ],
