@@ -7,5 +7,6 @@ return [
     'information_technology' => 'Information technology',
     'materiel_management' => 'Materiel management',
     'procurement' => 'Procurement',
+    'project_management' => 'TODO',
     'real_property_management' => 'Real property management',
 ];

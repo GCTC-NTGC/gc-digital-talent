@@ -15,6 +15,7 @@ enum CommunityInterestAdditionalDuty
     case INFORMATION_TECHNOLOGY;
     case MATERIEL_MANAGEMENT;
     case PROCUREMENT;
+    case PROJECT_MANAGEMENT;
     case REAL_PROPERTY_MANAGEMENT;
 
     public static function getLangFilename(): string
