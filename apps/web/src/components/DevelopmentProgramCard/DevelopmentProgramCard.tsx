@@ -5,13 +5,21 @@ import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import type { Classification } from "@gc-digital-talent/graphql";
-import { Chip, Chips, DropdownMenu, IconButton } from "@gc-digital-talent/ui";
+import {
+  Chip,
+  Chips,
+  DropdownMenu,
+  Heading,
+  IconButton,
+  type HeadingRank,
+} from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 
 interface DevelopmentProgramCardProps {
   title: string;
+  headingAs?: HeadingRank;
   description: string;
   iconLabel: string;
   edit: ReactNode;
@@ -21,6 +29,7 @@ interface DevelopmentProgramCardProps {
 
 const DevelopmentProgramCard = ({
   title,
+  headingAs = "h3",
   description,
   iconLabel,
   edit,
@@ -54,7 +63,13 @@ const DevelopmentProgramCard = ({
         </DropdownMenu.Root>
         <div className="flex flex-col items-start gap-6">
           <span>
-            <p className="font-bold">{title}</p>
+            <Heading
+              level={headingAs}
+              size="h6"
+              className="mt-0 text-base font-bold"
+            >
+              {title}
+            </Heading>
             {description && <p>{description}</p>}
           </span>
 
