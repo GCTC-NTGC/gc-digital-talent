@@ -545,7 +545,7 @@ export const Component = () => {
                 className="my-5 mt-4"
               >
                 <Accordion.Item value="one">
-                  <Accordion.Trigger as="h3">
+                  <Accordion.Trigger as="h4">
                     {intl.formatMessage(canadaLoginMessages.haveCanadaLogin)}
                   </Accordion.Trigger>
                   <Accordion.Content>
@@ -557,7 +557,7 @@ export const Component = () => {
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="two">
-                  <Accordion.Trigger as="h3">
+                  <Accordion.Trigger as="h4">
                     {intl.formatMessage(canadaLoginMessages.whatIsCanadaLogin)}
                   </Accordion.Trigger>
                   <Accordion.Content>
@@ -569,7 +569,7 @@ export const Component = () => {
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value="three">
-                  <Accordion.Trigger as="h3">
+                  <Accordion.Trigger as="h4">
                     {intl.formatMessage(canadaLoginMessages.contactCanadaLogin)}
                   </Accordion.Trigger>
                   <Accordion.Content>
