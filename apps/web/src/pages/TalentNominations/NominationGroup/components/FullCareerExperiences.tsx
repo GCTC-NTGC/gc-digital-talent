@@ -175,6 +175,7 @@ const FullCareerExperiences = ({
         <div>
           <Heading
             level="h2"
+            size="h3"
             icon={NewspaperIcon}
             color="warning"
             className="mt-0 font-normal"

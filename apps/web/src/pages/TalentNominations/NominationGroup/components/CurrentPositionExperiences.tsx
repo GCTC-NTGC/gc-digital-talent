@@ -103,6 +103,7 @@ const CurrentPositionExperiences = ({
       <Heading
         icon={FlagIcon}
         level="h2"
+        size="h3"
         color="secondary"
         className="mt-0 font-normal"
       >
