@@ -109,62 +109,64 @@ export const InstructionsCardGrid = ({
           {sixCardsGrid ? (
             <>
               {/* first row */}
-              <div className="flex">
+              <ol className="flex">
                 {childrenArray.slice(0, 3).map((child, index) => (
-                  <div key={index} className="relative flex-1">
+                  <li key={index} className="relative flex-1">
                     {child}
                     {index < 2 && (
                       <div className="absolute top-1/2 -right-4 z-10 -translate-y-1/2">
                         <ArrowRightCircleIcon className="h-8 w-8 overflow-visible align-middle text-gray" />
                       </div>
                     )}
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ol>
 
               {/* second row */}
-              <div className="flex">
+              <ol className="flex">
                 {childrenArray.slice(3, 6).map((child, index) => (
-                  <div key={index + 3} className="relative flex-1">
+                  <li key={index + 3} className="relative flex-1">
                     {child}
                     {index < 2 && (
                       <div className="absolute top-1/2 -right-4 z-10 -translate-y-1/2">
                         <ArrowRightCircleIcon className="h-8 w-8 overflow-visible align-middle text-gray" />
                       </div>
                     )}
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ol>
             </>
           ) : (
             /* default row */
-            <div className="flex">
+            <ol className="flex">
               {childrenArray.map((child, index) => (
-                <div key={index} className="relative flex-1">
+                <li key={index} className="relative flex-1">
                   {child}
                   {index < totalCards - 1 && (
                     <div className="absolute top-1/2 -right-4 z-10 -translate-y-1/2">
                       <ArrowRightCircleIcon className="h-8 w-8 overflow-visible align-middle text-gray" />
                     </div>
                   )}
-                </div>
+                </li>
               ))}
-            </div>
+            </ol>
           )}
         </div>
 
         {/* Mobile */}
         <div className="block shadow-xl xs:hidden">
-          {childrenArray.map((child, index) => (
-            <div key={index} className="relative">
-              <div className="h-full">{child}</div>
-              {index < totalCards - 1 && (
-                <div className="pointer-events-none absolute -bottom-6 left-1/2 z-10 -translate-x-1/2">
-                  <ArrowDownCircleIcon className="mb-2 h-8 w-8 text-gray" />
-                </div>
-              )}
-            </div>
-          ))}
+          <ol>
+            {childrenArray.map((child, index) => (
+              <li key={index} className="relative">
+                <div className="h-full">{child}</div>
+                {index < totalCards - 1 && (
+                  <div className="pointer-events-none absolute -bottom-6 left-1/2 z-10 -translate-x-1/2">
+                    <ArrowDownCircleIcon className="mb-2 h-8 w-8 text-gray" />
+                  </div>
+                )}
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </div>
