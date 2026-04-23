@@ -269,7 +269,7 @@ return [
     'additional_duties' => 'Additional duties',
     'other_roles' => 'Other roles',
     'other_sdo_position' => 'Other SDO position',
-    'procurement_sdo_status' => 'TODO procurement',
+    'procurement_sdo_status' => 'SDO status',
 
     'nominations_overview' => 'Nominations overview',
     'nominee_profiles' => 'Nominee profiles',
