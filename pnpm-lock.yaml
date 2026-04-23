@@ -1061,8 +1061,8 @@ importers:
         specifier: ^10.1.2
         version: 10.1.2(@types/react@19.2.14)(react@19.2.5)
       react-toastify:
-        specifier: ^11.0.5
-        version: 11.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        specifier: ^11.1.0
+        version: 11.1.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.5.0
@@ -6145,8 +6145,8 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ~19
 
-  react-toastify@11.0.5:
-    resolution: {integrity: sha512-EpqHBGvnSTtHYhCPLxML05NLY2ZX0JURbAdNYa6BUkk+amz4wbKBQvoKQAB0ardvSarUBuY4Q4s1sluAzZwkmA==}
+  react-toastify@11.1.0:
+    resolution: {integrity: sha512-e9h23x3phN0wbFeB6yovmWp7lobzV4CaCH0LO8nVP6H7Y+3GbcLpIzMm9dJhcp1RXbpyfvjgpfXqO80QAmn7sg==}
     peerDependencies:
       react: ^18 || ^19
       react-dom: ^18 || ^19
@@ -12190,7 +12190,7 @@ snapshots:
     dependencies:
       react: 19.2.5
 
-  react-toastify@11.0.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
+  react-toastify@11.1.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5):
     dependencies:
       clsx: 2.1.1
       react: 19.2.5
