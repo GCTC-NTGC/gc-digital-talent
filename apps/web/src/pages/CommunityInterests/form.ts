@@ -14,7 +14,7 @@ import type { SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues 
 import type { SubformValues as AdditionalInformationSubformValues } from "./sections/AdditionalInformation";
 import type { SubformValues as ReviewAndSubmitSubformValues } from "./sections/ReviewAndSubmit";
 import {
-  stringArrayToEnumsFinanceChiefDuty,
+  stringArrayToEnumsCommunityInterestAdditionalDuty,
   stringArrayToEnumsFinanceChiefRole,
 } from "./util";
 
@@ -110,7 +110,9 @@ export function formValuesToApiCreateInput(
   apiInput.communityInterest.financeIsChief = formValues.financeIsChief;
   apiInput.communityInterest.financeAdditionalDuties =
     formValues.financeAdditionalDuties
-      ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
+      ? stringArrayToEnumsCommunityInterestAdditionalDuty(
+          formValues.financeAdditionalDuties,
+        )
       : null;
   apiInput.communityInterest.financeOtherRoles = formValues.financeOtherRoles
     ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
@@ -167,7 +169,9 @@ export function formValuesToApiUpdateInput(
       // finance-only fields
       financeIsChief: formValues.financeIsChief,
       financeAdditionalDuties: formValues.financeAdditionalDuties
-        ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
+        ? stringArrayToEnumsCommunityInterestAdditionalDuty(
+            formValues.financeAdditionalDuties,
+          )
         : null,
       financeOtherRoles: formValues.financeOtherRoles
         ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)

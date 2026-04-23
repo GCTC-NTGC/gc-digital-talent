@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\CommunityInterestAdditionalDuty;
 use App\Enums\DevelopmentProgramParticipationStatus;
-use App\Enums\FinanceChiefDuty;
 use App\Enums\FinanceChiefRole;
 use App\Models\Community;
 use App\Models\CommunityInterest;
@@ -38,7 +38,7 @@ class CommunityInterestFactory extends Factory
                 ? $this->faker->boolean()
                 : null,
             'finance_additional_duties' => fn ($attributes) => $attributes['finance_is_chief'] === true
-                ? $this->faker->randomElements(array_column(FinanceChiefDuty::cases(), 'name'), $this->faker->numberBetween(0, count(FinanceChiefDuty::cases())))
+                ? $this->faker->randomElements(array_column(CommunityInterestAdditionalDuty::cases(), 'name'), $this->faker->numberBetween(0, count(CommunityInterestAdditionalDuty::cases())))
                 : [],
             'finance_other_roles' => fn ($attributes) => $attributes['finance_is_chief'] === true
                 ? $this->faker->randomElements(array_column(FinanceChiefRole::cases(), 'name'), $this->faker->numberBetween(0, count(FinanceChiefRole::cases())))

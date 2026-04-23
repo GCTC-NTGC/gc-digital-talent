@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import type {
-  FinanceChiefDuty,
+  CommunityInterestAdditionalDuty,
   FinanceChiefRole,
   FragmentType,
 } from "@gc-digital-talent/graphql";
@@ -63,7 +63,9 @@ export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
 
 export const CommunityInterestOptions_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterestOptions on Query {
-    financeChiefDuties: localizedEnumStrings(enumName: "FinanceChiefDuty") {
+    financeChiefDuties: localizedEnumStrings(
+      enumName: "CommunityInterestAdditionalDuty"
+    ) {
       value
       label {
         localized
@@ -320,7 +322,9 @@ const CommunityInterest = ({
                           <BoolCheckIcon
                             value={communityInterest.financeAdditionalDuties
                               ?.map((selectedDuty) => selectedDuty.value)
-                              .includes(dutyOption.value as FinanceChiefDuty)}
+                              .includes(
+                                dutyOption.value as CommunityInterestAdditionalDuty,
+                              )}
                           >
                             {dutyOption.label.localized}
                           </BoolCheckIcon>

@@ -30,7 +30,9 @@ const TEXT_AREA_MAX_WORDS_FR = Math.round(
 
 const AdditionalInformationOptions_Fragment = graphql(/* GraphQL */ `
   fragment AdditionalInformationOptions_Fragment on Query {
-    financeChiefDuties: localizedEnumStrings(enumName: "FinanceChiefDuty") {
+    financeChiefDuties: localizedEnumStrings(
+      enumName: "CommunityInterestAdditionalDuty"
+    ) {
       value
       label {
         en
