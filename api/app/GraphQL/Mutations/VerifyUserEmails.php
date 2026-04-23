@@ -50,7 +50,7 @@ final class VerifyUserEmails
                 'required',
                 'string',
                 Rule::when(fn ($attributes) => in_array(EmailType::WORK->name, $attributes['emailTypes']),
-                    [new GovernmentEmailRegex],
+                    [new GovernmentEmailRegex()],
                     ['email']
                 ),
                 Rule::unique('users', 'email')->ignore($user->id, 'id'),

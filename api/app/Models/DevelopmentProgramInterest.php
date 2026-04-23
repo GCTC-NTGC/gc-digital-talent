@@ -47,7 +47,7 @@ class DevelopmentProgramInterest extends Model
 
     public function developmentProgramThroughPivot(): HasOneDeep
     {
-        return $this->hasOneDeepFromRelations($this->communityDevelopmentProgram(), (new CommunityDevelopmentProgram)->developmentProgram());
+        return $this->hasOneDeepFromRelations($this->communityDevelopmentProgram(), (new CommunityDevelopmentProgram())->developmentProgram());
     }
 
     /** @return BelongsTo<CommunityDevelopmentProgram, $this> */

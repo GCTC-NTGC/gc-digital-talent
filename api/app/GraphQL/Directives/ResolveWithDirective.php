@@ -42,7 +42,7 @@ GRAPHQL;
      */
     public function toPlainValue($value)
     {
-        $arg = new Argument;
+        $arg = new Argument();
         $arg->value = $value;
 
         return $arg->toPlain();

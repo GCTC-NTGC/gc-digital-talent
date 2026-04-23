@@ -21,7 +21,7 @@ final class RevertFinalDecisionValidator extends Validator
                 'required',
                 'uuid',
                 'exists:pool_candidates,id',
-                new CanRevertFinalDecision,
+                new CanRevertFinalDecision(),
             ],
         ];
     }
