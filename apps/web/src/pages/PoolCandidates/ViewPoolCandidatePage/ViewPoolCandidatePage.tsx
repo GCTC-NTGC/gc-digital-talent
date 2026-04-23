@@ -2,17 +2,12 @@ import { defineMessage, useIntl } from "react-intl";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
-import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
 
 import { NotFound, Pending, Heading, Sidebar } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
-  User,
   Scalars,
-  Maybe,
   PoolCandidateSnapshotQuery,
-  FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -26,15 +21,13 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
-import type { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import ApplicationSnapshot from "~/components/ApplicationSnapshot/ApplicationSnapshot";
 
-import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
-import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 import ClaimVerification from "./components/ClaimVerification/ClaimVerification";
 import ApplicationSidebar from "./components/Sidebar/ApplicationSidebar";
+import ApplicationDownloadButton from "./components/Sidebar/ApplicationDownloadButton";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -49,7 +42,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
 
       ...ClaimVerification
       ...AssessmentResultsTable
-      ...ApplicationInformation_PoolCandidate
+      ...ApplicationSnapshot
+      ...ApplicationDownloadButton
+
       id
       profileSnapshot
       status {
@@ -82,7 +77,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         }
       }
       pool {
-        ...ApplicationInformation_PoolFragment
         id
         processNumber
         name {
@@ -118,28 +112,18 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         fr
       }
     }
-    ...FlexibleWorkLocationOptionsFragment
   }
 `);
 
 export interface ViewPoolCandidateProps {
   poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
-  flexibleWorkLocationOptions: FragmentType<
-    typeof FlexibleWorkLocationOptions_Fragment
-  >;
 }
 
 export const ViewPoolCandidate = ({
   poolCandidate,
-  flexibleWorkLocationOptions,
 }: ViewPoolCandidateProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-
-  const parsedSnapshot = JSON.parse(
-    String(poolCandidate.profileSnapshot),
-  ) as Maybe<User>;
-  const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
 
   const candidateName = getFullNameLabel(
     poolCandidate.user.firstName,
@@ -192,54 +176,19 @@ export const ViewPoolCandidate = ({
               {intl.formatMessage(screeningAndAssessmentTitle)}
             </Heading>
             <AssessmentResultsTable poolCandidateQuery={poolCandidate} />
-
             <ClaimVerification verificationQuery={poolCandidate} />
-            {parsedSnapshot ? (
-              <div className="mt-12">
-                <ErrorBoundary>
-                  <ApplicationInformation
-                    poolQuery={poolCandidate.pool}
-                    snapshot={parsedSnapshot}
-                    applicationQuery={poolCandidate}
-                    optionsQuery={flexibleWorkLocationOptions}
-                  />
-                </ErrorBoundary>
-                <ErrorBoundary>
-                  <CareerTimelineSection experiences={nonEmptyExperiences} />
-                </ErrorBoundary>
-                <Heading
-                  icon={ClipboardIcon}
-                  color="secondary"
-                  level="h2"
-                  size="h3"
-                  className="mb-6"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Other processes",
-                    id: "n+/HPL",
-                    description:
-                      "Heading for table of a users other applications and recruitments",
-                  })}
-                </Heading>
-                <PoolStatusTable
-                  currentPoolId={poolCandidate.pool.id}
-                  userQuery={poolCandidate.user}
-                />
-              </div>
-            ) : (
-              <NotFound
-                headingMessage={intl.formatMessage(commonMessages.notFound)}
-              >
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Profile snapshot not found.",
-                    id: "JH2+tK",
-                    description:
-                      "Message displayed for profile snapshot not found.",
-                  })}
-                </p>
-              </NotFound>
-            )}
+            <ApplicationSnapshot
+              query={poolCandidate}
+              actions={
+                poolCandidate && (
+                  <ApplicationDownloadButton query={poolCandidate} />
+                )
+              }
+            />
+            <PoolStatusTable
+              currentPoolId={poolCandidate.pool.id}
+              userQuery={poolCandidate.user}
+            />
           </Sidebar.Content>
         </Sidebar.Wrapper>
       </AdminContentWrapper>
@@ -268,10 +217,7 @@ export const ViewPoolCandidatePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate ? (
-        <ViewPoolCandidate
-          poolCandidate={data.poolCandidate}
-          flexibleWorkLocationOptions={data}
-        />
+        <ViewPoolCandidate poolCandidate={data.poolCandidate} />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>

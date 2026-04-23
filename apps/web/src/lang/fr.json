@@ -23,6 +23,10 @@
     "defaultMessage": "Statut de priorité",
     "description": "Title for priority status"
   },
+  "+2z44i": {
+    "defaultMessage": "Il s’agit du nom d’utilisateur et du mot de passe que vous utilisez habituellement pour vous connecter à Talents numériques du GC.",
+    "description": "Text for step two link your GCKey account."
+  },
   "+365vM": {
     "defaultMessage": "Talents de la collectivité",
     "description": "Label for community talent"
@@ -78,6 +82,10 @@
   "+EINSB": {
     "defaultMessage": "Traiter en priorité les demandes des candidats visés par l’équité en matière d’emploi;",
     "description": "List item 2, how self-declaration data is used"
+  },
+  "+G1WRn": {
+    "defaultMessage": "J’ai besoin d’aide",
+    "description": "Heading for the instructions resource block on the sign in page"
   },
   "+Gkfmv": {
     "defaultMessage": "Veuillez <link>actualiser la page</link> pour continuer.",
@@ -799,6 +807,10 @@
     "defaultMessage": "Recruteur de la collectivité",
     "description": "Name of the community recruiter role"
   },
+  "1EGyaU": {
+    "defaultMessage": "Nous avons préparé <linkToRegisterGuidance>un guide expliquant comment créer un identifiant ConnexionCanada et configurer la vérification en deux étapes </linkToRegisterGuidance>. Des <linkToSignInGuidance>instructions pour vous connecter avec ConnexionCanada</linkToSignInGuidance> sont également disponibles. Si le problème persiste, communiquez avec <linkToCanadaLoginTeam>l'équipe de ConnexionCanada</linkToCanadaLoginTeam>.",
+    "description": "Button label for the form to add a community interest to a user"
+  },
   "1FGsSn": {
     "defaultMessage": "Vous trouverez les résultats agrégés et de plus amples renseignements dans GCÉchange (à consulter exclusivement sur le réseau du gouvernement du Canada).",
     "description": "Description for annual digital talent survey card, paragraph 2"
@@ -823,6 +835,10 @@
     "defaultMessage": "Copier le lien",
     "description": "Button text to copy a pool advertisements URL"
   },
+  "1HsWK9": {
+    "defaultMessage": "Que faire si j’ai supprimé l’application, changé de téléphone ou si je n’ai plus mes codes de récupération?",
+    "description": "CanadaLogin title if user has issues signing in with CanadaLogin"
+  },
   "1JCjTP": {
     "defaultMessage": "Aucun courriel fourni",
     "description": "Fallback for email value"
@@ -846,6 +862,10 @@
   "1MJGsD": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
+  },
+  "1OOvpY": {
+    "defaultMessage": "Accéder à votre compte existant",
+    "description": "Heading for section of the signin page showing the create steps"
   },
   "1PYGkw": {
     "defaultMessage": "Télécharger Excel profils",
@@ -1051,6 +1071,10 @@
     "defaultMessage": "Retirer le signet",
     "description": "Label for removing a bookmark"
   },
+  "299Vg4": {
+    "defaultMessage": "Utiliser ConnexionCanada",
+    "description": "Confirmation notice for CanadaLogin selection"
+  },
   "29o8/W": {
     "defaultMessage": "Un engagement en faveur de la diversité des talents numériques",
     "description": "Title of the 'A commitment to diverse digital talent' section"
@@ -1142,6 +1166,10 @@
   "2age06": {
     "defaultMessage": "Autorisations de la collectivité",
     "description": "Title for section describing roles and permissions for communities"
+  },
+  "2b7CQ/": {
+    "defaultMessage": "Parcours de transition de votre compte",
+    "description": "Heading for the account transition journey section on the sign in page"
   },
   "2bKnmd": {
     "defaultMessage": "Si vous êtes à l'emploi du gouvernement, il s’agit de la dernière étape pour déverrouiller les outils destinés aux employés.",
@@ -1867,6 +1895,10 @@
     "defaultMessage": "Modifier<hidden> le groupe de compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
   },
+  "5V6IMt": {
+    "defaultMessage": "Votre dernière connexion remonte à avant avril 2026 et utilisait un nom d’utilisateur CléGC.",
+    "description": "Message shown under GCKey option on sign in page"
+  },
   "5W/J8m": {
     "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir la candidature au statut « À évaluer »?",
     "description": "Confirmation question for reverting a decision of an application"
@@ -2066,10 +2098,6 @@
   "6Ru0Ha": {
     "defaultMessage": "Si vous avez des questions au sujet de CléGC, veuillez contacter l'équipe de CléGC à l'adresse",
     "description": "GCKey answer for who to contact about GCKey, introduction sentence"
-  },
-  "6SfJEp": {
-    "defaultMessage": "Vous pouvez vous connecter à votre profil de Programme d'apprentissage en TI pour les personnes autochtones à l'aide de votre CléGC actuelle, même si vous n'avez jamais utilisé cette plateforme auparavant.",
-    "description": "Instructions on how to sign in with GCKey - IAP variant"
   },
   "6UVZOY": {
     "defaultMessage": "Laissez notre équipe vous épargner du temps et de l’énergie en associant vos besoins à des professionnels des <abbreviation>TI</abbreviation> préalablement sélectionnés et possédant les compétences requises pour le poste. Tous les talents de nos bassins de dotation ont été sélectionnés à l’issue d’un processus concurrentiel. Vous pouvez donc passer directement à l’entrevue et décider s’ils conviennent à votre équipe.",
@@ -2883,6 +2911,10 @@
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the community members table roles column."
   },
+  "9sFait": {
+    "defaultMessage": "Si vous n’avez plus accès à ces codes non plus, il ne sera malheureusement pas possible de récupérer votre compte actuel.",
+    "description": "CanadaLogin answer if user has issues signing in with CanadaLogin"
+  },
   "9t56Ev": {
     "defaultMessage": "Nombre d’évaluations",
     "description": "Title for a column that displays the number of assessments planned for a skill."
@@ -3006,6 +3038,10 @@
   "AH5WDT": {
     "defaultMessage": "Votre objectif de carrière",
     "description": "Title for a users career objective"
+  },
+  "AHlRZt": {
+    "defaultMessage": "CléGC est en cours de remplacement",
+    "description": "Title for important update notic"
   },
   "AJ9XL4": {
     "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée. Veuillez également indiquer les trois principales compétences en matière de leadership dont la personne a fait preuve.",
@@ -3214,6 +3250,10 @@
   "B+3gE4": {
     "defaultMessage": "Grâce aux processus de recrutement annoncés sur la plateforme, nous avons pu établir une vaste base de données sur les talents préqualifiés. Les personnes qui postulent sont évaluées en fonction d’une classification particulière, et celles qui se qualifient sont inscrites dans un bassin de talents dans lequel les ministères peuvent puiser pour pourvoir des postes vacants.",
     "description": "Paragraph one, answer about prequalified talent"
+  },
+  "B+y8nm": {
+    "defaultMessage": "Lier votre CléGC à votre identifiant ConnexionCanada",
+    "description": "Second note about GCKey migration"
   },
   "B0OL/n": {
     "defaultMessage": "{customTitle} ({title}) évaluation - {skillName}",
@@ -3466,6 +3506,10 @@
   "CG07OF": {
     "defaultMessage": "Membre de l'équipe d'évaluation",
     "description": "Label for a process assessment team member input"
+  },
+  "CIDrn4": {
+    "defaultMessage": "Quelle méthode de connexion avez-vous utilisée la dernière fois?",
+    "description": "Heading for the section asking users how they last signed in on the sign in page"
   },
   "CKsQyK": {
     "defaultMessage": "Accessibilité et mesures d’adaptation",
@@ -3794,6 +3838,10 @@
   "DbWxZl": {
     "defaultMessage": "Rechercher des rôles liés à un processus",
     "description": "Label for the process roles table search input"
+  },
+  "DcABwS": {
+    "defaultMessage": "Entrez le code à six chiffres envoyé sur votre téléphone.",
+    "description": "Text for first registration -> create step."
   },
   "DcEinN": {
     "defaultMessage": "Erreur, incapable de charger le bassin",
@@ -4175,10 +4223,6 @@
     "defaultMessage": "Détails sur l'offre d'emploi",
     "description": "Form header for filling in job opportunity information section."
   },
-  "FNvBxZ": {
-    "defaultMessage": "Voici l’information qui a été soumise le {submittedAt}. Vous trouverez l’historique complet de la carrière du candidat ou de la candidate dans la section du parcours professionnel.",
-    "description": "Lead-in text for application information"
-  },
   "FO0HTu": {
     "defaultMessage": "Date limite de présentation des demandes",
     "description": "The application deadline of the training opportunity"
@@ -4259,6 +4303,10 @@
     "defaultMessage": "Lien avec l’expérience supprimé!",
     "description": "Success message displayed after unlinking an experience to a skill"
   },
+  "FrIH2K": {
+    "defaultMessage": "L’authentification multifacteur pour la CléGC est gérée directement par le service CléGC et ne peut pas être réinitialisée à partir de la plateforme Talents numériques du GC.",
+    "description": "CanadaLogin answer if user has issues signing in with CanadaLogin"
+  },
   "FrQmN+": {
     "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
     "description": "Body of a note describing that a pool is only open to employees"
@@ -4282,6 +4330,10 @@
   "Ftq+3Y": {
     "defaultMessage": "Utilisateur",
     "description": "Label for a specific user"
+  },
+  "Ftr7tt": {
+    "defaultMessage": "Continuer et vous connecter à Talents numériques du GC",
+    "description": "Third note about GCKey migration"
   },
   "FuuXpa": {
     "defaultMessage": "Suivant",
@@ -4723,6 +4775,10 @@
     "defaultMessage": "Collectivité numérique",
     "description": "Name of the digital community"
   },
+  "HzvS7w": {
+    "defaultMessage": "Entrez le code de votre application d’authentification dans CléGC.",
+    "description": "Text for step two link your GCKey account."
+  },
   "I+TGU3": {
     "defaultMessage": "État du coaching des cadres",
     "description": "Label for an employee profile career development preference field"
@@ -4890,6 +4946,10 @@
   "IUoUqs": {
     "defaultMessage": "Modification de l’état",
     "description": "Title for the request status last changed at date block."
+  },
+  "IVba2H": {
+    "defaultMessage": "Connectez-vous avec votre adresse courriel liée à ConnexionCanada.",
+    "description": "Text for first registration -> create step."
   },
   "IWWSkL": {
     "defaultMessage": "Information sur le processus",
@@ -5203,6 +5263,10 @@
     "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
     "description": "Label for a process' closing date in pacific timezone"
   },
+  "JsPXch": {
+    "defaultMessage": "Entrez votre mot de passe ConnexionCanada.",
+    "description": "Text for first registration -> create step."
+  },
   "Jtc63M": {
     "defaultMessage": "Sélectionnez un volet de travail",
     "description": "Placeholder for work stream filter in search form."
@@ -5266,6 +5330,10 @@
   "K9YLac": {
     "defaultMessage": "En savoir plus<hidden> sur la collectivité des cadres</hidden>",
     "description": "Link text to the executive community"
+  },
+  "KCQ2es": {
+    "defaultMessage": "Connectez-vous à votre compte CléGC.",
+    "description": "Text for step two link your GCKey account."
   },
   "KD5H5s": {
     "defaultMessage": "Oui, je suis un(e) employé(e) du gouvernement du Canada.",
@@ -5571,6 +5639,10 @@
     "defaultMessage": "Souhaitez-vous vraiment retirer <underline>{workEmail}</underline>? Si vous la retirez alors que vous êtes un membre du personnel vérifié, l'accès aux outils du personnel sera suspendu jusqu'à ce que vous confirmiez une nouvelle adresse courriel professionnelle.",
     "description": "Text to confirm deletion action"
   },
+  "LTd4Kw": {
+    "defaultMessage": "ConnexionCanada permet d'accéder à différents comptes du gouvernement du Canada.",
+    "description": "Text for first registration -> create step."
+  },
   "LTpCFL": {
     "defaultMessage": "À propos de nous",
     "description": "Title for about us section on a pool advertisement."
@@ -5871,6 +5943,10 @@
     "defaultMessage": "La <chrcLink>Commission canadienne des droits de la personne</chrcLink> traite les plaintes en matière de discrimination en vertu de la <chraLink>Loi canadienne sur les droits de la personne</chraLink>.",
     "description": "Description of complaints to the Canadian Human Rights Commission"
   },
+  "MmzsE6": {
+    "defaultMessage": "Félicitations, vous avez terminé la transition de votre compte. Redirection vers la plateforme Talents numériques du GC en cours.",
+    "description": "Text for first registration -> create step."
+  },
   "MnwLD0": {
     "defaultMessage": "Sélectionnez un ou plusieurs programmes, certifications ou accréditations dont cette personne bénéficierait en y participant.",
     "description": "Description for development program options section in nominations details step"
@@ -5950,6 +6026,10 @@
   "N/Vcp3": {
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
     "description": "Heading for the section about user expectations for their request"
+  },
+  "N0zaCd": {
+    "defaultMessage": "Nouveau",
+    "description": "Chip label for CanadaLogin option"
   },
   "N2/Y9w": {
     "defaultMessage": "Non réclamée",
@@ -6254,6 +6334,10 @@
   "Of4wHY": {
     "defaultMessage": "Admissibilité à la retraite",
     "description": "Label for an employee profile career development preference field"
+  },
+  "OgTBmm": {
+    "defaultMessage": "Nous modernisons l’expérience de connexion en passant de la CléGC au nouveau système de compte central du gouvernement appelé ConnexionCanada. Vous allez quitter notre site pour vous connecter avec ConnexionCanada. En cas de problème, des instructions supplémentaires sont disponibles pour vous guider.",
+    "description": "Copy under welcome heading at the top of the sign in page"
   },
   "OgbLp1": {
     "defaultMessage": "Ministère ou organisation d'embauche",
@@ -6579,6 +6663,10 @@
     "defaultMessage": "Interrompre la recommandation de la candidature",
     "description": "Label for pause referral status checkbox input"
   },
+  "Q/ROAL": {
+    "defaultMessage": "Se connecter à ConnexionCanada",
+    "description": "Heading for section of the sign in page showing the create steps"
+  },
   "Q3adCp": {
     "defaultMessage": "Modifier le plan d’évaluation",
     "description": "Link text to edit a specific pool assessment"
@@ -6802,10 +6890,6 @@
   "QqwcpX": {
     "defaultMessage": "Les mises en candidature doivent être parrainées par un cadre dirigeant travaillant dans le domaine de la personne candidate et seront triées par l'équipe de la collectivité fonctionnelle associée. Une fois la mise en candidature confirmée, la personne candidate sera inscrit dans le système de gestion des talents de cette collectivité pour l'année en cours.",
     "description": "Paragraph two, instructions on how to submit a nomination"
-  },
-  "QsWizb": {
-    "defaultMessage": "<strong>Vous n’avez pas de compte CléGC?</strong> <a>Créer un compte</a>.",
-    "description": "Instruction on what to do if user does not have a GCKey"
   },
   "Qt9Q8k": {
     "defaultMessage": "Le programme dure combien de temps?",
@@ -7170,6 +7254,10 @@
   "Sb2fEr": {
     "defaultMessage": "Bassin {poolId} introuvable.",
     "description": "Message displayed for pool not found."
+  },
+  "ScdEWz": {
+    "defaultMessage": "Nous vous accompagnerons pour effectuer une transition unique de CléGC vers ConnexionCanada.",
+    "description": "Copy under welcome heading at the top of the sign in page"
   },
   "Sd8883": {
     "defaultMessage": "Vous avez répondu aux questions suivantes :",
@@ -7658,6 +7746,10 @@
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
     "description": "Descriptive text about the list of users in the admin portal."
   },
+  "UwU+X9": {
+    "defaultMessage": "Passez à l’étape 2.",
+    "description": "Text for first registration -> create step."
+  },
   "Uwtkv6": {
     "defaultMessage": "Ce à quoi s’attendre après l’admission",
     "description": "Title for the what to expect post admission section"
@@ -7861,6 +7953,10 @@
   "Vs8wOD": {
     "defaultMessage": "Je souhaite exécuter un processus de recrutement",
     "description": "Subject line for contact email to start a recruitment process"
+  },
+  "VsHx1O": {
+    "defaultMessage": "Voici l’information qui a été soumise le {submittedAt}.",
+    "description": "Description of the information for a submitted application"
   },
   "VsRBt5": {
     "defaultMessage": "la conception de mises en page et d’éléments interactifs accessibles;",
@@ -8649,10 +8745,6 @@
   "YzUhwE": {
     "defaultMessage": "Modifier l’ébauche d’un processus et d’un plan d’évaluation",
     "description": "Permissions related to creating/deleting draft processes assessment plan"
-  },
-  "Z+gi2d": {
-    "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
-    "description": "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant"
   },
   "Z+n7lE": {
     "defaultMessage": "Saisissez une adresse de courriel professionnelle et utilisez le bouton de recherche pour trouver un utilisateur.",
@@ -9454,6 +9546,10 @@
     "defaultMessage": "À titre de rappel, vous allez quitter notre site pour vous connecter avec une CléGC. Si vous éprouvez des problèmes, nous avons quelques conseils supplémentaires pour vous.",
     "description": "Instructions on what to do if user doesn't know if they have a GCKey"
   },
+  "ci28W3": {
+    "defaultMessage": "Commencer",
+    "description": "CanadaLogin sign up link text on the sign in page"
+  },
   "cik7wX": {
     "defaultMessage": "Ajouter un processus hors plateforme",
     "description": "Button to open dialog to create off-platform process"
@@ -10214,6 +10310,10 @@
     "defaultMessage": "Vous recevrez à cette adresse courriel les offres d'emploi provenant des équipes du recrutement et des ressources humaines ainsi que les notifications liées à vos demandes et aux autres éléments de la plateforme.",
     "description": "Contact email title paragraph"
   },
+  "faKH/0": {
+    "defaultMessage": "Créer un identifiant ConnexionCanada",
+    "description": "First note about GCKey migration"
+  },
   "fcJRy1": {
     "defaultMessage": "Vous avez activé votre compte Navigar.",
     "description": "Fifth item in list of eligibility requirements section"
@@ -10806,6 +10906,10 @@
     "defaultMessage": "n’est pas en mesure de consulter ou de gérer des demandes de talents.",
     "description": "Description of the limitation of managing talent requests"
   },
+  "hvGIMU": {
+    "defaultMessage": "Étape 2 : Lier votre CléGC",
+    "description": "Heading for section of the sign in page showing the create steps"
+  },
   "hyBNpJ": {
     "defaultMessage": "Les comptes de médias sociaux peuvent comporter des liens ou des annonces liés à des sites Web échappant au contrôle du gouvernement du Canada. Ces liens sont fournis aux utilisateurs uniquement par souci de commodité. Le gouvernement du Canada n’assume aucune responsabilité à l’égard de l’information obtenue au moyen de ces liens ou de ces annonces, pas plus qu’il ne cautionne ces sites et leur contenu.",
     "description": "Paragraph for link to others section"
@@ -11178,6 +11282,10 @@
     "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions en lien avec ce processus? Veuillez communiquer avec le Bureau des initiatives pour les Autochtones si vous avez besoin de mesures d’adaptation au cours de ce processus de demande <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
     "description": "First paragraph of the accessibility and accommodations information dialog"
   },
+  "jOjLtT": {
+    "defaultMessage": "Félicitations! Vous avez réussi à vous connecter à Connexion Canada. Redirection vers la plateforme Talents numériques du GC en cours.",
+    "description": "Text for first registration -> create step."
+  },
   "jPLaDk": {
     "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
     "description": "Heading for the message saying the page to view is not authorized."
@@ -11237,6 +11345,10 @@
   "jfCwes": {
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when signed in"
+  },
+  "jh/UHf": {
+    "defaultMessage": "Ouvrez l’application d’authentification sur votre appareil.",
+    "description": "Text for step two link your GCKey account."
   },
   "ji56hs": {
     "defaultMessage": "{name} sera maintenant activement recommandée.",
@@ -11417,6 +11529,10 @@
   "kUHaE/": {
     "defaultMessage": "Inuk",
     "description": "Label for Inuk community"
+  },
+  "kUOZ8e": {
+    "defaultMessage": "Si vous avez un doute ou si vous avez déjà effectué la transition, sélectionnez ConnexionCanada.",
+    "description": "Redirect notice text"
   },
   "kUkyuI": {
     "defaultMessage": "Vous pouvez utiliser le bouton « Ajouter une compétence » pour mettre une compétence en vedette ici.",
@@ -12034,10 +12150,6 @@
     "defaultMessage": "Échec : les favoris du processus demeurent inchangés.",
     "description": "Alert displayed to the user when failing to (un-)bookmark a pool."
   },
-  "n+/HPL": {
-    "defaultMessage": "Autres processus",
-    "description": "Heading for table of a users other applications and recruitments"
-  },
   "n+tkit": {
     "defaultMessage": "Aller à la première page",
     "description": "Label for first page button in pagination nav"
@@ -12230,6 +12342,10 @@
     "defaultMessage": "Le stade de la présélection de la personne candidate a été mis à jour avec succès",
     "description": "Success message for updating a candidates screening stage"
   },
+  "nmBkRg": {
+    "defaultMessage": "Bon retour",
+    "description": "Welcome heading at the top of the sign in page"
+  },
   "nmImtK": {
     "defaultMessage": "Se déconnecter",
     "description": "Message displayed to users to sign out of the application"
@@ -12313,6 +12429,10 @@
   "o5zW6Y": {
     "defaultMessage": "Voir les définitions pour « {skillName} » et « {skillLevel} »",
     "description": "Accordion title for skill and skill level header on screening decision dialog."
+  },
+  "o6FC2W": {
+    "defaultMessage": "CléGC",
+    "description": "GCKey sign in method label"
   },
   "o7j1Gc": {
     "defaultMessage": "Vous n'avez rejoint aucune collectivité fonctionnelle.",
@@ -12498,10 +12618,6 @@
     "defaultMessage": "Modifier<hidden> la classification</hidden>",
     "description": "Breadcrumb title for the edit classification page link."
   },
-  "ow71P8": {
-    "defaultMessage": "<strong>Préavis!</strong> Avant de vous demander d’aller établir vos justificatifs CléGC, nous vous demandons d’examiner de nouveau les critères d’admissibilité du programme afin de veiller à ce que vous répondiez aux exigences.",
-    "description": "A request for the user to review the IAP eligibility criteria"
-  },
   "ox2by6": {
     "defaultMessage": "En savoir plus<hidden> : {topic}</hidden>",
     "description": "Link text to a page to learn more about something"
@@ -12517,6 +12633,10 @@
   "p19YJ2": {
     "defaultMessage": "Présentez une demande dès aujourd’hui pour entreprendre une carrière en technologie de l’information.",
     "description": "Application box content"
+  },
+  "p2LOIV": {
+    "defaultMessage": "Étape 1: Créer un identifiant ConnexionCanada ou se connecter",
+    "description": "Heading for section of the sign in page showing the create steps"
   },
   "p2sBh3": {
     "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
@@ -12613,6 +12733,10 @@
   "pLef1V": {
     "defaultMessage": "Masquer les détails de {experienceName}",
     "description": "Button text to hide a specific experience's details"
+  },
+  "pNA402": {
+    "defaultMessage": "Étape 3 : Accéder à votre compte existant",
+    "description": "Heading for section of the signin page showing the access step"
   },
   "pNCpED": {
     "defaultMessage": "Les renseignements suivants sont utilisés par les équipes de recrutement et les gestionnaires d’embauche pour évaluer votre admissibilité dans le cadre d’un processus de dotation.",
@@ -12817,6 +12941,10 @@
   "q70oUn": {
     "defaultMessage": "Actuellement non vérifié",
     "description": "Label for the unverified claim option"
+  },
+  "q9LrNV": {
+    "defaultMessage": "Se connecter avec ConnexionCanada",
+    "description": "Page title for the sign in page using CanadaLogin"
   },
   "qA8+f5": {
     "defaultMessage": "En attente",
@@ -13190,6 +13318,10 @@
     "defaultMessage": "détient uniquement les autorisations des processus de recrutement qui lui ont été expressément attribués;",
     "description": "Description of the limitation that process operators can only interact with processes they are assigned to"
   },
+  "rtQjtJ": {
+    "defaultMessage": "Si vous n’avez plus accès à la méthode d’authentification à deux facteurs que vous avez configurée lors de votre inscription à Talents numériques du GC, vous pouvez toujours vous connecter à l’aide de l’un des cinq codes de récupération reçus au moment de l’inscription. Ces codes sont personnels et ne sont accessibles qu’à vous.",
+    "description": "CanadaLogin answer if user has issues signing in with CanadaLogin"
+  },
   "ruEs9/": {
     "defaultMessage": "Cette demande n’a résulté en aucun appariement. Veuillez nous en parler davantage dans le champ réservé aux commentaires, à la fin du présent formulaire.",
     "description": "Message to admins that a search request resulted in no candidates being found"
@@ -13433,6 +13565,10 @@
   "t+ykNn": {
     "defaultMessage": "Tâches professionnelles",
     "description": "Heading for work tasks"
+  },
+  "t0iSsj": {
+    "defaultMessage": "ConnexionCanada",
+    "description": "CanadaLogin sign in method label"
   },
   "t1JWwl": {
     "defaultMessage": "Veuillez indiquer si vous occupez également l'une des fonctions suivantes.",
@@ -13918,6 +14054,10 @@
     "defaultMessage": "Date limite de présentation des demandes",
     "description": "Label for application deadline meta data"
   },
+  "vC8yrC": {
+    "defaultMessage": "Vous allez quitter notre site pour vous connecter avec ConnexionCanada. En cas de problème, des instructions supplémentaires sont disponibles pour vous guider.",
+    "description": "Copy under welcome heading at the top of the sign in page"
+  },
   "vC9NsS": {
     "defaultMessage": "Nos normes",
     "description": "Title for the accessibility standards"
@@ -14361,6 +14501,10 @@
   "wvxZxx": {
     "defaultMessage": "portent atteinte à la propriété intellectuelle ou à un droit de propriété",
     "description": "Comments or contributions list item"
+  },
+  "wxXlyJ": {
+    "defaultMessage": "Vous avez récemment accédé à votre compte et créé un identifiant ConnexionCanada à l’aide de votre adresse courriel.",
+    "description": "Message shown under CanadaLogin option on sign in page"
   },
   "x+kUrO": {
     "defaultMessage": "Conseillers en ressources humaines",
