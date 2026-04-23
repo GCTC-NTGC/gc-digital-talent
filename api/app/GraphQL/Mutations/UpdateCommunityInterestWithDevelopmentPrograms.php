@@ -49,6 +49,9 @@ final class UpdateCommunityInterestWithDevelopmentPrograms
             if (array_key_exists('consent_to_share_profile', $communityInterestInput)) {
                 $communityInterest->consent_to_share_profile = $communityInterestInput['consent_to_share_profile'];
             }
+            if (array_key_exists('procurement_is_sdo', $communityInterestInput)) {
+                $communityInterest->procurement_is_sdo = $communityInterestInput['procurement_is_sdo'];
+            }
 
             // sync the workstreams relation if applicable
             if (

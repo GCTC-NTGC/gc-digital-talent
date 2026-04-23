@@ -49,9 +49,17 @@ final class UpdateCommunityInterestWithDevelopmentProgramsInputValidator extends
                     ['prohibited']
                 ),
             ],
+            'communityInterest.procurementIsSDO' => [
+                'nullable',
+                Rule::when($community?->key === 'procurement',
+                    ['boolean'],
+                    ['prohibited']
+                ),
+            ],
             'communityInterest.communityInterestAdditionalDuties' => [
                 'nullable',
-                Rule::when($community?->key === 'finance',
+                Rule::when(
+                    ($community?->key === 'finance' || $community?->key === 'procurement'),
                     ['array', 'distinct'],
                     ['prohibited']
                 ),

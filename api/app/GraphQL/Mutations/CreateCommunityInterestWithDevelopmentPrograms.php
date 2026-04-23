@@ -34,6 +34,7 @@ final class CreateCommunityInterestWithDevelopmentPrograms
                     'finance_other_roles' => $communityInterestInput['finance_other_roles'] ?? null,
                     'finance_other_roles_other' => $communityInterestInput['finance_other_roles_other'] ?? null,
                     'consent_to_share_profile' => $communityInterestInput['consent_to_share_profile'] ?? null,
+                    'procurement_is_sdo' => $communityInterestInput['procurement_is_sdo'] ?? null,
                 ],
             );
 

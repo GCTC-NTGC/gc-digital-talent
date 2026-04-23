@@ -212,6 +212,7 @@ type CommunityInterest {
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   createdAt: DateTime @rename(attribute: "created_at")
+  procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
 }
 
 type OffPlatformRecruitmentProcess {
@@ -2184,6 +2185,7 @@ input CreateCommunityInterestInput {
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
 }
 
 input UpdateCommunityInterestInput {
@@ -2199,6 +2201,7 @@ input UpdateCommunityInterestInput {
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
 }
 
 input UpsertDevelopmentProgramUserInput {

@@ -841,6 +841,7 @@ type CommunityInterest {
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
   createdAt: DateTime
+  procurementIsSDO: Boolean
 }
 
 type OffPlatformRecruitmentProcess {
@@ -2104,6 +2105,7 @@ input CreateCommunityInterestInput {
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  procurementIsSDO: Boolean
 }
 
 input UpdateCommunityInterestInput {
@@ -2116,6 +2118,7 @@ input UpdateCommunityInterestInput {
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  procurementIsSDO: Boolean
 }
 
 input UpsertDevelopmentProgramUserInput {
