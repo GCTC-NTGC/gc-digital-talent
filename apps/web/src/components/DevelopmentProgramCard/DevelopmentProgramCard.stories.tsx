@@ -6,7 +6,6 @@ import {
   fakeClassifications,
   fakeDevelopmentPrograms,
 } from "@gc-digital-talent/fake-data";
-import { Ul } from "@gc-digital-talent/ui";
 
 import DevelopmentProgramCard from "./DevelopmentProgramCard";
 
@@ -14,7 +13,7 @@ const developmentPrograms = fakeDevelopmentPrograms(3);
 const classifications = fakeClassifications();
 
 export default {
-  component: DevelopmentProgramCard,
+  component: DevelopmentProgramCard.Root,
   parameters: {
     chromatic: {
       modes: {
@@ -29,13 +28,13 @@ export default {
       url: "https://www.figma.com/design/guHeIIh8dqFVCks310Wv0G/Component-library?node-id=11-4252",
     },
   },
-} as Meta<typeof DevelopmentProgramCard>;
+} as Meta<typeof DevelopmentProgramCard.Root>;
 
 const Template: StoryFn<typeof DevelopmentProgramCard> = () => {
   return (
-    <Ul unStyled className="bg-white dark:bg-gray-700">
+    <DevelopmentProgramCard.Root>
       {developmentPrograms.map((d) => (
-        <DevelopmentProgramCard
+        <DevelopmentProgramCard.Item
           key={d.id}
           title={d.name.localized ?? "Development Program name"}
           description={
@@ -47,7 +46,7 @@ const Template: StoryFn<typeof DevelopmentProgramCard> = () => {
           remove="Remove button"
         />
       ))}
-    </Ul>
+    </DevelopmentProgramCard.Root>
   );
 };
 

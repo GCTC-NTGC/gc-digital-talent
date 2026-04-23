@@ -11,6 +11,7 @@ import {
   DropdownMenu,
   Heading,
   IconButton,
+  Ul,
   type HeadingRank,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -95,4 +96,15 @@ const DevelopmentProgramCard = ({
   );
 };
 
-export default DevelopmentProgramCard;
+const Root = ({ children }: { children: ReactNode }) => {
+  return (
+    <Ul unStyled className="bg-white dark:bg-gray-700">
+      {children}
+    </Ul>
+  );
+};
+
+export default {
+  Root,
+  Item: DevelopmentProgramCard,
+};
