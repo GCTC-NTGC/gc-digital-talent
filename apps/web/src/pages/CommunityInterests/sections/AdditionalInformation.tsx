@@ -268,17 +268,17 @@ const AdditionalInformation = ({
               id="procurementIsSDO"
               name="procurementIsSDO"
               label={intl.formatMessage({
-                defaultMessage: "I'm a Chief Financial Officer (CFO).",
-                id: "duKO+o",
-                description: "Message when user is a finance chief",
+                defaultMessage:
+                  "I am currently in a Senior Designated Officer role",
+                id: "gIwkgl",
+                description: "Message when user is a Senior Designated Officer",
               })}
               disabled={formDisabled}
               boundingBox={true}
               boundingBoxLabel={intl.formatMessage({
-                defaultMessage: "CFO status",
-                id: "2KQdGz",
-                description:
-                  "Bounding box label for the finance chief checkbox",
+                defaultMessage: "Senior Designated Officer (SDO) role",
+                id: "voOIR0",
+                description: "Bounding box label for the SDO checkbox",
               })}
             />
             {/* Some fields only appear if the user is an SDO */}
@@ -287,10 +287,10 @@ const AdditionalInformation = ({
                 <p id={financeAdditionalDutiesDescription}>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Please indicate if you perform any of the following additional duties in your CFO role.",
-                    id: "DQ2DKZ",
+                      "Please indicate if you perform any of the following additional duties in your SDO role.",
+                    id: "6bjQWW",
                     description:
-                      "Description for the 'Additional duties' checkbox group",
+                      "Description for additional duties referencing a Senior Designated Officer (SDO) role",
                   })}
                 </p>
                 <Checklist
