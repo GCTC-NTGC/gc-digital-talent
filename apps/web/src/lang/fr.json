@@ -2099,10 +2099,6 @@
     "defaultMessage": "Si vous avez des questions au sujet de CléGC, veuillez contacter l'équipe de CléGC à l'adresse",
     "description": "GCKey answer for who to contact about GCKey, introduction sentence"
   },
-  "6SfJEp": {
-    "defaultMessage": "Vous pouvez vous connecter à votre profil de Programme d'apprentissage en TI pour les personnes autochtones à l'aide de votre CléGC actuelle, même si vous n'avez jamais utilisé cette plateforme auparavant.",
-    "description": "Instructions on how to sign in with GCKey - IAP variant"
-  },
   "6UVZOY": {
     "defaultMessage": "Laissez notre équipe vous épargner du temps et de l’énergie en associant vos besoins à des professionnels des <abbreviation>TI</abbreviation> préalablement sélectionnés et possédant les compétences requises pour le poste. Tous les talents de nos bassins de dotation ont été sélectionnés à l’issue d’un processus concurrentiel. Vous pouvez donc passer directement à l’entrevue et décider s’ils conviennent à votre équipe.",
     "description": "Summary for to go to the search page on Browse IT jobs page"
@@ -4226,10 +4222,6 @@
   "FNgThS": {
     "defaultMessage": "Détails sur l'offre d'emploi",
     "description": "Form header for filling in job opportunity information section."
-  },
-  "FNvBxZ": {
-    "defaultMessage": "Voici l’information qui a été soumise le {submittedAt}. Vous trouverez l’historique complet de la carrière du candidat ou de la candidate dans la section du parcours professionnel.",
-    "description": "Lead-in text for application information"
   },
   "FO0HTu": {
     "defaultMessage": "Date limite de présentation des demandes",
@@ -6899,10 +6891,6 @@
     "defaultMessage": "Les mises en candidature doivent être parrainées par un cadre dirigeant travaillant dans le domaine de la personne candidate et seront triées par l'équipe de la collectivité fonctionnelle associée. Une fois la mise en candidature confirmée, la personne candidate sera inscrit dans le système de gestion des talents de cette collectivité pour l'année en cours.",
     "description": "Paragraph two, instructions on how to submit a nomination"
   },
-  "QsWizb": {
-    "defaultMessage": "<strong>Vous n’avez pas de compte CléGC?</strong> <a>Créer un compte</a>.",
-    "description": "Instruction on what to do if user does not have a GCKey"
-  },
   "Qt9Q8k": {
     "defaultMessage": "Le programme dure combien de temps?",
     "description": "Learn more dialog question two heading"
@@ -7966,6 +7954,10 @@
     "defaultMessage": "Je souhaite exécuter un processus de recrutement",
     "description": "Subject line for contact email to start a recruitment process"
   },
+  "VsHx1O": {
+    "defaultMessage": "Voici l’information qui a été soumise le {submittedAt}.",
+    "description": "Description of the information for a submitted application"
+  },
   "VsRBt5": {
     "defaultMessage": "la conception de mises en page et d’éléments interactifs accessibles;",
     "description": "List item one, things designers consider for accessibility"
@@ -8753,10 +8745,6 @@
   "YzUhwE": {
     "defaultMessage": "Modifier l’ébauche d’un processus et d’un plan d’évaluation",
     "description": "Permissions related to creating/deleting draft processes assessment plan"
-  },
-  "Z+gi2d": {
-    "defaultMessage": "Si vous n’êtes pas certain(e) d’avoir un compte CléGC, veuillez continuer au site Web et tentez d’y accéder. Si vous ne pouvez pas vous rappeler de votre mot de passe, vous pourrez également le rétablir.",
-    "description": "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant"
   },
   "Z+n7lE": {
     "defaultMessage": "Saisissez une adresse de courriel professionnelle et utilisez le bouton de recherche pour trouver un utilisateur.",
@@ -12162,10 +12150,6 @@
     "defaultMessage": "Échec : les favoris du processus demeurent inchangés.",
     "description": "Alert displayed to the user when failing to (un-)bookmark a pool."
   },
-  "n+/HPL": {
-    "defaultMessage": "Autres processus",
-    "description": "Heading for table of a users other applications and recruitments"
-  },
   "n+tkit": {
     "defaultMessage": "Aller à la première page",
     "description": "Label for first page button in pagination nav"
@@ -12633,10 +12617,6 @@
   "ow4z7W": {
     "defaultMessage": "Modifier<hidden> la classification</hidden>",
     "description": "Breadcrumb title for the edit classification page link."
-  },
-  "ow71P8": {
-    "defaultMessage": "<strong>Préavis!</strong> Avant de vous demander d’aller établir vos justificatifs CléGC, nous vous demandons d’examiner de nouveau les critères d’admissibilité du programme afin de veiller à ce que vous répondiez aux exigences.",
-    "description": "A request for the user to review the IAP eligibility criteria"
   },
   "ox2by6": {
     "defaultMessage": "En savoir plus<hidden> : {topic}</hidden>",
