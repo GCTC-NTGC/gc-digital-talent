@@ -4,7 +4,9 @@ import { useIdleTimer } from "react-idle-timer";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import InactivityDialog from "./InactivityDialog";
+import InactivityDialog, {
+  type InactivityDialogProps,
+} from "./InactivityDialog";
 
 const timeout = 1000 * 60 * 60; // 60 minutes to milliseconds
 const promptBeforeIdle = 1000 * 60 * 5; // prompt five minutes before timing out
@@ -19,7 +21,10 @@ const InnerActivityContainer = ({
   logout,
   children,
 }: InnerActivityContainerProps) => {
-  const [remainingMinutes, setRemainingMinutes] = useState<number>(timeout);
+  const [remainingTimeValue, setRemainingTimeValue] =
+    useState<InactivityDialogProps["remainingTimeValue"]>(0);
+  const [remainingTimeUnit, setRemainingTimeUnit] =
+    useState<InactivityDialogProps["remainingTimeUnit"]>("m");
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const onIdle = () => {
@@ -54,7 +59,14 @@ const InnerActivityContainer = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setRemainingMinutes(Math.ceil(getRemainingTime() / 1000 / 60)); // milliseconds to minutes
+      const remainingTimeMs = getRemainingTime();
+      if (remainingTimeMs >= 60_000) {
+        setRemainingTimeValue(Math.ceil(remainingTimeMs / 60_000)); // milliseconds to minutes
+        setRemainingTimeUnit("m");
+      } else {
+        setRemainingTimeValue(Math.ceil(remainingTimeMs / 1_000)); // milliseconds to seconds
+        setRemainingTimeUnit("s");
+      }
     }, 500);
 
     return () => {
@@ -82,7 +94,8 @@ const InnerActivityContainer = ({
       <InactivityDialog
         open={dialogOpen}
         onOpenChange={handleOpenChange}
-        remainingMinutes={remainingMinutes}
+        remainingTimeValue={remainingTimeValue}
+        remainingTimeUnit={remainingTimeUnit}
         onStaySignedIn={handleStaySignedIn}
         onSignOut={handleSignOut}
       />

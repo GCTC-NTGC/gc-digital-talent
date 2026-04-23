@@ -1,6 +1,6 @@
 import ExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriangleIcon";
 import ClockIcon from "@heroicons/react/24/outline/ClockIcon";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl, type MessageDescriptor } from "react-intl";
 
 import { Button, Dialog, IconLabel, Image } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
@@ -11,10 +11,35 @@ import pugLightLg from "~/assets/img/inactive-pug-light-lg.webp";
 import pugDarkSm from "~/assets/img/inactive-pug-dark-sm.webp";
 import pugLightSm from "~/assets/img/inactive-pug-light-sm.webp";
 
-interface InactivityDialogProps {
+const timerMessages: Record<
+  InactivityDialogProps["remainingTimeUnit"],
+  MessageDescriptor
+> = {
+  m: defineMessage({
+    defaultMessage: `Time remaining: <strong>{remainingTime, plural,
+                  zero {0 minutes}
+                  one {# minute}
+                  other {# minutes}
+                }</strong>`,
+    id: "a2P3C0",
+    description: "Inactivity timer remaining time in minutes",
+  }),
+  s: defineMessage({
+    defaultMessage: `Time remaining: <strong>{remainingTime, plural,
+                  zero {0 seconds}
+                  one {# second}
+                  other {# seconds}
+                }</strong>`,
+    id: "/86QL/",
+    description: "Inactivity timer remaining time in seconds",
+  }),
+};
+
+export interface InactivityDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  remainingMinutes: number;
+  remainingTimeValue: number;
+  remainingTimeUnit: "m" | "s";
   onStaySignedIn: () => void;
   onSignOut: () => void;
 }
@@ -22,7 +47,8 @@ interface InactivityDialogProps {
 const InactivityDialog = ({
   open,
   onOpenChange,
-  remainingMinutes,
+  remainingTimeValue,
+  remainingTimeUnit,
   onStaySignedIn,
   onSignOut,
 }: InactivityDialogProps) => {
@@ -80,20 +106,9 @@ const InactivityDialog = ({
             </p>
             <div className="order-2">
               <IconLabel
-                label={intl.formatMessage(
-                  {
-                    defaultMessage: `Time remaining: <strong>{remainingMinutes, plural,
-                  zero {0 minutes}
-                  one {# minute}
-                  other {# minutes}
-                }</strong>`,
-                    id: "H69949",
-                    description: "Inactivity timer remaining time",
-                  },
-                  {
-                    remainingMinutes,
-                  },
-                )}
+                label={intl.formatMessage(timerMessages[remainingTimeUnit], {
+                  remainingTime: remainingTimeValue,
+                })}
                 icon={ClockIcon}
               />
             </div>

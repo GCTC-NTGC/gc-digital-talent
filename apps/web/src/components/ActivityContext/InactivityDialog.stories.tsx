@@ -25,7 +25,8 @@ const Template: StoryFn<typeof InactivityDialog> = () => (
   <InactivityDialog
     open={true}
     onOpenChange={action("onOpenChange")}
-    remainingMinutes={5}
+    remainingTimeUnit={"m"}
+    remainingTimeValue={5}
     onStaySignedIn={action("onStaySignedIn")}
     onSignOut={action("onSignOut")}
   />

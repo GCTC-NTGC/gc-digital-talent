@@ -291,6 +291,10 @@
     "defaultMessage": "« Je suis métisse ou métis »",
     "description": "Label text for Métis community declaration"
   },
+  "/86QL/": {
+    "defaultMessage": "Temps restant : <strong>{remainingTime, plural, zero {0 seconde} one {# seconde} other {# secondes} }</strong>",
+    "description": "Inactivity timer remaining time in seconds"
+  },
   "/8hZcv": {
     "defaultMessage": "Recherche dans le Nuage de talents",
     "description": "Title for information about the talent cloud research"
@@ -4578,10 +4582,6 @@
   "H5EXEi": {
     "defaultMessage": "Apprenez-en davantage sur cette possibilité d’emploi et commencez à rédiger votre candidature.",
     "description": "Subtitle for a pool advertisement page"
-  },
-  "H69949": {
-    "defaultMessage": "Temps restant : <strong>{remainingMinutes, plural, zero {0 minute} one {# minute} other {# minutes} }</strong>",
-    "description": "Inactivity timer remaining time"
   },
   "H6FgWU": {
     "defaultMessage": "Inscription",
@@ -8893,6 +8893,10 @@
   "a0VxCM": {
     "defaultMessage": "Vous n’avez pas créé d’expériences de carrière sur votre chronologie de carrière.",
     "description": "Message displayed when user has no experiences to feature on a skill."
+  },
+  "a2P3C0": {
+    "defaultMessage": "Temps restant : <strong>{remainingTime, plural, zero {0 minute} one {# minute} other {# minutes} }</strong>",
+    "description": "Inactivity timer remaining time in minutes"
   },
   "a3epXH": {
     "defaultMessage": "Erreur : Vous n’avez pas réussi à établir un lien avec l’expérience",
