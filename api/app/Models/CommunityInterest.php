@@ -30,6 +30,7 @@ use Illuminate\Support\Str;
  * @property array $finance_other_roles
  * @property string $finance_other_roles_other
  * @property bool $consent_to_share_profile
+ * @property bool $procurement_is_sdo
  */
 class CommunityInterest extends Model
 {
@@ -61,6 +62,7 @@ class CommunityInterest extends Model
         'finance_other_roles',
         'finance_other_roles_other',
         'consent_to_share_profile',
+        'procurement_is_sdo',
     ];
 
     /** @return BelongsTo<User, $this> */

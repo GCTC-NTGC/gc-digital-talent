@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('community_interests', function (Blueprint $table) {
             $table->renameColumn('finance_additional_duties', 'additional_duties')->change();
-            $table->boolean('procurement_is_SDO')->nullable();
+            $table->boolean('procurement_is_sdo')->nullable();
         });
     }
 
@@ -24,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('community_interests', function (Blueprint $table) {
             $table->renameColumn('additional_duties', 'finance_additional_duties')->change();
-            $table->dropColumn('procurement_is_SDO');
+            $table->dropColumn('procurement_is_sdo');
         });
     }
 };

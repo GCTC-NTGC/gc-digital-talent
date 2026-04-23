@@ -37,7 +37,7 @@ class CommunityInterestFactory extends Factory
             'finance_is_chief' => fn ($attributes) => Community::find($attributes['community_id'])->key === 'finance'
                 ? $this->faker->boolean()
                 : null,
-            'additional_duties' => fn ($attributes) => $attributes['finance_is_chief'] === true
+            'additional_duties' => fn ($attributes) => ($attributes['finance_is_chief'] === true || $attributes['procurement_is_sdo'] === true)
                 ? $this->faker->randomElements(array_column(CommunityInterestAdditionalDuty::cases(), 'name'), $this->faker->numberBetween(0, count(CommunityInterestAdditionalDuty::cases())))
                 : [],
             'finance_other_roles' => fn ($attributes) => $attributes['finance_is_chief'] === true
@@ -47,6 +47,9 @@ class CommunityInterestFactory extends Factory
                 ? $this->faker->jobTitle()
                 : null,
             'consent_to_share_profile' => $this->faker->boolean(90),
+            'procurement_is_sdo' => fn ($attributes) => Community::find($attributes['community_id'])->key === 'procurement'
+                ? $this->faker->boolean()
+                : null,
         ];
     }
 
