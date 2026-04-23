@@ -1,8 +1,8 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
-import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import { useIntl } from "react-intl";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import type { Classification } from "@gc-digital-talent/graphql";
 import { Chip, Chips, DropdownMenu, IconButton } from "@gc-digital-talent/ui";
