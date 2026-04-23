@@ -12,3 +12,8 @@ export const SECTION_KEY = {
   CITIZEN_VETERAN_PRIORITY: "citizenVeteranPriority",
   SIGNATURE: "signature",
 } as const;
+
+export const ALL_SECTIONS = Object.values(SECTION_KEY);
+
+type ObjectValues<T> = T[keyof T];
+export type SectionKey = ObjectValues<typeof SECTION_KEY>;

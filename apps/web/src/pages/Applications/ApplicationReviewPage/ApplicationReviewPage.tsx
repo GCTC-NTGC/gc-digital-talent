@@ -318,11 +318,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
         </div>
       </ReviewSection>
       <ReviewSection
-        title={intl.formatMessage({
-          defaultMessage: "Minimum experience or equivalent education",
-          id: "LvYEdh",
-          description: "Title for Minimum experience or equivalent education",
-        })}
+        title={intl.formatMessage(processMessages.minEducationRequirement)}
         path={editPaths.education}
         editLinkAriaLabel={intl.formatMessage({
           defaultMessage: "Edit education requirements",

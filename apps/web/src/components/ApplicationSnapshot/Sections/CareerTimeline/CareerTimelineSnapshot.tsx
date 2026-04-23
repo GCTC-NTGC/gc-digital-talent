@@ -17,11 +17,13 @@ import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup
 import experienceMessages from "~/messages/experienceMessages";
 import type { SnapshotExperience } from "~/utils/experienceUtils";
 
-interface CareerTimelineSectionProps {
+interface CareerTimelineSnapshotProps {
   experiences: SnapshotExperience[];
 }
 
-const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
+const CareerTimelineSnapshot = ({
+  experiences,
+}: CareerTimelineSnapshotProps) => {
   const intl = useIntl();
   const [sortAndFilterValues, setSortAndFilterValues] =
     useState<ExperienceSortAndFilterFormValues>({
@@ -111,4 +113,4 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
   );
 };
 
-export default CareerTimelineSection;
+export default CareerTimelineSnapshot;

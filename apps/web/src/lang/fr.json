@@ -4223,10 +4223,6 @@
     "defaultMessage": "Détails sur l'offre d'emploi",
     "description": "Form header for filling in job opportunity information section."
   },
-  "FNvBxZ": {
-    "defaultMessage": "Voici l’information qui a été soumise le {submittedAt}. Vous trouverez l’historique complet de la carrière du candidat ou de la candidate dans la section du parcours professionnel.",
-    "description": "Lead-in text for application information"
-  },
   "FO0HTu": {
     "defaultMessage": "Date limite de présentation des demandes",
     "description": "The application deadline of the training opportunity"
@@ -7957,6 +7953,10 @@
   "Vs8wOD": {
     "defaultMessage": "Je souhaite exécuter un processus de recrutement",
     "description": "Subject line for contact email to start a recruitment process"
+  },
+  "VsHx1O": {
+    "defaultMessage": "Voici l’information qui a été soumise le {submittedAt}.",
+    "description": "Description of the information for a submitted application"
   },
   "VsRBt5": {
     "defaultMessage": "la conception de mises en page et d’éléments interactifs accessibles;",
@@ -12149,10 +12149,6 @@
   "mzgZQs": {
     "defaultMessage": "Échec : les favoris du processus demeurent inchangés.",
     "description": "Alert displayed to the user when failing to (un-)bookmark a pool."
-  },
-  "n+/HPL": {
-    "defaultMessage": "Autres processus",
-    "description": "Heading for table of a users other applications and recruitments"
   },
   "n+tkit": {
     "defaultMessage": "Aller à la première page",
