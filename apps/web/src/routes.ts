@@ -148,7 +148,7 @@ export default [
                 ),
                 route(
                   "settings",
-                  "./pages/Profile/AccountSettings/AccountSettingsPage.tsx",
+                  "./pages/Profile/AccountSettings/AccountSettingsPageWrapper.tsx",
                 ),
                 route(
                   "notifications",

@@ -15,7 +15,6 @@ import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
 import { getSectionTitle } from "~/components/Profile/utils";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
-import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
 import { requireUser } from "~/routing/auth";
@@ -51,7 +50,6 @@ const ProfileUser_Query = graphql(/* GraphQL */ `
       ...ProfileWorkPreferences
       ...ProfileDiversityEquityInclusion
       ...ProfileCitizenVeteranPriority
-      ...ProfileGovernmentInformation
       ...ProfileLanguageProfile
     }
   }
@@ -124,11 +122,6 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
             </TableOfContents.AnchorLink>
           </TableOfContents.ListItem>
           <TableOfContents.ListItem>
-            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.GOVERNMENT}>
-              {intl.formatMessage(getSectionTitle("government"))}
-            </TableOfContents.AnchorLink>
-          </TableOfContents.ListItem>
-          <TableOfContents.ListItem>
             <TableOfContents.AnchorLink id={PAGE_SECTION_ID.LANGUAGE}>
               {intl.formatMessage(getSectionTitle("language"))}
             </TableOfContents.AnchorLink>
@@ -136,11 +129,9 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
         </TableOfContents.List>
         <Separator space="sm" />
         <div className="flex flex-col gap-y-3">
-          {user.isVerifiedGovEmployee && (
-            <Link href={paths.employeeProfile()}>
-              {intl.formatMessage(navigationMessages.employeeProfileGC)}
-            </Link>
-          )}
+          <Link href={paths.employeeProfile()}>
+            {intl.formatMessage(navigationMessages.employeeProfileGC)}
+          </Link>
           <Link href={paths.accountSettings()}>
             {intl.formatMessage(navigationMessages.accountSettings)}
           </Link>
@@ -158,9 +149,6 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
             id={PAGE_SECTION_ID.CITIZEN_VETERAN_PRIORITY}
           >
             <CitizenVeteranPriority {...sectionProps} />
-          </TableOfContents.Section>
-          <TableOfContents.Section id={PAGE_SECTION_ID.GOVERNMENT}>
-            <GovernmentInformation query={user} />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.LANGUAGE}>
             <LanguageProfile

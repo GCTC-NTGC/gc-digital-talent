@@ -310,4 +310,6 @@ return [
     'other_lateral_experience' => 'Autres recommandations liées à l’expérience de mutation latérale',
     'development_program_recommendations' => 'Recommandations liées aux programmes de perfectionnement',
     'other_development_program_experience' => 'Autres recommandations liées aux programmes de perfectionnement',
+
+    'updated_at' => 'Révisé',
 ];
