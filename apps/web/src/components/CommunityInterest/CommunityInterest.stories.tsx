@@ -44,7 +44,7 @@ const communityInterestQuery = makeFragmentData(
 
 const communityInterestOptionsQuery = makeFragmentData(
   {
-    financeChiefDuties: [
+    communityInterestAdditionalDuties: [
       { value: "1", label: { localized: "Duty 1" } },
       { value: "2", label: { localized: "Duty 2" } },
     ],

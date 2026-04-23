@@ -88,6 +88,7 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
       }
     }
     financeOtherRolesOther
+    procurementIsSDO
     ...DeleteCommunityInterestAlert
     consentToShareProfile
   }

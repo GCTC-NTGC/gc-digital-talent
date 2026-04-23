@@ -63,7 +63,7 @@ export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
 
 export const CommunityInterestOptions_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterestOptions on Query {
-    financeChiefDuties: localizedEnumStrings(
+    communityInterestAdditionalDuties: localizedEnumStrings(
       enumName: "CommunityInterestAdditionalDuty"
     ) {
       value
@@ -316,7 +316,7 @@ const CommunityInterest = ({
                     })}
                   </p>
                   <Ul unStyled space="md" className="mb-6">
-                    {communityInterestOptions.financeChiefDuties?.map(
+                    {communityInterestOptions.communityInterestAdditionalDuties?.map(
                       (dutyOption) => (
                         <li key={dutyOption.value}>
                           <BoolCheckIcon

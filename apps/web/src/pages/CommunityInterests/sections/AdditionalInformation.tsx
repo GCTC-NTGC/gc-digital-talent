@@ -30,7 +30,7 @@ const TEXT_AREA_MAX_WORDS_FR = Math.round(
 
 const AdditionalInformationOptions_Fragment = graphql(/* GraphQL */ `
   fragment AdditionalInformationOptions_Fragment on Query {
-    financeChiefDuties: localizedEnumStrings(
+    communityInterestAdditionalDuties: localizedEnumStrings(
       enumName: "CommunityInterestAdditionalDuty"
     ) {
       value
@@ -59,6 +59,7 @@ export interface SubformValues {
   financeOtherRoles: string[] | null;
   financeOtherRolesOther: string | null;
   additionalInformation: string | null;
+  procurementIsSDO: boolean | null;
 }
 
 interface AdditionalInformationProps {
@@ -84,7 +85,13 @@ const AdditionalInformation = ({
     selectedCommunityId,
     selectedFinanceIsChief,
     selectedFinanceOtherRoles,
-  ] = watch(["communityId", "financeIsChief", "financeOtherRoles"]);
+    selectedProcurementIsSDO,
+  ] = watch([
+    "communityId",
+    "financeIsChief",
+    "financeOtherRoles",
+    "procurementIsSDO",
+  ]);
 
   useEffect(() => {
     const resetDirtyField = (
@@ -96,9 +103,13 @@ const AdditionalInformation = ({
 
     // if not a finance chief then clear all finance fields
     if (!selectedFinanceIsChief) {
-      resetDirtyField("communityInterestAdditionalDuties", []);
       resetDirtyField("financeOtherRoles", []);
       resetDirtyField("financeOtherRolesOther", null);
+    }
+
+    // if not a finance OR procurement then clear additional duties
+    if (!selectedFinanceIsChief || !selectedProcurementIsSDO) {
+      resetDirtyField("communityInterestAdditionalDuties", []);
     }
 
     // if the "other" role is not selected then clear the other role input
@@ -108,11 +119,19 @@ const AdditionalInformation = ({
     ) {
       resetDirtyField("financeOtherRolesOther", null);
     }
-  }, [resetField, selectedFinanceIsChief, selectedFinanceOtherRoles]);
+  }, [
+    resetField,
+    selectedFinanceIsChief,
+    selectedFinanceOtherRoles,
+    selectedProcurementIsSDO,
+  ]);
 
-  // some fields are only shown for the finance community
+  // some fields are community conditional
   const financeCommunityId = optionsData.communities.find(
     (c) => c?.key === "finance",
+  )?.id;
+  const procurementCommunityId = optionsData.communities.find(
+    (c) => c?.key === "procurement",
   )?.id;
 
   const wordLimits = {
@@ -189,7 +208,7 @@ const AdditionalInformation = ({
                       "Label for additional duties of a finance chief",
                   })}
                   items={localizedEnumToOptions(
-                    optionsData.financeChiefDuties,
+                    optionsData.communityInterestAdditionalDuties,
                     intl,
                   )}
                   disabled={formDisabled}
@@ -238,6 +257,58 @@ const AdditionalInformation = ({
                     }}
                   />
                 ) : null}
+              </>
+            ) : null}
+          </>
+        ) : null}
+        {/* Some fields only appear if the interest is for the procurement community */}
+        {selectedCommunityId === procurementCommunityId ? (
+          <>
+            <Checkbox
+              id="procurementIsSDO"
+              name="procurementIsSDO"
+              label={intl.formatMessage({
+                defaultMessage: "I'm a Chief Financial Officer (CFO).",
+                id: "duKO+o",
+                description: "Message when user is a finance chief",
+              })}
+              disabled={formDisabled}
+              boundingBox={true}
+              boundingBoxLabel={intl.formatMessage({
+                defaultMessage: "CFO status",
+                id: "2KQdGz",
+                description:
+                  "Bounding box label for the finance chief checkbox",
+              })}
+            />
+            {/* Some fields only appear if the user is an SDO */}
+            {selectedProcurementIsSDO === true ? (
+              <>
+                <p id={financeAdditionalDutiesDescription}>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Please indicate if you perform any of the following additional duties in your CFO role.",
+                    id: "DQ2DKZ",
+                    description:
+                      "Description for the 'Additional duties' checkbox group",
+                  })}
+                </p>
+                <Checklist
+                  idPrefix="communityInterestAdditionalDuties"
+                  name="communityInterestAdditionalDuties"
+                  legend={intl.formatMessage({
+                    defaultMessage: "Additional duties",
+                    id: "E32ToC",
+                    description:
+                      "Label for additional duties of a finance chief",
+                  })}
+                  items={localizedEnumToOptions(
+                    optionsData.communityInterestAdditionalDuties,
+                    intl,
+                  )}
+                  disabled={formDisabled}
+                  aria-describedby={financeAdditionalDutiesDescription}
+                />
               </>
             ) : null}
           </>
