@@ -128,7 +128,7 @@ class TalentNominationEventTest extends TestCase
                     ...$this->input,
                     'community' => ['connect' => $this->communityId],
                     'communityDevelopmentPrograms' => [
-                        'connect' => [
+                        'sync' => [
                             [
                                 'id' => $this->communityDevelopmentProgramId,
                                 'descriptionForNominations' => [
