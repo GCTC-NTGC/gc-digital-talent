@@ -5,8 +5,6 @@ import ChevronDoubleLeftIcon from "@heroicons/react/16/solid/ChevronDoubleLeftIc
 import { Card, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-
-import { useCandidateNavigationContext } from "./CandidateNavigationContext";
 import usePoolCandidateNavigation from "~/hooks/usePoolCandidateNavigation";
 
 const messages = defineMessages({
