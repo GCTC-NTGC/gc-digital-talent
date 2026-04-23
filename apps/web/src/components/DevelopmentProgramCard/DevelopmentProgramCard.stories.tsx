@@ -1,10 +1,12 @@
 import type { StoryFn, Meta } from "@storybook/react-vite";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
-import { fakeClassifications } from "@gc-digital-talent/fake-data";
+import {
+  fakeClassifications,
+  fakeDevelopmentPrograms,
+} from "@gc-digital-talent/fake-data";
 
 import DevelopmentProgramCard from "./DevelopmentProgramCard";
-import fakeDevelopmentPrograms from "../../../../../packages/fake-data/src/fakeDevelopmentPrograms";
 
 const developmentPrograms = fakeDevelopmentPrograms();
 const classifications = fakeClassifications();
