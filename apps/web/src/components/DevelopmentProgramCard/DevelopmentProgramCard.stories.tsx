@@ -33,7 +33,7 @@ export default {
 
 const Template: StoryFn<typeof DevelopmentProgramCard> = () => {
   return (
-    <Ul unStyled className="bg-white">
+    <Ul unStyled className="bg-white dark:bg-gray-700">
       {developmentPrograms.map((d) => (
         <DevelopmentProgramCard
           key={d.id}
