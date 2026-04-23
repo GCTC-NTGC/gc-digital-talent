@@ -53,10 +53,7 @@ const DevelopmentProgramCard = ({
               />
             }
           />
-          <DropdownMenu.Popup
-            className="flex flex-col items-start gap-3 p-3"
-            portalProps={{ keepMounted: true }}
-          >
+          <DropdownMenu.Popup portalProps={{ keepMounted: true }}>
             {edit && <DropdownMenu.Item>{edit}</DropdownMenu.Item>}
             {remove && <DropdownMenu.Item>{remove}</DropdownMenu.Item>}
           </DropdownMenu.Popup>
