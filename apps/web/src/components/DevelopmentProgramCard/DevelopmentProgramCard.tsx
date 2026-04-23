@@ -49,7 +49,6 @@ const DevelopmentProgramCard = ({
                 icon={open ? XMarkIcon : PencilSquareIcon}
                 color="primary"
                 label={iconLabel}
-                className="m-0 p-0"
               />
             }
           />
