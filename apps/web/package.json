@@ -62,7 +62,7 @@
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-focus-on": "^3.10.2",
-    "react-hook-form": "^7.72.1",
+    "react-hook-form": "^7.73.1",
     "react-intl": "^10.1.2",
     "react-router": "^7.14.2",
     "react-to-print": "^3.3.0",
