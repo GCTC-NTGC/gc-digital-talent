@@ -1,18 +1,19 @@
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import type {
-  FragmentType,
   LocalizedFlexibleWorkLocation,
   LocalizedOperationalRequirement,
   LocalizedProvinceOrTerritory,
   LocalizedWorkRegion,
   Maybe,
 } from "@gc-digital-talent/graphql";
-import { getFragment, PositionDuration } from "@gc-digital-talent/graphql";
+import { graphql, PositionDuration } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getOperationalRequirement,
   getWorkRegionsDetailed,
+  narrowEnumType,
 } from "@gc-digital-talent/i18n";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Ul } from "@gc-digital-talent/ui";
@@ -22,9 +23,23 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getLabels } from "~/utils/workPreferenceUtils";
 import { formatLocation } from "~/utils/userUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import type { SnapshotProps } from "../types";
+
+const WorkPreferencesSnapshotOptions_Query = graphql(/** GraphQL */ `
+  query WorkPreferencesSnapshotOptions {
+    flexibleWorkLocations: localizedEnumOptions(
+      enumName: "FlexibleWorkLocation"
+    ) {
+      ... on LocalizedFlexibleWorkLocation {
+        value
+        label {
+          localized
+        }
+      }
+    }
+  }
+`);
 
 export interface WorkPreferencesSnapshotV1 {
   acceptedOperationalRequirements: Maybe<
@@ -38,19 +53,15 @@ export interface WorkPreferencesSnapshotV1 {
   flexibleWorkLocations: Maybe<Maybe<LocalizedFlexibleWorkLocation>[]>;
 }
 
-type WorkPreferencesV1Props = SnapshotProps<WorkPreferencesSnapshotV1> & {
-  optionsQuery:
-    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
-    | undefined;
-};
+type WorkPreferencesV1Props = SnapshotProps<WorkPreferencesSnapshotV1>;
 
-const WorkPreferencesV1 = ({
-  snapshot,
-  optionsQuery,
-}: WorkPreferencesV1Props) => {
+const WorkPreferencesV1 = ({ snapshot }: WorkPreferencesV1Props) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const labels = getLabels(intl);
+  const [{ data }] = useQuery({
+    query: WorkPreferencesSnapshotOptions_Query,
+  });
   const {
     acceptedOperationalRequirements,
     positionDuration,
@@ -68,13 +79,12 @@ const WorkPreferencesV1 = ({
       ? profileMessages.anyDuration
       : profileMessages.permanentDuration,
   );
-  const userLocations: string[] = unpackMaybes(flexibleWorkLocations).map(
+  const userLocations = unpackMaybes(flexibleWorkLocations).map(
     (loc) => loc.value,
   );
-
-  const locationOptions = unpackMaybes(
-    getFragment(FlexibleWorkLocationOptions_Fragment, optionsQuery)
-      ?.flexibleWorkLocation,
+  const locationOptions = narrowEnumType(
+    unpackMaybes(data?.flexibleWorkLocations),
+    "FlexibleWorkLocation",
   );
 
   return (

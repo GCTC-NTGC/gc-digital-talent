@@ -179,10 +179,7 @@ const ExperienceSkills = ({
             />
           </div>
           {watchedSkills && watchedSkills.length > 0 ? (
-            <SkillsInDetail
-              skills={fields as FormSkills}
-              onDelete={handleRemoveSkill}
-            />
+            <SkillsInDetail skills={fields} onDelete={handleRemoveSkill} />
           ) : (
             <Notice.Root className="mt-6 text-center">
               <Notice.Title>

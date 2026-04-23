@@ -45,6 +45,7 @@ export const getFeatureFlags = () => ({
   ),
   canadaLogin: checkFeatureFlag("FEATURE_CANADALOGIN"),
   graphqlSubscriptions: checkFeatureFlag("FEATURE_GRAPHQL_SUBSCRIPTIONS"),
+  activityTimer: checkFeatureFlag("FEATURE_ACTIVITY_TIMER"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;
