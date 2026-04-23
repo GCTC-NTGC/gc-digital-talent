@@ -61,7 +61,7 @@ const DevelopmentProgramCard = ({
             {remove && <DropdownMenu.Item>{remove}</DropdownMenu.Item>}
           </DropdownMenu.Popup>
         </DropdownMenu.Root>
-        <div className="flex flex-col items-start gap-6">
+        <div className="flex flex-col items-start gap-3">
           <span>
             <Heading
               level={headingAs}
