@@ -807,6 +807,10 @@
     "defaultMessage": "Recruteur de la collectivité",
     "description": "Name of the community recruiter role"
   },
+  "1EGyaU": {
+    "defaultMessage": "Nous avons préparé <linkToRegisterGuidance>un guide expliquant comment créer un identifiant ConnexionCanada et configurer la vérification en deux étapes </linkToRegisterGuidance>. Des <linkToSignInGuidance>instructions pour vous connecter avec ConnexionCanada</linkToSignInGuidance> sont également disponibles. Si le problème persiste, communiquez avec <linkToCanadaLoginTeam>l'équipe de ConnexionCanada</linkToCanadaLoginTeam>.",
+    "description": "Button label for the form to add a community interest to a user"
+  },
   "1FGsSn": {
     "defaultMessage": "Vous trouverez les résultats agrégés et de plus amples renseignements dans GCÉchange (à consulter exclusivement sur le réseau du gouvernement du Canada).",
     "description": "Description for annual digital talent survey card, paragraph 2"
