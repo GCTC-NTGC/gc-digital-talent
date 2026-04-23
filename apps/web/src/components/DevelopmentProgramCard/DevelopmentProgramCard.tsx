@@ -40,7 +40,7 @@ const DevelopmentProgramCard = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-gray-200 p-6 last:border-b-0 odd:bg-gray-100/30 dark:odd:bg-gray-700/50 dark:even:bg-gray-700/30">
+    <li className="border-b border-gray-200 p-6 last:border-b-0 odd:bg-gray-100/30 dark:odd:bg-gray-700/50 dark:even:bg-gray-700/30">
       <div className="flex items-start gap-6">
         <DropdownMenu.Root open={open} onOpenChange={setOpen}>
           <DropdownMenu.Trigger
@@ -91,7 +91,7 @@ const DevelopmentProgramCard = ({
           )}
         </div>
       </div>
-    </div>
+    </li>
   );
 };
 

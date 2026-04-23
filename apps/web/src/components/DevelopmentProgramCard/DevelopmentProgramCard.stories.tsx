@@ -1,14 +1,16 @@
 import type { StoryFn, Meta } from "@storybook/react-vite";
+import { faker } from "@faker-js/faker";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 import {
   fakeClassifications,
   fakeDevelopmentPrograms,
 } from "@gc-digital-talent/fake-data";
+import { Ul } from "@gc-digital-talent/ui";
 
 import DevelopmentProgramCard from "./DevelopmentProgramCard";
 
-const developmentPrograms = fakeDevelopmentPrograms();
+const developmentPrograms = fakeDevelopmentPrograms(3);
 const classifications = fakeClassifications();
 
 export default {
@@ -31,14 +33,13 @@ export default {
 
 const Template: StoryFn<typeof DevelopmentProgramCard> = () => {
   return (
-    <div className="bg-white">
+    <Ul unStyled className="bg-white">
       {developmentPrograms.map((d) => (
         <DevelopmentProgramCard
           key={d.id}
           title={d.name.localized ?? "Development Program name"}
           description={
-            d.descriptionForProfile.localized ??
-            "Description for the development program. Description for the development program. Description for the development program. Description for the development program. Description for the development program."
+            d.descriptionForProfile.localized ?? faker.lorem.paragraph()
           }
           iconLabel="Aria label for opening actions"
           classificationRestrictions={classifications}
@@ -46,7 +47,7 @@ const Template: StoryFn<typeof DevelopmentProgramCard> = () => {
           remove="Remove button"
         />
       ))}
-    </div>
+    </Ul>
   );
 };
 
