@@ -325,8 +325,10 @@ const ApplicationSnapshot = ({
 
 export default function (props: ApplicationSnapshotProps) {
   return (
-    <ErrorBoundary>
-      <ApplicationSnapshot {...props} />
-    </ErrorBoundary>
+    <div className="mb-12">
+      <ErrorBoundary>
+        <ApplicationSnapshot {...props} />
+      </ErrorBoundary>
+    </div>
   );
 }
