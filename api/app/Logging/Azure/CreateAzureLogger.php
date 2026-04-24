@@ -4,7 +4,8 @@ namespace App\Logging\Azure;
 
 use App\Contracts\ManagedIdentityService;
 use App\Logging\TbsLoggingStandardProcessor;
-use Illuminate\Queue\Events\Looping;
+use Illuminate\Console\Events\CommandFinished;
+use Illuminate\Queue\Events\JobAttempted;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Event;
 use Monolog\Handler\BufferHandler;
@@ -35,8 +36,8 @@ class CreateAzureLogger
             flushOnOverflow: true
         );
 
-        // manually flush the buffer when the queue worker cycles
-        Event::listen(function (Looping $event) use ($wrappingHandler) {
+        // manually flush the buffer when an artisan command finishes or after a job was attempted (success or failure)
+        Event::listen([CommandFinished::class, JobAttempted::class], function () use ($wrappingHandler) {
             $wrappingHandler->flush();
         });
 
