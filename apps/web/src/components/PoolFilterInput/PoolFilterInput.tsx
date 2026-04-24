@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 import { useState } from "react";
-import { RegisterOptions } from "react-hook-form";
+import type { RegisterOptions } from "react-hook-form";
 
 import { Combobox } from "@gc-digital-talent/forms";
 import type {
@@ -28,7 +28,7 @@ const PoolFilterInput = ({
   excludeIds,
   label,
   rules,
-  filterInput = {},
+  filterInput,
   name = "pools",
   id = "pools",
 }: PoolFilterInputProps) => {

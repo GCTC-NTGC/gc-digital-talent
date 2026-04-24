@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 
 import {
@@ -10,8 +10,8 @@ import {
   fakeSkills,
   fakeWorkStreams,
 } from "@gc-digital-talent/fake-data";
+import type { CreatePoolCandidateSearchRequestInput } from "@gc-digital-talent/graphql";
 import {
-  CreatePoolCandidateSearchRequestInput,
   FlexibleWorkLocation,
   LanguageAbility,
   makeFragmentData,
@@ -24,11 +24,11 @@ import {
 } from "@gc-digital-talent/storybook-helpers";
 import { OperationalRequirements } from "@gc-digital-talent/i18n";
 
+import type { RequestFormProps } from "./RequestForm";
 import {
   RequestForm,
   RequestFormClassification_Fragment,
   RequestFormDepartment_Fragment,
-  RequestFormProps,
 } from "./RequestForm";
 
 const classifications = fakeClassifications();

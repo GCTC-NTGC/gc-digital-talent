@@ -1,35 +1,36 @@
-import { IntlShape } from "react-intl";
-import { SortingState } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
+import type { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
-import { Locales, getLocalizedName } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip, UNICODE_CHAR } from "@gc-digital-talent/ui";
-import {
+import type {
   Classification,
   FragmentType,
   LocalizedString,
   Maybe,
-  NullsOption,
   OrderByColumnInput,
-  OrderByRelationWithColumnAggregateFunction,
   Pool,
   PoolBookmarksOrderByInput,
   PoolFilterInput,
   PoolWorkStreamNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
-  QueryPoolsPaginatedOrderByUserColumn,
+} from "@gc-digital-talent/graphql";
+import {
+  NullsOption,
+  OrderByRelationWithColumnAggregateFunction,
   SortOrder,
-  User,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { getFullNameHtml } from "~/utils/nameUtils";
-import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 
-import { FormValues } from "./PoolFilterDialog";
-import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
+import type { FormValues } from "./PoolFilterDialog";
+import type { PoolBookmark_Fragment } from "./PoolBookmark";
+import PoolBookmark from "./PoolBookmark";
 
 export function poolNameAccessor(
   pool: Pick<Pool, "name" | "workStream">,
@@ -48,17 +49,6 @@ export function viewCell(
     <Link color="black" href={url}>
       {getLocalizedName(pool.name, intl)}
     </Link>
-  );
-}
-
-export function fullNameCell(
-  pool: { owner: Pick<User, "firstName" | "lastName"> },
-  intl: IntlShape,
-) {
-  return (
-    <span>
-      {getFullNameHtml(pool.owner?.firstName, pool.owner?.lastName, intl)}
-    </span>
   );
 }
 
@@ -85,42 +75,6 @@ export function classificationCell(
       </>
     </Chip>
   );
-}
-
-export function emailLinkAccessor(
-  pool: { owner: Pick<User, "email"> },
-  intl: IntlShape,
-) {
-  if (pool.owner?.email) {
-    return (
-      <Link color="black" external href={`mailto:${pool.owner.email}`}>
-        {pool.owner.email}
-      </Link>
-    );
-  }
-  return (
-    <span className="italic">
-      {intl.formatMessage({
-        defaultMessage: "No email provided",
-        id: "1JCjTP",
-        description: "Fallback for email value",
-      })}
-    </span>
-  );
-}
-
-export function ownerNameAccessor(pool: Pick<Pool, "owner">) {
-  const firstName = pool.owner?.firstName
-    ? pool.owner.firstName.toLowerCase()
-    : "";
-  const lastName = pool.owner?.lastName
-    ? pool.owner.lastName.toLowerCase()
-    : "";
-  return `${firstName} ${lastName}`;
-}
-
-export function ownerEmailAccessor(pool: Pick<Pool, "owner">) {
-  return pool.owner?.email ? pool.owner.email.toLowerCase() : "";
 }
 
 interface TransformPoolInputArgs {
@@ -158,8 +112,6 @@ export function getOrderByClause(
     ["name", "name"],
     ["publishingGroup", "publishing_group"],
     ["processNumber", "process_number"],
-    ["ownerName", "FIRST_NAME"],
-    ["ownerEmail", "EMAIL"],
     // ["publishedAt", "published_at"], // moved to getOrderByColumnSort to handle nulls
     ["createdDate", "created_at"],
     ["updatedDate", "updated_at"],
@@ -195,20 +147,6 @@ export function getOrderByClause(
         classification: {
           aggregate: OrderByRelationWithColumnAggregateFunction.Max,
           column: "LEVEL" as QueryPoolsPaginatedOrderByClassificationColumn,
-        },
-      },
-    ];
-  }
-
-  if (sortingRule && ["ownerName", "ownerEmail"].includes(sortingRule.id)) {
-    const columnName = columnMap.get(sortingRule.id);
-    return [
-      {
-        column: undefined,
-        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-        user: {
-          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-          column: columnName as QueryPoolsPaginatedOrderByUserColumn,
         },
       },
     ];

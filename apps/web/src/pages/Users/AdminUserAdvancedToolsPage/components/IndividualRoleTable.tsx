@@ -1,16 +1,18 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { RoleAssignment } from "@gc-digital-talent/graphql";
+import type { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import tableMessages from "~/components/Table/tableMessages";
 
-import { getRoleTableFragments, roleCell, RoleTableProps } from "../utils";
+import type { RoleTableProps } from "../utils";
+import { getRoleTableFragments, roleCell } from "../utils";
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
 

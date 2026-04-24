@@ -1,4 +1,4 @@
-import {
+import type {
   VisibilityState,
   ColumnFiltersState,
   Column,
@@ -7,7 +7,7 @@ import {
 
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import { SearchState } from "./types";
+import type { SearchState } from "./types";
 
 export const getColumnVisibility = (
   allColumnsIds: string[],
@@ -54,3 +54,27 @@ export const getColumnHeader = <T>(
 
   return header;
 };
+
+/**
+ * This function parses a URL-encoded string into expected filter type.
+ * @param encoded
+ * @returns Parsed filters of type TFilters, or undefined if parsing fails or if the input is invalid.
+ */
+export function parseFilterParam<TFilters>(
+  encoded: string | null,
+): TFilters | undefined {
+  if (!encoded) return undefined;
+  try {
+    const parsed: unknown = JSON.parse(encoded);
+    if (
+      typeof parsed !== "object" ||
+      parsed === null ||
+      Array.isArray(parsed)
+    ) {
+      return undefined;
+    }
+    return parsed as TFilters;
+  } catch {
+    return undefined;
+  }
+}

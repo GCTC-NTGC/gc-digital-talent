@@ -1,7 +1,6 @@
-import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import { useIntl } from "react-intl";
 
-import { Button, DropdownMenu } from "@gc-digital-talent/ui";
+import { DropdownMenu } from "@gc-digital-talent/ui";
 
 import { actionButtonStyles } from "~/components/Table/ResponsiveTable/RowSelection";
 
@@ -26,33 +25,26 @@ const DownloadAllCandidateTableExcelButton = ({
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <Button
-          disabled={disabled}
-          utilityIcon={ChevronDownIcon}
-          {...(isDownloading && {
-            icon: SpinnerIcon,
-          })}
-          {...(inTable
-            ? {
-                ...actionButtonStyles,
-              }
-            : {
-                color: "primary",
-              })}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Download Excel",
-            id: "YO7woE",
-            description:
-              "Text label for button to download a excel file of items in a table.",
-          })}
-        </Button>
+      <DropdownMenu.Trigger
+        btnProps={{
+          disabled,
+          icon: isDownloading ? SpinnerIcon : undefined,
+          ...(inTable ? actionButtonStyles : { color: "primary" }),
+        }}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Download Excel",
+          id: "YO7woE",
+          description:
+            "Text label for button to download a excel file of items in a table.",
+        })}
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content align="end" collisionPadding={2}>
+      <DropdownMenu.Popup
+        positionerProps={{ align: "end", collisionPadding: 2 }}
+      >
         <DropdownMenu.Item
           disabled={disabled}
-          onSelect={() => onClickDownloadCandidates()}
+          onClick={() => onClickDownloadCandidates()}
         >
           {intl.formatMessage({
             defaultMessage: "Download applications Excel",
@@ -62,7 +54,7 @@ const DownloadAllCandidateTableExcelButton = ({
         </DropdownMenu.Item>
         <DropdownMenu.Item
           disabled={disabled}
-          onSelect={() => onClickDownloadUsers()}
+          onClick={() => onClickDownloadUsers()}
         >
           {intl.formatMessage({
             defaultMessage: "Download profiles Excel",
@@ -71,7 +63,7 @@ const DownloadAllCandidateTableExcelButton = ({
               "Button label to download users associated with selected candidates as Excel",
           })}
         </DropdownMenu.Item>
-      </DropdownMenu.Content>
+      </DropdownMenu.Popup>
     </DropdownMenu.Root>
   );
 };

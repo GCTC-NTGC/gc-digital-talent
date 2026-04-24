@@ -3,8 +3,8 @@
 namespace Tests\Unit;
 
 use App\Models\Community;
+use App\Models\Department;
 use App\Models\Pool;
-use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,6 +21,10 @@ class PoolAuthorizationScopeTest extends TestCase
     protected $community1;
 
     protected $community2;
+
+    protected $department1;
+
+    protected $department2;
 
     protected $poolDraft1;
 
@@ -46,16 +50,42 @@ class PoolAuthorizationScopeTest extends TestCase
 
         $this->community1 = Community::factory()->create();
         $this->community2 = Community::factory()->create();
+        $this->department1 = Department::factory()->create();
+        $this->department2 = Department::factory()->create();
 
-        $this->poolDraft1 = Pool::factory()->draft()->create(['community_id' => $this->community1->id]);
-        $this->poolPublished1 = Pool::factory()->published()->create(['community_id' => $this->community1->id]);
-        $this->poolClosed1 = Pool::factory()->closed()->create(['community_id' => $this->community1->id]);
-        $this->poolArchived1 = Pool::factory()->archived()->create(['community_id' => $this->community1->id]);
+        $this->poolDraft1 = Pool::factory()->draft()->create([
+            'community_id' => $this->community1->id,
+            'department_id' => $this->department1->id,
+        ]);
+        $this->poolPublished1 = Pool::factory()->published()->create([
+            'community_id' => $this->community1->id,
+            'department_id' => $this->department1->id,
+        ]);
+        $this->poolClosed1 = Pool::factory()->closed()->create([
+            'community_id' => $this->community1->id,
+            'department_id' => $this->department1->id,
+        ]);
+        $this->poolArchived1 = Pool::factory()->archived()->create([
+            'community_id' => $this->community1->id,
+            'department_id' => $this->department1->id,
+        ]);
 
-        $this->poolDraft2 = Pool::factory()->draft()->create(['community_id' => $this->community2->id]);
-        $this->poolPublished2 = Pool::factory()->published()->create(['community_id' => $this->community2->id]);
-        $this->poolClosed2 = Pool::factory()->closed()->create(['community_id' => $this->community2->id]);
-        $this->poolArchived2 = Pool::factory()->archived()->create(['community_id' => $this->community2->id]);
+        $this->poolDraft2 = Pool::factory()->draft()->create([
+            'community_id' => $this->community2->id,
+            'department_id' => $this->department2->id,
+        ]);
+        $this->poolPublished2 = Pool::factory()->published()->create([
+            'community_id' => $this->community2->id,
+            'department_id' => $this->department2->id,
+        ]);
+        $this->poolClosed2 = Pool::factory()->closed()->create([
+            'community_id' => $this->community2->id,
+            'department_id' => $this->department2->id,
+        ]);
+        $this->poolArchived2 = Pool::factory()->archived()->create([
+            'community_id' => $this->community2->id,
+            'department_id' => $this->department2->id,
+        ]);
     }
 
     // a guest should be able to admin no pools
@@ -250,6 +280,64 @@ class PoolAuthorizationScopeTest extends TestCase
         ], $poolIds);
     }
 
+    // department admin can see all except the draft pool they are not teamed with by pool->department thru authorizedToView
+    public function testScopeAuthorizedToViewAsDepartmentAdmin(): void
+    {
+        $department = Department::factory()->create();
+        $this->poolDraft1->department_id = $department->id;
+        $this->poolDraft1->save();
+        $additionalDepartmentPool = Pool::factory()->draft()->create([
+            'department_id' => $department->id,
+        ]);
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asDepartmentAdmin($department->id)
+                ->create());
+
+        $poolIds = Pool::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolDraft1->id,
+            $this->poolPublished1->id,
+            $this->poolClosed1->id,
+            $this->poolArchived1->id,
+            $additionalDepartmentPool->id,
+            $this->poolPublished2->id, // poolDraft2 not present here
+            $this->poolClosed2->id,
+            $this->poolArchived2->id,
+        ], $poolIds);
+    }
+
+    // department advisor can see all except the draft pool they are not teamed with by pool->department thru authorizedToView
+    public function testScopeAuthorizedToViewAsDepartmentAdvisor(): void
+    {
+        $department = Department::factory()->create();
+        $this->poolDraft1->department_id = $department->id;
+        $this->poolDraft1->save();
+        $additionalDepartmentPool = Pool::factory()->draft()->create([
+            'department_id' => $department->id,
+        ]);
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asDepartmentHRAdvisor($department->id)
+                ->create());
+
+        $poolIds = Pool::authorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolDraft1->id,
+            $this->poolPublished1->id,
+            $this->poolClosed1->id,
+            $this->poolArchived1->id,
+            $additionalDepartmentPool->id,
+            $this->poolPublished2->id, // poolDraft2 not present here
+            $this->poolClosed2->id,
+            $this->poolArchived2->id,
+        ], $poolIds);
+    }
+
     // process operator can only see their attached pool thru authorizedToAdmin
     public function testScopeAuthorizedToAdminAsProcessOperator(): void
     {
@@ -294,6 +382,44 @@ class PoolAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn(User::factory()
                 ->asCommunityAdmin($community->id)
+                ->create());
+
+        $poolIds = Pool::authorizedToAdmin()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolPublished1->id,
+        ], $poolIds);
+    }
+
+    // department admin can only see their attached pool via department thru authorizedToAdmin
+    public function testScopeAuthorizedToAdminAsDepartmentAdmin(): void
+    {
+        $department = Department::factory()->create();
+        $this->poolPublished1->department_id = $department->id;
+        $this->poolPublished1->save();
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asDepartmentAdmin($department->id)
+                ->create());
+
+        $poolIds = Pool::authorizedToAdmin()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $this->poolPublished1->id,
+        ], $poolIds);
+    }
+
+    // department advisor can only see their attached pool via department thru authorizedToAdmin
+    public function testScopeAuthorizedToAdminAsDepartmentAdvisor(): void
+    {
+        $department = Department::factory()->create();
+        $this->poolPublished1->department_id = $department->id;
+        $this->poolPublished1->save();
+
+        Auth::shouldReceive('user')
+            ->andReturn(User::factory()
+                ->asDepartmentHRAdvisor($department->id)
                 ->create());
 
         $poolIds = Pool::authorizedToAdmin()->get()->pluck('id')->toArray();

@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Community;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
@@ -164,6 +165,7 @@ class UserAuthorizationScopeTest extends TestCase
     {
         $processOperator = User::factory()
             ->asProcessOperator($this->pool1->id)
+            ->asApplicant()
             ->create();
 
         Auth::shouldReceive('user')
@@ -187,6 +189,7 @@ class UserAuthorizationScopeTest extends TestCase
 
         $communityRecruiter = User::factory()
             ->asCommunityRecruiter($community->id)
+            ->asApplicant()
             ->create();
 
         Auth::shouldReceive('user')
@@ -210,6 +213,7 @@ class UserAuthorizationScopeTest extends TestCase
 
         $communityAdmin = User::factory()
             ->asCommunityAdmin($community->id)
+            ->asApplicant()
             ->create();
 
         Auth::shouldReceive('user')
@@ -220,6 +224,54 @@ class UserAuthorizationScopeTest extends TestCase
         assertEqualsCanonicalizing([
             $communityAdmin->id,
             $this->user2->id,
+        ], $userIds);
+    }
+
+    // department admin can only see the user that submitted an application to the pool that is connected to the department that they belong to
+    // and their own self
+    public function testScopeAuthorizedToViewAsDepartmentAdmin(): void
+    {
+        $department = Department::factory()->create();
+        $this->pool2->department_id = $department->id;
+        $this->pool2->save();
+
+        $departmentAdmin = User::factory()
+            ->asDepartmentAdmin($department->id)
+            ->asApplicant()
+            ->create();
+
+        Auth::shouldReceive('user')
+            ->andReturn($departmentAdmin);
+
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $departmentAdmin->id,
+            $this->user2->id,
+        ], $userIds);
+    }
+
+    // department advisor can only see the user that submitted an application to the pool that is connected to the department that they belong to
+    // and their own self
+    public function testScopeAuthorizedToViewAsDepartmentAdvisor(): void
+    {
+        $department = Department::factory()->create();
+        $this->pool1->department_id = $department->id;
+        $this->pool1->save();
+
+        $departmentAdvisor = User::factory()
+            ->asDepartmentHRAdvisor($department->id)
+            ->asApplicant()
+            ->create();
+
+        Auth::shouldReceive('user')
+            ->andReturn($departmentAdvisor);
+
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $departmentAdvisor->id,
+            $this->user1->id,
         ], $userIds);
     }
 }

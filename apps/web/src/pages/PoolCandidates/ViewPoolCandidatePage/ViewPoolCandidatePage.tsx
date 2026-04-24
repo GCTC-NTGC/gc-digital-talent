@@ -1,50 +1,33 @@
 import { defineMessage, useIntl } from "react-intl";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
-import { OperationContext, useQuery } from "urql";
-import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
+import type { OperationContext } from "urql";
+import { useQuery } from "urql";
 
-import {
-  NotFound,
-  Pending,
-  Heading,
-  Sidebar,
-  Chip,
-  Chips,
-} from "@gc-digital-talent/ui";
+import { NotFound, Pending, Heading, Sidebar } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  User,
+import type {
   Scalars,
-  Maybe,
-  graphql,
-  ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
-  FragmentType,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
-import { getApplicationStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 import pageTitles from "~/messages/pageTitles";
-import { JobPlacementOptionsFragmentType } from "~/components/PoolCandidateDialogs/JobPlacementForm";
 import Hero from "~/components/Hero";
-import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import ApplicationSnapshot from "~/components/ApplicationSnapshot/ApplicationSnapshot";
 
-import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
-import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
-import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
-import MoreActions from "./components/MoreActions/MoreActions";
 import ClaimVerification from "./components/ClaimVerification/ClaimVerification";
+import ApplicationSidebar from "./components/Sidebar/ApplicationSidebar";
+import ApplicationDownloadButton from "./components/Sidebar/ApplicationDownloadButton";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -54,17 +37,14 @@ const screeningAndAssessmentTitle = defineMessage({
 
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
-    ...JobPlacementOptions
-    me {
-      poolCandidateBookmarks {
-        id
-      }
-    }
     poolCandidate(id: $poolCandidateId) {
-      ...MoreActions
+      ...ApplicationSidebar
+
       ...ClaimVerification
       ...AssessmentResultsTable
-      ...ApplicationInformation_PoolCandidate
+      ...ApplicationSnapshot
+      ...ApplicationDownloadButton
+
       id
       profileSnapshot
       status {
@@ -83,7 +63,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         }
       }
       user {
-        ...ApplicationProfileDetails
         ...PoolStatusTable
         firstName
         lastName
@@ -98,7 +77,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         }
       }
       pool {
-        ...ApplicationInformation_PoolFragment
         id
         processNumber
         name {
@@ -134,33 +112,18 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         fr
       }
     }
-    ...FlexibleWorkLocationOptionsFragment
   }
 `);
 
 export interface ViewPoolCandidateProps {
   poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
-  jobPlacementOptions: JobPlacementOptionsFragmentType;
-  flexibleWorkLocationOptions: FragmentType<
-    typeof FlexibleWorkLocationOptions_Fragment
-  >;
-  usersPoolCandidateBookmarks: string[];
 }
 
 export const ViewPoolCandidate = ({
   poolCandidate,
-  jobPlacementOptions,
-  flexibleWorkLocationOptions,
-  usersPoolCandidateBookmarks,
 }: ViewPoolCandidateProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-
-  const parsedSnapshot = JSON.parse(
-    String(poolCandidate.profileSnapshot),
-  ) as Maybe<User>;
-  const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
-  const statusChip = getApplicationStatusChip(poolCandidate.status, intl);
 
   const candidateName = getFullNameLabel(
     poolCandidate.user.firstName,
@@ -196,47 +159,11 @@ export const ViewPoolCandidate = ({
 
   return (
     <>
-      <Hero
-        title={candidateName}
-        crumbs={navigationCrumbs}
-        status={
-          <Chips>
-            <Chip key="status" color={statusChip.color}>
-              {statusChip.label}
-            </Chip>
-            {poolCandidate.user.hasPriorityEntitlement ||
-            poolCandidate.user.priorityWeight === 10 ? (
-              <Chip key="priority" color="gray">
-                {intl.formatMessage({
-                  defaultMessage: "Priority",
-                  id: "xGMcBO",
-                  description: "Label for priority chip on view candidate page",
-                })}
-              </Chip>
-            ) : null}
-            {poolCandidate.user.armedForcesStatus?.value ===
-              ArmedForcesStatus.Veteran ||
-            poolCandidate.user.priorityWeight === 20 ? (
-              <Chip key="veteran" color="gray">
-                {intl.formatMessage({
-                  defaultMessage: "Veteran",
-                  id: "16iCWc",
-                  description: "Label for veteran chip on view candidate page",
-                })}
-              </Chip>
-            ) : null}
-          </Chips>
-        }
-        additionalContent={<ProfileDetails userQuery={poolCandidate.user} />}
-      />
+      <Hero title={candidateName} crumbs={navigationCrumbs} />
       <AdminContentWrapper table overflowScrollbar>
         <Sidebar.Wrapper scrollbar>
           <Sidebar.Sidebar scrollbar>
-            <MoreActions
-              poolCandidate={poolCandidate}
-              jobPlacementOptions={jobPlacementOptions}
-              usersPoolCandidateBookmarks={usersPoolCandidateBookmarks}
-            />
+            <ApplicationSidebar query={poolCandidate} />
           </Sidebar.Sidebar>
           <Sidebar.Content>
             <Heading
@@ -249,54 +176,19 @@ export const ViewPoolCandidate = ({
               {intl.formatMessage(screeningAndAssessmentTitle)}
             </Heading>
             <AssessmentResultsTable poolCandidateQuery={poolCandidate} />
-
             <ClaimVerification verificationQuery={poolCandidate} />
-            {parsedSnapshot ? (
-              <div className="mt-12">
-                <ErrorBoundary>
-                  <ApplicationInformation
-                    poolQuery={poolCandidate.pool}
-                    snapshot={parsedSnapshot}
-                    applicationQuery={poolCandidate}
-                    optionsQuery={flexibleWorkLocationOptions}
-                  />
-                </ErrorBoundary>
-                <ErrorBoundary>
-                  <CareerTimelineSection experiences={nonEmptyExperiences} />
-                </ErrorBoundary>
-                <Heading
-                  icon={ClipboardIcon}
-                  color="secondary"
-                  level="h2"
-                  size="h3"
-                  className="mb-6"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Other processes",
-                    id: "n+/HPL",
-                    description:
-                      "Heading for table of a users other applications and recruitments",
-                  })}
-                </Heading>
-                <PoolStatusTable
-                  currentPoolId={poolCandidate.pool.id}
-                  userQuery={poolCandidate.user}
-                />
-              </div>
-            ) : (
-              <NotFound
-                headingMessage={intl.formatMessage(commonMessages.notFound)}
-              >
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Profile snapshot not found.",
-                    id: "JH2+tK",
-                    description:
-                      "Message displayed for profile snapshot not found.",
-                  })}
-                </p>
-              </NotFound>
-            )}
+            <ApplicationSnapshot
+              query={poolCandidate}
+              actions={
+                poolCandidate && (
+                  <ApplicationDownloadButton query={poolCandidate} />
+                )
+              }
+            />
+            <PoolStatusTable
+              currentPoolId={poolCandidate.pool.id}
+              userQuery={poolCandidate.user}
+            />
           </Sidebar.Content>
         </Sidebar.Wrapper>
       </AdminContentWrapper>
@@ -322,19 +214,10 @@ export const ViewPoolCandidatePage = () => {
     variables: { poolCandidateId },
   });
 
-  const browsingUsersCandidateBookmarks = unpackMaybes(
-    data?.me?.poolCandidateBookmarks,
-  ).map((candidate) => candidate.id);
-
   return (
     <Pending fetching={fetching} error={error}>
       {data?.poolCandidate ? (
-        <ViewPoolCandidate
-          poolCandidate={data.poolCandidate}
-          jobPlacementOptions={data}
-          flexibleWorkLocationOptions={data}
-          usersPoolCandidateBookmarks={browsingUsersCandidateBookmarks}
-        />
+        <ViewPoolCandidate poolCandidate={data.poolCandidate} />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>
@@ -360,6 +243,8 @@ export const Component = () => (
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.ProcessOperator,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
     ]}
   >
     <ViewPoolCandidatePage />

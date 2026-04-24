@@ -3,28 +3,30 @@ import {
   FAR_PAST_DATE,
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import {
-  ApplicationStatus,
+import type {
   Classification,
+  Skill,
+  User,
+  WorkStream,
+} from "@gc-digital-talent/graphql";
+import {
   EstimatedLanguageAbility,
   FlexibleWorkLocation,
   Language,
   OperationalRequirement,
-  Skill,
   SkillCategory,
-  User,
   WorkRegion,
-  WorkStream,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import { getSkills } from "~/utils/skills";
 import {
   createAndSubmitApplication,
-  updateCandidateStatus,
+  qualifyCandidate,
 } from "~/utils/applications";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import { getClassifications } from "~/utils/classification";
 import { getWorkStreams } from "~/utils/workStreams";
@@ -122,16 +124,16 @@ test.describe("Talent search", () => {
     const applicant = await me(applicantCtx, {});
 
     const application = await createAndSubmitApplication(applicantCtx, {
-      userId: applicant.id,
       poolId: createdPool.id,
       personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName}`,
     });
 
-    await updateCandidateStatus(adminCtx, {
+    await qualifyCandidate(adminCtx, {
       id: application.id,
-      status: ApplicationStatus.Qualified,
-      expiryDate: FAR_FUTURE_DATE,
+      poolCandidate: {
+        expiryDate: FAR_FUTURE_DATE,
+      },
     });
     user = createdUser;
   });
@@ -140,22 +142,6 @@ test.describe("Talent search", () => {
     if (user) {
       await deleteUser(adminCtx, { id: user.id });
     }
-  });
-
-  test("Search and submit request", async ({ appPage }) => {
-    talentSearch = new TalentSearch(appPage.page);
-    await talentSearch.goToIndex();
-    await talentSearch.fillSearchFormAndRequestCandidates(
-      poolName,
-      classification,
-      workStream,
-      skill!,
-    );
-    await appPage.waitForGraphqlResponse("RequestForm_SearchRequestData");
-    await talentSearch.submitSearchForm(classification, workStream, skill!);
-    await expect(appPage.page.getByRole("alert").last()).toContainText(
-      /request created successfully/i,
-    );
   });
 
   test("Validate location preference update in Talent table", async ({

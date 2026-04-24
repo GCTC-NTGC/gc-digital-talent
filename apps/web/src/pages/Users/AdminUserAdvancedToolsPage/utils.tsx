@@ -1,18 +1,18 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { DefaultValues, FieldValues, useForm } from "react-hook-form";
+import type { DefaultValues, FieldValues } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-import {
+import type {
   Community,
   Department,
   FragmentType,
-  getFragment,
-  graphql,
   Pool,
   Role,
   Team,
   UpdateUserRolesInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Chip, Chips } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -113,7 +113,7 @@ export const getRoleTableFragments = ({
   return { user, options: unpackMaybes(options.roles) };
 };
 
-export const UpdateUserRoles_Mutation = graphql(/* GraphQL */ `
+const UpdateUserRoles_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserRoles($input: UpdateUserRolesInput!) {
     updateUserRoles(updateUserRolesInput: $input) {
       id
@@ -186,19 +186,17 @@ export type CommunityTeamable = Pick<
 
 export type DepartmentTeamable = Pick<
   Department,
-  | "id"
-  | "__typename"
-  | ("teamIdForRoleAssignment" & {
-      departmentName: {
-        __typename?: "LocalizedString" | undefined;
-        localized?: string | null | undefined;
-      };
-    })
->;
+  "id" | "__typename" | "teamIdForRoleAssignment"
+> & {
+  departmentName: {
+    __typename?: "LocalizedString" | undefined;
+    localized?: string | null | undefined;
+  };
+};
 
 type TeamTeamable = Pick<Team, "id" | "__typename">;
 
-export type Teamable =
+type Teamable =
   | PoolTeamable
   | CommunityTeamable
   | TeamTeamable
@@ -210,6 +208,11 @@ export interface PoolAssignment {
 }
 export interface CommunityAssignment {
   community: CommunityTeamable;
+  roles: Role[];
+}
+
+export interface DepartmentAssignment {
+  department: DepartmentTeamable;
   roles: Role[];
 }
 
@@ -226,6 +229,15 @@ export const isPoolTeamable = (
   teamable: Teamable | undefined | null,
 ): teamable is PoolTeamable => {
   if (teamable?.__typename === "Pool") {
+    return true;
+  }
+  return false;
+};
+
+export const isDepartmentTeamable = (
+  teamable: Teamable | undefined | null,
+): teamable is DepartmentTeamable => {
+  if (teamable?.__typename === "Department") {
     return true;
   }
   return false;

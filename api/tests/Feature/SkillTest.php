@@ -50,7 +50,7 @@ class SkillTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
         $this->setUpFaker();
 
-        $this->community = Community::factory()->create(['name' => 'test-team']);
+        $this->community = Community::factory()->create();
         $this->teamPool = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);

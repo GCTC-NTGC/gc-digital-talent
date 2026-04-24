@@ -19,7 +19,8 @@ import { Loading, useAnnouncer } from "@gc-digital-talent/ui";
 import Table from "./Table";
 import SearchForm from "./SearchForm";
 import ColumnDialog from "./ColumnDialog";
-import NullMessage, { NullMessageProps } from "./NullMessage";
+import type { NullMessageProps } from "./NullMessage";
+import NullMessage from "./NullMessage";
 import RowSelection, {
   getRowSelectionColumn,
   useRowSelection,
@@ -71,6 +72,7 @@ interface TableProps<TData, TFilters> {
   filter?: FilterDef<TFilters>;
   /** Should this sync state in the URL? */
   urlSync?: boolean;
+  filterParamKey?: string;
 }
 
 const ResponsiveTable = <TData extends object, TFilters = object>({
@@ -89,14 +91,18 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   pagination,
   filter,
   urlSync = true,
+  filterParamKey = SEARCH_PARAM_KEY.FILTERS,
 }: TableProps<TData, TFilters>) => {
   const id = useId();
   const intl = useIntl();
-  const isFirstRender = useRef(true);
+  // Tracks the URL params this table last wrote. Compared against desired state before
+  // each write so back-button navigation (which changes URL but not table state) doesn't
+  // trigger a competing setSearchParams call during the route transition.
+  const lastWrittenTableParamsRef = useRef<Record<string, string | null>>({});
   const { announce } = useAnnouncer();
   const hasUpdatedRows = useRef<boolean>(false);
   const [, setSearchParams] = useSearchParams();
-  const isInternalSearch = search && search.internal;
+  const isInternalSearch = !!search?.internal;
   const memoizedColumns = useMemo(() => {
     if (!rowSelect) return columns;
     // Inject the selection column if it is enabled
@@ -168,7 +174,6 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 
   useEffect(() => {
     if (urlSync) {
-      const currentParams = new URLSearchParams(window.location.search);
       const newParams = new URLSearchParams(window.location.search);
 
       let searchState: SearchState = {
@@ -257,22 +262,27 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
         isEmpty(filter?.state) ||
         isEqual(filter?.initialState, filter?.state)
       ) {
-        newParams.delete(SEARCH_PARAM_KEY.FILTERS);
+        newParams.delete(filterParamKey);
       } else {
-        newParams.set(SEARCH_PARAM_KEY.FILTERS, JSON.stringify(filter?.state));
+        newParams.set(filterParamKey, JSON.stringify(filter?.state));
       }
 
-      if (
-        !isEqual(
-          Object.fromEntries(currentParams),
-          Object.fromEntries(newParams),
-        )
-      ) {
-        if (isFirstRender.current) {
-          isFirstRender.current = false;
-          return;
-        }
+      // Only write if the table's desired params changed — not if unrelated URL state changed.
+      const managedKeys = [
+        SEARCH_PARAM_KEY.SORT_RULE,
+        SEARCH_PARAM_KEY.HIDDEN_COLUMNS,
+        SEARCH_PARAM_KEY.PAGE_SIZE,
+        SEARCH_PARAM_KEY.PAGE,
+        SEARCH_PARAM_KEY.SEARCH_COLUMN,
+        SEARCH_PARAM_KEY.SEARCH_TERM,
+        filterParamKey,
+      ];
+      const desiredTableParams: Record<string, string | null> =
+        Object.fromEntries(managedKeys.map((key) => [key, newParams.get(key)]));
+
+      if (!isEqual(desiredTableParams, lastWrittenTableParamsRef.current)) {
         setSearchParams(newParams, { replace: true });
+        lastWrittenTableParamsRef.current = desiredTableParams;
       }
     }
   }, [
@@ -292,6 +302,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     urlSync,
     filter?.state,
     filter?.initialState,
+    filterParamKey,
   ]);
 
   useEffect(() => {

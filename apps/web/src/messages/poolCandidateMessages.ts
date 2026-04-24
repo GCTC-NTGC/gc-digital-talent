@@ -64,8 +64,8 @@ const messages = defineMessages({
       "Message displayed when candidate has successfully passed an assessment step",
   },
   screenedIn: {
-    defaultMessage: "Screened in",
-    id: "3W/NbE",
+    defaultMessage: "Application retained",
+    id: "hWQgP5",
     description:
       "Message displayed when candidate has been screened in at a specific assessment step",
   },
@@ -103,6 +103,16 @@ const messages = defineMessages({
     id: "G8P9fw",
     description:
       "Description for the offer in progress candidate placement type",
+  },
+  notReferred: {
+    defaultMessage: "Not referred",
+    id: "sp0Pgt",
+    description: "Label for not referred notice when placed indeterminate",
+  },
+  availableForReferral: {
+    defaultMessage: "Available for referral",
+    id: "ILThW5",
+    description: "A candidate is being referred for new positions",
   },
 });
 

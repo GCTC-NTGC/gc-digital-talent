@@ -90,32 +90,11 @@ class UserTest extends TestCase
             'user_id' => $user['id'],
         ]);
 
-        PoolCandidate::factory()->count(5)->create([
-            'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-        ]);
-        PoolCandidate::factory()->count(4)->create([
-            'pool_id' => $pool1['id'],
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'expiry_date' => config('constants.past_datetime'),
-        ]);
-        PoolCandidate::factory()->count(3)->create([
-            'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_TERM->name,
-        ]);
-        PoolCandidate::factory()->count(2)->create([
-            'pool_id' => $pool2['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::DRAFT->name,
-        ]);
-        PoolCandidate::factory()->count(1)->create([
-            'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::REMOVED->name,
-        ]);
+        PoolCandidate::factory()->count(5)->qualified()->for($pool1)->create();
+        PoolCandidate::factory()->count(4)->expired()->for($pool1)->create();
+        PoolCandidate::factory()->count(3)->placed(PlacementType::PLACED_TERM)->for($pool1)->create();
+        PoolCandidate::factory()->count(2)->for($pool2)->create();
+        PoolCandidate::factory()->count(1)->removed()->for($pool1)->create();
 
         // Assert query with no pool filter will return all users, including unavailable
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
@@ -348,51 +327,36 @@ class UserTest extends TestCase
         ]]);
 
         // Create some valid users in myPool, AVAILABLE status to ensure filter by pool only changes off expiry date in this test
-        PoolCandidate::factory()->count(4)->create([
-            'expiry_date' => '3000-05-13',
-            'pool_id' => $myPool->id,
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-        ]);
+        PoolCandidate::factory()->count(4)->for($myPool)->qualified()
+            ->create([
+                'expiry_date' => '3000-05-13',
+            ]);
         // A candidate which expires today is not expired YET.
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->qualified()->for($myPool)->create([
             'expiry_date' => date('Y-m-d'),
-            'pool_id' => $myPool->id,
-            'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
         // Candidates without expiry dates are considered active.
-        PoolCandidate::factory()->count(3)->create([
+        PoolCandidate::factory()->count(3)->qualified()->for($myPool)->create([
             'expiry_date' => null,
-            'pool_id' => $myPool->id,
-            'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
         // Create some expired users in myPool
-        PoolCandidate::factory()->count(2)->create([
+        PoolCandidate::factory()->count(2)->qualified()->for($myPool)->create([
             'expiry_date' => '2000-05-13',
-            'pool_id' => $myPool->id,
-            'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
 
         // Create some valid users in otherPool
-        PoolCandidate::factory()->count(5)->create([
+        PoolCandidate::factory()->count(5)->qualified()->for($otherPool)->create([
             'expiry_date' => '3000-05-13',
-            'pool_id' => $otherPool->id,
-            'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->qualified()->for($otherPool)->create([
             'expiry_date' => date('Y-m-d'),
-            'pool_id' => $otherPool->id,
-            'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->qualified()->for($otherPool)->create([
             'expiry_date' => null,
-            'pool_id' => $otherPool->id,
-            'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
         // Create some expired users in otherPool
-        PoolCandidate::factory()->count(3)->create([
+        PoolCandidate::factory()->count(3)->qualified()->for($otherPool)->create([
             'expiry_date' => '2000-05-13',
-            'pool_id' => $otherPool->id,
-            'application_status' => ApplicationStatus::QUALIFIED->name,
         ]);
 
         // Assert query with no parameters returns all users
@@ -1654,22 +1618,14 @@ class UserTest extends TestCase
             'user_id' => $user['id'],
         ]);
 
-        PoolCandidate::factory()->count(8)->create([
-            'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
+        PoolCandidate::factory()->count(8)->placed(PlacementType::NOT_PLACED)->for($pool1)->create([
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
             ]),
         ]);
-        PoolCandidate::factory()->count(5)->create([
-            'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_TENTATIVE->name,
+        PoolCandidate::factory()->count(5)->placed(PlacementType::PLACED_TENTATIVE)->for($pool1)->create([
             'user_id' => User::factory([
                 'looking_for_english' => false,
                 'looking_for_french' => true,
@@ -1677,11 +1633,7 @@ class UserTest extends TestCase
             ]),
         ]);
         // Should appear in searches, but in pool 2.
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool2['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
+        PoolCandidate::factory()->placed(PlacementType::PLACED_CASUAL)->for($pool2)->create([
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1689,10 +1641,7 @@ class UserTest extends TestCase
             ]),
         ]);
         // Expired in pool - should not appear in searches
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool1['id'],
-            'expiry_date' => '2000-01-01',
-            'application_status' => ApplicationStatus::QUALIFIED->name,
+        PoolCandidate::factory()->expired()->for($pool1)->create([
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1700,11 +1649,7 @@ class UserTest extends TestCase
             ]),
         ]);
         // Already placed - should not appear in searches
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_TERM->name,
+        PoolCandidate::factory()->placed(PlacementType::PLACED_TERM)->for($pool1)->create([
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1712,11 +1657,8 @@ class UserTest extends TestCase
             ]),
         ]);
         // User status inactive - should not appear in searches
-        PoolCandidate::factory()->create([
-            'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'referring' => false,
+        PoolCandidate::factory()->qualified()->for($pool1)->create([
+            'pause_referrals_at' => config('constants.past_date'),
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1787,7 +1729,7 @@ class UserTest extends TestCase
         ]);
         User::factory()->create([
             'first_name' => 'dan',
-            'last_name' => 'man',
+            'last_name' => 'manny',
             'email' => 'dan@user.com',
             'telephone' => '99999',
         ]);
@@ -1849,7 +1791,7 @@ class UserTest extends TestCase
             ], 1],
             'assert email filter with partial email returns correct count' => [['email' => 'user.com'], 4],
             'assert more than one search term results in AND filtering' => [['generalSearch' => 'sam 67890'], 1],
-            'assert filtering for last name in general search returns correct count' => [['generalSearch' => 'man'], 1],
+            'assert filtering for last name in general search returns correct count' => [['generalSearch' => 'manny'], 1],
             'assert filtering general search and name search (both subqueries) filter as AND' => [[
                 'generalSearch' => '@user.com',
                 'name' => 'zak',
@@ -2170,16 +2112,10 @@ class UserTest extends TestCase
     {
         // applicant has one submitted and one draft application
         $applicant = User::factory()->asApplicant()->create();
-        $draftApplication = PoolCandidate::factory()->create([
+        PoolCandidate::factory()->create([
             'user_id' => $applicant->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-            'submitted_at' => null,
         ]);
-        $submittedApplication = PoolCandidate::factory()->create([
-            'user_id' => $applicant->id,
-            'application_status' => ApplicationStatus::TO_ASSESS->name,
-            'submitted_at' => config('constants.past_date'),
-        ]);
+        $submittedApplication = PoolCandidate::factory()->submitted()->for($applicant)->create();
 
         $candidateCount = count(PoolCandidate::all());
         assertSame(2, $candidateCount);

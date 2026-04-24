@@ -1,8 +1,7 @@
-import { IntlShape, MessageDescriptor } from "react-intl";
+import type { IntlShape, MessageDescriptor } from "react-intl";
 
+import type { User, Pool } from "@gc-digital-talent/graphql";
 import {
-  User,
-  Pool,
   PoolLanguage,
   EstimatedLanguageAbility,
 } from "@gc-digital-talent/graphql";
@@ -101,8 +100,8 @@ export const getLabels = (intl: IntlShape) => ({
     description: "Label for exam validity in language information form",
   }),
   prefSpokenInterviewLang: intl.formatMessage({
-    defaultMessage: "Preferred spoken interview language",
-    id: "DB9pFd",
+    defaultMessage: "Preferred interview language",
+    id: "m6vOLM",
     description: "Title for preferred spoken interview language",
   }),
   prefWrittenExamLang: intl.formatMessage({

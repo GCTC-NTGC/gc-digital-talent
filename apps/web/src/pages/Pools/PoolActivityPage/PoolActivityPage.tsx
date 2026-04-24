@@ -2,9 +2,10 @@ import { useIntl } from "react-intl";
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
 import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 
-import { graphql, Maybe, Scalars } from "@gc-digital-talent/graphql";
+import type { Maybe, Scalars } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   Container,
   Heading,
@@ -24,9 +25,8 @@ import {
 import Pagination from "~/components/Pagination";
 import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
 
-import PoolActivityFilterDialog, {
-  FormValues,
-} from "./components/PoolActivityFilterDialog";
+import type { FormValues } from "./components/PoolActivityFilterDialog";
+import PoolActivityFilterDialog from "./components/PoolActivityFilterDialog";
 import {
   getTotalPages,
   safeGetFilters,

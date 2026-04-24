@@ -1,9 +1,5 @@
-import {
-  useState,
-  ComponentPropsWithoutRef,
-  ComponentRef,
-  forwardRef,
-} from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import { useState, forwardRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
@@ -18,16 +14,16 @@ import {
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
+import type {
   RoleInput,
   CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { CommunityMember } from "~/utils/communityUtils";
+import type { CommunityMember } from "~/utils/communityUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import { CommunityMemberFormValues, ContextType } from "./types";
+import type { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
@@ -43,7 +39,7 @@ interface EditCommunityMemberDialogProps extends ComponentPropsWithoutRef<
 const EditCommunityMemberDialog = forwardRef<
   ComponentRef<typeof DropdownMenu.Item>,
   EditCommunityMemberDialogProps
->(({ user, community, hasPlatformAdmin, onSelect, ...rest }, forwardedRef) => {
+>(({ user, community, hasPlatformAdmin, onClick, ...rest }, forwardedRef) => {
   const intl = useIntl();
   const { teamId } = useOutletContext<ContextType>();
   const { roles, fetching } = useAvailableRoles();
@@ -127,9 +123,10 @@ const EditCommunityMemberDialog = forwardRef<
       <Dialog.Trigger>
         <DropdownMenu.Item
           ref={forwardedRef}
-          onSelect={(event) => {
+          onClick={(event) => {
             event.preventDefault();
-            onSelect?.(event);
+            onClick?.(event);
+            setIsOpen(true);
           }}
           {...rest}
         >

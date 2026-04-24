@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -18,8 +18,8 @@ import Hero from "~/components/Hero";
 import TalentEventTable from "./components/TalentEventTable";
 
 const TalentEvents_Query = graphql(/* GraphQL */ `
-  query TalentEvents {
-    talentNominationEvents(where: { canManage: true }) {
+  query TalentEvents($canManage: Boolean) {
+    talentNominationEvents(where: { canManage: $canManage }) {
       id
       ...TalentEventTableRow
     }
@@ -29,6 +29,7 @@ const TalentEvents_Query = graphql(/* GraphQL */ `
 export const IndexTalentEventPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
+  const { userAuthInfo } = useAuthorization();
 
   const pageTitle = intl.formatMessage(pageTitles.talentManagement);
   const pageSubtitle = intl.formatMessage({
@@ -51,7 +52,16 @@ export const IndexTalentEventPage = () => {
     ],
   });
 
-  const [{ data, fetching, error }] = useQuery({ query: TalentEvents_Query });
+  const isPlatformAdmin =
+    userAuthInfo?.roleAssignments?.some(
+      (roleAssignment) =>
+        roleAssignment?.role?.name === ROLE_NAME.PlatformAdmin,
+    ) ?? false;
+
+  const [{ data, fetching, error }] = useQuery({
+    query: TalentEvents_Query,
+    variables: { canManage: !isPlatformAdmin },
+  });
 
   return (
     <>
@@ -76,7 +86,9 @@ export const IndexTalentEventPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityTalentCoordinator]}>
+  <RequireAuth
+    roles={[ROLE_NAME.CommunityTalentCoordinator, ROLE_NAME.PlatformAdmin]}
+  >
     <IndexTalentEventPage />
   </RequireAuth>
 );

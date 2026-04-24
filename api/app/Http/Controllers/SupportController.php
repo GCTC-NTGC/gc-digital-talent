@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ApiKeyNotFoundException;
 use App\Exceptions\ExternalServiceException;
+use App\Http\Requests\StoreSupportTicketRequest;
 use App\Support\Freshdesk;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
@@ -12,15 +13,19 @@ use function Safe\parse_url;
 
 class SupportController extends Controller
 {
-    public function createTicket(Request $request)
+    public function createTicket(StoreSupportTicketRequest $request)
     {
         // what language does the user want to use?
         $requestedLanguage = $request->header('Accept-Language');
 
         // if they requested a language, ensure the Freshdesk contact is correctly set
         if (! empty($requestedLanguage)) {
-            // what is the current language of the contact?
-            $currentContactAttributes = Freshdesk::findContactByEmail($request->input('email'));
+            try {
+                // what is the current language of the contact?
+                $currentContactAttributes = Freshdesk::findContactByEmail($request->input('email'));
+            } catch (Throwable $e) {
+                Log::warning('Failed to get contact by email ('.$request->input('email').'): '.$e->getMessage());
+            }
             $currentContactId = $currentContactAttributes['id'] ?? null;
             $currentLanguage = $currentContactAttributes['language'] ?? null;
 
@@ -89,10 +94,14 @@ class SupportController extends Controller
         try {
             Freshdesk::createTicket($parameters);
         } catch (ExternalServiceException $error) {
-            return response([
+            return response()->json([
                 'serviceResponse' => 'error',
                 'errorDetail' => $error->getMessage(),
             ], 400);
+        } catch (ApiKeyNotFoundException $error) {
+            return response()->json([
+                'message' => $error->getMessage(),
+            ], 500);
         }
 
         return response([

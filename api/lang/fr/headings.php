@@ -133,7 +133,7 @@ return [
     'other_c_suite_title' => 'Autre titre de cadre supérieur',
     'issuing_org' => 'Organisation émettrice',
     'date_awarded' => 'Date d’attribution',
-    'department_number' => 'Numéro de ministère',
+    'department_number' => 'Identifiant de l\'organisation',
     'department_size' => 'Taille du ministère',
     'department_type' => 'Type de ministère',
     'organization_department' => 'Organisation, ministère, force militaire ou établissement',
@@ -155,6 +155,10 @@ return [
     'community_project_or_product' => 'Projet ou produit de la collectivité',
     'personal_learning_experience_description' => 'Description de l’expérience d’apprentissage personnel',
     'award_recipient' => 'Lauréat ou lauréate du prix',
+    'core_public_administration' => 'Administration publique centrale',
+    'central_agency' => 'Organisme central',
+    'science' => 'Sciences',
+    'regulatory' => 'Réglementation',
 
     'awarded_to' => 'Accordé à',
     'issuing_organization' => 'Organisation émettrice',
@@ -306,4 +310,6 @@ return [
     'other_lateral_experience' => 'Autres recommandations liées à l’expérience de mutation latérale',
     'development_program_recommendations' => 'Recommandations liées aux programmes de perfectionnement',
     'other_development_program_experience' => 'Autres recommandations liées aux programmes de perfectionnement',
+
+    'updated_at' => 'Révisé',
 ];

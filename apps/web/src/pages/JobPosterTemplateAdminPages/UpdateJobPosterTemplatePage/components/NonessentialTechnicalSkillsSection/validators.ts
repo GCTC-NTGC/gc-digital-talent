@@ -1,4 +1,4 @@
-import { UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment } from "@gc-digital-talent/graphql";
+import type { UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment } from "@gc-digital-talent/graphql";
 
 import { filterNonessentialTechnicalSkills } from "../../utils";
 

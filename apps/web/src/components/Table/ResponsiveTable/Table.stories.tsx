@@ -1,22 +1,23 @@
 import { useState } from "react";
-import { StoryFn, Meta } from "@storybook/react-vite";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 import { action } from "storybook/actions";
-import {
+import type {
   ColumnDef,
-  createColumnHelper,
   CellContext,
   SortingState,
   PaginationState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 
 import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
-import { Language, User } from "@gc-digital-talent/graphql";
+import type { User } from "@gc-digital-talent/graphql";
+import { Language } from "@gc-digital-talent/graphql";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Table from "./ResponsiveTable";
 import Selection from "./RowSelection";
-import { SearchState } from "./types";
+import type { SearchState } from "./types";
 
 const mockUsers = fakeUsers(100);
 const columnHelper = createColumnHelper<User>();
@@ -129,7 +130,9 @@ export const RowSelection = Template.bind({});
 RowSelection.args = {
   rowSelect: {
     getRowId: (row) => row.id,
-    onRowSelection: (rows) => action("onRowSelection")(rows),
+    onRowSelection: (rows) => {
+      action("onRowSelection")(rows);
+    },
     cell: rowSelectCell,
   },
 };
@@ -173,7 +176,9 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
       .then((res) => {
         setSearchState(res);
       })
-      .catch((err) => action("search error")(err))
+      .catch((err) => {
+        action("search error")(err);
+      })
       .finally(() => setLoading(false));
   };
 
@@ -185,7 +190,9 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
         const newSelection = mockUsers.filter(({ id }) => rows.includes(id));
         setRowSelection(newSelection);
       })
-      .catch((err) => action("selection error")(err))
+      .catch((err) => {
+        action("selection error")(err);
+      })
       .finally(() => setLoading(false));
   };
 

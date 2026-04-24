@@ -1,7 +1,5 @@
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router";
-import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
-import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 
 import { DropdownMenu, Button } from "@gc-digital-talent/ui";
 
@@ -75,33 +73,28 @@ const LanguageSelector = () => {
           })}
         </p>
         <DropdownMenu.Root>
-          <DropdownMenu.Trigger>
-            <Button color="primary" utilityIcon={ChevronDownIcon} size="sm">
-              {currentLocale ??
-                intl.formatMessage({
-                  defaultMessage:
-                    "Select<hidden> an Indigenous language</hidden>",
-                  description:
-                    "Button text displayed for Indigenous languages dropdown",
-                  id: "kiH9nz",
-                })}
-            </Button>
+          <DropdownMenu.Trigger btnProps={{ size: "sm" }}>
+            {currentLocale ??
+              intl.formatMessage({
+                defaultMessage:
+                  "Select<hidden> an Indigenous language</hidden>",
+                description:
+                  "Button text displayed for Indigenous languages dropdown",
+                id: "kiH9nz",
+              })}
           </DropdownMenu.Trigger>
-          <DropdownMenu.Content>
+          <DropdownMenu.Popup>
             <DropdownMenu.RadioGroup
               value={locale ?? undefined}
               onValueChange={handleLocaleChange}
             >
               {Array.from(localeMap).map(([key, value]) => (
                 <DropdownMenu.RadioItem key={key} value={key}>
-                  <DropdownMenu.ItemIndicator>
-                    <CheckIcon />
-                  </DropdownMenu.ItemIndicator>
                   {value}
                 </DropdownMenu.RadioItem>
               ))}
             </DropdownMenu.RadioGroup>
-          </DropdownMenu.Content>
+          </DropdownMenu.Popup>
         </DropdownMenu.Root>
       </div>
       {locale && (

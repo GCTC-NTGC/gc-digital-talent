@@ -2,8 +2,8 @@ import { useIntl } from "react-intl";
 import { Outlet } from "react-router";
 import { useQuery } from "urql";
 
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
@@ -15,8 +15,9 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import permissionConstants from "~/constants/permissionConstants";
 
-import { RouteParams } from "./types";
+import type { RouteParams } from "./types";
 
 const TalentEventLayout_Fragment = graphql(/* GraphQL */ `
   fragment TalentEventLayout on TalentNominationEvent {
@@ -125,7 +126,7 @@ const TalentEventLayout = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityTalentCoordinator]}>
+  <RequireAuth roles={permissionConstants.viewCommunityTalentNominations}>
     <TalentEventLayout />
   </RequireAuth>
 );

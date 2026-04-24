@@ -47,7 +47,6 @@ class SnapshotShapeTest extends TestCase
             'updatedAt',
             'deletedAt',
             'isAvailableInSearch',
-            'displayName',
         ],
         Department::class => [
             'createdAt',
@@ -124,9 +123,7 @@ class SnapshotShapeTest extends TestCase
             'nextRoleCSuiteRoleTitle',
             'careerObjectiveCSuiteRoleTitle',
             'careerPlanningLearningOpportunitiesInterest',
-            'wfaInterest',
-            'wfaDate',
-            'wfaUpdatedAt',
+            'lastSignInIss',
         ],
         UserSkill::class => [
             'userId',

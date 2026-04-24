@@ -1,25 +1,24 @@
-import { IntlShape } from "react-intl";
-import { SortingState } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
+import type { SortingState } from "@tanstack/react-table";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
+import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
+import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
+import { tv } from "tailwind-variants";
+import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
-import {
-  Locales,
-  commonMessages,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import type { IconType } from "@gc-digital-talent/ui";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
-import {
-  CandidateExpiryFilter,
+import type {
   Maybe,
   Pool,
   PoolCandidatePoolNameOrderByInput,
-  OrderByRelationWithColumnAggregateFunction,
   PoolCandidateSearchInput,
   QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn,
-  CandidateSuspendedFilter,
-  SortOrder,
   FragmentType,
   LocalizedProvinceOrTerritory,
   Classification,
@@ -33,11 +32,19 @@ import {
   PoolCandidatesBaseSort,
   LocalizedCandidateStatus,
   LocalizedApplicationStatus,
+  LocalizedAssessmentDecision,
+} from "@gc-digital-talent/graphql";
+import {
+  CandidateExpiryFilter,
+  OrderByRelationWithColumnAggregateFunction,
+  CandidateSuspendedFilter,
+  SortOrder,
+  AssessmentDecision,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { Radio } from "@gc-digital-talent/forms";
+import type { Radio } from "@gc-digital-talent/forms";
 
-import useRoutes from "~/hooks/useRoutes";
+import type useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
   candidateStatusChip,
@@ -46,14 +53,12 @@ import {
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 import tableMessages from "./tableMessages";
-import CandidateFlag, {
-  PoolCandidate_FlagFragment,
-} from "../CandidateFlag/CandidateFlag";
-import PoolCandidateBookmark, {
-  PoolCandidateBookmark_Fragment,
-} from "./PoolCandidateBookmark";
+import type { PoolCandidate_FlagFragment } from "../CandidateFlag/CandidateFlag";
+import CandidateFlag from "../CandidateFlag/CandidateFlag";
+import type { PoolCandidateBookmark_Fragment } from "./PoolCandidateBookmark";
+import PoolCandidateBookmark from "./PoolCandidateBookmark";
 
 export const priorityCell = (
   weight: number,
@@ -186,6 +191,64 @@ export const currentLocationAccessor = (
 ) =>
   `${city ?? intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
 
+interface DecisionInfo {
+  className: string;
+  icon: IconType;
+}
+
+const defaultDecisionInfo = {
+  className: "text-warning",
+  icon: ExclamationCircleIcon,
+};
+
+const decisionInfoMap = new Map<AssessmentDecision, DecisionInfo>([
+  [
+    AssessmentDecision.Hold,
+    {
+      className: "text-primary",
+      icon: PauseCircleIcon,
+    },
+  ],
+  [
+    AssessmentDecision.Successful,
+    {
+      className: "text-success",
+      icon: CheckCircleIcon,
+    },
+  ],
+  [
+    AssessmentDecision.Unsuccessful,
+    {
+      className: "text-error",
+      icon: XCircleIcon,
+    },
+  ],
+]);
+
+const decisionIcon = tv({
+  base: "size-6",
+});
+
+export const screeningResultCell = (
+  screeningResult?: Maybe<LocalizedAssessmentDecision>,
+  defaultMessage = "",
+) => {
+  let info: DecisionInfo = defaultDecisionInfo;
+  if (screeningResult) {
+    info = decisionInfoMap.get(screeningResult.value) ?? defaultDecisionInfo;
+  }
+
+  const Icon = info.icon;
+
+  return (
+    <Icon
+      aria-hidden="false"
+      aria-label={screeningResult?.label.localized ?? defaultMessage}
+      className={decisionIcon({ class: info.className })}
+    />
+  );
+};
+
 export const applicationStatusCell = (
   status: Maybe<LocalizedApplicationStatus> | undefined,
   intl: IntlShape,
@@ -208,8 +271,15 @@ export const candidateStatusCell = (
 
 export const flagCell = (
   candidate: FragmentType<typeof PoolCandidate_FlagFragment>,
+  processTitle?: Maybe<string>,
 ) => {
-  return <CandidateFlag candidateQuery={candidate} size="lg" />;
+  return (
+    <CandidateFlag
+      candidateQuery={candidate}
+      processTitle={processTitle}
+      size="lg"
+    />
+  );
 };
 
 export const flagHeader = (intl: IntlShape) => (
@@ -227,7 +297,7 @@ function transformSortStateToOrderByClause(
   const columnMap = new Map<string, string>([
     ["dateReceived", "submitted_at"],
     ["candidacyStatus", "suspended_at"],
-    ["finalDecision", "computed_final_decision_weight"],
+    ["finalDecision", "status_weight"],
     ["jobPlacement", "status"],
     ["candidateName", "FIRST_NAME"],
     ["email", "EMAIL"],
@@ -464,6 +534,7 @@ export function transformPoolCandidateSearchInputToFormValues(
     priorityWeight: unpackMaybes(input?.priorityWeight),
     expiryStatus: input?.expiryStatus ?? CandidateExpiryFilter.Active,
     suspendedStatus: input?.suspendedStatus ?? CandidateSuspendedFilter.Active,
+    referralStatuses: unpackMaybes(input?.referralStatuses),
     govEmployee: input?.isGovEmployee ? "true" : "",
     departments: input?.departments ?? [],
     community: input?.applicantFilter?.community?.id ?? "",
@@ -501,6 +572,7 @@ export function transformFormValuesToFilterState(
     priorityWeight: data.priorityWeight,
     expiryStatus: data.expiryStatus,
     suspendedStatus: data.suspendedStatus,
+    referralStatuses: data.referralStatuses,
     isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
     departments: data.departments,
     publishingGroups: data.publishingGroups,
@@ -551,6 +623,7 @@ export const addSearchToPoolCandidateFilterInput = (
     priorityWeight: fancyFilterState?.priorityWeight,
     expiryStatus: fancyFilterState?.expiryStatus,
     suspendedStatus: fancyFilterState?.suspendedStatus,
+    referralStatuses: fancyFilterState?.referralStatuses,
     isGovEmployee: fancyFilterState?.isGovEmployee,
     publishingGroups: fancyFilterState?.publishingGroups,
     appliedClassifications: fancyFilterState?.appliedClassifications,

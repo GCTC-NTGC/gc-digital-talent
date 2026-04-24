@@ -2,6 +2,7 @@
 
 namespace App\Traits\Generator;
 
+use App\Traits\HasLocalization;
 use Illuminate\Support\Facades\Lang;
 
 trait GeneratesFile
@@ -39,8 +40,14 @@ trait GeneratesFile
             return $default;
         }
 
-        /** @use \App\Traits\HasLocalization<UnitEnum> $enum */
-        return $enum::localizedString($value, $subKey)[$this->lang] ?? $default;
+        // check if value exists in enum cases, if it does not, just return the upper case value directly
+        $enumCases = array_column($enum::cases(), 'name');
+        $valueInCases = in_array(strtoupper($value), $enumCases);
+
+        /** @use HasLocalization<UnitEnum> $enum */
+        return $valueInCases ?
+        $enum::localizedString($value, $subKey)[$this->lang] ?? $default
+        : strtoupper($value);
     }
 
     /**

@@ -127,14 +127,15 @@ type User {
   # Employee profile info
   employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
   govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
-
-  # Employee WFA info
-  employeeWFA: EmployeeWFA @self @canFind(ability: "viewEmployeeWFA")
+  developmentProgramUserRecords: [DevelopmentProgramUser]
+    @hasMany
+    @guard
+    @canFind(ability: "view")
 
   # Pool info
   poolCandidates: [PoolCandidate]
-    @hasMany(scopes: ["whereAuthorizedToView"])
-    @canResolved(ability: "view") # PoolCandidate objects associate the user with a pool
+    @hasMany(scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"])
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"]) # PoolCandidate objects associate the user with a pool
   # Experiences
   experiences: [Experience]
     @with(relation: "awardExperiences")
@@ -176,7 +177,7 @@ type User {
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
 
   # Bookmarks
-  poolBookmarks: [Pool] @belongsToMany
+  poolBookmarks: [Pool] @guard @belongsToMany(scopes: ["authorizedToView"])
   poolCandidateBookmarks: [PoolCandidate]
     @guard
     @belongsToMany(scopes: ["whereAuthorizedToView"])
@@ -192,12 +193,16 @@ type User {
 type CommunityInterest {
   id: UUID!
   community: Community! @belongsTo
-  user: User! @belongsTo @canRoot(ability: "viewUser")
+  user: User!
+    @belongsTo
+    @canRoot(ability: "viewUser", scopes: ["withPolicyEagerLoads"])
   workStreams: [WorkStream!] @belongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
-  interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @hasMany
+  interestInDevelopmentPrograms: [DevelopmentProgramInterest!]
+    @hasMany
+    @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   #finance-only fields
   financeIsChief: Boolean @rename(attribute: "finance_is_chief")
   financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
@@ -222,7 +227,9 @@ type OffPlatformRecruitmentProcess {
 # A pivot table for employees to express interest in the development programs of a community.
 type DevelopmentProgramInterest {
   id: UUID!
-  developmentProgram: DevelopmentProgram! @belongsTo
+  communityDevelopmentProgram: CommunityDevelopmentProgram! @belongsTo
+  developmentProgram: DevelopmentProgram!
+    @hasOne(relation: "developmentProgramThroughPivot")
   participationStatus: DevelopmentProgramParticipationStatus
     @rename(attribute: "participation_status")
   completionDate: Date @rename(attribute: "completion_date")
@@ -296,8 +303,8 @@ type EmployeeProfile {
     @rename(attribute: "career_objective_c_suite_role_title")
 
   communityInterests(id: UUID @eq): [CommunityInterest!]
-    @belongsToMany(scopes: ["authorizedToView"])
-    @canResolved(ability: "view")
+    @belongsToMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
 
   userPublicProfile: UserPublicProfile
 }
@@ -398,6 +405,7 @@ type MigrateOffPlatformProcessesNotification implements Notification {
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
+  workEmail: Email @rename(attribute: "work_email")
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
 }
@@ -413,58 +421,10 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   classification: Classification @belongsTo(relation: "currentClassification")
 }
 
-# Streamlined User, intended for querying in large collections while remaining performant
-# Include only fields as needed for admin purposes
-type UserEmployeeWFA @model(class: "\\App\\Models\\User") {
-  id: UUID!
-  employeeWFA: EmployeeWFA @self
-
-  # User profile info for table
-  firstName: String @rename(attribute: "first_name")
-  lastName: String @rename(attribute: "last_name")
-  classification: Classification @belongsTo(relation: "currentClassification")
-  department: Department @belongsTo
+# Mini type to support search by work email
+type UserWorkEmail @model(class: "\\App\\Models\\User") {
+  id: ID!
   workEmail: Email @rename(attribute: "work_email")
-  isWoman: Boolean @rename(attribute: "is_woman")
-  hasDisability: Boolean @rename(attribute: "has_disability")
-  isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [LocalizedIndigenousCommunity]
-    @rename(attribute: "indigenous_communities")
-  hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
-  priorityNumber: String @rename(attribute: "priority_number")
-  citizenship: LocalizedCitizenshipStatus
-  armedForcesStatus: LocalizedArmedForcesStatus
-    @rename(attribute: "armed_forces_status")
-  preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: LocalizedLanguage
-    @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: LocalizedLanguage
-    @rename(attribute: "preferred_language_for_exam")
-  firstOfficialLanguage: LocalizedLanguage
-    @rename(attribute: "first_official_language")
-  secondLanguageExamCompleted: Boolean
-    @rename(attribute: "second_language_exam_completed")
-  secondLanguageExamValidity: Boolean
-    @rename(attribute: "second_language_exam_validity")
-  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
-    @rename(attribute: "estimated_language_ability")
-  acceptedOperationalRequirements: [LocalizedOperationalRequirement]
-    @rename(attribute: "accepted_operational_requirements")
-  locationPreferences: [LocalizedWorkRegion]
-    @rename(attribute: "location_preferences")
-  flexibleWorkLocations: [LocalizedFlexibleWorkLocation]
-    @rename(attribute: "flexible_work_locations")
-  locationExemptions: String @rename(attribute: "location_exemptions")
-  userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
-  communityInterests(id: UUID @eq): [CommunityInterest!]
-    @belongsToMany(scopes: ["authorizedToView"])
-}
-
-type EmployeeWFA @model(class: "\\App\\Models\\User") {
-  id: UUID!
-  wfaInterest: LocalizedWfaInterest @rename(attribute: "wfa_interest")
-  wfaDate: Date @rename(attribute: "wfa_date")
-  wfaUpdatedAt: DateTime @rename(attribute: "wfa_updated_at")
 }
 
 type GeneralQuestion {
@@ -476,7 +436,9 @@ type GeneralQuestion {
 
 type ScreeningQuestion {
   id: ID!
-  assessmentStep: AssessmentStep @belongsTo @canResolved(ability: "view")
+  assessmentStep: AssessmentStep
+    @belongsTo
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
 }
@@ -507,12 +469,15 @@ interface HasRoleAssignments {
 
 type Pool implements HasRoleAssignments {
   id: ID!
-  owner: UserPublicProfile @belongsTo(relation: "user")
   community: Community @belongsTo(relation: "community")
   teamId: UUID! @rename(attribute: "team.id") @with(relation: "team")
   name: LocalizedString
   displayName: DefinedString
+    @with(relation: "classification")
+    @with(relation: "workStream")
   fullDisplayName: DefinedString
+    @with(relation: "classification")
+    @with(relation: "workStream")
   classification: Classification @belongsTo
   operationalRequirements: [LocalizedOperationalRequirement]
     @rename(attribute: "operational_requirements")
@@ -554,7 +519,6 @@ type Pool implements HasRoleAssignments {
   screeningQuestions: [ScreeningQuestion]
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
-  screeningQuestionsCount: Int @count(relation: "screeningQuestions")
   closingDate: DateTime @rename(attribute: "closing_date")
   closingReason: String @rename(attribute: "closing_reason")
   publishedAt: DateTime @rename(attribute: "published_at")
@@ -563,11 +527,12 @@ type Pool implements HasRoleAssignments {
   assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
     @hasMany
-    @canRoot(ability: "viewAssessmentPlan")
-  poolSkills(type: PoolSkillType @where): [PoolSkill] @hasMany
+    @canRoot(ability: "viewAssessmentPlan", scopes: ["withPolicyEagerLoads"])
+  poolSkills(type: PoolSkillType @where): [PoolSkill]
+    @hasMany(scopes: ["withPolicyEagerLoads"])
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
-    @canRoot(ability: "viewTeamMembers")
+    @canRoot(ability: "viewTeamMembers", scopes: ["withPolicyEagerLoads"])
   teamIdForRoleAssignment: ID @with(relation: "team")
   department: Department @belongsTo
   areaOfSelection: LocalizedPoolAreaOfSelection
@@ -584,8 +549,8 @@ type Pool implements HasRoleAssignments {
       builder: "App\\Models\\Pool@aggregateActivities"
       defaultCount: 50
       maxCount: 1000
+      scopes: ["authorizedToViewPoolActivity"]
     )
-    @scope(name: ["authorizedToViewPoolActivity"])
   applicantsCount: Int
     @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
 }
@@ -612,6 +577,13 @@ type AssessmentStep {
   poolSkills: [PoolSkill] @belongsToMany
   assessmentResults: [AssessmentResult]
     @hasMany
+    @with(
+      relations: [
+        "assessmentResult.pool.team"
+        "assessmentResult.pool.community.team"
+        "assessmentResult.department.team"
+      ]
+    )
     @canRoot(ability: "viewAssessmentResults")
   screeningQuestions: [ScreeningQuestion] @with(relation: "screeningQuestions")
 }
@@ -648,7 +620,7 @@ type PoolSkill {
   skill: Skill @belongsTo
   assessmentSteps: [AssessmentStep]
     @belongsToMany
-    @canRoot(ability: "viewAssessmentSteps")
+    @canRoot(ability: "viewAssessmentSteps", scopes: ["withPolicyEagerLoads"])
 }
 
 type PoolCandidateCategory {
@@ -684,6 +656,7 @@ type PoolCandidate {
   isFlagged: Boolean
     @rename(attribute: "is_flagged")
     @canRoot(ability: "viewNotes")
+  isBookmarked: Boolean
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
     @canRoot(ability: "viewStatus")
@@ -728,6 +701,16 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+  isBeingReferred: Boolean
+  pauseReferralsAt: DateTime
+    @rename(attribute: "pause_referrals_at")
+    @canRoot(ability: "viewStatus")
+  resumeReferralsAt: DateTime
+    @rename(attribute: "resume_referrals_at")
+    @canRoot(ability: "viewStatus")
+  pauseReferralsReason: String
+    @rename(attribute: "pause_referrals_reason")
+    @canRoot(ability: "viewStatus")
 
   # claim verification
   veteranVerification: ClaimVerificationResult
@@ -759,12 +742,15 @@ type PoolCandidateAdminView {
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   status: LocalizedApplicationStatus @rename(attribute: "application_status")
-  candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
-  candidateInterest: LocalizedCandidateInterest @canRoot(ability: "viewStatus")
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   notes: String
   isFlagged: Boolean @rename(attribute: "is_flagged")
+  isBookmarked: Boolean
   category: PoolCandidateCategory @with(relation: "user")
+  screeningResult: LocalizedAssessmentDecision
+    @with(relation: "pool.assessmentSteps")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
   assessmentStep: AssessmentStep @belongsTo
@@ -772,6 +758,7 @@ type PoolCandidateAdminView {
   placedDepartment: Department @belongsTo
   closingDate: DateTime @rename(attribute: "closing_date")
   statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
+  isBeingReferred: Boolean
 }
 
 type PoolCandidateAdminViewWithSkillCount {
@@ -795,7 +782,6 @@ type Classification {
   maxSalary: Int @rename(attribute: "max_salary")
   genericJobTitles: [GenericJobTitle] @belongsToMany
   isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
-  displayName: LocalizedString @rename(attribute: "display_name")
 }
 
 type GenericJobTitle {
@@ -840,27 +826,64 @@ type Community implements HasRoleAssignments {
   key: String!
   name: LocalizedString
   description: LocalizedString
+  informationUrl: LocalizedString @rename(attribute: "information_url")
   mandateAuthority: LocalizedString @rename(attribute: "mandate_authority")
+  contactEmail: String @rename(attribute: "contact_email")
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
+    @with(relation: "team")
     @canRoot(ability: "viewTeamMembers")
   teamIdForRoleAssignment: ID @with(relation: "team")
   pools: [Pool]
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view")
   workStreams: [WorkStream!] @hasMany
-  developmentPrograms: [DevelopmentProgram!] @hasMany
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
+  associatedDevelopmentPrograms: [DevelopmentProgram!]
+    @hasMany(relation: "developmentProgramsThroughPivot")
 }
 
 type DevelopmentProgram {
   id: UUID!
-  name: LocalizedString
-  descriptionForProfile: LocalizedString
+  name: LocalizedString!
+  descriptionForProfile: LocalizedString!
     @rename(attribute: "description_for_profile")
   descriptionForNominations: LocalizedString
     @rename(attribute: "description_for_nominations")
-  community: Community @belongsTo
+    @deprecated(
+      reason: "replaced by description on community_development_program_talent_nomination_event pivot"
+    )
   eligibleClassifications: [Classification!] @belongsToMany
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
+  associatedCommunities: [Community!]
+    @hasMany(relation: "communitiesThroughPivot")
+  informationUrl: LocalizedString @rename(attribute: "information_url")
+  abbreviation: LocalizedString
+}
+
+type CommunityDevelopmentProgramTalentEventRecord {
+  descriptionForNominations: LocalizedString
+    @rename(attribute: "description_for_nominations")
+}
+
+type CommunityDevelopmentProgram {
+  id: UUID!
+  community: Community! @belongsTo
+  developmentProgram: DevelopmentProgram! @belongsTo
+  classifications: [Classification!] @belongsToMany
+  # CommunityDevelopmentProgramTalentEventRecord is the pivot data
+  # it may be be queried thru TalentNominationEvent->communityDevelopmentPrograms->pivot->CommunityDevelopmentProgramTalentEventRecord
+  pivot: CommunityDevelopmentProgramTalentEventRecord
+}
+
+type DevelopmentProgramUser {
+  id: UUID!
+  developmentProgram: DevelopmentProgram! @belongsTo
+  user: User! @belongsTo
+  educationExperience: EducationExperience @belongsTo
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
 }
 
 type TalentNominationEvent {
@@ -873,12 +896,21 @@ type TalentNominationEvent {
   includeLeadershipCompetencies: Boolean!
     @rename(attribute: "include_leadership_competencies")
   community: Community! @belongsTo
-  developmentPrograms: [DevelopmentProgram!] @belongsToMany
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
+  developmentPrograms: [DevelopmentProgram!]
+    @hasMany(relation: "developmentProgramsThroughPivot")
   talentNominationGroups: [TalentNominationGroup!]
-    @hasMany(scopes: ["authorizedToView"])
-    @canResolved(ability: "view", model: "TalentNominationGroup")
+    @hasMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
+    @canResolved(
+      ability: "view"
+      model: "TalentNominationGroup"
+      scopes: ["withPolicyEagerLoads"]
+    )
   countTalentNominationGroups: Int!
-    @count(relation: "talentNominationGroups", scopes: ["authorizedToView"])
+    @count(
+      relation: "talentNominationGroups"
+      scopes: ["withPolicyEagerLoads", "authorizedToView"]
+    )
   status: LocalizedTalentNominationEventStatus
 }
 
@@ -939,7 +971,9 @@ type TalentNomination {
   lateralMovementOptionsOther: String
     @rename(attribute: "lateral_movement_options_other")
 
-  developmentPrograms: [DevelopmentProgram!] @belongsToMany
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
+  developmentPrograms: [DevelopmentProgram!]
+    @hasMany(relation: "developmentProgramsThroughPivot")
   developmentProgramOptionsOther: String
     @rename(attribute: "development_program_options_other")
 
@@ -954,10 +988,13 @@ type TalentNominationGroup {
   nominee: BasicGovEmployeeProfile
     @belongsTo
     @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
-  nominations: [TalentNomination!] @hasMany @canResolved(ability: "view")
+  nominations: [TalentNomination!]
+    @hasMany(scopes: ["withPolicyEagerLoads"])
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentNominationEvent: TalentNominationEvent! @belongsTo
   advancementNominationCount: Int
     @rename(attribute: "advancement_nomination_count")
+    @with(relation: "nominations")
   advancementDecision: LocalizedTalentNominationGroupDecision
     @rename(attribute: "advancement_decision")
   advancementReferenceConfirmed: Boolean
@@ -965,16 +1002,20 @@ type TalentNominationGroup {
   advancementNotes: String @rename(attribute: "advancement_notes")
   lateralMovementNominationCount: Int
     @rename(attribute: "lateral_movement_nomination_count")
+    @with(relation: "nominations")
   lateralMovementDecision: LocalizedTalentNominationGroupDecision
     @rename(attribute: "lateral_movement_decision")
   lateralMovementNotes: String @rename(attribute: "lateral_movement_notes")
   developmentProgramsNominationCount: Int
     @rename(attribute: "development_programs_nomination_count")
+    @with(relation: "nominations")
   developmentProgramsDecision: LocalizedTalentNominationGroupDecision
     @rename(attribute: "development_programs_decision")
   developmentProgramsNotes: String
     @rename(attribute: "development_programs_notes")
-  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  consentToShareProfile: Boolean
+    @rename(attribute: "consent_to_share_profile")
+    @with(relation: "talentNominationEvent")
   status: LocalizedTalentNominationGroupStatus
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
@@ -1006,8 +1047,8 @@ type Role {
 type RoleAssignment {
   id: ID!
   role: Role @belongsTo
-  teamable: HasRoleAssignments @guard # Returns the related team, if it has a teamable returns that instead, guarded in the accessor
-  team: Team @belongsTo
+  teamable: HasRoleAssignments @guard @with(relation: "team") # Returns the related team, if it has a teamable returns that instead, guarded in the accessor
+  team: Team @belongsTo @with(relation: "team.teamable")
   user: UserPublicProfile @morphTo
 }
 
@@ -1319,34 +1360,12 @@ input UserFilterInput {
   workEmail: String @scope(name: "whereWorkEmail")
   name: String @scope(name: "whereName")
   generalSearch: String @scope(name: "whereGeneralSearch")
-  generalSearchBeta: String @scope(name: "whereGeneralSearchBeta")
   roles: [ID] @scope(name: "whereRoleIn")
   trashed: Trashed @trashed
 }
 
 input UserPublicProfileFilterInput {
   publicProfileSearch: String @scope(name: "wherePublicProfileSearch")
-}
-
-input EmployeeWfaFilterInput {
-  workEmail: String @scope(name: "whereWorkEmail")
-  name: String @scope(name: "whereName")
-  generalSearch: String @scope(name: "whereGeneralSearch")
-  equity: EquitySelectionsInput @scope(name: "whereEquityIn")
-  languageAbility: LanguageAbility @scope(name: "whereLanguageAbility")
-  flexibleWorkLocations: [FlexibleWorkLocation]
-    @scope(name: "whereFlexibleWorkLocationsIn")
-  locationPreferences: [WorkRegion] @scope(name: "whereLocationPreferencesIn")
-  operationalRequirements: [OperationalRequirement]
-    @scope(name: "whereOperationalRequirementsIn")
-  positionDuration: [PositionDuration] @scope(name: "wherePositionDurationIn")
-  wfaInterests: [WfaInterest] @scope(name: "whereWfaInterestIn")
-  hasPriorityEntitlement: Boolean @scope(name: "whereHasPriorityEntitlement")
-  skills: [IdInput] @scope(name: "whereSkillsAdditive")
-  classifications: [IdInput] @scope(name: "whereClassificationIn")
-  departments: [IdInput] @scope(name: "whereDepartmentsIn")
-  workStreams: [IdInput] @scope(name: "whereCommunityWorkStreamsIn")
-  communities: [IdInput] @scope(name: "whereCommunitiesIn")
 }
 
 input PoolFilterInput {
@@ -1416,6 +1435,8 @@ input PoolCandidateSearchInput {
   statuses: [ApplicationStatus] @scope(name: "whereStatusIn")
   expiryStatus: CandidateExpiryFilter @scope(name: "whereExpiryStatus")
   suspendedStatus: CandidateSuspendedFilter @scope(name: "whereSuspendedStatus")
+  referralStatuses: [CandidateReferralFilter!]
+    @scope(name: "whereReferralStatusIn")
   publishingGroups: [PublishingGroup] @scope(name: "wherePublishingGroupsIn") # Filters applicants based on the publishing group of the pool
   # Filters applicants based on the classification of all pools they are currently in.
   # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.
@@ -1464,6 +1485,8 @@ type SitewideAnnouncement {
   expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
+  updatedAt: DateTime!
+  isDismissible: Boolean!
 }
 
 type TrainingOpportunity {
@@ -1491,6 +1514,7 @@ input SitewideAnnouncementInput {
   expiryDate: DateTime! @rules(apply: ["after:publishDate"])
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isDismissible: Boolean!
 }
 
 input ClaimVerificationSort {
@@ -1518,6 +1542,7 @@ input CommunityInterestFilterInput {
   locationPreferences: [WorkRegion] @scope
   operationalRequirements: [OperationalRequirement] @scope
   skills: [UUID] @scope
+  classifications: [UUID!] @scope
 }
 input DateRangeOptional {
   from: DateTime
@@ -1542,6 +1567,13 @@ type Query {
     @guard
     @validator
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
+  workEmails(search: String): [UserWorkEmail!]!
+    @all(
+      model: "User"
+      scopes: ["whereWorkEmailIsVerified", "whereWorkEmailSearch", "limitFive"]
+    )
+    @guard
+    @canModel(ability: "viewAnyUserWorkEmail", model: "User")
   usersPaginated(
     where: UserFilterInput
       @scope(name: "whereUserFilterInputToSpecialLocationMatching")
@@ -1568,24 +1600,10 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
-  employeeWFAPaginatedAdminTable(
-    where: EmployeeWfaFilterInput
-    orderBy: _
-      @orderBy(
-        relations: [
-          { relation: "currentClassification", columns: ["group", "level"] }
-        ]
-      )
-  ): [UserEmployeeWFA]!
-    @paginate(
-      defaultCount: 10
-      maxCount: 1000
-      scopes: ["whereAuthorizedToViewEmployeeWFAAdminTable"]
-      model: "App\\Models\\User"
-    )
-    @guard
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
-  pool(id: UUID! @eq): Pool @find @canQuery(ability: "view")
+  pool(id: UUID! @eq): Pool
+    @find
+    @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
     publishingGroup: PublishingGroup
@@ -1608,12 +1626,16 @@ type Query {
         ]
       )
   ): [Pool]!
-    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
-    @canResolved(ability: "view")
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["withPolicyEagerLoads", "authorizedToView"]
+    )
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard
-    @canQuery(ability: "view")
+    @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
@@ -1716,6 +1738,10 @@ type Query {
   departments(
     whereArchived: Boolean = false @whereNotNull(key: "archived_at")
   ): [Department]! @all @canModel(ability: "viewAny")
+  developmentProgram(id: UUID! @eq): DevelopmentProgram
+    @find
+    @canModel(ability: "view")
+  developmentPrograms: [DevelopmentProgram]! @all @canModel(ability: "viewAny")
   jobPosterTemplate(id: UUID! @eq): JobPosterTemplate
     @find
     @canFind(ability: "view", find: "id")
@@ -1723,15 +1749,19 @@ type Query {
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
-    @canQuery(ability: "view")
+    @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
   poolCandidateSearchRequestsPaginated(
     where: PoolCandidateSearchRequestInput
     orderBy: [OrderByClause!] @orderBy
   ): [PoolCandidateSearchRequest]!
     @orderBy(column: "created_at", direction: DESC)
-    @paginate(defaultCount: 10, maxCount: 500, scopes: ["authorizedToView"])
+    @paginate(
+      defaultCount: 10
+      maxCount: 500
+      scopes: ["withPolicyEagerLoads", "authorizedToView"]
+    )
     @guard
-    @canResolved(ability: "view")
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   skillFamily(id: UUID! @eq): SkillFamily @find @canModel(ability: "view")
   skillFamilies: [SkillFamily]! @all @canModel(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @canModel(ability: "view")
@@ -1765,12 +1795,12 @@ type Query {
   talentNomination(id: UUID! @eq): TalentNomination
     @find
     @guard
-    @canQuery(ability: "view")
+    @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
 
   talentNominationGroup(id: UUID! @eq): TalentNominationGroup
     @find
     @guard
-    @canQuery(ability: "view")
+    @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
 
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
@@ -1810,7 +1840,12 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 500
-      scopes: ["authorizedToView", "isVerifiedGovEmployee", "withSkillCount"]
+      scopes: [
+        "withPolicyEagerLoads"
+        "authorizedToView"
+        "isVerifiedGovEmployee"
+        "withSkillCount"
+      ]
       model: "App\\Models\\CommunityInterest"
     )
 }
@@ -2135,45 +2170,55 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "career_objective_c_suite_role_title")
 }
 
-input UpdateEmployeeWFAInput {
-  wfaInterest: WfaInterest @rename(attribute: "wfa_interest")
-  wfaDate: Date @rename(attribute: "wfa_date")
+input CreateCommunityInterestInput {
+  communityId: UUID! @rename(attribute: "community_id")
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean @rename(attribute: "job_interest")
+  trainingInterest: Boolean @rename(attribute: "training_interest")
+  additionalInformation: String @rename(attribute: "additional_information")
+  #finance-only fields
+  financeIsChief: Boolean @rename(attribute: "finance_is_chief")
+  financeAdditionalDuties: [FinanceChiefDuty!]
+    @rename(attribute: "finance_additional_duties")
+  financeOtherRoles: [FinanceChiefRole!]
+    @rename(attribute: "finance_other_roles")
+  financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
 }
 
-input CreateCommunityInterestInput @validator {
+input UpdateCommunityInterestInput {
+  workStreams: WorkStreamBelongsToMany
+  jobInterest: Boolean @rename(attribute: "job_interest")
+  trainingInterest: Boolean @rename(attribute: "training_interest")
+  additionalInformation: String @rename(attribute: "additional_information")
+  #finance-only fields
+  financeIsChief: Boolean @rename(attribute: "finance_is_chief")
+  financeAdditionalDuties: [FinanceChiefDuty!]
+    @rename(attribute: "finance_additional_duties")
+  financeOtherRoles: [FinanceChiefRole!]
+    @rename(attribute: "finance_other_roles")
+  financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
+  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+}
+
+input UpsertDevelopmentProgramUserInput {
+  developmentProgramId: UUID! @rename(attribute: "development_program_id")
+  educationExperienceId: UUID @rename(attribute: "education_experience_id")
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
+}
+
+input CreateCommunityInterestWithDevelopmentProgramsInput @validator {
   userId: UUID! @rename(attribute: "user_id")
-  community: CommunityBelongsTo!
-  workStreams: WorkStreamBelongsToMany
-  jobInterest: Boolean @rename(attribute: "job_interest")
-  trainingInterest: Boolean @rename(attribute: "training_interest")
-  additionalInformation: String @rename(attribute: "additional_information")
-  interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
-  #finance-only fields
-  financeIsChief: Boolean @rename(attribute: "finance_is_chief")
-  financeAdditionalDuties: [FinanceChiefDuty!]
-    @rename(attribute: "finance_additional_duties")
-  financeOtherRoles: [FinanceChiefRole!]
-    @rename(attribute: "finance_other_roles")
-  financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
-  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  communityInterest: CreateCommunityInterestInput!
+  developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
-input UpdateCommunityInterestInput @validator {
-  # Usually the ID parameter is at the mutation level but we need it here for the validator.
+input UpdateCommunityInterestWithDevelopmentProgramsInput @validator {
   id: UUID!
-  workStreams: WorkStreamBelongsToMany
-  jobInterest: Boolean @rename(attribute: "job_interest")
-  trainingInterest: Boolean @rename(attribute: "training_interest")
-  additionalInformation: String @rename(attribute: "additional_information")
-  interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
-  #finance-only fields
-  financeIsChief: Boolean @rename(attribute: "finance_is_chief")
-  financeAdditionalDuties: [FinanceChiefDuty!]
-    @rename(attribute: "finance_additional_duties")
-  financeOtherRoles: [FinanceChiefRole!]
-    @rename(attribute: "finance_other_roles")
-  financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
-  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  communityInterest: UpdateCommunityInterestInput!
+  developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
 input CreateOffPlatformRecruitmentProcessInput @validator {
@@ -2193,30 +2238,6 @@ input UpdateOffPlatformRecruitmentProcessInput @validator {
   classification: ClassificationBelongsTo
   platform: HiringPlatform
   platformOther: String @rename(attribute: "platform_other")
-}
-
-input CreateDevelopmentProgramInterestHasMany {
-  create: [CreateDevelopmentProgramInterestInput!]
-}
-
-input UpdateDevelopmentProgramInterestHasMany {
-  create: [CreateDevelopmentProgramInterestInput!]
-  update: [UpdateDevelopmentProgramInterestInput!]
-  delete: [UUID!]
-}
-
-input CreateDevelopmentProgramInterestInput @validator {
-  developmentProgramId: UUID! @rename(attribute: "development_program_id")
-  participationStatus: DevelopmentProgramParticipationStatus
-    @rename(attribute: "participation_status")
-  completionDate: Date @rename(attribute: "completion_date")
-}
-
-input UpdateDevelopmentProgramInterestInput @validator {
-  id: UUID!
-  participationStatus: DevelopmentProgramParticipationStatus
-    @rename(attribute: "participation_status")
-  completionDate: Date @rename(attribute: "completion_date")
 }
 
 input LocalizedStringInput {
@@ -2248,7 +2269,6 @@ input CreateClassificationInput {
     @rename(attribute: "max_salary")
     @rules(apply: ["numeric", "min:0", "gte:minSalary"])
   isAvailableInSearch: Boolean! @rename(attribute: "is_available_in_search")
-  displayName: LocalizedStringInput @rename(attribute: "display_name")
 }
 
 input ClassificationBelongsToMany {
@@ -2274,7 +2294,6 @@ input UpdateClassificationInput {
     @rename(attribute: "max_salary")
     @rules(apply: ["numeric", "min:0", "gte:minSalary"])
   isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
-  displayName: LocalizedStringInput @rename(attribute: "display_name")
 }
 
 input UpdatePoolCandidateStatusInput {
@@ -2306,8 +2325,15 @@ input AssessmentStepBelongsTo {
   disconnect: Boolean
 }
 
+input PauseReferralsInput {
+  pauseReferralsLength: PauseReferralsLength
+  resumeReferralsAt: Date
+  pauseReferralsReason: String
+}
+
 input QualifyCandidateInput {
   expiryDate: Date!
+  pauseReferrals: PauseReferralsInput @spread
 }
 
 input PlaceCandidateInput {
@@ -2319,6 +2345,7 @@ input QualifyAndPlaceCandidateInput {
   expiryDate: Date!
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  pauseReferrals: PauseReferralsInput @spread
 }
 
 input CreateDepartmentInput {
@@ -2359,6 +2386,22 @@ input DepartmentBelongsToMany {
   sync: [ID!]
 }
 
+input CreateDevelopmentProgramInput @validator {
+  name: LocalizedStringInput
+  descriptionForProfile: LocalizedStringInput
+    @rename(attribute: "description_for_profile")
+  informationUrl: LocalizedStringInput @rename(attribute: "information_url")
+  abbreviation: LocalizedStringInput
+}
+
+input UpdateDevelopmentProgramInput @validator {
+  name: LocalizedStringInput
+  descriptionForProfile: LocalizedStringInput
+    @rename(attribute: "description_for_profile")
+  informationUrl: LocalizedStringInput @rename(attribute: "information_url")
+  abbreviation: LocalizedStringInput
+}
+
 input CreateWorkStreamInput @validator {
   key: String
   name: LocalizedStringInput!
@@ -2368,7 +2411,7 @@ input CreateWorkStreamInput @validator {
   talentSearchable: Boolean! @rename(attribute: "talent_searchable")
 }
 
-input UpdateWorkStreamInput @validator {
+input UpdateWorkStreamInput {
   key: String
   name: LocalizedStringInput
   plainLanguageName: LocalizedStringInput
@@ -2399,18 +2442,36 @@ input CreateCommunityInput {
   key: String!
   name: LocalizedStringInput
   description: LocalizedStringInput
+  informationUrl: LocalizedStringInput @rename(attribute: "information_url")
   mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input UpdateCommunityInput {
   key: String
   name: LocalizedStringInput
   description: LocalizedStringInput
+  informationUrl: LocalizedStringInput @rename(attribute: "information_url")
   mandateAuthority: LocalizedStringInput @rename(attribute: "mandate_authority")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input DevelopmentProgramBelongsToMany {
   sync: [UUID!]
+}
+
+input CommunityDevelopmentProgramBelongsToMany {
+  sync: [UUID!]
+}
+
+input CommunityDevelopmentProgramBelongsToManyWithPivot {
+  connect: [ConnectCommunityDevelopmentProgramWithPivot!]
+}
+
+input ConnectCommunityDevelopmentProgramWithPivot {
+  id: ID!
+  descriptionForNominations: LocalizedStringInput
+    @rename(attribute: "description_for_nominations")
 }
 
 input CreateTalentNominationEventInput @validator {
@@ -2422,7 +2483,7 @@ input CreateTalentNominationEventInput @validator {
   includeLeadershipCompetencies: Boolean
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo!
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
 input UpdateTalentNominationEventInput @validator {
@@ -2434,7 +2495,7 @@ input UpdateTalentNominationEventInput @validator {
   includeLeadershipCompetencies: Boolean
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
 input TalentNominationEventBelongsTo {
@@ -2484,7 +2545,7 @@ input CreateTalentNominationInput @validator {
   lateralMovementOptionsOther: String
     @rename(attribute: "lateral_movement_options_other")
 
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
   developmentProgramOptionsOther: String
     @rename(attribute: "development_program_options_other")
 
@@ -2536,7 +2597,7 @@ input UpdateTalentNominationInput @validator {
   lateralMovementOptionsOther: String
     @rename(attribute: "lateral_movement_options_other")
 
-  developmentPrograms: DevelopmentProgramBelongsToMany
+  communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
   developmentProgramOptionsOther: String
     @rename(attribute: "development_program_options_other")
 
@@ -2828,7 +2889,6 @@ input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
-  department: DepartmentBelongsTo
   workStream: WorkStreamBelongsTo
   processNumber: String @rename(attribute: "process_number")
   # Closing date
@@ -3129,6 +3189,17 @@ input SendUserEmailsVerificationInput @validator {
   emailTypes: [EmailType]
 }
 
+input CreateCommunityDevelopmentProgramInput {
+  communityId: UUID! @rename(attribute: "community_id")
+  developmentProgramId: UUID! @rename(attribute: "development_program_id")
+  classifications: ClassificationBelongsToMany
+}
+
+input UpdateCommunityDevelopmentProgramInput {
+  id: UUID!
+  classifications: ClassificationBelongsToMany
+}
+
 type Mutation {
   # User mutations
   createUser(user: CreateUserInput! @spread): User
@@ -3161,25 +3232,33 @@ type Mutation {
     @guard
     @update(model: "EmployeeProfile")
     @canFind(ability: "update", find: "id", model: "EmployeeProfile")
-  updateEmployeeWFA(
-    id: UUID!
-    employeeWFA: UpdateEmployeeWFAInput! @spread
-  ): EmployeeWFA
-    @guard
-    @validator
-    @update(model: "User")
-    @canFind(ability: "updateEmployeeWFA", find: "id", model: "User")
   createCommunityInterest(
     communityInterest: CreateCommunityInterestInput! @spread
   ): CommunityInterest
     @guard
     @create
     @canModel(ability: "create", injectArgs: true)
+    @deprecated(
+      reason: "replaced by createCommunityInterestWithDevelopmentPrograms"
+    )
+  createCommunityInterestWithDevelopmentPrograms(
+    communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!
+      @spread
+  ): CommunityInterest @guard @canModel(ability: "create", injectArgs: true)
   updateCommunityInterest(
     communityInterest: UpdateCommunityInterestInput! @spread
   ): CommunityInterest
     @guard
     @update(model: "CommunityInterest")
+    @canFind(ability: "update", find: "id", model: "CommunityInterest")
+    @deprecated(
+      reason: "replaced by updateCommunityInterestWithDevelopmentPrograms"
+    )
+  updateCommunityInterestWithDevelopmentPrograms(
+    communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!
+      @spread
+  ): CommunityInterest
+    @guard
     @canFind(ability: "update", find: "id", model: "CommunityInterest")
   deleteCommunityInterest(id: UUID! @whereKey): CommunityInterest
     @delete
@@ -3232,6 +3311,7 @@ type Mutation {
     id: UUID!
     poolCandidate: UpdatePoolCandidateStatusInput! @spread
   ): PoolCandidate
+    @deprecated(reason: "Replaced by specific mutations")
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
@@ -3242,6 +3322,7 @@ type Mutation {
       find: "id"
       model: "PoolCandidate"
       injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
     )
   togglePoolCandidateUserBookmark(
     poolCandidateId: UUID! @rename(attribute: "pool_candidate_id")
@@ -3256,54 +3337,121 @@ type Mutation {
   updatePoolCandidateClaimVerification(
     id: UUID!
     poolCandidate: UpdatePoolCandidateClaimVerificationInput! @spread
-  ): PoolCandidate @update @guard @canFind(ability: "updateNotes", find: "id")
+  ): PoolCandidate
+    @update
+    @guard
+    @canFind(
+      ability: "updateNotes"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
     @update
     @guard
-    @canFind(ability: "updateNotes", find: "id")
+    @canFind(
+      ability: "updateNotes"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
   updatePoolCandidateScreeningStage(
     poolCandidate: UpdatePoolCandidateScreeningStageInput! @spread
   ): PoolCandidate
     @guard
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
+  updatePoolCandidateExpiryDate(
+    id: UUID!
+    expiryDate: Date!
+      @rename(attribute: "expiry_date")
+      @rules(apply: ["after_or_equal:today"])
+  ): PoolCandidate
+    @update
+    @guard
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
   removeCandidate(
     id: UUID!
     removalReason: CandidateRemovalReason!
     removalReasonOther: String
   ): PoolCandidate
     @guard
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @validator
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
   reinstateCandidate(id: UUID!): PoolCandidate
     @guard
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @validator
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
   qualifyCandidate(
     id: UUID!
     poolCandidate: QualifyCandidateInput! @spread
   ): PoolCandidate
     @guard
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
   disqualifyCandidate(
     id: UUID!
     reason: DisqualificationReason!
   ): PoolCandidate
     @guard
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(class: "App\\GraphQL\\Validators\\DisqualifyCandidateValidator")
   revertFinalDecision(id: UUID!): PoolCandidate
     @guard
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
-    @validator(class: "App\\GraphQL\\Validators\\RevertFinalDecisionValidator")
+    @validator
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
   placeCandidate(
     id: UUID!
     poolCandidate: PlaceCandidateInput! @spread
   ): PoolCandidate
     @guard
-    @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updatePlacement"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
   revertPlaceCandidate(id: UUID!): PoolCandidate
     @guard
-    @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updatePlacement"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(class: "App\\GraphQL\\Validators\\RevertPlaceCandidateValidator")
 
   qualifyAndPlaceCandidate(
@@ -3311,10 +3459,32 @@ type Mutation {
     poolCandidate: QualifyAndPlaceCandidateInput! @spread
   ): PoolCandidate
     @guard
-    @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
-    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
+    @canFind(
+      ability: "updatePlacement"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
+    @canFind(
+      ability: "updateDecision"
+      find: "id"
+      injectArgs: true
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
     @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
+
+  pauseCandidateReferrals(
+    id: UUID!
+    pauseReferrals: PauseReferralsInput! @spread
+  ): PoolCandidate
+    @guard
+    @validator
+    @canFind(ability: "updateReferrals", find: "id", injectArgs: true)
+  resumeCandidateReferrals(id: UUID!): PoolCandidate
+    @guard
+    @validator
+    @canFind(ability: "updateReferrals", find: "id", injectArgs: true)
 
   createClassification(
     classification: CreateClassificationInput! @spread
@@ -3348,6 +3518,15 @@ type Mutation {
     @guard
     @canFind(ability: "archiveAndUnarchive")
 
+  # Development program mutations
+  createDevelopmentProgram(
+    developmentProgram: CreateDevelopmentProgramInput! @spread
+  ): DevelopmentProgram @create @guard @canModel(ability: "create")
+  updateDevelopmentProgram(
+    id: ID!
+    developmentProgram: UpdateDevelopmentProgramInput! @spread
+  ): DevelopmentProgram @update @canFind(ability: "update", find: "id")
+
   # SearchRequest mutations
   createPoolCandidateSearchRequest(
     poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput! @spread
@@ -3358,7 +3537,7 @@ type Mutation {
   ): PoolCandidateSearchRequest
     @update
     @guard
-    @canFind(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
 
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
@@ -3458,21 +3637,33 @@ type Mutation {
   # Pool mutations
   createPool(
     userId: ID! @rename(attribute: "user_id")
-    communityId: ID! @rename(attribute: "community_id")
+    communityId: ID @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
-  ): Pool @create @guard @canModel(ability: "create", injectArgs: true)
+  ): Pool
+    @create
+    @guard
+    @canModel(ability: "create", injectArgs: true)
+    @validator(class: "Mutation\\CreatePoolValidator")
   duplicatePool(id: ID!, pool: DuplicatePoolInput! @spread): Pool
     @guard
     @canModel(ability: "duplicate", injectArgs: true)
   updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
     @update
     @guard
-    @canFind(ability: "updateDraft", find: "id")
+    @canFind(
+      ability: "updateDraft"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(class: "Mutation\\UpdatePoolValidator")
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput! @spread): Pool
     @update
     @guard
-    @canFind(ability: "updatePublished", find: "id")
+    @canFind(
+      ability: "updatePublished"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
   togglePoolUserBookmark(poolId: UUID! @rename(attribute: "pool_id")): Pool
     @guard
     @canFind(ability: "view", find: "pool_id", model: "Pool", injectArgs: true)
@@ -3494,10 +3685,16 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id", model: "PoolSkill")
-  publishPool(id: ID!): Pool @guard @canFind(ability: "publish", find: "id")
+  publishPool(id: ID!): Pool
+    @guard
+    @canFind(ability: "publish", find: "id", scopes: ["withPolicyEagerLoads"])
   changePoolClosingDate(id: ID!, closingDate: DateTime!): Pool
     @guard
-    @canFind(ability: "changePoolClosingDate", find: "id")
+    @canFind(
+      ability: "changePoolClosingDate"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
     @validator(
       class: "App\\GraphQL\\Validators\\ChangePoolClosingDateValidator"
     )
@@ -3510,19 +3707,32 @@ type Mutation {
   deletePool(id: ID! @whereKey): Pool
     @forceDelete(model: "Pool")
     @guard
-    @canFind(ability: "deleteDraft", find: "id")
+    @canFind(
+      ability: "deleteDraft"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
   archivePool(id: ID!): Pool
     @guard
-    @canFind(ability: "archiveAndUnarchive", find: "id")
+    @canFind(
+      ability: "archiveAndUnarchive"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
   unarchivePool(id: ID!): Pool
     @guard
-    @canFind(ability: "archiveAndUnarchive", find: "id")
+    @canFind(
+      ability: "archiveAndUnarchive"
+      find: "id"
+      scopes: ["withPolicyEagerLoads"]
+    )
 
   # Application mutations
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
     @guard
     @canFind(ability: "suspend", find: "id")
-  createApplication(userId: ID!, poolId: ID!): PoolCandidate
+  createApplication(poolId: ID!): PoolCandidate
+    @guard
     @canModel(ability: "createDraft")
   deleteApplication(id: ID!): PoolCandidate
     @guard
@@ -3558,7 +3768,11 @@ type Mutation {
   updateWorkStream(
     id: UUID!
     workStream: UpdateWorkStreamInput! @spread
-  ): WorkStream @update @guard @canFind(ability: "update", find: "id")
+  ): WorkStream
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator
 
   # Communities mutations
   createCommunity(community: CreateCommunityInput! @spread): Community
@@ -3583,7 +3797,7 @@ type Mutation {
   ): TalentNominationEvent
     @update
     @guard
-    @canFind(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
 
   # Talent nomination mutations
   createTalentNomination(
@@ -3612,7 +3826,7 @@ type Mutation {
   ): TalentNominationGroup
     @update
     @guard
-    @canFind(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
     @validator
 
   # Notifications
@@ -3675,7 +3889,10 @@ type Mutation {
     @canModel(ability: "create", injectArgs: true)
   updateAssessmentResult(
     updateAssessmentResult: UpdateAssessmentResultInput! @spread
-  ): AssessmentResult @update @guard @canFind(ability: "update", find: "id")
+  ): AssessmentResult
+    @update
+    @guard
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
   deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult
     @delete
     @canFind(ability: "update", find: "id")
@@ -3690,6 +3907,28 @@ type Mutation {
   updateTrainingOpportunity(
     updateTrainingOpportunity: UpdateTrainingOpportunityInput! @spread
   ): TrainingOpportunity @update @guard @canModel(ability: "update")
+
+  # Development/professionalization mutations
+  createCommunityDevelopmentProgram(
+    createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!
+      @spread
+  ): CommunityDevelopmentProgram
+    @guard
+    @create
+    @canModel(ability: "create", injectArgs: true)
+  updateCommunityDevelopmentProgram(
+    updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!
+      @spread
+  ): CommunityDevelopmentProgram
+    @guard
+    @update
+    @canFind(ability: "update", find: "id")
+  deleteCommunityDevelopmentProgram(
+    id: UUID! @whereKey
+  ): CommunityDevelopmentProgram
+    @guard
+    @delete
+    @canFind(ability: "delete", find: "id")
 
   # Excel file downloads
   downloadPoolCandidatesExcel(
@@ -3724,4 +3963,15 @@ type Mutation {
   downloadNominationDoc(id: UUID!): String
     @guard
     @canFind(ability: "view", find: "id", model: "TalentNominationGroup")
+}
+
+type UserNotification {
+  id: String
+  type: NotificationType
+  userId: String @rename(attribute: "user_id")
+  data: JSON
+}
+
+type Subscription {
+  notificationReceived: UserNotification
 }

@@ -2,16 +2,17 @@ import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import { useIntl } from "react-intl";
 
 import { Heading, Ul } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import PoolCard from "~/components/PoolCard/PoolCard";
+import JobCard from "~/components/JobCard/JobCard";
 
 export const ActiveRecruitmentSectionPool_Fragment = graphql(/* GraphQL */ `
   fragment ActiveRecruitmentSectionPool on Pool {
     id
     closingDate
     publishedAt
-    ...PoolCard
+    ...JobCard
   }
 `);
 
@@ -37,12 +38,12 @@ const ActiveRecruitmentSection = ({
         level="h2"
         size="h3"
         icon={RocketLaunchIcon}
-        color="primary"
+        color="secondary"
         className="mt-0 mb-6 font-normal"
       >
         {intl.formatMessage({
-          defaultMessage: "Active talent recruitment processes",
-          id: "YImugL",
+          defaultMessage: "Open job opportunities",
+          id: "fSMBX0",
           description: "Title for the current jobs recruiting candidates",
         })}
       </Heading>
@@ -68,7 +69,7 @@ const ActiveRecruitmentSection = ({
         <Ul unStyled className="mt-6">
           {sortedPools.map((pool) => (
             <li key={pool.id}>
-              <PoolCard poolQuery={pool} />
+              <JobCard poolQuery={pool} />
             </li>
           ))}
         </Ul>

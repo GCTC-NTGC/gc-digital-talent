@@ -1,6 +1,6 @@
 import isEmpty from "lodash/isEmpty";
 
-import {
+import type {
   User,
   Pool,
   LocalizedLanguage,
@@ -31,14 +31,24 @@ export interface PartialUser extends Pick<
   writtenLevel?: PartialEvaluatedLanguage;
   comprehensionLevel?: PartialEvaluatedLanguage;
   verbalLevel?: PartialEvaluatedLanguage;
+  preferredLanguageForInterview?: PartialLanguage;
+  preferredLanguageForExam?: PartialLanguage;
 }
 
 export function hasAllEmptyFields({
   lookingForEnglish,
   lookingForFrench,
   lookingForBilingual,
+  preferredLanguageForInterview,
+  preferredLanguageForExam,
 }: PartialUser): boolean {
-  return !lookingForEnglish && !lookingForFrench && !lookingForBilingual;
+  return (
+    !lookingForEnglish &&
+    !lookingForFrench &&
+    !lookingForBilingual &&
+    !preferredLanguageForInterview &&
+    !preferredLanguageForExam
+  );
 }
 
 export function hasEmptyRequiredFields({
@@ -52,6 +62,8 @@ export function hasEmptyRequiredFields({
   writtenLevel,
   comprehensionLevel,
   verbalLevel,
+  preferredLanguageForInterview,
+  preferredLanguageForExam,
 }: PartialUser): boolean {
   return !!(
     (!lookingForEnglish && !lookingForFrench && !lookingForBilingual) ||
@@ -62,7 +74,9 @@ export function hasEmptyRequiredFields({
         secondLanguageExamValidity === undefined ||
         isEmpty(writtenLevel) ||
         isEmpty(comprehensionLevel) ||
-        isEmpty(verbalLevel)))
+        isEmpty(verbalLevel))) ||
+    isEmpty(preferredLanguageForInterview) ||
+    isEmpty(preferredLanguageForExam)
   );
 }
 

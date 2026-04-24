@@ -1,17 +1,17 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Ul } from "@gc-digital-talent/ui";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { Caption, Ul } from "@gc-digital-talent/ui";
 
 import { getLabels } from "~/utils/languageUtils";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 import { getEstimatedLanguageAbility } from "./utils";
-import Caption from "./Caption";
 
-export const LanguageInfo_Fragment = graphql(/* GraphQL */ `
+const LanguageInfo_Fragment = graphql(/* GraphQL */ `
   fragment LanguageInfo on User {
     lookingForEnglish
     lookingForFrench
@@ -63,7 +63,7 @@ export const LanguageInfo_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export interface DisplayProps {
+interface DisplayProps {
   languageInfoQuery: FragmentType<typeof LanguageInfo_Fragment>;
 }
 

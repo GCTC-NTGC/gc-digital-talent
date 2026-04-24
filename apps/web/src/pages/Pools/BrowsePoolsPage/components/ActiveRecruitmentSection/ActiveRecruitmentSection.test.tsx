@@ -10,9 +10,9 @@ import {
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
+import type { ActiveRecruitmentSectionProps } from "./ActiveRecruitmentSection";
 import ActiveRecruitmentSection, {
   ActiveRecruitmentSectionPool_Fragment,
-  ActiveRecruitmentSectionProps,
 } from "./ActiveRecruitmentSection";
 
 const publishedPool = makeFragmentData(
@@ -69,7 +69,7 @@ describe("BrowsePoolsPage", () => {
 
     // find the rendered links
     const links = screen.queryAllByRole("link", {
-      name: /Apply to this recruitment/i,
+      name: /Apply to/i,
     });
 
     // ensure there are the right number and in the right order

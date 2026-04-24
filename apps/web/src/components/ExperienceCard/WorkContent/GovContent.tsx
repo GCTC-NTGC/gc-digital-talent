@@ -1,17 +1,14 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  GovContractorType,
-  GovEmployeeType,
-  WorkExperience,
-} from "@gc-digital-talent/graphql";
+import type { WorkExperience } from "@gc-digital-talent/graphql";
+import { GovContractorType, GovEmployeeType } from "@gc-digital-talent/graphql";
 import { Separator, UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "../ContentSection";
-import { ContentProps } from "../types";
+import type { ContentProps } from "../types";
 
 const GovContent = ({
   experience: {

@@ -1,44 +1,6 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  questionRecoveryCodes: {
-    defaultMessage:
-      "What if I deleted the app or changed phone and I don't have the recovery codes?",
-    id: "RDHbAx",
-    description: "GCKey question for when user does not have recovery codes",
-  },
-  answerRecoveryCodes: {
-    defaultMessage:
-      "Although your login cannot be recovered, you can contact our <helpLink>support team</helpLink> for help with recovering your account.",
-    id: "jMx7Kb",
-    description: "GCKey answer for when user does not have recovery codes",
-  },
-  questionRemove2FA: {
-    defaultMessage:
-      "Can you remove the two-factor authentication from my account so I can reset it?",
-    id: "Un0ubb",
-    description:
-      "GCKey question for ability to remove two-factor authentication",
-  },
-  answerRemove2FA: {
-    defaultMessage:
-      "We cannot remove two-factor authentication, but you can contact our <helpLink>support team</helpLink> for help with recovering your account.",
-    id: "fQ7zxR",
-    description: "GCKey answer for ability to remove two-factor authentication",
-  },
-  questionAuthCodes: {
-    defaultMessage:
-      "What can I do if my authenticator codes are no longer being accepted?",
-    id: "L9IkrB",
-    description:
-      "GCKey question for when user authenticator codes not accepted",
-  },
-  answerAuthCodes: {
-    defaultMessage:
-      "Please contact our <helpLink>support team</helpLink> for help with recovering your account.",
-    id: "vweW8X",
-    description: "GCKey answer for when user authenticator codes not accepted",
-  },
   questionExistingAccount: {
     defaultMessage: "Already have a GCKey account?",
     id: "W3KFtQ",

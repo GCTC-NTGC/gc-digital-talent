@@ -8,6 +8,7 @@ use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Models\Classification;
 use App\Models\Department;
+use App\Models\DevelopmentProgram;
 use App\Models\TalentNominationGroup;
 use App\Models\User;
 use Illuminate\Support\Facades\Lang;
@@ -70,13 +71,10 @@ trait GeneratesNominationDoc
 
         $section->addTitle($this->localizeHeading('nomination_details'), $headingRank);
 
-        $nominations = $talentNominationGroup->nominations()->get();
+        $nominations = $talentNominationGroup->nominations;
 
-        if ($talentNominationGroup->nominations()->count() > 0) {
+        if (count($talentNominationGroup->nominations) > 0) {
             foreach ($nominations as $nomination) {
-
-                $nomination->loadMissing('nominator', 'submitter', 'advancementReferenceFallbackClassification', 'advancementReferenceFallbackDepartment');
-
                 if ($nomination->nominator) {
                     $nominatorFullName = $nomination->nominator->getFullName() ?? Lang::get('common.not_available', [], $this->lang);
                     $section->addTitle("{$this->localizeHeading('nominated_by')} {$nominatorFullName}", $headingRank + 1);
@@ -134,7 +132,11 @@ trait GeneratesNominationDoc
                 }
 
                 if ($nomination->advancement_reference_id) {
-                    $advancementReference = User::findOrFail($nomination->advancement_reference_id);
+                    $advancementReference = User::with([
+                        'currentClassification',
+                        'department',
+                    ])
+                        ->findOrFail($nomination->advancement_reference_id);
                     $this->addLabelText($section, $this->localizeHeading('advancement_secondary_reference'), $advancementReference->getFullName() ?? Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('references_work_email'), $advancementReference->work_email ?? Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('references_classification'), $advancementReference->currentClassification ? $advancementReference->currentClassification->formattedGroupAndLevel : Lang::get('common.not_available', [], $this->lang));
@@ -167,12 +169,15 @@ trait GeneratesNominationDoc
                     $section->addListItem("{$this->localizeHeading('other')} {$nomination->lateral_movement_options_other}");
                 }
 
-                if ($nomination->developmentPrograms()->count() > 0 || $nomination->development_program_options_other) {
+                $hasDevelopmentPrograms = count($nomination->developmentProgramsThroughPivot) > 0;
+
+                if ($hasDevelopmentPrograms || $nomination->development_program_options_other) {
                     $this->addLabelText($section, $this->localizeHeading('development_program_recommendations'), '');
                 }
 
-                if ($nomination->developmentPrograms()->count() > 0) {
-                    $developmentPrograms = $nomination->developmentPrograms()->get();
+                if ($hasDevelopmentPrograms) {
+                    $developmentPrograms = $nomination->developmentProgramsThroughPivot;
+                    /** @var DevelopmentProgram $developmentProgram */
                     foreach ($developmentPrograms as $developmentProgram) {
                         $section->addListItem($developmentProgram->name[$this->lang]);
                     }
@@ -186,8 +191,8 @@ trait GeneratesNominationDoc
                     $this->addLabelText($section, $this->localizeHeading('rationale'), $nomination->nomination_rationale);
                 }
 
-                $skills = $nomination->skills()->get();
-                if ($skills->count() > 0) {
+                $skills = $nomination->skills;
+                if (count($skills) > 0) {
                     $this->addLabelText($section, $this->localizeHeading('leadership_competencies'), '');
                     foreach ($skills as $skill) {
                         $section->addListItem($skill->name[$this->lang]);

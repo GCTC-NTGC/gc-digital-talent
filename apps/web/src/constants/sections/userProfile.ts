@@ -1,11 +1,10 @@
 export const PAGE_SECTION_ID = {
   DEI: "diversity-equity-inclusion-section",
   LANGUAGE: "language-section",
-  GOVERNMENT: "government-section",
   WORK_PREFERENCES: "work-preferences-section",
   CAREER_TIMELINE_AND_RECRUITMENT: "career-timeline-section",
   SKILL_SHOWCASE: "skill-showcase",
-  PRIORITY_ENTITLEMENTS: "priority-entitlements",
+  CITIZEN_VETERAN_PRIORITY: "citizen-veteran-priority",
 } as const;
 
 type ObjectValues<T> = T[keyof T];

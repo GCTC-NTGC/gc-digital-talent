@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -22,8 +23,8 @@ use Illuminate\Support\Str;
  * @property bool $job_interest
  * @property bool $training_interest
  * @property string $additional_information
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property bool $finance_is_chief
  * @property array $finance_additional_duties
  * @property array $finance_other_roles
@@ -50,6 +51,15 @@ class CommunityInterest extends Model
      * The attributes that can be filled using mass-assignment.
      */
     protected $fillable = [
+        'community_id',
+        'user_id',
+        'job_interest',
+        'training_interest',
+        'additional_information',
+        'finance_is_chief',
+        'finance_additional_duties',
+        'finance_other_roles',
+        'finance_other_roles_other',
         'consent_to_share_profile',
     ];
 
@@ -125,7 +135,7 @@ class CommunityInterest extends Model
     // own interest or belongs to your community and consentToShareProfile is TRUE
     public function scopeAuthorizedToView(Builder $query, ?array $args = null)
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -195,6 +205,19 @@ class CommunityInterest extends Model
 
         $query->whereHas('workStreams', function ($query) use ($workStreamIds) {
             $query->whereIn('community_interest_work_stream.work_stream_id', $workStreamIds);
+        });
+
+        return $query;
+    }
+
+    public static function scopeClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+
+        $query->whereHas('user', function ($userQuery) use ($classifications) {
+            $userQuery->whereClassificationIn($classifications);
         });
 
         return $query;
@@ -381,5 +404,10 @@ class CommunityInterest extends Model
             'skill_count' => Skill::whereIn('skills.id', [])
                 ->select(DB::raw('null as skill_count')),
         ]);
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['community.team']);
     }
 }

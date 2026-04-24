@@ -155,6 +155,7 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->departmentHRAdvisor->can('view', $this->applicant));
 
         $this->pool->community_id = $this->community->id;
+        $this->pool->department_id = $this->department->id;
         $this->pool->save();
         $newApplication = PoolCandidate::factory()->create(
             [
@@ -168,8 +169,8 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($this->processOperator->can('view', $this->applicant));
         $this->assertTrue($this->communityRecruiter->can('view', $this->applicant));
         $this->assertTrue($this->communityAdmin->can('view', $this->applicant));
-        $this->assertFalse($this->departmentAdmin->can('view', $this->applicant));
-        $this->assertFalse($this->departmentHRAdvisor->can('view', $this->applicant));
+        $this->assertTrue($this->departmentAdmin->can('view', $this->applicant));
+        $this->assertTrue($this->departmentHRAdvisor->can('view', $this->applicant));
 
         PoolCandidate::truncate();
         CommunityInterest::factory()->create([
@@ -188,7 +189,8 @@ class UserPolicyTest extends TestCase
     }
 
     /**
-     * Only Platform Admins, Community Recruiter, and Community Admin should be able to viewBasicInfo
+     * Able to viewBasicInfo
+     * Only Platform Admins, Community Recruiter, Community Admin, Department Admin, and Department Advisor
      *
      * @return void
      */
@@ -202,8 +204,8 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($this->communityRecruiter->can('viewBasicInfo', $this->applicant));
         $this->assertTrue($this->communityAdmin->can('viewBasicInfo', $this->applicant));
         $this->assertFalse($this->communityTalentCoordinator->can('viewBasicInfo', $this->applicant));
-        $this->assertFalse($this->departmentAdmin->can('viewBasicInfo', $this->applicant));
-        $this->assertFalse($this->departmentHRAdvisor->can('viewBasicInfo', $this->applicant));
+        $this->assertTrue($this->departmentAdmin->can('viewBasicInfo', $this->applicant));
+        $this->assertTrue($this->departmentHRAdvisor->can('viewBasicInfo', $this->applicant));
     }
 
     /**
@@ -772,5 +774,25 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->departmentAdmin->can('updateRoles', $policyArgsForDetach));
         $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForAttach));
         $this->assertFalse($this->departmentHRAdvisor->can('updateRoles', $policyArgsForDetach));
+    }
+
+    /**
+     * Able to viewAnyUserWorkEmail
+     * Only Platform Admins, Community Recruiter, Community Admin, Department Admin, and Department Advisor
+     *
+     * @return void
+     */
+    public function testViewAnyUserWorkEmail()
+    {
+        $this->assertFalse($this->guest->can('viewAnyUserWorkEmail', $this->applicant));
+        $this->assertFalse($this->applicant->can('viewAnyUserWorkEmail', $this->applicant));
+        $this->assertTrue($this->platformAdmin->can('viewAnyUserWorkEmail', $this->applicant));
+
+        $this->assertFalse($this->processOperator->can('viewAnyUserWorkEmail', $this->applicant));
+        $this->assertTrue($this->communityRecruiter->can('viewAnyUserWorkEmail', $this->applicant));
+        $this->assertTrue($this->communityAdmin->can('viewAnyUserWorkEmail', $this->applicant));
+        $this->assertFalse($this->communityTalentCoordinator->can('viewAnyUserWorkEmail', $this->applicant));
+        $this->assertTrue($this->departmentAdmin->can('viewAnyUserWorkEmail', $this->applicant));
+        $this->assertTrue($this->departmentHRAdvisor->can('viewAnyUserWorkEmail', $this->applicant));
     }
 }

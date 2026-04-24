@@ -17,19 +17,7 @@ class CommunityTestSeeder extends Seeder
      */
     public function run()
     {
-        Community::factory()
-            ->has(DevelopmentProgram::factory()
-                ->withEligibleClassifications()
-                ->state(new Sequence(
-                    function (Sequence $sequence) {
-                        return [
-                            'name' => [
-                                'en' => 'Test Development program EN '.$sequence->index,
-                                'fr' => 'Test Development program FR '.$sequence->index,
-                            ],
-                        ];
-                    }
-                )))
+        $testCommunity = Community::factory()
             ->withTalentNominationEvents()
             ->create([
                 'key' => 'test-community',
@@ -39,14 +27,27 @@ class CommunityTestSeeder extends Seeder
                 ],
             ]);
 
-        $testCommunityId = Community::where('key', 'test-community')->first('id');
+        DevelopmentProgram::factory()
+            ->withCommunityAndClassifications($testCommunity->id)
+            ->state(new Sequence(
+                function (Sequence $sequence) {
+                    return [
+                        'name' => [
+                            'en' => 'Test Development program EN '.$sequence->index,
+                            'fr' => 'Test Development program FR '.$sequence->index,
+                        ],
+                    ];
+                }
+            ))
+            ->create();
+
         WorkStream::factory()->create([
             'key' => 'test_work_stream',
             'name' => [
                 'en' => 'Test work stream EN',
                 'fr' => 'Test work stream FR',
             ],
-            'community_id' => $testCommunityId,
+            'community_id' => $testCommunity->id,
         ]);
 
     }

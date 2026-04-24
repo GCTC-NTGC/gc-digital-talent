@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Enums\ApplicationStatus;
 use App\Enums\ErrorCode;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
@@ -60,8 +59,7 @@ class PoolTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->community = Community::factory()->create([
-            'key' => 'pool-application-test-community']);
+        $this->community = Community::factory()->create();
 
         $this->communityRecruiter = User::factory()
             ->asCommunityRecruiter($this->community->id)
@@ -1683,12 +1681,9 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $communityId: ID!, $pool: CreatePoolInput!) {
+            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
                 createPool(userId: $userId, communityId: $communityId, pool: $pool) {
                     id
-                    owner {
-                        id
-                    }
                     community {
                         id
                     }
@@ -1715,14 +1710,110 @@ class PoolTest extends TestCase
             );
 
         $response->assertJsonFragment([
-            'owner' => ['id' => $this->communityRecruiter->id],
-        ])->assertJsonFragment([
             'community' => ['id' => $this->community->id],
         ])->assertJsonFragment([
             'classification' => ['id' => $classification->id],
         ])->assertJsonFragment([
             'department' => ['id' => $department->id],
         ]);
+    }
+
+    // can create a pool as department role, no community attached
+    public function testCreatePoolNoCommunity()
+    {
+        $classification = Classification::factory()->create();
+        $department = Department::factory()->create();
+
+        $departmentAdmin = User::factory()
+            ->asDepartmentAdmin($department->id)
+            ->create();
+
+        $response = $this->actingAs($departmentAdmin, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
+                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+                    id
+                    community {
+                        id
+                    }
+                    classification {
+                        id
+                    }
+                    department {
+                        id
+                    }
+                }
+            }',
+                [
+                    'userId' => $departmentAdmin->id,
+                    'pool' => [
+                        'classification' => [
+                            'connect' => $classification->id,
+                        ],
+                        'department' => [
+                            'connect' => $department->id,
+                        ],
+                    ],
+                ]
+            );
+
+        $response->assertJsonFragment([
+            'community' => null,
+        ])->assertJsonFragment([
+            'classification' => ['id' => $classification->id],
+        ])->assertJsonFragment([
+            'department' => ['id' => $department->id],
+        ]);
+    }
+
+    // test user with community and department roles submitting an invalid pairing
+    public function testCreatePoolInvalidDepartmentCommunityPair()
+    {
+        $classification = Classification::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $department = Department::factory()->create();
+        $otherDepartment = Department::factory()->create();
+
+        $testUser = User::factory()
+            ->asCommunityAdmin($this->community->id)
+            ->asDepartmentAdmin($department->id)
+            ->create();
+
+        $response = $this->actingAs($testUser, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
+                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+                    id
+                    community {
+                        id
+                    }
+                    classification {
+                        id
+                    }
+                    department {
+                        id
+                    }
+                }
+            }',
+                [
+                    'communityId' => $otherCommunity->id,
+                    'userId' => $testUser->id,
+                    'pool' => [
+                        'classification' => [
+                            'connect' => $classification->id,
+                        ],
+                        'department' => [
+                            'connect' => $otherDepartment->id,
+                        ],
+                    ],
+                ]
+            );
+
+        $response->assertGraphQLValidationError('pool', ErrorCode::INVALID_COMMUNITY_DEPARTMENT_COMBO->name);
     }
 
     public function testDuplicatePool()
@@ -1812,24 +1903,9 @@ class PoolTest extends TestCase
     public function testApplicantsCount()
     {
         // setup
-        $publishedPool = Pool::factory()
-            ->published()
-            ->for($this->adminUser)
-            ->create();
-        PoolCandidate::factory()
-            ->availableInSearch()
-            ->create(
-                [
-                    'pool_id' => $publishedPool->id,
-                ]
-            );
-        PoolCandidate::factory()
-            ->create(
-                [
-                    'pool_id' => $publishedPool->id,
-                    'application_status' => ApplicationStatus::DRAFT->name,
-                ]
-            );
+        $publishedPool = Pool::factory()->published()->for($this->adminUser)->create();
+        PoolCandidate::factory()->availableInSearch()->for($publishedPool)->create();
+        PoolCandidate::factory()->for($publishedPool)->create();
 
         // assert published pool has two pool candidate records
         $candidateCount = count(PoolCandidate::where('pool_id', $publishedPool->id)->get());

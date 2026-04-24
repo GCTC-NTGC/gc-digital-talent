@@ -1,4 +1,5 @@
-import { defineMessages, MessageDescriptor } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessages } from "react-intl";
 
 import { ErrorCode } from "@gc-digital-talent/graphql";
 
@@ -204,6 +205,18 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Error message that reverting the final decision for a candidate failed",
   },
+  [ErrorCode.InvalidRevertDecisionPlaced]: {
+    defaultMessage:
+      "An error occurred while reverting final decision. Candidate has been placed.",
+    id: "JPBRgs",
+    description:
+      "Error message that reverting the final decision for a placed candidate failed",
+  },
+  [ErrorCode.CandidateNotFound]: {
+    defaultMessage: "Candidate not found.",
+    id: "PPOcri",
+    description: "Error message for when a pool candidate could not be found",
+  },
   [ErrorCode.InvalidStatusPlacing]: {
     defaultMessage:
       "An error occurred while placing the candidate. Contact support if this problem persists.",
@@ -215,6 +228,17 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
       "An error occurred while placing the candidate. Contact support if this problem persists.",
     id: "8kUa5H",
     description: "Error message that placing a candidate failed",
+  },
+  [ErrorCode.InvalidPauseReferral]: {
+    defaultMessage:
+      "An error occurred while pausing referrals. Contact support if this problem persists.",
+    id: "1go1mo",
+    description: "Error message that pausing referrals for a candidate failed",
+  },
+  [ErrorCode.InvalidUnpauseAtDate]: {
+    defaultMessage: "Pause end date can’t be after expiry date of pool.",
+    id: "F6BSah",
+    description: "Error message for pause referral status end date input",
   },
 
   // pool updating
@@ -501,19 +525,17 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Error message that contact email for this process must be filled",
   },
-  [ErrorCode.MissingSubstantiveExperience]: {
-    defaultMessage:
-      "You can’t save this option as your workforce adjustment situation if your current position is missing, not marked as substantive, or not marked as a Government of Canada experience. Please update your career experience to continue.",
-    id: "OKhXQk",
-    description:
-      "Error message for when a user is missing a substantive experience for workforce adjustment",
-  },
   [ErrorCode.ApplicationWorkEmailNotVerified]: {
     defaultMessage:
       "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
     id: "OJVUdM",
     description:
       "Error message for when user submits an application to an internal pool with an unverified work email",
+  },
+  [ErrorCode.InvalidUrl]: {
+    defaultMessage: "Invalid URL",
+    id: "4Uwcxk",
+    description: "Error message for invalid URL",
   },
 });
 

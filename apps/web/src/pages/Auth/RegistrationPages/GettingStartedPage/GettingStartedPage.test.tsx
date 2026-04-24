@@ -1,4 +1,4 @@
-import { fireEvent, act, screen, waitFor } from "@testing-library/react";
+import { fireEvent, act, screen } from "@testing-library/react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { vi } from "vitest";
@@ -7,18 +7,14 @@ import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
 
-import {
-  GettingStartedForm,
-  GettingStartedFormProps,
+import type { GettingStartedFormProps } from "./GettingStartedForm";
+import GettingStartedForm, {
   GettingStartedInitialValues_Query,
-  GettingStartedOptions_Query,
 } from "./GettingStartedForm";
-
-const mockSave = vi.fn().mockResolvedValue(undefined);
 
 const mockClient = {
   executeQuery: vi.fn(() => pipe(fromValue({}), delay(0))),
@@ -34,46 +30,47 @@ const mockClient = {
   ),
 };
 
-const mockInitialValuesData = makeFragmentData(
-  {},
+const mockDataNoWorkEmail = makeFragmentData(
+  {
+    firstName: "First",
+    lastName: "Last",
+    preferredLang: {
+      label: {
+        localized: "Language",
+      },
+    },
+    email: "example@example.org",
+    workEmail: null,
+    isWorkEmailVerified: null,
+    telephone: "1234567890",
+  },
   GettingStartedInitialValues_Query,
 );
 
-const mockOptionsData = makeFragmentData(
+const mockDataWithWorkEmail = makeFragmentData(
   {
-    languages: [
-      {
-        value: Language.En,
-        label: {
-          en: "English",
-          fr: "",
-        },
+    firstName: "First",
+    lastName: "Last",
+    preferredLang: {
+      label: {
+        localized: "Language",
       },
-      {
-        value: Language.Fr,
-        label: {
-          en: "French",
-          fr: "",
-        },
-      },
-    ],
+    },
+    email: "example@example.org",
+    workEmail: "example@gc.ca",
+    isWorkEmailVerified: true,
+    telephone: "1234567890",
   },
-  GettingStartedOptions_Query,
+  GettingStartedInitialValues_Query,
 );
 
 const renderGettingStartedForm = ({
   initialValuesQuery,
-  optionsQuery,
-  onSubmit,
 }: GettingStartedFormProps) =>
   renderWithProviders(
     <GraphqlProvider value={mockClient}>
       <EmailVerification.Provider>
-        <GettingStartedForm
-          initialValuesQuery={initialValuesQuery}
-          optionsQuery={optionsQuery}
-          onSubmit={onSubmit}
-        />
+        <GettingStartedForm initialValuesQuery={initialValuesQuery} />
       </EmailVerification.Provider>
     </GraphqlProvider>,
   );
@@ -81,9 +78,7 @@ const renderGettingStartedForm = ({
 describe("Getting Started Form tests", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderGettingStartedForm({
-      initialValuesQuery: mockInitialValuesData,
-      optionsQuery: mockOptionsData,
-      onSubmit: mockSave,
+      initialValuesQuery: mockDataNoWorkEmail,
     });
 
     await act(async () => {
@@ -91,96 +86,45 @@ describe("Getting Started Form tests", () => {
     });
   });
 
-  it("should render fields", async () => {
+  it("can verify separate work email", async () => {
     renderGettingStartedForm({
-      initialValuesQuery: mockInitialValuesData,
-      optionsQuery: mockOptionsData,
-      onSubmit: mockSave,
+      initialValuesQuery: mockDataNoWorkEmail,
     });
-
-    fireEvent.change(
-      screen.getByRole("textbox", {
-        name: /contact email address/i,
-      }),
-      { target: { value: "newuser@example.org" } },
-    );
-    fireEvent.click(
-      screen.getByRole("button", { name: /send verification email/i }),
-    );
-
-    // mutation fires - wait for confirmation message
-    await screen.findByText("Verification email sent!");
-
-    expect(
-      screen.getByRole("textbox", { name: /email verification code/i }),
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("textbox", { name: /first name/i }),
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("textbox", { name: /last name/i }),
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("group", { name: /preferred contact language/i }),
-    ).toBeInTheDocument();
-  });
-
-  it("should submit successfully with required fields", async () => {
-    renderGettingStartedForm({
-      initialValuesQuery: mockInitialValuesData,
-      optionsQuery: mockOptionsData,
-      onSubmit: mockSave,
-    });
-
-    fireEvent.change(
-      screen.getByRole("textbox", {
-        name: /contact email address/i,
-      }),
-      { target: { value: "newuser@example.org" } },
-    );
-    fireEvent.click(
-      screen.getByRole("button", { name: /send verification email/i }),
-    );
-
-    // mutation fires - wait for confirmation message
-    await screen.findByText("Verification email sent!");
-
-    fireEvent.change(
-      screen.getByRole("textbox", {
-        name: /email verification code/i,
-      }),
-      { target: { value: "AAAAAA" } },
-    );
-
-    fireEvent.change(
-      screen.getByRole("textbox", {
-        name: /first name/i,
-      }),
-      { target: { value: "FirstName" } },
-    );
-
-    fireEvent.change(
-      screen.getByRole("textbox", {
-        name: /last name/i,
-      }),
-      { target: { value: "LastName" } },
-    );
 
     fireEvent.click(
       screen.getByRole("radio", {
-        name: /english/i,
+        name: /I currently work for the Government of Canada/i,
       }),
-      { target: { value: "LastName" } },
     );
 
-    fireEvent.submit(
-      screen.getByRole("button", { name: /save and continue/i }),
+    // wait for the bottom half to change
+    await screen.findByRole("textbox", { name: /government work email/i });
+
+    fireEvent.change(
+      screen.getByRole("textbox", {
+        name: /government work email/i,
+      }),
+      { target: { value: "example@gc.ca" } },
     );
-    await waitFor(() => {
-      expect(mockSave).toHaveBeenCalledTimes(1);
+    fireEvent.click(
+      screen.getByRole("button", { name: /send verification email/i }),
+    );
+
+    // mutation fires - wait for confirmation message
+    expect(
+      await screen.findByText("Verification email sent!"),
+    ).toBeInTheDocument();
+  });
+
+  it("can recognize an already set work email", async () => {
+    renderGettingStartedForm({
+      initialValuesQuery: mockDataWithWorkEmail,
     });
+
+    expect(
+      await screen.findByText(
+        "The email provided by CanadaLogin is a verified work email",
+      ),
+    ).toBeInTheDocument();
   });
 });

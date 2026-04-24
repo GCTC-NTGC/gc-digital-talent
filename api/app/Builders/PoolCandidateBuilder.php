@@ -4,6 +4,7 @@ namespace App\Builders;
 
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateReferralFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
@@ -84,7 +85,7 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this->whereHas('pool', function (Builder $query) use ($publishingGroups) {
-            /** @var \App\Builders\PoolBuilder $query */
+            /** @var PoolBuilder $query */
             $query->publishingGroups($publishingGroups);
         });
     }
@@ -274,7 +275,7 @@ class PoolCandidateBuilder extends Builder
                 $query->whereIn('placement_type', PlacementType::searchable())
                     ->orWhereNull('placement_type');
             })
-            ->where('referring', true)
+            ->whereNull('pause_referrals_at')
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
@@ -311,6 +312,56 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this;
+    }
+
+    public function whereReferralStatusIn(?array $referralStatuses): self
+    {
+        if (empty($referralStatuses)) {
+            return $this;
+        }
+
+        $hasReferring = in_array(CandidateReferralFilter::REFERRING->name, $referralStatuses, true);
+        $hasNotReferring = in_array(CandidateReferralFilter::NOT_REFERRING->name, $referralStatuses, true);
+
+        // only has referring
+        if ($hasReferring && ! $hasNotReferring) {
+            return $this->whereBeingReferred();
+        }
+
+        // only has not referring
+        if (! $hasReferring && $hasNotReferring) {
+            return $this->whereNotBeingReferred();
+        }
+
+        // none selected or both selected - no filtering
+        return $this;
+    }
+
+    public function whereBeingReferred(): self
+    {
+        $now = now();
+
+        return $this->where(function ($query) use ($now) {
+            $query->whereNull('pause_referrals_at')
+                ->orWhere('pause_referrals_at', '>', $now)
+                ->orWhere('resume_referrals_at', '<=', $now);
+        })
+            ->where('application_status', ApplicationStatus::QUALIFIED->name);
+    }
+
+    public function whereNotBeingReferred(): self
+    {
+        $now = now();
+
+        return $this->where(function ($query) use ($now) {
+            $query
+                ->where('pause_referrals_at', '<=', $now)
+                ->where(function ($query) use ($now) {
+                    $query->whereNull('resume_referrals_at')
+                        ->orWhere('resume_referrals_at', '>', $now);
+                })
+                ->orWhere('application_status', '!=', ApplicationStatus::QUALIFIED->name);
+        });
     }
 
     public function whereSuspendedStatus(?string $suspendedStatus): self
@@ -500,7 +551,7 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this->whereHas('pool', function (Builder $query) use ($streams) {
-            /** @var \App\Builders\PoolBuilder $query */
+            /** @var PoolBuilder $query */
             $query->whereWorkStreamsIn($streams);
         });
     }
@@ -527,7 +578,7 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this->whereHas('pool', function (Builder $query) use ($processNumber) {
-            /** @var \App\Builders\PoolBuilder $query */
+            /** @var PoolBuilder $query */
             $query->processNumber($processNumber);
         });
     }
@@ -563,7 +614,7 @@ class PoolCandidateBuilder extends Builder
             return $this;
         }
 
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if ($user && ! empty($args['useBookmark'])) {
@@ -636,6 +687,8 @@ class PoolCandidateBuilder extends Builder
     {
         extract($args);
 
+        $locale ??= app()->getLocale();
+
         if (isset($order) && isset($locale)) {
             return
             $this->withMax('pool', 'name->'.$locale)
@@ -678,12 +731,17 @@ class PoolCandidateBuilder extends Builder
         return $this->orderByRaw('array_position(ARRAY[?, ?, ?, ?]::varchar[], screening_stage) '.$order, $enumOrder);
     }
 
+    public function withPolicyEagerLoads(): self
+    {
+        return $this->with(['pool.team', 'pool.community.team', 'pool.department.team']);
+    }
+
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
     public function whereAuthorizedToView(?array $args = null): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -713,6 +771,8 @@ class PoolCandidateBuilder extends Builder
                                     return $query->whereIn('id', $teamIds);
                                 })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                                     return $query->whereIn('id', $teamIds);
+                                })->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
                                 });
                             });
                         });
@@ -735,7 +795,7 @@ class PoolCandidateBuilder extends Builder
     // main authorization scope for viewing PoolCandidateAdminView
     public function whereAuthorizedToViewPoolCandidateAdminView(): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (! $user) {
@@ -793,6 +853,8 @@ class PoolCandidateBuilder extends Builder
                                 return $poolQuery->whereIn('id', $teamIds);
                             })->orWhereHas('community.team', function (Builder $poolQuery) use ($teamIds) {
                                 return $poolQuery->whereIn('id', $teamIds);
+                            })->orWhereHas('department.team', function (Builder $poolQuery) use ($teamIds) {
+                                return $poolQuery->whereIn('id', $teamIds);
                             });
                         });
                     });
@@ -821,6 +883,8 @@ class PoolCandidateBuilder extends Builder
                         $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
                             return $query->whereIn('id', $teamIds);
                         })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        })->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
                             return $query->whereIn('id', $teamIds);
                         });
                     });
@@ -858,6 +922,8 @@ class PoolCandidateBuilder extends Builder
                             return $query->whereIn('id', $teamIds);
                         })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                             return $query->whereIn('id', $teamIds);
+                        })->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
                         });
                     });
                 });
@@ -886,6 +952,8 @@ class PoolCandidateBuilder extends Builder
                             return $query->whereIn('id', $teamIds);
                         })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                             return $query->whereIn('id', $teamIds);
+                        })->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
                         });
                     });
                 });
@@ -912,6 +980,8 @@ class PoolCandidateBuilder extends Builder
                         $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
                             return $query->whereIn('id', $teamIds);
                         })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                            return $query->whereIn('id', $teamIds);
+                        })->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
                             return $query->whereIn('id', $teamIds);
                         });
                     });

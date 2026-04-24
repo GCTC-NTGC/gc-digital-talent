@@ -1,4 +1,5 @@
-import { MessageDescriptor, useIntl } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { useIntl } from "react-intl";
 
 import {
   Checklist,
@@ -8,12 +9,11 @@ import {
   SwitchInput,
   Select,
 } from "@gc-digital-talent/forms";
+import type { FragmentType, AssessmentStep } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   WorkRegion,
-  AssessmentStep,
   AssessmentStepType,
   ApplicationStatus,
 } from "@gc-digital-talent/graphql";
@@ -31,10 +31,9 @@ import { Heading } from "@gc-digital-talent/ui";
 import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 
-import FilterDialog, {
-  CommonFilterDialogProps,
-} from "../FilterDialog/FilterDialog";
-import { FormValues } from "./types";
+import type { CommonFilterDialogProps } from "../FilterDialog/FilterDialog";
+import FilterDialog from "../FilterDialog/FilterDialog";
+import type { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
 import tableMessages from "./tableMessages";
 import { candidateSuspendedFilterToCustomOptions } from "./helpers";
@@ -131,6 +130,14 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
     }
     publishingGroups: localizedEnumOptions(enumName: "PublishingGroup") {
       ... on LocalizedPublishingGroup {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    referralFilters: localizedEnumOptions(enumName: "CandidateReferralFilter") {
+      ... on LocalizedCandidateReferralFilter {
         value
         label {
           localized
@@ -411,6 +418,20 @@ const PoolCandidateFilterDialog = ({
           )}
         />
       </div>
+      <Combobox
+        id="referralStatuses"
+        name="referralStatuses"
+        isMulti
+        doNotSort
+        label={intl.formatMessage(tableMessages.referralStatus)}
+        options={narrowEnumType(
+          unpackMaybes(data?.referralFilters),
+          "CandidateReferralFilter",
+        ).map((referralFilter) => ({
+          value: referralFilter.value,
+          label: referralFilter.label?.localized ?? notAvailable,
+        }))}
+      />
 
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({

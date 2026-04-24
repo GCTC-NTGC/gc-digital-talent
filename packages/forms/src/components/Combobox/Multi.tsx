@@ -10,7 +10,7 @@ import { Button, Chip, Chips } from "@gc-digital-talent/ui";
 import Field from "../Field";
 import Menu from "./Menu";
 import Input from "./Input";
-import { BaseProps, Option } from "./types";
+import type { BaseProps, Option } from "./types";
 import {
   getMultiFilteredItems,
   itemToString,

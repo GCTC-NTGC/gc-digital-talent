@@ -1,5 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
-import { ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 
@@ -258,8 +259,8 @@ export const Component = () => {
               <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Specialized skills with more detailed descriptions are added to address specific operational requirements, as needed. ",
-                  id: "8sqysp",
+                    "Specialized skills with more detailed descriptions are added to address specific operational requirements, as needed.",
+                  id: "gnoNDM",
                   description:
                     "Paragraph two, information on skill descriptions",
                 })}

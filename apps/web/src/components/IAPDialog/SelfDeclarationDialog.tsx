@@ -56,8 +56,8 @@ const SelfDeclarationDialog = ({ children, btnProps }: BasicDialogProps) => {
           <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
-                " To ensure the program remains available to Indigenous peoples in Canada, we ask that you complete the Indigenous Peoples Self-Declaration Form and confirm for us that you are a member of one or more of the Indigenous communities in Canada.",
-              id: "qEvJjr",
+                "To ensure the program remains available to Indigenous peoples in Canada, we ask that you complete the Indigenous Peoples Self-Declaration Form and confirm for us that you are a member of one or more of the Indigenous communities in Canada.",
+              id: "r01z4D",
               description:
                 "Paragraph three for the self-declaration explanation dialog",
             })}

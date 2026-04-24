@@ -94,6 +94,11 @@ type LocalizedCandidateInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateReferralFilter implements LocalizedEnumOption {
+  value: CandidateReferralFilter!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
   label: LocalizedString!
@@ -189,11 +194,6 @@ type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedFinalDecision implements LocalizedEnumOption {
-  value: FinalDecision!
-  label: LocalizedString!
-}
-
 type LocalizedFinanceChiefDuty implements LocalizedEnumOption {
   value: FinanceChiefDuty!
   label: LocalizedString!
@@ -269,6 +269,11 @@ type LocalizedOrganizationTypeInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedPauseReferralsLength implements LocalizedEnumOption {
+  value: PauseReferralsLength!
+  label: LocalizedString!
+}
+
 type LocalizedPlacementType implements LocalizedEnumOption {
   value: PlacementType!
   label: LocalizedString!
@@ -291,11 +296,6 @@ type LocalizedPoolCandidateSearchRequestReason implements LocalizedEnumOption {
 
 type LocalizedPoolCandidateSearchStatus implements LocalizedEnumOption {
   value: PoolCandidateSearchStatus!
-  label: LocalizedString!
-}
-
-type LocalizedPoolCandidateStatus implements LocalizedEnumOption {
-  value: PoolCandidateStatus!
   label: LocalizedString!
 }
 
@@ -414,11 +414,6 @@ type LocalizedTimeFrame implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedWfaInterest implements LocalizedEnumOption {
-  value: WfaInterest!
-  label: LocalizedString!
-}
-
 type LocalizedWorkRegion implements LocalizedEnumOption {
   value: WorkRegion!
   label: LocalizedString!
@@ -496,15 +491,6 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
-"A paginated list of UserEmployeeWFA items."
-type UserEmployeeWFAPaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of UserEmployeeWFA items."
-  data: [UserEmployeeWFA!]!
-}
-
 "A paginated list of Pool items."
 type PoolPaginator {
   "Pagination information about the list of items."
@@ -566,33 +552,6 @@ type CommunityInterestWithSkillCountPaginator {
 
   "A list of CommunityInterestWithSkillCount items."
   data: [CommunityInterestWithSkillCount!]!
-}
-
-"Allowed column names for Query.employeeWFAPaginatedAdminTable.orderBy."
-enum QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn {
-  GROUP
-  LEVEL
-}
-
-"Aggregate specification for Query.employeeWFAPaginatedAdminTable.orderBy.currentClassification."
-input QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassificationColumn
-}
-
-"Order by clause for Query.employeeWFAPaginatedAdminTable.orderBy."
-input QueryEmployeeWFAPaginatedAdminTableOrderByRelationOrderByClause {
-  "The column that is used for ordering."
-  column: String
-
-  "The direction that is used for ordering."
-  order: SortOrder!
-
-  "Aggregate specification."
-  currentClassification: QueryEmployeeWFAPaginatedAdminTableOrderByCurrentClassification
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
@@ -966,6 +925,11 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
+enum NotificationType {
+  UserFileGenerated
+  UserFileGenerationError
+}
+
 enum ActivityEvent {
   CREATED
   UPDATED
@@ -1119,6 +1083,11 @@ enum CandidateInterest {
   EXPIRED
 }
 
+enum CandidateReferralFilter {
+  REFERRING
+  NOT_REFERRING
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
@@ -1235,6 +1204,7 @@ enum ErrorCode {
   EXPIRY_DATE_REQUIRED
   EXPIRY_DATE_AFTER_TODAY
   ARRAY_CONTAINS_DUPLICATES
+  INVALID_URL
   APPLICATION_ALREADY_SUBMITTED
   APPLICATION_NOT_SUBMITTED
   APPLICATION_EDUCATION_REQUIREMENT_INCOMPLETE
@@ -1268,9 +1238,12 @@ enum ErrorCode {
   DEPARTMENT_NUMBER_IN_USE
   DEPARTMENT_NOT_FOUND
   DEPARTMENT_MUST_NOT_BE_ARCHIVED
+  COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND
+  COMMUNITY_DEVELOPMENT_INVALID_SELECTION
   DEVELOPMENT_PROGRAM_NOT_FOUND
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED
+  DEVELOPMENT_PROGRAM_MUST_CONNECT_OWN_EDUCATION_EXPERIENCE
   ENUM_NOT_FOUND
   ENUM_NOT_LOCALIZED
   ESSENTIAL_SKILL_REQUIRES_LEVEL
@@ -1295,10 +1268,13 @@ enum ErrorCode {
   CHANGE_JUSTIFICATION_REQUIRED
   UNARCHIVE_POOL_INVALID_STATUS
   ARCHIVE_POOL_INVALID_STATUS
+  INVALID_COMMUNITY_DEPARTMENT_COMBO
   INVALID_STATUS_DISQUALIFICATION
   INVALID_STATUS_PLACING
   INVALID_STATUS_QUALIFICATION
   INVALID_STATUS_REVERT_FINAL_DECISION
+  INVALID_REVERT_DECISION_PLACED
+  CANDIDATE_NOT_FOUND
   CANDIDATE_NOT_PLACED
   CANDIDATE_UNEXPECTED_STATUS
   REMOVE_CANDIDATE_ALREADY_PLACED
@@ -1308,6 +1284,8 @@ enum ErrorCode {
   SCREENING_STAGE_NOT_UNDER_ASSESSMENT
   ASSESSMENT_STEP_PROHIBITED
   ASSESSMENT_STEP_CANDIDATE_SAME_POOL
+  INVALID_PAUSE_REFERRAL
+  INVALID_UNPAUSE_AT_DATE
   POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES
   POOL_SKILL_NOT_VALID
   TEAM_ID_REQUIRED
@@ -1392,20 +1370,6 @@ enum ExternalSizeOfOrganization {
   THIRTY_SIX_TO_ONE_HUNDRED
   ONE_HUNDRED_ONE_TO_ONE_THOUSAND
   ONE_THOUSAND_PLUS
-}
-
-enum FinalDecision {
-  DISQUALIFIED
-  DISQUALIFIED_PENDING
-  DISQUALIFIED_REMOVED
-  QUALIFIED
-  QUALIFIED_EXPIRED
-  QUALIFIED_PENDING
-  QUALIFIED_PLACED
-  QUALIFIED_REMOVED
-  REMOVED
-  TO_ASSESS
-  TO_ASSESS_REMOVED
 }
 
 enum FinanceChiefDuty {
@@ -1548,10 +1512,20 @@ enum OverallAssessmentStatus {
   QUALIFIED
 }
 
+enum PauseReferralsLength {
+  ONE_MONTH
+  THREE_MONTHS
+  SIX_MONTHS
+  ONE_YEAR
+  UNTIL_EXPIRY
+  OTHER
+}
+
 enum PlacementType {
   NOT_PLACED
   UNDER_CONSIDERATION
   PLACED_TENTATIVE
+  PLACED_ACTING
   PLACED_CASUAL
   PLACED_TERM
   PLACED_INDETERMINATE
@@ -1581,29 +1555,6 @@ enum PoolCandidateSearchStatus {
   DONE
   DONE_NO_CANDIDATES
   NOT_COMPLIANT
-}
-
-enum PoolCandidateStatus {
-  DRAFT
-  DRAFT_EXPIRED
-  NEW_APPLICATION
-  APPLICATION_REVIEW
-  SCREENED_IN
-  SCREENED_OUT_APPLICATION
-  SCREENED_OUT_NOT_INTERESTED
-  SCREENED_OUT_NOT_RESPONSIVE
-  UNDER_ASSESSMENT
-  SCREENED_OUT_ASSESSMENT
-  QUALIFIED_AVAILABLE
-  QUALIFIED_UNAVAILABLE
-  QUALIFIED_WITHDREW
-  UNDER_CONSIDERATION
-  PLACED_TENTATIVE
-  PLACED_CASUAL
-  PLACED_TERM
-  PLACED_INDETERMINATE
-  EXPIRED
-  REMOVED
 }
 
 enum PoolLanguage {
@@ -1774,18 +1725,14 @@ enum TargetRole {
   OTHER
 }
 
+enum TbsSecurityLoggingEventId {
+  EMAIL_SENT
+}
+
 enum TimeFrame {
   THIS_YEAR
   ONE_TO_TWO_YEARS
   THREE_OR_MORE_YEARS
-}
-
-enum WfaInterest {
-  NOT_APPLICABLE
-  TERM_ENDING
-  LETTER_RECEIVED
-  NOT_SURE
-  VOLUNTARY_DEPARTURE
 }
 
 enum WhenSkillUsed {

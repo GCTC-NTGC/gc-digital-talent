@@ -21,4 +21,7 @@ export default [
         : "off",
     },
   },
+  {
+    ignores: ["src/init.js"],
+  },
 ];

@@ -1,5 +1,9 @@
-import { RoleName } from "@gc-digital-talent/auth";
-import { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
+import type { IntlShape } from "react-intl";
+import orderBy from "lodash/orderBy";
+
+import type { RoleName } from "@gc-digital-talent/auth";
+import type { Maybe, Role, RoleAssignment } from "@gc-digital-talent/graphql";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 /**
  * Check to see if user contains one or more roles
@@ -25,3 +29,23 @@ export const checkRole = (
 
   return visible;
 };
+
+/**
+ * Sort role names
+ *
+ * @param roles         Roles to sort
+ * @param intl          IntlShape
+ * @returns sorted roles
+ */
+export function orderRoles(roles: Role[], intl: IntlShape): Role[] {
+  return orderBy(roles, ({ displayName }) => {
+    const value = getLocalizedName(displayName, intl);
+
+    return value
+      ? value
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLocaleLowerCase()
+      : value;
+  });
+}

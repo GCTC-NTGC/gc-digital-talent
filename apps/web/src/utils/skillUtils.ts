@@ -1,18 +1,17 @@
 import uniqBy from "lodash/uniqBy";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  SkillLevel,
+import type {
   Experience,
   Maybe,
   Skill,
-  SkillCategory,
   SkillFamily,
   PoolSkill,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
+import { SkillLevel, SkillCategory } from "@gc-digital-talent/graphql";
 
-import { SimpleAnyExperience } from "./experienceUtils";
+import type { SimpleAnyExperience } from "./experienceUtils";
 
 /**
  * Transforms an array of skills with child skill families into a tree of skill families with child skills.
@@ -55,7 +54,7 @@ interface InvertedExperience extends SimpleAnyExperience {
   id: string;
 }
 
-export type InvertedSkillExperience = Skill & {
+type InvertedSkillExperience = Skill & {
   experiences: InvertedExperience[];
 };
 /**
@@ -156,6 +155,28 @@ export const getExperienceSkills = <T extends ExperienceWithSkills>(
     ),
   );
 };
+
+interface SkillExperienceGroup<
+  E extends ExperienceWithSkills,
+  S extends Pick<Skill, "id">,
+> {
+  skill: S;
+  experiences: E[];
+}
+
+export function groupExperiencesBySkill<
+  E extends ExperienceWithSkills,
+  S extends Pick<Skill, "id">,
+>(experiences: E[], skills: S[]): SkillExperienceGroup<E, S>[] {
+  return skills.map((skill) => {
+    const skillExperiences = getExperienceSkills(experiences, skill);
+
+    return {
+      skill,
+      experiences: skillExperiences,
+    };
+  });
+}
 
 /**
  * Get sorted skill levels

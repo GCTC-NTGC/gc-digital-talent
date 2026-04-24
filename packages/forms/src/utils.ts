@@ -1,16 +1,16 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 import { generateJSON } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
-import { FieldErrors, FieldValues } from "react-hook-form";
+import type { FieldErrors, FieldValues } from "react-hook-form";
 
-import {
+import type {
   LocalizedEnumString,
   LocalizedString,
   Maybe,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
-  Locales,
   commonMessages,
   getLocale,
   getLocalizedName,
@@ -18,8 +18,8 @@ import {
 import { getId, nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
-import { Node } from "./components/RichTextInput/types";
-import { OptGroupOrOption } from "./types";
+import type { Node } from "./components/RichTextInput/types";
+import type { OptGroupOrOption } from "./types";
 
 /**
  * Filters out empty data from data response, and returns list of ids.
@@ -264,6 +264,13 @@ export function flattenErrors(
               ];
             },
           );
+        }
+        // check for localized subfields
+        if ("en" in fieldError) {
+          errorNames = [...errorNames, `${fieldName}.en`];
+        }
+        if ("fr" in fieldError) {
+          errorNames = [...errorNames, `${fieldName}.fr`];
         }
         // We have an error message so add it to the array (we don't want errors with no message)
         if ("message" in fieldError) {

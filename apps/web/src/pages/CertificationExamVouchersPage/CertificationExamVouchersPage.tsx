@@ -1,5 +1,5 @@
 import { defineMessage, useIntl } from "react-intl";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import ClipboardIcon from "@heroicons/react/24/outline/ClipboardIcon";
@@ -29,8 +29,8 @@ const mailLink = (chunks: ReactNode) => (
 );
 
 const requestAVoucherUrl = {
-  en: "https://forms-formulaires.alpha.canada.ca/en/id/cmb13t7jr00cxx601nzt7gfpk",
-  fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cmb13t7jr00cxx601nzt7gfpk",
+  en: "https://forms-formulaires.alpha.canada.ca/en/id/cmo0b2wib000vyi0171r476pu",
+  fr: "https://forms-formulaires.alpha.canada.ca/fr/id/cmo0b2wib000vyi0171r476pu",
 } as const;
 
 const pageSubtitle = defineMessage({
@@ -248,6 +248,14 @@ export const Component = () => {
                   id: "oc4iCB",
                   description:
                     "Fourth item in list of eligibility requirements section",
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  defaultMessage: "You have activated your Navigar account",
+                  id: "fcJRy1",
+                  description:
+                    "Fifth item in list of eligibility requirements section",
                 })}
               </li>
             </Ul>

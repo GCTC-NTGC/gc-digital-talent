@@ -1,4 +1,4 @@
-import { NotificationFamily } from "@gc-digital-talent/graphql";
+import type { NotificationFamily } from "@gc-digital-talent/graphql";
 
 export interface UpdateNotificationInput {
   enabledEmailNotifications: NotificationFamily[];

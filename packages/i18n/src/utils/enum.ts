@@ -1,5 +1,10 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
+import type {
+  LocalizedEnumString,
+  LocalizedString,
+  Maybe,
+} from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   AwardedScope,
@@ -10,18 +15,15 @@ import {
   EducationType,
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
-  LocalizedEnumString,
-  LocalizedString,
-  Maybe,
   PlacementType,
   PoolCandidateSearchRequestReason,
   PoolCandidateSearchStatus,
   PoolLanguage,
   PoolOpportunityLength,
   PriorityWeight,
+  PauseReferralsLength,
   ScreeningStage,
   SecurityStatus,
-  WfaInterest,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -184,6 +186,7 @@ export const ENUM_SORT_ORDER = {
     PlacementType.PlacedTentative,
     PlacementType.PlacedCasual,
     PlacementType.PlacedTerm,
+    PlacementType.PlacedActing,
     PlacementType.PlacedIndeterminate,
   ],
   PRIORITY_WEIGHT: [
@@ -191,6 +194,12 @@ export const ENUM_SORT_ORDER = {
     PriorityWeight.Veteran,
     PriorityWeight.CitizenOrPermanentResident,
     PriorityWeight.Other,
+  ],
+  REMOVAL_REASON: [
+    CandidateRemovalReason.RequestedToBeWithdrawn,
+    CandidateRemovalReason.NotResponsive,
+    CandidateRemovalReason.Ineligible,
+    CandidateRemovalReason.Other,
   ],
   SCREENING_STAGE: [
     ScreeningStage.NewApplication,
@@ -207,6 +216,14 @@ export const ENUM_SORT_ORDER = {
     WorkRegion.North,
     WorkRegion.Prairie,
     WorkRegion.BritishColumbia,
+  ],
+  PAUSE_REFERRALS_LENGTH: [
+    PauseReferralsLength.OneMonth,
+    PauseReferralsLength.ThreeMonths,
+    PauseReferralsLength.SixMonths,
+    PauseReferralsLength.OneYear,
+    PauseReferralsLength.UntilExpiry,
+    PauseReferralsLength.Other,
   ],
 };
 
@@ -439,18 +456,5 @@ export function sortFlexibleWorkLocations(
       FlexibleWorkLocation.Onsite,
     ],
     flexibleWorkLocationOptions,
-  );
-}
-
-export function sortWfaInterest(wfaInterests?: MaybeLocalizedEnums) {
-  return sortLocalizedEnums(
-    [
-      WfaInterest.NotApplicable,
-      WfaInterest.TermEnding,
-      WfaInterest.LetterReceived,
-      WfaInterest.NotSure,
-      WfaInterest.VoluntaryDeparture,
-    ],
-    wfaInterests,
   );
 }

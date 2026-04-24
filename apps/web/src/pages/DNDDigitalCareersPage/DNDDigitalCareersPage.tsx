@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import { tv } from "tailwind-variants";
 
@@ -290,8 +290,8 @@ export const Component = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Working for DND as a Cyber Security Advisor involves protecting computer systems and networks from cyber threats and may also include monitoring networks, identifying vulnerabilities, implementing security measures, responding to incidents and developing security policies. ",
-                  id: "ryDGWN",
+                    "Working for DND as a Cyber Security Advisor involves protecting computer systems and networks from cyber threats and may also include monitoring networks, identifying vulnerabilities, implementing security measures, responding to incidents and developing security policies.",
+                  id: "UjvTeN",
                   description: "Description of the cyber security advisor role",
                 })}
               </p>

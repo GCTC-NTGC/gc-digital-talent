@@ -2,11 +2,11 @@
 
 namespace App\Builders;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
-use App\Enums\PoolCandidateStatus;
 use App\Models\User;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * @template TModelClass of \Illuminate\Database\Eloquent\Model
  *
- * @extends \Illuminate\Database\Eloquent\Builder<TModelClass>
+ * @extends Builder<TModelClass>
  */
 class UserBuilder extends Builder
 {
@@ -135,7 +135,7 @@ class UserBuilder extends Builder
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => CandidateExpiryFilter::ACTIVE->name,
-                'statuses' => PoolCandidateStatus::qualifiedEquivalentGroup(),
+                'statuses' => [ApplicationStatus::QUALIFIED->name],
                 'suspendedStatus' => CandidateSuspendedFilter::ACTIVE->name,
             ];
         }
@@ -479,9 +479,20 @@ class UserBuilder extends Builder
         return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
     }
 
+    // just calls another scope, but calling the scope from Lighthouse requires accepting an args array
+    public function whereWorkEmailSearch(?array $args): self
+    {
+        return $this->whereWorkEmail($args['search'] ?? null);
+    }
+
     public function whereExactWorkEmail(string $email): self
     {
         return $this->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
+    }
+
+    public function whereWorkEmailIsVerified(): self
+    {
+        return $this->whereNotNull('work_email_verified_at');
     }
 
     public function whereIsGovEmployee(?bool $isGovEmployee): self
@@ -552,15 +563,6 @@ class UserBuilder extends Builder
         });
     }
 
-    public function whereWfaInterestIn(?array $wfaInterests): self
-    {
-        if (empty($wfaInterests)) {
-            return $this;
-        }
-
-        return $this->whereIn('wfa_interest', $wfaInterests);
-    }
-
     public function whereHasPriorityEntitlement(?bool $hasPriority): self
     {
         if (! isset($hasPriority)) {
@@ -572,7 +574,7 @@ class UserBuilder extends Builder
 
     public function whereAuthorizedToView(?array $args = null): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -605,9 +607,28 @@ class UserBuilder extends Builder
                                     })
                                     ->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
                                         return $query->whereIn('teams.id', $teamIds);
+                                    })
+                                    ->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
+                                        return $query->whereIn('teams.id', $teamIds);
                                     });
                             });
                     });
+                });
+            }
+
+            if ($user?->isAbleTo('view-team-communityTalent')) {
+                $query->orWhereHas('communityInterests', function (Builder $query) use ($user) {
+                    $allCommunityTeams = $user->rolesTeams()
+                        ->where('teamable_type', "App\Models\Community")
+                        ->get();
+
+                    $viewPermissionCommunityTeams = $allCommunityTeams
+                        ->filter(fn ($team) => $user->isAbleTo('view-team-communityTalent', $team));
+
+                    $communityIds = $viewPermissionCommunityTeams->pluck('teamable_id')->toArray();
+
+                    $query->whereIn('community_id', $communityIds);
+                    $query->where('consent_to_share_profile', true);
                 });
             }
 
@@ -627,7 +648,7 @@ class UserBuilder extends Builder
 
     public function whereAuthorizedToViewBasicInfo(): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         // special case: can see any basic info - return all users with no filters added
@@ -637,54 +658,6 @@ class UserBuilder extends Builder
 
         // otherwise: use the regular authorized to view scope
         return $this->whereAuthorizedToView();
-    }
-
-    /**
-     * Used only for the WFA table
-     *
-     * User can only see profiles that have been shared with a community
-     * they are a part of.
-     */
-    public function whereAuthorizedToViewEmployeeWFAAdminTable(): self
-    {
-        /** @var \App\Models\User | null */
-        $user = Auth::user();
-
-        if ($user?->isAbleTo('view-any-employeeWFA')) {
-            return $this;
-        }
-
-        $filterCountBefore = count($this->getQuery()->wheres);
-        $query = $this->where(function (Builder $query) use ($user) {
-            if ($user?->isAbleTo('view-team-employeeWFA')) {
-                $allCommunityTeams = $user->rolesTeams()
-                    ->where('teamable_type', "App\Models\Community")
-                    ->get();
-                $teamIds = $allCommunityTeams
-                    ->filter(fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team))->pluck('teamable_id')->toArray();
-
-                // NOTE: We only want to show users who have added this community and consented to share profile
-                // While users with this permission may see those who have applied to a process in their community
-                // we do not want to show those by default
-                $query->orWhereHas('communityInterests', function (Builder $commInterestQuery) use ($teamIds) {
-                    // User has expressed interest in community
-                    $commInterestQuery->whereIn('community_id', $teamIds)
-                        ->where('consent_to_share_profile', true);
-                });
-
-                if ($user->isAbleTo('view-own-employeeWFA')) {
-                    $query->orWhere('users.id', $user->id);
-                }
-            }
-        });
-
-        $filterCountAfter = count($query->getQuery()->wheres);
-        if ($filterCountAfter > $filterCountBefore) {
-            return $query;
-        }
-
-        // fall through - query will return nothing
-        return $this->where('id', null);
     }
 
     // special scope for search page with custom logic to simultaneously handle WORK REGION and FLEXIBLE WORK LOCATION
@@ -752,85 +725,10 @@ class UserBuilder extends Builder
 
     public function whereGeneralSearch(?string $searchTerm): self
     {
-        if ($searchTerm) {
-            $combinedSearchTerm = trim(preg_replace('/\s{2,}/', ' ', $searchTerm));
-
-            $this
-                ->join('user_search_indices', 'users.id', '=', 'user_search_indices.id')
-                // attach the tsquery to every row to use for filtering
-                ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
-                    $query->selectRaw(
-                        'websearch_to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
-                        [config('scout.pgsql.config'), $combinedSearchTerm]
-                    );
-                }, 'calculations')
-                // add the calculated rank column to allow for ordering by text search rank
-                ->addSelect(DB::raw('ts_rank(user_search_indices.searchable, calculations.tsquery) AS rank'))
-                // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
-                ->addSelect(['users.*'])
-                ->from('users');
-
-            // negation setup
-            preg_match_all('/(^|\s)[-!][^\s]+\b/', $combinedSearchTerm, $negationMatches);
-            $matchesWithoutOperatorOrStartingSpace = array_map(fn ($string) => ltrim($string, " \-"), $negationMatches[0]); // 0th item is full matched
-            $negationRemovedSearchTerm = preg_replace('/(^|\s)[-!][^\s]+\b/', '', $combinedSearchTerm);
-
-            // remove text in quotation marks for partial matching
-            $negationQuotedRemovedSearchTerm = preg_replace('/\"([^\"]*)\"/', '', $negationRemovedSearchTerm);
-
-            // clear characters or search operators out, then array split for easy OR matching
-            $filterToEmptySpace = ['"', '"', ':', '!'];
-            $filterToSingleSpace = [' AND ', ' OR ', ' & '];
-            $filtered = str_ireplace($filterToEmptySpace, '', $negationQuotedRemovedSearchTerm);
-            $filtered = str_ireplace($filterToSingleSpace, ' ', $filtered);
-            $whiteSpacingRemoved = trim($filtered);
-
-            // if the remaining string is empty, don't turn into an array to avoid matching to ""
-            $arrayed = $whiteSpacingRemoved === '' ? null : explode(' ', $whiteSpacingRemoved);
-
-            // this scope combines two clauses with an OR so it needs to be wrapped
-            $this->where(function ($query) use ($arrayed, $matchesWithoutOperatorOrStartingSpace) {
-
-                // clause 1: filter rows against the tsquery
-                $query->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery');
-
-                // clause 2: add "ilike" filters
-                $query->orWhere(function ($ilikeSubquery) use ($arrayed, $matchesWithoutOperatorOrStartingSpace) {
-
-                    // positive matching ilike filters
-                    if (count($arrayed ?? []) > 0) {
-                        $ilikeSubquery->where(function ($positiveIlikeSubquery) use ($arrayed) {
-                            foreach ($arrayed as $term) {
-                                $positiveIlikeSubquery
-                                    ->orWhereRaw("f_unaccent(first_name) ilike ('%' || f_unaccent(?) || '%')", $term)
-                                    ->orWhereRaw("f_unaccent(last_name) ilike ('%' || f_unaccent(?) || '%')", $term)
-                                    ->orWhereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", $term);
-                            }
-                        });
-                    }
-
-                    //  negative ilike filters
-                    if (count($matchesWithoutOperatorOrStartingSpace) > 0) {
-                        $ilikeSubquery->whereNot(function ($negativeIlikeSubquery) use ($matchesWithoutOperatorOrStartingSpace) {
-                            foreach ($matchesWithoutOperatorOrStartingSpace as $term) {
-                                $negativeIlikeSubquery
-                                    ->orWhereRaw('f_unaccent(first_name) ilike f_unaccent(?)', $term)
-                                    ->orWhereRaw('f_unaccent(last_name) ilike f_unaccent(?)', $term)
-                                    ->orWhereRaw('f_unaccent(email) ilike f_unaccent(?)', $term);
-                            }
-                        });
-                    }
-                });
-
-            });
-
+        if (empty($searchTerm)) {
+            return $this;
         }
 
-        return $this;
-    }
-
-    public function whereGeneralSearchBeta(?string $searchTerm): self
-    {
         $queryTextPrefixMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::PREFIX);
         $queryTextExactMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::EXACT);
 
@@ -868,5 +766,14 @@ class UserBuilder extends Builder
         }
 
         return $this;
+    }
+
+    /**
+     * Used to limit rows for search results.
+     * This seems pretty silly but I haven't figured out how to enforce a server-side limit in Lighthouse directives.
+     */
+    public function limitFive(): void
+    {
+        $this->limit(5);
     }
 }

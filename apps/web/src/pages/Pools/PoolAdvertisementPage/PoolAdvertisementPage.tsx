@@ -8,7 +8,8 @@ import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCirc
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
-import { ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 
 import {
   ThrowNotFound,
@@ -25,6 +26,7 @@ import {
   Ul,
   Container,
 } from "@gc-digital-talent/ui";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   getLocale,
   localizeSalaryRange,
@@ -32,22 +34,21 @@ import {
   getLocalizedName,
   navigationMessages,
   uiMessages,
-  Locales,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
+import type { Scalars, FragmentType } from "@gc-digital-talent/graphql";
 import {
   graphql,
   PoolStatus,
-  Scalars,
   PublishingGroup,
   PoolSkillType,
-  FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { getLogger } from "@gc-digital-talent/logger";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   contactEmailTag,
@@ -63,14 +64,11 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
-import ApplicationLink, {
-  ApplicationLinkProps,
-} from "~/components/ApplicationLink/ApplicationLink";
+import type { ApplicationLinkProps } from "~/components/ApplicationLink/ApplicationLink";
+import ApplicationLink from "~/components/ApplicationLink/ApplicationLink";
 import SkillAccordion from "~/components/PoolSkillAccordion/PoolSkillAccordion";
-import {
-  ClassificationGroup,
-  isClassificationGroup,
-} from "~/types/classificationGroup";
+import type { ClassificationGroup } from "~/types/classificationGroup";
+import { isClassificationGroup } from "~/types/classificationGroup";
 import DataRow from "~/components/DataRow/DataRow";
 import processMessages from "~/messages/processMessages";
 
@@ -86,6 +84,7 @@ import AreaOfSelectionWell from "./components/AreaOfSelectionWell";
 import WhoCanApplyText from "./components/WhoCanApplyText";
 import SalaryRangeDialog from "./components/SalaryRangeDialog";
 import SecurityClearanceDialog from "./components/SecurityClearanceDialog";
+
 interface SectionContent {
   id: string;
   linkText?: string;
@@ -328,6 +327,9 @@ export const PoolPoster = ({
   const pool = getFragment(PoolAdvertisement_Fragment, poolQuery);
 
   const departmentName = getLocalizedName(pool.department?.name, intl, true);
+
+  // feature flag
+  const featureFlags = useFeatureFlags();
 
   const { classification } = pool;
   const genericJobTitles =
@@ -1207,57 +1209,93 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text className="m-y0">
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "We've set up <link>a guide explaining how to set up GCKey and two-factor authentication</link>. We also have <use2FALink>instructions on how to use two-factor authentication to log in</use2FALink>. If the issue persists, contact us.",
-                          id: "MYnfw/",
-                          description:
-                            "Text explaining the importance of reporting technical issues",
-                        },
-                        {
-                          link: (chunks: ReactNode) =>
-                            internalLink(paths.register(), chunks),
-                          use2FALink: (chunks: ReactNode) =>
-                            internalLink(paths.login(), chunks),
-                        },
-                      )}
-                    </Text>
-                    <Text>
-                      <Ul className="mt-3">
-                        <li>
+                    {featureFlags?.canadaLogin ? (
+                      <>
+                        <Text className="m-y0">
                           {intl.formatMessage(
                             {
                               defaultMessage:
-                                "For trouble creating a GCKey, <link>contact the GCKey team</link>.",
-                              id: "YzGpQQ",
+                                "We’ve set up <linkToRegisterGuidance>a guide explaining how to create a CanadaLogin and set up two-step verification</linkToRegisterGuidance>. We also have <linkToSignInGuidance>instructions on how to sign in using CanadaLogin</linkToSignInGuidance>. If the issue persists, contact the <linkToCanadaLoginTeam>CanadaLogin team</linkToCanadaLoginTeam>.",
+                              id: "1EGyaU",
                               description:
-                                "Bullet point about contacting GCKey support",
+                                "Text explaining where to get support for Canada Login sign up or sign in issues",
                             },
                             {
-                              link: (chunks: ReactNode) =>
-                                gocGCKeyLink(locale, chunks),
+                              linkToRegisterGuidance: (chunks: ReactNode) =>
+                                internalLink(paths.register(), chunks),
+                              linkToSignInGuidance: (chunks: ReactNode) =>
+                                internalLink(paths.login(), chunks),
+                              linkToCanadaLoginTeam: (chunks: ReactNode) => (
+                                <Link
+                                  external
+                                  href={
+                                    intl.locale === "fr"
+                                      ? "https://connexion.canada.ca/fr/utilisateurs/nous-contacter/"
+                                      : "https://login.canada.ca/en/users/contact-us/"
+                                  }
+                                >
+                                  {chunks}
+                                </Link>
+                              ),
                             },
                           )}
-                        </li>
-                        <li>
+                        </Text>
+                      </>
+                    ) : (
+                      <>
+                        <Text className="m-y0">
                           {intl.formatMessage(
                             {
                               defaultMessage:
-                                "For trouble setting up or logging in with two-factor authentication, <link>contact our support team</link>.",
-                              id: "k1HxPf",
+                                "We've set up <link>a guide explaining how to set up GCKey and two-factor authentication</link>. We also have <use2FALink>instructions on how to use two-factor authentication to log in</use2FALink>. If the issue persists, contact us.",
+                              id: "MYnfw/",
                               description:
-                                "Bullet point about contacting support for 2FA issues",
+                                "Text explaining the importance of reporting technical issues",
                             },
                             {
                               link: (chunks: ReactNode) =>
-                                internalLink(paths.support(), chunks),
+                                internalLink(paths.register(), chunks),
+                              use2FALink: (chunks: ReactNode) =>
+                                internalLink(paths.login(), chunks),
                             },
                           )}
-                        </li>
-                      </Ul>
-                    </Text>
+                        </Text>
+                        <Text>
+                          <Ul className="mt-3">
+                            <li>
+                              {intl.formatMessage(
+                                {
+                                  defaultMessage:
+                                    "For trouble creating a GCKey, <link>contact the GCKey team</link>.",
+                                  id: "YzGpQQ",
+                                  description:
+                                    "Bullet point about contacting GCKey support",
+                                },
+                                {
+                                  link: (chunks: ReactNode) =>
+                                    gocGCKeyLink(locale, chunks),
+                                },
+                              )}
+                            </li>
+                            <li>
+                              {intl.formatMessage(
+                                {
+                                  defaultMessage:
+                                    "For trouble setting up or logging in with two-factor authentication, <link>contact our support team</link>.",
+                                  id: "k1HxPf",
+                                  description:
+                                    "Bullet point about contacting support for 2FA issues",
+                                },
+                                {
+                                  link: (chunks: ReactNode) =>
+                                    internalLink(paths.support(), chunks),
+                                },
+                              )}
+                            </li>
+                          </Ul>
+                        </Text>
+                      </>
+                    )}
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value={moreInfoAccordions.accommodations}>

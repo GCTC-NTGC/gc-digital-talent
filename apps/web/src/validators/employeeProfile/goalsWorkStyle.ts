@@ -1,4 +1,4 @@
-import { EmployeeProfile } from "@gc-digital-talent/graphql";
+import type { EmployeeProfile } from "@gc-digital-talent/graphql";
 
 export function hasAllEmptyFields({
   aboutYou,

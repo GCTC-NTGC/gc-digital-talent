@@ -35,6 +35,7 @@ const MainNavMenu = () => {
     applicant: intl.formatMessage(navMenuMessages.applicant),
     community: intl.formatMessage(navMenuMessages.community),
     admin: intl.formatMessage(navMenuMessages.admin),
+    department: intl.formatMessage(navMenuMessages.department),
   } as const;
 
   const hasMoreThanOneRole =
@@ -128,7 +129,7 @@ const MainNavMenu = () => {
         </NavMenu.Item>
       )}
 
-      <NavMenu.Item className="mt-0 border-b-[1px] border-black/20 pb-3 sm:border-b-[0px] sm:pb-0 dark:border-white/20">
+      <NavMenu.Item className="mt-0 border-b border-black/20 pb-3 sm:border-b-0 sm:pb-0 dark:border-white/20">
         <NavMenu.Trigger
           color={isSmallScreen ? "black" : "white"}
           fixedColor={!isSmallScreen}

@@ -1,8 +1,9 @@
-import { User } from "@gc-digital-talent/graphql";
+import type { User } from "@gc-digital-talent/graphql";
 
 import { expect, test } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
 
@@ -43,6 +44,7 @@ test.describe("User search", () => {
     await appPage.page
       .getByRole("menuitemradio", { name: /candidate name/i })
       .click();
+    await appPage.page.keyboard.press("Escape");
     await appPage.page
       .getByRole("textbox", { name: /search users/i })
       .fill(userName);

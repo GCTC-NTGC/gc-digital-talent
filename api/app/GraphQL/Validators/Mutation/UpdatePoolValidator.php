@@ -18,11 +18,18 @@ final class UpdatePoolValidator extends Validator
     public function rules(): array
     {
         $pool = Pool::find($this->arg('id'));
-        $communityWorkStreams = WorkStream::query()->where('community_id', $pool->community_id)->pluck('id');
+        $hasCommunity = ! is_null($pool->community_id);
+        $communityWorkStreams = $hasCommunity ?
+               WorkStream::query()->where('community_id', $pool->community_id)->pluck('id')
+               : [];
 
         return [
             'pool.workStream.connect' => [
-                Rule::in($communityWorkStreams),
+                Rule::when($hasCommunity,
+                    [
+                        Rule::in($communityWorkStreams),
+                    ],
+                ),
             ],
         ];
     }

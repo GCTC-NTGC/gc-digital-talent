@@ -11,7 +11,11 @@ import {
   fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
-import { ApplicationStatus, PlacementType } from "@gc-digital-talent/graphql";
+import {
+  ApplicationStatus,
+  CandidateReferralFilter,
+  PlacementType,
+} from "@gc-digital-talent/graphql";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 
@@ -70,7 +74,19 @@ const mockClient = {
             label: { localized: "Qualified" },
           },
         ],
+        referralFilters: [
+          {
+            __typename: "LocalizedCandidateReferralFilter",
+            value: CandidateReferralFilter.Referring,
+            label: { localized: "Available for referral" },
+          },
+        ],
         placements: [
+          {
+            __typename: "LocalizedPlacementType",
+            value: PlacementType.NotPlaced,
+            label: { localized: "Not placed" },
+          },
           {
             __typename: "LocalizedPlacementType",
             value: PlacementType.PlacedCasual,
@@ -80,6 +96,16 @@ const mockClient = {
             __typename: "LocalizedPlacementType",
             value: PlacementType.PlacedTentative,
             label: { localized: "Offer in progress" },
+          },
+          {
+            __typename: "LocalizedPlacementType",
+            value: PlacementType.PlacedTerm,
+            label: { localized: "Placed term" },
+          },
+          {
+            __typename: "LocalizedPlacementType",
+            value: PlacementType.PlacedActing,
+            label: { localized: "Placed acting" },
           },
         ],
       },
@@ -105,13 +131,20 @@ describe("Search Request Candidates Table", () => {
     const filters = screen.getByRole("dialog", { name: /filters/i });
 
     // Checking for 2 of each due to option and chip in combobox
+    expect(await within(filters).findAllByText(/not placed/i)).toHaveLength(2);
+    expect(
+      await within(filters).findAllByText(/offer in progress/i),
+    ).toHaveLength(2);
     expect(await within(filters).findAllByText(/placed casual/i)).toHaveLength(
       2,
     );
+    expect(await within(filters).findAllByText(/placed acting/i)).toHaveLength(
+      2,
+    );
+    expect(await within(filters).findAllByText(/placed term/i)).toHaveLength(2);
     expect(await within(filters).findAllByText(/qualified/i)).toHaveLength(2);
-
     expect(
-      await within(filters).findAllByText(/offer in progress/i),
+      await within(filters).findAllByText(/available for referral/i),
     ).toHaveLength(2);
   });
 });

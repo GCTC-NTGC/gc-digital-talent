@@ -31,6 +31,11 @@ export default defineMessages({
     id: "+d/NdU",
     description: "Title for departments",
   },
+  developmentPrograms: {
+    defaultMessage: "Development programs",
+    id: "SfNeqY",
+    description: "Title for development programs",
+  },
   processes: {
     defaultMessage: "Processes",
     id: "Mi+AuD",
@@ -126,11 +131,6 @@ export default defineMessages({
     defaultMessage: "Create",
     id: "P4BgMG",
     description: "Short title for the create job poster template page",
-  },
-  workforceAdjustment: {
-    defaultMessage: "Workforce adjustment",
-    id: "xGsQso",
-    description: "Title for the users wfa information",
   },
   dnd: {
     defaultMessage: "Digital careers at National Defence",

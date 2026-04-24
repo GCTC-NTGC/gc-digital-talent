@@ -1,11 +1,12 @@
-import { FormProvider, ValidateResult, useForm } from "react-hook-form";
+import type { ValidateResult } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 
 import {
   formDateTimeStringToDate,
   nowUTCDateTime,
 } from "@gc-digital-talent/date-helpers";
-import {
+import type {
   Scalars,
   SitewideAnnouncement,
   SitewideAnnouncementInput,
@@ -34,6 +35,7 @@ const invalidDateTimeMessage = defineMessage({
 
 interface FormValues {
   isEnabled: Scalars["Boolean"]["input"];
+  isDismissible: Scalars["Boolean"]["input"];
   publishDate: Scalars["DateTime"]["input"];
   expiryDate: Scalars["DateTime"]["input"];
   titleEn: string;
@@ -46,6 +48,7 @@ const apiDataToFormValues = (
   apiData: SitewideAnnouncement | null | undefined,
 ): FormValues => ({
   isEnabled: !!apiData?.isEnabled,
+  isDismissible: !!apiData?.isDismissible,
   publishDate: apiData?.publishDate ?? nowUTCDateTime(),
   expiryDate: apiData?.expiryDate ?? nowUTCDateTime(),
   titleEn: apiData?.title.en ?? "",
@@ -54,8 +57,11 @@ const apiDataToFormValues = (
   messageFr: apiData?.message.fr ?? "",
 });
 
-const formValuesToApiData = (formValues: FormValues): SitewideAnnouncement => ({
+const formValuesToApiData = (
+  formValues: FormValues,
+): SitewideAnnouncementInput => ({
   isEnabled: formValues.isEnabled,
+  isDismissible: formValues.isDismissible,
   publishDate: formValues.publishDate,
   expiryDate: formValues.expiryDate,
   title: {
@@ -117,71 +123,88 @@ const SitewideAnnouncementForm = ({
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(handleSave)}>
         <div className="mb-6 grid gap-6 xs:grid-cols-2">
-          <div className="xs:col-span-2">
-            <SwitchInput
-              id="isEnabled"
-              name="isEnabled"
-              label={intl.formatMessage(labels.isEnabled)}
+          <SwitchInput
+            id="isEnabled"
+            name="isEnabled"
+            label={intl.formatMessage(labels.isEnabled)}
+            color="secondary"
+          />
+          <SwitchInput
+            id="isDismissible"
+            name="isDismissible"
+            label={intl.formatMessage(labels.isDismissible)}
+            color="secondary"
+          />
+          <div className="col-span-2 xs:col-span-1">
+            <Input
+              id="publishDate"
+              label={intl.formatMessage(labels.publishDateUtc)}
+              name="publishDate"
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                validate: validateDateTimeInput,
+              }}
             />
           </div>
-          <Input
-            id="publishDate"
-            label={intl.formatMessage(labels.publishDateUtc)}
-            name="publishDate"
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              validate: validateDateTimeInput,
-            }}
-          />
-          <Input
-            id="expiryDate"
-            label={intl.formatMessage(labels.expiryDateUtc)}
-            name="expiryDate"
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              validate: validateDateTimeInput,
-            }}
-          />
-          <Input
-            id="titleEn"
-            label={intl.formatMessage(commonMessages.title)}
-            appendLanguageToLabel={"en"}
-            name="titleEn"
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <Input
-            id="titleFr"
-            label={intl.formatMessage(commonMessages.title)}
-            appendLanguageToLabel={"fr"}
-            name="titleFr"
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <RichTextInput
-            id="messageEn"
-            label={intl.formatMessage(labels.message)}
-            appendLanguageToLabel={"en"}
-            name="messageEn"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <RichTextInput
-            id="messageFr"
-            label={intl.formatMessage(labels.message)}
-            appendLanguageToLabel={"fr"}
-            name="messageFr"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
+          <div className="col-span-2 xs:col-span-1">
+            <Input
+              id="expiryDate"
+              label={intl.formatMessage(labels.expiryDateUtc)}
+              name="expiryDate"
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                validate: validateDateTimeInput,
+              }}
+            />
+          </div>
+          <div className="col-span-2 xs:col-span-1">
+            <Input
+              id="titleEn"
+              label={intl.formatMessage(commonMessages.title)}
+              appendLanguageToLabel={"en"}
+              name="titleEn"
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+          </div>
+          <div className="col-span-2 xs:col-span-1">
+            <Input
+              id="titleFr"
+              label={intl.formatMessage(commonMessages.title)}
+              appendLanguageToLabel={"fr"}
+              name="titleFr"
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+          </div>
+          <div className="col-span-2 xs:col-span-1">
+            <RichTextInput
+              id="messageEn"
+              label={intl.formatMessage(labels.message)}
+              appendLanguageToLabel={"en"}
+              name="messageEn"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+          </div>
+          <div className="col-span-2 xs:col-span-1">
+            <RichTextInput
+              id="messageFr"
+              label={intl.formatMessage(labels.message)}
+              appendLanguageToLabel={"fr"}
+              name="messageFr"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+          </div>
         </div>
         <div className="flex flex-col flex-wrap items-center gap-3 xs:flex-row">
           <Submit
@@ -191,7 +214,7 @@ const SitewideAnnouncementForm = ({
               id: "dyzeVv",
               description: "Text on a button to save the sitewide announcement",
             })}
-            color="secondary"
+            color="primary"
             mode="solid"
             isSubmitting={isSubmitting}
           />

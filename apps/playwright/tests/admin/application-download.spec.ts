@@ -1,13 +1,12 @@
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
+import type { PoolCandidate, User } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
   FlexibleWorkLocation,
-  PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
   SkillCategory,
-  User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 
@@ -75,9 +74,9 @@ test.describe("Application download", () => {
         },
       },
     });
-
+    const admin = await me(adminCtx, {});
     const createdPool = await createAndPublishPool(adminCtx, {
-      userId: createdUser?.id ?? "",
+      userId: admin?.id ?? "",
       skillIds: skill ? [skill?.id] : undefined,
       name: {
         en: `App download ${testId} (EN)`,
@@ -91,7 +90,6 @@ test.describe("Application download", () => {
     const applicant = await me(applicantCtx, {});
 
     const candidate = await createAndSubmitApplication(applicantCtx, {
-      userId: applicant.id,
       poolId: createdPool.id,
       personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName} signature`,

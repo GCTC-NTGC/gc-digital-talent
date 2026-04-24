@@ -16,14 +16,13 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import {
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type {
   FragmentType,
-  getFragment,
-  graphql,
-  PoolStatus,
+  RoleAssignment,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
@@ -45,9 +44,8 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
-import DuplicateProcessDialog, {
-  DuplicatePoolDepartment_Fragment,
-} from "./components/DuplicateProcessDialog";
+import type { DuplicatePoolDepartment_Fragment } from "./components/DuplicateProcessDialog";
+import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
 import ArchiveProcessDialog from "./components/ArchiveProcessDialog";
 import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 import DeleteProcessDialog from "./components/DeleteProcessDialog";
@@ -99,6 +97,7 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
 export interface ViewPoolProps {
   poolQuery: FragmentType<typeof ViewPool_Fragment>;
   departmentsQuery: FragmentType<typeof DuplicatePoolDepartment_Fragment>[];
+  roleAssignments: RoleAssignment[];
   isFetching: boolean;
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;
@@ -114,6 +113,7 @@ export interface ViewPoolProps {
 export const ViewPool = ({
   poolQuery,
   departmentsQuery,
+  roleAssignments,
   isFetching,
   onPublish,
   onDelete,
@@ -125,7 +125,6 @@ export const ViewPool = ({
 }: ViewPoolProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { roleAssignments } = useAuthorization();
   const pool = getFragment(ViewPool_Fragment, poolQuery);
   const poolName = getShortPoolTitleHtml(intl, {
     workStream: pool.workStream,
@@ -141,19 +140,46 @@ export const ViewPool = ({
   const assessmentStatus = getAssessmentPlanStatus(pool);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status, intl);
-  const canPublish = checkRole([ROLE_NAME.CommunityAdmin], roleAssignments);
+  const canPublish = checkRole(
+    [
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
+    ],
+    roleAssignments,
+  );
+  const canChangeDateOfPublished = checkRole(
+    [ROLE_NAME.CommunityAdmin],
+    roleAssignments,
+  );
   // Editing a published pool is restricted to same roles who can publish it in the first place.
-  const canEdit = advertisementStatus !== "submitted" || canPublish;
+  const canEdit =
+    advertisementStatus !== "submitted" || canChangeDateOfPublished;
   const canDuplicate = checkRole(
-    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+    [
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
+    ],
     roleAssignments,
   );
   const canArchive = checkRole(
-    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+    [
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
+    ],
     roleAssignments,
   );
   const canDelete = checkRole(
-    [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+    [
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
+    ],
     roleAssignments,
   );
 
@@ -414,7 +440,8 @@ export const ViewPool = ({
             {[PoolStatus.Closed, PoolStatus.Published].includes(
               pool.status?.value ?? PoolStatus.Draft,
             ) &&
-              canPublish && (
+              canPublish &&
+              canChangeDateOfPublished && (
                 <ChangeDateDialog
                   {...commonDialogProps}
                   closingDate={pool.closingDate}
@@ -427,6 +454,7 @@ export const ViewPool = ({
                 {...commonDialogProps}
                 departmentsQuery={departmentsQuery}
                 onDuplicate={onDuplicate}
+                roleAssignments={unpackMaybes(roleAssignments)}
               />
             )}
             {pool.status?.value === PoolStatus.Closed && canArchive && (
@@ -463,6 +491,36 @@ const ViewPoolPage_Query = graphql(/* GraphQL */ `
     departments {
       ...DuplicatePoolDepartment
     }
+    myAuth {
+      roleAssignments {
+        id
+        role {
+          id
+          name
+          isTeamBased
+          displayName {
+            en
+            fr
+          }
+        }
+        teamable {
+          id
+          ... on Pool {
+            id
+          }
+          ... on Community {
+            id
+          }
+          ... on Department {
+            id
+          }
+        }
+        team {
+          id
+          name
+        }
+      }
+    }
   }
 `);
 
@@ -482,6 +540,7 @@ const ViewPoolPage = () => {
           <ViewPool
             poolQuery={data.pool}
             departmentsQuery={unpackMaybes(data?.departments)}
+            roleAssignments={unpackMaybes(data.myAuth?.roleAssignments)}
             isFetching={isFetching}
             onExtend={async (newClosingDate: string) => {
               return mutations.extend(poolId, newClosingDate);
@@ -533,6 +592,8 @@ export const Component = () => (
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.ProcessOperator,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
     ]}
   >
     <ViewPoolPage />

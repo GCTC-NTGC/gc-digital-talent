@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@dr.pogodin/react-helmet";
 
 type Locale = "en" | "fr";
 export type Project = "digital-talent" | "iap" | "admin";

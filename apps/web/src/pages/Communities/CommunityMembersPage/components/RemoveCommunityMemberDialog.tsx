@@ -1,9 +1,5 @@
-import {
-  useState,
-  ComponentPropsWithoutRef,
-  ComponentRef,
-  forwardRef,
-} from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import { useState, forwardRef } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { useOutletContext } from "react-router";
@@ -21,17 +17,17 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import {
+import type {
   RoleInput,
   CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { CommunityMember } from "~/utils/communityUtils";
+import type { CommunityMember } from "~/utils/communityUtils";
 
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
-import { ContextType } from "./types";
+import type { ContextType } from "./types";
 
 interface RemoveCommunityMemberDialogProps extends ComponentPropsWithoutRef<
   typeof DropdownMenu.Item
@@ -44,7 +40,7 @@ interface RemoveCommunityMemberDialogProps extends ComponentPropsWithoutRef<
 const RemoveCommunityMemberDialog = forwardRef<
   ComponentRef<typeof DropdownMenu.Item>,
   RemoveCommunityMemberDialogProps
->(({ user, community, hasPlatformAdmin, onSelect, ...rest }, forwardedRef) => {
+>(({ user, community, hasPlatformAdmin, onClick, ...rest }, forwardedRef) => {
   const intl = useIntl();
   const { teamId } = useOutletContext<ContextType>();
   const [{ fetching }, executeMutation] = useMutation(
@@ -113,9 +109,10 @@ const RemoveCommunityMemberDialog = forwardRef<
       <Dialog.Trigger>
         <DropdownMenu.Item
           ref={forwardedRef}
-          onSelect={(event) => {
+          onClick={(event) => {
             event.preventDefault();
-            onSelect?.(event);
+            setIsOpen(true);
+            onClick?.(event);
           }}
           {...rest}
         >

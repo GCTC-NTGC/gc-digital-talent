@@ -27,7 +27,7 @@ import {
 import { appInsights } from "@gc-digital-talent/app-insights";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 import {
   categorizeSkill,
@@ -39,7 +39,7 @@ import SkillTree from "~/components/SkillTree/SkillTree";
 import processMessages from "~/messages/processMessages";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-import { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
 import useApplication from "../useApplication";
@@ -318,11 +318,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
         </div>
       </ReviewSection>
       <ReviewSection
-        title={intl.formatMessage({
-          defaultMessage: "Minimum experience or equivalent education",
-          id: "LvYEdh",
-          description: "Title for Minimum experience or equivalent education",
-        })}
+        title={intl.formatMessage(processMessages.minEducationRequirement)}
         path={editPaths.education}
         editLinkAriaLabel={intl.formatMessage({
           defaultMessage: "Edit education requirements",

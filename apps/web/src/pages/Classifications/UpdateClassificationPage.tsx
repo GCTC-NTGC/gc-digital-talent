@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -13,12 +14,11 @@ import {
   uiMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import {
-  graphql,
+import type {
   UpdateClassificationInput,
   FragmentType,
-  getFragment,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 
@@ -46,10 +46,6 @@ export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
     level
     minSalary
     maxSalary
-    displayName {
-      en
-      fr
-    }
     isAvailableInSearch
   }
 `);
@@ -130,10 +126,6 @@ export const UpdateClassificationForm = ({
       group: data.group?.toUpperCase(),
       minSalary: Number(data.minSalary),
       maxSalary: Number(data.maxSalary),
-      displayName: {
-        en: data.displayName?.en,
-        fr: data.displayName?.fr,
-      },
       isAvailableInSearch: data.isAvailableInSearch ?? false,
     };
     return executeMutation({
@@ -279,22 +271,6 @@ export const UpdateClassificationForm = ({
                     label={intl.formatMessage(commonMessages.onFindTalent)}
                   />
                 </div>
-                <Input
-                  id="displayName_en"
-                  name="displayName.en"
-                  autoComplete="off"
-                  label={intl.formatMessage(commonMessages.displayName)}
-                  appendLanguageToLabel={"en"}
-                  type="text"
-                />
-                <Input
-                  id="displayName_fr"
-                  name="displayName.fr"
-                  autoComplete="off"
-                  label={intl.formatMessage(commonMessages.displayName)}
-                  appendLanguageToLabel={"fr"}
-                  type="text"
-                />
               </div>
               <CardSeparator />
               <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-left">

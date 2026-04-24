@@ -1,12 +1,8 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Container,
   Pending,
@@ -133,6 +129,8 @@ export const Component = () => (
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.ProcessOperator,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
     ]}
   >
     <AdminUserRecruitmentPage />

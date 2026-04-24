@@ -1,6 +1,5 @@
 import fr from "./lang/frCompiled.json";
 import LanguageProvider from "./components/LanguageProvider";
-import LocaleProvider from "./components/LocaleProvider";
 import NestedLanguageProvider from "./components/NestedLanguageProvider";
 import useLocale from "./hooks/useLocale";
 import getIntl from "./utils/getIntl";
@@ -15,7 +14,12 @@ import {
   localizeCurrency,
   localizeSalaryRange,
 } from "./utils/localize";
-import { combineMessages, getDesiredLocale } from "./utils/utils";
+import {
+  combineMessages,
+  getDesiredLocale,
+  getPathLocale,
+  STORED_LOCALE,
+} from "./utils/utils";
 import {
   apiMessages,
   commonMessages,
@@ -53,7 +57,6 @@ import {
   getExecCoachingInterest,
   getTalentNominationLateralMovementOption,
   getLearningOpportunitiesInterest,
-  getWfaInterestFirstPerson,
 } from "./messages/localizedConstants";
 import {
   type MaybeLocalizedEnums,
@@ -76,7 +79,6 @@ import {
   sortPoolLanguage,
   sortPriorityWeight,
   sortSecurityStatus,
-  sortWfaInterest,
   localizedEnumToInput,
   localizedEnumArrayToInput,
   narrowEnumType,
@@ -107,7 +109,6 @@ export {
   richTextMessages,
   tryFindMessageDescriptor,
   LanguageProvider,
-  LocaleProvider,
   NestedLanguageProvider,
   combineMessages,
   getIntl,
@@ -133,7 +134,6 @@ export {
   sortPoolLanguage,
   sortPriorityWeight,
   sortSecurityStatus,
-  sortWfaInterest,
   sortLocalizedEnumOptions,
   appendLanguageName,
 };
@@ -163,8 +163,9 @@ export {
   getExecCoachingInterest,
   getTalentNominationLateralMovementOption,
   getLearningOpportunitiesInterest,
-  getWfaInterestFirstPerson,
+  getPathLocale,
   ENUM_SORT_ORDER,
+  STORED_LOCALE,
 };
 
 export type {

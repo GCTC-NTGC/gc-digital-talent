@@ -1,10 +1,11 @@
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { AccordionMetaData } from "@gc-digital-talent/ui";
 import {
   Accordion,
-  AccordionMetaData,
   Button,
   PreviewList,
   TaskCard,
@@ -23,7 +24,7 @@ import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/Un
 
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 
-export const CareerDevelopmentTaskCardUser_Fragment = graphql(/* GraphQL */ `
+const CareerDevelopmentTaskCardUser_Fragment = graphql(/* GraphQL */ `
   fragment CareerDevelopmentTaskCardUser on User {
     isVerifiedGovEmployee
     employeeProfile {
@@ -136,31 +137,15 @@ const CareerDevelopmentTaskCard = ({
     description: "Link to a page to edit your career planning information",
   });
 
-  const careerPlanningMetaData: AccordionMetaData = isVerifiedGovEmployee
-    ? // if verified, then a link to the employee profile page
-      [
-        {
-          key: "edit-career-planning-key",
-          type: "link",
-          href: `${paths.employeeProfile()}#career-planning-section`,
-          color: "primary",
-          children: <>{editCareerPlanningLinkText}</>,
-        },
-      ]
-    : // if not verified, then a dialog to get verified
-      [
-        {
-          key: "edit-career-planning-key",
-          type: "button-component",
-          component: (
-            <UnlockEmployeeToolsDialog query={userFragment}>
-              <Button mode="inline" size="sm">
-                {editCareerPlanningLinkText}
-              </Button>
-            </UnlockEmployeeToolsDialog>
-          ),
-        },
-      ];
+  const careerPlanningMetaData: AccordionMetaData = [
+    {
+      key: "edit-career-planning-key",
+      type: "link",
+      href: `${paths.employeeProfile()}#career-planning-section`,
+      color: "primary",
+      children: <>{editCareerPlanningLinkText}</>,
+    },
+  ];
 
   const addACommunityLinkText = intl.formatMessage({
     defaultMessage: "Add a community",

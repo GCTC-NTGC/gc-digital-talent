@@ -6,7 +6,8 @@ import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import { Pool, PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql";
+import { PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 
 import BrowsePools from "./BrowsePoolsPage";
@@ -83,10 +84,10 @@ describe("BrowsePoolsPage", () => {
     });
 
     const links = screen.queryAllByRole("link", {
-      name: /Apply to this recruitment/i,
+      name: /Apply to/i,
     });
 
-    expect(links).toHaveLength(1);
+    expect(links).toHaveLength(2); // Updated because the link to IAP program has "Apply now"
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(publishedItJobsPool.id),
@@ -107,10 +108,10 @@ describe("BrowsePoolsPage", () => {
     });
 
     const links = screen.queryAllByRole("link", {
-      name: /Apply to this recruitment/i,
+      name: /Apply to/i,
     });
 
-    expect(links).toHaveLength(2);
+    expect(links).toHaveLength(3); // Updated because the link to IAP program has "Apply now"
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(publishedItJobsPool.id),

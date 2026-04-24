@@ -13,7 +13,6 @@ import {
   ThrowNotFound,
   Notice,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import BasicInformation from "~/components/BasicInformation/BasicInformation";
@@ -23,8 +22,10 @@ import TalentManagementPreferences from "~/components/TalentManagementPreference
 import NextRoleAndCareerObjective from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
 import GoalsAndWorkStyle from "~/components/GoalsAndWorkStyle/GoalsAndWorkStyle";
 import RecruitmentProcesses from "~/components/RecruitmentProcesses/RecruitmentProcesses";
+import permissionConstants from "~/constants/permissionConstants";
 
-import { RouteParams, SECTION_KEY } from "./types";
+import type { RouteParams } from "./types";
+import { SECTION_KEY } from "./types";
 
 const Nominee_Query = graphql(/* GraphQL */ `
   query Nominee($nomineeId: UUID!) {
@@ -77,11 +78,12 @@ const TalentNominationGroupProfile = ({
 
   return (
     <Pending fetching={fetching} error={error}>
-      <Card className="rounded-b-none bg-transparent">
+      <Card className="rounded-b-none" space="lg">
         <div className="flex flex-col items-center justify-between gap-y-6 sm:flex-row sm:gap-x-3 sm:gap-y-0">
           <Heading
             icon={UserCircleIcon}
             level="h2"
+            size="h4"
             color="secondary"
             className="mt-0 font-normal"
           >
@@ -112,7 +114,7 @@ const TalentNominationGroupProfile = ({
             </Button>
           )}
         </div>
-        <p className="my-6">
+        <p>
           {intl.formatMessage({
             defaultMessage:
               "The following sections can be expanded to show information about the nominee’s profile, their interest in this community, and their career goals.",
@@ -122,7 +124,7 @@ const TalentNominationGroupProfile = ({
           })}
         </p>
         {!shareProfile && (
-          <Notice.Root color="error">
+          <Notice.Root color="error" className="mt-6">
             <Notice.Title>
               {intl.formatMessage({
                 defaultMessage:
@@ -237,7 +239,7 @@ const TalentNominationGroupProfilePage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityTalentCoordinator]}>
+  <RequireAuth roles={permissionConstants.viewCommunityTalentNominations}>
     <TalentNominationGroupProfilePage />
   </RequireAuth>
 );

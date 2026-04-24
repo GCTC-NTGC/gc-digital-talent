@@ -1,11 +1,11 @@
-import {
+import type {
   FragmentType,
   Role,
   Scalars,
   ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 
-import { ManageAccessPage_PoolFragment } from "./operations";
+import type { ManageAccessPage_PoolFragment } from "./operations";
 
 export interface ManageAccessFormValues {
   teamId: Scalars["UUID"]["output"];

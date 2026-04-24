@@ -1,4 +1,4 @@
-import { InitialState } from "./types";
+import type { InitialState } from "./types";
 
 export const INITIAL_STATE: InitialState = {
   hiddenColumnIds: [],
@@ -21,7 +21,6 @@ export const SEARCH_PARAM_KEY = {
   PAGE_SIZE: "ps",
   PAGE: "p",
   FILTERS: "f",
+  POOL_FILTERS: "pool-filters", // owned by PoolTable
+  POOL_CANDIDATE_FILTERS: "pool-candidate-filters", // owned by PoolCandidatesTable
 } as const;
-
-export type SearchParamKey =
-  (typeof SEARCH_PARAM_KEY)[keyof typeof SEARCH_PARAM_KEY];

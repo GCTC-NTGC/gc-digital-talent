@@ -1,11 +1,6 @@
 import { defineMessages } from "react-intl";
 
 export default defineMessages({
-  wfa: {
-    defaultMessage: "Workforce adjustment",
-    id: "xGsQso",
-    description: "Title for the users wfa information",
-  },
   careerDevelopment: {
     defaultMessage: "Career development preferences",
     id: "okKbgd",

@@ -1,12 +1,11 @@
 import { useIntl } from "react-intl";
 
-import {
+import type {
   FinanceChiefDuty,
   FinanceChiefRole,
   FragmentType,
-  getFragment,
-  graphql,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -17,6 +16,15 @@ import DevelopmentProgramInterestItem from "./DevelopmentProgramInterestItem";
 export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterest on CommunityInterest {
     id
+    user {
+      developmentProgramUserRecords {
+        id
+        developmentProgram {
+          id
+        }
+        ...CommunityInterestDevelopmentProgramUser
+      }
+    }
     community {
       id
       key
@@ -26,7 +34,7 @@ export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
-      developmentPrograms {
+      associatedDevelopmentPrograms {
         id
         name {
           localized
@@ -38,12 +46,6 @@ export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
     }
     workStreams {
       id
-    }
-    interestInDevelopmentPrograms {
-      developmentProgram {
-        id
-      }
-      ...CommunityInterestDevelopmentProgramInterest
     }
     jobInterest
     trainingInterest
@@ -75,6 +77,7 @@ export const CommunityInterestOptions_Fragment = graphql(/* GraphQL */ `
     }
   }
 `);
+
 interface CommunityInterestProps {
   communityInterestQuery: FragmentType<typeof CommunityInterest_Fragment>;
   communityInterestOptionsQuery: FragmentType<
@@ -102,11 +105,15 @@ const CommunityInterest = ({
     communityInterest.community.workStreams,
   );
   const communityDevelopmentPrograms = unpackMaybes(
-    communityInterest?.community.developmentPrograms,
+    communityInterest?.community.associatedDevelopmentPrograms,
   );
   const interestedWorkStreams = unpackMaybes(
     communityInterest?.workStreams,
   ).flatMap((workStream) => workStream.id);
+
+  const usersDevelopmentProgramRecords = unpackMaybes(
+    communityInterest.user?.developmentProgramUserRecords,
+  );
 
   const asterisk =
     context === "applicant"
@@ -246,17 +253,17 @@ const CommunityInterest = ({
                 ),
               )
               .map((developmentProgram) => {
-                const interestedProgram =
-                  communityInterest?.interestInDevelopmentPrograms?.find(
-                    (interest) =>
-                      interest?.developmentProgram?.id ===
-                      developmentProgram.id,
-                  );
+                const interestedProgram = usersDevelopmentProgramRecords.find(
+                  (record) =>
+                    record?.developmentProgram.id === developmentProgram.id,
+                );
 
                 return (
                   <DevelopmentProgramInterestItem
                     key={developmentProgram.id}
-                    developmentProgramInterestQuery={interestedProgram}
+                    developmentProgramInterestQuery={
+                      interestedProgram ?? undefined
+                    }
                     label={developmentProgram?.name?.localized ?? notAvailable}
                   />
                 );

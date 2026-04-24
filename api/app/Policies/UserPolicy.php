@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
@@ -16,7 +17,7 @@ class UserPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAny(User $user)
     {
@@ -26,7 +27,7 @@ class UserPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(User $user, User $model)
     {
@@ -67,7 +68,7 @@ class UserPolicy
     /**
      * Determine whether the user can view a more limited version of the User model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewBasicInfo(User $user)
     {
@@ -75,37 +76,9 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can view the WFA information.
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewEmployeeWFA(User $user, User $model)
-    {
-        if ($user->isAbleTo('view-any-employeeWFA')) {
-            return true;
-        }
-
-        if ($user->isAbleTo('view-own-employeeWFA') && $model->id === $user->id) {
-            return true;
-        }
-
-        $teams = $user->rolesTeams()->get();
-
-        $teamIds = $teams->filter(
-            fn ($team) => $user->isAbleTo('view-team-employeeWFA', $team)
-        )->pluck('id')->toArray();
-
-        if (! empty($teamIds) && ($this->applicantHasAppliedToPoolInTeams($model, $teamIds) || $this->teamsUserHasSharedProfileWith($model, $teamIds))) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Determine whether the user can create models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function create(User $user)
     {
@@ -115,7 +88,7 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function update(User $user, User $model)
     {
@@ -126,7 +99,7 @@ class UserPolicy
     /**
      * Determine whether the user can update sub.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function updateSub(User $user)
     {
@@ -134,18 +107,10 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can update the WFA info for the model.
-     */
-    public function updateEmployeeWFA(User $user, User $model): bool
-    {
-        return $user->isAbleTo('update-own-employeeWFA') && $model->id === $user->id;
-    }
-
-    /**
      * Determine whether the user can update roles.
      *
      * @param  array{id: ?string, roleAssignmentsInput: ?array{attach: ?array, detach: ?array}}  $args
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function updateRoles(User $user, $args)
     {
@@ -188,7 +153,7 @@ class UserPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function delete(User $user, User $model)
     {
@@ -198,7 +163,7 @@ class UserPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function restore(User $user, User $model)
     {
@@ -208,7 +173,7 @@ class UserPolicy
     /**
      * Determine whether the user can wipe work email information.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function removeWorkEmailInformation(User $user, User $model)
     {
@@ -225,6 +190,8 @@ class UserPolicy
                 $query->whereHas('pool.team', function ($q) use ($teamIds) {
                     $q->whereIn('id', $teamIds);
                 })->orWhereHas('pool.community.team', function ($q) use ($teamIds) {
+                    $q->whereIn('id', $teamIds);
+                })->orWhereHas('pool.department.team', function ($q) use ($teamIds) {
                     $q->whereIn('id', $teamIds);
                 });
             })
@@ -266,8 +233,8 @@ class UserPolicy
                 // it should give them the ability to assign processOperator roles to pools in their community OR department.
                 // for assigning a process, team is a poolTeam so need to reach the community teamable for community checks
                 // or check through department
-                $poolCommunityTeam = $team->loadMissing(['teamable.community.team']);
-                $poolDepartmentTeam = $team->loadMissing(['teamable.department.team']);
+                $poolCommunityTeam = $team;
+                $poolDepartmentTeam = $team;
 
                 return
                     $actor->isAbleTo('update-any-processOperatorMembership') ||
@@ -319,5 +286,13 @@ class UserPolicy
     public function viewAnyBasicGovEmployeeProfile(User $user): bool
     {
         return $user->isAbleTo('view-any-basicGovEmployeeProfile');
+    }
+
+    /**
+     * Determine whether the user can view a more limited version of the User model.
+     */
+    public function viewAnyUserWorkEmail(User $user): bool
+    {
+        return $user->isAbleTo('view-any-userWorkEmail');
     }
 }

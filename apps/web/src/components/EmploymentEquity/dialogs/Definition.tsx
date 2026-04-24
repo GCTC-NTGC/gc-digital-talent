@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Link, Notice } from "@gc-digital-talent/ui";
 
@@ -25,6 +25,7 @@ const Definition = ({ url, quotedDefinition }: DefinitionProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
+                  // eslint-disable-next-line formatjs/prefer-full-sentence
                   "According to the <link>Statistics Canada definition</link>, this group ",
                 id: "X3pHUD",
                 description:

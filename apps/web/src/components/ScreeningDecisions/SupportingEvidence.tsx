@@ -1,20 +1,23 @@
 import { useIntl } from "react-intl";
 
-import {
+import type {
   Experience,
   FragmentType,
+  Scalars,
+} from "@gc-digital-talent/graphql";
+import {
   getFragment,
   graphql,
   makeFragmentData,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Heading } from "@gc-digital-talent/ui";
 
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "../ExperienceCard/ExperienceCard";
-import { DialogType } from "./useDialogType";
+import type { DialogType } from "./utils";
 import { DIALOG_TYPE } from "./utils";
 
 const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
@@ -55,14 +58,14 @@ const SupportingEvidence = ({
 
   return (
     <>
-      <p className="mb-3">
+      <Heading level="h3" size="h6" className="mb-3">
         {intl.formatMessage({
           defaultMessage: "Supporting evidence:",
           id: "w59dPh",
           description:
             "Header for supporting evidence section in screening decision dialog.",
         })}
-      </p>
+      </Heading>
       {experiencesFiltered.length > 0 ? (
         experiencesFiltered.map((experience) => (
           <div className="mb-3" key={experience.id}>

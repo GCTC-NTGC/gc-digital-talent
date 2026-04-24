@@ -1,15 +1,15 @@
-import { IntlShape, MessageDescriptor } from "react-intl";
-import uniq from "lodash/uniq";
-import { ReactNode } from "react";
+import type { IntlShape, MessageDescriptor } from "react-intl";
+import type { ReactNode } from "react";
 
+import type { Maybe } from "@gc-digital-talent/graphql";
 import {
   CandidateInterest,
   CandidateStatus,
-  Maybe,
   PoolCandidateSearchStatus,
 } from "@gc-digital-talent/graphql";
 import { assertUnreachable, compareStrings } from "@gc-digital-talent/helpers";
-import { ChipProps, Link } from "@gc-digital-talent/ui";
+import type { ChipProps } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import {
@@ -72,7 +72,7 @@ export function deriveSingleString<T>(
   const localizedStrings = values.map(localizedMapper);
   localizedStrings.sort((a, b) => compareStrings(a, b, "asc"));
 
-  const uniqueStrings = uniq(localizedStrings);
+  const uniqueStrings = [...new Set(localizedStrings)];
   const joinedStrings = uniqueStrings.join(", ");
 
   return joinedStrings;
@@ -98,7 +98,7 @@ const candidateStatusDescMap = new Map<CandidateStatus, MessageDescriptor>([
   [CandidateStatus.Removed, applicationStatusDescriptions.REMOVED],
 ]);
 
-export const contactEmailTag = (chunks: ReactNode, email?: Maybe<string>) => {
+const contactEmailTag = (chunks: ReactNode, email?: Maybe<string>) => {
   return email ? (
     <Link external href={`mailto:${email}`}>
       {email}

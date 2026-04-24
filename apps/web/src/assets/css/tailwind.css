@@ -142,6 +142,7 @@
 */
 @theme inline {
   /** Breakpoints */
+  --breakpoint-xxs: 30rem;
   --breakpoint-xs: 48rem;
   --breakpoint-sm: 67.5rem;
   --breakpoint-md: 80rem;

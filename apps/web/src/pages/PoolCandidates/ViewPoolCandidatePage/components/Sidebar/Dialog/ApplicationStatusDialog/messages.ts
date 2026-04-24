@@ -1,0 +1,24 @@
+import { defineMessages } from "react-intl";
+
+export default defineMessages({
+  revertHeader: {
+    defaultMessage: "Revert application status",
+    id: "AhcYq4",
+    description: "Heading for dialog to revert an application status",
+  },
+  revertSuccess: {
+    defaultMessage: "Decision reverted successfully.",
+    id: "uXSbTI",
+    description: "Success message when an application decision was reverted",
+  },
+  revertError: {
+    defaultMessage: "Error: Could not revert decision",
+    id: "9HFLu6",
+    description: "Error message when status decision could not be reverted",
+  },
+  revertSubmit: {
+    defaultMessage: "Revert decision and update status",
+    id: "uLmAEX",
+    description: "Button text to revert an application decision",
+  },
+});

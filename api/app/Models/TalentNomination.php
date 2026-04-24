@@ -4,22 +4,27 @@ namespace App\Models;
 
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Observers\TalentNominationObserver;
+use Database\Factories\TalentNominationFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class TalentNomination
  *
  * @property string $id
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property array $submitted_steps
  * @property string $talent_nomination_event_id
- * @property \Illuminate\Support\Carbon $submitted_at
+ * @property Carbon $submitted_at
  * @property string $submitter_id
  * @property object $submitter_relationship_to_nominator
  * @property string $submitter_relationship_to_nominator_other
@@ -51,9 +56,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  */
 class TalentNomination extends Model
 {
-    /** @use HasFactory<\Database\Factories\TalentNominationFactory> */
+    /** @use HasFactory<TalentNominationFactory> */
     use HasFactory;
 
+    use HasRelationships;
     use LogsActivity;
 
     protected $keyType = 'string';
@@ -152,6 +158,17 @@ class TalentNomination extends Model
         return $this->belongsTo(Department::class, 'advancement_reference_fallback_department_id');
     }
 
+    /** @return BelongsToMany<CommunityDevelopmentProgram, $this> */
+    public function communityDevelopmentPrograms(): BelongsToMany
+    {
+        return $this->belongsToMany(CommunityDevelopmentProgram::class, 'community_development_program_talent_nomination');
+    }
+
+    public function developmentProgramsThroughPivot(): HasManyDeep
+    {
+        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram)->developmentProgram());
+    }
+
     /** @return BelongsToMany<DevelopmentProgram, $this> */
     public function developmentPrograms(): BelongsToMany
     {
@@ -220,5 +237,10 @@ class TalentNomination extends Model
     public function isOwn(User $user)
     {
         return $this->submitter_id === $user->id;
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['talentNominationEvent']);
     }
 }

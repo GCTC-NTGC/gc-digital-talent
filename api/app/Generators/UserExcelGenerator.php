@@ -40,6 +40,7 @@ use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\CommunityInterest;
 use App\Models\DevelopmentProgram;
+use App\Models\DevelopmentProgramUser;
 use App\Models\EducationExperience;
 use App\Models\ExperienceSkill;
 use App\Models\PersonalExperience;
@@ -47,6 +48,7 @@ use App\Models\User;
 use App\Models\WorkExperience;
 use App\Traits\Generator\Filterable;
 use App\Traits\Generator\GeneratesFile;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -69,6 +71,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'last_name',
         'email',
         'phone',
+        'updated_at',
         'armed_forces_status',
         'citizenship',
         'current_city',
@@ -359,6 +362,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $user->last_name,
             $user->email ?? '',
             $user->telephone ?? '',
+            $user->updated_at ? $user->updated_at->format('Y-m-d H:i:s') : '',
             $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class),
             $this->localizeEnum($user->citizenship, CitizenshipStatus::class),
             $user->current_city ?? '',
@@ -487,7 +491,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $isCurrent, // currently active
             $numberOfMonths, // number of months calculated number of months based on the start and end date or start date and date of download for current experiences
             $exp->role ?? '', // Role or title: My role (work experience), My role (Community participation), Personal experience short title, Award title
-            $exp->organization ?? '', // Organization, department, military force, or institution: Organization (external), Department (GC), Military force (CAF), Education institution, Group, organization, or community, Issuing organization
+            $this->getOrganizationName($exp),  // Organization, department, military force, or institution: Organization (external), Department (GC), Military force (CAF), Education institution, Group, organization, or community, Issuing organization
             $this->localizeEnum($exp->employment_category, EmploymentCategory::class),  // Employment category
             $exp->division ?? '', // team, group, division
             $this->localizeEnum($exp->ext_size_of_organization, ExternalSizeOfOrganization::class), // size external organization
@@ -1001,10 +1005,73 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         }
 
         return [
-            $exp->department->id ?? '',
+            $exp->department->org_identifier ?? '',
             $this->localizeEnum($exp->department->size, DepartmentSize::class),
-            $exp->department->type ?? '',
+            $this->getDepartmentTypes($exp->department),
         ];
+    }
+
+    /**
+     * Get department types
+     */
+    private function getDepartmentTypes($department): string
+    {
+        if (! $department) {
+            return '';
+        }
+
+        $types = [];
+
+        if ($department->is_core_public_administration) {
+            $types[] = $this->localize('headings.core_public_administration');
+        }
+
+        if ($department->is_central_agency) {
+            $types[] = $this->localize('headings.central_agency');
+        }
+
+        if ($department->is_science) {
+            $types[] = $this->localize('headings.science');
+        }
+
+        if ($department->is_regulatory) {
+            $types[] = $this->localize('headings.regulatory');
+        }
+
+        return implode(', ', $types);
+    }
+
+    /**
+     * Get organization name
+     * for goc employees use department name
+     * for caf employees use localized employment type
+     * for external use organization field
+     *
+     * @param  WorkExperience  $exp  The work experience
+     * @return string The organization name
+     */
+    private function getOrganizationName(WorkExperience $exp): string
+    {
+        // goc employee
+        if ($exp->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name && $exp->department) {
+            // return localized department name
+            return $exp->department?->name[$this->lang] ?? $exp->organization ?? '';
+        }
+
+        // CAF employee
+        if ($exp->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
+            // return localized caf employment type
+            return $this->localizeEnum($exp->caf_employment_type, CafEmploymentType::class);
+        }
+
+        // external organization
+        if ($exp->employment_category === EmploymentCategory::EXTERNAL_ORGANIZATION->name) {
+            // return organization field for external experience
+            return $exp->organization ?? '';
+        }
+
+        // fallback
+        return $exp->organization ?? '';
     }
 
     /**
@@ -1031,9 +1098,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             ->get('community_id')
             ->pluck('community_id')
             ->unique();
-        $developmentPrograms = DevelopmentProgram::whereIn('community_id', $communityIds)
-            ->orderByDesc('community_id')
-            ->get();
+
+        // fetch development program directly thru CommunityDevelopmentProgram
+        $developmentPrograms = DevelopmentProgram::whereHas(
+            'communityDevelopmentPrograms',
+            function (Builder $query) use ($communityIds) {
+                $query->whereIn('community_id', $communityIds);
+            })->get();
 
         $generatedHeaders = [];
         $developmentProgramIds = [];
@@ -1053,7 +1124,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         CommunityInterest::authorizedToView(['userId' => $this->authenticatedUserId])
             ->whereIn('user_id', $userIds)
             ->isVerifiedGovEmployee()
-            ->with(['user', 'community', 'workStreams', 'interestInDevelopmentPrograms'])
+            ->with([
+                'user',
+                'community',
+                'workStreams',
+                'user.developmentProgramUserRecords',
+                'user.developmentProgramUserRecords.educationExperience',
+            ])
             ->chunk(200, function ($interests) use ($sheet, &$currentRow, $developmentProgramIds) {
                 foreach ($interests as $interest) {
                     $rowData = $this->buildCommunityInterestRow($interest, $developmentProgramIds);
@@ -1066,12 +1143,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     /**
      * Build community interest row
      */
-    private function buildCommunityInterestRow(CommunityInterest $interest, array $developmentPrograms): array
+    private function buildCommunityInterestRow(CommunityInterest $interest, array $developmentProgramIds): array
     {
         $workStreams = $this->getWorkStreams($interest);
-        $developmentProgramInterests = array_map(function ($program) use ($interest) {
-            return $this->getDevelopmentProgramInterest($program, $interest);
-        }, $developmentPrograms);
+        $developmentProgramInterests = array_map(function ($programId) use ($interest) {
+
+            return $this->getDevelopmentProgramInterest($programId, $interest);
+        }, $developmentProgramIds);
 
         return [
             $interest->user->id, // user id
@@ -1095,22 +1173,26 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function getDevelopmentProgramInterest(string $programId, CommunityInterest $communityInterest)
     {
-        $programInterest = $communityInterest->interestInDevelopmentPrograms->first(function ($interest) use ($programId) {
-            return $interest->development_program_id === $programId;
+        $programInterest = $communityInterest->user->developmentProgramUserRecords->first(function ($record) use ($programId) {
+            /** @var DevelopmentProgramUser $record */
+            $id = $record->development_program_id;
+
+            return $id === $programId;
         });
 
-        if (is_null($programInterest)) {
+        if (is_null($programInterest) || empty($programInterest)) {
             return null;
         }
 
+        /** @var DevelopmentProgramUser $programInterest */
         switch ($programInterest->participation_status) {
-            case DevelopmentProgramParticipationStatus::NOT_INTERESTED:
+            case DevelopmentProgramParticipationStatus::NOT_INTERESTED->name:
                 return $this->localize('common.not_interested');
-            case DevelopmentProgramParticipationStatus::INTERESTED:
+            case DevelopmentProgramParticipationStatus::INTERESTED->name:
                 return $this->localize('common.interested_in_program');
-            case DevelopmentProgramParticipationStatus::ENROLLED:
+            case DevelopmentProgramParticipationStatus::ENROLLED->name:
                 return $this->localize('common.currently_enrolled');
-            case DevelopmentProgramParticipationStatus::COMPLETED:
+            case DevelopmentProgramParticipationStatus::COMPLETED->name:
                 return $this->localize('common.completed_in').$programInterest->completion_date->format('F Y');
         }
     }

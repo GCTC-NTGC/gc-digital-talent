@@ -1,6 +1,8 @@
 import { useEffect } from "react";
-import { MessageDescriptor, useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
 import { Input, Submit } from "@gc-digital-talent/forms";
@@ -19,8 +21,12 @@ import {
 
 import { useEmailVerification } from "./EmailVerification";
 
-export const labels: Record<EmailType, MessageDescriptor> = {
-  WORK: commonMessages.workEmail,
+const labels: Record<EmailType, MessageDescriptor> = {
+  WORK: defineMessage({
+    defaultMessage: "Government work email",
+    id: "2SU37a",
+    description: "Label for work email in the verification form",
+  }),
   CONTACT: commonMessages.email,
 };
 
@@ -214,6 +220,7 @@ const RequestVerificationCodeForm = ({
           </div>
           <div className="w-full self-center xs:w-auto xs:self-end">
             <Submit
+              color="secondary"
               className="block w-full"
               text={intl.formatMessage({
                 defaultMessage: "Send verification email",

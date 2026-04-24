@@ -4,9 +4,9 @@ import { useFormContext } from "react-hook-form";
 
 import { Chip, Chips, Heading } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   DevelopmentProgramParticipationStatus,
-  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -15,14 +15,14 @@ import { DATE_SEGMENT, DateInput, RadioGroup } from "@gc-digital-talent/forms";
 
 import { getClassificationName } from "~/utils/poolUtils";
 
-import { FormValues } from "../form";
+import type { FormValues } from "../form";
 
 const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
   /* GraphQL */ `
     fragment TrainingAndDevelopmentOpportunitiesOptions_Fragment on Query {
       communities {
         id
-        developmentPrograms {
+        associatedDevelopmentPrograms {
           id
           name {
             localized
@@ -41,6 +41,21 @@ const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
   `,
 );
 
+export const DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment =
+  graphql(/* GraphQL */ `
+    fragment DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment on DevelopmentProgramUser {
+      id
+      developmentProgram {
+        id
+      }
+      educationExperience {
+        id
+      }
+      participationStatus
+      completionDate
+    }
+  `);
+
 export interface SubformValues {
   interestInDevelopmentPrograms:
     | {
@@ -52,15 +67,21 @@ export interface SubformValues {
 }
 
 interface TrainingAndDevelopmentOpportunitiesProps {
+  selectedCommunityId: string;
   optionsQuery: FragmentType<
     typeof TrainingAndDevelopmentOpportunitiesOptions_Fragment
   >;
   formDisabled: boolean;
+  developmentProgramUserRecordsQuery: FragmentType<
+    typeof DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment
+  >[];
 }
 
 const TrainingAndDevelopmentOpportunities = ({
+  selectedCommunityId,
   optionsQuery,
   formDisabled,
+  developmentProgramUserRecordsQuery,
 }: TrainingAndDevelopmentOpportunitiesProps) => {
   const intl = useIntl();
   const optionsData = getFragment(
@@ -68,22 +89,44 @@ const TrainingAndDevelopmentOpportunities = ({
     optionsQuery,
   );
 
+  const developmentProgramUserRecords = getFragment(
+    DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment,
+    developmentProgramUserRecordsQuery,
+  );
+  const developmentProgramUserRecordsUnpacked = unpackMaybes(
+    developmentProgramUserRecords,
+  );
+  const arrayOfDefaultValues: {
+    developmentProgramId: string;
+    participationStatus?:
+      | DevelopmentProgramParticipationStatus
+      | null
+      | undefined;
+    completionDate?: string | null | undefined;
+    // add education experience here maybe
+  }[] = developmentProgramUserRecordsUnpacked.map((record) => {
+    return {
+      developmentProgramId: record.developmentProgram.id,
+      participationStatus: record.participationStatus,
+      completionDate: record.completionDate,
+    };
+  });
+
   const { watch, register } = useFormContext<FormValues>();
-  const [selectedCommunityId, selectedInterestInDevelopmentPrograms] = watch([
-    "communityId",
+  const [selectedInterestInDevelopmentPrograms] = watch([
     "interestInDevelopmentPrograms",
   ]);
 
   const developmentPrograms =
     optionsData.communities.find(
       (community) => community?.id === selectedCommunityId,
-    )?.developmentPrograms ?? [];
+    )?.associatedDevelopmentPrograms ?? [];
 
   // sort programs
   developmentPrograms.sort(
     sortAlphaBy((developmentProgram) => developmentProgram.name?.localized),
   );
-  // sort classifications in programs
+
   developmentPrograms.forEach((developmentProgram) => {
     if (developmentProgram.eligibleClassifications) {
       developmentProgram.eligibleClassifications.sort((a, b) =>
@@ -224,6 +267,12 @@ const TrainingAndDevelopmentOpportunities = ({
                 },
               ]}
               disabled={formDisabled}
+              defaultSelected={
+                arrayOfDefaultValues.find(
+                  (array) =>
+                    array.developmentProgramId === developmentProgram.id,
+                )?.participationStatus ?? undefined
+              }
             />
             {selectedInterestInDevelopmentPrograms?.[index]
               ?.participationStatus ===
@@ -240,6 +289,12 @@ const TrainingAndDevelopmentOpportunities = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
+                defaultValue={
+                  arrayOfDefaultValues.find(
+                    (array) =>
+                      array.developmentProgramId === developmentProgram.id,
+                  )?.completionDate ?? undefined
+                }
               />
             ) : null}
           </div>

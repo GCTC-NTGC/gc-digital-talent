@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
+use Staudenmeir\EloquentJsonRelations\Relations\Postgres\HasManyThrough;
 
 /**
  * Class Department
@@ -23,10 +25,10 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property bool $is_science
  * @property bool $is_regulatory
  * @property string $size
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
- * @property ?\Illuminate\Support\Carbon $deleted_at
- * @property ?\Illuminate\Support\Carbon $archived_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
+ * @property ?Carbon $deleted_at
+ * @property ?Carbon $archived_at
  */
 class Department extends Model
 {
@@ -70,10 +72,27 @@ class Department extends Model
         return $this->morphOne(Team::class, 'teamable');
     }
 
+    /** @return HasManyThrough<RoleAssignment, Team, $this> */
+    public function roleAssignments(): HasManyThrough
+    {
+        // reused from Community/Pool
+        return $this->hasManyThrough(RoleAssignment::class, Team::class, 'teamable_id');
+    }
+
     /** @return HasMany<PoolCandidateSearchRequest, $this> */
     public function poolCandidateSearchRequests(): HasMany
     {
         return $this->hasMany(PoolCandidateSearchRequest::class);
+    }
+
+    /**
+     * Accessors
+     */
+
+    /* accessor to retrieve id from teams table */
+    public function getTeamIdForRoleAssignmentAttribute()
+    {
+        return $this->team?->id;
     }
 
     /**

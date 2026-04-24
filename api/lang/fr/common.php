@@ -52,4 +52,5 @@ return [
     'interested_in_program' => 'Ce programme m\'intéresse',
     'currently_enrolled' => 'Programme en cours',
     'completed_in' => 'Achevé en ',
+    'successfully_placed' => 'Candidate has been successfully placed',
 ];

@@ -77,8 +77,8 @@ class PoolApplicationTest extends TestCase
     protected $createMutationDocument =
         /** @lang GraphQL */
         '
-        mutation createApplication($userId: ID!, $poolId: ID!){
-            createApplication(userId: $userId, poolId: $poolId) {
+        mutation createApplication($poolId: ID!){
+            createApplication(poolId: $poolId) {
                 user {
                     id
                 }
@@ -181,7 +181,6 @@ class PoolApplicationTest extends TestCase
         ]);
 
         $variables = [
-            'userId' => $this->applicantUser->id,
             'poolId' => $pool->id,
         ];
 
@@ -203,7 +202,7 @@ class PoolApplicationTest extends TestCase
 
         // Guest users cannot create applications
         $this->graphQL($this->createMutationDocument, $variables)
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+            ->assertGraphQLErrorMessage('Unauthenticated.');
 
         // Assert creating a pool application succeeds
         // returns DRAFT as a result of application_status Accessor and unexpired pool
@@ -234,7 +233,6 @@ class PoolApplicationTest extends TestCase
         ]);
 
         $variables = [
-            'userId' => $this->applicantUser->id,
             'poolId' => $pool->id,
         ];
 
@@ -293,13 +291,11 @@ class PoolApplicationTest extends TestCase
         ]);
         $newPool->essentialSkills()->sync([]);
 
-        $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
-            'pool_id' => $newPool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-        ]);
-        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
-        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+        $newPoolCandidate = PoolCandidate::factory()
+            ->completed()
+            ->for($this->applicantUser)
+            ->for($newPool)
+            ->create();
 
         $submitArgs = [
             'id' => $newPoolCandidate->id,
@@ -378,13 +374,11 @@ class PoolApplicationTest extends TestCase
         ]);
         $newPool->essentialSkills()->sync([]);
 
-        $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
-            'pool_id' => $newPool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-        ]);
-        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
-        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+        $newPoolCandidate = PoolCandidate::factory()
+            ->completed()
+            ->for($this->applicantUser)
+            ->for($newPool)
+            ->create();
 
         // assert empty signature submission errors
         $this->actingAs($this->applicantUser, 'api')
@@ -454,16 +448,14 @@ class PoolApplicationTest extends TestCase
             'user_id' => $this->applicantUser->id,
         ]);
 
-        $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
-            'pool_id' => $newPool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-        ]);
+        $newPoolCandidate = PoolCandidate::factory()
+            ->completed()
+            ->for($this->applicantUser)
+            ->for($newPool)
+            ->create();
 
-        // Refresh the data from the database to ensure it is correctly loaded
-        $this->applicantUser->refresh();
-        $newPool->refresh();
-        $newPoolCandidate->refresh();
+        // Remove all user skills
+        $this->applicantUser->userSkills()->delete();
 
         // assert user cannot submit application with missing essential skills
         $this->actingAs($this->applicantUser, 'api')
@@ -493,11 +485,11 @@ class PoolApplicationTest extends TestCase
         $technicalSkill = Skill::factory()->create(['category' => SkillCategory::TECHNICAL->name]);
         $newPool->setEssentialPoolSkills([$technicalSkill->id]);
 
-        $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
-            'pool_id' => $newPool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-        ]);
+        $newPoolCandidate = PoolCandidate::factory()
+            ->completed()
+            ->for($this->applicantUser)
+            ->for($newPool)
+            ->create();
 
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
@@ -539,13 +531,11 @@ class PoolApplicationTest extends TestCase
         ]);
         $newPool->essentialSkills()->sync([]);
 
-        $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
-            'pool_id' => $newPool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-        ]);
-        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
-        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+        $newPoolCandidate = PoolCandidate::factory()
+            ->completed()
+            ->for($this->applicantUser)
+            ->for($newPool)
+            ->create();
 
         // assert status updated upon submission, and doesn't return DRAFT or EXPIRED
         $this->actingAs($this->applicantUser, 'api')
@@ -572,13 +562,11 @@ class PoolApplicationTest extends TestCase
         ]);
         $newPool->essentialSkills()->sync([]);
 
-        $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
-            'pool_id' => $newPool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-        ]);
-        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
-        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+        $newPoolCandidate = PoolCandidate::factory()
+            ->completed()
+            ->for($this->applicantUser)
+            ->for($newPool)
+            ->create();
 
         // assert status
         $this->actingAs($this->applicantUser, 'api')
@@ -638,14 +626,14 @@ class PoolApplicationTest extends TestCase
             'assessment_step_id' => $assessmentStep,
         ]);
 
-        $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
-            'pool_id' => $newPool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-            'education_requirement_option' => EducationRequirementOption::EDUCATION->name,
-        ]);
-        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
-        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+        $newPoolCandidate = PoolCandidate::factory()
+            ->completed()
+            ->for($this->applicantUser)
+            ->for($newPool)
+            ->create([
+                'education_requirement_option' => EducationRequirementOption::EDUCATION->name,
+            ]);
+
         // Remove any responses created by factory
         ScreeningQuestionResponse::where('pool_candidate_id', $newPoolCandidate->id)->delete();
 
@@ -696,14 +684,14 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool,
         ]);
 
-        $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
-            'pool_id' => $newPool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-            'education_requirement_option' => EducationRequirementOption::EDUCATION->name,
-        ]);
-        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
-        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+        $newPoolCandidate = PoolCandidate::factory()
+            ->for($this->applicantUser)
+            ->for($newPool)
+            ->completed()
+            ->create([
+                'education_requirement_option' => EducationRequirementOption::EDUCATION->name,
+            ]);
+
         // Remove any responses created by factory
         GeneralQuestionResponse::where('pool_candidate_id', $newPoolCandidate->id)->delete();
 
@@ -746,12 +734,10 @@ class PoolApplicationTest extends TestCase
         $newPool = Pool::factory()->create([]);
         $newPool->essentialSkills()->sync([]);
 
-        $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
-            'pool_id' => $newPool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-            'expiry_date' => config('constants.far_future_date'),
-        ]);
+        $newPoolCandidate = PoolCandidate::factory()
+            ->for($this->applicantUser)
+            ->for($newPool)
+            ->create();
 
         $variables = ['id' => $newPoolCandidate->id];
 
@@ -811,12 +797,12 @@ class PoolApplicationTest extends TestCase
 
         $candidates = [];
         foreach ($statusesThatShouldFail as $status) {
-            $candidates[] = PoolCandidate::factory()->create([
-                'application_status' => $status,
-                'user_id' => $this->applicantUser->id,
-                'submitted_at' => config('constants.past_date'),
-                'expiry_date' => config('constants.far_future_date'),
-            ]);
+            $candidates[] = PoolCandidate::factory()
+                ->completed()
+                ->for($this->applicantUser)
+                ->create([
+                    'application_status' => $status,
+                ]);
         }
 
         $result = [
@@ -842,13 +828,11 @@ class PoolApplicationTest extends TestCase
             'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
-        $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
-            'pool_id' => $newPool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-        ]);
-        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
-        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+        $newPoolCandidate = PoolCandidate::factory()
+            ->completed()
+            ->for($this->applicantUser)
+            ->for($newPool)
+            ->create();
 
         // assert can't suspend a DRAFT
         $this->actingAs($this->applicantUser, 'api')
@@ -908,11 +892,11 @@ class PoolApplicationTest extends TestCase
             'area_of_selection' => PoolAreaOfSelection::PUBLIC->name, // avoid email requirements
         ]);
         $newPool->essentialSkills()->sync([]);
-        $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
-            'pool_id' => $newPool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-        ]);
+        $newPoolCandidate = PoolCandidate::factory()
+            ->completed()
+            ->for($this->applicantUser)
+            ->for($newPool)
+            ->create();
         $newPoolCandidate->update(['education_requirement_option' => null]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([]);
         $newPoolCandidate->educationRequirementWorkExperiences()->sync([]);
@@ -975,12 +959,11 @@ class PoolApplicationTest extends TestCase
         $this->applicantUser->priority_number = 'abc';
         $this->applicantUser->save();
 
-        $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
-            'pool_id' => $newPool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-            'submitted_at' => null,
-        ]);
+        $newPoolCandidate = PoolCandidate::factory()
+            ->completed()
+            ->for($this->applicantUser)
+            ->for($newPool)
+            ->create();
 
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->education_requirement_option = EducationRequirementOption::EDUCATION->name;
@@ -1016,12 +999,11 @@ class PoolApplicationTest extends TestCase
 
         $pool->essentialSkills()->sync([]);
 
-        $candidateWithNoVerifiedWorkEmail = PoolCandidate::factory()->create([
-            'user_id' => $this->nonGovEmployee->id,
-            'pool_id' => $pool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-            'submitted_at' => null,
-        ]);
+        $candidateWithNoVerifiedWorkEmail = PoolCandidate::factory()
+            ->completed()
+            ->for($this->nonGovEmployee)
+            ->for($pool)
+            ->create();
 
         $this->actingAs($this->nonGovEmployee, 'api')
             ->graphQL(
@@ -1032,12 +1014,11 @@ class PoolApplicationTest extends TestCase
                 ]
             )->assertGraphQLErrorMessage(ErrorCode::APPLICATION_WORK_EMAIL_NOT_VERIFIED->name);
 
-        $candidateWithVerifiedWorkEmail = PoolCandidate::factory()->create([
-            'user_id' => $this->govEmployee->id,
-            'pool_id' => $pool->id,
-            'application_status' => ApplicationStatus::DRAFT->name,
-            'submitted_at' => null,
-        ]);
+        $candidateWithVerifiedWorkEmail = PoolCandidate::factory()
+            ->completed()
+            ->for($this->govEmployee)
+            ->for($pool)
+            ->create();
 
         $this->actingAs($this->govEmployee, 'api')
             ->graphQL(

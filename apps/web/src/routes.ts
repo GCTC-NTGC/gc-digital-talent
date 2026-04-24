@@ -40,10 +40,6 @@ export default [
             "./pages/DNDDigitalCareersPage/DNDDigitalCareersPage.tsx",
           ),
           route(
-            "workforce-adjustment",
-            "./pages/WorkforceAdjustment/WorkforceAdjustmentPage.tsx",
-          ),
-          route(
             "directive-on-digital-talent",
             "./pages/DirectivePage/DirectivePage.tsx",
           ),
@@ -64,7 +60,7 @@ export default [
           ...prefix("registration", [
             route(
               "account",
-              "./pages/Auth/RegistrationPages/GettingStartedPage/GettingStartedPage.tsx",
+              "./pages/Auth/RegistrationPages/GettingStartedPage.tsx",
             ),
             route(
               "experience",
@@ -144,75 +140,82 @@ export default [
 
           // Applicant
           ...prefix("applicant", [
-            layout("./pages/Auth/RegistrationPages/RegistrationRedirect.tsx", [
-              index(
-                "./pages/ApplicantDashboardPage/ApplicantDashboardPage.tsx",
-              ),
-              route(
-                "settings",
-                "./pages/Profile/AccountSettings/AccountSettingsPage.tsx",
-              ),
-              route(
-                "notifications",
-                "./pages/Notifications/NotificationsPage/NotificationsPage.tsx",
-              ),
-              route(
-                "employee-profile",
-                "./pages/EmployeeProfile/EmployeeProfilePage.tsx",
-              ),
-              route(
-                "personal-information",
-                "./pages/Profile/ProfilePage/ProfilePage.tsx",
-              ),
-
-              ...prefix("career-timeline", [
+            layout(
+              "./pages/Auth/RegistrationPages/RegistrationRedirectWrapper.tsx",
+              [
                 index(
-                  "./pages/Profile/CareerTimelinePage/CareerTimelinePage.tsx",
+                  "./pages/ApplicantDashboardPage/ApplicantDashboardPage.tsx",
                 ),
                 route(
-                  ":experienceId/edit",
-                  "./pages/Profile/ExperienceFormPage/EditExperienceFormPage.tsx",
+                  "settings",
+                  "./pages/Profile/AccountSettings/AccountSettingsPageWrapper.tsx",
                 ),
                 route(
-                  "create",
-                  "./pages/Profile/ExperienceFormPage/CreateExperienceFormPage.tsx",
-                ),
-              ]),
-              ...prefix("community-interests", [
-                route(
-                  ":communityInterestId",
-                  "./pages/CommunityInterests/UpdateCommunityInterestPage/UpdateCommunityInterestPage.tsx",
+                  "notifications",
+                  "./pages/Notifications/NotificationsPage/NotificationsPage.tsx",
                 ),
                 route(
-                  "create",
-                  "./pages/CommunityInterests/CreateCommunityInterestPage/CreateCommunityInterestPage.tsx",
+                  "employee-profile",
+                  "./pages/EmployeeProfile/EmployeeProfilePage.tsx",
                 ),
-              ]),
 
-              ...prefix("skills", [
-                index("./pages/Skills/SkillPortfolioPage.tsx"),
-                route(":skillId", "./pages/Skills/UpdateUserSkillPage.tsx"),
-                ...prefix("showcase", [
-                  index("./pages/Skills/SkillShowcasePage.tsx"),
+                layout("./pages/Profile/ProfileLayout.tsx", [
                   route(
-                    "top-5-behavioural-skills",
-                    "./pages/Skills/TopBehaviouralSkillsPage.tsx",
+                    "personal-information",
+                    "./pages/Profile/ProfilePage/ProfilePage.tsx",
                   ),
                   route(
-                    "top-10-technical-skills",
-                    "./pages/Skills/TopTechnicalSkillsPage.tsx",
+                    "career-timeline",
+                    "./pages/Profile/CareerTimelinePage/CareerTimelinePage.tsx",
+                  ),
+                  route("skills", "./pages/Skills/SkillPortfolioPage.tsx"),
+                ]),
+
+                ...prefix("career-timeline", [
+                  route(
+                    ":experienceId/edit",
+                    "./pages/Profile/ExperienceFormPage/EditExperienceFormPage.tsx",
                   ),
                   route(
-                    "3-behavioural-skills-to-improve",
-                    "./pages/Skills/ImproveBehaviouralSkillsPage.tsx",
-                  ),
-                  route(
-                    "5-technical-skills-to-train",
-                    "./pages/Skills/ImproveTechnicalSkillsPage.tsx",
+                    "create",
+                    "./pages/Profile/ExperienceFormPage/CreateExperienceFormPage.tsx",
                   ),
                 ]),
-              ]),
-            ]),
+                ...prefix("community-interests", [
+                  route(
+                    ":communityInterestId",
+                    "./pages/CommunityInterests/UpdateCommunityInterestPage/UpdateCommunityInterestPage.tsx",
+                  ),
+                  route(
+                    "create",
+                    "./pages/CommunityInterests/CreateCommunityInterestPage/CreateCommunityInterestPage.tsx",
+                  ),
+                ]),
+
+                ...prefix("skills", [
+                  route(":skillId", "./pages/Skills/UpdateUserSkillPage.tsx"),
+                  ...prefix("showcase", [
+                    index("./pages/Skills/SkillShowcasePage.tsx"),
+                    route(
+                      "top-5-behavioural-skills",
+                      "./pages/Skills/TopBehaviouralSkillsPage.tsx",
+                    ),
+                    route(
+                      "top-10-technical-skills",
+                      "./pages/Skills/TopTechnicalSkillsPage.tsx",
+                    ),
+                    route(
+                      "3-behavioural-skills-to-improve",
+                      "./pages/Skills/ImproveBehaviouralSkillsPage.tsx",
+                    ),
+                    route(
+                      "5-technical-skills-to-train",
+                      "./pages/Skills/ImproveTechnicalSkillsPage.tsx",
+                    ),
+                  ]),
+                ]),
+              ],
+            ),
           ]),
 
           // Applications
@@ -465,6 +468,13 @@ export default [
               ]),
             ]),
 
+            // Admin - Department (singular)
+            // Department dashboard
+            route(
+              "department",
+              "./pages/DepartmentDashboardPage/DepartmentDashboardPage.tsx",
+            ),
+
             // Admin - Settings
             ...prefix("settings", [
               // Announcements
@@ -495,11 +505,45 @@ export default [
                 index("./pages/Departments/IndexDepartmentPage.tsx"),
                 route("create", "./pages/Departments/CreateDepartmentPage.tsx"),
                 ...prefix(":departmentId", [
-                  index("./pages/Departments/ViewDepartmentPage.tsx"),
-                  route("edit", "./pages/Departments/UpdateDepartmentPage.tsx"),
-                  route(
-                    "advanced-tools",
-                    "./pages/Departments/AdvancedToolsDepartmentPage.tsx",
+                  layout("./pages/Departments/DepartmentLayout.tsx", [
+                    index("./pages/Departments/ViewDepartmentPage.tsx"),
+                    route(
+                      "edit",
+                      "./pages/Departments/UpdateDepartmentPage.tsx",
+                    ),
+                    route(
+                      "manage-access",
+                      "./pages/Departments/ManageAccessPage/ManageAccessPage.tsx",
+                    ),
+                    route(
+                      "advanced-tools",
+                      "./pages/Departments/AdvancedToolsDepartmentPage.tsx",
+                    ),
+                  ]),
+                ]),
+              ]),
+
+              // Admin - Development programs
+              ...prefix("development-programs", [
+                index(
+                  "./pages/DevelopmentPrograms/IndexDevelopmentProgramPage.tsx",
+                ),
+                route(
+                  "create",
+                  "./pages/DevelopmentPrograms/CreateDevelopmentProgramPage.tsx",
+                ),
+                ...prefix(":developmentProgramId", [
+                  layout(
+                    "./pages/DevelopmentPrograms/DevelopmentProgramLayout.tsx",
+                    [
+                      index(
+                        "./pages/DevelopmentPrograms/ViewDevelopmentProgramPage.tsx",
+                      ),
+                      route(
+                        "edit",
+                        "./pages/DevelopmentPrograms/UpdateDevelopmentProgramPage.tsx",
+                      ),
+                    ],
                   ),
                 ]),
               ]),
@@ -558,12 +602,6 @@ export default [
                 ),
               ]),
             ]),
-
-            // Admin - WFA
-            route(
-              "wfa-employees",
-              "./pages/WorkforceAdjustment/IndexWorkforceAdjustmentPage/IndexWorkforceAdjustmentPage.tsx",
-            ),
           ]),
 
           // Catch all

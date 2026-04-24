@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import { AuthenticationContext } from "../components/AuthenticationContainer";
-import { AuthenticationState } from "../types";
+import type { AuthenticationState } from "../types";
 
 const useAuthentication = (): AuthenticationState => {
   const ctx = useContext(AuthenticationContext);

@@ -1,21 +1,17 @@
 import { useIntl } from "react-intl";
-import lowerCase from "lodash/lowerCase";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import {
-  HeadingLevel,
-  PreviewList,
-  PreviewMetaData,
-} from "@gc-digital-talent/ui";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { HeadingLevel, PreviewMetaData } from "@gc-digital-talent/ui";
+import { PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
-import adminMessages from "~/messages/adminMessages";
 
 import NextRoleDialog from "./NextRoleDialog";
 
-export const NextRolePreview_Fragment = graphql(/* GraphQL */ `
+const NextRolePreview_Fragment = graphql(/* GraphQL */ `
   fragment NextRolePreview on User {
     employeeProfile {
       nextRoleClassification {
@@ -121,7 +117,15 @@ const NextRolePreview = ({
       {
         key: "work-streams",
         type: "text",
-        children: `${employeeProfile.nextRoleWorkStreams.length} ${lowerCase(intl.formatMessage(adminMessages.workStreams))}`,
+        children: intl.formatMessage(
+          {
+            defaultMessage:
+              "{total, plural, =0 {0 work streams} one {# work stream} other {# work streams}}",
+            id: "xgawew",
+            description: "Count of work streams",
+          },
+          { total: employeeProfile.nextRoleWorkStreams.length },
+        ),
       },
     ];
   }
@@ -131,7 +135,15 @@ const NextRolePreview = ({
       {
         key: "departments",
         type: "text",
-        children: `${employeeProfile.nextRoleDepartments.length} ${intl.formatMessage({ defaultMessage: "organizations", id: "ocgTi6", description: "label for organization metadata" })}`,
+        children: intl.formatMessage(
+          {
+            defaultMessage:
+              "{total, plural, =0 {0 organizations} one {# organization} other {# organizations}}",
+            id: "nRrlr1",
+            description: "Count of organizations",
+          },
+          { total: employeeProfile.nextRoleDepartments.length },
+        ),
       },
     ];
   }

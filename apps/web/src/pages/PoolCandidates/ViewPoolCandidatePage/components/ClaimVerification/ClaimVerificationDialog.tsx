@@ -1,15 +1,15 @@
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import { useState } from "react";
 
-import {
-  ClaimVerificationResult,
+import type {
   Maybe,
   Scalars,
   UpdatePoolCandidateClaimVerificationInput,
-  graphql,
 } from "@gc-digital-talent/graphql";
+import { ClaimVerificationResult, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { DateInput, RadioGroup } from "@gc-digital-talent/forms";

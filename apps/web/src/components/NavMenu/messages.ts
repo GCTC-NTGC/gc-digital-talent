@@ -16,6 +16,11 @@ const navMenuMessages = defineMessages({
     id: "j7953D",
     description: "Admin role name for nav menu",
   },
+  department: {
+    defaultMessage: "Department view",
+    id: "3OR3Zv",
+    description: "Department role name for nav menu",
+  },
 });
 
 export default navMenuMessages;

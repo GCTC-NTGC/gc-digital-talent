@@ -1,5 +1,5 @@
-import { IntlShape } from "react-intl";
-import { SortingState } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
+import type { SortingState } from "@tanstack/react-table";
 
 import {
   notEmpty,
@@ -7,19 +7,22 @@ import {
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
-import {
+import type {
   InputMaybe,
   OrderByClause,
-  PositionDuration,
   RoleAssignment,
+  UserFilterInput,
+} from "@gc-digital-talent/graphql";
+import {
+  PositionDuration,
   SortOrder,
   Trashed,
-  UserFilterInput,
 } from "@gc-digital-talent/graphql";
 
 import { durationToEnumPositionDuration } from "~/utils/userUtils";
 
-import { FormValues, OTHER_FILTER, OtherFilter } from "./UserFilterDialog";
+import type { FormValues, OtherFilter } from "./UserFilterDialog";
+import { OTHER_FILTER } from "./UserFilterDialog";
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
 export function rolesAccessor(
@@ -45,7 +48,6 @@ export function transformUserInput(
   filterState: UserFilterInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-  newSearch: boolean,
 ): InputMaybe<UserFilterInput> | undefined {
   if (
     filterState === undefined &&
@@ -57,10 +59,7 @@ export function transformUserInput(
 
   return {
     // search bar
-    generalSearch:
-      searchBarTerm && !searchType && !newSearch ? searchBarTerm : undefined,
-    generalSearchBeta:
-      searchBarTerm && !searchType && newSearch ? searchBarTerm : undefined,
+    generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
     email: searchType === "email" ? searchBarTerm : undefined,
     workEmail: searchType === "workEmail" ? searchBarTerm : undefined,
     name: searchType === "candidateName" ? searchBarTerm : undefined,

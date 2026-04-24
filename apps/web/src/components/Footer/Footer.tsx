@@ -1,12 +1,8 @@
 /* eslint-disable react/forbid-elements */
 import { useIntl } from "react-intl";
 
-import {
-  Container,
-  hrefToString,
-  Link,
-  LinkProps,
-} from "@gc-digital-talent/ui";
+import type { LinkProps } from "@gc-digital-talent/ui";
+import { Container, hrefToString, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 

@@ -1,4 +1,4 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import {
   unpackMaybes,
@@ -7,16 +7,19 @@ import {
   emptyToNull,
 } from "@gc-digital-talent/helpers";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
-import {
+import type {
   ApplicantFilterInput,
   Classification,
   CandidateCountQueryVariables,
   Maybe,
+} from "@gc-digital-talent/graphql";
+import {
   PositionDuration,
   FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 
-import { FormValues, NullSelection } from "~/types/searchRequest";
+import type { FormValues } from "~/types/searchRequest";
+import { NullSelection } from "~/types/searchRequest";
 import {
   formatClassificationAriaString,
   formatClassificationString,
@@ -28,14 +31,12 @@ export const getClassificationLabel = (
     group,
     level,
     name: genericName,
-    displayName,
-  }: Pick<Classification, "group" | "level" | "name" | "displayName">,
+  }: Pick<Classification, "group" | "level" | "name">,
   intl: IntlShape,
 ) => {
   const groupAndLevel = formatClassificationString({ group, level });
   const separator = intl.formatMessage(commonMessages.dividingColon);
-  const name =
-    emptyToNull(displayName?.localized) ?? emptyToNull(genericName?.localized);
+  const name = emptyToNull(genericName?.localized);
 
   if (name) {
     return `${groupAndLevel}${separator}${name}`;
@@ -47,12 +48,10 @@ export const getClassificationAriaLabel = ({
   group,
   level,
   name: genericName,
-  displayName,
-}: Pick<Classification, "group" | "level" | "name" | "displayName">) => {
+}: Pick<Classification, "group" | "level" | "name">) => {
   const groupAndLevel = formatClassificationAriaString({ group, level });
   const separator = " ";
-  const name =
-    emptyToNull(displayName?.localized) ?? emptyToNull(genericName?.localized);
+  const name = emptyToNull(genericName?.localized);
 
   if (name) {
     return `${name}${separator}${groupAndLevel}`;

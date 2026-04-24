@@ -1,12 +1,10 @@
 import { useIntl } from "react-intl";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
-import ArrowsRightLeftIcon from "@heroicons/react/24/outline/ArrowsRightLeftIcon";
 import { useQuery } from "urql";
 
 import {
   Accordion,
-  Card,
   Heading,
   Pending,
   TableOfContents,
@@ -14,32 +12,21 @@ import {
   Notice,
   Separator,
 } from "@gc-digital-talent/ui";
-import {
-  FragmentType,
-  Scalars,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import CommunityInterest, {
-  CommunityInterestOptions_Fragment,
-} from "~/components/CommunityInterest/CommunityInterest";
-import { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
-import workforceAdjustmentMessages from "~/messages/workforceAdjustmentMessages";
-import UserWorkforceAdjustment, {
-  UserWorkforceAdjustment_Fragment,
-} from "~/components/WorkforceAdjustment/UserWorkforceAdjustment";
+import type { CommunityInterestOptions_Fragment } from "~/components/CommunityInterest/CommunityInterest";
+import CommunityInterest from "~/components/CommunityInterest/CommunityInterest";
+import type { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
 
-import CareerDevelopmentSection, {
-  CareerDevelopmentOptions_Fragment,
-} from "./components/CareerDevelopmentSection";
+import type { CareerDevelopmentOptions_Fragment } from "./components/CareerDevelopmentSection";
+import CareerDevelopmentSection from "./components/CareerDevelopmentSection";
 import NextRoleAndCareerObjective from "./components/NextRoleAndCareerObjective";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection";
 import DownloadButton from "../DownloadButton";
@@ -65,8 +52,6 @@ const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
       ...CommunityInterest
     }
     ...CareerDevelopment
-    ...NextRole
-    ...CareerObjective
     ...GoalsWorkStyle
   }
 `);
@@ -74,7 +59,6 @@ const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
 interface UserEmployeeInformationProps {
   userId: Scalars["UUID"]["output"];
   employeeProfileQuery: FragmentType<typeof UserEmployeeInformation_Fragment>;
-  wfaQuery: FragmentType<typeof UserWorkforceAdjustment_Fragment>;
   communityInterestOptionsQuery: FragmentType<
     typeof CommunityInterestOptions_Fragment
   >;
@@ -87,13 +71,11 @@ interface UserEmployeeInformationProps {
 export const UserEmployeeInformation = ({
   userId,
   employeeProfileQuery,
-  wfaQuery,
   careerDevelopmentOptionsQuery,
   communityInterestOptionsQuery,
   userQuery,
 }: UserEmployeeInformationProps) => {
   const intl = useIntl();
-  const { workforceAdjustment } = useFeatureFlags();
 
   const employeeProfile = getFragment(
     UserEmployeeInformation_Fragment,
@@ -148,15 +130,6 @@ export const UserEmployeeInformation = ({
               </TableOfContents.ListItem>
             </TableOfContents.List>
           </TableOfContents.ListItem>
-          {workforceAdjustment && (
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink
-                id={SECTION_ID.WORKFORCE_ADJUSTMENT_SECTION}
-              >
-                {intl.formatMessage(workforceAdjustmentMessages.wfa)}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
-          )}
         </TableOfContents.List>
         <Separator decorative orientation="horizontal" space="xs" />
         <DownloadButton id={userId} />
@@ -192,8 +165,10 @@ export const UserEmployeeInformation = ({
                       key={communityInterest.id}
                     >
                       <Accordion.Trigger as="h3">
-                        {communityInterest.community?.name?.localized ??
-                          intl.formatMessage(commonMessages.notAvailable)}
+                        <span className="font-normal">
+                          {communityInterest.community?.name?.localized ??
+                            intl.formatMessage(commonMessages.notAvailable)}
+                        </span>
                       </Accordion.Trigger>
                       <Accordion.Content>
                         <CommunityInterest
@@ -346,33 +321,6 @@ export const UserEmployeeInformation = ({
               </Accordion.Content>
             </Accordion.Item>
           </Accordion.Root>
-          {workforceAdjustment && (
-            <TableOfContents.Section
-              id={SECTION_ID.WORKFORCE_ADJUSTMENT_SECTION}
-            >
-              <Heading
-                level="h2"
-                size="h3"
-                icon={ArrowsRightLeftIcon}
-                color="secondary"
-                className="mb-6 font-normal sm:justify-start sm:text-left"
-              >
-                {intl.formatMessage(workforceAdjustmentMessages.wfa)}
-              </Heading>
-              <p className="my-6">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Learn more about this employee’s workforce adjustment situation.",
-                  id: "pSP4YT",
-                  description:
-                    "Lead in text for a users workforce adjustment information",
-                })}
-              </p>
-              <Card>
-                <UserWorkforceAdjustment query={wfaQuery} isAdmin />
-              </Card>
-            </TableOfContents.Section>
-          )}
         </div>
       </TableOfContents.Content>
     </TableOfContents.Wrapper>
@@ -387,7 +335,6 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
         ...UserEmployeeInformation
       }
       ...NextRoleAndCareerObjective
-      ...UserWorkforceAdjustment
     }
     ...CareerDevelopmentOptions
     ...CommunityInterestOptions
@@ -417,7 +364,6 @@ const UserEmployeeInformationPage = () => {
             userQuery={data.user}
             careerDevelopmentOptionsQuery={data}
             communityInterestOptionsQuery={data}
-            wfaQuery={data.user}
           />
         ) : (
           <ThrowNotFound />
@@ -435,6 +381,8 @@ export const Component = () => (
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityTalentCoordinator,
       ROLE_NAME.ProcessOperator,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
     ]}
   >
     <UserEmployeeInformationPage />

@@ -1,26 +1,29 @@
-import { SortingState } from "@tanstack/react-table";
-import { IntlShape } from "react-intl";
-import { JSX } from "react";
+import type { SortingState } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
+import type { JSX } from "react";
 
-import {
+import type {
   Maybe,
-  SortOrder,
   QueryCommunityInterestsPaginatedOrderByRelationOrderByClause,
-  OrderByRelationWithColumnAggregateFunction,
   QueryCommunityInterestsPaginatedOrderByUserColumn,
   CommunityInterestFilterInput,
   InputMaybe,
+  UserFilterInput,
+} from "@gc-digital-talent/graphql";
+import {
+  SortOrder,
+  OrderByRelationWithColumnAggregateFunction,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import useRoutes from "~/hooks/useRoutes";
+import type useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { durationToEnumPositionDuration } from "~/utils/userUtils";
 
-import { FormValues } from "./components/CommunityTalentFilterDialog";
+import type { FormValues } from "./components/CommunityTalentFilterDialog";
 
 export function transformSortStateToOrderByClause(
   sortingRules: SortingState,
@@ -154,6 +157,7 @@ export function transformCommunityTalentInput(
     // from fancy filter
     communities: filterState?.communities,
     workStreams: filterState?.workStreams,
+    classifications: filterState?.classifications,
     poolFilters: filterState?.poolFilters,
     jobInterest: filterState?.jobInterest,
     trainingInterest: filterState?.trainingInterest,
@@ -210,10 +214,29 @@ export function transformCommunityInterestFilterInputToFormValues(
     operationalRequirements: unpackMaybes(input?.operationalRequirements),
     skills: unpackMaybes(input?.skills),
     flexibleWorkLocations: unpackMaybes(input?.flexibleWorkLocations),
+    classifications: unpackMaybes(input?.classifications),
   };
 }
 
-export function removeDuplicateIds(ids: string[]): string[] {
-  const userIds = ids.map((id) => id.split("-userId#")[0]);
+export function transformToUserFilterInput(
+  _filterState: CommunityInterestFilterInput | undefined,
+  searchTerm: string | undefined,
+  _searchType: string | undefined,
+): UserFilterInput | undefined {
+  if (!searchTerm) {
+    return undefined;
+  }
+
+  const userFilter: UserFilterInput = {};
+
+  userFilter.generalSearch = searchTerm;
+
+  return userFilter;
+}
+
+export function extractUserIdsFromSelectedRows(
+  selectedRowIds: string[],
+): string[] {
+  const userIds = selectedRowIds.map((id) => id.split("userId#")[1]);
   return uniqueItems(userIds);
 }

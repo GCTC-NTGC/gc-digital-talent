@@ -1,6 +1,8 @@
-import { createContext, ReactNode, useMemo } from "react";
+import type { ReactNode } from "react";
+import { createContext, useMemo } from "react";
 
-import { getFeatureFlags, FeatureFlags } from "./utils";
+import type { FeatureFlags } from "./utils";
+import { getFeatureFlags } from "./utils";
 
 export const FeatureFlagContext = createContext(getFeatureFlags());
 

@@ -57,6 +57,26 @@ export default {
       "/en/admin/settings/skills",
       "/en/admin/settings/skill-families",
     ],
+    DEPARTMENT_ADMIN: [
+      "/en/admin",
+      "/en/admin/settings/announcements",
+      "/en/admin/settings/classifications",
+      "/en/admin/settings/skills",
+      "/en/admin/settings/skill-families",
+      "/en/admin/talent-requests",
+      "/en/admin/communities",
+      "/en/admin/community-talent",
+    ],
+    DEPARTMENT_ADVISOR: [
+      "/en/admin",
+      "/en/admin/settings/announcements",
+      "/en/admin/settings/classifications",
+      "/en/admin/settings/skills",
+      "/en/admin/settings/skill-families",
+      "/en/admin/talent-requests",
+      "/en/admin/communities",
+      "/en/admin/community-talent",
+    ],
   },
   ALLOWED_PATHS: {
     COMMUNITY_ADMIN: [
@@ -87,6 +107,20 @@ export default {
       "/en/community",
       "/en/admin/communities",
       "/en/admin/community-talent",
+    ],
+    DEPARTMENT_ADMIN: [
+      "/en/dashboard",
+      "/en/admin/users",
+      "/en/admin/pools",
+      "/en/admin/pool-candidates",
+      "/en/admin/settings/departments",
+    ],
+    DEPARTMENT_ADVISOR: [
+      "/en/dashboard",
+      "/en/admin/users",
+      "/en/admin/pools",
+      "/en/admin/pool-candidates",
+      "/en/admin/settings/departments",
     ],
   },
 };

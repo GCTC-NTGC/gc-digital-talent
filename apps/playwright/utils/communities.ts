@@ -1,11 +1,11 @@
-import {
+import type {
   Community,
   CommunityInterest,
   CreateCommunityInput,
-  CreateCommunityInterestInput,
+  CreateCommunityInterestWithDevelopmentProgramsInput,
 } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { generateUniqueTestId } from "./id";
 
 const Test_CommunitiesQueryDocument = /* GraphQL */ `
@@ -28,10 +28,10 @@ const Test_CommunitiesQueryDocument = /* GraphQL */ `
  */
 export const getCommunities: GraphQLRequestFunc<Community[]> = async (ctx) => {
   return await ctx
-    .post(Test_CommunitiesQueryDocument)
-    .then(
-      (res: GraphQLResponse<"communities", Community[]>) => res.communities,
-    );
+    .post<
+      GraphQLResponse<"communities", Community[]>
+    >(Test_CommunitiesQueryDocument)
+    .then((res) => res.communities);
 };
 
 const uniqueTestId = generateUniqueTestId();
@@ -64,43 +64,46 @@ export const createCommunity: GraphQLRequestFunc<
   Partial<CreateCommunityInput>
 > = async (ctx, community) => {
   return ctx
-    .post(Test_CreateCommunityMutation, {
-      isPrivileged: true,
-      variables: {
-        community: {
-          ...defaultCommunity,
-          ...community,
+    .post<GraphQLResponse<"createCommunity", Community>>(
+      Test_CreateCommunityMutation,
+      {
+        isPrivileged: true,
+        variables: {
+          community: {
+            ...defaultCommunity,
+            ...community,
+          },
         },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"createCommunity", Community>) =>
-        res.createCommunity,
-    );
+    )
+    .then((res) => res.createCommunity);
 };
 
 const Test_CreateCommunityInterestMutation = /* GraphQL */ `
   mutation Test_CreateCommunityInterest(
-    $communityInterest: CreateCommunityInterestInput!
+    $communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!
   ) {
-    createCommunityInterest(communityInterest: $communityInterest) {
+    createCommunityInterestWithDevelopmentPrograms(
+      communityInterestWithDevelopmentPrograms: $communityInterestWithDevelopmentPrograms
+    ) {
       id
-      __typename
     }
   }
 `;
 
 export const createCommunityInterest: GraphQLRequestFunc<
   CommunityInterest,
-  CreateCommunityInterestInput
-> = async (ctx, communityInterest) => {
+  CreateCommunityInterestWithDevelopmentProgramsInput
+> = async (ctx, communityInterestWithDevelopmentPrograms) => {
   return await ctx
-    .post(Test_CreateCommunityInterestMutation, {
+    .post<
+      GraphQLResponse<
+        "createCommunityInterestWithDevelopmentPrograms",
+        CommunityInterest
+      >
+    >(Test_CreateCommunityInterestMutation, {
       isPrivileged: false,
-      variables: { communityInterest },
+      variables: { communityInterestWithDevelopmentPrograms },
     })
-    .then(
-      (res: GraphQLResponse<"createCommunityInterest", CommunityInterest>) =>
-        res.createCommunityInterest,
-    );
+    .then((res) => res.createCommunityInterestWithDevelopmentPrograms);
 };

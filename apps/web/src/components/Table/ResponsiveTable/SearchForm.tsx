@@ -1,15 +1,14 @@
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
-import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
-import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
-import { ChangeEvent, useCallback, useMemo, useRef, useState } from "react";
+import type { ChangeEvent } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { tv } from "tailwind-variants";
 
-import { Button, DropdownMenu } from "@gc-digital-talent/ui";
+import { DropdownMenu } from "@gc-digital-talent/ui";
 import { inputStyles, Field } from "@gc-digital-talent/forms";
 
 import ResetButton from "../ResetButton";
-import { SearchFormProps, SearchColumn, SearchState } from "./types";
+import type { SearchFormProps, SearchColumn, SearchState } from "./types";
 
 const input = tv({
   extend: inputStyles,
@@ -128,26 +127,22 @@ const SearchForm = <T,>({
       <div className="flex w-full md:w-auto">
         {showDropdown ? (
           <DropdownMenu.Root>
-            <DropdownMenu.Trigger>
-              <Button
-                color="primary"
-                utilityIcon={ChevronDownIcon}
-                className="shrink-0 rounded-r-none"
-              >
-                {intl.formatMessage(
-                  {
-                    defaultMessage: "Filter by {column}",
-                    id: "tuMmWm",
-                    description:
-                      "Button text to filter by specific columns in table",
-                  },
-                  {
-                    column: column ? column.label : "",
-                  },
-                )}
-              </Button>
+            <DropdownMenu.Trigger
+              btnProps={{ className: "shrink-0 rounded-r-none" }}
+            >
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Filter by {column}",
+                  id: "tuMmWm",
+                  description:
+                    "Button text to filter by specific columns in table",
+                },
+                {
+                  column: column ? column.label : "",
+                },
+              )}
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content>
+            <DropdownMenu.Popup>
               <DropdownMenu.RadioGroup
                 value={column?.value}
                 onValueChange={handleColumnChange}
@@ -157,14 +152,11 @@ const SearchForm = <T,>({
                 </DropdownMenu.RadioItem>
                 {searchBy.map((col) => (
                   <DropdownMenu.RadioItem key={col.value} value={col.value}>
-                    <DropdownMenu.ItemIndicator>
-                      <CheckIcon />
-                    </DropdownMenu.ItemIndicator>
                     {col.label}
                   </DropdownMenu.RadioItem>
                 ))}
               </DropdownMenu.RadioGroup>
-            </DropdownMenu.Content>
+            </DropdownMenu.Popup>
           </DropdownMenu.Root>
         ) : null}
         <div className="relative flex grow">

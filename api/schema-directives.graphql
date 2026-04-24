@@ -8,6 +8,9 @@ Will be replaced by a generated type during schema manipulation.
 """
 scalar _
 
+# Directive class: App\GraphQL\Directives\AdvancedOrderByDirective
+directive @advancedOrderBy on FIELD_DEFINITION
+
 # Directive class: App\GraphQL\Directives\InjectNowDirective
 """
 Inject the current DateTime into the arguments.
@@ -1263,6 +1266,12 @@ directive @upsert(
   model: String
 
   """
+  Specify the columns by which to upsert the model.
+  Optional, by default `id` or the primary key of the model are used.
+  """
+  identifyingColumns: [String!]
+
+  """
   Specify the name of the relation on the parent model.
   This is only needed when using this directive as a nested arg
   resolver and if the name of the relation is not the arg name.
@@ -1280,6 +1289,12 @@ directive @upsertMany(
   This is only needed when the default model detection does not work.
   """
   model: String
+
+  """
+  Specify the columns by which to upsert the model.
+  Optional, by default `id` or the primary key of the model are used.
+  """
+  identifyingColumns: [String!]
 
   """
   Specify the name of the relation on the parent model.
@@ -2439,3 +2454,35 @@ directive @whereHasConditions(
     """
     handler: String = "\\Nuwave\\Lighthouse\\WhereConditions\\WhereConditionsHandler"
 ) on ARGUMENT_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Subscriptions\Directives\BroadcastDirective
+"""
+Broadcast the results of a mutation to subscribed clients.
+
+Ensure you place this after other field middleware directives that may transform the
+result to broadcast the final value.
+"""
+directive @broadcast(
+  """
+  Name of the subscription that should be retriggered as a result of this operation.
+  """
+  subscription: String!
+
+  """
+  Specify whether or not the job should be queued.
+  This defaults to the global config option `lighthouse.subscriptions.queue_broadcasts`.
+  """
+  shouldQueue: Boolean
+) repeatable on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Subscriptions\Directives\SubscriptionDirective
+"""
+Reference a class to handle the broadcasting of a subscription to clients.
+The given class must extend `Nuwave\Lighthouse\Schema\Types\GraphQLSubscription`.
+"""
+directive @subscription(
+  """
+  A reference to a subclass of `Nuwave\Lighthouse\Schema\Types\GraphQLSubscription`.
+  """
+  class: String!
+) on FIELD_DEFINITION

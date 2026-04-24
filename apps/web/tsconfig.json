@@ -1,7 +1,6 @@
 {
   "extends": "tsconfig/app.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "@gc-digital-talent/*": ["../../../packages/*/src"],
       "~/*": ["./src/*"],
@@ -12,6 +11,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
+    "src/utils/initTheme.js",
     "routes.ts",
     ".react-router/types/**/*"
   ],

@@ -1,12 +1,7 @@
-import {
-  ComponentPropsWithoutRef,
-  createContext,
-  forwardRef,
-  ReactNode,
-  use,
-  useCallback,
-} from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { createContext, forwardRef, use, useCallback } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 import { twMerge } from "tailwind-merge";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { useIntl } from "react-intl";
@@ -17,9 +12,10 @@ import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTria
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import { HeadingRank, IconType } from "../../types";
+import type { HeadingRank, IconType } from "../../types";
 import Separator from "../Separator";
-import IconButton, { IconButtonProps } from "../Button/IconButton";
+import type { IconButtonProps } from "../Button/IconButton";
+import IconButton from "../Button/IconButton";
 
 type DivProps = ComponentPropsWithoutRef<"div">;
 
@@ -177,7 +173,7 @@ const Root = forwardRef<HTMLDivElement, NoticeProps>(
 
 const title = tv({
   slots: {
-    icon: "h-auto w-full stroke-2",
+    icon: "h-6 w-auto self-start stroke-2",
     heading: "mb-.25 col-start-2 font-bold",
   },
   variants: {
@@ -332,7 +328,7 @@ const footer = tv({
     {
       small: false,
       dismissible: false,
-      class: { base: "-mr-6 -ml-4.5" },
+      class: { base: "-mr-6 -ml-6 group-has-[>svg]:-ml-4.5" },
     },
     {
       mode: "inline",

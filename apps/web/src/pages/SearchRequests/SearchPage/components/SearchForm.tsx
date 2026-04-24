@@ -19,17 +19,16 @@ import {
   notEmpty,
   buildMailToUri,
 } from "@gc-digital-talent/helpers";
-import {
-  graphql,
+import type {
   Classification,
   ApplicantFilterInput,
   Skill,
   WorkStream,
-  FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
+import { graphql, FlexibleWorkLocation } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import { FormValues } from "~/types/searchRequest";
+import type { FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
 
 import { formValuesToData } from "../utils";
@@ -41,10 +40,7 @@ import NoResults from "./NoResults";
 import SearchResultCard from "./SearchResultCard";
 
 interface SearchFormProps {
-  classifications: Pick<
-    Classification,
-    "group" | "level" | "id" | "name" | "displayName"
-  >[];
+  classifications: Pick<Classification, "group" | "level" | "id" | "name">[];
   skills: Skill[];
   workStreams: WorkStream[];
 }
@@ -349,9 +345,6 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       group
       level
       name {
-        localized
-      }
-      displayName {
         localized
       }
     }

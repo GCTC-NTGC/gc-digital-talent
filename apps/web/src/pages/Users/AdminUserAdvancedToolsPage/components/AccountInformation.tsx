@@ -4,12 +4,8 @@ import { useMutation } from "urql";
 import { useWatch } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Language,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Language } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Button, TableOfContents } from "@gc-digital-talent/ui";
 import {
   BasicForm,
@@ -100,7 +96,7 @@ const AccountInformationForm_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-export const AccountInformationFormOptions_Fragment = graphql(/** GraphQL */ `
+const AccountInformationFormOptions_Fragment = graphql(/** GraphQL */ `
   fragment AccountInformationFormOptions on Query {
     languages: localizedEnumStrings(enumName: "Language") {
       value

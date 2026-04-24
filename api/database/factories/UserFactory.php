@@ -22,7 +22,6 @@ use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
-use App\Enums\WfaInterest;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\Community;
@@ -241,8 +240,6 @@ class UserFactory extends Factory
 
             $this->syncSkillsToExperience($experience);
 
-            $user->wfa_interest = $this->faker->randomElement(WfaInterest::cases())->name;
-            $user->wfa_date = $this->faker->dateTimeBetween('2028-01-01', '2029-12-31')->format('Y-m-d');
             $user->saveQuietly();
 
             OffPlatformRecruitmentProcess::factory()

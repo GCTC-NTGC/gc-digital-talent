@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { m, useReducedMotion } from "motion/react";
-import ArrowPathIcon from "@heroicons/react/20/solid/ArrowPathIcon";
+import ArrowPathIcon from "@heroicons/react/16/solid/ArrowPathIcon";
 import { tv } from "tailwind-variants";
 
 import { type IconProps } from "@gc-digital-talent/ui";

@@ -50,7 +50,7 @@ class GeneralQuestionResponsesTest extends TestCase
     {
         parent::setUp();
         $this->seed(RolePermissionSeeder::class);
-        $this->community = Community::factory()->create(['name' => 'test-community-application']);
+        $this->community = Community::factory()->create();
         $this->pool = Pool::factory()
             ->draft()
             ->withPoolSkills()

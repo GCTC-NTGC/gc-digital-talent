@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Outlet, ScrollRestoration } from "react-router";
+import { Outlet } from "react-router";
 
 import { getLocale } from "@gc-digital-talent/i18n";
 import { Flourish } from "@gc-digital-talent/ui";
@@ -13,7 +13,7 @@ import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import SitewideBanner from "./SitewideBanner";
 import SkipLink from "./SkipLink";
 import MainNavMenu from "../NavMenu/MainNavMenu";
-import { Project } from "../SEO/Favicon";
+import type { Project } from "../SEO/Favicon";
 
 interface LayoutProps {
   project: Project;
@@ -51,11 +51,6 @@ const Layout = ({
         </main>
         <Footer />
       </div>
-      <ScrollRestoration
-        getKey={(location) => {
-          return location.pathname;
-        }}
-      />
     </>
   );
 };

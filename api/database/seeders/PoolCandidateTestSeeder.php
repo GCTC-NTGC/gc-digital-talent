@@ -2,19 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Enums\ApplicationStatus;
-use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\DisqualificationReason;
 use App\Enums\PlacementType;
-use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class PoolCandidateTestSeeder extends Seeder
 {
@@ -28,8 +26,7 @@ class PoolCandidateTestSeeder extends Seeder
      */
     public function run()
     {
-        PoolCandidate::factory()->create([
-            'application_status' => ApplicationStatus::QUALIFIED->name,
+        PoolCandidate::factory()->qualified()->create([
             'submitted_at' => config('constants.far_past_date'),
             'expiry_date' => config('constants.far_future_date'),
             'pool_id' => Pool::select('id')->where('name->en', 'CMO Digital Careers')->sole()->id,
@@ -43,12 +40,14 @@ class PoolCandidateTestSeeder extends Seeder
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
-                    status: ApplicationStatus::QUALIFIED->name,
-                    placementType: PlacementType::PLACED_INDETERMINATE->name,
-                    expiryDate: now()->addYears(2),
-                    priorityStatus: ClaimVerificationResult::ACCEPTED->name,
-                    priorityExpiry: now()->addYears(2),
-                    placedAt: now()->subDays(2),
+                    state: 'placed',
+                    stateArgs: [PlacementType::PLACED_INDETERMINATE],
+                    atts: [
+                        'expiry_date' => now()->addYears(2),
+                        'priority_verification' => ClaimVerificationResult::ACCEPTED->name,
+                        'priority_verification_expiry' => now()->addYears(2),
+                        'placed_at' => now()->subDays(2),
+                    ]
                 );
             })
             ->create([
@@ -68,9 +67,11 @@ class PoolCandidateTestSeeder extends Seeder
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
-                    status: ApplicationStatus::QUALIFIED->name,
-                    expiryDate: now()->addYears(2),
-                    veteranStatus: ClaimVerificationResult::UNVERIFIED->name,
+                    state: 'qualified',
+                    atts: [
+                        'expiry_date' => now()->addYears(2),
+                        'veteran_verification' => ClaimVerificationResult::UNVERIFIED->name,
+                    ],
                 );
             })
             ->create([
@@ -89,10 +90,12 @@ class PoolCandidateTestSeeder extends Seeder
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
-                    status: ApplicationStatus::QUALIFIED->name,
-                    placementType: PlacementType::PLACED_TENTATIVE->name,
-                    expiryDate: now()->addYears(2),
-                    veteranStatus: ClaimVerificationResult::REJECTED->name,
+                    state: 'placed',
+                    stateArgs: [PlacementType::PLACED_TENTATIVE],
+                    atts: [
+                        'expiry_date' => now()->addYears(2),
+                        'veteran_verification' => ClaimVerificationResult::REJECTED->name,
+                    ],
                 );
             })
             ->create([
@@ -111,9 +114,11 @@ class PoolCandidateTestSeeder extends Seeder
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
-                    status: ApplicationStatus::REMOVED->name,
-                    removalReason: CandidateRemovalReason::NOT_RESPONSIVE->name,
-                    expiryDate: now()->addYears(2),
+                    state: 'removed',
+                    stateArgs: [CandidateRemovalReason::NOT_RESPONSIVE],
+                    atts: [
+                        'expiry_date' => now()->addYears(2),
+                    ],
                 );
             })
             ->create([
@@ -131,9 +136,11 @@ class PoolCandidateTestSeeder extends Seeder
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
-                    status: ApplicationStatus::DISQUALIFIED->name,
-                    disqualificationReason: DisqualificationReason::SCREENED_OUT_APPLICATION->name,
-                    expiryDate: now()->addYears(2),
+                    state: 'disqualified',
+                    stateArgs: [DisqualificationReason::SCREENED_OUT_APPLICATION],
+                    atts: [
+                        'expiry_date' => now()->addYears(2),
+                    ],
                 );
             })
             ->create([
@@ -151,9 +158,11 @@ class PoolCandidateTestSeeder extends Seeder
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
-                    status: ApplicationStatus::REMOVED->name,
-                    removalReason: CandidateRemovalReason::OTHER->name,
-                    expiryDate: now()->addYears(2),
+                    state: 'removed',
+                    stateArgs: [CandidateRemovalReason::OTHER],
+                    atts: [
+                        'expiry_date' => now()->addYears(2),
+                    ],
                 );
             })
             ->create([
@@ -171,8 +180,10 @@ class PoolCandidateTestSeeder extends Seeder
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
-                    status: ApplicationStatus::QUALIFIED->name,
-                    expiryDate: now()->addYears(2),
+                    state: 'qualified',
+                    atts: [
+                        'expiry_date' => now()->addYears(2),
+                    ],
                 );
             })
             ->create([
@@ -190,10 +201,12 @@ class PoolCandidateTestSeeder extends Seeder
             ->afterCreating(function (User $user) {
                 $this->applyToAllPools(
                     user: $user,
-                    status: ApplicationStatus::DISQUALIFIED->name,
-                    disqualificationReason: DisqualificationReason::SCREENED_OUT_ASSESSMENT->name,
-                    priorityStatus: ClaimVerificationResult::UNVERIFIED->name,
-                    expiryDate: now()->addYears(2),
+                    state: 'disqualified',
+                    stateArgs: [DisqualificationReason::SCREENED_OUT_ASSESSMENT],
+                    atts: [
+                        'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,
+                        'expiry_date' => now()->addYears(2),
+                    ],
                 );
             })
             ->create([
@@ -206,49 +219,23 @@ class PoolCandidateTestSeeder extends Seeder
     }
 
     private function applyToAllPools(
-        $user,
-        $status,
-        $removalReason = null,
-        $disqualificationReason = null,
-        $expiryDate = null,
-        $priorityStatus = null,
-        $priorityExpiry = null,
-        $veteranStatus = null,
-        $veteranExpiry = null,
-        $placementType = null,
-        $placedAt = null)
-    {
+        User $user,
+        string $state,
+        ?array $stateArgs = [],
+        ?array $atts = []
+    ) {
         foreach ($this->publishedPools as $pool) {
-            // create a pool candidate in the pool
-            PoolCandidate::factory()->for($user)->for($pool)
-                ->afterCreating(function (PoolCandidate $candidate) use ($removalReason, $placedAt, $priorityStatus, $priorityExpiry, $veteranStatus, $veteranExpiry) {
-                    if ($removalReason == CandidateRemovalReason::OTHER->name) {
-                        $candidate->removal_reason_other = 'Other reason';
-                    } else {
-                        $candidate->removal_reason_other = null;
-                    }
-                    $candidate->priority_verification = $priorityStatus;
-                    $candidate->priority_verification_expiry = $priorityExpiry;
-                    $candidate->veteran_verification = $veteranStatus;
-                    $candidate->veteran_verification_expiry = $veteranExpiry;
-                    $candidate->placed_department_id = isset($placedAt) ?
-                        Department::inRandomOrder()->first()->id : null;
+            $factory = PoolCandidate::factory()
+                ->for($user)
+                ->for($pool);
 
-                    $candidate->save();
-                    $candidate->setApplicationSnapshot();
-                })
-                ->create([
-                    'pool_id' => $pool->id,
-                    'user_id' => $user->id,
-                    'submitted_at' => config('constants.far_past_date'),
-                    'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
-                    'application_status' => $status,
-                    'removal_reason' => $removalReason,
-                    'disqualification_reason' => $disqualificationReason,
-                    'expiry_date' => $expiryDate,
-                    'placed_at' => $placedAt,
-                    'placement_type' => $placementType,
-                ]);
+            if (method_exists($factory, $state)) {
+                $factory = $factory->$state(...$stateArgs);
+            } else {
+                Log::warning("Factory state {$state} does not exist.");
+            }
+
+            $factory->create($atts ?? []);
         }
     }
 }

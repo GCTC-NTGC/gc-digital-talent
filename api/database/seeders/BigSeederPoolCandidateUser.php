@@ -110,9 +110,9 @@ class BigSeederPoolCandidateUser extends Seeder
     {
         foreach ($poolIds as $poolId) {
             PoolCandidate::factory()
-                ->withSnapshot()
+                ->submitted()
+                ->for($user)
                 ->create([
-                    'user_id' => $user->id,
                     'pool_id' => $poolId,
                 ]);
         }
