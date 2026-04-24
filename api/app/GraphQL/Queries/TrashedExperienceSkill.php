@@ -25,9 +25,8 @@ final readonly class TrashedExperienceSkill
         $experienceSkill = ExperienceSkill::with('userSkill')
             ->withTrashed()
             ->where('experience_id', $args['experienceId'])
-            ->whereHas('userSkill', function (Builder $query) use ($args, $user) {
-                $query->where('skill_id', $args['skillId'])
-                    ->where('user_id', $user->id);
+            ->whereHas('userSkill', function (Builder $query) use ($args) {
+                $query->where('skill_id', $args['skillId']);
             })
             ->first();
 
