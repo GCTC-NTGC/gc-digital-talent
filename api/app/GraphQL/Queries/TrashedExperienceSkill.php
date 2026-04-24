@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Queries;
 
 use App\Models\ExperienceSkill;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
