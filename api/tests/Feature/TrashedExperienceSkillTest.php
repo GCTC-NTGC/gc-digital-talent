@@ -60,32 +60,28 @@ class TrashedExperienceSkillTest extends TestCase
     }
 
     #[DataProvider('trashedExperienceSkillProvider')]
-    public function testTrashedExperienceSkill($expected, $pivotData, $restore, $isOwner): void
+    public function testTrashedExperienceSkill($expected, $pivotData, $restore, $isOwner, $shouldError = false): void
     {
         $skillId = $this->skill->id;
-        $activeUserSkill = $this->userSkill;
+        $targetUserSkill = $this->userSkill;
 
         if (! $isOwner) {
             $otherUser = User::factory()->asApplicant()->create();
-            $otherSkill = Skill::factory()->create();
-            $skillId = $otherSkill->id;
-            $activeUserSkill = UserSkill::factory()->create([
+            $targetUserSkill = UserSkill::factory()->create([
                 'user_id' => $otherUser->id,
-                'skill_id' => $otherSkill->id,
+                'skill_id' => $this->skill->id,
             ]);
         }
 
         if ($pivotData !== null) {
-            // Use the relationship to attach the pivot data
-            $this->experience->userSkills()->attach($activeUserSkill->id, [
+            $this->experience->userSkills()->attach($targetUserSkill->id, [
                 'details' => $pivotData['details'],
             ]);
 
             if ($pivotData['trashed']) {
-                // Fetch the pivot to soft delete it
                 ExperienceSkill::where([
                     'experience_id' => $this->experience->id,
-                    'user_skill_id' => $activeUserSkill->id,
+                    'user_skill_id' => $targetUserSkill->id,
                 ])->delete();
             }
         }
@@ -99,7 +95,7 @@ class TrashedExperienceSkillTest extends TestCase
                 ],
             ]);
 
-        if (! $isOwner) {
+        if ($shouldError) {
             $response->assertGraphQLErrorMessage('This action is unauthorized.');
 
             return;
@@ -111,10 +107,10 @@ class TrashedExperienceSkillTest extends TestCase
             ],
         ]);
 
-        if ($restore && ($pivotData['trashed'] ?? false)) {
+        if ($restore && ($pivotData['trashed'] ?? false) && $isOwner) {
             $this->assertDatabaseHas('experience_skill', [
                 'experience_id' => $this->experience->id,
-                'user_skill_id' => $activeUserSkill->id,
+                'user_skill_id' => $targetUserSkill->id,
                 'deleted_at' => null,
             ]);
         }
@@ -152,6 +148,14 @@ class TrashedExperienceSkillTest extends TestCase
                 'pivotData' => ['details' => 'Someone elses', 'trashed' => true],
                 'restore' => false,
                 'isOwner' => false,
+                'shouldError' => true,
+            ],
+            'unauthorized if attempting to restore someone elses record' => [
+                'expected' => null,
+                'pivotData' => ['details' => 'Forbidden Restore', 'trashed' => true],
+                'restore' => true,
+                'isOwner' => false,
+                'shouldError' => true,
             ],
         ];
     }
