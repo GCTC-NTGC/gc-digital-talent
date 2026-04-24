@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
+import { useClient } from "urql";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { Accordion, Heading, Ul, Notice } from "@gc-digital-talent/ui";
@@ -10,7 +11,6 @@ import type { ExperienceType, FormSkill, FormSkills } from "~/types/experience";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import type { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 import NullExperienceType from "~/components/ExperienceFormFields/NullExperienceType";
-import { useClient, useQuery } from "urql";
 
 const TrashedExperienceSkill_Query = graphql(/** GraphQL */ `
   query TrashedExperienceSkill($where: TrashedExperienceSkillInput!) {
