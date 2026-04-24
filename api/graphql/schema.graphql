@@ -1608,9 +1608,7 @@ type Query {
     @canModel(ability: "viewBasicInfo", model: "User")
   trashedExperienceSkill(
     where: TrashedExperienceSkillInput! @spread
-  ): ExperienceSkillRecord
-    @guard
-    @canResolved(ability: "viewTrashed", model: "ExperienceSkill")
+  ): ExperienceSkillRecord @guard
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID! @eq): Pool
     @find

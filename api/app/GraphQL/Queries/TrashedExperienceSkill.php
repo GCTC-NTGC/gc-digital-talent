@@ -7,6 +7,7 @@ namespace App\GraphQL\Queries;
 use App\Models\ExperienceSkill;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 final readonly class TrashedExperienceSkill
 {
@@ -30,7 +31,11 @@ final readonly class TrashedExperienceSkill
             })
             ->first();
 
+        Gate::authorize('viewTrashed', [ExperienceSkill::class, $experienceSkill]);
+
         if ($experienceSkill && (bool) ($args['restore'] ?? false)) {
+            Gate::authorize('restore', [ExperienceSkill::class, $experienceSkill]);
+
             $experienceSkill->restore();
         }
 
