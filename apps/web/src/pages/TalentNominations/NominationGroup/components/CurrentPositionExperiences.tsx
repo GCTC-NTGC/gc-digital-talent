@@ -103,7 +103,7 @@ const CurrentPositionExperiences = ({
       <Heading
         icon={FlagIcon}
         level="h2"
-        size="h3"
+        size="h4"
         color="secondary"
         className="mt-0 font-normal"
       >
@@ -185,7 +185,7 @@ const CurrentPositionExperiences = ({
                   <Fragment key={key}>
                     <Heading
                       level="h3"
-                      size="h4"
+                      size="h5"
                       className="mt-0 mb-3 font-normal"
                     >
                       {getGovernmentPositionTypeLabel(

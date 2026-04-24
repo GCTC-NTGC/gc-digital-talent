@@ -83,7 +83,7 @@ const TalentNominationGroupProfile = ({
           <Heading
             icon={UserCircleIcon}
             level="h2"
-            size="h3"
+            size="h4"
             color="secondary"
             className="mt-0 font-normal"
           >
