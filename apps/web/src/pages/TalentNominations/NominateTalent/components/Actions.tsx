@@ -27,7 +27,7 @@ const Actions = () => {
           <Link
             href={`${paths.talentNomination(id)}?step=${prev}`}
             mode="inline"
-            color="secondary"
+            color="primary"
             icon={ChevronDoubleLeftIcon}
           >
             {intl.formatMessage({
