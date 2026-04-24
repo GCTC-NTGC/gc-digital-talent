@@ -23,7 +23,7 @@ const isExtensionWithValidation = (
   value: unknown,
 ): value is ExtensionWithValidation => {
   if (isNotNullObject(value) && "validation" in value) {
-    const value2 = value as { validation: unknown }; // type narrow for tested property
+    const value2 = value;
     return (
       isNotNullObject(value2.validation) &&
       Object.values(value2.validation).every(

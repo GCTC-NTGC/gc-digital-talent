@@ -18,7 +18,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@base-ui/react": "^1.4.0",
+    "@base-ui/react": "^1.4.1",
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
@@ -35,11 +35,11 @@
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-toggle": "^1.1.10",
     "@radix-ui/react-toggle-group": "^1.1.11",
-    "chromatic": "^16.3.0",
+    "chromatic": "^16.5.0",
     "lodash": "^4.18.1",
     "motion": "^12.38.0",
     "react-csv-downloader": "^3.3.0",
-    "react-router": "^7.14.1",
+    "react-router": "^7.14.2",
     "tailwind-merge": "^3.5.0",
     "tailwind-variants": "^3.2.2",
     "urql": "^5.0.2"
@@ -60,7 +60,7 @@
     "react-dom": "^19.2.5",
     "react-intl": "^10.1.2",
     "tsconfig": "workspace:*",
-    "typescript": "^6.0.0",
+    "typescript": "^6.0.3",
     "vitest": "^4.0.16"
   }
 }

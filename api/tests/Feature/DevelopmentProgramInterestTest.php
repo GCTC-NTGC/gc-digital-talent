@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\DevelopmentProgramParticipationStatus;
 use App\Enums\ErrorCode;
 use App\Models\Community;
 use App\Models\DevelopmentProgram;
@@ -13,6 +14,7 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+// now refers to development_program_user records
 class DevelopmentProgramInterestTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -37,101 +39,50 @@ class DevelopmentProgramInterestTest extends TestCase
     }
 
     /**
-     * Test user can create
-     */
-    public function testUserCanCreate()
-    {
-        $community = Community::factory()->create();
-        DevelopmentProgram::factory()->withCommunity($community->id)->create();
-        $community->refresh();
-
-        $this->actingAs($this->user, 'api')
-            ->graphQL(<<<'GRAPHQL'
-                mutation CreateCommunityInterest($communityInterest: CreateCommunityInterestInput!) {
-                    createCommunityInterest(communityInterest: $communityInterest) {
-                        id
-                        community { id }
-                        interestInDevelopmentPrograms {
-                            communityDevelopmentProgram {
-                                id
-                                developmentProgram { id }
-                            }
-                            participationStatus
-                            completionDate
-                        }
-                    }
-                }
-                GRAPHQL,
-                [
-                    'communityInterest' => [
-                        'userId' => $this->user->id,
-                        'community' => ['connect' => $community->id],
-                        'interestInDevelopmentPrograms' => [
-                            'create' => [
-                                [
-                                    'communityDevelopmentProgramId' => $community->communityDevelopmentPrograms->sole()->id,
-                                    'participationStatus' => 'COMPLETED',
-                                    'completionDate' => '2020-01-01',
-                                ],
-                            ],
-                        ],
-                        'consentToShareProfile' => true,
-                    ],
-                ])
-            ->assertJson([
-                'data' => [
-                    'createCommunityInterest' => [
-                        'community' => ['id' => $community->id],
-                        'interestInDevelopmentPrograms' => [
-                            [
-                                'communityDevelopmentProgram' => [
-                                    'id' => $community->communityDevelopmentPrograms->sole()->id,
-                                    'developmentProgram' => [
-                                        'id' => $community->developmentProgramsThroughPivot->sole()->id,
-                                    ],
-                                ],
-                                'participationStatus' => 'COMPLETED',
-                                'completionDate' => '2020-01-01',
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
-    }
-
-    /**
      * Can't add a completion date to the development program interest if the status is not completed
      */
     public function testUserCantAddCompletionDateWithoutStatus()
     {
         $community = Community::factory()->create();
-        DevelopmentProgram::factory()->withCommunity($community->id)->create();
+        $program = DevelopmentProgram::factory()->withCommunity($community->id)->create();
         $community->refresh();
 
         $this->actingAs($this->user, 'api')
             ->graphQL(<<<'GRAPHQL'
-                mutation CreateCommunityInterest($communityInterest: CreateCommunityInterestInput!) {
-                    createCommunityInterest(communityInterest: $communityInterest) {
-                        id
+                mutation createCommunityInterestWithDevelopmentPrograms($communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!) {
+                    createCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: $communityInterestWithDevelopmentPrograms) {
+                        jobInterest
+                        trainingInterest
+                        additionalInformation
+                        community {
+                            id
+                        }
+                        workStreams {
+                            id
+                        }
                     }
                 }
-                GRAPHQL,
+            GRAPHQL,
                 [
-                    'communityInterest' => [
+                    'communityInterestWithDevelopmentPrograms' => [
                         'userId' => $this->user->id,
-                        'community' => ['connect' => $community->id],
-                        'interestInDevelopmentPrograms' => [
-                            'create' => [
-                                [
-                                    'communityDevelopmentProgramId' => $community->communityDevelopmentPrograms->sole()->id,
-                                    'participationStatus' => 'INTERESTED',
-                                    'completionDate' => '2020-01-01',
-                                ],
+                        'communityInterest' => [
+                            'communityId' => $community->id,
+                            'consentToShareProfile' => true,
+                        ],
+                        'developmentPrograms' => [
+                            [
+                                'developmentProgramId' => $program->id,
+                                'participationStatus' => DevelopmentProgramParticipationStatus::ENROLLED->name,
+                                'completionDate' => '2020-01-01',
                             ],
                         ],
                     ],
                 ])
-            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.completionDate', ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED->name);
+            ->assertGraphQLValidationError(
+                'communityInterestWithDevelopmentPrograms.developmentPrograms.0.completionDate',
+                ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED->name
+            );
     }
 
     /**
@@ -140,31 +91,44 @@ class DevelopmentProgramInterestTest extends TestCase
     public function testUserCantUseCompletionStatusWithoutDate()
     {
         $community = Community::factory()->create();
-        DevelopmentProgram::factory()->withCommunity($community->id)->create();
+        $program = DevelopmentProgram::factory()->withCommunity($community->id)->create();
         $community->refresh();
 
         $this->actingAs($this->user, 'api')
             ->graphQL(<<<'GRAPHQL'
-                mutation CreateCommunityInterest($communityInterest: CreateCommunityInterestInput!) {
-                    createCommunityInterest(communityInterest: $communityInterest) {
-                        id
+                mutation createCommunityInterestWithDevelopmentPrograms($communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!) {
+                    createCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: $communityInterestWithDevelopmentPrograms) {
+                        jobInterest
+                        trainingInterest
+                        additionalInformation
+                        community {
+                            id
+                        }
+                        workStreams {
+                            id
+                        }
                     }
                 }
-                GRAPHQL,
+            GRAPHQL,
                 [
-                    'communityInterest' => [
+                    'communityInterestWithDevelopmentPrograms' => [
                         'userId' => $this->user->id,
-                        'community' => ['connect' => $community->id],
-                        'interestInDevelopmentPrograms' => [
-                            'create' => [
-                                [
-                                    'communityDevelopmentProgramId' => $community->communityDevelopmentPrograms->sole()->id,
-                                    'participationStatus' => 'COMPLETED',
-                                ],
+                        'communityInterest' => [
+                            'communityId' => $community->id,
+                            'consentToShareProfile' => true,
+                        ],
+                        'developmentPrograms' => [
+                            [
+                                'developmentProgramId' => $program->id,
+                                'participationStatus' => DevelopmentProgramParticipationStatus::COMPLETED->name,
+                                'completionDate' => null,
                             ],
                         ],
                     ],
                 ])
-            ->assertGraphQLValidationError('communityInterest.interestInDevelopmentPrograms.create.0.completionDate', ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED->name);
+            ->assertGraphQLValidationError(
+                'communityInterestWithDevelopmentPrograms.developmentPrograms.0.completionDate',
+                ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED->name
+            );
     }
 }
