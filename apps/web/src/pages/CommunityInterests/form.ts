@@ -108,17 +108,22 @@ export function formValuesToApiCreateInput(
 
   // finance-only fields
   apiInput.communityInterest.financeIsChief = formValues.financeIsChief;
+  apiInput.communityInterest.financeOtherRoles = formValues.financeOtherRoles
+    ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
+    : null;
+  apiInput.communityInterest.financeOtherRolesOther =
+    formValues.financeOtherRolesOther;
+
+  // procurement-only fields
+  apiInput.communityInterest.procurementIsSDO = formValues.procurementIsSDO;
+
+  // shared between finance and procurement
   apiInput.communityInterest.communityInterestAdditionalDuties =
     formValues.communityInterestAdditionalDuties
       ? stringArrayToEnumsCommunityInterestAdditionalDuty(
           formValues.communityInterestAdditionalDuties,
         )
       : null;
-  apiInput.communityInterest.financeOtherRoles = formValues.financeOtherRoles
-    ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
-    : null;
-  apiInput.communityInterest.financeOtherRolesOther =
-    formValues.financeOtherRolesOther;
 
   apiInput.communityInterest.consentToShareProfile = formValues.consent;
 
