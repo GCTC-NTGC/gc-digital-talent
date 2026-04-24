@@ -25,7 +25,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
-import { Card, Notice } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -425,74 +425,72 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
   }
 
   return (
-    <Card>
-      <UpdateForm<FormValues>
-        submitDataTransformer={transformSubmitData}
-        preSubmitValidation={preSubmitValidation}
-        defaultValues={{
-          submitter: talentNomination.submitter?.id,
-          role: defaultRole,
-          nominator: defaultNominator,
-          nominatorReview: talentNomination.nominatorReview?.value,
-          submitterRelationshipToNominator:
-            talentNomination.submitterRelationshipToNominator?.value,
-          submitterRelationshipToNominatorOther:
-            talentNomination.submitterRelationshipToNominatorOther ?? undefined,
-          nominatorFallbackName:
-            talentNomination.nominatorFallbackName ?? undefined,
-          nominatorFallbackWorkEmail:
-            talentNomination.nominatorFallbackWorkEmail ?? undefined,
-          nominatorFallbackClassification:
-            talentNomination.nominatorFallbackClassification?.id,
-          nominatorFallbackClassificationGroup:
-            talentNomination.nominatorFallbackClassification?.group,
-          nominatorFallbackClassificationLevel:
-            talentNomination.nominatorFallbackClassification?.level?.toString(),
-          nominatorFallbackDepartment:
-            talentNomination.nominatorFallbackDepartment?.id,
-        }}
-      >
-        <SubHeading color="primary" level="h2" icon={DocumentCheckIcon}>
-          {intl.formatMessage(messages.nominatorInfo)}
-        </SubHeading>
-        <p className="my-6">
-          {intl.formatMessage({
-            defaultMessage:
-              "Let’s get started by learning a little about the nominator.",
-            id: "oglvAY",
-            description: "Subtitle for nomination nominator step",
-          })}
-        </p>
-        <div className="flex flex-col gap-6">
-          <HiddenInput name="submitter" />
-          <RadioGroup
-            idPrefix="role"
-            id="role"
-            name="role"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-            legend={intl.formatMessage(labels.yourRole)}
-            items={[
-              {
-                value: "nominator",
-                label: intl.formatMessage(labels.imNominator),
-              },
-              {
-                value: "on-behalf",
-                label: intl.formatMessage(labels.onBehalf),
-              },
-            ]}
-          />
-          <NominatorFields
-            optionsQuery={optionsQuery}
-            employeeQuery={
-              submitterIsNominator
-                ? undefined
-                : (talentNomination?.nominator ?? undefined)
-            }
-          />
-        </div>
-      </UpdateForm>
-    </Card>
+    <UpdateForm<FormValues>
+      submitDataTransformer={transformSubmitData}
+      preSubmitValidation={preSubmitValidation}
+      defaultValues={{
+        submitter: talentNomination.submitter?.id,
+        role: defaultRole,
+        nominator: defaultNominator,
+        nominatorReview: talentNomination.nominatorReview?.value,
+        submitterRelationshipToNominator:
+          talentNomination.submitterRelationshipToNominator?.value,
+        submitterRelationshipToNominatorOther:
+          talentNomination.submitterRelationshipToNominatorOther ?? undefined,
+        nominatorFallbackName:
+          talentNomination.nominatorFallbackName ?? undefined,
+        nominatorFallbackWorkEmail:
+          talentNomination.nominatorFallbackWorkEmail ?? undefined,
+        nominatorFallbackClassification:
+          talentNomination.nominatorFallbackClassification?.id,
+        nominatorFallbackClassificationGroup:
+          talentNomination.nominatorFallbackClassification?.group,
+        nominatorFallbackClassificationLevel:
+          talentNomination.nominatorFallbackClassification?.level?.toString(),
+        nominatorFallbackDepartment:
+          talentNomination.nominatorFallbackDepartment?.id,
+      }}
+    >
+      <SubHeading color="primary" level="h2" icon={DocumentCheckIcon}>
+        {intl.formatMessage(messages.nominatorInfo)}
+      </SubHeading>
+      <p className="my-6">
+        {intl.formatMessage({
+          defaultMessage:
+            "Let’s get started by learning a little about the nominator.",
+          id: "oglvAY",
+          description: "Subtitle for nomination nominator step",
+        })}
+      </p>
+      <div className="flex flex-col gap-6">
+        <HiddenInput name="submitter" />
+        <RadioGroup
+          idPrefix="role"
+          id="role"
+          name="role"
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
+          legend={intl.formatMessage(labels.yourRole)}
+          items={[
+            {
+              value: "nominator",
+              label: intl.formatMessage(labels.imNominator),
+            },
+            {
+              value: "on-behalf",
+              label: intl.formatMessage(labels.onBehalf),
+            },
+          ]}
+        />
+        <NominatorFields
+          optionsQuery={optionsQuery}
+          employeeQuery={
+            submitterIsNominator
+              ? undefined
+              : (talentNomination?.nominator ?? undefined)
+          }
+        />
+      </div>
+    </UpdateForm>
   );
 };
 

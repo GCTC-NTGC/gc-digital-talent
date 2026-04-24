@@ -3,7 +3,7 @@ import ChevronDoubleLeftIcon from "@heroicons/react/16/solid/ChevronDoubleLeftIc
 import ChevronDoubleRightIcon from "@heroicons/react/16/solid/ChevronDoubleRightIcon";
 import { useFormContext } from "react-hook-form";
 
-import { Button, Link, Separator } from "@gc-digital-talent/ui";
+import { Button, CardSeparator, Link } from "@gc-digital-talent/ui";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
@@ -21,7 +21,7 @@ const Actions = () => {
 
   return (
     <>
-      <Separator decorative orientation="horizontal" />
+      <CardSeparator decorative />
       <div className="flex flex-col items-center gap-6 xs:flex-row">
         {prev && (
           <Link
