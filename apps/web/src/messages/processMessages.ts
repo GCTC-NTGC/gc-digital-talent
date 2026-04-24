@@ -159,6 +159,11 @@ const messages = defineMessages({
     description:
       "Label for a process' selection limitations when area of selection is for the public",
   },
+  minEducationRequirement: {
+    defaultMessage: "Minimum experience or equivalent education",
+    id: "LvYEdh",
+    description: "Title for Minimum experience or equivalent education",
+  },
 });
 
 export default messages;

@@ -4,11 +4,16 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
   fragment Application_PoolCandidate on PoolCandidate {
     id
     submittedAt
+    status {
+      value
+    }
+
+    ...ApplicationSnapshot
+
     user {
       ...ProfileWorkPreferences
       ...ProfileDiversityEquityInclusion
       ...ProfileCitizenVeteranPriority
-      ...ProfileGovernmentInformation
       ...ProfileLanguageProfile
       ...ProfilePersonalInformation
       ...ContactEmailCard

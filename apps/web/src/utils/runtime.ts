@@ -12,6 +12,7 @@ const RUNTIME_VARS = [
   "LOG_CONSOLE_LEVEL",
   "LOG_APPLICATIONINSIGHTS_LEVEL",
   "NOTIFICATION_POLLING_INTERVAL",
+  "FEATURE_ACTIVITY_TIMER",
 ] as const;
 
 export const getRuntimeConfig = () => {
