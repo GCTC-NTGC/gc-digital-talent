@@ -8,7 +8,7 @@ import {
   graphql,
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
-import { Card, CardSeparator, Separator } from "@gc-digital-talent/ui";
+import { Card, CardSeparator } from "@gc-digital-talent/ui";
 
 import pageTitles from "~/messages/pageTitles";
 
