@@ -81,7 +81,6 @@ const addLabelsToErrors = (
 ): FieldNameWithLabel[] => {
   const invalidFieldNames = flattenErrors(errors);
   let fieldNamesWithLabels: FieldNameWithLabel[] = [];
-
   invalidFieldNames.forEach((fieldName) => {
     const fieldNameWithLabel = getFieldLabel(fieldName, labels);
     if (fieldNameWithLabel) {
@@ -160,8 +159,14 @@ const ErrorSummary = forwardRef<ComponentRef<"div">, ErrorSummaryProps>(
                     mode="text"
                     color="error"
                   >
-                    {field.label}
-                    {field.index ?? <span className="ml-1">{field.index}</span>}
+                    <>
+                      {field.label}
+                      {field.name.endsWith(".en") &&
+                        ` ${intl.formatMessage(commonMessages.englishLabel)}`}
+                      {field.name.endsWith(".fr") &&
+                        ` ${intl.formatMessage(commonMessages.frenchLabel)}`}
+                      {field.index && ` ${field.index}`}
+                    </>
                   </ScrollToLink>
                   {intl.formatMessage(commonMessages.dividingColon)}
                   <ErrorMessage name={field.name} />

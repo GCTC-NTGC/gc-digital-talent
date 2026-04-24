@@ -41,6 +41,34 @@ const messages = defineMessages({
     description:
       "CanadaLogin answer for when user needs to contact CanadaLogin",
   },
+  signInWithCanadaLogin: {
+    defaultMessage:
+      "What if I deleted the app, changed phones, or don't have the recovery codes?",
+    id: "1HsWK9",
+    description:
+      "CanadaLogin title if user has issues signing in with CanadaLogin",
+  },
+  answerSignInWithCanadaLogin1: {
+    defaultMessage:
+      "Multi-factor authentication for GCKey is managed directly through the GCKey service and is not something we are able to reset from the GC Digital Talent platform.",
+    id: "FrIH2K",
+    description:
+      "CanadaLogin answer if user has issues signing in with CanadaLogin",
+  },
+  answerSignInWithCanadaLogin2: {
+    defaultMessage:
+      "If you no longer have access to the two‑factor authentication method you set up when you registered with GC Digital Talent, you can still sign in by using one of the five recovery codes you received at the time of registration. <underline>These codes are personal and only accessible to you.</underline>",
+    id: "rtQjtJ",
+    description:
+      "CanadaLogin answer if user has issues signing in with CanadaLogin",
+  },
+  answerSignInWithCanadaLogin3: {
+    defaultMessage:
+      "If you no longer have access to these codes either, unfortunately it will not be possible to recover your current account.",
+    id: "9sFait",
+    description:
+      "CanadaLogin answer if user has issues signing in with CanadaLogin",
+  },
 });
 
 export default messages;

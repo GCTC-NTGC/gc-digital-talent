@@ -16,7 +16,7 @@ const IAPNavMenu = () => {
   const paths = useRoutes();
   const { pathname } = useLocation();
   const { loggedIn } = useAuthentication();
-  const searchParams = `?from=${paths.iap()}&personality=iap`;
+  const searchParams = `?from=${paths.iap()}`;
 
   const homeLinkProps = {
     href: paths.iap(),
