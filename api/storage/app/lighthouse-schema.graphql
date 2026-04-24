@@ -1130,7 +1130,6 @@ type AssessmentStep {
   sortOrder: Int
   title: LocalizedString
   poolSkills: [PoolSkill]
-  assessmentResults: [AssessmentResult]
   screeningQuestions: [ScreeningQuestion]
 }
 
@@ -1311,7 +1310,6 @@ type Community implements HasRoleAssignments {
   contactEmail: String
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
-  pools: [Pool]
   workStreams: [WorkStream!]
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   associatedDevelopmentPrograms: [DevelopmentProgram!]

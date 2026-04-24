@@ -527,8 +527,7 @@ type Pool implements HasRoleAssignments {
   isComplete: Boolean @rename(attribute: "is_complete")
   assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
-    @hasMany
-    @canRoot(ability: "viewAssessmentPlan", scopes: ["withPolicyEagerLoads"])
+    @hasMany(scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"])
   poolSkills(type: PoolSkillType @where): [PoolSkill]
     @hasMany(scopes: ["withPolicyEagerLoads"])
   roleAssignments: [RoleAssignment!]
@@ -576,16 +575,6 @@ type AssessmentStep {
   sortOrder: Int @rename(attribute: "sort_order")
   title: LocalizedString
   poolSkills: [PoolSkill] @belongsToMany
-  assessmentResults: [AssessmentResult]
-    @hasMany
-    @with(
-      relations: [
-        "assessmentResult.pool.team"
-        "assessmentResult.pool.community.team"
-        "assessmentResult.department.team"
-      ]
-    )
-    @canRoot(ability: "viewAssessmentResults")
   screeningQuestions: [ScreeningQuestion] @with(relation: "screeningQuestions")
 }
 
@@ -620,8 +609,7 @@ type PoolSkill {
   requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
   skill: Skill @belongsTo
   assessmentSteps: [AssessmentStep]
-    @belongsToMany
-    @canRoot(ability: "viewAssessmentSteps", scopes: ["withPolicyEagerLoads"])
+    @belongsToMany(scopes: ["whereAuthorizedToView"])
 }
 
 type PoolCandidateCategory {
@@ -835,9 +823,6 @@ type Community implements HasRoleAssignments {
     @with(relation: "team")
     @canRoot(ability: "viewTeamMembers")
   teamIdForRoleAssignment: ID @with(relation: "team")
-  pools: [Pool]
-    @hasMany(scopes: ["authorizedToView"])
-    @canResolved(ability: "view")
   workStreams: [WorkStream!] @hasMany
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
   associatedDevelopmentPrograms: [DevelopmentProgram!]
