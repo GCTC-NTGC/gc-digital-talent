@@ -107,35 +107,18 @@ export const InstructionsCardGrid = ({
       <div className="relative">
         <div className="hidden shadow-xl xs:block">
           {sixCardsGrid ? (
-            <>
-              {/* first row */}
-              <ol className="flex">
-                {childrenArray.slice(0, 3).map((child, index) => (
-                  <li key={index} className="relative flex-1">
-                    {child}
-                    {index < 2 && (
-                      <div className="absolute top-1/2 -right-4 z-10 -translate-y-1/2">
-                        <ArrowRightCircleIcon className="h-8 w-8 overflow-visible align-middle text-gray" />
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ol>
-
-              {/* second row */}
-              <ol className="flex">
-                {childrenArray.slice(3, 6).map((child, index) => (
-                  <li key={index + 3} className="relative flex-1">
-                    {child}
-                    {index < 2 && (
-                      <div className="absolute top-1/2 -right-4 z-10 -translate-y-1/2">
-                        <ArrowRightCircleIcon className="h-8 w-8 overflow-visible align-middle text-gray" />
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ol>
-            </>
+            <ol className="grid grid-cols-3">
+              {childrenArray.slice(0, 6).map((child, index) => (
+                <li key={index} className="relative">
+                  {child}
+                  {index % 3 !== 2 && (
+                    <div className="absolute top-1/2 -right-4 z-10 -translate-y-1/2">
+                      <ArrowRightCircleIcon className="h-8 w-8 overflow-visible align-middle text-gray" />
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ol>
           ) : (
             /* default row */
             <ol className="flex">
