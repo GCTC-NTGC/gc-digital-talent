@@ -205,7 +205,7 @@ class AssessmentStep extends Model
         });
     }
 
-    public static function withPolicyEagerLoads(Builder $query): Builder
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
     {
         return $query->with(['pool.team', 'pool.community.team', 'pool.department.team']);
     }

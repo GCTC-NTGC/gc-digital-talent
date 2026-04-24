@@ -520,8 +520,7 @@ type Pool implements HasRoleAssignments {
   isComplete: Boolean @rename(attribute: "is_complete")
   assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
-    @hasMany
-    @canRoot(ability: "viewAssessmentPlan", scopes: ["withPolicyEagerLoads"])
+    @hasMany(scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"])
   poolSkills(type: PoolSkillType @where): [PoolSkill]
     @hasMany(scopes: ["withPolicyEagerLoads"])
   roleAssignments: [RoleAssignment!]
