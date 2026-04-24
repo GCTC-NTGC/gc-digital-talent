@@ -99,14 +99,15 @@ const TalentNominationGroupDetails = ({
   };
 
   return (
-    <Card space="lg" className="flex flex-col gap-6 sm:gap-9">
+    <Card space="lg">
       {/* heading section */}
       <div className="flex items-center justify-between">
         <Heading
           level="h2"
+          size="h4"
           icon={ClipboardDocumentListIcon}
           color="secondary"
-          className="mt-0 font-normal"
+          className="my-0 font-normal"
         >
           {intl.formatMessage(detailTabMessages.nominationDetailsPageTitle)}
         </Heading>
@@ -123,7 +124,7 @@ const TalentNominationGroupDetails = ({
           )}
         </Button>
       </div>
-      <Card.Separator />
+      <Card.Separator className="my-9" />
       <Accordion.Root
         mode="simple"
         type="multiple"
