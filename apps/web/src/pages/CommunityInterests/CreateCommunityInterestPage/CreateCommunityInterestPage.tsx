@@ -7,12 +7,13 @@ import { useNavigate, useSearchParams } from "react-router";
 import { Card, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import type {
-  CreateCommunityInterestInput,
+  CreateCommunityInterestWithDevelopmentProgramsInput,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -41,6 +42,15 @@ const CreateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
       associatedDevelopmentPrograms {
         id
       }
+    }
+
+    me {
+      developmentProgramUserRecords {
+        ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
+      }
+      # educationExperiences {
+      #   id
+      # }
     }
   }
 `);
@@ -98,6 +108,10 @@ const CreateCommunityInterestForm = ({
                       <TrainingAndDevelopmentOpportunities
                         optionsQuery={formOptions}
                         formDisabled={formDisabled}
+                        developmentProgramUserRecordsQuery={unpackMaybes(
+                          formOptions.me?.developmentProgramUserRecords,
+                        )}
+                        selectedCommunityId={selectedCommunityId}
                       />
                     </>
                   ) : null}
@@ -129,10 +143,12 @@ const CreateCommunityInterestPage_Query = graphql(/* GraphQL */ `
 `);
 
 const CreateCommunityInterestPage_Mutation = graphql(/* GraphQL */ `
-  mutation CreateCommunityInterest(
-    $communityInterest: CreateCommunityInterestInput!
+  mutation createCommunityInterestWithDevelopmentPrograms(
+    $communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!
   ) {
-    createCommunityInterest(communityInterest: $communityInterest) {
+    createCommunityInterestWithDevelopmentPrograms(
+      communityInterestWithDevelopmentPrograms: $communityInterestWithDevelopmentPrograms
+    ) {
       id
     }
   }
@@ -173,17 +189,17 @@ export const CreateCommunityInterestPage = () => {
   const submitForm: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
-    const mutationInput: CreateCommunityInterestInput =
+    const mutationInput: CreateCommunityInterestWithDevelopmentProgramsInput =
       formValuesToApiCreateInput(formValues);
     const mutationPromise = executeCreateMutation({
-      communityInterest: mutationInput,
+      communityInterestWithDevelopmentPrograms: mutationInput,
     }).then((response) => {
       // confirmed error
       if (response.error) {
         throw new Error(response.error.message);
       }
       // confirmed success
-      if (response.data?.createCommunityInterest?.id) {
+      if (response.data?.createCommunityInterestWithDevelopmentPrograms?.id) {
         return; //success
       }
       // unexpected outcome

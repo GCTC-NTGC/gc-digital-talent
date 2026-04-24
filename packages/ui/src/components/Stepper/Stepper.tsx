@@ -42,6 +42,7 @@ export interface StepperProps {
   subTitle?: ReactNode;
   label: string;
   steps: Maybe<StepType[]>;
+  readOnly?: boolean;
 }
 
 const Stepper = ({
@@ -50,6 +51,7 @@ const Stepper = ({
   subTitle,
   label,
   steps,
+  readOnly = false,
 }: StepperProps) => {
   const intl = useIntl();
   let maxIndex: number | undefined;
@@ -84,8 +86,13 @@ const Stepper = ({
               href={href}
               label={stepLabel}
               state={
-                deriveStepState(stepIndex, index, completed, disabled, error) ??
-                "default"
+                deriveStepState(
+                  stepIndex,
+                  index,
+                  completed,
+                  readOnly || disabled,
+                  error,
+                ) ?? "default"
               }
               last={stepIndex === maxIndex}
             />

@@ -265,6 +265,13 @@ export function flattenErrors(
             },
           );
         }
+        // check for localized subfields
+        if ("en" in fieldError) {
+          errorNames = [...errorNames, `${fieldName}.en`];
+        }
+        if ("fr" in fieldError) {
+          errorNames = [...errorNames, `${fieldName}.fr`];
+        }
         // We have an error message so add it to the array (we don't want errors with no message)
         if ("message" in fieldError) {
           errorNames = [...errorNames, `${parentKey}${fieldName}`];

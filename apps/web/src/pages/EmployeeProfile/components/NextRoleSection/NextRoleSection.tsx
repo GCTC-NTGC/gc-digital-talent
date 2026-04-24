@@ -43,10 +43,7 @@ import type { SectionIcon } from "~/hooks/useToggleSectionInfo";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
-import {
-  getGroupOptions,
-  getLevelOptions,
-} from "~/components/Profile/components/GovernmentInformation/utils";
+import { getGroupOptions, getLevelOptions } from "~/utils/classification";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 import Display from "./Display";
