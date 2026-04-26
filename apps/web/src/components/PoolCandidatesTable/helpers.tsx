@@ -52,6 +52,7 @@ import {
 } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
+import type { CandidateNavigationState } from "~/hooks/usePoolCandidateNavigation";
 
 import type { FormValues } from "./types";
 import tableMessages from "./tableMessages";
@@ -84,7 +85,7 @@ export const candidateNameCell = (
   candidateId: string,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
-  tableCandidateIds?: string[],
+  navigationState?: CandidateNavigationState,
   candidateFirstName?: Maybe<string>,
   candidateLastName?: Maybe<string>,
 ) => {
@@ -96,7 +97,7 @@ export const candidateNameCell = (
   return (
     <Link
       href={paths.poolCandidateApplication(candidateId)}
-      state={{ candidateIds: tableCandidateIds, stepName: null }}
+      state={{ navigationState, stepName: null }}
     >
       {candidateName}
     </Link>
