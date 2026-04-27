@@ -14,7 +14,7 @@ class FilterableTraitTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->trait = new class
+        $this->trait = new class()
         {
             use Filterable;
 
@@ -39,7 +39,7 @@ class FilterableTraitTest extends TestCase
     public function testApplyFilters(array $filters, array $scopeMap, $expected): void
     {
 
-        $model = new class extends PoolCandidate
+        $model = new class() extends PoolCandidate
         {
             private $calledScopes = [];
 

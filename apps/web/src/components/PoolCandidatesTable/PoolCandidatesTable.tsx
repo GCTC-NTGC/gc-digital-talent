@@ -34,6 +34,10 @@ import type {
 import { graphql, PublishingGroup } from "@gc-digital-talent/graphql";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
+import type {
+  CandidateNavigationQueryParams,
+  CandidateNavigationState,
+} from "~/hooks/usePoolCandidateNavigation";
 import useRoutes from "~/hooks/useRoutes";
 import {
   INITIAL_STATE,
@@ -564,22 +568,37 @@ const PoolCandidatesTable = ({
     }
   };
 
-  const [{ data, fetching }] = useQuery({
-    query: CandidatesTableCandidatesPaginated_Query,
-    variables: {
+  // Shared between the table query and the per-row navigation state stored in link state
+  const navigationQueryParams = useMemo<CandidateNavigationQueryParams>(
+    () => ({
       where: addSearchToPoolCandidateFilterInput(
         filterState,
         searchState?.term,
         searchState?.type,
       ),
-      page: paginationState.pageIndex,
-      first: paginationState.pageSize,
       orderByBaseInput: getBaseSort(doNotUseBookmark, doNotUseFlag),
       poolNameSortingInput: getPoolNameSort(sortState, locale),
       sortingInput: getSortOrder(sortState, filterState),
+      orderByClaimVerification: getClaimVerificationSort(sortState),
       orderByEmployeeDepartment: getDepartmentSort(sortState),
       orderByScreeningStage: getScreeningStageSort(sortState),
-      orderByClaimVerification: getClaimVerificationSort(sortState),
+    }),
+    [
+      filterState,
+      searchState,
+      sortState,
+      locale,
+      doNotUseBookmark,
+      doNotUseFlag,
+    ],
+  );
+
+  const [{ data, fetching }] = useQuery({
+    query: CandidatesTableCandidatesPaginated_Query,
+    variables: {
+      ...navigationQueryParams,
+      page: paginationState.pageIndex,
+      first: paginationState.pageSize,
     },
   });
 
@@ -588,10 +607,6 @@ const PoolCandidatesTable = ({
       const poolCandidates = data?.poolCandidatesPaginatedAdminView.data ?? [];
       return poolCandidates.filter(notEmpty);
     }, [data?.poolCandidatesPaginatedAdminView.data]);
-
-  const candidateIdsFromFilterData = filteredData.map(
-    (iterator) => iterator.poolCandidate.id,
-  );
 
   const [{ data: tableData, fetching: fetchingTableData }] = useQuery({
     query: CandidatesTable_Query,
@@ -725,6 +740,10 @@ const PoolCandidatesTable = ({
         .catch(handleDownloadError);
     }
   };
+  const firstItem =
+    data?.poolCandidatesPaginatedAdminView?.paginatorInfo.firstItem;
+  const totalCount =
+    data?.poolCandidatesPaginatedAdminView?.paginatorInfo.total ?? 0;
 
   const columns = [
     ...(doNotUseBookmark
@@ -785,19 +804,24 @@ const PoolCandidatesTable = ({
         id: "candidateName",
         header: intl.formatMessage(tableMessages.candidateName),
         sortingFn: normalizedText,
-        cell: ({
-          row: {
-            original: { poolCandidate },
-          },
-        }) =>
-          candidateNameCell(
-            poolCandidate.id,
+        cell: ({ row }) => {
+          const navigationState: CandidateNavigationState | undefined =
+            firstItem != null
+              ? {
+                  ...navigationQueryParams,
+                  currentPage: firstItem + row.index,
+                  totalCount,
+                }
+              : undefined;
+          return candidateNameCell(
+            row.original.poolCandidate.id,
             paths,
             intl,
-            candidateIdsFromFilterData,
-            poolCandidate.user.firstName,
-            poolCandidate.user.lastName,
-          ),
+            navigationState,
+            row.original.poolCandidate.user.firstName,
+            row.original.poolCandidate.user.lastName,
+          );
+        },
         meta: {
           isRowTitle: true,
         },

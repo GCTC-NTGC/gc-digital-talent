@@ -28,7 +28,7 @@ final class PauseCandidateReferralsValidator extends Validator
                 'required',
                 'uuid',
                 'exists:pool_candidates,id',
-                new CanPauseCandidateReferral,
+                new CanPauseCandidateReferral(),
             ],
             'pauseReferrals.pauseReferralsLength' => [
                 'required',
