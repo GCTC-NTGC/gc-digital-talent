@@ -451,7 +451,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
           talentNomination.nominatorFallbackDepartment?.id,
       }}
     >
-      <SubHeading color="primary" level="h2" icon={DocumentCheckIcon}>
+      <SubHeading color="primary" icon={DocumentCheckIcon}>
         {intl.formatMessage(messages.nominatorInfo)}
       </SubHeading>
       <p className="my-6">

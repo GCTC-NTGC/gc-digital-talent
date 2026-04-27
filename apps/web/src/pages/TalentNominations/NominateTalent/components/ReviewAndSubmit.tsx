@@ -61,11 +61,7 @@ const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
     <Card>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
-          <SubHeading
-            color="primary"
-            level="h2"
-            icon={DocumentMagnifyingGlassIcon}
-          >
+          <SubHeading color="primary" icon={DocumentMagnifyingGlassIcon}>
             {intl.formatMessage(pageTitles.reviewAndSubmit)}
           </SubHeading>
           <p className="my-6">

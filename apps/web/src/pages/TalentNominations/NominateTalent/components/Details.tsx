@@ -753,7 +753,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
           talentNomination?.developmentProgramOptionsOther ?? "",
       }}
     >
-      <SubHeading color="primary" level="h2" icon={RectangleGroupIcon}>
+      <SubHeading color="primary" icon={RectangleGroupIcon}>
         {intl.formatMessage(messages.nominationDetails)}
       </SubHeading>
       <p className="my-6">
