@@ -68,7 +68,7 @@ class CommunityInterestUserExcelGenerator extends ExcelGenerator implements File
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet;
+        $this->spreadsheet = new Spreadsheet();
 
         $sheet = $this->spreadsheet->getActiveSheet();
         $localizedHeaders = array_map(function ($key) {

@@ -282,6 +282,7 @@ const useMainNavLinks = () => {
         href={manageAuthAccountLink}
         title={intl.formatMessage(authMessages.manageAuthAccount)}
         subMenu
+        newTab
       />
     ) : null;
 

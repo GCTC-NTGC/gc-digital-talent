@@ -415,7 +415,7 @@ class Pool extends Model
     {
         $pool = $this->load(['assessmentSteps', 'poolSkills']);
 
-        $planCompletionValidation = new AssessmentPlanIsCompleteValidator;
+        $planCompletionValidation = new AssessmentPlanIsCompleteValidator();
         $validator = Validator::make($pool->toArray(),
             $planCompletionValidation->rules(),
             $planCompletionValidation->messages()

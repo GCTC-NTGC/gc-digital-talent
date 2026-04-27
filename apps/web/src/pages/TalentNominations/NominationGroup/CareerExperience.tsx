@@ -54,13 +54,13 @@ const TalentNominationGroupCareerExperience = ({
 
   return (
     <Pending fetching={fetching} error={error}>
-      <Card className="mb-6 flex flex-col gap-y-3">
+      <Card space="lg" className="mb-6">
         <CurrentPositionExperiences
           query={nomineeData?.user}
           shareProfile={shareProfile}
         />
       </Card>
-      <Card className="mb-6 flex flex-col gap-y-3">
+      <Card space="lg">
         <FullCareerExperiences
           userQuery={nomineeData?.user}
           talentNominationGroupQuery={talentNominationGroup}

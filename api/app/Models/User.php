@@ -374,7 +374,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function skills(): HasManyDeep
     {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill());
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill());
     }
 
     // User 1-0..* PoolCandidateSearchRequest
@@ -412,7 +412,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $existingSkillIds = $this->userSkills()->withTrashed()->pluck('skill_id');
         $newSkillIds = collect($skill_ids)->diff($existingSkillIds)->unique();
         foreach ($newSkillIds as $skillId) {
-            $userSkill = new UserSkill;
+            $userSkill = new UserSkill();
             $userSkill->skill_id = $skillId;
             $this->userSkills()->save($userSkill);
         }
@@ -861,7 +861,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public static function hydrateSnapshot(mixed $snapshot): User|array
     {
-        $user = new User;
+        $user = new User();
 
         $fields = [
             'first_name' => 'firstName',
