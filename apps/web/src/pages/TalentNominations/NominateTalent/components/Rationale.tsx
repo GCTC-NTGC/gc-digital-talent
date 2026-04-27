@@ -101,7 +101,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
         ),
       }}
     >
-      <SubHeading color="primary" icon={ChatBubbleBottomCenterTextIcon}>
+      <SubHeading icon={ChatBubbleBottomCenterTextIcon}>
         {intl.formatMessage(messages.rationale)}
       </SubHeading>
       <p className="my-6">
