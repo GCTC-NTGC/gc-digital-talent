@@ -23,7 +23,7 @@ class AnnouncementFactory extends BaseFactory
         $publishDate = $this->faker->dateTimeBetween('-1 month', 'now');
 
         return [
-            'key' => 'sitewide_announcement',
+            'key' => $this->faker->slug(),
             'title' => $this->localizedString(),
             'message' => $this->localizedString(null, 'paragraph'),
             'is_enabled' => $this->faker->boolean(),
@@ -31,5 +31,12 @@ class AnnouncementFactory extends BaseFactory
             'publish_date' => $publishDate,
             'expiry_date' => $this->faker->dateTimeBetween($publishDate, '+1 month'),
         ];
+    }
+
+    public function sitewide(): self
+    {
+        return $this->state(function () {
+            return ['key' => 'sitewide_announcement'];
+        });
     }
 }
