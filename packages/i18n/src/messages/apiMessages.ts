@@ -512,6 +512,11 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "m/VZ/H",
     description: "Error message for when a user is not verified",
   },
+  [ErrorCode.YouMustBeVerifiedEmployeeForAction]: {
+    defaultMessage: "You must be a verified employee to perform this action.",
+    id: "cHgzmF",
+    description: "Error message for when a user is not verified",
+  },
   [ErrorCode.TalentEventIsClosed]: {
     defaultMessage:
       "The deadline for this talent management event has passed. You can no longer submit a nomination.",

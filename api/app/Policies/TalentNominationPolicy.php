@@ -2,9 +2,11 @@
 
 namespace App\Policies;
 
+use App\Enums\ErrorCode;
 use App\Models\TalentNomination;
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 
 class TalentNominationPolicy
 {
@@ -40,13 +42,20 @@ class TalentNominationPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $actor): bool
+    public function create(?User $actor): Response
     {
-        if ($actor->isVerifiedGovEmployee && $actor->isAbleTo('create-own-talentNomination')) {
-            return true;
+        // special disqualifications
+        if (! $actor?->isVerifiedGovEmployee) {
+            return Response::deny(ErrorCode::YOU_MUST_BE_VERIFIED_EMPLOYEE_FOR_ACTION->name);
         }
 
-        return false;
+        // regular permission checks
+        if ($actor?->isAbleTo('create-own-talentNomination')) {
+            return Response::allow();
+        }
+
+        // fall through
+        return Response::deny();
     }
 
     /**
