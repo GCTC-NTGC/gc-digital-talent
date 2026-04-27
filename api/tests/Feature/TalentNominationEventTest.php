@@ -128,7 +128,7 @@ class TalentNominationEventTest extends TestCase
                     ...$this->input,
                     'community' => ['connect' => $this->communityId],
                     'communityDevelopmentPrograms' => [
-                        'connect' => [
+                        'sync' => [
                             [
                                 'id' => $this->communityDevelopmentProgramId,
                                 'descriptionForNominations' => [
@@ -295,5 +295,32 @@ class TalentNominationEventTest extends TestCase
                 ],
             ])
             ->assertGraphQLValidationError('talentNominationEvent.community.connect', ErrorCode::COMMUNITY_NOT_FOUND->name);
+    }
+
+    // Assert community check for selected development programs
+    public function testDevelopmentProgramInCommunityValidation()
+    {
+        $newCommunity = Community::factory()->create();
+        $developmentProgram = DevelopmentProgram::factory()->create();
+        $newCommunityDevelopmentProgram = CommunityDevelopmentProgram::create([
+            'community_id' => $newCommunity->id,
+            'development_program_id' => $developmentProgram->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNominationEvent' => [
+                    ...$this->input,
+                    'community' => ['connect' => $this->communityId],
+                    'communityDevelopmentPrograms' => [
+                        'sync' => [
+                            [
+                                'id' => $newCommunityDevelopmentProgram->id,
+                            ],
+                        ],
+                    ],
+                ],
+            ])
+            ->assertGraphQLValidationError('talentNominationEvent.communityDevelopmentPrograms.sync.0.id', ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name);
     }
 }

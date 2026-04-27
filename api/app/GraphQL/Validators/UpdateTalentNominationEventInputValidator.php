@@ -3,6 +3,8 @@
 namespace App\GraphQL\Validators;
 
 use App\Enums\ErrorCode;
+use App\Models\CommunityDevelopmentProgram;
+use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class UpdateTalentNominationEventInputValidator extends Validator
@@ -14,9 +16,18 @@ final class UpdateTalentNominationEventInputValidator extends Validator
      */
     public function rules(): array
     {
+        $communityId = $this->arg('community.connect');
+        $communityDevelopmentProgramIds = $communityId ?
+            CommunityDevelopmentProgram::where('community_id', $communityId)->get('id')->pluck('id')
+            : [];
+
         return [
             'community.connect' => ['uuid', 'exists:communities,id'],
-            'communityDevelopmentPrograms.connect.*.id' => ['uuid', 'exists:community_development_program,id'],
+            'communityDevelopmentPrograms.sync.*.id' => [
+                'uuid',
+                'exists:community_development_program,id',
+                Rule::in($communityDevelopmentProgramIds),
+            ],
             'description.en' => ['nullable', 'required_with:description.fr', 'string'],
             'description.fr' => ['nullable', 'required_with:description.en', 'string'],
             'learnMoreUrl.en' => ['nullable', 'required_with:learnMoreUrl.fr', 'string', 'url'],
@@ -31,7 +42,8 @@ final class UpdateTalentNominationEventInputValidator extends Validator
     {
         return [
             'community.connect.exists' => ErrorCode::COMMUNITY_NOT_FOUND->name,
-            'communityDevelopmentPrograms.connect.*.exists' => ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND->name,
+            'communityDevelopmentPrograms.sync.*.id.exists' => ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND->name,
+            'communityDevelopmentPrograms.sync.*.id.in' => ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name,
         ];
     }
 }
