@@ -1813,13 +1813,13 @@ type CandidateSearchPoolResult {
 }
 
 type SitewideAnnouncement {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
-  updatedAt: DateTime!
+  isEnabled: Boolean!
   isDismissible: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  updatedAt: DateTime!
 }
 
 type TrainingOpportunity {
@@ -1842,12 +1842,12 @@ input TrainingOpportunitiesFilterInput {
 }
 
 input SitewideAnnouncementInput {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isEnabled: Boolean!
   isDismissible: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
 }
 
 input ClaimVerificationSort {
