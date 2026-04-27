@@ -1,0 +1,35 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Announcement;
+
+class AnnouncementFactory extends BaseFactory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Announcement::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $publishDate = $this->faker->dateTimeBetween('-1 month', 'now');
+
+        return [
+            'key' => 'sitewide_announcement',
+            'title' => $this->localizedString(),
+            'message' => $this->localizedString(null, 'paragraph'),
+            'is_enabled' => $this->faker->boolean(),
+            'is_dismissible' => $this->faker->boolean(),
+            'publish_date' => $publishDate,
+            'expiry_date' => $this->faker->dateTimeBetween($publishDate, '+1 month'),
+        ];
+    }
+}
