@@ -31,9 +31,9 @@ import permissionConstants from "~/constants/permissionConstants";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
 
 import type { RouteParams } from "./types";
-import DevelopmentProgramCard from "../components/DevelopmentProgramCard";
 import { statusCell } from "../components/helpers";
 
 const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
@@ -98,6 +98,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
     !talentEvent.closeDate || isFuture(parseDateTimeUtc(talentEvent.closeDate));
 
   const StatusChip = statusCell(talentEvent.status);
+  const notFound = intl.formatMessage(commonMessages.notFound);
 
   return (
     <>
@@ -200,7 +201,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
               {talentEvent.learnMoreUrl.en}
             </Link>
           ) : (
-            intl.formatMessage(commonMessages.notProvided)
+            <p>{intl.formatMessage(commonMessages.notProvided)}</p>
           )}
         </>
         <>
@@ -215,7 +216,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
               {talentEvent.learnMoreUrl.fr}
             </Link>
           ) : (
-            intl.formatMessage(commonMessages.notProvided)
+            <p>{intl.formatMessage(commonMessages.notProvided)}</p>
           )}
         </>
         <p>
@@ -327,14 +328,16 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           </p>
           {developmentPrograms.length > 0 ? (
             <div className="rounded-md border border-gray-200">
-              {developmentPrograms.map((dp) => (
-                <DevelopmentProgramCard
-                  key={dp.id}
-                  title={dp.name.localized}
-                  description={dp.descriptionForProfile.localized}
-                  actions={false}
-                />
-              ))}
+              <DevelopmentProgramCard.Root>
+                {developmentPrograms.map((dp) => (
+                  <DevelopmentProgramCard.Item
+                    key={dp.id}
+                    title={dp.name.localized ?? notFound}
+                    description={dp.descriptionForProfile.localized ?? notFound}
+                    actions={false}
+                  />
+                ))}
+              </DevelopmentProgramCard.Root>
             </div>
           ) : (
             intl.formatMessage(commonMessages.notProvided)

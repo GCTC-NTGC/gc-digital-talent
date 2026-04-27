@@ -58,12 +58,13 @@ import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import processMessages from "~/messages/processMessages";
+import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
 
 import type { RouteParams } from "./TalentEvent/types";
 import { isCommunity } from "./TalentEvent/util";
-import DevelopmentProgramCard from "./components/DevelopmentProgramCard";
 import DevelopmentProgramDialog from "./components/DevelopmentProgramDialog";
 import ActiveTalentEventForm from "./components/ActiveTalentEventForm";
+import RemoveDevelopmentProgramDialog from "./components/RemoveDevelopmentProgramDialog";
 
 const openDate = defineMessage({
   defaultMessage: "Open date",
@@ -319,6 +320,8 @@ const UpdateTalentEventForm = ({
     }
   }, [watchCommunity]);
 
+  const notFound = intl.formatMessage(commonMessages.notFound);
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -523,26 +526,55 @@ const UpdateTalentEventForm = ({
                   </Notice.Root>
                 ) : (
                   <div className="rounded-md border border-gray-200">
-                    {fields.map((field, index) => {
-                      const developmentProgram = developmentProgramOptions.find(
-                        ({ value }) => value === field.value,
-                      );
+                    <DevelopmentProgramCard.Root>
+                      {fields.map((field, index) => {
+                        const developmentProgram =
+                          developmentProgramOptions.find(
+                            ({ value }) => value === field.value,
+                          );
 
-                      return (
-                        <DevelopmentProgramCard
-                          key={field.id}
-                          title={developmentProgram?.label}
-                          description={developmentProgram?.description}
-                          developmentProgramOptions={developmentProgramOptions}
-                          defaultValues={{
-                            value: field.value,
-                            description: field.description,
-                          }}
-                          onEdit={(values) => update(index, values)}
-                          onRemove={() => remove(index)}
-                        />
-                      );
-                    })}
+                        return (
+                          <DevelopmentProgramCard.Item
+                            key={field.id}
+                            title={developmentProgram?.label ?? notFound}
+                            description={
+                              developmentProgram?.description ?? notFound
+                            }
+                            iconLabel={intl.formatMessage(
+                              {
+                                defaultMessage:
+                                  "More actions for development opportunity {title}",
+                                id: "L8zYRQ",
+                                description:
+                                  "Aria label for the menu trigger for development program actions",
+                              },
+                              {
+                                title: developmentProgram?.label,
+                              },
+                            )}
+                            edit={
+                              <DevelopmentProgramDialog
+                                developmentProgramOptions={
+                                  developmentProgramOptions
+                                }
+                                defaultValues={{
+                                  value: field.value,
+                                  description: field.description,
+                                }}
+                                onSubmit={(values) => update(index, values)}
+                                edit
+                              />
+                            }
+                            remove={
+                              <RemoveDevelopmentProgramDialog
+                                title={developmentProgram?.label}
+                                onRemove={() => remove(index)}
+                              />
+                            }
+                          />
+                        );
+                      })}
+                    </DevelopmentProgramCard.Root>
                   </div>
                 )}
               </>
