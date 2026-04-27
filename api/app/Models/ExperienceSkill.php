@@ -46,6 +46,6 @@ class ExperienceSkill extends Model
 
     public function skill(): HasOneDeep
     {
-        return $this->hasOneDeepFromRelations($this->userSkill(), (new UserSkill)->skill());
+        return $this->hasOneDeepFromRelations($this->userSkill(), (new UserSkill())->skill());
     }
 }

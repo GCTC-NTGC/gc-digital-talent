@@ -42,7 +42,7 @@ final class CreateTalentNominationInputValidator extends Validator
                 'prohibited_unless:submitterRelationshipToNominator,'.TalentNominationSubmitterRelationshipToNominator::OTHER->name,
                 'string',
             ],
-            'nominatorFallbackWorkEmail' => [new GovernmentEmailRegex],
+            'nominatorFallbackWorkEmail' => [new GovernmentEmailRegex()],
             'nominatorFallbackName' => ['string'],
             'nominatorFallbackClassification' => ['required_array_keys:connect'],
             'nominatorFallbackClassification.connect' => [
@@ -87,7 +87,7 @@ final class CreateTalentNominationInputValidator extends Validator
                 'nullable',
                 Rule::in(array_column(TalentNominationUserReview::cases(), 'name')),
             ],
-            'advancementReferenceFallbackWorkEmail' => ['nullable', new GovernmentEmailRegex],
+            'advancementReferenceFallbackWorkEmail' => ['nullable', new GovernmentEmailRegex()],
             'advancementReferenceFallbackName' => ['string', 'nullable'],
             'advancementReferenceFallbackClassification.connect' => [
                 'uuid',

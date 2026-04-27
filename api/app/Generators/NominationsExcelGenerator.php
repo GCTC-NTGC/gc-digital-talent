@@ -180,7 +180,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet;
+        $this->spreadsheet = new Spreadsheet();
 
         // Nominations overview sheet
         $overviewSheet = $this->spreadsheet->getActiveSheet();
