@@ -323,4 +323,72 @@ class TalentNominationEventTest extends TestCase
             ])
             ->assertGraphQLValidationError('talentNominationEvent.communityDevelopmentPrograms.sync.0.id', ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name);
     }
+
+    // test conditionally blocking of editing closing date sooner
+    public function testMovingClosingDateSoonerBlockedForActiveEvents()
+    {
+        $futureOpenDate = '2050-01-01 01:23:45';
+        $currentOpenDate = '2025-01-01 01:23:45';
+
+        $futureClosingDate = '2100-01-01 01:23:45';
+        $slightlySoonerClosingDate = '2099-01-01 01:23:45';
+
+        $futureTalentNominationEvent = TalentNominationEvent::factory()->create([
+            'community_id' => $this->communityId,
+            'open_date' => $futureOpenDate,
+            'close_date' => $futureClosingDate,
+        ]);
+        $activeTalentNominationEvent = TalentNominationEvent::factory()->create([
+            'community_id' => $this->communityId,
+            'open_date' => $currentOpenDate,
+            'close_date' => $futureClosingDate,
+        ]);
+
+        // moving closing date sooner, but not before open, for a not-yet active event works
+        $this->actingAs($this->admin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        name { en fr }
+                        openDate
+                        closeDate
+                    }
+                }
+                GRAPHQL, [
+                'id' => $futureTalentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'name' => ['en' => 'New EN', 'fr' => 'New FR'],
+                    'openDate' => $futureOpenDate,
+                    'closeDate' => $slightlySoonerClosingDate,
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'updateTalentNominationEvent' => [
+                        'id' => $futureTalentNominationEvent->id,
+                        'openDate' => $futureOpenDate,
+                        'closeDate' => $slightlySoonerClosingDate,
+                    ],
+                ],
+            ]);
+
+        // moving closing date sooner, but not before open, for an active event fails
+        $this->actingAs($this->talentCoordinator, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        name { en fr }
+                    }
+                }
+                GRAPHQL, [
+                'id' => $activeTalentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'openDate' => $currentOpenDate,
+                    'closeDate' => $slightlySoonerClosingDate,
+                ],
+            ])
+            ->assertGraphQLErrorMessage('Validation failed for the field [updateTalentNominationEvent].');
+    }
 }

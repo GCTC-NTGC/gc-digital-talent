@@ -2471,7 +2471,7 @@ input CreateTalentNominationEventInput @validator {
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
-input UpdateTalentNominationEventInput @validator {
+input UpdateTalentNominationEventInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   openDate: DateTime @rename(attribute: "open_date")
@@ -3783,6 +3783,9 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+    @validator(
+      class: "App\\GraphQL\\Validators\\UpdateTalentNominationEventInputValidator"
+    )
 
   # Talent nomination mutations
   createTalentNomination(
