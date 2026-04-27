@@ -226,7 +226,7 @@ class Activity extends SpatieActivity
 
             return $query->where(function (Builder $authQuery) use ($authorizedPoolIds) {
                 $authQuery->where(function ($q) use ($authorizedPoolIds) {
-                    $q->where('subject_type', (new Pool)->getMorphClass())
+                    $q->where('subject_type', (new Pool())->getMorphClass())
                         ->whereIn('subject_id', $authorizedPoolIds);
                 })
                     ->orWhere(function ($q) use ($authorizedPoolIds) {

@@ -55,7 +55,7 @@ abstract class Experience extends Model
 
     public function skills(): HasManyDeep
     {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill())
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill())
             ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
             ->whereNull('experience_skill.deleted_at')
             ->withTrashed(); // from the deep relation $this->userSkills->skills fetch soft deleted skills but not userSkills
@@ -206,7 +206,7 @@ abstract class Experience extends Model
                     'details' => 'details',
                 ];
 
-                $model = new $hydrationModel;
+                $model = new $hydrationModel();
                 $experiences[] = self::hydrateFields($experience, $fields, $model);
             }
         }
