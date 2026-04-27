@@ -32,6 +32,7 @@ class Announcement extends Model
     public $incrementing = false;
 
     protected $fillable = [
+        'key',
         'is_enabled',
         'publish_date',
         'expiry_date',
