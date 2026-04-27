@@ -51,7 +51,7 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
     protected function setup()
     {
 
-        $this->doc = new PhpWord;
+        $this->doc = new PhpWord();
 
         $this->doc->addTitleStyle(1, ['size' => 22, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
         $this->doc->addTitleStyle(2, ['size' => 18, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);

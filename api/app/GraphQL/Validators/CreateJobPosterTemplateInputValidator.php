@@ -18,7 +18,7 @@ final class CreateJobPosterTemplateInputValidator extends Validator
     {
         return [
             'referenceId' => ['required', 'string', 'unique:job_poster_templates,reference_id'],
-            'jobPosterTemplateSkills.create.*.requiredLevel' => [new SkillLevelRequiredIfEssential],
+            'jobPosterTemplateSkills.create.*.requiredLevel' => [new SkillLevelRequiredIfEssential()],
         ];
     }
 }

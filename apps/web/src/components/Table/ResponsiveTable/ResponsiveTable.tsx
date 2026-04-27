@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router";
+import { useLocation, useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
 import debounce from "lodash/debounce";
@@ -95,6 +95,11 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 }: TableProps<TData, TFilters>) => {
   const id = useId();
   const intl = useIntl();
+  const location = useLocation();
+  // Store location state so we don't lose it when
+  // syncing state with the URL
+  const locationStateRef = useRef<unknown>(location.state);
+  locationStateRef.current = location.state;
   // Tracks the URL params this table last wrote. Compared against desired state before
   // each write so back-button navigation (which changes URL but not table state) doesn't
   // trigger a competing setSearchParams call during the route transition.
@@ -281,7 +286,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
         Object.fromEntries(managedKeys.map((key) => [key, newParams.get(key)]));
 
       if (!isEqual(desiredTableParams, lastWrittenTableParamsRef.current)) {
-        setSearchParams(newParams, { replace: true });
+        setSearchParams(newParams, {
+          replace: true,
+          state: locationStateRef.current,
+        });
         lastWrittenTableParamsRef.current = desiredTableParams;
       }
     }
