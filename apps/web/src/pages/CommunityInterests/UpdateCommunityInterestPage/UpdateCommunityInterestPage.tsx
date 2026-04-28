@@ -146,12 +146,6 @@ const UpdateCommunityInterestForm = ({
     defaultValues: assignToDefaultValues,
   });
 
-  // for some reason this field is not cooperating...
-  formMethods.setValue(
-    "communityInterestAdditionalDuties",
-    assignToDefaultValues.communityInterestAdditionalDuties,
-  );
-
   return (
     <>
       <FormProvider {...formMethods}>
