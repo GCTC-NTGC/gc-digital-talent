@@ -37,7 +37,9 @@ class DevelopmentProgramUser extends Model
         'completion_date',
     ];
 
-    protected $casts = [];
+    protected $casts = [
+        'completion_date' => 'datetime',
+    ];
 
     //
     // Relations
