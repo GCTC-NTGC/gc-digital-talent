@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
-use App\Enums\ErrorCode;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class SitewideAnnouncementInputValidator extends Validator
@@ -25,18 +24,6 @@ final class SitewideAnnouncementInputValidator extends Validator
             'message.fr' => ['required', 'string'],
             'publishDate' => ['required', 'date'],
             'expiryDate' => ['required', 'date', 'after:publishDate'],
-        ];
-    }
-
-    /**
-     * Return the validation messages.
-     *
-     * @return array<string, string>
-     */
-    public function messages(): array
-    {
-        return [
-            /* 'expiryDate.after' => ErrorCode::EXPIRY_DATE_AFTER_TODAY->name, */
         ];
     }
 }
