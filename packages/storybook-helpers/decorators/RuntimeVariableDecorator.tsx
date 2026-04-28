@@ -74,9 +74,13 @@ const RuntimeVariableDecorator: Decorator = (Story) => {
       serverConfig.set(key, value);
     });
 
-    // Cleanup: Restore original values on unmount or when variables change
+    // Cleanup: only restore values that this decorator instance still owns.
+    // If another mounted story has since changed the same key, leave it alone.
     return () => {
-      Object.keys(runtimeVariables).forEach((key) => {
+      Object.entries(runtimeVariables).forEach(([key, value]) => {
+        if (serverConfig.get(key) !== value) {
+          return;
+        }
         const originalValue = originalValues.get(key);
         if (originalValue !== undefined) {
           serverConfig.set(key, originalValue);
