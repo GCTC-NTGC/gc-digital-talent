@@ -225,7 +225,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet;
+        $this->spreadsheet = new Spreadsheet();
 
         // Users sheet
         $usersSheet = $this->spreadsheet->getActiveSheet();
