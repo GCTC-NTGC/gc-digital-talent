@@ -86,7 +86,6 @@ const RuntimeVariableDecorator: Decorator = (Story) => {
     // Cleanup: only restore values that this decorator instance still owns.
     // If another mounted story has since changed the same key, leave it alone.
     return () => {
-      setReady(false);
       Object.entries(runtimeVariables).forEach(([key, value]) => {
         if (serverConfig.get(key) !== value) {
           return;
