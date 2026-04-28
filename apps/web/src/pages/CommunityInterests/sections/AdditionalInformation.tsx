@@ -108,7 +108,7 @@ const AdditionalInformation = ({
     }
 
     // if not a finance OR procurement then clear additional duties
-    if (!selectedFinanceIsChief || !selectedProcurementIsSDO) {
+    if (!selectedFinanceIsChief && !selectedProcurementIsSDO) {
       resetDirtyField("communityInterestAdditionalDuties", []);
     }
 
