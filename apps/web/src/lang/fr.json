@@ -1175,10 +1175,6 @@
     "defaultMessage": "Parcours de transition de votre compte",
     "description": "Heading for the account transition journey section on the sign in page"
   },
-  "2bKnmd": {
-    "defaultMessage": "Si vous êtes à l'emploi du gouvernement, il s’agit de la dernière étape pour déverrouiller les outils destinés aux employés.",
-    "description": "Text for first registration step, final step for government employees"
-  },
   "2cTfGX": {
     "defaultMessage": "À quoi s’attendre",
     "description": "Label for What to expect textarea in the edit pool page."
@@ -1462,6 +1458,10 @@
   "3jpTNK": {
     "defaultMessage": "Cette revendication a été vérifiée",
     "description": "Label for the verified claim option"
+  },
+  "3lu+JJ": {
+    "defaultMessage": "Si vous êtes à l'emploi du gouvernement, il s’agit de la dernière étape pour déverrouiller les outils destinés aux employés.",
+    "description": "Text for first registration -> create step."
   },
   "3owqTQ": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement.",
@@ -9894,10 +9894,6 @@
     "defaultMessage": "Sauvegarder l’annonce à l’échelle du site",
     "description": "Text on a button to save the sitewide announcement"
   },
-  "dzXJ2h": {
-    "defaultMessage": "Vous pouvez gérer votre profil et vos paramètres de sécurité ConnexionCanada sur le site de ConnexionCanada.",
-    "description": "Text for first registration step, manage CanadaLogin profile and security settings"
-  },
   "dztCCI": {
     "defaultMessage": "Pour continuer, veuillez nous indiquer qui est la personne de référence.",
     "description": "Error message when a reference has not been set for a nomination"
@@ -12397,6 +12393,10 @@
   "nqNCB/": {
     "defaultMessage": "Veuillez indiquer la raison de la clôture hâtive de ce processus.",
     "description": "Helper message for closing the process early"
+  },
+  "nup4Ey": {
+    "defaultMessage": "Vous pouvez gérer votre profil et vos paramètres de sécurité ConnexionCanada sur le site de ConnexionCanada.",
+    "description": "Text for first registration -> create step."
   },
   "nvPSBj": {
     "defaultMessage": "Non épinglé en haut des possibilités de formation",
