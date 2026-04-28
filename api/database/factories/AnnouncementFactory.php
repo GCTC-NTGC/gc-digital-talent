@@ -20,7 +20,7 @@ class AnnouncementFactory extends BaseFactory
      */
     public function definition()
     {
-        $publishDate = $this->faker->dateTimeBetween('-1 month', 'now');
+        $publishDate = $this->faker->dateTimeBetween('2025-03-15', '2026-03-15');
 
         return [
             'key' => $this->faker->slug(),
