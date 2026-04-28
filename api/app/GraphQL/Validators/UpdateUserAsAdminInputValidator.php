@@ -53,7 +53,7 @@ final class UpdateUserAsAdminInputValidator extends Validator
                 'nullable',
                 Rule::unique('users', 'sub')->ignore($this->arg('id'), 'id'),
             ],
-            'indigenousCommunities' => [new IsStatusOrNonStatus],
+            'indigenousCommunities' => [new IsStatusOrNonStatus()],
         ];
     }
 

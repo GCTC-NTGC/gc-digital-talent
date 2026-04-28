@@ -15,16 +15,16 @@ final class PublishPoolValidator extends Validator
      */
     public function rules(): array
     {
-        $completenessRules = (new PoolIsCompleteValidator)->rules();
+        $completenessRules = (new PoolIsCompleteValidator())->rules();
         // requirements for a pool to be promoted from "complete" to "published"
-        $publishingRules = (new AssessmentPlanIsCompleteValidator)->rules();
+        $publishingRules = (new AssessmentPlanIsCompleteValidator())->rules();
 
         return array_merge($completenessRules, $publishingRules);
     }
 
     public function messages(): array
     {
-        $completenessMessages = (new PoolIsCompleteValidator)->messages();
+        $completenessMessages = (new PoolIsCompleteValidator())->messages();
         $publishingMessages = []; // messages for a pool to be promoted from "complete" to "published"
 
         return array_merge($completenessMessages, $publishingMessages);

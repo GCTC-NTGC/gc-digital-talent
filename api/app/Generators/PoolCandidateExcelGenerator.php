@@ -134,7 +134,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet;
+        $this->spreadsheet = new Spreadsheet();
 
         $sheet = $this->spreadsheet->getActiveSheet();
 
