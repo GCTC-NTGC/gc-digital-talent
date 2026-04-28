@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import type { Decorator } from "@storybook/react-vite";
 import { useParameter } from "storybook/preview-api";
 
@@ -58,8 +58,15 @@ const RuntimeVariableDecorator: Decorator = (Story) => {
     undefined,
   );
 
-  useEffect(() => {
-    if (!runtimeVariables) return undefined;
+  // Gate rendering until variables are applied so the story's initial render
+  // always sees the correct values (useEffect fires after paint and is too late).
+  const [ready, setReady] = useState(false);
+
+  useLayoutEffect(() => {
+    if (!runtimeVariables) {
+      setReady(true);
+      return undefined;
+    }
 
     const serverConfig = getServerConfig();
 
@@ -69,14 +76,17 @@ const RuntimeVariableDecorator: Decorator = (Story) => {
       originalValues.set(key, serverConfig.get(key));
     });
 
-    // Set the runtime variables
+    // Set the runtime variables before the story renders
     Object.entries(runtimeVariables).forEach(([key, value]) => {
       serverConfig.set(key, value);
     });
 
+    setReady(true);
+
     // Cleanup: only restore values that this decorator instance still owns.
     // If another mounted story has since changed the same key, leave it alone.
     return () => {
+      setReady(false);
       Object.entries(runtimeVariables).forEach(([key, value]) => {
         if (serverConfig.get(key) !== value) {
           return;
@@ -91,6 +101,7 @@ const RuntimeVariableDecorator: Decorator = (Story) => {
     };
   }, [runtimeVariables]);
 
+  if (!ready) return null;
   return Story();
 };
 
