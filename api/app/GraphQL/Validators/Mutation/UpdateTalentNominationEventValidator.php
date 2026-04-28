@@ -24,7 +24,7 @@ final class UpdateTalentNominationEventValidator extends Validator
             : [];
 
         // for active event prevent moving closing date sooner
-        $thisEvent = TalentNominationEvent::find($this->arg('id'));
+        $thisEvent = TalentNominationEvent::findOrFail($this->arg('id'));
         /** @var TalentNominationEvent $thisEvent */
         $eventStatus = $thisEvent->status;
         $storedCloseDate = $thisEvent->close_date ?? null;
