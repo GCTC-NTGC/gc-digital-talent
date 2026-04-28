@@ -10,8 +10,8 @@ FROM ubuntu:24.04
 # then update again and install everything else
 # installing tzdata has an interactive prompt by default
 RUN apt-get update \
-  && apt-get install -y software-properties-common \
-  && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common \
+  && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php -y \
   && apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
   && apt-get install -y perl unzip wget curl \

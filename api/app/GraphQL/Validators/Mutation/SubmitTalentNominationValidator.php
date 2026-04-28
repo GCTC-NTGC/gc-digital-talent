@@ -59,7 +59,7 @@ final class SubmitTalentNominationValidator extends Validator
                 'required_if:nominator_id,null',
                 'prohibited_unless:nominator_id,null',
                 'nullable',
-                new GovernmentEmailRegex,
+                new GovernmentEmailRegex(),
             ],
             'nominator_fallback_name' => [
                 'required_if:nominator_id,null',
@@ -124,7 +124,7 @@ final class SubmitTalentNominationValidator extends Validator
                 'prohibited_unless:advancement_reference_id,null',
                 'required_with:advancement_reference_fallback_name,advancement_reference_fallback_classification_id,advancement_reference_fallback_department_id',
                 'nullable',
-                new GovernmentEmailRegex,
+                new GovernmentEmailRegex(),
             ],
             'advancement_reference_fallback_name' => [
                 'required_with:advancement_reference_fallback_work_email,advancement_reference_fallback_classification_id,advancement_reference_fallback_department_id',

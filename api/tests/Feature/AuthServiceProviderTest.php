@@ -79,7 +79,7 @@ class AuthServiceProviderTest extends TestCase
         $mockTokenService = \Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
             ->with($fakeToken)
-            ->andThrow(new \Error);
+            ->andThrow(new \Error());
 
         try {
             $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
@@ -109,7 +109,7 @@ class AuthServiceProviderTest extends TestCase
         $this->assertDatabaseMissing('users', ['sub' => $testSub]);
 
         // manually add the user with the sub
-        $existingUser = new User;
+        $existingUser = new User();
         $existingUser->sub = $testSub;
         $existingUser->first_name = 'test';
         $existingUser->save();

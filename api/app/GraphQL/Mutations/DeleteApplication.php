@@ -17,7 +17,7 @@ final class DeleteApplication
     {
         // grab the specific application, validate to ensure the status of the application is DRAFT or DRAFT_EXPIRED
         $application = PoolCandidate::find($args['id']);
-        $deletionValidator = new DeleteApplicationValidator;
+        $deletionValidator = new DeleteApplicationValidator();
         $validator = Validator::make($application->toArray(), $deletionValidator->rules(), $deletionValidator->messages());
         if ($validator->fails()) {
             throw new ValidationException($validator->errors()->first(), $validator);

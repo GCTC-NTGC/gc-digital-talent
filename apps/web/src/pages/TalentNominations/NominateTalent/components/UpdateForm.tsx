@@ -4,6 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import type { UpdateTalentNominationInput } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
+import { Card } from "@gc-digital-talent/ui";
 
 import type { BaseFormValues } from "../types";
 import useMutations from "../useMutations";
@@ -53,12 +54,14 @@ const UpdateForm = <TFormValues extends BaseFormValues>({
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        {children}
-        <Actions />
-      </form>
-    </FormProvider>
+    <Card>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
+          {children}
+          <Actions />
+        </form>
+      </FormProvider>
+    </Card>
   );
 };
 
