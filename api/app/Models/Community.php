@@ -112,7 +112,7 @@ class Community extends Model
 
     public function developmentProgramsThroughPivot(): HasManyDeep
     {
-        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram)->developmentProgram());
+        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram())->developmentProgram());
     }
 
     /**

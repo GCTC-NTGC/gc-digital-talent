@@ -306,35 +306,37 @@ export const Component = () => {
                 "Heading for section of the registration page showing the create steps",
             })}
           </Heading>
-
           <InstructionsCardGrid columns={3}>
             <InstructionsStepCard
               className="rounded-t-md rounded-b-none pt-12 pb-7.5 xs:rounded-l-md xs:rounded-r-none"
               img={{ src: canadaLoginStep4, darkSrc: canadaLoginStep4Dark }}
             >
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Set up two-step verification.",
-                  id: "D/Tcaj",
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
-              <p className="mt-4">
-                {intl.formatMessage({
-                  defaultMessage: "Enter your personal phone number.",
-                  id: "XUt7q+",
-                  description: "Text for first registration -> create step.",
-                })}
-              </p>
-              <div className="mt-2 mb-6.75">
-                <span className="text-sm font-normal text-gray-500 dark:text-gray-100">
+              <div className="mb-6.75 space-y-4 text-center">
+                <p>
                   {intl.formatMessage({
-                    defaultMessage:
-                      "Using a personal phone number will help ensure you don't lose access if you change jobs.",
-                    id: "QbJmAL",
+                    defaultMessage: "Set up two-step verification.",
+                    id: "D/Tcaj",
                     description: "Text for first registration -> create step.",
                   })}
-                </span>
+                </p>
+                <p className="mt-4">
+                  {intl.formatMessage({
+                    defaultMessage: "Enter your personal phone number.",
+                    id: "XUt7q+",
+                    description: "Text for first registration -> create step.",
+                  })}
+                </p>
+                <div className="mt-4">
+                  <p className="text-sm font-normal text-gray-500 dark:text-gray-100">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Using a personal phone number will help ensure you don't lose access if you change jobs.",
+                      id: "QbJmAL",
+                      description:
+                        "Text for first registration -> create step.",
+                    })}
+                  </p>
+                </div>
               </div>
             </InstructionsStepCard>
 
@@ -393,7 +395,6 @@ export const Component = () => {
               </p>
             </InstructionsStepCard>
           </InstructionsCardGrid>
-
           <Heading
             level="h3"
             size="h4"
@@ -406,7 +407,6 @@ export const Component = () => {
                 "Heading for section of the registration page showing the create steps",
             })}
           </Heading>
-
           <InstructionsCardGrid columns={3}>
             <InstructionsStepCard
               className="rounded-t-md rounded-b-none pt-12 pb-7.5 xs:rounded-l-md xs:rounded-r-none"
@@ -505,7 +505,7 @@ export const Component = () => {
             className="my-5 mt-4"
           >
             <Accordion.Item value="one">
-              <Accordion.Trigger as="h3">
+              <Accordion.Trigger as="h4">
                 {intl.formatMessage(canadaLoginMessages.haveCanadaLogin)}
               </Accordion.Trigger>
               <Accordion.Content>
@@ -517,7 +517,7 @@ export const Component = () => {
               </Accordion.Content>
             </Accordion.Item>
             <Accordion.Item value="two">
-              <Accordion.Trigger as="h3">
+              <Accordion.Trigger as="h4">
                 {intl.formatMessage(canadaLoginMessages.whatIsCanadaLogin)}
               </Accordion.Trigger>
               <Accordion.Content>
@@ -529,7 +529,7 @@ export const Component = () => {
               </Accordion.Content>
             </Accordion.Item>
             <Accordion.Item value="three">
-              <Accordion.Trigger as="h3">
+              <Accordion.Trigger as="h4">
                 {intl.formatMessage(canadaLoginMessages.contactCanadaLogin)}
               </Accordion.Trigger>
               <Accordion.Content>

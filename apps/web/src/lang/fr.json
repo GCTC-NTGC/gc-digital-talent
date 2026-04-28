@@ -299,6 +299,10 @@
     "defaultMessage": "« Je suis métisse ou métis »",
     "description": "Label text for Métis community declaration"
   },
+  "/86QL/": {
+    "defaultMessage": "Temps restant : <strong>{remainingTime, plural, zero {0 seconde} one {# seconde} other {# secondes} }</strong>",
+    "description": "Inactivity timer remaining time in seconds"
+  },
   "/8hZcv": {
     "defaultMessage": "Recherche dans le Nuage de talents",
     "description": "Title for information about the talent cloud research"
@@ -6527,6 +6531,10 @@
     "defaultMessage": "Visionnez et modifiez vos paramètres pour cette collectivité.",
     "description": "Subtitle for dialog viewing a community interest"
   },
+  "PRaqZT": {
+    "defaultMessage": "Si vous ne continuez pas votre session, la déconnexion se fera automatiquement et toute modification non enregistrée sera perdue.",
+    "description": "Body for the inactivity dialog"
+  },
   "PSIaKn": {
     "defaultMessage": "Statut de direction ou de supervision",
     "description": "Label for supervisory position field"
@@ -8686,6 +8694,10 @@
     "defaultMessage": "arrive à échéance le {expiryDate}",
     "description": "Message part for expiry date"
   },
+  "Yn2mVD": {
+    "defaultMessage": "Avertissement",
+    "description": "Accessible label for a warning icon"
+  },
   "Ynxi7g": {
     "defaultMessage": "Note spéciale relative aux compétences techniques constituant un atout",
     "description": "The nonessential technical skills special note for a job poster template"
@@ -8957,6 +8969,10 @@
   "a0VxCM": {
     "defaultMessage": "Vous n’avez pas créé d’expériences de carrière sur votre chronologie de carrière.",
     "description": "Message displayed when user has no experiences to feature on a skill."
+  },
+  "a2P3C0": {
+    "defaultMessage": "Temps restant : <strong>{remainingTime, plural, zero {0 minute} one {# minute} other {# minutes} }</strong>",
+    "description": "Inactivity timer remaining time in minutes"
   },
   "a3epXH": {
     "defaultMessage": "Erreur : Vous n’avez pas réussi à établir un lien avec l’expérience",
@@ -9249,6 +9265,10 @@
   "bW4lM0": {
     "defaultMessage": "Formation non classique",
     "description": "Experience requirement, non-conventional training."
+  },
+  "bZP+NM": {
+    "defaultMessage": "Continuer la session",
+    "description": "Choose to stay signed in to the app"
   },
   "baAj/Z": {
     "defaultMessage": "Sélectionner une expérience",
@@ -9973,6 +9993,10 @@
   "eKPE3F": {
     "defaultMessage": "Vous ne recevez pas de possibilités découlant de ce recrutement.",
     "description": "Message displayed when a user has suspended an application to a recruitment"
+  },
+  "eMMDjW": {
+    "defaultMessage": "Votre session va bientôt se terminer en raison de l'inactivité",
+    "description": "Title for the inactivity dialog"
   },
   "eMrYDr": {
     "defaultMessage": "Compte d'utilisateur supprimé",
@@ -11865,6 +11889,10 @@
   "m0Qcow": {
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the search request table requested date column."
+  },
+  "m163e9": {
+    "defaultMessage": "Voulez-vous continuer votre session?",
+    "description": "Call to action in the inactivity dialog"
   },
   "m1eQrS": {
     "defaultMessage": "Canada.ca",

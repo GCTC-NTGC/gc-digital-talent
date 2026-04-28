@@ -108,14 +108,18 @@ const List = forwardRef<
   </NavigationMenuPrimitive.List>
 ));
 
+const item = tv({
+  base: "w-full sm:relative sm:w-auto data-[state=active]:[&_span]:font-bold! data-[state=active]:[&_span]:no-underline!",
+});
+
 const Item = forwardRef<
   ComponentRef<typeof NavigationMenuPrimitive.Item>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item>
->((props, forwardedRef) => (
+>(({ className, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.Item
     ref={forwardedRef}
-    {...props}
-    className={`w-full sm:relative sm:w-auto data-[state=active]:[&_span]:font-bold! data-[state=active]:[&_span]:no-underline! ${props.className}`}
+    className={item({ class: className })}
+    {...rest}
   />
 ));
 

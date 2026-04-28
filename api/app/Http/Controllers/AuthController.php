@@ -140,7 +140,7 @@ class AuthController extends Controller
         $sub = $idToken->claims()->get('sub');
         $userMatch = User::where('sub', $sub)->withTrashed()->firstOr(function () use ($sub, &$newUserCreated, $idTokenLocaleCode) {
             // No user found for given subscriber - lets auto-register them
-            $newUser = new User;
+            $newUser = new User();
             $newUser->sub = $sub;
             if ($idTokenLocaleCode == 'en') {
                 $newUser->looking_for_english = true;
