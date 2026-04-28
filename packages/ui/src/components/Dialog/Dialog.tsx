@@ -184,7 +184,7 @@ interface DialogHeaderProps {
 
 const Header = ({ subtitle, children }: DialogHeaderProps) => (
   <>
-    <div className="relative overflow-hidden rounded-t-md bg-black p-6 text-white">
+    <div className="relative overflow-hidden rounded-t-md bg-black p-6 pr-18 text-white">
       <div className="relative">
         <StyledTitle>{children}</StyledTitle>
         {subtitle ? <StyledDescription>{subtitle}</StyledDescription> : ""}
