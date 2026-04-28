@@ -24,7 +24,7 @@ return new class() extends Migration
     {
         Schema::table('teams', function (Blueprint $table) {
             $table->string('contact_email')->nullable();
-            $table->jsonb('display_name')->default(json_encode(['en' => '', 'fr' => '']));
+            $table->jsonb('display_name')->nullable();
         });
     }
 };
