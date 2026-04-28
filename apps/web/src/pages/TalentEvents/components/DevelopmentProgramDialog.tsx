@@ -145,13 +145,13 @@ const DevelopmentProgramDialog = ({
               />
               <div className="grid grid-cols-2 gap-6">
                 <TextArea
-                  id="description.en"
+                  id="description_en"
                   name="description.en"
                   label={intl.formatMessage(descriptionLabel)}
                   appendLanguageToLabel={"en"}
                 />
                 <TextArea
-                  id="description.fr"
+                  id="description_fr"
                   name="description.fr"
                   label={intl.formatMessage(descriptionLabel)}
                   appendLanguageToLabel={"fr"}
