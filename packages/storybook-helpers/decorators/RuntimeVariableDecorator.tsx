@@ -58,13 +58,8 @@ const RuntimeVariableDecorator: Decorator = (Story) => {
     undefined,
   );
 
-  // Gate rendering until variables are applied so the story's initial render
-  // always sees the correct values (useEffect fires after paint and is too late).
-  const [ready, setReady] = useState(false);
-
   useLayoutEffect(() => {
     if (!runtimeVariables) {
-      setReady(true);
       return undefined;
     }
 
@@ -80,8 +75,6 @@ const RuntimeVariableDecorator: Decorator = (Story) => {
     Object.entries(runtimeVariables).forEach(([key, value]) => {
       serverConfig.set(key, value);
     });
-
-    setReady(true);
 
     // Cleanup: only restore values that this decorator instance still owns.
     // If another mounted story has since changed the same key, leave it alone.
@@ -100,8 +93,7 @@ const RuntimeVariableDecorator: Decorator = (Story) => {
     };
   }, [runtimeVariables]);
 
-  if (!ready) return null;
-  return Story();
+  return <Story />;
 };
 
 export default RuntimeVariableDecorator;
