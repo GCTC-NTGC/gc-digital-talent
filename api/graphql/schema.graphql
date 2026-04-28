@@ -3783,9 +3783,7 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
-    @validator(
-      class: "App\\GraphQL\\Validators\\UpdateTalentNominationEventInputValidator"
-    )
+    @validator
 
   # Talent nomination mutations
   createTalentNomination(

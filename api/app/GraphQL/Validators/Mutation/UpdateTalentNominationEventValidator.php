@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Validators;
+namespace App\GraphQL\Validators\Mutation;
 
 use App\Enums\ErrorCode;
 use App\Enums\TalentNominationEventStatus;
@@ -9,7 +9,7 @@ use App\Models\TalentNominationEvent;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class UpdateTalentNominationEventInputValidator extends Validator
+final class UpdateTalentNominationEventValidator extends Validator
 {
     /**
      * Return the validation rules.
