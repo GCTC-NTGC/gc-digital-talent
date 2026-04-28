@@ -44,7 +44,7 @@ final class UpdateTalentNominationInputValidator extends Validator
                 'nullable',
                 'string',
             ],
-            'nominatorFallbackWorkEmail' => ['nullable', new GovernmentEmailRegex],
+            'nominatorFallbackWorkEmail' => ['nullable', new GovernmentEmailRegex()],
             'nominatorFallbackName' => ['nullable', 'string'],
             'nominatorFallbackClassification.connect' => [
                 'uuid',
@@ -89,7 +89,7 @@ final class UpdateTalentNominationInputValidator extends Validator
                 'nullable',
                 Rule::in(array_column(TalentNominationUserReview::cases(), 'name')),
             ],
-            'advancementReferenceFallbackWorkEmail' => ['nullable', new GovernmentEmailRegex],
+            'advancementReferenceFallbackWorkEmail' => ['nullable', new GovernmentEmailRegex()],
             'advancementReferenceFallbackName' => ['string', 'nullable'],
             'advancementReferenceFallbackClassification.connect' => [
                 'uuid',

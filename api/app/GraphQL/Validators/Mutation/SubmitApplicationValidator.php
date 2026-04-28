@@ -36,16 +36,16 @@ final class SubmitApplicationValidator extends Validator
     {
         return [
             'id' => [
-                new HasEducationRequirement,
+                new HasEducationRequirement(),
             ],
             'user_id' => [
-                new UserProfileComplete,
+                new UserProfileComplete(),
                 new HasEssentialSkills($this->application),
                 new HasLanguageRequirements($this->application->pool),
             ],
             'pool_id' => [
                 new EmployeeWorkEmailVerified($this->application->user),
-                new PoolNotClosed,
+                new PoolNotClosed(),
                 new QuestionsAnswered($this->application),
             ],
             'submitted_at' => ['prohibited', 'nullable'],

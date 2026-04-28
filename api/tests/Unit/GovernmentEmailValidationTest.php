@@ -14,7 +14,7 @@ class GovernmentEmailValidationTest extends TestCase
     {
         $data = ['test' => $email];
 
-        $validator = Validator::make($data, ['test' => new GovernmentEmailRegex]);
+        $validator = Validator::make($data, ['test' => new GovernmentEmailRegex()]);
         $isValid = $validator->passes();
 
         if ($passes) {
