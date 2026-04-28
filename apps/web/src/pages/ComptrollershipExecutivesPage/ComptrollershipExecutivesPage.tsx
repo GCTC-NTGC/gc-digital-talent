@@ -474,6 +474,13 @@ export const Component = () => {
                     newTab
                     href={financialManagementSharePointUrl[locale]}
                     className="flex w-full justify-center xs:inline-flex xs:w-auto"
+                    aria-label={intl.formatMessage({
+                      defaultMessage:
+                        "Join the financial management community on GCxchange",
+                      id: "yg1DyS",
+                      description:
+                        "External button link to GCXchange label for financial management",
+                    })}
                   >
                     {intl.formatMessage({
                       defaultMessage: "Join us on GCXchange",
@@ -645,6 +652,13 @@ export const Component = () => {
                     newTab
                     href={procurementSharePointUrl[locale]}
                     className="flex w-full justify-center xs:inline-flex xs:w-auto"
+                    aria-label={intl.formatMessage({
+                      defaultMessage:
+                        "Join the investment management community on GCXchange",
+                      id: "Ia4l5G",
+                      description:
+                        "External button link to GCXchange label for procurement",
+                    })}
                   >
                     {intl.formatMessage({
                       defaultMessage: "Join us on GCXchange",
