@@ -107,8 +107,8 @@ export const Component = () => {
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "This page is intended for specific current employees of the Government of Canada:",
-            id: "3u7nGm",
+              "This page is intended for specific current employees of the Government of Canada.",
+            id: "KvwEUd",
             description: "About to list employee types",
           })}
         </p>
