@@ -159,13 +159,15 @@ interface FormValues {
   }[];
 }
 
+interface UpdateTalentEventFormProps {
+  query: FragmentType<typeof UpdateTalentNominationEvent_Fragment>;
+  communities: Community[];
+}
+
 const UpdateTalentEventForm = ({
   query,
   communities,
-}: {
-  query: FragmentType<typeof UpdateTalentNominationEvent_Fragment>;
-  communities: Community[];
-}) => {
+}: UpdateTalentEventFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
