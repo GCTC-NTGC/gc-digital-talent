@@ -321,7 +321,7 @@ class TalentNominationEventTest extends TestCase
                     ],
                 ],
             ])
-            ->assertGraphQLValidationError('talentNominationEvent.communityDevelopmentPrograms.sync.0.id', ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name);
+            ->assertGraphQLValidationError('talentNominationEvent.communityDevelopmentPrograms.sync.0.id', ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID->name);
     }
 
     // test conditionally blocking of editing closing date sooner

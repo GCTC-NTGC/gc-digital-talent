@@ -4,7 +4,6 @@ namespace App\GraphQL\Validators\Mutation;
 
 use App\Enums\ErrorCode;
 use App\Enums\TalentNominationEventStatus;
-use App\Models\CommunityDevelopmentProgram;
 use App\Models\TalentNominationEvent;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -19,9 +18,6 @@ final class UpdateTalentNominationEventValidator extends Validator
     public function rules(): array
     {
         $communityId = $this->arg('talentNominationEvent.community.connect');
-        $communityDevelopmentProgramIds = $communityId ?
-            CommunityDevelopmentProgram::where('community_id', $communityId)->get('id')->pluck('id')
-            : [];
 
         // for active event prevent moving closing date sooner
         $thisEvent = TalentNominationEvent::findOrFail($this->arg('id'));
@@ -33,8 +29,10 @@ final class UpdateTalentNominationEventValidator extends Validator
             'talentNominationEvent.community.connect' => ['uuid', 'exists:communities,id'],
             'talentNominationEvent.communityDevelopmentPrograms.sync.*.id' => [
                 'uuid',
-                'exists:community_development_program,id',
-                Rule::in($communityDevelopmentProgramIds),
+                Rule::exists('community_development_program', 'id')
+                    ->where(function ($query) use ($communityId) {
+                        $query->where('community_id', $communityId);
+                    }),
             ],
             'talentNominationEvent.description.en' => ['nullable', 'required_with:description.fr', 'string'],
             'talentNominationEvent.description.fr' => ['nullable', 'required_with:description.en', 'string'],
@@ -57,8 +55,7 @@ final class UpdateTalentNominationEventValidator extends Validator
     {
         return [
             'talentNominationEvent.community.connect.exists' => ErrorCode::COMMUNITY_NOT_FOUND->name,
-            'talentNominationEvent.communityDevelopmentPrograms.sync.*.id.exists' => ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND->name,
-            'talentNominationEvent.communityDevelopmentPrograms.sync.*.id.in' => ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name,
+            'communityDevelopmentPrograms.sync.*.id.exists' => ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID->name,
         ];
     }
 }
