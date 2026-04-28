@@ -73,7 +73,7 @@ const AdditionalInformation = ({
 }: AdditionalInformationProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const financeAdditionalDutiesDescription = useId();
+  const communityInterestAdditionalDuties = useId();
   const financeOtherRolesDescription = useId();
   const optionsData = getFragment(
     AdditionalInformationOptions_Fragment,
@@ -189,7 +189,7 @@ const AdditionalInformation = ({
             {/* Some fields only appear if the user is a chief */}
             {selectedFinanceIsChief === true ? (
               <>
-                <p id={financeAdditionalDutiesDescription}>
+                <p id={communityInterestAdditionalDuties}>
                   {intl.formatMessage({
                     defaultMessage:
                       "Please indicate if you perform any of the following additional duties in your CFO role.",
@@ -212,7 +212,7 @@ const AdditionalInformation = ({
                     intl,
                   )}
                   disabled={formDisabled}
-                  aria-describedby={financeAdditionalDutiesDescription}
+                  aria-describedby={communityInterestAdditionalDuties}
                 />
                 <p id={financeOtherRolesDescription}>
                   {intl.formatMessage({
@@ -284,7 +284,7 @@ const AdditionalInformation = ({
             {/* Some fields only appear if the user is an SDO */}
             {selectedProcurementIsSDO === true ? (
               <>
-                <p id={financeAdditionalDutiesDescription}>
+                <p id={communityInterestAdditionalDuties}>
                   {intl.formatMessage({
                     defaultMessage:
                       "Please indicate if you perform any of the following additional duties in your SDO role.",
@@ -307,7 +307,7 @@ const AdditionalInformation = ({
                     intl,
                   )}
                   disabled={formDisabled}
-                  aria-describedby={financeAdditionalDutiesDescription}
+                  aria-describedby={communityInterestAdditionalDuties}
                 />
               </>
             ) : null}
