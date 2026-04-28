@@ -551,7 +551,9 @@ const UpdateTalentEventForm = ({
                                   "Aria label for the menu trigger for development program actions",
                               },
                               {
-                                title: developmentProgram?.label,
+                                title:
+                                  developmentProgram?.label ??
+                                  intl.formatMessage(commonMessages.notFound),
                               },
                             )}
                             edit={

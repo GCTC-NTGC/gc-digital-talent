@@ -38,7 +38,7 @@ const RemoveDevelopmentProgramDialog = ({
                 description:
                   "Final warning message before deleting development program",
               },
-              { title },
+              { title: title ?? intl.formatMessage(commonMessages.notFound) },
             )}
           </p>
           <Dialog.Footer>
