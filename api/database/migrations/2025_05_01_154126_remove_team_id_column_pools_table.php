@@ -24,11 +24,7 @@ return new class() extends Migration
     public function down(): void
     {
         Schema::table('pools', function (Blueprint $table) {
-            $table->uuid('team_id')->nullable();
-            $table->foreign('team_id')
-                ->references('id')
-                ->on('teams')
-                ->nullOnDelete();
+            $table->foreignUuid('team_id')->nullable()->constrained('teams')->nullOnDelete();
         });
     }
 };
