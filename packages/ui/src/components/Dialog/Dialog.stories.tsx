@@ -1,4 +1,4 @@
-import type { StoryFn, Meta } from "@storybook/react-vite";
+import type { StoryObj, Meta } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
 
 import {
@@ -8,10 +8,15 @@ import {
 
 import Button from "../Button";
 import Dialog from "./Dialog";
+import type { ComponentPropsWithoutRef } from "react";
 
 faker.seed(0);
 
-export default {
+interface DialogArgs extends ComponentPropsWithoutRef<typeof Dialog.Root> {
+  title: string;
+}
+
+const meta = {
   component: Dialog.Root,
   decorators: [OverlayOrDialogDecorator],
   parameters: {
@@ -22,27 +27,42 @@ export default {
       },
     },
   },
-} as Meta<typeof Dialog.Root>;
+  args: {
+    title: "Basic dialog",
+  },
+  argTypes: {
+    title: { control: "text" },
+  },
+  render: (args) => (
+    <Dialog.Root defaultOpen>
+      <Dialog.Trigger>
+        <Button>Open Dialog</Button>
+      </Dialog.Trigger>
+      <Dialog.Content hasSubtitle>
+        <Dialog.Header subtitle="A dialog is a window overlaid on either the primary window or another dialog window.">
+          {args.title}
+        </Dialog.Header>
+        <Dialog.Body>
+          <p>{faker.lorem.sentences(3)}</p>
+          <Dialog.Footer>
+            <Dialog.Close>
+              <Button color="primary">Close</Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Body>
+      </Dialog.Content>
+    </Dialog.Root>
+  ),
+} satisfies Meta<DialogArgs>;
 
-const Template: StoryFn<typeof Dialog.Root> = () => (
-  <Dialog.Root defaultOpen>
-    <Dialog.Trigger>
-      <Button>Open Dialog</Button>
-    </Dialog.Trigger>
-    <Dialog.Content hasSubtitle>
-      <Dialog.Header subtitle="A dialog is a window overlaid on either the primary window or another dialog window.">
-        Basic Dialog
-      </Dialog.Header>
-      <Dialog.Body>
-        <p>{faker.lorem.sentences(3)}</p>
-        <Dialog.Footer>
-          <Dialog.Close>
-            <Button color="primary">Close</Button>
-          </Dialog.Close>
-        </Dialog.Footer>
-      </Dialog.Body>
-    </Dialog.Content>
-  </Dialog.Root>
-);
+export default meta;
 
-export const Default = Template.bind({});
+type Story = StoryObj<DialogArgs>;
+
+export const Default: Story = {};
+
+export const WithLongTitle: Story = {
+  args: {
+    title: "Basic dialog that is actually a very long and descriptive sentence",
+  },
+};
