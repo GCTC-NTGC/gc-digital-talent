@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { Link } from "@gc-digital-talent/ui";
+import { Card, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -48,7 +48,7 @@ const Success = ({ successQuery }: SuccessProps) => {
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   return (
-    <>
+    <Card>
       <SubHeading color="success" icon={CheckCircleIcon}>
         {intl.formatMessage({
           defaultMessage: "We’ve received your nomination",
@@ -92,12 +92,12 @@ const Success = ({ successQuery }: SuccessProps) => {
           },
         )}
       </p>
-      <p className="my-6">
+      <p className="mt-6">
         <Link href={paths.applicantDashboard()} mode="solid" color="primary">
           {intl.formatMessage(navigationMessages.returnToDashboard)}
         </Link>
       </p>
-    </>
+    </Card>
   );
 };
 
