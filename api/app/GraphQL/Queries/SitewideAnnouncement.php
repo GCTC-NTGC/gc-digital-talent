@@ -4,20 +4,12 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\Announcement;
 
 final readonly class SitewideAnnouncement
 {
-    public function __invoke(null $_, array $args)
+    public function __invoke(null $_, array $args): ?Announcement
     {
-        $dbRow = DB::table('settings')->where('key', 'sitewide_announcement')->first(['value']);
-
-        if (is_null($dbRow) || is_null($dbRow->value)) {
-            return null;
-        }
-
-        $value = json_decode($dbRow->value);
-
-        return $value;
+        return Announcement::where('key', 'sitewide_announcement')->first();
     }
 }
