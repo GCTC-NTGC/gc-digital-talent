@@ -42,15 +42,15 @@ class TalentNominationPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(?User $actor): Response
+    public function create(User $actor): Response
     {
-        // special disqualifications
-        if (! $actor?->isVerifiedGovEmployee) {
+        // early returns
+        if (! $actor->isVerifiedGovEmployee) {
             return Response::deny(ErrorCode::YOU_MUST_BE_VERIFIED_EMPLOYEE_FOR_ACTION->name);
         }
 
         // regular permission checks
-        if ($actor?->isAbleTo('create-own-talentNomination')) {
+        if ($actor->isAbleTo('create-own-talentNomination')) {
             return Response::allow();
         }
 
