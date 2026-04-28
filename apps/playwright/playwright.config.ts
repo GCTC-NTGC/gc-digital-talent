@@ -6,73 +6,67 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: path.resolve(__dirname, ".env"), quiet: true });
 
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
   testDir: "./tests",
-  /* Run tests in files in parallel */
   fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
   retries: process.env.CI ? Number(process.env.PLAYWRIGHT_RETRIES ?? 1) : 0,
-  /* Keep CI parallelism configurable with a conservative default to avoid shard oversubscription. */
   workers: process.env.CI ? (process.env.PLAYWRIGHT_WORKERS ?? "25%") : "25%",
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
     ? "blob"
     : [["line"], ["html", { open: "on-failure" }]],
-  timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000),
-  expect: { timeout: Number(process.env.EXPECT_TIMEOUT ?? 15000) }, // 15 seconds
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000), // 60s for normal tests
+  expect: { timeout: Number(process.env.EXPECT_TIMEOUT ?? 15000) },
+
   use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env.BASE_URL ?? "http://localhost:8000",
-
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    baseURL: process.env.BASE_URL ?? "https://uat-talentcloud.tbs-sct.gc.ca/",
     trace: "retain-on-failure",
-
-    /* ignore HTTPS errors when sending network requests */
     ignoreHTTPSErrors: true,
     screenshot: "only-on-failure",
   },
 
-  /* Configure projects for major browsers */
   projects: [
+    // ── Setup: CanadaLogin Auth ──────────────────────────────────────────
     {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      name: "CL_setup",
+      testDir: "./utils",
+      testMatch: "**/CL.auth.ts",
     },
 
-    // {
-    //   name: "firefox",
-    //   use: { ...devices["Desktop Firefox"] },
-    // },
+    // ── Regular chromium tests (excludes CL-test) ────────────────────────
+    {
+      name: "chromium",
+      testDir: "./tests",
+      testIgnore: "**/CL-test.spec.ts", // ← exclude session test from normal runs
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "playwright/.auth/user.json",
+      },
+      dependencies: ["CL_setup"],
+    },
+
+    // ── Session Longevity Test (separate project, no timeout limit) ───────
+    {
+      name: "CL_session",
+      testDir: "./tests",
+      testMatch: "**/CL-test.spec.ts", // ← only runs CL-test.spec.ts
+      timeout: 2 * 60 * 60 * 1000, // ← 2hr timeout override for this project
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "playwright/.auth/user.json",
+      },
+      dependencies: ["CL_setup"],
+    },
 
     {
       name: "webkit",
-      use: { ...devices["Desktop Safari"] },
+      testDir: "./tests",
+      testIgnore: "**/CL-test.spec.ts",
+      use: {
+        ...devices["Desktop Safari"],
+        storageState: "playwright/.auth/user.json",
+      },
+      dependencies: ["CL_setup"],
     },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
   ],
 });
