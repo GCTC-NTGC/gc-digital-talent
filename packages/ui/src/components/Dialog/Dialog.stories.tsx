@@ -1,3 +1,4 @@
+import type { ComponentPropsWithoutRef } from "react";
 import type { StoryObj, Meta } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
 
@@ -8,7 +9,6 @@ import {
 
 import Button from "../Button";
 import Dialog from "./Dialog";
-import type { ComponentPropsWithoutRef } from "react";
 
 faker.seed(0);
 
