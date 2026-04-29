@@ -459,6 +459,7 @@ const ActiveTalentEventForm = ({
                                   }}
                                   onSubmit={(values) => update(index, values)}
                                   edit
+                                  active
                                 />
                               }
                             />

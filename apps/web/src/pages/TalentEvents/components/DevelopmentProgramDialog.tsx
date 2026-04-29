@@ -32,16 +32,18 @@ interface DevelopmentProgramDialogProps {
     label: Maybe<string> | undefined;
     value: string;
   }[];
+  onSubmit: SubmitHandler<FormValues>;
   defaultValues?: FormValues;
   edit?: boolean;
-  onSubmit: SubmitHandler<FormValues>;
+  active?: boolean;
 }
 
 const DevelopmentProgramDialog = ({
   developmentProgramOptions,
-  defaultValues,
   onSubmit,
+  defaultValues,
   edit = false,
+  active = false,
 }: DevelopmentProgramDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
@@ -125,24 +127,26 @@ const DevelopmentProgramDialog = ({
                 return false;
               }}
             >
-              <Select
-                id="value"
-                name="value"
-                label={intl.formatMessage({
-                  defaultMessage: "Professionalization",
-                  id: "cFTGLs",
-                  description:
-                    "Label for the select a professionalization input",
-                })}
-                nullSelection={intl.formatMessage(
-                  uiMessages.nullSelectionOption,
-                )}
-                options={developmentProgramOptions}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                className="mb-6"
-              />
+              {!active && (
+                <Select
+                  id="value"
+                  name="value"
+                  label={intl.formatMessage({
+                    defaultMessage: "Professionalization",
+                    id: "cFTGLs",
+                    description:
+                      "Label for the select a professionalization input",
+                  })}
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
+                  options={developmentProgramOptions}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  className="mb-6"
+                />
+              )}
               <div className="grid grid-cols-2 gap-6">
                 <TextArea
                   id="description_en"
