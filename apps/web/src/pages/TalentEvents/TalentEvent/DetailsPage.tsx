@@ -110,11 +110,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             color="primary"
             className="m-0"
           >
-            {intl.formatMessage({
-              defaultMessage: "Event details",
-              id: "PnHH9A",
-              description: "Subheading for nomination event details",
-            })}
+            {intl.formatMessage(adminMessages.eventDetails)}
           </Heading>
           {showCopyButton && (
             <div className="flex flex-col items-center justify-center gap-6 text-right sm:col-span-2 sm:flex-row">

@@ -214,6 +214,11 @@ const messages = defineMessages({
     id: "Ftq+3Y",
     description: "Label for a specific user",
   },
+  eventDetails: {
+    defaultMessage: "Event details",
+    id: "v3CrHe",
+    description: "Label for talent event details",
+  },
 });
 
 export default messages;

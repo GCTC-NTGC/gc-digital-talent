@@ -26,6 +26,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
+import adminMessages from "~/messages/adminMessages";
 
 import UpcomingTalentEventForm from "./components/UpcomingTalentEventForm";
 import type { FormValues } from "./components/formValues";
@@ -169,12 +170,7 @@ const CreateTalentEventPage = () => {
                 center
                 className="mt-0 mb-6 font-normal xs:justify-start xs:text-left"
               >
-                {intl.formatMessage({
-                  defaultMessage: "Event details",
-                  id: "+2dR9i",
-                  description:
-                    "Subtitle for create talent management event page",
-                })}
+                {intl.formatMessage(adminMessages.eventDetails)}
               </Heading>
               <p className="mb-6">
                 {intl.formatMessage({

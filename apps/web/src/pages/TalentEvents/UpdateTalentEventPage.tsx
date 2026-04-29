@@ -39,6 +39,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
+import adminMessages from "~/messages/adminMessages";
 
 import type { RouteParams } from "./TalentEvent/types";
 import ActiveTalentEventForm from "./components/ActiveTalentEventForm";
@@ -284,11 +285,7 @@ const UpdateTalentEventPage = () => {
                   center
                   className="mt-0 mb-6 font-normal xs:justify-start xs:text-left"
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "Event details",
-                    id: "PnHH9A",
-                    description: "Subheading for nomination event details",
-                  })}
+                  {intl.formatMessage(adminMessages.eventDetails)}
                 </Heading>
                 <p className="mb-6">
                   {intl.formatMessage({
