@@ -43,6 +43,13 @@ const openDate = defineMessage({
   description: "Label for open date",
 });
 
+const atLeastOne = defineMessage({
+  defaultMessage:
+    "Please add at least one development opportunity for nominators to select from.",
+  id: "bShedV",
+  description: "Message to add at least one development opportunity",
+});
+
 interface UpcomingTalentEventFormProps {
   query?: FragmentType<typeof TalentNominationEvent_Fragment>;
 }
@@ -56,6 +63,10 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
   const { fields, append, update, remove } = useFieldArray<FormValues>({
     name: "communityDevelopmentPrograms",
     control,
+    rules: {
+      required: intl.formatMessage(errorMessages.required),
+      validate: (value) => value.length > 0 || intl.formatMessage(atLeastOne),
+    },
   });
 
   const watchOpenDate = watch("openDate");
@@ -296,13 +307,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
               {fields.length === 0 ? (
                 <Notice.Root className="text-center">
                   <Notice.Content>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Please add at least one development opportunity for nominators to select from.",
-                      id: "6akdUp",
-                      description:
-                        "Notice message to add at least one development opportunity",
-                    })}
+                    {intl.formatMessage(atLeastOne)}
                   </Notice.Content>
                 </Notice.Root>
               ) : (
