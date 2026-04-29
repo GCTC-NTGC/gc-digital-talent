@@ -15,72 +15,70 @@ import ClosedJobOpportunitiesSection, {
   ClosedJobOpportunitiesSectionPool_Fragment,
 } from "./ClosedJobOpportunitiesSection";
 
-const publishedPool = makeFragmentData(
+const closedPool = makeFragmentData(
   {
-    id: "publishedPool",
+    id: "closedPool",
     publishingGroup: PublishingGroup.ItJobs,
-    status: PoolStatus.Published,
+    status: PoolStatus.Closed,
   },
   ClosedJobOpportunitiesSectionPool_Fragment,
 );
 
-const renderBrowsePoolsPage = ({
-  poolsQuery,
-}: ClosedJobOpportunitiesSectionProps) =>
+const renderSection = ({ poolsQuery }: ClosedJobOpportunitiesSectionProps) =>
   renderWithProviders(
     <ClosedJobOpportunitiesSection poolsQuery={poolsQuery} />,
   );
 
-describe("BrowsePoolsPage", () => {
+describe("ClosedJobOpportunitiesSection", () => {
   it("should have no accessibility errors", async () => {
-    const { container } = renderBrowsePoolsPage({
-      poolsQuery: [publishedPool],
+    const { container } = renderSection({
+      poolsQuery: [closedPool],
     });
     await expectNoAccessibilityErrors(container);
   });
 
-  // sort logic: by expiry date whichever one expires first should appear first on the list
-  // sort logic: if they have the same expiry date, whichever one was published first should appear first
+  // sort logic: by close date whichever one closed first should appear first on the list
+  // sort logic: if they have the same close date, whichever one was published first should appear first
   it("should properly sort jobs", () => {
-    // should appear first: it expires first even though it was published later
-    const closesFirst = {
-      ...publishedPool,
+    // should appear first: it closed first even though it was published later
+    const closedFirst = {
+      ...closedPool,
       id: "closesFirst",
-      publishedAt: "2000-02-01 00:00:00",
-      closingDate: "2999-01-01 00:00:00",
+      publishedAt: "1900-02-01 00:00:00",
+      closingDate: "1999-01-01 00:00:00",
     };
 
-    // should appear second: tie for expiring second, has first publish date
+    // should appear second: tie for closing second, has first publish date
     const publishedFirst = {
-      ...publishedPool,
+      ...closedPool,
       id: "publishedFirst",
-      publishedAt: "2000-01-01 00:00:00",
-      closingDate: "2999-02-01 00:00:00",
+      publishedAt: "1900-01-01 00:00:00",
+      closingDate: "1999-02-01 00:00:00",
     };
 
-    // should appear third: tie for expiring second, has second publish date
+    // should appear third: tie for closing second, has second publish date
     const publishedSecond = {
-      ...publishedPool,
+      ...closedPool,
       id: "publishedSecond",
-      publishedAt: "2000-01-02 00:00:00",
-      closingDate: "2999-02-01 00:00:00",
+      publishedAt: "1900-01-02 00:00:00",
+      closingDate: "1999-02-01 00:00:00",
     };
 
-    renderBrowsePoolsPage({
+    renderSection({
       // pass data to the page in an intentionally reversed order
-      poolsQuery: [publishedSecond, publishedFirst, closesFirst],
+      poolsQuery: [publishedSecond, publishedFirst, closedFirst],
     });
 
     // find the rendered links
     const links = screen.queryAllByRole("link", {
-      name: /Apply to/i,
+      name: /View job ad/i,
     });
 
     // ensure there are the right number and in the right order
     expect(links).toHaveLength(3);
     expect(links[0]).toHaveAttribute(
       "href",
-      expect.stringContaining(closesFirst.id),
+      expect.stringContaining(closedFirst.id),
     );
     expect(links[1]).toHaveAttribute(
       "href",
