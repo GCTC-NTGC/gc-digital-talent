@@ -33,8 +33,8 @@ const ClosedJobOpportunitiesSection = ({
 
   const sortedPools = [...pools].sort(
     (p1, p2) =>
-      (p1.closingDate ?? "").localeCompare(p2.closingDate ?? "") || // first level sort: by closing date whichever one closes first should appear first on the list
-      (p1.publishedAt ?? "").localeCompare(p2.publishedAt ?? ""), // second level sort: whichever one was published first should appear first
+      (p2.closingDate ?? "").localeCompare(p1.closingDate ?? "") || // first level sort: by closing date whichever one closed last should appear first on the list
+      (p2.publishedAt ?? "").localeCompare(p1.publishedAt ?? ""), // second level sort: whichever one was published last should appear first
   );
 
   return (

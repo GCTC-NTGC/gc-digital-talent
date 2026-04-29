@@ -37,36 +37,40 @@ describe("ClosedJobOpportunitiesSection", () => {
     await expectNoAccessibilityErrors(container);
   });
 
-  // sort logic: by close date whichever one closed first should appear first on the list
-  // sort logic: if they have the same close date, whichever one was published first should appear first
+  // sort logic: by close date whichever one closed most recently should appear first on the list
+  // sort logic: if they have the same close date, whichever one was published most recently appear first
   it("should properly sort jobs", () => {
-    // should appear first: it closed first even though it was published later
-    const closedFirst = {
+    // should appear first: it closed last and published last
+    const closedLastPublishedLast = {
       ...closedPool,
-      id: "closesFirst",
-      publishedAt: "1900-02-01 00:00:00",
-      closingDate: "1999-01-01 00:00:00",
+      id: "closedLastPublishedLast",
+      publishedAt: "2000-02-01 00:00:00",
+      closingDate: "2000-03-01 00:00:00",
     };
 
-    // should appear second: tie for closing second, has first publish date
-    const publishedFirst = {
+    // should appear second: tie for closing last, has first publish date
+    const closedLastPublishedFirst = {
       ...closedPool,
-      id: "publishedFirst",
-      publishedAt: "1900-01-01 00:00:00",
-      closingDate: "1999-02-01 00:00:00",
+      id: "closedLastPublishedFirst",
+      publishedAt: "2000-01-01 00:00:00",
+      closingDate: "2000-03-01 00:00:00",
     };
 
-    // should appear third: tie for closing second, has second publish date
-    const publishedSecond = {
+    // should appear third: first closing date, tie for first publish date
+    const closedFirstPublishedFirst = {
       ...closedPool,
-      id: "publishedSecond",
-      publishedAt: "1900-01-02 00:00:00",
-      closingDate: "1999-02-01 00:00:00",
+      id: "closedFirstPublishedFirst",
+      publishedAt: "2000-01-01 00:00:00",
+      closingDate: "2000-02-01 00:00:00",
     };
 
     renderSection({
       // pass data to the page in an intentionally reversed order
-      poolsQuery: [publishedSecond, publishedFirst, closedFirst],
+      poolsQuery: [
+        closedFirstPublishedFirst,
+        closedLastPublishedFirst,
+        closedLastPublishedLast,
+      ],
     });
 
     // find the rendered links
@@ -78,15 +82,15 @@ describe("ClosedJobOpportunitiesSection", () => {
     expect(links).toHaveLength(3);
     expect(links[0]).toHaveAttribute(
       "href",
-      expect.stringContaining(closedFirst.id),
+      expect.stringContaining(closedLastPublishedLast.id),
     );
     expect(links[1]).toHaveAttribute(
       "href",
-      expect.stringContaining(publishedFirst.id),
+      expect.stringContaining(closedLastPublishedFirst.id),
     );
     expect(links[2]).toHaveAttribute(
       "href",
-      expect.stringContaining(publishedSecond.id),
+      expect.stringContaining(closedFirstPublishedFirst.id),
     );
   });
 });

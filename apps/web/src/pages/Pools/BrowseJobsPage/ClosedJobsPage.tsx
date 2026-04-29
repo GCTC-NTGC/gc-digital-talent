@@ -36,7 +36,7 @@ const ClosedJobsPage_Query = graphql(/* GraphQL */ `
     poolsPaginated(
       where: { statuses: [CLOSED] }
       first: 500
-      orderBy: { column: "closing_date", order: ASC }
+      orderBy: { column: "closing_date", order: DESC }
     ) {
       data {
         id
