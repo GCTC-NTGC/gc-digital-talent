@@ -1,9 +1,8 @@
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 import { useNavigate } from "react-router";
-import { useEffect } from "react";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
 import {
@@ -12,42 +11,21 @@ import {
   Heading,
   Link,
   NotFound,
-  Notice,
   Pending,
 } from "@gc-digital-talent/ui";
-import type {
-  Community,
-  CommunityDevelopmentProgram,
-  FragmentType,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   TalentNominationEventStatus,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
-import {
-  Checkbox,
-  DateInput,
-  Input,
-  Select,
-  Submit,
-  TextArea,
-} from "@gc-digital-talent/forms";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { Submit } from "@gc-digital-talent/forms";
 import {
   convertDateTimeToDate,
   convertDateTimeZone,
-  DATE_FORMAT_STRING,
-  formatDate,
 } from "@gc-digital-talent/date-helpers";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero";
@@ -57,123 +35,34 @@ import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import processMessages from "~/messages/processMessages";
-import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
+import profileMessages from "~/messages/profileMessages";
 
 import type { RouteParams } from "./TalentEvent/types";
-import { isCommunity } from "./TalentEvent/util";
-import DevelopmentProgramDialog from "./components/DevelopmentProgramDialog";
 import ActiveTalentEventForm from "./components/ActiveTalentEventForm";
-import RemoveDevelopmentProgramDialog from "./components/RemoveDevelopmentProgramDialog";
-
-const openDate = defineMessage({
-  defaultMessage: "Open date",
-  id: "Qxxop2",
-  description: "Label for open date",
-});
-
-const UpdateTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
-  fragment UpdateTalentNominationEvent_Fragment on TalentNominationEvent {
-    id
-    name {
-      en
-      fr
-      localized
-    }
-    description {
-      en
-      fr
-    }
-    openDate
-    closeDate
-    learnMoreUrl {
-      en
-      fr
-    }
-    includeLeadershipCompetencies
-    community {
-      id
-      key
-      name {
-        localized
-      }
-    }
-    communityDevelopmentPrograms {
-      id
-      developmentProgram {
-        id
-        name {
-          localized
-        }
-        descriptionForProfile {
-          localized
-        }
-      }
-      pivot {
-        descriptionForNominations {
-          en
-          fr
-        }
-      }
-    }
-  }
-`);
-
-const UpdateTalentNominationEvent_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateTalentNominationEventMutation(
-    $id: UUID!
-    $talentNominationEvent: UpdateTalentNominationEventInput!
-  ) {
-    updateTalentNominationEvent(
-      id: $id
-      talentNominationEvent: $talentNominationEvent
-    ) {
-      id
-    }
-  }
-`);
-
-interface FormValues {
-  name: {
-    en: string | null;
-    fr: string | null;
-  };
-  description: {
-    en: string | null;
-    fr: string | null;
-  };
-  openDate: Scalars["Date"]["input"];
-  closeDate: Scalars["Date"]["input"];
-  learnMoreUrl: {
-    en: string | null;
-    fr: string | null;
-  };
-  includeLeadershipCompetencies: boolean;
-  community: string;
-  communityDevelopmentPrograms: {
-    value: string;
-    description: {
-      en: string | null;
-      fr: string | null;
-    };
-  }[];
-}
+import UpcomingTalentEventForm from "./components/UpcomingTalentEventForm";
+import type { FormValues } from "./components/formValues";
+import {
+  TalentNominationEvent_Fragment,
+  UpdateTalentNominationEvent_Fragment,
+  UpdateTalentNominationEvent_Mutation,
+} from "./components/fragments";
 
 interface UpdateTalentEventFormProps {
-  query: FragmentType<typeof UpdateTalentNominationEvent_Fragment>;
-  communities: Community[];
+  userQuery: FragmentType<typeof TalentNominationEvent_Fragment>;
+  talentEventQuery: FragmentType<typeof UpdateTalentNominationEvent_Fragment>;
 }
 
 const UpdateTalentEventForm = ({
-  query,
-  communities,
+  userQuery,
+  talentEventQuery,
 }: UpdateTalentEventFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
+  const user = getFragment(TalentNominationEvent_Fragment, userQuery);
   const talentNominationEvent = getFragment(
     UpdateTalentNominationEvent_Fragment,
-    query,
+    talentEventQuery,
   );
 
   const methods = useForm<FormValues>({
@@ -216,11 +105,6 @@ const UpdateTalentEventForm = ({
           },
         })),
     },
-  });
-
-  const { fields, append, update, remove } = useFieldArray<FormValues>({
-    name: "communityDevelopmentPrograms",
-    control: methods.control,
   });
 
   const [, executeMutation] = useMutation(UpdateTalentNominationEvent_Mutation);
@@ -286,304 +170,17 @@ const UpdateTalentEventForm = ({
       .catch(handleError);
   };
 
-  const watchOpenDate = methods.watch("openDate");
-  const watchCommunity = methods.watch("community");
-
-  const communityOptions = communities.map((community) => ({
-    label: community.name?.localized,
-    value: community.id,
-  }));
-  const developmentProgramOptions = communities
-    .filter((community) => community.id === watchCommunity)
-    .reduce(
-      (acc: CommunityDevelopmentProgram[], curr: Community) => [
-        ...acc,
-        ...(curr.communityDevelopmentPrograms ?? []),
-      ],
-      [],
-    )
-    .map((cdp) => ({
-      label: cdp.developmentProgram.name.localized,
-      value: cdp.id,
-      description: cdp.developmentProgram.descriptionForProfile.localized,
-    }));
-
-  const { isDirty: communityIsDirty } = methods.getFieldState(
-    "community",
-    methods.formState,
-  );
-
-  useEffect(() => {
-    if (watchCommunity && communityIsDirty) {
-      methods.resetField("communityDevelopmentPrograms", {
-        keepDirty: false,
-        defaultValue: [],
-      });
-    }
-  }, [watchCommunity]);
-
-  const notFound = intl.formatMessage(commonMessages.notFound);
-
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <div className="grid gap-6 xs:grid-cols-2">
-          <div className="xs:col-span-2">
-            <Select
-              id="community"
-              name="community"
-              label={intl.formatMessage({
-                defaultMessage: "Functional community",
-                id: "FILFak",
-                description: "Label for the select community input",
-              })}
-              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-              options={communityOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
-          </div>
-          <Input
-            id="name_en"
-            name="name.en"
-            autoComplete="off"
-            label={intl.formatMessage(commonMessages.name)}
-            appendLanguageToLabel={"en"}
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <Input
-            id="name_fr"
-            name="name.fr"
-            autoComplete="off"
-            label={intl.formatMessage(commonMessages.name)}
-            appendLanguageToLabel={"fr"}
-            type="text"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <TextArea
-            id="description_en"
-            name="description.en"
-            label={intl.formatMessage(commonMessages.description)}
-            appendLanguageToLabel={"en"}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <TextArea
-            id="description_fr"
-            name="description.fr"
-            label={intl.formatMessage(commonMessages.description)}
-            appendLanguageToLabel={"fr"}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <Input
-            id="learnMoreUrl_en"
-            name="learnMoreUrl.en"
-            label={intl.formatMessage({
-              defaultMessage: "Link to external information",
-              id: "PWqfaJ",
-              description:
-                "Label displayed on the talent nomination event more info link field",
-            })}
-            appendLanguageToLabel={"en"}
-            type="url"
-          />
-          <Input
-            id="learnMoreUrl_fr"
-            name="learnMoreUrl.fr"
-            label={intl.formatMessage({
-              defaultMessage: "Link to external information",
-              id: "PWqfaJ",
-              description:
-                "Label displayed on the talent nomination event more info link field",
-            })}
-            appendLanguageToLabel={"fr"}
-            type="url"
-          />
-        </div>
-        <CardSeparator />
-        <div className="grid gap-6 xs:grid-cols-2">
-          <div className="xs:col-span-2">
-            <Heading level="h3" size="h6" className="mt-0 mb-3">
-              {intl.formatMessage({
-                defaultMessage: "Nomination settings",
-                id: "eWP5gJ",
-                description:
-                  "Title for subsection of create talent management form",
-              })}
-            </Heading>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "These options allow you to specify classification restrictions, the type of nominations that are accepted, and the period of time the event will be accepting nomination submissions.",
-                id: "Qds8Yz",
-                description:
-                  "Description for subsection create talent management event",
-              })}
-            </p>
-          </div>
-          <div className="xs:col-span-2">
-            <Checkbox
-              id="includeLeadershipCompetencies"
-              boundingBox
-              boundingBoxLabel={intl.formatMessage({
-                defaultMessage: "Leadership competency requirement",
-                id: "eBH+tH",
-                description:
-                  "Bounding box label for the include leadership competencies",
-              })}
-              label={intl.formatMessage({
-                defaultMessage:
-                  "The nomination must include the nominee's top 3 leadership competencies",
-                id: "4rkX89",
-                description: "Label for the include leadership competencies",
-              })}
-              name="includeLeadershipCompetencies"
-            />
-          </div>
-          <DateInput
-            id="openDate"
-            name="openDate"
-            legend={intl.formatMessage(openDate)}
-            rules={{
-              min: {
-                value: formatDate({
-                  date: new Date(),
-                  formatString: DATE_FORMAT_STRING,
-                  intl,
-                }),
-                message: intl.formatMessage({
-                  defaultMessage: "Opening date must be after today.",
-                  id: "9pivu5",
-                  description: "Error message for closing date",
-                }),
-              },
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
-          <DateInput
-            id="closeDate"
-            name="closeDate"
-            legend={intl.formatMessage(processMessages.closingDate)}
-            rules={{
-              min: {
-                value: watchOpenDate ? String(watchOpenDate) : "",
-                message: intl.formatMessage(errorMessages.minDateSelfLabel, {
-                  labelSelf: intl.formatMessage(processMessages.closingDate),
-                  labelAssociated: intl.formatMessage(openDate),
-                }),
-              },
-            }}
-          />
-        </div>
-        {watchCommunity && (
-          <>
-            <CardSeparator />
-            <div className="grid gap-6">
-              <div>
-                <Heading level="h3" size="h6" className="mt-0 mb-3">
-                  {intl.formatMessage({
-                    defaultMessage: "Development opportunities",
-                    id: "p+JlKG",
-                    description:
-                      "Title for subsection of create talent management form",
-                  })}
-                </Heading>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Specify which professionalization options nominators can choose from when nominating an employee for development opportunities. You can also optionally provide extra context for nominators to better understand their choices if need be,. If you can’t find the program or certificate you need, contact your community administrator and work with them to add the options you need.",
-                    id: "atLy8S",
-                    description:
-                      "Description for subsection create talent management event",
-                  })}
-                </p>
-              </div>
-
-              <DevelopmentProgramDialog
-                developmentProgramOptions={developmentProgramOptions}
-                onSubmit={(values) => append(values)}
-              />
-
-              <>
-                {fields.length === 0 ? (
-                  <Notice.Root>
-                    <Notice.Content className="text-center">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Please add at least one development opportunity for nominators to select from.",
-                        id: "6akdUp",
-                        description:
-                          "Notice message to add at least one development opportunity",
-                      })}
-                    </Notice.Content>
-                  </Notice.Root>
-                ) : (
-                  <div className="rounded-md border border-gray-200">
-                    <DevelopmentProgramCard.Root>
-                      {fields.map((field, index) => {
-                        const developmentProgram =
-                          developmentProgramOptions.find(
-                            ({ value }) => value === field.value,
-                          );
-
-                        return (
-                          <DevelopmentProgramCard.Item
-                            key={field.id}
-                            title={developmentProgram?.label ?? notFound}
-                            description={
-                              developmentProgram?.description ?? notFound
-                            }
-                            iconLabel={intl.formatMessage(
-                              {
-                                defaultMessage:
-                                  "More actions for development opportunity {title}",
-                                id: "L8zYRQ",
-                                description:
-                                  "Aria label for the menu trigger for development program actions",
-                              },
-                              {
-                                title:
-                                  developmentProgram?.label ??
-                                  intl.formatMessage(commonMessages.notFound),
-                              },
-                            )}
-                            edit={
-                              <DevelopmentProgramDialog
-                                developmentProgramOptions={
-                                  developmentProgramOptions
-                                }
-                                defaultValues={{
-                                  value: field.value,
-                                  description: field.description,
-                                }}
-                                onSubmit={(values) => update(index, values)}
-                                edit
-                              />
-                            }
-                            remove={
-                              <RemoveDevelopmentProgramDialog
-                                title={developmentProgram?.label}
-                                onRemove={() => remove(index)}
-                              />
-                            }
-                          />
-                        );
-                      })}
-                    </DevelopmentProgramCard.Root>
-                  </div>
-                )}
-              </>
-            </div>
-          </>
+        {user ? (
+          <UpcomingTalentEventForm query={userQuery} />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+          </NotFound>
         )}
         <CardSeparator />
         <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-left">
@@ -613,32 +210,7 @@ const UpdateTalentNominationEvent_Query = graphql(/* GraphQL */ `
       }
     }
     me {
-      authInfo {
-        roleAssignments {
-          teamable {
-            ... on Community {
-              __typename
-              id
-              key
-              name {
-                localized
-              }
-              communityDevelopmentPrograms {
-                id
-                developmentProgram {
-                  id
-                  name {
-                    localized
-                  }
-                  descriptionForProfile {
-                    localized
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      ...TalentNominationEvent_Fragment
     }
   }
 `);
@@ -680,11 +252,6 @@ const UpdateTalentEventPage = () => {
       },
     ],
   });
-
-  const roles = unpackMaybes(data?.me?.authInfo?.roleAssignments);
-  const communities = unpackMaybes(roles.map((r) => r.teamable)).filter((c) =>
-    isCommunity(c),
-  );
 
   return (
     <>
@@ -732,13 +299,13 @@ const UpdateTalentEventPage = () => {
                 {data?.talentNominationEvent.status?.value ===
                 TalentNominationEventStatus.Active ? (
                   <ActiveTalentEventForm
-                    query={data.talentNominationEvent}
-                    communities={communities}
+                    userQuery={data.me}
+                    talentEventQuery={data.talentNominationEvent}
                   />
                 ) : (
                   <UpdateTalentEventForm
-                    query={data.talentNominationEvent}
-                    communities={communities}
+                    userQuery={data.me}
+                    talentEventQuery={data.talentNominationEvent}
                   />
                 )}
               </Card>

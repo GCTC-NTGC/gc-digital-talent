@@ -9,9 +9,8 @@ import type {
   Community,
   CommunityDevelopmentProgram,
   FragmentType,
-  Scalars,
 } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { getFragment } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -27,6 +26,8 @@ import {
   parseDateTimeUtc,
   strToFormDate,
 } from "@gc-digital-talent/date-helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
@@ -35,102 +36,30 @@ import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
 
 import DevelopmentProgramDialog from "./DevelopmentProgramDialog";
-
-const UpdateTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
-  fragment UpdateTalentNominationEvent_Fragment on TalentNominationEvent {
-    id
-    name {
-      en
-      fr
-      localized
-    }
-    description {
-      en
-      fr
-    }
-    openDate
-    closeDate
-    learnMoreUrl {
-      en
-      fr
-    }
-    includeLeadershipCompetencies
-    community {
-      id
-      key
-      name {
-        localized
-      }
-    }
-    communityDevelopmentPrograms {
-      id
-      developmentProgram {
-        id
-        name {
-          localized
-        }
-        descriptionForProfile {
-          localized
-        }
-      }
-      pivot {
-        descriptionForNominations {
-          en
-          fr
-        }
-      }
-    }
-  }
-`);
-
-const UpdateTalentNominationEvent_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateTalentNominationEventMutation(
-    $id: UUID!
-    $talentNominationEvent: UpdateTalentNominationEventInput!
-  ) {
-    updateTalentNominationEvent(
-      id: $id
-      talentNominationEvent: $talentNominationEvent
-    ) {
-      id
-    }
-  }
-`);
-
-interface FormValues {
-  description: {
-    en: string | null;
-    fr: string | null;
-  };
-  closeDate: Scalars["Date"]["input"];
-  learnMoreUrl: {
-    en: string | null;
-    fr: string | null;
-  };
-  communityDevelopmentPrograms: {
-    value: string;
-    description: {
-      en: string | null;
-      fr: string | null;
-    };
-  }[];
-}
+import {
+  TalentNominationEvent_Fragment,
+  UpdateTalentNominationEvent_Fragment,
+  UpdateTalentNominationEvent_Mutation,
+} from "./fragments";
+import type { FormValues } from "./formValues";
+import { isCommunity } from "../TalentEvent/util";
 
 interface ActiveTalentEventFormProps {
-  query: FragmentType<typeof UpdateTalentNominationEvent_Fragment>;
-  communities: Community[];
+  userQuery: FragmentType<typeof TalentNominationEvent_Fragment>;
+  talentEventQuery: FragmentType<typeof UpdateTalentNominationEvent_Fragment>;
 }
 
 const ActiveTalentEventForm = ({
-  query,
-  communities,
+  userQuery,
+  talentEventQuery,
 }: ActiveTalentEventFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
+  const user = getFragment(TalentNominationEvent_Fragment, userQuery);
   const talentNominationEvent = getFragment(
     UpdateTalentNominationEvent_Fragment,
-    query,
+    talentEventQuery,
   );
 
   const {
@@ -194,7 +123,8 @@ const ActiveTalentEventForm = ({
     return executeMutation({
       id: talentNominationEvent.id,
       talentNominationEvent: {
-        ...formValues,
+        description: formValues.description,
+        learnMoreUrl: formValues.learnMoreUrl,
         closeDate: convertDateTimeZone(
           `${formValues.closeDate} 23:59:59`,
           "Canada/Pacific",
@@ -232,6 +162,14 @@ const ActiveTalentEventForm = ({
       .catch(handleError);
   };
 
+  const roles = unpackMaybes(user?.authInfo?.roleAssignments).filter(
+    (ra) =>
+      ra.role?.name === ROLE_NAME.CommunityAdmin ||
+      ra.role?.name === ROLE_NAME.CommunityTalentCoordinator,
+  );
+  const communities = unpackMaybes(roles.map((r) => r.teamable)).filter((c) =>
+    isCommunity(c),
+  );
   const developmentProgramOptions = communities
     .filter((c) => c.id === community.id)
     .reduce(
