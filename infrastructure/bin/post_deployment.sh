@@ -27,6 +27,14 @@ fi
 # First block is the header
 BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": \"Post-deployment script was run\" } }"
 
+# Remove bad source file (see: https://github.com/GCTC-NTGC/gc-digital-talent/issues/16650)
+# This block can be removed once the base image stops shipping with this file present.
+if rm -f /etc/apt/sources.list.d/nginx.list ; then
+    add_section_block ":white_check_mark: Remove bad source *successful*."
+else
+    add_section_block ":X: Remove bad source *failed*.. $MENTION"
+fi
+
 # Configure PHP CLI
 if echo 'memory_limit=256M' >> /usr/local/etc/php/conf.d/php.ini ; then
     add_section_block ":white_check_mark: Configure PHP CLI *successful*."
