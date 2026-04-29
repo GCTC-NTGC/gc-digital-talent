@@ -76,9 +76,14 @@ const TalentNominationGroupProfile = ({
     });
   };
 
+  const hasProfileData = !!data?.user?.employeeProfile;
+
   return (
     <Pending fetching={fetching} error={error}>
-      <Card className="rounded-b-none" space="lg">
+      <Card
+        className={hasProfileData ? "rounded-b-none pb-0 sm:pb-0" : undefined}
+        space="lg"
+      >
         <div className="flex flex-col items-center justify-between gap-y-6 sm:flex-row sm:gap-x-3 sm:gap-y-0">
           <Heading
             icon={UserCircleIcon}
@@ -123,8 +128,9 @@ const TalentNominationGroupProfile = ({
               "Description for the nominee profile page accordion sections",
           })}
         </p>
+        <Card.Separator className="mt-9" />
         {!shareProfile && (
-          <Notice.Root color="error" className="mt-6">
+          <Notice.Root color="error" className="mt-9">
             <Notice.Title>
               {intl.formatMessage({
                 defaultMessage:
@@ -146,7 +152,7 @@ const TalentNominationGroupProfile = ({
           </Notice.Root>
         )}
       </Card>
-      {data?.user?.employeeProfile ? (
+      {hasProfileData ? (
         <Accordion.Root
           type="multiple"
           mode="card"
