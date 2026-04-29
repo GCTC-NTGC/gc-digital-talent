@@ -108,10 +108,7 @@ export default [
               ":poolId/create-application",
               "./pages/CreateApplicationPage/CreateApplicationPage.tsx",
             ),
-            route(
-              "closed",
-              "./pages/Pools/ClosedPoolsPage/ClosedPoolsPage.tsx",
-            ),
+            route("closed", "./pages/Pools/BrowseJobsPage/ClosedJobsPage.tsx"),
           ]),
 
           // Job templates

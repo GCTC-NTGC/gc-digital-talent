@@ -6,11 +6,7 @@ import { tv } from "tailwind-variants";
 import { CardFlat, Container, Flourish, Pending } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import {
-  graphql,
-  PoolStatus,
-  PublishingGroup,
-} from "@gc-digital-talent/graphql";
+import { graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
@@ -26,6 +22,7 @@ import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 import FooterCard from "./components/FooterCard/FooterCard";
+import { canShowOnBrowseJobs } from "./utils";
 
 const flourish = tv({
   base: "absolute z-[1] w-[25vw]",
@@ -97,8 +94,7 @@ export const Component = () => {
   const activeRecruitmentPools = pools.filter(
     (p) =>
       p.status?.value === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
-      (p.publishingGroup?.value === PublishingGroup.ItJobs ||
-        p.publishingGroup?.value === PublishingGroup.ExecutiveJobs),
+      canShowOnBrowseJobs(p),
   );
 
   // a different footer message is displayed if there are opportunities showing, otherwise a null state message is used
