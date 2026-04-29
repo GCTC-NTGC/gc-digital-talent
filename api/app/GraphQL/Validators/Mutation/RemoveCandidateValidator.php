@@ -15,7 +15,7 @@ class RemoveCandidateValidator extends Validator
                 'required',
                 'uuid',
                 'exists:pool_candidates,id',
-                new CanRemoveCandidate,
+                new CanRemoveCandidate(),
             ],
             'removalReason' => ['required'],
             'removalReasonOther' => ['required_if:removalReason,'.CandidateRemovalReason::OTHER->name],

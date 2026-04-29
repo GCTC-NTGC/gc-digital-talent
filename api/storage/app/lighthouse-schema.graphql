@@ -565,8 +565,10 @@ type Mutation {
   updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
-  createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
-  updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
+  createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest @deprecated(reason: "replaced by createCommunityInterestWithDevelopmentPrograms")
+  createCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
+  updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest @deprecated(reason: "replaced by updateCommunityInterestWithDevelopmentPrograms")
+  updateCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
   createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
   updateOffPlatformRecruitmentProcess(process: UpdateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
@@ -795,6 +797,7 @@ type User {
   positionDuration: [PositionDuration]
   employeeProfile: EmployeeProfile
   govEmployeeProfile: BasicGovEmployeeProfile
+  developmentProgramUserRecords: [DevelopmentProgramUser]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -831,7 +834,7 @@ type CommunityInterest {
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
-  interestInDevelopmentPrograms: [DevelopmentProgramInterest!]
+  interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   financeIsChief: Boolean
   financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
   financeOtherRoles: [LocalizedFinanceChiefRole!]
@@ -1126,7 +1129,6 @@ type AssessmentStep {
   sortOrder: Int
   title: LocalizedString
   poolSkills: [PoolSkill]
-  assessmentResults: [AssessmentResult]
   screeningQuestions: [ScreeningQuestion]
 }
 
@@ -1307,7 +1309,6 @@ type Community implements HasRoleAssignments {
   contactEmail: String
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
-  pools: [Pool]
   workStreams: [WorkStream!]
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   associatedDevelopmentPrograms: [DevelopmentProgram!]
@@ -1335,6 +1336,15 @@ type CommunityDevelopmentProgram {
   developmentProgram: DevelopmentProgram!
   classifications: [Classification!]
   pivot: CommunityDevelopmentProgramTalentEventRecord
+}
+
+type DevelopmentProgramUser {
+  id: UUID!
+  developmentProgram: DevelopmentProgram!
+  user: User!
+  educationExperience: EducationExperience
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date
 }
 
 type TalentNominationEvent {
@@ -1803,13 +1813,13 @@ type CandidateSearchPoolResult {
 }
 
 type SitewideAnnouncement {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
-  updatedAt: DateTime!
+  isEnabled: Boolean!
   isDismissible: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  updatedAt: DateTime!
 }
 
 type TrainingOpportunity {
@@ -1832,12 +1842,12 @@ input TrainingOpportunitiesFilterInput {
 }
 
 input SitewideAnnouncementInput {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isEnabled: Boolean!
   isDismissible: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
 }
 
 input ClaimVerificationSort {
@@ -2082,13 +2092,11 @@ input UpdateEmployeeProfileInput {
 }
 
 input CreateCommunityInterestInput {
-  userId: UUID!
-  community: CommunityBelongsTo!
+  communityId: UUID!
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
-  interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
   financeIsChief: Boolean
   financeAdditionalDuties: [FinanceChiefDuty!]
   financeOtherRoles: [FinanceChiefRole!]
@@ -2097,17 +2105,34 @@ input CreateCommunityInterestInput {
 }
 
 input UpdateCommunityInterestInput {
-  id: UUID!
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
-  interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
   financeIsChief: Boolean
   financeAdditionalDuties: [FinanceChiefDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+}
+
+input UpsertDevelopmentProgramUserInput {
+  developmentProgramId: UUID!
+  educationExperienceId: UUID
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date
+}
+
+input CreateCommunityInterestWithDevelopmentProgramsInput {
+  userId: UUID!
+  communityInterest: CreateCommunityInterestInput!
+  developmentPrograms: [UpsertDevelopmentProgramUserInput]
+}
+
+input UpdateCommunityInterestWithDevelopmentProgramsInput {
+  id: UUID!
+  communityInterest: UpdateCommunityInterestInput!
+  developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
 input CreateOffPlatformRecruitmentProcessInput {
@@ -2126,28 +2151,6 @@ input UpdateOffPlatformRecruitmentProcessInput {
   classification: ClassificationBelongsTo
   platform: HiringPlatform
   platformOther: String
-}
-
-input CreateDevelopmentProgramInterestHasMany {
-  create: [CreateDevelopmentProgramInterestInput!]
-}
-
-input UpdateDevelopmentProgramInterestHasMany {
-  create: [CreateDevelopmentProgramInterestInput!]
-  update: [UpdateDevelopmentProgramInterestInput!]
-  delete: [UUID!]
-}
-
-input CreateDevelopmentProgramInterestInput {
-  communityDevelopmentProgramId: UUID!
-  participationStatus: DevelopmentProgramParticipationStatus
-  completionDate: Date
-}
-
-input UpdateDevelopmentProgramInterestInput {
-  id: UUID!
-  participationStatus: DevelopmentProgramParticipationStatus
-  completionDate: Date
 }
 
 input LocalizedStringInput {
@@ -3785,6 +3788,7 @@ enum ErrorCode {
   DEVELOPMENT_PROGRAM_NOT_FOUND
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED
+  DEVELOPMENT_PROGRAM_MUST_CONNECT_OWN_EDUCATION_EXPERIENCE
   ENUM_NOT_FOUND
   ENUM_NOT_LOCALIZED
   ESSENTIAL_SKILL_REQUIRES_LEVEL
@@ -3858,6 +3862,7 @@ enum ErrorCode {
   TOO_MANY_SUBSTANTIVE_EXPERIENCES
   NOT_GOVERNMENT_EMAIL
   NOT_VERIFIED_GOVERNMENT_EMPLOYEE
+  YOU_MUST_BE_VERIFIED_EMPLOYEE_FOR_ACTION
   EMAIL_ADDRESS_IN_USE
   SUB_IN_USE
   VERIFICATION_FAILED

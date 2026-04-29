@@ -209,7 +209,7 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
           talentNomination.nomineeRelationshipToNominatorOther ?? "",
       }}
     >
-      <SubHeading level="h2" icon={UserCircleIcon}>
+      <SubHeading icon={UserCircleIcon}>
         {intl.formatMessage(messages.nomineeInfo)}
       </SubHeading>
       <p className="my-6">

@@ -1,10 +1,10 @@
 import type {
-  CreateCommunityInterestInput,
-  CreateDevelopmentProgramInterestInput,
+  CreateCommunityInterestWithDevelopmentProgramsInput,
   Maybe,
   UpdateCommunityInterestFormData_FragmentFragment,
-  UpdateCommunityInterestInput,
-  UpdateDevelopmentProgramInterestHasMany,
+  UpdateCommunityInterestWithDevelopmentProgramsInput,
+  UpsertDevelopmentProgramUserInput,
+  DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragmentFragment as DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragmentType,
 } from "@gc-digital-talent/graphql";
 import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -37,7 +37,7 @@ function parseMaybeStringToBoolean(value: string | null | undefined): boolean {
 
 export function formValuesToApiCreateInput(
   formValues: FormValues,
-): CreateCommunityInterestInput {
+): CreateCommunityInterestWithDevelopmentProgramsInput {
   if (!formValues.userId) {
     throw new Error("User ID is required");
   }
@@ -46,48 +46,48 @@ export function formValuesToApiCreateInput(
   }
 
   // mandatory fields
-  const apiInput: CreateCommunityInterestInput = {
+  const apiInput: CreateCommunityInterestWithDevelopmentProgramsInput = {
     userId: formValues.userId,
-    community: {
-      connect: formValues.communityId,
+    communityInterest: {
+      communityId: formValues.communityId,
     },
   };
 
-  if (
-    formValues.interestInWorkStreamIds !== null &&
-    Array.isArray(formValues.interestInWorkStreamIds)
-  ) {
-    apiInput.workStreams = {
+  if (formValues.interestInWorkStreamIds !== null) {
+    apiInput.communityInterest.workStreams = {
       sync: formValues.interestInWorkStreamIds,
     };
   }
 
   if (formValues.jobInterest !== null) {
-    apiInput.jobInterest = parseMaybeStringToBoolean(formValues.jobInterest);
+    apiInput.communityInterest.jobInterest = parseMaybeStringToBoolean(
+      formValues.jobInterest,
+    );
   }
 
   if (formValues.trainingInterest !== null) {
-    apiInput.trainingInterest = parseMaybeStringToBoolean(
+    apiInput.communityInterest.trainingInterest = parseMaybeStringToBoolean(
       formValues.trainingInterest,
     );
   }
 
   if (formValues.additionalInformation !== null) {
-    apiInput.additionalInformation = formValues.additionalInformation;
+    apiInput.communityInterest.additionalInformation =
+      formValues.additionalInformation;
   }
 
   if (formValues.interestInDevelopmentPrograms !== null) {
     const interests =
-      formValues.interestInDevelopmentPrograms?.map<CreateDevelopmentProgramInterestInput | null>(
+      formValues.interestInDevelopmentPrograms?.map<UpsertDevelopmentProgramUserInput | null>(
         (interest) => {
           if (
             typeof interest.participationStatus === "string" &&
-            typeof interest.communityDevelopmentProgramId === "string"
+            typeof interest.developmentProgramId === "string"
           ) {
             // valid interest
             return {
-              communityDevelopmentProgramId:
-                interest.communityDevelopmentProgramId,
+              developmentProgramId: interest.developmentProgramId,
+              educationExperienceId: null, // for later
               participationStatus: interest.participationStatus,
               completionDate:
                 interest.participationStatus ===
@@ -100,91 +100,84 @@ export function formValuesToApiCreateInput(
           return null;
         },
       );
-    apiInput.interestInDevelopmentPrograms = {
-      create: unpackMaybes(interests),
-    };
+    apiInput.developmentPrograms = unpackMaybes(interests);
   }
 
   // finance-only fields
-  apiInput.financeIsChief = formValues.financeIsChief;
-  apiInput.financeAdditionalDuties = formValues.financeAdditionalDuties
-    ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
-    : null;
-  apiInput.financeOtherRoles = formValues.financeOtherRoles
+  apiInput.communityInterest.financeIsChief = formValues.financeIsChief;
+  apiInput.communityInterest.financeAdditionalDuties =
+    formValues.financeAdditionalDuties
+      ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
+      : null;
+  apiInput.communityInterest.financeOtherRoles = formValues.financeOtherRoles
     ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
     : null;
-  apiInput.financeOtherRolesOther = formValues.financeOtherRolesOther;
+  apiInput.communityInterest.financeOtherRolesOther =
+    formValues.financeOtherRolesOther;
 
-  apiInput.consentToShareProfile = formValues.consent;
+  apiInput.communityInterest.consentToShareProfile = formValues.consent;
 
   return apiInput;
 }
 
 export function formValuesToApiUpdateInput(
   communityInterestId: string,
-  interestedPrograms: Map<string, string>,
   formValues: FormValues,
-): UpdateCommunityInterestInput {
-  const interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany =
-    {};
+): UpdateCommunityInterestWithDevelopmentProgramsInput {
+  let interests: UpsertDevelopmentProgramUserInput[] | undefined = undefined;
 
-  formValues.interestInDevelopmentPrograms?.forEach((input) => {
-    if (!input.communityDevelopmentProgramId) return;
-
-    const existingInterest = interestedPrograms.get(
-      input.communityDevelopmentProgramId,
-    );
-
-    if (existingInterest) {
-      interestInDevelopmentPrograms.update = [
-        ...(interestInDevelopmentPrograms.update ?? []),
-        {
-          id: existingInterest,
-          participationStatus: input.participationStatus,
-          completionDate:
-            input.participationStatus ===
-            DevelopmentProgramParticipationStatus.Completed
-              ? input.completionDate
-              : null,
+  if (formValues.interestInDevelopmentPrograms !== null) {
+    const interestsWithNulls =
+      formValues.interestInDevelopmentPrograms?.map<UpsertDevelopmentProgramUserInput | null>(
+        (interest) => {
+          if (
+            typeof interest.participationStatus === "string" &&
+            typeof interest.developmentProgramId === "string"
+          ) {
+            // valid interest
+            return {
+              developmentProgramId: interest.developmentProgramId,
+              educationExperienceId: null, // for later
+              participationStatus: interest.participationStatus,
+              completionDate:
+                interest.participationStatus ===
+                DevelopmentProgramParticipationStatus.Completed
+                  ? interest.completionDate
+                  : null,
+            };
+          }
+          // no participation status or development program ID
+          return null;
         },
-      ];
-    } else {
-      interestInDevelopmentPrograms.create = [
-        ...(interestInDevelopmentPrograms.create ?? []),
-        {
-          communityDevelopmentProgramId: input.communityDevelopmentProgramId,
-          participationStatus: input.participationStatus,
-          completionDate:
-            input.participationStatus ===
-            DevelopmentProgramParticipationStatus.Completed
-              ? input.completionDate
-              : null,
-        },
-      ];
-    }
-  });
+      );
+
+    interests = unpackMaybes(interestsWithNulls);
+  }
 
   return {
     id: communityInterestId,
-    workStreams: {
-      sync: formValues.interestInWorkStreamIds,
+    communityInterest: {
+      jobInterest: parseMaybeStringToBoolean(formValues.jobInterest),
+      trainingInterest: parseMaybeStringToBoolean(formValues.trainingInterest),
+      additionalInformation: formValues.additionalInformation,
+
+      // finance-only fields
+      financeIsChief: formValues.financeIsChief,
+      financeAdditionalDuties: formValues.financeAdditionalDuties
+        ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
+        : null,
+      financeOtherRoles: formValues.financeOtherRoles
+        ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
+        : null,
+      financeOtherRolesOther: formValues.financeOtherRolesOther,
+
+      consentToShareProfile: formValues.consent,
+
+      workStreams: {
+        sync: formValues.interestInWorkStreamIds,
+      },
     },
-    jobInterest: parseMaybeStringToBoolean(formValues.jobInterest),
-    trainingInterest: parseMaybeStringToBoolean(formValues.trainingInterest),
-    additionalInformation: formValues.additionalInformation,
-    interestInDevelopmentPrograms,
-
-    // finance-only fields
-    financeIsChief: formValues.financeIsChief,
-    financeAdditionalDuties: formValues.financeAdditionalDuties
-      ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
-      : null,
-    financeOtherRoles: formValues.financeOtherRoles
-      ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
-      : null,
-    financeOtherRolesOther: formValues.financeOtherRolesOther,
-
-    consentToShareProfile: formValues.consent,
+    developmentPrograms: interests,
   };
 }
 
@@ -195,16 +188,13 @@ interface DevelopmentProgramSlice {
 
 export function apiDataToFormValues(
   userId: string | null | undefined,
+  developmentProgramUserRecords: DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragmentType[],
   communityInterest:
     | UpdateCommunityInterestFormData_FragmentFragment
     | null
     | undefined,
   developmentProgramsForCommunity: DevelopmentProgramSlice[],
 ): FormValues {
-  const usersInterestDevelopmentPrograms = unpackMaybes(
-    communityInterest?.interestInDevelopmentPrograms,
-  );
-
   // the initial values for FormValues.interestInDevelopmentPrograms must have the maximum length possible, otherwise values are skewed
   // 22 possible programs but 21 interests marked means a skew of one
   // thus build the initial value off community.developmentPrograms instead of communityInterest.interestInDevelopmentPrograms
@@ -213,14 +203,13 @@ export function apiDataToFormValues(
   );
   const initialInterestInDevelopmentPrograms: FormValues["interestInDevelopmentPrograms"] =
     developmentProgramsForCommunity.map((developmentProgram) => {
-      const correspondingProgram = usersInterestDevelopmentPrograms.find(
-        (userDevPro) =>
-          userDevPro.communityDevelopmentProgram?.developmentProgram?.id ===
+      const correspondingProgram = developmentProgramUserRecords.find(
+        (developmentProgramUser) =>
+          developmentProgramUser.developmentProgram.id ===
           developmentProgram.id,
       );
       return {
-        communityDevelopmentProgramId:
-          correspondingProgram?.communityDevelopmentProgram.id ?? "",
+        developmentProgramId: developmentProgram.id,
         participationStatus: correspondingProgram?.participationStatus ?? null,
         completionDate: correspondingProgram?.completionDate ?? null,
       };

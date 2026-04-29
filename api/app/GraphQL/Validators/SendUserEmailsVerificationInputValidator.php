@@ -25,7 +25,7 @@ final class SendUserEmailsVerificationInputValidator extends Validator
         return [
             'emailAddress' => [
                 Rule::when(fn () => in_array(EmailType::WORK->name, $this->arg('emailTypes')),
-                    [new GovernmentEmailRegex],
+                    [new GovernmentEmailRegex()],
                     ['email']
                 ),
                 Rule::unique('users', 'email')->ignore($user?->id, 'id'),

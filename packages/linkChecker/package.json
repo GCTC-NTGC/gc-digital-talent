@@ -13,13 +13,13 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
-    "dotenv": "^17.4.1",
+    "dotenv": "^17.4.2",
     "glob": "^13.0.6"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "eslint": "^9.20.1",
     "tsconfig": "workspace:*",
-    "typescript": "^6.0.0"
+    "typescript": "^6.0.3"
   }
 }

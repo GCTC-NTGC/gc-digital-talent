@@ -919,6 +919,10 @@
     "defaultMessage": "Soumis",
     "description": "Item's state is submitted"
   },
+  "VpjQL1": {
+    "defaultMessage": "Confirmation des membres du personnel",
+    "description": "Label for status of employee verification"
+  },
   "VqrVpT": {
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
     "description": "Error message that the given email address is already in use when updating."
@@ -1090,6 +1094,10 @@
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
     "description": "Button text to expand truncated text to view all contents"
+  },
+  "cHgzmF": {
+    "defaultMessage": "Cette action est réservée au personnel vérifié.",
+    "description": "Error message for when a user is not verified"
   },
   "cO535E": {
     "defaultMessage": "Erreur : échec de la création du compte.",

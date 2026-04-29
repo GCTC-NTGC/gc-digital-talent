@@ -12,9 +12,9 @@ const labels = defineMessages({
     description:
       "Label for the advancement nomination option on the details step",
   },
-  developmentProgram: {
-    defaultMessage: "Development program",
-    id: "gSyRKu",
+  developmentOpportunities: {
+    defaultMessage: "Development opportunities",
+    id: "MawH92",
     description:
       "Label for the development program nomination option on the details step",
   },
@@ -79,8 +79,8 @@ const labels = defineMessages({
       "Label for the option when the submitter is submitting a nomination on behalf of someone else",
   },
   otherDevelopmentProgram: {
-    defaultMessage: "Other development program option",
-    id: "xidShX",
+    defaultMessage: "Other development opportunity name",
+    id: "ncVR6j",
     description:
       "Label other development program option input on the details step",
   },

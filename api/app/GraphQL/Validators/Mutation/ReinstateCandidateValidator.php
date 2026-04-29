@@ -14,7 +14,7 @@ class ReinstateCandidateValidator extends Validator
                 'required',
                 'uuid',
                 'exists:pool_candidates,id',
-                new CanReinstateCandidate,
+                new CanReinstateCandidate(),
             ],
         ];
     }

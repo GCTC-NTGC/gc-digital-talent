@@ -192,19 +192,15 @@ export const testPoolCandidate: PoolCandidate = {
       // set assessment steps out of order
       {
         ...interviewGroupStep,
-        assessmentResults: interviewGroupResults,
       },
       {
         ...applicationScreeningStep,
-        assessmentResults: applicationScreeningResults,
       },
       {
         ...referenceCheckStep,
-        assessmentResults: referenceCheckResults,
       },
       {
         ...screeningQuestionsStep,
-        assessmentResults: screeningQuestionsResults,
       },
     ],
   },

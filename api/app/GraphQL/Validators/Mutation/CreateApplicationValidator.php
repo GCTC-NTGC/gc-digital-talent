@@ -21,7 +21,7 @@ final class CreateApplicationValidator extends Validator
     public function rules(): array
     {
         return [
-            'poolId' => [new PoolPublished, new NotAlreadyApplied],
+            'poolId' => [new PoolPublished(), new NotAlreadyApplied()],
         ];
     }
 

@@ -74,12 +74,6 @@ test.describe("Profile Page", () => {
       ).toBeVisible();
       await expect(
         appPage.page.getByRole("heading", {
-          name: "Government employee information",
-          level: 2,
-        }),
-      ).toBeVisible();
-      await expect(
-        appPage.page.getByRole("heading", {
           name: "Language profile",
           level: 2,
         }),

@@ -375,7 +375,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function skills(): HasManyDeep
     {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill());
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill());
     }
 
     // User 1-0..* PoolCandidateSearchRequest
@@ -399,6 +399,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(OffPlatformRecruitmentProcess::class);
     }
 
+    public function developmentProgramUserRecords(): HasMany
+    {
+        return $this->hasMany(DevelopmentProgramUser::class);
+    }
+
     // This method will add the specified skills to UserSkills if they don't exist yet.
     public function addSkills($skill_ids)
     {
@@ -408,7 +413,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $existingSkillIds = $this->userSkills()->withTrashed()->pluck('skill_id');
         $newSkillIds = collect($skill_ids)->diff($existingSkillIds)->unique();
         foreach ($newSkillIds as $skillId) {
-            $userSkill = new UserSkill;
+            $userSkill = new UserSkill();
             $userSkill->skill_id = $skillId;
             $this->userSkills()->save($userSkill);
         }
@@ -620,7 +625,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 is_null($this->attributes['looking_for_french']) &&
                 is_null($this->attributes['looking_for_bilingual'])
             ) or
-            is_null($this->attributes['computed_is_gov_employee']) or
             is_null($this->attributes['has_priority_entitlement']) or
             ($this->attributes['has_priority_entitlement'] && is_null($this->attributes['priority_number'])) or
             is_null($this->attributes['flexible_work_locations']) or
@@ -858,7 +862,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public static function hydrateSnapshot(mixed $snapshot): User|array
     {
-        $user = new User;
+        $user = new User();
 
         $fields = [
             'first_name' => 'firstName',

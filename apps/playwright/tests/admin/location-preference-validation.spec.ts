@@ -138,11 +138,13 @@ test.describe("Location Preference Validation", () => {
 
     await createCommunityInterest(applicantCtx, {
       userId: user?.id ?? "",
-      community: { connect: "f2156218-953a-49dc-b12c-84fecae2309a" },
-      consentToShareProfile: true,
-      jobInterest: true,
-      trainingInterest: true,
-      workStreams: { sync: ["c6ce7eee-751c-4637-a9a2-d19fb20eaaeb"] },
+      communityInterest: {
+        communityId: "f2156218-953a-49dc-b12c-84fecae2309a",
+        jobInterest: true,
+        trainingInterest: true,
+        workStreams: { sync: ["c6ce7eee-751c-4637-a9a2-d19fb20eaaeb"] },
+        consentToShareProfile: true,
+      },
     });
 
     const candidate = await createAndSubmitApplication(applicantCtx, {

@@ -439,7 +439,7 @@ const TalentNominationAccordionItem = ({
         {/* fields only rendered if nominated for development programs */}
         {talentNomination.nominateForDevelopmentPrograms ? (
           <Accordion.Root mode="simple" type="multiple">
-            <Accordion.Item value="Development program recommendations">
+            <Accordion.Item value="Recommended development opportunities">
               <Accordion.Trigger
                 as="h4"
                 subtitle={intl.formatMessage({
@@ -450,8 +450,8 @@ const TalentNominationAccordionItem = ({
                 })}
               >
                 {intl.formatMessage({
-                  defaultMessage: "Development program recommendations",
-                  id: "nF//P1",
+                  defaultMessage: "Recommended development opportunities",
+                  id: "EsNdLS",
                   description: "Trigger title for development programs",
                 })}
               </Accordion.Trigger>

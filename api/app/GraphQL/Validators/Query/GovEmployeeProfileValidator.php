@@ -16,7 +16,7 @@ final class GovEmployeeProfileValidator extends Validator
     public function rules(): array
     {
         return [
-            'workEmail' => [new GovernmentEmailRegex, new IsVerifiedGovEmployee],
+            'workEmail' => [new GovernmentEmailRegex(), new IsVerifiedGovEmployee()],
         ];
     }
 }

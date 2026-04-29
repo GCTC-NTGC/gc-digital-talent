@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Services\CanadaLoginBearerTokenService;
 use DateTimeImmutable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Psr\Clock\ClockInterface;
 use Tests\TestCase;
@@ -31,6 +32,7 @@ class CanadaLoginBearerTokenTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp(); // initializes Http facade
+        Cache::flush(); // Start with fresh cache
 
         $fakeIntrospectionUrl = self::fakeRootUrl.'/introspection';
 
@@ -319,8 +321,8 @@ class CanadaLoginBearerTokenTest extends TestCase
         $this->service_provider->validateAndGetClaims($token);
         Http::assertSentCount(3); // calls config, jwks, and introspection
 
-        // advance the clock by 30 seconds
-        $this->travel(30)->seconds();
+        // advance the clock by cache time
+        $this->travel((int) config('oauth.introspection_cache_time'))->seconds();
         $this->service_provider->validateAndGetClaims($token);
         Http::assertSentCount(4); // made an extra call since it's not cached anymore
     }
