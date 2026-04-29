@@ -9,10 +9,6 @@ include:
   - docker-compose.yml
 
 services:
-  adminer:
-    ports:
-      - "8081:8080"
-
   webserver:
     profiles:
       - disabled
