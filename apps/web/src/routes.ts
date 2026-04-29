@@ -99,7 +99,7 @@ export default [
 
           // Browse jobs
           ...prefix("jobs", [
-            index("./pages/Pools/BrowsePoolsPage/BrowsePoolsPage.tsx"),
+            index("./pages/Pools/BrowseJobsPage/OpenJobsPage.tsx"),
             route(
               ":poolId",
               "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",

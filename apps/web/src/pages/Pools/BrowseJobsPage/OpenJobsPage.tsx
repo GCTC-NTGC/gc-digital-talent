@@ -37,8 +37,8 @@ const flourish = tv({
   },
 });
 
-const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
-  query BrowsePoolsPage {
+const OpenJobsPage_Query = graphql(/* GraphQL */ `
+  query OpenJobsPage {
     poolsPaginated(
       where: { statuses: [PUBLISHED] }
       first: 500
@@ -78,7 +78,7 @@ export const Component = () => {
   const paths = useRoutes();
 
   const [{ data, fetching, error }] = useQuery({
-    query: BrowsePoolsPage_Query,
+    query: OpenJobsPage_Query,
   });
 
   const pools = unpackMaybes(data?.poolsPaginated?.data);
@@ -216,6 +216,6 @@ export const Component = () => {
   );
 };
 
-Component.displayName = "BrowsePoolsPage";
+Component.displayName = "OpenJobsPage";
 
 export default Component;
