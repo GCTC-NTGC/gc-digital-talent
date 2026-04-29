@@ -2,7 +2,7 @@ import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { tv } from "tailwind-variants";
 
-import { Container, Pending } from "@gc-digital-talent/ui";
+import { Container, Flourish, Pending } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
 import { graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -20,6 +20,7 @@ import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 
 import { canShowOnBrowseJobs } from "./utils";
 import ClosedJobOpportunitiesSection from "./components/ClosedJobOpportunitiesSection/ClosedJobOpportunitiesSection";
+import ConversionFeatures from "./components/ConversionFeatures/ConversionFeatures";
 
 const flourish = tv({
   base: "absolute z-1 w-[25vw]",
@@ -117,6 +118,8 @@ export const Component = () => {
           className={flourish({ isTop: false })}
         />
       </div>
+      <ConversionFeatures />
+      <Flourish />
     </Pending>
   );
 };
