@@ -3,12 +3,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { useEffect, useRef } from "react";
 
 import { CardSeparator, Heading, Notice } from "@gc-digital-talent/ui";
-import {
-  getFragment,
-  type Community,
-  type CommunityDevelopmentProgram,
-  type FragmentType,
-} from "@gc-digital-talent/graphql";
+import { getFragment, type FragmentType } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
@@ -71,8 +66,9 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
     },
   );
 
-  const watchOpenDate = watch("openDate");
-  const watchCommunity = watch("community");
+  const [watchOpenDate, watchCommunity, watchDevelopmentProgramOptions] = watch(
+    ["openDate", "community", "communityDevelopmentPrograms"],
+  );
 
   const roles = unpackMaybes(user?.authInfo?.roleAssignments).filter(
     (ra) =>
@@ -88,20 +84,21 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
       intl.formatMessage(commonMessages.notAvailable),
     value: community.id,
   }));
-  const developmentProgramOptions = communities
-    .filter((community) => community.id === watchCommunity)
-    .reduce(
-      (acc: CommunityDevelopmentProgram[], curr: Community) => [
-        ...acc,
-        ...(curr.communityDevelopmentPrograms ?? []),
-      ],
-      [],
-    )
-    .map((cdp) => ({
-      label: cdp.developmentProgram.name.localized,
-      value: cdp.id,
-      description: cdp.developmentProgram.descriptionForProfile.localized,
-    }));
+
+  const ids = new Set(watchDevelopmentProgramOptions.map((dp) => dp.value));
+  const developmentProgramOptions = unpackMaybes(
+    communities
+      .filter((community) => community.id === watchCommunity)
+      .flatMap((community) => community.communityDevelopmentPrograms),
+  ).map((cdp) => ({
+    label: cdp.developmentProgram.name.localized,
+    value: cdp.id,
+    description: cdp.developmentProgram.descriptionForProfile.localized,
+  }));
+
+  const filteredDevelopmentProgramOptions = developmentProgramOptions.filter(
+    (cdp) => !ids.has(cdp.value),
+  );
 
   const previousValue = useRef(watchCommunity);
 
@@ -300,7 +297,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
             </div>
 
             <DevelopmentProgramDialog
-              developmentProgramOptions={developmentProgramOptions}
+              developmentProgramOptions={filteredDevelopmentProgramOptions}
               onSubmit={(values) => append(values)}
             />
 
@@ -343,7 +340,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
                           edit={
                             <DevelopmentProgramDialog
                               developmentProgramOptions={
-                                developmentProgramOptions
+                                filteredDevelopmentProgramOptions
                               }
                               defaultValues={{
                                 value: field.value,
