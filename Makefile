@@ -15,7 +15,7 @@ up:
 	docker compose -f $(COMPOSE) up --build --detach
 
 down:
-	docker compose -f $(COMPOSE) down
+	docker compose -f $(COMPOSE) down --remove-orphans
 
 logs:
 	docker compose -f $(COMPOSE) logs -f
