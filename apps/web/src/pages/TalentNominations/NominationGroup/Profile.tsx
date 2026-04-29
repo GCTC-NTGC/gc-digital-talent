@@ -76,12 +76,14 @@ const TalentNominationGroupProfile = ({
     });
   };
 
-  const hasProfileData = !!data?.user?.employeeProfile;
-
   return (
     <Pending fetching={fetching} error={error}>
       <Card
-        className={hasProfileData ? "rounded-b-none pb-0 sm:pb-0" : undefined}
+        className={
+          data?.user?.employeeProfile
+            ? "rounded-b-none pb-0 sm:pb-0"
+            : undefined
+        }
         space="lg"
       >
         <div className="flex flex-col items-center justify-between gap-y-6 sm:flex-row sm:gap-x-3 sm:gap-y-0">
@@ -152,7 +154,7 @@ const TalentNominationGroupProfile = ({
           </Notice.Root>
         )}
       </Card>
-      {hasProfileData ? (
+      {data?.user?.employeeProfile ? (
         <Accordion.Root
           type="multiple"
           mode="card"
