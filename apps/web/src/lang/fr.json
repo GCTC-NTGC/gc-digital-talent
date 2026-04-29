@@ -947,6 +947,10 @@
     "defaultMessage": "Formulaire de consentement et de demande de filtrage de sécurité",
     "description": "Link text for government of canada security screening application and consent form"
   },
+  "1d2BaE": {
+    "defaultMessage": "<strong>Les postes hybrides</strong> requièrent une présence au bureau au moins trois jours par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.",
+    "description": "Definition for 'hybrid positions'"
+  },
   "1e84jV": {
     "defaultMessage": "Les visiteurs doivent également savoir que l’information offerte par les sites autres que ceux du gouvernement du Canada, accessibles à l’aide des liens de ce site Web, n’est pas assujettie à la <privacyActLink>Loi sur la protection des renseignements personnels</privacyActLink> ni à la <langActLink>Loi sur les langues officielles</langActLink> et pourrait ne pas être accessible aux personnes handicapées. Il est probable que l’information offerte ne soit disponible que dans les langues employées dans les sites en question. En ce qui a trait aux renseignements personnels, nous invitons les visiteurs à consulter les politiques de ces sites Web non gouvernementaux en matière de protection des renseignements personnels avant de fournir leurs renseignements personnels.",
     "description": "Paragraph two describing linking to gov section"
@@ -6750,10 +6754,6 @@
   "QGKWJ5": {
     "defaultMessage": "Ce candidat a revendiqué un <strong>statut prioritaire</strong> et a soumis le numéro suivant : <strong>{priorityNumber}</strong>.",
     "description": "Message for a candidates priority status claim"
-  },
-  "QKGmDP": {
-    "defaultMessage": "<strong>Les postes hybrides</strong> requièrent une présence au bureau au moins un jour par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.",
-    "description": "Definition for 'hybrid positions'"
   },
   "QMY4DF": {
     "defaultMessage": "<strong>Pour commencer, passez votre profil en revue.</strong> Si vous n'avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements requis à l'étape suivante.",
