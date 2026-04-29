@@ -358,6 +358,7 @@ const ActiveTalentEventForm = ({
                     value: strToFormDate(new Date().toISOString()),
                     message: intl.formatMessage(errorMessages.invalidDate),
                   },
+                  required: intl.formatMessage(errorMessages.required),
                 }}
               />
             </div>

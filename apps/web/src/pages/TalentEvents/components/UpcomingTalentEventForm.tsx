@@ -259,6 +259,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
                 labelAssociated: intl.formatMessage(openDate),
               }),
             },
+            required: intl.formatMessage(errorMessages.required),
           }}
         />
       </div>
