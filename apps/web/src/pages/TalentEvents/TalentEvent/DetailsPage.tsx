@@ -186,7 +186,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             intl.formatMessage(commonMessages.notProvided)}
         </p>
         <>
-          {talentEvent.learnMoreUrl?.en ? (
+          {talentEvent.learnMoreUrl?.en && (
             <Link
               mode="text"
               external
@@ -196,12 +196,10 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             >
               {talentEvent.learnMoreUrl.en}
             </Link>
-          ) : (
-            <p>{intl.formatMessage(commonMessages.notProvided)}</p>
           )}
         </>
         <>
-          {talentEvent.learnMoreUrl?.fr ? (
+          {talentEvent.learnMoreUrl?.fr && (
             <Link
               mode="text"
               external
@@ -211,8 +209,6 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             >
               {talentEvent.learnMoreUrl.fr}
             </Link>
-          ) : (
-            <p>{intl.formatMessage(commonMessages.notProvided)}</p>
           )}
         </>
         <p>
