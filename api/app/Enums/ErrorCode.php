@@ -136,6 +136,8 @@ enum ErrorCode
 
     // Talent event
     case TALENT_EVENT_IS_CLOSED;
+    case TALENT_EVENT_CANNOT_CHANGE_COMMUNITY;
+    case TALENT_EVENT_CANNOT_CHANGE_NAME;
 
     // Talent nominations
     case TALENT_NOMINATION_ALREADY_SUBMITTED;

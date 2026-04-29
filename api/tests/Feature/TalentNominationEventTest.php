@@ -391,4 +391,137 @@ class TalentNominationEventTest extends TestCase
             ])
             ->assertGraphQLErrorMessage('Validation failed for the field [updateTalentNominationEvent].');
     }
+
+    // some fields must stay the same once the event is active
+    public function testCannotChangeCertainFieldsWhenEventActive()
+    {
+        $futureOpenDate = '2050-01-01 01:23:45';
+        $currentOpenDate = '2025-01-01 01:23:45';
+        $futureClosingDate = '2100-01-01 01:23:45';
+
+        $newCommunity = Community::factory()->create();
+
+        $doubleAdmin = User::factory()
+            ->asGuest()
+            ->asApplicant()
+            ->asCommunityAdmin([$this->communityId, $newCommunity->id])
+            ->create();
+
+        $futureTalentNominationEvent = TalentNominationEvent::factory()->create([
+            'community_id' => $this->communityId,
+            'open_date' => $futureOpenDate,
+            'close_date' => $futureClosingDate,
+        ]);
+        $activeTalentNominationEvent = TalentNominationEvent::factory()->create([
+            'community_id' => $this->communityId,
+            'open_date' => $currentOpenDate,
+            'close_date' => $futureClosingDate,
+        ]);
+
+        // future event
+        // you can change the community and name
+        $this->actingAs($doubleAdmin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        community {
+                            id
+                        }
+                        name { en fr }
+                    }
+                }
+                GRAPHQL, [
+                'id' => $futureTalentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'community' => [
+                        'connect' => $newCommunity->id,
+                    ],
+                    'name' => [
+                        'en' => 'EN',
+                        'fr' => 'FR',
+                    ],
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'updateTalentNominationEvent' => [
+                        'id' => $futureTalentNominationEvent->id,
+                        'community' => [
+                            'id' => $newCommunity->id,
+                        ],
+                        'name' => [
+                            'en' => 'EN',
+                            'fr' => 'FR',
+                        ],
+                    ],
+                ],
+            ]);
+
+        // active event
+        // you cannot change the community and name
+        $this->actingAs($doubleAdmin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        name { en fr }
+                    }
+                }
+                GRAPHQL, [
+                'id' => $activeTalentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'community' => [
+                        'connect' => $newCommunity->id,
+                    ],
+                    'name' => [
+                        'en' => 'EN',
+                        'fr' => 'FR',
+                    ],
+                ],
+            ])
+            ->assertGraphQLValidationError('talentNominationEvent.community.connect', ErrorCode::TALENT_EVENT_CANNOT_CHANGE_COMMUNITY->name)
+            ->assertGraphQLValidationError('talentNominationEvent.name.en', ErrorCode::TALENT_EVENT_CANNOT_CHANGE_NAME->name)
+            ->assertGraphQLValidationError('talentNominationEvent.name.fr', ErrorCode::TALENT_EVENT_CANNOT_CHANGE_NAME->name);
+
+        // active event
+        // you can submit the mutation if the community and name are the same as stored
+        $this->actingAs($doubleAdmin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        community {
+                            id
+                        }
+                        name { en fr }
+                    }
+                }
+                GRAPHQL, [
+                'id' => $activeTalentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'community' => [
+                        'connect' => $activeTalentNominationEvent->community_id,
+                    ],
+                    'name' => [
+                        'en' => $activeTalentNominationEvent->name['en'],
+                        'fr' => $activeTalentNominationEvent->name['fr'],
+                    ],
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'updateTalentNominationEvent' => [
+                        'id' => $activeTalentNominationEvent->id,
+                        'community' => [
+                            'id' => $activeTalentNominationEvent->community_id,
+                        ],
+                        'name' => [
+                            'en' => $activeTalentNominationEvent->name['en'],
+                            'fr' => $activeTalentNominationEvent->name['fr'],
+                        ],
+                    ],
+                ],
+            ]);
+    }
 }
