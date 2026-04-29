@@ -73,7 +73,7 @@ const item = tv({
   variants: {
     mode: {
       simple: "",
-      card: "not-last:border-b not-last:border-b-gray-100 even:bg-gray-100/30 dark:not-last:border-b-gray-700 dark:odd:bg-gray-700/30 dark:even:bg-gray-700/50",
+      card: "not-last:border-b not-last:border-b-gray-100 odd:bg-gray-100/30 dark:not-last:border-b-gray-700 dark:odd:bg-gray-700/50 dark:even:bg-gray-700/30",
     },
   },
 });
