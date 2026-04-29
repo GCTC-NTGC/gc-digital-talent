@@ -384,8 +384,8 @@ const ActiveTalentEventForm = ({
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "Specify which professionalization options nominators can choose from when nominating an employee for development opportunities. You can also optionally provide extra context for nominators to better understand their choices if need be,. If you can’t find the program or certificate you need, contact your community administrator and work with them to add the options you need.",
-                      id: "atLy8S",
+                        "Specify which professionalization options nominators can choose from when nominating an employee for development opportunities. You can also optionally provide extra context for nominators to better understand their choices. If you can't find the program or certificate you need, contact your community administrator and work with them to add the options you need.",
+                      id: "fGbaWJ",
                       description:
                         "Description for subsection create talent management event",
                     })}
@@ -396,8 +396,8 @@ const ActiveTalentEventForm = ({
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
-                          "Please note development opportunities can be added and edited, but not removed.",
-                        id: "n2yLo0",
+                          "Please note development opportunities can be added and edited but not removed.",
+                        id: "hAb5VZ",
                         description:
                           "Description for warning notice in active talent event form",
                       })}
