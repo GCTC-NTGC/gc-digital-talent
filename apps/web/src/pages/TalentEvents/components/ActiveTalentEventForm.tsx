@@ -185,6 +185,11 @@ const ActiveTalentEventForm = ({
       description: cdp.developmentProgram.descriptionForProfile.localized,
     }));
 
+  let minDate = new Date();
+  if (closeDate) {
+    minDate = new Date(closeDate);
+  }
+
   return (
     <>
       <Notice.Root color="warning" className="mb-6">
@@ -355,8 +360,8 @@ const ActiveTalentEventForm = ({
                 legend={intl.formatMessage(processMessages.closingDate)}
                 rules={{
                   min: {
-                    value: strToFormDate(new Date().toISOString()),
-                    message: intl.formatMessage(errorMessages.invalidDate),
+                    value: strToFormDate(minDate.toISOString()),
+                    message: intl.formatMessage(errorMessages.futureDate),
                   },
                   required: intl.formatMessage(errorMessages.required),
                 }}
