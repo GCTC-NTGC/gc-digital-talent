@@ -1,6 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { CardSeparator, Heading, Notice } from "@gc-digital-talent/ui";
 import {
@@ -58,16 +58,18 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
   const intl = useIntl();
   const user = getFragment(TalentNominationEvent_Fragment, query);
   const methods = useFormContext<FormValues>();
-  const { watch, getFieldState, resetField, formState, control } = methods;
+  const { watch, control } = methods;
 
-  const { fields, append, update, remove } = useFieldArray<FormValues>({
-    name: "communityDevelopmentPrograms",
-    control,
-    rules: {
-      required: intl.formatMessage(errorMessages.required),
-      validate: (value) => value.length > 0 || intl.formatMessage(atLeastOne),
+  const { fields, append, update, remove, replace } = useFieldArray<FormValues>(
+    {
+      name: "communityDevelopmentPrograms",
+      control,
+      rules: {
+        required: intl.formatMessage(errorMessages.required),
+        validate: (value) => value.length > 0 || intl.formatMessage(atLeastOne),
+      },
     },
-  });
+  );
 
   const watchOpenDate = watch("openDate");
   const watchCommunity = watch("community");
@@ -101,15 +103,14 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
       description: cdp.developmentProgram.descriptionForProfile.localized,
     }));
 
-  const { isDirty: communityIsDirty } = getFieldState("community", formState);
+  const previousValue = useRef(watchCommunity);
 
   useEffect(() => {
-    if (watchCommunity && communityIsDirty) {
-      resetField("communityDevelopmentPrograms", {
-        keepDirty: false,
-        defaultValue: [],
-      });
+    if (previousValue.current !== watchCommunity) {
+      replace([]);
     }
+
+    previousValue.current = watchCommunity;
   }, [watchCommunity]);
 
   const notFound = intl.formatMessage(commonMessages.notFound);
