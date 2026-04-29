@@ -399,6 +399,8 @@ class TalentNominationEventTest extends TestCase
         $currentOpenDate = '2025-01-01 01:23:45';
         $futureClosingDate = '2100-01-01 01:23:45';
 
+        $futureOpenDatePlusAYear = '2051-01-01 01:23:45';
+
         $newCommunity = Community::factory()->create();
 
         $doubleAdmin = User::factory()
@@ -419,7 +421,7 @@ class TalentNominationEventTest extends TestCase
         ]);
 
         // future event
-        // you can change the community and name
+        // you can change the community, name, and opening date
         $this->actingAs($doubleAdmin, 'api')
             ->graphQL(<<<'GRAPHQL'
                 mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
@@ -429,6 +431,7 @@ class TalentNominationEventTest extends TestCase
                             id
                         }
                         name { en fr }
+                        openDate
                     }
                 }
                 GRAPHQL, [
@@ -441,6 +444,7 @@ class TalentNominationEventTest extends TestCase
                         'en' => 'EN',
                         'fr' => 'FR',
                     ],
+                    'openDate' => $futureOpenDatePlusAYear,
                 ],
             ])
             ->assertJson([
@@ -454,18 +458,23 @@ class TalentNominationEventTest extends TestCase
                             'en' => 'EN',
                             'fr' => 'FR',
                         ],
+                        'openDate' => $futureOpenDatePlusAYear,
                     ],
                 ],
             ]);
 
         // active event
-        // you cannot change the community and name
+        // you cannot change the community, name, and opening date
         $this->actingAs($doubleAdmin, 'api')
             ->graphQL(<<<'GRAPHQL'
                 mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
                     updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
                         id
+                        community {
+                            id
+                        }
                         name { en fr }
+                        openDate
                     }
                 }
                 GRAPHQL, [
@@ -478,14 +487,16 @@ class TalentNominationEventTest extends TestCase
                         'en' => 'EN',
                         'fr' => 'FR',
                     ],
+                    'openDate' => $futureOpenDatePlusAYear,
                 ],
             ])
             ->assertGraphQLValidationError('talentNominationEvent.community.connect', ErrorCode::TALENT_EVENT_CANNOT_CHANGE_COMMUNITY->name)
             ->assertGraphQLValidationError('talentNominationEvent.name.en', ErrorCode::TALENT_EVENT_CANNOT_CHANGE_NAME->name)
-            ->assertGraphQLValidationError('talentNominationEvent.name.fr', ErrorCode::TALENT_EVENT_CANNOT_CHANGE_NAME->name);
+            ->assertGraphQLValidationError('talentNominationEvent.name.fr', ErrorCode::TALENT_EVENT_CANNOT_CHANGE_NAME->name)
+            ->assertGraphQLValidationError('talentNominationEvent.openDate', 'The talent nomination event.open date field must be a date equal to '.$currentOpenDate.'.');
 
         // active event
-        // you can submit the mutation if the community and name are the same as stored
+        // you can submit the mutation if the community, name, and opening date are the same as stored
         $this->actingAs($doubleAdmin, 'api')
             ->graphQL(<<<'GRAPHQL'
                 mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
@@ -495,6 +506,7 @@ class TalentNominationEventTest extends TestCase
                             id
                         }
                         name { en fr }
+                        openDate
                     }
                 }
                 GRAPHQL, [
@@ -507,6 +519,7 @@ class TalentNominationEventTest extends TestCase
                         'en' => $activeTalentNominationEvent->name['en'],
                         'fr' => $activeTalentNominationEvent->name['fr'],
                     ],
+                    'openDate' => $activeTalentNominationEvent->open_date->toDateTimeString(),
                 ],
             ])
             ->assertJson([
@@ -520,6 +533,7 @@ class TalentNominationEventTest extends TestCase
                             'en' => $activeTalentNominationEvent->name['en'],
                             'fr' => $activeTalentNominationEvent->name['fr'],
                         ],
+                        'openDate' => $activeTalentNominationEvent->open_date->toDateTimeString(),
                     ],
                 ],
             ]);

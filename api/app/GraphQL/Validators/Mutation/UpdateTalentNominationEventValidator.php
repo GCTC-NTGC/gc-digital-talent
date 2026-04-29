@@ -23,10 +23,12 @@ final class UpdateTalentNominationEventValidator extends Validator
         // for active events additional rules apply
         // prevent moving closing date sooner
         // cannot change the community or event name
+        // prevent changing opening date
         $thisEvent = TalentNominationEvent::findOrFail($this->arg('id'));
         /** @var TalentNominationEvent $thisEvent */
         $eventStatus = $thisEvent->status;
 
+        $storedOpenDate = $thisEvent->open_date;
         $storedCloseDate = $thisEvent->close_date ?? null;
 
         return [
@@ -69,7 +71,15 @@ final class UpdateTalentNominationEventValidator extends Validator
             'talentNominationEvent.description.fr' => ['nullable', 'required_with:description.en', 'string'],
             'talentNominationEvent.learnMoreUrl.en' => ['nullable', 'required_with:learnMoreUrl.fr', 'string', 'url'],
             'talentNominationEvent.learnMoreUrl.fr' => ['nullable', 'required_with:learnMoreUrl.en', 'string', 'url'],
-            'talentNominationEvent.openDate' => ['date'],
+            'talentNominationEvent.openDate' => [
+                'date',
+                Rule::when(
+                    $eventStatus === TalentNominationEventStatus::ACTIVE->name,
+                    [
+                        'date_equals:'.$storedOpenDate,
+                    ]
+                ),
+            ],
             'talentNominationEvent.closeDate' => [
                 'date',
                 'after:openDate',
