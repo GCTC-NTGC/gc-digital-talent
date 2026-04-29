@@ -20,7 +20,11 @@ import {
   TalentNominationEventStatus,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  formMessages,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
 import { Submit } from "@gc-digital-talent/forms";
 import {
   convertDateTimeToDate,
@@ -32,7 +36,6 @@ import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
@@ -234,7 +237,7 @@ const UpdateTalentEventPage = () => {
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(adminMessages.talentManagementEvents),
+        label: intl.formatMessage(navigationMessages.talentManagementEvents),
         url: paths.adminTalentManagementEvents(),
       },
       {

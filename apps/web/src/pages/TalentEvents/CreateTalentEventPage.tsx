@@ -15,7 +15,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { Submit } from "@gc-digital-talent/forms";
 import { convertDateTimeZone } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -24,7 +24,6 @@ import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import adminMessages from "~/messages/adminMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
 
@@ -130,7 +129,7 @@ const CreateTalentEventPage = () => {
   const crumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(adminMessages.talentManagementEvents),
+        label: intl.formatMessage(navigationMessages.talentManagementEvents),
         url: paths.adminTalentManagementEvents(),
       },
       {

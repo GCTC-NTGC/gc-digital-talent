@@ -214,11 +214,6 @@ const messages = defineMessages({
     id: "Ftq+3Y",
     description: "Label for a specific user",
   },
-  talentManagementEvents: {
-    defaultMessage: "Talent management events",
-    id: "LrEUB1",
-    description: "Label for a talent management events",
-  },
 });
 
 export default messages;
