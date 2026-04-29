@@ -123,7 +123,7 @@ const NominationGroupSidebar = ({
           <NominationGroupEvaluationDialog query={talentNominationGroup} />
         </div>
         <CardSeparator decorative space="sm" />
-        <p className="font-bold">
+        <p>
           {intl.formatMessage({
             defaultMessage: "Nominated by",
             id: "ULsL3v",
