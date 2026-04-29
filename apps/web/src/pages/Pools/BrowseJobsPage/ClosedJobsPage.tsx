@@ -4,9 +4,9 @@ import { tv } from "tailwind-variants";
 
 import { Container, Flourish, Pending } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import { graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -18,8 +18,9 @@ import flourishBottomLight from "~/assets/img/browse_bottom_light.webp";
 import flourishTopDark from "~/assets/img/browse_top_dark.webp";
 import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 
-import { canShowOnBrowseJobs } from "./utils";
 import ClosedJobOpportunitiesSection from "./components/ClosedJobOpportunitiesSection/ClosedJobOpportunitiesSection";
+import FooterCard from "./components/FooterCard/FooterCard";
+import { canShowOnBrowseJobs } from "./utils";
 import ConversionFeatures from "./components/ConversionFeatures/ConversionFeatures";
 
 const flourish = tv({
@@ -65,6 +66,7 @@ const subTitle = defineMessage({
   id: "IwVHgf",
   description: "Subtitle for the browse jobs page",
 });
+
 export const Component = () => {
   const { mode } = useTheme();
   const intl = useIntl();
@@ -92,6 +94,8 @@ export const Component = () => {
       p.status?.value === PoolStatus.Closed && // list jobs which have the PUBLISHED PoolStatus
       canShowOnBrowseJobs(p),
   );
+  // a different footer message is displayed if there are opportunities showing, otherwise a null state message is used
+  const areOpportunitiesShowing = !!closedPools.length;
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -111,6 +115,7 @@ export const Component = () => {
         />
         <Container className="relative z-2">
           <ClosedJobOpportunitiesSection poolsQuery={closedPools} />
+          <FooterCard areOpportunitiesShowing={areOpportunitiesShowing} />
         </Container>
         <img
           alt=""
