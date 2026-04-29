@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import { Accordion, Card, CardSeparator, Heading } from "@gc-digital-talent/ui";
+import { Accordion, Card, Heading } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -122,7 +122,7 @@ const NominationGroupSidebar = ({
         <div className="w-full self-start">
           <NominationGroupEvaluationDialog query={talentNominationGroup} />
         </div>
-        <CardSeparator decorative space="sm" />
+        <Card.Separator space="sm" />
         <p>
           {intl.formatMessage({
             defaultMessage: "Nominated by",
@@ -145,6 +145,7 @@ const NominationGroupSidebar = ({
         <NominatedForList
           nominationGroupSidebarForListQuery={talentNominationGroup}
         />
+        <Card.Separator space="xs" />
         <Accordion.Root
           type="single"
           size="sm"
@@ -152,7 +153,6 @@ const NominationGroupSidebar = ({
           onValueChange={(value: AccordionStates) => setAccordionState(value)}
           collapsible
         >
-          <CardSeparator decorative space="xs" />
           <Accordion.Item value="nominee-contact-information">
             <Accordion.Trigger as="h3">
               {intl.formatMessage({
@@ -181,7 +181,7 @@ const NominationGroupSidebar = ({
               </div>
             </Accordion.Content>
           </Accordion.Item>
-          <CardSeparator decorative space="xs" />
+          <Card.Separator space="xs" />
           <Accordion.Item value="comments">
             <Accordion.Trigger as="h3" className="pb-0">
               {intl.formatMessage(adminMessages.comments)}
