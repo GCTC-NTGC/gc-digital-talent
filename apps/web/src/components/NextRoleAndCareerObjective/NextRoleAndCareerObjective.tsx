@@ -73,7 +73,7 @@ const NextRoleAndCareerObjective = ({
           <PreviewList.Root>
             {/* If the employee hasn't filled out this section then display null message */}
             {hasAllEmptyFieldsNextRole({ ...nextRole }) ? (
-              <Notice.Root>
+              <Notice.Root className="my-6">
                 <Notice.Content>
                   <p>
                     {intl.formatMessage({
@@ -92,7 +92,7 @@ const NextRoleAndCareerObjective = ({
               />
             )}
             {hasAllEmptyFieldsCareerObjective({ ...careerObjective }) ? (
-              <Notice.Root>
+              <Notice.Root className="my-6">
                 <Notice.Content>
                   <p>
                     {intl.formatMessage({

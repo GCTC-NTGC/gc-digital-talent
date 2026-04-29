@@ -1813,13 +1813,13 @@ type CandidateSearchPoolResult {
 }
 
 type SitewideAnnouncement {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
-  updatedAt: DateTime!
+  isEnabled: Boolean!
   isDismissible: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  updatedAt: DateTime!
 }
 
 type TrainingOpportunity {
@@ -1842,12 +1842,12 @@ input TrainingOpportunitiesFilterInput {
 }
 
 input SitewideAnnouncementInput {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isEnabled: Boolean!
   isDismissible: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
 }
 
 input ClaimVerificationSort {
@@ -3864,6 +3864,7 @@ enum ErrorCode {
   TOO_MANY_SUBSTANTIVE_EXPERIENCES
   NOT_GOVERNMENT_EMAIL
   NOT_VERIFIED_GOVERNMENT_EMPLOYEE
+  YOU_MUST_BE_VERIFIED_EMPLOYEE_FOR_ACTION
   EMAIL_ADDRESS_IN_USE
   SUB_IN_USE
   VERIFICATION_FAILED
