@@ -4,11 +4,13 @@ namespace App\Policies;
 
 use App\Models\PoolSkill;
 use App\Models\User;
+use App\Policies\Traits\ChecksTeamPermissions;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
 class PoolSkillPolicy
 {
+    use ChecksTeamPermissions;
     use HandlesAuthorization;
 
     /**
@@ -44,10 +46,6 @@ class PoolSkillPolicy
             return true;
         }
 
-        $teamPermission = ! is_null($poolSkill->pool->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->team);
-        $communityPermission = ! is_null($poolSkill->pool->community?->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->community->team);
-        $departmentPermission = ! is_null($poolSkill->pool->department->team) && $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->department->team);
-
-        return $teamPermission || $communityPermission || $departmentPermission;
+        return $this->checkTeamPermission($user, $this->getPoolTeams($poolSkill->pool), 'view-team-assessmentPlan');
     }
 }
