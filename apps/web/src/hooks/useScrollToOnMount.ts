@@ -22,8 +22,7 @@ function useScrollToOnMount<TRef extends HTMLElement>(
       el.current.focus({ preventScroll: false });
       window.scrollTo(restOpts);
     }
-    // NOTE: This is an on mount hook
-  }, []);
+  }, [opts]);
 
   return el;
 }
