@@ -292,10 +292,10 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Specify which professionalization options nominators can choose from when nominating an employee for development opportunities. You can also optionally provide extra context for nominators to better understand their choices if need be,. If you can’t find the program or certificate you need, contact your community administrator and work with them to add the options you need.",
-                  id: "atLy8S",
+                    "Specify which professionalization options nominators can choose from when nominating an employee for development opportunities. You can also optionally provide extra context for nominators to better understand their choices. If you can't find the program or certificate you need, contact your community administrator and work with them to add the options you need.",
+                  id: "cm1uO9",
                   description:
-                    "Description for subsection create talent management event",
+                    "Description for subsection in talent management event form",
                 })}
               </p>
             </div>
