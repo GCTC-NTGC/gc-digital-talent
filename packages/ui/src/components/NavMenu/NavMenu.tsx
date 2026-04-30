@@ -126,22 +126,22 @@ const Item = forwardRef<
 const useActiveLink = (
   href: BaseLinkProps["href"],
   hasIcon?: boolean,
-  el?: HTMLAnchorElement | null,
+  ref?: React.RefObject<HTMLAnchorElement | null>,
 ): { isActive: boolean } => {
   const { pathname } = useLocation();
-  const linkRef = useRef<HTMLAnchorElement>(null);
 
   const isActive = pathname === href;
 
   useEffect(() => {
+    const el = ref?.current;
     if (el) {
       el.parentElement?.setAttribute(
         "data-state",
         isActive ? "active" : "inactive",
       );
-      linkRef.current?.setAttribute("data-icon", hasIcon ? "true" : "false");
+      el.setAttribute("data-icon", hasIcon ? "true" : "false");
     }
-  }, [isActive, hasIcon, el]);
+  }, [isActive, hasIcon, ref]);
 
   return { isActive };
 };
@@ -197,7 +197,7 @@ const IconLink = forwardRef<
   IconLinkProps
 >(({ children, type = "link", icon, href, ...rest }, forwardedRef) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
-  const { isActive } = useActiveLink(href, !!icon, linkRef.current);
+  const { isActive } = useActiveLink(href, !!icon, linkRef);
   const isSmallScreen = useIsSmallScreen("sm");
   const navContext = useNavMenuContext();
 
@@ -260,7 +260,7 @@ const Link = forwardRef<
     forwardedRef,
   ) => {
     const linkRef = useRef<HTMLAnchorElement>(null);
-    const { isActive } = useActiveLink(href, !!icon, linkRef.current);
+    const { isActive } = useActiveLink(href, !!icon, linkRef);
     const isSmallScreen = useIsSmallScreen("sm");
     const navContext = useNavMenuContext();
 
