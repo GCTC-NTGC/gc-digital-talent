@@ -62,17 +62,21 @@ const DialogPortalWithPresence = ({
     pause: !render,
   });
 
+  if (isPresent && !render) {
+    setRender(true);
+  }
+
   useEffect(() => {
     if (isPresent) {
-      setRender(true);
       return undefined;
-    } else {
-      // let animation complete before removal
-      const timerId = setTimeout(() => {
-        setRender(false);
-      }, 200);
-      return () => clearTimeout(timerId);
     }
+
+    // Handle exit animation delay
+    const timerId = setTimeout(() => {
+      setRender(false);
+    }, 200);
+
+    return () => clearTimeout(timerId);
   }, [isPresent]);
 
   const handleCloseFocus = () => {

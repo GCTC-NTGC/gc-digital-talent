@@ -120,10 +120,6 @@ const OrganizeSection = ({
       initialSteps,
     );
 
-  useEffect(() => {
-    setSteps(initialSteps);
-  }, [initialSteps]);
-
   const resetSteps = () => {
     setSteps(initialSteps);
   };
