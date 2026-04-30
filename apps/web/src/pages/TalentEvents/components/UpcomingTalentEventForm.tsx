@@ -335,7 +335,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
                           edit={
                             <DevelopmentProgramDialog
                               developmentProgramOptions={
-                                filteredDevelopmentProgramOptions
+                                developmentProgramOptions
                               }
                               defaultValues={{
                                 value: field.value,
