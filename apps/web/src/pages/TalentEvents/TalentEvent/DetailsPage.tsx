@@ -16,13 +16,14 @@ import {
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_LOCALIZED,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
+import { Field } from "@gc-digital-talent/forms";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -61,13 +62,22 @@ const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
-    developmentPrograms {
+    communityDevelopmentPrograms {
       id
-      name {
-        localized
+      developmentProgram {
+        id
+        name {
+          localized
+        }
+        descriptionForProfile {
+          localized
+        }
       }
-      descriptionForProfile {
-        localized
+      pivot {
+        descriptionForNominations {
+          en
+          fr
+        }
       }
     }
     status {
@@ -85,15 +95,19 @@ interface TalentEventDetailsProps {
 
 const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const [linkCopied, setLinkCopied] = useState<boolean>(false);
 
   const talentEvent = getFragment(TalentEventDetails_Fragment, query);
   const developmentPrograms = unpackMaybes(
-    talentEvent.developmentPrograms,
-  ).sort(
-    sortAlphaBy((developmentProgram) => developmentProgram.name?.localized),
-  );
+    talentEvent.communityDevelopmentPrograms,
+  )
+    .flatMap((cdp) => ({
+      developmentProgram: cdp.developmentProgram,
+      descriptionForNomination: cdp.pivot?.descriptionForNominations,
+    }))
+    .sort(sortAlphaBy((i) => i.developmentProgram.name.localized));
   const showCopyButton =
     !talentEvent.closeDate || isFuture(parseDateTimeUtc(talentEvent.closeDate));
 
@@ -323,9 +337,18 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
               <DevelopmentProgramCard.Root>
                 {developmentPrograms.map((dp) => (
                   <DevelopmentProgramCard.Item
-                    key={dp.id}
-                    title={dp.name.localized ?? notFound}
-                    description={dp.descriptionForProfile.localized ?? notFound}
+                    key={dp.developmentProgram.id}
+                    title={dp.developmentProgram.name.localized ?? notFound}
+                    description={
+                      <>
+                        <span className="mb-3 block">
+                          {dp.developmentProgram.name.localized ?? notFound}
+                        </span>
+                        {dp.descriptionForNomination && (
+                          <span>{dp.descriptionForNomination[locale]}</span>
+                        )}
+                      </>
+                    }
                     actions={false}
                   />
                 ))}

@@ -12,6 +12,7 @@ import {
   commonMessages,
   errorMessages,
   formMessages,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { DateInput, Input, Submit, TextArea } from "@gc-digital-talent/forms";
 import {
@@ -51,6 +52,7 @@ const ActiveTalentEventForm = ({
   talentEventQuery,
 }: ActiveTalentEventFormProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const navigate = useNavigate();
   const user = getFragment(TalentNominationEvent_Fragment, userQuery);
@@ -446,7 +448,15 @@ const ActiveTalentEventForm = ({
                               key={field.id}
                               title={developmentProgram?.label ?? notFound}
                               description={
-                                developmentProgram?.description ?? notFound
+                                <>
+                                  <span className="mb-3 block">
+                                    {developmentProgram?.description ??
+                                      notFound}
+                                  </span>
+                                  {field.description && (
+                                    <span>{field.description[locale]}</span>
+                                  )}
+                                </>
                               }
                               iconLabel={intl.formatMessage(
                                 {

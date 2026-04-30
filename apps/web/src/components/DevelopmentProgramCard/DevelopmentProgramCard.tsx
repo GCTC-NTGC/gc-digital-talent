@@ -21,7 +21,7 @@ import { formatClassificationString } from "~/utils/poolUtils";
 interface DevelopmentProgramCardProps {
   title: string;
   headingAs?: HeadingRank;
-  description: string;
+  description: ReactNode;
   iconLabel?: string;
   edit?: ReactNode;
   remove?: ReactNode;

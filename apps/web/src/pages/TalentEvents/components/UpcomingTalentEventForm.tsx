@@ -7,6 +7,7 @@ import { getFragment, type FragmentType } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
+  getLocale,
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import {
@@ -46,6 +47,7 @@ interface UpcomingTalentEventFormProps {
 
 const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const user = getFragment(TalentNominationEvent_Fragment, query);
   const methods = useFormContext<FormValues>();
   const { watch, control, getFieldState } = methods;
@@ -328,7 +330,14 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
                           key={field.id}
                           title={developmentProgram?.label ?? notFound}
                           description={
-                            developmentProgram?.description ?? notFound
+                            <>
+                              <span className="mb-3 block">
+                                {developmentProgram?.description ?? notFound}
+                              </span>
+                              {field.description && (
+                                <span>{field.description[locale]}</span>
+                              )}
+                            </>
                           }
                           iconLabel={intl.formatMessage(
                             {
