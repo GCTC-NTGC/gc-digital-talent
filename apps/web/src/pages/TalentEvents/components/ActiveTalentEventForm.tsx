@@ -188,6 +188,7 @@ const ActiveTalentEventForm = ({
   let minDate = new Date();
   if (closeDate) {
     minDate = new Date(closeDate);
+    minDate.setDate(minDate.getDate() - 1);
   }
 
   return (
