@@ -4,8 +4,8 @@ import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import { differenceInDays } from "date-fns/differenceInDays";
-import { isPast } from "date-fns/isPast";
 import type { ReactNode } from "react";
+import { useState } from "react";
 import { tv } from "tailwind-variants";
 
 import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
@@ -35,6 +35,7 @@ import {
 import { getSalaryRange } from "~/utils/classification";
 
 import AreaOfSelectionFlag from "./AreaOfSelectionRibbon";
+import { useStableDate } from "~/hooks/useStableDate";
 
 const postedOnDate = tv({
   base: "flex items-center gap-3 text-gray-600 dark:text-gray-200",
@@ -181,6 +182,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const locale = getLocale(intl);
   const paths = useRoutes();
   const pool = getFragment(JobCard_Fragment, poolQuery);
+  const now = useStableDate();
 
   const department = pool.department?.name.localized;
   const location = pool.isRemote
@@ -224,13 +226,17 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
     [PoolLanguage.Various, localizedLanguageLabel],
   ]);
 
-  const deadline = pool.closingDate
-    ? differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) < 3 &&
-      differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) > 0
+  const closingDate = pool.closingDate
+    ? parseDateTimeUtc(pool.closingDate)
     : null;
 
-  const poolIsClosed = pool.closingDate
-    ? isPast(parseDateTimeUtc(pool.closingDate))
+  const deadline = closingDate
+    ? differenceInDays(closingDate, now) < 3 &&
+      differenceInDays(closingDate, now) > 0
+    : null;
+
+  const poolIsClosed = closingDate
+    ? closingDate.getTime() < now.getTime()
     : false;
 
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
@@ -299,9 +305,9 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
                       "Message informing user applications won't be accepted after closing date",
                   },
                   {
-                    closingDate: pool.closingDate
+                    closingDate: closingDate
                       ? formatDate({
-                          date: parseDateTimeUtc(pool.closingDate),
+                          date: closingDate,
                           formatString: DATE_FORMAT_LOCALIZED,
                           intl,
                           timeZone: "Canada/Pacific",
@@ -316,9 +322,9 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
                     description: "Message to apply to the pool before deadline",
                   },
                   {
-                    closingDate: pool.closingDate
+                    closingDate: closingDate
                       ? formatDate({
-                          date: parseDateTimeUtc(pool.closingDate),
+                          date: closingDate,
                           formatString: DATE_FORMAT_LOCALIZED,
                           intl,
                           timeZone: "Canada/Pacific",
