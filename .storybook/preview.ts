@@ -6,6 +6,7 @@ import {
   MockGraphqlDecorator,
   ReducedMotionDecorator,
   RouterDecorator,
+  RuntimeVariableDecorator,
   ThemeDecorator,
   VIEWPORTS,
 } from "@gc-digital-talent/storybook-helpers";
@@ -77,6 +78,7 @@ export const parameters = {
 };
 
 export const decorators = [
+  RuntimeVariableDecorator,
   FeatureFlagDecorator,
   HelmetDecorator,
   ToastDecorator,

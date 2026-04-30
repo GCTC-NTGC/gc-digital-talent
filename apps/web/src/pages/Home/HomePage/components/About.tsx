@@ -43,8 +43,8 @@ const About = () => {
                 mode: "solid",
                 href:
                   locale === "en"
-                    ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/mandate/chief-information-officer.html"
-                    : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/mandat/dirigeant-principal-information.html",
+                    ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/organization.html#ocio"
+                    : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/organisation.html#org5",
                 label: intl.formatMessage({
                   defaultMessage:
                     "Learn more<hidden> about the Office of the Chief Information Officer</hidden>",

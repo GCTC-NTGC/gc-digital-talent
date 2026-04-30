@@ -424,8 +424,8 @@ export const Component = () => {
                 <span className="text-sm font-normal text-gray-500 dark:text-gray-100">
                   {intl.formatMessage({
                     defaultMessage:
-                      "You can manage your CanadaLogin profile and security setting on the CanadaLogin website.",
-                    id: "dzXJ2h",
+                      "You can manage your CanadaLogin profile and security settings on the CanadaLogin website.",
+                    id: "nup4Ey",
                     description: "Text for first registration -> create step.",
                   })}
                 </span>
@@ -474,8 +474,8 @@ export const Component = () => {
                 <span className="text-sm font-normal text-gray-500 dark:text-gray-100">
                   {intl.formatMessage({
                     defaultMessage:
-                      "If you are a government employee this is the final step in-order to unlock your employee tools.",
-                    id: "2bKnmd",
+                      "If you are a government employee this is the final step in order to unlock your employee tools.",
+                    id: "3lu+JJ",
                     description: "Text for first registration -> create step.",
                   })}
                 </span>
