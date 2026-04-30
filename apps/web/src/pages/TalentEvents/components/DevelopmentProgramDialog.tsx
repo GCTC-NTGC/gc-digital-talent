@@ -144,10 +144,9 @@ const DevelopmentProgramDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  className="mb-6"
                 />
               )}
-              <div className="grid grid-cols-2 gap-6">
+              <div className="mt-6 grid grid-cols-2 gap-6">
                 <TextArea
                   id="description_en"
                   name="description.en"
