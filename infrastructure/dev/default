@@ -1,20 +1,5 @@
-# Development reverse proxy configuration for hot reloading
-# Routes API requests to Laravel dev server and all other requests to Vite dev server
-
-# enable rewrite logging for debugging
-error_log /var/log/nginx/error.log notice;
-# rewrite_log on;
-
-# never cache locally
-map $upstream_http_cache_control $hdr_cache_control {
-    '' "no-store";
-}
-
-# CSP header map - relaxed for development to allow HMR websockets
-map $request_uri $csp_header {
-    default "default-src 'self'; font-src fonts.gstatic.com 'self'; style-src-elem fonts.googleapis.com 'self' 'unsafe-inline'; connect-src 'self' ws://localhost:* wss://localhost:* http://localhost:*; script-src-elem 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:; frame-ancestors 'none';";
-    ~^/robots.txt "default-src 'self'; style-src-attr 'unsafe-inline';";
-}
+# Development reverse proxy
+# Routes API requests to Laravel and all other requests to Vite dev server
 
 server {
     listen 8080;
@@ -22,111 +7,32 @@ server {
     server_name localhost;
     absolute_redirect off;
 
-    # redirect server error pages
-    error_page 404 /404;
-
-    # CSP Headers
-    proxy_set_header Accept-Encoding "";
-    set $cspNonce $request_id;
-    sub_filter_types *;
-    sub_filter '**CSP_NONCE**' $cspNonce;
-    sub_filter_once off;
-
-    # The following are only added if they do not already exist
-    add_header Cache-Control $hdr_cache_control;
-    add_header X-Frame-Options DENY;
-    add_header Content-Security-Policy $csp_header always;
-
-    # Permanent redirects to avoid dead links (same as production nginx config)
-    location = /en/communities/digital-talent {
-        absolute_redirect on;
-        return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html;
-    }
-    location = /fr/communities/digital-talent {
-        absolute_redirect on;
-        return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html;
-    }
-    location = /en/talent/search { return 301 /en/search$is_args$args; }
-    location = /fr/talent/search { return 301 /fr/search$is_args$args; }
-    location = /en/applications { return 301 /en/applicant/profile-and-applications$is_args$args; }
-    location = /fr/applications { return 301 /fr/applicant/profile-and-applications$is_args$args; }
-    location = /en/privacy-notice { return 301 /en/privacy-policy$is_args$args; }
-    location = /fr/privacy-notice { return 301 /fr/privacy-policy$is_args$args; }
-    location = /en/talent/profile { return 301 /en/applicant$is_args$args; }
-    location = /fr/talent/profile { return 301 /fr/applicant$is_args$args; }
-    location = /en/applicant/profile-and-applications { return 301 /en/applicant$is_args$args; }
-    location = /fr/applicant/profile-and-applications { return 301 /fr/applicant$is_args$args; }
-    location = /en/applicant/profile-and-applications/skills { return 301 /en/applicant/skills$is_args$args; }
-    location = /fr/applicant/profile-and-applications/skills { return 301 /fr/applicant/skills$is_args$args; }
-    location = /en/applicant/profile-and-applications/skills/showcase { return 301 /en/applicant/skills/showcase$is_args$args; }
-    location = /fr/applicant/profile-and-applications/skills/showcase { return 301 /fr/applicant/skills/showcase$is_args$args; }
-    location ~ ^/(en|fr)/users/(.+)(/|$) { return 301 /$1/applicant$is_args$args; }
-    location ~ ^/(en|fr)/browse/pools/(.+)/?$ {
-      rewrite ^/(en|fr)/browse/pools/(.+)/?$ /$1/jobs/$2 permanent;
-    }
-    location = /en/browse/pools { return 301 /en/jobs$is_args$args; }
-    location = /fr/browse/pools { return 301 /fr/jobs$is_args$args; }
-    location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice$is_args$args; }
-
     # local auth - proxy to mock-auth server
     location ^~ /oxauth {
         proxy_pass "http://mock-auth:8080";
         proxy_set_header X-Forwarded-Proto http;
         proxy_set_header Host localhost:8000;
-        break;
     }
 
     # api - proxy to Laravel dev server
-    location = /graphql {
-        proxy_pass "http://api:8080";
-    }
-    location = /admin/graphql {
-        proxy_pass "http://api:8080";
-    }
-    location = /graphiql {
-        proxy_pass "http://api:8080";
-    }
-    location = /admin/graphiql {
-        proxy_pass "http://api:8080";
-    }
-    location = /login {
-        proxy_pass "http://api:8080";
-    }
-    location = /register {
-        proxy_pass "http://api:8080";
-    }
-    location = /auth-callback {
+    location = /graphql        { proxy_pass "http://api:8080"; }
+    location = /admin/graphql  { proxy_pass "http://api:8080"; }
+    location = /graphiql       { proxy_pass "http://api:8080"; }
+    location = /admin/graphiql { proxy_pass "http://api:8080"; }
+    location = /login          { proxy_pass "http://api:8080"; }
+    location = /register       { proxy_pass "http://api:8080"; }
+    location = /auth-callback  {
         proxy_pass "http://api:8080";
         proxy_buffers 16 32k;
         proxy_buffer_size 64k;
         proxy_busy_buffers_size 64k;
     }
-    location = /refresh {
-        proxy_pass "http://api:8080";
-    }
-    location = /sector-identifier {
-        proxy_pass "http://api:8080";
-    }
-    location ^~ /api/ {
-        proxy_pass "http://api:8080";
-    }
+    location = /refresh          { proxy_pass "http://api:8080"; }
+    location = /sector-identifier { proxy_pass "http://api:8080"; }
+    location ^~ /api/            { proxy_pass "http://api:8080"; }
 
-    # static files redirect (same as production)
-    location /static/ {
-        return 307 https://talent.canada.ca$request_uri;
-    }
-
-    # Vite HMR WebSocket support
-    location /__vite_hmr {
-        proxy_pass "http://web:3000";
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_read_timeout 86400;
-    }
-
-    # React Router dev server WebSocket
-    location /__react-router {
+    # WebSocket support for Vite HMR and React Router dev server
+    location ~ ^/(__vite_hmr|__react-router) {
         proxy_pass "http://web:3000";
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
