@@ -15,8 +15,8 @@ import type { Maybe } from "@gc-digital-talent/graphql";
 
 const descriptionLabel = defineMessage({
   defaultMessage: "Nomination specific context",
-  id: "oEAO5Z",
-  description: "Label for development program description",
+  id: "G1aodw",
+  description: "Label for the nomination specific context textarea",
 });
 
 export interface FormValues {
