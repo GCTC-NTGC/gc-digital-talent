@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
-import { useFormContext } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
 
-import { Chip, Chips, Heading } from "@gc-digital-talent/ui";
+import { Chip, Chips, Dialog, Heading, Button, Link } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -11,9 +13,12 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
-import { DATE_SEGMENT, DateInput, RadioGroup } from "@gc-digital-talent/forms";
+import { DATE_SEGMENT, DateInput, RadioGroup, Select } from "@gc-digital-talent/forms";
 
 import { getClassificationName } from "~/utils/poolUtils";
+import useRoutes from "~/hooks/useRoutes";
+import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
+import experienceMessages from "~/messages/experienceMessages";
 
 import type { FormValues } from "../form";
 
@@ -62,6 +67,7 @@ export interface SubformValues {
         developmentProgramId: string | null;
         participationStatus: DevelopmentProgramParticipationStatus | null;
         completionDate: string | null;
+        educationExperienceId: string | null;
       }[]
     | null;
 }
@@ -75,6 +81,16 @@ interface TrainingAndDevelopmentOpportunitiesProps {
   developmentProgramUserRecordsQuery: FragmentType<
     typeof DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment
   >[];
+  educationExperiences: {
+    id: string;
+    institution?: string | null;
+    areaOfStudy?: string | null;
+  }[];
+  onRefreshExperiences: () => void;
+}
+
+interface DialogFormValues {
+  experienceId: string;
 }
 
 const TrainingAndDevelopmentOpportunities = ({
@@ -82,8 +98,17 @@ const TrainingAndDevelopmentOpportunities = ({
   optionsQuery,
   formDisabled,
   developmentProgramUserRecordsQuery,
+  educationExperiences,
+  onRefreshExperiences,
 }: TrainingAndDevelopmentOpportunitiesProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
+
+  const [dialogOpenForIndex, setDialogOpenForIndex] = useState<number | null>(
+    null,
+  );
+  const dialogFormMethods = useForm<DialogFormValues>();
+
   const optionsData = getFragment(
     TrainingAndDevelopmentOpportunitiesOptions_Fragment,
     optionsQuery,
@@ -103,7 +128,6 @@ const TrainingAndDevelopmentOpportunities = ({
       | null
       | undefined;
     completionDate?: string | null | undefined;
-    // add education experience here maybe
   }[] = developmentProgramUserRecordsUnpacked.map((record) => {
     return {
       developmentProgramId: record.developmentProgram.id,
@@ -112,7 +136,7 @@ const TrainingAndDevelopmentOpportunities = ({
     };
   });
 
-  const { watch, register } = useFormContext<FormValues>();
+  const { watch, register, setValue } = useFormContext<FormValues>();
   const [selectedInterestInDevelopmentPrograms] = watch([
     "interestInDevelopmentPrograms",
   ]);
@@ -137,6 +161,46 @@ const TrainingAndDevelopmentOpportunities = ({
     }
   });
 
+  const openLinkDialog = (index: number) => {
+    const currentId =
+      selectedInterestInDevelopmentPrograms?.[index]?.educationExperienceId ??
+      "";
+    dialogFormMethods.reset({ experienceId: currentId });
+    setDialogOpenForIndex(index);
+    onRefreshExperiences();
+  };
+
+  const handleLinkExperience: SubmitHandler<DialogFormValues> = (
+    dialogValues,
+  ) => {
+    if (dialogOpenForIndex !== null) {
+      setValue(
+        `interestInDevelopmentPrograms.${dialogOpenForIndex}.educationExperienceId`,
+        dialogValues.experienceId,
+      );
+    }
+    setDialogOpenForIndex(null);
+  };
+
+  const handleRemoveExperience = (index: number) => {
+    setValue(
+      `interestInDevelopmentPrograms.${index}.educationExperienceId`,
+      null,
+    );
+  };
+
+  const getLinkedExperienceLabel = (
+    experienceId: string | null | undefined,
+  ) => {
+    if (!experienceId) return intl.formatMessage(commonMessages.notProvided);
+    const exp = educationExperiences.find((e) => e.id === experienceId);
+    if (!exp) return intl.formatMessage(commonMessages.notProvided);
+    return (
+      [exp.institution, exp.areaOfStudy].filter(Boolean).join(" – ") ||
+      intl.formatMessage(commonMessages.notProvided)
+    );
+  };
+
   return (
     <div className="flex flex-col gap-7.5">
       {/* heading and description */}
@@ -157,8 +221,8 @@ const TrainingAndDevelopmentOpportunities = ({
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "Most functional communities offer various programs for learning and development. These programs might have specific eligibility requirements based on your experience, classification, or other qualifications. Expressing interest in these opportunities isn’t an application, but it allows HR and recruitment staff to verify your interest in case you’ve been nominated for a training or development opportunity.",
-            id: "2HNbTn",
+              "Most functional communities offer various programs for learning and development. These programs might have specific eligibility requirements based on your experience, classification, or other qualifications. Expressing interest in these opportunities isn't an application, but it allows HR and recruitment staff to verify your interest in case you've been nominated for a training or development opportunity.",
+            id: 'u093wf',
             description:
               "Description of the 'Training and development opportunities' section",
           })}
@@ -210,6 +274,12 @@ const TrainingAndDevelopmentOpportunities = ({
               )}
               value={developmentProgram.id}
             />
+            <input
+              type="hidden"
+              {...register(
+                `interestInDevelopmentPrograms.${index}.educationExperienceId`,
+              )}
+            />
             <RadioGroup
               idPrefix={`interestInDevelopmentPrograms.${index}.participationStatus`}
               name={`interestInDevelopmentPrograms.${index}.participationStatus`}
@@ -231,8 +301,8 @@ const TrainingAndDevelopmentOpportunities = ({
                 {
                   value: DevelopmentProgramParticipationStatus.NotInterested,
                   label: intl.formatMessage({
-                    defaultMessage: "I’m not interested right now.",
-                    id: "gg0yRf",
+                    defaultMessage: "I'm not interested right now.",
+                    id: 'Yc8o9L',
                     description:
                       "Option for the 'not interested' choice of program participation",
                   }),
@@ -241,8 +311,8 @@ const TrainingAndDevelopmentOpportunities = ({
                   value: DevelopmentProgramParticipationStatus.Interested,
                   label: intl.formatMessage({
                     defaultMessage:
-                      "I’m interested in participating in this program.",
-                    id: "r6WWEn",
+                      "I'm interested in participating in this program.",
+                    id: '/U/RTZ',
                     description:
                       "Option for the 'interested' choice of program participation",
                   }),
@@ -250,8 +320,8 @@ const TrainingAndDevelopmentOpportunities = ({
                 {
                   value: DevelopmentProgramParticipationStatus.Completed,
                   label: intl.formatMessage({
-                    defaultMessage: "I’ve successfully completed this program.",
-                    id: "tGTM5i",
+                    defaultMessage: "I've successfully completed this program.",
+                    id: 'LpZKTC',
                     description:
                       "Option for the 'completed' choice of program participation",
                   }),
@@ -259,8 +329,8 @@ const TrainingAndDevelopmentOpportunities = ({
                 {
                   value: DevelopmentProgramParticipationStatus.Enrolled,
                   label: intl.formatMessage({
-                    defaultMessage: "I’m currently enrolled in this program.",
-                    id: "oYEBcP",
+                    defaultMessage: "I'm currently enrolled in this program.",
+                    id: '4Xm0A/',
                     description:
                       "Option for the 'enrolled' choice of program participation",
                   }),
@@ -277,29 +347,191 @@ const TrainingAndDevelopmentOpportunities = ({
             {selectedInterestInDevelopmentPrograms?.[index]
               ?.participationStatus ===
             DevelopmentProgramParticipationStatus.Completed ? (
-              <DateInput
-                id={`interestInDevelopmentPrograms.${index}.completionDate`}
-                name={`interestInDevelopmentPrograms.${index}.completionDate`}
-                legend={intl.formatMessage({
-                  defaultMessage: "Program completion date",
-                  id: "JGhMIC",
-                  description: "Legend for the program completion date input",
-                })}
-                show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                defaultValue={
-                  arrayOfDefaultValues.find(
-                    (array) =>
-                      array.developmentProgramId === developmentProgram.id,
-                  )?.completionDate ?? undefined
-                }
-              />
+              <>
+                <DateInput
+                  id={`interestInDevelopmentPrograms.${index}.completionDate`}
+                  name={`interestInDevelopmentPrograms.${index}.completionDate`}
+                  legend={intl.formatMessage({
+                    defaultMessage: "Program completion date",
+                    id: "JGhMIC",
+                    description: "Legend for the program completion date input",
+                  })}
+                  show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                  defaultValue={
+                    arrayOfDefaultValues.find(
+                      (array) =>
+                        array.developmentProgramId === developmentProgram.id,
+                    )?.completionDate ?? undefined
+                  }
+                />
+                {selectedInterestInDevelopmentPrograms?.[index]
+                  ?.educationExperienceId ? (
+                  <DevelopmentProgramCard.Root>
+                    <DevelopmentProgramCard.Item
+                      title={getLinkedExperienceLabel(
+                        selectedInterestInDevelopmentPrograms[index]
+                          ?.educationExperienceId,
+                      )}
+                      description=""
+                      iconLabel={intl.formatMessage({
+                        defaultMessage: "Edit linked education experience",
+                        id: 'zHKvoY',
+                        description:
+                          "Accessibility label for the edit/remove dropdown on a linked education experience",
+                      })}
+                      edit={
+                        <button
+                          type="button"
+                          onClick={() => openLinkDialog(index)}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Swap experience",
+                            id: 'NaFYXo',
+                            description:
+                              "Button to swap the linked education experience for a development program",
+                          })}
+                        </button>
+                      }
+                      remove={
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveExperience(index)}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Remove experience",
+                            id: 'Cxy9bi',
+                            description:
+                              "Button to remove the linked education experience from a development program",
+                          })}
+                        </button>
+                      }
+                    />
+                  </DevelopmentProgramCard.Root>
+                ) : (
+                  <div className="flex gap-3">
+                    <Button
+                      type="button"
+                      onClick={() => openLinkDialog(index)}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Link existing experience",
+                        id: 'g6QXmz',
+                        description:
+                          "Button to open the dialog to link an education experience to a development program",
+                      })}
+                    </Button>
+                    <Link
+                      href={paths.createExperience()}
+                      newTab
+                      mode="inline"
+                      color="secondary"
+                    >
+                      {intl.formatMessage(experienceMessages.addNewExperience)}
+                    </Link>
+                  </div>
+                )}
+              </>
             ) : null}
           </div>
         ))}
       </div>
+      <Dialog.Root
+        open={dialogOpenForIndex !== null}
+        onOpenChange={(open) => {
+          if (!open) setDialogOpenForIndex(null);
+        }}
+      >
+        <Dialog.Content>
+          <Dialog.Header>
+            {intl.formatMessage({
+              defaultMessage: "Link an education experience",
+              id: 'xTclGV',
+              description:
+                "Dialog header for linking an education experience to a development program",
+            })}
+          </Dialog.Header>
+          <Dialog.Body>
+            <FormProvider {...dialogFormMethods}>
+              <form
+                onSubmit={(e) => {
+                  e.stopPropagation();
+                  return dialogFormMethods.handleSubmit(handleLinkExperience)(
+                    e,
+                  );
+                }}
+              >
+                {educationExperiences.length > 0 ? (
+                  <Select
+                    id="experienceId"
+                    name="experienceId"
+                    label={intl.formatMessage({
+                      defaultMessage: "Education experience",
+                      id: 'al/eE7',
+                      description:
+                        "Label for the education experience select in the link experience dialog",
+                    })}
+                    nullSelection={intl.formatMessage({
+                      defaultMessage: "Select an experience",
+                      id: '+imgrq',
+                      description:
+                        "Null/placeholder option for the education experience select",
+                    })}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    options={educationExperiences.map((exp) => ({
+                      value: exp.id,
+                      label:
+                        [exp.institution, exp.areaOfStudy]
+                          .filter(Boolean)
+                          .join(" – ") ||
+                        intl.formatMessage(commonMessages.notProvided),
+                    }))}
+                  />
+                ) : (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You don't have any education experiences yet. Add one using the link below.",
+                      id: 'c33/+/',
+                      description:
+                        "Message shown when there are no education experiences to link",
+                    })}
+                  </p>
+                )}
+                <Dialog.Footer>
+                  {educationExperiences.length > 0 && (
+                    <Button type="submit" color="primary">
+                      {intl.formatMessage({
+                        defaultMessage: "Link experience",
+                        id: 'oj9odS',
+                        description:
+                          "Button to confirm linking an education experience to a development program",
+                      })}
+                    </Button>
+                  )}
+                  <Link
+                    href={paths.createExperience()}
+                    newTab
+                    mode="inline"
+                    color="secondary"
+                  >
+                    {intl.formatMessage(experienceMessages.addNewExperience)}
+                  </Link>
+                  <Dialog.Close>
+                    <Button mode="inline" color="warning">
+                      {intl.formatMessage(commonMessages.cancel)}
+                    </Button>
+                  </Dialog.Close>
+                </Dialog.Footer>
+              </form>
+            </FormProvider>
+          </Dialog.Body>
+        </Dialog.Content>
+      </Dialog.Root>
     </div>
   );
 };

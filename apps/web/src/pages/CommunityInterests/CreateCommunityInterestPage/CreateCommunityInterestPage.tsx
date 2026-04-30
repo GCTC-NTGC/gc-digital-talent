@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router";
+import { useCallback } from "react";
 
 import { Card, Pending } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
@@ -48,9 +49,11 @@ const CreateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
       developmentProgramUserRecords {
         ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
       }
-      # educationExperiences {
-      #   id
-      # }
+      educationExperiences {
+        id
+        institution
+        areaOfStudy
+      }
     }
   }
 `);
@@ -62,6 +65,7 @@ interface CreateCommunityInterestFormProps {
   userId: string;
   formDisabled: boolean;
   onSubmit: SubmitHandler<FormValues>;
+  onRefreshExperiences: () => void;
 }
 
 const CreateCommunityInterestForm = ({
@@ -69,6 +73,7 @@ const CreateCommunityInterestForm = ({
   userId,
   formDisabled,
   onSubmit,
+  onRefreshExperiences,
 }: CreateCommunityInterestFormProps) => {
   const formOptions = getFragment(
     CreateCommunityInterestFormOptions_Fragment,
@@ -112,6 +117,10 @@ const CreateCommunityInterestForm = ({
                           formOptions.me?.developmentProgramUserRecords,
                         )}
                         selectedCommunityId={selectedCommunityId}
+                        educationExperiences={unpackMaybes(
+                          formOptions.me?.educationExperiences,
+                        )}
+                        onRefreshExperiences={onRefreshExperiences}
                       />
                     </>
                   ) : null}
@@ -162,10 +171,17 @@ export const CreateCommunityInterestPage = () => {
   const returnPath = searchParams?.get("from") ?? routes.applicantDashboard();
 
   const navigate = useNavigate();
-  const [{ data: queryData, fetching: queryFetching, error: queryError }] =
-    useQuery({
-      query: CreateCommunityInterestPage_Query,
-    });
+  const [
+    { data: queryData, fetching: queryFetching, error: queryError },
+    reexecuteQuery,
+  ] = useQuery({
+    query: CreateCommunityInterestPage_Query,
+  });
+
+  const refreshExperiences = useCallback(() => {
+    reexecuteQuery({ requestPolicy: "network-only" });
+  }, [reexecuteQuery]);
+
   const [{ fetching: mutationFetching }, executeCreateMutation] = useMutation(
     CreateCommunityInterestPage_Mutation,
   );
@@ -245,6 +261,7 @@ export const CreateCommunityInterestPage = () => {
               userId={userAuthInfo.id}
               formDisabled={queryFetching || mutationFetching}
               onSubmit={submitForm}
+              onRefreshExperiences={refreshExperiences}
             />
           </div>
         )}
