@@ -406,7 +406,7 @@ const ActiveTalentEventForm = ({
                 </Notice.Root>
 
                 <DevelopmentProgramDialog
-                  developmentProgramOptions={developmentProgramOptions}
+                  developmentProgramOptions={filteredDevelopmentProgramOptions}
                   onSubmit={(values) => append(values)}
                 />
 
