@@ -341,7 +341,8 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                     description={
                       <>
                         <span className="mb-3 block">
-                          {dp.developmentProgram.name.localized ?? notFound}
+                          {dp.developmentProgram.descriptionForProfile
+                            .localized ?? notFound}
                         </span>
                         {dp.descriptionForNomination && (
                           <span>{dp.descriptionForNomination[locale]}</span>
