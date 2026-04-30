@@ -23,7 +23,6 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
-import { Field } from "@gc-digital-talent/forms";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
