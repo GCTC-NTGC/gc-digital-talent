@@ -5,7 +5,6 @@ import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import { differenceInDays } from "date-fns/differenceInDays";
 import type { ReactNode } from "react";
-import { useState } from "react";
 import { tv } from "tailwind-variants";
 
 import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
