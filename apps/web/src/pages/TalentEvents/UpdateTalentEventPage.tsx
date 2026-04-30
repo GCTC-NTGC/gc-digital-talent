@@ -268,7 +268,11 @@ const UpdateTalentEventPage = () => {
             id: "5qiuq2",
             description: "Description for update talent management event",
           },
-          { name: data?.talentNominationEvent?.name.localized },
+          {
+            name:
+              data?.talentNominationEvent?.name.localized ??
+              intl.formatMessage(commonMessages.notFound),
+          },
         )}
         crumbs={crumbs}
         centered
