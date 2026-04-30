@@ -14,6 +14,7 @@ RUN apt-get update \
         libicu-dev \
         git \
         unzip \
+        curl \
         postgresql-client \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo_pgsql zip gd bcmath intl \
