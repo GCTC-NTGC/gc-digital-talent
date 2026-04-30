@@ -319,7 +319,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             })}
           </p>
           {developmentPrograms.length > 0 ? (
-            <div className="rounded-md border border-gray-200">
+            <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
               <DevelopmentProgramCard.Root>
                 {developmentPrograms.map((dp) => (
                   <DevelopmentProgramCard.Item
