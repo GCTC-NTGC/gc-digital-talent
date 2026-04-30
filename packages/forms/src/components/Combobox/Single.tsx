@@ -103,6 +103,8 @@ const Single = ({
           <Input.Search />
           <input
             {...inputProps}
+            // NOTE: This is required by downshift AFAIK
+            // eslint-disable-next-line react-hooks/refs
             {...getInputProps({
               ref: inputRef,
             })}

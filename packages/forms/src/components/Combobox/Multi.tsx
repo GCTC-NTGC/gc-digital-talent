@@ -232,6 +232,8 @@ const Multi = ({
           <input
             {...inputProps}
             {...getInputProps(
+              // NOTE: This is required by downshift AFAIK
+              // eslint-disable-next-line react-hooks/refs
               getDropdownProps({ preventKeyAction: isOpen, ref: inputRef }),
             )}
             className={comboboxInput({
