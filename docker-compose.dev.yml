@@ -36,6 +36,7 @@ services:
       context: ./
       dockerfile: infrastructure/dev/web.Dockerfile
     restart: unless-stopped
+    user: "${UID:-1000}:${GID:-1000}"
     volumes:
       - ./apps:/var/www/html/apps
       - ./packages:/var/www/html/packages
