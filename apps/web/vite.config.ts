@@ -101,8 +101,10 @@ export default defineConfig(({ command }) => {
     ssr: {
       noExternal: ["@dr.pogodin/react-helmet"],
     },
-    html: {
-      cspNonce: "**CSP_NONCE**",
-    },
+    ...(command === "build" && {
+      html: {
+        cspNonce: "**CSP_NONCE**",
+      },
+    }),
   };
 });
