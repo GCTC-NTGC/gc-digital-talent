@@ -39,6 +39,7 @@ import {
 } from "./fragments";
 import type { FormValues } from "./formValues";
 import { isCommunity } from "../TalentEvent/util";
+import RemoveDevelopmentProgramDialog from "./RemoveDevelopmentProgramDialog";
 
 interface ActiveTalentEventFormProps {
   userQuery: FragmentType<typeof TalentNominationEvent_Fragment>;
@@ -95,7 +96,7 @@ const ActiveTalentEventForm = ({
     },
   });
 
-  const { fields, append, update } = useFieldArray<FormValues>({
+  const { fields, append, update, remove } = useFieldArray<FormValues>({
     name: "communityDevelopmentPrograms",
     control: methods.control,
   });
@@ -193,6 +194,10 @@ const ActiveTalentEventForm = ({
     minDate = new Date(closeDate);
     minDate.setDate(minDate.getDate() - 1);
   }
+
+  const fixedDevelopmentPrograms = communityDevelopmentPrograms?.map(
+    (cdp) => cdp.id,
+  );
 
   return (
     <>
@@ -470,6 +475,16 @@ const ActiveTalentEventForm = ({
                                   edit
                                   active
                                 />
+                              }
+                              remove={
+                                !fixedDevelopmentPrograms?.includes(
+                                  field.value,
+                                ) ? (
+                                  <RemoveDevelopmentProgramDialog
+                                    title={developmentProgram?.label}
+                                    onRemove={() => remove(index)}
+                                  />
+                                ) : null
                               }
                             />
                           );
