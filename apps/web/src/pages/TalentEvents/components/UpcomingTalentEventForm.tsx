@@ -48,7 +48,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
   const intl = useIntl();
   const user = getFragment(TalentNominationEvent_Fragment, query);
   const methods = useFormContext<FormValues>();
-  const { watch, control } = methods;
+  const { watch, control, getFieldState } = methods;
 
   const { fields, append, update, remove, replace } = useFieldArray<FormValues>(
     {
@@ -108,6 +108,10 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
   }, [watchCommunity]);
 
   const notFound = intl.formatMessage(commonMessages.notFound);
+
+  const { invalid: invalidDevelopmentPrograms } = getFieldState(
+    "communityDevelopmentPrograms",
+  );
 
   return (
     <>
@@ -300,7 +304,10 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
 
             <>
               {fields.length === 0 ? (
-                <Notice.Root className="text-center">
+                <Notice.Root
+                  color={invalidDevelopmentPrograms ? "error" : "gray"}
+                  className="text-center"
+                >
                   <Notice.Content>
                     {intl.formatMessage(atLeastOne)}
                   </Notice.Content>
