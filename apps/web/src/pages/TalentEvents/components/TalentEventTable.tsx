@@ -17,6 +17,7 @@ import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import useRoutes from "~/hooks/useRoutes";
 import { checkRole } from "~/utils/teamUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import { nominationsCell, statusCell } from "./helpers";
 
@@ -102,11 +103,7 @@ const TalentEventTable = ({
     }),
     columnHelper.accessor("openDate", {
       id: "openDate",
-      header: intl.formatMessage({
-        defaultMessage: "Opening date",
-        id: "qaZ6OZ",
-        description: "Header for Opening date",
-      }),
+      header: intl.formatMessage(adminMessages.openingDate),
       cell: ({
         row: {
           original: { openDate },

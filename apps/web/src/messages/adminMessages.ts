@@ -219,6 +219,11 @@ const messages = defineMessages({
     id: "v3CrHe",
     description: "Label for talent event details",
   },
+  openingDate: {
+    defaultMessage: "Opening date",
+    id: "OFrfEA",
+    description: "Label for Opening date",
+  },
 });
 
 export default messages;

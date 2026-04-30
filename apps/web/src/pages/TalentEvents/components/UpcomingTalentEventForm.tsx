@@ -25,18 +25,13 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import processMessages from "~/messages/processMessages";
 import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
+import adminMessages from "~/messages/adminMessages";
 
 import DevelopmentProgramDialog from "./DevelopmentProgramDialog";
 import RemoveDevelopmentProgramDialog from "./RemoveDevelopmentProgramDialog";
 import { isCommunity } from "../TalentEvent/util";
 import type { FormValues } from "./formValues";
 import { TalentNominationEvent_Fragment } from "./fragments";
-
-const openDate = defineMessage({
-  defaultMessage: "Open date",
-  id: "Qxxop2",
-  description: "Label for open date",
-});
 
 const atLeastOne = defineMessage({
   defaultMessage:
@@ -239,7 +234,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
         <DateInput
           id="openDate"
           name="openDate"
-          legend={intl.formatMessage(openDate)}
+          legend={intl.formatMessage(adminMessages.openingDate)}
           rules={{
             min: {
               value: formatDate({
@@ -265,7 +260,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
               value: watchOpenDate ? String(watchOpenDate) : "",
               message: intl.formatMessage(errorMessages.minDateSelfLabel, {
                 labelSelf: intl.formatMessage(processMessages.closingDate),
-                labelAssociated: intl.formatMessage(openDate),
+                labelAssociated: intl.formatMessage(adminMessages.openingDate),
               }),
             },
             required: intl.formatMessage(errorMessages.required),
