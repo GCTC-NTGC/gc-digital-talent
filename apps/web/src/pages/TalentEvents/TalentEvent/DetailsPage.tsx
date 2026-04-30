@@ -172,8 +172,8 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
         <p className="col-span-2 my-6">
           {intl.formatMessage({
             defaultMessage:
-              "The event name, description and information link in both official languages, as well as potential roundtable event dates.",
-            id: "W6rIE7",
+              "The event name, description and information link in both official languages.",
+            id: "pjxgBI",
             description: "Description for the details of a nomination event",
           })}
         </p>
