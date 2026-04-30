@@ -58,7 +58,7 @@ enum ErrorCode
 
     // Community Development Program
     case COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND;
-    case COMMUNITY_DEVELOPMENT_INVALID_SELECTION;
+    case COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID;
 
     // Development Program
     case DEVELOPMENT_PROGRAM_NOT_FOUND;
@@ -136,6 +136,8 @@ enum ErrorCode
 
     // Talent event
     case TALENT_EVENT_IS_CLOSED;
+    case TALENT_EVENT_CANNOT_CHANGE_COMMUNITY;
+    case TALENT_EVENT_CANNOT_CHANGE_NAME;
 
     // Talent nominations
     case TALENT_NOMINATION_ALREADY_SUBMITTED;
