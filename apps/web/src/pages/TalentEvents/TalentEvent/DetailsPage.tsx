@@ -192,7 +192,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
               external
               newTab
               href={talentEvent.learnMoreUrl.en}
-              className="-mt-6 break-all"
+              className="-mt-3 break-all"
             >
               {talentEvent.learnMoreUrl.en}
             </Link>
@@ -205,7 +205,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
               external
               newTab
               href={talentEvent.learnMoreUrl.fr}
-              className="-mt-6 break-all"
+              className="-mt-3 break-all"
             >
               {talentEvent.learnMoreUrl.fr}
             </Link>
