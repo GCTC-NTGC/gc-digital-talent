@@ -129,17 +129,29 @@ const useActiveLink = (
   ref?: React.RefObject<HTMLAnchorElement | null>,
 ): { isActive: boolean } => {
   const { pathname } = useLocation();
-
   const isActive = pathname === href;
 
   useEffect(() => {
     const el = ref?.current;
     if (el) {
+      // Synchronize Radix-style state on the parent element
       el.parentElement?.setAttribute(
         "data-state",
         isActive ? "active" : "inactive",
       );
-      el.setAttribute("data-icon", hasIcon ? "true" : "false");
+
+      // Toggle boolean attributes for Tailwind variants
+      if (isActive) {
+        el.setAttribute("data-active", "true");
+      } else {
+        el.removeAttribute("data-active");
+      }
+
+      if (hasIcon) {
+        el.setAttribute("data-icon", "true");
+      } else {
+        el.removeAttribute("data-icon");
+      }
     }
   }, [isActive, hasIcon, ref]);
 
