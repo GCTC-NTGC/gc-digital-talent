@@ -5,11 +5,7 @@ import { useMutation } from "urql";
 import { useNavigate } from "react-router";
 
 import { CardSeparator, Heading, Link, Notice } from "@gc-digital-talent/ui";
-import type {
-  Community,
-  CommunityDevelopmentProgram,
-  FragmentType,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -170,20 +166,27 @@ const ActiveTalentEventForm = ({
   const communities = unpackMaybes(roles.map((r) => r.teamable)).filter((c) =>
     isCommunity(c),
   );
-  const developmentProgramOptions = communities
-    .filter((c) => c.id === community.id)
-    .reduce(
-      (acc: CommunityDevelopmentProgram[], curr: Community) => [
-        ...acc,
-        ...(curr.communityDevelopmentPrograms ?? []),
-      ],
-      [],
-    )
-    .map((cdp) => ({
-      label: cdp.developmentProgram.name.localized,
-      value: cdp.id,
-      description: cdp.developmentProgram.descriptionForProfile.localized,
-    }));
+
+  const [watchDevelopmentProgramOptions] = methods.watch([
+    "communityDevelopmentPrograms",
+  ]);
+  const ids = watchDevelopmentProgramOptions
+    ? new Set(watchDevelopmentProgramOptions.map((dp) => dp.value))
+    : new Set();
+
+  const developmentProgramOptions = unpackMaybes(
+    communities
+      .filter((c) => c.id === community.id)
+      .flatMap((c) => c.communityDevelopmentPrograms),
+  ).map((cdp) => ({
+    label: cdp.developmentProgram.name.localized,
+    value: cdp.id,
+    description: cdp.developmentProgram.descriptionForProfile.localized,
+  }));
+
+  const filteredDevelopmentProgramOptions = developmentProgramOptions.filter(
+    (cdp) => !ids.has(cdp.value),
+  );
 
   let minDate = new Date();
   if (closeDate) {
