@@ -33,9 +33,9 @@ import {
   getShortPoolTitleLabel,
 } from "~/utils/poolUtils";
 import { getSalaryRange } from "~/utils/classification";
+import { useStableDate } from "~/hooks/useStableDate";
 
 import AreaOfSelectionFlag from "./AreaOfSelectionRibbon";
-import { useStableDate } from "~/hooks/useStableDate";
 
 const postedOnDate = tv({
   base: "flex items-center gap-3 text-gray-600 dark:text-gray-200",

@@ -9,6 +9,7 @@ import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Loading } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useLocalStorage } from "@gc-digital-talent/storage";
+
 import { useStableDate } from "~/hooks/useStableDate";
 
 const BannerContent = lazy(() => import("./BannerContent"));
