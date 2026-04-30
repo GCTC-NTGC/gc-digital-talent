@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import sortBy from "lodash/sortBy";
 import { useMutation } from "urql";

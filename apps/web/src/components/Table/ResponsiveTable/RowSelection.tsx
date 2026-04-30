@@ -438,7 +438,7 @@ export const useRowSelection = <T,>(
 
   useEffect(() => {
     rowSelectionCallback(rowSelection);
-  }, [rowSelection]);
+  }, [rowSelection, rowSelectionCallback]);
 
   return [rowSelection, setter];
 };
