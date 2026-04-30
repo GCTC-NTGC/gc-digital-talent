@@ -70,9 +70,12 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
       ra.role?.name === ROLE_NAME.CommunityAdmin ||
       ra.role?.name === ROLE_NAME.CommunityTalentCoordinator,
   );
-  const communities = unpackMaybes(roles.map((r) => r.teamable)).filter((c) =>
-    isCommunity(c),
-  );
+  const communities = unpackMaybes(roles.map((r) => r.teamable))
+    .filter((c) => isCommunity(c))
+    .filter(
+      (item, index, self) => index === self.findIndex((c) => c.id === item.id),
+    );
+
   const communityOptions = communities.map((community) => ({
     label:
       community.name?.localized ??
