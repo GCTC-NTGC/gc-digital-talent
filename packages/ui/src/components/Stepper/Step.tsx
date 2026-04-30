@@ -1,9 +1,12 @@
 import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 
 import type { StepVariants } from "./utils";
-import { getIconFromState, messageMap, step } from "./utils";
+import { messageMap, step } from "./utils";
 import Link from "../Link";
+import type { IconType } from "../../types";
 
 interface StepLinkProps {
   children: ReactNode;
@@ -52,6 +55,11 @@ interface StepProps
   label: ReactNode;
 }
 
+const ICON_MAP: Record<string, IconType | undefined> = {
+  completed: CheckIcon,
+  error: XMarkIcon,
+};
+
 const Step = ({
   label,
   href,
@@ -60,7 +68,7 @@ const Step = ({
   state,
 }: StepProps) => {
   const intl = useIntl();
-  const Icon = getIconFromState(state);
+  const Icon = ICON_MAP[state] ?? null;
   const message = messageMap.get(state);
   const { link, icon, tail, text } = step({ state });
   const ariaLabel = message ? intl.formatMessage(message, { label }) : label;
