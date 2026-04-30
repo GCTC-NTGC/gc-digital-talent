@@ -80,7 +80,9 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
     value: community.id,
   }));
 
-  const ids = new Set(watchDevelopmentProgramOptions.map((dp) => dp.value));
+  const ids = watchDevelopmentProgramOptions
+    ? new Set(watchDevelopmentProgramOptions.map((dp) => dp.value))
+    : new Set();
   const developmentProgramOptions = unpackMaybes(
     communities
       .filter((community) => community.id === watchCommunity)
