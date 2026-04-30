@@ -2,23 +2,23 @@
 
 # Environment selection: use `make up ENV=dev` for development with hot reloading
 ifeq ($(ENV),dev)
-COMPOSE := docker-compose.dev.yml
+COMPOSE_FLAGS := -f docker-compose.yml -f docker-compose.dev.yml
 else
-COMPOSE ?= docker-compose.yml
+COMPOSE_FLAGS := -f docker-compose.yml
 endif
 
-DOCKER_RUN=docker compose -f $(COMPOSE) run --rm maintenance bash
-DOCKER_API=docker compose -f $(COMPOSE) run --rm -w /var/www/html/api maintenance sh -c
-DOCKER_PNPM=docker compose -f $(COMPOSE) run -w /var/www/html --rm maintenance pnpm
+DOCKER_RUN=docker compose $(COMPOSE_FLAGS) run --rm maintenance bash
+DOCKER_API=docker compose $(COMPOSE_FLAGS) run --rm -w /var/www/html/api maintenance sh -c
+DOCKER_PNPM=docker compose $(COMPOSE_FLAGS) run -w /var/www/html --rm maintenance pnpm
 
 up:
-	docker compose -f $(COMPOSE) up --build --detach
+	docker compose $(COMPOSE_FLAGS) up --build --detach
 
 down:
-	docker compose -f $(COMPOSE) down --remove-orphans
+	docker compose $(COMPOSE_FLAGS) down --remove-orphans
 
 logs:
-	docker compose -f $(COMPOSE) logs -f
+	docker compose $(COMPOSE_FLAGS) logs -f
 
 setup:
 	$(DOCKER_RUN) setup.sh
