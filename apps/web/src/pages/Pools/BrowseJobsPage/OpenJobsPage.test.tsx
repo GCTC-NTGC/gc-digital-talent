@@ -10,7 +10,7 @@ import type { Pool } from "@gc-digital-talent/graphql";
 import { PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 
-import BrowsePools from "./BrowsePoolsPage";
+import OpenJobs from "./OpenJobsPage";
 
 const publishedItJobsPool = {
   id: "publishedItJobsPool",
@@ -42,8 +42,8 @@ const publishedIAPJobsPool = {
   status: toLocalizedEnum(PoolStatus.Published),
 };
 
-describe("BrowsePoolsPage", () => {
-  function renderBrowsePoolsPage({
+describe("OpenJobsPage", () => {
+  function renderOpenJobsPage({
     pools,
   }: {
     pools: Omit<Pool, "activities" | "teamId">[];
@@ -62,19 +62,19 @@ describe("BrowsePoolsPage", () => {
 
     return renderWithProviders(
       <GraphqlProvider value={mockClient}>
-        <BrowsePools />
+        <OpenJobs />
       </GraphqlProvider>,
     );
   }
   it("should have no accessibility errors", async () => {
-    const { container } = renderBrowsePoolsPage({
+    const { container } = renderOpenJobsPage({
       pools: [publishedItJobsPool],
     });
     await expectNoAccessibilityErrors(container);
   });
 
   it("should only show published jobs", () => {
-    renderBrowsePoolsPage({
+    renderOpenJobsPage({
       pools: [
         // draft pools can not be returned by API query
         publishedItJobsPool,
@@ -103,7 +103,7 @@ describe("BrowsePoolsPage", () => {
   });
 
   it("should only show IT and Executive jobs", () => {
-    renderBrowsePoolsPage({
+    renderOpenJobsPage({
       pools: [publishedItJobsPool, publishedExecJobsPool, publishedIAPJobsPool],
     });
 
