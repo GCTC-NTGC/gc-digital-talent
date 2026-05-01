@@ -1,12 +1,15 @@
 import { useQuery } from "urql";
 import { useIntl } from "react-intl";
 import { useState } from "react";
-import { isFuture } from "date-fns/isFuture";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
+  TalentNominationEventStatus,
+} from "@gc-digital-talent/graphql";
 import {
   Button,
   Card,
@@ -107,10 +110,8 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
       descriptionForNomination: cdp.pivot?.descriptionForNominations,
     }))
     .sort(sortAlphaBy((i) => i.developmentProgram.name.localized));
-  const showCopyButton =
-    !talentEvent.closeDate || isFuture(parseDateTimeUtc(talentEvent.closeDate));
 
-  const StatusChip = statusCell(talentEvent.status);
+  const StatusChip = <span>{statusCell(talentEvent.status)}</span>;
   const notFound = intl.formatMessage(commonMessages.notFound);
 
   return (
@@ -125,7 +126,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           >
             {intl.formatMessage(adminMessages.eventDetails)}
           </Heading>
-          {showCopyButton && (
+          {talentEvent.status?.value === TalentNominationEventStatus.Active ? (
             <div className="flex flex-col items-center justify-center gap-6 text-right sm:col-span-2 sm:flex-row">
               <Button
                 mode="inline"
@@ -178,8 +179,10 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                       description: "Button text to copy a nomination URL",
                     })}
               </Button>
-              <span>{StatusChip}</span>
+              {StatusChip}
             </div>
+          ) : (
+            <>{StatusChip}</>
           )}
         </div>
         <p className="col-span-2 my-6">
@@ -358,24 +361,28 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             intl.formatMessage(commonMessages.notProvided)
           )}
         </FieldDisplay>
-        <div className="col-span-2">
-          <CardSeparator space="none" decorative />
-        </div>
-        <div className="col-span-2">
-          <div>
-            <Link
-              href={paths.updateTalentManagementEvent(talentEvent.id)}
-              className="font-bold"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Edit talent nomination event",
-                id: "eEVJFa",
-                description:
-                  "Link to edit the currently viewed talent nomination event",
-              })}
-            </Link>
-          </div>
-        </div>
+        {talentEvent.status?.value !== TalentNominationEventStatus.Past && (
+          <>
+            <div className="col-span-2">
+              <CardSeparator space="none" decorative />
+            </div>
+            <div className="col-span-2">
+              <div>
+                <Link
+                  href={paths.updateTalentManagementEvent(talentEvent.id)}
+                  className="font-bold"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Edit talent nomination event",
+                    id: "eEVJFa",
+                    description:
+                      "Link to edit the currently viewed talent nomination event",
+                  })}
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
       </Card>
     </>
   );
