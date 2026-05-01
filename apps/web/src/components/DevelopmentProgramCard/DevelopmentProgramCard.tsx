@@ -12,6 +12,7 @@ import {
   Heading,
   IconButton,
   Ul,
+  UNICODE_CHAR,
   type HeadingRank,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -26,6 +27,10 @@ interface DevelopmentProgramCardProps {
   edit: ReactNode;
   remove: ReactNode;
   classificationRestrictions?: Pick<Classification, "id" | "group" | "level">[];
+  institution?: string | null;
+  dateRange?: string;
+  skillCount?: number;
+  experienceType?: string;
 }
 
 const DevelopmentProgramCard = ({
@@ -36,6 +41,10 @@ const DevelopmentProgramCard = ({
   edit,
   remove,
   classificationRestrictions,
+  institution,
+  dateRange,
+  skillCount,
+  experienceType,
 }: DevelopmentProgramCardProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
@@ -68,7 +77,29 @@ const DevelopmentProgramCard = ({
             >
               {title}
             </Heading>
+            {institution && <p>{institution}</p>}
             {description && <p>{description}</p>}
+            {(experienceType !== undefined || dateRange !== undefined || skillCount !== undefined) && (
+              <p className="text-sm text-gray-600 dark:text-gray-100">
+                {[
+                  experienceType,
+                  dateRange,
+                  skillCount !== undefined
+                    ? intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "{count, plural, one {# skill} other {# skills}}",
+                          id: 'EQI4l2',
+                          description: "Number of skills on an experience",
+                        },
+                        { count: skillCount },
+                      )
+                    : undefined,
+                ]
+                  .filter(Boolean)
+                  .join(` ${UNICODE_CHAR.BULLET} `)}
+              </p>
+            )}
           </span>
 
           {classificationRestrictions && (

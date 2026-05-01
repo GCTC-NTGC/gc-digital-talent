@@ -3,7 +3,6 @@ import { useMutation, useQuery } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
-import { useCallback } from "react";
 
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
@@ -49,6 +48,16 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
         id
         institution
         areaOfStudy
+        startDate
+        endDate
+        type {
+          label {
+            localized
+          }
+        }
+        skills {
+          id
+        }
       }
     }
 
@@ -104,7 +113,6 @@ interface UpdateCommunityInterestFormProps {
   userId: string;
   formDisabled: boolean;
   onSubmit: SubmitHandler<FormValues>;
-  onRefreshExperiences: () => void;
 }
 
 const UpdateCommunityInterestForm = ({
@@ -113,7 +121,6 @@ const UpdateCommunityInterestForm = ({
   userId,
   formDisabled,
   onSubmit,
-  onRefreshExperiences,
 }: UpdateCommunityInterestFormProps) => {
   const formOptions = getFragment(
     UpdateCommunityInterestFormOptions_Fragment,
@@ -178,7 +185,6 @@ const UpdateCommunityInterestForm = ({
                     educationExperiences={unpackMaybes(
                       formOptions.me?.educationExperiences,
                     )}
-                    onRefreshExperiences={onRefreshExperiences}
                   />
                 </>
               ) : null}
@@ -262,20 +268,13 @@ export const UpdateCommunityInterestPage = () => {
   if (!communityInterestId) {
     throw new NotFoundError("Missing parameter: communityInterestId");
   }
-  const [
-    { data: queryData, fetching: queryFetching, error: queryError },
-    reexecuteQuery,
-  ] = useQuery({
-    query: UpdateCommunityInterest_Query,
-    variables: {
-      communityInterestId: communityInterestId,
-    },
-  });
-
-  const refreshExperiences = useCallback(() => {
-    reexecuteQuery({ requestPolicy: "network-only" });
-  }, [reexecuteQuery]);
-
+  const [{ data: queryData, fetching: queryFetching, error: queryError }] =
+    useQuery({
+      query: UpdateCommunityInterest_Query,
+      variables: {
+        communityInterestId: communityInterestId,
+      },
+    });
   const [{ fetching: mutationFetching }, executeUpdateMutation] = useMutation(
     UpdateCommunityInterest_Mutation,
   );
@@ -391,7 +390,6 @@ export const UpdateCommunityInterestPage = () => {
               userId={userAuthInfo.id}
               formDisabled={queryFetching || mutationFetching}
               onSubmit={submitForm}
-              onRefreshExperiences={refreshExperiences}
             />
           </div>
         ) : (
