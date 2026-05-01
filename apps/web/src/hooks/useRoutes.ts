@@ -219,6 +219,7 @@ const getRoutes = (lang: Locales) => {
 
     // Jobs
     jobs: () => `${baseUrl}/jobs`,
+    closedJobs: () => `${baseUrl}/jobs/closed`,
     jobPoster: (processId: string) => `${baseUrl}/jobs/${processId}`,
     createApplication: (processId: string) =>
       `${baseUrl}/jobs/${processId}/create-application`,

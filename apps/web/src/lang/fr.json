@@ -623,6 +623,10 @@
     "defaultMessage": "Comment les modèles d’offres d’emploi facilitent-ils le recrutement?",
     "description": "Question about job advertisement templates"
   },
+  "0PUTAv": {
+    "defaultMessage": "Offres d’emploi fermées",
+    "description": "Title for the closed jobs recruiting candidates"
+  },
   "0PeEzR": {
     "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on career timeline, paragraph one"
@@ -10589,6 +10593,10 @@
   "gV0mRk": {
     "defaultMessage": "Collectivité fonctionnelle",
     "description": "Label for Functional community value"
+  },
+  "gXBSoI": {
+    "defaultMessage": "Vous trouverez ici des offres d'emploi qui ont été publiées sur la plateforme et qui n'acceptent plus de candidatures.",
+    "description": "Description of the closed job section"
   },
   "gXFpR1": {
     "defaultMessage": "Ce rôle exige un minimum d’expérience ou un diplôme pertinent. Tous les candidats doivent respecter l’un des critères énumérés dans la présente section afin qu’on en tienne compte. Si vous respectez plus d’une des options fournies, vous pourrez préciser quelle option représente le mieux votre expérience, selon vous. Vous pouvez en apprendre davantage sur la scolarité et les équivalences en visitant la <link>norme du gouvernement du Canada sur les qualifications</link>.",
