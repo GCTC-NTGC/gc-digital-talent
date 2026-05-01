@@ -2295,10 +2295,6 @@
     "defaultMessage": "Nous avons reçu votre demande",
     "description": "Paragraph one, message to user the request was received"
   },
-  "7E14Li": {
-    "defaultMessage": "Revoyez et modifiez les détails de l'événement de gestion des talents.",
-    "description": "Description for the details of a nomination event"
-  },
   "7FtbwK": {
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
@@ -2870,10 +2866,6 @@
   "9lg3QJ": {
     "defaultMessage": "Publié le {publishedDate}",
     "description": "Text displaying the date a job was posted"
-  },
-  "9mrSt3": {
-    "defaultMessage": "Description de l'événement",
-    "description": "Label for nomination event description"
   },
   "9n7ET2": {
     "defaultMessage": "Rendre nos produits accessibles et utilisables par tous",
@@ -6619,10 +6611,6 @@
     "defaultMessage": "<link>Lancée officiellement en janvier 2024</link>par la ministre Anand, présidente du Conseil du Trésor, Talents numériques du GC contribue aux efforts déployés par le gouvernement du Canada pour améliorer la façon dont il recrute, perfectionne et affecte les talents numériques dans l’ensemble de la fonction publique afin d’améliorer la prestation de services numériques modernes et efficaces à la population canadienne.",
     "description": "Paragraph two, information about recruitment on the platform"
   },
-  "PnHH9A": {
-    "defaultMessage": "Détails de l'événement",
-    "description": "Subheading for nomination event details"
-  },
   "PnSSPo": {
     "defaultMessage": "Renseignements manquants",
     "description": "Missing information, warning"
@@ -8301,10 +8289,6 @@
   "XDgkwV": {
     "defaultMessage": "Un homme autochtone travaille à un ordinateur.",
     "description": "Indigenous Apprenticeship man on computer image text alternative"
-  },
-  "XFF/p+": {
-    "defaultMessage": "Nom de l'événement",
-    "description": "Label for nomination event name"
   },
   "XGztC+": {
     "defaultMessage": "Raison du changement",
@@ -11394,10 +11378,6 @@
     "defaultMessage": "Créer le volet de travail",
     "description": "Button text to create a work stream"
   },
-  "jnd5HF": {
-    "defaultMessage": "Détails de l'événement",
-    "description": "Link text for details about a nomination event"
-  },
   "jno96W": {
     "defaultMessage": "Modifier la planification de carrière",
     "description": "Link to a page to edit your career planning information"
@@ -12358,10 +12338,6 @@
     "defaultMessage": "Spécialiste de la gouvernance de l’information",
     "description": "Heading for the information governance specialist role"
   },
-  "nhqlFu": {
-    "defaultMessage": "Programmes de perfectionnement pertinents",
-    "description": "Label for development programs relevant to a nomination event"
-  },
   "njBzmn": {
     "defaultMessage": "Collectivité fonctionnelle souhaitée",
     "description": "Label for a employee profile desired functional community field"
@@ -12906,10 +12882,6 @@
     "defaultMessage": "Cette section vous permet de parcourir l'ensemble de l'expérience professionnelle de la personne candidate. Par défaut, l'expérience est organisée par type, mais vous pouvez choisir de voir le niveau d'expérience de la personne candidate dans un volet de travail particulier ou dans un ministère donné à l'aide des options proposées.",
     "description": "Description for the career page full career section"
   },
-  "pq/4js": {
-    "defaultMessage": "Date de clôture des nominations",
-    "description": "Label for nomination event date to stop accepting nominations"
-  },
   "prb1eH": {
     "defaultMessage": "Pour nous aider à comprendre comment vous répondez aux critères minimaux d’expérience ou d’études, veuillez indiquer les options auxquelles vous répondez, ainsi que les expériences qui s’appliquent à votre parcours professionnel. <strong>Si les deux s'appliquent à vous, sélectionnez les critères d'études.</strong>",
     "description": "Description for radio group section in application education page."
@@ -13073,10 +13045,6 @@
   "qZKabV": {
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for a users goals and work style"
-  },
-  "qaZ6OZ": {
-    "defaultMessage": "Date d'ouverture",
-    "description": "Header for Opening date"
   },
   "qbv2v0": {
     "defaultMessage": "Classification de la personne de référence",
@@ -13949,10 +13917,6 @@
   "uVtmGg": {
     "defaultMessage": "Gestion d'un budget ou pouvoir de signature délégué",
     "description": "Label for budget management field"
-  },
-  "uWNoOD": {
-    "defaultMessage": "Lien pour plus d'informations",
-    "description": "Label for nomination event more information link"
   },
   "uWZgYM": {
     "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un volet de travail. Elle devrait être fondée sur le nom anglais du volet de travail et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
