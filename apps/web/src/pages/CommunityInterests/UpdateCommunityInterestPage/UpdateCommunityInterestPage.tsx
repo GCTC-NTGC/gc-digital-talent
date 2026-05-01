@@ -274,6 +274,7 @@ export const UpdateCommunityInterestPage = () => {
       variables: {
         communityInterestId: communityInterestId,
       },
+      requestPolicy: "network-only",
     });
   const [{ fetching: mutationFetching }, executeUpdateMutation] = useMutation(
     UpdateCommunityInterest_Mutation,

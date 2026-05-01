@@ -11,6 +11,7 @@ import {
   DropdownMenu,
   Heading,
   IconButton,
+  Link,
   Ul,
   UNICODE_CHAR,
   type HeadingRank,
@@ -21,6 +22,7 @@ import { formatClassificationString } from "~/utils/poolUtils";
 
 interface DevelopmentProgramCardProps {
   title: string;
+  titleHref?: string;
   headingAs?: HeadingRank;
   description: string;
   iconLabel: string;
@@ -35,6 +37,7 @@ interface DevelopmentProgramCardProps {
 
 const DevelopmentProgramCard = ({
   title,
+  titleHref,
   headingAs = "h3",
   description,
   iconLabel,
@@ -75,7 +78,13 @@ const DevelopmentProgramCard = ({
               size="h6"
               className="mt-0 text-base font-bold"
             >
-              {title}
+              {titleHref !== undefined ? (
+                <Link href={titleHref} newTab inHeading>
+                  {title}
+                </Link>
+              ) : (
+                title
+              )}
             </Heading>
             {institution && <p>{institution}</p>}
             {description && <p>{description}</p>}

@@ -58,7 +58,6 @@ export const DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment 
         id
       }
       participationStatus
-      completionDate
     }
   `);
 
@@ -67,7 +66,6 @@ export interface SubformValues {
     | {
         developmentProgramId: string | null;
         participationStatus: DevelopmentProgramParticipationStatus | null;
-        completionDate: string | null;
         educationExperienceId: string | null;
       }[]
     | null;
@@ -130,12 +128,10 @@ const TrainingAndDevelopmentOpportunities = ({
       | DevelopmentProgramParticipationStatus
       | null
       | undefined;
-    completionDate?: string | null | undefined;
   }[] = developmentProgramUserRecordsUnpacked.map((record) => {
     return {
       developmentProgramId: record.developmentProgram.id,
       participationStatus: record.participationStatus,
-      completionDate: record.completionDate,
     };
   });
 
@@ -362,6 +358,7 @@ const TrainingAndDevelopmentOpportunities = ({
                           linkedExp.institution ??
                           intl.formatMessage(commonMessages.notProvided)
                         }
+                        titleHref=""
                         institution={linkedExp.institution ?? undefined}
                         description=""
                         dateRange={

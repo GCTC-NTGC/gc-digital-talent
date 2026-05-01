@@ -32,11 +32,7 @@ const useStatusInfo = (
     message: intl.formatMessage(commonMessages.missingInformation),
   };
 
-  if (
-    !status ||
-    (!completionDate &&
-      status === DevelopmentProgramParticipationStatus.Completed)
-  ) {
+  if (!status) {
     return defaultStatusInfo;
   }
 
@@ -100,17 +96,22 @@ const useStatusInfo = (
       DevelopmentProgramParticipationStatus.Completed,
       {
         Icon: CheckCircleIcon,
-        message: intl.formatMessage(
-          {
-            defaultMessage: "Completed in {date}",
-            id: "RXFGuE",
-            description:
-              "Message when a user has completed a development program",
-          },
-          {
-            date,
-          },
-        ),
+        message: date
+          ? intl.formatMessage(
+              {
+                defaultMessage: "Completed in {date}",
+                id: "RXFGuE",
+                description:
+                  "Message when a user has completed a development program",
+              },
+              { date },
+            )
+          : intl.formatMessage({
+              defaultMessage: "Successfully completed",
+              id: 'Xe2a91',
+              description:
+                "Message when a user has completed a development program with no recorded date",
+            }),
       },
     ],
   ]);
@@ -183,11 +184,7 @@ const DevelopmentProgramInterestItem = ({
     caption,
   } = devProgram({
     status: developmentProgramInterest?.participationStatus ?? undefined,
-    hasError:
-      !developmentProgramInterest?.participationStatus ||
-      (developmentProgramInterest?.participationStatus ===
-        DevelopmentProgramParticipationStatus.Completed &&
-        !developmentProgramInterest?.completionDate),
+    hasError: !developmentProgramInterest?.participationStatus,
   });
 
   return (

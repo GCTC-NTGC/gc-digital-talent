@@ -180,6 +180,7 @@ export const CreateCommunityInterestPage = () => {
   const [{ data: queryData, fetching: queryFetching, error: queryError }] =
     useQuery({
       query: CreateCommunityInterestPage_Query,
+      requestPolicy: "network-only",
     });
   const [{ fetching: mutationFetching }, executeCreateMutation] = useMutation(
     CreateCommunityInterestPage_Mutation,
