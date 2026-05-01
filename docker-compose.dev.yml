@@ -76,5 +76,3 @@ services:
         condition: service_healthy
       web:
         condition: service_healthy
-      mock-auth:
-        condition: service_started
