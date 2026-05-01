@@ -1356,7 +1356,10 @@ type TalentNominationEvent {
   learnMoreUrl: LocalizedString
   includeLeadershipCompetencies: Boolean!
   community: Community!
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+  communityDevelopmentPrograms(
+    "Allows to filter if trashed elements should be fetched."
+    trashed: Trashed
+  ): [CommunityDevelopmentProgram!]
   developmentPrograms: [DevelopmentProgram!]
   talentNominationGroups: [TalentNominationGroup!]
   countTalentNominationGroups: Int!
@@ -1394,7 +1397,10 @@ type TalentNomination {
   advancementReferenceFallbackDepartment: Department
   lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+  communityDevelopmentPrograms(
+    "Allows to filter if trashed elements should be fetched."
+    trashed: Trashed
+  ): [CommunityDevelopmentProgram!]
   developmentPrograms: [DevelopmentProgram!]
   developmentProgramOptionsOther: String
   nominationRationale: String
