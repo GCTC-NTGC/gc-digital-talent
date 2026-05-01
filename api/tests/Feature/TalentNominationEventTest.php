@@ -195,8 +195,13 @@ class TalentNominationEventTest extends TestCase
 
     public function testUpdateTalentNominationEvent()
     {
+        $futureOpenDate = '2050-01-01 01:23:45';
+        $futureClosingDate = '2100-01-01 01:23:45';
+
         $talentNominationEvent = TalentNominationEvent::factory()->create([
             'community_id' => $this->communityId,
+            'open_date' => $futureOpenDate,
+            'close_date' => $futureClosingDate,
         ]);
 
         // community admin/coordinator can both update own community nomination events
