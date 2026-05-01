@@ -31,7 +31,7 @@ class ApplicationPage extends AppPage {
   /** Start application */
   async create() {
     await this.page.goto("/en/jobs");
-    await this.waitForGraphqlResponse("BrowsePoolsPage");
+    await this.waitForGraphqlResponse("OpenJobsPage");
 
     await this.page.locator(`a[href*="${this.poolId}"]`).click();
     await this.waitForGraphqlResponse("PoolAdvertisementPage");

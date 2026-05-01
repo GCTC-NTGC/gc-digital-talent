@@ -1462,13 +1462,13 @@ type CandidateSearchPoolResult {
 }
 
 type SitewideAnnouncement {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
-  updatedAt: DateTime!
-  isDismissible: Boolean!
+  isEnabled: Boolean! @rename(attribute: "is_enabled")
+  isDismissible: Boolean! @rename(attribute: "is_dismissible")
+  publishDate: DateTime! @rename(attribute: "publish_date")
+  expiryDate: DateTime! @rename(attribute: "expiry_date")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
 type TrainingOpportunity {
@@ -1490,13 +1490,13 @@ input TrainingOpportunitiesFilterInput {
   opportunityLanguage: CourseLanguage @scope
 }
 
-input SitewideAnnouncementInput {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime! @rules(apply: ["after:publishDate"])
+input SitewideAnnouncementInput @validator {
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isEnabled: Boolean!
   isDismissible: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
 }
 
 input ClaimVerificationSort {
@@ -2441,7 +2441,7 @@ input CommunityDevelopmentProgramBelongsToMany {
 }
 
 input CommunityDevelopmentProgramBelongsToManyWithPivot {
-  connect: [ConnectCommunityDevelopmentProgramWithPivot!]
+  sync: [ConnectCommunityDevelopmentProgramWithPivot!]
 }
 
 input ConnectCommunityDevelopmentProgramWithPivot {
@@ -2462,7 +2462,7 @@ input CreateTalentNominationEventInput @validator {
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
-input UpdateTalentNominationEventInput @validator {
+input UpdateTalentNominationEventInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   openDate: DateTime @rename(attribute: "open_date")
@@ -3774,6 +3774,7 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+    @validator
 
   # Talent nomination mutations
   createTalentNomination(
