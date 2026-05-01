@@ -162,10 +162,7 @@ class PoolPolicy
             return true;
         }
 
-        if (
-            (! is_null($pool->community?->team) && $user->isAbleTo('publish-team-draftPool', $pool->community->team))
-            || (isset($pool->department->team) && $user->isAbleTo('publish-team-draftPool', $pool->department->team))
-        ) {
+        if ($this->checkTeamPermission($user, [$pool->community->team, $pool->department->team], 'publish-team-draftPool')) {
             return true;
         }
 
@@ -184,10 +181,7 @@ class PoolPolicy
         }
 
         // Note: this checks both pool team and community team, but not department team
-        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-publishedPool', $pool->team);
-        $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
-
-        return $teamPermission || $communityPermission;
+        return $this->checkTeamPermission($user, [$pool->team, $pool->community->team], 'update-team-publishedPool');
     }
 
     /**
@@ -202,10 +196,7 @@ class PoolPolicy
         }
 
         // Note: this checks both pool team and community team, but not department team
-        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-publishedPool', $pool->team);
-        $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
-
-        return $teamPermission || $communityPermission;
+        return $this->checkTeamPermission($user, [$pool->team, $pool->community->team], 'update-team-publishedPool');
     }
 
     /**
