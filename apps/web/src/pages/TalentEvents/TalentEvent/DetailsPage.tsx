@@ -4,7 +4,11 @@ import { useState } from "react";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
-import type { FragmentType } from "@gc-digital-talent/graphql";
+import type {
+  FragmentType,
+  LocalizedTalentNominationEventStatus,
+  Maybe,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -91,6 +95,14 @@ const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+interface StatusChipProps {
+  status: Maybe<LocalizedTalentNominationEventStatus> | undefined;
+}
+
+const StatusChip = ({ status }: StatusChipProps) => {
+  return <span>{statusCell(status)}</span>;
+};
+
 interface TalentEventDetailsProps {
   query: FragmentType<typeof TalentEventDetails_Fragment>;
 }
@@ -102,6 +114,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
   const [linkCopied, setLinkCopied] = useState<boolean>(false);
 
   const talentEvent = getFragment(TalentEventDetails_Fragment, query);
+
   const developmentPrograms = unpackMaybes(
     talentEvent.communityDevelopmentPrograms,
   )
@@ -111,7 +124,6 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
     }))
     .sort(sortAlphaBy((i) => i.developmentProgram.name.localized));
 
-  const StatusChip = <span>{statusCell(talentEvent.status)}</span>;
   const notFound = intl.formatMessage(commonMessages.notFound);
 
   return (
@@ -179,10 +191,10 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                       description: "Button text to copy a nomination URL",
                     })}
               </Button>
-              {StatusChip}
+              <StatusChip status={talentEvent.status} />
             </div>
           ) : (
-            <>{StatusChip}</>
+            <StatusChip status={talentEvent.status} />
           )}
         </div>
         <p className="col-span-2 my-6">
