@@ -3899,12 +3899,11 @@ type Mutation {
   ): TrainingOpportunity @update @guard @canModel(ability: "update")
 
   # Development/professionalization mutations
-  createCommunityDevelopmentProgram(
+  createOrRestoreCommunityDevelopmentProgram(
     createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!
       @spread
   ): CommunityDevelopmentProgram
     @guard
-    @create
     @canModel(ability: "create", injectArgs: true)
   updateCommunityDevelopmentProgram(
     updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!
