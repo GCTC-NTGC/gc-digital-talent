@@ -2143,10 +2143,6 @@
     "defaultMessage": "Rétroaction et coordonnées",
     "description": "Title for the accessibility feedback section"
   },
-  "6c89Fd": {
-    "defaultMessage": "Les possibilités de formation présentées sur cette page sont financées par le <itTrainingFundLink>Fonds de formation et de perfectionnement de la collectivité de la <abbreviation>TI</abbreviation></itTrainingFundLink> et sont réservées aux membres du personnel du groupe <abbreviation>TI</abbreviation> couverts par la <itCollectiveAgreementLink>convention collective du groupe <abbreviation>TI</abbreviation></itCollectiveAgreementLink>.",
-    "description": "Second paragraph of it training opportunities section"
-  },
   "6cr+Qy": {
     "defaultMessage": "Vous n’avez pas de nouvelles notifications.",
     "description": "Title for the no notifications message"
@@ -8098,10 +8094,6 @@
     "defaultMessage": "Restaurez le ministère",
     "description": "Button to trigger department restoring functionality"
   },
-  "WPS1Ic": {
-    "defaultMessage": "Présentez une demande et partagez votre profil",
-    "description": "Title for apply and share your profile section"
-  },
   "WSMupE": {
     "defaultMessage": "Processus",
     "description": "Title for process sections"
@@ -9309,10 +9301,6 @@
   "bju7JB": {
     "defaultMessage": "Les information sur votre objectif de carrière ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
-  },
-  "bjwTpe": {
-    "defaultMessage": "Si vous souhaitez suivre une formation, rendez-vous d'abord sur la plateforme Talents numériques du GC pour créer ou mettre à jour votre profil, lequel nous permet de confirmer votre situation d'emploi, votre classification, votre appartenance à un groupe visé par l'équité en matière d'emploi et l'expérience requise. Ensuite, remplissez le formulaire de demande et acceptez de partager votre profil.",
-    "description": "First paragraph of apply and share section"
   },
   "blGYmQ": {
     "defaultMessage": "Autres renseignements",
@@ -12837,10 +12825,6 @@
   "paTLlJ": {
     "defaultMessage": "Rechercher les rôles",
     "description": "Label for the roles table search input"
-  },
-  "pcAgJh": {
-    "defaultMessage": "Nous choisirons les personnes participantes en fonction de leur admissibilité, de leurs compétences ou de leur expérience, et de la représentation des groupes visés par l’équité en matière d’emploi au sein de l’effectif de la TI du gouvernement du Canada. Nous communiquerons avec vous dans les huit jours ouvrables suivant la date limite de présentation des demandes. Si vous faites partie des personnes choisies, vous aurez trois jours ouvrables pour confirmer votre participation.",
-    "description": "Second paragraph of apply and share section"
   },
   "peTSHR": {
     "defaultMessage": "Notes sur cette demande",
