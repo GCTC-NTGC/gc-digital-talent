@@ -68,10 +68,6 @@ class ChecksTeamPermissionsTraitTest extends TestCase
         $this->policy = new TestPolicyWithChecksTeamPermissions();
     }
 
-    /**
-     * This test remains separate because it validates the data structure
-     * returned by the getPoolTeams method specifically.
-     */
     public function testGetPoolTeamsReturnsArrayOfTeams(): void
     {
         $reflection = new \ReflectionClass($this->policy);
@@ -87,31 +83,36 @@ class ChecksTeamPermissionsTraitTest extends TestCase
     public static function permissionProvider(): array
     {
         return [
-            'guest has no permission' => ['guestUser', true, false],
-            'process operator has permission' => ['processOperatorUser', true, true],
-            'community recruiter has permission' => ['communityRecruiterUser', true, true],
-            'null teams return false' => ['adminUser', false, false],
+            'guest has no permission' => ['guestUser', false],
+            'process operator has permission' => ['processOperatorUser', true],
+            'community recruiter has permission' => ['communityRecruiterUser', true],
         ];
     }
 
     #[DataProvider('permissionProvider')]
-    public function testCheckTeamPermissionLogic(string $userProp, bool $usePoolTeams, bool $expected): void
+    public function testCheckTeamPermissionLogic(string $userProp, bool $expected): void
     {
         $user = $this->{$userProp};
         $reflection = new \ReflectionClass($this->policy);
-        $checkMethod = $reflection->getMethod('checkTeamPermission');
 
-        if ($usePoolTeams) {
-            $this->pool->load(['team', 'community.team', 'department.team']);
-            $getTeamsMethod = $reflection->getMethod('getPoolTeams');
-            $teams = $getTeamsMethod->invoke($this->policy, $this->pool);
-        } else {
-            $teams = [null, null, null];
-        }
+        $this->pool->load(['team', 'community.team', 'department.team']);
+        $teams = $reflection->getMethod('getPoolTeams')->invoke($this->policy, $this->pool);
 
-        $result = $checkMethod->invoke($this->policy, $user, $teams, 'view-team-draftPool');
+        $result = $reflection->getMethod('checkTeamPermission')
+            ->invoke($this->policy, $user, $teams, 'view-team-draftPool');
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function testCheckTeamPermissionReturnsFalseWhenTeamsAreNull(): void
+    {
+        $reflection = new \ReflectionClass($this->policy);
+        $teams = [null, null, null];
+
+        $result = $reflection->getMethod('checkTeamPermission')
+            ->invoke($this->policy, $this->adminUser, $teams, 'view-team-draftPool');
+
+        $this->assertFalse($result);
     }
 
     public function testCheckTeamPermissionCachesResults(): void
@@ -126,14 +127,13 @@ class ChecksTeamPermissionsTraitTest extends TestCase
         $reflection->getMethod('checkTeamPermission')
             ->invoke($this->policy, $this->processOperatorUser, $teams, $permission);
 
-        $cacheKey = $reflection->getMethod('cacheKey')->invoke($this->processOperatorUser, $this->pool->team, $permission);
+        $cacheKey = $this->policy->cacheKey($this->processOperatorUser, $this->pool->team, $permission);
         $this->assertTrue(Cache::store('array')->has($cacheKey));
     }
 
-    public function testClearTeamPermissionCacheClearsCache(): void
+    public function testClearCacheRemovesStoredPermissions(): void
     {
         $reflection = new \ReflectionClass($this->policy);
-
         $this->pool->load(['team', 'community.team', 'department.team']);
         $teams = $reflection->getMethod('getPoolTeams')->invoke($this->policy, $this->pool);
 
@@ -141,7 +141,7 @@ class ChecksTeamPermissionsTraitTest extends TestCase
         $reflection->getMethod('checkTeamPermission')
             ->invoke($this->policy, $this->processOperatorUser, $teams, $permission);
 
-        $cacheKey = $reflection->getMethod('cacheKey')->invoke($this->processOperatorUser, $this->pool->team, $permission);
+        $cacheKey = $this->policy->cacheKey($this->processOperatorUser, $this->pool->team, $permission);
         $this->assertTrue(Cache::store('array')->has($cacheKey));
 
         Cache::store('array')->clear();
