@@ -132,7 +132,7 @@ class TalentNominationTest extends TestCase
                 ],
             ]);
 
-        $response->assertGraphQLErrorMessage('This action is unauthorized.');
+        $response->assertGraphQLErrorMessage('YOU_MUST_BE_VERIFIED_EMPLOYEE_FOR_ACTION');
     }
 
     public function testSubmitterCanUpdateTheirOwnDraftNominations()
