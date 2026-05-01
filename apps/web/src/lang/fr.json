@@ -3127,10 +3127,6 @@
     "defaultMessage": "l'ajout de mesures de protection visant à assurer l'accessibilité du contenu publié.",
     "description": "List item two, sub item two things developers consider for accessibility"
   },
-  "AcpYdi": {
-    "defaultMessage": "Le gouvernement du Canada s’est engagé à financer le perfectionnement de ses spécialistes des <abbreviation>TI</abbreviation>. Grâce au <strong>Fonds de formation et de perfectionnement de la collectivité de la <abbreviation>TI</abbreviation></strong>, les membres du personnel du groupe <abbreviation>TI</abbreviation> et couverts par la <link>convention collective du groupe <abbreviation>TI</abbreviation></link> ont désormais un meilleur accès à un large éventail de possibilités d’apprentissage leur permettant d’acquérir et d’approfondir leurs compétences en matière de <abbreviation>TI</abbreviation>.",
-    "description": "First paragraph describing investing in future talent"
-  },
   "AcsOrg": {
     "defaultMessage": "Êtes-vous certain(e)?",
     "description": "Delete confirmation"
@@ -3418,10 +3414,6 @@
   "BiRxFg": {
     "defaultMessage": "Vos processus",
     "description": "Task card title for department tools"
-  },
-  "BlFUsz": {
-    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez présenter une demande et satisfaire aux conditions préalables.",
-    "description": "An item in a list of points about instructor-led classes"
   },
   "Bo2POt": {
     "defaultMessage": "Cette fonctionnalité est offerte uniquement au personnel actuel du gouvernement du Canada.",
@@ -7483,10 +7475,6 @@
     "defaultMessage": "Filtres de collectivités",
     "description": "Heading for filters associated with communities"
   },
-  "Ta28fI": {
-    "defaultMessage": "Le Fonds a pour but d’offrir d’autres possibilités de formation exhaustives, uniformes et de grande qualité afin de :",
-    "description": "title for a list of fund objectives"
-  },
   "Tdmlnn": {
     "defaultMessage": "Archiver l'utilisateur",
     "description": "Label for soft-deleting a user"
@@ -10246,10 +10234,6 @@
     "defaultMessage": "Supprimer cette compétence",
     "description": "Button text to remove a skill from a users profile"
   },
-  "fKQsbL": {
-    "defaultMessage": "La gestion du Fonds incombe au comité mixte interministériel de consultation, coprésidé par le Bureau du dirigeant principal de l’information et le groupe TI de l’IPFPC.",
-    "description": "Description for the fund management card"
-  },
   "fLohdl": {
     "defaultMessage": "Autodéclaration",
     "description": "Link text for the self-declaration page"
@@ -11170,10 +11154,6 @@
     "defaultMessage": "Consulter les emplois offerts",
     "description": "Link text to the page to find jobs"
   },
-  "ixxGIm": {
-    "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
-    "description": "An item in a list of points about cert exams"
-  },
   "iy3pRH": {
     "defaultMessage": "<strong>{name}</strong> a restauré",
     "description": "Label for activity log item reverted action"
@@ -11333,10 +11313,6 @@
   "jRnA1D": {
     "defaultMessage": "Communiquer avec l'équipe de soutien",
     "description": "Link for the 'contact support' card"
-  },
-  "jT46zb": {
-    "defaultMessage": "<strong>Comment y accéder</strong> : disponible via Navigar, un outil Web intelligent de développement des compétences. Tous les membres du personnel admissibles du groupe TI recevront un courriel d'activation de leur compte Navigar.",
-    "description": "An item in a list of points about online learning"
   },
   "jTN0bg": {
     "defaultMessage": "Embauchez des talents pour votre équipe",
@@ -12546,10 +12522,6 @@
     "defaultMessage": "Communiquez avec nous",
     "description": "Support form title"
   },
-  "oY+SWP": {
-    "defaultMessage": "Les possibilités de formation financées par le fonds sont accessibles aux membres du personnel du groupe TI couverts par la convention collective du groupe TI. Les membres du personnel représentés par l’Institut professionnel de la fonction publique du Canada (IPFPC) et les membres du personnel non représentés peuvent accéder à la formation. Les membres du personnel représentés par l’IPFPC auront la priorité lorsque les places seront limitées.",
-    "description": "Description for the employee eligibility card"
-  },
   "oYEBcP": {
     "defaultMessage": "Je fais actuellement partie de ce programme.",
     "description": "Option for the 'enrolled' choice of program participation"
@@ -13458,10 +13430,6 @@
     "defaultMessage": "Outils",
     "description": "Title for information about tools for HR professionals"
   },
-  "sMCVdo": {
-    "defaultMessage": "Le Fonds consiste en un engagement financier qui contribue au perfectionnement professionnel des membres du personnel des <abbreviation>TI</abbreviation> au gouvernement du Canada. Cet engagement est prévu dans la <link>convention collective du groupe <abbreviation>TI</abbreviation></link>, signée en décembre 2023, par le groupe <abbreviation>TI</abbreviation> de l’IPFPC et le Secrétariat du Conseil du Trésor du Canada. Un montant de 4,725 millions de dollars chaque année sera versé pour la formation et le perfectionnement du groupe <abbreviation>TI</abbreviation>, et ce jusqu’à la date d’expiration de la convention.",
-    "description": "First paragraph describing the training fund"
-  },
   "sQkwFY": {
     "defaultMessage": "Une fois que vous avez sélectionné les critères auxquels vous répondez, cette section vous demande de nous indiquer quels sont les éléments spécifiques de votre parcours professionnel qui répondent à cette option. Si vous devez ajouter quelque chose à votre parcours professionnel, vous pouvez le faire en retournant à l’étape du parcours professionnel dans le formulaire de candidature.",
     "description": "Description for checklist section in application education page."
@@ -14265,10 +14233,6 @@
   "vkAhEM": {
     "defaultMessage": "Se connecter à l’aide de CléGC",
     "description": "Page title for the sign in page for applicant profiles"
-  },
-  "vmVdJt": {
-    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables.",
-    "description": "An item in a list of points about cert exams"
   },
   "voH+OJ": {
     "defaultMessage": "Identifiant de référence",
