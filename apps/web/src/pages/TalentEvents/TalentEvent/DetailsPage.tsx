@@ -361,28 +361,24 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             intl.formatMessage(commonMessages.notProvided)
           )}
         </FieldDisplay>
-        {talentEvent.status?.value !== TalentNominationEventStatus.Past && (
-          <>
-            <div className="col-span-2">
-              <CardSeparator space="none" decorative />
-            </div>
-            <div className="col-span-2">
-              <div>
-                <Link
-                  href={paths.updateTalentManagementEvent(talentEvent.id)}
-                  className="font-bold"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Edit talent nomination event",
-                    id: "eEVJFa",
-                    description:
-                      "Link to edit the currently viewed talent nomination event",
-                  })}
-                </Link>
-              </div>
-            </div>
-          </>
-        )}
+        <div className="col-span-2">
+          <CardSeparator space="none" decorative />
+        </div>
+        <div className="col-span-2">
+          <div>
+            <Link
+              href={paths.updateTalentManagementEvent(talentEvent.id)}
+              className="font-bold"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Edit talent nomination event",
+                id: "eEVJFa",
+                description:
+                  "Link to edit the currently viewed talent nomination event",
+              })}
+            </Link>
+          </div>
+        </div>
       </Card>
     </>
   );

@@ -301,7 +301,9 @@ const UpdateTalentEventPage = () => {
                   })}
                 </p>
                 {data?.talentNominationEvent.status?.value ===
-                TalentNominationEventStatus.Active ? (
+                  TalentNominationEventStatus.Active ||
+                data.talentNominationEvent.status?.value ===
+                  TalentNominationEventStatus.Past ? (
                   <ActiveTalentEventForm
                     userQuery={data.me}
                     talentEventQuery={data.talentNominationEvent}
