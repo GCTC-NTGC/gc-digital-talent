@@ -55,23 +55,21 @@ const DialogPortalWithPresence = ({
   const intl = useIntl();
   const paths = useRoutes();
   const [isPresent] = usePresence();
-  const [render, setRender] = useState<boolean>(isPresent);
+  // If AnimatePresence reuses this instance during exit (fast reopen), isPresent
+  // flips back to true while render may be false — sync it here in render.
+  const [render, setRender] = useState(true);
+  if (isPresent && !render) {
+    setRender(true);
+  }
   const containerRef = useRef<HTMLDivElement>(null);
   const [{ data, fetching }, executeQuery] = useQuery({
     query: NotificationDialog_Query,
     pause: !render,
   });
 
-  if (isPresent && !render) {
-    setRender(true);
-  }
-
   useEffect(() => {
-    if (isPresent) {
-      return undefined;
-    }
+    if (isPresent) return undefined;
 
-    // Handle exit animation delay
     const timerId = setTimeout(() => {
       setRender(false);
     }, 200);
