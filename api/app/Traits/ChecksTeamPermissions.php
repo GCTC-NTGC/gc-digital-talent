@@ -7,6 +7,7 @@ namespace App\Traits;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Trait for centralizing team permission checks across policies.
@@ -18,14 +19,6 @@ use App\Models\User;
  */
 trait ChecksTeamPermissions
 {
-    /**
-     * Per-request cache for permission checks.
-     * Static variable is reset on each new PHP request.
-     *
-     * @var array<string, bool>
-     */
-    protected static array $teamPermissionCache = [];
-
     /**
      * Check if user has permission on any of the provided teams.
      *
@@ -41,13 +34,15 @@ trait ChecksTeamPermissions
                 continue;
             }
 
-            $cacheKey = "{$user->id}_{$team->id}_{$permission}";
+            $cacheKey = $this->cacheKey($user, $team, $permission);
 
-            if (! array_key_exists($cacheKey, static::$teamPermissionCache)) {
-                static::$teamPermissionCache[$cacheKey] = $user->isAbleTo($permission, $team);
-            }
+            $hasPermission = Cache::memo('array')->remember(
+                $cacheKey,
+                null,
+                fn () => $user->isAbleTo($permission, $team)
+            );
 
-            if (static::$teamPermissionCache[$cacheKey]) {
+            if ($hasPermission) {
                 return true;
             }
         }
@@ -74,12 +69,16 @@ trait ChecksTeamPermissions
     }
 
     /**
-     * Clear the per-request team permission cache.
+     * Creates a key for the cache
      *
-     * Useful for testing scenarios where you need to reset the cache state.
+     * Simple method to stitch together keys for the unique cache key.
+     * Helpful for use in tests and purging cache.
+     *
+     * @return string
      */
-    public static function clearTeamPermissionCache(): void
+    public function cacheKey(User $user, Team $team, string $permission)
     {
-        static::$teamPermissionCache = [];
+
+        return "{$user->id}_{$team->id}_{$permission}";
     }
 }

@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Traits\ChecksTeamPermissions;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Cache;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
@@ -44,7 +45,6 @@ class ChecksTeamPermissionsTraitTest extends TestCase
 
         $this->community = Community::factory()->create();
         $this->department = Department::factory()->create();
-
         $this->adminUser = User::factory()->asAdmin()->create();
 
         $this->pool = Pool::factory()->create([
@@ -116,32 +116,36 @@ class ChecksTeamPermissionsTraitTest extends TestCase
 
     public function testCheckTeamPermissionCachesResults(): void
     {
-        TestPolicyWithChecksTeamPermissions::clearTeamPermissionCache();
+        Cache::store('array')->clear();
         $reflection = new \ReflectionClass($this->policy);
-        $cacheProperty = $reflection->getProperty('teamPermissionCache');
 
         $this->pool->load(['team', 'community.team', 'department.team']);
         $teams = $reflection->getMethod('getPoolTeams')->invoke($this->policy, $this->pool);
 
+        $permission = 'view-team-draftPool';
         $reflection->getMethod('checkTeamPermission')
-            ->invoke($this->policy, $this->processOperatorUser, $teams, 'view-team-draftPool');
+            ->invoke($this->policy, $this->processOperatorUser, $teams, $permission);
 
-        $this->assertNotEmpty($cacheProperty->getValue($this->policy));
+        $cacheKey = $reflection->getMethod('cacheKey')->invoke($this->processOperatorUser, $this->pool->team, $permission);
+        $this->assertTrue(Cache::store('array')->has($cacheKey));
     }
 
     public function testClearTeamPermissionCacheClearsCache(): void
     {
         $reflection = new \ReflectionClass($this->policy);
-        $cacheProperty = $reflection->getProperty('teamPermissionCache');
 
         $this->pool->load(['team', 'community.team', 'department.team']);
         $teams = $reflection->getMethod('getPoolTeams')->invoke($this->policy, $this->pool);
 
+        $permission = 'view-team-draftPool';
         $reflection->getMethod('checkTeamPermission')
-            ->invoke($this->policy, $this->processOperatorUser, $teams, 'view-team-draftPool');
+            ->invoke($this->policy, $this->processOperatorUser, $teams, $permission);
 
-        TestPolicyWithChecksTeamPermissions::clearTeamPermissionCache();
+        $cacheKey = $reflection->getMethod('cacheKey')->invoke($this->processOperatorUser, $this->pool->team, $permission);
+        $this->assertTrue(Cache::store('array')->has($cacheKey));
 
-        $this->assertEmpty($cacheProperty->getValue($this->policy));
+        Cache::store('array')->clear();
+
+        $this->assertFalse(Cache::store('array')->has($cacheKey));
     }
 }
