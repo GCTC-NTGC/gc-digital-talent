@@ -69,10 +69,13 @@ const NominationDetailsReview_Fragment = graphql(/* GraphQL */ `
 
     # Development program details
     developmentProgramOptionsOther
-    developmentPrograms {
+    communityDevelopmentPrograms(trashed: WITH) {
       id
-      name {
-        localized
+      developmentProgram {
+        id
+        name {
+          localized
+        }
       }
     }
   }

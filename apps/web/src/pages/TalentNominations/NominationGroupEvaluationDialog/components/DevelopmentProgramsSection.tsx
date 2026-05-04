@@ -26,10 +26,13 @@ const NominationGroupEvaluationDialogDevelopmentPrograms_Fragment = graphql(
       id
       nominations {
         nominateForDevelopmentPrograms
-        developmentPrograms {
+        communityDevelopmentPrograms(trashed: WITH) {
           id
-          name {
-            localized
+          developmentProgram {
+            id
+            name {
+              localized
+            }
           }
         }
         developmentProgramOptionsOther

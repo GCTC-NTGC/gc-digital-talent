@@ -578,7 +578,7 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
       value
     }
     lateralMovementOptionsOther
-    communityDevelopmentPrograms {
+    communityDevelopmentPrograms(trashed: WITH) {
       id
       developmentProgram {
         id

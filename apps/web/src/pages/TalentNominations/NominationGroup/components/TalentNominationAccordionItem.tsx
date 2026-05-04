@@ -37,10 +37,12 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
     id
 
     talentNominationEvent {
-      developmentPrograms {
-        id
-        name {
-          localized
+      communityDevelopmentPrograms(trashed: WITH) {
+        developmentProgram {
+          id
+          name {
+            localized
+          }
         }
       }
       includeLeadershipCompetencies
@@ -91,10 +93,12 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
     }
     lateralMovementOptionsOther
 
-    developmentPrograms {
-      id
-      name {
-        localized
+    communityDevelopmentPrograms(trashed: WITH) {
+      developmentProgram {
+        id
+        name {
+          localized
+        }
       }
     }
     developmentProgramOptionsOther

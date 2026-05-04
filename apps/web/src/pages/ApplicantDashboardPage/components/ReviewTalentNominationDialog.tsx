@@ -75,10 +75,12 @@ const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
       }
     }
     developmentProgramOptionsOther
-    developmentPrograms {
-      id
-      name {
-        localized
+    communityDevelopmentPrograms(trashed: WITH) {
+      developmentProgram {
+        id
+        name {
+          localized
+        }
       }
     }
   }
