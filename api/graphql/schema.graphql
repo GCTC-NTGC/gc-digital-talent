@@ -961,8 +961,6 @@ type TalentNomination {
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
     @belongsToMany
     @softDeletes
-  developmentPrograms: [DevelopmentProgram!]
-    @hasMany(relation: "developmentProgramsThroughPivot")
   developmentProgramOptionsOther: String
     @rename(attribute: "development_program_options_other")
 
