@@ -22,7 +22,7 @@ make down ENV=dev    # Stop
 Or using docker compose directly:
 
 ```bash
-docker compose -f docker-compose.dev.yml up --build
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
 ```
 
 Access the application at: http://localhost:8000
