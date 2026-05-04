@@ -218,6 +218,7 @@ return [
     'advancement' => 'Advancement',
     'lateral_movement' => 'Lateral movement',
     'development_programs' => 'Development programs',
+    'linked_experience' => 'Linked experience',
     'nomination_details' => 'Nomination details',
     'nominated_by' => 'Nominated by',
     'nominators_work_email' => "Nominator's work email",
