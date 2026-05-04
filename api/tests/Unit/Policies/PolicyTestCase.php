@@ -5,6 +5,7 @@ namespace Tests\Unit\Policies;
 use App\Models\Pool;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
+use Exception;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -39,7 +40,8 @@ class PolicyTestCase extends TestCase
         $id = match ($method) {
             'asProcessOperator' => $pool->id,
             'asDepartmentAdmin', 'asDepartmentHRAdvisor' => $pool->department_id,
-            default => $pool->community_id,
+            'asCommunityRecruiter', 'asCommunityAdmin', 'asCommunityTalentCoordinator', 'asAdmin' => $pool->community_id,
+            default => throw new Exception("Cannot create contextual user with method '{$method}' for pool '{$pool->id}'."),
         };
 
         return User::factory()->{$method}($id)->create();
