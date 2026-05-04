@@ -236,9 +236,11 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   const deadlineUtc = pool.closingDate && parseDateTimeUtc(pool.closingDate);
-  const deadlineIn = deadlineUtc && differenceInDays(deadlineUtc, Date.now());
+  const deadlineIn = deadlineUtc
+    ? differenceInDays(deadlineUtc, Date.now())
+    : null;
   const deadlineNear = Boolean(
-    deadlineIn && deadlineIn <= 3 && deadlineIn >= 0,
+    deadlineIn !== null && deadlineIn <= 3 && deadlineIn >= 0,
   );
   const poolIsClosed = deadlineUtc ? isPast(deadlineUtc) : false;
   const deadline = deadlineUtc
