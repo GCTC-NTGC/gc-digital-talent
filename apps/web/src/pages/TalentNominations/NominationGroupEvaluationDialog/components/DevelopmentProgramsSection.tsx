@@ -97,8 +97,8 @@ const DevelopmentProgramsSection = ({
 
   const developmentProgramIdsInThisNominationGroup = nominations
     .filter((nomination) => nomination.nominateForDevelopmentPrograms)
-    .flatMap((nomination) => nomination.developmentPrograms)
-    .map((developmentProgram) => developmentProgram?.id)
+    .flatMap((nomination) => nomination.communityDevelopmentPrograms)
+    .map((cdp) => cdp?.developmentProgram.id)
     .filter(notEmpty);
 
   const developmentProgramListItems =

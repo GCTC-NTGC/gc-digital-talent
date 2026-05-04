@@ -152,10 +152,10 @@ const ReviewTalentNominationDialog = ({
   }));
 
   const developmentPrograms: ListItem[] = unpackMaybes(
-    talentNomination.developmentPrograms,
-  ).map((program) => ({
-    key: program.id,
-    name: program.name?.localized ?? "",
+    talentNomination.communityDevelopmentPrograms,
+  ).map((cdp) => ({
+    key: cdp.developmentProgram.id,
+    name: cdp.developmentProgram.name?.localized ?? "",
   }));
 
   return (
