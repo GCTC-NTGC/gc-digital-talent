@@ -1110,6 +1110,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         $developmentProgramIds = [];
         foreach ($developmentPrograms as $program) {
             $generatedHeaders[] = $program->name[$this->lang];
+            $generatedHeaders[] = $program->name[$this->lang].' - '.Lang::get('headings.linked_experience', [], $this->lang);
             $developmentProgramIds[] = $program->id;
         }
 
@@ -1146,10 +1147,11 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     private function buildCommunityInterestRow(CommunityInterest $interest, array $developmentProgramIds): array
     {
         $workStreams = $this->getWorkStreams($interest);
-        $developmentProgramInterests = array_map(function ($programId) use ($interest) {
-
-            return $this->getDevelopmentProgramInterest($programId, $interest);
-        }, $developmentProgramIds);
+        $developmentProgramColumns = [];
+        foreach ($developmentProgramIds as $programId) {
+            $developmentProgramColumns[] = $this->getDevelopmentProgramInterest($programId, $interest);
+            $developmentProgramColumns[] = $this->getDevelopmentProgramLinkedExperience($programId, $interest);
+        }
 
         return [
             $interest->user->id, // user id
@@ -1160,7 +1162,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $interest->training_interest ? $this->localize('common.interested') : $this->localize('common.not_interested'), // training interest
             $workStreams, // Work streams: work streams linked to the community interest separated by commas
             $interest->additional_information, // additional information
-            ...$developmentProgramInterests, // Generated leadership and development columns
+            ...$developmentProgramColumns, // Generated leadership and development columns (status + linked experience pairs)
             $interest->community->key === 'finance' ? $this->yesOrNo($interest->finance_is_chief) : '', // CFO status
             $this->localizeEnumArray($interest->finance_additional_duties, FinanceChiefDuty::class), // additional duties
             $this->localizeEnumArray($interest->finance_other_roles, FinanceChiefRole::class), // other roles
@@ -1193,8 +1195,28 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             case DevelopmentProgramParticipationStatus::ENROLLED->name:
                 return $this->localize('common.currently_enrolled');
             case DevelopmentProgramParticipationStatus::COMPLETED->name:
-                return $this->localize('common.completed_in').$programInterest->completion_date->format('F Y');
+                return $programInterest->completion_date
+                    ? $this->localize('common.completed_in').$programInterest->completion_date->format('F Y')
+                    : $this->localize('common.successfully_completed');
         }
+    }
+
+    /**
+     * Get the linked education experience title for a development program interest
+     */
+    private function getDevelopmentProgramLinkedExperience(string $programId, CommunityInterest $communityInterest): ?string
+    {
+        $programInterest = $communityInterest->user->developmentProgramUserRecords->first(function ($record) use ($programId) {
+            /** @var DevelopmentProgramUser $record */
+            return $record->development_program_id === $programId;
+        });
+
+        if (is_null($programInterest)) {
+            return null;
+        }
+
+        /** @var DevelopmentProgramUser $programInterest */
+        return $programInterest->educationExperience?->getTitle($this->lang) ?? null;
     }
 
     /**
