@@ -472,7 +472,7 @@ const TrainingAndDevelopmentOpportunities = ({
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "By selecting the professionalization from your education and certificate experience, you can help recruiters and hiring managers quickly understand your standing. If you haven't added this professionalization to your career experience yet, you can do so using the \"Add new experience\" button.",
+                  "By selecting the professionalization from your education and certificate experience, you can help recruiters and hiring managers quickly understand your standing. If you haven\'t added this professionalization to your career experience yet, you can do so using the \" Add new experience \" button.",
                 id: "2NCuoH",
                 description:
                   "Body text in the provincial program license dialog explaining how to link an education experience",

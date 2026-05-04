@@ -88,7 +88,9 @@ const DevelopmentProgramCard = ({
             </Heading>
             {institution && <p>{institution}</p>}
             {description && <p>{description}</p>}
-            {(experienceType !== undefined || dateRange !== undefined || skillCount !== undefined) && (
+            {(experienceType !== undefined ||
+              dateRange !== undefined ||
+              skillCount !== undefined) && (
               <p className="text-sm text-gray-600 dark:text-gray-100">
                 {[
                   experienceType,
@@ -98,7 +100,7 @@ const DevelopmentProgramCard = ({
                         {
                           defaultMessage:
                             "{count, plural, one {# skill} other {# skills}}",
-                          id: 'EQI4l2',
+                          id: "EQI4l2",
                           description: "Number of skills on an experience",
                         },
                         { count: skillCount },

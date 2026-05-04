@@ -108,7 +108,7 @@ const useStatusInfo = (
             )
           : intl.formatMessage({
               defaultMessage: "Successfully completed",
-              id: 'Xe2a91',
+              id: "Xe2a91",
               description:
                 "Message when a user has completed a development program with no recorded date",
             }),
