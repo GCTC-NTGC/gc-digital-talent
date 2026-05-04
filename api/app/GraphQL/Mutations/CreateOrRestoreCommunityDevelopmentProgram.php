@@ -26,7 +26,7 @@ final class CreateOrRestoreCommunityDevelopmentProgram
                 ->where('community_id', $communityId)
                 ->where('development_program_id', $developmentProgramId)
                 ->first();
-        if ($existingRecord && isset($existingRecord)) {
+        if ($existingRecord) {
             $existingRecord->restore();
 
             if (
