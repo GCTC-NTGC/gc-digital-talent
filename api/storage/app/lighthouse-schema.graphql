@@ -419,6 +419,7 @@ type Query {
   ): User
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
   workEmails(search: String): [UserWorkEmail!]!
+  trashedExperienceSkill(where: TrashedExperienceSkillInput!): ExperienceSkillRecord
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -1888,6 +1889,12 @@ input ProcessActivityFilterInput {
   causers: [UUID!]
   candidates: [UUID!]
   events: [ActivityEvent!]
+}
+
+input TrashedExperienceSkillInput {
+  skillId: UUID!
+  experienceId: UUID!
+  restore: Boolean
 }
 
 input ClassificationBelongsTo {
