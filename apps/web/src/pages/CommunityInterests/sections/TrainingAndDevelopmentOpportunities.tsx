@@ -358,7 +358,7 @@ const TrainingAndDevelopmentOpportunities = ({
                           linkedExp.institution ??
                           intl.formatMessage(commonMessages.notProvided)
                         }
-                        titleHref=""
+                        titleHref={`${paths.careerTimeline()}#experience-${linkedExp.id}`}
                         institution={linkedExp.institution ?? undefined}
                         description=""
                         dateRange={
