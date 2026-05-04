@@ -657,7 +657,7 @@ class CommunityInterestTest extends TestCase
         ]);
 
         DB::table('development_program_user')->insert([
-            'id' => \Illuminate\Support\Str::uuid(),
+            'id' => Str::uuid(),
             'development_program_id' => $developmentProgram->id,
             'user_id' => $this->applicant->id,
             'education_experience_id' => $originalExperience->id,
@@ -703,7 +703,7 @@ class CommunityInterestTest extends TestCase
         ]);
 
         DB::table('development_program_user')->insert([
-            'id' => \Illuminate\Support\Str::uuid(),
+            'id' => Str::uuid(),
             'development_program_id' => $developmentProgram->id,
             'user_id' => $this->applicant->id,
             'education_experience_id' => $experience->id,

@@ -12,6 +12,7 @@ use App\Models\EducationExperience;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -204,7 +205,7 @@ class DevelopmentProgramInterestTest extends TestCase
                     'developmentPrograms' => [
                         [
                             'developmentProgramId' => $program->id,
-                            'educationExperienceId' => \Illuminate\Support\Str::uuid(),
+                            'educationExperienceId' => Str::uuid(),
                             'participationStatus' => DevelopmentProgramParticipationStatus::COMPLETED->name,
                         ],
                     ],
