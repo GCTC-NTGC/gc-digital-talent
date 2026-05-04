@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 import { useMutation } from "urql";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
@@ -43,16 +43,28 @@ const DeleteApplicationDialog = ({ query }: DeleteApplicationDialogProps) => {
   const application = getFragment(DeleteApplicationDialog_Fragment, query);
   const [, executeMutation] = useMutation(DeleteApplication_Mutation);
 
-  // NOTE: Only drafts can be deleted
-  if (application.status?.value !== ApplicationStatus.Draft) return null;
-
   const title = intl.formatMessage({
     defaultMessage: "Delete application",
     id: "Vu6IUs",
     description: "Title for deleting an application",
   });
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
+    // NOTE: Only drafts can be deleted
+    if (application.status?.value !== ApplicationStatus.Draft) {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage:
+            "You cannot delete an application that as already been submitted.",
+          id: "MwDik0",
+          description:
+            "Message displayed when a user attempts to delete a submitted application",
+        }),
+      );
+
+      return;
+    }
+
     executeMutation({ id: application.id })
       .then(async (res) => {
         if (!res?.data?.deleteApplication || res?.error) {
@@ -91,6 +103,43 @@ const DeleteApplicationDialog = ({ query }: DeleteApplicationDialogProps) => {
       <Dialog.Content>
         <Dialog.Header>{title}</Dialog.Header>
         <Dialog.Body>
+          <Ul className="mb-6" space="md">
+            <li>
+              {intl.formatMessage({
+                defaultMessage: "You will not be considered for this process.",
+                id: "QTX+ki",
+                description:
+                  "Point one, what happens when an application is deleted",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "You will lose any answers to this process’ screening questions.",
+                id: "3XF+VC",
+                description:
+                  "Point two, what happens when an application is deleted",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Changes to your preferences, career experience and skills are saved to your profile.",
+                id: "MIMrQK",
+                description:
+                  "Point three, what happens when an application is deleted",
+              })}
+            </li>
+          </Ul>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Are you sure you want to delete this application?",
+              id: "NcRgcV",
+              description:
+                "Question confirming the user actually wants to delete an application",
+            })}
+          </p>
           <Dialog.Footer>
             <Button color="error" onClick={handleDelete}>
               {title}
