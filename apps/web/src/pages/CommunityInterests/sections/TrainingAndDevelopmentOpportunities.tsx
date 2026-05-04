@@ -4,7 +4,14 @@ import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 
-import { Chip, Chips, Dialog, Heading, Button, Link } from "@gc-digital-talent/ui";
+import {
+  Chip,
+  Chips,
+  Dialog,
+  Heading,
+  Button,
+  Link,
+} from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -192,6 +199,14 @@ const TrainingAndDevelopmentOpportunities = ({
     return educationExperiences.find((e) => e.id === experienceId) ?? null;
   };
 
+  const subtitle = intl.formatMessage({
+    defaultMessage:
+      "Link an education or certificate experience to a professionalization",
+    id: "mjhQ02",
+    description:
+      "Subtitle for the provincial program license dialog in the training and development opportunities section",
+  });
+
   const getSelectLabel = (exp: {
     institution?: string | null;
     areaOfStudy?: string | null;
@@ -220,7 +235,7 @@ const TrainingAndDevelopmentOpportunities = ({
           {intl.formatMessage({
             defaultMessage:
               "Most functional communities offer various programs for learning and development. These programs might have specific eligibility requirements based on your experience, classification, or other qualifications. Expressing interest in these opportunities isn't an application, but it allows HR and recruitment staff to verify your interest in case you've been nominated for a training or development opportunity.",
-            id: 'u093wf',
+            id: "u093wf",
             description:
               "Description of the 'Training and development opportunities' section",
           })}
@@ -299,7 +314,7 @@ const TrainingAndDevelopmentOpportunities = ({
                   value: DevelopmentProgramParticipationStatus.NotInterested,
                   label: intl.formatMessage({
                     defaultMessage: "I'm not interested right now.",
-                    id: 'Yc8o9L',
+                    id: "Yc8o9L",
                     description:
                       "Option for the 'not interested' choice of program participation",
                   }),
@@ -309,7 +324,7 @@ const TrainingAndDevelopmentOpportunities = ({
                   label: intl.formatMessage({
                     defaultMessage:
                       "I'm interested in participating in this program.",
-                    id: '/U/RTZ',
+                    id: "/U/RTZ",
                     description:
                       "Option for the 'interested' choice of program participation",
                   }),
@@ -318,7 +333,7 @@ const TrainingAndDevelopmentOpportunities = ({
                   value: DevelopmentProgramParticipationStatus.Completed,
                   label: intl.formatMessage({
                     defaultMessage: "I've successfully completed this program.",
-                    id: 'LpZKTC',
+                    id: "LpZKTC",
                     description:
                       "Option for the 'completed' choice of program participation",
                   }),
@@ -327,7 +342,7 @@ const TrainingAndDevelopmentOpportunities = ({
                   value: DevelopmentProgramParticipationStatus.Enrolled,
                   label: intl.formatMessage({
                     defaultMessage: "I'm currently enrolled in this program.",
-                    id: '4Xm0A/',
+                    id: "4Xm0A/",
                     description:
                       "Option for the 'enrolled' choice of program participation",
                   }),
@@ -426,7 +441,9 @@ const TrainingAndDevelopmentOpportunities = ({
                         mode="inline"
                         color="secondary"
                       >
-                        {intl.formatMessage(experienceMessages.addNewExperience)}
+                        {intl.formatMessage(
+                          experienceMessages.addNewExperience,
+                        )}
                       </Link>
                     </div>
                   );
@@ -443,15 +460,24 @@ const TrainingAndDevelopmentOpportunities = ({
         }}
       >
         <Dialog.Content>
-          <Dialog.Header>
+          <Dialog.Header subtitle={subtitle}>
             {intl.formatMessage({
-              defaultMessage: "Link an education experience",
-              id: "xTclGV",
+              defaultMessage: "Provincial Program License",
+              id: "WWh3KI",
               description:
-                "Dialog header for linking an education experience to a development program",
+                "Dialog header for linking a provincial program license to a development program",
             })}
           </Dialog.Header>
           <Dialog.Body>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "By selecting the professionalization from your education and certificate experience, you can help recruiters and hiring managers quickly understand your standing. If you haven't added this professionalization to your career experience yet, you can do so using the \"Add new experience\" button.",
+                id: "2NCuoH",
+                description:
+                  "Body text in the provincial program license dialog explaining how to link an education experience",
+              })}
+            </p>
             <FormProvider {...dialogFormMethods}>
               <form
                 onSubmit={(e) => {
