@@ -166,6 +166,54 @@ class PoolPolicyTest extends PolicyTestCase
         $this->assertFalse($this->ensureBool($this->policy->create($user, $request)));
     }
 
+    public function testApplicantCannotCreatePool(): void
+    {
+        $applicant = User::factory()->asApplicant()->create();
+        $request = [
+            'community_id' => $this->primaryPool->community_id,
+            'department' => ['connect' => $this->primaryPool->department_id],
+        ];
+
+        $this->assertFalse($this->ensureBool($this->policy->create($applicant, $request)));
+    }
+
+    #[DataProvider('communityRolesCanCreateProvider')]
+    public function testCommunityRolesDeniedCreatePoolForDifferentCommunity(string $factoryMethod): void
+    {
+        Cache::store('array')->clear();
+        $otherPool = Pool::factory()
+            ->for(Community::factory()->create())
+            ->for(Department::factory()->create())
+            ->create();
+
+        $user = $this->createContextualUser($factoryMethod, $otherPool);
+
+        $request = [
+            'community_id' => $this->primaryPool->community_id,
+            'department' => ['connect' => $this->primaryPool->department_id],
+        ];
+
+        $this->assertFalse($this->ensureBool($this->policy->create($user, $request)));
+    }
+
+    #[DataProvider('departmentRolesCanCreateProvider')]
+    public function testDepartmentRolesDeniedCreatePoolForDifferentDepartment(string $factoryMethod): void
+    {
+        Cache::store('array')->clear();
+        $otherPool = Pool::factory()
+            ->for(Community::factory()->create())
+            ->for(Department::factory()->create())
+            ->create();
+
+        $user = $this->createContextualUser($factoryMethod, $otherPool);
+
+        $request = [
+            'department' => ['connect' => $this->primaryPool->department_id],
+        ];
+
+        $this->assertFalse($this->ensureBool($this->policy->create($user, $request)));
+    }
+
     // --- duplicate() ---
 
     public static function rolesWithCreatePermissionProvider(): array
