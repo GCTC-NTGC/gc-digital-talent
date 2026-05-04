@@ -1535,6 +1535,12 @@ input ProcessActivityFilterInput {
   events: [ActivityEvent!] @scope(name: "whereEventIn")
 }
 
+input TrashedExperienceSkillInput {
+  skillId: UUID!
+  experienceId: UUID!
+  restore: Boolean
+}
+
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
@@ -1578,6 +1584,9 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
+  trashedExperienceSkill(
+    where: TrashedExperienceSkillInput! @spread
+  ): ExperienceSkillRecord @guard
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID! @eq): Pool
     @find
