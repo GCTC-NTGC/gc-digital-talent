@@ -42,6 +42,7 @@ import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
 import useApplication from "../useApplication";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 interface EducationRequirementExperiences {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -405,6 +406,7 @@ const ApplicationEducation = ({
             >
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Button>
+            <DeleteApplicationDialog query={application} />
           </div>
         </form>
       </FormProvider>
