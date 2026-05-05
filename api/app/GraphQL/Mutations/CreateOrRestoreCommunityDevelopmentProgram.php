@@ -18,9 +18,11 @@ final class CreateOrRestoreCommunityDevelopmentProgram
         // this can be null
         $classificationsInput = array_key_exists('classifications', $args) ? $args['classifications'] : null;
 
+        /** @var CommunityDevelopmentProgram | null $recordToReturn */
+        $recordToReturn = null;
+
         // check first for a soft deleted record
-        // if it exists, restore it, sync classifications conditionally, then return it
-        // exit, do not create another record
+        // if it exists, restore it
         $existingRecord =
             CommunityDevelopmentProgram::withTrashed()
                 ->where('community_id', $communityId)
@@ -28,38 +30,33 @@ final class CreateOrRestoreCommunityDevelopmentProgram
                 ->first();
         if ($existingRecord) {
             $existingRecord->restore();
-
-            if (
-                $classificationsInput &&
-                array_key_exists('sync', $classificationsInput)
-            ) {
-                $existingRecord->classifications()->sync($classificationsInput['sync']);
-            }
-
             $existingRecord->refresh();
 
-            return $existingRecord;
+            $recordToReturn = $existingRecord;
+        } else {
+
+            // existing record does not exist
+            // safe to create a pivot record
+            $newRecord = CommunityDevelopmentProgram::create(
+                [
+                    'community_id' => $communityId,
+                    'development_program_id' => $developmentProgramId,
+                ]
+            );
+
+            $recordToReturn = $newRecord;
         }
 
-        // existing record does not exist
-        // safe to create a pivot record
-        // then conditional sync before returning
-        $newRecord = CommunityDevelopmentProgram::create(
-            [
-                'community_id' => $communityId,
-                'development_program_id' => $developmentProgramId,
-            ]
-        );
-
+        // conditionally sync classifications
         if (
             $classificationsInput &&
             array_key_exists('sync', $classificationsInput)
         ) {
-            $newRecord->classifications()->sync($classificationsInput['sync']);
+            $recordToReturn->classifications()->sync($classificationsInput['sync']);
         }
 
-        $newRecord->refresh();
+        $recordToReturn->refresh();
 
-        return $newRecord;
+        return $recordToReturn;
     }
 }
