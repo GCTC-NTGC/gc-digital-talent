@@ -193,11 +193,10 @@ interface AsyncArgs extends DateInputProps {
 const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
   const intl = useIntl();
   const { mockQuery, ...rest } = args;
-  const [fetching, setFetching] = useState<boolean>(false);
+  const [fetching, setFetching] = useState<boolean>(true);
   const [pool, setPool] = useState<Pool | null>(null);
 
   useEffect(() => {
-    setFetching(true);
     mockQuery()
       .then((res: Pool) => {
         setPool(res);

@@ -15,7 +15,7 @@ const useLayoutTheme: UseLayoutTheme = (layoutKey) => {
       setKey(layoutKey);
     }
     // Note: Check on every navigation
-  }, [pathname, layoutKey]);
+  }, [pathname, layoutKey, key, setKey]);
 };
 
 export default useLayoutTheme;

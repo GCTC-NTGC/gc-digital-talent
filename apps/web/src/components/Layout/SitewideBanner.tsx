@@ -10,6 +10,8 @@ import { Loading } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
+import { useStableDate } from "~/hooks/useStableDate";
+
 const BannerContent = lazy(() => import("./BannerContent"));
 
 const SitewideBanner_Query = graphql(/* GraphQL */ `
@@ -38,6 +40,7 @@ const AnnouncementDismissedAtKey = "sitewide_announcement_dismissed_at";
 const SitewideBanner = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const now = useStableDate();
 
   const [{ data }] = useQuery({
     query: SitewideBanner_Query,
@@ -57,8 +60,7 @@ const SitewideBanner = () => {
   const announcementPublishDateIsValid =
     announcementPublishDate && !Number.isNaN(announcementPublishDate.getTime());
   const nowIsAfterValidPublishDate =
-    announcementPublishDateIsValid &&
-    isAfter(Date.now(), announcementPublishDate);
+    announcementPublishDateIsValid && isAfter(now, announcementPublishDate);
 
   // expiry date
   const announcementExpiryDate = data?.sitewideAnnouncement?.expiryDate
@@ -67,8 +69,7 @@ const SitewideBanner = () => {
   const announcementExpiryDateIsValid =
     announcementExpiryDate && !Number.isNaN(announcementExpiryDate.getTime());
   const nowIsBeforeValidExpiryDate =
-    announcementExpiryDateIsValid &&
-    isBefore(Date.now(), announcementExpiryDate);
+    announcementExpiryDateIsValid && isBefore(now, announcementExpiryDate);
 
   // dismissed
   const announcementUpdatedAt = data?.sitewideAnnouncement?.updatedAt

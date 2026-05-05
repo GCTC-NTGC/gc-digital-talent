@@ -108,6 +108,11 @@ type LocalizedCitizenshipStatus implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
+  value: CommunityInterestAdditionalDuty!
+  label: LocalizedString!
+}
+
 type LocalizedCourseFormat implements LocalizedEnumOption {
   value: CourseFormat!
   label: LocalizedString!
@@ -180,11 +185,6 @@ type LocalizedExternalRoleSeniority implements LocalizedEnumOption {
 
 type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   value: ExternalSizeOfOrganization!
-  label: LocalizedString!
-}
-
-type LocalizedFinanceChiefDuty implements LocalizedEnumOption {
-  value: FinanceChiefDuty!
   label: LocalizedString!
 }
 
@@ -419,6 +419,7 @@ type Query {
   ): User
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
   workEmails(search: String): [UserWorkEmail!]!
+  trashedExperienceSkill(where: TrashedExperienceSkillInput!): ExperienceSkillRecord
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -836,11 +837,12 @@ type CommunityInterest {
   additionalInformation: String
   interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   financeIsChief: Boolean
-  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
+  communityInterestAdditionalDuties: [LocalizedCommunityInterestAdditionalDuty!]
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
   createdAt: DateTime
+  procurementIsSDO: Boolean
 }
 
 type OffPlatformRecruitmentProcess {
@@ -1891,6 +1893,12 @@ input ProcessActivityFilterInput {
   events: [ActivityEvent!]
 }
 
+input TrashedExperienceSkillInput {
+  skillId: UUID!
+  experienceId: UUID!
+  restore: Boolean
+}
+
 input ClassificationBelongsTo {
   connect: ID
   disconnect: Boolean
@@ -2098,10 +2106,11 @@ input CreateCommunityInterestInput {
   trainingInterest: Boolean
   additionalInformation: String
   financeIsChief: Boolean
-  financeAdditionalDuties: [FinanceChiefDuty!]
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  procurementIsSDO: Boolean
 }
 
 input UpdateCommunityInterestInput {
@@ -2110,10 +2119,11 @@ input UpdateCommunityInterestInput {
   trainingInterest: Boolean
   additionalInformation: String
   financeIsChief: Boolean
-  financeAdditionalDuties: [FinanceChiefDuty!]
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  procurementIsSDO: Boolean
 }
 
 input UpsertDevelopmentProgramUserInput {
@@ -2353,7 +2363,7 @@ input CommunityDevelopmentProgramBelongsToMany {
 }
 
 input CommunityDevelopmentProgramBelongsToManyWithPivot {
-  connect: [ConnectCommunityDevelopmentProgramWithPivot!]
+  sync: [ConnectCommunityDevelopmentProgramWithPivot!]
 }
 
 input ConnectCommunityDevelopmentProgramWithPivot {
@@ -3673,6 +3683,17 @@ enum ClaimVerificationResult {
   UNVERIFIED
 }
 
+enum CommunityInterestAdditionalDuty {
+  CORPORATE_COMMUNICATIONS
+  FACILITIES_MANAGEMENT_AND_SECURITY
+  HUMAN_RESOURCES
+  INFORMATION_TECHNOLOGY
+  MATERIEL_MANAGEMENT
+  PROCUREMENT
+  PROJECT_MANAGEMENT
+  REAL_PROPERTY_MANAGEMENT
+}
+
 enum CourseFormat {
   ON_SITE
   VIRTUAL
@@ -3784,7 +3805,7 @@ enum ErrorCode {
   DEPARTMENT_NOT_FOUND
   DEPARTMENT_MUST_NOT_BE_ARCHIVED
   COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND
-  COMMUNITY_DEVELOPMENT_INVALID_SELECTION
+  COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID
   DEVELOPMENT_PROGRAM_NOT_FOUND
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED
@@ -3840,6 +3861,8 @@ enum ErrorCode {
   SCREENING_QUESTION_NOT_FOUND
   SKILL_NOT_FOUND
   TALENT_EVENT_IS_CLOSED
+  TALENT_EVENT_CANNOT_CHANGE_COMMUNITY
+  TALENT_EVENT_CANNOT_CHANGE_NAME
   TALENT_NOMINATION_ALREADY_SUBMITTED
   NO_NOMINATIONS_FOR_ADVANCEMENT_TO_DECIDE
   NO_NOMINATIONS_FOR_LATERAL_MOVEMENT_TO_DECIDE
@@ -3916,16 +3939,6 @@ enum ExternalSizeOfOrganization {
   THIRTY_SIX_TO_ONE_HUNDRED
   ONE_HUNDRED_ONE_TO_ONE_THOUSAND
   ONE_THOUSAND_PLUS
-}
-
-enum FinanceChiefDuty {
-  CORPORATE_COMMUNICATIONS
-  FACILITIES_MANAGEMENT_AND_SECURITY
-  HUMAN_RESOURCES
-  INFORMATION_TECHNOLOGY
-  MATERIEL_MANAGEMENT
-  PROCUREMENT
-  REAL_PROPERTY_MANAGEMENT
 }
 
 enum FinanceChiefRole {

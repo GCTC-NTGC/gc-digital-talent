@@ -180,13 +180,16 @@ class AuthController extends Controller
                     $existingUser = User::where('id', '!=', $userMatch->id)
                         ->where(fn ($subquery) => $subquery
                             ->where('email', 'ilike', $incomingEmailAddress)
-                            ->orWhere('work_email', 'ilike', $incomingEmailAddress)
-                        )->first();
+                            ->orWhere('work_email', 'ilike', $incomingEmailAddress))
+                        ->withTrashed()
+                        ->first();
                     if (strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
-                        $existingUser->email = $existingUser->email.'-taken-at-'.Carbon::now()->timestamp;
+                        $existingUser->email_backup = $existingUser->email;
+                        $existingUser->email = null;
                     }
                     if (strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
-                        $existingUser->work_email = $existingUser->work_email.'-taken-at-'.Carbon::now()->timestamp;
+                        $existingUser->work_email_backup = $existingUser->work_email;
+                        $existingUser->work_email = null;
                     }
                     $existingUser->save();
                 } catch (\Throwable $e) {
