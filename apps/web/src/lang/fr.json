@@ -2139,6 +2139,10 @@
     "defaultMessage": "<strong>{name}</strong> a publié",
     "description": "Label for activity log item published action"
   },
+  "6bjQWW": {
+    "defaultMessage": "Veuillez indiquer si vous exercez l’une des fonctions supplémentaires suivantes dans le cadre de votre rôle de CSD.",
+    "description": "Description for additional duties referencing a Senior Designated Officer (SDO) role"
+  },
   "6bvAQ+": {
     "defaultMessage": "Rétroaction et coordonnées",
     "description": "Title for the accessibility feedback section"
@@ -5962,6 +5966,10 @@
   "MnwLD0": {
     "defaultMessage": "Sélectionnez un ou plusieurs programmes, certifications ou accréditations dont cette personne bénéficierait en y participant.",
     "description": "Description for development program options section in nominations details step"
+  },
+  "MoehVY": {
+    "defaultMessage": "Je suis une personne occupant un rôle de cadre supérieur désigné (CSD).",
+    "description": "Message when user is a Senior Designated Officer"
   },
   "MptxTu": {
     "defaultMessage": "Cette section vous permet de présenter des informations sur vous-même et sur votre façon de travailler, y compris sur vos objectifs pour l'avenir et sur les environnements qui vous permettent de donner le meilleur de vous-même.",
@@ -10538,6 +10546,10 @@
     "defaultMessage": "Le <link>Fonds de formation et de perfectionnement de la collectivité de la TI</link> peut vous aider à acquérir la certification en payant le coût des examens.",
     "description": "Second paragraph of certification exam vouchers section"
   },
+  "gIwkgl": {
+    "defaultMessage": "J’occupe actuellement un rôle de cadre supérieur désigné",
+    "description": "Message when user is a Senior Designated Officer"
+  },
   "gIzUDr": {
     "defaultMessage": "Modifier les questions générales",
     "description": "Edit link text for general questions section of the application review page."
@@ -13990,6 +14002,10 @@
     "defaultMessage": "Réglementation",
     "description": "Label for a regulatory department"
   },
+  "uhtPZi": {
+    "defaultMessage": "Je n'occupe pas de rôle de cadre supérieur désigné (CSD).",
+    "description": "Message when user is not a Senior Designated Officer"
+  },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
     "description": "Paragraph 2, how self-declaration data is used"
@@ -14277,6 +14293,10 @@
   "voMSDe": {
     "defaultMessage": "Les informations sur les objectifs et le style de travail ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
+  },
+  "voOIR0": {
+    "defaultMessage": "Rôle de cadre supérieur désigné (CSD)",
+    "description": "Bounding box label for the SDO checkbox"
   },
   "voqC0s": {
     "defaultMessage": "Gestion des talents",

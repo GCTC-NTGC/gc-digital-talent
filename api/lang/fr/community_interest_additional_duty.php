@@ -7,5 +7,6 @@ return [
     'information_technology' => 'Technologies de l\'information',
     'materiel_management' => 'Gestion du matériel',
     'procurement' => 'Approvisionnement',
+    'project_management' => 'Gestion de projet',
     'real_property_management' => 'Gestion des biens immobiliers',
 ];

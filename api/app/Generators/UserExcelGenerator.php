@@ -8,6 +8,7 @@ use App\Enums\AwardedTo;
 use App\Enums\CafEmploymentType;
 use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
+use App\Enums\CommunityInterestAdditionalDuty;
 use App\Enums\CSuiteRoleTitle;
 use App\Enums\DepartmentSize;
 use App\Enums\DevelopmentProgramParticipationStatus;
@@ -20,7 +21,6 @@ use App\Enums\ExecCoaching;
 use App\Enums\ExperienceType;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
-use App\Enums\FinanceChiefDuty;
 use App\Enums\FinanceChiefRole;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
@@ -215,6 +215,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'additional_duties',
         'other_roles',
         'other_sdo_position',
+        'procurement_sdo_status',
     ];
 
     public function __construct(public string $fileName, public ?string $dir, protected ?string $lang = 'en')
@@ -1162,9 +1163,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $interest->additional_information, // additional information
             ...$developmentProgramInterests, // Generated leadership and development columns
             $interest->community->key === 'finance' ? $this->yesOrNo($interest->finance_is_chief) : '', // CFO status
-            $this->localizeEnumArray($interest->finance_additional_duties, FinanceChiefDuty::class), // additional duties
+            $this->localizeEnumArray($interest->additional_duties, CommunityInterestAdditionalDuty::class), // additional duties
             $this->localizeEnumArray($interest->finance_other_roles, FinanceChiefRole::class), // other roles
             $interest->finance_other_roles_other, // other SDO position
+            $interest->community->key === 'procurement' ? $this->yesOrNo($interest->procurement_is_sdo) : '', // Procurement SDO status
         ];
     }
 
