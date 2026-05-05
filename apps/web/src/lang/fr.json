@@ -1407,6 +1407,10 @@
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
   },
+  "3XF+VC": {
+    "defaultMessage": "Vous perdrez toutes les réponses aux questions de présélection associées à ce processus.",
+    "description": "Point two, what happens when an application is deleted"
+  },
   "3XvHVf": {
     "defaultMessage": "Rôles liés à un ministère",
     "description": "Heading for updating a user's department roles"
@@ -5855,6 +5859,10 @@
     "defaultMessage": "Approbation pour un avancement",
     "description": "Label for an nomination for advancement decision"
   },
+  "MIMrQK": {
+    "defaultMessage": "Les modifications apportées à vos préférences, à votre expérience professionnelle et à vos compétences sont enregistrées dans votre profil.",
+    "description": "Point three, what happens when an application is deleted"
+  },
   "MLrQQy": {
     "defaultMessage": "Emploi de fichiers situés sur des serveurs autres que ceux du gouvernement du Canada",
     "description": "Title for the using files section"
@@ -6015,6 +6023,10 @@
     "defaultMessage": "Durée de l'emploi",
     "description": "Title for Employment duration section"
   },
+  "MwDik0": {
+    "defaultMessage": "Il n’est pas possible de supprimer une candidature déjà soumise.",
+    "description": "Message displayed when a user attempts to delete a submitted application"
+  },
   "Mwq0NB": {
     "defaultMessage": "Postes bilingues",
     "description": "Label for language for bilingual field"
@@ -6162,6 +6174,10 @@
   "Nc751o": {
     "defaultMessage": "Les compétences techniques essentielles ont été mises à jour avec succès.",
     "description": "Message displayed when a user successfully updates the essential technical skills"
+  },
+  "NcRgcV": {
+    "defaultMessage": "Voulez-vous vraiment supprimer cette candidature?",
+    "description": "Question confirming the user actually wants to delete an application"
   },
   "NeR+6V": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>IT-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
@@ -6790,6 +6806,10 @@
   "QSrnA8": {
     "defaultMessage": "Modifier l’information de la collectivité et gérer les rôles",
     "description": "Permissions related to managing the community and its users"
+  },
+  "QTX+ki": {
+    "defaultMessage": "Votre candidature ne sera pas prise en considération dans ce processus.",
+    "description": "Point one, what happens when an application is deleted"
   },
   "QTm+/n": {
     "defaultMessage": "Étapes de la nomination",
@@ -7977,6 +7997,10 @@
   "VsV4Vu": {
     "defaultMessage": "L'utilisateur ou l'utilisatrice perdra le rôle suivant :",
     "description": "Text notifying user which role will be removed from the user"
+  },
+  "Vu6IUs": {
+    "defaultMessage": "Supprimer la candidature",
+    "description": "Title for deleting an application"
   },
   "VvOx9a": {
     "defaultMessage": "Modifier les informations sur la classification",
@@ -13930,6 +13954,10 @@
     "defaultMessage": "Vous n'avez pas encore de profil? En suivant le processus de demande d'emploi, vous obtiendrez toutes les informations dont vous avez besoin.",
     "description": "Text letting users know the application will allow them setup a profile"
   },
+  "uOrm+o": {
+    "defaultMessage": "Échec de la suppression de la candidature.",
+    "description": "Message displayed when an application could no be deleted"
+  },
   "uP+q43": {
     "defaultMessage": "Lieu de travail",
     "description": "Heading for work location section of the search form."
@@ -14209,6 +14237,10 @@
   "vZ7n91": {
     "defaultMessage": "Enregistrer des compétences techniques essentielles",
     "description": "Text on a button to save the essential technical skills form"
+  },
+  "vZuWGT": {
+    "defaultMessage": "Candidature supprimée avec succès.",
+    "description": "Message displayed after deleting an application"
   },
   "vbYcIR": {
     "defaultMessage": "Le statut de placement a été mis à jour avec succès.",

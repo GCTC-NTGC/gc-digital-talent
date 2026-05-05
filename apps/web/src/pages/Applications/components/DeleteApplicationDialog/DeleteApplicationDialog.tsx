@@ -73,8 +73,8 @@ const DeleteApplicationDialog = ({ query }: DeleteApplicationDialogProps) => {
 
         toast.success(
           intl.formatMessage({
-            defaultMessage: "Application deleted successfully!",
-            id: "A9zJ2+",
+            defaultMessage: "Application deleted successfully.",
+            id: "vZuWGT",
             description: "Message displayed after deleting an application",
           }),
         );
