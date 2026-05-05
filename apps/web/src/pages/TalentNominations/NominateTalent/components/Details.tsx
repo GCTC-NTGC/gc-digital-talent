@@ -552,7 +552,7 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentDetails on TalentNomination {
     id
     talentNominationEvent {
-      communityDevelopmentPrograms {
+      communityDevelopmentPrograms(trashed: WITH) {
         id
         ...DetailsCommunityDevelopmentProgram
       }
