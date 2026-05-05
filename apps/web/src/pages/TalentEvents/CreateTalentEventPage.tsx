@@ -176,8 +176,8 @@ const CreateTalentEventPage = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "Talent management events allow the community to open a nomination period where employees can be nominated for advancement, lateral movement or development opportunities. This form allows you to customize the event’s details, including when the nomination period is, what type of nominations will be accepted, and whether the event is targeted at specific classifications.",
-                  id: "J/Ou2j",
-                  description: "Description for create talent management event",
+                  id: "fTm+ln",
+                  description: "Description for talent management event form",
                 })}
               </p>
               <FormProvider {...methods}>

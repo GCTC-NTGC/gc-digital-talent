@@ -967,10 +967,6 @@
     "defaultMessage": "Montrez aux gestionnaires les 10 compétences techniques qui représentent le mieux votre expertise et vos compétences. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
     "description": "Page description for the top technical skills page"
   },
-  "1gAJVq": {
-    "defaultMessage": "Les événements de gestion des talents permettent à la collectivité d’ouvrir une période de mise en candidature où les personnes employées peuvent être nommées en vue d’une promotion, d’un mouvement latéral ou de possibilités de perfectionnement. Ce formulaire vous permet de personnaliser les détails de l’événement, notamment la période de mise en candidature, les types de mises en candidature acceptées et la question de savoir si l’événement est ciblé vers des classifications particulières.",
-    "description": "Subtitle for update talent management event page"
-  },
   "1gzcvC": {
     "defaultMessage": "Note spéciale<hidden> relative aux compétences techniques constituant un atout</hidden>",
     "description": "The nonessential technical skills special note for a job poster template"
@@ -5102,10 +5098,6 @@
   "J/JdxQ": {
     "defaultMessage": "Vous pouvez ajouter jusqu’à {maxSteps} méthodes d’évaluation, mais ce n’est pas nécessaire. Si toutes les compétences ont été prises en compte, vous n’avez pas à en ajouter d’autres. Choisir un trop grand nombre de méthodes d’évaluation peut retarder le processus de dotation et réduire les chances que le processus d’embauche soit couronné de succès.",
     "description": "Description for warning message when the user has added many assessments to the assessment plan"
-  },
-  "J/Ou2j": {
-    "defaultMessage": "Les événements de gestion des talents permettent à la collectivité d’ouvrir une période de mise en candidature, où les personnes peuvent être nommées pour une promotion, un mouvement latéral ou de possibilités de perfectionnement. Ce formulaire vous permet de personnaliser les détails de l’événement, notamment la période de mise en candidature, les types de mises en candidature acceptées et la question de savoir si l’événement est ciblé vers des classifications particulières.",
-    "description": "Description for create talent management event"
   },
   "J/gp3y": {
     "defaultMessage": "Les paramètres mentionnés dans cette section vous permettent de contrôler les types de notifications que vous recevez et l’endroit où elles sont envoyées. Les notifications par courriel sont envoyées à l’adresse de courriel de la personne-ressource figurant dans votre profil, tandis que les notifications intégrées à l’application sont transmises dans le panneau de notification situé dans le menu principal.",
@@ -10425,6 +10417,10 @@
   "fSeYdG": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
     "description": "Sub-heading for language requirements dialog"
+  },
+  "fTm+ln": {
+    "defaultMessage": "Les événements de gestion des talents permettent à la collectivité d’ouvrir une période de mise en candidature, où les personnes peuvent être nommées pour une promotion, un mouvement latéral ou des possibilités de perfectionnement. Ce formulaire vous permet de personnaliser les détails de l’événement, notamment la période de mise en candidature, les types de mises en candidature acceptées et la question de savoir si l’événement est ciblé vers des classifications particulières.",
+    "description": "Description for talent management event form"
   },
   "fVbf8w": {
     "defaultMessage": "Gérer les activités liées à la gestion des talents et les mises en candidature",
