@@ -469,6 +469,7 @@ const TrainingAndDevelopmentOpportunities = ({
             })}
           </Dialog.Header>
           <Dialog.Body>
+            <div className="flex flex-col gap-4">
             <p>
               {intl.formatMessage({
                 defaultMessage:
@@ -552,6 +553,7 @@ const TrainingAndDevelopmentOpportunities = ({
                 </Dialog.Footer>
               </form>
             </FormProvider>
+            </div>
           </Dialog.Body>
         </Dialog.Content>
       </Dialog.Root>
