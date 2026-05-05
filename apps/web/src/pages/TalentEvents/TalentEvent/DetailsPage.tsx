@@ -330,12 +330,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             : intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
         <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Development opportunities",
-            id: "lODN9M",
-            description:
-              "Label for development programs relevant to a nomination event",
-          })}
+          label={intl.formatMessage(adminMessages.developmentOpportunities)}
           className="col-span-2"
         >
           <p className="mb-6">

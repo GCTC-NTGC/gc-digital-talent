@@ -5967,10 +5967,6 @@
     "defaultMessage": "Ajouter un partenariat avec une collectivité",
     "description": "Input to select to add a community partnership"
   },
-  "MawH92": {
-    "defaultMessage": "Occasions de perfectionnement",
-    "description": "Label for the development program nomination option on the details step"
-  },
   "MchJcM": {
     "defaultMessage": "Parcourez la liste complète des compétences figurant sur notre plateforme et examinez les différentes compétences que vous pourriez mettre dans votre <link>portfolio de compétences</link>.",
     "description": "Paragraph one, describing the skills on the platform"
@@ -6210,6 +6206,10 @@
   "NV+5pq": {
     "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
     "description": "Paragraph two, description of the managers community"
+  },
+  "NVKfLp": {
+    "defaultMessage": "Possibilités de perfectionnement",
+    "description": "Label for Development opportunities"
   },
   "NW7sCE": {
     "defaultMessage": "Créer une classification",
@@ -11946,10 +11946,6 @@
     "defaultMessage": "Ajouter une expérience personnelle ou un certificat",
     "description": "Link text to add a personal experience on experience card header"
   },
-  "lODN9M": {
-    "defaultMessage": "Possibilités de perfectionnement",
-    "description": "Label for development programs relevant to a nomination event"
-  },
   "lPuC3S": {
     "defaultMessage": "Commentaires et échanges",
     "description": "Heading for comments and interaction section"
@@ -12829,10 +12825,6 @@
   "ozb92E": {
     "defaultMessage": "Nouvelle méthode de collecte d’information sur le personnel",
     "description": "title for alert about changed collection"
-  },
-  "p+JlKG": {
-    "defaultMessage": "Possibilités de perfectionnement",
-    "description": "Title for subsection of create talent management form"
   },
   "p+rROQ": {
     "defaultMessage": "Cela indiquera aux candidats que seuls les employés à niveau ou de niveau équivalent seront pris en considération pour cette possibilité.",

@@ -14,6 +14,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { stringifyGroupLevel } from "~/utils/classification";
+import adminMessages from "~/messages/adminMessages";
 
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
@@ -116,7 +117,7 @@ const NominationDetailsReview = ({
       ...types,
       {
         key: "nominationForDevelopmentPrograms",
-        name: intl.formatMessage(labels.developmentOpportunities),
+        name: intl.formatMessage(adminMessages.developmentOpportunities),
       },
     ];
   }

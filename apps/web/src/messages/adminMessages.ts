@@ -224,6 +224,11 @@ const messages = defineMessages({
     id: "OFrfEA",
     description: "Label for Opening date",
   },
+  developmentOpportunities: {
+    defaultMessage: "Development opportunities",
+    id: "NVKfLp",
+    description: "Label for Development opportunities",
+  },
 });
 
 export default messages;

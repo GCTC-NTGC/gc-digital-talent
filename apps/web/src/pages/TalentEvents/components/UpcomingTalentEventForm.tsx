@@ -284,12 +284,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
           <div className="grid gap-6">
             <div>
               <Heading level="h3" size="h6" className="mt-0">
-                {intl.formatMessage({
-                  defaultMessage: "Development opportunities",
-                  id: "p+JlKG",
-                  description:
-                    "Title for subsection of create talent management form",
-                })}
+                {intl.formatMessage(adminMessages.developmentOpportunities)}
               </Heading>
               <p>
                 {intl.formatMessage({
