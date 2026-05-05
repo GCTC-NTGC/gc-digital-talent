@@ -97,8 +97,8 @@ export const Component = () => {
           <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
-                "Take advantage of available vouchers for industry-recognized certification exams intended for eligible Government of Canada IT employees. These vouchers help you enhance your qualifications and advance your career.",
-              id: "rYYqbv",
+                "Take advantage of available vouchers for industry-recognized certification exams intended for eligible Government of Canada IT classified employees. Getting certified helps you enhance your qualifications and advance your career.",
+              id: "irvlDH",
               description:
                 "First paragraph of certification exam vouchers section",
             })}
@@ -152,32 +152,32 @@ export const Component = () => {
               </li>
               <li>
                 {intl.formatMessage({
-                  defaultMessage: "business analysis",
-                  id: "awyksR",
+                  defaultMessage: "Business analysis",
+                  id: "+BeD0v",
                   description:
                     "Second item in list of certification topics section",
                 })}
               </li>
               <li>
                 {intl.formatMessage({
-                  defaultMessage: "cloud computing",
-                  id: "vYigGH",
+                  defaultMessage: "Cloud computing",
+                  id: "e6PlO0",
                   description:
                     "Third item in list of certification topics section",
                 })}
               </li>
               <li>
                 {intl.formatMessage({
-                  defaultMessage: "cyber security",
-                  id: "9oUpdh",
+                  defaultMessage: "Cyber security",
+                  id: "hSoZzH",
                   description:
                     "Fourth item in list of certification topics section",
                 })}
               </li>
               <li>
                 {intl.formatMessage({
-                  defaultMessage: "enterprise architecture",
-                  id: "yOii5k",
+                  defaultMessage: "Enterprise architecture",
+                  id: "GxrfIv",
                   description:
                     "Fifth item in list of certification topics section",
                 })}
@@ -188,14 +188,6 @@ export const Component = () => {
                   id: "zeLVU6",
                   description:
                     "Sixth item in list of certification topics section",
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  defaultMessage: "networking",
-                  id: "+UjXSM",
-                  description:
-                    "Seventh item in list of certification topics section",
                 })}
               </li>
             </Ul>
@@ -223,20 +215,37 @@ export const Component = () => {
             })}
           </Heading>
           <p className="mb-3">
+            {intl.formatMessage({
+              defaultMessage:
+                "Opportunities supported by the fund are available to eligible IT-classified employees. Both employees represented by the Professional Institute of the Public Service of Canada (PIPSC) and unrepresented employees may access these opportunities. Employees represented by PIPSC will have priority when resources are limited. To be considered, you must submit an application and meet all eligibility requirements.",
+              id: "+peDrF",
+              description:
+                "First paragraph of eligibility requirements section",
+            })}
+          </p>
+          <p className="mb-3">
+            {intl.formatMessage({
+              defaultMessage: "To be eligible, employees must:",
+              id: "huZ6IW",
+              description:
+                "Second paragraph of eligibility requirements section",
+            })}
+          </p>
+          <p className="mb-3">
             <Ul space="md">
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You're currently an IT-classified Government of Canada employee covered by the IT collective agreement",
-                  id: "7abz0A",
+                    "Be IT-classified or acting in an IT role for a minimum of four months plus one day.",
+                  id: "jjwS3G",
                   description:
                     "First item in list of eligibility requirements section",
                 })}
               </li>
               <li>
                 {intl.formatMessage({
-                  defaultMessage: "You have a GC Digital Talent profile",
-                  id: "2B+d2V",
+                  defaultMessage: "Have an active Navigar account.",
+                  id: "saX5lc",
                   description:
                     "Second item in list of eligibility requirements section",
                 })}
@@ -244,16 +253,17 @@ export const Component = () => {
               <li>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You've completed any preparatory work such as prerequisite training modules and are ready to take the certification exam",
-                  id: "oc4iCB",
+                    "Have completed any necessary preparatory training to support successful exam completion.",
+                  id: "UePGN0",
                   description:
                     "Fourth item in list of eligibility requirements section",
                 })}
               </li>
               <li>
                 {intl.formatMessage({
-                  defaultMessage: "You have activated your Navigar account",
-                  id: "fcJRy1",
+                  defaultMessage:
+                    "Prepared to write the exam within 60 days of submitting your application.",
+                  id: "dSr8pX",
                   description:
                     "Fifth item in list of eligibility requirements section",
                 })}
@@ -269,16 +279,16 @@ export const Component = () => {
             className="mb-6"
           >
             {intl.formatMessage({
-              defaultMessage: "Apply and complete your profile",
-              id: "fxhdQd",
+              defaultMessage: "Apply now",
+              id: "znIjo8",
               description: "Title for apply and complete your profile section",
             })}
           </Heading>
           <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
-                "To obtain a voucher, complete the application form. Your GC Digital Talent profile helps us confirm your eligibility. Before you apply, take a moment to review and update your information or create a profile if you haven't done so yet.",
-              id: "1uoeR6",
+                "To request a voucher, complete the application form.",
+              id: "5AkVW3",
               description:
                 "First paragraph of apply and complete your profile section",
             })}
