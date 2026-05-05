@@ -6268,7 +6268,7 @@
     "description": "Description for the advanced language ability"
   },
   "O/UCCj": {
-    "defaultMessage": "Voulez-vous vraiment supprimer cet événement? Vous pourrez le rajouter ultérieurement si vous changez d’avis, mais tout contexte spécifique ajouté aux nominations sera perdu.",
+    "defaultMessage": "Voulez-vous vraiment supprimer {title} de cet événement? Vous pourrez le rajouter ultérieurement si vous changez d’avis, mais tout contexte spécifique ajouté aux nominations sera perdu.",
     "description": "Final warning message before deleting development program"
   },
   "O0z6Ym": {
