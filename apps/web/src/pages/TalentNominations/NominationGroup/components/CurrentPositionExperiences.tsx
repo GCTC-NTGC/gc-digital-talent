@@ -121,7 +121,7 @@ const CurrentPositionExperiences = ({
           description: "Description for the career page current role section",
         })}
       </p>
-      {shareProfile && <Card.Separator className="my-9" />}
+      <Card.Separator className="my-9" />
 
       {shareProfile && !empty(data) && (
         <div>
