@@ -37,6 +37,7 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import useApplication from "../useApplication";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 const Application_UpdateSelfDeclarationMutation = graphql(/* GraphQL */ `
   mutation Application_UpdateSelfDeclaration(
@@ -269,6 +270,7 @@ export const ApplicationSelfDeclaration = ({
                         "Action button to save and exit an application",
                     })}
                   </Button>
+                  <DeleteApplicationDialog query={application} />
                 </div>
               </>
             ) : (

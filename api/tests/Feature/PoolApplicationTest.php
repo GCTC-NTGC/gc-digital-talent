@@ -33,7 +33,6 @@ use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -281,8 +280,6 @@ class PoolApplicationTest extends TestCase
 
     public function testApplicationSubmit(): void
     {
-        Config::set('feature.application_email_verification', true); // this line should be removed once the feature flag FEATURE_APPLICATION_EMAIL_VERIFICATION is removed.
-
         // pool with no essential skills
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
@@ -989,7 +986,6 @@ class PoolApplicationTest extends TestCase
 
     public function testApplicationSubmissionWorkEmailVerifiedForInternalJobs(): void
     {
-        Config::set('feature.application_email_verification', true); // this line should be removed once the feature flag FEATURE_APPLICATION_EMAIL_VERIFICATION is removed.
         $pool = Pool::factory()
             ->withPoolSkills(1, 0)
             ->create([

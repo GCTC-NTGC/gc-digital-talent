@@ -26,6 +26,15 @@ export default [
     plugins: { react, "react-hooks": reactHooks, vitest },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      // Project doesn't use React Compiler; these rules only apply to compiler optimization
+      "react-hooks/incompatible-library": "off",
+      "react-hooks/preserve-manual-memoization": "off",
+
+      // TO DO: Enable in #16676
+      "react-hooks/static-components": "off",
+      // TO DO: Enable in #16677
+      "react-hooks/refs": "off",
+
       ...vitest.configs.recommended.rules,
       "vitest/expect-expect": [
         "error",

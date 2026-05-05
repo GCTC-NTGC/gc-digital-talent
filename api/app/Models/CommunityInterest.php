@@ -26,10 +26,11 @@ use Illuminate\Support\Str;
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
  * @property bool $finance_is_chief
- * @property array $finance_additional_duties
+ * @property array $additional_duties
  * @property array $finance_other_roles
  * @property string $finance_other_roles_other
  * @property bool $consent_to_share_profile
+ * @property bool $procurement_is_sdo
  */
 class CommunityInterest extends Model
 {
@@ -43,7 +44,7 @@ class CommunityInterest extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'finance_additional_duties' => 'array',
+        'additional_duties' => 'array',
         'finance_other_roles' => 'array',
     ];
 
@@ -57,10 +58,11 @@ class CommunityInterest extends Model
         'training_interest',
         'additional_information',
         'finance_is_chief',
-        'finance_additional_duties',
+        'additional_duties',
         'finance_other_roles',
         'finance_other_roles_other',
         'consent_to_share_profile',
+        'procurement_is_sdo',
     ];
 
     /** @return BelongsTo<User, $this> */

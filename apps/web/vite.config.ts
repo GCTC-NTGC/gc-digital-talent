@@ -31,6 +31,19 @@ export default defineConfig(({ command }) => {
     server: {
       port: 3000,
       forwardConsole: true,
+      // Allow connections from Docker container network
+      host: true,
+      // Allow requests from nginx proxy in Docker dev environment
+      allowedHosts: ["web", "localhost"],
+      // Watch files for changes in Docker environment
+      watch: {
+        usePolling: process.env.NODE_ENV === "development",
+      },
+      // Increase HMR timeout to batch multiple file changes together
+      // This prevents multiple refreshes when GraphQL codegen writes several files
+      hmr: {
+        timeout: 500,
+      },
     },
 
     build: {
@@ -61,7 +74,9 @@ export default defineConfig(({ command }) => {
     },
 
     define: {
-      IS_DEV_SERVER: command === "serve",
+      // IS_DEV_SERVER is true when running Vite dev server directly (without nginx proxy)
+      // In Docker dev environment with nginx, we set DOCKER_DEV=true to disable this
+      IS_DEV_SERVER: command === "serve" && process.env.DOCKER_DEV !== "true",
       API_HOST: getEnvVar("API_HOST"),
 
       // Vite requires build-time env variables to have the VITE_ prefix
@@ -86,8 +101,10 @@ export default defineConfig(({ command }) => {
     ssr: {
       noExternal: ["@dr.pogodin/react-helmet"],
     },
-    html: {
-      cspNonce: "**CSP_NONCE**",
-    },
+    ...(command === "build" && {
+      html: {
+        cspNonce: "**CSP_NONCE**",
+      },
+    }),
   };
 });

@@ -4,8 +4,8 @@ namespace App\Enums;
 
 use App\Traits\HasLocalization;
 
-// Additional duties that a CFO may have
-enum FinanceChiefDuty
+// Additional duties selectable for community interests
+enum CommunityInterestAdditionalDuty
 {
     use HasLocalization;
 
@@ -15,10 +15,11 @@ enum FinanceChiefDuty
     case INFORMATION_TECHNOLOGY;
     case MATERIEL_MANAGEMENT;
     case PROCUREMENT;
+    case PROJECT_MANAGEMENT;
     case REAL_PROPERTY_MANAGEMENT;
 
     public static function getLangFilename(): string
     {
-        return 'finance_chief_duty';
+        return 'community_interest_additional_duty';
     }
 }
