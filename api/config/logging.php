@@ -145,7 +145,11 @@ return [
         'jobs' => [
             'driver' => 'stack',
             'level' => env('LOG_LEVEL', 'debug'),
-            'channels' => ['jobs_file', 'azure'],
+            'channels' => array_filter([
+                'jobs_file',
+                // only try to include the azure logger in the stack if configured
+                ! empty(env('AZURE_LOG_INGESTION_ENDPOINT')) ? 'azure' : null,
+            ]),
             'ignore_exceptions' => false,
         ],
     ],
