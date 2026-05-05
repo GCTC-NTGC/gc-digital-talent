@@ -235,14 +235,12 @@ server {
     # NOTE: this is set up like this to mirror prod version, where different location blocks allow unique cache-control headers
     # NOTE2: this excludes assets starting with /static/ since there's a redirect to static hosting for that case below
     location ~ "^(?!/static/).*\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
-        # contenthashed asset files get cached for a year
         location ~ "-[A-z0-9-]{8}\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
-            # add_header Cache-Control "public, max-age=31536000"; # 1 year
+            add_header Cache-Control "no-store";
             try_files /apps/web/dist/client/$uri =404;
         }
 
-        # unhashed assets get cached for an hour
-        # add_header Cache-Control "public, max-age=3600"; # 1 hour
+        add_header Cache-Control "no-store";
         try_files /apps/web/dist/client/$uri =404;
     }
 
