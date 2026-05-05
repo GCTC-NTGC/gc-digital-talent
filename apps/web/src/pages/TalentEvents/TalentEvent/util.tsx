@@ -1,10 +1,14 @@
 import type { IntlShape } from "react-intl";
 import type { JSX } from "react";
 
-import type { TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType } from "@gc-digital-talent/graphql";
+import type {
+  Community,
+  TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType,
+} from "@gc-digital-talent/graphql";
 import { TalentNominationGroupStatus } from "@gc-digital-talent/graphql";
 import { Chip, Link } from "@gc-digital-talent/ui";
 import { uniqueItems } from "@gc-digital-talent/helpers";
+import type { GraphqlType } from "@gc-digital-talent/helpers";
 
 import type useRoutes from "~/hooks/useRoutes";
 import messages from "~/messages/talentNominationMessages";
@@ -84,4 +88,8 @@ export function typesAccessor(
 export function removeDuplicateIds(ids: string[]): string[] {
   const userIds = ids.map((id) => id.split("-nomineeId#")[0]);
   return uniqueItems(userIds);
+}
+
+export function isCommunity(team: GraphqlType): team is Community {
+  return team?.__typename === "Community";
 }

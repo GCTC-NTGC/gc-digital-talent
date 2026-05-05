@@ -1,5 +1,7 @@
 import { defineMessages } from "react-intl";
 
+import adminMessages from "~/messages/adminMessages";
+
 export const detailTabMessages = defineMessages({
   nominationDetailsPageTitle: {
     defaultMessage: "Nomination details",
@@ -24,11 +26,7 @@ export const formMessages = defineMessages({
     id: "syqHHS",
     description: "Label for the lateral movement options",
   },
-  developmentPrograms: {
-    defaultMessage: "Recommended development opportunities",
-    id: "zkwquN",
-    description: "Label for selected development program items",
-  },
+  developmentPrograms: adminMessages.developmentOpportunitiesRecommended,
   rationale: {
     defaultMessage: "Rationale",
     id: "IgniT6",

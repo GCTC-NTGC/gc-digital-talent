@@ -8,6 +8,7 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import talentNominationMessages from "~/messages/talentNominationMessages";
+import adminMessages from "~/messages/adminMessages";
 
 import type { FormValues } from "../form";
 import { convertQueryDataToFormData } from "../form";
@@ -135,9 +136,7 @@ const NominationGroupEvaluationForm = ({
               ) : null}
               {isNominatedForDevelopmentPrograms ? (
                 <li>
-                  {intl.formatMessage(
-                    talentNominationMessages.nominateForDevelopmentPrograms,
-                  )}
+                  {intl.formatMessage(adminMessages.developmentOpportunities)}
                 </li>
               ) : null}
             </Ul>
