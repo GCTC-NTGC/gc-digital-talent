@@ -229,6 +229,11 @@ const messages = defineMessages({
     id: "NVKfLp",
     description: "Label for Development opportunities",
   },
+  developmentOpportunitiesRecommended: {
+    defaultMessage: "Recommended development opportunities",
+    id: "uNQzDO",
+    description: "Label for Recommended development opportunities",
+  },
 });
 
 export default messages;

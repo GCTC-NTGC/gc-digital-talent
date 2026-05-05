@@ -378,12 +378,9 @@ const ReviewTalentNominationDialog = ({
                   {developmentPrograms.length > 0 && (
                     <FieldDisplay
                       className="xs:col-span-2"
-                      label={intl.formatMessage({
-                        defaultMessage: "Recommended development opportunities",
-                        id: "zkwquN",
-                        description:
-                          "Label for selected development program items",
-                      })}
+                      label={intl.formatMessage(
+                        adminMessages.developmentOpportunitiesRecommended,
+                      )}
                     >
                       <Ul unStyled space="md">
                         {developmentPrograms.map((p) => (

@@ -3351,10 +3351,6 @@
     "defaultMessage": "Je suis à la recherche de cadres préqualifiés",
     "description": "Subject line for contact email to find pre-qualified executive talent"
   },
-  "BH5pJe": {
-    "defaultMessage": "Réduire tout<hidden> les nominations</hidden>",
-    "description": "Button label to collapse all nominations"
-  },
   "BKKZUH": {
     "defaultMessage": "Consulter et gérer le ministère.",
     "description": "Link to department page"
@@ -4146,10 +4142,6 @@
   "EqUTLs": {
     "defaultMessage": "Si vous êtes prêt à publier cette annonce, veuillez <a>contacter un administrateur</a>.",
     "description": "Instructions on how to submit a process for publishing"
-  },
-  "EsNdLS": {
-    "defaultMessage": "Occasions de perfectionnement recommandées",
-    "description": "Trigger title for development programs"
   },
   "Et46bc": {
     "defaultMessage": "Erreur : la fermeture du processus a échoué",
@@ -5423,10 +5415,6 @@
     "defaultMessage": "Utilisez le bouton « Créer une classification » pour commencer.",
     "description": "Instructions for adding a classification item."
   },
-  "KIQzbR": {
-    "defaultMessage": "Agrandir tout<hidden> les nominations</hidden>",
-    "description": "Button label to expand all nominations"
-  },
   "KJDxM1": {
     "defaultMessage": "État du processus",
     "description": "Title for card for actions related to changing the status of a process"
@@ -6042,10 +6030,6 @@
   "MsXEJK": {
     "defaultMessage": "Le prochain type de rôle que la personne candidate entend jouer et son principal objectif de carrière, notamment la classification, les volets de travail et les ministères.",
     "description": "Subtitle for next role and career objective section"
-  },
-  "MsiKO0": {
-    "defaultMessage": "Détails de la nomination",
-    "description": "Link text for details about a nomination"
   },
   "Msshus": {
     "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la <cite>Directive sur les talents numériques</cite> et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ce guide de mise en œuvre est conçu pour aider les conseillers en RH à assumer ces responsabilités.",
@@ -13151,7 +13135,7 @@
     "description": "Message displayed when candidate was unsuccessful but put on hold"
   },
   "qBHA+W": {
-    "defaultMessage": "Cette liste vous permet de spécifier <strong>jusqu’à 3 compétences comportementales ou « générales »</strong> que vous vous efforcez activement de développer et d’améliorer grâce à votre expérience ou à des occasions de perfectionnement.",
+    "defaultMessage": "Cette liste vous permet de spécifier <strong>jusqu’à 3 compétences comportementales ou « générales »</strong> que vous vous efforcez activement de développer et d’améliorer grâce à votre expérience ou à des possibilités de perfectionnement.",
     "description": "Description of a users behavioural skills to improve"
   },
   "qD0lyZ": {
@@ -13750,10 +13734,6 @@
     "defaultMessage": "Adresse courriel professionnelle retirée",
     "description": "Successfully cleared work email information"
   },
-  "syqHHS": {
-    "defaultMessage": "Recommandations sur l'expérience latérale",
-    "description": "Label for the lateral movement options"
-  },
   "szxveb": {
     "defaultMessage": "Les possibilités d'emploi ne m'intéressent pas",
     "description": "Message displayed when a user has expressed they are not interested in job opportunities"
@@ -14089,6 +14069,10 @@
   "uNKq32": {
     "defaultMessage": "Erreur : la mise à jour du volet de travail a échoué.",
     "description": "Message displayed to user after work stream fails to get updated."
+  },
+  "uNQzDO": {
+    "defaultMessage": "Possibilités de perfectionnement recommandées",
+    "description": "Label for Recommended development opportunities"
   },
   "uOTYlH": {
     "defaultMessage": "Vous n'avez pas encore de profil? En suivant le processus de demande d'emploi, vous obtiendrez toutes les informations dont vous avez besoin.",
@@ -15389,10 +15373,6 @@
   "zkoW6g": {
     "defaultMessage": "Dans ce poste axé sur l’analyse, vous faites la collecte et l’étude des critères, puis vous formulez des observations critiques pour optimiser les projets de développement Web. Votre savoir-faire contribue à l’exécution d’applications Web de grande qualité qui répondent aux normes de sécurité et aux attentes d’utilisation les plus élevées.",
     "description": "Description of the web developer role"
-  },
-  "zkwquN": {
-    "defaultMessage": "Occasions de perfectionnement recommandées",
-    "description": "Label for selected development program items"
   },
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
