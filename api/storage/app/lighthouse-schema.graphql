@@ -1362,7 +1362,6 @@ type TalentNominationEvent {
     "Allows to filter if trashed elements should be fetched."
     trashed: Trashed
   ): [CommunityDevelopmentProgram!]
-  developmentPrograms: [DevelopmentProgram!]
   talentNominationGroups: [TalentNominationGroup!]
   countTalentNominationGroups: Int!
   status: LocalizedTalentNominationEventStatus

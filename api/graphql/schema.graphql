@@ -885,8 +885,6 @@ type TalentNominationEvent {
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
     @belongsToMany
     @softDeletes
-  developmentPrograms: [DevelopmentProgram!]
-    @hasMany(relation: "developmentProgramsThroughPivot")
   talentNominationGroups: [TalentNominationGroup!]
     @hasMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
     @canResolved(

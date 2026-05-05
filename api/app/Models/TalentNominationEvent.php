@@ -78,6 +78,7 @@ class TalentNominationEvent extends Model
             ->withPivot(['description_for_nominations']);
     }
 
+    // allow for downloads and the like to skip working with the pivot
     public function developmentProgramsThroughPivot(): HasManyDeep
     {
         return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram())->developmentProgram());
