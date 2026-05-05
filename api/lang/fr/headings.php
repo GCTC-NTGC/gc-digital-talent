@@ -272,7 +272,7 @@ return [
     'additional_duties' => 'Tâches supplémentaires',
     'other_roles' => 'Autres rôles',
     'other_sdo_position' => 'Autre poste de CSD',
-    'procurement_sdo_status' => 'TODO procurement',
+    'procurement_sdo_status' => 'Statut de CSD',
 
     'nominations_overview' => 'Aperçu des candidatures',
     'nominee_profiles' => 'Profil des candidats',
