@@ -9706,6 +9706,10 @@
     "defaultMessage": "Le gouvernement du Canada se réserve le droit de supprimer des commentaires et des contributions, et de bloquer des utilisateurs en fonction des critères ci-dessous:",
     "description": "Paragraph for comments and interaction section"
   },
+  "cm1uO9": {
+    "defaultMessage": "Précisez les options de professionnalisation parmi lesquelles les personnes proposant des candidatures peuvent choisir lorsqu'elles recommandent une personne pour des possibilités de perfectionnement. Vous pouvez également fournir, au besoin, du contexte additionnel pour mieux orienter les choix. Si vous ne trouvez pas le programme ou le certificat requis, veuillez communiquer avec la personne chargée de l'administration de votre collectivité afin d'ajouter les options nécessaires.",
+    "description": "Description for subsection in talent management event form"
+  },
   "cnoxKB": {
     "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant « {skillName} ».",
     "description": "Subtitle for education requirement screening decision dialog."
