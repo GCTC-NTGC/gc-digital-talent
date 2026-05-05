@@ -9,6 +9,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
     }
 
     ...ApplicationSnapshot
+    ...DeleteApplicationDialog
 
     user {
       ...ProfileWorkPreferences

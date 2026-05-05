@@ -10,6 +10,7 @@ import applicationMessages from "~/messages/applicationMessages";
 import type { ApplicationPageProps } from "../ApplicationApi";
 import ApplicationApi from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -98,6 +99,7 @@ const ApplicationCareerTimelineIntroduction = ({
         >
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>
+        <DeleteApplicationDialog query={application} />
       </div>
     </>
   );

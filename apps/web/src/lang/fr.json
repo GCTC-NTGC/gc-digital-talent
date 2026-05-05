@@ -1407,6 +1407,10 @@
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
   },
+  "3XF+VC": {
+    "defaultMessage": "Vous perdrez toutes les réponses aux questions de présélection associées à ce processus.",
+    "description": "Point two, what happens when an application is deleted"
+  },
   "3XvHVf": {
     "defaultMessage": "Rôles liés à un ministère",
     "description": "Heading for updating a user's department roles"
@@ -2138,6 +2142,10 @@
   "6bGWe5": {
     "defaultMessage": "<strong>{name}</strong> a publié",
     "description": "Label for activity log item published action"
+  },
+  "6bjQWW": {
+    "defaultMessage": "Veuillez indiquer si vous exercez l’une des fonctions supplémentaires suivantes dans le cadre de votre rôle de CSD.",
+    "description": "Description for additional duties referencing a Senior Designated Officer (SDO) role"
   },
   "6bvAQ+": {
     "defaultMessage": "Rétroaction et coordonnées",
@@ -5851,6 +5859,10 @@
     "defaultMessage": "Approbation pour un avancement",
     "description": "Label for an nomination for advancement decision"
   },
+  "MIMrQK": {
+    "defaultMessage": "Les modifications apportées à vos préférences, à votre expérience professionnelle et à vos compétences sont enregistrées dans votre profil.",
+    "description": "Point three, what happens when an application is deleted"
+  },
   "MLrQQy": {
     "defaultMessage": "Emploi de fichiers situés sur des serveurs autres que ceux du gouvernement du Canada",
     "description": "Title for the using files section"
@@ -5959,6 +5971,10 @@
     "defaultMessage": "Sélectionnez un ou plusieurs programmes, certifications ou accréditations dont cette personne bénéficierait en y participant.",
     "description": "Description for development program options section in nominations details step"
   },
+  "MoehVY": {
+    "defaultMessage": "Je suis une personne occupant un rôle de cadre supérieur désigné (CSD).",
+    "description": "Message when user is a Senior Designated Officer"
+  },
   "MptxTu": {
     "defaultMessage": "Cette section vous permet de présenter des informations sur vous-même et sur votre façon de travailler, y compris sur vos objectifs pour l'avenir et sur les environnements qui vous permettent de donner le meilleur de vous-même.",
     "description": "Describes the goals and work style section of employee profile"
@@ -6010,6 +6026,10 @@
   "Muh/+P": {
     "defaultMessage": "Durée de l'emploi",
     "description": "Title for Employment duration section"
+  },
+  "MwDik0": {
+    "defaultMessage": "Il n’est pas possible de supprimer une candidature déjà soumise.",
+    "description": "Message displayed when a user attempts to delete a submitted application"
   },
   "Mwq0NB": {
     "defaultMessage": "Postes bilingues",
@@ -6158,6 +6178,10 @@
   "Nc751o": {
     "defaultMessage": "Les compétences techniques essentielles ont été mises à jour avec succès.",
     "description": "Message displayed when a user successfully updates the essential technical skills"
+  },
+  "NcRgcV": {
+    "defaultMessage": "Voulez-vous vraiment supprimer cette candidature?",
+    "description": "Question confirming the user actually wants to delete an application"
   },
   "NeR+6V": {
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>IT-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
@@ -6786,6 +6810,10 @@
   "QSrnA8": {
     "defaultMessage": "Modifier l’information de la collectivité et gérer les rôles",
     "description": "Permissions related to managing the community and its users"
+  },
+  "QTX+ki": {
+    "defaultMessage": "Votre candidature ne sera pas prise en considération dans ce processus.",
+    "description": "Point one, what happens when an application is deleted"
   },
   "QTm+/n": {
     "defaultMessage": "Étapes de la nomination",
@@ -7973,6 +8001,10 @@
   "VsV4Vu": {
     "defaultMessage": "L'utilisateur ou l'utilisatrice perdra le rôle suivant :",
     "description": "Text notifying user which role will be removed from the user"
+  },
+  "Vu6IUs": {
+    "defaultMessage": "Supprimer la candidature",
+    "description": "Title for deleting an application"
   },
   "VvOx9a": {
     "defaultMessage": "Modifier les informations sur la classification",
@@ -10533,6 +10565,10 @@
   "gIvlZk": {
     "defaultMessage": "Le <link>Fonds de formation et de perfectionnement de la collectivité de la TI</link> peut vous aider à acquérir la certification en payant le coût des examens.",
     "description": "Second paragraph of certification exam vouchers section"
+  },
+  "gIwkgl": {
+    "defaultMessage": "J’occupe actuellement un rôle de cadre supérieur désigné",
+    "description": "Message when user is a Senior Designated Officer"
   },
   "gIzUDr": {
     "defaultMessage": "Modifier les questions générales",
@@ -13926,6 +13962,10 @@
     "defaultMessage": "Vous n'avez pas encore de profil? En suivant le processus de demande d'emploi, vous obtiendrez toutes les informations dont vous avez besoin.",
     "description": "Text letting users know the application will allow them setup a profile"
   },
+  "uOrm+o": {
+    "defaultMessage": "Échec de la suppression de la candidature.",
+    "description": "Message displayed when an application could no be deleted"
+  },
   "uP+q43": {
     "defaultMessage": "Lieu de travail",
     "description": "Heading for work location section of the search form."
@@ -13985,6 +14025,10 @@
   "uhoPHh": {
     "defaultMessage": "Réglementation",
     "description": "Label for a regulatory department"
+  },
+  "uhtPZi": {
+    "defaultMessage": "Je n'occupe pas de rôle de cadre supérieur désigné (CSD).",
+    "description": "Message when user is not a Senior Designated Officer"
   },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
@@ -14206,6 +14250,10 @@
     "defaultMessage": "Enregistrer des compétences techniques essentielles",
     "description": "Text on a button to save the essential technical skills form"
   },
+  "vZuWGT": {
+    "defaultMessage": "Candidature supprimée avec succès.",
+    "description": "Message displayed after deleting an application"
+  },
   "vbYcIR": {
     "defaultMessage": "Le statut de placement a été mis à jour avec succès.",
     "description": "Success message displayed after updating placement status"
@@ -14273,6 +14321,10 @@
   "voMSDe": {
     "defaultMessage": "Les informations sur les objectifs et le style de travail ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
+  },
+  "voOIR0": {
+    "defaultMessage": "Rôle de cadre supérieur désigné (CSD)",
+    "description": "Bounding box label for the SDO checkbox"
   },
   "voqC0s": {
     "defaultMessage": "Gestion des talents",

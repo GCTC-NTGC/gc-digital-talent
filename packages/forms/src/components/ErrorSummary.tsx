@@ -113,7 +113,7 @@ const ErrorSummary = forwardRef<ComponentRef<"div">, ErrorSummaryProps>(
     const locale = getLocale(intl);
     const { errors } = useFormState();
     const { labels: registeredLabels } = useFormLabels();
-    const labels = { ...registeredLabels, ...labelsProp };
+    const labels = { ...registeredLabels.current, ...labelsProp };
 
     // Don't show if the form is valid
     if (!errors || !show || !labels) return null;

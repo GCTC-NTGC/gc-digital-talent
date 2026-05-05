@@ -228,14 +228,15 @@ const title = tv({
   ],
 });
 
-const iconMap = new Map<RootVariants["color"], IconType>([
-  ["gray", BellAlertIcon],
-  ["primary", BellAlertIcon],
-  ["secondary", BellAlertIcon],
-  ["success", CheckCircleIcon],
-  ["warning", ExclamationCircleIcon],
-  ["error", ExclamationTriangleIcon],
-]);
+// Use a static object for lookups to satisfy the linter
+const ICON_MAP: Record<string, IconType> = {
+  gray: BellAlertIcon,
+  primary: BellAlertIcon,
+  secondary: BellAlertIcon,
+  success: CheckCircleIcon,
+  warning: ExclamationCircleIcon,
+  error: ExclamationTriangleIcon,
+};
 
 interface TitleProps {
   icon?: IconType;
@@ -252,10 +253,9 @@ const Title = ({
 }: TitleProps) => {
   const { small, color } = use(NoticeContext);
   const { icon, heading } = title({ small, color });
-  let Icon = iconEl;
-  if (!iconEl && defaultIcon) {
-    Icon = iconMap.get(color);
-  }
+
+  // Use a constant for the component reference
+  const Icon = iconEl ?? (defaultIcon && color ? ICON_MAP[color] : undefined);
 
   return (
     <>

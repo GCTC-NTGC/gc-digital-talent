@@ -87,7 +87,7 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
     }
     additionalInformation
     financeIsChief
-    financeAdditionalDuties {
+    communityInterestAdditionalDuties {
       value
       label {
         localized
@@ -100,6 +100,7 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
       }
     }
     financeOtherRolesOther
+    procurementIsSDO
     ...DeleteCommunityInterestAlert
     consentToShareProfile
   }
@@ -146,13 +147,15 @@ const UpdateCommunityInterestForm = ({
     unpackMaybes(formOptions.me?.developmentProgramUserRecords),
   );
 
+  const assignToDefaultValues = apiDataToFormValues(
+    userId,
+    usersDevelopmentProgramRecords,
+    formData,
+    developmentProgramsForCommunity,
+  );
+
   const formMethods = useForm<FormValues>({
-    defaultValues: apiDataToFormValues(
-      userId,
-      usersDevelopmentProgramRecords,
-      formData,
-      developmentProgramsForCommunity,
-    ),
+    defaultValues: assignToDefaultValues,
   });
 
   return (

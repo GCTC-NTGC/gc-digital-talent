@@ -108,6 +108,11 @@ type LocalizedCitizenshipStatus implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
+  value: CommunityInterestAdditionalDuty!
+  label: LocalizedString!
+}
+
 type LocalizedCourseFormat implements LocalizedEnumOption {
   value: CourseFormat!
   label: LocalizedString!
@@ -180,11 +185,6 @@ type LocalizedExternalRoleSeniority implements LocalizedEnumOption {
 
 type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   value: ExternalSizeOfOrganization!
-  label: LocalizedString!
-}
-
-type LocalizedFinanceChiefDuty implements LocalizedEnumOption {
-  value: FinanceChiefDuty!
   label: LocalizedString!
 }
 
@@ -837,11 +837,12 @@ type CommunityInterest {
   additionalInformation: String
   interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   financeIsChief: Boolean
-  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
+  communityInterestAdditionalDuties: [LocalizedCommunityInterestAdditionalDuty!]
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
   createdAt: DateTime
+  procurementIsSDO: Boolean
 }
 
 type OffPlatformRecruitmentProcess {
@@ -2105,10 +2106,11 @@ input CreateCommunityInterestInput {
   trainingInterest: Boolean
   additionalInformation: String
   financeIsChief: Boolean
-  financeAdditionalDuties: [FinanceChiefDuty!]
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  procurementIsSDO: Boolean
 }
 
 input UpdateCommunityInterestInput {
@@ -2117,10 +2119,11 @@ input UpdateCommunityInterestInput {
   trainingInterest: Boolean
   additionalInformation: String
   financeIsChief: Boolean
-  financeAdditionalDuties: [FinanceChiefDuty!]
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  procurementIsSDO: Boolean
 }
 
 input UpsertDevelopmentProgramUserInput {
@@ -3680,6 +3683,17 @@ enum ClaimVerificationResult {
   UNVERIFIED
 }
 
+enum CommunityInterestAdditionalDuty {
+  CORPORATE_COMMUNICATIONS
+  FACILITIES_MANAGEMENT_AND_SECURITY
+  HUMAN_RESOURCES
+  INFORMATION_TECHNOLOGY
+  MATERIEL_MANAGEMENT
+  PROCUREMENT
+  PROJECT_MANAGEMENT
+  REAL_PROPERTY_MANAGEMENT
+}
+
 enum CourseFormat {
   ON_SITE
   VIRTUAL
@@ -3925,16 +3939,6 @@ enum ExternalSizeOfOrganization {
   THIRTY_SIX_TO_ONE_HUNDRED
   ONE_HUNDRED_ONE_TO_ONE_THOUSAND
   ONE_THOUSAND_PLUS
-}
-
-enum FinanceChiefDuty {
-  CORPORATE_COMMUNICATIONS
-  FACILITIES_MANAGEMENT_AND_SECURITY
-  HUMAN_RESOURCES
-  INFORMATION_TECHNOLOGY
-  MATERIEL_MANAGEMENT
-  PROCUREMENT
-  REAL_PROPERTY_MANAGEMENT
 }
 
 enum FinanceChiefRole {
