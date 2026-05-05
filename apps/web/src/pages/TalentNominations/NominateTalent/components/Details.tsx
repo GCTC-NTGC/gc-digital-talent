@@ -35,6 +35,7 @@ import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
 import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
+import adminMessages from "~/messages/adminMessages";
 
 import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
@@ -240,7 +241,7 @@ const DetailsFields = ({
           },
           {
             value: "developmentProgram",
-            label: intl.formatMessage(labels.developmentOpportunities),
+            label: intl.formatMessage(adminMessages.developmentOpportunities),
             contentBelow: intl.formatMessage({
               defaultMessage:
                 "The employee would benefit from a development or learning opportunity to help prepare them for their next role.",
@@ -469,7 +470,7 @@ const DetailsFields = ({
             <div className="flex flex-col gap-6">
               <div>
                 <Heading level="h3" size="h6">
-                  {intl.formatMessage(labels.developmentOpportunities)}
+                  {intl.formatMessage(adminMessages.developmentOpportunities)}
                 </Heading>
                 <p>
                   {intl.formatMessage({
@@ -484,7 +485,9 @@ const DetailsFields = ({
               <Checklist
                 idPrefix="communityDevelopmentPrograms"
                 name="communityDevelopmentPrograms"
-                legend={intl.formatMessage(labels.developmentOpportunities)}
+                legend={intl.formatMessage(
+                  adminMessages.developmentOpportunities,
+                )}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}

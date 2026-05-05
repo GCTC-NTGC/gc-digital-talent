@@ -16,6 +16,7 @@ import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import type { ApplicationPageProps } from "../ApplicationApi";
 import ApplicationApi from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -167,6 +168,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
               "Link text to return to a pool advertisement during the application",
           })}
         </Link>
+        <DeleteApplicationDialog query={application} />
       </div>
     </>
   );
