@@ -17,7 +17,7 @@ RUN apt-get update \
         curl \
         postgresql-client \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_pgsql zip gd bcmath intl \
+    && docker-php-ext-install pdo_pgsql zip gd bcmath intl pcntl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
