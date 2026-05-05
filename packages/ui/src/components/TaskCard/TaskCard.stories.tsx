@@ -8,7 +8,6 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 import Notice from "../Notice/Notice";
 import type { RootProps } from "./TaskCard";
 import TaskCard from "./TaskCard";
-import Button from "../Button";
 
 const colorOptions: RootProps["headingColor"][] = [
   "primary",
