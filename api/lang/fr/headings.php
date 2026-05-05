@@ -238,7 +238,7 @@ return [
     'references_classification' => 'Classification de la personne de référence',
     'references_department' => 'Ministère ou organisme de la personne de référence',
     'lateral_movement_options' => 'Options de mutation latérale',
-    'development_program_recommendations' => 'Recommandations pour des programmes de perfectionnement',
+    'development_program_recommendations' => 'Possibilités de perfectionnement recommandées',
     'other' => 'Autre :',
     'rationale' => 'Justification',
     'leadership_competencies' => 'Les 3 principales compétences en matière de leadership',
@@ -309,7 +309,6 @@ return [
     'reference_department' => 'Ministère de la personne de référence',
     'lateral_experience_recommendations' => 'Recommandations liées à l’expérience de mutation latérale',
     'other_lateral_experience' => 'Autres recommandations liées à l’expérience de mutation latérale',
-    'development_program_recommendations' => 'Recommandations liées aux programmes de perfectionnement',
     'other_development_program_experience' => 'Autres recommandations liées aux programmes de perfectionnement',
 
     'updated_at' => 'Révisé',
