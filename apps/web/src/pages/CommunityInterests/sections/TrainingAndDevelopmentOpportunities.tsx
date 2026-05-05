@@ -482,7 +482,7 @@ const TrainingAndDevelopmentOpportunities = ({
             {dialogOpenForIndex !== null &&
               developmentPrograms[dialogOpenForIndex]?.descriptionForProfile
                 ?.localized && (
-                <p className="rounded-md border border-gray-200 bg-gray-50 p-4 text-sm">
+                <p className="rounded-[10px] border border-gray-700 bg-gray-100/20 p-4 text-sm dark:border-gray-100">
                   {
                     developmentPrograms[dialogOpenForIndex].descriptionForProfile
                       ?.localized
