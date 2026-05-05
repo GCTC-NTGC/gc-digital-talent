@@ -12,5 +12,5 @@ return [
     |
     */
 
-    'application_email_verification' => (bool) env('FEATURE_APPLICATION_EMAIL_VERIFICATION', false),
+    'auth_in_app_migration' => (bool) env('FEATURE_AUTH_IN_APP_MIGRATION', false),
 ];

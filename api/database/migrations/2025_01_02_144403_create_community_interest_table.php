@@ -45,6 +45,6 @@ return new class() extends Migration
     public function down(): void
     {
         Schema::dropIfExists('community_interests');
-        Schema::dropIfExists('communinty_interest_work_stream');
+        Schema::dropIfExists('community_interest_work_stream');
     }
 };

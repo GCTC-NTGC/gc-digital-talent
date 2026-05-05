@@ -170,38 +170,33 @@ const FullCareerExperiences = ({
 
   return (
     <>
-      {/* heading section */}
       <div className="flex items-center justify-between">
-        <div>
-          <Heading
-            level="h2"
-            size="h4"
-            icon={NewspaperIcon}
-            color="warning"
-            className="mt-0 font-normal"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Full career",
-              id: "+mG20j",
-              description: "Heading for career experience",
-            })}
-          </Heading>
-        </div>
+        <Heading
+          level="h2"
+          size="h4"
+          icon={NewspaperIcon}
+          color="warning"
+          className="mt-0 font-normal"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Full career",
+            id: "+mG20j",
+            description: "Heading for career experience",
+          })}
+        </Heading>
         {shareProfile && (
-          <div>
-            <Button
-              type="button"
-              mode="inline"
-              color="primary"
-              onClick={toggleSections}
-            >
-              {intl.formatMessage(
-                hasOpenSections
-                  ? experienceMessages.collapseDetails
-                  : experienceMessages.expandDetails,
-              )}
-            </Button>
-          </div>
+          <Button
+            type="button"
+            mode="inline"
+            color="primary"
+            onClick={toggleSections}
+          >
+            {intl.formatMessage(
+              hasOpenSections
+                ? experienceMessages.collapseDetails
+                : experienceMessages.expandDetails,
+            )}
+          </Button>
         )}
       </div>
 
@@ -213,70 +208,48 @@ const FullCareerExperiences = ({
           description: "Description for the career page full career section",
         })}
       </p>
-      {/* If can share profile, show controls. Otherwise, show error well */}
-      {shareProfile ? (
-        <div className="mb-3 flex items-center gap-6">
-          <p id={showExperienceByLabelId}>
-            {intl.formatMessage({
-              defaultMessage: "Show experience by:",
-              id: "KR4kRt",
-              description: "Label for experience sorting options",
-            })}
-          </p>
-          <Button
-            type="button"
-            mode="inline"
-            color="primary"
-            onClick={() => setSelectedView("type")}
-            // Bold when selected
-            className={selectedView === "type" ? "font-bold" : "font-normal"}
-            aria-pressed={selectedView === "type"}
-            aria-describedby={showExperienceByLabelId}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Type",
-              id: "trerKD",
-              description: "Button to filter experiences by type",
-            })}
-          </Button>
-          <Button
-            type="button"
-            mode="inline"
-            color="primary"
-            onClick={() => setSelectedView("workStream")} // Set view to "workStream"
-            // Bold when selected
-            className={selectedView === "type" ? "font-bold" : "font-normal"}
-            aria-pressed={selectedView === "workStream"}
-            aria-describedby={showExperienceByLabelId}
-          >
-            {intl.formatMessage(processMessages.stream)}
-          </Button>
-        </div>
-      ) : (
-        <Notice.Root color="error">
-          <Notice.Title>
-            {intl.formatMessage({
-              defaultMessage:
-                "This nominee has not agreed to share their information with your community",
-              id: "4ujr5X",
-              description: "Null message for nominee profile",
-            })}
-          </Notice.Title>
-          <Notice.Content>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
-                id: "8plD42",
-                description: "Null secondary message for nominee profile",
-              })}
-            </p>
-          </Notice.Content>
-        </Notice.Root>
-      )}
-      {/* If can share profile, show accordion. Otherwise, show nothing */}
+
+      <Card.Separator className="my-9" />
+
       {shareProfile ? (
         <>
+          <div className="mb-3 flex items-center gap-6">
+            <p id={showExperienceByLabelId}>
+              {intl.formatMessage({
+                defaultMessage: "Show experience by:",
+                id: "KR4kRt",
+                description: "Label for experience sorting options",
+              })}
+            </p>
+            <Button
+              type="button"
+              mode="inline"
+              color="primary"
+              onClick={() => setSelectedView("type")}
+              // Bold when selected
+              className={selectedView === "type" ? "font-bold" : "font-normal"}
+              aria-pressed={selectedView === "type"}
+              aria-describedby={showExperienceByLabelId}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Type",
+                id: "trerKD",
+                description: "Button to filter experiences by type",
+              })}
+            </Button>
+            <Button
+              type="button"
+              mode="inline"
+              color="primary"
+              onClick={() => setSelectedView("workStream")} // Set view to "workStream"
+              // Bold when selected
+              className={selectedView === "type" ? "font-bold" : "font-normal"}
+              aria-pressed={selectedView === "workStream"}
+              aria-describedby={showExperienceByLabelId}
+            >
+              {intl.formatMessage(processMessages.stream)}
+            </Button>
+          </div>
           <Accordion.Root
             type="multiple"
             mode="card"
@@ -320,7 +293,28 @@ const FullCareerExperiences = ({
             </>
           ) : null}
         </>
-      ) : null}
+      ) : (
+        <Notice.Root color="error">
+          <Notice.Title>
+            {intl.formatMessage({
+              defaultMessage:
+                "This nominee has not agreed to share their information with your community",
+              id: "4ujr5X",
+              description: "Null message for nominee profile",
+            })}
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
+                id: "8plD42",
+                description: "Null secondary message for nominee profile",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
+      )}
     </>
   );
 };

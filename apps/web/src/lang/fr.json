@@ -623,6 +623,10 @@
     "defaultMessage": "Comment les modèles d’offres d’emploi facilitent-ils le recrutement?",
     "description": "Question about job advertisement templates"
   },
+  "0PUTAv": {
+    "defaultMessage": "Offres d’emploi fermées",
+    "description": "Title for the closed jobs recruiting candidates"
+  },
   "0PeEzR": {
     "defaultMessage": "Cette étape vous permet de modifier les informations relatives à votre parcours professionnel que vous avez déjà ajoutées à votre profil. Cliquez sur un élément pour l'agrandir et obtenir de plus amples détails. Si vous n’avez encore rien ajouté à votre parcours professionnel, vous pouvez le faire à partir de cette page en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to continue working on career timeline, paragraph one"
@@ -947,6 +951,10 @@
     "defaultMessage": "Formulaire de consentement et de demande de filtrage de sécurité",
     "description": "Link text for government of canada security screening application and consent form"
   },
+  "1d2BaE": {
+    "defaultMessage": "<strong>Les postes hybrides</strong> requièrent une présence au bureau au moins trois jours par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.",
+    "description": "Definition for 'hybrid positions'"
+  },
   "1e84jV": {
     "defaultMessage": "Les visiteurs doivent également savoir que l’information offerte par les sites autres que ceux du gouvernement du Canada, accessibles à l’aide des liens de ce site Web, n’est pas assujettie à la <privacyActLink>Loi sur la protection des renseignements personnels</privacyActLink> ni à la <langActLink>Loi sur les langues officielles</langActLink> et pourrait ne pas être accessible aux personnes handicapées. Il est probable que l’information offerte ne soit disponible que dans les langues employées dans les sites en question. En ce qui a trait aux renseignements personnels, nous invitons les visiteurs à consulter les politiques de ces sites Web non gouvernementaux en matière de protection des renseignements personnels avant de fournir leurs renseignements personnels.",
     "description": "Paragraph two describing linking to gov section"
@@ -1174,10 +1182,6 @@
   "2b7CQ/": {
     "defaultMessage": "Parcours de transition de votre compte",
     "description": "Heading for the account transition journey section on the sign in page"
-  },
-  "2bKnmd": {
-    "defaultMessage": "Si vous êtes à l'emploi du gouvernement, il s’agit de la dernière étape pour déverrouiller les outils destinés aux employés.",
-    "description": "Text for first registration step, final step for government employees"
   },
   "2cTfGX": {
     "defaultMessage": "À quoi s’attendre",
@@ -1462,6 +1466,10 @@
   "3jpTNK": {
     "defaultMessage": "Cette revendication a été vérifiée",
     "description": "Label for the verified claim option"
+  },
+  "3lu+JJ": {
+    "defaultMessage": "Si vous êtes à l'emploi du gouvernement, il s’agit de la dernière étape pour déverrouiller les outils destinés aux employés.",
+    "description": "Text for first registration -> create step."
   },
   "3owqTQ": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement.",
@@ -6751,10 +6759,6 @@
     "defaultMessage": "Ce candidat a revendiqué un <strong>statut prioritaire</strong> et a soumis le numéro suivant : <strong>{priorityNumber}</strong>.",
     "description": "Message for a candidates priority status claim"
   },
-  "QKGmDP": {
-    "defaultMessage": "<strong>Les postes hybrides</strong> requièrent une présence au bureau au moins un jour par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.",
-    "description": "Definition for 'hybrid positions'"
-  },
   "QMY4DF": {
     "defaultMessage": "<strong>Pour commencer, passez votre profil en revue.</strong> Si vous n'avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements requis à l'étape suivante.",
     "description": "Description of the application process and the next step"
@@ -9894,10 +9898,6 @@
     "defaultMessage": "Sauvegarder l’annonce à l’échelle du site",
     "description": "Text on a button to save the sitewide announcement"
   },
-  "dzXJ2h": {
-    "defaultMessage": "Vous pouvez gérer votre profil et vos paramètres de sécurité ConnexionCanada sur le site de ConnexionCanada.",
-    "description": "Text for first registration step, manage CanadaLogin profile and security settings"
-  },
   "dztCCI": {
     "defaultMessage": "Pour continuer, veuillez nous indiquer qui est la personne de référence.",
     "description": "Error message when a reference has not been set for a nomination"
@@ -10593,6 +10593,10 @@
   "gV0mRk": {
     "defaultMessage": "Collectivité fonctionnelle",
     "description": "Label for Functional community value"
+  },
+  "gXBSoI": {
+    "defaultMessage": "Vous trouverez ici des offres d'emploi qui ont été publiées sur la plateforme et qui n'acceptent plus de candidatures.",
+    "description": "Description of the closed job section"
   },
   "gXFpR1": {
     "defaultMessage": "Ce rôle exige un minimum d’expérience ou un diplôme pertinent. Tous les candidats doivent respecter l’un des critères énumérés dans la présente section afin qu’on en tienne compte. Si vous respectez plus d’une des options fournies, vous pourrez préciser quelle option représente le mieux votre expérience, selon vous. Vous pouvez en apprendre davantage sur la scolarité et les équivalences en visitant la <link>norme du gouvernement du Canada sur les qualifications</link>.",
@@ -12397,6 +12401,10 @@
   "nqNCB/": {
     "defaultMessage": "Veuillez indiquer la raison de la clôture hâtive de ce processus.",
     "description": "Helper message for closing the process early"
+  },
+  "nup4Ey": {
+    "defaultMessage": "Vous pouvez gérer votre profil et vos paramètres de sécurité ConnexionCanada sur le site de ConnexionCanada.",
+    "description": "Text for first registration -> create step."
   },
   "nvPSBj": {
     "defaultMessage": "Non épinglé en haut des possibilités de formation",

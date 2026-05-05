@@ -97,7 +97,7 @@ trait Filterable
         }
 
         if (! is_null($this->ids)) {
-            $query->whereIn('id', $this->ids);
+            $query->whereIn($query->qualifyColumn('id'), $this->ids);
         }
 
         return $query;

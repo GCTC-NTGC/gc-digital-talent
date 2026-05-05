@@ -53,10 +53,7 @@ export function formValuesToApiCreateInput(
     },
   };
 
-  if (
-    formValues.interestInWorkStreamIds !== null &&
-    Array.isArray(formValues.interestInWorkStreamIds)
-  ) {
+  if (formValues.interestInWorkStreamIds !== null) {
     apiInput.communityInterest.workStreams = {
       sync: formValues.interestInWorkStreamIds,
     };

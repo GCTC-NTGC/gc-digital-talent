@@ -7,7 +7,7 @@ import {
 import { fakePools, toLocalizedEnum } from "@gc-digital-talent/fake-data";
 import { PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
 
-import BrowsePools from "./BrowsePoolsPage";
+import OpenJobs from "./OpenJobsPage";
 
 const mockPools = fakePools(3).map((advert) => ({
   ...advert,
@@ -16,11 +16,11 @@ const mockPools = fakePools(3).map((advert) => ({
 }));
 
 export default {
-  component: BrowsePools,
+  component: OpenJobs,
   decorators: [MockGraphqlDecorator],
 } as Meta;
 
-const Template: StoryFn<typeof BrowsePools> = () => <BrowsePools />;
+const Template: StoryFn<typeof OpenJobs> = () => <OpenJobs />;
 
 export const Default = Template.bind({});
 Default.parameters = {
@@ -32,7 +32,7 @@ Default.parameters = {
     },
   },
   apiResponses: {
-    BrowsePoolsPage: {
+    OpenJobsPage: {
       data: {
         poolsPaginated: {
           data: mockPools,
