@@ -8,15 +8,21 @@ import {
 
 export type PartialUser = Pick<User, "lookingForBilingual">;
 
+const BILINGUAL_LANG = [
+  PoolLanguage.VariousBilingual,
+  PoolLanguage.BilingualAdvanced,
+  PoolLanguage.BilingualIntermediate,
+];
+
 // Is the user missing the "looking for bilingual" profile option for this bilingual pool?
 const isMissingLookingForBilingual = (
   user?: PartialUser,
   pool?: Pick<Pool, "language"> | null,
 ): boolean => {
   const userLookingForBilingual = !!user?.lookingForBilingual;
-  const poolNeedsBilingual =
-    pool?.language?.value === PoolLanguage.BilingualIntermediate ||
-    pool?.language?.value === PoolLanguage.BilingualAdvanced;
+  const poolNeedsBilingual = BILINGUAL_LANG.includes(
+    pool?.language?.value ?? PoolLanguage.Various,
+  );
 
   if (poolNeedsBilingual && !userLookingForBilingual) return true;
 

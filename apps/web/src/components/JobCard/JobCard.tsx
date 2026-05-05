@@ -228,6 +228,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
         </span>
       </>,
     ],
+    [PoolLanguage.VariousBilingual, localizedLanguageLabel],
     [PoolLanguage.English, localizedLanguageLabel],
     [PoolLanguage.French, localizedLanguageLabel],
     [PoolLanguage.Various, localizedLanguageLabel],
