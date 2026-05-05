@@ -10159,7 +10159,7 @@
     "description": "Lead in, paragraph 2, for a list of essential behavioural skills"
   },
   "eVffLG": {
-    "defaultMessage": "Utilisez le bouton « Créer un événement de mise en candidature en gestion des talents » pour commencer.",
+    "defaultMessage": "Utilisez le bouton « Créer un événement de gestion des talents » pour commencer.",
     "description": "Instructions for adding a talent nomination event item"
   },
   "eWP5gJ": {
@@ -13321,10 +13321,6 @@
   "r01z4D": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
     "description": "Paragraph three for the self-declaration explanation dialog"
-  },
-  "r19RWV": {
-    "defaultMessage": "Créer un événement de mise en candidature en gestion des talents",
-    "description": "Text to create a talent nomination event"
   },
   "r2K3M3": {
     "defaultMessage": "Créer<hidden> une collectivité</hidden>",

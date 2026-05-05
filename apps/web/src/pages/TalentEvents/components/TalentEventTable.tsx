@@ -163,8 +163,8 @@ const TalentEventTable = ({
                 href: routes.createTalentManagementEvent(),
                 label: intl.formatMessage({
                   defaultMessage: "Create talent nomination event",
-                  id: "r19RWV",
-                  description: "Text to create a talent nomination event",
+                  id: "Ju0qLf",
+                  description: "Button text to create talent nomination event",
                 }),
                 from: currentUrl,
               },
