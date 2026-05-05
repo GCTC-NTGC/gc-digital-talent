@@ -1908,7 +1908,7 @@
     "description": "Description of adding a user to a specific process"
   },
   "5MFMo5": {
-    "defaultMessage": "Le membre du personnel bénéficierait d'une occasion de perfectionnement ou d'apprentissage pour le préparer à son prochain poste.",
+    "defaultMessage": "Le membre du personnel bénéficierait d'une possibilité de perfectionnement ou d'apprentissage pour le préparer à son prochain poste.",
     "description": "Description for the development program nomination option on the details step"
   },
   "5PUycY": {
@@ -2104,7 +2104,7 @@
     "description": "Title for the subsection for viewing/selecting employment equity"
   },
   "6KS1jD": {
-    "defaultMessage": "Nous aimerions en savoir plus sur le cheminement de carrière que vous souhaitez suivre. Fournir des renseignements sur vos préférences et vos aspirations aidera les gestionnaires de talents à prendre des décisions plus éclairées dans le cadre d'une promotion, d'une mutation latérale ou d'une occasion de perfectionnement professionnel.",
+    "defaultMessage": "Nous aimerions en savoir plus sur le cheminement de carrière que vous souhaitez suivre. Fournir des renseignements sur vos préférences et vos aspirations aidera les gestionnaires de talents à prendre des décisions plus éclairées dans le cadre d'une promotion, d'une mutation latérale ou d'une possibilité de perfectionnement professionnel.",
     "description": "Lead-in text explaining the users career plan"
   },
   "6LOBmp": {
@@ -4300,7 +4300,7 @@
     "description": "affirm possession of priority entitlement"
   },
   "FYCNAa": {
-    "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient, qu'il s'agisse d'une mutation latérale, d'une occasion de perfectionnement ou d'une promotion.",
+    "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient, qu'il s'agisse d'une mutation latérale, d'une possibilité de perfectionnement ou d'une promotion.",
     "description": "Describes the career objective section of employee profile"
   },
   "FYIbdJ": {
@@ -12491,7 +12491,7 @@
     "description": "Error message for pause referral status end date input"
   },
   "ncVR6j": {
-    "defaultMessage": "Nom de l'occasion de perfectionnement",
+    "defaultMessage": "Nom de la possibilité de perfectionnement",
     "description": "Label other development program option input on the details step"
   },
   "ndW6vI": {
