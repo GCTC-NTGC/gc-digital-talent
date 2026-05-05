@@ -5167,10 +5167,6 @@
     "defaultMessage": "La Commission de la fonction publique est-elle au courant de l’existence de la plateforme Talents numériques du GC?",
     "description": "Heading for FAQ about PSC"
   },
-  "JGhMIC": {
-    "defaultMessage": "Date d'achèvement du programme",
-    "description": "Legend for the program completion date input"
-  },
   "JH2+tK": {
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
