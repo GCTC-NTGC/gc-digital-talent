@@ -47,6 +47,8 @@ const StepLink = ({
   );
 };
 
+type StepState = NonNullable<StepVariants["state"]>;
+
 interface StepProps
   extends
     Omit<StepLinkProps, "children" | "state">,
@@ -55,9 +57,15 @@ interface StepProps
   label: ReactNode;
 }
 
-const ICON_MAP: Record<string, IconType | undefined> = {
+const ICON_MAP: Record<StepState, IconType | null> = {
   completed: CheckIcon,
   error: XMarkIcon,
+
+  // No icon states
+  active: null,
+  disabled: null,
+  "active-error": null,
+  default: null,
 };
 
 const Step = ({
@@ -68,7 +76,7 @@ const Step = ({
   state,
 }: StepProps) => {
   const intl = useIntl();
-  const Icon = ICON_MAP[state] ?? null;
+  const Icon = ICON_MAP[state];
   const message = messageMap.get(state);
   const { link, icon, tail, text } = step({ state });
   const ariaLabel = message ? intl.formatMessage(message, { label }) : label;
