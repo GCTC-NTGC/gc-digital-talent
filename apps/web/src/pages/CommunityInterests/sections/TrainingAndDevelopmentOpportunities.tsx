@@ -235,7 +235,7 @@ const TrainingAndDevelopmentOpportunities = ({
           {intl.formatMessage({
             defaultMessage:
               "Most functional communities offer various programs for learning and development. These programs might have specific eligibility requirements based on your experience, classification, or other qualifications. Expressing interest in these opportunities isn't an application, but it allows HR and recruitment staff to verify your interest in case you've been nominated for a training or development opportunity.",
-            id: "u093wf",
+            id: "2HNbTn",
             description:
               "Description of the 'Training and development opportunities' section",
           })}
@@ -313,8 +313,8 @@ const TrainingAndDevelopmentOpportunities = ({
                 {
                   value: DevelopmentProgramParticipationStatus.NotInterested,
                   label: intl.formatMessage({
-                    defaultMessage: "I'm not interested right now.",
-                    id: "Yc8o9L",
+                    defaultMessage: "I’m not interested right now.",
+                    id: "gg0yRf",
                     description:
                       "Option for the 'not interested' choice of program participation",
                   }),
@@ -323,8 +323,8 @@ const TrainingAndDevelopmentOpportunities = ({
                   value: DevelopmentProgramParticipationStatus.Interested,
                   label: intl.formatMessage({
                     defaultMessage:
-                      "I'm interested in participating in this program.",
-                    id: "/U/RTZ",
+                      "I’m interested in participating in this program.",
+                    id: "r6WWEn",
                     description:
                       "Option for the 'interested' choice of program participation",
                   }),
@@ -332,8 +332,8 @@ const TrainingAndDevelopmentOpportunities = ({
                 {
                   value: DevelopmentProgramParticipationStatus.Completed,
                   label: intl.formatMessage({
-                    defaultMessage: "I've successfully completed this program.",
-                    id: "LpZKTC",
+                    defaultMessage: "I’ve successfully completed this program.",
+                    id: "tGTM5i",
                     description:
                       "Option for the 'completed' choice of program participation",
                   }),
@@ -341,8 +341,8 @@ const TrainingAndDevelopmentOpportunities = ({
                 {
                   value: DevelopmentProgramParticipationStatus.Enrolled,
                   label: intl.formatMessage({
-                    defaultMessage: "I'm currently enrolled in this program.",
-                    id: "4Xm0A/",
+                    defaultMessage: "I’m currently enrolled in this program.",
+                    id: "oYEBcP",
                     description:
                       "Option for the 'enrolled' choice of program participation",
                   }),
@@ -478,6 +478,16 @@ const TrainingAndDevelopmentOpportunities = ({
                   "Body text in the provincial program license dialog explaining how to link an education experience",
               })}
             </p>
+            {dialogOpenForIndex !== null &&
+              developmentPrograms[dialogOpenForIndex]?.descriptionForProfile
+                ?.localized && (
+                <p className="rounded-md border border-gray-200 bg-gray-50 p-4 text-sm">
+                  {
+                    developmentPrograms[dialogOpenForIndex].descriptionForProfile
+                      ?.localized
+                  }
+                </p>
+              )}
             <FormProvider {...dialogFormMethods}>
               <form
                 onSubmit={(e) => {
