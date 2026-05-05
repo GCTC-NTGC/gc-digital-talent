@@ -102,22 +102,24 @@ const Navigation = ({ navigationQuery }: NavigationProps) => {
     navigationQuery,
   );
 
-  let prevSteps: TalentNominationStep[] = [];
   const steps: StepType[] = unpackMaybes(
-    stepOrder.map((key) => {
+    stepOrder.map((key, i) => {
       const label = stepLabels.get(key);
       if (!label) return null;
-      const step = {
+
+      // Purely derive previous steps based on current index
+      const prevSteps = stepOrder.slice(0, i);
+      const submittedSteps = talentNomination.submittedSteps ?? [];
+
+      return {
         label: intl.formatMessage(label),
         href: `${paths.talentNomination(id)}?step=${key}`,
-        completed: talentNomination.submittedSteps?.includes(key),
+        completed: submittedSteps.includes(key),
         disabled:
           prevSteps.length > 0
-            ? !includesAll(talentNomination.submittedSteps ?? [], prevSteps)
+            ? !includesAll(submittedSteps, prevSteps)
             : false,
       };
-      prevSteps = [...prevSteps, key];
-      return step;
     }),
   );
 

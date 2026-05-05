@@ -1,22 +1,29 @@
-import { FinanceChiefDuty, FinanceChiefRole } from "@gc-digital-talent/graphql";
+import {
+  CommunityInterestAdditionalDuty,
+  FinanceChiefRole,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-// test and convert a raw string the enum type FinanceChiefDuty
-function stringToEnumFinanceChiefDuty(
+// test and convert a raw string the enum type CommunityInterestAdditionalDuty
+function stringToEnumCommunityInterestAdditionalDuty(
   selection: string | null | undefined,
-): FinanceChiefDuty | undefined {
-  if (Object.values(FinanceChiefDuty).includes(selection as FinanceChiefDuty)) {
-    return selection as FinanceChiefDuty;
+): CommunityInterestAdditionalDuty | undefined {
+  if (
+    Object.values(CommunityInterestAdditionalDuty).includes(
+      selection as CommunityInterestAdditionalDuty,
+    )
+  ) {
+    return selection as CommunityInterestAdditionalDuty;
   }
   return undefined;
 }
 
-export function stringArrayToEnumsFinanceChiefDuty(
+export function stringArrayToEnumsCommunityInterestAdditionalDuty(
   selections: string[] | null | undefined,
-): FinanceChiefDuty[] {
+): CommunityInterestAdditionalDuty[] {
   return unpackMaybes(
     selections?.map((selection) => {
-      return stringToEnumFinanceChiefDuty(selection);
+      return stringToEnumCommunityInterestAdditionalDuty(selection);
     }),
   );
 }

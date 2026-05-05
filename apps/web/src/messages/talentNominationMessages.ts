@@ -26,12 +26,6 @@ const messages = defineMessages({
     id: "FzaSAD",
     description: "Label for the lateral movement nomination type",
   },
-  nominateForDevelopmentPrograms: {
-    defaultMessage: "Development opportunities",
-    id: "MawH92",
-    description:
-      "Label for the development program nomination option on the details step",
-  },
   development: {
     defaultMessage: "Development",
     id: "Kzbu79",

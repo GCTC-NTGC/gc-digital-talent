@@ -16,7 +16,10 @@ interface LanguageProviderProps {
 const LanguageProvider = ({ messages, children }: LanguageProviderProps) => {
   // eslint-disable-next-line no-restricted-syntax
   const locale = useLocale();
-  const compiledMessages = useMemo(() => combineMessages(locale, messages), []);
+  const compiledMessages = useMemo(
+    () => combineMessages(locale, messages),
+    [locale, messages],
+  );
 
   return (
     <IntlProvider
