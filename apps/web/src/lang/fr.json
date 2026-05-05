@@ -611,6 +611,10 @@
     "defaultMessage": "Erreur : Échec de la suppression de la compétence",
     "description": "Message displayed to user after skill fails to be deleted."
   },
+  "0NlEg9": {
+    "defaultMessage": "Les cadres des deux collectivités sont invités à toujours tenir leur profil à jour afin de refléter leur expérience actuelle, leurs intérêts et leur ouverture aux possibilités de perfectionnement ou de mobilité.",
+    "description": "Explanation about profile 2"
+  },
   "0P05iS": {
     "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme PM-01 ou un équivalent organisationnel dans leur poste d'attache. <link>Les anciens combattants et les membres des Forces armées canadiennes admissibles</link> peuvent également postuler.",
     "description": "At-level application criteria"
@@ -2103,6 +2107,10 @@
     "defaultMessage": "Rôles dans la collectivité",
     "description": "Label for the input to select role of a community role"
   },
+  "6VIiEh": {
+    "defaultMessage": "Gestion financière",
+    "description": "Heading financial management"
+  },
   "6Wl3sQ": {
     "defaultMessage": "Un poste qui s’accorde avec vos compétences",
     "description": "Heading for finding a role with DND"
@@ -2567,6 +2575,10 @@
     "defaultMessage": "Le nom que vous indiquez ici apparaîtra dans votre profil Talents numériques du GC.",
     "description": "Text for first registrion step name instructions additional context"
   },
+  "8dqqBT": {
+    "defaultMessage": "Occupez-vous un poste de dirigeant principal des finances ou de cadre supérieur désigné (CSD) de l’approvisionnement et connaissez-vous des personnes à fort potentiel capables d’améliorer les services publics offerts à la population canadienne? Aidez-les à progresser dans leur carrière en présentant leur candidature pour des possibilités d’avancement, de mouvement latéral ou de perfectionnement.",
+    "description": "card description, for nomination feature"
+  },
   "8gyWTT": {
     "defaultMessage": "Voir l’annonce",
     "description": "Link text to view a specific pool advertisement"
@@ -2799,6 +2811,10 @@
     "defaultMessage": "Ministère",
     "description": "Title for department"
   },
+  "9axruf": {
+    "defaultMessage": "Les membres du personnel CT-FIN-04 qui ont été retenus pour la gestion des talents doivent créer un profil.",
+    "description": "List item two financial management content"
+  },
   "9b+Xtt": {
     "defaultMessage": "Informations sur la collectivité",
     "description": "Heading for the community information section of a form"
@@ -2934,6 +2950,10 @@
   "9zjyN4": {
     "defaultMessage": "Action",
     "description": "Label for the action filter for activity log"
+  },
+  "9zzr+g": {
+    "defaultMessage": "Abonnez-vous au bulletin d’information de la collectivité de l’approvisionnement",
+    "description": "External button link to subscribe to a newsletter"
   },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
@@ -4087,6 +4107,10 @@
     "defaultMessage": "Les renseignements personnels recueillis par l’entremise de Talents numériques du GC sont utilisés aux fins des activités de dotation, de recrutement, de possibilités de formation et de mobilité interne des talents au sein des institutions fédérales, conformément au <justiceLaws7Link>paragraphe 7(1)</justiceLaws7Link> de la Loi sur la gestion des finances publiques, aux paragraphes <justiceLaws15Link>15(1)</justiceLaws15Link>, <justiceLaws29Link>29</justiceLaws29Link> et <justiceLaws30Link>30 (1), (2), and (3)</justiceLaws30Link> de la Loi sur l’emploi dans la fonction publique et de l’article 5 de la Loi sur l’équité en matière d’emploi.",
     "description": "Paragraph for privacy policy page"
   },
+  "EqQwt5": {
+    "defaultMessage": "Demeurez au courant de nos annonces internes, de nos événements et d’autres nouvelles passionnantes en devenant membre de la page GCÉchange de la collectivité de la gestion financière.",
+    "description": "Card description, to connect with peers"
+  },
   "EqUTLs": {
     "defaultMessage": "Si vous êtes prêt à publier cette annonce, veuillez <a>contacter un administrateur</a>.",
     "description": "Instructions on how to submit a process for publishing"
@@ -4623,6 +4647,10 @@
     "defaultMessage": "Titre du poste",
     "description": "Title for job title for a position"
   },
+  "HD9HS1": {
+    "defaultMessage": "Cadres actuels dans d’autres domaines",
+    "description": "List item one other label"
+  },
   "HDiUEc": {
     "defaultMessage": "État d'expiration",
     "description": "Label for the expiry status field"
@@ -4722,6 +4750,10 @@
   "HrRgTT": {
     "defaultMessage": "Veuillez sélectionner une compétence pour continuer.",
     "description": "Help text to tell users to select a skill before submitting"
+  },
+  "HspPlQ": {
+    "defaultMessage": "Joignez-nous sur GCÉchange",
+    "description": "External button link to GCXchange"
   },
   "HuA8aL": {
     "defaultMessage": "Charger d'autres résultats",
@@ -5983,6 +6015,10 @@
     "defaultMessage": "Durée de l'emploi",
     "description": "Title for Employment duration section"
   },
+  "Muhu3E": {
+    "defaultMessage": "Autres membres de la collectivité de la fonction de contrôleur",
+    "description": "Heading other members comptrollership community"
+  },
   "Mwq0NB": {
     "defaultMessage": "Postes bilingues",
     "description": "Label for language for bilingual field"
@@ -6142,6 +6178,10 @@
   "NiAtY6": {
     "defaultMessage": "Communiquer avec notre équipe de soutien",
     "description": "Link text to email the support team"
+  },
+  "NitW+s": {
+    "defaultMessage": "Le Bureau du développement de la collectivité de la fonction de contrôleur au sein du Bureau du contrôleur général du Secrétariat du Conseil du Trésor du Canada aide les spécialistes de l’approvisionnement du gouvernement fédéral à améliorer leurs compétences et à progresser dans leur carrière par le biais du recrutement, du perfectionnement et du réseautage.",
+    "description": "Card description, team, procurement"
   },
   "NjHXGh": {
     "defaultMessage": "En savoir plus<hidden> sur le Bureau du dirigeant principal de l'information</hidden>",
@@ -6539,6 +6579,10 @@
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} one {# expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
     "description": "list a number of award experiences"
   },
+  "PakJF8": {
+    "defaultMessage": "Cadres actuels de l’approvisionnement",
+    "description": "List item one procurement label"
+  },
   "Pasf+O": {
     "defaultMessage": "Les mises à jour de votre profil après l’envoi de votre candidature ne se refléteront pas dans votre dossier de candidature.",
     "description": "List item note 2 for the application review page."
@@ -6767,6 +6811,10 @@
     "defaultMessage": "Un code sera envoyé au numéro que vous avez fourni.",
     "description": "Text for first registration step, code sent to phone number"
   },
+  "QVG8Bz": {
+    "defaultMessage": "D’autres groupes d’employés travaillant dans la fonction de contrôleur, tels que les cadres travaillant actuellement dans l’audit interne, la gestion du matériel, les biens immobiliers et la gestion de projet, pourront participer à cet exercice à l’avenir.",
+    "description": "List item two other"
+  },
   "QXB3EX": {
     "defaultMessage": "Cette possibilité d'emploi est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classification} ou un équivalent organisationnel. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l'employé que vous fournissez dans votre profil sont à jour.",
     "description": "Body of a note describing that a pool is only open to employees at-level"
@@ -6826,6 +6874,10 @@
   "Qhl5J9": {
     "defaultMessage": "Précédent",
     "description": "Link text to navigate to the previous item"
+  },
+  "Qhq+Yg": {
+    "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez-nous votre histoire en soulignant votre avancement professionnel et en mettant en valeur vos compétences. Votre profil permettra de prendre des décisions en matière de gestion des talents et de planification stratégique en ce qui concerne le recrutement, la planification de la relève et le perfectionnement de nos cadres chargés de la gestion financière et de l’approvisionnement.",
+    "description": "Explanation about profile 1"
   },
   "QiQoIq": {
     "defaultMessage": "Cette nomination pour un avancement n'est pas retenue.",
@@ -7022,6 +7074,10 @@
   "ROfrit": {
     "defaultMessage": "Rétablir les filtres",
     "description": "Button text to reset table filters to the default values"
+  },
+  "RPn+oy": {
+    "defaultMessage": "Le Bureau du développement de la collectivité de la fonction de contrôleur au sein du Bureau du contrôleur général du Secrétariat du Conseil du Trésor du Canada aide les spécialistes de la gestion financière du gouvernement fédéral à améliorer leurs compétences et à progresser dans leur carrière par le biais du recrutement, du perfectionnement et du réseautage.",
+    "description": "Card description, team"
   },
   "RRIxHw": {
     "defaultMessage": "Compétences de base en lecture, écriture et communication verbale.",
@@ -7447,6 +7503,10 @@
     "defaultMessage": "Le Fonds a pour but d’offrir d’autres possibilités de formation exhaustives, uniformes et de grande qualité afin de :",
     "description": "title for a list of fund objectives"
   },
+  "Tc/pf5": {
+    "defaultMessage": "La collectivité de l’approvisionnement",
+    "description": "Section heading, expand on community aspects"
+  },
   "Tdmlnn": {
     "defaultMessage": "Archiver l'utilisateur",
     "description": "Label for soft-deleting a user"
@@ -7698,13 +7758,25 @@
     "defaultMessage": "Voyez les filtres de recherche choisis ainsi que toute autre information fournie avec cette demande.",
     "description": "Subtitle for the 'review talent request' dialog"
   },
+  "UorO2U": {
+    "defaultMessage": "Cadres actuels de la gestion financière",
+    "description": "List item one financial management label"
+  },
   "UpwY5+": {
     "defaultMessage": "Pour vous aider, nous avons préparé d’autres conseils dans la prochaine section.",
     "description": "A _what to expect_ point on the sign up page"
   },
+  "UrU9Kt": {
+    "defaultMessage": "Recevez directement les dernières mises à jour, ressources et événements de la collectivité de l’approvisionnement du Bureau du développement de la collectivité du Bureau du contrôleur général dans votre boîte de réception.",
+    "description": "Card description, newsletter, procurement"
+  },
   "UsKyTo": {
     "defaultMessage": "Compétences techniques",
     "description": "The technical skills of a a job poster template"
+  },
+  "UsVDrx": {
+    "defaultMessage": "Cadres futurs de la gestion financière",
+    "description": "List item two financial management label"
   },
   "Usof4a": {
     "defaultMessage": "Nom de personne candidate",
@@ -7797,6 +7869,10 @@
   "VDVRPt": {
     "defaultMessage": "Les possibilités d'emploi ne m'intéressent pas",
     "description": "Phrase marking lack of interest in community work opportunities"
+  },
+  "VF2HCh": {
+    "defaultMessage": "Aidez le Bureau du contrôleur Général dans la collecte de renseignements clés sur le personnel-cadre de la gestion financière et de l’approvisionnement pour façonner des programmes stratégiques, soutenir la planification de la relève et renforcer nos collectivités.",
+    "description": "Page subtitle for the comptrollership executives talent management page"
   },
   "VGKXW7": {
     "defaultMessage": "Coordonnées",
@@ -7913,6 +7989,10 @@
   "Vnh3iD": {
     "defaultMessage": "Je soumets la candidature au nom de l'auteur ou l'autrice de la mise en candidature",
     "description": "Label for the option when the submitter is submitting a nomination on behalf of someone else"
+  },
+  "VoaVjp": {
+    "defaultMessage": "Demeurez au courant de nos annonces internes, de nos événements et d’autres nouvelles passionnantes en devenant membre de la page GCÉchange de la collectivité de la gestion des investissements.",
+    "description": "Card description, to connect with peers, procurement"
   },
   "VotRI3": {
     "defaultMessage": "Toute personne ayant la citoyenneté canadienne",
@@ -9562,6 +9642,10 @@
     "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de votre vitrine de compétences.",
     "description": "First paragraph for remove skill dialog"
   },
+  "cqqrXH": {
+    "defaultMessage": "La participation au processus de gestion des talents est obligatoire pour tous les cadres de la gestion financière et tous les dirigeants principaux des finances et leurs adjoints qui occupent un poste dans un groupe et à un niveau autres qu’EX.",
+    "description": "List item one financial management content"
+  },
   "ctOBXo": {
     "defaultMessage": "L’employé n’a ajouté aucun renseignement concernant son prochain poste ni son objectif de carrière à son profil.",
     "description": "Message displayed if employee hasn't filled out next role or career objective"
@@ -10294,6 +10378,10 @@
     "defaultMessage": "Vous pouvez les ajouter en cliquant sur le bouton « Ajouter des volets de travail ».",
     "description": "Subtitle when no work streams have been attached to experience"
   },
+  "ffD1LF": {
+    "defaultMessage": "Façonnez l’avenir de la gestion financière et de l’approvisionnement",
+    "description": "Section heading, things you can do now or later"
+  },
   "ffSxnV": {
     "defaultMessage": "La date limite pour {poolName} a été reportée au {closingDate}.",
     "description": "Label for the application deadline extended notification"
@@ -10893,6 +10981,10 @@
   "i+C29d": {
     "defaultMessage": "Cacher les options d'équité offertes ({optionCount})",
     "description": "Heading for closing the accordion with available employment equity options."
+  },
+  "i+wcDH": {
+    "defaultMessage": "Apprenez-en plus sur l’équipe de développement de la collectivité de l’approvisionnement",
+    "description": "External link button, learn more about the named team"
   },
   "i0K4Sb": {
     "defaultMessage": "Postes en anglais uniquement",
@@ -11938,6 +12030,10 @@
     "defaultMessage": "Cette section contient des questions qui sont actuellement sans réponse. Cliquez sur le bouton « Modifier » pour réviser vos réponses dans les champs pertinents.",
     "description": "Message for unanswered required questions in this section"
   },
+  "mN+Yf6": {
+    "defaultMessage": "La participation au processus de gestion des talents est obligatoire pour tous les cadres de l’approvisionnement, y compris tous les cadres supérieurs désignés (CSD) de l’approvisionnement.",
+    "description": "List item one procurement content"
+  },
   "mNNgEF": {
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user lands on /logged-out."
@@ -12754,6 +12850,10 @@
     "defaultMessage": "Catégorie de travail",
     "description": "Label for pool advertisement stream"
   },
+  "pVhFZt": {
+    "defaultMessage": "Disponible pour les employés du gouvernement du Canada seulement.",
+    "description": "Card description, to connect with peers notice"
+  },
   "pWoAv0": {
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
     "description": "First paragraph about the program"
@@ -12957,6 +13057,10 @@
   "qGSEMx": {
     "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
     "description": "Subtitle for the application career timeline introduction page"
+  },
+  "qKk7Eh": {
+    "defaultMessage": "Approvisionnement",
+    "description": "Heading procurement"
   },
   "qLuX+k": {
     "defaultMessage": "Domaines de travail dans le secteur des technologies de l'information (TI) (s'ouvre dans un nouvel onglet)",
@@ -14749,6 +14853,10 @@
   "yC4xI6": {
     "defaultMessage": "Erreur : l’envoi de la candidature a échoué",
     "description": "Error message after failed submission for the application review page."
+  },
+  "yD4M6c": {
+    "defaultMessage": "Les cadres du Gouvernement du Canada dans la fonction de contrôleur ou dans d’autres domaines intéressés par une carrière dans la gestion financière ou l’approvisionnement sont invités à créer un profil.",
+    "description": "List item one other content"
   },
   "yExs/j": {
     "defaultMessage": "Nous sommes désolés, mais nous ne pouvons pas trouver la page que vous cherchez.",
