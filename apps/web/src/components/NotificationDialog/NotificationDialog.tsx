@@ -70,6 +70,7 @@ const DialogPortalWithPresence = ({
   useEffect(() => {
     if (isPresent) return undefined;
 
+    // let animation complete before removal
     const timerId = setTimeout(() => {
       setRender(false);
     }, 200);
