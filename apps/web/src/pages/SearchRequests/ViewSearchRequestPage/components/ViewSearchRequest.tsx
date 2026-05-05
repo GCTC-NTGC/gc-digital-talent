@@ -14,6 +14,7 @@ import {
   Separator,
   Container,
   Card,
+  Sidebar,
 } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -34,6 +35,7 @@ import type { PartialSearchRequest } from "~/types/searchRequest";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
+import TalentRequestSidebar from "./TalentRequestSidebar";
 
 const ManagerInfo = ({
   searchRequest,
@@ -174,6 +176,8 @@ const ManagerInfo = ({
 
 const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
   fragment ViewSearchRequest_SearchRequest on PoolCandidateSearchRequest {
+    ...TalentRequestSidebar
+
     id
     fullName
     email
@@ -459,73 +463,81 @@ export const ViewSearchRequest = ({
         subtitle={subTitle}
         crumbs={navigationCrumbs}
       />
-      <Container className="mt-18">
-        {wasEmpty && (
-          <p className="mb-6">
-            {intl.formatMessage({
-              defaultMessage:
-                "This request did not result in any matches, let us know more about this in the comments field at the end of this form.",
-              id: "ruEs9/",
-              description:
-                "Message to admins that a search request resulted in no candidates being found",
-            })}
-          </p>
-        )}
-
-        <ManagerInfo searchRequest={searchRequest} />
-
-        <Heading level="h2" size="h4">
-          {intl.formatMessage({
-            defaultMessage: "Request information",
-            id: "/3mqz9",
-            description:
-              "Heading for the request information section of the single search request view.",
-          })}
-        </Heading>
-        <Card>
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Reason for talent request",
-              id: "enffKD",
-              description: "Label for the reason for submitting the request.",
-            })}
-            content={getLocalizedName(reason?.label, intl, true)}
-          />
-          <Separator space="sm" />
-          <SearchRequestFilters
-            filters={abstractFilter}
-            flexibleWorkLocationOptions={locationOptionsDataUnpacked}
-          />
-          <Separator space="sm" />
-
-          <div className="grid gap-6 sm:grid-cols-2">
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Position job title",
-                id: "OI7Bc7",
-                description: "Label for an opportunity's job title.",
+      <Container size="lg" className="mt-18">
+        <Sidebar.Wrapper scrollbar>
+          <Sidebar.Sidebar scrollbar>
+            <TalentRequestSidebar query={searchRequest} />
+          </Sidebar.Sidebar>
+          <Sidebar.Content>
+            {wasEmpty && (
+              <p className="mb-6">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "This request did not result in any matches, let us know more about this in the comments field at the end of this form.",
+                  id: "ruEs9/",
+                  description:
+                    "Message to admins that a search request resulted in no candidates being found",
+                })}
+              </p>
+            )}
+            <Heading level="h2" size="h4" className="mt-0">
+              {intl.formatMessage({
+                defaultMessage: "Request information",
+                id: "/3mqz9",
+                description:
+                  "Heading for the request information section of the single search request view.",
               })}
-              content={jobTitle}
-            />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Type of position",
-                id: "nZT/WM",
-                description: "Label for an opportunity's position type.",
-              })}
-              content={
-                positionType?.label
-                  ? getLocalizedName(positionType.label, intl)
-                  : intl.formatMessage(adminMessages.noneProvided)
-              }
-            />
-          </div>
-          <FilterBlock
-            title={intl.formatMessage(talentRequestMessages.additionalComments)}
-            content={additionalComments}
-          />
-        </Card>
+            </Heading>
+            <Card>
+              <FilterBlock
+                title={intl.formatMessage({
+                  defaultMessage: "Reason for talent request",
+                  id: "enffKD",
+                  description:
+                    "Label for the reason for submitting the request.",
+                })}
+                content={getLocalizedName(reason?.label, intl, true)}
+              />
+              <Separator space="sm" />
+              <SearchRequestFilters
+                filters={abstractFilter}
+                flexibleWorkLocationOptions={locationOptionsDataUnpacked}
+              />
+              <Separator space="sm" />
+
+              <div className="grid gap-6 sm:grid-cols-2">
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Position job title",
+                    id: "OI7Bc7",
+                    description: "Label for an opportunity's job title.",
+                  })}
+                  content={jobTitle}
+                />
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Type of position",
+                    id: "nZT/WM",
+                    description: "Label for an opportunity's position type.",
+                  })}
+                  content={
+                    positionType?.label
+                      ? getLocalizedName(positionType.label, intl)
+                      : intl.formatMessage(adminMessages.noneProvided)
+                  }
+                />
+              </div>
+              <FilterBlock
+                title={intl.formatMessage(
+                  talentRequestMessages.additionalComments,
+                )}
+                content={additionalComments}
+              />
+            </Card>
+          </Sidebar.Content>
+        </Sidebar.Wrapper>
       </Container>
+
       <Container size="full" className="mb-18">
         <Heading level="h2" size="h4">
           {intl.formatMessage({
