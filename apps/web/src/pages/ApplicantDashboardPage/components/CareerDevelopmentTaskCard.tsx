@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
+import { useState } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -87,6 +88,11 @@ export const CareerDevelopmentTaskCardOptions_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const ACCORDION_ID = {
+  CAREER_PLANNING: "your_career_planning",
+  FUNCTIONAL_COMMUNITIES: "your_functional_communities",
+} as const;
+
 interface CareerDevelopmentTaskCardProps {
   userQuery: FragmentType<typeof CareerDevelopmentTaskCardUser_Fragment>;
   optionsQuery: FragmentType<typeof CareerDevelopmentTaskCardOptions_Fragment>;
@@ -99,6 +105,10 @@ const CareerDevelopmentTaskCard = ({
   const intl = useIntl();
   const paths = useRoutes();
   const careerDevelopmentMessages = messages(intl);
+  const [careerPlanningAccordionValue, setCareerPlanningAccordionValue] =
+    useState<string>("");
+  const [communityAccordionValue, setCommunityAccordionValue] =
+    useState<string>("");
 
   const userFragment = getFragment(
     CareerDevelopmentTaskCardUser_Fragment,
@@ -189,6 +199,18 @@ const CareerDevelopmentTaskCard = ({
     </p>
   );
 
+  const isAcccordionOpen =
+    careerPlanningAccordionValue === "" && communityAccordionValue === "";
+  const handleToggleAccordions = () => {
+    if (isAcccordionOpen) {
+      setCareerPlanningAccordionValue(ACCORDION_ID.CAREER_PLANNING);
+      setCommunityAccordionValue(ACCORDION_ID.FUNCTIONAL_COMMUNITIES);
+    } else {
+      setCareerPlanningAccordionValue("");
+      setCommunityAccordionValue("");
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col gap-6">
@@ -202,10 +224,32 @@ const CareerDevelopmentTaskCard = ({
           headingColor="primary"
           headingAs="h2"
           locked={!userFragment.isVerifiedGovEmployee}
+          action={{
+            label: isAcccordionOpen
+              ? intl.formatMessage({
+                  defaultMessage:
+                    "Expand all<hidden> career development sections</hidden>",
+                  id: "8OWZvv",
+                  description:
+                    "Button text to show all career development sections",
+                })
+              : intl.formatMessage({
+                  defaultMessage:
+                    "Collapse all<hidden> career development sections</hidden>",
+                  id: "A4dp/3",
+                  description:
+                    "Button text to hide all career development sections",
+                }),
+            onClick: handleToggleAccordions,
+          }}
         >
           <TaskCard.Item>
-            <Accordion.Root type="multiple">
-              <Accordion.Item value="your_career_planning">
+            <Accordion.Root
+              type="single"
+              value={careerPlanningAccordionValue}
+              onValueChange={setCareerPlanningAccordionValue}
+            >
+              <Accordion.Item value={ACCORDION_ID.CAREER_PLANNING}>
                 <Accordion.Trigger
                   as="h3"
                   subtitle={intl.formatMessage({
@@ -377,8 +421,12 @@ const CareerDevelopmentTaskCard = ({
             </Accordion.Root>
           </TaskCard.Item>
           <TaskCard.Item>
-            <Accordion.Root type="multiple">
-              <Accordion.Item value="your_functional_communities">
+            <Accordion.Root
+              type="single"
+              value={communityAccordionValue}
+              onValueChange={setCommunityAccordionValue}
+            >
+              <Accordion.Item value={ACCORDION_ID.FUNCTIONAL_COMMUNITIES}>
                 <Accordion.Trigger
                   as="h3"
                   subtitle={intl.formatMessage({
