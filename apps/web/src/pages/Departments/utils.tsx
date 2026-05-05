@@ -149,3 +149,11 @@ export function roleAssignmentsToRoleDepartmentArray(
 
   return collection;
 }
+
+export const DepartmentTeams_Query = graphql(/** GraphQL */ `
+  query DepartmentTeams($id: UUID!) {
+    department(id: $id) {
+      teamIdForRoleAssignment
+    }
+  }
+`);

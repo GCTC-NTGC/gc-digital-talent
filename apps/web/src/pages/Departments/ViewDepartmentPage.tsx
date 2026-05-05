@@ -17,17 +17,22 @@ import {
 import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import { graphqlClientContext, intlContext } from "~/routing/context";
+import { requireUser } from "~/routing/auth";
 
 import labels from "./labels";
 import type { ContextType } from "./ManageAccessPage/components/types";
+import type { Route } from "./+types/ViewDepartmentPage";
+import { DepartmentTeams_Query } from "./utils";
+import messages from "./messages";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentView on Department {
@@ -157,7 +162,43 @@ const Department_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const ViewDepartmentPage = () => {
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request, params }, next) => {
+    const intl = context.get(intlContext);
+    const client = context.get(graphqlClientContext);
+    const res = await client
+      .query(DepartmentTeams_Query, { id: params.departmentId })
+      .toPromise();
+
+    if (!res.data?.department) {
+      throw new NotFoundError(
+        intl.formatMessage(messages.departmentNotFound, {
+          departmentId: params.departmentId,
+        }),
+      );
+    }
+
+    requireUser(
+      context,
+      request,
+      [
+        { name: ROLE_NAME.PlatformAdmin },
+        {
+          name: ROLE_NAME.DepartmentAdmin,
+          teamId: res.data.department.teamIdForRoleAssignment,
+        },
+        {
+          name: ROLE_NAME.DepartmentHRAdvisor,
+          teamId: res.data.department.teamIdForRoleAssignment,
+        },
+      ],
+      true,
+    );
+    return await next();
+  },
+];
+
+const Component = () => {
   const intl = useIntl();
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
   const [{ data: departmentData, fetching, error }] = useQuery({
@@ -192,14 +233,9 @@ const ViewDepartmentPage = () => {
               headingMessage={intl.formatMessage(commonMessages.notFound)}
             >
               <p>
-                {intl.formatMessage(
-                  {
-                    defaultMessage: "Department {departmentId} not found.",
-                    id: "8Otaw9",
-                    description: "Message displayed for department not found.",
-                  },
-                  { departmentId },
-                )}
+                {intl.formatMessage(messages.departmentNotFound, {
+                  departmentId,
+                })}
               </p>
             </NotFound>
           )}
@@ -208,18 +244,6 @@ const ViewDepartmentPage = () => {
     </>
   );
 };
-
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.DepartmentAdmin,
-      ROLE_NAME.DepartmentHRAdvisor,
-    ]}
-  >
-    <ViewDepartmentPage />
-  </RequireAuth>
-);
 
 Component.displayName = "AdminUpdateDepartmentPage";
 
