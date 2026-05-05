@@ -57,13 +57,13 @@ class TalentNominationEventTest extends TestCase
                 community { id }
                 communityDevelopmentPrograms {
                      id
+                     developmentProgram { id }
                      pivot {
                         descriptionForNominations {
                             localized
                         }
-                     }
-                     }
-                developmentPrograms { id }
+                    }
+                }
             }
         }
     GRAPHQL;
@@ -148,12 +148,12 @@ class TalentNominationEventTest extends TestCase
                         'communityDevelopmentPrograms' => [
                             [
                                 'id' => $this->communityDevelopmentProgramId,
+                                'developmentProgram' => ['id' => $this->developmentProgramId],
                                 'pivot' => [
                                     'descriptionForNominations' => ['localized' => 'abc'],
                                 ],
                             ],
                         ],
-                        'developmentPrograms' => [['id' => $this->developmentProgramId]],
                     ],
                 ],
             ]);
