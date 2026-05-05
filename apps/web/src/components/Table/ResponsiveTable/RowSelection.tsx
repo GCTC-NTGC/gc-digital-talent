@@ -18,7 +18,7 @@ import type {
   MouseEventHandler,
   SetStateAction,
 } from "react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { tv } from "tailwind-variants";
 
 import type { CheckButtonProps } from "@gc-digital-talent/forms";
@@ -386,9 +386,6 @@ interface RowSelectCellArgs<T> {
 
 /**
  * Generate the cell for row selection
- *
- * @param param0
- * @returns
  */
 export const rowSelectCell = <T extends object>({
   row,
@@ -400,25 +397,25 @@ type UseRowSelectionReturn = [
   setter: OnChangeFn<RowSelectionState>,
 ];
 
+type RowSelectionCallback = (s: RowSelectionState) => void;
+
 export const useRowSelection = <T,>(
   rowSelect?: RowSelectDef<T>,
 ): UseRowSelectionReturn => {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const rowSelectionCallbackRef = useRef<RowSelectionCallback>(() => undefined);
 
-  const rowSelectionCallback = useCallback(
-    (newRowSelection: RowSelectionState) => {
-      if (rowSelect?.onRowSelection) {
-        const selectedRows = Object.keys(newRowSelection)
-          .map((value) => {
-            return newRowSelection[value] ? value : undefined;
-          })
-          .filter(notEmpty);
+  rowSelectionCallbackRef.current = (newRows: RowSelectionState) => {
+    if (rowSelect?.onRowSelection) {
+      const selectedRows = Object.keys(newRows)
+        .map((value) => {
+          return newRows[value] ? value : undefined;
+        })
+        .filter(notEmpty);
 
-        rowSelect.onRowSelection(selectedRows);
-      }
-    },
-    [rowSelect],
-  );
+      rowSelect.onRowSelection(selectedRows);
+    }
+  };
 
   const handleRowSelection = (
     setter: Dispatch<SetStateAction<RowSelectionState>>,
@@ -437,8 +434,8 @@ export const useRowSelection = <T,>(
     handleRowSelection(setRowSelection, updater);
 
   useEffect(() => {
-    rowSelectionCallback(rowSelection);
-  }, [rowSelection]);
+    rowSelectionCallbackRef.current(rowSelection);
+  }, [rowSelection]); // stable — callback stored in ref to avoid re-render cycle
 
   return [rowSelection, setter];
 };

@@ -15,6 +15,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { formatClassificationString } from "~/utils/poolUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import adminMessages from "~/messages/adminMessages";
 
 import { formMessages } from "../messages";
 import nominationLabels from "../../NominateTalent/labels";
@@ -449,11 +450,9 @@ const TalentNominationAccordionItem = ({
                   description: "Trigger subtitle for development programs",
                 })}
               >
-                {intl.formatMessage({
-                  defaultMessage: "Recommended development opportunities",
-                  id: "EsNdLS",
-                  description: "Trigger title for development programs",
-                })}
+                {intl.formatMessage(
+                  adminMessages.developmentOpportunitiesRecommended,
+                )}
               </Accordion.Trigger>
               <Accordion.Content>
                 <div className="grid gap-6">

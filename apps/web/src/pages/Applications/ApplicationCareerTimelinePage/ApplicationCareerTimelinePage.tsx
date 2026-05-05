@@ -38,6 +38,7 @@ import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import useApplication from "../useApplication";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 type SortOptions = "date_desc" | "type_asc";
 
@@ -424,6 +425,7 @@ export const ApplicationCareerTimeline = ({
             <Link mode="inline" href={cancelPath} color="primary">
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Link>
+            <DeleteApplicationDialog query={application} />
           </div>
         </form>
       </FormProvider>

@@ -139,7 +139,14 @@ const NominateTalentPage = () => {
         );
       }
     }
-  }, [isSubmitted, fetching, current, location.state]);
+  }, [
+    isSubmitted,
+    fetching,
+    current,
+    location.state,
+    data?.talentNomination?.submittedSteps,
+    setSearchParams,
+  ]);
 
   const crumbs = useBreadcrumbs({
     crumbs: [
