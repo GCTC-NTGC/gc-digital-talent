@@ -4971,6 +4971,10 @@
     "defaultMessage": "Vous devez sélectionner un ministère dont vous êtes membre.",
     "description": "Requirement statement"
   },
+  "Ia4l5G": {
+    "defaultMessage": "Joindre la collectivité de la gestion des investissements sur GCÉchange",
+    "description": "External button link to GCXchange label for procurement"
+  },
   "IexFo4": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
     "description": "Second language proficiency label"
@@ -15001,6 +15005,10 @@
   "yfzR+U": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",
     "description": "Null state message for career timeline section of the application review page."
+  },
+  "yg1DyS": {
+    "defaultMessage": "Joindre la collectivité de la gestion financière sur GCÉchange",
+    "description": "External button link to GCXchange label for financial management"
   },
   "ygC00w": {
     "defaultMessage": "Ces compétences ne sont pas des faiblesses; ce sont des compétences que l'utilisateur ou l'utilisatrice souhaite améliorer par l'expérience ou la formation.",
