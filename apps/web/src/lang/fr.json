@@ -15510,10 +15510,6 @@
     "defaultMessage": "Profil de candidature",
     "description": "Title of a resource card with profile links"
   },
-  "znIjo8": {
-    "defaultMessage": "Faire une demande",
-    "description": "Title for apply and complete your profile section"
-  },
   "znWT8z": {
     "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",
     "description": "Subtitle for skill requirements"

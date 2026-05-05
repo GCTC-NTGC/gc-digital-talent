@@ -280,8 +280,8 @@ export const Component = () => {
           >
             {intl.formatMessage({
               defaultMessage: "Apply now",
-              id: "znIjo8",
-              description: "Title for apply and complete your profile section",
+              id: "rzRITR",
+              description: "Title for apply section",
             })}
           </Heading>
           <p className="mb-3">
