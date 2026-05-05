@@ -4,6 +4,7 @@ import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import { differenceInDays } from "date-fns/differenceInDays";
+import { isPast } from "date-fns/isPast";
 import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
@@ -171,6 +172,15 @@ const PostedOnDate = ({
   );
 };
 
+const closeDate = tv({
+  base: "font-bold",
+  variants: {
+    deadlineNear: {
+      true: "text-error-600 dark:text-error-100",
+    },
+  },
+});
+
 interface JobCardProps {
   poolQuery: FragmentType<typeof JobCard_Fragment>;
   headingLevel?: HeadingLevel;
@@ -225,20 +235,22 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
     [PoolLanguage.Various, localizedLanguageLabel],
   ]);
 
-  const closingDate = pool.closingDate
-    ? parseDateTimeUtc(pool.closingDate)
-    : null;
-
-  const deadline = closingDate
-    ? differenceInDays(closingDate, now) < 3 &&
-      differenceInDays(closingDate, now) > 0
-    : null;
-
-  const poolIsClosed = closingDate
-    ? closingDate.getTime() < now.getTime()
-    : false;
-
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
+
+  const deadlineUtc = pool.closingDate && parseDateTimeUtc(pool.closingDate);
+  const deadlineIn = deadlineUtc ? differenceInDays(deadlineUtc, now) : null;
+  const deadlineNear = Boolean(
+    deadlineIn !== null && deadlineIn <= 3 && deadlineIn >= 0,
+  );
+  const poolIsClosed = deadlineUtc ? isPast(deadlineUtc) : false;
+  const deadline = deadlineUtc
+    ? formatDate({
+        date: deadlineUtc,
+        formatString: DATE_FORMAT_LOCALIZED,
+        intl,
+        timeZone: "Canada/Pacific",
+      })
+    : notAvailable;
 
   return (
     <Card className="relative mt-1.5 pb-10">
@@ -288,13 +300,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
               icon={ChatBubbleLeftRightIcon}
             />
           </div>
-          <p
-            className={
-              deadline
-                ? "font-bold text-error-600 dark:text-error-100"
-                : "font-bold"
-            }
-          >
+          <p className={closeDate({ deadlineNear })}>
             {poolIsClosed
               ? intl.formatMessage(
                   {
@@ -304,14 +310,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
                       "Message informing user applications won't be accepted after closing date",
                   },
                   {
-                    closingDate: closingDate
-                      ? formatDate({
-                          date: closingDate,
-                          formatString: DATE_FORMAT_LOCALIZED,
-                          intl,
-                          timeZone: "Canada/Pacific",
-                        })
-                      : notAvailable,
+                    closingDate: deadline,
                   },
                 )
               : intl.formatMessage(
@@ -321,14 +320,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
                     description: "Message to apply to the pool before deadline",
                   },
                   {
-                    closingDate: closingDate
-                      ? formatDate({
-                          date: closingDate,
-                          formatString: DATE_FORMAT_LOCALIZED,
-                          intl,
-                          timeZone: "Canada/Pacific",
-                        })
-                      : notAvailable,
+                    closingDate: deadline,
                   },
                 )}
           </p>
