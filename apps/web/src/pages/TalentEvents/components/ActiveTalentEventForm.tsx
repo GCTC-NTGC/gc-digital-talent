@@ -428,9 +428,9 @@ const ActiveTalentEventForm = ({
                         {intl.formatMessage({
                           defaultMessage:
                             "Please add at least one development opportunity for nominators to select from.",
-                          id: "6akdUp",
+                          id: "bShedV",
                           description:
-                            "Notice message to add at least one development opportunity",
+                            "Message to add at least one development opportunity",
                         })}
                       </Notice.Content>
                     </Notice.Root>

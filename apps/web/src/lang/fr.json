@@ -2155,10 +2155,6 @@
     "defaultMessage": "Nous ne donnons que des exemples de compétences comportementales essentielles dans les modèles d’offre d’emploi.",
     "description": "Lead in for a list of essential behavioural skills"
   },
-  "6akdUp": {
-    "defaultMessage": "Veuillez ajouter au moins une possibilité de perfectionnement parmi lesquelles les personnes proposant des nominations pourront peuvent faire un choix.",
-    "description": "Notice message to add at least one development opportunity"
-  },
   "6bGWe5": {
     "defaultMessage": "<strong>{name}</strong> a publié",
     "description": "Label for activity log item published action"
