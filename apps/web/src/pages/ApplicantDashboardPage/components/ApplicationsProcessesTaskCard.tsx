@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
+import { useState } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -17,6 +18,11 @@ import { recruitmentProcessesTitle } from "~/components/RecruitmentProcesses/uti
 
 import ReviewRecruitmentProcessPreviewList from "./ReviewRecruitmentProcessPreviewList";
 import ReviewApplicationPreviewList from "./ReviewApplicationPreviewList";
+
+const ACCORDION_ID = {
+  RECRUITMENT_PROCESSES: "your_recruitment_processes",
+  JOB_APPLICATIONS: "your_job_applications",
+} as const;
 
 const ApplicationsProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
   fragment ApplicationsProcessesTaskCard on User {
@@ -46,6 +52,12 @@ const ApplicationsProcessesTaskCard = ({
 }: ApplicationsProcessesTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const [
+    recruitmentProcessesAccordionValue,
+    setRecruitmentProcessesAccordionValue,
+  ] = useState<string>("");
+  const [jobApplicationsAccordionValue, setJobApplicationsAccordionValue] =
+    useState<string>("");
 
   const applicationsProcessesTaskCardFragment = getFragment(
     ApplicationsProcessesTaskCard_Fragment,
@@ -73,6 +85,19 @@ const ApplicationsProcessesTaskCard = ({
     applicationsProcessesTaskCardFragment?.offPlatformRecruitmentProcesses,
   );
 
+  const isAcccordionOpen =
+    recruitmentProcessesAccordionValue === "" &&
+    jobApplicationsAccordionValue === "";
+  const handleToggleAccordions = () => {
+    if (isAcccordionOpen) {
+      setRecruitmentProcessesAccordionValue(ACCORDION_ID.RECRUITMENT_PROCESSES);
+      setJobApplicationsAccordionValue(ACCORDION_ID.JOB_APPLICATIONS);
+    } else {
+      setRecruitmentProcessesAccordionValue("");
+      setJobApplicationsAccordionValue("");
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col gap-6">
@@ -85,10 +110,32 @@ const ApplicationsProcessesTaskCard = ({
           })}
           headingColor="secondary"
           headingAs="h2"
+          action={{
+            label: isAcccordionOpen
+              ? intl.formatMessage({
+                  defaultMessage:
+                    "Expand all<hidden> applications and processes sections</hidden>",
+                  id: "Bq4a4U",
+                  description:
+                    "Button text to show all applications and processes sections",
+                })
+              : intl.formatMessage({
+                  defaultMessage:
+                    "Collapse all<hidden> applications and processes sections</hidden>",
+                  id: "K1bWGG",
+                  description:
+                    "Button text to hide all applications and processes sections",
+                }),
+            onClick: handleToggleAccordions,
+          }}
         >
           <TaskCard.Item>
-            <Accordion.Root type="multiple">
-              <Accordion.Item value="your_job_applications">
+            <Accordion.Root
+              type="single"
+              value={jobApplicationsAccordionValue}
+              onValueChange={setJobApplicationsAccordionValue}
+            >
+              <Accordion.Item value={ACCORDION_ID.JOB_APPLICATIONS}>
                 <Accordion.Trigger
                   as="h3"
                   subtitle={intl.formatMessage({
@@ -118,8 +165,12 @@ const ApplicationsProcessesTaskCard = ({
             </Accordion.Root>
           </TaskCard.Item>
           <TaskCard.Item>
-            <Accordion.Root type="multiple">
-              <Accordion.Item value="your_recruitment_processes">
+            <Accordion.Root
+              type="single"
+              value={recruitmentProcessesAccordionValue}
+              onValueChange={setRecruitmentProcessesAccordionValue}
+            >
+              <Accordion.Item value={ACCORDION_ID.RECRUITMENT_PROCESSES}>
                 <Accordion.Trigger
                   as="h3"
                   subtitle={intl.formatMessage({
