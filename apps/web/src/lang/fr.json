@@ -1612,7 +1612,7 @@
     "description": "Aria text for icon indicating a skill to assessment step connection."
   },
   "4MAklr": {
-    "defaultMessage": "intégration de systèmes",
+    "defaultMessage": "informatique en nuage",
     "description": "The cloud computing skill"
   },
   "4Ncmb0": {
@@ -2652,7 +2652,7 @@
     "description": "Title for what to expect section"
   },
   "8vwKjc": {
-    "defaultMessage": "informatique en nuage",
+    "defaultMessage": "développement de logiciels",
     "description": "The software development skill"
   },
   "8wU0cq": {
@@ -10375,7 +10375,7 @@
     "description": "The eligible retirement year described as known."
   },
   "f2Jqya": {
-    "defaultMessage": "développement de logiciels",
+    "defaultMessage": "sécurité des réseaux",
     "description": "The network security skill"
   },
   "f3KZGn": {
@@ -14935,7 +14935,7 @@
     "description": "Message displayed to user if assessment result fails to get created/updated."
   },
   "xdV1ZI": {
-    "defaultMessage": "sécurité des réseaux",
+    "defaultMessage": "intégration de systèmes",
     "description": "The systems integration skill"
   },
   "xdojyj": {
