@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQuery } from "urql";
 import { useIntl } from "react-intl";
 import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
 import type { SubmitHandler } from "react-hook-form";
@@ -68,6 +69,28 @@ export const DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment 
     }
   `);
 
+const EducationExperiencesRefresh_Query = graphql(/* GraphQL */ `
+  query EducationExperiencesRefresh_Query {
+    me {
+      educationExperiences {
+        id
+        institution
+        areaOfStudy
+        startDate
+        endDate
+        type {
+          label {
+            localized
+          }
+        }
+        skills {
+          id
+        }
+      }
+    }
+  }
+`);
+
 export interface SubformValues {
   interestInDevelopmentPrograms:
     | {
@@ -116,6 +139,29 @@ const TrainingAndDevelopmentOpportunities = ({
     null,
   );
   const dialogFormMethods = useForm<DialogFormValues>();
+
+  const [{ data: freshExpData }] = useQuery<{
+    me?: {
+      educationExperiences?: Array<{
+        id: string;
+        institution?: string | null;
+        areaOfStudy?: string | null;
+        startDate?: string | null;
+        endDate?: string | null;
+        type?: { label?: { localized?: string | null } | null } | null;
+        skills?: Array<{ id: string }> | null;
+      }> | null;
+    } | null;
+  }>({
+    query: EducationExperiencesRefresh_Query,
+    requestPolicy: "network-only",
+    pause: dialogOpenForIndex === null,
+  });
+
+  const activeExperiences =
+    freshExpData?.me?.educationExperiences != null
+      ? unpackMaybes(freshExpData.me.educationExperiences)
+      : educationExperiences;
 
   const optionsData = getFragment(
     TrainingAndDevelopmentOpportunitiesOptions_Fragment,
@@ -196,7 +242,7 @@ const TrainingAndDevelopmentOpportunities = ({
 
   const getLinkedExperience = (experienceId: string | null | undefined) => {
     if (!experienceId) return null;
-    return educationExperiences.find((e) => e.id === experienceId) ?? null;
+    return activeExperiences.find((e) => e.id === experienceId) ?? null;
   };
 
   const subtitle = intl.formatMessage({
@@ -235,7 +281,7 @@ const TrainingAndDevelopmentOpportunities = ({
           {intl.formatMessage({
             defaultMessage:
               "Most functional communities offer various programs for learning and development. These programs might have specific eligibility requirements based on your experience, classification, or other qualifications. Expressing interest in these opportunities isn't an application, but it allows HR and recruitment staff to verify your interest in case you've been nominated for a training or development opportunity.",
-            id: "2HNbTn",
+            id: 'u093wf',
             description:
               "Description of the 'Training and development opportunities' section",
           })}
@@ -498,7 +544,7 @@ const TrainingAndDevelopmentOpportunities = ({
                   );
                 }}
               >
-                {educationExperiences.length > 0 ? (
+                {activeExperiences.length > 0 ? (
                   <Select
                     id="experienceId"
                     name="experienceId"
@@ -518,7 +564,7 @@ const TrainingAndDevelopmentOpportunities = ({
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
-                    options={educationExperiences.map((exp) => ({
+                    options={activeExperiences.map((exp) => ({
                       value: exp.id,
                       label: getSelectLabel(exp),
                     }))}
@@ -535,7 +581,7 @@ const TrainingAndDevelopmentOpportunities = ({
                   </p>
                 )}
                 <Dialog.Footer>
-                  {educationExperiences.length > 0 && (
+                  {activeExperiences.length > 0 && (
                     <Button type="submit" color="primary">
                       {intl.formatMessage({
                         defaultMessage: "Link experience",
