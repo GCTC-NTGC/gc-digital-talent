@@ -82,6 +82,8 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "communities", communityId, "manage-access"].join("/"),
     communityUpdate: (communityId: string) =>
       [adminUrl, "communities", communityId, "edit"].join("/"),
+    communityProfessionalization: (communityId: string) =>
+      [adminUrl, "communities", communityId, "professionalization"].join("/"),
 
     // Admin - Roles and Permissions
     rolesAndPermissions: () => `${adminUrl}/roles-and-permissions`,
