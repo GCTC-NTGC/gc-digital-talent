@@ -38,7 +38,6 @@ const SECTION_ID = {
   CAREER_DEVELOPMENT: "career-development-section",
   NEXT_ROLE_AND_CAREER_OBJECTIVE: "next-role-and-career-objective-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
-  WORKFORCE_ADJUSTMENT_SECTION: "workforce-adjustment-section",
 };
 
 const EmployeeInformationUser_Fragment = graphql(/** GraphQL */ `
