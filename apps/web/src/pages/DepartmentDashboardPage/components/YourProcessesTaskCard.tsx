@@ -141,6 +141,7 @@ const YourProcessesTaskCard = ({
           <TaskCard.Item>
             <Accordion.Root
               type="single"
+              collapsible
               value={bookmarkedProcessesAccordionValue}
               onValueChange={setBookmarkedProcessesAccorionValue}
             >
@@ -176,6 +177,7 @@ const YourProcessesTaskCard = ({
           <TaskCard.Item>
             <Accordion.Root
               type="single"
+              collapsible
               value={sharedProcessesAccordionValue}
               onValueChange={setSharedProcessesAccordionValue}
             >

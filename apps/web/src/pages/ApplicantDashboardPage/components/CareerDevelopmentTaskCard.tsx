@@ -246,6 +246,7 @@ const CareerDevelopmentTaskCard = ({
           <TaskCard.Item>
             <Accordion.Root
               type="single"
+              collapsible
               value={careerPlanningAccordionValue}
               onValueChange={setCareerPlanningAccordionValue}
             >
@@ -423,6 +424,7 @@ const CareerDevelopmentTaskCard = ({
           <TaskCard.Item>
             <Accordion.Root
               type="single"
+              collapsible
               value={communityAccordionValue}
               onValueChange={setCommunityAccordionValue}
             >

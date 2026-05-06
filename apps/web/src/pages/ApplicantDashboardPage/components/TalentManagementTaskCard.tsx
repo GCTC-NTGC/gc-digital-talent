@@ -193,6 +193,7 @@ const TalentManagementTaskCard = ({
               <TaskCard.Item>
                 <Accordion.Root
                   type="single"
+                  collapsible
                   value={talentNominationsAccordionValue}
                   onValueChange={setTalentNominationsAccordionValue}
                 >
@@ -273,6 +274,7 @@ const TalentManagementTaskCard = ({
               <TaskCard.Item>
                 <Accordion.Root
                   type="single"
+                  collapsible
                   value={talentRequestsAccordionValue}
                   onValueChange={setTalentRequestsAccordionValue}
                 >

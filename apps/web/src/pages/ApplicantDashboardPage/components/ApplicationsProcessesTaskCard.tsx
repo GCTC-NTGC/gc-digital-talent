@@ -132,6 +132,7 @@ const ApplicationsProcessesTaskCard = ({
           <TaskCard.Item>
             <Accordion.Root
               type="single"
+              collapsible
               value={jobApplicationsAccordionValue}
               onValueChange={setJobApplicationsAccordionValue}
             >
@@ -167,6 +168,7 @@ const ApplicationsProcessesTaskCard = ({
           <TaskCard.Item>
             <Accordion.Root
               type="single"
+              collapsible
               value={recruitmentProcessesAccordionValue}
               onValueChange={setRecruitmentProcessesAccordionValue}
             >
