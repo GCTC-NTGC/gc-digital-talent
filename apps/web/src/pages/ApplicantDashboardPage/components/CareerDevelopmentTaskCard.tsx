@@ -199,10 +199,10 @@ const CareerDevelopmentTaskCard = ({
     </p>
   );
 
-  const isAcccordionOpen =
+  const isAccordionOpen =
     careerPlanningAccordionValue === "" && communityAccordionValue === "";
   const handleToggleAccordions = () => {
-    if (isAcccordionOpen) {
+    if (isAccordionOpen) {
       setCareerPlanningAccordionValue(ACCORDION_ID.CAREER_PLANNING);
       setCommunityAccordionValue(ACCORDION_ID.FUNCTIONAL_COMMUNITIES);
     } else {
@@ -225,7 +225,7 @@ const CareerDevelopmentTaskCard = ({
           headingAs="h2"
           locked={!userFragment.isVerifiedGovEmployee}
           action={{
-            label: isAcccordionOpen
+            label: isAccordionOpen
               ? intl.formatMessage({
                   defaultMessage:
                     "Expand all<hidden> career development sections</hidden>",
