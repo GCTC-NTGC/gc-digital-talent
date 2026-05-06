@@ -19,7 +19,7 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-const TalentRequestStatusOptions_Fragment = graphql(/* GraphQL */ `
+export const TalentRequestStatusOptions_Fragment = graphql(/* GraphQL */ `
   fragment TalentRequestStatusOptions on Query {
     statuses: localizedEnumOptions(enumName: "PoolCandidateSearchStatus") {
       ... on LocalizedPoolCandidateSearchStatus {
@@ -33,7 +33,7 @@ const TalentRequestStatusOptions_Fragment = graphql(/* GraphQL */ `
 `);
 
 export type TalentRequestStatusOptions = FragmentType<
-  typeof TalentRequestStatus_Fragment
+  typeof TalentRequestStatusOptions_Fragment
 >;
 
 const TalentRequestStatus_Fragment = graphql(/** GraphQL */ `
@@ -71,7 +71,7 @@ interface FormValues {
 
 interface TalentRequestStatusProps {
   query: FragmentType<typeof TalentRequestStatus_Fragment>;
-  optionsQuery: TalentRequestStatusOptions;
+  optionsQuery?: TalentRequestStatusOptions;
 }
 
 const TalentRequestStatus = ({
@@ -88,7 +88,7 @@ const TalentRequestStatus = ({
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      status: talentRequest.status.value,
+      status: talentRequest?.status?.value,
     },
   });
 

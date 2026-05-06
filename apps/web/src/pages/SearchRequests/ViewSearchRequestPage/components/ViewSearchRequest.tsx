@@ -10,7 +10,6 @@ import {
   Pending,
   NotFound,
   Heading,
-  Link,
   Separator,
   Container,
   Card,
@@ -32,7 +31,6 @@ import Hero from "~/components/Hero";
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
-import UpdateSearchRequest from "./UpdateSearchRequest";
 import TalentRequestSidebar from "./TalentRequestSidebar";
 
 const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
@@ -239,7 +237,7 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
   }
 `);
 
-const TalentRequestOptions_Fragment = graphql(/** GraphQL */ `
+export const TalentRequestOptions_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestOptions on Query {
     ...FlexibleWorkLocationOptionsFragment
     ...TalentRequestStatusOptions
@@ -428,9 +426,6 @@ export const ViewSearchRequest = ({
             })}
           </>
         )}
-      </Container>
-      <Container className="mb-18">
-        <UpdateSearchRequest initialSearchRequest={searchRequest} />
       </Container>
     </>
   );
