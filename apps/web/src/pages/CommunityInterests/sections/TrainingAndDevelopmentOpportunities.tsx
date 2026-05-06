@@ -259,6 +259,11 @@ const TrainingAndDevelopmentOpportunities = ({
       "Subtitle for the provincial program license dialog in the training and development opportunities section",
   });
 
+  const dialogTitle =
+    dialogOpenForIndex !== null
+      ? (developmentPrograms[dialogOpenForIndex]?.name?.localized ?? "")
+      : "";
+
   const getSelectLabel = (exp: {
     institution?: string | null;
     areaOfStudy?: string | null;
@@ -420,6 +425,7 @@ const TrainingAndDevelopmentOpportunities = ({
                   return linkedExp ? (
                     <DevelopmentProgramCard.Root>
                       <DevelopmentProgramCard.Item
+                        className="pl-0"
                         title={
                           linkedExp.areaOfStudy ??
                           linkedExp.institution ??
@@ -514,21 +520,14 @@ const TrainingAndDevelopmentOpportunities = ({
         }}
       >
         <Dialog.Content>
-          <Dialog.Header subtitle={subtitle}>
-            {intl.formatMessage({
-              defaultMessage: "Provincial Program License",
-              id: "WWh3KI",
-              description:
-                "Dialog header for linking a provincial program license to a development program",
-            })}
-          </Dialog.Header>
+          <Dialog.Header subtitle={subtitle}>{dialogTitle}</Dialog.Header>
           <Dialog.Body>
             <div className="flex flex-col gap-4">
               <p>
                 {intl.formatMessage({
                   defaultMessage:
                     'By selecting the professionalization from your education and certificate experience, you can help recruiters and hiring managers quickly understand your standing. If you haven\'t added this professionalization to your career experience yet, you can do so using the "Add a new experience" button.',
-                  id: "jaGVck",
+                  id: "DSFsgD",
                   description:
                     "Body text in the provincial program license dialog explaining how to link an education experience",
                 })}
