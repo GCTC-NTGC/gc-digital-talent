@@ -50,7 +50,7 @@ const YourProcessesTaskCard = ({
   const paths = useRoutes();
   const [
     bookmarkedProcessesAccordionValue,
-    setBookmarkedProcessesAccorionValue,
+    setBookmarkedProcessesAccordionValue,
   ] = useState<string>("");
   const [sharedProcessesAccordionValue, setSharedProcessesAccordionValue] =
     useState<string>("");
@@ -100,10 +100,10 @@ const YourProcessesTaskCard = ({
     sharedProcessesAccordionValue === "";
   const handleToggleAccordions = () => {
     if (isAcccordionOpen) {
-      setBookmarkedProcessesAccorionValue(ACCORDION_ID.BOOKMARKED_PROCESSES);
+      setBookmarkedProcessesAccordionValue(ACCORDION_ID.BOOKMARKED_PROCESSES);
       setSharedProcessesAccordionValue(ACCORDION_ID.SHARED_PROCESSES);
     } else {
-      setBookmarkedProcessesAccorionValue("");
+      setBookmarkedProcessesAccordionValue("");
       setSharedProcessesAccordionValue("");
     }
   };
@@ -143,7 +143,7 @@ const YourProcessesTaskCard = ({
               type="single"
               collapsible
               value={bookmarkedProcessesAccordionValue}
-              onValueChange={setBookmarkedProcessesAccorionValue}
+              onValueChange={setBookmarkedProcessesAccordionValue}
             >
               <Accordion.Item value={ACCORDION_ID.BOOKMARKED_PROCESSES}>
                 <Accordion.Trigger
