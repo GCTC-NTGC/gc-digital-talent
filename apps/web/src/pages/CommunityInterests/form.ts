@@ -6,6 +6,7 @@ import type {
   UpsertDevelopmentProgramUserInput,
   DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragmentFragment as DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragmentType,
 } from "@gc-digital-talent/graphql";
+import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import type { SubformValues as FindANewCommunitySubformValues } from "./sections/FindANewCommunity";
@@ -86,7 +87,11 @@ export function formValuesToApiCreateInput(
             // valid interest
             return {
               developmentProgramId: interest.developmentProgramId,
-              educationExperienceId: interest.educationExperienceId ?? null,
+              educationExperienceId:
+                interest.participationStatus ===
+                DevelopmentProgramParticipationStatus.Completed
+                  ? (interest.educationExperienceId ?? null)
+                  : null,
               participationStatus: interest.participationStatus,
             };
           }
@@ -138,7 +143,11 @@ export function formValuesToApiUpdateInput(
             // valid interest
             return {
               developmentProgramId: interest.developmentProgramId,
-              educationExperienceId: interest.educationExperienceId ?? null,
+              educationExperienceId:
+                interest.participationStatus ===
+                DevelopmentProgramParticipationStatus.Completed
+                  ? (interest.educationExperienceId ?? null)
+                  : null,
               participationStatus: interest.participationStatus,
             };
           }
