@@ -271,6 +271,10 @@
     "defaultMessage": "Nous avons modifié la manière dont nous recueillons les renseignements sur les processus de recrutement hors plateforme. Les renseignements présentés ici seront supprimés à partir du 31 décembre 2025. Veuillez utiliser notre nouveau format et ajouter chaque processus pour lequel vous avez été qualifié(e) en utilisant le bouton « Ajouter un processus hors plateforme ».",
     "description": "Message informing the user about the update to off-platform processes"
   },
+  "/0vaTK": {
+    "defaultMessage": "Vous n’avez pas encore d'expérience liée aux études.",
+    "description": "Message shown when there are no education experiences to link to a development program"
+  },
   "/17wgm": {
     "defaultMessage": "Rôle(s) ajouté(s) avec succès",
     "description": "Message displayed to user when one or more roles have been added to a user"
@@ -1110,10 +1114,6 @@
   "2FrqUn": {
     "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la collectivité</hidden>, {name}",
     "description": "Title for community dashboard on the talent cloud admin portal."
-  },
-  "2HNbTn": {
-    "defaultMessage": "La plupart des collectivités fonctionnelles proposent divers programmes d'apprentissage et de perfectionnement. Ces programmes peuvent avoir des exigences d'admissibilité précises basées sur votre expérience, votre classification ou d'autres qualifications. Le fait d'exprimer votre intérêt pour ces possibilités ne constitue pas une candidature, mais permet au personnel des RH et du recrutement de vérifier votre intérêt au cas où vous seriez sélectionnée ou sélectionné pour une possibilité de formation ou de perfectionnement.",
-    "description": "Description of the 'Training and development opportunities' section"
   },
   "2IWEV5": {
     "defaultMessage": "Parcourez une bibliothèque d’offres d'emploi préétablies avec des suggestions de tâches et de compétences essentielles.",
@@ -3703,6 +3703,10 @@
     "defaultMessage": "Courriel du gouvernement du Canada",
     "description": "Label for government of canada email input in the request form"
   },
+  "Cxy9bi": {
+    "defaultMessage": "Retirer l’expérience",
+    "description": "Button to remove the linked education experience from a development program"
+  },
   "CzZm8F": {
     "defaultMessage": "Restaurer l'utilisateur",
     "description": "Label for restoring a user"
@@ -4062,6 +4066,10 @@
   "EPF4Ac": {
     "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
     "description": "Application step skipped page details"
+  },
+  "EQI4l2": {
+    "defaultMessage": "{count, plural, one {# compétence} other {# compétences}}",
+    "description": "Number of skills on an experience"
   },
   "ERsZAD": {
     "defaultMessage": "La formation m'intéresse",
@@ -6171,6 +6179,10 @@
     "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
     "description": "Application box heading part two"
   },
+  "NaFYXo": {
+    "defaultMessage": "Remplacer l’expérience",
+    "description": "Button to swap the linked education experience for a development program"
+  },
   "NadegW": {
     "defaultMessage": "(Disponible après le stade de la présélection)",
     "description": "Message for assessment stage when application is not under assessment"
@@ -6602,6 +6614,10 @@
   "PbLJnr": {
     "defaultMessage": "Grade en économie, en sociologie ou en statistique",
     "description": "Heading for the `just education` option for EC education requirements"
+  },
+  "PbUHEk": {
+    "defaultMessage": "Sélectionner une expérience d’études ou de certification",
+    "description": "Label for the education experience dropdown in the link experience dialog"
   },
   "PdkgWB": {
     "defaultMessage": "Créer une possibilité de formation",
@@ -8142,6 +8158,10 @@
     "defaultMessage": "les fonctionnaires dont la classification est CT-FIN-04 et qui ont fait l'objet d'une candidature dans le cadre de la gestion des talents doivent créer un profil.",
     "description": "Employee group list item descriptions"
   },
+  "WWh3KI": {
+    "defaultMessage": "Licence de programme provincial",
+    "description": "Dialog header for linking a provincial program license to a development program"
+  },
   "WWrQYI": {
     "defaultMessage": "Erreur : la mise à jour de la possibilité de formation a échoué",
     "description": "Message displayed to user after training opportunity fails to get updated."
@@ -8421,6 +8441,10 @@
   "XdynkW": {
     "defaultMessage": "Voulez-vous vraiment supprimer cette notification?",
     "description": "Heading for confirmation alert to delete a notification"
+  },
+  "Xe2a91": {
+    "defaultMessage": "Complété avec succès",
+    "description": "Message when a user has completed a development program with no recorded date"
   },
   "Xe39xZ": {
     "defaultMessage": "ne respectent pas les lois fédérales, provinciales ou territoriales du Canada",
@@ -9421,6 +9445,10 @@
   "bzcV2Q": {
     "defaultMessage": "La plateforme des talents numériques du GC s’associe au service de justificatifs du GC, CléGC, pour vous donner accès à votre compte à l’aide d’une seule combinaison de nom d’utilisateur et de mot de passe. Vous pouvez gérer votre nom d’utilisateur et votre mot de passe sur le site Web de CléGC; les modifications auront automatiquement été intégrées lorsque vous ouvrirez une session dans la plateforme des talents numériques du GC.",
     "description": "Description of how we use GCKey for authentication."
+  },
+  "c+HfTe": {
+    "defaultMessage": "Sélectionner une option",
+    "description": "Placeholder option for the education experience select"
   },
   "c+P41C": {
     "defaultMessage": "Programme de mentorat de la collectivité du numérique",
@@ -10526,6 +10554,10 @@
     "defaultMessage": "Poursuivre ma demande",
     "description": "Link text to continue an existing, draft application"
   },
+  "g6QXmz": {
+    "defaultMessage": "Lier une expérience existante",
+    "description": "Button to open the dialog to link an education experience to a development program"
+  },
   "g6coYl": {
     "defaultMessage": "Employé(e)s (préférences ministérielles)",
     "description": "Combined eligibility string for 'employees only' and 'departmental preference'"
@@ -11390,6 +11422,10 @@
     "defaultMessage": "Enregistrer et retourner à ma chronologie de carrière",
     "description": "Label on button to save and return on the current experience"
   },
+  "jaGVck": {
+    "defaultMessage": "En sélectionnant un perfectionnement professionnel parmi vos expériences d’études et de certifications, vous aidez les recruteurs et les gestionnaires d’embauche à mieux comprendre votre profil rapidement. Si ce perfectionnement professionnel ne figure pas encore dans votre expérience professionnelle, vous pouvez l’ajouter à l’aide du bouton « Ajouter une nouvelle expérience ».",
+    "description": "Body text in the provincial program license dialog explaining how to link an education experience"
+  },
   "jaMIil": {
     "defaultMessage": "Votre disponibilité",
     "description": "Label for available for opportunities radio group"
@@ -11405,6 +11441,10 @@
   "jfCwes": {
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when signed in"
+  },
+  "jgysHD": {
+    "defaultMessage": "Lier l’expérience",
+    "description": "Button to confirm linking the selected education experience to a development program"
   },
   "jh/UHf": {
     "defaultMessage": "Ouvrez l’application d’authentification sur votre appareil.",
@@ -12141,6 +12181,10 @@
   "mjUxjN": {
     "defaultMessage": "Pourquoi doit-on configurer l’authentification à deux facteurs?",
     "description": "Subtitle for a section explaining why to set up mfa"
+  },
+  "mjhQ02": {
+    "defaultMessage": "Lier une expérience d’études ou de certification à un perfectionnement professionnel",
+    "description": "Subtitle for the provincial program license dialog in the training and development opportunities section"
   },
   "ml+1LK": {
     "defaultMessage": "Vous souhaitez recevoir les offres d'emploi liées à ce processus de recrutement. Vous pouvez modifier ce statut à la fin de cette boîte de dialogue.",
@@ -13874,6 +13918,10 @@
     "defaultMessage": "Pour empêcher temporairement cette candidature de figurer dans les demandes de talents, utilisez l'option suivante.",
     "description": "Blurb for the pause candidate's referral status dialog"
   },
+  "u093wf": {
+    "defaultMessage": "La plupart des collectivités fonctionnelles proposent divers programmes d'apprentissage et de perfectionnement. Ces programmes peuvent avoir des exigences d'admissibilité précises basées sur votre expérience, votre classification ou d'autres qualifications. Le fait d'exprimer votre intérêt pour ces possibilités ne constitue pas une candidature, mais permet au personnel des RH et du recrutement de vérifier votre intérêt au cas où vous seriez sélectionnée ou sélectionné pour une possibilité de formation ou de perfectionnement.",
+    "description": "Description of the 'Training and development opportunities' section"
+  },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
     "description": "Subtitle for job alerts checklist"
@@ -15169,6 +15217,10 @@
   "zH8887": {
     "defaultMessage": "Veuillez répondre à ces questions au mieux de vos capacités afin d'aider les gestionnaires d'embauche à mieux comprendre pourquoi vous correspondez à l'occasion d'emploi.",
     "description": "Reminder what general questions are used for."
+  },
+  "zHKvoY": {
+    "defaultMessage": "Modifier l’expérience liée",
+    "description": "Accessibility label for the edit/remove dropdown on a linked education experience"
   },
   "zIv0jm": {
     "defaultMessage": "Ordre décroissant",
