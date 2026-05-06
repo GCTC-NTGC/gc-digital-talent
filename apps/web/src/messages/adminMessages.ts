@@ -214,6 +214,11 @@ const messages = defineMessages({
     id: "Ftq+3Y",
     description: "Label for a specific user",
   },
+  professionalization: {
+    defaultMessage: "Professionalization",
+    id: "MT1JwK",
+    description: "Label for Professionalization",
+  },
 });
 
 export default messages;
