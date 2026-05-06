@@ -23,7 +23,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import type { CommunityInterestOptions_Fragment } from "~/components/CommunityInterest/CommunityInterest";
 import CommunityInterest from "~/components/CommunityInterest/CommunityInterest";
-import type { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
+import EmployeeVerificationSection from "~/components/EmployeeVerificationSection/EmployeeVerificationSection";
 
 import type { CareerDevelopmentOptions_Fragment } from "./components/CareerDevelopmentSection";
 import CareerDevelopmentSection from "./components/CareerDevelopmentSection";
@@ -32,6 +32,7 @@ import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection";
 import DownloadButton from "../DownloadButton";
 
 const SECTION_ID = {
+  EMPLOYEE_VERIFICATION: "employee-verification",
   COMMUNITY_INTEREST: "community-interest-section",
   CAREER_PLANNING: "career-planning-section",
   CAREER_DEVELOPMENT: "career-development-section",
@@ -40,8 +41,15 @@ const SECTION_ID = {
   WORKFORCE_ADJUSTMENT_SECTION: "workforce-adjustment-section",
 };
 
-const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
-  fragment UserEmployeeInformation on EmployeeProfile {
+const EmployeeInformationUser_Fragment = graphql(/** GraphQL */ `
+  fragment EmployeeInformationUser on User {
+    ...UserEmployeeVerification
+    ...NextRoleAndCareerObjective
+  }
+`);
+
+const EmployeeInformationEmployeeProfile_Fragment = graphql(/* GraphQL */ `
+  fragment EmployeeInformationEmployeeProfile on EmployeeProfile {
     communityInterests {
       id
       community {
@@ -58,14 +66,16 @@ const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
 
 interface UserEmployeeInformationProps {
   userId: Scalars["UUID"]["output"];
-  employeeProfileQuery: FragmentType<typeof UserEmployeeInformation_Fragment>;
+  employeeProfileQuery: FragmentType<
+    typeof EmployeeInformationEmployeeProfile_Fragment
+  >;
   communityInterestOptionsQuery: FragmentType<
     typeof CommunityInterestOptions_Fragment
   >;
   careerDevelopmentOptionsQuery: FragmentType<
     typeof CareerDevelopmentOptions_Fragment
   >;
-  userQuery: FragmentType<typeof NextRoleAndCareerObjective_Fragment>;
+  userQuery: FragmentType<typeof EmployeeInformationUser_Fragment>;
 }
 
 export const UserEmployeeInformation = ({
@@ -78,14 +88,21 @@ export const UserEmployeeInformation = ({
   const intl = useIntl();
 
   const employeeProfile = getFragment(
-    UserEmployeeInformation_Fragment,
+    EmployeeInformationEmployeeProfile_Fragment,
     employeeProfileQuery,
   );
+
+  const user = getFragment(EmployeeInformationUser_Fragment, userQuery);
 
   return (
     <TableOfContents.Wrapper>
       <TableOfContents.Navigation>
         <TableOfContents.List>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink id={SECTION_ID.EMPLOYEE_VERIFICATION}>
+              {intl.formatMessage(commonMessages.employeeVerification)}
+            </TableOfContents.AnchorLink>
+          </TableOfContents.ListItem>
           <TableOfContents.ListItem>
             <TableOfContents.AnchorLink id={SECTION_ID.COMMUNITY_INTEREST}>
               {intl.formatMessage(commonMessages.communityInterest)}
@@ -136,13 +153,16 @@ export const UserEmployeeInformation = ({
       </TableOfContents.Navigation>
       <TableOfContents.Content>
         <div className="flex flex-col gap-y-6">
+          <TableOfContents.Section id={SECTION_ID.EMPLOYEE_VERIFICATION}>
+            <EmployeeVerificationSection userQuery={user} context="admin" />
+          </TableOfContents.Section>
           <TableOfContents.Section id={SECTION_ID.COMMUNITY_INTEREST}>
             <Heading
               level="h2"
               size="h3"
               icon={FlagIcon}
               color="secondary"
-              className="mt-0 font-normal sm:justify-start sm:text-left"
+              className="font-normal sm:justify-start sm:text-left"
             >
               {intl.formatMessage(commonMessages.communityInterest)}
             </Heading>
@@ -274,7 +294,7 @@ export const UserEmployeeInformation = ({
               </Accordion.Trigger>
               <Accordion.Content>
                 <NextRoleAndCareerObjective
-                  nextRoleAndCareerObjectiveQuery={userQuery}
+                  nextRoleAndCareerObjectiveQuery={user}
                   sectionKey={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}
                   nextRoleDialogSubtitle={intl.formatMessage({
                     defaultMessage:
@@ -332,9 +352,9 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
     user(id: $id, trashed: WITH) {
       isGovEmployee
       employeeProfile {
-        ...UserEmployeeInformation
+        ...EmployeeInformationEmployeeProfile
       }
-      ...NextRoleAndCareerObjective
+      ...EmployeeInformationUser
     }
     ...CareerDevelopmentOptions
     ...CommunityInterestOptions
