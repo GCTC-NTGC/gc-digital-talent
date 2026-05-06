@@ -328,7 +328,7 @@ export const ViewSearchRequest = ({
         subtitle={subTitle}
         crumbs={navigationCrumbs}
       />
-      <Container size="lg" className="mt-18">
+      <Container size="full" className="mt-18">
         <Sidebar.Wrapper scrollbar>
           <Sidebar.Sidebar scrollbar>
             <TalentRequestSidebar
@@ -402,30 +402,28 @@ export const ViewSearchRequest = ({
                 content={additionalComments}
               />
             </Card>
+            <Heading level="h2" size="h4">
+              {intl.formatMessage({
+                defaultMessage: "Candidate results",
+                id: "bQ4iDW",
+                description:
+                  "Heading for the candidate results section of the single search request view.",
+              })}
+            </Heading>
+            {abstractFilter ? (
+              <SingleSearchRequestTableApi filter={abstractFilter} />
+            ) : (
+              <>
+                {intl.formatMessage({
+                  defaultMessage: "Request doesn't include a filter!",
+                  id: "hmacO5",
+                  description:
+                    "Null state for a request not including a filter.",
+                })}
+              </>
+            )}
           </Sidebar.Content>
         </Sidebar.Wrapper>
-      </Container>
-
-      <Container size="full" className="mb-18">
-        <Heading level="h2" size="h4">
-          {intl.formatMessage({
-            defaultMessage: "Candidate results",
-            id: "bQ4iDW",
-            description:
-              "Heading for the candidate results section of the single search request view.",
-          })}
-        </Heading>
-        {abstractFilter ? (
-          <SingleSearchRequestTableApi filter={abstractFilter} />
-        ) : (
-          <>
-            {intl.formatMessage({
-              defaultMessage: "Request doesn't include a filter!",
-              id: "hmacO5",
-              description: "Null state for a request not including a filter.",
-            })}
-          </>
-        )}
       </Container>
     </>
   );
