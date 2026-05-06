@@ -382,7 +382,12 @@ export default [
             // Admin - Talent events
             ...prefix("talent-events", [
               index("./pages/TalentEvents/IndexTalentEventPage.tsx"),
+              route("create", "./pages/TalentEvents/CreateTalentEventPage.tsx"),
               ...prefix(":eventId", [
+                route(
+                  "/edit",
+                  "./pages/TalentEvents/UpdateTalentEventPage.tsx",
+                ),
                 layout("./pages/TalentEvents/TalentEvent/Layout.tsx", [
                   index("./pages/TalentEvents/TalentEvent/DetailsPage.tsx"),
                   route(

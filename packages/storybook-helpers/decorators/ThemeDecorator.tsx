@@ -63,7 +63,7 @@ const withThemeFromTailwind = ({
           ThemeKey | undefined,
           ThemeMode | undefined,
         ],
-      [selected, themes],
+      [selected],
     );
 
     return (

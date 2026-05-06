@@ -33,6 +33,7 @@ import {
   getShortPoolTitleLabel,
 } from "~/utils/poolUtils";
 import { getSalaryRange } from "~/utils/classification";
+import { useStableDate } from "~/hooks/useStableDate";
 
 import AreaOfSelectionFlag from "./AreaOfSelectionRibbon";
 
@@ -190,6 +191,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const locale = getLocale(intl);
   const paths = useRoutes();
   const pool = getFragment(JobCard_Fragment, poolQuery);
+  const now = useStableDate();
 
   const department = pool.department?.name.localized;
   const location = pool.isRemote
@@ -236,9 +238,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   const deadlineUtc = pool.closingDate && parseDateTimeUtc(pool.closingDate);
-  const deadlineIn = deadlineUtc
-    ? differenceInDays(deadlineUtc, Date.now())
-    : null;
+  const deadlineIn = deadlineUtc ? differenceInDays(deadlineUtc, now) : null;
   const deadlineNear = Boolean(
     deadlineIn !== null && deadlineIn <= 3 && deadlineIn >= 0,
   );
