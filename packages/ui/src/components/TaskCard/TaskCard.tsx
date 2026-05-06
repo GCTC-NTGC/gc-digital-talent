@@ -130,7 +130,9 @@ interface TaskCardActionProps extends BaseButtonLinkProps {
 
 const TaskCardAction = ({ action, ...rest }: TaskCardActionProps) => {
   if ("onClick" in action) {
-    return <Button onClick={action.onClick} {...rest} mode="inline" />;
+    return (
+      <Button onClick={action.onClick} type="button" {...rest} mode="inline" />
+    );
   }
 
   if ("href" in action) {
