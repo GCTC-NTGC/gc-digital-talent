@@ -23,7 +23,6 @@ import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -260,7 +259,7 @@ export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
 ];
 
 // Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
-const DepartmentManageAccessPageApiWrapper = () => {
+const Component = () => {
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
   const [{ data, fetching, error }] = useQuery({
     query: DepartmentMembersTeam_Query,
@@ -276,18 +275,6 @@ const DepartmentManageAccessPageApiWrapper = () => {
     </Pending>
   );
 };
-
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.DepartmentAdmin,
-      ROLE_NAME.DepartmentHRAdvisor,
-    ]}
-  >
-    <DepartmentManageAccessPageApiWrapper />
-  </RequireAuth>
-);
 
 Component.displayName = "ManageAccessDepartmentPage";
 
