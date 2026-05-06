@@ -141,7 +141,7 @@ const TaskCardAction = ({ action, ...rest }: TaskCardActionProps) => {
 };
 
 type RootAction = TaskCardAction & {
-  label: string;
+  label: ReactNode;
 };
 
 export interface RootProps extends RootVariants {
