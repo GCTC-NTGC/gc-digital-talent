@@ -34,6 +34,12 @@ export function fetchIdentificationNumber(url: string, entity: string): string {
   return fetchID;
 }
 
+export function getFutureDateByMonths(monthsToAdd: number): string {
+  const date = new Date();
+  date.setMonth(date.getMonth() + monthsToAdd);
+  return date.toISOString().split("T")[0];
+}
+
 // copied from apps/web/src/hooks/useRequiredParams.ts
 export const uuidRegEx =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/;
