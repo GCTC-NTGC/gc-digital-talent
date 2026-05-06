@@ -75,7 +75,10 @@ const SidebarNotesForm = ({ values, onSave }: SidebarNotesFormProps) => {
             label={intl.formatMessage(adminMessages.notes)}
           >
             {values?.notes ? (
-              <div className="mt-3 max-h-40 overflow-y-auto">
+              // NOTE: Scroll elements need tab index
+              // REF: https://dequeuniversity.com/rules/axe/4.11/scrollable-region-focusable?application=axeAPI
+              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+              <div className="mt-3 max-h-40 overflow-y-auto" tabIndex={0}>
                 {values?.notes}
               </div>
             ) : (
