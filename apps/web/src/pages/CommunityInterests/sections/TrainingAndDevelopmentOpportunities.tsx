@@ -142,15 +142,17 @@ const TrainingAndDevelopmentOpportunities = ({
 
   const [{ data: freshExpData }] = useQuery<{
     me?: {
-      educationExperiences?: {
-        id: string;
-        institution?: string | null;
-        areaOfStudy?: string | null;
-        startDate?: string | null;
-        endDate?: string | null;
-        type?: { label?: { localized?: string | null } | null } | null;
-        skills?: { id: string }[] | null;
-      }[] | null;
+      educationExperiences?:
+        | {
+            id: string;
+            institution?: string | null;
+            areaOfStudy?: string | null;
+            startDate?: string | null;
+            endDate?: string | null;
+            type?: { label?: { localized?: string | null } | null } | null;
+            skills?: { id: string }[] | null;
+          }[]
+        | null;
     } | null;
   }>({
     query: EducationExperiencesRefresh_Query,
@@ -281,7 +283,7 @@ const TrainingAndDevelopmentOpportunities = ({
           {intl.formatMessage({
             defaultMessage:
               "Most functional communities offer various programs for learning and development. These programs might have specific eligibility requirements based on your experience, classification, or other qualifications. Expressing interest in these opportunities isn't an application, but it allows HR and recruitment staff to verify your interest in case you've been nominated for a training or development opportunity.",
-            id: 'u093wf',
+            id: "u093wf",
             description:
               "Description of the 'Training and development opportunities' section",
           })}
@@ -516,89 +518,89 @@ const TrainingAndDevelopmentOpportunities = ({
           </Dialog.Header>
           <Dialog.Body>
             <div className="flex flex-col gap-4">
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  'By selecting the professionalization from your education and certificate experience, you can help recruiters and hiring managers quickly understand your standing. If you haven\'t added this professionalization to your career experience yet, you can do so using the " Add new experience " button.',
-                id: "jaGVck",
-                description:
-                  "Body text in the provincial program license dialog explaining how to link an education experience",
-              })}
-            </p>
-            {dialogOpenForIndex !== null &&
-              developmentPrograms[dialogOpenForIndex]?.descriptionForProfile
-                ?.localized && (
-                <p className="rounded-[10px] border border-gray-700 bg-gray-100/20 p-4 text-sm dark:border-gray-100">
-                  {
-                    developmentPrograms[dialogOpenForIndex].descriptionForProfile
-                      ?.localized
-                  }
-                </p>
-              )}
-            <FormProvider {...dialogFormMethods}>
-              <form
-                onSubmit={(e) => {
-                  e.stopPropagation();
-                  return dialogFormMethods.handleSubmit(handleLinkExperience)(
-                    e,
-                  );
-                }}
-              >
-                {activeExperiences.length > 0 ? (
-                  <Select
-                    id="experienceId"
-                    name="experienceId"
-                    label={intl.formatMessage({
-                      defaultMessage:
-                        "Select education or certificate experience",
-                      id: "PbUHEk",
-                      description:
-                        "Label for the education experience dropdown in the link experience dialog",
-                    })}
-                    nullSelection={intl.formatMessage({
-                      defaultMessage: "Select an option",
-                      id: "c+HfTe",
-                      description:
-                        "Placeholder option for the education experience select",
-                    })}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                    options={activeExperiences.map((exp) => ({
-                      value: exp.id,
-                      label: getSelectLabel(exp),
-                    }))}
-                  />
-                ) : (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You don't have any education experiences yet.",
-                      id: "/0vaTK",
-                      description:
-                        "Message shown when there are no education experiences to link to a development program",
-                    })}
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    'By selecting the professionalization from your education and certificate experience, you can help recruiters and hiring managers quickly understand your standing. If you haven\'t added this professionalization to your career experience yet, you can do so using the " Add new experience " button.',
+                  id: "jaGVck",
+                  description:
+                    "Body text in the provincial program license dialog explaining how to link an education experience",
+                })}
+              </p>
+              {dialogOpenForIndex !== null &&
+                developmentPrograms[dialogOpenForIndex]?.descriptionForProfile
+                  ?.localized && (
+                  <p className="rounded-[10px] border border-gray-700 bg-gray-100/20 p-4 text-sm dark:border-gray-100">
+                    {
+                      developmentPrograms[dialogOpenForIndex]
+                        .descriptionForProfile?.localized
+                    }
                   </p>
                 )}
-                <Dialog.Footer>
-                  {activeExperiences.length > 0 && (
-                    <Button type="submit" color="primary">
-                      {intl.formatMessage({
-                        defaultMessage: "Link experience",
-                        id: "jgysHD",
+              <FormProvider {...dialogFormMethods}>
+                <form
+                  onSubmit={(e) => {
+                    e.stopPropagation();
+                    return dialogFormMethods.handleSubmit(handleLinkExperience)(
+                      e,
+                    );
+                  }}
+                >
+                  {activeExperiences.length > 0 ? (
+                    <Select
+                      id="experienceId"
+                      name="experienceId"
+                      label={intl.formatMessage({
+                        defaultMessage:
+                          "Select education or certificate experience",
+                        id: "PbUHEk",
                         description:
-                          "Button to confirm linking the selected education experience to a development program",
+                          "Label for the education experience dropdown in the link experience dialog",
                       })}
-                    </Button>
+                      nullSelection={intl.formatMessage({
+                        defaultMessage: "Select an option",
+                        id: "c+HfTe",
+                        description:
+                          "Placeholder option for the education experience select",
+                      })}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                      options={activeExperiences.map((exp) => ({
+                        value: exp.id,
+                        label: getSelectLabel(exp),
+                      }))}
+                    />
+                  ) : (
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "You don't have any education experiences yet.",
+                        id: "/0vaTK",
+                        description:
+                          "Message shown when there are no education experiences to link to a development program",
+                      })}
+                    </p>
                   )}
-                  <Dialog.Close>
-                    <Button mode="inline" color="warning">
-                      {intl.formatMessage(commonMessages.cancel)}
-                    </Button>
-                  </Dialog.Close>
-                </Dialog.Footer>
-              </form>
-            </FormProvider>
+                  <Dialog.Footer>
+                    {activeExperiences.length > 0 && (
+                      <Button type="submit" color="primary">
+                        {intl.formatMessage({
+                          defaultMessage: "Link experience",
+                          id: "jgysHD",
+                          description:
+                            "Button to confirm linking the selected education experience to a development program",
+                        })}
+                      </Button>
+                    )}
+                    <Dialog.Close>
+                      <Button mode="inline" color="warning">
+                        {intl.formatMessage(commonMessages.cancel)}
+                      </Button>
+                    </Dialog.Close>
+                  </Dialog.Footer>
+                </form>
+              </FormProvider>
             </div>
           </Dialog.Body>
         </Dialog.Content>
