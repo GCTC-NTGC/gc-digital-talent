@@ -26,7 +26,7 @@ const grid = tv({
   },
 });
 
-const UserEmployeeVerification_Fragment = graphql(/* GraphQL */ `
+export const UserEmployeeVerification_Fragment = graphql(/* GraphQL */ `
   fragment UserEmployeeVerification on User {
     isVerifiedGovEmployee
     workEmail
@@ -67,7 +67,7 @@ const UserEmployeeVerification_Fragment = graphql(/* GraphQL */ `
 
 type EmployeeVerificationContext = VariantProps<typeof grid>["context"];
 
-interface EmployeeVerificationSectionProps {
+export interface EmployeeVerificationSectionProps {
   userQuery: FragmentType<typeof UserEmployeeVerification_Fragment>;
   context: EmployeeVerificationContext;
 }
