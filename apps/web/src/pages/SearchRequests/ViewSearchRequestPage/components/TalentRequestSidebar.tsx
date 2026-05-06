@@ -13,6 +13,8 @@ import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
+import TalentRequestNotes from "./TalentRequestNotes";
+
 const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestSidebar on PoolCandidateSearchRequest {
     jobTitle
@@ -25,6 +27,8 @@ const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
     requestedDate
     statusChangedAt
     hrAdvisorEmail
+
+    ...TalentRequestNotes
   }
 `);
 
@@ -90,6 +94,7 @@ const TalentRequestSidebar = ({ query }: TalentRequestSidebarProps) => {
         </FieldDisplay>
       </div>
       <Card.Separator space="sm" />
+      <TalentRequestNotes query={talentRequest} />
     </Card>
   );
 };
