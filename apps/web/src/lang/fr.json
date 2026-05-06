@@ -15039,7 +15039,7 @@
     "description": "Error message for updating a candidates screening stage"
   },
   "y0jr2a": {
-    "defaultMessage": "<strong>Comment y accéder</strong> : Accessible par l’entremise de Navigar, un outil intelligent de perfectionnement des compétences en ligne. Si ce n’est pas déjà fait, vous pouvez activer votre compte en accédant à la <link>page d’accueil de Navigar."
+    "defaultMessage": "<strong>Comment y accéder</strong> : Accessible par l’entremise de Navigar, un outil intelligent de perfectionnement des compétences en ligne. Si ce n’est pas déjà fait, vous pouvez activer votre compte en accédant à la <link>page d’accueil de Navigar</link>."
   },
   "y1uo+J": {
     "defaultMessage": "Prochain(e) candidat(e)",
