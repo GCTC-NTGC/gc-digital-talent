@@ -98,6 +98,7 @@ add_section_block "$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK"
 if cat > /etc/cron.d/gc-digital-talent << 'EOF'
   *  *  *  *  * www-data . /etc/profile ; php /home/site/wwwroot/api/artisan schedule:run
 EOF
+then
     add_section_block ":white_check_mark: Laravel Scheduler cron setup *successful*."
 else
     add_section_block ":X: Laravel Scheduler cron setup *failed*. $MENTION"
