@@ -35,8 +35,8 @@ else
     add_section_block ":X: Remove bad source *failed*.. $MENTION"
 fi
 
-# Configure PHP CLI
-if echo 'memory_limit=256M' >> /usr/local/etc/php/conf.d/php.ini ; then
+# Configure PHP CLI — write to a drop-in file (not append) so re-runs are idempotent
+if echo 'memory_limit=256M' > /usr/local/etc/php/conf.d/memory-limit.ini ; then
     add_section_block ":white_check_mark: Configure PHP CLI *successful*."
 else
     add_section_block ":X: Configure PHP CLI *failed*. $MENTION"
