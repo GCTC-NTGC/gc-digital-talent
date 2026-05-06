@@ -27,6 +27,7 @@ const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
     }
     requestedDate
     statusChangedAt
+    email
     hrAdvisorEmail
 
     ...TalentRequestStatus
@@ -80,10 +81,31 @@ const TalentRequestSidebar = ({
       <Card.Separator space="sm" />
       <div className="flex flex-col gap-y-6">
         <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Government email",
+            id: "HN1nUV",
+            description: "Label for a government email address",
+          })}
+        >
+          {talentRequest.email ? (
+            <Link
+              href={`mailto:${talentRequest.email}`}
+              className="wrap-anywhere"
+            >
+              {talentRequest.email}
+            </Link>
+          ) : (
+            notProvided
+          )}
+        </FieldDisplay>
+        <FieldDisplay
           label={intl.formatMessage(talentRequestMessages.hrAdvisorEmail)}
         >
           {talentRequest.hrAdvisorEmail ? (
-            <Link href={`mailto:${talentRequest.hrAdvisorEmail}`}>
+            <Link
+              href={`mailto:${talentRequest.hrAdvisorEmail}`}
+              className="wrap-anywhere"
+            >
               {talentRequest.hrAdvisorEmail}
             </Link>
           ) : (
