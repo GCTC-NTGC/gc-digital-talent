@@ -78,11 +78,11 @@ test.describe("Cross-community development program status", () => {
       }),
       assignCommunityAdminRole(adminCtx, {
         userId: communityUser.id,
-        teamId: communityA.teamIdForRoleAssignment as string,
+        teamId: communityA.teamIdForRoleAssignment!,
       }),
       assignCommunityAdminRole(adminCtx, {
         userId: communityUser.id,
-        teamId: communityB.teamIdForRoleAssignment as string,
+        teamId: communityB.teamIdForRoleAssignment!,
       }),
       createTalentNominationEvent(adminCtx, {
         community: { connect: communityA.id },
@@ -198,7 +198,7 @@ test.describe("Development Program Interest", () => {
       }),
       assignCommunityAdminRole(adminCtx, {
         userId: communityUser.id,
-        teamId: community.teamIdForRoleAssignment as string,
+        teamId: community.teamIdForRoleAssignment!,
       }),
       createTalentNominationEvent(adminCtx, {
         community: { connect: community.id },
@@ -246,7 +246,8 @@ test.describe("Development Program Interest", () => {
 
     communityInterest = resolvedInterest;
     educationExperience = resolvedExp;
-    if (!communityInterest) throw new Error("Community interest creation failed");
+    if (!communityInterest)
+      throw new Error("Community interest creation failed");
     if (!educationExperience)
       throw new Error("Education experience creation failed");
   });
@@ -368,12 +369,10 @@ test.describe("Development Program Interest", () => {
     await dialog.getByRole("button", { name: /link experience/i }).click();
 
     // Dialog should close
-    await expect(dialog).not.toBeVisible();
+    await expect(dialog).toBeHidden();
 
     // The linked experience card should appear
-    await expect(
-      appPage.page.getByText(`Computer Science`),
-    ).toBeVisible();
+    await expect(appPage.page.getByText(`Computer Science`)).toBeVisible();
   });
 
   test("Linked experience can be removed", async ({ appPage }) => {
@@ -403,7 +402,7 @@ test.describe("Development Program Interest", () => {
         })
         .selectOption({ index: 1 });
       await dialog.getByRole("button", { name: /link experience/i }).click();
-      await expect(dialog).not.toBeVisible();
+      await expect(dialog).toBeHidden();
     }
 
     // Open the card dropdown menu and remove the linked experience

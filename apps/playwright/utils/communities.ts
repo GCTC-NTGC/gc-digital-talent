@@ -131,7 +131,10 @@ const Test_CreateDevelopmentProgramMutation = /* GraphQL */ `
 
 export const createDevelopmentProgram: GraphQLRequestFunc<
   DevelopmentProgram,
-  { name: { en: string; fr: string }; descriptionForProfile?: { en: string; fr: string } }
+  {
+    name: { en: string; fr: string };
+    descriptionForProfile?: { en: string; fr: string };
+  }
 > = async (ctx, { name, descriptionForProfile }) => {
   return ctx
     .post<GraphQLResponse<"createDevelopmentProgram", DevelopmentProgram>>(
@@ -215,10 +218,9 @@ export const assignCommunityAdminRole: GraphQLRequestFunc<
   { userId: string; teamId: string }
 > = async (ctx, { userId, teamId }) => {
   const roles = await ctx
-    .post<GraphQLResponse<"roles", { id: string; name: string }[]>>(
-      Test_RolesQueryDocument,
-      { isPrivileged: true },
-    )
+    .post<
+      GraphQLResponse<"roles", { id: string; name: string }[]>
+    >(Test_RolesQueryDocument, { isPrivileged: true })
     .then((res) => res.roles);
   const communityAdminRoleId = roles.find(
     (r) => r.name === "community_admin",
