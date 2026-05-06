@@ -59,13 +59,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "cloud computing",
-    "fr": [
-      "intégration de systèmes",
-      "l'informatique en nuage;"
-    ]
-  },
-  {
     "en": "Department information",
     "fr": [
       "Renseignements sur le ministère",
@@ -106,13 +99,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
       "Ce programme ne m'intéresse pas",
       "Non intéressé(e)",
       "Pas d'intérêt"
-    ]
-  },
-  {
-    "en": "cyber security",
-    "fr": [
-      "la cybersécurité;",
-      "cybersécurité"
     ]
   },
   {
@@ -168,7 +154,8 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "en": "Apply now",
     "fr": [
       "Postulez dès maintenant",
-      "Présenter une demande"
+      "Présenter une demande",
+      "Faire une demande"
     ]
   },
   {

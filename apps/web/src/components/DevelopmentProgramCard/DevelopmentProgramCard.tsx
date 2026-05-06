@@ -24,10 +24,11 @@ interface DevelopmentProgramCardProps {
   title: string;
   titleHref?: string;
   headingAs?: HeadingRank;
-  description: string;
-  iconLabel: string;
-  edit: ReactNode;
-  remove: ReactNode;
+  description: ReactNode;
+  iconLabel?: string;
+  edit?: ReactNode;
+  remove?: ReactNode;
+  actions?: boolean;
   classificationRestrictions?: Pick<Classification, "id" | "group" | "level">[];
   institution?: string | null;
   dateRange?: string;
@@ -43,6 +44,7 @@ const DevelopmentProgramCard = ({
   iconLabel,
   edit,
   remove,
+  actions = true,
   classificationRestrictions,
   institution,
   dateRange,
@@ -55,22 +57,24 @@ const DevelopmentProgramCard = ({
   return (
     <li className="border-b border-gray-200 p-6 last:border-b-0 odd:bg-gray-100/30 dark:border-gray-700 dark:odd:bg-gray-600 dark:even:bg-gray-600/80">
       <div className="flex items-start gap-3">
-        <DropdownMenu.Root open={open} onOpenChange={setOpen}>
-          <DropdownMenu.Trigger
-            render={
-              <IconButton
-                icon={open ? XMarkIcon : PencilSquareIcon}
-                color="primary"
-                label={iconLabel}
-                className="-mt-0.5"
-              />
-            }
-          />
-          <DropdownMenu.Popup portalProps={{ keepMounted: true }}>
-            {edit && <DropdownMenu.Item>{edit}</DropdownMenu.Item>}
-            {remove && <DropdownMenu.Item>{remove}</DropdownMenu.Item>}
-          </DropdownMenu.Popup>
-        </DropdownMenu.Root>
+        {actions && (
+          <DropdownMenu.Root open={open} onOpenChange={setOpen}>
+            <DropdownMenu.Trigger
+              render={
+                <IconButton
+                  icon={open ? XMarkIcon : PencilSquareIcon}
+                  color="primary"
+                  label={iconLabel}
+                  className="-mt-0.5"
+                />
+              }
+            />
+            <DropdownMenu.Popup portalProps={{ keepMounted: true }}>
+              {edit && <DropdownMenu.Item>{edit}</DropdownMenu.Item>}
+              {remove && <DropdownMenu.Item>{remove}</DropdownMenu.Item>}
+            </DropdownMenu.Popup>
+          </DropdownMenu.Root>
+        )}
         <div className="flex flex-col items-start gap-3">
           <span>
             <Heading
