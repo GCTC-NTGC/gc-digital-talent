@@ -198,7 +198,7 @@ test.describe("Placement and Referral", () => {
     });
   });
 
-  test("Verify 'Placed acting' candidate is paused until there candidacy expires and resumed back", async ({
+  test("Verify 'Placed acting' candidate is paused until their candidacy expires and resumed back", async ({
     appPage,
   }) => {
     await loginBySub(appPage.page, testConfig.signInSubs.recruiterSignIn);
