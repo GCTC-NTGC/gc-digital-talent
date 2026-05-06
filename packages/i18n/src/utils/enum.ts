@@ -189,6 +189,13 @@ export const ENUM_SORT_ORDER = {
     PlacementType.PlacedActing,
     PlacementType.PlacedIndeterminate,
   ],
+  POOL_CANDIDATE_SEARCH_STATUS: [
+    PoolCandidateSearchStatus.New,
+    PoolCandidateSearchStatus.InProgress,
+    PoolCandidateSearchStatus.Waiting,
+    PoolCandidateSearchStatus.Done,
+    PoolCandidateSearchStatus.DoneNoCandidates,
+  ],
   PRIORITY_WEIGHT: [
     PriorityWeight.PriorityEntitlement,
     PriorityWeight.Veteran,
@@ -383,13 +390,7 @@ export function sortPoolCandidateSearchStatus(
   poolCandidateSearchStatuses?: MaybeLocalizedEnums,
 ) {
   return sortLocalizedEnums(
-    [
-      PoolCandidateSearchStatus.New,
-      PoolCandidateSearchStatus.InProgress,
-      PoolCandidateSearchStatus.Waiting,
-      PoolCandidateSearchStatus.Done,
-      PoolCandidateSearchStatus.DoneNoCandidates,
-    ],
+    ENUM_SORT_ORDER.POOL_CANDIDATE_SEARCH_STATUS,
     poolCandidateSearchStatuses,
   );
 }

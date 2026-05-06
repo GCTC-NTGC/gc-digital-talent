@@ -16,7 +16,6 @@ import {
   Card,
   Sidebar,
 } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -31,148 +30,10 @@ import pageTitles from "~/messages/pageTitles";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import Hero from "~/components/Hero";
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
-import type { PartialSearchRequest } from "~/types/searchRequest";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
 import TalentRequestSidebar from "./TalentRequestSidebar";
-
-const ManagerInfo = ({
-  searchRequest,
-}: {
-  searchRequest: PartialSearchRequest;
-}) => {
-  const intl = useIntl();
-  const locale = getLocale(intl);
-  const {
-    fullName,
-    department,
-    email,
-    managerJobTitle,
-    hrAdvisorEmail,
-    status,
-    requestedDate,
-    statusChangedAt,
-  } = searchRequest;
-
-  return (
-    <>
-      <Heading level="h2" size="h4" className="mt-0">
-        {intl.formatMessage({
-          defaultMessage: "Manager information",
-          id: "eyR6B+",
-          description:
-            "Heading for the manager info section of the single search request view.",
-        })}
-      </Heading>
-      <Card>
-        <div className="grid gap-6 wrap-break-word sm:grid-cols-4">
-          <div className="border-r-black/20 sm:border-r sm:pr-6 dark:border-r-white/20">
-            <FilterBlock
-              title={intl.formatMessage(commonMessages.fullName)}
-              content={fullName}
-            />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Government email",
-                id: "wLVo1I",
-                description:
-                  "Title for the government email block in the manager info section of the single search request view.",
-              })}
-              content={
-                email ? (
-                  <Link external href={`mailto:${email}`}>
-                    {email}
-                  </Link>
-                ) : null
-              }
-            />
-          </div>
-          <div className="border-r-black/20 sm:border-r sm:pr-6 dark:border-r-white/20">
-            <FilterBlock
-              title={intl.formatMessage(commonMessages.department)}
-              content={department?.name?.[locale]}
-            />
-            <FilterBlock
-              title={intl.formatMessage(adminMessages.jobTitle)}
-              content={
-                managerJobTitle ??
-                intl.formatMessage(adminMessages.noneProvided)
-              }
-            />
-          </div>
-          <div className="border-r-black/20 sm:border-r sm:pr-6 dark:border-r-white/20">
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Date received",
-                id: "m0Qcow",
-                description:
-                  "Title displayed on the search request table requested date column.",
-              })}
-              content={
-                requestedDate
-                  ? formatDate({
-                      date: parseDateTimeUtc(requestedDate),
-                      formatString: "PPP p",
-                      intl,
-                    })
-                  : null
-              }
-            />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "HR advisor email",
-                id: "PD7anu",
-                description:
-                  "Title for the government email block in the manager info section of the single search request view.",
-              })}
-              content={
-                hrAdvisorEmail ? (
-                  <Link external href={`mailto:${hrAdvisorEmail}`}>
-                    {hrAdvisorEmail}
-                  </Link>
-                ) : (
-                  intl.formatMessage(commonMessages.notApplicable)
-                )
-              }
-            />
-          </div>
-          <div>
-            <FilterBlock
-              title={intl.formatMessage(commonMessages.status)}
-              content={
-                status?.label
-                  ? getLocalizedName(status.label, intl)
-                  : intl.formatMessage(commonMessages.notApplicable)
-              }
-            />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Status change",
-                id: "IUoUqs",
-                description:
-                  "Title for the request status last changed at date block.",
-              })}
-              content={
-                statusChangedAt
-                  ? formatDate({
-                      date: parseDateTimeUtc(statusChangedAt),
-                      formatString: "PPP p",
-                      intl,
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "(Not changed)",
-                      id: "rfDHc0",
-                      description: "Null state, nothing changed yet.",
-                    })
-              }
-            />
-          </div>
-        </div>
-      </Card>
-    </>
-  );
-};
 
 const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
   fragment ViewSearchRequest_SearchRequest on PoolCandidateSearchRequest {
@@ -378,6 +239,13 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
   }
 `);
 
+const TalentRequestOptions_Fragment = graphql(/** GraphQL */ `
+  fragment TalentRequestOptions on Query {
+    ...FlexibleWorkLocationOptionsFragment
+    ...TalentRequestStatusOptions
+  }
+`);
+
 const pageTitle = defineMessage({
   defaultMessage: "Request",
   id: "WYJnLs",
@@ -388,14 +256,12 @@ interface SingleSearchRequestProps {
   searchRequestQuery: FragmentType<
     typeof ViewSearchRequest_SearchRequestFragment
   >;
-  flexibleLocationOptionsQuery:
-    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
-    | undefined;
+  optionsQuery?: FragmentType<typeof TalentRequestOptions_Fragment>;
 }
 
 export const ViewSearchRequest = ({
   searchRequestQuery,
-  flexibleLocationOptionsQuery,
+  optionsQuery,
 }: SingleSearchRequestProps) => {
   const intl = useIntl();
   const routes = useRoutes();
@@ -417,9 +283,10 @@ export const ViewSearchRequest = ({
     reason,
   } = searchRequest;
 
+  const options = getFragment(TalentRequestOptions_Fragment, optionsQuery);
   const locationOptionsData = getFragment(
     FlexibleWorkLocationOptions_Fragment,
-    flexibleLocationOptionsQuery,
+    options,
   );
   const locationOptionsDataUnpacked = unpackMaybes(
     locationOptionsData?.flexibleWorkLocation,
@@ -466,7 +333,10 @@ export const ViewSearchRequest = ({
       <Container size="lg" className="mt-18">
         <Sidebar.Wrapper scrollbar>
           <Sidebar.Sidebar scrollbar>
-            <TalentRequestSidebar query={searchRequest} />
+            <TalentRequestSidebar
+              query={searchRequest}
+              optionsQuery={options}
+            />
           </Sidebar.Sidebar>
           <Sidebar.Content>
             {wasEmpty && (
@@ -576,7 +446,7 @@ const ViewSearchRequest_Query = graphql(/* GraphQL */ `
 
 const ViewSearchRequestPageOptions_Query = graphql(/* GraphQL */ `
   query ViewSearchRequestPageOptions {
-    ...FlexibleWorkLocationOptionsFragment
+    ...TalentRequestOptions
   }
 `);
 
@@ -605,7 +475,7 @@ const ViewSearchRequestApi = ({
       {searchRequestData?.poolCandidateSearchRequest ? (
         <ViewSearchRequest
           searchRequestQuery={searchRequestData.poolCandidateSearchRequest}
-          flexibleLocationOptionsQuery={optionsData}
+          optionsQuery={optionsData}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>

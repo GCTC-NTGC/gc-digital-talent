@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import type { ReactNode } from "react";
 
 import {
   getFragment,
@@ -14,6 +13,8 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import TalentRequestNotes from "./TalentRequestNotes";
+import type { TalentRequestStatusOptions } from "./TalentRequestStatus";
+import TalentRequestStatus from "./TalentRequestStatus";
 
 const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestSidebar on PoolCandidateSearchRequest {
@@ -28,15 +29,20 @@ const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
     statusChangedAt
     hrAdvisorEmail
 
+    ...TalentRequestStatus
     ...TalentRequestNotes
   }
 `);
 
 interface TalentRequestSidebarProps {
   query: FragmentType<typeof TalentRequestSidebar_Fragment>;
+  optionsQuery?: TalentRequestStatusOptions;
 }
 
-const TalentRequestSidebar = ({ query }: TalentRequestSidebarProps) => {
+const TalentRequestSidebar = ({
+  query,
+  optionsQuery,
+}: TalentRequestSidebarProps) => {
   const intl = useIntl();
   const talentRequest = getFragment(TalentRequestSidebar_Fragment, query);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
@@ -55,6 +61,7 @@ const TalentRequestSidebar = ({ query }: TalentRequestSidebarProps) => {
         </p>
       </div>
       <Card.Separator space="sm" />
+      <TalentRequestStatus query={talentRequest} optionsQuery={optionsQuery} />
       <FieldDisplay
         label={intl.formatMessage({
           defaultMessage: "Last modified",
