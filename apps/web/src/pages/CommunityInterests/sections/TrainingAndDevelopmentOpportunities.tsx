@@ -142,15 +142,15 @@ const TrainingAndDevelopmentOpportunities = ({
 
   const [{ data: freshExpData }] = useQuery<{
     me?: {
-      educationExperiences?: Array<{
+      educationExperiences?: {
         id: string;
         institution?: string | null;
         areaOfStudy?: string | null;
         startDate?: string | null;
         endDate?: string | null;
         type?: { label?: { localized?: string | null } | null } | null;
-        skills?: Array<{ id: string }> | null;
-      }> | null;
+        skills?: { id: string }[] | null;
+      }[] | null;
     } | null;
   }>({
     query: EducationExperiencesRefresh_Query,
