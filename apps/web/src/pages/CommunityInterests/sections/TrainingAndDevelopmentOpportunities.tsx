@@ -13,7 +13,11 @@ import {
   Button,
   Link,
 } from "@gc-digital-talent/ui";
-import { commonMessages, errorMessages, uiMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   DevelopmentProgramParticipationStatus,
@@ -523,7 +527,7 @@ const TrainingAndDevelopmentOpportunities = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "By selecting the professionalization from your education and certificate experience, you can help recruiters and hiring managers quickly understand your standing. If you haven't added this professionalization to your career experience yet, you can do so using the \"Add a new experience\" button.",
+                    'By selecting the professionalization from your education and certificate experience, you can help recruiters and hiring managers quickly understand your standing. If you haven\'t added this professionalization to your career experience yet, you can do so using the "Add a new experience" button.',
                   id: "jaGVck",
                   description:
                     "Body text in the provincial program license dialog explaining how to link an education experience",
@@ -559,7 +563,9 @@ const TrainingAndDevelopmentOpportunities = ({
                         description:
                           "Label for the education experience dropdown in the link experience dialog",
                       })}
-                      nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+                      nullSelection={intl.formatMessage(
+                        uiMessages.nullSelectionOption,
+                      )}
                       rules={{
                         required: intl.formatMessage(errorMessages.required),
                       }}
