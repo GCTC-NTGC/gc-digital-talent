@@ -47,13 +47,11 @@ const RichTextInput = ({
   const intl = useIntl();
   useRegisterFormLabel(name, label);
   const fieldState = useFieldState(id, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     describedBy,
     show: {
       error: fieldState === "invalid",
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });
