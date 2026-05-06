@@ -134,7 +134,7 @@ const TalentRequestStatus = ({
         <Select
           id="status"
           name="status"
-          className="mb-1"
+          className="mb-2"
           nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
           label={intl.formatMessage(commonMessages.status)}
           options={sortLocalizedEnumOptions(
