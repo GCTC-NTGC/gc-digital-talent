@@ -134,7 +134,7 @@ const TaskCardAction = ({ action, ...rest }: TaskCardActionProps) => {
   }
 
   if ("href" in action) {
-    return <Link href={action.href} {...rest} />;
+    return <Link href={action.href} {...rest} mode="inline" />;
   }
 
   return null;
