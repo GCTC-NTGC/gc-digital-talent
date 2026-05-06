@@ -113,10 +113,12 @@ type RootVariants = VariantProps<typeof root>;
 
 interface LinkAction {
   href: LinkProps["href"];
+  onClick?: never;
 }
 
 interface ButtonAction {
   onClick: ButtonProps["onClick"];
+  href?: never;
 }
 
 type TaskCardAction = LinkAction | ButtonAction;
