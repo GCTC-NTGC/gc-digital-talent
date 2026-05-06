@@ -8274,10 +8274,6 @@
     "defaultMessage": "Autre grade avec spécialisation",
     "description": "Heading for the `other education with specialization` option for EC education requirements"
   },
-  "WVf1Wr": {
-    "defaultMessage": "les fonctionnaires dont la classification est CT-FIN-04 et qui ont fait l'objet d'une candidature dans le cadre de la gestion des talents doivent créer un profil.",
-    "description": "Employee group list item descriptions"
-  },
   "WWh3KI": {
     "defaultMessage": "Licence de programme provincial",
     "description": "Dialog header for linking a provincial program license to a development program"
@@ -9561,10 +9557,6 @@
   "bzcV2Q": {
     "defaultMessage": "La plateforme des talents numériques du GC s’associe au service de justificatifs du GC, CléGC, pour vous donner accès à votre compte à l’aide d’une seule combinaison de nom d’utilisateur et de mot de passe. Vous pouvez gérer votre nom d’utilisateur et votre mot de passe sur le site Web de CléGC; les modifications auront automatiquement été intégrées lorsque vous ouvrirez une session dans la plateforme des talents numériques du GC.",
     "description": "Description of how we use GCKey for authentication."
-  },
-  "c+HfTe": {
-    "defaultMessage": "Sélectionner une option",
-    "description": "Placeholder option for the education experience select"
   },
   "c+P41C": {
     "defaultMessage": "Programme de mentorat de la collectivité du numérique",
