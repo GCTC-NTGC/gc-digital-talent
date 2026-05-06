@@ -6,12 +6,8 @@ import { useQuery } from "urql";
 import { useOutletContext } from "react-router";
 
 import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import {
-  notEmpty,
-  unpackMaybes,
-  NotFoundError,
-} from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME as ROLE, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   Scalars,
@@ -33,7 +29,6 @@ import {
   groupRoleAssignmentsByUserDepartments,
 } from "~/utils/departmentUtils";
 import { requireUser } from "~/routing/auth";
-import { graphqlClientContext, intlContext } from "~/routing/context";
 
 import AddDepartmentMembershipDialog from "./components/AddDepartmentMembership";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -43,8 +38,7 @@ import type {
 } from "./components/types";
 import { DepartmentManageAccessPage_DepartmentFragment } from "./components/operations";
 import type { Route } from "./+types/ManageAccessPage";
-import { DepartmentTeams_Query } from "../utils";
-import messages from "../messages";
+import { getTeamIdInMiddleware } from "../utils";
 
 const pageTitle = defineMessage({
   defaultMessage: "Department members",
@@ -71,7 +65,7 @@ const DepartmentMembersTable = ({
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
   const hasPlatformAdmin = checkRoleDepartments(
-    [ROLE_NAME.PlatformAdmin],
+    [ROLE.PlatformAdmin],
     roleAssignments,
   );
 
@@ -229,31 +223,17 @@ const DepartmentManageAccessPage = ({
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request, params }, next) => {
-    const intl = context.get(intlContext);
-    const client = context.get(graphqlClientContext);
-    const res = await client
-      .query(DepartmentTeams_Query, { id: params.departmentId })
-      .toPromise();
-
-    if (!res.data?.department) {
-      throw new NotFoundError(
-        intl.formatMessage(messages.departmentNotFound, {
-          departmentId: params.departmentId,
-        }),
-      );
-    }
-
-    requireUser(context, request, [
-      { name: ROLE_NAME.PlatformAdmin },
-      {
-        name: ROLE_NAME.DepartmentAdmin,
-        teamId: res.data.department.teamIdForRoleAssignment,
-      },
-      {
-        name: ROLE_NAME.DepartmentHRAdvisor,
-        teamId: res.data.department.teamIdForRoleAssignment,
-      },
-    ]);
+    const teamId = await getTeamIdInMiddleware(context, params.departmentId);
+    requireUser(
+      context,
+      request,
+      [
+        { name: ROLE.PlatformAdmin },
+        { name: ROLE.DepartmentAdmin, teamId: teamId },
+        { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
+      ],
+      true,
+    );
     return await next();
   },
 ];

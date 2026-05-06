@@ -16,8 +16,7 @@ import {
 } from "@gc-digital-talent/ui";
 import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { NotFoundError } from "@gc-digital-talent/helpers";
+import { ROLE_NAME as ROLE } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -25,13 +24,12 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-import { graphqlClientContext, intlContext } from "~/routing/context";
 import { requireUser } from "~/routing/auth";
 
 import labels from "./labels";
 import type { ContextType } from "./ManageAccessPage/components/types";
 import type { Route } from "./+types/ViewDepartmentPage";
-import { DepartmentTeams_Query } from "./utils";
+import { getTeamIdInMiddleware } from "./utils";
 import messages from "./messages";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
@@ -164,33 +162,14 @@ const Department_Query = graphql(/* GraphQL */ `
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request, params }, next) => {
-    const intl = context.get(intlContext);
-    const client = context.get(graphqlClientContext);
-    const res = await client
-      .query(DepartmentTeams_Query, { id: params.departmentId })
-      .toPromise();
-
-    if (!res.data?.department) {
-      throw new NotFoundError(
-        intl.formatMessage(messages.departmentNotFound, {
-          departmentId: params.departmentId,
-        }),
-      );
-    }
-
+    const teamId = await getTeamIdInMiddleware(context, params.departmentId);
     requireUser(
       context,
       request,
       [
-        { name: ROLE_NAME.PlatformAdmin },
-        {
-          name: ROLE_NAME.DepartmentAdmin,
-          teamId: res.data.department.teamIdForRoleAssignment,
-        },
-        {
-          name: ROLE_NAME.DepartmentHRAdvisor,
-          teamId: res.data.department.teamIdForRoleAssignment,
-        },
+        { name: ROLE.PlatformAdmin },
+        { name: ROLE.DepartmentAdmin, teamId: teamId },
+        { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
       ],
       true,
     );
