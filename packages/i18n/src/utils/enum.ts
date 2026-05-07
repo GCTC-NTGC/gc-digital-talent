@@ -400,6 +400,7 @@ export function sortPoolLanguage(poolLanguages?: MaybeLocalizedEnums) {
       PoolLanguage.Various,
       PoolLanguage.English,
       PoolLanguage.French,
+      PoolLanguage.VariousBilingual,
       PoolLanguage.BilingualIntermediate,
       PoolLanguage.BilingualAdvanced,
     ],

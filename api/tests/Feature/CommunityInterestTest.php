@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\CommunityInterestAdditionalDuty;
 use App\Enums\DevelopmentProgramParticipationStatus;
 use App\Enums\ErrorCode;
 use App\Models\Community;
@@ -244,7 +245,7 @@ class CommunityInterestTest extends TestCase
                             'communityId' => $financeCommunity->id,
                             ...$this->input,
                             'financeIsChief' => true,
-                            'financeAdditionalDuties' => null,
+                            'communityInterestAdditionalDuties' => null,
                             'financeOtherRoles' => null,
                             'consentToShareProfile' => true,
                         ],
@@ -255,6 +256,62 @@ class CommunityInterestTest extends TestCase
                     'createCommunityInterestWithDevelopmentPrograms' => [
                         ...$this->input,
                         'community' => ['id' => $financeCommunity->id],
+                    ],
+                ],
+            ]);
+    }
+
+    /**
+     * Test applicant can create a community interest for Procurement
+     */
+    public function testApplicantCanCreateOwnCommunityInterestForProcurement()
+    {
+        $procurementCommunity = Community::factory()->create([
+            'key' => 'procurement',
+            'name' => [
+                'en' => 'Procurement',
+                'fr' => 'Procurement (French)',
+            ],
+        ]);
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL(
+                <<<'GRAPHQL'
+                    mutation createCommunityInterestWithDevelopmentPrograms($communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!) {
+                        createCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: $communityInterestWithDevelopmentPrograms) {
+                            community {
+                                id
+                            }
+                            procurementIsSDO
+                            communityInterestAdditionalDuties {
+                                value
+                            }
+                            consentToShareProfile
+                        }
+                    }
+                GRAPHQL,
+                [
+                    'communityInterestWithDevelopmentPrograms' => [
+                        'userId' => $this->applicant->id,
+                        'communityInterest' => [
+                            'communityId' => $procurementCommunity->id,
+                            'procurementIsSDO' => true,
+                            'communityInterestAdditionalDuties' => [CommunityInterestAdditionalDuty::MATERIEL_MANAGEMENT->name],
+                            'consentToShareProfile' => true,
+                        ],
+                    ],
+                ])
+            ->assertJson([
+                'data' => [
+                    'createCommunityInterestWithDevelopmentPrograms' => [
+                        'community' => ['id' => $procurementCommunity->id],
+                        'procurementIsSDO' => true,
+                        'communityInterestAdditionalDuties' => [
+                            [
+                                'value' => 'MATERIEL_MANAGEMENT',
+                            ],
+                        ],
+                        'consentToShareProfile' => true,
                     ],
                 ],
             ]);

@@ -22,6 +22,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
 
 type DialogVariant = "received"; // "under_review" | "withdrawn" | "approved" | "partially_approved" | "rejected" | "expired"
 
@@ -75,10 +76,12 @@ const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
       }
     }
     developmentProgramOptionsOther
-    developmentPrograms {
-      id
-      name {
-        localized
+    communityDevelopmentPrograms(trashed: WITH) {
+      developmentProgram {
+        id
+        name {
+          localized
+        }
       }
     }
   }
@@ -150,10 +153,10 @@ const ReviewTalentNominationDialog = ({
   }));
 
   const developmentPrograms: ListItem[] = unpackMaybes(
-    talentNomination.developmentPrograms,
-  ).map((program) => ({
-    key: program.id,
-    name: program.name?.localized ?? "",
+    talentNomination.communityDevelopmentPrograms,
+  ).map((cdp) => ({
+    key: cdp.developmentProgram.id,
+    name: cdp.developmentProgram.name?.localized ?? "",
   }));
 
   return (
@@ -234,9 +237,7 @@ const ReviewTalentNominationDialog = ({
                 <BoolCheckIcon
                   value={talentNomination.nominateForDevelopmentPrograms}
                 >
-                  {intl.formatMessage(
-                    talentNominationMessages.nominateForDevelopmentPrograms,
-                  )}
+                  {intl.formatMessage(adminMessages.developmentOpportunities)}
                 </BoolCheckIcon>
               </FieldDisplay>
             </div>
@@ -379,12 +380,9 @@ const ReviewTalentNominationDialog = ({
                   {developmentPrograms.length > 0 && (
                     <FieldDisplay
                       className="xs:col-span-2"
-                      label={intl.formatMessage({
-                        defaultMessage: "Recommended development opportunities",
-                        id: "zkwquN",
-                        description:
-                          "Label for selected development program items",
-                      })}
+                      label={intl.formatMessage(
+                        adminMessages.developmentOpportunitiesRecommended,
+                      )}
                     >
                       <Ul unStyled space="md">
                         {developmentPrograms.map((p) => (

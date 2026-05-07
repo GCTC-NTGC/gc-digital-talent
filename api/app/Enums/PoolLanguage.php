@@ -11,8 +11,18 @@ enum PoolLanguage
     case ENGLISH;
     case FRENCH;
     case VARIOUS;
+    case VARIOUS_BILINGUAL;
     case BILINGUAL_INTERMEDIATE;
     case BILINGUAL_ADVANCED;
+
+    public static function bilingualGroup(): array
+    {
+        return [
+            PoolLanguage::VARIOUS_BILINGUAL->name,
+            PoolLanguage::BILINGUAL_INTERMEDIATE->name,
+            PoolLanguage::BILINGUAL_ADVANCED->name,
+        ];
+    }
 
     public static function getLangFilename(): string
     {

@@ -205,13 +205,14 @@ type CommunityInterest {
     @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   #finance-only fields
   financeIsChief: Boolean @rename(attribute: "finance_is_chief")
-  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
-    @rename(attribute: "finance_additional_duties")
+  communityInterestAdditionalDuties: [LocalizedCommunityInterestAdditionalDuty!]
+    @rename(attribute: "additional_duties")
   financeOtherRoles: [LocalizedFinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   createdAt: DateTime @rename(attribute: "created_at")
+  procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
 }
 
 type OffPlatformRecruitmentProcess {
@@ -881,9 +882,9 @@ type TalentNominationEvent {
   includeLeadershipCompetencies: Boolean!
     @rename(attribute: "include_leadership_competencies")
   community: Community! @belongsTo
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
-  developmentPrograms: [DevelopmentProgram!]
-    @hasMany(relation: "developmentProgramsThroughPivot")
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+    @belongsToMany
+    @softDeletes
   talentNominationGroups: [TalentNominationGroup!]
     @hasMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
     @canResolved(
@@ -956,9 +957,9 @@ type TalentNomination {
   lateralMovementOptionsOther: String
     @rename(attribute: "lateral_movement_options_other")
 
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
-  developmentPrograms: [DevelopmentProgram!]
-    @hasMany(relation: "developmentProgramsThroughPivot")
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+    @belongsToMany
+    @softDeletes
   developmentProgramOptionsOther: String
     @rename(attribute: "development_program_options_other")
 
@@ -2172,12 +2173,13 @@ input CreateCommunityInterestInput {
   additionalInformation: String @rename(attribute: "additional_information")
   #finance-only fields
   financeIsChief: Boolean @rename(attribute: "finance_is_chief")
-  financeAdditionalDuties: [FinanceChiefDuty!]
-    @rename(attribute: "finance_additional_duties")
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
+    @rename(attribute: "additional_duties")
   financeOtherRoles: [FinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
 }
 
 input UpdateCommunityInterestInput {
@@ -2187,12 +2189,13 @@ input UpdateCommunityInterestInput {
   additionalInformation: String @rename(attribute: "additional_information")
   #finance-only fields
   financeIsChief: Boolean @rename(attribute: "finance_is_chief")
-  financeAdditionalDuties: [FinanceChiefDuty!]
-    @rename(attribute: "finance_additional_duties")
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
+    @rename(attribute: "additional_duties")
   financeOtherRoles: [FinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
 }
 
 input UpsertDevelopmentProgramUserInput {
@@ -3904,12 +3907,11 @@ type Mutation {
   ): TrainingOpportunity @update @guard @canModel(ability: "update")
 
   # Development/professionalization mutations
-  createCommunityDevelopmentProgram(
+  createOrRestoreCommunityDevelopmentProgram(
     createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!
       @spread
   ): CommunityDevelopmentProgram
     @guard
-    @create
     @canModel(ability: "create", injectArgs: true)
   updateCommunityDevelopmentProgram(
     updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!
