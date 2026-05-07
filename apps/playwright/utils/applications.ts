@@ -1,7 +1,10 @@
 import type {
   CandidateRemovalReason,
   DisqualificationReason,
+  PauseReferralsInput,
+  PlaceCandidateInput,
   PoolCandidate,
+  QualifyAndPlaceCandidateInput,
   QualifyCandidateInput,
   Scalars,
   UpdatePoolCandidateScreeningStageInput,
@@ -330,4 +333,135 @@ export const updateScreeningStage: GraphQLRequestFunc<
       },
     )
     .then((res) => res.UpdateScreeningStage);
+};
+
+export const qualifyAndPlaceCandidate_Mutation = /* GraphQL */ `
+  mutation QualifyAndPlaceCandidate(
+    $id: UUID!
+    $poolCandidate: QualifyAndPlaceCandidateInput!
+  ) {
+    qualifyAndPlaceCandidate(id: $id, poolCandidate: $poolCandidate) {
+      id
+    }
+  }
+`;
+
+interface QualifyAndPlaceCandidateArgs {
+  id: string;
+  input: QualifyAndPlaceCandidateInput;
+}
+
+export const QualifyAndPlaceCandidate: GraphQLRequestFunc<
+  PoolCandidate,
+  QualifyAndPlaceCandidateArgs
+> = async (ctx, { id, input }) => {
+  return ctx
+    .post<GraphQLResponse<"qualifyAndPlaceCandidate", PoolCandidate>>(
+      qualifyAndPlaceCandidate_Mutation,
+      {
+        isPrivileged: true,
+        variables: {
+          id,
+          poolCandidate: input,
+        },
+      },
+    )
+    .then((res) => res.qualifyAndPlaceCandidate);
+};
+
+export const placeCandidateMutationDocument = /* GraphQL */ `
+  mutation PlaceCandidate_Mutation(
+    $id: UUID!
+    $poolCandidate: PlaceCandidateInput!
+  ) {
+    placeCandidate(id: $id, poolCandidate: $poolCandidate) {
+      id
+    }
+  }
+`;
+
+interface PlaceCandidateArgs {
+  id: string;
+  input: PlaceCandidateInput;
+}
+
+export const placeCandidate: GraphQLRequestFunc<
+  PoolCandidate,
+  PlaceCandidateArgs
+> = async (ctx, { id, input }) => {
+  return ctx
+    .post<GraphQLResponse<"placeCandidate", PoolCandidate>>(
+      placeCandidateMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          id,
+          poolCandidate: input,
+        },
+      },
+    )
+    .then((res) => res.placeCandidate);
+};
+
+export const pauseCandidateReferralMutationDocument = /* GraphQL */ `
+  mutation pauseCandidateReferrals(
+    $id: UUID!
+    $pauseReferrals: PauseReferralsInput!
+  ) {
+    pauseCandidateReferrals(id: $id, pauseReferrals: $pauseReferrals) {
+      id
+    }
+  }
+`;
+
+interface PauseReferralsArgs {
+  id: string;
+  input: PauseReferralsInput;
+}
+
+export const pauseCandidateReferral: GraphQLRequestFunc<
+  PoolCandidate,
+  PauseReferralsArgs
+> = async (ctx, { id, input }) => {
+  return ctx
+    .post<GraphQLResponse<"pauseCandidateReferrals", PoolCandidate>>(
+      pauseCandidateReferralMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          id,
+          pauseReferrals: input,
+        },
+      },
+    )
+    .then((res) => res.pauseCandidateReferrals);
+};
+
+export const resumeCandidateReferralMutationDocument = /* GraphQL */ `
+  mutation resumeCandidateReferrals($id: UUID!) {
+    resumeCandidateReferrals(id: $id) {
+      id
+    }
+  }
+`;
+
+interface ResumeCandidateReferralsArgs {
+  id: string;
+}
+
+export const ResumeCandidateReferrals: GraphQLRequestFunc<
+  PoolCandidate,
+  ResumeCandidateReferralsArgs
+> = async (ctx, { id }) => {
+  return ctx
+    .post<GraphQLResponse<"resumeCandidateReferrals", PoolCandidate>>(
+      resumeCandidateReferralMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          id,
+        },
+      },
+    )
+    .then((res) => res.resumeCandidateReferrals);
 };
