@@ -1,11 +1,14 @@
-import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
+import {
+  commonMessages,
+  errorMessages,
+  formMessages,
+} from "@gc-digital-talent/i18n";
 import { Checkbox, Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { graphql, type Classification } from "@gc-digital-talent/graphql";
@@ -29,7 +32,7 @@ export interface FormValues {
 }
 
 interface EditDialogProps {
-  classifications: Pick<Classification, "group" | "level">[];
+  classifications: Pick<Classification, "id" | "group" | "level">[];
   communityDevelopmentProgramId: string;
   defaultValues: FormValues;
   professionalizationName: string;
@@ -44,12 +47,14 @@ const EditDialog = ({
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
-  const [, executeMutation] = useMutation(EditProfessionalization_Mutation);
+  const [{ fetching }, executeMutation] = useMutation(
+    EditProfessionalization_Mutation,
+  );
 
   const methods = useForm<FormValues>({
     defaultValues,
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, resetField } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return executeMutation({
@@ -68,6 +73,7 @@ const EditDialog = ({
                 "Message displayed to user after professionalization is updated successfully.",
             }),
           );
+          setOpen(false);
           return result.data.updateCommunityDevelopmentProgram.id;
         }
         return Promise.reject(new Error(result.error?.toString()));
@@ -86,20 +92,20 @@ const EditDialog = ({
 
   const watchNeedForRestrictions = methods.watch("needForRestrictions");
 
+  useEffect(() => {
+    if (watchNeedForRestrictions === false) {
+      resetField("restrictedClassifications", { defaultValue: [] });
+    }
+  }, [watchNeedForRestrictions]);
+
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button
-          color="primary"
-          mode={"placeholder"}
-          icon={PlusCircleIcon}
-          className="w-full"
-        >
+        <Button color="primary" mode="text" className="w-full">
           {intl.formatMessage({
-            defaultMessage: "Add a professionalization",
-            id: "Akaadi",
-            description:
-              "Button to open dialog to create a professionalization",
+            defaultMessage: "Edit details",
+            id: "eKsGEL",
+            description: "Button to open dialog to edit a professionalization",
           })}
         </Button>
       </Dialog.Trigger>
@@ -124,15 +130,19 @@ const EditDialog = ({
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <p>
+              <Heading
+                level="h3"
+                color="black"
+                className="mt-0 text-base font-bold"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Classification restrictions",
                   id: "V3zpN4",
                   description:
                     "Sub heading for restricted classifications section",
                 })}
-              </p>
-              <p>
+              </Heading>
+              <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "In some cases, training or certifications might be limited to individual classification groups or even levels. If this professionalization is restricted, please indicate which groups and levels are allowed to participate.",
@@ -167,26 +177,33 @@ const EditDialog = ({
                 })}
               />
               {watchNeedForRestrictions ? (
-                <Combobox
-                  id="restrictedClassifications"
-                  name="restrictedClassifications"
-                  isMulti
-                  label={intl.formatMessage({
-                    defaultMessage: "Permitted classifications",
-                    id: "OHb3HT",
-                    description: "Label for classifications multi select",
-                  })}
-                  options={unpackMaybes(classifications).map(
-                    ({ group, level }) => ({
-                      value: `${group}-${level}`,
-                      label: `${group}-${level < 10 ? "0" : ""}${level}`,
-                    }),
-                  )}
-                />
+                <div className="mt-6">
+                  <Combobox
+                    id="restrictedClassifications"
+                    name="restrictedClassifications"
+                    isMulti
+                    label={intl.formatMessage({
+                      defaultMessage: "Permitted classifications",
+                      id: "OHb3HT",
+                      description: "Label for classifications multi select",
+                    })}
+                    options={unpackMaybes(classifications).map(
+                      ({ id, group, level }) => ({
+                        value: id,
+                        label: `${group}-${level < 10 ? "0" : ""}${level}`,
+                      }),
+                    )}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                </div>
               ) : null}
               <Dialog.Footer>
-                <Button color="primary">
-                  {intl.formatMessage(formMessages.saveChanges)}
+                <Button color="primary" disabled={fetching}>
+                  {fetching
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage(formMessages.saveChanges)}
                 </Button>
                 <Dialog.Close>
                   <Button type="button" color="warning" mode="inline">

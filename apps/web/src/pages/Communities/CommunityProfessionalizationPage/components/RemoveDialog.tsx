@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
+import { useState } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
@@ -26,8 +27,11 @@ const RemoveDialog = ({
   professionalizationName,
 }: RemoveDialogProps) => {
   const intl = useIntl();
+  const [open, setOpen] = useState(false);
 
-  const [, executeMutation] = useMutation(RemoveProfessionalization_Mutation);
+  const [{ fetching }, executeMutation] = useMutation(
+    RemoveProfessionalization_Mutation,
+  );
 
   const onSubmit = () => {
     return executeMutation({
@@ -43,6 +47,7 @@ const RemoveDialog = ({
                 "Message displayed to user after professionalization is removed successfully.",
             }),
           );
+          setOpen(false);
           return result.data.deleteCommunityDevelopmentProgram.id;
         }
         return Promise.reject(new Error(result.error?.toString()));
@@ -60,7 +65,7 @@ const RemoveDialog = ({
   };
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button color="primary" mode="text" className="w-full">
           {intl.formatMessage(commonMessages.remove)}
@@ -85,7 +90,7 @@ const RemoveDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <p className="mb-6">
+          <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "By removing this professionalization from the community, the following changes will be made for all users:",
@@ -94,7 +99,7 @@ const RemoveDialog = ({
                 "Unordered list heading warning user before removing a professionalization",
             })}
           </p>
-          <Ul className="mb-6">
+          <Ul className="mb-6 grid gap-2">
             <li>
               <p>
                 {intl.formatMessage({
@@ -152,12 +157,20 @@ const RemoveDialog = ({
             </li>
           </Ul>
           <Dialog.Footer>
-            <Button type="button" color="error" onClick={onSubmit}>
-              {intl.formatMessage({
-                defaultMessage: "Remove professionalization",
-                id: "0AC/BM",
-                description: "Button label for removing a professionalization",
-              })}
+            <Button
+              disabled={fetching}
+              type="button"
+              color="error"
+              onClick={onSubmit}
+            >
+              {fetching
+                ? intl.formatMessage(commonMessages.saving)
+                : intl.formatMessage({
+                    defaultMessage: "Remove professionalization",
+                    id: "0AC/BM",
+                    description:
+                      "Button label for removing a professionalization",
+                  })}
             </Button>
             <Dialog.Close>
               <Button type="button" color="warning" mode="inline">

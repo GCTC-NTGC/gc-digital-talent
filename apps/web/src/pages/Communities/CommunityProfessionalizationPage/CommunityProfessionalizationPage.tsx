@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useOutletContext } from "react-router";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
+import { useState } from "react";
 
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
@@ -32,6 +33,9 @@ import adminMessages from "~/messages/adminMessages";
 
 import type { ContextType } from "../CommunityMembersPage/components/types";
 import AddDialog from "./components/AddDialog";
+import { useSort, type SortValues } from "./utils/useSort";
+import EditDialog from "./components/EditDialog";
+import RemoveDialog from "./components/RemoveDialog";
 
 interface RouteParams extends Record<string, string> {
   communityId: Scalars["ID"]["output"];
@@ -40,37 +44,22 @@ interface RouteParams extends Record<string, string> {
 const CommunityProfessionalizationForm_Fragment = graphql(/* GraphQL */ `
   fragment CommunityProfessionalizationForm on Community {
     id
-    key
     name {
-      en
-      fr
-    }
-    description {
-      en
-      fr
-    }
-    informationUrl {
-      en
-      fr
-    }
-    contactEmail
-    mandateAuthority {
-      en
-      fr
+      localized
     }
   }
 `);
 
 const selectedFilterStyle: Record<string, string> = {
   mode: "inline",
-  color: "secondary",
-  className: "no-underline",
+  color: "black",
+  className: "[&_*]:no-underline pointer-events-none",
 };
 
 const unselectedFilterStyle: Record<string, string> = {
   mode: "inline",
   color: "black",
-  className: "font-bold",
+  className: "font-normal text-gray-500",
 };
 
 interface CommunityProfessionalizationProps {
@@ -87,15 +76,28 @@ export const CommunityProfessionalizationForm = ({
   query,
 }: CommunityProfessionalizationProps) => {
   const intl = useIntl();
+  const { communityName, navigationCrumbs, navTabs } =
+    useOutletContext<ContextType>();
+
   const community = getFragment(
     CommunityProfessionalizationForm_Fragment,
     query,
   );
 
-  const pageTitle = intl.formatMessage(adminMessages.professionalization);
+  const [sortBy, setSortBy] = useState<SortValues>("recentlyAdded");
 
-  const { communityName, navigationCrumbs, navTabs } =
-    useOutletContext<ContextType>();
+  const ids = new Set(
+    communityDevelopmentPrograms.map((cdp) => cdp.developmentProgram.id),
+  );
+  const filteredDevelopmentPrograms = developmentPrograms.filter(
+    (dp) => !ids.has(dp.id),
+  );
+  const sortedCommunityDevelopmentPrograms = useSort(
+    communityDevelopmentPrograms,
+    sortBy,
+  );
+
+  const pageTitle = intl.formatMessage(adminMessages.professionalization);
 
   const notFound = intl.formatMessage(commonMessages.notFound);
 
@@ -104,52 +106,64 @@ export const CommunityProfessionalizationForm = ({
       <SEO title={pageTitle} />
       <Hero title={communityName} crumbs={navigationCrumbs} navTabs={navTabs} />
       <Container className="my-12">
-        <Card className="flex flex-col gap-6">
-          <Heading
-            size="h3"
-            icon={CheckBadgeIcon}
-            color="primary"
-            className="mt-0"
-          >
-            {pageTitle}
-          </Heading>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "Link common development programs, certifications, accreditation or licenses to the community for talent management purposes. When added, a professionalization will then be available as a development opportunity during Talent Management nominations as well as be provided to candidates who join the community from their profile.",
-              id: "eC+ZhW",
-              description: "Description for professionalizations page",
-            })}
-          </p>
-          <div className="grid gap-6">
+        <Card>
+          <div className="mb-3 flex flex-col gap-6 px-3 pt-3">
+            <Heading
+              size="h3"
+              icon={CheckBadgeIcon}
+              color="primary"
+              className="mt-0"
+            >
+              {pageTitle}
+            </Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Link common development programs, certifications, accreditation or licenses to the community for talent management purposes. When added, a professionalization will then be available as a development opportunity during Talent Management nominations as well as be provided to candidates who join the community from their profile.",
+                id: "eC+ZhW",
+                description: "Description for professionalizations page",
+              })}
+            </p>
             <AddDialog
               communityId={community.id}
               communityName={communityName}
-              developmentPrograms={developmentPrograms}
+              developmentPrograms={filteredDevelopmentPrograms}
               classifications={classifications}
             />
             <div
               role="group"
               aria-labelledby="sortFilter"
-              className="mt-6 flex gap-3"
+              className="mt-6 flex items-center gap-3"
             >
-              <span id="sortFilter">
+              <span id="sortFilter" className="text-gray-500">
                 {intl.formatMessage(formMessages.sortBy)}
                 {intl.formatMessage(commonMessages.dividingColon)}
               </span>
-              <Button {...unselectedFilterStyle}>
+              <Button
+                onClick={() => setSortBy("recentlyAdded")}
+                {...(sortBy === "recentlyAdded"
+                  ? selectedFilterStyle
+                  : unselectedFilterStyle)}
+              >
                 {intl.formatMessage({
                   defaultMessage: "Recently added",
                   id: "Fmi0y9",
                   description: "Sorting option for professionalizations list",
                 })}
               </Button>
-              <Button {...unselectedFilterStyle}>
+              <Button
+                onClick={() => setSortBy("name")}
+                {...(sortBy === "name"
+                  ? selectedFilterStyle
+                  : unselectedFilterStyle)}
+              >
                 {intl.formatMessage(commonMessages.name)}
               </Button>
             </div>
+          </div>
+          <div className="-mr-6 -mb-5 -ml-6">
             <DevelopmentProgramCard.Root>
-              {communityDevelopmentPrograms.map((cdp) => {
+              {sortedCommunityDevelopmentPrograms.map((cdp) => {
                 return (
                   <DevelopmentProgramCard.Item
                     key={cdp.developmentProgram.id}
@@ -157,6 +171,35 @@ export const CommunityProfessionalizationForm = ({
                     description={
                       cdp.developmentProgram.descriptionForProfile.localized ??
                       notFound
+                    }
+                    classificationRestrictions={unpackMaybes(
+                      cdp.classifications,
+                    )}
+                    edit={
+                      <EditDialog
+                        key={cdp.id}
+                        classifications={classifications}
+                        communityDevelopmentProgramId={cdp.id}
+                        defaultValues={{
+                          needForRestrictions:
+                            unpackMaybes(cdp.classifications)?.length > 0,
+                          restrictedClassifications: unpackMaybes(
+                            cdp.classifications?.map((c) => c.id),
+                          ),
+                        }}
+                        professionalizationName={
+                          cdp.developmentProgram.name.localized ?? notFound
+                        }
+                      />
+                    }
+                    remove={
+                      <RemoveDialog
+                        communityDevelopmentProgramId={cdp.id}
+                        communityName={community.name?.localized ?? notFound}
+                        professionalizationName={
+                          cdp.developmentProgram.name.localized ?? notFound
+                        }
+                      />
                     }
                   />
                 );
@@ -175,13 +218,21 @@ const CommunityProfessionalization_Query = graphql(/* GraphQL */ `
       ...CommunityProfessionalizationForm
       communityDevelopmentPrograms {
         id
+        createdAt
         community {
           id
           key
         }
+        classifications {
+          id
+          group
+          level
+        }
         developmentProgram {
           id
           name {
+            en
+            fr
             localized
           }
           descriptionForProfile {

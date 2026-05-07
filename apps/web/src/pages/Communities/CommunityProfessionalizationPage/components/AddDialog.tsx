@@ -1,10 +1,10 @@
-import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
+import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import { useState } from "react";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
+import { Button, Dialog, Heading, Ul } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   errorMessages,
@@ -45,7 +45,7 @@ export interface FormValues {
 interface AddDialogProps {
   communityId: string;
   communityName: string;
-  classifications: Pick<Classification, "group" | "level">[];
+  classifications: Pick<Classification, "id" | "group" | "level">[];
   developmentPrograms: Pick<DevelopmentProgram, "id" | "name">[];
 }
 
@@ -58,7 +58,9 @@ const AddDialog = ({
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
-  const [, executeMutation] = useMutation(CreateProfessionalization_Mutation);
+  const [{ fetching }, executeMutation] = useMutation(
+    CreateProfessionalization_Mutation,
+  );
 
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
@@ -81,6 +83,7 @@ const AddDialog = ({
                 "Message displayed to user after professionalization is created successfully.",
             }),
           );
+          setOpen(false);
           return result.data.createCommunityDevelopmentProgram.id;
         }
         return Promise.reject(new Error(result.error?.toString()));
@@ -192,24 +195,31 @@ const AddDialog = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
+                className="mb-6"
               />
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Classification restrictions",
-                  id: "V3zpN4",
-                  description:
-                    "Sub heading for restricted classifications section",
-                })}
-              </p>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "In some cases, training or certifications might be limited to individual classification groups or even levels. If this professionalization is restricted, please indicate which groups and levels are allowed to participate.",
-                  id: "zq0KlM",
-                  description:
-                    "Description for restricted classifications section",
-                })}
-              </p>
+              <div className="mb-6">
+                <Heading
+                  level="h3"
+                  color="black"
+                  className="mt-0 text-base font-bold"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Classification restrictions",
+                    id: "V3zpN4",
+                    description:
+                      "Sub heading for restricted classifications section",
+                  })}
+                </Heading>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "In some cases, training or certifications might be limited to individual classification groups or even levels. If this professionalization is restricted, please indicate which groups and levels are allowed to participate.",
+                    id: "zq0KlM",
+                    description:
+                      "Description for restricted classifications section",
+                  })}
+                </p>
+              </div>
               <Checkbox
                 id="needForRestrictions"
                 name="needForRestrictions"
@@ -246,20 +256,22 @@ const AddDialog = ({
                     description: "Label for classifications multi select",
                   })}
                   options={unpackMaybes(classifications).map(
-                    ({ group, level }) => ({
-                      value: `${group}-${level}`,
+                    ({ id, group, level }) => ({
+                      value: id,
                       label: `${group}-${level < 10 ? "0" : ""}${level}`,
                     }),
                   )}
                 />
               ) : null}
               <Dialog.Footer>
-                <Button color="primary">
-                  {intl.formatMessage({
-                    defaultMessage: "Add professionalization",
-                    id: "fg0pzd",
-                    description: "Button to add a professionalization",
-                  })}
+                <Button color="primary" disabled={fetching}>
+                  {fetching
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage({
+                        defaultMessage: "Add professionalization",
+                        id: "fg0pzd",
+                        description: "Button to add a professionalization",
+                      })}
                 </Button>
                 <Dialog.Close>
                   <Button type="button" color="warning" mode="inline">
