@@ -70,10 +70,13 @@ const NominationDetailsReview_Fragment = graphql(/* GraphQL */ `
 
     # Development program details
     developmentProgramOptionsOther
-    developmentPrograms {
+    communityDevelopmentPrograms(trashed: WITH) {
       id
-      name {
-        localized
+      developmentProgram {
+        id
+        name {
+          localized
+        }
       }
     }
   }
@@ -147,10 +150,10 @@ const NominationDetailsReview = ({
   }));
 
   const developmentPrograms: ListItem[] = unpackMaybes(
-    talentNomination?.developmentPrograms,
-  ).map((program) => ({
-    key: program.id,
-    name: program.name?.localized ?? "",
+    talentNomination?.communityDevelopmentPrograms,
+  ).map((cdp) => ({
+    key: cdp.developmentProgram.id,
+    name: cdp.developmentProgram.name?.localized ?? "",
   }));
 
   return (
