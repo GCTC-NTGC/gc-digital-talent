@@ -65,12 +65,7 @@ const DevelopmentProgramDialog = ({
           className="w-full"
         >
           {edit
-            ? intl.formatMessage({
-                defaultMessage: "Edit details",
-                id: "2asz/9",
-                description:
-                  "Button to open dialog to create development opportunity",
-              })
+            ? intl.formatMessage(formMessages.editDetails)
             : intl.formatMessage({
                 defaultMessage: "Add an opportunity",
                 id: "9doHjH",

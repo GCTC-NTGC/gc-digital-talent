@@ -102,11 +102,7 @@ const EditDialog = ({
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button color="primary" mode="text" className="w-full">
-          {intl.formatMessage({
-            defaultMessage: "Edit details",
-            id: "eKsGEL",
-            description: "Button to open dialog to edit a professionalization",
-          })}
+          {intl.formatMessage(formMessages.editDetails)}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
