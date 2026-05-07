@@ -6,7 +6,6 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import type { AccordionMetaData } from "@gc-digital-talent/ui";
 import {
   Accordion,
-  Button,
   PreviewList,
   TaskCard,
   Ul,
@@ -20,7 +19,6 @@ import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
-import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
 
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 
@@ -164,18 +162,14 @@ const CareerDevelopmentTaskCard = ({
           children: <>{addACommunityLinkText}</>,
         },
       ]
-    : // if not verified, then a dialog to get verified
+    : // if not verified, then a link to get verified
       [
         {
           key: "add-community-key",
-          type: "button-component",
-          component: (
-            <UnlockEmployeeToolsDialog query={userFragment}>
-              <Button mode="inline" size="sm">
-                {addACommunityLinkText}
-              </Button>
-            </UnlockEmployeeToolsDialog>
-          ),
+          type: "link",
+          href: paths.employeeProfile(),
+          color: "primary",
+          children: <>{addACommunityLinkText}</>,
         },
       ];
 
