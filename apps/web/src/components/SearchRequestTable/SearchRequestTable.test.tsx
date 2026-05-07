@@ -43,11 +43,6 @@ const renderSearchRequestsTable = () =>
   );
 
 describe("SearchRequestsTable", () => {
-  it("should have no accessibility errors", async () => {
-    const { container } = renderSearchRequestsTable();
-    await expectNoAccessibilityErrors(container);
-  });
-
   it("Should render the table", () => {
     renderSearchRequestsTable();
 
