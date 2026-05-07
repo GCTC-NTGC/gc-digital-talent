@@ -20,9 +20,8 @@ const isMissingLookingForBilingual = (
   pool?: Pick<Pool, "language"> | null,
 ): boolean => {
   const userLookingForBilingual = !!user?.lookingForBilingual;
-  const poolNeedsBilingual = BILINGUAL_LANG.includes(
-    pool?.language?.value ?? PoolLanguage.Various,
-  );
+  const poolNeedsBilingual =
+    !!pool?.language?.value && BILINGUAL_LANG.includes(pool.language.value);
 
   if (poolNeedsBilingual && !userLookingForBilingual) return true;
 
