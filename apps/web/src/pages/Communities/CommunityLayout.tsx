@@ -99,6 +99,13 @@ const CommunityLayout = () => {
   ]);
 
   if (canViewManageAccess) {
+    pages.set("professionalization", {
+      icon: CheckBadgeIcon,
+      title: intl.formatMessage(adminMessages.professionalization),
+      link: {
+        url: paths.communityProfessionalization(communityId),
+      },
+    });
     pages.set("manage-access", {
       icon: ClipboardDocumentListIcon,
       title: intl.formatMessage({
@@ -108,13 +115,6 @@ const CommunityLayout = () => {
       }),
       link: {
         url: paths.communityManageAccess(communityId),
-      },
-    });
-    pages.set("professionalization", {
-      icon: CheckBadgeIcon,
-      title: intl.formatMessage(adminMessages.professionalization),
-      link: {
-        url: paths.communityProfessionalization(communityId),
       },
     });
   }
