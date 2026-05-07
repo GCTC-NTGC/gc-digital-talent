@@ -18,7 +18,8 @@ import {
   errorMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import type { FragmentType } from "@gc-digital-talent/graphql";
+import type { FragmentType ,
+  EducationType} from "@gc-digital-talent/graphql";
 import {
   DevelopmentProgramParticipationStatus,
   getFragment,
@@ -77,14 +78,18 @@ const EducationExperiencesRefresh_Query = graphql(/* GraphQL */ `
   query EducationExperiencesRefresh_Query {
     me {
       educationExperiences {
+        __typename
         id
         institution
         areaOfStudy
         startDate
         endDate
         type {
+          value
           label {
             localized
+            en
+            fr
           }
         }
         skills {
@@ -115,18 +120,18 @@ interface TrainingAndDevelopmentOpportunitiesProps {
     typeof DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment
   >[];
   educationExperiences: {
+    __typename: "EducationExperience";
     id: string;
     institution?: string | null;
     areaOfStudy?: string | null;
     startDate?: string | null;
     endDate?: string | null;
-    type?: { label?: { localized?: string | null } | null } | null;
+    type?: {
+      value: EducationType;
+      label: { localized?: string | null; en?: string | null; fr?: string | null };
+    } | null;
     skills?: { id: string }[] | null;
   }[];
-}
-
-interface DialogFormValues {
-  experienceId: string;
 }
 
 const TrainingAndDevelopmentOpportunities = ({
@@ -142,25 +147,10 @@ const TrainingAndDevelopmentOpportunities = ({
   const [dialogOpenForIndex, setDialogOpenForIndex] = useState<number | null>(
     null,
   );
-  const dialogFormMethods = useForm<DialogFormValues>();
+  const dialogFormMethods = useForm<{ experienceId: string }>();
 
-  const [{ data: freshExpData }] = useQuery<{
-    me?: {
-      educationExperiences?:
-        | {
-            id: string;
-            institution?: string | null;
-            areaOfStudy?: string | null;
-            startDate?: string | null;
-            endDate?: string | null;
-            type?: { label?: { localized?: string | null } | null } | null;
-            skills?: { id: string }[] | null;
-          }[]
-        | null;
-    } | null;
-  }>({
+  const [{ data: freshExpData }] = useQuery({
     query: EducationExperiencesRefresh_Query,
-    requestPolicy: "network-only",
     pause: dialogOpenForIndex === null,
   });
 
@@ -227,7 +217,7 @@ const TrainingAndDevelopmentOpportunities = ({
     setDialogOpenForIndex(index);
   };
 
-  const handleLinkExperience: SubmitHandler<DialogFormValues> = (
+  const handleLinkExperience: SubmitHandler<{ experienceId: string }> = (
     dialogValues,
   ) => {
     if (dialogOpenForIndex !== null) {

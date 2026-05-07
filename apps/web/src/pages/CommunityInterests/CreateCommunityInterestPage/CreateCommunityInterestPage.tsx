@@ -49,14 +49,18 @@ const CreateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
         ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
       }
       educationExperiences {
+        __typename
         id
         institution
         areaOfStudy
         startDate
         endDate
         type {
+          value
           label {
             localized
+            en
+            fr
           }
         }
         skills {
