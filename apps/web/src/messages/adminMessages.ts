@@ -234,6 +234,11 @@ const messages = defineMessages({
     id: "uNQzDO",
     description: "Label for Recommended development opportunities",
   },
+  communityDetails: {
+    defaultMessage: "Community details",
+    id: "iqCi+v",
+    description: "Label for Community details",
+  },
 });
 
 export default messages;

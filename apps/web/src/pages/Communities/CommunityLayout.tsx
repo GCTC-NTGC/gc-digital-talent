@@ -15,6 +15,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { checkRole } from "~/utils/communityUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
+import messages from "~/messages/adminMessages";
 
 import type { ContextType } from "./CommunityMembersPage/components/types";
 
@@ -84,11 +85,7 @@ const CommunityLayout = () => {
       "view",
       {
         icon: ClipboardDocumentListIcon,
-        title: intl.formatMessage({
-          defaultMessage: "Community information",
-          id: "W0Bh1G",
-          description: "Title for community information",
-        }),
+        title: intl.formatMessage(messages.details),
         link: {
           url: paths.communityView(communityId),
         },
