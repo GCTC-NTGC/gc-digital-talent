@@ -72,7 +72,6 @@ const Checkbox = ({
     id,
     show: {
       error: !!error,
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

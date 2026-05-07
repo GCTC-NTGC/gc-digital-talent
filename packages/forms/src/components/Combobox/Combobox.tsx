@@ -72,7 +72,6 @@ const Combobox = ({
   } = useFormContext<Record<string, ComboboxValue>>();
   useRegisterFormLabel(name, label);
   const fieldState = useFieldState(name || "", !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";
   const isRequired = !!rules?.required;
   const defaultValue = defaultValues?.[name];
@@ -81,7 +80,6 @@ const Combobox = ({
     id,
     show: {
       error: isInvalid,
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

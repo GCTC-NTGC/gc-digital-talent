@@ -71,14 +71,12 @@ const TextArea = ({
   const intl = useIntl();
   useRegisterFormLabel(name, label);
   const fieldState = useFieldState(id, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     describedBy,
     show: {
       error: isInvalid,
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

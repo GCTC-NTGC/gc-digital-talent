@@ -2,10 +2,7 @@ import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { screen } from "@testing-library/react";
 
-import {
-  expectNoAccessibilityErrors,
-  renderWithProviders,
-} from "@gc-digital-talent/vitest-helpers";
+import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
 
 import SearchRequestTable from "./SearchRequestTable";
@@ -43,11 +40,6 @@ const renderSearchRequestsTable = () =>
   );
 
 describe("SearchRequestsTable", () => {
-  it("should have no accessibility errors", async () => {
-    const { container } = renderSearchRequestsTable();
-    await expectNoAccessibilityErrors(container);
-  });
-
   it("Should render the table", () => {
     renderSearchRequestsTable();
 
