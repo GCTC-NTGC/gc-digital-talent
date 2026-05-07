@@ -254,9 +254,9 @@ const TrainingAndDevelopmentOpportunities = ({
   const subtitle = intl.formatMessage({
     defaultMessage:
       "Link an education or certificate experience to a professionalization",
-    id: "mjhQ02",
+    id: "VQNYAV",
     description:
-      "Subtitle for the provincial program license dialog in the training and development opportunities section",
+      "Subtitle for the link education experience dialog in the training and development opportunities section",
   });
 
   const dialogTitle =
@@ -526,10 +526,10 @@ const TrainingAndDevelopmentOpportunities = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    'By selecting the professionalization from your education and certificate experience, you can help recruiters and hiring managers quickly understand your standing. If you haven\'t added this professionalization to your career experience yet, you can do so using the "Add a new experience" button.',
-                  id: "DSFsgD",
+                  "The education and certificate option in your career experience allows you to add programs, certificates and accreditations to your career history. By selecting the experience that represents this professionalization from your profile, you can help recruiters and hiring managers quickly understand your standing. If you haven't added this program, certificate or accreditation to your career experience yet, you can do so using the \"Add new experience\" button.",
+                  id: "Z7hiHy",
                   description:
-                    "Body text in the provincial program license dialog explaining how to link an education experience",
+                    "Body text in the link education experience dialog explaining how to link an education experience",
                 })}
               </p>
               {dialogOpenForIndex !== null &&

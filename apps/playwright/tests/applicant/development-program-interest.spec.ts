@@ -341,9 +341,11 @@ test.describe("Development Program Interest", () => {
     const dialog = appPage.page.getByRole("dialog");
     await expect(dialog).toBeVisible();
 
-    // Dialog header should be "Provincial Program License"
+    // Dialog header should show the development program name
     await expect(
-      dialog.getByRole("heading", { name: /provincial program license/i }),
+      dialog.getByRole("heading", {
+        name: new RegExp(devProgram?.name?.en ?? "", "i"),
+      }),
     ).toBeVisible();
 
     // Dialog should show the dev program description

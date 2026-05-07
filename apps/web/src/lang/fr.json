@@ -8022,6 +8022,10 @@
     "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
     "description": "Text showing the essentials skills assessed during the process"
   },
+  "VQNYAV": {
+    "defaultMessage": "Lier une expérience d’études ou de certification à un perfectionnement professionnel",
+    "description": "Subtitle for the link education experience dialog in the training and development opportunities section"
+  },
   "VR79Ue": {
     "defaultMessage": "Télécharger le profil sans les coordonnées",
     "description": "Button label for downloading an anonymous user profile."
@@ -8273,10 +8277,6 @@
   "WT+5to": {
     "defaultMessage": "Autre grade avec spécialisation",
     "description": "Heading for the `other education with specialization` option for EC education requirements"
-  },
-  "WWh3KI": {
-    "defaultMessage": "Licence de programme provincial",
-    "description": "Dialog header for linking a provincial program license to a development program"
   },
   "WWrQYI": {
     "defaultMessage": "Erreur : la mise à jour de la possibilité de formation a échoué",
@@ -11626,10 +11626,6 @@
     "defaultMessage": "Enregistrer et retourner à ma chronologie de carrière",
     "description": "Label on button to save and return on the current experience"
   },
-  "jaGVck": {
-    "defaultMessage": "En sélectionnant un perfectionnement professionnel parmi vos expériences d’études et de certifications, vous aidez les recruteurs et les gestionnaires d’embauche à mieux comprendre votre profil rapidement. Si ce perfectionnement professionnel ne figure pas encore dans votre expérience professionnelle, vous pouvez l’ajouter à l’aide du bouton « Ajouter une nouvelle expérience ».",
-    "description": "Body text in the provincial program license dialog explaining how to link an education experience"
-  },
   "jaMIil": {
     "defaultMessage": "Votre disponibilité",
     "description": "Label for available for opportunities radio group"
@@ -12397,10 +12393,6 @@
   "mjUxjN": {
     "defaultMessage": "Pourquoi doit-on configurer l’authentification à deux facteurs?",
     "description": "Subtitle for a section explaining why to set up mfa"
-  },
-  "mjhQ02": {
-    "defaultMessage": "Lier une expérience d’études ou de certification à un perfectionnement professionnel",
-    "description": "Subtitle for the provincial program license dialog in the training and development opportunities section"
   },
   "ml+1LK": {
     "defaultMessage": "Vous souhaitez recevoir les offres d'emploi liées à ce processus de recrutement. Vous pouvez modifier ce statut à la fin de cette boîte de dialogue.",
