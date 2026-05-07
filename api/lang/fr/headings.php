@@ -276,7 +276,7 @@ return [
     'nominee_profiles' => 'Profil des candidats',
     'nominations_details' => 'Détails de la candidature',
     'nominee_first_name' => 'Prénom de la personne candidate',
-    'nominee_last_name' => 'Nominee\'s last name',
+    'nominee_last_name' => 'Nom de famille de la personne candidate',
     'nominee_user_id' => 'Identifiant utilisateur de la personne candidate',
     'nomination_status' => 'Statut de la mise en candidature',
 
@@ -287,7 +287,6 @@ return [
     'lateral_movement_approval_notes' => 'Notes d’approbation de la mutation latérale',
     'development_program_approval' => 'Approbation du programme de perfectionnement',
     'development_program_approval_notes' => 'Notes d’approbation du programme de perfectionnement',
-    'nominee_last_name' => 'Nom de famille de la personne candidate',
     'nomination_date' => 'Date de réception',
 
     'nomination_options' => 'Options de mise en candidature',
