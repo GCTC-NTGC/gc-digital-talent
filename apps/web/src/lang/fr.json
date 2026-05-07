@@ -1143,6 +1143,10 @@
     "defaultMessage": "{time} le {date}.",
     "description": "A datetime formatted as a certain time on a certain date"
   },
+  "2S6kLK": {
+    "defaultMessage": "Divers (bilingues)",
+    "description": "Various language requirement"
+  },
   "2SSm+L": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Success message after submission for the application review page."
@@ -4419,6 +4423,10 @@
     "defaultMessage": "Mutation latérale",
     "description": "Label for the lateral movement nomination type"
   },
+  "G+rsNw": {
+    "defaultMessage": "Divers (anglais ou français)",
+    "description": "Various language requirement"
+  },
   "G0AEfY": {
     "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <gcDigitalTalentLink>créer une CléGC</gcDigitalTalentLink> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
     "description": "Text explaining the importance of starting an application early"
@@ -6006,10 +6014,6 @@
   "MgFV4w": {
     "defaultMessage": "Note spéciale",
     "description": "The skills special note for a job poster template"
-  },
-  "MgK9E0": {
-    "defaultMessage": "Divers",
-    "description": "Various language requirement"
   },
   "MgLLHd": {
     "defaultMessage": "Demande élevée",
@@ -13093,6 +13097,10 @@
   "paLFgh": {
     "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
     "description": "Message for the advanced language ability option"
+  },
+  "paLmhR": {
+    "defaultMessage": "Plusieurs postes devraient être pourvus dans le cadre de ce processus. Vous pouvez poser votre candidature à ce processus si vous répondez au profil linguistique bilingue intermédiaire (B B B) ou bilingue avancé (C B C).",
+    "description": "Various bilingual language requirement description"
   },
   "paTLlJ": {
     "defaultMessage": "Rechercher les rôles",
