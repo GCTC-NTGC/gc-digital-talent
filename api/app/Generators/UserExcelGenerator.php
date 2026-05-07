@@ -1139,6 +1139,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         CommunityInterest::authorizedToView(['userId' => $this->authenticatedUserId])
             ->whereIn('user_id', $userIds)
             ->isVerifiedGovEmployee()
+            ->whereIn('community_id', $communityIds)
             ->with([
                 'user',
                 'community',
