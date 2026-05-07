@@ -48,7 +48,6 @@ return [
     'off_platform_processes_text' => 'Les processus de recrutement pour lesquels la personne candidate a été qualifiée sur d\'autres plateformes du gouvernement du Canada. Il est à noter que ces renseignements sont fournis par la personne candidate sans vérification. Veillez à vérifier la validité des renseignements relatifs au processus avant de les utiliser à des fins d\'embauche ou de placement.',
     'nominations' => 'Nominations',
     'skill_requirements' => 'Exigences en matière de compétences',
-    'expired' => 'Expiré',
     'interested_in_program' => 'Ce programme m\'intéresse',
     'currently_enrolled' => 'Programme en cours',
     'completed_in' => 'Achevé en ',
