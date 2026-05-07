@@ -852,7 +852,7 @@
     "description": "Fallback for email value"
   },
   "1JtwAU": {
-    "defaultMessage": "La plupart des nouveaux membres du personnel commencent au premier échelon de l’échelle applicable. <strong>Pour commencer à un échelon plus élevé</strong>, le ou la gestionnaire d’embauche doit justifier pourquoi un salaire plus élevé que le premier échelon est jugé nécessaire pour recruter une personne ayant les compétences requises. Il ou elle devra expliquer comment le poste répond à l’une des trois conditions suivantes : ",
+    "defaultMessage": "La plupart des nouveaux membres du personnel commencent au premier échelon de l’échelle applicable. <strong>Pour commencer à un échelon plus élevé</strong>, le ou la gestionnaire d’embauche doit justifier pourquoi un salaire plus élevé que le premier échelon est jugé nécessaire pour recruter une personne ayant les compétences requises. Il ou elle devra expliquer comment le poste répond à l’une des trois conditions suivantes : ",
     "description": "Second paragraph for the pool application salary ranges dialog"
   },
   "1KMmdT": {
@@ -1572,7 +1572,7 @@
     "description": "Submit button text on request form."
   },
   "4CpKXN": {
-    "defaultMessage": "Le Fonds offre trois types de formations aux membres du personnel des TI.",
+    "defaultMessage": "Le Fonds offre trois types de formations aux membres du personnel des TI.",
     "description": "First paragraph describing learning opportunities"
   },
   "4DfNUW": {
@@ -1964,7 +1964,7 @@
     "description": "Lead-in text to a skill description"
   },
   "5eTpEJ": {
-    "defaultMessage": "<strong>Clientèle visée</strong> : membres admissibles du groupe TI, toutes fonctions ou expériences confondues, qui cherchent à améliorer leurs compétences.",
+    "defaultMessage": "<strong>Clientèle visée</strong> : membres admissibles du groupe TI, toutes fonctions ou expériences confondues, qui cherchent à améliorer leurs compétences.",
     "description": "An item in a list of points about online learning"
   },
   "5fMhLS": {
@@ -1972,7 +1972,7 @@
     "description": "Label for the text input for the reference's work email"
   },
   "5fnoWK": {
-    "defaultMessage": "<strong>Description</strong> : cours à la demande à rythme libre traitant des compétences techniques et comportementales.",
+    "defaultMessage": "<strong>Description</strong> : cours à la demande à rythme libre traitant des compétences techniques et comportementales.",
     "description": "An item in a list of points about online learning"
   },
   "5i2G4O": {
@@ -3448,7 +3448,7 @@
     "description": "Task card title for department tools"
   },
   "BlFUsz": {
-    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez présenter une demande et satisfaire aux conditions préalables.",
+    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez présenter une demande et satisfaire aux conditions préalables.",
     "description": "An item in a list of points about instructor-led classes"
   },
   "Bo2POt": {
@@ -4719,6 +4719,10 @@
     "defaultMessage": "Consentement au partage d'information",
     "description": "Heading for the 'Review and submit' consent section"
   },
+  "HN1nUV": {
+    "defaultMessage": "Courriel du gouvernement",
+    "description": "Label for a government email address"
+  },
   "HP5PEg": {
     "defaultMessage": "Taille de l'organisation",
     "description": "Label for the size of the organization radio group"
@@ -4998,10 +5002,6 @@
   "IReTZe": {
     "defaultMessage": "Modifier les rôles dans le processus",
     "description": "Label for the form to edit a users process membership"
-  },
-  "IUoUqs": {
-    "defaultMessage": "Modification de l’état",
-    "description": "Title for the request status last changed at date block."
   },
   "IVba2H": {
     "defaultMessage": "Connectez-vous avec votre adresse courriel liée à ConnexionCanada.",
@@ -6276,7 +6276,7 @@
     "description": "Link to manage the users community interests"
   },
   "Ny56Y7": {
-    "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
+    "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
     "description": "Description for the digital Services contracting form, paragraph 1"
   },
   "NzUwa2": {
@@ -6314,10 +6314,6 @@
   "O8U5Sz": {
     "defaultMessage": "Utilisateur ajouté avec succès",
     "description": "Toast for successful add user to pool on view-user page"
-  },
-  "O8nHiQ": {
-    "defaultMessage": "Retourner aux demandes",
-    "description": "Button label displayed on the search request form which returns the user back to requests."
   },
   "O8yYPv": {
     "defaultMessage": "combler les lacunes importantes en matière de compétences;",
@@ -6516,7 +6512,7 @@
     "description": "Text for the breadcrumb navigation link"
   },
   "P3WkJv": {
-    "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
+    "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
     "description": "Helper message indicating max screening questions allowed"
   },
   "P40FEe": {
@@ -6554,10 +6550,6 @@
   "PCypnL": {
     "defaultMessage": "Inclusion et équité",
     "description": "Title for the websites inclusivity and equity page"
-  },
-  "PD7anu": {
-    "defaultMessage": "Courriel du (de la) conseiller(-ère) en RH",
-    "description": "Title for the HR advisor email block in the manager info section of the single search request view."
   },
   "PDGUT2": {
     "defaultMessage": "À quoi dois-je m'attendre après avoir soumis ma demande d'emploi?",
@@ -6686,10 +6678,6 @@
   "PdkgWB": {
     "defaultMessage": "Créer une possibilité de formation",
     "description": "Title for link to page to create a training opportunity (imperative in French)"
-  },
-  "Pe1kas": {
-    "defaultMessage": "Notes sur cette demande",
-    "description": "Label displayed on the search request form request notes field."
   },
   "PerY/b": {
     "defaultMessage": "Reproduction non commerciale",
@@ -7507,6 +7495,10 @@
     "defaultMessage": "Votre nom complet",
     "description": "Label displayed for signature input in sign and submit section of application review page."
   },
+  "TA5562": {
+    "defaultMessage": "Dernière modification",
+    "description": "Label for the date an item was changed on"
+  },
   "TB5Pnf": {
     "defaultMessage": "En raison de la nature de l’apprentissage, le programme a élaboré un cercle unique de soutien pour les apprenti·es. Il s’agit notamment d’un·e partenaire pair pour le jumelage et le soutien au quotidien, ainsi que d’un mentor qui fournit des conseils expérimentés.",
     "description": "Paragraph 1 of the 'Circle of Support' subsection"
@@ -7596,7 +7588,7 @@
     "description": "Heading for filters associated with communities"
   },
   "Ta28fI": {
-    "defaultMessage": "Le Fonds a pour but d’offrir d’autres possibilités de formation exhaustives, uniformes et de grande qualité afin de :",
+    "defaultMessage": "Le Fonds a pour but d’offrir d’autres possibilités de formation exhaustives, uniformes et de grande qualité afin de :",
     "description": "title for a list of fund objectives"
   },
   "Tc/pf5": {
@@ -8051,7 +8043,7 @@
     "description": "Additional information about your next role"
   },
   "Vck6JW": {
-    "defaultMessage": "<strong>Description</strong> : bons pour examens de certification en ligne attestant les compétences reconnues liées à des domaines clés des TI.",
+    "defaultMessage": "<strong>Description</strong> : bons pour examens de certification en ligne attestant les compétences reconnues liées à des domaines clés des TI.",
     "description": "An item in a list of points about cert exams"
   },
   "Vd9VIn": {
@@ -8686,10 +8678,6 @@
     "defaultMessage": "Définir et organiser les compétences",
     "description": "Heading for more info on skills"
   },
-  "YIt7Su": {
-    "defaultMessage": "Effectuez le suivi de cette demande en réglant l’état approprié.",
-    "description": "Text describing the input to change request status"
-  },
   "YJ9DuG": {
     "defaultMessage": "Pas de recommandation",
     "description": "Dialog trigger for unpause referral status dialog"
@@ -8709,10 +8697,6 @@
   "YMAXhb": {
     "defaultMessage": "Statut d'employé(e) du gouvernement",
     "description": "Employee status label"
-  },
-  "YNLJcX": {
-    "defaultMessage": "Enregistrement des notes réussi!",
-    "description": "Message displayed to user after the personal notes have been saved successfully on the single search request page."
   },
   "YNP0uJ": {
     "defaultMessage": "Ce rôle ne nécessitait pas la gestion d’un budget dédié ou un pouvoir de signature délégué pour un budget.",
@@ -9035,7 +9019,7 @@
     "description": "Body p1 of a note describing that a pool is only open to canadian citizens"
   },
   "Zewopw": {
-    "defaultMessage": "Trois types de possibilités d’apprentissage",
+    "defaultMessage": "Trois types de possibilités d’apprentissage",
     "description": "Heading for section describing learning opportunities"
   },
   "ZfLuWv": {
@@ -9427,7 +9411,7 @@
     "description": "Description for personal experience section"
   },
   "be2aA/": {
-    "defaultMessage": "<strong>Description</strong> : formation interactive, exhaustive et à horaire fixe, donnée par des spécialistes sur des thèmes clés des TI comme la cybersécurité et l’informatique en nuage.",
+    "defaultMessage": "<strong>Description</strong> : formation interactive, exhaustive et à horaire fixe, donnée par des spécialistes sur des thèmes clés des TI comme la cybersécurité et l’informatique en nuage.",
     "description": "An item in a list of points about instructor-led classes"
   },
   "bg8KBg": {
@@ -10342,10 +10326,6 @@
     "defaultMessage": "Aucune compétence n’a été liée à cette expérience.",
     "description": "Text displayed when no skills have been linked to an experience"
   },
-  "eyR6B+": {
-    "defaultMessage": "Renseignements sur le gestionnaire",
-    "description": "Heading for the manager info section of the single search request view."
-  },
   "ezaaj5": {
     "defaultMessage": "Volet de travail",
     "description": "The work stream of a job poster template"
@@ -10427,7 +10407,7 @@
     "description": "Button text to remove a skill from a users profile"
   },
   "fKQsbL": {
-    "defaultMessage": "La gestion du Fonds incombe au comité mixte interministériel de consultation, coprésidé par le Bureau du dirigeant principal de l’information et le groupe TI de l’IPFPC.",
+    "defaultMessage": "La gestion du Fonds incombe au comité mixte interministériel de consultation, coprésidé par le Bureau du dirigeant principal de l’information et le groupe TI de l’IPFPC.",
     "description": "Description for the fund management card"
   },
   "fLohdl": {
@@ -10550,10 +10530,6 @@
     "defaultMessage": "Avancement<hidden> nomination approuvée</hidden>",
     "description": "Status description when the nomination includes the advancement option"
   },
-  "fhL8jz": {
-    "defaultMessage": "Erreur : Échec de l’enregistrement des notes",
-    "description": "Message displayed to user after the personal notes fail to save on the single search request page."
-  },
   "fhbTHo": {
     "defaultMessage": "Instructions",
     "description": "Heading for instructions step of a talent nomination"
@@ -10645,10 +10621,6 @@
   "fzqya3": {
     "defaultMessage": "Talents numériques du <abbreviation>GC</abbreviation> s’engage à créer un service numérique accessible et inclusif. Au cœur de la conception et du développement de notre plateforme, nous nous efforçons de créer des possibilités d'emploi égales pour tous. Pour nous, construire des services accessibles signifie répondre aux besoins du plus grand nombre de personnes possible, y compris les cas marginaux. En fait, nous travaillons dans toutes les disciplines –recherche, développement, conception et accessibilité – pour nous assurer que notre service est intentionnel, accessible et inclusif par sa conception.",
     "description": "Opening paragraph for accessibility statement"
-  },
-  "fzuAHN": {
-    "defaultMessage": "Enregistrer les notes",
-    "description": "Button label displayed on the search request form which saves the users personal notes."
   },
   "g+JcDC": {
     "defaultMessage": "D'autres possibilités d'emploi seront bientôt affichées",
@@ -11387,7 +11359,7 @@
     "description": "Link text to the page to find jobs"
   },
   "ixxGIm": {
-    "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
+    "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
     "description": "An item in a list of points about cert exams"
   },
   "iy3pRH": {
@@ -13071,12 +13043,8 @@
     "description": "Label for the roles table search input"
   },
   "pcAgJh": {
-    "defaultMessage": "Nous choisirons les personnes participantes en fonction de leur admissibilité, de leurs compétences ou de leur expérience, et de la représentation des groupes visés par l’équité en matière d’emploi au sein de l’effectif de la TI du gouvernement du Canada. Nous communiquerons avec vous dans les huit jours ouvrables suivant la date limite de présentation des demandes. Si vous faites partie des personnes choisies, vous aurez trois jours ouvrables pour confirmer votre participation.",
+    "defaultMessage": "Nous choisirons les personnes participantes en fonction de leur admissibilité, de leurs compétences ou de leur expérience, et de la représentation des groupes visés par l’équité en matière d’emploi au sein de l’effectif de la TI du gouvernement du Canada. Nous communiquerons avec vous dans les huit jours ouvrables suivant la date limite de présentation des demandes. Si vous faites partie des personnes choisies, vous aurez trois jours ouvrables pour confirmer votre participation.",
     "description": "Second paragraph of apply and share section"
-  },
-  "peTSHR": {
-    "defaultMessage": "Notes sur cette demande",
-    "description": "Heading for the notes about this request section of the single search request view."
   },
   "pfCFQ+": {
     "defaultMessage": "Les compétences techniques essentielles devraient couvrir les compétences de base du rôle. Le nombre de compétences techniques sélectionnées ici, combiné aux compétences comportementales essentielles dans la section suivante, contribue au nombre total de compétences essentielles ",
@@ -13542,10 +13510,6 @@
     "defaultMessage": "Consulter et modifier les détails de ce programme",
     "description": "Description for the applicant profile section"
   },
-  "rfDHc0": {
-    "defaultMessage": "(Aucun changement)",
-    "description": "Null state, nothing changed yet."
-  },
   "rgmr0x": {
     "defaultMessage": "Nom de la personne déposante",
     "description": "Label for the submitter's name"
@@ -13857,10 +13821,6 @@
   "t5G3Fz": {
     "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",
     "description": "Message for the intermediate language ability option"
-  },
-  "t79/r1": {
-    "defaultMessage": "Ces notes sont uniquement disponibles ici et ne seront pas communiquées aux candidates et candidats.",
-    "description": "Description for the notes about this request section of the single search request view."
   },
   "t7hBcy": {
     "defaultMessage": "Vous devez confirmer votre adresse courriel pour continuer. Veuillez utiliser le bouton « Envoyer le courriel de confirmation » et saisir le code reçu dans le champ prévu à cet effet.",
@@ -14511,7 +14471,7 @@
     "description": "Page title for the sign in page for applicant profiles"
   },
   "vmVdJt": {
-    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables.",
+    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables.",
     "description": "An item in a list of points about cert exams"
   },
   "voH+OJ": {
@@ -14637,10 +14597,6 @@
   "wL95nl": {
     "defaultMessage": "La personne candidate n'a pas fourni d'informations sur son objectif de carrière final.",
     "description": "Message displayed if nominee hasn't filled out career objective info"
-  },
-  "wLVo1I": {
-    "defaultMessage": "Courriel du gouvernement",
-    "description": "Title for the government email block in the manager info section of the single search request view."
   },
   "wMni5o": {
     "defaultMessage": "Processus de recrutement ({numOfProcesses})",
