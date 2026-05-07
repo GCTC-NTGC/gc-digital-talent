@@ -8970,6 +8970,10 @@
     "defaultMessage": "a accès à tous les processus de recrutement et aux personnes candidates au sein de sa collectivité;",
     "description": "Description of the permission to view job adverts of a specific community"
   },
+  "Z7hiHy": {
+    "defaultMessage": "L’option de formation et de certification dans votre expérience professionnelle vous permet d’ajouter des programmes, des certifications et des accréditations à votre parcours professionnel. En sélectionnant l’expérience qui représente ce perfectionnement professionnel dans votre profil, vous pouvez aider les recruteurs et les gestionnaires d’embauche à comprendre rapidement votre profil. Si ce programme, cette certification ou cette accréditation n’a pas encore été ajouté à votre expérience professionnelle, vous pouvez le faire à l’aide du bouton « Ajouter une nouvelle expérience ».",
+    "description": "Body text in the link education experience dialog explaining how to link an education experience"
+  },
   "Z8uO3k": {
     "defaultMessage": "Les bons pour examens",
     "description": "Title for certification exam vouchers section"
