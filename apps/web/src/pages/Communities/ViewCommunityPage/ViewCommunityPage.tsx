@@ -91,7 +91,9 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
         </p>
         <div className="grid gap-6 xs:grid-cols-2">
           <div>
-            <p className="font-bold">{community.name?.en ?? notProvided}</p>
+            <p className="mb-1 font-bold">
+              {community.name?.en ?? notProvided}
+            </p>
             <>
               {community.informationUrl?.en && (
                 <Link
@@ -105,7 +107,7 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
                 </Link>
               )}
             </>
-            <p>{community.description?.en ?? notProvided}</p>
+            <p className="my-3">{community.description?.en ?? notProvided}</p>
             <FieldDisplay
               label={intl.formatMessage({
                 defaultMessage: "Mandated by",
@@ -119,8 +121,10 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
             </FieldDisplay>
             <CardSeparator className="xs:hidden" />
           </div>
-          <div>
-            <p className="font-bold">{community.name?.fr ?? notProvided}</p>
+          <div className="-mt-6 xs:mt-0">
+            <p className="mb-1 font-bold">
+              {community.name?.fr ?? notProvided}
+            </p>
             <>
               {community.informationUrl?.fr && (
                 <Link
@@ -134,7 +138,7 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
                 </Link>
               )}
             </>
-            <p>{community.description?.fr ?? notProvided}</p>
+            <p className="my-3">{community.description?.fr ?? notProvided}</p>
             <FieldDisplay
               label={intl.formatMessage({
                 defaultMessage: "Mandated by",
@@ -169,12 +173,12 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
             className="font-bold"
           >
             {intl.formatMessage({
-              defaultMessage: "Edit community information",
-              id: "phS+TP",
+              defaultMessage: "Edit community details",
+              id: "UieDSb",
               description: "Link to edit the currently viewed community",
             })}
           </Link>
-          <span className="mt-3 text-gray-500 xs:mt-0 dark:text-gray-200">
+          <span className="mt-6 text-gray-500 xs:mt-0 dark:text-gray-200">
             {community.key}
           </span>
         </div>
@@ -224,7 +228,7 @@ const ViewCommunityPage = ({ community }: ViewCommunityPageProps) => {
         crumbs={navigationCrumbs}
         navTabs={navTabs}
       />
-      <Container className="my-12">
+      <Container className="my-18">
         <ViewCommunityForm query={community} />
       </Container>
     </>
