@@ -151,7 +151,7 @@ test.describe("Pool candidates", () => {
       .fill("Notes notes notes");
     await appPage.page.getByRole("button", { name: "Save changes" }).click();
     await appPage.waitForGraphqlResponse("UpdateApplicationNotes");
-    // await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
+    await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await expect(
       appPage.page.getByRole("button", { name: /edit notes/i }),
     ).toBeVisible();
