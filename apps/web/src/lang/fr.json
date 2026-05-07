@@ -2851,10 +2851,6 @@
     "defaultMessage": "Les membres du personnel CT-FIN-04 qui ont été retenus pour la gestion des talents doivent créer un profil.",
     "description": "List item two financial management content"
   },
-  "9b+Xtt": {
-    "defaultMessage": "Informations sur la collectivité",
-    "description": "Heading for the community information section of a form"
-  },
   "9bG59n": {
     "defaultMessage": "Auteur(trice)s de mise en candidature",
     "description": "Label or header"
@@ -13117,10 +13113,6 @@
   "pgbkdx": {
     "defaultMessage": "Autorisé",
     "description": "Indication a specific permission is allowed for a specific role"
-  },
-  "phS+TP": {
-    "defaultMessage": "Modifier les informations sur la collectivité",
-    "description": "Link to edit the currently viewed community"
   },
   "phluwu": {
     "defaultMessage": "Votre information sur l’annonce et votre plan d'évaluation sont complets.",
