@@ -284,7 +284,6 @@ return [
     'lateral_movement_approval_notes' => 'Lateral movement approval notes',
     'development_program_approval' => 'Development program approval',
     'development_program_approval_notes' => 'Development program approval notes',
-    'nominee_first_name' => 'Nominee\'s first name',
     'nominee_last_name' => 'Nominee\'s last name',
     'nomination_date' => 'Date received',
 
