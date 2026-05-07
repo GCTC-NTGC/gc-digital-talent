@@ -860,6 +860,7 @@ type CommunityDevelopmentProgram {
   # CommunityDevelopmentProgramTalentEventRecord is the pivot data
   # it may be be queried thru TalentNominationEvent->communityDevelopmentPrograms->pivot->CommunityDevelopmentProgramTalentEventRecord
   pivot: CommunityDevelopmentProgramTalentEventRecord
+  createdAt: DateTime! @rename(attribute: "created_at")
 }
 
 type DevelopmentProgramUser {

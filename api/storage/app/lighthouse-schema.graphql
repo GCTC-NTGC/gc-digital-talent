@@ -1338,6 +1338,7 @@ type CommunityDevelopmentProgram {
   developmentProgram: DevelopmentProgram!
   classifications: [Classification!]
   pivot: CommunityDevelopmentProgramTalentEventRecord
+  createdAt: DateTime!
 }
 
 type DevelopmentProgramUser {
