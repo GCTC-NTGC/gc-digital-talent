@@ -289,7 +289,6 @@ return [
     'development_program_approval_notes' => 'Notes d’approbation du programme de perfectionnement',
     'nomination_date' => 'Date de réception',
 
-    'nomination_options' => 'Options de mise en candidature',
     'nominator' => 'Personne proposant la candidature',
     'relationship_to_nominee' => 'Lien entre la personne candidate et la personne proposant la candidature',
     'nominator_email' => 'Adresse courriel professionnelle de la personne proposant la candidature',

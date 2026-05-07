@@ -286,7 +286,6 @@ return [
     'development_program_approval_notes' => 'Development program approval notes',
     'nomination_date' => 'Date received',
 
-    'nomination_options' => 'Nomination options',
     'nominator' => 'Nominator',
     'relationship_to_nominee' => 'Nominee\'s relationship to nominator',
     'nominator_email' => 'Nominator\'s work email',
