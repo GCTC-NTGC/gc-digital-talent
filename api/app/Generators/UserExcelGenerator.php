@@ -38,6 +38,7 @@ use App\Enums\TimeFrame;
 use App\Enums\WorkRegion;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
+use App\Models\CommunityDevelopmentProgram;
 use App\Models\CommunityInterest;
 use App\Models\DevelopmentProgram;
 use App\Models\DevelopmentProgramUser;
@@ -1115,6 +1116,18 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $developmentProgramIds[] = $program->id;
         }
 
+        // Build a map of community_id -> [program_ids] so each row only shows
+        // status for programs actually offered in that row's community.
+        // Without this, programs completed in Community A would bleed into
+        // Community B rows when both communities share some programs.
+        $communityProgramIdsMap = [];
+        CommunityDevelopmentProgram::whereIn('community_id', $communityIds)
+            ->whereIn('development_program_id', $developmentProgramIds)
+            ->get(['community_id', 'development_program_id'])
+            ->each(function ($cdp) use (&$communityProgramIdsMap) {
+                $communityProgramIdsMap[$cdp->community_id][] = $cdp->development_program_id;
+            });
+
         $sheet->fromArray([
             ...$localizedHeadersPart1,
             ...$generatedHeaders,
@@ -1133,9 +1146,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 'user.developmentProgramUserRecords',
                 'user.developmentProgramUserRecords.educationExperience',
             ])
-            ->chunk(200, function ($interests) use ($sheet, &$currentRow, $developmentProgramIds) {
+            ->chunk(200, function ($interests) use ($sheet, &$currentRow, $developmentProgramIds, $communityProgramIdsMap) {
                 foreach ($interests as $interest) {
-                    $rowData = $this->buildCommunityInterestRow($interest, $developmentProgramIds);
+                    $rowData = $this->buildCommunityInterestRow($interest, $developmentProgramIds, $communityProgramIdsMap);
                     $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
                     $currentRow++;
                 }
@@ -1145,13 +1158,19 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     /**
      * Build community interest row
      */
-    private function buildCommunityInterestRow(CommunityInterest $interest, array $developmentProgramIds): array
+    private function buildCommunityInterestRow(CommunityInterest $interest, array $developmentProgramIds, array $communityProgramIdsMap): array
     {
+        $communityProgramIds = $communityProgramIdsMap[$interest->community_id] ?? [];
         $workStreams = $this->getWorkStreams($interest);
         $developmentProgramColumns = [];
         foreach ($developmentProgramIds as $programId) {
-            $developmentProgramColumns[] = $this->getDevelopmentProgramInterest($programId, $interest);
-            $developmentProgramColumns[] = $this->getDevelopmentProgramLinkedExperience($programId, $interest);
+            if (in_array($programId, $communityProgramIds)) {
+                $developmentProgramColumns[] = $this->getDevelopmentProgramInterest($programId, $interest);
+                $developmentProgramColumns[] = $this->getDevelopmentProgramLinkedExperience($programId, $interest);
+            } else {
+                $developmentProgramColumns[] = null;
+                $developmentProgramColumns[] = null;
+            }
         }
 
         return [
