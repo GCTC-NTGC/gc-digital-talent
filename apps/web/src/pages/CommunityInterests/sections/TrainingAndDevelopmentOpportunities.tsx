@@ -348,6 +348,11 @@ const TrainingAndDevelopmentOpportunities = ({
               {...register(
                 `interestInDevelopmentPrograms.${index}.educationExperienceId`,
               )}
+              defaultValue={
+                developmentProgramUserRecordsUnpacked.find(
+                  (r) => r.developmentProgram.id === developmentProgram.id,
+                )?.educationExperience?.id ?? ""
+              }
             />
             <RadioGroup
               idPrefix={`interestInDevelopmentPrograms.${index}.participationStatus`}
