@@ -154,7 +154,6 @@ return [
     'awarded_to' => 'Awarded to',
     'issuing_organization' => 'Issuing organization',
     'project' => 'Project or product',
-    'area_of_study' => 'Area of study',
     'thesis_title' => 'Thesis title',
     'learning_description' => 'Learning description',
     'team_group_division' => 'Team, group or division',
