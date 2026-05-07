@@ -184,7 +184,6 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     ...TalentManagementTaskCard
     ...ApplicationsProcessesTaskCard
     ...CareerDevelopmentTaskCardUser
-    ...UnlockEmployeeTools
   }
 `);
 

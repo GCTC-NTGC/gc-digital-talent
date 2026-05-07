@@ -57,7 +57,6 @@ const CareerDevelopmentTaskCardUser_Fragment = graphql(/* GraphQL */ `
         ...PreviewListItemFunctionalCommunity
       }
     }
-    ...UnlockEmployeeTools
   }
 `);
 
