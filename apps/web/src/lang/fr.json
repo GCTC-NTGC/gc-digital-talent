@@ -15585,5 +15585,137 @@
   "zzf16k": {
     "defaultMessage": "Candidats",
     "description": "Breadcrumb for the All Candidates page"
+  },
+  "+gAHHT": {
+    "defaultMessage": "Erreur : le retrait du perfectionnement professionnel a échoué",
+    "description": "Message displayed to user after professionalization fails to get removed."
+  },
+  "0AC/BM": {
+    "defaultMessage": "Retirer le perfectionnement professionnel",
+    "description": "Button label for removing a professionalization"
+  },
+  "1c2UAL": {
+    "defaultMessage": "Ajouter un perfectionnement professionnel",
+    "description": "Label for adding a professionalization"
+  },
+  "2zMuV4": {
+    "defaultMessage": "Restrictions requises",
+    "description": "Bounding box label or restricted classifications section"
+  },
+  "3mjCGy": {
+    "defaultMessage": "Sélectionner un perfectionnement professionnel",
+    "description": "Label for the select a professionalization input"
+  },
+  "7Yj7lq": {
+    "defaultMessage": "Erreur : la mise à jour du perfectionnement professionnel a échoué",
+    "description": "Message displayed to user after professionalization fails to get updated."
+  },
+  "ASIVSx": {
+    "defaultMessage": "Modifier un perfectionnement professionnel",
+    "description": "Dialog header for editing a professionalization"
+  },
+  "CZqu7B": {
+    "defaultMessage": "Mettre en valeur d'importants programmes, certifications ou licences qui seront présentés aux personnes qui rejoignent la collectivité et qui pourront ensuite indiquer leur intérêt ou leurs titres de compétences",
+    "description": "Dialog body text for highlighting important programs, certifications or licenses"
+  },
+  "Fmi0y9": {
+    "defaultMessage": "Ajouts récents",
+    "description": "Sorting option for professionalizations list"
+  },
+  "GmGDq8": {
+    "defaultMessage": "Perfectionnement professionnel créé avec succès!",
+    "description": "Message displayed to user after professionalization is created successfully."
+  },
+  "IIH8L+": {
+    "defaultMessage": "L’ajout d’un perfectionnement professionnel à la collectivité offre deux avantages importants",
+    "description": "Dialog body text for adding a professionalization"
+  },
+  "IIUffU": {
+    "defaultMessage": "Ce perfectionnement professionnel ne sera plus offert lors des mises en candidature en gestion des talents",
+    "description": "Third list item in warning message before removing a professionalization"
+  },
+  "IUM7Rb": {
+    "defaultMessage": "Retirer un perfectionnement professionnel",
+    "description": "Heading for the remove a professionalization dialog"
+  },
+  "JKnhJV": {
+    "defaultMessage": "Mettre à jour les renseignements liés à {professionalizationName}",
+    "description": "Dialog subtitle for editing a professionalization"
+  },
+  "M6CZwf": {
+    "defaultMessage": "Le retrait de ce perfectionnement professionnel de la collectivité entraînera les changements suivants pour l’ensemble des utilisateurs et utilisatrices :",
+    "description": "Unordered list heading warning user before removing a professionalization"
+  },
+  "MT1JwK": {
+    "defaultMessage": "Perfectionnement professionnel",
+    "description": "Label for Professionalization"
+  },
+  "N5NC2F": {
+    "defaultMessage": "Ce perfectionnement professionnel ne sera plus présenté aux personnes qui rejoignent votre collectivité",
+    "description": "First list item in warning message before removing a professionalization"
+  },
+  "O48hJ8": {
+    "defaultMessage": "Confirmer le retrait de {professionalizationName} de {communityName}",
+    "description": "Subtitle for remove a professionalization dialog"
+  },
+  "OHb3HT": {
+    "defaultMessage": "Classifications autorisées",
+    "description": "Label for classifications multi select"
+  },
+  "PO94zE": {
+    "defaultMessage": "Perfectionnement professionnel mis à jour avec succès!",
+    "description": "Message displayed to user after professionalization is updated successfully."
+  },
+  "QeP4Rb": {
+    "defaultMessage": "Perfectionnement professionnel retiré",
+    "description": "Message displayed to user after professionalization is removed successfully."
+  },
+  "V3zpN4": {
+    "defaultMessage": "Restrictions liées aux classifications",
+    "description": "Sub heading for restricted classifications section"
+  },
+  "WpoUnf": {
+    "defaultMessage": "Offrir des possibilités de perfectionnement lors des mises en candidature en gestion des talents",
+    "description": "Dialog body text for providing development opportunity options during Talent Management nominations"
+  },
+  "e1fkL1": {
+    "defaultMessage": "Les mises en candidature contenant ce perfectionnement professionnel à titre de possibilité de perfectionnement continueront de le conserver à des fins d’archivage",
+    "description": "Fifth list item in warning message before removing a professionalization"
+  },
+  "eC+ZhW": {
+    "defaultMessage": "Lier à la collectivité des programmes de perfectionnement communs, des certifications, des accréditations ou des licences à des fins de gestion des talents. Une fois ajouté, un perfectionnement professionnel pourra être offert comme possibilité de perfectionnement lors des mises en candidature en gestion des talents et être présenté aux personnes qui rejoignent la collectivité à partir de leur profil.",
+    "description": "Description for professionalizations page"
+  },
+  "fg0pzd": {
+    "defaultMessage": "Ajouter le perfectionnement professionnel",
+    "description": "Button to add a professionalization"
+  },
+  "jNDO+4": {
+    "defaultMessage": "Erreur : la création du perfectionnement professionnel a échoué",
+    "description": "Message displayed to user after professionalization fails to get created."
+  },
+  "k34TIE": {
+    "defaultMessage": "Ce programme ou cette certification est limité à des membres du personnel appartenant à une classification ou à un groupe de classifications précis",
+    "description": "Label displayed on need for classification restrictions checkbox"
+  },
+  "s6SILv": {
+    "defaultMessage": "Remarque : si le programme ou la certification est accessible à toutes les classifications gérées par votre collectivité, veuillez laisser ce champ vide.",
+    "description": "Additional context for classification restrictions checkbox"
+  },
+  "wppRjE": {
+    "defaultMessage": "Toute personne ayant déjà ajouté ce perfectionnement professionnel à ses renseignements liés à la collectivité le verra retiré (son expérience professionnelle ne sera pas touchée)",
+    "description": "Forth list item in warning message before removing a professionalization"
+  },
+  "wwvaQ1": {
+    "defaultMessage": "Ce perfectionnement professionnel ne sera plus offert lors des mises en candidature en gestion des talents",
+    "description": "Second list item in warning message before removing a professionalization"
+  },
+  "yYQ9yi": {
+    "defaultMessage": "Lier un programme, une certification ou une licence à {communityName}",
+    "description": "Dialog subtitle for adding a professionalization"
+  },
+  "zq0KlM": {
+    "defaultMessage": "Dans certains cas, les formations ou certifications peuvent être limitées à certains groupes de classification ou même à certains niveaux. Si ce perfectionnement professionnel comporte des restrictions, veuillez indiquer quels groupes et niveaux sont autorisés à participer.",
+    "description": "Description for restricted classifications section"
   }
 }
