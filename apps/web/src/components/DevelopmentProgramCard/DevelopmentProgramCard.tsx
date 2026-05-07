@@ -57,7 +57,9 @@ const DevelopmentProgramCard = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <li className={`border-b border-gray-200 p-6 last:border-b-0 odd:bg-gray-100/30 dark:border-gray-700 dark:odd:bg-gray-600 dark:even:bg-gray-600/80${className ? ` ${className}` : ""}`}>
+    <li
+      className={`border-b border-gray-200 p-6 last:border-b-0 odd:bg-gray-100/30 dark:border-gray-700 dark:odd:bg-gray-600 dark:even:bg-gray-600/80${className ? ` ${className}` : ""}`}
+    >
       <div className="flex items-start gap-3">
         {actions && (
           <DropdownMenu.Root open={open} onOpenChange={setOpen}>

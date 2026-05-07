@@ -526,7 +526,7 @@ const TrainingAndDevelopmentOpportunities = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                  "The education and certificate option in your career experience allows you to add programs, certificates and accreditations to your career history. By selecting the experience that represents this professionalization from your profile, you can help recruiters and hiring managers quickly understand your standing. If you haven't added this program, certificate or accreditation to your career experience yet, you can do so using the \"Add new experience\" button.",
+                    'The education and certificate option in your career experience allows you to add programs, certificates and accreditations to your career history. By selecting the experience that represents this professionalization from your profile, you can help recruiters and hiring managers quickly understand your standing. If you haven\'t added this program, certificate or accreditation to your career experience yet, you can do so using the "Add new experience" button.',
                   id: "Z7hiHy",
                   description:
                     "Body text in the link education experience dialog explaining how to link an education experience",
