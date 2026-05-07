@@ -54,7 +54,7 @@ const InactivityDialog = ({
 }: InactivityDialogProps) => {
   const intl = useIntl();
   const theme = useTheme();
-  const themeMode = theme.mode as "dark" | "light"; // can remove type override when #16536 is fixed
+  const themeMode = theme.mode;
 
   const imgSrcs = {
     light: pugLightLg,

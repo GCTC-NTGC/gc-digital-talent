@@ -14,7 +14,7 @@ import type { SubformValues as TrainingAndDevelopmentOpportunitiesSubformValues 
 import type { SubformValues as AdditionalInformationSubformValues } from "./sections/AdditionalInformation";
 import type { SubformValues as ReviewAndSubmitSubformValues } from "./sections/ReviewAndSubmit";
 import {
-  stringArrayToEnumsFinanceChiefDuty,
+  stringArrayToEnumsCommunityInterestAdditionalDuty,
   stringArrayToEnumsFinanceChiefRole,
 } from "./util";
 
@@ -105,15 +105,22 @@ export function formValuesToApiCreateInput(
 
   // finance-only fields
   apiInput.communityInterest.financeIsChief = formValues.financeIsChief;
-  apiInput.communityInterest.financeAdditionalDuties =
-    formValues.financeAdditionalDuties
-      ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
-      : null;
   apiInput.communityInterest.financeOtherRoles = formValues.financeOtherRoles
     ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
     : null;
   apiInput.communityInterest.financeOtherRolesOther =
     formValues.financeOtherRolesOther;
+
+  // procurement-only fields
+  apiInput.communityInterest.procurementIsSDO = formValues.procurementIsSDO;
+
+  // shared between finance and procurement
+  apiInput.communityInterest.communityInterestAdditionalDuties =
+    formValues.communityInterestAdditionalDuties
+      ? stringArrayToEnumsCommunityInterestAdditionalDuty(
+          formValues.communityInterestAdditionalDuties,
+        )
+      : null;
 
   apiInput.communityInterest.consentToShareProfile = formValues.consent;
 
@@ -163,13 +170,21 @@ export function formValuesToApiUpdateInput(
 
       // finance-only fields
       financeIsChief: formValues.financeIsChief,
-      financeAdditionalDuties: formValues.financeAdditionalDuties
-        ? stringArrayToEnumsFinanceChiefDuty(formValues.financeAdditionalDuties)
-        : null,
       financeOtherRoles: formValues.financeOtherRoles
         ? stringArrayToEnumsFinanceChiefRole(formValues.financeOtherRoles)
         : null,
       financeOtherRolesOther: formValues.financeOtherRolesOther,
+
+      // procurement-only fields
+      procurementIsSDO: formValues.procurementIsSDO,
+
+      // shared between finance and procurement
+      communityInterestAdditionalDuties:
+        formValues.communityInterestAdditionalDuties
+          ? stringArrayToEnumsCommunityInterestAdditionalDuty(
+              formValues.communityInterestAdditionalDuties,
+            )
+          : null,
 
       consentToShareProfile: formValues.consent,
 
@@ -227,13 +242,21 @@ export function apiDataToFormValues(
 
     // finance-only fields
     financeIsChief: communityInterest?.financeIsChief ?? null,
-    financeAdditionalDuties: communityInterest?.financeAdditionalDuties
-      ? communityInterest.financeAdditionalDuties.map((duty) => duty.value)
-      : null,
     financeOtherRoles: communityInterest?.financeOtherRoles
       ? communityInterest.financeOtherRoles.map((role) => role.value)
       : null,
     financeOtherRolesOther: communityInterest?.financeOtherRolesOther ?? null,
+
+    // procurement-only fields
+    procurementIsSDO: communityInterest?.procurementIsSDO ?? null,
+
+    // shared between finance and procurement
+    communityInterestAdditionalDuties:
+      communityInterest?.communityInterestAdditionalDuties
+        ? communityInterest.communityInterestAdditionalDuties.map(
+            (duty) => duty.value,
+          )
+        : null,
 
     consent: communityInterest?.consentToShareProfile ?? false,
   };

@@ -31,7 +31,7 @@ const ClientProvider = ({
   const internalClient = useMemo(
     () =>
       client ?? getClient({ intl, withSubscriptions: graphqlSubscriptions }),
-    [client, intl],
+    [client, graphqlSubscriptions, intl],
   );
 
   return <Provider value={internalClient}>{children}</Provider>;

@@ -107,7 +107,7 @@ const PauseReferralsFormFields = ({
     if (pauseLength !== PauseReferralsLength.Other) {
       resetDirtyField("resumeReferralsAt");
     }
-  }, [pauseStatus, pauseLength]);
+  }, [pauseStatus, pauseLength, resetField]);
 
   const wordCountLimits: Record<Locales, number> = {
     en: TEXT_AREA_MAX_WORDS_EN,

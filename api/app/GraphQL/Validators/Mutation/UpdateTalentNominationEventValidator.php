@@ -18,7 +18,6 @@ final class UpdateTalentNominationEventValidator extends Validator
      */
     public function rules(): array
     {
-        $communityId = $this->arg('talentNominationEvent.community.connect');
 
         // for active events additional rules apply
         // prevent moving closing date sooner
@@ -30,6 +29,10 @@ final class UpdateTalentNominationEventValidator extends Validator
 
         $storedOpenDate = $thisEvent->open_date;
         $storedCloseDate = $thisEvent->close_date ?? null;
+
+        $communityId = $eventStatus === TalentNominationEventStatus::ACTIVE->name
+            ? $thisEvent->community_id
+            : $this->arg('talentNominationEvent.community.connect');
 
         return [
             'talentNominationEvent.community.connect' => [

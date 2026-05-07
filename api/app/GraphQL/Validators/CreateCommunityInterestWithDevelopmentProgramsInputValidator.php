@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\CommunityInterestAdditionalDuty;
 use App\Enums\DevelopmentProgramParticipationStatus;
 use App\Enums\ErrorCode;
-use App\Enums\FinanceChiefDuty;
 use App\Enums\FinanceChiefRole;
 use App\Models\Community;
 use App\Models\User;
@@ -54,14 +54,22 @@ final class CreateCommunityInterestWithDevelopmentProgramsInputValidator extends
                     ['prohibited']
                 ),
             ],
-            'communityInterest.financeAdditionalDuties' => [
+            'communityInterest.procurementIsSDO' => [
                 'nullable',
-                Rule::when($community?->key === 'finance',
+                Rule::when($community?->key === 'procurement',
+                    ['boolean'],
+                    ['prohibited']
+                ),
+            ],
+            'communityInterest.communityInterestAdditionalDuties' => [
+                'nullable',
+                Rule::when(
+                    ($community?->key === 'finance' || $community?->key === 'procurement'),
                     ['array', 'distinct'],
                     ['prohibited']
                 ),
             ],
-            'communityInterest.financeAdditionalDuties.*' => [Rule::in(array_column(FinanceChiefDuty::cases(), 'name'))],
+            'communityInterest.communityInterestAdditionalDuties.*' => [Rule::in(array_column(CommunityInterestAdditionalDuty::cases(), 'name'))],
             'communityInterest.financeOtherRoles' => [
                 'nullable',
                 Rule::when($community?->key === 'finance',

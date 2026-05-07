@@ -16,6 +16,7 @@ import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import permissionConstants from "~/constants/permissionConstants";
+import adminMessages from "~/messages/adminMessages";
 
 import type { RouteParams } from "./types";
 
@@ -75,11 +76,7 @@ const Layout = ({ query }: LayoutProps) => {
         navTabs={[
           {
             url: paths.adminTalentManagementEvent(eventId),
-            label: intl.formatMessage({
-              defaultMessage: "Event details",
-              id: "jnd5HF",
-              description: "Link text for details about a nomination event",
-            }),
+            label: intl.formatMessage(adminMessages.eventDetails),
           },
           {
             url: paths.adminTalentManagementEventNominations(eventId),

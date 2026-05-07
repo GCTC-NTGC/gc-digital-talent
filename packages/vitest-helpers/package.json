@@ -25,8 +25,8 @@
     "@dr.pogodin/react-helmet": "^3.1.1",
     "@gc-digital-talent/rich-text-elements": "workspace:*",
     "axe-core": "^4.11.4",
-    "react-intl": "^10.1.4",
-    "react-router": "^7.14.2",
+    "react-intl": "^10.1.5",
+    "react-router": "^7.15.0",
     "vite": "^8.0.10",
     "vitest": "^4.0.16",
     "vitest-axe": "1.0.0-pre.5",
@@ -40,7 +40,7 @@
     "@types/react": "^19.2.14",
     "eslint": "^9.20.1",
     "jsdom": "^26.0.0",
-    "react": "^19.2.5",
+    "react": "^19.2.6",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3"
   }

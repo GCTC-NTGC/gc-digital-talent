@@ -90,13 +90,11 @@ const RadioGroup = ({
   useRegisterFormLabel(name, legend);
   const shouldReduceMotion = useReducedMotion();
   const fieldState = useFieldState(name, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id: idPrefix,
     describedBy,
     show: {
       error: fieldState === "invalid",
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });
