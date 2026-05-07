@@ -43,6 +43,7 @@ import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
 import useApplication from "../useApplication";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 const Application_SubmitMutation = graphql(/* GraphQL */ `
   mutation Application_Submit($id: ID!, $signature: String!) {
@@ -634,6 +635,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                 <Link mode="inline" href={cancelPath}>
                   {intl.formatMessage(applicationMessages.saveQuit)}
                 </Link>
+                <DeleteApplicationDialog query={application} />
               </div>
             </form>
           </FormProvider>

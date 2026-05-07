@@ -94,13 +94,11 @@ const CardOptionGroup = ({
     formState: { errors },
   } = useFormContext<Record<string, string | undefined>>();
   const fieldState = useFieldState(name, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id: idPrefix,
     describedBy,
     show: {
       error: fieldState === "invalid",
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });
