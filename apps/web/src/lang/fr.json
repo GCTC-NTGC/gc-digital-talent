@@ -3419,10 +3419,6 @@
     "defaultMessage": "Vos processus",
     "description": "Task card title for department tools"
   },
-  "BlFUsz": {
-    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez présenter une demande et satisfaire aux conditions préalables.",
-    "description": "An item in a list of points about instructor-led classes"
-  },
   "Bo2POt": {
     "defaultMessage": "Cette fonctionnalité est offerte uniquement au personnel actuel du gouvernement du Canada.",
     "description": "Text for first registration step, government employee only feature"
@@ -7547,10 +7543,6 @@
     "defaultMessage": "Filtres de collectivités",
     "description": "Heading for filters associated with communities"
   },
-  "Ta28fI": {
-    "defaultMessage": "Le Fonds a pour but d’offrir d’autres possibilités de formation exhaustives, uniformes et de grande qualité afin de :",
-    "description": "title for a list of fund objectives"
-  },
   "Tc/pf5": {
     "defaultMessage": "La collectivité de l’approvisionnement",
     "description": "Section heading, expand on community aspects"
@@ -10354,10 +10346,6 @@
     "defaultMessage": "Supprimer cette compétence",
     "description": "Button text to remove a skill from a users profile"
   },
-  "fKQsbL": {
-    "defaultMessage": "La gestion du Fonds incombe au comité mixte interministériel de consultation, coprésidé par le Bureau du dirigeant principal de l’information et le groupe TI de l’IPFPC.",
-    "description": "Description for the fund management card"
-  },
   "fLohdl": {
     "defaultMessage": "Autodéclaration",
     "description": "Link text for the self-declaration page"
@@ -11297,10 +11285,6 @@
   "ivG/Sh": {
     "defaultMessage": "Consulter les emplois offerts",
     "description": "Link text to the page to find jobs"
-  },
-  "ixxGIm": {
-    "defaultMessage": "<strong>Clientèle visée</strong> : membres du groupe TI qui cherchent à élargir leurs qualifications et à faire progresser leur carrière.",
-    "description": "An item in a list of points about cert exams"
   },
   "iy3pRH": {
     "defaultMessage": "<strong>{name}</strong> a restauré",
@@ -12970,10 +12954,6 @@
     "defaultMessage": "Rechercher les rôles",
     "description": "Label for the roles table search input"
   },
-  "pcAgJh": {
-    "defaultMessage": "Nous choisirons les personnes participantes en fonction de leur admissibilité, de leurs compétences ou de leur expérience, et de la représentation des groupes visés par l’équité en matière d’emploi au sein de l’effectif de la TI du gouvernement du Canada. Nous communiquerons avec vous dans les huit jours ouvrables suivant la date limite de présentation des demandes. Si vous faites partie des personnes choisies, vous aurez trois jours ouvrables pour confirmer votre participation.",
-    "description": "Second paragraph of apply and share section"
-  },
   "pfCFQ+": {
     "defaultMessage": "Les compétences techniques essentielles devraient couvrir les compétences de base du rôle. Le nombre de compétences techniques sélectionnées ici, combiné aux compétences comportementales essentielles dans la section suivante, contribue au nombre total de compétences essentielles ",
     "description": "Lead in for a list of essential technical skills"
@@ -14385,10 +14365,6 @@
   "vkAhEM": {
     "defaultMessage": "Se connecter à l’aide de CléGC",
     "description": "Page title for the sign in page for applicant profiles"
-  },
-  "vmVdJt": {
-    "defaultMessage": "<strong>Inscription</strong> : les places sont limitées. Vous devez demander un bon et satisfaire aux conditions préalables.",
-    "description": "An item in a list of points about cert exams"
   },
   "voH+OJ": {
     "defaultMessage": "Identifiant de référence",
