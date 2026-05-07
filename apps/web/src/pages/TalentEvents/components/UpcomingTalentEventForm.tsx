@@ -110,7 +110,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
     }
 
     previousValue.current = watchCommunity;
-  }, [watchCommunity]);
+  }, [replace, watchCommunity]);
 
   const notFound = intl.formatMessage(commonMessages.notFound);
 

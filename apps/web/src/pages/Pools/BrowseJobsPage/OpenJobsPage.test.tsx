@@ -87,7 +87,7 @@ describe("OpenJobsPage", () => {
       name: /Apply to/i,
     });
 
-    expect(links).toHaveLength(2); // Updated because the link to IAP program has "Apply now"
+    expect(links).toHaveLength(1);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(publishedItJobsPool.id),
@@ -111,7 +111,7 @@ describe("OpenJobsPage", () => {
       name: /Apply to/i,
     });
 
-    expect(links).toHaveLength(3); // Updated because the link to IAP program has "Apply now"
+    expect(links).toHaveLength(2);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(publishedItJobsPool.id),
