@@ -242,7 +242,6 @@ return [
     // Other
     'general_question' => 'General question',
     'screening_question' => 'Screening question',
-    'education_requirement' => 'Education requirement',
     'requirement_selection' => 'Requirement selection',
     'decision' => 'Decision',
     'decision_details' => 'Decision details',
