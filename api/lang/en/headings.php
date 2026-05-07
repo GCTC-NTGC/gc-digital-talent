@@ -36,7 +36,7 @@ return [
     'department' => 'Department',
     'employee_type' => 'Employment type',
     'expected_end_date' => 'Expected end date',
-    'classification' => 'Current classification (substantive)',
+    'classification_current' => 'Current classification (substantive)',
     'priority_entitlement' => 'Priority entitlement',
     'priority_number' => 'Priority number',
     'work_location' => 'Work location',

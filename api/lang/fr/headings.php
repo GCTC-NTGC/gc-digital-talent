@@ -36,7 +36,7 @@ return [
     'department' => 'Ministère',
     'employee_type' => 'Type d\'emploi',
     'expected_end_date' => 'Date de fin prévue',
-    'classification' => 'Classification actuelle (poste d\'attache)',
+    'classification_current' => 'Classification actuelle (poste d\'attache)',
     'priority_entitlement' => 'Droit de priorité',
     'priority_number' => 'Numéro de priorité',
     'work_location' => 'Lieu de travail',
