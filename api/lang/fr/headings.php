@@ -129,7 +129,6 @@ return [
     'work_streams' => 'Volets de travail',
     'type_of_education' => 'Type d’études',
     'area_of_study' => 'Domaine d’études',
-    'team_group' => 'Équipe, groupe ou division',
     'other_c_suite_title' => 'Autre titre de cadre supérieur',
     'issuing_org' => 'Organisation émettrice',
     'date_awarded' => 'Date d’attribution',
