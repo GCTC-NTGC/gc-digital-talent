@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useQuery } from "urql";
 import { useIntl } from "react-intl";
 import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
 import type { SubmitHandler } from "react-hook-form";
@@ -98,32 +97,6 @@ export const EducationExperiencesTrainingAndDevelopmentOpportunities_Fragment =
     }
   `);
 
-const EducationExperiencesRefresh_Query = graphql(/* GraphQL */ `
-  query EducationExperiencesRefresh_Query {
-    me {
-      educationExperiences {
-        __typename
-        id
-        institution
-        areaOfStudy
-        startDate
-        endDate
-        type {
-          value
-          label {
-            localized
-            en
-            fr
-          }
-        }
-        skills {
-          id
-        }
-      }
-    }
-  }
-`);
-
 export interface SubformValues {
   interestInDevelopmentPrograms:
     | {
@@ -166,11 +139,6 @@ const TrainingAndDevelopmentOpportunities = ({
   );
   const dialogFormMethods = useForm<{ experienceId: string }>();
 
-  const [{ data: freshExpData }] = useQuery({
-    query: EducationExperiencesRefresh_Query,
-    pause: dialogOpenForIndex === null,
-  });
-
   const educationExperiencesFragmentData = getFragment(
     EducationExperiencesTrainingAndDevelopmentOpportunities_Fragment,
     educationExperiences,
@@ -179,10 +147,7 @@ const TrainingAndDevelopmentOpportunities = ({
     educationExperiencesFragmentData?.educationExperiences,
   );
 
-  const activeExperiences =
-    freshExpData?.me?.educationExperiences != null
-      ? unpackMaybes(freshExpData.me.educationExperiences)
-      : educationExperiencesFromProp;
+  const activeExperiences = educationExperiencesFromProp;
 
   const optionsData = getFragment(
     TrainingAndDevelopmentOpportunitiesOptions_Fragment,
@@ -499,7 +464,7 @@ const TrainingAndDevelopmentOpportunities = ({
                       }
                     />
                   ) : (
-                    <div className="flex gap-3">
+                    <div className="flex items-center gap-3">
                       <Button
                         type="button"
                         onClick={() => openLinkDialog(index)}
