@@ -9726,10 +9726,6 @@
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
   },
-  "cFTGLs": {
-    "defaultMessage": "Professionnalisation",
-    "description": "Label for the select a professionalization input"
-  },
   "cGYqB+": {
     "defaultMessage": "l'accessibilité des outils de publication de contenu sur la plateforme;",
     "description": "List item two, sub item one things developers consider for accessibility"

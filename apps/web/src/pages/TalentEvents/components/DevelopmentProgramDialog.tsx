@@ -13,6 +13,8 @@ import {
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import type { Maybe } from "@gc-digital-talent/graphql";
 
+import adminMessages from "~/messages/adminMessages";
+
 const descriptionLabel = defineMessage({
   defaultMessage: "Nomination specific context",
   id: "G1aodw",
@@ -126,12 +128,7 @@ const DevelopmentProgramDialog = ({
                 <Select
                   id="value"
                   name="value"
-                  label={intl.formatMessage({
-                    defaultMessage: "Professionalization",
-                    id: "cFTGLs",
-                    description:
-                      "Label for the select a professionalization input",
-                  })}
+                  label={intl.formatMessage(adminMessages.professionalization)}
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
