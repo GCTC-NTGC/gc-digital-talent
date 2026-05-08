@@ -14,6 +14,8 @@ import { toast } from "@gc-digital-talent/toast";
 import { graphql, type Classification } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
+import { stringifyGroupLevel } from "~/utils/classification";
+
 const EditProfessionalization_Mutation = graphql(/* GraphQL */ `
   mutation EditProfessionalization(
     $updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!
@@ -187,7 +189,9 @@ const EditDialog = ({
                     options={unpackMaybes(classifications).map(
                       ({ id, group, level }) => ({
                         value: id,
-                        label: `${group}-${level < 10 ? "0" : ""}${level}`,
+                        label:
+                          stringifyGroupLevel(group, level) ??
+                          intl.formatMessage(commonMessages.notProvided),
                       }),
                     )}
                     rules={{

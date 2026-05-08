@@ -24,6 +24,8 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
+import { stringifyGroupLevel } from "~/utils/classification";
+
 const CreateOrRestoreProfessionalization_Mutation = graphql(/* GraphQL */ `
   mutation CreateOrRestoreProfessionalization(
     $createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!
@@ -262,7 +264,9 @@ const AddDialog = ({
                   options={unpackMaybes(classifications).map(
                     ({ id, group, level }) => ({
                       value: id,
-                      label: `${group}-${level < 10 ? "0" : ""}${level}`,
+                      label:
+                        stringifyGroupLevel(group, level) ??
+                        intl.formatMessage(commonMessages.notProvided),
                     }),
                   )}
                 />
