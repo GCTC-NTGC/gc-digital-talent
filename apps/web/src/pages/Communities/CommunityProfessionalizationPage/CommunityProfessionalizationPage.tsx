@@ -22,7 +22,8 @@ import type {
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
+import { MAX_DATE } from "@gc-digital-talent/date-helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -33,9 +34,10 @@ import adminMessages from "~/messages/adminMessages";
 
 import type { ContextType } from "../CommunityMembersPage/components/types";
 import AddDialog from "./components/AddDialog";
-import { useSort, type SortValues } from "./utils/useSort";
 import EditDialog from "./components/EditDialog";
 import RemoveDialog from "./components/RemoveDialog";
+
+type SortValues = "recentlyAdded" | "name";
 
 interface RouteParams extends Record<string, string> {
   communityId: Scalars["ID"]["output"];
@@ -92,10 +94,22 @@ export const CommunityProfessionalizationForm = ({
   const filteredDevelopmentPrograms = developmentPrograms.filter(
     (dp) => !ids.has(dp.id),
   );
-  const sortedCommunityDevelopmentPrograms = useSort(
-    communityDevelopmentPrograms,
-    sortBy,
-  );
+
+  let sortedCommunityDevelopmentPrograms;
+
+  if (sortBy === "name") {
+    sortedCommunityDevelopmentPrograms = communityDevelopmentPrograms.sort(
+      sortAlphaBy((cdp) => cdp.developmentProgram.name.localized),
+    );
+  } else {
+    sortedCommunityDevelopmentPrograms = communityDevelopmentPrograms.sort(
+      (cdp1, cdp2) => {
+        const a = cdp1?.createdAt ? new Date(cdp1.createdAt) : MAX_DATE;
+        const b = cdp2?.createdAt ? new Date(cdp2.createdAt) : MAX_DATE;
+        return b.getTime() - a.getTime();
+      },
+    );
+  }
 
   const pageTitle = intl.formatMessage(adminMessages.professionalization);
 
