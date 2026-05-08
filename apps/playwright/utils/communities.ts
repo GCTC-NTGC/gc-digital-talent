@@ -159,7 +159,7 @@ const Test_CreateCommunityDevelopmentProgramMutation = /* GraphQL */ `
   mutation Test_CreateCommunityDevelopmentProgram(
     $createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!
   ) {
-    createCommunityDevelopmentProgram(
+    createOrRestoreCommunityDevelopmentProgram(
       createCommunityDevelopmentProgram: $createCommunityDevelopmentProgram
     ) {
       id
@@ -181,7 +181,7 @@ export const createCommunityDevelopmentProgram: GraphQLRequestFunc<
   return ctx
     .post<
       GraphQLResponse<
-        "createCommunityDevelopmentProgram",
+        "createOrRestoreCommunityDevelopmentProgram",
         CommunityDevelopmentProgram
       >
     >(Test_CreateCommunityDevelopmentProgramMutation, {
@@ -193,7 +193,7 @@ export const createCommunityDevelopmentProgram: GraphQLRequestFunc<
         },
       },
     })
-    .then((res) => res.createCommunityDevelopmentProgram);
+    .then((res) => res.createOrRestoreCommunityDevelopmentProgram);
 };
 
 const Test_RolesQueryDocument = /* GraphQL */ `
