@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { useState } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
@@ -32,15 +32,18 @@ interface RemoveDialogProps {
   communityDevelopmentProgramId: string;
   professionalizationName: string;
   community: FragmentType<typeof ProfessionalizationRemoveDialog_Fragment>;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<string | null>>;
 }
 
 const RemoveDialog = ({
   communityDevelopmentProgramId,
   professionalizationName,
   community: communityQuery,
+  open,
+  setOpen,
 }: RemoveDialogProps) => {
   const intl = useIntl();
-  const [open, setOpen] = useState(false);
 
   const community = getFragment(
     ProfessionalizationRemoveDialog_Fragment,
@@ -64,7 +67,7 @@ const RemoveDialog = ({
                 "Message displayed to user after professionalization is removed successfully.",
             }),
           );
-          setOpen(false);
+          setOpen(null);
           return result.data.deleteCommunityDevelopmentProgram.id;
         }
         return Promise.reject(new Error(result.error?.toString()));
@@ -82,12 +85,16 @@ const RemoveDialog = ({
   };
 
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger>
-        <Button color="primary" mode="text" className="w-full font-bold">
-          {intl.formatMessage(commonMessages.remove)}
-        </Button>
-      </Dialog.Trigger>
+    <Dialog.Root
+      open={open}
+      onOpenChange={(isOpen) => {
+        if (isOpen) {
+          setOpen(communityDevelopmentProgramId);
+        } else {
+          setOpen(null);
+        }
+      }}
+    >
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage(

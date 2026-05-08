@@ -117,6 +117,9 @@ export const CommunityProfessionalizationForm = ({
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
+  const [editOpen, setEditOpen] = useState<string | null>(null);
+  const [removeOpen, setRemoveOpen] = useState<string | null>(null);
+
   return (
     <>
       <SEO title={pageTitle} />
@@ -180,6 +183,7 @@ export const CommunityProfessionalizationForm = ({
               {sortedCommunityDevelopmentPrograms.map((cdp) => {
                 return (
                   <DevelopmentProgramCard.Item
+                    id={cdp.id}
                     key={cdp.developmentProgram.id}
                     title={cdp.developmentProgram.name.localized ?? notProvided}
                     description={
@@ -203,6 +207,8 @@ export const CommunityProfessionalizationForm = ({
                         professionalizationName={
                           cdp.developmentProgram.name.localized ?? notProvided
                         }
+                        open={editOpen === cdp.id}
+                        setOpen={setEditOpen}
                       />
                     }
                     remove={
@@ -212,8 +218,12 @@ export const CommunityProfessionalizationForm = ({
                         professionalizationName={
                           cdp.developmentProgram.name.localized ?? notProvided
                         }
+                        open={removeOpen === cdp.id}
+                        setOpen={setRemoveOpen}
                       />
                     }
+                    setEditOpen={setEditOpen}
+                    setRemoveOpen={setRemoveOpen}
                   />
                 );
               })}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
@@ -47,15 +47,18 @@ interface EditDialogProps {
   communityDevelopmentProgramId: string;
   defaultValues: FormValues;
   professionalizationName: string;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<string | null>>;
 }
 
 const EditDialog = ({
   communityDevelopmentProgramId,
   defaultValues,
   professionalizationName,
+  open,
+  setOpen,
 }: EditDialogProps) => {
   const intl = useIntl();
-  const [open, setOpen] = useState(false);
 
   const [{ data }] = useQuery({ query: ProfessionalizationEditDialog_Query });
   const [{ fetching }, executeMutation] = useMutation(
@@ -84,7 +87,7 @@ const EditDialog = ({
                 "Message displayed to user after professionalization is updated successfully.",
             }),
           );
-          setOpen(false);
+          setOpen(null);
           return result.data.updateCommunityDevelopmentProgram.id;
         }
         return Promise.reject(new Error(result.error?.toString()));
@@ -104,12 +107,16 @@ const EditDialog = ({
   const watchNeedForRestrictions = methods.watch("needForRestrictions");
 
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger>
-        <Button color="primary" mode="text" className="w-full font-bold">
-          {intl.formatMessage(formMessages.editDetails)}
-        </Button>
-      </Dialog.Trigger>
+    <Dialog.Root
+      open={open}
+      onOpenChange={(isOpen) => {
+        if (isOpen) {
+          setOpen(communityDevelopmentProgramId);
+        } else {
+          setOpen(null);
+        }
+      }}
+    >
       <Dialog.Content>
         <Dialog.Header
           subtitle={intl.formatMessage(
