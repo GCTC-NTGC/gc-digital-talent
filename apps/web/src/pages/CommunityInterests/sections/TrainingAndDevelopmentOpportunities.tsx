@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
 import type { SubmitHandler } from "react-hook-form";
@@ -178,6 +178,22 @@ const TrainingAndDevelopmentOpportunities = ({
   const [selectedInterestInDevelopmentPrograms] = watch([
     "interestInDevelopmentPrograms",
   ]);
+
+  // unlink when participation status is changed from completed to not completed
+  useEffect(() => {
+    selectedInterestInDevelopmentPrograms?.forEach((item, index) => {
+      if (
+        item?.participationStatus !==
+          DevelopmentProgramParticipationStatus.Completed &&
+        item?.educationExperienceId
+      ) {
+        setValue(
+          `interestInDevelopmentPrograms.${index}.educationExperienceId`,
+          null,
+        );
+      }
+    });
+  }, [selectedInterestInDevelopmentPrograms, setValue]);
 
   const developmentPrograms =
     optionsData.communities.find(
