@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -18,6 +18,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
+import useScrollToHash from "~/hooks/useScrollToHash";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
@@ -93,6 +94,8 @@ const ACCORDION_ID = {
   FUNCTIONAL_COMMUNITIES: "your_functional_communities",
 } as const;
 
+export const FUNCTIONAL_COMMUNITIES_HASH_ID = "functional-communities";
+
 interface CareerDevelopmentTaskCardProps {
   userQuery: FragmentType<typeof CareerDevelopmentTaskCardUser_Fragment>;
   optionsQuery: FragmentType<typeof CareerDevelopmentTaskCardOptions_Fragment>;
@@ -109,6 +112,12 @@ const CareerDevelopmentTaskCard = ({
     useState<string>("");
   const [communityAccordionValue, setCommunityAccordionValue] =
     useState<string>("");
+
+  const expandFunctionalCommunities = useCallback(() => {
+    setCommunityAccordionValue(ACCORDION_ID.FUNCTIONAL_COMMUNITIES);
+  }, []);
+
+  useScrollToHash(FUNCTIONAL_COMMUNITIES_HASH_ID, expandFunctionalCommunities);
 
   const userFragment = getFragment(
     CareerDevelopmentTaskCardUser_Fragment,
@@ -425,6 +434,7 @@ const CareerDevelopmentTaskCard = ({
             <Accordion.Root
               type="single"
               collapsible
+              id={FUNCTIONAL_COMMUNITIES_HASH_ID}
               value={communityAccordionValue}
               onValueChange={setCommunityAccordionValue}
             >

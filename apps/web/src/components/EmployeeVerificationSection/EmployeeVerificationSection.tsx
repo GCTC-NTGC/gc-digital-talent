@@ -14,6 +14,7 @@ import { EmailType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import EmailVerificationDialog from "~/components/EmailVerificationDialog/EmailVerificationDialog";
 import { getExperienceName } from "~/utils/experienceUtils";
 import useRoutes from "~/hooks/useRoutes";
+import { FUNCTIONAL_COMMUNITIES_HASH_ID } from "~/pages/ApplicantDashboardPage/components/CareerDevelopmentTaskCard";
 import experienceMessages from "~/messages/experienceMessages";
 
 const grid = tv({
@@ -357,7 +358,7 @@ const EmployeeVerificationSection = ({
                 {user.isVerifiedGovEmployee ? (
                   communityInterests.length > 0 ? (
                     <Link
-                      href={paths.applicantDashboard()}
+                      href={`${paths.applicantDashboard()}#${FUNCTIONAL_COMMUNITIES_HASH_ID}`}
                       mode="inline"
                       color="secondary"
                     >
