@@ -117,7 +117,7 @@ const CareerDevelopmentTaskCard = ({
   }, []);
 
   useScrollToHash(
-    ApplicantDashboardSectionId.FunctionalCommunities,
+    APPLICANT_DASHBOARD_SECTION_ID.FUNCTIONAL_COMMUNITIES,
     expandFunctionalCommunities,
   );
 
@@ -436,7 +436,7 @@ const CareerDevelopmentTaskCard = ({
             <Accordion.Root
               type="single"
               collapsible
-              id={ApplicantDashboardSectionId.FunctionalCommunities}
+              id={APPLICANT_DASHBOARD_SECTION_ID.FUNCTIONAL_COMMUNITIES}
               value={communityAccordionValue}
               onValueChange={setCommunityAccordionValue}
             >
