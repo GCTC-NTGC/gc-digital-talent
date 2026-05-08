@@ -8918,6 +8918,10 @@
     "defaultMessage": "{skill} sélectionnée.",
     "description": "Message displayed when a skill was selected"
   },
+  "YeS9xM": {
+    "defaultMessage": "<strong>Remarque</strong> : si le programme ou la certification est accessible à toutes les classifications gérées par votre collectivité, veuillez laisser ce champ vide.",
+    "description": "Additional context for classification restrictions checkbox"
+  },
   "Yg2TIH": {
     "defaultMessage": "Rôles individuels",
     "description": "Heading for updating a users individual roles"
@@ -13765,10 +13769,6 @@
   "s3JBjM": {
     "defaultMessage": "Le processus a été archivé avec succès!",
     "description": "Message affiché à l'utilisateur après l'archivage du bassin"
-  },
-  "s6SILv": {
-    "defaultMessage": "Remarque : si le programme ou la certification est accessible à toutes les classifications gérées par votre collectivité, veuillez laisser ce champ vide.",
-    "description": "Additional context for classification restrictions checkbox"
   },
   "s8ByY4": {
     "defaultMessage": "Vous avez des questions ou vous avez besoin d'aide? Communiquez avec notre équipe de soutien et dites-nous comment nous pouvons vous aider.",

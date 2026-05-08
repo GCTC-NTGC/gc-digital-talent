@@ -184,8 +184,8 @@ const EditDialog = ({
                 })}
                 context={intl.formatMessage({
                   defaultMessage:
-                    "Note: if the program or certification is available to all classifications managed by your community, please leave this field blank.",
-                  id: "s6SILv",
+                    "<strong>Note</strong>: if the program or certification is available to all classifications managed by your community, please leave this field blank.",
+                  id: "YeS9xM",
                   description:
                     "Additional context for classification restrictions checkbox",
                 })}
