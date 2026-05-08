@@ -18,8 +18,7 @@ import {
   errorMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import type { FragmentType ,
-  EducationType} from "@gc-digital-talent/graphql";
+import type { FragmentType, EducationType } from "@gc-digital-talent/graphql";
 import {
   DevelopmentProgramParticipationStatus,
   getFragment,
@@ -128,7 +127,11 @@ interface TrainingAndDevelopmentOpportunitiesProps {
     endDate?: string | null;
     type?: {
       value: EducationType;
-      label: { localized?: string | null; en?: string | null; fr?: string | null };
+      label: {
+        localized?: string | null;
+        en?: string | null;
+        fr?: string | null;
+      };
     } | null;
     skills?: { id: string }[] | null;
   }[];
