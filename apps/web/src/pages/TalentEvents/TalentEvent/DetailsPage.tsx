@@ -68,7 +68,7 @@ const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
-    communityDevelopmentPrograms {
+    communityDevelopmentPrograms(trashed: WITH) {
       id
       developmentProgram {
         id

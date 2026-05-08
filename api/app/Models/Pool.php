@@ -7,6 +7,7 @@ use App\Casts\LocalizedString;
 use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
+use App\Enums\PoolLanguage;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\PublishingGroup;
@@ -524,6 +525,13 @@ class Pool extends Model
         return $classification
             ? $classification.$dividingColon.$name
             : $name;
+    }
+
+    public function requiresBilingual(): Attribute
+    {
+        return Attribute::get(function ($_, $attributes) {
+            return in_array($attributes['advertisement_language'], PoolLanguage::bilingualGroup());
+        });
     }
 
     public function publish()

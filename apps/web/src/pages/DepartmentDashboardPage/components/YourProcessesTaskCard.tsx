@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 import uniqBy from "lodash/uniqBy";
+import { useState } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -12,6 +13,11 @@ import useRoutes from "~/hooks/useRoutes";
 
 import YourProcessesPreviewList from "./YourProcessesPreviewList";
 import { isPoolTeamable } from "../utils";
+
+const ACCORDION_ID = {
+  BOOKMARKED_PROCESSES: "your_bookmarked_processes",
+  SHARED_PROCESSES: "your_shared_processes",
+} as const;
 
 const YourProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
   fragment YourProcessesTaskCard on User {
@@ -42,6 +48,12 @@ const YourProcessesTaskCard = ({
 }: YourProcessesTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const [
+    bookmarkedProcessesAccordionValue,
+    setBookmarkedProcessesAccordionValue,
+  ] = useState<string>("");
+  const [sharedProcessesAccordionValue, setSharedProcessesAccordionValue] =
+    useState<string>("");
 
   const yourProcessesTaskCardFragment = getFragment(
     YourProcessesTaskCard_Fragment,
@@ -83,6 +95,19 @@ const YourProcessesTaskCard = ({
     },
   ];
 
+  const isAcccordionOpen =
+    bookmarkedProcessesAccordionValue === "" &&
+    sharedProcessesAccordionValue === "";
+  const handleToggleAccordions = () => {
+    if (isAcccordionOpen) {
+      setBookmarkedProcessesAccordionValue(ACCORDION_ID.BOOKMARKED_PROCESSES);
+      setSharedProcessesAccordionValue(ACCORDION_ID.SHARED_PROCESSES);
+    } else {
+      setBookmarkedProcessesAccordionValue("");
+      setSharedProcessesAccordionValue("");
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col gap-6">
@@ -95,10 +120,32 @@ const YourProcessesTaskCard = ({
           })}
           headingColor="primary"
           headingAs="h2"
+          action={{
+            label: isAcccordionOpen
+              ? intl.formatMessage({
+                  defaultMessage:
+                    "Expand all<hidden> your processes sections</hidden>",
+                  id: "SJdjdy",
+                  description: "Button text to show all processes sections",
+                })
+              : intl.formatMessage({
+                  defaultMessage:
+                    "Collapse all<hidden> your processes sections</hidden>",
+                  id: "IaM9Nt",
+                  description:
+                    "Button text to hide all your processes sections",
+                }),
+            onClick: handleToggleAccordions,
+          }}
         >
           <TaskCard.Item>
-            <Accordion.Root type="multiple">
-              <Accordion.Item value="your_bookmarked_processes">
+            <Accordion.Root
+              type="single"
+              collapsible
+              value={bookmarkedProcessesAccordionValue}
+              onValueChange={setBookmarkedProcessesAccordionValue}
+            >
+              <Accordion.Item value={ACCORDION_ID.BOOKMARKED_PROCESSES}>
                 <Accordion.Trigger
                   as="h3"
                   subtitle={intl.formatMessage({
@@ -128,8 +175,13 @@ const YourProcessesTaskCard = ({
             </Accordion.Root>
           </TaskCard.Item>
           <TaskCard.Item>
-            <Accordion.Root type="multiple">
-              <Accordion.Item value="your_shared_processes">
+            <Accordion.Root
+              type="single"
+              collapsible
+              value={sharedProcessesAccordionValue}
+              onValueChange={setSharedProcessesAccordionValue}
+            >
+              <Accordion.Item value={ACCORDION_ID.SHARED_PROCESSES}>
                 <Accordion.Trigger
                   as="h3"
                   subtitle={intl.formatMessage({

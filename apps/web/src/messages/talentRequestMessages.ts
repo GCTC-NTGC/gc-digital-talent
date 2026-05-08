@@ -84,6 +84,11 @@ const messages = defineMessages({
     id: "LOjdrP",
     description: "Title for community",
   },
+  hrAdvisorEmail: {
+    defaultMessage: "HR advisor email",
+    id: "VrLfLw",
+    description: "Input label asking for the HR advisor's email address.",
+  },
 });
 
 export default messages;

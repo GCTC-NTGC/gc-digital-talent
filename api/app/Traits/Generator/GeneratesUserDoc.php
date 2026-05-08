@@ -128,7 +128,7 @@ trait GeneratesUserDoc
             }
 
             if ($user->looking_for_bilingual) {
-                $section->addListItem($this->localize('common.bilingual'));
+                $section->addListItem($this->localize('common.bilingual_positions'));
             }
         }
 

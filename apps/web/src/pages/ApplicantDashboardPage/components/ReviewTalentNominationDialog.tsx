@@ -76,10 +76,12 @@ const ReviewTalentNominationDialog_Fragment = graphql(/* GraphQL */ `
       }
     }
     developmentProgramOptionsOther
-    developmentPrograms {
-      id
-      name {
-        localized
+    communityDevelopmentPrograms(trashed: WITH) {
+      developmentProgram {
+        id
+        name {
+          localized
+        }
       }
     }
   }
@@ -151,10 +153,10 @@ const ReviewTalentNominationDialog = ({
   }));
 
   const developmentPrograms: ListItem[] = unpackMaybes(
-    talentNomination.developmentPrograms,
-  ).map((program) => ({
-    key: program.id,
-    name: program.name?.localized ?? "",
+    talentNomination.communityDevelopmentPrograms,
+  ).map((cdp) => ({
+    key: cdp.developmentProgram.id,
+    name: cdp.developmentProgram.name?.localized ?? "",
   }));
 
   return (
