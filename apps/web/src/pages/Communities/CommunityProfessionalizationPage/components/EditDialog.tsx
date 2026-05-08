@@ -129,7 +129,8 @@ const EditDialog = ({
               <Heading
                 level="h3"
                 color="black"
-                className="mt-0 text-base font-bold"
+                size="h6"
+                className="mt-0 font-bold"
               >
                 {intl.formatMessage({
                   defaultMessage: "Classification restrictions",
