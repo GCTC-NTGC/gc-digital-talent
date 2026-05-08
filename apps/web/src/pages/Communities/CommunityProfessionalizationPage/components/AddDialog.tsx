@@ -2,7 +2,7 @@ import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import { useState } from "react";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 
 import { Button, Dialog, Heading, Ul } from "@gc-digital-talent/ui";
 import {
@@ -21,20 +21,8 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { stringifyGroupLevel } from "~/utils/classification";
 
-export const ProfessionalizationAddDialog_Fragment = graphql(/* GraphQL */ `
-  fragment ProfessionalizationAddDialog on Query {
-    community(id: $id) {
-      id
-      name {
-        localized
-      }
-      communityDevelopmentPrograms {
-        id
-        developmentProgram {
-          id
-        }
-      }
-    }
+const ProfessionalizationAddDialog_Query = graphql(/* GraphQL */ `
+  query ProfessionalizationAddDialog {
     developmentPrograms {
       id
       name {
@@ -48,6 +36,21 @@ export const ProfessionalizationAddDialog_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+    }
+  }
+`);
+
+export const ProfessionalizationAddDialog_Fragment = graphql(/* GraphQL */ `
+  fragment ProfessionalizationAddDialog on Community {
+    id
+    name {
+      localized
+    }
+    communityDevelopmentPrograms {
+      id
+      developmentProgram {
+        id
+      }
     }
   }
 `);
@@ -71,25 +74,29 @@ export interface FormValues {
 }
 
 interface AddDialogProps {
-  query: FragmentType<typeof ProfessionalizationAddDialog_Fragment>;
+  community: FragmentType<typeof ProfessionalizationAddDialog_Fragment>;
 }
 
-const AddDialog = ({ query }: AddDialogProps) => {
+const AddDialog = ({ community: communityFragment }: AddDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
-  const data = getFragment(ProfessionalizationAddDialog_Fragment, query);
+  const [{ data }] = useQuery({ query: ProfessionalizationAddDialog_Query });
+  const community = getFragment(
+    ProfessionalizationAddDialog_Fragment,
+    communityFragment,
+  );
   const [{ fetching }, executeMutation] = useMutation(
     CreateOrRestoreProfessionalization_Mutation,
   );
 
   const methods = useForm<FormValues>();
-  const { handleSubmit, reset } = methods;
+  const { handleSubmit, reset, resetField, setValue } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return executeMutation({
       createCommunityDevelopmentProgram: {
-        communityId: data.community?.id ?? "",
+        communityId: community?.id ?? "",
         developmentProgramId: values.professionalization,
         classifications: { sync: values.restrictedClassifications },
       },
@@ -123,12 +130,12 @@ const AddDialog = ({ query }: AddDialogProps) => {
   };
 
   const ids = new Set(
-    unpackMaybes(data.community?.communityDevelopmentPrograms).map(
+    unpackMaybes(community?.communityDevelopmentPrograms).map(
       (cdp) => cdp.developmentProgram.id,
     ),
   );
   const filteredDevelopmentPrograms = unpackMaybes(
-    data.developmentPrograms,
+    data?.developmentPrograms,
   ).filter((dp) => !ids.has(dp.id));
 
   const watchNeedForRestrictions = methods.watch("needForRestrictions");
@@ -160,7 +167,7 @@ const AddDialog = ({ query }: AddDialogProps) => {
             },
             {
               communityName:
-                data.community?.name?.localized ??
+                community?.name?.localized ??
                 intl.formatMessage(commonMessages.notProvided),
             },
           )}
@@ -277,6 +284,14 @@ const AddDialog = ({ query }: AddDialogProps) => {
                     description:
                       "Additional context for classification restrictions checkbox",
                   })}
+                  onChange={(e) => {
+                    if (!e.target.checked) {
+                      resetField("restrictedClassifications", {
+                        defaultValue: [],
+                      });
+                    }
+                    setValue("needForRestrictions", e.target.checked);
+                  }}
                 />
               </div>
               {watchNeedForRestrictions ? (
@@ -289,7 +304,7 @@ const AddDialog = ({ query }: AddDialogProps) => {
                     id: "OHb3HT",
                     description: "Label for classifications multi select",
                   })}
-                  options={unpackMaybes(data.classifications).map(
+                  options={unpackMaybes(data?.classifications).map(
                     ({ id, group, level }) => ({
                       value: id,
                       label:

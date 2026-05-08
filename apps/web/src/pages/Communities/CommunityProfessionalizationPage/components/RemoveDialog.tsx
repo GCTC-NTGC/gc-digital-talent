@@ -12,12 +12,10 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 
 export const ProfessionalizationRemoveDialog_Fragment = graphql(/* GraphQL */ `
-  fragment ProfessionalizationRemoveDialog on Query {
-    community(id: $id) {
-      id
-      name {
-        localized
-      }
+  fragment ProfessionalizationRemoveDialog on Community {
+    id
+    name {
+      localized
     }
   }
 `);
@@ -33,18 +31,21 @@ const RemoveProfessionalization_Mutation = graphql(/* GraphQL */ `
 interface RemoveDialogProps {
   communityDevelopmentProgramId: string;
   professionalizationName: string;
-  query: FragmentType<typeof ProfessionalizationRemoveDialog_Fragment>;
+  community: FragmentType<typeof ProfessionalizationRemoveDialog_Fragment>;
 }
 
 const RemoveDialog = ({
   communityDevelopmentProgramId,
   professionalizationName,
-  query,
+  community: communityQuery,
 }: RemoveDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
-  const data = getFragment(ProfessionalizationRemoveDialog_Fragment, query);
+  const community = getFragment(
+    ProfessionalizationRemoveDialog_Fragment,
+    communityQuery,
+  );
   const [{ fetching }, executeMutation] = useMutation(
     RemoveProfessionalization_Mutation,
   );
@@ -99,7 +100,7 @@ const RemoveDialog = ({
             {
               professionalizationName,
               communityName:
-                data.community?.name?.localized ??
+                community?.name?.localized ??
                 intl.formatMessage(commonMessages.notProvided),
             },
           )}

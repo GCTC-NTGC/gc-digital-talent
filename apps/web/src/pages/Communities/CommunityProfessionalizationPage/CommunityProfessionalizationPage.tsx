@@ -27,11 +27,8 @@ import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/Developm
 import adminMessages from "~/messages/adminMessages";
 
 import type { ContextType } from "../CommunityMembersPage/components/types";
-import type { ProfessionalizationAddDialog_Fragment } from "./components/AddDialog";
 import AddDialog from "./components/AddDialog";
-import type { ProfessionalizationEditDialog_Fragment } from "./components/EditDialog";
 import EditDialog from "./components/EditDialog";
-import type { ProfessionalizationRemoveDialog_Fragment } from "./components/RemoveDialog";
 import RemoveDialog from "./components/RemoveDialog";
 
 type SortValues = "recentlyAdded" | "name";
@@ -41,30 +38,30 @@ interface RouteParams extends Record<string, string> {
 }
 
 const ProfessionalizationForm_Fragment = graphql(/* GraphQL */ `
-  fragment ProfessionalizationForm on Query {
-    community(id: $id) {
-      communityDevelopmentPrograms {
+  fragment ProfessionalizationForm on Community {
+    ...ProfessionalizationAddDialog
+    ...ProfessionalizationRemoveDialog
+    communityDevelopmentPrograms {
+      id
+      createdAt
+      community {
         id
-        createdAt
-        community {
-          id
-          key
+        key
+      }
+      classifications {
+        id
+        group
+        level
+      }
+      developmentProgram {
+        id
+        name {
+          en
+          fr
+          localized
         }
-        classifications {
-          id
-          group
-          level
-        }
-        developmentProgram {
-          id
-          name {
-            en
-            fr
-            localized
-          }
-          descriptionForProfile {
-            localized
-          }
+        descriptionForProfile {
+          localized
         }
       }
     }
@@ -84,30 +81,22 @@ const unselectedFilterStyle: Record<string, string> = {
 };
 
 interface CommunityProfessionalizationProps {
-  addDialogQuery: FragmentType<typeof ProfessionalizationAddDialog_Fragment>;
-  editDialogQuery: FragmentType<typeof ProfessionalizationEditDialog_Fragment>;
-  formQuery: FragmentType<typeof ProfessionalizationForm_Fragment>;
-  removeDialogQuery: FragmentType<
-    typeof ProfessionalizationRemoveDialog_Fragment
-  >;
+  community: FragmentType<typeof ProfessionalizationForm_Fragment>;
 }
 
 export const CommunityProfessionalizationForm = ({
-  addDialogQuery,
-  editDialogQuery,
-  formQuery,
-  removeDialogQuery,
+  community: formQuery,
 }: CommunityProfessionalizationProps) => {
   const intl = useIntl();
   const { communityName, navigationCrumbs, navTabs } =
     useOutletContext<ContextType>();
 
-  const data = getFragment(ProfessionalizationForm_Fragment, formQuery);
+  const community = getFragment(ProfessionalizationForm_Fragment, formQuery);
 
   const [sortBy, setSortBy] = useState<SortValues>("recentlyAdded");
 
   let sortedCommunityDevelopmentPrograms = unpackMaybes(
-    data.community?.communityDevelopmentPrograms,
+    community?.communityDevelopmentPrograms,
   );
 
   if (sortBy === "name") {
@@ -151,13 +140,16 @@ export const CommunityProfessionalizationForm = ({
                 description: "Description for professionalizations page",
               })}
             </p>
-            <AddDialog query={addDialogQuery} />
+            <AddDialog community={community} />
             <div
               role="group"
               aria-labelledby="sortFilter"
               className="mt-6 flex items-center gap-3"
             >
-              <span id="sortFilter" className="text-gray-500 dark:text-gray-200">
+              <span
+                id="sortFilter"
+                className="text-gray-500 dark:text-gray-200"
+              >
                 {intl.formatMessage(formMessages.sortBy)}
                 {intl.formatMessage(commonMessages.dividingColon)}
               </span>
@@ -201,7 +193,6 @@ export const CommunityProfessionalizationForm = ({
                       <EditDialog
                         key={cdp.id}
                         communityDevelopmentProgramId={cdp.id}
-                        query={editDialogQuery}
                         defaultValues={{
                           needForRestrictions:
                             unpackMaybes(cdp.classifications)?.length > 0,
@@ -216,11 +207,11 @@ export const CommunityProfessionalizationForm = ({
                     }
                     remove={
                       <RemoveDialog
+                        community={community}
                         communityDevelopmentProgramId={cdp.id}
                         professionalizationName={
                           cdp.developmentProgram.name.localized ?? notProvided
                         }
-                        query={removeDialogQuery}
                       />
                     }
                   />
@@ -236,10 +227,9 @@ export const CommunityProfessionalizationForm = ({
 
 const CommunityProfessionalization_Query = graphql(/* GraphQL */ `
   query CommunityProfessionalization($id: UUID!) {
-    ...ProfessionalizationForm
-    ...ProfessionalizationAddDialog
-    ...ProfessionalizationEditDialog
-    ...ProfessionalizationRemoveDialog
+    community(id: $id) {
+      ...ProfessionalizationForm
+    }
   }
 `);
 
@@ -253,13 +243,8 @@ const CommunityProfessionalizationPage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data ? (
-        <CommunityProfessionalizationForm
-          addDialogQuery={data}
-          editDialogQuery={data}
-          formQuery={data}
-          removeDialogQuery={data}
-        />
+      {data?.community ? (
+        <CommunityProfessionalizationForm community={data.community} />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>

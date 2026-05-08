@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 
 import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 import {
@@ -11,17 +11,13 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Checkbox, Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  getFragment,
-  graphql,
-  type FragmentType,
-} from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { stringifyGroupLevel } from "~/utils/classification";
 
-export const ProfessionalizationEditDialog_Fragment = graphql(/* GraphQL */ `
-  fragment ProfessionalizationEditDialog on Query {
+export const ProfessionalizationEditDialog_Query = graphql(/* GraphQL */ `
+  query ProfessionalizationEditDialog {
     classifications {
       id
       group
@@ -51,19 +47,17 @@ interface EditDialogProps {
   communityDevelopmentProgramId: string;
   defaultValues: FormValues;
   professionalizationName: string;
-  query: FragmentType<typeof ProfessionalizationEditDialog_Fragment>;
 }
 
 const EditDialog = ({
   communityDevelopmentProgramId,
   defaultValues,
   professionalizationName,
-  query,
 }: EditDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
-  const data = getFragment(ProfessionalizationEditDialog_Fragment, query);
+  const [{ data }] = useQuery({ query: ProfessionalizationEditDialog_Query });
   const [{ fetching }, executeMutation] = useMutation(
     EditProfessionalization_Mutation,
   );
@@ -71,7 +65,7 @@ const EditDialog = ({
   const methods = useForm<FormValues>({
     defaultValues,
   });
-  const { handleSubmit, resetField } = methods;
+  const { handleSubmit, resetField, setValue } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return executeMutation({
@@ -108,12 +102,6 @@ const EditDialog = ({
   };
 
   const watchNeedForRestrictions = methods.watch("needForRestrictions");
-
-  useEffect(() => {
-    if (watchNeedForRestrictions === false) {
-      resetField("restrictedClassifications", { defaultValue: [] });
-    }
-  }, [watchNeedForRestrictions, resetField]);
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -189,6 +177,14 @@ const EditDialog = ({
                   description:
                     "Additional context for classification restrictions checkbox",
                 })}
+                onChange={(e) => {
+                  if (!e.target.checked) {
+                    resetField("restrictedClassifications", {
+                      defaultValue: [],
+                    });
+                  }
+                  setValue("needForRestrictions", e.target.checked);
+                }}
               />
               {watchNeedForRestrictions ? (
                 <div className="mt-6">
@@ -201,7 +197,7 @@ const EditDialog = ({
                       id: "OHb3HT",
                       description: "Label for classifications multi select",
                     })}
-                    options={unpackMaybes(data.classifications).map(
+                    options={unpackMaybes(data?.classifications).map(
                       ({ id, group, level }) => ({
                         value: id,
                         label:
