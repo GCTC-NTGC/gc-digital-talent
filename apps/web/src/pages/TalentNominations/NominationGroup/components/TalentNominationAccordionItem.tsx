@@ -38,10 +38,12 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
     id
 
     talentNominationEvent {
-      developmentPrograms {
-        id
-        name {
-          localized
+      communityDevelopmentPrograms(trashed: WITH) {
+        developmentProgram {
+          id
+          name {
+            localized
+          }
         }
       }
       includeLeadershipCompetencies
@@ -92,10 +94,12 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
     }
     lateralMovementOptionsOther
 
-    developmentPrograms {
-      id
-      name {
-        localized
+    communityDevelopmentPrograms(trashed: WITH) {
+      developmentProgram {
+        id
+        name {
+          localized
+        }
       }
     }
     developmentProgramOptionsOther
@@ -221,15 +225,19 @@ const TalentNominationAccordionItem = ({
   }));
 
   const developmentProgramIdsInThisNomination =
-    talentNomination.developmentPrograms?.map((program) => program.id) ?? [];
+    talentNomination.communityDevelopmentPrograms?.map(
+      (cdp) => cdp.developmentProgram.id,
+    ) ?? [];
 
   const developmentProgramListItems =
-    talentNomination.talentNominationEvent.developmentPrograms?.map(
-      (program) => ({
-        key: program.id,
-        value: developmentProgramIdsInThisNomination.includes(program.id),
+    talentNomination.talentNominationEvent.communityDevelopmentPrograms?.map(
+      (cdp) => ({
+        key: cdp.developmentProgram.id,
+        value: developmentProgramIdsInThisNomination.includes(
+          cdp.developmentProgram.id,
+        ),
         label:
-          program.name?.localized ??
+          cdp.developmentProgram.name?.localized ??
           intl.formatMessage(commonMessages.notFound),
       }),
     ) ?? [];

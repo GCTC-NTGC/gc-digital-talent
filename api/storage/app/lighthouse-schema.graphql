@@ -681,7 +681,7 @@ type Mutation {
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
   updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
-  createCommunityDevelopmentProgram(createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
+  createOrRestoreCommunityDevelopmentProgram(createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
   updateCommunityDevelopmentProgram(updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
   deleteCommunityDevelopmentProgram(id: UUID!): CommunityDevelopmentProgram
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
@@ -1351,8 +1351,10 @@ type TalentNominationEvent {
   learnMoreUrl: LocalizedString
   includeLeadershipCompetencies: Boolean!
   community: Community!
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
-  developmentPrograms: [DevelopmentProgram!]
+  communityDevelopmentPrograms(
+    "Allows to filter if trashed elements should be fetched."
+    trashed: Trashed
+  ): [CommunityDevelopmentProgram!]
   talentNominationGroups: [TalentNominationGroup!]
   countTalentNominationGroups: Int!
   status: LocalizedTalentNominationEventStatus
@@ -1389,8 +1391,10 @@ type TalentNomination {
   advancementReferenceFallbackDepartment: Department
   lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
-  developmentPrograms: [DevelopmentProgram!]
+  communityDevelopmentPrograms(
+    "Allows to filter if trashed elements should be fetched."
+    trashed: Trashed
+  ): [CommunityDevelopmentProgram!]
   developmentProgramOptionsOther: String
   nominationRationale: String
   skills: [Skill]
@@ -4113,6 +4117,7 @@ enum PoolLanguage {
   ENGLISH
   FRENCH
   VARIOUS
+  VARIOUS_BILINGUAL
   BILINGUAL_INTERMEDIATE
   BILINGUAL_ADVANCED
 }

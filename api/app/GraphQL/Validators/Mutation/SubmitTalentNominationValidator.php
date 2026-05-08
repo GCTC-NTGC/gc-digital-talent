@@ -24,6 +24,10 @@ final class SubmitTalentNominationValidator extends Validator
      */
     public function __construct(TalentNomination $nomination)
     {
+        $nomination->load(['communityDevelopmentPrograms' => function ($query) {
+            $query->withTrashed();
+        }]);
+
         $this->nomination = $nomination;
     }
 
