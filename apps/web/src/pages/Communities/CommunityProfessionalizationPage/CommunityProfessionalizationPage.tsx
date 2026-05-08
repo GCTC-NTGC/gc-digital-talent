@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { useQuery, type OperationContext } from "urql";
 import { useOutletContext } from "react-router";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 import { useState } from "react";
@@ -260,12 +260,17 @@ const CommunityProfessionalization_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["CommunityDevelopmentProgram"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+};
+
 const CommunityProfessionalizationPage = () => {
   const intl = useIntl();
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
     query: CommunityProfessionalization_Query,
     variables: { id: communityId },
+    context,
   });
 
   return (
