@@ -96,7 +96,7 @@ const EditDialog = ({
     if (watchNeedForRestrictions === false) {
       resetField("restrictedClassifications", { defaultValue: [] });
     }
-  }, [watchNeedForRestrictions]);
+  }, [watchNeedForRestrictions, resetField]);
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
