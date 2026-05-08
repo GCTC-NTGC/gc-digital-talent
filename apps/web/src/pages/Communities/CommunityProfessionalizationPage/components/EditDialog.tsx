@@ -11,10 +11,24 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Checkbox, Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { graphql, type Classification } from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { stringifyGroupLevel } from "~/utils/classification";
+
+export const ProfessionalizationEditDialog_Fragment = graphql(/* GraphQL */ `
+  fragment ProfessionalizationEditDialog on Query {
+    classifications {
+      id
+      group
+      level
+    }
+  }
+`);
 
 const EditProfessionalization_Mutation = graphql(/* GraphQL */ `
   mutation EditProfessionalization(
@@ -34,21 +48,22 @@ export interface FormValues {
 }
 
 interface EditDialogProps {
-  classifications: Pick<Classification, "id" | "group" | "level">[];
   communityDevelopmentProgramId: string;
   defaultValues: FormValues;
   professionalizationName: string;
+  query: FragmentType<typeof ProfessionalizationEditDialog_Fragment>;
 }
 
 const EditDialog = ({
-  classifications,
   communityDevelopmentProgramId,
   defaultValues,
   professionalizationName,
+  query,
 }: EditDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
+  const data = getFragment(ProfessionalizationEditDialog_Fragment, query);
   const [{ fetching }, executeMutation] = useMutation(
     EditProfessionalization_Mutation,
   );
@@ -186,7 +201,7 @@ const EditDialog = ({
                       id: "OHb3HT",
                       description: "Label for classifications multi select",
                     })}
-                    options={unpackMaybes(classifications).map(
+                    options={unpackMaybes(data.classifications).map(
                       ({ id, group, level }) => ({
                         value: id,
                         label:

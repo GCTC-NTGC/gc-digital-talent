@@ -13,13 +13,7 @@ import {
   Container,
   Button,
 } from "@gc-digital-talent/ui";
-import type {
-  Classification,
-  CommunityDevelopmentProgram,
-  DevelopmentProgram,
-  FragmentType,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -33,8 +27,11 @@ import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/Developm
 import adminMessages from "~/messages/adminMessages";
 
 import type { ContextType } from "../CommunityMembersPage/components/types";
+import type { ProfessionalizationAddDialog_Fragment } from "./components/AddDialog";
 import AddDialog from "./components/AddDialog";
+import type { ProfessionalizationEditDialog_Fragment } from "./components/EditDialog";
 import EditDialog from "./components/EditDialog";
+import type { ProfessionalizationRemoveDialog_Fragment } from "./components/RemoveDialog";
 import RemoveDialog from "./components/RemoveDialog";
 
 type SortValues = "recentlyAdded" | "name";
@@ -43,11 +40,33 @@ interface RouteParams extends Record<string, string> {
   communityId: Scalars["ID"]["output"];
 }
 
-const CommunityProfessionalizationForm_Fragment = graphql(/* GraphQL */ `
-  fragment CommunityProfessionalizationForm on Community {
-    id
-    name {
-      localized
+const ProfessionalizationForm_Fragment = graphql(/* GraphQL */ `
+  fragment ProfessionalizationForm on Query {
+    community(id: $id) {
+      communityDevelopmentPrograms {
+        id
+        createdAt
+        community {
+          id
+          key
+        }
+        classifications {
+          id
+          group
+          level
+        }
+        developmentProgram {
+          id
+          name {
+            en
+            fr
+            localized
+          }
+          descriptionForProfile {
+            localized
+          }
+        }
+      }
     }
   }
 `);
@@ -65,55 +84,49 @@ const unselectedFilterStyle: Record<string, string> = {
 };
 
 interface CommunityProfessionalizationProps {
-  communityDevelopmentPrograms: CommunityDevelopmentProgram[];
-  classifications: Classification[];
-  developmentPrograms: DevelopmentProgram[];
-  query: FragmentType<typeof CommunityProfessionalizationForm_Fragment>;
+  addDialogQuery: FragmentType<typeof ProfessionalizationAddDialog_Fragment>;
+  editDialogQuery: FragmentType<typeof ProfessionalizationEditDialog_Fragment>;
+  formQuery: FragmentType<typeof ProfessionalizationForm_Fragment>;
+  removeDialogQuery: FragmentType<
+    typeof ProfessionalizationRemoveDialog_Fragment
+  >;
 }
 
 export const CommunityProfessionalizationForm = ({
-  communityDevelopmentPrograms,
-  classifications,
-  developmentPrograms,
-  query,
+  addDialogQuery,
+  editDialogQuery,
+  formQuery,
+  removeDialogQuery,
 }: CommunityProfessionalizationProps) => {
   const intl = useIntl();
   const { communityName, navigationCrumbs, navTabs } =
     useOutletContext<ContextType>();
 
-  const community = getFragment(
-    CommunityProfessionalizationForm_Fragment,
-    query,
-  );
+  const data = getFragment(ProfessionalizationForm_Fragment, formQuery);
 
   const [sortBy, setSortBy] = useState<SortValues>("recentlyAdded");
 
-  const ids = new Set(
-    communityDevelopmentPrograms.map((cdp) => cdp.developmentProgram.id),
+  let sortedCommunityDevelopmentPrograms = unpackMaybes(
+    data.community?.communityDevelopmentPrograms,
   );
-  const filteredDevelopmentPrograms = developmentPrograms.filter(
-    (dp) => !ids.has(dp.id),
-  );
-
-  let sortedCommunityDevelopmentPrograms;
 
   if (sortBy === "name") {
-    sortedCommunityDevelopmentPrograms = communityDevelopmentPrograms.sort(
-      sortAlphaBy((cdp) => cdp.developmentProgram.name.localized),
-    );
+    sortedCommunityDevelopmentPrograms =
+      sortedCommunityDevelopmentPrograms.sort(
+        sortAlphaBy((cdp) => cdp.developmentProgram.name.localized),
+      );
   } else {
-    sortedCommunityDevelopmentPrograms = communityDevelopmentPrograms.sort(
-      (cdp1, cdp2) => {
+    sortedCommunityDevelopmentPrograms =
+      sortedCommunityDevelopmentPrograms.sort((cdp1, cdp2) => {
         const a = cdp1?.createdAt ? new Date(cdp1.createdAt) : MAX_DATE;
         const b = cdp2?.createdAt ? new Date(cdp2.createdAt) : MAX_DATE;
         return b.getTime() - a.getTime();
-      },
-    );
+      });
   }
 
   const pageTitle = intl.formatMessage(adminMessages.professionalization);
 
-  const notFound = intl.formatMessage(commonMessages.notFound);
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   return (
     <>
@@ -138,12 +151,7 @@ export const CommunityProfessionalizationForm = ({
                 description: "Description for professionalizations page",
               })}
             </p>
-            <AddDialog
-              communityId={community.id}
-              communityName={communityName}
-              developmentPrograms={filteredDevelopmentPrograms}
-              classifications={classifications}
-            />
+            <AddDialog query={addDialogQuery} />
             <div
               role="group"
               aria-labelledby="sortFilter"
@@ -181,10 +189,10 @@ export const CommunityProfessionalizationForm = ({
                 return (
                   <DevelopmentProgramCard.Item
                     key={cdp.developmentProgram.id}
-                    title={cdp.developmentProgram.name.localized ?? notFound}
+                    title={cdp.developmentProgram.name.localized ?? notProvided}
                     description={
                       cdp.developmentProgram.descriptionForProfile.localized ??
-                      notFound
+                      notProvided
                     }
                     classificationRestrictions={unpackMaybes(
                       cdp.classifications,
@@ -192,8 +200,8 @@ export const CommunityProfessionalizationForm = ({
                     edit={
                       <EditDialog
                         key={cdp.id}
-                        classifications={classifications}
                         communityDevelopmentProgramId={cdp.id}
+                        query={editDialogQuery}
                         defaultValues={{
                           needForRestrictions:
                             unpackMaybes(cdp.classifications)?.length > 0,
@@ -202,17 +210,17 @@ export const CommunityProfessionalizationForm = ({
                           ),
                         }}
                         professionalizationName={
-                          cdp.developmentProgram.name.localized ?? notFound
+                          cdp.developmentProgram.name.localized ?? notProvided
                         }
                       />
                     }
                     remove={
                       <RemoveDialog
                         communityDevelopmentProgramId={cdp.id}
-                        communityName={community.name?.localized ?? notFound}
                         professionalizationName={
-                          cdp.developmentProgram.name.localized ?? notFound
+                          cdp.developmentProgram.name.localized ?? notProvided
                         }
+                        query={removeDialogQuery}
                       />
                     }
                   />
@@ -228,47 +236,10 @@ export const CommunityProfessionalizationForm = ({
 
 const CommunityProfessionalization_Query = graphql(/* GraphQL */ `
   query CommunityProfessionalization($id: UUID!) {
-    community(id: $id) {
-      ...CommunityProfessionalizationForm
-      communityDevelopmentPrograms {
-        id
-        createdAt
-        community {
-          id
-          key
-        }
-        classifications {
-          id
-          group
-          level
-        }
-        developmentProgram {
-          id
-          name {
-            en
-            fr
-            localized
-          }
-          descriptionForProfile {
-            localized
-          }
-        }
-      }
-    }
-    developmentPrograms {
-      id
-      name {
-        localized
-      }
-      descriptionForProfile {
-        localized
-      }
-    }
-    classifications {
-      id
-      group
-      level
-    }
+    ...ProfessionalizationForm
+    ...ProfessionalizationAddDialog
+    ...ProfessionalizationEditDialog
+    ...ProfessionalizationRemoveDialog
   }
 `);
 
@@ -282,14 +253,12 @@ const CommunityProfessionalizationPage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.community ? (
+      {data ? (
         <CommunityProfessionalizationForm
-          query={data.community}
-          communityDevelopmentPrograms={unpackMaybes(
-            data.community.communityDevelopmentPrograms,
-          )}
-          developmentPrograms={unpackMaybes(data.developmentPrograms)}
-          classifications={unpackMaybes(data.classifications)}
+          addDialogQuery={data}
+          editDialogQuery={data}
+          formQuery={data}
+          removeDialogQuery={data}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>

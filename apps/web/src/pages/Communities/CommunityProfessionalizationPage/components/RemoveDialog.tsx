@@ -4,8 +4,23 @@ import { useState } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
-import { graphql } from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
+
+export const ProfessionalizationRemoveDialog_Fragment = graphql(/* GraphQL */ `
+  fragment ProfessionalizationRemoveDialog on Query {
+    community(id: $id) {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
 
 const RemoveProfessionalization_Mutation = graphql(/* GraphQL */ `
   mutation RemoveProfessionalization($id: UUID!) {
@@ -16,19 +31,20 @@ const RemoveProfessionalization_Mutation = graphql(/* GraphQL */ `
 `);
 
 interface RemoveDialogProps {
-  communityName: string;
   communityDevelopmentProgramId: string;
   professionalizationName: string;
+  query: FragmentType<typeof ProfessionalizationRemoveDialog_Fragment>;
 }
 
 const RemoveDialog = ({
-  communityName,
   communityDevelopmentProgramId,
   professionalizationName,
+  query,
 }: RemoveDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
+  const data = getFragment(ProfessionalizationRemoveDialog_Fragment, query);
   const [{ fetching }, executeMutation] = useMutation(
     RemoveProfessionalization_Mutation,
   );
@@ -80,7 +96,12 @@ const RemoveDialog = ({
               id: "O48hJ8",
               description: "Subtitle for remove a professionalization dialog",
             },
-            { professionalizationName, communityName },
+            {
+              professionalizationName,
+              communityName:
+                data.community?.name?.localized ??
+                intl.formatMessage(commonMessages.notProvided),
+            },
           )}
         >
           {intl.formatMessage({

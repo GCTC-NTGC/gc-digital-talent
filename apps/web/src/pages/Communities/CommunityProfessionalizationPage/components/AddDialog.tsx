@@ -10,21 +10,47 @@ import {
   errorMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import {
-  Checkbox,
-  Combobox,
-  Select,
-  type OptGroupOrOption,
-} from "@gc-digital-talent/forms";
+import { Checkbox, Combobox, Select } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
+  getFragment,
   graphql,
-  type Classification,
-  type DevelopmentProgram,
+  type FragmentType,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { stringifyGroupLevel } from "~/utils/classification";
+
+export const ProfessionalizationAddDialog_Fragment = graphql(/* GraphQL */ `
+  fragment ProfessionalizationAddDialog on Query {
+    community(id: $id) {
+      id
+      name {
+        localized
+      }
+      communityDevelopmentPrograms {
+        id
+        developmentProgram {
+          id
+        }
+      }
+    }
+    developmentPrograms {
+      id
+      name {
+        localized
+      }
+      descriptionForProfile {
+        localized
+      }
+    }
+    classifications {
+      id
+      group
+      level
+    }
+  }
+`);
 
 const CreateOrRestoreProfessionalization_Mutation = graphql(/* GraphQL */ `
   mutation CreateOrRestoreProfessionalization(
@@ -45,21 +71,14 @@ export interface FormValues {
 }
 
 interface AddDialogProps {
-  communityId: string;
-  communityName: string;
-  classifications: Pick<Classification, "id" | "group" | "level">[];
-  developmentPrograms: Pick<DevelopmentProgram, "id" | "name">[];
+  query: FragmentType<typeof ProfessionalizationAddDialog_Fragment>;
 }
 
-const AddDialog = ({
-  communityId,
-  communityName,
-  classifications,
-  developmentPrograms,
-}: AddDialogProps) => {
+const AddDialog = ({ query }: AddDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
+  const data = getFragment(ProfessionalizationAddDialog_Fragment, query);
   const [{ fetching }, executeMutation] = useMutation(
     CreateOrRestoreProfessionalization_Mutation,
   );
@@ -70,7 +89,7 @@ const AddDialog = ({
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return executeMutation({
       createCommunityDevelopmentProgram: {
-        communityId,
+        communityId: data.community?.id ?? "",
         developmentProgramId: values.professionalization,
         classifications: { sync: values.restrictedClassifications },
       },
@@ -103,14 +122,16 @@ const AddDialog = ({
       });
   };
 
-  const watchNeedForRestrictions = methods.watch("needForRestrictions");
-
-  const professionalizations: OptGroupOrOption[] = developmentPrograms.map(
-    (program) => ({
-      label: program.name.localized,
-      value: program.id,
-    }),
+  const ids = new Set(
+    unpackMaybes(data.community?.communityDevelopmentPrograms).map(
+      (cdp) => cdp.developmentProgram.id,
+    ),
   );
+  const filteredDevelopmentPrograms = unpackMaybes(
+    data.developmentPrograms,
+  ).filter((dp) => !ids.has(dp.id));
+
+  const watchNeedForRestrictions = methods.watch("needForRestrictions");
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -137,7 +158,11 @@ const AddDialog = ({
               id: "yYQ9yi",
               description: "Dialog subtitle for adding a professionalization",
             },
-            { communityName },
+            {
+              communityName:
+                data.community?.name?.localized ??
+                intl.formatMessage(commonMessages.notProvided),
+            },
           )}
         >
           {intl.formatMessage({
@@ -194,7 +219,10 @@ const AddDialog = ({
                 nullSelection={intl.formatMessage(
                   uiMessages.nullSelectionOption,
                 )}
-                options={professionalizations}
+                options={filteredDevelopmentPrograms.map((program) => ({
+                  label: program.name.localized,
+                  value: program.id,
+                }))}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -261,7 +289,7 @@ const AddDialog = ({
                     id: "OHb3HT",
                     description: "Label for classifications multi select",
                   })}
-                  options={unpackMaybes(classifications).map(
+                  options={unpackMaybes(data.classifications).map(
                     ({ id, group, level }) => ({
                       value: id,
                       label:
