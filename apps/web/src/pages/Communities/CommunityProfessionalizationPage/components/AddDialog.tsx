@@ -24,11 +24,11 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-const CreateProfessionalization_Mutation = graphql(/* GraphQL */ `
-  mutation CreateProfessionalization(
+const CreateOrRestoreProfessionalization_Mutation = graphql(/* GraphQL */ `
+  mutation CreateOrRestoreProfessionalization(
     $createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!
   ) {
-    createCommunityDevelopmentProgram(
+    createOrRestoreCommunityDevelopmentProgram(
       createCommunityDevelopmentProgram: $createCommunityDevelopmentProgram
     ) {
       id
@@ -59,11 +59,11 @@ const AddDialog = ({
   const [open, setOpen] = useState(false);
 
   const [{ fetching }, executeMutation] = useMutation(
-    CreateProfessionalization_Mutation,
+    CreateOrRestoreProfessionalization_Mutation,
   );
 
   const methods = useForm<FormValues>();
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
     return executeMutation({
@@ -74,7 +74,7 @@ const AddDialog = ({
       },
     })
       .then((result) => {
-        if (result.data?.createCommunityDevelopmentProgram?.id) {
+        if (result.data?.createOrRestoreCommunityDevelopmentProgram?.id) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Professionalization created successfully!",
@@ -84,7 +84,8 @@ const AddDialog = ({
             }),
           );
           setOpen(false);
-          return result.data.createCommunityDevelopmentProgram.id;
+          reset();
+          return result.data.createOrRestoreCommunityDevelopmentProgram.id;
         }
         return Promise.reject(new Error(result.error?.toString()));
       })
