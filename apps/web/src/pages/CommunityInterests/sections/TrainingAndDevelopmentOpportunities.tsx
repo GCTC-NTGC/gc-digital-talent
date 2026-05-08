@@ -143,9 +143,12 @@ interface TrainingAndDevelopmentOpportunitiesProps {
   developmentProgramUserRecordsQuery: FragmentType<
     typeof DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment
   >[];
-  educationExperiences: FragmentType<
-    typeof EducationExperiencesTrainingAndDevelopmentOpportunities_Fragment
-  > | null | undefined;
+  educationExperiences:
+    | FragmentType<
+        typeof EducationExperiencesTrainingAndDevelopmentOpportunities_Fragment
+      >
+    | null
+    | undefined;
 }
 
 const TrainingAndDevelopmentOpportunities = ({
