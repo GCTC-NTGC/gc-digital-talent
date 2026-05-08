@@ -18,7 +18,7 @@ import {
   errorMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import type { FragmentType, EducationType } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   DevelopmentProgramParticipationStatus,
   getFragment,
@@ -73,6 +73,31 @@ export const DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment 
     }
   `);
 
+export const EducationExperiencesTrainingAndDevelopmentOpportunities_Fragment =
+  graphql(/* GraphQL */ `
+    fragment EducationExperiencesTrainingAndDevelopmentOpportunities on User {
+      educationExperiences {
+        __typename
+        id
+        institution
+        areaOfStudy
+        startDate
+        endDate
+        type {
+          value
+          label {
+            localized
+            en
+            fr
+          }
+        }
+        skills {
+          id
+        }
+      }
+    }
+  `);
+
 const EducationExperiencesRefresh_Query = graphql(/* GraphQL */ `
   query EducationExperiencesRefresh_Query {
     me {
@@ -118,23 +143,9 @@ interface TrainingAndDevelopmentOpportunitiesProps {
   developmentProgramUserRecordsQuery: FragmentType<
     typeof DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment
   >[];
-  educationExperiences: {
-    __typename: "EducationExperience";
-    id: string;
-    institution?: string | null;
-    areaOfStudy?: string | null;
-    startDate?: string | null;
-    endDate?: string | null;
-    type?: {
-      value: EducationType;
-      label: {
-        localized?: string | null;
-        en?: string | null;
-        fr?: string | null;
-      };
-    } | null;
-    skills?: { id: string }[] | null;
-  }[];
+  educationExperiences: FragmentType<
+    typeof EducationExperiencesTrainingAndDevelopmentOpportunities_Fragment
+  > | null | undefined;
 }
 
 const TrainingAndDevelopmentOpportunities = ({
@@ -157,10 +168,18 @@ const TrainingAndDevelopmentOpportunities = ({
     pause: dialogOpenForIndex === null,
   });
 
+  const educationExperiencesFragmentData = getFragment(
+    EducationExperiencesTrainingAndDevelopmentOpportunities_Fragment,
+    educationExperiences,
+  );
+  const educationExperiencesFromProp = unpackMaybes(
+    educationExperiencesFragmentData?.educationExperiences,
+  );
+
   const activeExperiences =
     freshExpData?.me?.educationExperiences != null
       ? unpackMaybes(freshExpData.me.educationExperiences)
-      : educationExperiences;
+      : educationExperiencesFromProp;
 
   const optionsData = getFragment(
     TrainingAndDevelopmentOpportunitiesOptions_Fragment,

@@ -41,27 +41,9 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
     ...ReviewAndSubmitOptions_Fragment
 
     me {
+      ...EducationExperiencesTrainingAndDevelopmentOpportunities
       developmentProgramUserRecords {
         ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
-      }
-      educationExperiences {
-        __typename
-        id
-        institution
-        areaOfStudy
-        startDate
-        endDate
-        type {
-          value
-          label {
-            localized
-            en
-            fr
-          }
-        }
-        skills {
-          id
-        }
       }
     }
 
@@ -189,9 +171,7 @@ const UpdateCommunityInterestForm = ({
                       formOptions.me?.developmentProgramUserRecords,
                     )}
                     selectedCommunityId={formData.community.id}
-                    educationExperiences={unpackMaybes(
-                      formOptions.me?.educationExperiences,
-                    )}
+                    educationExperiences={formOptions.me}
                   />
                 </>
               ) : null}
@@ -281,7 +261,6 @@ export const UpdateCommunityInterestPage = () => {
       variables: {
         communityInterestId: communityInterestId,
       },
-      requestPolicy: "network-only",
     });
   const [{ fetching: mutationFetching }, executeUpdateMutation] = useMutation(
     UpdateCommunityInterest_Mutation,

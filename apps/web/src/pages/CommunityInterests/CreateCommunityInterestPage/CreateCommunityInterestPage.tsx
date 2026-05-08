@@ -45,27 +45,9 @@ const CreateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
     }
 
     me {
+      ...EducationExperiencesTrainingAndDevelopmentOpportunities
       developmentProgramUserRecords {
         ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
-      }
-      educationExperiences {
-        __typename
-        id
-        institution
-        areaOfStudy
-        startDate
-        endDate
-        type {
-          value
-          label {
-            localized
-            en
-            fr
-          }
-        }
-        skills {
-          id
-        }
       }
     }
   }
@@ -128,9 +110,7 @@ const CreateCommunityInterestForm = ({
                           formOptions.me?.developmentProgramUserRecords,
                         )}
                         selectedCommunityId={selectedCommunityId}
-                        educationExperiences={unpackMaybes(
-                          formOptions.me?.educationExperiences,
-                        )}
+                        educationExperiences={formOptions.me}
                       />
                     </>
                   ) : null}
@@ -184,7 +164,6 @@ export const CreateCommunityInterestPage = () => {
   const [{ data: queryData, fetching: queryFetching, error: queryError }] =
     useQuery({
       query: CreateCommunityInterestPage_Query,
-      requestPolicy: "network-only",
     });
   const [{ fetching: mutationFetching }, executeCreateMutation] = useMutation(
     CreateCommunityInterestPage_Mutation,
