@@ -1,5 +1,5 @@
 export const PAGE_SECTION_ID = {
-  FunctionalCommunities: "functional-communities",
+  FUNCTIONAL_COMMUNITIES: "functional-communities",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
