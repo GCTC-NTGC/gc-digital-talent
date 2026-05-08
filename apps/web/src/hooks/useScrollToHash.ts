@@ -19,16 +19,23 @@ function useScrollToHash(
   }, [onHashMatch]);
 
   useEffect(() => {
-    if (hash !== `#${targetId}`) return;
-    callbackRef.current?.();
-    const timer = setTimeout(() => {
-      document.getElementById(targetId)?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, scrollDelay);
-    // eslint-disable-next-line consistent-return
-    return () => clearTimeout(timer);
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    if (hash === `#${targetId}`) {
+      callbackRef.current?.();
+      timer = setTimeout(() => {
+        document.getElementById(targetId)?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, scrollDelay);
+    }
+
+    return () => {
+      if (timer !== undefined) {
+        clearTimeout(timer);
+      }
+    };
   }, [hash, targetId, scrollDelay]);
 }
 
