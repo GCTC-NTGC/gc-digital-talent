@@ -23,7 +23,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
 import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
-import { PAGE_SECTION_ID as ApplicantDashboardSectionId } from "~/constants/sections/applicantDashboard";
+import { PAGE_SECTION_ID as APPLICANT_DASHBOARD_SECTION_ID } from "~/constants/sections/applicantDashboard";
 
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 
