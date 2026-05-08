@@ -30,10 +30,10 @@ import { RadioGroup, Select } from "@gc-digital-talent/forms";
 import { getClassificationName } from "~/utils/poolUtils";
 import { getDateRange } from "~/utils/dateUtils";
 import useRoutes from "~/hooks/useRoutes";
-import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
 import experienceMessages from "~/messages/experienceMessages";
 
 import type { FormValues } from "../form";
+import LinkedExperience from "./LinkedExperience";
 
 const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
   /* GraphQL */ `
@@ -443,65 +443,61 @@ const TrainingAndDevelopmentOpportunities = ({
                       ?.educationExperienceId,
                   );
                   return linkedExp ? (
-                    <DevelopmentProgramCard.Root>
-                      <DevelopmentProgramCard.Item
-                        className="pl-0"
-                        title={
-                          linkedExp.areaOfStudy ??
-                          linkedExp.institution ??
-                          intl.formatMessage(commonMessages.notProvided)
-                        }
-                        titleHref={`${paths.careerTimeline()}#experience-${linkedExp.id}`}
-                        institution={linkedExp.institution ?? undefined}
-                        description=""
-                        dateRange={
-                          getDateRange({
-                            startDate: linkedExp.startDate,
-                            endDate: linkedExp.endDate,
-                            intl,
-                          }) || undefined
-                        }
-                        skillCount={linkedExp.skills?.length}
-                        experienceType={
-                          linkedExp.type?.label?.localized ??
-                          intl.formatMessage(experienceMessages.education)
-                        }
-                        iconLabel={intl.formatMessage({
-                          defaultMessage: "Edit linked education experience",
-                          id: "zHKvoY",
-                          description:
-                            "Accessibility label for the edit/remove dropdown on a linked education experience",
-                        })}
-                        edit={
-                          <button
-                            type="button"
-                            disabled={formDisabled}
-                            onClick={() => openLinkDialog(index)}
-                          >
-                            {intl.formatMessage({
-                              defaultMessage: "Swap experience",
-                              id: "NaFYXo",
-                              description:
-                                "Button to swap the linked education experience for a development program",
-                            })}
-                          </button>
-                        }
-                        remove={
-                          <button
-                            type="button"
-                            disabled={formDisabled}
-                            onClick={() => handleRemoveExperience(index)}
-                          >
-                            {intl.formatMessage({
-                              defaultMessage: "Remove experience",
-                              id: "Cxy9bi",
-                              description:
-                                "Button to remove the linked education experience from a development program",
-                            })}
-                          </button>
-                        }
-                      />
-                    </DevelopmentProgramCard.Root>
+                    <LinkedExperience
+                      title={
+                        linkedExp.areaOfStudy ??
+                        linkedExp.institution ??
+                        intl.formatMessage(commonMessages.notProvided)
+                      }
+                      href={`${paths.careerTimeline()}#experience-${linkedExp.id}`}
+                      institution={linkedExp.institution ?? undefined}
+                      dateRange={
+                        getDateRange({
+                          startDate: linkedExp.startDate,
+                          endDate: linkedExp.endDate,
+                          intl,
+                        }) || undefined
+                      }
+                      skillCount={linkedExp.skills?.length}
+                      experienceType={
+                        linkedExp.type?.label?.localized ??
+                        intl.formatMessage(experienceMessages.education)
+                      }
+                      iconLabel={intl.formatMessage({
+                        defaultMessage: "Edit linked education experience",
+                        id: "zHKvoY",
+                        description:
+                          "Accessibility label for the edit/remove dropdown on a linked education experience",
+                      })}
+                      edit={
+                        <button
+                          type="button"
+                          disabled={formDisabled}
+                          onClick={() => openLinkDialog(index)}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Swap experience",
+                            id: "NaFYXo",
+                            description:
+                              "Button to swap the linked education experience for a development program",
+                          })}
+                        </button>
+                      }
+                      remove={
+                        <button
+                          type="button"
+                          disabled={formDisabled}
+                          onClick={() => handleRemoveExperience(index)}
+                        >
+                          {intl.formatMessage({
+                            defaultMessage: "Remove experience",
+                            id: "Cxy9bi",
+                            description:
+                              "Button to remove the linked education experience from a development program",
+                          })}
+                        </button>
+                      }
+                    />
                   ) : (
                     <div className="flex gap-3">
                       <Button
