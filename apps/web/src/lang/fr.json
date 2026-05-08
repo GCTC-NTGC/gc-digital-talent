@@ -2551,10 +2551,6 @@
     "defaultMessage": "Le gouvernement du Canada ne se prononcera pas sur des questions de partisanerie ou de politique, et il ne répondra pas aux questions qui contreviennent aux règles énoncées dans cet avis.",
     "description": "Paragraph for comments and interaction section"
   },
-  "8OWZvv": {
-    "defaultMessage": "Afficher tout<hidden>es les sections de perfectionnement de carrière</hidden>",
-    "description": "Button text to show all career development sections"
-  },
   "8Otaw9": {
     "defaultMessage": "Ministère {departmentId} introuvable.",
     "description": "Message displayed for department not found."
@@ -3039,10 +3035,6 @@
     "defaultMessage": "Les compétences de leadership sont obligatoires pour être admissible à une candidature dans le cadre de cet événement.",
     "description": "Label for the include leadership competencies"
   },
-  "A4dp/3": {
-    "defaultMessage": "Masquer tout<hidden>es les sections de perfectionnement de carrière</hidden>",
-    "description": "Button text to hide all career development sections"
-  },
   "A5HTBD": {
     "defaultMessage": "Avoir un compte Navigar actif",
     "description": "Second item in list of apply section"
@@ -3379,6 +3371,10 @@
     "defaultMessage": "Je suis à la recherche de cadres préqualifiés",
     "description": "Subject line for contact email to find pre-qualified executive talent"
   },
+  "BH5pJe": {
+    "defaultMessage": "Réduire tout<hidden> les nominations</hidden>",
+    "description": "Button label to collapse all nominations"
+  },
   "BKKZUH": {
     "defaultMessage": "Consulter et gérer le ministère.",
     "description": "Link to department page"
@@ -3474,10 +3470,6 @@
   "Bpr9Cs": {
     "defaultMessage": "Travaillez avec notre équipe pour exécuter votre propre processus de recrutement sur la plateforme Talents numériques du GC et profitez de fonctionnalités modernes telles que notre système de suivi des candidats, l’embauche fondée sur les compétences et les approches d’avancement tenant compte de l’équité.",
     "description": "Description for starting a recruitment process"
-  },
-  "Bq4a4U": {
-    "defaultMessage": "Afficher tout<hidden>es les sections de candidatures et processus</hidden>",
-    "description": "Button text to show all applications and processes sections"
   },
   "BqeIyx": {
     "defaultMessage": "Compétences comportementales facultatives",
@@ -4759,10 +4751,6 @@
     "defaultMessage": "Consentement au partage d'information",
     "description": "Heading for the 'Review and submit' consent section"
   },
-  "HN1nUV": {
-    "defaultMessage": "Courriel du gouvernement",
-    "description": "Label for a government email address"
-  },
   "HP5PEg": {
     "defaultMessage": "Taille de l'organisation",
     "description": "Label for the size of the organization radio group"
@@ -5058,10 +5046,6 @@
   "Ia4l5G": {
     "defaultMessage": "Joindre la collectivité de la gestion des investissements sur GCÉchange",
     "description": "External button link to GCXchange label for procurement"
-  },
-  "IaM9Nt": {
-    "defaultMessage": "Masquer tout<hidden>es les sections de vos processus</hidden>",
-    "description": "Button text to hide all your processes sections"
   },
   "IexFo4": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
@@ -5419,10 +5403,6 @@
     "defaultMessage": "Compétences constituant un atout",
     "description": "Title for optional skills"
   },
-  "K1bWGG": {
-    "defaultMessage": "Masquer tout<hidden>es les sections de candidatures et processus</hidden>",
-    "description": "Button text to hide all applications and processes sections"
-  },
   "K6Tzh1": {
     "defaultMessage": "Reliez votre parcours professionnel",
     "description": "Heading for checklist section in application education page."
@@ -5470,6 +5450,10 @@
   "KHmf+e": {
     "defaultMessage": "Utilisez le bouton « Créer une classification » pour commencer.",
     "description": "Instructions for adding a classification item."
+  },
+  "KIQzbR": {
+    "defaultMessage": "Agrandir tout<hidden> les nominations</hidden>",
+    "description": "Button label to expand all nominations"
   },
   "KJDxM1": {
     "defaultMessage": "État du processus",
@@ -6102,6 +6086,10 @@
   "MsXEJK": {
     "defaultMessage": "Le prochain type de rôle que la personne candidate entend jouer et son principal objectif de carrière, notamment la classification, les volets de travail et les ministères.",
     "description": "Subtitle for next role and career objective section"
+  },
+  "MsiKO0": {
+    "defaultMessage": "Détails de la nomination",
+    "description": "Link text for details about a nomination"
   },
   "Msshus": {
     "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la <cite>Directive sur les talents numériques</cite> et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ce guide de mise en œuvre est conçu pour aider les conseillers en RH à assumer ces responsabilités.",
@@ -7379,10 +7367,6 @@
     "defaultMessage": "Sauvegarder la note spéciale",
     "description": "Text on a button to save the pool special note"
   },
-  "SJdjdy": {
-    "defaultMessage": "Afficher tout<hidden>es les sections de vos processus</hidden>",
-    "description": "Button text to show all processes sections"
-  },
   "SK20us": {
     "defaultMessage": "femme.",
     "description": "Statement for when someone indicates they are a woman"
@@ -7558,10 +7542,6 @@
   "T8eOrg": {
     "defaultMessage": "Votre nom complet",
     "description": "Label displayed for signature input in sign and submit section of application review page."
-  },
-  "TA5562": {
-    "defaultMessage": "Dernière modification",
-    "description": "Label for the date an item was changed on"
   },
   "TB5Pnf": {
     "defaultMessage": "En raison de la nature de l’apprentissage, le programme a élaboré un cercle unique de soutien pour les apprenti·es. Il s’agit notamment d’un·e partenaire pair pour le jumelage et le soutien au quotidien, ainsi que d’un mentor qui fournit des conseils expérimentés.",
@@ -8629,10 +8609,6 @@
   "XhzYOl": {
     "defaultMessage": "Vous êtes sur le point d'archiver le profil de l'utilisateur suivant de la plateforme",
     "description": "Lead in text for the soft-delete user form."
-  },
-  "XjtKKm": {
-    "defaultMessage": "Afficher l’adresse courriel professionnelle vérifiée de cette personne employée du gouvernement du Canada ainsi que son expérience de travail actuelle.",
-    "description": "Lead-in text explaining employee verification for admins"
   },
   "XkA6s1": {
     "defaultMessage": "CléGC est un justificatif du gouvernement du Canada qui vous permet d’effectuer de façon sécurisée des transactions en ligne avec divers programmes et services gouvernementaux.",
@@ -13878,6 +13854,10 @@
     "defaultMessage": "Adresse courriel professionnelle retirée",
     "description": "Successfully cleared work email information"
   },
+  "syqHHS": {
+    "defaultMessage": "Recommandations sur l'expérience latérale",
+    "description": "Label for the lateral movement options"
+  },
   "szxveb": {
     "defaultMessage": "Les possibilités d'emploi ne m'intéressent pas",
     "description": "Message displayed when a user has expressed they are not interested in job opportunities"
@@ -14349,10 +14329,6 @@
   "v0EVPQ": {
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
-  },
-  "v0zjE/": {
-    "defaultMessage": "Afficher tout<hidden>es les sections de gestion des talents</hidden>",
-    "description": "Button text to show all talent management sections"
   },
   "v1dIUn": {
     "defaultMessage": "Ajouter votre expérience de travail la plus récente",
@@ -15348,10 +15324,6 @@
   "z20NMR": {
     "defaultMessage": "Autres rôles",
     "description": "Label for other roles of a finance chief"
-  },
-  "z3lg25": {
-    "defaultMessage": "Masquer tout<hidden>es les sections de gestion des talents</hidden>",
-    "description": "Button text to hide all talent management sections"
   },
   "z4wfGZ": {
     "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton « Ajouter une nouvelle question » ayant été fourni à cet effet.",
