@@ -197,7 +197,7 @@ const EditDialog = ({
                 </div>
               ) : null}
               <Dialog.Footer>
-                <Button color="primary" disabled={fetching}>
+                <Button color="primary">
                   {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage(formMessages.saveChanges)}
