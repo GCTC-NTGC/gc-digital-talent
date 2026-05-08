@@ -179,7 +179,7 @@ export const CommunityProfessionalizationForm = ({
               </Button>
             </div>
           </div>
-          {!sortedCommunityDevelopmentPrograms.length ? (
+          {sortedCommunityDevelopmentPrograms.length ? (
             <div className="-mr-6 -mb-5 -ml-6">
               <DevelopmentProgramCard.Root>
                 {sortedCommunityDevelopmentPrograms.map((cdp) => {
