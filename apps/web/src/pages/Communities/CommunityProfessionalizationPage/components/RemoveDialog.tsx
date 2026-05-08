@@ -84,7 +84,7 @@ const RemoveDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="text" className="w-full">
+        <Button color="primary" mode="text" className="w-full font-bold">
           {intl.formatMessage(commonMessages.remove)}
         </Button>
       </Dialog.Trigger>

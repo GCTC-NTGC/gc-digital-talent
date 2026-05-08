@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 import { useIntl } from "react-intl";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
@@ -23,8 +23,8 @@ interface DevelopmentProgramCardProps {
   headingAs?: HeadingRank;
   description: ReactNode;
   iconLabel?: string;
-  edit?: ReactNode;
-  remove?: ReactNode;
+  edit?: ReactElement;
+  remove?: ReactElement;
   actions?: boolean;
   classificationRestrictions?: Pick<Classification, "id" | "group" | "level">[];
 }
@@ -58,8 +58,8 @@ const DevelopmentProgramCard = ({
               }
             />
             <DropdownMenu.Popup portalProps={{ keepMounted: true }}>
-              {edit && <DropdownMenu.Item>{edit}</DropdownMenu.Item>}
-              {remove && <DropdownMenu.Item>{remove}</DropdownMenu.Item>}
+              {edit && <DropdownMenu.Item render={edit} />}
+              {remove && <DropdownMenu.Item render={remove} />}
             </DropdownMenu.Popup>
           </DropdownMenu.Root>
         )}

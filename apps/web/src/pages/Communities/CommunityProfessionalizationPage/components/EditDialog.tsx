@@ -106,7 +106,7 @@ const EditDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button color="primary" mode="text" className="w-full">
+        <Button color="primary" mode="text" className="w-full font-bold">
           {intl.formatMessage(formMessages.editDetails)}
         </Button>
       </Dialog.Trigger>
