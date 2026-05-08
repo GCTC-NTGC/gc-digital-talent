@@ -179,7 +179,7 @@ export const CommunityProfessionalizationForm = ({
               </Button>
             </div>
           </div>
-          {sortedCommunityDevelopmentPrograms.length ? (
+          {!sortedCommunityDevelopmentPrograms.length ? (
             <div className="-mr-6 -mb-5 -ml-6">
               <DevelopmentProgramCard.Root>
                 {sortedCommunityDevelopmentPrograms.map((cdp) => {
@@ -238,8 +238,8 @@ export const CommunityProfessionalizationForm = ({
               <Notice.Content>
                 {intl.formatMessage({
                   defaultMessage:
-                    "You don't have any professionalizations at the moment.",
-                  id: "b+DmXv",
+                    "Your community doesn't have any professionalizations at the moment.",
+                  id: "vM3MHo",
                   description:
                     "Label for notice when there are no professionalizations",
                 })}
