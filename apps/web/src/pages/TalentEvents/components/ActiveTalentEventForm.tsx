@@ -441,6 +441,7 @@ const ActiveTalentEventForm = ({
 
                           return (
                             <DevelopmentProgramCard.Item
+                              id={field.id}
                               key={field.id}
                               title={developmentProgram?.label ?? notFound}
                               description={
