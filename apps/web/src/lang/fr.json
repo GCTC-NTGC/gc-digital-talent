@@ -9871,7 +9871,7 @@
     "description": "Paragraph for comments and interaction section"
   },
   "cm1uO9": {
-    "defaultMessage": "Précisez les options de professionnalisation parmi lesquelles les personnes proposant des candidatures peuvent choisir lorsqu'elles recommandent une personne pour des possibilités de perfectionnement. Vous pouvez également fournir, au besoin, du contexte additionnel pour mieux orienter les choix. Si vous ne trouvez pas le programme ou le certificat requis, veuillez communiquer avec la personne chargée de l'administration de votre collectivité afin d'ajouter les options nécessaires.",
+    "defaultMessage": "Précisez les options de perfectionnement professionnel parmi lesquelles les personnes proposant des candidatures peuvent choisir lorsqu'elles recommandent une personne pour des possibilités de perfectionnement. Vous pouvez également fournir, au besoin, du contexte additionnel pour mieux orienter les choix. Si vous ne trouvez pas le programme ou le certificat requis, veuillez communiquer avec la personne chargée de l'administration de votre collectivité afin d'ajouter les options nécessaires.",
     "description": "Description for subsection in talent management event form"
   },
   "cnoxKB": {
@@ -12091,7 +12091,7 @@
     "description": "Null message for instructor led training list"
   },
   "l4ffhH": {
-    "defaultMessage": "Sélectionner une possibilité parmi la liste des options de professionnalisation offertes par votre collectivité.",
+    "defaultMessage": "Sélectionner une possibilité parmi la liste des options de perfectionnement professionnel offertes par votre collectivité.",
     "description": "Explanation of dialog"
   },
   "l75mNg": {
