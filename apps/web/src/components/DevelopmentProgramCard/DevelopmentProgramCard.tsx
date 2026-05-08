@@ -11,9 +11,7 @@ import {
   DropdownMenu,
   Heading,
   IconButton,
-  Link,
   Ul,
-  UNICODE_CHAR,
   type HeadingRank,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -22,7 +20,6 @@ import { formatClassificationString } from "~/utils/poolUtils";
 
 interface DevelopmentProgramCardProps {
   title: string;
-  titleHref?: string;
   headingAs?: HeadingRank;
   description: ReactNode;
   iconLabel?: string;
@@ -30,16 +27,10 @@ interface DevelopmentProgramCardProps {
   remove?: ReactNode;
   actions?: boolean;
   classificationRestrictions?: Pick<Classification, "id" | "group" | "level">[];
-  institution?: string | null;
-  dateRange?: string;
-  skillCount?: number;
-  experienceType?: string;
-  className?: string;
 }
 
 const DevelopmentProgramCard = ({
   title,
-  titleHref,
   headingAs = "h3",
   description,
   iconLabel,
@@ -47,19 +38,12 @@ const DevelopmentProgramCard = ({
   remove,
   actions = true,
   classificationRestrictions,
-  institution,
-  dateRange,
-  skillCount,
-  experienceType,
-  className,
 }: DevelopmentProgramCardProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
 
   return (
-    <li
-      className={`border-b border-gray-200 p-6 last:border-b-0 odd:bg-gray-100/30 dark:border-gray-700 dark:odd:bg-gray-600 dark:even:bg-gray-600/80${className ? ` ${className}` : ""}`}
-    >
+    <li className="border-b border-gray-200 p-6 last:border-b-0 odd:bg-gray-100/30 dark:border-gray-700 dark:odd:bg-gray-600 dark:even:bg-gray-600/80">
       <div className="flex items-start gap-3">
         {actions && (
           <DropdownMenu.Root open={open} onOpenChange={setOpen}>
@@ -86,42 +70,12 @@ const DevelopmentProgramCard = ({
               size="h6"
               className="mt-0 text-base font-bold"
             >
-              {titleHref !== undefined ? (
-                <Link href={titleHref} newTab inHeading>
-                  {title}
-                </Link>
-              ) : (
-                title
-              )}
+              {title}
             </Heading>
-            {institution && <p>{institution}</p>}
             {description && <p>{description}</p>}
-            {(experienceType !== undefined ||
-              dateRange !== undefined ||
-              skillCount !== undefined) && (
-              <p className="text-sm text-gray-600 dark:text-gray-100">
-                {[
-                  experienceType,
-                  dateRange,
-                  skillCount !== undefined
-                    ? intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "{count, plural, one {# skill} other {# skills}}",
-                          id: "EQI4l2",
-                          description: "Number of skills on an experience",
-                        },
-                        { count: skillCount },
-                      )
-                    : undefined,
-                ]
-                  .filter(Boolean)
-                  .join(` ${UNICODE_CHAR.BULLET} `)}
-              </p>
-            )}
           </span>
 
-          {classificationRestrictions && (
+          {classificationRestrictions?.length ? (
             <span className="flex gap-1.5">
               <p>
                 {intl.formatMessage({
@@ -140,7 +94,7 @@ const DevelopmentProgramCard = ({
                 ))}
               </Chips>
             </span>
-          )}
+          ) : null}
         </div>
       </div>
     </li>
