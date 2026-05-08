@@ -34,9 +34,7 @@ import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/Un
 import StatusItem from "~/components/StatusItem/StatusItem";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
-import CareerDevelopmentTaskCard, {
-  FUNCTIONAL_COMMUNITIES_HASH_ID,
-} from "./components/CareerDevelopmentTaskCard";
+import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
 import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
 
@@ -428,7 +426,9 @@ export const DashboardPage = ({
                           hiddenContextPrefix={intl.formatMessage(
                             stateDescriptions[functionalCommunitiesState],
                           )}
-                          href={`${paths.applicantDashboard()}#${FUNCTIONAL_COMMUNITIES_HASH_ID}`}
+                          href={paths.applicantDashboard(
+                            "functional-communities",
+                          )}
                           asListItem={false}
                         />
                       ) : (

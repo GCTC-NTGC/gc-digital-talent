@@ -23,6 +23,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
 import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
+import { PAGE_SECTION_ID as ApplicantDashboardSectionId } from "~/constants/sections/applicantDashboard";
 
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 
@@ -94,8 +95,6 @@ const ACCORDION_ID = {
   FUNCTIONAL_COMMUNITIES: "your_functional_communities",
 } as const;
 
-export const FUNCTIONAL_COMMUNITIES_HASH_ID = "functional-communities";
-
 interface CareerDevelopmentTaskCardProps {
   userQuery: FragmentType<typeof CareerDevelopmentTaskCardUser_Fragment>;
   optionsQuery: FragmentType<typeof CareerDevelopmentTaskCardOptions_Fragment>;
@@ -117,7 +116,10 @@ const CareerDevelopmentTaskCard = ({
     setCommunityAccordionValue(ACCORDION_ID.FUNCTIONAL_COMMUNITIES);
   }, []);
 
-  useScrollToHash(FUNCTIONAL_COMMUNITIES_HASH_ID, expandFunctionalCommunities);
+  useScrollToHash(
+    ApplicantDashboardSectionId.FunctionalCommunities,
+    expandFunctionalCommunities,
+  );
 
   const userFragment = getFragment(
     CareerDevelopmentTaskCardUser_Fragment,
@@ -434,7 +436,7 @@ const CareerDevelopmentTaskCard = ({
             <Accordion.Root
               type="single"
               collapsible
-              id={FUNCTIONAL_COMMUNITIES_HASH_ID}
+              id={ApplicantDashboardSectionId.FunctionalCommunities}
               value={communityAccordionValue}
               onValueChange={setCommunityAccordionValue}
             >
