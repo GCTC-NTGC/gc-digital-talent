@@ -157,7 +157,7 @@ export const CommunityProfessionalizationForm = ({
               aria-labelledby="sortFilter"
               className="mt-6 flex items-center gap-3"
             >
-              <span id="sortFilter" className="text-gray-500">
+              <span id="sortFilter" className="text-gray-500 dark:text-gray-200">
                 {intl.formatMessage(formMessages.sortBy)}
                 {intl.formatMessage(commonMessages.dividingColon)}
               </span>
