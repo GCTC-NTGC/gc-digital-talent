@@ -75,7 +75,7 @@ const DevelopmentProgramCard = ({
             {description && <p>{description}</p>}
           </span>
 
-          {classificationRestrictions && (
+          {classificationRestrictions?.length ? (
             <span className="flex gap-1.5">
               <p>
                 {intl.formatMessage({
@@ -94,7 +94,7 @@ const DevelopmentProgramCard = ({
                 ))}
               </Chips>
             </span>
-          )}
+          ) : null}
         </div>
       </div>
     </li>

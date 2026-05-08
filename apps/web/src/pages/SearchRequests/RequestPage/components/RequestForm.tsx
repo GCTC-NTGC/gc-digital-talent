@@ -527,12 +527,7 @@ export const RequestForm = ({
               id="hrAdvisorEmail"
               type="email"
               name="hrAdvisorEmail"
-              label={intl.formatMessage({
-                defaultMessage: "HR advisor email",
-                id: "VrLfLw",
-                description:
-                  "Input label asking for the HR advisor's email address.",
-              })}
+              label={intl.formatMessage(talentRequestMessages.hrAdvisorEmail)}
             />
           </div>
           <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">

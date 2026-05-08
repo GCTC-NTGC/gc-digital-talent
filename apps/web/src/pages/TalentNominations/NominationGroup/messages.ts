@@ -20,16 +20,18 @@ export const detailTabMessages = defineMessages({
   },
 });
 
-export const formMessages = defineMessages({
-  lateralMovementOptions: {
-    defaultMessage: "Lateral experience recommendations",
-    id: "syqHHS",
-    description: "Label for the lateral movement options",
-  },
+export const formMessages = {
+  ...defineMessages({
+    lateralMovementOptions: {
+      defaultMessage: "Lateral experience recommendations",
+      id: "syqHHS",
+      description: "Label for the lateral movement options",
+    },
+    rationale: {
+      defaultMessage: "Rationale",
+      id: "IgniT6",
+      description: "Link text for rationale step of a talent nomination",
+    },
+  }),
   developmentPrograms: adminMessages.developmentOpportunitiesRecommended,
-  rationale: {
-    defaultMessage: "Rationale",
-    id: "IgniT6",
-    description: "Link text for rationale step of a talent nomination",
-  },
-});
+};

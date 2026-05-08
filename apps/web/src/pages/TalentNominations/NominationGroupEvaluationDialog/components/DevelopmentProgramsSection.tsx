@@ -26,19 +26,24 @@ const NominationGroupEvaluationDialogDevelopmentPrograms_Fragment = graphql(
       id
       nominations {
         nominateForDevelopmentPrograms
-        developmentPrograms {
+        communityDevelopmentPrograms(trashed: WITH) {
           id
-          name {
-            localized
+          developmentProgram {
+            id
+            name {
+              localized
+            }
           }
         }
         developmentProgramOptionsOther
       }
       talentNominationEvent {
-        developmentPrograms {
-          id
-          name {
-            localized
+        communityDevelopmentPrograms(trashed: WITH) {
+          developmentProgram {
+            id
+            name {
+              localized
+            }
           }
         }
       }
@@ -94,17 +99,19 @@ const DevelopmentProgramsSection = ({
 
   const developmentProgramIdsInThisNominationGroup = nominations
     .filter((nomination) => nomination.nominateForDevelopmentPrograms)
-    .flatMap((nomination) => nomination.developmentPrograms)
-    .map((developmentProgram) => developmentProgram?.id)
+    .flatMap((nomination) => nomination.communityDevelopmentPrograms)
+    .map((cdp) => cdp?.developmentProgram.id)
     .filter(notEmpty);
 
   const developmentProgramListItems =
-    talentNominationGroup.talentNominationEvent.developmentPrograms?.map(
-      (program) => ({
-        key: program.id,
-        value: developmentProgramIdsInThisNominationGroup.includes(program.id),
+    talentNominationGroup.talentNominationEvent.communityDevelopmentPrograms?.map(
+      (cdp) => ({
+        key: cdp.developmentProgram.id,
+        value: developmentProgramIdsInThisNominationGroup.includes(
+          cdp.developmentProgram.id,
+        ),
         label:
-          program.name?.localized ??
+          cdp.developmentProgram.name?.localized ??
           intl.formatMessage(commonMessages.notFound),
       }),
     ) ?? [];
