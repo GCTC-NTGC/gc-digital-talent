@@ -27,6 +27,7 @@ function useScrollToHash(
         block: "start",
       });
     }, scrollDelay);
+    // eslint-disable-next-line consistent-return
     return () => clearTimeout(timer);
   }, [hash, targetId, scrollDelay]);
 }
