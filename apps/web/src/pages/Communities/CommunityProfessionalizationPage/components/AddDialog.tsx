@@ -117,7 +117,7 @@ const AddDialog = ({
           color="primary"
           mode={"placeholder"}
           icon={PlusCircleIcon}
-          className="w-full"
+          block
         >
           {intl.formatMessage({
             defaultMessage: "Add a professionalization",
@@ -221,31 +221,33 @@ const AddDialog = ({
                   })}
                 </p>
               </div>
-              <Checkbox
-                id="needForRestrictions"
-                name="needForRestrictions"
-                boundingBox
-                boundingBoxLabel={intl.formatMessage({
-                  defaultMessage: "Need for restrictions",
-                  id: "2zMuV4",
-                  description:
-                    "Bounding box label or restricted classifications section",
-                })}
-                label={intl.formatMessage({
-                  defaultMessage:
-                    "This program or certification is limited to employees in a specific classification or group of classifications",
-                  id: "k34TIE",
-                  description:
-                    "Label displayed on need for classification restrictions checkbox",
-                })}
-                context={intl.formatMessage({
-                  defaultMessage:
-                    "Note: if the program or certification is available to all classifications managed by your community, please leave this field blank.",
-                  id: "s6SILv",
-                  description:
-                    "Additional context for classification restrictions checkbox",
-                })}
-              />
+              <div className="mb-6">
+                <Checkbox
+                  id="needForRestrictions"
+                  name="needForRestrictions"
+                  boundingBox
+                  boundingBoxLabel={intl.formatMessage({
+                    defaultMessage: "Need for restrictions",
+                    id: "2zMuV4",
+                    description:
+                      "Bounding box label or restricted classifications section",
+                  })}
+                  label={intl.formatMessage({
+                    defaultMessage:
+                      "This program or certification is limited to employees in a specific classification or group of classifications",
+                    id: "k34TIE",
+                    description:
+                      "Label displayed on need for classification restrictions checkbox",
+                  })}
+                  context={intl.formatMessage({
+                    defaultMessage:
+                      "<strong>Note</strong>: if the program or certification is available to all classifications managed by your community, please leave this field blank.",
+                    id: "YeS9xM",
+                    description:
+                      "Additional context for classification restrictions checkbox",
+                  })}
+                />
+              </div>
               {watchNeedForRestrictions ? (
                 <Combobox
                   id="restrictedClassifications"
