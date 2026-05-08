@@ -9,7 +9,7 @@ import { useLocation } from "react-router";
 function useScrollToHash(
   targetId: string,
   onHashMatch?: () => void,
-  scrollDelay = 300,
+  scrollDelay = 10,
 ): void {
   const { hash } = useLocation();
   const callbackRef = useRef(onHashMatch);
