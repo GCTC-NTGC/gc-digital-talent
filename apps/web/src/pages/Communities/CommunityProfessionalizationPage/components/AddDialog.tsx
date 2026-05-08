@@ -188,7 +188,7 @@ const AddDialog = ({ community: communityFragment }: AddDialogProps) => {
             })}
             {intl.formatMessage(commonMessages.dividingColon)}
           </p>
-          <Ul className="mb-6">
+          <Ul space="md" className="mb-6">
             <li>
               <p>
                 {intl.formatMessage({
