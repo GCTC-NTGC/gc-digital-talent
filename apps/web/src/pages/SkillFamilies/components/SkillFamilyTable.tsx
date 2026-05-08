@@ -79,7 +79,7 @@ export const SkillFamilyTable = ({
       pagination={{
         internal: true,
         total: data.length,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100],
       }}
       sort={{
         internal: true,

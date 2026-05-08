@@ -129,7 +129,7 @@ export const ClassificationTable = ({
       pagination={{
         internal: true,
         total: classifications.length,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100],
       }}
       sort={{
         internal: true,

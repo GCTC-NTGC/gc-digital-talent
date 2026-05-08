@@ -237,7 +237,7 @@ const TalentEventNominationsTable = ({
       pagination={{
         internal: true,
         total: talentEventNominations.length,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100],
       }}
       rowSelect={{
         onRowSelection: setSelectedRows,

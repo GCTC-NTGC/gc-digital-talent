@@ -408,7 +408,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
         total: data?.poolsPaginated.paginatorInfo.total,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100],
         onPaginationChange: handlePaginationStateChange,
       }}
       add={
