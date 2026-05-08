@@ -1,4 +1,6 @@
 import type {
+  EducationExperience,
+  EducationExperienceInput,
   WorkExperience,
   WorkExperienceInput,
 } from "@gc-digital-talent/graphql";
@@ -43,4 +45,42 @@ export const createWorkExperience: GraphQLRequestFunc<
       },
     )
     .then((res) => res.createWorkExperience);
+};
+
+const Test_CreateEducationExperienceMutationDocument = /* GraphQL */ `
+  mutation Test_CreateEducationExperience(
+    $userId: ID!
+    $educationExperience: EducationExperienceInput!
+  ) {
+    createEducationExperience(
+      userId: $userId
+      educationExperience: $educationExperience
+    ) {
+      id
+      institution
+      areaOfStudy
+    }
+  }
+`;
+
+interface CreateEducationExperienceInput {
+  userId: string;
+  educationExperience: Partial<EducationExperienceInput>;
+}
+
+export const createEducationExperience: GraphQLRequestFunc<
+  EducationExperience,
+  CreateEducationExperienceInput
+> = async (ctx, { userId, educationExperience }) => {
+  return ctx
+    .post<GraphQLResponse<"createEducationExperience", EducationExperience>>(
+      Test_CreateEducationExperienceMutationDocument,
+      {
+        variables: {
+          userId,
+          educationExperience,
+        },
+      },
+    )
+    .then((res) => res.createEducationExperience);
 };
