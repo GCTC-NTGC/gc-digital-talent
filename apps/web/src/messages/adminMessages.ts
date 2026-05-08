@@ -199,6 +199,11 @@ const messages = defineMessages({
     id: "ht9CfC",
     description: "Label for communities",
   },
+  communityDetails: {
+    defaultMessage: "Community details",
+    id: "iqCi+v",
+    description: "Label for Community details",
+  },
   comments: {
     defaultMessage: "Comments",
     id: "gk/x2T",
@@ -233,11 +238,6 @@ const messages = defineMessages({
     defaultMessage: "Recommended development opportunities",
     id: "uNQzDO",
     description: "Label for Recommended development opportunities",
-  },
-  communityDetails: {
-    defaultMessage: "Community details",
-    id: "iqCi+v",
-    description: "Label for Community details",
   },
 });
 

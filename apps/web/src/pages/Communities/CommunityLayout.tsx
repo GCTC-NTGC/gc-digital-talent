@@ -15,7 +15,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { checkRole } from "~/utils/communityUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
-import messages from "~/messages/adminMessages";
+import adminMessages from "~/messages/adminMessages";
 
 import type { ContextType } from "./CommunityMembersPage/components/types";
 
@@ -85,7 +85,7 @@ const CommunityLayout = () => {
       "view",
       {
         icon: ClipboardDocumentListIcon,
-        title: intl.formatMessage(messages.details),
+        title: intl.formatMessage(adminMessages.details),
         link: {
           url: paths.communityView(communityId),
         },
