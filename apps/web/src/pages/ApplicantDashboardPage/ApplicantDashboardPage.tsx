@@ -223,6 +223,9 @@ export const DashboardPage = ({
     throw new NotFoundError();
   }
 
+  const communityInterests =
+    currentUser.employeeProfile?.communityInterests ?? [];
+
   const displayTalentManagementTaskCard =
     !!currentUser?.talentNominationsAsSubmitter?.length ||
     !!currentUser?.poolCandidateSearchRequests?.length;
@@ -250,10 +253,7 @@ export const DashboardPage = ({
     : "not done";
 
   const functionalCommunitiesState =
-    currentUser.employeeProfile?.communityInterests &&
-    currentUser.employeeProfile.communityInterests.length > 0
-      ? "success"
-      : "optional";
+    communityInterests.length > 0 ? "success" : "optional";
 
   const stateDescriptions = {
     error: commonMessages.incomplete,
@@ -426,9 +426,13 @@ export const DashboardPage = ({
                           hiddenContextPrefix={intl.formatMessage(
                             stateDescriptions[functionalCommunitiesState],
                           )}
-                          href={paths.applicantDashboard(
-                            "functional-communities",
-                          )}
+                          href={
+                            communityInterests.length > 0
+                              ? paths.applicantDashboard(
+                                  "functional-communities",
+                                )
+                              : paths.createCommunityInterest()
+                          }
                           asListItem={false}
                         />
                       ) : (
