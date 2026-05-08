@@ -275,6 +275,10 @@
     "defaultMessage": "Nous avons modifié la manière dont nous recueillons les renseignements sur les processus de recrutement hors plateforme. Les renseignements présentés ici seront supprimés à partir du 31 décembre 2025. Veuillez utiliser notre nouveau format et ajouter chaque processus pour lequel vous avez été qualifié(e) en utilisant le bouton « Ajouter un processus hors plateforme ».",
     "description": "Message informing the user about the update to off-platform processes"
   },
+  "/0vaTK": {
+    "defaultMessage": "Vous n’avez pas encore d'expérience liée aux études.",
+    "description": "Message shown when there are no education experiences to link to a development program"
+  },
   "/17wgm": {
     "defaultMessage": "Rôle(s) ajouté(s) avec succès",
     "description": "Message displayed to user when one or more roles have been added to a user"
@@ -1114,10 +1118,6 @@
   "2FrqUn": {
     "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la collectivité</hidden>, {name}",
     "description": "Title for community dashboard on the talent cloud admin portal."
-  },
-  "2HNbTn": {
-    "defaultMessage": "La plupart des collectivités fonctionnelles proposent divers programmes d'apprentissage et de perfectionnement. Ces programmes peuvent avoir des exigences d'admissibilité précises basées sur votre expérience, votre classification ou d'autres qualifications. Le fait d'exprimer votre intérêt pour ces possibilités ne constitue pas une candidature, mais permet au personnel des RH et du recrutement de vérifier votre intérêt au cas où vous seriez sélectionnée ou sélectionné pour une possibilité de formation ou de perfectionnement.",
-    "description": "Description of the 'Training and development opportunities' section"
   },
   "2IWEV5": {
     "defaultMessage": "Parcourez une bibliothèque d’offres d'emploi préétablies avec des suggestions de tâches et de compétences essentielles.",
@@ -3379,6 +3379,10 @@
     "defaultMessage": "Je suis à la recherche de cadres préqualifiés",
     "description": "Subject line for contact email to find pre-qualified executive talent"
   },
+  "BH5pJe": {
+    "defaultMessage": "Réduire tout<hidden> les nominations</hidden>",
+    "description": "Button label to collapse all nominations"
+  },
   "BKKZUH": {
     "defaultMessage": "Consulter et gérer le ministère.",
     "description": "Link to department page"
@@ -3747,6 +3751,10 @@
     "defaultMessage": "Courriel du gouvernement du Canada",
     "description": "Label for government of canada email input in the request form"
   },
+  "Cxy9bi": {
+    "defaultMessage": "Retirer l’expérience",
+    "description": "Button to remove the linked education experience from a development program"
+  },
   "CzZm8F": {
     "defaultMessage": "Restaurer l'utilisateur",
     "description": "Label for restoring a user"
@@ -4106,6 +4114,10 @@
   "EPF4Ac": {
     "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
     "description": "Application step skipped page details"
+  },
+  "EQI4l2": {
+    "defaultMessage": "{count, plural, one {# compétence} other {# compétences}}",
+    "description": "Number of skills on an experience"
   },
   "ERsZAD": {
     "defaultMessage": "La formation m'intéresse",
@@ -5255,10 +5267,6 @@
     "defaultMessage": "La Commission de la fonction publique est-elle au courant de l’existence de la plateforme Talents numériques du GC?",
     "description": "Heading for FAQ about PSC"
   },
-  "JGhMIC": {
-    "defaultMessage": "Date d'achèvement du programme",
-    "description": "Legend for the program completion date input"
-  },
   "JH2+tK": {
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
@@ -5466,6 +5474,10 @@
   "KHmf+e": {
     "defaultMessage": "Utilisez le bouton « Créer une classification » pour commencer.",
     "description": "Instructions for adding a classification item."
+  },
+  "KIQzbR": {
+    "defaultMessage": "Agrandir tout<hidden> les nominations</hidden>",
+    "description": "Button label to expand all nominations"
   },
   "KJDxM1": {
     "defaultMessage": "État du processus",
@@ -6099,6 +6111,10 @@
     "defaultMessage": "Le prochain type de rôle que la personne candidate entend jouer et son principal objectif de carrière, notamment la classification, les volets de travail et les ministères.",
     "description": "Subtitle for next role and career objective section"
   },
+  "MsiKO0": {
+    "defaultMessage": "Détails de la nomination",
+    "description": "Link text for details about a nomination"
+  },
   "Msshus": {
     "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la <cite>Directive sur les talents numériques</cite> et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ce guide de mise en œuvre est conçu pour aider les conseillers en RH à assumer ces responsabilités.",
     "description": "Body message for digital initiative human resources section."
@@ -6278,6 +6294,10 @@
   "NaF4Iu": {
     "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
     "description": "Application box heading part two"
+  },
+  "NaFYXo": {
+    "defaultMessage": "Remplacer l’expérience",
+    "description": "Button to swap the linked education experience for a development program"
   },
   "NadegW": {
     "defaultMessage": "(Disponible après le stade de la présélection)",
@@ -6722,6 +6742,10 @@
   "PbLJnr": {
     "defaultMessage": "Grade en économie, en sociologie ou en statistique",
     "description": "Heading for the `just education` option for EC education requirements"
+  },
+  "PbUHEk": {
+    "defaultMessage": "Sélectionner une expérience d’études ou de certification",
+    "description": "Label for the education experience dropdown in the link experience dialog"
   },
   "PdkgWB": {
     "defaultMessage": "Créer une possibilité de formation",
@@ -8046,6 +8070,10 @@
     "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
     "description": "Text showing the essentials skills assessed during the process"
   },
+  "VQNYAV": {
+    "defaultMessage": "Lier une expérience d’études ou de certification à un perfectionnement professionnel",
+    "description": "Subtitle for the link education experience dialog in the training and development opportunities section"
+  },
   "VR79Ue": {
     "defaultMessage": "Télécharger le profil sans les coordonnées",
     "description": "Button label for downloading an anonymous user profile."
@@ -8574,6 +8602,10 @@
     "defaultMessage": "Voulez-vous vraiment supprimer cette notification?",
     "description": "Heading for confirmation alert to delete a notification"
   },
+  "Xe2a91": {
+    "defaultMessage": "Complété avec succès",
+    "description": "Message when a user has completed a development program with no recorded date"
+  },
   "Xe39xZ": {
     "defaultMessage": "ne respectent pas les lois fédérales, provinciales ou territoriales du Canada",
     "description": "Comments or contributions list item"
@@ -8611,7 +8643,7 @@
     "description": "Lead in text for the soft-delete user form."
   },
   "XjtKKm": {
-    "defaultMessage": "Afficher l’adresse courriel professionnelle vérifiée de cette personne employée du gouvernement du Canada ainsi que son expérience de travail actuelle.",
+    "defaultMessage": "Afficher l'adresse courriel professionnelle vérifiée de cette personne employée du gouvernement du Canada ainsi que son expérience de travail actuelle.",
     "description": "Lead-in text explaining employee verification for admins"
   },
   "XkA6s1": {
@@ -8961,6 +8993,10 @@
   "Z65JVQ": {
     "defaultMessage": "a accès à tous les processus de recrutement et aux personnes candidates au sein de sa collectivité;",
     "description": "Description of the permission to view job adverts of a specific community"
+  },
+  "Z7hiHy": {
+    "defaultMessage": "L’option de formation et de certification dans votre expérience professionnelle vous permet d’ajouter des programmes, des certifications et des accréditations à votre parcours professionnel. En sélectionnant l’expérience qui représente ce perfectionnement professionnel dans votre profil, vous pouvez aider les recruteurs et les gestionnaires d’embauche à comprendre rapidement votre profil. Si ce programme, cette certification ou cette accréditation n’a pas encore été ajouté à votre expérience professionnelle, vous pouvez le faire à l’aide du bouton « Ajouter une nouvelle expérience ».",
+    "description": "Body text in the link education experience dialog explaining how to link an education experience"
   },
   "Z8uO3k": {
     "defaultMessage": "Les bons pour examens",
@@ -10710,6 +10746,10 @@
     "defaultMessage": "Poursuivre ma demande",
     "description": "Link text to continue an existing, draft application"
   },
+  "g6QXmz": {
+    "defaultMessage": "Lier une expérience existante",
+    "description": "Button to open the dialog to link an education experience to a development program"
+  },
   "g6coYl": {
     "defaultMessage": "Employé(e)s (préférences ministérielles)",
     "description": "Combined eligibility string for 'employees only' and 'departmental preference'"
@@ -11625,6 +11665,10 @@
   "jfCwes": {
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when signed in"
+  },
+  "jgysHD": {
+    "defaultMessage": "Lier l’expérience",
+    "description": "Button to confirm linking the selected education experience to a development program"
   },
   "jh/UHf": {
     "defaultMessage": "Ouvrez l’application d’authentification sur votre appareil.",
@@ -13846,6 +13890,10 @@
     "defaultMessage": "Adresse courriel professionnelle retirée",
     "description": "Successfully cleared work email information"
   },
+  "syqHHS": {
+    "defaultMessage": "Recommandations sur l'expérience latérale",
+    "description": "Label for the lateral movement options"
+  },
   "szxveb": {
     "defaultMessage": "Les possibilités d'emploi ne m'intéressent pas",
     "description": "Message displayed when a user has expressed they are not interested in job opportunities"
@@ -14093,6 +14141,10 @@
   "u+3kse": {
     "defaultMessage": "Pour empêcher temporairement cette candidature de figurer dans les demandes de talents, utilisez l'option suivante.",
     "description": "Blurb for the pause candidate's referral status dialog"
+  },
+  "u093wf": {
+    "defaultMessage": "La plupart des collectivités fonctionnelles proposent divers programmes d'apprentissage et de perfectionnement. Ces programmes peuvent avoir des exigences d'admissibilité précises basées sur votre expérience, votre classification ou d'autres qualifications. Le fait d'exprimer votre intérêt pour ces possibilités ne constitue pas une candidature, mais permet au personnel des RH et du recrutement de vérifier votre intérêt au cas où vous seriez sélectionnée ou sélectionné pour une possibilité de formation ou de perfectionnement.",
+    "description": "Description of the 'Training and development opportunities' section"
   },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
@@ -15392,6 +15444,10 @@
   "zH8887": {
     "defaultMessage": "Veuillez répondre à ces questions au mieux de vos capacités afin d'aider les gestionnaires d'embauche à mieux comprendre pourquoi vous correspondez à l'occasion d'emploi.",
     "description": "Reminder what general questions are used for."
+  },
+  "zHKvoY": {
+    "defaultMessage": "Modifier l’expérience liée",
+    "description": "Accessibility label for the edit/remove dropdown on a linked education experience"
   },
   "zIv0jm": {
     "defaultMessage": "Ordre décroissant",

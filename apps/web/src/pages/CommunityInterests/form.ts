@@ -87,13 +87,12 @@ export function formValuesToApiCreateInput(
             // valid interest
             return {
               developmentProgramId: interest.developmentProgramId,
-              educationExperienceId: null, // for later
-              participationStatus: interest.participationStatus,
-              completionDate:
+              educationExperienceId:
                 interest.participationStatus ===
                 DevelopmentProgramParticipationStatus.Completed
-                  ? interest.completionDate
+                  ? (interest.educationExperienceId ?? null)
                   : null,
+              participationStatus: interest.participationStatus,
             };
           }
           // no participation status or development program ID
@@ -144,13 +143,12 @@ export function formValuesToApiUpdateInput(
             // valid interest
             return {
               developmentProgramId: interest.developmentProgramId,
-              educationExperienceId: null, // for later
-              participationStatus: interest.participationStatus,
-              completionDate:
+              educationExperienceId:
                 interest.participationStatus ===
                 DevelopmentProgramParticipationStatus.Completed
-                  ? interest.completionDate
+                  ? (interest.educationExperienceId ?? null)
                   : null,
+              participationStatus: interest.participationStatus,
             };
           }
           // no participation status or development program ID
@@ -226,7 +224,8 @@ export function apiDataToFormValues(
       return {
         developmentProgramId: developmentProgram.id,
         participationStatus: correspondingProgram?.participationStatus ?? null,
-        completionDate: correspondingProgram?.completionDate ?? null,
+        educationExperienceId:
+          correspondingProgram?.educationExperience?.id ?? null,
       };
     });
 
