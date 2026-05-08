@@ -9474,6 +9474,10 @@
     "defaultMessage": "En présentant votre demande tôt, les gestionnaires d’embauche peuvent également examiner votre demande plus rapidement. L’équipe pourra commencer à évaluer votre demande dès que vous la soumettez, même si la date limite n’est pas encore passée.",
     "description": "Text explaining the benefits of applying early"
   },
+  "b+DmXv": {
+    "defaultMessage": "Vous n'avez aucun perfectionnement professionnel pour le moment.",
+    "description": "Label for notice when there are no professionalizations"
+  },
   "b09U1u": {
     "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
     "description": "First paragraph what will you learn at the program"

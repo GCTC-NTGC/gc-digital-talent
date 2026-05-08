@@ -12,6 +12,7 @@ import {
   Card,
   Container,
   Button,
+  Notice,
 } from "@gc-digital-talent/ui";
 import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -178,57 +179,73 @@ export const CommunityProfessionalizationForm = ({
               </Button>
             </div>
           </div>
-          <div className="-mr-6 -mb-5 -ml-6">
-            <DevelopmentProgramCard.Root>
-              {sortedCommunityDevelopmentPrograms.map((cdp) => {
-                return (
-                  <DevelopmentProgramCard.Item
-                    id={cdp.id}
-                    key={cdp.developmentProgram.id}
-                    title={cdp.developmentProgram.name.localized ?? notProvided}
-                    description={
-                      cdp.developmentProgram.descriptionForProfile.localized ??
-                      notProvided
-                    }
-                    classificationRestrictions={unpackMaybes(
-                      cdp.classifications,
-                    )}
-                    edit={
-                      <EditDialog
-                        key={cdp.id}
-                        communityDevelopmentProgramId={cdp.id}
-                        defaultValues={{
-                          needForRestrictions:
-                            unpackMaybes(cdp.classifications)?.length > 0,
-                          restrictedClassifications: unpackMaybes(
-                            cdp.classifications?.map((c) => c.id),
-                          ),
-                        }}
-                        professionalizationName={
-                          cdp.developmentProgram.name.localized ?? notProvided
-                        }
-                        open={editOpen === cdp.id}
-                        setOpen={setEditOpen}
-                      />
-                    }
-                    remove={
-                      <RemoveDialog
-                        community={community}
-                        communityDevelopmentProgramId={cdp.id}
-                        professionalizationName={
-                          cdp.developmentProgram.name.localized ?? notProvided
-                        }
-                        open={removeOpen === cdp.id}
-                        setOpen={setRemoveOpen}
-                      />
-                    }
-                    setEditOpen={setEditOpen}
-                    setRemoveOpen={setRemoveOpen}
-                  />
-                );
-              })}
-            </DevelopmentProgramCard.Root>
-          </div>
+          {!sortedCommunityDevelopmentPrograms.length ? (
+            <div className="-mr-6 -mb-5 -ml-6">
+              <DevelopmentProgramCard.Root>
+                {sortedCommunityDevelopmentPrograms.map((cdp) => {
+                  return (
+                    <DevelopmentProgramCard.Item
+                      id={cdp.id}
+                      key={cdp.developmentProgram.id}
+                      title={
+                        cdp.developmentProgram.name.localized ?? notProvided
+                      }
+                      description={
+                        cdp.developmentProgram.descriptionForProfile
+                          .localized ?? notProvided
+                      }
+                      classificationRestrictions={unpackMaybes(
+                        cdp.classifications,
+                      )}
+                      edit={
+                        <EditDialog
+                          key={cdp.id}
+                          communityDevelopmentProgramId={cdp.id}
+                          defaultValues={{
+                            needForRestrictions:
+                              unpackMaybes(cdp.classifications)?.length > 0,
+                            restrictedClassifications: unpackMaybes(
+                              cdp.classifications?.map((c) => c.id),
+                            ),
+                          }}
+                          professionalizationName={
+                            cdp.developmentProgram.name.localized ?? notProvided
+                          }
+                          open={editOpen === cdp.id}
+                          setOpen={setEditOpen}
+                        />
+                      }
+                      remove={
+                        <RemoveDialog
+                          community={community}
+                          communityDevelopmentProgramId={cdp.id}
+                          professionalizationName={
+                            cdp.developmentProgram.name.localized ?? notProvided
+                          }
+                          open={removeOpen === cdp.id}
+                          setOpen={setRemoveOpen}
+                        />
+                      }
+                      setEditOpen={setEditOpen}
+                      setRemoveOpen={setRemoveOpen}
+                    />
+                  );
+                })}
+              </DevelopmentProgramCard.Root>
+            </div>
+          ) : (
+            <Notice.Root color="gray" className="text-center">
+              <Notice.Content>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "You don't have any professionalizations at the moment.",
+                  id: "b+DmXv",
+                  description:
+                    "Label for notice when there are no professionalizations",
+                })}
+              </Notice.Content>
+            </Notice.Root>
+          )}
         </Card>
       </Container>
     </>
