@@ -1,6 +1,7 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
 import type { Color, HeadingRank, IconType, IconProps } from "./types";
+import { COLOR } from "./types";
 import Accordion, {
   type AccordionMetaData,
 } from "./components/Accordion/Accordion";
@@ -226,4 +227,5 @@ export {
   hrefToString,
   wrapParens,
   UNICODE_CHAR,
+  COLOR,
 };

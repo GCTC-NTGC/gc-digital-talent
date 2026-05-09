@@ -7,14 +7,18 @@ import type {
   JSX,
 } from "react";
 
-export type Color =
-  | "primary"
-  | "secondary"
-  | "success"
-  | "warning"
-  | "error"
-  | "black"
-  | "white";
+export const COLOR = {
+  PRIMARY: "primary",
+  SECONDARY: "secondary",
+  SUCCESS: "success",
+  WARNING: "warning",
+  ERROR: "error",
+  BLACK: "black",
+  WHITE: "white",
+};
+
+type ObjectValues<T> = T[keyof T];
+export type Color = ObjectValues<typeof COLOR>;
 
 export type HeadingRank = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
