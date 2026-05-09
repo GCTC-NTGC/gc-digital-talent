@@ -39,6 +39,15 @@ interface ActionProps extends ComponentPropsWithRef<"div">, ActionVariants {
   color?: SummaryColor;
 }
 
+/**
+ * Slot for interactive controls (buttons, links, menus) attached to a summary item.
+ *
+ * - `justify="start"` places the action before the content; `"end"` places it after (default).
+ * - `align="middle"` centers the action vertically on wider viewports (default).
+ * - `expand` stretches an `::after` pseudo-element across the entire item, making the
+ *   action's first child a full-card click target (combine with `SummaryList.Item.Title`
+ *   for link-style hover treatment).
+ */
 const Action = ({
   className,
   color: colorProp,
@@ -60,11 +69,13 @@ const Action = ({
   );
 };
 
+/** Icon button pre-wired to the item's color. Accepts all `IconButton` props. */
 const ActionButton = ({ color: colorProp, ...rest }: IconButtonProps) => {
   const { color } = useSummaryAction();
   return <IconButton color={colorProp ?? color} {...rest} />;
 };
 
+/** Icon link pre-wired to the item's color. Accepts all `IconLink` props. */
 const ActionLink = ({ color: colorProp, ...rest }: IconLinkProps) => {
   const { color } = useSummaryAction();
   return <IconLink color={colorProp ?? color} {...rest} />;
@@ -73,6 +84,11 @@ const ActionLink = ({ color: colorProp, ...rest }: IconLinkProps) => {
 type ActionMenuTriggerProps = Omit<Menu.Trigger.Props, "render"> &
   IconButtonProps;
 
+/**
+ * Trigger button for the action dropdown menu. Renders an `IconButton` wired
+ * as a Base UI `Menu.Trigger`. Accepts a `ref` for manual focus restoration
+ * when a dialog opened from a menu item needs to return focus after close.
+ */
 const ActionMenuTrigger = ({
   icon,
   label,
@@ -99,6 +115,16 @@ const ActionMenuTrigger = ({
   );
 };
 
+/**
+ * Dropdown menu namespace for summary item actions.
+ *
+ * Usage: `<SummaryList.Item.ActionMenu.Root>` → `<…Trigger>` → `<…Popup>` → `<…Item>`.
+ *
+ * When a menu item opens a dialog, store a `ref` on `Trigger` and pass it to
+ * `Dialog.Content`'s `onCloseAutoFocus` — the menu item unmounts on close so
+ * Radix cannot restore focus automatically. See the `WithDialogs` story for the
+ * full pattern.
+ */
 const ActionMenu = {
   Root: DropdownMenu.Root,
   Trigger: ActionMenuTrigger,

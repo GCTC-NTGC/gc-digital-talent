@@ -42,6 +42,13 @@ interface SummaryItemProps
   color?: SummaryColor;
 }
 
+/**
+ * A single row in a summary list (or a standalone card when used outside
+ * `SummaryList.Root`).
+ *
+ * Renders as `<li>` inside a list and `<div>` when standalone. Accepts an
+ * optional `color` override that takes precedence over the list-level color.
+ */
 function SummaryItem({
   className,
   color: colorProp,
@@ -74,6 +81,7 @@ const content = tv({
 
 type ContentProps = ComponentPropsWithRef<"div">;
 
+/** Primary content area of a summary item. Grows to fill available horizontal space. */
 const Content = ({ className, ...rest }: ContentProps) => {
   return <div className={content({ class: className })} {...rest} />;
 };
@@ -106,6 +114,10 @@ const title = tv({
   },
 });
 
+/**
+ * Heading for a summary item. Underlines and changes color on hover when the
+ * item contains an `expand` action button, turning the whole item into a link.
+ */
 const Title = ({ className, ...rest }: Omit<HeadingProps, "size">) => {
   const { color } = useSummaryItem();
   return <Heading className={title({ color, class: className })} {...rest} />;
@@ -123,6 +135,11 @@ const meta = tv({
 interface MetaProps
   extends ComponentPropsWithRef<"div">, VariantProps<typeof meta> {}
 
+/**
+ * Secondary metadata row rendered below the item body.
+ *
+ * Pass `separator` to add a bullet (`•`) between children on wider viewports.
+ */
 const Meta = ({ className, separator, ...rest }: MetaProps) => (
   <div className={meta({ separator, class: className })} {...rest} />
 );

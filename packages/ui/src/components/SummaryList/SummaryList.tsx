@@ -25,6 +25,17 @@ interface RootProps
   ref?: RefObject<HTMLUListElement>;
 }
 
+/**
+ * Container for a list of summary items.
+ *
+ * Renders a `<ul>` and provides color, striped, and divider context to all
+ * child `SummaryList.Item` elements.
+ *
+ * @example
+ * <SummaryList.Root color="primary" divider="timeline">
+ *   <SummaryList.Item>…</SummaryList.Item>
+ * </SummaryList.Root>
+ */
 const Root = ({
   children,
   className,
