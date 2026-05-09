@@ -10,17 +10,11 @@ import type {
 export type Color =
   | "primary"
   | "secondary"
-  | "secondaryDarkFixed"
-  | "tertiary"
-  | "quaternary"
-  | "quinary"
   | "success"
   | "warning"
   | "error"
   | "black"
-  | "blackFixed"
-  | "white"
-  | "whiteFixed";
+  | "white";
 
 export type HeadingRank = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
