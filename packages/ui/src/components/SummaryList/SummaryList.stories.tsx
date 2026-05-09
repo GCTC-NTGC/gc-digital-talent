@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "storybook/actions";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ArrowTopRightOnSquareIcon from "@heroicons/react/20/solid/ArrowTopRightOnSquareIcon";
+import EllipsisHorizontalIcon from "@heroicons/react/20/solid/EllipsisHorizontalIcon";
 import MagnifyingGlassPlusIcon from "@heroicons/react/20/solid/MagnifyingGlassPlusIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
@@ -10,6 +11,7 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import SummaryList from "./SummaryList";
 import SummaryItem from "./SummaryItem";
+import Dialog from "../Dialog/Dialog";
 import type { Color } from "../../types";
 
 const Text = () => (
@@ -206,6 +208,107 @@ export const WithActionLink: Story = {
       ))}
     </SummaryList.Root>
   ),
+};
+
+/**
+ * Two patterns for opening dialogs from summary item actions.
+ *
+ * ActionButton: wrap with Dialog.Trigger (asChild by default) — Radix
+ * restores focus to the button automatically on close.
+ *
+ * Menu item (detached trigger): the menu item unmounts when the menu closes,
+ * so Radix cannot restore focus to it. Store a ref to the menu trigger button
+ * and use onCloseAutoFocus to focus it manually instead.
+ */
+const WithDialogsExample = () => {
+  const [menuDialogOpen, setMenuDialogOpen] = useState(false);
+  const menuTriggerRef = useRef<HTMLButtonElement>(null);
+
+  return (
+    <>
+      {/* Detached dialog — sits outside the list, opened via controlled state */}
+      <Dialog.Root open={menuDialogOpen} onOpenChange={setMenuDialogOpen}>
+        <Dialog.Content
+          onCloseAutoFocus={(e) => {
+            e.preventDefault();
+            menuTriggerRef.current?.focus();
+          }}
+        >
+          <Dialog.Header>Edit item</Dialog.Header>
+          <Dialog.Body>
+            <p>
+              This dialog was opened from a menu item. When it closes, focus
+              returns to the menu trigger button via the ref.
+            </p>
+          </Dialog.Body>
+        </Dialog.Content>
+      </Dialog.Root>
+
+      <SummaryList.Root>
+        {/* Pattern 1: Dialog.Trigger wraps ActionButton — focus is automatic */}
+        <Dialog.Root>
+          <SummaryList.Item>
+            <SummaryList.Item.Content>
+              <SummaryList.Item.Title>Action button trigger</SummaryList.Item.Title>
+              <p>
+                Dialog.Trigger (asChild) merges onto the button. Radix tracks the
+                trigger and restores focus automatically when the dialog closes.
+              </p>
+            </SummaryList.Item.Content>
+            <SummaryList.Item.Action align="middle" justify="end">
+              <Dialog.Trigger>
+                <SummaryList.Item.ActionButton
+                  icon={PencilSquareIcon}
+                  label="Edit"
+                />
+              </Dialog.Trigger>
+            </SummaryList.Item.Action>
+          </SummaryList.Item>
+          <Dialog.Content>
+            <Dialog.Header>Edit item</Dialog.Header>
+            <Dialog.Body>
+              <p>
+                Focus will return to the edit button automatically when this
+                dialog closes.
+              </p>
+            </Dialog.Body>
+          </Dialog.Content>
+        </Dialog.Root>
+
+        {/* Pattern 2: menu item opens dialog — focus restored manually via ref */}
+        <SummaryList.Item>
+          <SummaryList.Item.Content>
+            <SummaryList.Item.Title>Menu item trigger</SummaryList.Item.Title>
+            <p>
+              The menu item unmounts when the menu closes, so Radix cannot track
+              it. A ref on the menu trigger combined with onCloseAutoFocus
+              handles focus restoration instead.
+            </p>
+          </SummaryList.Item.Content>
+          <SummaryList.Item.Action align="start" justify="start">
+            <SummaryList.Item.ActionMenu.Root>
+              <SummaryList.Item.ActionMenu.Trigger
+                ref={menuTriggerRef}
+                icon={EllipsisHorizontalIcon}
+                label="Options"
+              />
+              <SummaryList.Item.ActionMenu.Popup>
+                <SummaryList.Item.ActionMenu.Item
+                  onClick={() => setMenuDialogOpen(true)}
+                >
+                  Edit
+                </SummaryList.Item.ActionMenu.Item>
+              </SummaryList.Item.ActionMenu.Popup>
+            </SummaryList.Item.ActionMenu.Root>
+          </SummaryList.Item.Action>
+        </SummaryList.Item>
+      </SummaryList.Root>
+    </>
+  );
+};
+
+export const WithDialogs: Story = {
+  render: () => <WithDialogsExample />,
 };
 
 export const WithColor: Story = {
