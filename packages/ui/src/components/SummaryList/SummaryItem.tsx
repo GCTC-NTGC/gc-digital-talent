@@ -33,11 +33,7 @@ const item = tv({
 type ItemVariants = Omit<VariantProps<typeof item>, "striped" | "divider">;
 
 interface SummaryItemProps
-  extends
-    Omit<
-      ComponentPropsWithRef<"li"> & ComponentPropsWithRef<"div">,
-      "as" | "color"
-    >,
+  extends Omit<ComponentPropsWithRef<"li">, "color">,
     ItemVariants {
   color?: SummaryColor;
 }

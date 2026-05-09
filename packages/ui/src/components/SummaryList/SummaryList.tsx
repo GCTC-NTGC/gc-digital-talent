@@ -1,4 +1,4 @@
-import { type ReactNode, type RefObject } from "react";
+import { type ComponentPropsWithRef } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 import SummaryItem from "./SummaryItem";
@@ -19,11 +19,9 @@ const root = tv({
 });
 
 interface RootProps
-  extends VariantProps<typeof root>, Omit<SummaryListContextValue, "inList"> {
-  children: ReactNode;
-  className?: string;
-  ref?: RefObject<HTMLUListElement>;
-}
+  extends ComponentPropsWithRef<"ul">,
+    VariantProps<typeof root>,
+    Omit<SummaryListContextValue, "inList"> {}
 
 /**
  * Container for a list of summary items.
