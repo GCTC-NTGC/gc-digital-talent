@@ -7,10 +7,10 @@ import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import IconLink, { type IconLinkProps } from "../Link/IconLink";
 import {
   useSummaryItem,
-  SummaryActionContext,
   useSummaryAction,
+  SummaryActionContext,
+  type SummaryColor,
 } from "./SummaryContext";
-import type { SummaryColor } from "./SummaryContext";
 
 const action = tv({
   base: "summary-action -mt-px flex shrink-0 items-start self-stretch",
@@ -95,7 +95,6 @@ const ActionMenuTrigger = ({
   color: colorProp,
   size,
   disabled,
-  children,
   ...triggerProps
 }: ActionMenuTriggerProps) => {
   const { color } = useSummaryAction();

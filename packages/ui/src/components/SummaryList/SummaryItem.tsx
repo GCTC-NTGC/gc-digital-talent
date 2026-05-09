@@ -71,11 +71,11 @@ function SummaryItem({
   );
 }
 
+type ContentProps = ComponentPropsWithRef<"div">;
+
 const content = tv({
   base: "order-3 grow",
 });
-
-type ContentProps = ComponentPropsWithRef<"div">;
 
 /** Primary content area of a summary item. Grows to fill available horizontal space. */
 const Content = ({ className, ...rest }: ContentProps) => {
@@ -119,6 +119,9 @@ const Title = ({ className, ...rest }: Omit<HeadingProps, "size">) => {
   return <Heading className={title({ color, class: className })} {...rest} />;
 };
 
+interface MetaProps
+  extends ComponentPropsWithRef<"div">, VariantProps<typeof meta> {}
+
 const meta = tv({
   base: "mt-3 flex flex-col gap-3 justify-self-start sm:flex-row",
   variants: {
@@ -127,9 +130,6 @@ const meta = tv({
     },
   },
 });
-
-interface MetaProps
-  extends ComponentPropsWithRef<"div">, VariantProps<typeof meta> {}
 
 /**
  * Secondary metadata row rendered below the item body.
