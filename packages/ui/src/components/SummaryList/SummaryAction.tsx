@@ -95,6 +95,7 @@ const ActionMenuTrigger = ({
   color: colorProp,
   size,
   disabled,
+  children: _children,
   ...triggerProps
 }: ActionMenuTriggerProps) => {
   const { color } = useSummaryAction();

@@ -14,7 +14,7 @@ import type { SummaryColor } from "./SummaryContext";
 import TimelineMarker from "./TimelineMarker";
 
 const item = tv({
-  base: "group/item relative z-1 flex gap-x-3 px-9 py-7.5",
+  base: "group/item relative flex gap-x-3 px-9 py-7.5",
   variants: {
     striped: {
       true: "odd:bg-gray-100/20 dark:odd:bg-gray-700/40",
