@@ -3,7 +3,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 
 import SummaryItem from "./SummaryItem";
 import { SummaryListContext } from "./SummaryContext";
-import type { SummaryColor } from "./SummaryContext";
+import type { SummaryListContextValue } from "./SummaryContext";
 
 const root = tv({
   base: "bg-white dark:bg-gray-600",
@@ -18,13 +18,11 @@ const root = tv({
   },
 });
 
-interface RootProps extends VariantProps<typeof root> {
+interface RootProps
+  extends VariantProps<typeof root>, Omit<SummaryListContextValue, "inList"> {
   children: ReactNode;
   className?: string;
   ref?: RefObject<HTMLUListElement>;
-  timeline?: boolean;
-  color?: SummaryColor;
-  striped?: boolean;
 }
 
 const Root = ({
@@ -33,11 +31,11 @@ const Root = ({
   striped,
   mode,
   color = "primary",
-  timeline = false,
+  divider,
   ref,
 }: RootProps) => (
   <SummaryListContext.Provider
-    value={{ striped, color, timeline, inList: true }}
+    value={{ striped, color, divider, inList: true }}
   >
     <ul ref={ref} className={root({ mode, class: className })}>
       {children}

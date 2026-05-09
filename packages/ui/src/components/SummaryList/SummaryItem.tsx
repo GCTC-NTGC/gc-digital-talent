@@ -14,31 +14,23 @@ import type { SummaryColor } from "./SummaryContext";
 import TimelineMarker from "./TimelineMarker";
 
 const item = tv({
-  base: "group/item relative flex gap-x-3 px-9 py-7.5",
+  base: "group/item relative z-1 flex gap-x-3 px-9 py-7.5",
   variants: {
     striped: {
       true: "odd:bg-gray-100/20 dark:odd:bg-gray-700/40",
     },
-    inList: {
-      true: "not-first:border-t not-first:border-t-gray-200 dark:not-first:border-t-gray-700",
-    },
-    timeline: {
-      true: "",
+    divider: {
+      line: "not-last:border-b not-last:border-b-gray-200 dark:not-last:border-b-gray-700",
+      timeline: "",
     },
   },
-  compoundVariants: [
-    { timeline: true, inList: true, class: "not-first:border-t-0" },
-  ],
   defaultVariants: {
     striped: false,
   },
 });
 
-// striped / inList / timeline are injected from context; not exposed as props
-type ItemVariants = Omit<
-  VariantProps<typeof item>,
-  "striped" | "inList" | "timeline"
->;
+// striped / divider are injected from context; not exposed as props
+type ItemVariants = Omit<VariantProps<typeof item>, "striped" | "divider">;
 
 interface SummaryItemProps
   extends
@@ -56,20 +48,15 @@ function SummaryItem({
   children,
   ...rest
 }: SummaryItemProps) {
-  const {
-    inList,
-    striped,
-    color: listColor = "primary",
-    timeline = false,
-  } = useSummaryList();
+  const { inList, striped, color: listColor = "primary", divider } = useSummaryList();
   const color = colorProp ?? listColor;
-  const cls = item({ striped, inList, timeline, class: className });
+  const cls = item({ striped, divider, class: className });
 
   return (
     <SummaryItemContext.Provider value={{ color }}>
       {inList ? (
         <Box<"li"> as="li" className={cls} {...rest}>
-          {timeline && <TimelineMarker />}
+          {divider === "timeline" && <TimelineMarker />}
           {children}
         </Box>
       ) : (

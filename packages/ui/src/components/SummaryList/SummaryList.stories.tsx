@@ -86,6 +86,10 @@ export default {
     striped: {
       control: "boolean",
     },
+    divider: {
+      control: "select",
+      options: [undefined, "line", "timeline"],
+    },
     mode: {
       control: "inline-radio",
       options: ["simple", "card"],
@@ -99,6 +103,7 @@ export default {
   },
   args: {
     striped: false,
+    divider: "line",
   },
   render: (args) => {
     return (
@@ -169,7 +174,7 @@ export const Striped: Story = {
 
 export const Timeline: Story = {
   args: {
-    timeline: true,
+    divider: "timeline",
   },
 };
 
@@ -181,7 +186,7 @@ export const AsCard: Story = {
 
 export const TimelineSingle: Story = {
   args: {
-    timeline: true,
+    divider: "timeline",
   },
   render: (args) => (
     <SummaryList.Root {...args}>
@@ -197,7 +202,7 @@ export const TimelineSingle: Story = {
 
 export const TimelineWithActions: Story = {
   args: {
-    timeline: true,
+    divider: "timeline",
   },
   render: (args) => (
     <SummaryList.Root {...args}>

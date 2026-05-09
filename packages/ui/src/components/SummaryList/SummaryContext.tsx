@@ -4,10 +4,10 @@ import type { Color } from "../../types";
 
 export type SummaryColor = Exclude<Color, "black" | "white">;
 
-interface SummaryListContextValue {
+export interface SummaryListContextValue {
   color?: SummaryColor;
   striped?: boolean;
-  timeline?: boolean;
+  divider?: "line" | "timeline";
   inList?: boolean;
 }
 
@@ -15,7 +15,6 @@ export const SummaryListContext = createContext<SummaryListContextValue>({
   inList: false,
   striped: false,
   color: "primary",
-  timeline: false,
 });
 
 export const useSummaryList = () => useContext(SummaryListContext);

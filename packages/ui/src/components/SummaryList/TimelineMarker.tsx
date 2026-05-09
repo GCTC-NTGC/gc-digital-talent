@@ -7,7 +7,7 @@ import { useSummaryItem } from "./SummaryContext";
 // invisible (not hidden) preserves the height so the dot never shifts position on first/last/only items.
 const timelineMarker = tv({
   slots: {
-    root: "pointer-events-none absolute inset-y-0 left-0 flex w-9 flex-col items-center",
+    root: "pointer-events-none absolute inset-y-0 left-0 z-10 flex w-9 flex-col items-center",
     upper: "h-9.5 w-px group-first/item:invisible",
     dot: "size-2.5 shrink-0 rounded-full",
     lower: "w-px flex-1 group-last/item:invisible",
