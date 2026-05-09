@@ -13,16 +13,15 @@ import {
 import type { SummaryColor } from "./SummaryContext";
 
 const action = tv({
-  base: "summary-action flex shrink-0 self-stretch",
+  base: "summary-action -mt-px flex shrink-0 items-start self-stretch",
   variants: {
     justify: {
       start: "order-2",
       end: "order-4",
     },
     align: {
-      start: "-mt-px items-start",
-      middle: "items-center",
-      end: "items-end",
+      start: "",
+      middle: "sm:items-center",
     },
     expand: {
       true: "expanded *:after:absolute *:after:inset-0 *:after:content-['']",
