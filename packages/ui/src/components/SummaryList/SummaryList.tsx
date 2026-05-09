@@ -39,6 +39,7 @@ const Item = Object.assign(SummaryItem.Root, {
   Content: SummaryItem.Content,
   Title: SummaryItem.Title,
   Action: SummaryItem.Action,
+  Meta: SummaryItem.Meta,
   ActionButton: SummaryItem.ActionButton,
   ActionLink: SummaryItem.ActionLink,
   ActionMenu: SummaryItem.ActionMenu,

@@ -1,5 +1,6 @@
 import type { ComponentPropsWithRef } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
+import type { Variant } from "@testing-library/react";
 
 import Action from "./SummaryAction";
 import Box from "../Box/Box";
@@ -124,10 +125,27 @@ const Title = ({ className, ...rest }: Omit<HeadingProps, "size">) => {
   return <Heading className={title({ color, class: className })} {...rest} />;
 };
 
+const meta = tv({
+  base: "mt-3 flex flex-col gap-3 justify-self-start sm:flex-row",
+  variants: {
+    separator: {
+      true: "sm:*:not-last:after:ml-3 sm:*:not-last:after:text-gray/50 sm:*:not-last:after:content-['•']",
+    },
+  },
+});
+
+interface MetaProps
+  extends ComponentPropsWithRef<"div">, VariantProps<typeof meta> {}
+
+const Meta = ({ className, separator, ...rest }: MetaProps) => (
+  <div className={meta({ separator, class: className })} {...rest} />
+);
+
 export default {
   Root: SummaryItem,
   Content,
   Title,
+  Meta,
   Action: Action.Root,
   ActionButton: Action.Button,
   ActionLink: Action.Link,

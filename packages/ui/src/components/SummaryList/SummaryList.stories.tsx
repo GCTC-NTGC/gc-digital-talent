@@ -12,7 +12,9 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 import SummaryList from "./SummaryList";
 import SummaryItem from "./SummaryItem";
 import Dialog from "../Dialog/Dialog";
-import type { Color } from "../../types";
+import { COLOR, type Color } from "../../types";
+import Button from "../Button";
+import type { SummaryColor } from "./SummaryContext";
 
 const Text = () => (
   <p>
@@ -85,6 +87,12 @@ export default {
     striped: {
       control: "boolean",
     },
+    color: {
+      control: "select",
+      options: Object.values(COLOR).filter(
+        (color) => ![COLOR.BLACK, COLOR.WHITE].includes(color),
+      ),
+    },
   },
   args: {
     striped: false,
@@ -115,6 +123,32 @@ export default {
           </SummaryList.Item.Action>
         </SummaryList.Item>
         <ItemWithAction />
+        <SummaryList.Item>
+          <SummaryList.Item.Content>
+            <SummaryList.Item.Title>Item 1</SummaryList.Item.Title>
+            <Text />
+            <SummaryList.Item.Meta separator>
+              <Button
+                mode="inline"
+                color={args.color}
+                onClick={() => {
+                  action("Click: meta one")();
+                }}
+              >
+                Meta one
+              </Button>
+              <Button
+                mode="inline"
+                color={args.color}
+                onClick={() => {
+                  action("Click: meta two")();
+                }}
+              >
+                Meta two
+              </Button>
+            </SummaryList.Item.Meta>
+          </SummaryList.Item.Content>
+        </SummaryList.Item>
       </SummaryList.Root>
     );
   },
@@ -249,10 +283,13 @@ const WithDialogsExample = () => {
         <Dialog.Root>
           <SummaryList.Item>
             <SummaryList.Item.Content>
-              <SummaryList.Item.Title>Action button trigger</SummaryList.Item.Title>
+              <SummaryList.Item.Title>
+                Action button trigger
+              </SummaryList.Item.Title>
               <p>
-                Dialog.Trigger (asChild) merges onto the button. Radix tracks the
-                trigger and restores focus automatically when the dialog closes.
+                Dialog.Trigger (asChild) merges onto the button. Radix tracks
+                the trigger and restores focus automatically when the dialog
+                closes.
               </p>
             </SummaryList.Item.Content>
             <SummaryList.Item.Action align="middle" justify="end">
