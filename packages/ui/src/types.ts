@@ -15,7 +15,7 @@ export const COLOR = {
   ERROR: "error",
   BLACK: "black",
   WHITE: "white",
-};
+} as const;
 
 type ObjectValues<T> = T[keyof T];
 export type Color = ObjectValues<typeof COLOR>;
