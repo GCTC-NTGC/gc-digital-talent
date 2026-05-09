@@ -1,5 +1,5 @@
 import { type ReactNode, type RefObject } from "react";
-import { tv } from "tailwind-variants";
+import { tv, type VariantProps } from "tailwind-variants";
 
 import SummaryItem from "./SummaryItem";
 import { SummaryListContext } from "./SummaryContext";
@@ -7,9 +7,18 @@ import type { SummaryColor } from "./SummaryContext";
 
 const root = tv({
   base: "bg-white dark:bg-gray-600",
+  variants: {
+    mode: {
+      simple: "",
+      card: "rounded-md shadow-xl",
+    },
+  },
+  defaultVariants: {
+    mode: "simple",
+  },
 });
 
-interface RootProps {
+interface RootProps extends VariantProps<typeof root> {
   children: ReactNode;
   className?: string;
   ref?: RefObject<HTMLUListElement>;
@@ -22,6 +31,7 @@ const Root = ({
   children,
   className,
   striped,
+  mode,
   color = "primary",
   timeline = false,
   ref,
@@ -29,7 +39,7 @@ const Root = ({
   <SummaryListContext.Provider
     value={{ striped, color, timeline, inList: true }}
   >
-    <ul ref={ref} className={root({ class: className })}>
+    <ul ref={ref} className={root({ mode, class: className })}>
       {children}
     </ul>
   </SummaryListContext.Provider>

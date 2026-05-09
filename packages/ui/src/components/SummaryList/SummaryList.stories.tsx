@@ -14,7 +14,6 @@ import SummaryItem from "./SummaryItem";
 import Dialog from "../Dialog/Dialog";
 import { COLOR, type Color } from "../../types";
 import Button from "../Button";
-import type { SummaryColor } from "./SummaryContext";
 
 const Text = () => (
   <p>
@@ -87,10 +86,14 @@ export default {
     striped: {
       control: "boolean",
     },
+    mode: {
+      control: "inline-radio",
+      options: ["simple", "card"],
+    },
     color: {
       control: "select",
       options: Object.values(COLOR).filter(
-        (color) => ![COLOR.BLACK, COLOR.WHITE].includes(color),
+        (color) => color !== COLOR.WHITE && color !== COLOR.BLACK,
       ),
     },
   },
@@ -167,6 +170,12 @@ export const Striped: Story = {
 export const Timeline: Story = {
   args: {
     timeline: true,
+  },
+};
+
+export const AsCard: Story = {
+  args: {
+    mode: "card",
   },
 };
 

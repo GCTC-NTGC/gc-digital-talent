@@ -1,6 +1,5 @@
 import type { ComponentPropsWithRef } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
-import type { Variant } from "@testing-library/react";
 
 import Action from "./SummaryAction";
 import Box from "../Box/Box";
@@ -21,7 +20,7 @@ const item = tv({
       true: "odd:bg-gray-100/20 dark:odd:bg-gray-700/40",
     },
     inList: {
-      true: "not-first:border-t not-first:border-t-gray-200 dark:not-first:border-t-black",
+      true: "not-first:border-t not-first:border-t-gray-200 dark:not-first:border-t-gray-700",
     },
     timeline: {
       true: "",
