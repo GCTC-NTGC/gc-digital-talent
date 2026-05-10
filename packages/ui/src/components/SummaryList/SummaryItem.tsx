@@ -1,4 +1,4 @@
-import type { ComponentPropsWithRef } from "react";
+import type { ComponentPropsWithRef, HTMLAttributes } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
 import Action from "./SummaryAction";
@@ -32,9 +32,7 @@ const item = tv({
 // striped / divider are injected from context; not exposed as props
 type ItemVariants = Omit<VariantProps<typeof item>, "striped" | "divider">;
 
-interface SummaryItemProps
-  extends Omit<ComponentPropsWithRef<"li">, "color">,
-    ItemVariants {
+interface SummaryItemProps extends HTMLAttributes<HTMLElement>, ItemVariants {
   color?: SummaryColor;
 }
 
@@ -50,7 +48,12 @@ function SummaryItem({
   children,
   ...rest
 }: SummaryItemProps) {
-  const { inList, striped, color: listColor = "primary", divider } = useSummaryList();
+  const {
+    inList,
+    striped,
+    color: listColor = "primary",
+    divider,
+  } = useSummaryList();
   const color = colorProp ?? listColor;
   const cls = item({ striped, divider, class: className });
 
@@ -118,9 +121,6 @@ const Title = ({ className, ...rest }: Omit<HeadingProps, "size">) => {
   return <Heading className={title({ color, class: className })} {...rest} />;
 };
 
-interface MetaProps
-  extends ComponentPropsWithRef<"div">, VariantProps<typeof meta> {}
-
 const meta = tv({
   base: "mt-3 flex flex-col gap-3 justify-self-start sm:flex-row",
   variants: {
@@ -129,6 +129,9 @@ const meta = tv({
     },
   },
 });
+
+interface MetaProps
+  extends ComponentPropsWithRef<"div">, VariantProps<typeof meta> {}
 
 /**
  * Secondary metadata row rendered below the item body.
