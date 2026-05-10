@@ -116,6 +116,7 @@ export default {
           </SummaryItem.Content>
           <SummaryItem.Action align="middle" justify="end" expand>
             <SummaryItem.Button
+              label="Action button"
               icon={MagnifyingGlassPlusIcon}
               onClick={() => {
                 action("Click action")();
@@ -173,15 +174,15 @@ export const Striped: Story = {
   },
 };
 
-export const Timeline: Story = {
-  args: {
-    divider: "timeline",
-  },
-};
-
 export const AsCard: Story = {
   args: {
     mode: "card",
+  },
+};
+
+export const Timeline: Story = {
+  args: {
+    divider: "timeline",
   },
 };
 
