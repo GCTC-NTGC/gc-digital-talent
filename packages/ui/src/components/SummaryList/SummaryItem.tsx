@@ -39,11 +39,10 @@ interface SummaryItemProps
 }
 
 /**
- * A single row in a summary list (or a standalone card when used outside
- * `SummaryList.Root`).
+ * A single row inside a `SummaryList`, or a standalone card when used without one.
  *
- * Renders as `<li>` inside a list and `<div>` when standalone. Accepts an
- * optional `color` override that takes precedence over the list-level color.
+ * Renders as `<li>` inside a `SummaryList` and `<div>` when standalone. Accepts
+ * an optional `color` override that takes precedence over the list-level color.
  */
 function SummaryItem({
   className,
@@ -146,7 +145,7 @@ export default {
   Title,
   Meta,
   Action: Action.Root,
-  ActionButton: Action.Button,
-  ActionLink: Action.Link,
-  ActionMenu: Action.Menu,
+  Button: Action.Button,
+  Link: Action.Link,
+  Menu: Action.Menu,
 };

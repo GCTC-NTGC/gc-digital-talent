@@ -1,7 +1,6 @@
 import { type ComponentPropsWithRef } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
-import SummaryItem from "./SummaryItem";
 import { SummaryListContext } from "./SummaryContext";
 import type { SummaryListContextValue } from "./SummaryContext";
 
@@ -18,23 +17,24 @@ const root = tv({
   },
 });
 
-interface RootProps
-  extends ComponentPropsWithRef<"ul">,
+interface SummaryListProps
+  extends
+    Omit<ComponentPropsWithRef<"ul">, "color">,
     VariantProps<typeof root>,
     Omit<SummaryListContextValue, "inList"> {}
 
 /**
- * Container for a list of summary items.
+ * Container for a list of `SummaryItem.Root` elements.
  *
  * Renders a `<ul>` and provides color, striped, and divider context to all
- * child `SummaryList.Item` elements.
+ * child items.
  *
  * @example
- * <SummaryList.Root color="primary" divider="timeline">
- *   <SummaryList.Item>…</SummaryList.Item>
- * </SummaryList.Root>
+ * <SummaryList color="primary" divider="timeline">
+ *   <SummaryItem.Root>…</SummaryItem.Root>
+ * </SummaryList>
  */
-const Root = ({
+const SummaryList = ({
   children,
   className,
   striped,
@@ -42,24 +42,15 @@ const Root = ({
   color = "primary",
   divider,
   ref,
-}: RootProps) => (
+  ...rest
+}: SummaryListProps) => (
   <SummaryListContext.Provider
     value={{ striped, color, divider, inList: true }}
   >
-    <ul ref={ref} className={root({ mode, class: className })}>
+    <ul ref={ref} className={root({ mode, class: className })} {...rest}>
       {children}
     </ul>
   </SummaryListContext.Provider>
 );
 
-const Item = Object.assign(SummaryItem.Root, {
-  Content: SummaryItem.Content,
-  Title: SummaryItem.Title,
-  Action: SummaryItem.Action,
-  Meta: SummaryItem.Meta,
-  ActionButton: SummaryItem.ActionButton,
-  ActionLink: SummaryItem.ActionLink,
-  ActionMenu: SummaryItem.ActionMenu,
-});
-
-export default { Root, Item };
+export default SummaryList;

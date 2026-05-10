@@ -16,7 +16,7 @@ import { COLOR, type Color } from "../../types";
 import Button from "../Button";
 
 const Text = () => (
-  <p>
+  <p className="not-last:mb-3">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quam dui,
     efficitur sed tempus at, luctus sit amet lacus. Cras accumsan massa vitae
     eros iaculis ullamcorper. Praesent a libero ipsum. Nullam at velit in turpis
@@ -29,46 +29,41 @@ const ItemWithAction = () => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   return (
-    <SummaryList.Item>
-      <SummaryList.Item.Action align="start" justify="start">
-        <SummaryList.Item.ActionMenu.Root
-          open={menuOpen}
-          onOpenChange={setMenuOpen}
-        >
-          <SummaryList.Item.ActionMenu.Trigger
+    <SummaryItem.Root>
+      <SummaryItem.Action align="start" justify="start">
+        <SummaryItem.Menu open={menuOpen} onOpenChange={setMenuOpen}>
+          <SummaryItem.Menu.Trigger
             icon={menuOpen ? XMarkIcon : PencilSquareIcon}
             label="Action menu"
           />
-          <SummaryList.Item.ActionMenu.Popup>
-            <SummaryList.Item.ActionMenu.Item
+          <SummaryItem.Menu.Popup>
+            <SummaryItem.Menu.Item
               onClick={() => {
                 action("Clicked edit")();
               }}
             >
               Edit
-            </SummaryList.Item.ActionMenu.Item>
-            <SummaryList.Item.ActionMenu.Item
+            </SummaryItem.Menu.Item>
+            <SummaryItem.Menu.Item
               onClick={() => {
                 action("Clicked delete")();
               }}
             >
               Delete
-            </SummaryList.Item.ActionMenu.Item>
-          </SummaryList.Item.ActionMenu.Popup>
-        </SummaryList.Item.ActionMenu.Root>
-      </SummaryList.Item.Action>
-      <SummaryList.Item.Content>
-        <SummaryList.Item.Title>
-          Item with a dropdown action menu
-        </SummaryList.Item.Title>
+            </SummaryItem.Menu.Item>
+          </SummaryItem.Menu.Popup>
+        </SummaryItem.Menu>
+      </SummaryItem.Action>
+      <SummaryItem.Content>
+        <SummaryItem.Title>Item with a dropdown action menu</SummaryItem.Title>
         <Text />
-      </SummaryList.Item.Content>
-    </SummaryList.Item>
+      </SummaryItem.Content>
+    </SummaryItem.Root>
   );
 };
 
 export default {
-  component: SummaryList.Root,
+  component: SummaryList,
   parameters: {
     chromatic: {
       modes: {
@@ -107,35 +102,41 @@ export default {
   },
   render: (args) => {
     return (
-      <SummaryList.Root {...args}>
-        <SummaryList.Item>
-          <SummaryList.Item.Content>
-            <SummaryList.Item.Title>Item 1</SummaryList.Item.Title>
+      <SummaryList {...args}>
+        <SummaryItem.Root>
+          <SummaryItem.Content>
+            <SummaryItem.Title>Item 1</SummaryItem.Title>
             <Text />
-          </SummaryList.Item.Content>
-        </SummaryList.Item>
-        <SummaryList.Item>
-          <SummaryList.Item.Content>
-            <SummaryList.Item.Title>
-              Item with action button
-            </SummaryList.Item.Title>
+          </SummaryItem.Content>
+        </SummaryItem.Root>
+        <SummaryItem.Root>
+          <SummaryItem.Content>
+            <SummaryItem.Title>Item with action button</SummaryItem.Title>
             <Text />
-          </SummaryList.Item.Content>
-          <SummaryList.Item.Action align="middle" justify="end" expand>
-            <SummaryList.Item.ActionButton
+          </SummaryItem.Content>
+          <SummaryItem.Action align="middle" justify="end" expand>
+            <SummaryItem.Button
               icon={MagnifyingGlassPlusIcon}
               onClick={() => {
                 action("Click action")();
               }}
             />
-          </SummaryList.Item.Action>
-        </SummaryList.Item>
-        <ItemWithAction />
-        <SummaryList.Item>
-          <SummaryList.Item.Content>
-            <SummaryList.Item.Title>Item 1</SummaryList.Item.Title>
+          </SummaryItem.Action>
+        </SummaryItem.Root>
+        <SummaryItem.Root>
+          <SummaryItem.Content>
+            <SummaryItem.Title>Item with a lot of text</SummaryItem.Title>
             <Text />
-            <SummaryList.Item.Meta separator>
+            <Text />
+            <Text />
+          </SummaryItem.Content>
+        </SummaryItem.Root>
+        <ItemWithAction />
+        <SummaryItem.Root>
+          <SummaryItem.Content>
+            <SummaryItem.Title>Item 1</SummaryItem.Title>
+            <Text />
+            <SummaryItem.Meta separator>
               <Button
                 mode="inline"
                 color={args.color}
@@ -154,15 +155,15 @@ export default {
               >
                 Meta two
               </Button>
-            </SummaryList.Item.Meta>
-          </SummaryList.Item.Content>
-        </SummaryList.Item>
-      </SummaryList.Root>
+            </SummaryItem.Meta>
+          </SummaryItem.Content>
+        </SummaryItem.Root>
+      </SummaryList>
     );
   },
-} satisfies Meta<typeof SummaryList.Root>;
+} satisfies Meta<typeof SummaryList>;
 
-type Story = StoryObj<typeof SummaryList.Root>;
+type Story = StoryObj<typeof SummaryList>;
 
 export const Default: Story = {};
 
@@ -189,14 +190,14 @@ export const TimelineSingle: Story = {
     divider: "timeline",
   },
   render: (args) => (
-    <SummaryList.Root {...args}>
-      <SummaryList.Item>
-        <SummaryList.Item.Content>
-          <SummaryList.Item.Title>Single timeline item</SummaryList.Item.Title>
+    <SummaryList {...args}>
+      <SummaryItem.Root>
+        <SummaryItem.Content>
+          <SummaryItem.Title>Single timeline item</SummaryItem.Title>
           <Text />
-        </SummaryList.Item.Content>
-      </SummaryList.Item>
-    </SummaryList.Root>
+        </SummaryItem.Content>
+      </SummaryItem.Root>
+    </SummaryList>
   ),
 };
 
@@ -205,25 +206,25 @@ export const TimelineWithActions: Story = {
     divider: "timeline",
   },
   render: (args) => (
-    <SummaryList.Root {...args}>
+    <SummaryList {...args}>
       {Array.from({ length: 3 }).map((_, index) => (
-        <SummaryList.Item key={index}>
-          <SummaryList.Item.Content>
-            <SummaryList.Item.Title>Item {index}</SummaryList.Item.Title>
+        <SummaryItem.Root key={index}>
+          <SummaryItem.Content>
+            <SummaryItem.Title>Item {index}</SummaryItem.Title>
             <Text />
-          </SummaryList.Item.Content>
-          <SummaryList.Item.Action align="middle" justify="end" expand>
-            <SummaryList.Item.ActionButton
+          </SummaryItem.Content>
+          <SummaryItem.Action align="middle" justify="end" expand>
+            <SummaryItem.Button
               icon={MagnifyingGlassPlusIcon}
               label={`Item ${index}`}
               onClick={() => {
                 action(`Clicked: ${index + 1}`)();
               }}
             />
-          </SummaryList.Item.Action>
-        </SummaryList.Item>
+          </SummaryItem.Action>
+        </SummaryItem.Root>
       ))}
-    </SummaryList.Root>
+    </SummaryList>
   ),
 };
 
@@ -237,32 +238,32 @@ const colors = [
 
 export const WithActionLink: Story = {
   render: (args) => (
-    <SummaryList.Root {...args}>
+    <SummaryList {...args}>
       {colors.map((color) => (
-        <SummaryList.Item key={color} color={color}>
-          <SummaryList.Item.Content>
-            <SummaryList.Item.Title>{color}</SummaryList.Item.Title>
+        <SummaryItem.Root key={color} color={color}>
+          <SummaryItem.Content>
+            <SummaryItem.Title>{color}</SummaryItem.Title>
             <Text />
-          </SummaryList.Item.Content>
-          <SummaryList.Item.Action align="middle" justify="end" expand>
-            <SummaryList.Item.ActionLink
+          </SummaryItem.Content>
+          <SummaryItem.Action align="middle" justify="end" expand>
+            <SummaryItem.Link
               icon={ArrowTopRightOnSquareIcon}
               label={`View ${color}`}
               href="#"
               external
             />
-          </SummaryList.Item.Action>
-        </SummaryList.Item>
+          </SummaryItem.Action>
+        </SummaryItem.Root>
       ))}
-    </SummaryList.Root>
+    </SummaryList>
   ),
 };
 
 /**
  * Two patterns for opening dialogs from summary item actions.
  *
- * ActionButton: wrap with Dialog.Trigger (asChild by default) — Radix
- * restores focus to the button automatically on close.
+ * Button: wrap with Dialog.Trigger (asChild by default) — Radix restores focus
+ * to the button automatically on close.
  *
  * Menu item (detached trigger): the menu item unmounts when the menu closes,
  * so Radix cannot restore focus to it. Store a ref to the menu trigger button
@@ -292,29 +293,24 @@ const WithDialogsExample = () => {
         </Dialog.Content>
       </Dialog.Root>
 
-      <SummaryList.Root>
-        {/* Pattern 1: Dialog.Trigger wraps ActionButton — focus is automatic */}
+      <SummaryList>
+        {/* Pattern 1: Dialog.Trigger wraps Button — focus is automatic */}
         <Dialog.Root>
-          <SummaryList.Item>
-            <SummaryList.Item.Content>
-              <SummaryList.Item.Title>
-                Action button trigger
-              </SummaryList.Item.Title>
+          <SummaryItem.Root>
+            <SummaryItem.Content>
+              <SummaryItem.Title>Action button trigger</SummaryItem.Title>
               <p>
                 Dialog.Trigger (asChild) merges onto the button. Radix tracks
                 the trigger and restores focus automatically when the dialog
                 closes.
               </p>
-            </SummaryList.Item.Content>
-            <SummaryList.Item.Action align="middle" justify="end">
+            </SummaryItem.Content>
+            <SummaryItem.Action align="middle" justify="end">
               <Dialog.Trigger>
-                <SummaryList.Item.ActionButton
-                  icon={PencilSquareIcon}
-                  label="Edit"
-                />
+                <SummaryItem.Button icon={PencilSquareIcon} label="Edit" />
               </Dialog.Trigger>
-            </SummaryList.Item.Action>
-          </SummaryList.Item>
+            </SummaryItem.Action>
+          </SummaryItem.Root>
           <Dialog.Content>
             <Dialog.Header>Edit item</Dialog.Header>
             <Dialog.Body>
@@ -327,33 +323,31 @@ const WithDialogsExample = () => {
         </Dialog.Root>
 
         {/* Pattern 2: menu item opens dialog — focus restored manually via ref */}
-        <SummaryList.Item>
-          <SummaryList.Item.Content>
-            <SummaryList.Item.Title>Menu item trigger</SummaryList.Item.Title>
+        <SummaryItem.Root>
+          <SummaryItem.Content>
+            <SummaryItem.Title>Menu item trigger</SummaryItem.Title>
             <p>
               The menu item unmounts when the menu closes, so Radix cannot track
               it. A ref on the menu trigger combined with onCloseAutoFocus
               handles focus restoration instead.
             </p>
-          </SummaryList.Item.Content>
-          <SummaryList.Item.Action align="start" justify="start">
-            <SummaryList.Item.ActionMenu.Root>
-              <SummaryList.Item.ActionMenu.Trigger
+          </SummaryItem.Content>
+          <SummaryItem.Action align="start" justify="start">
+            <SummaryItem.Menu>
+              <SummaryItem.Menu.Trigger
                 ref={menuTriggerRef}
                 icon={EllipsisHorizontalIcon}
                 label="Options"
               />
-              <SummaryList.Item.ActionMenu.Popup>
-                <SummaryList.Item.ActionMenu.Item
-                  onClick={() => setMenuDialogOpen(true)}
-                >
+              <SummaryItem.Menu.Popup>
+                <SummaryItem.Menu.Item onClick={() => setMenuDialogOpen(true)}>
                   Edit
-                </SummaryList.Item.ActionMenu.Item>
-              </SummaryList.Item.ActionMenu.Popup>
-            </SummaryList.Item.ActionMenu.Root>
-          </SummaryList.Item.Action>
-        </SummaryList.Item>
-      </SummaryList.Root>
+                </SummaryItem.Menu.Item>
+              </SummaryItem.Menu.Popup>
+            </SummaryItem.Menu>
+          </SummaryItem.Action>
+        </SummaryItem.Root>
+      </SummaryList>
     </>
   );
 };
@@ -364,25 +358,25 @@ export const WithDialogs: Story = {
 
 export const WithColor: Story = {
   render: (args) => (
-    <SummaryList.Root {...args}>
+    <SummaryList {...args}>
       {colors.map((color) => (
-        <SummaryList.Item key={color} color={color}>
-          <SummaryList.Item.Content>
-            <SummaryList.Item.Title>{color}</SummaryList.Item.Title>
+        <SummaryItem.Root key={color} color={color}>
+          <SummaryItem.Content>
+            <SummaryItem.Title>{color}</SummaryItem.Title>
             <Text />
-          </SummaryList.Item.Content>
-          <SummaryList.Item.Action justify="end" align="middle" expand>
-            <SummaryList.Item.ActionButton
+          </SummaryItem.Content>
+          <SummaryItem.Action justify="end" align="middle" expand>
+            <SummaryItem.Button
               icon={MagnifyingGlassPlusIcon}
               onClick={() => {
                 action(`Clicked: ${color}`)();
               }}
               label={color}
             />
-          </SummaryList.Item.Action>
-        </SummaryList.Item>
+          </SummaryItem.Action>
+        </SummaryItem.Root>
       ))}
-    </SummaryList.Root>
+    </SummaryList>
   ),
 };
 
@@ -394,7 +388,7 @@ export const StandaloneItem: Story = {
         <Text />
       </SummaryItem.Content>
       <SummaryItem.Action align="middle" justify="end" expand>
-        <SummaryItem.ActionButton
+        <SummaryItem.Button
           icon={MagnifyingGlassPlusIcon}
           label="View"
           onClick={() => {

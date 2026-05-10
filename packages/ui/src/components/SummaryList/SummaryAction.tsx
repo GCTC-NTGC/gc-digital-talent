@@ -85,9 +85,9 @@ type ActionMenuTriggerProps = Omit<Menu.Trigger.Props, "render"> &
   IconButtonProps;
 
 /**
- * Trigger button for the action dropdown menu. Renders an `IconButton` wired
- * as a Base UI `Menu.Trigger`. Accepts a `ref` for manual focus restoration
- * when a dialog opened from a menu item needs to return focus after close.
+ * Trigger button for `SummaryItem.Menu`. Renders an `IconButton` wired as a
+ * Base UI `Menu.Trigger`. Accepts a `ref` for manual focus restoration when a
+ * dialog opened from a menu item needs to return focus after close.
  */
 const ActionMenuTrigger = ({
   icon,
@@ -116,17 +116,17 @@ const ActionMenuTrigger = ({
 };
 
 /**
- * Dropdown menu namespace for summary item actions.
+ * Dropdown menu for summary item actions.
  *
- * Usage: `<SummaryList.Item.ActionMenu.Root>` → `<…Trigger>` → `<…Popup>` → `<…Item>`.
+ * `SummaryItem.Menu` is itself the root — no `.Root` needed.
+ * Usage: `<SummaryItem.Menu>` → `<SummaryItem.Menu.Trigger>` → `<SummaryItem.Menu.Popup>` → `<SummaryItem.Menu.Item>`.
  *
  * When a menu item opens a dialog, store a `ref` on `Trigger` and pass it to
  * `Dialog.Content`'s `onCloseAutoFocus` — the menu item unmounts on close so
  * Radix cannot restore focus automatically. See the `WithDialogs` story for the
  * full pattern.
  */
-const ActionMenu = {
-  Root: DropdownMenu.Root,
+const ActionMenu = Object.assign(DropdownMenu.Root, {
   Trigger: ActionMenuTrigger,
   Popup: DropdownMenu.Popup,
   Item: DropdownMenu.Item,
@@ -136,7 +136,7 @@ const ActionMenu = {
   Group: DropdownMenu.Group,
   GroupLabel: DropdownMenu.GroupLabel,
   Separator: DropdownMenu.Separator,
-};
+});
 
 export default {
   Root: Action,
