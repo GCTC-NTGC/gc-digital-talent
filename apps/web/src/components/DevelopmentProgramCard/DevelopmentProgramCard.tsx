@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { ReactNode } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { useIntl } from "react-intl";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
@@ -14,11 +14,12 @@ import {
   Ul,
   type HeadingRank,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import { formatClassificationString } from "~/utils/poolUtils";
 
 interface DevelopmentProgramCardProps {
+  id: string;
   title: string;
   headingAs?: HeadingRank;
   description: ReactNode;
@@ -27,9 +28,12 @@ interface DevelopmentProgramCardProps {
   remove?: ReactNode;
   actions?: boolean;
   classificationRestrictions?: Pick<Classification, "id" | "group" | "level">[];
+  setEditOpen?: Dispatch<SetStateAction<string | null>>;
+  setRemoveOpen?: Dispatch<SetStateAction<string | null>>;
 }
 
 const DevelopmentProgramCard = ({
+  id,
   title,
   headingAs = "h3",
   description,
@@ -38,6 +42,8 @@ const DevelopmentProgramCard = ({
   remove,
   actions = true,
   classificationRestrictions,
+  setEditOpen,
+  setRemoveOpen,
 }: DevelopmentProgramCardProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
@@ -58,8 +64,16 @@ const DevelopmentProgramCard = ({
               }
             />
             <DropdownMenu.Popup portalProps={{ keepMounted: true }}>
-              {edit && <DropdownMenu.Item>{edit}</DropdownMenu.Item>}
-              {remove && <DropdownMenu.Item>{remove}</DropdownMenu.Item>}
+              {edit && (
+                <DropdownMenu.Item onClick={() => setEditOpen?.(id)}>
+                  {intl.formatMessage(formMessages.editDetails)}
+                </DropdownMenu.Item>
+              )}
+              {remove && (
+                <DropdownMenu.Item onClick={() => setRemoveOpen?.(id)}>
+                  {intl.formatMessage(commonMessages.remove)}
+                </DropdownMenu.Item>
+              )}
             </DropdownMenu.Popup>
           </DropdownMenu.Root>
         )}
@@ -97,6 +111,8 @@ const DevelopmentProgramCard = ({
           ) : null}
         </div>
       </div>
+      {edit}
+      {remove}
     </li>
   );
 };

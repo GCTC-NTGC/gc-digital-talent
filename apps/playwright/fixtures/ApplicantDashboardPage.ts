@@ -4,7 +4,6 @@ import type { Locator, Page } from "@playwright/test";
 import AppPage from "./AppPage";
 import ExperiencePage from "./ExperiencePage";
 import CommunityInterest from "./CommunityInterest";
-import EmployeeProfile from "./EmployeeProfile";
 import ProfilePage from "./ProfilePage";
 
 const FIELD = {
@@ -84,7 +83,6 @@ class ApplicantDashboardPage extends AppPage {
   }
 
   async handleLockedGCEmployeeSections(sectionName: string) {
-    const employeeProfilePage = new EmployeeProfile(this.page);
     const { subSections, status } = await this.fetchSubSections(
       sectionName,
       "button",
@@ -107,7 +105,6 @@ class ApplicantDashboardPage extends AppPage {
           .getByRole("button", { name: new RegExp(safe, "i") })
           .click();
 
-        await employeeProfilePage.verifyUnlockEmployeeToolsDialog();
         break;
       }
     }
@@ -143,7 +140,6 @@ class ApplicantDashboardPage extends AppPage {
 
   async addDetailsToInCompleteAndMissingSections(subSectionNames: string[]) {
     const experiencePage = new ExperiencePage(this.page);
-    const employeeProfilePage = new EmployeeProfile(this.page);
     const profilePage = new ProfilePage(this.page);
 
     for (const subSectionName of subSectionNames) {
@@ -181,7 +177,7 @@ class ApplicantDashboardPage extends AppPage {
           break;
 
         case "employee verification":
-          await employeeProfilePage.verifyUnlockEmployeeToolsDialog();
+          // This is just a link now
           break;
 
         case "functional communities": {
