@@ -5167,10 +5167,6 @@
     "defaultMessage": "Confirmez votre adresse courriel personnelle.",
     "description": "Text for first registrion step confirm personal email"
   },
-  "IqZ6W0": {
-    "defaultMessage": "Informations sur la collectivité",
-    "description": "Heading for the 'edit a community' form"
-  },
   "Is1RHA": {
     "defaultMessage": "« Identité autochtone désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35 (2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
     "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
@@ -6478,10 +6474,6 @@
   "OEk0OP": {
     "defaultMessage": "Identifiant de candidature",
     "description": "Label for application ID"
-  },
-  "OFGtZr": {
-    "defaultMessage": "Annuler et retourner aux collectivités",
-    "description": "Link text to cancel updating a community"
   },
   "OFrfEA": {
     "defaultMessage": "Date d'ouverture",
@@ -12242,10 +12234,6 @@
     "defaultMessage": "Titre du prix",
     "description": "Label displayed on award form for award title input"
   },
-  "lhLfd7": {
-    "defaultMessage": "Créer une collectivité",
-    "description": "Text to create a community"
-  },
   "lhV7kM": {
     "defaultMessage": "<strong>{role}</strong> à {organization}",
     "description": "Role at organization, HTML"
@@ -12973,10 +12961,6 @@
   "oacrTu": {
     "defaultMessage": "3. Saisissez votre <strong>code unique à six chiffres</strong> à partir de votre <strong>application d'authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign in step."
-  },
-  "ocTGYr": {
-    "defaultMessage": "Informations sur la collectivité",
-    "description": "Heading for the 'create a community' form"
   },
   "oepQr+": {
     "defaultMessage": "Courriel de confirmation envoyé!",
