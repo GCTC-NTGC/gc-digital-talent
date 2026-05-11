@@ -41,12 +41,10 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
     ...ReviewAndSubmitOptions_Fragment
 
     me {
+      ...EducationExperiencesTrainingAndDevelopmentOpportunities
       developmentProgramUserRecords {
         ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
       }
-      # educationExperiences {
-      #   id
-      # }
     }
 
     communities {
@@ -173,6 +171,7 @@ const UpdateCommunityInterestForm = ({
                       formOptions.me?.developmentProgramUserRecords,
                     )}
                     selectedCommunityId={formData.community.id}
+                    educationExperiences={formOptions.me}
                   />
                 </>
               ) : null}

@@ -191,6 +191,10 @@
     "defaultMessage": "Dans la pratique, la plupart des postes bilingues sont soit de niveau intermédiaire (B B B), soit avancé (C B C).",
     "description": "Description for second language proficiency on language requirement dialog"
   },
+  "+gAHHT": {
+    "defaultMessage": "Erreur : le retrait du perfectionnement professionnel a échoué",
+    "description": "Message displayed to user after professionalization fails to get removed."
+  },
   "+gnEgg": {
     "defaultMessage": "Trouvez une compétence et ajoutez-la à votre portfolio",
     "description": "Title for the find a skill dialog within the skill portfolio"
@@ -274,6 +278,10 @@
   "/0kzjJ": {
     "defaultMessage": "Nous avons modifié la manière dont nous recueillons les renseignements sur les processus de recrutement hors plateforme. Les renseignements présentés ici seront supprimés à partir du 31 décembre 2025. Veuillez utiliser notre nouveau format et ajouter chaque processus pour lequel vous avez été qualifié(e) en utilisant le bouton « Ajouter un processus hors plateforme ».",
     "description": "Message informing the user about the update to off-platform processes"
+  },
+  "/0vaTK": {
+    "defaultMessage": "Vous n’avez pas encore d'expérience liée aux études.",
+    "description": "Message shown when there are no education experiences to link to a development program"
   },
   "/17wgm": {
     "defaultMessage": "Rôle(s) ajouté(s) avec succès",
@@ -546,6 +554,10 @@
   "09ijOa": {
     "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité.",
     "description": "Label displayed for does not have priority entitlement option"
+  },
+  "0AC/BM": {
+    "defaultMessage": "Retirer le perfectionnement professionnel",
+    "description": "Button label for removing a professionalization"
   },
   "0D8Efk": {
     "defaultMessage": "Deux plumes attachées l’une à l’autre.",
@@ -951,6 +963,10 @@
     "defaultMessage": "{role} à {group}",
     "description": "Role with group"
   },
+  "1c2UAL": {
+    "defaultMessage": "Ajouter un perfectionnement professionnel",
+    "description": "Label for adding a professionalization"
+  },
   "1cCjc/": {
     "defaultMessage": "Formulaire de consentement et de demande de filtrage de sécurité",
     "description": "Link text for government of canada security screening application and consent form"
@@ -1115,10 +1131,6 @@
     "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la collectivité</hidden>, {name}",
     "description": "Title for community dashboard on the talent cloud admin portal."
   },
-  "2HNbTn": {
-    "defaultMessage": "La plupart des collectivités fonctionnelles proposent divers programmes d'apprentissage et de perfectionnement. Ces programmes peuvent avoir des exigences d'admissibilité précises basées sur votre expérience, votre classification ou d'autres qualifications. Le fait d'exprimer votre intérêt pour ces possibilités ne constitue pas une candidature, mais permet au personnel des RH et du recrutement de vérifier votre intérêt au cas où vous seriez sélectionnée ou sélectionné pour une possibilité de formation ou de perfectionnement.",
-    "description": "Description of the 'Training and development opportunities' section"
-  },
   "2IWEV5": {
     "defaultMessage": "Parcourez une bibliothèque d’offres d'emploi préétablies avec des suggestions de tâches et de compétences essentielles.",
     "description": "Description for the page showing list of job poster templates"
@@ -1186,10 +1198,6 @@
   "2age06": {
     "defaultMessage": "Autorisations de la collectivité",
     "description": "Title for section describing roles and permissions for communities"
-  },
-  "2asz/9": {
-    "defaultMessage": "Modifier les détails",
-    "description": "Button to open dialog to create development opportunity"
   },
   "2b7CQ/": {
     "defaultMessage": "Parcours de transition de votre compte",
@@ -1294,6 +1302,10 @@
   "2yvjfA": {
     "defaultMessage": "Cette liste permet de mettre en évidence <strong>jusqu’à 10 compétences techniques</strong> qui donnent une image claire de votre ensemble de compétences. Montrez-nous ce que vous savez faire de mieux!",
     "description": "Description of a users top technical skills"
+  },
+  "2zMuV4": {
+    "defaultMessage": "Restrictions requises",
+    "description": "Bounding box label or restricted classifications section"
   },
   "3/AA3n": {
     "defaultMessage": "Type d’évaluation",
@@ -1490,6 +1502,10 @@
   "3lu+JJ": {
     "defaultMessage": "Si vous êtes à l'emploi du gouvernement, il s’agit de la dernière étape pour déverrouiller les outils destinés aux employés.",
     "description": "Text for first registration -> create step."
+  },
+  "3mjCGy": {
+    "defaultMessage": "Sélectionner un perfectionnement professionnel",
+    "description": "Label for the select a professionalization input"
   },
   "3owqTQ": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement.",
@@ -2371,6 +2387,10 @@
     "defaultMessage": "Cette section couvre les éléments de base du processus, y compris la classification, le titre du poste et la date de clôture",
     "description": "Describes selecting a advertisement details for a process."
   },
+  "7Yj7lq": {
+    "defaultMessage": "Erreur : la mise à jour du perfectionnement professionnel a échoué",
+    "description": "Message displayed to user after professionalization fails to get updated."
+  },
   "7e88Z0": {
     "defaultMessage": "Votre candidature a été évaluée et correspond aux exigences de ce poste. Il se peut que d'autres candidats aient également postulé ce poste et se trouvent à la même étape du processus que vous. Si un responsable du recrutement a une possibilité professionnelle à vous proposer, il se peut qu'il vous présente une offre d'emploi.",
     "description": "Status description for a qualified application"
@@ -3143,6 +3163,10 @@
     "defaultMessage": "Nom de famille",
     "description": "Label displayed for the last name field in getting started form."
   },
+  "ASIVSx": {
+    "defaultMessage": "Modifier un perfectionnement professionnel",
+    "description": "Dialog header for editing a professionalization"
+  },
   "ASTsAw": {
     "defaultMessage": "S’inscrire",
     "description": "Message displayed to users to register for an account"
@@ -3378,6 +3402,10 @@
   "BGC19+": {
     "defaultMessage": "Je suis à la recherche de cadres préqualifiés",
     "description": "Subject line for contact email to find pre-qualified executive talent"
+  },
+  "BH5pJe": {
+    "defaultMessage": "Réduire tout<hidden> les nominations</hidden>",
+    "description": "Button label to collapse all nominations"
   },
   "BKKZUH": {
     "defaultMessage": "Consulter et gérer le ministère.",
@@ -3659,6 +3687,10 @@
     "defaultMessage": "notes pour {name}",
     "description": "Link text suffix to read more notes for a pool candidate"
   },
+  "CZqu7B": {
+    "defaultMessage": "Mettre en valeur d'importants programmes, certifications ou licences qui seront présentés aux personnes qui rejoignent la collectivité et qui pourront ensuite indiquer leur intérêt ou leurs titres de compétences",
+    "description": "Dialog body text for highlighting important programs, certifications or licenses"
+  },
   "CaDy8n": {
     "defaultMessage": "Erreur : la mise à jour de l’état a échoué",
     "description": "Message displayed to user after the request status fails to be updated."
@@ -3746,6 +3778,10 @@
   "CxZGd2": {
     "defaultMessage": "Courriel du gouvernement du Canada",
     "description": "Label for government of canada email input in the request form"
+  },
+  "Cxy9bi": {
+    "defaultMessage": "Retirer l’expérience",
+    "description": "Button to remove the linked education experience from a development program"
   },
   "CzZm8F": {
     "defaultMessage": "Restaurer l'utilisateur",
@@ -4107,6 +4143,10 @@
     "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
     "description": "Application step skipped page details"
   },
+  "EQI4l2": {
+    "defaultMessage": "{count, plural, one {# compétence} other {# compétences}}",
+    "description": "Number of skills on an experience"
+  },
   "ERsZAD": {
     "defaultMessage": "La formation m'intéresse",
     "description": "Phrase marking interest in community training opportunities"
@@ -4358,6 +4398,10 @@
   "FkwGWO": {
     "defaultMessage": "Notre engagement envers la conception, l’élaboration et la prestation de services accessibles.",
     "description": "Subtitle for the accessibility statement page."
+  },
+  "Fmi0y9": {
+    "defaultMessage": "Ajouts récents",
+    "description": "Sorting option for professionalizations list"
   },
   "FnXbHv": {
     "defaultMessage": "Instructions pour s’inscrire",
@@ -4638,6 +4682,10 @@
   "GkX/KN": {
     "defaultMessage": "Avertissement! Il s'agit d'actions sensibles qui affecteront l'ensemble de la plateforme. Veuillez donc faire preuve d'une extrême prudence si vous modifiez ces paramètres.",
     "description": "Warning that you are making changes of possibly very high impact"
+  },
+  "GmGDq8": {
+    "defaultMessage": "Perfectionnement professionnel créé avec succès!",
+    "description": "Message displayed to user after professionalization is created successfully."
   },
   "GndGRz": {
     "defaultMessage": "La mise à jour des informations sur votre prochain type de poste a échoué.",
@@ -4983,9 +5031,17 @@
     "defaultMessage": "Communiquer avec la collectivité de l’accès à l’information et de la protection des renseignements personnels (AIPRP)",
     "description": "Link text to email the ATIP community"
   },
+  "IIH8L+": {
+    "defaultMessage": "L’ajout d’un perfectionnement professionnel à la collectivité offre deux avantages importants",
+    "description": "Dialog body text for adding a professionalization"
+  },
   "IIKzsd": {
     "defaultMessage": "Afficher ou masquer des colonnes dans le tableau",
     "description": "Label for checkboxes used for disabling or enabling table column display"
+  },
+  "IIUffU": {
+    "defaultMessage": "Ce perfectionnement professionnel ne sera plus offert lors des mises en candidature en gestion des talents",
+    "description": "Third list item in warning message before removing a professionalization"
   },
   "IIZNzj": {
     "defaultMessage": "L’ulu, un outil inuit utilisé par les femmes inuites.",
@@ -5034,6 +5090,10 @@
   "IReTZe": {
     "defaultMessage": "Modifier les rôles dans le processus",
     "description": "Label for the form to edit a users process membership"
+  },
+  "IUM7Rb": {
+    "defaultMessage": "Retirer un perfectionnement professionnel",
+    "description": "Heading for the remove a professionalization dialog"
   },
   "IVba2H": {
     "defaultMessage": "Connectez-vous avec votre adresse courriel liée à ConnexionCanada.",
@@ -5255,10 +5315,6 @@
     "defaultMessage": "La Commission de la fonction publique est-elle au courant de l’existence de la plateforme Talents numériques du GC?",
     "description": "Heading for FAQ about PSC"
   },
-  "JGhMIC": {
-    "defaultMessage": "Date d'achèvement du programme",
-    "description": "Legend for the program completion date input"
-  },
   "JH2+tK": {
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
@@ -5270,6 +5326,10 @@
   "JIvR0C": {
     "defaultMessage": "Bons pour examens de certification",
     "description": "Title for the certification exam vouchers page"
+  },
+  "JKnhJV": {
+    "defaultMessage": "Mettre à jour les renseignements liés à {professionalizationName}",
+    "description": "Dialog subtitle for editing a professionalization"
   },
   "JSE20b": {
     "defaultMessage": "Quelles contributions le candidat retenu devra-t-il ou la candidate retenue devra-t-elle apporter?",
@@ -5466,6 +5526,10 @@
   "KHmf+e": {
     "defaultMessage": "Utilisez le bouton « Créer une classification » pour commencer.",
     "description": "Instructions for adding a classification item."
+  },
+  "KIQzbR": {
+    "defaultMessage": "Agrandir tout<hidden> les nominations</hidden>",
+    "description": "Button label to expand all nominations"
   },
   "KJDxM1": {
     "defaultMessage": "État du processus",
@@ -5943,6 +6007,10 @@
     "defaultMessage": "Types d'organisations envisagées pour une promotion ou un avancement",
     "description": "Label for an employee profile career development preference field"
   },
+  "M6CZwf": {
+    "defaultMessage": "Le retrait de ce perfectionnement professionnel de la collectivité entraînera les changements suivants pour l’ensemble des utilisateurs et utilisatrices :",
+    "description": "Unordered list heading warning user before removing a professionalization"
+  },
   "MCFcrj": {
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
     "description": "Hero image alt text."
@@ -5986,6 +6054,10 @@
   "MT17Vm": {
     "defaultMessage": "Ajouter un rôle dans le ministère :",
     "description": "Header for the form to add a department membership to a user"
+  },
+  "MT1JwK": {
+    "defaultMessage": "Perfectionnement professionnel",
+    "description": "Label for Professionalization"
   },
   "MUYJr1": {
     "defaultMessage": "1. Sélectionnez l’option d’<strong>inscription</strong> à partir de la page d’accueil. Elle <strong>se trouve après la section d’ouverture de séance</strong>.",
@@ -6099,6 +6171,10 @@
     "defaultMessage": "Le prochain type de rôle que la personne candidate entend jouer et son principal objectif de carrière, notamment la classification, les volets de travail et les ministères.",
     "description": "Subtitle for next role and career objective section"
   },
+  "MsiKO0": {
+    "defaultMessage": "Détails de la nomination",
+    "description": "Link text for details about a nomination"
+  },
   "Msshus": {
     "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la <cite>Directive sur les talents numériques</cite> et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ce guide de mise en œuvre est conçu pour aider les conseillers en RH à assumer ces responsabilités.",
     "description": "Body message for digital initiative human resources section."
@@ -6174,6 +6250,10 @@
   "N5FFar": {
     "defaultMessage": "Vos renseignements",
     "description": "Resource section heading above user's information"
+  },
+  "N5NC2F": {
+    "defaultMessage": "Ce perfectionnement professionnel ne sera plus présenté aux personnes qui rejoignent votre collectivité",
+    "description": "First list item in warning message before removing a professionalization"
   },
   "N5qMql": {
     "defaultMessage": "Veillez à fournir <strong>au moins une expérience de parcours professionnel</strong> pour chaque compétence requise, ainsi qu’une description concise des raisons pour lesquelles cette expérience met en évidence vos capacités dans cette compétence.",
@@ -6279,6 +6359,10 @@
     "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
     "description": "Application box heading part two"
   },
+  "NaFYXo": {
+    "defaultMessage": "Remplacer l’expérience",
+    "description": "Button to swap the linked education experience for a development program"
+  },
   "NadegW": {
     "defaultMessage": "(Disponible après le stade de la présélection)",
     "description": "Message for assessment stage when application is not under assessment"
@@ -6343,6 +6427,10 @@
     "defaultMessage": "Évaluations manquantes",
     "description": "No assessments for a skill"
   },
+  "O48hJ8": {
+    "defaultMessage": "Confirmer le retrait de {professionalizationName} de {communityName}",
+    "description": "Subtitle for remove a professionalization dialog"
+  },
   "O4O6Rn": {
     "defaultMessage": "S’inscrire avec ConnexionCanada",
     "description": "Page title for registration page"
@@ -6406,6 +6494,10 @@
   "OH0wqV": {
     "defaultMessage": "Collectivités fonctionnelles",
     "description": "Functional communities expandable"
+  },
+  "OHb3HT": {
+    "defaultMessage": "Classifications autorisées",
+    "description": "Label for classifications multi select"
   },
   "OI7Bc7": {
     "defaultMessage": "Titre du poste",
@@ -6651,6 +6743,10 @@
     "defaultMessage": "Évaluées ultérieurement",
     "description": "Message displayed for behavioural skills telling users at what point it will be assessed"
   },
+  "PO94zE": {
+    "defaultMessage": "Perfectionnement professionnel mis à jour avec succès!",
+    "description": "Message displayed to user after professionalization is updated successfully."
+  },
   "POj+1M": {
     "defaultMessage": "Normes de qualification en matière de langues officielles",
     "description": "Link to second language evaluations PSC info page on language requirements dialog"
@@ -6722,6 +6818,10 @@
   "PbLJnr": {
     "defaultMessage": "Grade en économie, en sociologie ou en statistique",
     "description": "Heading for the `just education` option for EC education requirements"
+  },
+  "PbUHEk": {
+    "defaultMessage": "Sélectionner une expérience d’études ou de certification",
+    "description": "Label for the education experience dropdown in the link experience dialog"
   },
   "PdkgWB": {
     "defaultMessage": "Créer une possibilité de formation",
@@ -6994,6 +7094,10 @@
   "Qds8Yz": {
     "defaultMessage": "Ces options permettent de préciser les restrictions de classification, le type de mises en candidature acceptées ainsi que la période pendant laquelle l’événement acceptera les candidatures.",
     "description": "Description for subsection create talent management event"
+  },
+  "QeP4Rb": {
+    "defaultMessage": "Perfectionnement professionnel retiré",
+    "description": "Message displayed to user after professionalization is removed successfully."
   },
   "QhFxW1": {
     "defaultMessage": "Prochain type de poste et objectif de carrière",
@@ -7974,6 +8078,10 @@
     "defaultMessage": "Si vous n’êtes pas satisfait de notre réponse à votre plainte, veuillez contacter la CCDP :",
     "description": "Description of what to do if users are not content with complaint response"
   },
+  "V3zpN4": {
+    "defaultMessage": "Restrictions liées aux classifications",
+    "description": "Sub heading for restricted classifications section"
+  },
   "V4+lDw": {
     "defaultMessage": "Afficher les résultats",
     "description": "Submit button within the search filter dialog"
@@ -8045,6 +8153,10 @@
   "VN6uCI": {
     "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
     "description": "Text showing the essentials skills assessed during the process"
+  },
+  "VQNYAV": {
+    "defaultMessage": "Lier une expérience d’études ou de certification à un perfectionnement professionnel",
+    "description": "Subtitle for the link education experience dialog in the training and development opportunities section"
   },
   "VR79Ue": {
     "defaultMessage": "Télécharger le profil sans les coordonnées",
@@ -8386,6 +8498,10 @@
     "defaultMessage": "« Je suis membre d’une Première Nation »",
     "description": "Text for the option to self-declare as first nations"
   },
+  "WpoUnf": {
+    "defaultMessage": "Offrir des possibilités de perfectionnement lors des mises en candidature en gestion des talents",
+    "description": "Dialog body text for providing development opportunity options during Talent Management nominations"
+  },
   "Wqw2ZB": {
     "defaultMessage": "Supprimer cette possibilité de perfectionnement?",
     "description": "Heading for the remove development program dialog"
@@ -8574,6 +8690,10 @@
     "defaultMessage": "Voulez-vous vraiment supprimer cette notification?",
     "description": "Heading for confirmation alert to delete a notification"
   },
+  "Xe2a91": {
+    "defaultMessage": "Complété avec succès",
+    "description": "Message when a user has completed a development program with no recorded date"
+  },
   "Xe39xZ": {
     "defaultMessage": "ne respectent pas les lois fédérales, provinciales ou territoriales du Canada",
     "description": "Comments or contributions list item"
@@ -8611,7 +8731,7 @@
     "description": "Lead in text for the soft-delete user form."
   },
   "XjtKKm": {
-    "defaultMessage": "Afficher l’adresse courriel professionnelle vérifiée de cette personne employée du gouvernement du Canada ainsi que son expérience de travail actuelle.",
+    "defaultMessage": "Afficher l'adresse courriel professionnelle vérifiée de cette personne employée du gouvernement du Canada ainsi que son expérience de travail actuelle.",
     "description": "Lead-in text explaining employee verification for admins"
   },
   "XkA6s1": {
@@ -8830,6 +8950,10 @@
     "defaultMessage": "{skill} sélectionnée.",
     "description": "Message displayed when a skill was selected"
   },
+  "YeS9xM": {
+    "defaultMessage": "<strong>Remarque</strong> : si le programme ou la certification est accessible à toutes les classifications gérées par votre collectivité, veuillez laisser ce champ vide.",
+    "description": "Additional context for classification restrictions checkbox"
+  },
   "Yg2TIH": {
     "defaultMessage": "Rôles individuels",
     "description": "Heading for updating a users individual roles"
@@ -8961,6 +9085,10 @@
   "Z65JVQ": {
     "defaultMessage": "a accès à tous les processus de recrutement et aux personnes candidates au sein de sa collectivité;",
     "description": "Description of the permission to view job adverts of a specific community"
+  },
+  "Z7hiHy": {
+    "defaultMessage": "L’option de formation et de certification dans votre expérience professionnelle vous permet d’ajouter des programmes, des certifications et des accréditations à votre parcours professionnel. En sélectionnant l’expérience qui représente ce perfectionnement professionnel dans votre profil, vous pouvez aider les recruteurs et les gestionnaires d’embauche à comprendre rapidement votre profil. Si ce programme, cette certification ou cette accréditation n’a pas encore été ajouté à votre expérience professionnelle, vous pouvez le faire à l’aide du bouton « Ajouter une nouvelle expérience ».",
+    "description": "Body text in the link education experience dialog explaining how to link an education experience"
   },
   "Z8uO3k": {
     "defaultMessage": "Les bons pour examens",
@@ -9634,10 +9762,6 @@
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
   },
-  "cFTGLs": {
-    "defaultMessage": "Professionnalisation",
-    "description": "Label for the select a professionalization input"
-  },
   "cGYqB+": {
     "defaultMessage": "l'accessibilité des outils de publication de contenu sur la plateforme;",
     "description": "List item two, sub item one things developers consider for accessibility"
@@ -9783,7 +9907,7 @@
     "description": "Paragraph for comments and interaction section"
   },
   "cm1uO9": {
-    "defaultMessage": "Précisez les options de professionnalisation parmi lesquelles les personnes proposant des candidatures peuvent choisir lorsqu'elles recommandent une personne pour des possibilités de perfectionnement. Vous pouvez également fournir, au besoin, du contexte additionnel pour mieux orienter les choix. Si vous ne trouvez pas le programme ou le certificat requis, veuillez communiquer avec la personne chargée de l'administration de votre collectivité afin d'ajouter les options nécessaires.",
+    "defaultMessage": "Précisez les options de perfectionnement professionnel parmi lesquelles les personnes proposant des candidatures peuvent choisir lorsqu'elles recommandent une personne pour des possibilités de perfectionnement. Vous pouvez également fournir, au besoin, du contexte additionnel pour mieux orienter les choix. Si vous ne trouvez pas le programme ou le certificat requis, veuillez communiquer avec la personne chargée de l'administration de votre collectivité afin d'ajouter les options nécessaires.",
     "description": "Description for subsection in talent management event form"
   },
   "cnoxKB": {
@@ -10114,6 +10238,10 @@
     "defaultMessage": "Options d'avancement",
     "description": "Title for advancement options section in nominations details step"
   },
+  "e1fkL1": {
+    "defaultMessage": "Les mises en candidature contenant ce perfectionnement professionnel à titre de possibilité de perfectionnement continueront de le conserver à des fins d’archivage",
+    "description": "Fifth list item in warning message before removing a professionalization"
+  },
   "e1mxkv": {
     "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant « {skillName} » au « {skillLevel} » niveau.",
     "description": "Subtitle for education requirement screening decision dialog."
@@ -10165,6 +10293,10 @@
   "eBH+tH": {
     "defaultMessage": "Exigence liée aux compétences de leadership",
     "description": "Bounding box label for the include leadership competencies"
+  },
+  "eC+ZhW": {
+    "defaultMessage": "Lier à la collectivité des programmes de perfectionnement communs, des certifications, des accréditations ou des licences à des fins de gestion des talents. Une fois ajouté, un perfectionnement professionnel pourra être offert comme possibilité de perfectionnement lors des mises en candidature en gestion des talents et être présenté aux personnes qui rejoignent la collectivité à partir de leur profil.",
+    "description": "Description for professionalizations page"
   },
   "eCkRlc": {
     "defaultMessage": "Cette section résume votre parcours professionnel tel qu’il sera perçu par les gestionnaires d’embauche pour ces postes.",
@@ -10566,6 +10698,10 @@
     "defaultMessage": "La date limite pour {poolName} a été reportée au {closingDate}.",
     "description": "Label for the application deadline extended notification"
   },
+  "fg0pzd": {
+    "defaultMessage": "Ajouter le perfectionnement professionnel",
+    "description": "Button to add a professionalization"
+  },
   "fg2wla": {
     "defaultMessage": "Langue préférée pour l'examen écrit",
     "description": "Title for preferred written exam language"
@@ -10705,6 +10841,10 @@
   "g5JeNf": {
     "defaultMessage": "Poursuivre ma demande",
     "description": "Link text to continue an existing, draft application"
+  },
+  "g6QXmz": {
+    "defaultMessage": "Lier une expérience existante",
+    "description": "Button to open the dialog to link an education experience to a development program"
   },
   "g6coYl": {
     "defaultMessage": "Employé(e)s (préférences ministérielles)",
@@ -11550,6 +11690,10 @@
     "defaultMessage": "Mise à jour de la classification réussie!",
     "description": "Message displayed to user after classification is updated successfully."
   },
+  "jNDO+4": {
+    "defaultMessage": "Erreur : la création du perfectionnement professionnel a échoué",
+    "description": "Message displayed to user after professionalization fails to get created."
+  },
   "jO8i+2": {
     "defaultMessage": "Avez-vous besoin de mesures d’adaptation, ou avez-vous des questions en lien avec ce processus? Veuillez communiquer avec le Bureau des initiatives pour les Autochtones si vous avez besoin de mesures d’adaptation au cours de ce processus de demande <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
     "description": "First paragraph of the accessibility and accommodations information dialog"
@@ -11621,6 +11765,10 @@
   "jfCwes": {
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when signed in"
+  },
+  "jgysHD": {
+    "defaultMessage": "Lier l’expérience",
+    "description": "Button to confirm linking the selected education experience to a development program"
   },
   "jh/UHf": {
     "defaultMessage": "Ouvrez l’application d’authentification sur votre appareil.",
@@ -11721,6 +11869,10 @@
   "k2RLxv": {
     "defaultMessage": "À partir d’ici, vous pouvez dupliquer, supprimer ou soumettre votre processus aux fins de publication. Votre processus peut être publié une fois que l’information sur l'annonce et le plan d'évaluation sont complets.",
     "description": "Description of the actions that can be taken on the process information admin page"
+  },
+  "k34TIE": {
+    "defaultMessage": "Ce programme ou cette certification est limité à des membres du personnel appartenant à une classification ou à un groupe de classifications précis",
+    "description": "Label displayed on need for classification restrictions checkbox"
   },
   "k4Rl18": {
     "defaultMessage": "La Directive sur les talents numériques a été mise en place le 1er avril 2023, en vertu des pouvoirs conférés par la <policyLink>Politique sur les services et le numérique</policyLink>. La Directive met l’accent sur la collecte de données, la planification et la coordination interministérielle dans le but d’améliorer les résultats en matière de recherche et de gestion des talents au sein de la collectivité du numérique du GC.",
@@ -11979,7 +12131,7 @@
     "description": "Null message for instructor led training list"
   },
   "l4ffhH": {
-    "defaultMessage": "Sélectionner une possibilité parmi la liste des options de professionnalisation offertes par votre collectivité.",
+    "defaultMessage": "Sélectionner une possibilité parmi la liste des options de perfectionnement professionnel offertes par votre collectivité.",
     "description": "Explanation of dialog"
   },
   "l75mNg": {
@@ -13842,6 +13994,10 @@
     "defaultMessage": "Adresse courriel professionnelle retirée",
     "description": "Successfully cleared work email information"
   },
+  "syqHHS": {
+    "defaultMessage": "Recommandations sur l'expérience latérale",
+    "description": "Label for the lateral movement options"
+  },
   "szxveb": {
     "defaultMessage": "Les possibilités d'emploi ne m'intéressent pas",
     "description": "Message displayed when a user has expressed they are not interested in job opportunities"
@@ -14089,6 +14245,10 @@
   "u+3kse": {
     "defaultMessage": "Pour empêcher temporairement cette candidature de figurer dans les demandes de talents, utilisez l'option suivante.",
     "description": "Blurb for the pause candidate's referral status dialog"
+  },
+  "u093wf": {
+    "defaultMessage": "La plupart des collectivités fonctionnelles proposent divers programmes d'apprentissage et de perfectionnement. Ces programmes peuvent avoir des exigences d'admissibilité précises basées sur votre expérience, votre classification ou d'autres qualifications. Le fait d'exprimer votre intérêt pour ces possibilités ne constitue pas une candidature, mais permet au personnel des RH et du recrutement de vérifier votre intérêt au cas où vous seriez sélectionnée ou sélectionné pour une possibilité de formation ou de perfectionnement.",
+    "description": "Description of the 'Training and development opportunities' section"
   },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
@@ -14401,6 +14561,10 @@
   "vLOt3K": {
     "defaultMessage": "Limites de la sélection des employés",
     "description": "Label for a process' selection limitations when area of selection is for employees"
+  },
+  "vM3MHo": {
+    "defaultMessage": "Votre collectivité n'a aucun perfectionnement professionnel pour le moment.",
+    "description": "Label for notice when there are no professionalizations"
   },
   "vMBiMV": {
     "defaultMessage": "Mise à jour réussie de la compétence",
@@ -14754,6 +14918,10 @@
     "defaultMessage": "Une fois votre adresse courriel de correspondance ajoutée et confirmée, les notifications parviendront à votre boîte de réception. Cette adresse servira aussi au personnel des ressources humaines et aux gestionnaires responsables de l'embauche pour communiquer avec vous.",
     "description": "Contact email card description on account settings page"
   },
+  "wppRjE": {
+    "defaultMessage": "Toute personne ayant déjà ajouté ce perfectionnement professionnel à ses renseignements liés à la collectivité le verra retiré (son expérience professionnelle ne sera pas touchée)",
+    "description": "Forth list item in warning message before removing a professionalization"
+  },
   "wqcWdN": {
     "defaultMessage": "Votre candidature a été retirée de ce processus. Si vous avez des questions, veuillez contacter le service ou l’équipe de recrutement responsable de la publication de l’offre d’emploi.",
     "description": "Status description for an application that was removed from a pool"
@@ -14793,6 +14961,10 @@
   "wvxZxx": {
     "defaultMessage": "portent atteinte à la propriété intellectuelle ou à un droit de propriété",
     "description": "Comments or contributions list item"
+  },
+  "wwvaQ1": {
+    "defaultMessage": "Ce perfectionnement professionnel ne sera plus offert lors des mises en candidature en gestion des talents",
+    "description": "Second list item in warning message before removing a professionalization"
   },
   "wxXlyJ": {
     "defaultMessage": "Vous avez récemment accédé à votre compte et créé un identifiant ConnexionCanada à l’aide de votre adresse courriel.",
@@ -15189,6 +15361,10 @@
     "defaultMessage": "Format",
     "description": "The format of the training opportunity"
   },
+  "yYQ9yi": {
+    "defaultMessage": "Lier un programme, une certification ou une licence à {communityName}",
+    "description": "Dialog subtitle for adding a professionalization"
+  },
   "yZ0kfQ": {
     "defaultMessage": "<strong>Tâches</strong>, <strong>responsabilités</strong> ou autre <strong>information clés</strong> qui, selon vous, sont essentielles à l’importance de cette expérience. La concision est de mise ici : vous aurez plus d'espace pour fournir des détails lorsque vous établirez un lien entre des compétences et cette expérience.",
     "description": "Help text for the experience additional details field"
@@ -15389,6 +15565,10 @@
     "defaultMessage": "Veuillez répondre à ces questions au mieux de vos capacités afin d'aider les gestionnaires d'embauche à mieux comprendre pourquoi vous correspondez à l'occasion d'emploi.",
     "description": "Reminder what general questions are used for."
   },
+  "zHKvoY": {
+    "defaultMessage": "Modifier l’expérience liée",
+    "description": "Accessibility label for the edit/remove dropdown on a linked education experience"
+  },
   "zIv0jm": {
     "defaultMessage": "Ordre décroissant",
     "description": "Message added to indicate a table column is sorted in descending order"
@@ -15528,6 +15708,10 @@
   "zpwZSQ": {
     "defaultMessage": "Erreur : échec de la mise à jour du groupe de compétences",
     "description": "Message displayed to user after skillFamily fails to get updated."
+  },
+  "zq0KlM": {
+    "defaultMessage": "Dans certains cas, les formations ou certifications peuvent être limitées à certains groupes de classification ou même à certains niveaux. Si ce perfectionnement professionnel comporte des restrictions, veuillez indiquer quels groupes et niveaux sont autorisés à participer.",
+    "description": "Description for restricted classifications section"
   },
   "zrEIiB": {
     "defaultMessage": "Deuxièmement, dans le cadre de la mise à l’essai d’un projet pilote d’une durée d’un an, il en est ressorti que les gestionnaires ne trouvaient pas utiles les renseignements sur les compétences comportementales que les candidats avaient eux-mêmes fournis. Ils trouvaient plutôt que d’autres formes d’évaluation (comme les vérifications des références et les entrevues) étaient de bien meilleurs indicateurs que les longs paragraphes sur la façon dont le candidat devait faire preuve de son esprit de collaboration, son positivisme ou son inclusion des autres.",
