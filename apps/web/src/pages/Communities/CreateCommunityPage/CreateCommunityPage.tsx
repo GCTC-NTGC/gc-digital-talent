@@ -28,6 +28,12 @@ const pageTitle = defineMessage({
   description: "Page title for the create community page",
 });
 
+const pageSubtitle = defineMessage({
+  defaultMessage: "Add a new functional community to the platform.",
+  id: "EgdVSH",
+  description: "Page subtitle for the create community page",
+});
+
 const CreateCommunityPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
@@ -35,6 +41,7 @@ const CreateCommunityPage = () => {
   const [, executeMutation] = useMutation(CreateCommunity_Mutation);
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageSubtitle = intl.formatMessage(pageSubtitle);
 
   const handleSubmit = async (values: CreateCommunityInput) => {
     return executeMutation({
@@ -66,9 +73,10 @@ const CreateCommunityPage = () => {
 
   return (
     <>
-      <SEO title={formattedPageTitle} />
+      <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
       <Hero
         title={formattedPageTitle}
+        subtitle={formattedPageSubtitle}
         crumbs={navigationCrumbs}
         overlap
         centered
