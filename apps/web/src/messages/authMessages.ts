@@ -16,6 +16,11 @@ const messages = defineMessages({
     id: "nmImtK",
     description: "Message displayed to users to sign out of the application",
   },
+  staySignedIn: {
+    defaultMessage: "Stay signed in",
+    id: "bZP+NM",
+    description: "Choose to stay signed in to the app",
+  },
   manageAuthAccount: {
     defaultMessage: "Manage CanadaLogin",
     id: "WogJ4I",

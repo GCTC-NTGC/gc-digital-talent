@@ -32,6 +32,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $community_id
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property string $status
  */
 class TalentNominationEvent extends Model
 {
@@ -77,9 +78,12 @@ class TalentNominationEvent extends Model
             ->withPivot(['description_for_nominations']);
     }
 
+    // allow for downloads and the like to skip working with the pivot
+    // will fetch with soft deleted intermediate CommunityDevelopmentProgram
     public function developmentProgramsThroughPivot(): HasManyDeep
     {
-        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram)->developmentProgram());
+        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram())->developmentProgram())
+            ->withTrashed('community_development_program.deleted_at');
     }
 
     protected function status(): Attribute

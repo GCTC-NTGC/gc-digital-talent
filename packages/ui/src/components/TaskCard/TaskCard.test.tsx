@@ -15,7 +15,7 @@ function renderComponent() {
       headingColor="primary"
       icon={UsersIcon}
       title="Your active applications"
-      link={{
+      action={{
         label: "Browse new jobs",
         href: "#",
       }}

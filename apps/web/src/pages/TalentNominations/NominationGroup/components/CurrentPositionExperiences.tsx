@@ -16,7 +16,7 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
-import { CardSeparator, Heading, Ul, Notice } from "@gc-digital-talent/ui";
+import { Heading, Ul, Notice, Card } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
@@ -103,8 +103,9 @@ const CurrentPositionExperiences = ({
       <Heading
         icon={FlagIcon}
         level="h2"
+        size="h4"
         color="secondary"
-        className="mt-0 mb-3 font-normal"
+        className="mt-0 font-normal"
       >
         {intl.formatMessage({
           defaultMessage: "Current position",
@@ -120,7 +121,7 @@ const CurrentPositionExperiences = ({
           description: "Description for the career page current role section",
         })}
       </p>
-      {shareProfile && <CardSeparator className="mb-6" space="none" />}
+      <Card.Separator className="my-9" />
 
       {shareProfile && !empty(data) && (
         <div>
@@ -178,11 +179,15 @@ const CurrentPositionExperiences = ({
                 </Notice.Content>
               </Notice.Root>
             )}
-            <div className="-mt-9">
+            <div>
               {Object.keys(currentWorkExperiencesByGovPositionType).map(
                 (key, i) => (
                   <Fragment key={key}>
-                    <Heading level="h3" className="mb-3 font-normal">
+                    <Heading
+                      level="h3"
+                      size="h5"
+                      className="mt-0 mb-3 font-normal"
+                    >
                       {getGovernmentPositionTypeLabel(
                         key as GovPositionType,
                         intl,
@@ -199,7 +204,7 @@ const CurrentPositionExperiences = ({
                     {i !==
                       Object.keys(currentWorkExperiencesByGovPositionType)
                         .length -
-                        1 && <CardSeparator />}
+                        1 && <Card.Separator className="my-6" />}
                   </Fragment>
                 ),
               )}
@@ -208,7 +213,7 @@ const CurrentPositionExperiences = ({
         </div>
       )}
       {!shareProfile && (
-        <Notice.Root className="mb-9" color="error">
+        <Notice.Root color="error">
           <Notice.Title>
             {intl.formatMessage({
               defaultMessage:
@@ -229,7 +234,7 @@ const CurrentPositionExperiences = ({
           </Notice.Content>
         </Notice.Root>
       )}
-      {shareProfile && <CardSeparator space="sm" />}
+      {shareProfile && <Card.Separator className="my-9" />}
       {shareProfile && (
         <p className="text-gray-600 dark:text-gray-200">
           {intl.formatMessage(

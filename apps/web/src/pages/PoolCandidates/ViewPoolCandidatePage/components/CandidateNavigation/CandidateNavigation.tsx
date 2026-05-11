@@ -2,12 +2,10 @@ import { defineMessages, useIntl } from "react-intl";
 import ChevronDoubleRightIcon from "@heroicons/react/16/solid/ChevronDoubleRightIcon";
 import ChevronDoubleLeftIcon from "@heroicons/react/16/solid/ChevronDoubleLeftIcon";
 
-import type { LinkProps } from "@gc-digital-talent/ui";
 import { Card, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-
-import usePoolCandidateNavigation from "./usePoolCandidateNavigation";
+import usePoolCandidateNavigation from "~/hooks/usePoolCandidateNavigation";
 
 const messages = defineMessages({
   nextCandidate: {
@@ -37,16 +35,34 @@ const CandidateNavigation = ({ candidateId }: CandidateNavigationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const candidateNavigation = usePoolCandidateNavigation(candidateId);
-  if (!candidateNavigation?.candidateIds) return null;
-  const { nextCandidate, previousCandidate, candidateIds, stepName } =
-    candidateNavigation;
-  if (!nextCandidate && !previousCandidate) return null;
+  if (!candidateNavigation) return null;
 
-  const commonLinkProps: Partial<LinkProps> = {
-    color: "primary",
-    mode: "inline",
-    state: { candidateIds, stepName },
-    block: true,
+  const {
+    nextCandidate,
+    previousCandidate,
+    hasPrevious,
+    hasNext,
+    navigationState,
+    stepName,
+  } = candidateNavigation;
+  // hasPrevious/hasNext are based on position bounds (known immediately from state),
+  // while previousCandidate/nextCandidate are resolved after the query completes.
+  if (!hasPrevious && !hasNext) return null;
+
+  const prevState = {
+    navigationState: {
+      ...navigationState,
+      currentPage: navigationState.currentPage - 1,
+    },
+    stepName,
+  };
+
+  const nextState = {
+    navigationState: {
+      ...navigationState,
+      currentPage: navigationState.currentPage + 1,
+    },
+    stepName,
   };
 
   return (
@@ -59,7 +75,10 @@ const CandidateNavigation = ({ candidateId }: CandidateNavigationProps) => {
           <Link
             href={paths.poolCandidateApplication(previousCandidate)}
             icon={ChevronDoubleLeftIcon}
-            {...commonLinkProps}
+            color="primary"
+            mode="inline"
+            state={prevState}
+            block
           >
             {intl.formatMessage(messages.previousCandidate)}
           </Link>
@@ -76,7 +95,10 @@ const CandidateNavigation = ({ candidateId }: CandidateNavigationProps) => {
           <Link
             href={paths.poolCandidateApplication(nextCandidate)}
             utilityIcon={ChevronDoubleRightIcon}
-            {...commonLinkProps}
+            color="primary"
+            mode="inline"
+            state={nextState}
+            block
           >
             {intl.formatMessage(messages.nextCandidate)}
           </Link>

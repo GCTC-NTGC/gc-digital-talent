@@ -82,6 +82,8 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "communities", communityId, "manage-access"].join("/"),
     communityUpdate: (communityId: string) =>
       [adminUrl, "communities", communityId, "edit"].join("/"),
+    communityProfessionalization: (communityId: string) =>
+      [adminUrl, "communities", communityId, "professionalization"].join("/"),
 
     // Admin - Roles and Permissions
     rolesAndPermissions: () => `${adminUrl}/roles-and-permissions`,
@@ -219,6 +221,7 @@ const getRoutes = (lang: Locales) => {
 
     // Jobs
     jobs: () => `${baseUrl}/jobs`,
+    closedJobs: () => `${baseUrl}/jobs/closed`,
     jobPoster: (processId: string) => `${baseUrl}/jobs/${processId}`,
     createApplication: (processId: string) =>
       `${baseUrl}/jobs/${processId}/create-application`,
@@ -404,6 +407,9 @@ const getRoutes = (lang: Locales) => {
     // Talent management
     talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
     adminTalentManagementEvents: () => `${adminUrl}/talent-events`,
+    createTalentManagementEvent: () => `${adminUrl}/talent-events/create`,
+    updateTalentManagementEvent: (eventId: string) =>
+      `${adminUrl}/talent-events/${eventId}/edit`,
     adminTalentManagementEvent: (eventId: string) =>
       `${adminUrl}/talent-events/${eventId}`,
     adminTalentManagementEventNominations: (eventId: string) =>

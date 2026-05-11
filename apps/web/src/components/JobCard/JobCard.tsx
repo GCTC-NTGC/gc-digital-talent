@@ -33,6 +33,7 @@ import {
   getShortPoolTitleLabel,
 } from "~/utils/poolUtils";
 import { getSalaryRange } from "~/utils/classification";
+import { useStableDate } from "~/hooks/useStableDate";
 
 import AreaOfSelectionFlag from "./AreaOfSelectionRibbon";
 
@@ -171,6 +172,15 @@ const PostedOnDate = ({
   );
 };
 
+const closeDate = tv({
+  base: "font-bold",
+  variants: {
+    deadlineNear: {
+      true: "text-error-600 dark:text-error-100",
+    },
+  },
+});
+
 interface JobCardProps {
   poolQuery: FragmentType<typeof JobCard_Fragment>;
   headingLevel?: HeadingLevel;
@@ -181,6 +191,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const locale = getLocale(intl);
   const paths = useRoutes();
   const pool = getFragment(JobCard_Fragment, poolQuery);
+  const now = useStableDate();
 
   const department = pool.department?.name.localized;
   const location = pool.isRemote
@@ -219,21 +230,28 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
         </span>
       </>,
     ],
+    [PoolLanguage.VariousBilingual, localizedLanguageLabel],
     [PoolLanguage.English, localizedLanguageLabel],
     [PoolLanguage.French, localizedLanguageLabel],
     [PoolLanguage.Various, localizedLanguageLabel],
   ]);
 
-  const deadline = pool.closingDate
-    ? differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) < 3 &&
-      differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) > 0
-    : null;
-
-  const poolIsClosed = pool.closingDate
-    ? isPast(parseDateTimeUtc(pool.closingDate))
-    : false;
-
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
+
+  const deadlineUtc = pool.closingDate && parseDateTimeUtc(pool.closingDate);
+  const deadlineIn = deadlineUtc ? differenceInDays(deadlineUtc, now) : null;
+  const deadlineNear = Boolean(
+    deadlineIn !== null && deadlineIn <= 3 && deadlineIn >= 0,
+  );
+  const poolIsClosed = deadlineUtc ? isPast(deadlineUtc) : false;
+  const deadline = deadlineUtc
+    ? formatDate({
+        date: deadlineUtc,
+        formatString: DATE_FORMAT_LOCALIZED,
+        intl,
+        timeZone: "Canada/Pacific",
+      })
+    : notAvailable;
 
   return (
     <Card className="relative mt-1.5 pb-10">
@@ -283,13 +301,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
               icon={ChatBubbleLeftRightIcon}
             />
           </div>
-          <p
-            className={
-              deadline
-                ? "font-bold text-error-600 dark:text-error-100"
-                : "font-bold"
-            }
-          >
+          <p className={closeDate({ deadlineNear })}>
             {poolIsClosed
               ? intl.formatMessage(
                   {
@@ -299,14 +311,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
                       "Message informing user applications won't be accepted after closing date",
                   },
                   {
-                    closingDate: pool.closingDate
-                      ? formatDate({
-                          date: parseDateTimeUtc(pool.closingDate),
-                          formatString: DATE_FORMAT_LOCALIZED,
-                          intl,
-                          timeZone: "Canada/Pacific",
-                        })
-                      : notAvailable,
+                    closingDate: deadline,
                   },
                 )
               : intl.formatMessage(
@@ -316,14 +321,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
                     description: "Message to apply to the pool before deadline",
                   },
                   {
-                    closingDate: pool.closingDate
-                      ? formatDate({
-                          date: parseDateTimeUtc(pool.closingDate),
-                          formatString: DATE_FORMAT_LOCALIZED,
-                          intl,
-                          timeZone: "Canada/Pacific",
-                        })
-                      : notAvailable,
+                    closingDate: deadline,
                   },
                 )}
           </p>

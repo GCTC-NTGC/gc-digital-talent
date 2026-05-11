@@ -108,6 +108,11 @@ type LocalizedCitizenshipStatus implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
+  value: CommunityInterestAdditionalDuty!
+  label: LocalizedString!
+}
+
 type LocalizedCourseFormat implements LocalizedEnumOption {
   value: CourseFormat!
   label: LocalizedString!
@@ -180,11 +185,6 @@ type LocalizedExternalRoleSeniority implements LocalizedEnumOption {
 
 type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   value: ExternalSizeOfOrganization!
-  label: LocalizedString!
-}
-
-type LocalizedFinanceChiefDuty implements LocalizedEnumOption {
-  value: FinanceChiefDuty!
   label: LocalizedString!
 }
 
@@ -419,6 +419,7 @@ type Query {
   ): User
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
   workEmails(search: String): [UserWorkEmail!]!
+  trashedExperienceSkill(where: TrashedExperienceSkillInput!): ExperienceSkillRecord
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -565,8 +566,10 @@ type Mutation {
   updateUserSub(updateUserSubInput: UpdateUserSubInput!): UserAuthInfo
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   updateEmployeeProfile(id: UUID!, employeeProfile: UpdateEmployeeProfileInput!): EmployeeProfile
-  createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest
-  updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest
+  createCommunityInterest(communityInterest: CreateCommunityInterestInput!): CommunityInterest @deprecated(reason: "replaced by createCommunityInterestWithDevelopmentPrograms")
+  createCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
+  updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest @deprecated(reason: "replaced by updateCommunityInterestWithDevelopmentPrograms")
+  updateCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
   createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
   updateOffPlatformRecruitmentProcess(process: UpdateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
@@ -678,7 +681,7 @@ type Mutation {
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
   updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
-  createCommunityDevelopmentProgram(createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
+  createOrRestoreCommunityDevelopmentProgram(createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
   updateCommunityDevelopmentProgram(updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
   deleteCommunityDevelopmentProgram(id: UUID!): CommunityDevelopmentProgram
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
@@ -795,6 +798,7 @@ type User {
   positionDuration: [PositionDuration]
   employeeProfile: EmployeeProfile
   govEmployeeProfile: BasicGovEmployeeProfile
+  developmentProgramUserRecords: [DevelopmentProgramUser]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -831,13 +835,14 @@ type CommunityInterest {
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
-  interestInDevelopmentPrograms: [DevelopmentProgramInterest!]
+  interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   financeIsChief: Boolean
-  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
+  communityInterestAdditionalDuties: [LocalizedCommunityInterestAdditionalDuty!]
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
   createdAt: DateTime
+  procurementIsSDO: Boolean
 }
 
 type OffPlatformRecruitmentProcess {
@@ -1126,7 +1131,6 @@ type AssessmentStep {
   sortOrder: Int
   title: LocalizedString
   poolSkills: [PoolSkill]
-  assessmentResults: [AssessmentResult]
   screeningQuestions: [ScreeningQuestion]
 }
 
@@ -1307,7 +1311,6 @@ type Community implements HasRoleAssignments {
   contactEmail: String
   roleAssignments: [RoleAssignment!]
   teamIdForRoleAssignment: ID
-  pools: [Pool]
   workStreams: [WorkStream!]
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
   associatedDevelopmentPrograms: [DevelopmentProgram!]
@@ -1335,6 +1338,16 @@ type CommunityDevelopmentProgram {
   developmentProgram: DevelopmentProgram!
   classifications: [Classification!]
   pivot: CommunityDevelopmentProgramTalentEventRecord
+  createdAt: DateTime
+}
+
+type DevelopmentProgramUser {
+  id: UUID!
+  developmentProgram: DevelopmentProgram!
+  user: User!
+  educationExperience: EducationExperience
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date
 }
 
 type TalentNominationEvent {
@@ -1346,8 +1359,10 @@ type TalentNominationEvent {
   learnMoreUrl: LocalizedString
   includeLeadershipCompetencies: Boolean!
   community: Community!
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
-  developmentPrograms: [DevelopmentProgram!]
+  communityDevelopmentPrograms(
+    "Allows to filter if trashed elements should be fetched."
+    trashed: Trashed
+  ): [CommunityDevelopmentProgram!]
   talentNominationGroups: [TalentNominationGroup!]
   countTalentNominationGroups: Int!
   status: LocalizedTalentNominationEventStatus
@@ -1384,8 +1399,10 @@ type TalentNomination {
   advancementReferenceFallbackDepartment: Department
   lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
-  developmentPrograms: [DevelopmentProgram!]
+  communityDevelopmentPrograms(
+    "Allows to filter if trashed elements should be fetched."
+    trashed: Trashed
+  ): [CommunityDevelopmentProgram!]
   developmentProgramOptionsOther: String
   nominationRationale: String
   skills: [Skill]
@@ -1803,13 +1820,13 @@ type CandidateSearchPoolResult {
 }
 
 type SitewideAnnouncement {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
-  updatedAt: DateTime!
+  isEnabled: Boolean!
   isDismissible: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  updatedAt: DateTime!
 }
 
 type TrainingOpportunity {
@@ -1832,12 +1849,12 @@ input TrainingOpportunitiesFilterInput {
 }
 
 input SitewideAnnouncementInput {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isEnabled: Boolean!
   isDismissible: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
 }
 
 input ClaimVerificationSort {
@@ -1879,6 +1896,12 @@ input ProcessActivityFilterInput {
   causers: [UUID!]
   candidates: [UUID!]
   events: [ActivityEvent!]
+}
+
+input TrashedExperienceSkillInput {
+  skillId: UUID!
+  experienceId: UUID!
+  restore: Boolean
 }
 
 input ClassificationBelongsTo {
@@ -2082,32 +2105,49 @@ input UpdateEmployeeProfileInput {
 }
 
 input CreateCommunityInterestInput {
-  userId: UUID!
-  community: CommunityBelongsTo!
+  communityId: UUID!
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
-  interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
   financeIsChief: Boolean
-  financeAdditionalDuties: [FinanceChiefDuty!]
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  procurementIsSDO: Boolean
 }
 
 input UpdateCommunityInterestInput {
-  id: UUID!
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean
   trainingInterest: Boolean
   additionalInformation: String
-  interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
   financeIsChief: Boolean
-  financeAdditionalDuties: [FinanceChiefDuty!]
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  procurementIsSDO: Boolean
+}
+
+input UpsertDevelopmentProgramUserInput {
+  developmentProgramId: UUID!
+  educationExperienceId: UUID
+  participationStatus: DevelopmentProgramParticipationStatus
+  completionDate: Date
+}
+
+input CreateCommunityInterestWithDevelopmentProgramsInput {
+  userId: UUID!
+  communityInterest: CreateCommunityInterestInput!
+  developmentPrograms: [UpsertDevelopmentProgramUserInput]
+}
+
+input UpdateCommunityInterestWithDevelopmentProgramsInput {
+  id: UUID!
+  communityInterest: UpdateCommunityInterestInput!
+  developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
 input CreateOffPlatformRecruitmentProcessInput {
@@ -2126,28 +2166,6 @@ input UpdateOffPlatformRecruitmentProcessInput {
   classification: ClassificationBelongsTo
   platform: HiringPlatform
   platformOther: String
-}
-
-input CreateDevelopmentProgramInterestHasMany {
-  create: [CreateDevelopmentProgramInterestInput!]
-}
-
-input UpdateDevelopmentProgramInterestHasMany {
-  create: [CreateDevelopmentProgramInterestInput!]
-  update: [UpdateDevelopmentProgramInterestInput!]
-  delete: [UUID!]
-}
-
-input CreateDevelopmentProgramInterestInput {
-  communityDevelopmentProgramId: UUID!
-  participationStatus: DevelopmentProgramParticipationStatus
-  completionDate: Date
-}
-
-input UpdateDevelopmentProgramInterestInput {
-  id: UUID!
-  participationStatus: DevelopmentProgramParticipationStatus
-  completionDate: Date
 }
 
 input LocalizedStringInput {
@@ -2350,7 +2368,7 @@ input CommunityDevelopmentProgramBelongsToMany {
 }
 
 input CommunityDevelopmentProgramBelongsToManyWithPivot {
-  connect: [ConnectCommunityDevelopmentProgramWithPivot!]
+  sync: [ConnectCommunityDevelopmentProgramWithPivot!]
 }
 
 input ConnectCommunityDevelopmentProgramWithPivot {
@@ -3670,6 +3688,17 @@ enum ClaimVerificationResult {
   UNVERIFIED
 }
 
+enum CommunityInterestAdditionalDuty {
+  CORPORATE_COMMUNICATIONS
+  FACILITIES_MANAGEMENT_AND_SECURITY
+  HUMAN_RESOURCES
+  INFORMATION_TECHNOLOGY
+  MATERIEL_MANAGEMENT
+  PROCUREMENT
+  PROJECT_MANAGEMENT
+  REAL_PROPERTY_MANAGEMENT
+}
+
 enum CourseFormat {
   ON_SITE
   VIRTUAL
@@ -3781,10 +3810,11 @@ enum ErrorCode {
   DEPARTMENT_NOT_FOUND
   DEPARTMENT_MUST_NOT_BE_ARCHIVED
   COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND
-  COMMUNITY_DEVELOPMENT_INVALID_SELECTION
+  COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID
   DEVELOPMENT_PROGRAM_NOT_FOUND
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED
+  DEVELOPMENT_PROGRAM_MUST_CONNECT_OWN_EDUCATION_EXPERIENCE
   ENUM_NOT_FOUND
   ENUM_NOT_LOCALIZED
   ESSENTIAL_SKILL_REQUIRES_LEVEL
@@ -3836,6 +3866,8 @@ enum ErrorCode {
   SCREENING_QUESTION_NOT_FOUND
   SKILL_NOT_FOUND
   TALENT_EVENT_IS_CLOSED
+  TALENT_EVENT_CANNOT_CHANGE_COMMUNITY
+  TALENT_EVENT_CANNOT_CHANGE_NAME
   TALENT_NOMINATION_ALREADY_SUBMITTED
   NO_NOMINATIONS_FOR_ADVANCEMENT_TO_DECIDE
   NO_NOMINATIONS_FOR_LATERAL_MOVEMENT_TO_DECIDE
@@ -3858,6 +3890,7 @@ enum ErrorCode {
   TOO_MANY_SUBSTANTIVE_EXPERIENCES
   NOT_GOVERNMENT_EMAIL
   NOT_VERIFIED_GOVERNMENT_EMPLOYEE
+  YOU_MUST_BE_VERIFIED_EMPLOYEE_FOR_ACTION
   EMAIL_ADDRESS_IN_USE
   SUB_IN_USE
   VERIFICATION_FAILED
@@ -3911,16 +3944,6 @@ enum ExternalSizeOfOrganization {
   THIRTY_SIX_TO_ONE_HUNDRED
   ONE_HUNDRED_ONE_TO_ONE_THOUSAND
   ONE_THOUSAND_PLUS
-}
-
-enum FinanceChiefDuty {
-  CORPORATE_COMMUNICATIONS
-  FACILITIES_MANAGEMENT_AND_SECURITY
-  HUMAN_RESOURCES
-  INFORMATION_TECHNOLOGY
-  MATERIEL_MANAGEMENT
-  PROCUREMENT
-  REAL_PROPERTY_MANAGEMENT
 }
 
 enum FinanceChiefRole {
@@ -4102,6 +4125,7 @@ enum PoolLanguage {
   ENGLISH
   FRENCH
   VARIOUS
+  VARIOUS_BILINGUAL
   BILINGUAL_INTERMEDIATE
   BILINGUAL_ADVANCED
 }

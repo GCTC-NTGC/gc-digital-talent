@@ -43,6 +43,7 @@ import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
 import useApplication from "../useApplication";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 const Application_SubmitMutation = graphql(/* GraphQL */ `
   mutation Application_Submit($id: ID!, $signature: String!) {
@@ -318,11 +319,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
         </div>
       </ReviewSection>
       <ReviewSection
-        title={intl.formatMessage({
-          defaultMessage: "Minimum experience or equivalent education",
-          id: "LvYEdh",
-          description: "Title for Minimum experience or equivalent education",
-        })}
+        title={intl.formatMessage(processMessages.minEducationRequirement)}
         path={editPaths.education}
         editLinkAriaLabel={intl.formatMessage({
           defaultMessage: "Edit education requirements",
@@ -638,6 +635,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                 <Link mode="inline" href={cancelPath}>
                   {intl.formatMessage(applicationMessages.saveQuit)}
                 </Link>
+                <DeleteApplicationDialog query={application} />
               </div>
             </form>
           </FormProvider>

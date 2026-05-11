@@ -127,6 +127,10 @@ type User {
   # Employee profile info
   employeeProfile: EmployeeProfile @hasOne @canFind(ability: "view")
   govEmployeeProfile: BasicGovEmployeeProfile @self @canFind(ability: "view")
+  developmentProgramUserRecords: [DevelopmentProgramUser]
+    @hasMany
+    @guard
+    @canFind(ability: "view")
 
   # Pool info
   poolCandidates: [PoolCandidate]
@@ -196,16 +200,19 @@ type CommunityInterest {
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
-  interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @hasMany
+  interestInDevelopmentPrograms: [DevelopmentProgramInterest!]
+    @hasMany
+    @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   #finance-only fields
   financeIsChief: Boolean @rename(attribute: "finance_is_chief")
-  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
-    @rename(attribute: "finance_additional_duties")
+  communityInterestAdditionalDuties: [LocalizedCommunityInterestAdditionalDuty!]
+    @rename(attribute: "additional_duties")
   financeOtherRoles: [LocalizedFinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   createdAt: DateTime @rename(attribute: "created_at")
+  procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
 }
 
 type OffPlatformRecruitmentProcess {
@@ -520,8 +527,7 @@ type Pool implements HasRoleAssignments {
   isComplete: Boolean @rename(attribute: "is_complete")
   assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
-    @hasMany
-    @canRoot(ability: "viewAssessmentPlan", scopes: ["withPolicyEagerLoads"])
+    @hasMany(scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"])
   poolSkills(type: PoolSkillType @where): [PoolSkill]
     @hasMany(scopes: ["withPolicyEagerLoads"])
   roleAssignments: [RoleAssignment!]
@@ -569,16 +575,6 @@ type AssessmentStep {
   sortOrder: Int @rename(attribute: "sort_order")
   title: LocalizedString
   poolSkills: [PoolSkill] @belongsToMany
-  assessmentResults: [AssessmentResult]
-    @hasMany
-    @with(
-      relations: [
-        "assessmentResult.pool.team"
-        "assessmentResult.pool.community.team"
-        "assessmentResult.department.team"
-      ]
-    )
-    @canRoot(ability: "viewAssessmentResults")
   screeningQuestions: [ScreeningQuestion] @with(relation: "screeningQuestions")
 }
 
@@ -613,8 +609,7 @@ type PoolSkill {
   requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
   skill: Skill @belongsTo
   assessmentSteps: [AssessmentStep]
-    @belongsToMany
-    @canRoot(ability: "viewAssessmentSteps", scopes: ["withPolicyEagerLoads"])
+    @belongsToMany(scopes: ["whereAuthorizedToView"])
 }
 
 type PoolCandidateCategory {
@@ -828,9 +823,6 @@ type Community implements HasRoleAssignments {
     @with(relation: "team")
     @canRoot(ability: "viewTeamMembers")
   teamIdForRoleAssignment: ID @with(relation: "team")
-  pools: [Pool]
-    @hasMany(scopes: ["authorizedToView"])
-    @canResolved(ability: "view")
   workStreams: [WorkStream!] @hasMany
   communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @hasMany
   associatedDevelopmentPrograms: [DevelopmentProgram!]
@@ -868,6 +860,17 @@ type CommunityDevelopmentProgram {
   # CommunityDevelopmentProgramTalentEventRecord is the pivot data
   # it may be be queried thru TalentNominationEvent->communityDevelopmentPrograms->pivot->CommunityDevelopmentProgramTalentEventRecord
   pivot: CommunityDevelopmentProgramTalentEventRecord
+  createdAt: DateTime @rename(attribute: "created_at")
+}
+
+type DevelopmentProgramUser {
+  id: UUID!
+  developmentProgram: DevelopmentProgram! @belongsTo
+  user: User! @belongsTo
+  educationExperience: EducationExperience @belongsTo
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
 }
 
 type TalentNominationEvent {
@@ -880,9 +883,9 @@ type TalentNominationEvent {
   includeLeadershipCompetencies: Boolean!
     @rename(attribute: "include_leadership_competencies")
   community: Community! @belongsTo
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
-  developmentPrograms: [DevelopmentProgram!]
-    @hasMany(relation: "developmentProgramsThroughPivot")
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+    @belongsToMany
+    @softDeletes
   talentNominationGroups: [TalentNominationGroup!]
     @hasMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
     @canResolved(
@@ -955,9 +958,9 @@ type TalentNomination {
   lateralMovementOptionsOther: String
     @rename(attribute: "lateral_movement_options_other")
 
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!] @belongsToMany
-  developmentPrograms: [DevelopmentProgram!]
-    @hasMany(relation: "developmentProgramsThroughPivot")
+  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
+    @belongsToMany
+    @softDeletes
   developmentProgramOptionsOther: String
     @rename(attribute: "development_program_options_other")
 
@@ -1464,13 +1467,13 @@ type CandidateSearchPoolResult {
 }
 
 type SitewideAnnouncement {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
-  updatedAt: DateTime!
-  isDismissible: Boolean!
+  isEnabled: Boolean! @rename(attribute: "is_enabled")
+  isDismissible: Boolean! @rename(attribute: "is_dismissible")
+  publishDate: DateTime! @rename(attribute: "publish_date")
+  expiryDate: DateTime! @rename(attribute: "expiry_date")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
 type TrainingOpportunity {
@@ -1492,13 +1495,13 @@ input TrainingOpportunitiesFilterInput {
   opportunityLanguage: CourseLanguage @scope
 }
 
-input SitewideAnnouncementInput {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime! @rules(apply: ["after:publishDate"])
+input SitewideAnnouncementInput @validator {
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isEnabled: Boolean!
   isDismissible: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
 }
 
 input ClaimVerificationSort {
@@ -1539,6 +1542,12 @@ input ProcessActivityFilterInput {
   causers: [UUID!] @scope(name: "whereCauserIn")
   candidates: [UUID!] @scope(name: "wherePoolCandidateIn")
   events: [ActivityEvent!] @scope(name: "whereEventIn")
+}
+
+input TrashedExperienceSkillInput {
+  skillId: UUID!
+  experienceId: UUID!
+  restore: Boolean
 }
 
 type Query {
@@ -1584,6 +1593,9 @@ type Query {
     )
     @guard
     @canModel(ability: "viewBasicInfo", model: "User")
+  trashedExperienceSkill(
+    where: TrashedExperienceSkillInput! @spread
+  ): ExperienceSkillRecord @guard
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID! @eq): Pool
     @find
@@ -2154,40 +2166,57 @@ input UpdateEmployeeProfileInput @validator {
     @rename(attribute: "career_objective_c_suite_role_title")
 }
 
-input CreateCommunityInterestInput @validator {
-  userId: UUID! @rename(attribute: "user_id")
-  community: CommunityBelongsTo!
+input CreateCommunityInterestInput {
+  communityId: UUID! @rename(attribute: "community_id")
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
-  interestInDevelopmentPrograms: CreateDevelopmentProgramInterestHasMany
   #finance-only fields
   financeIsChief: Boolean @rename(attribute: "finance_is_chief")
-  financeAdditionalDuties: [FinanceChiefDuty!]
-    @rename(attribute: "finance_additional_duties")
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
+    @rename(attribute: "additional_duties")
   financeOtherRoles: [FinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
 }
 
-input UpdateCommunityInterestInput @validator {
-  # Usually the ID parameter is at the mutation level but we need it here for the validator.
-  id: UUID!
+input UpdateCommunityInterestInput {
   workStreams: WorkStreamBelongsToMany
   jobInterest: Boolean @rename(attribute: "job_interest")
   trainingInterest: Boolean @rename(attribute: "training_interest")
   additionalInformation: String @rename(attribute: "additional_information")
-  interestInDevelopmentPrograms: UpdateDevelopmentProgramInterestHasMany
   #finance-only fields
   financeIsChief: Boolean @rename(attribute: "finance_is_chief")
-  financeAdditionalDuties: [FinanceChiefDuty!]
-    @rename(attribute: "finance_additional_duties")
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
+    @rename(attribute: "additional_duties")
   financeOtherRoles: [FinanceChiefRole!]
     @rename(attribute: "finance_other_roles")
   financeOtherRolesOther: String @rename(attribute: "finance_other_roles_other")
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
+  procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
+}
+
+input UpsertDevelopmentProgramUserInput {
+  developmentProgramId: UUID! @rename(attribute: "development_program_id")
+  educationExperienceId: UUID @rename(attribute: "education_experience_id")
+  participationStatus: DevelopmentProgramParticipationStatus
+    @rename(attribute: "participation_status")
+  completionDate: Date @rename(attribute: "completion_date")
+}
+
+input CreateCommunityInterestWithDevelopmentProgramsInput @validator {
+  userId: UUID! @rename(attribute: "user_id")
+  communityInterest: CreateCommunityInterestInput!
+  developmentPrograms: [UpsertDevelopmentProgramUserInput]
+}
+
+input UpdateCommunityInterestWithDevelopmentProgramsInput @validator {
+  id: UUID!
+  communityInterest: UpdateCommunityInterestInput!
+  developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
 input CreateOffPlatformRecruitmentProcessInput @validator {
@@ -2207,31 +2236,6 @@ input UpdateOffPlatformRecruitmentProcessInput @validator {
   classification: ClassificationBelongsTo
   platform: HiringPlatform
   platformOther: String @rename(attribute: "platform_other")
-}
-
-input CreateDevelopmentProgramInterestHasMany {
-  create: [CreateDevelopmentProgramInterestInput!]
-}
-
-input UpdateDevelopmentProgramInterestHasMany {
-  create: [CreateDevelopmentProgramInterestInput!]
-  update: [UpdateDevelopmentProgramInterestInput!]
-  delete: [UUID!]
-}
-
-input CreateDevelopmentProgramInterestInput @validator {
-  communityDevelopmentProgramId: UUID!
-    @rename(attribute: "community_development_program_id")
-  participationStatus: DevelopmentProgramParticipationStatus
-    @rename(attribute: "participation_status")
-  completionDate: Date @rename(attribute: "completion_date")
-}
-
-input UpdateDevelopmentProgramInterestInput @validator {
-  id: UUID!
-  participationStatus: DevelopmentProgramParticipationStatus
-    @rename(attribute: "participation_status")
-  completionDate: Date @rename(attribute: "completion_date")
 }
 
 input LocalizedStringInput {
@@ -2459,7 +2463,7 @@ input CommunityDevelopmentProgramBelongsToMany {
 }
 
 input CommunityDevelopmentProgramBelongsToManyWithPivot {
-  connect: [ConnectCommunityDevelopmentProgramWithPivot!]
+  sync: [ConnectCommunityDevelopmentProgramWithPivot!]
 }
 
 input ConnectCommunityDevelopmentProgramWithPivot {
@@ -2480,7 +2484,7 @@ input CreateTalentNominationEventInput @validator {
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
 }
 
-input UpdateTalentNominationEventInput @validator {
+input UpdateTalentNominationEventInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   openDate: DateTime @rename(attribute: "open_date")
@@ -3232,11 +3236,27 @@ type Mutation {
     @guard
     @create
     @canModel(ability: "create", injectArgs: true)
+    @deprecated(
+      reason: "replaced by createCommunityInterestWithDevelopmentPrograms"
+    )
+  createCommunityInterestWithDevelopmentPrograms(
+    communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!
+      @spread
+  ): CommunityInterest @guard @canModel(ability: "create", injectArgs: true)
   updateCommunityInterest(
     communityInterest: UpdateCommunityInterestInput! @spread
   ): CommunityInterest
     @guard
     @update(model: "CommunityInterest")
+    @canFind(ability: "update", find: "id", model: "CommunityInterest")
+    @deprecated(
+      reason: "replaced by updateCommunityInterestWithDevelopmentPrograms"
+    )
+  updateCommunityInterestWithDevelopmentPrograms(
+    communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!
+      @spread
+  ): CommunityInterest
+    @guard
     @canFind(ability: "update", find: "id", model: "CommunityInterest")
   deleteCommunityInterest(id: UUID! @whereKey): CommunityInterest
     @delete
@@ -3776,6 +3796,7 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+    @validator
 
   # Talent nomination mutations
   createTalentNomination(
@@ -3887,12 +3908,11 @@ type Mutation {
   ): TrainingOpportunity @update @guard @canModel(ability: "update")
 
   # Development/professionalization mutations
-  createCommunityDevelopmentProgram(
+  createOrRestoreCommunityDevelopmentProgram(
     createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!
       @spread
   ): CommunityDevelopmentProgram
     @guard
-    @create
     @canModel(ability: "create", injectArgs: true)
   updateCommunityDevelopmentProgram(
     updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!

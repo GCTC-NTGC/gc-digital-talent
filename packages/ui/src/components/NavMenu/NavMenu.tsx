@@ -108,36 +108,52 @@ const List = forwardRef<
   </NavigationMenuPrimitive.List>
 ));
 
+const item = tv({
+  base: "w-full sm:relative sm:w-auto data-[state=active]:[&_span]:font-bold! data-[state=active]:[&_span]:no-underline!",
+});
+
 const Item = forwardRef<
   ComponentRef<typeof NavigationMenuPrimitive.Item>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item>
->((props, forwardedRef) => (
+>(({ className, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.Item
     ref={forwardedRef}
-    {...props}
-    className={`w-full sm:relative sm:w-auto data-[state=active]:[&_span]:font-bold! data-[state=active]:[&_span]:no-underline! ${props.className}`}
+    className={item({ class: className })}
+    {...rest}
   />
 ));
 
 const useActiveLink = (
   href: BaseLinkProps["href"],
   hasIcon?: boolean,
-  el?: HTMLAnchorElement | null,
+  ref?: React.RefObject<HTMLAnchorElement | null>,
 ): { isActive: boolean } => {
   const { pathname } = useLocation();
-  const linkRef = useRef<HTMLAnchorElement>(null);
-
   const isActive = pathname === href;
 
   useEffect(() => {
+    const el = ref?.current;
     if (el) {
+      // Synchronize Radix-style state on the parent element
       el.parentElement?.setAttribute(
         "data-state",
         isActive ? "active" : "inactive",
       );
-      linkRef.current?.setAttribute("data-icon", hasIcon ? "true" : "false");
+
+      // Toggle boolean attributes for Tailwind variants
+      if (isActive) {
+        el.setAttribute("data-active", "true");
+      } else {
+        el.removeAttribute("data-active");
+      }
+
+      if (hasIcon) {
+        el.setAttribute("data-icon", "true");
+      } else {
+        el.removeAttribute("data-icon");
+      }
     }
-  }, [isActive, hasIcon, el]);
+  }, [isActive, hasIcon, ref]);
 
   return { isActive };
 };
@@ -193,7 +209,7 @@ const IconLink = forwardRef<
   IconLinkProps
 >(({ children, type = "link", icon, href, ...rest }, forwardedRef) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
-  const { isActive } = useActiveLink(href, !!icon, linkRef.current);
+  const { isActive } = useActiveLink(href, !!icon, linkRef);
   const isSmallScreen = useIsSmallScreen("sm");
   const navContext = useNavMenuContext();
 
@@ -256,7 +272,7 @@ const Link = forwardRef<
     forwardedRef,
   ) => {
     const linkRef = useRef<HTMLAnchorElement>(null);
-    const { isActive } = useActiveLink(href, !!icon, linkRef.current);
+    const { isActive } = useActiveLink(href, !!icon, linkRef);
     const isSmallScreen = useIsSmallScreen("sm");
     const navContext = useNavMenuContext();
 

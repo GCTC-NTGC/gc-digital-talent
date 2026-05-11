@@ -18,6 +18,7 @@ import { useProfileFormContext } from "~/components/Profile/components/ProfileFo
 
 import useUpdateApplicationMutation from "../../useUpdateApplicationMutation";
 import { useApplicationContext } from "../../ApplicationContext";
+import DeleteApplicationDialog from "../../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 interface ProfileActionFormValues {
   action: "continue" | "quit";
@@ -174,6 +175,7 @@ const StepNavigation = ({
           >
             {intl.formatMessage(applicationMessages.saveQuit)}
           </Button>
+          <DeleteApplicationDialog query={application} />
         </div>
       </form>
     </FormProvider>

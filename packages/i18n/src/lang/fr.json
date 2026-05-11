@@ -431,6 +431,10 @@
     "defaultMessage": "Une erreur s’est produite dans le téléchargement de votre fichier. Si ce message d’erreur persiste, veuillez communiquer avec l’équipe de soutien.",
     "description": "Message for when the download request failed"
   },
+  "DTw8xg": {
+    "defaultMessage": "Modifier les détails",
+    "description": "Label for button to edit details"
+  },
   "DUjO/t": {
     "defaultMessage": "À distance, hybride ou sur site",
     "description": "Title for remote, hybrid or on-site"
@@ -1094,6 +1098,10 @@
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
     "description": "Button text to expand truncated text to view all contents"
+  },
+  "cHgzmF": {
+    "defaultMessage": "Cette action est réservée au personnel vérifié.",
+    "description": "Error message for when a user is not verified"
   },
   "cO535E": {
     "defaultMessage": "Erreur : échec de la création du compte.",

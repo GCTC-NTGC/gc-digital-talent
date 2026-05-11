@@ -7,8 +7,8 @@ import { useNavigate, useParams } from "react-router";
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import type {
-  UpdateCommunityInterestInput,
   FragmentType,
+  UpdateCommunityInterestWithDevelopmentProgramsInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
@@ -27,7 +27,9 @@ import { apiDataToFormValues, formValuesToApiUpdateInput } from "../form";
 import FindANewCommunity from "../sections/FindANewCommunity";
 import ReviewAndSubmit from "../sections/ReviewAndSubmit";
 import AdditionalInformation from "../sections/AdditionalInformation";
-import TrainingAndDevelopmentOpportunities from "../sections/TrainingAndDevelopmentOpportunities";
+import TrainingAndDevelopmentOpportunities, {
+  DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment,
+} from "../sections/TrainingAndDevelopmentOpportunities";
 import DeleteCommunityInterestAlert from "./DeleteCommunityInterestAlert";
 
 // options data for form controls
@@ -37,6 +39,13 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
     ...TrainingAndDevelopmentOpportunitiesOptions_Fragment
     ...AdditionalInformationOptions_Fragment
     ...ReviewAndSubmitOptions_Fragment
+
+    me {
+      ...EducationExperiencesTrainingAndDevelopmentOpportunities
+      developmentProgramUserRecords {
+        ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
+      }
+    }
 
     communities {
       id
@@ -63,21 +72,8 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
       id
     }
     additionalInformation
-    interestInDevelopmentPrograms {
-      communityDevelopmentProgram {
-        id
-        developmentProgram {
-          id
-          name {
-            localized
-          }
-        }
-      }
-      participationStatus
-      completionDate
-    }
     financeIsChief
-    financeAdditionalDuties {
+    communityInterestAdditionalDuties {
       value
       label {
         localized
@@ -90,6 +86,7 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
       }
     }
     financeOtherRolesOther
+    procurementIsSDO
     ...DeleteCommunityInterestAlert
     consentToShareProfile
   }
@@ -131,12 +128,20 @@ const UpdateCommunityInterestForm = ({
   const developmentProgramCount: number =
     developmentProgramsForCommunity.length;
 
+  const usersDevelopmentProgramRecords = getFragment(
+    DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment,
+    unpackMaybes(formOptions.me?.developmentProgramUserRecords),
+  );
+
+  const assignToDefaultValues = apiDataToFormValues(
+    userId,
+    usersDevelopmentProgramRecords,
+    formData,
+    developmentProgramsForCommunity,
+  );
+
   const formMethods = useForm<FormValues>({
-    defaultValues: apiDataToFormValues(
-      userId,
-      formData,
-      developmentProgramsForCommunity,
-    ),
+    defaultValues: assignToDefaultValues,
   });
 
   return (
@@ -162,6 +167,11 @@ const UpdateCommunityInterestForm = ({
                   <TrainingAndDevelopmentOpportunities
                     optionsQuery={formOptions}
                     formDisabled={formDisabled}
+                    developmentProgramUserRecordsQuery={unpackMaybes(
+                      formOptions.me?.developmentProgramUserRecords,
+                    )}
+                    selectedCommunityId={formData.community.id}
+                    educationExperiences={formOptions.me}
                   />
                 </>
               ) : null}
@@ -220,10 +230,12 @@ const UpdateCommunityInterest_Query = graphql(/* GraphQL */ `
 `);
 
 const UpdateCommunityInterest_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateCommunityInterest(
-    $communityInterest: UpdateCommunityInterestInput!
+  mutation UpdateCommunityInterestWithDevelopmentPrograms(
+    $communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!
   ) {
-    updateCommunityInterest(communityInterest: $communityInterest) {
+    updateCommunityInterestWithDevelopmentPrograms(
+      communityInterestWithDevelopmentPrograms: $communityInterestWithDevelopmentPrograms
+    ) {
       id
     }
   }
@@ -298,21 +310,21 @@ export const UpdateCommunityInterestPage = () => {
       },
     );
 
-    const mutationInput: UpdateCommunityInterestInput =
+    const mutationInput: UpdateCommunityInterestWithDevelopmentProgramsInput =
       formValuesToApiUpdateInput(
         communityInterestId,
-        interestedDevPrograms,
+        // interestedDevPrograms,
         formValues,
       );
     const mutationPromise = executeUpdateMutation({
-      communityInterest: mutationInput,
+      communityInterestWithDevelopmentPrograms: mutationInput,
     }).then((response) => {
       // confirmed error
       if (response.error) {
         throw new Error(response.error.message);
       }
       // confirmed success
-      if (response.data?.updateCommunityInterest?.id) {
+      if (response.data?.updateCommunityInterestWithDevelopmentPrograms?.id) {
         return; //success
       }
       // unexpected outcome

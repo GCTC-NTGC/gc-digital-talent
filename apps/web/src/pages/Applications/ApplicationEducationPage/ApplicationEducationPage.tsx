@@ -35,12 +35,14 @@ import { getEducationRequirementOptions } from "~/utils/educationUtils";
 import type { ClassificationGroup } from "~/types/classificationGroup";
 import { isClassificationGroup } from "~/types/classificationGroup";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import processMessages from "~/messages/processMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
 import useApplication from "../useApplication";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 interface EducationRequirementExperiences {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -66,11 +68,7 @@ export const getPageInfo: GetPageNavInfo = ({
 }) => {
   const path = paths.applicationEducation(application.id);
   return {
-    title: intl.formatMessage({
-      defaultMessage: "Minimum experience or equivalent education",
-      id: "LvYEdh",
-      description: "Title for Minimum experience or equivalent education",
-    }),
+    title: intl.formatMessage(processMessages.minEducationRequirement),
     subtitle: intl.formatMessage({
       defaultMessage:
         "Confirm you have the minimum experience or equivalent education for the role.",
@@ -408,6 +406,7 @@ const ApplicationEducation = ({
             >
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Button>
+            <DeleteApplicationDialog query={application} />
           </div>
         </form>
       </FormProvider>

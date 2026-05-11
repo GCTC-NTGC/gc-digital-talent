@@ -156,6 +156,28 @@ export const getExperienceSkills = <T extends ExperienceWithSkills>(
   );
 };
 
+interface SkillExperienceGroup<
+  E extends ExperienceWithSkills,
+  S extends Pick<Skill, "id">,
+> {
+  skill: S;
+  experiences: E[];
+}
+
+export function groupExperiencesBySkill<
+  E extends ExperienceWithSkills,
+  S extends Pick<Skill, "id">,
+>(experiences: E[], skills: S[]): SkillExperienceGroup<E, S>[] {
+  return skills.map((skill) => {
+    const skillExperiences = getExperienceSkills(experiences, skill);
+
+    return {
+      skill,
+      experiences: skillExperiences,
+    };
+  });
+}
+
 /**
  * Get sorted skill levels
  *

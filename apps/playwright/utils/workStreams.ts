@@ -38,7 +38,7 @@ export const getWorkStreams: GraphQLRequestFunc<WorkStream[]> = async (ctx) => {
 
 const uniqueTestId = generateUniqueTestId();
 export const defaultWorkStream: Partial<CreateWorkStreamInput> = {
-  key: "playwright-test-work stream",
+  key: `playwright-test-work-stream-${uniqueTestId}`,
   name: {
     en: `Playwright test work stream EN ${uniqueTestId}`,
     fr: `Playwright test work stream FR ${uniqueTestId}`,

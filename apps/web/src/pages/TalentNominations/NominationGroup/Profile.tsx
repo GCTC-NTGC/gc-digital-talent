@@ -78,11 +78,19 @@ const TalentNominationGroupProfile = ({
 
   return (
     <Pending fetching={fetching} error={error}>
-      <Card className="rounded-b-none bg-transparent">
+      <Card
+        className={
+          data?.user?.employeeProfile
+            ? "rounded-b-none pb-0 sm:pb-0"
+            : undefined
+        }
+        space="lg"
+      >
         <div className="flex flex-col items-center justify-between gap-y-6 sm:flex-row sm:gap-x-3 sm:gap-y-0">
           <Heading
             icon={UserCircleIcon}
             level="h2"
+            size="h4"
             color="secondary"
             className="mt-0 font-normal"
           >
@@ -113,7 +121,7 @@ const TalentNominationGroupProfile = ({
             </Button>
           )}
         </div>
-        <p className="my-6">
+        <p>
           {intl.formatMessage({
             defaultMessage:
               "The following sections can be expanded to show information about the nominee’s profile, their interest in this community, and their career goals.",
@@ -122,8 +130,9 @@ const TalentNominationGroupProfile = ({
               "Description for the nominee profile page accordion sections",
           })}
         </p>
+        <Card.Separator className="mt-9" />
         {!shareProfile && (
-          <Notice.Root color="error">
+          <Notice.Root color="error" className="mt-9">
             <Notice.Title>
               {intl.formatMessage({
                 defaultMessage:

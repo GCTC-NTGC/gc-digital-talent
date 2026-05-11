@@ -81,7 +81,6 @@ const addLabelsToErrors = (
 ): FieldNameWithLabel[] => {
   const invalidFieldNames = flattenErrors(errors);
   let fieldNamesWithLabels: FieldNameWithLabel[] = [];
-
   invalidFieldNames.forEach((fieldName) => {
     const fieldNameWithLabel = getFieldLabel(fieldName, labels);
     if (fieldNameWithLabel) {
@@ -114,7 +113,7 @@ const ErrorSummary = forwardRef<ComponentRef<"div">, ErrorSummaryProps>(
     const locale = getLocale(intl);
     const { errors } = useFormState();
     const { labels: registeredLabels } = useFormLabels();
-    const labels = { ...registeredLabels, ...labelsProp };
+    const labels = { ...registeredLabels.current, ...labelsProp };
 
     // Don't show if the form is valid
     if (!errors || !show || !labels) return null;
@@ -160,8 +159,14 @@ const ErrorSummary = forwardRef<ComponentRef<"div">, ErrorSummaryProps>(
                     mode="text"
                     color="error"
                   >
-                    {field.label}
-                    {field.index ?? <span className="ml-1">{field.index}</span>}
+                    <>
+                      {field.label}
+                      {field.name.endsWith(".en") &&
+                        ` ${intl.formatMessage(commonMessages.englishLabel)}`}
+                      {field.name.endsWith(".fr") &&
+                        ` ${intl.formatMessage(commonMessages.frenchLabel)}`}
+                      {field.index && ` ${field.index}`}
+                    </>
                   </ScrollToLink>
                   {intl.formatMessage(commonMessages.dividingColon)}
                   <ErrorMessage name={field.name} />

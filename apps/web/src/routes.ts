@@ -99,7 +99,7 @@ export default [
 
           // Browse jobs
           ...prefix("jobs", [
-            index("./pages/Pools/BrowsePoolsPage/BrowsePoolsPage.tsx"),
+            index("./pages/Pools/BrowseJobsPage/OpenJobsPage.tsx"),
             route(
               ":poolId",
               "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
@@ -108,6 +108,7 @@ export default [
               ":poolId/create-application",
               "./pages/CreateApplicationPage/CreateApplicationPage.tsx",
             ),
+            route("closed", "./pages/Pools/BrowseJobsPage/ClosedJobsPage.tsx"),
           ]),
 
           // Job templates
@@ -148,7 +149,7 @@ export default [
                 ),
                 route(
                   "settings",
-                  "./pages/Profile/AccountSettings/AccountSettingsPage.tsx",
+                  "./pages/Profile/AccountSettings/AccountSettingsPageWrapper.tsx",
                 ),
                 route(
                   "notifications",
@@ -318,6 +319,10 @@ export default [
                     "manage-access",
                     "./pages/Communities/CommunityMembersPage/CommunityMembersPage.tsx",
                   ),
+                  route(
+                    "professionalization",
+                    "./pages/Communities/CommunityProfessionalizationPage/CommunityProfessionalizationPage.tsx",
+                  ),
                 ]),
               ]),
             ]),
@@ -377,7 +382,12 @@ export default [
             // Admin - Talent events
             ...prefix("talent-events", [
               index("./pages/TalentEvents/IndexTalentEventPage.tsx"),
+              route("create", "./pages/TalentEvents/CreateTalentEventPage.tsx"),
               ...prefix(":eventId", [
+                route(
+                  "/edit",
+                  "./pages/TalentEvents/UpdateTalentEventPage.tsx",
+                ),
                 layout("./pages/TalentEvents/TalentEvent/Layout.tsx", [
                   index("./pages/TalentEvents/TalentEvent/DetailsPage.tsx"),
                   route(
