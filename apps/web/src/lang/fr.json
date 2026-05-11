@@ -2219,10 +2219,6 @@
     "defaultMessage": "Vous pouvez lancer une nouvelle demande de talent en cliquant sur le bouton « Nouvelle demande » ou en accédant à la page « Trouver un talent » à partir du menu principal.",
     "description": "Body for notice when there are no pool candidate search requests"
   },
-  "6kjRxg": {
-    "defaultMessage": "Pour déverrouiller des outils exclusifs au moyen de votre statut de membre du personnel, vous devez simplement confirmer votre adresse courriel professionnelle et ajouter à votre expérience professionnelle votre poste actuel au gouvernement du Canada.",
-    "description": "Subtitle for the dialog to unlock the employee tools"
-  },
   "6l9YH+": {
     "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
     "description": "Heading for the applicant requirements dialog"
@@ -6939,10 +6935,6 @@
     "defaultMessage": "Un responsable des processus s’occupe principalement d’effectuer les tâches concernant des processus de recrutement en particulier. Le rôle est souvent confié aux gestionnaires d’embauche qui collaborent avec une collectivité fonctionnelle pour recruter leurs prochains membres d’équipe.",
     "description": "Description of the process operator role"
   },
-  "Q87hfV": {
-    "defaultMessage": "Déverrouiller les outils du personnel",
-    "description": "Title for the dialog to unlock the employee tools"
-  },
   "Q8hjGZ": {
     "defaultMessage": "La fourniture de renseignements dans Talents numériques du GC est facultative. Si vous partagez vos renseignements personnels, Talents numériques du GC <link>s’engage à les protéger</link>.",
     "description": "Paragraph 2, importance of self-declaration"
@@ -8517,10 +8509,6 @@
   "Wss2iW": {
     "defaultMessage": "Collectivité de la gestion financière",
     "description": "Name of the financial management community"
-  },
-  "WswBQ+": {
-    "defaultMessage": "Confirmez votre statut de membre du personnel pour pouvoir consulter les outils de perfectionnement professionnel à l'interne.",
-    "description": "Subtitle for the dialog to unlock the employee tools"
   },
   "WvKRKa": {
     "defaultMessage": "Garder cette compétence dans mon profil",
@@ -11566,10 +11554,6 @@
     "defaultMessage": "<strong>{name}</strong> a restauré",
     "description": "Label for activity log item reverted action"
   },
-  "izAPZA": {
-    "defaultMessage": "Ajouter une expérience professionnelle du GC",
-    "description": "Label to go to adding experiences"
-  },
   "j+GOVX": {
     "defaultMessage": "L'employée ou l'employé travaille à distance constamment, sans devoir être sur place.",
     "description": "Checklist option explanatory note"
@@ -11653,10 +11637,6 @@
   "jAWP0X": {
     "defaultMessage": "Exigence",
     "description": "Header for requirement section of assessment results table"
-  },
-  "jDaXen": {
-    "defaultMessage": "Expérience professionnelle actuelle",
-    "description": "A label for status icon checking work experience"
   },
   "jDv8lx": {
     "defaultMessage": "En savoir plus<hidden> sur la façon dont la plateforme a été créée</hidden>",
@@ -15069,10 +15049,6 @@
   "xV43au": {
     "defaultMessage": "Télécharger le guide de mise en œuvre pour les conseillers en RH",
     "description": "Aria label for download guidance for human resources plain text link."
-  },
-  "xVcPXK": {
-    "defaultMessage": "Adresse courriel professionnelle confirmée",
-    "description": "A label for status icon checking work email"
   },
   "xXwUGs": {
     "defaultMessage": "Directive sur les talents numériques",
