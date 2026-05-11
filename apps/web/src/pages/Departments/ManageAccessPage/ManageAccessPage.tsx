@@ -7,7 +7,7 @@ import { useOutletContext } from "react-router";
 
 import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { ROLE_NAME as ROLE, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   Scalars,
@@ -19,7 +19,6 @@ import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -29,6 +28,7 @@ import {
   checkRoleDepartments,
   groupRoleAssignmentsByUserDepartments,
 } from "~/utils/departmentUtils";
+import { requireUser } from "~/routing/auth";
 
 import AddDepartmentMembershipDialog from "./components/AddDepartmentMembership";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -37,6 +37,8 @@ import type {
   DepartmentManageAccessPageFragment,
 } from "./components/types";
 import { DepartmentManageAccessPage_DepartmentFragment } from "./components/operations";
+import type { Route } from "./+types/ManageAccessPage";
+import { getTeamIdInMiddleware } from "../utils";
 
 const pageTitle = defineMessage({
   defaultMessage: "Department members",
@@ -63,7 +65,7 @@ const DepartmentMembersTable = ({
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
   const hasPlatformAdmin = checkRoleDepartments(
-    [ROLE_NAME.PlatformAdmin],
+    [ROLE.PlatformAdmin],
     roleAssignments,
   );
 
@@ -219,8 +221,25 @@ const DepartmentManageAccessPage = ({
   );
 };
 
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request, params }, next) => {
+    const teamId = await getTeamIdInMiddleware(context, params.departmentId);
+    requireUser(
+      context,
+      request,
+      [
+        { name: ROLE.PlatformAdmin },
+        { name: ROLE.DepartmentAdmin, teamId: teamId },
+        { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
+      ],
+      true,
+    );
+    return await next();
+  },
+];
+
 // Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
-const DepartmentManageAccessPageApiWrapper = () => {
+const Component = () => {
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
   const [{ data, fetching, error }] = useQuery({
     query: DepartmentMembersTeam_Query,
@@ -236,18 +255,6 @@ const DepartmentManageAccessPageApiWrapper = () => {
     </Pending>
   );
 };
-
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.DepartmentAdmin,
-      ROLE_NAME.DepartmentHRAdvisor,
-    ]}
-  >
-    <DepartmentManageAccessPageApiWrapper />
-  </RequireAuth>
-);
 
 Component.displayName = "ManageAccessDepartmentPage";
 
