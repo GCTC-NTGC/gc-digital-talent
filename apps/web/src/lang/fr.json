@@ -3187,6 +3187,10 @@
     "defaultMessage": "Filtres de profils d'employé(e)",
     "description": "Heading for filters associated with employee profiles"
   },
+  "AZ114p": {
+    "defaultMessage": "Les renseignements suivants serviront à identifier la collectivité et à donner un aperçu des domaines qu’elle soutient.",
+    "description": "Community details informative line"
+  },
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
     "description": "Text explaining what will happen when duplicating a process"
@@ -7963,6 +7967,10 @@
     "defaultMessage": "Options de perfectionnement professionnel et en leadership",
     "description": "Label for users interest in development programs for a community"
   },
+  "UieDSb": {
+    "defaultMessage": "Modifier les détails de la collectivité",
+    "description": "Link to edit the currently viewed community"
+  },
   "Uj7TE2": {
     "defaultMessage": "La présente section de votre profil vous permet de manifester votre intérêt pour une variété d'options particulières liées au recrutement, au mentorat et aux possibilités de promotion.",
     "description": "Describes the career development preferences of employee profile"
@@ -10318,6 +10326,10 @@
     "defaultMessage": "Événement de mise en candidature mis à jour avec succès.",
     "description": "Message displayed to user after talent nomination event is updated"
   },
+  "eJekyY": {
+    "defaultMessage": "Mandatée par",
+    "description": "Label displayed on the community form mandated by authority field"
+  },
   "eK+8dS": {
     "defaultMessage": "Site web officiel ou documentation",
     "description": "Label displayed for information URL field"
@@ -11521,6 +11533,10 @@
   "ipKAvI": {
     "defaultMessage": "1. si vous êtes intéressé(e) à embaucher un apprentis et aimeriez en apprendre davantage sur le Programme d'apprentissage en TI pour les peuples autochtones",
     "description": "Paragraph 2 of a manager's email for apprenticeship"
+  },
+  "iqCi+v": {
+    "defaultMessage": "Détails de la collectivité",
+    "description": "Label for Community details"
   },
   "ir/K0H": {
     "defaultMessage": "Les tâches principales suivantes sont des exemples du travail qui pourrait être effectué dans le cadre de ce poste. Au moment de rédiger votre offre d’emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de mieux l’adapter à votre équipe et au poste que vous souhaitez pourvoir.",
@@ -14681,6 +14697,10 @@
   "voqC0s": {
     "defaultMessage": "Gestion des talents",
     "description": "Card title for Talent management"
+  },
+  "vpnzr+": {
+    "defaultMessage": "Afficher et modifier les détails de la collectivité {communityName}",
+    "description": "Subtitle for the details view page of a community"
   },
   "vtE73H": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
