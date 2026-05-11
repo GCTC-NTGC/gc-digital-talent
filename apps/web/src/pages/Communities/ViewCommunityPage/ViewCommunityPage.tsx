@@ -192,7 +192,7 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
             </FieldDisplay>
           </div>
           <div className="xs:col-span-2">
-            <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
+            <FieldDisplay label={intl.formatMessage(adminMessages.databaseKey)}>
               {community.key}
             </FieldDisplay>
           </div>
