@@ -45,7 +45,7 @@ const ScreeningQuestions = ({ query }: ScreeningQuestionsProps) => {
     <Accordion.Root type="multiple" className="mb-6">
       {items.map((item) => (
         <Accordion.Item key={item.id} value={item.id ?? ""}>
-          <Accordion.Trigger>{item.question}</Accordion.Trigger>
+          <Accordion.Trigger as="h3">{item.question}</Accordion.Trigger>
           <Accordion.Content>{item.answer}</Accordion.Content>
         </Accordion.Item>
       ))}
