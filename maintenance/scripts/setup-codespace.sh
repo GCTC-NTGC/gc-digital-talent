@@ -3,9 +3,9 @@
 # Configures a GitHub Codespace for external sharing.
 #
 # Patches api/.env, apps/web/.env, and the nginx mock-auth proxy to use the
-# Codespace's forwarded-port URL instead of localhost:8000, then rebuilds the
-# frontend (API_HOST is baked into the JS bundle at Vite build time), reloads
-# nginx, and clears Laravel's config cache so the changes take effect.
+# Codespace's forwarded-port URL instead of localhost:8000, then refreshes
+# the API, seeds the database, and rebuilds the frontend (API_HOST is baked
+# into the JS bundle at Vite build time so a rebuild is required).
 #
 # Usage (run from repo root inside the Codespace terminal):
 #   bash maintenance/scripts/setup-codespace.sh
@@ -97,6 +97,22 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# Refresh API + seed database
+#
+# Runs inside the maintenance container (same as make refresh-api).
+# Clears config/route/view caches, re-runs migrations, and seeds test data
+# so designers can log in with admin@test.com / applicant@test.com.
+# ---------------------------------------------------------------------------
+
+echo "Refreshing API..."
+docker compose run --rm maintenance bash refresh_api.sh
+
+echo "Seeding database..."
+docker compose run --rm maintenance sh -c "cd /var/www/html/api && php artisan migrate:fresh --seed"
+
+echo "✓ API refreshed and database seeded"
+
+# ---------------------------------------------------------------------------
 # Rebuild frontend
 #
 # API_HOST is injected by Vite's define config at build time, so updating
@@ -109,15 +125,12 @@ docker compose run --rm maintenance bash refresh_frontend.sh
 echo "✓ Frontend rebuilt"
 
 # ---------------------------------------------------------------------------
-# Clear Laravel config cache + reload nginx
+# Reload nginx
 # ---------------------------------------------------------------------------
-
-docker compose exec webserver sh -c \
-  "php /home/site/wwwroot/api/artisan config:clear && php /home/site/wwwroot/api/artisan cache:clear"
 
 docker compose exec webserver nginx -s reload
 
-echo "✓ Laravel cache cleared, nginx reloaded"
+echo "✓ nginx reloaded"
 
 # ---------------------------------------------------------------------------
 # Make port 8000 public (requires gh CLI, non-fatal if unavailable)
