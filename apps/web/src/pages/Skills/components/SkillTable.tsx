@@ -268,7 +268,7 @@ const SkillTable = ({
       pagination={{
         internal: true,
         total: filteredSkills.length,
-        pageSizes: [10, 20, 50, 100],
+        pageSizes: [10, 20, 50, 100, 500],
         initialState: paginationState ?? INITIAL_STATE.paginationState,
       }}
       sort={{
