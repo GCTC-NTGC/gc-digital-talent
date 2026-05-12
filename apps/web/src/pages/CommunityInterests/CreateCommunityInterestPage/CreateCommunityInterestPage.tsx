@@ -60,6 +60,7 @@ interface CreateCommunityInterestFormProps {
   userId: string;
   formDisabled: boolean;
   onSubmit: SubmitHandler<FormValues>;
+  onRefetchExperiences: () => void;
 }
 
 const CreateCommunityInterestForm = ({
@@ -67,6 +68,7 @@ const CreateCommunityInterestForm = ({
   userId,
   formDisabled,
   onSubmit,
+  onRefetchExperiences,
 }: CreateCommunityInterestFormProps) => {
   const formOptions = getFragment(
     CreateCommunityInterestFormOptions_Fragment,
@@ -111,6 +113,7 @@ const CreateCommunityInterestForm = ({
                         )}
                         selectedCommunityId={selectedCommunityId}
                         educationExperiences={formOptions.me}
+                        onRefetchExperiences={onRefetchExperiences}
                       />
                     </>
                   ) : null}
@@ -161,7 +164,7 @@ export const CreateCommunityInterestPage = () => {
   const returnPath = searchParams?.get("from") ?? routes.applicantDashboard();
 
   const navigate = useNavigate();
-  const [{ data: queryData, fetching: queryFetching, error: queryError }] =
+  const [{ data: queryData, fetching: queryFetching, error: queryError }, reexecuteQuery] =
     useQuery({
       query: CreateCommunityInterestPage_Query,
     });
@@ -244,6 +247,7 @@ export const CreateCommunityInterestPage = () => {
               userId={userAuthInfo.id}
               formDisabled={queryFetching || mutationFetching}
               onSubmit={submitForm}
+              onRefetchExperiences={() => reexecuteQuery({ requestPolicy: "network-only" })}
             />
           </div>
         )}

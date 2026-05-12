@@ -100,6 +100,7 @@ interface UpdateCommunityInterestFormProps {
   userId: string;
   formDisabled: boolean;
   onSubmit: SubmitHandler<FormValues>;
+  onRefetchExperiences: () => void;
 }
 
 const UpdateCommunityInterestForm = ({
@@ -108,6 +109,7 @@ const UpdateCommunityInterestForm = ({
   userId,
   formDisabled,
   onSubmit,
+  onRefetchExperiences,
 }: UpdateCommunityInterestFormProps) => {
   const formOptions = getFragment(
     UpdateCommunityInterestFormOptions_Fragment,
@@ -172,6 +174,7 @@ const UpdateCommunityInterestForm = ({
                     )}
                     selectedCommunityId={formData.community.id}
                     educationExperiences={formOptions.me}
+                    onRefetchExperiences={onRefetchExperiences}
                   />
                 </>
               ) : null}
@@ -255,7 +258,7 @@ export const UpdateCommunityInterestPage = () => {
   if (!communityInterestId) {
     throw new NotFoundError("Missing parameter: communityInterestId");
   }
-  const [{ data: queryData, fetching: queryFetching, error: queryError }] =
+  const [{ data: queryData, fetching: queryFetching, error: queryError }, reexecuteQuery] =
     useQuery({
       query: UpdateCommunityInterest_Query,
       variables: {
@@ -377,6 +380,7 @@ export const UpdateCommunityInterestPage = () => {
               userId={userAuthInfo.id}
               formDisabled={queryFetching || mutationFetching}
               onSubmit={submitForm}
+              onRefetchExperiences={() => reexecuteQuery({ requestPolicy: "network-only" })}
             />
           </div>
         ) : (

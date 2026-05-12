@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
 import type { SubmitHandler } from "react-hook-form";
@@ -122,6 +122,7 @@ interface TrainingAndDevelopmentOpportunitiesProps {
       >
     | null
     | undefined;
+  onRefetchExperiences?: () => void;
 }
 
 const TrainingAndDevelopmentOpportunities = ({
@@ -130,6 +131,7 @@ const TrainingAndDevelopmentOpportunities = ({
   formDisabled,
   developmentProgramUserRecordsQuery,
   educationExperiences,
+  onRefetchExperiences,
 }: TrainingAndDevelopmentOpportunitiesProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -216,6 +218,7 @@ const TrainingAndDevelopmentOpportunities = ({
   });
 
   const openLinkDialog = (index: number) => {
+    onRefetchExperiences?.();
     const currentId =
       selectedInterestInDevelopmentPrograms?.[index]?.educationExperienceId ??
       "";
