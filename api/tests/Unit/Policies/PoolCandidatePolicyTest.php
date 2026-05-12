@@ -33,17 +33,6 @@ class PoolCandidatePolicyTest extends PolicyTestCase
             ->create(['submitted_at' => now()]);
     }
 
-    public static function allTeamRolesProvider(): array
-    {
-        return [
-            'process operator' => ['asProcessOperator'],
-            'community recruiter' => ['asCommunityRecruiter'],
-            'community admin' => ['asCommunityAdmin'],
-            'department admin' => ['asDepartmentAdmin'],
-            'department HR advisor' => ['asDepartmentHRAdvisor'],
-        ];
-    }
-
     // --- viewAny() / count() ---
 
     public function testViewAnyAlwaysReturnsFalse(): void

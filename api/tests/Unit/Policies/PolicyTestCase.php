@@ -49,4 +49,23 @@ class PolicyTestCase extends TestCase
 
         return User::factory()->{$method}($id)->create();
     }
+
+    /**
+     * General provider for test cases map
+     * for user factory role methods
+     *
+     * NOTE: Does not include talent coordinator since
+     * they have fewer permissions not aligned with
+     * this group
+     */
+    public static function allTeamRolesProvider(): array
+    {
+        return [
+            'process operator' => ['asProcessOperator'],
+            'community recruiter' => ['asCommunityRecruiter'],
+            'community admin' => ['asCommunityAdmin'],
+            'department admin' => ['asDepartmentAdmin'],
+            'department HR advisor' => ['asDepartmentHRAdvisor'],
+        ];
+    }
 }

@@ -29,17 +29,6 @@ class AssessmentStepPolicyTest extends PolicyTestCase
         $this->step = AssessmentStep::factory()->for($this->primaryPool)->create();
     }
 
-    public static function allTeamRolesProvider(): array
-    {
-        return [
-            'process operator' => ['asProcessOperator'],
-            'community recruiter' => ['asCommunityRecruiter'],
-            'community admin' => ['asCommunityAdmin'],
-            'department admin' => ['asDepartmentAdmin'],
-            'department HR advisor' => ['asDepartmentHRAdvisor'],
-        ];
-    }
-
     // --- create() ---
 
     public function testCreateReturnsDenyWhenPoolIdMissing(): void

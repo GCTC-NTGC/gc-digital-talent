@@ -30,17 +30,6 @@ class PoolSkillPolicyTest extends PolicyTestCase
         $this->poolSkill = $this->pool->poolSkills->first();
     }
 
-    public static function allTeamRolesProvider(): array
-    {
-        return [
-            'process operator' => ['asProcessOperator'],
-            'community recruiter' => ['asCommunityRecruiter'],
-            'community admin' => ['asCommunityAdmin'],
-            'department admin' => ['asDepartmentAdmin'],
-            'department HR advisor' => ['asDepartmentHRAdvisor'],
-        ];
-    }
-
     // --- update() / delete() ---
 
     #[DataProvider('allTeamRolesProvider')]
