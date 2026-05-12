@@ -32,11 +32,13 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import { requireUser } from "~/routing/auth";
 
+import type { Route } from "./+types/UpdateCommunityPage";
 import type { ContextType } from "../CommunityMembersPage/components/types";
+import { getCommunityTeamIdInMiddleware } from "../utils";
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = Math.round(
@@ -331,7 +333,29 @@ const UpdateCommunity_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const UpdateCommunity = () => {
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request, params }, next) => {
+    const teamId = await getCommunityTeamIdInMiddleware(
+      context,
+      params.communityId,
+    );
+
+    requireUser(
+      context,
+      request,
+      [
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId: teamId },
+        { name: ROLE_NAME.CommunityRecruiter, teamId: teamId },
+        { name: ROLE_NAME.CommunityTalentCoordinator, teamId: teamId },
+      ],
+      true,
+    );
+    return await next();
+  },
+];
+
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { communityId } = useRequiredParams<RouteParams>("communityId");
@@ -409,12 +433,6 @@ export const UpdateCommunity = () => {
     </>
   );
 };
-
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin, ROLE_NAME.CommunityAdmin]}>
-    <UpdateCommunity />
-  </RequireAuth>
-);
 
 Component.displayName = "AdminUpdateCommunityPage";
 
