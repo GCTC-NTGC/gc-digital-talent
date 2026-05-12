@@ -79,6 +79,11 @@ const CommunityLayout = () => {
       [ROLE_NAME.CommunityTalentCoordinator],
       roleAssignmentsFiltered,
       communityId,
+    ) ||
+    checkRole(
+      [ROLE_NAME.CommunityRecruiter],
+      roleAssignmentsFiltered,
+      communityId,
     );
 
   const pages = new Map<PageNavKeys, PageNavInfo>([
@@ -98,7 +103,7 @@ const CommunityLayout = () => {
     ],
   ]);
 
-  if (canViewManageAccess) {
+  if (canAdminManageAccessAndEditCommunity) {
     pages.set("professionalization", {
       icon: CheckBadgeIcon,
       title: intl.formatMessage(adminMessages.professionalization),
@@ -106,6 +111,9 @@ const CommunityLayout = () => {
         url: paths.communityProfessionalization(communityId),
       },
     });
+  }
+
+  if (canViewManageAccess) {
     pages.set("manage-access", {
       icon: ClipboardDocumentListIcon,
       title: intl.formatMessage({
