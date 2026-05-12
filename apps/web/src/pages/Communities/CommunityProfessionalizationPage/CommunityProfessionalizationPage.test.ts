@@ -1,4 +1,5 @@
 import { describe, test, expect, vi, beforeEach } from "vitest";
+import type { RouterContextProvider } from "react-router";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
@@ -28,20 +29,28 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
     communityId: "community-123",
   };
 
-  const mockNext = vi.fn(() => Promise.resolve("next-result"));
+  const mockUrl = new URL(mockRequest.url);
+  const mockPattern =
+    "/:locale/admin/communities/:communityId/professionalization";
+
+  const mockNext = vi.fn(() => Promise.resolve({})) as unknown as Parameters<
+    (typeof clientMiddleware)[0]
+  >[1];
 
   const createContext = (
     user: unknown,
     intl: unknown,
     graphqlClient: unknown = {},
-  ) => ({
-    get: vi.fn((token: unknown) => {
-      if (token === "userContext") return user;
-      if (token === "intlContext") return intl;
-      if (token === "graphqlClientContext") return graphqlClient;
-      return null;
-    }),
-  });
+  ): Readonly<RouterContextProvider> =>
+    ({
+      get: vi.fn((token: unknown) => {
+        if (token === "userContext") return user;
+        if (token === "intlContext") return intl;
+        if (token === "graphqlClientContext") return graphqlClient;
+        return null;
+      }),
+      set: vi.fn(),
+    }) as unknown as Readonly<RouterContextProvider>;
 
   const mockIntl = {
     locale: "en",
@@ -64,7 +73,13 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
       );
 
       await clientMiddleware[0](
-        { context, request: mockRequest, params: mockParams },
+        {
+          context,
+          request: mockRequest,
+          params: mockParams,
+          url: mockUrl,
+          pattern: mockPattern,
+        },
         mockNext,
       );
 
@@ -82,7 +97,13 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
       );
 
       await clientMiddleware[0](
-        { context, request: mockRequest, params: mockParams },
+        {
+          context,
+          request: mockRequest,
+          params: mockParams,
+          url: mockUrl,
+          pattern: mockPattern,
+        },
         mockNext,
       );
 
@@ -103,7 +124,13 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
 
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toThrow(UnauthorizedError);
@@ -124,7 +151,13 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
 
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toThrow(UnauthorizedError);
@@ -144,7 +177,13 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
 
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toThrow(UnauthorizedError);
@@ -162,7 +201,13 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
 
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toThrow(UnauthorizedError);
@@ -180,7 +225,13 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
 
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toThrow(UnauthorizedError);
@@ -196,7 +247,13 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
 
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toThrow(UnauthorizedError);
@@ -210,7 +267,13 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
       // requireUser throws a redirect Response when user is null
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toBeDefined();

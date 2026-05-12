@@ -1,4 +1,5 @@
 import { describe, test, expect, vi, beforeEach } from "vitest";
+import type { RouterContextProvider } from "react-router";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
@@ -22,15 +23,25 @@ describe("CreateCommunityPage clientMiddleware", () => {
     locale: "en",
   };
 
-  const mockNext = vi.fn(() => Promise.resolve("next-result"));
+  const mockUrl = new URL(mockRequest.url);
+  const mockPattern = "/:locale/admin/communities/create";
 
-  const createContext = (user: unknown, intl: unknown) => ({
-    get: vi.fn((token: unknown) => {
-      if (token === "userContext") return user;
-      if (token === "intlContext") return intl;
-      return null;
-    }),
-  });
+  const mockNext = vi.fn(() => Promise.resolve({})) as unknown as Parameters<
+    (typeof clientMiddleware)[0]
+  >[1];
+
+  const createContext = (
+    user: unknown,
+    intl: unknown,
+  ): Readonly<RouterContextProvider> =>
+    ({
+      get: vi.fn((token: unknown) => {
+        if (token === "userContext") return user;
+        if (token === "intlContext") return intl;
+        return null;
+      }),
+      set: vi.fn(),
+    }) as unknown as Readonly<RouterContextProvider>;
 
   const mockIntl = {
     locale: "en",
@@ -53,7 +64,13 @@ describe("CreateCommunityPage clientMiddleware", () => {
       );
 
       await clientMiddleware[0](
-        { context, request: mockRequest, params: mockParams },
+        {
+          context,
+          request: mockRequest,
+          params: mockParams,
+          url: mockUrl,
+          pattern: mockPattern,
+        },
         mockNext,
       );
 
@@ -74,7 +91,13 @@ describe("CreateCommunityPage clientMiddleware", () => {
 
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toThrow(UnauthorizedError);
@@ -92,7 +115,13 @@ describe("CreateCommunityPage clientMiddleware", () => {
 
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toThrow(UnauthorizedError);
@@ -113,7 +142,13 @@ describe("CreateCommunityPage clientMiddleware", () => {
 
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toThrow(UnauthorizedError);
@@ -131,7 +166,13 @@ describe("CreateCommunityPage clientMiddleware", () => {
 
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toThrow(UnauthorizedError);
@@ -147,7 +188,13 @@ describe("CreateCommunityPage clientMiddleware", () => {
 
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toThrow(UnauthorizedError);
@@ -165,7 +212,13 @@ describe("CreateCommunityPage clientMiddleware", () => {
 
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toThrow(UnauthorizedError);
@@ -179,7 +232,13 @@ describe("CreateCommunityPage clientMiddleware", () => {
       // requireUser throws a redirect Response when user is null
       await expect(
         clientMiddleware[0](
-          { context, request: mockRequest, params: mockParams },
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
           mockNext,
         ),
       ).rejects.toBeDefined();
