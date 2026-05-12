@@ -68,13 +68,13 @@ const CommunityLayout = () => {
 
   const roleAssignmentsFiltered =
     data?.myAuth?.roleAssignments?.filter(notEmpty) ?? [];
-  const canAdminManageAccess = checkRole(
+  const canAdminManageAccessAndEditCommunity = checkRole(
     [ROLE_NAME.PlatformAdmin, ROLE_NAME.CommunityAdmin],
     roleAssignmentsFiltered,
     communityId,
   );
   const canViewManageAccess =
-    canAdminManageAccess ||
+    canAdminManageAccessAndEditCommunity ||
     checkRole(
       [ROLE_NAME.CommunityTalentCoordinator],
       roleAssignmentsFiltered,
@@ -142,7 +142,7 @@ const CommunityLayout = () => {
       url: page.link.url,
     })),
     navigationCrumbs: navigationCrumbs,
-    canAdminManageAccess,
+    canAdminManageAccessAndEditCommunity,
   };
 
   // No actual shared UI - this is just used as a context provider
