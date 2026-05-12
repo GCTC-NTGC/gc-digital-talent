@@ -18,6 +18,10 @@ describe("IndexCommunityPage clientMiddleware", () => {
     url: "http://localhost:3000/en/admin/communities",
   } as Request;
 
+  const mockParams = {
+    locale: "en",
+  };
+
   const mockNext = vi.fn(() => Promise.resolve("next-result"));
 
   const createContext = (user: unknown, intl: unknown) => ({
@@ -43,14 +47,15 @@ describe("IndexCommunityPage clientMiddleware", () => {
     test("allows PlatformAdmin access", async () => {
       const context = createContext(
         {
-          roleAssignments: [
-            createMockRoleAssignment(ROLE_NAME.PlatformAdmin),
-          ],
+          roleAssignments: [createMockRoleAssignment(ROLE_NAME.PlatformAdmin)],
         },
         mockIntl,
       );
 
-      await clientMiddleware[0]({ context, request: mockRequest, params: {} }, mockNext);
+      await clientMiddleware[0](
+        { context, request: mockRequest, params: mockParams },
+        mockNext,
+      );
 
       expect(mockNext).toHaveBeenCalled();
     });
@@ -65,7 +70,10 @@ describe("IndexCommunityPage clientMiddleware", () => {
         mockIntl,
       );
 
-      await clientMiddleware[0]({ context, request: mockRequest, params: {} }, mockNext);
+      await clientMiddleware[0](
+        { context, request: mockRequest, params: mockParams },
+        mockNext,
+      );
 
       expect(mockNext).toHaveBeenCalled();
     });
@@ -80,7 +88,10 @@ describe("IndexCommunityPage clientMiddleware", () => {
         mockIntl,
       );
 
-      await clientMiddleware[0]({ context, request: mockRequest, params: {} }, mockNext);
+      await clientMiddleware[0](
+        { context, request: mockRequest, params: mockParams },
+        mockNext,
+      );
 
       expect(mockNext).toHaveBeenCalled();
     });
@@ -89,13 +100,19 @@ describe("IndexCommunityPage clientMiddleware", () => {
       const context = createContext(
         {
           roleAssignments: [
-            createMockRoleAssignment(ROLE_NAME.CommunityTalentCoordinator, "team-123"),
+            createMockRoleAssignment(
+              ROLE_NAME.CommunityTalentCoordinator,
+              "team-123",
+            ),
           ],
         },
         mockIntl,
       );
 
-      await clientMiddleware[0]({ context, request: mockRequest, params: {} }, mockNext);
+      await clientMiddleware[0](
+        { context, request: mockRequest, params: mockParams },
+        mockNext,
+      );
 
       expect(mockNext).toHaveBeenCalled();
     });
@@ -105,45 +122,48 @@ describe("IndexCommunityPage clientMiddleware", () => {
     test("throws UnauthorizedError for Applicant role", async () => {
       const context = createContext(
         {
-          roleAssignments: [
-            createMockRoleAssignment(ROLE_NAME.Applicant),
-          ],
+          roleAssignments: [createMockRoleAssignment(ROLE_NAME.Applicant)],
         },
         mockIntl,
       );
 
       await expect(
-        clientMiddleware[0]({ context, request: mockRequest, params: {} }, mockNext),
+        clientMiddleware[0](
+          { context, request: mockRequest, params: mockParams },
+          mockNext,
+        ),
       ).rejects.toThrow(UnauthorizedError);
     });
 
     test("throws UnauthorizedError for BaseUser role", async () => {
       const context = createContext(
         {
-          roleAssignments: [
-            createMockRoleAssignment(ROLE_NAME.BaseUser),
-          ],
+          roleAssignments: [createMockRoleAssignment(ROLE_NAME.BaseUser)],
         },
         mockIntl,
       );
 
       await expect(
-        clientMiddleware[0]({ context, request: mockRequest, params: {} }, mockNext),
+        clientMiddleware[0](
+          { context, request: mockRequest, params: mockParams },
+          mockNext,
+        ),
       ).rejects.toThrow(UnauthorizedError);
     });
 
     test("throws UnauthorizedError for Guest role", async () => {
       const context = createContext(
         {
-          roleAssignments: [
-            createMockRoleAssignment(ROLE_NAME.Guest),
-          ],
+          roleAssignments: [createMockRoleAssignment(ROLE_NAME.Guest)],
         },
         mockIntl,
       );
 
       await expect(
-        clientMiddleware[0]({ context, request: mockRequest, params: {} }, mockNext),
+        clientMiddleware[0](
+          { context, request: mockRequest, params: mockParams },
+          mockNext,
+        ),
       ).rejects.toThrow(UnauthorizedError);
     });
 
@@ -158,7 +178,10 @@ describe("IndexCommunityPage clientMiddleware", () => {
       );
 
       await expect(
-        clientMiddleware[0]({ context, request: mockRequest, params: {} }, mockNext),
+        clientMiddleware[0](
+          { context, request: mockRequest, params: mockParams },
+          mockNext,
+        ),
       ).rejects.toThrow(UnauthorizedError);
     });
   });
@@ -169,7 +192,10 @@ describe("IndexCommunityPage clientMiddleware", () => {
 
       // requireUser throws a redirect Response when user is null
       await expect(
-        clientMiddleware[0]({ context, request: mockRequest, params: {} }, mockNext),
+        clientMiddleware[0](
+          { context, request: mockRequest, params: mockParams },
+          mockNext,
+        ),
       ).rejects.toBeDefined();
 
       expect(mockNext).not.toHaveBeenCalled();
