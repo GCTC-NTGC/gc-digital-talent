@@ -8,7 +8,6 @@ use App\Models\Pool;
 use App\Models\PoolSkill;
 use App\Models\User;
 use App\Policies\PoolSkillPolicy;
-use Illuminate\Support\Facades\Cache;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class PoolSkillPolicyTest extends PolicyTestCase
@@ -29,7 +28,6 @@ class PoolSkillPolicyTest extends PolicyTestCase
             ->withPoolSkills(1, 0)
             ->create();
         $this->poolSkill = $this->pool->poolSkills->first();
-        Cache::store('array')->clear();
     }
 
     public static function allTeamRolesProvider(): array
@@ -48,7 +46,6 @@ class PoolSkillPolicyTest extends PolicyTestCase
     #[DataProvider('allTeamRolesProvider')]
     public function testTeamRolesCanUpdateAndDeletePoolSkill(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->pool);
 
         $this->assertTrue($this->ensureBool($this->policy->update($user, $this->poolSkill)));
@@ -66,7 +63,6 @@ class PoolSkillPolicyTest extends PolicyTestCase
     #[DataProvider('allTeamRolesProvider')]
     public function testTeamRolesDeniedUpdateAndDeleteOnDifferentPool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $otherPool = Pool::factory()
             ->for(Community::factory()->create())
             ->for(Department::factory()->create())
@@ -88,7 +84,6 @@ class PoolSkillPolicyTest extends PolicyTestCase
     #[DataProvider('allTeamRolesProvider')]
     public function testTeamRolesCanViewAssessmentSteps(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->pool);
         $this->assertTrue($this->ensureBool($this->policy->viewAssessmentSteps($user, $this->poolSkill)));
     }
@@ -102,7 +97,6 @@ class PoolSkillPolicyTest extends PolicyTestCase
     #[DataProvider('allTeamRolesProvider')]
     public function testTeamRolesDeniedViewAssessmentStepsOnDifferentPool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $otherPool = Pool::factory()
             ->for(Community::factory()->create())
             ->for(Department::factory()->create())

@@ -7,7 +7,6 @@ use App\Models\Department;
 use App\Models\Pool;
 use App\Models\User;
 use App\Policies\PoolPolicy;
-use Illuminate\Support\Facades\Cache;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class PoolPolicyTest extends PolicyTestCase
@@ -24,7 +23,6 @@ class PoolPolicyTest extends PolicyTestCase
             ->for(Community::factory()->create())
             ->for(Department::factory()->create())
             ->create();
-        Cache::store('array')->clear();
     }
 
     public static function allTeamRolesProvider(): array
@@ -84,7 +82,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('allTeamRolesProvider')]
     public function testTeamRolesCanViewDraftPool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
         $this->assertTrue($this->ensureBool($this->policy->view($user, $this->primaryPool)));
     }
@@ -98,7 +95,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('allTeamRolesProvider')]
     public function testTeamRolesDeniedViewDraftPoolOnDifferentPool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $otherPool = Pool::factory()
             ->for(Community::factory()->create())
             ->for(Department::factory()->create())
@@ -127,7 +123,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('communityRolesCanCreateProvider')]
     public function testCommunityRolesCanCreatePoolViaCommunityTeam(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
         $request = [
             'community_id' => $this->primaryPool->community_id,
@@ -148,7 +143,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('departmentRolesCanCreateProvider')]
     public function testDepartmentRolesCanCreatePoolViaDepartmentTeam(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
         $request = ['department' => ['connect' => $this->primaryPool->department_id]];
 
@@ -180,7 +174,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('communityRolesCanCreateProvider')]
     public function testCommunityRolesDeniedCreatePoolForDifferentCommunity(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $otherPool = Pool::factory()
             ->for(Community::factory()->create())
             ->for(Department::factory()->create())
@@ -199,7 +192,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('departmentRolesCanCreateProvider')]
     public function testDepartmentRolesDeniedCreatePoolForDifferentDepartment(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $otherPool = Pool::factory()
             ->for(Community::factory()->create())
             ->for(Department::factory()->create())
@@ -229,7 +221,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('rolesWithCreatePermissionProvider')]
     public function testRolesWithCreatePermissionCanDuplicatePool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
         $this->assertTrue($this->ensureBool($this->policy->duplicate($user, ['id' => $this->primaryPool->id])));
     }
@@ -251,7 +242,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('allTeamRolesProvider')]
     public function testTeamRolesCanUpdateDraftPool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
         $this->assertTrue($this->ensureBool($this->policy->updateDraft($user, $this->primaryPool)));
     }
@@ -277,7 +267,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('allTeamRolesProvider')]
     public function testTeamRolesDeniedUpdateDraftOnDifferentPool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $otherPool = Pool::factory()
             ->for(Community::factory()->create())
             ->for(Department::factory()->create())
@@ -345,7 +334,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('rolesWithPublishPermissionProvider')]
     public function testRolesWithPublishPermissionCanPublishDraftPool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
         $this->assertTrue($this->ensureBool($this->policy->publish($user, $this->primaryPool)));
     }
@@ -405,7 +393,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('rolesWithDeletePermissionProvider')]
     public function testRolesWithDeletePermissionCanDeleteDraftPool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
         $this->assertTrue($this->ensureBool($this->policy->deleteDraft($user, $this->primaryPool)));
     }
@@ -443,7 +430,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('rolesWithArchivePermissionProvider')]
     public function testRolesWithArchivePermissionCanArchivePool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
         $this->assertTrue($this->ensureBool($this->policy->archiveAndUnarchive($user, $this->primaryPool)));
     }
@@ -457,7 +443,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('rolesWithArchivePermissionProvider')]
     public function testTeamRolesDeniedArchiveOnDifferentPool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $otherPool = Pool::factory()
             ->for(Community::factory()->create())
             ->for(Department::factory()->create())
@@ -478,7 +463,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('allTeamRolesProvider')]
     public function testTeamRolesCanViewAssessmentPlan(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
         $this->assertTrue($this->ensureBool($this->policy->viewAssessmentPlan($user, $this->primaryPool)));
     }
@@ -492,7 +476,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('allTeamRolesProvider')]
     public function testTeamRolesDeniedViewAssessmentPlanOnDifferentPool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $otherPool = Pool::factory()
             ->for(Community::factory()->create())
             ->for(Department::factory()->create())
@@ -513,7 +496,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('allTeamRolesProvider')]
     public function testTeamRolesCanViewTeamMembers(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
         $this->assertTrue($this->ensureBool($this->policy->viewTeamMembers($user, $this->primaryPool)));
     }
@@ -527,7 +509,6 @@ class PoolPolicyTest extends PolicyTestCase
     #[DataProvider('allTeamRolesProvider')]
     public function testTeamRolesDeniedViewTeamMembersOnDifferentPool(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $otherPool = Pool::factory()
             ->for(Community::factory()->create())
             ->for(Department::factory()->create())

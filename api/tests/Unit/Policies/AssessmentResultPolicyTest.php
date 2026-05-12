@@ -9,7 +9,6 @@ use App\Models\Department;
 use App\Models\Pool;
 use App\Models\User;
 use App\Policies\AssessmentResultPolicy;
-use Illuminate\Support\Facades\Cache;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class AssessmentResultPolicyTest extends PolicyTestCase
@@ -29,7 +28,6 @@ class AssessmentResultPolicyTest extends PolicyTestCase
         $this->primaryPool = Pool::factory()->create();
         $this->step = AssessmentStep::factory()->for($this->primaryPool)->create();
         $this->result = AssessmentResult::factory()->for($this->step)->create();
-        Cache::store('array')->clear();
     }
 
     public static function globalRoleProvider(): array
@@ -43,7 +41,6 @@ class AssessmentResultPolicyTest extends PolicyTestCase
     #[DataProvider('globalRoleProvider')]
     public function testGlobalRoleViewAccess(string $factoryMethod, bool $expected): void
     {
-        Cache::store('array')->clear();
         $user = User::factory()->{$factoryMethod}()->create();
         $this->assertEquals($expected, $this->ensureBool($this->policy->view($user, $this->result)));
     }
@@ -62,7 +59,6 @@ class AssessmentResultPolicyTest extends PolicyTestCase
     #[DataProvider('authorizedTeamRoleProvider')]
     public function testAuthorizedTeamRolesCanAccessResources(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
 
         $this->assertTrue($this->ensureBool($this->policy->view($user, $this->result)));
@@ -79,7 +75,6 @@ class AssessmentResultPolicyTest extends PolicyTestCase
     #[DataProvider('authorizedTeamRoleProvider')]
     public function testTeamRolesAreDeniedAccessOnDifferentTeams(string $factoryMethod): void
     {
-        Cache::store('array')->clear();
         $otherPool = Pool::factory()
             ->for(Community::factory()->create())
             ->for(Department::factory()->create())

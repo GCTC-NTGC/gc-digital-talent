@@ -8,6 +8,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Exception;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Cache;
 use Tests\TestCase;
 
 class PolicyTestCase extends TestCase
@@ -19,6 +20,8 @@ class PolicyTestCase extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
+
+        Cache::store('array')->clear();
     }
 
     /**
