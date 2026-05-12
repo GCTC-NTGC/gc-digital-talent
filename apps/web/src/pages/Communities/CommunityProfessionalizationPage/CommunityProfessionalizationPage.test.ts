@@ -24,12 +24,17 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
   } as Request;
 
   const mockParams = {
+    locale: "en",
     communityId: "community-123",
   };
 
   const mockNext = vi.fn(() => Promise.resolve("next-result"));
 
-  const createContext = (user: unknown, intl: unknown, graphqlClient: unknown = {}) => ({
+  const createContext = (
+    user: unknown,
+    intl: unknown,
+    graphqlClient: unknown = {},
+  ) => ({
     get: vi.fn((token: unknown) => {
       if (token === "userContext") return user;
       if (token === "intlContext") return intl;
@@ -53,9 +58,7 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
     test("allows PlatformAdmin access (global role, no team needed)", async () => {
       const context = createContext(
         {
-          roleAssignments: [
-            createMockRoleAssignment(ROLE_NAME.PlatformAdmin),
-          ],
+          roleAssignments: [createMockRoleAssignment(ROLE_NAME.PlatformAdmin)],
         },
         mockIntl,
       );
@@ -110,7 +113,10 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
       const context = createContext(
         {
           roleAssignments: [
-            createMockRoleAssignment(ROLE_NAME.CommunityTalentCoordinator, "team-123"),
+            createMockRoleAssignment(
+              ROLE_NAME.CommunityTalentCoordinator,
+              "team-123",
+            ),
           ],
         },
         mockIntl,
@@ -149,9 +155,7 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
     test("throws UnauthorizedError for Applicant role", async () => {
       const context = createContext(
         {
-          roleAssignments: [
-            createMockRoleAssignment(ROLE_NAME.Applicant),
-          ],
+          roleAssignments: [createMockRoleAssignment(ROLE_NAME.Applicant)],
         },
         mockIntl,
       );
@@ -185,9 +189,7 @@ describe("CommunityProfessionalizationPage clientMiddleware", () => {
     test("throws UnauthorizedError for BaseUser role", async () => {
       const context = createContext(
         {
-          roleAssignments: [
-            createMockRoleAssignment(ROLE_NAME.BaseUser),
-          ],
+          roleAssignments: [createMockRoleAssignment(ROLE_NAME.BaseUser)],
         },
         mockIntl,
       );

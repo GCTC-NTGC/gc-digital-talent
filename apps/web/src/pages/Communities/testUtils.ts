@@ -4,21 +4,26 @@
 import { vi } from "vitest";
 
 import type { RoleAssignment } from "@gc-digital-talent/graphql";
-import { ROLE_NAME, type RoleName } from "@gc-digital-talent/auth";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const RoleNameValues = Object.values(ROLE_NAME);
 
 // Re-usable mock role assignments
 export const createMockRoleAssignment = (
-  roleName: RoleName,
+  roleName: (typeof RoleNameValues)[number],
   teamId?: string,
 ): RoleAssignment => {
-  const isTeamBased = [
+  const teamRoleArray: string[] = [
     ROLE_NAME.CommunityAdmin,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityTalentCoordinator,
     ROLE_NAME.ProcessOperator,
     ROLE_NAME.DepartmentAdmin,
     ROLE_NAME.DepartmentHRAdvisor,
-  ].includes(roleName);
+  ];
+
+  const isTeamBased = teamRoleArray.includes(roleName);
 
   return {
     id: `assignment-${roleName}`,
@@ -113,11 +118,14 @@ export const createMockNext = () => vi.fn(() => Promise.resolve("next-result"));
  * Test helper to verify middleware allows access
  */
 export const expectMiddlewareToAllow = async (
-  middleware: (args: {
-    context: ReturnType<typeof createMockContext>;
-    request: Request;
-    params: Record<string, string>;
-  }, next: ReturnType<typeof createMockNext>) => Promise<unknown>,
+  middleware: (
+    args: {
+      context: ReturnType<typeof createMockContext>;
+      request: Request;
+      params: Record<string, string>;
+    },
+    next: ReturnType<typeof createMockNext>,
+  ) => Promise<unknown>,
   context: ReturnType<typeof createMockContext>,
   request: Request,
   params: Record<string, string> = {},
