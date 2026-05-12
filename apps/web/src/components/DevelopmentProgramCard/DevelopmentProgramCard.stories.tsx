@@ -35,6 +35,7 @@ const Template: StoryFn<typeof DevelopmentProgramCard> = () => {
     <DevelopmentProgramCard.Root>
       {developmentPrograms.map((d) => (
         <DevelopmentProgramCard.Item
+          id={d.id}
           key={d.id}
           title={d.name.localized ?? "Development Program name"}
           description={

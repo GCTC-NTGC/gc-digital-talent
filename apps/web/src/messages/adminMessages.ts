@@ -234,6 +234,11 @@ const messages = defineMessages({
     id: "uNQzDO",
     description: "Label for Recommended development opportunities",
   },
+  professionalization: {
+    defaultMessage: "Professionalization",
+    id: "MT1JwK",
+    description: "Label for Professionalization",
+  },
 });
 
 export default messages;

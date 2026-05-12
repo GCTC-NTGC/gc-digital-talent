@@ -119,7 +119,7 @@ const AssessmentType = ({
       <Notice.Content>
         <Accordion.Root type="single" collapsible>
           <Accordion.Item value="skill">
-            <Accordion.Trigger>
+            <Accordion.Trigger as="h3">
               {skillLevel
                 ? intl.formatMessage(
                     {
