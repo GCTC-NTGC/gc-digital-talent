@@ -45,7 +45,6 @@ const CreateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
     }
 
     me {
-      ...EducationExperiencesTrainingAndDevelopmentOpportunities
       developmentProgramUserRecords {
         ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
       }
@@ -60,7 +59,6 @@ interface CreateCommunityInterestFormProps {
   userId: string;
   formDisabled: boolean;
   onSubmit: SubmitHandler<FormValues>;
-  onRefetchExperiences: () => void;
 }
 
 const CreateCommunityInterestForm = ({
@@ -68,7 +66,6 @@ const CreateCommunityInterestForm = ({
   userId,
   formDisabled,
   onSubmit,
-  onRefetchExperiences,
 }: CreateCommunityInterestFormProps) => {
   const formOptions = getFragment(
     CreateCommunityInterestFormOptions_Fragment,
@@ -112,8 +109,6 @@ const CreateCommunityInterestForm = ({
                           formOptions.me?.developmentProgramUserRecords,
                         )}
                         selectedCommunityId={selectedCommunityId}
-                        educationExperiences={formOptions.me}
-                        onRefetchExperiences={onRefetchExperiences}
                       />
                     </>
                   ) : null}
@@ -164,12 +159,10 @@ export const CreateCommunityInterestPage = () => {
   const returnPath = searchParams?.get("from") ?? routes.applicantDashboard();
 
   const navigate = useNavigate();
-  const [
-    { data: queryData, fetching: queryFetching, error: queryError },
-    reexecuteQuery,
-  ] = useQuery({
-    query: CreateCommunityInterestPage_Query,
-  });
+  const [{ data: queryData, fetching: queryFetching, error: queryError }] =
+    useQuery({
+      query: CreateCommunityInterestPage_Query,
+    });
   const [{ fetching: mutationFetching }, executeCreateMutation] = useMutation(
     CreateCommunityInterestPage_Mutation,
   );
@@ -249,9 +242,6 @@ export const CreateCommunityInterestPage = () => {
               userId={userAuthInfo.id}
               formDisabled={queryFetching || mutationFetching}
               onSubmit={submitForm}
-              onRefetchExperiences={() =>
-                reexecuteQuery({ requestPolicy: "network-only" })
-              }
             />
           </div>
         )}
