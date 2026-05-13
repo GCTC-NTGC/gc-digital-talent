@@ -109,7 +109,7 @@ describe("UpdateCommunityPage clientMiddleware", () => {
       expect(mockNext).toHaveBeenCalled();
     });
 
-    test("allows CommunityRecruiter with matching teamId", async () => {
+    test("blocks CommunityRecruiter even with matching teamId", async () => {
       const context = createContext(
         {
           roleAssignments: [
@@ -119,21 +119,21 @@ describe("UpdateCommunityPage clientMiddleware", () => {
         mockIntl,
       );
 
-      await clientMiddleware[0](
-        {
-          context,
-          request: mockRequest,
-          params: mockParams,
-          url: mockUrl,
-          pattern: mockPattern,
-        },
-        mockNext,
-      );
-
-      expect(mockNext).toHaveBeenCalled();
+      await expect(
+        clientMiddleware[0](
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
+          mockNext,
+        ),
+      ).rejects.toThrow(UnauthorizedError);
     });
 
-    test("allows CommunityTalentCoordinator with matching teamId", async () => {
+    test("blocks CommunityTalentCoordinator even with matching teamId", async () => {
       const context = createContext(
         {
           roleAssignments: [
@@ -146,18 +146,18 @@ describe("UpdateCommunityPage clientMiddleware", () => {
         mockIntl,
       );
 
-      await clientMiddleware[0](
-        {
-          context,
-          request: mockRequest,
-          params: mockParams,
-          url: mockUrl,
-          pattern: mockPattern,
-        },
-        mockNext,
-      );
-
-      expect(mockNext).toHaveBeenCalled();
+      await expect(
+        clientMiddleware[0](
+          {
+            context,
+            request: mockRequest,
+            params: mockParams,
+            url: mockUrl,
+            pattern: mockPattern,
+          },
+          mockNext,
+        ),
+      ).rejects.toThrow(UnauthorizedError);
     });
   });
 

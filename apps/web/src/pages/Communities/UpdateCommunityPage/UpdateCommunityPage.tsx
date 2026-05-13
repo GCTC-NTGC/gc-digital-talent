@@ -346,8 +346,6 @@ export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
       [
         { name: ROLE_NAME.PlatformAdmin },
         { name: ROLE_NAME.CommunityAdmin, teamId: teamId },
-        { name: ROLE_NAME.CommunityRecruiter, teamId: teamId },
-        { name: ROLE_NAME.CommunityTalentCoordinator, teamId: teamId },
       ],
       true,
     );
