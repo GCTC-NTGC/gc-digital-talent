@@ -78,6 +78,7 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
           icon={QueueListIcon}
           center
           className="mt-1 mb-6 font-normal xs:justify-start xs:text-left"
+          size="h3"
         >
           {intl.formatMessage(adminMessages.communityDetails)}
         </Heading>
@@ -178,7 +179,7 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
               description: "Link to edit the currently viewed community",
             })}
           </Link>
-          <span className="mt-6 text-gray-500 xs:mt-0 dark:text-gray-200">
+          <span className="mt-6 text-sm text-gray-500 xs:mt-0 dark:text-gray-200">
             {community.key}
           </span>
         </div>
