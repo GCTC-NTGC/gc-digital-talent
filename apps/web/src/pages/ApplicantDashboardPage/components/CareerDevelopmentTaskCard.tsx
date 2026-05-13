@@ -453,7 +453,6 @@ const CareerDevelopmentTaskCard = ({
                     description:
                       "Subtitle explaining functional communities expandable within career development card",
                   })}
-                  // @ts-expect-error: Forward ref to button is supported by Accordion.Trigger
                   ref={functionalCommunitiesTriggerRef}
                 >
                   {intl.formatMessage({
