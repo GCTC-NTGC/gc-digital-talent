@@ -36,6 +36,7 @@ const permissionConstants: Readonly<Record<string, RoleName[]>> = {
     ROLE_NAME.PlatformAdmin,
   ],
   viewCommunityTalent: [
+    ROLE_NAME.CommunityAdmin,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityTalentCoordinator,
     ROLE_NAME.PlatformAdmin,

@@ -1,13 +1,12 @@
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import type { AccordionMetaData } from "@gc-digital-talent/ui";
 import {
   Accordion,
-  Button,
   PreviewList,
   TaskCard,
   Ul,
@@ -18,10 +17,11 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
+import useScrollToHash from "~/hooks/useScrollToHash";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
-import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
+import { PAGE_SECTION_ID as APPLICANT_DASHBOARD_SECTION_ID } from "~/constants/sections/applicantDashboard";
 
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 
@@ -60,7 +60,6 @@ const CareerDevelopmentTaskCardUser_Fragment = graphql(/* GraphQL */ `
         ...PreviewListItemFunctionalCommunity
       }
     }
-    ...UnlockEmployeeTools
   }
 `);
 
@@ -105,10 +104,29 @@ const CareerDevelopmentTaskCard = ({
   const intl = useIntl();
   const paths = useRoutes();
   const careerDevelopmentMessages = messages(intl);
+
   const [careerPlanningAccordionValue, setCareerPlanningAccordionValue] =
     useState<string>("");
   const [communityAccordionValue, setCommunityAccordionValue] =
     useState<string>("");
+
+  // Ref for the functional communities accordion trigger
+  const functionalCommunitiesTriggerRef = useRef<HTMLButtonElement | null>(
+    null,
+  );
+
+  const expandFunctionalCommunities = useCallback(() => {
+    setCommunityAccordionValue(ACCORDION_ID.FUNCTIONAL_COMMUNITIES);
+    // Focus the accordion trigger after expanding
+    setTimeout(() => {
+      functionalCommunitiesTriggerRef.current?.focus();
+    }, 0);
+  }, []);
+
+  useScrollToHash(
+    APPLICANT_DASHBOARD_SECTION_ID.FUNCTIONAL_COMMUNITIES,
+    expandFunctionalCommunities,
+  );
 
   const userFragment = getFragment(
     CareerDevelopmentTaskCardUser_Fragment,
@@ -174,18 +192,14 @@ const CareerDevelopmentTaskCard = ({
           children: <>{addACommunityLinkText}</>,
         },
       ]
-    : // if not verified, then a dialog to get verified
+    : // if not verified, then a link to get verified
       [
         {
           key: "add-community-key",
-          type: "button-component",
-          component: (
-            <UnlockEmployeeToolsDialog query={userFragment}>
-              <Button mode="inline" size="sm">
-                {addACommunityLinkText}
-              </Button>
-            </UnlockEmployeeToolsDialog>
-          ),
+          type: "link",
+          href: paths.employeeProfile(),
+          color: "primary",
+          children: <>{addACommunityLinkText}</>,
         },
       ];
 
@@ -425,6 +439,7 @@ const CareerDevelopmentTaskCard = ({
             <Accordion.Root
               type="single"
               collapsible
+              id={APPLICANT_DASHBOARD_SECTION_ID.FUNCTIONAL_COMMUNITIES}
               value={communityAccordionValue}
               onValueChange={setCommunityAccordionValue}
             >
@@ -438,6 +453,7 @@ const CareerDevelopmentTaskCard = ({
                     description:
                       "Subtitle explaining functional communities expandable within career development card",
                   })}
+                  ref={functionalCommunitiesTriggerRef}
                 >
                   {intl.formatMessage({
                     defaultMessage: "Functional communities",
