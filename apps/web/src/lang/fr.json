@@ -4335,6 +4335,10 @@
     "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de toute personne candidate qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi sélectionnés",
     "description": "Context for employment equity filter in search form."
   },
+  "FQe7E0": {
+    "defaultMessage": "Toute personne ayant déjà ajouté ce perfectionnement professionnel à ses renseignements liés à la collectivité le verra retiré (son expérience professionnelle ne sera pas touchée)",
+    "description": "Third list item in warning message before removing a professionalization"
+  },
   "FRPkzV": {
     "defaultMessage": "Coup d’œil aux postes du numérique au MDN",
     "description": "Heading for digital roles available"
@@ -5034,10 +5038,6 @@
   "IIKzsd": {
     "defaultMessage": "Afficher ou masquer des colonnes dans le tableau",
     "description": "Label for checkboxes used for disabling or enabling table column display"
-  },
-  "IIUffU": {
-    "defaultMessage": "Ce perfectionnement professionnel ne sera plus offert lors des mises en candidature en gestion des talents",
-    "description": "Third list item in warning message before removing a professionalization"
   },
   "IIZNzj": {
     "defaultMessage": "L’ulu, un outil inuit utilisé par les femmes inuites.",
@@ -7791,6 +7791,10 @@
     "defaultMessage": "Vous avez créé votre identifiant ConnexionCanada avec succès.",
     "description": "Text for first registration step, successful account creation"
   },
+  "ToJGtJ": {
+    "defaultMessage": "Les mises en candidature contenant ce perfectionnement professionnel à titre de possibilité de perfectionnement continueront de le conserver à des fins d’archivage",
+    "description": "Fourth list item in warning message before removing a professionalization"
+  },
   "Tp7hml": {
     "defaultMessage": "Des représentants du service à la clientèle sont disponibles pour vous aider par téléphone toute l'année, 24 heures sur 24, 7 jours sur 7.",
     "description": "GCKey answer for who to contact about GCKey, contact availability"
@@ -10229,10 +10233,6 @@
   "e0v7Fl": {
     "defaultMessage": "Options d'avancement",
     "description": "Title for advancement options section in nominations details step"
-  },
-  "e1fkL1": {
-    "defaultMessage": "Les mises en candidature contenant ce perfectionnement professionnel à titre de possibilité de perfectionnement continueront de le conserver à des fins d’archivage",
-    "description": "Fifth list item in warning message before removing a professionalization"
   },
   "e1mxkv": {
     "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant « {skillName} » au « {skillLevel} » niveau.",
@@ -14901,10 +14901,6 @@
   "wmSeI8": {
     "defaultMessage": "Une fois votre adresse courriel de correspondance ajoutée et confirmée, les notifications parviendront à votre boîte de réception. Cette adresse servira aussi au personnel des ressources humaines et aux gestionnaires responsables de l'embauche pour communiquer avec vous.",
     "description": "Contact email card description on account settings page"
-  },
-  "wppRjE": {
-    "defaultMessage": "Toute personne ayant déjà ajouté ce perfectionnement professionnel à ses renseignements liés à la collectivité le verra retiré (son expérience professionnelle ne sera pas touchée)",
-    "description": "Forth list item in warning message before removing a professionalization"
   },
   "wqcWdN": {
     "defaultMessage": "Votre candidature a été retirée de ce processus. Si vous avez des questions, veuillez contacter le service ou l’équipe de recrutement responsable de la publication de l’offre d’emploi.",
