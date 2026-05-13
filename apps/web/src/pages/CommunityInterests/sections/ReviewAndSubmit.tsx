@@ -132,11 +132,13 @@ const ReviewAndSubmit = ({
       />
       {/* submit button */}
       <Card.Separator space="sm" />
-      {actions}
-      <Submit
-        disabled={formDisabled}
-        text={intl.formatMessage(formMessages.saveChanges)}
-      />
+      <div className="flex flex-col items-center justify-center gap-6 xs:flex-row xs:justify-start">
+        {actions && <span>{actions}</span>}
+        <Submit
+          disabled={formDisabled}
+          text={intl.formatMessage(formMessages.saveChanges)}
+        />
+      </div>
     </div>
   );
 };
