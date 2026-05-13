@@ -1,25 +1,38 @@
 import { useIntl } from "react-intl";
+import type { Dispatch, SetStateAction } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import type { Maybe } from "@gc-digital-talent/graphql";
 
-const RemoveDevelopmentProgramDialog = ({
-  title,
-  onRemove,
-}: {
+interface RemoveDialogProps {
+  communityDevelopmentProgramId: string;
   title?: Maybe<string>;
   onRemove: () => void;
-}) => {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<string | null>>;
+}
+
+const RemoveDialog = ({
+  communityDevelopmentProgramId,
+  title,
+  onRemove,
+  open,
+  setOpen,
+}: RemoveDialogProps) => {
   const intl = useIntl();
 
   return (
-    <Dialog.Root>
-      <Dialog.Trigger>
-        <Button color="primary" mode="text" className="w-full">
-          {intl.formatMessage(commonMessages.remove)}
-        </Button>
-      </Dialog.Trigger>
+    <Dialog.Root
+      open={open}
+      onOpenChange={(isOpen) => {
+        if (isOpen) {
+          setOpen(communityDevelopmentProgramId);
+        } else {
+          setOpen(null);
+        }
+      }}
+    >
       <Dialog.Content>
         <Dialog.Header>
           {intl.formatMessage({
@@ -57,4 +70,4 @@ const RemoveDevelopmentProgramDialog = ({
   );
 };
 
-export default RemoveDevelopmentProgramDialog;
+export default RemoveDialog;
