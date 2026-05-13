@@ -164,10 +164,12 @@ export const CreateCommunityInterestPage = () => {
   const returnPath = searchParams?.get("from") ?? routes.applicantDashboard();
 
   const navigate = useNavigate();
-  const [{ data: queryData, fetching: queryFetching, error: queryError }, reexecuteQuery] =
-    useQuery({
-      query: CreateCommunityInterestPage_Query,
-    });
+  const [
+    { data: queryData, fetching: queryFetching, error: queryError },
+    reexecuteQuery,
+  ] = useQuery({
+    query: CreateCommunityInterestPage_Query,
+  });
   const [{ fetching: mutationFetching }, executeCreateMutation] = useMutation(
     CreateCommunityInterestPage_Mutation,
   );
@@ -247,7 +249,9 @@ export const CreateCommunityInterestPage = () => {
               userId={userAuthInfo.id}
               formDisabled={queryFetching || mutationFetching}
               onSubmit={submitForm}
-              onRefetchExperiences={() => reexecuteQuery({ requestPolicy: "network-only" })}
+              onRefetchExperiences={() =>
+                reexecuteQuery({ requestPolicy: "network-only" })
+              }
             />
           </div>
         )}

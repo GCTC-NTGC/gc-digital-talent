@@ -258,13 +258,15 @@ export const UpdateCommunityInterestPage = () => {
   if (!communityInterestId) {
     throw new NotFoundError("Missing parameter: communityInterestId");
   }
-  const [{ data: queryData, fetching: queryFetching, error: queryError }, reexecuteQuery] =
-    useQuery({
-      query: UpdateCommunityInterest_Query,
-      variables: {
-        communityInterestId: communityInterestId,
-      },
-    });
+  const [
+    { data: queryData, fetching: queryFetching, error: queryError },
+    reexecuteQuery,
+  ] = useQuery({
+    query: UpdateCommunityInterest_Query,
+    variables: {
+      communityInterestId: communityInterestId,
+    },
+  });
   const [{ fetching: mutationFetching }, executeUpdateMutation] = useMutation(
     UpdateCommunityInterest_Mutation,
   );
@@ -380,7 +382,9 @@ export const UpdateCommunityInterestPage = () => {
               userId={userAuthInfo.id}
               formDisabled={queryFetching || mutationFetching}
               onSubmit={submitForm}
-              onRefetchExperiences={() => reexecuteQuery({ requestPolicy: "network-only" })}
+              onRefetchExperiences={() =>
+                reexecuteQuery({ requestPolicy: "network-only" })
+              }
             />
           </div>
         ) : (
