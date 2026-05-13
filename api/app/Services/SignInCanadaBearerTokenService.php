@@ -25,6 +25,7 @@ use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Psr\Clock\ClockInterface;
+use Throwable;
 
 class SignInCanadaBearerTokenService implements BearerTokenService
 {
@@ -60,7 +61,7 @@ class SignInCanadaBearerTokenService implements BearerTokenService
     private function getConfigProperty(string $propertyName): string
     {
         $jsonString = Cache::remember('openid_config_json_string', config('oauth.config_cache_time'), function () { // only get content every so often (default: 30min)
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->get($this->configUri);
 
@@ -91,7 +92,7 @@ class SignInCanadaBearerTokenService implements BearerTokenService
 
         $jwks_uri = $this->getConfigProperty('jwks_uri');
         $jsonString = Cache::remember('jwks_json_string', config('oauth.config_cache_time'), function () use ($jwks_uri) { // only get jwks content every so often (default: 30min)
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->get($jwks_uri);
 
@@ -150,7 +151,7 @@ class SignInCanadaBearerTokenService implements BearerTokenService
         } else {
             // make api call to introspect endpoint
             $introspectionUri = $this->getConfigProperty('introspection_endpoint');
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->asForm()
                 ->withToken($accessToken)

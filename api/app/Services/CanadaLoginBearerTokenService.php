@@ -27,6 +27,7 @@ use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Psr\Clock\ClockInterface;
+use Throwable;
 
 class CanadaLoginBearerTokenService implements BearerTokenService
 {
@@ -64,7 +65,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
         // only get content every so often (default: 30min)
         $jsonString = Cache::remember('openid_config_json_string', config('oauth.config_cache_time'),
             function () {
-                $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+                $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
                     return $exception instanceof ConnectionException;
                 }, throw: false)->get($this->configUri);
                 assert($response instanceof Response);
@@ -98,7 +99,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
         // only get jwks content every so often (default: 30min)
         $jsonString = Cache::remember('jwks_json_string', config('oauth.config_cache_time'),
             function () use ($jwks_uri) {
-                $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+                $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
                     return $exception instanceof ConnectionException;
                 }, throw: false)->get($jwks_uri);
                 assert($response instanceof Response);
@@ -152,7 +153,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
 
         // make api call to introspect endpoint
         $introspectionUri = $this->getConfigProperty('introspection_endpoint');
-        $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+        $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
             return $exception instanceof ConnectionException;
         }, throw: false)->asForm()
             ->withToken($accessToken)  // required by mockauth but not CanadaLogin
