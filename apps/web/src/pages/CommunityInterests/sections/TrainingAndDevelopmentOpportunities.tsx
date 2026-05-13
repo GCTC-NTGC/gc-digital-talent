@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { useQuery } from "urql";
 
 import {
   Chip,
@@ -72,9 +73,9 @@ export const DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment 
     }
   `);
 
-export const EducationExperiencesTrainingAndDevelopmentOpportunities_Fragment =
-  graphql(/* GraphQL */ `
-    fragment EducationExperiencesTrainingAndDevelopmentOpportunities on User {
+const EducationExperiencesRefresh_Query = graphql(/* GraphQL */ `
+  query EducationExperiencesForLinking {
+    me {
       educationExperiences {
         __typename
         id
@@ -95,7 +96,13 @@ export const EducationExperiencesTrainingAndDevelopmentOpportunities_Fragment =
         }
       }
     }
-  `);
+  }
+`);
+
+// Keep reference stable to avoid re-triggering the query on each render.
+const educationExperiencesContext = {
+  additionalTypenames: ["EducationExperience"],
+};
 
 export interface SubformValues {
   interestInDevelopmentPrograms:
@@ -116,12 +123,6 @@ interface TrainingAndDevelopmentOpportunitiesProps {
   developmentProgramUserRecordsQuery: FragmentType<
     typeof DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment
   >[];
-  educationExperiences:
-    | FragmentType<
-        typeof EducationExperiencesTrainingAndDevelopmentOpportunities_Fragment
-      >
-    | null
-    | undefined;
 }
 
 const TrainingAndDevelopmentOpportunities = ({
@@ -129,7 +130,6 @@ const TrainingAndDevelopmentOpportunities = ({
   optionsQuery,
   formDisabled,
   developmentProgramUserRecordsQuery,
-  educationExperiences,
 }: TrainingAndDevelopmentOpportunitiesProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -139,15 +139,14 @@ const TrainingAndDevelopmentOpportunities = ({
   );
   const dialogFormMethods = useForm<{ experienceId: string }>();
 
-  const educationExperiencesFragmentData = getFragment(
-    EducationExperiencesTrainingAndDevelopmentOpportunities_Fragment,
-    educationExperiences,
-  );
-  const educationExperiencesFromProp = unpackMaybes(
-    educationExperiencesFragmentData?.educationExperiences,
-  );
+  const [{ data: experiencesData }, refetchExperiences] = useQuery({
+    query: EducationExperiencesRefresh_Query,
+    context: educationExperiencesContext,
+  });
 
-  const activeExperiences = educationExperiencesFromProp;
+  const activeExperiences = unpackMaybes(
+    experiencesData?.me?.educationExperiences,
+  );
 
   const optionsData = getFragment(
     TrainingAndDevelopmentOpportunitiesOptions_Fragment,
@@ -221,6 +220,7 @@ const TrainingAndDevelopmentOpportunities = ({
       "";
     dialogFormMethods.reset({ experienceId: currentId });
     setDialogOpenForIndex(index);
+    refetchExperiences({ requestPolicy: "network-only" });
   };
 
   const handleLinkExperience: SubmitHandler<{ experienceId: string }> = (
