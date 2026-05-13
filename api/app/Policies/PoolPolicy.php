@@ -102,6 +102,7 @@ class PoolPolicy
     /**
      * Determine whether the user can duplicate pools.
      *
+     * @param  mixed  $request
      * @return Response|bool
      */
     public function duplicate(User $user, $request)
@@ -162,11 +163,7 @@ class PoolPolicy
             return true;
         }
 
-        if ($this->checkTeamPermission($user, [$pool->community->team, $pool->department->team], 'publish-team-draftPool')) {
-            return true;
-        }
-
-        return Response::deny('Cannot publish that pool.');
+        return $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'publish-team-draftPool');
     }
 
     /**
@@ -180,8 +177,7 @@ class PoolPolicy
             return true;
         }
 
-        // Note: this checks both pool team and community team, but not department team
-        return $this->checkTeamPermission($user, [$pool->team, $pool->community->team], 'update-team-publishedPool');
+        return $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'update-team-publishedPool');
     }
 
     /**
@@ -195,8 +191,7 @@ class PoolPolicy
             return true;
         }
 
-        // Note: this checks both pool team and community team, but not department team
-        return $this->checkTeamPermission($user, [$pool->team, $pool->community->team], 'update-team-publishedPool');
+        return $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'update-team-publishedPool');
     }
 
     /**
