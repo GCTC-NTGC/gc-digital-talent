@@ -42,6 +42,13 @@ API_ENV="api/.env"
 if [ ! -f "${API_ENV}" ]; then
   echo "api/.env not found — copying from api/.env.example"
   cp api/.env.example "${API_ENV}"
+  ${parent_path}/update_env_secrets.sh "${API_ENV}"
+fi
+
+# Generate APP_KEY if missing (e.g. freshly copied from .env.example)
+if ! grep -q "^APP_KEY=.\+" "${API_ENV}"; then
+  echo "Generating APP_KEY..."
+  docker compose run --rm maintenance sh -c "cd /var/www/html/api && php artisan key:generate"
 fi
 
 sed -i "s|APP_URL=.*|APP_URL=\"${APP_URL}\"|" "${API_ENV}"
