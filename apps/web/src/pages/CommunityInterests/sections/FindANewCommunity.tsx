@@ -112,11 +112,12 @@ const FindANewCommunity = ({
   switch (mode) {
     case "create":
       heading = defineMessage({
-        defaultMessage: "Find a new community",
-        id: "53LNWh",
+        defaultMessage: "Choose a community",
+        id: "M64e1L",
         description:
           "Heading for the 'Find a new community' section when creating",
       });
+      // TODO: Fix copy below
       description = defineMessage({
         defaultMessage:
           "To get started, browse through the list of communities that partner with GC Digital Talent. More communities will be added as they join the platform. Once you’ve selected a community, you’ll be asked a few questions about your interest in opportunities.",
@@ -145,13 +146,13 @@ const FindANewCommunity = ({
   }
 
   return (
-    <div className="flex flex-col gap-7.5">
+    <div className="mb-2 flex flex-col gap-6">
       {/* heading and description */}
       <div className="flex flex-col gap-6">
         <Heading
           level="h2"
           icon={UserGroupIcon}
-          color="secondary"
+          color="primary"
           className="mt-0 font-normal"
         >
           {intl.formatMessage(heading)}
@@ -166,8 +167,8 @@ const FindANewCommunity = ({
             id="communityId"
             name="communityId"
             label={intl.formatMessage({
-              defaultMessage: "Functional community",
-              id: "ElnCxi",
+              defaultMessage: "Select a functional community",
+              id: "lbGN67",
               description:
                 "Description for a form input for selecting a functional community",
             })}
@@ -271,7 +272,7 @@ const FindANewCommunity = ({
             {/* work stream section */}
             {workStreamOptions.length ? (
               <div className="flex flex-col gap-3">
-                <span id={workStreamListDescription}>
+                <span id={workStreamListDescription} className="mb-3">
                   {intl.formatMessage({
                     defaultMessage:
                       "Please select any of the work streams listed that you would consider for work or training.",

@@ -146,7 +146,7 @@ const AdditionalInformation = ({
         <Heading
           level="h2"
           icon={ClipboardDocumentCheckIcon}
-          color="secondary"
+          color="primary"
           className="mt-0 font-normal"
         >
           {intl.formatMessage({

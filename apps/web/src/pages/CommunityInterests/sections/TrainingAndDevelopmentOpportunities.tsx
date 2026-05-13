@@ -268,14 +268,14 @@ const TrainingAndDevelopmentOpportunities = ({
     intl.formatMessage(commonMessages.notProvided);
 
   return (
-    <div className="flex flex-col gap-7.5">
+    <div className="flex flex-col gap-6">
       {/* heading and description */}
       <div className="flex flex-col gap-6">
         <Heading
           level="h2"
           icon={RectangleGroupIcon}
-          color="secondary"
-          className="mt-0 font-normal"
+          color="primary"
+          className="mt-0 mb-0 font-normal"
         >
           {intl.formatMessage({
             defaultMessage: "Training and development opportunities",
@@ -287,20 +287,23 @@ const TrainingAndDevelopmentOpportunities = ({
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "Most functional communities offer various programs for learning and development. These programs might have specific eligibility requirements based on your experience, classification, or other qualifications. Expressing interest in these opportunities isn't an application, but it allows HR and recruitment staff to verify your interest in case you've been nominated for a training or development opportunity.",
-            id: "u093wf",
+              "Functional communities often offer or recommend programs, certifications or accreditation that benefit candidates who work in relevant areas of work. You can express interest in these opportunities or link your career experience to show that you've participated in the past or earned a certification. Opportunities might have specific eligibility requirements based on classification or experience. Expression of interest does not constitute a formal application or guarantee participation.",
+            id: "2yFplA",
             description:
               "Description of the 'Training and development opportunities' section",
           })}
         </p>
       </div>
       {/* list of programs */}
-      <div className="flex flex-col gap-9">
+      <div className="rounded-md border border-gray-200">
         {developmentPrograms.map((developmentProgram, index) => (
-          <div key={developmentProgram.id} className="flex flex-col gap-6">
+          <div
+            key={developmentProgram.id}
+            className="border-b border-gray-200 p-6 last:border-b-0 odd:bg-gray-100/30 dark:border-gray-700 dark:odd:bg-gray-600 dark:even:bg-gray-600/80"
+          >
             {/* titles */}
-            <div>
-              <Heading level="h3" size="h6" className="m-0 font-bold">
+            <div className="mb-6">
+              <Heading level="h3" size="h6" className="m-0 mb-3 font-bold">
                 {developmentProgram.name?.localized ??
                   intl.formatMessage(commonMessages.notProvided)}
               </Heading>
@@ -311,7 +314,7 @@ const TrainingAndDevelopmentOpportunities = ({
             </div>
             {/* classification list */}
             {developmentProgram?.eligibleClassifications?.length ? (
-              <div className="flex gap-1.5">
+              <div className="mb-6 flex gap-1.5">
                 <span>
                   {intl.formatMessage({
                     defaultMessage: "Available to",
@@ -324,7 +327,7 @@ const TrainingAndDevelopmentOpportunities = ({
                   {unpackMaybes(
                     developmentProgram?.eligibleClassifications,
                   ).map((classification) => (
-                    <Chip key={classification.id} color="secondary">
+                    <Chip key={classification.id} color="primary">
                       {getClassificationName(classification, intl)}
                     </Chip>
                   ))}
@@ -413,11 +416,21 @@ const TrainingAndDevelopmentOpportunities = ({
                     array.developmentProgramId === developmentProgram.id,
                 )?.participationStatus ?? undefined
               }
+              className="mb-6"
             />
             {selectedInterestInDevelopmentPrograms?.[index]
               ?.participationStatus ===
             DevelopmentProgramParticipationStatus.Completed ? (
               <>
+                <p className="mb-6">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "You can optionally link an education or certificate experience from your career history to help recruiters and hiring managers validate your participation or certification.",
+                    id: "Ns5tNE",
+                    description:
+                      "Description before linked experience buttons.",
+                  })}
+                </p>
                 {(() => {
                   const linkedExp = getLinkedExperience(
                     selectedInterestInDevelopmentPrograms[index]
@@ -496,7 +509,7 @@ const TrainingAndDevelopmentOpportunities = ({
                         href={paths.createExperience()}
                         newTab
                         mode="inline"
-                        color="secondary"
+                        color="primary"
                       >
                         {intl.formatMessage(
                           experienceMessages.addNewExperience,

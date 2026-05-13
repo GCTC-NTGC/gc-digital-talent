@@ -89,8 +89,8 @@ const CreateCommunityInterestForm = ({
             {...formMethods.register(`userId`)}
             value={userId}
           />
-          <Card space="lg">
-            <div className="flex flex-col gap-12">
+          <Card>
+            <div className="flex flex-col gap-6">
               <FindANewCommunity
                 optionsQuery={formOptions}
                 formDisabled={formDisabled}
