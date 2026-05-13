@@ -21,7 +21,7 @@ import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { messages } from "./messages";
+import { messages } from "../messages";
 import type { FormValues } from "../form";
 import { apiDataToFormValues, formValuesToApiUpdateInput } from "../form";
 import FindANewCommunity from "../sections/FindANewCommunity";
