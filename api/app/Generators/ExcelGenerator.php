@@ -26,6 +26,11 @@ abstract class ExcelGenerator extends FileGenerator implements FileGeneratorInte
 
     }
 
+    public function getSpreadsheet(): ?Spreadsheet
+    {
+        return $this->spreadsheet;
+    }
+
     public function write()
     {
         if (! $this->spreadsheet) {

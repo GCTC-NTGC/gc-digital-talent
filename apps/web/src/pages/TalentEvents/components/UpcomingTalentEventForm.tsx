@@ -322,6 +322,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
 
                       return (
                         <DevelopmentProgramCard.Item
+                          id={field.id}
                           key={field.id}
                           title={developmentProgram?.label ?? notFound}
                           description={
