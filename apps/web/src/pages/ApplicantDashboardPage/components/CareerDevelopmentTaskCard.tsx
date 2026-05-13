@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -104,13 +104,23 @@ const CareerDevelopmentTaskCard = ({
   const intl = useIntl();
   const paths = useRoutes();
   const careerDevelopmentMessages = messages(intl);
+
   const [careerPlanningAccordionValue, setCareerPlanningAccordionValue] =
     useState<string>("");
   const [communityAccordionValue, setCommunityAccordionValue] =
     useState<string>("");
 
+  // Ref for the functional communities accordion trigger
+  const functionalCommunitiesTriggerRef = useRef<HTMLButtonElement | null>(
+    null,
+  );
+
   const expandFunctionalCommunities = useCallback(() => {
     setCommunityAccordionValue(ACCORDION_ID.FUNCTIONAL_COMMUNITIES);
+    // Focus the accordion trigger after expanding
+    setTimeout(() => {
+      functionalCommunitiesTriggerRef.current?.focus();
+    }, 0);
   }, []);
 
   useScrollToHash(
@@ -443,6 +453,8 @@ const CareerDevelopmentTaskCard = ({
                     description:
                       "Subtitle explaining functional communities expandable within career development card",
                   })}
+                  // @ts-expect-error: Forward ref to button is supported by Accordion.Trigger
+                  ref={functionalCommunitiesTriggerRef}
                 >
                   {intl.formatMessage({
                     defaultMessage: "Functional communities",
