@@ -109,6 +109,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
  * @property ?EmployeeProfile $employeeProfile
  * @property ?string $last_sign_in_iss
+ * @property ?string $email_backup
+ * @property ?string $work_email_backup
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -614,7 +616,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             is_null($this->attributes['first_name']) or
             is_null($this->attributes['last_name']) or
             is_null($this->attributes['email']) or
-            (config('feature.application_email_verification') && is_null($this->attributes['email_verified_at'])) or
+            is_null($this->attributes['email_verified_at']) or
             is_null($this->attributes['telephone']) or
             is_null($this->attributes['preferred_lang']) or
             is_null($this->attributes['preferred_language_for_interview']) or
@@ -707,10 +709,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 // Cascade delete to child models
                 $user->poolCandidates()->delete();
 
-                // Modify the email(s) to allow use by another user
-                $user->email = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
+                // Backup the email(s) to allow use by another user
+                if (! is_null($user->email)) {
+                    $user->email_backup = $user->email;
+                    $user->email = null;
+                }
                 if (! is_null($user->work_email)) {
-                    $user->work_email = $user->work_email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
+                    $user->work_email_backup = $user->work_email;
+                    $user->work_email = null;
                 }
                 $user->save();
             }
@@ -723,12 +729,37 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $candidate->restore();
             }
 
-            $newContactEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
-            $user->update(['email' => $newContactEmail]);
-            if (! is_null($user->work_email)) {
-                $newWorkEmail = $user->work_email.'-restored-at-'.Carbon::now()->format('Y-m-d');
-                $user->update(['email' => $newWorkEmail]);
+            // see if we can restore email
+            if (is_null($user->email) && ! is_null($user->email_backup)) {
+                $existingUserCount = User::where('id', '!=', $user->id)
+                    ->where(fn ($subquery) => $subquery
+                        ->where('email', 'ilike', $user->email_backup)
+                        ->orWhere('work_email', 'ilike', $user->email_backup))
+                    ->withTrashed()
+                    ->count();
+
+                if ($existingUserCount == 0) {
+                    $user->email = $user->email_backup;
+                    $user->email_backup = null;
+                }
             }
+
+            // see if we can restore work email
+            if (is_null($user->work_email) && ! is_null($user->work_email_backup)) {
+                $existingUserCount = User::where('id', '!=', $user->id)
+                    ->where(fn ($subquery) => $subquery
+                        ->where('email', 'ilike', $user->work_email_backup)
+                        ->orWhere('work_email', 'ilike', $user->work_email_backup))
+                    ->withTrashed()
+                    ->count();
+
+                if ($existingUserCount == 0) {
+                    $user->work_email = $user->work_email_backup;
+                    $user->work_email_backup = null;
+                }
+            }
+
+            $user->save();
         });
 
         static::roleAdded(function (User $user, string $role, $team) {

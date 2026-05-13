@@ -1,13 +1,7 @@
 import type { Meta, StoryFn } from "@storybook/react-vite";
 
-import {
-  fakeLocalizedEnum,
-  fakeSearchRequests,
-} from "@gc-digital-talent/fake-data";
-import {
-  allModes,
-  MockGraphqlDecorator,
-} from "@gc-digital-talent/storybook-helpers";
+import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 import {
   FlexibleWorkLocation,
   makeFragmentData,
@@ -16,15 +10,57 @@ import {
 
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
-import { ViewSearchRequest } from "./components/ViewSearchRequest";
+import { TalentRequestStatusOptions_Fragment } from "./components/TalentRequestStatus";
+import {
+  TalentRequestOptions_Fragment,
+  ViewSearchRequest,
+} from "./components/ViewSearchRequest";
 
 const mockSearchRequests = fakeSearchRequests();
 
+const locationOptions = makeFragmentData(
+  {
+    __typename: "Query",
+    flexibleWorkLocation: Object.values(FlexibleWorkLocation).map((loc) => ({
+      value: loc,
+      label: {
+        en: `${loc} EN`,
+        fr: `${loc} FR`,
+        localized: `${loc} LOCALIZED`,
+      },
+    })),
+  },
+  FlexibleWorkLocationOptions_Fragment,
+);
+
+const statusOptions = makeFragmentData(
+  {
+    __typename: "Query",
+    statuses: Object.values(PoolCandidateSearchStatus).map((status) => ({
+      __typename: "LocalizedPoolCandidateSearchStatus" as const,
+      value: status,
+      label: {
+        localized: `${status} LOCALIZED`,
+      },
+    })),
+  },
+  TalentRequestStatusOptions_Fragment,
+);
+
+const options = makeFragmentData(
+  Object.assign(
+    { __typename: "Query" as const },
+    locationOptions,
+    statusOptions,
+  ),
+  TalentRequestOptions_Fragment,
+);
+
 export default {
   component: ViewSearchRequest,
-  decorators: [MockGraphqlDecorator],
   args: {
     searchRequestQuery: mockSearchRequests[0],
+    optionsQuery: options,
   },
   parameters: {
     chromatic: {
@@ -33,58 +69,16 @@ export default {
         "light mobile": allModes["light mobile"],
       },
     },
-    apiResponses: {
-      UpdateSearchRequestOptions: {
-        data: {
-          statuses: fakeLocalizedEnum(PoolCandidateSearchStatus),
-        },
-      },
-    },
   },
 } as Meta<typeof ViewSearchRequest>;
 
-const flexibleWorkOptionsQuery = makeFragmentData(
-  {
-    flexibleWorkLocation: [
-      {
-        value: FlexibleWorkLocation.Remote,
-        label: {
-          __typename: undefined,
-          en: undefined,
-          fr: undefined,
-          localized: "REMOTE LOCALIZED",
-        },
-      },
-      {
-        value: FlexibleWorkLocation.Hybrid,
-        label: {
-          __typename: undefined,
-          en: undefined,
-          fr: undefined,
-          localized: "HYBRID LOCALIZED",
-        },
-      },
-      {
-        value: FlexibleWorkLocation.Onsite,
-        label: {
-          __typename: undefined,
-          en: undefined,
-          fr: undefined,
-          localized: "ONSITE LOCALIZED",
-        },
-      },
-    ],
-  },
-  FlexibleWorkLocationOptions_Fragment,
-);
-
 const Template: StoryFn<typeof ViewSearchRequest> = (args) => {
-  const { searchRequestQuery } = args;
+  const { searchRequestQuery, optionsQuery } = args;
 
   return (
     <ViewSearchRequest
       searchRequestQuery={searchRequestQuery}
-      flexibleLocationOptionsQuery={flexibleWorkOptionsQuery}
+      optionsQuery={optionsQuery}
     />
   );
 };

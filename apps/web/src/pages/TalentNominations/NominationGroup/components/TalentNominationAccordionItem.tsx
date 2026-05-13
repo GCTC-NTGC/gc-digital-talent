@@ -15,6 +15,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { formatClassificationString } from "~/utils/poolUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import adminMessages from "~/messages/adminMessages";
 
 import { formMessages } from "../messages";
 import nominationLabels from "../../NominateTalent/labels";
@@ -37,10 +38,12 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
     id
 
     talentNominationEvent {
-      developmentPrograms {
-        id
-        name {
-          localized
+      communityDevelopmentPrograms(trashed: WITH) {
+        developmentProgram {
+          id
+          name {
+            localized
+          }
         }
       }
       includeLeadershipCompetencies
@@ -91,10 +94,12 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
     }
     lateralMovementOptionsOther
 
-    developmentPrograms {
-      id
-      name {
-        localized
+    communityDevelopmentPrograms(trashed: WITH) {
+      developmentProgram {
+        id
+        name {
+          localized
+        }
       }
     }
     developmentProgramOptionsOther
@@ -220,15 +225,19 @@ const TalentNominationAccordionItem = ({
   }));
 
   const developmentProgramIdsInThisNomination =
-    talentNomination.developmentPrograms?.map((program) => program.id) ?? [];
+    talentNomination.communityDevelopmentPrograms?.map(
+      (cdp) => cdp.developmentProgram.id,
+    ) ?? [];
 
   const developmentProgramListItems =
-    talentNomination.talentNominationEvent.developmentPrograms?.map(
-      (program) => ({
-        key: program.id,
-        value: developmentProgramIdsInThisNomination.includes(program.id),
+    talentNomination.talentNominationEvent.communityDevelopmentPrograms?.map(
+      (cdp) => ({
+        key: cdp.developmentProgram.id,
+        value: developmentProgramIdsInThisNomination.includes(
+          cdp.developmentProgram.id,
+        ),
         label:
-          program.name?.localized ??
+          cdp.developmentProgram.name?.localized ??
           intl.formatMessage(commonMessages.notFound),
       }),
     ) ?? [];
@@ -449,11 +458,9 @@ const TalentNominationAccordionItem = ({
                   description: "Trigger subtitle for development programs",
                 })}
               >
-                {intl.formatMessage({
-                  defaultMessage: "Recommended development opportunities",
-                  id: "EsNdLS",
-                  description: "Trigger title for development programs",
-                })}
+                {intl.formatMessage(
+                  adminMessages.developmentOpportunitiesRecommended,
+                )}
               </Accordion.Trigger>
               <Accordion.Content>
                 <div className="grid gap-6">

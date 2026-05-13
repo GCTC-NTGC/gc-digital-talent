@@ -35,14 +35,15 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import { requireUser } from "~/routing/auth";
 
 import type { DepartmentFormOptions_Fragment } from "./FormFields";
 import FormFields from "./FormFields";
 import type { DepartmentType } from "./utils";
 import { departmentTypeToInput } from "./utils";
+import type { Route } from "./+types/UpdateDepartmentPage";
 
 interface FormValues {
   name?: LocalizedStringInput;
@@ -220,7 +221,14 @@ const UpdateDepartment_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const UpdateDepartmentPage = () => {
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request }, next) => {
+    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
+    return await next();
+  },
+];
+
+const Component = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
@@ -312,12 +320,6 @@ const UpdateDepartmentPage = () => {
     </>
   );
 };
-
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <UpdateDepartmentPage />
-  </RequireAuth>
-);
 
 Component.displayName = "AdminUpdateDepartmentPage";
 

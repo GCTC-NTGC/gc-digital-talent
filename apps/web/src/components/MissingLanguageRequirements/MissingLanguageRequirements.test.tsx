@@ -35,6 +35,10 @@ const unilingualPool: Pool = {
   ...fakePool,
   language: toLocalizedEnum(PoolLanguage.English),
 };
+const bilingualVariousPool: Pool = {
+  ...fakePool,
+  language: toLocalizedEnum(PoolLanguage.VariousBilingual),
+};
 const bilingualIntermediatePool: Pool = {
   ...fakePool,
   language: toLocalizedEnum(PoolLanguage.BilingualIntermediate),
@@ -83,6 +87,17 @@ describe("MissingLanguageRequirements", () => {
     renderMissingLanguageRequirements({
       user: unilingualApplicant,
       pool: bilingualAdvancedPool,
+    });
+
+    expect(
+      screen.getByRole("heading", { name: errorMessage }),
+    ).toBeInTheDocument();
+  });
+
+  it("should show error message if a unilingual applicant applies to a bilingual various pool", () => {
+    renderMissingLanguageRequirements({
+      user: unilingualApplicant,
+      pool: bilingualVariousPool,
     });
 
     expect(

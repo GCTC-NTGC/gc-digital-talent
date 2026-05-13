@@ -61,7 +61,7 @@ const useAvailableRoles = ({
       array.push(ROLE_NAME.DepartmentHRAdvisor);
     }
     return uniqueItems(array);
-  }, [roleAssignmentsFiltered]);
+  }, [departmentId, roleAssignmentsFiltered]);
 
   const roles: Role[] = useMemo(
     () =>

@@ -55,12 +55,10 @@ const Checklist = ({
     formState: { errors },
   } = useFormContext();
   const fieldState = useFieldState(name, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id: idPrefix,
     show: {
       error: fieldState === "invalid",
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 /**
@@ -15,9 +16,12 @@ use Illuminate\Support\Carbon;
  * @property ?Carbon $updated_at
  * @property string $community_id
  * @property string $development_program_id
+ * @property ?Carbon $deleted_at
  */
 class CommunityDevelopmentProgram extends Model
 {
+    use SoftDeletes;
+
     /**
      * The table associated with the model.
      *

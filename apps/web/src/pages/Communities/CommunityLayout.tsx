@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { Outlet } from "react-router";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import { useQuery } from "urql";
+import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
@@ -15,10 +16,11 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { checkRole } from "~/utils/communityUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
+import adminMessages from "~/messages/adminMessages";
 
 import type { ContextType } from "./CommunityMembersPage/components/types";
 
-type PageNavKeys = "manage-access" | "view";
+type PageNavKeys = "manage-access" | "view" | "professionalization";
 
 const CommunityLayoutCommunityName_Query = graphql(/* GraphQL */ `
   query CommunityName($id: UUID!) {
@@ -97,6 +99,13 @@ const CommunityLayout = () => {
   ]);
 
   if (canViewManageAccess) {
+    pages.set("professionalization", {
+      icon: CheckBadgeIcon,
+      title: intl.formatMessage(adminMessages.professionalization),
+      link: {
+        url: paths.communityProfessionalization(communityId),
+      },
+    });
     pages.set("manage-access", {
       icon: ClipboardDocumentListIcon,
       title: intl.formatMessage({

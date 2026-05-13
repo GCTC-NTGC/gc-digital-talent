@@ -45,12 +45,10 @@ const CreateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
     }
 
     me {
+      ...EducationExperiencesTrainingAndDevelopmentOpportunities
       developmentProgramUserRecords {
         ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
       }
-      # educationExperiences {
-      #   id
-      # }
     }
   }
 `);
@@ -112,6 +110,7 @@ const CreateCommunityInterestForm = ({
                           formOptions.me?.developmentProgramUserRecords,
                         )}
                         selectedCommunityId={selectedCommunityId}
+                        educationExperiences={formOptions.me}
                       />
                     </>
                   ) : null}

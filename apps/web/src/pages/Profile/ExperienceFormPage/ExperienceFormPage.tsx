@@ -576,6 +576,7 @@ export const ExperienceForm = ({
                 <TableOfContents.Section id="skills">
                   <ExperienceSkills
                     experienceType={experienceType}
+                    experienceId={experienceId}
                     skills={[...skills]}
                   />
                 </TableOfContents.Section>

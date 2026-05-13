@@ -231,7 +231,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           ))}
         </>
       )}
-      <FormActions disabled={mutating} />
+      <FormActions disabled={mutating} application={application} />
     </BasicForm>
   );
 };

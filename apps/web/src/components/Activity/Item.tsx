@@ -11,16 +11,17 @@ import PoolSkillActivityItem from "./Items/PoolSkillActivityItem";
 import type { CommonItemProps } from "./Items/BaseActivityItem";
 
 type SubComponentProps = Omit<PoolActivityItemProps, "query"> & CommonItemProps;
+type SubComponent = (props: SubComponentProps) => JSX.Element | null;
 
-const itemMap = new Map<
-  Activity["subjectType"],
-  (props: SubComponentProps) => JSX.Element | null
->([
-  ["App\\Models\\AssessmentStep", AssessmentStepActivityItem],
-  ["App\\Models\\Pool", PoolActivityItem],
-  ["App\\Models\\PoolCandidate", PoolCandidateActivityItem],
-  ["App\\Models\\PoolSkill", PoolSkillActivityItem],
-]);
+const COMPONENT_MAP: Record<
+  NonNullable<Activity["subjectType"]>,
+  SubComponent
+> = {
+  "App\\Models\\AssessmentStep": AssessmentStepActivityItem,
+  "App\\Models\\Pool": PoolActivityItem,
+  "App\\Models\\PoolCandidate": PoolCandidateActivityItem,
+  "App\\Models\\PoolSkill": PoolSkillActivityItem,
+};
 
 const ActivityItem_Fragment = graphql(/** GraphQL */ `
   fragment ActivityItem on Activity {
@@ -36,7 +37,9 @@ interface ItemProps {
 
 const Item = ({ query, itemProps }: ItemProps) => {
   const item = getFragment(ActivityItem_Fragment, query);
-  const El = itemMap.get(item.subjectType);
+  if (!item.subjectType || !(item.subjectType in COMPONENT_MAP)) return null;
+
+  const El = COMPONENT_MAP[item.subjectType];
 
   return El ? <El query={item} {...itemProps} /> : null;
 };

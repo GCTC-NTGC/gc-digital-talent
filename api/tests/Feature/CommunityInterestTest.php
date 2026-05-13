@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\CommunityInterestAdditionalDuty;
 use App\Enums\DevelopmentProgramParticipationStatus;
 use App\Enums\ErrorCode;
 use App\Models\Community;
@@ -244,7 +245,7 @@ class CommunityInterestTest extends TestCase
                             'communityId' => $financeCommunity->id,
                             ...$this->input,
                             'financeIsChief' => true,
-                            'financeAdditionalDuties' => null,
+                            'communityInterestAdditionalDuties' => null,
                             'financeOtherRoles' => null,
                             'consentToShareProfile' => true,
                         ],
@@ -255,6 +256,62 @@ class CommunityInterestTest extends TestCase
                     'createCommunityInterestWithDevelopmentPrograms' => [
                         ...$this->input,
                         'community' => ['id' => $financeCommunity->id],
+                    ],
+                ],
+            ]);
+    }
+
+    /**
+     * Test applicant can create a community interest for Procurement
+     */
+    public function testApplicantCanCreateOwnCommunityInterestForProcurement()
+    {
+        $procurementCommunity = Community::factory()->create([
+            'key' => 'procurement',
+            'name' => [
+                'en' => 'Procurement',
+                'fr' => 'Procurement (French)',
+            ],
+        ]);
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL(
+                <<<'GRAPHQL'
+                    mutation createCommunityInterestWithDevelopmentPrograms($communityInterestWithDevelopmentPrograms: CreateCommunityInterestWithDevelopmentProgramsInput!) {
+                        createCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: $communityInterestWithDevelopmentPrograms) {
+                            community {
+                                id
+                            }
+                            procurementIsSDO
+                            communityInterestAdditionalDuties {
+                                value
+                            }
+                            consentToShareProfile
+                        }
+                    }
+                GRAPHQL,
+                [
+                    'communityInterestWithDevelopmentPrograms' => [
+                        'userId' => $this->applicant->id,
+                        'communityInterest' => [
+                            'communityId' => $procurementCommunity->id,
+                            'procurementIsSDO' => true,
+                            'communityInterestAdditionalDuties' => [CommunityInterestAdditionalDuty::MATERIEL_MANAGEMENT->name],
+                            'consentToShareProfile' => true,
+                        ],
+                    ],
+                ])
+            ->assertJson([
+                'data' => [
+                    'createCommunityInterestWithDevelopmentPrograms' => [
+                        'community' => ['id' => $procurementCommunity->id],
+                        'procurementIsSDO' => true,
+                        'communityInterestAdditionalDuties' => [
+                            [
+                                'value' => 'MATERIEL_MANAGEMENT',
+                            ],
+                        ],
+                        'consentToShareProfile' => true,
                     ],
                 ],
             ]);
@@ -639,6 +696,134 @@ class CommunityInterestTest extends TestCase
             ]
         )->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
+    }
+
+    /**
+     * Test applicant can update the linked education experience on a development program
+     */
+    public function testApplicantCanUpdateLinkedExperience(): void
+    {
+        $developmentProgram = DevelopmentProgram::factory()->create();
+        $originalExperience = EducationExperience::factory()->create(['user_id' => $this->applicant->id]);
+        $newExperience = EducationExperience::factory()->create(['user_id' => $this->applicant->id]);
+
+        $communityInterest = CommunityInterest::factory()->create([
+            'user_id' => $this->applicant->id,
+            'community_id' => $this->communityId,
+            'consent_to_share_profile' => true,
+        ]);
+
+        DB::table('development_program_user')->insert([
+            'id' => Str::uuid(),
+            'development_program_id' => $developmentProgram->id,
+            'user_id' => $this->applicant->id,
+            'education_experience_id' => $originalExperience->id,
+            'participation_status' => DevelopmentProgramParticipationStatus::COMPLETED->name,
+            'completion_date' => null,
+        ]);
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL($this->updateMutation, [
+                'communityInterestWithDevelopmentPrograms' => [
+                    'id' => $communityInterest->id,
+                    'communityInterest' => ['consentToShareProfile' => true],
+                    'developmentPrograms' => [
+                        [
+                            'developmentProgramId' => $developmentProgram->id,
+                            'educationExperienceId' => $newExperience->id,
+                            'participationStatus' => DevelopmentProgramParticipationStatus::COMPLETED->name,
+                        ],
+                    ],
+                ],
+            ])
+            ->assertGraphQLErrorFree();
+
+        $this->assertDatabaseHas('development_program_user', [
+            'development_program_id' => $developmentProgram->id,
+            'user_id' => $this->applicant->id,
+            'education_experience_id' => $newExperience->id,
+        ]);
+    }
+
+    /**
+     * Test applicant can remove a linked education experience by setting it to null
+     */
+    public function testApplicantCanUnlinkExperience(): void
+    {
+        $developmentProgram = DevelopmentProgram::factory()->create();
+        $experience = EducationExperience::factory()->create(['user_id' => $this->applicant->id]);
+
+        $communityInterest = CommunityInterest::factory()->create([
+            'user_id' => $this->applicant->id,
+            'community_id' => $this->communityId,
+            'consent_to_share_profile' => true,
+        ]);
+
+        DB::table('development_program_user')->insert([
+            'id' => Str::uuid(),
+            'development_program_id' => $developmentProgram->id,
+            'user_id' => $this->applicant->id,
+            'education_experience_id' => $experience->id,
+            'participation_status' => DevelopmentProgramParticipationStatus::COMPLETED->name,
+            'completion_date' => null,
+        ]);
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL($this->updateMutation, [
+                'communityInterestWithDevelopmentPrograms' => [
+                    'id' => $communityInterest->id,
+                    'communityInterest' => ['consentToShareProfile' => true],
+                    'developmentPrograms' => [
+                        [
+                            'developmentProgramId' => $developmentProgram->id,
+                            'educationExperienceId' => null,
+                            'participationStatus' => DevelopmentProgramParticipationStatus::COMPLETED->name,
+                        ],
+                    ],
+                ],
+            ])
+            ->assertGraphQLErrorFree();
+
+        $this->assertDatabaseHas('development_program_user', [
+            'development_program_id' => $developmentProgram->id,
+            'user_id' => $this->applicant->id,
+            'education_experience_id' => null,
+        ]);
+    }
+
+    /**
+     * COMPLETED status with null completionDate is now valid (completionDate validation removed)
+     */
+    public function testCompletedStatusWithNullCompletionDateIsValid(): void
+    {
+        $developmentProgram = DevelopmentProgram::factory()->create();
+
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL($this->createMutation, [
+                'communityInterestWithDevelopmentPrograms' => [
+                    'userId' => $this->applicant->id,
+                    'communityInterest' => [
+                        'communityId' => $this->communityId,
+                        ...$this->input,
+                        'consentToShareProfile' => true,
+                    ],
+                    'developmentPrograms' => [
+                        [
+                            'developmentProgramId' => $developmentProgram->id,
+                            'participationStatus' => DevelopmentProgramParticipationStatus::COMPLETED->name,
+                            'completionDate' => null,
+                        ],
+                    ],
+                ],
+            ])
+            ->assertGraphQLErrorFree();
+
+        $this->assertDatabaseHas('development_program_user', [
+            'development_program_id' => $developmentProgram->id,
+            'user_id' => $this->applicant->id,
+            'participation_status' => DevelopmentProgramParticipationStatus::COMPLETED->name,
+            'completion_date' => null,
+        ]);
     }
 
     // test scope called off user model

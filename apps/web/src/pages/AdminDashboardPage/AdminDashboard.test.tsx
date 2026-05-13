@@ -147,6 +147,11 @@ describe("Render dashboard page", () => {
         name: "Candidates",
       }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: "Community talent",
+      }),
+    ).toBeInTheDocument();
 
     // resources links
     expect(

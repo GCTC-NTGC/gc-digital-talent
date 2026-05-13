@@ -100,7 +100,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
         'department',
         'employee_type',
         'work_email',
-        'classification',
+        'classification_current',
         'priority_entitlement',
         'priority_number',
         'accept_temporary',
