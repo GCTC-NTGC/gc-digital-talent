@@ -66,7 +66,7 @@ class SignInCanadaBearerTokenService implements BearerTokenService
 
             if ($response->failed()) {
                 Log::error('Failed when GETting the OpenID configuration in getConfigProperty');
-                Log::debug((string) $response->getBody());
+                Log::debug($response->body());
                 throw new Exception('Failed to get config');
             }
 
@@ -97,7 +97,7 @@ class SignInCanadaBearerTokenService implements BearerTokenService
 
             if ($response->failed()) {
                 Log::error('Failed when GETting the JWKS in getConfiguration');
-                Log::debug((string) $response->getBody());
+                Log::debug($response->body());
                 throw new Exception('Failed to get config');
             }
 
@@ -168,7 +168,7 @@ class SignInCanadaBearerTokenService implements BearerTokenService
                 } else {
                     Log::debug($errorMessageToLog);
                 }
-                Log::debug((string) $response->getBody());
+                Log::debug($response->body());
                 throw new Exception('Failed to get introspection');
             }
 

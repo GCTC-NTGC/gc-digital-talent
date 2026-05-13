@@ -98,7 +98,7 @@ class AuthController extends Controller
         assert($tokenResponse instanceof Response);
         if ($tokenResponse->failed()) {
             Log::error('Failed when POSTing to the token URI in authCallback');
-            Log::debug((string) $tokenResponse->getBody());
+            Log::debug($tokenResponse->body());
 
             return response('Failed to get token', 400);
         }
@@ -288,7 +288,7 @@ class AuthController extends Controller
             } else {
                 Log::debug($errorMessageToLog);
             }
-            Log::debug((string) $response->getBody());
+            Log::debug($response->body());
 
             return response('Failed to get token', 400);
         }
