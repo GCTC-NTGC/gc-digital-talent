@@ -54,6 +54,7 @@ class PoolCandidateSearchRequestFactory extends Factory
             'community_id' => $community->id,
             'user_id' => $user?->id,
             'initial_result_count' => $this->faker->optional->numberBetween(0, 999),
+            'follow_up_date' => $this->faker->dateTimeBetween('-1 month', '+3 months'),
         ];
     }
 }

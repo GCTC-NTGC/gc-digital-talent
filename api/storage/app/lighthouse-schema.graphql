@@ -1517,6 +1517,7 @@ type PoolCandidateSearchRequest {
   reason: LocalizedPoolCandidateSearchRequestReason
   community: Community
   initialResultCount: Int
+  followUpDate: Date
 }
 
 type SkillFamily {
@@ -2517,6 +2518,7 @@ input CreatePoolCandidateSearchRequestInput {
 input UpdatePoolCandidateSearchRequestInput {
   adminNotes: String
   status: PoolCandidateSearchStatus
+  followUpDate: Date
 }
 
 input SkillBelongsToMany {

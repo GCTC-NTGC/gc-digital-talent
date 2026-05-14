@@ -1,0 +1,32 @@
+<?php
+
+namespace App\GraphQL\Validators;
+
+use Illuminate\Validation\Rule;
+use Nuwave\Lighthouse\Validation\Validator;
+
+final class UpdatePoolCandidateSearchRequestInputValidator extends Validator
+{
+    /**
+     * Return the validation rules.
+     *
+     * @return array<string, array<mixed>>
+     */
+    public function rules(): array
+    {
+
+        return [
+            'adminNotes' => ['nullable', 'string'],
+            'status' => ['nullable', Rule::in(array_column(PoolCandidateSearchStatus), 'name')],
+            'followUpDate' => ['nullable', 'after:today'],
+        ];
+    }
+
+    /**
+     * Return the validation messages
+     */
+    public function messages(): array
+    {
+        return [];
+    }
+}
