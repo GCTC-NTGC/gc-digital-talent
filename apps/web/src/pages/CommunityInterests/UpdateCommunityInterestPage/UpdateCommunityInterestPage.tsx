@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
+import { useMutation, useQuery, type OperationContext } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
@@ -239,6 +239,10 @@ const UpdateCommunityInterest_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["EducationExperience"],
+};
+
 interface RouteParams extends Record<string, string> {
   communityInterestId: string;
 }
@@ -259,6 +263,7 @@ export const UpdateCommunityInterestPage = () => {
       variables: {
         communityInterestId: communityInterestId,
       },
+      context,
     });
   const [{ fetching: mutationFetching }, executeUpdateMutation] = useMutation(
     UpdateCommunityInterest_Mutation,
