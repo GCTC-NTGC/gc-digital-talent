@@ -1,4 +1,3 @@
-import { differenceInDays } from "date-fns/differenceInDays";
 import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
@@ -50,8 +49,17 @@ const TalentRequestFollowUpDate_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
+const INTENT = {
+  UPDATE: "update",
+  REMOVE: "remove",
+} as const;
+
+type ObjectValues<T> = T[keyof T];
+export type Intent = ObjectValues<typeof INTENT>;
+
 interface FormValues {
   followUpDate?: string | null;
+  intent: Intent;
 }
 
 interface TalentRequestFollowUpDateProps {
@@ -84,11 +92,16 @@ const TalentRequestFollowUpDate = ({
         : null,
     },
   });
+  const intentProps = methods.register("intent");
 
   const handleSubmit = async (values: FormValues) => {
+    let newDate = values.followUpDate ?? null;
+    if (values.intent === INTENT.REMOVE) {
+      newDate = null;
+    }
     await executeMutation({
       id: talentRequest.id,
-      input: { followUpDate: values.followUpDate ?? null },
+      input: { followUpDate: newDate },
     })
       .then((res) => {
         if (res.error || !res.data?.updatePoolCandidateSearchRequest?.id) {
@@ -152,8 +165,26 @@ const TalentRequestFollowUpDate = ({
                     }}
                   />
                   <Dialog.Footer>
-                    <Button type="submit">
+                    <Button
+                      type="submit"
+                      value={INTENT.UPDATE}
+                      {...intentProps}
+                    >
                       {intl.formatMessage(formMessages.saveChanges)}
+                    </Button>
+                    <Button
+                      type="submit"
+                      mode="inline"
+                      color="secondary"
+                      value={INTENT.REMOVE}
+                      onClick={() => methods.setValue("intent", INTENT.REMOVE)}
+                      {...intentProps}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Clear date and save",
+                        id: "wLR3Ux",
+                        description: "Button text to clear out a date",
+                      })}
                     </Button>
                     <Dialog.Close>
                       <Button type="button" color="warning" mode="inline">
