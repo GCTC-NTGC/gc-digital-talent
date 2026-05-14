@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\PoolCandidateSearchStatus;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -17,7 +18,7 @@ final class UpdatePoolCandidateSearchRequestInputValidator extends Validator
 
         return [
             'adminNotes' => ['nullable', 'string'],
-            'status' => ['nullable', Rule::in(array_column(PoolCandidateSearchStatus), 'name')],
+            'status' => ['nullable', Rule::in(array_column(PoolCandidateSearchStatus::cases(), 'name'))],
             'followUpDate' => ['nullable', 'after:today'],
         ];
     }
