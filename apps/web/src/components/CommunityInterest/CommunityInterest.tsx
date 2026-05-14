@@ -361,8 +361,8 @@ const CommunityInterest = ({
                     <p className="mb-1.5 font-bold">
                       {intl.formatMessage({
                         defaultMessage:
-                          "Other senior delegated official (SDO) position",
-                        id: "qQYO+V",
+                          "Other senior designated official (SDO) position",
+                        id: "q8ztSV",
                         description: "Label for the 'Other role' input",
                       })}
                     </p>
@@ -381,8 +381,8 @@ const CommunityInterest = ({
         <>
           <p className="mb-1.5 font-bold">
             {intl.formatMessage({
-              defaultMessage: "Senior Designated Officer (SDO) role",
-              id: "voOIR0",
+              defaultMessage: "Senior Designated Official (SDO) role",
+              id: "U1GjYG",
               description: "Bounding box label for the SDO checkbox",
             })}
           </p>
@@ -392,16 +392,16 @@ const CommunityInterest = ({
           >
             {communityInterest.procurementIsSDO
               ? intl.formatMessage({
-                  defaultMessage: "I'm a Senior Designated Officer (SDO).",
-                  id: "MoehVY",
+                  defaultMessage: "I'm a Senior Designated Official (SDO).",
+                  id: "oAC+SM",
                   description:
-                    "Message when user is a Senior Designated Officer",
+                    "Message when user is a Senior Designated Official",
                 })
               : intl.formatMessage({
-                  defaultMessage: "I'm not a Senior Designated Officer (SDO).",
-                  id: "uhtPZi",
+                  defaultMessage: "I'm not a Senior Designated Official (SDO).",
+                  id: "WWJRlj",
                   description:
-                    "Message when user is not a Senior Designated Officer",
+                    "Message when user is not a Senior Designated Official",
                 })}
           </BoolCheckIcon>
           {communityInterest.procurementIsSDO ? (
