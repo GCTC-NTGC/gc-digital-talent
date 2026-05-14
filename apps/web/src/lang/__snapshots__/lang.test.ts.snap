@@ -48,7 +48,7 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "en": "Nominate talent",
     "fr": [
       "Nommez un talent",
-      "Présentez une mise en candidature"
+      "Présenter une mise en candidature"
     ]
   },
   {
