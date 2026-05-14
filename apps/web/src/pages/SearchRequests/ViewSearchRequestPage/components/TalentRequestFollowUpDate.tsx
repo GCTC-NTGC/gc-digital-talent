@@ -26,6 +26,8 @@ import { DateInput } from "@gc-digital-talent/forms";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { useStableDate } from "~/hooks/useStableDate";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+import { followUpDateOverdueInfo } from "~/utils/searchRequestUtils";
 
 const UpdateTalentRequestFollowUpDate_Mutation = graphql(/* GraphQL */ `
   mutation UpdateTalentRequestFollowUpDate(
@@ -69,13 +71,11 @@ const TalentRequestFollowUpDate = ({
   const followUpDate = talentRequest?.followUpDate
     ? parseDateTimeUtc(talentRequest.followUpDate)
     : null;
-  const daysOverdue = followUpDate ? differenceInDays(now, followUpDate) : -1;
-  const isOverdue = daysOverdue > 0;
-  const label = intl.formatMessage({
-    defaultMessage: "Follow-up date",
-    id: "5wS5V8",
-    description: "Label for the follow-up date field",
-  });
+  const { isOverdue, daysOverdue } = followUpDateOverdueInfo(
+    talentRequest.followUpDate,
+    now,
+  );
+  const label = intl.formatMessage(talentRequestMessages.followUpDate);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -168,16 +168,7 @@ const TalentRequestFollowUpDate = ({
         </Dialog.Root>
         {isOverdue && (
           <Chip color="error">
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "{daysOverdue, plural, one {# day overdue} other {# days overdue}}",
-                id: "Q77DlA",
-                description:
-                  "Message showing the number of days by which something is overdue",
-              },
-              { daysOverdue },
-            )}
+            {intl.formatMessage(commonMessages.overdueDate, { daysOverdue })}
           </Chip>
         )}
       </span>
