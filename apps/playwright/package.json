@@ -21,7 +21,7 @@
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
-    "@playwright/test": "^1.59.1",
+    "@playwright/test": "^1.60.0",
     "@types/node": "^25.6.0",
     "axe-core": "^4.11.4",
     "dotenv": "^17.4.2",
