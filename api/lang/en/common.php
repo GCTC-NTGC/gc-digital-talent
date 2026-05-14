@@ -50,5 +50,6 @@ return [
     'interested_in_program' => 'Interested in this program',
     'currently_enrolled' => 'Currently enrolled',
     'completed_in' => 'Completed in ',
+    'successfully_completed' => 'Successfully completed',
     'successfully_placed' => 'Candidate has been successfully placed',
 ];

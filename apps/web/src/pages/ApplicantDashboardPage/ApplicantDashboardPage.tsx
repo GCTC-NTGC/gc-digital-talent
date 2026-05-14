@@ -8,7 +8,6 @@ import {
   NotFound,
   Container,
   Ul,
-  Button,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { ApplicantDashboardQuery } from "@gc-digital-talent/graphql";
@@ -30,7 +29,6 @@ import {
 } from "~/validators/profile";
 import { hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile/careerDevelopment";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import UnlockEmployeeToolsDialog from "~/components/UnlockEmployeeToolsDialog/UnlockEmployeeToolsDialog";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
@@ -186,7 +184,6 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     ...TalentManagementTaskCard
     ...ApplicationsProcessesTaskCard
     ...CareerDevelopmentTaskCardUser
-    ...UnlockEmployeeTools
   }
 `);
 
@@ -223,6 +220,9 @@ export const DashboardPage = ({
     throw new NotFoundError();
   }
 
+  const communityInterests =
+    currentUser.employeeProfile?.communityInterests ?? [];
+
   const displayTalentManagementTaskCard =
     !!currentUser?.talentNominationsAsSubmitter?.length ||
     !!currentUser?.poolCandidateSearchRequests?.length;
@@ -250,10 +250,7 @@ export const DashboardPage = ({
     : "not done";
 
   const functionalCommunitiesState =
-    currentUser.employeeProfile?.communityInterests &&
-    currentUser.employeeProfile.communityInterests.length > 0
-      ? "success"
-      : "optional";
+    communityInterests.length > 0 ? "success" : "optional";
 
   const stateDescriptions = {
     error: commonMessages.incomplete,
@@ -395,21 +392,17 @@ export const DashboardPage = ({
                 >
                   <Ul unStyled space="sm" className="mt-3">
                     <li>
-                      <UnlockEmployeeToolsDialog query={currentUser}>
-                        {/* The align-top keeps the containing li from adding 4px to the height 🤷 */}
-                        <Button className="align-top" mode="text" color="black">
-                          <StatusItem
-                            status={employeeVerificationState}
-                            title={intl.formatMessage(
-                              commonMessages.employeeVerification,
-                            )}
-                            hiddenContextPrefix={intl.formatMessage(
-                              stateDescriptions[employeeVerificationState],
-                            )}
-                            asListItem={false}
-                          />
-                        </Button>
-                      </UnlockEmployeeToolsDialog>
+                      <StatusItem
+                        status={employeeVerificationState}
+                        title={intl.formatMessage(
+                          commonMessages.employeeVerification,
+                        )}
+                        hiddenContextPrefix={intl.formatMessage(
+                          stateDescriptions[employeeVerificationState],
+                        )}
+                        href={paths.employeeProfile()}
+                        asListItem={false}
+                      />
                     </li>
                     <li>
                       {currentUser.isVerifiedGovEmployee ? (
@@ -426,32 +419,31 @@ export const DashboardPage = ({
                           hiddenContextPrefix={intl.formatMessage(
                             stateDescriptions[functionalCommunitiesState],
                           )}
-                          href={paths.createCommunityInterest()}
+                          href={
+                            communityInterests.length > 0
+                              ? paths.applicantDashboard(
+                                  "functional-communities",
+                                )
+                              : paths.createCommunityInterest()
+                          }
                           asListItem={false}
                         />
                       ) : (
                         // is not a verified gov employee
-                        <UnlockEmployeeToolsDialog query={currentUser}>
-                          <Button
-                            className="align-top"
-                            mode="text"
-                            color="black"
-                          >
-                            <StatusItem
-                              status="locked"
-                              title={intl.formatMessage({
-                                defaultMessage: "Functional communities",
-                                id: "QuVtMh",
-                                description:
-                                  "Label for functional communities field",
-                              })}
-                              hiddenContextPrefix={intl.formatMessage(
-                                stateDescriptions.locked,
-                              )}
-                              asListItem={false}
-                            />
-                          </Button>
-                        </UnlockEmployeeToolsDialog>
+                        <StatusItem
+                          status="locked"
+                          title={intl.formatMessage({
+                            defaultMessage: "Functional communities",
+                            id: "QuVtMh",
+                            description:
+                              "Label for functional communities field",
+                          })}
+                          hiddenContextPrefix={intl.formatMessage(
+                            stateDescriptions.locked,
+                          )}
+                          href={paths.employeeProfile()}
+                          asListItem={false}
+                        />
                       )}
                     </li>
                     <li>

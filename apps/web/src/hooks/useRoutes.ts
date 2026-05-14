@@ -4,6 +4,7 @@ import type { Locales } from "@gc-digital-talent/i18n";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import type { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
+import type { PageSectionId as ApplicantDashboardSectionId } from "~/constants/sections/applicantDashboard";
 
 const FromIapDraftQueryKey = "fromIapDraft";
 const FromIapSuccessQueryKey = "fromIapSuccess";
@@ -67,7 +68,10 @@ const getRoutes = (lang: Locales) => {
     professionalHRResources: () => `${baseUrl}/hr/resources`,
 
     // Applicant
-    applicantDashboard: () => applicantUrl,
+    applicantDashboard: (section?: ApplicantDashboardSectionId) => {
+      const fragment = section ? `#${section}` : "";
+      return applicantUrl + fragment;
+    },
 
     // Admin
     adminDashboard: () => adminUrl,
@@ -82,6 +86,8 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "communities", communityId, "manage-access"].join("/"),
     communityUpdate: (communityId: string) =>
       [adminUrl, "communities", communityId, "edit"].join("/"),
+    communityProfessionalization: (communityId: string) =>
+      [adminUrl, "communities", communityId, "professionalization"].join("/"),
 
     // Admin - Roles and Permissions
     rolesAndPermissions: () => `${adminUrl}/roles-and-permissions`,

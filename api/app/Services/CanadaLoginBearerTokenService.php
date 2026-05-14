@@ -21,9 +21,11 @@ use Jose\Component\Core\Util\RSAKey;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Token\DataSet;
 use Lcobucci\JWT\UnencryptedToken;
 use Lcobucci\JWT\Validation\Constraint\IssuedBy;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
+use Lcobucci\JWT\Validation\Constraint\PermittedFor;
 use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Psr\Clock\ClockInterface;
@@ -198,7 +200,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
     /*
     * @returns Lcobucci\JWT\Token\DataSet
     */
-    public function validateAndGetClaims(string $bearerToken)
+    public function validateAndGetClaims(string $bearerToken): DataSet
     {
         $unsecuredToken = $this->unsecuredConfig->parser()->parse($bearerToken);
 
@@ -210,6 +212,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
         assert($token instanceof UnencryptedToken);
         $config = $config->withValidationConstraints(
             new IssuedBy($this->getConfigProperty('issuer')),
+            new PermittedFor(strval(config('oauth.client_id'))),
             new RelatedTo($token->claims()->get('sub')),
             new LooseValidAt($this->clock, $this->allowableClockSkew),
             new SignedWith($config->signer(), $config->verificationKey()),

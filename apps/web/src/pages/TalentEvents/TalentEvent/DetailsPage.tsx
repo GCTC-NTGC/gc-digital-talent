@@ -346,6 +346,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
               <DevelopmentProgramCard.Root>
                 {developmentPrograms.map((dp) => (
                   <DevelopmentProgramCard.Item
+                    id={dp.developmentProgram.id}
                     key={dp.developmentProgram.id}
                     title={dp.developmentProgram.name.localized ?? notFound}
                     description={

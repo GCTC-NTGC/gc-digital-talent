@@ -319,6 +319,10 @@ export default [
                     "manage-access",
                     "./pages/Communities/CommunityMembersPage/CommunityMembersPage.tsx",
                   ),
+                  route(
+                    "professionalization",
+                    "./pages/Communities/CommunityProfessionalizationPage/CommunityProfessionalizationPage.tsx",
+                  ),
                 ]),
               ]),
             ]),

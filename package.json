@@ -58,11 +58,11 @@
     "@vitest/browser-playwright": "^4.0.16",
     "@vitest/coverage-v8": "^4.0.16",
     "jsdom": "^29.1.1",
-    "playwright": "^1.59.1",
+    "playwright": "^1.60.0",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "storybook": "^10.3.6",
     "storybook-react-intl": "^10.2.1",
-    "turbo": "^2.9.9",
+    "turbo": "^2.9.12",
     "vitest": "^4.0.16"
   }
 }

@@ -218,6 +218,7 @@ return [
     'advancement' => 'Avancement',
     'lateral_movement' => 'Mutation latérale',
     'development_programs' => 'Programmes de perfectionnement',
+    'linked_experience' => 'Expérience liée',
     'nomination_details' => 'Détails de la nomination',
     'nominated_by' => 'Nomination par',
     'nominators_work_email' => "Courriel professionnel de l'auteur(trice) de la mise en candidature",

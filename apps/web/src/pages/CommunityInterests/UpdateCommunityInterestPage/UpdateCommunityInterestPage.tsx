@@ -44,9 +44,6 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
       developmentProgramUserRecords {
         ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
       }
-      # educationExperiences {
-      #   id
-      # }
     }
 
     communities {
