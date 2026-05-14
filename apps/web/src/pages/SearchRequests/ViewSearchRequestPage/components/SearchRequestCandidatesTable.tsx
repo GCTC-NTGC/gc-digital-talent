@@ -100,6 +100,22 @@ const SingleSearchRequestTableApi = ({
             }
       }
       title={intl.formatMessage(adminMessages.poolCandidates)}
+      hiddenColumnIds={[
+        "process",
+        "processNumber",
+        "priority",
+        "screeningStage",
+        "assessmentStep",
+        "screeningResult",
+        "applicationStatus",
+        "candidateFacingStatus",
+        "candidacyStatus",
+        "notes",
+        "preferredLang",
+        "languageAbility",
+        "flexibleWorkLocations",
+        "dateReceived",
+      ]}
       doNotUseBookmark
       doNotUseFlag
     />
