@@ -16,6 +16,8 @@ import type {
 } from "@gc-digital-talent/graphql";
 
 import type useRoutes from "~/hooks/useRoutes";
+import { followUpDateOverdueInfo } from "~/utils/searchRequestUtils";
+import cells from "~/components/Table/cells";
 
 export function classificationAccessor(
   classifications:
@@ -114,3 +116,21 @@ export const detailsCell = (
       )}
     />
   ) : null;
+
+export const followUpDateCell = (
+  followUpDate: string | null | undefined,
+  now: Date,
+  intl: IntlShape,
+) => {
+  if (!followUpDate) return null;
+
+  const { isOverdue, daysOverdue } = followUpDateOverdueInfo(followUpDate, now);
+
+  return isOverdue ? (
+    <Chip color="error">
+      {intl.formatMessage(commonMessages.overdueDate, { daysOverdue })}
+    </Chip>
+  ) : (
+    cells.date(followUpDate, intl)
+  );
+};
