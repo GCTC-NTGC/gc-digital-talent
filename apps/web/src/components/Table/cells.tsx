@@ -74,11 +74,15 @@ function phoneCell(telephone?: Maybe<string>) {
   );
 }
 
-function dateCell(value: string | null | undefined, intl: IntlShape): string {
+function dateCell(
+  value: string | null | undefined,
+  intl: IntlShape,
+  formatString?: string,
+): string {
   return value
     ? formatDate({
         date: parseDateTimeUtc(value),
-        formatString: "PPP p",
+        formatString: formatString ?? "PPP p",
         intl,
       })
     : "";

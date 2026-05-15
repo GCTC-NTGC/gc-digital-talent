@@ -14,7 +14,10 @@ import type {
   Maybe,
   PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import type useRoutes from "~/hooks/useRoutes";
 import { followUpDateOverdueInfo } from "~/utils/searchRequestUtils";
@@ -135,6 +138,6 @@ export const followUpDateCell = (
       {intl.formatMessage(commonMessages.overdueDate, { daysOverdue })}
     </Chip>
   ) : (
-    cells.date(followUpDate, intl)
+    cells.date(followUpDate, intl, DATE_FORMAT_LOCALIZED)
   );
 };
