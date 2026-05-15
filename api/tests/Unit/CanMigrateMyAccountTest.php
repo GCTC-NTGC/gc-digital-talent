@@ -25,12 +25,12 @@ class CanMigrateMyAccountTest extends TestCase
         Config::set('feature.auth_in_app_migration', false);
         $user = User::factory()->create([
             'email' => 'test@example.com',
-            'telephone' => '+1 (555) 123-4567',
+            'telephone' => '5551234567',
         ]);
         // Create a possible migration target that would match if the flag were enabled
         User::factory()->create([
             'email_backup' => 'test@example.com',
-            'telephone' => '+1 555 123 4567',
+            'telephone' => '5551234567',
             'last_sign_in_iss' => null,
         ]);
         Auth::login($user);
@@ -43,12 +43,12 @@ class CanMigrateMyAccountTest extends TestCase
         Config::set('feature.auth_in_app_migration', true);
         $user = User::factory()->create([
             'email' => 'test@example.com',
-            'telephone' => '+1 (555) 123-4567',
+            'telephone' => '5551234567',
         ]);
         // Create a possible migration target that would match if authenticated
         User::factory()->create([
             'email_backup' => 'test@example.com',
-            'telephone' => '+1 555 123 4567',
+            'telephone' => '5551234567',
             'last_sign_in_iss' => null,
         ]);
         Auth::logout();
@@ -70,17 +70,17 @@ class CanMigrateMyAccountTest extends TestCase
         Config::set('feature.auth_in_app_migration', true);
         $user = User::factory()->create([
             'email' => 'test@example.com',
-            'telephone' => '+1 (555) 123-4567',
+            'telephone' => '5551234567',
         ]);
         // Create two possible targets
         User::factory()->create([
             'email_backup' => 'test@example.com',
-            'telephone' => '+1 555 123 4567',
+            'telephone' => '5551234567',
             'last_sign_in_iss' => null,
         ]);
         User::factory()->create([
             'email_backup' => 'test@example.com',
-            'telephone' => '+1 555 123 4567',
+            'telephone' => '5551234567',
             'last_sign_in_iss' => null,
         ]);
         Auth::login($user);
@@ -93,12 +93,12 @@ class CanMigrateMyAccountTest extends TestCase
         Config::set('feature.auth_in_app_migration', true);
         $user = User::factory()->create([
             'email' => 'test@example.com',
-            'telephone' => '+1 (555) 123-4567',
+            'telephone' => '5551234567',
         ]);
         // Create one possible target
         User::factory()->create([
-            'email_backup' => ' test@example.com ',
-            'telephone' => '+1 555 123 4567',
+            'email_backup' => 'test@example.com',
+            'telephone' => '5551234567',
             'last_sign_in_iss' => null,
         ]);
         Auth::login($user);
@@ -111,12 +111,12 @@ class CanMigrateMyAccountTest extends TestCase
         Config::set('feature.auth_in_app_migration', true);
         $user = User::factory()->create([
             'email' => 'test@example.com',
-            'telephone' => '+1 (555) 123-4567',
+            'telephone' => '5551234567',
         ]);
         // Target with CanadaLogin as last_sign_in_iss
         User::factory()->create([
             'email_backup' => 'test@example.com',
-            'telephone' => '+1 555 123 4567',
+            'telephone' => '5551234567',
             'last_sign_in_iss' => 'https://auth.login-connexion.canada.ca/oauth2',
         ]);
         Auth::login($user);
@@ -129,16 +129,52 @@ class CanMigrateMyAccountTest extends TestCase
         Config::set('feature.auth_in_app_migration', true);
         $user = User::factory()->create([
             'email' => 'test@example.com',
-            'telephone' => '+1 (555) 123-4567',
+            'telephone' => '5551234567',
         ]);
         $target = User::factory()->create([
             'email_backup' => 'test@example.com',
-            'telephone' => '+1 555 123 4567',
+            'telephone' => '5551234567',
             'last_sign_in_iss' => null,
         ]);
         $target->delete();
         Auth::login($user);
         $result = (new CanMigrateMyAccount())();
         $this->assertFalse($result);
+    }
+
+    public function testEmailMatchingTrimsAndIsCaseInsensitive()
+    {
+        Config::set('feature.auth_in_app_migration', true);
+        $user = User::factory()->create([
+            'email' => ' Test@Example.com ',
+            'telephone' => '5551234567',
+        ]);
+        // Create a possible migration target with different case and extra spaces
+        User::factory()->create([
+            'email_backup' => '  test@example.COM',
+            'telephone' => '5551234567',
+            'last_sign_in_iss' => null,
+        ]);
+        Auth::login($user);
+        $result = (new CanMigrateMyAccount())();
+        $this->assertTrue($result, 'Email matching should trim and be case-insensitive');
+    }
+
+    public function testTelephoneMatchingOnlyMatchesDigits()
+    {
+        Config::set('feature.auth_in_app_migration', true);
+        $user = User::factory()->create([
+            'email' => 'test@example.com',
+            'telephone' => '(555) 123-4567', // formatted with non-digit characters
+        ]);
+        // Create a possible migration target with only digits
+        User::factory()->create([
+            'email_backup' => 'test@example.com',
+            'telephone' => '5551234567', // only digits
+            'last_sign_in_iss' => null,
+        ]);
+        Auth::login($user);
+        $result = (new CanMigrateMyAccount())();
+        $this->assertTrue($result, 'Telephone matching should ignore non-digit characters and match only digits');
     }
 }
