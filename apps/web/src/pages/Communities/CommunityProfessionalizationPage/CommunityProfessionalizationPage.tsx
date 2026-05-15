@@ -22,15 +22,17 @@ import { MAX_DATE } from "@gc-digital-talent/date-helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
 import adminMessages from "~/messages/adminMessages";
+import { requireUser } from "~/routing/auth";
 
 import type { ContextType } from "../CommunityMembersPage/components/types";
 import AddDialog from "./components/AddDialog";
 import EditDialog from "./components/EditDialog";
 import RemoveDialog from "./components/RemoveDialog";
+import { getCommunityTeamIdInMiddleware } from "../utils";
+import type { Route } from "./+types/CommunityProfessionalizationPage";
 
 type SortValues = "recentlyAdded" | "name";
 
@@ -260,17 +262,37 @@ const CommunityProfessionalization_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const context: Partial<OperationContext> = {
+const operationContext: Partial<OperationContext> = {
   additionalTypenames: ["CommunityDevelopmentProgram"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
 };
 
-const CommunityProfessionalizationPage = () => {
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request, params }, next) => {
+    const teamId = await getCommunityTeamIdInMiddleware(
+      context,
+      params.communityId,
+    );
+
+    requireUser(
+      context,
+      request,
+      [
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId: teamId },
+      ],
+      true,
+    );
+    return await next();
+  },
+];
+
+const Component = () => {
   const intl = useIntl();
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
     query: CommunityProfessionalization_Query,
     variables: { id: communityId },
-    context,
+    context: operationContext,
   });
 
   return (
@@ -294,19 +316,6 @@ const CommunityProfessionalizationPage = () => {
     </Pending>
   );
 };
-
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityTalentCoordinator,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
-    <CommunityProfessionalizationPage />
-  </RequireAuth>
-);
 
 Component.displayName = "CommunityProfessionalizationPage";
 

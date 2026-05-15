@@ -7,11 +7,13 @@ use App\Models\Community;
 use App\Models\Department;
 use App\Models\Pool;
 use App\Models\User;
+use App\Traits\ChecksTeamPermissions;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
 class PoolPolicy
 {
+    use ChecksTeamPermissions;
     use HandlesAuthorization;
 
     /**
@@ -46,23 +48,8 @@ class PoolPolicy
             return true;
         }
 
-        // Check permissions for pool team.
-        if ($pool->team && $user->isAbleTo('view-team-draftPool', $pool->team)) {
-            return true;
-        }
-
-        // Check permissions for community.
-        if ($pool->community?->team && $user->isAbleTo('view-team-draftPool', $pool->community->team)) {
-            return true;
-        }
-
-        // Check permissions for department.
-        if ($pool->department?->team && $user->isAbleTo('view-team-draftPool', $pool->department->team)) {
-            return true;
-        }
-
-        // All other checks failed so return false
-        return false;
+        // Check team/community/department permissions for draft pools
+        return $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'view-team-draftPool');
     }
 
     /**
@@ -115,6 +102,7 @@ class PoolPolicy
     /**
      * Determine whether the user can duplicate pools.
      *
+     * @param  mixed  $request
      * @return Response|bool
      */
     public function duplicate(User $user, $request)
@@ -123,10 +111,7 @@ class PoolPolicy
         $existing = Pool::with(['team', 'community.team', 'department.team'])->findOrFail($request['id']);
 
         // Confirm the user can create pools for the team
-        $teamPermission = ! is_null($existing->team) && $user->isAbleTo('create-team-draftPool', $existing->team);
-        $communityPermission = ! is_null($existing->community?->team) && $user->isAbleTo('create-team-draftPool', $existing->community->team);
-        $departmentPermission = ! is_null($existing->department->team) && $user->isAbleTo('create-team-draftPool', $existing->department->team);
-        if ($teamPermission || $communityPermission || $departmentPermission) {
+        if ($this->checkTeamPermission($user, $this->getPoolTeams($existing), 'create-team-draftPool')) {
             return true;
         } else {
             return Response::deny('Cannot duplicate a pool for that team.');
@@ -140,12 +125,8 @@ class PoolPolicy
      */
     public function updateDraft(User $user, Pool $pool)
     {
-        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-draftPool', $pool->team);
-        $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('update-team-draftPool', $pool->community->team);
-        $departmentPermission = ! is_null($pool->department->team) && $user->isAbleTo('update-team-draftPool', $pool->department->team);
-
         return $pool->status === PoolStatus::DRAFT->name
-            && ($teamPermission || $communityPermission || $departmentPermission);
+            && $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'update-team-draftPool');
     }
 
     /**
@@ -163,13 +144,8 @@ class PoolPolicy
             return true;
         }
 
-        $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
-
-        if ($communityPermission) {
-            return true;
-        }
-
-        return false;
+        // For updatePublished, only community team permission is checked
+        return ! is_null($pool->community?->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
     }
 
     /**
@@ -187,14 +163,7 @@ class PoolPolicy
             return true;
         }
 
-        if (
-            (! is_null($pool->community?->team) && $user->isAbleTo('publish-team-draftPool', $pool->community->team))
-            || (isset($pool->department->team) && $user->isAbleTo('publish-team-draftPool', $pool->department->team))
-        ) {
-            return true;
-        }
-
-        return Response::deny('Cannot publish that pool.');
+        return $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'publish-team-draftPool');
     }
 
     /**
@@ -204,10 +173,11 @@ class PoolPolicy
      */
     public function changePoolClosingDate(User $user, Pool $pool)
     {
-        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-publishedPool', $pool->team);
-        $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
+        if ($user->isAbleTo('update-any-publishedPool')) {
+            return true;
+        }
 
-        return $user->isAbleTo('update-any-publishedPool') || $teamPermission || $communityPermission;
+        return $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'update-team-publishedPool');
     }
 
     /**
@@ -217,10 +187,11 @@ class PoolPolicy
      */
     public function closePool(User $user, Pool $pool)
     {
-        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-publishedPool', $pool->team);
-        $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('update-team-publishedPool', $pool->community->team);
+        if ($user->isAbleTo('update-any-publishedPool')) {
+            return true;
+        }
 
-        return $user->isAbleTo('update-any-publishedPool') || $teamPermission || $communityPermission;
+        return $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'update-team-publishedPool');
     }
 
     /**
@@ -231,11 +202,7 @@ class PoolPolicy
     public function deleteDraft(User $user, Pool $pool)
     {
         if ($pool->status === PoolStatus::DRAFT->name) {
-            $teamPermission = ! is_null($pool->team) && $user->isAbleTo('delete-team-draftPool', $pool->team);
-            $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('delete-team-draftPool', $pool->community->team);
-            $departmentPermission = ! is_null($pool->department->team) && $user->isAbleTo('delete-team-draftPool', $pool->department->team);
-
-            if ($teamPermission || $communityPermission || $departmentPermission) {
+            if ($this->checkTeamPermission($user, $this->getPoolTeams($pool), 'delete-team-draftPool')) {
                 return true;
             }
         } else {
@@ -252,11 +219,7 @@ class PoolPolicy
      */
     public function archiveAndUnarchive(User $user, Pool $pool)
     {
-        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('archive-team-publishedPool', $pool->team);
-        $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('archive-team-publishedPool', $pool->community->team);
-        $departmentPermission = ! is_null($pool->department->team) && $user->isAbleTo('archive-team-publishedPool', $pool->department->team);
-
-        return $teamPermission || $communityPermission || $departmentPermission;
+        return $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'archive-team-publishedPool');
     }
 
     /**
@@ -270,11 +233,7 @@ class PoolPolicy
             return true;
         }
 
-        $teamPermission = ! is_null($pool->team) && $user->isAbleTo('view-team-assessmentPlan', $pool->team);
-        $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('view-team-assessmentPlan', $pool->community->team);
-        $departmentPermission = ! is_null($pool->department->team) && $user->isAbleTo('view-team-assessmentPlan', $pool->department->team);
-
-        return $teamPermission || $communityPermission || $departmentPermission;
+        return $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'view-team-assessmentPlan');
     }
 
     /**
@@ -288,10 +247,6 @@ class PoolPolicy
             return true;
         }
 
-        $teamPermission = ! is_null($pool->team) && ($user->isAbleTo('view-team-poolTeamMembers', $pool->team));
-        $communityPermission = ! is_null($pool->community?->team) && $user->isAbleTo('view-team-poolTeamMembers', $pool->community->team);
-        $departmentPermission = ! is_null($pool->department->team) && $user->isAbleTo('view-team-poolTeamMembers', $pool->department->team);
-
-        return $teamPermission || $communityPermission || $departmentPermission;
+        return $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'view-team-poolTeamMembers');
     }
 }

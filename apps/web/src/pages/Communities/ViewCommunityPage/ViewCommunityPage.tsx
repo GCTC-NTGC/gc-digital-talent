@@ -23,12 +23,13 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
 import Hero from "~/components/Hero";
+import { requireUser } from "~/routing/auth";
 
+import type { Route } from "./+types/ViewCommunityPage";
 import type { ContextType } from "../CommunityMembersPage/components/types";
 
 interface RouteParams extends Record<string, string> {
@@ -67,6 +68,8 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const community = getFragment(ViewCommunityPage_CommunityFragment, query);
+  const { canAdminManageAccessAndEditCommunity } =
+    useOutletContext<ContextType>();
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   return (
@@ -167,22 +170,23 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
               intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
         </div>
-        <CardSeparator />
-        <div className="col-span-2 flex flex-col items-center justify-center xs:flex-row xs:justify-between">
-          <Link
-            href={paths.communityUpdate(community.id)}
-            className="font-bold"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Edit community details",
-              id: "UieDSb",
-              description: "Link to edit the currently viewed community",
-            })}
-          </Link>
-          <span className="mt-6 text-sm text-gray-500 xs:mt-0 dark:text-gray-200">
-            {community.key}
-          </span>
-        </div>
+        {canAdminManageAccessAndEditCommunity && (
+          <>
+            <CardSeparator />
+            <div className="flex justify-center xs:justify-start">
+              <Link
+                href={paths.communityUpdate(community.id)}
+                className="font-bold"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Edit community information",
+                  id: "phS+TP",
+                  description: "Link to edit the currently viewed community",
+                })}
+              </Link>
+            </div>
+          </>
+        )}
       </Card>
     </>
   );
@@ -236,8 +240,25 @@ const ViewCommunityPage = ({ community }: ViewCommunityPageProps) => {
   );
 };
 
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request }, next) => {
+    requireUser(
+      context,
+      request,
+      [
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin },
+        { name: ROLE_NAME.CommunityRecruiter },
+        { name: ROLE_NAME.CommunityTalentCoordinator },
+      ],
+      false,
+    );
+    return await next();
+  },
+];
+
 // Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
-const ViewCommunityPageApiWrapper = () => {
+const Component = () => {
   const intl = useIntl();
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
@@ -265,19 +286,6 @@ const ViewCommunityPageApiWrapper = () => {
     </Pending>
   );
 };
-
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityTalentCoordinator,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
-    <ViewCommunityPageApiWrapper />
-  </RequireAuth>
-);
 
 Component.displayName = "AdminViewCommunityPage";
 

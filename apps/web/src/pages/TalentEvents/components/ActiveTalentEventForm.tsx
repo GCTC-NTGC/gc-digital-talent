@@ -3,6 +3,7 @@ import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
 import { CardSeparator, Heading, Link, Notice } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -33,7 +34,6 @@ import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
 import adminMessages from "~/messages/adminMessages";
 
-import DevelopmentProgramDialog from "./DevelopmentProgramDialog";
 import {
   TalentNominationEvent_Fragment,
   UpdateTalentNominationEvent_Fragment,
@@ -41,7 +41,9 @@ import {
 } from "./fragments";
 import type { FormValues } from "./formValues";
 import { isCommunity } from "../TalentEvent/util";
-import RemoveDevelopmentProgramDialog from "./RemoveDevelopmentProgramDialog";
+import AddDialog from "./AddDialog";
+import EditDialog from "./EditDialog";
+import RemoveDialog from "./RemoveDialog";
 
 interface ActiveTalentEventFormProps {
   userQuery: FragmentType<typeof TalentNominationEvent_Fragment>;
@@ -201,6 +203,9 @@ const ActiveTalentEventForm = ({
   const fixedDevelopmentPrograms = communityDevelopmentPrograms?.map(
     (cdp) => cdp.id,
   );
+
+  const [editOpen, setEditOpen] = useState<string | null>(null);
+  const [removeOpen, setRemoveOpen] = useState<string | null>(null);
 
   return (
     <>
@@ -412,7 +417,7 @@ const ActiveTalentEventForm = ({
                   </Notice.Content>
                 </Notice.Root>
 
-                <DevelopmentProgramDialog
+                <AddDialog
                   developmentProgramOptions={filteredDevelopmentProgramOptions}
                   onSubmit={(values) => append(values)}
                 />
@@ -470,7 +475,8 @@ const ActiveTalentEventForm = ({
                                 },
                               )}
                               edit={
-                                <DevelopmentProgramDialog
+                                <EditDialog
+                                  communityDevelopmentProgramId={field.id}
                                   developmentProgramOptions={
                                     developmentProgramOptions
                                   }
@@ -479,20 +485,26 @@ const ActiveTalentEventForm = ({
                                     description: field.description,
                                   }}
                                   onSubmit={(values) => update(index, values)}
-                                  edit
                                   active
+                                  open={editOpen === field.id}
+                                  setOpen={setEditOpen}
                                 />
                               }
                               remove={
                                 !fixedDevelopmentPrograms?.includes(
                                   field.value,
                                 ) ? (
-                                  <RemoveDevelopmentProgramDialog
+                                  <RemoveDialog
+                                    communityDevelopmentProgramId={field.id}
                                     title={developmentProgram?.label}
                                     onRemove={() => remove(index)}
+                                    open={removeOpen === field.id}
+                                    setOpen={setRemoveOpen}
                                   />
                                 ) : null
                               }
+                              setEditOpen={setEditOpen}
+                              setRemoveOpen={setRemoveOpen}
                             />
                           );
                         })}

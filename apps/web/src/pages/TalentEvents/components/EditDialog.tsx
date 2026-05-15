@@ -1,7 +1,6 @@
-import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
-import { useState } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 
 import { Select, TextArea } from "@gc-digital-talent/forms";
 import {
@@ -29,82 +28,62 @@ export interface FormValues {
   };
 }
 
-interface DevelopmentProgramDialogProps {
+interface EditDialogProps {
+  communityDevelopmentProgramId: string;
   developmentProgramOptions: {
     label: Maybe<string> | undefined;
     value: string;
   }[];
   onSubmit: SubmitHandler<FormValues>;
   defaultValues?: FormValues;
-  edit?: boolean;
   active?: boolean;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<string | null>>;
 }
 
-const DevelopmentProgramDialog = ({
+const EditDialog = ({
+  communityDevelopmentProgramId,
   developmentProgramOptions,
   onSubmit,
   defaultValues,
-  edit = false,
   active = false,
-}: DevelopmentProgramDialogProps) => {
+  open,
+  setOpen,
+}: EditDialogProps) => {
   const intl = useIntl();
-  const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>({ defaultValues });
 
   const handleSubmit: SubmitHandler<FormValues> = (values) => {
     onSubmit(values);
     methods.reset();
-    setOpen(false);
+    setOpen(null);
   };
 
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger>
-        <Button
-          color="primary"
-          mode={edit ? "text" : "placeholder"}
-          icon={edit ? undefined : PlusCircleIcon}
-          className="w-full"
-        >
-          {edit
-            ? intl.formatMessage(formMessages.editDetails)
-            : intl.formatMessage({
-                defaultMessage: "Add an opportunity",
-                id: "9doHjH",
-                description:
-                  "Button to open dialog to create development opportunity",
-              })}
-        </Button>
-      </Dialog.Trigger>
+    <Dialog.Root
+      open={open}
+      onOpenChange={(isOpen) => {
+        if (isOpen) {
+          setOpen(communityDevelopmentProgramId);
+        } else {
+          setOpen(null);
+        }
+      }}
+    >
       <Dialog.Content>
         <Dialog.Header
-          subtitle={
-            edit
-              ? intl.formatMessage({
-                  defaultMessage:
-                    "Edit options for which programs or certifications a nominee can be recommended for",
-                  id: "fqotTc",
-                  description: "Dialog subtitle informing of purpose",
-                })
-              : intl.formatMessage({
-                  defaultMessage:
-                    "Add options for which programs or certifications a nominee can be recommended for",
-                  id: "mIKz0E",
-                  description: "Dialog subtitle informing of purpose",
-                })
-          }
+          subtitle={intl.formatMessage({
+            defaultMessage:
+              "Edit options for which programs or certifications a nominee can be recommended for",
+            id: "fqotTc",
+            description: "Dialog subtitle informing of purpose",
+          })}
         >
-          {edit
-            ? intl.formatMessage({
-                defaultMessage: "Edit a development opportunity",
-                id: "XgV3g1",
-                description: "Dialog header informing of purpose",
-              })
-            : intl.formatMessage({
-                defaultMessage: "Add a development opportunity",
-                id: "P5iSTk",
-                description: "Dialog header informing of purpose",
-              })}
+          {intl.formatMessage({
+            defaultMessage: "Edit a development opportunity",
+            id: "XgV3g1",
+            description: "Dialog header informing of purpose",
+          })}
         </Dialog.Header>
         <Dialog.Body>
           <p className="mb-4.5">
@@ -170,4 +149,4 @@ const DevelopmentProgramDialog = ({
   );
 };
 
-export default DevelopmentProgramDialog;
+export default EditDialog;
