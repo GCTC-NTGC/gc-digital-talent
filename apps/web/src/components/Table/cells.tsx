@@ -75,13 +75,18 @@ function phoneCell(telephone?: Maybe<string>) {
 }
 
 function dateCell(
-  value: Maybe<Scalars["DateTime"]["output"]> | undefined,
+  value:
+    | Maybe<Scalars["DateTime"]["output"] | Scalars["Date"]["output"]>
+    | undefined,
   intl: IntlShape,
 ): string {
+  const formatString =
+    value && /^\d{4}-\d{2}-\d{2}$/.test(value) ? "PPP" : "PPP p";
+
   return value
     ? formatDate({
         date: parseDateTimeUtc(value),
-        formatString: "PPP p",
+        formatString,
         intl,
       })
     : "";
