@@ -170,23 +170,26 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
               intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
         </div>
-        {canAdminManageAccessAndEditCommunity && (
-          <>
-            <CardSeparator />
-            <div className="flex justify-center xs:justify-start">
-              <Link
-                href={paths.communityUpdate(community.id)}
-                className="font-bold"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Edit community information",
-                  id: "phS+TP",
-                  description: "Link to edit the currently viewed community",
-                })}
-              </Link>
-            </div>
-          </>
-        )}
+        <CardSeparator />
+        <div className="col-span-2 flex flex-col items-center justify-center xs:flex-row xs:justify-between">
+          {canAdminManageAccessAndEditCommunity ? (
+            <Link
+              href={paths.communityUpdate(community.id)}
+              className="mb-6 font-bold xs:mb-0"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Edit community details",
+                id: "UieDSb",
+                description: "Link to edit the currently viewed community",
+              })}
+            </Link>
+          ) : (
+            <div></div>
+          )}
+          <span className="text-sm text-gray-500 dark:text-gray-200">
+            {community.key}
+          </span>
+        </div>
       </Card>
     </>
   );
