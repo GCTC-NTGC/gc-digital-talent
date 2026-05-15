@@ -166,6 +166,7 @@ const TalentRequestFollowUpDate = ({
                     <Button
                       type="submit"
                       value={INTENT.UPDATE}
+                      onClick={() => methods.setValue("intent", INTENT.UPDATE)}
                       {...intentProps}
                     >
                       {intl.formatMessage(formMessages.saveChanges)}
