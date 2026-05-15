@@ -184,7 +184,6 @@ const CareerDevelopmentSection = ({
     ? verifiedIcon
     : {
         icon: LockClosedIcon,
-        color: "black",
       };
 
   const handleError = () => {

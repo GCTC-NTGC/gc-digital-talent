@@ -538,7 +538,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     $query->whereNull('end_date')
                         ->orWhere('end_date', '>=', now());
                 })
-                ->orderBy('start_date', 'DESC')
+                ->orderBy('start_date', 'desc')
                 ->get();
 
             if (! $currentExperiences->count()) {

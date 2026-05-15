@@ -236,12 +236,7 @@ const AddDialog = ({ community: communityFragment }: AddDialogProps) => {
                 className="mb-6"
               />
               <div className="mb-6">
-                <Heading
-                  level="h3"
-                  color="black"
-                  size="h6"
-                  className="mt-0 font-bold"
-                >
+                <Heading level="h3" size="h6" className="mt-0 font-bold">
                   {intl.formatMessage({
                     defaultMessage: "Classification restrictions",
                     id: "V3zpN4",
