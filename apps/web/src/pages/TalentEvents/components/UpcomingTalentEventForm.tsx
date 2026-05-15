@@ -1,6 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { CardSeparator, Heading, Notice } from "@gc-digital-talent/ui";
 import { getFragment, type FragmentType } from "@gc-digital-talent/graphql";
@@ -28,11 +28,12 @@ import processMessages from "~/messages/processMessages";
 import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
 import adminMessages from "~/messages/adminMessages";
 
-import DevelopmentProgramDialog from "./DevelopmentProgramDialog";
-import RemoveDevelopmentProgramDialog from "./RemoveDevelopmentProgramDialog";
 import { isCommunity } from "../TalentEvent/util";
 import type { FormValues } from "./formValues";
 import { TalentNominationEvent_Fragment } from "./fragments";
+import AddDialog from "./AddDialog";
+import EditDialog from "./EditDialog";
+import RemoveDialog from "./RemoveDialog";
 
 const atLeastOne = defineMessage({
   defaultMessage:
@@ -117,6 +118,9 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
   const { invalid: invalidDevelopmentPrograms } = getFieldState(
     "communityDevelopmentPrograms",
   );
+
+  const [editOpen, setEditOpen] = useState<string | null>(null);
+  const [removeOpen, setRemoveOpen] = useState<string | null>(null);
 
   return (
     <>
@@ -297,7 +301,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
               </p>
             </div>
 
-            <DevelopmentProgramDialog
+            <AddDialog
               developmentProgramOptions={filteredDevelopmentProgramOptions}
               onSubmit={(values) => append(values)}
             />
@@ -350,7 +354,9 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
                             },
                           )}
                           edit={
-                            <DevelopmentProgramDialog
+                            <EditDialog
+                              key={field.id}
+                              communityDevelopmentProgramId={field.id}
                               developmentProgramOptions={
                                 developmentProgramOptions
                               }
@@ -359,15 +365,21 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
                                 description: field.description,
                               }}
                               onSubmit={(values) => update(index, values)}
-                              edit
+                              open={editOpen === field.id}
+                              setOpen={setEditOpen}
                             />
                           }
                           remove={
-                            <RemoveDevelopmentProgramDialog
+                            <RemoveDialog
+                              communityDevelopmentProgramId={field.id}
                               title={developmentProgram?.label}
                               onRemove={() => remove(index)}
+                              open={removeOpen === field.id}
+                              setOpen={setRemoveOpen}
                             />
                           }
+                          setEditOpen={setEditOpen}
+                          setRemoveOpen={setRemoveOpen}
                         />
                       );
                     })}

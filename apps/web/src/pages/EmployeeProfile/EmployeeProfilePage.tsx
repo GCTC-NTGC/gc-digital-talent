@@ -274,7 +274,7 @@ export const EmployeeProfile = ({
                       ? ChartBarSquareIcon
                       : LockClosedIcon
                   }
-                  color={user.isVerifiedGovEmployee ? "primary" : "black"}
+                  {...(user.isVerifiedGovEmployee && { color: "primary" })}
                   className="mt-0 font-normal sm:text-left"
                 >
                   {intl.formatMessage(commonMessages.careerPlanning)}

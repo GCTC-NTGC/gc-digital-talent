@@ -296,7 +296,7 @@ class Pool extends Model
     /** @return HasMany<AssessmentStep, $this> */
     public function assessmentSteps(): HasMany
     {
-        return $this->hasMany(AssessmentStep::class)->orderBy('sort_order', 'ASC');
+        return $this->hasMany(AssessmentStep::class)->orderBy('sort_order', 'asc');
     }
 
     public function aggregateActivities($root, array $args = [])

@@ -68,15 +68,20 @@ const CommunityLayout = () => {
 
   const roleAssignmentsFiltered =
     data?.myAuth?.roleAssignments?.filter(notEmpty) ?? [];
-  const canAdminManageAccess = checkRole(
+  const canAdminManageAccessAndEditCommunity = checkRole(
     [ROLE_NAME.PlatformAdmin, ROLE_NAME.CommunityAdmin],
     roleAssignmentsFiltered,
     communityId,
   );
   const canViewManageAccess =
-    canAdminManageAccess ||
+    canAdminManageAccessAndEditCommunity ||
     checkRole(
       [ROLE_NAME.CommunityTalentCoordinator],
+      roleAssignmentsFiltered,
+      communityId,
+    ) ||
+    checkRole(
+      [ROLE_NAME.CommunityRecruiter],
       roleAssignmentsFiltered,
       communityId,
     );
@@ -98,7 +103,7 @@ const CommunityLayout = () => {
     ],
   ]);
 
-  if (canViewManageAccess) {
+  if (canAdminManageAccessAndEditCommunity) {
     pages.set("professionalization", {
       icon: CheckBadgeIcon,
       title: intl.formatMessage(adminMessages.professionalization),
@@ -106,6 +111,9 @@ const CommunityLayout = () => {
         url: paths.communityProfessionalization(communityId),
       },
     });
+  }
+
+  if (canViewManageAccess) {
     pages.set("manage-access", {
       icon: ClipboardDocumentListIcon,
       title: intl.formatMessage({
@@ -142,7 +150,7 @@ const CommunityLayout = () => {
       url: page.link.url,
     })),
     navigationCrumbs: navigationCrumbs,
-    canAdminManageAccess,
+    canAdminManageAccessAndEditCommunity,
   };
 
   // No actual shared UI - this is just used as a context provider
