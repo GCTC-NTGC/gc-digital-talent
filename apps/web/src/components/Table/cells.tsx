@@ -2,7 +2,7 @@ import type { IntlShape } from "react-intl";
 import type { AriaAttributes, JSX } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
-import type { Scalars, Maybe } from "@gc-digital-talent/graphql";
+import type { Maybe } from "@gc-digital-talent/graphql";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import type { ActionsProps } from "./Actions";
