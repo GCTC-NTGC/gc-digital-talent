@@ -11,10 +11,12 @@ use App\Models\User;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * @template TModelClass of \Illuminate\Database\Eloquent\Model
@@ -786,10 +788,10 @@ class UserBuilder extends Builder
         $this->whereNot('id', $sourceUserId);
 
         // must have matching email in backup
-        $this->where('email_backup', $email);
+        $this->where(new Expression('trim(email_backup)'), 'ilike', Str::trim($email));
 
         // must have matching phone number
-        $this->where('telephone', $telephone);
+        $this->where(new Expression("regexp_replace(telephone,'\D+', '', 'g')"), preg_replace('/\D+/', '', $telephone));
 
         // can't be logged into CanadaLogin last
         $this->where(fn ($subQuery) => $subQuery
