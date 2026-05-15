@@ -115,6 +115,10 @@ const TalentRequestFollowUpDate = ({
           }),
         );
 
+        methods.resetField("followUpDate", {
+          defaultValue: newDate,
+        });
+
         setOpen(false);
       })
       .catch(() => {
