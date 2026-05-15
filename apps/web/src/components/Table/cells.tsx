@@ -74,12 +74,7 @@ function phoneCell(telephone?: Maybe<string>) {
   );
 }
 
-function dateCell(
-  value:
-    | Maybe<Scalars["DateTime"]["output"] | Scalars["Date"]["output"]>
-    | undefined,
-  intl: IntlShape,
-): string {
+function dateCell(value: string | null | undefined, intl: IntlShape): string {
   return value
     ? formatDate({
         date: parseDateTimeUtc(value),
