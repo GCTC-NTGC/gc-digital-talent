@@ -781,7 +781,7 @@ class UserBuilder extends Builder
     /*
      * Find the existing users that would be possible to migrate to
      */
-    public function possibleMigrationTargets(string $sourceUserId, ?string $email, ?string $telephone): self
+    public function whereIsPossibleMigrationTarget(string $sourceUserId, ?string $email, ?string $telephone): self
     {
         // can't be same account
         $this->whereNot('id', $sourceUserId);
@@ -798,10 +798,11 @@ class UserBuilder extends Builder
         );
 
         // can't be logged into CanadaLogin last
-        $this->where(fn ($subQuery) => $subQuery
-            ->whereNull('last_sign_in_iss')
-            ->orWhere('last_sign_in_iss', 'ilike', '.canada.ca') // CanadaLogin lives on canada.ca
-        );
+        $this->where(function ($subQuery) {
+            $subQuery
+                ->whereNull('last_sign_in_iss')
+                ->orWhere('last_sign_in_iss', 'ilike', '.canada.ca'); // CanadaLogin lives on canada.ca
+        });
 
         // can't be soft deleted
         // handled by global scope

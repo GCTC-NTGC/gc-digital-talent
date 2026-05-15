@@ -30,10 +30,10 @@ final class CanMigrateMyAccount
          * core logic
          */
 
-        $possibleTargetCount = User::query()->possibleMigrationTargets(
-            sourceUserId: $actor->id,
-            email: $actor->email,
-            telephone: $actor->telephone
+        $possibleTargetCount = User::query()->whereIsPossibleMigrationTarget(
+            $actor->id,
+            $actor->email,
+            $actor->telephone
         )->count();
 
         // can migrate if there is exactly one possible match
