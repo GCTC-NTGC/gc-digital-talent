@@ -38,6 +38,7 @@ const UpdateTalentRequestFollowUpDate_Mutation = graphql(/* GraphQL */ `
       poolCandidateSearchRequest: $input
     ) {
       id
+      followUpDate
     }
   }
 `);
