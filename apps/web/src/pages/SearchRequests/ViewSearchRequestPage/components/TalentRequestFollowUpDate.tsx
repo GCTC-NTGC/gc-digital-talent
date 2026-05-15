@@ -156,10 +156,6 @@ const TalentRequestFollowUpDate = ({
                     round="floor"
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
-                      min: {
-                        value: strToFormDate(now.toISOString()),
-                        message: intl.formatMessage(errorMessages.futureDate),
-                      },
                     }}
                   />
                   <Dialog.Footer>

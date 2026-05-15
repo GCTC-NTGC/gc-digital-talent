@@ -19,7 +19,7 @@ final class UpdatePoolCandidateSearchRequestInputValidator extends Validator
         return [
             'adminNotes' => ['nullable', 'string'],
             'status' => ['nullable', Rule::in(array_column(PoolCandidateSearchStatus::cases(), 'name'))],
-            'followUpDate' => ['nullable', 'after:today'],
+            'followUpDate' => ['nullable', 'date'],
         ];
     }
 
