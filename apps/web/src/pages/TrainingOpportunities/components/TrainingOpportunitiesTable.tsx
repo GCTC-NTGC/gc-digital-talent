@@ -286,7 +286,7 @@ const TrainingOpportunitiesTable = ({
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
         total: data?.trainingOpportunitiesPaginated?.paginatorInfo.total,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
         },
