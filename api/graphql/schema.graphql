@@ -1844,6 +1844,8 @@ type Query {
       ]
       model: "App\\Models\\CommunityInterest"
     )
+
+  canMigrateMyAccount: Boolean! @guard
 }
 
 input ClassificationBelongsTo {

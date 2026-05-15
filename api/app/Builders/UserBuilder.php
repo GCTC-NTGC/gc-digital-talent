@@ -776,4 +776,30 @@ class UserBuilder extends Builder
     {
         $this->limit(5);
     }
+
+    /*
+     * Find the existing users that would be possible to migrate to
+     */
+    public function possibleMigrationTargets(string $sourceUserId, ?string $email, ?string $telephone): self
+    {
+        // can't be same account
+        $this->whereNot('id', $sourceUserId);
+
+        // must have matching email in backup
+        $this->where('email_backup', $email);
+
+        // must have matching phone number
+        $this->where('telephone', $telephone);
+
+        // can't be logged into CanadaLogin last
+        $this->where(fn ($subQuery) => $subQuery
+            ->whereNull('last_sign_in_iss')
+            ->orWhere('last_sign_in_iss', 'ilike', '.canada.ca') // CanadaLogin lives on canada.ca
+        );
+
+        // can't be soft deleted
+        // handled by global scope
+
+        return $this;
+    }
 }
