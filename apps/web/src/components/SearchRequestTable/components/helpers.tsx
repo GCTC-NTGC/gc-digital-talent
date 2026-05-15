@@ -14,6 +14,7 @@ import type {
   Maybe,
   PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import type useRoutes from "~/hooks/useRoutes";
 import { followUpDateOverdueInfo } from "~/utils/searchRequestUtils";
@@ -124,7 +125,10 @@ export const followUpDateCell = (
 ) => {
   if (!followUpDate) return null;
 
-  const { isOverdue, daysOverdue } = followUpDateOverdueInfo(followUpDate, now);
+  const { isOverdue, daysOverdue } = followUpDateOverdueInfo(
+    parseDateTimeUtc(followUpDate),
+    now,
+  );
 
   return isOverdue ? (
     <Chip color="error">

@@ -99,7 +99,7 @@ export const positionTypeToYesNoSupervisoryStatement = (
 };
 
 export const followUpDateOverdueInfo = (
-  followUpDate?: string | null,
+  followUpDate?: Date | null,
   compareTo?: Date,
 ) => {
   const now = compareTo ?? new Date();

@@ -79,10 +79,7 @@ const TalentRequestFollowUpDate = ({
   const followUpDate = talentRequest?.followUpDate
     ? parseDateTimeUtc(talentRequest.followUpDate)
     : null;
-  const { isOverdue, daysOverdue } = followUpDateOverdueInfo(
-    talentRequest.followUpDate,
-    now,
-  );
+  const { isOverdue, daysOverdue } = followUpDateOverdueInfo(followUpDate, now);
   const label = intl.formatMessage(talentRequestMessages.followUpDate);
 
   const methods = useForm<FormValues>({
