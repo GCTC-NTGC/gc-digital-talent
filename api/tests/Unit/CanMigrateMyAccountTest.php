@@ -177,4 +177,40 @@ class CanMigrateMyAccountTest extends TestCase
         $result = (new CanMigrateMyAccount())();
         $this->assertTrue($result, 'Telephone matching should ignore non-digit characters and match only digits');
     }
+
+    public function testTelephoneMatchingIgnoresLeadingOnes()
+    {
+        Config::set('feature.auth_in_app_migration', true);
+        $user = User::factory()->create([
+            'email' => 'test@example.com',
+            'telephone' => '+1 (555) 123-4567', // leading 1
+        ]);
+        // Create a possible migration target without leading 1
+        User::factory()->create([
+            'email_backup' => 'test@example.com',
+            'telephone' => '5551234567',
+            'last_sign_in_iss' => null,
+        ]);
+        Auth::login($user);
+        $result = (new CanMigrateMyAccount())();
+        $this->assertTrue($result, 'Telephone matching should ignore leading 1');
+    }
+
+    public function testTelephoneMatchingIgnoresLeadingZeros()
+    {
+        Config::set('feature.auth_in_app_migration', true);
+        $user = User::factory()->create([
+            'email' => 'test@example.com',
+            'telephone' => '00 555 1234567', // leading 0
+        ]);
+        // Create a possible migration target without leading 0
+        User::factory()->create([
+            'email_backup' => 'test@example.com',
+            'telephone' => '5551234567',
+            'last_sign_in_iss' => null,
+        ]);
+        Auth::login($user);
+        $result = (new CanMigrateMyAccount())();
+        $this->assertTrue($result, 'Telephone matching should ignore leading 0');
+    }
 }

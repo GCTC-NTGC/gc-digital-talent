@@ -790,8 +790,13 @@ class UserBuilder extends Builder
         // must have matching email in backup
         $this->where(new Expression('trim(email_backup)'), 'ilike', Str::trim($email));
 
-        // must have matching phone number
-        $this->where(new Expression("regexp_replace(telephone,'\D+', '', 'g')"), preg_replace('/\D+/', '', $telephone));
+        // must have matching phone number, ignoring leading 1s
+        $normalizedTelephone = preg_replace('/\D+/', '', $telephone ?? '');
+        $normalizedTelephone = ltrim($normalizedTelephone, '01');
+        $this->where(
+            new Expression("ltrim(regexp_replace(telephone,'\\D+', '', 'g'), '01')"),
+            $normalizedTelephone
+        );
 
         // can't be logged into CanadaLogin last
         $this->where(fn ($subQuery) => $subQuery
