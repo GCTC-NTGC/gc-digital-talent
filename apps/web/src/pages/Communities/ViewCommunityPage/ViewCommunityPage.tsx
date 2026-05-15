@@ -74,7 +74,7 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   return (
     <>
-      <Card>
+      <Card space="lg">
         <Heading
           level="h2"
           color="primary"
