@@ -96,7 +96,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
 
   return (
     <BasicForm onSubmit={handleSubmit}>
-      <Card>
+      <Card space="lg">
         <Heading
           level="h2"
           color="primary"

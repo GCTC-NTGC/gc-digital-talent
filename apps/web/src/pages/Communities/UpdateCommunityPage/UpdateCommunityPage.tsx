@@ -160,7 +160,7 @@ const CommunityForm = ({
         onSubmit={handleSubmit(handleSave)}
         className="flex flex-col gap-y-6"
       >
-        <Card>
+        <Card space="lg">
           <Heading
             level="h2"
             color="primary"
