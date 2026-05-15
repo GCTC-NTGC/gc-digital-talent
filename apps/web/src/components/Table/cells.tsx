@@ -77,6 +77,7 @@ function phoneCell(telephone?: Maybe<string>) {
 function dateCell(value: string | null | undefined, intl: IntlShape): string {
   return value
     ? formatDate({
+        // parseDateTimeUtc keeps date rendering consistent with our UTC table date handling.
         date: parseDateTimeUtc(value),
         formatString: "PPP p",
         intl,
