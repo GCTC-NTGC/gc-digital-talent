@@ -12,8 +12,6 @@ import CommaList from "./CommaList";
 import EditLink from "./EditLink";
 import ViewLink from "./ViewLink";
 
-const DATE_ONLY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
-
 function actionsCell(props: ActionsProps) {
   return <Actions {...props} />;
 }
@@ -82,12 +80,10 @@ function dateCell(
     | undefined,
   intl: IntlShape,
 ): string {
-  const formatString = value && DATE_ONLY_PATTERN.test(value) ? "PPP" : "PPP p";
-
   return value
     ? formatDate({
         date: parseDateTimeUtc(value),
-        formatString,
+        formatString: "PPP p",
         intl,
       })
     : "";
