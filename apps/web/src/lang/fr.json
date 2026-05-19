@@ -1103,6 +1103,10 @@
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
   },
+  "27Z2k7": {
+    "defaultMessage": "Date de suivi mise à jour.",
+    "description": "Success message displayed when a talent requests follow-up date was updated"
+  },
   "27mGKw": {
     "defaultMessage": "Retirer le signet",
     "description": "Label for removing a bookmark"
@@ -2058,6 +2062,10 @@
   "5sZWgB": {
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for Goals and work style section of user employee information page"
+  },
+  "5wS5V8": {
+    "defaultMessage": "Date de suivi",
+    "description": "Label for the follow-up date field"
   },
   "5zJ+/1": {
     "defaultMessage": "Compétences techniques constituant un atout - Exemples",
@@ -4142,6 +4150,10 @@
   "EQI4l2": {
     "defaultMessage": "{count, plural, one {# compétence} other {# compétences}}",
     "description": "Number of skills on an experience"
+  },
+  "EQfFa1": {
+    "defaultMessage": "Erreur : impossible de mettre à jour la date de suivi.",
+    "description": "Error message displayed when a talent requests follow-up date failed to update"
   },
   "ERsZAD": {
     "defaultMessage": "La formation m'intéresse",
@@ -14797,6 +14809,10 @@
   "wL95nl": {
     "defaultMessage": "La personne candidate n'a pas fourni d'informations sur son objectif de carrière final.",
     "description": "Message displayed if nominee hasn't filled out career objective info"
+  },
+  "wLR3Ux": {
+    "defaultMessage": "Effacer la date et enregistrer",
+    "description": "Button text to clear out a date"
   },
   "wMni5o": {
     "defaultMessage": "Processus de recrutement ({numOfProcesses})",
