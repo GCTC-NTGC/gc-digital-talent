@@ -266,6 +266,16 @@ test.describe("Talent search", () => {
       );
     });
 
+    await test.step("Pause the candidate to verity the referral status", async () => {
+      await pauseCandidateReferral(adminCtx, {
+        id: candidate.id,
+        input: {
+          pauseReferralsLength: PauseReferralsLength.OneMonth,
+          pauseReferralsReason: "Playwright Test user paused for Testing",
+        },
+      });
+    });
+
     await test.step("View the newly created talent request", async () => {
       requestId = fetchIdentificationNumber(appPage.page.url(), "request");
       await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
@@ -276,16 +286,6 @@ test.describe("Talent search", () => {
           level: 2,
         }),
       ).toBeVisible();
-    });
-
-    await test.step("Pause the candidate to verity the referral status", async () => {
-      await pauseCandidateReferral(adminCtx, {
-        id: candidate.id,
-        input: {
-          pauseReferralsLength: PauseReferralsLength.OneMonth,
-          pauseReferralsReason: "Playwright Test user paused for Testing",
-        },
-      });
     });
 
     await test.step("Verify no candidates are displayed in the talent requests", async () => {
