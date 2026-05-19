@@ -7759,10 +7759,6 @@
     "defaultMessage": "Ce rôle n’avait aucun lien avec le gouvernement du Canada.",
     "description": "Description for the external employment category option in work experience"
   },
-  "TfEUPu": {
-    "defaultMessage": "Préférence pour la durée de l'emploi",
-    "description": "Legend Text for required work preferences options in work preferences form"
-  },
   "TfYpv3": {
     "defaultMessage": "Titre du poste",
     "description": "The job title for a job poster template"
@@ -8061,6 +8057,10 @@
   "Uy5Dg2": {
     "defaultMessage": "Participation de la collectivité",
     "description": "Title for community experience section"
+  },
+  "V/bSTW": {
+    "defaultMessage": "Durée des postes pour lesquels vous souhaitez être pris en considération",
+    "description": "Legend Text for required work preferences options in work preferences form"
   },
   "V0+Pk/": {
     "defaultMessage": "Consulter les talents de la collectivité",
