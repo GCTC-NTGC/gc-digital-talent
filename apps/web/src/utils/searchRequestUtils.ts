@@ -104,7 +104,7 @@ export const followUpDateOverdueInfo = (
 ) => {
   const now = compareTo ?? new Date();
   const daysOverdue = followUpDate ? differenceInDays(now, followUpDate) : -1;
-  const isOverdue = daysOverdue > 0;
+  const isOverdue = daysOverdue >= 0;
 
   return { daysOverdue, isOverdue };
 };
