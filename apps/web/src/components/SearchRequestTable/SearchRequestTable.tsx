@@ -449,7 +449,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
         total: data?.poolCandidateSearchRequestsPaginated.paginatorInfo.total,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
         },

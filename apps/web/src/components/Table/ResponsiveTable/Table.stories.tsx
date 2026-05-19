@@ -38,7 +38,7 @@ const defaultSortProps = {
 const defaultPaginationProps = {
   internal: true,
   total: mockUsers.length,
-  pageSizes: [10, 20, 50, 100],
+  pageSizes: [10, 20, 50, 100, 500],
   onPaginationChange: (newPagination: PaginationState) => {
     action("onPaginationChange")(newPagination);
   },
