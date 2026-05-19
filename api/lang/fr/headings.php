@@ -43,7 +43,7 @@ return [
     'location_preferences' => 'Préférences pour le lieu de travail',
     'flexible_work_locations' => 'Options de lieu de travail flexible',
     'location_exemptions' => 'Exemptions de lieux',
-    'contract_duration' => '',
+    'contract_duration' => 'Durée des postes pour lesquels vous souhaitez être pris en considération',
     'accept_temporary' => 'Accepter les temporaires',
     'accepted_operational_requirements' => 'Exigences de poste acceptables',
     'rejected_operational_requirements' => 'N\'envisagerait pas d\'accepter un emploi qui : ',

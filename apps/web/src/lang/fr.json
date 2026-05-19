@@ -8046,6 +8046,10 @@
     "defaultMessage": "Participation de la collectivité",
     "description": "Title for community experience section"
   },
+  "V/bSTW": {
+    "defaultMessage": "Durée des postes pour lesquels vous souhaitez être pris en considération",
+    "description": "Legend Text for required work preferences options in work preferences form"
+  },
   "V0+Pk/": {
     "defaultMessage": "Consulter les talents de la collectivité",
     "description": "Permissions related to viewing users interested in users community"
