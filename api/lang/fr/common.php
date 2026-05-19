@@ -52,5 +52,5 @@ return [
     'currently_enrolled' => 'Programme en cours',
     'completed_in' => 'Achevé en ',
     'successfully_completed' => 'Complété avec succès',
-    'successfully_placed' => 'Candidate has been successfully placed',
+    'successfully_placed' => 'Placement effectué avec succès',
 ];
