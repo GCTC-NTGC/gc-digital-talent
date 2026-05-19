@@ -43,6 +43,7 @@ export function transformSortStateToOrderByClause(
     ["email", "email"],
     ["status", "request_status_weight"],
     ["requestedDate", "created_at"],
+    ["followUpDate", "follow_up_date"],
   ]);
 
   const orderBy = sortingRule

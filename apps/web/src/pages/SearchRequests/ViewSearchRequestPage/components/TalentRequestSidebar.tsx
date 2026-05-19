@@ -15,6 +15,7 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import TalentRequestNotes from "./TalentRequestNotes";
 import type { TalentRequestStatusOptions } from "./TalentRequestStatus";
 import TalentRequestStatus from "./TalentRequestStatus";
+import TalentRequestFollowUpDate from "./TalentRequestFollowUpDate";
 
 const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestSidebar on PoolCandidateSearchRequest {
@@ -32,6 +33,7 @@ const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
 
     ...TalentRequestStatus
     ...TalentRequestNotes
+    ...TalentRequestFollowUpDate
   }
 `);
 
@@ -69,6 +71,7 @@ const TalentRequestSidebar = ({
           id: "TA5562",
           description: "Label for the date an item was changed on",
         })}
+        className="mb-6"
       >
         {talentRequest.statusChangedAt
           ? formatDate({
@@ -78,6 +81,7 @@ const TalentRequestSidebar = ({
             })
           : intl.formatMessage(commonMessages.notAvailable)}
       </FieldDisplay>
+      <TalentRequestFollowUpDate query={talentRequest} />
       <Card.Separator space="sm" />
       <div className="flex flex-col gap-y-6">
         <FieldDisplay

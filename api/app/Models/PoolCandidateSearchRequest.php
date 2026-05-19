@@ -31,6 +31,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $request_status_weight
  * @property string $manager_job_title
  * @property string $position_type
+ * @property ?Carbon $follow_up_date
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
  * @property ?Carbon $deleted_at
@@ -53,6 +54,7 @@ class PoolCandidateSearchRequest extends Model
      */
     protected $casts = [
         'request_status_changed_at' => 'datetime',
+        'follow_up_date' => 'date',
     ];
 
     /**
