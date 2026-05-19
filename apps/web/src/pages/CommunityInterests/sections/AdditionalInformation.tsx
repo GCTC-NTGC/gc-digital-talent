@@ -247,8 +247,8 @@ const AdditionalInformation = ({
                     type="text"
                     label={intl.formatMessage({
                       defaultMessage:
-                        "Other senior delegated official (SDO) position",
-                      id: "qQYO+V",
+                        "Other senior designated official (SDO) position",
+                      id: "q8ztSV",
                       description: "Label for the 'Other role' input",
                     })}
                     disabled={formDisabled}
@@ -269,15 +269,16 @@ const AdditionalInformation = ({
               name="procurementIsSDO"
               label={intl.formatMessage({
                 defaultMessage:
-                  "I am currently in a Senior Designated Officer role",
-                id: "gIwkgl",
-                description: "Message when user is a Senior Designated Officer",
+                  "I am currently in a Senior Designated Official role",
+                id: "+2vO9m",
+                description:
+                  "Message when user is a Senior Designated Official",
               })}
               disabled={formDisabled}
               boundingBox={true}
               boundingBoxLabel={intl.formatMessage({
-                defaultMessage: "Senior Designated Officer (SDO) role",
-                id: "voOIR0",
+                defaultMessage: "Senior Designated Official (SDO) role",
+                id: "U1GjYG",
                 description: "Bounding box label for the SDO checkbox",
               })}
             />
@@ -288,9 +289,9 @@ const AdditionalInformation = ({
                   {intl.formatMessage({
                     defaultMessage:
                       "Please indicate if you perform any of the following additional duties in your SDO role.",
-                    id: "6bjQWW",
+                    id: "eO6RfE",
                     description:
-                      "Description for additional duties referencing a Senior Designated Officer (SDO) role",
+                      "Description for additional duties referencing a Senior Designated Official (SDO) role",
                   })}
                 </p>
                 <Checklist
