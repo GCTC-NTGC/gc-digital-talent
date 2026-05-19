@@ -23,6 +23,10 @@
     "defaultMessage": "Statut de priorité",
     "description": "Title for priority status"
   },
+  "+2vO9m": {
+    "defaultMessage": "J’occupe actuellement un rôle de cadre supérieur désigné",
+    "description": "Message when user is a Senior Designated Official"
+  },
   "+2z44i": {
     "defaultMessage": "Il s’agit du nom d’utilisateur et du mot de passe que vous utilisez habituellement pour vous connecter à Talents numériques du GC.",
     "description": "Text for step two link your GCKey account."
@@ -2186,10 +2190,6 @@
   "6bGWe5": {
     "defaultMessage": "<strong>{name}</strong> a publié",
     "description": "Label for activity log item published action"
-  },
-  "6bjQWW": {
-    "defaultMessage": "Veuillez indiquer si vous exercez l’une des fonctions supplémentaires suivantes dans le cadre de votre rôle de CSD.",
-    "description": "Description for additional duties referencing a Senior Designated Officer (SDO) role"
   },
   "6bvAQ+": {
     "defaultMessage": "Rétroaction et coordonnées",
@@ -6139,10 +6139,6 @@
     "defaultMessage": "Sélectionnez un ou plusieurs programmes, certifications ou accréditations dont cette personne bénéficierait en y participant.",
     "description": "Description for development program options section in nominations details step"
   },
-  "MoehVY": {
-    "defaultMessage": "Je suis une personne occupant un rôle de cadre supérieur désigné (CSD).",
-    "description": "Message when user is a Senior Designated Officer"
-  },
   "MptxTu": {
     "defaultMessage": "Cette section vous permet de présenter des informations sur vous-même et sur votre façon de travailler, y compris sur vos objectifs pour l'avenir et sur les environnements qui vous permettent de donner le meilleur de vous-même.",
     "description": "Describes the goals and work style section of employee profile"
@@ -7843,6 +7839,10 @@
     "defaultMessage": "À quoi vous attendre après avoir soumis votre demande",
     "description": "Title for the what to expect section"
   },
+  "U1GjYG": {
+    "defaultMessage": "Rôle de cadre supérieur désigné (CSD)",
+    "description": "Bounding box label for the SDO checkbox"
+  },
   "U56T9c": {
     "defaultMessage": "Non vérifiée",
     "description": "The email address has not been verified to be owned by user"
@@ -8397,6 +8397,10 @@
   "WT+5to": {
     "defaultMessage": "Autre grade avec spécialisation",
     "description": "Heading for the `other education with specialization` option for EC education requirements"
+  },
+  "WWJRlj": {
+    "defaultMessage": "Je n'occupe pas de rôle de cadre supérieur désigné (CSD).",
+    "description": "Message when user is not a Senior Designated Official"
   },
   "WWrQYI": {
     "defaultMessage": "Erreur : la mise à jour de la possibilité de formation a échoué",
@@ -10334,6 +10338,10 @@
     "defaultMessage": "Informations sur le ministère",
     "description": "Heading for the 'create a department' form"
   },
+  "eO6RfE": {
+    "defaultMessage": "Veuillez indiquer si vous exercez l’une des fonctions supplémentaires suivantes dans le cadre de votre rôle de CSD.",
+    "description": "Description for additional duties referencing a Senior Designated Official (SDO) role"
+  },
   "eO9buR": {
     "defaultMessage": "4. Félicitations! <strong>Vous vous êtes connecté avec une CléGC</strong> et vous serez redirigé vers la <strong>plateforme de talents numériques du GC</strong>.",
     "description": "Text for final sign in step."
@@ -10869,10 +10877,6 @@
   "gIvlZk": {
     "defaultMessage": "Le <link>Fonds de formation et de perfectionnement de la collectivité de la TI</link> peut vous aider à acquérir la certification en payant le coût des examens.",
     "description": "Second paragraph of certification exam vouchers section"
-  },
-  "gIwkgl": {
-    "defaultMessage": "J’occupe actuellement un rôle de cadre supérieur désigné",
-    "description": "Message when user is a Senior Designated Officer"
   },
   "gIzUDr": {
     "defaultMessage": "Modifier les questions générales",
@@ -12862,6 +12866,10 @@
     "defaultMessage": "Vous n'avez rejoint aucune collectivité fonctionnelle.",
     "description": "Label for when user has not expressed interest in any communities"
   },
+  "oAC+SM": {
+    "defaultMessage": "Je suis une personne occupant un rôle de cadre supérieur désigné (CSD).",
+    "description": "Message when user is a Senior Designated Official"
+  },
   "oCFoWU": {
     "defaultMessage": "Informations sur la compétence",
     "description": "Heading for the 'create a skill' form"
@@ -13354,6 +13362,10 @@
     "defaultMessage": "Actuellement non vérifié",
     "description": "Label for the unverified claim option"
   },
+  "q8ztSV": {
+    "defaultMessage": "Autre poste de cadre supérieur désigné (CSD)",
+    "description": "Label for the 'Other role' input"
+  },
   "q9LrNV": {
     "defaultMessage": "Se connecter avec ConnexionCanada",
     "description": "Page title for the sign in page using CanadaLogin"
@@ -13417,10 +13429,6 @@
   "qQ9ziR": {
     "defaultMessage": "Les personnes choisies devront travailler sur place dans la région de la capitale nationale.",
     "description": "Note for innovation corps candidates about location"
-  },
-  "qQYO+V": {
-    "defaultMessage": "Autre poste de cadre supérieur délégué (CSD)",
-    "description": "Label for the 'Other role' input"
   },
   "qSNLSc": {
     "defaultMessage": "Acceptez le résumé des conditions d'utilisation.",
@@ -14370,10 +14378,6 @@
     "defaultMessage": "Réglementation",
     "description": "Label for a regulatory department"
   },
-  "uhtPZi": {
-    "defaultMessage": "Je n'occupe pas de rôle de cadre supérieur désigné (CSD).",
-    "description": "Message when user is not a Senior Designated Officer"
-  },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
     "description": "Paragraph 2, how self-declaration data is used"
@@ -14665,10 +14669,6 @@
   "voMSDe": {
     "defaultMessage": "Les informations sur les objectifs et le style de travail ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
-  },
-  "voOIR0": {
-    "defaultMessage": "Rôle de cadre supérieur désigné (CSD)",
-    "description": "Bounding box label for the SDO checkbox"
   },
   "voqC0s": {
     "defaultMessage": "Gestion des talents",
