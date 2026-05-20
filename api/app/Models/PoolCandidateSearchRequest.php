@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Enums\TalentRequestClosedDetail;
 use App\Enums\TalentRequestInProgressDetail;
+use App\Enums\TalentRequestStatus;
 use App\Observers\PoolCandidateSearchRequestObserver;
-use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -315,15 +315,6 @@ class PoolCandidateSearchRequest extends Model
     }
 
     /**
-     * Getters/Mutators
-     */
-    public function setStatusAttribute($statusInput): void
-    {
-        $this->request_status = $statusInput;
-        $this->request_status_changed_at = CarbonImmutable::now();
-    }
-
-    /**
      * Aggregate accessor: returns the localized label for whichever detail field is populated.
      */
     public function details(): Attribute
@@ -338,6 +329,37 @@ class PoolCandidateSearchRequest extends Model
 
             return null;
         });
+    }
+
+    public function progress(string $inProgressDetail, ?string $followUpDate): void
+    {
+        $this->status = TalentRequestStatus::IN_PROGRESS->name;
+        $this->in_progress_details = $inProgressDetail;
+        $this->closed_details = null;
+        $this->follow_up_date = $followUpDate;
+        $this->save();
+    }
+
+    public function close(string $closedDetail): void
+    {
+        $this->status = TalentRequestStatus::CLOSED->name;
+        $this->closed_details = $closedDetail;
+        $this->in_progress_details = null;
+        $this->follow_up_date = null;
+        $this->save();
+    }
+
+    public function updateInProgressDetails(string $inProgressDetail, ?string $followUpDate): void
+    {
+        $this->in_progress_details = $inProgressDetail;
+        $this->follow_up_date = $followUpDate;
+        $this->save();
+    }
+
+    public function updateClosedDetails(string $closedDetail): void
+    {
+        $this->closed_details = $closedDetail;
+        $this->save();
     }
 
     public function scopeWithPolicyEagerLoads(Builder $query): Builder

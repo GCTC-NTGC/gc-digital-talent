@@ -2672,9 +2672,8 @@ input CreatePoolCandidateSearchRequestInput {
 
 input UpdatePoolCandidateSearchRequestInput @validator {
   adminNotes: String @rename(attribute: "admin_notes")
-  status: PoolCandidateSearchStatus
+  status: PoolCandidateSearchStatus @rename(attribute: "request_status")
   followUpDate: Date @rename(attribute: "follow_up_date")
-  # statusChangedAt updated in the Eloquent model
   # talentRequestStatus changes go through dedicated mutations (progressPoolCandidateSearchRequest, closePoolCandidateSearchRequest, etc.)
 }
 
@@ -3547,6 +3546,36 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+  progressPoolCandidateSearchRequest(
+    id: ID!
+    inProgressDetails: TalentRequestInProgressDetail!
+    followUpDate: Date
+  ): PoolCandidateSearchRequest
+    @guard
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+    @validator
+  closePoolCandidateSearchRequest(
+    id: ID!
+    closedDetails: TalentRequestClosedDetail!
+  ): PoolCandidateSearchRequest
+    @guard
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+    @validator
+  updatePoolCandidateSearchRequestInProgressDetails(
+    id: ID!
+    inProgressDetails: TalentRequestInProgressDetail!
+    followUpDate: Date
+  ): PoolCandidateSearchRequest
+    @guard
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+    @validator
+  updatePoolCandidateSearchRequestClosedDetails(
+    id: ID!
+    closedDetails: TalentRequestClosedDetail!
+  ): PoolCandidateSearchRequest
+    @guard
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+    @validator
 
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
