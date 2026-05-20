@@ -249,6 +249,7 @@ function isValidExternalLink(url: string): boolean {
     "https://fonts.googleapis.com",
     "https://fonts.gstatic.com",
     "https://gcxgce.sharepoint.com",
+    "http://localhost",
   ];
 
   return (
