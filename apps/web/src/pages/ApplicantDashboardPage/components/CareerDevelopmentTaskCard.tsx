@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import { useCallback, useRef, useState } from "react";
+import { useContext, useState } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -17,13 +17,13 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
-import useScrollToHash from "~/hooks/useScrollToHash";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
 import { PAGE_SECTION_ID as APPLICANT_DASHBOARD_SECTION_ID } from "~/constants/sections/applicantDashboard";
 
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
+import { ApplicantDashboardContext } from "../ApplicantDashboardProvider";
 
 const CareerDevelopmentTaskCardUser_Fragment = graphql(/* GraphQL */ `
   fragment CareerDevelopmentTaskCardUser on User {
@@ -103,30 +103,17 @@ const CareerDevelopmentTaskCard = ({
 }: CareerDevelopmentTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  // const { hash } = useLocation();
   const careerDevelopmentMessages = messages(intl);
+
+  const {
+    communityAccordionValue,
+    setCommunityAccordionValue,
+    communityAccordionRef,
+  } = useContext(ApplicantDashboardContext);
 
   const [careerPlanningAccordionValue, setCareerPlanningAccordionValue] =
     useState<string>("");
-  const [communityAccordionValue, setCommunityAccordionValue] =
-    useState<string>("");
-
-  // Ref for the functional communities accordion trigger
-  const functionalCommunitiesTriggerRef = useRef<HTMLButtonElement | null>(
-    null,
-  );
-
-  const expandFunctionalCommunities = useCallback(() => {
-    setCommunityAccordionValue(ACCORDION_ID.FUNCTIONAL_COMMUNITIES);
-    // Focus the accordion trigger after expanding
-    setTimeout(() => {
-      functionalCommunitiesTriggerRef.current?.focus();
-    }, 0);
-  }, []);
-
-  useScrollToHash(
-    APPLICANT_DASHBOARD_SECTION_ID.FUNCTIONAL_COMMUNITIES,
-    expandFunctionalCommunities,
-  );
 
   const userFragment = getFragment(
     CareerDevelopmentTaskCardUser_Fragment,
@@ -453,7 +440,7 @@ const CareerDevelopmentTaskCard = ({
                     description:
                       "Subtitle explaining functional communities expandable within career development card",
                   })}
-                  ref={functionalCommunitiesTriggerRef}
+                  ref={communityAccordionRef}
                 >
                   {intl.formatMessage({
                     defaultMessage: "Functional communities",

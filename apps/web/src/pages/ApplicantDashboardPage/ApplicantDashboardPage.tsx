@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
+import { useContext } from "react";
 
 import {
   Pending,
@@ -35,6 +36,9 @@ import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
 import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
+import ApplicantDashboardProvider, {
+  ApplicantDashboardContext,
+} from "./ApplicantDashboardProvider";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicantDashboardPage on User {
@@ -196,6 +200,10 @@ export const DashboardPage = ({
 }: DashboardPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+
+  const { setCommunityAccordionValue, communityAccordionRef } = useContext(
+    ApplicantDashboardContext,
+  );
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -421,11 +429,22 @@ export const DashboardPage = ({
                           )}
                           href={
                             communityInterests.length > 0
-                              ? paths.applicantDashboard(
-                                  "functional-communities",
-                                )
+                              ? undefined
                               : paths.createCommunityInterest()
                           }
+                          scrollTo={
+                            communityInterests.length > 0
+                              ? "functional-communities"
+                              : undefined
+                          }
+                          onScrollTo={() => {
+                            setCommunityAccordionValue(
+                              "your_functional_communities",
+                            );
+                            if (communityAccordionRef?.current) {
+                              communityAccordionRef.current.focus();
+                            }
+                          }}
                           asListItem={false}
                         />
                       ) : (
@@ -565,7 +584,9 @@ export const ApplicantDashboardPageApi = () => {
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <ApplicantDashboardPageApi />
+    <ApplicantDashboardProvider>
+      <ApplicantDashboardPageApi />
+    </ApplicantDashboardProvider>
   </RequireAuth>
 );
 Component.displayName = "ApplicantDashboardPage";
