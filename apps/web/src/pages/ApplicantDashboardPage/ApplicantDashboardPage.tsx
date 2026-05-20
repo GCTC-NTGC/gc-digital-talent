@@ -441,9 +441,7 @@ export const DashboardPage = ({
                             setCommunityAccordionValue(
                               "your_functional_communities",
                             );
-                            if (communityAccordionRef?.current) {
-                              communityAccordionRef.current.focus();
-                            }
+                            communityAccordionRef.current?.focus();
                           }}
                           asListItem={false}
                         />
