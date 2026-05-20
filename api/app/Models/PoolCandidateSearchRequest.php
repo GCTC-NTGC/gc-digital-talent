@@ -331,7 +331,7 @@ class PoolCandidateSearchRequest extends Model
         });
     }
 
-    public function progress(string $inProgressDetail, ?string $followUpDate): void
+    public function progress(string $inProgressDetail, Carbon|string|null $followUpDate): void
     {
         $this->status = TalentRequestStatus::IN_PROGRESS->name;
         $this->in_progress_details = $inProgressDetail;
