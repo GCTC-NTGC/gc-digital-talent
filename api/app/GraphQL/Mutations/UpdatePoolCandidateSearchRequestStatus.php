@@ -7,7 +7,7 @@ namespace App\GraphQL\Mutations;
 use App\Enums\TalentRequestStatus;
 use App\Models\PoolCandidateSearchRequest;
 
-final class SetPoolCandidateSearchRequestStatus
+final class UpdatePoolCandidateSearchRequestStatus
 {
     public function __invoke($_, array $args): PoolCandidateSearchRequest
     {

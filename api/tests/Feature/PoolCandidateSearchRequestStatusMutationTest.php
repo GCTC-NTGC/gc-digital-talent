@@ -11,6 +11,7 @@ use App\Models\User;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Testing\TestResponse;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -29,19 +30,13 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     protected User $recruiter;
 
     protected string $mutation = <<<'GRAPHQL'
-        mutation Set(
+        mutation UpdateStatus(
             $id: ID!
-            $status: TalentRequestStatus!
-            $inProgressDetails: TalentRequestInProgressDetail
-            $closedDetails: TalentRequestClosedDetail
-            $followUpDate: Date
+            $poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput!
         ) {
-            setPoolCandidateSearchRequestStatus(
+            updatePoolCandidateSearchRequestStatus(
                 id: $id
-                status: $status
-                inProgressDetails: $inProgressDetails
-                closedDetails: $closedDetails
-                followUpDate: $followUpDate
+                poolCandidateSearchRequest: $poolCandidateSearchRequest
             ) {
                 talentRequestStatus { value }
                 inProgressDetails { value }
@@ -81,6 +76,16 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         ]);
     }
 
+    /** @param array<string, mixed> $input */
+    private function runMutation(User $user, string $id, array $input): TestResponse
+    {
+        return $this->actingAs($user, 'api')
+            ->graphQL($this->mutation, [
+                'id' => $id,
+                'poolCandidateSearchRequest' => $input,
+            ]);
+    }
+
     // -------------------------------------------------------------------------
     // Transitions to IN_PROGRESS
     // -------------------------------------------------------------------------
@@ -93,17 +98,14 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
             : null;
         $request = $this->makeRequest($fromStatus, null, $closedDetails);
 
-        $this->actingAs($this->recruiter, 'api')
-            ->graphQL($this->mutation, [
-                'id' => $request->id,
-                'status' => TalentRequestStatus::IN_PROGRESS->name,
-                'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
-            ])
-            ->assertJsonFragment([
-                'talentRequestStatus' => ['value' => TalentRequestStatus::IN_PROGRESS->name],
-                'inProgressDetails' => ['value' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name],
-                'closedDetails' => null,
-            ]);
+        $this->runMutation($this->recruiter, $request->id, [
+            'status' => TalentRequestStatus::IN_PROGRESS->name,
+            'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
+        ])->assertJsonFragment([
+            'talentRequestStatus' => ['value' => TalentRequestStatus::IN_PROGRESS->name],
+            'inProgressDetails' => ['value' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name],
+            'closedDetails' => null,
+        ]);
 
         $this->assertNull($request->fresh()->closed_details);
     }
@@ -121,13 +123,11 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     {
         $request = $this->makeRequest(TalentRequestStatus::NEW->name);
 
-        $this->actingAs($this->recruiter, 'api')
-            ->graphQL($this->mutation, [
-                'id' => $request->id,
-                'status' => TalentRequestStatus::IN_PROGRESS->name,
-                'inProgressDetails' => TalentRequestInProgressDetail::DISCUSSION_ONGOING->name,
-                'followUpDate' => '2026-06-01',
-            ]);
+        $this->runMutation($this->recruiter, $request->id, [
+            'status' => TalentRequestStatus::IN_PROGRESS->name,
+            'inProgressDetails' => TalentRequestInProgressDetail::DISCUSSION_ONGOING->name,
+            'followUpDate' => '2026-06-01',
+        ]);
 
         $this->assertEquals('2026-06-01', $request->fresh()->follow_up_date?->toDateString());
     }
@@ -136,12 +136,9 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     {
         $request = $this->makeRequest(TalentRequestStatus::NEW->name);
 
-        $this->actingAs($this->recruiter, 'api')
-            ->graphQL($this->mutation, [
-                'id' => $request->id,
-                'status' => TalentRequestStatus::IN_PROGRESS->name,
-            ])
-            ->assertGraphQLValidationError('inProgressDetails', 'The in progress details field is required when status is IN_PROGRESS.');
+        $this->runMutation($this->recruiter, $request->id, [
+            'status' => TalentRequestStatus::IN_PROGRESS->name,
+        ])->assertGraphQLValidationError('poolCandidateSearchRequest.inProgressDetails', 'The inProgressDetails field is required when status is IN_PROGRESS.');
     }
 
     // -------------------------------------------------------------------------
@@ -159,17 +156,14 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
             : null;
         $request = $this->makeRequest($fromStatus, $inProgress, $closed, '2026-07-01');
 
-        $this->actingAs($this->recruiter, 'api')
-            ->graphQL($this->mutation, [
-                'id' => $request->id,
-                'status' => TalentRequestStatus::CLOSED->name,
-                'closedDetails' => TalentRequestClosedDetail::NO_LONGER_REQUIRED->name,
-            ])
-            ->assertJsonFragment([
-                'talentRequestStatus' => ['value' => TalentRequestStatus::CLOSED->name],
-                'closedDetails' => ['value' => TalentRequestClosedDetail::NO_LONGER_REQUIRED->name],
-                'inProgressDetails' => null,
-            ]);
+        $this->runMutation($this->recruiter, $request->id, [
+            'status' => TalentRequestStatus::CLOSED->name,
+            'closedDetails' => TalentRequestClosedDetail::NO_LONGER_REQUIRED->name,
+        ])->assertJsonFragment([
+            'talentRequestStatus' => ['value' => TalentRequestStatus::CLOSED->name],
+            'closedDetails' => ['value' => TalentRequestClosedDetail::NO_LONGER_REQUIRED->name],
+            'inProgressDetails' => null,
+        ]);
 
         $fresh = $request->fresh();
         $this->assertNull($fresh->in_progress_details);
@@ -192,12 +186,9 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
             TalentRequestInProgressDetail::TALENT_SENT->name,
         );
 
-        $this->actingAs($this->recruiter, 'api')
-            ->graphQL($this->mutation, [
-                'id' => $request->id,
-                'status' => TalentRequestStatus::CLOSED->name,
-            ])
-            ->assertGraphQLValidationError('closedDetails', 'The closed details field is required when status is CLOSED.');
+        $this->runMutation($this->recruiter, $request->id, [
+            'status' => TalentRequestStatus::CLOSED->name,
+        ])->assertGraphQLValidationError('poolCandidateSearchRequest.closedDetails', 'The closedDetails field is required when status is CLOSED.');
     }
 
     // -------------------------------------------------------------------------
@@ -209,12 +200,9 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     {
         $request = $this->makeRequest($fromStatus);
 
-        $this->actingAs($this->recruiter, 'api')
-            ->graphQL($this->mutation, [
-                'id' => $request->id,
-                'status' => TalentRequestStatus::NEW->name,
-            ])
-            ->assertGraphQLValidationError('status', 'The selected status is invalid.');
+        $this->runMutation($this->recruiter, $request->id, [
+            'status' => TalentRequestStatus::NEW->name,
+        ])->assertGraphQLValidationError('poolCandidateSearchRequest.status', 'The selected status is invalid.');
 
         $this->assertEquals($fromStatus, $request->fresh()->status);
     }
@@ -251,15 +239,12 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         };
         $request = $this->makeRequest(TalentRequestStatus::NEW->name);
 
-        $this->actingAs($user, 'api')
-            ->graphQL($this->mutation, [
-                'id' => $request->id,
-                'status' => TalentRequestStatus::IN_PROGRESS->name,
-                'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
-            ])
-            ->assertJsonFragment([
-                'talentRequestStatus' => ['value' => TalentRequestStatus::IN_PROGRESS->name],
-            ]);
+        $this->runMutation($user, $request->id, [
+            'status' => TalentRequestStatus::IN_PROGRESS->name,
+            'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
+        ])->assertJsonFragment([
+            'talentRequestStatus' => ['value' => TalentRequestStatus::IN_PROGRESS->name],
+        ]);
     }
 
     public static function authorizedRoleProvider(): array
@@ -283,13 +268,10 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         };
         $request = $this->makeRequest(TalentRequestStatus::NEW->name);
 
-        $this->actingAs($user, 'api')
-            ->graphQL($this->mutation, [
-                'id' => $request->id,
-                'status' => TalentRequestStatus::IN_PROGRESS->name,
-                'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
-            ])
-            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->runMutation($user, $request->id, [
+            'status' => TalentRequestStatus::IN_PROGRESS->name,
+            'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
+        ])->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
     public static function unauthorizedRoleProvider(): array
@@ -308,8 +290,10 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
 
         $this->graphQL($this->mutation, [
             'id' => $request->id,
-            'status' => TalentRequestStatus::IN_PROGRESS->name,
-            'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
+            'poolCandidateSearchRequest' => [
+                'status' => TalentRequestStatus::IN_PROGRESS->name,
+                'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
+            ],
         ])->assertGraphQLErrorMessage('Unauthenticated.');
     }
 
