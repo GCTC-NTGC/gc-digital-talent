@@ -151,10 +151,12 @@ jobs:
               # Skip blank / comment / brace-only lines
               [[ -z "$line" || "$line" == \#* || "$line" == "{" || "$line" == "}" ]] && continue
               # input type removal
-              if [[ "$line" =~ ^input[[:space:]]+([a-zA-Z_][a-zA-Z0-9_]*) ]]; then
+              re_input='^input[[:space:]]+([a-zA-Z_][a-zA-Z0-9_]*)'
+              re_field='^([a-zA-Z_][a-zA-Z0-9_]*)(\([^)]*\))?[[:space:]]*:[[:space:]]*[]![?A-Za-z[]'
+              if [[ "$line" =~ $re_input ]]; then
                 BREAKING_ROWS+="| \`${BASH_REMATCH[1]}\` (input type) | **Removed** |"$'\n'
               # field definition removal: word optionally followed by (args) then ": Type"
-              elif [[ "$line" =~ ^([a-zA-Z_][a-zA-Z0-9_]*)(\([^)]*\))?[[:space:]]*:[[:space:]]*[[\]!?A-Za-z] ]]; then
+              elif [[ "$line" =~ $re_field ]]; then
                 BREAKING_ROWS+="| \`${BASH_REMATCH[1]}\` | **Removed** |"$'\n'
               fi
             done < <(echo "$GQL_DIFF" | grep '^-' | grep -v '^---')
