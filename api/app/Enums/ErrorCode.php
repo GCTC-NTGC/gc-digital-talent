@@ -177,10 +177,4 @@ enum ErrorCode
 
     case RATE_LIMIT;
 
-    // Talent request
-    case TALENT_REQUEST_ALREADY_IN_PROGRESS;
-    case TALENT_REQUEST_ALREADY_CLOSED;
-    case TALENT_REQUEST_NOT_IN_PROGRESS;
-    case TALENT_REQUEST_NOT_CLOSED;
-
 }

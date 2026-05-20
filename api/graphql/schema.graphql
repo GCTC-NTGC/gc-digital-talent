@@ -2674,7 +2674,7 @@ input UpdatePoolCandidateSearchRequestInput @validator {
   adminNotes: String @rename(attribute: "admin_notes")
   status: PoolCandidateSearchStatus @rename(attribute: "request_status")
   followUpDate: Date @rename(attribute: "follow_up_date")
-  # talentRequestStatus changes go through dedicated mutations (progressPoolCandidateSearchRequest, closePoolCandidateSearchRequest, etc.)
+  # talentRequestStatus changes go through setPoolCandidateSearchRequestStatus
 }
 
 input SkillBelongsToMany {
@@ -3546,32 +3546,12 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
-  progressPoolCandidateSearchRequest(
+  setPoolCandidateSearchRequestStatus(
     id: ID!
-    inProgressDetails: TalentRequestInProgressDetail!
+    status: TalentRequestStatus!
+    inProgressDetails: TalentRequestInProgressDetail
+    closedDetails: TalentRequestClosedDetail
     followUpDate: Date
-  ): PoolCandidateSearchRequest
-    @guard
-    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
-    @validator
-  closePoolCandidateSearchRequest(
-    id: ID!
-    closedDetails: TalentRequestClosedDetail!
-  ): PoolCandidateSearchRequest
-    @guard
-    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
-    @validator
-  updatePoolCandidateSearchRequestInProgressDetails(
-    id: ID!
-    inProgressDetails: TalentRequestInProgressDetail!
-    followUpDate: Date
-  ): PoolCandidateSearchRequest
-    @guard
-    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
-    @validator
-  updatePoolCandidateSearchRequestClosedDetails(
-    id: ID!
-    closedDetails: TalentRequestClosedDetail!
   ): PoolCandidateSearchRequest
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])

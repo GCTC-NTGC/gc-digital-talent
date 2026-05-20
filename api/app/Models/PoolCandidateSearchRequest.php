@@ -349,19 +349,6 @@ class PoolCandidateSearchRequest extends Model
         $this->save();
     }
 
-    public function updateInProgressDetails(string $inProgressDetail, ?string $followUpDate): void
-    {
-        $this->in_progress_details = $inProgressDetail;
-        $this->follow_up_date = $followUpDate;
-        $this->save();
-    }
-
-    public function updateClosedDetails(string $closedDetail): void
-    {
-        $this->closed_details = $closedDetail;
-        $this->save();
-    }
-
     public function scopeWithPolicyEagerLoads(Builder $query): Builder
     {
         return $query->with(['community.team']);
