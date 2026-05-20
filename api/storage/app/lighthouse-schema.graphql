@@ -624,7 +624,7 @@ type Mutation {
   updateDevelopmentProgram(id: ID!, developmentProgram: UpdateDevelopmentProgramInput!): DevelopmentProgram
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
-  setPoolCandidateSearchRequestStatus(id: ID!, status: TalentRequestStatus!, inProgressDetails: TalentRequestInProgressDetail, closedDetails: TalentRequestClosedDetail, followUpDate: Date): PoolCandidateSearchRequest
+  updatePoolCandidateSearchRequestStatus(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
@@ -2539,6 +2539,13 @@ input CreatePoolCandidateSearchRequestInput {
 input UpdatePoolCandidateSearchRequestInput {
   adminNotes: String
   status: PoolCandidateSearchStatus
+  followUpDate: Date
+}
+
+input UpdatePoolCandidateSearchRequestStatusInput {
+  status: TalentRequestStatus!
+  inProgressDetails: TalentRequestInProgressDetail
+  closedDetails: TalentRequestClosedDetail
   followUpDate: Date
 }
 
