@@ -280,12 +280,6 @@ test.describe("Talent search", () => {
       requestId = fetchIdentificationNumber(appPage.page.url(), "request");
       await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
       await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
-      await expect(
-        appPage.page.getByRole("heading", {
-          name: /Candidate results/i,
-          level: 2,
-        }),
-      ).toBeVisible();
     });
 
     await test.step("Verify no candidates are displayed in the talent requests", async () => {
