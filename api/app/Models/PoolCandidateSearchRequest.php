@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Observers\PoolCandidateSearchRequestObserver;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,6 +30,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $admin_notes
  * @property string $request_status
  * @property int $request_status_weight
+ * @property string $status
+ * @property int $status_weight
+ * @property ?string $in_progress_details
+ * @property ?string $closed_details
  * @property string $manager_job_title
  * @property string $position_type
  * @property ?Carbon $follow_up_date
@@ -303,6 +308,15 @@ class PoolCandidateSearchRequest extends Model
     {
         $this->request_status = $statusInput;
         $this->request_status_changed_at = CarbonImmutable::now();
+    }
+
+    /**
+     * Aggregate accessor: returns whichever detail field is populated
+     * (in_progress_details when IN_PROGRESS, closed_details when CLOSED).
+     */
+    public function details(): Attribute
+    {
+        return Attribute::get(fn () => $this->in_progress_details ?? $this->closed_details);
     }
 
     public function scopeWithPolicyEagerLoads(Builder $query): Builder
