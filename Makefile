@@ -1,4 +1,4 @@
-.PHONY: up down logs setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api reverb-start start-services
+.PHONY: up down logs setup codespace-setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan phpstan queue-work composer optimize-api reverb-start start-services
 
 # Environment selection: use `make up ENV=dev` for development with hot reloading
 ifeq ($(ENV),dev)
@@ -22,6 +22,9 @@ logs:
 
 setup:
 	$(DOCKER_RUN) setup.sh
+
+codespace-setup:
+	bash maintenance/scripts/setup-codespace.sh
 
 refresh:
 	$(DOCKER_RUN) refresh_all.sh

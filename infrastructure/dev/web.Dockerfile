@@ -1,7 +1,7 @@
 # Development Dockerfile for Vite/React frontend
 # Runs the Vite dev server with HMR (Hot Module Replacement)
 
-FROM node:24.12.0-slim
+FROM node:24.15.0-slim
 
 # Install git for version info in builds
 RUN apt-get update \

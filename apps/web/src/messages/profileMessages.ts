@@ -34,8 +34,8 @@ const messages = defineMessages({
     description: "Title for priority status",
   },
   contractDuration: {
-    defaultMessage: "Employment duration preference",
-    id: "TfEUPu",
+    defaultMessage: "Duration of positions you would like to be considered for",
+    id: "V/bSTW",
     description:
       "Legend Text for required work preferences options in work preferences form",
   },

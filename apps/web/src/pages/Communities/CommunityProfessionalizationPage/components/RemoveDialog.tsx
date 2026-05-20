@@ -155,8 +155,8 @@ const RemoveDialog = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "This professionalization will no longer be an option during talent management nominations",
-                  id: "IIUffU",
+                    "Any user who has previously added this professionalization as a part of their community information will have it removed (their career experience will not be affected)",
+                  id: "FQe7E0",
                   description:
                     "Third list item in warning message before removing a professionalization",
                 })}
@@ -166,21 +166,10 @@ const RemoveDialog = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Any user who has previously added this professionalization as a part of their community information will have it removed (their career experience will not be affected)",
-                  id: "wppRjE",
-                  description:
-                    "Forth list item in warning message before removing a professionalization",
-                })}
-              </p>
-            </li>
-            <li>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
                     "Nominations that contained this professionalization as a development opportunity will continue to retain it for record purposes",
-                  id: "e1fkL1",
+                  id: "ToJGtJ",
                   description:
-                    "Fifth list item in warning message before removing a professionalization",
+                    "Fourth list item in warning message before removing a professionalization",
                 })}
               </p>
             </li>

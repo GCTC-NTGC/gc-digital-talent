@@ -220,7 +220,6 @@ const NextRoleSection = ({
     ? verifiedIcon
     : {
         icon: LockClosedIcon,
-        color: "black",
       };
 
   const handleError = () => {

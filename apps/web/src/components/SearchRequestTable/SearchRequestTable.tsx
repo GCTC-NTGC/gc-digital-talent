@@ -23,11 +23,14 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+import { useStableDate } from "~/hooks/useStableDate";
 
 import {
   classificationAccessor,
   classificationsCell,
   detailsCell,
+  followUpDateCell,
   jobTitleCell,
   notesCell,
 } from "./components/helpers";
@@ -160,6 +163,7 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
             fr
           }
         }
+        followUpDate
         requestedDate
         status {
           value
@@ -188,6 +192,7 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
 const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const now = useStableDate();
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters = useMemo(
@@ -324,6 +329,16 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         enableColumnFilter: false,
       },
     ),
+    columnHelper.accessor(({ followUpDate }) => accessors.date(followUpDate), {
+      id: "followUpDate",
+      enableColumnFilter: false,
+      header: intl.formatMessage(talentRequestMessages.followUpDate),
+      cell: ({
+        row: {
+          original: { followUpDate },
+        },
+      }) => followUpDateCell(followUpDate, now, intl),
+    }),
     columnHelper.accessor(
       ({ requestedDate }) => accessors.date(requestedDate),
       {
@@ -449,7 +464,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
         total: data?.poolCandidateSearchRequestsPaginated.paginatorInfo.total,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
         },
