@@ -93,6 +93,25 @@ jobs:
             done
           }
 
+          # Like format_list but adds "by @author" attribution via gh API
+          format_list_with_authors() {
+            while IFS= read -r line; do
+              [ -z "$line" ] && continue
+              pr=$(echo "$line" | grep -oE '\(#[0-9]+\)' | head -1 | tr -d '()#')
+              if [ -n "$pr" ]; then
+                base=$(echo "$line" | sed "s| (#${pr})||g")
+                author=$(gh pr view "$pr" --json author --jq '.author.login' 2>/dev/null || echo "")
+                if [ -n "$author" ]; then
+                  echo "- ${base} by @${author} ([#${pr}](${REPO_URL}/pull/${pr}))"
+                else
+                  echo "- ${base} ([#${pr}](${REPO_URL}/pull/${pr}))"
+                fi
+              else
+                echo "- ${line}"
+              fi
+            done
+          }
+
           # ── data collection ────────────────────────────────────────────────
 
           DATE=$(git log "$TAG" -1 --format='%ai' | cut -d' ' -f1)
@@ -106,11 +125,20 @@ jobs:
 
           PR_NUMS=$(echo "$ALL_COMMITS" | grep -oE '\(#[0-9]+\)' | tr -d '()#' | awk '!seen[$0]++')
 
-          FEATURES=$( echo "$ALL_COMMITS" | grep -iE  '^\[(Feature|Feat)\]'          || true)
-          REFACTORS=$(echo "$ALL_COMMITS" | grep -iE  '^\[(Refactor|Debt|Dep)\]'     || true)
-          BUGS=$(     echo "$ALL_COMMITS" | grep -iE  '^\[(Bug|Fix)\]|^[Ff]ix[[:space:]]' || true)
-          COPY=$(     echo "$ALL_COMMITS" | grep -iE  '^\[Copy\]'                    || true)
-          OTHER=$(    echo "$ALL_COMMITS" | grep -viE '^\[(Feature|Feat|Refactor|Debt|Dep|Bug|Fix|Copy)\]|^[Ff]ix[[:space:]]|^Bump[[:space:]]|^Playwright' || true)
+          FEATURES=$( echo "$ALL_COMMITS" | grep -iE  '^\[(Feature|Feat)\]'                      || true)
+          REFACTORS=$(echo "$ALL_COMMITS" | grep -iE  '^\[(Refactor|Debt|Dep)\]'               || true)
+          BUGS=$(     echo "$ALL_COMMITS" | grep -iE  '^\[(Bug|Fix)\]|^[Ff]ix[[:space:]]'      || true)
+          COPY=$(     echo "$ALL_COMMITS" | grep -iE  '^\[Copy\]'                              || true)
+          DOCS=$(     echo "$ALL_COMMITS" | grep -iE  '^\[(Docs|Doc)\]|^docs:'                 || true)
+          DEPS=$(     echo "$ALL_COMMITS" | grep -iE  '^Bump '                                 || true)
+          OTHER=$(    echo "$ALL_COMMITS" | grep -viE '^\[(Feature|Feat|Refactor|Debt|Dep|Bug|Fix|Copy|Docs|Doc)\]|^[Ff]ix[[:space:]]|^Bump[[:space:]]|^docs:|^Playwright' || true)
+
+          HIGHLIGHTS=""
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            clean=$(echo "$line" | sed -E 's/^\[(Feature|Feat|feature)\][[:space:]]*//' | sed -E 's/[[:space:]]*\(#[0-9]+\)$//')
+            HIGHLIGHTS+="* ${clean}"$'\n'
+          done <<< "$(echo "$FEATURES" | head -5)"
 
           # ── graphql breaking changes ────────────────────────────────────────
 
@@ -285,11 +313,82 @@ jobs:
             if [ -n "$REFACTORS" ]; then echo "### Refactor / Debt"; echo "$REFACTORS" | format_list; echo ""; fi
             if [ -n "$BUGS"      ]; then echo "### Bug Fixes";       echo "$BUGS"      | format_list; echo ""; fi
             if [ -n "$COPY"      ]; then echo "### Copy";            echo "$COPY"      | format_list; echo ""; fi
+            if [ -n "$DOCS"      ]; then echo "### Docs";            echo "$DOCS"      | format_list; echo ""; fi
             if [ -n "$OTHER"     ]; then echo "### Other";           echo "$OTHER"     | format_list; echo ""; fi
 
           } > "$OUT"
 
           echo "Wrote $OUT"
+
+          # ── github release body ────────────────────────────────────────────
+
+          {
+            if [ -n "$HIGHLIGHTS" ]; then
+              echo "## Highlights"
+              echo ""
+              printf "%s" "$HIGHLIGHTS"
+              echo ""
+            fi
+
+            if [ -n "$FEATURES" ]; then
+              echo "## ✨ **New Features & Enhancements**"
+              echo ""
+              echo "$FEATURES" | format_list_with_authors
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            if [ -n "$BUGS" ]; then
+              echo "## 🛠️ **Bug Fixes & Improvements**"
+              echo ""
+              echo "$BUGS" | format_list_with_authors
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            if [ -n "$REFACTORS" ]; then
+              echo "## 🧹 **Refactoring & Technical Changes**"
+              echo ""
+              echo "$REFACTORS" | format_list_with_authors
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            if [ -n "$DOCS" ]; then
+              echo "## 📝 **Documentation**"
+              echo ""
+              echo "$DOCS" | format_list_with_authors
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            if [ -n "$COPY" ]; then
+              echo "## 🗣️ **Accessibility, Content & Copy Updates**"
+              echo ""
+              echo "$COPY" | format_list_with_authors
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            if [ -n "$DEPS" ]; then
+              echo "## ⬆️ **Dependencies & DevOps**"
+              echo ""
+              echo "$DEPS" | format_list
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            echo ""
+            echo "**Full Changelog**: ${REPO_URL}/compare/${PREV_TAG}...${TAG}"
+          } > /tmp/release_body.md
+
+          echo "Wrote /tmp/release_body.md"
 
           # ── update Home.md ─────────────────────────────────────────────────
 
@@ -322,3 +421,16 @@ jobs:
           git add .
           git diff --staged --quiet || git commit -m "Add ${{ github.ref_name }} release notes"
           git push
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          if gh release view "$TAG" &>/dev/null; then
+            gh release edit "$TAG" --notes-file /tmp/release_body.md
+            echo "Updated release $TAG"
+          else
+            gh release create "$TAG" --title "$TAG" --notes-file /tmp/release_body.md
+            echo "Created release $TAG"
+          fi
