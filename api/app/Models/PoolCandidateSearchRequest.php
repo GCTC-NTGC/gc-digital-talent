@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\TalentRequestClosedDetail;
+use App\Enums\TalentRequestInProgressDetail;
 use App\Observers\PoolCandidateSearchRequestObserver;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
@@ -150,6 +152,17 @@ class PoolCandidateSearchRequest extends Model
         }
 
         $query->whereIn('request_status', $searchRequestStatuses);
+
+        return $query;
+    }
+
+    public static function scopeTalentRequestStatus(Builder $query, ?array $statuses)
+    {
+        if (empty($statuses)) {
+            return $query;
+        }
+
+        $query->whereIn('status', $statuses);
 
         return $query;
     }
@@ -311,12 +324,20 @@ class PoolCandidateSearchRequest extends Model
     }
 
     /**
-     * Aggregate accessor: returns whichever detail field is populated
-     * (in_progress_details when IN_PROGRESS, closed_details when CLOSED).
+     * Aggregate accessor: returns the localized label for whichever detail field is populated.
      */
     public function details(): Attribute
     {
-        return Attribute::get(fn () => $this->in_progress_details ?? $this->closed_details);
+        return Attribute::get(function () {
+            if (! is_null($this->in_progress_details)) {
+                return TalentRequestInProgressDetail::localizedString($this->in_progress_details);
+            }
+            if (! is_null($this->closed_details)) {
+                return TalentRequestClosedDetail::localizedString($this->closed_details);
+            }
+
+            return null;
+        });
     }
 
     public function scopeWithPolicyEagerLoads(Builder $query): Builder
