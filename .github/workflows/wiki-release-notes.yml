@@ -430,9 +430,9 @@ jobs:
           TAG: ${{ inputs.tag || github.ref_name }}
         run: |
           if gh release view "$TAG" &>/dev/null; then
-            gh release edit "$TAG" --notes-file /tmp/release_body.md
+            gh release edit "$TAG" --prerelease --notes-file /tmp/release_body.md
             echo "Updated release $TAG"
           else
-            gh release create "$TAG" --title "$TAG" --notes-file /tmp/release_body.md
+            gh release create "$TAG" --title "$TAG" --prerelease --notes-file /tmp/release_body.md
             echo "Created release $TAG"
           fi
