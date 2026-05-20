@@ -394,8 +394,9 @@ jobs:
 
           # ── update Home.md ─────────────────────────────────────────────────
 
-          if   [ "$HAS_BREAKING" = "true" ]; then RISKY="⛔ Yes"; HTYPE="Minor (BREAKING schema)"
-          else                                     RISKY="⚠️ Check"; HTYPE="Minor"; fi
+          if   [ "$HAS_BREAKING" = "true" ];    then RISKY="⛔ Yes";       HTYPE="Minor (BREAKING schema)"
+          elif [ "$MIGRATION_COUNT" -gt 0 ]; then RISKY="⚠️ Check";    HTYPE="Minor"
+          else                                     RISKY="✅ No migrations"; HTYPE="Minor"; fi
           [ "$HAS_DEPLOY" = "true" ] && DCOL="✅ Yes" || DCOL="—"
 
           NEW_ROW="| [${TAG}](${TAG}) | ${DATE} | ${HTYPE} | ${RISKY} | ${DCOL} |"
