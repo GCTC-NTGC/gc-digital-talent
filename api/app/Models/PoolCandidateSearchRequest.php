@@ -338,6 +338,7 @@ class PoolCandidateSearchRequest extends Model
         $this->in_progress_details = $inProgressDetail;
         $this->closed_details = null;
         $this->follow_up_date = $followUpDate;
+        $this->request_status_changed_at = now();
         $this->save();
     }
 
@@ -347,6 +348,7 @@ class PoolCandidateSearchRequest extends Model
         $this->closed_details = $closedDetail;
         $this->in_progress_details = null;
         $this->follow_up_date = null;
+        $this->request_status_changed_at = now();
         $this->save();
     }
 
