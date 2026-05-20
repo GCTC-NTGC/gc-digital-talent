@@ -5032,7 +5032,7 @@
     "description": "Text for first registration step, view details from CanadaLogin"
   },
   "IHyNL8": {
-    "defaultMessage": "Ajouter comme membre",
+    "defaultMessage": "Ajouter un membre",
     "description": "Title for the add member to community form"
   },
   "II4+N3": {
@@ -6136,7 +6136,7 @@
     "description": "Error message for updating a candidates assessment stage"
   },
   "MkUz+j": {
-    "defaultMessage": "Ajouter comme membre",
+    "defaultMessage": "Ajouter un membre",
     "description": "Label for the add member to community form (action)"
   },
   "MmTWYV": {
