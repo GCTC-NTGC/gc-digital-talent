@@ -583,7 +583,7 @@ importers:
         version: 7.16.2(eslint@9.39.2(jiti@2.7.0))(typescript@6.0.3)
       eslint-plugin-turbo:
         specifier: ^2.9.12
-        version: 2.9.12(eslint@9.39.2(jiti@2.7.0))(turbo@2.9.12)
+        version: 2.9.12(eslint@9.39.2(jiti@2.7.0))(turbo@2.9.14)
       globals:
         specifier: ^17.6.0
         version: 17.6.0
@@ -981,8 +981,8 @@ importers:
         specifier: ^5.2.0
         version: 5.2.0(graphql@16.14.0)
       chromatic:
-        specifier: ^16.10.0
-        version: 16.10.0
+        specifier: ^16.10.1
+        version: 16.10.1
       graphql:
         specifier: ^16.14.0
         version: 16.14.0
@@ -1151,8 +1151,8 @@ importers:
         specifier: ^1.1.11
         version: 1.1.11(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       chromatic:
-        specifier: ^16.10.0
-        version: 16.10.0
+        specifier: ^16.10.1
+        version: 16.10.1
       lodash:
         specifier: ^4.18.1
         version: 4.18.1
@@ -3741,8 +3741,18 @@ packages:
     cpu: [x64]
     os: [darwin]
 
+  '@turbo/darwin-64@2.9.14':
+    resolution: {integrity: sha512-t7QiPflaEyBE4oayeZtSmu4mEfjgIrcNlNNl1z1dmIVPqEdtA7+CfTf8d7KXsOGPh6aNgWjKxyvQg9uGfDQF+A==}
+    cpu: [x64]
+    os: [darwin]
+
   '@turbo/darwin-arm64@2.9.12':
     resolution: {integrity: sha512-RUkAE404z/J8NsyrUosMcBaXT6M4bRFxTQrmkDQBLQVXaC8Jl0e9bMvYDSX0GW7Ffm2m3j9y7RXgR1foeUAM9w==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@turbo/darwin-arm64@2.9.14':
+    resolution: {integrity: sha512-d23147mC9BsCPA9mJ0h/ubcpbRgcJBXbcG3+Vq7YLhjz3IXuvQsJ1UXH8f4MD76ZjJ4m/E4aRdJV+MW88CDfbw==}
     cpu: [arm64]
     os: [darwin]
 
@@ -3751,8 +3761,18 @@ packages:
     cpu: [x64]
     os: [linux]
 
+  '@turbo/linux-64@2.9.14':
+    resolution: {integrity: sha512-P3ZKB5tuUDdDQWuAsACGUR1qv9W7BNWxdxqVJ0kZNuNNPRaVYTPPikLcp79+GiEcW3npsR+KyP38lnQiBc5aSA==}
+    cpu: [x64]
+    os: [linux]
+
   '@turbo/linux-arm64@2.9.12':
     resolution: {integrity: sha512-lC6nD//Xh67fmJM0LKaLsg74Wry0aYrgMklpiNgCbUaMdPIOqj0A00iri3NU7Lb7pZHx8ViisgpeDKlpSgFUCA==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@turbo/linux-arm64@2.9.14':
+    resolution: {integrity: sha512-ZRTlzcUMrrPv9ZuDzRF9n60Ym13bKeG9jDB8WjxyLhWNzV+AJQN+zdpIk3NJYf2zQsGUm1mNar2P0elRzLw25g==}
     cpu: [arm64]
     os: [linux]
 
@@ -3761,8 +3781,18 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@turbo/windows-64@2.9.14':
+    resolution: {integrity: sha512-exanwN6sIduZwykYeiTQj8kCmOhazP5WOz3bvXMcYtjhL6Z3iRWLewKrXCBq0bqwSP3iBMb/AerRCnHI4lx46A==}
+    cpu: [x64]
+    os: [win32]
+
   '@turbo/windows-arm64@2.9.12':
     resolution: {integrity: sha512-XoR4bsg62/L/esRVcmoMESEiNZ36+YmyjYGLpoqk8nwMgXzzVjNOgX0lRSz5w/U/ajLGv3nhMsS0Q2QOdvp2AQ==}
+    cpu: [arm64]
+    os: [win32]
+
+  '@turbo/windows-arm64@2.9.14':
+    resolution: {integrity: sha512-fVdCsnmYoKICsycbWuuGp6Jvi51/3G/UluFWuAUCvR8PIW5IJkAk5BM9UF8PSm0Q2IphWHFZjYEgjHsh3B9y/g==}
     cpu: [arm64]
     os: [win32]
 
@@ -4443,8 +4473,8 @@ packages:
     resolution: {integrity: sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==}
     engines: {node: '>= 14.16.0'}
 
-  chromatic@16.10.0:
-    resolution: {integrity: sha512-nFsztmnu7rFiGafUJgXvLUNpqmRylz92eNvzBoJNTKKQj4EQUyxznwnfpf1dTs7hXtWD8JwcH92jADydaHA1sw==}
+  chromatic@16.10.1:
+    resolution: {integrity: sha512-u3RusLCCJxN8IZV3qLh6RTpo6Mu5A77bpOTAGJL5A+v2to9fsVKcK3j0GvGjPQeJJPNSI8rAI5c4U9ukbGiZJQ==}
     hasBin: true
     peerDependencies:
       '@chromatic-com/cypress': ^0.*.* || ^1.0.0
@@ -6951,6 +6981,10 @@ packages:
 
   turbo@2.9.12:
     resolution: {integrity: sha512-lCPgus1NuTiBdaITWqzSH/Ff6HVL8HHGBtOXHg1dHRfcshN79XkygSdh0M6g8b0td91ILLG5MTkLOkp5UvyPJw==}
+    hasBin: true
+
+  turbo@2.9.14:
+    resolution: {integrity: sha512-BQqXRr4UoWI3UPFrtznCLykYHxwxWh53iCB57x092jPMjIlW1wnm3N895g5irpiXmnxUhREBB0n6+y8BHhs4nw==}
     hasBin: true
 
   tweetnacl@1.0.3:
@@ -9867,19 +9901,37 @@ snapshots:
   '@turbo/darwin-64@2.9.12':
     optional: true
 
+  '@turbo/darwin-64@2.9.14':
+    optional: true
+
   '@turbo/darwin-arm64@2.9.12':
+    optional: true
+
+  '@turbo/darwin-arm64@2.9.14':
     optional: true
 
   '@turbo/linux-64@2.9.12':
     optional: true
 
+  '@turbo/linux-64@2.9.14':
+    optional: true
+
   '@turbo/linux-arm64@2.9.12':
+    optional: true
+
+  '@turbo/linux-arm64@2.9.14':
     optional: true
 
   '@turbo/windows-64@2.9.12':
     optional: true
 
+  '@turbo/windows-64@2.9.14':
+    optional: true
+
   '@turbo/windows-arm64@2.9.12':
+    optional: true
+
+  '@turbo/windows-arm64@2.9.14':
     optional: true
 
   '@tybys/wasm-util@0.10.1':
@@ -10696,7 +10748,7 @@ snapshots:
     dependencies:
       readdirp: 4.1.2
 
-  chromatic@16.10.0:
+  chromatic@16.10.1:
     dependencies:
       semver: 7.8.0
 
@@ -11289,11 +11341,11 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-turbo@2.9.12(eslint@9.39.2(jiti@2.7.0))(turbo@2.9.12):
+  eslint-plugin-turbo@2.9.12(eslint@9.39.2(jiti@2.7.0))(turbo@2.9.14):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.39.2(jiti@2.7.0)
-      turbo: 2.9.12
+      turbo: 2.9.14
 
   eslint-scope@8.4.0:
     dependencies:
@@ -13403,6 +13455,15 @@ snapshots:
       '@turbo/linux-arm64': 2.9.12
       '@turbo/windows-64': 2.9.12
       '@turbo/windows-arm64': 2.9.12
+
+  turbo@2.9.14:
+    optionalDependencies:
+      '@turbo/darwin-64': 2.9.14
+      '@turbo/darwin-arm64': 2.9.14
+      '@turbo/linux-64': 2.9.14
+      '@turbo/linux-arm64': 2.9.14
+      '@turbo/windows-64': 2.9.14
+      '@turbo/windows-arm64': 2.9.14
 
   tweetnacl@1.0.3: {}
 
