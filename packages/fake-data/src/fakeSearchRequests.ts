@@ -1,9 +1,10 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import type {
-  ApplicantFilter,
-  Department,
-  PoolCandidateSearchRequest,
+import {
+  TalentRequestStatus,
+  type ApplicantFilter,
+  type Department,
+  type PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
 import {
   PoolCandidateSearchPositionType,
@@ -46,6 +47,11 @@ const generateSearchRequest = (
     status: toLocalizedEnum(
       faker.helpers.arrayElement<PoolCandidateSearchStatus>(
         Object.values(PoolCandidateSearchStatus),
+      ),
+    ),
+    talentRequestStatus: toLocalizedEnum(
+      faker.helpers.arrayElement<TalentRequestStatus>(
+        Object.values(TalentRequestStatus),
       ),
     ),
     adminNotes: faker.lorem.sentences(5),
