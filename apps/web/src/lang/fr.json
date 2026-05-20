@@ -8231,7 +8231,7 @@
     "description": "Message displayed when a user updates a skill"
   },
   "VgyUtZ": {
-    "defaultMessage": "Modifier les rôles dans le ministère",
+    "defaultMessage": "Modifier les rôles liés à un ministère",
     "description": "Label for the form to edit a users department membership"
   },
   "VhqbdZ": {
