@@ -4744,7 +4744,7 @@
     "description": "Label for a priority status claim expiration date"
   },
   "H/0zee": {
-    "defaultMessage": "Archivez le ministère",
+    "defaultMessage": "Archiver le ministère",
     "description": "Button to trigger department archiving functionality"
   },
   "H/aUwM": {
@@ -4848,7 +4848,7 @@
     "description": "Heading for the pool closing date dialog"
   },
   "Hah9mB": {
-    "defaultMessage": "Retirez du processus",
+    "defaultMessage": "Retirer du processus",
     "description": "Button label for the form to remove a process role from a user"
   },
   "Hc3RTQ": {
@@ -5032,7 +5032,7 @@
     "description": "Text for first registration step, view details from CanadaLogin"
   },
   "IHyNL8": {
-    "defaultMessage": "Ajouter comme membre",
+    "defaultMessage": "Ajouter un membre",
     "description": "Title for the add member to community form"
   },
   "II4+N3": {
@@ -6136,7 +6136,7 @@
     "description": "Error message for updating a candidates assessment stage"
   },
   "MkUz+j": {
-    "defaultMessage": "Ajouter comme membre",
+    "defaultMessage": "Ajouter un membre",
     "description": "Label for the add member to community form (action)"
   },
   "MmTWYV": {
@@ -8231,7 +8231,7 @@
     "description": "Message displayed when a user updates a skill"
   },
   "VgyUtZ": {
-    "defaultMessage": "Modifier les rôles dans le ministère",
+    "defaultMessage": "Modifier les rôles liés à un ministère",
     "description": "Label for the form to edit a users department membership"
   },
   "VhqbdZ": {
@@ -11211,7 +11211,7 @@
     "description": "Priority number label"
   },
   "hS96pl": {
-    "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants dans le processus :",
+    "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants :",
     "description": "Text notifying user which process roles will be removed from the user"
   },
   "hSmKjD": {

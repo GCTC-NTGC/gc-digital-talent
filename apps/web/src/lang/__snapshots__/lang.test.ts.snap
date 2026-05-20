@@ -139,15 +139,8 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Archive department",
     "fr": [
-      "Archivez le ministère",
+      "Archiver le ministère",
       "Archivage du ministère"
-    ]
-  },
-  {
-    "en": "Remove from process",
-    "fr": [
-      "Retirez du processus",
-      "Retirer du processus"
     ]
   },
   {
