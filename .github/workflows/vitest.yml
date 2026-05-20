@@ -28,11 +28,10 @@ jobs:
           rm -rf /usr/share/dotnet
           rm -rf /usr/local/share/boost
           rm -rf /opt/ghc
-          rm -rf /usr/local/share/powershell
-          rm -rf /usr/share/swift
-          rm -rf /usr/local/.ghcup
-          rm -rf /usr/lib/jvm
-          # Display free space for future diagnosis
+          sudo rm -rf /usr/local/share/powershell
+          sudo rm -rf /usr/share/swift
+          sudo rm -rf /usr/local/.ghcup
+          sudo rm -rf /usr/lib/jvm
           df -h
 
       - uses: actions/checkout@v6
