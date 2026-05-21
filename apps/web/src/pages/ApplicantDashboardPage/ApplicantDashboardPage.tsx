@@ -41,6 +41,7 @@ import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
 import ApplicantDashboardProvider, {
   ApplicantDashboardContext,
 } from "./ApplicantDashboardProvider";
+import { useNodeFocus } from "./components/hooks";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicantDashboardPage on User {
@@ -204,9 +205,13 @@ export const DashboardPage = ({
   const paths = useRoutes();
   const { hash } = useLocation();
 
-  const { setCommunityAccordionValue, communityAccordionRef } = useContext(
-    ApplicantDashboardContext,
-  );
+  let {
+    setCommunityAccordionValue,
+    communityAccordionFocus,
+    communityAccordionRef,
+  } = useContext(ApplicantDashboardContext);
+
+  [communityAccordionFocus, communityAccordionRef] = useNodeFocus();
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -280,8 +285,8 @@ export const DashboardPage = ({
   const scrollAndExpandCommunitiesAccordion = useCallback(() => {
     console.debug(`scrollAndExpandCommunitiesAccordion`);
     setCommunityAccordionValue("your_functional_communities");
-    communityAccordionRef?.current?.focus();
-  }, [setCommunityAccordionValue]);
+    communityAccordionFocus?.();
+  }, [communityAccordionFocus, setCommunityAccordionValue]);
 
   useEffect(() => {
     console.debug(

@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import { useCallback, useState } from "react";
 
 import type { ChipProps } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -20,4 +21,14 @@ export const useMetaDataTalentNominationChip = ({
   return submittedAt
     ? { label: intl.formatMessage(commonMessages.received), color: "secondary" }
     : { label: intl.formatMessage(commonMessages.draft), color: "primary" };
+};
+
+export const useNodeFocus = () => {
+  const [focus, setFocus] = useState<HTMLOrSVGElement["focus"]>();
+  const ref = useCallback((node: HTMLElement) => {
+    if (node !== null) {
+      setFocus(node.focus);
+    }
+  }, []);
+  return [focus, ref];
 };
