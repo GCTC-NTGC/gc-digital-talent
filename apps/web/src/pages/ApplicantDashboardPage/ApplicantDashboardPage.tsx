@@ -577,16 +577,15 @@ export const ApplicantDashboardPageApi = () => {
   }, []);
 
   const scrollAndExpandCommunitiesAccordion = useCallback(() => {
-    console.debug("scrollAndExpandCommunitiesAccordion");
     communityAccordionFocus?.();
-    // setCommunityAccordionValue("your_functional_communities");
-  }, []);
+    setCommunityAccordionValue("your_functional_communities");
+  }, [communityAccordionFocus]);
 
   useEffect(() => {
     if (hash === `#${applicationDashboardSections.FUNCTIONAL_COMMUNITIES}`) {
       scrollAndExpandCommunitiesAccordion();
     }
-  }, []);
+  }, [hash, scrollAndExpandCommunitiesAccordion]);
 
   return (
     <Pending fetching={fetching} error={error}>
