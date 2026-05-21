@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
-import { useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
+import { useLocation } from "react-router";
 
 import {
   Pending,
@@ -32,6 +33,7 @@ import { hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields } fro
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import { PAGE_SECTION_ID as applicationDashboardSections } from "~/constants/sections/applicantDashboard";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
@@ -200,6 +202,7 @@ export const DashboardPage = ({
 }: DashboardPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { hash } = useLocation();
 
   const { setCommunityAccordionValue, communityAccordionRef } = useContext(
     ApplicantDashboardContext,
@@ -273,6 +276,21 @@ export const DashboardPage = ({
     : careerDevelopmentHasEmptyRequiredFields(currentUser.employeeProfile ?? {})
       ? "error"
       : "success";
+
+  const scrollAndExpandCommunitiesAccordion = useCallback(() => {
+    console.debug(`scrollAndExpandCommunitiesAccordion`);
+    setCommunityAccordionValue("your_functional_communities");
+    communityAccordionRef?.current?.focus();
+  }, [setCommunityAccordionValue]);
+
+  useEffect(() => {
+    console.debug(
+      `useEffect fired ${hash} ${applicationDashboardSections.FUNCTIONAL_COMMUNITIES}`,
+    );
+    if (hash === `#${applicationDashboardSections.FUNCTIONAL_COMMUNITIES}`) {
+      scrollAndExpandCommunitiesAccordion();
+    }
+  }, [hash, scrollAndExpandCommunitiesAccordion]);
 
   return (
     <>
@@ -437,12 +455,7 @@ export const DashboardPage = ({
                               ? "functional-communities"
                               : undefined
                           }
-                          onScrollTo={() => {
-                            setCommunityAccordionValue(
-                              "your_functional_communities",
-                            );
-                            communityAccordionRef.current?.focus();
-                          }}
+                          onScrollTo={scrollAndExpandCommunitiesAccordion}
                           asListItem={false}
                         />
                       ) : (
