@@ -15,10 +15,6 @@ parameters:
 variables:
   serviceConnectionName: "Talent Cloud Service Connection"
   npm_config_user_config: "$(System.DefaultWorkingDirectory)/.npmrc"
-  dirResults: "$(System.DefaultWorkingDirectory)/apps/playwright/test-results"
-  resourceGroupName: "rg_tbs_talent_2_PaaS"
-  storageAccountName: "sttalclddevcacstdl"
-  storageContainer: "playwright-results"
   ${{ if eq(parameters.vertical, 'uat') }}:
     baseUrl: "https://uat-talentcloud.tbs-sct.gc.ca"
     playwrightProject: "uat-admin"
@@ -106,45 +102,3 @@ jobs:
           artifact: playwright-${{ parameters.vertical }}-report
           publishLocation: pipeline
 
-      - task: AzureCLI@2
-        displayName: "Copy Playwright Results to Storage"
-        condition: always()
-        inputs:
-          azureSubscription: $(serviceConnectionName)
-          scriptType: bash
-          scriptLocation: inlineScript
-          inlineScript: |
-            set -e
-
-            if ! command -v az &> /dev/null; then
-              echo "ERROR: az cli not found"
-              exit 1
-            fi
-
-            DIR_SRC="$(dirResults)"
-            echo "dirResults: $DIR_SRC"
-
-            TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
-
-            if [ -d "$DIR_SRC" ]; then
-              SA_RG="$(resourceGroupName)"
-              SA_NAME="$(storageAccountName)"
-              SA_CONTAINER_NAME="$(storageContainer)"
-              SA_CONTAINER_PATH_PREFIX="${{ parameters.vertical }}/$TIMESTAMP"
-
-              AZURE_STORAGE_KEY=$(az storage account keys list \
-                --resource-group "$SA_RG" \
-                --account-name "$SA_NAME" \
-                --query "[0].value" \
-                --output tsv)
-
-              az storage blob upload-batch \
-                --account-name "$SA_NAME" \
-                --account-key "$AZURE_STORAGE_KEY" \
-                --destination "$SA_CONTAINER_NAME/$SA_CONTAINER_PATH_PREFIX" \
-                --source "$DIR_SRC"
-
-              echo "Upload complete"
-            else
-              echo "No test-results directory found"
-            fi
