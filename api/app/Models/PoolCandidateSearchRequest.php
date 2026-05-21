@@ -2,9 +2,13 @@
 
 namespace App\Models;
 
+use App\Enums\TalentRequestClosedDetail;
+use App\Enums\TalentRequestInProgressDetail;
+use App\Enums\TalentRequestStatus;
 use App\Observers\PoolCandidateSearchRequestObserver;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,6 +33,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $admin_notes
  * @property string $request_status
  * @property int $request_status_weight
+ * @property string $status
+ * @property int $status_weight
+ * @property ?string $in_progress_details
+ * @property ?string $closed_details
  * @property string $manager_job_title
  * @property string $position_type
  * @property ?Carbon $follow_up_date
@@ -145,6 +153,17 @@ class PoolCandidateSearchRequest extends Model
         }
 
         $query->whereIn('request_status', $searchRequestStatuses);
+
+        return $query;
+    }
+
+    public static function scopeTalentRequestStatus(Builder $query, ?array $statuses)
+    {
+        if (empty($statuses)) {
+            return $query;
+        }
+
+        $query->whereIn('status', $statuses);
 
         return $query;
     }
@@ -297,12 +316,38 @@ class PoolCandidateSearchRequest extends Model
     }
 
     /**
-     * Getters/Mutators
+     * Aggregate accessor: returns the localized label for whichever detail field is populated.
      */
-    public function setStatusAttribute($statusInput): void
+    public function details(): Attribute
     {
-        $this->request_status = $statusInput;
-        $this->request_status_changed_at = CarbonImmutable::now();
+        return Attribute::get(function () {
+            if ($this->status === TalentRequestStatus::IN_PROGRESS->name && ! is_null($this->in_progress_details)) {
+                return TalentRequestInProgressDetail::localizedString($this->in_progress_details);
+            }
+            if ($this->status === TalentRequestStatus::CLOSED->name && ! is_null($this->closed_details)) {
+                return TalentRequestClosedDetail::localizedString($this->closed_details);
+            }
+
+            return null;
+        });
+    }
+
+    public function progress(string $inProgressDetail, Carbon|string|null $followUpDate): void
+    {
+        $this->status = TalentRequestStatus::IN_PROGRESS->name;
+        $this->in_progress_details = $inProgressDetail;
+        $this->closed_details = null;
+        $this->follow_up_date = $followUpDate;
+        $this->save();
+    }
+
+    public function close(string $closedDetail): void
+    {
+        $this->status = TalentRequestStatus::CLOSED->name;
+        $this->closed_details = $closedDetail;
+        $this->in_progress_details = null;
+        $this->follow_up_date = null;
+        $this->save();
     }
 
     public function scopeWithPolicyEagerLoads(Builder $query): Builder
