@@ -13,16 +13,27 @@ use Lcobucci\JWT\Signer\Key\InMemory;
 /**
  * Issues short-lived JWTs for test users without going through GCKey.
  *
- * Only reachable when TESTING_TOKEN_ENABLED=true. Never deployed to production.
+ * Only reachable when TESTING_TOKEN_ENABLED=true and APP_ENV != production.
  *
  * Usage:
- *   GET /testing/token?role=platform_admin   — first user with that role
- *   GET /testing/token?sub=<user-sub>        — specific user by sub
+ *   GET /testing/token?role=platform_admin&secret=<TESTING_ENDPOINT_SECRET>
+ *   GET /testing/token?sub=<user-sub>&secret=<TESTING_ENDPOINT_SECRET>
  */
 class TestTokenController extends Controller
 {
     public function issue(Request $request): JsonResponse
     {
+        // Hard block — never run in production regardless of env vars
+        if (app()->environment('production')) {
+            abort(404);
+        }
+
+        // Caller must supply the shared endpoint secret
+        $expectedSecret = config('testing.endpoint_secret');
+        if (! $expectedSecret || ! hash_equals($expectedSecret, (string) $request->query('secret', ''))) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
         $user = $this->resolveUser($request);
 
         if (! $user) {
@@ -31,14 +42,10 @@ class TestTokenController extends Controller
             ], 404);
         }
 
-        $token = $this->mintToken($user->sub);
-
         return response()->json([
-            'access_token' => $token,
-            'refresh_token' => $token,
-            'id_token' => $token,
-            'user_sub' => $user->sub,
-            'user_email' => $user->email,
+            'access_token' => $this->mintToken($user->sub),
+            'refresh_token' => $this->mintToken($user->sub),
+            'id_token' => $this->mintToken($user->sub),
         ]);
     }
 

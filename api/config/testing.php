@@ -7,9 +7,10 @@ return [
     |--------------------------------------------------------------------------
     |
     | When true, a /testing/token endpoint is registered that issues JWTs
-    | signed with the local test key below — bypassing GCKey entirely.
+    | signed with the local test key — bypassing GCKey entirely.
     |
-    | MUST be false (or unset) in production.
+    | Must be unset or false in production. The code also hard-blocks execution
+    | when APP_ENV=production regardless of this flag.
     |
     */
     'token_enabled' => env('TESTING_TOKEN_ENABLED', false),
@@ -20,10 +21,25 @@ return [
     |--------------------------------------------------------------------------
     |
     | Base64-encoded 32-byte key used to sign and verify test tokens.
-    | Tokens signed with this key are accepted only when token_enabled is true.
+    | No default — app will throw if TESTING_TOKEN_ENABLED=true and this
+    | is not set, preventing silent use of a guessable fallback.
     |
-    | Generate a new one with: base64_encode(random_bytes(32))
+    | Generate: php -r "echo base64_encode(random_bytes(32));"
     |
     */
-    'jwt_secret' => env('TESTING_JWT_SECRET', 'U2VjcmV0VGVzdEtleUZvclBsYXl3cmlnaHQxMjM0NTY='),
+    'jwt_secret' => env('TESTING_JWT_SECRET'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Testing Endpoint Secret
+    |--------------------------------------------------------------------------
+    |
+    | Caller must pass this value as ?secret= on every /testing/token request.
+    | Stored in Azure Key Vault and injected into the pipeline as an env var.
+    | Prevents anonymous access to the token endpoint even if its URL is known.
+    |
+    | Generate: php -r "echo bin2hex(random_bytes(32));"
+    |
+    */
+    'endpoint_secret' => env('TESTING_ENDPOINT_SECRET'),
 ];

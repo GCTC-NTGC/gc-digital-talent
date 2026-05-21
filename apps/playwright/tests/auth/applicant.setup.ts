@@ -8,7 +8,8 @@ export const applicantAuthFile = path.join(
 );
 
 setup("authenticate as applicant via test token", async ({ page, request }) => {
-  const response = await request.get("/testing/token?role=applicant");
+  const secret = process.env.TESTING_ENDPOINT_SECRET;
+  const response = await request.get(`/testing/token?role=applicant&secret=${secret}`);
 
   expect(
     response.ok(),

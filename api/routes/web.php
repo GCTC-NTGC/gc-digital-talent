@@ -33,6 +33,6 @@ Route::prefix('')->group(function () {
 // Test-only token endpoint — only registered when TESTING_TOKEN_ENABLED=true.
 // Returns a short-lived JWT for a user matched by ?role= or ?sub= without
 // going through GCKey. Never available in production.
-if (config('testing.token_enabled')) {
+if (config('testing.token_enabled') && ! app()->environment('production')) {
     Route::get('/testing/token', [TestTokenController::class, 'issue']);
 }

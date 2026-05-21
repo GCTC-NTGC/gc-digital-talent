@@ -34,10 +34,10 @@ class BearerTokenServiceProvider extends ServiceProvider
                 );
             }
 
-            // When TESTING_TOKEN_ENABLED=true, wrap the real service so that
-            // test tokens (iss=gc-digital-talent-testing) are validated locally
-            // while real GCKey tokens are still passed through to the real service.
-            if (config('testing.token_enabled')) {
+            // When TESTING_TOKEN_ENABLED=true (and not production), wrap the real
+            // service so test tokens are validated locally while real GCKey tokens
+            // pass through unchanged.
+            if (config('testing.token_enabled') && ! app()->environment('production')) {
                 return new TestBearerTokenService($realService, config('testing.jwt_secret'), $clock);
             }
 

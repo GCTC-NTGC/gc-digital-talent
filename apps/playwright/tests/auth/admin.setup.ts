@@ -5,7 +5,8 @@ import path from "node:path";
 export const adminAuthFile = path.join(__dirname, "../../.auth/admin.json");
 
 setup("authenticate as admin via test token", async ({ page, request }) => {
-  const response = await request.get("/testing/token?role=platform_admin");
+  const secret = process.env.TESTING_ENDPOINT_SECRET;
+  const response = await request.get(`/testing/token?role=platform_admin&secret=${secret}`);
 
   expect(
     response.ok(),
