@@ -19,9 +19,10 @@ class CspReportController extends Controller
 
         // Reporting API format (report-to): a list of report objects
         if (array_is_list($data) && $data !== []) {
+            /** @var array<int, array<string, mixed>> $data */
             collect($data)
                 ->where('type', 'csp-violation')
-                ->each(fn ($entry) => $this->logViolation([
+                ->each(fn (array $entry) => $this->logViolation([
                     'uri' => $entry['url'] ?? 'N/A',
                     'directive' => $entry['body']['effectiveDirective'] ?? 'N/A',
                     'blocked' => $entry['body']['blockedURL'] ?? 'N/A',
@@ -53,7 +54,7 @@ class CspReportController extends Controller
      * NOTE: Only logs a subset of trimmed fields to avoid
      * log inflation by excessive reporting.
      *
-     * @param  array<int,mixed>  $fields
+     * @param  array<string,mixed>  $fields
      */
     private function logViolation(array $fields): void
     {
