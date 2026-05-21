@@ -122,7 +122,7 @@ const useStatusInfo = (
 const devProgram = tv({
   slots: {
     base: "mb-1.5 flex items-start gap-1.5",
-    icon: "mt-1 size-4.5 text-error dark:text-error-200",
+    icon: "mt-1 size-4.5 text-error-500 dark:text-error-200",
     caption: "text-sm",
   },
   variants: {
@@ -142,10 +142,10 @@ const devProgram = tv({
     },
     hasError: {
       true: {
-        caption: "text-error dark:text-error-100",
+        caption: "text-error-500 dark:text-error-100",
       },
       false: {
-        caption: "text-gray- dark:text-gray-100",
+        caption: "text-gray-600 dark:text-gray-100",
       },
     },
   },
