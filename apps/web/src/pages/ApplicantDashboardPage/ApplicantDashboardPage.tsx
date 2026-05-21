@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
-import { createRef, useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import {
@@ -202,10 +202,10 @@ export const DashboardPage = ({
 }: DashboardPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { hash } = useLocation();
 
-  const { setCommunityAccordionValue } = useContext(ApplicantDashboardContext);
-  const { communityAccordionFocus } = useContext(ApplicantDashboardContext);
+  const { scrollAndExpandCommunitiesAccordion } = useContext(
+    ApplicantDashboardContext,
+  );
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -275,17 +275,6 @@ export const DashboardPage = ({
     : careerDevelopmentHasEmptyRequiredFields(currentUser.employeeProfile ?? {})
       ? "error"
       : "success";
-
-  const scrollAndExpandCommunitiesAccordion = useCallback(() => {
-    setCommunityAccordionValue("your_functional_communities");
-    communityAccordionFocus?.();
-  }, [communityAccordionFocus, setCommunityAccordionValue]);
-
-  useEffect(() => {
-    if (hash === `#${applicationDashboardSections.FUNCTIONAL_COMMUNITIES}`) {
-      scrollAndExpandCommunitiesAccordion();
-    }
-  }, [hash, scrollAndExpandCommunitiesAccordion]);
 
   return (
     <>
@@ -570,13 +559,34 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
 
 export const ApplicantDashboardPageApi = () => {
   const intl = useIntl();
+  const { hash } = useLocation();
   const [{ data, fetching, error }] = useQuery({
     query: ApplicantDashboard_Query,
     context,
   });
   const [communityAccordionValue, setCommunityAccordionValue] =
     useState<string>("");
-  const communityAccordionRef = createRef<HTMLButtonElement>();
+
+  const [communityAccordionFocus, setCommunityAccordionFocus] =
+    useState<HTMLButtonElement["focus"]>();
+
+  const communityAccordionRef = useCallback((node: HTMLButtonElement) => {
+    if (node !== null) {
+      setCommunityAccordionFocus(() => node.focus());
+    }
+  }, []);
+
+  const scrollAndExpandCommunitiesAccordion = useCallback(() => {
+    console.debug("scrollAndExpandCommunitiesAccordion");
+    communityAccordionFocus?.();
+    // setCommunityAccordionValue("your_functional_communities");
+  }, []);
+
+  useEffect(() => {
+    if (hash === `#${applicationDashboardSections.FUNCTIONAL_COMMUNITIES}`) {
+      scrollAndExpandCommunitiesAccordion();
+    }
+  }, []);
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -585,9 +595,8 @@ export const ApplicantDashboardPageApi = () => {
           initialValue={{
             communityAccordionValue,
             setCommunityAccordionValue,
-            communityAccordionFocus:
-              communityAccordionRef.current?.focus.bind(this),
             communityAccordionRef,
+            scrollAndExpandCommunitiesAccordion,
           }}
         >
           <DashboardPage applicantDashboardQuery={data} />

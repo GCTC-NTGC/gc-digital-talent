@@ -1,17 +1,15 @@
 import {
   createContext,
-  createRef,
   type Dispatch,
   type ReactNode,
-  type RefObject,
   type SetStateAction,
 } from "react";
 
 interface ApplicantDashboardState {
   communityAccordionValue: string;
   setCommunityAccordionValue: Dispatch<SetStateAction<string>>;
-  communityAccordionFocus: (() => void) | undefined;
-  communityAccordionRef: RefObject<HTMLButtonElement | null>;
+  communityAccordionRef: (node: HTMLButtonElement) => void;
+  scrollAndExpandCommunitiesAccordion: () => void;
 }
 
 export const defaultState = {
@@ -19,8 +17,12 @@ export const defaultState = {
   setCommunityAccordionValue: () => {
     /* no-op */
   },
-  communityAccordionFocus: undefined,
-  communityAccordionRef: createRef<HTMLButtonElement>(),
+  communityAccordionRef: () => {
+    /* no-op */
+  },
+  scrollAndExpandCommunitiesAccordion: () => {
+    /* no-op */
+  },
 } satisfies ApplicantDashboardState;
 
 export const ApplicantDashboardContext =
