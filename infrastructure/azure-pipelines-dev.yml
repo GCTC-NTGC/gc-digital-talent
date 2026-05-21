@@ -23,13 +23,12 @@ variables:
     playwrightProject: "chromium"
 
 pool:
-  name: "TBS Linux Self Hosted"
+  vmImage: ubuntu-24.04
 
 jobs:
   - job: run_playwright_tests
     displayName: Run Playwright tests (${{ parameters.vertical }})
     timeoutInMinutes: 30
-    container: mcr.microsoft.com/playwright:v1.60.0-noble
 
     steps:
       - checkout: self
@@ -54,6 +53,11 @@ jobs:
       - script: echo "##vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(npm_config_user_config)"
         displayName: "Set Custom .npmrc Location"
 
+      - task: NodeTool@0
+        displayName: "Use Node.js 24"
+        inputs:
+          versionSpec: "24.x"
+
       - script: |
           corepack enable
           corepack prepare pnpm@10.27.0 --activate
@@ -64,6 +68,10 @@ jobs:
 
       - script: pnpm run build
         displayName: "Build application"
+
+      - script: npx playwright install --with-deps chromium
+        displayName: "Install Playwright browsers"
+        workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
 
       - script: npx playwright test --project=$(playwrightProject) --retries=2
         displayName: "Run Playwright tests (${{ parameters.vertical }})"
