@@ -6,11 +6,13 @@ import {
   type SetStateAction,
 } from "react";
 
+import type { useNodeFocus } from "./components/hooks";
+
 interface ApplicantDashboardState {
   communityAccordionValue: string;
   setCommunityAccordionValue: Dispatch<SetStateAction<string>>;
-  communityAccordionFocus: HTMLOrSVGElement["focus"];
-  communityAccordionRef: () => void;
+  communityAccordionFocus: ReturnType<typeof useNodeFocus>[0];
+  communityAccordionRef: ReturnType<typeof useNodeFocus>[1];
 }
 
 const defaultState = {

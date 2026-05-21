@@ -283,15 +283,11 @@ export const DashboardPage = ({
       : "success";
 
   const scrollAndExpandCommunitiesAccordion = useCallback(() => {
-    console.debug(`scrollAndExpandCommunitiesAccordion`);
     setCommunityAccordionValue("your_functional_communities");
     communityAccordionFocus?.();
   }, [communityAccordionFocus, setCommunityAccordionValue]);
 
   useEffect(() => {
-    console.debug(
-      `useEffect fired ${hash} ${applicationDashboardSections.FUNCTIONAL_COMMUNITIES}`,
-    );
     if (hash === `#${applicationDashboardSections.FUNCTIONAL_COMMUNITIES}`) {
       scrollAndExpandCommunitiesAccordion();
     }
