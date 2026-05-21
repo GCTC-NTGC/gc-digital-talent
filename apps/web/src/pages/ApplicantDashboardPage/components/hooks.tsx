@@ -23,11 +23,14 @@ export const useMetaDataTalentNominationChip = ({
     : { label: intl.formatMessage(commonMessages.draft), color: "primary" };
 };
 
-export const useNodeFocus = () => {
+export const useNodeFocus: () => [
+  focus: (() => void) | undefined,
+  ref: (node: HTMLElement | null) => void,
+] = () => {
   const [focus, setFocus] = useState<HTMLOrSVGElement["focus"]>();
-  const ref = useCallback((node: HTMLElement) => {
+  const ref = useCallback((node: HTMLElement | null) => {
     if (node !== null) {
-      setFocus(node.focus);
+      setFocus(() => node.focus.bind(node));
     }
   }, []);
   return [focus, ref];
