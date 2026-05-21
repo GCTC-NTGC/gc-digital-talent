@@ -8,6 +8,7 @@ use App\Enums\TalentRequestStatus;
 use App\Models\Community;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
+use Carbon\CarbonImmutable;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -314,6 +315,70 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
                 'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
             ],
         ])->assertGraphQLErrorMessage('Unauthenticated.');
+    }
+
+    // -------------------------------------------------------------------------
+    // request_status_changed_at tracking
+    // -------------------------------------------------------------------------
+
+    public function testRequestStatusChangedAtSetOnStatusChange(): void
+    {
+        $past = CarbonImmutable::now()->subHour();
+
+        $request = PoolCandidateSearchRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'status' => TalentRequestStatus::NEW->name,
+            'request_status_changed_at' => $past,
+        ]);
+
+        $this->runMutation($this->recruiter, $request->id, [
+            'status' => TalentRequestStatus::IN_PROGRESS->name,
+            'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
+        ]);
+
+        $this->assertTrue(
+            $request->fresh()->request_status_changed_at->isAfter($past),
+            'request_status_changed_at should be updated when status changes'
+        );
+    }
+
+    public function testRequestStatusChangedAtUpdatedOnDetailsChanged(): void
+    {
+        $past = CarbonImmutable::now()->subHour();
+
+        $request = PoolCandidateSearchRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'status' => TalentRequestStatus::IN_PROGRESS->name,
+            'in_progress_details' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
+            'request_status_changed_at' => $past,
+        ]);
+
+        $this->runMutation($this->recruiter, $request->id, [
+            'status' => TalentRequestStatus::IN_PROGRESS->name,
+            'inProgressDetails' => TalentRequestInProgressDetail::DISCUSSION_ONGOING->name,
+        ]);
+
+        $this->assertTrue(
+            $request->fresh()->request_status_changed_at->isAfter($past),
+            'request_status_changed_at should be updated when inProgressDetails changes'
+        );
+    }
+
+    public function testRequestStatusChangedAtNotUpdatedWhenOnlyFollowUpDateChanges(): void
+    {
+        $request = $this->makeRequest(
+            TalentRequestStatus::IN_PROGRESS->name,
+            TalentRequestInProgressDetail::DISCUSSION_ONGOING->name,
+        );
+        $originalChangedAt = $request->request_status_changed_at;
+
+        $this->runMutation($this->recruiter, $request->id, [
+            'status' => TalentRequestStatus::IN_PROGRESS->name,
+            'inProgressDetails' => TalentRequestInProgressDetail::DISCUSSION_ONGOING->name,
+            'followUpDate' => '2026-08-01',
+        ]);
+
+        $this->assertEquals($originalChangedAt, $request->fresh()->request_status_changed_at);
     }
 
     // -------------------------------------------------------------------------
