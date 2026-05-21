@@ -90,6 +90,15 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     // Transitions to IN_PROGRESS
     // -------------------------------------------------------------------------
 
+    public static function inProgressFromProvider(): array
+    {
+        return [
+            'from_new' => [TalentRequestStatus::NEW->name],
+            'from_in_progress' => [TalentRequestStatus::IN_PROGRESS->name],
+            'from_closed' => [TalentRequestStatus::CLOSED->name],
+        ];
+    }
+
     #[DataProvider('inProgressFromProvider')]
     public function testSetInProgressFrom(string $fromStatus): void
     {
@@ -108,15 +117,6 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         ]);
 
         $this->assertNull($request->fresh()->closed_details);
-    }
-
-    public static function inProgressFromProvider(): array
-    {
-        return [
-            'from_new' => [TalentRequestStatus::NEW->name],
-            'from_in_progress' => [TalentRequestStatus::IN_PROGRESS->name],
-            'from_closed' => [TalentRequestStatus::CLOSED->name],
-        ];
     }
 
     public function testSetInProgressPersistsFollowUpDate(): void
@@ -145,6 +145,15 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     // Transitions to CLOSED
     // -------------------------------------------------------------------------
 
+    public static function closedFromProvider(): array
+    {
+        return [
+            'from_new' => [TalentRequestStatus::NEW->name],
+            'from_in_progress' => [TalentRequestStatus::IN_PROGRESS->name],
+            'from_closed' => [TalentRequestStatus::CLOSED->name],
+        ];
+    }
+
     #[DataProvider('closedFromProvider')]
     public function testSetClosedFrom(string $fromStatus): void
     {
@@ -170,15 +179,6 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         $this->assertNull($fresh->follow_up_date);
     }
 
-    public static function closedFromProvider(): array
-    {
-        return [
-            'from_new' => [TalentRequestStatus::NEW->name],
-            'from_in_progress' => [TalentRequestStatus::IN_PROGRESS->name],
-            'from_closed' => [TalentRequestStatus::CLOSED->name],
-        ];
-    }
-
     public function testSetClosedRequiresClosedDetails(): void
     {
         $request = $this->makeRequest(
@@ -195,6 +195,15 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     // State machine: NEW is forbidden as a target status
     // -------------------------------------------------------------------------
 
+    public static function newRejectedFromProvider(): array
+    {
+        return [
+            'from_new' => [TalentRequestStatus::NEW->name],
+            'from_in_progress' => [TalentRequestStatus::IN_PROGRESS->name],
+            'from_closed' => [TalentRequestStatus::CLOSED->name],
+        ];
+    }
+
     #[DataProvider('newRejectedFromProvider')]
     public function testSetNewIsRejected(string $fromStatus): void
     {
@@ -205,15 +214,6 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         ])->assertGraphQLValidationError('poolCandidateSearchRequest.status', 'The selected status is invalid.');
 
         $this->assertEquals($fromStatus, $request->fresh()->status);
-    }
-
-    public static function newRejectedFromProvider(): array
-    {
-        return [
-            'from_new' => [TalentRequestStatus::NEW->name],
-            'from_in_progress' => [TalentRequestStatus::IN_PROGRESS->name],
-            'from_closed' => [TalentRequestStatus::CLOSED->name],
-        ];
     }
 
     // -------------------------------------------------------------------------
@@ -229,6 +229,14 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     //   platform_admin      → searchRequest.any.[view] only — cannot update
     //   applicant           → searchRequest.own.[view] only — cannot update
     // -------------------------------------------------------------------------
+
+    public static function authorizedRoleProvider(): array
+    {
+        return [
+            'community_recruiter' => ['community_recruiter'],
+            'community_admin' => ['community_admin'],
+        ];
+    }
 
     #[DataProvider('authorizedRoleProvider')]
     public function testAuthorizedUsersCanSetStatus(string $role): void
@@ -247,11 +255,13 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         ]);
     }
 
-    public static function authorizedRoleProvider(): array
+    public static function unauthorizedRoleProvider(): array
     {
         return [
-            'community_recruiter' => ['community_recruiter'],
-            'community_admin' => ['community_admin'],
+            'applicant' => ['applicant'],
+            'platform_admin' => ['platform_admin'],
+            'recruiter_other_community' => ['recruiter_other_community'],
+            'admin_other_community' => ['admin_other_community'],
         ];
     }
 
@@ -272,16 +282,6 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
             'status' => TalentRequestStatus::IN_PROGRESS->name,
             'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
         ])->assertGraphQLErrorMessage('This action is unauthorized.');
-    }
-
-    public static function unauthorizedRoleProvider(): array
-    {
-        return [
-            'applicant' => ['applicant'],
-            'platform_admin' => ['platform_admin'],
-            'recruiter_other_community' => ['recruiter_other_community'],
-            'admin_other_community' => ['admin_other_community'],
-        ];
     }
 
     public function testUnauthenticatedCannotSetStatus(): void
