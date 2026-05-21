@@ -574,11 +574,24 @@ export const ApplicantDashboardPageApi = () => {
     query: ApplicantDashboard_Query,
     context,
   });
+  const [communityAccordionValue, setCommunityAccordionValue] =
+    useState<string>("");
+  const communityAccordionRef = createRef<HTMLButtonElement>();
 
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <DashboardPage applicantDashboardQuery={data} />
+        <ApplicantDashboardProvider
+          initialValue={{
+            communityAccordionValue,
+            setCommunityAccordionValue,
+            communityAccordionFocus:
+              communityAccordionRef.current?.focus.bind(this),
+            communityAccordionRef,
+          }}
+        >
+          <DashboardPage applicantDashboardQuery={data} />
+        </ApplicantDashboardProvider>
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>{intl.formatMessage(messages.userNotFound)}</p>
@@ -588,28 +601,11 @@ export const ApplicantDashboardPageApi = () => {
   );
 };
 
-export const Component = () => {
-  const [communityAccordionValue, setCommunityAccordionValue] =
-    useState<string>("");
-
-  const communityAccordionRef = createRef<HTMLButtonElement>();
-
-  return (
-    <RequireAuth roles={[ROLE_NAME.Applicant]}>
-      <ApplicantDashboardProvider
-        initialValue={{
-          communityAccordionValue,
-          setCommunityAccordionValue,
-          communityAccordionFocus:
-            communityAccordionRef.current?.focus.bind(this),
-          communityAccordionRef,
-        }}
-      >
-        <ApplicantDashboardPageApi />
-      </ApplicantDashboardProvider>
-    </RequireAuth>
-  );
-};
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <ApplicantDashboardPageApi />
+  </RequireAuth>
+);
 Component.displayName = "ApplicantDashboardPage";
 
 export default Component;
