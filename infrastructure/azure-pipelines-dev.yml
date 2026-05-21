@@ -29,23 +29,12 @@ jobs:
   - job: run_playwright_tests
     displayName: Run Playwright tests (${{ parameters.vertical }})
     timeoutInMinutes: 30
+    container: mcr.microsoft.com/playwright:v1.60.0-noble
 
     steps:
       - checkout: self
         clean: true
         fetchDepth: 1
-
-      - task: NodeTool@0
-        displayName: "Use Node.js 24"
-        inputs:
-          versionSpec: "24.x"
-
-      - script: |
-          corepack enable
-          corepack prepare pnpm@10.27.0 --activate
-          pnpm -v
-          node -v
-        displayName: "Install pnpm"
 
       - task: AzureCLI@2
         displayName: "Update NPMRC Config"
@@ -65,15 +54,16 @@ jobs:
       - script: echo "##vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(npm_config_user_config)"
         displayName: "Set Custom .npmrc Location"
 
+      - script: |
+          corepack enable
+          corepack prepare pnpm@10.27.0 --activate
+        displayName: "Install pnpm"
+
       - script: pnpm install --frozen-lockfile
         displayName: "Install dependencies"
 
       - script: pnpm run build
         displayName: "Build application"
-
-      - script: npx playwright install chromium
-        displayName: "Install Playwright browsers"
-        workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
 
       - script: npx playwright test --project=$(playwrightProject) --retries=2
         displayName: "Run Playwright tests (${{ parameters.vertical }})"
@@ -105,4 +95,3 @@ jobs:
           targetPath: $(System.DefaultWorkingDirectory)/apps/playwright/playwright-report
           artifact: playwright-${{ parameters.vertical }}-report
           publishLocation: pipeline
-
