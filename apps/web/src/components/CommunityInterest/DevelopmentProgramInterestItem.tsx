@@ -145,7 +145,7 @@ const devProgram = tv({
         caption: "text-error-500 dark:text-error-100",
       },
       false: {
-        caption: "text-gray- dark:text-gray-100",
+        caption: "text-gray-600 dark:text-gray-100",
       },
     },
   },
