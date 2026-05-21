@@ -66,7 +66,9 @@ const TalentRequestSidebar = ({
         </p>
       </div>
       <Card.Separator space="sm" />
-      <TalentRequestStatusDialog query={talentRequest} />
+      <div className="mb-6">
+        <TalentRequestStatusDialog query={talentRequest} />
+      </div>
       <FieldDisplay
         label={intl.formatMessage({
           defaultMessage: "Last modified",
