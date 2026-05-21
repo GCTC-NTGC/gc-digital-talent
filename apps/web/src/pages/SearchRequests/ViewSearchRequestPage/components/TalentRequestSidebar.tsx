@@ -16,6 +16,7 @@ import TalentRequestNotes from "./TalentRequestNotes";
 import type { TalentRequestStatusOptions } from "./TalentRequestStatus";
 import TalentRequestStatus from "./TalentRequestStatus";
 import TalentRequestFollowUpDate from "./TalentRequestFollowUpDate";
+import TalentRequestStatusDialog from "./TalentRequestStatusDialog";
 
 const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestSidebar on PoolCandidateSearchRequest {
@@ -31,6 +32,7 @@ const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
     email
     hrAdvisorEmail
 
+    ...TalentRequestStatusDialog
     ...TalentRequestStatus
     ...TalentRequestNotes
     ...TalentRequestFollowUpDate
@@ -64,7 +66,7 @@ const TalentRequestSidebar = ({
         </p>
       </div>
       <Card.Separator space="sm" />
-      <TalentRequestStatus query={talentRequest} optionsQuery={optionsQuery} />
+      <TalentRequestStatusDialog query={talentRequest} />
       <FieldDisplay
         label={intl.formatMessage({
           defaultMessage: "Last modified",
