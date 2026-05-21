@@ -1,8 +1,9 @@
 import {
   createContext,
-  useState,
+  createRef,
   type Dispatch,
   type ReactNode,
+  type RefObject,
   type SetStateAction,
 } from "react";
 
@@ -12,10 +13,10 @@ interface ApplicantDashboardState {
   communityAccordionValue: string;
   setCommunityAccordionValue: Dispatch<SetStateAction<string>>;
   communityAccordionFocus: ReturnType<typeof useNodeFocus>[0];
-  communityAccordionRef: ReturnType<typeof useNodeFocus>[1];
+  communityAccordionRef: RefObject<HTMLButtonElement | null>;
 }
 
-const defaultState = {
+export const defaultState = {
   communityAccordionValue: "",
   setCommunityAccordionValue: () => {
     /* no-op */
@@ -23,9 +24,7 @@ const defaultState = {
   communityAccordionFocus: () => {
     /*no-op*/
   },
-  communityAccordionRef: () => {
-    /* no-op */
-  },
+  communityAccordionRef: createRef<HTMLButtonElement>(),
 } satisfies ApplicantDashboardState;
 
 export const ApplicantDashboardContext =
@@ -33,23 +32,15 @@ export const ApplicantDashboardContext =
 
 interface ApplicantDashboardProviderProps {
   children: ReactNode;
+  initialValue: ApplicantDashboardState;
 }
 
 const ApplicantDashboardProvider = ({
   children,
+  initialValue,
 }: ApplicantDashboardProviderProps) => {
-  const [communityAccordionValue, setCommunityAccordionValue] =
-    useState<string>("");
-
   return (
-    <ApplicantDashboardContext.Provider
-      value={{
-        communityAccordionValue,
-        setCommunityAccordionValue,
-        communityAccordionFocus: defaultState.communityAccordionFocus,
-        communityAccordionRef: defaultState.communityAccordionRef,
-      }}
-    >
+    <ApplicantDashboardContext.Provider value={initialValue}>
       {children}
     </ApplicantDashboardContext.Provider>
   );

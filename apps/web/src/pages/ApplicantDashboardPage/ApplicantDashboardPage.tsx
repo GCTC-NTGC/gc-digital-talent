@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
-import { useCallback, useContext, useEffect } from "react";
+import { createRef, useCallback, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import {
@@ -41,7 +41,6 @@ import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
 import ApplicantDashboardProvider, {
   ApplicantDashboardContext,
 } from "./ApplicantDashboardProvider";
-import { useNodeFocus } from "./components/hooks";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicantDashboardPage on User {
@@ -206,12 +205,7 @@ export const DashboardPage = ({
   const { hash } = useLocation();
 
   const { setCommunityAccordionValue } = useContext(ApplicantDashboardContext);
-  let { communityAccordionFocus, communityAccordionRef } = useContext(
-    ApplicantDashboardContext,
-  );
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  [communityAccordionFocus, communityAccordionRef] = useNodeFocus();
+  const { communityAccordionFocus } = useContext(ApplicantDashboardContext);
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -594,13 +588,28 @@ export const ApplicantDashboardPageApi = () => {
   );
 };
 
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <ApplicantDashboardProvider>
-      <ApplicantDashboardPageApi />
-    </ApplicantDashboardProvider>
-  </RequireAuth>
-);
+export const Component = () => {
+  const [communityAccordionValue, setCommunityAccordionValue] =
+    useState<string>("");
+
+  const communityAccordionRef = createRef<HTMLButtonElement>();
+
+  return (
+    <RequireAuth roles={[ROLE_NAME.Applicant]}>
+      <ApplicantDashboardProvider
+        initialValue={{
+          communityAccordionValue,
+          setCommunityAccordionValue,
+          communityAccordionFocus:
+            communityAccordionRef.current?.focus.bind(this),
+          communityAccordionRef,
+        }}
+      >
+        <ApplicantDashboardPageApi />
+      </ApplicantDashboardProvider>
+    </RequireAuth>
+  );
+};
 Component.displayName = "ApplicantDashboardPage";
 
 export default Component;
