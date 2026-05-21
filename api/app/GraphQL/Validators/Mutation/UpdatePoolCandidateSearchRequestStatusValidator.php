@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Enums\TalentRequestClosedDetail;
+use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestStatus;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -21,9 +23,11 @@ final class UpdatePoolCandidateSearchRequestStatusValidator extends Validator
             ],
             'poolCandidateSearchRequest.inProgressDetails' => [
                 'required_if:poolCandidateSearchRequest.status,'.TalentRequestStatus::IN_PROGRESS->name,
+                Rule::in(array_column(TalentRequestInProgressDetail::cases(), 'name')),
             ],
             'poolCandidateSearchRequest.closedDetails' => [
                 'required_if:poolCandidateSearchRequest.status,'.TalentRequestStatus::CLOSED->name,
+                Rule::in(array_column(TalentRequestClosedDetail::cases(), 'name')),
             ],
         ];
     }
