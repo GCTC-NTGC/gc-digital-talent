@@ -99,7 +99,7 @@ class PoolCandidateSearchRequest extends Model
                 'applicantFilter.qualified_streams',
             ])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /** @return BelongsTo<Department, $this> */

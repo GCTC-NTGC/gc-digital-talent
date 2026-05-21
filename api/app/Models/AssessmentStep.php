@@ -64,7 +64,7 @@ class AssessmentStep extends Model
         return LogOptions::defaults()
             ->logOnly((['*']))
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     protected function customizeActivityProperties(array &$properties, ActivityEvent $event): void

@@ -49,7 +49,7 @@ class ScreeningQuestion extends Model
         return LogOptions::defaults()
             ->logOnly((['*']))
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /** @return BelongsTo<Pool, $this> */

@@ -24,6 +24,6 @@ class AssessmentStepPoolSkill extends Pivot
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 }

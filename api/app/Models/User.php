@@ -262,7 +262,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /**
@@ -687,7 +687,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         activity()
             ->causedBy(Auth::user())
             ->performedOn($user)
-            ->withProperties(['attributes' => $properties])
+            ->withChanges(['attributes' => $properties])
             ->event($eventName)
             ->log($eventName);
     }
