@@ -21,7 +21,11 @@ export default defineConfig({
   workers: process.env.CI ? (process.env.PLAYWRIGHT_WORKERS ?? "25%") : "25%",
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
-    ? "blob"
+    ? [
+        ["blob"],
+        ["junit", { outputFile: "test-results/results.xml" }],
+        ["html", { open: "never", outputFolder: "playwright-report" }],
+      ]
     : [["line"], ["html", { open: "on-failure" }]],
   timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000),
   expect: { timeout: Number(process.env.EXPECT_TIMEOUT ?? 15000) }, // 15 seconds
@@ -40,9 +44,28 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    // UAT auth setup — runs once, saves tokens to .auth/ via test token endpoint
+    {
+      name: "setup-admin",
+      testMatch: /admin\.setup\.ts/,
+    },
+    {
+      name: "setup-applicant",
+      testMatch: /applicant\.setup\.ts/,
+    },
+
+    // UAT smoke / regression — pre-authenticated, depends on setup projects
+    {
+      name: "uat-admin",
+      use: { ...devices["Desktop Chrome"], storageState: ".auth/admin.json" },
+      testMatch: /uat-smoke\.spec\.ts/,
+      dependencies: ["setup-admin"],
+    },
+
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
+      testIgnore: /\.setup\.ts|uat-smoke\.spec\.ts/,
     },
 
     // {
@@ -53,6 +76,7 @@ export default defineConfig({
     {
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
+      testIgnore: /\.setup\.ts|uat-smoke\.spec\.ts/,
     },
 
     /* Test against mobile viewports. */
