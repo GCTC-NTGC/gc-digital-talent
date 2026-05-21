@@ -27,11 +27,6 @@ const SECONDARY_BROWSER_PROBE_HOSTS = new Set([
   "login.canada.ca",
 ]);
 
-// Use a global variable for currentLinkFile instead of an interface
-declare global {
-  var currentLinkFile: string | undefined;
-}
-
 // Write error to external-link-errors.log
 async function writeErrorLog(msg: string, file?: string, append = true) {
   const errorLogPath = path.resolve("external-link-errors.log");
@@ -128,13 +123,56 @@ async function fetchLinkWithBrowserHeaders(
 }
 
 function isBrokenStatus(status: number | string): boolean {
-  return status !== 200;
+  return typeof status === "string" || status < 200 || status >= 300;
 }
+
+const CHECKER_UA =
+  "Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)";
+
+async function probeWithHead(
+  url: string,
+  timeoutMs: number,
+): Promise<number | null> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      method: "HEAD",
+      redirect: "follow",
+      signal: controller.signal,
+      headers: { "User-Agent": CHECKER_UA },
+    });
+    clearTimeout(timeout);
+    // 405 Method Not Allowed / 501 Not Implemented — server doesn't support HEAD, fall back to GET
+    if (res.status === 405 || res.status === 501) return null;
+    return res.status;
+  } catch {
+    clearTimeout(timeout);
+    return null;
+  }
+}
+
+const HEAD_TIMEOUT_MS = 10000;
 
 async function fetchLink(
   url: string,
   timeoutMs = DEFAULT_TIMEOUT_MS,
 ): Promise<number | string> {
+  // Probe with HEAD first — faster, avoids downloading response bodies.
+  // Use a shorter timeout so a hanging server doesn't double the per-URL budget.
+  const headStatus = await probeWithHead(url, HEAD_TIMEOUT_MS);
+  if (headStatus !== null && !RETRYABLE_HTTP_STATUSES.has(headStatus)) {
+    if (headStatus === 403 && shouldUseSecondaryBrowserProbe(url)) {
+      const secondaryStatus = await fetchLinkWithBrowserHeaders(url, timeoutMs);
+      // If still 403, the host blocks automated requests by design (WAF/bot-protection).
+      // The link is valid — return 200 to avoid false positive broken-link reports.
+      if (secondaryStatus === 403) return 200;
+      return secondaryStatus;
+    }
+    return headStatus;
+  }
+  // HEAD not supported, network error, or retryable status — fall back to GET with retries
+
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -145,9 +183,7 @@ async function fetchLink(
         redirect: "follow",
         signal: controller.signal,
         headers: {
-          // Use a generic User-Agent string to avoid frequent updates
-          "User-Agent":
-            "Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)",
+          "User-Agent": CHECKER_UA,
         },
       });
 
@@ -160,7 +196,9 @@ async function fetchLink(
       }
 
       if (res.status === 403 && shouldUseSecondaryBrowserProbe(url)) {
-        return fetchLinkWithBrowserHeaders(url, timeoutMs);
+        const secondaryStatus = await fetchLinkWithBrowserHeaders(url, timeoutMs);
+        if (secondaryStatus === 403) return 200;
+        return secondaryStatus;
       }
 
       return res.status;
@@ -196,18 +234,6 @@ async function fetchLink(
       }
 
       if (isLegacyRenegotiation && !process.env._RETRIED_LEGACY_TLS) {
-        // retry with legacy TLS renegotiation enabled, using .env for all vars
-        const currentLinkFile = global.currentLinkFile ?? "";
-        spawnSync(process.execPath, process.argv.slice(1), {
-          env: {
-            ...process.env,
-            NODE_OPTIONS: "--tls-legacy-renegotiation",
-            _RETRIED_LEGACY_TLS: "1",
-            _RETRY_LINK_URL: url,
-            _RETRY_LINK_FILE: currentLinkFile,
-          },
-          stdio: "inherit",
-        });
         return "retried-with-legacy-tls";
       }
 
@@ -261,9 +287,18 @@ function isValidExternalLink(url: string): boolean {
 }
 
 async function extractExternalLinks(filePath: string): Promise<string[]> {
-  const content = await fs.readFile(filePath, "utf-8");
+  const raw = await fs.readFile(filePath, "utf-8");
   const links: string[] = [];
   const ext = path.extname(filePath).slice(1);
+
+  // Strip single-line comments from TS/JS files to avoid checking commented-out URLs
+  const content =
+    ext !== "html"
+      ? raw
+          .split("\n")
+          .filter((line) => !line.trimStart().startsWith("//"))
+          .join("\n")
+      : raw;
 
   // Determine regex based on file extension
   const regex =
@@ -298,7 +333,6 @@ async function main() {
         : [];
       const results: LinkStatus[] = [];
       for (const link of retryLinks) {
-        global.currentLinkFile = link.file;
         const status = await fetchLink(link.url);
         results.push({ file: link.file, url: link.url, status });
       }
@@ -349,7 +383,6 @@ async function main() {
     const results: LinkStatus[] = [];
     const legacyLinks: { file: string; url: string }[] = [];
     for (const link of allLinks) {
-      global.currentLinkFile = link.file;
       const status = await fetchLink(link.url);
       // some old gov links  need legacy TLS renegotiation
       if (
@@ -362,8 +395,9 @@ async function main() {
       }
     }
     // re-try all legacy links in a single batch with NODE_OPTIONS=--tls-legacy-renegotiation
+    let legacySpawnFailed = false;
     if (legacyLinks.length > 0 && !process.env._RETRIED_LEGACY_TLS) {
-      spawnSync(process.execPath, process.argv.slice(1), {
+      const spawnResult = spawnSync(process.execPath, process.argv.slice(1), {
         env: {
           ...process.env,
           NODE_OPTIONS: "--tls-legacy-renegotiation",
@@ -372,14 +406,25 @@ async function main() {
         },
         stdio: "inherit",
       });
+      legacySpawnFailed = spawnResult.status !== 0;
     }
-    // create broken links file only if any broken link exist
+    // Merge non-legacy broken links with any legacy broken links the child wrote
+    const brokenLinksPath = path.resolve("external-broken-links.json");
     const brokenLinks = results.filter((r) => isBrokenStatus(r.status));
-    if (brokenLinks.length > 0) {
-      const brokenLinksPath = path.resolve("external-broken-links.json");
+    let legacyBrokenLinks: LinkStatus[] = [];
+    if (legacySpawnFailed) {
+      try {
+        const raw = await fs.readFile(brokenLinksPath, "utf-8");
+        legacyBrokenLinks = JSON.parse(raw) as LinkStatus[];
+      } catch {
+        // child didn't write the file (e.g. it crashed before writing)
+      }
+    }
+    const allBrokenLinks = [...legacyBrokenLinks, ...brokenLinks];
+    if (allBrokenLinks.length > 0) {
       await fs.writeFile(
         brokenLinksPath,
-        JSON.stringify(brokenLinks, null, 2),
+        JSON.stringify(allBrokenLinks, null, 2),
         "utf-8",
       );
       process.exit(1);
