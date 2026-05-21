@@ -289,7 +289,7 @@ const EmployeeVerificationSection = ({
                   description: "Label for functional communities field",
                 })}
               </p>
-              <p>
+              <div>
                 {user.isVerifiedGovEmployee ? (
                   communityInterests.length > 0 ? (
                     <Ul unStyled space="md">
@@ -349,7 +349,7 @@ const EmployeeVerificationSection = ({
                     </span>
                   </span>
                 )}
-              </p>
+              </div>
             </div>
             <div className="mt-auto">
               <Card.Separator space="xs" />
