@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TestTokenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,3 +29,10 @@ Route::prefix('')->group(function () {
     Route::get('/refresh', [AuthController::class, 'refresh']);
     Route::get('/sector-identifier', [AuthController::class, 'sectorIdentifier']);
 });
+
+// Test-only token endpoint — only registered when TESTING_TOKEN_ENABLED=true.
+// Returns a short-lived JWT for a user matched by ?role= or ?sub= without
+// going through GCKey. Never available in production.
+if (config('testing.token_enabled')) {
+    Route::get('/testing/token', [TestTokenController::class, 'issue']);
+}
