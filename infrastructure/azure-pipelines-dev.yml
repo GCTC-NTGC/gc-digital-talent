@@ -71,7 +71,11 @@ jobs:
       - script: pnpm run build
         displayName: "Build application"
 
-      - script: npx playwright install --with-deps chromium
+      - script: npx playwright install-deps chromium
+        displayName: "Install Playwright browser OS dependencies"
+        workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
+
+      - script: npx playwright install chromium
         displayName: "Install Playwright browsers"
         workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
 
@@ -94,11 +98,15 @@ jobs:
           testRunTitle: Playwright ${{ parameters.vertical }} - $(Build.BuildNumber)
           mergeTestResults: true
 
+      - script: mkdir -p $(System.DefaultWorkingDirectory)/apps/playwright/playwright-report
+        displayName: "Ensure report directory exists"
+        condition: always()
+
       - task: PublishPipelineArtifact@1
         displayName: "Publish HTML report"
         condition: always()
         inputs:
-          targetPath: apps/playwright/playwright-report
+          targetPath: $(System.DefaultWorkingDirectory)/apps/playwright/playwright-report
           artifact: playwright-${{ parameters.vertical }}-report
           publishLocation: pipeline
 
