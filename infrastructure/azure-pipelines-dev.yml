@@ -80,6 +80,9 @@ jobs:
         env:
           CI: "true"
           BASE_URL: $(baseUrl)
+          TESTING_ENDPOINT_SECRET: $(TESTING_ENDPOINT_SECRET)
+          PLAYWRIGHT_ADMIN_SUB: $(PLAYWRIGHT_ADMIN_SUB)
+          PLAYWRIGHT_APPLICANT_SUB: $(PLAYWRIGHT_APPLICANT_SUB)
 
       # ✅ NEW — Publish Playwright report
       - task: PublishPipelineArtifact@1
