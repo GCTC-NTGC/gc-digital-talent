@@ -132,6 +132,25 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         $this->assertEquals('2026-06-01', $request->fresh()->follow_up_date?->toDateString());
     }
 
+    public function testClearFollowUpDateWithoutChangingStatus(): void
+    {
+        $request = $this->makeRequest(
+            TalentRequestStatus::IN_PROGRESS->name,
+            TalentRequestInProgressDetail::DISCUSSION_ONGOING->name,
+            null,
+            '2026-06-01',
+        );
+
+        $this->runMutation($this->recruiter, $request->id, [
+            'status' => TalentRequestStatus::IN_PROGRESS->name,
+            'inProgressDetails' => TalentRequestInProgressDetail::DISCUSSION_ONGOING->name,
+        ])->assertJsonFragment([
+            'talentRequestStatus' => ['value' => TalentRequestStatus::IN_PROGRESS->name],
+        ]);
+
+        $this->assertNull($request->fresh()->follow_up_date);
+    }
+
     public function testSetInProgressRequiresInProgressDetails(): void
     {
         $request = $this->makeRequest(TalentRequestStatus::NEW->name);
