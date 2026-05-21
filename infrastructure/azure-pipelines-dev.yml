@@ -71,10 +71,6 @@ jobs:
       - script: pnpm run build
         displayName: "Build application"
 
-      - script: npx playwright install-deps chromium
-        displayName: "Install Playwright browser OS dependencies"
-        workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
-
       - script: npx playwright install chromium
         displayName: "Install Playwright browsers"
         workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
