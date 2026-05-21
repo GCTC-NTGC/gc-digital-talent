@@ -35,10 +35,10 @@ class PoolCandidateSearchRequestObserver
      */
     public function updated(PoolCandidateSearchRequest $poolCandidateSearchRequest): void
     {
-        if ($poolCandidateSearchRequest->wasChanged('request_status')) {
+        if ($poolCandidateSearchRequest->wasChanged(['request_status', 'status', 'in_progress_details', 'closed_details'])) {
             $poolCandidateSearchRequest->timestamps = false;
             $poolCandidateSearchRequest->request_status_changed_at = CarbonImmutable::now();
-            $poolCandidateSearchRequest->save();
+            $poolCandidateSearchRequest->saveQuietly();
             $poolCandidateSearchRequest->timestamps = true;
         }
     }
