@@ -6,6 +6,7 @@ use App\Enums\ActivityLog;
 use App\Enums\ApplicationStatus;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
+use App\Models\Activity;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\Pool;
@@ -14,7 +15,6 @@ use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
-use App\Models\Activity;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
