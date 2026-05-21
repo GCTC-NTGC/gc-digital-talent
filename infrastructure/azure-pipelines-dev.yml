@@ -3,24 +3,35 @@ name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 trigger: none
 pr: none
 
+parameters:
+  - name: vertical
+    displayName: Environment
+    type: string
+    default: dev
+    values:
+      - dev
+      - uat
+
 variables:
   serviceConnectionName: "Talent Cloud Service Connection"
   npm_config_user_config: "$(System.DefaultWorkingDirectory)/.npmrc"
   dirResults: "$(System.DefaultWorkingDirectory)/apps/playwright/test-results"
-
   resourceGroupName: "rg_tbs_talent_2_PaaS"
-  vertical: "dev"
   storageAccountName: "sttalclddevcacstdl"
   storageContainer: "playwright-results"
-
-  baseUrl: "https://dev-talentcloud.tbs-sct.gc.ca"
+  ${{ if eq(parameters.vertical, 'uat') }}:
+    baseUrl: "https://uat-talentcloud.tbs-sct.gc.ca"
+    playwrightProject: "uat-admin"
+  ${{ else }}:
+    baseUrl: "https://dev-talentcloud.tbs-sct.gc.ca"
+    playwrightProject: "chromium"
 
 pool:
   name: "TBS Linux Self Hosted"
 
 jobs:
   - job: run_playwright_tests
-    displayName: Run Playwright tests
+    displayName: Run Playwright tests (${{ parameters.vertical }})
     timeoutInMinutes: 30
 
     steps:
@@ -28,13 +39,11 @@ jobs:
         clean: true
         fetchDepth: 1
 
-      # ✅ FIX 1 — Force correct Node version
       - task: NodeTool@0
         displayName: "Use Node.js 24"
         inputs:
           versionSpec: "24.x"
 
-      # ✅ FIX 2 — Install correct pnpm version
       - script: |
           corepack enable
           corepack prepare pnpm@10.27.0 --activate
@@ -42,7 +51,6 @@ jobs:
           node -v
         displayName: "Install pnpm"
 
-      # ✅ NPM registry setup (unchanged)
       - task: AzureCLI@2
         displayName: "Update NPMRC Config"
         inputs:
@@ -58,25 +66,22 @@ jobs:
         inputs:
           workingFile: $(npm_config_user_config)
 
-      # ✅ Ensure npm uses correct config
       - script: echo "##vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(npm_config_user_config)"
         displayName: "Set Custom .npmrc Location"
 
-      # ✅ FIX 3 — Stable dependency install
       - script: pnpm install --frozen-lockfile
         displayName: "Install dependencies"
 
-      # ✅ Build (optional but safer if tests depend on it)
       - script: pnpm run build
         displayName: "Build application"
 
-      # ✅ FIX 4 — Install correct Playwright browsers
-      - script: npx playwright install --with-deps
+      - script: npx playwright install --with-deps chromium
         displayName: "Install Playwright browsers"
+        workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
 
-      # ✅ FIX 5 — Run tests with retries
-      - script: npx playwright test --project=chromium --retries=2
-        displayName: "Run Playwright tests"
+      - script: npx playwright test --project=$(playwrightProject) --retries=2
+        displayName: "Run Playwright tests (${{ parameters.vertical }})"
+        workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
         env:
           CI: "true"
           BASE_URL: $(baseUrl)
@@ -84,15 +89,23 @@ jobs:
           PLAYWRIGHT_ADMIN_SUB: $(PLAYWRIGHT_ADMIN_SUB)
           PLAYWRIGHT_APPLICANT_SUB: $(PLAYWRIGHT_APPLICANT_SUB)
 
-      # ✅ NEW — Publish Playwright report
-      - task: PublishPipelineArtifact@1
-        displayName: "Publish Playwright Report"
+      - task: PublishTestResults@2
+        displayName: "Publish test results"
         condition: always()
         inputs:
-          targetPath: "playwright-report"
-          artifact: "playwright-report"
+          testResultsFormat: JUnit
+          testResultsFiles: apps/playwright/test-results/results.xml
+          testRunTitle: Playwright ${{ parameters.vertical }} - $(Build.BuildNumber)
+          mergeTestResults: true
 
-      # ✅ Upload results to Azure Storage
+      - task: PublishPipelineArtifact@1
+        displayName: "Publish HTML report"
+        condition: always()
+        inputs:
+          targetPath: apps/playwright/playwright-report
+          artifact: playwright-${{ parameters.vertical }}-report
+          publishLocation: pipeline
+
       - task: AzureCLI@2
         displayName: "Copy Playwright Results to Storage"
         condition: always()
@@ -117,7 +130,7 @@ jobs:
               SA_RG="$(resourceGroupName)"
               SA_NAME="$(storageAccountName)"
               SA_CONTAINER_NAME="$(storageContainer)"
-              SA_CONTAINER_PATH_PREFIX="$(vertical)/$TIMESTAMP"
+              SA_CONTAINER_PATH_PREFIX="${{ parameters.vertical }}/$TIMESTAMP"
 
               AZURE_STORAGE_KEY=$(az storage account keys list \
                 --resource-group "$SA_RG" \
