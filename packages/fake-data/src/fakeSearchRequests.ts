@@ -1,6 +1,8 @@
 import { faker } from "@faker-js/faker/locale/en";
 
 import {
+  TalentRequestClosedDetail,
+  TalentRequestInProgressDetail,
   TalentRequestStatus,
   type ApplicantFilter,
   type Department,
@@ -20,6 +22,27 @@ const generateSearchRequest = (
   departments: Department[],
   applicantFilters: ApplicantFilter[],
 ): PoolCandidateSearchRequest => {
+  const status = toLocalizedEnum(
+    faker.helpers.arrayElement<TalentRequestStatus>(
+      Object.values(TalentRequestStatus),
+    ),
+  );
+  let details = null;
+  if (status.value === TalentRequestStatus.InProgress) {
+    details = toLocalizedEnum(
+      faker.helpers.arrayElement<TalentRequestInProgressDetail>(
+        Object.values(TalentRequestInProgressDetail),
+      ),
+    ).label;
+  }
+  if (status.value === TalentRequestStatus.Closed) {
+    details = toLocalizedEnum(
+      faker.helpers.arrayElement<TalentRequestClosedDetail>(
+        Object.values(TalentRequestClosedDetail),
+      ),
+    ).label;
+  }
+
   return {
     id: faker.string.uuid(),
     fullName: `${faker.person.firstName()} ${faker.person.lastName()}`,
@@ -49,11 +72,8 @@ const generateSearchRequest = (
         Object.values(PoolCandidateSearchStatus),
       ),
     ),
-    talentRequestStatus: toLocalizedEnum(
-      faker.helpers.arrayElement<TalentRequestStatus>(
-        Object.values(TalentRequestStatus),
-      ),
-    ),
+    talentRequestStatus: status,
+    details,
     adminNotes: faker.lorem.sentences(5),
   };
 };
