@@ -1100,6 +1100,7 @@ type PoolCandidateSearchRequest {
   requestedDate: DateTime @rename(attribute: "created_at")
   status: LocalizedPoolCandidateSearchStatus
     @rename(attribute: "request_status")
+    @deprecated(reason: "Use talentRequestStatus instead")
   statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
   adminNotes: String @rename(attribute: "admin_notes")
   poolCandidateFilter: PoolCandidateFilter
@@ -1114,6 +1115,12 @@ type PoolCandidateSearchRequest {
   community: Community @belongsTo
   initialResultCount: Int @rename(attribute: "initial_result_count")
   followUpDate: Date @rename(attribute: "follow_up_date")
+  talentRequestStatus: LocalizedTalentRequestStatus @rename(attribute: "status")
+  inProgressDetails: LocalizedTalentRequestInProgressDetail
+    @rename(attribute: "in_progress_details")
+  closedDetails: LocalizedTalentRequestClosedDetail
+    @rename(attribute: "closed_details")
+  details: LocalizedString
 }
 
 type SkillFamily {
@@ -1444,6 +1451,7 @@ input PoolCandidateSearchInput {
 
 input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
+  talentRequestStatus: [TalentRequestStatus] @scope(name: "talentRequestStatus")
   departments: [ID] @scope
   classifications: [ID] @scope
   workStreams: [UUID] @scope
@@ -2664,9 +2672,16 @@ input CreatePoolCandidateSearchRequestInput {
 
 input UpdatePoolCandidateSearchRequestInput @validator {
   adminNotes: String @rename(attribute: "admin_notes")
-  status: PoolCandidateSearchStatus
+  status: PoolCandidateSearchStatus @rename(attribute: "request_status")
   followUpDate: Date @rename(attribute: "follow_up_date")
-  # statusChangedAt updated in the Eloquent model
+  # talentRequestStatus changes go through updatePoolCandidateSearchRequestStatus
+}
+
+input UpdatePoolCandidateSearchRequestStatusInput {
+  status: TalentRequestStatus!
+  inProgressDetails: TalentRequestInProgressDetail
+  closedDetails: TalentRequestClosedDetail
+  followUpDate: Date
 }
 
 input SkillBelongsToMany {
@@ -3538,6 +3553,13 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+  updatePoolCandidateSearchRequestStatus(
+    id: ID!
+    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput! @spread
+  ): PoolCandidateSearchRequest
+    @guard
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+    @validator
 
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
