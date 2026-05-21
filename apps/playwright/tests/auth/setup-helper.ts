@@ -17,13 +17,15 @@ export async function authenticateAs(
     `/testing/token?sub=${sub}&secret=${secret}`,
   );
 
-  if (!response.ok()) {
+  const body = await response.text();
+
+  if (!response.ok() || body.trimStart().startsWith("<")) {
     throw new Error(
-      `Test token endpoint failed (${response.status()}): ${await response.text()}`,
+      `Test token endpoint failed (${response.status()}). Is TESTING_TOKEN_ENABLED=true on the App Service?\n${body.slice(0, 300)}`,
     );
   }
 
-  const { access_token, refresh_token, id_token } = await response.json();
+  const { access_token, refresh_token, id_token } = JSON.parse(body);
 
   await page.goto("/en");
   await page.evaluate(
