@@ -321,10 +321,10 @@ class PoolCandidateSearchRequest extends Model
     public function details(): Attribute
     {
         return Attribute::get(function () {
-            if (! is_null($this->in_progress_details)) {
+            if ($this->status === TalentRequestStatus::IN_PROGRESS->name && ! is_null($this->in_progress_details)) {
                 return TalentRequestInProgressDetail::localizedString($this->in_progress_details);
             }
-            if (! is_null($this->closed_details)) {
+            if ($this->status === TalentRequestStatus::CLOSED->name && ! is_null($this->closed_details)) {
                 return TalentRequestClosedDetail::localizedString($this->closed_details);
             }
 
