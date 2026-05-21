@@ -103,7 +103,6 @@ const CareerDevelopmentTaskCard = ({
 }: CareerDevelopmentTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  // const { hash } = useLocation();
   const careerDevelopmentMessages = messages(intl);
 
   const {
