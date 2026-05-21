@@ -564,28 +564,40 @@ export const ApplicantDashboardPageApi = () => {
     query: ApplicantDashboard_Query,
     context,
   });
-  const [communityAccordionValue, setCommunityAccordionValue] =
-    useState<string>("");
 
+  // some special behavior if the functional communities page has is requested
+  const isHashFunctionalCommunities =
+    hash === `#${applicationDashboardSections.FUNCTIONAL_COMMUNITIES}`;
+
+  // initialize accordion - maybe open at the start
+  const [communityAccordionValue, setCommunityAccordionValue] =
+    useState<string>(() =>
+      isHashFunctionalCommunities ? "your_functional_communities" : "",
+    );
+
+  // save a reference to the focus function for the accordion
   const [communityAccordionFocus, setCommunityAccordionFocus] =
     useState<HTMLButtonElement["focus"]>();
 
+  // use a callback ref so we can keep our focus function reference up to date
   const communityAccordionRef = useCallback((node: HTMLButtonElement) => {
     if (node !== null) {
       setCommunityAccordionFocus(() => node.focus());
     }
   }, []);
 
+  // we have a link that can call this to focus and open the accordion
   const scrollAndExpandCommunitiesAccordion = useCallback(() => {
     communityAccordionFocus?.();
     setCommunityAccordionValue("your_functional_communities");
   }, [communityAccordionFocus]);
 
+  // on page load, focus the accordion if requested
   useEffect(() => {
-    if (hash === `#${applicationDashboardSections.FUNCTIONAL_COMMUNITIES}`) {
-      scrollAndExpandCommunitiesAccordion();
+    if (isHashFunctionalCommunities) {
+      communityAccordionFocus?.();
     }
-  }, [hash, scrollAndExpandCommunitiesAccordion]);
+  }, [communityAccordionFocus, isHashFunctionalCommunities]);
 
   return (
     <Pending fetching={fetching} error={error}>
