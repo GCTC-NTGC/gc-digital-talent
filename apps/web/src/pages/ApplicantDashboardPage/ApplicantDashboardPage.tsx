@@ -205,12 +205,12 @@ export const DashboardPage = ({
   const paths = useRoutes();
   const { hash } = useLocation();
 
-  let {
-    setCommunityAccordionValue,
-    communityAccordionFocus,
-    communityAccordionRef,
-  } = useContext(ApplicantDashboardContext);
+  const { setCommunityAccordionValue } = useContext(ApplicantDashboardContext);
+  let { communityAccordionFocus, communityAccordionRef } = useContext(
+    ApplicantDashboardContext,
+  );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   [communityAccordionFocus, communityAccordionRef] = useNodeFocus();
 
   const crumbs = useBreadcrumbs({
