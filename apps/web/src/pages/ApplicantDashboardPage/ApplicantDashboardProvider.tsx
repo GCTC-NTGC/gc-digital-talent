@@ -7,12 +7,10 @@ import {
   type SetStateAction,
 } from "react";
 
-import type { useNodeFocus } from "./components/hooks";
-
 interface ApplicantDashboardState {
   communityAccordionValue: string;
   setCommunityAccordionValue: Dispatch<SetStateAction<string>>;
-  communityAccordionFocus: ReturnType<typeof useNodeFocus>[0];
+  communityAccordionFocus: (() => void) | undefined;
   communityAccordionRef: RefObject<HTMLButtonElement | null>;
 }
 
@@ -21,9 +19,7 @@ export const defaultState = {
   setCommunityAccordionValue: () => {
     /* no-op */
   },
-  communityAccordionFocus: () => {
-    /*no-op*/
-  },
+  communityAccordionFocus: undefined,
   communityAccordionRef: createRef<HTMLButtonElement>(),
 } satisfies ApplicantDashboardState;
 
