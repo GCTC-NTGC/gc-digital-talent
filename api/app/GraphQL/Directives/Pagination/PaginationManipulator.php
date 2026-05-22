@@ -110,11 +110,11 @@ GRAPHQL
                     "The {$fieldTypeName} node."
                     node: {$fieldTypeName}!
 
-                    "A unique cursor that can be used for pagination."
-                    cursor: String!
+                    "A unique cursor that can be used for forward pagination."
+                    nextCursor: String!
 
-                    "A reverse cursor for the same node, suitable for backward pagination."
-                    reverseCursor: String!
+                    "A unique cursor that can be used for reverse pagination."
+                    previousCursor: String!
                 }
 GRAPHQL
             );

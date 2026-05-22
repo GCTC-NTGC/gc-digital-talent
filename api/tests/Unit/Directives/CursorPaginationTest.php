@@ -318,8 +318,8 @@ final class CursorPaginationTest extends TestCase
         {
             classifications(orderBy: { column: "level", order: ASC }, first: 3) {
                 edges {
-                    cursor
-                    reverseCursor
+                    nextCursor
+                    previousCursor
                     node { level }
                 }
                 pageInfo { hasNextPage }
@@ -331,22 +331,17 @@ final class CursorPaginationTest extends TestCase
         $edges = Arr::get($response, 'data.classifications.edges');
         $this->assertCount(3, $edges);
 
-        // the next tests reference the second (middle) cursors
-        $secondCursor = $edges[1]['cursor'];
-        $secondReverseCursor = $edges[1]['reverseCursor'];
-
         // navigating forwards from the edge cursor of the second item returns the third item
+        $secondForwardCursor = $edges[1]['nextCursor'];
         $responseForward = $this->graphQL(/** @lang GraphQL */ '
             query Classifications($after: String) {
                 classifications(orderBy: { column: "level", order: ASC }, first: 1, after: $after) {
                     edges {
-                        cursor
-                        reverseCursor
                         node { level }
                     }
                 }
             }
-        ', ['after' => $secondCursor]);
+        ', ['after' => $secondForwardCursor]);
 
         $responseForward->assertGraphQLErrorFree();
         $edgesForward = Arr::get($responseForward, 'data.classifications.edges');
@@ -354,12 +349,11 @@ final class CursorPaginationTest extends TestCase
         $this->assertEquals(3, $edgesForward[0]['node']['level']);
 
         // navigating backwards from the edge cursor of the second item returns the first item
+        $secondReverseCursor = $edges[1]['previousCursor'];
         $responseBack = $this->graphQL(/** @lang GraphQL */ '
             query Classifications($before: String) {
                 classifications(orderBy: { column: "level", order: ASC }, last: 1, before: $before) {
                     edges {
-                        cursor
-                        reverseCursor
                         node { level }
                     }
                 }

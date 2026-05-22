@@ -56,19 +56,19 @@ class ConnectionField
             $data = [];
             foreach ($returnTypeFields as $field) {
                 switch ($field->name) {
-                    case 'cursor':
+                    case 'nextCursor':
                         if ($paginator instanceof AbstractCursorPaginator) {
-                            $data['cursor'] = $paginator->getCursorForItem($item)->encode();
+                            $data['nextCursor'] = $paginator->getCursorForItem($item)->encode();
                         } else {
-                            $data['cursor'] = '';
+                            $data['nextCursor'] = '';
                         }
                         break;
 
-                    case 'reverseCursor':
+                    case 'previousCursor':
                         if ($paginator instanceof AbstractCursorPaginator) {
-                            $data['reverseCursor'] = $paginator->getCursorForItem($item, false)->encode();
+                            $data['previousCursor'] = $paginator->getCursorForItem($item, false)->encode();
                         } else {
-                            $data['reverseCursor'] = '';
+                            $data['previousCursor'] = '';
                         }
                         break;
 
