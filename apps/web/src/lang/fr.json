@@ -1831,10 +1831,6 @@
     "defaultMessage": "Découvrez comment notre équipe utilise les renseignements sur l’équité en matière d’emploi pour façonner l’équité et la diversité en matière d’embauche.",
     "description": "Subtitle for the inclusivity and equity page"
   },
-  "53LNWh": {
-    "defaultMessage": "Trouver une nouvelle collectivité",
-    "description": "Heading for the 'Find a new community' section when creating"
-  },
   "53MCSe": {
     "defaultMessage": "Si vous posez votre candidature à un poste bilingue, vous devez réussir les tests linguistiques avant l’embauche. Si le poste est bilingue, le gestionnaire ne peut pas embaucher une personne qui ne possède pas les compétences requises de la langue seconde, quelles que soient les autres qualifications de la personne candidate ou son rendement au concours. Si un emploi bilingue vous intéresse, mais que vous n’êtes pas bilingue, nous vous encourageons vivement à poser votre candidature à d’autres offres d’emploi sur la plateforme correspondant à vos compétences linguistiques.",
     "description": "Description for bilingual positions in language requirements dialog"
@@ -2714,10 +2710,6 @@
   "8zdTVe": {
     "defaultMessage": "Modifier le niveau",
     "description": "Label to edit the skill with level"
-  },
-  "9+Gd8H": {
-    "defaultMessage": "Exprimez votre intérêt pour une collectivité fonctionnelle pour en recevoir les possibilités de recrutement, de formation et de promotion.",
-    "description": "Subtitle for the community interest pages"
   },
   "9/x/2b": {
     "defaultMessage": "Tableaux des autorisations",
@@ -4203,10 +4195,6 @@
     "defaultMessage": "Retirer le drapeau de {candidateName} pour les utilisateurs autorisés.",
     "description": "Un-flag button label for applicant assessment tracking."
   },
-  "ElnCxi": {
-    "defaultMessage": "Collectivité fonctionnelle",
-    "description": "Description for a form input for selecting a functional community"
-  },
   "EoEEha": {
     "defaultMessage": "Volets de travail préférés pour l'emploi ou la formation",
     "description": "Label for the input for selecting work stream referral preferences"
@@ -5314,10 +5302,6 @@
   "JG1ssQ": {
     "defaultMessage": "Du",
     "description": "Label for a start date input in a range"
-  },
-  "JGC9Pp": {
-    "defaultMessage": "Enregistrer et soumettre",
-    "description": "Text for the submit button"
   },
   "JGRer4": {
     "defaultMessage": "La Commission de la fonction publique est-elle au courant de l’existence de la plateforme Talents numériques du GC?",
@@ -14257,10 +14241,6 @@
   "u+3kse": {
     "defaultMessage": "Pour empêcher temporairement cette candidature de figurer dans les demandes de talents, utilisez l'option suivante.",
     "description": "Blurb for the pause candidate's referral status dialog"
-  },
-  "u093wf": {
-    "defaultMessage": "La plupart des collectivités fonctionnelles proposent divers programmes d'apprentissage et de perfectionnement. Ces programmes peuvent avoir des exigences d'admissibilité précises basées sur votre expérience, votre classification ou d'autres qualifications. Le fait d'exprimer votre intérêt pour ces possibilités ne constitue pas une candidature, mais permet au personnel des RH et du recrutement de vérifier votre intérêt au cas où vous seriez sélectionnée ou sélectionné pour une possibilité de formation ou de perfectionnement.",
-    "description": "Description of the 'Training and development opportunities' section"
   },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
