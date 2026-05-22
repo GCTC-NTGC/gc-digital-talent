@@ -44,14 +44,28 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    // UAT auth setup — runs once, saves tokens to .auth/ via test token endpoint
+    // UAT auth setup — runs once using real Edge browser to pass GCKey bot detection
     {
       name: "setup-admin",
       testMatch: /admin\.setup\.ts/,
+      use: {
+        ...devices["Desktop Edge"],
+        channel: "msedge",
+        launchOptions: {
+          args: ["--disable-blink-features=AutomationControlled"],
+        },
+      },
     },
     {
       name: "setup-applicant",
       testMatch: /applicant\.setup\.ts/,
+      use: {
+        ...devices["Desktop Edge"],
+        channel: "msedge",
+        launchOptions: {
+          args: ["--disable-blink-features=AutomationControlled"],
+        },
+      },
     },
 
     // UAT smoke / regression — pre-authenticated, depends on setup projects

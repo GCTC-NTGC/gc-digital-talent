@@ -1,4 +1,4 @@
-import { APIRequestContext, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -6,48 +6,36 @@ export function authFilePath(name: string) {
   return path.join(__dirname, `../../.auth/${name}.json`);
 }
 
-export async function authenticateAs(
+export async function loginViaGCKey(
   name: string,
-  sub: string,
+  username: string,
+  password: string,
   page: Page,
-  request: APIRequestContext,
 ) {
-  const secret = process.env.TESTING_ENDPOINT_SECRET;
-  const baseUrl = process.env.BASE_URL ?? "http://localhost:8000";
-  const url = `/testing/token?sub=${sub}&secret=${secret ? "[SET]" : "[MISSING]"}`;
+  // Hide webdriver flag so GCKey bot detection doesn't block us
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "webdriver", { get: () => undefined });
+  });
 
-  console.log(`[auth] BASE_URL: ${baseUrl}`);
-  console.log(`[auth] sub: ${sub ? "[SET]" : "[MISSING]"}`);
-  console.log(`[auth] TESTING_ENDPOINT_SECRET: ${secret ? "[SET]" : "[MISSING]"}`);
-  console.log(`[auth] Requesting: ${baseUrl}${url}`);
+  await page.goto("/en/login");
 
-  const response = await request.get(
-    `/testing/token?sub=${sub}&secret=${secret}`,
-  );
+  // Click whichever sign-in link leads to GCKey
+  await page.getByRole("link", { name: /sign in with gckey|gckey/i }).click();
 
-  const body = await response.text();
+  // Wait for the GCKey login page
+  await page.waitForURL(/gckey|gccf|id\.tbs-sct/i, { timeout: 15000 });
 
-  console.log(`[auth] Response status: ${response.status()}`);
-  console.log(`[auth] Response headers: ${JSON.stringify(response.headers())}`);
-  console.log(`[auth] Response body (first 500): ${body.slice(0, 500)}`);
+  console.log(`[auth] GCKey page URL: ${page.url()}`);
 
-  if (!response.ok() || body.trimStart().startsWith("<")) {
-    throw new Error(
-      `Test token endpoint failed (${response.status()}). Is TESTING_TOKEN_ENABLED=true on the App Service?\n${body.slice(0, 300)}`,
-    );
-  }
+  // Fill credentials
+  await page.getByLabel(/username/i).fill(username);
+  await page.getByLabel(/password/i).fill(password);
+  await page.getByRole("button", { name: /sign in|continue/i }).click();
 
-  const { access_token, refresh_token, id_token } = JSON.parse(body);
+  // Wait for redirect back to the app
+  await page.waitForURL(/uat-talentcloud|localhost/i, { timeout: 30000 });
 
-  await page.goto("/en");
-  await page.evaluate(
-    ({ at, rt, it }) => {
-      localStorage.setItem("access_token", at);
-      localStorage.setItem("refresh_token", rt);
-      localStorage.setItem("id_token", it);
-    },
-    { at: access_token, rt: refresh_token, it: id_token },
-  );
+  console.log(`[auth] Redirected to: ${page.url()}`);
 
   const filePath = authFilePath(name);
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
