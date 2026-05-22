@@ -1,20 +1,27 @@
 import type { Meta, StoryFn } from "@storybook/react-vite";
+import { __TypeKind } from "graphql";
 
-import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
+import {
+  fakeSearchRequests,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 import {
   FlexibleWorkLocation,
   makeFragmentData,
-  PoolCandidateSearchStatus,
+  TalentRequestClosedDetail,
+  TalentRequestInProgressDetail,
+  TalentRequestStatus,
+  type LocalizedTalentRequestStatus,
 } from "@gc-digital-talent/graphql";
 
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
-import { TalentRequestStatusOptions_Fragment } from "./components/TalentRequestStatus";
 import {
   TalentRequestOptions_Fragment,
   ViewSearchRequest,
 } from "./components/ViewSearchRequest";
+import { TalentRequestStatusOptions_Fragment } from "./components/TalentRequestStatusDialog";
 
 const mockSearchRequests = fakeSearchRequests();
 
@@ -36,12 +43,19 @@ const locationOptions = makeFragmentData(
 const statusOptions = makeFragmentData(
   {
     __typename: "Query",
-    statuses: Object.values(PoolCandidateSearchStatus).map((status) => ({
-      __typename: "LocalizedPoolCandidateSearchStatus" as const,
-      value: status,
-      label: {
-        localized: `${status} LOCALIZED`,
-      },
+    statuses: Object.values(TalentRequestStatus).map((status) => ({
+      __typename: "LocalizedTalentRequestStatus" as const,
+      ...toLocalizedEnum(status),
+    })),
+    inProgressDetails: Object.values(TalentRequestInProgressDetail).map(
+      (detail) => ({
+        __typename: "LocalizedTalentRequestInProgressDetail" as const,
+        ...toLocalizedEnum(detail),
+      }),
+    ),
+    closedDetails: Object.values(TalentRequestClosedDetail).map((detail) => ({
+      __typename: "LocalizedTalentRequestClosedDetail" as const,
+      ...toLocalizedEnum(detail),
     })),
   },
   TalentRequestStatusOptions_Fragment,

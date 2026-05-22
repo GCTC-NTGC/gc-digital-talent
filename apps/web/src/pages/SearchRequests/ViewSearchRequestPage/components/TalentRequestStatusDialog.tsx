@@ -83,7 +83,7 @@ const TalentRequestStatusDialog_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-const TalentRequestStatusOptions_Fragment = graphql(/** GraphQL */ `
+export const TalentRequestStatusOptions_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestStatusOptions on Query {
     statuses: localizedEnumOptions(enumName: "TalentRequestStatus") {
       ... on LocalizedTalentRequestStatus {
