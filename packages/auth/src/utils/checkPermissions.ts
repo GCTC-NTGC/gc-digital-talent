@@ -1,6 +1,21 @@
-import type { Maybe, Permission, RoleAssignment, RolePermission } from "@gc-digital-talent/graphql";
-
+import type {
+  Maybe,
+  Permission,
+  RoleAssignment,
+  RolePermission,
+} from "@gc-digital-talent/graphql";
 import { RoleName } from "@gc-digital-talent/graphql";
+
+function snakeToPascalRoleName(
+  snakeCase: string | null | undefined,
+): RoleName | undefined {
+  if (!snakeCase) return undefined;
+  const pascal = snakeCase
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join("");
+  return Object.values(RoleName).find((v) => String(v) === pascal);
+}
 
 export interface PermissionRequirement {
   permission: Permission;
@@ -43,16 +58,5 @@ const checkPermissions = (
 
   return false;
 };
-
-function snakeToPascalRoleName(
-  snakeCase: string | null | undefined,
-): RoleName | undefined {
-  if (!snakeCase) return undefined;
-  const pascal = snakeCase
-    .split("_")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join("");
-  return Object.values(RoleName).find((v) => v === pascal);
-}
 
 export default checkPermissions;

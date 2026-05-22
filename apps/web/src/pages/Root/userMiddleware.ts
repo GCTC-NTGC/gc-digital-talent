@@ -1,8 +1,16 @@
 import { ACCESS_TOKEN } from "@gc-digital-talent/auth";
-import type { RolePermission, UserMiddlewareQuery } from "@gc-digital-talent/graphql";
+import type {
+  RolePermission,
+  UserMiddlewareQuery,
+} from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { graphqlClientContext, rolePermissionMapContext, userContext } from "~/routing/context";
+import {
+  graphqlClientContext,
+  rolePermissionMapContext,
+  userContext,
+} from "~/routing/context";
 
 import type { Route } from "./+types/RootRoute";
 
@@ -68,7 +76,7 @@ const userMiddleware: Route.ClientMiddlewareFunction = async (
   const client = context.get(graphqlClientContext);
   const result = await client.query(UserMiddleware_Query, {}).toPromise();
   cachedUser = result.data?.myAuth ?? null;
-  cachedRolePermissionMap = (result.data?.rolePermissions ?? []) as RolePermission[];
+  cachedRolePermissionMap = unpackMaybes(result.data?.rolePermissions);
   context.set(userContext, cachedUser);
   context.set(rolePermissionMapContext, cachedRolePermissionMap);
 
