@@ -1,12 +1,19 @@
 import { redirect } from "react-router";
 
 import {
+  checkPermissions,
   hasRequiredRoles,
+  type PermissionRequirement,
   type RoleRequirement,
 } from "@gc-digital-talent/auth";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
 
-import { intlContext, userContext, type AppContext } from "./context";
+import {
+  intlContext,
+  rolePermissionMapContext,
+  userContext,
+  type AppContext,
+} from "./context";
 
 /**
  * Validates user session and redirects to login-info if missing.
@@ -45,4 +52,23 @@ export function requireUser<T extends AppContext>(
   }
 
   return user;
+}
+
+/**
+ * Throws UnauthorizedError if the user's roles do not satisfy at least one
+ * of the given permission requirements.
+ *
+ * Reads role assignments from userContext and the permission map from
+ * rolePermissionMapContext — both populated by userMiddleware.
+ */
+export function requirePermissions<T extends AppContext>(
+  context: T,
+  requirements: PermissionRequirement | PermissionRequirement[],
+): void {
+  const user = context.get(userContext);
+  const map = context.get(rolePermissionMapContext);
+
+  if (!checkPermissions(requirements, user?.roleAssignments, map)) {
+    throw new UnauthorizedError();
+  }
 }
