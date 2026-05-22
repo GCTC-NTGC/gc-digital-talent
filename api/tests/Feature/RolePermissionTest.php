@@ -461,6 +461,7 @@ class RolePermissionTest extends TestCase
             'delete-team-draftPool',
             'publish-team-draftPool',
             'archive-team-publishedPool',
+            'update-team-publishedPool',
             'view-team-poolTeamMembers',
             'view-team-poolActivityLog',
             'view-team-assessmentPlan',
