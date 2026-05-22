@@ -10,12 +10,9 @@ import useAuthorization from "./useAuthorization";
 const useHasPermissions = (
   requirements: PermissionRequirement | PermissionRequirement[],
 ): boolean => {
-  const { roleAssignments, rolePermissionMap, isLoaded } = useAuthorization();
+  const { roleAssignments, isLoaded } = useAuthorization();
 
-  return (
-    isLoaded &&
-    checkPermissions(requirements, roleAssignments, rolePermissionMap)
-  );
+  return isLoaded && checkPermissions(requirements, roleAssignments);
 };
 
 export default useHasPermissions;

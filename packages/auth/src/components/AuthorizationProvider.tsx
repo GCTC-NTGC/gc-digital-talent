@@ -9,10 +9,6 @@ import AuthorizationContainer from "./AuthorizationContainer";
 
 const authorizationQuery = graphql(/** GraphQL */ `
   query authorizationQuery {
-    rolePermissions {
-      role
-      permissions
-    }
     myAuth {
       id
       deletedDate
@@ -22,6 +18,7 @@ const authorizationQuery = graphql(/** GraphQL */ `
           id
           name
           isTeamBased
+          permissions
           displayName {
             en
             fr
@@ -49,7 +46,6 @@ const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {
   return (
     <AuthorizationContainer
       roleAssignments={unpackMaybes(data?.myAuth?.roleAssignments)}
-      rolePermissionMap={unpackMaybes(data?.rolePermissions)}
       userAuthInfo={data?.myAuth}
       isLoaded={isLoaded}
     >

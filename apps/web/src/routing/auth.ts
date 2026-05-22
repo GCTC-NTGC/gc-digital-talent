@@ -8,12 +8,7 @@ import {
 } from "@gc-digital-talent/auth";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
 
-import {
-  intlContext,
-  rolePermissionMapContext,
-  userContext,
-  type AppContext,
-} from "./context";
+import { intlContext, userContext, type AppContext } from "./context";
 
 interface RequireUserOptions {
   roles?: RoleRequirement | RoleRequirement[];
@@ -44,7 +39,6 @@ export function requireUser<T extends AppContext>(
 
   const { roles, permissions, strict = false } = options ?? {};
 
-  // Complete more general checks first
   if (roles) {
     const isAuthorized = hasRequiredRoles({
       toCheck: roles,
@@ -58,9 +52,7 @@ export function requireUser<T extends AppContext>(
   }
 
   if (permissions) {
-    const map = context.get(rolePermissionMapContext);
-
-    if (!checkPermissions(permissions, user.roleAssignments, map)) {
+    if (!checkPermissions(permissions, user.roleAssignments)) {
       throw new UnauthorizedError();
     }
   }

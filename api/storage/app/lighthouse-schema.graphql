@@ -424,7 +424,6 @@ type LocalizedWorkRegion implements LocalizedEnumOption {
 }
 
 type Query {
-  rolePermissions: [RolePermission!]!
   myAuth: UserAuthInfo
   me: User
   user(
@@ -1462,6 +1461,7 @@ type Role {
   displayName: LocalizedString
   description: LocalizedString
   isTeamBased: Boolean
+  permissions: [Permission!]!
   roleAssignments: [RoleAssignment!]
 }
 
@@ -3686,11 +3686,6 @@ enum Permission {
   CreateTeamCommunityDevelopmentProgram
   UpdateTeamCommunityDevelopmentProgram
   DeleteTeamCommunityDevelopmentProgram
-}
-
-type RolePermission {
-  role: RoleName!
-  permissions: [Permission!]!
 }
 
 enum ActivityEvent {

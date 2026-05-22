@@ -3,14 +3,14 @@
 namespace App\GraphQL\Types;
 
 use GraphQL\Type\Definition\EnumType;
-use GraphQL\Type\Definition\ListOfType;
-use GraphQL\Type\Definition\NonNull;
-use GraphQL\Type\Definition\ObjectType;
 use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 
 /**
- * Registers RoleName, Permission, and RolePermission GraphQL types from rolepermission.php config.
+ * Registers RoleName and Permission GraphQL enums from rolepermission.php config.
+ *
+ * Keeping these in the schema means codegen generates them automatically,
+ * so there is no separate client-side copy to maintain.
  *
  * Uses RoleName (not Role) to avoid colliding with the existing Role Eloquent model type.
  */
@@ -22,22 +22,8 @@ final class RolePermissionTypeRegistrar implements TypeRegistrarInterface
     {
         $config = config('rolepermission');
 
-        $roleNameType = self::buildRoleNameEnum($config['roles']);
-        $permissionType = self::buildPermissionEnum($config['permissions']);
-
-        $typeRegistry->registerLazy('RoleName', fn () => $roleNameType);
-        $typeRegistry->registerLazy('Permission', fn () => $permissionType);
-
-        $typeRegistry->registerLazy(
-            'RolePermission',
-            fn () => new ObjectType([
-                'name' => 'RolePermission',
-                'fields' => [
-                    'role' => ['type' => new NonNull($roleNameType)],
-                    'permissions' => ['type' => new NonNull(new ListOfType(new NonNull($permissionType)))],
-                ],
-            ])
-        );
+        $typeRegistry->registerLazy('RoleName', fn () => self::buildRoleNameEnum($config['roles']));
+        $typeRegistry->registerLazy('Permission', fn () => self::buildPermissionEnum($config['permissions']));
     }
 
     /**
