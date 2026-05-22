@@ -92,7 +92,7 @@ const transformSearchRequestInput = (
         ? searchBarTerm
         : undefined,
     // from filter
-    status: filterState?.status,
+    talentRequestStatus: filterState?.talentRequestStatus,
     departments: filterState?.departments,
     classifications: filterState?.classifications,
     workStreams: filterState?.workStreams,
@@ -221,6 +221,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     useState<PoolCandidateSearchRequestInput>(initialFilters);
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    console.log({ data });
     setPaginationState((previous) => ({
       ...previous,
       pageIndex: 0,
