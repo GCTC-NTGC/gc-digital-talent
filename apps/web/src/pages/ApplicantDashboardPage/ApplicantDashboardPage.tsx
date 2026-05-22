@@ -440,7 +440,7 @@ export const DashboardPage = ({
                               : undefined
                           }
                           onScrollTo={() => {
-                            // we have a link that can call this to focus and open the accordion
+                            // focus the accordion and pop it open
                             communityAccordionRef.current?.focus();
                             setCommunityAccordionValue(
                               "your_functional_communities",
@@ -581,7 +581,7 @@ export const ApplicantDashboardPageApi = () => {
       isHashFunctionalCommunities ? "your_functional_communities" : "",
     );
 
-  // a ref so we can keep call focus
+  // a ref so we can focus the accordion trigger
   const communityAccordionRef = createRef<HTMLButtonElement>();
 
   // on page load, focus the accordion if requested
