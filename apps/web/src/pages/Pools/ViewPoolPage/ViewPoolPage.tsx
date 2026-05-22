@@ -83,9 +83,7 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     }
     poolCandidatesCount
     classification {
-      id
-      group
-      level
+      groupAndLevel
     }
     name {
       en

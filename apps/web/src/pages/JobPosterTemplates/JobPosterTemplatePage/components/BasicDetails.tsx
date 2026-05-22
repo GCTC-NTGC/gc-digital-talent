@@ -11,7 +11,6 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Card, Heading, Link } from "@gc-digital-talent/ui";
 
-import { getClassificationName } from "~/utils/poolUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
@@ -28,8 +27,7 @@ const JobPosterTemplateBasicDetails_Fragment = graphql(/* GraphQL */ `
       fr
     }
     classification {
-      group
-      level
+      displayName
     }
     workStream {
       name {
@@ -95,13 +93,8 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
           <FieldDisplay
             label={intl.formatMessage(jobPosterTemplateMessages.classification)}
           >
-            {jobPosterTemplate.classification?.group &&
-            jobPosterTemplate.classification?.level
-              ? getClassificationName(
-                  pick(jobPosterTemplate.classification, ["group", "level"]),
-                  intl,
-                )
-              : intl.formatMessage(commonMessages.notFound)}
+            {jobPosterTemplate.classification.displayName ??
+              intl.formatMessage(commonMessages.notFound)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage(jobPosterTemplateMessages.workStream)}

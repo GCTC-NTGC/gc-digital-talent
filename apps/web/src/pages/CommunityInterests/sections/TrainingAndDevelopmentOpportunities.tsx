@@ -27,7 +27,6 @@ import {
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import { RadioGroup, Select } from "@gc-digital-talent/forms";
 
-import { getClassificationName } from "~/utils/poolUtils";
 import { getDateRange } from "~/utils/dateUtils";
 import useRoutes from "~/hooks/useRoutes";
 import experienceMessages from "~/messages/experienceMessages";
@@ -50,8 +49,7 @@ const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
           }
           eligibleClassifications {
             id
-            group
-            level
+            displayName
           }
         }
       }
@@ -207,9 +205,7 @@ const TrainingAndDevelopmentOpportunities = ({
   developmentPrograms.forEach((developmentProgram) => {
     if (developmentProgram.eligibleClassifications) {
       developmentProgram.eligibleClassifications.sort((a, b) =>
-        getClassificationName(a, intl).localeCompare(
-          getClassificationName(b, intl),
-        ),
+        a.displayName.localeCompare(b.displayName),
       );
     }
   });
@@ -325,7 +321,7 @@ const TrainingAndDevelopmentOpportunities = ({
                     developmentProgram?.eligibleClassifications,
                   ).map((classification) => (
                     <Chip key={classification.id} color="secondary">
-                      {getClassificationName(classification, intl)}
+                      {classification.displayName}
                     </Chip>
                   ))}
                 </Chips>

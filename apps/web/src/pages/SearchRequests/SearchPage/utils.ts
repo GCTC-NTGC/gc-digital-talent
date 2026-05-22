@@ -68,10 +68,10 @@ export const getClassificationAriaLabel = ({
  * @returns {string}
  */
 const getCurrentClassification = (
-  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">[]>,
+  selectedClassifications?: Maybe<Pick<Classification, "groupAndLevel">[]>,
 ): string => {
   return selectedClassifications && selectedClassifications?.length > 0
-    ? formatClassificationString(selectedClassifications[0])
+    ? selectedClassifications[0].groupAndLevel
     : "";
 };
 
@@ -145,7 +145,7 @@ export const applicantFilterToQueryArgs = (
  */
 export const dataToFormValues = (
   data: ApplicantFilterInput,
-  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">[]>,
+  selectedClassifications: Pick<Classification, "groupAndLevel">[],
 ): FormValues => {
   const stream = data?.qualifiedInWorkStreams?.find(notEmpty);
 
@@ -185,8 +185,10 @@ export const formValuesToData = (
   values: FormValues,
   classifications: Pick<Classification, "group" | "level" | "id">[],
 ): ApplicantFilterInput => {
-  const selectedClassification = classifications.find((classification) => {
-    return formatClassificationString(classification) === values.classification;
+  const selectedClassification = classifications.find(({ group, level }) => {
+    return (
+      `${group}-${level < 10 ? "0" : ""}${level}` === values.classification
+    );
   });
 
   return {

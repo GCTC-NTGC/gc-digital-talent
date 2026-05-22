@@ -71,7 +71,7 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
 `);
 
 interface FormFieldsProps {
-  classifications: Pick<Classification, "group" | "level" | "name">[];
+  classifications: Classification[];
   skills: Skill[];
   workStreams: WorkStream[];
 }
@@ -92,8 +92,8 @@ const FormFields = ({
   });
 
   const classificationOptions = classifications.map((classification) => ({
-    value: formatClassificationString(classification),
-    label: getClassificationLabel(classification, intl),
+    value: classification.id,
+    label: classification.displayName,
     ariaLabel: getClassificationAriaLabel(classification),
   }));
 

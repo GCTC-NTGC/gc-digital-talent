@@ -144,12 +144,10 @@ const DetailsFields = ({
   const intl = useIntl();
 
   const options = getFragment(DetailsFieldsOptions_Fragment, optionsQuery);
-
   const advancementReferenceData = getFragment(
     DetailsEmployee_Fragment,
     employeeQuery,
   );
-
   const communityDevelopmentProgramData = getFragment(
     DetailsCommunityDevelopmentProgram_Fragment,
     communityDevelopmentProgramQuery,

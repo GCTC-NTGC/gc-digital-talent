@@ -106,7 +106,7 @@ export const formatClassificationAriaString = ({
 };
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
-  classification: Maybe<Pick<Classification, "group" | "level">> | undefined;
+  classification: Maybe<Pick<Classification, "groupAndLevel">> | undefined;
   workStream?: Maybe<WorkStream>;
   short?: boolean;
   intl: IntlShape;
@@ -123,9 +123,7 @@ export const formattedPoolPosterTitle = ({
   label: string;
 } => {
   const streamString = getLocalizedName(workStream?.name, intl, true);
-  const groupAndLevel = classification
-    ? formatClassificationString(classification)
-    : "";
+  const groupAndLevel = classification?.groupAndLevel ?? "";
 
   const genericTitle = short
     ? `${groupAndLevel.trim()}${intl.formatMessage(
@@ -166,7 +164,7 @@ interface PoolTitleOptions {
 
 type PartialPool = Pick<Pool, "name" | "publishingGroup" | "workStream">;
 interface PartialPoolWithClassification extends PartialPool {
-  classification?: Maybe<Pick<Classification, "group" | "level">>;
+  classification?: Maybe<Pick<Classification, "groupAndLevel">>;
 }
 
 type PoolTitle = Maybe<PartialPoolWithClassification>;
@@ -474,20 +472,6 @@ export const getProcessStatusBadge = (
 
   return statusBadge;
 };
-
-export function getClassificationName(
-  { group, level, name }: Pick<Classification, "group" | "level" | "name">,
-  intl: IntlShape,
-) {
-  const groupLevelStr = `${group}-${level < 10 ? "0" : ""}${level}`;
-
-  if (!name) {
-    return groupLevelStr;
-  }
-
-  const nameStr = getLocalizedName(name, intl);
-  return `${groupLevelStr} (${nameStr})`;
-}
 
 export const contactEmailTag = (email?: Maybe<string>) => {
   return email ? (

@@ -281,6 +281,8 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
         id
         group
         level
+        groupAndLevel
+        displayName
       }
       department {
         id
