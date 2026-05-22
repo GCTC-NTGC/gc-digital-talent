@@ -146,9 +146,7 @@ const TalentRequestStatusDialog = ({
         TalentRequestStatus.InProgress,
       inProgressDetails: talentRequest.inProgressDetails?.value,
       closedDetails: talentRequest.closedDetails?.value,
-      followUpDate: talentRequest.followUpDate
-        ? strToFormDate(talentRequest.followUpDate)
-        : undefined,
+      followUpDate: talentRequest.followUpDate,
     },
   });
   const currentStatus = methods.watch("talentRequestStatus");
