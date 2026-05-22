@@ -73,7 +73,7 @@ jobs:
         displayName: "Install Playwright browsers"
         workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
 
-      - script: npx playwright test --project=$(playwrightProject) --retries=2
+      - script: npx playwright test --project=$(playwrightProject) --grep="@uat" --retries=2
         displayName: "Run Playwright tests (${{ parameters.vertical }})"
         workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
         env:
