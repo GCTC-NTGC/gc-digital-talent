@@ -18,9 +18,10 @@ export interface AuthTokenResponse {
 }
 
 // Maps dev test email subs to real UAT user UUIDs via env vars.
+// Each entry corresponds to a dedicated test account in the target environment.
 // Add a new entry here whenever a new role-specific env var is introduced.
 const UAT_SUB_MAP: Record<string, string | undefined> = {
-  "admin@test.com": process.env.PLAYWRIGHT_ADMIN_SUB,
+  "admin@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
   "platform@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
   "applicant@test.com": process.env.PLAYWRIGHT_APPLICANT_SUB,
   "community@test.com": process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB,
