@@ -579,18 +579,18 @@ export const ApplicantDashboardPageApi = () => {
   // initialize accordion - maybe open at the start
   const [communityAccordionValue, setCommunityAccordionValue] =
     useState<string>(() =>
-      isHashFunctionalCommunities ? "your_functional_communities" : "",
+      isHashFunctionalCommunities ? ACCORDION_ID.FUNCTIONAL_COMMUNITIES : "",
     );
 
   // a ref so we can focus the accordion trigger
   const communityAccordionRef = useRef<HTMLButtonElement>(null);
 
-  // on page load, focus the accordion if requested
+  // on page load (and data is available) focus the accordion if requested
   useEffect(() => {
-    if (isHashFunctionalCommunities) {
+    if (data?.me && isHashFunctionalCommunities) {
       communityAccordionRef.current?.focus();
     }
-  }, [isHashFunctionalCommunities]);
+  }, [data?.me, isHashFunctionalCommunities]);
 
   return (
     <Pending fetching={fetching} error={error}>
