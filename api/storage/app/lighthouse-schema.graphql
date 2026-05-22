@@ -393,6 +393,21 @@ type LocalizedTalentNominationUserReview implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedTalentRequestClosedDetail implements LocalizedEnumOption {
+  value: TalentRequestClosedDetail!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestInProgressDetail implements LocalizedEnumOption {
+  value: TalentRequestInProgressDetail!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestStatus implements LocalizedEnumOption {
+  value: TalentRequestStatus!
+  label: LocalizedString!
+}
+
 type LocalizedTargetRole implements LocalizedEnumOption {
   value: TargetRole!
   label: LocalizedString!
@@ -609,6 +624,7 @@ type Mutation {
   updateDevelopmentProgram(id: ID!, developmentProgram: UpdateDevelopmentProgramInput!): DevelopmentProgram
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  updatePoolCandidateSearchRequestStatus(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
@@ -1506,7 +1522,7 @@ type PoolCandidateSearchRequest {
   additionalComments: String
   hrAdvisorEmail: Email
   requestedDate: DateTime
-  status: LocalizedPoolCandidateSearchStatus
+  status: LocalizedPoolCandidateSearchStatus @deprecated(reason: "Use talentRequestStatus instead")
   statusChangedAt: DateTime
   adminNotes: String
   poolCandidateFilter: PoolCandidateFilter @deprecated(reason: "Replaced by applicantFilter")
@@ -1517,6 +1533,11 @@ type PoolCandidateSearchRequest {
   reason: LocalizedPoolCandidateSearchRequestReason
   community: Community
   initialResultCount: Int
+  followUpDate: Date
+  talentRequestStatus: LocalizedTalentRequestStatus
+  inProgressDetails: LocalizedTalentRequestInProgressDetail
+  closedDetails: LocalizedTalentRequestClosedDetail
+  details: LocalizedString
 }
 
 type SkillFamily {
@@ -1796,6 +1817,7 @@ input PoolCandidateSearchInput {
 
 input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus]
+  talentRequestStatus: [TalentRequestStatus]
   departments: [ID]
   classifications: [ID]
   workStreams: [UUID]
@@ -2517,6 +2539,14 @@ input CreatePoolCandidateSearchRequestInput {
 input UpdatePoolCandidateSearchRequestInput {
   adminNotes: String
   status: PoolCandidateSearchStatus
+  followUpDate: Date
+}
+
+input UpdatePoolCandidateSearchRequestStatusInput {
+  status: TalentRequestStatus!
+  inProgressDetails: TalentRequestInProgressDetail
+  closedDetails: TalentRequestClosedDetail
+  followUpDate: Date
 }
 
 input SkillBelongsToMany {
@@ -4276,6 +4306,30 @@ enum TalentNominationUserReview {
   CORRECT
   INCORRECT
   OUT_OF_DATE
+}
+
+enum TalentRequestClosedDetail {
+  HIRE_MADE
+  PROCESS_WILL_BE_LAUNCHED
+  HIRING_MANAGER_NOT_RESPONSIVE
+  NO_CANDIDATES_FOUND
+  NO_LONGER_REQUIRED
+  DUPLICATE_REQUEST
+  NON_COMPLIANT
+}
+
+enum TalentRequestInProgressDetail {
+  INITIAL_CONVERSATION
+  TALENT_SENT
+  FOLLOW_UP_SENT
+  DISCUSSION_ONGOING
+  OTHER
+}
+
+enum TalentRequestStatus {
+  NEW
+  IN_PROGRESS
+  CLOSED
 }
 
 enum TargetRole {

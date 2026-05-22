@@ -2,7 +2,7 @@ import type { IntlShape } from "react-intl";
 import type { AriaAttributes, JSX } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
-import type { Scalars, Maybe } from "@gc-digital-talent/graphql";
+import type { Maybe } from "@gc-digital-talent/graphql";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import type { ActionsProps } from "./Actions";
@@ -75,13 +75,14 @@ function phoneCell(telephone?: Maybe<string>) {
 }
 
 function dateCell(
-  value: Maybe<Scalars["DateTime"]["output"]> | undefined,
+  value: string | null | undefined,
   intl: IntlShape,
+  formatString?: string,
 ): string {
   return value
     ? formatDate({
         date: parseDateTimeUtc(value),
-        formatString: "PPP p",
+        formatString: formatString ?? "PPP p",
         intl,
       })
     : "";
