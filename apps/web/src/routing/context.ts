@@ -2,7 +2,11 @@ import { createContext } from "react-router";
 import type { Client } from "urql";
 import type { IntlShape } from "react-intl";
 
-import type { Maybe, RolePermission, UserAuthInfo } from "@gc-digital-talent/graphql";
+import type {
+  Maybe,
+  RolePermission,
+  UserAuthInfo,
+} from "@gc-digital-talent/graphql";
 
 export type GraphqlClientContext = Client;
 
@@ -14,7 +18,9 @@ export const userContext = createContext<UserContext>(null);
 
 export type RolePermissionMapContext = RolePermission[];
 
-export const rolePermissionMapContext = createContext<RolePermissionMapContext>([]);
+export const rolePermissionMapContext = createContext<RolePermissionMapContext>(
+  [],
+);
 
 export type IntlContext = IntlShape;
 

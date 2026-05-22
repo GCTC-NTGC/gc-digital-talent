@@ -1,4 +1,7 @@
-import type { RoleAssignment, RolePermission } from "@gc-digital-talent/graphql";
+import type {
+  RoleAssignment,
+  RolePermission,
+} from "@gc-digital-talent/graphql";
 import { Permission, RoleName } from "@gc-digital-talent/graphql";
 
 import { ROLE_NAME } from "../const";
@@ -167,7 +170,10 @@ describe("checkPermissions", () => {
             permission: Permission.UpdateTeamApplicationPlacement,
             teamId: "team-beta",
           },
-          { permission: Permission.ViewTeamApplicantProfile, teamId: "team-beta" },
+          {
+            permission: Permission.ViewTeamApplicantProfile,
+            teamId: "team-beta",
+          },
         ],
         [mockCommunityRecruiter], // only has team-alpha
         mockRolePermissionMap,
