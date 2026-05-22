@@ -6,6 +6,7 @@ use GraphQL\Type\Definition\EnumType;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\ObjectType;
+use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 
 /**
@@ -49,7 +50,7 @@ final class RolePermissionTypeRegistrar implements TypeRegistrarInterface
     {
         $values = [];
         foreach (array_keys($roles) as $roleKey) {
-            $enumValue = self::snakeToPascal($roleKey);
+            $enumValue = Str::studly($roleKey);
             $values[$enumValue] = ['value' => $enumValue];
         }
 
@@ -66,20 +67,10 @@ final class RolePermissionTypeRegistrar implements TypeRegistrarInterface
     {
         $values = [];
         foreach (array_keys($permissions) as $permissionKey) {
-            $enumValue = self::kebabToPascal($permissionKey);
+            $enumValue = Str::studly($permissionKey);
             $values[$enumValue] = ['value' => $enumValue];
         }
 
         return new EnumType(['name' => 'Permission', 'values' => $values]);
-    }
-
-    private static function snakeToPascal(string $value): string
-    {
-        return str_replace('_', '', ucwords($value, '_'));
-    }
-
-    private static function kebabToPascal(string $value): string
-    {
-        return str_replace('-', '', ucwords($value, '-'));
     }
 }

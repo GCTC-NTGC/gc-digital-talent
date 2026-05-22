@@ -424,6 +424,7 @@ type LocalizedWorkRegion implements LocalizedEnumOption {
 }
 
 type Query {
+  rolePermissions: [RolePermission!]!
   myAuth: UserAuthInfo
   me: User
   user(
