@@ -1,13 +1,17 @@
 import { ACCESS_TOKEN } from "@gc-digital-talent/auth";
-import type { UserMiddlewareQuery } from "@gc-digital-talent/graphql";
+import type { RolePermission, UserMiddlewareQuery } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 
-import { graphqlClientContext, userContext } from "~/routing/context";
+import { graphqlClientContext, rolePermissionMapContext, userContext } from "~/routing/context";
 
 import type { Route } from "./+types/RootRoute";
 
 const UserMiddleware_Query = graphql(/** GraphQL */ `
   query UserMiddleware {
+    rolePermissions {
+      role
+      permissions
+    }
     myAuth {
       id
       deletedDate
@@ -33,6 +37,7 @@ const UserMiddleware_Query = graphql(/** GraphQL */ `
 
 let cachedToken: string | null = null;
 let cachedUser: UserMiddlewareQuery["myAuth"] | null | undefined = undefined;
+let cachedRolePermissionMap: RolePermission[] = [];
 
 const userMiddleware: Route.ClientMiddlewareFunction = async (
   { context },
@@ -43,7 +48,9 @@ const userMiddleware: Route.ClientMiddlewareFunction = async (
   if (!token) {
     cachedToken = null;
     cachedUser = null;
+    cachedRolePermissionMap = [];
     context.set(userContext, null);
+    context.set(rolePermissionMapContext, []);
     return next();
   }
 
@@ -54,13 +61,16 @@ const userMiddleware: Route.ClientMiddlewareFunction = async (
 
   if (cachedUser !== undefined) {
     context.set(userContext, cachedUser);
+    context.set(rolePermissionMapContext, cachedRolePermissionMap);
     return next();
   }
 
   const client = context.get(graphqlClientContext);
   const result = await client.query(UserMiddleware_Query, {}).toPromise();
   cachedUser = result.data?.myAuth ?? null;
+  cachedRolePermissionMap = (result.data?.rolePermissions ?? []) as RolePermission[];
   context.set(userContext, cachedUser);
+  context.set(rolePermissionMapContext, cachedRolePermissionMap);
 
   return next();
 };
