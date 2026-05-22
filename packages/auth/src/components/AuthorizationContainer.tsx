@@ -1,7 +1,11 @@
 import type { ReactNode } from "react";
 import { createContext, useMemo } from "react";
 
-import type { Maybe, RoleAssignment, UserAuthInfo } from "@gc-digital-talent/graphql";
+import type {
+  Maybe,
+  RoleAssignment,
+  UserAuthInfo,
+} from "@gc-digital-talent/graphql";
 
 type SimpleRoleAssignment = Exclude<RoleAssignment, "teamable">;
 

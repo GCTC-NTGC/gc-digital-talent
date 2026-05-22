@@ -13,7 +13,10 @@ describe("checkPermissions", () => {
       id: "r1",
       name: ROLE_NAME.PlatformAdmin,
       isTeamBased: false,
-      permissions: [Permission.UpdateAnyApplicationPlacement, Permission.ViewAnyUser],
+      permissions: [
+        Permission.UpdateAnyApplicationPlacement,
+        Permission.ViewAnyUser,
+      ],
     },
     team: null,
   };
@@ -39,28 +42,35 @@ describe("checkPermissions", () => {
   });
 
   test("returns false when user has no assignments", () => {
-    expect(f({ permission: Permission.UpdateAnyApplicationPlacement }, [])).toBe(false);
+    expect(
+      f({ permission: Permission.UpdateAnyApplicationPlacement }, []),
+    ).toBe(false);
   });
 
   test("handles null/undefined roleAssignments gracefully", () => {
-    expect(f({ permission: Permission.UpdateAnyApplicationPlacement }, null)).toBe(false);
-    expect(f({ permission: Permission.UpdateAnyApplicationPlacement }, undefined)).toBe(false);
+    expect(
+      f({ permission: Permission.UpdateAnyApplicationPlacement }, null),
+    ).toBe(false);
+    expect(
+      f({ permission: Permission.UpdateAnyApplicationPlacement }, undefined),
+    ).toBe(false);
   });
 
   // --- Global role ---
 
   test("returns true when user holds a global role with the permission", () => {
     expect(
-      f({ permission: Permission.UpdateAnyApplicationPlacement }, [mockPlatformAdmin]),
+      f({ permission: Permission.UpdateAnyApplicationPlacement }, [
+        mockPlatformAdmin,
+      ]),
     ).toBe(true);
   });
 
   test("returns false when user's role does not have the permission", () => {
     expect(
-      f(
-        { permission: Permission.UpdateTeamApplicationPlacement },
-        [mockPlatformAdmin],
-      ),
+      f({ permission: Permission.UpdateTeamApplicationPlacement }, [
+        mockPlatformAdmin,
+      ]),
     ).toBe(false);
   });
 
@@ -69,7 +79,10 @@ describe("checkPermissions", () => {
   test("returns true for a team-scoped role with matching teamId", () => {
     expect(
       f(
-        { permission: Permission.UpdateTeamApplicationPlacement, teamId: "team-alpha" },
+        {
+          permission: Permission.UpdateTeamApplicationPlacement,
+          teamId: "team-alpha",
+        },
         [mockCommunityRecruiter],
       ),
     ).toBe(true);
@@ -78,7 +91,10 @@ describe("checkPermissions", () => {
   test("returns false for a team-scoped role when teamId does not match", () => {
     expect(
       f(
-        { permission: Permission.UpdateTeamApplicationPlacement, teamId: "team-beta" },
+        {
+          permission: Permission.UpdateTeamApplicationPlacement,
+          teamId: "team-beta",
+        },
         [mockCommunityRecruiter],
       ),
     ).toBe(false);
@@ -86,7 +102,9 @@ describe("checkPermissions", () => {
 
   test("returns true for a team-scoped role when no teamId is required (loose)", () => {
     expect(
-      f({ permission: Permission.UpdateTeamApplicationPlacement }, [mockCommunityRecruiter]),
+      f({ permission: Permission.UpdateTeamApplicationPlacement }, [
+        mockCommunityRecruiter,
+      ]),
     ).toBe(true);
   });
 
@@ -97,7 +115,10 @@ describe("checkPermissions", () => {
       f(
         [
           { permission: Permission.UpdateAnyApplicationPlacement },
-          { permission: Permission.UpdateTeamApplicationPlacement, teamId: "team-beta" },
+          {
+            permission: Permission.UpdateTeamApplicationPlacement,
+            teamId: "team-beta",
+          },
         ],
         [mockPlatformAdmin],
       ),
@@ -108,8 +129,14 @@ describe("checkPermissions", () => {
     expect(
       f(
         [
-          { permission: Permission.UpdateTeamApplicationPlacement, teamId: "team-beta" },
-          { permission: Permission.ViewTeamApplicantProfile, teamId: "team-beta" },
+          {
+            permission: Permission.UpdateTeamApplicationPlacement,
+            teamId: "team-beta",
+          },
+          {
+            permission: Permission.ViewTeamApplicantProfile,
+            teamId: "team-beta",
+          },
         ],
         [mockCommunityRecruiter],
       ),
@@ -120,10 +147,10 @@ describe("checkPermissions", () => {
 
   test("returns true when one of multiple assignments satisfies the requirement", () => {
     expect(
-      f(
-        { permission: Permission.UpdateAnyApplicationPlacement },
-        [mockCommunityRecruiter, mockPlatformAdmin],
-      ),
+      f({ permission: Permission.UpdateAnyApplicationPlacement }, [
+        mockCommunityRecruiter,
+        mockPlatformAdmin,
+      ]),
     ).toBe(true);
   });
 });
