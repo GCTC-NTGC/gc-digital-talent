@@ -1283,6 +1283,8 @@ type Classification {
   maxSalary: Int
   genericJobTitles: [GenericJobTitle]
   isAvailableInSearch: Boolean
+  groupAndLevel: String!
+  displayName: String!
 }
 
 type GenericJobTitle {
