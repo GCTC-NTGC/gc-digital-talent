@@ -24,6 +24,7 @@ import { PAGE_SECTION_ID as APPLICANT_DASHBOARD_SECTION_ID } from "~/constants/s
 
 import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 import { ApplicantDashboardContext } from "../ApplicantDashboardProvider";
+import { ACCORDION_ID } from "../constants";
 
 const CareerDevelopmentTaskCardUser_Fragment = graphql(/* GraphQL */ `
   fragment CareerDevelopmentTaskCardUser on User {
@@ -86,11 +87,6 @@ export const CareerDevelopmentTaskCardOptions_Fragment = graphql(/* GraphQL */ `
     ...PreviewListItemFunctionalCommunityOptions
   }
 `);
-
-const ACCORDION_ID = {
-  CAREER_PLANNING: "your_career_planning",
-  FUNCTIONAL_COMMUNITIES: "your_functional_communities",
-} as const;
 
 interface CareerDevelopmentTaskCardProps {
   userQuery: FragmentType<typeof CareerDevelopmentTaskCardUser_Fragment>;

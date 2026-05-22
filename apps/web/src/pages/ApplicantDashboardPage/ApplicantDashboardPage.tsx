@@ -33,7 +33,7 @@ import { hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields } fro
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
-import { PAGE_SECTION_ID as applicationDashboardSections } from "~/constants/sections/applicantDashboard";
+import { PAGE_SECTION_ID } from "~/constants/sections/applicantDashboard";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
@@ -41,6 +41,7 @@ import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
 import ApplicantDashboardProvider, {
   ApplicantDashboardContext,
 } from "./ApplicantDashboardProvider";
+import { ACCORDION_ID } from "./constants";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicantDashboardPage on User {
@@ -436,14 +437,14 @@ export const DashboardPage = ({
                           }
                           scrollTo={
                             communityInterests.length > 0
-                              ? "functional-communities"
+                              ? PAGE_SECTION_ID.FUNCTIONAL_COMMUNITIES
                               : undefined
                           }
                           onScrollTo={() => {
                             // focus the accordion and pop it open
                             communityAccordionRef.current?.focus();
                             setCommunityAccordionValue(
-                              "your_functional_communities",
+                              ACCORDION_ID.FUNCTIONAL_COMMUNITIES,
                             );
                           }}
                           asListItem={false}
@@ -573,7 +574,7 @@ export const ApplicantDashboardPageApi = () => {
 
   // Special behavior when the functional communities section hash is requested
   const isHashFunctionalCommunities =
-    hash === `#${applicationDashboardSections.FUNCTIONAL_COMMUNITIES}`;
+    hash === `#${PAGE_SECTION_ID.FUNCTIONAL_COMMUNITIES}`;
 
   // initialize accordion - maybe open at the start
   const [communityAccordionValue, setCommunityAccordionValue] =
