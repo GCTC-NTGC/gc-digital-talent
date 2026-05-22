@@ -87,7 +87,10 @@ const TalentRequestSidebar = ({
               intl.formatMessage(commonMessages.notProvided)}
           </FieldDisplay>
         )}
-        <TalentRequestFollowUpDate query={talentRequest} />
+        {talentRequest.talentRequestStatus?.value ===
+          TalentRequestStatus.InProgress && (
+          <TalentRequestFollowUpDate query={talentRequest} />
+        )}
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Last modified",
