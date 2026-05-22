@@ -64,6 +64,14 @@ class ConnectionField
                         }
                         break;
 
+                    case 'reverseCursor':
+                        if ($paginator instanceof AbstractCursorPaginator) {
+                            $data['reverseCursor'] = $paginator->getCursorForItem($item, false)->encode();
+                        } else {
+                            $data['reverseCursor'] = '';
+                        }
+                        break;
+
                     case 'node':
                         $data['node'] = $item;
                         break;
