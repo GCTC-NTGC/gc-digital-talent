@@ -161,9 +161,18 @@ const TalentRequestStatusDialog = ({
       id: talentRequest.id,
       input: {
         status: values.talentRequestStatus,
-        inProgressDetails: values.inProgressDetails,
-        closedDetails: values.closedDetails,
-        followUpDate: values.followUpDate,
+        inProgressDetails:
+          values.talentRequestStatus === TalentRequestStatus.InProgress
+            ? values.inProgressDetails
+            : null,
+        closedDetails:
+          values.talentRequestStatus === TalentRequestStatus.Closed
+            ? values.closedDetails
+            : null,
+        followUpDate:
+          values.talentRequestStatus === TalentRequestStatus.InProgress
+            ? values.followUpDate
+            : null,
       },
     })
       .then((res) => {
