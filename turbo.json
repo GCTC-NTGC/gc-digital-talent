@@ -156,7 +156,14 @@
     "clean": {
       "cache": false
     },
-    "e2e:playwright": {},
+    "e2e:playwright": {
+      "env": [
+        "BASE_URL",
+        "TESTING_ENDPOINT_SECRET",
+        "PLAYWRIGHT_ADMIN_SUB",
+        "PLAYWRIGHT_APPLICANT_SUB"
+      ]
+    },
     "lint": {
       "inputs": [
         "../../packages/eslint-config-custom/index.js",

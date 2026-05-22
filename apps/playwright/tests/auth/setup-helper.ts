@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { APIRequestContext, Page } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -6,36 +6,36 @@ export function authFilePath(name: string) {
   return path.join(__dirname, `../../.auth/${name}.json`);
 }
 
-export async function loginViaGCKey(
+export async function authenticateAs(
   name: string,
-  username: string,
-  password: string,
+  sub: string,
   page: Page,
+  request: APIRequestContext,
 ) {
-  // Hide webdriver flag so GCKey bot detection doesn't block us
-  await page.addInitScript(() => {
-    Object.defineProperty(navigator, "webdriver", { get: () => undefined });
-  });
+  const secret = process.env.TESTING_ENDPOINT_SECRET;
+  const response = await request.get(
+    `/refresh?sub=${sub}&secret=${secret}`,
+  );
 
-  await page.goto("/en/login-info");
+  const body = await response.text();
 
-  // Click the GCKey sign-in link
-  await page.getByRole("link", { name: /sign in with gckey/i }).first().click();
+  if (!response.ok() || body.trimStart().startsWith("<")) {
+    throw new Error(
+      `Test token endpoint failed (${response.status()}). Is TESTING_TOKEN_ENABLED=true on the App Service?\n${body.slice(0, 300)}`,
+    );
+  }
 
-  // Wait for the GCKey login page
-  await page.waitForURL(/gckey|gccf|id\.tbs-sct/i, { timeout: 15000 });
+  const { access_token, refresh_token, id_token } = JSON.parse(body);
 
-  console.log(`[auth] GCKey page URL: ${page.url()}`);
-
-  // Fill credentials
-  await page.getByLabel(/username/i).fill(username);
-  await page.getByLabel(/password/i).fill(password);
-  await page.getByRole("button", { name: /sign in|continue/i }).click();
-
-  // Wait for redirect back to the app
-  await page.waitForURL(/uat-talentcloud|localhost/i, { timeout: 30000 });
-
-  console.log(`[auth] Redirected to: ${page.url()}`);
+  await page.goto("/en");
+  await page.evaluate(
+    ({ at, rt, it }) => {
+      localStorage.setItem("access_token", at);
+      localStorage.setItem("refresh_token", rt);
+      localStorage.setItem("id_token", it);
+    },
+    { at: access_token, rt: refresh_token, it: id_token },
+  );
 
   const filePath = authFilePath(name);
   fs.mkdirSync(path.dirname(filePath), { recursive: true });

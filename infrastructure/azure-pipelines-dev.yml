@@ -69,7 +69,7 @@ jobs:
       - script: pnpm run build
         displayName: "Build application"
 
-      - script: npx playwright install --with-deps chromium msedge
+      - script: npx playwright install --with-deps chromium
         displayName: "Install Playwright browsers"
         workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
 
@@ -79,10 +79,9 @@ jobs:
         env:
           CI: "true"
           BASE_URL: $(baseUrl)
-          GCKEY_ADMIN_USERNAME: $(GCKEY_ADMIN_USERNAME)
-          GCKEY_ADMIN_PASSWORD: $(GCKEY_ADMIN_PASSWORD)
-          GCKEY_APPLICANT_USERNAME: $(GCKEY_APPLICANT_USERNAME)
-          GCKEY_APPLICANT_PASSWORD: $(GCKEY_APPLICANT_PASSWORD)
+          TESTING_ENDPOINT_SECRET: $(TESTING_ENDPOINT_SECRET)
+          PLAYWRIGHT_ADMIN_SUB: $(PLAYWRIGHT_ADMIN_SUB)
+          PLAYWRIGHT_APPLICANT_SUB: $(PLAYWRIGHT_APPLICANT_SUB)
 
       - task: PublishTestResults@2
         displayName: "Publish test results"

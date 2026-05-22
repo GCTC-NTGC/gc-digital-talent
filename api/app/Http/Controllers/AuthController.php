@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\BearerTokenService;
+use App\Http\Controllers\TestTokenController;
 use App\Models\Role;
 use App\Models\User;
 use App\Rules\GovernmentEmailRegex;
@@ -266,6 +267,11 @@ class AuthController extends Controller
 
     public function refresh(Request $request)
     {
+        // Test token branch — only active when TESTING_TOKEN_ENABLED=true
+        if (config('testing.token_enabled') && $request->has('secret')) {
+            return app(TestTokenController::class)->issue($request);
+        }
+
         $refreshToken = $request->query('refresh_token');
         $response =
         Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
