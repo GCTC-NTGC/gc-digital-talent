@@ -22,10 +22,12 @@ final class UpdatePoolCandidateSearchRequestStatusValidator extends Validator
                 ]),
             ],
             'poolCandidateSearchRequest.inProgressDetails' => [
+                'nullable',
                 'required_if:poolCandidateSearchRequest.status,'.TalentRequestStatus::IN_PROGRESS->name,
                 Rule::in(array_column(TalentRequestInProgressDetail::cases(), 'name')),
             ],
             'poolCandidateSearchRequest.closedDetails' => [
+                'nullable',
                 'required_if:poolCandidateSearchRequest.status,'.TalentRequestStatus::CLOSED->name,
                 Rule::in(array_column(TalentRequestClosedDetail::cases(), 'name')),
             ],
