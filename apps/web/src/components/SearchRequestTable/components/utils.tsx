@@ -19,7 +19,9 @@ export function transformFormValuesToSearchRequestFilterInput(
   data: FormValues,
 ): PoolCandidateSearchRequestInput {
   return {
-    talentRequestStatus: data.status ? unpackMaybes(data.status) : undefined,
+    talentRequestStatus: data.status?.length
+      ? unpackMaybes(data.status)
+      : undefined,
     departments: data.departments?.length ? data.departments : undefined,
     classifications: data.classifications?.length
       ? data.classifications

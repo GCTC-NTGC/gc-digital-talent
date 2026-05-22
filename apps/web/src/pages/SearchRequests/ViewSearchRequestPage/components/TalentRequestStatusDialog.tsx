@@ -332,7 +332,7 @@ const TalentRequestStatusDialog = ({
                     : intl.formatMessage(formMessages.saveChanges)}
                 </Button>
                 <Dialog.Close>
-                  <Button color="warning" mode="inline">
+                  <Button type="button" color="warning" mode="inline">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>

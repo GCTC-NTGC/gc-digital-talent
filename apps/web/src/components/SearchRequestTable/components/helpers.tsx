@@ -155,6 +155,6 @@ export const statusCell = (status?: LocalizedTalentRequestStatus | null) => {
   if (!status) return null;
 
   return (
-    <Chip color={COLOUR_MAP[status.value]}> {status.label.localized}</Chip>
+    <Chip color={COLOUR_MAP[status.value]}>{status.label.localized}</Chip>
   );
 };

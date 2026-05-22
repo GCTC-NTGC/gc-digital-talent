@@ -1,5 +1,4 @@
 import type { Meta, StoryFn } from "@storybook/react-vite";
-import { __TypeKind } from "graphql";
 
 import {
   fakeSearchRequests,
