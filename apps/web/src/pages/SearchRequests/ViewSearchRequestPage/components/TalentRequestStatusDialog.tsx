@@ -192,6 +192,7 @@ const TalentRequestStatusDialog = ({
           }),
         );
 
+        methods.reset(values);
         setOpen(false);
       })
       .catch(() =>
