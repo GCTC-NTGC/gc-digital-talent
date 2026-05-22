@@ -6,7 +6,6 @@ import {
   Spoiler,
   Chips,
   UNICODE_CHAR,
-  type Color,
   type ChipProps,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";

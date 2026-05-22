@@ -12,7 +12,6 @@ import {
   TalentRequestClosedDetail,
   TalentRequestInProgressDetail,
   TalentRequestStatus,
-  type LocalizedTalentRequestStatus,
 } from "@gc-digital-talent/graphql";
 
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
