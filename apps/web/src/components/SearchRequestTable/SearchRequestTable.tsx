@@ -221,7 +221,6 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     useState<PoolCandidateSearchRequestInput>(initialFilters);
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log({ data });
     setPaginationState((previous) => ({
       ...previous,
       pageIndex: 0,

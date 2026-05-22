@@ -38,7 +38,7 @@ export function transformSortStateToOrderByClause(
     ["manager", "full_name"],
     ["jobTitle", "job_title"],
     ["email", "email"],
-    ["status", "request_status_weight"],
+    ["status", "status_weight"],
     ["requestedDate", "created_at"],
     ["followUpDate", "follow_up_date"],
   ]);
