@@ -58,7 +58,7 @@ export default defineConfig({
     {
       name: "uat-admin",
       use: { ...devices["Desktop Chrome"], storageState: ".auth/admin.json" },
-      testMatch: /uat-smoke\.spec\.ts/,
+      testMatch: /uat-admin\.spec\.ts/,
       dependencies: ["setup-admin"],
     },
     {
@@ -71,7 +71,7 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
-      testIgnore: /\.setup\.ts|uat-smoke\.spec\.ts|uat-applicant\.spec\.ts/,
+      testIgnore: /\.setup\.ts|uat-admin\.spec\.ts|uat-applicant\.spec\.ts/,
     },
 
     // {
@@ -82,7 +82,7 @@ export default defineConfig({
     {
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
-      testIgnore: /\.setup\.ts|uat-smoke\.spec\.ts|uat-applicant\.spec\.ts/,
+      testIgnore: /\.setup\.ts|uat-admin\.spec\.ts|uat-applicant\.spec\.ts/,
     },
 
     /* Test against mobile viewports. */

@@ -12,12 +12,11 @@ use Lcobucci\JWT\Signer\Key\InMemory;
 
 /**
  * Issues short-lived JWTs for test users without going through GCKey.
+ * Only active when TESTING_TOKEN_ENABLED=true.
  *
- * Only reachable when TESTING_TOKEN_ENABLED=true and APP_ENV != production.
- *
- * Usage:
- *   GET /testing/token?role=platform_admin&secret=<TESTING_ENDPOINT_SECRET>
- *   GET /testing/token?sub=<user-sub>&secret=<TESTING_ENDPOINT_SECRET>
+ * Reachable via the proxied /refresh endpoint:
+ *   GET /refresh?sub=<user-sub>&secret=<TESTING_ENDPOINT_SECRET>
+ *   GET /refresh?role=platform_admin&secret=<TESTING_ENDPOINT_SECRET>
  */
 class TestTokenController extends Controller
 {

@@ -37,6 +37,11 @@ export async function authenticateAs(
     { at: access_token, rt: refresh_token, it: id_token },
   );
 
+  // Reload so the React app initialises with the tokens already in localStorage,
+  // ensuring the saved storageState reflects a fully-authenticated session.
+  await page.reload();
+  await page.waitForLoadState("networkidle");
+
   const filePath = authFilePath(name);
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   await page.context().storageState({ path: filePath });
