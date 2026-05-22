@@ -12,7 +12,12 @@ import {
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { Button, Dialog, StatusButton } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Dialog,
+  StatusButton,
+  type StatusButtonProps,
+} from "@gc-digital-talent/ui";
 import {
   commonMessages,
   ENUM_SORT_ORDER,
@@ -24,8 +29,19 @@ import {
 } from "@gc-digital-talent/i18n";
 import { DateInput, RadioGroup, Select } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
+
+const COLOUR_MAP: Record<
+  TalentRequestStatus | "default",
+  StatusButtonProps["color"]
+> = {
+  [TalentRequestStatus.New]: "warning",
+  [TalentRequestStatus.InProgress]: "primary",
+  [TalentRequestStatus.Closed]: "black",
+  default: "black",
+} as const;
 
 interface FormValues {
   talentRequestStatus: TalentRequestStatus;
@@ -130,7 +146,9 @@ const TalentRequestStatusDialog = ({
         TalentRequestStatus.InProgress,
       inProgressDetails: talentRequest.inProgressDetails?.value,
       closedDetails: talentRequest.closedDetails?.value,
-      followUpDate: talentRequest.followUpDate,
+      followUpDate: talentRequest.followUpDate
+        ? strToFormDate(talentRequest.followUpDate)
+        : undefined,
     },
   });
   const currentStatus = methods.watch("talentRequestStatus");
@@ -191,7 +209,13 @@ const TalentRequestStatusDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <StatusButton color="warning" icon={PencilSquareIcon} block>
+        <StatusButton
+          color={
+            COLOUR_MAP[talentRequest.talentRequestStatus?.value ?? "default"]
+          }
+          icon={PencilSquareIcon}
+          block
+        >
           {talentRequest.talentRequestStatus?.label?.localized ??
             intl.formatMessage(commonMessages.notAvailable)}
         </StatusButton>
