@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import AUTH from "~/constants/auth";
 
 test.describe("Applicant user", () => {
-  test("cannot access admin restricted paths", { tag: "@uat" }, async ({ page }) => {
+  test("cannot access admin restricted paths", { tag: "@regression" }, async ({ page }) => {
     await Promise.all(
       AUTH.RESTRICTED_PATHS.ADMIN.map(async (restrictedPath) => {
         const newPage = await page.context().newPage();

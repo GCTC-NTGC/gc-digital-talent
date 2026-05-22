@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+/* eslint-disable turbo/no-undeclared-env-vars */
 import type { Cookie, Page } from "@playwright/test";
 import { expect, request } from "@playwright/test";
 import type { JwtPayload } from "jwt-decode";
@@ -16,45 +17,73 @@ export interface AuthTokenResponse {
   refresh_token?: string;
 }
 
+// Maps dev test email subs to real UAT user UUIDs via env vars.
+// Add a new entry here whenever a new role-specific env var is introduced.
+const UAT_SUB_MAP: Record<string, string | undefined> = {
+  "admin@test.com": process.env.PLAYWRIGHT_ADMIN_SUB,
+  "platform@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
+  "applicant@test.com": process.env.PLAYWRIGHT_APPLICANT_SUB,
+  "community@test.com": process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB,
+  "recruiter@test.com": process.env.PLAYWRIGHT_RECRUITER_SUB,
+  "talent-coordinator@test.com": process.env.PLAYWRIGHT_TALENT_COORDINATOR_SUB,
+  "department-admin@test.com": process.env.PLAYWRIGHT_DEPARTMENT_ADMIN_SUB,
+  "department-advisor@test.com": process.env.PLAYWRIGHT_DEPARTMENT_ADVISOR_SUB,
+  "process@test.com": process.env.PLAYWRIGHT_PROCESS_OPERATOR_SUB,
+  "applicant-employee@test.com": process.env.PLAYWRIGHT_APPLICANT_EMPLOYEE_SUB,
+  "noroles@test.com": process.env.PLAYWRIGHT_NO_ROLES_SUB,
+};
+
 /**
- * Login by sub
+ * Resolves a sub for UAT use.
  *
- * Logs a user into the application
- * through the UI.
- *
- * @param {Page} page
- * @param {String} sub
- * @param {Boolean} notAuthorized
+ * Email subs (dev fixtures) are mapped to real UAT UUIDs via env vars.
+ * Non-email subs (dynamic, e.g. playwright.sub.xxx created by createUserWithRoles)
+ * pass through as-is — the user already exists in the UAT DB by the time we call /refresh.
  */
-export async function loginBySub(
-  page: Page,
-  sub: string,
-  notAuthorized?: boolean,
-) {
-  await page.goto("/en/login-info");
-  await expect(
-    page.getByRole("heading", { name: /sign in using gckey/i }),
-  ).toBeVisible();
-  await page
-    .getByRole("link", { name: /sign in with gckey/i })
-    .first()
-    .click();
-  await page.getByPlaceholder("Enter any user/subject").fill(sub);
-  await page.getByRole("button", { name: /sign in/i }).click();
-  await expect(
-    page.getByRole(
-      "heading",
-      notAuthorized
-        ? { name: "Sorry, you are not authorized to view this page.", level: 1 }
-        : { name: /welcome/i, level: 1 },
-    ),
-  ).toBeVisible();
+function resolveUatSub(sub: string): string {
+  if (!sub.includes("@")) return sub;
+  const resolved = UAT_SUB_MAP[sub];
+  if (!resolved) {
+    throw new Error(
+      `No UAT sub configured for "${sub}". Add the corresponding PLAYWRIGHT_*_SUB env var.`,
+    );
+  }
+  return resolved;
 }
 
 /**
- * Creates an access token for a specific sub
+ * Creates an access token for a specific sub.
+ *
+ * On UAT (TESTING_ENDPOINT_SECRET set): calls the /refresh test-token endpoint.
+ * On dev: calls the local Janssen mock at /oxauth/token.
+ *
+ * Used by both loginBySub (page auth) and graphql.newContext() (API auth),
+ * so changing this function makes both work consistently across environments.
  */
 export async function getTokenForSub(sub: string) {
+  if (process.env.TESTING_ENDPOINT_SECRET) {
+    const uatSub = resolveUatSub(sub);
+    const secret = process.env.TESTING_ENDPOINT_SECRET;
+    const baseUrl = process.env.BASE_URL ?? "http://localhost:8000";
+    const ctx = await request.newContext();
+    const res = await ctx.get(
+      `${baseUrl}/refresh?sub=${encodeURIComponent(uatSub)}&secret=${encodeURIComponent(secret)}`,
+    );
+    const body = await res.text();
+    if (!res.ok() || body.trimStart().startsWith("<")) {
+      throw new Error(
+        `Test token request failed (${res.status()}) for "${sub}":\n${body.slice(0, 200)}`,
+      );
+    }
+    const json = JSON.parse(body) as AuthTokenResponse;
+    return {
+      idToken: json.id_token,
+      accessToken: json.access_token,
+      refreshToken: json.refresh_token,
+    };
+  }
+
+  // Dev: use local Janssen mock OAuth
   const ctx = await request.newContext();
   const query = new URLSearchParams({
     code: "00000000-0000-0000-0123-456789abcdef",
@@ -77,6 +106,58 @@ export async function getTokenForSub(sub: string) {
     accessToken: json.access_token,
     refreshToken: json.refresh_token,
   };
+}
+
+/**
+ * Login by sub
+ *
+ * On UAT (TESTING_ENDPOINT_SECRET set): injects tokens directly into localStorage.
+ * On dev: navigates through the mock GCKey UI.
+ *
+ * @param {Page} page
+ * @param {String} sub
+ * @param {Boolean} notAuthorized
+ */
+export async function loginBySub(
+  page: Page,
+  sub: string,
+  notAuthorized?: boolean,
+) {
+  if (process.env.TESTING_ENDPOINT_SECRET) {
+    const tokens = await getTokenForSub(sub);
+    await page.goto("/en");
+    await page.evaluate(
+      ({ at, rt, it }) => {
+        localStorage.setItem("access_token", at ?? "");
+        localStorage.setItem("refresh_token", rt ?? "");
+        localStorage.setItem("id_token", it ?? "");
+      },
+      { at: tokens.accessToken, rt: tokens.refreshToken, it: tokens.idToken },
+    );
+    await page.reload();
+    await page.waitForLoadState("networkidle");
+    return;
+  }
+
+  // Dev: navigate through mock GCKey UI
+  await page.goto("/en/login-info");
+  await expect(
+    page.getByRole("heading", { name: /sign in using gckey/i }),
+  ).toBeVisible();
+  await page
+    .getByRole("link", { name: /sign in with gckey/i })
+    .first()
+    .click();
+  await page.getByPlaceholder("Enter any user/subject").fill(sub);
+  await page.getByRole("button", { name: /sign in/i }).click();
+  await expect(
+    page.getByRole(
+      "heading",
+      notAuthorized
+        ? { name: "Sorry, you are not authorized to view this page.", level: 1 }
+        : { name: /welcome/i, level: 1 },
+    ),
+  ).toBeVisible();
 }
 
 export interface AuthCookies {

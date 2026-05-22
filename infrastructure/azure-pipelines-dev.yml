@@ -17,10 +17,10 @@ variables:
   npm_config_user_config: "$(System.DefaultWorkingDirectory)/.npmrc"
   ${{ if eq(parameters.vertical, 'uat') }}:
     baseUrl: "https://uat-talentcloud.tbs-sct.gc.ca"
-    playwrightProject: "uat-*"
+    playwrightArgs: "--project=uat-* --project=chromium --grep=@regression"
   ${{ else }}:
     baseUrl: "https://dev-talentcloud.tbs-sct.gc.ca"
-    playwrightProject: "chromium"
+    playwrightArgs: "--project=chromium"
 
 pool:
   vmImage: ubuntu-24.04
@@ -73,7 +73,7 @@ jobs:
         displayName: "Install Playwright browsers"
         workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
 
-      - script: npx playwright test --project=$(playwrightProject) --grep="@uat" --retries=2
+      - script: npx playwright test $(playwrightArgs) --retries=2
         displayName: "Run Playwright tests (${{ parameters.vertical }})"
         workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
         env:

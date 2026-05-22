@@ -243,7 +243,7 @@ test.describe("Application", () => {
     await application.expectOnStep(application.page, 6);
   });
 
-  test("Can submit application", async ({ appPage }, testInfo) => {
+  test("Can submit application", { tag: "@regression" }, async ({ appPage }, testInfo) => {
     testInfo.slow();
     const adminCtx = await graphql.newContext();
     const poolName = `application test pool for submit application ${uniqueTestId}`;
