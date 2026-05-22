@@ -30,8 +30,8 @@ const pageTitle = defineMessage({
 });
 
 const pageSubtitle = defineMessage({
-  defaultMessage: "Add a new functional community to the platform.",
-  id: "EgdVSH",
+  defaultMessage: "Add a community to the platform.",
+  id: "EgYtVO",
   description: "Page subtitle for the create community page",
 });
 
