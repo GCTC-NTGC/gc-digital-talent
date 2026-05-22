@@ -16,7 +16,6 @@ const renderComponent = (role: string) =>
   renderWithProviders(
     <AuthorizationContainer
       roleAssignments={[{ id: "123", role: { id: "123", name: role } }]}
-      rolePermissionMap={[]}
       userAuthInfo={{ id: "123" }}
       isLoaded
     >
