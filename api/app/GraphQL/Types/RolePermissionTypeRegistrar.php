@@ -44,7 +44,7 @@ final class RolePermissionTypeRegistrar implements TypeRegistrarInterface
      * Converts snake_case role keys to PascalCase enum values.
      * e.g., platform_admin → PlatformAdmin
      *
-     * @param  array<int,mixed>  $roles
+     * @param  array<string,mixed>  $roles
      */
     private static function buildRoleNameEnum(array $roles): EnumType
     {
@@ -61,7 +61,7 @@ final class RolePermissionTypeRegistrar implements TypeRegistrarInterface
      * Converts kebab-case permission keys to PascalCase enum values.
      * e.g., view-any-classification → ViewAnyClassification
      *
-     * @param  array<int,mixed>  $permissions
+     * @param  array<string,mixed>  $permissions
      */
     private static function buildPermissionEnum(array $permissions): EnumType
     {
