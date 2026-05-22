@@ -13,10 +13,9 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import TalentRequestNotes from "./TalentRequestNotes";
-import type { TalentRequestStatusOptions } from "./TalentRequestStatus";
-import TalentRequestStatus from "./TalentRequestStatus";
 import TalentRequestFollowUpDate from "./TalentRequestFollowUpDate";
 import TalentRequestStatusDialog from "./TalentRequestStatusDialog";
+import type { TalentRequestStatusOptions } from "./TalentRequestStatusDialog";
 
 const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestSidebar on PoolCandidateSearchRequest {
@@ -33,7 +32,6 @@ const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
     hrAdvisorEmail
 
     ...TalentRequestStatusDialog
-    ...TalentRequestStatus
     ...TalentRequestNotes
     ...TalentRequestFollowUpDate
   }
@@ -67,7 +65,10 @@ const TalentRequestSidebar = ({
       </div>
       <Card.Separator space="sm" />
       <div className="mb-6">
-        <TalentRequestStatusDialog query={talentRequest} />
+        <TalentRequestStatusDialog
+          query={talentRequest}
+          optionsQuery={optionsQuery}
+        />
       </div>
       <FieldDisplay
         label={intl.formatMessage({

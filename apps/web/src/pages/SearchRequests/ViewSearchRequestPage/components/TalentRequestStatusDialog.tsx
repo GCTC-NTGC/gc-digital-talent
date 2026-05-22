@@ -2,66 +2,181 @@ import { useState, type ChangeEventHandler } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import PencilSquareIcon from "@heroicons/react/16/solid/PencilSquareIcon";
+import { useMutation } from "urql";
 
 import {
-  getFragment,
-  graphql,
+  type TalentRequestInProgressDetail,
+  type TalentRequestClosedDetail,
   type FragmentType,
+  TalentRequestStatus,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog, StatusButton } from "@gc-digital-talent/ui";
 import {
   commonMessages,
+  ENUM_SORT_ORDER,
   errorMessages,
   formMessages,
+  narrowEnumType,
+  sortLocalizedEnumOptions,
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { DateInput, RadioGroup, Select } from "@gc-digital-talent/forms";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
 interface FormValues {
-  talentRequestStatus?: string;
-  inProgressDetails?: string | null;
-  closedDetails?: string | null;
+  talentRequestStatus: TalentRequestStatus;
+  inProgressDetails?: TalentRequestInProgressDetail | null;
+  closedDetails?: TalentRequestClosedDetail | null;
   followUpDate?: string | null;
 }
 
+const UpdateTalentRequestStatus = graphql(/** GraphQL */ `
+  mutation UpdateTalentRequestStatus(
+    $id: ID!
+    $input: UpdatePoolCandidateSearchRequestStatusInput!
+  ) {
+    updatePoolCandidateSearchRequestStatus(
+      id: $id
+      poolCandidateSearchRequest: $input
+    ) {
+      id
+    }
+  }
+`);
+
 const TalentRequestStatusDialog_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestStatusDialog on PoolCandidateSearchRequest {
-    status {
+    id
+    talentRequestStatus {
       value
       label {
         localized
       }
     }
+    inProgressDetails {
+      value
+    }
+    closedDetails {
+      value
+    }
+    followUpDate
   }
 `);
 
+const TalentRequestStatusOptions_Fragment = graphql(/** GraphQL */ `
+  fragment TalentRequestStatusOptions on Query {
+    statuses: localizedEnumOptions(enumName: "TalentRequestStatus") {
+      ... on LocalizedTalentRequestStatus {
+        value
+        label {
+          localized
+        }
+      }
+    }
+
+    inProgressDetails: localizedEnumOptions(
+      enumName: "TalentRequestInProgressDetail"
+    ) {
+      ... on LocalizedTalentRequestInProgressDetail {
+        value
+        label {
+          localized
+        }
+      }
+    }
+
+    closedDetails: localizedEnumOptions(enumName: "TalentRequestClosedDetail") {
+      ... on LocalizedTalentRequestClosedDetail {
+        value
+        label {
+          localized
+        }
+      }
+    }
+  }
+`);
+
+export type TalentRequestStatusOptions = FragmentType<
+  typeof TalentRequestStatusOptions_Fragment
+>;
+
 interface TalentRequestStatusDialogProps {
   query: FragmentType<typeof TalentRequestStatusDialog_Fragment>;
+  optionsQuery?: TalentRequestStatusOptions;
 }
 
 const TalentRequestStatusDialog = ({
   query,
+  optionsQuery,
 }: TalentRequestStatusDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState<boolean>(false);
+  const [{ fetching }, executeMutation] = useMutation(
+    UpdateTalentRequestStatus,
+  );
   const talentRequest = getFragment(TalentRequestStatusDialog_Fragment, query);
+  const options = getFragment(
+    TalentRequestStatusOptions_Fragment,
+    optionsQuery,
+  );
   const methods = useForm<FormValues>({
-    defaultValues: {},
+    defaultValues: {
+      talentRequestStatus:
+        talentRequest.talentRequestStatus?.value ??
+        TalentRequestStatus.InProgress,
+      inProgressDetails: talentRequest.inProgressDetails?.value,
+      closedDetails: talentRequest.closedDetails?.value,
+      followUpDate: talentRequest.followUpDate,
+    },
   });
   const currentStatus = methods.watch("talentRequestStatus");
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   const handleSubmit = async (values: FormValues) => {
-    toast.success(
-      intl.formatMessage({
-        defaultMessage: "Talent request updated successfully.",
-        id: "b6mzab",
-        description:
-          "Message displayed after a talent requests status was updated",
-      }),
-    );
+    if (fetching) return;
+
+    await executeMutation({
+      id: talentRequest.id,
+      input: {
+        status: values.talentRequestStatus,
+        inProgressDetails: values.inProgressDetails,
+        closedDetails: values.closedDetails,
+        followUpDate: values.followUpDate,
+      },
+    })
+      .then((res) => {
+        if (
+          res.error ||
+          !res.data?.updatePoolCandidateSearchRequestStatus?.id
+        ) {
+          throw new Error(res.error?.toString() ?? "Unknown error");
+        }
+
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Talent request updated successfully.",
+            id: "b6mzab",
+            description:
+              "Message displayed after a talent requests status was updated",
+          }),
+        );
+
+        setOpen(false);
+      })
+      .catch(() =>
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: Could not update talent request status",
+            id: "L9xXMG",
+            description:
+              "Error message when attempting to update a talent request status",
+          }),
+        ),
+      );
   };
 
   const handleFormChange: ChangeEventHandler<HTMLFormElement> = (e) => {
@@ -77,7 +192,7 @@ const TalentRequestStatusDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <StatusButton color="warning" icon={PencilSquareIcon} block>
-          {talentRequest.status?.label?.localized ??
+          {talentRequest.talentRequestStatus?.label?.localized ??
             intl.formatMessage(commonMessages.notAvailable)}
         </StatusButton>
       </Dialog.Trigger>
@@ -107,18 +222,22 @@ const TalentRequestStatusDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  items={[
-                    {
-                      value: "IN_PROGRESS",
-                      label: "In progress",
-                    },
-                    {
-                      value: "CLOSED",
-                      label: "Closed",
-                    },
-                  ]}
+                  items={sortLocalizedEnumOptions(
+                    ENUM_SORT_ORDER.TALENT_REQUEST_STATUS,
+                    narrowEnumType(
+                      unpackMaybes(options?.statuses),
+                      "TalentRequestStatus",
+                    ),
+                  )
+                    .filter(
+                      (status) => status.value !== TalentRequestStatus.New,
+                    )
+                    .map((status) => ({
+                      value: status.value,
+                      label: status.label?.localized ?? notAvailable,
+                    }))}
                 />
-                {currentStatus === "IN_PROGRESS" && (
+                {currentStatus === TalentRequestStatus.InProgress && (
                   <>
                     <Select
                       id="inProgressDetails"
@@ -135,7 +254,13 @@ const TalentRequestStatusDialog = ({
                       rules={{
                         required: intl.formatMessage(errorMessages.required),
                       }}
-                      options={[]}
+                      options={narrowEnumType(
+                        unpackMaybes(options?.inProgressDetails),
+                        "TalentRequestInProgressDetail",
+                      ).map((detail) => ({
+                        value: detail.value,
+                        label: detail.label.localized ?? notAvailable,
+                      }))}
                     />
                     <DateInput
                       id="followUpDate"
@@ -150,7 +275,7 @@ const TalentRequestStatusDialog = ({
                     />
                   </>
                 )}
-                {currentStatus === "CLOSED" && (
+                {currentStatus === TalentRequestStatus.Closed && (
                   <Select
                     id="closedDetails"
                     name="closedDetails"
@@ -166,13 +291,21 @@ const TalentRequestStatusDialog = ({
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
-                    options={[]}
+                    options={narrowEnumType(
+                      unpackMaybes(options?.closedDetails),
+                      "TalentRequestClosedDetail",
+                    ).map((detail) => ({
+                      value: detail.value,
+                      label: detail.label.localized ?? notAvailable,
+                    }))}
                   />
                 )}
               </div>
               <Dialog.Footer>
                 <Button type="submit">
-                  {intl.formatMessage(formMessages.saveChanges)}
+                  {fetching
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage(formMessages.saveChanges)}
                 </Button>
                 <Dialog.Close>
                   <Button color="warning" mode="inline">
