@@ -17,7 +17,7 @@ variables:
   npm_config_user_config: "$(System.DefaultWorkingDirectory)/.npmrc"
   ${{ if eq(parameters.vertical, 'uat') }}:
     baseUrl: "https://uat-talentcloud.tbs-sct.gc.ca"
-    playwrightProject: "uat-admin"
+    playwrightProject: "uat-admin uat-applicant"
   ${{ else }}:
     baseUrl: "https://dev-talentcloud.tbs-sct.gc.ca"
     playwrightProject: "chromium"
