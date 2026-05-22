@@ -154,7 +154,5 @@ const COLOUR_MAP: Record<TalentRequestStatus, ChipProps["color"]> = {
 export const statusCell = (status?: LocalizedTalentRequestStatus | null) => {
   if (!status) return null;
 
-  return (
-    <Chip color={COLOUR_MAP[status.value]}>{status.label.localized}</Chip>
-  );
+  return <Chip color={COLOUR_MAP[status.value]}>{status.label.localized}</Chip>;
 };
