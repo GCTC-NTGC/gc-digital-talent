@@ -15,18 +15,21 @@ import {
   type AppContext,
 } from "./context";
 
+interface RequireUserOptions {
+  roles?: RoleRequirement | RoleRequirement[];
+  permissions?: PermissionRequirement | PermissionRequirement[];
+  strict?: boolean;
+}
+
 /**
- * Validates user session and redirects to login-info if missing.
- * @param context The middleware/loader context
- * @param request The incoming request object
- * @param requirements Optional role/team requirements to check
- * @param strict When true, team-based roles must have a teamId provided
+ * Validates the user session, redirecting to login if missing.
+ * Optionally asserts role and/or permission requirements, throwing
+ * UnauthorizedError if neither set is satisfied.
  */
 export function requireUser<T extends AppContext>(
   context: T,
   request: Request,
-  requirements?: RoleRequirement | RoleRequirement[],
-  strict = false,
+  options?: RequireUserOptions,
 ) {
   const user = context.get(userContext);
   const intl = context.get(intlContext);
@@ -39,9 +42,12 @@ export function requireUser<T extends AppContext>(
     throw redirect(`/${intl.locale}/login-info?${searchParams.toString()}`);
   }
 
-  if (requirements) {
+  const { roles, permissions, strict = false } = options ?? {};
+
+  // Complete more general checks first
+  if (roles) {
     const isAuthorized = hasRequiredRoles({
-      toCheck: requirements,
+      toCheck: roles,
       userRoles: user.roleAssignments,
       strict,
     });
@@ -51,24 +57,13 @@ export function requireUser<T extends AppContext>(
     }
   }
 
-  return user;
-}
+  if (permissions) {
+    const map = context.get(rolePermissionMapContext);
 
-/**
- * Throws UnauthorizedError if the user's roles do not satisfy at least one
- * of the given permission requirements.
- *
- * Reads role assignments from userContext and the permission map from
- * rolePermissionMapContext — both populated by userMiddleware.
- */
-export function requirePermissions<T extends AppContext>(
-  context: T,
-  requirements: PermissionRequirement | PermissionRequirement[],
-): void {
-  const user = context.get(userContext);
-  const map = context.get(rolePermissionMapContext);
-
-  if (!checkPermissions(requirements, user?.roleAssignments, map)) {
-    throw new UnauthorizedError();
+    if (!checkPermissions(permissions, user.roleAssignments, map)) {
+      throw new UnauthorizedError();
+    }
   }
+
+  return user;
 }
