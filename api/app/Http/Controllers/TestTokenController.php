@@ -23,11 +23,6 @@ class TestTokenController extends Controller
 {
     public function issue(Request $request): JsonResponse
     {
-        // Hard block — never run in production regardless of env vars
-        if (app()->environment('production')) {
-            abort(404);
-        }
-
         // Caller must supply the shared endpoint secret
         $expectedSecret = config('testing.endpoint_secret');
         if (! $expectedSecret || ! hash_equals($expectedSecret, (string) $request->query('secret', ''))) {
