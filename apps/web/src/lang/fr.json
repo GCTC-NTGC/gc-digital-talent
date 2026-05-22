@@ -1107,6 +1107,10 @@
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
   },
+  "27Z2k7": {
+    "defaultMessage": "Date de suivi mise à jour.",
+    "description": "Success message displayed when a talent requests follow-up date was updated"
+  },
   "27mGKw": {
     "defaultMessage": "Retirer le signet",
     "description": "Label for removing a bookmark"
@@ -2063,6 +2067,10 @@
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for Goals and work style section of user employee information page"
   },
+  "5wS5V8": {
+    "defaultMessage": "Date de suivi",
+    "description": "Label for the follow-up date field"
+  },
   "5zJ+/1": {
     "defaultMessage": "Compétences techniques constituant un atout - Exemples",
     "description": "Long title of the 'asset technical skills' section of the job poster template page"
@@ -2875,10 +2883,6 @@
     "defaultMessage": "Les membres du personnel CT-FIN-04 qui ont été retenus pour la gestion des talents doivent créer un profil.",
     "description": "List item two financial management content"
   },
-  "9b+Xtt": {
-    "defaultMessage": "Informations sur la collectivité",
-    "description": "Heading for the community information section of a form"
-  },
   "9bG59n": {
     "defaultMessage": "Auteur(trice)s de mise en candidature",
     "description": "Label or header"
@@ -3190,6 +3194,10 @@
   "AXJKYq": {
     "defaultMessage": "Filtres de profils d'employé(e)",
     "description": "Heading for filters associated with employee profiles"
+  },
+  "AZ114p": {
+    "defaultMessage": "Les renseignements suivants serviront à identifier la collectivité et à donner un aperçu des domaines qu’elle soutient.",
+    "description": "Community details informative line"
   },
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
@@ -4143,6 +4151,10 @@
     "defaultMessage": "{count, plural, one {# compétence} other {# compétences}}",
     "description": "Number of skills on an experience"
   },
+  "EQfFa1": {
+    "defaultMessage": "Erreur : impossible de mettre à jour la date de suivi.",
+    "description": "Error message displayed when a talent requests follow-up date failed to update"
+  },
   "ERsZAD": {
     "defaultMessage": "La formation m'intéresse",
     "description": "Phrase marking interest in community training opportunities"
@@ -4732,7 +4744,7 @@
     "description": "Label for a priority status claim expiration date"
   },
   "H/0zee": {
-    "defaultMessage": "Archivez le ministère",
+    "defaultMessage": "Archiver le ministère",
     "description": "Button to trigger department archiving functionality"
   },
   "H/aUwM": {
@@ -4836,7 +4848,7 @@
     "description": "Heading for the pool closing date dialog"
   },
   "Hah9mB": {
-    "defaultMessage": "Retirez du processus",
+    "defaultMessage": "Retirer du processus",
     "description": "Button label for the form to remove a process role from a user"
   },
   "Hc3RTQ": {
@@ -5020,7 +5032,7 @@
     "description": "Text for first registration step, view details from CanadaLogin"
   },
   "IHyNL8": {
-    "defaultMessage": "Ajouter comme membre",
+    "defaultMessage": "Ajouter un membre",
     "description": "Title for the add member to community form"
   },
   "II4+N3": {
@@ -6120,7 +6132,7 @@
     "description": "Error message for updating a candidates assessment stage"
   },
   "MkUz+j": {
-    "defaultMessage": "Ajouter comme membre",
+    "defaultMessage": "Ajouter un membre",
     "description": "Label for the add member to community form (action)"
   },
   "MmTWYV": {
@@ -7739,10 +7751,6 @@
     "defaultMessage": "Ce rôle n’avait aucun lien avec le gouvernement du Canada.",
     "description": "Description for the external employment category option in work experience"
   },
-  "TfEUPu": {
-    "defaultMessage": "Préférence pour la durée de l'emploi",
-    "description": "Legend Text for required work preferences options in work preferences form"
-  },
   "TfYpv3": {
     "defaultMessage": "Titre du poste",
     "description": "The job title for a job poster template"
@@ -7963,6 +7971,10 @@
     "defaultMessage": "Options de perfectionnement professionnel et en leadership",
     "description": "Label for users interest in development programs for a community"
   },
+  "UieDSb": {
+    "defaultMessage": "Modifier les détails de la collectivité",
+    "description": "Link to edit the currently viewed community"
+  },
   "Uj7TE2": {
     "defaultMessage": "La présente section de votre profil vous permet de manifester votre intérêt pour une variété d'options particulières liées au recrutement, au mentorat et aux possibilités de promotion.",
     "description": "Describes the career development preferences of employee profile"
@@ -8041,6 +8053,10 @@
   "Uy5Dg2": {
     "defaultMessage": "Participation de la collectivité",
     "description": "Title for community experience section"
+  },
+  "V/bSTW": {
+    "defaultMessage": "Durée des postes pour lesquels vous souhaitez être pris en considération",
+    "description": "Legend Text for required work preferences options in work preferences form"
   },
   "V0+Pk/": {
     "defaultMessage": "Consulter les talents de la collectivité",
@@ -8211,7 +8227,7 @@
     "description": "Message displayed when a user updates a skill"
   },
   "VgyUtZ": {
-    "defaultMessage": "Modifier les rôles dans le ministère",
+    "defaultMessage": "Modifier les rôles liés à un ministère",
     "description": "Label for the form to edit a users department membership"
   },
   "VhqbdZ": {
@@ -10318,6 +10334,10 @@
     "defaultMessage": "Événement de mise en candidature mis à jour avec succès.",
     "description": "Message displayed to user after talent nomination event is updated"
   },
+  "eJekyY": {
+    "defaultMessage": "Mandatée par",
+    "description": "Label displayed on the community form mandated by authority field"
+  },
   "eK+8dS": {
     "defaultMessage": "Site web officiel ou documentation",
     "description": "Label displayed for information URL field"
@@ -11191,7 +11211,7 @@
     "description": "Priority number label"
   },
   "hS96pl": {
-    "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants dans le processus :",
+    "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants :",
     "description": "Text notifying user which process roles will be removed from the user"
   },
   "hSmKjD": {
@@ -11521,6 +11541,10 @@
   "ipKAvI": {
     "defaultMessage": "1. si vous êtes intéressé(e) à embaucher un apprentis et aimeriez en apprendre davantage sur le Programme d'apprentissage en TI pour les peuples autochtones",
     "description": "Paragraph 2 of a manager's email for apprenticeship"
+  },
+  "iqCi+v": {
+    "defaultMessage": "Détails de la collectivité",
+    "description": "Label for Community details"
   },
   "ir/K0H": {
     "defaultMessage": "Les tâches principales suivantes sont des exemples du travail qui pourrait être effectué dans le cadre de ce poste. Au moment de rédiger votre offre d’emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de mieux l’adapter à votre équipe et au poste que vous souhaitez pourvoir.",
@@ -13246,10 +13270,6 @@
     "defaultMessage": "Autorisé",
     "description": "Indication a specific permission is allowed for a specific role"
   },
-  "phS+TP": {
-    "defaultMessage": "Modifier les informations sur la collectivité",
-    "description": "Link to edit the currently viewed community"
-  },
   "phluwu": {
     "defaultMessage": "Votre information sur l’annonce et votre plan d'évaluation sont complets.",
     "description": "Lead-in text on a complete process, ready for publishing"
@@ -14674,6 +14694,10 @@
     "defaultMessage": "Gestion des talents",
     "description": "Card title for Talent management"
   },
+  "vpnzr+": {
+    "defaultMessage": "Afficher et modifier les détails de la collectivité {communityName}",
+    "description": "Subtitle for the details view page of a community"
+  },
   "vtE73H": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for talent management for comptrollership executives callout"
@@ -14781,6 +14805,10 @@
   "wL95nl": {
     "defaultMessage": "La personne candidate n'a pas fourni d'informations sur son objectif de carrière final.",
     "description": "Message displayed if nominee hasn't filled out career objective info"
+  },
+  "wLR3Ux": {
+    "defaultMessage": "Effacer la date et enregistrer",
+    "description": "Button text to clear out a date"
   },
   "wMni5o": {
     "defaultMessage": "Processus de recrutement ({numOfProcesses})",

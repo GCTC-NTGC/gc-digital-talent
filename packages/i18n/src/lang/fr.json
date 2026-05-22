@@ -763,6 +763,10 @@
     "defaultMessage": "Étape complétée, {label}",
     "description": "Prefix when a step has been completed."
   },
+  "Q77DlA": {
+    "defaultMessage": "{daysOverdue, plural, one {# jour en retard} other {# jours en retard}}",
+    "description": "Message showing the number of days by which something is overdue"
+  },
   "QP+Skh": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires régulièrement.",
     "description": "The operational requirement described as regular overtime."
