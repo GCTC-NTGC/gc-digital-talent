@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
-import { createRef, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 
 import {
@@ -571,7 +571,7 @@ export const ApplicantDashboardPageApi = () => {
     context,
   });
 
-  // some special behavior if the functional communities page has is requested
+  // Special behavior when the functional communities section hash is requested
   const isHashFunctionalCommunities =
     hash === `#${applicationDashboardSections.FUNCTIONAL_COMMUNITIES}`;
 
@@ -582,14 +582,14 @@ export const ApplicantDashboardPageApi = () => {
     );
 
   // a ref so we can focus the accordion trigger
-  const communityAccordionRef = createRef<HTMLButtonElement>();
+  const communityAccordionRef = useRef<HTMLButtonElement>(null);
 
   // on page load, focus the accordion if requested
   useEffect(() => {
     if (isHashFunctionalCommunities) {
       communityAccordionRef.current?.focus();
     }
-  }, [communityAccordionRef, isHashFunctionalCommunities]);
+  }, [isHashFunctionalCommunities]);
 
   return (
     <Pending fetching={fetching} error={error}>
