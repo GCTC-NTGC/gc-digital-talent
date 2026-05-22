@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { createRef, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 import {
@@ -203,7 +203,7 @@ export const DashboardPage = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const { scrollAndExpandCommunitiesAccordion } = useContext(
+  const { communityAccordionRef, setCommunityAccordionValue } = useContext(
     ApplicantDashboardContext,
   );
 
@@ -439,7 +439,13 @@ export const DashboardPage = ({
                               ? "functional-communities"
                               : undefined
                           }
-                          onScrollTo={scrollAndExpandCommunitiesAccordion}
+                          onScrollTo={() => {
+                            // we have a link that can call this to focus and open the accordion
+                            communityAccordionRef.current?.focus();
+                            setCommunityAccordionValue(
+                              "your_functional_communities",
+                            );
+                          }}
                           asListItem={false}
                         />
                       ) : (
@@ -575,29 +581,15 @@ export const ApplicantDashboardPageApi = () => {
       isHashFunctionalCommunities ? "your_functional_communities" : "",
     );
 
-  // save a reference to the focus function for the accordion
-  const [communityAccordionFocus, setCommunityAccordionFocus] =
-    useState<HTMLButtonElement["focus"]>();
-
-  // use a callback ref so we can keep our focus function reference up to date
-  const communityAccordionRef = useCallback((node: HTMLButtonElement) => {
-    if (node !== null) {
-      setCommunityAccordionFocus(() => node.focus());
-    }
-  }, []);
-
-  // we have a link that can call this to focus and open the accordion
-  const scrollAndExpandCommunitiesAccordion = useCallback(() => {
-    communityAccordionFocus?.();
-    setCommunityAccordionValue("your_functional_communities");
-  }, [communityAccordionFocus]);
+  // a ref so we can keep call focus
+  const communityAccordionRef = createRef<HTMLButtonElement>();
 
   // on page load, focus the accordion if requested
   useEffect(() => {
     if (isHashFunctionalCommunities) {
-      communityAccordionFocus?.();
+      communityAccordionRef.current?.focus();
     }
-  }, [communityAccordionFocus, isHashFunctionalCommunities]);
+  }, [communityAccordionRef, isHashFunctionalCommunities]);
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -607,7 +599,6 @@ export const ApplicantDashboardPageApi = () => {
             communityAccordionValue,
             setCommunityAccordionValue,
             communityAccordionRef,
-            scrollAndExpandCommunitiesAccordion,
           }}
         >
           <DashboardPage applicantDashboardQuery={data} />
