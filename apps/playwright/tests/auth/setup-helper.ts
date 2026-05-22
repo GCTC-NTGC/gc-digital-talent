@@ -17,10 +17,10 @@ export async function loginViaGCKey(
     Object.defineProperty(navigator, "webdriver", { get: () => undefined });
   });
 
-  await page.goto("/en/login");
+  await page.goto("/en/login-info");
 
-  // Click whichever sign-in link leads to GCKey
-  await page.getByRole("link", { name: /sign in with gckey|gckey/i }).click();
+  // Click the GCKey sign-in link
+  await page.getByRole("link", { name: /sign in with gckey/i }).first().click();
 
   // Wait for the GCKey login page
   await page.waitForURL(/gckey|gccf|id\.tbs-sct/i, { timeout: 15000 });
