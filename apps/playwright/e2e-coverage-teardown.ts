@@ -1,13 +1,14 @@
-import MCR from "monocart-coverage-reports";
+import { CoverageReport } from "monocart-coverage-reports";
 
 export default async () => {
-  const mcr = MCR({
+  const cr = new CoverageReport({
     name: "E2E Coverage",
+    cacheDir: "./coverage/.cache",
     outputDir: "./coverage",
     reports: [["lcovonly", { file: "lcov.info" }]],
     entryFilter: { "**/node_modules/**": false, "**/*": true },
     sourceFilter: (sourcePath: string) =>
       /(apps\/web|packages\/.+)\/src\//.test(sourcePath),
   });
-  await mcr.generate();
+  await cr.generate();
 };

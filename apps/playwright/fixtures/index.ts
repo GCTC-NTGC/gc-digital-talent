@@ -1,6 +1,6 @@
 import { test as base } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { addCoverageReport } from "monocart-coverage-reports";
+import { CoverageReport } from "monocart-coverage-reports";
 
 import AppPage from "./AppPage";
 
@@ -26,7 +26,8 @@ export const test = base.extend<AppFixtures>({
       await use();
       if (enabled) {
         const coverage = await page.coverage.stopJSCoverage();
-        await addCoverageReport(coverage, testInfo);
+        const cr = new CoverageReport({ cacheDir: "./coverage/.cache" });
+        await cr.add(coverage);
       }
     },
     { scope: "test", auto: true },
