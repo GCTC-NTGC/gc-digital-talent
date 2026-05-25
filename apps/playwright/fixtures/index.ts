@@ -26,7 +26,7 @@ export const test = base.extend<AppFixtures>({
       await use();
       if (enabled) {
         const coverage = await page.coverage.stopJSCoverage();
-        const cr = new CoverageReport({ cacheDir: "./coverage/.cache" });
+        const cr = new CoverageReport({ outputDir: "./coverage" });
         await cr.add(coverage);
       }
     },
