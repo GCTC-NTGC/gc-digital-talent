@@ -304,8 +304,8 @@ const CommunityForm = ({
               id="mandateAuthorityEn"
               name="mandateAuthorityEn"
               label={intl.formatMessage({
-                defaultMessage: "Mandate authority",
-                id: "83aYHF",
+                defaultMessage: "Delegated officer or entity",
+                id: "KRXSAf",
                 description:
                   "Label displayed on the community form mandate authority field",
               })}
@@ -319,8 +319,8 @@ const CommunityForm = ({
               id="mandateAuthorityFr"
               name="mandateAuthorityFr"
               label={intl.formatMessage({
-                defaultMessage: "Mandate authority",
-                id: "83aYHF",
+                defaultMessage: "Delegated officer or entity",
+                id: "KRXSAf",
                 description:
                   "Label displayed on the community form mandate authority field",
               })}
