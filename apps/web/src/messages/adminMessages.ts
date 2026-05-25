@@ -155,11 +155,6 @@ const messages = defineMessages({
     id: "ae3u1t",
     description: "Title for key field",
   },
-  databaseKey: {
-    defaultMessage: "Database key",
-    id: "deLfIk",
-    description: "Title for database key field",
-  },
   rolesAdded: {
     defaultMessage: "Role(s) added successfully",
     id: "/17wgm",
