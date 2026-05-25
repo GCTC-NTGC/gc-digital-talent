@@ -211,7 +211,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
           <div className="xs:col-span-2">
             <Input
               id="key"
-              label={intl.formatMessage(adminMessages.databaseKey)}
+              label={intl.formatMessage(adminMessages.key)}
               name="key"
               type="text"
               rules={{
@@ -224,9 +224,8 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
                   {intl.formatMessage({
                     defaultMessage:
                       "Please provide a short word or phrase that will represent this community’s data model. This value should be lowercase and use underscores between words when necessary (e.g. data_management). This value is not user facing and can’t be changed after it is set.",
-                    id: "+arGya",
-                    description:
-                      "Description for notice for database key field",
+                    id: "LgKlN9",
+                    description: "Description for notice for key field",
                   })}
                 </p>
               </Notice.Content>

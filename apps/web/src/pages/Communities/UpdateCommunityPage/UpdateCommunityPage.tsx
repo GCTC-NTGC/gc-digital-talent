@@ -265,9 +265,7 @@ const CommunityForm = ({
               />
             </div>
             <div className="xs:col-span-2">
-              <FieldDisplay
-                label={intl.formatMessage(adminMessages.databaseKey)}
-              >
+              <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
                 {community.key}
               </FieldDisplay>
               <Notice.Root className="mt-2">
@@ -275,10 +273,9 @@ const CommunityForm = ({
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "The database key is not editable once a community is created. Reach out to the support team for further information.",
-                      id: "NOpdaH",
-                      description:
-                        "Description for notice for database key field",
+                        "The key is not editable once a community is created. Reach out to the support team for further information.",
+                      id: "U/NCbh",
+                      description: "Description for notice for key field",
                     })}
                   </p>
                 </Notice.Content>
