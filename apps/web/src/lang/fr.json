@@ -227,10 +227,6 @@
     "defaultMessage": "Suivre, « aimer » et s’abonner",
     "description": "Heading for following section"
   },
-  "+mCsoW": {
-    "defaultMessage": "Demande d’état mise à jour!",
-    "description": "Message displayed to user after the request status is successfully updated."
-  },
   "+mG20j": {
     "defaultMessage": "Carrière complète",
     "description": "Heading for career experience"
@@ -2371,6 +2367,10 @@
     "defaultMessage": "Enregistrer des compétences techniques constituant un atout",
     "description": "Text on a button to save the nonessential technical skills form"
   },
+  "7QwKdF": {
+    "defaultMessage": "Mettre à jour le statut de la demande",
+    "description": "Heading for updating a talent request status"
+  },
   "7Rllrl": {
     "defaultMessage": "Tout cocher",
     "description": "Label for checkbox to toggle visibility of all columns"
@@ -2883,10 +2883,6 @@
     "defaultMessage": "Les membres du personnel CT-FIN-04 qui ont été retenus pour la gestion des talents doivent créer un profil.",
     "description": "List item two financial management content"
   },
-  "9b+Xtt": {
-    "defaultMessage": "Informations sur la collectivité",
-    "description": "Heading for the community information section of a form"
-  },
   "9bG59n": {
     "defaultMessage": "Auteur(trice)s de mise en candidature",
     "description": "Label or header"
@@ -3199,6 +3195,10 @@
     "defaultMessage": "Filtres de profils d'employé(e)",
     "description": "Heading for filters associated with employee profiles"
   },
+  "AZ114p": {
+    "defaultMessage": "Les renseignements suivants serviront à identifier la collectivité et à donner un aperçu des domaines qu’elle soutient.",
+    "description": "Community details informative line"
+  },
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
     "description": "Text explaining what will happen when duplicating a process"
@@ -3362,10 +3362,6 @@
   "B524m1": {
     "defaultMessage": "État du mentorat",
     "description": "Label for an employee profile career development preference field"
-  },
-  "B6SqfX": {
-    "defaultMessage": "Enregistrer le changement d'état",
-    "description": "Button label displayed that saves the users status selection."
   },
   "B6VbYI": {
     "defaultMessage": "Vous pouvez ajouter une note spéciale si vous voulez ajouter une compétence générique avec des instructions supplémentaires pour guider les utilisateurs du modèle.",
@@ -3694,10 +3690,6 @@
   "CZqu7B": {
     "defaultMessage": "Mettre en valeur d'importants programmes, certifications ou licences qui seront présentés aux personnes qui rejoignent la collectivité et qui pourront ensuite indiquer leur intérêt ou leurs titres de compétences",
     "description": "Dialog body text for highlighting important programs, certifications or licenses"
-  },
-  "CaDy8n": {
-    "defaultMessage": "Erreur : la mise à jour de l’état a échoué",
-    "description": "Message displayed to user after the request status fails to be updated."
   },
   "CcLolQ": {
     "defaultMessage": "Sélectionnez le processus et les rôles que vous souhaitez ajouter",
@@ -5758,6 +5750,10 @@
   "L9mWLV": {
     "defaultMessage": "Rapport sur le Nuage de talents",
     "description": "Link text to read the report on talent cloud"
+  },
+  "L9xXMG": {
+    "defaultMessage": "Erreur : impossible de mettre à jour le statut de la demande de talents.",
+    "description": "Error message when attempting to update a talent request status"
   },
   "L9yjr3": {
     "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada",
@@ -7979,6 +7975,10 @@
     "defaultMessage": "Options de perfectionnement professionnel et en leadership",
     "description": "Label for users interest in development programs for a community"
   },
+  "UieDSb": {
+    "defaultMessage": "Modifier les détails de la collectivité",
+    "description": "Link to edit the currently viewed community"
+  },
   "Uj7TE2": {
     "defaultMessage": "La présente section de votre profil vous permet de manifester votre intérêt pour une variété d'options particulières liées au recrutement, au mentorat et aux possibilités de promotion.",
     "description": "Describes the career development preferences of employee profile"
@@ -9498,6 +9498,10 @@
     "defaultMessage": "Classification de l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's classification"
   },
+  "b6mzab": {
+    "defaultMessage": "Le statut de la demande de talents a été mis à jour avec succès.",
+    "description": "Message displayed after a talent requests status was updated"
+  },
   "b9aCAt": {
     "defaultMessage": "Expérience de travail actuelle",
     "description": "Title for current experience part of employee verification "
@@ -9930,6 +9934,10 @@
     "defaultMessage": "Parlez-nous de vos compétences",
     "description": "Page title for the application skills introduction page"
   },
+  "coi+kV": {
+    "defaultMessage": "Détails de l’état en cours",
+    "description": "Label for in-progress talent request details"
+  },
   "cqJw3g": {
     "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de votre vitrine de compétences.",
     "description": "First paragraph for remove skill dialog"
@@ -10337,6 +10345,10 @@
   "eJbGm2": {
     "defaultMessage": "Événement de mise en candidature mis à jour avec succès.",
     "description": "Message displayed to user after talent nomination event is updated"
+  },
+  "eJekyY": {
+    "defaultMessage": "Mandatée par",
+    "description": "Label displayed on the community form mandated by authority field"
   },
   "eK+8dS": {
     "defaultMessage": "Site web officiel ou documentation",
@@ -11538,9 +11550,17 @@
     "defaultMessage": "Historique des notifications",
     "description": "Title for list of a users notifications"
   },
+  "ipGQnI": {
+    "defaultMessage": "Détails de fermeture",
+    "description": "Label for closed talent request details"
+  },
   "ipKAvI": {
     "defaultMessage": "1. si vous êtes intéressé(e) à embaucher un apprentis et aimeriez en apprendre davantage sur le Programme d'apprentissage en TI pour les peuples autochtones",
     "description": "Paragraph 2 of a manager's email for apprenticeship"
+  },
+  "iqCi+v": {
+    "defaultMessage": "Détails de la collectivité",
+    "description": "Label for Community details"
   },
   "ir/K0H": {
     "defaultMessage": "Les tâches principales suivantes sont des exemples du travail qui pourrait être effectué dans le cadre de ce poste. Au moment de rédiger votre offre d’emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de mieux l’adapter à votre équipe et au poste que vous souhaitez pourvoir.",
@@ -12381,6 +12401,10 @@
   "mIKz0E": {
     "defaultMessage": "Ajouter des options pour les programmes ou certifications auxquels une personne candidate peut être recommandée",
     "description": "Dialog subtitle informing of purpose"
+  },
+  "mIffJX": {
+    "defaultMessage": "Statut de la demande",
+    "description": "Label for the request status input"
   },
   "mKrj0x": {
     "defaultMessage": "Enregistrer et ajouter comme membre",
@@ -13273,10 +13297,6 @@
   "pgbkdx": {
     "defaultMessage": "Autorisé",
     "description": "Indication a specific permission is allowed for a specific role"
-  },
-  "phS+TP": {
-    "defaultMessage": "Modifier les informations sur la collectivité",
-    "description": "Link to edit the currently viewed community"
   },
   "phluwu": {
     "defaultMessage": "Votre information sur l’annonce et votre plan d'évaluation sont complets.",
@@ -14701,6 +14721,10 @@
   "voqC0s": {
     "defaultMessage": "Gestion des talents",
     "description": "Card title for Talent management"
+  },
+  "vpnzr+": {
+    "defaultMessage": "Afficher et modifier les détails de la collectivité {communityName}",
+    "description": "Subtitle for the details view page of a community"
   },
   "vtE73H": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",

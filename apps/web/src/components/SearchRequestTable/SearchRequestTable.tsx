@@ -33,6 +33,7 @@ import {
   followUpDateCell,
   jobTitleCell,
   notesCell,
+  statusCell,
 } from "./components/helpers";
 import cells from "../Table/cells";
 import accessors from "../Table/accessors";
@@ -91,7 +92,7 @@ const transformSearchRequestInput = (
         ? searchBarTerm
         : undefined,
     // from filter
-    status: filterState?.status,
+    talentRequestStatus: filterState?.talentRequestStatus,
     departments: filterState?.departments,
     classifications: filterState?.classifications,
     workStreams: filterState?.workStreams,
@@ -165,12 +166,14 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
         }
         followUpDate
         requestedDate
-        status {
+        talentRequestStatus {
           value
           label {
-            en
-            fr
+            localized
           }
+        }
+        details {
+          localized
         }
         statusChangedAt
         wasEmpty
@@ -251,6 +254,22 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         ),
     }),
     columnHelper.accessor(
+      ({ talentRequestStatus }) => talentRequestStatus?.label.localized ?? null,
+      {
+        id: "status",
+        header: intl.formatMessage(commonMessages.status),
+        enableColumnFilter: false,
+        cell: ({ row: { original } }) =>
+          statusCell(original.talentRequestStatus),
+      },
+    ),
+    columnHelper.accessor(({ details }) => details?.localized, {
+      id: "details",
+      header: intl.formatMessage(adminMessages.details),
+      enableColumnFilter: false,
+      enableSorting: false,
+    }),
+    columnHelper.accessor(
       (row) =>
         classificationAccessor(
           row.applicantFilter?.qualifiedInClassifications?.filter(notEmpty),
@@ -321,14 +340,6 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         enableSorting: false,
       },
     ),
-    columnHelper.accessor(
-      ({ status }) => getLocalizedName(status?.label, intl, true),
-      {
-        id: "status",
-        header: intl.formatMessage(commonMessages.status),
-        enableColumnFilter: false,
-      },
-    ),
     columnHelper.accessor(({ followUpDate }) => accessors.date(followUpDate), {
       id: "followUpDate",
       enableColumnFilter: false,
@@ -373,7 +384,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     columnHelper.accessor("additionalComments", {
       id: "additionalComments",
       enableSorting: false,
-      header: intl.formatMessage(adminMessages.details),
+      header: intl.formatMessage(talentRequestMessages.additionalComments),
       cell: ({ row: { original: searchRequest } }) =>
         detailsCell(
           {
