@@ -12250,6 +12250,10 @@
     "defaultMessage": "Titre du prix",
     "description": "Label displayed on award form for award title input"
   },
+  "lhLfd7": {
+    "defaultMessage": "Créer une collectivité",
+    "description": "Text to create a community"
+  },
   "lhV7kM": {
     "defaultMessage": "<strong>{role}</strong> à {organization}",
     "description": "Role at organization, HTML"

@@ -285,9 +285,9 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
         <div className="flex flex-col items-center gap-6 xs:flex-row">
           <Submit
             text={intl.formatMessage({
-              defaultMessage: "Publish",
-              id: "3M5hi0",
-              description: "Label for publish",
+              defaultMessage: "Create community",
+              id: "lhLfd7",
+              description: "Text to create a community",
             })}
           />
           <Link mode="inline" color="warning" href={paths.communityTable()}>
