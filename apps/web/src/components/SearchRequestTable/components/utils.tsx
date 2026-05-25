@@ -1,16 +1,15 @@
 import type { SortingState } from "@tanstack/react-table";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   PoolCandidateSearchRequestInput,
   OrderByClause,
+  TalentRequestStatus,
 } from "@gc-digital-talent/graphql";
 import { SortOrder } from "@gc-digital-talent/graphql";
 
-import { stringToEnumRequestStatus } from "~/utils/requestUtils";
-
 export interface FormValues {
-  status?: string[];
+  status?: TalentRequestStatus[];
   departments?: string[];
   classifications?: string[];
   workStreams?: string[];
@@ -20,8 +19,8 @@ export function transformFormValuesToSearchRequestFilterInput(
   data: FormValues,
 ): PoolCandidateSearchRequestInput {
   return {
-    status: data.status?.length
-      ? data.status.map(stringToEnumRequestStatus).filter(notEmpty)
+    talentRequestStatus: data.status?.length
+      ? unpackMaybes(data.status)
       : undefined,
     departments: data.departments?.length ? data.departments : undefined,
     classifications: data.classifications?.length
@@ -41,7 +40,7 @@ export function transformSortStateToOrderByClause(
     ["manager", "full_name"],
     ["jobTitle", "job_title"],
     ["email", "email"],
-    ["status", "request_status_weight"],
+    ["status", "status_weight"],
     ["requestedDate", "created_at"],
     ["followUpDate", "follow_up_date"],
   ]);
@@ -64,7 +63,7 @@ export function transformSearchRequestFilterInputToFormValues(
   input: PoolCandidateSearchRequestInput | undefined,
 ): FormValues {
   return {
-    status: input?.status?.filter(notEmpty) ?? [],
+    status: unpackMaybes(input?.talentRequestStatus),
     departments: input?.departments?.filter(notEmpty) ?? [],
     classifications: input?.classifications?.filter(notEmpty) ?? [],
     workStreams: input?.workStreams?.filter(notEmpty) ?? [],

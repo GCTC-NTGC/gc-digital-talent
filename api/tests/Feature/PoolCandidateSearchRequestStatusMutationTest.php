@@ -199,6 +199,20 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         $this->assertNull($fresh->follow_up_date);
     }
 
+    public function testClosedDetailsNullableWhenSettingInProgress(): void
+    {
+        $request = $this->makeRequest(TalentRequestStatus::NEW->name);
+
+        $this->runMutation($this->recruiter, $request->id, [
+            'status' => TalentRequestStatus::IN_PROGRESS->name,
+            'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
+            'closedDetails' => null,
+        ])->assertJsonFragment([
+            'talentRequestStatus' => ['value' => TalentRequestStatus::IN_PROGRESS->name],
+            'closedDetails' => null,
+        ]);
+    }
+
     public function testSetClosedRequiresClosedDetails(): void
     {
         $request = $this->makeRequest(
@@ -209,6 +223,20 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         $this->runMutation($this->recruiter, $request->id, [
             'status' => TalentRequestStatus::CLOSED->name,
         ])->assertGraphQLValidationError('poolCandidateSearchRequest.closedDetails', 'The closedDetails field is required when status is CLOSED.');
+    }
+
+    public function testInProgressDetailsNullableWhenSettingClosed(): void
+    {
+        $request = $this->makeRequest(TalentRequestStatus::NEW->name);
+
+        $this->runMutation($this->recruiter, $request->id, [
+            'status' => TalentRequestStatus::CLOSED->name,
+            'closedDetails' => TalentRequestClosedDetail::NO_LONGER_REQUIRED->name,
+            'inProgressDetails' => null,
+        ])->assertJsonFragment([
+            'talentRequestStatus' => ['value' => TalentRequestStatus::CLOSED->name],
+            'inProgressDetails' => null,
+        ]);
     }
 
     // -------------------------------------------------------------------------

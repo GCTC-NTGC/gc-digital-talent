@@ -134,7 +134,7 @@ const TalentRequestFollowUpDate = ({
   };
 
   return (
-    <FieldDisplay label={label}>
+    <FieldDisplay label={label} className="mb-3">
       <span className="flex gap-2">
         <Dialog.Root open={isOpen} onOpenChange={setOpen}>
           <Dialog.Trigger>
