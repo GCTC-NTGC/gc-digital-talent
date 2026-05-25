@@ -2,8 +2,14 @@ import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 
-import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { Combobox } from "@gc-digital-talent/forms";
+import {
+  commonMessages,
+  ENUM_SORT_ORDER,
+  getLocalizedName,
+  narrowEnumType,
+  sortLocalizedEnumOptions,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
@@ -44,13 +50,12 @@ const SearchRequestFilterData_Query = graphql(/* GraphQL */ `
     classifications {
       ...RequestFilterClassification
     }
-    searchStatuses: localizedEnumStrings(
-      enumName: "PoolCandidateSearchStatus"
-    ) {
-      value
-      label {
-        en
-        fr
+    statuses: localizedEnumOptions(enumName: "TalentRequestStatus") {
+      ... on LocalizedTalentRequestStatus {
+        value
+        label {
+          localized
+        }
       }
     }
     workStreams {
@@ -104,7 +109,15 @@ const SearchRequestFilterDialog = ({
           label={intl.formatMessage(commonMessages.status)}
           doNotSort
           fetching={fetching}
-          options={localizedEnumToOptions(data?.searchStatuses, intl)}
+          options={sortLocalizedEnumOptions(
+            ENUM_SORT_ORDER.TALENT_REQUEST_STATUS,
+            narrowEnumType(unpackMaybes(data?.statuses), "TalentRequestStatus"),
+          ).map((status) => ({
+            value: status.value,
+            label:
+              status.label?.localized ??
+              intl.formatMessage(commonMessages.notAvailable),
+          }))}
         />
         <Combobox
           id="departments"

@@ -227,10 +227,6 @@
     "defaultMessage": "Suivre, « aimer » et s’abonner",
     "description": "Heading for following section"
   },
-  "+mCsoW": {
-    "defaultMessage": "Demande d’état mise à jour!",
-    "description": "Message displayed to user after the request status is successfully updated."
-  },
   "+mG20j": {
     "defaultMessage": "Carrière complète",
     "description": "Heading for career experience"
@@ -2367,6 +2363,10 @@
     "defaultMessage": "Enregistrer des compétences techniques constituant un atout",
     "description": "Text on a button to save the nonessential technical skills form"
   },
+  "7QwKdF": {
+    "defaultMessage": "Mettre à jour le statut de la demande",
+    "description": "Heading for updating a talent request status"
+  },
   "7Rllrl": {
     "defaultMessage": "Tout cocher",
     "description": "Label for checkbox to toggle visibility of all columns"
@@ -3355,10 +3355,6 @@
     "defaultMessage": "État du mentorat",
     "description": "Label for an employee profile career development preference field"
   },
-  "B6SqfX": {
-    "defaultMessage": "Enregistrer le changement d'état",
-    "description": "Button label displayed that saves the users status selection."
-  },
   "B6VbYI": {
     "defaultMessage": "Vous pouvez ajouter une note spéciale si vous voulez ajouter une compétence générique avec des instructions supplémentaires pour guider les utilisateurs du modèle.",
     "description": "Lead-in text for job poster template behavioural skills section, paragraph 2"
@@ -3686,10 +3682,6 @@
   "CZqu7B": {
     "defaultMessage": "Mettre en valeur d'importants programmes, certifications ou licences qui seront présentés aux personnes qui rejoignent la collectivité et qui pourront ensuite indiquer leur intérêt ou leurs titres de compétences",
     "description": "Dialog body text for highlighting important programs, certifications or licenses"
-  },
-  "CaDy8n": {
-    "defaultMessage": "Erreur : la mise à jour de l’état a échoué",
-    "description": "Message displayed to user after the request status fails to be updated."
   },
   "CcLolQ": {
     "defaultMessage": "Sélectionnez le processus et les rôles que vous souhaitez ajouter",
@@ -5742,6 +5734,10 @@
   "L9mWLV": {
     "defaultMessage": "Rapport sur le Nuage de talents",
     "description": "Link text to read the report on talent cloud"
+  },
+  "L9xXMG": {
+    "defaultMessage": "Erreur : impossible de mettre à jour le statut de la demande de talents.",
+    "description": "Error message when attempting to update a talent request status"
   },
   "L9yjr3": {
     "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada",
@@ -9486,6 +9482,10 @@
     "defaultMessage": "Classification de l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's classification"
   },
+  "b6mzab": {
+    "defaultMessage": "Le statut de la demande de talents a été mis à jour avec succès.",
+    "description": "Message displayed after a talent requests status was updated"
+  },
   "b9aCAt": {
     "defaultMessage": "Expérience de travail actuelle",
     "description": "Title for current experience part of employee verification "
@@ -9917,6 +9917,10 @@
   "coOFBt": {
     "defaultMessage": "Parlez-nous de vos compétences",
     "description": "Page title for the application skills introduction page"
+  },
+  "coi+kV": {
+    "defaultMessage": "Détails de l’état en cours",
+    "description": "Label for in-progress talent request details"
   },
   "cqJw3g": {
     "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de votre vitrine de compétences.",
@@ -11530,6 +11534,10 @@
     "defaultMessage": "Historique des notifications",
     "description": "Title for list of a users notifications"
   },
+  "ipGQnI": {
+    "defaultMessage": "Détails de fermeture",
+    "description": "Label for closed talent request details"
+  },
   "ipKAvI": {
     "defaultMessage": "1. si vous êtes intéressé(e) à embaucher un apprentis et aimeriez en apprendre davantage sur le Programme d'apprentissage en TI pour les peuples autochtones",
     "description": "Paragraph 2 of a manager's email for apprenticeship"
@@ -12377,6 +12385,10 @@
   "mIKz0E": {
     "defaultMessage": "Ajouter des options pour les programmes ou certifications auxquels une personne candidate peut être recommandée",
     "description": "Dialog subtitle informing of purpose"
+  },
+  "mIffJX": {
+    "defaultMessage": "Statut de la demande",
+    "description": "Label for the request status input"
   },
   "mKrj0x": {
     "defaultMessage": "Enregistrer et ajouter comme membre",

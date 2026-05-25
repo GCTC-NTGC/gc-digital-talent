@@ -2,8 +2,8 @@
 
 return [
     'initial_conversation' => 'Conversation initiale',
-    'talent_sent' => 'Talent envoyé',
-    'follow_up_sent' => 'Relance envoyée',
+    'talent_sent' => 'Candidature transmise',
+    'follow_up_sent' => 'Suivi envoyé',
     'discussion_ongoing' => 'Discussion en cours',
     'other' => 'Autre (voir les notes de la demande)',
 ];
