@@ -22,41 +22,25 @@ final class RolePermissionTypeRegistrar implements TypeRegistrarInterface
     {
         $config = config('rolepermission');
 
-        $typeRegistry->registerLazy('RoleName', fn () => self::buildRoleNameEnum($config['roles']));
-        $typeRegistry->registerLazy('Permission', fn () => self::buildPermissionEnum($config['permissions']));
-    }
-
-    /**
-     * Converts snake_case role keys to PascalCase enum values.
-     * e.g., platform_admin → PlatformAdmin
-     *
-     * @param  array<string,mixed>  $roles
-     */
-    private static function buildRoleNameEnum(array $roles): EnumType
-    {
-        $values = [];
-        foreach (array_keys($roles) as $roleKey) {
-            $enumValue = Str::studly($roleKey);
-            $values[$enumValue] = ['value' => $enumValue];
-        }
-
-        return new EnumType(['name' => 'RoleName', 'values' => $values]);
+        $typeRegistry->registerLazy('RoleName', fn () => self::buildEnum('RoleName', $config['roles']));
+        $typeRegistry->registerLazy('Permission', fn () => self::buildEnum('Permission', $config['permissions']));
     }
 
     /**
      * Converts kebab-case permission keys to PascalCase enum values.
      * e.g., view-any-classification → ViewAnyClassification
      *
-     * @param  array<string,mixed>  $permissions
+     * @param  string  $name  Name of the enum getting registered
+     * @param  array<string,mixed>  $map  Map of the keys/values to be registered
      */
-    private static function buildPermissionEnum(array $permissions): EnumType
+    private static function buildEnum(string $name, array $map): EnumType
     {
         $values = [];
-        foreach (array_keys($permissions) as $permissionKey) {
-            $enumValue = Str::studly($permissionKey);
+        foreach (array_keys($map) as $value) {
+            $enumValue = Str::studly($value);
             $values[$enumValue] = ['value' => $enumValue];
         }
 
-        return new EnumType(['name' => 'Permission', 'values' => $values]);
+        return new EnumType(['name' => $name, 'values' => $values]);
     }
 }
