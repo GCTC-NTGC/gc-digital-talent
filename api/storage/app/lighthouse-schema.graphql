@@ -433,7 +433,7 @@ type Query {
     trashed: Trashed
   ): User
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
-  workEmails(search: String): [UserWorkEmail!]!
+  workEmails(search: String, limit: Int = 5): [UserWorkEmail!]!
   trashedExperienceSkill(where: TrashedExperienceSkillInput!): ExperienceSkillRecord
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool

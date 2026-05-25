@@ -1569,10 +1569,13 @@ type Query {
     @guard
     @validator
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
-  workEmails(search: String): [UserWorkEmail!]!
+  workEmails(
+    search: String
+    limit: Int = 5 @limit(builder: true)
+  ): [UserWorkEmail!]!
     @all(
       model: "User"
-      scopes: ["whereWorkEmailIsVerified", "whereWorkEmailSearch", "limitFive"]
+      scopes: ["whereWorkEmailIsVerified", "whereWorkEmailSearch"]
     )
     @guard
     @canModel(ability: "viewAnyUserWorkEmail", model: "User")
@@ -3555,7 +3558,8 @@ type Mutation {
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
   updatePoolCandidateSearchRequestStatus(
     id: ID!
-    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput! @spread
+    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput!
+      @spread
   ): PoolCandidateSearchRequest
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
