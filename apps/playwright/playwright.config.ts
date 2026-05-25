@@ -3,7 +3,6 @@ import path from "node:path";
 
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
-import MCR from "monocart-coverage-reports";
 
 dotenv.config({ path: path.resolve(__dirname, ".env"), quiet: true });
 
@@ -22,23 +21,11 @@ export default defineConfig({
   workers: process.env.CI ? (process.env.PLAYWRIGHT_WORKERS ?? "25%") : "25%",
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
-    ? [
-        ["blob"],
-        [
-          MCR.PwCoverageReporter,
-          {
-            name: "E2E Coverage",
-            outputDir: "./coverage",
-            reports: [["lcovonly", { file: "lcov.info" }]],
-            // exclude dependencies and build artifacts
-            entryFilter: { "**/node_modules/**": false, "**/*": true },
-            // include only app and package source files
-            sourceFilter: (sourcePath: string) =>
-              /(apps\/web|packages\/.+)\/src\//.test(sourcePath),
-          },
-        ],
-      ]
+    ? "blob"
     : [["line"], ["html", { open: "on-failure" }]],
+  globalTeardown: process.env.E2E_COVERAGE === "true"
+    ? "./e2e-coverage-teardown"
+    : undefined,
   timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000),
   expect: { timeout: Number(process.env.EXPECT_TIMEOUT ?? 15000) }, // 15 seconds
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
