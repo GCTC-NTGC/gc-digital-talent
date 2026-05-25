@@ -216,8 +216,8 @@ const ViewCommunityPage = ({ community }: ViewCommunityPageProps) => {
   const intl = useIntl();
   const pageTitle = intl.formatMessage({
     defaultMessage: "Community information",
-    id: "W0Bh1G",
-    description: "Title for community information",
+    id: "+OOFwz",
+    description: "Title for community form",
   });
 
   const { communityName, navigationCrumbs, navTabs } =

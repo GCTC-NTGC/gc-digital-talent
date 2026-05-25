@@ -105,9 +105,9 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
           className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
         >
           {intl.formatMessage({
-            defaultMessage: "Community details",
-            id: "Tqk++g",
-            description: "Heading for the 'create a community' form",
+            defaultMessage: "Community information",
+            id: "+OOFwz",
+            description: "Title for community form",
           })}
         </Heading>
         <p className="mb-8">

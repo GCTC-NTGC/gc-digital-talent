@@ -127,6 +127,10 @@
     "defaultMessage": "(Aucun sélectionné)",
     "description": "Text shown when the filter was not selected"
   },
+  "+OOFwz": {
+    "defaultMessage": "Informations sur la collectivité",
+    "description": "Title for community form"
+  },
   "+PGnDL": {
     "defaultMessage": "Réduire toutes les compétences",
     "description": "Accessible link text to collapse all accordions for skills"
@@ -8313,10 +8317,6 @@
   "W/8gtM": {
     "defaultMessage": "Qu’est-ce que le recrutement axé sur les compétences?",
     "description": "Question about skills-based recruitment"
-  },
-  "W0Bh1G": {
-    "defaultMessage": "Informations sur la collectivité",
-    "description": "Title for community information"
   },
   "W1vWDi": {
     "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
