@@ -70,8 +70,7 @@ export const JobCard_Fragment = graphql(/* GraphQL */ `
     }
     classification {
       id
-      group
-      level
+      groupAndLevel
       minSalary
       maxSalary
     }

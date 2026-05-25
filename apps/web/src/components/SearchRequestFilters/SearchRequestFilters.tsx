@@ -49,7 +49,6 @@ const ApplicantFilters = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   // else set values if filters prop is of ApplicantFilterInput type
-  console.log(selectedClassifications);
   const classificationsFromBrowserHistory = selectedClassifications.map(
     (classification) => wrapAbbr(classification?.groupAndLevel, intl),
   );

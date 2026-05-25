@@ -272,8 +272,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             }
             classification {
               id
-              group
-              level
+              groupAndLevel
             }
             workStream {
               id

@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import pick from "lodash/pick";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";

@@ -53,8 +53,7 @@ const ProfessionalizationForm_Fragment = graphql(/* GraphQL */ `
       }
       classifications {
         id
-        group
-        level
+        groupAndLevel
       }
       developmentProgram {
         id

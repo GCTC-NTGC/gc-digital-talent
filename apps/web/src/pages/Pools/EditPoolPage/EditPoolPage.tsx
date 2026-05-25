@@ -171,6 +171,8 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     poolSkills {
       id

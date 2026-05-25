@@ -42,7 +42,6 @@ import processMessages from "~/messages/processMessages";
 import permissionConstants from "~/constants/permissionConstants";
 
 import {
-  classificationAccessor,
   classificationCell,
   poolNameAccessor,
   viewCell,
@@ -55,6 +54,7 @@ import {
   getPoolBookmarkSort,
   getOrderByColumnSort,
   getWorkStreamNameSort,
+  classificationAccessor,
 } from "./helpers";
 import type { FormValues } from "./PoolFilterDialog";
 import PoolFilterDialog from "./PoolFilterDialog";
@@ -103,6 +103,7 @@ const PoolTable_PoolFragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
     }
   }
 `);

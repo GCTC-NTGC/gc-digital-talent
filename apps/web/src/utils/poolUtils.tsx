@@ -90,13 +90,6 @@ interface formatClassificationStringProps {
   level: number;
 }
 
-export const formatClassificationString = ({
-  group,
-  level,
-}: formatClassificationStringProps): string => {
-  return `${group}-${level < 10 ? "0" : ""}${level}`;
-};
-
 export const formatClassificationAriaString = ({
   group,
   level,
