@@ -1921,7 +1921,7 @@ enum TalentRequestInProgressDetail {
 enum TalentRequestStatus {
   NEW
   IN_PROGRESS
-  CLOSED
+  COMPLETE
 }
 
 enum TargetRole {
