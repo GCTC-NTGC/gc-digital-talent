@@ -28,13 +28,16 @@ const checkPermissions = (
   for (const req of reqs) {
     for (const assignment of assignments) {
       const permissions = assignment.role?.permissions ?? [];
-      if (!permissions.includes(req.permission)) continue;
-
       const isTeamBased = !!assignment.role?.isTeamBased;
+      const hasPermission = permissions.includes(req.permission);
 
-      if (!isTeamBased) return true;
-      if (req.teamId && assignment.team?.id === req.teamId) return true;
-      if (!req.teamId) return true;
+      if (isTeamBased) {
+        const teamScopeMatches = !req.teamId || assignment.team?.id === req.teamId;
+        if (hasPermission && teamScopeMatches) return true;
+      }
+
+      // non-team check
+      if (!isTeamBased && hasPermission) return true;
     }
   }
 
