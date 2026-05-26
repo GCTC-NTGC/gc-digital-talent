@@ -34,7 +34,7 @@ return [
     | Testing Endpoint Secret
     |--------------------------------------------------------------------------
     |
-    | Caller must pass this value as ?secret= on every /testing/token request.
+    | Caller must pass this value as the X-Testing-Secret request header.
     | Stored in Azure Key Vault and injected into the pipeline as an env var.
     | Prevents anonymous access to the token endpoint even if its URL is known.
     |
