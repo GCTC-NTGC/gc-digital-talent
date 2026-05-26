@@ -34,10 +34,10 @@ class BearerTokenServiceProvider extends ServiceProvider
                 );
             }
 
-            // When TESTING_TOKEN_ENABLED=true (and not production), wrap the real
-            // service so test tokens are validated locally while real GCKey tokens
+            // When TESTING_TOKEN_ENABLED=true and APP_ENV_LABEL != production, wrap the
+            // real service so test tokens are validated locally while real GCKey tokens
             // pass through unchanged.
-            if (config('testing.token_enabled')) {
+            if (config('testing.token_enabled') && config('app.env_label') !== 'production') {
                 return new TestBearerTokenService($realService, config('testing.jwt_secret'), $clock);
             }
 

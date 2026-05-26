@@ -9,8 +9,10 @@ return [
     | When true, a /testing/token endpoint is registered that issues JWTs
     | signed with the local test key — bypassing GCKey entirely.
     |
-    | Must be unset or false in production. The code also hard-blocks execution
-    | when APP_ENV=production regardless of this flag.
+    | Must be unset or false in production. The code also requires APP_ENV_LABEL
+    | to be set to a non-production value (e.g. "uat" or "local") as a second
+    | guard — accidental activation on production is blocked even if this flag
+    | is mistakenly set, as long as APP_ENV_LABEL defaults to "production".
     |
     */
     'token_enabled' => env('TESTING_TOKEN_ENABLED', false),

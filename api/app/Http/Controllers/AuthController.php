@@ -267,8 +267,8 @@ class AuthController extends Controller
 
     public function refresh(Request $request)
     {
-        // Test token branch — only active when TESTING_TOKEN_ENABLED=true
-        if (config('testing.token_enabled') && $request->hasHeader('X-Testing-Secret')) {
+        // Test token branch — only active when TESTING_TOKEN_ENABLED=true and APP_ENV_LABEL != production
+        if (config('testing.token_enabled') && config('app.env_label') !== 'production' && $request->hasHeader('X-Testing-Secret')) {
             return app(TestTokenController::class)->issue($request);
         }
 

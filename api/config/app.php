@@ -108,6 +108,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Environment Label
+    |--------------------------------------------------------------------------
+    |
+    | A human-readable tier label independent of APP_ENV. Both UAT and production
+    | run APP_ENV=production, so this var is used where behaviour must differ
+    | between them (e.g. test-token endpoint guard).
+    |
+    | Values: local | uat | production
+    | Default: production — safe fallback so untagged environments are locked down.
+    |
+    */
+
+    'env_label' => env('APP_ENV_LABEL', 'production'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |
