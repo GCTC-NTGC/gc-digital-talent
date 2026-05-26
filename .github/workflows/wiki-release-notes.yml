@@ -48,21 +48,23 @@ jobs:
 
           assess_migration() {
             local file="$1"
-            if ! grep -q 'function down' "$file"; then
+            local content
+            content=$(git show "${TAG}:${file}" 2>/dev/null || true)
+            if [ -z "$content" ] || ! echo "$content" | grep -q 'function down'; then
               echo "⛔ No|||No \`down()\` method — cannot rollback"
               return
             fi
             local down_line
-            down_line=$(grep -n 'function down' "$file" | head -1 | cut -d: -f1)
+            down_line=$(echo "$content" | grep -n 'function down' | head -1 | cut -d: -f1)
             local down up
-            down=$(tail -n +"$down_line" "$file")
-            up=$(head   -n  "$down_line" "$file")
+            down=$(echo "$content" | tail -n +"$down_line")
+            up=$(echo "$content"   | head -n  "$down_line")
 
             local drops_soft drops_table drops_col up_seeds
-            drops_soft=$( echo "$down" | grep -c  'dropSoftDeletes'                          || true)
-            drops_table=$(echo "$down" | grep -cE 'Schema::(drop|dropIfExists)|->drop\('     || true)
-            drops_col=$(  echo "$down" | grep -cE '->dropColumn|->dropColumns'               || true)
-            up_seeds=$(   echo "$up"   | grep -cE 'DB::table.*insert'                        || true)
+            drops_soft=$( echo "$down" | grep -c  'dropSoftDeletes'               || true)
+            drops_table=$(echo "$down" | grep -cE 'Schema::(drop|dropIfExists)|drop[(]' || true)
+            drops_col=$(  echo "$down" | grep -cE 'dropColumn|dropColumns'         || true)
+            up_seeds=$(   echo "$up"   | grep -cE 'DB::table.*insert'              || true)
 
             if   [ "$drops_soft"  -gt 0 ]; then
               echo "⚠️ Partial|||Drops \`deleted_at\` — soft-deleted records reappear as active after rollback"
@@ -83,7 +85,7 @@ jobs:
           format_list() {
             while IFS= read -r line; do
               [ -z "$line" ] && continue
-              pr=$(echo "$line" | grep -oE '\(#[0-9]+\)' | head -1 | tr -d '()#')
+              pr=$(echo "$line" | grep -oE '\(#[0-9]+\)' | head -1 | tr -d '()#' || true)
               if [ -n "$pr" ]; then
                 base=$(echo "$line" | sed "s| (#${pr})||g")
                 echo "- ${base} ([#${pr}](${REPO_URL}/pull/${pr}))"
@@ -97,7 +99,7 @@ jobs:
           format_list_with_authors() {
             while IFS= read -r line; do
               [ -z "$line" ] && continue
-              pr=$(echo "$line" | grep -oE '\(#[0-9]+\)' | head -1 | tr -d '()#')
+              pr=$(echo "$line" | grep -oE '\(#[0-9]+\)' | head -1 | tr -d '()#' || true)
               if [ -n "$pr" ]; then
                 base=$(echo "$line" | sed "s| (#${pr})||g")
                 author=$(gh pr view "$pr" --json author --jq '.author.login' 2>/dev/null || echo "")
@@ -123,7 +125,7 @@ jobs:
             | grep 'database/migrations' || true)
           MIGRATION_COUNT=$(echo "$MIGRATIONS" | grep -c . || true)
 
-          PR_NUMS=$(echo "$ALL_COMMITS" | grep -oE '\(#[0-9]+\)' | tr -d '()#' | awk '!seen[$0]++')
+          PR_NUMS=$(echo "$ALL_COMMITS" | grep -oE '\(#[0-9]+\)' | tr -d '()#' | awk '!seen[$0]++' || true)
 
           FEATURES=$( echo "$ALL_COMMITS" | grep -iE  '^\[(Feature|Feat)\]'                      || true)
           REFACTORS=$(echo "$ALL_COMMITS" | grep -iE  '^\[(Refactor|Debt|Dep)\]'               || true)
@@ -159,7 +161,7 @@ jobs:
               elif [[ "$line" =~ $re_field ]]; then
                 BREAKING_ROWS+="| \`${BASH_REMATCH[1]}\` | **Removed** |"$'\n'
               fi
-            done < <(echo "$GQL_DIFF" | grep '^-' | grep -v '^---')
+            done <<< "$(echo "$GQL_DIFF" | grep '^-' | grep -v '^---' || true)"
           fi
 
           HAS_BREAKING=false
@@ -426,6 +428,7 @@ jobs:
           git push
 
       - name: Publish GitHub release
+        if: ${{ !env.ACT }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ inputs.tag || github.ref_name }}
