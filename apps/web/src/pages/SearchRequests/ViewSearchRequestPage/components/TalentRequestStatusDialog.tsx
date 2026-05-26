@@ -104,7 +104,9 @@ export const TalentRequestStatusOptions_Fragment = graphql(/** GraphQL */ `
       }
     }
 
-    completeDetails: localizedEnumOptions(enumName: "TalentRequestCompleteDetail") {
+    completeDetails: localizedEnumOptions(
+      enumName: "TalentRequestCompleteDetail"
+    ) {
       ... on LocalizedTalentRequestCompleteDetail {
         value
         label {

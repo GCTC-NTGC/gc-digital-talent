@@ -51,10 +51,12 @@ const statusOptions = makeFragmentData(
         ...toLocalizedEnum(detail),
       }),
     ),
-    completeDetails: Object.values(TalentRequestCompleteDetail).map((detail) => ({
-      __typename: "LocalizedTalentRequestCompleteDetail" as const,
-      ...toLocalizedEnum(detail),
-    })),
+    completeDetails: Object.values(TalentRequestCompleteDetail).map(
+      (detail) => ({
+        __typename: "LocalizedTalentRequestCompleteDetail" as const,
+        ...toLocalizedEnum(detail),
+      }),
+    ),
   },
   TalentRequestStatusOptions_Fragment,
 );
