@@ -3,7 +3,15 @@ import { test as setup } from "@playwright/test";
 import { authenticateAs } from "./setup-helper";
 
 // eslint-disable-next-line playwright/expect-expect
-setup("authenticate as applicant", { tag: "@regression" }, async ({ page, request }) => {
-  const sub = process.env.PLAYWRIGHT_APPLICANT_SUB ?? (() => { throw new Error("PLAYWRIGHT_APPLICANT_SUB env var is not set"); })();
-  await authenticateAs("applicant", sub, page, request);
-});
+setup(
+  "authenticate as applicant",
+  { tag: "@regression" },
+  async ({ page, request }) => {
+    const sub =
+      process.env.PLAYWRIGHT_APPLICANT_SUB ??
+      (() => {
+        throw new Error("PLAYWRIGHT_APPLICANT_SUB env var is not set");
+      })();
+    await authenticateAs("applicant", sub, page, request);
+  },
+);

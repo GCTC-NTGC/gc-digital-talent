@@ -65,7 +65,10 @@ export default defineConfig({
     },
     {
       name: "uat-applicant",
-      use: { ...devices["Desktop Chrome"], storageState: ".auth/applicant.json" },
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: ".auth/applicant.json",
+      },
       testMatch: /uat-applicant\.spec\.ts/,
       dependencies: ["setup-applicant"],
     },
