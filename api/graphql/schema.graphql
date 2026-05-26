@@ -1571,7 +1571,7 @@ type Query {
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
   workEmails(
     search: String
-    limit: Int = 5 @limit(builder: true)
+    limit: Int = 5 @limit(builder: true) @rules(apply: ["integer", "size:5"])
   ): [UserWorkEmail!]!
     @all(
       model: "User"
