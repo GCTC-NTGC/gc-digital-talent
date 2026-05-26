@@ -15,16 +15,15 @@ use Lcobucci\JWT\Signer\Key\InMemory;
  * Only active when TESTING_TOKEN_ENABLED=true.
  *
  * Reachable via the proxied /refresh endpoint:
- *   GET /refresh?sub=<user-sub>&secret=<TESTING_ENDPOINT_SECRET>
- *   GET /refresh?role=platform_admin&secret=<TESTING_ENDPOINT_SECRET>
+ *   GET /refresh?sub=<user-sub>  (X-Testing-Secret: <TESTING_ENDPOINT_SECRET>)
  */
 class TestTokenController extends Controller
 {
     public function issue(Request $request): JsonResponse
     {
-        // Caller must supply the shared endpoint secret
+        // Caller must supply the shared endpoint secret via X-Testing-Secret header
         $expectedSecret = config('testing.endpoint_secret');
-        if (! $expectedSecret || ! hash_equals($expectedSecret, (string) $request->query('secret', ''))) {
+        if (! $expectedSecret || ! hash_equals($expectedSecret, (string) $request->header('X-Testing-Secret', ''))) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 

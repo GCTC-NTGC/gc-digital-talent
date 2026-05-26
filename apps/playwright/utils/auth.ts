@@ -68,7 +68,8 @@ export async function getTokenForSub(sub: string) {
     const baseUrl = process.env.BASE_URL ?? "http://localhost:8000";
     const ctx = await request.newContext();
     const res = await ctx.get(
-      `${baseUrl}/refresh?sub=${encodeURIComponent(uatSub)}&secret=${encodeURIComponent(secret)}`,
+      `${baseUrl}/refresh?sub=${encodeURIComponent(uatSub)}`,
+      { headers: { "X-Testing-Secret": secret } },
     );
     const body = await res.text();
     if (!res.ok() || body.trimStart().startsWith("<")) {
