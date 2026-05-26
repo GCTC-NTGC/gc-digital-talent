@@ -74,6 +74,6 @@ class PoolCandidateSearchRequestActivityEventTest extends TestCase
             ->first();
 
         $this->assertEquals(TalentRequestStatus::IN_PROGRESS->name, $activity->properties['old']['status']);
-        $this->assertEquals(TalentRequestStatus::CLOSED->name, $activity->properties['attributes']['status']);
+        $this->assertEquals(TalentRequestStatus::COMPLETE->name, $activity->properties['attributes']['status']);
     }
 }

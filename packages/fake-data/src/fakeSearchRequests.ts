@@ -35,7 +35,7 @@ const generateSearchRequest = (
       ),
     ).label;
   }
-  if (status.value === TalentRequestStatus.Closed) {
+  if (status.value === TalentRequestStatus.Complete) {
     details = toLocalizedEnum(
       faker.helpers.arrayElement<TalentRequestClosedDetail>(
         Object.values(TalentRequestClosedDetail),

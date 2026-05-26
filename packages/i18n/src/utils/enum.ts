@@ -218,7 +218,7 @@ export const ENUM_SORT_ORDER = {
   TALENT_REQUEST_STATUS: [
     TalentRequestStatus.New,
     TalentRequestStatus.InProgress,
-    TalentRequestStatus.Closed,
+    TalentRequestStatus.Complete,
   ],
   WORK_REGION: [
     WorkRegion.Telework,

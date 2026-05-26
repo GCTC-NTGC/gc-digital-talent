@@ -38,7 +38,7 @@ const COLOUR_MAP: Record<
 > = {
   [TalentRequestStatus.New]: "warning",
   [TalentRequestStatus.InProgress]: "primary",
-  [TalentRequestStatus.Closed]: "black",
+  [TalentRequestStatus.Complete]: "black",
   default: "black",
 } as const;
 
@@ -163,7 +163,7 @@ const TalentRequestStatusDialog = ({
             ? values.inProgressDetails
             : null,
         closedDetails:
-          values.talentRequestStatus === TalentRequestStatus.Closed
+          values.talentRequestStatus === TalentRequestStatus.Complete
             ? values.closedDetails
             : null,
         followUpDate:
@@ -306,7 +306,7 @@ const TalentRequestStatusDialog = ({
                     />
                   </>
                 )}
-                {currentStatus === TalentRequestStatus.Closed && (
+                {currentStatus === TalentRequestStatus.Complete && (
                   <Select
                     id="closedDetails"
                     name="closedDetails"
