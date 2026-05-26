@@ -43,7 +43,7 @@ return [
     'location_preferences' => 'Work location preferences',
     'flexible_work_locations' => 'Flexible work location options',
     'location_exemptions' => 'Location exemptions',
-    'contract_duration' => 'Employment duration preference',
+    'contract_duration' => 'Duration of positions you would like to be considered for',
     'accept_temporary' => 'Accept temporary',
     'accepted_operational_requirements' => 'Acceptable job requirements',
     'rejected_operational_requirements' => 'Would not consider a job that requires: ',

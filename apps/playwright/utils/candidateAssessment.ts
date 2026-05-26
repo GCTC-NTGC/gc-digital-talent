@@ -137,6 +137,12 @@ const CandidatesTableCandidatesPaginatedDocument = /* GraphQL */ `
               localized
             }
           }
+          placementType {
+            label {
+              localized
+            }
+          }
+          isBeingReferred
         }
       }
     }
