@@ -21,7 +21,7 @@ import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { messages } from "./messages";
+import { messages } from "../messages";
 import type { FormValues } from "../form";
 import { formValuesToApiCreateInput } from "../form";
 import FindANewCommunity from "../sections/FindANewCommunity";
@@ -89,7 +89,7 @@ const CreateCommunityInterestForm = ({
             value={userId}
           />
           <Card space="lg">
-            <div className="flex flex-col gap-12">
+            <div className="flex flex-col gap-6">
               <FindANewCommunity
                 optionsQuery={formOptions}
                 formDisabled={formDisabled}
