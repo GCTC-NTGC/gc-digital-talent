@@ -32,7 +32,8 @@ const checkPermissions = (
       const hasPermission = permissions.includes(req.permission);
 
       if (isTeamBased) {
-        const teamScopeMatches = !req.teamId || assignment.team?.id === req.teamId;
+        const teamScopeMatches =
+          !req.teamId || assignment.team?.id === req.teamId;
         if (hasPermission && teamScopeMatches) return true;
       }
 
