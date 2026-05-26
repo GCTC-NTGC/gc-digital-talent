@@ -1,6 +1,9 @@
-import { APIRequestContext, Page } from "@playwright/test";
 import fs from "node:fs";
 import path from "node:path";
+
+import type { APIRequestContext, Page } from "@playwright/test";
+
+import type { AuthTokenResponse } from "~/utils/auth";
 
 export function authFilePath(name: string) {
   return path.join(__dirname, `../../.auth/${name}.json`);
@@ -14,7 +17,7 @@ export async function authenticateAs(
 ) {
   const secret = process.env.TESTING_ENDPOINT_SECRET;
   const response = await request.get(`/refresh?sub=${sub}`, {
-    headers: { "X-Testing-Secret": secret },
+    headers: { "X-Testing-Secret": secret ?? "" },
   });
 
   const body = await response.text();
@@ -25,22 +28,26 @@ export async function authenticateAs(
     );
   }
 
-  const { access_token, refresh_token, id_token } = JSON.parse(body);
+  const {
+    access_token: accessToken,
+    refresh_token: refreshToken,
+    id_token: idToken,
+  } = JSON.parse(body) as AuthTokenResponse;
 
   await page.goto("/en");
   await page.evaluate(
     ({ at, rt, it }) => {
-      localStorage.setItem("access_token", at);
-      localStorage.setItem("refresh_token", rt);
-      localStorage.setItem("id_token", it);
+      localStorage.setItem("access_token", at ?? "");
+      localStorage.setItem("refresh_token", rt ?? "");
+      localStorage.setItem("id_token", it ?? "");
     },
-    { at: access_token, rt: refresh_token, it: id_token },
+    { at: accessToken, rt: refreshToken, it: idToken },
   );
 
   // Reload so the React app initialises with the tokens already in localStorage,
   // ensuring the saved storageState reflects a fully-authenticated session.
   await page.reload();
-  await page.waitForLoadState("networkidle");
+  await page.waitForLoadState("load");
 
   const filePath = authFilePath(name);
   fs.mkdirSync(path.dirname(filePath), { recursive: true });

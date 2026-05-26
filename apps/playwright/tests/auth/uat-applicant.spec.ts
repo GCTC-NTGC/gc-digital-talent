@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+
 import AUTH from "~/constants/auth";
 
 test.describe("Applicant user", () => {

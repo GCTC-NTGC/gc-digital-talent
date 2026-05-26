@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable turbo/no-undeclared-env-vars */
 import type { Cookie, Page } from "@playwright/test";
 import { expect, request } from "@playwright/test";
 import type { JwtPayload } from "jwt-decode";
@@ -137,7 +136,7 @@ export async function loginBySub(
       { at: tokens.accessToken, rt: tokens.refreshToken, it: tokens.idToken },
     );
     await page.reload();
-    await page.waitForLoadState("networkidle");
+    await page.waitForLoadState("load");
     return;
   }
 
