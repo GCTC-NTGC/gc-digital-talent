@@ -7,16 +7,12 @@ import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
+  Permission,
   PlacementType,
 } from "@gc-digital-talent/graphql";
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  hasRequiredRoles,
-  ROLE_NAME,
-  useAuthorization,
-} from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { useHasPermissions } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -81,7 +77,6 @@ const ApplicationPlacementDialog = ({
 }: ApplicationPlacementDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState<boolean>(false);
-  const { userAuthInfo } = useAuthorization();
   const application = getFragment(ApplicationPlacementDialog_Fragment, query);
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -109,10 +104,10 @@ const ApplicationPlacementDialog = ({
   ) {
     label = intl.formatMessage(poolCandidateMessages.notPlaced);
   }
-  const canPlace = hasRequiredRoles({
-    toCheck: [{ name: ROLE_NAME.CommunityRecruiter }],
-    userRoles: unpackMaybes(userAuthInfo?.roleAssignments),
-  });
+  const canPlace = useHasPermissions([
+    { permission: Permission.UpdateAnyApplicationPlacement },
+    { permission: Permission.UpdateTeamApplicationPlacement },
+  ]);
 
   if (!canPlace) {
     return <span className="text-gray-600 dark:text-gray-200">{label}</span>;
