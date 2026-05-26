@@ -156,7 +156,9 @@
     "clean": {
       "cache": false
     },
-    "e2e:playwright": {},
+    "e2e:playwright": {
+      "env": ["E2E_COVERAGE"]
+    },
     "lint": {
       "inputs": [
         "../../packages/eslint-config-custom/index.js",
