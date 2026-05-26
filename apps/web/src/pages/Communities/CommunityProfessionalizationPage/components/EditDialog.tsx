@@ -138,12 +138,7 @@ const EditDialog = ({
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Heading
-                level="h3"
-                color="black"
-                size="h6"
-                className="mt-0 font-bold"
-              >
+              <Heading level="h3" size="h6" className="mt-0 font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Classification restrictions",
                   id: "V3zpN4",

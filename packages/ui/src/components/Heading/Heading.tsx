@@ -56,9 +56,6 @@ const heading = tv({
       error: {
         icon: "text-error",
       },
-      black: {
-        icon: "text-black",
-      },
     },
     // Center align text
     center: {
