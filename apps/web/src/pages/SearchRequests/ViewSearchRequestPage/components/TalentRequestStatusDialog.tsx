@@ -314,7 +314,7 @@ const TalentRequestStatusDialog = ({
                     name="completeDetails"
                     label={intl.formatMessage({
                       defaultMessage: "Complete details",
-                      id: 'xvMUlh',
+                      id: "xvMUlh",
                       description: "Label for closed talent request details",
                     })}
                     nullSelection={intl.formatMessage(
