@@ -16,36 +16,27 @@ export interface AuthTokenResponse {
   refresh_token?: string;
 }
 
-// Maps dev test email subs to real UAT user UUIDs via env vars.
-// Each entry corresponds to a dedicated test account in the target environment.
-// Add a new entry here whenever a new role-specific env var is introduced.
-const UAT_SUB_MAP: Record<string, string | undefined> = {
+// Maps local/CI fixture email subs to real UUIDs via env vars.
+// Only needed for graphql.newContext() bootstrap — all other test users are created dynamically.
+// Add an entry here only if a fixture sub is used as the graphql.newContext() default.
+const FIXTURE_SUB_MAP: Record<string, string | undefined> = {
   "admin@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
   "platform@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
-  "applicant@test.com": process.env.PLAYWRIGHT_APPLICANT_SUB,
-  "community@test.com": process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB,
-  "recruiter@test.com": process.env.PLAYWRIGHT_RECRUITER_SUB,
-  "talent-coordinator@test.com": process.env.PLAYWRIGHT_TALENT_COORDINATOR_SUB,
-  "department-admin@test.com": process.env.PLAYWRIGHT_DEPARTMENT_ADMIN_SUB,
-  "department-advisor@test.com": process.env.PLAYWRIGHT_DEPARTMENT_ADVISOR_SUB,
-  "process@test.com": process.env.PLAYWRIGHT_PROCESS_OPERATOR_SUB,
-  "applicant-employee@test.com": process.env.PLAYWRIGHT_APPLICANT_EMPLOYEE_SUB,
-  "noroles@test.com": process.env.PLAYWRIGHT_NO_ROLES_SUB,
 };
 
 /**
- * Resolves a sub for UAT use.
+ * Resolves a fixture email sub to a real UUID when running against a remote environment.
  *
- * Email subs (dev fixtures) are mapped to real UAT UUIDs via env vars.
+ * Email subs (local/CI fixture seeds) are mapped to real UUIDs via FIXTURE_SUB_MAP.
  * Non-email subs (dynamic, e.g. playwright.sub.xxx created by createUserWithRoles)
- * pass through as-is — the user already exists in the UAT DB by the time we call /refresh.
+ * pass through unchanged — the user already exists in the remote DB by the time we call /refresh.
  */
-function resolveUatSub(sub: string): string {
+function resolveFixtureSub(sub: string): string {
   if (!sub.includes("@")) return sub;
-  const resolved = UAT_SUB_MAP[sub];
+  const resolved = FIXTURE_SUB_MAP[sub];
   if (!resolved) {
     throw new Error(
-      `No UAT sub configured for "${sub}". Add the corresponding PLAYWRIGHT_*_SUB env var.`,
+      `No remote sub configured for "${sub}". Add it to FIXTURE_SUB_MAP with a PLAYWRIGHT_*_SUB env var, or use createUserWithRoles to create the user dynamically.`,
     );
   }
   return resolved;
@@ -55,16 +46,23 @@ function resolveUatSub(sub: string): string {
  * Creates an access token for a specific sub.
  *
  * On UAT (TESTING_ENDPOINT_SECRET set): calls the /refresh test-token endpoint.
- * On dev: calls the local Janssen mock at /oxauth/token.
+ * BASE_URL must also be set to the target environment URL (e.g. https://uat-talentcloud.tbs-sct.gc.ca).
+ *
+ * On local/CI: calls the local Janssen mock at /oxauth/token.
  *
  * Used by both loginBySub (page auth) and graphql.newContext() (API auth),
  * so changing this function makes both work consistently across environments.
  */
 export async function getTokenForSub(sub: string) {
   if (process.env.TESTING_ENDPOINT_SECRET) {
-    const uatSub = resolveUatSub(sub);
+    const uatSub = resolveFixtureSub(sub);
     const secret = process.env.TESTING_ENDPOINT_SECRET;
-    const baseUrl = process.env.BASE_URL ?? "http://localhost:8000";
+    const baseUrl = process.env.BASE_URL;
+    if (!baseUrl) {
+      throw new Error(
+        "BASE_URL must be set when TESTING_ENDPOINT_SECRET is configured (e.g. https://uat-talentcloud.tbs-sct.gc.ca)",
+      );
+    }
     const ctx = await request.newContext();
     const res = await ctx.get(
       `${baseUrl}/refresh?sub=${encodeURIComponent(uatSub)}`,
@@ -84,7 +82,7 @@ export async function getTokenForSub(sub: string) {
     };
   }
 
-  // Dev: use local Janssen mock OAuth
+  // Local/CI: use local Janssen mock OAuth
   const ctx = await request.newContext();
   const query = new URLSearchParams({
     code: "00000000-0000-0000-0123-456789abcdef",
@@ -113,7 +111,7 @@ export async function getTokenForSub(sub: string) {
  * Login by sub
  *
  * On UAT (TESTING_ENDPOINT_SECRET set): injects tokens directly into localStorage.
- * On dev: navigates through the mock GCKey UI.
+ * On local/CI: navigates through the mock GCKey UI.
  *
  * @param {Page} page
  * @param {String} sub
@@ -140,7 +138,7 @@ export async function loginBySub(
     return;
   }
 
-  // Dev: navigate through mock GCKey UI
+  // Local: navigate through mock GCKey UI
   await page.goto("/en/login-info");
   await expect(
     page.getByRole("heading", { name: /sign in using gckey/i }),

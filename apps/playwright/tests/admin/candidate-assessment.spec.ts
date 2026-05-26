@@ -37,7 +37,6 @@ import {
 import { createAndPublishPool, getPoolSkills } from "~/utils/pools";
 import { loginBySub } from "~/utils/auth";
 import { generateUniqueTestId } from "~/utils/id";
-import testConfig from "~/constants/config";
 import AssessmentPage from "~/fixtures/AssessmentPage";
 import { getCandidateScreeningStage } from "~/utils/candidateAssessment";
 
@@ -49,16 +48,28 @@ const LOCALIZED_STRING = {
 test.describe("Pool candidates", { tag: "@regression" }, () => {
   let uniqueTestId: string;
   let sub: string;
+  let adminSub: string;
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
   let adminCtx: GraphQLContext;
   let poolId: string;
   let user: User | undefined;
+  let adminUser: User | undefined;
 
   test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
+    adminSub = `playwright.sub.admin.${uniqueTestId}`;
     adminCtx = await graphql.newContext();
+
+    adminUser = await createUserWithRoles(adminCtx, {
+      roles: ["guest", "base_user", "platform_admin"],
+      user: {
+        email: `${adminSub}@example.org`,
+        emailVerifiedAt: PAST_DATE,
+        sub: adminSub,
+      },
+    });
 
     technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find(
@@ -129,16 +140,15 @@ test.describe("Pool candidates", { tag: "@regression" }, () => {
   });
 
   test.afterEach(async () => {
-    if (user?.id) {
-      adminCtx = await graphql.newContext();
-      await deleteUser(adminCtx, { id: user.id });
-    }
+    adminCtx = await graphql.newContext();
+    if (user?.id) await deleteUser(adminCtx, { id: user.id });
+    if (adminUser?.id) await deleteUser(adminCtx, { id: adminUser.id });
   });
 
   test("Validate Application can be screened in with applied work", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, "admin@test.com");
+    await loginBySub(appPage.page, adminSub);
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
@@ -230,7 +240,7 @@ test.describe("Pool candidates", { tag: "@regression" }, () => {
   }) => {
     test.setTimeout(70_000);
     const assessmentPage = new AssessmentPage(appPage.page);
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const poolSkillsID = await getPoolSkills(adminCtx, {
       poolId: poolId,
     }).then((poolSkills) => poolSkills.map((ps) => ps.id));
@@ -296,7 +306,7 @@ test.describe("Pool candidates", { tag: "@regression" }, () => {
   test("Validate application status post reverting Qualified candidate", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const assessmentPage = new AssessmentPage(appPage.page);
     await assessmentPage.goToCandidateApplication(candidate.id);
 
@@ -321,7 +331,7 @@ test.describe("Pool candidates", { tag: "@regression" }, () => {
     appPage,
   }) => {
     const assessmentPage = new AssessmentPage(appPage.page);
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const poolSkillsID = await getPoolSkills(adminCtx, {
       poolId: poolId,
     }).then((poolSkills) => poolSkills.map((ps) => ps.id));
@@ -388,7 +398,7 @@ test.describe("Pool candidates", { tag: "@regression" }, () => {
   test("Validate application status post reverting disqualified candidate", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const assessmentPage = new AssessmentPage(appPage.page);
     await assessmentPage.goToCandidateApplication(candidate.id);
     await expect(
@@ -417,7 +427,7 @@ test.describe("Pool candidates", { tag: "@regression" }, () => {
     appPage,
   }) => {
     const assessmentPage = new AssessmentPage(appPage.page);
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const poolSkillsID = await getPoolSkills(adminCtx, {
       poolId: poolId,
     }).then((poolSkills) => poolSkills.map((ps) => ps.id));
@@ -470,7 +480,7 @@ test.describe("Pool candidates", { tag: "@regression" }, () => {
   test("Validate application status post reinstate removed candidate", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const assessmentPage = new AssessmentPage(appPage.page);
     await assessmentPage.goToCandidateApplication(candidate.id);
     await expect(
