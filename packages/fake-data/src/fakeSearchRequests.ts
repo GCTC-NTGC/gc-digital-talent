@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker/locale/en";
 
 import {
-  TalentRequestClosedDetail,
+  TalentRequestCompleteDetail,
   TalentRequestInProgressDetail,
   TalentRequestStatus,
   type ApplicantFilter,
@@ -37,8 +37,8 @@ const generateSearchRequest = (
   }
   if (status.value === TalentRequestStatus.Complete) {
     details = toLocalizedEnum(
-      faker.helpers.arrayElement<TalentRequestClosedDetail>(
-        Object.values(TalentRequestClosedDetail),
+      faker.helpers.arrayElement<TalentRequestCompleteDetail>(
+        Object.values(TalentRequestCompleteDetail),
       ),
     ).label;
   }

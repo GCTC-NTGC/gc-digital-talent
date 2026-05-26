@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateSearchStatus;
-use App\Enums\TalentRequestClosedDetail;
+use App\Enums\TalentRequestCompleteDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestStatus;
 use App\Models\ApplicantFilter;
@@ -64,8 +64,8 @@ class PoolCandidateSearchRequestFactory extends Factory
             'in_progress_details' => $status === TalentRequestStatus::IN_PROGRESS->name
                 ? $this->faker->optional()->randomElement(TalentRequestInProgressDetail::cases())?->name
                 : null,
-            'closed_details' => $status === TalentRequestStatus::COMPLETE->name
-                ? $this->faker->randomElement(TalentRequestClosedDetail::cases())->name
+            'complete_details' => $status === TalentRequestStatus::COMPLETE->name
+                ? $this->faker->randomElement(TalentRequestCompleteDetail::cases())->name
                 : null,
         ];
     }

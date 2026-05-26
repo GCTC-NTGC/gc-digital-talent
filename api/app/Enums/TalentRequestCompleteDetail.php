@@ -4,7 +4,7 @@ namespace App\Enums;
 
 use App\Traits\HasLocalization;
 
-enum TalentRequestClosedDetail
+enum TalentRequestCompleteDetail
 {
     use HasLocalization;
 
@@ -18,6 +18,6 @@ enum TalentRequestClosedDetail
 
     public static function getLangFilename(): string
     {
-        return 'talent_request_closed_detail';
+        return 'talent_request_complete_detail';
     }
 }

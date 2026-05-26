@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\ActivityLog;
 
-use App\Enums\TalentRequestClosedDetail;
+use App\Enums\TalentRequestCompleteDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestStatus;
 use App\Models\Activity;
@@ -59,7 +59,7 @@ class PoolCandidateSearchRequestActivityEventTest extends TestCase
             'in_progress_details' => TalentRequestInProgressDetail::TALENT_SENT->name,
         ]);
 
-        $request->close(TalentRequestClosedDetail::HIRE_MADE->name);
+        $request->complete(TalentRequestCompleteDetail::HIRE_MADE->name);
 
         $this->assertDatabaseHas('activity_log', [
             'subject_type' => PoolCandidateSearchRequest::class,

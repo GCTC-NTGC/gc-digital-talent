@@ -6,7 +6,7 @@ import { useMutation } from "urql";
 
 import {
   type TalentRequestInProgressDetail,
-  type TalentRequestClosedDetail,
+  type TalentRequestCompleteDetail,
   type FragmentType,
   TalentRequestStatus,
 } from "@gc-digital-talent/graphql";
@@ -45,7 +45,7 @@ const COLOUR_MAP: Record<
 interface FormValues {
   talentRequestStatus: TalentRequestStatus;
   inProgressDetails?: TalentRequestInProgressDetail | null;
-  closedDetails?: TalentRequestClosedDetail | null;
+  completeDetails?: TalentRequestCompleteDetail | null;
   followUpDate?: string | null;
 }
 
@@ -75,7 +75,7 @@ const TalentRequestStatusDialog_Fragment = graphql(/** GraphQL */ `
     inProgressDetails {
       value
     }
-    closedDetails {
+    completeDetails {
       value
     }
     followUpDate
@@ -104,8 +104,8 @@ export const TalentRequestStatusOptions_Fragment = graphql(/** GraphQL */ `
       }
     }
 
-    closedDetails: localizedEnumOptions(enumName: "TalentRequestClosedDetail") {
-      ... on LocalizedTalentRequestClosedDetail {
+    completeDetails: localizedEnumOptions(enumName: "TalentRequestCompleteDetail") {
+      ... on LocalizedTalentRequestCompleteDetail {
         value
         label {
           localized
@@ -144,7 +144,7 @@ const TalentRequestStatusDialog = ({
         talentRequest.talentRequestStatus?.value ??
         TalentRequestStatus.InProgress,
       inProgressDetails: talentRequest.inProgressDetails?.value,
-      closedDetails: talentRequest.closedDetails?.value,
+      completeDetails: talentRequest.completeDetails?.value,
       followUpDate: talentRequest.followUpDate,
     },
   });
@@ -162,9 +162,9 @@ const TalentRequestStatusDialog = ({
           values.talentRequestStatus === TalentRequestStatus.InProgress
             ? values.inProgressDetails
             : null,
-        closedDetails:
+        completeDetails:
           values.talentRequestStatus === TalentRequestStatus.Complete
-            ? values.closedDetails
+            ? values.completeDetails
             : null,
         followUpDate:
           values.talentRequestStatus === TalentRequestStatus.InProgress
@@ -209,7 +209,7 @@ const TalentRequestStatusDialog = ({
       const config = { shouldValidate: true, shouldDirty: true };
       methods.setValue("followUpDate", null, config);
       methods.setValue("inProgressDetails", null, config);
-      methods.setValue("closedDetails", null, config);
+      methods.setValue("completeDetails", null, config);
     }
   };
 
@@ -308,10 +308,10 @@ const TalentRequestStatusDialog = ({
                 )}
                 {currentStatus === TalentRequestStatus.Complete && (
                   <Select
-                    id="closedDetails"
-                    name="closedDetails"
+                    id="completeDetails"
+                    name="completeDetails"
                     label={intl.formatMessage({
-                      defaultMessage: "Closed details",
+                      defaultMessage: "Complete details",
                       id: "ipGQnI",
                       description: "Label for closed talent request details",
                     })}
@@ -322,8 +322,8 @@ const TalentRequestStatusDialog = ({
                       required: intl.formatMessage(errorMessages.required),
                     }}
                     options={narrowEnumType(
-                      unpackMaybes(options?.closedDetails),
-                      "TalentRequestClosedDetail",
+                      unpackMaybes(options?.completeDetails),
+                      "TalentRequestCompleteDetail",
                     ).map((detail) => ({
                       value: detail.value,
                       label: detail.label.localized ?? notAvailable,

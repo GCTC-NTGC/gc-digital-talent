@@ -16,7 +16,7 @@ final class UpdatePoolCandidateSearchRequestStatus
         if ($args['status'] === TalentRequestStatus::IN_PROGRESS->name) {
             $searchRequest->progress($args['inProgressDetails'], $args['followUpDate'] ?? null);
         } elseif ($args['status'] === TalentRequestStatus::COMPLETE->name) {
-            $searchRequest->close($args['closedDetails']);
+            $searchRequest->complete($args['completeDetails']);
         }
 
         return $searchRequest;

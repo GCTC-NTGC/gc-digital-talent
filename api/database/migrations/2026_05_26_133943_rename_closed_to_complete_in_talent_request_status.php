@@ -22,6 +22,8 @@ return new class() extends Migration
             SQL
         );
 
+        DB::statement('ALTER TABLE pool_candidate_search_requests RENAME COLUMN closed_details TO complete_details');
+
         if (Schema::hasTable('talent_requests')) {
             DB::statement('ALTER TABLE talent_requests DROP COLUMN status_weight');
             DB::statement("UPDATE talent_requests SET status = 'COMPLETE' WHERE status = 'CLOSED'");
@@ -36,11 +38,13 @@ return new class() extends Migration
                 END) STORED
                 SQL
             );
+            DB::statement('ALTER TABLE talent_requests RENAME COLUMN closed_details TO complete_details');
         }
     }
 
     public function down(): void
     {
+        DB::statement('ALTER TABLE pool_candidate_search_requests RENAME COLUMN complete_details TO closed_details');
         DB::statement('ALTER TABLE pool_candidate_search_requests DROP COLUMN status_weight');
         DB::statement("UPDATE pool_candidate_search_requests SET status = 'CLOSED' WHERE status = 'COMPLETE'");
         DB::statement(<<<'SQL'
@@ -56,6 +60,7 @@ return new class() extends Migration
         );
 
         if (Schema::hasTable('talent_requests')) {
+            DB::statement('ALTER TABLE talent_requests RENAME COLUMN complete_details TO closed_details');
             DB::statement('ALTER TABLE talent_requests DROP COLUMN status_weight');
             DB::statement("UPDATE talent_requests SET status = 'CLOSED' WHERE status = 'COMPLETE'");
             DB::statement(<<<'SQL'
