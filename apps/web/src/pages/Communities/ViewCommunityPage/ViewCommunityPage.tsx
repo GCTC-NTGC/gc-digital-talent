@@ -245,17 +245,14 @@ const ViewCommunityPage = ({ community }: ViewCommunityPageProps) => {
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request }, next) => {
-    requireUser(
-      context,
-      request,
-      [
+    requireUser(context, request, {
+      roles: [
         { name: ROLE_NAME.PlatformAdmin },
         { name: ROLE_NAME.CommunityAdmin },
         { name: ROLE_NAME.CommunityRecruiter },
         { name: ROLE_NAME.CommunityTalentCoordinator },
       ],
-      false,
-    );
+    });
     return await next();
   },
 ];

@@ -27,6 +27,8 @@ export default defineConfig({
         ["html", { open: "never", outputFolder: "playwright-report" }],
       ]
     : [["line"], ["html", { open: "on-failure" }]],
+  globalTeardown:
+    process.env.E2E_COVERAGE === "true" ? "./e2e-coverage-teardown" : undefined,
   timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000),
   expect: { timeout: Number(process.env.EXPECT_TIMEOUT ?? 15000) }, // 15 seconds
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

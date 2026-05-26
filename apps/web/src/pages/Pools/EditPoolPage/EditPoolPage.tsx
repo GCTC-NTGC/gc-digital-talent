@@ -888,14 +888,16 @@ export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
     const communityId = res.data?.pool?.community?.teamIdForRoleAssignment;
     const departmentId = res.data?.pool?.department?.teamIdForRoleAssignment;
 
-    requireUser(context, request, [
-      { name: ROLE_NAME.PlatformAdmin },
-      { name: ROLE_NAME.CommunityAdmin, teamId: communityId },
-      { name: ROLE_NAME.CommunityRecruiter, teamId: communityId },
-      { name: ROLE_NAME.ProcessOperator, teamId: res.data?.pool?.teamId },
-      { name: ROLE_NAME.DepartmentAdmin, teamId: departmentId },
-      { name: ROLE_NAME.DepartmentHRAdvisor, teamId: departmentId },
-    ]);
+    requireUser(context, request, {
+      roles: [
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId: communityId },
+        { name: ROLE_NAME.CommunityRecruiter, teamId: communityId },
+        { name: ROLE_NAME.ProcessOperator, teamId: res.data?.pool?.teamId },
+        { name: ROLE_NAME.DepartmentAdmin, teamId: departmentId },
+        { name: ROLE_NAME.DepartmentHRAdvisor, teamId: departmentId },
+      ],
+    });
     return await next();
   },
 ];
