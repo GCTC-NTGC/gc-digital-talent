@@ -43,13 +43,13 @@ const ApplicantFilters = ({
   flexibleWorkLocationOptions,
 }: {
   applicantFilter?: Maybe<PartialApplicantFilter>;
-  selectedClassifications: Pick<Classification, "groupAndLevel">[];
+  selectedClassifications?: Pick<Classification, "groupAndLevel">[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   // else set values if filters prop is of ApplicantFilterInput type
-  const classificationsFromBrowserHistory = selectedClassifications.map(
+  const classificationsFromBrowserHistory = selectedClassifications?.map(
     (classification) => wrapAbbr(classification?.groupAndLevel, intl),
   );
 
@@ -277,7 +277,7 @@ const ApplicantFilters = ({
 
 interface SearchRequestFiltersProps {
   filters?: Maybe<PartialApplicantFilter | PartialPoolCandidateFilter>;
-  selectedClassifications: Pick<Classification, "groupAndLevel">[];
+  selectedClassifications?: Pick<Classification, "groupAndLevel">[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
 }
 

@@ -92,7 +92,7 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
           <FieldDisplay
             label={intl.formatMessage(jobPosterTemplateMessages.classification)}
           >
-            {jobPosterTemplate.classification.displayName ??
+            {jobPosterTemplate.classification?.displayName ??
               intl.formatMessage(commonMessages.notFound)}
           </FieldDisplay>
           <FieldDisplay

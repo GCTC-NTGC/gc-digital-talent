@@ -122,7 +122,7 @@ export const applicantFilterToQueryArgs = (
  */
 export const dataToFormValues = (
   data: ApplicantFilterInput,
-  selectedClassifications: Pick<Classification, "groupAndLevel">[],
+  selectedClassifications?: Pick<Classification, "groupAndLevel">[],
 ): FormValues => {
   const stream = data?.qualifiedInWorkStreams?.find(notEmpty);
 
@@ -160,12 +160,10 @@ export const dataToFormValues = (
  */
 export const formValuesToData = (
   values: FormValues,
-  classifications: Pick<Classification, "group" | "level" | "id">[],
+  classifications: Pick<Classification, "group" | "level" | "groupAndLevel">[],
 ): ApplicantFilterInput => {
-  const selectedClassification = classifications.find(({ group, level }) => {
-    return (
-      `${group}-${level < 10 ? "0" : ""}${level}` === values.classification
-    );
+  const selectedClassification = classifications.find(({ groupAndLevel }) => {
+    return groupAndLevel === values.classification;
   });
 
   return {
