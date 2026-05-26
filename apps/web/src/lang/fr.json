@@ -4495,6 +4495,10 @@
     "defaultMessage": "Veuillez remplir toutes les zones obligatoires avant de continuer",
     "description": "Error message displayed when user attempts to submit incomplete profile"
   },
+  "G1x4n8": {
+    "defaultMessage": "Pour commencer, consultez la liste des collectivités partenaires de la plateforme Talents numériques du GC. D'autres collectivités seront ajoutées au fur et à mesure qu'elles rejoindront la plateforme. Une fois que vous avez sélectionné une collectivité, on vous posera quelques questions sur l'intérêt que vous portez aux possibilités qui y sont offertes.",
+    "description": "Description of the 'find a new community' section when creating"
+  },
   "G4TRsY": {
     "defaultMessage": "Mutation latérale<hidden> nomination approuvée</hidden>",
     "description": "Status description when the nomination includes the lateral movement option"
@@ -12061,10 +12065,6 @@
   "knm4b3": {
     "defaultMessage": "Parlez-nous des processus de recrutement dans lesquels vous êtes qualifiée ou qualifié sur d’autres plateformes du gouvernement du Canada.",
     "description": "Dialog subtitle informing of purpose"
-  },
-  "koX5xF": {
-    "defaultMessage": "Pour commencer, consultez la liste des collectivités partenaires de la plateforme Talents numériques du GC. D'autres collectivités seront ajoutées au fur et à mesure qu'elles rejoindront la plateforme. Une fois que vous avez sélectionné une collectivité, on vous posera quelques questions sur l'intérêt que vous portez aux possibilités qui y sont offertes.",
-    "description": "Description of the 'find a new community' section when creating"
   },
   "kolwAf": {
     "defaultMessage": "Qualifié(e) dans le processus",

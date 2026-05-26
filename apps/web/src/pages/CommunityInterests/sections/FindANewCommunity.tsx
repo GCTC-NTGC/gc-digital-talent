@@ -117,11 +117,10 @@ const FindANewCommunity = ({
         description:
           "Heading for the 'Find a new community' section when creating",
       });
-      // TODO: Fix copy below
       description = defineMessage({
         defaultMessage:
-          "To get started, browse through the list of communities that partner with GC Digital Talent. More communities will be added as they join the platform. Once you’ve selected a community, you’ll be asked a few questions about your interest in opportunities.",
-        id: "koX5xF",
+          "To get started, browse through the list of communities that partner with GC Digital Talent. More communities will be added as they join the platform. Once you've selected a community, you'll be asked a few questions about your interest in opportunities.",
+        id: "G1x4n8",
         description:
           "Description of the 'find a new community' section when creating",
       });
