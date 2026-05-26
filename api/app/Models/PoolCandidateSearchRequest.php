@@ -324,7 +324,7 @@ class PoolCandidateSearchRequest extends Model
             if ($this->status === TalentRequestStatus::IN_PROGRESS->name && ! is_null($this->in_progress_details)) {
                 return TalentRequestInProgressDetail::localizedString($this->in_progress_details);
             }
-            if ($this->status === TalentRequestStatus::CLOSED->name && ! is_null($this->closed_details)) {
+            if ($this->status === TalentRequestStatus::COMPLETE->name && ! is_null($this->closed_details)) {
                 return TalentRequestClosedDetail::localizedString($this->closed_details);
             }
 
@@ -343,7 +343,7 @@ class PoolCandidateSearchRequest extends Model
 
     public function close(string $closedDetail): void
     {
-        $this->status = TalentRequestStatus::CLOSED->name;
+        $this->status = TalentRequestStatus::COMPLETE->name;
         $this->closed_details = $closedDetail;
         $this->in_progress_details = null;
         $this->follow_up_date = null;

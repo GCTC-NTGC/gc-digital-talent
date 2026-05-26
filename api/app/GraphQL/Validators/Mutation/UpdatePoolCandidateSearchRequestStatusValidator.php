@@ -18,7 +18,7 @@ final class UpdatePoolCandidateSearchRequestStatusValidator extends Validator
             'poolCandidateSearchRequest.status' => [
                 Rule::in([
                     TalentRequestStatus::IN_PROGRESS->name,
-                    TalentRequestStatus::CLOSED->name,
+                    TalentRequestStatus::COMPLETE->name,
                 ]),
             ],
             'poolCandidateSearchRequest.inProgressDetails' => [
@@ -28,7 +28,7 @@ final class UpdatePoolCandidateSearchRequestStatusValidator extends Validator
             ],
             'poolCandidateSearchRequest.closedDetails' => [
                 'nullable',
-                'required_if:poolCandidateSearchRequest.status,'.TalentRequestStatus::CLOSED->name,
+                'required_if:poolCandidateSearchRequest.status,'.TalentRequestStatus::COMPLETE->name,
                 Rule::in(array_column(TalentRequestClosedDetail::cases(), 'name')),
             ],
         ];
@@ -39,7 +39,7 @@ final class UpdatePoolCandidateSearchRequestStatusValidator extends Validator
         return [
             'poolCandidateSearchRequest.status.in' => 'The selected status is invalid.',
             'poolCandidateSearchRequest.inProgressDetails.required_if' => 'The inProgressDetails field is required when status is IN_PROGRESS.',
-            'poolCandidateSearchRequest.closedDetails.required_if' => 'The closedDetails field is required when status is CLOSED.',
+            'poolCandidateSearchRequest.closedDetails.required_if' => 'The closedDetails field is required when status is COMPLETE.',
         ];
     }
 }

@@ -64,7 +64,7 @@ class PoolCandidateSearchRequestFactory extends Factory
             'in_progress_details' => $status === TalentRequestStatus::IN_PROGRESS->name
                 ? $this->faker->optional()->randomElement(TalentRequestInProgressDetail::cases())?->name
                 : null,
-            'closed_details' => $status === TalentRequestStatus::CLOSED->name
+            'closed_details' => $status === TalentRequestStatus::COMPLETE->name
                 ? $this->faker->randomElement(TalentRequestClosedDetail::cases())->name
                 : null,
         ];
