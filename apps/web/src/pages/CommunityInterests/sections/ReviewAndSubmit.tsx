@@ -57,7 +57,7 @@ const ReviewAndSubmit = ({
     )?.name?.localized ?? intl.formatMessage(commonMessages.notFound);
 
   return (
-    <div className="">
+    <div>
       {/* heading and description */}
       <Heading
         level="h2"
