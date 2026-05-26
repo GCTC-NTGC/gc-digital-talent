@@ -23,6 +23,10 @@
     "defaultMessage": "Statut de priorité",
     "description": "Title for priority status"
   },
+  "+2vO9m": {
+    "defaultMessage": "J’occupe actuellement un rôle de cadre supérieur désigné",
+    "description": "Message when user is a Senior Designated Official"
+  },
   "+2z44i": {
     "defaultMessage": "Il s’agit du nom d’utilisateur et du mot de passe que vous utilisez habituellement pour vous connecter à Talents numériques du GC.",
     "description": "Text for step two link your GCKey account."
@@ -222,10 +226,6 @@
   "+lxGIT": {
     "defaultMessage": "Suivre, « aimer » et s’abonner",
     "description": "Heading for following section"
-  },
-  "+mCsoW": {
-    "defaultMessage": "Demande d’état mise à jour!",
-    "description": "Message displayed to user after the request status is successfully updated."
   },
   "+mG20j": {
     "defaultMessage": "Carrière complète",
@@ -1094,6 +1094,10 @@
   "27FjxB": {
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
+  },
+  "27Z2k7": {
+    "defaultMessage": "Date de suivi mise à jour.",
+    "description": "Success message displayed when a talent requests follow-up date was updated"
   },
   "27mGKw": {
     "defaultMessage": "Retirer le signet",
@@ -2051,6 +2055,10 @@
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for Goals and work style section of user employee information page"
   },
+  "5wS5V8": {
+    "defaultMessage": "Date de suivi",
+    "description": "Label for the follow-up date field"
+  },
   "5zJ+/1": {
     "defaultMessage": "Compétences techniques constituant un atout - Exemples",
     "description": "Long title of the 'asset technical skills' section of the job poster template page"
@@ -2178,10 +2186,6 @@
   "6bGWe5": {
     "defaultMessage": "<strong>{name}</strong> a publié",
     "description": "Label for activity log item published action"
-  },
-  "6bjQWW": {
-    "defaultMessage": "Veuillez indiquer si vous exercez l’une des fonctions supplémentaires suivantes dans le cadre de votre rôle de CSD.",
-    "description": "Description for additional duties referencing a Senior Designated Officer (SDO) role"
   },
   "6bvAQ+": {
     "defaultMessage": "Rétroaction et coordonnées",
@@ -2354,6 +2358,10 @@
   "7Q6mMp": {
     "defaultMessage": "Enregistrer des compétences techniques constituant un atout",
     "description": "Text on a button to save the nonessential technical skills form"
+  },
+  "7QwKdF": {
+    "defaultMessage": "Mettre à jour le statut de la demande",
+    "description": "Heading for updating a talent request status"
   },
   "7Rllrl": {
     "defaultMessage": "Tout cocher",
@@ -2867,10 +2875,6 @@
     "defaultMessage": "Les membres du personnel CT-FIN-04 qui ont été retenus pour la gestion des talents doivent créer un profil.",
     "description": "List item two financial management content"
   },
-  "9b+Xtt": {
-    "defaultMessage": "Informations sur la collectivité",
-    "description": "Heading for the community information section of a form"
-  },
   "9bG59n": {
     "defaultMessage": "Auteur(trice)s de mise en candidature",
     "description": "Label or header"
@@ -3183,6 +3187,10 @@
     "defaultMessage": "Filtres de profils d'employé(e)",
     "description": "Heading for filters associated with employee profiles"
   },
+  "AZ114p": {
+    "defaultMessage": "Les renseignements suivants serviront à identifier la collectivité et à donner un aperçu des domaines qu’elle soutient.",
+    "description": "Community details informative line"
+  },
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
     "description": "Text explaining what will happen when duplicating a process"
@@ -3346,10 +3354,6 @@
   "B524m1": {
     "defaultMessage": "État du mentorat",
     "description": "Label for an employee profile career development preference field"
-  },
-  "B6SqfX": {
-    "defaultMessage": "Enregistrer le changement d'état",
-    "description": "Button label displayed that saves the users status selection."
   },
   "B6VbYI": {
     "defaultMessage": "Vous pouvez ajouter une note spéciale si vous voulez ajouter une compétence générique avec des instructions supplémentaires pour guider les utilisateurs du modèle.",
@@ -3678,10 +3682,6 @@
   "CZqu7B": {
     "defaultMessage": "Mettre en valeur d'importants programmes, certifications ou licences qui seront présentés aux personnes qui rejoignent la collectivité et qui pourront ensuite indiquer leur intérêt ou leurs titres de compétences",
     "description": "Dialog body text for highlighting important programs, certifications or licenses"
-  },
-  "CaDy8n": {
-    "defaultMessage": "Erreur : la mise à jour de l’état a échoué",
-    "description": "Message displayed to user after the request status fails to be updated."
   },
   "CcLolQ": {
     "defaultMessage": "Sélectionnez le processus et les rôles que vous souhaitez ajouter",
@@ -4134,6 +4134,10 @@
   "EQI4l2": {
     "defaultMessage": "{count, plural, one {# compétence} other {# compétences}}",
     "description": "Number of skills on an experience"
+  },
+  "EQfFa1": {
+    "defaultMessage": "Erreur : impossible de mettre à jour la date de suivi.",
+    "description": "Error message displayed when a talent requests follow-up date failed to update"
   },
   "ERsZAD": {
     "defaultMessage": "La formation m'intéresse",
@@ -4724,7 +4728,7 @@
     "description": "Label for a priority status claim expiration date"
   },
   "H/0zee": {
-    "defaultMessage": "Archivez le ministère",
+    "defaultMessage": "Archiver le ministère",
     "description": "Button to trigger department archiving functionality"
   },
   "H/aUwM": {
@@ -4828,7 +4832,7 @@
     "description": "Heading for the pool closing date dialog"
   },
   "Hah9mB": {
-    "defaultMessage": "Retirez du processus",
+    "defaultMessage": "Retirer du processus",
     "description": "Button label for the form to remove a process role from a user"
   },
   "Hc3RTQ": {
@@ -5012,7 +5016,7 @@
     "description": "Text for first registration step, view details from CanadaLogin"
   },
   "IHyNL8": {
-    "defaultMessage": "Ajouter comme membre",
+    "defaultMessage": "Ajouter un membre",
     "description": "Title for the add member to community form"
   },
   "II4+N3": {
@@ -5739,6 +5743,10 @@
     "defaultMessage": "Rapport sur le Nuage de talents",
     "description": "Link text to read the report on talent cloud"
   },
+  "L9xXMG": {
+    "defaultMessage": "Erreur : impossible de mettre à jour le statut de la demande de talents.",
+    "description": "Error message when attempting to update a talent request status"
+  },
   "L9yjr3": {
     "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada",
     "description": "Heading for the Learn more dialog"
@@ -6112,7 +6120,7 @@
     "description": "Error message for updating a candidates assessment stage"
   },
   "MkUz+j": {
-    "defaultMessage": "Ajouter comme membre",
+    "defaultMessage": "Ajouter un membre",
     "description": "Label for the add member to community form (action)"
   },
   "MmTWYV": {
@@ -6130,10 +6138,6 @@
   "MnwLD0": {
     "defaultMessage": "Sélectionnez un ou plusieurs programmes, certifications ou accréditations dont cette personne bénéficierait en y participant.",
     "description": "Description for development program options section in nominations details step"
-  },
-  "MoehVY": {
-    "defaultMessage": "Je suis une personne occupant un rôle de cadre supérieur désigné (CSD).",
-    "description": "Message when user is a Senior Designated Officer"
   },
   "MptxTu": {
     "defaultMessage": "Cette section vous permet de présenter des informations sur vous-même et sur votre façon de travailler, y compris sur vos objectifs pour l'avenir et sur les environnements qui vous permettent de donner le meilleur de vous-même.",
@@ -7739,10 +7743,6 @@
     "defaultMessage": "Ce rôle n’avait aucun lien avec le gouvernement du Canada.",
     "description": "Description for the external employment category option in work experience"
   },
-  "TfEUPu": {
-    "defaultMessage": "Préférence pour la durée de l'emploi",
-    "description": "Legend Text for required work preferences options in work preferences form"
-  },
   "TfYpv3": {
     "defaultMessage": "Titre du poste",
     "description": "The job title for a job poster template"
@@ -7838,6 +7838,10 @@
   "U0MY+6": {
     "defaultMessage": "À quoi vous attendre après avoir soumis votre demande",
     "description": "Title for the what to expect section"
+  },
+  "U1GjYG": {
+    "defaultMessage": "Rôle de cadre supérieur désigné (CSD)",
+    "description": "Bounding box label for the SDO checkbox"
   },
   "U56T9c": {
     "defaultMessage": "Non vérifiée",
@@ -7959,6 +7963,10 @@
     "defaultMessage": "Options de perfectionnement professionnel et en leadership",
     "description": "Label for users interest in development programs for a community"
   },
+  "UieDSb": {
+    "defaultMessage": "Modifier les détails de la collectivité",
+    "description": "Link to edit the currently viewed community"
+  },
   "Uj7TE2": {
     "defaultMessage": "La présente section de votre profil vous permet de manifester votre intérêt pour une variété d'options particulières liées au recrutement, au mentorat et aux possibilités de promotion.",
     "description": "Describes the career development preferences of employee profile"
@@ -8037,6 +8045,10 @@
   "Uy5Dg2": {
     "defaultMessage": "Participation de la collectivité",
     "description": "Title for community experience section"
+  },
+  "V/bSTW": {
+    "defaultMessage": "Durée des postes pour lesquels vous souhaitez être pris en considération",
+    "description": "Legend Text for required work preferences options in work preferences form"
   },
   "V0+Pk/": {
     "defaultMessage": "Consulter les talents de la collectivité",
@@ -8207,7 +8219,7 @@
     "description": "Message displayed when a user updates a skill"
   },
   "VgyUtZ": {
-    "defaultMessage": "Modifier les rôles dans le ministère",
+    "defaultMessage": "Modifier les rôles liés à un ministère",
     "description": "Label for the form to edit a users department membership"
   },
   "VhqbdZ": {
@@ -8393,6 +8405,10 @@
   "WT+5to": {
     "defaultMessage": "Autre grade avec spécialisation",
     "description": "Heading for the `other education with specialization` option for EC education requirements"
+  },
+  "WWJRlj": {
+    "defaultMessage": "Je n'occupe pas de rôle de cadre supérieur désigné (CSD).",
+    "description": "Message when user is not a Senior Designated Official"
   },
   "WWrQYI": {
     "defaultMessage": "Erreur : la mise à jour de la possibilité de formation a échoué",
@@ -9215,7 +9231,7 @@
     "description": "Page title for the department creation page"
   },
   "ZqGZ2s": {
-    "defaultMessage": "Lancez une mise en candidature<hidden> pour {title}</hidden>",
+    "defaultMessage": "Lancer une mise en candidature<hidden> pour {title}</hidden>",
     "description": "Button label to start a nomination for event"
   },
   "ZqZc8Z": {
@@ -9469,6 +9485,10 @@
   "b44Vd5": {
     "defaultMessage": "Classification de l'auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's classification"
+  },
+  "b6mzab": {
+    "defaultMessage": "Le statut de la demande de talents a été mis à jour avec succès.",
+    "description": "Message displayed after a talent requests status was updated"
   },
   "b9aCAt": {
     "defaultMessage": "Expérience de travail actuelle",
@@ -9902,6 +9922,10 @@
     "defaultMessage": "Parlez-nous de vos compétences",
     "description": "Page title for the application skills introduction page"
   },
+  "coi+kV": {
+    "defaultMessage": "Détails de l’état en cours",
+    "description": "Label for in-progress talent request details"
+  },
   "cqJw3g": {
     "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de votre vitrine de compétences.",
     "description": "First paragraph for remove skill dialog"
@@ -10310,6 +10334,10 @@
     "defaultMessage": "Événement de mise en candidature mis à jour avec succès.",
     "description": "Message displayed to user after talent nomination event is updated"
   },
+  "eJekyY": {
+    "defaultMessage": "Mandatée par",
+    "description": "Label displayed on the community form mandated by authority field"
+  },
   "eK+8dS": {
     "defaultMessage": "Site web officiel ou documentation",
     "description": "Label displayed for information URL field"
@@ -10329,6 +10357,10 @@
   "eNTKLK": {
     "defaultMessage": "Informations sur le ministère",
     "description": "Heading for the 'create a department' form"
+  },
+  "eO6RfE": {
+    "defaultMessage": "Veuillez indiquer si vous exercez l’une des fonctions supplémentaires suivantes dans le cadre de votre rôle de CSD.",
+    "description": "Description for additional duties referencing a Senior Designated Official (SDO) role"
   },
   "eO9buR": {
     "defaultMessage": "4. Félicitations! <strong>Vous vous êtes connecté avec une CléGC</strong> et vous serez redirigé vers la <strong>plateforme de talents numériques du GC</strong>.",
@@ -10866,10 +10898,6 @@
     "defaultMessage": "Le <link>Fonds de formation et de perfectionnement de la collectivité de la TI</link> peut vous aider à acquérir la certification en payant le coût des examens.",
     "description": "Second paragraph of certification exam vouchers section"
   },
-  "gIwkgl": {
-    "defaultMessage": "J’occupe actuellement un rôle de cadre supérieur désigné",
-    "description": "Message when user is a Senior Designated Officer"
-  },
   "gIzUDr": {
     "defaultMessage": "Modifier les questions générales",
     "description": "Edit link text for general questions section of the application review page."
@@ -11179,7 +11207,7 @@
     "description": "Priority number label"
   },
   "hS96pl": {
-    "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants dans le processus :",
+    "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants :",
     "description": "Text notifying user which process roles will be removed from the user"
   },
   "hSmKjD": {
@@ -11506,9 +11534,17 @@
     "defaultMessage": "Historique des notifications",
     "description": "Title for list of a users notifications"
   },
+  "ipGQnI": {
+    "defaultMessage": "Détails de fermeture",
+    "description": "Label for closed talent request details"
+  },
   "ipKAvI": {
     "defaultMessage": "1. si vous êtes intéressé(e) à embaucher un apprentis et aimeriez en apprendre davantage sur le Programme d'apprentissage en TI pour les peuples autochtones",
     "description": "Paragraph 2 of a manager's email for apprenticeship"
+  },
+  "iqCi+v": {
+    "defaultMessage": "Détails de la collectivité",
+    "description": "Label for Community details"
   },
   "ir/K0H": {
     "defaultMessage": "Les tâches principales suivantes sont des exemples du travail qui pourrait être effectué dans le cadre de ce poste. Au moment de rédiger votre offre d’emploi, vous pouvez ajouter, supprimer ou modifier ce qui est mentionné ici afin de mieux l’adapter à votre équipe et au poste que vous souhaitez pourvoir.",
@@ -12350,6 +12386,10 @@
     "defaultMessage": "Ajouter des options pour les programmes ou certifications auxquels une personne candidate peut être recommandée",
     "description": "Dialog subtitle informing of purpose"
   },
+  "mIffJX": {
+    "defaultMessage": "Statut de la demande",
+    "description": "Label for the request status input"
+  },
   "mKrj0x": {
     "defaultMessage": "Enregistrer et ajouter comme membre",
     "description": "Label for add member to a community form"
@@ -12858,6 +12898,10 @@
     "defaultMessage": "Vous n'avez rejoint aucune collectivité fonctionnelle.",
     "description": "Label for when user has not expressed interest in any communities"
   },
+  "oAC+SM": {
+    "defaultMessage": "Je suis une personne occupant un rôle de cadre supérieur désigné (CSD).",
+    "description": "Message when user is a Senior Designated Official"
+  },
   "oCFoWU": {
     "defaultMessage": "Informations sur la compétence",
     "description": "Heading for the 'create a skill' form"
@@ -13238,10 +13282,6 @@
     "defaultMessage": "Autorisé",
     "description": "Indication a specific permission is allowed for a specific role"
   },
-  "phS+TP": {
-    "defaultMessage": "Modifier les informations sur la collectivité",
-    "description": "Link to edit the currently viewed community"
-  },
   "phluwu": {
     "defaultMessage": "Votre information sur l’annonce et votre plan d'évaluation sont complets.",
     "description": "Lead-in text on a complete process, ready for publishing"
@@ -13354,6 +13394,10 @@
     "defaultMessage": "Actuellement non vérifié",
     "description": "Label for the unverified claim option"
   },
+  "q8ztSV": {
+    "defaultMessage": "Autre poste de cadre supérieur désigné (CSD)",
+    "description": "Label for the 'Other role' input"
+  },
   "q9LrNV": {
     "defaultMessage": "Se connecter avec ConnexionCanada",
     "description": "Page title for the sign in page using CanadaLogin"
@@ -13417,10 +13461,6 @@
   "qQ9ziR": {
     "defaultMessage": "Les personnes choisies devront travailler sur place dans la région de la capitale nationale.",
     "description": "Note for innovation corps candidates about location"
-  },
-  "qQYO+V": {
-    "defaultMessage": "Autre poste de cadre supérieur délégué (CSD)",
-    "description": "Label for the 'Other role' input"
   },
   "qSNLSc": {
     "defaultMessage": "Acceptez le résumé des conditions d'utilisation.",
@@ -14366,10 +14406,6 @@
     "defaultMessage": "Réglementation",
     "description": "Label for a regulatory department"
   },
-  "uhtPZi": {
-    "defaultMessage": "Je n'occupe pas de rôle de cadre supérieur désigné (CSD).",
-    "description": "Message when user is not a Senior Designated Officer"
-  },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
     "description": "Paragraph 2, how self-declaration data is used"
@@ -14662,13 +14698,13 @@
     "defaultMessage": "Les informations sur les objectifs et le style de travail ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
   },
-  "voOIR0": {
-    "defaultMessage": "Rôle de cadre supérieur désigné (CSD)",
-    "description": "Bounding box label for the SDO checkbox"
-  },
   "voqC0s": {
     "defaultMessage": "Gestion des talents",
     "description": "Card title for Talent management"
+  },
+  "vpnzr+": {
+    "defaultMessage": "Afficher et modifier les détails de la collectivité {communityName}",
+    "description": "Subtitle for the details view page of a community"
   },
   "vtE73H": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
@@ -14777,6 +14813,10 @@
   "wL95nl": {
     "defaultMessage": "La personne candidate n'a pas fourni d'informations sur son objectif de carrière final.",
     "description": "Message displayed if nominee hasn't filled out career objective info"
+  },
+  "wLR3Ux": {
+    "defaultMessage": "Effacer la date et enregistrer",
+    "description": "Button text to clear out a date"
   },
   "wMni5o": {
     "defaultMessage": "Processus de recrutement ({numOfProcesses})",
@@ -15306,7 +15346,7 @@
     "description": "Link text for guidance resource download"
   },
   "yVf0d/": {
-    "defaultMessage": "Présentez une mise en candidature",
+    "defaultMessage": "Présenter une mise en candidature",
     "description": "Link text to navigate to talent nomination events list"
   },
   "yW+1fz": {

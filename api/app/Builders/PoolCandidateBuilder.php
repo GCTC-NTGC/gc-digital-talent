@@ -627,7 +627,7 @@ class PoolCandidateBuilder extends Builder
         }
 
         if (! empty($args['useFlag'])) {
-            $this->orderBy('is_flagged', 'DESC');
+            $this->orderBy('is_flagged', 'desc');
         }
 
         return $this;
@@ -670,7 +670,7 @@ class PoolCandidateBuilder extends Builder
 
             $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
 
-            $this->orderByRaw($order)->orderBy('submitted_at', 'ASC');
+            $this->orderByRaw($order)->orderBy('submitted_at', 'asc');
         }
 
         return $this;
@@ -693,7 +693,7 @@ class PoolCandidateBuilder extends Builder
             return
             $this->withMax('pool', 'name->'.$locale)
                 ->orderBy('pool_max_name'.$locale, $order)
-                ->orderBy('submitted_at', 'ASC');
+                ->orderBy('submitted_at', 'asc');
         }
 
         return $this;
@@ -712,7 +712,7 @@ class PoolCandidateBuilder extends Builder
             ->leftJoin('users', 'pool_candidates.user_id', '=', 'users.id')
             ->leftJoin('departments', 'users.computed_department', '=', 'departments.id')
             ->orderByRaw("departments.name->>'$locale' $order")
-            ->orderBy('submitted_at', 'ASC');
+            ->orderBy('submitted_at', 'asc');
     }
 
     public function orderByScreeningStage(?string $order): self

@@ -437,6 +437,7 @@ const PoolCandidatesTable = ({
   doNotUseBookmark = false,
   doNotUseFlag = false,
   availableSteps,
+  hiddenColumnIds: hiddenColumnIdsProp,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
   currentPool?: Maybe<Pick<Pool, "id" | "displayName">>;
@@ -445,6 +446,7 @@ const PoolCandidatesTable = ({
   doNotUseBookmark?: boolean;
   doNotUseFlag?: boolean;
   availableSteps?: Maybe<PoolCandidateFilterDialogProps["availableSteps"]>;
+  hiddenColumnIds?: string[];
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -1143,7 +1145,11 @@ const PoolCandidatesTable = ({
     ),
   ] as ColumnDef<CandidatesTableCandidatesPaginatedQueryDataType>[];
 
-  const hiddenColumnIds = ["candidacyStatus", "notes", "flexibleWorkLocations"];
+  const hiddenColumnIds = hiddenColumnIdsProp ?? [
+    "candidacyStatus",
+    "notes",
+    "flexibleWorkLocations",
+  ];
   const hasSelectedRows = selectedRows.length > 0;
 
   return (

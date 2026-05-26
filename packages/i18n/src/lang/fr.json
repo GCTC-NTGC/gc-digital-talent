@@ -620,7 +620,7 @@
     "description": "Name of the skill showcase page"
   },
   "MQB4IA": {
-    "defaultMessage": "Enregistrer et continuez",
+    "defaultMessage": "Enregistrer et continuer",
     "description": "Button text to save a form step and continue to the next one"
   },
   "Mco0Km": {
@@ -762,6 +762,10 @@
   "Q6sBsq": {
     "defaultMessage": "Étape complétée, {label}",
     "description": "Prefix when a step has been completed."
+  },
+  "Q77DlA": {
+    "defaultMessage": "{daysOverdue, plural, one {# jour en retard} other {# jours en retard}}",
+    "description": "Message showing the number of days by which something is overdue"
   },
   "QP+Skh": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires régulièrement.",

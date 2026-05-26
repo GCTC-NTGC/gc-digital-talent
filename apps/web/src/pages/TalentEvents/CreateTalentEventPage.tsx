@@ -17,7 +17,11 @@ import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { Submit } from "@gc-digital-talent/forms";
-import { convertDateTimeZone } from "@gc-digital-talent/date-helpers";
+import {
+  convertDateTimeZone,
+  currentDate,
+  nowUTCDateTime,
+} from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero";
@@ -75,14 +79,26 @@ const CreateTalentEventPage = () => {
   const onSubmit: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
+    const inputOpenDate = formValues.openDate;
+    const nowDate = currentDate();
+
+    let overrideOpenDate = "";
+
+    // if to open today go with the immediate datetime, otherwise opens just after midnight Pacific day of
+    if (inputOpenDate === nowDate) {
+      overrideOpenDate = nowUTCDateTime();
+    } else {
+      overrideOpenDate = convertDateTimeZone(
+        `${formValues.openDate} 00:00:01`,
+        "Canada/Pacific",
+        "UTC",
+      );
+    }
+
     return executeMutation({
       talentNominationEvent: {
         ...formValues,
-        openDate: convertDateTimeZone(
-          `${formValues.openDate} 23:59:59`,
-          "Canada/Pacific",
-          "UTC",
-        ),
+        openDate: overrideOpenDate,
         closeDate: convertDateTimeZone(
           `${formValues.closeDate} 23:59:59`,
           "Canada/Pacific",
