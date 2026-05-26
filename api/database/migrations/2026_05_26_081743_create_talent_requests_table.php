@@ -45,7 +45,7 @@ return new class() extends Migration
             CASE
                 WHEN (status::text = 'NEW'::text)         THEN 10
                 WHEN (status::text = 'IN_PROGRESS'::text) THEN 20
-                WHEN (status::text = 'COMPLETED'::text)   THEN 30
+                WHEN (status::text = 'CLOSED'::text)      THEN 30
                 ELSE NULL::integer
             END) STORED
             SQL
@@ -96,7 +96,7 @@ return new class() extends Migration
                 community_id,
                 user_id,
                 admin_notes,
-                CASE WHEN status = 'CLOSED' THEN 'COMPLETED' ELSE status END AS status,
+                status,
                 in_progress_details,
                 closed_details,
                 follow_up_date,
