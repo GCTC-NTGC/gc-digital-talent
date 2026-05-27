@@ -34,6 +34,8 @@ class NewJobPostedTest extends TestCase
             'poolNameEn',
             'poolNameFr',
             '1',
+            'displayNameEn',
+            'displayNameFr',
         );
     }
 

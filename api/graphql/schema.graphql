@@ -357,6 +357,7 @@ type NewJobPostedNotification implements Notification {
   updatedAt: DateTime! @rename(attribute: "updated_at")
 
   poolId: ID
+  displayName: LocalizedString
 }
 
 type ApplicationStatusChangedNotification implements Notification {
@@ -3555,7 +3556,8 @@ type Mutation {
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
   updatePoolCandidateSearchRequestStatus(
     id: ID!
-    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput! @spread
+    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput!
+      @spread
   ): PoolCandidateSearchRequest
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])

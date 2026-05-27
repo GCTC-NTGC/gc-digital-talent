@@ -6395,10 +6395,6 @@
     "defaultMessage": "En savoir plus<hidden> sur le Bureau du dirigeant principal de l'information</hidden>",
     "description": "Link text for the Office of the Chief Information Officer"
   },
-  "Nm+j2a": {
-    "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
-    "description": "Label for the new job posted notification"
-  },
   "NngAJq": {
     "defaultMessage": "Erreur : impossible de mettre à jour le signet du candidat.",
     "description": "Alert displayed to the user when failing to (un-)bookmark a candidate"
@@ -6598,10 +6594,6 @@
   "OkRLIU": {
     "defaultMessage": "Un modèle préétabli contenant des informations sur l'offre d'emploi et des recommandations sur les tâches et les compétences.",
     "description": "Subtitle for the 'job poster template' page"
-  },
-  "OlSnME": {
-    "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
-    "description": "Message for new job posted notification"
   },
   "OlZeZO": {
     "defaultMessage": "Sélectionnez une catégorie",

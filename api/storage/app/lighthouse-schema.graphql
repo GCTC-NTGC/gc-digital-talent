@@ -966,6 +966,7 @@ type NewJobPostedNotification implements Notification {
   createdAt: DateTime!
   updatedAt: DateTime!
   poolId: ID
+  displayName: LocalizedString
 }
 
 type ApplicationStatusChangedNotification implements Notification {

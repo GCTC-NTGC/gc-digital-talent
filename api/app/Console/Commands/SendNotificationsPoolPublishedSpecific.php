@@ -55,7 +55,9 @@ class SendNotificationsPoolPublishedSpecific extends Command
             new NewJobPosted(
                 $pool->name['en'],
                 $pool->name['fr'],
-                $pool->id
+                $pool->id,
+                $pool->displayName['display']['en'],
+                $pool->displayName['display']['en'],
             ),
         ]);
 

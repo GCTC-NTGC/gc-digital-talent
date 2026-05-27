@@ -60,7 +60,9 @@ class SendNotificationsPoolPublished extends Command
                 ? new NewJobPosted(
                     $model->name['en'],
                     $model->name['fr'],
-                    $model->id
+                    $model->id,
+                    $model->displayName['display']['en'],
+                    $model->displayName['display']['fr'],
                 )
                 : null
             )
