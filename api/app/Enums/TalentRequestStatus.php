@@ -10,7 +10,7 @@ enum TalentRequestStatus
 
     case NEW;
     case IN_PROGRESS;
-    case CLOSED;
+    case COMPLETED;
 
     public static function getLangFilename(): string
     {

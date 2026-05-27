@@ -1119,8 +1119,8 @@ type PoolCandidateSearchRequest {
   talentRequestStatus: LocalizedTalentRequestStatus @rename(attribute: "status")
   inProgressDetails: LocalizedTalentRequestInProgressDetail
     @rename(attribute: "in_progress_details")
-  closedDetails: LocalizedTalentRequestClosedDetail
-    @rename(attribute: "closed_details")
+  completionDetails: LocalizedTalentRequestCompletionDetail
+    @rename(attribute: "completion_details")
   details: LocalizedString
 }
 
@@ -2684,7 +2684,7 @@ input UpdatePoolCandidateSearchRequestInput @validator {
 input UpdatePoolCandidateSearchRequestStatusInput {
   status: TalentRequestStatus!
   inProgressDetails: TalentRequestInProgressDetail
-  closedDetails: TalentRequestClosedDetail
+  completionDetails: TalentRequestCompletionDetail
   followUpDate: Date
 }
 
