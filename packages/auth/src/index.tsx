@@ -13,6 +13,10 @@ import {
   type RoleRequirement,
 } from "./utils/hasRequiredRoles";
 import hasRole from "./utils/hasRole";
+import checkPermissions, {
+  type PermissionRequirement,
+} from "./utils/checkPermissions";
+import useHasPermissions from "./hooks/useHasPermissions";
 import { narrowTeamableType } from "./utils/narrowTeamableType";
 import {
   ACCESS_TOKEN,
@@ -44,6 +48,8 @@ export {
   apiRoutes,
   hasRole,
   hasRequiredRoles,
+  checkPermissions,
+  useHasPermissions,
   narrowTeamableType,
   getAuthenticationState,
   setTokensFromLocation,
@@ -63,4 +69,10 @@ export {
   DEPARTMENT_ROLES,
 };
 
-export type { RoleName, LogoutReason, AuthenticationState, RoleRequirement };
+export type {
+  RoleName,
+  LogoutReason,
+  AuthenticationState,
+  RoleRequirement,
+  PermissionRequirement,
+};
