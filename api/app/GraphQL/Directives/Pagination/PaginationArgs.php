@@ -90,11 +90,10 @@ class PaginationArgs
         $query = match (true) {
             $builder instanceof QueryBuilder => $builder,
             $builder instanceof EloquentBuilder => $builder->getQuery(),
-            $builder instanceof Relation => $builder->getQuery()->getQuery(),
-            default => null,
+            $builder instanceof Relation => $builder->getQuery()->getQuery()
         };
         // Builder->ensureOrderForCursorPagination filters out any ordering that does not include a `direction` property.
-        if (! Arr::every($query?->orders, fn ($o) => array_key_exists('direction', $o))) {
+        if (! Arr::every($query->orders, fn ($o) => array_key_exists('direction', $o))) {
             throw new Exception('This directive does not support ordering without directions, like orderByRaw.');
         }
 
