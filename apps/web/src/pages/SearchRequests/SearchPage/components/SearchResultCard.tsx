@@ -181,7 +181,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           : null}
       </p>
       <Separator space="sm" />
-      <div className="mt-6 flex items-center gap-6">
+      <div className="mt-6 flex flex-wrap items-center justify-start gap-6">
         <Button
           color="primary"
           type="submit"
