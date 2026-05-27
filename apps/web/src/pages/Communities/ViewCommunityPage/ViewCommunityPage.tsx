@@ -155,11 +155,6 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
           </div>
-          <div className="xs:col-span-2">
-            <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
-              {community.key}
-            </FieldDisplay>
-          </div>
         </div>
         <CardSeparator />
         <div className="xs:col-span-2">
