@@ -2355,6 +2355,10 @@
     "defaultMessage": "a un accès complet aux outils de gestion de la collectivité;",
     "description": "Description of the permission to manage communities"
   },
+  "7KfLEe": {
+    "defaultMessage": "Une nouvelle occasion est maintenant offerte, {displayName}. Découvrez si elle correspond à votre profil et présentez votre candidature.",
+    "description": "Message for new job posted notification"
+  },
   "7L19hE": {
     "defaultMessage": "En savoir plus sur cette possibilité de formation et présenter une demande.",
     "description": "Subtitle for training opportunity single page"
