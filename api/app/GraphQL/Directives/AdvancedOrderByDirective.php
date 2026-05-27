@@ -37,7 +37,7 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
     public static function definition(): string
     {
         return <<<'GRAPHQL'
-            directive @advancedOrderBy on FIELD_DEFINITION
+            directive @advancedOrderBy on ARGUMENT_DEFINITION | FIELD_DEFINITION
         GRAPHQL;
     }
 
