@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\BearerTokenService;
-use App\Http\Controllers\TestTokenController;
 use App\Models\Role;
 use App\Models\User;
 use App\Rules\GovernmentEmailRegex;
