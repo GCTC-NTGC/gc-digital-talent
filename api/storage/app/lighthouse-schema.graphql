@@ -393,8 +393,8 @@ type LocalizedTalentNominationUserReview implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedTalentRequestCompleteDetail implements LocalizedEnumOption {
-  value: TalentRequestCompleteDetail!
+type LocalizedTalentRequestCompletionDetail implements LocalizedEnumOption {
+  value: TalentRequestCompletionDetail!
   label: LocalizedString!
 }
 
@@ -1537,7 +1537,7 @@ type PoolCandidateSearchRequest {
   followUpDate: Date
   talentRequestStatus: LocalizedTalentRequestStatus
   inProgressDetails: LocalizedTalentRequestInProgressDetail
-  completeDetails: LocalizedTalentRequestCompleteDetail
+  completionDetails: LocalizedTalentRequestCompletionDetail
   details: LocalizedString
 }
 
@@ -2546,7 +2546,7 @@ input UpdatePoolCandidateSearchRequestInput {
 input UpdatePoolCandidateSearchRequestStatusInput {
   status: TalentRequestStatus!
   inProgressDetails: TalentRequestInProgressDetail
-  completeDetails: TalentRequestCompleteDetail
+  completionDetails: TalentRequestCompletionDetail
   followUpDate: Date
 }
 
@@ -4476,7 +4476,7 @@ enum TalentNominationUserReview {
   OUT_OF_DATE
 }
 
-enum TalentRequestCompleteDetail {
+enum TalentRequestCompletionDetail {
   HIRE_MADE
   PROCESS_WILL_BE_LAUNCHED
   HIRING_MANAGER_NOT_RESPONSIVE
@@ -4497,7 +4497,7 @@ enum TalentRequestInProgressDetail {
 enum TalentRequestStatus {
   NEW
   IN_PROGRESS
-  COMPLETE
+  COMPLETED
 }
 
 enum TargetRole {

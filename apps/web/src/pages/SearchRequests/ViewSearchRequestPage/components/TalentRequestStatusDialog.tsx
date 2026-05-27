@@ -6,7 +6,7 @@ import { useMutation } from "urql";
 
 import {
   type TalentRequestInProgressDetail,
-  type TalentRequestCompleteDetail,
+  type TalentRequestCompletionDetail,
   type FragmentType,
   TalentRequestStatus,
 } from "@gc-digital-talent/graphql";
@@ -38,14 +38,14 @@ const COLOUR_MAP: Record<
 > = {
   [TalentRequestStatus.New]: "warning",
   [TalentRequestStatus.InProgress]: "primary",
-  [TalentRequestStatus.Complete]: "black",
+  [TalentRequestStatus.Completed]: "black",
   default: "black",
 } as const;
 
 interface FormValues {
   talentRequestStatus: TalentRequestStatus;
   inProgressDetails?: TalentRequestInProgressDetail | null;
-  completeDetails?: TalentRequestCompleteDetail | null;
+  completionDetails?: TalentRequestCompletionDetail | null;
   followUpDate?: string | null;
 }
 
@@ -75,7 +75,7 @@ const TalentRequestStatusDialog_Fragment = graphql(/** GraphQL */ `
     inProgressDetails {
       value
     }
-    completeDetails {
+    completionDetails {
       value
     }
     followUpDate
@@ -104,10 +104,10 @@ export const TalentRequestStatusOptions_Fragment = graphql(/** GraphQL */ `
       }
     }
 
-    completeDetails: localizedEnumOptions(
-      enumName: "TalentRequestCompleteDetail"
+    completionDetails: localizedEnumOptions(
+      enumName: "TalentRequestCompletionDetail"
     ) {
-      ... on LocalizedTalentRequestCompleteDetail {
+      ... on LocalizedTalentRequestCompletionDetail {
         value
         label {
           localized
@@ -146,7 +146,7 @@ const TalentRequestStatusDialog = ({
         talentRequest.talentRequestStatus?.value ??
         TalentRequestStatus.InProgress,
       inProgressDetails: talentRequest.inProgressDetails?.value,
-      completeDetails: talentRequest.completeDetails?.value,
+      completionDetails: talentRequest.completionDetails?.value,
       followUpDate: talentRequest.followUpDate,
     },
   });
@@ -164,9 +164,9 @@ const TalentRequestStatusDialog = ({
           values.talentRequestStatus === TalentRequestStatus.InProgress
             ? values.inProgressDetails
             : null,
-        completeDetails:
-          values.talentRequestStatus === TalentRequestStatus.Complete
-            ? values.completeDetails
+        completionDetails:
+          values.talentRequestStatus === TalentRequestStatus.Completed
+            ? values.completionDetails
             : null,
         followUpDate:
           values.talentRequestStatus === TalentRequestStatus.InProgress
@@ -211,7 +211,7 @@ const TalentRequestStatusDialog = ({
       const config = { shouldValidate: true, shouldDirty: true };
       methods.setValue("followUpDate", null, config);
       methods.setValue("inProgressDetails", null, config);
-      methods.setValue("completeDetails", null, config);
+      methods.setValue("completionDetails", null, config);
     }
   };
 
@@ -308,13 +308,13 @@ const TalentRequestStatusDialog = ({
                     />
                   </>
                 )}
-                {currentStatus === TalentRequestStatus.Complete && (
+                {currentStatus === TalentRequestStatus.Completed && (
                   <Select
-                    id="completeDetails"
-                    name="completeDetails"
+                    id="completionDetails"
+                    name="completionDetails"
                     label={intl.formatMessage({
-                      defaultMessage: "Complete details",
-                      id: "xvMUlh",
+                      defaultMessage: "Completion details",
+                      id: "B88lvt",
                       description: "Label for closed talent request details",
                     })}
                     nullSelection={intl.formatMessage(
@@ -324,8 +324,8 @@ const TalentRequestStatusDialog = ({
                       required: intl.formatMessage(errorMessages.required),
                     }}
                     options={narrowEnumType(
-                      unpackMaybes(options?.completeDetails),
-                      "TalentRequestCompleteDetail",
+                      unpackMaybes(options?.completionDetails),
+                      "TalentRequestCompletionDetail",
                     ).map((detail) => ({
                       value: detail.value,
                       label: detail.label.localized ?? notAvailable,

@@ -3375,6 +3375,10 @@
     "defaultMessage": "Rôles dans les collectivités",
     "description": "Heading for updating a user's community roles"
   },
+  "B88lvt": {
+    "defaultMessage": "Détails de la finalisation",
+    "description": "Label for closed talent request details"
+  },
   "B8N4yZ": {
     "defaultMessage": "Consulter tous les processus",
     "description": "Link to view all processes"
@@ -11549,10 +11553,6 @@
   "ipDTrs": {
     "defaultMessage": "Historique des notifications",
     "description": "Title for list of a users notifications"
-  },
-  "ipGQnI": {
-    "defaultMessage": "Détails de fermeture",
-    "description": "Label for closed talent request details"
   },
   "ipKAvI": {
     "defaultMessage": "1. si vous êtes intéressé(e) à embaucher un apprentis et aimeriez en apprendre davantage sur le Programme d'apprentissage en TI pour les peuples autochtones",

@@ -404,8 +404,8 @@ type LocalizedTalentNominationUserReview implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedTalentRequestCompleteDetail implements LocalizedEnumOption {
-  value: TalentRequestCompleteDetail!
+type LocalizedTalentRequestCompletionDetail implements LocalizedEnumOption {
+  value: TalentRequestCompletionDetail!
   label: LocalizedString!
 }
 
@@ -1900,7 +1900,7 @@ enum TalentNominationUserReview {
   OUT_OF_DATE
 }
 
-enum TalentRequestCompleteDetail {
+enum TalentRequestCompletionDetail {
   HIRE_MADE
   PROCESS_WILL_BE_LAUNCHED
   HIRING_MANAGER_NOT_RESPONSIVE
@@ -1921,7 +1921,7 @@ enum TalentRequestInProgressDetail {
 enum TalentRequestStatus {
   NEW
   IN_PROGRESS
-  COMPLETE
+  COMPLETED
 }
 
 enum TargetRole {
