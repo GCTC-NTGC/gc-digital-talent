@@ -61,6 +61,10 @@ class TestBearerTokenService implements BearerTokenService
         try {
             $parsed = $this->fastSigner()->parser()->parse($bearerToken);
 
+            if (! ($parsed instanceof UnencryptedToken)) {
+                return false;
+            }
+
             return $parsed->claims()->get('iss') === self::TEST_ISSUER;
         } catch (\Throwable) {
             return false;
