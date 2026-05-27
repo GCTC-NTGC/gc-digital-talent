@@ -162,7 +162,7 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     }
 
     // -------------------------------------------------------------------------
-    // Transitions to COMPLETE
+    // Transitions to COMPLETED
     // -------------------------------------------------------------------------
 
     public static function completeFromProvider(): array
@@ -449,6 +449,6 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         $completeIndexes = array_keys(array_filter($statuses, fn ($s) => $s === TalentRequestStatus::COMPLETED->name));
 
         $this->assertTrue(max($newIndexes) < min($inProgressIndexes), 'NEW rows should precede IN_PROGRESS rows');
-        $this->assertTrue(max($inProgressIndexes) < min($completeIndexes), 'IN_PROGRESS rows should precede COMPLETE rows');
+        $this->assertTrue(max($inProgressIndexes) < min($completeIndexes), 'IN_PROGRESS rows should precede COMPLETED rows');
     }
 }
