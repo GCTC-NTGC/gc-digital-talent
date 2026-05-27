@@ -59,43 +59,40 @@ const LinkedExperience = ({
           {remove && <DropdownMenu.Item>{remove}</DropdownMenu.Item>}
         </DropdownMenu.Popup>
       </DropdownMenu.Root>
-
       <div className="flex flex-col items-start gap-3">
-        <span>
-          <Heading
-            level={headingAs}
-            size="h6"
-            className="mt-0 text-base font-bold"
-          >
-            <Link href={href} newTab inHeading>
-              {title}
-            </Link>
-          </Heading>
-          {institution && <p>{institution}</p>}
-          {(experienceType !== undefined ||
-            dateRange !== undefined ||
-            skillCount !== undefined) && (
-            <p className="text-sm text-gray-600 dark:text-gray-100">
-              {[
-                experienceType,
-                dateRange,
-                skillCount !== undefined
-                  ? intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "{count, plural, one {# skill} other {# skills}}",
-                        id: "EQI4l2",
-                        description: "Number of skills on an experience",
-                      },
-                      { count: skillCount },
-                    )
-                  : undefined,
-              ]
-                .filter(Boolean)
-                .join(` ${UNICODE_CHAR.BULLET} `)}
-            </p>
-          )}
-        </span>
+        <Heading
+          level={headingAs}
+          size="h6"
+          className="mt-0 mb-0 text-base font-bold"
+        >
+          <Link href={href} newTab inHeading>
+            {title}
+          </Link>
+        </Heading>
+        {institution && <p>{institution}</p>}
+        {(experienceType !== undefined ||
+          dateRange !== undefined ||
+          skillCount !== undefined) && (
+          <p className="text-sm text-gray-600 dark:text-gray-100">
+            {[
+              experienceType,
+              dateRange,
+              skillCount !== undefined
+                ? intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "{count, plural, one {# skill} other {# skills}}",
+                      id: "EQI4l2",
+                      description: "Number of skills on an experience",
+                    },
+                    { count: skillCount },
+                  )
+                : undefined,
+            ]
+              .filter(Boolean)
+              .join(` ${UNICODE_CHAR.BULLET} `)}
+          </p>
+        )}
       </div>
     </div>
   );

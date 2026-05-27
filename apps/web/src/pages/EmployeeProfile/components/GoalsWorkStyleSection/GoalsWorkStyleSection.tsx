@@ -104,7 +104,6 @@ const GoalsWorkStyleSection = ({
     ? verifiedIcon
     : {
         icon: LockClosedIcon,
-        color: "black",
       };
 
   const handleError = () => {

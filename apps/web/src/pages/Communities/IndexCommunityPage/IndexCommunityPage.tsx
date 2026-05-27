@@ -5,14 +5,29 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import { requireUser } from "~/routing/auth";
 
+import type { Route } from "./+types/IndexCommunityPage";
 import CommunityTableApi from "./components/CommunityTable/CommunityTable";
 
-const IndexCommunityPage = () => {
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request }, next) => {
+    requireUser(context, request, {
+      roles: [
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin },
+        { name: ROLE_NAME.CommunityRecruiter },
+        { name: ROLE_NAME.CommunityTalentCoordinator },
+      ],
+    });
+    return await next();
+  },
+];
+
+const Component = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
@@ -36,19 +51,6 @@ const IndexCommunityPage = () => {
     </>
   );
 };
-
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityTalentCoordinator,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
-    <IndexCommunityPage />
-  </RequireAuth>
-);
 
 Component.displayName = "AdminIndexCommunityPage";
 

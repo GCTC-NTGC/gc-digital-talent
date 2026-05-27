@@ -8,10 +8,11 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import { requireUser } from "~/routing/auth";
 
+import type { Route } from "./+types/CreateCommunityPage";
 import CreateCommunityForm from "./components/CreateCommunityForm";
 
 const CreateCommunity_Mutation = graphql(/* GraphQL */ `
@@ -28,7 +29,16 @@ const pageTitle = defineMessage({
   description: "Page title for the create community page",
 });
 
-const CreateCommunityPage = () => {
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request }, next) => {
+    requireUser(context, request, {
+      roles: [{ name: ROLE_NAME.PlatformAdmin }],
+    });
+    return await next();
+  },
+];
+
+const Component = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
@@ -80,12 +90,6 @@ const CreateCommunityPage = () => {
     </>
   );
 };
-
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <CreateCommunityPage />
-  </RequireAuth>
-);
 
 Component.displayName = "AdminCreateCommunityPage";
 

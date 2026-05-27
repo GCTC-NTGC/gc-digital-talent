@@ -594,6 +594,13 @@ const commonMessages = defineMessages({
     id: "VpjQL1",
     description: "Label for status of employee verification",
   },
+  overdueDate: {
+    defaultMessage:
+      "{daysOverdue, plural, one {# day overdue} other {# days overdue}}",
+    id: "Q77DlA",
+    description:
+      "Message showing the number of days by which something is overdue",
+  },
 });
 
 export default commonMessages;

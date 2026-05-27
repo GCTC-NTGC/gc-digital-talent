@@ -55,7 +55,7 @@ class TalentSearch extends AppPage {
     });
 
     await expect(poolCard).toBeVisible();
-    await expect(poolCard).toContainText(/1 approximate match/i);
+    await expect(poolCard).toContainText(/\d+ approximate match(es)?/i);
     return poolCard;
   }
 

@@ -559,10 +559,8 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                 }
             }
             $currentColumn++;
-            if (isset($this->finalDecisions)) {
-                foreach ($this->finalDecisions as $row) {
-                    $sheet->setCellValue([$currentColumn, $row['candidate'] + 1], $row['value']);
-                }
+            foreach ($this->finalDecisions as $row) {
+                $sheet->setCellValue([$currentColumn, $row['candidate'] + 1], $row['value']);
             }
         }
 

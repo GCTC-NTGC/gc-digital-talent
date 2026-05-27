@@ -163,16 +163,14 @@ const Department_Query = graphql(/* GraphQL */ `
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request, params }, next) => {
     const teamId = await getTeamIdInMiddleware(context, params.departmentId);
-    requireUser(
-      context,
-      request,
-      [
+    requireUser(context, request, {
+      roles: [
         { name: ROLE.PlatformAdmin },
         { name: ROLE.DepartmentAdmin, teamId: teamId },
         { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
       ],
-      true,
-    );
+      strict: true,
+    });
     return await next();
   },
 ];

@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
+import { useMutation, useQuery, type OperationContext } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
@@ -21,7 +21,7 @@ import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { messages } from "./messages";
+import { messages } from "../messages";
 import type { FormValues } from "../form";
 import { apiDataToFormValues, formValuesToApiUpdateInput } from "../form";
 import FindANewCommunity from "../sections/FindANewCommunity";
@@ -41,7 +41,6 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
     ...ReviewAndSubmitOptions_Fragment
 
     me {
-      ...EducationExperiencesTrainingAndDevelopmentOpportunities
       developmentProgramUserRecords {
         ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
       }
@@ -153,8 +152,8 @@ const UpdateCommunityInterestForm = ({
             {...formMethods.register(`userId`)}
             value={userId}
           />
-          <Card space="lg">
-            <div className="flex flex-col gap-12">
+          <Card>
+            <div className="flex flex-col gap-6">
               <FindANewCommunity
                 optionsQuery={formOptions}
                 formDisabled={formDisabled}
@@ -171,7 +170,6 @@ const UpdateCommunityInterestForm = ({
                       formOptions.me?.developmentProgramUserRecords,
                     )}
                     selectedCommunityId={formData.community.id}
-                    educationExperiences={formOptions.me}
                   />
                 </>
               ) : null}
@@ -241,6 +239,10 @@ const UpdateCommunityInterest_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["EducationExperience"],
+};
+
 interface RouteParams extends Record<string, string> {
   communityInterestId: string;
 }
@@ -261,6 +263,7 @@ export const UpdateCommunityInterestPage = () => {
       variables: {
         communityInterestId: communityInterestId,
       },
+      context,
     });
   const [{ fetching: mutationFetching }, executeUpdateMutation] = useMutation(
     UpdateCommunityInterest_Mutation,
