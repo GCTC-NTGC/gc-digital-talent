@@ -57,6 +57,7 @@ export const InitialData_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
     }
     workStream {
       id

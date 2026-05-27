@@ -27,7 +27,7 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import { useStableDate } from "~/hooks/useStableDate";
 
 import {
-  classificationAccessor,
+  classificationsAccessor,
   classificationsCell,
   detailsCell,
   followUpDateCell,
@@ -126,8 +126,7 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
           id
           qualifiedInClassifications {
             id
-            group
-            level
+            groupAndLevel
           }
           qualifiedInWorkStreams {
             id
@@ -271,7 +270,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     }),
     columnHelper.accessor(
       (row) =>
-        classificationAccessor(
+        classificationsAccessor(
           row.applicantFilter?.qualifiedInClassifications?.filter(notEmpty),
         ),
       {

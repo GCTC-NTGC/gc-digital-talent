@@ -91,8 +91,7 @@ const DetailsCommunityDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
       }
     }
     classifications {
-      group
-      level
+      groupAndLevel
     }
     developmentProgram {
       id
@@ -508,10 +507,7 @@ const DetailsFields = ({
                               {intl.formatMessage(commonMessages.dividingColon)}
 
                               {cdp.classifications
-                                .map(
-                                  (classification) =>
-                                    `${classification.group}-${classification.level}`,
-                                )
+                                .map(({ groupAndLevel }) => groupAndLevel)
                                 .join(", ")}
                               <br />
                             </>

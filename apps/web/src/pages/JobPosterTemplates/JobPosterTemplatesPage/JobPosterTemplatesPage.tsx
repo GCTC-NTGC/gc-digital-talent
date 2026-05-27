@@ -138,7 +138,7 @@ function previewMetaData(
     metaData.push({
       key: classification.id,
       type: "chip",
-      children: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
+      children: classification.groupAndLevel,
     } satisfies PreviewMetaData);
   }
 

@@ -115,15 +115,6 @@ export const usernameCell = (
   return <Link href={paths.userEmployeeProfile(userId)}>{userName}</Link>;
 };
 
-export function classificationAccessor(
-  classificationGroup?: string,
-  classificationLevel?: number,
-): string {
-  return classificationGroup && classificationLevel
-    ? `${classificationGroup}-${classificationLevel < 10 ? "0" : ""}${classificationLevel}`
-    : "";
-}
-
 export function interestAccessor(
   intl: IntlShape,
   interest?: Maybe<boolean>,

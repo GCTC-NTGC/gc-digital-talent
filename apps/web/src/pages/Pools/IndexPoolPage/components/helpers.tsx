@@ -52,12 +52,6 @@ export function viewCell(
   );
 }
 
-export function classificationAccessor(
-  classification: Maybe<Pick<Classification, "groupAndLevel">> | undefined,
-) {
-  return classification?.groupAndLevel ?? "";
-}
-
 export function classificationCell(
   classification: Maybe<Pick<Classification, "groupAndLevel">> | undefined,
 ) {

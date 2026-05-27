@@ -27,6 +27,7 @@ const PoolFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
     classifications {
       group
       level
+      groupAndLevel
     }
     publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
       value
@@ -100,9 +101,9 @@ const PoolFilterDialog = ({
           isMulti
           label={intl.formatMessage(adminMessages.classifications)}
           options={unpackMaybes(data?.classifications).map(
-            ({ group, level }) => ({
+            ({ group, level, groupAndLevel }) => ({
               value: `${group}-${level}`,
-              label: `${group}-${level < 10 ? "0" : ""}${level}`,
+              label: groupAndLevel,
             }),
           )}
         />

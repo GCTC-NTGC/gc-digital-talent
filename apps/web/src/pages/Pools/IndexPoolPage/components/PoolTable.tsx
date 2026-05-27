@@ -54,7 +54,6 @@ import {
   getPoolBookmarkSort,
   getOrderByColumnSort,
   getWorkStreamNameSort,
-  classificationAccessor,
 } from "./helpers";
 import type { FormValues } from "./PoolFilterDialog";
 import PoolFilterDialog from "./PoolFilterDialog";
@@ -295,18 +294,21 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
           viewCell(paths.poolView(pool.id), { name: pool.name }, intl),
       },
     ),
-    columnHelper.accessor((row) => classificationAccessor(row.classification), {
-      id: "classification",
-      header: intl.formatMessage({
-        defaultMessage: "Group and Level",
-        id: "FGUGtr",
-        description:
-          "Title displayed for the Pool table Group and Level column.",
-      }),
-      enableColumnFilter: false,
-      cell: ({ row: { original: pool } }) =>
-        classificationCell(pool.classification),
-    }),
+    columnHelper.accessor(
+      (row) => () => row.classification?.groupAndLevel ?? "",
+      {
+        id: "classification",
+        header: intl.formatMessage({
+          defaultMessage: "Group and Level",
+          id: "FGUGtr",
+          description:
+            "Title displayed for the Pool table Group and Level column.",
+        }),
+        enableColumnFilter: false,
+        cell: ({ row: { original: pool } }) =>
+          classificationCell(pool.classification),
+      },
+    ),
     columnHelper.accessor(
       ({ workStream }) => getLocalizedName(workStream?.name, intl),
       {
