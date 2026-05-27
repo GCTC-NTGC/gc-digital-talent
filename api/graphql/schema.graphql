@@ -3655,7 +3655,7 @@ type Mutation {
   # TalentRequest mutations
   createTalentRequest(
     talentRequest: CreateTalentRequestInput! @spread
-  ): TalentRequest @create @guard @canModel(ability: "create") @validator
+  ): TalentRequest @create @canModel(ability: "create") @validator
   updateTalentRequest(
     id: ID!
     talentRequest: UpdateTalentRequestInput! @spread
