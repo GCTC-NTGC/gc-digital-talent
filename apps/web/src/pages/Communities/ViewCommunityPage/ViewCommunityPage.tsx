@@ -89,8 +89,8 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
           {intl.formatMessage({
             defaultMessage:
               "The following information will be used to identify the community and offer insight into the domains it supports.",
-            id: "AZ114p",
-            description: "Community details informative line",
+            id: "f1vqns",
+            description: "Description for community form",
           })}
         </p>
         <div className="grid gap-6 xs:grid-cols-2">

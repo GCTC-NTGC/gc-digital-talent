@@ -3199,10 +3199,6 @@
     "defaultMessage": "Filtres de profils d'employé(e)",
     "description": "Heading for filters associated with employee profiles"
   },
-  "AZ114p": {
-    "defaultMessage": "Les renseignements suivants serviront à identifier la collectivité et à donner un aperçu des domaines qu’elle soutient.",
-    "description": "Community details informative line"
-  },
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
     "description": "Text explaining what will happen when duplicating a process"
@@ -10570,6 +10566,10 @@
     "defaultMessage": "Je connais l'année à laquelle je suis admissible à la retraite.",
     "description": "The eligible retirement year described as known."
   },
+  "f1vqns": {
+    "defaultMessage": "Les renseignements suivants seront utilisés pour identifier la collectivité et fournir un aperçu des domaines qu'elle soutient.",
+    "description": "Description for community form"
+  },
   "f2Jqya": {
     "defaultMessage": "sécurité des réseaux",
     "description": "The network security skill"
@@ -13161,10 +13161,6 @@
   "pDHM6j": {
     "defaultMessage": "Erreur : impossible d’enregistrer le statut de la candidature",
     "description": "Error message when status could not be updated"
-  },
-  "pDfxv5": {
-    "defaultMessage": "Les renseignements suivants seront utilisés pour identifier la collectivité et fournir un aperçu des domaines qu’elle soutient.",
-    "description": "Description for the 'create a community' form"
   },
   "pDlEip": {
     "defaultMessage": "Créer la compétence",

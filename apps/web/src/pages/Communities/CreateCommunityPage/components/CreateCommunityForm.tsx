@@ -114,8 +114,8 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
           {intl.formatMessage({
             defaultMessage:
               "The following information will be used to identify the community and offer insight into the domains it supports.",
-            id: "pDfxv5",
-            description: "Description for the 'create a community' form",
+            id: "f1vqns",
+            description: "Description for community form",
           })}
         </p>
         <div className="grid gap-6 xs:grid-cols-2">
