@@ -56,7 +56,7 @@ class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail
         return [
             'displayName' => [
                 'en' => $this->displayNameEn,
-                'fr' => $this->displayNameFr
+                'fr' => $this->displayNameFr,
             ],
             'poolId' => $this->poolId,
         ];
