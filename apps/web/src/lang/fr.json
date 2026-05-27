@@ -1415,6 +1415,10 @@
     "defaultMessage": "Nommez un talent",
     "description": "Link text for the form to nominate talent"
   },
+  "3K2EZB": {
+    "defaultMessage": "Nom de la collectivité",
+    "description": "Label displayed on the community form information name field"
+  },
   "3Kt+rj": {
     "defaultMessage": "Les informations sur votre prochain type de poste ont été mises à jour avec succès!",
     "description": "Message displayed when a user successfully updates employee profile information"
@@ -4191,6 +4195,10 @@
     "defaultMessage": "Informations sur la personne candidate",
     "description": "Heading for nominee step of a talent nomination"
   },
+  "EgYtVO": {
+    "defaultMessage": "Ajouter une collectivité à la plateforme.",
+    "description": "Page subtitle for the create community page"
+  },
   "Ega1Nj": {
     "defaultMessage": "La possibilité pour la personne candidate de se décrire, d'expliquer comment elle aborde sa carrière et comment elle travaille le mieux.",
     "description": "Subtitle for goals and work style section"
@@ -5543,6 +5551,10 @@
     "defaultMessage": "Démontrer l'expérience par :",
     "description": "Label for experience sorting options"
   },
+  "KRXSAf": {
+    "defaultMessage": "Autorité déléguée ou entité",
+    "description": "Label displayed on the community form mandate authority field"
+  },
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
@@ -5878,6 +5890,10 @@
   "Le97Ow": {
     "defaultMessage": "<languageEvaluationPageLink>Apprenez-en plus sur le choix d’une deuxième langue.</languageEvaluationPageLink>",
     "description": "Context message for estimated language ability in language information form."
+  },
+  "LgKlN9": {
+    "defaultMessage": "Veuillez fournir un mot ou une courte phrase représentant le modèle de données de cette collectivité. Cette valeur doit être en minuscules et utiliser des traits de soulignement entre les mots si nécessaire (p. ex. : gestion_des_données). Cette valeur n’est pas visible dans l'interface utilisateur et ne peut pas être modifiée une fois définie.",
+    "description": "Description for notice for key field"
   },
   "LghLU9": {
     "defaultMessage": "Date à laquelle le recrutement cessera d'accepter les candidatures. <dialog>En apprendre davantage sur le fonctionnement des heures de clôture.</dialog>",
@@ -6398,6 +6414,10 @@
   "Nm+j2a": {
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
     "description": "Label for the new job posted notification"
+  },
+  "NnfXYj": {
+    "defaultMessage": "Modifier les détails de {name}",
+    "description": "Description for update community"
   },
   "NngAJq": {
     "defaultMessage": "Erreur : impossible de mettre à jour le signet du candidat.",
@@ -7834,6 +7854,10 @@
   "U/Lv8i": {
     "defaultMessage": "Expérience inconnue",
     "description": "Title for unknown experiences"
+  },
+  "U/NCbh": {
+    "defaultMessage": "La clé ne peut pas être modifiée une fois la collectivité créée. Veuillez communiquer avec l’équipe de soutien pour obtenir plus d’information.",
+    "description": "Description for notice for key field"
   },
   "U/Ugr6": {
     "defaultMessage": "Avis",
@@ -13138,6 +13162,10 @@
     "defaultMessage": "Erreur : impossible d’enregistrer le statut de la candidature",
     "description": "Error message when status could not be updated"
   },
+  "pDfxv5": {
+    "defaultMessage": "Les renseignements suivants seront utilisés pour identifier la collectivité et fournir un aperçu des domaines qu’elle soutient.",
+    "description": "Description for the 'create a community' form"
+  },
   "pDlEip": {
     "defaultMessage": "Créer la compétence",
     "description": "Button label to create a skill"
@@ -13905,6 +13933,10 @@
   "saX5lc": {
     "defaultMessage": "Avoir un compte Navigar actif.",
     "description": "Second item in list of eligibility requirements section"
+  },
+  "saf66z": {
+    "defaultMessage": "Veuillez indiquer le nom ou le poste de la personne responsable ou de l'entité ayant l'autorité nécessaire pour permettre à cette collectivité de recueillir des données sur les personnes participantes. En remplissant ce champ, vous confirmez que la collectivité a obtenu les approbations requises pour la collecte de données.",
+    "description": "Description for mandate authority fields"
   },
   "sapxcU": {
     "defaultMessage": "Avertissement",
