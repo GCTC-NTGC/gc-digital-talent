@@ -6,7 +6,6 @@ use App\Enums\TalentRequestPositionType;
 use App\Enums\TalentRequestReason;
 use App\Models\Community;
 use App\Models\Department;
-use App\Models\TalentRequest;
 use App\Models\User;
 use Database\Seeders\CommunitySeeder;
 use Database\Seeders\DepartmentSeeder;
@@ -28,6 +27,11 @@ class TalentRequestTest extends TestCase
         mutation CreateTalentRequest($talentRequest: CreateTalentRequestInput!) {
             createTalentRequest(talentRequest: $talentRequest) {
                 id
+                fullName
+                email
+                user {
+                    id
+                }
             }
         }
         GRAPHQL;
@@ -85,7 +89,12 @@ class TalentRequestTest extends TestCase
     {
         $this->graphQL($this->createMutation, [
             'talentRequest' => $this->buildCreateInput(),
-        ])->assertGraphQLErrorFree();
+        ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment([
+                'fullName' => 'Test User',
+                'email' => 'test@gc.ca',
+            ]);
     }
 
     public function testCreateRejectsNonGovernmentEmail(): void
@@ -99,9 +108,9 @@ class TalentRequestTest extends TestCase
     {
         $this->graphQL($this->createMutation, [
             'talentRequest' => $this->buildCreateInput(),
-        ])->assertGraphQLErrorFree();
-
-        $this->assertNull(TalentRequest::first()->user_id);
+        ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment(['user' => null]);
     }
 
     public function testUserIdIsSetForAuthenticatedCreate(): void
@@ -110,8 +119,7 @@ class TalentRequestTest extends TestCase
             ->graphQL($this->createMutation, [
                 'talentRequest' => $this->buildCreateInput(),
             ])
-            ->assertGraphQLErrorFree();
-
-        $this->assertTrue(TalentRequest::where('user_id', $this->adminUser->id)->exists());
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment(['user' => ['id' => $this->adminUser->id]]);
     }
 }
