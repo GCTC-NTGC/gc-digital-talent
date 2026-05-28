@@ -4,6 +4,7 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\EmailType;
 use App\Enums\ErrorCode;
+use App\Rules\CaseInsensitiveUnique;
 use App\Rules\GovernmentEmailRegex;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -28,8 +29,8 @@ final class SendUserEmailsVerificationInputValidator extends Validator
                     [new GovernmentEmailRegex()],
                     ['email']
                 ),
-                Rule::unique('users', 'email')->ignore($user?->id, 'id'),
-                Rule::unique('users', 'work_email')->ignore($user?->id, 'id'),
+                (new CaseInsensitiveUnique('users', 'email'))->ignore($user?->id, 'id'),
+                (new CaseInsensitiveUnique('users', 'work_email'))->ignore($user?->id, 'id'),
             ],
             'emailTypes' => [
                 'array',
