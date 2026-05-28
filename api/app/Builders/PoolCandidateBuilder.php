@@ -333,7 +333,12 @@ class PoolCandidateBuilder extends Builder
             return $this->whereNotBeingReferred();
         }
 
-        // none selected or both selected - no filtering
+        // both selected
+        if ($hasNotReferring && $hasNotReferring) {
+            return $this->where('application_status', ApplicationStatus::QUALIFIED->name);
+        }
+
+        // none selected - no filtering
         return $this;
     }
 
