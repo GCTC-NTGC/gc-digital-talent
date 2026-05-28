@@ -340,7 +340,7 @@ class PoolCandidateBuilder extends Builder
         }
 
         // both selected
-        if ($hasNotReferring && $hasNotReferring) {
+        if ($hasReferring && $hasNotReferring) {
             return $this->where('application_status', ApplicationStatus::QUALIFIED->name);
         }
 
