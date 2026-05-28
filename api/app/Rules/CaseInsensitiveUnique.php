@@ -2,10 +2,11 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule as RuleContract;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\DB;
 
-class CaseInsensitiveUnique implements RuleContract
+class CaseInsensitiveUnique implements ValidationRule
 {
     protected string $table;
 
@@ -13,15 +14,18 @@ class CaseInsensitiveUnique implements RuleContract
 
     protected mixed $ignoreId = null;
 
-    protected $ignoreColumn = 'id';
+    protected string $ignoreColumn = 'id';
 
-    public function __construct(string $table, string $column)
+    protected string $message;
+
+    public function __construct(string $table, string $column, string $message = 'validation.unique')
     {
         $this->table = $table;
         $this->column = $column;
+        $this->message = $message;
     }
 
-    public function ignore(mixed $id, $column = 'id')
+    public function ignore(mixed $id, string $column = 'id'): self
     {
         $this->ignoreId = $id;
         $this->ignoreColumn = $column;
@@ -29,8 +33,12 @@ class CaseInsensitiveUnique implements RuleContract
         return $this;
     }
 
-    public function passes($attribute, $value): bool
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        if (! is_string($value)) {
+            return;
+        }
+
         $query = DB::table($this->table)
             ->whereRaw('LOWER('.$this->column.') = ?', [mb_strtolower($value)]);
 
@@ -38,11 +46,8 @@ class CaseInsensitiveUnique implements RuleContract
             $query->where($this->ignoreColumn, '!=', $this->ignoreId);
         }
 
-        return ! $query->exists();
-    }
-
-    public function message(): string
-    {
-        return __('validation.unique');
+        if ($query->exists()) {
+            $fail($this->message);
+        }
     }
 }

@@ -29,8 +29,8 @@ final class SendUserEmailsVerificationInputValidator extends Validator
                     [new GovernmentEmailRegex()],
                     ['email']
                 ),
-                (new CaseInsensitiveUnique('users', 'email'))->ignore($user?->id, 'id'),
-                (new CaseInsensitiveUnique('users', 'work_email'))->ignore($user?->id, 'id'),
+                (new CaseInsensitiveUnique('users', 'email', ErrorCode::EMAIL_ADDRESS_IN_USE->name))->ignore($user?->id, 'id'),
+                (new CaseInsensitiveUnique('users', 'work_email', ErrorCode::EMAIL_ADDRESS_IN_USE->name))->ignore($user?->id, 'id'),
             ],
             'emailTypes' => [
                 'array',
