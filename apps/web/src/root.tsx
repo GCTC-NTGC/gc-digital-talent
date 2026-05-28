@@ -146,7 +146,7 @@ export function Layout({ children }: LayoutProps) {
         <Meta />
         <Links nonce="**CSP_NONCE**" />
       </head>
-      <body className="bg-gray-100 font-sans text-black dark:bg-gray-700 dark:text-white">
+      <body className="bg-[#EEF1F9] font-sans text-black dark:bg-gray-700 dark:text-white">
         <div className="isolate">{children}</div>
 
         <ScrollRestoration
