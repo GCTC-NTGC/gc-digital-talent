@@ -47,6 +47,7 @@ class SendNotificationsPoolPublished extends Command
         $this->info("Finding pools published between $startOfSpan and $endOfSpan.");
 
         $poolsPublishedRecently = Pool::query()
+            ->with('classification')
             ->where('published_at', '>=', $startOfSpan)
             ->where('published_at', '<', $endOfSpan)
             ->whereNotClosed() // don't notify of pools that have already been closed
@@ -61,8 +62,8 @@ class SendNotificationsPoolPublished extends Command
                     $model->name['en'],
                     $model->name['fr'],
                     $model->id,
-                    $model->displayName['display']['en'],
-                    $model->displayName['display']['fr'],
+                    $model->display_name['display']['en'],
+                    $model->display_name['display']['fr'],
                 )
                 : null
             )

@@ -36,7 +36,7 @@ class SendNotificationsPoolPublishedSpecific extends Command
     public function handle()
     {
         $poolId = $this->argument('poolId');
-        $pool = Pool::find($poolId);
+        $pool = Pool::with('classification')->find($poolId);
 
         if (! $pool) {
             $this->error('Could not find a pool with that ID.');
@@ -56,8 +56,8 @@ class SendNotificationsPoolPublishedSpecific extends Command
                 $pool->name['en'],
                 $pool->name['fr'],
                 $pool->id,
-                $pool->displayName['display']['en'],
-                $pool->displayName['display']['en'],
+                $pool->display_name['display']['en'],
+                $pool->display_name['display']['en'],
             ),
         ]);
 
