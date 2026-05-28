@@ -1365,7 +1365,7 @@ return [
                 'team' => ['view', 'create', 'update', 'delete', 'publish'],
             ],
             'publishedPool' => [
-                'team' => ['archive'],
+                'team' => ['archive', 'update'],
             ],
             'poolTeamMembers' => [
                 'team' => ['view'],
