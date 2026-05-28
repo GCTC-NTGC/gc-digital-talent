@@ -25,6 +25,13 @@ class GenerateUserFile implements ShouldQueue
     public $tries = 3;
 
     /**
+     * The number of seconds the job can run before timing out.
+     *
+     * @var int
+     */
+    public int $timeout = 1800;
+
+    /**
      * Create a new job instance.
      */
     public function __construct(private FileGeneratorInterface $generator, private User $user) {}
