@@ -52,7 +52,7 @@ class TalentRequestFactory extends BaseFactory
         ]);
     }
 
-    public function complete(): self
+    public function completed(): self
     {
         return $this->state(fn () => [
             'status' => TalentRequestStatus::CLOSED->name,
