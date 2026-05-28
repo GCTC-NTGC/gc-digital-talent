@@ -314,6 +314,12 @@ class PoolCandidateBuilder extends Builder
         return $this;
     }
 
+    /**
+     * The candidate whose referral status is NULL or blank should not be present
+     * when filter with referral status as 'Not referred' or 'Available' for referral
+     *
+     * The referral status filter are exclusively for qualified candidate status only
+     */
     public function whereReferralStatusIn(?array $referralStatuses): self
     {
         if (empty($referralStatuses)) {
