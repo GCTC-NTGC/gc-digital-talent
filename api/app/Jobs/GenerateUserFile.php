@@ -46,10 +46,17 @@ class GenerateUserFile implements ShouldQueue
 
             UserFileGenerated::dispatch($this->generator->getFileNameWithExtension(), $this->user->id);
         } catch (\Throwable $e) {
-            // Notify the user something went wrong
-            $this->user->notify(new UserFileGenerationError($this->generator->getFileNameWithExtension()));
             Log::channel('jobs')->error($e);
+            $this->fail($e);
         }
 
+    }
+
+    /**
+     * Handle a job that has failed (retries exhausted or timed out).
+     */
+    public function failed(\Throwable $exception): void
+    {
+        $this->user->notify(new UserFileGenerationError($this->generator->getFileNameWithExtension()));
     }
 }
