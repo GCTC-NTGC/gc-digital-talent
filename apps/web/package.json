@@ -87,7 +87,7 @@
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/lodash": "^4.17.24",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "dotenv": "^17.4.2",
     "eslint": "^9.20.1",
