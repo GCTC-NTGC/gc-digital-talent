@@ -1303,6 +1303,10 @@
     "defaultMessage": "Dans ce poste, vous participez à la création d’ontologies et de graphes de connaissances, ce qui favorise la transmission et la récupération efficaces de l’information dans toute l’organisation. Vous excellez en communication et vous contribuez à la diffusion des pratiques exemplaires.",
     "description": "Description of the information governance specialist role"
   },
+  "2yFplA": {
+    "defaultMessage": "Les collectivités fonctionnelles offrent ou recommandent souvent des programmes, des certifications ou des accréditations qui peuvent être bénéfiques pour les personnes travaillant dans des domaines connexes. Vous pouvez exprimer votre intérêt pour ces possibilités ou associer des expériences de votre parcours professionnel afin de démontrer votre participation antérieure ou l'obtention d'une certification. Certaines possibilités peuvent comporter des critères d'admissibilité précis selon la classification ou l'expérience. L'expression d'intérêt ne constitue pas une demande officielle et ne garantit pas la participation.",
+    "description": "Description of the 'Training and development opportunities' section"
+  },
   "2yvjfA": {
     "defaultMessage": "Cette liste permet de mettre en évidence <strong>jusqu’à 10 compétences techniques</strong> qui donnent une image claire de votre ensemble de compétences. Montrez-nous ce que vous savez faire de mieux!",
     "description": "Description of a users top technical skills"
@@ -1826,10 +1830,6 @@
   "51BAr3": {
     "defaultMessage": "Découvrez comment notre équipe utilise les renseignements sur l’équité en matière d’emploi pour façonner l’équité et la diversité en matière d’embauche.",
     "description": "Subtitle for the inclusivity and equity page"
-  },
-  "53LNWh": {
-    "defaultMessage": "Trouver une nouvelle collectivité",
-    "description": "Heading for the 'Find a new community' section when creating"
   },
   "53MCSe": {
     "defaultMessage": "Si vous posez votre candidature à un poste bilingue, vous devez réussir les tests linguistiques avant l’embauche. Si le poste est bilingue, le gestionnaire ne peut pas embaucher une personne qui ne possède pas les compétences requises de la langue seconde, quelles que soient les autres qualifications de la personne candidate ou son rendement au concours. Si un emploi bilingue vous intéresse, mais que vous n’êtes pas bilingue, nous vous encourageons vivement à poser votre candidature à d’autres offres d’emploi sur la plateforme correspondant à vos compétences linguistiques.",
@@ -2715,10 +2715,6 @@
     "defaultMessage": "Modifier le niveau",
     "description": "Label to edit the skill with level"
   },
-  "9+Gd8H": {
-    "defaultMessage": "Exprimez votre intérêt pour une collectivité fonctionnelle pour en recevoir les possibilités de recrutement, de formation et de promotion.",
-    "description": "Subtitle for the community interest pages"
-  },
   "9/x/2b": {
     "defaultMessage": "Tableaux des autorisations",
     "description": "Heading for tables describing permissions each role has"
@@ -3374,6 +3370,10 @@
   "B6cKp+": {
     "defaultMessage": "Rôles dans les collectivités",
     "description": "Heading for updating a user's community roles"
+  },
+  "B88lvt": {
+    "defaultMessage": "Détails de la finalisation",
+    "description": "Label for closed talent request details"
   },
   "B8N4yZ": {
     "defaultMessage": "Consulter tous les processus",
@@ -4195,10 +4195,6 @@
     "defaultMessage": "Retirer le drapeau de {candidateName} pour les utilisateurs autorisés.",
     "description": "Un-flag button label for applicant assessment tracking."
   },
-  "ElnCxi": {
-    "defaultMessage": "Collectivité fonctionnelle",
-    "description": "Description for a form input for selecting a functional community"
-  },
   "EoEEha": {
     "defaultMessage": "Volets de travail préférés pour l'emploi ou la formation",
     "description": "Label for the input for selecting work stream referral preferences"
@@ -4502,6 +4498,10 @@
   "G1jegJ": {
     "defaultMessage": "Veuillez remplir toutes les zones obligatoires avant de continuer",
     "description": "Error message displayed when user attempts to submit incomplete profile"
+  },
+  "G1x4n8": {
+    "defaultMessage": "Pour commencer, consultez la liste des collectivités partenaires de la plateforme Talents numériques du GC. D'autres collectivités seront ajoutées au fur et à mesure qu'elles rejoindront la plateforme. Une fois que vous avez sélectionné une collectivité, on vous posera quelques questions sur l'intérêt que vous portez aux possibilités qui y sont offertes.",
+    "description": "Description of the 'find a new community' section when creating"
   },
   "G4TRsY": {
     "defaultMessage": "Mutation latérale<hidden> nomination approuvée</hidden>",
@@ -5307,10 +5307,6 @@
     "defaultMessage": "Du",
     "description": "Label for a start date input in a range"
   },
-  "JGC9Pp": {
-    "defaultMessage": "Enregistrer et soumettre",
-    "description": "Text for the submit button"
-  },
   "JGRer4": {
     "defaultMessage": "La Commission de la fonction publique est-elle au courant de l’existence de la plateforme Talents numériques du GC?",
     "description": "Heading for FAQ about PSC"
@@ -6011,6 +6007,10 @@
     "defaultMessage": "Types d'organisations envisagées pour une promotion ou un avancement",
     "description": "Label for an employee profile career development preference field"
   },
+  "M64e1L": {
+    "defaultMessage": "Choisir une collectivité",
+    "description": "Heading for the 'Find a new community' section when creating"
+  },
   "M6CZwf": {
     "defaultMessage": "Le retrait de ce perfectionnement professionnel de la collectivité entraînera les changements suivants pour l’ensemble des utilisateurs et utilisatrices :",
     "description": "Unordered list heading warning user before removing a professionalization"
@@ -6402,6 +6402,10 @@
   "NngAJq": {
     "defaultMessage": "Erreur : impossible de mettre à jour le signet du candidat.",
     "description": "Alert displayed to the user when failing to (un-)bookmark a candidate"
+  },
+  "Ns5tNE": {
+    "defaultMessage": "Vous pouvez également associer une formation ou une certification de votre parcours professionnel afin d'aider les recruteurs et les gestionnaires d'embauche à valider votre participation ou votre certification.",
+    "description": "Description before linked experience buttons."
   },
   "NxIPbD": {
     "defaultMessage": "Gérer les collectivités",
@@ -11550,10 +11554,6 @@
     "defaultMessage": "Historique des notifications",
     "description": "Title for list of a users notifications"
   },
-  "ipGQnI": {
-    "defaultMessage": "Détails de fermeture",
-    "description": "Label for closed talent request details"
-  },
   "ipKAvI": {
     "defaultMessage": "1. si vous êtes intéressé(e) à embaucher un apprentis et aimeriez en apprendre davantage sur le Programme d'apprentissage en TI pour les peuples autochtones",
     "description": "Paragraph 2 of a manager's email for apprenticeship"
@@ -12066,10 +12066,6 @@
     "defaultMessage": "Parlez-nous des processus de recrutement dans lesquels vous êtes qualifiée ou qualifié sur d’autres plateformes du gouvernement du Canada.",
     "description": "Dialog subtitle informing of purpose"
   },
-  "koX5xF": {
-    "defaultMessage": "Pour commencer, consultez la liste des collectivités partenaires de la plateforme Talents numériques du GC. D'autres collectivités seront ajoutées au fur et à mesure qu'elles rejoindront la plateforme. Une fois que vous avez sélectionné une collectivité, on vous posera quelques questions sur l'intérêt que vous portez aux possibilités qui y sont offertes.",
-    "description": "Description of the 'find a new community' section when creating"
-  },
   "kolwAf": {
     "defaultMessage": "Qualifié(e) dans le processus",
     "description": "Status label for a qualified application"
@@ -12241,6 +12237,10 @@
   "laYGvQ": {
     "defaultMessage": "de faire preuve de diligence raisonnable quant à l'exactitude du contenu reproduit",
     "description": "Non commercial reproduction list item"
+  },
+  "lbGN67": {
+    "defaultMessage": "Sélectionner une collectivité fonctionnelle",
+    "description": "Description for a form input for selecting a functional community"
   },
   "ldgukM": {
     "defaultMessage": "Des collectivités peuvent être suggérées en fonction de votre expérience professionnelle. Vous pouvez également ajouter des collectivités fonctionnelles en cliquant sur le lien « Ajouter une collectivité ».",
@@ -14270,10 +14270,6 @@
     "defaultMessage": "Pour empêcher temporairement cette candidature de figurer dans les demandes de talents, utilisez l'option suivante.",
     "description": "Blurb for the pause candidate's referral status dialog"
   },
-  "u093wf": {
-    "defaultMessage": "La plupart des collectivités fonctionnelles proposent divers programmes d'apprentissage et de perfectionnement. Ces programmes peuvent avoir des exigences d'admissibilité précises basées sur votre expérience, votre classification ou d'autres qualifications. Le fait d'exprimer votre intérêt pour ces possibilités ne constitue pas une candidature, mais permet au personnel des RH et du recrutement de vérifier votre intérêt au cas où vous seriez sélectionnée ou sélectionné pour une possibilité de formation ou de perfectionnement.",
-    "description": "Description of the 'Training and development opportunities' section"
-  },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
     "description": "Subtitle for job alerts checklist"
@@ -15700,6 +15696,10 @@
   "zn0wg9": {
     "defaultMessage": "Profil de candidature",
     "description": "Title of a resource card with profile links"
+  },
+  "znVQXm": {
+    "defaultMessage": "Exprimez votre intérêt pour une collectivité fonctionnelle pour en recevoir les possibilités de recrutement, de formation et de promotion",
+    "description": "Subtitle for the community interest pages"
   },
   "znWT8z": {
     "defaultMessage": "Les exigences en matière de compétences sont classées soit comme étant <strong>essentielles</strong> (le candidat a absolument besoin de cette compétence), soit comme étant un <strong>atout</strong> (la compétence serait utile, mais n'est pas requise). Les critères de compétences seront présentés au candidat en fonction d'une combinaison du statut essentiel ou d'atout de la compétence et si la compétence sera évaluée dans le cadre de sa demande.",

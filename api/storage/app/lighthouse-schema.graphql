@@ -393,8 +393,8 @@ type LocalizedTalentNominationUserReview implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedTalentRequestClosedDetail implements LocalizedEnumOption {
-  value: TalentRequestClosedDetail!
+type LocalizedTalentRequestCompletionDetail implements LocalizedEnumOption {
+  value: TalentRequestCompletionDetail!
   label: LocalizedString!
 }
 
@@ -433,7 +433,7 @@ type Query {
     trashed: Trashed
   ): User
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
-  workEmails(search: String): [UserWorkEmail!]!
+  workEmails(search: String, limit: Int = 5): [UserWorkEmail!]!
   trashedExperienceSkill(where: TrashedExperienceSkillInput!): ExperienceSkillRecord
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
@@ -1461,6 +1461,7 @@ type Role {
   displayName: LocalizedString
   description: LocalizedString
   isTeamBased: Boolean
+  permissions: [Permission!]
   roleAssignments: [RoleAssignment!]
 }
 
@@ -1536,7 +1537,7 @@ type PoolCandidateSearchRequest {
   followUpDate: Date
   talentRequestStatus: LocalizedTalentRequestStatus
   inProgressDetails: LocalizedTalentRequestInProgressDetail
-  closedDetails: LocalizedTalentRequestClosedDetail
+  completionDetails: LocalizedTalentRequestCompletionDetail
   details: LocalizedString
 }
 
@@ -2545,7 +2546,7 @@ input UpdatePoolCandidateSearchRequestInput {
 input UpdatePoolCandidateSearchRequestStatusInput {
   status: TalentRequestStatus!
   inProgressDetails: TalentRequestInProgressDetail
-  closedDetails: TalentRequestClosedDetail
+  completionDetails: TalentRequestCompletionDetail
   followUpDate: Date
 }
 
@@ -3520,6 +3521,173 @@ enum NotificationType {
   UserFileGenerationError
 }
 
+enum RoleName {
+  Guest
+  BaseUser
+  Applicant
+  ProcessOperator
+  CommunityRecruiter
+  CommunityAdmin
+  PlatformAdmin
+  CommunityTalentCoordinator
+  DepartmentAdmin
+  DepartmentHrAdvisor
+}
+
+enum Permission {
+  ViewAnyClassification
+  CreateAnyClassification
+  UpdateAnyClassification
+  DeleteAnyClassification
+  ViewAnyDepartment
+  CreateAnyDepartment
+  UpdateAnyDepartment
+  DeleteAnyDepartment
+  ArchiveAnyDepartment
+  ViewAnyDevelopmentProgram
+  CreateAnyDevelopmentProgram
+  UpdateAnyDevelopmentProgram
+  ViewAnyGenericJobTitle
+  CreateAnyGenericJobTitle
+  UpdateAnyGenericJobTitle
+  DeleteAnyGenericJobTitle
+  ViewAnySkill
+  CreateAnySkill
+  UpdateAnySkill
+  DeleteAnySkill
+  ViewAnySkillFamily
+  CreateAnySkillFamily
+  UpdateAnySkillFamily
+  DeleteAnySkillFamily
+  CreateAnyUser
+  ViewAnyUser
+  ViewOwnUser
+  ViewAnyUserBasicInfo
+  ViewAnyUserWorkEmail
+  UpdateAnyUser
+  UpdateAnyUserSub
+  UpdateOwnUser
+  DeleteAnyUser
+  ViewAnyApplicantProfile
+  ViewTeamApplicantProfile
+  ViewOwnApplicantProfile
+  UpdateOwnApplicantProfile
+  ViewOwnEmployeeProfile
+  UpdateOwnEmployeeProfile
+  ViewTeamDraftPool
+  ViewAnyPool
+  ViewAnyPublishedPool
+  CreateTeamDraftPool
+  UpdateTeamDraftPool
+  UpdateAnyPublishedPool
+  PublishTeamDraftPool
+  PublishAnyDraftPool
+  UpdateTeamPublishedPool
+  DeleteTeamDraftPool
+  ArchiveTeamPublishedPool
+  ArchiveAnyPublishedPool
+  ViewAnyAssessmentPlan
+  ViewTeamAssessmentPlan
+  UpdateAnyAssessmentPlan
+  UpdateTeamAssessmentPlan
+  CreateAnyApplication
+  ViewOwnApplication
+  ViewTeamSubmittedApplication
+  ViewAnySubmittedApplication
+  CreateOwnDraftApplication
+  UpdateOwnDraftApplication
+  SubmitOwnDraftApplication
+  DeleteOwnDraftApplication
+  ArchiveOwnSubmittedApplication
+  SuspendOwnSubmittedApplication
+  ViewOwnApplicationStatus
+  ViewTeamApplicationStatus
+  ViewAnyApplicationStatus
+  UpdateTeamApplicationStatus
+  UpdateAnyApplicationStatus
+  ViewAnyApplicationAssessment
+  ViewTeamApplicationAssessment
+  UpdateAnyApplicationAssessment
+  UpdateTeamApplicationAssessment
+  ViewAnyApplicationDecision
+  ViewTeamApplicationDecision
+  ViewOwnApplicationDecision
+  UpdateTeamApplicationDecision
+  UpdateAnyApplicationDecision
+  ViewAnyApplicationPlacement
+  ViewTeamApplicationPlacement
+  ViewOwnApplicationPlacement
+  UpdateTeamApplicationPlacement
+  UpdateAnyApplicationPlacement
+  ViewAnyApplicantCount
+  ViewAnyJobPosterTemplate
+  CreateAnyJobPosterTemplate
+  UpdateAnyJobPosterTemplate
+  DeleteAnyJobPosterTemplate
+  CreateAnySearchRequest
+  ViewTeamSearchRequest
+  UpdateTeamSearchRequest
+  DeleteTeamSearchRequest
+  ViewAnySearchRequest
+  UpdateAnySearchRequest
+  DeleteAnySearchRequest
+  ViewOwnSearchRequest
+  CreateAnyWorkStream
+  UpdateAnyWorkStream
+  ViewAnyRole
+  AssignAnyRole
+  AssignTeamRole
+  UpdateAnyRole
+  ViewAnyAnnouncement
+  UpdateAnyAnnouncement
+  ViewAnyCommunity
+  CreateAnyCommunity
+  UpdateAnyCommunity
+  UpdateTeamCommunity
+  DeleteAnyCommunity
+  UpdateAnyPlatformAdminMembership
+  UpdateAnyCommunityAdminMembership
+  UpdateTeamCommunityAdminMembership
+  UpdateAnyCommunityRecruiterMembership
+  UpdateTeamCommunityRecruiterMembership
+  UpdateAnyProcessOperatorMembership
+  UpdateTeamProcessOperatorMembership
+  UpdateAnyCommunityTalentCoordinatorMembership
+  UpdateTeamCommunityTalentCoordinatorMembership
+  UpdateAnyDepartmentAdminMembership
+  UpdateAnyDepartmentHRAdvisorMembership
+  UpdateTeamDepartmentHRAdvisorMembership
+  ViewAnyPoolTeamMembers
+  ViewTeamPoolTeamMembers
+  ViewAnyCommunityTeamMembers
+  ViewTeamCommunityTeamMembers
+  ViewAnyDepartmentTeamMembers
+  ViewTeamDepartmentTeamMembers
+  CreateAnyTrainingOpportunity
+  ViewAnyTalentNominationEvent
+  CreateAnyTalentNominationEvent
+  CreateTeamTalentNominationEvent
+  UpdateTeamTalentNominationEvent
+  ViewAnyCommunityInterest
+  ViewTeamCommunityInterest
+  ViewTeamCommunityTalent
+  DeleteOwnCommunityInterest
+  CreateOwnTalentNomination
+  UpdateOwnTalentNomination
+  ViewOwnTalentNomination
+  ViewTeamTalentNomination
+  ViewAnyTalentNomination
+  UpdateTeamTalentNominationGroup
+  ViewTeamTalentNominationGroup
+  ViewAnyTalentNominationGroup
+  ViewAnyBasicGovEmployeeProfile
+  ViewAnyPoolActivityLog
+  ViewTeamPoolActivityLog
+  CreateTeamCommunityDevelopmentProgram
+  UpdateTeamCommunityDevelopmentProgram
+  DeleteTeamCommunityDevelopmentProgram
+}
+
 enum ActivityEvent {
   CREATED
   UPDATED
@@ -4308,7 +4476,7 @@ enum TalentNominationUserReview {
   OUT_OF_DATE
 }
 
-enum TalentRequestClosedDetail {
+enum TalentRequestCompletionDetail {
   HIRE_MADE
   PROCESS_WILL_BE_LAUNCHED
   HIRING_MANAGER_NOT_RESPONSIVE
@@ -4329,7 +4497,7 @@ enum TalentRequestInProgressDetail {
 enum TalentRequestStatus {
   NEW
   IN_PROGRESS
-  CLOSED
+  COMPLETED
 }
 
 enum TargetRole {
