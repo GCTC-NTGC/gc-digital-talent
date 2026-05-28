@@ -1292,11 +1292,6 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'offPlatformRecruitmentProcesses',
             'offPlatformRecruitmentProcesses.classification',
             'offPlatformRecruitmentProcesses.department',
-            'workExperiences.userSkills.skill',
-            'educationExperiences.userSkills.skill',
-            'awardExperiences.userSkills.skill',
-            'communityExperiences.userSkills.skill',
-            'personalExperiences.userSkills.skill',
         ]);
 
         $this->applyFilters($query, [
