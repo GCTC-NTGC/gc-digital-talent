@@ -1026,6 +1026,7 @@ type Role {
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
+  permissions: [Permission!] @method(name: "configPermissions")
   roleAssignments: [RoleAssignment!]
     @hasMany
     @canModel(ability: "viewAnyRoleAssignments", model: "Role")
@@ -1119,8 +1120,8 @@ type PoolCandidateSearchRequest {
   talentRequestStatus: LocalizedTalentRequestStatus @rename(attribute: "status")
   inProgressDetails: LocalizedTalentRequestInProgressDetail
     @rename(attribute: "in_progress_details")
-  closedDetails: LocalizedTalentRequestClosedDetail
-    @rename(attribute: "closed_details")
+  completionDetails: LocalizedTalentRequestCompletionDetail
+    @rename(attribute: "completion_details")
   details: LocalizedString
 }
 
@@ -1570,10 +1571,13 @@ type Query {
     @guard
     @validator
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
-  workEmails(search: String): [UserWorkEmail!]!
+  workEmails(
+    search: String
+    limit: Int = 5 @limit(builder: true) @rules(apply: ["integer", "size:5"])
+  ): [UserWorkEmail!]!
     @all(
       model: "User"
-      scopes: ["whereWorkEmailIsVerified", "whereWorkEmailSearch", "limitFive"]
+      scopes: ["whereWorkEmailIsVerified", "whereWorkEmailSearch"]
     )
     @guard
     @canModel(ability: "viewAnyUserWorkEmail", model: "User")
@@ -2681,7 +2685,7 @@ input UpdatePoolCandidateSearchRequestInput @validator {
 input UpdatePoolCandidateSearchRequestStatusInput {
   status: TalentRequestStatus!
   inProgressDetails: TalentRequestInProgressDetail
-  closedDetails: TalentRequestClosedDetail
+  completionDetails: TalentRequestCompletionDetail
   followUpDate: Date
 }
 
