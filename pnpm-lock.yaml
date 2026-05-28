@@ -55,7 +55,7 @@ importers:
         version: 10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       storybook-react-intl:
         specifier: ^10.2.1
-        version: 10.2.1(react-dom@19.2.6(react@19.2.6))(react-intl@10.1.7(@types/react@19.2.15)(react@19.2.6))(react@19.2.6)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))
+        version: 10.2.1(react-dom@19.2.6(react@19.2.6))(react-intl@10.1.9(@types/react@19.2.15)(react@19.2.6))(react@19.2.6)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))
       turbo:
         specifier: ^2.9.14
         version: 2.9.14
@@ -205,8 +205,8 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react-intl:
-        specifier: ^10.1.7
-        version: 10.1.7(@types/react@19.2.15)(react@19.2.6)
+        specifier: ^10.1.9
+        version: 10.1.9(@types/react@19.2.15)(react@19.2.6)
       react-router:
         specifier: ^7.15.1
         version: 7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -230,8 +230,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0
       '@formatjs/cli':
-        specifier: ^6.15.0
-        version: 6.15.0
+        specifier: ^6.16.1
+        version: 6.16.1
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
@@ -433,8 +433,8 @@ importers:
         specifier: ^8.5.0
         version: 8.5.0
       react-intl:
-        specifier: ^10.1.7
-        version: 10.1.7(@types/react@19.2.15)(react@19.2.6)
+        specifier: ^10.1.9
+        version: 10.1.9(@types/react@19.2.15)(react@19.2.6)
       urql:
         specifier: ^5.0.2
         version: 5.0.2(@urql/core@5.2.0(graphql@16.14.0))(react@19.2.6)
@@ -491,8 +491,8 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       react-intl:
-        specifier: ^10.1.7
-        version: 10.1.7(@types/react@19.2.15)(react@19.2.6)
+        specifier: ^10.1.9
+        version: 10.1.9(@types/react@19.2.15)(react@19.2.6)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -558,8 +558,8 @@ importers:
         specifier: ^4.4.4
         version: 4.4.4(eslint-plugin-import@2.32.0)(eslint@9.39.2(jiti@2.7.0))
       eslint-plugin-formatjs:
-        specifier: ^6.4.10
-        version: 6.4.10(eslint@9.39.2(jiti@2.7.0))
+        specifier: ^6.4.12
+        version: 6.4.12(eslint@9.39.2(jiti@2.7.0))
       eslint-plugin-import:
         specifier: ^2.32.0
         version: 2.32.0(@typescript-eslint/parser@8.60.0(eslint@9.39.2(jiti@2.7.0))(typescript@6.0.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.2(jiti@2.7.0))
@@ -731,8 +731,8 @@ importers:
         specifier: ^7.76.0
         version: 7.76.1(react@19.2.6)
       react-intl:
-        specifier: ^10.1.7
-        version: 10.1.7(@types/react@19.2.15)(react@19.2.6)
+        specifier: ^10.1.9
+        version: 10.1.9(@types/react@19.2.15)(react@19.2.6)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -829,8 +829,8 @@ importers:
         version: 7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
     devDependencies:
       '@formatjs/cli':
-        specifier: ^6.15.0
-        version: 6.15.0
+        specifier: ^6.16.1
+        version: 6.16.1
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -865,8 +865,8 @@ importers:
         specifier: ^19.2.6
         version: 19.2.6
       react-intl:
-        specifier: ^10.1.7
-        version: 10.1.7(@types/react@19.2.15)(react@19.2.6)
+        specifier: ^10.1.9
+        version: 10.1.9(@types/react@19.2.15)(react@19.2.6)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1064,8 +1064,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0(react@19.2.6)
       react-intl:
-        specifier: ^10.1.7
-        version: 10.1.7(@types/react@19.2.15)(react@19.2.6)
+        specifier: ^10.1.9
+        version: 10.1.9(@types/react@19.2.15)(react@19.2.6)
       react-toastify:
         specifier: ^11.1.0
         version: 11.1.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -1215,8 +1215,8 @@ importers:
         specifier: ^19.2.6
         version: 19.2.6(react@19.2.6)
       react-intl:
-        specifier: ^10.1.7
-        version: 10.1.7(@types/react@19.2.15)(react@19.2.6)
+        specifier: ^10.1.9
+        version: 10.1.9(@types/react@19.2.15)(react@19.2.6)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1239,8 +1239,8 @@ importers:
         specifier: ^4.11.4
         version: 4.11.4
       react-intl:
-        specifier: ^10.1.7
-        version: 10.1.7(@types/react@19.2.15)(react@19.2.6)
+        specifier: ^10.1.9
+        version: 10.1.9(@types/react@19.2.15)(react@19.2.6)
       react-router:
         specifier: ^7.15.1
         version: 7.15.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -1836,13 +1836,23 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
+  '@formatjs/cli-native-linux-arm64@1.2.0':
+    resolution: {integrity: sha512-G6YuIVD8D6hZjnsD/aYZQ2qMHSve7IadEiXgKiDfFQBbyrkjDAlt6LDSqq4qnuv3WJ7/jAOn/An6n/bGyt0rLg==}
+    cpu: [arm64]
+    os: [linux]
+
   '@formatjs/cli-native-linux-x64@1.1.0':
     resolution: {integrity: sha512-AxORf5LR14HvXU4ov9gnhLrNIS2DYKqKMkRkprUhuh+ljba1riF05msK8KzslEPYQoeYKc5A0OZp57poh4xz/g==}
     cpu: [x64]
     os: [linux]
 
-  '@formatjs/cli@6.15.0':
-    resolution: {integrity: sha512-U8kd1jf7JEEZRhEranEiCv+QWdD+Spz+GUQRuaLyACCDp1q1wWIxdNAR3UETwD3Q37CAajHeMYSVfVBzfGj79g==}
+  '@formatjs/cli-native-win32-x64@1.1.1':
+    resolution: {integrity: sha512-2vYgm7dzAb7wA9KjOOJGxZiSShwBNK4dEmgiJ1lRpEIz6RKMZ6wBY4UVn03VdAv8djJ7r6RK4Xyd2ouGcbh9Bg==}
+    cpu: [x64]
+    os: [win32]
+
+  '@formatjs/cli@6.16.1':
+    resolution: {integrity: sha512-mCiogVDH7ufC4x/gmXoc9rxCXhGr4QGZVN9/rPeHBUuRZ9mc8sbFB9HbMXCYoUzMwOOuC9fmEFh7TpEHeeWm3Q==}
     engines: {node: '>= 20.12.0'}
     hasBin: true
     peerDependencies:
@@ -1872,17 +1882,17 @@ packages:
   '@formatjs/fast-memoize@3.1.5':
     resolution: {integrity: sha512-KLi3fan6WnCHmigd9pmEEN8Hid0v4wiFBW576M/d07KMWYecf1CvyMI3n34vCmHT4AoVqG2n702kiHbXjzZX2A==}
 
-  '@formatjs/icu-messageformat-parser@3.5.9':
-    resolution: {integrity: sha512-PZm6O9JI/gUPtQV9r2eaMuLb4yWqV2vz+ot03ORHWTKO343LSpZi0TqeXLB2ZZGDXLCw2SbfgsQ0GxoxXMl79g==}
+  '@formatjs/icu-messageformat-parser@3.5.10':
+    resolution: {integrity: sha512-XeJihYLy1lCe19xfK1KWKG/betBOK2rB0luL8lSkjfvJj0zP+LTJvkC+RKd0jsFI8mWxN71LrarHSrEXE8xxOQ==}
 
   '@formatjs/icu-skeleton-parser@2.1.9':
     resolution: {integrity: sha512-rsxswgHMfU1zUgB2byc08fesf83wLGjFnzLCEtuf00mx2doiqc6pYrf67raI37XqdRcGUviQepk2UKGqpng74Q==}
 
-  '@formatjs/intl@4.1.11':
-    resolution: {integrity: sha512-CB0mZTbnVCgnZDpOwDUGp6tC6cRl8C8gbpqvP0aatwkcRdazgXctCppljnVU3nzG0yuOABO1+DDRekESiitNmA==}
+  '@formatjs/intl@4.1.12':
+    resolution: {integrity: sha512-r288ut+p+CUQZSg+0gAT+D0i6xgrnoxE0B4HTbPY2zei/AtYmFhlu87BKjgCf1CweH4pZIbr152JFjxO8jVb1A==}
 
-  '@formatjs/ts-transformer@4.4.9':
-    resolution: {integrity: sha512-AOiNZHLc9cI71AJuRo1FrHIHyISNDXBov7L+aPThKyp7d545s8ZcNhLpVC3Neu3IZZBR2xWXzjgd/QoUX8O6jw==}
+  '@formatjs/ts-transformer@4.4.10':
+    resolution: {integrity: sha512-q8DoDvuyKhL2+vpYJnNFkJqlQBAwp2O4OmD/GTd91oslRs1jYRVI8qETd6NvUs2N/WrZ6FDi3spOySfSBLX/sA==}
     engines: {node: '>= 20.12.0'}
     peerDependencies:
       ts-jest: ^29
@@ -4978,8 +4988,8 @@ packages:
     peerDependencies:
       eslint: '>=4.19.1'
 
-  eslint-plugin-formatjs@6.4.10:
-    resolution: {integrity: sha512-ABLgeLNu2E0Vrx3bGmZVUizW2q8YRaPOB5iv33Rz7KOxxybVSc11OdPLJKHDvn6IKAPRyYcZ8fWROuayTcSiEg==}
+  eslint-plugin-formatjs@6.4.12:
+    resolution: {integrity: sha512-ZZ8fQ4zhjUubnmJ3jtc6AetR1GU22nPgldgoUOaOBJSsEcue8ivT9eEqkRNvxi6FhIzTq7t4o3xRiMPoEkLLOA==}
     peerDependencies:
       eslint: 9 || 10
 
@@ -5460,8 +5470,8 @@ packages:
     resolution: {integrity: sha512-4gd7VpWNQNB4UKKCFFVcp1AVv+FMOgs9NKzjHKusc8jTMhd5eL1NqQqOpE0KzMds804/yHlglp3uxgluOqAPLw==}
     engines: {node: '>= 0.4'}
 
-  intl-messageformat@11.2.6:
-    resolution: {integrity: sha512-afAN2yNN7zjB77G1ZC5L8GtLrEshyBvOQXz88flxCO/ocTIQist98gu0r/O6H/SSiQhQsOOtWPxmCEvtDABXXQ==}
+  intl-messageformat@11.2.7:
+    resolution: {integrity: sha512-+q6Ktg119nULZEpZ8YTuGOst9MyEzFtjD63FTGBlN1mLz0Z/MOUYDIvnpVKwq17eezIEh+cfJIebfJoCetpiNw==}
 
   invariant@2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
@@ -6459,8 +6469,8 @@ packages:
       react: '>=16'
       react-dom: '>=16'
 
-  react-intl@10.1.7:
-    resolution: {integrity: sha512-VAeHBDccPU9y43UbJJ7GzyLNY+1Z2ul3xSjVmb9qZ/vh/E+ACBm/me4IvAv/VvXShcF817hHyzcJOuzoZejqOA==}
+  react-intl@10.1.9:
+    resolution: {integrity: sha512-FOWpTmwnZnAfz8JegRzyGnjUiuzLW3xJFjp/o8VR4HZAQ+Eg++YaeMhoUULLY+LMx7gZm3czaZEqcU4hntwerw==}
     peerDependencies:
       '@types/react': '19'
       react: '19'
@@ -8055,31 +8065,39 @@ snapshots:
   '@formatjs/cli-native-darwin-arm64@1.1.0':
     optional: true
 
+  '@formatjs/cli-native-linux-arm64@1.2.0':
+    optional: true
+
   '@formatjs/cli-native-linux-x64@1.1.0':
     optional: true
 
-  '@formatjs/cli@6.15.0':
+  '@formatjs/cli-native-win32-x64@1.1.1':
+    optional: true
+
+  '@formatjs/cli@6.16.1':
     optionalDependencies:
       '@formatjs/cli-native-darwin-arm64': 1.1.0
+      '@formatjs/cli-native-linux-arm64': 1.2.0
       '@formatjs/cli-native-linux-x64': 1.1.0
+      '@formatjs/cli-native-win32-x64': 1.1.1
 
   '@formatjs/fast-memoize@3.1.5': {}
 
-  '@formatjs/icu-messageformat-parser@3.5.9':
+  '@formatjs/icu-messageformat-parser@3.5.10':
     dependencies:
       '@formatjs/icu-skeleton-parser': 2.1.9
 
   '@formatjs/icu-skeleton-parser@2.1.9': {}
 
-  '@formatjs/intl@4.1.11':
+  '@formatjs/intl@4.1.12':
     dependencies:
       '@formatjs/fast-memoize': 3.1.5
-      '@formatjs/icu-messageformat-parser': 3.5.9
-      intl-messageformat: 11.2.6
+      '@formatjs/icu-messageformat-parser': 3.5.10
+      intl-messageformat: 11.2.7
 
-  '@formatjs/ts-transformer@4.4.9':
+  '@formatjs/ts-transformer@4.4.10':
     dependencies:
-      '@formatjs/icu-messageformat-parser': 3.5.9
+      '@formatjs/icu-messageformat-parser': 3.5.10
       '@types/node': 24.12.4
       json-stable-stringify: 1.3.0
       typescript: 6.0.3
@@ -11372,10 +11390,10 @@ snapshots:
       eslint-utils: 2.1.0
       regexpp: 3.2.0
 
-  eslint-plugin-formatjs@6.4.10(eslint@9.39.2(jiti@2.7.0)):
+  eslint-plugin-formatjs@6.4.12(eslint@9.39.2(jiti@2.7.0)):
     dependencies:
-      '@formatjs/icu-messageformat-parser': 3.5.9
-      '@formatjs/ts-transformer': 4.4.9
+      '@formatjs/icu-messageformat-parser': 3.5.10
+      '@formatjs/ts-transformer': 4.4.10
       '@types/picomatch': 4.0.3
       '@unicode/unicode-17.0.0': 1.6.16
       eslint: 9.39.2(jiti@2.7.0)
@@ -11922,10 +11940,10 @@ snapshots:
       hasown: 2.0.2
       side-channel: 1.1.0
 
-  intl-messageformat@11.2.6:
+  intl-messageformat@11.2.7:
     dependencies:
       '@formatjs/fast-memoize': 3.1.5
-      '@formatjs/icu-messageformat-parser': 3.5.9
+      '@formatjs/icu-messageformat-parser': 3.5.10
 
   invariant@2.2.4:
     dependencies:
@@ -12923,12 +12941,12 @@ snapshots:
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
 
-  react-intl@10.1.7(@types/react@19.2.15)(react@19.2.6):
+  react-intl@10.1.9(@types/react@19.2.15)(react@19.2.6):
     dependencies:
-      '@formatjs/icu-messageformat-parser': 3.5.9
-      '@formatjs/intl': 4.1.11
+      '@formatjs/icu-messageformat-parser': 3.5.10
+      '@formatjs/intl': 4.1.12
       '@types/react': 19.2.15
-      intl-messageformat: 11.2.6
+      intl-messageformat: 11.2.7
       react: 19.2.6
 
   react-is@16.13.1: {}
@@ -13326,9 +13344,9 @@ snapshots:
       - react
       - react-dom
 
-  storybook-react-intl@10.2.1(react-dom@19.2.6(react@19.2.6))(react-intl@10.1.7(@types/react@19.2.15)(react@19.2.6))(react@19.2.6)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)):
+  storybook-react-intl@10.2.1(react-dom@19.2.6(react@19.2.6))(react-intl@10.1.9(@types/react@19.2.15)(react@19.2.6))(react@19.2.6)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)):
     dependencies:
-      react-intl: 10.1.7(@types/react@19.2.15)(react@19.2.6)
+      react-intl: 10.1.9(@types/react@19.2.15)(react@19.2.6)
       storybook: 10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       storybook-i18n: 10.1.1(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(storybook@10.3.6(@testing-library/dom@10.4.1)(prettier@3.8.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))
     transitivePeerDependencies:
