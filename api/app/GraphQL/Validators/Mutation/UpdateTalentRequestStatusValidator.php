@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators\Mutation;
 
-use App\Enums\TalentRequestCompleteDetail;
+use App\Enums\TalentRequestCompletionDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestStatus;
 use Illuminate\Validation\Rule;
@@ -18,7 +18,7 @@ final class UpdateTalentRequestStatusValidator extends Validator
             'talentRequest.status' => [
                 Rule::in([
                     TalentRequestStatus::IN_PROGRESS->name,
-                    TalentRequestStatus::CLOSED->name,
+                    TalentRequestStatus::COMPLETED->name,
                 ]),
             ],
             'talentRequest.inProgressDetails' => [
@@ -26,10 +26,10 @@ final class UpdateTalentRequestStatusValidator extends Validator
                 'required_if:talentRequest.status,'.TalentRequestStatus::IN_PROGRESS->name,
                 Rule::in(array_column(TalentRequestInProgressDetail::cases(), 'name')),
             ],
-            'talentRequest.completeDetails' => [
+            'talentRequest.completionDetails' => [
                 'nullable',
-                'required_if:talentRequest.status,'.TalentRequestStatus::CLOSED->name,
-                Rule::in(array_column(TalentRequestCompleteDetail::cases(), 'name')),
+                'required_if:talentRequest.status,'.TalentRequestStatus::COMPLETED->name,
+                Rule::in(array_column(TalentRequestCompletionDetail::cases(), 'name')),
             ],
         ];
     }
@@ -39,7 +39,7 @@ final class UpdateTalentRequestStatusValidator extends Validator
         return [
             'talentRequest.status.in' => 'The selected status is invalid.',
             'talentRequest.inProgressDetails.required_if' => 'The inProgressDetails field is required when status is IN_PROGRESS.',
-            'talentRequest.completeDetails.required_if' => 'The completeDetails field is required when status is CLOSED.',
+            'talentRequest.completionDetails.required_if' => 'The completionDetails field is required when status is COMPLETED.',
         ];
     }
 }

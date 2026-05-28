@@ -393,13 +393,13 @@ type LocalizedTalentNominationUserReview implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedTalentRequestCompletionDetail implements LocalizedEnumOption {
-  value: TalentRequestCompletionDetail!
+type LocalizedTalentRequestCompleteDetail implements LocalizedEnumOption {
+  value: TalentRequestCompleteDetail!
   label: LocalizedString!
 }
 
-type LocalizedTalentRequestCompleteDetail implements LocalizedEnumOption {
-  value: TalentRequestCompleteDetail!
+type LocalizedTalentRequestCompletionDetail implements LocalizedEnumOption {
+  value: TalentRequestCompletionDetail!
   label: LocalizedString!
 }
 
@@ -1591,7 +1591,7 @@ type TalentRequest {
   followUpDate: Date
   talentRequestStatus: LocalizedTalentRequestStatus
   inProgressDetails: LocalizedTalentRequestInProgressDetail
-  completeDetails: LocalizedTalentRequestCompleteDetail
+  completionDetails: LocalizedTalentRequestCompletionDetail
   details: LocalizedString
   statusChangedAt: DateTime
   createdAt: DateTime
@@ -2644,7 +2644,7 @@ input UpdateTalentRequestInput {
 input UpdateTalentRequestStatusInput {
   status: TalentRequestStatus!
   inProgressDetails: TalentRequestInProgressDetail
-  completeDetails: TalentRequestCompleteDetail
+  completionDetails: TalentRequestCompletionDetail
   followUpDate: Date
 }
 
@@ -4603,7 +4603,7 @@ enum TalentNominationUserReview {
   OUT_OF_DATE
 }
 
-enum TalentRequestCompletionDetail {
+enum TalentRequestCompleteDetail {
   HIRE_MADE
   PROCESS_WILL_BE_LAUNCHED
   HIRING_MANAGER_NOT_RESPONSIVE
@@ -4613,7 +4613,7 @@ enum TalentRequestCompletionDetail {
   NON_COMPLIANT
 }
 
-enum TalentRequestCompleteDetail {
+enum TalentRequestCompletionDetail {
   HIRE_MADE
   PROCESS_WILL_BE_LAUNCHED
   HIRING_MANAGER_NOT_RESPONSIVE

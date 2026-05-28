@@ -15,8 +15,8 @@ final class UpdateTalentRequestStatus
 
         if ($args['status'] === TalentRequestStatus::IN_PROGRESS->name) {
             $talentRequest->progress($args['inProgressDetails'], $args['followUpDate'] ?? null);
-        } elseif ($args['status'] === TalentRequestStatus::CLOSED->name) {
-            $talentRequest->complete($args['completeDetails']);
+        } elseif ($args['status'] === TalentRequestStatus::COMPLETED->name) {
+            $talentRequest->complete($args['completionDetails']);
         }
 
         return $talentRequest;

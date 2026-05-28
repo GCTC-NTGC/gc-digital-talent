@@ -1147,8 +1147,8 @@ type TalentRequest {
   talentRequestStatus: LocalizedTalentRequestStatus @rename(attribute: "status")
   inProgressDetails: LocalizedTalentRequestInProgressDetail
     @rename(attribute: "in_progress_details")
-  completeDetails: LocalizedTalentRequestCompleteDetail
-    @rename(attribute: "complete_details")
+  completionDetails: LocalizedTalentRequestCompletionDetail
+    @rename(attribute: "completion_details")
   details: LocalizedString
   statusChangedAt: DateTime @rename(attribute: "status_changed_at")
   createdAt: DateTime @rename(attribute: "created_at")
@@ -2770,7 +2770,7 @@ input UpdateTalentRequestInput {
 input UpdateTalentRequestStatusInput {
   status: TalentRequestStatus!
   inProgressDetails: TalentRequestInProgressDetail
-  completeDetails: TalentRequestCompleteDetail
+  completionDetails: TalentRequestCompletionDetail
   followUpDate: Date
 }
 
