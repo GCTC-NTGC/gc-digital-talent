@@ -88,7 +88,7 @@ class CanMigrateMyAccountTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testCanMigrateIfExactlyOnePossibleTarget()
+    public function testCanMigrateIfExactlyOnePossibleTargetWithNoLastSignIn()
     {
         Config::set('feature.auth_in_app_migration', true);
         $user = User::factory()->create([
@@ -100,6 +100,24 @@ class CanMigrateMyAccountTest extends TestCase
             'email_backup' => 'test@example.com',
             'telephone' => '5551234567',
             'last_sign_in_iss' => null,
+        ]);
+        Auth::login($user);
+        $result = (new CanMigrateMyAccount())();
+        $this->assertTrue($result);
+    }
+
+    public function testCanMigrateIfExactlyOnePossibleTargetWithSicLastSignIn()
+    {
+        Config::set('feature.auth_in_app_migration', true);
+        $user = User::factory()->create([
+            'email' => 'test@example.com',
+            'telephone' => '5551234567',
+        ]);
+        // Create one possible target
+        User::factory()->create([
+            'email_backup' => 'test@example.com',
+            'telephone' => '5551234567',
+            'last_sign_in_iss' => 'auth.id.tbs-sct.gc.ca',
         ]);
         Auth::login($user);
         $result = (new CanMigrateMyAccount())();

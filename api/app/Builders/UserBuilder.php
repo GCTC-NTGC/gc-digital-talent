@@ -792,7 +792,7 @@ class UserBuilder extends Builder
         $this->where(function ($subQuery) {
             $subQuery
                 ->whereNull('last_sign_in_iss')
-                ->orWhere('last_sign_in_iss', 'ilike', '.canada.ca'); // CanadaLogin lives on canada.ca
+                ->orWhere('last_sign_in_iss', 'not ilike', '%.canada.ca%'); // CanadaLogin lives on canada.ca
         });
 
         // can't be soft deleted
