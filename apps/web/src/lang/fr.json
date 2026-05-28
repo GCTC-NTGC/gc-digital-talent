@@ -127,6 +127,10 @@
     "defaultMessage": "(Aucun sélectionné)",
     "description": "Text shown when the filter was not selected"
   },
+  "+OOFwz": {
+    "defaultMessage": "Informations sur la collectivité",
+    "description": "Title for community form"
+  },
   "+PGnDL": {
     "defaultMessage": "Réduire toutes les compétences",
     "description": "Accessible link text to collapse all accordions for skills"
@@ -1414,6 +1418,10 @@
   "3IwZ47": {
     "defaultMessage": "Nommez un talent",
     "description": "Link text for the form to nominate talent"
+  },
+  "3K2EZB": {
+    "defaultMessage": "Nom de la collectivité",
+    "description": "Label displayed on the community form information name field"
   },
   "3Kt+rj": {
     "defaultMessage": "Les informations sur votre prochain type de poste ont été mises à jour avec succès!",
@@ -3191,10 +3199,6 @@
     "defaultMessage": "Filtres de profils d'employé(e)",
     "description": "Heading for filters associated with employee profiles"
   },
-  "AZ114p": {
-    "defaultMessage": "Les renseignements suivants serviront à identifier la collectivité et à donner un aperçu des domaines qu’elle soutient.",
-    "description": "Community details informative line"
-  },
   "AZEoFk": {
     "defaultMessage": "Cette opération copiera toute l’information existante et créera un nouveau processus.",
     "description": "Text explaining what will happen when duplicating a process"
@@ -3370,6 +3374,10 @@
   "B6cKp+": {
     "defaultMessage": "Rôles dans les collectivités",
     "description": "Heading for updating a user's community roles"
+  },
+  "B88lvt": {
+    "defaultMessage": "Détails de la finalisation",
+    "description": "Label for closed talent request details"
   },
   "B8N4yZ": {
     "defaultMessage": "Consulter tous les processus",
@@ -4182,6 +4190,10 @@
   "Efdmb2": {
     "defaultMessage": "Informations sur la personne candidate",
     "description": "Heading for nominee step of a talent nomination"
+  },
+  "EgYtVO": {
+    "defaultMessage": "Ajouter une collectivité à la plateforme.",
+    "description": "Page subtitle for the create community page"
   },
   "Ega1Nj": {
     "defaultMessage": "La possibilité pour la personne candidate de se décrire, d'expliquer comment elle aborde sa carrière et comment elle travaille le mieux.",
@@ -5163,10 +5175,6 @@
     "defaultMessage": "Confirmez votre adresse courriel personnelle.",
     "description": "Text for first registrion step confirm personal email"
   },
-  "IqZ6W0": {
-    "defaultMessage": "Informations sur la collectivité",
-    "description": "Heading for the 'edit a community' form"
-  },
   "Is1RHA": {
     "defaultMessage": "« Identité autochtone désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35 (2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
     "description": "Definition of Indigenous identity from the StatsCan 'Indigenous identity of person' page."
@@ -5535,6 +5543,10 @@
     "defaultMessage": "Démontrer l'expérience par :",
     "description": "Label for experience sorting options"
   },
+  "KRXSAf": {
+    "defaultMessage": "Autorité déléguée ou entité",
+    "description": "Label displayed on the community form mandate authority field"
+  },
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
     "description": "Heading for the recruitment opportunities"
@@ -5870,6 +5882,10 @@
   "Le97Ow": {
     "defaultMessage": "<languageEvaluationPageLink>Apprenez-en plus sur le choix d’une deuxième langue.</languageEvaluationPageLink>",
     "description": "Context message for estimated language ability in language information form."
+  },
+  "LgKlN9": {
+    "defaultMessage": "Veuillez fournir un mot ou une courte phrase représentant le modèle de données de cette collectivité. Cette valeur doit être en minuscules et utiliser des traits de soulignement entre les mots si nécessaire (p. ex. : gestion_des_données). Cette valeur n’est pas visible dans l'interface utilisateur et ne peut pas être modifiée une fois définie.",
+    "description": "Description for notice for key field"
   },
   "LghLU9": {
     "defaultMessage": "Date à laquelle le recrutement cessera d'accepter les candidatures. <dialog>En apprendre davantage sur le fonctionnement des heures de clôture.</dialog>",
@@ -6395,6 +6411,10 @@
     "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
     "description": "Label for the new job posted notification"
   },
+  "NnfXYj": {
+    "defaultMessage": "Modifier les détails de {name}",
+    "description": "Description for update community"
+  },
   "NngAJq": {
     "defaultMessage": "Erreur : impossible de mettre à jour le signet du candidat.",
     "description": "Alert displayed to the user when failing to (un-)bookmark a candidate"
@@ -6478,10 +6498,6 @@
   "OEk0OP": {
     "defaultMessage": "Identifiant de candidature",
     "description": "Label for application ID"
-  },
-  "OFGtZr": {
-    "defaultMessage": "Annuler et retourner aux collectivités",
-    "description": "Link text to cancel updating a community"
   },
   "OFrfEA": {
     "defaultMessage": "Date d'ouverture",
@@ -7839,6 +7855,10 @@
     "defaultMessage": "Expérience inconnue",
     "description": "Title for unknown experiences"
   },
+  "U/NCbh": {
+    "defaultMessage": "La clé ne peut pas être modifiée une fois la collectivité créée. Veuillez communiquer avec l’équipe de soutien pour obtenir plus d’information.",
+    "description": "Description for notice for key field"
+  },
   "U/Ugr6": {
     "defaultMessage": "Avis",
     "description": "Label for the terms and conditions link in the Footer."
@@ -8321,10 +8341,6 @@
   "W/8gtM": {
     "defaultMessage": "Qu’est-ce que le recrutement axé sur les compétences?",
     "description": "Question about skills-based recruitment"
-  },
-  "W0Bh1G": {
-    "defaultMessage": "Informations sur la collectivité",
-    "description": "Title for community information"
   },
   "W1vWDi": {
     "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
@@ -10554,6 +10570,10 @@
     "defaultMessage": "Je connais l'année à laquelle je suis admissible à la retraite.",
     "description": "The eligible retirement year described as known."
   },
+  "f1vqns": {
+    "defaultMessage": "Les renseignements suivants seront utilisés pour identifier la collectivité et fournir un aperçu des domaines qu'elle soutient.",
+    "description": "Description for community form"
+  },
   "f2Jqya": {
     "defaultMessage": "sécurité des réseaux",
     "description": "The network security skill"
@@ -11549,10 +11569,6 @@
   "ipDTrs": {
     "defaultMessage": "Historique des notifications",
     "description": "Title for list of a users notifications"
-  },
-  "ipGQnI": {
-    "defaultMessage": "Détails de fermeture",
-    "description": "Label for closed talent request details"
   },
   "ipKAvI": {
     "defaultMessage": "1. si vous êtes intéressé(e) à embaucher un apprentis et aimeriez en apprendre davantage sur le Programme d'apprentissage en TI pour les peuples autochtones",
@@ -12998,10 +13014,6 @@
     "defaultMessage": "3. Saisissez votre <strong>code unique à six chiffres</strong> à partir de votre <strong>application d'authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign in step."
   },
-  "ocTGYr": {
-    "defaultMessage": "Informations sur la collectivité",
-    "description": "Heading for the 'create a community' form"
-  },
   "oepQr+": {
     "defaultMessage": "Courriel de confirmation envoyé!",
     "description": "Title for a message confirming that the verification email was sent."
@@ -13917,6 +13929,10 @@
   "saX5lc": {
     "defaultMessage": "Avoir un compte Navigar actif.",
     "description": "Second item in list of eligibility requirements section"
+  },
+  "saf66z": {
+    "defaultMessage": "Veuillez indiquer le nom ou le poste de la personne responsable ou de l'entité ayant l'autorité nécessaire pour permettre à cette collectivité de recueillir des données sur les personnes participantes. En remplissant ce champ, vous confirmez que la collectivité a obtenu les approbations requises pour la collecte de données.",
+    "description": "Description for mandate authority fields"
   },
   "sapxcU": {
     "defaultMessage": "Avertissement",
