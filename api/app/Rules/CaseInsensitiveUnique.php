@@ -16,13 +16,10 @@ class CaseInsensitiveUnique implements ValidationRule
 
     protected string $ignoreColumn = 'id';
 
-    protected string $message;
-
-    public function __construct(string $table, string $column, string $message = 'validation.unique')
+    public function __construct(string $table, string $column)
     {
         $this->table = $table;
         $this->column = $column;
-        $this->message = $message;
     }
 
     public function ignore(mixed $id, string $column = 'id'): self
@@ -47,7 +44,7 @@ class CaseInsensitiveUnique implements ValidationRule
         }
 
         if ($query->exists()) {
-            $fail($this->message);
+            $fail('validation.unique');
         }
     }
 }
