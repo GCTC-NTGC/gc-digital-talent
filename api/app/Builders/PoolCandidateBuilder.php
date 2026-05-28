@@ -365,7 +365,7 @@ class PoolCandidateBuilder extends Builder
                     $query->whereNull('resume_referrals_at')
                         ->orWhere('resume_referrals_at', '>', $now);
                 })
-                ->orWhere('application_status', '!=', ApplicationStatus::QUALIFIED->name);
+                ->where('application_status', ApplicationStatus::QUALIFIED->name);
         });
     }
 
