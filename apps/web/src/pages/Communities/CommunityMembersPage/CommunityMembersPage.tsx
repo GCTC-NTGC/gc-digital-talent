@@ -133,7 +133,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
         pagination={{
           internal: true,
           total: data.length,
-          pageSizes: [10, 20, 50],
+          pageSizes: [10, 20, 50, 100, 500],
         }}
         search={{
           internal: true,
@@ -216,17 +216,15 @@ export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
       params.communityId,
     );
 
-    requireUser(
-      context,
-      request,
-      [
+    requireUser(context, request, {
+      roles: [
         { name: ROLE_NAME.PlatformAdmin },
         { name: ROLE_NAME.CommunityAdmin, teamId: teamId },
         { name: ROLE_NAME.CommunityRecruiter, teamId: teamId },
         { name: ROLE_NAME.CommunityTalentCoordinator, teamId: teamId },
       ],
-      true,
-    );
+      strict: true,
+    });
     return await next();
   },
 ];

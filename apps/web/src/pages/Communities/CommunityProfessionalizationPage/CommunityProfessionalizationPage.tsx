@@ -273,15 +273,13 @@ export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
       params.communityId,
     );
 
-    requireUser(
-      context,
-      request,
-      [
+    requireUser(context, request, {
+      roles: [
         { name: ROLE_NAME.PlatformAdmin },
         { name: ROLE_NAME.CommunityAdmin, teamId: teamId },
       ],
-      true,
-    );
+      strict: true,
+    });
     return await next();
   },
 ];

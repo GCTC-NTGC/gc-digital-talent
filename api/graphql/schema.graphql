@@ -1025,6 +1025,7 @@ type Role {
   displayName: LocalizedString @rename(attribute: "display_name")
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
+  permissions: [Permission!] @method(name: "configPermissions")
   roleAssignments: [RoleAssignment!]
     @hasMany
     @canModel(ability: "viewAnyRoleAssignments", model: "Role")
@@ -1100,6 +1101,7 @@ type PoolCandidateSearchRequest {
   requestedDate: DateTime @rename(attribute: "created_at")
   status: LocalizedPoolCandidateSearchStatus
     @rename(attribute: "request_status")
+    @deprecated(reason: "Use talentRequestStatus instead")
   statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
   adminNotes: String @rename(attribute: "admin_notes")
   poolCandidateFilter: PoolCandidateFilter
@@ -1113,6 +1115,13 @@ type PoolCandidateSearchRequest {
   reason: LocalizedPoolCandidateSearchRequestReason
   community: Community @belongsTo
   initialResultCount: Int @rename(attribute: "initial_result_count")
+  followUpDate: Date @rename(attribute: "follow_up_date")
+  talentRequestStatus: LocalizedTalentRequestStatus @rename(attribute: "status")
+  inProgressDetails: LocalizedTalentRequestInProgressDetail
+    @rename(attribute: "in_progress_details")
+  completionDetails: LocalizedTalentRequestCompletionDetail
+    @rename(attribute: "completion_details")
+  details: LocalizedString
 }
 
 type SkillFamily {
@@ -1443,6 +1452,7 @@ input PoolCandidateSearchInput {
 
 input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
+  talentRequestStatus: [TalentRequestStatus] @scope(name: "talentRequestStatus")
   departments: [ID] @scope
   classifications: [ID] @scope
   workStreams: [UUID] @scope
@@ -1560,10 +1570,13 @@ type Query {
     @guard
     @validator
     @find(model: "App\\Models\\User", scopes: ["whereIsVerifiedGovEmployee"])
-  workEmails(search: String): [UserWorkEmail!]!
+  workEmails(
+    search: String
+    limit: Int = 5 @limit(builder: true) @rules(apply: ["integer", "size:5"])
+  ): [UserWorkEmail!]!
     @all(
       model: "User"
-      scopes: ["whereWorkEmailIsVerified", "whereWorkEmailSearch", "limitFive"]
+      scopes: ["whereWorkEmailIsVerified", "whereWorkEmailSearch"]
     )
     @guard
     @canModel(ability: "viewAnyUserWorkEmail", model: "User")
@@ -2663,10 +2676,18 @@ input CreatePoolCandidateSearchRequestInput {
   initialResultCount: Int @rename(attribute: "initial_result_count")
 }
 
-input UpdatePoolCandidateSearchRequestInput {
+input UpdatePoolCandidateSearchRequestInput @validator {
   adminNotes: String @rename(attribute: "admin_notes")
-  status: PoolCandidateSearchStatus
-  # statusChangedAt updated in the Eloquent model
+  status: PoolCandidateSearchStatus @rename(attribute: "request_status")
+  followUpDate: Date @rename(attribute: "follow_up_date")
+  # talentRequestStatus changes go through updatePoolCandidateSearchRequestStatus
+}
+
+input UpdatePoolCandidateSearchRequestStatusInput {
+  status: TalentRequestStatus!
+  inProgressDetails: TalentRequestInProgressDetail
+  completionDetails: TalentRequestCompletionDetail
+  followUpDate: Date
 }
 
 input SkillBelongsToMany {
@@ -3538,6 +3559,14 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+  updatePoolCandidateSearchRequestStatus(
+    id: ID!
+    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput!
+      @spread
+  ): PoolCandidateSearchRequest
+    @guard
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+    @validator
 
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create

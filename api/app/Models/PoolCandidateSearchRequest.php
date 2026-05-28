@@ -2,17 +2,21 @@
 
 namespace App\Models;
 
+use App\Enums\TalentRequestCompletionDetail;
+use App\Enums\TalentRequestInProgressDetail;
+use App\Enums\TalentRequestStatus;
 use App\Observers\PoolCandidateSearchRequestObserver;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 /**
  * Class PoolCandidateSearchRequest
@@ -29,8 +33,13 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $admin_notes
  * @property string $request_status
  * @property int $request_status_weight
+ * @property string $status
+ * @property int $status_weight
+ * @property ?string $in_progress_details
+ * @property ?string $completion_details
  * @property string $manager_job_title
  * @property string $position_type
+ * @property ?Carbon $follow_up_date
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
  * @property ?Carbon $deleted_at
@@ -53,6 +62,7 @@ class PoolCandidateSearchRequest extends Model
      */
     protected $casts = [
         'request_status_changed_at' => 'datetime',
+        'follow_up_date' => 'date',
     ];
 
     /**
@@ -97,7 +107,7 @@ class PoolCandidateSearchRequest extends Model
                 'applicantFilter.qualified_streams',
             ])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /** @return BelongsTo<Department, $this> */
@@ -143,6 +153,17 @@ class PoolCandidateSearchRequest extends Model
         }
 
         $query->whereIn('request_status', $searchRequestStatuses);
+
+        return $query;
+    }
+
+    public static function scopeTalentRequestStatus(Builder $query, ?array $statuses)
+    {
+        if (empty($statuses)) {
+            return $query;
+        }
+
+        $query->whereIn('status', $statuses);
 
         return $query;
     }
@@ -295,12 +316,38 @@ class PoolCandidateSearchRequest extends Model
     }
 
     /**
-     * Getters/Mutators
+     * Aggregate accessor: returns the localized label for whichever detail field is populated.
      */
-    public function setStatusAttribute($statusInput): void
+    public function details(): Attribute
     {
-        $this->request_status = $statusInput;
-        $this->request_status_changed_at = CarbonImmutable::now();
+        return Attribute::get(function () {
+            if ($this->status === TalentRequestStatus::IN_PROGRESS->name && ! is_null($this->in_progress_details)) {
+                return TalentRequestInProgressDetail::localizedString($this->in_progress_details);
+            }
+            if ($this->status === TalentRequestStatus::COMPLETED->name && ! is_null($this->completion_details)) {
+                return TalentRequestCompletionDetail::localizedString($this->completion_details);
+            }
+
+            return null;
+        });
+    }
+
+    public function progress(string $inProgressDetail, Carbon|string|null $followUpDate): void
+    {
+        $this->status = TalentRequestStatus::IN_PROGRESS->name;
+        $this->in_progress_details = $inProgressDetail;
+        $this->completion_details = null;
+        $this->follow_up_date = $followUpDate;
+        $this->save();
+    }
+
+    public function complete(string $completeDetail): void
+    {
+        $this->status = TalentRequestStatus::COMPLETED->name;
+        $this->completion_details = $completeDetail;
+        $this->in_progress_details = null;
+        $this->follow_up_date = null;
+        $this->save();
     }
 
     public function scopeWithPolicyEagerLoads(Builder $query): Builder

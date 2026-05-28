@@ -293,7 +293,7 @@ const SkillPortfolioTable = ({
       pagination={{
         internal: true,
         total: userSkills.length,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
       }}
       nullMessage={{
         title: intl.formatMessage({
