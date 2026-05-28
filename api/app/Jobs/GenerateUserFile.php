@@ -17,7 +17,7 @@ class GenerateUserFile implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public int $timeout = 1800;
+    public int $timeout = 300;
 
     /**
      * Create a new job instance.
