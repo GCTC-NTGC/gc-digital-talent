@@ -482,6 +482,7 @@ type Query {
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!] @deprecated(reason: "Replaced by localizedEnumOptions")
   localizedEnumOptions(enumName: String!): [LocalizedEnumOption!]
+  canMigrateMyAccount: Boolean!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
