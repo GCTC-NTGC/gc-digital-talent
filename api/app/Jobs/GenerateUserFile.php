@@ -17,18 +17,6 @@ class GenerateUserFile implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * The number of times the job may be attempted.
-     *
-     * @var int
-     */
-    public $tries = 3;
-
-    /**
-     * The number of seconds the job can run before timing out.
-     *
-     * @var int
-     */
     public int $timeout = 1800;
 
     /**
@@ -52,9 +40,6 @@ class GenerateUserFile implements ShouldQueue
 
     }
 
-    /**
-     * Handle a job that has failed (retries exhausted or timed out).
-     */
     public function failed(\Throwable $exception): void
     {
         $this->user->notify(new UserFileGenerationError($this->generator->getFileNameWithExtension()));
