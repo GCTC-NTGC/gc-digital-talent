@@ -91,7 +91,7 @@ const FormFields = ({
   });
 
   const classificationOptions = classifications.map((classification) => ({
-    value: classification.id,
+    value: classification.groupAndLevel,
     label: classification.displayName,
     ariaLabel: getClassificationAriaLabel(classification),
   }));
