@@ -333,4 +333,58 @@ class UserVerifyEmailsTest extends TestCase
         // check that verification was cleared
         assertNull($this->regularUser->work_email_verified_at);
     }
+
+    public function testCannotRequestCodeForDuplicateEmail()
+    {
+        // Create another user with their own email
+        User::factory()->create([
+            'email' => 'regular.user.2@example.org',
+        ]);
+
+        $this->actingAs($this->regularUser, 'api')->graphQL(
+            $this->sendVerificationEmailsMutation,
+            [
+                'input' => [
+                    'emailAddress' => 'regular.user.2@example.org',
+                    'emailTypes' => [EmailType::CONTACT->name],
+                ],
+            ]
+        )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+    }
+
+    public function testCannotRequestCodeForDuplicateEmailWithWork()
+    {
+        // Create another user with their own email
+        User::factory()->create([
+            'work_email' => 'regular.user.2@example.org',
+        ]);
+
+        $this->actingAs($this->regularUser, 'api')->graphQL(
+            $this->sendVerificationEmailsMutation,
+            [
+                'input' => [
+                    'emailAddress' => 'regular.user.2@example.org',
+                    'emailTypes' => [EmailType::CONTACT->name],
+                ],
+            ]
+        )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+    }
+
+    public function testCannotRequestCodeForDuplicateEmailCaseInsensitive()
+    {
+        // Create another user with their own email
+        User::factory()->create([
+            'work_email' => 'regular.user.2@example.org',
+        ]);
+
+        $this->actingAs($this->regularUser, 'api')->graphQL(
+            $this->sendVerificationEmailsMutation,
+            [
+                'input' => [
+                    'emailAddress' => 'REGULAR.USER.2@EXAMPLE.ORG',
+                    'emailTypes' => [EmailType::CONTACT->name],
+                ],
+            ]
+        )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+    }
 }
