@@ -31,7 +31,7 @@ return new class() extends Migration
             $table->text('admin_notes')->nullable();
             $table->string('status')->default('NEW');
             $table->string('in_progress_details')->nullable();
-            $table->string('closed_details')->nullable();
+            $table->string('completion_details')->nullable();
             $table->date('follow_up_date')->nullable();
 
             $table->timestamp('status_changed_at')->nullable();
@@ -45,7 +45,7 @@ return new class() extends Migration
             CASE
                 WHEN (status::text = 'NEW'::text)         THEN 10
                 WHEN (status::text = 'IN_PROGRESS'::text) THEN 20
-                WHEN (status::text = 'CLOSED'::text)      THEN 30
+                WHEN (status::text = 'COMPLETED'::text)   THEN 30
                 ELSE NULL::integer
             END) STORED
             SQL
@@ -72,7 +72,7 @@ return new class() extends Migration
                 admin_notes,
                 status,
                 in_progress_details,
-                closed_details,
+                completion_details,
                 follow_up_date,
                 status_changed_at,
                 created_at,
@@ -98,7 +98,7 @@ return new class() extends Migration
                 admin_notes,
                 status,
                 in_progress_details,
-                closed_details,
+                completion_details,
                 follow_up_date,
                 request_status_changed_at,
                 created_at,
