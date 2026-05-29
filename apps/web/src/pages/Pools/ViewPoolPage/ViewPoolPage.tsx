@@ -147,7 +147,7 @@ export const ViewPool = ({
     roleAssignments,
   );
   const canChangeDateOfPublished = checkRole(
-    [ROLE_NAME.CommunityAdmin],
+    [ROLE_NAME.CommunityAdmin, ROLE_NAME.DepartmentAdmin],
     roleAssignments,
   );
   // Editing a published pool is restricted to same roles who can publish it in the first place.

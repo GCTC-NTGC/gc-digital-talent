@@ -139,7 +139,7 @@ export const followUpDateCell = (
 const COLOUR_MAP: Record<TalentRequestStatus, ChipProps["color"]> = {
   [TalentRequestStatus.New]: "warning",
   [TalentRequestStatus.InProgress]: "primary",
-  [TalentRequestStatus.Closed]: "gray",
+  [TalentRequestStatus.Completed]: "gray",
 } as const;
 
 export const statusCell = (status?: LocalizedTalentRequestStatus | null) => {

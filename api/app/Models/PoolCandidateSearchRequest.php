@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\TalentRequestClosedDetail;
+use App\Enums\TalentRequestCompletionDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestStatus;
 use App\Observers\PoolCandidateSearchRequestObserver;
@@ -36,7 +36,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property string $status
  * @property int $status_weight
  * @property ?string $in_progress_details
- * @property ?string $closed_details
+ * @property ?string $completion_details
  * @property string $manager_job_title
  * @property string $position_type
  * @property ?Carbon $follow_up_date
@@ -324,8 +324,8 @@ class PoolCandidateSearchRequest extends Model
             if ($this->status === TalentRequestStatus::IN_PROGRESS->name && ! is_null($this->in_progress_details)) {
                 return TalentRequestInProgressDetail::localizedString($this->in_progress_details);
             }
-            if ($this->status === TalentRequestStatus::CLOSED->name && ! is_null($this->closed_details)) {
-                return TalentRequestClosedDetail::localizedString($this->closed_details);
+            if ($this->status === TalentRequestStatus::COMPLETED->name && ! is_null($this->completion_details)) {
+                return TalentRequestCompletionDetail::localizedString($this->completion_details);
             }
 
             return null;
@@ -336,15 +336,15 @@ class PoolCandidateSearchRequest extends Model
     {
         $this->status = TalentRequestStatus::IN_PROGRESS->name;
         $this->in_progress_details = $inProgressDetail;
-        $this->closed_details = null;
+        $this->completion_details = null;
         $this->follow_up_date = $followUpDate;
         $this->save();
     }
 
-    public function close(string $closedDetail): void
+    public function complete(string $completeDetail): void
     {
-        $this->status = TalentRequestStatus::CLOSED->name;
-        $this->closed_details = $closedDetail;
+        $this->status = TalentRequestStatus::COMPLETED->name;
+        $this->completion_details = $completeDetail;
         $this->in_progress_details = null;
         $this->follow_up_date = null;
         $this->save();
