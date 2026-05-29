@@ -23,22 +23,27 @@ final class SendUserEmailsVerificationInputValidator extends Validator
     {
         $user = Auth::user();
 
+        // these rules should stay similar to api/app/GraphQL/Mutations/VerifyUserEmails.php
         return [
+            'emailTypes' => [
+                'required',
+                'array',
+                'min:1',
+            ],
+            'emailTypes.*' => [
+                'required',
+                'distinct',
+                Rule::in(array_column(EmailType::cases(), 'name')),
+            ],
             'emailAddress' => [
+                'required',
+                'string',
                 Rule::when(fn () => in_array(EmailType::WORK->name, $this->arg('emailTypes')),
                     [new GovernmentEmailRegex()],
                     ['email']
                 ),
                 (new CaseInsensitiveUnique('users', 'email'))->ignore($user?->id, 'id'),
                 (new CaseInsensitiveUnique('users', 'work_email'))->ignore($user?->id, 'id'),
-            ],
-            'emailTypes' => [
-                'array',
-                'min:1',
-            ],
-            'emailTypes.*' => [
-                'distinct',
-                Rule::in(array_column(EmailType::cases(), 'name')),
             ],
         ];
     }
@@ -49,7 +54,6 @@ final class SendUserEmailsVerificationInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'emailAddress.unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
             'emailAddress.case_insensitive_unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
         ];
     }
