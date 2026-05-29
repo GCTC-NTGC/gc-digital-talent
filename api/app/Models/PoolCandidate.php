@@ -87,6 +87,8 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?Carbon $pause_referrals_at
  * @property ?Carbon $resume_referrals_at
  * @property ?string $pause_referrals_reason
+ * @property ?Carbon $placed_start_date
+ * @property ?Carbon $placed_end_date
  */
 class PoolCandidate extends Model
 {
@@ -118,6 +120,8 @@ class PoolCandidate extends Model
         'computed_assessment_status' => 'array',
         'pause_referrals_at' => 'datetime',
         'resume_referrals_at' => 'datetime',
+        'placed_start_date' => 'datetime',
+        'placed_end_date' => 'datetime',
     ];
 
     /**
@@ -150,6 +154,8 @@ class PoolCandidate extends Model
         'pause_referrals_at',
         'resume_referrals_at',
         'pause_referrals_reason',
+        'placed_start_date',
+        'placed_end_date',
     ];
 
     protected $touches = ['user'];
@@ -826,6 +832,8 @@ class PoolCandidate extends Model
         $this->pause_referrals_at = null;
         $this->pause_referrals_reason = null;
         $this->resume_referrals_at = null;
+        $this->placed_start_date = null;
+        $this->placed_end_date = null;
 
         $this->save();
 
@@ -833,7 +841,7 @@ class PoolCandidate extends Model
     }
 
     // mark the pool candidate as placed
-    public function place(string $placementType, string $departmentId)
+    public function place(string $placementType, string $departmentId, ?string $placedStartDate, ?string $placedEndDate)
     {
         $this->disableLogging();
 
@@ -853,7 +861,11 @@ class PoolCandidate extends Model
 
         if ($this->placement_type === PlacementType::PLACED_INDETERMINATE->name) {
             $this->pauseReferrals(PauseReferralsLength::OTHER->name, Lang::get('common.successfully_placed'), null);
-        }
+            $this->placed_end_date = $placedEndDate;
+            }
+
+        $this->placed_start_date = $placedStartDate;
+        $this->placed_end_date = null;
 
         $this->save();
 
@@ -879,6 +891,8 @@ class PoolCandidate extends Model
         $this->pause_referrals_at = null;
         $this->pause_referrals_reason = null;
         $this->resume_referrals_at = null;
+        $this->placed_start_date = null;
+        $this->placed_end_date = null;
 
         $this->save();
 
@@ -916,6 +930,8 @@ class PoolCandidate extends Model
         $this->pause_referrals_at = null;
         $this->pause_referrals_reason = null;
         $this->resume_referrals_at = null;
+        $this->placed_start_date = null;
+        $this->placed_end_date = null;
 
         $this->save();
 

@@ -690,6 +690,12 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+  placedStartDate: DateTime
+    @rename(attribute: "placed_start_date")
+    @canRoot(ability: "viewStatus")
+  placedEndDate: DateTime
+    @rename(attribute: "placed_end_date")
+    @canRoot(ability: "viewStatus")
   isBeingReferred: Boolean
   pauseReferralsAt: DateTime
     @rename(attribute: "pause_referrals_at")
@@ -2352,6 +2358,8 @@ input QualifyCandidateInput {
 input PlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input QualifyAndPlaceCandidateInput {
@@ -2359,6 +2367,8 @@ input QualifyAndPlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
   pauseReferrals: PauseReferralsInput @spread
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input CreateDepartmentInput {
