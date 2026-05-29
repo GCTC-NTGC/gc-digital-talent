@@ -17,21 +17,10 @@ class GenerateUserFile implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * The number of times the job may be attempted.
-     *
-     * @var int
-     */
-    public $tries = 3;
+    public int $timeout = 300;
 
-    /**
-     * Create a new job instance.
-     */
     public function __construct(private FileGeneratorInterface $generator, private User $user) {}
 
-    /**
-     * Execute the job.
-     */
     public function handle(): void
     {
         try {
@@ -39,10 +28,13 @@ class GenerateUserFile implements ShouldQueue
 
             UserFileGenerated::dispatch($this->generator->getFileNameWithExtension(), $this->user->id);
         } catch (\Throwable $e) {
-            // Notify the user something went wrong
-            $this->user->notify(new UserFileGenerationError($this->generator->getFileNameWithExtension()));
             Log::channel('jobs')->error($e);
+            $this->fail($e);
         }
+    }
 
+    public function failed(\Throwable $exception): void
+    {
+        $this->user->notify(new UserFileGenerationError($this->generator->getFileNameWithExtension()));
     }
 }

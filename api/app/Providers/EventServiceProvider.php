@@ -7,6 +7,7 @@ use App\Events\TalentNominationSubmitted;
 use App\Events\UserFileGenerated;
 use App\Events\WorkExperienceSaved;
 use App\Listeners\BroadcastNotificationReceived;
+use App\Listeners\LogTimedOutJob;
 use App\Listeners\ComputeCandidateAssessmentStatus;
 use App\Listeners\ComputeGovEmployeeProfileData;
 use App\Listeners\SendFileGeneratedNotification;
@@ -14,6 +15,7 @@ use App\Listeners\SendTalentNominationSubmittedNotifications;
 use BeyondCode\ServerTiming\Facades\ServerTiming;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Notifications\Events\NotificationSent;
+use Illuminate\Queue\Events\JobTimedOut;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Nuwave\Lighthouse\Events\EndExecution;
@@ -45,6 +47,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         NotificationSent::class => [
             BroadcastNotificationReceived::class,
+        ],
+        JobTimedOut::class => [
+            LogTimedOutJob::class,
         ],
     ];
 
