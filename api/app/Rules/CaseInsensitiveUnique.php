@@ -36,8 +36,9 @@ class CaseInsensitiveUnique implements ValidationRule
             return;
         }
 
+        $column = DB::getQueryGrammar()->wrap($this->column);
         $query = DB::table($this->table)
-            ->whereRaw('LOWER('.$this->column.') = ?', [mb_strtolower($value)]);
+            ->whereRaw("LOWER($column) = ?", [mb_strtolower($value)]);
 
         if ($this->ignoreId !== null) {
             $query->where($this->ignoreColumn, '!=', $this->ignoreId);
