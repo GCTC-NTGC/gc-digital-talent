@@ -12,7 +12,7 @@ class TalentRequestBuilder extends Builder
 {
     public function whereId(?string $id): self
     {
-        return $this->when($id, fn ($q) => $q->where('id', 'ilike', "%{$id}%"));
+        return $this->when($id, fn ($q) => $q->whereRaw('id::text ILIKE ?', ["%{$id}%"]));
     }
 
     public function whereFullName(?string $fullName): self
@@ -44,7 +44,7 @@ class TalentRequestBuilder extends Builder
     {
         return $this->when($search, fn ($q) => $q->where(fn (Builder $q) => $q
             ->where('full_name', 'ilike', "%{$search}%")
-            ->orWhere('id', 'ilike', "%{$search}%")
+            ->orWhereRaw('id::text ILIKE ?', ["%{$search}%"])
             ->orWhere('email', 'ilike', "%{$search}%")
             ->orWhere('job_title', 'ilike', "%{$search}%")
             ->orWhere('additional_comments', 'ilike', "%{$search}%")
