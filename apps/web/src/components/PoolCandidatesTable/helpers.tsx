@@ -22,7 +22,6 @@ import type {
   FragmentType,
   LocalizedProvinceOrTerritory,
   Classification,
-  InputMaybe,
   LocalizedString,
   ClaimVerificationSort,
   QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause,
@@ -597,7 +596,7 @@ export const addSearchToPoolCandidateFilterInput = (
   fancyFilterState: PoolCandidateSearchInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): InputMaybe<PoolCandidateSearchInput> | undefined => {
+): PoolCandidateSearchInput | null | undefined => {
   if (
     fancyFilterState === undefined &&
     searchBarTerm === undefined &&

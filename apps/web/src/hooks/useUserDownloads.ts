@@ -1,11 +1,7 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import type {
-  InputMaybe,
-  Scalars,
-  UserFilterInput,
-} from "@gc-digital-talent/graphql";
+import type { Scalars, UserFilterInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
@@ -15,7 +11,7 @@ import useAsyncFileDownload from "./useAsyncFileDownload";
 
 interface DownloadExcelArgs {
   ids?: Scalars["UUID"]["output"][];
-  where?: InputMaybe<UserFilterInput>;
+  where?: UserFilterInput | null | undefined;
 }
 
 const DownloadUserDoc_Mutation = graphql(/* GraphQL */ `

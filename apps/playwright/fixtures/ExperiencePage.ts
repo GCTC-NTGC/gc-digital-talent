@@ -2,7 +2,6 @@ import { expect } from "@playwright/test";
 import type { Locator, Page } from "@playwright/test";
 
 import type {
-  InputMaybe,
   WorkExperienceInput,
   PersonalExperienceInput,
   CommunityExperienceInput,
@@ -678,7 +677,7 @@ class ExperiencePage extends AppPage {
       .click();
   }
 
-  async fillDate(d?: InputMaybe<string>, end?: boolean, label?: RegExp) {
+  async fillDate(d?: string | null, end?: boolean, label?: RegExp) {
     if (end && !d) {
       return;
     }

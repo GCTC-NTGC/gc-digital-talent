@@ -1,6 +1,6 @@
 import pick from "lodash/pick";
 
-import type { InputMaybe, Maybe } from "@gc-digital-talent/graphql";
+import type { Maybe } from "@gc-digital-talent/graphql";
 
 /**
  * Returns true if value is not null or undefined.
@@ -92,7 +92,7 @@ export function insertBetween<T>(separator: T, arr: T[]): T[] {
  * @param s String value from an input
  * @returns The possibly-transformed-to-null input string
  */
-export const emptyToNull = (s?: InputMaybe<string>): string | null =>
+export const emptyToNull = (s?: string | null): string | null =>
   empty(s) || s === "" ? null : s;
 
 /**

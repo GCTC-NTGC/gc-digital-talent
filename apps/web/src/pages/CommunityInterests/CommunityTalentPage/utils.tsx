@@ -7,7 +7,6 @@ import type {
   QueryCommunityInterestsPaginatedOrderByRelationOrderByClause,
   QueryCommunityInterestsPaginatedOrderByUserColumn,
   CommunityInterestFilterInput,
-  InputMaybe,
   UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
@@ -141,7 +140,7 @@ export function transformCommunityTalentInput(
   filterState: CommunityInterestFilterInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): InputMaybe<CommunityInterestFilterInput> | undefined {
+): CommunityInterestFilterInput | null | undefined {
   if (
     filterState === undefined &&
     searchBarTerm === undefined &&
