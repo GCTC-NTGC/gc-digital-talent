@@ -52,103 +52,13 @@ use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use OpenSpout\Common\Entity\Row;
+use OpenSpout\Writer\XLSX\Writer;
 
 class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
 {
     use Filterable;
     use GeneratesFile;
-
-    protected array $generatedHeaders = [
-        'general_questions' => [],
-        'screening_questions' => [],
-        'skill_details' => [],
-    ];
-
-    protected array $headerLocaleKeys = [
-        'id',
-        'first_name',
-        'last_name',
-        'email',
-        'phone',
-        'updated_at',
-        'armed_forces_status',
-        'citizenship',
-        'current_city',
-        'current_province',
-        'preferred_communication_language',
-        'interested_in_languages',
-        'first_official_language',
-        'estimated_language_ability',
-        'second_language_exam_completed',
-        'second_language_exam_validity',
-        'comprehension_level',
-        'writing_level',
-        'oral_interaction_level',
-        'government_employee',
-        'department',
-        'employee_type',
-        'work_email',
-        'classification_current',
-        'priority_entitlement',
-        'priority_number',
-        'accept_temporary',
-        'accepted_operational_requirements',
-        'location_preferences',
-        'flexible_work_locations',
-        'location_exemptions',
-        'woman',
-        'indigenous',
-        'visible_minority',
-        'disability',
-        'skills',
-
-        'career_planning_lateral_move_interest',
-        'career_planning_lateral_move_time_frame',
-        'career_planning_lateral_move_organization_type',
-        'career_planning_promotion_move_interest',
-        'career_planning_promotion_move_time_frame',
-        'career_planning_promotion_move_organization_type',
-        'career_planning_learning_opportunities_interest',
-        'eligible_retirement_year',
-        'career_planning_mentorship_status',
-        'career_planning_mentorship_interest',
-        'career_planning_exec_interest',
-        'career_planning_exec_coaching_status',
-        'career_planning_exec_coaching_interest',
-
-        'next_role_target_classification_group',
-        'next_role_target_classification_level',
-        'next_role_target_role',
-        'next_role_is_c_suite_role',
-        'next_role_c_suite_role_title',
-        'next_role_job_title',
-        'next_role_functional_community',
-
-        'next_role_work_streams',
-        'next_role_departments',
-        'next_role_additional_information',
-
-        'career_objective_target_classification_group',
-        'career_objective_target_classification_level',
-        'career_objective_target_role',
-        'career_objective_is_c_suite_role',
-        'career_objective_c_suite_role_title',
-        'career_objective_job_title',
-        'career_objective_functional_community',
-
-        'career_objective_work_streams',
-        'career_objective_departments',
-
-        'career_objective_additional_information',
-        'career_planning_about_you',
-        'career_planning_learning_goals',
-        'career_planning_work_style',
-
-        'digital_talent_processes',
-        'off_platform_processes_not_verified',
-    ];
 
     protected array $careerExperienceLocaleKeys = [
         'id',
@@ -219,6 +129,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'procurement_sdo_status',
     ];
 
+    private array $userIds = [];
+
     public function __construct(public string $fileName, public ?string $dir, protected ?string $lang = 'en')
     {
         parent::__construct($fileName, $dir);
@@ -226,118 +138,137 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet();
+        $this->writer = new Writer();
+        $this->writer->openToFile($this->getPath());
+        $this->writer->getCurrentSheet()->setName(Lang::get('headings.user', [], $this->lang));
 
-        // Users sheet
-        $usersSheet = $this->spreadsheet->getActiveSheet();
-        $usersSheet->setTitle(Lang::get('headings.user', [], $this->lang));
+        $this->generateUsersSheet();
 
-        // Create Career Experience sheet
-        $careerSheet = $this->spreadsheet->createSheet();
-        $careerSheet->setTitle(Lang::get('headings.career_experience', [], $this->lang));
+        $careerSheet = $this->writer->addNewSheetAndMakeItCurrent();
+        $careerSheet->setName(Lang::get('headings.career_experience', [], $this->lang));
+        $this->generateCareerExperienceSheet();
 
-        // Create Community Interest sheet
-        $interestSheet = $this->spreadsheet->createSheet();
-        $interestSheet->setTitle(Lang::get('headings.community_interest', [], $this->lang));
+        $interestSheet = $this->writer->addNewSheetAndMakeItCurrent();
+        $interestSheet->setName(Lang::get('headings.community_interest', [], $this->lang));
+        $this->generateCommunityInterestSheet();
 
-        // Generate data for all sheets
-        $this->generateUsersSheet($usersSheet);
-        $this->generateCareerExperienceSheet($careerSheet);
-        $this->generateCommunityInterestSheet($interestSheet);
+        $this->writer->close();
 
         return $this;
     }
 
-    // store user ids while generating users sheet
-    private array $userIds = [];
-
-    /**
-     * Generate data for Users sheet
-     */
-    private function generateUsersSheet(Worksheet $sheet): void
+    private function generateUsersSheet(): void
     {
-        $localizedHeaders = array_map(function ($key) {
-            return $this->localizeHeading($key);
-        }, $this->headerLocaleKeys);
+        $columns = $this->userColumns();
 
-        $sheet->fromArray($localizedHeaders, null, 'A1');
+        $this->writer->addRow(Row::fromValues(
+            array_map(fn ($key) => $this->localizeHeading($key), array_keys($columns))
+        ));
 
-        $currentUser = 1;
-        $query = $this->buildQuery();
-        $query->chunk(200, function ($users) use ($sheet, &$currentUser) {
+        $this->buildQuery()->chunk(200, function ($users) use ($columns) {
             foreach ($users as $user) {
                 $this->userIds[] = $user->id;
-                $rowData = $this->buildUserRowData($user);
-                $sheet->fromArray($rowData, null, sprintf('A%d', $currentUser + 1));
-                $currentUser++;
+                $this->writer->addRow(Row::fromValues(
+                    array_map(fn ($fn) => $fn($user), $columns)
+                ));
             }
         });
     }
 
-    /**
-     * Generate data for Career Experience sheet
-     */
-    private function generateCareerExperienceSheet(Worksheet $sheet): void
+    /** @return array<string, callable> */
+    private function userColumns(): array
     {
-        $localizedHeaders = array_map(function ($key) {
-            return $this->localizeHeading($key);
-        }, $this->careerExperienceLocaleKeys);
+        return [
+            'id' => fn ($u) => $u->id,
+            'first_name' => fn ($u) => $u->first_name,
+            'last_name' => fn ($u) => $u->last_name,
+            'email' => fn ($u) => $u->email ?? '',
+            'phone' => fn ($u) => $u->telephone ?? '',
+            'updated_at' => fn ($u) => $u->updated_at ? $u->updated_at->format('Y-m-d H:i:s') : '',
 
-        $sheet->fromArray($localizedHeaders, null, 'A1');
+            'armed_forces_status' => fn ($u) => $this->localizeEnum($u->armed_forces_status, ArmedForcesStatus::class),
+            'citizenship' => fn ($u) => $this->localizeEnum($u->citizenship, CitizenshipStatus::class),
+            'current_city' => fn ($u) => $u->current_city ?? '',
+            'current_province' => fn ($u) => $this->localizeEnum($u->current_province, ProvinceOrTerritory::class),
 
-        $userIds = $this->userIds;
+            'preferred_communication_language' => fn ($u) => $this->localizeEnum($u->preferred_lang, Language::class),
+            'interested_in_languages' => fn ($u) => $this->lookingForLanguages($u),
+            'first_official_language' => fn ($u) => $this->localizeEnum($u->first_official_language, Language::class),
+            'estimated_language_ability' => fn ($u) => $this->localizeEnum($u->estimated_language_ability, EstimatedLanguageAbility::class),
+            'second_language_exam_completed' => fn ($u) => $this->yesOrNo($u->second_language_exam_completed),
+            'second_language_exam_validity' => fn ($u) => $this->yesOrNo($u->second_language_exam_validity),
+            'comprehension_level' => fn ($u) => $this->localizeEnum($u->comprehension_level, EvaluatedLanguageAbility::class),
+            'writing_level' => fn ($u) => $this->localizeEnum($u->written_level, EvaluatedLanguageAbility::class),
+            'oral_interaction_level' => fn ($u) => $this->localizeEnum($u->verbal_level, EvaluatedLanguageAbility::class),
 
-        if (empty($userIds)) {
-            return;
-        }
+            'government_employee' => fn ($u) => $this->yesOrNo($u->computed_is_gov_employee),
+            'department' => fn ($u) => $u->department?->name[$this->lang] ?? '',
+            'employee_type' => fn ($u) => $this->localizeEnum($u->computed_gov_employee_type, GovEmployeeType::class),
+            'work_email' => fn ($u) => $u->work_email,
+            'classification_current' => fn ($u) => $u->getClassification(),
+            'priority_entitlement' => fn ($u) => $this->yesOrNo($u->has_priority_entitlement),
+            'priority_number' => fn ($u) => $u->priority_number ?? '',
 
-        $this->addExperiencesToSheet($sheet, $userIds);
-    }
+            'accept_temporary' => fn ($u) => $u->position_duration ? $this->yesOrNo($u->wouldAcceptTemporary()) : '',
+            'accepted_operational_requirements' => fn ($u) => $this->localizeEnumArray($u->getOperationalRequirements()['accepted'], OperationalRequirement::class),
+            'location_preferences' => fn ($u) => $this->localizeEnumArray(
+                array_filter($u->location_preferences ?? [], fn ($l) => $l !== WorkRegion::TELEWORK->name),
+                WorkRegion::class
+            ),
+            'flexible_work_locations' => fn ($u) => $this->localizeEnumArray($u->flexible_work_locations, FlexibleWorkLocation::class),
+            'location_exemptions' => fn ($u) => $u->location_exemptions,
 
-    /**
-     * Add experiences to Career Experience sheet
-     */
-    private function addExperiencesToSheet(Worksheet $sheet, array $userIds): void
-    {
-        $currentRow = 2;
+            'woman' => fn ($u) => $this->yesOrNo($u->is_woman),
+            'indigenous' => fn ($u) => $this->localizeEnumArray(
+                Arr::where($u->indigenous_communities ?? [], fn ($c) => $c !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name),
+                IndigenousCommunity::class
+            ),
+            'visible_minority' => fn ($u) => $this->yesOrNo($u->is_visible_minority),
+            'disability' => fn ($u) => $this->yesOrNo($u->has_disability),
 
-        $this->addWorkExperiences($sheet, $userIds, $currentRow);
-        $this->addEducationExperiences($sheet, $userIds, $currentRow);
-        $this->addAwardExperiences($sheet, $userIds, $currentRow);
-        $this->addCommunityExperiences($sheet, $userIds, $currentRow);
-        $this->addPersonalExperiences($sheet, $userIds, $currentRow);
-    }
+            'skills' => fn ($u) => $u->userSkills->map(fn ($us) => $us->skill->name[$this->lang] ?? '')->join(', '),
 
-    /**
-     * Build user row data
-     */
-    private function buildUserRowData(User $user): array
-    {
-        $department = $user->department()->first();
-        $preferences = $user->getOperationalRequirements();
-        $indigenousCommunities = Arr::where($user->indigenous_communities ?? [], function ($community) {
-            return $community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name;
-        });
-        $userSkills = $user->userSkills->map(function ($userSkill) {
-            return $userSkill->skill->name[$this->lang] ?? '';
-        });
+            'career_planning_lateral_move_interest' => fn ($u) => $this->yesOrNo($u->employeeProfile?->career_planning_lateral_move_interest),
+            'career_planning_lateral_move_time_frame' => fn ($u) => $this->localizeEnum($u->employeeProfile?->career_planning_lateral_move_time_frame, TimeFrame::class),
+            'career_planning_lateral_move_organization_type' => fn ($u) => $this->localizeEnumArray($u->employeeProfile?->career_planning_lateral_move_organization_type, OrganizationTypeInterest::class),
+            'career_planning_promotion_move_interest' => fn ($u) => $this->yesOrNo($u->employeeProfile?->career_planning_promotion_move_interest),
+            'career_planning_promotion_move_time_frame' => fn ($u) => $this->localizeEnum($u->employeeProfile?->career_planning_promotion_move_time_frame, TimeFrame::class),
+            'career_planning_promotion_move_organization_type' => fn ($u) => $this->localizeEnumArray($u->employeeProfile?->career_planning_promotion_move_organization_type, OrganizationTypeInterest::class),
+            'career_planning_learning_opportunities_interest' => fn ($u) => $this->localizeEnumArray($u->employeeProfile?->career_planning_learning_opportunities_interest, LearningOpportunitiesInterest::class),
+            'eligible_retirement_year' => fn ($u) => $u->employeeProfile?->eligible_retirement_year?->format('Y') ?? '',
+            'career_planning_mentorship_status' => fn ($u) => $this->localizeEnumArray($u->employeeProfile?->career_planning_mentorship_status, Mentorship::class),
+            'career_planning_mentorship_interest' => fn ($u) => $this->localizeEnumArray($u->employeeProfile?->career_planning_mentorship_interest, Mentorship::class),
+            'career_planning_exec_interest' => fn ($u) => $this->yesOrNo($u->employeeProfile?->career_planning_exec_interest),
+            'career_planning_exec_coaching_status' => fn ($u) => $this->localizeEnumArray($u->employeeProfile?->career_planning_exec_coaching_status, ExecCoaching::class),
+            'career_planning_exec_coaching_interest' => fn ($u) => $this->localizeEnumArray($u->employeeProfile?->career_planning_exec_coaching_interest, ExecCoaching::class),
 
-        $employeeProfile = $user->employeeProfile;
-        $nextRoleWorkStreams = $employeeProfile->nextRoleWorkStreams->map(function ($workStream) {
-            return $workStream->name[$this->lang] ?? '';
-        });
-        $nextRoleDepartments = $employeeProfile->nextRoleDepartments->map(function ($department) {
-            return $department->name[$this->lang] ?? '';
-        });
-        $careerObjectiveWorkStreams = $employeeProfile->careerObjectiveWorkStreams->map(function ($workStream) {
-            return $workStream->name[$this->lang] ?? '';
-        });
-        $careerObjectiveDepartments = $employeeProfile->careerObjectiveDepartments->map(function ($department) {
-            return $department->name[$this->lang] ?? '';
-        });
+            'next_role_target_classification_group' => fn ($u) => $u->employeeProfile?->nextRoleClassification->group ?? '',
+            'next_role_target_classification_level' => fn ($u) => $u->employeeProfile?->nextRoleClassification->level ?? '',
+            'next_role_target_role' => fn ($u) => $this->localizeEnum($u->employeeProfile?->next_role_target_role, TargetRole::class),
+            'next_role_is_c_suite_role' => fn ($u) => $this->yesOrNo($u->employeeProfile?->next_role_is_c_suite_role),
+            'next_role_c_suite_role_title' => fn ($u) => $this->localizeEnum($u->employeeProfile?->next_role_c_suite_role_title, CSuiteRoleTitle::class),
+            'next_role_job_title' => fn ($u) => $u->employeeProfile?->next_role_job_title ?? '',
+            'next_role_functional_community' => fn ($u) => $u->employeeProfile?->nextRoleCommunity?->name[$this->lang] ?? '',
+            'next_role_work_streams' => fn ($u) => $u->employeeProfile?->nextRoleWorkStreams->map(fn ($ws) => $ws->name[$this->lang] ?? '')->join(', '),
+            'next_role_departments' => fn ($u) => $u->employeeProfile?->nextRoleDepartments->map(fn ($d) => $d->name[$this->lang] ?? '')->join(', '),
+            'next_role_additional_information' => fn ($u) => $u->employeeProfile?->next_role_additional_information ?? '',
 
-        $appliedPools = $user->poolCandidates->map(function ($candidate) {
-            return sprintf(
+            'career_objective_target_classification_group' => fn ($u) => $u->employeeProfile?->careerObjectiveClassification->group ?? '',
+            'career_objective_target_classification_level' => fn ($u) => $u->employeeProfile?->careerObjectiveClassification->level ?? '',
+            'career_objective_target_role' => fn ($u) => $this->localizeEnum($u->employeeProfile?->career_objective_target_role, TargetRole::class),
+            'career_objective_is_c_suite_role' => fn ($u) => $this->yesOrNo($u->employeeProfile?->career_objective_is_c_suite_role),
+            'career_objective_c_suite_role_title' => fn ($u) => $this->localizeEnum($u->employeeProfile?->career_objective_c_suite_role_title, CSuiteRoleTitle::class),
+            'career_objective_job_title' => fn ($u) => $u->employeeProfile?->career_objective_job_title ?? '',
+            'career_objective_functional_community' => fn ($u) => $u->employeeProfile?->careerObjectiveCommunity?->name[$this->lang] ?? '',
+            'career_objective_work_streams' => fn ($u) => $u->employeeProfile?->careerObjectiveWorkStreams->map(fn ($ws) => $ws->name[$this->lang] ?? '')->join(', '),
+            'career_objective_departments' => fn ($u) => $u->employeeProfile?->careerObjectiveDepartments->map(fn ($d) => $d->name[$this->lang] ?? '')->join(', '),
+            'career_objective_additional_information' => fn ($u) => $u->employeeProfile?->career_objective_additional_information ?? '',
+
+            'career_planning_about_you' => fn ($u) => $u->employeeProfile?->career_planning_about_you ?? '',
+            'career_planning_learning_goals' => fn ($u) => $u->employeeProfile?->career_planning_learning_goals ?? '',
+            'career_planning_work_style' => fn ($u) => $u->employeeProfile?->career_planning_work_style ?? '',
+
+            'digital_talent_processes' => fn ($u) => $u->poolCandidates->map(fn ($candidate) => sprintf(
                 '%s - %s - %s - %s',
                 $candidate->pool->classification->formattedGroupAndLevel,
                 $candidate->pool->name[$this->lang] ?? '',
@@ -345,122 +276,86 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 $candidate->suspended_at
                     ? Lang::get('common.not_interested', [], $this->lang)
                     : Lang::get('common.open_to_job_offers', [], $this->lang)
-            );
-        });
+            ))->join(', '),
 
-        $offPlatformProcesses = collect($user->offPlatformRecruitmentProcesses)->map(function ($process) {
-            return $process->classification->formattedGroupAndLevel
-                    .(is_null($process->department) ? '' : ' '.$this->localize('common.with').' '.($process->department->name[$this->lang] ?? ''))
-                    .' ('
-                    .($process->platform === HiringPlatform::OTHER->name ? $process->platform_other : $this->localizeEnum($process->platform, HiringPlatform::class))
-                    .' - '
-                    .$process->process_number
-                    .')';
-        });
-
-        return [
-            $user->id,
-            $user->first_name,
-            $user->last_name,
-            $user->email ?? '',
-            $user->telephone ?? '',
-            $user->updated_at ? $user->updated_at->format('Y-m-d H:i:s') : '',
-            $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class),
-            $this->localizeEnum($user->citizenship, CitizenshipStatus::class),
-            $user->current_city ?? '',
-            $this->localizeEnum($user->current_province, ProvinceOrTerritory::class),
-            $this->localizeEnum($user->preferred_lang, Language::class),
-            $this->lookingForLanguages($user),
-            $this->localizeEnum($user->first_official_language, Language::class),
-            $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class),
-            $this->yesOrNo($user->second_language_exam_completed), // Bilingual evaluation
-            $this->yesOrNo($user->second_language_exam_validity), // Bilingual exam validity
-            $this->localizeEnum($user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
-            $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class), // Writing level
-            $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
-            $this->yesOrNo($user->computed_is_gov_employee), // Government employee
-            $department?->name[$this->lang] ?? '', // Department
-            $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class),
-            $user->work_email, // Work email
-            $user->getClassification(), // Current classification
-            $this->yesOrNo($user->has_priority_entitlement), // Priority entitlement
-            $user->priority_number ?? '', // Priority number
-            $user->position_duration ? $this->yesOrNo($user->wouldAcceptTemporary()) : '', // Accept temporary
-            $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
-            /* remove 'Telework' from location preferences */
-            $this->localizeEnumArray(
-                array_filter($user->location_preferences ?? [], function ($location) {
-                    return $location !== WorkRegion::TELEWORK->name;
-                }),
-                WorkRegion::class
-            ), // Location preferences
-            $this->localizeEnumArray($user->flexible_work_locations, FlexibleWorkLocation::class), // flexible work locations
-            $user->location_exemptions, // Location exemptions
-            $this->yesOrNo($user->is_woman),
-            $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class),
-            $this->yesOrNo($user->is_visible_minority), // Visible minority
-            $this->yesOrNo($user->has_disability), // Disability
-            $userSkills->join(', '),
-            $this->yesOrNo($employeeProfile?->career_planning_lateral_move_interest), // Career planning - Lateral move interest
-            $this->localizeEnum($employeeProfile?->career_planning_lateral_move_time_frame, TimeFrame::class), // Career planning - Lateral move time frame
-            $this->localizeEnumArray($employeeProfile?->career_planning_lateral_move_organization_type, OrganizationTypeInterest::class),  // Career planning - Lateral move organization type
-            $this->yesOrNo($employeeProfile?->career_planning_promotion_move_interest), // Career planning Promotion move interest
-            $this->localizeEnum($employeeProfile?->career_planning_promotion_move_time_frame, TimeFrame::class),  // Career planning - Promotion move time frame
-            $this->localizeEnumArray($employeeProfile?->career_planning_promotion_move_organization_type, OrganizationTypeInterest::class), // Career planning - Promotion move organization type
-            $this->localizeEnumArray($employeeProfile?->career_planning_learning_opportunities_interest, LearningOpportunitiesInterest::class), // Career planning - Learning opportunities interest
-            $employeeProfile?->eligible_retirement_year?->format('Y') ?? '', // Eligible retirement year
-            $this->localizeEnumArray($employeeProfile?->career_planning_mentorship_status, Mentorship::class), // Career planning - Mentorship status
-            $this->localizeEnumArray($employeeProfile?->career_planning_mentorship_interest, Mentorship::class), // Career planning - Mentorship interest
-            $this->yesOrNo($employeeProfile?->career_planning_exec_interest), // Career planning - Executive interest
-            $this->localizeEnumArray($employeeProfile?->career_planning_exec_coaching_status, ExecCoaching::class), // Career planning - Executive coaching status
-            $this->localizeEnumArray($employeeProfile?->career_planning_exec_coaching_interest, ExecCoaching::class), // Career planning - Executive interest
-            $employeeProfile?->nextRoleClassification->group ?? '', // Next role - target classification group
-            $employeeProfile?->nextRoleClassification->level ?? '', // Next role - Target classification level
-            $this->localizeEnum($employeeProfile?->next_role_target_role, TargetRole::class), // Next role - Target role
-            $this->yesOrNo($employeeProfile?->next_role_is_c_suite_role), // Next role - C-suite role
-            $this->localizeEnum($employeeProfile?->next_role_c_suite_role_title, CSuiteRoleTitle::class),
-            $employeeProfile->next_role_job_title ?? '', // Next role - Job title
-            $employeeProfile?->nextRoleCommunity?->name[$this->lang] ?? '', // Next role - Functional community
-            $nextRoleWorkStreams->join(','), // Next role - Work streams
-            $nextRoleDepartments->join(', '), // next role - Departments
-            $employeeProfile->next_role_additional_information ?? '', // Next role - Additional information
-            $employeeProfile->careerObjectiveClassification->group ?? '', // Career objective - Target classification group
-            $employeeProfile->careerObjectiveClassification->level ?? '', // Career objective - Target classification level
-            $this->localizeEnum($employeeProfile?->career_objective_target_role, TargetRole::class), // Career objective - Target role
-            $this->yesOrNo($employeeProfile?->career_objective_is_c_suite_role), // Career objective - C-suite role
-            $this->localizeEnum($employeeProfile?->career_objective_c_suite_role_title, CSuiteRoleTitle::class), // Career objective - C-suite role title
-            $employeeProfile->career_objective_job_title ?? '', // Career objective - Job title
-            $employeeProfile?->careerObjectiveCommunity?->name[$this->lang] ?? ' ', // Career objective - Functional community
-            $careerObjectiveWorkStreams->join(', '), // career objective - Work streams
-            $careerObjectiveDepartments->join(', '), // career objective - Departments
-            $employeeProfile->career_objective_additional_information ?? '', // Career objective - Additional information
-            $employeeProfile->career_planning_about_you ?? '', // Career planning - About you
-            $employeeProfile->career_planning_learning_goals ?? '',  // Career planning - Learning goals
-            $employeeProfile->career_planning_work_style ?? '', // Career planning - Work style
-            $appliedPools->join(', '), // Digital talent processes
-            $offPlatformProcesses->join(', '), // Off-platform processes
+            'off_platform_processes_not_verified' => fn ($u) => collect($u->offPlatformRecruitmentProcesses)
+                ->map(fn ($process) => $this->formatOffPlatformProcess($process))
+                ->join(', '),
         ];
     }
 
-    /**
-     * Add work experiences to career experience sheet
-     */
-    private function addWorkExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
+    private function generateCareerExperienceSheet(): void
     {
-        WorkExperience::whereIn('user_id', $userIds)
+        $this->writer->addRow(Row::fromValues(
+            array_map(fn ($key) => $this->localizeHeading($key), $this->careerExperienceLocaleKeys)
+        ));
+
+        if (empty($this->userIds)) {
+            return;
+        }
+
+        $this->addWorkExperiences();
+        $this->addEducationExperiences();
+        $this->addAwardExperiences();
+        $this->addCommunityExperiences();
+        $this->addPersonalExperiences();
+    }
+
+    private function addWorkExperiences(): void
+    {
+        WorkExperience::whereIn('user_id', $this->userIds)
             ->with(['user', 'department', 'classification', 'userSkills.skill', 'workStreams'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
+            ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $rowData = $this->buildWorkExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
+                    $this->writer->addRow(Row::fromValues($this->buildWorkExperienceRow($exp)));
                 }
             });
     }
 
-    /**
-     * Get localized experience type for an experience
-     */
+    private function addEducationExperiences(): void
+    {
+        EducationExperience::whereIn('user_id', $this->userIds)
+            ->with(['user', 'userSkills.skill'])
+            ->chunk(200, function ($experiences) {
+                foreach ($experiences as $exp) {
+                    $this->writer->addRow(Row::fromValues($this->buildEducationExperienceRow($exp)));
+                }
+            });
+    }
+
+    private function addAwardExperiences(): void
+    {
+        AwardExperience::whereIn('user_id', $this->userIds)
+            ->with(['user', 'userSkills.skill'])
+            ->chunk(200, function ($experiences) {
+                foreach ($experiences as $exp) {
+                    $this->writer->addRow(Row::fromValues($this->buildAwardExperienceRow($exp)));
+                }
+            });
+    }
+
+    private function addCommunityExperiences(): void
+    {
+        CommunityExperience::whereIn('user_id', $this->userIds)
+            ->with(['user', 'userSkills.skill'])
+            ->chunk(200, function ($experiences) {
+                foreach ($experiences as $exp) {
+                    $this->writer->addRow(Row::fromValues($this->buildCommunityExperienceRow($exp)));
+                }
+            });
+    }
+
+    private function addPersonalExperiences(): void
+    {
+        PersonalExperience::whereIn('user_id', $this->userIds)
+            ->with(['user', 'userSkills.skill'])
+            ->chunk(200, function ($experiences) {
+                foreach ($experiences as $exp) {
+                    $this->writer->addRow(Row::fromValues($this->buildPersonalExperienceRow($exp)));
+                }
+            });
+    }
+
     private function getExperienceType($experience): string
     {
         return match (get_class($experience)) {
@@ -473,635 +368,152 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         };
     }
 
-    /**
-     * Build work experience row
-     */
+    private function baseExperienceRow(): array
+    {
+        return array_fill_keys($this->careerExperienceLocaleKeys, '');
+    }
+
+    private function sharedKlcFields($exp): array
+    {
+        return [
+            'featured_skills' => $this->getFeaturedSkills($exp),
+            'klc_achieve_results' => $this->getFeaturedSkillJustification($exp, 'achieve_results'),
+            'klc_character_leadership' => $this->getFeaturedSkillJustification($exp, 'character_leadership'),
+            'klc_collaborate_with_partners_and_stakeholders' => $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'),
+            'klc_create_vision_and_strategy' => $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'),
+            'klc_mobilize_people' => $this->getFeaturedSkillJustification($exp, 'mobilize_people'),
+            'klc_promote_innovation_and_guide_change' => $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'),
+            'klc_uphold_integrity_and_respect' => $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'),
+        ];
+    }
+
     private function buildWorkExperienceRow(WorkExperience $exp): array
     {
-        $isCurrent = $this->yesOrNo(empty($exp->end_date));
-        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
-        $workStreams = $this->getWorkStreams($exp);
         [$departmentNumber, $departmentSize, $departmentType] = $this->getDepartmentInfo($exp);
 
-        return [
-            $exp->user->id, // user id
-            $exp->user->first_name, // first name
-            $exp->user->last_name, // last name
-            $this->getExperienceType($exp),  // experience type
-            $exp->start_date ? $exp->start_date->format('Y-m') : '', // start date
-            $exp->end_date ? $exp->end_date->format('Y-m') : '', // end date
-            $isCurrent, // currently active
-            $numberOfMonths, // number of months calculated number of months based on the start and end date or start date and date of download for current experiences
-            $exp->role ?? '', // Role or title: My role (work experience), My role (Community participation), Personal experience short title, Award title
-            $this->getOrganizationName($exp),  // Organization, department, military force, or institution: Organization (external), Department (GC), Military force (CAF), Education institution, Group, organization, or community, Issuing organization
-            $this->localizeEnum($exp->employment_category, EmploymentCategory::class),  // Employment category
-            $exp->division ?? '', // team, group, division
-            $this->localizeEnum($exp->ext_size_of_organization, ExternalSizeOfOrganization::class), // size external organization
-            $this->localizeEnum($exp->ext_role_seniority, ExternalRoleSeniority::class), // seniority external organization
-            $this->localizeEnum($exp->gov_employment_type, GovEmployeeType::class), // gc employment type
-            $this->localizeEnum($exp->gov_position_type, GovPositionType::class), // gc position type
-            $exp->classification?->group.($exp->classification?->level ? '-'.$exp->classification->level : ''), // Classification: group-level
-            $this->yesOrNo($exp->supervisory_position), // gc management or supervisory status: Yes, No, empty
-            $exp->supervised_employees_number ?? '', // GC number of supervised employees
-            $exp->annual_budget_allocation ?? '', // GC annual budget allocation
-            $this->localizeEnum($exp->c_suite_role_title, CSuiteRoleTitle::class), // GC C-suite role
-            $exp->other_c_suite_title ?? '', // Other C-suite role title
-            $this->localizeEnum($exp->caf_employment_type, CafEmploymentType::class), // CAF employment type
-            $this->localizeEnum($exp->caf_rank, CafRank::class), // CAF rank category
-            $workStreams, // Work streams: work streams linked to the experience separated by commas
-            // Education fields - empty for work
-            '', // 25: type_of_education
-            '', // 26: area_study
-            '', // 27: education_status
-            '', // 28: thesis_title
-
-            // Community/Personal fields - empty for work
-            '', // 29: community_project_or_product
-            '', // 30: personal_learning_experience_description
-
-            // Award fields - empty for work
-            '', // 31: award_recipient
-            '', // 32: issuing_org
-            '', // 33: awarded_scope
-            '', // 34: date_awarded
-            $exp->details ?? '',
-            $this->getFeaturedSkills($exp),
-            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
-            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
-            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
-            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
-            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
-            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
-            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
-            $departmentNumber,
-            $departmentSize,
-            $departmentType,
-        ];
+        return array_values(array_merge($this->baseExperienceRow(), [
+            'id' => $exp->user->id,
+            'first_name' => $exp->user->first_name,
+            'last_name' => $exp->user->last_name,
+            'experience_type' => $this->getExperienceType($exp),
+            'start_date' => $exp->start_date ? $exp->start_date->format('Y-m') : '',
+            'end_date' => $exp->end_date ? $exp->end_date->format('Y-m') : '',
+            'is_current' => $this->yesOrNo(empty($exp->end_date)),
+            'number_of_months' => $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date),
+            'role_or_title' => $exp->role ?? '',
+            'organization_department' => $this->getOrganizationName($exp),
+            'employment_category' => $this->localizeEnum($exp->employment_category, EmploymentCategory::class),
+            'team_group_division' => $exp->division ?? '',
+            'size_external_organization' => $this->localizeEnum($exp->ext_size_of_organization, ExternalSizeOfOrganization::class),
+            'seniority_external_organization' => $this->localizeEnum($exp->ext_role_seniority, ExternalRoleSeniority::class),
+            'gc_employment_type' => $this->localizeEnum($exp->gov_employment_type, GovEmployeeType::class),
+            'gov_position_type' => $this->localizeEnum($exp->gov_position_type, GovPositionType::class),
+            'classification' => $exp->classification?->group.($exp->classification?->level ? '-'.$exp->classification->level : ''),
+            'gc_management_or_supervisory_status' => $this->yesOrNo($exp->supervisory_position),
+            'gc_number_of_supervised_employees' => $exp->supervised_employees_number ?? '',
+            'gc_annual_budget_allocation' => $exp->annual_budget_allocation ?? '',
+            'c_suite_title' => $this->localizeEnum($exp->c_suite_role_title, CSuiteRoleTitle::class),
+            'other_c_suite_title' => $exp->other_c_suite_title ?? '',
+            'caf_employment_type' => $this->localizeEnum($exp->caf_employment_type, CafEmploymentType::class),
+            'caf_rank_category' => $this->localizeEnum($exp->caf_rank, CafRank::class),
+            'work_streams' => $this->getWorkStreams($exp),
+            'details_or_key_tasks' => $exp->details ?? '',
+            ...$this->sharedKlcFields($exp),
+            'department_number' => $departmentNumber,
+            'department_size' => $departmentSize,
+            'department_type' => $departmentType,
+        ]));
     }
 
-    /**
-     * Add education experiences to career experience sheet
-     */
-    private function addEducationExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
-    {
-        EducationExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'userSkills.skill'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                foreach ($experiences as $exp) {
-                    $rowData = $this->buildEducationExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
-                }
-            });
-    }
-
-    /**
-     * Build education experience row
-     */
     private function buildEducationExperienceRow(EducationExperience $exp): array
     {
-        $isCurrent = $this->yesOrNo(empty($exp->end_date));
-        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
-
-        return [
-            $exp->user->id,
-            $exp->user->first_name,
-            $exp->user->last_name,
-            $this->getExperienceType($exp),  // experience type
-            $exp->start_date?->format('Y-m') ?? '', // start date
-            $exp->end_date?->format('Y-m') ?? '', // end date
-            $isCurrent, // currently active
-            $numberOfMonths, // number of months
-            // Work-specific fields (8-24) - mostly empty for education
-            '', // role_or_title
-            $exp->institution ?? '', // organization_department
-            '', // employment_category
-            '', // team_group
-            '', // size_external_organization
-            '', // seniority_external_organization
-            '', // gc_employment_type
-            '', // gc_position_type
-            '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
-            '', // c_suite_title
-            '', // other_c_suite_title
-            '', // caf_employment_type
-            '', // rank_category
-            '', // work_streams
-            $this->localizeEnum($exp->type, EducationType::class),  // education type
-            $exp->area_of_study ?? '', // area of study
-            $this->localizeEnum($exp->status, EducationStatus::class), // education status
-            $exp->thesis_title ?? '', // thesis title
-            // Community/Personal fields - empty for education
-            '', // community_project_or_product
-            '', // personal_learning_experience_description
-
-            // Award fields - empty for education
-            '', // award_recipient
-            '', // issuing_org
-            '', // awarded_scope
-            '', // date_awarded
-            $exp->details ?? '', // additional details
-            $this->getFeaturedSkills($exp), // featured skills
-            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
-            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
-            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
-            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
-            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
-            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
-            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
-            // Department fields - empty for education
-            '', // department_number
-            '', // department_size
-            '', // department_type
-        ];
+        return array_values(array_merge($this->baseExperienceRow(), [
+            'id' => $exp->user->id,
+            'first_name' => $exp->user->first_name,
+            'last_name' => $exp->user->last_name,
+            'experience_type' => $this->getExperienceType($exp),
+            'start_date' => $exp->start_date?->format('Y-m') ?? '',
+            'end_date' => $exp->end_date?->format('Y-m') ?? '',
+            'is_current' => $this->yesOrNo(empty($exp->end_date)),
+            'number_of_months' => $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date),
+            'organization_department' => $exp->institution ?? '',
+            'type_of_education' => $this->localizeEnum($exp->type, EducationType::class),
+            'area_of_study' => $exp->area_of_study ?? '',
+            'education_status' => $this->localizeEnum($exp->status, EducationStatus::class),
+            'thesis_title' => $exp->thesis_title ?? '',
+            'details_or_key_tasks' => $exp->details ?? '',
+            ...$this->sharedKlcFields($exp),
+        ]));
     }
 
-    /**
-     * Add award experiences to career experience sheet
-     */
-    private function addAwardExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
-    {
-        AwardExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'userSkills.skill'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                foreach ($experiences as $exp) {
-                    $rowData = $this->buildAwardExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
-                }
-            });
-    }
-
-    /**
-     * Build award experience row
-     */
     private function buildAwardExperienceRow(AwardExperience $exp): array
     {
-        $numberOfMonths = 0;
-
-        return [
-            $exp->user->id,
-            $exp->user->first_name,
-            $exp->user->last_name,
-            $this->getExperienceType($exp),  // experience type
-            '', // start date
-            '', // end date
-            $this->yesOrNo(false),  // is current
-            $numberOfMonths, // number of months
-            $exp->title ?? '', // role or title
-            $exp->issued_by ?? '', // organization_department
-            '', // employment_category
-            '', // team_group
-            '', // size_external_organization
-            '', // seniority_external_organization
-            '', // gc_employment_type
-            '', // gc_position_type
-            '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
-            '', // c_suite_title
-            '', // other_c_suite_title
-            '', // caf_employment_type
-            '', // rank_category
-            '', // work_streams
-
-            // Education fields - empty for awards
-            '', // type_of_education
-            '', // area_study
-            '', // education_status
-            '', // thesis_title
-
-            // Community/Personal fields - empty for awards
-            '', // community_project_or_product
-            '', // personal_learning_experience_description
-            $this->localizeEnum($exp->awarded_to, AwardedTo::class), // award_recipient
-            '', // issued by
-            $this->localizeEnum($exp->awarded_scope, AwardedScope::class), // award
-            $exp->awarded_date?->format('Y-m-d') ?? '', // date awarded
-            $exp->details ?? '', // additional details
-            $this->getFeaturedSkills($exp), // featured skills
-            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
-            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
-            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
-            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
-            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
-            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
-            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
-            // Department fields - empty for awards
-            '', // department_number
-            '', // department_size
-            '', // department_type
-        ];
+        return array_values(array_merge($this->baseExperienceRow(), [
+            'id' => $exp->user->id,
+            'first_name' => $exp->user->first_name,
+            'last_name' => $exp->user->last_name,
+            'experience_type' => $this->getExperienceType($exp),
+            'role_or_title' => $exp->title ?? '',
+            'organization_department' => $exp->issued_by ?? '',
+            'award_recipient' => $this->localizeEnum($exp->awarded_to, AwardedTo::class),
+            'awarded_scope' => $this->localizeEnum($exp->awarded_scope, AwardedScope::class),
+            'date_awarded' => $exp->awarded_date?->format('Y-m-d') ?? '',
+            'details_or_key_tasks' => $exp->details ?? '',
+            ...$this->sharedKlcFields($exp),
+        ]));
     }
 
-    /**
-     * Add community experiences to career experience sheet
-     */
-    private function addCommunityExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
-    {
-        CommunityExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'userSkills.skill'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                foreach ($experiences as $exp) {
-                    $rowData = $this->buildCommunityExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
-                }
-            });
-    }
-
-    /**
-     * Build community experience row
-     */
     private function buildCommunityExperienceRow(CommunityExperience $exp): array
     {
-        $isCurrent = $this->yesOrNo(empty($exp->end_date));
-        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
-
-        return [
-            $exp->user->id,
-            $exp->user->first_name,
-            $exp->user->last_name,
-            $this->getExperienceType($exp),  // experience type
-            $exp->start_date?->format('Y-m') ?? '', // start date
-            $exp->end_date?->format('Y-m') ?? '', // end date
-            $isCurrent, // is current
-            $numberOfMonths, // number of months
-            $exp->title ?? '', // role or title
-            $exp->organization ?? '',
-            '', // employment_category
-            $exp->group ?? '', // team_group
-            '', // size_external_organization
-            '', // seniority_external_organization
-            '', // gc_employment_type
-            '', // gc_position_type
-            '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
-            '', // c_suite_title
-            '', // other_c_suite_title
-            '', // caf_employment_type
-            '', // rank_category
-            '', // work_streams
-            // Education fields - empty for community
-            '', // type_of_education
-            '', // area_study
-            '', // education_status
-            '', // thesis_title
-            $exp->project ?? '', // community_project_or_product
-            '', // personal learning description
-            // Award fields - empty for community
-            '', // award recipient
-            '', // issuing organization
-            '', // awarded_scope
-            '', // date awarded
-            $exp->details ?? '', // additional details
-            $this->getFeaturedSkills($exp),
-            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
-            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
-            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
-            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
-            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
-            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
-            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
-            // Department fields - empty for community
-            '', // department_number
-            '', // department_size
-            '', // department_type
-        ];
+        return array_values(array_merge($this->baseExperienceRow(), [
+            'id' => $exp->user->id,
+            'first_name' => $exp->user->first_name,
+            'last_name' => $exp->user->last_name,
+            'experience_type' => $this->getExperienceType($exp),
+            'start_date' => $exp->start_date?->format('Y-m') ?? '',
+            'end_date' => $exp->end_date?->format('Y-m') ?? '',
+            'is_current' => $this->yesOrNo(empty($exp->end_date)),
+            'number_of_months' => $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date),
+            'role_or_title' => $exp->title ?? '',
+            'organization_department' => $exp->organization ?? '',
+            'team_group_division' => $exp->group ?? '',
+            'community_project_or_product' => $exp->project ?? '',
+            'details_or_key_tasks' => $exp->details ?? '',
+            ...$this->sharedKlcFields($exp),
+        ]));
     }
 
-    /**
-     * Add personal experiences to sheet
-     */
-    private function addPersonalExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
-    {
-        PersonalExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'userSkills.skill'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
-                foreach ($experiences as $exp) {
-                    $rowData = $this->buildPersonalExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
-                }
-            });
-    }
-
-    /**
-     * Build personal experience row
-     */
     private function buildPersonalExperienceRow(PersonalExperience $exp): array
     {
-        $isCurrent = $this->yesOrNo(empty($exp->end_date));
-        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
-
-        return [
-            $exp->user->id,
-            $exp->user->first_name,
-            $exp->user->last_name,
-            $this->localizeEnum(ExperienceType::PERSONAL->name, ExperienceType::class), // experience type
-            $exp->start_date?->format('Y-m') ?? '', // start date
-            $exp->end_date?->format('Y-m') ?? '', // end date
-            $isCurrent, // is current
-            $numberOfMonths, // number of months
-            $exp->title ?? '', // role or title
-            '', // organization_department
-            '', // employment_category
-            '', // team_group
-            '', // size_external_organization
-            '', // seniority_external_organization
-            '', // gc_employment_type
-            '', // gc_position_type
-            '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
-            '', // c_suite_title
-            '', // other_c_suite_title
-            '', // caf_employment_type
-            '', // rank_category
-            '', // work_streams
-
-            // Education fields - empty for personal
-            '', // type_of_education
-            '', // area_study
-            '', // education_status
-            '', // thesis_title
-            '', // Community project or product
-            $exp->description ?? '', // personal learning experience description
-            // Award fields - empty for education
-            '', // award recipient
-            '', // issuing organization
-            '', // awarded_scope
-            '', // date awarded
-            $exp->details ?? '', // additional details
-            $this->getFeaturedSkills($exp), // featured skills
-            $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
-            $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
-            $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders'), // collaborate_with_partners_and_stakeholders
-            $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy'), // create_vision_and_strategy
-            $this->getFeaturedSkillJustification($exp, 'mobilize_people'), // mobilize_people
-            $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change'), // promote_innovation_and_guide_change
-            $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect'), // uphold_integrity_and_respect
-            // Department fields - empty for education
-            '', // department_number
-            '', // department_size
-            '', // department_type
-        ];
+        return array_values(array_merge($this->baseExperienceRow(), [
+            'id' => $exp->user->id,
+            'first_name' => $exp->user->first_name,
+            'last_name' => $exp->user->last_name,
+            'experience_type' => $this->localizeEnum(ExperienceType::PERSONAL->name, ExperienceType::class),
+            'start_date' => $exp->start_date?->format('Y-m') ?? '',
+            'end_date' => $exp->end_date?->format('Y-m') ?? '',
+            'is_current' => $this->yesOrNo(empty($exp->end_date)),
+            'number_of_months' => $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date),
+            'role_or_title' => $exp->title ?? '',
+            'personal_learning_experience_description' => $exp->description ?? '',
+            'details_or_key_tasks' => $exp->details ?? '',
+            ...$this->sharedKlcFields($exp),
+        ]));
     }
 
-    /**
-     * Get work streams from a model
-     */
-    private function getWorkStreams($model): string
+    private function generateCommunityInterestSheet(): void
     {
-        if (! $model->workStreams) {
-            return '';
-        }
-
-        return $model->workStreams
-            ->map(fn ($workStream) => $workStream->name[$this->lang] ?? '')
-            ->filter()
-            ->join(', ');
-    }
-
-    /**
-     * Get featured skills from experience
-     */
-    private function getFeaturedSkills($experience): string
-    {
-        if (! $experience->userSkills || $experience->userSkills->isEmpty()) {
-            return '';
-        }
-
-        return $experience->userSkills
-            ->filter(fn ($userSkill) => $userSkill->skill)
-            ->map(fn ($userSkill) => $userSkill->skill->name[$this->lang] ?? '')
-            ->filter()
-            ->implode(', ');
-    }
-
-    /**
-     * Get feature skill justification
-     */
-    private function getFeaturedSkillJustification($experience, string $targetSkill): string
-    {
-        if (empty($experience->userSkills)) {
-            return '';
-        }
-
-        // Get name to match against
-        $targetNames = $this->getSkillNames($targetSkill) ?: [];
-        if (empty($targetNames)) {
-            return '';
-        }
-        // check each featured skill on experience
-        foreach ($experience->userSkills as $userSkill) {
-            // skip if no skill
-            if (! $skill = $userSkill->skill) {
-                continue;
-            }
-            // Get skill name
-            $skillName = $skill->name[$this->lang] ?? '';
-            if (empty($skillName)) {
-                continue;
-            }
-            // check if skill name matches any of the target names
-            foreach ($targetNames as $targetName) {
-                if (stripos($skillName, $targetName) !== false) {
-                    return $this->getJustificationFromExperienceSkill($experience, $userSkill);
-                }
-            }
-        }
-
-        return '';
-    }
-
-    /**
-     * Get featured skill justification from model
-     */
-    private function getJustificationFromExperienceSkill($experience, $userSkill): string
-    {
-        if (empty($experience->id) || empty($userSkill->id)) {
-            return '';
-        }
-
-        $experienceSkill = ExperienceSkill::where('experience_id', $experience->id)
-            ->where('experience_type', get_class($experience))
-            ->where('user_skill_id', $userSkill->id)
-            ->first();
-
-        return $experienceSkill->details ?? '';
-    }
-
-    /**
-     * Get all possible skill names for a skill key
-     */
-    private function getSkillNames(string $featuredSkillKey): array
-    {
-        $klcSkillNames = [
-            'achieve_results' => [
-                'en' => 'Achieve Results',
-                'fr' => 'Obtenir des résultats',
-            ],
-            'character_leadership' => [
-                'en' => 'Character Leadership',
-                'fr' => 'Leadership de caractère',
-            ],
-            'collaborate_with_partners_and_stakeholders' => [
-                'en' => 'Collaborate with Partners and Stakeholders',
-                'fr' => 'Collaborer avec les partenaires et les intervenants',
-            ],
-            'create_vision_and_strategy' => [
-                'en' => 'Create Vision and Strategy',
-                'fr' => 'Créer une vision et une stratégie',
-            ],
-            'mobilize_people' => [
-                'en' => 'Mobilize People',
-                'fr' => 'Mobiliser les personnes',
-            ],
-            'promote_innovation_and_guide_change' => [
-                'en' => 'Promote Innovation and Guide Change',
-                'fr' => 'Promouvoir l\'innovation et orienter le changement',
-            ],
-            'uphold_integrity_and_respect' => [
-                'en' => 'Uphold Integrity and Respect',
-                'fr' => 'Préserver l\'intégrité et le respect',
-            ],
-        ];
-
-        $skillNames = $klcSkillNames[$featuredSkillKey] ?? [];
-        $currentLangName = trim($skillNames[$this->lang] ?? '');
-
-        return ! empty($currentLangName) ? [$currentLangName] : [];
-    }
-
-    /**
-     * Calculate number of months between dates
-     */
-    private function calculateMonths($startDate, $endDate): int
-    {
-        if (! $startDate) {
-            return 0;
-        }
-
-        if (! $endDate) {
-            $endDate = now();
-        }
-
-        return $startDate->diffInMonths($endDate);
-    }
-
-    /**
-     * Get department from work experience
-     */
-    private function getDepartmentInfo(WorkExperience $exp): array
-    {
-        if (! $exp->department) {
-            return ['', '', ''];
-        }
-
-        return [
-            $exp->department->org_identifier ?? '',
-            $this->localizeEnum($exp->department->size, DepartmentSize::class),
-            $this->getDepartmentTypes($exp->department),
-        ];
-    }
-
-    /**
-     * Get department types
-     */
-    private function getDepartmentTypes($department): string
-    {
-        if (! $department) {
-            return '';
-        }
-
-        $types = [];
-
-        if ($department->is_core_public_administration) {
-            $types[] = $this->localize('headings.core_public_administration');
-        }
-
-        if ($department->is_central_agency) {
-            $types[] = $this->localize('headings.central_agency');
-        }
-
-        if ($department->is_science) {
-            $types[] = $this->localize('headings.science');
-        }
-
-        if ($department->is_regulatory) {
-            $types[] = $this->localize('headings.regulatory');
-        }
-
-        return implode(', ', $types);
-    }
-
-    /**
-     * Get organization name
-     * for goc employees use department name
-     * for caf employees use localized employment type
-     * for external use organization field
-     *
-     * @param  WorkExperience  $exp  The work experience
-     * @return string The organization name
-     */
-    private function getOrganizationName(WorkExperience $exp): string
-    {
-        // goc employee
-        if ($exp->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name && $exp->department) {
-            // return localized department name
-            return $exp->department?->name[$this->lang] ?? $exp->organization ?? '';
-        }
-
-        // CAF employee
-        if ($exp->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
-            // return localized caf employment type
-            return $this->localizeEnum($exp->caf_employment_type, CafEmploymentType::class);
-        }
-
-        // external organization
-        if ($exp->employment_category === EmploymentCategory::EXTERNAL_ORGANIZATION->name) {
-            // return organization field for external experience
-            return $exp->organization ?? '';
-        }
-
-        // fallback
-        return $exp->organization ?? '';
-    }
-
-    /**
-     * Generate data for Community Interest sheet
-     */
-    private function generateCommunityInterestSheet(Worksheet $sheet): void
-    {
-        $userIds = $this->userIds;
-
-        if (empty($userIds)) {
+        if (empty($this->userIds)) {
             return;
         }
 
-        $localizedHeadersPart1 = array_map(function ($key) {
-            return $this->localizeHeading($key);
-        }, $this->communityInterestLocaleKeys1);
-        $localizedHeadersPart2 = array_map(function ($key) {
-            return $this->localizeHeading($key);
-        }, $this->communityInterestLocaleKeys2);
-
         $communityIds = CommunityInterest::authorizedToView(['userId' => $this->authenticatedUserId])
-            ->whereIn('user_id', $userIds)
+            ->whereIn('user_id', $this->userIds)
             ->isVerifiedGovEmployee()
             ->get('community_id')
             ->pluck('community_id')
             ->unique();
 
-        // fetch development program directly thru CommunityDevelopmentProgram
         $developmentPrograms = DevelopmentProgram::whereHas(
             'communityDevelopmentPrograms',
             function (Builder $query) use ($communityIds) {
@@ -1116,10 +528,6 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $developmentProgramIds[] = $program->id;
         }
 
-        // Build a map of community_id -> [program_ids] so each row only shows
-        // status for programs actually offered in that row's community.
-        // Without this, programs completed in Community A would bleed into
-        // Community B rows when both communities share some programs.
         $communityProgramIdsMap = [];
         CommunityDevelopmentProgram::whereIn('community_id', $communityIds)
             ->whereIn('development_program_id', $developmentProgramIds)
@@ -1128,16 +536,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 $communityProgramIdsMap[$cdp->community_id][] = $cdp->development_program_id;
             });
 
-        $sheet->fromArray([
-            ...$localizedHeadersPart1,
-            ...$generatedHeaders,
-            ...$localizedHeadersPart2,
-        ], null, 'A1');
+        $staticHeaders1 = array_map(fn ($key) => $this->localizeHeading($key), $this->communityInterestLocaleKeys1);
+        $staticHeaders2 = array_map(fn ($key) => $this->localizeHeading($key), $this->communityInterestLocaleKeys2);
 
-        $currentRow = 2;
+        $this->writer->addRow(Row::fromValues([...$staticHeaders1, ...$generatedHeaders, ...$staticHeaders2]));
 
         CommunityInterest::authorizedToView(['userId' => $this->authenticatedUserId])
-            ->whereIn('user_id', $userIds)
+            ->whereIn('user_id', $this->userIds)
             ->isVerifiedGovEmployee()
             ->whereIn('community_id', $communityIds)
             ->with([
@@ -1147,22 +552,20 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 'user.developmentProgramUserRecords',
                 'user.developmentProgramUserRecords.educationExperience',
             ])
-            ->chunk(200, function ($interests) use ($sheet, &$currentRow, $developmentProgramIds, $communityProgramIdsMap) {
+            ->chunk(200, function ($interests) use ($developmentProgramIds, $communityProgramIdsMap) {
                 foreach ($interests as $interest) {
-                    $rowData = $this->buildCommunityInterestRow($interest, $developmentProgramIds, $communityProgramIdsMap);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
+                    $this->writer->addRow(Row::fromValues(
+                        $this->buildCommunityInterestRow($interest, $developmentProgramIds, $communityProgramIdsMap)
+                    ));
                 }
             });
     }
 
-    /**
-     * Build community interest row
-     */
     private function buildCommunityInterestRow(CommunityInterest $interest, array $developmentProgramIds, array $communityProgramIdsMap): array
     {
         $communityProgramIds = $communityProgramIdsMap[$interest->community_id] ?? [];
         $workStreams = $this->getWorkStreams($interest);
+
         $developmentProgramColumns = [];
         foreach ($developmentProgramIds as $programId) {
             if (in_array($programId, $communityProgramIds)) {
@@ -1175,34 +578,175 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         }
 
         return [
-            $interest->user->id, // user id
-            $interest->user->first_name, // first name
-            $interest->user->last_name, // last name
-            $interest->community->name[$this->lang] ?? '', // community name
-            $interest->job_interest ? $this->localize('common.interested') : $this->localize('common.not_interested'), // job interest
-            $interest->training_interest ? $this->localize('common.interested') : $this->localize('common.not_interested'), // training interest
-            $workStreams, // Work streams: work streams linked to the community interest separated by commas
-            $interest->additional_information, // additional information
-            ...$developmentProgramColumns, // Generated leadership and development columns (status + linked experience pairs)
-            $interest->community->key === 'finance' ? $this->yesOrNo($interest->finance_is_chief) : '', // CFO status
-            $this->localizeEnumArray($interest->additional_duties, CommunityInterestAdditionalDuty::class), // additional duties
-            $this->localizeEnumArray($interest->finance_other_roles, FinanceChiefRole::class), // other roles
-            $interest->finance_other_roles_other, // other SDO position
-            $interest->community->key === 'procurement' ? $this->yesOrNo($interest->procurement_is_sdo) : '', // Procurement SDO status
+            $interest->user->id,
+            $interest->user->first_name,
+            $interest->user->last_name,
+            $interest->community->name[$this->lang] ?? '',
+            $interest->job_interest ? $this->localize('common.interested') : $this->localize('common.not_interested'),
+            $interest->training_interest ? $this->localize('common.interested') : $this->localize('common.not_interested'),
+            $workStreams,
+            $interest->additional_information,
+            ...$developmentProgramColumns,
+            $interest->community->key === 'finance' ? $this->yesOrNo($interest->finance_is_chief) : '',
+            $this->localizeEnumArray($interest->additional_duties, CommunityInterestAdditionalDuty::class),
+            $this->localizeEnumArray($interest->finance_other_roles, FinanceChiefRole::class),
+            $interest->finance_other_roles_other,
+            $interest->community->key === 'procurement' ? $this->yesOrNo($interest->procurement_is_sdo) : '',
         ];
     }
 
-    /**
-     * Get interest in a development program
-     */
+    private function getWorkStreams($model): string
+    {
+        if (! $model->workStreams) {
+            return '';
+        }
+
+        return $model->workStreams
+            ->map(fn ($ws) => $ws->name[$this->lang] ?? '')
+            ->filter()
+            ->join(', ');
+    }
+
+    private function getFeaturedSkills($experience): string
+    {
+        if (! $experience->userSkills || $experience->userSkills->isEmpty()) {
+            return '';
+        }
+
+        return $experience->userSkills
+            ->filter(fn ($us) => $us->skill)
+            ->map(fn ($us) => $us->skill->name[$this->lang] ?? '')
+            ->filter()
+            ->implode(', ');
+    }
+
+    private function getFeaturedSkillJustification($experience, string $targetSkill): string
+    {
+        if (empty($experience->userSkills)) {
+            return '';
+        }
+
+        $targetNames = $this->getSkillNames($targetSkill) ?: [];
+        if (empty($targetNames)) {
+            return '';
+        }
+
+        foreach ($experience->userSkills as $userSkill) {
+            if (! $skill = $userSkill->skill) {
+                continue;
+            }
+
+            $skillName = $skill->name[$this->lang] ?? '';
+            if (empty($skillName)) {
+                continue;
+            }
+
+            foreach ($targetNames as $targetName) {
+                if (stripos($skillName, $targetName) !== false) {
+                    return $this->getJustificationFromExperienceSkill($experience, $userSkill);
+                }
+            }
+        }
+
+        return '';
+    }
+
+    private function getJustificationFromExperienceSkill($experience, $userSkill): string
+    {
+        if (empty($experience->id) || empty($userSkill->id)) {
+            return '';
+        }
+
+        $experienceSkill = ExperienceSkill::where('experience_id', $experience->id)
+            ->where('experience_type', get_class($experience))
+            ->where('user_skill_id', $userSkill->id)
+            ->first();
+
+        return $experienceSkill->details ?? '';
+    }
+
+    private function getSkillNames(string $featuredSkillKey): array
+    {
+        $klcSkillNames = [
+            'achieve_results' => ['en' => 'Achieve Results', 'fr' => 'Obtenir des résultats'],
+            'character_leadership' => ['en' => 'Character Leadership', 'fr' => 'Leadership de caractère'],
+            'collaborate_with_partners_and_stakeholders' => ['en' => 'Collaborate with Partners and Stakeholders', 'fr' => 'Collaborer avec les partenaires et les intervenants'],
+            'create_vision_and_strategy' => ['en' => 'Create Vision and Strategy', 'fr' => 'Créer une vision et une stratégie'],
+            'mobilize_people' => ['en' => 'Mobilize People', 'fr' => 'Mobiliser les personnes'],
+            'promote_innovation_and_guide_change' => ['en' => 'Promote Innovation and Guide Change', 'fr' => "Promouvoir l'innovation et orienter le changement"],
+            'uphold_integrity_and_respect' => ['en' => 'Uphold Integrity and Respect', 'fr' => "Préserver l'intégrité et le respect"],
+        ];
+
+        $skillNames = $klcSkillNames[$featuredSkillKey] ?? [];
+        $currentLangName = trim($skillNames[$this->lang] ?? '');
+
+        return ! empty($currentLangName) ? [$currentLangName] : [];
+    }
+
+    private function calculateMonths($startDate, $endDate): int
+    {
+        if (! $startDate) {
+            return 0;
+        }
+
+        return $startDate->diffInMonths($endDate ?? now());
+    }
+
+    private function getDepartmentInfo(WorkExperience $exp): array
+    {
+        if (! $exp->department) {
+            return ['', '', ''];
+        }
+
+        return [
+            $exp->department->org_identifier ?? '',
+            $this->localizeEnum($exp->department->size, DepartmentSize::class),
+            $this->getDepartmentTypes($exp->department),
+        ];
+    }
+
+    private function getDepartmentTypes($department): string
+    {
+        if (! $department) {
+            return '';
+        }
+
+        $types = [];
+
+        if ($department->is_core_public_administration) {
+            $types[] = $this->localize('headings.core_public_administration');
+        }
+        if ($department->is_central_agency) {
+            $types[] = $this->localize('headings.central_agency');
+        }
+        if ($department->is_science) {
+            $types[] = $this->localize('headings.science');
+        }
+        if ($department->is_regulatory) {
+            $types[] = $this->localize('headings.regulatory');
+        }
+
+        return implode(', ', $types);
+    }
+
+    private function getOrganizationName(WorkExperience $exp): string
+    {
+        if ($exp->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name && $exp->department) {
+            return $exp->department?->name[$this->lang] ?? $exp->organization ?? '';
+        }
+
+        if ($exp->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
+            return $this->localizeEnum($exp->caf_employment_type, CafEmploymentType::class);
+        }
+
+        return $exp->organization ?? '';
+    }
+
     private function getDevelopmentProgramInterest(string $programId, CommunityInterest $communityInterest)
     {
-        $programInterest = $communityInterest->user->developmentProgramUserRecords->first(function ($record) use ($programId) {
-            /** @var DevelopmentProgramUser $record */
-            $id = $record->development_program_id;
-
-            return $id === $programId;
-        });
+        $programInterest = $communityInterest->user->developmentProgramUserRecords->first(
+            fn ($record) => $record->development_program_id === $programId
+        );
 
         if (is_null($programInterest) || empty($programInterest)) {
             return null;
@@ -1223,15 +767,11 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         }
     }
 
-    /**
-     * Get the linked education experience title for a development program interest
-     */
     private function getDevelopmentProgramLinkedExperience(string $programId, CommunityInterest $communityInterest): ?string
     {
-        $programInterest = $communityInterest->user->developmentProgramUserRecords->first(function ($record) use ($programId) {
-            /** @var DevelopmentProgramUser $record */
-            return $record->development_program_id === $programId;
-        });
+        $programInterest = $communityInterest->user->developmentProgramUserRecords->first(
+            fn ($record) => $record->development_program_id === $programId
+        );
 
         if (is_null($programInterest)) {
             return null;
@@ -1241,9 +781,6 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         return $programInterest->educationExperience?->getTitle($this->lang) ?? null;
     }
 
-    /**
-     * Get looking for languages
-     */
     private function lookingForLanguages(User $user): string
     {
         $languages = [];
@@ -1251,11 +788,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         if ($user->looking_for_english) {
             $languages[] = $this->localize('language.en');
         }
-
         if ($user->looking_for_french) {
             $languages[] = $this->localize('language.fr');
         }
-
         if ($user->looking_for_bilingual) {
             $languages[] = $this->localize('common.bilingual');
         }
@@ -1263,7 +798,39 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         return implode(', ', $languages);
     }
 
-    private function buildQuery()
+    private function formatOffPlatformProcess($process): string
+    {
+        $location = $this->formatProcessLocation($process);
+        $platform = $this->formatProcessPlatform($process);
+
+        return sprintf('%s (%s - %s)', $location, $platform, $process->process_number);
+    }
+
+    private function formatProcessPlatform($process): string
+    {
+        if ($process->platform === HiringPlatform::OTHER->name) {
+            return $process->platform_other;
+        }
+
+        return $this->localizeEnum($process->platform, HiringPlatform::class);
+    }
+
+    private function formatProcessLocation($process): string
+    {
+        $classification = $process->classification->formattedGroupAndLevel;
+
+        if (! $process->department) {
+            return $classification;
+        }
+
+        $with = $this->localize('common.with');
+        $dept = $process->department->name[$this->lang] ?? '';
+
+        return sprintf('%s %s %s', $classification, $with, $dept);
+    }
+
+    /** @return Builder<User> */
+    private function buildQuery(): Builder
     {
         $query = User::with([
             'department',
@@ -1292,11 +859,6 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'offPlatformRecruitmentProcesses',
             'offPlatformRecruitmentProcesses.classification',
             'offPlatformRecruitmentProcesses.department',
-            'workExperiences.userSkills.skill',
-            'educationExperiences.userSkills.skill',
-            'awardExperiences.userSkills.skill',
-            'communityExperiences.userSkills.skill',
-            'personalExperiences.userSkills.skill',
         ]);
 
         $this->applyFilters($query, [
@@ -1309,8 +871,6 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'name' => 'whereName',
             'generalSearch' => 'whereGeneralSearch',
             'roles' => 'whereRoleIn',
-
-            // Applicant filter input renames
             'equity' => 'whereEquityIn',
             'hasDiploma' => 'whereHasDiploma',
             'languageAbility' => 'whereLanguageAbility',
@@ -1324,10 +884,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'community' => 'whereCandidatesInCommunity',
         ]);
 
+        /** @var Builder<User> $query */
         $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
             ->whereUserFilterInputToSpecialLocationMatching($this->filters);
 
         return $query;
-
     }
 }
