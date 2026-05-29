@@ -2,13 +2,11 @@
 
 namespace App\Generators;
 
-use Illuminate\Support\Facades\Log;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use OpenSpout\Writer\XLSX\Writer;
 
 abstract class ExcelGenerator extends FileGenerator implements FileGeneratorInterface
 {
-    protected ?Spreadsheet $spreadsheet = null;
+    protected ?Writer $writer = null;
 
     protected string $extension = 'xlsx';
 
@@ -17,36 +15,8 @@ abstract class ExcelGenerator extends FileGenerator implements FileGeneratorInte
         parent::__construct($fileName, $dir);
     }
 
-    public function __destruct()
+    public function write(): void
     {
-        // https://phpspreadsheet.readthedocs.io/en/latest/topics/creating-spreadsheet/#clearing-a-workbook-from-memory
-        if ($this->spreadsheet) {
-            $this->spreadsheet->disconnectWorksheets();
-        }
-
-    }
-
-    public function getSpreadsheet(): ?Spreadsheet
-    {
-        return $this->spreadsheet;
-    }
-
-    public function write()
-    {
-        if (! $this->spreadsheet) {
-
-            return;
-        }
-
-        try {
-            $path = $this->getPath();
-            $writer = new Xlsx($this->spreadsheet);
-            $writer->save($path);
-
-        } catch (\Throwable $e) {
-            // Log message and bubble it up
-            Log::error('Error saving xlsx: '.$this->fileName.' '.$e->getMessage());
-            throw $e;
-        }
+        // File is written to disk during generate() — nothing to do here.
     }
 }
