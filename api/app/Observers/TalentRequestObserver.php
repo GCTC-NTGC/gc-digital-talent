@@ -5,7 +5,7 @@ namespace App\Observers;
 use App\Models\TalentRequest;
 use App\Notifications\GcNotifyEmailChannel;
 use App\Notifications\TalentRequestSubmissionConfirmation;
-use Carbon\CarbonImmutable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
@@ -44,9 +44,9 @@ class TalentRequestObserver
      */
     public function updated(TalentRequest $talentRequest): void
     {
-        if ($talentRequest->wasChanged(['status', 'in_progress_details', 'complete_details'])) {
+        if ($talentRequest->wasChanged(['status', 'in_progress_details', 'completion_details'])) {
             $talentRequest->timestamps = false;
-            $talentRequest->status_changed_at = CarbonImmutable::now();
+            $talentRequest->status_changed_at = Carbon::now();
             $talentRequest->saveQuietly();
             $talentRequest->timestamps = true;
         }

@@ -12,9 +12,9 @@ use Carbon\CarbonImmutable;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use PHPUnit\Framework\Attributes\DataProvider;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
@@ -34,7 +34,7 @@ class TalentRequestStatusMutationTest extends TestCase
             updateTalentRequestStatus(id: $id, talentRequest: $talentRequest) {
                 talentRequestStatus { value }
                 inProgressDetails { value }
-                completeDetails { value }
+                completionDetails { value }
                 followUpDate
             }
         }
@@ -63,7 +63,7 @@ class TalentRequestStatusMutationTest extends TestCase
         return [
             'from NEW' => [TalentRequestStatus::NEW->name],
             'from IN_PROGRESS' => [TalentRequestStatus::IN_PROGRESS->name],
-            'from CLOSED' => [TalentRequestStatus::CLOSED->name],
+            'from COMPLETED' => [TalentRequestStatus::COMPLETED->name],
         ];
     }
 
@@ -73,7 +73,7 @@ class TalentRequestStatusMutationTest extends TestCase
         $request = TalentRequest::factory()->create([
             'community_id' => $this->community->id,
             'status' => $fromStatus,
-            'complete_details' => TalentRequestCompleteDetail::HIRE_MADE->name,
+            'completion_details' => TalentRequestCompleteDetail::HIRE_MADE->name,
         ]);
 
         $this->actingAs($this->recruiter, 'api')
@@ -87,7 +87,7 @@ class TalentRequestStatusMutationTest extends TestCase
             ->assertJsonFragment([
                 'talentRequestStatus' => ['value' => TalentRequestStatus::IN_PROGRESS->name],
                 'inProgressDetails' => ['value' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name],
-                'completeDetails' => null,
+                'completionDetails' => null,
             ]);
     }
 
@@ -105,13 +105,13 @@ class TalentRequestStatusMutationTest extends TestCase
             ->graphQL($this->mutation, [
                 'id' => $request->id,
                 'talentRequest' => [
-                    'status' => TalentRequestStatus::CLOSED->name,
-                    'completeDetails' => TalentRequestCompleteDetail::NO_LONGER_REQUIRED->name,
+                    'status' => TalentRequestStatus::COMPLETED->name,
+                    'completionDetails' => TalentRequestCompleteDetail::NO_LONGER_REQUIRED->name,
                 ],
             ])
             ->assertJsonFragment([
-                'talentRequestStatus' => ['value' => TalentRequestStatus::CLOSED->name],
-                'completeDetails' => ['value' => TalentRequestCompleteDetail::NO_LONGER_REQUIRED->name],
+                'talentRequestStatus' => ['value' => TalentRequestStatus::COMPLETED->name],
+                'completionDetails' => ['value' => TalentRequestCompleteDetail::NO_LONGER_REQUIRED->name],
                 'inProgressDetails' => null,
                 'followUpDate' => null,
             ]);
@@ -185,11 +185,11 @@ class TalentRequestStatusMutationTest extends TestCase
         $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->mutation, [
                 'id' => $request->id,
-                'talentRequest' => ['status' => TalentRequestStatus::CLOSED->name],
+                'talentRequest' => ['status' => TalentRequestStatus::COMPLETED->name],
             ])
             ->assertGraphQLValidationError(
-                'talentRequest.completeDetails',
-                'The completeDetails field is required when status is CLOSED.'
+                'talentRequest.completionDetails',
+                'The completionDetails field is required when status is COMPLETED.'
             );
     }
 
