@@ -24,7 +24,9 @@ use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\WorkRegion;
 use App\Models\Experience;
+use App\Models\GeneralQuestion;
 use App\Models\Pool;
+use App\Models\ScreeningQuestion;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Traits\Generator\Filterable;
@@ -384,12 +386,14 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
             ->chunk(100, function ($pools) {
                 foreach ($pools as $pool) {
                     foreach ($pool->generalQuestions as $question) {
+                        /** @var GeneralQuestion $question */
                         $this->generalQuestionIds[] = $question->id;
                         $this->generatedHeaders['general_questions'][] =
                             Lang::get('headings.general_question', [], $this->lang).$this->colon().$question->question[$this->lang];
                     }
 
                     foreach ($pool->screeningQuestions as $question) {
+                        /** @var ScreeningQuestion $question */
                         $this->screeningQuestionIds[] = $question->id;
                         $this->generatedHeaders['screening_questions'][] =
                             Lang::get('headings.screening_question', [], $this->lang).$this->colon().$question->question[$this->lang];

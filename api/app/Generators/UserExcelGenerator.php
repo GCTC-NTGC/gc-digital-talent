@@ -247,26 +247,26 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'next_role_target_role' => fn ($u) => $this->localizeEnum($u->employeeProfile?->next_role_target_role, TargetRole::class),
             'next_role_is_c_suite_role' => fn ($u) => $this->yesOrNo($u->employeeProfile?->next_role_is_c_suite_role),
             'next_role_c_suite_role_title' => fn ($u) => $this->localizeEnum($u->employeeProfile?->next_role_c_suite_role_title, CSuiteRoleTitle::class),
-            'next_role_job_title' => fn ($u) => $u->employeeProfile?->next_role_job_title ?? '',
+            'next_role_job_title' => fn ($u) => $u->employeeProfile->next_role_job_title ?? '',
             'next_role_functional_community' => fn ($u) => $u->employeeProfile?->nextRoleCommunity?->name[$this->lang] ?? '',
             'next_role_work_streams' => fn ($u) => $u->employeeProfile?->nextRoleWorkStreams->map(fn ($ws) => $ws->name[$this->lang] ?? '')->join(','),
             'next_role_departments' => fn ($u) => $u->employeeProfile?->nextRoleDepartments->map(fn ($d) => $d->name[$this->lang] ?? '')->join(', '),
-            'next_role_additional_information' => fn ($u) => $u->employeeProfile?->next_role_additional_information ?? '',
+            'next_role_additional_information' => fn ($u) => $u->employeeProfile->next_role_additional_information ?? '',
 
             'career_objective_target_classification_group' => fn ($u) => $u->employeeProfile?->careerObjectiveClassification->group ?? '',
             'career_objective_target_classification_level' => fn ($u) => $u->employeeProfile?->careerObjectiveClassification->level ?? '',
             'career_objective_target_role' => fn ($u) => $this->localizeEnum($u->employeeProfile?->career_objective_target_role, TargetRole::class),
             'career_objective_is_c_suite_role' => fn ($u) => $this->yesOrNo($u->employeeProfile?->career_objective_is_c_suite_role),
             'career_objective_c_suite_role_title' => fn ($u) => $this->localizeEnum($u->employeeProfile?->career_objective_c_suite_role_title, CSuiteRoleTitle::class),
-            'career_objective_job_title' => fn ($u) => $u->employeeProfile?->career_objective_job_title ?? '',
+            'career_objective_job_title' => fn ($u) => $u->employeeProfile->career_objective_job_title ?? '',
             'career_objective_functional_community' => fn ($u) => $u->employeeProfile?->careerObjectiveCommunity?->name[$this->lang] ?? '',
             'career_objective_work_streams' => fn ($u) => $u->employeeProfile?->careerObjectiveWorkStreams->map(fn ($ws) => $ws->name[$this->lang] ?? '')->join(', '),
             'career_objective_departments' => fn ($u) => $u->employeeProfile?->careerObjectiveDepartments->map(fn ($d) => $d->name[$this->lang] ?? '')->join(', '),
-            'career_objective_additional_information' => fn ($u) => $u->employeeProfile?->career_objective_additional_information ?? '',
+            'career_objective_additional_information' => fn ($u) => $u->employeeProfile->career_objective_additional_information ?? '',
 
-            'career_planning_about_you' => fn ($u) => $u->employeeProfile?->career_planning_about_you ?? '',
-            'career_planning_learning_goals' => fn ($u) => $u->employeeProfile?->career_planning_learning_goals ?? '',
-            'career_planning_work_style' => fn ($u) => $u->employeeProfile?->career_planning_work_style ?? '',
+            'career_planning_about_you' => fn ($u) => $u->employeeProfile->career_planning_about_you ?? '',
+            'career_planning_learning_goals' => fn ($u) => $u->employeeProfile->career_planning_learning_goals ?? '',
+            'career_planning_work_style' => fn ($u) => $u->employeeProfile->career_planning_work_style ?? '',
 
             'digital_talent_processes' => fn ($u) => $u->poolCandidates->map(fn ($candidate) => sprintf(
                 '%s - %s - %s - %s',
@@ -745,8 +745,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
     private function getDevelopmentProgramInterest(string $programId, CommunityInterest $communityInterest)
     {
-        $programInterest = $communityInterest->user->developmentProgramUserRecords->first(
-            fn ($record) => $record->development_program_id === $programId
+        /** @var \Illuminate\Support\Collection<int, DevelopmentProgramUser> $devProgramRecords */
+        $devProgramRecords = $communityInterest->user->developmentProgramUserRecords;
+        $programInterest = $devProgramRecords->first(
+            fn (DevelopmentProgramUser $record) => $record->development_program_id === $programId
         );
 
         if (is_null($programInterest) || empty($programInterest)) {
@@ -770,8 +772,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
     private function getDevelopmentProgramLinkedExperience(string $programId, CommunityInterest $communityInterest): ?string
     {
-        $programInterest = $communityInterest->user->developmentProgramUserRecords->first(
-            fn ($record) => $record->development_program_id === $programId
+        /** @var \Illuminate\Support\Collection<int, DevelopmentProgramUser> $devProgramRecords */
+        $devProgramRecords = $communityInterest->user->developmentProgramUserRecords;
+        $programInterest = $devProgramRecords->first(
+            fn (DevelopmentProgramUser $record) => $record->development_program_id === $programId
         );
 
         if (is_null($programInterest)) {

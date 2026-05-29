@@ -232,26 +232,26 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             'next_role_target_role' => fn ($group) => $this->canShare($group->consentToShareProfile, $this->localizeEnum($group->nominee->employeeProfile?->next_role_target_role, TargetRole::class)),
             'next_role_is_c_suite_role' => fn ($group) => $this->canShare($group->consentToShareProfile, $this->yesOrNo($group->nominee->employeeProfile?->next_role_is_c_suite_role)),
             'next_role_c_suite_role_title' => fn ($group) => $this->canShare($group->consentToShareProfile, $this->localizeEnum($group->nominee->employeeProfile?->next_role_c_suite_role_title, CSuiteRoleTitle::class)),
-            'next_role_job_title' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->next_role_job_title ?? ''),
+            'next_role_job_title' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile->next_role_job_title ?? ''),
             'next_role_functional_community' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->nextRoleCommunity?->name[$this->lang] ?? ''),
             'next_role_work_streams' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->nextRoleWorkStreams->map(fn ($ws) => $ws->name[$this->lang] ?? '')->join(', ')),
             'next_role_departments' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->nextRoleDepartments->map(fn ($d) => $d->name[$this->lang] ?? '')->join(', ')),
-            'next_role_additional_information' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->next_role_additional_information ?? ''),
+            'next_role_additional_information' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile->next_role_additional_information ?? ''),
 
             'career_objective_target_classification_group' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->careerObjectiveClassification->group ?? ''),
             'career_objective_target_classification_level' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->careerObjectiveClassification->level ?? ''),
             'career_objective_target_role' => fn ($group) => $this->canShare($group->consentToShareProfile, $this->localizeEnum($group->nominee->employeeProfile?->career_objective_target_role, TargetRole::class)),
             'career_objective_is_c_suite_role' => fn ($group) => $this->canShare($group->consentToShareProfile, $this->yesOrNo($group->nominee->employeeProfile?->career_objective_is_c_suite_role)),
             'career_objective_c_suite_role_title' => fn ($group) => $this->canShare($group->consentToShareProfile, $this->localizeEnum($group->nominee->employeeProfile?->career_objective_c_suite_role_title, CSuiteRoleTitle::class)),
-            'career_objective_job_title' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->career_objective_job_title ?? ''),
+            'career_objective_job_title' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile->career_objective_job_title ?? ''),
             'career_objective_functional_community' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->careerObjectiveCommunity?->name[$this->lang] ?? ''),
             'career_objective_work_streams' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->careerObjectiveWorkStreams->map(fn ($ws) => $ws->name[$this->lang] ?? '')->join(', ')),
             'career_objective_departments' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->careerObjectiveDepartments->map(fn ($d) => $d->name[$this->lang] ?? '')->join(', ')),
-            'career_objective_additional_information' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->career_objective_additional_information ?? ''),
+            'career_objective_additional_information' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile->career_objective_additional_information ?? ''),
 
-            'career_planning_about_you' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->career_planning_about_you ?? ''),
-            'career_planning_learning_goals' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->career_planning_learning_goals ?? ''),
-            'career_planning_work_style' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile?->career_planning_work_style ?? ''),
+            'career_planning_about_you' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile->career_planning_about_you ?? ''),
+            'career_planning_learning_goals' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile->career_planning_learning_goals ?? ''),
+            'career_planning_work_style' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->employeeProfile->career_planning_work_style ?? ''),
 
             'digital_talent_processes' => fn ($group) => $this->canShare($group->consentToShareProfile, $group->nominee->poolCandidates->map(function ($candidate) {
                 return sprintf(

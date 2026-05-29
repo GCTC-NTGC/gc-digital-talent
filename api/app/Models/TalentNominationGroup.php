@@ -37,6 +37,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property string $development_programs_notes
  * @property string $computed_status
  * @property string $comments
+ * @property bool $consentToShareProfile
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
