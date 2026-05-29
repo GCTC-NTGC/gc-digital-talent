@@ -42,14 +42,14 @@ class TalentRequestBuilder extends Builder
 
     public function whereGeneralSearch(?string $search): self
     {
-        return $this->when($search, fn ($q) => $q->where(fn (Builder $q) => $q
-            ->where('full_name', 'ilike', "%{$search}%")
-            ->orWhereRaw('id::text ILIKE ?', ["%{$search}%"])
-            ->orWhere('email', 'ilike', "%{$search}%")
-            ->orWhere('job_title', 'ilike', "%{$search}%")
-            ->orWhere('additional_comments', 'ilike', "%{$search}%")
-            ->orWhere('admin_notes', 'ilike', "%{$search}%")
-        ));
+        return $this->when($search, fn ($q) => $q->where(function ($q) use ($search): void {
+            $q->where('full_name', 'ilike', "%{$search}%")
+                ->orWhereRaw('id::text ILIKE ?', ["%{$search}%"])
+                ->orWhere('email', 'ilike', "%{$search}%")
+                ->orWhere('job_title', 'ilike', "%{$search}%")
+                ->orWhere('additional_comments', 'ilike', "%{$search}%")
+                ->orWhere('admin_notes', 'ilike', "%{$search}%");
+        }));
     }
 
     public function whereTalentRequestStatus(?array $statuses): self
