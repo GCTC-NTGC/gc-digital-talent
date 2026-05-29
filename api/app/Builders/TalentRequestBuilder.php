@@ -68,8 +68,7 @@ class TalentRequestBuilder extends Builder
 
     public function whereDepartments(?array $departmentIds): self
     {
-        return $this->when(! empty($departmentIds), fn ($q) => $q->whereHas('department', fn (Builder $q) =>
-            Department::scopeDepartmentsByIds($q, $departmentIds)
+        return $this->when(! empty($departmentIds), fn ($q) => $q->whereHas('department', fn (Builder $q) => Department::scopeDepartmentsByIds($q, $departmentIds)
         ));
     }
 

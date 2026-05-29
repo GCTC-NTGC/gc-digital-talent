@@ -28,7 +28,7 @@ class TalentRequestFactory extends BaseFactory
             'job_title' => $this->faker->jobTitle(),
             'additional_comments' => $this->faker->text(),
             'hr_advisor_email' => $this->faker->unique()->safeEmail,
-'applicant_filter_id' => ApplicantFilter::factory()->create(['community_id' => $community->id])->id,
+            'applicant_filter_id' => ApplicantFilter::factory()->create(['community_id' => $community->id])->id,
             'manager_job_title' => $this->faker->jobTitle(),
             'position_type' => $this->randomEnum(TalentRequestPositionType::class),
             'reason' => $this->randomEnum(TalentRequestReason::class),
@@ -53,7 +53,7 @@ class TalentRequestFactory extends BaseFactory
     {
         return $this->state(fn () => [
             'status' => TalentRequestStatus::COMPLETED->name,
-            'completion_details' => $this->randomEnum(\App\Enums\TalentRequestCompletionDetail::class),
+            'completion_details' => $this->randomEnum(TalentRequestCompletionDetail::class),
             'in_progress_details' => null,
             'follow_up_date' => null,
         ]);

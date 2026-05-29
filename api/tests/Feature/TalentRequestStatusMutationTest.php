@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Enums\TalentRequestCompleteDetail;
+use App\Enums\TalentRequestCompletionDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestStatus;
 use App\Models\Community;
@@ -76,7 +76,7 @@ class TalentRequestStatusMutationTest extends TestCase
         $request = TalentRequest::factory()->create([
             'community_id' => $this->community->id,
             'status' => $fromStatus,
-            'completion_details' => TalentRequestCompleteDetail::HIRE_MADE->name,
+            'completion_details' => TalentRequestCompletionDetail::HIRE_MADE->name,
         ]);
 
         $this->actingAs($this->recruiter, 'api')
@@ -112,12 +112,12 @@ class TalentRequestStatusMutationTest extends TestCase
                 'id' => $request->id,
                 'talentRequest' => [
                     'status' => TalentRequestStatus::COMPLETED->name,
-                    'completionDetails' => TalentRequestCompleteDetail::NO_LONGER_REQUIRED->name,
+                    'completionDetails' => TalentRequestCompletionDetail::NO_LONGER_REQUIRED->name,
                 ],
             ])
             ->assertJsonFragment([
                 'talentRequestStatus' => ['value' => TalentRequestStatus::COMPLETED->name],
-                'completionDetails' => ['value' => TalentRequestCompleteDetail::NO_LONGER_REQUIRED->name],
+                'completionDetails' => ['value' => TalentRequestCompletionDetail::NO_LONGER_REQUIRED->name],
                 'inProgressDetails' => null,
                 'followUpDate' => null,
             ]);
