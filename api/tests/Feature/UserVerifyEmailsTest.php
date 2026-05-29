@@ -387,4 +387,79 @@ class UserVerifyEmailsTest extends TestCase
             ]
         )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
     }
+
+    public function testCannotVerifyWithDuplicateContactEmail()
+    {
+        // Create another user with a contact email
+        User::factory()->create([
+            'email' => 'contact.duplicate@example.org',
+        ]);
+
+        Cache::put(
+            'email-verification-00000000-0000-0000-0000-000000000001',
+            [
+                'code' => '5678',
+                'emailTypes' => [EmailType::CONTACT->name],
+                'emailAddress' => 'contact.duplicate@example.org',
+            ],
+            now()->addHours(2)
+        );
+
+        $this->actingAs($this->regularUser, 'api')->graphQL(
+            $this->verifyEmailsMutation,
+            [
+                'code' => '5678',
+            ]
+        )->assertGraphQLValidationError('emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+    }
+
+    public function testCannotVerifyWithDuplicateWorkEmail()
+    {
+        // Create another user with a work email
+        User::factory()->create([
+            'work_email' => 'work.duplicate@example.org',
+        ]);
+
+        Cache::put(
+            'email-verification-00000000-0000-0000-0000-000000000001',
+            [
+                'code' => '5679',
+                'emailTypes' => [EmailType::WORK->name],
+                'emailAddress' => 'work.duplicate@example.org',
+            ],
+            now()->addHours(2)
+        );
+
+        $this->actingAs($this->regularUser, 'api')->graphQL(
+            $this->verifyEmailsMutation,
+            [
+                'code' => '5679',
+            ]
+        )->assertGraphQLValidationError('emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+    }
+
+    public function testCannotVerifyWithDuplicateWorkEmailCaseInsensitive()
+    {
+        // Create another user with a work email
+        User::factory()->create([
+            'work_email' => 'work.duplicate@example.org',
+        ]);
+
+        Cache::put(
+            'email-verification-00000000-0000-0000-0000-000000000001',
+            [
+                'code' => '5680',
+                'emailTypes' => [EmailType::CONTACT->name],
+                'emailAddress' => 'WORK.DUPLICATE@EXAMPLE.ORG',
+            ],
+            now()->addHours(2)
+        );
+
+        $this->actingAs($this->regularUser, 'api')->graphQL(
+            $this->verifyEmailsMutation,
+            [
+                'code' => '5680',
+            ]
+        )->assertGraphQLValidationError('emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+    }
 }
