@@ -249,7 +249,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'next_role_c_suite_role_title' => fn ($u) => $this->localizeEnum($u->employeeProfile?->next_role_c_suite_role_title, CSuiteRoleTitle::class),
             'next_role_job_title' => fn ($u) => $u->employeeProfile?->next_role_job_title ?? '',
             'next_role_functional_community' => fn ($u) => $u->employeeProfile?->nextRoleCommunity?->name[$this->lang] ?? '',
-            'next_role_work_streams' => fn ($u) => $u->employeeProfile?->nextRoleWorkStreams->map(fn ($ws) => $ws->name[$this->lang] ?? '')->join(', '),
+            'next_role_work_streams' => fn ($u) => $u->employeeProfile?->nextRoleWorkStreams->map(fn ($ws) => $ws->name[$this->lang] ?? '')->join(','),
             'next_role_departments' => fn ($u) => $u->employeeProfile?->nextRoleDepartments->map(fn ($d) => $d->name[$this->lang] ?? '')->join(', '),
             'next_role_additional_information' => fn ($u) => $u->employeeProfile?->next_role_additional_information ?? '',
 
@@ -453,6 +453,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'first_name' => $exp->user->first_name,
             'last_name' => $exp->user->last_name,
             'experience_type' => $this->getExperienceType($exp),
+            'is_current' => $this->yesOrNo(false),
             'role_or_title' => $exp->title ?? '',
             'organization_department' => $exp->issued_by ?? '',
             'award_recipient' => $this->localizeEnum($exp->awarded_to, AwardedTo::class),

@@ -272,20 +272,42 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         ];
     }
 
+    protected array $nominationDetailsHeaderKeys = [
+        'nominee_user_id',
+        'nominee_first_name',
+        'nominee_last_name',
+        'nomination_date',
+        'nomination_options',
+        'nominator',
+        'relationship_to_nominee',
+        'nominator_email',
+        'nominator_classification',
+        'nominator_department',
+        'submitters_name',
+        'submitters_email',
+        'submitters_relationship_to_nominator',
+        'reference_name',
+        'reference_email',
+        'reference_classification',
+        'reference_department',
+        'lateral_experience_recommendations',
+        'other_lateral_experience',
+        'development_program_recommendations',
+        'other_development_program_experience',
+        'rationale',
+        'leadership_competencies',
+        'additional_comments',
+    ];
+
     private function generateNominationDetailsTab(): void
     {
-        $headerWritten = false;
+        $this->writer->addRow(Row::fromValues(
+            array_map(fn ($key) => $this->localizeHeading($key), $this->nominationDetailsHeaderKeys)
+        ));
 
-        $this->buildQuery()->chunk(200, function ($groups) use (&$headerWritten) {
+        $this->buildQuery()->chunk(200, function ($groups) {
             foreach ($groups as $group) {
                 $columns = $this->nominationDetailsColumns($group);
-
-                if (! $headerWritten) {
-                    $this->writer->addRow(Row::fromValues(
-                        array_map(fn ($key) => $this->localizeHeading($key), array_keys($columns))
-                    ));
-                    $headerWritten = true;
-                }
 
                 foreach ($group->nominations as $nomination) {
                     $this->writer->addRow(Row::fromValues(
