@@ -14,6 +14,7 @@ import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { useHasPermissions } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
@@ -54,6 +55,8 @@ const ApplicationPlacementDialog_Fragment = graphql(/** GraphQL */ `
         localized
       }
     }
+    placedStartDate
+    placedEndDate
   }
 `);
 
@@ -66,6 +69,8 @@ const ApplicationPlacementOptions_Query = graphql(/** GraphQL */ `
 interface FormValues {
   placementType: PlacementType;
   department?: Scalars["UUID"]["input"];
+  placedStartDate?: Scalars["Date"]["input"];
+  placedEndDate?: Scalars["Date"]["input"];
 }
 
 interface ApplicationPlacementDialogProps {
@@ -82,6 +87,12 @@ const ApplicationPlacementDialog = ({
     defaultValues: {
       placementType: application.placementType?.value,
       department: application.placedDepartment?.id,
+      placedStartDate: application.placedStartDate
+        ? strToFormDate(application.placedStartDate)
+        : undefined,
+      placedEndDate: application.placedEndDate
+        ? strToFormDate(application.placedEndDate)
+        : undefined,
     },
   });
 
@@ -124,11 +135,22 @@ const ApplicationPlacementDialog = ({
   };
 
   const placeCandidate = async (formValues: FormValues) => {
+    const hasPlacedStartDate =
+      formValues.placementType &&
+      formValues.placementType !== PlacementType.NotPlaced &&
+      formValues.placementType !== PlacementType.UnderConsideration &&
+      formValues.placementType !== PlacementType.PlacedTentative;
+
     return executePlaceCandidate({
       id: application.id,
       poolCandidate: {
         placementType: formValues.placementType,
         department: { connect: formValues.department ?? "" },
+        placedStartDate: hasPlacedStartDate ? formValues.placedStartDate : null,
+        placedEndDate:
+          formValues.placementType === PlacementType.PlacedIndeterminate
+            ? formValues.placedEndDate
+            : null,
       },
     });
   };

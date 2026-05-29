@@ -15,7 +15,7 @@ import {
   sortLocalizedEnumOptions,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Select } from "@gc-digital-talent/forms";
+import { DateInput, Select } from "@gc-digital-talent/forms";
 
 import type { FormValues } from "../types";
 
@@ -54,6 +54,13 @@ const JobPlacementFormFields = ({
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   const isPlaced = selectedType && selectedType !== PlacementType.NotPlaced;
+  const isPlacedIndeterminate =
+    selectedType && selectedType === PlacementType.PlacedIndeterminate;
+  const hasPlacedStartDate =
+    selectedType &&
+    selectedType !== PlacementType.NotPlaced &&
+    selectedType !== PlacementType.UnderConsideration &&
+    selectedType !== PlacementType.PlacedTentative;
 
   const placementTypeOptions = sortLocalizedEnumOptions(
     ENUM_SORT_ORDER.PLACEMENT_TYPE,
@@ -107,6 +114,30 @@ const JobPlacementFormFields = ({
             required: intl.formatMessage(errorMessages.required),
           }}
         />
+      )}
+      {hasPlacedStartDate && (
+        <>
+          <DateInput
+            id="placedStartDate"
+            name="placedStartDate"
+            legend={intl.formatMessage({
+              defaultMessage: "Placed position start date",
+              id: "ob2lBu",
+              description: "Label for placed start date input",
+            })}
+          />
+          {!isPlacedIndeterminate && (
+            <DateInput
+              id="placedEndDate"
+              name="placedEndDate"
+              legend={intl.formatMessage({
+                defaultMessage: "Placed position end date",
+                id: "xMeWyN",
+                description: "Label for placed end date input",
+              })}
+            />
+          )}
+        </>
       )}
     </>
   );

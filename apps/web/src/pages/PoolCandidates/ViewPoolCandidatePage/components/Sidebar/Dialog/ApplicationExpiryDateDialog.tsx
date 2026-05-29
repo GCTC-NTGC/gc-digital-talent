@@ -8,7 +8,6 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import {
-  DATE_FORMAT_STRING,
   formatDate,
   parseDateTimeUtc,
   strToFormDate,
@@ -101,7 +100,7 @@ const ApplicationExpiryDateDialog = ({
   const formattedDate = application.expiryDate
     ? formatDate({
         date: parseDateTimeUtc(application.expiryDate),
-        formatString: DATE_FORMAT_STRING,
+        formatString: "PPP",
         intl,
       })
     : title;
