@@ -70,6 +70,9 @@ class TalentRequestStatusMutationTest extends TestCase
     #[DataProvider('allStatusesProvider')]
     public function testTransitionToInProgressClearsCompleteDetails(string $fromStatus): void
     {
+        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
+        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
+
         $request = TalentRequest::factory()->create([
             'community_id' => $this->community->id,
             'status' => $fromStatus,
@@ -94,6 +97,9 @@ class TalentRequestStatusMutationTest extends TestCase
     #[DataProvider('allStatusesProvider')]
     public function testTransitionToClosedClearsInProgressDetailsAndFollowUpDate(string $fromStatus): void
     {
+        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
+        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
+
         $request = TalentRequest::factory()->create([
             'community_id' => $this->community->id,
             'status' => $fromStatus,
@@ -119,6 +125,9 @@ class TalentRequestStatusMutationTest extends TestCase
 
     public function testFollowUpDatePersistedWhenSettingInProgress(): void
     {
+        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
+        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
+
         $request = TalentRequest::factory()->create([
             'community_id' => $this->community->id,
             'status' => TalentRequestStatus::NEW->name,
@@ -138,6 +147,9 @@ class TalentRequestStatusMutationTest extends TestCase
 
     public function testFollowUpDateClearedWhenOmitted(): void
     {
+        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
+        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
+
         $request = TalentRequest::factory()->create([
             'community_id' => $this->community->id,
             'status' => TalentRequestStatus::IN_PROGRESS->name,
@@ -158,6 +170,9 @@ class TalentRequestStatusMutationTest extends TestCase
 
     public function testInProgressDetailsRequiredWhenSettingInProgress(): void
     {
+        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
+        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
+
         $request = TalentRequest::factory()->create([
             'community_id' => $this->community->id,
             'status' => TalentRequestStatus::NEW->name,
@@ -176,6 +191,9 @@ class TalentRequestStatusMutationTest extends TestCase
 
     public function testCompleteDetailsRequiredWhenSettingClosed(): void
     {
+        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
+        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
+
         $request = TalentRequest::factory()->create([
             'community_id' => $this->community->id,
             'status' => TalentRequestStatus::IN_PROGRESS->name,
@@ -196,6 +214,9 @@ class TalentRequestStatusMutationTest extends TestCase
     #[DataProvider('allStatusesProvider')]
     public function testNewIsRejectedAsTargetStatus(string $fromStatus): void
     {
+        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
+        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
+
         $request = TalentRequest::factory()->create([
             'community_id' => $this->community->id,
             'status' => $fromStatus,
@@ -213,6 +234,9 @@ class TalentRequestStatusMutationTest extends TestCase
 
     public function testStatusChangedAtUpdatesOnStatusChange(): void
     {
+        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
+        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
+
         $past = CarbonImmutable::now()->subHour();
 
         $request = TalentRequest::factory()->create([
@@ -235,6 +259,9 @@ class TalentRequestStatusMutationTest extends TestCase
 
     public function testStatusChangedAtUpdatesOnDetailsChange(): void
     {
+        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
+        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
+
         $past = CarbonImmutable::now()->subHour();
 
         $request = TalentRequest::factory()->create([
@@ -258,6 +285,9 @@ class TalentRequestStatusMutationTest extends TestCase
 
     public function testStatusChangedAtNotUpdatedWhenOnlyFollowUpDateChanges(): void
     {
+        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
+        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
+
         $request = TalentRequest::factory()->create([
             'community_id' => $this->community->id,
             'status' => TalentRequestStatus::IN_PROGRESS->name,
