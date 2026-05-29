@@ -39,7 +39,7 @@ final class UpdatePoolCandidateSearchRequestStatusValidator extends Validator
         return [
             'poolCandidateSearchRequest.status.in' => 'The selected status is invalid.',
             'poolCandidateSearchRequest.inProgressDetails.required_if' => 'The inProgressDetails field is required when status is IN_PROGRESS.',
-            'poolCandidateSearchRequest.completionDetails.required_if' => 'The completionDetails field is required when status is COMPLETED.',
+            'poolCandidateSearchRequest.completionDetails.required_if' => 'The completionDetails field is required when status is COMPLETE.',
         ];
     }
 }

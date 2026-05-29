@@ -80,6 +80,9 @@ class TalentRequestTest extends TestCase
 
     public function testCreateRequiresApplicantFilter(): void
     {
+        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
+        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
+
         $this->graphQL($this->createMutation, [
             'talentRequest' => $this->buildCreateInput(['applicantFilter' => null]),
         ])->assertGraphQLValidationKeys(['talentRequest.applicantFilter']);
@@ -87,6 +90,9 @@ class TalentRequestTest extends TestCase
 
     public function testCreateSucceedsWithAllRequiredFields(): void
     {
+        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
+        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
+
         $this->graphQL($this->createMutation, [
             'talentRequest' => $this->buildCreateInput(),
         ])
