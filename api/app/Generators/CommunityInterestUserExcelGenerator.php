@@ -34,7 +34,6 @@ class CommunityInterestUserExcelGenerator extends ExcelGenerator implements File
     {
         $this->writer = new Writer();
         $this->writer->openToFile($this->getPath());
-        $this->writer->getCurrentSheet()->setName($this->localizeHeading('community_interest_user'));
 
         $columns = $this->columns();
 
