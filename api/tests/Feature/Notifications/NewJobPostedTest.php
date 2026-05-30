@@ -34,6 +34,8 @@ class NewJobPostedTest extends TestCase
             'poolNameEn',
             'poolNameFr',
             '1',
+            'displayNameEn',
+            'displayNameFr',
         );
     }
 
@@ -159,6 +161,10 @@ class NewJobPostedTest extends TestCase
         $notification = Notification::all()->sole();
         assertEquals([
             'poolId' => '1',
+            'displayName' => [
+                'en' => 'displayNameEn',
+                'fr' => 'displayNameFr',
+            ],
         ], $notification->data
         );
     }

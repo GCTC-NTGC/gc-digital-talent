@@ -69,6 +69,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?Community $community
  * @property ?string $contact_email
  * @property ?AssessmentStep $screening_step
+ * @property array $display_name
  */
 class Pool extends Model
 {
