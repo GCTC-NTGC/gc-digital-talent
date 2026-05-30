@@ -14,7 +14,7 @@ import { getFullNameLabel } from "./nameUtils";
 
 interface NominationsWithNominatorName {
   id: Scalars["UUID"]["output"];
-  nominatorFallbackName?: Maybe<string>;
+  nominatorFallbackName?: string | null | undefined;
   nominator?: Maybe<Pick<BasicGovEmployeeProfile, "firstName" | "lastName">>;
 }
 

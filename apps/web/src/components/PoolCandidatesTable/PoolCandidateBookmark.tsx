@@ -20,8 +20,8 @@ export const PoolCandidateBookmark_Fragment = graphql(/* GraphQL */ `
 interface PoolCandidateBookmarkProps {
   poolCandidateId: string;
   userQuery?: Maybe<FragmentType<typeof PoolCandidateBookmark_Fragment>>;
-  firstName?: Maybe<string>;
-  lastName?: Maybe<string>;
+  firstName?: string | null | undefined;
+  lastName?: string | null | undefined;
   size?: "sm" | "md" | "lg";
 }
 

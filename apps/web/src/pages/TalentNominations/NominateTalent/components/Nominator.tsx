@@ -412,7 +412,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
   const submitterIsNominator =
     talentNomination.submitter?.id === talentNomination.nominator?.id;
   let defaultRole: SubmitterRole | undefined;
-  let defaultNominator: Maybe<string> | undefined;
+  let defaultNominator: string | null | undefined;
   if (talentNomination.submitter?.id && nominatorSet) {
     defaultRole = submitterIsNominator ? "nominator" : "on-behalf";
   }

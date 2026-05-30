@@ -873,12 +873,12 @@ export const queryResultToDefaultValues = (
 };
 
 export interface ExperienceName extends SimpleAnyExperience {
-  title?: Maybe<string>;
-  organization?: Maybe<string>;
+  title?: string | null | undefined;
+  organization?: string | null | undefined;
   type?: Maybe<Partial<LocalizedEducationType>> | string;
-  areaOfStudy?: Maybe<string>;
-  institution?: Maybe<string>;
-  role?: Maybe<string>;
+  areaOfStudy?: string | null | undefined;
+  institution?: string | null | undefined;
+  role?: string | null | undefined;
   employmentCategory?: Maybe<Partial<LocalizedEmploymentCategory>>;
   department?: Maybe<{
     name?: Maybe<Partial<LocalizedString>>;

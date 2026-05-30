@@ -1,7 +1,7 @@
 import ChatBubbleBottomCenterTextIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterTextIcon";
 import { defineMessage, useIntl } from "react-intl";
 
-import type { FragmentType, Maybe, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -26,9 +26,9 @@ import messages from "../messages";
 import labels from "../labels";
 
 interface FormValues extends BaseFormValues {
-  nominationRationale?: Maybe<string>;
+  nominationRationale?: string | null | undefined;
   skills?: Scalars["UUID"]["input"][];
-  additionalComments?: Maybe<string>;
+  additionalComments?: string | null | undefined;
 }
 
 const NominateTalentSkills_Fragment = graphql(/* GraphQL */ `

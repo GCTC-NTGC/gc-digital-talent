@@ -53,7 +53,7 @@ import { checkRole } from "./teamUtils";
  * @returns boolean
  */
 export const isAdvertisementVisible = (
-  roleAssignments: Maybe<RoleAssignment>[],
+  roleAssignments: (RoleAssignment | null | undefined)[],
   status?: Maybe<PoolStatus>,
 ) => {
   if (status !== PoolStatus.Draft) {
@@ -105,7 +105,7 @@ export const formatClassificationAriaString = ({
   return tokens.join(" ");
 };
 interface formattedPoolPosterTitleProps {
-  title: Maybe<string> | undefined;
+  title: string | null | undefined;
   classification: Maybe<Pick<Classification, "group" | "level">> | undefined;
   workStream?: Maybe<WorkStream>;
   short?: boolean;
@@ -489,7 +489,7 @@ export function getClassificationName(
   return `${groupLevelStr} (${nameStr})`;
 }
 
-export const contactEmailTag = (email?: Maybe<string>) => {
+export const contactEmailTag = (email?: string | null) => {
   return email ? (
     <Link external href={`mailto:${email}`}>
       {email}

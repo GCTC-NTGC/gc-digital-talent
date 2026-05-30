@@ -47,19 +47,22 @@ const getBilingualEvaluation = (
   );
 
 export interface LanguageProfileSnapshotV1 {
-  lookingForEnglish?: Maybe<boolean>;
-  lookingForFrench?: Maybe<boolean>;
-  lookingForBilingual?: Maybe<boolean>;
-  firstOfficialLanguage?: Maybe<LocalizedLanguage>;
-  secondLanguageExamCompleted?: Maybe<boolean>;
-  secondLanguageExamValidity?: Maybe<boolean>;
-  estimatedLanguageAbility?: Maybe<LocalizedEstimatedLanguageAbility>;
-  writtenLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
-  comprehensionLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
-  verbalLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
+  lookingForEnglish?: boolean | null | undefined;
+  lookingForFrench?: boolean | null | undefined;
+  lookingForBilingual?: boolean | null | undefined;
+  firstOfficialLanguage?: LocalizedLanguage | null | undefined;
+  secondLanguageExamCompleted?: boolean | null | undefined;
+  secondLanguageExamValidity?: boolean | null | undefined;
+  estimatedLanguageAbility?:
+    | LocalizedEstimatedLanguageAbility
+    | null
+    | undefined;
+  writtenLevel?: LocalizedEvaluatedLanguageAbility | null | undefined;
+  comprehensionLevel?: LocalizedEvaluatedLanguageAbility | null | undefined;
+  verbalLevel?: LocalizedEvaluatedLanguageAbility | null | undefined;
   bilingualEvaluation?: Maybe<BilingualEvaluation>;
-  preferredLanguageForInterview?: Maybe<LocalizedLanguage>;
-  preferredLanguageForExam: Maybe<LocalizedLanguage>;
+  preferredLanguageForInterview?: LocalizedLanguage | null | undefined;
+  preferredLanguageForExam: LocalizedLanguage | null | undefined;
 }
 
 type LanguageProfileV1Props = SnapshotProps<LanguageProfileSnapshotV1>;

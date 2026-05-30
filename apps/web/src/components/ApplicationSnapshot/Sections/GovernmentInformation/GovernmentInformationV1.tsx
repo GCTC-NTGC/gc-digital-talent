@@ -18,16 +18,16 @@ import { formattedDate } from "~/utils/dateUtils";
 import type { RelatedSnapshotModel, SnapshotProps } from "../types";
 
 export interface GovernmentInformationSnapshotV1 {
-  isGovEmployee?: Maybe<boolean>;
+  isGovEmployee?: boolean | null | undefined;
   department?: Maybe<RelatedSnapshotModel<"name">>;
-  govEmployeeType?: Maybe<LocalizedGovEmployeeType>;
-  govPositionType?: Maybe<LocalizedGovPositionType>;
-  govEndDate?: Maybe<string>;
+  govEmployeeType?: LocalizedGovEmployeeType | null | undefined;
+  govPositionType?: LocalizedGovPositionType | null | undefined;
+  govEndDate?: string | null | undefined;
   currentClassification?: Maybe<{ group: string; level: number }>;
-  hasPriorityEntitlement?: Maybe<boolean>;
-  priorityNumber?: Maybe<string>;
-  workEmail?: Maybe<string>;
-  isWorkEmailVerified?: Maybe<boolean>;
+  hasPriorityEntitlement?: boolean | null | undefined;
+  priorityNumber?: string | null | undefined;
+  workEmail?: string | null | undefined;
+  isWorkEmailVerified?: boolean | null | undefined;
 }
 
 type GovernmentInformationV1Props =

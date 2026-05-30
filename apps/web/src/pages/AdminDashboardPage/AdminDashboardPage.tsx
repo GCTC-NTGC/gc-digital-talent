@@ -59,7 +59,7 @@ interface RoleChipsProps {
 // short-circuit hasRole if no roles were required so an empty array
 const hasRolesHandleNoRolesRequired = (
   checkRole: RoleName | RoleName[],
-  userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
+  userRoles: Maybe<(RoleAssignment | null | undefined)[]> | undefined,
 ): boolean => {
   if (Array.isArray(checkRole) && checkRole.length === 0) {
     return true;

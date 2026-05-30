@@ -12,5 +12,5 @@ export interface FormValues {
     | Maybe<Maybe<AssessmentResultJustification>[]>
     | Maybe<AssessmentResultJustification>;
   assessmentDecisionLevel?: Maybe<AssessmentDecisionLevel>;
-  skillDecisionNotes?: Maybe<string>;
+  skillDecisionNotes?: string | null | undefined;
 }

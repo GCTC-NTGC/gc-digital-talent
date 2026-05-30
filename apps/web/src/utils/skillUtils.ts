@@ -111,7 +111,7 @@ export function categorizeSkill(
 export interface AddedSkill {
   id: string;
   experienceSkillRecord?: Maybe<{
-    details?: Maybe<string>;
+    details?: string | null | undefined;
   }>;
 }
 

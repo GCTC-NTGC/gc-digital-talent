@@ -21,7 +21,6 @@ import type {
   CreatePoolInput,
   CreatePoolMutation,
   FragmentType,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import type { RoleName } from "@gc-digital-talent/auth";
@@ -85,7 +84,7 @@ export const CreatePoolCommunity_Fragment = graphql(/* GraphQL */ `
 export interface RoleObject {
   id: string;
   name: string;
-  displayName?: Maybe<string>;
+  displayName?: string | null | undefined;
 }
 
 interface FormValues {

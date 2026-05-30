@@ -23,7 +23,7 @@ interface StatusInfo {
 
 const useStatusInfo = (
   status?: Maybe<DevelopmentProgramParticipationStatus>,
-  completionDate?: Maybe<string>,
+  completionDate?: string | null,
 ): StatusInfo => {
   const intl = useIntl();
 

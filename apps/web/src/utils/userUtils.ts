@@ -29,9 +29,9 @@ export function durationToEnumPositionDuration(
 
 export const getEvaluatedLanguageLevels = (
   intl: IntlShape,
-  comprehensionLevel: Maybe<LocalizedEvaluatedLanguageAbility> | undefined,
-  writtenLevel: Maybe<LocalizedEvaluatedLanguageAbility> | undefined,
-  verbalLevel: Maybe<LocalizedEvaluatedLanguageAbility> | undefined,
+  comprehensionLevel: LocalizedEvaluatedLanguageAbility | null | undefined,
+  writtenLevel: LocalizedEvaluatedLanguageAbility | null | undefined,
+  verbalLevel: LocalizedEvaluatedLanguageAbility | null | undefined,
 ): ReactNode => {
   return [
     comprehensionLevel?.label
@@ -43,7 +43,7 @@ export const getEvaluatedLanguageLevels = (
 };
 
 interface FormatLocationArgs {
-  city?: Maybe<string>;
+  city?: string | null | undefined;
   region?: Maybe<Omit<LocalizedProvinceOrTerritory, "value">>;
   intl: IntlShape;
 }

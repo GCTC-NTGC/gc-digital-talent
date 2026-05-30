@@ -157,15 +157,15 @@ interface FormValues {
   id?: Maybe<Scalars["ID"]["output"]>;
   poolId?: Maybe<Scalars["ID"]["output"]>;
   typeOfAssessment?: Maybe<AssessmentStepType>;
-  assessmentTitleEn?: Maybe<string>;
-  assessmentTitleFr?: Maybe<string>;
+  assessmentTitleEn?: string | null | undefined;
+  assessmentTitleFr?: string | null | undefined;
   screeningQuestionFieldArray?: {
     id: string | null;
     screeningQuestion: {
       id?: Maybe<Scalars["ID"]["output"]>;
       sortOrder?: Maybe<number>;
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
+      en?: string | null | undefined;
+      fr?: string | null | undefined;
     };
   }[];
   assessedSkills?: Maybe<Scalars["ID"]["output"][]>;

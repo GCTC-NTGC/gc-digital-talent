@@ -126,7 +126,7 @@ const PostedOnDate = ({
   applicantsCount,
   className,
 }: {
-  publishedAt?: Maybe<string>;
+  publishedAt?: string | null | undefined;
   applicantsCount?: Maybe<number>;
   className?: string;
 }) => {

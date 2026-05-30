@@ -41,7 +41,7 @@ interface ClaimVerificationDialogProps {
   id: Scalars["UUID"]["output"];
   result?: Maybe<ClaimVerificationResult>;
   expiry?: Maybe<Scalars["DateTime"]["output"]>;
-  priorityNumber?: Maybe<string>;
+  priorityNumber?: string | null | undefined;
 }
 
 const ClaimVerificationDialog = ({

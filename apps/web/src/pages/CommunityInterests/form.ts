@@ -196,7 +196,7 @@ export function formValuesToApiUpdateInput(
 
 interface DevelopmentProgramSlice {
   id: string;
-  name?: Maybe<{ localized?: Maybe<string> }>;
+  name?: Maybe<{ localized?: string | null | undefined }>;
 }
 
 export function apiDataToFormValues(

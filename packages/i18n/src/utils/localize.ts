@@ -60,7 +60,7 @@ export function localeRedirect(locale: Locales) {
 }
 
 export const getLocalizedName = (
-  name: Maybe<LocalizedString> | undefined,
+  name: LocalizedString | null | undefined | undefined,
   intl: IntlShape,
   emptyNotFound = false,
 ): string => {

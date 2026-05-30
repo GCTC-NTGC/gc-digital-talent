@@ -85,8 +85,8 @@ export const candidateNameCell = (
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
   navigationState?: CandidateNavigationState,
-  candidateFirstName?: Maybe<string>,
-  candidateLastName?: Maybe<string>,
+  candidateFirstName?: string | null,
+  candidateLastName?: string | null,
 ) => {
   const candidateName = getFullNameLabel(
     candidateFirstName,
@@ -163,9 +163,9 @@ export const candidacyStatusAccessor = (
 
 export const notesCell = (
   intl: IntlShape,
-  candidateNotes?: Maybe<string>,
-  candidateFirstName?: Maybe<string>,
-  candidateLastName?: Maybe<string>,
+  candidateNotes?: string | null,
+  candidateFirstName?: string | null,
+  candidateLastName?: string | null,
 ) =>
   candidateNotes ? (
     <Spoiler
@@ -271,7 +271,7 @@ export const candidateStatusCell = (
 
 export const flagCell = (
   candidate: FragmentType<typeof PoolCandidate_FlagFragment>,
-  processTitle?: Maybe<string>,
+  processTitle?: string | null,
 ) => {
   return (
     <CandidateFlag
@@ -681,8 +681,8 @@ export const poolCandidateBookmarkHeader = (intl: IntlShape) => (
 export const poolCandidateBookmarkCell = (
   poolCandidateId: string,
   userQuery?: Maybe<FragmentType<typeof PoolCandidateBookmark_Fragment>>,
-  firstName?: Maybe<string>,
-  lastName?: Maybe<string>,
+  firstName?: string | null,
+  lastName?: string | null,
 ) => {
   return (
     <PoolCandidateBookmark

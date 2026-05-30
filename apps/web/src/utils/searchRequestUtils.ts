@@ -22,7 +22,7 @@ export const positionDurationToEmploymentDuration = (
 };
 
 export const hasDiplomaToEducationLevel = (
-  hasDiploma: Maybe<boolean> | undefined,
+  hasDiploma: boolean | null | undefined,
   intl: IntlShape,
 ): string =>
   hasDiploma

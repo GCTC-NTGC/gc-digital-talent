@@ -98,7 +98,7 @@ const candidateStatusDescMap = new Map<CandidateStatus, MessageDescriptor>([
   [CandidateStatus.Removed, applicationStatusDescriptions.REMOVED],
 ]);
 
-const contactEmailTag = (chunks: ReactNode, email?: Maybe<string>) => {
+const contactEmailTag = (chunks: ReactNode, email?: string | null) => {
   return email ? (
     <Link external href={`mailto:${email}`}>
       {email}
@@ -111,7 +111,7 @@ const contactEmailTag = (chunks: ReactNode, email?: Maybe<string>) => {
 interface CandidateStatusDescArgs {
   status?: Maybe<CandidateStatus>;
   employeesOnly?: boolean;
-  contactEmail?: Maybe<string>;
+  contactEmail?: string | null | undefined;
   intl: IntlShape;
 }
 

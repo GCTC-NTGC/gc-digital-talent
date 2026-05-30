@@ -119,7 +119,7 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
   }
 `);
 
-function assertIncludes(haystack: string[], needle?: Maybe<string>): boolean {
+function assertIncludes(haystack: string[], needle?: string | null): boolean {
   if (!haystack.length || (needle && haystack.includes(needle))) return true;
 
   return false;

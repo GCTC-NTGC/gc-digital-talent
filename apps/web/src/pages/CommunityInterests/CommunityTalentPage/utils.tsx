@@ -107,8 +107,8 @@ export const usernameCell = (
   userId: string,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
-  firstName?: Maybe<string>,
-  lastName?: Maybe<string>,
+  firstName?: string | null,
+  lastName?: string | null,
 ): JSX.Element => {
   const userName = getFullNameLabel(firstName, lastName, intl);
   return <Link href={paths.userEmployeeProfile(userId)}>{userName}</Link>;
@@ -125,7 +125,7 @@ export function classificationAccessor(
 
 export function interestAccessor(
   intl: IntlShape,
-  interest?: Maybe<boolean>,
+  interest?: boolean | null,
 ): string {
   if (interest) {
     return intl.formatMessage(commonMessages.interested);

@@ -47,7 +47,7 @@ export interface GenericLocalizedEnum<T> {
  * @returns The full localized enum found, or null
  */
 export function getLocalizedEnumByValue(
-  value: Maybe<string> | undefined,
+  value: string | null | undefined | undefined,
   localizedEnumArray: MaybeLocalizedEnums | undefined,
 ) {
   return localizedEnumArray?.find(
@@ -65,7 +65,7 @@ export function getLocalizedEnumByValue(
  * @returns string
  */
 export function getLocalizedEnumStringByValue(
-  value: Maybe<string> | undefined,
+  value: string | null | undefined | undefined,
   localizedEnumArray: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
   emptyNotFound = false,

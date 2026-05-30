@@ -33,8 +33,8 @@ const hiddenSteps = [
 ];
 
 function getStepLabel(
-  title?: Maybe<string>,
-  typeLocalized?: Maybe<string>,
+  title?: string | null,
+  typeLocalized?: string | null,
   order?: Maybe<number>,
 ): string | null {
   if (!title && !typeLocalized) {

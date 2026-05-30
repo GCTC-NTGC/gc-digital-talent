@@ -78,7 +78,7 @@ export const actionCell = (
 };
 
 export function emailLinkCell(
-  email: Maybe<string> | undefined,
+  email: string | null | undefined,
   intl: IntlShape,
 ) {
   if (email) {

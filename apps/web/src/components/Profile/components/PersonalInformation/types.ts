@@ -11,9 +11,9 @@ export interface FormValues {
   preferredLang?: Maybe<Language>;
   preferredLanguageForInterview?: Maybe<Language>;
   preferredLanguageForExam?: Maybe<Language>;
-  telephone?: Maybe<string>;
-  firstName?: Maybe<string>;
-  lastName?: Maybe<string>;
-  email?: Maybe<string>;
-  isEmailVerified?: Maybe<boolean>;
+  telephone?: string | null | undefined;
+  firstName?: string | null | undefined;
+  lastName?: string | null | undefined;
+  email?: string | null | undefined;
+  isEmailVerified?: boolean | null | undefined;
 }

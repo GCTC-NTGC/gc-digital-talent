@@ -43,13 +43,13 @@ const WorkPreferencesSnapshotOptions_Query = graphql(/** GraphQL */ `
 
 export interface WorkPreferencesSnapshotV1 {
   acceptedOperationalRequirements: Maybe<
-    Maybe<LocalizedOperationalRequirement>[]
+    (LocalizedOperationalRequirement | null | undefined)[]
   >;
   positionDuration: Maybe<Maybe<PositionDuration>[]>;
-  locationPreferences: Maybe<Maybe<LocalizedWorkRegion>[]>;
-  locationExemptions: Maybe<string>;
-  currentCity: Maybe<string>;
-  currentProvince: Maybe<LocalizedProvinceOrTerritory>;
+  locationPreferences: Maybe<(LocalizedWorkRegion | null | undefined)[]>;
+  locationExemptions: string | null | undefined;
+  currentCity: string | null | undefined;
+  currentProvince: LocalizedProvinceOrTerritory | null | undefined;
   flexibleWorkLocations: Maybe<Maybe<LocalizedFlexibleWorkLocation>[]>;
 }
 

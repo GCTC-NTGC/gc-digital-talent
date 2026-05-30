@@ -22,11 +22,13 @@ import type { EquityKeys, UserMutationPromise } from "./types";
 import IndigenousEquityOption from "./IndigenousEquityOption";
 
 interface EquityOptionsProps {
-  hasDisability?: Maybe<boolean>;
-  indigenousCommunities?: Maybe<Maybe<LocalizedIndigenousCommunity>[]>;
-  indigenousDeclarationSignature?: Maybe<string>;
-  isVisibleMinority?: Maybe<boolean>;
-  isWoman?: Maybe<boolean>;
+  hasDisability?: boolean | null | undefined;
+  indigenousCommunities?: Maybe<
+    (LocalizedIndigenousCommunity | null | undefined)[]
+  >;
+  indigenousDeclarationSignature?: string | null | undefined;
+  isVisibleMinority?: boolean | null | undefined;
+  isWoman?: boolean | null | undefined;
   isDisabled?: boolean;
   onAdd: (key: EquityKeys) => UserMutationPromise;
   onRemove: (key: EquityKeys) => UserMutationPromise;
@@ -34,7 +36,7 @@ interface EquityOptionsProps {
   inApplication: boolean;
 }
 
-const resolveMaybe = (value: Maybe<boolean> | undefined): boolean => !!value;
+const resolveMaybe = (value: boolean | null | undefined): boolean => !!value;
 const resolveMaybeArray = <T,>(
   value: Maybe<(Maybe<T> | undefined)[]> | undefined,
 ): T[] => {

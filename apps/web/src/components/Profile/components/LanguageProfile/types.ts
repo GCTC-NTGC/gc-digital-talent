@@ -11,7 +11,7 @@ export interface FormValues {
   verbalLevel?: Maybe<EvaluatedLanguageAbility>;
   estimatedLanguageAbility?: Maybe<EstimatedLanguageAbility>;
   firstOfficialLanguage?: Maybe<Language>;
-  secondLanguageExamCompleted?: Maybe<boolean>;
+  secondLanguageExamCompleted?: boolean | null | undefined;
   consideredPositionLanguages: string[];
   secondLanguageExamValidity?: "currently_valid" | "expired" | null;
   preferredLanguageForInterview?: Maybe<Language>;

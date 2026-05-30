@@ -112,16 +112,16 @@ interface FormValues extends BaseFormValues {
   nominationOptions: Maybe<NominationOption>[];
   advancementReference: Maybe<Scalars["UUID"]["input"]>;
   advancementReferenceReview?: TalentNominationUserReview;
-  advancementReferenceFallbackWorkEmail: Maybe<string>;
-  advancementReferenceFallbackName: Maybe<string>;
+  advancementReferenceFallbackWorkEmail: string | null | undefined;
+  advancementReferenceFallbackName: string | null | undefined;
   advancementReferenceFallbackClassification: Scalars["UUID"]["input"];
-  advancementReferenceFallbackClassificationGroup: Maybe<string>;
-  advancementReferenceFallbackClassificationLevel: Maybe<string>;
+  advancementReferenceFallbackClassificationGroup: string | null | undefined;
+  advancementReferenceFallbackClassificationLevel: string | null | undefined;
   advancementReferenceFallbackDepartment: Scalars["UUID"]["input"];
   lateralMovementOptions: Maybe<TalentNominationLateralMovementOption[]>;
-  lateralMovementOptionsOther: Maybe<string>;
+  lateralMovementOptionsOther: string | null | undefined;
   communityDevelopmentPrograms: Scalars["UUID"]["input"][];
-  developmentProgramOptionsOther: Maybe<string>;
+  developmentProgramOptionsOther: string | null | undefined;
 }
 
 type DetailsFieldsOptionsFragmentType = FragmentType<
@@ -711,7 +711,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     !!talentNomination.advancementReference?.id ||
     !!talentNomination.advancementReferenceFallbackName;
 
-  let defaultReference: Maybe<string> | undefined;
+  let defaultReference: string | null | undefined;
 
   if (referenceSet) {
     defaultReference = talentNomination.advancementReference?.id ?? null;

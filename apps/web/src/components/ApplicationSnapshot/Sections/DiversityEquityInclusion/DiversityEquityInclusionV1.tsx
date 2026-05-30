@@ -17,10 +17,12 @@ import CommunityIcon from "~/components/Profile/components/DiversityEquityInclus
 import type { SnapshotProps } from "../types";
 
 export interface DiversityEquityInclusionSnapshotV1 {
-  isWoman?: Maybe<boolean>;
-  hasDisability?: Maybe<boolean>;
-  isVisibleMinority?: Maybe<boolean>;
-  indigenousCommunities?: Maybe<Maybe<LocalizedIndigenousCommunity>[]>;
+  isWoman?: boolean | null | undefined;
+  hasDisability?: boolean | null | undefined;
+  isVisibleMinority?: boolean | null | undefined;
+  indigenousCommunities?: Maybe<
+    (LocalizedIndigenousCommunity | null | undefined)[]
+  >;
 }
 
 type DiversityEquityInclusionV1Props =

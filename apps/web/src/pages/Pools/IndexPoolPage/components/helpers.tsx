@@ -241,7 +241,7 @@ export function transformPoolFilterInputToFormValues(
 export const poolBookmarkCell = (
   owner: FragmentType<typeof PoolBookmark_Fragment>,
   poolId: string,
-  poolName?: Maybe<LocalizedString>,
+  poolName?: LocalizedString | null,
 ) => {
   return <PoolBookmark user={owner} poolId={poolId} poolName={poolName} />;
 };
