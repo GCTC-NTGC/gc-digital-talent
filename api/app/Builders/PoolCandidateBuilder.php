@@ -341,7 +341,12 @@ class PoolCandidateBuilder extends Builder
 
         // both selected
         if ($hasReferring && $hasNotReferring) {
-            return $this->where('application_status', ApplicationStatus::QUALIFIED->name);
+            return $this->where(function ($query) {
+                $query->whereBeingReferred()
+                    ->orWhere(function ($query) {
+                        $query->whereNotBeingReferred();
+                    });
+            });
         }
 
         // none selected - no filtering
