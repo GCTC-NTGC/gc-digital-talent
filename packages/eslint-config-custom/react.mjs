@@ -139,6 +139,8 @@ export default [
               "https://github.com/facebook/create-react-app/pull/8177",
             "React.FC":
               "https://github.com/facebook/create-react-app/pull/8177",
+            Maybe: "Deprecated type",
+            InputMaybe: "Deprecated type",
           },
         },
       ],
