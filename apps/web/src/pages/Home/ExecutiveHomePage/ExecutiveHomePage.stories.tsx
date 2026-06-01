@@ -6,7 +6,11 @@ import { fakeClassifications, fakePools } from "@gc-digital-talent/fake-data";
 import { HomePage } from "./ExecutiveHomePage";
 
 const mockPools = fakePools(4);
-const classification = fakeClassifications()[0];
+const classification = fakeClassifications("EX", {
+  en: "Executive group",
+  fr: "Groupe de la direction",
+  localized: "Executive Group",
+})[0];
 
 const defaultParameters = {
   chromatic: {
@@ -29,10 +33,7 @@ WithPools.parameters = defaultParameters;
 WithPools.args = {
   pools: mockPools.map((pool) => ({
     ...pool,
-    classification: {
-      ...classification,
-      group: "EX",
-    },
+    classification,
   })),
 };
 

@@ -2,19 +2,20 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import type { Classification } from "@gc-digital-talent/graphql";
 
-export default (): Classification[] => {
-  faker.seed(0); // repeatable results
-  const group = "IT";
-  const name = {
+export default (
+  group = "IT",
+  name = {
     en: "Information Technology",
     fr: "Technologie de l'information",
     localized: "Information Technology",
-  };
+  },
+): Classification[] => {
+  faker.seed(0); // repeatable results
   return [
     {
       id: faker.string.uuid(),
       name,
-      group: "IT",
+      group,
       level: 1,
       minSalary: 50000,
       maxSalary: 80000,
@@ -25,7 +26,7 @@ export default (): Classification[] => {
     {
       id: faker.string.uuid(),
       name,
-      group: "IT",
+      group,
       level: 2,
       minSalary: 65000,
       maxSalary: 94000,
@@ -36,7 +37,7 @@ export default (): Classification[] => {
     {
       id: faker.string.uuid(),
       name,
-      group: "IT",
+      group,
       level: 3,
       minSalary: 83000,
       maxSalary: 113000,
@@ -47,7 +48,7 @@ export default (): Classification[] => {
     {
       id: faker.string.uuid(),
       name,
-      group: "IT",
+      group,
       level: 4,
       minSalary: 94000,
       maxSalary: 130000,
