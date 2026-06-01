@@ -357,6 +357,7 @@ type NewJobPostedNotification implements Notification {
   updatedAt: DateTime! @rename(attribute: "updated_at")
 
   poolId: ID
+  displayName: LocalizedString
 }
 
 type ApplicationStatusChangedNotification implements Notification {
