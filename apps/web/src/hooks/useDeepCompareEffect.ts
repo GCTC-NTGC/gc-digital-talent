@@ -4,7 +4,7 @@ import { useRef, useEffect } from "react";
 
 function useDeepCompareMemoize(value: DependencyList): DependencyList {
   const ref = useRef<DependencyList>([]);
-  // Ref-based memoization by design; ref access during render is intentional.
+  // Reading the ref during render is intentional here
   // eslint-disable-next-line react-hooks/refs
   if (!isEqual(value, ref.current)) {
     // eslint-disable-next-line react-hooks/refs

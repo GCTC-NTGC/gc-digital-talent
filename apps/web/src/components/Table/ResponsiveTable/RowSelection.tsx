@@ -405,7 +405,7 @@ export const useRowSelection = <T,>(
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const rowSelectionCallbackRef = useRef<RowSelectionCallback>(() => undefined);
 
-  // Latest-ref pattern: store fresh callback so the effect avoids a re-render cycle.
+  // Keep the newest callback in the ref for the effect to call
   // eslint-disable-next-line react-hooks/refs
   rowSelectionCallbackRef.current = (newRows: RowSelectionState) => {
     if (rowSelect?.onRowSelection) {
