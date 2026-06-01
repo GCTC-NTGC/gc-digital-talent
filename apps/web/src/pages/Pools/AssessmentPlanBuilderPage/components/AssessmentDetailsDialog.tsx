@@ -24,7 +24,6 @@ import {
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import type {
-  Maybe,
   PoolSkill,
   ScreeningQuestion,
   Scalars,
@@ -154,22 +153,25 @@ type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
 
 interface FormValues {
-  id?: Maybe<Scalars["ID"]["output"]>;
-  poolId?: Maybe<Scalars["ID"]["output"]>;
-  typeOfAssessment?: Maybe<AssessmentStepType>;
+  id?: Scalars["ID"]["output"] | null | undefined;
+  poolId?: Scalars["ID"]["output"] | null | undefined;
+  typeOfAssessment?: AssessmentStepType | null | undefined;
   assessmentTitleEn?: string | null | undefined;
   assessmentTitleFr?: string | null | undefined;
   screeningQuestionFieldArray?: {
     id: string | null;
     screeningQuestion: {
-      id?: Maybe<Scalars["ID"]["output"]>;
-      sortOrder?: Maybe<number>;
+      id?: Scalars["ID"]["output"] | null | undefined;
+      sortOrder?: number | null | undefined;
       en?: string | null | undefined;
       fr?: string | null | undefined;
     };
   }[];
-  assessedSkills?: Maybe<Scalars["ID"]["output"][]>;
-  assessedSkillsScreeningQuestions?: Maybe<Scalars["ID"]["output"][]>;
+  assessedSkills?: Scalars["ID"]["output"][] | null | undefined;
+  assessedSkillsScreeningQuestions?:
+    | Scalars["ID"]["output"][]
+    | null
+    | undefined;
 }
 
 interface InitialValues extends Omit<

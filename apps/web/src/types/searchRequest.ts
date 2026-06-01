@@ -6,7 +6,6 @@ import type {
   Classification,
   ApplicantFilter,
   Pool,
-  Maybe,
   PoolCandidateFilter,
   PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
@@ -42,17 +41,23 @@ export interface BrowserHistoryState {
 }
 
 export type PartialApplicantFilter = Omit<ApplicantFilter, "pools"> & {
-  pools?: Maybe<Maybe<Omit<Pool, "activities" | "teamId">>[]>;
+  pools?:
+    | (Omit<Pool, "activities" | "teamId"> | null | undefined)[]
+    | null
+    | undefined;
 };
 
 export type PartialPoolCandidateFilter = Omit<PoolCandidateFilter, "pools"> & {
-  pools?: Maybe<Maybe<Omit<Pool, "activities" | "teamId">>[]>;
+  pools?:
+    | (Omit<Pool, "activities" | "teamId"> | null | undefined)[]
+    | null
+    | undefined;
 };
 
 export type PartialSearchRequest = Omit<
   PoolCandidateSearchRequest,
   "applicantFilter" | "poolCandidateFilter"
 > & {
-  applicantFilter?: Maybe<PartialApplicantFilter>;
-  poolCandidateFilter?: Maybe<PartialPoolCandidateFilter>;
+  applicantFilter?: PartialApplicantFilter | null | undefined;
+  poolCandidateFilter?: PartialPoolCandidateFilter | null | undefined;
 };

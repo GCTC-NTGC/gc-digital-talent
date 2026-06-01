@@ -24,7 +24,6 @@ import type {
   DepartmentSize,
   FragmentType,
   LocalizedStringInput,
-  Maybe,
   Scalars,
   UpdateDepartmentInput,
 } from "@gc-digital-talent/graphql";
@@ -47,9 +46,9 @@ import type { Route } from "./+types/UpdateDepartmentPage";
 
 interface FormValues {
   name?: LocalizedStringInput;
-  departmentNumber: Maybe<number>;
-  orgIdentifier: Maybe<number>;
-  size: Maybe<DepartmentSize>;
+  departmentNumber: number | null | undefined;
+  orgIdentifier: number | null | undefined;
+  size: DepartmentSize | null | undefined;
   departmentType: DepartmentType[] | boolean;
 }
 

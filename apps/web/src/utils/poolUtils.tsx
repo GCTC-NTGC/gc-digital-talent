@@ -27,7 +27,6 @@ import type { ChipProps, IconType } from "@gc-digital-talent/ui";
 import { Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
 import type {
   RoleAssignment,
-  Maybe,
   Classification,
   Pool,
   LocalizedPoolStatus,
@@ -54,7 +53,7 @@ import { checkRole } from "./teamUtils";
  */
 export const isAdvertisementVisible = (
   roleAssignments: (RoleAssignment | null | undefined)[],
-  status?: Maybe<PoolStatus>,
+  status?: PoolStatus | null,
 ) => {
   if (status !== PoolStatus.Draft) {
     return true;
@@ -77,11 +76,11 @@ export const isAdvertisementVisible = (
   );
 };
 
-export function isIAPPool(publishingGroup?: Maybe<PublishingGroup>): boolean {
+export function isIAPPool(publishingGroup?: PublishingGroup | null): boolean {
   return publishingGroup === PublishingGroup.Iap;
 }
 
-export function isExecPool(publishingGroup?: Maybe<PublishingGroup>): boolean {
+export function isExecPool(publishingGroup?: PublishingGroup | null): boolean {
   return publishingGroup === PublishingGroup.ExecutiveJobs;
 }
 
@@ -106,8 +105,8 @@ export const formatClassificationAriaString = ({
 };
 interface formattedPoolPosterTitleProps {
   title: string | null | undefined;
-  classification: Maybe<Pick<Classification, "group" | "level">> | undefined;
-  workStream?: Maybe<WorkStream>;
+  classification: Pick<Classification, "group" | "level"> | null | undefined;
+  workStream?: WorkStream | null | undefined;
   short?: boolean;
   intl: IntlShape;
 }
@@ -166,10 +165,10 @@ interface PoolTitleOptions {
 
 type PartialPool = Pick<Pool, "name" | "publishingGroup" | "workStream">;
 interface PartialPoolWithClassification extends PartialPool {
-  classification?: Maybe<Pick<Classification, "group" | "level">>;
+  classification?: Pick<Classification, "group" | "level"> | null | undefined;
 }
 
-type PoolTitle = Maybe<PartialPoolWithClassification>;
+type PoolTitle = PartialPoolWithClassification | null | undefined;
 
 export const poolTitle = (
   intl: IntlShape,
@@ -447,7 +446,7 @@ export const getPoolCompletenessBadge = (completeness: PoolCompleteness) => {
 };
 
 export const getProcessStatusBadge = (
-  status: Maybe<LocalizedPoolStatus> | undefined,
+  status: LocalizedPoolStatus | null | undefined,
   intl: IntlShape,
 ): StatusBadge => {
   const statusBadge: StatusBadge = {

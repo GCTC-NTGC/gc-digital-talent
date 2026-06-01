@@ -5,7 +5,6 @@ import { useCallback, useEffect } from "react";
 
 import type {
   FragmentType,
-  Maybe,
   Scalars,
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
@@ -47,7 +46,7 @@ interface FormValues extends BaseFormValues {
   role?: SubmitterRole;
   submitterRelationshipToNominator?: TalentNominationSubmitterRelationshipToNominator;
   submitterRelationshipToNominatorOther?: string;
-  nominator?: Maybe<Scalars["UUID"]["input"]>;
+  nominator?: Scalars["UUID"]["input"] | null | undefined;
   nominatorReview?: TalentNominationUserReview;
   nominatorFallbackWorkEmail?: string;
   nominatorFallbackName?: string;

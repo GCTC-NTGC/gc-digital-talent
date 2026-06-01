@@ -21,7 +21,6 @@ import type {
   LocalizedEducationType,
   LocalizedEmploymentCategory,
   LocalizedString,
-  Maybe,
   PersonalExperience,
   Skill,
   WorkExperience,
@@ -387,12 +386,12 @@ export const getExperienceFormLabels = (
  *
  * @param type  ExperienceType
  * @param data  ExperienceFormValues<AllExperienceFormValues>
- * @param hiddenSkills Maybe<Skill[]>
+ * @param hiddenSkills Skill[] | null | undefined
  * @returns ExperienceDetailsSubmissionData
  */
 export const formValuesToSubmitData = (
   data: ExperienceFormValues<AllExperienceFormValues>,
-  hiddenSkills: Maybe<Skill[]>,
+  hiddenSkills: Skill[] | null | undefined,
   type?: ExperienceType | "",
 ): ExperienceDetailsSubmissionData => {
   const {
@@ -875,15 +874,18 @@ export const queryResultToDefaultValues = (
 export interface ExperienceName extends SimpleAnyExperience {
   title?: string | null | undefined;
   organization?: string | null | undefined;
-  type?: Maybe<Partial<LocalizedEducationType>> | string;
+  type?: Partial<LocalizedEducationType> | string | null | undefined;
   areaOfStudy?: string | null | undefined;
   institution?: string | null | undefined;
   role?: string | null | undefined;
-  employmentCategory?: Maybe<Partial<LocalizedEmploymentCategory>>;
-  department?: Maybe<{
-    name?: Maybe<Partial<LocalizedString>>;
-  }>;
-  cafForce?: Maybe<Partial<LocalizedCafForce>>;
+  employmentCategory?: Partial<LocalizedEmploymentCategory> | null | undefined;
+  department?:
+    | {
+        name?: Partial<LocalizedString> | null | undefined;
+      }
+    | null
+    | undefined;
+  cafForce?: Partial<LocalizedCafForce> | null | undefined;
 }
 
 /**

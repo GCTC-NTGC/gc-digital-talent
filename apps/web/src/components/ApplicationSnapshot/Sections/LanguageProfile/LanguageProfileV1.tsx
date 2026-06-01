@@ -5,7 +5,6 @@ import type {
   LocalizedEstimatedLanguageAbility,
   LocalizedEvaluatedLanguageAbility,
   LocalizedLanguage,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import { getOrThrowError } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -60,7 +59,7 @@ export interface LanguageProfileSnapshotV1 {
   writtenLevel?: LocalizedEvaluatedLanguageAbility | null | undefined;
   comprehensionLevel?: LocalizedEvaluatedLanguageAbility | null | undefined;
   verbalLevel?: LocalizedEvaluatedLanguageAbility | null | undefined;
-  bilingualEvaluation?: Maybe<BilingualEvaluation>;
+  bilingualEvaluation?: BilingualEvaluation | null | undefined;
   preferredLanguageForInterview?: LocalizedLanguage | null | undefined;
   preferredLanguageForExam: LocalizedLanguage | null | undefined;
 }

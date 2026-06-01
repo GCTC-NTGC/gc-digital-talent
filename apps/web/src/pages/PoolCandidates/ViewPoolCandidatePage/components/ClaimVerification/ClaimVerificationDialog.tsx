@@ -5,7 +5,6 @@ import { useMutation } from "urql";
 import { useState } from "react";
 
 import type {
-  Maybe,
   Scalars,
   UpdatePoolCandidateClaimVerificationInput,
 } from "@gc-digital-talent/graphql";
@@ -39,8 +38,8 @@ const todayDate = new Date();
 interface ClaimVerificationDialogProps {
   context: "veteran" | "priority";
   id: Scalars["UUID"]["output"];
-  result?: Maybe<ClaimVerificationResult>;
-  expiry?: Maybe<Scalars["DateTime"]["output"]>;
+  result?: ClaimVerificationResult | null | undefined;
+  expiry?: Scalars["DateTime"]["output"] | null | undefined;
   priorityNumber?: string | null | undefined;
 }
 

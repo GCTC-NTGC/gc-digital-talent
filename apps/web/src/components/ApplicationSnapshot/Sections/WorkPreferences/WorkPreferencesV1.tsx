@@ -6,7 +6,6 @@ import type {
   LocalizedOperationalRequirement,
   LocalizedProvinceOrTerritory,
   LocalizedWorkRegion,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import { graphql, PositionDuration } from "@gc-digital-talent/graphql";
 import {
@@ -42,15 +41,22 @@ const WorkPreferencesSnapshotOptions_Query = graphql(/** GraphQL */ `
 `);
 
 export interface WorkPreferencesSnapshotV1 {
-  acceptedOperationalRequirements: Maybe<
-    (LocalizedOperationalRequirement | null | undefined)[]
-  >;
-  positionDuration: Maybe<Maybe<PositionDuration>[]>;
-  locationPreferences: Maybe<(LocalizedWorkRegion | null | undefined)[]>;
+  acceptedOperationalRequirements:
+    | (LocalizedOperationalRequirement | null | undefined)[]
+    | null
+    | undefined;
+  positionDuration: (PositionDuration | null | undefined)[] | null | undefined;
+  locationPreferences:
+    | (LocalizedWorkRegion | null | undefined)[]
+    | null
+    | undefined;
   locationExemptions: string | null | undefined;
   currentCity: string | null | undefined;
   currentProvince: LocalizedProvinceOrTerritory | null | undefined;
-  flexibleWorkLocations: Maybe<Maybe<LocalizedFlexibleWorkLocation>[]>;
+  flexibleWorkLocations:
+    | (LocalizedFlexibleWorkLocation | null | undefined)[]
+    | null
+    | undefined;
 }
 
 type WorkPreferencesV1Props = SnapshotProps<WorkPreferencesSnapshotV1>;

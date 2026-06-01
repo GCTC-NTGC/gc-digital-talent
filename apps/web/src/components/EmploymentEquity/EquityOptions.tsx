@@ -11,7 +11,6 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 import type {
   LocalizedIndigenousCommunity,
-  Maybe,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 
@@ -23,9 +22,10 @@ import IndigenousEquityOption from "./IndigenousEquityOption";
 
 interface EquityOptionsProps {
   hasDisability?: boolean | null | undefined;
-  indigenousCommunities?: Maybe<
-    (LocalizedIndigenousCommunity | null | undefined)[]
-  >;
+  indigenousCommunities?:
+    | (LocalizedIndigenousCommunity | null | undefined)[]
+    | null
+    | undefined;
   indigenousDeclarationSignature?: string | null | undefined;
   isVisibleMinority?: boolean | null | undefined;
   isWoman?: boolean | null | undefined;
@@ -38,7 +38,7 @@ interface EquityOptionsProps {
 
 const resolveMaybe = (value: boolean | null | undefined): boolean => !!value;
 const resolveMaybeArray = <T,>(
-  value: Maybe<(Maybe<T> | undefined)[]> | undefined,
+  value: (T | null | undefined)[] | null | undefined,
 ): T[] => {
   return value?.filter(notEmpty) ?? [];
 };

@@ -38,7 +38,6 @@ import {
 import type {
   EquitySelections,
   CreatePoolCandidateSearchRequestInput,
-  Maybe,
   DepartmentBelongsTo,
   Classification,
   OperationalRequirement,
@@ -77,19 +76,19 @@ interface FormValues {
   hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
     qualifiedInClassifications?: {
-      sync?: Maybe<Classification["id"]>[];
+      sync?: (Classification["id"] | null | undefined)[];
     };
     qualifiedInworkStreams?: ApplicantFilterInput["qualifiedInWorkStreams"];
     skills?: {
-      sync?: Maybe<Skill["id"]>[];
+      sync?: (Skill["id"] | null | undefined)[];
     };
     hasDiploma?: ApplicantFilterInput["hasDiploma"];
     positionDuration?: ApplicantFilterInput["positionDuration"];
     equity?: EquitySelections;
     languageAbility?: ApplicantFilter["languageAbility"];
-    operationalRequirements?: Maybe<OperationalRequirement>[];
+    operationalRequirements?: (OperationalRequirement | null | undefined)[];
     pools?: {
-      sync?: Maybe<Pool["id"]>[];
+      sync?: (Pool["id"] | null | undefined)[];
     };
     locationPreferences?: ApplicantFilterInput["locationPreferences"];
     flexibleWorkLocations?: ApplicantFilterInput["flexibleWorkLocations"];
@@ -213,10 +212,14 @@ export interface RequestFormProps {
     typeof RequestFormClassification_Fragment
   >[];
   communitiesQuery: FragmentType<typeof RequestFormCommunity_Fragment>[];
-  applicantFilter: Maybe<ApplicantFilterInput>;
-  candidateCount: Maybe<number>;
+  applicantFilter: ApplicantFilterInput | null | undefined;
+  candidateCount: number | null | undefined;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
+  selectedClassifications?: (
+    | Pick<Classification, "group" | "level">
+    | null
+    | undefined
+  )[];
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<CreateRequestMutation["createPoolCandidateSearchRequest"]>;
@@ -750,10 +753,12 @@ const RequestFormApi = ({
   searchFormInitialValues,
   selectedClassifications,
 }: {
-  applicantFilter: Maybe<ApplicantFilterInput>;
-  candidateCount: Maybe<number>;
+  applicantFilter: ApplicantFilterInput | null | undefined;
+  candidateCount: number | null | undefined;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
+  selectedClassifications?:
+    | (Pick<Classification, "group" | "level"> | null | undefined)[]
+    | undefined;
 }) => {
   const intl = useIntl();
   const [{ data: lookupData, fetching, error }] = useQuery({

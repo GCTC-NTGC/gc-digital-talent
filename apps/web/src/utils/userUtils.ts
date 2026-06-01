@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import type {
   LocalizedEvaluatedLanguageAbility,
   LocalizedProvinceOrTerritory,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import { PositionDuration } from "@gc-digital-talent/graphql";
 import type { TEmploymentDuration } from "@gc-digital-talent/i18n";
@@ -44,7 +43,7 @@ export const getEvaluatedLanguageLevels = (
 
 interface FormatLocationArgs {
   city?: string | null | undefined;
-  region?: Maybe<Omit<LocalizedProvinceOrTerritory, "value">>;
+  region?: Omit<LocalizedProvinceOrTerritory, "value"> | null | undefined;
   intl: IntlShape;
 }
 

@@ -4,7 +4,6 @@ import type {
   BasicGovEmployeeProfile,
   Classification,
   Department,
-  Maybe,
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -15,7 +14,10 @@ import { getFullNameLabel } from "./nameUtils";
 interface NominationsWithNominatorName {
   id: Scalars["UUID"]["output"];
   nominatorFallbackName?: string | null | undefined;
-  nominator?: Maybe<Pick<BasicGovEmployeeProfile, "firstName" | "lastName">>;
+  nominator?:
+    | Pick<BasicGovEmployeeProfile, "firstName" | "lastName">
+    | null
+    | undefined;
 }
 
 export function getSortedNominatorNames(
@@ -84,7 +86,7 @@ export function getNominatorWorkEmail(
  */
 export function getNominatorClassification(
   nominator: Pick<BasicGovEmployeeProfile, "classification"> | null | undefined,
-  nominatorFallbackClassification: Maybe<Classification> | undefined,
+  nominatorFallbackClassification: Classification | null | undefined,
 ): Classification | null {
   if (nominator) {
     return nominator.classification ?? null;
@@ -97,7 +99,7 @@ export function getNominatorClassification(
  */
 export function getNominatorDepartment(
   nominator: Pick<BasicGovEmployeeProfile, "department"> | null | undefined,
-  nominatorFallbackDepartment: Maybe<Department> | undefined,
+  nominatorFallbackDepartment: Department | null | undefined,
 ): Department | null {
   if (nominator) {
     return nominator.department ?? null;

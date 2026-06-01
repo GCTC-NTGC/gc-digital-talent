@@ -19,7 +19,6 @@ import type {
   EducationType,
   Exact,
   LocalizedString,
-  Maybe,
   PersonalExperience,
   PersonalExperienceInput,
   Scalars,
@@ -147,7 +146,7 @@ export type FormSkills = FormSkill[];
 
 export type ExperienceFormValues<T> = T & {
   details: string;
-  skills?: Maybe<FormSkills>;
+  skills?: FormSkills | null | undefined;
 };
 
 export interface SubExperienceFormProps {

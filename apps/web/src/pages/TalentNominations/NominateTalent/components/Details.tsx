@@ -5,7 +5,6 @@ import { useCallback, useEffect } from "react";
 
 import type {
   FragmentType,
-  Maybe,
   Scalars,
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
@@ -109,8 +108,8 @@ type NominationOption =
   | "developmentProgram";
 
 interface FormValues extends BaseFormValues {
-  nominationOptions: Maybe<NominationOption>[];
-  advancementReference: Maybe<Scalars["UUID"]["input"]>;
+  nominationOptions: (NominationOption | null | undefined)[];
+  advancementReference: Scalars["UUID"]["input"] | null | undefined;
   advancementReferenceReview?: TalentNominationUserReview;
   advancementReferenceFallbackWorkEmail: string | null | undefined;
   advancementReferenceFallbackName: string | null | undefined;
@@ -118,7 +117,10 @@ interface FormValues extends BaseFormValues {
   advancementReferenceFallbackClassificationGroup: string | null | undefined;
   advancementReferenceFallbackClassificationLevel: string | null | undefined;
   advancementReferenceFallbackDepartment: Scalars["UUID"]["input"];
-  lateralMovementOptions: Maybe<TalentNominationLateralMovementOption[]>;
+  lateralMovementOptions:
+    | TalentNominationLateralMovementOption[]
+    | null
+    | undefined;
   lateralMovementOptionsOther: string | null | undefined;
   communityDevelopmentPrograms: Scalars["UUID"]["input"][];
   developmentProgramOptionsOther: string | null | undefined;
@@ -696,7 +698,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     return null;
   };
 
-  let nominationOptions: Maybe<NominationOption>[] = [];
+  let nominationOptions: (NominationOption | null | undefined)[] = [];
   if (talentNomination?.nominateForAdvancement) {
     nominationOptions = [...nominationOptions, "advancement"];
   }

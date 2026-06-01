@@ -1,9 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type {
-  LocalizedIndigenousCommunity,
-  Maybe,
-} from "@gc-digital-talent/graphql";
+import type { LocalizedIndigenousCommunity } from "@gc-digital-talent/graphql";
 import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -20,9 +17,10 @@ export interface DiversityEquityInclusionSnapshotV1 {
   isWoman?: boolean | null | undefined;
   hasDisability?: boolean | null | undefined;
   isVisibleMinority?: boolean | null | undefined;
-  indigenousCommunities?: Maybe<
-    (LocalizedIndigenousCommunity | null | undefined)[]
-  >;
+  indigenousCommunities?:
+    | (LocalizedIndigenousCommunity | null | undefined)[]
+    | null
+    | undefined;
 }
 
 type DiversityEquityInclusionV1Props =

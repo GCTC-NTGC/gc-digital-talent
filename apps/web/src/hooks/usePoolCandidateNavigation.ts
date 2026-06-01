@@ -4,7 +4,6 @@ import { useQuery } from "urql";
 import { graphql } from "@gc-digital-talent/graphql";
 import type {
   ClaimVerificationSort,
-  Maybe,
   PoolCandidatePoolNameOrderByInput,
   PoolCandidateSearchInput,
   PoolCandidatesBaseSort,
@@ -18,7 +17,7 @@ export interface CandidateNavigationQueryParams {
   orderByBaseInput: PoolCandidatesBaseSort;
   poolNameSortingInput?: PoolCandidatePoolNameOrderByInput;
   sortingInput?: QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause[];
-  orderByClaimVerification?: Maybe<ClaimVerificationSort>;
+  orderByClaimVerification?: ClaimVerificationSort | null | undefined;
   orderByEmployeeDepartment?: SortOrder;
   orderByScreeningStage?: SortOrder;
 }

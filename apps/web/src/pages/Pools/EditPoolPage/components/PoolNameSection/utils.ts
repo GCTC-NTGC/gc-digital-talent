@@ -7,7 +7,6 @@ import type {
   PoolOpportunityLength,
   Classification,
   LocalizedString,
-  Maybe,
   Pool,
   PublishingGroup,
   UpdatePoolInput,
@@ -18,15 +17,15 @@ import type {
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {
-  areaOfSelection?: Maybe<PoolAreaOfSelection>;
-  selectionLimitations?: Maybe<PoolSelectionLimitation[]>;
+  areaOfSelection?: PoolAreaOfSelection | null | undefined;
+  selectionLimitations?: PoolSelectionLimitation[] | null | undefined;
   classification?: Classification["id"];
   department?: Department["id"];
   stream?: WorkStream["id"];
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
-  publishingGroup?: Maybe<PublishingGroup>;
-  opportunityLength?: Maybe<PoolOpportunityLength>;
+  publishingGroup?: PublishingGroup | null | undefined;
+  opportunityLength?: PoolOpportunityLength | null | undefined;
 }
 
 export const dataToFormValues = (

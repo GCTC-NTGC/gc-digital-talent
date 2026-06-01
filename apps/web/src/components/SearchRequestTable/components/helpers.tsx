@@ -14,7 +14,6 @@ import {
   TalentRequestStatus,
   type Classification,
   type LocalizedTalentRequestStatus,
-  type Maybe,
   type PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
 import {
@@ -28,7 +27,7 @@ import cells from "~/components/Table/cells";
 
 export function classificationAccessor(
   classifications:
-    | Maybe<Maybe<Pick<Classification, "group" | "level">>[]>
+    | (Pick<Classification, "group" | "level"> | null | undefined)[]
     | undefined,
 ) {
   return classifications
@@ -39,7 +38,7 @@ export function classificationAccessor(
 
 export function classificationsCell(
   classifications:
-    | Maybe<Maybe<Pick<Classification, "group" | "level">>[] | undefined>
+    | (Pick<Classification, "group" | "level"> | null | undefined)[]
     | undefined,
   intl: IntlShape,
 ) {

@@ -22,7 +22,6 @@ import {
 } from "@gc-digital-talent/ui";
 import type {
   Classification,
-  Maybe,
   SupervisoryStatus,
   WorkStream,
 } from "@gc-digital-talent/graphql";
@@ -127,8 +126,8 @@ function assertIncludes(haystack: string[], needle?: string | null): boolean {
 
 function previewMetaData(
   intl: IntlShape,
-  classification?: Maybe<Classification>,
-  workStream?: Maybe<WorkStream>,
+  classification?: Classification | null,
+  workStream?: WorkStream | null,
 ): PreviewMetaData[] {
   const metaData = [];
   if (classification) {

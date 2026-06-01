@@ -4,7 +4,6 @@ import type {
   LocalizedFlexibleWorkLocation,
   LocalizedProvinceOrTerritory,
   LocalizedWorkRegion,
-  Maybe,
   User,
 } from "@gc-digital-talent/graphql";
 import { FlexibleWorkLocation } from "@gc-digital-talent/graphql";
@@ -13,11 +12,18 @@ export interface PartialUser extends Pick<
   User,
   "positionDuration" | "locationExemptions" | "currentCity"
 > {
-  locationPreferences?: Maybe<Maybe<Pick<LocalizedWorkRegion, "value">>[]>;
-  flexibleWorkLocations?: Maybe<
-    Maybe<Pick<LocalizedFlexibleWorkLocation, "value">>[]
-  >;
-  currentProvince?: Maybe<Pick<LocalizedProvinceOrTerritory, "value">>;
+  locationPreferences?:
+    | (Pick<LocalizedWorkRegion, "value"> | null | undefined)[]
+    | null
+    | undefined;
+  flexibleWorkLocations?:
+    | (Pick<LocalizedFlexibleWorkLocation, "value"> | null | undefined)[]
+    | null
+    | undefined;
+  currentProvince?:
+    | Pick<LocalizedProvinceOrTerritory, "value">
+    | null
+    | undefined;
 }
 
 export function hasAllEmptyFields({

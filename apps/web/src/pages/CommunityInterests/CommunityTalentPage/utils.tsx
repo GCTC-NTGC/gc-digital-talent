@@ -3,7 +3,6 @@ import type { IntlShape } from "react-intl";
 import type { JSX } from "react";
 
 import type {
-  Maybe,
   QueryCommunityInterestsPaginatedOrderByRelationOrderByClause,
   QueryCommunityInterestsPaginatedOrderByUserColumn,
   CommunityInterestFilterInput,
@@ -95,7 +94,7 @@ export function transformSortStateToOrderByClause(
 
 export function getClassificationSort(
   sortingState?: SortingState,
-): Maybe<SortOrder> {
+): SortOrder | null | undefined {
   const sortRule = sortingState?.find((rule) => rule.id === "classification");
   if (sortRule) {
     return sortRule.desc ? SortOrder.Desc : SortOrder.Asc;

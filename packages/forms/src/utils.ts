@@ -6,7 +6,6 @@ import type { FieldErrors, FieldValues } from "react-hook-form";
 import type {
   LocalizedEnumString,
   LocalizedString,
-  Maybe,
   Scalars,
 } from "@gc-digital-talent/graphql";
 import type { Locales } from "@gc-digital-talent/i18n";
@@ -27,7 +26,7 @@ import type { OptGroupOrOption } from "./types";
  * @returns string[]
  */
 export const unpackIds = (
-  data?: Maybe<(Maybe<{ id: string }> | undefined)[]>,
+  data?: ({ id: string } | null | undefined)[] | null,
 ): string[] => unpackMaybes<{ id: string }>(data).map(getId);
 
 interface Option {
@@ -82,7 +81,7 @@ export function enumToOptions(
  * field options array
  */
 export function localizedEnumToOptions(
-  list: Maybe<LocalizedEnumString>[] | undefined | null,
+  list: (LocalizedEnumString | null | undefined)[] | undefined | null,
   intl: IntlShape,
   sortOrder?: LocalizedEnumString["value"][],
 ): Option[] {

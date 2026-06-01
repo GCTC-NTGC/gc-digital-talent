@@ -1,16 +1,17 @@
 import type {
   AssessmentDecisionLevel,
   AssessmentResultJustification,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 
 import type { NullableDecision } from "~/utils/assessmentResults";
 
 export interface FormValues {
-  assessmentDecision?: Maybe<NullableDecision>;
+  assessmentDecision?: NullableDecision | null | undefined;
   justifications?:
-    | Maybe<Maybe<AssessmentResultJustification>[]>
-    | Maybe<AssessmentResultJustification>;
-  assessmentDecisionLevel?: Maybe<AssessmentDecisionLevel>;
+    | (AssessmentResultJustification | null | undefined)[]
+    | AssessmentResultJustification
+    | null
+    | undefined;
+  assessmentDecisionLevel?: AssessmentDecisionLevel | null | undefined;
   skillDecisionNotes?: string | null | undefined;
 }

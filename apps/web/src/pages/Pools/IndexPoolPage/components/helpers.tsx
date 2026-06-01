@@ -9,7 +9,6 @@ import type {
   Classification,
   FragmentType,
   LocalizedString,
-  Maybe,
   OrderByColumnInput,
   Pool,
   PoolBookmarksOrderByInput,
@@ -53,7 +52,7 @@ export function viewCell(
 }
 
 export function classificationAccessor(
-  classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
+  classification: Pick<Classification, "group" | "level"> | null | undefined,
 ) {
   return classification
     ? `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
@@ -61,7 +60,7 @@ export function classificationAccessor(
 }
 
 export function classificationCell(
-  classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
+  classification: Pick<Classification, "group" | "level"> | null | undefined,
 ) {
   if (!classification) return null;
 

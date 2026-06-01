@@ -2,18 +2,17 @@ import type {
   EstimatedLanguageAbility,
   EvaluatedLanguageAbility,
   Language,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {
-  comprehensionLevel?: Maybe<EvaluatedLanguageAbility>;
-  writtenLevel?: Maybe<EvaluatedLanguageAbility>;
-  verbalLevel?: Maybe<EvaluatedLanguageAbility>;
-  estimatedLanguageAbility?: Maybe<EstimatedLanguageAbility>;
-  firstOfficialLanguage?: Maybe<Language>;
+  comprehensionLevel?: EvaluatedLanguageAbility | null | undefined;
+  writtenLevel?: EvaluatedLanguageAbility | null | undefined;
+  verbalLevel?: EvaluatedLanguageAbility | null | undefined;
+  estimatedLanguageAbility?: EstimatedLanguageAbility | null | undefined;
+  firstOfficialLanguage?: Language | null | undefined;
   secondLanguageExamCompleted?: boolean | null | undefined;
   consideredPositionLanguages: string[];
   secondLanguageExamValidity?: "currently_valid" | "expired" | null;
-  preferredLanguageForInterview?: Maybe<Language>;
-  preferredLanguageForExam?: Maybe<Language>;
+  preferredLanguageForInterview?: Language | null | undefined;
+  preferredLanguageForExam?: Language | null | undefined;
 }

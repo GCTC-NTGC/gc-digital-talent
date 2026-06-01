@@ -4,10 +4,7 @@ import type { IntlShape } from "react-intl";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip, Chips } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import type {
-  Maybe,
-  ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
-} from "@gc-digital-talent/graphql";
+import type { ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType } from "@gc-digital-talent/graphql";
 
 import RemovePoolMembershipDialog from "./RemovePoolMembershipDialog";
 import type {
@@ -69,7 +66,10 @@ export function emailLinkCell(
 }
 
 export function roleCell(
-  roles: Maybe<Maybe<ManageAccessPagePoolFragmentRoleType>[]>,
+  roles:
+    | (ManageAccessPagePoolFragmentRoleType | null | undefined)[]
+    | null
+    | undefined,
   intl: IntlShape,
 ) {
   const nonEmptyRoles = roles?.filter(notEmpty);
@@ -85,7 +85,10 @@ export function roleCell(
 }
 
 export function roleAccessor(
-  roles: Maybe<Maybe<ManageAccessPagePoolFragmentRoleType>[]>,
+  roles:
+    | (ManageAccessPagePoolFragmentRoleType | null | undefined)[]
+    | null
+    | undefined,
   intl: IntlShape,
 ) {
   const nonEmptyRoles = roles?.filter(notEmpty);
