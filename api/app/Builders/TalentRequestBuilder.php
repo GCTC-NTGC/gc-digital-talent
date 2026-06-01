@@ -86,12 +86,12 @@ class TalentRequestBuilder extends Builder
         /** @var User | null */
         $user = Auth::user();
 
-        if ($user?->isAbleTo('view-any-searchRequest')) {
+        if ($user?->isAbleTo('view-any-talentRequest')) {
             return $this;
         }
 
-        if ($user?->isAbleTo('view-team-searchRequest')) {
-            $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-searchRequest');
+        if ($user?->isAbleTo('view-team-talentRequest')) {
+            $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-talentRequest');
 
             return $this->whereHas('community.team', fn (Builder $q) => $q->whereIn('id', $teamIds));
         }
