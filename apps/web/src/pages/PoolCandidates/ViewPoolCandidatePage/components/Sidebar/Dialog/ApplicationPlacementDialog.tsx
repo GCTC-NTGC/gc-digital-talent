@@ -14,7 +14,6 @@ import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { useHasPermissions } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
@@ -87,12 +86,8 @@ const ApplicationPlacementDialog = ({
     defaultValues: {
       placementType: application.placementType?.value,
       department: application.placedDepartment?.id,
-      placedStartDate: application.placedStartDate
-        ? strToFormDate(application.placedStartDate)
-        : undefined,
-      placedEndDate: application.placedEndDate
-        ? strToFormDate(application.placedEndDate)
-        : undefined,
+      placedStartDate: application.placedStartDate ?? undefined,
+      placedEndDate: application.placedEndDate ?? undefined,
     },
   });
 
@@ -148,7 +143,8 @@ const ApplicationPlacementDialog = ({
         department: { connect: formValues.department ?? "" },
         placedStartDate: hasPlacedStartDate ? formValues.placedStartDate : null,
         placedEndDate:
-          formValues.placementType === PlacementType.PlacedIndeterminate
+          hasPlacedStartDate &&
+          formValues.placementType !== PlacementType.PlacedIndeterminate
             ? formValues.placedEndDate
             : null,
       },

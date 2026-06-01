@@ -8,11 +8,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Notice, Ul } from "@gc-digital-talent/ui";
-import {
-  DATE_FORMAT_STRING,
-  formatDate,
-  parseDateTimeUtc,
-} from "@gc-digital-talent/date-helpers";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
