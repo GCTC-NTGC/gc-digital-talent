@@ -1087,14 +1087,14 @@ enum Permission {
   CreateAnyJobPosterTemplate
   UpdateAnyJobPosterTemplate
   DeleteAnyJobPosterTemplate
-  CreateAnySearchRequest
-  ViewTeamSearchRequest
-  UpdateTeamSearchRequest
-  DeleteTeamSearchRequest
-  ViewAnySearchRequest
-  UpdateAnySearchRequest
-  DeleteAnySearchRequest
-  ViewOwnSearchRequest
+  CreateAnyTalentRequest
+  ViewTeamTalentRequest
+  UpdateTeamTalentRequest
+  DeleteTeamTalentRequest
+  ViewAnyTalentRequest
+  UpdateAnyTalentRequest
+  DeleteAnyTalentRequest
+  ViewOwnTalentRequest
   CreateAnyWorkStream
   UpdateAnyWorkStream
   ViewAnyRole
