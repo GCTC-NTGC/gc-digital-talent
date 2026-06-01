@@ -151,7 +151,7 @@ export function localizedEnumToInput<T>(
  * @returns Input values
  */
 export function localizedEnumArrayToInput<T>(
-  localizedEnumArray?: GenericLocalizedEnum<T | null | undefined>[] | null,
+  localizedEnumArray?: (GenericLocalizedEnum<T> | null | undefined)[] | null,
 ): (T | null | undefined)[] | undefined {
   return unpackMaybes(
     localizedEnumArray?.map((localizedEnum) =>

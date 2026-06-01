@@ -40,7 +40,7 @@ export interface StepperProps {
   headingLevel?: HeadingLevel;
   subTitle?: ReactNode;
   label: string;
-  steps: StepType[] | null | undefined;
+  steps: StepType[] | null;
   readOnly?: boolean;
 }
 
