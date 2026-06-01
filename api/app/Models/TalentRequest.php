@@ -138,10 +138,10 @@ class TalentRequest extends Model
         $this->save();
     }
 
-    public function complete(string $completeDetail): void
+    public function complete(string $completionDetail): void
     {
         $this->status = TalentRequestStatus::COMPLETED->name;
-        $this->completion_details = $completeDetail;
+        $this->completion_details = $completionDetail;
         $this->in_progress_details = null;
         $this->follow_up_date = null;
         $this->save();

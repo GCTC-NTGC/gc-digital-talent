@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\TalentRequestCompleteDetail;
+use App\Enums\TalentRequestCompletionDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestPositionType;
 use App\Enums\TalentRequestReason;
@@ -28,10 +28,7 @@ class TalentRequestFactory extends BaseFactory
             'job_title' => $this->faker->jobTitle(),
             'additional_comments' => $this->faker->text(),
             'hr_advisor_email' => $this->faker->unique()->safeEmail,
-            'created_at' => $this->faker->dateTimeBetween('-6 months', '-1 months'),
-            'admin_notes' => $this->faker->text(),
-            'applicant_filter_id' => ApplicantFilter::factory()->create(['community_id' => $community->id]),
-            'was_empty' => $this->faker->boolean(),
+            'applicant_filter_id' => ApplicantFilter::factory()->create(['community_id' => $community->id])->id,
             'manager_job_title' => $this->faker->jobTitle(),
             'position_type' => $this->randomEnum(TalentRequestPositionType::class),
             'reason' => $this->randomEnum(TalentRequestReason::class),
@@ -47,7 +44,7 @@ class TalentRequestFactory extends BaseFactory
         return $this->state(fn () => [
             'status' => TalentRequestStatus::IN_PROGRESS->name,
             'in_progress_details' => $this->randomEnum(TalentRequestInProgressDetail::class),
-            'complete_details' => null,
+            'completion_details' => null,
             'follow_up_date' => $this->faker->optional()->dateTimeBetween('-1 month', '+3 months')?->format('Y-m-d'),
         ]);
     }
@@ -55,8 +52,8 @@ class TalentRequestFactory extends BaseFactory
     public function completed(): self
     {
         return $this->state(fn () => [
-            'status' => TalentRequestStatus::CLOSED->name,
-            'complete_details' => $this->randomEnum(TalentRequestCompleteDetail::class),
+            'status' => TalentRequestStatus::COMPLETED->name,
+            'completion_details' => $this->randomEnum(TalentRequestCompletionDetail::class),
             'in_progress_details' => null,
             'follow_up_date' => null,
         ]);
