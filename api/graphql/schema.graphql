@@ -690,10 +690,10 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
-  placedStartDate: DateTime
+  placedStartDate: Date
     @rename(attribute: "placed_start_date")
     @canRoot(ability: "viewStatus")
-  placedEndDate: DateTime
+  placedEndDate: Date
     @rename(attribute: "placed_end_date")
     @canRoot(ability: "viewStatus")
   isBeingReferred: Boolean

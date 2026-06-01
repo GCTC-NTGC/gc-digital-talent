@@ -1223,8 +1223,8 @@ type PoolCandidate {
   placementType: LocalizedPlacementType
   placedAt: DateTime
   placedDepartment: Department
-  placedStartDate: DateTime
-  placedEndDate: DateTime
+  placedStartDate: Date
+  placedEndDate: Date
   isBeingReferred: Boolean
   pauseReferralsAt: DateTime
   resumeReferralsAt: DateTime

@@ -12,8 +12,8 @@ return new class() extends Migration
     public function up(): void
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->timestamp('placed_start_date')->nullable();
-            $table->timestamp('placed_end_date')->nullable();
+            $table->date('placed_start_date')->nullable();
+            $table->date('placed_end_date')->nullable();
         });
     }
 

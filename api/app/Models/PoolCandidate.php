@@ -861,11 +861,10 @@ class PoolCandidate extends Model
 
         if ($this->placement_type === PlacementType::PLACED_INDETERMINATE->name) {
             $this->pauseReferrals(PauseReferralsLength::OTHER->name, Lang::get('common.successfully_placed'), null);
-            $this->placed_end_date = $placedEndDate;
-            }
+        }
 
         $this->placed_start_date = $placedStartDate;
-        $this->placed_end_date = null;
+        $this->placed_end_date = $placedEndDate;
 
         $this->save();
 
