@@ -211,7 +211,7 @@ class PoolCandidateFactory extends BaseFactory
             'screening_stage' => null,
             'assessment_step_id' => null,
             'placed_start_date' => $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', 'now'),
-            'placed_end_date' => $this->faker->dateTimeBetween('now', $atts['expiry_date'])
+            'placed_end_date' => $this->faker->dateTimeBetween('now', $atts['expiry_date']),
         ]);
     }
 

@@ -841,7 +841,7 @@ class PoolCandidate extends Model
     }
 
     // mark the pool candidate as placed
-    public function place(string $placementType, string $departmentId, ?string $placedStartDate, ?string $placedEndDate)
+    public function place(string $placementType, string $departmentId, ?string $placedStartDate = null, ?string $placedEndDate = null)
     {
         $this->disableLogging();
 

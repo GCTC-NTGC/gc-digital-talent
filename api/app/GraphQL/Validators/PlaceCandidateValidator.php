@@ -39,9 +39,9 @@ final class PlaceCandidateValidator extends Validator
             'poolCandidate.placementType' => [Rule::in(array_column(PlacementType::cases(), 'name'))],
             'poolCandidate.placedStartDate' => [Rule::when(fn (): bool => $hasPlacedStartDate, ['nullable', 'date'])],
             'poolCandidate.placedEndDate' => [
-                Rule::when(fn (): bool => $hasPlacedStartDate && !$isIndeterminate,
-                ['nullable', 'date', 'after:poolCandidate.placedStartDate']
-            )],
+                Rule::when(fn (): bool => $hasPlacedStartDate && ! $isIndeterminate,
+                    ['nullable', 'date', 'after:poolCandidate.placedStartDate']
+                )],
         ];
     }
 
