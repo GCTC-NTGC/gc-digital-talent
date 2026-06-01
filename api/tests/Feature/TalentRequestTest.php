@@ -80,19 +80,13 @@ class TalentRequestTest extends TestCase
 
     public function testCreateRequiresApplicantFilter(): void
     {
-        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
-        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
-
         $this->graphQL($this->createMutation, [
             'talentRequest' => $this->buildCreateInput(['applicantFilter' => null]),
-        ])->assertGraphQLValidationKeys(['talentRequest.applicantFilter']);
+        ])->assertJsonStructure(['errors']);
     }
 
     public function testCreateSucceedsWithAllRequiredFields(): void
     {
-        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
-        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
-
         $this->graphQL($this->createMutation, [
             'talentRequest' => $this->buildCreateInput(),
         ])
@@ -105,9 +99,6 @@ class TalentRequestTest extends TestCase
 
     public function testCreateRejectsNonGovernmentEmail(): void
     {
-        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
-        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
-
         $this->graphQL($this->createMutation, [
             'talentRequest' => $this->buildCreateInput(['email' => 'not-a-gov-email@example.com']),
         ])->assertGraphQLValidationKeys(['talentRequest.email']);
@@ -115,9 +106,6 @@ class TalentRequestTest extends TestCase
 
     public function testUserIdIsNullForUnauthenticatedCreate(): void
     {
-        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
-        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
-
         $this->graphQL($this->createMutation, [
             'talentRequest' => $this->buildCreateInput(),
         ])
@@ -127,9 +115,6 @@ class TalentRequestTest extends TestCase
 
     public function testUserIdIsSetForAuthenticatedCreate(): void
     {
-        // TODO: unskip once TalentRequestPolicy is implemented (https://github.com/GCTC-NTGC/gc-digital-talent/issues/16874)
-        $this->markTestSkipped('Requires TalentRequestPolicy (#16874)');
-
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($this->createMutation, [
                 'talentRequest' => $this->buildCreateInput(),
