@@ -364,15 +364,12 @@ class PoolCandidateBuilder extends Builder
     {
         $now = now();
 
-        return $this->where(function ($query) use ($now) {
-            $query
-                ->where('pause_referrals_at', '<=', $now)
+        return $this->where('pause_referrals_at', '<=', $now)
                 ->where(function ($query) use ($now) {
                     $query->whereNull('resume_referrals_at')
                         ->orWhere('resume_referrals_at', '>', $now);
                 })
                 ->where('application_status', ApplicationStatus::QUALIFIED->name);
-        });
     }
 
     public function whereSuspendedStatus(?string $suspendedStatus): self
