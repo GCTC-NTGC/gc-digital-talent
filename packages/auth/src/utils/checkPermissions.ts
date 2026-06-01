@@ -1,8 +1,4 @@
-import type {
-  Maybe,
-  Permission,
-  RoleAssignment,
-} from "@gc-digital-talent/graphql";
+import type { Permission, RoleAssignment } from "@gc-digital-talent/graphql";
 
 export interface PermissionRequirement {
   permission: Permission;
