@@ -18,7 +18,7 @@ class TalentRequestPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAbleTo('view-any-searchRequest');
+        return $user->isAbleTo('view-any-talentRequest');
     }
 
     /**
@@ -28,16 +28,16 @@ class TalentRequestPolicy
      */
     public function view(User $user, TalentRequest $talentRequest)
     {
-        if ($user->isAbleTo('view-any-searchRequest')) {
+        if ($user->isAbleTo('view-any-talentRequest')) {
             return true;
         }
 
-        if ($user->isAbleTo('view-own-searchRequest') && $talentRequest->user_id == $user->id) {
+        if ($user->isAbleTo('view-own-talentRequest') && $talentRequest->user_id == $user->id) {
             return true;
         }
 
         if (isset($talentRequest->community->team)) {
-            return $user->isAbleTo('view-team-searchRequest', $talentRequest->community->team);
+            return $user->isAbleTo('view-team-talentRequest', $talentRequest->community->team);
         }
 
         return false;
@@ -61,12 +61,12 @@ class TalentRequestPolicy
      */
     public function update(User $user, TalentRequest $talentRequest)
     {
-        if ($user->isAbleTo('update-any-searchRequest')) {
+        if ($user->isAbleTo('update-any-talentRequest')) {
             return true;
         }
 
         if (isset($talentRequest->community->team)) {
-            return $user->isAbleTo('update-team-searchRequest', $talentRequest->community->team);
+            return $user->isAbleTo('update-team-talentRequest', $talentRequest->community->team);
         }
 
         return false;
@@ -79,12 +79,12 @@ class TalentRequestPolicy
      */
     public function delete(User $user, TalentRequest $talentRequest)
     {
-        if ($user->isAbleTo('delete-any-searchRequest')) {
+        if ($user->isAbleTo('delete-any-talentRequest')) {
             return true;
         }
 
         if (isset($talentRequest->community->team)) {
-            return $user->isAbleTo('delete-team-searchRequest', $talentRequest->community->team);
+            return $user->isAbleTo('delete-team-talentRequest', $talentRequest->community->team);
         }
 
         return false;
@@ -97,7 +97,7 @@ class TalentRequestPolicy
      */
     public function restore(User $user, TalentRequest $talentRequest)
     {
-        return $user->isAbleTo('delete-any-searchRequest');
+        return $user->isAbleTo('delete-any-talentRequest');
     }
 
     /**
