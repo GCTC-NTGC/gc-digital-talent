@@ -22,8 +22,8 @@ export interface FormValues {
   pauseReferralsLength?: PauseReferralsLength;
   resumeReferralsAt?: Scalars["Date"]["input"];
   pauseReferralsReason?: string;
-  placedStartDate?: Scalars["Date"]["input"];
-  placedEndDate?: Scalars["Date"]["input"];
+  placedStartDate: string | null;
+  placedEndDate: string | null;
 }
 
 export interface MutationMessages {

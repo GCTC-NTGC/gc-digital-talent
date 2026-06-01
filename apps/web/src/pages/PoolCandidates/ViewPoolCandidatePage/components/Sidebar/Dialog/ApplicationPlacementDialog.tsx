@@ -68,8 +68,8 @@ const ApplicationPlacementOptions_Query = graphql(/** GraphQL */ `
 interface FormValues {
   placementType: PlacementType;
   department?: Scalars["UUID"]["input"];
-  placedStartDate?: Scalars["Date"]["input"];
-  placedEndDate?: Scalars["Date"]["input"];
+  placedStartDate: string | null;
+  placedEndDate: string | null;
 }
 
 interface ApplicationPlacementDialogProps {
@@ -156,6 +156,11 @@ const ApplicationPlacementDialog = ({
   };
 
   const handleSubmit = async (formValues: FormValues) => {
+    const hasPlacedStartDate =
+      formValues.placementType &&
+      formValues.placementType !== PlacementType.NotPlaced &&
+      formValues.placementType !== PlacementType.UnderConsideration &&
+      formValues.placementType !== PlacementType.PlacedTentative;
     const mutation =
       formValues.placementType === PlacementType.NotPlaced
         ? revertPlacement
@@ -167,6 +172,17 @@ const ApplicationPlacementDialog = ({
           handleError();
           return;
         }
+
+        methods.resetField("placedStartDate", {
+          defaultValue: hasPlacedStartDate ? formValues.placedStartDate : null,
+        });
+        methods.resetField("placedEndDate", {
+          defaultValue:
+            hasPlacedStartDate &&
+            formValues.placementType !== PlacementType.PlacedIndeterminate
+              ? formValues.placedEndDate
+              : null,
+        });
 
         toast.success(
           intl.formatMessage({
