@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators\Mutation;
 
-use App\Enums\TalentRequestClosedDetail;
+use App\Enums\TalentRequestCompletionDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestStatus;
 use Illuminate\Validation\Rule;
@@ -18,16 +18,18 @@ final class UpdatePoolCandidateSearchRequestStatusValidator extends Validator
             'poolCandidateSearchRequest.status' => [
                 Rule::in([
                     TalentRequestStatus::IN_PROGRESS->name,
-                    TalentRequestStatus::CLOSED->name,
+                    TalentRequestStatus::COMPLETED->name,
                 ]),
             ],
             'poolCandidateSearchRequest.inProgressDetails' => [
+                'nullable',
                 'required_if:poolCandidateSearchRequest.status,'.TalentRequestStatus::IN_PROGRESS->name,
                 Rule::in(array_column(TalentRequestInProgressDetail::cases(), 'name')),
             ],
-            'poolCandidateSearchRequest.closedDetails' => [
-                'required_if:poolCandidateSearchRequest.status,'.TalentRequestStatus::CLOSED->name,
-                Rule::in(array_column(TalentRequestClosedDetail::cases(), 'name')),
+            'poolCandidateSearchRequest.completionDetails' => [
+                'nullable',
+                'required_if:poolCandidateSearchRequest.status,'.TalentRequestStatus::COMPLETED->name,
+                Rule::in(array_column(TalentRequestCompletionDetail::cases(), 'name')),
             ],
         ];
     }
@@ -37,7 +39,7 @@ final class UpdatePoolCandidateSearchRequestStatusValidator extends Validator
         return [
             'poolCandidateSearchRequest.status.in' => 'The selected status is invalid.',
             'poolCandidateSearchRequest.inProgressDetails.required_if' => 'The inProgressDetails field is required when status is IN_PROGRESS.',
-            'poolCandidateSearchRequest.closedDetails.required_if' => 'The closedDetails field is required when status is CLOSED.',
+            'poolCandidateSearchRequest.completionDetails.required_if' => 'The completionDetails field is required when status is COMPLETE.',
         ];
     }
 }

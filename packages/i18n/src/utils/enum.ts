@@ -25,6 +25,7 @@ import {
   ScreeningStage,
   SecurityStatus,
   WorkRegion,
+  TalentRequestStatus,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -213,6 +214,11 @@ export const ENUM_SORT_ORDER = {
     ScreeningStage.ApplicationReview,
     ScreeningStage.ScreenedIn,
     ScreeningStage.UnderAssessment,
+  ],
+  TALENT_REQUEST_STATUS: [
+    TalentRequestStatus.New,
+    TalentRequestStatus.InProgress,
+    TalentRequestStatus.Completed,
   ],
   WORK_REGION: [
     WorkRegion.Telework,

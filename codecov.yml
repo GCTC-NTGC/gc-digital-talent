@@ -1,3 +1,11 @@
 ignore:
   - "**/*.stories.tsx"
 comment: false
+
+flags:
+  unittests:
+    carryforward: true
+  integrationtests:
+    carryforward: true
+  e2etests:
+    carryforward: true
