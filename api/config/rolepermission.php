@@ -1136,6 +1136,9 @@ return [
             'publishedPool' => [
                 'team' => ['update', 'archive'],
             ],
+            'poolActivityLog' => [
+                'team' => ['view'],
+            ],
             'assessmentPlan' => [
                 'team' => ['view', 'update'],
             ],
@@ -1159,6 +1162,12 @@ return [
             ],
             'talentNominationEvent' => [
                 'team' => ['create', 'update'],
+            ],
+            'talentNomination' => [
+                'team' => ['view'],
+            ],
+            'talentNominationGroup' => [
+                'team' => ['view', 'update'],
             ],
             'community' => [
                 'team' => ['update'],
@@ -1356,7 +1365,7 @@ return [
                 'team' => ['view', 'create', 'update', 'delete', 'publish'],
             ],
             'publishedPool' => [
-                'team' => ['archive'],
+                'team' => ['archive', 'update'],
             ],
             'poolTeamMembers' => [
                 'team' => ['view'],

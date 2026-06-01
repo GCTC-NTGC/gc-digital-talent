@@ -8,7 +8,7 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 import {
   FlexibleWorkLocation,
   makeFragmentData,
-  TalentRequestClosedDetail,
+  TalentRequestCompletionDetail,
   TalentRequestInProgressDetail,
   TalentRequestStatus,
 } from "@gc-digital-talent/graphql";
@@ -51,10 +51,12 @@ const statusOptions = makeFragmentData(
         ...toLocalizedEnum(detail),
       }),
     ),
-    closedDetails: Object.values(TalentRequestClosedDetail).map((detail) => ({
-      __typename: "LocalizedTalentRequestClosedDetail" as const,
-      ...toLocalizedEnum(detail),
-    })),
+    completionDetails: Object.values(TalentRequestCompletionDetail).map(
+      (detail) => ({
+        __typename: "LocalizedTalentRequestCompletionDetail" as const,
+        ...toLocalizedEnum(detail),
+      }),
+    ),
   },
   TalentRequestStatusOptions_Fragment,
 );

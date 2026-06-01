@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Enums\TalentRequestClosedDetail;
+use App\Enums\TalentRequestCompletionDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestStatus;
 use App\Models\Community;
@@ -41,7 +41,7 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
             ) {
                 talentRequestStatus { value }
                 inProgressDetails { value }
-                closedDetails { value }
+                completionDetails { value }
             }
         }
         GRAPHQL;
@@ -64,7 +64,7 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     private function makeRequest(
         string $status,
         ?string $inProgressDetails = null,
-        ?string $closedDetails = null,
+        ?string $completionDetails = null,
         ?string $followUpDate = null,
     ): PoolCandidateSearchRequest {
         return PoolCandidateSearchRequest::factory()->create([
@@ -72,7 +72,7 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
             'user_id' => null,
             'status' => $status,
             'in_progress_details' => $inProgressDetails,
-            'closed_details' => $closedDetails,
+            'completion_details' => $completionDetails,
             'follow_up_date' => $followUpDate,
         ]);
     }
@@ -96,17 +96,17 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         return [
             'from_new' => [TalentRequestStatus::NEW->name],
             'from_in_progress' => [TalentRequestStatus::IN_PROGRESS->name],
-            'from_closed' => [TalentRequestStatus::CLOSED->name],
+            'from_complete' => [TalentRequestStatus::COMPLETED->name],
         ];
     }
 
     #[DataProvider('inProgressFromProvider')]
     public function testSetInProgressFrom(string $fromStatus): void
     {
-        $closedDetails = $fromStatus === TalentRequestStatus::CLOSED->name
-            ? TalentRequestClosedDetail::HIRE_MADE->name
+        $completionDetails = $fromStatus === TalentRequestStatus::COMPLETED->name
+            ? TalentRequestCompletionDetail::HIRE_MADE->name
             : null;
-        $request = $this->makeRequest($fromStatus, null, $closedDetails);
+        $request = $this->makeRequest($fromStatus, null, $completionDetails);
 
         $this->runMutation($this->recruiter, $request->id, [
             'status' => TalentRequestStatus::IN_PROGRESS->name,
@@ -114,10 +114,10 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         ])->assertJsonFragment([
             'talentRequestStatus' => ['value' => TalentRequestStatus::IN_PROGRESS->name],
             'inProgressDetails' => ['value' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name],
-            'closedDetails' => null,
+            'completionDetails' => null,
         ]);
 
-        $this->assertNull($request->fresh()->closed_details);
+        $this->assertNull($request->fresh()->completion_details);
     }
 
     public function testSetInProgressPersistsFollowUpDate(): void
@@ -162,35 +162,35 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     }
 
     // -------------------------------------------------------------------------
-    // Transitions to CLOSED
+    // Transitions to COMPLETED
     // -------------------------------------------------------------------------
 
-    public static function closedFromProvider(): array
+    public static function completeFromProvider(): array
     {
         return [
             'from_new' => [TalentRequestStatus::NEW->name],
             'from_in_progress' => [TalentRequestStatus::IN_PROGRESS->name],
-            'from_closed' => [TalentRequestStatus::CLOSED->name],
+            'from_complete' => [TalentRequestStatus::COMPLETED->name],
         ];
     }
 
-    #[DataProvider('closedFromProvider')]
-    public function testSetClosedFrom(string $fromStatus): void
+    #[DataProvider('completeFromProvider')]
+    public function testSetCompleteFrom(string $fromStatus): void
     {
         $inProgress = $fromStatus === TalentRequestStatus::IN_PROGRESS->name
             ? TalentRequestInProgressDetail::TALENT_SENT->name
             : null;
-        $closed = $fromStatus === TalentRequestStatus::CLOSED->name
-            ? TalentRequestClosedDetail::HIRE_MADE->name
+        $complete = $fromStatus === TalentRequestStatus::COMPLETED->name
+            ? TalentRequestCompletionDetail::HIRE_MADE->name
             : null;
-        $request = $this->makeRequest($fromStatus, $inProgress, $closed, '2026-07-01');
+        $request = $this->makeRequest($fromStatus, $inProgress, $complete, '2026-07-01');
 
         $this->runMutation($this->recruiter, $request->id, [
-            'status' => TalentRequestStatus::CLOSED->name,
-            'closedDetails' => TalentRequestClosedDetail::NO_LONGER_REQUIRED->name,
+            'status' => TalentRequestStatus::COMPLETED->name,
+            'completionDetails' => TalentRequestCompletionDetail::NO_LONGER_REQUIRED->name,
         ])->assertJsonFragment([
-            'talentRequestStatus' => ['value' => TalentRequestStatus::CLOSED->name],
-            'closedDetails' => ['value' => TalentRequestClosedDetail::NO_LONGER_REQUIRED->name],
+            'talentRequestStatus' => ['value' => TalentRequestStatus::COMPLETED->name],
+            'completionDetails' => ['value' => TalentRequestCompletionDetail::NO_LONGER_REQUIRED->name],
             'inProgressDetails' => null,
         ]);
 
@@ -199,21 +199,21 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         $this->assertNull($fresh->follow_up_date);
     }
 
-    public function testClosedDetailsNullableWhenSettingInProgress(): void
+    public function testCompleteDetailsNullableWhenSettingInProgress(): void
     {
         $request = $this->makeRequest(TalentRequestStatus::NEW->name);
 
         $this->runMutation($this->recruiter, $request->id, [
             'status' => TalentRequestStatus::IN_PROGRESS->name,
             'inProgressDetails' => TalentRequestInProgressDetail::INITIAL_CONVERSATION->name,
-            'closedDetails' => null,
+            'completionDetails' => null,
         ])->assertJsonFragment([
             'talentRequestStatus' => ['value' => TalentRequestStatus::IN_PROGRESS->name],
-            'closedDetails' => null,
+            'completionDetails' => null,
         ]);
     }
 
-    public function testSetClosedRequiresClosedDetails(): void
+    public function testSetCompleteRequiresCompleteDetails(): void
     {
         $request = $this->makeRequest(
             TalentRequestStatus::IN_PROGRESS->name,
@@ -221,20 +221,20 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         );
 
         $this->runMutation($this->recruiter, $request->id, [
-            'status' => TalentRequestStatus::CLOSED->name,
-        ])->assertGraphQLValidationError('poolCandidateSearchRequest.closedDetails', 'The closedDetails field is required when status is CLOSED.');
+            'status' => TalentRequestStatus::COMPLETED->name,
+        ])->assertGraphQLValidationError('poolCandidateSearchRequest.completionDetails', 'The completionDetails field is required when status is COMPLETE.');
     }
 
-    public function testInProgressDetailsNullableWhenSettingClosed(): void
+    public function testInProgressDetailsNullableWhenSettingComplete(): void
     {
         $request = $this->makeRequest(TalentRequestStatus::NEW->name);
 
         $this->runMutation($this->recruiter, $request->id, [
-            'status' => TalentRequestStatus::CLOSED->name,
-            'closedDetails' => TalentRequestClosedDetail::NO_LONGER_REQUIRED->name,
+            'status' => TalentRequestStatus::COMPLETED->name,
+            'completionDetails' => TalentRequestCompletionDetail::NO_LONGER_REQUIRED->name,
             'inProgressDetails' => null,
         ])->assertJsonFragment([
-            'talentRequestStatus' => ['value' => TalentRequestStatus::CLOSED->name],
+            'talentRequestStatus' => ['value' => TalentRequestStatus::COMPLETED->name],
             'inProgressDetails' => null,
         ]);
     }
@@ -248,7 +248,7 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
         return [
             'from_new' => [TalentRequestStatus::NEW->name],
             'from_in_progress' => [TalentRequestStatus::IN_PROGRESS->name],
-            'from_closed' => [TalentRequestStatus::CLOSED->name],
+            'from_complete' => [TalentRequestStatus::COMPLETED->name],
         ];
     }
 
@@ -417,7 +417,7 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     {
         PoolCandidateSearchRequest::factory()->count(2)->create([
             'community_id' => $this->community->id,
-            'status' => TalentRequestStatus::CLOSED->name,
+            'status' => TalentRequestStatus::COMPLETED->name,
         ]);
         PoolCandidateSearchRequest::factory()->count(2)->create([
             'community_id' => $this->community->id,
@@ -446,9 +446,9 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
 
         $newIndexes = array_keys(array_filter($statuses, fn ($s) => $s === TalentRequestStatus::NEW->name));
         $inProgressIndexes = array_keys(array_filter($statuses, fn ($s) => $s === TalentRequestStatus::IN_PROGRESS->name));
-        $closedIndexes = array_keys(array_filter($statuses, fn ($s) => $s === TalentRequestStatus::CLOSED->name));
+        $completeIndexes = array_keys(array_filter($statuses, fn ($s) => $s === TalentRequestStatus::COMPLETED->name));
 
         $this->assertTrue(max($newIndexes) < min($inProgressIndexes), 'NEW rows should precede IN_PROGRESS rows');
-        $this->assertTrue(max($inProgressIndexes) < min($closedIndexes), 'IN_PROGRESS rows should precede CLOSED rows');
+        $this->assertTrue(max($inProgressIndexes) < min($completeIndexes), 'IN_PROGRESS rows should precede COMPLETED rows');
     }
 }

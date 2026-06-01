@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -768,12 +769,35 @@ class UserBuilder extends Builder
         return $this;
     }
 
-    /**
-     * Used to limit rows for search results.
-     * This seems pretty silly but I haven't figured out how to enforce a server-side limit in Lighthouse directives.
+    /*
+     * Find the existing users that would be possible to migrate to
      */
-    public function limitFive(): void
+    public function whereIsPossibleMigrationTarget(string $sourceUserId, ?string $email, ?string $telephone): self
     {
-        $this->limit(5);
+        // can't be same account
+        $this->whereNot('id', $sourceUserId);
+
+        // must have matching email in backup
+        $this->where(new Expression('trim(email_backup)'), 'ilike', trim($email));
+
+        // must have matching phone number, ignoring leading 1s
+        $normalizedTelephone = preg_replace('/\D+/', '', $telephone ?? '');
+        $normalizedTelephone = ltrim($normalizedTelephone, '01');
+        $this->where(
+            new Expression("ltrim(regexp_replace(telephone,'\\D+', '', 'g'), '01')"),
+            $normalizedTelephone
+        );
+
+        // can't be logged into CanadaLogin last
+        $this->where(function ($subQuery) {
+            $subQuery
+                ->whereNull('last_sign_in_iss')
+                ->orWhere('last_sign_in_iss', 'not ilike', '%.canada.ca%'); // CanadaLogin lives on canada.ca
+        });
+
+        // can't be soft deleted
+        // handled by global scope
+
+        return $this;
     }
 }
