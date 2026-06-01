@@ -6,7 +6,7 @@ import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircle
 import BuildingLibraryIcon from "@heroicons/react/20/solid/BuildingLibraryIcon";
 import { tv } from "tailwind-variants";
 
-import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   DevelopmentProgramParticipationStatus,
   getFragment,
@@ -22,7 +22,7 @@ interface StatusInfo {
 }
 
 const useStatusInfo = (
-  status?: Maybe<DevelopmentProgramParticipationStatus>,
+  status?: DevelopmentProgramParticipationStatus | null,
   completionDate?: string | null,
 ): StatusInfo => {
   const intl = useIntl();

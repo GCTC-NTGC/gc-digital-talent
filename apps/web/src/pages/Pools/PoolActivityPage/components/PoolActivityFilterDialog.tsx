@@ -2,7 +2,7 @@ import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useWatch } from "react-hook-form";
 
-import type { ActivityEvent, Maybe, Scalars } from "@gc-digital-talent/graphql";
+import type { ActivityEvent, Scalars } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -20,8 +20,8 @@ import CandidatesFilterInput from "./CandidatesFilterInput";
 import AssessmentMembersFilterInput from "./AssessmentMembersFilterInput";
 
 export interface FormValues {
-  from?: Maybe<Scalars["DateTime"]["input"]>;
-  to?: Maybe<Scalars["DateTime"]["input"]>;
+  from?: Scalars["DateTime"]["input"] | null | undefined;
+  to?: Scalars["DateTime"]["input"] | null | undefined;
   causers?: Scalars["UUID"]["input"][];
   candidates?: Scalars["UUID"]["input"][];
   events?: ActivityEvent[];

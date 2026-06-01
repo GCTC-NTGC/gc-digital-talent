@@ -8,7 +8,7 @@ import { isPast } from "date-fns/isPast";
 import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql, PoolLanguage } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import type { HeadingLevel } from "@gc-digital-talent/ui";
@@ -127,7 +127,7 @@ const PostedOnDate = ({
   className,
 }: {
   publishedAt?: string | null | undefined;
-  applicantsCount?: Maybe<number>;
+  applicantsCount?: number | null | undefined;
   className?: string;
 }) => {
   const intl = useIntl();

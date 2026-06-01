@@ -1,4 +1,4 @@
-import type { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
+import type { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import type { RoleName } from "../const";
 

@@ -1,7 +1,5 @@
 import pick from "lodash/pick";
 
-import type { Maybe } from "@gc-digital-talent/graphql";
-
 /**
  * Returns true if value is not null or undefined.
  * Can be used to filter nulls and undefined values out of an array in a
@@ -150,13 +148,13 @@ export function assertUnreachable(value: never): never {
  * @param data
  * @returns T[]
  */
-export function unpackMaybes<T>(data?: Maybe<(Maybe<T> | undefined)[]>): T[] {
+export function unpackMaybes<T>(data?: (T | undefined)[] | null): T[] {
   return data?.filter(notEmpty) ?? [];
 }
 
 // Apply pick to each element of an array.
 export function pickMap<T, K extends keyof T>(
-  list: Maybe<Maybe<T>[]> | null | undefined,
+  list: (T | null | undefined)[] | null | undefined,
   keys: K | K[],
 ): Pick<T, K>[] | undefined {
   return unpackMaybes(list).map(

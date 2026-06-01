@@ -3,7 +3,7 @@ import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
 import { IconButton } from "@gc-digital-talent/ui";
-import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -19,7 +19,10 @@ export const PoolCandidateBookmark_Fragment = graphql(/* GraphQL */ `
 
 interface PoolCandidateBookmarkProps {
   poolCandidateId: string;
-  userQuery?: Maybe<FragmentType<typeof PoolCandidateBookmark_Fragment>>;
+  userQuery?:
+    | FragmentType<typeof PoolCandidateBookmark_Fragment>
+    | null
+    | undefined;
   firstName?: string | null | undefined;
   lastName?: string | null | undefined;
   size?: "sm" | "md" | "lg";

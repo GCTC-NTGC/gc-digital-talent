@@ -1,7 +1,6 @@
 import type { IntlShape, MessageDescriptor } from "react-intl";
 import type { ReactNode } from "react";
 
-import type { Maybe } from "@gc-digital-talent/graphql";
 import {
   CandidateInterest,
   CandidateStatus,
@@ -109,7 +108,7 @@ const contactEmailTag = (chunks: ReactNode, email?: string | null) => {
 };
 
 interface CandidateStatusDescArgs {
-  status?: Maybe<CandidateStatus>;
+  status?: CandidateStatus | null | undefined;
   employeesOnly?: boolean;
   contactEmail?: string | null | undefined;
   intl: IntlShape;
@@ -154,7 +153,7 @@ const candidateInterestDescMap = new Map<CandidateInterest, MessageDescriptor>([
 ]);
 
 interface CandidateInterestDescArgs {
-  interest?: Maybe<CandidateInterest>;
+  interest?: CandidateInterest | null | undefined;
   intl: IntlShape;
 }
 
