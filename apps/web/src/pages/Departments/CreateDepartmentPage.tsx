@@ -166,7 +166,9 @@ const CreateDepartment_Mutation = graphql(/* GraphQL */ `
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request }, next) => {
-    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
+    requireUser(context, request, {
+      roles: [{ name: ROLE_NAME.PlatformAdmin }],
+    });
     return await next();
   },
 ];
