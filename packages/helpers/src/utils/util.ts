@@ -148,7 +148,7 @@ export function assertUnreachable(value: never): never {
  * @param data
  * @returns T[]
  */
-export function unpackMaybes<T>(data?: (T | undefined)[] | null): T[] {
+export function unpackMaybes<T>(data?: (T | null | undefined)[] | null): T[] {
   return data?.filter(notEmpty) ?? [];
 }
 
