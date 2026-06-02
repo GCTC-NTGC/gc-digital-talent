@@ -689,6 +689,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         },
       }}
       filter={{
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <CommunityTalentFilterDialog

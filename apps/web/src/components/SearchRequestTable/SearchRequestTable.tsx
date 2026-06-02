@@ -492,6 +492,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         },
       }}
       filter={{
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <SearchRequestFilterDialog

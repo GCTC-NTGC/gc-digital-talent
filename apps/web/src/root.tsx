@@ -152,6 +152,11 @@ export function Layout({ children }: LayoutProps) {
         <ScrollRestoration
           nonce="**CSP_NONCE**"
           getKey={(location) => {
+            // if there's a hash then use default behavior since the ScrollToLink will be handling scrolling
+            if (location.hash) {
+              return location.key;
+            }
+            // otherwise, treat each path the same way
             return location.pathname;
           }}
         />
