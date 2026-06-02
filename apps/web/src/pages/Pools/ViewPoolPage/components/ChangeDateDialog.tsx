@@ -14,7 +14,7 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import type { Pool, Scalars } from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql";
 import { ErrorCode } from "@gc-digital-talent/graphql";
 
 import processMessages from "~/messages/processMessages";

@@ -7,7 +7,6 @@ import {
   nowUTCDateTime,
 } from "@gc-digital-talent/date-helpers";
 import type {
-  Scalars,
   SitewideAnnouncement,
   SitewideAnnouncementInput,
 } from "@gc-digital-talent/graphql";

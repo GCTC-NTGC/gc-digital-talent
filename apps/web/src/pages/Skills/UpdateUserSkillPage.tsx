@@ -27,7 +27,6 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import type {
   FragmentType,
-  Scalars,
   SkillLevel,
   WhenSkillUsed,
 } from "@gc-digital-talent/graphql";

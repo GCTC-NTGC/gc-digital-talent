@@ -5,7 +5,6 @@ import { useCallback, useEffect } from "react";
 
 import type {
   FragmentType,
-  Scalars,
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import {

@@ -24,7 +24,6 @@ import {
 import type {
   FragmentType,
   LocalizedStringInput,
-  Scalars,
   UpdateWorkStreamInput,
   WorkStreamQuery,
 } from "@gc-digital-talent/graphql";

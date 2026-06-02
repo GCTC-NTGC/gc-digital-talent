@@ -24,7 +24,6 @@ import type {
   DepartmentSize,
   FragmentType,
   LocalizedStringInput,
-  Scalars,
   UpdateDepartmentInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";

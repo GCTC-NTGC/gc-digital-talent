@@ -1,7 +1,6 @@
 import type {
   FragmentType,
   Role,
-  Scalars,
   ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 

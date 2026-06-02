@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import type { FragmentType, Scalars, User } from "@gc-digital-talent/graphql";
+import type { FragmentType, User } from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
   getFragment,

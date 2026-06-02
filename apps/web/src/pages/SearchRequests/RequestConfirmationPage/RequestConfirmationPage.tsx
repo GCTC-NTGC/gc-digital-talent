@@ -11,7 +11,6 @@ import {
   Link,
   Container,
 } from "@gc-digital-talent/ui";
-import type { Scalars } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";

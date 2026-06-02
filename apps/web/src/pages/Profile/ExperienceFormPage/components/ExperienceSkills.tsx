@@ -4,7 +4,7 @@ import { useClient } from "urql";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { Accordion, Heading, Ul, Notice } from "@gc-digital-talent/ui";
-import { graphql, type Scalars, type Skill } from "@gc-digital-talent/graphql";
+import { graphql, type   type Skill } from "@gc-digital-talent/graphql";
 
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 import type { ExperienceType, FormSkill, FormSkills } from "~/types/experience";

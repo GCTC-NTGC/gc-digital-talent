@@ -12,7 +12,6 @@ import type {
   UpdateJobPosterTemplateJobDetailsFragment,
   UpdateJobPosterTemplateInput,
   SupervisoryStatus,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";

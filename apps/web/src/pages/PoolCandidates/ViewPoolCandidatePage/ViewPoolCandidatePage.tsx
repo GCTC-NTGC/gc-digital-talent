@@ -5,10 +5,7 @@ import { useQuery } from "urql";
 
 import { NotFound, Pending, Heading, Sidebar } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import type {
-  Scalars,
-  PoolCandidateSnapshotQuery,
-} from "@gc-digital-talent/graphql";
+import type { PoolCandidateSnapshotQuery } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 

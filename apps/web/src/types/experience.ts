@@ -21,7 +21,6 @@ import type {
   LocalizedString,
   PersonalExperience,
   PersonalExperienceInput,
-  Scalars,
   WorkExperienceInput,
   WorkExperience,
   EmploymentCategory,

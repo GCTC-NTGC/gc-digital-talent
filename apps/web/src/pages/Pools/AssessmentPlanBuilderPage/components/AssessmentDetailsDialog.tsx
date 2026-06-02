@@ -26,7 +26,6 @@ import { toast } from "@gc-digital-talent/toast";
 import type {
   PoolSkill,
   ScreeningQuestion,
-  Scalars,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import {

@@ -3,7 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { TextArea, Submit } from "@gc-digital-talent/forms";
-import type { Scalars } from "@gc-digital-talent/graphql";
+
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { ToggleSection, Button } from "@gc-digital-talent/ui";

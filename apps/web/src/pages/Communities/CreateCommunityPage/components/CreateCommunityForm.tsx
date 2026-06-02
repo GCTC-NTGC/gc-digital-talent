@@ -16,7 +16,6 @@ import { toast } from "@gc-digital-talent/toast";
 import type {
   CreateCommunityInput,
   LocalizedStringInput,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 

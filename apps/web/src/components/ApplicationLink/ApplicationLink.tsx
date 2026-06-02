@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 
 import type { LinkProps } from "@gc-digital-talent/ui";
 import { Link } from "@gc-digital-talent/ui";
-import type { Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 

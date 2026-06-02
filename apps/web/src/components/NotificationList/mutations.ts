@@ -1,6 +1,5 @@
 import { useMutation } from "urql";
 
-import type { Scalars } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 
 export const MarkNotificationAsRead_Mutation = graphql(/* GraphQL */ `

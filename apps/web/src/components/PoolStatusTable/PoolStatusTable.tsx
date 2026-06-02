@@ -10,7 +10,6 @@ import type {
   FragmentType,
   PoolCandidate,
   PoolStatusTableFragment,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,

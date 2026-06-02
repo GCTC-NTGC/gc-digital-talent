@@ -9,7 +9,6 @@ import { toast } from "@gc-digital-talent/toast";
 import { Submit } from "@gc-digital-talent/forms";
 import type {
   CreateDevelopmentProgramInput,
-  Scalars,
   LocalizedStringInput,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";

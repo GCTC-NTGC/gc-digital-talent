@@ -1,5 +1,3 @@
-import type { Scalars } from "@gc-digital-talent/graphql";
-
 export interface FormValues {
   name: {
     en: string | null;

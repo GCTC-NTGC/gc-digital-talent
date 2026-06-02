@@ -5,7 +5,6 @@ import type {
   FragmentType,
   PoolStatus,
   PublishingGroup,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";

@@ -14,7 +14,6 @@ import type {
   UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment,
   CreateJobPosterTemplateSkillInput,
   UpdateJobPosterTemplateSkillsInput,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import {
   graphql,

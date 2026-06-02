@@ -2,7 +2,7 @@ import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useWatch } from "react-hook-form";
 
-import type { ActivityEvent, Scalars } from "@gc-digital-talent/graphql";
+import type { ActivityEvent } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,

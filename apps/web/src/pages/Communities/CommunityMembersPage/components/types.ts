@@ -1,4 +1,4 @@
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 
 import type Hero from "~/components/Hero";
 

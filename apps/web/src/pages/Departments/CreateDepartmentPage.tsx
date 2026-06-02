@@ -9,7 +9,6 @@ import { toast } from "@gc-digital-talent/toast";
 import { Submit } from "@gc-digital-talent/forms";
 import type {
   CreateDepartmentInput,
-  Scalars,
   LocalizedStringInput,
   DepartmentSize,
 } from "@gc-digital-talent/graphql";

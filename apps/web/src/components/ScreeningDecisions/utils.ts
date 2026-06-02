@@ -8,7 +8,6 @@ import type {
   Experience,
   FragmentType,
   PublishingGroup,
-  Scalars,
   SkillCategory,
   SkillLevel,
   UpdateAssessmentResultInput,

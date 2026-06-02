@@ -3,7 +3,6 @@ import type { IntlShape } from "react-intl";
 import type {
   ApplicationStep,
   Pool,
-  Scalars,
   Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";
 

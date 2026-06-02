@@ -2,7 +2,6 @@ import type {
   CreateUserInput,
   User,
   UpdateUserAsUserInput,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import {
   Language,

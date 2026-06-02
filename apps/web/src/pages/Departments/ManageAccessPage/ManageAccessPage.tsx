@@ -9,10 +9,7 @@ import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME as ROLE, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type {
-  Scalars,
-  DepartmentMembersTeamQuery,
-} from "@gc-digital-talent/graphql";
+import type { DepartmentMembersTeamQuery } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";

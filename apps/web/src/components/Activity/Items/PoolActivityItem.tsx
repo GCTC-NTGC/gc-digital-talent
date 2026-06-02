@@ -4,7 +4,6 @@ import type { MessageDescriptor } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
-import type { Scalars } from "@gc-digital-talent/graphql";
 import { ActivityEvent, getFragment } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";

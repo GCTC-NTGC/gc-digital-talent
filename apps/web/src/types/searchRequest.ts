@@ -1,5 +1,4 @@
 import type {
-  Scalars,
   ApplicantFilterInput,
   LanguageAbility,
   UserPoolFilterInput,

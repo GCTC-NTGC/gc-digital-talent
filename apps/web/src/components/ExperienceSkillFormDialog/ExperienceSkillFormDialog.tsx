@@ -8,7 +8,6 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type {
   Skill,
   Experience,
-  Scalars,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";

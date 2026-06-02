@@ -37,7 +37,6 @@ import type {
   Skill,
   UpdateSkillInput,
   UpdateSkillMutation,
-  Scalars,
   SkillCategory,
   FragmentType,
 } from "@gc-digital-talent/graphql";

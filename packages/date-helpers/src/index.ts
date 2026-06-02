@@ -10,7 +10,6 @@ import type { Locale } from "date-fns/locale";
 import { tz, TZDate } from "@date-fns/tz";
 
 import { getLocale, dateMessages } from "@gc-digital-talent/i18n";
-import type { Scalars } from "@gc-digital-talent/graphql";
 
 import type { FormatDateOptions } from "./types";
 import {

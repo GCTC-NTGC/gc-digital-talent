@@ -22,7 +22,6 @@ import {
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import type {
-  Scalars,
   Skill,
   FragmentType,
   UpdatePublishedPoolInput,

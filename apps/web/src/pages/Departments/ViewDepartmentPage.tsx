@@ -14,7 +14,7 @@ import {
   Ul,
   Container,
 } from "@gc-digital-talent/ui";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME as ROLE } from "@gc-digital-talent/auth";
 

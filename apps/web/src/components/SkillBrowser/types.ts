@@ -1,5 +1,4 @@
 import type {
-  Scalars,
   Skill,
   SkillCategory,
   SkillLevel,

@@ -1,5 +1,3 @@
-import type { Scalars } from "@gc-digital-talent/graphql";
-
 interface QuestionResponse {
   id: string;
   questionId: string;

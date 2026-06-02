@@ -5,7 +5,6 @@ import { useMutation } from "urql";
 import { toast } from "@gc-digital-talent/toast";
 import type {
   UpdatePoolInput,
-  Scalars,
   CreatePoolSkillInput,
   UpdatePoolSkillInput,
   UpdatePublishedPoolInput,

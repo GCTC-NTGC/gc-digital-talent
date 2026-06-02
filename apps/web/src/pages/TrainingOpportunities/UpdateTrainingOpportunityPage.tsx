@@ -22,7 +22,6 @@ import {
 } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  Scalars,
   UpdateTrainingOpportunityInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";

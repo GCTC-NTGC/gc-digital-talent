@@ -1,8 +1,4 @@
-import type {
-  FragmentType,
-  RoleAssignment,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, RoleAssignment } from "@gc-digital-talent/graphql";
 
 import type Hero from "~/components/Hero";
 

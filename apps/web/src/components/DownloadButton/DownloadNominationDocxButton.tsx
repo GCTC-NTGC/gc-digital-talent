@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 
 import { DropdownMenu } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { Scalars } from "@gc-digital-talent/graphql";
 
 import useNominationDownloads from "~/hooks/useNominationDownloads";
 import useUserDownloads from "~/hooks/useUserDownloads";

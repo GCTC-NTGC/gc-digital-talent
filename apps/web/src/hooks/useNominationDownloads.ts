@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import type { Scalars } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";

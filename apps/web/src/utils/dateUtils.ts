@@ -6,7 +6,6 @@ import {
   formDateStringToDate,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { Scalars } from "@gc-digital-talent/graphql";
 
 export function formattedDate(date: string, intl: IntlShape) {
   let dateString = date;

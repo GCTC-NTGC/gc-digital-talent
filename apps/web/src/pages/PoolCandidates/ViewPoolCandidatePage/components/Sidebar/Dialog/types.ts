@@ -7,7 +7,6 @@ import type {
   DisqualificationReason,
   PlacementType,
   PauseReferralsLength,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {

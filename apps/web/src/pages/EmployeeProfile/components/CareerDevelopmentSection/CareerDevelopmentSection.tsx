@@ -39,7 +39,6 @@ import type {
   TimeFrame,
   OrganizationTypeInterest,
   LearningOpportunitiesInterest,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import {

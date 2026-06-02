@@ -19,7 +19,6 @@ import {
 import type {
   FragmentType,
   LocalizedStringInput,
-  Scalars,
   UpdateDevelopmentProgramInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";

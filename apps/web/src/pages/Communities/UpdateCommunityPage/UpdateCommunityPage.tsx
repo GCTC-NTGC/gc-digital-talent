@@ -22,7 +22,6 @@ import {
   Notice,
 } from "@gc-digital-talent/ui";
 import type {
-  Scalars,
   FragmentType,
   UpdateCommunityInput,
 } from "@gc-digital-talent/graphql";

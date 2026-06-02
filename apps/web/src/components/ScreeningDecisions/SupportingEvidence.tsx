@@ -1,10 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type {
-  Experience,
-  FragmentType,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { Experience, FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,

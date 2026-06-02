@@ -34,7 +34,6 @@ import type {
   SkillFamily,
   CreateSkillInput,
   SkillCategory,
-  Scalars,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";

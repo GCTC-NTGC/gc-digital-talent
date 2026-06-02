@@ -13,7 +13,6 @@ import {
 } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  Scalars,
   UpdateTalentNominationGroupInput,
 } from "@gc-digital-talent/graphql";
 import {

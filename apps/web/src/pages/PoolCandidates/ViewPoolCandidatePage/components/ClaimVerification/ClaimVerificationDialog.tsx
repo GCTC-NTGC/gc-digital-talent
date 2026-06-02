@@ -4,10 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import { useState } from "react";
 
-import type {
-  Scalars,
-  UpdatePoolCandidateClaimVerificationInput,
-} from "@gc-digital-talent/graphql";
+import type { UpdatePoolCandidateClaimVerificationInput } from "@gc-digital-talent/graphql";
 import { ClaimVerificationResult, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog } from "@gc-digital-talent/ui";

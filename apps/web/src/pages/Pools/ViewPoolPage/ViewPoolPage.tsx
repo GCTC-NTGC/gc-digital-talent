@@ -17,11 +17,7 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type {
-  FragmentType,
-  RoleAssignment,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, RoleAssignment } from "@gc-digital-talent/graphql";
 import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
