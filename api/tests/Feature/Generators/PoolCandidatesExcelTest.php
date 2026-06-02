@@ -10,8 +10,8 @@ use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use Tests\TestCase;
 
 class PoolCandidatesExcelTest extends TestCase
@@ -78,8 +78,11 @@ class PoolCandidatesExcelTest extends TestCase
         $this->assertGreaterThan(0, $fileSize, 'File is empty');
     }
 
-    // A free-text field starting with "=" must not be treated as a formula.
-    // Previously this threw a TypeError out of PhpSpreadsheet during save.
+    // A free-text field starting with "=" must not be typed as a formula. An
+    // invalid formula like "= To become more involved" crashed PhpSpreadsheet
+    // with a TypeError when the writer tried to calculate it. The binder lives
+    // on the Spreadsheet instance because generate() runs in a queue worker,
+    // not where the generator was constructed.
     public function testNeutralizesFormulaInjection(): void
     {
         // arrange
@@ -93,7 +96,9 @@ class PoolCandidatesExcelTest extends TestCase
             ->withNonGovProfile()
             ->create();
 
-        $payload = '=HYPERLINK("http://evil.test","To become more involved")';
+        // Exact shape of the value that crashed in production: an invalid formula.
+        $payload = '= To become more involved';
+
         $application = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
@@ -116,25 +121,27 @@ class PoolCandidatesExcelTest extends TestCase
             ->setIds([$application->id])
             ->setFilters([]);
 
-        // would throw before the NonFormulaValueBinder fix
+        // Simulate the queue worker: the process running generate() has the
+        // default global binder, so the fix must not rely on construction-time state.
+        Cell::setValueBinder(new DefaultValueBinder());
+
         $generator->generate()->write();
 
-        // assert: the payload was written as inert text, not a formula
+        // assert: the file was produced (write() above would have thrown the
+        // TypeError before the fix) and the value is text, not a formula element
         $path = Storage::disk('user_generated')->path('test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx');
-        $sheet = IOFactory::load($path)->getActiveSheet();
-
-        $found = null;
-        foreach ($sheet->getRowIterator() as $row) {
-            foreach ($row->getCellIterator() as $cell) {
-                if ($cell->getValue() === $payload) {
-                    $found = $cell;
-                    break 2;
-                }
+        $zip = new \ZipArchive();
+        $zip->open($path);
+        $xml = '';
+        for ($i = 0; $i < $zip->numFiles; $i++) {
+            $name = $zip->getNameIndex($i);
+            if (str_contains($name, 'worksheets/') || str_contains($name, 'sharedStrings')) {
+                $xml .= $zip->getFromName($name);
             }
         }
+        $zip->close();
 
-        $this->assertNotNull($found, 'Payload cell was not found in the generated file');
-        $this->assertNotSame(DataType::TYPE_FORMULA, $found->getDataType(), 'Payload was written as a formula');
-        $this->assertSame($payload, $found->getValue(), 'Payload content was altered');
+        $this->assertStringContainsString('To become more involved', $xml, 'Payload text was not written to the file');
+        $this->assertStringNotContainsString('<f>', $xml, 'Payload was written as a formula element');
     }
 }

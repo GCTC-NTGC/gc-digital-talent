@@ -5,8 +5,8 @@ namespace App\Generators;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 
-// Stops auto-detection from typing user text that starts with "=" as a formula.
-// Explicit formulas via setCellValueExplicit(..., TYPE_FORMULA) are unaffected.
+// Treat "="-leading user text as a string, not a formula. PhpSpreadsheet adds a
+// quote-prefix so the literal text shows in Excel without being executed.
 class NonFormulaValueBinder extends DefaultValueBinder
 {
     public static function dataTypeForValue(mixed $value): string
