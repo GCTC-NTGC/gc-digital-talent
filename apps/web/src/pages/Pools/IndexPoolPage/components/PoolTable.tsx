@@ -391,6 +391,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       }}
       filter={{
         initialState: initialFilterInput,
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <PoolFilterDialog

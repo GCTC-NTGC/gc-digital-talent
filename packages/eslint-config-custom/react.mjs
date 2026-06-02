@@ -32,8 +32,6 @@ export default [
 
       // TO DO: Enable in #16676
       "react-hooks/static-components": "off",
-      // TO DO: Enable in #16677
-      "react-hooks/refs": "off",
 
       ...vitest.configs.recommended.rules,
       "vitest/expect-expect": [

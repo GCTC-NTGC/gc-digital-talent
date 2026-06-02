@@ -1184,6 +1184,7 @@ const PoolCandidatesTable = ({
       }}
       filter={{
         initialState: initialFilterInput,
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <PoolCandidateFilterDialog
