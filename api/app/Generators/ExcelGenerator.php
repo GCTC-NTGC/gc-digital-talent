@@ -23,7 +23,7 @@ abstract class ExcelGenerator extends FileGenerator implements FileGeneratorInte
         // The value binder is process-global, so save the current one and
         // restore it on destruct to keep the override scoped to this generator.
         $this->previousValueBinder = Cell::getValueBinder();
-        Cell::setValueBinder(new NonFormulaValueBinder);
+        Cell::setValueBinder(new NonFormulaValueBinder());
     }
 
     public function __destruct()
