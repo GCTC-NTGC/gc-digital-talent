@@ -52,7 +52,6 @@ use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
@@ -226,7 +225,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet = $this->newSpreadsheet();
 
         // Users sheet
         $usersSheet = $this->spreadsheet->getActiveSheet();

@@ -17,7 +17,6 @@ use App\Traits\Generator\Filterable;
 use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class CommunityInterestUserExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
 {
@@ -68,7 +67,7 @@ class CommunityInterestUserExcelGenerator extends ExcelGenerator implements File
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet = $this->newSpreadsheet();
 
         $sheet = $this->spreadsheet->getActiveSheet();
         $localizedHeaders = array_map(function ($key) {
