@@ -391,7 +391,7 @@ export const getExperienceFormLabels = (
  */
 export const formValuesToSubmitData = (
   data: ExperienceFormValues<AllExperienceFormValues>,
-  hiddenSkills: Skill[] | null | undefined,
+  hiddenSkills: Skill[] | null,
   type?: ExperienceType | "",
 ): ExperienceDetailsSubmissionData => {
   const {
@@ -872,20 +872,17 @@ export const queryResultToDefaultValues = (
 };
 
 export interface ExperienceName extends SimpleAnyExperience {
-  title?: string | null | undefined;
-  organization?: string | null | undefined;
-  type?: Partial<LocalizedEducationType> | string | null | undefined;
-  areaOfStudy?: string | null | undefined;
-  institution?: string | null | undefined;
-  role?: string | null | undefined;
-  employmentCategory?: Partial<LocalizedEmploymentCategory> | null | undefined;
-  department?:
-    | {
-        name?: Partial<LocalizedString> | null | undefined;
-      }
-    | null
-    | undefined;
-  cafForce?: Partial<LocalizedCafForce> | null | undefined;
+  title?: string | null;
+  organization?: string | null;
+  type?: Partial<LocalizedEducationType> | string | null;
+  areaOfStudy?: string | null;
+  institution?: string | null;
+  role?: string | null;
+  employmentCategory?: Partial<LocalizedEmploymentCategory> | null;
+  department?: {
+    name?: Partial<LocalizedString> | null | undefined;
+  } | null;
+  cafForce?: Partial<LocalizedCafForce> | null;
 }
 
 /**

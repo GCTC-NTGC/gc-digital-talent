@@ -20,8 +20,8 @@ import type { SnapshotProps } from "../types";
 export interface CitizenVeteranPrioritySnapshotV1 {
   citizenship: LocalizedCitizenshipStatus | null | undefined;
   armedForcesStatus: LocalizedArmedForcesStatus | null | undefined;
-  hasPriorityEntitlement?: boolean | null | undefined;
-  priorityNumber?: string | null | undefined;
+  hasPriorityEntitlement?: boolean | null;
+  priorityNumber?: string | null;
 }
 
 type CitizenVeteranPriorityV1Props =

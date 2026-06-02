@@ -25,7 +25,7 @@ import { getUserRoleDialogFragment, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
   roleIds: Scalars["UUID"]["input"][];
-  teamId: Scalars["UUID"]["input"] | null | undefined;
+  teamId: Scalars["UUID"]["input"] | null;
   userId: Scalars["UUID"]["input"];
 }
 

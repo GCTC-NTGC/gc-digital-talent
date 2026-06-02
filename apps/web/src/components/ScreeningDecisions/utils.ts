@@ -270,15 +270,12 @@ export function getDialogType(
 export const getSkillLevelMessage = (
   intl: IntlShape,
   poolSkill?: {
-    requiredLevel?: SkillLevel | null | undefined;
-    skill?:
-      | {
-          category: {
-            value: SkillCategory;
-          };
-        }
-      | null
-      | undefined;
+    requiredLevel?: SkillLevel | null;
+    skill?: {
+      category: {
+        value: SkillCategory;
+      };
+    } | null;
   },
 ): string => {
   let skillLevel = "";
@@ -303,9 +300,9 @@ export const hasAttachedExperiences = (
 
 interface GetEducationRequirementLabelArgs {
   intl: IntlShape;
-  educationRequirementOption?: EducationRequirementOption | null | undefined;
-  group?: ClassificationGroup | null | undefined;
-  publishingGroup?: PublishingGroup | null | undefined;
+  educationRequirementOption?: EducationRequirementOption | null;
+  group?: ClassificationGroup | null;
+  publishingGroup?: PublishingGroup | null;
 }
 
 export const getEducationRequirementLabel = ({

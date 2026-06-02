@@ -34,8 +34,8 @@ import FormFields from "./FormFields";
 interface FormValues {
   name: LocalizedStringInput;
   descriptionForProfile: LocalizedStringInput;
-  informationUrl?: LocalizedStringInput | null | undefined;
-  abbreviation?: LocalizedStringInput | null | undefined;
+  informationUrl?: LocalizedStringInput | null;
+  abbreviation?: LocalizedStringInput | null;
 }
 
 export function formValuesToUpdateInput({

@@ -44,23 +44,17 @@ export interface BrowserHistoryState {
 }
 
 export type PartialApplicantFilter = Omit<ApplicantFilter, "pools"> & {
-  pools?:
-    | (Omit<Pool, "activities" | "teamId"> | null | undefined)[]
-    | null
-    | undefined;
+  pools?: (Omit<Pool, "activities" | "teamId"> | null)[] | null;
 };
 
 export type PartialPoolCandidateFilter = Omit<PoolCandidateFilter, "pools"> & {
-  pools?:
-    | (Omit<Pool, "activities" | "teamId"> | null | undefined)[]
-    | null
-    | undefined;
+  pools?: (Omit<Pool, "activities" | "teamId"> | null)[] | null;
 };
 
 export type PartialSearchRequest = Omit<
   PoolCandidateSearchRequest,
   "applicantFilter" | "poolCandidateFilter"
 > & {
-  applicantFilter?: PartialApplicantFilter | null | undefined;
-  poolCandidateFilter?: PartialPoolCandidateFilter | null | undefined;
+  applicantFilter?: PartialApplicantFilter | null;
+  poolCandidateFilter?: PartialPoolCandidateFilter | null;
 };

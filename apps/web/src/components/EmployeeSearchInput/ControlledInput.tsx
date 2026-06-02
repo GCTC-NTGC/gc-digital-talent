@@ -67,7 +67,7 @@ interface ControlledInputProps {
   describedBy?: string;
   errorMessages?: Partial<ErrorMessages>;
   errorSeverities?: Partial<ErrorSeverities>;
-  defaultEmployee?: EmployeeSearchResult | null | undefined;
+  defaultEmployee?: EmployeeSearchResult | null;
   searchMessageCase?: SearchMessageCases;
 }
 

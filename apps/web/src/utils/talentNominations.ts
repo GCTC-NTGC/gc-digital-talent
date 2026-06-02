@@ -13,11 +13,8 @@ import { getFullNameLabel } from "./nameUtils";
 
 interface NominationsWithNominatorName {
   id: Scalars["UUID"]["output"];
-  nominatorFallbackName?: string | null | undefined;
-  nominator?:
-    | Pick<BasicGovEmployeeProfile, "firstName" | "lastName">
-    | null
-    | undefined;
+  nominatorFallbackName?: string | null;
+  nominator?: Pick<BasicGovEmployeeProfile, "firstName" | "lastName"> | null;
 }
 
 export function getSortedNominatorNames(

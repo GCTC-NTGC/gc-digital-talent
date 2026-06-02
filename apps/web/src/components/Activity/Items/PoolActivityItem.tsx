@@ -78,7 +78,7 @@ const keyMap = new Map<string, MessageDescriptor>([
 ]);
 
 export interface PoolActivityItemProps extends CommonItemProps {
-  publishedAt?: Scalars["DateTime"]["output"] | null | undefined;
+  publishedAt?: Scalars["DateTime"]["output"] | null;
 }
 
 const PoolActivityItem = ({

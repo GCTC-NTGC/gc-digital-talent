@@ -41,7 +41,7 @@ const ApplicantFilters = ({
   selectedClassifications,
   flexibleWorkLocationOptions,
 }: {
-  applicantFilter?: PartialApplicantFilter | null | undefined;
+  applicantFilter?: PartialApplicantFilter | null;
   selectedClassifications?: (
     | Pick<Classification, "groupAndLevel">
     | null
@@ -279,11 +279,7 @@ const ApplicantFilters = ({
 };
 
 interface SearchRequestFiltersProps {
-  filters?:
-    | PartialApplicantFilter
-    | PartialPoolCandidateFilter
-    | null
-    | undefined;
+  filters?: PartialApplicantFilter | PartialPoolCandidateFilter | null;
   selectedClassifications?: (
     | Pick<Classification, "groupAndLevel">
     | null

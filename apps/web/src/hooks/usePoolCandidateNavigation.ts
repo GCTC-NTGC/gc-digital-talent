@@ -17,7 +17,7 @@ export interface CandidateNavigationQueryParams {
   orderByBaseInput: PoolCandidatesBaseSort;
   poolNameSortingInput?: PoolCandidatePoolNameOrderByInput;
   sortingInput?: QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause[];
-  orderByClaimVerification?: ClaimVerificationSort | null | undefined;
+  orderByClaimVerification?: ClaimVerificationSort | null;
   orderByEmployeeDepartment?: SortOrder;
   orderByScreeningStage?: SortOrder;
 }

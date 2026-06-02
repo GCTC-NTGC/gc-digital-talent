@@ -20,14 +20,14 @@ const boolCheck = tv({
 type DivProps = React.ComponentPropsWithoutRef<"div">;
 
 interface BothLabelsRequiredProps extends DivProps {
-  value?: boolean | null | undefined;
+  value?: boolean | null;
   trueLabel: string;
   falseLabel: string;
   children: ReactNode;
 }
 
 interface NoLabelsAllowedProps extends DivProps {
-  value?: boolean | null | undefined;
+  value?: boolean | null;
   trueLabel?: undefined;
   falseLabel?: undefined;
   children: ReactNode;

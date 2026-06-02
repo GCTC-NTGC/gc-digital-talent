@@ -109,12 +109,9 @@ export function categorizeSkill(
 
 export interface AddedSkill {
   id: string;
-  experienceSkillRecord?:
-    | {
-        details?: string | null | undefined;
-      }
-    | null
-    | undefined;
+  experienceSkillRecord?: {
+    details?: string | null | undefined;
+  } | null;
 }
 
 export const getMissingSkills = (required: Skill[], added?: AddedSkill[]) => {
@@ -250,7 +247,7 @@ export const sortPoolSkillsBySkillCategory = <T extends PoolSkill[]>(
  * @returns Skill[]
  */
 export const filterPoolSkillsByType = (
-  poolSkills: (PoolSkill | null | undefined)[] | null | undefined,
+  poolSkills: (PoolSkill | null)[] | null | undefined,
   poolSkillType: PoolSkillType,
 ): Skill[] => {
   const skills = unpackMaybes(poolSkills)
@@ -260,7 +257,7 @@ export const filterPoolSkillsByType = (
 };
 
 export function groupPoolSkillByType(
-  poolSkills?: (PoolSkill | null | undefined)[] | null,
+  poolSkills?: (PoolSkill | null)[] | null,
 ): Map<PoolSkillType, Skill[]> {
   return unpackMaybes(poolSkills).reduce((map, poolSkill) => {
     const { type, skill } = poolSkill;
@@ -274,8 +271,6 @@ export function groupPoolSkillByType(
   }, new Map<PoolSkillType, Skill[]>());
 }
 
-export function poolSkillsToSkills(
-  poolSkills?: (PoolSkill | null | undefined)[] | null,
-) {
+export function poolSkillsToSkills(poolSkills?: (PoolSkill | null)[] | null) {
   return unpackMaybes(poolSkills?.map((poolSkill) => poolSkill?.skill));
 }

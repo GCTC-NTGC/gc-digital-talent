@@ -19,12 +19,9 @@ export const PoolCandidateBookmark_Fragment = graphql(/* GraphQL */ `
 
 interface PoolCandidateBookmarkProps {
   poolCandidateId: string;
-  userQuery?:
-    | FragmentType<typeof PoolCandidateBookmark_Fragment>
-    | null
-    | undefined;
-  firstName?: string | null | undefined;
-  lastName?: string | null | undefined;
+  userQuery?: FragmentType<typeof PoolCandidateBookmark_Fragment> | null;
+  firstName?: string | null;
+  lastName?: string | null;
   size?: "sm" | "md" | "lg";
 }
 

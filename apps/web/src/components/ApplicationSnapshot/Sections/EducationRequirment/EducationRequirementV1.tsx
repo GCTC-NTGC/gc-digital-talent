@@ -35,7 +35,7 @@ const EducationRequirement_PoolCandidateFragment = graphql(/* GraphQL */ `
 `);
 
 export interface EducationRequirementSnapshotV1 {
-  experiences?: (SnapshotExperience | null | undefined)[] | null | undefined;
+  experiences?: (SnapshotExperience | null | undefined)[] | null;
 }
 
 export interface EducationRequirementV1Props extends SnapshotProps<EducationRequirementSnapshotV1> {

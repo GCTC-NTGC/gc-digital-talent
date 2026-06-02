@@ -107,22 +107,19 @@ type NominationOption =
   | "developmentProgram";
 
 interface FormValues extends BaseFormValues {
-  nominationOptions: (NominationOption | null | undefined)[];
-  advancementReference: Scalars["UUID"]["input"] | null | undefined;
+  nominationOptions: (NominationOption | null)[];
+  advancementReference: Scalars["UUID"]["input"] | null;
   advancementReferenceReview?: TalentNominationUserReview;
-  advancementReferenceFallbackWorkEmail: string | null | undefined;
-  advancementReferenceFallbackName: string | null | undefined;
+  advancementReferenceFallbackWorkEmail: string | null;
+  advancementReferenceFallbackName: string | null;
   advancementReferenceFallbackClassification: Scalars["UUID"]["input"];
-  advancementReferenceFallbackClassificationGroup: string | null | undefined;
-  advancementReferenceFallbackClassificationLevel: string | null | undefined;
+  advancementReferenceFallbackClassificationGroup: string | null;
+  advancementReferenceFallbackClassificationLevel: string | null;
   advancementReferenceFallbackDepartment: Scalars["UUID"]["input"];
-  lateralMovementOptions:
-    | TalentNominationLateralMovementOption[]
-    | null
-    | undefined;
-  lateralMovementOptionsOther: string | null | undefined;
+  lateralMovementOptions: TalentNominationLateralMovementOption[] | null;
+  lateralMovementOptionsOther: string | null;
   communityDevelopmentPrograms: Scalars["UUID"]["input"][];
-  developmentProgramOptionsOther: string | null | undefined;
+  developmentProgramOptionsOther: string | null;
 }
 
 type DetailsFieldsOptionsFragmentType = FragmentType<
@@ -692,7 +689,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     return null;
   };
 
-  let nominationOptions: (NominationOption | null | undefined)[] = [];
+  let nominationOptions: (NominationOption | null)[] = [];
   if (talentNomination?.nominateForAdvancement) {
     nominationOptions = [...nominationOptions, "advancement"];
   }

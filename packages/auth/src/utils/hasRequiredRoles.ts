@@ -4,7 +4,7 @@ import type { RoleName } from "../const";
 
 export interface RoleRequirement {
   name: RoleName;
-  teamId?: string | null | undefined;
+  teamId?: string | null;
 }
 
 interface HasRequiredRolesArgs {

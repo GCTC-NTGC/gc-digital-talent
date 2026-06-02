@@ -11,7 +11,7 @@ const contactLink = (chunks: ReactNode) => (
 );
 
 interface SubmitForPublishingDialogProps {
-  isReadyToPublish: boolean | null | undefined;
+  isReadyToPublish: boolean | null;
 }
 
 const SubmitForPublishingDialog = ({

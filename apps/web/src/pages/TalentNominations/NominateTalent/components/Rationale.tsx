@@ -26,9 +26,9 @@ import messages from "../messages";
 import labels from "../labels";
 
 interface FormValues extends BaseFormValues {
-  nominationRationale?: string | null | undefined;
+  nominationRationale?: string | null;
   skills?: Scalars["UUID"]["input"][];
-  additionalComments?: string | null | undefined;
+  additionalComments?: string | null;
 }
 
 const NominateTalentSkills_Fragment = graphql(/* GraphQL */ `

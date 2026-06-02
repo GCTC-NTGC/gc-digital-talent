@@ -13,7 +13,7 @@ import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
 interface DownloadNominationDocxButtonProps {
   id: Scalars["UUID"]["output"];
   userId?: Scalars["UUID"]["output"];
-  consentToShareProfile?: boolean | null | undefined;
+  consentToShareProfile?: boolean | null;
 }
 
 const DownloadNominationDocxButton = ({

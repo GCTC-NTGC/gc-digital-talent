@@ -8,7 +8,7 @@ export type GraphqlClientContext = Client;
 
 export const graphqlClientContext = createContext<Client>();
 
-export type UserContext = Partial<UserAuthInfo> | null | undefined;
+export type UserContext = Partial<UserAuthInfo> | null;
 
 export const userContext = createContext<UserContext>(null);
 

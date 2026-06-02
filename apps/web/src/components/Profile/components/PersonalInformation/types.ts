@@ -5,14 +5,14 @@ import type {
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {
-  armedForcesStatus?: ArmedForcesStatus | null | undefined;
-  citizenship?: CitizenshipStatus | null | undefined;
-  preferredLang?: Language | null | undefined;
-  preferredLanguageForInterview?: Language | null | undefined;
-  preferredLanguageForExam?: Language | null | undefined;
-  telephone?: string | null | undefined;
-  firstName?: string | null | undefined;
-  lastName?: string | null | undefined;
-  email?: string | null | undefined;
-  isEmailVerified?: boolean | null | undefined;
+  armedForcesStatus?: ArmedForcesStatus | null;
+  citizenship?: CitizenshipStatus | null;
+  preferredLang?: Language | null;
+  preferredLanguageForInterview?: Language | null;
+  preferredLanguageForExam?: Language | null;
+  telephone?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  isEmailVerified?: boolean | null;
 }

@@ -438,15 +438,12 @@ const PoolCandidatesTable = ({
   hiddenColumnIds: hiddenColumnIdsProp,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Pick<Pool, "id" | "displayName"> | null | undefined;
+  currentPool?: Pick<Pool, "id" | "displayName"> | null;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
   doNotUseFlag?: boolean;
-  availableSteps?:
-    | PoolCandidateFilterDialogProps["availableSteps"]
-    | null
-    | undefined;
+  availableSteps?: PoolCandidateFilterDialogProps["availableSteps"] | null;
   hiddenColumnIds?: string[];
 }) => {
   const intl = useIntl();

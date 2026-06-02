@@ -42,14 +42,9 @@ type GeneratedUser = User & {
         | GeneratedPersonalExperience
         | GeneratedWorkExperience
         | null
-        | undefined
       )[]
-    | null
-    | undefined;
-  poolCandidates?:
-    | (GeneratedPoolCandidate | null | undefined)[]
-    | null
-    | undefined;
+    | null;
+  poolCandidates?: (GeneratedPoolCandidate | null)[] | null | undefined;
 };
 
 const generateUser = (

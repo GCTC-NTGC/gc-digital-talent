@@ -11,8 +11,7 @@ export interface PartialUser extends Pick<
 > {
   indigenousCommunities?:
     | (Pick<LocalizedIndigenousCommunity, "value"> | null | undefined)[]
-    | null
-    | undefined;
+    | null;
 }
 
 export function hasEmptyRequiredFields(

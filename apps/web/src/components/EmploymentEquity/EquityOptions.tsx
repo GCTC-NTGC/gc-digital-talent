@@ -21,14 +21,13 @@ import type { EquityKeys, UserMutationPromise } from "./types";
 import IndigenousEquityOption from "./IndigenousEquityOption";
 
 interface EquityOptionsProps {
-  hasDisability?: boolean | null | undefined;
+  hasDisability?: boolean | null;
   indigenousCommunities?:
     | (LocalizedIndigenousCommunity | null | undefined)[]
-    | null
-    | undefined;
-  indigenousDeclarationSignature?: string | null | undefined;
-  isVisibleMinority?: boolean | null | undefined;
-  isWoman?: boolean | null | undefined;
+    | null;
+  indigenousDeclarationSignature?: string | null;
+  isVisibleMinority?: boolean | null;
+  isWoman?: boolean | null;
   isDisabled?: boolean;
   onAdd: (key: EquityKeys) => UserMutationPromise;
   onRemove: (key: EquityKeys) => UserMutationPromise;

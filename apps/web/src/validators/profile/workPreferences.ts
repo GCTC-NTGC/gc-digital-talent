@@ -14,16 +14,11 @@ export interface PartialUser extends Pick<
 > {
   locationPreferences?:
     | (Pick<LocalizedWorkRegion, "value"> | null | undefined)[]
-    | null
-    | undefined;
+    | null;
   flexibleWorkLocations?:
     | (Pick<LocalizedFlexibleWorkLocation, "value"> | null | undefined)[]
-    | null
-    | undefined;
-  currentProvince?:
-    | Pick<LocalizedProvinceOrTerritory, "value">
-    | null
-    | undefined;
+    | null;
+  currentProvince?: Pick<LocalizedProvinceOrTerritory, "value"> | null;
 }
 
 export function hasAllEmptyFields({

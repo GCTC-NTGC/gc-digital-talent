@@ -46,7 +46,7 @@ interface FormValues extends BaseFormValues {
   role?: SubmitterRole;
   submitterRelationshipToNominator?: TalentNominationSubmitterRelationshipToNominator;
   submitterRelationshipToNominatorOther?: string;
-  nominator?: Scalars["UUID"]["input"] | null | undefined;
+  nominator?: Scalars["UUID"]["input"] | null;
   nominatorReview?: TalentNominationUserReview;
   nominatorFallbackWorkEmail?: string;
   nominatorFallbackName?: string;

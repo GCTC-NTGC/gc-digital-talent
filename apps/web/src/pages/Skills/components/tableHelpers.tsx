@@ -9,14 +9,14 @@ import type {
 } from "@gc-digital-talent/graphql";
 
 export function categoryAccessor(
-  category: LocalizedSkillCategory | null | undefined,
+  category: LocalizedSkillCategory | null,
   intl: IntlShape,
 ) {
   return category?.label ? getLocalizedName(category.label, intl) : "";
 }
 
 export function skillFamiliesCell(
-  skillFamilies: (SkillFamily | null | undefined)[] | null | undefined,
+  skillFamilies: (SkillFamily | null)[] | null | undefined,
   intl: IntlShape,
 ) {
   const familyNames = skillFamilies

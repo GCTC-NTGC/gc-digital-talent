@@ -16,13 +16,13 @@ const input = tv({
 });
 
 interface FormValues {
-  term?: string | null | undefined;
+  term?: string | null;
 }
 
 interface SearchFormProps {
   onSearch?: (term?: string | null) => void;
   onReset?: () => void;
-  defaultValue?: string | null | undefined;
+  defaultValue?: string | null;
 }
 
 const SearchForm = ({ onSearch, onReset, defaultValue }: SearchFormProps) => {

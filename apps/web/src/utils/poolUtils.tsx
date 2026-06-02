@@ -52,7 +52,7 @@ import { checkRole } from "./teamUtils";
  * @returns boolean
  */
 export const isAdvertisementVisible = (
-  roleAssignments: (RoleAssignment | null | undefined)[],
+  roleAssignments: (RoleAssignment | null)[],
   status?: PoolStatus | null,
 ) => {
   if (status !== PoolStatus.Draft) {
@@ -99,7 +99,7 @@ export const formatClassificationAriaString = ({
 interface formattedPoolPosterTitleProps {
   title: string | null | undefined;
   classification: Pick<Classification, "groupAndLevel"> | null | undefined;
-  workStream?: WorkStream | null | undefined;
+  workStream?: WorkStream | null;
   short?: boolean;
   intl: IntlShape;
 }
@@ -156,10 +156,10 @@ interface PoolTitleOptions {
 
 type PartialPool = Pick<Pool, "name" | "publishingGroup" | "workStream">;
 interface PartialPoolWithClassification extends PartialPool {
-  classification?: Pick<Classification, "groupAndLevel"> | null | undefined;
+  classification?: Pick<Classification, "groupAndLevel"> | null;
 }
 
-type PoolTitle = PartialPoolWithClassification | null | undefined;
+type PoolTitle = PartialPoolWithClassification | null;
 
 export const poolTitle = (
   intl: IntlShape,

@@ -6,7 +6,7 @@ import { AlertDialog, Button, IconButton, Notice } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 
 interface ConfirmationDialogProps {
-  assessmentTitle?: string | null | undefined;
+  assessmentTitle?: string | null;
   onRemove: () => Promise<void>;
 }
 

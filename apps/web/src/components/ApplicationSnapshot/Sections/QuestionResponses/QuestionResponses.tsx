@@ -18,8 +18,8 @@ type SourceQuestionResponse =
 
 export interface GenericQuestionResponse {
   id: Scalars["UUID"]["output"];
-  question?: string | null | undefined;
-  answer?: string | null | undefined;
+  question?: string | null;
+  answer?: string | null;
 }
 
 const normalizeQuestionResponses = (

@@ -104,7 +104,7 @@ export const candidateNameCell = (
 
 export const processCell = (
   pool: Pick<Pool, "id" | "workStream" | "name" | "publishingGroup"> & {
-    classification?: Pick<Classification, "groupAndLevel"> | null | undefined;
+    classification?: Pick<Classification, "groupAndLevel"> | null;
   },
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
