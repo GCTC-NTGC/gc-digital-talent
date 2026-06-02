@@ -10,11 +10,10 @@ import type {
 
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
-type PartialLanguage = Pick<LocalizedLanguage, "value"> | null | undefined;
+type PartialLanguage = Pick<LocalizedLanguage, "value"> | null;
 type PartialEvaluatedLanguage =
   | Pick<LocalizedEvaluatedLanguageAbility, "value">
-  | null
-  | undefined;
+  | null;
 
 export interface PartialUser extends Pick<
   User,
@@ -27,8 +26,7 @@ export interface PartialUser extends Pick<
   firstOfficialLanguage?: PartialLanguage;
   estimatedLanguageAbility?:
     | Pick<LocalizedEstimatedLanguageAbility, "value">
-    | null
-    | undefined;
+    | null;
   writtenLevel?: PartialEvaluatedLanguage;
   comprehensionLevel?: PartialEvaluatedLanguage;
   verbalLevel?: PartialEvaluatedLanguage;

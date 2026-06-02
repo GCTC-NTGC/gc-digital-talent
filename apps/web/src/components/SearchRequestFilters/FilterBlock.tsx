@@ -9,7 +9,7 @@ import FieldDisplay from "../FieldDisplay/FieldDisplay";
 
 interface FilterBlockProps {
   title: string;
-  content?: string | string[] | ReactNode | null | undefined;
+  content?: string | string[] | ReactNode | null;
 }
 
 const FilterBlockContent = ({

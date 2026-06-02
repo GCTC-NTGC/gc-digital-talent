@@ -60,7 +60,7 @@ export function localeRedirect(locale: Locales) {
 }
 
 export const getLocalizedName = (
-  name: LocalizedString | null | undefined,
+  name: LocalizedString | null,
   intl: IntlShape,
   emptyNotFound = false,
 ): string => {
@@ -92,8 +92,8 @@ export const localizeCurrency = (
 };
 
 export const localizeSalaryRange = (
-  min: number | null | undefined,
-  max: number | null | undefined,
+  min: number | null,
+  max: number | null,
   locale: string,
   currency = "USD",
 ) => {

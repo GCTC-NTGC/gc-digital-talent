@@ -125,8 +125,8 @@ const PostedOnDate = ({
   applicantsCount,
   className,
 }: {
-  publishedAt?: string | null | undefined;
-  applicantsCount?: number | null | undefined;
+  publishedAt?: string | null;
+  applicantsCount?: number | null;
   className?: string;
 }) => {
   const intl = useIntl();

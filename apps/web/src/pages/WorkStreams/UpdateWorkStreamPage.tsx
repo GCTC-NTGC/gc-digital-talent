@@ -76,8 +76,8 @@ export const WorkStreamUpdate_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  name?: LocalizedStringInput | null | undefined;
-  plainLanguageName?: LocalizedStringInput | null | undefined;
+  name?: LocalizedStringInput | null;
+  plainLanguageName?: LocalizedStringInput | null;
   community: string;
   talentSearchable: boolean;
 }

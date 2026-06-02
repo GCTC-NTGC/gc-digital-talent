@@ -148,13 +148,13 @@ export function assertUnreachable(value: never): never {
  * @param data
  * @returns T[]
  */
-export function unpackMaybes<T>(data?: (T | null | undefined)[] | null): T[] {
+export function unpackMaybes<T>(data?: (T | null)[] | null): T[] {
   return data?.filter(notEmpty) ?? [];
 }
 
 // Apply pick to each element of an array.
 export function pickMap<T, K extends keyof T>(
-  list: (T | null | undefined)[] | null | undefined,
+  list: (T | null)[] | null,
   keys: K | K[],
 ): Pick<T, K>[] | undefined {
   return unpackMaybes(list).map(

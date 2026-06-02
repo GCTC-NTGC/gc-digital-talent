@@ -13,11 +13,11 @@ import type {
 
 // The filter/sort params shared between the table query and navigation queries
 export interface CandidateNavigationQueryParams {
-  where: PoolCandidateSearchInput | null | undefined;
+  where: PoolCandidateSearchInput | null;
   orderByBaseInput: PoolCandidatesBaseSort;
   poolNameSortingInput?: PoolCandidatePoolNameOrderByInput;
   sortingInput?: QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause[];
-  orderByClaimVerification?: ClaimVerificationSort | null | undefined;
+  orderByClaimVerification?: ClaimVerificationSort | null;
   orderByEmployeeDepartment?: SortOrder;
   orderByScreeningStage?: SortOrder;
 }

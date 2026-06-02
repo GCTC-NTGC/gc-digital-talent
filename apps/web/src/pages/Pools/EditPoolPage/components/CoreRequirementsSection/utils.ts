@@ -12,7 +12,7 @@ export enum LocationOption {
   SpecificLocation = "SPECIFIC_LOCATION",
 }
 
-const getLocationOption = (isRemote: boolean | null | undefined) => {
+const getLocationOption = (isRemote: boolean | null) => {
   if (empty(isRemote) || isRemote) {
     return LocationOption.RemoteOptional;
   }

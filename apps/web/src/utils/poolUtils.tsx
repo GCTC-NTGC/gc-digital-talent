@@ -52,7 +52,7 @@ import { checkRole } from "./teamUtils";
  * @returns boolean
  */
 export const isAdvertisementVisible = (
-  roleAssignments: (RoleAssignment | null | undefined)[],
+  roleAssignments: (RoleAssignment | null)[],
   status?: PoolStatus | null,
 ) => {
   if (status !== PoolStatus.Draft) {
@@ -97,9 +97,9 @@ export const formatClassificationAriaString = ({
   return tokens.join(" ");
 };
 interface formattedPoolPosterTitleProps {
-  title: string | null | undefined;
-  classification: Pick<Classification, "groupAndLevel"> | null | undefined;
-  workStream?: WorkStream | null | undefined;
+  title: string | null;
+  classification: Pick<Classification, "groupAndLevel"> | null;
+  workStream?: WorkStream | null;
   short?: boolean;
   intl: IntlShape;
 }
@@ -156,10 +156,10 @@ interface PoolTitleOptions {
 
 type PartialPool = Pick<Pool, "name" | "publishingGroup" | "workStream">;
 interface PartialPoolWithClassification extends PartialPool {
-  classification?: Pick<Classification, "groupAndLevel"> | null | undefined;
+  classification?: Pick<Classification, "groupAndLevel"> | null;
 }
 
-type PoolTitle = PartialPoolWithClassification | null | undefined;
+type PoolTitle = PartialPoolWithClassification | null;
 
 export const poolTitle = (
   intl: IntlShape,
@@ -437,7 +437,7 @@ export const getPoolCompletenessBadge = (completeness: PoolCompleteness) => {
 };
 
 export const getProcessStatusBadge = (
-  status: LocalizedPoolStatus | null | undefined,
+  status: LocalizedPoolStatus | null,
   intl: IntlShape,
 ): StatusBadge => {
   const statusBadge: StatusBadge = {

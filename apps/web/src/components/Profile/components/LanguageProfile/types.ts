@@ -5,14 +5,14 @@ import type {
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {
-  comprehensionLevel?: EvaluatedLanguageAbility | null | undefined;
-  writtenLevel?: EvaluatedLanguageAbility | null | undefined;
-  verbalLevel?: EvaluatedLanguageAbility | null | undefined;
-  estimatedLanguageAbility?: EstimatedLanguageAbility | null | undefined;
-  firstOfficialLanguage?: Language | null | undefined;
-  secondLanguageExamCompleted?: boolean | null | undefined;
+  comprehensionLevel?: EvaluatedLanguageAbility | null;
+  writtenLevel?: EvaluatedLanguageAbility | null;
+  verbalLevel?: EvaluatedLanguageAbility | null;
+  estimatedLanguageAbility?: EstimatedLanguageAbility | null;
+  firstOfficialLanguage?: Language | null;
+  secondLanguageExamCompleted?: boolean | null;
   consideredPositionLanguages: string[];
   secondLanguageExamValidity?: "currently_valid" | "expired" | null;
-  preferredLanguageForInterview?: Language | null | undefined;
-  preferredLanguageForExam?: Language | null | undefined;
+  preferredLanguageForInterview?: Language | null;
+  preferredLanguageForExam?: Language | null;
 }

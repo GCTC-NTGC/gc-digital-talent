@@ -52,7 +52,7 @@ export function viewCell(
 }
 
 export function classificationCell(
-  classification: Pick<Classification, "groupAndLevel"> | null | undefined,
+  classification: Pick<Classification, "groupAndLevel"> | null,
 ) {
   if (!classification) return null;
 

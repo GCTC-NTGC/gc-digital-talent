@@ -10,9 +10,9 @@ interface EditLinkProps {
   /** The current url root. */
   editUrlRoot: string;
   /** Label for link text  */
-  label?: string | null | undefined;
+  label?: string | null;
   /** Visible text for the string, if you want to override default. */
-  text?: string | null | undefined;
+  text?: string | null;
 }
 
 function EditLink({

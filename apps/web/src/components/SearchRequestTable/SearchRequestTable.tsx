@@ -63,7 +63,7 @@ const transformSearchRequestInput = (
   filterState: PoolCandidateSearchRequestInput,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): PoolCandidateSearchRequestInput | null | undefined => {
+): PoolCandidateSearchRequestInput | null => {
   if (
     filterState === undefined &&
     searchBarTerm === undefined &&

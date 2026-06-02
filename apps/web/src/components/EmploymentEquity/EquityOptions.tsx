@@ -21,14 +21,13 @@ import type { EquityKeys, UserMutationPromise } from "./types";
 import IndigenousEquityOption from "./IndigenousEquityOption";
 
 interface EquityOptionsProps {
-  hasDisability?: boolean | null | undefined;
+  hasDisability?: boolean | null;
   indigenousCommunities?:
-    | (LocalizedIndigenousCommunity | null | undefined)[]
-    | null
-    | undefined;
-  indigenousDeclarationSignature?: string | null | undefined;
-  isVisibleMinority?: boolean | null | undefined;
-  isWoman?: boolean | null | undefined;
+    | (LocalizedIndigenousCommunity | null)[]
+    | null;
+  indigenousDeclarationSignature?: string | null;
+  isVisibleMinority?: boolean | null;
+  isWoman?: boolean | null;
   isDisabled?: boolean;
   onAdd: (key: EquityKeys) => UserMutationPromise;
   onRemove: (key: EquityKeys) => UserMutationPromise;
@@ -36,9 +35,9 @@ interface EquityOptionsProps {
   inApplication: boolean;
 }
 
-const resolveMaybe = (value: boolean | null | undefined): boolean => !!value;
+const resolveMaybe = (value: boolean | null): boolean => !!value;
 const resolveMaybeArray = <T,>(
-  value: (T | null | undefined)[] | null | undefined,
+  value: (T | null)[] | null,
 ): T[] => {
   return value?.filter(notEmpty) ?? [];
 };

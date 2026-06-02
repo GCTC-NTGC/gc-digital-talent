@@ -75,7 +75,7 @@ export const actionCell = (
 };
 
 export function emailLinkCell(
-  email: string | null | undefined,
+  email: string | null,
   intl: IntlShape,
 ) {
   if (email) {
@@ -98,7 +98,7 @@ export function emailLinkCell(
 }
 
 export function roleCell(
-  roles: (Role | null | undefined)[] | null | undefined,
+  roles: (Role | null)[] | null,
   intl: IntlShape,
 ) {
   const nonEmptyRoles = unpackMaybes(roles);
@@ -112,7 +112,7 @@ export function roleCell(
 }
 
 export function roleAccessor(
-  roles: (Role | null | undefined)[] | null | undefined,
+  roles: (Role | null)[] | null,
   intl: IntlShape,
 ) {
   const nonEmptyRoles = roles?.filter(notEmpty);

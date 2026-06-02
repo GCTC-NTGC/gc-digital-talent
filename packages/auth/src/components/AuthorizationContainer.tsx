@@ -6,8 +6,8 @@ import type { RoleAssignment, UserAuthInfo } from "@gc-digital-talent/graphql";
 type SimpleRoleAssignment = Exclude<RoleAssignment, "teamable">;
 
 export interface AuthorizationState {
-  roleAssignments: SimpleRoleAssignment[] | null | undefined;
-  userAuthInfo?: UserAuthInfo | null | undefined;
+  roleAssignments: SimpleRoleAssignment[] | null;
+  userAuthInfo?: UserAuthInfo | null;
   isLoaded: boolean;
 }
 
@@ -18,8 +18,8 @@ export const AuthorizationContext = createContext<AuthorizationState>({
 });
 
 interface AuthorizationContainerProps {
-  roleAssignments: SimpleRoleAssignment[] | null | undefined;
-  userAuthInfo?: UserAuthInfo | null | undefined;
+  roleAssignments: SimpleRoleAssignment[] | null;
+  userAuthInfo?: UserAuthInfo | null;
   isLoaded: boolean;
   children?: ReactNode;
 }

@@ -108,9 +108,9 @@ const contactEmailTag = (chunks: ReactNode, email?: string | null) => {
 };
 
 interface CandidateStatusDescArgs {
-  status?: CandidateStatus | null | undefined;
+  status?: CandidateStatus | null;
   employeesOnly?: boolean;
-  contactEmail?: string | null | undefined;
+  contactEmail?: string | null;
   intl: IntlShape;
 }
 
@@ -153,7 +153,7 @@ const candidateInterestDescMap = new Map<CandidateInterest, MessageDescriptor>([
 ]);
 
 interface CandidateInterestDescArgs {
-  interest?: CandidateInterest | null | undefined;
+  interest?: CandidateInterest | null;
   intl: IntlShape;
 }
 

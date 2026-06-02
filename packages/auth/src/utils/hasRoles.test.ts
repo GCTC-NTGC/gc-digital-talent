@@ -10,7 +10,7 @@ describe("hasRole tests", () => {
   test("single role and user missing it", () => {
     const testRole: RoleName = "base_user";
     const testUserRoles:
-      | (RoleAssignment | null | undefined)[]
+      | (RoleAssignment | null)[]
       | null
       | undefined = [];
 
@@ -20,7 +20,7 @@ describe("hasRole tests", () => {
   test("single role and user has it", () => {
     const testRole: RoleName = "base_user";
     const testUserRoles:
-      | (RoleAssignment | null | undefined)[]
+      | (RoleAssignment | null)[]
       | null
       | undefined = [
       {
@@ -38,7 +38,7 @@ describe("hasRole tests", () => {
   test("array of roles and user missing all of them", () => {
     const testRole: RoleName[] = ["base_user", "community_admin"];
     const testUserRoles:
-      | (RoleAssignment | null | undefined)[]
+      | (RoleAssignment | null)[]
       | null
       | undefined = [];
 
@@ -48,7 +48,7 @@ describe("hasRole tests", () => {
   test("array of roles and user has one", () => {
     const testRole: RoleName[] = ["base_user", "community_admin"];
     const testUserRoles:
-      | (RoleAssignment | null | undefined)[]
+      | (RoleAssignment | null)[]
       | null
       | undefined = [
       {
@@ -66,7 +66,7 @@ describe("hasRole tests", () => {
   test("array of roles and user has null role assignments", () => {
     const testRole: RoleName[] = ["base_user", "community_admin"];
     const testUserRoles:
-      | (RoleAssignment | null | undefined)[]
+      | (RoleAssignment | null)[]
       | null
       | undefined = null;
 
@@ -77,9 +77,9 @@ describe("hasRole tests", () => {
     const testRole: RoleName = "process_operator";
     const teamIds = ["pool-team-1"];
     const testUserRoles:
-      | (RoleAssignment | null | undefined)[]
+      | (RoleAssignment | null)[]
       | null
-      | undefined = [
+ = [
       {
         id: "id-1",
         role: {
@@ -98,9 +98,9 @@ describe("hasRole tests", () => {
     const testRole: RoleName = "process_operator";
     const teamIds = ["pool-team-1"];
     const testUserRoles:
-      | (RoleAssignment | null | undefined)[]
+      | (RoleAssignment | null)[]
       | null
-      | undefined = [
+ = [
       {
         id: "id-2",
         role: {
@@ -119,9 +119,9 @@ describe("hasRole tests", () => {
     const testRole: RoleName = "platform_admin";
     const teamIds = ["pool-team-1"];
     const testUserRoles:
-      | (RoleAssignment | null | undefined)[]
+      | (RoleAssignment | null)[]
       | null
-      | undefined = [
+ = [
       {
         id: "id-3",
         role: {
@@ -141,9 +141,9 @@ describe("hasRole tests", () => {
     // Check against both Pool team and Community team
     const teamIds = ["pool-team-1", "community-team-2"];
     const testUserRoles:
-      | (RoleAssignment | null | undefined)[]
+      | (RoleAssignment | null)[]
       | null
-      | undefined = [
+ = [
       {
         id: "id-4",
         role: {
@@ -162,9 +162,9 @@ describe("hasRole tests", () => {
   test("team-based role passes if no teamIds are provided to the check", () => {
     const testRole: RoleName = "process_operator";
     const testUserRoles:
-      | (RoleAssignment | null | undefined)[]
+      | (RoleAssignment | null)[]
       | null
-      | undefined = [
+ = [
       {
         id: "id-5",
         role: {

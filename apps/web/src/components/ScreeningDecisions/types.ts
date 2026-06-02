@@ -6,12 +6,11 @@ import type {
 import type { NullableDecision } from "~/utils/assessmentResults";
 
 export interface FormValues {
-  assessmentDecision?: NullableDecision | null | undefined;
+  assessmentDecision?: NullableDecision | null;
   justifications?:
-    | (AssessmentResultJustification | null | undefined)[]
+    | (AssessmentResultJustification | null)[]
     | AssessmentResultJustification
-    | null
-    | undefined;
-  assessmentDecisionLevel?: AssessmentDecisionLevel | null | undefined;
-  skillDecisionNotes?: string | null | undefined;
+    | null;
+  assessmentDecisionLevel?: AssessmentDecisionLevel | null;
+  skillDecisionNotes?: string | null;
 }

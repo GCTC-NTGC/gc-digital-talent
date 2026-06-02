@@ -31,9 +31,8 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "./localize";
 
 export type MaybeLocalizedEnums =
-  | (LocalizedEnumString | null | undefined)[]
-  | null
-  | undefined;
+  | (LocalizedEnumString | null)[]
+  | null;
 
 export interface GenericLocalizedEnum<T> {
   value: T;
@@ -49,7 +48,7 @@ export interface GenericLocalizedEnum<T> {
  * @returns The full localized enum found, or null
  */
 export function getLocalizedEnumByValue(
-  value: string | null | undefined,
+  value: string | null,
   localizedEnumArray: MaybeLocalizedEnums | undefined,
 ) {
   return localizedEnumArray?.find(
@@ -67,7 +66,7 @@ export function getLocalizedEnumByValue(
  * @returns string
  */
 export function getLocalizedEnumStringByValue(
-  value: string | null | undefined,
+  value: string | null,
   localizedEnumArray: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
   emptyNotFound = false,
@@ -121,14 +120,14 @@ export function sortLocalizedEnumOptions<T extends string>(
  * @returns The found localized enum
  */
 export function enumInputToLocalizedEnum<T extends string>(
-  input: T | null | undefined,
+  input: T | null,
   localizedEnumArray?: MaybeLocalizedEnums,
 ) {
   return input
     ? (getLocalizedEnumByValue(input, localizedEnumArray) as
         | GenericLocalizedEnum<T>
         | null
-        | undefined)
+)
     : undefined;
 }
 
@@ -140,7 +139,7 @@ export function enumInputToLocalizedEnum<T extends string>(
  */
 export function localizedEnumToInput<T>(
   localizedEnum?: GenericLocalizedEnum<T> | null,
-): T | null | undefined {
+): T | null {
   return localizedEnum?.value;
 }
 
@@ -151,8 +150,8 @@ export function localizedEnumToInput<T>(
  * @returns Input values
  */
 export function localizedEnumArrayToInput<T>(
-  localizedEnumArray?: (GenericLocalizedEnum<T> | null | undefined)[] | null,
-): (T | null | undefined)[] | undefined {
+  localizedEnumArray?: (GenericLocalizedEnum<T> | null)[] | null,
+): (T | null)[] {
   return unpackMaybes(
     localizedEnumArray?.map((localizedEnum) =>
       localizedEnumToInput(localizedEnum),

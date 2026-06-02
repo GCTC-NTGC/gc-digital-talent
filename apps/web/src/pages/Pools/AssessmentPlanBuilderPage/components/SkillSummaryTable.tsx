@@ -88,7 +88,7 @@ interface SkillSummaryTableProps {
 
 const CheckIconElement = (
   skill: Skill | null | undefined,
-  assessmentStepType: LocalizedAssessmentStepType | null | undefined,
+  assessmentStepType: LocalizedAssessmentStepType | null,
 ): JSX.Element | null => {
   const intl = useIntl();
   if (!skill) {

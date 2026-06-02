@@ -153,25 +153,24 @@ type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
 
 interface FormValues {
-  id?: Scalars["ID"]["output"] | null | undefined;
-  poolId?: Scalars["ID"]["output"] | null | undefined;
-  typeOfAssessment?: AssessmentStepType | null | undefined;
-  assessmentTitleEn?: string | null | undefined;
-  assessmentTitleFr?: string | null | undefined;
+  id?: Scalars["ID"]["output"] | null;
+  poolId?: Scalars["ID"]["output"] | null;
+  typeOfAssessment?: AssessmentStepType | null;
+  assessmentTitleEn?: string | null;
+  assessmentTitleFr?: string | null;
   screeningQuestionFieldArray?: {
     id: string | null;
     screeningQuestion: {
-      id?: Scalars["ID"]["output"] | null | undefined;
-      sortOrder?: number | null | undefined;
-      en?: string | null | undefined;
-      fr?: string | null | undefined;
+      id?: Scalars["ID"]["output"] | null;
+      sortOrder?: number | null;
+      en?: string | null;
+      fr?: string | null;
     };
   }[];
-  assessedSkills?: Scalars["ID"]["output"][] | null | undefined;
+  assessedSkills?: Scalars["ID"]["output"][] | null;
   assessedSkillsScreeningQuestions?:
     | Scalars["ID"]["output"][]
-    | null
-    | undefined;
+    | null;
 }
 
 interface InitialValues extends Omit<

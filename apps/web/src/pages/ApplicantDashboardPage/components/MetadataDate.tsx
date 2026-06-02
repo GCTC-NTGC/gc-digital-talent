@@ -31,7 +31,7 @@ interface ApplicationDateProps {
   closingDate?: string | null;
   submittedAt?: string | null;
   assessedDate?: string | null;
-  status?: CandidateStatus | null | undefined;
+  status?: CandidateStatus | null;
 }
 
 export const ApplicationDate = ({
@@ -115,7 +115,7 @@ export const ApplicationDate = ({
 
 interface RecruitmentDateProps {
   statusUpdatedAt?: string | null;
-  interest?: CandidateInterest | null | undefined;
+  interest?: CandidateInterest | null;
 }
 
 export const RecruitmentDate = ({

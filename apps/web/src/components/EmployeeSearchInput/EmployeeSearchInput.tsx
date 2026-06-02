@@ -21,7 +21,7 @@ export interface EmployeeSearchInputProps
   wrapperProps?: ComponentPropsWithoutRef<"div">;
   errorMessages?: Partial<ErrorMessages>;
   errorSeverities?: Partial<ErrorSeverities>;
-  employeeOption?: EmployeeSearchResult | null | undefined;
+  employeeOption?: EmployeeSearchResult | null;
   searchMessageCase?: SearchMessageCases;
 }
 

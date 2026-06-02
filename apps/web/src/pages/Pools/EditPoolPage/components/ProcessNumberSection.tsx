@@ -27,7 +27,7 @@ interface FormValues {
 }
 
 const dataToFormValues = (initialData: {
-  processNumber?: string | null | undefined;
+  processNumber?: string | null;
 }): FormValues => ({
   processNumber: initialData.processNumber ?? "",
 });

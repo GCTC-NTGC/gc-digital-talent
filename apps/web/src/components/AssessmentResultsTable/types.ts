@@ -9,7 +9,7 @@ import type { IconType } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 type PoolSkillForTableRow = Pick<PoolSkill, "id" | "requiredLevel" | "type"> & {
-  skill?: Pick<Skill, "id" | "name" | "category" | "key"> | null | undefined;
+  skill?: Pick<Skill, "id" | "name" | "category" | "key"> | null;
 };
 
 export interface AssessmentTableRow {

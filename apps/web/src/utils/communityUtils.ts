@@ -50,7 +50,7 @@ export const groupRoleAssignmentsByUser = (assignments: RoleAssignment[]) => {
  */
 export const checkRole = (
   roles: RoleName[] | null,
-  userRoleAssignments: RoleAssignment[] | null | undefined,
+  userRoleAssignments: RoleAssignment[] | null,
   communityId?: string,
 ): boolean => {
   if (!roles) {

@@ -14,7 +14,7 @@ const communityIconMap = new Map<IndigenousCommunity, string>([
 ]);
 
 interface CommunityIconProps {
-  community?: IndigenousCommunity | null | undefined;
+  community?: IndigenousCommunity | null;
 }
 
 const CommunityIcon = ({ community }: CommunityIconProps) => {

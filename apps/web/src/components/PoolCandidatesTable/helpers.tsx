@@ -104,7 +104,7 @@ export const candidateNameCell = (
 
 export const processCell = (
   pool: Pick<Pool, "id" | "workStream" | "name" | "publishingGroup"> & {
-    classification?: Pick<Classification, "groupAndLevel"> | null | undefined;
+    classification?: Pick<Classification, "groupAndLevel"> | null;
   },
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
@@ -249,7 +249,7 @@ export const screeningResultCell = (
 };
 
 export const applicationStatusCell = (
-  status: LocalizedApplicationStatus | null | undefined,
+  status: LocalizedApplicationStatus | null,
   intl: IntlShape,
 ) => {
   const { label, color } = getApplicationStatusChip(status, intl);
@@ -442,7 +442,7 @@ export function getSortOrder(
 
 export function getClaimVerificationSort(
   sortingState?: SortingState,
-): ClaimVerificationSort | null | undefined {
+): ClaimVerificationSort | null {
   if (sortingState?.find((rule) => rule.id === "priority")) {
     // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
     const sortOrder = sortingState.find((rule) => rule.id === "priority");
@@ -595,7 +595,7 @@ export const addSearchToPoolCandidateFilterInput = (
   fancyFilterState: PoolCandidateSearchInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): PoolCandidateSearchInput | null | undefined => {
+): PoolCandidateSearchInput | null => {
   if (
     fancyFilterState === undefined &&
     searchBarTerm === undefined &&

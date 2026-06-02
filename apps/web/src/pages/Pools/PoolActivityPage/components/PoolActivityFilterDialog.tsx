@@ -20,8 +20,8 @@ import CandidatesFilterInput from "./CandidatesFilterInput";
 import AssessmentMembersFilterInput from "./AssessmentMembersFilterInput";
 
 export interface FormValues {
-  from?: Scalars["DateTime"]["input"] | null | undefined;
-  to?: Scalars["DateTime"]["input"] | null | undefined;
+  from?: Scalars["DateTime"]["input"] | null;
+  to?: Scalars["DateTime"]["input"] | null;
   causers?: Scalars["UUID"]["input"][];
   candidates?: Scalars["UUID"]["input"][];
   events?: ActivityEvent[];

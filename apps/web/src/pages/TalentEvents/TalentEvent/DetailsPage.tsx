@@ -95,7 +95,7 @@ const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface StatusChipProps {
-  status: LocalizedTalentNominationEventStatus | null | undefined;
+  status: LocalizedTalentNominationEventStatus | null;
 }
 
 const StatusChip = ({ status }: StatusChipProps) => {

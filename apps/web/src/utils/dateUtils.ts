@@ -37,8 +37,8 @@ export function getDateRange({
   startDate,
   intl,
 }: {
-  endDate: Scalars["Date"]["output"] | null | undefined;
-  startDate: Scalars["Date"]["output"] | null | undefined;
+  endDate: Scalars["Date"]["output"] | null;
+  startDate: Scalars["Date"]["output"] | null;
   intl: IntlShape;
 }): string {
   if (!startDate) return "";

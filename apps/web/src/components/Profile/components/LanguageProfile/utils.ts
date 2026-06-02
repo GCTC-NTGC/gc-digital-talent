@@ -11,7 +11,7 @@ import type { FormValues } from "./types";
 export const formValuesToSubmitData = (
   formValues: FormValues,
 ): UpdateUserAsUserInput => {
-  let secondLanguageExamValidity: boolean | null | undefined = null;
+  let secondLanguageExamValidity: boolean | null = null;
   switch (formValues?.secondLanguageExamValidity) {
     case "currently_valid":
       secondLanguageExamValidity = true;

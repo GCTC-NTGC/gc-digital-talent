@@ -55,9 +55,9 @@ export type AnyExperience =
   | Omit<WorkExperience, "user">;
 
 export interface ExperienceForDate extends SimpleAnyExperience {
-  awardedDate?: string | null | undefined;
-  startDate?: string | null | undefined;
-  endDate?: string | null | undefined;
+  awardedDate?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
 }
 
 interface FormValueDateRange {
@@ -137,7 +137,7 @@ export type AllExperienceFormValues = AwardFormValues &
   };
 
 export interface FormSkill {
-  id?: string | null | undefined;
+  id?: string | null;
   skillId: string;
   details: string;
   name: LocalizedString;
@@ -146,7 +146,7 @@ export type FormSkills = FormSkill[];
 
 export type ExperienceFormValues<T> = T & {
   details: string;
-  skills?: FormSkills | null | undefined;
+  skills?: FormSkills | null;
 };
 
 export interface SubExperienceFormProps {
@@ -188,10 +188,10 @@ export interface ExperienceDetailsSubmissionData {
   cafRank?: CafRank | null;
   skills?: {
     sync?:
-      | ({ id: string; details: string | null | undefined } | undefined)[]
+      | ({ id: string; details: string | null })[]
       | undefined;
     connect?:
-      | ({ id: string; details: string | null | undefined } | undefined)[]
+      | ({ id: string; details: string | null })[]
       | undefined;
   };
   workStreams?: {

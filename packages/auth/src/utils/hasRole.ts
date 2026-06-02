@@ -9,7 +9,7 @@ import type { RoleName } from "../const";
  */
 const hasRole = (
   checkRole: RoleName | RoleName[],
-  userRoles: (RoleAssignment | null | undefined)[] | null | undefined,
+  userRoles: (RoleAssignment | null)[] | null,
   teamIds?: string[],
 ): boolean => {
   const assignments = unpackMaybes(userRoles);

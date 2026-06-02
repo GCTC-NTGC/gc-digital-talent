@@ -47,7 +47,7 @@ export function transformUserInput(
   filterState: UserFilterInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): UserFilterInput | null | undefined {
+): UserFilterInput | null {
   if (
     filterState === undefined &&
     searchBarTerm === undefined &&

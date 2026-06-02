@@ -20,9 +20,9 @@ import type {
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
 const missingPrerequisitesFromThisApplication = (
   stepsInfosInApplication: ApplicationStepInfo[],
-  prerequisiteSteps: ApplicationStep[] | null | undefined,
-  submittedSteps: ApplicationStep[] | null | undefined,
-): ApplicationStep[] | null | undefined => {
+  prerequisiteSteps: ApplicationStep[] | null,
+  submittedSteps: ApplicationStep[] | null,
+): ApplicationStep[] | null => {
   // figure out the application step enum values for this flow (may or may not include conditional steps)
   const stepsInThisApplication = stepsInfosInApplication.map(
     (step) => step.applicationStep,
@@ -43,7 +43,7 @@ const missingPrerequisitesFromThisApplication = (
 // What step should we go to, to resume the application
 export function getNextStepToSubmit(
   stepsInThisApplication: ApplicationStepInfo[],
-  submittedSteps: ApplicationStep[] | null | undefined,
+  submittedSteps: ApplicationStep[] | null,
 ): ApplicationStepInfo {
   let nextStep = stepsInThisApplication[0];
 
@@ -66,7 +66,7 @@ export function getNextStepToSubmit(
 export function isOnDisabledPage(
   currentPageUrl: string | undefined,
   steps: ApplicationStepInfo[],
-  submittedSteps: ApplicationStep[] | null | undefined,
+  submittedSteps: ApplicationStep[] | null,
 ): boolean {
   // where are we right now?
   const currentStep = steps.find(

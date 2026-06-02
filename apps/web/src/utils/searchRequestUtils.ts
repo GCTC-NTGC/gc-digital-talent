@@ -11,7 +11,7 @@ import {
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
 export const positionDurationToEmploymentDuration = (
-  durations?: (PositionDuration | null | undefined)[] | null,
+  durations?: (PositionDuration | null)[] | null,
 ): string => {
   if (durations?.includes(PositionDuration.Temporary)) {
     return EmploymentDuration.Term;
@@ -22,7 +22,7 @@ export const positionDurationToEmploymentDuration = (
 };
 
 export const hasDiplomaToEducationLevel = (
-  hasDiploma: boolean | null | undefined,
+  hasDiploma: boolean | null,
   intl: IntlShape,
 ): string =>
   hasDiploma
@@ -41,7 +41,7 @@ export const hasDiplomaToEducationLevel = (
       });
 
 export const equitySelectionsToDescriptions = (
-  equity: EquitySelections | null | undefined,
+  equity: EquitySelections | null,
   intl: IntlShape,
 ): string[] => [
   ...(equity?.isWoman
@@ -86,7 +86,7 @@ export const equitySelectionsToDescriptions = (
 ];
 
 export const positionTypeToYesNoSupervisoryStatement = (
-  positionType: PoolCandidateSearchPositionType | null | undefined,
+  positionType: PoolCandidateSearchPositionType | null,
   intl: IntlShape,
 ): string | null => {
   if (positionType == PoolCandidateSearchPositionType.TeamLead) {
