@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Accordion } from "@gc-digital-talent/ui";
@@ -44,7 +45,7 @@ const ScreeningQuestions = ({ query }: ScreeningQuestionsProps) => {
     <Accordion.Root type="multiple" className="mb-6">
       {items.map((item) => (
         <Accordion.Item key={item.id} value={item.id ?? ""}>
-          <Accordion.Trigger>{item.question}</Accordion.Trigger>
+          <Accordion.Trigger as="h3">{item.question}</Accordion.Trigger>
           <Accordion.Content>{item.answer}</Accordion.Content>
         </Accordion.Item>
       ))}

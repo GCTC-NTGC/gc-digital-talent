@@ -26,6 +26,10 @@ export default [
     plugins: { react, "react-hooks": reactHooks, vitest },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      // Project doesn't use React Compiler; these rules only apply to compiler optimization
+      "react-hooks/incompatible-library": "off",
+      "react-hooks/preserve-manual-memoization": "off",
+
       ...vitest.configs.recommended.rules,
       "vitest/expect-expect": [
         "error",
@@ -163,9 +167,11 @@ export default [
                 "lodash/upperCase",
                 "lodash/head",
                 "lodash/reverse",
+                "lodash/isBoolean",
                 "lodash/isNumber",
                 "lodash/isObject",
                 "lodash/isString",
+                "lodash/uniq",
               ],
               message: "Please use the native javascript function instead.",
             },

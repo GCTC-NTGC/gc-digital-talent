@@ -1,8 +1,8 @@
-import { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/Hero";
+import type Hero from "~/components/Hero";
 
-import { CommunityMembersPage_CommunityFragment } from "./operations";
+import type { CommunityMembersPage_CommunityFragment } from "./operations";
 
 export interface CommunityMemberFormValues {
   communityId: Scalars["UUID"]["output"];
@@ -20,5 +20,5 @@ export interface ContextType {
   teamId: Scalars["UUID"]["output"] | null | undefined;
   navTabs: React.ComponentProps<typeof Hero>["navTabs"];
   navigationCrumbs: React.ComponentProps<typeof Hero>["crumbs"];
-  canAdminManageAccess: boolean;
+  canAdminManageAccessAndEditCommunity: boolean;
 }

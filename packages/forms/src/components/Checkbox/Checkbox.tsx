@@ -1,7 +1,9 @@
 import { useFormContext } from "react-hook-form";
 import { useReducedMotion } from "motion/react";
-import { ReactNode, Fragment } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ReactNode } from "react";
+import { Fragment } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import Field from "../Field";
 import type { CommonInputProps, HTMLInputProps } from "../../types";
@@ -70,7 +72,6 @@ const Checkbox = ({
     id,
     show: {
       error: !!error,
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

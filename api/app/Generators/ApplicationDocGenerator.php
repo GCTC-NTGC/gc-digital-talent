@@ -22,7 +22,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
     public function __construct(protected PoolCandidate $candidate, public ?string $dir, protected ?string $lang)
     {
-        $candidate->loadMissing(['user', 'pool' => ['classification']]);
         $fileName = sprintf(
             '%s %s - Application - Candidature',
             $this->sanitizeFileNameString($candidate->user?->first_name),
@@ -130,7 +129,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $section->addTitle($this->localizeHeading('education_requirement'), 3);
         $this->addLabelText($section, $this->localizeHeading('requirement_selection'), $this->localizeEnum($candidate->education_requirement_option, EducationRequirementOption::class));
         $candidate->educationRequirementExperiences->each(function ($educationExperience) use ($section) {
-            /** @var \App\Models\EducationExperience $educationExperience */
+            /** @var EducationExperience $educationExperience */
             $section->addListItem($this->formatEducationTitle($educationExperience));
 
         });

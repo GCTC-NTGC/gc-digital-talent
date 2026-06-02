@@ -1,11 +1,13 @@
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
 
-import {
+import type {
   SitewideAnnouncement,
   SitewideAnnouncementInput,
 } from "@gc-digital-talent/graphql";
-import { IconType, ToggleSection } from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
+import { ToggleSection } from "@gc-digital-talent/ui";
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";

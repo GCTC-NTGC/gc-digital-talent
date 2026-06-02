@@ -3,29 +3,28 @@
  */
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import React, {
+import type {
   ComponentPropsWithoutRef,
-  forwardRef,
   ComponentRef,
   ReactNode,
-  Fragment,
-  createContext,
-  useContext,
   ReactElement,
   ComponentProps,
 } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import React, { forwardRef, Fragment, createContext, useContext } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import type { HeadingRank, IconType } from "../../types";
-import Chip, { ChipVariants } from "../Chip/Chip";
-import Link, { LinkProps } from "../Link";
-import MetaDataStatusItem, {
-  MetaDataStatusItemProps,
-} from "./MetaDataStatusItem";
+import type { ChipVariants } from "../Chip/Chip";
+import Chip from "../Chip/Chip";
+import type { LinkProps } from "../Link";
+import Link from "../Link";
+import type { MetaDataStatusItemProps } from "./MetaDataStatusItem";
+import MetaDataStatusItem from "./MetaDataStatusItem";
 import MetaDataButton from "./MetaDataButton";
-import { ButtonProps } from "../Button";
+import type { ButtonProps } from "../Button";
 import { UNICODE_CHAR } from "../../utils/unicode";
 
 const root = tv({
@@ -74,7 +73,7 @@ const item = tv({
   variants: {
     mode: {
       simple: "",
-      card: "not-last:border-b not-last:border-b-gray-100 even:bg-gray-100/30 dark:not-last:border-b-gray-700 dark:odd:bg-gray-700/30 dark:even:bg-gray-700/50",
+      card: "not-last:border-b not-last:border-b-gray-100 odd:bg-gray-100/30 dark:not-last:border-b-gray-700 dark:odd:bg-gray-700/50 dark:even:bg-gray-700/30",
     },
   },
 });

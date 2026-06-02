@@ -3,7 +3,8 @@ import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
 import { useRef } from "react";
 
-import { Scalars, graphql } from "@gc-digital-talent/graphql";
+import type { Scalars } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, Notice } from "@gc-digital-talent/ui";
 
@@ -57,7 +58,7 @@ const NotificationListPage = ({
   isLastPage,
   inDialog,
   onRead,
-  excludeIds = [],
+  excludeIds,
   fetchingLiveNotifications,
 }: NotificationPageProps) => {
   const intl = useIntl();
@@ -83,7 +84,7 @@ const NotificationListPage = ({
     page === 1 &&
     !fetching &&
     !fetchingLiveNotifications &&
-    excludeIds.length === 0;
+    (!excludeIds || excludeIds.length === 0);
 
   const firstNewNotification = useRef<HTMLAnchorElement & HTMLButtonElement>(
     null,

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -13,12 +14,11 @@ import {
   uiMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import {
-  graphql,
+import type {
   UpdateClassificationInput,
   FragmentType,
-  getFragment,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 
@@ -26,7 +26,6 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
-import { getClassificationName } from "~/utils/poolUtils";
 import Hero from "~/components/Hero";
 import { requireUser } from "~/routing/auth";
 import { graphqlClientContext, intlContext } from "~/routing/context";
@@ -38,6 +37,7 @@ import type { Route } from "./+types/UpdateClassificationPage";
 export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
   fragment ClassificationForm on Classification {
     id
+    displayName
     name {
       en
       fr
@@ -46,10 +46,6 @@ export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
     level
     minSalary
     maxSalary
-    displayName {
-      en
-      fr
-    }
     isAvailableInSearch
   }
 `);
@@ -94,7 +90,7 @@ export const UpdateClassificationForm = ({
         url: paths.classificationTable(),
       },
       {
-        label: getClassificationName(classification, intl),
+        label: classification.displayName,
         url: paths.classificationView(classification.id),
       },
       {
@@ -130,10 +126,6 @@ export const UpdateClassificationForm = ({
       group: data.group?.toUpperCase(),
       minSalary: Number(data.minSalary),
       maxSalary: Number(data.maxSalary),
-      displayName: {
-        en: data.displayName?.en,
-        fr: data.displayName?.fr,
-      },
       isAvailableInSearch: data.isAvailableInSearch ?? false,
     };
     return executeMutation({
@@ -279,22 +271,6 @@ export const UpdateClassificationForm = ({
                     label={intl.formatMessage(commonMessages.onFindTalent)}
                   />
                 </div>
-                <Input
-                  id="displayName_en"
-                  name="displayName.en"
-                  autoComplete="off"
-                  label={intl.formatMessage(commonMessages.displayName)}
-                  appendLanguageToLabel={"en"}
-                  type="text"
-                />
-                <Input
-                  id="displayName_fr"
-                  name="displayName.fr"
-                  autoComplete="off"
-                  label={intl.formatMessage(commonMessages.displayName)}
-                  appendLanguageToLabel={"fr"}
-                  type="text"
-                />
               </div>
               <CardSeparator />
               <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-left">
@@ -325,7 +301,9 @@ const Classification_Query = graphql(/* GraphQL */ `
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request }, next) => {
-    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
+    requireUser(context, request, {
+      roles: [{ name: ROLE_NAME.PlatformAdmin }],
+    });
     return await next();
   },
 ];

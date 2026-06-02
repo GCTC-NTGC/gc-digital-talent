@@ -1,7 +1,8 @@
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { PoolCompleteness } from "~/types/pool";
+import type { PoolCompleteness } from "~/types/pool";
 
 const AssessmentPlanStatus_Fragment = graphql(/* GraphQL */ `
   fragment AssessmentPlanStatus on Pool {
@@ -15,7 +16,7 @@ export function getAssessmentPlanStatus(
 ): PoolCompleteness {
   const pool = getFragment(AssessmentPlanStatus_Fragment, poolQuery);
 
-  if (!pool || !pool.assessmentPlanIsComplete) {
+  if (!pool?.assessmentPlanIsComplete) {
     return "incomplete";
   }
 

@@ -4,14 +4,15 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { useIntl } from "react-intl";
-import {
-  forwardRef,
+import type {
   ComponentRef,
   ComponentPropsWithoutRef,
   ReactNode,
   HTMLProps,
 } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import { forwardRef } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
@@ -22,14 +23,14 @@ const StyledOverlay = forwardRef<
   ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >((props, forwardedRef) => (
   <DialogPrimitive.Overlay
-    className="fixed inset-0 z-[9998] grid place-items-center overflow-auto bg-gray-700/90"
+    className="fixed inset-0 z-98 grid place-items-center overflow-auto bg-gray-700/90"
     ref={forwardedRef}
     {...props}
   />
 ));
 
 const content = tv({
-  base: "relative z-[9999] mx-auto my-18 w-[90vw] font-sans",
+  base: "relative z-99 mx-auto my-18 w-[90vw] font-sans",
   variants: {
     wide: {
       true: "max-w-5xl",
@@ -183,7 +184,7 @@ interface DialogHeaderProps {
 
 const Header = ({ subtitle, children }: DialogHeaderProps) => (
   <>
-    <div className="relative overflow-hidden rounded-t-md bg-black p-6 text-white">
+    <div className="relative overflow-hidden rounded-t-md bg-black p-6 pr-18 text-white">
       <div className="relative">
         <StyledTitle>{children}</StyledTitle>
         {subtitle ? <StyledDescription>{subtitle}</StyledDescription> : ""}

@@ -1,21 +1,21 @@
-import { IntlShape, MessageDescriptor } from "react-intl";
+import type { IntlShape, MessageDescriptor } from "react-intl";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import {
   commonMessages,
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
+import type { RoleName } from "@gc-digital-talent/auth";
 import {
   PROCESS_ACTIVITY_LOG_ROLES,
   ROLE_NAME,
-  RoleName,
   useAuthorization,
 } from "@gc-digital-talent/auth";
 import {
@@ -23,22 +23,22 @@ import {
   notEmpty,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import { ChipProps, IconType, Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
-import {
-  PublishingGroup,
+import type { ChipProps, IconType } from "@gc-digital-talent/ui";
+import { Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
+import type {
   RoleAssignment,
-  PoolStatus,
   Maybe,
   Classification,
   Pool,
   LocalizedPoolStatus,
   WorkStream,
 } from "@gc-digital-talent/graphql";
+import { PublishingGroup, PoolStatus } from "@gc-digital-talent/graphql";
 
-import { PageNavInfo } from "~/types/pages";
+import type { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
 import poolMessages from "~/messages/poolMessages";
-import { PageNavKeys, PoolCompleteness } from "~/types/pool";
+import type { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
@@ -64,6 +64,8 @@ export const isAdvertisementVisible = (
     ROLE_NAME.ProcessOperator,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
+    ROLE_NAME.DepartmentAdmin,
+    ROLE_NAME.DepartmentHRAdvisor,
   ];
   return (
     roleAssignments.filter(notEmpty).some((assignment) => {
@@ -88,13 +90,6 @@ interface formatClassificationStringProps {
   level: number;
 }
 
-export const formatClassificationString = ({
-  group,
-  level,
-}: formatClassificationStringProps): string => {
-  return `${group}-${level < 10 ? "0" : ""}${level}`;
-};
-
 export const formatClassificationAriaString = ({
   group,
   level,
@@ -104,7 +99,7 @@ export const formatClassificationAriaString = ({
 };
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
-  classification: Maybe<Pick<Classification, "group" | "level">> | undefined;
+  classification: Maybe<Pick<Classification, "groupAndLevel">> | undefined;
   workStream?: Maybe<WorkStream>;
   short?: boolean;
   intl: IntlShape;
@@ -121,9 +116,7 @@ export const formattedPoolPosterTitle = ({
   label: string;
 } => {
   const streamString = getLocalizedName(workStream?.name, intl, true);
-  const groupAndLevel = classification
-    ? formatClassificationString(classification)
-    : "";
+  const groupAndLevel = classification?.groupAndLevel ?? "";
 
   const genericTitle = short
     ? `${groupAndLevel.trim()}${intl.formatMessage(
@@ -164,7 +157,7 @@ interface PoolTitleOptions {
 
 type PartialPool = Pick<Pool, "name" | "publishingGroup" | "workStream">;
 interface PartialPoolWithClassification extends PartialPool {
-  classification?: Maybe<Pick<Classification, "group" | "level">>;
+  classification?: Maybe<Pick<Classification, "groupAndLevel">>;
 }
 
 type PoolTitle = Maybe<PartialPoolWithClassification>;
@@ -211,12 +204,6 @@ export const poolTitle = (
     label: formattedTitle.label ?? fallbackTitle,
   };
 };
-
-export const getFullPoolTitleHtml = (
-  intl: IntlShape,
-  pool: PoolTitle,
-  options?: { defaultTitle?: string },
-): ReactNode => poolTitle(intl, pool, options).html;
 
 export const getFullPoolTitleLabel = (
   intl: IntlShape,
@@ -478,20 +465,6 @@ export const getProcessStatusBadge = (
 
   return statusBadge;
 };
-
-export function getClassificationName(
-  { group, level, name }: Pick<Classification, "group" | "level" | "name">,
-  intl: IntlShape,
-) {
-  const groupLevelStr = `${group}-${level < 10 ? "0" : ""}${level}`;
-
-  if (!name) {
-    return groupLevelStr;
-  }
-
-  const nameStr = getLocalizedName(name, intl);
-  return `${groupLevelStr} (${nameStr})`;
-}
 
 export const contactEmailTag = (email?: Maybe<string>) => {
   return email ? (

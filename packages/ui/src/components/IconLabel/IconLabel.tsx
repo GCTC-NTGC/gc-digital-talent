@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { IconType } from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
 
 interface IconLabelProps {
   label: ReactNode;
@@ -13,7 +13,7 @@ const IconLabel = ({ label, icon, children }: IconLabelProps) => {
 
   return (
     <p className="flex items-center gap-x-1.5">
-      <span className="inline-block size-6 align-middle">
+      <span className="inline-block size-6 shrink-0 align-middle">
         <Icon className="text-gray-400 dark:text-gray-200" />
       </span>
       <span>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/refs -- SEE: #16944 */
 import { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
@@ -10,8 +11,9 @@ import {
   tryFindMessageDescriptor,
   errorMessages,
 } from "@gc-digital-talent/i18n";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { graphql, Scalars } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type { Scalars } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { appInsights } from "@gc-digital-talent/app-insights";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -42,8 +44,8 @@ const CreateApplicationApplications_Query = graphql(/* GraphQL */ `
 `);
 
 const CreateApplication_Mutation = graphql(/* GraphQL */ `
-  mutation CreateApplication($userId: ID!, $poolId: ID!) {
-    createApplication(userId: $userId, poolId: $poolId) {
+  mutation CreateApplication($poolId: ID!) {
+    createApplication(poolId: $poolId) {
       id
     }
   }
@@ -59,7 +61,6 @@ const CreateApplication = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const auth = useAuthorization();
   const [{ data: newApplicationData }, executeMutation] = useMutation(
     CreateApplication_Mutation,
   );
@@ -142,16 +143,14 @@ const CreateApplication = () => {
   /**
    * Store if the application can be created
    *
-   * userId - We need a user ID to run the mutation
    * hasNewApplicationData - We've created the new application and have the results
    * haveRequiredDataToCreateNewApplication - We need some data to create the new application
    * mutationCounter.current - Keep track of how many times we've applied - we should only do it once
    * checkedForExistingApplications - We should check existing applications before applying again
    * existingApplicationIdToThisPool - If there's already an application to this pool don't apply again
    */
-  const userId = auth.userAuthInfo?.id;
   const hasNewApplicationData = notEmpty(newApplicationData);
-  const haveRequiredDataToCreateNewApplication = userId && poolId;
+  const haveRequiredDataToCreateNewApplication = poolId;
 
   if (!haveRequiredDataToCreateNewApplication) {
     if (!poolId) {
@@ -169,7 +168,7 @@ const CreateApplication = () => {
     !existingApplicationIdToThisPool
   ) {
     mutationCounter.current += 1;
-    executeMutation({ userId, poolId })
+    executeMutation({ poolId })
       .then(async (result) => {
         if (result.data?.createApplication) {
           const { id } = result.data.createApplication;

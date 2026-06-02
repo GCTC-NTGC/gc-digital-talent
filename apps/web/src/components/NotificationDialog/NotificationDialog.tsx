@@ -4,10 +4,13 @@ import { AnimatePresence, m, usePresence } from "motion/react";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import { useQuery, UseQueryExecute } from "urql";
+import type { UseQueryExecute } from "urql";
+import { useQuery, useSubscription } from "urql";
 
 import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
-import { graphql } from "@gc-digital-talent/graphql";
+import type { UserNotification } from "@gc-digital-talent/graphql";
+import { graphql, NotificationType } from "@gc-digital-talent/graphql";
+import type { ButtonProps } from "@gc-digital-talent/ui";
 import {
   DialogPrimitive,
   Button,
@@ -15,8 +18,8 @@ import {
   Dialog,
   Link,
   IconButton,
-  ButtonProps,
 } from "@gc-digital-talent/ui";
+import { toast } from "@gc-digital-talent/toast";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
 import useRoutes from "~/hooks/useRoutes";
@@ -52,7 +55,12 @@ const DialogPortalWithPresence = ({
   const intl = useIntl();
   const paths = useRoutes();
   const [isPresent] = usePresence();
-  const [render, setRender] = useState<boolean>(isPresent);
+  // If AnimatePresence reuses this instance during exit (fast reopen), isPresent
+  // flips back to true while render may be false — sync it here in render.
+  const [render, setRender] = useState(true);
+  if (isPresent && !render) {
+    setRender(true);
+  }
   const containerRef = useRef<HTMLDivElement>(null);
   const [{ data, fetching }, executeQuery] = useQuery({
     query: NotificationDialog_Query,
@@ -60,16 +68,13 @@ const DialogPortalWithPresence = ({
   });
 
   useEffect(() => {
-    let timerId: ReturnType<typeof setTimeout>;
+    if (isPresent) return undefined;
 
-    if (isPresent) {
-      setRender(true);
-    } else {
-      // let animation complete before removal
-      timerId = setTimeout(() => {
-        setRender(false);
-      }, 200);
-    }
+    // let animation complete before removal
+    const timerId = setTimeout(() => {
+      setRender(false);
+    }, 200);
+
     return () => clearTimeout(timerId);
   }, [isPresent]);
 
@@ -169,6 +174,15 @@ const DialogPortalWithPresence = ({
   ) : null;
 };
 
+const Notification_Subscription = graphql(/** GraphQL */ `
+  subscription Notification {
+    notificationReceived {
+      id
+      type
+    }
+  }
+`);
+
 // For the sake of the bell icon, we only care if the user has at least 1 unread notification
 // This is to query to minimal amount of data to display the badge
 const NotificationCount_Query = graphql(/* GraphQL */ `
@@ -241,6 +255,43 @@ const NotificationDialog = ({
               : "",
         },
       );
+
+  useSubscription(
+    { query: Notification_Subscription },
+    (prev, result): UserNotification[] => {
+      const notification = result.notificationReceived;
+
+      if (!notification) return prev ?? [];
+
+      switch (notification.type) {
+        case NotificationType.UserFileGenerated:
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "Your file is ready for download. Check your notifications.",
+              id: "8p8Xug",
+              description: "Message displayed when file download is complete",
+            }),
+          );
+          break;
+        case NotificationType.UserFileGenerationError:
+          toast.error(
+            intl.formatMessage({
+              defaultMessage: "Could not create your file.",
+              id: "5zL4bG",
+              description: "Message displayed when file download is complete",
+            }),
+          );
+          break;
+        default:
+        // PASS: do nothing
+      }
+
+      executeQuery({ requestPolicy: "network-only" });
+
+      return [...(prev ?? []), notification];
+    },
+  );
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>

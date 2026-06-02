@@ -1,12 +1,11 @@
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
+import type { PoolCandidate, Skill } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
   FlexibleWorkLocation,
-  PoolCandidate,
   PositionDuration,
   ProvinceOrTerritory,
-  Skill,
   SkillCategory,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
@@ -85,8 +84,9 @@ test.describe("Snapshot", () => {
       },
     });
 
+    const admin = await me(adminCtx, {});
     const createdPool = await createAndPublishPool(adminCtx, {
-      userId: createdUser?.id ?? "",
+      userId: admin?.id ?? "",
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       name: LOCALIZED_STRING,
     });
@@ -97,7 +97,6 @@ test.describe("Snapshot", () => {
     const applicant = await me(applicantCtx, {});
 
     const application = await createAndSubmitApplication(applicantCtx, {
-      userId: applicant.id,
       poolId: createdPool.id,
       personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName} signature`,
@@ -171,9 +170,9 @@ test.describe("Snapshot", () => {
     ).toBeVisible();
     await expect(workPreferences.getByText(/Test city/i)).toBeVisible();
 
-    // government employee
+    // Citizenship, veteran status and priority entitlements
     const govEmployee = appPage.page.getByRole("region", {
-      name: /government employee information/i,
+      name: /citizenship, veteran status and priority entitlements/i,
     });
     await expect(
       govEmployee.getByText(/Yes, I do have a priority/i),

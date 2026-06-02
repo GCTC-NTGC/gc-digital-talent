@@ -1,13 +1,14 @@
 import { useQuery } from "urql";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import permissionConstants from "~/constants/permissionConstants";
 
-import { RouteParams } from "./types";
+import type { RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
 import FullCareerExperiences from "./components/FullCareerExperiences";
 
@@ -53,13 +54,13 @@ const TalentNominationGroupCareerExperience = ({
 
   return (
     <Pending fetching={fetching} error={error}>
-      <Card className="mb-6 flex flex-col gap-y-3">
+      <Card space="lg" className="mb-6">
         <CurrentPositionExperiences
           query={nomineeData?.user}
           shareProfile={shareProfile}
         />
       </Card>
-      <Card className="mb-6 flex flex-col gap-y-3">
+      <Card space="lg">
         <FullCareerExperiences
           userQuery={nomineeData?.user}
           talentNominationGroupQuery={talentNominationGroup}

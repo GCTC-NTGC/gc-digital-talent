@@ -15,18 +15,22 @@ class CommunityRandomSeeder extends Seeder
      */
     public function run()
     {
-        Community::factory()
+        $twoRandomCommunities = Community::factory()
             ->count(2)
             ->withTalentNominationEvents()
-            ->has(DevelopmentProgram::factory()
-                ->withEligibleClassifications()
-                ->count(3))
+            ->create();
+        DevelopmentProgram::factory()
+            ->withCommunityAndClassifications($twoRandomCommunities[0]->id)
+            ->count(3)
+            ->create();
+        DevelopmentProgram::factory()
+            ->withCommunityAndClassifications($twoRandomCommunities[1]->id)
+            ->count(3)
             ->create();
 
         // The digital community has most of the (real) workStreams so let's add a few fake development programs, too.
         DevelopmentProgram::factory()->count(2)
-            ->withEligibleClassifications()
-            ->for(Community::where('key', 'digital')->sole())
+            ->withCommunityAndClassifications(Community::where('key', 'digital')->sole()->id)
             ->create();
     }
 }

@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import { reactPlugin } from "@gc-digital-talent/app-insights";
 
-import { SeverityLevel, Logger } from "../types";
+import type { Logger } from "../types";
+import { SeverityLevel } from "../types";
 import { getLoggingLevel, levelIncludes } from "./logger";
 
 // A simple logger for logging to the browser console.

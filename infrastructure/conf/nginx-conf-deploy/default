@@ -1,9 +1,3 @@
-
-map $request_uri $csp_header {
-    default "default-src 'self'; font-src fonts.gstatic.com 'self'; style-src-elem fonts.googleapis.com 'self' 'nonce-$cspNonce' 'unsafe-inline'; connect-src 'self' https://canadacentral-1.in.applicationinsights.azure.com https://js.monitor.azure.com; script-src-elem 'self' 'nonce-$cspNonce'; img-src 'self' 'nonce-$cspNonce' data:; frame-ancestors 'none'; report-uri /api/csp-report/; report-to csp;";
-    ~^/robots.txt "default-src 'self'; style-src-attr 'unsafe-inline';";
-}
-
 server {
     #proxy_cache cache;
     #proxy_cache_valid 200 1s;
@@ -15,21 +9,12 @@ server {
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
     server_name $HTTP_DISGUISED_HOST;
-    absolute_redirect off;
     gzip_static on;
+    absolute_redirect off;
 
     # redirect server error pages
     error_page   404  /404;
 
-    # CSP Headers
-    set $cspNonce $request_id;
-    sub_filter_types *;
-    sub_filter '**CSP_NONCE**' $cspNonce;
-    sub_filter_once off;
-
-    add_header X-Frame-Options DENY;
-    add_header Reporting-Endpoints csp="/api/csp-report";
-    add_header Content-Security-Policy $csp_header always;
 
     # Permanent redirects to avoid dead links
     location = /en/communities/digital-talent {
@@ -60,7 +45,7 @@ server {
     }
     location = /en/browse/pools { return 301 /en/jobs$is_args$args; }
     location = /fr/browse/pools { return 301 /fr/jobs$is_args$args; }
-# permanent redirect for documents moved to static hosting
+    # permanent redirect for documents moved to static hosting
     location = "/documents/Arbre_decisionnel_PDF_FR.pdf" { return 301 "/static/documents/Arbre_decisionnel_PDF_FR.pdf$is_args$args"; }
     location = "/documents/Arbre_decisionnel_texte_FR.docx" { return 301 "/static/documents/Arbre_decisionnel_texte_FR.docx$is_args$args"; }
     location = "/documents/Decision_Tree_PDF_EN.pdf" { return 301 "/static/documents/Decision_Tree_PDF_EN.pdf$is_args$args"; }
@@ -154,6 +139,11 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
     }
+    location = /graphql/subscriptions/auth {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
+    }
     location = /login {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
@@ -184,6 +174,20 @@ server {
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
     }
 
+    # Proxy for Reverb WebSockets
+    location ^~ /app/ {
+        proxy_pass http://127.0.0.1:6001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;
+        proxy_read_timeout 60s;
+    }
+
     location ^~ /api/ {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
@@ -205,6 +209,16 @@ server {
 
     # for all other uris, serve SPA index with no caching
     location / {
+        # CSP Headers
+        set $cspNonce $request_id;
+        sub_filter_types *;
+        sub_filter '**CSP_NONCE**' $cspNonce;
+        sub_filter_once off;
+
+        add_header X-Frame-Options DENY;
+        add_header Reporting-Endpoints csp="/api/csp-report";
+        add_header Content-Security-Policy "default-src 'self'; font-src fonts.gstatic.com 'self'; style-src-elem fonts.googleapis.com 'self' 'nonce-$cspNonce' 'unsafe-inline'; connect-src 'self' https://canadacentral-1.in.applicationinsights.azure.com https://js.monitor.azure.com ws://$host wss://$host; script-src-elem 'self' 'nonce-$cspNonce'; img-src 'self' 'nonce-$cspNonce' data:; frame-ancestors 'none'; report-uri /api/csp-report/; report-to csp;" always;
+
         root /home/site;
         add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
         try_files /index.html =404;

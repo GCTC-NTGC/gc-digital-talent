@@ -1,14 +1,9 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-} from "react";
+import type { ReactNode } from "react";
+import { createContext, useCallback, useEffect, useMemo } from "react";
 
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
-import {
+import type {
   ThemeMode,
   ThemeKey,
   SetThemeFunc,
@@ -16,6 +11,7 @@ import {
   SetThemeModeFunc,
   Theme,
   ThemeOverride,
+  SimpleThemeMode,
 } from "../types";
 
 export interface ThemeState {
@@ -25,7 +21,7 @@ export interface ThemeState {
    * Mode omits "pref" and is used by tailwind that only supports light/dark
    * where pref will fallback to one based on users `prefers-color-scheme`
    * */
-  mode: Omit<ThemeMode, "pref">;
+  mode: SimpleThemeMode;
   key: ThemeKey;
   isPref: boolean;
   setMode: SetThemeModeFunc;
@@ -34,9 +30,9 @@ export interface ThemeState {
 }
 
 const defaultThemeState = {
-  fullMode: "pref" as ThemeMode,
-  mode: "light" as ThemeMode,
-  key: "default" as ThemeKey,
+  fullMode: "pref",
+  mode: "light",
+  key: "default",
   isPref: true,
   setMode: () => {
     // PASS
@@ -47,7 +43,7 @@ const defaultThemeState = {
   setTheme: () => {
     // PASS
   },
-};
+} satisfies ThemeState;
 
 export const ThemeContext = createContext<ThemeState>(defaultThemeState);
 
@@ -60,6 +56,18 @@ const getDefaultTheme = (override?: ThemeOverride): Theme => ({
   mode: override?.mode ?? defaultTheme.mode,
   key: override?.key ?? defaultTheme.key,
 });
+
+const narrowMode = (
+  mode?: ThemeMode,
+  prefersDark?: boolean,
+  isLight?: boolean,
+): SimpleThemeMode | undefined => {
+  if (mode !== "pref") {
+    return mode;
+  }
+
+  return prefersDark && !isLight ? "dark" : "light";
+};
 
 interface ThemeProviderProps {
   children: ReactNode;
@@ -80,12 +88,10 @@ const ThemeProvider = ({
     getDefaultTheme(override),
   );
   const { key, mode } = theme;
-  let computedMode: ThemeMode = mode;
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const isSetLight = localStorage.theme === "light";
-  if (mode === "pref") {
-    computedMode = prefersDark && !isSetLight ? "dark" : "light";
-  }
+  const computedMode =
+    narrowMode(mode, prefersDark, localStorage.theme === "light") ?? "light";
+  const overrideMode = narrowMode(override?.mode);
 
   const setKey = useCallback(
     (newKey: ThemeKey) => {
@@ -166,7 +172,7 @@ const ThemeProvider = ({
   const state = useMemo(
     () => ({
       fullMode: override?.mode ?? mode,
-      mode: override?.mode ?? computedMode,
+      mode: overrideMode ?? computedMode,
       key: override?.key ?? key,
       setTheme,
       setMode,
@@ -177,6 +183,7 @@ const ThemeProvider = ({
       override?.mode,
       override?.key,
       computedMode,
+      overrideMode,
       key,
       setTheme,
       setMode,

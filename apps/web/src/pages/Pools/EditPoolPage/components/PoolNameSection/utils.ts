@@ -1,9 +1,4 @@
-import { IntlShape } from "react-intl";
-
-import { Option } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-import {
+import type {
   PoolOpportunityLength,
   Classification,
   LocalizedString,
@@ -58,7 +53,6 @@ export type PoolNameSubmitData = Pick<
   | "areaOfSelection"
   | "selectionLimitations"
   | "classification"
-  | "department"
   | "name"
   | "workStream"
   | "publishingGroup"
@@ -75,11 +69,6 @@ export const formValuesToSubmitData = (
         connect: formValues.classification,
       }
     : undefined,
-  department: formValues.department
-    ? {
-        connect: formValues.department,
-      }
-    : undefined,
   workStream: formValues.stream ? { connect: formValues.stream } : undefined,
   name: {
     en: formValues.specificTitleEn,
@@ -88,23 +77,3 @@ export const formValuesToSubmitData = (
   publishingGroup: formValues.publishingGroup ?? undefined, // can't be set to null, assume not updating if empty
   opportunityLength: formValues.opportunityLength ?? undefined, // can't be set to null, assume not updating if empty
 });
-
-export const getClassificationOptions = (
-  classifications: readonly Classification[],
-  intl: IntlShape,
-): Option[] => {
-  return classifications.filter(notEmpty).map(({ id, group, level, name }) => ({
-    value: id,
-    label: `${group}-${level < 10 ? "0" : ""}${level} (${getLocalizedName(name, intl)})`,
-  }));
-};
-
-export const getDepartmentOptions = (
-  departments: readonly Pick<Department, "id" | "name">[],
-  intl: IntlShape,
-): Option[] => {
-  return departments.filter(notEmpty).map(({ id, name }) => ({
-    value: id,
-    label: getLocalizedName(name, intl),
-  }));
-};

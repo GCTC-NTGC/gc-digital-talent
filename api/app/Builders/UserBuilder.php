@@ -2,15 +2,16 @@
 
 namespace App\Builders;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
-use App\Enums\PoolCandidateStatus;
 use App\Models\User;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * @template TModelClass of \Illuminate\Database\Eloquent\Model
  *
- * @extends \Illuminate\Database\Eloquent\Builder<TModelClass>
+ * @extends Builder<TModelClass>
  */
 class UserBuilder extends Builder
 {
@@ -135,7 +136,7 @@ class UserBuilder extends Builder
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => CandidateExpiryFilter::ACTIVE->name,
-                'statuses' => PoolCandidateStatus::qualifiedEquivalentGroup(),
+                'statuses' => [ApplicationStatus::QUALIFIED->name],
                 'suspendedStatus' => CandidateSuspendedFilter::ACTIVE->name,
             ];
         }
@@ -479,9 +480,20 @@ class UserBuilder extends Builder
         return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
     }
 
+    // just calls another scope, but calling the scope from Lighthouse requires accepting an args array
+    public function whereWorkEmailSearch(?array $args): self
+    {
+        return $this->whereWorkEmail($args['search'] ?? null);
+    }
+
     public function whereExactWorkEmail(string $email): self
     {
         return $this->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
+    }
+
+    public function whereWorkEmailIsVerified(): self
+    {
+        return $this->whereNotNull('work_email_verified_at');
     }
 
     public function whereIsGovEmployee(?bool $isGovEmployee): self
@@ -563,7 +575,7 @@ class UserBuilder extends Builder
 
     public function whereAuthorizedToView(?array $args = null): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -637,7 +649,7 @@ class UserBuilder extends Builder
 
     public function whereAuthorizedToViewBasicInfo(): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         // special case: can see any basic info - return all users with no filters added
@@ -753,6 +765,38 @@ class UserBuilder extends Builder
                 ->from('users')
                 ->orderByDesc('search_rank');
         }
+
+        return $this;
+    }
+
+    /*
+     * Find the existing users that would be possible to migrate to
+     */
+    public function whereIsPossibleMigrationTarget(string $sourceUserId, ?string $email, ?string $telephone): self
+    {
+        // can't be same account
+        $this->whereNot('id', $sourceUserId);
+
+        // must have matching email in backup
+        $this->where(new Expression('trim(email_backup)'), 'ilike', trim($email));
+
+        // must have matching phone number, ignoring leading 1s
+        $normalizedTelephone = preg_replace('/\D+/', '', $telephone ?? '');
+        $normalizedTelephone = ltrim($normalizedTelephone, '01');
+        $this->where(
+            new Expression("ltrim(regexp_replace(telephone,'\\D+', '', 'g'), '01')"),
+            $normalizedTelephone
+        );
+
+        // can't be logged into CanadaLogin last
+        $this->where(function ($subQuery) {
+            $subQuery
+                ->whereNull('last_sign_in_iss')
+                ->orWhere('last_sign_in_iss', 'not ilike', '%.canada.ca%'); // CanadaLogin lives on canada.ca
+        });
+
+        // can't be soft deleted
+        // handled by global scope
 
         return $this;
     }

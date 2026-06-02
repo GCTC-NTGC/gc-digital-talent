@@ -2,11 +2,13 @@
  * Documentation: https://base-ui.com/react/components/menu
  */
 import { Menu } from "@base-ui/react/menu";
-import { tv, VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 import ChevronDownIcon from "@heroicons/react/16/solid/ChevronDownIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
-import Button, { ButtonProps } from "../Button";
+import type { ButtonProps } from "../Button";
+import Button from "../Button";
 
 interface TriggerProps extends Menu.Trigger.Props {
   btnProps?: ButtonProps;
@@ -108,11 +110,13 @@ interface ItemProps extends ItemVariants, Omit<Menu.Item.Props, "className"> {
 const Item = ({
   className,
   color = "primary",
+  closeOnClick = true,
   disabled,
   ...rest
 }: ItemProps) => (
   <Menu.Item
     disabled={disabled}
+    closeOnClick={closeOnClick}
     className={item({ color, disabled, class: className })}
     {...rest}
   />
@@ -130,6 +134,7 @@ interface CheckboxItemProps
 
 const CheckboxItem = ({
   color = "primary",
+  closeOnClick = true,
   disabled,
   className,
   children,
@@ -137,6 +142,7 @@ const CheckboxItem = ({
 }: CheckboxItemProps) => (
   <Menu.CheckboxItem
     className={checkboxItem({ color, disabled, class: className })}
+    closeOnClick={closeOnClick}
     {...rest}
   >
     <Menu.CheckboxItemIndicator className="col-start-1">
@@ -153,6 +159,7 @@ interface RadioItemProps
 
 const RadioItem = ({
   color = "primary",
+  closeOnClick = true,
   disabled,
   className,
   children,
@@ -160,6 +167,7 @@ const RadioItem = ({
 }: RadioItemProps) => (
   <Menu.RadioItem
     className={checkboxItem({ color, disabled, class: className })}
+    closeOnClick={closeOnClick}
     {...rest}
   >
     <Menu.RadioItemIndicator className="col-start-1">

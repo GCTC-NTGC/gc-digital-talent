@@ -1,8 +1,9 @@
 import { useNavigate, useLocation } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import {
   Checkbox,
@@ -29,6 +30,12 @@ import {
   setInSessionStorage,
 } from "@gc-digital-talent/storage";
 import {
+  graphql,
+  getFragment,
+  PoolCandidateSearchPositionType,
+  FlexibleWorkLocation,
+} from "@gc-digital-talent/graphql";
+import type {
   EquitySelections,
   CreatePoolCandidateSearchRequestInput,
   Maybe,
@@ -39,18 +46,14 @@ import {
   Skill,
   ApplicantFilter,
   ApplicantFilterInput,
-  PoolCandidateSearchPositionType,
-  type RequestForm_CreateRequestMutation as CreateRequestMutation,
-  graphql,
   FragmentType,
-  getFragment,
-  FlexibleWorkLocation,
+  RequestForm_CreateRequestMutation as CreateRequestMutation,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
-import {
+import type {
   BrowserHistoryState,
   PartialApplicantFilter,
   FormValues as SearchFormValues,
@@ -99,6 +102,8 @@ export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
     id
     group
     level
+    groupAndLevel
+    displayName
   }
 `);
 
@@ -133,6 +138,8 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
           id
           group
           level
+          groupAndLevel
+          displayName
         }
         workStream {
           id
@@ -213,7 +220,7 @@ export interface RequestFormProps {
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
+  selectedClassifications: Pick<Classification, "groupAndLevel">[];
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<CreateRequestMutation["createPoolCandidateSearchRequest"]>;
@@ -524,12 +531,7 @@ export const RequestForm = ({
               id="hrAdvisorEmail"
               type="email"
               name="hrAdvisorEmail"
-              label={intl.formatMessage({
-                defaultMessage: "HR advisor email",
-                id: "VrLfLw",
-                description:
-                  "Input label asking for the HR advisor's email address.",
-              })}
+              label={intl.formatMessage(talentRequestMessages.hrAdvisorEmail)}
             />
           </div>
           <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
@@ -755,7 +757,7 @@ const RequestFormApi = ({
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
+  selectedClassifications: Pick<Classification, "groupAndLevel">[];
 }) => {
   const intl = useIntl();
   const [{ data: lookupData, fetching, error }] = useQuery({

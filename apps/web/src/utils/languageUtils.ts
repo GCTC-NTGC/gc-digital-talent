@@ -1,13 +1,18 @@
-import { IntlShape, MessageDescriptor } from "react-intl";
+import type { IntlShape, MessageDescriptor } from "react-intl";
 
+import type { User, Pool } from "@gc-digital-talent/graphql";
 import {
-  User,
-  Pool,
   PoolLanguage,
   EstimatedLanguageAbility,
 } from "@gc-digital-talent/graphql";
 
 export type PartialUser = Pick<User, "lookingForBilingual">;
+
+const BILINGUAL_LANG = [
+  PoolLanguage.VariousBilingual,
+  PoolLanguage.BilingualAdvanced,
+  PoolLanguage.BilingualIntermediate,
+];
 
 // Is the user missing the "looking for bilingual" profile option for this bilingual pool?
 const isMissingLookingForBilingual = (
@@ -16,8 +21,7 @@ const isMissingLookingForBilingual = (
 ): boolean => {
   const userLookingForBilingual = !!user?.lookingForBilingual;
   const poolNeedsBilingual =
-    pool?.language?.value === PoolLanguage.BilingualIntermediate ||
-    pool?.language?.value === PoolLanguage.BilingualAdvanced;
+    !!pool?.language?.value && BILINGUAL_LANG.includes(pool.language.value);
 
   if (poolNeedsBilingual && !userLookingForBilingual) return true;
 
@@ -101,8 +105,8 @@ export const getLabels = (intl: IntlShape) => ({
     description: "Label for exam validity in language information form",
   }),
   prefSpokenInterviewLang: intl.formatMessage({
-    defaultMessage: "Preferred spoken interview language",
-    id: "DB9pFd",
+    defaultMessage: "Preferred interview language",
+    id: "m6vOLM",
     description: "Title for preferred spoken interview language",
   }),
   prefWrittenExamLang: intl.formatMessage({

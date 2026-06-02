@@ -1,18 +1,21 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { isPast } from "date-fns/isPast";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  ApplicationStatus,
+import type {
   FragmentType,
-  getFragment,
-  graphql,
   PoolCandidate,
   PoolStatusTableFragment,
   Scalars,
+} from "@gc-digital-talent/graphql";
+import {
+  ApplicationStatus,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -59,8 +62,7 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
         }
         classification {
           id
-          group
-          level
+          groupAndLevel
         }
         workStream {
           id

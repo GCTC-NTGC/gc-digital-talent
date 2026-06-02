@@ -2,24 +2,21 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
-import { ComponentProps, useEffect, useId } from "react";
+import type { ComponentProps } from "react";
+import { useEffect, useId } from "react";
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
 import { Button, ToggleSection, Notice } from "@gc-digital-talent/ui";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   errorMessages,
   formMessages,
   getLocale,
-  Locales,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import {
-  graphql,
-  FragmentType,
-  getFragment,
-  TargetRole,
-  CSuiteRoleTitle,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, CSuiteRoleTitle } from "@gc-digital-talent/graphql";
+import { graphql, getFragment, TargetRole } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import {
   nodeToString,
@@ -42,13 +39,11 @@ import {
 } from "@gc-digital-talent/forms";
 
 import { hasAllEmptyFields } from "~/validators/employeeProfile/nextRole";
+import type { SectionIcon } from "~/hooks/useToggleSectionInfo";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
-import {
-  getGroupOptions,
-  getLevelOptions,
-} from "~/components/Profile/components/GovernmentInformation/utils";
+import { getGroupOptions, getLevelOptions } from "~/utils/classification";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 import Display from "./Display";
@@ -60,6 +55,7 @@ const EmployeeProfileNextRoleOptions_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      displayName
     }
     targetRoles: localizedEnumStrings(enumName: "TargetRole") {
       value
@@ -101,6 +97,8 @@ export const EmployeeProfileNextRole_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     nextRoleTargetRole {
       value
@@ -176,6 +174,7 @@ interface FormValues {
 interface NextRoleSectionProps {
   employeeProfileQuery: FragmentType<typeof EmployeeProfileNextRole_Fragment>;
   optionsQuery: FragmentType<typeof EmployeeProfileNextRoleOptions_Fragment>;
+  isVerifiedGovEmployee: boolean;
 }
 
 const TEXT_AREA_MAX_WORDS_EN = 300;
@@ -190,6 +189,7 @@ const OTHER_SELECTION_VALUE = "OTHER";
 const NextRoleSection = ({
   employeeProfileQuery,
   optionsQuery,
+  isVerifiedGovEmployee,
 }: NextRoleSectionProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -208,12 +208,22 @@ const NextRoleSection = ({
     optionsQuery,
   );
   const isNull = hasAllEmptyFields(employeeProfile);
-  const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
+  const {
+    isEditing,
+    setIsEditing,
+    icon: verifiedIcon,
+  } = useToggleSectionInfo({
     isNull,
     emptyRequired: false,
     fallbackIcon: QuestionMarkCircleIcon,
     optional: true,
   });
+
+  const icon: SectionIcon = isVerifiedGovEmployee
+    ? verifiedIcon
+    : {
+        icon: LockClosedIcon,
+      };
 
   const handleError = () => {
     toast.error(
@@ -236,7 +246,8 @@ const NextRoleSection = ({
 
     return {
       classificationGroup: initialData.nextRoleClassification?.group,
-      classificationLevel: initialData.nextRoleClassification?.level.toString(),
+      classificationLevel:
+        initialData.nextRoleClassification?.level?.toString(),
       targetRole: initialData.nextRoleTargetRole?.value,
       targetRoleOther: initialData.nextRoleTargetRoleOther,
       jobTitle: initialData.nextRoleJobTitle,
@@ -337,7 +348,7 @@ const NextRoleSection = ({
     const selectedClassification = unpackMaybes(options.classifications).find(
       (classification) =>
         classification.group === classificationGroup &&
-        classification.level.toString() === classificationLevel,
+        classification.level?.toString() === classificationLevel,
     );
 
     // community and communityOther have bespoke handling
@@ -444,7 +455,7 @@ const NextRoleSection = ({
   ];
 
   const workStreamOptions: ComponentProps<typeof Checklist>["items"] =
-    options.communities
+    unpackMaybes(options.communities)
       .find((community) => community?.id === watchCommunityId)
       ?.workStreams?.map((workStream) => ({
         value: workStream.id,
@@ -485,13 +496,15 @@ const NextRoleSection = ({
         level="h3"
         size="h4"
         toggle={
-          <ToggleForm.LabelledTrigger
-            sectionTitle={intl.formatMessage({
-              defaultMessage: "Your next role",
-              id: "m6eIBH",
-              description: "Title for the next role section",
-            })}
-          />
+          isVerifiedGovEmployee ? (
+            <ToggleForm.LabelledTrigger
+              sectionTitle={intl.formatMessage({
+                defaultMessage: "Your next role",
+                id: "m6eIBH",
+                description: "Title for the next role section",
+              })}
+            />
+          ) : undefined
         }
         className="font-bold"
       >
@@ -503,225 +516,260 @@ const NextRoleSection = ({
       </ToggleSection.Header>
       <p>{subtitle}</p>
       <ToggleSection.Content>
-        <ToggleSection.InitialContent>
-          {isNull ? (
-            <ToggleForm.NullDisplay />
-          ) : (
-            <Display employeeProfile={employeeProfile} />
-          )}
-        </ToggleSection.InitialContent>
-        <ToggleSection.OpenContent>
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleSave)}>
-              <div className="flex flex-col gap-y-6">
-                {/* Classification subsection */}
-                <div className="flex flex-col gap-y-3">
-                  <p id={classificationDescriptionId}>
-                    {intl.formatMessage(
-                      employeeProfileMessages.targetClassification,
-                    )}
-                  </p>
-                  <div className="flex flex-col gap-6 xs:flex-row">
-                    <div className="w-full">
-                      <Select
-                        id="classificationGroup"
-                        label={intl.formatMessage(commonMessages.group)}
-                        name="classificationGroup"
-                        nullSelection={intl.formatMessage(
-                          uiMessages.nullSelectionOptionGroup,
+        {isVerifiedGovEmployee ? (
+          <>
+            <ToggleSection.InitialContent>
+              {isNull ? (
+                <ToggleForm.NullDisplay />
+              ) : (
+                <Display employeeProfile={employeeProfile} />
+              )}
+            </ToggleSection.InitialContent>
+            <ToggleSection.OpenContent>
+              <FormProvider {...methods}>
+                <form onSubmit={handleSubmit(handleSave)}>
+                  <div className="flex flex-col gap-y-6">
+                    {/* Classification subsection */}
+                    <div className="flex flex-col gap-y-3">
+                      <p id={classificationDescriptionId}>
+                        {intl.formatMessage(
+                          employeeProfileMessages.targetClassification,
                         )}
-                        options={groupOptions}
-                        disabled={fetching}
-                        aria-describedby={classificationDescriptionId}
-                      />
-                    </div>
-                    {watchClassificationGroup ? (
-                      <div style={{ width: "100%" }}>
-                        <Select
-                          id="classificationLevel"
-                          label={intl.formatMessage(commonMessages.level)}
-                          name="classificationLevel"
-                          nullSelection={intl.formatMessage(
-                            uiMessages.nullSelectionOptionLevel,
-                          )}
-                          options={levelOptions}
-                          doNotSort
-                          disabled={fetching}
-                        />
+                      </p>
+                      <div className="flex flex-col gap-6 xs:flex-row">
+                        <div className="w-full">
+                          <Select
+                            id="classificationGroup"
+                            label={intl.formatMessage(commonMessages.group)}
+                            name="classificationGroup"
+                            nullSelection={intl.formatMessage(
+                              uiMessages.nullSelectionOptionGroup,
+                            )}
+                            options={groupOptions}
+                            disabled={fetching}
+                            aria-describedby={classificationDescriptionId}
+                          />
+                        </div>
+                        {watchClassificationGroup ? (
+                          <div style={{ width: "100%" }}>
+                            <Select
+                              id="classificationLevel"
+                              label={intl.formatMessage(commonMessages.level)}
+                              name="classificationLevel"
+                              nullSelection={intl.formatMessage(
+                                uiMessages.nullSelectionOptionLevel,
+                              )}
+                              options={levelOptions}
+                              doNotSort
+                              disabled={fetching}
+                            />
+                          </div>
+                        ) : null}
                       </div>
-                    ) : null}
-                  </div>
-                </div>
-                <RadioGroup
-                  idPrefix="targetRole"
-                  name="targetRole"
-                  legend={intl.formatMessage(
-                    employeeProfileMessages.targetRole,
-                  )}
-                  items={localizedEnumToOptions(options?.targetRoles, intl, [
-                    TargetRole.IndividualContributor,
-                    TargetRole.Manager,
-                    TargetRole.Director,
-                    TargetRole.SeniorDirector,
-                    TargetRole.ExecutiveDirector,
-                    TargetRole.DirectorGeneral,
-                    TargetRole.AssistantDeputyMinister,
-                    TargetRole.DeputyMinister,
-                    TargetRole.Other,
-                  ])}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  disabled={fetching}
-                />
-                {watchTargetRole === TargetRole.Other ? (
-                  <Input
-                    id="targetRoleOther"
-                    type="text"
-                    label={intl.formatMessage(
-                      employeeProfileMessages.targetRoleOther,
-                    )}
-                    name="targetRoleOther"
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                    disabled={fetching}
-                  />
-                ) : null}
-                <Checkbox
-                  boundingBox
-                  boundingBoxLabel={intl.formatMessage(
-                    employeeProfileMessages.seniorManagementStatus,
-                  )}
-                  id="isCSuiteRole"
-                  label={intl.formatMessage(
-                    employeeProfileMessages.isChiefDeputyCSuiteRole,
-                  )}
-                  name="isCSuiteRole"
-                />
-                {watchIsCSuiteRole && (
-                  <Select
-                    id="cSuiteRoleTitle"
-                    name="cSuiteRoleTitle"
-                    label={intl.formatMessage(
-                      employeeProfileMessages.cSuiteRoleTitle,
-                    )}
-                    nullSelection={intl.formatMessage(
-                      uiMessages.nullSelectionOption,
-                    )}
-                    options={cSuiteRoleTitleOptions}
-                    doNotSort
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                    disabled={fetching}
-                  />
-                )}
-                <Input
-                  id="jobTitle"
-                  type="text"
-                  label={intl.formatMessage(employeeProfileMessages.jobTitle)}
-                  name="jobTitle"
-                  disabled={fetching}
-                />
-                <Select
-                  id="communityId"
-                  name="communityId"
-                  label={intl.formatMessage(employeeProfileMessages.community)}
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOption,
-                  )}
-                  options={communityOptions}
-                  doNotSort
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  disabled={fetching}
-                />
-                {watchCommunityId === OTHER_SELECTION_VALUE ? (
-                  <Input
-                    id="communityOther"
-                    name="communityOther"
-                    type="text"
-                    label={intl.formatMessage(messages.otherCommunity)}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                    disabled={fetching}
-                  />
-                ) : null}
-                {watchCommunityId ? (
-                  // Only show work streams if a community has been selected
-                  <>
-                    {workStreamOptions.length ? (
-                      <Checklist
-                        idPrefix="workStreamIds"
-                        name="workStreamIds"
-                        legend={intl.formatMessage(
-                          employeeProfileMessages.workStreams,
+                    </div>
+                    <RadioGroup
+                      idPrefix="targetRole"
+                      name="targetRole"
+                      legend={intl.formatMessage(
+                        employeeProfileMessages.targetRole,
+                      )}
+                      items={localizedEnumToOptions(
+                        options?.targetRoles,
+                        intl,
+                        [
+                          TargetRole.IndividualContributor,
+                          TargetRole.Manager,
+                          TargetRole.Director,
+                          TargetRole.SeniorDirector,
+                          TargetRole.ExecutiveDirector,
+                          TargetRole.DirectorGeneral,
+                          TargetRole.AssistantDeputyMinister,
+                          TargetRole.DeputyMinister,
+                          TargetRole.Other,
+                        ],
+                      )}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                      disabled={fetching}
+                    />
+                    {watchTargetRole === TargetRole.Other ? (
+                      <Input
+                        id="targetRoleOther"
+                        type="text"
+                        label={intl.formatMessage(
+                          employeeProfileMessages.targetRoleOther,
                         )}
-                        items={workStreamOptions}
+                        name="targetRoleOther"
+                        rules={{
+                          required: intl.formatMessage(errorMessages.required),
+                        }}
                         disabled={fetching}
                       />
-                    ) : // no work streams
-                    null}
-                  </>
-                ) : (
-                  // no community selected
-                  <Notice.Root className="text-center">
-                    <Notice.Content>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Please select a functional community to continue.",
-                        id: "sZhjI3",
-                        description:
-                          "Message displayed when no functional community is selected",
-                      })}
-                    </Notice.Content>
-                  </Notice.Root>
-                )}
-                <Combobox
-                  id="departmentIds"
-                  name="departmentIds"
-                  isMulti
-                  label={intl.formatMessage(
-                    employeeProfileMessages.departments,
-                  )}
-                  options={departmentOptions}
-                  disabled={fetching}
-                />
-                <TextArea
-                  id="additionalInformation"
-                  label={intl.formatMessage(
-                    employeeProfileMessages.additionalInformationNextRole,
-                  )}
-                  name="additionalInformation"
-                  wordLimit={wordCountLimits[locale]}
-                  disabled={fetching}
-                />
-                <div className="flex flex-wrap items-center gap-6">
-                  <Submit
-                    text={intl.formatMessage(formMessages.saveChanges)}
-                    aria-label={intl.formatMessage({
-                      defaultMessage: "Save your next role",
-                      id: "dRJLsv",
-                      description:
-                        "Text on a button to save your next role form",
-                    })}
-                    color="secondary"
-                    mode="solid"
-                    isSubmitting={fetching}
-                  />
-                  <ToggleSection.Close>
-                    <Button mode="inline" type="button" color="warning">
-                      {intl.formatMessage(commonMessages.cancel)}
-                    </Button>
-                  </ToggleSection.Close>
-                </div>
-              </div>
-            </form>
-          </FormProvider>
-        </ToggleSection.OpenContent>
+                    ) : null}
+                    <Checkbox
+                      boundingBox
+                      boundingBoxLabel={intl.formatMessage(
+                        employeeProfileMessages.seniorManagementStatus,
+                      )}
+                      id="isCSuiteRole"
+                      label={intl.formatMessage(
+                        employeeProfileMessages.isChiefDeputyCSuiteRole,
+                      )}
+                      name="isCSuiteRole"
+                    />
+                    {watchIsCSuiteRole && (
+                      <Select
+                        id="cSuiteRoleTitle"
+                        name="cSuiteRoleTitle"
+                        label={intl.formatMessage(
+                          employeeProfileMessages.cSuiteRoleTitle,
+                        )}
+                        nullSelection={intl.formatMessage(
+                          uiMessages.nullSelectionOption,
+                        )}
+                        options={cSuiteRoleTitleOptions}
+                        doNotSort
+                        rules={{
+                          required: intl.formatMessage(errorMessages.required),
+                        }}
+                        disabled={fetching}
+                      />
+                    )}
+                    <Input
+                      id="jobTitle"
+                      type="text"
+                      label={intl.formatMessage(
+                        employeeProfileMessages.jobTitle,
+                      )}
+                      name="jobTitle"
+                      disabled={fetching}
+                    />
+                    <Select
+                      id="communityId"
+                      name="communityId"
+                      label={intl.formatMessage(
+                        employeeProfileMessages.community,
+                      )}
+                      nullSelection={intl.formatMessage(
+                        uiMessages.nullSelectionOption,
+                      )}
+                      options={communityOptions}
+                      doNotSort
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                      disabled={fetching}
+                    />
+                    {watchCommunityId === OTHER_SELECTION_VALUE ? (
+                      <Input
+                        id="communityOther"
+                        name="communityOther"
+                        type="text"
+                        label={intl.formatMessage(messages.otherCommunity)}
+                        rules={{
+                          required: intl.formatMessage(errorMessages.required),
+                        }}
+                        disabled={fetching}
+                      />
+                    ) : null}
+                    {watchCommunityId ? (
+                      // Only show work streams if a community has been selected
+                      <>
+                        {workStreamOptions.length ? (
+                          <Checklist
+                            idPrefix="workStreamIds"
+                            name="workStreamIds"
+                            legend={intl.formatMessage(
+                              employeeProfileMessages.workStreams,
+                            )}
+                            items={workStreamOptions}
+                            disabled={fetching}
+                          />
+                        ) : // no work streams
+                        null}
+                      </>
+                    ) : (
+                      // no community selected
+                      <Notice.Root className="text-center">
+                        <Notice.Content>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "Please select a functional community to continue.",
+                            id: "sZhjI3",
+                            description:
+                              "Message displayed when no functional community is selected",
+                          })}
+                        </Notice.Content>
+                      </Notice.Root>
+                    )}
+                    <Combobox
+                      id="departmentIds"
+                      name="departmentIds"
+                      isMulti
+                      label={intl.formatMessage(
+                        employeeProfileMessages.departments,
+                      )}
+                      options={departmentOptions}
+                      disabled={fetching}
+                    />
+                    <TextArea
+                      id="additionalInformation"
+                      label={intl.formatMessage(
+                        employeeProfileMessages.additionalInformationNextRole,
+                      )}
+                      name="additionalInformation"
+                      wordLimit={wordCountLimits[locale]}
+                      disabled={fetching}
+                    />
+                    <div className="flex flex-wrap items-center gap-6">
+                      <Submit
+                        text={intl.formatMessage(formMessages.saveChanges)}
+                        aria-label={intl.formatMessage({
+                          defaultMessage: "Save your next role",
+                          id: "dRJLsv",
+                          description:
+                            "Text on a button to save your next role form",
+                        })}
+                        color="secondary"
+                        mode="solid"
+                        isSubmitting={fetching}
+                      />
+                      <ToggleSection.Close>
+                        <Button mode="inline" type="button" color="warning">
+                          {intl.formatMessage(commonMessages.cancel)}
+                        </Button>
+                      </ToggleSection.Close>
+                    </div>
+                  </div>
+                </form>
+              </FormProvider>
+            </ToggleSection.OpenContent>
+          </>
+        ) : (
+          <Notice.Root>
+            <Notice.Title>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This tool is available to Government of Canada employees",
+                id: "xHQdue",
+                description:
+                  "Notice title on sections for employee profile page when not a verified employee.",
+              })}
+            </Notice.Title>
+            <Notice.Content>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "If you're a current Government of Canada employee, verify your work email and ensure your career experience is up to date to unlock employee tools.",
+                  id: "TIuM+L",
+                  description:
+                    "Notice description on sections for employee profile page when not a verified employee.",
+                })}
+              </p>
+            </Notice.Content>
+          </Notice.Root>
+        )}
       </ToggleSection.Content>
     </ToggleSection.Root>
   );

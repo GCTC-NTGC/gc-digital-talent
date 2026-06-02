@@ -34,8 +34,8 @@ const messages = defineMessages({
     description: "Title for priority status",
   },
   contractDuration: {
-    defaultMessage: "Employment duration preference",
-    id: "TfEUPu",
+    defaultMessage: "Duration of positions you would like to be considered for",
+    id: "V/bSTW",
     description:
       "Legend Text for required work preferences options in work preferences form",
   },
@@ -86,6 +86,27 @@ const messages = defineMessages({
     defaultMessage: "Government employee information",
     id: "Jf3vT5",
     description: "Title for the government employee information section",
+  },
+  citizenship: {
+    defaultMessage: "Citizenship status",
+    id: "4v9y7U",
+    description: "Citizenship status label",
+  },
+  communicationLanguage: {
+    defaultMessage: "Communication language",
+    id: "ceofev",
+    description: "Legend text for communication language preference",
+  },
+  writtenLanguage: {
+    defaultMessage: "Written exam language",
+    id: "boPmF+",
+    description: "Legend text for written exam language preference for exams",
+  },
+  spokenLanguage: {
+    defaultMessage: "Spoken interview language",
+    id: "ehrsDa",
+    description:
+      "Legend text for spoken interview language preference for interviews",
   },
 });
 

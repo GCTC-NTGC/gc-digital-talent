@@ -4,61 +4,38 @@
  *
  * For utilities specific to the Applicant-side UI, see ./applicationUtils.ts
  */
-import { IntlShape, defineMessages } from "react-intl";
+import type { IntlShape } from "react-intl";
+import { defineMessages } from "react-intl";
 import sortBy from "lodash/sortBy";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { differenceInDays } from "date-fns/differenceInDays";
 
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages, ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
-import { ChipProps } from "@gc-digital-talent/ui";
-import {
+import type { ChipProps } from "@gc-digital-talent/ui";
+import type {
   Maybe,
-  ClaimVerificationResult,
-  CitizenshipStatus,
   AssessmentStep,
   Pool,
   ScreeningStage,
   AssessmentStepType,
   LocalizedCandidateStatus,
-  CandidateStatus,
-  CandidateInterest,
   LocalizedCandidateInterest,
-  ApplicationStatus,
   LocalizedApplicationStatus,
 } from "@gc-digital-talent/graphql";
-
 import {
-  REVERT_DECISION_STATUSES,
-  LEGACY_ASSESSMENT_STEP_TYPES,
-} from "~/constants/poolCandidate";
+  CandidateStatus,
+  CandidateInterest,
+  ApplicationStatus,
+} from "@gc-digital-talent/graphql";
 
-import { NullableDecision } from "./assessmentResults";
-
-export const isRevertableStatus = (
-  status: Maybe<ApplicationStatus> | undefined,
-): boolean => (status ? REVERT_DECISION_STATUSES.includes(status) : false);
+import { LEGACY_ASSESSMENT_STEP_TYPES } from "~/constants/poolCandidate";
 
 export const isLegacyAssessmentStepType = (
   type?: Maybe<AssessmentStepType>,
 ): boolean => {
   return !!(type ? LEGACY_ASSESSMENT_STEP_TYPES.includes(type) : false);
 };
-
-export const formatSubmittedAt = (
-  submittedAt: Maybe<string>,
-  intl: IntlShape,
-): string => {
-  return submittedAt
-    ? formatDate({
-        date: parseDateTimeUtc(submittedAt),
-        formatString: "PPP p",
-        intl,
-      })
-    : "";
-};
-
-export type ResultDecisionCounts = Record<NullableDecision, number>;
 
 // too generic to narrow
 export const getOrderedSteps = (assessmentSteps: AssessmentStep[]) =>
@@ -80,39 +57,9 @@ const getApplicationStatusChipColor = (
   return applicationStatusColourMap.get(status) ?? "gray";
 };
 
-/** Application statuses */
-export const applicationStatus = {
-  EXPIRED: "EXPIRED",
-  DRAFT: "DRAFT",
-  RECEIVED: "RECEIVED",
-  UNDER_REVIEW: "UNDER_REVIEW",
-  APPLICATION_REVIEWED: "APPLICATION_REVIEWED",
-  UNDER_ASSESSMENT: "UNDER_ASSESSMENT",
-  UNSUCCESSFUL: "UNSUCCESSFUL",
-  SUCCESSFUL: "SUCCESSFUL",
-} as const;
-
-type LegacyApplicationStatus =
-  (typeof applicationStatus)[keyof typeof applicationStatus];
-
-/** Qualified recruitment statuses */
-export const qualifiedRecruitmentStatus = {
-  HIRED: "HIRED",
-  NOT_INTERESTED: "NOT_INTERESTED",
-  OPEN_TO_JOBS: "OPEN_TO_JOBS",
-} as const;
-
-type QualifiedRecruitmentStatus =
-  (typeof qualifiedRecruitmentStatus)[keyof typeof qualifiedRecruitmentStatus];
-
 interface StatusChip {
   color?: ChipProps["color"];
   label: ReactNode;
-}
-
-export interface StatusChipWithDescription extends StatusChip {
-  description?: ReactNode;
-  value: LegacyApplicationStatus | QualifiedRecruitmentStatus;
 }
 
 /**
@@ -265,25 +212,6 @@ export const applicationStatusDescriptions = defineMessages({
   },
 });
 
-export const qualifiedRecruitmentStatusLabels = defineMessages({
-  OPEN_TO_JOBS: {
-    defaultMessage: "Open to job offers",
-    id: "p4kAoz",
-    description: "Status label for a qualified application open for hiring",
-  },
-  NOT_INTERESTED: {
-    defaultMessage: "Not interested",
-    id: "3QGPJe",
-    description:
-      "Status label for a qualified application the candidate has marked not interested",
-  },
-  HIRED: {
-    defaultMessage: "Hired",
-    id: "IJL2jN",
-    description: "Status label for a qualified application that has been hired",
-  },
-});
-
 export const qualifiedRecruitmentStatusDescriptions = defineMessages({
   OPEN_TO_JOBS: {
     defaultMessage:
@@ -307,66 +235,6 @@ export const qualifiedRecruitmentStatusDescriptions = defineMessages({
       "Status description for a qualified application that has been hired",
   },
 });
-
-export const priorityWeightAfterVerification = (
-  priorityWeight: number,
-  priorityVerification: ClaimVerificationResult | null | undefined,
-  veteranVerification: ClaimVerificationResult | null | undefined,
-  citizenshipStatus: CitizenshipStatus | null | undefined,
-): number => {
-  // Priority
-  if (
-    priorityWeight === 10 &&
-    (priorityVerification === ClaimVerificationResult.Accepted ||
-      priorityVerification === ClaimVerificationResult.Unverified)
-  ) {
-    return 10;
-  }
-
-  // Veteran
-  if (
-    priorityWeight === 20 &&
-    (veteranVerification === ClaimVerificationResult.Accepted ||
-      veteranVerification === ClaimVerificationResult.Unverified)
-  ) {
-    return 20;
-  }
-
-  // Citizen
-  if (priorityWeight === 30) {
-    return 30;
-  }
-
-  // Cascade down from priority to veteran
-  if (
-    priorityWeight === 10 &&
-    (veteranVerification === ClaimVerificationResult.Accepted ||
-      veteranVerification === ClaimVerificationResult.Unverified)
-  ) {
-    return 20;
-  }
-
-  // Cascade down from priority to citizen as veteran didn't apply above
-  if (
-    priorityWeight === 10 &&
-    (citizenshipStatus === CitizenshipStatus.Citizen ||
-      citizenshipStatus === CitizenshipStatus.PermanentResident)
-  ) {
-    return 30;
-  }
-
-  // Cascade down from veteran to citizen
-  if (
-    priorityWeight === 20 &&
-    (citizenshipStatus === CitizenshipStatus.Citizen ||
-      citizenshipStatus === CitizenshipStatus.PermanentResident)
-  ) {
-    return 30;
-  }
-
-  // final fallback - last (Other)
-  return 40;
-};
 
 /**
  * Determines if the application is expired, or within 3 days of the pool closing when the application is a draft.

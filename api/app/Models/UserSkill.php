@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 /**
  * Class UserSkill
  *
- * @mixin \App\Models\Skill
+ * @mixin Skill
  *
  * @property string $id
  * @property string $user_id
@@ -23,8 +24,8 @@ use Illuminate\Support\Collection;
  * @property string $when_skill_used
  * @property int $top_skills_rank
  * @property int $improve_skills_rank
- * @property-read \App\Models\ExperienceSkill $experience_skill
- * @property ?\Illuminate\Support\Carbon $deleted_at
+ * @property-read ExperienceSkill $experience_skill
+ * @property ?Carbon $deleted_at
  */
 class UserSkill extends Model
 {
@@ -34,6 +35,8 @@ class UserSkill extends Model
     protected $keyType = 'string';
 
     protected $touches = ['user'];
+
+    protected $with = ['skill'];
 
     protected $casts = [
         'top_skills_rank' => 'integer',

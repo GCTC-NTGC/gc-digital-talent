@@ -7,29 +7,24 @@ import { isSameMonth } from "date-fns/isSameMonth";
 import { isSameYear } from "date-fns/isSameYear";
 import { isValid } from "date-fns/isValid";
 import { useFormContext, Controller } from "react-hook-form";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
 
 import Field from "../Field";
-import { CommonInputProps, HTMLFieldsetProps } from "../../types";
+import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import ControlledInput from "./ControlledInput";
 import { splitSegments } from "./utils";
-import {
-  DateRegisterOptions,
-  DateSegment,
-  DATE_SEGMENT,
-  RoundingMethod,
-} from "./types";
+import type { DateRegisterOptions, DateSegment, RoundingMethod } from "./types";
+import { DATE_SEGMENT } from "./types";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
 
-// NOTE: Remove important in #13664
 const legendStyles = tv({
-  base: "text-base! font-bold",
+  base: "text-base font-bold",
   variants: { hide: { true: "sr-only" } },
 });
 
@@ -73,12 +68,10 @@ const DateInput = ({
   useRegisterFormLabel(name, legend);
   const required = !!rules.required;
   const fieldState = useFieldState(name, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {
       error: fieldState === "invalid",
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

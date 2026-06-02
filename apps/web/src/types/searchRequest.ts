@@ -1,4 +1,4 @@
-import {
+import type {
   Scalars,
   ApplicantFilterInput,
   LanguageAbility,
@@ -26,7 +26,10 @@ export type FormValues = Pick<
   educationRequirement: "has_diploma" | "no_diploma";
   poolCandidates?: UserPoolFilterInput;
   pool?: Scalars["ID"]["output"];
-  selectedClassifications?: Pick<Classification, "group" | "level">[];
+  selectedClassifications?: Pick<
+    Classification,
+    "group" | "level" | "groupAndLevel"
+  >[];
   count?: number;
   allPools?: boolean; // Prevent `was_empty` when requesting all pools
 };
@@ -37,7 +40,7 @@ export interface BrowserHistoryState {
   applicantFilter?: ApplicantFilterInput;
   candidateCount: number;
   initialValues?: FormValues;
-  selectedClassifications?: Pick<Classification, "group" | "level">[];
+  selectedClassifications?: Pick<Classification, "groupAndLevel">[];
   allPools?: boolean;
 }
 

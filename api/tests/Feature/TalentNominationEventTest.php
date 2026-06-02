@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\ErrorCode;
 use App\Models\Community;
+use App\Models\CommunityDevelopmentProgram;
 use App\Models\DevelopmentProgram;
 use App\Models\TalentNominationEvent;
 use App\Models\User;
@@ -34,6 +35,8 @@ class TalentNominationEventTest extends TestCase
 
     protected $developmentProgramId;
 
+    protected $communityDevelopmentProgramId;
+
     protected $input = [
         'name' => ['en' => 'Test event EN', 'fr' => 'Test event FR'],
         'description' => ['en' => 'Test EN', 'fr' => 'Test FR'],
@@ -52,7 +55,15 @@ class TalentNominationEventTest extends TestCase
                 learnMoreUrl { en fr }
                 includeLeadershipCompetencies
                 community { id }
-                developmentPrograms { id }
+                communityDevelopmentPrograms {
+                     id
+                     developmentProgram { id }
+                     pivot {
+                        descriptionForNominations {
+                            localized
+                        }
+                    }
+                }
             }
         }
     GRAPHQL;
@@ -69,7 +80,15 @@ class TalentNominationEventTest extends TestCase
         $otherCommunity = Community::factory()->create();
         $this->otherCommunityId = $otherCommunity->id;
 
-        $this->developmentProgramId = DevelopmentProgram::factory()->create(['community_id' => $this->communityId]);
+        $this->developmentProgramId = DevelopmentProgram::factory()
+            ->withCommunity($this->communityId)
+            ->create()
+            ->id;
+
+        $this->communityDevelopmentProgramId =
+            CommunityDevelopmentProgram::where('development_program_id', $this->developmentProgramId)
+                ->sole()
+                ->id;
 
         $this->admin = User::factory()
             ->asGuest()
@@ -92,8 +111,6 @@ class TalentNominationEventTest extends TestCase
             ->asCommunityTalentCoordinator([$this->communityId])
             ->create();
 
-        $this->developmentProgramId = $community->developmentPrograms()->sole()->pluck('id')[0];
-
         $this->input = [
             ...$this->input,
             'openDate' => config('constants.past_datetime'),
@@ -110,7 +127,17 @@ class TalentNominationEventTest extends TestCase
                 'talentNominationEvent' => [
                     ...$this->input,
                     'community' => ['connect' => $this->communityId],
-                    'developmentPrograms' => ['sync' => [$this->developmentProgramId]],
+                    'communityDevelopmentPrograms' => [
+                        'sync' => [
+                            [
+                                'id' => $this->communityDevelopmentProgramId,
+                                'descriptionForNominations' => [
+                                    'en' => 'abc',
+                                    'fr' => 'def',
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
             ])
             ->assertJson([
@@ -118,7 +145,15 @@ class TalentNominationEventTest extends TestCase
                     'createTalentNominationEvent' => [
                         ...$this->input,
                         'community' => ['id' => $this->communityId],
-                        'developmentPrograms' => [['id' => $this->developmentProgramId]],
+                        'communityDevelopmentPrograms' => [
+                            [
+                                'id' => $this->communityDevelopmentProgramId,
+                                'developmentProgram' => ['id' => $this->developmentProgramId],
+                                'pivot' => [
+                                    'descriptionForNominations' => ['localized' => 'abc'],
+                                ],
+                            ],
+                        ],
                     ],
                 ],
             ]);
@@ -160,8 +195,13 @@ class TalentNominationEventTest extends TestCase
 
     public function testUpdateTalentNominationEvent()
     {
+        $futureOpenDate = '2050-01-01 01:23:45';
+        $futureClosingDate = '2100-01-01 01:23:45';
+
         $talentNominationEvent = TalentNominationEvent::factory()->create([
             'community_id' => $this->communityId,
+            'open_date' => $futureOpenDate,
+            'close_date' => $futureClosingDate,
         ]);
 
         // community admin/coordinator can both update own community nomination events
@@ -262,23 +302,245 @@ class TalentNominationEventTest extends TestCase
             ->assertGraphQLValidationError('talentNominationEvent.community.connect', ErrorCode::COMMUNITY_NOT_FOUND->name);
     }
 
+    // Assert community check for selected development programs
     public function testDevelopmentProgramInCommunityValidation()
     {
-        $community = Community::factory()->create(); // No development programs
-        $developmentProgram = DevelopmentProgram::factory()->create([
-            'community_id' => $this->communityId,
+        $newCommunity = Community::factory()->create();
+        $developmentProgram = DevelopmentProgram::factory()->create();
+        $newCommunityDevelopmentProgram = CommunityDevelopmentProgram::create([
+            'community_id' => $newCommunity->id,
+            'development_program_id' => $developmentProgram->id,
         ]);
 
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->createMutation, [
                 'talentNominationEvent' => [
                     ...$this->input,
-                    'community' => ['connect' => $community->id],
-                    'developmentPrograms' => [
-                        'sync' => ['id' => $developmentProgram->id],
+                    'community' => ['connect' => $this->communityId],
+                    'communityDevelopmentPrograms' => [
+                        'sync' => [
+                            [
+                                'id' => $newCommunityDevelopmentProgram->id,
+                            ],
+                        ],
                     ],
                 ],
             ])
-            ->assertGraphQLValidationError('talentNominationEvent.developmentPrograms.sync.0', ErrorCode::DEVELOPMENT_PROGRAM_NOT_VALID_FOR_COMMUNITY->name);
+            ->assertGraphQLValidationError('talentNominationEvent.communityDevelopmentPrograms.sync.0.id', ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID->name);
+    }
+
+    // test conditionally blocking of editing closing date sooner
+    public function testMovingClosingDateSoonerBlockedForActiveEvents()
+    {
+        $futureOpenDate = '2050-01-01 01:23:45';
+        $currentOpenDate = '2025-01-01 01:23:45';
+
+        $futureClosingDate = '2100-01-01 01:23:45';
+        $slightlySoonerClosingDate = '2099-01-01 01:23:45';
+
+        $futureTalentNominationEvent = TalentNominationEvent::factory()->create([
+            'community_id' => $this->communityId,
+            'open_date' => $futureOpenDate,
+            'close_date' => $futureClosingDate,
+        ]);
+        $activeTalentNominationEvent = TalentNominationEvent::factory()->create([
+            'community_id' => $this->communityId,
+            'open_date' => $currentOpenDate,
+            'close_date' => $futureClosingDate,
+        ]);
+
+        // moving closing date sooner, but not before open, for a not-yet active event works
+        $this->actingAs($this->admin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        name { en fr }
+                        openDate
+                        closeDate
+                    }
+                }
+                GRAPHQL, [
+                'id' => $futureTalentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'name' => ['en' => 'New EN', 'fr' => 'New FR'],
+                    'openDate' => $futureOpenDate,
+                    'closeDate' => $slightlySoonerClosingDate,
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'updateTalentNominationEvent' => [
+                        'id' => $futureTalentNominationEvent->id,
+                        'openDate' => $futureOpenDate,
+                        'closeDate' => $slightlySoonerClosingDate,
+                    ],
+                ],
+            ]);
+
+        // moving closing date sooner, but not before open, for an active event fails
+        $this->actingAs($this->talentCoordinator, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        name { en fr }
+                    }
+                }
+                GRAPHQL, [
+                'id' => $activeTalentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'openDate' => $currentOpenDate,
+                    'closeDate' => $slightlySoonerClosingDate,
+                ],
+            ])
+            ->assertGraphQLErrorMessage('Validation failed for the field [updateTalentNominationEvent].');
+    }
+
+    // some fields must stay the same once the event is active
+    public function testCannotChangeCertainFieldsWhenEventActive()
+    {
+        $futureOpenDate = '2050-01-01 01:23:45';
+        $currentOpenDate = '2025-01-01 01:23:45';
+        $futureClosingDate = '2100-01-01 01:23:45';
+
+        $futureOpenDatePlusAYear = '2051-01-01 01:23:45';
+
+        $newCommunity = Community::factory()->create();
+
+        $doubleAdmin = User::factory()
+            ->asGuest()
+            ->asApplicant()
+            ->asCommunityAdmin([$this->communityId, $newCommunity->id])
+            ->create();
+
+        $futureTalentNominationEvent = TalentNominationEvent::factory()->create([
+            'community_id' => $this->communityId,
+            'open_date' => $futureOpenDate,
+            'close_date' => $futureClosingDate,
+        ]);
+        $activeTalentNominationEvent = TalentNominationEvent::factory()->create([
+            'community_id' => $this->communityId,
+            'open_date' => $currentOpenDate,
+            'close_date' => $futureClosingDate,
+        ]);
+
+        // future event
+        // you can change the community, name, and opening date
+        $this->actingAs($doubleAdmin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        community {
+                            id
+                        }
+                        name { en fr }
+                        openDate
+                    }
+                }
+                GRAPHQL, [
+                'id' => $futureTalentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'community' => [
+                        'connect' => $newCommunity->id,
+                    ],
+                    'name' => [
+                        'en' => 'EN',
+                        'fr' => 'FR',
+                    ],
+                    'openDate' => $futureOpenDatePlusAYear,
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'updateTalentNominationEvent' => [
+                        'id' => $futureTalentNominationEvent->id,
+                        'community' => [
+                            'id' => $newCommunity->id,
+                        ],
+                        'name' => [
+                            'en' => 'EN',
+                            'fr' => 'FR',
+                        ],
+                        'openDate' => $futureOpenDatePlusAYear,
+                    ],
+                ],
+            ]);
+
+        // active event
+        // you cannot change the community, name, and opening date
+        $this->actingAs($doubleAdmin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        community {
+                            id
+                        }
+                        name { en fr }
+                        openDate
+                    }
+                }
+                GRAPHQL, [
+                'id' => $activeTalentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'community' => [
+                        'connect' => $newCommunity->id,
+                    ],
+                    'name' => [
+                        'en' => 'EN',
+                        'fr' => 'FR',
+                    ],
+                    'openDate' => $futureOpenDatePlusAYear,
+                ],
+            ])
+            ->assertGraphQLValidationError('talentNominationEvent.community.connect', ErrorCode::TALENT_EVENT_CANNOT_CHANGE_COMMUNITY->name)
+            ->assertGraphQLValidationError('talentNominationEvent.name.en', ErrorCode::TALENT_EVENT_CANNOT_CHANGE_NAME->name)
+            ->assertGraphQLValidationError('talentNominationEvent.name.fr', ErrorCode::TALENT_EVENT_CANNOT_CHANGE_NAME->name)
+            ->assertGraphQLValidationError('talentNominationEvent.openDate', 'The talent nomination event.open date field must be a date equal to '.$currentOpenDate.'.');
+
+        // active event
+        // you can submit the mutation if the community, name, and opening date are the same as stored
+        $this->actingAs($doubleAdmin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        community {
+                            id
+                        }
+                        name { en fr }
+                        openDate
+                    }
+                }
+                GRAPHQL, [
+                'id' => $activeTalentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'community' => [
+                        'connect' => $activeTalentNominationEvent->community_id,
+                    ],
+                    'name' => [
+                        'en' => $activeTalentNominationEvent->name['en'],
+                        'fr' => $activeTalentNominationEvent->name['fr'],
+                    ],
+                    'openDate' => $activeTalentNominationEvent->open_date->toDateTimeString(),
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'updateTalentNominationEvent' => [
+                        'id' => $activeTalentNominationEvent->id,
+                        'community' => [
+                            'id' => $activeTalentNominationEvent->community_id,
+                        ],
+                        'name' => [
+                            'en' => $activeTalentNominationEvent->name['en'],
+                            'fr' => $activeTalentNominationEvent->name['fr'],
+                        ],
+                        'openDate' => $activeTalentNominationEvent->open_date->toDateTimeString(),
+                    ],
+                ],
+            ]);
     }
 }

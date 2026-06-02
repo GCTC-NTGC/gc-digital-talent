@@ -1,6 +1,6 @@
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
-import {
+import type {
   ApplicationStepInfo,
   GetApplicationStepInfo,
 } from "~/types/applicationStep";

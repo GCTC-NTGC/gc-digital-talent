@@ -1,11 +1,11 @@
-import { IntlShape, useIntl } from "react-intl";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 
-import {
+import type {
   FragmentType,
-  getFragment,
-  graphql,
   PreviewListItemSearchRequestFragment,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { PreviewList } from "@gc-digital-talent/ui";
 import {
@@ -14,8 +14,6 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-
-import { formatClassificationString } from "~/utils/poolUtils";
 
 import ReviewTalentRequestDialog from "./ReviewTalentRequestDialog";
 import { deriveChipSettings } from "./utils";
@@ -31,8 +29,7 @@ const PreviewListItemPoolCandidateSearchRequest_Fragment = graphql(
       requestedDate
       applicantFilter {
         qualifiedInClassifications {
-          group
-          level
+          groupAndLevel
         }
       }
       initialResultCount
@@ -48,9 +45,7 @@ function buildTitle(
     request.applicantFilter?.qualifiedInClassifications,
   );
   const classificationString =
-    classifications.length == 1
-      ? formatClassificationString(classifications[0])
-      : null;
+    classifications.length == 1 ? classifications[0].groupAndLevel : null;
 
   const jobTitleString =
     request.jobTitle ?? intl.formatMessage(commonMessages.notProvided);

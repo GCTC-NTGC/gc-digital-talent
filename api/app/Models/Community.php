@@ -9,34 +9,44 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Carbon;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class Community
  *
  * @property string $id
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property string $key
  * @property array $name
  * @property array $description
+ * @property array $information_url
  * @property array $mandate_authority
+ * @property ?string $contact_email
  */
 class Community extends Model
 {
     use HasFactory;
+    use HasRelationships;
 
     protected $keyType = 'string';
 
     protected $casts = [
         'name' => LocalizedString::class,
         'description' => LocalizedString::class,
+        'information_url' => LocalizedString::class,
         'mandate_authority' => LocalizedString::class,
+
     ];
 
     protected $fillable = [
         'name',
         'description',
+        'information_url',
         'mandate_authority',
+        'contact_email',
     ];
 
     public $guarded = [];
@@ -92,6 +102,17 @@ class Community extends Model
         // I think this only works because we use UUIDs
         // There might be a better way to do this
         return $this->hasManyThrough(RoleAssignment::class, Team::class, 'teamable_id');
+    }
+
+    /** @return HasMany<CommunityDevelopmentProgram, $this> */
+    public function communityDevelopmentPrograms(): HasMany
+    {
+        return $this->hasMany(CommunityDevelopmentProgram::class);
+    }
+
+    public function developmentProgramsThroughPivot(): HasManyDeep
+    {
+        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram())->developmentProgram());
     }
 
     /**
@@ -167,15 +188,6 @@ class Community extends Model
     public function getTeamIdForRoleAssignmentAttribute()
     {
         return $this->team?->id;
-    }
-
-    /** A community has 0..* associated development programs
-     *
-     * @return HasMany<DevelopmentProgram, $this>
-     */
-    public function developmentPrograms(): HasMany
-    {
-        return $this->hasMany(DevelopmentProgram::class);
     }
 
     /**

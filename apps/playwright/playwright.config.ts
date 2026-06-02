@@ -16,13 +16,15 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : "25%",
+  retries: process.env.CI ? Number(process.env.PLAYWRIGHT_RETRIES ?? 1) : 0,
+  /* Keep CI parallelism configurable with a conservative default to avoid shard oversubscription. */
+  workers: process.env.CI ? (process.env.PLAYWRIGHT_WORKERS ?? "25%") : "25%",
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
     ? "blob"
     : [["line"], ["html", { open: "on-failure" }]],
+  globalTeardown:
+    process.env.E2E_COVERAGE === "true" ? "./e2e-coverage-teardown" : undefined,
   timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000),
   expect: { timeout: Number(process.env.EXPECT_TIMEOUT ?? 15000) }, // 15 seconds
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

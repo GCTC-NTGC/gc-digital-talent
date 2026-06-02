@@ -5,7 +5,7 @@ use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+return new class() extends Migration
 {
     /**
      * Run the migrations.
@@ -45,6 +45,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('community_interests');
-        Schema::dropIfExists('communinty_interest_work_stream');
+        Schema::dropIfExists('community_interest_work_stream');
     }
 };

@@ -5,22 +5,21 @@
   "type": "module",
   "main": "src/checkExternalLinks.ts",
   "bin": {
-    "check-external-links": "./checkExternalLinks.ts"
+    "check-external-links": "./src/checkExternalLinks.ts"
   },
   "scripts": {
     "check": "tsc --noEmit",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "dependencies": {
-    "dotenv": "^17.3.1",
+    "dotenv": "^17.4.2",
     "glob": "^13.0.6"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/react": "^19.2.14",
     "eslint": "^9.20.1",
-    "react": "^19.2.4",
     "tsconfig": "workspace:*",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   }
 }

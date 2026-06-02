@@ -1658,7 +1658,7 @@ class UserTest extends TestCase
         ]);
         // User status inactive - should not appear in searches
         PoolCandidate::factory()->qualified()->for($pool1)->create([
-            'referring' => false,
+            'pause_referrals_at' => config('constants.past_date'),
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1729,7 +1729,7 @@ class UserTest extends TestCase
         ]);
         User::factory()->create([
             'first_name' => 'dan',
-            'last_name' => 'man',
+            'last_name' => 'manny',
             'email' => 'dan@user.com',
             'telephone' => '99999',
         ]);
@@ -1791,7 +1791,7 @@ class UserTest extends TestCase
             ], 1],
             'assert email filter with partial email returns correct count' => [['email' => 'user.com'], 4],
             'assert more than one search term results in AND filtering' => [['generalSearch' => 'sam 67890'], 1],
-            'assert filtering for last name in general search returns correct count' => [['generalSearch' => 'man'], 1],
+            'assert filtering for last name in general search returns correct count' => [['generalSearch' => 'manny'], 1],
             'assert filtering general search and name search (both subqueries) filter as AND' => [[
                 'generalSearch' => '@user.com',
                 'name' => 'zak',
@@ -2311,5 +2311,72 @@ class UserTest extends TestCase
                     ],
                 ],
             ]);
+    }
+
+    // When a user is deleted, their email and work email is backed up and cleared
+    public function testUserDeleteBacksUpTheEmailAndWorkEmail()
+    {
+        $user = User::factory()->create([
+            'email' => 'testuser@example.com',
+            'work_email' => 'workuser@gc.ca',
+        ]);
+
+        $user->delete();
+        $user->refresh();
+
+        $this->assertNull($user->email);
+        $this->assertNull($user->work_email);
+        $this->assertEquals('testuser@example.com', $user->email_backup);
+        $this->assertEquals('workuser@gc.ca', $user->work_email_backup);
+    }
+
+    // When a user is restored, if their backed up email and work email are unused then they are restored
+    public function testUserRestoreUnusedEmailAndWorkEmail()
+    {
+        $user = User::factory()->create([
+            'email' => 'restoreuser@example.com',
+            'email_verified_at' => '2000-01-01',
+            'work_email' => 'restorework@gc.ca',
+            'work_email_verified_at' => '2000-01-01',
+        ]);
+        $user->delete();
+        $user->refresh();
+
+        // Simulate restore when no other user uses these emails
+        $user->restore();
+        $user->refresh();
+
+        $this->assertEquals('restoreuser@example.com', $user->email);
+        $this->assertNull($user->email_verified_at);
+        $this->assertEquals('restorework@gc.ca', $user->work_email);
+        $this->assertNull($user->work_email_verified_at);
+        $this->assertNull($user->email_backup);
+        $this->assertNull($user->work_email_backup);
+    }
+
+    // When a user is restored, if their backed up email and work email are already used then they remain null
+    public function testUserDoesntRestoreUsedEmailAndWorkEmail()
+    {
+        $user = User::factory()->create([
+            'email' => 'used@example.com',
+            'work_email' => 'usedwork@gc.ca',
+        ]);
+        $user->delete();
+        $user->refresh();
+
+        // Create a user with the email that will block restoration
+        $blocker = User::factory()->create([
+            'email' => 'used@example.com',
+            'work_email' => 'usedwork@gc.ca',
+        ]);
+
+        // Now, try to restore the user, but the emails are already in use
+        $user->restore();
+        $user->refresh();
+
+        $this->assertNull($user->email);
+        $this->assertNull($user->work_email);
+        $this->assertEquals('used@example.com', $user->email_backup);
+        $this->assertEquals('usedwork@gc.ca', $user->work_email_backup);
     }
 }

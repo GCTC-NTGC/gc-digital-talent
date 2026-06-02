@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Lang;
 
 /**
@@ -14,10 +15,10 @@ use Illuminate\Support\Facades\Lang;
  * @property string $id
  * @property string $user_id
  * @property string $title
- * @property ?\Illuminate\Support\Carbon $start_date
- * @property ?\Illuminate\Support\Carbon $end_date
- * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
+ * @property ?Carbon $start_date
+ * @property ?Carbon $end_date
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  * @property string $learning_description
  * @property string $organization
  */

@@ -2,17 +2,17 @@ import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Heading, ThrowNotFound } from "@gc-digital-talent/ui";
-import { Experience } from "@gc-digital-talent/graphql";
+import type { Experience } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
-import { AnyExperience } from "~/types/experience";
+import type { GetPageNavInfo } from "~/types/applicationStep";
+import type { AnyExperience } from "~/types/experience";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { organizationSuggestionsFromExperiences } from "~/utils/experienceUtils";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-import { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import EditExperienceForm from "./components/ExperienceEditForm";
 import useApplication from "../useApplication";

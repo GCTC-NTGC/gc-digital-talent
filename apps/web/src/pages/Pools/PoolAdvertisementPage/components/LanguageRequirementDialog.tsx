@@ -1,18 +1,19 @@
 import { defineMessages, useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
+import type { HeadingProps } from "@gc-digital-talent/ui";
 import {
   Button,
   DescriptionList,
   Dialog,
   Heading,
-  HeadingProps,
   IconButton,
   Link,
   Ul,
 } from "@gc-digital-talent/ui";
-import { Locales, commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 const selfAssessmentLink = (locale: Locales, chunks: ReactNode) => (
   <Link
@@ -50,8 +51,13 @@ const languageProfiles = defineMessages({
     description: "Bilingual advanced language requirement",
   },
   various: {
-    defaultMessage: "Various",
-    id: "MgK9E0",
+    defaultMessage: "Various (English or French)",
+    id: "G+rsNw",
+    description: "Various language requirement",
+  },
+  variousBilingual: {
+    defaultMessage: "Various (Bilingual)",
+    id: "2S6kLK",
     description: "Various language requirement",
   },
 });
@@ -86,6 +92,12 @@ const languageProfileDescriptions = defineMessages({
       "Multiple positions are expected to be staffed through this process. You may apply to this process if you meet any of the previous language profiles.",
     id: "mF1SAO",
     description: "Various language requirement description",
+  },
+  variousBilingual: {
+    defaultMessage:
+      "Multiple positions are expected to be staffed through this process. You may apply to this process if you meet either the Bilingual intermediate (B B B) or the Bilingual advanced (C B C) language profiles.",
+    id: "paLmhR",
+    description: "Various bilingual language requirement description",
   },
 });
 
@@ -163,6 +175,11 @@ const LanguageRequirementDialog = () => {
               title={intl.formatMessage(languageProfiles.various)}
             >
               {intl.formatMessage(languageProfileDescriptions.various)}
+            </DescriptionList.Item>
+            <DescriptionList.Item
+              title={intl.formatMessage(languageProfiles.variousBilingual)}
+            >
+              {intl.formatMessage(languageProfileDescriptions.variousBilingual)}
             </DescriptionList.Item>
           </DescriptionList.Root>
 

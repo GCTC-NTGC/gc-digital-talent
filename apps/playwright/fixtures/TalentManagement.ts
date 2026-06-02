@@ -20,7 +20,7 @@ class TalentManagement extends AppPage {
 
   async viewActiveTalentNominationEvent() {
     await this.page.getByRole("button", { name: /show 10/i }).click();
-    await this.page.getByRole("menuitemradio", { name: /50/i }).click();
+    await this.page.getByRole("menuitemradio", { name: /^50$/i }).click();
     await this.page.keyboard.press("Escape");
     await this.page
       .getByRole("link", { name: /test talent nomination event active en 0/i })
@@ -44,7 +44,9 @@ class TalentManagement extends AppPage {
         name: /submit the evaluation of this nomination/i,
       })
       .click();
-    await this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Query");
+    await this.waitForGraphqlResponse(
+      "NominationGroupEvaluationDialogFormOptions",
+    );
 
     await this.page
       .getByRole("group", { name: /advancement approval/i })
@@ -81,7 +83,9 @@ class TalentManagement extends AppPage {
         name: /submit the evaluation of this nomination/i,
       })
       .click();
-    await this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Query");
+    await this.waitForGraphqlResponse(
+      "NominationGroupEvaluationDialogFormOptions",
+    );
 
     await this.page
       .getByRole("group", { name: /advancement approval/i })
@@ -113,7 +117,9 @@ class TalentManagement extends AppPage {
         name: /submit the evaluation of this nomination/i,
       })
       .click();
-    await this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Query");
+    await this.waitForGraphqlResponse(
+      "NominationGroupEvaluationDialogFormOptions",
+    );
 
     await this.page
       .getByRole("group", { name: /advancement approval/i })

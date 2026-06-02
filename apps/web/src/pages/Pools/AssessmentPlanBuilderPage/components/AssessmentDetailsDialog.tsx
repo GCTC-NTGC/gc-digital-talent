@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
-import { ReactNode, useState, useEffect } from "react";
+import type { ReactNode } from "react";
+import { useState, useEffect } from "react";
 
 import { Button, Chip, Chips, Dialog, Notice } from "@gc-digital-talent/ui";
 import {
@@ -10,27 +11,29 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
+import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
   Select,
   Input,
   Repeater,
   TextArea,
   Checklist,
-  CheckboxOption,
   Field,
   alphaSortOptions,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  graphql,
-  AssessmentStepType,
+import type {
   Maybe,
   PoolSkill,
   ScreeningQuestion,
   Scalars,
-  PoolSkillType,
   FragmentType,
+} from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  AssessmentStepType,
+  PoolSkillType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -217,7 +220,7 @@ interface AssessmentDetailsDialogProps {
 const AssessmentDetailsDialog = ({
   initialValues,
   poolSkillsQuery,
-  disallowStepTypes = [],
+  disallowStepTypes,
   trigger,
   onError,
 }: AssessmentDetailsDialogProps) => {
@@ -486,7 +489,7 @@ const AssessmentDetailsDialog = ({
     stringsData?.assessmentStepTypes?.filter((stepType) => {
       const value = (stepType.value ?? "") as AssessmentStepType;
       return (
-        allowedStepTypes.includes(value) && !disallowStepTypes.includes(value)
+        allowedStepTypes.includes(value) && !disallowStepTypes?.includes(value)
       );
     }),
     intl,

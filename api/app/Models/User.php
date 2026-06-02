@@ -31,14 +31,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Laravel\Scout\Searchable;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\CausesActivity;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\CausesActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
@@ -47,7 +48,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  *
  * @property string $id
  * @property ?string $email
- * @property ?\Illuminate\Support\Carbon $email_verified_at
+ * @property ?Carbon $email_verified_at
  * @property string $sub
  * @property ?string $first_name
  * @property ?string $last_name
@@ -68,7 +69,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?bool $computed_is_gov_employee
  * @property bool $isVerifiedGovEmployee
  * @property ?string $work_email
- * @property ?\Illuminate\Support\Carbon $work_email_verified_at
+ * @property ?Carbon $work_email_verified_at
  * @property ?bool $has_priority_entitlement
  * @property ?string $priority_number
  * @property ?string $computed_department
@@ -86,27 +87,30 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?string $computed_gov_employee_type
  * @property ?string $computed_gov_role
  * @property ?string $computed_gov_position_type
- * @property ?\Illuminate\Support\Carbon $computed_gov_end_date
+ * @property ?Carbon $computed_gov_end_date
  * @property ?int $priority_weight
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
- * @property ?\Illuminate\Support\Carbon $deleted_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
+ * @property ?Carbon $deleted_at
  * @property ?string $indigenous_declaration_signature
  * @property ?array $indigenous_communities
  * @property ?string $preferred_language_for_interview
  * @property ?string $preferred_language_for_exam
  * @property ?array $enabled_email_notifications
  * @property ?array $enabled_in_app_notifications
- * @property \App\Models\Notification $unreadNotifications
- * @property \Illuminate\Support\Collection<\App\Models\Notification> $notifications
+ * @property Notification $unreadNotifications
+ * @property Collection<Notification> $notifications
  * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
- * @property ?\App\Models\WorkExperience $latest_current_government_work_experience
- * @property ?\App\Models\WorkExperience $current_substantive_experiences
- * @property ?\Illuminate\Support\Carbon $last_sign_in_at
+ * @property ?WorkExperience $latest_current_government_work_experience
+ * @property ?WorkExperience $current_substantive_experiences
+ * @property ?Carbon $last_sign_in_at
  * @property array $flexible_work_locations
- * @property \App\Models\OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
- * @property ?\App\Models\EmployeeProfile $employeeProfile
+ * @property OffPlatformRecruitmentProcess $offPlatformRecruitmentProcesses
+ * @property ?EmployeeProfile $employeeProfile
+ * @property ?string $last_sign_in_iss
+ * @property ?string $email_backup
+ * @property ?string $work_email_backup
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -258,7 +262,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /**
@@ -346,7 +350,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(WorkExperience::class);
     }
 
-    /** @return \Illuminate\Support\Collection<string|int, Experience> */
+    /** @return Collection<string|int, Experience> */
     public function getExperiencesAttribute()
     {
         $collection = collect();
@@ -373,7 +377,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function skills(): HasManyDeep
     {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill());
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill());
     }
 
     // User 1-0..* PoolCandidateSearchRequest
@@ -397,6 +401,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(OffPlatformRecruitmentProcess::class);
     }
 
+    public function developmentProgramUserRecords(): HasMany
+    {
+        return $this->hasMany(DevelopmentProgramUser::class);
+    }
+
     // This method will add the specified skills to UserSkills if they don't exist yet.
     public function addSkills($skill_ids)
     {
@@ -406,7 +415,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         $existingSkillIds = $this->userSkills()->withTrashed()->pluck('skill_id');
         $newSkillIds = collect($skill_ids)->diff($existingSkillIds)->unique();
         foreach ($newSkillIds as $skillId) {
-            $userSkill = new UserSkill;
+            $userSkill = new UserSkill();
             $userSkill->skill_id = $skillId;
             $this->userSkills()->save($userSkill);
         }
@@ -447,9 +456,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         $classification = $this->currentClassification;
 
-        $leadingZero = $classification->level < 10 ? '0' : '';
-
-        return $classification->group.'-'.$leadingZero.$classification->level;
+        return $classification->formattedGroupAndLevel;
     }
 
     public function getDepartment()
@@ -530,7 +537,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     $query->whereNull('end_date')
                         ->orWhere('end_date', '>=', now());
                 })
-                ->orderBy('start_date', 'DESC')
+                ->orderBy('start_date', 'desc')
                 ->get();
 
             if (! $currentExperiences->count()) {
@@ -608,7 +615,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             is_null($this->attributes['first_name']) or
             is_null($this->attributes['last_name']) or
             is_null($this->attributes['email']) or
-            (config('feature.application_email_verification') && is_null($this->attributes['email_verified_at'])) or
+            is_null($this->attributes['email_verified_at']) or
             is_null($this->attributes['telephone']) or
             is_null($this->attributes['preferred_lang']) or
             is_null($this->attributes['preferred_language_for_interview']) or
@@ -619,7 +626,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 is_null($this->attributes['looking_for_french']) &&
                 is_null($this->attributes['looking_for_bilingual'])
             ) or
-            is_null($this->attributes['computed_is_gov_employee']) or
             is_null($this->attributes['has_priority_entitlement']) or
             ($this->attributes['has_priority_entitlement'] && is_null($this->attributes['priority_number'])) or
             is_null($this->attributes['flexible_work_locations']) or
@@ -680,7 +686,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         activity()
             ->causedBy(Auth::user())
             ->performedOn($user)
-            ->withProperties(['attributes' => $properties])
+            ->withChanges(['attributes' => $properties])
             ->event($eventName)
             ->log($eventName);
     }
@@ -702,10 +708,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 // Cascade delete to child models
                 $user->poolCandidates()->delete();
 
-                // Modify the email(s) to allow use by another user
-                $user->email = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
+                // Backup the email(s) to allow use by another user
+                if (! is_null($user->email)) {
+                    $user->email_backup = $user->email;
+                    $user->email = null;
+                }
                 if (! is_null($user->work_email)) {
-                    $user->work_email = $user->work_email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
+                    $user->work_email_backup = $user->work_email;
+                    $user->work_email = null;
                 }
                 $user->save();
             }
@@ -718,12 +728,37 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $candidate->restore();
             }
 
-            $newContactEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
-            $user->update(['email' => $newContactEmail]);
-            if (! is_null($user->work_email)) {
-                $newWorkEmail = $user->work_email.'-restored-at-'.Carbon::now()->format('Y-m-d');
-                $user->update(['email' => $newWorkEmail]);
+            // see if we can restore email
+            if (is_null($user->email) && ! is_null($user->email_backup)) {
+                $existingUserCount = User::where('id', '!=', $user->id)
+                    ->where(fn ($subquery) => $subquery
+                        ->where('email', 'ilike', $user->email_backup)
+                        ->orWhere('work_email', 'ilike', $user->email_backup))
+                    ->withTrashed()
+                    ->count();
+
+                if ($existingUserCount == 0) {
+                    $user->email = $user->email_backup;
+                    $user->email_backup = null;
+                }
             }
+
+            // see if we can restore work email
+            if (is_null($user->work_email) && ! is_null($user->work_email_backup)) {
+                $existingUserCount = User::where('id', '!=', $user->id)
+                    ->where(fn ($subquery) => $subquery
+                        ->where('email', 'ilike', $user->work_email_backup)
+                        ->orWhere('work_email', 'ilike', $user->work_email_backup))
+                    ->withTrashed()
+                    ->count();
+
+                if ($existingUserCount == 0) {
+                    $user->work_email = $user->work_email_backup;
+                    $user->work_email_backup = null;
+                }
+            }
+
+            $user->save();
         });
 
         static::roleAdded(function (User $user, string $role, $team) {
@@ -768,8 +803,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getTopTechnicalSkillsRankingAttribute()
     {
-        $this->userSkills->loadMissing('skill');
-
         return $this->userSkills
             ->whereNotNull('top_skills_rank')
             ->where('skill.category', 'TECHNICAL')
@@ -778,8 +811,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getTopBehaviouralSkillsRankingAttribute()
     {
-        $this->userSkills->loadMissing('skill');
-
         return $this->userSkills
             ->whereNotNull('top_skills_rank')
             ->where('skill.category', 'BEHAVIOURAL')
@@ -788,8 +819,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getImproveTechnicalSkillsRankingAttribute()
     {
-        $this->userSkills->loadMissing('skill');
-
         return $this->userSkills
             ->whereNotNull('improve_skills_rank')
             ->where('skill.category', 'TECHNICAL')
@@ -798,8 +827,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public function getImproveBehaviouralSkillsRankingAttribute()
     {
-        $this->userSkills->loadMissing('skill');
-
         return $this->userSkills
             ->whereNotNull('improve_skills_rank')
             ->where('skill.category', 'BEHAVIOURAL')
@@ -865,7 +892,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     public static function hydrateSnapshot(mixed $snapshot): User|array
     {
-        $user = new User;
+        $user = new User();
 
         $fields = [
             'first_name' => 'firstName',

@@ -1,10 +1,12 @@
-import { ReactNode } from "react";
-import { DefaultValues, FormProvider, useForm } from "react-hook-form";
+import type { ReactNode } from "react";
+import type { DefaultValues } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 
-import { UpdateTalentNominationInput } from "@gc-digital-talent/graphql";
+import type { UpdateTalentNominationInput } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
+import { Card } from "@gc-digital-talent/ui";
 
-import { BaseFormValues } from "../types";
+import type { BaseFormValues } from "../types";
 import useMutations from "../useMutations";
 import useCurrentStep from "../useCurrentStep";
 import Actions from "./Actions";
@@ -52,12 +54,14 @@ const UpdateForm = <TFormValues extends BaseFormValues>({
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        {children}
-        <Actions />
-      </form>
-    </FormProvider>
+    <Card>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
+          {children}
+          <Actions />
+        </form>
+      </FormProvider>
+    </Card>
   );
 };
 

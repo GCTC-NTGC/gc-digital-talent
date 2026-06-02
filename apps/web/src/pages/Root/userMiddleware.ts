@@ -1,5 +1,6 @@
 import { ACCESS_TOKEN } from "@gc-digital-talent/auth";
-import { graphql, UserMiddlewareQuery } from "@gc-digital-talent/graphql";
+import type { UserMiddlewareQuery } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import { graphqlClientContext, userContext } from "~/routing/context";
 
@@ -16,6 +17,7 @@ const UserMiddleware_Query = graphql(/** GraphQL */ `
           id
           name
           isTeamBased
+          permissions
           displayName {
             en
             fr

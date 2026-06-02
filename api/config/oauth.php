@@ -85,10 +85,29 @@ return [
      * Where is the user redirected to after login if it is not in the login request.
      */
     'post_login_redirect' => env('OAUTH_POST_LOGIN_REDIRECT'),
+    'post_login_registration_redirect' => env('OAUTH_POST_LOGIN_REGISTRATION_REDIRECT'),
     'dev_post_login_redirect' => env('DEV_OAUTH_POST_LOGIN_REDIRECT'),
+    'dev_post_login_registration_redirect' => env('DEV_OAUTH_POST_LOGIN_REGISTRATION_REDIRECT'),
 
     /**
      * How many times should requests to the OAUTH server be retried when there are errors
      */
     'request_retries' => env('OAUTH_REQUEST_RETRIES', 3),
+
+    /**
+     * What is the callback for the migration tool?
+     * Can be removed when the migration tool is.
+     */
+    'migration_tool_callback' => env('OAUTH_MIGRATION_TOOL_CALLBACK'),
+
+    /**
+     * Cache times for HTTP requests
+     *
+     * Used to prevent sending out too many unnecessary outbound requests
+     * and shorten response time.
+     *
+     * Values are in defined in seconds
+     */
+    'config_cache_time' => env('OAUTH_CONFIG_CACHE_TIME', 1800), // 30m
+    'introspection_cache_time' => env('OAUTH_INTROSPECTION_CACHE_TIME', 120), // 2m
 ];

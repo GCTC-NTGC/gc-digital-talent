@@ -9,7 +9,7 @@ import {
 import {
   hasEmptyRequiredFields as priorityEntitlementsHasEmptyRequiredFields,
   type PartialUser as PartialUserPriority,
-} from "./priorityEntitlements";
+} from "./citizenVeteranPriority";
 import {
   hasEmptyRequiredFields as languageInformationSectionHasEmptyRequiredFields,
   hasUnsatisfiedRequirements as languageInformationSectionHasUnsatisfiedRequirements,
@@ -35,6 +35,8 @@ export {
   skillRequirementsIsIncomplete,
   generalQuestionsSectionHasMissingResponses,
   screeningQuestionsSectionHasMissingResponses,
+};
+export type {
   PartialUserAbout,
   PartialUserDei,
   PartialUserPriority,

@@ -1,4 +1,4 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -11,6 +11,8 @@ export const NextRoleInfo_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     nextRoleTargetRole {
       value
@@ -61,6 +63,8 @@ export const CareerObjectiveInfo_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     careerObjectiveTargetRole {
       value

@@ -1,5 +1,6 @@
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
-import { IntlShape, useIntl } from "react-intl";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
 import { useCallback, useMemo } from "react";
@@ -19,13 +20,13 @@ import {
   Notice,
   type PreviewMetaData,
 } from "@gc-digital-talent/ui";
-import {
+import type {
   Classification,
-  graphql,
   Maybe,
   SupervisoryStatus,
   WorkStream,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   alphaSortOptions,
   Checklist,
@@ -69,6 +70,7 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
     }
     supervisoryStatuses: localizedEnumStrings(enumName: "SupervisoryStatus") {
       value
@@ -112,6 +114,8 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
         id
         group
         level
+        groupAndLevel
+        displayName
       }
       referenceId
     }
@@ -134,7 +138,7 @@ function previewMetaData(
     metaData.push({
       key: classification.id,
       type: "chip",
-      children: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
+      children: classification.groupAndLevel,
     } satisfies PreviewMetaData);
   }
 
@@ -365,7 +369,7 @@ const JobPosterTemplatesPage = () => {
                         .sort((a, b) => a.level - b.level)
                         .map((classification) => ({
                           value: classification.id,
-                          label: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
+                          label: classification.groupAndLevel,
                         }))}
                     />
                     <Checklist

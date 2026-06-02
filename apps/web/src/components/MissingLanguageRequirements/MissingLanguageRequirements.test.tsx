@@ -9,7 +9,8 @@ import {
   fakePools,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import { Pool, PoolLanguage, User } from "@gc-digital-talent/graphql";
+import type { Pool, User } from "@gc-digital-talent/graphql";
+import { PoolLanguage } from "@gc-digital-talent/graphql";
 
 import MissingLanguageRequirements, {
   type MissingLanguageRequirementsProps,
@@ -33,6 +34,10 @@ const fakePool = fakePools(1)[0];
 const unilingualPool: Pool = {
   ...fakePool,
   language: toLocalizedEnum(PoolLanguage.English),
+};
+const bilingualVariousPool: Pool = {
+  ...fakePool,
+  language: toLocalizedEnum(PoolLanguage.VariousBilingual),
 };
 const bilingualIntermediatePool: Pool = {
   ...fakePool,
@@ -82,6 +87,17 @@ describe("MissingLanguageRequirements", () => {
     renderMissingLanguageRequirements({
       user: unilingualApplicant,
       pool: bilingualAdvancedPool,
+    });
+
+    expect(
+      screen.getByRole("heading", { name: errorMessage }),
+    ).toBeInTheDocument();
+  });
+
+  it("should show error message if a unilingual applicant applies to a bilingual various pool", () => {
+    renderMissingLanguageRequirements({
+      user: unilingualApplicant,
+      pool: bilingualVariousPool,
     });
 
     expect(

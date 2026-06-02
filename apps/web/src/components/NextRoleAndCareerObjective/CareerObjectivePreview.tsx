@@ -1,30 +1,21 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import {
-  HeadingLevel,
-  PreviewList,
-  PreviewMetaData,
-} from "@gc-digital-talent/ui";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { HeadingLevel, PreviewMetaData } from "@gc-digital-talent/ui";
+import { PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import { formatClassificationString } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 
 import CareerObjectiveDialog from "./CareerObjectiveDialog";
 
-export const CareerObjectivePreview_Fragment = graphql(/* GraphQL */ `
+const CareerObjectivePreview_Fragment = graphql(/* GraphQL */ `
   fragment CareerObjectivePreview on User {
     employeeProfile {
       careerObjectiveClassification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
+        groupAndLevel
       }
       careerObjectiveJobTitle
       careerObjectiveCommunity {
@@ -80,9 +71,7 @@ const CareerObjectivePreview = ({
   const employeeProfile = careerObjectivePreviewFragment.employeeProfile;
   const classificationName = employeeProfile?.careerObjectiveClassification
     ? wrapAbbr(
-        formatClassificationString(
-          employeeProfile.careerObjectiveClassification,
-        ),
+        employeeProfile.careerObjectiveClassification.groupAndLevel,
         intl,
       )
     : notProvided;

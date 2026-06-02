@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Accordion, Separator } from "@gc-digital-talent/ui";
 
 import PersonalContactInfo from "./PersonalContactInfo";
@@ -9,7 +10,7 @@ import WorkPreferences from "./WorkPreferences";
 import { BasicInformationOptions_Fragment } from "./utils";
 import DiversityEquityInfo from "./DiversityEquityInfo";
 
-export const BasicInformation_Fragment = graphql(/* GraphQL */ `
+const BasicInformation_Fragment = graphql(/* GraphQL */ `
   fragment BasicInformation on User {
     ...PersonalContact
     ...LanguageInfo

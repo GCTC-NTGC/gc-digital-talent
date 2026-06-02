@@ -1,14 +1,12 @@
 import { useLocation, useNavigate, useSearchParams } from "react-router";
-import { ReactNode, useEffect } from "react";
+import type { ReactNode } from "react";
+import { useEffect } from "react";
 
 import { getLogger } from "@gc-digital-talent/logger";
 import { Loading } from "@gc-digital-talent/ui";
 import { notEmpty, UnauthorizedError } from "@gc-digital-talent/helpers";
-import {
-  RoleName,
-  useAuthentication,
-  useAuthorization,
-} from "@gc-digital-talent/auth";
+import type { RoleName } from "@gc-digital-talent/auth";
+import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 

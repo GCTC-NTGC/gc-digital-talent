@@ -1,16 +1,16 @@
 import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useMutation, useQuery, type OperationContext } from "urql";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
 
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import {
-  UpdateCommunityInterestInput,
+import type {
   FragmentType,
-  getFragment,
-  graphql,
+  UpdateCommunityInterestWithDevelopmentProgramsInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { errorMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -21,16 +21,15 @@ import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { messages } from "./messages";
-import {
-  apiDataToFormValues,
-  FormValues,
-  formValuesToApiUpdateInput,
-} from "../form";
+import { messages } from "../messages";
+import type { FormValues } from "../form";
+import { apiDataToFormValues, formValuesToApiUpdateInput } from "../form";
 import FindANewCommunity from "../sections/FindANewCommunity";
 import ReviewAndSubmit from "../sections/ReviewAndSubmit";
 import AdditionalInformation from "../sections/AdditionalInformation";
-import TrainingAndDevelopmentOpportunities from "../sections/TrainingAndDevelopmentOpportunities";
+import TrainingAndDevelopmentOpportunities, {
+  DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment,
+} from "../sections/TrainingAndDevelopmentOpportunities";
 import DeleteCommunityInterestAlert from "./DeleteCommunityInterestAlert";
 
 // options data for form controls
@@ -41,9 +40,15 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
     ...AdditionalInformationOptions_Fragment
     ...ReviewAndSubmitOptions_Fragment
 
+    me {
+      developmentProgramUserRecords {
+        ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
+      }
+    }
+
     communities {
       id
-      developmentPrograms {
+      associatedDevelopmentPrograms {
         id
         name {
           localized
@@ -66,18 +71,8 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
       id
     }
     additionalInformation
-    interestInDevelopmentPrograms {
-      developmentProgram {
-        id
-        name {
-          localized
-        }
-      }
-      participationStatus
-      completionDate
-    }
     financeIsChief
-    financeAdditionalDuties {
+    communityInterestAdditionalDuties {
       value
       label {
         localized
@@ -90,6 +85,7 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
       }
     }
     financeOtherRolesOther
+    procurementIsSDO
     ...DeleteCommunityInterestAlert
     consentToShareProfile
   }
@@ -125,18 +121,26 @@ const UpdateCommunityInterestForm = ({
   const developmentProgramsForCommunity = unpackMaybes(
     formOptions?.communities?.find(
       (community) => community?.id === formData.community.id,
-    )?.developmentPrograms,
+    )?.associatedDevelopmentPrograms,
   );
 
   const developmentProgramCount: number =
     developmentProgramsForCommunity.length;
 
+  const usersDevelopmentProgramRecords = getFragment(
+    DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment,
+    unpackMaybes(formOptions.me?.developmentProgramUserRecords),
+  );
+
+  const assignToDefaultValues = apiDataToFormValues(
+    userId,
+    usersDevelopmentProgramRecords,
+    formData,
+    developmentProgramsForCommunity,
+  );
+
   const formMethods = useForm<FormValues>({
-    defaultValues: apiDataToFormValues(
-      userId,
-      formData,
-      developmentProgramsForCommunity,
-    ),
+    defaultValues: assignToDefaultValues,
   });
 
   return (
@@ -148,8 +152,8 @@ const UpdateCommunityInterestForm = ({
             {...formMethods.register(`userId`)}
             value={userId}
           />
-          <Card space="lg">
-            <div className="flex flex-col gap-12">
+          <Card>
+            <div className="flex flex-col gap-6">
               <FindANewCommunity
                 optionsQuery={formOptions}
                 formDisabled={formDisabled}
@@ -162,6 +166,10 @@ const UpdateCommunityInterestForm = ({
                   <TrainingAndDevelopmentOpportunities
                     optionsQuery={formOptions}
                     formDisabled={formDisabled}
+                    developmentProgramUserRecordsQuery={unpackMaybes(
+                      formOptions.me?.developmentProgramUserRecords,
+                    )}
+                    selectedCommunityId={formData.community.id}
                   />
                 </>
               ) : null}
@@ -205,8 +213,11 @@ const UpdateCommunityInterest_Query = graphql(/* GraphQL */ `
           ...UpdateCommunityInterestFormData_Fragment
           interestInDevelopmentPrograms {
             id
-            developmentProgram {
+            communityDevelopmentProgram {
               id
+              developmentProgram {
+                id
+              }
             }
           }
         }
@@ -217,14 +228,20 @@ const UpdateCommunityInterest_Query = graphql(/* GraphQL */ `
 `);
 
 const UpdateCommunityInterest_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateCommunityInterest(
-    $communityInterest: UpdateCommunityInterestInput!
+  mutation UpdateCommunityInterestWithDevelopmentPrograms(
+    $communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!
   ) {
-    updateCommunityInterest(communityInterest: $communityInterest) {
+    updateCommunityInterestWithDevelopmentPrograms(
+      communityInterestWithDevelopmentPrograms: $communityInterestWithDevelopmentPrograms
+    ) {
       id
     }
   }
 `);
+
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["EducationExperience"],
+};
 
 interface RouteParams extends Record<string, string> {
   communityInterestId: string;
@@ -246,6 +263,7 @@ export const UpdateCommunityInterestPage = () => {
       variables: {
         communityInterestId: communityInterestId,
       },
+      context,
     });
   const [{ fetching: mutationFetching }, executeUpdateMutation] = useMutation(
     UpdateCommunityInterest_Mutation,
@@ -287,7 +305,7 @@ export const UpdateCommunityInterestPage = () => {
         communityInterest.interestInDevelopmentPrograms?.forEach(
           (interestedDevProgram) => {
             interestedDevPrograms.set(
-              interestedDevProgram.developmentProgram.id,
+              interestedDevProgram.communityDevelopmentProgram.id,
               interestedDevProgram.id,
             );
           },
@@ -295,21 +313,21 @@ export const UpdateCommunityInterestPage = () => {
       },
     );
 
-    const mutationInput: UpdateCommunityInterestInput =
+    const mutationInput: UpdateCommunityInterestWithDevelopmentProgramsInput =
       formValuesToApiUpdateInput(
         communityInterestId,
-        interestedDevPrograms,
+        // interestedDevPrograms,
         formValues,
       );
     const mutationPromise = executeUpdateMutation({
-      communityInterest: mutationInput,
+      communityInterestWithDevelopmentPrograms: mutationInput,
     }).then((response) => {
       // confirmed error
       if (response.error) {
         throw new Error(response.error.message);
       }
       // confirmed success
-      if (response.data?.updateCommunityInterest?.id) {
+      if (response.data?.updateCommunityInterestWithDevelopmentPrograms?.id) {
         return; //success
       }
       // unexpected outcome

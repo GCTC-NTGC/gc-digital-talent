@@ -51,8 +51,8 @@ use Illuminate\Support\Facades\Log;
  * @property ?bool $senior_management_status
  * @property ?string $c_suite_role_title
  * @property ?string $other_c_suite_role_title
- * @property \App\Models\Classification|null $classification
- * @property \App\Models\Department|null $department
+ * @property Classification|null $classification
+ * @property Department|null $department
  */
 class WorkExperience extends Experience
 {

@@ -1,70 +1,60 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import { Classification } from "@gc-digital-talent/graphql";
+import type { Classification } from "@gc-digital-talent/graphql";
 
-export default (): Classification[] => {
-  faker.seed(0); // repeatable results
-  const name = {
+export default (
+  group = "IT",
+  name = {
     en: "Information Technology",
     fr: "Technologie de l'information",
     localized: "Information Technology",
-  };
+  },
+): Classification[] => {
+  faker.seed(0); // repeatable results
   return [
     {
       id: faker.string.uuid(),
       name,
-      group: "IT",
+      group,
       level: 1,
       minSalary: 50000,
       maxSalary: 80000,
       isAvailableInSearch: true,
-      displayName: {
-        en: "Technician",
-        fr: "Technicien(ne)",
-        localized: "Technician",
-      },
+      groupAndLevel: `${group}-01`,
+      displayName: `${group}-01: ${name.localized}`,
     },
     {
       id: faker.string.uuid(),
       name,
-      group: "IT",
+      group,
       level: 2,
       minSalary: 65000,
       maxSalary: 94000,
       isAvailableInSearch: true,
-      displayName: {
-        en: "Analyst",
-        fr: "Analyste",
-        localized: "Analyst",
-      },
+      groupAndLevel: `${group}-02`,
+      displayName: `${group}-02: ${name.localized}`,
     },
     {
       id: faker.string.uuid(),
       name,
-      group: "IT",
+      group,
       level: 3,
       minSalary: 83000,
       maxSalary: 113000,
       isAvailableInSearch: true,
-      displayName: {
-        en: "Technical Advisor or Team Leader",
-        fr: "Conseiller(ère) technique ou Chef d'équipe",
-        localized: "Technical Advisor or Team Leader",
-      },
+      groupAndLevel: `${group}-03`,
+      displayName: `${group}-03: ${name.localized}`,
     },
     {
       id: faker.string.uuid(),
       name,
-      group: "IT",
+      group,
       level: 4,
       minSalary: 94000,
       maxSalary: 130000,
       isAvailableInSearch: true,
-      displayName: {
-        en: "Senior Advisor or Manager",
-        fr: "Conseiller(ère) principal(e) ou Gestionnaire",
-        localized: "Senior Advisor or Manager",
-      },
+      groupAndLevel: `${group}-04`,
+      displayName: `${group}-04: ${name.localized}`,
     },
   ];
 };

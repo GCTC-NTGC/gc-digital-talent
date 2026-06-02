@@ -12,9 +12,7 @@ use App\Enums\ClaimVerificationResult;
 use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EmploymentCategory;
-use App\Enums\FinalDecision;
 use App\Enums\PlacementType;
-use App\Enums\PoolCandidateStatus;
 use App\Enums\ScreeningStage;
 use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
@@ -27,6 +25,8 @@ use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Lang;
 
 class PoolCandidateFactory extends BaseFactory
 {
@@ -49,7 +49,6 @@ class PoolCandidateFactory extends BaseFactory
             'user_id' => fn () => User::factory(),
             'pool_id' => fn () => Pool::factory()->published(),
             'application_status' => ApplicationStatus::DRAFT->name,
-            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ];
     }
 
@@ -144,8 +143,6 @@ class PoolCandidateFactory extends BaseFactory
             'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
             'signature' => $this->faker->name,
             'submitted_at' => $this->faker->dateTimeBetween('-3 months', 'now'),
-            // Note: Legacy fields
-            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
         ]);
     }
 
@@ -175,10 +172,6 @@ class PoolCandidateFactory extends BaseFactory
             'disqualification_reason' => $reason,
             'screening_stage' => null,
             'assessment_step_id' => null,
-            // NOTE: Legacy fields
-            'pool_candidate_status' => $reason,
-            'computed_final_decision' => FinalDecision::DISQUALIFIED->name,
-            'computed_final_decision_weight' => 210,
         ]);
     }
 
@@ -189,10 +182,6 @@ class PoolCandidateFactory extends BaseFactory
             'screening_stage' => null,
             'assessment_step_id' => null,
             'expiry_date' => $this->faker->dateTimeBetween('+3 months', '+3 years'),
-            // NOTE: Legacy fields
-            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            'computed_final_decision' => FinalDecision::QUALIFIED->name,
-            'computed_final_decision_weight' => 10,
         ]);
     }
 
@@ -205,22 +194,23 @@ class PoolCandidateFactory extends BaseFactory
 
     public function placed(?PlacementType $placementType = null, ?string $deptId = null): self
     {
-        return $this->qualified()->state(function (array $atts) use ($deptId, $placementType) {
-            $type = $placementType?->name ?? $this->randomEnum(PlacementType::class);
-            $dept = $deptId ?? $this->firstOrCreate(Department::class)->id;
+        $type = $placementType?->name ?? $this->randomEnum(PlacementType::class);
+        $factory = $this->qualified();
 
-            return [
-                'placement_type' => $type,
-                'placed_at' => $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', $atts['expiry_date'] ?? 'now'),
-                'placed_department_id' => $dept,
-                'screening_stage' => null,
-                'assessment_step_id' => null,
-                // NOTE: Legacy fields
-                'pool_candidate_status' => $type,
-                'computed_final_decision' => FinalDecision::QUALIFIED_PLACED->name,
-                'computed_final_decision_weight' => 30,
-            ];
-        });
+        // pause referrals if being placed as indeterminate
+        if ($type === PlacementType::PLACED_INDETERMINATE->name) {
+            $factory = $factory->referring(false)->state([
+                'pause_referrals_reason' => Lang::get('common.successfully_placed'),
+            ]);
+        }
+
+        return $factory->state(fn (array $atts) => [
+            'placement_type' => $type,
+            'placed_at' => $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', $atts['expiry_date'] ?? 'now'),
+            'placed_department_id' => $deptId ?? $this->firstOrCreate(Department::class)->id,
+            'screening_stage' => null,
+            'assessment_step_id' => null,
+        ]);
     }
 
     public function removed(?CandidateRemovalReason $reason = null, ?string $otherReason = null): self
@@ -237,10 +227,6 @@ class PoolCandidateFactory extends BaseFactory
             'removal_reason_other' => $otherReason,
             'screening_stage' => null,
             'assessment_step_id' => null,
-            // NOTE: Legacy fields
-            'pool_candidate_status' => PoolCandidateStatus::REMOVED->name,
-            'computed_final_decision' => FinalDecision::REMOVED->name,
-            'computed_final_decision_weight' => 240,
         ]);
     }
 
@@ -254,10 +240,31 @@ class PoolCandidateFactory extends BaseFactory
         $name = $this->faker->randomElement(PlacementType::searchable());
         $type = constant(PlacementType::class.'::'.$name);
 
-        return $this->placed($type)->state(fn () => [
-            'referring' => true,
+        return $this->placed($type)->referring(true)->state(fn () => [
             'expiry_date' => $this->faker->dateTimeBetween('1 years', '3 years'),
         ]);
+    }
+
+    /**
+     * Control the referral status of the candidate.
+     */
+    public function referring(bool $isReferring = true): self
+    {
+        return $this->state(function (array $atts) use ($isReferring) {
+            if ($isReferring) {
+                return [
+                    'pause_referrals_at' => null,
+                    'resume_referrals_at' => null,
+                    'pause_referrals_reason' => null,
+                ];
+            }
+
+            return [
+                'pause_referrals_at' => $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', 'now'),
+                'pause_referrals_reason' => 'Manually paused',
+                'resume_referrals_at' => $atts['expiry_date'] ?? now()->addMonths(6),
+            ];
+        });
     }
 
     /**
@@ -275,7 +282,7 @@ class PoolCandidateFactory extends BaseFactory
 
     /** Add assessment results to the pool candidate
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function withAssessmentResults(): self
     {

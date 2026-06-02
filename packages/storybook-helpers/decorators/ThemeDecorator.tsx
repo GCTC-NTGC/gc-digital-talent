@@ -1,13 +1,10 @@
 import { DecoratorHelpers } from "@storybook/addon-themes";
 import type { DecoratorFunction, Renderer } from "storybook/internal/types";
-import { ReactNode, useEffect, useMemo } from "react";
+import type { ReactNode } from "react";
+import { useEffect, useMemo } from "react";
 
-import {
-  Theme,
-  ThemeKey,
-  ThemeProvider,
-  useTheme,
-} from "@gc-digital-talent/theme";
+import type { Theme, ThemeKey } from "@gc-digital-talent/theme";
+import { ThemeProvider, useTheme } from "@gc-digital-talent/theme";
 
 const { initializeThemeState, pluckThemeFromContext } = DecoratorHelpers;
 
@@ -45,24 +42,23 @@ const ThemeSetter = ({ theme }: ThemeSetterProps) => {
   return null;
 };
 
-// Note: Type matches documentation
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const withThemeFromTailwind = <TRenderer extends Renderer = any>({
+const withThemeFromTailwind = ({
   themes,
   defaultTheme,
-}: WithThemeFromTailwindConfig): DecoratorFunction<TRenderer> => {
+}: WithThemeFromTailwindConfig): DecoratorFunction<Renderer> => {
   initializeThemeState(Object.keys(themes), defaultTheme);
+
   return (storyFn, context) => {
     const selectedTheme = pluckThemeFromContext(context);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     const selected =
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      context?.parameters?.themes?.themeOverride ||
+      (context?.parameters?.themes?.themeOverride as string) ||
       selectedTheme ||
       defaultTheme;
+
     const themeArr = useMemo(
       () =>
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         themes[selected].split(" ") as [
           ThemeKey | undefined,
           ThemeMode | undefined,

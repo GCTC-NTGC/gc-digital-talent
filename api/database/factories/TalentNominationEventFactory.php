@@ -3,12 +3,14 @@
 namespace Database\Factories;
 
 use App\Models\Community;
+use App\Models\CommunityDevelopmentProgram;
+use App\Models\CommunityDevelopmentProgramTalentNominationEvent;
 use App\Models\DevelopmentProgram;
 use App\Models\TalentNominationEvent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TalentNominationEvent>
+ * @extends Factory<TalentNominationEvent>
  */
 class TalentNominationEventFactory extends Factory
 {
@@ -56,9 +58,31 @@ class TalentNominationEventFactory extends Factory
         $count = $this->faker->numberBetween($min, $max);
 
         return $this->afterCreating(function (TalentNominationEvent $talentNominationEvent) use ($count) {
-            $developmentPrograms = DevelopmentProgram::factory()->count($count)->create(['community_id' => $talentNominationEvent->community_id]);
+            $developmentPrograms = DevelopmentProgram::factory()
+                ->count($count)
+                ->create();
 
-            $talentNominationEvent->developmentPrograms()->attach($developmentPrograms);
+            foreach ($developmentPrograms as $developmentProgram) {
+
+                $createdCommunityDevelopmentProgram = CommunityDevelopmentProgram::create(
+                    [
+                        'community_id' => $talentNominationEvent->community_id,
+                        'development_program_id' => $developmentProgram->id,
+                    ]
+                );
+                $description = $this->faker->sentence();
+
+                CommunityDevelopmentProgramTalentNominationEvent::create(
+                    [
+                        'community_development_program_id' => $createdCommunityDevelopmentProgram->id,
+                        'talent_nomination_event_id' => $talentNominationEvent->id,
+                        'description_for_nominations' => [
+                            'en' => $description.' EN',
+                            'fr' => $description.' FR',
+                        ],
+                    ]
+                );
+            }
         });
     }
 }

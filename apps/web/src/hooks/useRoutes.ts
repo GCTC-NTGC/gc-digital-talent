@@ -1,11 +1,13 @@
 import { useIntl } from "react-intl";
 
-import { Locales, getLocale } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
-import { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
+import type { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
+import type { PageSectionId as ApplicantDashboardSectionId } from "~/constants/sections/applicantDashboard";
 
-export const FromIapDraftQueryKey = "fromIapDraft";
-export const FromIapSuccessQueryKey = "fromIapSuccess";
+const FromIapDraftQueryKey = "fromIapDraft";
+const FromIapSuccessQueryKey = "fromIapSuccess";
 
 const createSearchQuery = (parameters: Map<string, string>): string => {
   if (parameters.size === 0) return "";
@@ -25,7 +27,6 @@ const getRoutes = (lang: Locales) => {
   const communityUrl = [baseUrl, "community"].join("/");
   const showcase = [applicantUrl, "skills", "showcase"].join("/");
   const communitiesUrl = [baseUrl, "communities"].join("/");
-  const departmentUrl = [baseUrl, "department"].join("/");
 
   return {
     // Main Routes
@@ -41,8 +42,23 @@ const getRoutes = (lang: Locales) => {
     loggedOut: () => [baseUrl, "logged-out"].join("/"),
     userDeleted: () => [baseUrl, "user-deleted"].join("/"),
     registrationAccount: () => [baseUrl, "registration", "account"].join("/"),
-    registrationExperience: () =>
-      [baseUrl, "registration", "experience"].join("/"),
+    registrationExperience: (opts?: {
+      from?: string;
+      isEmployee?: boolean;
+    }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.from) {
+        searchParams.set("from", opts.from);
+      }
+      if (typeof opts?.isEmployee == "boolean") {
+        searchParams.set("isEmployee", opts.isEmployee.toString());
+      }
+
+      return (
+        [baseUrl, "registration", "experience"].join("/") +
+        createSearchQuery(searchParams)
+      );
+    },
     termsAndConditions: () => [baseUrl, "terms-and-conditions"].join("/"),
     privacyPolicy: () => [baseUrl, "privacy-policy"].join("/"),
     accessibility: () => [baseUrl, "accessibility-statement"].join("/"),
@@ -52,13 +68,13 @@ const getRoutes = (lang: Locales) => {
     professionalHRResources: () => `${baseUrl}/hr/resources`,
 
     // Applicant
-    applicantDashboard: () => applicantUrl,
+    applicantDashboard: (section?: ApplicantDashboardSectionId) => {
+      const fragment = section ? `#${section}` : "";
+      return applicantUrl + fragment;
+    },
 
     // Admin
     adminDashboard: () => adminUrl,
-
-    // Department
-    departmentDashboard: () => departmentUrl,
 
     // Admin - Communities
     communityDashboard: () => communityUrl,
@@ -70,6 +86,8 @@ const getRoutes = (lang: Locales) => {
       [adminUrl, "communities", communityId, "manage-access"].join("/"),
     communityUpdate: (communityId: string) =>
       [adminUrl, "communities", communityId, "edit"].join("/"),
+    communityProfessionalization: (communityId: string) =>
+      [adminUrl, "communities", communityId, "professionalization"].join("/"),
 
     // Admin - Roles and Permissions
     rolesAndPermissions: () => `${adminUrl}/roles-and-permissions`,
@@ -177,6 +195,27 @@ const getRoutes = (lang: Locales) => {
         "/",
       ),
 
+    // Admin - Department (singular)
+    departmentDashboard: () => [adminUrl, "department"].join("/"),
+
+    // Admin - Development Programs
+    developmentProgramTable: () =>
+      [adminUrl, "settings", "development-programs"].join("/"),
+    developmentProgramCreate: () =>
+      [adminUrl, "settings", "development-programs", "create"].join("/"),
+    developmentProgramView: (developmentProgramId: string) =>
+      [adminUrl, "settings", "development-programs", developmentProgramId].join(
+        "/",
+      ),
+    developmentProgramUpdate: (developmentProgramId: string) =>
+      [
+        adminUrl,
+        "settings",
+        "development-programs",
+        developmentProgramId,
+        "edit",
+      ].join("/"),
+
     // Admin - Announcements
     announcements: () => [adminUrl, "settings", "announcements"].join("/"),
 
@@ -186,6 +225,7 @@ const getRoutes = (lang: Locales) => {
 
     // Jobs
     jobs: () => `${baseUrl}/jobs`,
+    closedJobs: () => `${baseUrl}/jobs/closed`,
     jobPoster: (processId: string) => `${baseUrl}/jobs/${processId}`,
     createApplication: (processId: string) =>
       `${baseUrl}/jobs/${processId}/create-application`,
@@ -371,6 +411,9 @@ const getRoutes = (lang: Locales) => {
     // Talent management
     talentManagementEvents: () => [communitiesUrl, "talent-events"].join("/"),
     adminTalentManagementEvents: () => `${adminUrl}/talent-events`,
+    createTalentManagementEvent: () => `${adminUrl}/talent-events/create`,
+    updateTalentManagementEvent: (eventId: string) =>
+      `${adminUrl}/talent-events/${eventId}/edit`,
     adminTalentManagementEvent: (eventId: string) =>
       `${adminUrl}/talent-events/${eventId}`,
     adminTalentManagementEventNominations: (eventId: string) =>

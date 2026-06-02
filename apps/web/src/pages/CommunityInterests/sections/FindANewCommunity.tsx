@@ -1,7 +1,8 @@
 import { defineMessage, useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useFormContext } from "react-hook-form";
-import { ComponentProps, useId } from "react";
+import type { ComponentProps } from "react";
+import { useId } from "react";
 
 import { Heading, Notice } from "@gc-digital-talent/ui";
 import { Checklist, RadioGroup, Select } from "@gc-digital-talent/forms";
@@ -15,9 +16,10 @@ import {
   nodeToString,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { FormValues } from "../form";
+import type { FormValues } from "../form";
 
 const FindANewCommunityOptions_Fragment = graphql(/* GraphQL */ `
   fragment FindANewCommunityOptions_Fragment on Query {
@@ -110,15 +112,15 @@ const FindANewCommunity = ({
   switch (mode) {
     case "create":
       heading = defineMessage({
-        defaultMessage: "Find a new community",
-        id: "53LNWh",
+        defaultMessage: "Choose a community",
+        id: "M64e1L",
         description:
           "Heading for the 'Find a new community' section when creating",
       });
       description = defineMessage({
         defaultMessage:
-          "To get started, browse through the list of communities that partner with GC Digital Talent. More communities will be added as they join the platform. Once you’ve selected a community, you’ll be asked a few questions about your interest in opportunities.",
-        id: "koX5xF",
+          "To get started, browse through the list of communities that partner with GC Digital Talent. More communities will be added as they join the platform. Once you've selected a community, you'll be asked a few questions about your interest in opportunities.",
+        id: "G1x4n8",
         description:
           "Description of the 'find a new community' section when creating",
       });
@@ -143,13 +145,13 @@ const FindANewCommunity = ({
   }
 
   return (
-    <div className="flex flex-col gap-7.5">
+    <div className="mb-2 flex flex-col gap-6">
       {/* heading and description */}
       <div className="flex flex-col gap-6">
         <Heading
           level="h2"
           icon={UserGroupIcon}
-          color="secondary"
+          color="primary"
           className="mt-0 font-normal"
         >
           {intl.formatMessage(heading)}
@@ -164,8 +166,8 @@ const FindANewCommunity = ({
             id="communityId"
             name="communityId"
             label={intl.formatMessage({
-              defaultMessage: "Functional community",
-              id: "ElnCxi",
+              defaultMessage: "Select a functional community",
+              id: "lbGN67",
               description:
                 "Description for a form input for selecting a functional community",
             })}
@@ -269,7 +271,7 @@ const FindANewCommunity = ({
             {/* work stream section */}
             {workStreamOptions.length ? (
               <div className="flex flex-col gap-3">
-                <span id={workStreamListDescription}>
+                <span id={workStreamListDescription} className="mb-3">
                   {intl.formatMessage({
                     defaultMessage:
                       "Please select any of the work streams listed that you would consider for work or training.",

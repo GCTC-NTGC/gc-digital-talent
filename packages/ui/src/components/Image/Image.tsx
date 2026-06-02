@@ -1,8 +1,8 @@
-import { ImgHTMLAttributes } from "react";
+import type { ImgHTMLAttributes } from "react";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-type Breakpoint = "xs" | "sm" | "md" | "lg";
+type Breakpoint = "xxs" | "xs" | "sm" | "md" | "lg";
 type PartialBreakpoints = Partial<Record<Breakpoint, string>>;
 
 /**
@@ -14,6 +14,7 @@ type PartialBreakpoints = Partial<Record<Breakpoint, string>>;
  *  REF: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables/Using_CSS_custom_properties
  */
 const sourceMediaMap = new Map<Breakpoint, string>([
+  ["xxs", "(max-width: 30rem)"],
   ["xs", "(max-width: 48rem)"],
   ["sm", "(max-width: 67.5rem)"],
   ["md", "(max-width: 80rem)"],

@@ -1,7 +1,9 @@
 import { forwardRef } from "react";
 
-import { BaseIconButtonLinkProps, iconBtn } from "../../utils/btnStyles";
-import BaseLink, { BaseLinkProps } from "./BaseLink";
+import type { BaseIconButtonLinkProps } from "../../utils/btnStyles";
+import { iconBtn } from "../../utils/btnStyles";
+import type { BaseLinkProps } from "./BaseLink";
+import BaseLink from "./BaseLink";
 
 export interface IconLinkProps
   extends

@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\AssessmentResultSaved;
+use App\Models\PoolCandidate;
 
 class ComputeCandidateAssessmentStatus
 {
@@ -25,7 +26,7 @@ class ComputeCandidateAssessmentStatus
             'poolCandidate.pool.assessmentSteps',
         ]);
 
-        /** @var \App\Models\PoolCandidate */
+        /** @var PoolCandidate */
         $candidate = $result->poolCandidate;
 
         [$_, $assessmentStatus] = $candidate->computeAssessmentStatus();

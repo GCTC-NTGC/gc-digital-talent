@@ -14,10 +14,10 @@ import { Loading, Notice } from "@gc-digital-talent/ui";
 import { NO_DECISION } from "~/utils/assessmentResults";
 
 import useLabels from "./useLabels";
-import { DialogType } from "./useDialogType";
 import useOptions from "./useOptions";
+import type { DialogType } from "./utils";
 import { educationJustificationContext } from "./utils";
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;

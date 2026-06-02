@@ -1,5 +1,5 @@
 /* eslint-disable formatjs/no-literal-string-in-jsx */
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
 import { Loading } from "@gc-digital-talent/ui";
@@ -24,8 +24,6 @@ const DEFAULT_TITLE: string =
 const DEFAULT_DESCRIPTION: string =
   APP_DESCRIPTION ??
   "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.";
-const APP_URL = "https://talent.canada.ca";
-const DEFAULT_IMAGE = `${APP_URL}/images/digital-talent/banner.jpg`;
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -40,8 +38,6 @@ export const meta: Route.MetaFunction = () => {
       content: DEFAULT_DESCRIPTION,
       "data-rh": "true",
     },
-    { property: "og:url", content: APP_URL, "data-rh": "true" },
-    { property: "og:image", content: DEFAULT_IMAGE, "data-rh": "true" },
 
     // Twitter
     { name: "twitter:card", content: "summary_large_image", "data-rh": "true" },
@@ -51,8 +47,6 @@ export const meta: Route.MetaFunction = () => {
       content: DEFAULT_DESCRIPTION,
       "data-rh": "true",
     },
-    { name: "twitter:image", content: DEFAULT_IMAGE, "data-rh": "true" },
-    { name: "twitter:url", content: APP_URL, "data-rh": "true" },
   ];
 };
 
@@ -132,7 +126,8 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <html lang="en">
+    // Suppress hydration warning coming from `initTheme.js` when running watch mode
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           nonce="**CSP_NONCE**"
@@ -142,15 +137,26 @@ export function Layout({ children }: LayoutProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="msapplication-TileColor" content="#9747FF" />
         <meta name="theme-color" content="#9747FF" />
+        <meta property="og:url" content="$APP_URL" />
+        <meta name="twitter:url" content="$APP_URL" />
+        <meta
+          property="og:image"
+          content="$APP_URL/images/digital-talent/banner.jpg"
+        />
         <Meta />
         <Links nonce="**CSP_NONCE**" />
       </head>
-      <body className="bg-gray-100 font-sans text-black dark:bg-gray-700 dark:text-white">
+      <body className="bg-[#EEF1F9] font-sans text-black dark:bg-gray-700 dark:text-white">
         <div className="isolate">{children}</div>
 
         <ScrollRestoration
           nonce="**CSP_NONCE**"
           getKey={(location) => {
+            // if there's a hash then use default behavior since the ScrollToLink will be handling scrolling
+            if (location.hash) {
+              return location.key;
+            }
+            // otherwise, treat each path the same way
             return location.pathname;
           }}
         />

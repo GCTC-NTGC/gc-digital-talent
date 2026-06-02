@@ -1,7 +1,8 @@
-import { IntlShape, useIntl } from "react-intl";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { EmployeeProfileCareerObjectiveFragment } from "@gc-digital-talent/graphql";
+import type { EmployeeProfileCareerObjectiveFragment } from "@gc-digital-talent/graphql";
 import { CardSeparator, Ul, Notice } from "@gc-digital-talent/ui";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 

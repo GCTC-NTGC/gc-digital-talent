@@ -1,6 +1,8 @@
-import { ReactNode, useEffect, useRef } from "react";
+import type { ReactNode } from "react";
+import { useEffect, useRef } from "react";
 import { useIntl } from "react-intl";
-import { tv, VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import {
   Heading,
@@ -13,7 +15,8 @@ import {
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import BackgroundGraphic from "./BackgroundPattern";
-import ButtonLinksArray, { ButtonLinkType } from "./ButtonLinksArray";
+import type { ButtonLinkType } from "./ButtonLinksArray";
+import ButtonLinksArray from "./ButtonLinksArray";
 
 const hero = tv({
   slots: {
@@ -69,7 +72,6 @@ interface HeroSharedProps {
   buttonLinks?: ButtonLinkType[];
   children?: ReactNode;
   status?: ReactNode;
-  additionalContent?: ReactNode;
 }
 
 interface HeroNavAndImgProps extends HeroSharedProps {
@@ -108,15 +110,7 @@ const Hero = (
     | HeroOverlapAndCenteredProps,
 ) => {
   // shared props
-  const {
-    title,
-    subtitle,
-    crumbs,
-    buttonLinks,
-    children,
-    status,
-    additionalContent,
-  } = props;
+  const { title, subtitle, crumbs, buttonLinks, children, status } = props;
   // conditional props
   const navTabs = "navTabs" in props ? props.navTabs : null;
   const overlap = "overlap" in props ? props.overlap : false;
@@ -234,13 +228,6 @@ const Hero = (
             {status}
           </div>
         )}
-        {additionalContent ? (
-          <>
-            <Container size="lg" className="relative z-3 pb-12">
-              {additionalContent}
-            </Container>
-          </>
-        ) : null}
       </div>
       {children ? (
         <Container size="lg" className="relative z-3 mx-auto -mt-30 mb-0">

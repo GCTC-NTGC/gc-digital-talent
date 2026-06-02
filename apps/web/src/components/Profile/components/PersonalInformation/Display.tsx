@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 import {
@@ -16,7 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import EmailVerificationStatus from "../EmailVerificationStatus";
 
-export const PersonalInformationDisplay_Fragment = graphql(/** GraphQL */ `
+const PersonalInformationDisplay_Fragment = graphql(/** GraphQL */ `
   fragment PersonalInformationDisplay on User {
     firstName
     lastName
@@ -199,11 +200,7 @@ const Display = ({
       </FieldDisplay>
       <FieldDisplay
         hasError={!citizenship}
-        label={intl.formatMessage({
-          defaultMessage: "Citizenship status",
-          id: "4v9y7U",
-          description: "Citizenship status label",
-        })}
+        label={intl.formatMessage(profileMessages.citizenship)}
         className="xs:col-span-2 sm:col-span-3"
       >
         {citizenship?.value

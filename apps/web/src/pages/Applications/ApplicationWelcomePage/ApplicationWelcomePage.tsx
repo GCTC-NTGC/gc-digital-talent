@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
-import { SubmitEvent } from "react";
+import type { SubmitEvent } from "react";
 
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -8,13 +8,15 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
+import ApplicationApi from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -166,6 +168,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
               "Link text to return to a pool advertisement during the application",
           })}
         </Link>
+        <DeleteApplicationDialog query={application} />
       </div>
     </>
   );

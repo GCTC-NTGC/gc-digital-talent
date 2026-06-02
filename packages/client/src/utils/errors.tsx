@@ -1,7 +1,7 @@
-import { GraphQLError } from "graphql";
-import { CombinedError } from "urql";
-import { IntlShape } from "react-intl";
-import { ReactNode } from "react";
+import type { GraphQLError } from "graphql";
+import type { CombinedError } from "urql";
+import type { IntlShape } from "react-intl";
+import type { ReactNode } from "react";
 
 import { tryFindMessageDescriptor } from "@gc-digital-talent/i18n";
 
@@ -23,7 +23,7 @@ const isExtensionWithValidation = (
   value: unknown,
 ): value is ExtensionWithValidation => {
   if (isNotNullObject(value) && "validation" in value) {
-    const value2 = value as { validation: unknown }; // type narrow for tested property
+    const value2 = value;
     return (
       isNotNullObject(value2.validation) &&
       Object.values(value2.validation).every(

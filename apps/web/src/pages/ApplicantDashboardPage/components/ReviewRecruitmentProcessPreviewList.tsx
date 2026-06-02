@@ -1,24 +1,23 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
-  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import type { PreviewMetaData } from "@gc-digital-talent/ui";
 import {
   Heading,
   Pending,
   PreviewList,
-  PreviewMetaData,
   Separator,
   Notice,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { getClassificationName } from "~/utils/poolUtils";
 import { candidateInterestChip } from "~/utils/poolCandidate";
 import { wrapAbbr } from "~/utils/nameUtils";
 import OffPlatformRecruitmentProcessList from "~/components/RecruitmentProcesses/OffPlatformRecruitmentProcessList";
@@ -54,10 +53,7 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
           localized
         }
         classification {
-          group
-          level
-          minSalary
-          maxSalary
+          displayName
         }
       }
     }
@@ -122,10 +118,7 @@ const ReviewRecruitmentProcessPreviewList = ({
                 key: "classification",
                 type: "text",
                 children: pool?.classification
-                  ? wrapAbbr(
-                      getClassificationName(pool?.classification, intl),
-                      intl,
-                    )
+                  ? wrapAbbr(pool.classification.displayName, intl)
                   : intl.formatMessage(commonMessages.notFound),
               },
               {

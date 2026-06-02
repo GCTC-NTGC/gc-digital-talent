@@ -1,14 +1,13 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useMemo } from "react";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import {
+import type {
   FragmentType,
-  getFragment,
-  graphql,
   TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -100,11 +99,6 @@ const TalentEventNominationsTable = ({
     TalentEventNominationsTable_Fragment,
     query,
   );
-  const talentEventNominationsData = useMemo(
-    () => talentEventNominations,
-    [talentEventNominations],
-  );
-
   const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
 
   const [{ fetching: downloadingAllExcel }, downloadAllExcel] = useMutation(
@@ -140,7 +134,7 @@ const TalentEventNominationsTable = ({
       .catch(handleDownloadError);
   };
 
-  const nominationIds = talentEventNominationsData.map((nom) => nom.id);
+  const nominationIds = talentEventNominations.map((nom) => nom.id);
 
   const columns = [
     columnHelper.accessor(
@@ -230,7 +224,7 @@ const TalentEventNominationsTable = ({
 
   return (
     <Table<TalentEventNominationsTableFragmentType>
-      data={talentEventNominationsData}
+      data={talentEventNominations}
       caption={intl.formatMessage(messages.talentNominations)}
       columns={columns}
       search={{
@@ -243,7 +237,7 @@ const TalentEventNominationsTable = ({
       pagination={{
         internal: true,
         total: talentEventNominations.length,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
       }}
       rowSelect={{
         onRowSelection: setSelectedRows,

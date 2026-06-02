@@ -1,5 +1,5 @@
 import { action } from "storybook/actions";
-import { StoryFn } from "@storybook/react-vite";
+import type { StoryFn } from "@storybook/react-vite";
 
 import { fakeSkills } from "@gc-digital-talent/fake-data";
 import { BasicForm } from "@gc-digital-talent/forms";
@@ -10,8 +10,9 @@ export default {
   component: SkillsInDetail,
   args: {
     skills: [],
-    onDelete: (skillId: string) =>
-      action("Remove skill from experience")(skillId),
+    onDelete: (skillId: string) => {
+      action("Remove skill from experience")(skillId);
+    },
   },
 };
 

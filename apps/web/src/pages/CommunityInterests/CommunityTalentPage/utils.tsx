@@ -1,27 +1,29 @@
-import { SortingState } from "@tanstack/react-table";
-import { IntlShape } from "react-intl";
-import { JSX } from "react";
+import type { SortingState } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
+import type { JSX } from "react";
 
-import {
+import type {
   Maybe,
-  SortOrder,
   QueryCommunityInterestsPaginatedOrderByRelationOrderByClause,
-  OrderByRelationWithColumnAggregateFunction,
   QueryCommunityInterestsPaginatedOrderByUserColumn,
   CommunityInterestFilterInput,
   InputMaybe,
-  PositionDuration,
   UserFilterInput,
+} from "@gc-digital-talent/graphql";
+import {
+  SortOrder,
+  OrderByRelationWithColumnAggregateFunction,
+  PositionDuration,
 } from "@gc-digital-talent/graphql";
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import useRoutes from "~/hooks/useRoutes";
+import type useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { durationToEnumPositionDuration } from "~/utils/userUtils";
 
-import { FormValues } from "./components/CommunityTalentFilterDialog";
+import type { FormValues } from "./components/CommunityTalentFilterDialog";
 
 export function transformSortStateToOrderByClause(
   sortingRules: SortingState,
@@ -112,15 +114,6 @@ export const usernameCell = (
   const userName = getFullNameLabel(firstName, lastName, intl);
   return <Link href={paths.userEmployeeProfile(userId)}>{userName}</Link>;
 };
-
-export function classificationAccessor(
-  classificationGroup?: string,
-  classificationLevel?: number,
-): string {
-  return classificationGroup && classificationLevel
-    ? `${classificationGroup}-${classificationLevel < 10 ? "0" : ""}${classificationLevel}`
-    : "";
-}
 
 export function interestAccessor(
   intl: IntlShape,
@@ -236,10 +229,5 @@ export function extractUserIdsFromSelectedRows(
   selectedRowIds: string[],
 ): string[] {
   const userIds = selectedRowIds.map((id) => id.split("userId#")[1]);
-  return uniqueItems(userIds);
-}
-
-export function removeDuplicateIds(ids: string[]): string[] {
-  const userIds = ids.map((id) => id.split("-userId#")[0]);
   return uniqueItems(userIds);
 }

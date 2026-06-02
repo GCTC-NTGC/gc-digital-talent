@@ -1,4 +1,5 @@
-import { DetailedHTMLProps, SelectHTMLAttributes, useMemo } from "react";
+import type { DetailedHTMLProps, SelectHTMLAttributes } from "react";
+import { useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { tv } from "tailwind-variants";
 
@@ -67,14 +68,12 @@ const Select = ({
   } = useFormContext();
   useRegisterFormLabel(name, label);
   const fieldState = useFieldState(id, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     describedBy,
     show: {
       error: isInvalid,
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

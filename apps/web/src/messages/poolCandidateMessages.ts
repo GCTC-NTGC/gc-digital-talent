@@ -104,6 +104,16 @@ const messages = defineMessages({
     description:
       "Description for the offer in progress candidate placement type",
   },
+  notReferred: {
+    defaultMessage: "Not referred",
+    id: "sp0Pgt",
+    description: "Label for not referred notice when placed indeterminate",
+  },
+  availableForReferral: {
+    defaultMessage: "Available for referral",
+    id: "ILThW5",
+    description: "A candidate is being referred for new positions",
+  },
 });
 
 export default messages;

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
@@ -8,14 +8,16 @@ import {
 } from "@gc-digital-talent/forms";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
-import { AllExperienceFormValues, ExperienceType } from "~/types/experience";
+import type {
+  AllExperienceFormValues,
+  ExperienceType,
+} from "~/types/experience";
 
 interface ErrorSummaryProps {
   experienceType?: ExperienceType | "";
 }
 
 const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
-  const [showErrorSummary, setShowErrorSummary] = useState<boolean>(false);
   const errorSummaryRef = useRef<HTMLDivElement>(null);
   const intl = useIntl();
   const type = useWatch<AllExperienceFormValues>({
@@ -27,26 +29,28 @@ const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
     formState: { errors, submitCount },
   } = useFormContext();
   const flatErrors = flattenErrors(errors);
+  const isSubmitted = submitCount > 0;
+  const hasErrors = !!flatErrors;
+  const shouldShow = isSubmitted && hasErrors;
 
   useEffect(() => {
     // After during submit, if there are errors, focus the summary
     if (submitCount > 0 && flatErrors) {
-      setShowErrorSummary(true);
       errorSummaryRef.current?.focus();
     }
-  }, [submitCount]);
+  }, [flatErrors, submitCount]);
 
   useEffect(() => {
-    if (showErrorSummary && errorSummaryRef.current) {
+    if (shouldShow && errorSummaryRef.current) {
       errorSummaryRef.current.focus();
     }
-  }, [showErrorSummary, submitCount]);
+  }, [shouldShow, submitCount]);
 
   return (
     <ErrorSummaryAlert
       ref={errorSummaryRef}
       labels={labels}
-      show={errors && showErrorSummary}
+      show={shouldShow}
     />
   );
 };

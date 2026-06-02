@@ -3,6 +3,7 @@
 namespace App\GraphQL\Util;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Testing\TestResponse;
 
 /**
  * A utility to issue GraphQL requests as if from a client.
@@ -17,7 +18,7 @@ class GraphQLClient
      * @param  array<string, mixed>  $variables  The variables to include in the query
      * @param  array<string, mixed>  $extraParams  Extra parameters to add to the JSON payload
      * @param  array<string, mixed>  $headers  HTTP headers to pass to the POST request
-     * @return \Illuminate\Testing\TestResponse
+     * @return TestResponse
      */
     public static function graphQL(
         string $query,
@@ -44,7 +45,7 @@ class GraphQLClient
      *
      * @param  array<mixed, mixed>  $data  JSON-serializable payload
      * @param  array<string, string>  $headers  HTTP headers to pass to the POST request
-     * @return \Illuminate\Testing\TestResponse
+     * @return TestResponse
      */
     public static function postGraphQL(array $data, array $headers = [])
     {

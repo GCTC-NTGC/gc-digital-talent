@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class RolePolicy
 {
@@ -13,7 +14,7 @@ class RolePolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAny(User $user)
     {
@@ -24,7 +25,7 @@ class RolePolicy
      * Determine whether the user can view the role assignments of the role.
      * Likely to be updated later to allow the platform admin view the assignments regardless of team.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAnyRoleAssignments(User $user)
     {
@@ -34,7 +35,7 @@ class RolePolicy
     /**
      * Determine whether the user can view a specific role
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(User $user)
     {
@@ -44,7 +45,7 @@ class RolePolicy
     /**
      * Determine whether the user can update a specific role
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function update(User $user)
     {

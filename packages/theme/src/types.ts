@@ -1,6 +1,8 @@
 export type ThemeKey = "default" | "iap";
 export type SetThemeKeyFunc = (newThemeKey: ThemeKey) => void;
 export type ThemeMode = "dark" | "light" | "pref";
+export type SimpleThemeMode = Exclude<ThemeMode, "pref">;
+
 export type SetThemeModeFunc = (newThemeMode: ThemeMode) => void;
 export type SetThemeFunc = (value: Theme | ((val: Theme) => Theme)) => void;
 

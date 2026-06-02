@@ -1,13 +1,13 @@
-import { StoryFn } from "@storybook/react-vite";
+import type { StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker/locale/en";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
-import { Skill } from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql";
 
 import SkillBrowserDialog from "./SkillBrowserDialog";
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 
 const mockSkills = getStaticSkills();
 

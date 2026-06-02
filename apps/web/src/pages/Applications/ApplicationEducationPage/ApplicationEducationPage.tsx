@@ -12,37 +12,37 @@ import { toast } from "@gc-digital-talent/toast";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import type { Experience } from "@gc-digital-talent/graphql";
 import {
   ApplicationStep,
   EducationRequirementOption,
-  Experience,
 } from "@gc-digital-talent/graphql";
 import { getLogger } from "@gc-digital-talent/logger";
 
 import applicationMessages from "~/messages/applicationMessages";
+import type { SimpleAnyExperience } from "~/utils/experienceUtils";
 import {
   isEducationExperience,
   isAwardExperience,
   isCommunityExperience,
   isPersonalExperience,
   isWorkExperience,
-  SimpleAnyExperience,
 } from "~/utils/experienceUtils";
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
-import { ExperienceForDate } from "~/types/experience";
+import type { GetPageNavInfo } from "~/types/applicationStep";
+import type { ExperienceForDate } from "~/types/experience";
 import { getEducationRequirementOptions } from "~/utils/educationUtils";
-import {
-  ClassificationGroup,
-  isClassificationGroup,
-} from "~/types/classificationGroup";
+import type { ClassificationGroup } from "~/types/classificationGroup";
+import { isClassificationGroup } from "~/types/classificationGroup";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import processMessages from "~/messages/processMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
-import { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
 import useApplication from "../useApplication";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 interface EducationRequirementExperiences {
   educationRequirementAwardExperiences: { sync: string[] };
@@ -68,11 +68,7 @@ export const getPageInfo: GetPageNavInfo = ({
 }) => {
   const path = paths.applicationEducation(application.id);
   return {
-    title: intl.formatMessage({
-      defaultMessage: "Minimum experience or equivalent education",
-      id: "LvYEdh",
-      description: "Title for Minimum experience or equivalent education",
-    }),
+    title: intl.formatMessage(processMessages.minEducationRequirement),
     subtitle: intl.formatMessage({
       defaultMessage:
         "Confirm you have the minimum experience or equivalent education for the role.",
@@ -410,6 +406,7 @@ const ApplicationEducation = ({
             >
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Button>
+            <DeleteApplicationDialog query={application} />
           </div>
         </form>
       </FormProvider>

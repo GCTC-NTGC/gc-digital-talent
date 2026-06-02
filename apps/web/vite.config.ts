@@ -1,12 +1,12 @@
 import path from "path";
-import childProcess from "child_process";
-
+import { defineConfig } from "vite";
 import dotenv from "dotenv";
+
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { compression } from "vite-plugin-compression2";
-import { defineConfig } from "vite";
 
+import { gitVersionPlugin } from "./src/utils/gitVersionPlugin";
 import { getRuntimeConfig } from "./src/utils/runtime";
 
 dotenv.config({ path: "./.env", quiet: true });
@@ -20,105 +20,91 @@ const getEnvVar = (
 
 const runtimeConfig = getRuntimeConfig();
 
-const gitCommand = (command: string) => {
-  let result;
-
-  try {
-    result = childProcess.execSync(`git ${command}`);
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error(err);
-  }
-
-  if (result) {
-    result = result.toString().trim();
-  }
-
-  return result;
-};
-
-const gitVersionPlugin = () => {
-  let version: string | undefined;
-  let commitHash: string | undefined;
-  if (gitCommand("--version")) {
-    version = gitCommand("describe --abbrev=0");
-    commitHash = gitCommand("rev-parse --short HEAD");
-  }
-
+export default defineConfig(({ command }) => {
   return {
-    name: "git-version",
-    config: () => ({
-      define: {
-        VERSION: version ? JSON.stringify(version) : undefined,
-        COMMIT_HASH: commitHash ? JSON.stringify(commitHash) : undefined,
+    resolve: {
+      alias: { "~": path.resolve(__dirname, "src") },
+      tsconfigPaths: true,
+    },
+
+    // Development Server
+    server: {
+      port: 3000,
+      forwardConsole: true,
+      // Allow connections from Docker container network
+      host: true,
+      // Allow requests from nginx proxy in Docker dev environment
+      allowedHosts: ["web", "localhost"],
+      // Watch files for changes in Docker environment
+      watch: {
+        usePolling: process.env.NODE_ENV === "development",
+      },
+      // Increase HMR timeout to batch multiple file changes together
+      // This prevents multiple refreshes when GraphQL codegen writes several files
+      hmr: {
+        timeout: 500,
+      },
+    },
+
+    build: {
+      outDir: "dist",
+      sourcemap: true,
+      rolldownOptions: {
+        onLog(level, log, handler) {
+          if (log.code === "SOURCEMAP_ERROR") return;
+          handler(level, log);
+        },
+        output: {
+          codeSplitting: {
+            groups: [
+              {
+                name: "telemetry",
+                test: /[\\/]node_modules[\\/](@microsoft|applicationinsights)/,
+                priority: 100,
+              },
+              {
+                name: "graphql",
+                test: /packages\/graphql\/src\/gql\/graphql\.ts/,
+                priority: 90,
+              },
+            ],
+          },
+        },
+      },
+    },
+
+    define: {
+      // IS_DEV_SERVER is true when running Vite dev server directly (without nginx proxy)
+      // In Docker dev environment with nginx, we set DOCKER_DEV=true to disable this
+      IS_DEV_SERVER: command === "serve" && process.env.DOCKER_DEV !== "true",
+      API_HOST: getEnvVar("API_HOST"),
+
+      // Vite requires build-time env variables to have the VITE_ prefix
+      API_URI: getEnvVar("VITE_API_URI"),
+      API_PROTECTED_URI: getEnvVar("VITE_API_PROTECTED_URI"),
+      BUILD_DATE: JSON.stringify(new Date()),
+      APP_TITLE: getEnvVar("APP_TITLE"),
+      APP_DESCRIPTION: getEnvVar("APP_DESCRIPTION"),
+      REVERB_APP_KEY: getEnvVar("VITE_REVERB_APP_KEY"),
+
+      // run-time variables
+      __RUNTIME_VARS__: JSON.stringify(runtimeConfig),
+    },
+
+    plugins: [
+      reactRouter(),
+      gitVersionPlugin(),
+      tailwindcss(),
+      compression({ exclude: [/\.(html)$/] }),
+    ],
+
+    ssr: {
+      noExternal: ["@dr.pogodin/react-helmet"],
+    },
+    ...(command === "build" && {
+      html: {
+        cspNonce: "**CSP_NONCE**",
       },
     }),
   };
-};
-
-export default defineConfig(({ command }) => ({
-  publicDir: "./public",
-  build: {
-    outDir: "dist",
-    emptyOutDir: true,
-    chunkSizeWarningLimit: 1000,
-    sourcemap: true,
-    rollupOptions: {
-      // NOTE: We don't want node_module source maps so ignore warnings about them
-      onLog(level, log, handler) {
-        if (log.code === "SOURCEMAP_ERROR") return;
-        handler(level, log);
-      },
-      output: {
-        sourcemapExcludeSources: true,
-        sourcemapIgnoreList: (relativeSourcePath) => {
-          return relativeSourcePath.includes("node_modules");
-        },
-        manualChunks: {
-          graphql: ["@gc-digital-talent/graphql"],
-        },
-      },
-    },
-  },
-  server: {
-    port: 3000,
-  },
-  html: {
-    cspNonce: "**CSP_NONCE**",
-  },
-  ssr: {
-    noExternal: ["@dr.pogodin/react-helmet"],
-  },
-  resolve: {
-    alias: {
-      "~": path.resolve(__dirname, "src"),
-    },
-  },
-  define: {
-    IS_DEV_SERVER: command === "serve",
-    API_HOST: getEnvVar("API_HOST"),
-
-    // Vite requires build-time env variables to have the VITE_ prefix
-    API_URI: getEnvVar("VITE_API_URI"),
-    API_PROTECTED_URI: getEnvVar("VITE_API_PROTECTED_URI"),
-    BUILD_DATE: JSON.stringify(new Date()),
-    APP_TITLE: getEnvVar("APP_TITLE"),
-    APP_DESCRIPTION: getEnvVar("APP_DESCRIPTION"),
-
-    // run-time variables
-    __RUNTIME_VARS__: JSON.stringify(runtimeConfig),
-  },
-  plugins: [
-    reactRouter(),
-    gitVersionPlugin(),
-    tailwindcss(),
-    /**
-     * NOTE: We are not compressing the index.html
-     * so we can use the ngx_http_sub_module to
-     * replace values at runtime
-     *
-     * REF: https://nginx.org/en/docs/http/ngx_http_sub_module.html
-     */
-    compression({ exclude: /index\.html/i }),
-  ],
-}));
+});

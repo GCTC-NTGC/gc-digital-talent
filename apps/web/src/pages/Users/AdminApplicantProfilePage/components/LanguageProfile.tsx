@@ -1,4 +1,5 @@
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { TableOfContents } from "@gc-digital-talent/ui";
 
 import Display from "~/components/Profile/components/LanguageProfile/Display";
@@ -20,7 +21,7 @@ const LanguageProfile = ({ query }: LanguageProfileProps) => {
 
   return (
     <TableOfContents.Section id={LANGUAGE_PROFILE_ID}>
-      <Display query={user} />
+      <Display query={user} context="admin-view" />
     </TableOfContents.Section>
   );
 };

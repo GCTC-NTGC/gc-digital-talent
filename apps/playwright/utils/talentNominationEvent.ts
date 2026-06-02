@@ -1,9 +1,9 @@
-import {
+import type {
   CreateTalentNominationEventInput,
   TalentNominationEvent,
 } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getCommunities } from "./communities";
 
 const oldDate = new Date();
@@ -44,7 +44,9 @@ export const createTalentNominationEvent: GraphQLRequestFunc<
   const communityId =
     talentNominationEvent.community?.connect ?? firstCommunity.id ?? "";
   return ctx
-    .post(Test_CreateTalentNominationEventMutation, {
+    .post<
+      GraphQLResponse<"createTalentNominationEvent", TalentNominationEvent>
+    >(Test_CreateTalentNominationEventMutation, {
       isPrivileged: true,
       variables: {
         talentNominationEvent: {
@@ -56,12 +58,5 @@ export const createTalentNominationEvent: GraphQLRequestFunc<
         },
       },
     })
-    .then(
-      (
-        res: GraphQLResponse<
-          "createTalentNominationEvent",
-          TalentNominationEvent
-        >,
-      ) => res.createTalentNominationEvent,
-    );
+    .then((res) => res.createTalentNominationEvent);
 };

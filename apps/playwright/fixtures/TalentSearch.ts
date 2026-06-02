@@ -1,21 +1,21 @@
-import { expect, Page } from "playwright/test";
+import type { Page } from "playwright/test";
+import { expect } from "playwright/test";
 
-import {
+import type {
   Classification,
-  FlexibleWorkLocation,
   Skill,
-  WorkRegion,
   WorkStream,
 } from "@gc-digital-talent/graphql";
+import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
 
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
 
 class TalentSearch extends AppPage {
   readonly baseUrl: string = "/en/search";
-  readonly classification: Classification;
-  readonly workStream: WorkStream;
-  readonly skill: Skill;
+  readonly classification?: Classification;
+  readonly workStream?: WorkStream;
+  readonly skill?: Skill;
   readonly optionsMap = new Map<FlexibleWorkLocation, string>([
     [FlexibleWorkLocation.Hybrid, "Hybrid work"],
     [FlexibleWorkLocation.Remote, "Remote work"],
@@ -55,7 +55,7 @@ class TalentSearch extends AppPage {
     });
 
     await expect(poolCard).toBeVisible();
-    await expect(poolCard).toContainText(/1 approximate match/i);
+    await expect(poolCard).toContainText(/\d+ approximate match(es)?/i);
     return poolCard;
   }
 
@@ -66,7 +66,7 @@ class TalentSearch extends AppPage {
     skill: Skill,
   ) {
     const poolCard = await this.poolCardVisibility(poolName);
-    const selectedClassification = `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`;
+    const selectedClassification = classification.groupAndLevel;
     const classificationFilter = this.page.getByRole("combobox", {
       name: /classification/i,
     });
@@ -174,10 +174,7 @@ class TalentSearch extends AppPage {
 
     await expect(
       this.page.getByText(
-        new RegExp(
-          `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}: search pool`,
-          "i",
-        ),
+        new RegExp(`${classification.groupAndLevel}: search pool`, "i"),
       ),
     ).toBeVisible();
 

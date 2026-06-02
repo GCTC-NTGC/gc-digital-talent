@@ -12,16 +12,16 @@ import {
   TextArea,
 } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   FinanceChiefRole,
-  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
-import { FormValues } from "../form";
+import type { FormValues } from "../form";
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 const TEXT_AREA_MAX_WORDS_FR = Math.round(
@@ -30,7 +30,9 @@ const TEXT_AREA_MAX_WORDS_FR = Math.round(
 
 const AdditionalInformationOptions_Fragment = graphql(/* GraphQL */ `
   fragment AdditionalInformationOptions_Fragment on Query {
-    financeChiefDuties: localizedEnumStrings(enumName: "FinanceChiefDuty") {
+    communityInterestAdditionalDuties: localizedEnumStrings(
+      enumName: "CommunityInterestAdditionalDuty"
+    ) {
       value
       label {
         en
@@ -53,10 +55,11 @@ const AdditionalInformationOptions_Fragment = graphql(/* GraphQL */ `
 
 export interface SubformValues {
   financeIsChief: boolean | null;
-  financeAdditionalDuties: string[] | null;
+  communityInterestAdditionalDuties: string[] | null;
   financeOtherRoles: string[] | null;
   financeOtherRolesOther: string | null;
   additionalInformation: string | null;
+  procurementIsSDO: boolean | null;
 }
 
 interface AdditionalInformationProps {
@@ -70,7 +73,7 @@ const AdditionalInformation = ({
 }: AdditionalInformationProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const financeAdditionalDutiesDescription = useId();
+  const communityInterestAdditionalDuties = useId();
   const financeOtherRolesDescription = useId();
   const optionsData = getFragment(
     AdditionalInformationOptions_Fragment,
@@ -82,7 +85,13 @@ const AdditionalInformation = ({
     selectedCommunityId,
     selectedFinanceIsChief,
     selectedFinanceOtherRoles,
-  ] = watch(["communityId", "financeIsChief", "financeOtherRoles"]);
+    selectedProcurementIsSDO,
+  ] = watch([
+    "communityId",
+    "financeIsChief",
+    "financeOtherRoles",
+    "procurementIsSDO",
+  ]);
 
   useEffect(() => {
     const resetDirtyField = (
@@ -94,9 +103,13 @@ const AdditionalInformation = ({
 
     // if not a finance chief then clear all finance fields
     if (!selectedFinanceIsChief) {
-      resetDirtyField("financeAdditionalDuties", []);
       resetDirtyField("financeOtherRoles", []);
       resetDirtyField("financeOtherRolesOther", null);
+    }
+
+    // if not a finance OR procurement then clear additional duties
+    if (!selectedFinanceIsChief && !selectedProcurementIsSDO) {
+      resetDirtyField("communityInterestAdditionalDuties", []);
     }
 
     // if the "other" role is not selected then clear the other role input
@@ -106,11 +119,19 @@ const AdditionalInformation = ({
     ) {
       resetDirtyField("financeOtherRolesOther", null);
     }
-  }, [resetField, selectedFinanceIsChief, selectedFinanceOtherRoles]);
+  }, [
+    resetField,
+    selectedFinanceIsChief,
+    selectedFinanceOtherRoles,
+    selectedProcurementIsSDO,
+  ]);
 
-  // some fields are only shown for the finance community
+  // some fields are community conditional
   const financeCommunityId = optionsData.communities.find(
     (c) => c?.key === "finance",
+  )?.id;
+  const procurementCommunityId = optionsData.communities.find(
+    (c) => c?.key === "procurement",
   )?.id;
 
   const wordLimits = {
@@ -125,7 +146,7 @@ const AdditionalInformation = ({
         <Heading
           level="h2"
           icon={ClipboardDocumentCheckIcon}
-          color="secondary"
+          color="primary"
           className="mt-0 font-normal"
         >
           {intl.formatMessage({
@@ -168,7 +189,7 @@ const AdditionalInformation = ({
             {/* Some fields only appear if the user is a chief */}
             {selectedFinanceIsChief === true ? (
               <>
-                <p id={financeAdditionalDutiesDescription}>
+                <p id={communityInterestAdditionalDuties}>
                   {intl.formatMessage({
                     defaultMessage:
                       "Please indicate if you perform any of the following additional duties in your CFO role.",
@@ -178,8 +199,8 @@ const AdditionalInformation = ({
                   })}
                 </p>
                 <Checklist
-                  idPrefix="financeAdditionalDuties"
-                  name="financeAdditionalDuties"
+                  idPrefix="communityInterestAdditionalDuties"
+                  name="communityInterestAdditionalDuties"
                   legend={intl.formatMessage({
                     defaultMessage: "Additional duties",
                     id: "E32ToC",
@@ -187,11 +208,11 @@ const AdditionalInformation = ({
                       "Label for additional duties of a finance chief",
                   })}
                   items={localizedEnumToOptions(
-                    optionsData.financeChiefDuties,
+                    optionsData.communityInterestAdditionalDuties,
                     intl,
                   )}
                   disabled={formDisabled}
-                  aria-describedby={financeAdditionalDutiesDescription}
+                  aria-describedby={communityInterestAdditionalDuties}
                 />
                 <p id={financeOtherRolesDescription}>
                   {intl.formatMessage({
@@ -226,8 +247,8 @@ const AdditionalInformation = ({
                     type="text"
                     label={intl.formatMessage({
                       defaultMessage:
-                        "Other senior delegated official (SDO) position",
-                      id: "qQYO+V",
+                        "Other senior designated official (SDO) position",
+                      id: "q8ztSV",
                       description: "Label for the 'Other role' input",
                     })}
                     disabled={formDisabled}
@@ -236,6 +257,59 @@ const AdditionalInformation = ({
                     }}
                   />
                 ) : null}
+              </>
+            ) : null}
+          </>
+        ) : null}
+        {/* Some fields only appear if the interest is for the procurement community */}
+        {selectedCommunityId === procurementCommunityId ? (
+          <>
+            <Checkbox
+              id="procurementIsSDO"
+              name="procurementIsSDO"
+              label={intl.formatMessage({
+                defaultMessage:
+                  "I am currently in a Senior Designated Official role",
+                id: "+2vO9m",
+                description:
+                  "Message when user is a Senior Designated Official",
+              })}
+              disabled={formDisabled}
+              boundingBox={true}
+              boundingBoxLabel={intl.formatMessage({
+                defaultMessage: "Senior Designated Official (SDO) role",
+                id: "U1GjYG",
+                description: "Bounding box label for the SDO checkbox",
+              })}
+            />
+            {/* Some fields only appear if the user is an SDO */}
+            {selectedProcurementIsSDO === true ? (
+              <>
+                <p id={communityInterestAdditionalDuties}>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Please indicate if you perform any of the following additional duties in your SDO role.",
+                    id: "eO6RfE",
+                    description:
+                      "Description for additional duties referencing a Senior Designated Official (SDO) role",
+                  })}
+                </p>
+                <Checklist
+                  idPrefix="communityInterestAdditionalDuties"
+                  name="communityInterestAdditionalDuties"
+                  legend={intl.formatMessage({
+                    defaultMessage: "Additional duties",
+                    id: "E32ToC",
+                    description:
+                      "Label for additional duties of a finance chief",
+                  })}
+                  items={localizedEnumToOptions(
+                    optionsData.communityInterestAdditionalDuties,
+                    intl,
+                  )}
+                  disabled={formDisabled}
+                  aria-describedby={communityInterestAdditionalDuties}
+                />
               </>
             ) : null}
           </>

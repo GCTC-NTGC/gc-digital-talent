@@ -3,7 +3,8 @@ import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import { useState } from "react";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
   Button,
@@ -18,7 +19,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import permissionConstants from "~/constants/permissionConstants";
 
-import { RouteParams } from "./types";
+import type { RouteParams } from "./types";
 import { detailTabMessages } from "./messages";
 import TalentNominationAccordionItem from "./components/TalentNominationAccordionItem";
 
@@ -98,14 +99,15 @@ const TalentNominationGroupDetails = ({
   };
 
   return (
-    <Card space="lg" className="flex flex-col gap-6 sm:gap-9">
+    <Card space="lg">
       {/* heading section */}
       <div className="flex items-center justify-between">
         <Heading
           level="h2"
+          size="h4"
           icon={ClipboardDocumentListIcon}
           color="secondary"
-          className="mt-0 font-normal"
+          className="my-0 font-normal"
         >
           {intl.formatMessage(detailTabMessages.nominationDetailsPageTitle)}
         </Heading>
@@ -122,7 +124,7 @@ const TalentNominationGroupDetails = ({
           )}
         </Button>
       </div>
-      <Card.Separator />
+      <Card.Separator className="my-9" />
       <Accordion.Root
         mode="simple"
         type="multiple"

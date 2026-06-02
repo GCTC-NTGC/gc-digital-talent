@@ -1,32 +1,30 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "target": "es6",
-    "module": "ES2020",
+    "target": "ES2022",
+    "module": "ESNext",
     "lib": [
-      "ES2020",
-      "dom"
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
     ],
-    "jsx": "react-jsx",
-    "sourceMap": true,
-    "inlineSourceMap": false,
     "strict": true,
-    "strictNullChecks": true,
+    "jsx": "react-jsx",
     "moduleResolution": "bundler",
-    "isolatedModules": true,
     "moduleDetection": "force",
+    "noImplicitOverride": true,
+    "isolatedModules": true,
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "sourceMap": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "preserveSymlinks": true,
+    "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
     "types": [
       "node",
       "vitest/globals",
       "@testing-library/jest-dom",
-      "../../packages/vitest-helpers/src/setup.d.ts"
+      "../../packages/vitest-helpers/src/setup.d.ts",
+      "../../packages/tsconfig/globals.d.ts"
     ]
   },
   "exclude": [

@@ -34,7 +34,6 @@ use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
@@ -100,7 +99,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
         'department',
         'employee_type',
         'work_email',
-        'classification',
+        'classification_current',
         'priority_entitlement',
         'priority_number',
         'accept_temporary',
@@ -134,7 +133,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet;
+        $this->spreadsheet = $this->newSpreadsheet();
 
         $sheet = $this->spreadsheet->getActiveSheet();
 
@@ -559,10 +558,8 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                 }
             }
             $currentColumn++;
-            if (isset($this->finalDecisions)) {
-                foreach ($this->finalDecisions as $row) {
-                    $sheet->setCellValue([$currentColumn, $row['candidate'] + 1], $row['value']);
-                }
+            foreach ($this->finalDecisions as $row) {
+                $sheet->setCellValue([$currentColumn, $row['candidate'] + 1], $row['value']);
             }
         }
 
@@ -570,7 +567,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
 
     private function buildQuery()
     {
-        /** @var Builder<\App\Models\PoolCandidate> $query */
+        /** @var Builder<PoolCandidate> $query */
         $query = PoolCandidate::with([
             'generalQuestionResponses' => ['generalQuestion'],
             'screeningQuestionResponses' => ['screeningQuestion'],
@@ -626,7 +623,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
             'community' => 'whereCandidatesInCommunity',
         ]);
 
-        /** @var Builder<\App\Models\PoolCandidate> $query */
+        /** @var Builder<PoolCandidate> $query */
         $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
             ->whereNotDraft()
             ->wherePoolCandidateSearchInputToSpecialLocationMatching($this->filters);

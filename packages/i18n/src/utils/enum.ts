@@ -1,5 +1,10 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
+import type {
+  LocalizedEnumString,
+  LocalizedString,
+  Maybe,
+} from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   AwardedScope,
@@ -10,18 +15,17 @@ import {
   EducationType,
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
-  LocalizedEnumString,
-  LocalizedString,
-  Maybe,
   PlacementType,
   PoolCandidateSearchRequestReason,
   PoolCandidateSearchStatus,
   PoolLanguage,
   PoolOpportunityLength,
   PriorityWeight,
+  PauseReferralsLength,
   ScreeningStage,
   SecurityStatus,
   WorkRegion,
+  TalentRequestStatus,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -183,7 +187,15 @@ export const ENUM_SORT_ORDER = {
     PlacementType.PlacedTentative,
     PlacementType.PlacedCasual,
     PlacementType.PlacedTerm,
+    PlacementType.PlacedActing,
     PlacementType.PlacedIndeterminate,
+  ],
+  POOL_CANDIDATE_SEARCH_STATUS: [
+    PoolCandidateSearchStatus.New,
+    PoolCandidateSearchStatus.InProgress,
+    PoolCandidateSearchStatus.Waiting,
+    PoolCandidateSearchStatus.Done,
+    PoolCandidateSearchStatus.DoneNoCandidates,
   ],
   PRIORITY_WEIGHT: [
     PriorityWeight.PriorityEntitlement,
@@ -191,11 +203,22 @@ export const ENUM_SORT_ORDER = {
     PriorityWeight.CitizenOrPermanentResident,
     PriorityWeight.Other,
   ],
+  REMOVAL_REASON: [
+    CandidateRemovalReason.RequestedToBeWithdrawn,
+    CandidateRemovalReason.NotResponsive,
+    CandidateRemovalReason.Ineligible,
+    CandidateRemovalReason.Other,
+  ],
   SCREENING_STAGE: [
     ScreeningStage.NewApplication,
     ScreeningStage.ApplicationReview,
     ScreeningStage.ScreenedIn,
     ScreeningStage.UnderAssessment,
+  ],
+  TALENT_REQUEST_STATUS: [
+    TalentRequestStatus.New,
+    TalentRequestStatus.InProgress,
+    TalentRequestStatus.Completed,
   ],
   WORK_REGION: [
     WorkRegion.Telework,
@@ -206,6 +229,14 @@ export const ENUM_SORT_ORDER = {
     WorkRegion.North,
     WorkRegion.Prairie,
     WorkRegion.BritishColumbia,
+  ],
+  PAUSE_REFERRALS_LENGTH: [
+    PauseReferralsLength.OneMonth,
+    PauseReferralsLength.ThreeMonths,
+    PauseReferralsLength.SixMonths,
+    PauseReferralsLength.OneYear,
+    PauseReferralsLength.UntilExpiry,
+    PauseReferralsLength.Other,
   ],
 };
 
@@ -365,13 +396,7 @@ export function sortPoolCandidateSearchStatus(
   poolCandidateSearchStatuses?: MaybeLocalizedEnums,
 ) {
   return sortLocalizedEnums(
-    [
-      PoolCandidateSearchStatus.New,
-      PoolCandidateSearchStatus.InProgress,
-      PoolCandidateSearchStatus.Waiting,
-      PoolCandidateSearchStatus.Done,
-      PoolCandidateSearchStatus.DoneNoCandidates,
-    ],
+    ENUM_SORT_ORDER.POOL_CANDIDATE_SEARCH_STATUS,
     poolCandidateSearchStatuses,
   );
 }
@@ -382,6 +407,7 @@ export function sortPoolLanguage(poolLanguages?: MaybeLocalizedEnums) {
       PoolLanguage.Various,
       PoolLanguage.English,
       PoolLanguage.French,
+      PoolLanguage.VariousBilingual,
       PoolLanguage.BilingualIntermediate,
       PoolLanguage.BilingualAdvanced,
     ],

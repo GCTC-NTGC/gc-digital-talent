@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Enums\EmailType;
 use App\Enums\ErrorCode;
+use App\Models\User;
 use App\Rules\GovernmentEmailRegex;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -18,7 +19,7 @@ final class VerifyUserEmails
      */
     public function __invoke($_, array $args)
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
         $providedCode = $args['code'];
         $normalizedCode = trim(strtoupper($providedCode));
@@ -49,7 +50,7 @@ final class VerifyUserEmails
                 'required',
                 'string',
                 Rule::when(fn ($attributes) => in_array(EmailType::WORK->name, $attributes['emailTypes']),
-                    [new GovernmentEmailRegex],
+                    [new GovernmentEmailRegex()],
                     ['email']
                 ),
                 Rule::unique('users', 'email')->ignore($user->id, 'id'),

@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Accordion, PreviewList, Notice } from "@gc-digital-talent/ui";
 
 import { hasAllEmptyFields as hasAllEmptyFieldsNextRole } from "~/validators/employeeProfile/nextRole";
@@ -72,7 +73,7 @@ const NextRoleAndCareerObjective = ({
           <PreviewList.Root>
             {/* If the employee hasn't filled out this section then display null message */}
             {hasAllEmptyFieldsNextRole({ ...nextRole }) ? (
-              <Notice.Root>
+              <Notice.Root className="my-6">
                 <Notice.Content>
                   <p>
                     {intl.formatMessage({
@@ -91,7 +92,7 @@ const NextRoleAndCareerObjective = ({
               />
             )}
             {hasAllEmptyFieldsCareerObjective({ ...careerObjective }) ? (
-              <Notice.Root>
+              <Notice.Root className="my-6">
                 <Notice.Content>
                   <p>
                     {intl.formatMessage({

@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Directives\Pagination;
 
+use Exception;
 use GraphQL\Error\Error;
 use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Pagination\Cursor;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
@@ -74,13 +78,23 @@ class PaginationArgs
      *
      * @template TModel of \Illuminate\Database\Eloquent\Model
      *
-     * @param  \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<TModel>|\Illuminate\Database\Eloquent\Relations\Relation<\Illuminate\Database\Eloquent\Model, TModel, TModel>  $builder
-     * @return \Illuminate\Contracts\Pagination\CursorPaginator<array-key, TModel>
+     * @param  Builder|EloquentBuilder<TModel>|Relation<Model, TModel, TModel>  $builder
+     * @return CursorPaginator<array-key, TModel>
      */
     public function applyToBuilder(QueryBuilder|EloquentBuilder|Relation $builder): CursorPaginator
     {
         if ($this->perPage === 0) {
             return new ZeroPerPagePaginator();
+        }
+
+        $query = match (true) {
+            $builder instanceof QueryBuilder => $builder,
+            $builder instanceof EloquentBuilder => $builder->getQuery(),
+            $builder instanceof Relation => $builder->getQuery()->getQuery()
+        };
+        // Builder->ensureOrderForCursorPagination filters out any ordering that does not include a `direction` property.
+        if (! Arr::every($query->orders, fn ($o) => array_key_exists('direction', $o))) {
+            throw new Exception('This directive does not support ordering without directions, like orderByRaw.');
         }
 
         return $builder->cursorPaginate(perPage: $this->perPage, columns: ['*'], cursorName: 'cursor', cursor: $this->cursor);

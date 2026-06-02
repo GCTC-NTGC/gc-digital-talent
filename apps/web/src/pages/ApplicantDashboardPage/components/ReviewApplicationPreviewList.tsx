@@ -1,17 +1,17 @@
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   CandidateStatus,
-  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
-import { PreviewList, PreviewMetaData, Notice } from "@gc-digital-talent/ui";
+import type { PreviewMetaData } from "@gc-digital-talent/ui";
+import { PreviewList, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { getClassificationName } from "~/utils/poolUtils";
 import { candidateStatusChip } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -37,10 +37,7 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
         localized
       }
       classification {
-        group
-        level
-        minSalary
-        maxSalary
+        groupAndLevel
       }
       closingDate
     }
@@ -101,10 +98,7 @@ const ReviewApplicationPreviewList = ({
                 key: "classification",
                 type: "text",
                 children: pool?.classification
-                  ? wrapAbbr(
-                      getClassificationName(pool?.classification, intl),
-                      intl,
-                    )
+                  ? wrapAbbr(pool.classification.groupAndLevel, intl)
                   : intl.formatMessage(commonMessages.notFound),
               },
               {

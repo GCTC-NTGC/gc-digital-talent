@@ -1,17 +1,18 @@
-import { ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
-import CommunityInterest, {
-  CommunityInterestOptions_Fragment,
-} from "../CommunityInterest/CommunityInterest";
+import type { CommunityInterestOptions_Fragment } from "../CommunityInterest/CommunityInterest";
+import CommunityInterest from "../CommunityInterest/CommunityInterest";
 
-export const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `
+const CommunityInterestDialog_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterestDialog on CommunityInterest {
     id
     community {

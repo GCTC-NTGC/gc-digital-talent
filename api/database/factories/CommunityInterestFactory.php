@@ -2,16 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Enums\FinanceChiefDuty;
+use App\Enums\CommunityInterestAdditionalDuty;
+use App\Enums\DevelopmentProgramParticipationStatus;
 use App\Enums\FinanceChiefRole;
 use App\Models\Community;
 use App\Models\CommunityInterest;
-use App\Models\DevelopmentProgramInterest;
+use App\Models\DevelopmentProgramUser;
+use App\Models\EducationExperience;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CommunityInterest>
+ * @extends Factory<CommunityInterest>
  */
 class CommunityInterestFactory extends Factory
 {
@@ -35,8 +37,8 @@ class CommunityInterestFactory extends Factory
             'finance_is_chief' => fn ($attributes) => Community::find($attributes['community_id'])->key === 'finance'
                 ? $this->faker->boolean()
                 : null,
-            'finance_additional_duties' => fn ($attributes) => $attributes['finance_is_chief'] === true
-                ? $this->faker->randomElements(array_column(FinanceChiefDuty::cases(), 'name'), $this->faker->numberBetween(0, count(FinanceChiefDuty::cases())))
+            'additional_duties' => fn ($attributes) => ($attributes['finance_is_chief'] === true || $attributes['procurement_is_sdo'] === true)
+                ? $this->faker->randomElements(array_column(CommunityInterestAdditionalDuty::cases(), 'name'), $this->faker->numberBetween(0, count(CommunityInterestAdditionalDuty::cases())))
                 : [],
             'finance_other_roles' => fn ($attributes) => $attributes['finance_is_chief'] === true
                 ? $this->faker->randomElements(array_column(FinanceChiefRole::cases(), 'name'), $this->faker->numberBetween(0, count(FinanceChiefRole::cases())))
@@ -45,6 +47,9 @@ class CommunityInterestFactory extends Factory
                 ? $this->faker->jobTitle()
                 : null,
             'consent_to_share_profile' => $this->faker->boolean(90),
+            'procurement_is_sdo' => fn ($attributes) => Community::find($attributes['community_id'])->key === 'procurement'
+                ? $this->faker->boolean()
+                : null,
         ];
     }
 
@@ -68,13 +73,24 @@ class CommunityInterestFactory extends Factory
     public function withDevelopmentProgramInterests(int $limit = 3)
     {
         return $this->afterCreating(function (CommunityInterest $communityInterest) use ($limit) {
-            $developmentPrograms = $communityInterest->community->developmentPrograms()->limit($limit)->get();
-            foreach ($developmentPrograms as $developmentProgram) {
-                DevelopmentProgramInterest::factory()
-                    ->create([
-                        'development_program_id' => $developmentProgram->id,
-                        'community_interest_id' => $communityInterest->id,
-                    ]);
+            $associatedDevelopmentPrograms = $communityInterest->community->developmentProgramsThroughPivot()->limit($limit)->get();
+
+            foreach ($associatedDevelopmentPrograms as $developmentProgram) {
+                $participationValue = $this->faker
+                    ->optional()
+                    ->randomElement(array_column(DevelopmentProgramParticipationStatus::cases(), 'name'));
+
+                DevelopmentProgramUser::create([
+                    'development_program_id' => $developmentProgram->id,
+                    'user_id' => $communityInterest->user_id,
+                    'education_experience_id' => $this->faker->boolean() ?
+                        EducationExperience::factory()->create(['user_id' => $communityInterest->user_id])->id
+                        : null,
+                    'participation_status' => $participationValue,
+                    'completion_date' => $participationValue === DevelopmentProgramParticipationStatus::COMPLETED->name
+                            ? $this->faker->dateTimeBetween('-1 year', 'now')
+                            : null,
+                ]);
             }
         });
     }

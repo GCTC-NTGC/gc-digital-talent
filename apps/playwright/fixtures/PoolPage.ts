@@ -1,4 +1,4 @@
-import { PoolSkill, SkillCategory } from "@gc-digital-talent/graphql";
+import type { PoolSkill, SkillCategory } from "@gc-digital-talent/graphql";
 
 import { expect } from "~/fixtures";
 
@@ -134,6 +134,7 @@ class PoolPage extends AppPage {
     await this.page.getByRole("button", { name: /save closing date/i }).click();
     await this.waitForGraphqlResponse("UpdatePool");
   }
+
   async updateCoreRequirements() {
     await this.page
       .getByRole("button", { name: /edit core requirements/i })
@@ -266,18 +267,21 @@ class PoolPage extends AppPage {
 
   async verifyActivityLogContent(
     user?: { firstName?: string; lastName?: string },
-    action?: string,
+    actions?: string[],
     entity?: string,
   ) {
     await this.page.reload();
-    await expect(
-      this.page.getByText(
-        new RegExp(
-          `${user?.firstName ?? ""} ${user?.lastName ?? ""} ${action ?? ""}: ${entity ?? ""}`,
-          "i",
-        ),
-      ),
-    ).toBeVisible();
+
+    const fullName = `${user?.firstName ?? ""} ${user?.lastName ?? ""}`.trim();
+
+    for (const action of actions ?? []) {
+      const rowRegex = new RegExp(
+        `${fullName}.*${action}.*${entity ?? ""}`,
+        "i",
+      );
+
+      await expect(this.page.getByText(rowRegex).first()).toBeVisible();
+    }
   }
 
   async verifySearchActivityLog(searchTerm: string[]) {

@@ -1,10 +1,10 @@
-import {
+import type {
   User,
   Maybe,
   Pool,
-  PublishingGroup,
   LocalizedIndigenousCommunity,
 } from "@gc-digital-talent/graphql";
+import { PublishingGroup } from "@gc-digital-talent/graphql";
 
 export interface PartialUser extends Pick<
   User,
@@ -13,20 +13,6 @@ export interface PartialUser extends Pick<
   indigenousCommunities?: Maybe<
     Maybe<Pick<LocalizedIndigenousCommunity, "value">>[]
   >;
-}
-
-export function anyCriteriaSelected({
-  isWoman,
-  hasDisability,
-  isVisibleMinority,
-  indigenousCommunities,
-}: PartialUser): boolean {
-  return !!(
-    isWoman ||
-    isVisibleMinority ||
-    hasDisability ||
-    (indigenousCommunities && indigenousCommunities.length > 0)
-  );
 }
 
 export function hasEmptyRequiredFields(

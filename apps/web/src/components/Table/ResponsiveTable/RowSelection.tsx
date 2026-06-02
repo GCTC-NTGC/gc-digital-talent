@@ -1,5 +1,6 @@
-import { IntlShape, useIntl } from "react-intl";
-import {
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
+import type {
   Row,
   Table,
   ColumnDef,
@@ -10,22 +11,21 @@ import {
   Updater,
 } from "@tanstack/react-table";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
-import {
+import type {
   DetailedHTMLProps,
   Dispatch,
   HTMLAttributes,
   MouseEventHandler,
   SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
 } from "react";
+import { useEffect, useRef, useState } from "react";
 import { tv } from "tailwind-variants";
 
-import { CheckButton, CheckButtonProps } from "@gc-digital-talent/forms";
+import type { CheckButtonProps } from "@gc-digital-talent/forms";
+import { CheckButton } from "@gc-digital-talent/forms";
+import type { ButtonProps } from "@gc-digital-talent/ui";
 import {
   Button,
-  ButtonProps,
   DownloadCsv,
   Loading,
   UNICODE_CHAR,
@@ -33,7 +33,7 @@ import {
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
-import { DownloadDef, RowSelectDef } from "./types";
+import type { DownloadDef, RowSelectDef } from "./types";
 import SpinnerIcon from "../../SpinnerIcon/SpinnerIcon";
 import tableMessages from "../tableMessages";
 
@@ -386,9 +386,6 @@ interface RowSelectCellArgs<T> {
 
 /**
  * Generate the cell for row selection
- *
- * @param param0
- * @returns
  */
 export const rowSelectCell = <T extends object>({
   row,
@@ -400,25 +397,27 @@ type UseRowSelectionReturn = [
   setter: OnChangeFn<RowSelectionState>,
 ];
 
+type RowSelectionCallback = (s: RowSelectionState) => void;
+
 export const useRowSelection = <T,>(
   rowSelect?: RowSelectDef<T>,
 ): UseRowSelectionReturn => {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const rowSelectionCallbackRef = useRef<RowSelectionCallback>(() => undefined);
 
-  const rowSelectionCallback = useCallback(
-    (newRowSelection: RowSelectionState) => {
-      if (rowSelect?.onRowSelection) {
-        const selectedRows = Object.keys(newRowSelection)
-          .map((value) => {
-            return newRowSelection[value] ? value : undefined;
-          })
-          .filter(notEmpty);
+  // Keep the newest callback in the ref for the effect to call
+  // eslint-disable-next-line react-hooks/refs
+  rowSelectionCallbackRef.current = (newRows: RowSelectionState) => {
+    if (rowSelect?.onRowSelection) {
+      const selectedRows = Object.keys(newRows)
+        .map((value) => {
+          return newRows[value] ? value : undefined;
+        })
+        .filter(notEmpty);
 
-        rowSelect.onRowSelection(selectedRows);
-      }
-    },
-    [rowSelect],
-  );
+      rowSelect.onRowSelection(selectedRows);
+    }
+  };
 
   const handleRowSelection = (
     setter: Dispatch<SetStateAction<RowSelectionState>>,
@@ -437,8 +436,8 @@ export const useRowSelection = <T,>(
     handleRowSelection(setRowSelection, updater);
 
   useEffect(() => {
-    rowSelectionCallback(rowSelection);
-  }, [rowSelection]);
+    rowSelectionCallbackRef.current(rowSelection);
+  }, [rowSelection]); // stable — callback stored in ref to avoid re-render cycle
 
   return [rowSelection, setter];
 };

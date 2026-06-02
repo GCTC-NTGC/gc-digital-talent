@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useContext, useRef } from "react";
+import type { ReactNode, RefObject } from "react";
+import { createContext, useContext, useRef } from "react";
 
 const numberRegex = /(\d+)/g;
 
@@ -18,12 +19,12 @@ const normalizeName = (name: string): string => {
 type FieldLabels = Record<string, ReactNode>;
 
 interface LabelsContextState {
-  labels: FieldLabels;
+  labels: RefObject<FieldLabels>;
   registerLabel: (name: string, label: ReactNode) => void;
 }
 
 const LabelsContext = createContext<LabelsContextState>({
-  labels: {},
+  labels: { current: {} },
   registerLabel: () => {
     // noop
   },
@@ -41,9 +42,7 @@ export const FormLabelsProvider = ({ children }: FormLabelsProviderProps) => {
   };
 
   return (
-    <LabelsContext.Provider
-      value={{ labels: labelsRef.current, registerLabel }}
-    >
+    <LabelsContext.Provider value={{ labels: labelsRef, registerLabel }}>
       {children}
     </LabelsContext.Provider>
   );

@@ -4,11 +4,8 @@ import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
 import BuildingLibraryIcon from "@heroicons/react/20/solid/BuildingLibraryIcon";
-import { tv, VariantProps } from "tailwind-variants";
-
-import { assertUnreachable } from "@gc-digital-talent/helpers";
-
-import { IconType } from "../../types";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 const statusItem = tv({
   slots: {
@@ -44,28 +41,33 @@ const statusItem = tv({
 type StatusItemVariants = VariantProps<typeof statusItem>;
 type RequiredStatus = Required<Pick<StatusItemVariants, "status">>;
 
-function getIcon(status: NonNullable<StatusItemVariants["status"]>): IconType {
+interface IconProps {
+  className: string;
+  status: RequiredStatus["status"];
+}
+
+const Icon = ({ status, ...rest }: IconProps) => {
   if (status === "selected") {
-    return CheckCircleIcon;
+    return <CheckCircleIcon {...rest} />;
   }
   if (status === "empty") {
-    return XCircleIcon;
+    return <XCircleIcon {...rest} />;
   }
   if (status === "declined") {
-    return NoSymbolIcon;
+    return <NoSymbolIcon {...rest} />;
   }
   if (status === "error") {
-    return ExclamationCircleIcon;
+    return <ExclamationCircleIcon {...rest} />;
   }
   if (status === "interested") {
-    return QuestionMarkCircleIcon;
+    return <QuestionMarkCircleIcon {...rest} />;
   }
   if (status === "in_program") {
-    return BuildingLibraryIcon;
+    return <BuildingLibraryIcon {...rest} />;
   }
 
-  return assertUnreachable(status);
-}
+  return null;
+};
 
 export interface MetaDataStatusItemProps extends RequiredStatus {
   label: string;
@@ -73,12 +75,11 @@ export interface MetaDataStatusItemProps extends RequiredStatus {
 
 // based on the BoolCheckIcon component
 function MetaDataStatusItem({ label, status }: MetaDataStatusItemProps) {
-  const Icon = getIcon(status);
   const { base, icon: iconStyles, label: labelStyles } = statusItem({ status });
 
   return (
     <div className={base()}>
-      <Icon className={iconStyles()} />
+      <Icon className={iconStyles()} status={status} />
       <span className={labelStyles()}>{label}</span>
     </div>
   );

@@ -47,7 +47,6 @@ class SnapshotShapeTest extends TestCase
             'updatedAt',
             'deletedAt',
             'isAvailableInSearch',
-            'displayName',
         ],
         Department::class => [
             'createdAt',
@@ -124,6 +123,9 @@ class SnapshotShapeTest extends TestCase
             'nextRoleCSuiteRoleTitle',
             'careerObjectiveCSuiteRoleTitle',
             'careerPlanningLearningOpportunitiesInterest',
+            'lastSignInIss',
+            'emailBackup',
+            'workEmailBackup',
         ],
         UserSkill::class => [
             'userId',
@@ -225,7 +227,7 @@ class SnapshotShapeTest extends TestCase
     {
         if (is_array($data)) {
             $ignored = $this->ignoredFields[$modelClass] ?? [];
-            $table = (new $modelClass)->getTable();
+            $table = (new $modelClass())->getTable();
             $attributes = Schema::getColumnListing($table);
 
             // Go over all attributes and confirm:

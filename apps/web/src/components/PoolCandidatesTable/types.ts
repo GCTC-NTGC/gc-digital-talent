@@ -1,6 +1,7 @@
-import {
+import type {
   ApplicationStatus,
   CandidateExpiryFilter,
+  CandidateReferralFilter,
   CandidateRemovalReason,
   CandidateSuspendedFilter,
   FlexibleWorkLocation,
@@ -20,6 +21,7 @@ export interface FormValues {
   departments: string[];
   equity: string[];
   expiryStatus?: CandidateExpiryFilter;
+  referralStatuses?: CandidateReferralFilter[];
   statuses: ApplicationStatus[];
   flexibleWorkLocations: FlexibleWorkLocation[];
   govEmployee?: string;

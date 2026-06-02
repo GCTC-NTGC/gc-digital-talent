@@ -9,8 +9,9 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
-import Combobox, { ComboboxProps } from "./Combobox";
-import { Option } from "./types";
+import type { ComboboxProps } from "./Combobox";
+import Combobox from "./Combobox";
+import type { Option } from "./types";
 
 faker.seed(0);
 
@@ -53,7 +54,9 @@ const Template: StoryFn<ComboboxType> = (args) => {
             .then((newOptions) => {
               setFilteredOptions(newOptions);
             })
-            .catch((err) => action("error")(err))
+            .catch((err) => {
+              action("error")(err);
+            })
             .finally(() => {
               setIsSearching(false);
             });

@@ -1,32 +1,28 @@
 import { defineMessage, useIntl } from "react-intl";
-import { OperationContext, useMutation, useQuery } from "urql";
+import { useMutation } from "urql";
+import { useRevalidator } from "react-router";
 
-import {
-  TableOfContents,
-  ThrowNotFound,
-  Pending,
-  Container,
-} from "@gc-digital-talent/ui";
+import { Link, Separator, TableOfContents } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { NotFoundError } from "@gc-digital-talent/helpers";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
-import Hero from "~/components/Hero";
-import useRoutes from "~/hooks/useRoutes";
 import profileMessages from "~/messages/profileMessages";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import SEO from "~/components/SEO/SEO";
-import { SectionProps } from "~/components/Profile/types";
+import type { SectionProps } from "~/components/Profile/types";
 import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
 import { getSectionTitle } from "~/components/Profile/utils";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
-import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import PriorityEntitlements from "~/components/Profile/components/PriorityEntitlements/PriorityEntitlements";
+import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
+import { requireUser } from "~/routing/auth";
+import { graphqlClientContext, intlContext } from "~/routing/context";
+import useRoutes from "~/hooks/useRoutes";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
-import pageMessages from "./messages";
+import type { Route } from "./+types/ProfilePage";
 
 const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
@@ -36,44 +32,52 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const pageTitle = defineMessage(pageMessages.pageTitle);
+export const handle = {
+  pageTitle: defineMessage(navigationMessages.profilePage),
+};
 
-const subTitle = defineMessage(pageMessages.subTitle);
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request }, next) => {
+    requireUser(context, request, { roles: [{ name: ROLE_NAME.Applicant }] });
+    return await next();
+  },
+];
 
-export const UserProfile_Fragment = graphql(/** GraphQL */ `
-  fragment UserProfile on User {
-    ...ProfileWorkPreferences
-    ...ProfileDiversityEquityInclusion
-    ...ProfilePriorityEntitlements
-    ...ProfileGovernmentInformation
-    ...ProfileLanguageProfile
+const ProfileUser_Query = graphql(/* GraphQL */ `
+  query ProfileUser {
+    me {
+      isVerifiedGovEmployee
+      ...ProfileWorkPreferences
+      ...ProfileDiversityEquityInclusion
+      ...ProfileCitizenVeteranPriority
+      ...ProfileLanguageProfile
+    }
   }
 `);
 
-export interface ProfilePageProps {
-  userQuery: FragmentType<typeof UserProfile_Fragment>;
+export async function clientLoader({ context }: Route.ClientLoaderArgs) {
+  const intl = context.get(intlContext);
+  const client = context.get(graphqlClientContext);
+
+  const res = await client.query(ProfileUser_Query, {}).toPromise();
+
+  if (!res.data?.me) {
+    throw new NotFoundError(intl.formatMessage(profileMessages.userNotFound));
+  }
+
+  return {
+    user: res.data.me,
+  };
 }
 
-export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
-  const paths = useRoutes();
+const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
   const intl = useIntl();
-  const user = getFragment(UserProfile_Fragment, userQuery);
+  const paths = useRoutes();
+  const revalidator = useRevalidator();
+  const { user } = loaderData;
 
-  const formattedPageTitle = intl.formatMessage(pageTitle);
-  const formattedSubTitle = intl.formatMessage(subTitle);
-
-  const crumbs = useBreadcrumbs({
-    crumbs: [
-      {
-        label: intl.formatMessage(navigationMessages.applicantDashboard),
-        url: paths.applicantDashboard(),
-      },
-      {
-        label: formattedPageTitle,
-        url: paths.profile(),
-      },
-    ],
-  });
+  const [languagePresetNoticeIsVisible, setLanguagePresetNoticeIsVisible] =
+    useLocalStorage<boolean>(KEY_NEW_USER_LANGUAGE_PRESET, false);
 
   const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
     ProfileUpdateUser_Mutation,
@@ -83,7 +87,10 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
     return executeUpdateMutation({
       id: userId,
       user: userData,
-    }).then((res) => res.data?.updateUserAsUser);
+    }).then(async (res) => {
+      await revalidator.revalidate();
+      return res.data?.updateUserAsUser;
+    });
   };
 
   const sectionProps = {
@@ -94,113 +101,68 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
   };
 
   return (
-    <>
-      <SEO title={formattedPageTitle} description={formattedSubTitle} />
-      <Hero
-        title={formattedPageTitle}
-        subtitle={formattedSubTitle}
-        crumbs={crumbs}
-      />
-      <Container className="my-18">
-        <TableOfContents.Wrapper>
-          <TableOfContents.Navigation>
-            <TableOfContents.List>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={PAGE_SECTION_ID.WORK_PREFERENCES}
-                >
-                  {intl.formatMessage(getSectionTitle("work"))}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.DEI}>
-                  {intl.formatMessage(getSectionTitle("dei"))}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={PAGE_SECTION_ID.PRIORITY_ENTITLEMENTS}
-                >
-                  {intl.formatMessage(getSectionTitle("priority"))}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.GOVERNMENT}>
-                  {intl.formatMessage(getSectionTitle("government"))}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.LANGUAGE}>
-                  {intl.formatMessage(getSectionTitle("language"))}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-            </TableOfContents.List>
-          </TableOfContents.Navigation>
-          <TableOfContents.Content>
-            <div className="flex flex-col gap-y-18">
-              <TableOfContents.Section id={PAGE_SECTION_ID.WORK_PREFERENCES}>
-                <WorkPreferences {...sectionProps} />
-              </TableOfContents.Section>
-              <TableOfContents.Section id={PAGE_SECTION_ID.DEI}>
-                <DiversityEquityInclusion {...sectionProps} />
-              </TableOfContents.Section>
-              <TableOfContents.Section
-                id={PAGE_SECTION_ID.PRIORITY_ENTITLEMENTS}
-              >
-                <PriorityEntitlements {...sectionProps} />
-              </TableOfContents.Section>
-              <TableOfContents.Section id={PAGE_SECTION_ID.GOVERNMENT}>
-                <GovernmentInformation query={user} />
-              </TableOfContents.Section>
-              <TableOfContents.Section id={PAGE_SECTION_ID.LANGUAGE}>
-                <LanguageProfile {...sectionProps} />
-              </TableOfContents.Section>
-            </div>
-          </TableOfContents.Content>
-        </TableOfContents.Wrapper>
-      </Container>
-    </>
+    <TableOfContents.Wrapper>
+      <TableOfContents.Navigation>
+        <TableOfContents.List>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.WORK_PREFERENCES}>
+              {intl.formatMessage(getSectionTitle("work"))}
+            </TableOfContents.AnchorLink>
+          </TableOfContents.ListItem>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.DEI}>
+              {intl.formatMessage(getSectionTitle("dei"))}
+            </TableOfContents.AnchorLink>
+          </TableOfContents.ListItem>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink
+              id={PAGE_SECTION_ID.CITIZEN_VETERAN_PRIORITY}
+            >
+              {intl.formatMessage(getSectionTitle("citizen-veteran-priority"))}
+            </TableOfContents.AnchorLink>
+          </TableOfContents.ListItem>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.LANGUAGE}>
+              {intl.formatMessage(getSectionTitle("language"))}
+            </TableOfContents.AnchorLink>
+          </TableOfContents.ListItem>
+        </TableOfContents.List>
+        <Separator space="sm" />
+        <div className="flex flex-col gap-y-3">
+          <Link href={paths.employeeProfile()}>
+            {intl.formatMessage(navigationMessages.employeeProfileGC)}
+          </Link>
+          <Link href={paths.accountSettings()}>
+            {intl.formatMessage(navigationMessages.accountSettings)}
+          </Link>
+        </div>
+      </TableOfContents.Navigation>
+      <TableOfContents.Content>
+        <div className="flex flex-col gap-y-18">
+          <TableOfContents.Section id={PAGE_SECTION_ID.WORK_PREFERENCES}>
+            <WorkPreferences {...sectionProps} />
+          </TableOfContents.Section>
+          <TableOfContents.Section id={PAGE_SECTION_ID.DEI}>
+            <DiversityEquityInclusion {...sectionProps} />
+          </TableOfContents.Section>
+          <TableOfContents.Section
+            id={PAGE_SECTION_ID.CITIZEN_VETERAN_PRIORITY}
+          >
+            <CitizenVeteranPriority {...sectionProps} />
+          </TableOfContents.Section>
+          <TableOfContents.Section id={PAGE_SECTION_ID.LANGUAGE}>
+            <LanguageProfile
+              languagePresetNoticeIsVisible={languagePresetNoticeIsVisible}
+              setLanguagePresetNoticeIsVisible={
+                setLanguagePresetNoticeIsVisible
+              }
+              {...sectionProps}
+            />
+          </TableOfContents.Section>
+        </div>
+      </TableOfContents.Content>
+    </TableOfContents.Wrapper>
   );
 };
 
-const ProfileUser_Query = graphql(/* GraphQL */ `
-  query ProfileUser {
-    me {
-      ...UserProfile
-    }
-  }
-`);
-
-const context: Partial<OperationContext> = {
-  requestPolicy: "cache-and-network",
-};
-
-const ProfilePage = () => {
-  const intl = useIntl();
-  const [{ data, fetching, error }] = useQuery({
-    query: ProfileUser_Query,
-    context,
-  });
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      {data?.me ? (
-        <ProfileForm userQuery={data?.me} />
-      ) : (
-        <ThrowNotFound
-          message={intl.formatMessage(profileMessages.userNotFound)}
-        />
-      )}
-    </Pending>
-  );
-};
-
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <ProfilePage />
-  </RequireAuth>
-);
-
-Component.displayName = "ProfilePage";
-
-export default Component;
+export default ProfilePage;

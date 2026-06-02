@@ -1,9 +1,11 @@
-import {
+import type {
+  EducationExperience,
+  EducationExperienceInput,
   WorkExperience,
   WorkExperienceInput,
 } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 export const defaultWorkExperience: Partial<WorkExperienceInput> = {
   role: "Playwright tester",
@@ -33,14 +35,52 @@ export const createWorkExperience: GraphQLRequestFunc<
   CreateWorkExperienceInput
 > = async (ctx, { userId, workExperience }) => {
   return ctx
-    .post(Test_CreateWorkExperienceMutationDocument, {
-      variables: {
-        userId,
-        workExperience,
+    .post<GraphQLResponse<"createWorkExperience", WorkExperience>>(
+      Test_CreateWorkExperienceMutationDocument,
+      {
+        variables: {
+          userId,
+          workExperience,
+        },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"createWorkExperience", WorkExperience>) =>
-        res.createWorkExperience,
-    );
+    )
+    .then((res) => res.createWorkExperience);
+};
+
+const Test_CreateEducationExperienceMutationDocument = /* GraphQL */ `
+  mutation Test_CreateEducationExperience(
+    $userId: ID!
+    $educationExperience: EducationExperienceInput!
+  ) {
+    createEducationExperience(
+      userId: $userId
+      educationExperience: $educationExperience
+    ) {
+      id
+      institution
+      areaOfStudy
+    }
+  }
+`;
+
+interface CreateEducationExperienceInput {
+  userId: string;
+  educationExperience: Partial<EducationExperienceInput>;
+}
+
+export const createEducationExperience: GraphQLRequestFunc<
+  EducationExperience,
+  CreateEducationExperienceInput
+> = async (ctx, { userId, educationExperience }) => {
+  return ctx
+    .post<GraphQLResponse<"createEducationExperience", EducationExperience>>(
+      Test_CreateEducationExperienceMutationDocument,
+      {
+        variables: {
+          userId,
+          educationExperience,
+        },
+      },
+    )
+    .then((res) => res.createEducationExperience);
 };

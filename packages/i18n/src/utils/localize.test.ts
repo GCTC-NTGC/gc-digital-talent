@@ -1,6 +1,6 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
-import { Locales } from "../types";
+import type { Locales } from "../types";
 import { getLocale, localizePath, oppositeLocale } from "./localize";
 
 describe("localize helper tests", () => {

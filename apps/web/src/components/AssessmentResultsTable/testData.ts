@@ -9,15 +9,17 @@ import {
   fakeUserSkills,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
+import type {
+  AssessmentResult,
+  AssessmentStep,
+  PoolCandidate,
+  PoolSkill,
+} from "@gc-digital-talent/graphql";
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
-  AssessmentResult,
   AssessmentResultType,
-  AssessmentStep,
   AssessmentStepType,
-  PoolCandidate,
-  PoolSkill,
   PoolSkillType,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
@@ -190,19 +192,15 @@ export const testPoolCandidate: PoolCandidate = {
       // set assessment steps out of order
       {
         ...interviewGroupStep,
-        assessmentResults: interviewGroupResults,
       },
       {
         ...applicationScreeningStep,
-        assessmentResults: applicationScreeningResults,
       },
       {
         ...referenceCheckStep,
-        assessmentResults: referenceCheckResults,
       },
       {
         ...screeningQuestionsStep,
-        assessmentResults: screeningQuestionsResults,
       },
     ],
   },

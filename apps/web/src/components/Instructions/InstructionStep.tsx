@@ -1,6 +1,6 @@
 import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ArrowDownCircleIcon from "@heroicons/react/24/solid/ArrowDownCircleIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
 import { Image } from "@gc-digital-talent/ui";

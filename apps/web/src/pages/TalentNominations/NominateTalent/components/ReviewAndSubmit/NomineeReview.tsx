@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   TalentNominationStep,
@@ -10,7 +10,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { stringifyGroupLevel } from "~/utils/classification";
 
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
@@ -28,8 +27,7 @@ const NomineeReview_Fragment = graphql(/* GraphQL */ `
         }
       }
       classification {
-        group
-        level
+        groupAndLevel
       }
     }
   }
@@ -83,10 +81,7 @@ const NomineeReview = ({ nomineeQuery }: NomineeReviewProps) => {
           })}
         >
           {talentNomination?.nominee?.classification
-            ? stringifyGroupLevel(
-                talentNomination.nominee.classification.group,
-                talentNomination.nominee.classification.level,
-              )
+            ? talentNomination.nominee.classification.groupAndLevel
             : intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
         <FieldDisplay

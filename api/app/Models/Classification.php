@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Lang;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 /**
@@ -21,10 +23,10 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property int $min_salary
  * @property int $max_salary
  * @property string $formattedGroupAndLevel
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property string $displayName
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property bool $is_available_in_search
- * @property array $display_name
  */
 class Classification extends Model
 {
@@ -39,7 +41,6 @@ class Classification extends Model
      */
     protected $casts = [
         'name' => LocalizedString::class,
-        'display_name' => LocalizedString::class,
     ];
 
     /** @return HasMany<GenericJobTitle, $this> */
@@ -56,6 +57,20 @@ class Classification extends Model
         /** @disregard P1003 Not using values */
         return Attribute::make(
             get: fn (mixed $value, array $attributes) => $attributes['group'].'-'.($attributes['level'] < 10 ? '0' : '').$attributes['level'],
+        );
+    }
+
+    /**
+     * Get the formatted classification name, e.g. IT-01: Information Technology
+     */
+    protected function displayName(): Attribute
+    {
+        $locale = app()->getLocale();
+        $dividingColon = Lang::get('common.dividing_colon', [], $locale);
+        $name = $this->name[$locale];
+
+        return Attribute::make(
+            get: fn () => $this->formattedGroupAndLevel.$dividingColon.$name,
         );
     }
 

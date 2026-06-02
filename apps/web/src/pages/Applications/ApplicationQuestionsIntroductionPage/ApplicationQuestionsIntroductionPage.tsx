@@ -4,12 +4,14 @@ import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
 
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
+import ApplicationApi from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -96,6 +98,7 @@ const ApplicationQuestionsIntroduction = ({
         >
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>
+        <DeleteApplicationDialog query={application} />
       </div>
     </>
   );

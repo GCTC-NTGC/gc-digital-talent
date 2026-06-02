@@ -7,14 +7,18 @@ use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
 use App\Traits\LogsCustomActivity;
+use Database\Helpers\TeamHelpers;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 /**
  * Class AssessmentStep
@@ -25,8 +29,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $sort_order
  * @property array $title
  * @property ?array $name
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  */
 class AssessmentStep extends Model
 {
@@ -60,7 +64,7 @@ class AssessmentStep extends Model
         return LogOptions::defaults()
             ->logOnly((['*']))
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     protected function customizeActivityProperties(array &$properties, ActivityEvent $event): void
@@ -199,5 +203,38 @@ class AssessmentStep extends Model
 
             $step->logActivity(ActivityEvent::REMOVED, $step->only($loggedAttributes));
         });
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['pool.team', 'pool.community.team', 'pool.department.team']);
+    }
+
+    public function scopeWhereAuthorizedToView(Builder $query)
+    {
+        /** @var User | null */
+        $user = Auth::user();
+
+        if ($user?->isAbleTo('view-any-assessmentPlan')) {
+            return $query;
+        }
+
+        if ($user?->isAbleTo('view-team-assessmentPlan')) {
+            $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-assessmentPlan');
+
+            return $query->whereHas('pool', function (Builder $poolQuery) use ($teamIds) {
+                return $poolQuery->where(function (Builder $poolQuery) use ($teamIds) {
+                    $poolQuery->orWhereHas('team', function (Builder $teamQuery) use ($teamIds) {
+                        return $teamQuery->whereIn('id', $teamIds);
+                    })->orWhereHas('community.team', function (Builder $communityQuery) use ($teamIds) {
+                        return $communityQuery->whereIn('id', $teamIds);
+                    })->orWhereHas('department.team', function (Builder $deptQuery) use ($teamIds) {
+                        return $deptQuery->whereIn('id', $teamIds);
+                    });
+                });
+            });
+        }
+
+        return $query->whereRaw('0 = 1');
     }
 }

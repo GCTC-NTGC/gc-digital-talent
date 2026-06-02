@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { CardFlat, Container, Heading } from "@gc-digital-talent/ui";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
@@ -43,8 +43,8 @@ const About = () => {
                 mode: "solid",
                 href:
                   locale === "en"
-                    ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/mandate/chief-information-officer.html"
-                    : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/mandat/dirigeant-principal-information.html",
+                    ? "https://www.canada.ca/en/treasury-board-secretariat/corporate/organization.html#ocio"
+                    : "https://www.canada.ca/fr/secretariat-conseil-tresor/organisation/organisation.html#org5",
                 label: intl.formatMessage({
                   defaultMessage:
                     "Learn more<hidden> about the Office of the Chief Information Officer</hidden>",

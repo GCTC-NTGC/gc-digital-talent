@@ -1,8 +1,9 @@
 import { useFormContext } from "react-hook-form";
-import { ReactNode } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ReactNode } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
-import { IconType } from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
 
 import Field from "../Field";
 import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
@@ -93,13 +94,11 @@ const CardOptionGroup = ({
     formState: { errors },
   } = useFormContext<Record<string, string | undefined>>();
   const fieldState = useFieldState(name, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id: idPrefix,
     describedBy,
     show: {
       error: fieldState === "invalid",
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

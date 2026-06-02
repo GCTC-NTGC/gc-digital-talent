@@ -1,4 +1,4 @@
-import { StoryFn } from "@storybook/react-vite";
+import type { StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
@@ -10,7 +10,7 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 import Form from "../BasicForm";
 import Submit from "../Submit";
 import Select, { type SelectProps } from "./Select";
-import { OptGroup, Option } from "../../types";
+import type { OptGroup, Option } from "../../types";
 
 export default {
   component: Select,

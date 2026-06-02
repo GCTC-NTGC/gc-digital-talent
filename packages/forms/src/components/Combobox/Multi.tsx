@@ -10,7 +10,7 @@ import { Button, Chip, Chips } from "@gc-digital-talent/ui";
 import Field from "../Field";
 import Menu from "./Menu";
 import Input from "./Input";
-import { BaseProps, Option } from "./types";
+import type { BaseProps, Option } from "./types";
 import {
   getMultiFilteredItems,
   itemToString,
@@ -209,6 +209,11 @@ const Multi = ({
     },
   });
 
+  const downshiftInputProps = getInputProps(
+    // eslint-disable-next-line react-hooks/refs -- downshift's prop getter needs the ref to wire up the input; it is not read during render
+    getDropdownProps({ preventKeyAction: isOpen, ref: inputRef }),
+  );
+
   const handleClear = () => {
     handleInputChanged("");
     inputRef?.current?.focus();
@@ -231,9 +236,7 @@ const Multi = ({
           <Input.Search />
           <input
             {...inputProps}
-            {...getInputProps(
-              getDropdownProps({ preventKeyAction: isOpen, ref: inputRef }),
-            )}
+            {...downshiftInputProps}
             className={comboboxInput({
               state: fieldState,
               hasSelectedItems: inputValue.length > 0,

@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import {
+import type {
   CreatePoolSkillInput,
   UpdatePoolSkillInput,
   UpdatePublishedPoolInput,
@@ -19,7 +19,7 @@ import {
   EditPoolContactEmailFragment,
 } from "@gc-digital-talent/graphql";
 
-import { EditPoolSectionMetadata } from "~/types/pool";
+import type { EditPoolSectionMetadata } from "~/types/pool";
 
 type PoolDisplayFragments =
   | EditPoolAboutUsFragment

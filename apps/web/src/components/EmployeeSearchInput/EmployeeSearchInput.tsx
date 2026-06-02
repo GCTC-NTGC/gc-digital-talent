@@ -1,16 +1,17 @@
 import { useFormContext, Controller } from "react-hook-form";
-import { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 
-import {
-  CommonInputProps,
-  Field,
-  useFieldState,
-} from "@gc-digital-talent/forms";
-import { Maybe } from "@gc-digital-talent/graphql";
+import type { CommonInputProps } from "@gc-digital-talent/forms";
+import { Field, useFieldState } from "@gc-digital-talent/forms";
+import type { Maybe } from "@gc-digital-talent/graphql";
 
 import ControlledInput from "./ControlledInput";
-import { EmployeeSearchResult, ErrorMessages, ErrorSeverities } from "./types";
-import { SearchMessageCases } from "./Result";
+import type {
+  EmployeeSearchResult,
+  ErrorMessages,
+  ErrorSeverities,
+} from "./types";
+import type { SearchMessageCases } from "./Result";
 export type { ErrorMessages } from "./types";
 
 export interface EmployeeSearchInputProps
@@ -29,7 +30,7 @@ const EmployeeSearchInput = ({
   id,
   label,
   name,
-  rules = {},
+  rules,
   buttonLabel,
   wrapperProps,
   errorMessages,
@@ -45,7 +46,7 @@ const EmployeeSearchInput = ({
   const labelId = `${id}-label`;
   return (
     <Field.Wrapper {...wrapperProps}>
-      <Field.Label id={labelId} htmlFor={id} required={!!rules.required}>
+      <Field.Label id={labelId} htmlFor={id} required={!!rules?.required}>
         {label}
       </Field.Label>
       <Controller

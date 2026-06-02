@@ -4,10 +4,8 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
+import type { PoolCandidate, Pool, User } from "@gc-digital-talent/graphql";
 import {
-  PoolCandidate,
-  Pool,
-  User,
   EducationRequirementOption,
   OverallAssessmentStatus,
   ScreeningStage,
@@ -42,6 +40,11 @@ const generatePoolCandidate = (
     })) ?? [];
   const educationRequirementExperiences = fakeExperiences(1);
 
+  const expiryDate = faker.date
+    .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
+    .toISOString()
+    .substring(0, 10);
+
   return {
     id: faker.string.uuid(),
     pool,
@@ -55,10 +58,7 @@ const generatePoolCandidate = (
         Object.values(EducationRequirementOption),
       ),
     ),
-    expiryDate: faker.date
-      .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
-      .toISOString()
-      .substring(0, 10),
+    expiryDate,
     status: toLocalizedEnum(
       faker.helpers.arrayElement<ApplicationStatus>(
         Object.values(ApplicationStatus),
@@ -84,6 +84,9 @@ const generatePoolCandidate = (
       .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
       .toISOString()
       .substring(0, 10),
+    pauseReferralsAt: faker.date.past().toISOString(),
+    resumeReferralsAt: expiryDate,
+    pauseReferralsReason: faker.lorem.sentence(),
   };
 };
 

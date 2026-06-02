@@ -1,193 +1,121 @@
-import { defineMessage, IntlShape, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
-import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
-import ComputerDesktopIcon from "@heroicons/react/24/outline/ComputerDesktopIcon";
-import CogIcon from "@heroicons/react/24/outline/CogIcon";
-import uniqBy from "lodash/uniqBy";
 
 import {
-  Card,
-  Chip,
-  Chips,
-  Container,
-  Heading,
-  Link,
   Pending,
-  Ul,
+  ResourceBlock,
+  NotFound,
+  Container,
 } from "@gc-digital-talent/ui";
-import {
-  useAuthorization,
-  hasRequiredRoles,
-  ROLE_NAME,
-  RoleRequirement,
-} from "@gc-digital-talent/auth";
-import {
-  Maybe,
-  Role,
-  RoleAssignment,
-  User,
-  graphql,
-} from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  getLocalizedName,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
-import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type { DepartmentDashboardQuery } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
 
-import pageTitles from "~/messages/pageTitles";
+import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
-import useRoutes from "~/hooks/useRoutes";
-import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import adminMessages from "~/messages/adminMessages";
-import { orderRoles } from "~/utils/teamUtils";
+import Hero from "~/components/Hero";
+import messages from "~/messages/profileMessages";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-const subTitle = defineMessage({
-  defaultMessage:
-    "This is your department dashboard where you can recruit and manage talent, and find resources.",
-  id: "3aiz1p",
-  description: "Subtitle for the department dashboard page",
-});
+import YourProcessesTaskCard from "./components/YourProcessesTaskCard";
+import ResourcesDepartmentLink from "./components/ResourcesDepartmentLink";
+import type { RoleAssignmentObject } from "./utils";
+import {
+  departmentAssignmentsToDepartmentRolesObjects,
+  isDepartmentTeamable,
+} from "./utils";
 
-interface RoleChipsProps {
-  roles: Role[];
-  intl: IntlShape;
-}
-
-const hasRolesHandleNoRolesRequired = (
-  toCheck: RoleRequirement | RoleRequirement[],
-  userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
-): boolean => {
-  // short circuit if empty
-  if (Array.isArray(toCheck) && toCheck.length === 0) {
-    return true;
+export const DepartmentDashboardPage_Fragment = graphql(/* GraphQL */ `
+  fragment DepartmentDashboardPage on User {
+    id
+    firstName
+    lastName
+    authInfo {
+      roleAssignments {
+        role {
+          name
+          displayName {
+            localized
+          }
+        }
+        teamable {
+          ... on Department {
+            id
+            departmentName: name {
+              localized
+            }
+          }
+        }
+      }
+    }
+    ...YourProcessesTaskCard
   }
+`);
 
-  return hasRequiredRoles({ toCheck, userRoles });
-};
-
-const RoleChips = ({ roles, intl }: RoleChipsProps) => {
-  const uniqueRoles = uniqBy(roles, "name");
-  const roleChips = uniqueRoles
-    ? orderRoles(uniqueRoles, intl).map((role) => (
-        <Chip color="warning" key={role.id} className="mr-1.5">
-          {getLocalizedName(role.displayName, intl)}
-        </Chip>
-      ))
-    : null;
-
-  return roleChips ? <Chips>{roleChips}</Chips> : null;
-};
-
-export interface DashboardPageProps {
-  currentUser?: User | null;
+interface DashboardPageProps {
+  departmentDashboardQuery: DepartmentDashboardQuery;
 }
 
-export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
+export const DashboardPage = ({
+  departmentDashboardQuery,
+}: DashboardPageProps) => {
   const intl = useIntl();
-  const adminRoutes = useRoutes();
-  const { roleAssignments } = useAuthorization();
+  const paths = useRoutes();
 
-  interface CardLinkInfo {
-    label: string;
-    href: string;
-    roles: RoleRequirement[];
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.departmentDashboard),
+        url: paths.departmentDashboard(),
+      },
+    ],
+  });
+
+  const currentUser = getFragment(
+    DepartmentDashboardPage_Fragment,
+    departmentDashboardQuery.me,
+  );
+
+  if (!currentUser) {
+    throw new NotFoundError();
   }
 
-  // recruitment section
-  const recruitmentCollection: CardLinkInfo[] = [
-    {
-      label: intl.formatMessage(navigationMessages.candidates),
-      href: adminRoutes.poolCandidates(),
-      roles: [
-        { name: ROLE_NAME.DepartmentAdmin },
-        { name: ROLE_NAME.DepartmentHRAdvisor },
-      ],
-    },
-    {
-      label: intl.formatMessage(navigationMessages.processes),
-      href: adminRoutes.poolTable(),
-      roles: [
-        { name: ROLE_NAME.DepartmentAdmin },
-        { name: ROLE_NAME.DepartmentHRAdvisor },
-      ],
-    },
-  ];
-  const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
-    hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
-  );
-  const recruitmentCollectionSorted = recruitmentCollectionFiltered.sort(
-    sortAlphaBy((item) => item.label),
-  );
+  const myRoleAssignments = unpackMaybes(currentUser.authInfo?.roleAssignments);
+  const departmentAssignments: RoleAssignmentObject[] = myRoleAssignments.map(
+    (roleAssign) => {
+      if (isDepartmentTeamable(roleAssign.teamable)) {
+        return {
+          role: roleAssign.role,
+          teamable: {
+            id: roleAssign.teamable.id,
+            name: roleAssign.teamable.departmentName,
+          },
+        };
+      }
 
-  // resources section
-  const resourcesCollection: CardLinkInfo[] = [
-    {
-      label: intl.formatMessage(navigationMessages.skillsLibrary),
-      href: adminRoutes.skills(),
-      roles: [],
+      return {
+        role: null,
+        teamable: null,
+      };
     },
-    {
-      label: intl.formatMessage(navigationMessages.jobTemplatesLibrary),
-      href: adminRoutes.jobPosterTemplates(),
-      roles: [],
-    },
-    {
-      label: intl.formatMessage(adminMessages.rolesAndPermissions),
-      href: adminRoutes.rolesAndPermissions(),
-      roles: [
-        { name: ROLE_NAME.DepartmentAdmin },
-        { name: ROLE_NAME.DepartmentHRAdvisor },
-      ],
-    },
-  ];
-  const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
-    hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
   );
-  const resourcesCollectionSorted = resourcesCollectionFiltered.sort(
-    sortAlphaBy((item) => item.label),
-  );
-
-  // administration section
-  const administrationCollection: CardLinkInfo[] = [
-    {
-      label: intl.formatMessage(navigationMessages.departments),
-      href: adminRoutes.departmentTable(),
-      roles: [
-        { name: ROLE_NAME.DepartmentAdmin },
-        { name: ROLE_NAME.DepartmentHRAdvisor },
-      ],
-    },
-    {
-      label: intl.formatMessage(navigationMessages.users),
-      href: adminRoutes.userTable(),
-      roles: [
-        { name: ROLE_NAME.DepartmentAdmin },
-        { name: ROLE_NAME.DepartmentHRAdvisor },
-      ],
-    },
-  ];
-  const administrationCollectionFiltered = administrationCollection.filter(
-    (item) => hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
-  );
-  const administrationCollectionSorted = administrationCollectionFiltered.sort(
-    sortAlphaBy((item) => item.label),
-  );
-
-  // own roles, filtered
-  const ownRoles = unpackMaybes(roleAssignments)
-    .map((roleAssign) => roleAssign.role)
-    .filter((role) => !!role)
-    .filter((role) => !["guest", "base_user", "applicant"].includes(role.name));
+  const departmentRolesObjectArray =
+    departmentAssignmentsToDepartmentRolesObjects(departmentAssignments, intl);
 
   return (
     <>
       <SEO
-        title={intl.formatMessage(pageTitles.dashboard)}
-        description={intl.formatMessage(subTitle)}
+        title={intl.formatMessage(navigationMessages.departmentDashboard)}
+        description={intl.formatMessage({
+          defaultMessage:
+            "This is your department dashboard where you can recruit and manage talent, and find resources.",
+          id: "3aiz1p",
+          description: "Subtitle for the department dashboard page",
+        })}
       />
       <Hero
         title={intl.formatMessage(
@@ -207,129 +135,110 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               : intl.formatMessage(commonMessages.notAvailable),
           },
         )}
-        subtitle={intl.formatMessage(subTitle)}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "This is your department dashboard where you can recruit and manage talent, and find resources.",
+          id: "3aiz1p",
+          description: "Subtitle for the department dashboard page",
+        })}
+        crumbs={crumbs}
       />
-      <Container className="my-18">
-        <div className="grid gap-x-6 gap-y-12 xs:grid-cols-3">
-          {recruitmentCollectionSorted.length > 0 && (
-            <div>
-              <Heading
-                size="h4"
-                icon={RocketLaunchIcon}
-                color="secondary"
-                className="mt-0 mb-6"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Recruitment",
-                  id: "UNEVD9",
-                  description: "Header for section called recruitment",
-                })}
-              </Heading>
-              <Card>
-                <Ul space="lg">
-                  {recruitmentCollectionSorted.map((item) => (
-                    <li key={item.label}>
-                      <Link color="secondary" mode="inline" href={item.href}>
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </Ul>
-              </Card>
+      <section className="my-18">
+        <Container>
+          <div className="flex flex-col gap-6 xs:flex-row">
+            <div className="flex grow flex-col gap-6">
+              <YourProcessesTaskCard yourProcessesTaskCardQuery={currentUser} />
             </div>
-          )}
-          <div>
-            <Heading
-              size="h4"
-              icon={BookOpenIcon}
-              color="primary"
-              className="mt-0 mb-6"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Resources",
-                id: "nGSUzp",
-                description: "Card title for a 'resources' card",
-              })}
-            </Heading>
-            <Card>
-              <Ul space="lg">
-                {resourcesCollectionSorted.map((item) => (
-                  <li key={item.label}>
-                    <Link color="primary" mode="inline" href={item.href}>
-                      {item.label}
-                    </Link>
-                  </li>
+            <div className="flex shrink-0 flex-col gap-6 xs:max-w-84">
+              <ResourceBlock.Root
+                headingColor="primary"
+                headingAs="h2"
+                title={intl.formatMessage({
+                  defaultMessage: "Your information",
+                  id: "N5FFar",
+                  description:
+                    "Resource section heading above user's information",
+                })}
+              >
+                {departmentRolesObjectArray.map((departmentRolesObject) => (
+                  <ResourcesDepartmentLink
+                    key={departmentRolesObject.departmentId}
+                    departmentWithRoles={departmentRolesObject}
+                  />
                 ))}
-              </Ul>
-            </Card>
-          </div>
-          {administrationCollectionSorted.length > 0 && (
-            <div>
-              <Heading
-                size="h4"
-                className="mt-0 mb-6"
-                icon={ComputerDesktopIcon}
-                color="error"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Administration",
-                  id: "CdJQ7z",
-                  description: "Header for section called administration",
+              </ResourceBlock.Root>
+              <ResourceBlock.Root
+                headingColor="primary"
+                headingAs="h2"
+                title={intl.formatMessage({
+                  defaultMessage: "Resources",
+                  id: "nGSUzp",
+                  description: "Card title for a 'resources' card",
                 })}
-              </Heading>
-              <Card>
-                <Ul space="lg">
-                  {administrationCollectionSorted.map((item) => (
-                    <li key={item.label}>
-                      <Link color="error" mode="inline" href={item.href}>
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </Ul>
-              </Card>
+              >
+                <ResourceBlock.SingleLinkItem
+                  as="h3"
+                  title={intl.formatMessage({
+                    defaultMessage: "Browse job templates",
+                    id: "KxJcav",
+                    description: "Link to job templates",
+                  })}
+                  href={paths.jobPosterTemplates()}
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Browse a library of prebuilt job advertisements with key tasks and skills suggestions.",
+                    id: "2IWEV5",
+                    description:
+                      "Description for the page showing list of job poster templates",
+                  })}
+                />
+                <ResourceBlock.SingleLinkItem
+                  as="h3"
+                  title={intl.formatMessage({
+                    defaultMessage: "Learn about skills",
+                    id: "n40Nry",
+                    description: "Link for the 'learn about skills' card",
+                  })}
+                  href={paths.skills()}
+                  description={intl.formatMessage({
+                    defaultMessage:
+                      "Browse a complete list of available skills and learn how they’re organized.",
+                    id: "mluvY2",
+                    description: "the 'Learn about skills' tool description",
+                  })}
+                />
+              </ResourceBlock.Root>
             </div>
-          )}
-        </div>
-        <div className="mt-18 mb-12">
-          <Heading
-            size="h4"
-            icon={CogIcon}
-            color="warning"
-            className="m-t0 mb-6"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Your roles",
-              id: "IJlJF1",
-              description:
-                "Header for section displaying logged in user's roles",
-            })}
-          </Heading>
-          <RoleChips roles={ownRoles} intl={intl}></RoleChips>
-        </div>
-      </Container>
+          </div>
+        </Container>
+      </section>
     </>
   );
 };
 
 const DepartmentDashboard_Query = graphql(/* GraphQL */ `
-  query DepartmentDashboard_Query {
+  query DepartmentDashboard {
     me {
-      id
-      firstName
-      lastName
+      ...DepartmentDashboardPage
     }
   }
 `);
 
 export const DepartmentDashboardPageApi = () => {
+  const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: DepartmentDashboard_Query,
   });
 
   return (
     <Pending fetching={fetching} error={error}>
-      <DashboardPage currentUser={data?.me} />
+      {data?.me ? (
+        <DashboardPage departmentDashboardQuery={data} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(messages.userNotFound)}</p>
+        </NotFound>
+      )}
     </Pending>
   );
 };
@@ -341,7 +250,6 @@ export const Component = () => (
     <DepartmentDashboardPageApi />
   </RequireAuth>
 );
-
 Component.displayName = "DepartmentDashboardPage";
 
 export default Component;

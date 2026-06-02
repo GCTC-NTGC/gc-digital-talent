@@ -1,8 +1,5 @@
 {
-  "extends": "tsconfig/react-lib.json",
+  "extends": "tsconfig/base.json",
   "include": ["src"],
-  "exclude": ["**/node_modules", "**/.*/", "eslint.config.js"],
-  "compilerOptions": {
-    "allowJs": true
-  }
+  "exclude": ["**/node_modules", "**/.*/", "eslint.config.js"]
 }

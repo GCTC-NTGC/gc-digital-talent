@@ -33,10 +33,10 @@ use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
@@ -77,8 +77,8 @@ class PoolApplicationTest extends TestCase
     protected $createMutationDocument =
         /** @lang GraphQL */
         '
-        mutation createApplication($userId: ID!, $poolId: ID!){
-            createApplication(userId: $userId, poolId: $poolId) {
+        mutation createApplication($poolId: ID!){
+            createApplication(poolId: $poolId) {
                 user {
                     id
                 }
@@ -110,9 +110,7 @@ class PoolApplicationTest extends TestCase
         }
     ';
 
-    protected $submitMutationDocument =
-        /** @lang GraphQL */
-        '
+    protected $submitMutationDocument = <<<'GRAPHQL'
         mutation submitTest($id: ID!, $sig: String!) {
             submitApplication(id: $id, signature: $sig) {
                 submittedAt
@@ -120,7 +118,7 @@ class PoolApplicationTest extends TestCase
                 status { value }
             }
         }
-    ';
+    GRAPHQL;
 
     protected $govEmployee;
 
@@ -181,7 +179,6 @@ class PoolApplicationTest extends TestCase
         ]);
 
         $variables = [
-            'userId' => $this->applicantUser->id,
             'poolId' => $pool->id,
         ];
 
@@ -203,7 +200,7 @@ class PoolApplicationTest extends TestCase
 
         // Guest users cannot create applications
         $this->graphQL($this->createMutationDocument, $variables)
-            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+            ->assertGraphQLErrorMessage('Unauthenticated.');
 
         // Assert creating a pool application succeeds
         // returns DRAFT as a result of application_status Accessor and unexpired pool
@@ -234,7 +231,6 @@ class PoolApplicationTest extends TestCase
         ]);
 
         $variables = [
-            'userId' => $this->applicantUser->id,
             'poolId' => $pool->id,
         ];
 
@@ -283,8 +279,6 @@ class PoolApplicationTest extends TestCase
 
     public function testApplicationSubmit(): void
     {
-        Config::set('feature.application_email_verification', true); // this line should be removed once the feature flag FEATURE_APPLICATION_EMAIL_VERIFICATION is removed.
-
         // pool with no essential skills
         $newPool = Pool::factory()->create([
             'closing_date' => Carbon::now()->addDays(1),
@@ -991,7 +985,6 @@ class PoolApplicationTest extends TestCase
 
     public function testApplicationSubmissionWorkEmailVerifiedForInternalJobs(): void
     {
-        Config::set('feature.application_email_verification', true); // this line should be removed once the feature flag FEATURE_APPLICATION_EMAIL_VERIFICATION is removed.
         $pool = Pool::factory()
             ->withPoolSkills(1, 0)
             ->create([
@@ -1032,5 +1025,76 @@ class PoolApplicationTest extends TestCase
             )->assertJsonFragment([
                 'signature' => 'sign',
             ]);
+    }
+
+    public static function bilingualLanguageRequirementsProvider(): array
+    {
+        return [
+            // Various bilingual
+            'can submit various bilingual, seeking bilingual' => [PoolLanguage::VARIOUS_BILINGUAL, ['looking_for_bilingual'], true],
+            'cannot submit various bilingual, seeking none' => [PoolLanguage::VARIOUS_BILINGUAL, [], false],
+            'cannot submit various bilingual, seeking english' => [PoolLanguage::VARIOUS_BILINGUAL, ['looking_for_english'], false],
+            'cannot submit various bilingual, seeking french' => [PoolLanguage::VARIOUS_BILINGUAL, ['looking_for_french'], false],
+            'cannot submit various bilingual, seeking specific' => [PoolLanguage::VARIOUS_BILINGUAL, ['looking_for_french', 'looking_for_english'], false],
+
+            // Bilingual intermediate
+            'can submit bilingual intermediate, seeking bilingual' => [PoolLanguage::BILINGUAL_INTERMEDIATE, ['looking_for_bilingual'], true],
+            'cannot submit bilingual intermediate, seeking none' => [PoolLanguage::BILINGUAL_INTERMEDIATE, [], false],
+            'cannot submit bilingual intermediate, seeking english' => [PoolLanguage::BILINGUAL_INTERMEDIATE, ['looking_for_english'], false],
+            'cannot submit bilingual intermediate, seeking french' => [PoolLanguage::BILINGUAL_INTERMEDIATE, ['looking_for_french'], false],
+            'cannot submit bilingual intermediate, seeking specific' => [PoolLanguage::BILINGUAL_INTERMEDIATE, ['looking_for_french', 'looking_for_english'], false],
+
+            // Bilingual advanced
+            'can submit bilingual advanced, seeking bilingual' => [PoolLanguage::BILINGUAL_ADVANCED, ['looking_for_bilingual'], true],
+            'cannot submit bilingual advanced, seeking none' => [PoolLanguage::BILINGUAL_ADVANCED, [], false],
+            'cannot submit bilingual advanced, seeking english' => [PoolLanguage::BILINGUAL_ADVANCED, ['looking_for_english'], false],
+            'cannot submit bilingual advanced, seeking french' => [PoolLanguage::BILINGUAL_ADVANCED, ['looking_for_french'], false],
+            'cannot submit bilingual advanced, seeking specific' => [PoolLanguage::BILINGUAL_ADVANCED, ['looking_for_french', 'looking_for_english'], false],
+        ];
+    }
+
+    #[DataProvider('bilingualLanguageRequirementsProvider')]
+    public function testBilingualLanguageRequirementsSubmission(PoolLanguage $lang, array $lookingFor, bool $successExpected)
+    {
+        $pool = Pool::factory()
+            ->create([
+                'closing_date' => Carbon::now()->addDay(),
+                'area_of_selection' => PoolAreaOfSelection::PUBLIC->name,
+                'advertisement_language' => $lang->name,
+            ]);
+        $pool->essentialSkills()->sync([]);
+
+        $lookingForKeys = ['looking_for_bilingual', 'looking_for_english', 'looking_for_french'];
+        foreach ($lookingForKeys as $att) {
+            $this->applicantUser->{$att} = in_array($att, $lookingFor);
+        }
+        $this->applicantUser->save();
+
+        $candidate = PoolCandidate::factory()
+            ->completed()
+            ->for($pool)
+            ->for($this->applicantUser)
+            ->create();
+
+        $edu = EducationExperience::factory()->for($this->applicantUser)->create();
+        $candidate->education_requirement_option = EducationRequirementOption::EDUCATION->name;
+        $candidate->educationRequirementEducationExperiences()->sync([$edu->id]);
+        $candidate->save();
+
+        $res = $this->actingAs($this->applicantUser, 'api')
+            ->graphQL($this->submitMutationDocument, [
+                'id' => $candidate->id,
+                'sig' => 'sign',
+            ]);
+
+        if ($successExpected) {
+            $res
+                ->assertGraphQLValidationPasses()
+                ->assertJsonFragment([
+                    'signature' => 'sign',
+                ]);
+        } else {
+            $res->assertGraphQLValidationError('user_id', ErrorCode::APPLICATION_MISSING_LANGUAGE_REQUIREMENTS->name);
+        }
     }
 }

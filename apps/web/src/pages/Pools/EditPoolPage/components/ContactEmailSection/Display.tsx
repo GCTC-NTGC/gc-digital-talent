@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { EditPoolContactEmailFragment } from "@gc-digital-talent/graphql";
+import type { EditPoolContactEmailFragment } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 
-import { DisplayProps } from "../../types";
+import type { DisplayProps } from "../../types";
 
 const Display = ({
   pool,

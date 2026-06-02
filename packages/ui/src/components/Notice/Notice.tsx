@@ -1,12 +1,7 @@
-import {
-  ComponentPropsWithoutRef,
-  createContext,
-  forwardRef,
-  ReactNode,
-  use,
-  useCallback,
-} from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { createContext, forwardRef, use, useCallback } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 import { twMerge } from "tailwind-merge";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import { useIntl } from "react-intl";
@@ -17,9 +12,10 @@ import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTria
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import { HeadingRank, IconType } from "../../types";
+import type { HeadingRank, IconType } from "../../types";
 import Separator from "../Separator";
-import IconButton, { IconButtonProps } from "../Button/IconButton";
+import type { IconButtonProps } from "../Button/IconButton";
+import IconButton from "../Button/IconButton";
 
 type DivProps = ComponentPropsWithoutRef<"div">;
 
@@ -232,14 +228,15 @@ const title = tv({
   ],
 });
 
-const iconMap = new Map<RootVariants["color"], IconType>([
-  ["gray", BellAlertIcon],
-  ["primary", BellAlertIcon],
-  ["secondary", BellAlertIcon],
-  ["success", CheckCircleIcon],
-  ["warning", ExclamationCircleIcon],
-  ["error", ExclamationTriangleIcon],
-]);
+// Use a static object for lookups to satisfy the linter
+const ICON_MAP: Record<string, IconType> = {
+  gray: BellAlertIcon,
+  primary: BellAlertIcon,
+  secondary: BellAlertIcon,
+  success: CheckCircleIcon,
+  warning: ExclamationCircleIcon,
+  error: ExclamationTriangleIcon,
+};
 
 interface TitleProps {
   icon?: IconType;
@@ -256,10 +253,9 @@ const Title = ({
 }: TitleProps) => {
   const { small, color } = use(NoticeContext);
   const { icon, heading } = title({ small, color });
-  let Icon = iconEl;
-  if (!iconEl && defaultIcon) {
-    Icon = iconMap.get(color);
-  }
+
+  // Use a constant for the component reference
+  const Icon = iconEl ?? (defaultIcon && color ? ICON_MAP[color] : undefined);
 
   return (
     <>
@@ -332,7 +328,7 @@ const footer = tv({
     {
       small: false,
       dismissible: false,
-      class: { base: "-mr-6 -ml-4.5" },
+      class: { base: "-mr-6 -ml-6 group-has-[>svg]:-ml-4.5" },
     },
     {
       mode: "inline",

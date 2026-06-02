@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   TalentNominationStep,
@@ -13,7 +13,7 @@ import { Ul } from "@gc-digital-talent/ui";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { stringifyGroupLevel } from "~/utils/classification";
+import adminMessages from "~/messages/adminMessages";
 
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
@@ -42,8 +42,7 @@ const NominationDetailsReview_Fragment = graphql(/* GraphQL */ `
         }
       }
       classification {
-        group
-        level
+        groupAndLevel
       }
     }
     advancementReferenceFallbackName
@@ -54,8 +53,7 @@ const NominationDetailsReview_Fragment = graphql(/* GraphQL */ `
       }
     }
     advancementReferenceFallbackClassification {
-      group
-      level
+      groupAndLevel
     }
 
     # Lateral movement details
@@ -69,10 +67,13 @@ const NominationDetailsReview_Fragment = graphql(/* GraphQL */ `
 
     # Development program details
     developmentProgramOptionsOther
-    developmentPrograms {
+    communityDevelopmentPrograms(trashed: WITH) {
       id
-      name {
-        localized
+      developmentProgram {
+        id
+        name {
+          localized
+        }
       }
     }
   }
@@ -116,7 +117,7 @@ const NominationDetailsReview = ({
       ...types,
       {
         key: "nominationForDevelopmentPrograms",
-        name: intl.formatMessage(labels.developmentProgram),
+        name: intl.formatMessage(adminMessages.developmentOpportunities),
       },
     ];
   }
@@ -146,10 +147,10 @@ const NominationDetailsReview = ({
   }));
 
   const developmentPrograms: ListItem[] = unpackMaybes(
-    talentNomination?.developmentPrograms,
-  ).map((program) => ({
-    key: program.id,
-    name: program.name?.localized ?? "",
+    talentNomination?.communityDevelopmentPrograms,
+  ).map((cdp) => ({
+    key: cdp.developmentProgram.id,
+    name: cdp.developmentProgram.name?.localized ?? "",
   }));
 
   return (
@@ -203,12 +204,7 @@ const NominationDetailsReview = ({
                   "Label for the advancement reference classification",
               })}
             >
-              {referenceClassification
-                ? stringifyGroupLevel(
-                    referenceClassification.group,
-                    referenceClassification.level,
-                  )
-                : notProvided}
+              {referenceClassification?.groupAndLevel ?? notProvided}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(labels.referencesDepartment)}
@@ -248,11 +244,9 @@ const NominationDetailsReview = ({
             {developmentPrograms.length > 0 && (
               <FieldDisplay
                 className="col-span-2"
-                label={intl.formatMessage({
-                  defaultMessage: "Development program recommendations",
-                  id: "DHIa69",
-                  description: "Label for selected development program items",
-                })}
+                label={intl.formatMessage(
+                  adminMessages.developmentOpportunitiesRecommended,
+                )}
               >
                 <Ul unStyled space="md">
                   {developmentPrograms.map((p) => (

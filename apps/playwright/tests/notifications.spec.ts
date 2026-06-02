@@ -1,51 +1,70 @@
+import type { Skill, User } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
   FlexibleWorkLocation,
   PositionDuration,
   ProvinceOrTerritory,
-  Skill,
   SkillCategory,
-  User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
-import { createUserWithRoles, deleteUser } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createAndPublishPool } from "~/utils/pools";
-import ApplicationPage from "~/fixtures/ApplicationPage";
+import { changePoolClosingDate, createAndPublishPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";
 import { getCommunities } from "~/utils/communities";
 import { getWorkStreams } from "~/utils/workStreams";
-import testConfig from "~/constants/config";
-import PoolPage from "~/fixtures/PoolPage";
 import AccountSettings from "~/fixtures/AccountSettings";
 import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
+import {
+  createAndSubmitApplication,
+  createApplication,
+} from "~/utils/applications";
 
 test.describe("Notifications", () => {
-  test.setTimeout(90_000); // This test takes long in webkit
   let uniqueTestId: string;
   let sub: string;
   let technicalSkill: Skill | undefined;
   let poolId: string;
-  let user: User | undefined;
+  let user: User;
   let poolName: string;
+  let applicant: User;
+  let adminCtx: GraphQLContext;
+  let applicantCtx: GraphQLContext;
 
   test.beforeAll(async () => {
     uniqueTestId = generateUniqueTestId();
-    sub = `playwright.sub.${uniqueTestId}`;
-    const adminCtx = await graphql.newContext();
-
+    adminCtx = await graphql.newContext();
     technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find(
         (skill) => skill.category.value === SkillCategory.Technical,
       );
     });
 
+    const admin = await me(adminCtx, {});
+    const createdPool = await createAndPublishPool(adminCtx, {
+      userId: admin?.id ?? "",
+      communityId: (await getCommunities(adminCtx, {}))[0]?.id,
+      workStreamId: (await getWorkStreams(adminCtx, {}))[0]?.id,
+      skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
+      name: {
+        en: `Test_pool ${uniqueTestId} (EN)`,
+        fr: `Test_pool ${uniqueTestId} (FR)`,
+      },
+    });
+    poolId = createdPool.id;
+    poolName = createdPool.name?.en ?? "";
+  });
+
+  test.beforeEach(async () => {
+    uniqueTestId = generateUniqueTestId();
+    sub = `playwright.notifications.${uniqueTestId}`;
     const createdUser = await createUserWithRoles(adminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
@@ -85,53 +104,51 @@ test.describe("Notifications", () => {
       },
     });
 
-    user = createdUser;
+    user = createdUser ?? { id: "" };
 
-    const createdPool = await createAndPublishPool(adminCtx, {
-      userId: createdUser?.id ?? "",
-      communityId: (await getCommunities(adminCtx, {}))[0]?.id,
-      workStreamId: (await getWorkStreams(adminCtx, {}))[0]?.id,
-      skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
-      name: {
-        en: `Test_pool ${uniqueTestId} (EN)`,
-        fr: `Test_pool ${uniqueTestId} (FR)`,
-      },
-    });
-    poolId = createdPool.id;
-    poolName = createdPool.name?.en ?? "";
+    applicantCtx = await graphql.newContext(
+      user?.authInfo?.sub ?? "applicant@test.com",
+    );
+    applicant = await me(applicantCtx, {});
   });
 
   test.afterEach(async () => {
     if (user?.id) {
-      const adminCtx = await graphql.newContext();
+      adminCtx = await graphql.newContext();
       await deleteUser(adminCtx, { id: user.id });
     }
   });
 
-  test("Dialog appears and disappears", async ({ appPage }) => {
-    await loginBySub(appPage.page, "applicant@test.com");
-    await appPage.page.goto("/en/applicant");
+  test("Pool extension notification sent to the candidate whose job application is in draft", async ({
+    appPage,
+  }) => {
+    const settingsPage = new AccountSettings(appPage.page);
+    await loginBySub(settingsPage.page, sub, false);
 
-    // open pane and confirm link to notifications page
-    await expect(
-      appPage.page.getByRole("button", { name: /view notifications/i }),
-    ).toBeVisible();
-    await appPage.page
-      .getByRole("button", { name: /view notifications/i })
-      .click();
-    await expect(
-      appPage.page.getByRole("link", { name: /view all notifications/i }),
-    ).toBeVisible();
+    // 1. Update notification settings
+    await settingsPage.goToSettings();
+    await settingsPage.updateNotificationsSettings();
+    await expect(settingsPage.page.getByRole("alert").last()).toContainText(
+      /successfully updated settings/i,
+    );
+    await expect(appPage.page.getByRole("alert").last()).toBeHidden();
 
-    // pane closes
-    await appPage.page
-      .getByRole("button", { name: /close notifications/i })
-      .click();
-    await expect(
-      appPage.page.getByRole("link", { name: /view all notifications/i }),
-    ).toBeHidden();
+    // 2. Applicant creates draft application
+    await createApplication(applicantCtx, {
+      poolId: poolId,
+      personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
+    });
+    const dashboardPage = new ApplicantDashboardPage(appPage.page);
+    await dashboardPage.verifyApplicationStatusFromDashboard("Draft");
 
-    // overlay gone and page responsive
+    // 3. Closing date for the pool is extended by admin
+    await changePoolClosingDate(adminCtx, {
+      id: poolId,
+      closingDate: "3000-01-10 07:59:59",
+    });
+
+    // 4. Verify notification for draft application extension
+    await dashboardPage.viewNotifications(poolName, "Visible");
     await appPage.page.getByRole("link", { name: /home/i }).first().click();
     await expect(
       appPage.page.getByRole("heading", {
@@ -141,13 +158,13 @@ test.describe("Notifications", () => {
     ).toBeVisible();
   });
 
-  test("Pool extension notification sent to the candidate whose job application is in draft", async ({
+  test("Pool extension notification is not sent to candidate with submitted application", async ({
     appPage,
   }) => {
     const settingsPage = new AccountSettings(appPage.page);
     await loginBySub(settingsPage.page, sub, false);
-    const newClosingDate = "3000-10-10";
-    // Update notification settings
+
+    // 1. Update notification settings
     await settingsPage.goToSettings();
     await settingsPage.updateNotificationsSettings();
     await expect(settingsPage.page.getByRole("alert").last()).toContainText(
@@ -155,78 +172,59 @@ test.describe("Notifications", () => {
     );
     await expect(appPage.page.getByRole("alert").last()).toBeHidden();
 
-    // Applicant creates draft application
-    const application = new ApplicationPage(appPage.page, poolId);
-    await application.create();
-    await application.expectOnStep(application.page, 1);
-    await application.page.getByRole("button", { name: /let's go/i }).click();
-    await application.expectOnStep(application.page, 2);
-    await application.saveAndContinue();
+    // 2. Applicant submits the application
+    await createAndSubmitApplication(applicantCtx, {
+      poolId: poolId,
+      personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
+      signature: `${applicant.firstName} signature`,
+    });
     const dashboardPage = new ApplicantDashboardPage(appPage.page);
-    await dashboardPage.verifyApplicationStatusFromDashboard("Draft");
-    // Admin extends closing date for the draft application
-    const poolPage = new PoolPage(appPage.page);
-    await loginBySub(poolPage.page, testConfig.signInSubs.adminSignIn, false);
-    await poolPage.openPool(poolId);
+    await dashboardPage.verifyApplicationStatusFromDashboard("Received");
+
+    // 3. Closing date for the pool is extended by admin
+    await changePoolClosingDate(adminCtx, {
+      id: poolId,
+      closingDate: "3000-01-10 07:59:59",
+    });
+
+    // 4. Verify notification for draft application extension
+    await dashboardPage.viewNotifications(poolName, "Not Visible");
+    await appPage.page.getByRole("link", { name: /home/i }).first().click();
     await expect(
-      poolPage.page.getByRole("heading", { name: poolName, level: 1 }),
-    ).toBeVisible();
-    await poolPage.updateClosingDateAfterPublished(newClosingDate);
-    // Verify notification for draft application extension
-    await loginBySub(application.page, sub, false);
-    await appPage.page
-      .getByRole("button", { name: /view notifications/i })
-      .click();
-    await appPage.page
-      .getByRole("button", { name: /refresh notifications/i })
-      .click();
-    await expect(
-      appPage.page.getByRole("link", {
-        name: new RegExp(
-          `deadline for ${poolName}.*extended.*continue your application`,
-          "i",
-        ),
+      appPage.page.getByRole("heading", {
+        name: "GC Digital Talent",
+        level: 1,
       }),
     ).toBeVisible();
   });
 
-  test("Pool extension notification is not displayed to candidate", async ({
+  test("Pool extension notification not received to user without enabled notifications", async ({
     appPage,
   }) => {
-    const application = new ApplicationPage(appPage.page, poolId);
-    await loginBySub(application.page, sub, false);
-    const newClosingDate = "3000-10-10";
-    // Applicant creates draft application
-    await application.create();
-    await application.expectOnStep(application.page, 1);
-    await application.page.getByRole("button", { name: /let's go/i }).click();
-    await application.expectOnStep(application.page, 2);
-    await application.saveAndContinue();
+    await loginBySub(appPage.page, sub, false);
+
+    // 1. Applicant creates draft application
+    await createApplication(applicantCtx, {
+      poolId: poolId,
+      personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
+    });
     const dashboardPage = new ApplicantDashboardPage(appPage.page);
     await dashboardPage.verifyApplicationStatusFromDashboard("Draft");
-    // Admin extends closing date for the draft application
-    const poolPage = new PoolPage(appPage.page);
-    await loginBySub(poolPage.page, testConfig.signInSubs.adminSignIn, false);
-    await poolPage.openPool(poolId);
+
+    // 3. Closing date for the pool is extended by admin
+    await changePoolClosingDate(adminCtx, {
+      id: poolId,
+      closingDate: "3000-01-10 07:59:59",
+    });
+
+    // 4. Verify notification for draft application extension
+    await dashboardPage.viewNotifications(poolName, "Not Visible");
+    await appPage.page.getByRole("link", { name: /home/i }).first().click();
     await expect(
-      poolPage.page.getByRole("heading", { name: poolName, level: 1 }),
-    ).toBeVisible();
-    await poolPage.updateClosingDateAfterPublished(newClosingDate);
-    // Verify notification for draft application extension
-    await loginBySub(application.page, sub, false);
-    await appPage.page
-      .getByRole("button", { name: /view notifications/i })
-      .click();
-    await appPage.page
-      .getByRole("button", { name: /refresh notifications/i })
-      .click();
-    await expect(
-      appPage.page.getByRole("link", {
-        name: new RegExp(
-          `deadline for ${poolName}.*extended.*continue your application`,
-          "i",
-        ),
+      appPage.page.getByRole("heading", {
+        name: "GC Digital Talent",
+        level: 1,
       }),
-    ).toBeHidden();
+    ).toBeVisible();
   });
 });

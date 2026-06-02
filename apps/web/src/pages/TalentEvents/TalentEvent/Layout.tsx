@@ -2,7 +2,8 @@ import { useIntl } from "react-intl";
 import { Outlet } from "react-router";
 import { useQuery } from "urql";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
@@ -15,8 +16,9 @@ import useRoutes from "~/hooks/useRoutes";
 import pageTitles from "~/messages/pageTitles";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import permissionConstants from "~/constants/permissionConstants";
+import adminMessages from "~/messages/adminMessages";
 
-import { RouteParams } from "./types";
+import type { RouteParams } from "./types";
 
 const TalentEventLayout_Fragment = graphql(/* GraphQL */ `
   fragment TalentEventLayout on TalentNominationEvent {
@@ -74,11 +76,7 @@ const Layout = ({ query }: LayoutProps) => {
         navTabs={[
           {
             url: paths.adminTalentManagementEvent(eventId),
-            label: intl.formatMessage({
-              defaultMessage: "Event details",
-              id: "jnd5HF",
-              description: "Link text for details about a nomination event",
-            }),
+            label: intl.formatMessage(adminMessages.eventDetails),
           },
           {
             url: paths.adminTalentManagementEventNominations(eventId),

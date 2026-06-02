@@ -2,8 +2,10 @@ import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import { OperationContext, useQuery } from "urql";
-import { useMemo, JSX } from "react";
+import type { OperationContext } from "urql";
+import { useQuery } from "urql";
+import type { JSX } from "react";
+import { useMemo } from "react";
 
 import {
   NotFound,
@@ -19,17 +21,16 @@ import {
   NotFoundError,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import {
-  graphql,
+import type {
   Scalars,
   Skill,
   FragmentType,
-  getFragment,
   UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
-import { EditPoolSectionMetadata } from "~/types/pool";
+import type { EditPoolSectionMetadata } from "~/types/pool";
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -53,11 +54,11 @@ import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLi
 import { requireUser } from "~/routing/auth";
 import { graphqlClientContext } from "~/routing/context";
 
-import PoolNameSection, {
+import type {
   PoolClassification_Fragment,
-  PoolDepartment_Fragment,
-  type PoolNameSubmitData,
+  PoolNameSubmitData,
 } from "./components/PoolNameSection/PoolNameSection";
+import PoolNameSection from "./components/PoolNameSection/PoolNameSection";
 import ProcessNumberSection, {
   type ProcessNumberSubmitData,
 } from "./components/ProcessNumberSection";
@@ -79,23 +80,19 @@ import EducationRequirementsSection from "./components/EducationRequirementsSect
 import GeneralQuestionsSection, {
   type GeneralQuestionsSubmitData,
 } from "./components/GeneralQuestionsSection/GeneralQuestionsSection";
-import SpecialNoteSection, {
-  SpecialNoteSubmitData,
-} from "./components/SpecialNoteSection/SpecialNoteSection";
+import type { SpecialNoteSubmitData } from "./components/SpecialNoteSection/SpecialNoteSection";
+import SpecialNoteSection from "./components/SpecialNoteSection/SpecialNoteSection";
 import WhatToExpectSection, {
   type WhatToExpectSubmitData,
 } from "./components/WhatToExpectSection/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
-import { PoolSkillMutationsType, SectionKey } from "./types";
-import AboutUsSection, {
-  AboutUsSubmitData,
-} from "./components/AboutUsSection/AboutUsSection";
-import WhatToExpectAdmissionSection, {
-  WhatToExpectAdmissionSubmitData,
-} from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
-import ContactEmailSection, {
-  ContactEmailSubmitData,
-} from "./components/ContactEmailSection/ContactEmailSection";
+import type { PoolSkillMutationsType, SectionKey } from "./types";
+import type { AboutUsSubmitData } from "./components/AboutUsSection/AboutUsSection";
+import AboutUsSection from "./components/AboutUsSection/AboutUsSection";
+import type { WhatToExpectAdmissionSubmitData } from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
+import WhatToExpectAdmissionSection from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
+import type { ContactEmailSubmitData } from "./components/ContactEmailSection/ContactEmailSection";
+import ContactEmailSection from "./components/ContactEmailSection/ContactEmailSection";
 import type { Route } from "./+types/EditPoolPage";
 
 export const EditPool_Fragment = graphql(/* GraphQL */ `
@@ -174,6 +171,8 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     poolSkills {
       id
@@ -258,7 +257,6 @@ export type PoolSubmitData =
 export interface EditPoolFormProps {
   poolQuery: FragmentType<typeof EditPool_Fragment>;
   classifications: FragmentType<typeof PoolClassification_Fragment>[];
-  departments: FragmentType<typeof PoolDepartment_Fragment>[];
   skills: Skill[];
   onSave: (submitData: PoolSubmitData) => Promise<void>;
   onUpdatePublished: (submitData: UpdatePublishedPoolInput) => Promise<void>;
@@ -268,7 +266,6 @@ export interface EditPoolFormProps {
 export const EditPoolForm = ({
   poolQuery,
   classifications,
-  departments,
   skills,
   onSave,
   onUpdatePublished,
@@ -583,7 +580,6 @@ export const EditPoolForm = ({
                   <PoolNameSection
                     poolQuery={pool}
                     classificationsQuery={classifications}
-                    departmentsQuery={departments}
                     sectionMetadata={sectionMetadata.poolName}
                     onSave={onSave}
                   />
@@ -762,11 +758,6 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
       ...PoolClassification
     }
 
-    # all departments to populate form dropdown
-    departments {
-      ...PoolDepartment
-    }
-
     # all skills to populate skill pickers
     skills {
       id
@@ -857,7 +848,6 @@ export const EditPoolPage = () => {
           <EditPoolForm
             poolQuery={data.pool}
             classifications={unpackMaybes(data.classifications)}
-            departments={unpackMaybes(data.departments)}
             skills={data.skills.filter(notEmpty)}
             onSave={(saveData) => mutations.update(poolId, saveData)}
             onUpdatePublished={(updateData) =>
@@ -881,6 +871,9 @@ const PoolTeams_Query = graphql(/** GraphQL */ `
       community {
         teamIdForRoleAssignment
       }
+      department {
+        teamIdForRoleAssignment
+      }
       teamId
     }
   }
@@ -895,13 +888,18 @@ export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
       .toPromise();
 
     const communityId = res.data?.pool?.community?.teamIdForRoleAssignment;
+    const departmentId = res.data?.pool?.department?.teamIdForRoleAssignment;
 
-    requireUser(context, request, [
-      { name: ROLE_NAME.PlatformAdmin },
-      { name: ROLE_NAME.CommunityAdmin, teamId: communityId },
-      { name: ROLE_NAME.CommunityRecruiter, teamId: communityId },
-      { name: ROLE_NAME.ProcessOperator, teamId: res.data?.pool?.teamId },
-    ]);
+    requireUser(context, request, {
+      roles: [
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId: communityId },
+        { name: ROLE_NAME.CommunityRecruiter, teamId: communityId },
+        { name: ROLE_NAME.ProcessOperator, teamId: res.data?.pool?.teamId },
+        { name: ROLE_NAME.DepartmentAdmin, teamId: departmentId },
+        { name: ROLE_NAME.DepartmentHRAdvisor, teamId: departmentId },
+      ],
+    });
     return await next();
   },
 ];

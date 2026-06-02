@@ -22,7 +22,7 @@ class UserTestSeeder extends Seeder
      */
     public function run()
     {
-        // Note: to manually promote a Sign In Canada user to admin, refer to instructions in documentation/sign-in-canada.md.
+        // Note: to manually promote a user to admin, refer to instructions in documentation/authentication.md.
 
         $digitalCommunityId = Community::select('id')->where('key', 'digital')->sole()->id;
         $atipCommunityId = Community::select('id')->where('key', 'atip')->sole()->id;

@@ -1,17 +1,19 @@
-import { ReactNode, useId, useState } from "react";
+import type { ReactNode } from "react";
+import { useId, useState } from "react";
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
 import {
   Accordion,
   Button,
-  CardSeparator,
   Heading,
   Ul,
   Notice,
   wrapParens,
+  Card,
 } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   assertUnreachable,
   notEmpty,
@@ -23,13 +25,13 @@ import experienceMessages from "~/messages/experienceMessages";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import processMessages from "~/messages/processMessages";
 
+import type { AccordionSection } from "./fullCareerExperiencesUtils";
 import {
-  AccordionSection,
   buildExperienceByTypeData,
   buildExperienceByWorkStreamData,
 } from "./fullCareerExperiencesUtils";
 
-export const FullCareerExperiencesUser_Fragment = graphql(/* GraphQL */ `
+const FullCareerExperiencesUser_Fragment = graphql(/* GraphQL */ `
   fragment FullCareerExperiencesUser on User {
     experiences {
       id
@@ -170,41 +172,37 @@ const FullCareerExperiences = ({
 
   return (
     <>
-      {/* heading section */}
       <div className="flex items-center justify-between">
-        <div>
-          <Heading
-            level="h2"
-            icon={NewspaperIcon}
-            color="warning"
-            className="m-0 font-normal"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Full career",
-              id: "+mG20j",
-              description: "Heading for career experience",
-            })}
-          </Heading>
-        </div>
+        <Heading
+          level="h2"
+          size="h4"
+          icon={NewspaperIcon}
+          color="warning"
+          className="mt-0 font-normal"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Full career",
+            id: "+mG20j",
+            description: "Heading for career experience",
+          })}
+        </Heading>
         {shareProfile && (
-          <div>
-            <Button
-              type="button"
-              mode="inline"
-              color="primary"
-              onClick={toggleSections}
-            >
-              {intl.formatMessage(
-                hasOpenSections
-                  ? experienceMessages.collapseDetails
-                  : experienceMessages.expandDetails,
-              )}
-            </Button>
-          </div>
+          <Button
+            type="button"
+            mode="inline"
+            color="primary"
+            onClick={toggleSections}
+          >
+            {intl.formatMessage(
+              hasOpenSections
+                ? experienceMessages.collapseDetails
+                : experienceMessages.expandDetails,
+            )}
+          </Button>
         )}
       </div>
 
-      <p className="mt-3 mb-6">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "This section allows you to browse the nominee’s full career experience. By default, experience is organized by type, however you can choose to see how much experience the nominee has in a particular work stream or type of department using the options provided.",
@@ -212,10 +210,12 @@ const FullCareerExperiences = ({
           description: "Description for the career page full career section",
         })}
       </p>
-      <div>
-        {/* If can share profile, show controls. Otherwise, show error well */}
-        {shareProfile ? (
-          <div className="flex items-center gap-6">
+
+      <Card.Separator className="my-9" />
+
+      {shareProfile ? (
+        <>
+          <div className="mb-3 flex items-center gap-6">
             <p id={showExperienceByLabelId}>
               {intl.formatMessage({
                 defaultMessage: "Show experience by:",
@@ -252,79 +252,71 @@ const FullCareerExperiences = ({
               {intl.formatMessage(processMessages.stream)}
             </Button>
           </div>
-        ) : (
-          <Notice.Root className="mb-9" color="error">
-            <Notice.Title>
+          <Accordion.Root
+            type="multiple"
+            mode="card"
+            value={openSections}
+            onValueChange={setOpenSections} // Sync state with Accordion
+          >
+            {accordionSections.map(
+              ({ id, title, subtitle, experiences: sectionExperiences }) => (
+                <Accordion.Item key={id} value={id}>
+                  <Accordion.Trigger subtitle={subtitle ?? undefined}>
+                    {title}
+                    <span className="ml-1">
+                      {wrapParens(sectionExperiences.length)}
+                    </span>
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <div>
+                      <div className="flex flex-col gap-y-3">
+                        {unpackMaybes(
+                          sectionExperiences.map((experience) => {
+                            return (
+                              <ExperienceCard
+                                key={experience?.id}
+                                experienceQuery={experience}
+                                showEdit={false}
+                              />
+                            );
+                          }),
+                        )}
+                      </div>
+                    </div>
+                  </Accordion.Content>
+                </Accordion.Item>
+              ),
+            )}
+          </Accordion.Root>
+          {footer ? (
+            <>
+              <Card.Separator className="my-9" />
+              {footer}
+            </>
+          ) : null}
+        </>
+      ) : (
+        <Notice.Root color="error">
+          <Notice.Title>
+            {intl.formatMessage({
+              defaultMessage:
+                "This nominee has not agreed to share their information with your community",
+              id: "4ujr5X",
+              description: "Null message for nominee profile",
+            })}
+          </Notice.Title>
+          <Notice.Content>
+            <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "This nominee has not agreed to share their information with your community",
-                id: "4ujr5X",
-                description: "Null message for nominee profile",
+                  "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
+                id: "8plD42",
+                description: "Null secondary message for nominee profile",
               })}
-            </Notice.Title>
-            <Notice.Content>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
-                  id: "8plD42",
-                  description: "Null secondary message for nominee profile",
-                })}
-              </p>
-            </Notice.Content>
-          </Notice.Root>
-        )}
-      </div>
-      <div>
-        {/* If can share profile, show accordion. Otherwise, show nothing */}
-        {shareProfile ? (
-          <>
-            <Accordion.Root
-              type="multiple"
-              mode="card"
-              value={openSections}
-              onValueChange={setOpenSections} // Sync state with Accordion
-              className="m-0"
-            >
-              {accordionSections.map(
-                ({ id, title, subtitle, experiences: sectionExperiences }) => (
-                  <Accordion.Item key={id} value={id}>
-                    <Accordion.Trigger subtitle={subtitle ?? undefined}>
-                      {title}
-                      <span className="ml-1">
-                        {wrapParens(sectionExperiences.length)}
-                      </span>
-                    </Accordion.Trigger>
-                    <Accordion.Content>
-                      <div>
-                        <div className="flex flex-col gap-y-3">
-                          {unpackMaybes(
-                            sectionExperiences.map((experience) => {
-                              return (
-                                <ExperienceCard
-                                  key={experience?.id}
-                                  experienceQuery={experience}
-                                  showEdit={false}
-                                />
-                              );
-                            }),
-                          )}
-                        </div>
-                      </div>
-                    </Accordion.Content>
-                  </Accordion.Item>
-                ),
-              )}
-            </Accordion.Root>
-            {footer ? (
-              <>
-                <CardSeparator space="sm" />
-                {footer}
-              </>
-            ) : null}
-          </>
-        ) : null}
-      </div>
+            </p>
+          </Notice.Content>
+        </Notice.Root>
+      )}
     </>
   );
 };
