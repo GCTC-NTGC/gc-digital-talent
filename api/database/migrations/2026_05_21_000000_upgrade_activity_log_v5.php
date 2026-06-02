@@ -19,7 +19,7 @@ return new class() extends Migration
             UPDATE activity_log
             SET attribute_changes = (
                 CASE
-                    WHEN properties::jsonb ?| ARRAY['attributes', 'old']
+                    WHEN jsonb_exists_any(properties::jsonb, ARRAY['attributes', 'old'])
                     THEN (
                         SELECT jsonb_object_agg(key, value)
                         FROM jsonb_each(properties::jsonb)
