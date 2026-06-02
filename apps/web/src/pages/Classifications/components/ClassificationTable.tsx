@@ -18,17 +18,13 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
-import { getClassificationName } from "~/utils/poolUtils";
 
 export const ClassificationTableRow_Fragment = graphql(/* GraphQL */ `
   fragment ClassificationTableRow on Classification {
     id
-    name {
-      en
-      fr
-    }
     group
     level
+    displayName
     minSalary
     maxSalary
     isAvailableInSearch
@@ -58,7 +54,7 @@ export const ClassificationTable = ({
       enableColumnFilter: false,
       header: intl.formatMessage(adminMessages.id),
     }),
-    columnHelper.accessor((row) => getClassificationName(row, intl), {
+    columnHelper.accessor((row) => row.displayName, {
       id: "name",
       meta: {
         isRowTitle: true,

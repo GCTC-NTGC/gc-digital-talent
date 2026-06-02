@@ -271,8 +271,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             }
             classification {
               id
-              group
-              level
+              groupAndLevel
             }
             workStream {
               id
@@ -1186,6 +1185,7 @@ const PoolCandidatesTable = ({
       }}
       filter={{
         initialState: initialFilterInput,
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <PoolCandidateFilterDialog

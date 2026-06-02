@@ -43,7 +43,7 @@ const ApplicantFilters = ({
 }: {
   applicantFilter?: PartialApplicantFilter | null | undefined;
   selectedClassifications?: (
-    | Pick<Classification, "group" | "level">
+    | Pick<Classification, "groupAndLevel">
     | null
     | undefined
   )[];
@@ -53,22 +53,13 @@ const ApplicantFilters = ({
   const locale = getLocale(intl);
   // else set values if filters prop is of ApplicantFilterInput type
   const classificationsFromBrowserHistory = selectedClassifications?.map(
-    (classification) =>
-      wrapAbbr(
-        `${classification?.group}-${classification && classification?.level < 10 ? "0" : ""}${classification?.level}`,
-        intl,
-      ),
+    (classification) => wrapAbbr(classification?.groupAndLevel, intl),
   );
 
   const classifications = applicantFilter?.qualifiedInClassifications ?? [];
   const classificationsFromApplicantFilter = classifications
     .filter(notEmpty)
-    .map((classification) =>
-      wrapAbbr(
-        `${classification?.group}-${classification?.level < 10 ? "0" : ""}${classification?.level}`,
-        intl,
-      ),
-    );
+    .map((classification) => wrapAbbr(classification.groupAndLevel, intl));
 
   const skills: string[] | undefined = applicantFilter?.skills?.map((skill) => {
     return (
@@ -294,7 +285,7 @@ interface SearchRequestFiltersProps {
     | null
     | undefined;
   selectedClassifications?: (
-    | Pick<Classification, "group" | "level">
+    | Pick<Classification, "groupAndLevel">
     | null
     | undefined
   )[];
@@ -323,10 +314,9 @@ const SearchRequestFilters = ({
   }
 
   const classifications: string[] | undefined =
-    poolCandidateFilter?.classifications?.map(
-      (classification) =>
-        `${classification?.group.toLocaleUpperCase()}-${classification && classification?.level < 10 ? "0" : ""}${classification?.level}`,
-    );
+    poolCandidateFilter?.classifications
+      ?.filter(notEmpty)
+      .map((classification) => classification.groupAndLevel);
 
   const pools = poolCandidateFilter
     ? poolCandidateFilter?.pools?.filter(notEmpty)

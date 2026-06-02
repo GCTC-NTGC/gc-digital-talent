@@ -14,7 +14,6 @@ import {
   commonMessages,
   errorMessages,
   formMessages,
-  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Pending, Link, Card, Heading } from "@gc-digital-talent/ui";
 import type {
@@ -41,12 +40,7 @@ import YourRolesSection from "./YourRolesSection";
 export const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment CreatePoolClassification on Classification {
     id
-    group
-    level
-    name {
-      en
-      fr
-    }
+    displayName
   }
 `);
 
@@ -174,10 +168,10 @@ export const CreatePoolForm = ({
   };
 
   const classificationOptions: Option[] = classifications.map(
-    ({ id, group, level, name }) => {
+    ({ id, displayName }) => {
       return {
         value: id,
-        label: `${group}-${level < 10 ? "0" : ""}${level} (${getLocalizedName(name, intl)})`,
+        label: displayName,
       };
     },
   );

@@ -1,12 +1,10 @@
-import type { IntlShape } from "react-intl";
-
 import {
   unpackMaybes,
   empty,
   notEmpty,
   emptyToNull,
 } from "@gc-digital-talent/helpers";
-import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
+import { EmploymentDuration } from "@gc-digital-talent/i18n";
 import type {
   ApplicantFilterInput,
   Classification,
@@ -19,29 +17,8 @@ import {
 
 import type { FormValues } from "~/types/searchRequest";
 import { NullSelection } from "~/types/searchRequest";
-import {
-  formatClassificationAriaString,
-  formatClassificationString,
-} from "~/utils/poolUtils";
+import { formatClassificationAriaString } from "~/utils/poolUtils";
 import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
-
-export const getClassificationLabel = (
-  {
-    group,
-    level,
-    name: genericName,
-  }: Pick<Classification, "group" | "level" | "name">,
-  intl: IntlShape,
-) => {
-  const groupAndLevel = formatClassificationString({ group, level });
-  const separator = intl.formatMessage(commonMessages.dividingColon);
-  const name = emptyToNull(genericName?.localized);
-
-  if (name) {
-    return `${groupAndLevel}${separator}${name}`;
-  }
-  return groupAndLevel;
-};
 
 export const getClassificationAriaLabel = ({
   group,
@@ -67,10 +44,10 @@ export const getClassificationAriaLabel = ({
  * @returns {string}
  */
 const getCurrentClassification = (
-  selectedClassifications?: Pick<Classification, "group" | "level">[] | null,
+  selectedClassifications?: Pick<Classification, "groupAndLevel">[] | null,
 ): string => {
   return selectedClassifications && selectedClassifications?.length > 0
-    ? formatClassificationString(selectedClassifications[0])
+    ? selectedClassifications[0].groupAndLevel
     : "";
 };
 
@@ -144,7 +121,7 @@ export const applicantFilterToQueryArgs = (
  */
 export const dataToFormValues = (
   data: ApplicantFilterInput,
-  selectedClassifications?: Pick<Classification, "group" | "level">[] | null,
+  selectedClassifications?: Pick<Classification, "groupAndLevel">[] | null,
 ): FormValues => {
   const stream = data?.qualifiedInWorkStreams?.find(notEmpty);
 
@@ -182,10 +159,10 @@ export const dataToFormValues = (
  */
 export const formValuesToData = (
   values: FormValues,
-  classifications: Pick<Classification, "group" | "level" | "id">[],
+  classifications: Pick<Classification, "group" | "level" | "groupAndLevel">[],
 ): ApplicantFilterInput => {
-  const selectedClassification = classifications.find((classification) => {
-    return formatClassificationString(classification) === values.classification;
+  const selectedClassification = classifications.find(({ groupAndLevel }) => {
+    return groupAndLevel === values.classification;
   });
 
   return {

@@ -89,13 +89,6 @@ interface formatClassificationStringProps {
   level: number;
 }
 
-export const formatClassificationString = ({
-  group,
-  level,
-}: formatClassificationStringProps): string => {
-  return `${group}-${level < 10 ? "0" : ""}${level}`;
-};
-
 export const formatClassificationAriaString = ({
   group,
   level,
@@ -105,7 +98,7 @@ export const formatClassificationAriaString = ({
 };
 interface formattedPoolPosterTitleProps {
   title: string | null | undefined;
-  classification: Pick<Classification, "group" | "level"> | null | undefined;
+  classification: Pick<Classification, "groupAndLevel"> | null | undefined;
   workStream?: WorkStream | null | undefined;
   short?: boolean;
   intl: IntlShape;
@@ -122,9 +115,7 @@ export const formattedPoolPosterTitle = ({
   label: string;
 } => {
   const streamString = getLocalizedName(workStream?.name, intl, true);
-  const groupAndLevel = classification
-    ? formatClassificationString(classification)
-    : "";
+  const groupAndLevel = classification?.groupAndLevel ?? "";
 
   const genericTitle = short
     ? `${groupAndLevel.trim()}${intl.formatMessage(
@@ -165,7 +156,7 @@ interface PoolTitleOptions {
 
 type PartialPool = Pick<Pool, "name" | "publishingGroup" | "workStream">;
 interface PartialPoolWithClassification extends PartialPool {
-  classification?: Pick<Classification, "group" | "level"> | null | undefined;
+  classification?: Pick<Classification, "groupAndLevel"> | null | undefined;
 }
 
 type PoolTitle = PartialPoolWithClassification | null | undefined;
@@ -473,20 +464,6 @@ export const getProcessStatusBadge = (
 
   return statusBadge;
 };
-
-export function getClassificationName(
-  { group, level, name }: Pick<Classification, "group" | "level" | "name">,
-  intl: IntlShape,
-) {
-  const groupLevelStr = `${group}-${level < 10 ? "0" : ""}${level}`;
-
-  if (!name) {
-    return groupLevelStr;
-  }
-
-  const nameStr = getLocalizedName(name, intl);
-  return `${groupLevelStr} (${nameStr})`;
-}
 
 export const contactEmailTag = (email?: string | null) => {
   return email ? (

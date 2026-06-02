@@ -101,6 +101,8 @@ export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
     id
     group
     level
+    groupAndLevel
+    displayName
   }
 `);
 
@@ -135,6 +137,8 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
           id
           group
           level
+          groupAndLevel
+          displayName
         }
         workStream {
           id
@@ -216,7 +220,7 @@ export interface RequestFormProps {
   candidateCount: number | null | undefined;
   searchFormInitialValues?: SearchFormValues;
   selectedClassifications?: (
-    | Pick<Classification, "group" | "level">
+    | Pick<Classification, "groupAndLevel">
     | null
     | undefined
   )[];
@@ -757,7 +761,7 @@ const RequestFormApi = ({
   candidateCount: number | null | undefined;
   searchFormInitialValues?: SearchFormValues;
   selectedClassifications?:
-    | (Pick<Classification, "group" | "level"> | null | undefined)[]
+    | (Pick<Classification, "groupAndLevel"> | null | undefined)[]
     | undefined;
 }) => {
   const intl = useIntl();

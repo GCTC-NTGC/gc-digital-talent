@@ -13,7 +13,6 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import { formatClassificationString } from "~/utils/poolUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import adminMessages from "~/messages/adminMessages";
 
@@ -70,15 +69,13 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
         }
       }
       classification {
-        group
-        level
+        groupAndLevel
       }
     }
     advancementReferenceFallbackWorkEmail
     advancementReferenceFallbackName
     advancementReferenceFallbackClassification {
-      group
-      level
+      groupAndLevel
     }
     advancementReferenceFallbackDepartment {
       name {
@@ -116,16 +113,6 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
     additionalComments
   }
 `);
-
-// util wrapper to handle nulls
-function formatMaybeClassificationString(
-  param: Parameters<typeof formatClassificationString>[0] | null | undefined,
-) {
-  if (param == null) {
-    return null;
-  }
-  return formatClassificationString(param);
-}
 
 interface TalentNominationAccordionItemProps {
   query: FragmentType<typeof TalentNominationAccordionItem_Fragment>;
@@ -268,6 +255,8 @@ const TalentNominationAccordionItem = ({
     );
   }
 
+  const notFound = intl.formatMessage(commonMessages.notFound);
+
   return (
     <Accordion.Item value={talentNomination.id} {...rest}>
       <Accordion.Trigger as="h3">
@@ -359,13 +348,12 @@ const TalentNominationAccordionItem = ({
                       nominationLabels.referencesClassification,
                     )}
                   >
-                    {(advancementReferenceIsAUser
-                      ? formatMaybeClassificationString(
-                          talentNomination.advancementReference?.classification,
-                        )
-                      : formatMaybeClassificationString(
-                          talentNomination.advancementReferenceFallbackClassification,
-                        )) ?? intl.formatMessage(commonMessages.notFound)}
+                    {advancementReferenceIsAUser
+                      ? (talentNomination.advancementReference?.classification
+                          ?.groupAndLevel ?? notFound)
+                      : (talentNomination
+                          .advancementReferenceFallbackClassification
+                          ?.groupAndLevel ?? notFound)}
                   </FieldDisplay>
                   <FieldDisplay
                     label={intl.formatMessage(

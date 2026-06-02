@@ -410,6 +410,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
     !!talentNomination.nominatorFallbackName;
   const submitterIsNominator =
     talentNomination.submitter?.id === talentNomination.nominator?.id;
+
   let defaultRole: SubmitterRole | undefined;
   let defaultNominator: string | null | undefined;
   if (talentNomination.submitter?.id && nominatorSet) {

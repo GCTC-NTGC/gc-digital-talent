@@ -290,16 +290,16 @@ class PoolCandidateSearchRequest extends Model
         /** @var User | null */
         $user = Auth::user();
 
-        if ($user?->isAbleTo('view-any-searchRequest')) {
+        if ($user?->isAbleTo('view-any-talentRequest')) {
             return $query;
         }
 
-        if ($user?->isAbleTo('view-team-searchRequest')) {
+        if ($user?->isAbleTo('view-team-talentRequest')) {
             $query->where(function (Builder $query) use ($user) {
 
                 $allTeam = $user->rolesTeams()->get();
                 $teamIds = $allTeam->filter(function ($team) use ($user) {
-                    return $user->isAbleTo('view-team-searchRequest', $team);
+                    return $user->isAbleTo('view-team-talentRequest', $team);
                 })->pluck('id');
 
                 $query->whereHas('community.team', function (Builder $query) use ($teamIds) {

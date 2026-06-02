@@ -90,8 +90,7 @@ const DetailsCommunityDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
       }
     }
     classifications {
-      group
-      level
+      groupAndLevel
     }
     developmentProgram {
       id
@@ -146,12 +145,10 @@ const DetailsFields = ({
   const intl = useIntl();
 
   const options = getFragment(DetailsFieldsOptions_Fragment, optionsQuery);
-
   const advancementReferenceData = getFragment(
     DetailsEmployee_Fragment,
     employeeQuery,
   );
-
   const communityDevelopmentProgramData = getFragment(
     DetailsCommunityDevelopmentProgram_Fragment,
     communityDevelopmentProgramQuery,
@@ -512,10 +509,7 @@ const DetailsFields = ({
                               {intl.formatMessage(commonMessages.dividingColon)}
 
                               {cdp.classifications
-                                .map(
-                                  (classification) =>
-                                    `${classification.group}-${classification.level}`,
-                                )
+                                .map(({ groupAndLevel }) => groupAndLevel)
                                 .join(", ")}
                               <br />
                             </>

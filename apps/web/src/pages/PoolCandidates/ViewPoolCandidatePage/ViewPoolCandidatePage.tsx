@@ -84,9 +84,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           fr
         }
         classification {
-          id
-          group
-          level
+          groupAndLevel
         }
         workStream {
           id

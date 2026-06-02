@@ -1,4 +1,3 @@
-import uniqBy from "lodash/uniqBy";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
 import type { RegisterOptions } from "react-hook-form";
@@ -11,7 +10,7 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 
-import { splitAndJoin } from "~/utils/nameUtils";
+import { getGroupOptions, getLevelOptions } from "~/utils/classification";
 
 const ClassificationInput_Fragment = graphql(/* GraphQL */ `
   fragment ClassificationInput on Classification {
@@ -61,24 +60,8 @@ const ClassificationInput = ({
     (c) => c.group === group && c.level === parseInt(level ?? ""),
   );
 
-  const groupOptions = uniqBy(
-    classifications
-      .filter((c) => !!c.group && !!c.name?.localized)
-      .map((classification) => ({
-        value: classification.group,
-        label: classification.group,
-        ariaLabel: `${classification?.name?.localized} ${splitAndJoin(classification.group)}`,
-      })),
-    "label",
-  );
-
-  const levelOptions = classifications
-    .filter((c) => c.group === group)
-    .map((classification) => ({
-      value: classification.level,
-      label: classification.level.toString(),
-    }))
-    .sort((a, b) => a.value - b.value);
+  const groupOptions = getGroupOptions(classifications, intl);
+  const levelOptions = getLevelOptions(classifications, group);
 
   useEffect(() => {
     resetField(levelName, { keepDirty: false });

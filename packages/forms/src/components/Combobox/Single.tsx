@@ -82,6 +82,9 @@ const Single = ({
     },
   });
 
+  // eslint-disable-next-line react-hooks/refs -- downshift's prop getter needs the ref to wire up the input; it is not read during render
+  const downshiftInputProps = getInputProps({ ref: inputRef });
+
   const handleClear = () => {
     selectItem(null);
     inputRef?.current?.focus();
@@ -103,9 +106,7 @@ const Single = ({
           <Input.Search />
           <input
             {...inputProps}
-            {...getInputProps({
-              ref: inputRef,
-            })}
+            {...downshiftInputProps}
             className={comboboxInput({
               state: fieldState,
               hasSelectedItems: inputValue.length > 0,
