@@ -10,7 +10,6 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type { RoleName } from "@gc-digital-talent/auth";
 import { COMMUNITY_ROLES } from "@gc-digital-talent/auth";

@@ -2,7 +2,6 @@ import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Container, Pending } from "@gc-digital-talent/ui";
-
 import {
   graphql,
   CandidateExpiryFilter,
