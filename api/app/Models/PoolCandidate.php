@@ -120,8 +120,8 @@ class PoolCandidate extends Model
         'computed_assessment_status' => 'array',
         'pause_referrals_at' => 'datetime',
         'resume_referrals_at' => 'datetime',
-        'placed_start_date' => 'datetime',
-        'placed_end_date' => 'datetime',
+        'placed_start_date' => 'date',
+        'placed_end_date' => 'date',
     ];
 
     /**
