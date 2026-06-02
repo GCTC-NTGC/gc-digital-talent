@@ -8,7 +8,7 @@ import { linkStyles } from "./styles";
 import { useMarkAsRead } from "./mutations";
 
 interface NotificationLinkProps {
-  id: Scalars["UUID"]["output"];
+  id: string;
   isUnread: boolean;
   onRead?: () => void;
   children: ReactNode;

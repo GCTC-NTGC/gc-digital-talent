@@ -7,7 +7,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ViewSearchRequestApi from "./components/ViewSearchRequest";
 
 interface RouteParams extends Record<string, string> {
-  searchRequestId: Scalars["ID"]["output"];
+  searchRequestId: string;
 }
 
 export const SingleSearchRequestPage = () => {

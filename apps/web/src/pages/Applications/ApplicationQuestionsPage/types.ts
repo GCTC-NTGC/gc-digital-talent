@@ -1,8 +1,8 @@
 import type { Scalars } from "@gc-digital-talent/graphql";
 
 interface QuestionResponse {
-  id: Scalars["ID"]["output"];
-  questionId: Scalars["ID"]["output"];
+  id: string;
+  questionId: string;
   answer: string;
 }
 

@@ -49,7 +49,7 @@ export function formValuesToCreateInput({
 interface CreateDevelopmentProgramProps {
   handleCreateDevelopmentProgram: (
     data: CreateDevelopmentProgramInput,
-  ) => Promise<Scalars["UUID"]["output"]>;
+  ) => Promise<string>;
 }
 
 export const CreateDevelopmentProgramForm = ({

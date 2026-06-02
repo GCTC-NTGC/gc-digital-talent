@@ -302,7 +302,7 @@ const subTitle = defineMessage({
 
 interface PoolAdvertisementProps {
   poolQuery: FragmentType<typeof PoolAdvertisement_Fragment>;
-  applicationId?: Scalars["ID"]["output"];
+  applicationId?: string;
   hasApplied?: boolean;
 }
 
@@ -1397,7 +1397,7 @@ const PoolNotFound = () => {
 };
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `

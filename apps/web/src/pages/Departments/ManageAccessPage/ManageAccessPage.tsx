@@ -172,7 +172,7 @@ const DepartmentMembersTeam_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+  departmentId: string;
 }
 
 type DepartmentMembersQueryType = NonNullable<

@@ -183,7 +183,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
 };
 
 interface RouteParams extends Record<string, string> {
-  skillFamilyId: Scalars["ID"]["output"];
+  skillFamilyId: string;
 }
 
 const ViewSkillFamily_Query = graphql(/* GraphQL */ `

@@ -31,10 +31,10 @@ const UpdateAssessmentResult_Mutation = graphql(/* GraphQL */ `
 
 interface UseMutationArgs {
   isEducation?: boolean;
-  resultId?: Scalars["UUID"]["output"];
-  stepId: Scalars["UUID"]["output"];
-  candidateId: Scalars["UUID"]["output"];
-  poolSkillId?: Scalars["UUID"]["output"];
+  resultId?: string;
+  stepId: string;
+  candidateId: string;
+  poolSkillId?: string;
 }
 
 const useSaveHandler = ({

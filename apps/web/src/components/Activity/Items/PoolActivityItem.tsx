@@ -19,8 +19,8 @@ import BaseItem, { BaseItem_Fragment } from "./BaseActivityItem";
 import { getEventInfo } from "./utils";
 
 function updatedAfterPublish(
-  createdAt?: Scalars["DateTime"]["output"] | null,
-  publishedAt?: Scalars["DateTime"]["output"] | null,
+  createdAt?: string | null,
+  publishedAt?: string | null,
 ): boolean {
   if (!publishedAt || !createdAt) return false;
   return isAfter(parseDateTimeUtc(createdAt), parseDateTimeUtc(publishedAt));
@@ -78,7 +78,7 @@ const keyMap = new Map<string, MessageDescriptor>([
 ]);
 
 export interface PoolActivityItemProps extends CommonItemProps {
-  publishedAt?: Scalars["DateTime"]["output"] | null;
+  publishedAt?: string | null;
 }
 
 const PoolActivityItem = ({

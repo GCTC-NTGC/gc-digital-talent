@@ -9,7 +9,7 @@ import type { Scalars } from "@gc-digital-talent/graphql";
 import { DeleteNotification_Mutation } from "./mutations";
 
 interface RemoveDialogProps {
-  id: Scalars["UUID"]["output"];
+  id: string;
   message: ReactNode;
   date: string;
   isOpen?: boolean;

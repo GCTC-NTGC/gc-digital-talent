@@ -29,7 +29,7 @@ const AdminCareerExperience_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface AdminCareerExperienceProps {
-  userId: Scalars["UUID"]["output"];
+  userId: string;
   query: FragmentType<typeof AdminCareerExperience_Fragment>[];
 }
 
@@ -94,7 +94,7 @@ const AdminCareerExperiencePage_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  userId: Scalars["ID"]["output"];
+  userId: string;
 }
 
 const AdminCareerExperiencePage = () => {

@@ -35,14 +35,12 @@ export const DuplicatePoolDepartment_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  department: Scalars["ID"]["output"] | undefined;
+  department: string | undefined;
 }
 
 interface DuplicateProcessDialogProps extends ProcessDialogProps {
   departmentsQuery: FragmentType<typeof DuplicatePoolDepartment_Fragment>[];
-  onDuplicate: (opts: {
-    department: Scalars["ID"]["output"] | undefined;
-  }) => Promise<void>;
+  onDuplicate: (opts: { department: string | undefined }) => Promise<void>;
   roleAssignments: RoleAssignment[];
 }
 

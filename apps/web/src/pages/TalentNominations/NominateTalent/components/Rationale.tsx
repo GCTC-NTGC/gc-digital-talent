@@ -27,7 +27,7 @@ import labels from "../labels";
 
 interface FormValues extends BaseFormValues {
   nominationRationale?: string | null;
-  skills?: Scalars["UUID"]["input"][];
+  skills?: string[];
   additionalComments?: string | null;
 }
 

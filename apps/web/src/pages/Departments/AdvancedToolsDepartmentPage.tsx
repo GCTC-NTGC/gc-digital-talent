@@ -80,7 +80,7 @@ export const AdvancedToolsDepartment = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+  departmentId: string;
 }
 
 const AdvancedToolsDepartment_Query = graphql(/* GraphQL */ `

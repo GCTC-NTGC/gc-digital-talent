@@ -28,7 +28,7 @@ const useNominationDownloads = () => {
     toast.error(intl.formatMessage(errorMessages.downloadRequestFailed));
   };
 
-  const downloadDoc = ({ id }: { id: Scalars["UUID"]["input"] }) => {
+  const downloadDoc = ({ id }: { id: string }) => {
     executeDocMutation({ id })
       .then(async (res) => {
         if (res?.data?.downloadNominationDoc) {

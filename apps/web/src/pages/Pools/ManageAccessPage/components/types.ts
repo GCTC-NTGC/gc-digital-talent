@@ -8,10 +8,10 @@ import type {
 import type { ManageAccessPage_PoolFragment } from "./operations";
 
 export interface ManageAccessFormValues {
-  teamId: Scalars["UUID"]["output"];
-  userId: Scalars["UUID"]["output"];
-  userDisplay: Scalars["UUID"]["output"];
-  roles: Scalars["UUID"]["output"][];
+  teamId: string;
+  userId: string;
+  userDisplay: string;
+  roles: string[];
 }
 
 export type ManageAccessPageFragment = FragmentType<

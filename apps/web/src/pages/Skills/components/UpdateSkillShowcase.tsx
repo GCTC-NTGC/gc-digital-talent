@@ -105,7 +105,7 @@ export interface FormValues {
 }
 
 interface UpdateSkillShowcaseProps {
-  userId: Scalars["UUID"]["output"];
+  userId: string;
   allUserSkills: UpdateSkillShowcaseUserSkillFragmentType[];
   allSkills: UpdateSkillShowcaseSkillFragmentType[];
   initialData: FormValues;

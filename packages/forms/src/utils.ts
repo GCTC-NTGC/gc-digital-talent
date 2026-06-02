@@ -200,7 +200,7 @@ export const countNumberOfWordsAfterReplacingHTML = (text: string): number => {
  */
 export const objectsToSortedOptions = (
   objects: {
-    id: Scalars["ID"]["input"];
+    id: string;
     name?: LocalizedString;
   }[],
   intl: IntlShape,

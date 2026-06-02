@@ -19,7 +19,7 @@ const QualifiedStatusForm_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface FormValues {
-  id: Scalars["UUID"]["input"];
+  id: string;
 }
 
 const mutationMessages: MutationMessages = {

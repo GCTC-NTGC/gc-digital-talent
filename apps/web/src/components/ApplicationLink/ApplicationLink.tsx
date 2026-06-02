@@ -7,8 +7,8 @@ import type { Scalars } from "@gc-digital-talent/graphql";
 import useRoutes from "~/hooks/useRoutes";
 
 export interface ApplicationLinkProps {
-  poolId: Scalars["ID"]["output"];
-  applicationId?: Scalars["ID"]["output"];
+  poolId: string;
+  applicationId?: string;
   hasApplied?: boolean;
   canApply?: boolean;
   linkProps?: Omit<LinkProps, "ref" | "href">;

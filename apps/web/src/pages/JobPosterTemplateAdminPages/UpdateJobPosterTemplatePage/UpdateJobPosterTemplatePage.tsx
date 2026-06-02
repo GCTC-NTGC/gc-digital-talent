@@ -202,7 +202,7 @@ const UpdateJobPosterTemplatePage_Query = graphql(/** GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  jobPosterTemplateId: Scalars["ID"]["output"];
+  jobPosterTemplateId: string;
 }
 
 const UpdateJobPosterTemplatePage = () => {

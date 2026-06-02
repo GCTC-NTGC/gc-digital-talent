@@ -91,7 +91,7 @@ export const Test_UpdateUserMutationDocument = /* GraphQL */ `
 
 interface UpdateUserAsUserArgs {
   user: Partial<UpdateUserAsUserInput>;
-  id: Scalars["ID"]["input"];
+  id: string;
 }
 
 export const updateUser: GraphQLRequestFunc<

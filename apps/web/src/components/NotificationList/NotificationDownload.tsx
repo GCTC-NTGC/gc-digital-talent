@@ -13,7 +13,7 @@ import { linkStyles } from "./styles";
 import { useMarkAsRead } from "./mutations";
 
 interface NotificationLinkProps {
-  id: Scalars["UUID"]["output"];
+  id: string;
   href: string;
   fileName: string;
   isUnread: boolean;

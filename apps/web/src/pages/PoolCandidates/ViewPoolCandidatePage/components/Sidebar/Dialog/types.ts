@@ -12,15 +12,15 @@ import type {
 
 export interface FormValues {
   status?: ApplicationStatus;
-  expiryDate?: Scalars["Date"]["input"];
+  expiryDate?: string;
   placementType?: PlacementType;
-  department?: Scalars["UUID"]["input"];
+  department?: string;
   disqualificationReason?: DisqualificationReason;
   removalReason?: CandidateRemovalReason;
-  removalReasonOther?: Scalars["String"]["input"];
+  removalReasonOther?: string;
   referralPauseStatus: boolean;
   pauseReferralsLength?: PauseReferralsLength;
-  resumeReferralsAt?: Scalars["Date"]["input"];
+  resumeReferralsAt?: string;
   pauseReferralsReason?: string;
 }
 
@@ -36,6 +36,6 @@ export type MutationHandler = (
 ) => Promise<void>;
 
 export interface ApplicationStatusFormProps {
-  id: Scalars["UUID"]["output"];
+  id: string;
   onSubmit: MutationHandler;
 }

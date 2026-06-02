@@ -22,9 +22,9 @@ import type { CommunityAssignment, RoleTableProps } from "../utils";
 import { getRoleTableFragments, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
-  roleIds: Scalars["UUID"]["input"][];
-  teamId: Scalars["UUID"]["input"] | null;
-  userId: Scalars["UUID"]["input"];
+  roleIds: string[];
+  teamId: string | null;
+  userId: string;
 }
 
 interface EditCommunityRoleDialogProps extends RoleTableProps {

@@ -39,7 +39,7 @@ import TrainingOpportunityForm from "./components/TrainingOpportunityForm";
 interface CreateTrainingOpportunityFormProps {
   handleCreateTrainingOpportunity: (
     input: CreateTrainingOpportunityInput,
-  ) => Promise<Scalars["UUID"]["output"]>;
+  ) => Promise<string>;
   formOptionsQuery: FragmentType<
     typeof TrainingOpportunityFormOptions_Fragment
   >;

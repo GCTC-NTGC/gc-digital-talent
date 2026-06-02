@@ -24,7 +24,7 @@ export type FormValues = Pick<
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolCandidates?: UserPoolFilterInput;
-  pool?: Scalars["ID"]["output"];
+  pool?: string;
   selectedClassifications?: Pick<
     Classification,
     "group" | "level" | "groupAndLevel"

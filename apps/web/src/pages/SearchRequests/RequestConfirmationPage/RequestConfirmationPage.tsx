@@ -35,7 +35,7 @@ const subTitle = defineMessage({
 });
 
 interface RouteParams extends Record<string, string> {
-  requestId: Scalars["ID"]["output"];
+  requestId: string;
 }
 
 const mailLink = (chunks: ReactNode) => (

@@ -179,7 +179,7 @@ export const UpdateDevelopmentProgramForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  developmentProgramId: Scalars["ID"]["output"];
+  developmentProgramId: string;
 }
 
 const DevelopmentProgramQuery = graphql(/* GraphQL */ `

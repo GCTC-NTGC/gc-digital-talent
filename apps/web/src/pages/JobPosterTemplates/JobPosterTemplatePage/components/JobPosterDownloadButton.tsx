@@ -19,7 +19,7 @@ const DownloadJobPosterTemplateDoc_Mutation = graphql(/* GraphQL */ `
 `);
 
 interface JobPosterDownloadButtonProps {
-  id: Scalars["UUID"]["output"];
+  id: string;
 }
 
 const JobPosterDownloadButton = ({ id }: JobPosterDownloadButtonProps) => {

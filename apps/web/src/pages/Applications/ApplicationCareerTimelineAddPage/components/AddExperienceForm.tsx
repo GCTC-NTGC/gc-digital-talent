@@ -36,7 +36,7 @@ type ExperienceExperienceFormValues =
     action: FormAction | "";
   };
 interface AddExperienceFormProps {
-  applicationId: Scalars["ID"]["output"];
+  applicationId: string;
   organizationSuggestions: string[];
 }
 

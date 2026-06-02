@@ -38,7 +38,7 @@ const SkillMatchDialog_Query = graphql(/* GraphQL */ `
 interface SkillMatchDialogBodyProps {
   intl: IntlShape;
   filteredSkills: Skill[];
-  userId: Scalars["ID"]["output"];
+  userId: string;
   poolCandidateName: string;
 }
 
@@ -158,7 +158,7 @@ const SkillMatchDialogBody = ({
 interface SkillMatchDialogProps {
   filteredSkills: Skill[];
   skillsCount: number | null | undefined;
-  userId: Scalars["ID"]["output"];
+  userId: string;
   poolCandidateName: string;
 }
 
@@ -283,7 +283,7 @@ const SkillMatchDialog = ({
 function skillMatchDialogAccessor(
   filteredSkills: Skill[],
   skillCount: number | null | undefined,
-  userId: Scalars["ID"]["output"],
+  userId: string,
   poolCandidateName: string,
 ) {
   return (

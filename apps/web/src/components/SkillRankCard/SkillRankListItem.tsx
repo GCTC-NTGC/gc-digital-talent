@@ -11,7 +11,7 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import useRoutes from "~/hooks/useRoutes";
 
 interface SkillLinkProps {
-  id?: Scalars["ID"]["output"];
+  id?: string;
   children: ReactNode;
 }
 

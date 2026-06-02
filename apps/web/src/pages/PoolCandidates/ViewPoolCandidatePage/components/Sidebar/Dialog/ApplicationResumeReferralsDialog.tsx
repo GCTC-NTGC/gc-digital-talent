@@ -39,7 +39,7 @@ const ApplicationResumeReferralsDialog_Mutation = graphql(/** GraphQL */ `
 `);
 
 interface FormValues {
-  id: Scalars["UUID"]["input"];
+  id: string;
 }
 
 interface ApplicationResumeReferralsDialogProps {

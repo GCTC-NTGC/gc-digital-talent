@@ -8,7 +8,7 @@ import useRoutes from "~/hooks/useRoutes";
 import type { PoolCompleteness } from "~/types/pool";
 
 interface ProcessPreviwLinkProps extends Omit<LinkProps, "href"> {
-  id: Scalars["UUID"]["output"];
+  id: string;
   status: PoolCompleteness;
 }
 

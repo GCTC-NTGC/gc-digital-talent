@@ -35,7 +35,7 @@ const ApplicationExpiryDateDialog_Mutation = graphql(/** GraphQL */ `
 `);
 
 interface FormValues {
-  expiryDate: Scalars["Date"]["input"];
+  expiryDate: string;
 }
 
 interface ApplicationExpiryDateDialogProps {

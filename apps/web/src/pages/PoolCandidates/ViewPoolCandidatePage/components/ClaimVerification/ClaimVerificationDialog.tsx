@@ -19,7 +19,7 @@ import profileMessages from "~/messages/profileMessages";
 
 interface FormValues {
   result: ClaimVerificationResult;
-  expiry?: Scalars["DateTime"]["input"];
+  expiry?: string;
 }
 
 const UpdateClaimVerification_Mutation = graphql(/* GraphQL */ `
@@ -37,9 +37,9 @@ const todayDate = new Date();
 
 interface ClaimVerificationDialogProps {
   context: "veteran" | "priority";
-  id: Scalars["UUID"]["output"];
+  id: string;
   result?: ClaimVerificationResult | null;
-  expiry?: Scalars["DateTime"]["output"] | null;
+  expiry?: string | null;
   priorityNumber?: string | null;
 }
 

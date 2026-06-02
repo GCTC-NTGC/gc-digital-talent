@@ -199,8 +199,8 @@ const context: Partial<OperationContext> = {
 };
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
-  poolCandidateId: Scalars["ID"]["output"];
+  poolId: string;
+  poolCandidateId: string;
 }
 
 export const ViewPoolCandidatePage = () => {

@@ -342,7 +342,7 @@ export const UpdateSkillFamily = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  skillFamilyId: Scalars["ID"]["output"];
+  skillFamilyId: string;
 }
 
 const UpdateSkillFamilyData_Query = graphql(/* GraphQL */ `

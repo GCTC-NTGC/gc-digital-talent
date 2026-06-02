@@ -166,7 +166,7 @@ export const ViewDevelopmentProgramForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  developmentProgramId: Scalars["ID"]["output"];
+  developmentProgramId: string;
 }
 
 const DevelopmentProgram_Query = graphql(/* GraphQL */ `

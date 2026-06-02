@@ -37,7 +37,7 @@ import type { Route } from "./+types/CommunityProfessionalizationPage";
 type SortValues = "recentlyAdded" | "name";
 
 interface RouteParams extends Record<string, string> {
-  communityId: Scalars["ID"]["output"];
+  communityId: string;
 }
 
 const ProfessionalizationForm_Fragment = graphql(/* GraphQL */ `

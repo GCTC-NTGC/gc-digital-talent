@@ -22,7 +22,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 interface RouteParams extends Record<string, string> {
-  id: Scalars["ID"]["output"];
+  id: string;
 }
 
 const CreateTalentNomination_Mutation = graphql(/* GraphQL */ `

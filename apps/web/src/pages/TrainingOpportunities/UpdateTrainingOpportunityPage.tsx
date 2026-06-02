@@ -142,7 +142,7 @@ const UpdateTrainingOpportunityForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  trainingOpportunityId: Scalars["ID"]["output"];
+  trainingOpportunityId: string;
 }
 
 const UpdateTrainingOpportunityPage_Query = graphql(/* GraphQL */ `

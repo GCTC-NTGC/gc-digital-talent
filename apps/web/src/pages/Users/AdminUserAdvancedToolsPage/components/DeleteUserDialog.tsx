@@ -18,7 +18,7 @@ import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 interface FormValues {
-  userId: Scalars["UUID"]["input"];
+  userId: string;
   name: string;
 }
 

@@ -17,7 +17,7 @@ type SourceQuestionResponse =
   | ScreeningQuestionResponse;
 
 export interface GenericQuestionResponse {
-  id: Scalars["UUID"]["output"];
+  id: string;
   question?: string | null;
   answer?: string | null;
 }

@@ -64,7 +64,7 @@ const EmployeeInformationEmployeeProfile_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface UserEmployeeInformationProps {
-  userId: Scalars["UUID"]["output"];
+  userId: string;
   employeeProfileQuery: FragmentType<
     typeof EmployeeInformationEmployeeProfile_Fragment
   >;
@@ -361,7 +361,7 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  userId: Scalars["ID"]["output"];
+  userId: string;
 }
 
 const UserEmployeeInformationPage = () => {

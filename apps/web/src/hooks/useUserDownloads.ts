@@ -10,7 +10,7 @@ import { useApiRoutes } from "@gc-digital-talent/auth";
 import useAsyncFileDownload from "./useAsyncFileDownload";
 
 interface DownloadExcelArgs {
-  ids?: Scalars["UUID"]["output"][];
+  ids?: string[];
   where?: UserFilterInput | null;
 }
 
@@ -63,7 +63,7 @@ const useUserDownloads = () => {
     ids,
     anonymous,
   }: {
-    ids: Scalars["UUID"]["input"][];
+    ids: string[];
     anonymous: boolean;
   }) => {
     executeZipMutation({
@@ -78,7 +78,7 @@ const useUserDownloads = () => {
     id,
     anonymous,
   }: {
-    id: Scalars["UUID"]["input"];
+    id: string;
     anonymous: boolean;
   }) => {
     executeDocMutation({ id, anonymous })

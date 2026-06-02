@@ -174,7 +174,7 @@ export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
 };
 
 interface RouteParams extends Record<string, string> {
-  workStreamId: Scalars["ID"]["output"];
+  workStreamId: string;
 }
 
 const WorkStream_Query = graphql(/* GraphQL */ `

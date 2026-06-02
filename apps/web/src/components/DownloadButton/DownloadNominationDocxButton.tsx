@@ -11,8 +11,8 @@ import useUserDownloads from "~/hooks/useUserDownloads";
 import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
 
 interface DownloadNominationDocxButtonProps {
-  id: Scalars["UUID"]["output"];
-  userId?: Scalars["UUID"]["output"];
+  id: string;
+  userId?: string;
   consentToShareProfile?: boolean | null;
 }
 

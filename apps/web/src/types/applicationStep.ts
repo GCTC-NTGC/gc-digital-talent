@@ -14,7 +14,7 @@ import type { PageNavInfo } from "./pages";
 interface GetApplicationStepInfoArgs {
   application: ApplicationPoolCandidateFragmentType;
   paths: ReturnType<typeof useRoutes>;
-  resourceId?: Scalars["ID"]["output"];
+  resourceId?: string;
   intl: IntlShape;
   stepOrdinal?: number;
 }

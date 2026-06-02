@@ -64,8 +64,8 @@ interface UsePoolFilterOptionsReturn {
 
 const usePoolFilterOptions = (
   where?: PoolFilterInput,
-  includeIds?: Scalars["UUID"]["input"][],
-  excludeIds?: Scalars["UUID"]["input"][],
+  includeIds?: string[],
+  excludeIds?: string[],
 ): UsePoolFilterOptionsReturn => {
   const intl = useIntl();
   const [{ data, fetching }] = useQuery({

@@ -196,7 +196,7 @@ export const UpdateDepartmentForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+  departmentId: string;
 }
 
 const Department_Query = graphql(/* GraphQL */ `

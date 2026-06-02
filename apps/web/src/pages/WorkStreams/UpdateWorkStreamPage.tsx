@@ -299,7 +299,7 @@ export const UpdateWorkStreamForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  workStreamId: Scalars["ID"]["output"];
+  workStreamId: string;
 }
 
 const WorkStream_Query = graphql(/* GraphQL */ `

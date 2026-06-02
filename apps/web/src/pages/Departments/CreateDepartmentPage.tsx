@@ -66,9 +66,7 @@ const CreateDepartmentOptions_Query = graphql(/* GraphQL */ `
 `);
 
 interface CreateDepartmentProps {
-  handleCreateDepartment: (
-    data: CreateDepartmentInput,
-  ) => Promise<Scalars["UUID"]["output"]>;
+  handleCreateDepartment: (data: CreateDepartmentInput) => Promise<string>;
 }
 
 export const CreateDepartmentForm = ({

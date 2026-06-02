@@ -62,7 +62,7 @@ const formValuesToSubmitData = (data: FormValues): CreateCommunityInput => {
 };
 
 interface CreateCommunityFormProps {
-  onSubmit: (data: CreateCommunityInput) => Promise<Scalars["UUID"]["output"]>;
+  onSubmit: (data: CreateCommunityInput) => Promise<string>;
 }
 
 const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {

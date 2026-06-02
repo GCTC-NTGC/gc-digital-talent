@@ -13,7 +13,7 @@ const PoolCandidate_ToggleFlagMutation = graphql(/* GraphQL */ `
 `);
 
 interface UseCandidateFlagToggleArgs {
-  id: Scalars["UUID"]["output"];
+  id: string;
   defaultValue?: boolean;
   value?: boolean;
   onChange?: (newIsFlagged: boolean) => void;

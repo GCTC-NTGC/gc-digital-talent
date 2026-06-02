@@ -65,7 +65,7 @@ const ApplicationPlacementOptions_Query = graphql(/** GraphQL */ `
 
 interface FormValues {
   placementType: PlacementType;
-  department?: Scalars["UUID"]["input"];
+  department?: string;
 }
 
 interface ApplicationPlacementDialogProps {

@@ -84,8 +84,8 @@ export const ScreeningDecisionDialog_Fragment = graphql(/** GraphQL */ `
 
 export interface ScreeningDecisionDialogProps {
   query: FragmentType<typeof ScreeningDecisionDialog_Fragment>;
-  stepId: Scalars["UUID"]["output"];
-  poolSkillId?: Scalars["UUID"]["output"];
+  stepId: string;
+  poolSkillId?: string;
   defaultOpen?: boolean;
 }
 

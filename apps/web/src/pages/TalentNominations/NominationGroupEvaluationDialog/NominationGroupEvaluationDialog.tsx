@@ -98,7 +98,7 @@ const NominationGroupEvaluationDialog = ({
 
   // run the mutation
   const updateTalentNominationGroup = async (
-    id: Scalars["UUID"]["input"],
+    id: string,
     talentNominationGroup: UpdateTalentNominationGroupInput,
   ) =>
     executeMutation({ id, talentNominationGroup }).then((result) => {

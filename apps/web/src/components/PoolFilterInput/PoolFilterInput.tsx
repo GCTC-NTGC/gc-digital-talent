@@ -19,8 +19,8 @@ interface PoolFilterInputProps {
   label?: React.ReactNode;
   rules?: RegisterOptions;
   filterInput?: TPoolFilterInput;
-  includeIds?: Scalars["UUID"]["input"][];
-  excludeIds?: Scalars["UUID"]["input"][];
+  includeIds?: string[];
+  excludeIds?: string[];
 }
 
 const PoolFilterInput = ({

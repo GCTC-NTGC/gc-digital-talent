@@ -177,7 +177,7 @@ export const ViewTrainingOpportunityForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  trainingOpportunityId: Scalars["ID"]["output"];
+  trainingOpportunityId: string;
 }
 
 interface ViewTrainingOpportunityPageProps {

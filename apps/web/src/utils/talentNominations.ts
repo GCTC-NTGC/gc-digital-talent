@@ -12,7 +12,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFullNameLabel } from "./nameUtils";
 
 interface NominationsWithNominatorName {
-  id: Scalars["UUID"]["output"];
+  id: string;
   nominatorFallbackName?: string | null;
   nominator?: Pick<BasicGovEmployeeProfile, "firstName" | "lastName"> | null;
 }

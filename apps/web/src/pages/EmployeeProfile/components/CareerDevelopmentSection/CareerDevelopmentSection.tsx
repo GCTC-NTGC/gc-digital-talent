@@ -130,7 +130,7 @@ export interface FormValues extends Pick<
   promotionMoveOrganizationType?: OrganizationTypeInterest[] | null;
   learningOpportunitiesInterest?: LearningOpportunitiesInterest[] | null;
   eligibleRetirementYearKnown?: "yes" | "no";
-  eligibleRetirementYear?: Scalars["Date"]["input"] | null;
+  eligibleRetirementYear?: string | null;
   mentorshipStatus?: string | null;
   execInterest?: "yes" | "no";
   execCoachingStatus?: string | null;

@@ -44,7 +44,7 @@ interface NotificationPageProps {
   page: number;
   onlyUnread?: boolean;
   isLastPage?: boolean;
-  excludeIds?: Scalars["UUID"]["input"][];
+  excludeIds?: string[];
   first?: number;
   inDialog?: boolean;
   onRead?: () => void;

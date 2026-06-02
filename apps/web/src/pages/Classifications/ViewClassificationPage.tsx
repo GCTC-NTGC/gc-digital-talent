@@ -163,7 +163,7 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
 };
 
 interface RouteParams extends Record<string, string> {
-  classificationId: Scalars["ID"]["output"];
+  classificationId: string;
 }
 
 const Classification_Query = graphql(/* GraphQL */ `

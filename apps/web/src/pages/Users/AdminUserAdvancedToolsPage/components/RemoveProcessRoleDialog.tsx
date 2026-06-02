@@ -24,9 +24,9 @@ import type { PoolTeamable, UserRoleDialogBaseProps } from "../utils";
 import { getUserRoleDialogFragment, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
-  roleIds: Scalars["UUID"]["input"][];
-  teamId: Scalars["UUID"]["input"] | null;
-  userId: Scalars["UUID"]["input"];
+  roleIds: string[];
+  teamId: string | null;
+  userId: string;
 }
 
 interface RemoveProcessRoleDialogProps extends UserRoleDialogBaseProps {

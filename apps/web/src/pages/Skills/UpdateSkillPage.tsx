@@ -360,7 +360,7 @@ export const UpdateSkillForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  skillId: Scalars["ID"]["output"];
+  skillId: string;
 }
 
 const UpdateSkillData_Query = graphql(/* GraphQL */ `

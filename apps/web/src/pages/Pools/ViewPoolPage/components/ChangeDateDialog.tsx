@@ -29,7 +29,7 @@ interface FormValues {
 
 interface ChangeDateDialogProps extends ProcessDialogProps {
   closingDate?: Pool["closingDate"];
-  onExtend: (closingDate: Scalars["DateTime"]["input"]) => Promise<void>;
+  onExtend: (closingDate: string) => Promise<void>;
   onClose: (reason: string) => Promise<void>;
 }
 

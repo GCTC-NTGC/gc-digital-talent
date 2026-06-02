@@ -18,8 +18,8 @@ import adminMessages from "~/messages/adminMessages";
 export interface FormValues {
   publishingGroups: PublishingGroup[];
   statuses: PoolStatus[];
-  classifications: Scalars["UUID"]["output"][];
-  workStreams: Scalars["UUID"]["output"][];
+  classifications: string[];
+  workStreams: string[];
 }
 
 const PoolFilterDialogOptions_Fragment = graphql(/* GraphQL */ `

@@ -37,9 +37,7 @@ export const DeleteNotification_Mutation = graphql(/* GraphQL */ `
 
 type UseMarkAsReadReturn = [{ fetching: boolean }, () => Promise<void>];
 
-export function useMarkAsRead(
-  id: Scalars["UUID"]["output"],
-): UseMarkAsReadReturn {
+export function useMarkAsRead(id: string): UseMarkAsReadReturn {
   const [{ fetching }, executeMutation] = useMutation(
     MarkNotificationAsRead_Mutation,
   );

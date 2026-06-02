@@ -20,10 +20,10 @@ import CandidatesFilterInput from "./CandidatesFilterInput";
 import AssessmentMembersFilterInput from "./AssessmentMembersFilterInput";
 
 export interface FormValues {
-  from?: Scalars["DateTime"]["input"] | null;
-  to?: Scalars["DateTime"]["input"] | null;
-  causers?: Scalars["UUID"]["input"][];
-  candidates?: Scalars["UUID"]["input"][];
+  from?: string | null;
+  to?: string | null;
+  causers?: string[];
+  candidates?: string[];
   events?: ActivityEvent[];
 }
 

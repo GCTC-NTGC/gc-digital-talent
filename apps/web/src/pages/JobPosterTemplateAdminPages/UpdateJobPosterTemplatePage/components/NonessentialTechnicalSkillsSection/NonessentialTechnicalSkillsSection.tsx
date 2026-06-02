@@ -120,7 +120,7 @@ const initialDataToFormValues = ({
 };
 
 const formValuesToMutationInput = (
-  id: Scalars["UUID"]["input"],
+  id: string,
   {
     nonessentialTechnicalSkillProficiencies,
     nonessentialTechnicalSkillsNotesEn,

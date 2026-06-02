@@ -191,7 +191,7 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
 };
 
 interface RouteParams extends Record<string, string> {
-  skillId: Scalars["ID"]["output"];
+  skillId: string;
 }
 
 const Skill_Query = graphql(/* GraphQL */ `

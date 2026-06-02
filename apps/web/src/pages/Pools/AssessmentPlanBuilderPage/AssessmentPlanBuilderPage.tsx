@@ -129,7 +129,7 @@ export const AssessmentPlanBuilder = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `

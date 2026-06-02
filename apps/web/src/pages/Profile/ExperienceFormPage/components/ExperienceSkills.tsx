@@ -30,7 +30,7 @@ type AccordionStates = "learn-more" | "";
 interface ExperienceSkillsProps {
   skills: Skill[];
   experienceType?: ExperienceType;
-  experienceId?: Scalars["UUID"]["output"];
+  experienceId?: string;
 }
 
 const ExperienceSkills = ({

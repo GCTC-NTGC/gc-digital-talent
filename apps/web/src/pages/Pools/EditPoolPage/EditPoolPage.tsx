@@ -798,7 +798,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const context: Partial<OperationContext> = {

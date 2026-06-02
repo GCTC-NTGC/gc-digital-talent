@@ -30,7 +30,7 @@ import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
 
 interface FormValues extends BaseFormValues {
-  nominee: Scalars["UUID"]["input"];
+  nominee: string;
   nomineeReview: TalentNominationUserReview;
   nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator;
   nomineeRelationshipToNominatorOther?: string | null;

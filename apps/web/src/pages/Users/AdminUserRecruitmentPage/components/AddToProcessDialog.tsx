@@ -90,8 +90,8 @@ const AddToProcessDialog_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface FormValues {
-  pool: Scalars["UUID"]["input"];
-  expiryDate: Scalars["Date"]["input"];
+  pool: string;
+  expiryDate: string;
 }
 
 interface AddToProcessDialogProps {

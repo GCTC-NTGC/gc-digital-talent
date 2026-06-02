@@ -178,7 +178,7 @@ const JobPosterTemplatePage_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  templateId: Scalars["ID"]["output"];
+  templateId: string;
 }
 
 const context: Partial<OperationContext> = {

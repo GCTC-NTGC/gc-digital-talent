@@ -47,7 +47,7 @@ const CreateWorkStream_Mutation = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  key: Scalars["String"]["input"] | null;
+  key: string | null;
   name: LocalizedStringInput;
   plainLanguageName?: LocalizedStringInput | null;
   community: string;

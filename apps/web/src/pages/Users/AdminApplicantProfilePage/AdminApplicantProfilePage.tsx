@@ -280,7 +280,7 @@ const AdminApplicantProfilePage_Query = graphql(/** GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  userId: Scalars["ID"]["output"];
+  userId: string;
 }
 
 const AdminApplicantProfilePage = () => {

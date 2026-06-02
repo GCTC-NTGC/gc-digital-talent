@@ -8,7 +8,7 @@ import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
 import useUserDownloads from "~/hooks/useUserDownloads";
 
 interface DownloadButtonProps {
-  id: Scalars["UUID"]["output"];
+  id: string;
 }
 
 const DownloadButton = ({ id }: DownloadButtonProps) => {

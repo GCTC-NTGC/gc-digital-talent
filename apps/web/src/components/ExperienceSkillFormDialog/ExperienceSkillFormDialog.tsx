@@ -24,8 +24,8 @@ const ExperienceSkillFormDialogExperience_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface FormValues {
-  experience?: Scalars["ID"]["output"];
-  skill?: Scalars["ID"]["output"];
+  experience?: string;
+  skill?: string;
   details?: string;
 }
 

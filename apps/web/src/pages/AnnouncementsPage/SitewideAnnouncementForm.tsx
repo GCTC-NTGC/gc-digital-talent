@@ -34,10 +34,10 @@ const invalidDateTimeMessage = defineMessage({
 });
 
 interface FormValues {
-  isEnabled: Scalars["Boolean"]["input"];
-  isDismissible: Scalars["Boolean"]["input"];
-  publishDate: Scalars["DateTime"]["input"];
-  expiryDate: Scalars["DateTime"]["input"];
+  isEnabled: boolean;
+  isDismissible: boolean;
+  publishDate: string;
+  expiryDate: string;
   titleEn: string;
   messageEn: string;
   titleFr: string;

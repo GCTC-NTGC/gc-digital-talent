@@ -53,7 +53,7 @@ const initialDataToFormValues = ({
 });
 
 const formValuesToMutationInput = (
-  id: Scalars["UUID"]["input"],
+  id: string,
   { keyTasksEn, keyTasksFr }: FormValues,
 ): UpdateJobPosterTemplateInput => ({
   id: id,

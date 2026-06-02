@@ -29,7 +29,7 @@ const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
 interface SupportingEvidenceProps {
   query: FragmentType<typeof ScreeningDialogSupportingEvidence_Fragment>;
   experiences: Omit<Experience, "user">[];
-  skillId?: Scalars["UUID"]["output"];
+  skillId?: string;
   dialogType: DialogType;
 }
 
