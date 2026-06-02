@@ -76,14 +76,16 @@ class PoolCandidatesExcelTest extends TestCase
         $this->assertGreaterThan(0, $fileSize, 'File is empty');
     }
 
-    // A free-text field starting with "=" must be written as text, not a formula
-    // (OpenSpout's Cell::fromValue auto-detects it, which Excel renders as #NAME?).
+    // A free-text field starting with "=" must be written as text, not a formula.
+    // OpenSpout's Cell::fromValue auto-detects it as a FormulaCell and emits an
+    // <f> element, which Excel renders as #NAME? (or a live HYPERLINK injection).
     public function testNeutralizesFormulaInjection(): void
     {
         $adminUser = User::factory()->asApplicant()->asAdmin()->create();
         $targetUser = User::factory()->asApplicant()->withNonGovProfile()->create();
 
-        $payload = '=HYPERLINK("http://evil.test","To become more involved")';
+        // Same shape as the value that broke generation in production.
+        $payload = '= To become more involved';
         $application = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
@@ -116,6 +118,6 @@ class PoolCandidatesExcelTest extends TestCase
         $zip->close();
 
         $this->assertStringContainsString('To become more involved', $xml, 'Notes value was not written');
-        $this->assertDoesNotMatchRegularExpression('/<f>[^<]*HYPERLINK/', $xml, 'Notes value was written as a formula');
+        $this->assertStringNotContainsString('<f>', $xml, 'Notes value was written as a formula element');
     }
 }
