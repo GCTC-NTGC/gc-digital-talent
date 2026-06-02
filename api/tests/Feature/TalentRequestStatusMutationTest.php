@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
 use App\Enums\TalentRequestCompletionDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestStatus;
@@ -173,7 +174,7 @@ class TalentRequestStatusMutationTest extends TestCase
             ])
             ->assertGraphQLValidationError(
                 'talentRequest.inProgressDetails',
-                'The inProgressDetails field is required when status is IN_PROGRESS.'
+                ErrorCode::TALENT_REQUEST_IN_PROGRESS_DETAILS_REQUIRED->name
             );
     }
 
@@ -192,7 +193,7 @@ class TalentRequestStatusMutationTest extends TestCase
             ])
             ->assertGraphQLValidationError(
                 'talentRequest.completionDetails',
-                'The completionDetails field is required when status is COMPLETED.'
+                ErrorCode::TALENT_REQUEST_COMPLETION_DETAILS_REQUIRED->name
             );
     }
 
@@ -209,7 +210,7 @@ class TalentRequestStatusMutationTest extends TestCase
                 'id' => $request->id,
                 'talentRequest' => ['status' => TalentRequestStatus::NEW->name],
             ])
-            ->assertGraphQLValidationError('talentRequest.status', 'The selected status is invalid.');
+            ->assertGraphQLValidationError('talentRequest.status', ErrorCode::TALENT_REQUEST_INVALID_STATUS->name);
 
         $this->assertEquals($fromStatus, $request->fresh()->status);
     }

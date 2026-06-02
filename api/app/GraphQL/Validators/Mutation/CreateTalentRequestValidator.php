@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Enums\ErrorCode;
 use App\Enums\TalentRequestPositionType;
 use App\Enums\TalentRequestReason;
 use App\Rules\GovernmentEmailRegex;
@@ -36,8 +37,8 @@ final class CreateTalentRequestValidator extends Validator
     public function messages(): array
     {
         return [
-            'talentRequest.positionType.in' => 'The selected position type is invalid.',
-            'talentRequest.reason.in' => 'The selected reason is invalid.',
+            'talentRequest.positionType.in' => ErrorCode::TALENT_REQUEST_INVALID_POSITION_TYPE->name,
+            'talentRequest.reason.in' => ErrorCode::TALENT_REQUEST_INVALID_REASON->name,
         ];
     }
 }

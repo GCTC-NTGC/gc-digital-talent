@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Enums\ErrorCode;
 use App\Enums\TalentRequestCompletionDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestStatus;
@@ -37,9 +38,9 @@ final class UpdateTalentRequestStatusValidator extends Validator
     public function messages(): array
     {
         return [
-            'talentRequest.status.in' => 'The selected status is invalid.',
-            'talentRequest.inProgressDetails.required_if' => 'The inProgressDetails field is required when status is IN_PROGRESS.',
-            'talentRequest.completionDetails.required_if' => 'The completionDetails field is required when status is COMPLETED.',
+            'talentRequest.status.in' => ErrorCode::TALENT_REQUEST_INVALID_STATUS->name,
+            'talentRequest.inProgressDetails.required_if' => ErrorCode::TALENT_REQUEST_IN_PROGRESS_DETAILS_REQUIRED->name,
+            'talentRequest.completionDetails.required_if' => ErrorCode::TALENT_REQUEST_COMPLETION_DETAILS_REQUIRED->name,
         ];
     }
 }
