@@ -34,7 +34,6 @@ use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
-use OpenSpout\Common\Entity\Row;
 use OpenSpout\Writer\XLSX\Writer;
 
 class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
@@ -144,7 +143,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
 
         $this->generatePoolHeaders();
 
-        $this->writer->addRow(Row::fromValues([
+        $this->writer->addRow($this->row([
             ...$localizedHeaders,
             $this->localizeHeading('skills'),
             ...$this->generatedHeaders['general_questions'] ?? [],
@@ -356,7 +355,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                     $values[] = $decision;
                 }
 
-                $this->writer->addRow(Row::fromValues($values));
+                $this->writer->addRow($this->row($values));
             }
         });
 

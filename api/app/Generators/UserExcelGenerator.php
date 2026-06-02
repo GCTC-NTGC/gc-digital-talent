@@ -52,7 +52,6 @@ use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
-use OpenSpout\Common\Entity\Row;
 use OpenSpout\Writer\XLSX\Writer;
 
 class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
@@ -260,13 +259,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             return $this->localizeHeading($key);
         }, $this->headerLocaleKeys);
 
-        $this->writer->addRow(Row::fromValues($localizedHeaders));
+        $this->writer->addRow($this->row($localizedHeaders));
 
         $query = $this->buildQuery();
         $query->chunk(200, function ($users) {
             foreach ($users as $user) {
                 $this->userIds[] = $user->id;
-                $this->writer->addRow(Row::fromValues($this->buildUserRowData($user)));
+                $this->writer->addRow($this->row($this->buildUserRowData($user)));
             }
         });
     }
@@ -280,7 +279,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             return $this->localizeHeading($key);
         }, $this->careerExperienceLocaleKeys);
 
-        $this->writer->addRow(Row::fromValues($localizedHeaders));
+        $this->writer->addRow($this->row($localizedHeaders));
 
         $userIds = $this->userIds;
 
@@ -446,7 +445,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             ->with(['user', 'department', 'classification', 'userSkills.skill', 'workStreams'])
             ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $this->writer->addRow(Row::fromValues($this->buildWorkExperienceRow($exp)));
+                    $this->writer->addRow($this->row($this->buildWorkExperienceRow($exp)));
                 }
             });
     }
@@ -541,7 +540,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             ->with(['user', 'userSkills.skill'])
             ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $this->writer->addRow(Row::fromValues($this->buildEducationExperienceRow($exp)));
+                    $this->writer->addRow($this->row($this->buildEducationExperienceRow($exp)));
                 }
             });
     }
@@ -619,7 +618,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             ->with(['user', 'userSkills.skill'])
             ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $this->writer->addRow(Row::fromValues($this->buildAwardExperienceRow($exp)));
+                    $this->writer->addRow($this->row($this->buildAwardExperienceRow($exp)));
                 }
             });
     }
@@ -696,7 +695,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             ->with(['user', 'userSkills.skill'])
             ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $this->writer->addRow(Row::fromValues($this->buildCommunityExperienceRow($exp)));
+                    $this->writer->addRow($this->row($this->buildCommunityExperienceRow($exp)));
                 }
             });
     }
@@ -772,7 +771,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             ->with(['user', 'userSkills.skill'])
             ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $this->writer->addRow(Row::fromValues($this->buildPersonalExperienceRow($exp)));
+                    $this->writer->addRow($this->row($this->buildPersonalExperienceRow($exp)));
                 }
             });
     }
@@ -1113,7 +1112,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 $communityProgramIdsMap[$cdp->community_id][] = $cdp->development_program_id;
             });
 
-        $this->writer->addRow(Row::fromValues([
+        $this->writer->addRow($this->row([
             ...$localizedHeadersPart1,
             ...$generatedHeaders,
             ...$localizedHeadersPart2,
@@ -1132,7 +1131,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             ])
             ->chunk(200, function ($interests) use ($developmentProgramIds, $communityProgramIdsMap) {
                 foreach ($interests as $interest) {
-                    $this->writer->addRow(Row::fromValues(
+                    $this->writer->addRow($this->row(
                         $this->buildCommunityInterestRow($interest, $developmentProgramIds, $communityProgramIdsMap)
                     ));
                 }

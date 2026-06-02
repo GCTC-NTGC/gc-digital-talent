@@ -35,7 +35,6 @@ use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
-use OpenSpout\Common\Entity\Row;
 use OpenSpout\Writer\XLSX\Writer;
 
 class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
@@ -212,7 +211,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             return $this->localizeHeading($key);
         }, $this->overviewLocaleKeys);
 
-        $this->writer->addRow(Row::fromValues($localizedHeaders));
+        $this->writer->addRow($this->row($localizedHeaders));
 
         $query = $this->buildQuery();
         $query->chunk(200, function ($talentNominationGroups) {
@@ -244,7 +243,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     $this->canShare($consentToShare, $this->isNominatedForDevelopmentPrograms($talentNominationGroup) ? $this->sanitizeString(strip_tags($talentNominationGroup->development_programs_notes ?? '')) : ''),
                 ];
 
-                $this->writer->addRow(Row::fromValues($values));
+                $this->writer->addRow($this->row($values));
             }
         });
     }
@@ -258,7 +257,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             return $this->localizeHeading($key);
         }, $this->userProfileHeaderKeys);
 
-        $this->writer->addRow(Row::fromValues($localizedHeaders));
+        $this->writer->addRow($this->row($localizedHeaders));
 
         $processedUserIds = [];
         $query = $this->buildQuery();
@@ -401,7 +400,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     $this->canShare($consentToShare, $offPlatformProcesses->join(', ')),
                 ];
 
-                $this->writer->addRow(Row::fromValues($values));
+                $this->writer->addRow($this->row($values));
             }
         });
     }
@@ -415,7 +414,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             return $this->localizeHeading($key);
         }, $this->nominationDetailsHeaderKeys);
 
-        $this->writer->addRow(Row::fromValues($localizedHeaders));
+        $this->writer->addRow($this->row($localizedHeaders));
 
         $query = $this->buildQuery();
         $query->chunk(200, function ($talentNominationGroups) {
@@ -461,7 +460,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                         $this->canShare($consentToShare, $nomination->additional_comments ?? ''), // additional comments
                     ];
 
-                    $this->writer->addRow(Row::fromValues($values));
+                    $this->writer->addRow($this->row($values));
                 }
             }
         });
