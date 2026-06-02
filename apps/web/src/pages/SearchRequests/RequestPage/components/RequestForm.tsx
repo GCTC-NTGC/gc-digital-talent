@@ -102,6 +102,8 @@ export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
     id
     group
     level
+    groupAndLevel
+    displayName
   }
 `);
 
@@ -136,6 +138,8 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
           id
           group
           level
+          groupAndLevel
+          displayName
         }
         workStream {
           id
@@ -216,7 +220,7 @@ export interface RequestFormProps {
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
+  selectedClassifications: Pick<Classification, "groupAndLevel">[];
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<CreateRequestMutation["createPoolCandidateSearchRequest"]>;
@@ -753,7 +757,7 @@ const RequestFormApi = ({
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
+  selectedClassifications: Pick<Classification, "groupAndLevel">[];
 }) => {
   const intl = useIntl();
   const [{ data: lookupData, fetching, error }] = useQuery({

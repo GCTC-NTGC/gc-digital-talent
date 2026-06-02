@@ -62,8 +62,7 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
         }
         classification {
           id
-          group
-          level
+          groupAndLevel
         }
         workStream {
           id

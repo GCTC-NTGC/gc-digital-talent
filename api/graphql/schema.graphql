@@ -772,6 +772,8 @@ type Classification {
   maxSalary: Int @rename(attribute: "max_salary")
   genericJobTitles: [GenericJobTitle] @belongsToMany
   isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
+  groupAndLevel: String! @rename(attribute: "formattedGroupAndLevel")
+  displayName: String!
 }
 
 type GenericJobTitle {

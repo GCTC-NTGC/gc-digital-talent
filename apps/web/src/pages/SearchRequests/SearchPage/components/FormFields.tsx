@@ -32,7 +32,6 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 
 import { NullSelection } from "~/types/searchRequest";
-import { formatClassificationString } from "~/utils/poolUtils";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
 import processMessages from "~/messages/processMessages";
 import messages from "~/messages/profileMessages";
@@ -41,7 +40,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import FilterBlock from "./FilterBlock";
 import AdvancedFilters from "./AdvancedFilters";
-import { getClassificationAriaLabel, getClassificationLabel } from "../utils";
+import { getClassificationAriaLabel } from "../utils";
 
 const SearchRequestOptions_Query = graphql(/* GraphQL */ `
   query SearchRequestOptions {
@@ -71,7 +70,7 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
 `);
 
 interface FormFieldsProps {
-  classifications: Pick<Classification, "group" | "level" | "name">[];
+  classifications: Classification[];
   skills: Skill[];
   workStreams: WorkStream[];
 }
@@ -92,8 +91,8 @@ const FormFields = ({
   });
 
   const classificationOptions = classifications.map((classification) => ({
-    value: formatClassificationString(classification),
-    label: getClassificationLabel(classification, intl),
+    value: classification.groupAndLevel,
+    label: classification.displayName,
     ariaLabel: getClassificationAriaLabel(classification),
   }));
 

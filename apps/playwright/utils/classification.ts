@@ -8,6 +8,8 @@ const Test_ClassificationsQueryDocument = /* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
   }
 `;

@@ -106,7 +106,7 @@ export const candidateNameCell = (
 
 export const processCell = (
   pool: Pick<Pool, "id" | "workStream" | "name" | "publishingGroup"> & {
-    classification?: Maybe<Pick<Classification, "group" | "level">>;
+    classification?: Maybe<Pick<Classification, "groupAndLevel">>;
   },
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,

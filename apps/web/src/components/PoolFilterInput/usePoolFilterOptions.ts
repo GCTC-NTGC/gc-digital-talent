@@ -46,8 +46,7 @@ const PoolFilter_Query = graphql(/* GraphQL */ `
         }
         classification {
           id
-          group
-          level
+          groupAndLevel
         }
       }
       paginatorInfo {

@@ -11,7 +11,6 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import { getClassificationName } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
 import type { DisplayProps } from "../../types";
@@ -108,9 +107,7 @@ const Display = ({
           hasError={!classification}
           label={intl.formatMessage(processMessages.classification)}
         >
-          {classification
-            ? getClassificationName(classification, intl)
-            : notProvided}
+          {classification?.displayName ?? notProvided}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!workStream}

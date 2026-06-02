@@ -4,7 +4,7 @@ import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import type { Locales } from "@gc-digital-talent/i18n";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Link, Chip, UNICODE_CHAR } from "@gc-digital-talent/ui";
+import { Link, Chip } from "@gc-digital-talent/ui";
 import type {
   Classification,
   FragmentType,
@@ -52,29 +52,12 @@ export function viewCell(
   );
 }
 
-export function classificationAccessor(
-  classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
-) {
-  return classification
-    ? `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`
-    : "";
-}
-
 export function classificationCell(
-  classification: Maybe<Pick<Classification, "group" | "level">> | undefined,
+  classification: Maybe<Pick<Classification, "groupAndLevel">> | undefined,
 ) {
   if (!classification) return null;
 
-  return (
-    <Chip color="primary">
-      <>
-        {classification.group}
-        <span>{UNICODE_CHAR.HYPHEN}</span>
-        {classification.level < 10 ? "0" : ""}
-        {classification.level}
-      </>
-    </Chip>
-  );
+  return <Chip color="primary">{classification.groupAndLevel}</Chip>;
 }
 
 interface TransformPoolInputArgs {

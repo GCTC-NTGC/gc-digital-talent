@@ -70,6 +70,7 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
     }
     supervisoryStatuses: localizedEnumStrings(enumName: "SupervisoryStatus") {
       value
@@ -113,6 +114,8 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
         id
         group
         level
+        groupAndLevel
+        displayName
       }
       referenceId
     }
@@ -135,7 +138,7 @@ function previewMetaData(
     metaData.push({
       key: classification.id,
       type: "chip",
-      children: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
+      children: classification.groupAndLevel,
     } satisfies PreviewMetaData);
   }
 
@@ -366,7 +369,7 @@ const JobPosterTemplatesPage = () => {
                         .sort((a, b) => a.level - b.level)
                         .map((classification) => ({
                           value: classification.id,
-                          label: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
+                          label: classification.groupAndLevel,
                         }))}
                     />
                     <Checklist

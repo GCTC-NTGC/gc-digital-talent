@@ -1,8 +1,3 @@
-import type { IntlShape } from "react-intl";
-
-import type { Option } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 import type {
   PoolOpportunityLength,
   Classification,
@@ -82,13 +77,3 @@ export const formValuesToSubmitData = (
   publishingGroup: formValues.publishingGroup ?? undefined, // can't be set to null, assume not updating if empty
   opportunityLength: formValues.opportunityLength ?? undefined, // can't be set to null, assume not updating if empty
 });
-
-export const getClassificationOptions = (
-  classifications: readonly Classification[],
-  intl: IntlShape,
-): Option[] => {
-  return classifications.filter(notEmpty).map(({ id, group, level, name }) => ({
-    value: id,
-    label: `${group}-${level < 10 ? "0" : ""}${level} (${getLocalizedName(name, intl)})`,
-  }));
-};

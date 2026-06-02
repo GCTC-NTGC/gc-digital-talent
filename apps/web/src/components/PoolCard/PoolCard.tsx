@@ -57,8 +57,7 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
     }
     classification {
       id
-      group
-      level
+      groupAndLevel
       minSalary
       maxSalary
     }
@@ -190,10 +189,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
   );
 
   const classificationAbbr = pool.classification
-    ? wrapAbbr(
-        `${pool.classification.group}-${pool.classification.level < 10 ? "0" : ""}${pool.classification.level}`,
-        intl,
-      )
+    ? wrapAbbr(pool.classification.groupAndLevel, intl)
     : "";
   const salaryRange = getSalaryRange(locale, pool.classification);
 
