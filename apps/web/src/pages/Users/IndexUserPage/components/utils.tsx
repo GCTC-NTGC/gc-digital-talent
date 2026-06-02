@@ -8,7 +8,6 @@ import {
 } from "@gc-digital-talent/helpers";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 import type {
-  InputMaybe,
   OrderByClause,
   RoleAssignment,
   UserFilterInput,
@@ -48,7 +47,7 @@ export function transformUserInput(
   filterState: UserFilterInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): InputMaybe<UserFilterInput> | undefined {
+): UserFilterInput | null | undefined {
   if (
     filterState === undefined &&
     searchBarTerm === undefined &&

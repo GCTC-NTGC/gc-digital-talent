@@ -5,7 +5,6 @@ import { useCallback, useEffect } from "react";
 
 import type {
   FragmentType,
-  Maybe,
   Scalars,
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
@@ -47,7 +46,7 @@ interface FormValues extends BaseFormValues {
   role?: SubmitterRole;
   submitterRelationshipToNominator?: TalentNominationSubmitterRelationshipToNominator;
   submitterRelationshipToNominatorOther?: string;
-  nominator?: Maybe<Scalars["UUID"]["input"]>;
+  nominator?: Scalars["UUID"]["input"] | null;
   nominatorReview?: TalentNominationUserReview;
   nominatorFallbackWorkEmail?: string;
   nominatorFallbackName?: string;
@@ -413,7 +412,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
     talentNomination.submitter?.id === talentNomination.nominator?.id;
 
   let defaultRole: SubmitterRole | undefined;
-  let defaultNominator: Maybe<string> | undefined;
+  let defaultNominator: string | null | undefined;
   if (talentNomination.submitter?.id && nominatorSet) {
     defaultRole = submitterIsNominator ? "nominator" : "on-behalf";
   }

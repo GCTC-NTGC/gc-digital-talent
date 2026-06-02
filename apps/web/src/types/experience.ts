@@ -19,7 +19,6 @@ import type {
   EducationType,
   Exact,
   LocalizedString,
-  Maybe,
   PersonalExperience,
   PersonalExperienceInput,
   Scalars,
@@ -56,9 +55,9 @@ export type AnyExperience =
   | Omit<WorkExperience, "user">;
 
 export interface ExperienceForDate extends SimpleAnyExperience {
-  awardedDate?: Maybe<string>;
-  startDate?: Maybe<string>;
-  endDate?: Maybe<string>;
+  awardedDate?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
 }
 
 interface FormValueDateRange {
@@ -138,7 +137,7 @@ export type AllExperienceFormValues = AwardFormValues &
   };
 
 export interface FormSkill {
-  id?: Maybe<string>;
+  id?: string | null;
   skillId: string;
   details: string;
   name: LocalizedString;
@@ -147,7 +146,7 @@ export type FormSkills = FormSkill[];
 
 export type ExperienceFormValues<T> = T & {
   details: string;
-  skills?: Maybe<FormSkills>;
+  skills?: FormSkills | null;
 };
 
 export interface SubExperienceFormProps {
@@ -189,10 +188,10 @@ export interface ExperienceDetailsSubmissionData {
   cafRank?: CafRank | null;
   skills?: {
     sync?:
-      | ({ id: string; details: Maybe<string> | undefined } | undefined)[]
+      | ({ id: string; details: string | null | undefined } | undefined)[]
       | undefined;
     connect?:
-      | ({ id: string; details: Maybe<string> | undefined } | undefined)[]
+      | ({ id: string; details: string | null | undefined } | undefined)[]
       | undefined;
   };
   workStreams?: {

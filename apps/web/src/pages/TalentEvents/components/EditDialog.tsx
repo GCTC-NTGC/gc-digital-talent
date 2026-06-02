@@ -10,7 +10,6 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import type { Maybe } from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 
@@ -31,7 +30,7 @@ export interface FormValues {
 interface EditDialogProps {
   communityDevelopmentProgramId: string;
   developmentProgramOptions: {
-    label: Maybe<string> | undefined;
+    label: string | null | undefined;
     value: string;
   }[];
   onSubmit: SubmitHandler<FormValues>;

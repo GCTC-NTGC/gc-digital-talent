@@ -16,7 +16,6 @@ import { toast } from "@gc-digital-talent/toast";
 import type {
   CreateCommunityInput,
   LocalizedStringInput,
-  Maybe,
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
@@ -32,10 +31,10 @@ const TEXT_AREA_MAX_WORDS_FR = Math.round(
 
 interface FormValues {
   key: string;
-  name?: Maybe<LocalizedStringInput>;
-  informationUrl?: Maybe<LocalizedStringInput>;
-  description?: Maybe<LocalizedStringInput>;
-  mandateAuthority?: Maybe<LocalizedStringInput>;
+  name?: LocalizedStringInput | null;
+  informationUrl?: LocalizedStringInput | null;
+  description?: LocalizedStringInput | null;
+  mandateAuthority?: LocalizedStringInput | null;
   contactEmail: string;
 }
 

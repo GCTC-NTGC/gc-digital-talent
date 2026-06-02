@@ -19,7 +19,6 @@ import {
 import type {
   FragmentType,
   LocalizedStringInput,
-  Maybe,
   Scalars,
   UpdateDevelopmentProgramInput,
 } from "@gc-digital-talent/graphql";
@@ -35,8 +34,8 @@ import FormFields from "./FormFields";
 interface FormValues {
   name: LocalizedStringInput;
   descriptionForProfile: LocalizedStringInput;
-  informationUrl?: Maybe<LocalizedStringInput>;
-  abbreviation?: Maybe<LocalizedStringInput>;
+  informationUrl?: LocalizedStringInput | null;
+  abbreviation?: LocalizedStringInput | null;
 }
 
 export function formValuesToUpdateInput({

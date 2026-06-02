@@ -38,7 +38,6 @@ import {
 import type {
   EquitySelections,
   CreatePoolCandidateSearchRequestInput,
-  Maybe,
   DepartmentBelongsTo,
   Classification,
   OperationalRequirement,
@@ -77,19 +76,19 @@ interface FormValues {
   hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
     qualifiedInClassifications?: {
-      sync?: Maybe<Classification["id"]>[];
+      sync?: (Classification["id"] | null)[];
     };
     qualifiedInworkStreams?: ApplicantFilterInput["qualifiedInWorkStreams"];
     skills?: {
-      sync?: Maybe<Skill["id"]>[];
+      sync?: (Skill["id"] | null)[];
     };
     hasDiploma?: ApplicantFilterInput["hasDiploma"];
     positionDuration?: ApplicantFilterInput["positionDuration"];
     equity?: EquitySelections;
     languageAbility?: ApplicantFilter["languageAbility"];
-    operationalRequirements?: Maybe<OperationalRequirement>[];
+    operationalRequirements?: (OperationalRequirement | null)[];
     pools?: {
-      sync?: Maybe<Pool["id"]>[];
+      sync?: (Pool["id"] | null)[];
     };
     locationPreferences?: ApplicantFilterInput["locationPreferences"];
     flexibleWorkLocations?: ApplicantFilterInput["flexibleWorkLocations"];
@@ -217,8 +216,8 @@ export interface RequestFormProps {
     typeof RequestFormClassification_Fragment
   >[];
   communitiesQuery: FragmentType<typeof RequestFormCommunity_Fragment>[];
-  applicantFilter: Maybe<ApplicantFilterInput>;
-  candidateCount: Maybe<number>;
+  applicantFilter: ApplicantFilterInput | null;
+  candidateCount: number | null;
   searchFormInitialValues?: SearchFormValues;
   selectedClassifications: Pick<Classification, "groupAndLevel">[];
   handleCreatePoolCandidateSearchRequest: (
@@ -754,8 +753,8 @@ const RequestFormApi = ({
   searchFormInitialValues,
   selectedClassifications,
 }: {
-  applicantFilter: Maybe<ApplicantFilterInput>;
-  candidateCount: Maybe<number>;
+  applicantFilter: ApplicantFilterInput | null;
+  candidateCount: number | null;
   searchFormInitialValues?: SearchFormValues;
   selectedClassifications: Pick<Classification, "groupAndLevel">[];
 }) => {

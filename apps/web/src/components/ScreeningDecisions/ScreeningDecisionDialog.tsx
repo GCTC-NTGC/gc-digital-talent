@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import type {
-  FragmentType,
-  Maybe,
-  Scalars,
-  User,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars, User } from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
   getFragment,
@@ -104,9 +99,10 @@ const ScreeningDecisionDialog = ({
   const [isOpen, setOpen] = useState<boolean>(defaultOpen);
   const labels = useLabels();
   const candidate = getFragment(ScreeningDecisionDialog_Fragment, query);
-  const snapshot = JSON.parse(
-    String(candidate?.profileSnapshot),
-  ) as Maybe<User>;
+  const snapshot = JSON.parse(String(candidate?.profileSnapshot)) as
+    | User
+    | null
+    | undefined;
   const step = unpackMaybes(candidate?.pool.assessmentSteps).find(
     ({ id }) => id === stepId,
   );

@@ -6,7 +6,7 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { CandidateInterest, Maybe } from "@gc-digital-talent/graphql";
+import type { CandidateInterest } from "@gc-digital-talent/graphql";
 import { CandidateStatus } from "@gc-digital-talent/graphql";
 
 import { deadlineToApply } from "~/utils/poolCandidate";
@@ -31,7 +31,7 @@ interface ApplicationDateProps {
   closingDate?: string | null;
   submittedAt?: string | null;
   assessedDate?: string | null;
-  status?: Maybe<CandidateStatus>;
+  status?: CandidateStatus | null;
 }
 
 export const ApplicationDate = ({
@@ -115,7 +115,7 @@ export const ApplicationDate = ({
 
 interface RecruitmentDateProps {
   statusUpdatedAt?: string | null;
-  interest?: Maybe<CandidateInterest>;
+  interest?: CandidateInterest | null;
 }
 
 export const RecruitmentDate = ({
