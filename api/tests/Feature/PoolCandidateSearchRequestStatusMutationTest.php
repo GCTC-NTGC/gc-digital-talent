@@ -268,8 +268,8 @@ class PoolCandidateSearchRequestStatusMutationTest extends TestCase
     // Authorization
     //
     // Policy (PoolCandidateSearchRequestPolicy::update):
-    //   - grants access when user has update-any-searchRequest (no role has this)
-    //   - grants access when user has update-team-searchRequest on the request's community team
+    //   - grants access when user has update-any-talentRequest (no role has this)
+    //   - grants access when user has update-team-talentRequest on the request's community team
     //
     // From rolepermission.php seeders:
     //   community_recruiter → searchRequest.team.[view, update, delete]

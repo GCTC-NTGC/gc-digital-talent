@@ -8,10 +8,7 @@ import type { PreviewMetaData } from "@gc-digital-talent/ui";
 import { PreviewList, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import {
-  formatClassificationString,
-  getProcessStatusBadge,
-} from "~/utils/poolUtils";
+import { getProcessStatusBadge } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 
 const YourProcessesPreviewList_Fragment = graphql(/* GraphQL */ `
@@ -28,8 +25,7 @@ const YourProcessesPreviewList_Fragment = graphql(/* GraphQL */ `
       }
     }
     classification {
-      group
-      level
+      groupAndLevel
     }
     workStream {
       name {
@@ -92,10 +88,7 @@ const YourProcessesPreviewList = ({
                 key: "classification",
                 type: "text",
                 children: process.classification
-                  ? formatClassificationString({
-                      group: process.classification.group,
-                      level: process.classification.level,
-                    })
+                  ? process.classification.groupAndLevel
                   : intl.formatMessage(commonMessages.notFound),
               },
               {

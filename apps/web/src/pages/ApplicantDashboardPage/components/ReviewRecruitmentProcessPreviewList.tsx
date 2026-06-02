@@ -18,7 +18,6 @@ import {
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { getClassificationName } from "~/utils/poolUtils";
 import { candidateInterestChip } from "~/utils/poolCandidate";
 import { wrapAbbr } from "~/utils/nameUtils";
 import OffPlatformRecruitmentProcessList from "~/components/RecruitmentProcesses/OffPlatformRecruitmentProcessList";
@@ -54,10 +53,7 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
           localized
         }
         classification {
-          group
-          level
-          minSalary
-          maxSalary
+          displayName
         }
       }
     }
@@ -122,10 +118,7 @@ const ReviewRecruitmentProcessPreviewList = ({
                 key: "classification",
                 type: "text",
                 children: pool?.classification
-                  ? wrapAbbr(
-                      getClassificationName(pool?.classification, intl),
-                      intl,
-                    )
+                  ? wrapAbbr(pool.classification.displayName, intl)
                   : intl.formatMessage(commonMessages.notFound),
               },
               {

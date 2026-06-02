@@ -11,6 +11,8 @@ export const NextRoleInfo_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     nextRoleTargetRole {
       value
@@ -61,6 +63,8 @@ export const CareerObjectiveInfo_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     careerObjectiveTargetRole {
       value

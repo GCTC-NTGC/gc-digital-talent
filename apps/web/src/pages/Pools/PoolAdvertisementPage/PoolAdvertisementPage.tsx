@@ -52,7 +52,6 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   contactEmailTag,
-  formatClassificationString,
   getFullPoolTitleLabel,
   getShortPoolTitleLabel,
   isAdvertisementVisible,
@@ -192,11 +191,7 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
     classification {
       id
       group
-      level
-      name {
-        en
-        fr
-      }
+      groupAndLevel
       minSalary
       maxSalary
       genericJobTitles {
@@ -336,10 +331,7 @@ export const PoolPoster = ({
     classification?.genericJobTitles?.filter(notEmpty) ?? [];
   let classificationString = ""; // type wrangling the complex type into a string
   if (classification) {
-    classificationString = formatClassificationString({
-      group: classification?.group,
-      level: classification?.level,
-    });
+    classificationString = classification.groupAndLevel;
   }
   const poolTitle = getShortPoolTitleLabel(intl, {
     workStream: pool.workStream,

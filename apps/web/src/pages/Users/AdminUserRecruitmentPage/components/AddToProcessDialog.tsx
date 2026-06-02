@@ -68,8 +68,7 @@ const AvailableProcessesToAddTo_Query = graphql(/* GraphQL */ `
         }
         classification {
           id
-          group
-          level
+          groupAndLevel
         }
       }
     }

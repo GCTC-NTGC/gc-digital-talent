@@ -18,9 +18,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import messages from "~/messages/talentNominationMessages";
-import { getClassificationName } from "~/utils/poolUtils";
 import {
-  getNominatorClassification,
   getNominatorDepartment,
   getNominatorName,
   getNominatorWorkEmail,
@@ -62,14 +60,12 @@ const NominatorInfoDialog_NominationFragment = graphql(/* GraphQL */ `
       }
       classification {
         id
-        group
-        level
+        groupAndLevel
       }
     }
     nominatorFallbackClassification {
       id
-      group
-      level
+      groupAndLevel
     }
     nominatorFallbackDepartment {
       id
@@ -89,8 +85,7 @@ const NominatorInfoDialog_NominationFragment = graphql(/* GraphQL */ `
         }
       }
       classification {
-        group
-        level
+        groupAndLevel
       }
     }
   }
@@ -159,10 +154,10 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
     nominationQuery,
   );
 
-  const classificationToShow = getNominatorClassification(
-    nomination.nominator,
-    nomination.nominatorFallbackClassification,
-  );
+  const classificationToShow = nomination.nominator?.classification
+    ? nomination.nominator.classification.groupAndLevel
+    : nomination.nominatorFallbackClassification?.groupAndLevel;
+
   const departmentToShow = getNominatorDepartment(
     nomination.nominator,
     nomination.nominatorFallbackDepartment,
@@ -222,15 +217,8 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
             <FieldDisplay
               label={intl.formatMessage(messages.nominatorClassification)}
             >
-              {classificationToShow?.group && classificationToShow.level
-                ? getClassificationName(
-                    {
-                      group: classificationToShow.group,
-                      level: classificationToShow.level,
-                    },
-                    intl,
-                  )
-                : intl.formatMessage(commonMessages.notProvided)}
+              {classificationToShow ??
+                intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(messages.nominatorDepartmentAgency)}
@@ -282,16 +270,8 @@ const NominatorInfoDialog = ({ nominationQuery }: NominatorInfoDialogProps) => {
                 <FieldDisplay
                   label={intl.formatMessage(messages.submitterClassification)}
                 >
-                  {!!nomination.submitter?.classification?.group &&
-                  !!nomination.submitter.classification.level
-                    ? getClassificationName(
-                        {
-                          group: nomination.submitter.classification.group,
-                          level: nomination.submitter.classification.level,
-                        },
-                        intl,
-                      )
-                    : intl.formatMessage(commonMessages.notProvided)}
+                  {nomination.submitter?.classification?.groupAndLevel ??
+                    intl.formatMessage(commonMessages.notProvided)}
                 </FieldDisplay>
                 <FieldDisplay
                   label={intl.formatMessage(messages.submitterDepartmentAgency)}
