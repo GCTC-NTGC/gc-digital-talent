@@ -16,10 +16,10 @@ final class CreateTalentRequestValidator extends Validator
     {
         return [
             'talentRequest.fullName' => ['required', 'string', 'max:255'],
-            'talentRequest.email' => ['required', 'email', new GovernmentEmailRegex()],
+            'talentRequest.email' => ['required', 'email', new GovernmentEmailRegex(), 'max:255'],
             'talentRequest.jobTitle' => ['required', 'string', 'max:255'],
             'talentRequest.additionalComments' => ['nullable', 'string'],
-            'talentRequest.hrAdvisorEmail' => ['nullable', 'email'],
+            'talentRequest.hrAdvisorEmail' => ['nullable', 'email', 'max:255'],
             'talentRequest.managerJobTitle' => ['required', 'string', 'max:255'],
             'talentRequest.positionType' => [
                 'required',
