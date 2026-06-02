@@ -61,7 +61,7 @@ class Classification extends Model
     }
 
     /**
-     * Get the formatted classification name, e.g. IT-01: Information technology
+     * Get the formatted classification name, e.g. IT-01: Information Technology
      */
     protected function displayName(): Attribute
     {
