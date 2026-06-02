@@ -30,7 +30,7 @@ export interface FormValues {
 
 interface AddDialogProps {
   developmentProgramOptions: {
-    label: string | null;
+    label: string | null | undefined;
     value: string;
   }[];
   onSubmit: SubmitHandler<FormValues>;

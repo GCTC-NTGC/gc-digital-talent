@@ -107,21 +107,22 @@ type NominationOption =
   | "developmentProgram";
 
 interface FormValues extends BaseFormValues {
-  nominationOptions: (NominationOption | null)[];
-  advancementReference: Scalars["UUID"]["input"] | null;
+  nominationOptions: (NominationOption | null | undefined)[];
+  advancementReference: Scalars["UUID"]["input"] | null | undefined;
   advancementReferenceReview?: TalentNominationUserReview;
-  advancementReferenceFallbackWorkEmail: string | null;
-  advancementReferenceFallbackName: string | null;
+  advancementReferenceFallbackWorkEmail: string | null | undefined;
+  advancementReferenceFallbackName: string | null | undefined;
   advancementReferenceFallbackClassification: Scalars["UUID"]["input"];
-  advancementReferenceFallbackClassificationGroup: string | null;
-  advancementReferenceFallbackClassificationLevel: string | null;
+  advancementReferenceFallbackClassificationGroup: string | null | undefined;
+  advancementReferenceFallbackClassificationLevel: string | null | undefined;
   advancementReferenceFallbackDepartment: Scalars["UUID"]["input"];
   lateralMovementOptions:
     | TalentNominationLateralMovementOption[]
-    | null;
-  lateralMovementOptionsOther: string | null;
+    | null
+    | undefined;
+  lateralMovementOptionsOther: string | null | undefined;
   communityDevelopmentPrograms: Scalars["UUID"]["input"][];
-  developmentProgramOptionsOther: string | null;
+  developmentProgramOptionsOther: string | null | undefined;
 }
 
 type DetailsFieldsOptionsFragmentType = FragmentType<
@@ -691,7 +692,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     return null;
   };
 
-  let nominationOptions: (NominationOption | null)[] = [];
+  let nominationOptions: (NominationOption | null | undefined)[] = [];
   if (talentNomination?.nominateForAdvancement) {
     nominationOptions = [...nominationOptions, "advancement"];
   }
@@ -706,7 +707,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     !!talentNomination.advancementReference?.id ||
     !!talentNomination.advancementReferenceFallbackName;
 
-  let defaultReference: string | null;
+  let defaultReference: string | null | undefined;
 
   if (referenceSet) {
     defaultReference = talentNomination.advancementReference?.id ?? null;

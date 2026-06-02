@@ -17,7 +17,7 @@ import pageTitles from "~/messages/pageTitles";
 import ContentSection from "../ContentSection";
 
 interface WorkStreamsContentProps {
-  workStreams?: WorkStream[] | null;
+  workStreams?: WorkStream[] | null | undefined;
   headingLevel?: HeadingRank;
 }
 

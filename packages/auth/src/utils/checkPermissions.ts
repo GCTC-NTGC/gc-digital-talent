@@ -2,7 +2,7 @@ import type { Permission, RoleAssignment } from "@gc-digital-talent/graphql";
 
 export interface PermissionRequirement {
   permission: Permission;
-  teamId?: string | null;
+  teamId?: string | null | undefined;
 }
 
 /**
@@ -13,7 +13,7 @@ export interface PermissionRequirement {
  */
 const checkPermissions = (
   requirements: PermissionRequirement | PermissionRequirement[],
-  roleAssignments: (RoleAssignment | null)[] | null,
+  roleAssignments: (RoleAssignment | null | undefined)[] | null | undefined,
 ): boolean => {
   const assignments = (roleAssignments ?? []).filter(
     (a): a is RoleAssignment => !!a && !!a.role,

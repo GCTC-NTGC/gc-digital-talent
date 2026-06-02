@@ -5,7 +5,7 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import type { Skill } from "@gc-digital-talent/graphql";
 
 interface SkillDescriptionProps {
-  skill?: Skill | null;
+  skill?: Skill | null | undefined;
 }
 
 const SkillDescription = ({ skill }: SkillDescriptionProps) => {

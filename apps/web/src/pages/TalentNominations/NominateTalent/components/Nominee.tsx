@@ -33,7 +33,7 @@ interface FormValues extends BaseFormValues {
   nominee: Scalars["UUID"]["input"];
   nomineeReview: TalentNominationUserReview;
   nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator;
-  nomineeRelationshipToNominatorOther?: string | null;
+  nomineeRelationshipToNominatorOther?: string | null | undefined;
 }
 
 const NomineeFieldOptions_Fragment = graphql(/* GraphQL */ `

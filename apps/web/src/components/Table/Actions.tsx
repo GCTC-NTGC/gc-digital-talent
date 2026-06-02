@@ -6,7 +6,7 @@ import { Link } from "@gc-digital-talent/ui";
 
 export interface ActionsProps {
   id: string;
-  label?: string | null;
+  label?: string | null | undefined;
   editPathFunc: (id: string) => string;
 }
 

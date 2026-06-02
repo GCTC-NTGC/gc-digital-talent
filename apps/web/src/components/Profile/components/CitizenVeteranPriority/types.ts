@@ -6,6 +6,6 @@ import type {
 export interface FormValues {
   priorityEntitlementYesNo?: "yes" | "no";
   priorityEntitlementNumber?: string;
-  armedForcesStatus?: ArmedForcesStatus | null;
-  citizenship?: CitizenshipStatus | null;
+  armedForcesStatus?: ArmedForcesStatus | null | undefined;
+  citizenship?: CitizenshipStatus | null | undefined;
 }

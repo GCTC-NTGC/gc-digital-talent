@@ -11,12 +11,12 @@ import profileMessages from "~/messages/profileMessages";
 import type { SnapshotProps } from "../types";
 
 export interface PersonalInformationSnapshotV1 {
-  firstName: string | null;
-  lastName: string | null;
-  email: string | null;
-  isEmailVerified: boolean | null;
-  telephone: string | null;
-  preferredLang: LocalizedLanguage | null;
+  firstName: string | null | undefined;
+  lastName: string | null | undefined;
+  email: string | null | undefined;
+  isEmailVerified: boolean | null | undefined;
+  telephone: string | null | undefined;
+  preferredLang: LocalizedLanguage | null | undefined;
 }
 
 type PersonalInformationV1Props = SnapshotProps<PersonalInformationSnapshotV1>;

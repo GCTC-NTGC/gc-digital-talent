@@ -46,21 +46,22 @@ const getBilingualEvaluation = (
   );
 
 export interface LanguageProfileSnapshotV1 {
-  lookingForEnglish?: boolean | null;
-  lookingForFrench?: boolean | null;
-  lookingForBilingual?: boolean | null;
-  firstOfficialLanguage?: LocalizedLanguage | null;
-  secondLanguageExamCompleted?: boolean | null;
-  secondLanguageExamValidity?: boolean | null;
+  lookingForEnglish?: boolean | null | undefined;
+  lookingForFrench?: boolean | null | undefined;
+  lookingForBilingual?: boolean | null | undefined;
+  firstOfficialLanguage?: LocalizedLanguage | null | undefined;
+  secondLanguageExamCompleted?: boolean | null | undefined;
+  secondLanguageExamValidity?: boolean | null | undefined;
   estimatedLanguageAbility?:
     | LocalizedEstimatedLanguageAbility
-    | null;
-  writtenLevel?: LocalizedEvaluatedLanguageAbility | null;
-  comprehensionLevel?: LocalizedEvaluatedLanguageAbility | null;
-  verbalLevel?: LocalizedEvaluatedLanguageAbility | null;
-  bilingualEvaluation?: BilingualEvaluation | null;
-  preferredLanguageForInterview?: LocalizedLanguage | null;
-  preferredLanguageForExam: LocalizedLanguage | null;
+    | null
+    | undefined;
+  writtenLevel?: LocalizedEvaluatedLanguageAbility | null | undefined;
+  comprehensionLevel?: LocalizedEvaluatedLanguageAbility | null | undefined;
+  verbalLevel?: LocalizedEvaluatedLanguageAbility | null | undefined;
+  bilingualEvaluation?: BilingualEvaluation | null | undefined;
+  preferredLanguageForInterview?: LocalizedLanguage | null | undefined;
+  preferredLanguageForExam: LocalizedLanguage | null | undefined;
 }
 
 type LanguageProfileV1Props = SnapshotProps<LanguageProfileSnapshotV1>;

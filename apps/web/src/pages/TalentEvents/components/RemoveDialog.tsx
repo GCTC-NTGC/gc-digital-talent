@@ -6,7 +6,7 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 
 interface RemoveDialogProps {
   communityDevelopmentProgramId: string;
-  title?: string | null;
+  title?: string | null | undefined;
   onRemove: () => void;
   open: boolean;
   setOpen: Dispatch<SetStateAction<string | null>>;

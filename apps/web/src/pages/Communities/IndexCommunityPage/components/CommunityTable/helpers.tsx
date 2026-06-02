@@ -9,7 +9,7 @@ import type { MyRoleTeam } from "./types";
 
 export function viewCell(
   url: string,
-  label: string | null,
+  label: string | null | undefined,
   intl: IntlShape,
   currentUrl?: string,
 ) {

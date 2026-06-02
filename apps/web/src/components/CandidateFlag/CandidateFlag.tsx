@@ -31,7 +31,7 @@ export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
 
 interface CandidateFlagProps {
   candidateQuery: FragmentType<typeof PoolCandidate_FlagFragment>;
-  processTitle?: string | null;
+  processTitle?: string | null | undefined;
   onFlagChange?: (newIsFlagged: boolean) => void;
   flagged?: boolean;
   size?: "sm" | "md" | "lg";

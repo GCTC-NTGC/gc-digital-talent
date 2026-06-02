@@ -43,7 +43,7 @@ export const actionCell = (
 );
 
 export function emailLinkCell(
-  email: string | null,
+  email: string | null | undefined,
   intl: IntlShape,
 ) {
   if (email) {
@@ -67,8 +67,9 @@ export function emailLinkCell(
 
 export function roleCell(
   roles:
-    | (ManageAccessPagePoolFragmentRoleType | null)[]
-    | null,
+    | (ManageAccessPagePoolFragmentRoleType | null | undefined)[]
+    | null
+    | undefined,
   intl: IntlShape,
 ) {
   const nonEmptyRoles = roles?.filter(notEmpty);
@@ -85,8 +86,9 @@ export function roleCell(
 
 export function roleAccessor(
   roles:
-    | (ManageAccessPagePoolFragmentRoleType | null)[]
-    | null,
+    | (ManageAccessPagePoolFragmentRoleType | null | undefined)[]
+    | null
+    | undefined,
   intl: IntlShape,
 ) {
   const nonEmptyRoles = roles?.filter(notEmpty);

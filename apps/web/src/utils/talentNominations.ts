@@ -13,10 +13,11 @@ import { getFullNameLabel } from "./nameUtils";
 
 interface NominationsWithNominatorName {
   id: Scalars["UUID"]["output"];
-  nominatorFallbackName?: string | null;
+  nominatorFallbackName?: string | null | undefined;
   nominator?:
     | Pick<BasicGovEmployeeProfile, "firstName" | "lastName">
-    | null;
+    | null
+    | undefined;
 }
 
 export function getSortedNominatorNames(
@@ -85,7 +86,7 @@ export function getNominatorWorkEmail(
  */
 export function getNominatorClassification(
   nominator: Pick<BasicGovEmployeeProfile, "classification"> | null | undefined,
-  nominatorFallbackClassification: Classification | null,
+  nominatorFallbackClassification: Classification | null | undefined,
 ): Classification | null {
   if (nominator) {
     return nominator.classification ?? null;
@@ -98,7 +99,7 @@ export function getNominatorClassification(
  */
 export function getNominatorDepartment(
   nominator: Pick<BasicGovEmployeeProfile, "department"> | null | undefined,
-  nominatorFallbackDepartment: Department | null,
+  nominatorFallbackDepartment: Department | null | undefined,
 ): Department | null {
   if (nominator) {
     return nominator.department ?? null;

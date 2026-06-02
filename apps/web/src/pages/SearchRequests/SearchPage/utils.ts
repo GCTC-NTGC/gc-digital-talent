@@ -40,7 +40,7 @@ export const getClassificationAriaLabel = ({
  * from applicant filters and location state.
  *
  * As well as transforming it to a useable string.
- * @param {Classification[] | null} selectedClassifications
+ * @param {Classification[] | null | undefined} selectedClassifications
  * @returns {string}
  */
 const getCurrentClassification = (

@@ -14,7 +14,7 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
  */
 export const checkRole = (
   checkRoles: RoleName[] | null,
-  userRoleAssignments: RoleAssignment[] | null,
+  userRoleAssignments: RoleAssignment[] | null | undefined,
 ): boolean => {
   if (!checkRoles) {
     return true;

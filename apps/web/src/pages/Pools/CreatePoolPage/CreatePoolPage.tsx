@@ -78,7 +78,7 @@ export const CreatePoolCommunity_Fragment = graphql(/* GraphQL */ `
 export interface RoleObject {
   id: string;
   name: string;
-  displayName?: string | null;
+  displayName?: string | null | undefined;
 }
 
 interface FormValues {

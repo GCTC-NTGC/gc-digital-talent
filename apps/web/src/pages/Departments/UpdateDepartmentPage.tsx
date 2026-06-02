@@ -46,9 +46,9 @@ import type { Route } from "./+types/UpdateDepartmentPage";
 
 interface FormValues {
   name?: LocalizedStringInput;
-  departmentNumber: number | null;
-  orgIdentifier: number | null;
-  size: DepartmentSize | null;
+  departmentNumber: number | null | undefined;
+  orgIdentifier: number | null | undefined;
+  size: DepartmentSize | null | undefined;
   departmentType: DepartmentType[] | boolean;
 }
 

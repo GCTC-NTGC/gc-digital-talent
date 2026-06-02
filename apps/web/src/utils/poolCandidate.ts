@@ -66,7 +66,7 @@ interface StatusChip {
  * assessment progress than that shown to applicants.
  */
 export const getApplicationStatusChip = (
-  status: LocalizedApplicationStatus | null,
+  status: LocalizedApplicationStatus | null | undefined,
   intl: IntlShape,
 ): StatusChip => {
   return {

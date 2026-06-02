@@ -26,7 +26,7 @@ import cells from "~/components/Table/cells";
 
 export function classificationsAccessor(
   classifications:
-    | (Pick<Classification, "groupAndLevel"> | null)[]
+    | (Pick<Classification, "groupAndLevel"> | null | undefined)[]
     | undefined,
 ) {
   return classifications
@@ -37,7 +37,7 @@ export function classificationsAccessor(
 
 export function classificationsCell(
   classifications:
-    | (Pick<Classification, "id" | "groupAndLevel"> | null)[]
+    | (Pick<Classification, "id" | "groupAndLevel"> | null | undefined)[]
     | undefined,
   intl: IntlShape,
 ) {

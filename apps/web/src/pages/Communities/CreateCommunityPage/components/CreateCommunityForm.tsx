@@ -31,10 +31,10 @@ const TEXT_AREA_MAX_WORDS_FR = Math.round(
 
 interface FormValues {
   key: string;
-  name?: LocalizedStringInput | null;
-  informationUrl?: LocalizedStringInput | null;
-  description?: LocalizedStringInput | null;
-  mandateAuthority?: LocalizedStringInput | null;
+  name?: LocalizedStringInput | null | undefined;
+  informationUrl?: LocalizedStringInput | null | undefined;
+  description?: LocalizedStringInput | null | undefined;
+  mandateAuthority?: LocalizedStringInput | null | undefined;
   contactEmail: string;
 }
 

@@ -8,7 +8,7 @@ import type {
 } from "@gc-digital-talent/graphql";
 import { PoolAreaOfSelection } from "@gc-digital-talent/graphql";
 
-type PartialLanguage = Pick<LocalizedLanguage, "value"> | null;
+type PartialLanguage = Pick<LocalizedLanguage, "value"> | null | undefined;
 
 export interface PartialUser extends Pick<
   User,
@@ -23,10 +23,11 @@ export interface PartialUser extends Pick<
   preferredLang?: PartialLanguage;
   preferredLanguageForInterview?: PartialLanguage;
   preferredLanguageForExam?: PartialLanguage;
-  citizenship?: Pick<LocalizedCitizenshipStatus, "value"> | null;
+  citizenship?: Pick<LocalizedCitizenshipStatus, "value"> | null | undefined;
   armedForcesStatus?:
     | Pick<LocalizedArmedForcesStatus, "value">
-    | null;
+    | null
+    | undefined;
 }
 
 export function hasAllEmptyFields({

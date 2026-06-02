@@ -17,7 +17,7 @@ export type SectionKey =
 export interface SectionProps<P = void> {
   isUpdating?: boolean;
   application?: Application_PoolCandidateFragment;
-  pool?: P | null;
+  pool?: P | null | undefined;
   onUpdate: (
     id: string,
     user: UpdateUserAsUserInput,

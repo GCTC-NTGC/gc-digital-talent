@@ -17,8 +17,8 @@ export type ErrorSeverities = Record<ErrorMessageKey, ErrorSeverity>;
 export interface EmployeeSearchResult {
   id: string;
   workEmail: string;
-  firstName?: string | null;
-  lastName?: string | null;
-  role?: string | null;
-  department?: string | null;
+  firstName?: string | null | undefined;
+  lastName?: string | null | undefined;
+  role?: string | null | undefined;
+  department?: string | null | undefined;
 }

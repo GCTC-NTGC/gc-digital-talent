@@ -76,19 +76,19 @@ interface FormValues {
   hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
     qualifiedInClassifications?: {
-      sync?: (Classification["id"] | null)[];
+      sync?: (Classification["id"] | null | undefined)[];
     };
     qualifiedInworkStreams?: ApplicantFilterInput["qualifiedInWorkStreams"];
     skills?: {
-      sync?: (Skill["id"] | null)[];
+      sync?: (Skill["id"] | null | undefined)[];
     };
     hasDiploma?: ApplicantFilterInput["hasDiploma"];
     positionDuration?: ApplicantFilterInput["positionDuration"];
     equity?: EquitySelections;
     languageAbility?: ApplicantFilter["languageAbility"];
-    operationalRequirements?: (OperationalRequirement | null)[];
+    operationalRequirements?: (OperationalRequirement | null | undefined)[];
     pools?: {
-      sync?: (Pool["id"] | null)[];
+      sync?: (Pool["id"] | null | undefined)[];
     };
     locationPreferences?: ApplicantFilterInput["locationPreferences"];
     flexibleWorkLocations?: ApplicantFilterInput["flexibleWorkLocations"];
@@ -216,13 +216,13 @@ export interface RequestFormProps {
     typeof RequestFormClassification_Fragment
   >[];
   communitiesQuery: FragmentType<typeof RequestFormCommunity_Fragment>[];
-  applicantFilter: ApplicantFilterInput | null;
-  candidateCount: number | null;
+  applicantFilter: ApplicantFilterInput | null | undefined;
+  candidateCount: number | null | undefined;
   searchFormInitialValues?: SearchFormValues;
   selectedClassifications?: (
     | Pick<Classification, "groupAndLevel">
     | null
-
+    | undefined
   )[];
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
@@ -757,11 +757,12 @@ const RequestFormApi = ({
   searchFormInitialValues,
   selectedClassifications,
 }: {
-  applicantFilter: ApplicantFilterInput | null;
-  candidateCount: number | null;
+  applicantFilter: ApplicantFilterInput | null | undefined;
+  candidateCount: number | null | undefined;
   searchFormInitialValues?: SearchFormValues;
   selectedClassifications?:
-    | (Pick<Classification, "groupAndLevel"> | null)[];
+    | (Pick<Classification, "groupAndLevel"> | null | undefined)[]
+    | undefined;
 }) => {
   const intl = useIntl();
   const [{ data: lookupData, fetching, error }] = useQuery({

@@ -12,15 +12,15 @@ import type {
 } from "@gc-digital-talent/graphql";
 
 export interface FormValues {
-  areaOfSelection?: PoolAreaOfSelection | null;
-  selectionLimitations?: PoolSelectionLimitation[] | null;
+  areaOfSelection?: PoolAreaOfSelection | null | undefined;
+  selectionLimitations?: PoolSelectionLimitation[] | null | undefined;
   classification?: Classification["id"];
   department?: Department["id"];
   stream?: WorkStream["id"];
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
-  publishingGroup?: PublishingGroup | null;
-  opportunityLength?: PoolOpportunityLength | null;
+  publishingGroup?: PublishingGroup | null | undefined;
+  opportunityLength?: PoolOpportunityLength | null | undefined;
 }
 
 export const dataToFormValues = (

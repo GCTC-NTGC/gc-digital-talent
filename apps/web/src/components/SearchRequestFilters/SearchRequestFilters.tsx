@@ -41,11 +41,11 @@ const ApplicantFilters = ({
   selectedClassifications,
   flexibleWorkLocationOptions,
 }: {
-  applicantFilter?: PartialApplicantFilter | null;
+  applicantFilter?: PartialApplicantFilter | null | undefined;
   selectedClassifications?: (
     | Pick<Classification, "groupAndLevel">
     | null
-
+    | undefined
   )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
 }) => {
@@ -282,11 +282,12 @@ interface SearchRequestFiltersProps {
   filters?:
     | PartialApplicantFilter
     | PartialPoolCandidateFilter
-    | null;
+    | null
+    | undefined;
   selectedClassifications?: (
     | Pick<Classification, "groupAndLevel">
     | null
-
+    | undefined
   )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
 }

@@ -9,10 +9,11 @@ export type PartialUser = Pick<
   User,
   "hasPriorityEntitlement" | "priorityNumber"
 > & {
-  citizenship?: Pick<LocalizedCitizenshipStatus, "value"> | null;
+  citizenship?: Pick<LocalizedCitizenshipStatus, "value"> | null | undefined;
   armedForcesStatus?:
     | Pick<LocalizedArmedForcesStatus, "value">
-    | null;
+    | null
+    | undefined;
 };
 
 export function hasAllEmptyFields({

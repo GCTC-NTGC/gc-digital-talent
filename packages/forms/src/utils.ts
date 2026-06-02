@@ -26,7 +26,7 @@ import type { OptGroupOrOption } from "./types";
  * @returns string[]
  */
 export const unpackIds = (
-  data?: ({ id: string } | null)[] | null,
+  data?: ({ id: string } | null | undefined)[] | null,
 ): string[] => unpackMaybes<{ id: string }>(data).map(getId);
 
 interface Option {
@@ -81,7 +81,7 @@ export function enumToOptions(
  * field options array
  */
 export function localizedEnumToOptions(
-  list: (LocalizedEnumString | null)[] | null,
+  list: (LocalizedEnumString | null | undefined)[] | undefined | null,
   intl: IntlShape,
   sortOrder?: LocalizedEnumString["value"][],
 ): Option[] {

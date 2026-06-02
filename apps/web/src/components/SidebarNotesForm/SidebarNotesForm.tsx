@@ -14,7 +14,7 @@ import adminMessages from "~/messages/adminMessages";
 import ToggleForm from "../ToggleForm/ToggleForm";
 
 export interface FormValues {
-  notes?: Scalars["String"]["input"] | null;
+  notes?: Scalars["String"]["input"] | null | undefined;
 }
 
 interface SidebarNotesFormProps {

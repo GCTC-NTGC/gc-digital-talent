@@ -21,9 +21,10 @@ interface PoolCandidateBookmarkProps {
   poolCandidateId: string;
   userQuery?:
     | FragmentType<typeof PoolCandidateBookmark_Fragment>
-    | null;
-  firstName?: string | null;
-  lastName?: string | null;
+    | null
+    | undefined;
+  firstName?: string | null | undefined;
+  lastName?: string | null | undefined;
   size?: "sm" | "md" | "lg";
 }
 

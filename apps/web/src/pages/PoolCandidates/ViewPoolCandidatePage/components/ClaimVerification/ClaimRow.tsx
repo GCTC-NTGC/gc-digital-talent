@@ -15,7 +15,7 @@ import {
 
 interface VerificationMessageProps {
   result: ClaimVerificationResult;
-  expiry?: Scalars["DateTime"]["output"] | null;
+  expiry?: Scalars["DateTime"]["output"] | null | undefined;
 }
 
 const VerificationMessage = ({ result, expiry }: VerificationMessageProps) => {
@@ -94,7 +94,7 @@ const VerificationIcon = ({ result, ...rest }: VerificationIconProps) => {
 interface ClaimRowProps {
   result?: ClaimVerificationResult | null;
   title: ReactNode;
-  expiry?: Scalars["DateTime"]["output"] | null;
+  expiry?: Scalars["DateTime"]["output"] | null | undefined;
   children: ReactNode;
 }
 

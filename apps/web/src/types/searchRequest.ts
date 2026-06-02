@@ -45,20 +45,22 @@ export interface BrowserHistoryState {
 
 export type PartialApplicantFilter = Omit<ApplicantFilter, "pools"> & {
   pools?:
-    | (Omit<Pool, "activities" | "teamId"> | null)[]
-    | null;
+    | (Omit<Pool, "activities" | "teamId"> | null | undefined)[]
+    | null
+    | undefined;
 };
 
 export type PartialPoolCandidateFilter = Omit<PoolCandidateFilter, "pools"> & {
   pools?:
-    | (Omit<Pool, "activities" | "teamId"> | null)[]
-    | null;
+    | (Omit<Pool, "activities" | "teamId"> | null | undefined)[]
+    | null
+    | undefined;
 };
 
 export type PartialSearchRequest = Omit<
   PoolCandidateSearchRequest,
   "applicantFilter" | "poolCandidateFilter"
 > & {
-  applicantFilter?: PartialApplicantFilter | null;
-  poolCandidateFilter?: PartialPoolCandidateFilter | null;
+  applicantFilter?: PartialApplicantFilter | null | undefined;
+  poolCandidateFilter?: PartialPoolCandidateFilter | null | undefined;
 };

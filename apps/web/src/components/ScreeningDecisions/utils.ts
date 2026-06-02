@@ -171,7 +171,7 @@ export const convertApiToFormValues = (
 };
 
 export const educationJustificationContext = (
-  justification: AssessmentResultJustification | null,
+  justification: AssessmentResultJustification | null | undefined,
   intl: IntlShape,
 ) => {
   const acceptedInformationMessages = [
@@ -270,14 +270,15 @@ export function getDialogType(
 export const getSkillLevelMessage = (
   intl: IntlShape,
   poolSkill?: {
-    requiredLevel?: SkillLevel | null;
+    requiredLevel?: SkillLevel | null | undefined;
     skill?:
       | {
           category: {
             value: SkillCategory;
           };
         }
-      | null;
+      | null
+      | undefined;
   },
 ): string => {
   let skillLevel = "";
@@ -293,7 +294,7 @@ export const getSkillLevelMessage = (
 };
 
 export const hasAttachedExperiences = (
-  experiences?: (Experience | null)[] | null,
+  experiences?: (Experience | null | undefined)[] | null,
   skill?: { id: Scalars["UUID"]["output"] } | null,
 ) => {
   if (!skill) return false;
@@ -302,9 +303,9 @@ export const hasAttachedExperiences = (
 
 interface GetEducationRequirementLabelArgs {
   intl: IntlShape;
-  educationRequirementOption?: EducationRequirementOption | null;
-  group?: ClassificationGroup | null;
-  publishingGroup?: PublishingGroup | null;
+  educationRequirementOption?: EducationRequirementOption | null | undefined;
+  group?: ClassificationGroup | null | undefined;
+  publishingGroup?: PublishingGroup | null | undefined;
 }
 
 export const getEducationRequirementLabel = ({

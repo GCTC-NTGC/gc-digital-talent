@@ -4,12 +4,12 @@ import type { RoleName } from "../const";
 
 export interface RoleRequirement {
   name: RoleName;
-  teamId?: string | null;
+  teamId?: string | null | undefined;
 }
 
 interface HasRequiredRolesArgs {
   toCheck: RoleRequirement | RoleRequirement[];
-  userRoles: (RoleAssignment | null)[] | null;
+  userRoles: (RoleAssignment | null | undefined)[] | null | undefined;
   /** * When true, if a role is team-based, a matching teamId MUST be provided
    * in the requirement or the check fails.
    */

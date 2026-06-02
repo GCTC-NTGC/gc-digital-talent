@@ -38,9 +38,9 @@ const todayDate = new Date();
 interface ClaimVerificationDialogProps {
   context: "veteran" | "priority";
   id: Scalars["UUID"]["output"];
-  result?: ClaimVerificationResult | null;
-  expiry?: Scalars["DateTime"]["output"] | null;
-  priorityNumber?: string | null;
+  result?: ClaimVerificationResult | null | undefined;
+  expiry?: Scalars["DateTime"]["output"] | null | undefined;
+  priorityNumber?: string | null | undefined;
 }
 
 const ClaimVerificationDialog = ({

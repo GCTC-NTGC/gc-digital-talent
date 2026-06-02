@@ -46,7 +46,7 @@ interface FormValues extends BaseFormValues {
   role?: SubmitterRole;
   submitterRelationshipToNominator?: TalentNominationSubmitterRelationshipToNominator;
   submitterRelationshipToNominatorOther?: string;
-  nominator?: Scalars["UUID"]["input"] | null;
+  nominator?: Scalars["UUID"]["input"] | null | undefined;
   nominatorReview?: TalentNominationUserReview;
   nominatorFallbackWorkEmail?: string;
   nominatorFallbackName?: string;
@@ -412,7 +412,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
     talentNomination.submitter?.id === talentNomination.nominator?.id;
 
   let defaultRole: SubmitterRole | undefined;
-  let defaultNominator: string | null;
+  let defaultNominator: string | null | undefined;
   if (talentNomination.submitter?.id && nominatorSet) {
     defaultRole = submitterIsNominator ? "nominator" : "on-behalf";
   }

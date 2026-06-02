@@ -6,5 +6,5 @@ export interface SnapshotProps<TSnapshot extends object> {
 
 export type RelatedSnapshotModel<TKey extends string> = Record<
   TKey,
-  LocalizedString | null
+  LocalizedString | null | undefined
 >;

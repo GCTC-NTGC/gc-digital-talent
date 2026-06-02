@@ -195,7 +195,7 @@ export function formValuesToApiUpdateInput(
 
 interface DevelopmentProgramSlice {
   id: string;
-  name?: { localized?: string | null } | null;
+  name?: { localized?: string | null | undefined } | null | undefined;
 }
 
 export function apiDataToFormValues(

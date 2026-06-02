@@ -18,8 +18,8 @@ type SourceQuestionResponse =
 
 export interface GenericQuestionResponse {
   id: Scalars["UUID"]["output"];
-  question?: string | null;
-  answer?: string | null;
+  question?: string | null | undefined;
+  answer?: string | null | undefined;
 }
 
 const normalizeQuestionResponses = (
@@ -31,7 +31,7 @@ const normalizeQuestionResponses = (
 
   return responses
     .map((response) => {
-      let question: LocalizedString | null;
+      let question: LocalizedString | null | undefined;
 
       if ("screeningQuestion" in response) {
         question = response.screeningQuestion?.question;

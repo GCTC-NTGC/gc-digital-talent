@@ -11,7 +11,7 @@ import useAsyncFileDownload from "./useAsyncFileDownload";
 
 interface DownloadExcelArgs {
   ids?: Scalars["UUID"]["output"][];
-  where?: UserFilterInput | null;
+  where?: UserFilterInput | null | undefined;
 }
 
 const DownloadUserDoc_Mutation = graphql(/* GraphQL */ `
