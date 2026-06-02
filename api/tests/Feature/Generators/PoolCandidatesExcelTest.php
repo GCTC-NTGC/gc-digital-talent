@@ -104,7 +104,7 @@ class PoolCandidatesExcelTest extends TestCase
 
         // gather the workbook xml (worksheets + shared strings)
         $path = Storage::disk('user_generated')->path('test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx');
-        $zip = new \ZipArchive;
+        $zip = new \ZipArchive();
         $zip->open($path);
         $xml = '';
         for ($i = 0; $i < $zip->numFiles; $i++) {
