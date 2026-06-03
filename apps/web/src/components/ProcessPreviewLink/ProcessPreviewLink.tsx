@@ -6,12 +6,16 @@ import { Link } from "@gc-digital-talent/ui";
 import useRoutes from "~/hooks/useRoutes";
 import type { PoolCompleteness } from "~/types/pool";
 
-interface ProcessPreviwLinkProps extends Omit<LinkProps, "href"> {
+interface ProcessPreviewLinkProps extends Omit<LinkProps, "href"> {
   id: string;
   status: PoolCompleteness;
 }
 
-const ProcessPreviwLink = ({ id, status, ...rest }: ProcessPreviwLinkProps) => {
+const ProcessPreviewLink = ({
+  id,
+  status,
+  ...rest
+}: ProcessPreviewLinkProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -40,4 +44,4 @@ const ProcessPreviwLink = ({ id, status, ...rest }: ProcessPreviwLinkProps) => {
   );
 };
 
-export default ProcessPreviwLink;
+export default ProcessPreviewLink;
