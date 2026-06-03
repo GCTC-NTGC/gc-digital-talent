@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Button, Dialog, Pending, Separator, Ul } from "@gc-digital-talent/ui";
-import type { Maybe, Skill, Scalars } from "@gc-digital-talent/graphql";
+import type { Skill, Scalars } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -157,7 +157,7 @@ const SkillMatchDialogBody = ({
 
 interface SkillMatchDialogProps {
   filteredSkills: Skill[];
-  skillsCount: Maybe<number> | undefined;
+  skillsCount: number | null | undefined;
   userId: Scalars["ID"]["output"];
   poolCandidateName: string;
 }
@@ -282,7 +282,7 @@ const SkillMatchDialog = ({
 
 function skillMatchDialogAccessor(
   filteredSkills: Skill[],
-  skillCount: Maybe<number> | undefined,
+  skillCount: number | null | undefined,
   userId: Scalars["ID"]["output"],
   poolCandidateName: string,
 ) {

@@ -23,7 +23,6 @@ import {
 } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  InputMaybe,
   LocalizedStringInput,
   Scalars,
   UpdateWorkStreamInput,
@@ -77,8 +76,8 @@ export const WorkStreamUpdate_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  name?: InputMaybe<LocalizedStringInput>;
-  plainLanguageName?: InputMaybe<LocalizedStringInput>;
+  name?: LocalizedStringInput | null;
+  plainLanguageName?: LocalizedStringInput | null;
   community: string;
   talentSearchable: boolean;
 }

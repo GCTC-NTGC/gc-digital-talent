@@ -10,7 +10,7 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import type { Scalars, Maybe } from "@gc-digital-talent/graphql";
+import type { Scalars } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -22,7 +22,7 @@ import { getRoleTableFragments, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
   roleIds: Scalars["UUID"]["input"][];
-  teamId: Maybe<Scalars["UUID"]["input"]>;
+  teamId: Scalars["UUID"]["input"] | null;
   userId: Scalars["UUID"]["input"];
 }
 

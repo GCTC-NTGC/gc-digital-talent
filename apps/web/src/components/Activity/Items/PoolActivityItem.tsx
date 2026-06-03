@@ -4,7 +4,7 @@ import type { MessageDescriptor } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
-import type { Maybe, Scalars } from "@gc-digital-talent/graphql";
+import type { Scalars } from "@gc-digital-talent/graphql";
 import { ActivityEvent, getFragment } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
@@ -19,8 +19,8 @@ import BaseItem, { BaseItem_Fragment } from "./BaseActivityItem";
 import { getEventInfo } from "./utils";
 
 function updatedAfterPublish(
-  createdAt?: Maybe<Scalars["DateTime"]["output"]>,
-  publishedAt?: Maybe<Scalars["DateTime"]["output"]>,
+  createdAt?: Scalars["DateTime"]["output"] | null,
+  publishedAt?: Scalars["DateTime"]["output"] | null,
 ): boolean {
   if (!publishedAt || !createdAt) return false;
   return isAfter(parseDateTimeUtc(createdAt), parseDateTimeUtc(publishedAt));
@@ -78,7 +78,7 @@ const keyMap = new Map<string, MessageDescriptor>([
 ]);
 
 export interface PoolActivityItemProps extends CommonItemProps {
-  publishedAt?: Maybe<Scalars["DateTime"]["output"]>;
+  publishedAt?: Scalars["DateTime"]["output"] | null;
 }
 
 const PoolActivityItem = ({

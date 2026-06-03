@@ -3,14 +3,13 @@ import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
 import type { ReactNode } from "react";
 
-import type { Maybe } from "@gc-digital-talent/graphql";
 import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
 
 interface FilterBlockProps {
   title: string;
-  content?: Maybe<string | ReactNode> | Maybe<string[]>;
+  content?: string | string[] | ReactNode | null;
 }
 
 const FilterBlockContent = ({

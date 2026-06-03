@@ -4,7 +4,6 @@ import type {
   User,
   Classification,
   Department,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import {
   Language,
@@ -35,16 +34,17 @@ import toLocalizedEnum from "./fakeLocalizedEnum";
 
 type GeneratedUser = User & {
   __typename: "User";
-  experiences: Maybe<
-    Maybe<
-      | GeneratedAwardExperience
-      | GeneratedCommunityExperience
-      | GeneratedEducationExperience
-      | GeneratedPersonalExperience
-      | GeneratedWorkExperience
-    >[]
-  >;
-  poolCandidates?: Maybe<Maybe<GeneratedPoolCandidate>[]>;
+  experiences:
+    | (
+        | GeneratedAwardExperience
+        | GeneratedCommunityExperience
+        | GeneratedEducationExperience
+        | GeneratedPersonalExperience
+        | GeneratedWorkExperience
+        | null
+      )[]
+    | null;
+  poolCandidates?: (GeneratedPoolCandidate | null)[] | null | undefined;
 };
 
 const generateUser = (

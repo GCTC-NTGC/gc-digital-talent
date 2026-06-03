@@ -3,11 +3,10 @@ import type { Dispatch, SetStateAction } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import type { Maybe } from "@gc-digital-talent/graphql";
 
 interface RemoveDialogProps {
   communityDevelopmentProgramId: string;
-  title?: Maybe<string>;
+  title?: string | null;
   onRemove: () => void;
   open: boolean;
   setOpen: Dispatch<SetStateAction<string | null>>;

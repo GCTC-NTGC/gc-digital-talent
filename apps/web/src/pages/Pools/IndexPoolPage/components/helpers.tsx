@@ -9,7 +9,6 @@ import type {
   Classification,
   FragmentType,
   LocalizedString,
-  Maybe,
   OrderByColumnInput,
   Pool,
   PoolBookmarksOrderByInput,
@@ -53,7 +52,7 @@ export function viewCell(
 }
 
 export function classificationCell(
-  classification: Maybe<Pick<Classification, "groupAndLevel">> | undefined,
+  classification: Pick<Classification, "groupAndLevel"> | null | undefined,
 ) {
   if (!classification) return null;
 
@@ -224,7 +223,7 @@ export function transformPoolFilterInputToFormValues(
 export const poolBookmarkCell = (
   owner: FragmentType<typeof PoolBookmark_Fragment>,
   poolId: string,
-  poolName?: Maybe<LocalizedString>,
+  poolName?: LocalizedString | null,
 ) => {
   return <PoolBookmark user={owner} poolId={poolId} poolName={poolName} />;
 };

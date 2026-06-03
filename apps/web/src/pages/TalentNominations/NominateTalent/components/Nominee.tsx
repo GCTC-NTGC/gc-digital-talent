@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
 
-import type { FragmentType, Maybe, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -33,7 +33,7 @@ interface FormValues extends BaseFormValues {
   nominee: Scalars["UUID"]["input"];
   nomineeReview: TalentNominationUserReview;
   nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator;
-  nomineeRelationshipToNominatorOther?: Maybe<string>;
+  nomineeRelationshipToNominatorOther?: string | null;
 }
 
 const NomineeFieldOptions_Fragment = graphql(/* GraphQL */ `
