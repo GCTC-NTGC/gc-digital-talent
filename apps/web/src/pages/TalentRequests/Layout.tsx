@@ -23,14 +23,16 @@ import pageTitles from "~/messages/pageTitles";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import adminMessages from "~/messages/adminMessages";
-import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+// TEMP: This is a legacy page that is soon to be removed
+// eslint-disable-next-line no-restricted-imports
 import ViewSearchRequestApi from "~/pages/SearchRequests/ViewSearchRequestPage/components/ViewSearchRequest";
 
 import TalentRequestSidebar from "./components/TalentRequestSidebar";
 import type { TalentRequestStatusOptions_Fragment } from "./components/TalentRequestStatusDialog";
+import type { RouteParams } from "./types";
 
 const TalentRequestLayout_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestLayout on TalentRequest {
@@ -120,10 +122,6 @@ const Layout = ({ query, optionsQuery }: LayoutProps) => {
     </>
   );
 };
-
-interface RouteParams extends Record<string, string> {
-  talentRequestId: string;
-}
 
 const TalentRequestLayout_Query = graphql(/** GraphQL */ `
   query TalentRequestLayout($id: UUID!) {
