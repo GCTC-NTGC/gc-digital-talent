@@ -5,7 +5,6 @@ import { tv } from "tailwind-variants";
 import type {
   GeneralQuestionResponse,
   LocalizedString,
-  Scalars,
   ScreeningQuestionResponse,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -17,7 +16,7 @@ type SourceQuestionResponse =
   | ScreeningQuestionResponse;
 
 export interface GenericQuestionResponse {
-  id: Scalars["UUID"]["output"];
+  id: string;
   question?: string | null;
   answer?: string | null;
 }

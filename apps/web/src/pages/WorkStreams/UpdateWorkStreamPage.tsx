@@ -24,7 +24,6 @@ import {
 import type {
   FragmentType,
   LocalizedStringInput,
-  Scalars,
   UpdateWorkStreamInput,
   WorkStreamQuery,
 } from "@gc-digital-talent/graphql";
@@ -299,7 +298,7 @@ export const UpdateWorkStreamForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  workStreamId: Scalars["ID"]["output"];
+  workStreamId: string;
 }
 
 const WorkStream_Query = graphql(/* GraphQL */ `

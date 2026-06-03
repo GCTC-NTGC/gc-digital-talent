@@ -12,7 +12,6 @@ import type {
   UpdateJobPosterTemplateJobDetailsFragment,
   UpdateJobPosterTemplateInput,
   SupervisoryStatus,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -119,7 +118,7 @@ const initialDataToFormValues = ({
 });
 
 const formValuesToMutationInput = (
-  id: Scalars["UUID"]["input"],
+  id: string,
   {
     jobTitleEn,
     jobTitleFr,

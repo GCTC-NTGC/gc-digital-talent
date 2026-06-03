@@ -22,7 +22,6 @@ import {
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import type {
-  Scalars,
   Skill,
   FragmentType,
   UpdatePublishedPoolInput,
@@ -798,7 +797,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const context: Partial<OperationContext> = {

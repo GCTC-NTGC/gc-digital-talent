@@ -11,11 +11,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import type { Option } from "@gc-digital-talent/forms";
 import { Select } from "@gc-digital-talent/forms";
-import type {
-  FragmentType,
-  RoleAssignment,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, RoleAssignment } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import type { RoleName } from "@gc-digital-talent/auth";
 import { hasRequiredRoles, ROLE_NAME } from "@gc-digital-talent/auth";
@@ -35,14 +31,12 @@ export const DuplicatePoolDepartment_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  department: Scalars["ID"]["output"] | undefined;
+  department: string | undefined;
 }
 
 interface DuplicateProcessDialogProps extends ProcessDialogProps {
   departmentsQuery: FragmentType<typeof DuplicatePoolDepartment_Fragment>[];
-  onDuplicate: (opts: {
-    department: Scalars["ID"]["output"] | undefined;
-  }) => Promise<void>;
+  onDuplicate: (opts: { department: string | undefined }) => Promise<void>;
   roleAssignments: RoleAssignment[];
 }
 

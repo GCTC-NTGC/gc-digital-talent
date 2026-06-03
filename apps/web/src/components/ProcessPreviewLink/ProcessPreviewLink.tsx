@@ -1,6 +1,5 @@
 import { useIntl } from "react-intl";
 
-import type { Scalars } from "@gc-digital-talent/graphql";
 import type { LinkProps } from "@gc-digital-talent/ui";
 import { Link } from "@gc-digital-talent/ui";
 
@@ -8,7 +7,7 @@ import useRoutes from "~/hooks/useRoutes";
 import type { PoolCompleteness } from "~/types/pool";
 
 interface ProcessPreviewLinkProps extends Omit<LinkProps, "href"> {
-  id: Scalars["UUID"]["output"];
+  id: string;
   status: PoolCompleteness;
 }
 

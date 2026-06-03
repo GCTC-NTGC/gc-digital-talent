@@ -5,7 +5,6 @@ import { useCallback, useEffect } from "react";
 
 import type {
   FragmentType,
-  Scalars,
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import {
@@ -42,18 +41,18 @@ import labels from "../labels";
 type SubmitterRole = "nominator" | "on-behalf";
 
 interface FormValues extends BaseFormValues {
-  submitter?: Scalars["UUID"]["input"];
+  submitter?: string;
   role?: SubmitterRole;
   submitterRelationshipToNominator?: TalentNominationSubmitterRelationshipToNominator;
   submitterRelationshipToNominatorOther?: string;
-  nominator?: Scalars["UUID"]["input"] | null;
+  nominator?: string | null;
   nominatorReview?: TalentNominationUserReview;
   nominatorFallbackWorkEmail?: string;
   nominatorFallbackName?: string;
-  nominatorFallbackClassification?: Scalars["UUID"]["input"];
+  nominatorFallbackClassification?: string;
   nominatorFallbackClassificationGroup?: string;
   nominatorFallbackClassificationLevel?: string;
-  nominatorFallbackDepartment?: Scalars["UUID"]["input"];
+  nominatorFallbackDepartment?: string;
 }
 
 const NominatorEmployee_Fragment = graphql(/* GraphQL */ `

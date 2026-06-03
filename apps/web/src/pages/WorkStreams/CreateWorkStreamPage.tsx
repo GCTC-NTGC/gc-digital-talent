@@ -15,7 +15,6 @@ import {
 } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import type {
-  Scalars,
   CreateWorkStreamInput,
   LocalizedStringInput,
 } from "@gc-digital-talent/graphql";
@@ -47,7 +46,7 @@ const CreateWorkStream_Mutation = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  key: Scalars["String"]["input"] | null;
+  key: string | null;
   name: LocalizedStringInput;
   plainLanguageName?: LocalizedStringInput | null;
   community: string;

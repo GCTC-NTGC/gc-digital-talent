@@ -34,7 +34,6 @@ import type {
   SkillFamily,
   CreateSkillInput,
   SkillCategory,
-  Scalars,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
@@ -77,9 +76,7 @@ interface FormValues extends Pick<Skill, "description"> {
 interface CreateSkillFormProps {
   families: SkillFamily[];
   optionsQuery?: FragmentType<typeof SkillFormOptions_Fragment>;
-  handleCreateSkill: (
-    data: CreateSkillInput,
-  ) => Promise<Scalars["UUID"]["output"]>;
+  handleCreateSkill: (data: CreateSkillInput) => Promise<string>;
 }
 
 export const CreateSkillForm = ({
