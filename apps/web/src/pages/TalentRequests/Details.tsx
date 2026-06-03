@@ -1,9 +1,6 @@
-import { useIntl } from "react-intl";
-import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useQuery } from "urql";
 
-import { Card, Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   getFragment,
@@ -17,11 +14,13 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import type { RouteParams } from "./types";
 import TalentRequestDetailsCard from "./components/TalentRequestDetailsCard";
 import TalentRequestSourcesCard from "./components/TalentRequestSourcesCard";
+import TalentRequestCriteriaCard from "./components/TalentRequestCriteriaCard";
 
 const TalentRequestDetails_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestDetails on TalentRequest {
     ...TalentRequestDetailsCard
     ...TalentRequestSourcesCard
+    ...TalentRequestCriteriaCard
   }
 `);
 
@@ -30,38 +29,13 @@ interface DetailsProps {
 }
 
 const Details = ({ query }: DetailsProps) => {
-  const intl = useIntl();
   const talentRequest = getFragment(TalentRequestDetails_Fragment, query);
 
   return (
     <div className="flex flex-col gap-y-6">
       <TalentRequestDetailsCard query={talentRequest} />
       <TalentRequestSourcesCard query={talentRequest} />
-
-      <Card>
-        <Heading
-          color="secondary"
-          size="h4"
-          icon={ClipboardDocumentListIcon}
-          className="mt-0 font-normal"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Candidate criteria",
-            id: "33ENCz",
-            description:
-              "Heading for section outlining the criteria submitted for a talent request",
-          })}
-        </Heading>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "The details tab provides the specific information and context about the requirements for this request.",
-            id: "TgVsZ4",
-            description: "Description of the talent request criteria submitted",
-          })}
-        </p>
-        <Card.Separator className="my-6" />
-      </Card>
+      <TalentRequestCriteriaCard query={talentRequest} />
     </div>
   );
 };

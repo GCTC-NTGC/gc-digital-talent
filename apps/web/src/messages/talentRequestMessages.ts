@@ -53,6 +53,11 @@ const messages = defineMessages({
     id: "Ji2C9w",
     description: "Title of the Language Information link section",
   },
+  workingLanguageAbility: {
+    defaultMessage: "Working language ability",
+    id: "FmkNkA",
+    description: "Title of the talent request language criteria",
+  },
   supervisoryStatus: {
     defaultMessage: "Supervisory status",
     id: "uR9G1H",
@@ -98,6 +103,11 @@ const messages = defineMessages({
     defaultMessage: "Candidate tracking",
     id: "4uFJb+",
     description: "Title for tracking candidates within a talent request",
+  },
+  onSiteLocations: {
+    defaultMessage: "On-site locations",
+    id: "ngoGPH",
+    description: "Label for the talent requests on-site location criteria",
   },
 });
 
