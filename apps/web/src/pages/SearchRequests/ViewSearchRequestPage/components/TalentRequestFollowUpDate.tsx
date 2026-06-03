@@ -93,10 +93,8 @@ const TalentRequestFollowUpDate = ({
   const intentProps = methods.register("intent");
 
   const handleSubmit = async (values: FormValues) => {
-    let newDate = values.followUpDate ?? null;
-    if (values.intent === INTENT.REMOVE) {
-      newDate = null;
-    }
+    const newDate = values.followUpDate ?? null;
+
     await executeMutation({
       id: talentRequest.id,
       input: { followUpDate: newDate },
