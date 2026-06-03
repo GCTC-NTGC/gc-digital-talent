@@ -1615,7 +1615,12 @@ type TalentRequest {
   statusChangedAt: DateTime
   createdAt: DateTime
   updatedAt: DateTime
-  trackedUsers: [TalentRequestTrackedUser!]
+  trackedUsers(where: TalentRequestTrackedUserFilterInput): [TalentRequestTrackedUser!]
+}
+
+input TalentRequestTrackedUserFilterInput {
+  referralDecisions: [TalentRequestTrackedUserReferralDecision!]
+  selectionDecisions: [TalentRequestTrackedUserSelectionDecision!]
 }
 
 type TalentRequestTrackedUser {
