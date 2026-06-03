@@ -18,8 +18,8 @@ final class QualifyAndPlaceCandidate
         $pauseReferralsLength = $args['pauseReferralsLength'] ?? null;
         $pauseReferralsReason = $args['pauseReferralsReason'] ?? null;
         $resumeReferralsAt = $args['resumeReferralsAt'] ?? null;
-        $placedStartDate = $args['placedStartDate'];
-        $placedEndDate = $args['placedEndDate'];
+        $placedStartDate = $args['placedStartDate'] ?? null;
+        $placedEndDate = $args['placedEndDate'] ?? null;
 
         $candidate->disableLogging();
         $candidate->qualify($expiryDate);
