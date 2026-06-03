@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -19,6 +19,18 @@ import { DateInput, Select } from "@gc-digital-talent/forms";
 
 import type { FormValues } from "../types";
 import { hasPlacedStartDate } from "../../utils";
+
+const placedStartDateLabel = defineMessage({
+  defaultMessage: "Placed position start date",
+  id: "ob2lBu",
+  description: "Label for placed start date input",
+});
+
+const placedEndDateLabel = defineMessage({
+  defaultMessage: "Placed position end date",
+  id: "xMeWyN",
+  description: "Label for placed end date input",
+});
 
 const JobPlacementFormFields_Fragment = graphql(/* GraphQL */ `
   fragment JobPlacementFormFields on Query {
@@ -117,25 +129,20 @@ const JobPlacementFormFields = ({
           <DateInput
             id="placedStartDate"
             name="placedStartDate"
-            legend={intl.formatMessage({
-              defaultMessage: "Placed position start date",
-              id: "ob2lBu",
-              description: "Label for placed start date input",
-            })}
+            legend={intl.formatMessage(placedStartDateLabel)}
           />
           {!isPlacedIndeterminate && (
             <DateInput
               id="placedEndDate"
               name="placedEndDate"
-              legend={intl.formatMessage({
-                defaultMessage: "Placed position end date",
-                id: "xMeWyN",
-                description: "Label for placed end date input",
-              })}
+              legend={intl.formatMessage(placedEndDateLabel)}
               rules={{
                 min: {
                   value: placedStartDate ? String(placedStartDate) : "",
-                  message: intl.formatMessage(errorMessages.invalidDate),
+                  message: intl.formatMessage(errorMessages.minDateSelfLabel, {
+                    labelSelf: intl.formatMessage(placedEndDateLabel),
+                    labelAssociated: intl.formatMessage(placedStartDateLabel),
+                  }),
                 },
               }}
             />
