@@ -16,7 +16,7 @@ import {
   TableOfContents,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 
@@ -129,7 +129,7 @@ export const AssessmentPlanBuilder = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `

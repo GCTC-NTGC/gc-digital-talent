@@ -5,7 +5,6 @@ import { useCallback, useEffect } from "react";
 
 import type {
   FragmentType,
-  Scalars,
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import {
@@ -108,17 +107,17 @@ type NominationOption =
 
 interface FormValues extends BaseFormValues {
   nominationOptions: (NominationOption | null)[];
-  advancementReference: Scalars["UUID"]["input"] | null;
+  advancementReference: string | null;
   advancementReferenceReview?: TalentNominationUserReview;
   advancementReferenceFallbackWorkEmail: string | null;
   advancementReferenceFallbackName: string | null;
-  advancementReferenceFallbackClassification: Scalars["UUID"]["input"];
+  advancementReferenceFallbackClassification: string;
   advancementReferenceFallbackClassificationGroup: string | null;
   advancementReferenceFallbackClassificationLevel: string | null;
-  advancementReferenceFallbackDepartment: Scalars["UUID"]["input"];
+  advancementReferenceFallbackDepartment: string;
   lateralMovementOptions: TalentNominationLateralMovementOption[] | null;
   lateralMovementOptionsOther: string | null;
-  communityDevelopmentPrograms: Scalars["UUID"]["input"][];
+  communityDevelopmentPrograms: string[];
   developmentProgramOptionsOther: string | null;
 }
 

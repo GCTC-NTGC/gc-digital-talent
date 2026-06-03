@@ -21,7 +21,6 @@ import type {
   LocalizedString,
   PersonalExperience,
   PersonalExperienceInput,
-  Scalars,
   WorkExperienceInput,
   WorkExperience,
   EmploymentCategory,
@@ -61,8 +60,8 @@ export interface ExperienceForDate extends SimpleAnyExperience {
 }
 
 interface FormValueDateRange {
-  startDate: Scalars["Date"]["input"];
-  endDate?: Scalars["Date"]["input"];
+  startDate: string;
+  endDate?: string;
 }
 
 interface AwardFormValues {
@@ -70,16 +69,16 @@ interface AwardFormValues {
   awardedTo: AwardedTo;
   issuedBy: string;
   awardedScope: AwardedScope;
-  awardedDate: Scalars["Date"]["input"];
+  awardedDate: string;
 }
 
 export type CommunityFormValues = FormValueDateRange & {
   title: string;
   organization: string;
   project: string;
-  startDate: Scalars["Date"]["input"];
+  startDate: string;
   roleStatus: "active" | "past";
-  endDate?: Scalars["Date"]["input"];
+  endDate?: string;
 };
 
 export type EducationFormValues = FormValueDateRange & {
@@ -162,13 +161,13 @@ export interface ExperienceDetailsSubmissionData {
   details?: string;
   division?: string | null;
   currentRole?: boolean;
-  endDate?: Scalars["Date"]["input"] | null;
+  endDate?: string | null;
   institution?: string;
   issuedBy?: string;
   organization?: string;
   project?: string;
   role?: string | null;
-  startDate?: Scalars["Date"]["input"];
+  startDate?: string;
   status?: EducationStatus;
   thesisTitle?: string;
   title?: string | null;
@@ -250,13 +249,13 @@ export interface ExperienceDetailsDefaultValues {
   description?: string;
   details?: string;
   team?: string;
-  endDate?: Scalars["Date"]["input"];
+  endDate?: string;
   institution?: string;
   issuedBy?: string;
   organization?: string;
   project?: string;
   role?: string;
-  startDate?: Scalars["Date"]["input"];
+  startDate?: string;
   educationStatus?: EducationStatus;
   thesisTitle?: string;
   title?: string;

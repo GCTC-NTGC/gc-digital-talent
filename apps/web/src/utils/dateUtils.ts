@@ -6,12 +6,8 @@ import {
   formDateStringToDate,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { Scalars } from "@gc-digital-talent/graphql";
 
-export function formattedDate(
-  date: Scalars["Date"]["output"],
-  intl: IntlShape,
-) {
+export function formattedDate(date: string, intl: IntlShape) {
   let dateString = date;
 
   // handle accidental passing in nulls/undefined/empty string
@@ -37,8 +33,8 @@ export function getDateRange({
   startDate,
   intl,
 }: {
-  endDate: Scalars["Date"]["output"] | null | undefined;
-  startDate: Scalars["Date"]["output"] | null | undefined;
+  endDate: string | null | undefined;
+  startDate: string | null | undefined;
   intl: IntlShape;
 }): string {
   if (!startDate) return "";

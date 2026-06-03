@@ -5,7 +5,6 @@ import type {
   FragmentType,
   PoolStatus,
   PublishingGroup,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -18,8 +17,8 @@ import adminMessages from "~/messages/adminMessages";
 export interface FormValues {
   publishingGroups: PublishingGroup[];
   statuses: PoolStatus[];
-  classifications: Scalars["UUID"]["output"][];
-  workStreams: Scalars["UUID"]["output"][];
+  classifications: string[];
+  workStreams: string[];
 }
 
 const PoolFilterDialogOptions_Fragment = graphql(/* GraphQL */ `

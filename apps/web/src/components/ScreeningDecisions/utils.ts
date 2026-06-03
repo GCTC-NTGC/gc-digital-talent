@@ -8,7 +8,6 @@ import type {
   Experience,
   FragmentType,
   PublishingGroup,
-  Scalars,
   SkillCategory,
   SkillLevel,
   UpdateAssessmentResultInput,
@@ -252,7 +251,7 @@ export type DialogType = ObjectValues<typeof DIALOG_TYPE>;
 
 export function getDialogType(
   type?: AssessmentStepType | null,
-  poolSkillId?: Scalars["UUID"]["output"] | null,
+  poolSkillId?: string | null,
 ): DialogType {
   if (!poolSkillId || !type) return DIALOG_TYPE.Education;
 
@@ -292,7 +291,7 @@ export const getSkillLevelMessage = (
 
 export const hasAttachedExperiences = (
   experiences?: (Experience | null | undefined)[] | null,
-  skill?: { id: Scalars["UUID"]["output"] } | null,
+  skill?: { id: string } | null,
 ) => {
   if (!skill) return false;
   return getExperienceSkills(unpackMaybes(experiences), skill)?.length > 0;

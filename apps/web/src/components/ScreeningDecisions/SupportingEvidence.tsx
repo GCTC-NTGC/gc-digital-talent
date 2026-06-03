@@ -1,10 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type {
-  Experience,
-  FragmentType,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { Experience, FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -29,7 +25,7 @@ const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
 interface SupportingEvidenceProps {
   query: FragmentType<typeof ScreeningDialogSupportingEvidence_Fragment>;
   experiences: Omit<Experience, "user">[];
-  skillId?: Scalars["UUID"]["output"];
+  skillId?: string;
   dialogType: DialogType;
 }
 

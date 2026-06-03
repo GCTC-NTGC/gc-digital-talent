@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import { useState } from "react";
 
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -68,7 +68,7 @@ const ApplicationPlacementOptions_Query = graphql(/** GraphQL */ `
 
 interface FormValues {
   placementType: PlacementType;
-  department?: Scalars["UUID"]["input"];
+  department?: string;
   placedStartDate: string | null;
   placedEndDate: string | null;
 }

@@ -12,7 +12,7 @@ import {
   Notice,
   Separator,
 } from "@gc-digital-talent/ui";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
@@ -64,7 +64,7 @@ const EmployeeInformationEmployeeProfile_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface UserEmployeeInformationProps {
-  userId: Scalars["UUID"]["output"];
+  userId: string;
   employeeProfileQuery: FragmentType<
     typeof EmployeeInformationEmployeeProfile_Fragment
   >;
@@ -361,7 +361,7 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  userId: Scalars["ID"]["output"];
+  userId: string;
 }
 
 const UserEmployeeInformationPage = () => {
