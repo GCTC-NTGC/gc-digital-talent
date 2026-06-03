@@ -12,36 +12,42 @@ const container = tv({
       sm: "xs:max-w-2xl",
       md: "xs:max-w-5xl",
       lg: "xs:max-w-6xl",
+      xl: "xs:max-w-7xl",
       full: "xs:max-w-full",
     },
     base: {
       sm: "max-w-2xl",
       md: "max-w-5xl",
       lg: "max-w-6xl",
+      xl: "max-w-7xl",
       full: "max-w-full",
     },
     sm: {
       sm: "sm:max-w-2xl",
       md: "sm:max-w-5xl",
       lg: "sm:max-w-6xl",
+      xl: "sm:max-w-7xl",
       full: "sm:max-w-full",
     },
     md: {
       sm: "md:max-w-2xl",
       md: "md:max-w-5xl",
       lg: "md:max-w-6xl",
+      xl: "md:max-w-7xl",
       full: "md:max-w-full",
     },
     lg: {
       sm: "lg:max-w-2xl",
       md: "lg:max-w-5xl",
       lg: "lg:max-w-6xl",
+      xl: "lg:max-w-7xl",
       full: "lg:max-w-full",
     },
     xl: {
       sm: "xl:max-w-2xl",
       md: "xl:max-w-5xl",
       lg: "xl:max-w-6xl",
+      xl: "xl:max-w-7xl",
       full: "xl:max-w-full",
     },
   },
@@ -52,7 +58,7 @@ const container = tv({
   },
 });
 
-type SizeOption = "sm" | "md" | "lg" | "full";
+type SizeOption = "sm" | "md" | "lg" | "xl" | "full";
 interface ResponsiveSize {
   xs?: SizeOption;
   base?: SizeOption;
