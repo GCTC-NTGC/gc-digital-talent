@@ -112,6 +112,12 @@ class TalentRequest extends Model
         return $this->belongsTo(User::class);
     }
 
+    /** @return HasMany<TalentRequestTrackedUser, $this> */
+    public function trackedUsers(): BelongsTo
+    {
+        return $this->belongsTo(TalentRequestTrackedUser::class);
+    }
+
     /**
      * Aggregate accessor: returns the localized label for whichever detail field is populated.
      */
