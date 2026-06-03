@@ -2,11 +2,13 @@ import { useIntl } from "react-intl";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 
-import { Card, Heading, Notice } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+
+import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
 
 const Tracking = () => {
   const intl = useIntl();
@@ -14,25 +16,18 @@ const Tracking = () => {
 
   return (
     <div className="flex flex-col gap-y-6">
-      <Card>
-        <Heading
-          color="primary"
-          size="h4"
-          icon={MapPinIcon}
-          className="mt-0 font-normal"
-        >
-          {intl.formatMessage(talentRequestMessages.candidateTracking)}
-        </Heading>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "Track and manage all candidates that have matched this request.",
-            id: "T0+7FE",
-            description:
-              "Description of the candidates being tracked by a talent request",
-          })}
-        </p>
-        <Card.Separator className="my-6" />
+      <TalentRequestSectionCard
+        color="primary"
+        icon={MapPinIcon}
+        title={intl.formatMessage(talentRequestMessages.candidateTracking)}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "Track and manage all candidates that have matched this request.",
+          id: "T0+7FE",
+          description:
+            "Description of the candidates being tracked by a talent request",
+        })}
+      >
         {trackedUsers.length > 0 ? null : (
           <Notice.Root mode="inline">
             <Notice.Title>
@@ -56,33 +51,27 @@ const Tracking = () => {
             </Notice.Content>
           </Notice.Root>
         )}
-      </Card>
+      </TalentRequestSectionCard>
 
-      <Card>
-        <Heading
-          color="warning"
-          size="h4"
-          icon={MagnifyingGlassPlusIcon}
-          className="mt-0 font-normal"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Find matching candidates",
-            id: "CtcCZj",
-            description:
-              "Heading for the table that contains users who match talent request criteria",
-          })}
-        </Heading>
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "This list is always up-to-date, find new candidates that match to this talent request.",
-            id: "JT8Azd",
-            description:
-              "Description of the table showing users who match talent request criteria",
-          })}
-        </p>
-        <Card.Separator className="my-6" />
-      </Card>
+      <TalentRequestSectionCard
+        color="warning"
+        icon={MagnifyingGlassPlusIcon}
+        title={intl.formatMessage({
+          defaultMessage: "Find matching candidates",
+          id: "CtcCZj",
+          description:
+            "Heading for the table that contains users who match talent request criteria",
+        })}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "This list is always up-to-date, find new candidates that match to this talent request.",
+          id: "JT8Azd",
+          description:
+            "Description of the table showing users who match talent request criteria",
+        })}
+      >
+        <>{/** TODO: Add children */}</>
+      </TalentRequestSectionCard>
     </div>
   );
 };
