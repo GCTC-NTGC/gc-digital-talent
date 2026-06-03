@@ -171,20 +171,6 @@ const TalentRequestFollowUpDate = ({
                     >
                       {intl.formatMessage(formMessages.saveChanges)}
                     </Button>
-                    <Button
-                      type="submit"
-                      mode="inline"
-                      color="secondary"
-                      value={INTENT.REMOVE}
-                      onClick={() => methods.setValue("intent", INTENT.REMOVE)}
-                      {...intentProps}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Clear date and save",
-                        id: "wLR3Ux",
-                        description: "Button text to clear out a date",
-                      })}
-                    </Button>
                     <Dialog.Close>
                       <Button type="button" color="warning" mode="inline">
                         {intl.formatMessage(commonMessages.cancel)}
