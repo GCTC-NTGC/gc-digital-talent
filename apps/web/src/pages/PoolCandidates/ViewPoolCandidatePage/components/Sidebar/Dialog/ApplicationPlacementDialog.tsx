@@ -19,6 +19,7 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import JobPlacementFormFields from "./FormFields/JobPlacementFormFields";
 import Footer from "./Footer";
+import { hasPlacedStartDate } from "../utils";
 
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(
@@ -54,6 +55,8 @@ const ApplicationPlacementDialog_Fragment = graphql(/** GraphQL */ `
         localized
       }
     }
+    placedStartDate
+    placedEndDate
   }
 `);
 
@@ -66,6 +69,8 @@ const ApplicationPlacementOptions_Query = graphql(/** GraphQL */ `
 interface FormValues {
   placementType: PlacementType;
   department?: string;
+  placedStartDate: string | null;
+  placedEndDate: string | null;
 }
 
 interface ApplicationPlacementDialogProps {
@@ -82,6 +87,8 @@ const ApplicationPlacementDialog = ({
     defaultValues: {
       placementType: application.placementType?.value,
       department: application.placedDepartment?.id,
+      placedStartDate: application.placedStartDate ?? undefined,
+      placedEndDate: application.placedEndDate ?? undefined,
     },
   });
 
@@ -129,6 +136,14 @@ const ApplicationPlacementDialog = ({
       poolCandidate: {
         placementType: formValues.placementType,
         department: { connect: formValues.department ?? "" },
+        placedStartDate: hasPlacedStartDate(formValues.placementType)
+          ? formValues.placedStartDate
+          : null,
+        placedEndDate:
+          hasPlacedStartDate(formValues.placementType) &&
+          formValues.placementType !== PlacementType.PlacedIndeterminate
+            ? formValues.placedEndDate
+            : null,
       },
     });
   };
@@ -149,6 +164,19 @@ const ApplicationPlacementDialog = ({
           handleError();
           return;
         }
+
+        methods.resetField("placedStartDate", {
+          defaultValue: hasPlacedStartDate(formValues.placementType)
+            ? formValues.placedStartDate
+            : null,
+        });
+        methods.resetField("placedEndDate", {
+          defaultValue:
+            hasPlacedStartDate(formValues.placementType) &&
+            formValues.placementType !== PlacementType.PlacedIndeterminate
+              ? formValues.placedEndDate
+              : null,
+        });
 
         toast.success(
           intl.formatMessage({

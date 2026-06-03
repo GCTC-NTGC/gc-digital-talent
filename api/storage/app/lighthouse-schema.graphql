@@ -1248,6 +1248,8 @@ type PoolCandidate {
   placementType: LocalizedPlacementType
   placedAt: DateTime
   placedDepartment: Department
+  placedStartDate: Date
+  placedEndDate: Date
   isBeingReferred: Boolean
   pauseReferralsAt: DateTime
   resumeReferralsAt: DateTime
@@ -2346,6 +2348,8 @@ input QualifyCandidateInput {
 input PlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input QualifyAndPlaceCandidateInput {
@@ -2353,6 +2357,8 @@ input QualifyAndPlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
   pauseReferrals: PauseReferralsInput
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input CreateDepartmentInput {
