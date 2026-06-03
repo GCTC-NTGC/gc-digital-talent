@@ -16,10 +16,12 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 
 import type { RouteParams } from "./types";
 import TalentRequestDetailsCard from "./components/TalentRequestDetailsCard";
+import TalentRequestSourcesCard from "./components/TalentRequestSourcesCard";
 
 const TalentRequestDetails_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestDetails on TalentRequest {
     ...TalentRequestDetailsCard
+    ...TalentRequestSourcesCard
   }
 `);
 
@@ -34,30 +36,7 @@ const Details = ({ query }: DetailsProps) => {
   return (
     <div className="flex flex-col gap-y-6">
       <TalentRequestDetailsCard query={talentRequest} />
-
-      <Card>
-        <Heading
-          color="secondary"
-          icon={ClipboardDocumentListIcon}
-          size="h4"
-          className="mt-0 font-normal"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Source of talent",
-            id: "jg4bu1",
-            description:
-              "Heading for section outling the source criteria for users in a talent request",
-          })}
-        </Heading>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "This is where your candidates come from.",
-            id: "RBSXa2",
-            description: "Description of the talent request users sources",
-          })}
-        </p>
-        <Card.Separator className="my-6" />
-      </Card>
+      <TalentRequestSourcesCard query={talentRequest} />
 
       <Card>
         <Heading
