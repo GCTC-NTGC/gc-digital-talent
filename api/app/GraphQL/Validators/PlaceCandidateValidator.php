@@ -29,18 +29,17 @@ final class PlaceCandidateValidator extends Validator
         }
 
         $placementType = $this->arg('poolCandidate.placementType');
-        $hasPlacedStartDate = $placementType !== PlacementType::NOT_PLACED->name &&
-            $placementType !== PlacementType::UNDER_CONSIDERATION->name &&
-            $placementType !== PlacementType::PLACED_TENTATIVE->name;
         $isIndeterminate = $placementType === PlacementType::PLACED_INDETERMINATE->name;
 
         return [
             'poolCandidate.department.connect' => ['uuid', 'required', Rule::exists('departments', 'id')],
             'poolCandidate.placementType' => [Rule::in(array_column(PlacementType::cases(), 'name'))],
-            'poolCandidate.placedStartDate' => [Rule::when(fn (): bool => $hasPlacedStartDate, ['nullable', 'date'])],
+            'poolCandidate.placedStartDate' => [
+                Rule::when(fn (): bool => PlacementType::hasPlacedStartDate($placementType), ['nullable', 'date']),
+            ],
             'poolCandidate.placedEndDate' => [
-                Rule::when(fn (): bool => $hasPlacedStartDate && ! $isIndeterminate,
-                    ['nullable', 'date', 'after:poolCandidate.placedStartDate']
+                Rule::when(fn (): bool => PlacementType::hasPlacedStartDate($placementType) && ! $isIndeterminate,
+                    ['nullable', 'date', 'after_or_equal:poolCandidate.placedStartDate']
                 )],
         ];
     }

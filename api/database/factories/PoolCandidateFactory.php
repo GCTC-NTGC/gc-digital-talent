@@ -204,9 +204,7 @@ class PoolCandidateFactory extends BaseFactory
             ]);
         }
 
-        $hasPlacedStartDate = $type !== PlacementType::NOT_PLACED->name &&
-            $type !== PlacementType::UNDER_CONSIDERATION->name &&
-            $type !== PlacementType::PLACED_TENTATIVE->name;
+        $hasPlacedStartDate = PlacementType::hasPlacedStartDate($type);
         $isIndeterminate = $type === PlacementType::PLACED_INDETERMINATE->name;
 
         return $factory->state(fn (array $atts) => [
