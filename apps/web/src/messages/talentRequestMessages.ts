@@ -94,6 +94,11 @@ const messages = defineMessages({
     id: "5wS5V8",
     description: "Label for the follow-up date field",
   },
+  candidateTracking: {
+    defaultMessage: "Candidate tracking",
+    id: "4uFJb+",
+    description: "Title for tracking candidates within a talent request",
+  },
 });
 
 export default messages;
