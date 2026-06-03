@@ -1820,7 +1820,7 @@ type Query {
     )
     @guard
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
-  talentRequest(id: ID! @eq): TalentRequest
+  talentRequest(id: UUID! @eq): TalentRequest
     @find
     @guard
     @canFind(ability: "view", find: "id", scopes: ["withPolicyEagerLoads"])
