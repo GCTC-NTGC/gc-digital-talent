@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Support\Carbon;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 use Spatie\Activitylog\Support\LogOptions;
 
@@ -25,7 +26,6 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property string $not_selected_reason
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
- * @property ?Carbon $deleted_at
  */
 #[Table(name: 'talent_request_tracked_users', keyType: 'string', incrementing: false)]
 class TalentRequestTrackedUser extends Pivot
