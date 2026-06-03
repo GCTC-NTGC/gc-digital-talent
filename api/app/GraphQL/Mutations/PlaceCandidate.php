@@ -14,8 +14,8 @@ final class PlaceCandidate
         $candidate = PoolCandidate::findOrFail($args['id']);
         $placementType = $args['placementType'];
         $departmentId = $args['department']['connect']; // validator asserts this value is valid
-        $placedStartDate = $args['placedStartDate'];
-        $placedEndDate = $args['placedEndDate'];
+        $placedStartDate = $args['placedStartDate'] ?? null;
+        $placedEndDate = $args['placedEndDate'] ?? null;
 
         $candidate->place($placementType, $departmentId, $placedStartDate, $placedEndDate);
 
