@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
 import {
@@ -11,11 +10,9 @@ import {
   commonMessages,
   getEmploymentDuration,
   getEmploymentEquityGroup,
-  getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Ul } from "@gc-digital-talent/ui";
-import { Field } from "@gc-digital-talent/forms";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -85,16 +82,16 @@ const TalentRequestCriteriaCard = ({
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   const flexibleWorkLocations = unpackMaybes(
-    applicantFilter.flexibleWorkLocations,
+    applicantFilter?.flexibleWorkLocations,
   );
   const operationalRequirements = unpackMaybes(
-    applicantFilter.operationalRequirements,
+    applicantFilter?.operationalRequirements,
   );
-  const locations = unpackMaybes(applicantFilter.locationPreferences);
-  const skills = unpackMaybes(applicantFilter.skills);
+  const locations = unpackMaybes(applicantFilter?.locationPreferences);
+  const skills = unpackMaybes(applicantFilter?.skills);
 
   const { isWoman, hasDisability, isIndigenous, isVisibleMinority } =
-    applicantFilter.equity;
+    applicantFilter?.equity ?? {};
   const requestedEquityGroup =
     isWoman || hasDisability || isIndigenous || isVisibleMinority;
 
@@ -147,7 +144,7 @@ const TalentRequestCriteriaCard = ({
             talentRequestMessages.workingLanguageAbility,
           )}
         >
-          {applicantFilter.languageAbility.label.localized ?? notProvided}
+          {applicantFilter?.languageAbility?.label.localized ?? notProvided}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage(commonMessages.employmentEquity)}

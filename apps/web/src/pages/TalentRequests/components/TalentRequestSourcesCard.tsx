@@ -1,5 +1,4 @@
 import { useIntl } from "react-intl";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 
 import {
@@ -59,10 +58,10 @@ const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   const classifications = unpackMaybes(
-    applicantFilter.qualifiedInClassifications,
+    applicantFilter?.qualifiedInClassifications,
   );
-  const pools = unpackMaybes(applicantFilter.pools);
-  const workStreams = unpackMaybes(applicantFilter.qualifiedInWorkStreams);
+  const pools = unpackMaybes(applicantFilter?.pools);
+  const workStreams = unpackMaybes(applicantFilter?.qualifiedInWorkStreams);
 
   return (
     <TalentRequestSectionCard
@@ -108,7 +107,7 @@ const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
           {workStreams.length > 0 ? (
             <Ul>
               {workStreams.map(({ id, name }) => (
-                <li key={id}>{name.localized ?? notProvided}</li>
+                <li key={id}>{name?.localized ?? notProvided}</li>
               ))}
             </Ul>
           ) : (
@@ -121,7 +120,7 @@ const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
         label={intl.formatMessage(talentRequestMessages.community)}
         className="mb-6"
       >
-        {applicantFilter.community.name.localized ?? notProvided}
+        {applicantFilter?.community?.name?.localized ?? notProvided}
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage({
@@ -133,7 +132,7 @@ const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
         {pools.length > 0 ? (
           <Ul>
             {pools.map(({ id, displayName }) => (
-              <li key={id}>{displayName.display.localized ?? notProvided}</li>
+              <li key={id}>{displayName?.display.localized ?? notProvided}</li>
             ))}
           </Ul>
         ) : (

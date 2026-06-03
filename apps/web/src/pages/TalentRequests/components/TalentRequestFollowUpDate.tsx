@@ -31,9 +31,9 @@ import { followUpDateOverdueInfo } from "~/utils/searchRequestUtils";
 const UpdateTalentRequestFollowUpDate_Mutation = graphql(/* GraphQL */ `
   mutation UpdateTalentRequestFollowUpDate(
     $id: ID!
-    $input: UpdateTalentRequestStatusInput!
+    $input: UpdateTalentRequestInput!
   ) {
-    updateTalentRequestStatus(id: $id, talentRequest: $input) {
+    updateTalentRequest(id: $id, talentRequest: $input) {
       id
       followUpDate
     }
@@ -99,7 +99,7 @@ const TalentRequestFollowUpDate = ({
       input: { followUpDate: newDate },
     })
       .then((res) => {
-        if (res.error || !res.data?.updateTalentRequestStatus?.id) {
+        if (res.error || !res.data?.updateTalentRequest?.id) {
           throw new Error();
         }
 

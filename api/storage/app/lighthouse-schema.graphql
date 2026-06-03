@@ -2638,6 +2638,7 @@ input CreateTalentRequestInput {
 
 input UpdateTalentRequestInput {
   adminNotes: String
+  followUpDate: Date
 }
 
 input UpdateTalentRequestStatusInput {

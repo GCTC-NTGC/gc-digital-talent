@@ -2770,6 +2770,7 @@ input CreateTalentRequestInput {
 
 input UpdateTalentRequestInput {
   adminNotes: String @rename(attribute: "admin_notes")
+  followUpDate: Date @rename(attribute: "follow_up_date")
 }
 
 input UpdateTalentRequestStatusInput {
