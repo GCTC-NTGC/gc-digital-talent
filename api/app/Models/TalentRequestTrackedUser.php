@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Database\Factories\TalentRequestTrackedUserFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
@@ -24,12 +25,13 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?Carbon $updated_at
  * @property ?Carbon $deleted_at
  */
-#[Table(keyType: 'string', incrementing: false)]
+#[Table(name: 'talent_request_tracked_users', keyType: 'string', incrementing: false)]
 class TalentRequestTrackedUser extends Pivot
 {
     /** @use HasFactory<TalentRequestTrackedUserFactory> */
     use HasFactory;
 
+    use HasUuids;
     use LogsActivity;
 
     public function getActivitylogOptions(): LogOptions
