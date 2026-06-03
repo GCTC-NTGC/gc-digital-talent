@@ -19,6 +19,7 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import JobPlacementFormFields from "./FormFields/JobPlacementFormFields";
 import Footer from "./Footer";
+import { hasPlacedStartDate } from "../utils";
 
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(
@@ -130,20 +131,16 @@ const ApplicationPlacementDialog = ({
   };
 
   const placeCandidate = async (formValues: FormValues) => {
-    const hasPlacedStartDate =
-      formValues.placementType &&
-      formValues.placementType !== PlacementType.NotPlaced &&
-      formValues.placementType !== PlacementType.UnderConsideration &&
-      formValues.placementType !== PlacementType.PlacedTentative;
-
     return executePlaceCandidate({
       id: application.id,
       poolCandidate: {
         placementType: formValues.placementType,
         department: { connect: formValues.department ?? "" },
-        placedStartDate: hasPlacedStartDate ? formValues.placedStartDate : null,
+        placedStartDate: hasPlacedStartDate(formValues.placementType)
+          ? formValues.placedStartDate
+          : null,
         placedEndDate:
-          hasPlacedStartDate &&
+          hasPlacedStartDate(formValues.placementType) &&
           formValues.placementType !== PlacementType.PlacedIndeterminate
             ? formValues.placedEndDate
             : null,
@@ -156,11 +153,6 @@ const ApplicationPlacementDialog = ({
   };
 
   const handleSubmit = async (formValues: FormValues) => {
-    const hasPlacedStartDate =
-      formValues.placementType &&
-      formValues.placementType !== PlacementType.NotPlaced &&
-      formValues.placementType !== PlacementType.UnderConsideration &&
-      formValues.placementType !== PlacementType.PlacedTentative;
     const mutation =
       formValues.placementType === PlacementType.NotPlaced
         ? revertPlacement
@@ -174,11 +166,13 @@ const ApplicationPlacementDialog = ({
         }
 
         methods.resetField("placedStartDate", {
-          defaultValue: hasPlacedStartDate ? formValues.placedStartDate : null,
+          defaultValue: hasPlacedStartDate(formValues.placementType)
+            ? formValues.placedStartDate
+            : null,
         });
         methods.resetField("placedEndDate", {
           defaultValue:
-            hasPlacedStartDate &&
+            hasPlacedStartDate(formValues.placementType) &&
             formValues.placementType !== PlacementType.PlacedIndeterminate
               ? formValues.placedEndDate
               : null,
