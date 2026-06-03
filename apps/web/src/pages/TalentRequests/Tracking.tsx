@@ -82,6 +82,6 @@ export const Component = () => (
   </RequireAuth>
 );
 
-Component.displayName = "AdminTalentRequestcTracking";
+Component.displayName = "AdminTalentRequestTracking";
 
 export default Component;

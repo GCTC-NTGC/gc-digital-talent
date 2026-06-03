@@ -31,7 +31,7 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import ViewSearchRequestApi from "~/pages/SearchRequests/ViewSearchRequestPage/components/ViewSearchRequest";
 
 import TalentRequestSidebar from "./components/TalentRequestSidebar";
-import type { TalentRequestStatusOptions_Fragment } from "./components/TalentRequestStatusDialog";
+import { TalentRequestStatusOptions_Fragment } from "./components/TalentRequestStatusDialog";
 import type { RouteParams } from "./types";
 
 const TalentRequestLayout_Fragment = graphql(/** GraphQL */ `
