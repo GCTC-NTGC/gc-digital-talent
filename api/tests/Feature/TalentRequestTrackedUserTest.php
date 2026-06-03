@@ -53,6 +53,18 @@ class TalentRequestTrackedUserTest extends TestCase
         }
         GRAPHQL;
 
+    protected string $filterQuery = <<<'GRAPHQL'
+        query FilteredTrackedUsers($id: ID!, $where: TalentRequestTrackedUserFilterInput) {
+            talentRequest(id: $id) {
+                trackedUsers(where: $where) {
+                    user { id }
+                    referralDecision { value }
+                    selectionDecision { value }
+                }
+            }
+        }
+        GRAPHQL;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -94,13 +106,13 @@ class TalentRequestTrackedUserTest extends TestCase
     }
 
     /**
-     * @return array<string, array{0: array<string, string>, 1: array<string, mixed>}>
+     * @return array<string, array{0: string, 1: array<string, mixed>}>
      */
     public static function decisionFieldsProvider(): array
     {
         return [
             'no decisions' => [
-                [],
+                'default',
                 [
                     'referralDecision' => null,
                     'selectionDecision' => null,
@@ -109,7 +121,7 @@ class TalentRequestTrackedUserTest extends TestCase
                 ],
             ],
             'referred' => [
-                ['referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'referred',
                 [
                     'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
                     'selectionDecision' => null,
@@ -118,10 +130,7 @@ class TalentRequestTrackedUserTest extends TestCase
                 ],
             ],
             'not referred with reason' => [
-                [
-                    'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
-                    'not_referred_reason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
-                ],
+                'notReferred',
                 [
                     'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name],
                     'notReferredReason' => ['value' => TalentRequestTrackedUserNotReferredReason::OTHER->name],
@@ -130,10 +139,7 @@ class TalentRequestTrackedUserTest extends TestCase
                 ],
             ],
             'selected' => [
-                [
-                    'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
-                    'selection_decision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
-                ],
+                'selected',
                 [
                     'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
                     'selectionDecision' => ['value' => TalentRequestTrackedUserSelectionDecision::SELECTED->name],
@@ -142,11 +148,7 @@ class TalentRequestTrackedUserTest extends TestCase
                 ],
             ],
             'not selected with reason' => [
-                [
-                    'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
-                    'selection_decision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
-                    'not_selected_reason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
-                ],
+                'notSelected',
                 [
                     'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
                     'selectionDecision' => ['value' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name],
@@ -158,19 +160,24 @@ class TalentRequestTrackedUserTest extends TestCase
     }
 
     /**
-     * @param  array<string, string>  $attributes
      * @param  array<string, mixed>  $expected
      */
     #[DataProvider('decisionFieldsProvider')]
-    public function testDecisionFieldsResolve(array $attributes, array $expected): void
+    public function testDecisionFieldsResolve(string $state, array $expected): void
     {
         $request = $this->createRequest();
         $user = User::factory()->create();
 
-        TalentRequestTrackedUser::factory()->create([
+        $factory = match ($state) {
+            'default' => TalentRequestTrackedUser::factory(),
+            'referred' => TalentRequestTrackedUser::factory()->referred(),
+            'notReferred' => TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER),
+            'selected' => TalentRequestTrackedUser::factory()->selected(),
+            'notSelected' => TalentRequestTrackedUser::factory()->notSelected(TalentRequestTrackedUserNotSelectedReason::OTHER),
+        };
+        $factory->create([
             'talent_request_id' => $request->id,
             'user_id' => $user->id,
-            ...$attributes,
         ]);
 
         $this->actingAs($this->admin, 'api')
@@ -301,5 +308,121 @@ class TalentRequestTrackedUserTest extends TestCase
 
         $this->graphQL($this->query, ['id' => $request->id])
             ->assertGraphQLErrorMessage('Unauthenticated.');
+    }
+
+    /**
+     * @return array<string, array{0: array<int, string>, 1: array<int, string>}>
+     */
+    public static function referralFilterProvider(): array
+    {
+        return [
+            'referred only' => [
+                [TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                ['referred'],
+            ],
+            'not referred only' => [
+                [TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name],
+                ['notReferred'],
+            ],
+            'both decisions' => [
+                [
+                    TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                    TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+                ],
+                ['referred', 'notReferred'],
+            ],
+        ];
+    }
+
+    /**
+     * @param  array<int, string>  $filter
+     * @param  array<int, string>  $expectedKeys
+     */
+    #[DataProvider('referralFilterProvider')]
+    public function testFilterByReferralDecisions(array $filter, array $expectedKeys): void
+    {
+        $request = $this->createRequest();
+        $users = [
+            'referred' => User::factory()->create(),
+            'notReferred' => User::factory()->create(),
+        ];
+
+        TalentRequestTrackedUser::factory()->referred()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users['referred']->id,
+        ]);
+        TalentRequestTrackedUser::factory()->notReferred()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users['notReferred']->id,
+        ]);
+
+        $response = $this->actingAs($this->admin, 'api')
+            ->graphQL($this->filterQuery, [
+                'id' => $request->id,
+                'where' => ['referralDecisions' => $filter],
+            ])
+            ->assertJsonCount(count($expectedKeys), 'data.talentRequest.trackedUsers');
+
+        foreach ($expectedKeys as $key) {
+            $response->assertJsonFragment(['user' => ['id' => $users[$key]->id]]);
+        }
+    }
+
+    /**
+     * @return array<string, array{0: array<int, string>, 1: array<int, string>}>
+     */
+    public static function selectionFilterProvider(): array
+    {
+        return [
+            'selected only' => [
+                [TalentRequestTrackedUserSelectionDecision::SELECTED->name],
+                ['selected'],
+            ],
+            'not selected only' => [
+                [TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name],
+                ['notSelected'],
+            ],
+            'both decisions' => [
+                [
+                    TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+                    TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+                ],
+                ['selected', 'notSelected'],
+            ],
+        ];
+    }
+
+    /**
+     * @param  array<int, string>  $filter
+     * @param  array<int, string>  $expectedKeys
+     */
+    #[DataProvider('selectionFilterProvider')]
+    public function testFilterBySelectionDecisions(array $filter, array $expectedKeys): void
+    {
+        $request = $this->createRequest();
+        $users = [
+            'selected' => User::factory()->create(),
+            'notSelected' => User::factory()->create(),
+        ];
+
+        TalentRequestTrackedUser::factory()->selected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users['selected']->id,
+        ]);
+        TalentRequestTrackedUser::factory()->notSelected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users['notSelected']->id,
+        ]);
+
+        $response = $this->actingAs($this->admin, 'api')
+            ->graphQL($this->filterQuery, [
+                'id' => $request->id,
+                'where' => ['selectionDecisions' => $filter],
+            ])
+            ->assertJsonCount(count($expectedKeys), 'data.talentRequest.trackedUsers');
+
+        foreach ($expectedKeys as $key) {
+            $response->assertJsonFragment(['user' => ['id' => $users[$key]->id]]);
+        }
     }
 }

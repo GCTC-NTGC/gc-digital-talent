@@ -1156,8 +1156,15 @@ type TalentRequest {
   statusChangedAt: DateTime @rename(attribute: "status_changed_at")
   createdAt: DateTime @rename(attribute: "created_at")
   updatedAt: DateTime @rename(attribute: "updated_at")
-  trackedUsers: [TalentRequestTrackedUser!]
+  trackedUsers(where: TalentRequestTrackedUserFilterInput): [TalentRequestTrackedUser!]
     @hasMany(scopes: ["whereAuthorizedToView", "withSkillCount"])
+}
+
+input TalentRequestTrackedUserFilterInput {
+  referralDecisions: [TalentRequestTrackedUserReferralDecision!]
+    @scope(name: "whereReferralDecisionIn")
+  selectionDecisions: [TalentRequestTrackedUserSelectionDecision!]
+    @scope(name: "whereSelectionDecisionIn")
 }
 
 type TalentRequestTrackedUser {

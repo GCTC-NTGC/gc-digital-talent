@@ -83,4 +83,26 @@ class TalentRequestTrackedUser extends Pivot
             }),
         ]);
     }
+
+    /**
+     * @param  ?array<string>  $decisions
+     */
+    public function scopeWhereReferralDecisionIn(Builder $query, ?array $decisions): Builder
+    {
+        return $query->when(
+            $decisions,
+            fn (Builder $query) => $query->whereIn('referral_decision', $decisions)
+        );
+    }
+
+    /**
+     * @param  ?array<string>  $decisions
+     */
+    public function scopeWhereSelectionDecisionIn(Builder $query, ?array $decisions): Builder
+    {
+        return $query->when(
+            $decisions,
+            fn (Builder $query) => $query->whereIn('selection_decision', $decisions)
+        );
+    }
 }
