@@ -22,6 +22,8 @@ return new class() extends Migration
                 ->constrained()
                 ->onDelete('cascade');
 
+            $table->unique(['talent_request_id', 'user_id']);
+
             $table->string('referral_decision')->nullable();
             $table->string('selection_decision')->nullable();
             $table->string('not_referred_reason')->nullable();

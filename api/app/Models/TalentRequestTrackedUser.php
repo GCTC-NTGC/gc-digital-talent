@@ -20,10 +20,10 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property string $id
  * @property string $user_id
  * @property string $talent_request_id
- * @property string $referral_decision
- * @property string $selection_decision
- * @property string $not_referred_reason
- * @property string $not_selected_reason
+ * @property ?string $referral_decision
+ * @property ?string $selection_decision
+ * @property ?string $not_referred_reason
+ * @property ?string $not_selected_reason
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
  */
