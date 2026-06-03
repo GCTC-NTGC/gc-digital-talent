@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Builders\UserBuilder;
 use Database\Factories\TalentRequestTrackedUserFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -52,5 +54,33 @@ class TalentRequestTrackedUser extends Pivot
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Only keep tracked users whose underlying user the viewer is allowed to see.
+     */
+    public function scopeWhereAuthorizedToView(Builder $query): Builder
+    {
+        return $query->whereHas('user', function (Builder $userQuery) {
+            /** @var UserBuilder $userQuery */
+            $userQuery->whereAuthorizedToView();
+        });
+    }
+
+    /**
+     * Add a live count of the user's skills that match this request's applicant filter skills.
+     */
+    public function scopeWithSkillCount(Builder $query): Builder
+    {
+        return $query->addSelect(['skill_count' => UserSkill::query()
+            ->selectRaw('count(*)')
+            ->whereColumn('user_skills.user_id', 'talent_request_tracked_users.user_id')
+            ->whereIn('user_skills.skill_id', function ($subQuery) {
+                $subQuery->select('applicant_filter_skill.skill_id')
+                    ->from('applicant_filter_skill')
+                    ->join('talent_requests', 'talent_requests.applicant_filter_id', '=', 'applicant_filter_skill.applicant_filter_id')
+                    ->whereColumn('talent_requests.id', 'talent_request_tracked_users.talent_request_id');
+            }),
+        ]);
     }
 }

@@ -1156,6 +1156,22 @@ type TalentRequest {
   statusChangedAt: DateTime @rename(attribute: "status_changed_at")
   createdAt: DateTime @rename(attribute: "created_at")
   updatedAt: DateTime @rename(attribute: "updated_at")
+  trackedUsers: [TalentRequestTrackedUser!]
+    @hasMany(scopes: ["whereAuthorizedToView", "withSkillCount"])
+}
+
+type TalentRequestTrackedUser {
+  id: UUID!
+  user: User! @belongsTo
+  skillCount: Int @rename(attribute: "skill_count") # live subquery column from the withSkillCount scope - count of the user's skills matching this request's applicant filter
+  referralDecision: LocalizedTalentRequestTrackedUserReferralDecision
+    @rename(attribute: "referral_decision")
+  selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
+    @rename(attribute: "selection_decision")
+  notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
+    @rename(attribute: "not_referred_reason")
+  notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
+    @rename(attribute: "not_selected_reason")
 }
 
 type SkillFamily {
