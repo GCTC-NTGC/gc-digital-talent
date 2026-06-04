@@ -1,6 +1,6 @@
 import type { SortingState } from "@tanstack/react-table";
 
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   AdvancedOrderByInput,
   TalentRequestStatus,
@@ -27,7 +27,7 @@ export function transformFormValuesToTalentRequestFilterInput(
       ? data.classifications
       : undefined,
     workStreams: data.workStreams?.length
-      ? data.workStreams.filter(notEmpty)
+      ? unpackMaybes(data.workStreams)
       : undefined,
   };
 }
@@ -45,18 +45,16 @@ export function transformSortStateToOrderByClause(
     ["followUpDate", "follow_up_date"],
   ]);
 
-  const orderBy = sortingRule
-    .map((rule) => {
-      const columnName = columnMap.get(rule.id);
-      if (!columnName) return undefined;
-      return {
-        column: columnName,
-        direction: rule.desc ? SortOrder.Desc : SortOrder.Asc,
-      };
-    })
-    .filter(notEmpty);
+  const orderBy = sortingRule.map((rule) => {
+    const columnName = columnMap.get(rule.id);
+    if (!columnName) return undefined;
+    return {
+      column: columnName,
+      direction: rule.desc ? SortOrder.Desc : SortOrder.Asc,
+    };
+  });
 
-  return orderBy.length ? orderBy : undefined;
+  return orderBy.length ? unpackMaybes(orderBy) : undefined;
 }
 
 export function transformTalentRequestFilterInputToFormValues(
@@ -64,8 +62,8 @@ export function transformTalentRequestFilterInputToFormValues(
 ): FormValues {
   return {
     status: unpackMaybes(input?.talentRequestStatus),
-    departments: input?.departments?.filter(notEmpty) ?? [],
-    classifications: input?.classifications?.filter(notEmpty) ?? [],
-    workStreams: input?.workStreams?.filter(notEmpty) ?? [],
+    departments: unpackMaybes(input?.departments) ?? [],
+    classifications: unpackMaybes(input?.classifications) ?? [],
+    workStreams: unpackMaybes(input?.workStreams) ?? [],
   };
 }
