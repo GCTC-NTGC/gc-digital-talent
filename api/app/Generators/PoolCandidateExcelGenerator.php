@@ -129,8 +129,9 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
         try {
             // Pre-pass: collect all pool IDs so we can build headers before streaming rows
             // (OpenSpout streams rows sequentially — headers must be written first)
-            $query = $this->buildQuery();
-            $query->chunk(200, function ($candidates) {
+            // NB: each pass needs its own builder — chunk() leaves offset/limit state on
+            // the builder, so reusing it for the second pass silently under-reads rows.
+            $this->buildQuery()->chunk(200, function ($candidates) {
                 foreach ($candidates as $candidate) {
                     if (! in_array($candidate->pool_id, $this->poolIds)) {
                         $this->poolIds[] = $candidate->pool_id;
@@ -153,7 +154,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                 ...$this->generatedHeaders['ROD_details'] ?? [],
             ]));
 
-            $query->chunk(200, function ($candidates) {
+            $this->buildQuery()->chunk(200, function ($candidates) {
                 foreach ($candidates as $candidate) {
 
                     // pull data from application snapshot
