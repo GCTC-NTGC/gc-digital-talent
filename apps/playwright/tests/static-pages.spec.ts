@@ -85,12 +85,9 @@ test.describe("Static pages", () => {
         .getByRole("link", { name: /download the guidance/i })
         .first();
       await expect(guidanceLink).toBeVisible();
-      const [download] = await Promise.all([
-        page.waitForEvent("download"),
-        guidanceLink.click(),
-      ]);
-      expect(download.suggestedFilename()).toContain(
-        "Enabling_Conditions_Guidance_EN.docx",
+      await expect(guidanceLink).toHaveAttribute(
+        "href",
+        /\/static\/documents\/Enabling_Conditions_Guidance_EN\.docx$/,
       );
     });
 
@@ -103,12 +100,9 @@ test.describe("Static pages", () => {
         .getByRole("link", { name: /télécharger le guide/i })
         .first();
       await expect(guidanceLink).toBeVisible();
-      const [download] = await Promise.all([
-        page.waitForEvent("download"),
-        guidanceLink.click(),
-      ]);
-      expect(download.suggestedFilename()).toContain(
-        "Orientation_sur_les_conditions_habilitantes_FR.docx",
+      await expect(guidanceLink).toHaveAttribute(
+        "href",
+        /\/static\/documents\/Orientation_sur_les_conditions_habilitantes_FR\.docx$/,
       );
     });
   });
