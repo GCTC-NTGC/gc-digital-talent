@@ -15,6 +15,7 @@ use App\Models\UserSkill;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
+use Illuminate\Testing\TestResponse;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -65,7 +66,7 @@ class TalentRequestMatchesTest extends TestCase
         return $user;
     }
 
-    private function runMatches(array $where = [], ?User $actingAs = null): \Illuminate\Testing\TestResponse
+    private function runMatches(array $where = [], ?User $actingAs = null): TestResponse
     {
         return $this->actingAs($actingAs ?? $this->admin, 'api')
             ->graphQL($this->query, ['where' => $where]);
@@ -283,5 +284,76 @@ class TalentRequestMatchesTest extends TestCase
     {
         $this->graphQL($this->query, ['where' => []])
             ->assertGraphQLErrorMessage('Unauthenticated.');
+    }
+
+    public function testCountTotalsMatchingUsersAndIsPublic(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $this->matchingUser($pool);
+        $this->matchingUser($pool);
+
+        // unavailable candidacy and a user with no candidacy — neither counts
+        $unavailable = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->referring(false)->create([
+            'user_id' => $unavailable->id,
+            'pool_id' => $pool->id,
+        ]);
+        User::factory()->create();
+
+        // no actingAs — the count is public, like the legacy search counts
+        $this->graphQL(
+            'query ($where: ApplicantFilterInput) { countTalentRequestMatches(where: $where) }',
+            ['where' => []]
+        )->assertJson(['data' => ['countTalentRequestMatches' => 2]]);
+    }
+
+    public function testCountByPoolCountsDistinctUsersAndExcludesNonMatchingPools(): void
+    {
+        $matchingClass = Classification::factory()->create();
+        $otherClass = Classification::factory()->create();
+
+        $matchingPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $matchingClass->id,
+        ]);
+        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $otherClass->id,
+        ]);
+
+        // user qualified in both the matching and the non-matching pool
+        $both = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $both->id, 'pool_id' => $matchingPool->id]);
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $both->id, 'pool_id' => $otherPool->id]);
+
+        // user qualified only in the matching pool
+        $this->matchingUser($matchingPool);
+
+        $this->graphQL(
+            'query ($where: ApplicantFilterInput) {
+                countTalentRequestMatchesByPool(where: $where) { pool { id } count }
+            }',
+            ['where' => ['qualifiedInClassifications' => [['group' => $matchingClass->group, 'level' => $matchingClass->level]]]]
+        )->assertExactJson([
+            'data' => [
+                'countTalentRequestMatchesByPool' => [
+                    ['pool' => ['id' => $matchingPool->id], 'count' => 2],
+                ],
+            ],
+        ]);
+    }
+
+    public function testCountAgreesWithTheListTotal(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $this->matchingUser($pool);
+        $this->matchingUser($pool);
+        $this->matchingUser($pool);
+
+        $listTotal = $this->runMatches()
+            ->json('data.talentRequestMatches.paginatorInfo.total');
+
+        $this->graphQL(
+            'query ($where: ApplicantFilterInput) { countTalentRequestMatches(where: $where) }',
+            ['where' => []]
+        )->assertJson(['data' => ['countTalentRequestMatches' => $listTotal]]);
     }
 }

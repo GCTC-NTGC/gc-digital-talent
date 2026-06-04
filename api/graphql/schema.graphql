@@ -1544,6 +1544,11 @@ type TalentRequestResult {
   skillCount: Int @rename(attribute: "skill_count")
 }
 
+type TalentRequestMatchPoolCount {
+  pool: Pool!
+  count: Int!
+}
+
 type SitewideAnnouncement {
   title: LocalizedString!
   message: LocalizedString!
@@ -1691,6 +1696,10 @@ type Query {
     )
     @guard
     @canModel(ability: "viewAny", model: "User")
+  countTalentRequestMatches(where: ApplicantFilterInput): Int!
+  countTalentRequestMatchesByPool(
+    where: ApplicantFilterInput
+  ): [TalentRequestMatchPoolCount!]!
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
