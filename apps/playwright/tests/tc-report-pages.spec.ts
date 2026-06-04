@@ -20,7 +20,7 @@ test.describe("Talent Cloud Report pages", () => {
     test("has heading", async ({ page }) => {
       await navigateToStaticTcReport(
         page,
-        "/static/tc-report/en/talent-cloud/",
+        "/static/tc-report/en/talent-cloud",
       );
       await expect(
         page.getByRole("heading", { name: "Talent Cloud", level: 1 }),
@@ -32,7 +32,7 @@ test.describe("Talent Cloud Report pages", () => {
     test("has heading", async ({ page }) => {
       await navigateToStaticTcReport(
         page,
-        "/static/tc-report/en/talent-cloud/report/",
+        "/static/tc-report/en/talent-cloud/report",
       );
       await expect(
         page.getByRole("heading", {

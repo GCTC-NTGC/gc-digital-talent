@@ -85,12 +85,13 @@ test.describe("Static pages", () => {
         .getByRole("link", { name: /download the guidance/i })
         .first();
       await expect(guidanceLink).toBeVisible();
-      const href = await guidanceLink.getAttribute("href");
-      expect(href).toContain("Enabling_Conditions_Guidance_EN.docx");
-      const response = await page.request.get(
-        new URL(href ?? "", page.url()).toString(),
+      const [download] = await Promise.all([
+        page.waitForEvent("download"),
+        guidanceLink.click(),
+      ]);
+      expect(download.suggestedFilename()).toContain(
+        "Enabling_Conditions_Guidance_EN.docx",
       );
-      expect(response.status()).toBe(200);
     });
 
     test("download enabling conditions file in French", async ({ page }) => {
@@ -102,14 +103,13 @@ test.describe("Static pages", () => {
         .getByRole("link", { name: /télécharger le guide/i })
         .first();
       await expect(guidanceLink).toBeVisible();
-      const href = await guidanceLink.getAttribute("href");
-      expect(href).toContain(
+      const [download] = await Promise.all([
+        page.waitForEvent("download"),
+        guidanceLink.click(),
+      ]);
+      expect(download.suggestedFilename()).toContain(
         "Orientation_sur_les_conditions_habilitantes_FR.docx",
       );
-      const response = await page.request.get(
-        new URL(href ?? "", page.url()).toString(),
-      );
-      expect(response.status()).toBe(200);
     });
   });
 });
