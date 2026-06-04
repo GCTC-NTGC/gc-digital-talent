@@ -13,7 +13,7 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
-    "@dr.pogodin/react-helmet": "^3.1.1",
+    "@dr.pogodin/react-helmet": "^3.2.2",
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
     "@urql/core": "^5.2.0",
