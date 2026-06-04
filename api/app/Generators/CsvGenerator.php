@@ -4,8 +4,7 @@ namespace App\Generators;
 
 abstract class CsvGenerator extends FileGenerator implements FileGeneratorInterface
 {
-    /** @var resource|null */
-    protected $handle = null;
+    protected ?\SplFileObject $file = null;
 
     protected string $extension = 'csv';
 
@@ -21,24 +20,21 @@ abstract class CsvGenerator extends FileGenerator implements FileGeneratorInterf
 
     protected function openCsv(): void
     {
-        $path = $this->getPath();
-        $this->handle = fopen($path, 'w');
-        // UTF-8 BOM for Excel compatibility
-        fwrite($this->handle, "\xEF\xBB\xBF");
+        $this->file = new \SplFileObject($this->getPath(), 'w');
+        $this->file->fwrite("\xEF\xBB\xBF");
     }
 
     protected function writeRow(array $row): void
     {
-        if ($this->handle) {
-            fputcsv($this->handle, $row);
+        if ($this->file) {
+            $this->file->fputcsv($row);
         }
     }
 
     protected function closeCsv(): void
     {
-        if ($this->handle) {
-            fclose($this->handle);
-            $this->handle = null;
+        if ($this->file) {
+            $this->file = null;
         }
     }
 }
