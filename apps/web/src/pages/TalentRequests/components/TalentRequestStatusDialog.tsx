@@ -29,9 +29,9 @@ import {
 } from "@gc-digital-talent/i18n";
 import { DateInput, RadioGroup, Select } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 const COLOUR_MAP: Record<
   TalentRequestStatus | "default",
