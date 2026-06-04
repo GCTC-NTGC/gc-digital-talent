@@ -7,6 +7,7 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
+use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
@@ -353,15 +354,13 @@ class UserBuilder extends Builder
         });
     }
 
-    // Users who match a talent request: at least one matching source (currently a qualified,
-    // talent-searchable candidacy) plus the request's user-level attribute and location filters.
-    // Accepts either the wrapper shape ({applicantFilter, ...}) or a bare ApplicantFilterInput.
+    // $args may be the wrapper ({applicantFilter, ...}) or a bare ApplicantFilterInput.
     public function whereMatchesTalentRequest(?array $args): self
     {
         $filters = $args['applicantFilter'] ?? $args ?? [];
         $skillIds = $filters['skills'] ?? []; // already plain ids via ApplicantFilterInput @pluck
 
-        // at least one matching source (the OR group leaves room for future sources)
+        // grouped so source branches OR together without affecting the filters below
         $this->where(fn ($query) => $query->orWhereHas(
             'poolCandidates',
             fn ($candidate) => $candidate->whereMatchesTalentRequest($filters)
@@ -381,13 +380,25 @@ class UserBuilder extends Builder
             );
 
         $this->addSkillCountSelect($skillIds);
+        $this->addTalentRequestSourceFlags($filters);
 
-        // eager-load only the pools that matched, for qualifiedInPools
+        // the matched, view-authorized candidacies for the matchingPreQualifiedSources field
         $this->with(['poolCandidates' => fn ($candidate) => $candidate
             ->whereMatchesTalentRequest($filters)
+            ->whereAuthorizedToView()
             ->with('pool')]);
 
         return $this;
+    }
+
+    // a presence flag (1 or null) per source kind, read by the Sources resolver
+    private function addTalentRequestSourceFlags(array $filters): self
+    {
+        return $this->addSelect(['has_prequalified_source' => PoolCandidate::query()
+            ->whereColumn('pool_candidates.user_id', 'users.id')
+            ->whereMatchesTalentRequest($filters)
+            ->selectRaw('1')
+            ->limit(1)]);
     }
 
     // Always selects a skill_count column so the field is resolvable: the real count of the

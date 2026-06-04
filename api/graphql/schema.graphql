@@ -1533,16 +1533,23 @@ type CandidateSearchPoolResult {
 
 input TalentRequestMatchFilterInput {
   applicantFilter: ApplicantFilterInput
-  # NOT the source of the filters (those come from applicantFilter) — only identifies the
-  # request whose tracked users to exclude. Accepted but unused until the pivot (#16968) lands.
+  # NOT the filter source (filters come from applicantFilter); names the request whose tracked
+  # users to exclude. Has no effect yet.
   excludeTrackedByRequestId: UUID
 }
 
 type TalentRequestResult {
-  id: ID!
+  id: UUID!
   user: User! @self
   sources: [TalentRequestSource!]! @field(resolver: "Sources")
-  qualifiedInPools: [Pool!]! @field(resolver: "QualifiedInPools")
+  # the matching records behind each source kind (filtered to the search, gated by view auth).
+  # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
+  matchingPreQualifiedSources: [PoolCandidate!]
+    @field(resolver: "MatchingPreQualifiedSources")
+  matchingAtLevelSources: [CommunityInterest!]
+    @field(resolver: "MatchingAtLevelSources")
+  matchingAdvancementSources: [TalentNominationGroup!]
+    @field(resolver: "MatchingAdvancementSources")
   skillCount: Int @rename(attribute: "skill_count")
 }
 

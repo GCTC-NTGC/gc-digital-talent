@@ -37,7 +37,7 @@ class TalentRequestMatchesTest extends TestCase
                 data {
                     user { id }
                     sources
-                    qualifiedInPools { id }
+                    matchingPreQualifiedSources { pool { id } }
                     skillCount
                 }
                 paginatorInfo { total }
@@ -97,7 +97,7 @@ class TalentRequestMatchesTest extends TestCase
                             [
                                 'user' => ['id' => $match->id],
                                 'sources' => ['PREQUALIFIED'],
-                                'qualifiedInPools' => [['id' => $pool->id]],
+                                'matchingPreQualifiedSources' => [['pool' => ['id' => $pool->id]]],
                                 'skillCount' => null,
                             ],
                         ],
@@ -171,7 +171,7 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $remote->id);
     }
 
-    public function testQualifiedInPoolsOnlyIncludesPoolsMatchingTheFilter(): void
+    public function testMatchingPreQualifiedSourcesOnlyIncludesPoolsMatchingTheFilter(): void
     {
         $matchingClass = Classification::factory()->create();
         $otherClass = Classification::factory()->create();
@@ -207,7 +207,7 @@ class TalentRequestMatchesTest extends TestCase
                         'data' => [
                             [
                                 'user' => ['id' => $user->id],
-                                'qualifiedInPools' => [['id' => $matchingPool->id]],
+                                'matchingPreQualifiedSources' => [['pool' => ['id' => $matchingPool->id]]],
                             ],
                         ],
                         'paginatorInfo' => ['total' => 1],
@@ -216,7 +216,7 @@ class TalentRequestMatchesTest extends TestCase
             ]);
     }
 
-    public function testUserQualifiedInTwoMatchingPoolsIsOneRowWithBothPools(): void
+    public function testUserQualifiedInTwoMatchingPoolsIsOneRowWithBothSources(): void
     {
         $poolA = Pool::factory()->candidatesAvailableInSearch()->create();
         $poolB = Pool::factory()->candidatesAvailableInSearch()->create();
@@ -234,7 +234,7 @@ class TalentRequestMatchesTest extends TestCase
         $this->runMatches()
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $user->id)
-            ->assertJsonCount(2, 'data.talentRequestMatches.data.0.qualifiedInPools')
+            ->assertJsonCount(2, 'data.talentRequestMatches.data.0.matchingPreQualifiedSources')
             ->assertJsonFragment(['id' => $poolA->id])
             ->assertJsonFragment(['id' => $poolB->id]);
     }
