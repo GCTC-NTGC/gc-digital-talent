@@ -13,7 +13,6 @@ import { useQuery } from "urql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type {
-  PoolCandidateSearchRequestInput,
   TalentRequest,
   TalentRequestInput,
 } from "@gc-digital-talent/graphql";
@@ -191,7 +190,7 @@ const TalentRequestTable_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const SearchRequestTable = ({ title }: TalentRequestTableProps) => {
+const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const now = useStableDate();
@@ -199,14 +198,10 @@ const SearchRequestTable = ({ title }: TalentRequestTableProps) => {
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters = useMemo(
     () =>
-      filtersEncoded
-        ? (JSON.parse(filtersEncoded) as PoolCandidateSearchRequestInput)
-        : {},
+      filtersEncoded ? (JSON.parse(filtersEncoded) as TalentRequestInput) : {},
     [filtersEncoded],
   );
-  const filterRef = useRef<PoolCandidateSearchRequestInput | undefined>(
-    initialFilters,
-  );
+  const filterRef = useRef<TalentRequestInput | undefined>(initialFilters);
   const [paginationState, setPaginationState] = useState<PaginationState>(
     INITIAL_STATE.paginationState,
   );
@@ -217,7 +212,7 @@ const SearchRequestTable = ({ title }: TalentRequestTableProps) => {
     sortInitialState,
   );
   const [filterState, setFilterState] =
-    useState<PoolCandidateSearchRequestInput>(initialFilters);
+    useState<TalentRequestInput>(initialFilters);
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
     setPaginationState((previous) => ({
@@ -492,4 +487,4 @@ const SearchRequestTable = ({ title }: TalentRequestTableProps) => {
   );
 };
 
-export default SearchRequestTable;
+export default TalentRequestTable;
