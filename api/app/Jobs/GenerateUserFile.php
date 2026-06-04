@@ -28,6 +28,22 @@ class GenerateUserFile implements ShouldQueue
         try {
             $this->generator->generate()->write();
 
+            // Don't announce success unless a real file actually landed. A silent
+            // write failure (e.g. OpenSpout's temp dir filling) otherwise completes
+            // cleanly and fires a "ready" notification for a file that isn't there.
+            $path = $this->generator->getPath();
+            clearstatcache(true, $path);
+            if (! is_file($path) || filesize($path) === 0) {
+                Log::channel('jobs')->error('generated file missing', [
+                    'path' => $path,
+                    'exists' => is_file($path),
+                    'size' => is_file($path) ? filesize($path) : null,
+                    'free_storage' => @disk_free_space(dirname($path)),
+                    'free_tmp' => @disk_free_space(sys_get_temp_dir()),
+                ]);
+                throw new \RuntimeException("generated file missing: {$path}");
+            }
+
             UserFileGenerated::dispatch($this->generator->getFileNameWithExtension(), $this->user->id);
         } catch (\Throwable $e) {
             Log::channel('jobs')->error($e);
