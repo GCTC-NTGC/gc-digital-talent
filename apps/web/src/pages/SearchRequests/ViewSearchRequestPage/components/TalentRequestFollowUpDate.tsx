@@ -50,17 +50,8 @@ const TalentRequestFollowUpDate_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-const INTENT = {
-  UPDATE: "update",
-  REMOVE: "remove",
-} as const;
-
-type ObjectValues<T> = T[keyof T];
-export type Intent = ObjectValues<typeof INTENT>;
-
 interface FormValues {
   followUpDate?: string | null;
-  intent: Intent;
 }
 
 interface TalentRequestFollowUpDateProps {
@@ -90,7 +81,6 @@ const TalentRequestFollowUpDate = ({
         : null,
     },
   });
-  const intentProps = methods.register("intent");
 
   const handleSubmit = async (values: FormValues) => {
     const newDate = values.followUpDate ?? null;
@@ -161,12 +151,7 @@ const TalentRequestFollowUpDate = ({
                     }}
                   />
                   <Dialog.Footer>
-                    <Button
-                      type="submit"
-                      value={INTENT.UPDATE}
-                      onClick={() => methods.setValue("intent", INTENT.UPDATE)}
-                      {...intentProps}
-                    >
+                    <Button type="submit">
                       {intl.formatMessage(formMessages.saveChanges)}
                     </Button>
                     <Dialog.Close>
