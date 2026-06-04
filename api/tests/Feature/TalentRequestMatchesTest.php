@@ -7,6 +7,7 @@ use App\Enums\LanguageAbility;
 use App\Enums\PublishingGroup;
 use App\Facades\Notify;
 use App\Models\Classification;
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
@@ -257,27 +258,53 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.0.skillCount', null);
     }
 
-    public function testTalentRequestIdIsAcceptedButDoesNotAffectResults(): void
+    public function testExcludeTrackedByRequestIdIsAcceptedButDoesNotAffectResults(): void
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create();
         $match = $this->matchingUser($pool);
 
         $this->runMatches([
-            'talentRequestId' => Str::uuid()->toString(),
+            'excludeTrackedByRequestId' => Str::uuid()->toString(),
             'applicantFilter' => [],
         ])
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $match->id);
     }
 
-    public function testRequiresViewAnyAuthorization(): void
+    public function testMatchesAreFilteredByViewAuthorization(): void
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create();
         $this->matchingUser($pool);
 
-        // an authenticated user without view-any-user is not allowed
+        // a viewer with no permission to see other users gets no error, but the
+        // whereAuthorizedToView scope filters the results down to what their role allows
         $this->runMatches([], User::factory()->create())
-            ->assertGraphQLErrorMessage('This action is unauthorized.');
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+    }
+
+    // The full per-role matrix of whereAuthorizedToView lives in UserAuthorizationScopeTest;
+    // this confirms the scope is wired into talentRequestMatches and still filters per team —
+    // a community recruiter sees a match in their community but not an equally-valid match elsewhere.
+    public function testTeamScopedRecruiterSeesOnlyMatchesInTheirCommunity(): void
+    {
+        $community = Community::factory()->create();
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $community->id,
+        ]);
+        $visible = $this->matchingUser($pool);
+
+        // an equally-valid match in another community the recruiter has no access to
+        // (explicit community: PoolFactory firstOrCreates one, so it would otherwise reuse $community)
+        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => Community::factory()->create()->id,
+        ]);
+        $this->matchingUser($otherPool);
+
+        $recruiter = User::factory()->asCommunityRecruiter($community->id)->create();
+
+        $this->runMatches([], $recruiter)
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $visible->id);
     }
 
     public function testUnauthenticatedCannotQueryMatches(): void

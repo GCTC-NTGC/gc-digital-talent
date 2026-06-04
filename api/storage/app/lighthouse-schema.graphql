@@ -1933,7 +1933,7 @@ type CandidateSearchPoolResult {
 
 input TalentRequestMatchFilterInput {
   applicantFilter: ApplicantFilterInput
-  talentRequestId: UUID
+  excludeTrackedByRequestId: UUID
 }
 
 type TalentRequestResult {

@@ -1533,7 +1533,9 @@ type CandidateSearchPoolResult {
 
 input TalentRequestMatchFilterInput {
   applicantFilter: ApplicantFilterInput
-  talentRequestId: UUID # accepted but unused until the tracked-user pivot (#16968) lands
+  # NOT the source of the filters (those come from applicantFilter) — only identifies the
+  # request whose tracked users to exclude. Accepted but unused until the pivot (#16968) lands.
+  excludeTrackedByRequestId: UUID
 }
 
 type TalentRequestResult {
