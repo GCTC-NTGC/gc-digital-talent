@@ -92,7 +92,7 @@ const useUserDownloads = () => {
           handleDownloadError();
         }
       })
-      .catch(handleDownloadRes);
+      .catch(handleDownloadError);
   };
 
   const downloadExcel = ({ ids, where }: DownloadExcelArgs) => {
