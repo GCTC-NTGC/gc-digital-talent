@@ -110,7 +110,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
           }
           __typename
           id
-          type {
+          educationType {
             value
             label {
               en
@@ -176,7 +176,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       thesisTitle
       startDate
       endDate
-      type {
+      educationType {
         value
         label {
           localized

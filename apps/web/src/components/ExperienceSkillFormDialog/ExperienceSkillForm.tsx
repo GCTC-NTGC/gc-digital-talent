@@ -58,7 +58,7 @@ const ExperienceSkillFormExperience_Fragment = graphql(/** GraphQL */ `
       organization
     }
     ... on EducationExperience {
-      type {
+      educationType {
         value
       }
       areaOfStudy

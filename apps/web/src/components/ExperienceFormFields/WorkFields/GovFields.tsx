@@ -1,16 +1,17 @@
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useQuery } from "urql";
 import uniqBy from "lodash/uniqBy";
 import { useEffect } from "react";
 
+import type { Radio } from "@gc-digital-talent/forms";
 import {
   Combobox,
   DATE_SEGMENT,
   DateInput,
   Input,
   localizedEnumToOptions,
-  Radio,
   RadioGroup,
   Select,
 } from "@gc-digital-talent/forms";

@@ -81,7 +81,7 @@ const EducationExperiencesRefresh_Query = graphql(/* GraphQL */ `
         areaOfStudy
         startDate
         endDate
-        type {
+        educationType {
           value
           label {
             localized

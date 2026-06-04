@@ -219,7 +219,7 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       thesisTitle
       startDate
       endDate
-      type {
+      educationType {
         value
         label {
           localized

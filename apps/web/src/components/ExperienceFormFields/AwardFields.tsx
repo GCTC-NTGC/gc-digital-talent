@@ -63,7 +63,7 @@ const AwardOptions_Query = graphql(/* GraphQL */ `
         ... on EducationExperience {
           __typename
           id
-          type {
+          educationType {
             value
             label {
               en

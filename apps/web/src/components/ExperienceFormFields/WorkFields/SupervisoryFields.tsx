@@ -10,14 +10,14 @@ import {
   Select,
 } from "@gc-digital-talent/forms";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
-import {
-  CSuiteRoleTitle,
-  graphql,
-  SupervisoryFieldOptionsQuery,
-} from "@gc-digital-talent/graphql";
+import type { SupervisoryFieldOptionsQuery } from "@gc-digital-talent/graphql";
+import { CSuiteRoleTitle, graphql } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
 
-import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
+import type {
+  SubExperienceFormProps,
+  WorkFormValues,
+} from "~/types/experience";
 
 const SupervisoryFieldOptions_Query = graphql(/* GraphQL */ `
   query SupervisoryFieldOptions {
