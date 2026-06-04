@@ -6,7 +6,6 @@ import { Combobox } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   ENUM_SORT_ORDER,
-  getLocalizedName,
   narrowEnumType,
   sortLocalizedEnumOptions,
 } from "@gc-digital-talent/i18n";

@@ -11,7 +11,7 @@ import isEqual from "lodash/isEqual";
 import { useQuery } from "urql";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   TalentRequest,
   TalentRequestInput,
@@ -129,8 +129,7 @@ const TalentRequestTable_Query = graphql(/* GraphQL */ `
           qualifiedInWorkStreams {
             id
             name {
-              en
-              fr
+              localized
             }
           }
         }
@@ -138,30 +137,20 @@ const TalentRequestTable_Query = graphql(/* GraphQL */ `
           id
           departmentNumber
           name {
-            en
-            fr
+            localized
           }
         }
         community {
           id
           key
           name {
-            en
-            fr
+            localized
           }
         }
         email
         fullName
         id
         jobTitle
-        managerJobTitle
-        positionType {
-          value
-          label {
-            en
-            fr
-          }
-        }
         followUpDate
         requestedDate
         talentRequestStatus {
@@ -288,8 +277,8 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
     columnHelper.accessor(
       ({ applicantFilter }) =>
         unpackMaybes(
-          applicantFilter?.qualifiedInWorkStreams?.map((workStream) =>
-            getLocalizedName(workStream?.name, intl),
+          applicantFilter?.qualifiedInWorkStreams?.map(
+            (workStream) => workStream.name?.localized,
           ),
         ).join(","),
       {
@@ -305,8 +294,8 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
           cells.commaList({
             list:
               unpackMaybes(
-                applicantFilter?.qualifiedInWorkStreams?.map((workStream) =>
-                  getLocalizedName(workStream?.name, intl, true),
+                applicantFilter?.qualifiedInWorkStreams?.map(
+                  (workStream) => workStream.name?.localized,
                 ),
               ) ?? [],
           }),
@@ -325,15 +314,12 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
       id: "email",
       header: intl.formatMessage(commonMessages.email),
     }),
-    columnHelper.accessor(
-      (row) => getLocalizedName(row.department?.name, intl, true),
-      {
-        id: "departments",
-        header: intl.formatMessage(commonMessages.department),
-        enableColumnFilter: false,
-        enableSorting: false,
-      },
-    ),
+    columnHelper.accessor((row) => () => row.department?.name.localized, {
+      id: "departments",
+      header: intl.formatMessage(commonMessages.department),
+      enableColumnFilter: false,
+      enableSorting: false,
+    }),
     columnHelper.accessor(({ followUpDate }) => accessors.date(followUpDate), {
       id: "followUpDate",
       enableColumnFilter: false,
@@ -376,15 +362,12 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
       cell: ({ row: { original: searchRequest } }) =>
         detailsCell(searchRequest, intl),
     }),
-    columnHelper.accessor(
-      ({ community }) => getLocalizedName(community?.name, intl, true),
-      {
-        id: "community",
-        header: intl.formatMessage(adminMessages.community),
-        enableColumnFilter: false,
-        enableSorting: false,
-      },
-    ),
+    columnHelper.accessor(({ community }) => community?.name?.localized, {
+      id: "community",
+      header: intl.formatMessage(adminMessages.community),
+      enableColumnFilter: false,
+      enableSorting: false,
+    }),
   ] as ColumnDef<TalentRequest>[];
 
   const handlePaginationStateChange = ({
