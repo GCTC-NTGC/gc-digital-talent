@@ -34,18 +34,18 @@ class CspReportController extends Controller
 
         // report-uri format: {"csp-report": {...}}
         $report = $data['csp-report'] ?? null;
-        if (! $report) {
-            return response()->noContent(400);
+        if ($report) {
+            $this->logViolation([
+                'uri' => $report['document-uri'] ?? 'N/A',
+                'directive' => $report['effective-directive'] ?? ($report['violated-directive'] ?? 'N/A'),
+                'blocked' => $report['blocked-uri'] ?? 'N/A',
+                'disposition' => $report['disposition'] ?? 'N/A',
+            ]);
+
+            return response()->noContent();
         }
 
-        $this->logViolation([
-            'uri' => $report['document-uri'] ?? 'N/A',
-            'directive' => $report['effective-directive'] ?? ($report['violated-directive'] ?? 'N/A'),
-            'blocked' => $report['blocked-uri'] ?? 'N/A',
-            'disposition' => $report['disposition'] ?? 'N/A',
-        ]);
-
-        return response()->noContent();
+        return response()->noContent(400);
     }
 
     /**
