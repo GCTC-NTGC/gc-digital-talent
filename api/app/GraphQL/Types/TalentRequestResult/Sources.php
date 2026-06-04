@@ -11,7 +11,7 @@ final class Sources
     {
         $sources = [];
 
-        if ($user->has_prequalified_source) {
+        if (isset($user->has_prequalified_source) && $user->has_prequalified_source) {
             $sources[] = TalentRequestSource::PREQUALIFIED->name;
         }
 
