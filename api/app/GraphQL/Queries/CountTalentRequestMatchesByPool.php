@@ -16,8 +16,10 @@ final class CountTalentRequestMatchesByPool
     {
         $filters = $args['where'] ?? [];
 
-        // count the matching users per pool: a candidacy that matches the request whose user
-        // also matches it overall. Same scopes as talentRequestMatches, so the totals agree.
+        // NOTE: PoolCandidateBuilder->whereMatchesTalentRequest will run twice,
+        // since it is called here and again from within the call to $user->whereMatchesTalentRequest.
+        // While redundant now, this prevents false positives when
+        // alternative talent sources are introduced in the future.
         return PoolCandidate::query()
             ->whereMatchesTalentRequest($filters)
             ->whereHas('user', fn ($user) => $user->whereMatchesTalentRequest($filters))
