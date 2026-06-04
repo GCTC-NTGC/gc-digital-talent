@@ -192,7 +192,7 @@ export const ViewPoolCandidate = ({
 };
 
 const context: Partial<OperationContext> = {
-  additionalTypenames: ["AssessmentResult"],
+  additionalTypenames: ["AssessmentResult", "PoolCandidate"],
 };
 
 interface RouteParams extends Record<string, string> {

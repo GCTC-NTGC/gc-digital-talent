@@ -21,6 +21,8 @@ export interface FormValues {
   pauseReferralsLength?: PauseReferralsLength;
   resumeReferralsAt?: string;
   pauseReferralsReason?: string;
+  placedStartDate: string | null;
+  placedEndDate: string | null;
 }
 
 export interface MutationMessages {

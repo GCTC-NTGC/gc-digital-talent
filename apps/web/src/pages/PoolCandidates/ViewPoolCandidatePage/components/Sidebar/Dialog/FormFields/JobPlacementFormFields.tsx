@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -15,9 +15,22 @@ import {
   sortLocalizedEnumOptions,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Select } from "@gc-digital-talent/forms";
+import { DateInput, Select } from "@gc-digital-talent/forms";
 
 import type { FormValues } from "../types";
+import { hasPlacedStartDate } from "../../utils";
+
+const placedStartDateLabel = defineMessage({
+  defaultMessage: "Placed position start date",
+  id: "ob2lBu",
+  description: "Label for placed start date input",
+});
+
+const placedEndDateLabel = defineMessage({
+  defaultMessage: "Placed position end date",
+  id: "xMeWyN",
+  description: "Label for placed end date input",
+});
 
 const JobPlacementFormFields_Fragment = graphql(/* GraphQL */ `
   fragment JobPlacementFormFields on Query {
@@ -51,9 +64,12 @@ const JobPlacementFormFields = ({
   const { watch } = useFormContext<FormValues>();
   const options = getFragment(JobPlacementFormFields_Fragment, query);
   const selectedType = watch("placementType");
+  const placedStartDate = watch("placedStartDate");
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   const isPlaced = selectedType && selectedType !== PlacementType.NotPlaced;
+  const isPlacedIndeterminate =
+    selectedType && selectedType === PlacementType.PlacedIndeterminate;
 
   const placementTypeOptions = sortLocalizedEnumOptions(
     ENUM_SORT_ORDER.PLACEMENT_TYPE,
@@ -107,6 +123,31 @@ const JobPlacementFormFields = ({
             required: intl.formatMessage(errorMessages.required),
           }}
         />
+      )}
+      {hasPlacedStartDate(selectedType) && (
+        <>
+          <DateInput
+            id="placedStartDate"
+            name="placedStartDate"
+            legend={intl.formatMessage(placedStartDateLabel)}
+          />
+          {!isPlacedIndeterminate && (
+            <DateInput
+              id="placedEndDate"
+              name="placedEndDate"
+              legend={intl.formatMessage(placedEndDateLabel)}
+              rules={{
+                min: {
+                  value: placedStartDate ? String(placedStartDate) : "",
+                  message: intl.formatMessage(errorMessages.minDateSelfLabel, {
+                    labelSelf: intl.formatMessage(placedEndDateLabel),
+                    labelAssociated: intl.formatMessage(placedStartDateLabel),
+                  }),
+                },
+              }}
+            />
+          )}
+        </>
       )}
     </>
   );

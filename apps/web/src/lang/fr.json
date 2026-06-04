@@ -13010,6 +13010,10 @@
     "defaultMessage": "3. Saisissez votre <strong>code unique à six chiffres</strong> à partir de votre <strong>application d'authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign in step."
   },
+  "ob2lBu": {
+    "defaultMessage": "Date de début du placement",
+    "description": "Label for placed start date input"
+  },
   "oepQr+": {
     "defaultMessage": "Courriel de confirmation envoyé!",
     "description": "Title for a message confirming that the verification email was sent."
@@ -15073,6 +15077,10 @@
   "xKvQtM": {
     "defaultMessage": "Consultez, créez ou modifiez des modèles d’offre d’emploi.",
     "description": "Subtitle for the index job poster template page"
+  },
+  "xMeWyN": {
+    "defaultMessage": "Date de fin du placement",
+    "description": "Label for placed end date input"
   },
   "xQSZ+V": {
     "defaultMessage": "Les récompenses et reconnaissances comprennent les distinctions précises que vous avez reçues pour avoir dépassé les attentes.",
