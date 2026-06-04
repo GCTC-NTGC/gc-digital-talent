@@ -21,10 +21,9 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import tableMessages from "~/components/Table/tableMessages";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
-import { requireUser } from "~/routing/auth";
 import adminMessages from "~/messages/adminMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import type { Route } from "./+types/CommunityMembersPage";
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
 import type {
@@ -32,7 +31,6 @@ import type {
   ContextType,
 } from "./components/types";
 import { CommunityMembersPage_CommunityFragment } from "./components/operations";
-import { getCommunityTeamIdInMiddleware } from "../utils";
 
 const pageTitle = defineMessage({
   defaultMessage: "Community members",
@@ -156,6 +154,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
 const CommunityMembersTeam_Query = graphql(/* GraphQL */ `
   query CommunityMembersTeam($communityId: UUID!) {
     community(id: $communityId) {
+      teamIdForRoleAssignment
       ...CommunityMembersPage_Community
     }
   }
@@ -206,37 +205,29 @@ const CommunityMembersPage = ({ community }: CommunityMembersPageProps) => {
   );
 };
 
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request, params }, next) => {
-    const teamId = await getCommunityTeamIdInMiddleware(
-      context,
-      params.communityId,
-    );
-
-    requireUser(context, request, {
-      roles: [
-        { name: ROLE_NAME.PlatformAdmin },
-        { name: ROLE_NAME.CommunityAdmin, teamId: teamId },
-        { name: ROLE_NAME.CommunityRecruiter, teamId: teamId },
-        { name: ROLE_NAME.CommunityTalentCoordinator, teamId: teamId },
-      ],
-      strict: true,
-    });
-    return await next();
-  },
-];
-
 // Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
-const Component = () => {
+export const Component = () => {
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
     query: CommunityMembersTeam_Query,
     variables: { communityId },
   });
+  const teamId = data?.community?.teamIdForRoleAssignment;
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.community ? (
-        <CommunityMembersPage community={data.community} />
+        <RequireAuth
+          rolesAndTeams={[
+            { name: ROLE_NAME.PlatformAdmin },
+            { name: ROLE_NAME.CommunityAdmin, teamId: teamId },
+            { name: ROLE_NAME.CommunityRecruiter, teamId: teamId },
+            { name: ROLE_NAME.CommunityTalentCoordinator, teamId: teamId },
+          ]}
+          strict
+        >
+          <CommunityMembersPage community={data.community} />
+        </RequireAuth>
       ) : (
         <ThrowNotFound />
       )}
