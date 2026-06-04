@@ -357,7 +357,7 @@ class UserBuilder extends Builder
     // $args may be the wrapper ({applicantFilter, ...}) or a bare ApplicantFilterInput.
     public function whereMatchesTalentRequest(?array $args): self
     {
-        $filters = $args['applicantFilter'] ?? $args ?? [];
+        $filters = $args ? ($args['applicantFilter'] ?? $args) : [];
         $skillIds = $filters['skills'] ?? []; // already plain ids via ApplicantFilterInput @pluck
 
         // grouped so source branches OR together without affecting the filters below
