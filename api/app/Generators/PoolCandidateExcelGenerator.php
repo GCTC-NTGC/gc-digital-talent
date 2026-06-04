@@ -126,240 +126,242 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
         $this->writer = new Writer();
         $this->writer->openToFile($this->getPath());
 
-        // Pre-pass: collect all pool IDs so we can build headers before streaming rows
-        // (OpenSpout streams rows sequentially — headers must be written first)
-        $query = $this->buildQuery();
-        $query->chunk(200, function ($candidates) {
-            foreach ($candidates as $candidate) {
-                if (! in_array($candidate->pool_id, $this->poolIds)) {
-                    $this->poolIds[] = $candidate->pool_id;
-                }
-            }
-        });
-
-        $localizedHeaders = array_map(function ($key) {
-            return $this->localizeHeading($key);
-        }, $this->headerLocaleKeys);
-
-        $this->generatePoolHeaders();
-
-        $this->writer->addRow($this->row([
-            ...$localizedHeaders,
-            $this->localizeHeading('skills'),
-            ...$this->generatedHeaders['general_questions'] ?? [],
-            ...$this->generatedHeaders['screening_questions'] ?? [],
-            ...$this->generatedHeaders['skill_details'] ?? [],
-            ...$this->generatedHeaders['ROD_details'] ?? [],
-        ]));
-
-        $query->chunk(200, function ($candidates) {
-            foreach ($candidates as $candidate) {
-
-                // pull data from application snapshot
-                // mirrors logic found in ApplicationDocGenerator
-                $snapshot = $candidate->profile_snapshot;
-                $userHydrated = User::hydrateSnapshot($snapshot);
-                $snapshotExperiences = isset($snapshot['experiences']) ? $snapshot['experiences'] : [];
-                // the snapshot stores the department and classification models connected by relation
-                // to render with GeneratesUserDoc or use hydrateSnapshot, map the models to a string with the appropriate property name per $hydrationFields
-                foreach ($snapshotExperiences as &$experience) {
-                    if ($experience['__typename'] === 'WorkExperience') {
-                        if (isset($experience['department'])) {
-                            $experience['departmentId'] = $experience['department']['id'];
-                        }
-                        if (isset($experience['classification'])) {
-                            $experience['classificationId'] = $experience['classification']['id'];
-                        }
-                        if (isset($experience['workStreams'])) {
-                            $experience['workStreamIds'] = Arr::map($experience['workStreams'], fn ($value) => $value['id']);
-                        }
+        try {
+            // Pre-pass: collect all pool IDs so we can build headers before streaming rows
+            // (OpenSpout streams rows sequentially — headers must be written first)
+            $query = $this->buildQuery();
+            $query->chunk(200, function ($candidates) {
+                foreach ($candidates as $candidate) {
+                    if (! in_array($candidate->pool_id, $this->poolIds)) {
+                        $this->poolIds[] = $candidate->pool_id;
                     }
                 }
-                $experiencesHydrated = Experience::hydrateSnapshot($snapshotExperiences);
+            });
 
-                $department = $userHydrated->department()->first();
-                $preferences = $userHydrated->getOperationalRequirements();
-                $educationRequirementExperiences = $candidate->educationRequirementExperiences->map(function ($experience) {
-                    return $experience->getTitle();
-                })->flatten()->unique()->toArray();
+            $localizedHeaders = array_map(function ($key) {
+                return $this->localizeHeading($key);
+            }, $this->headerLocaleKeys);
 
-                $values = [
-                    $candidate->pool->process_number, // Process number
-                    $candidate->pool->name[$this->lang] ?? '', // Process name
-                    $userHydrated->first_name, // First name
-                    $userHydrated->last_name, // Last name
-                    $this->localizeEnum($candidate->application_status, ApplicationStatus::class), // Status
-                    $this->localizeEnum($userHydrated->priority, PriorityWeight::class),
-                    $candidate->suspended_at ? Lang::get('common.not_interested', [], $this->lang) : Lang::get('common.open_to_job_offers', [], $this->lang),
-                    $this->sanitizeString($candidate->notes ?? ''), // Notes
-                    $candidate->submitted_at ? $candidate->submitted_at->format('Y-m-d') : '', // Date received
-                    $candidate->expiry_date ? $candidate->expiry_date->format('Y-m-d') : '', // Expiry date
-                    $candidate->archived_at ? $candidate->archived_at->format('Y-m-d') : '', // Archival date
-                    $this->localizeEnum($userHydrated->current_province, ProvinceOrTerritory::class), // Current province
-                    $userHydrated->current_city, // Current city
-                    $userHydrated->email, // Email
-                    $this->localizeEnum($userHydrated->preferred_lang, Language::class),
-                    $this->localizeEnum($userHydrated->preferred_language_for_interview, Language::class),
-                    $this->localizeEnum($userHydrated->preferred_language_for_exam, Language::class),
-                    $this->localizeEnum($userHydrated->armed_forces_status, ArmedForcesStatus::class),
-                    $this->localizeEnum($userHydrated->citizenship, CitizenshipStatus::class),
-                    $this->localizeEnum($userHydrated->first_official_language, Language::class),
-                    $this->localizeEnum($userHydrated->estimated_language_ability, EstimatedLanguageAbility::class), // Estimated language ability
-                    $this->yesOrNo($userHydrated->second_language_exam_completed),
-                    $this->yesOrNo($userHydrated->second_language_exam_validity),
-                    $this->localizeEnum($userHydrated->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
-                    $this->localizeEnum($userHydrated->written_level, EvaluatedLanguageAbility::class), // Writing level
-                    $this->localizeEnum($userHydrated->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
-                    $this->yesOrNo($userHydrated->computed_is_gov_employee), // Government employee
-                    $department->name[$this->lang] ?? '', // Department
-                    $this->localizeEnum($userHydrated->computed_gov_employee_type, GovEmployeeType::class),
-                    $userHydrated->work_email, // Work email
-                    $userHydrated->getClassification(), // Current classification
-                    $this->yesOrNo($userHydrated->has_priority_entitlement), // Priority entitlement
-                    $userHydrated->priority_number ?? '', // Priority number
-                    $userHydrated->position_duration ? $this->yesOrNo($userHydrated->wouldAcceptTemporary()) : '', // Accept temporary
-                    $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
-                    /* remove 'Telework' from location preferences */
-                    $this->localizeEnumArray(
-                        array_filter($userHydrated->location_preferences ?? [], function ($location) {
-                            return $location !== WorkRegion::TELEWORK->name;
-                        }),
-                        WorkRegion::class
-                    ), // Location preferences
-                    $this->localizeEnumArray($userHydrated->flexible_work_locations, FlexibleWorkLocation::class), // Flexible work locations
-                    $userHydrated->location_exemptions, // Location exemptions
-                    $this->yesOrNo($userHydrated->is_woman), // Woman
-                    $this->localizeEnumArray($userHydrated->indigenous_communities, IndigenousCommunity::class),
-                    $this->yesOrNo($userHydrated->is_visible_minority), // Visible minority
-                    $this->yesOrNo($userHydrated->has_disability), // Disability
-                    $this->localizeEnum($candidate->education_requirement_option, EducationRequirementOption::class), // Education requirement
-                    implode(', ', $educationRequirementExperiences ?? []), // Education requirement experiences
-                ];
+            $this->generatePoolHeaders();
 
-                // Skills claimed through UserSkills field, from snapshot
-                $usersSkillsNames = [];
-                $snapshotUserSkills = $snapshot['userSkills'] ?? [];
-                foreach ($snapshotUserSkills as $snapshotUserSkill) {
-                    array_push($usersSkillsNames, $snapshotUserSkill['skill']['name'][$this->lang]);
-                }
-                $values[] = implode(', ', $usersSkillsNames);
+            $this->writer->addRow($this->row([
+                ...$localizedHeaders,
+                $this->localizeHeading('skills'),
+                ...$this->generatedHeaders['general_questions'] ?? [],
+                ...$this->generatedHeaders['screening_questions'] ?? [],
+                ...$this->generatedHeaders['skill_details'] ?? [],
+                ...$this->generatedHeaders['ROD_details'] ?? [],
+            ]));
 
-                // General question responses — one column per question, in header order
-                foreach ($this->generalQuestionIds as $questionId) {
-                    $response = $candidate->generalQuestionResponses->where('general_question_id', $questionId)->first();
-                    $values[] = $response ? $this->sanitizeString($response->answer) : '';
-                }
+            $query->chunk(200, function ($candidates) {
+                foreach ($candidates as $candidate) {
 
-                // Screening question responses — one column per question, in header order
-                foreach ($this->screeningQuestionIds as $questionId) {
-                    $response = $candidate->screeningQuestionResponses->where('screening_question_id', $questionId)->first();
-                    $values[] = $response ? $this->sanitizeString($response->answer) : '';
-                }
-
-                // PoolSkill section
-                // collect pool's skills and all skills claimed in snapshotted experiences
-                $usersSkillsIds = [];
-                foreach ($snapshotExperiences as $snapshotExperience) {
-                    $skills = $snapshotExperience['skills'] ?? [];
-                    foreach ($skills as $skill) {
-                        array_push($usersSkillsIds, $skill['id']);
+                    // pull data from application snapshot
+                    // mirrors logic found in ApplicationDocGenerator
+                    $snapshot = $candidate->profile_snapshot;
+                    $userHydrated = User::hydrateSnapshot($snapshot);
+                    $snapshotExperiences = isset($snapshot['experiences']) ? $snapshot['experiences'] : [];
+                    // the snapshot stores the department and classification models connected by relation
+                    // to render with GeneratesUserDoc or use hydrateSnapshot, map the models to a string with the appropriate property name per $hydrationFields
+                    foreach ($snapshotExperiences as &$experience) {
+                        if ($experience['__typename'] === 'WorkExperience') {
+                            if (isset($experience['department'])) {
+                                $experience['departmentId'] = $experience['department']['id'];
+                            }
+                            if (isset($experience['classification'])) {
+                                $experience['classificationId'] = $experience['classification']['id'];
+                            }
+                            if (isset($experience['workStreams'])) {
+                                $experience['workStreamIds'] = Arr::map($experience['workStreams'], fn ($value) => $value['id']);
+                            }
+                        }
                     }
-                }
-                $usersSkillsIds = array_unique($usersSkillsIds);
+                    $experiencesHydrated = Experience::hydrateSnapshot($snapshotExperiences);
 
-                foreach ($this->skillIds as $poolsSkillId) {
-                    $experienceSkillArray = [];
-                    // execute if the skill was claimed by the user
-                    if (in_array($poolsSkillId, $usersSkillsIds)) {
-                        // iterate through each snapshotted experience
-                        foreach ($snapshotExperiences as $snapshotExperience) {
+                    $department = $userHydrated->department()->first();
+                    $preferences = $userHydrated->getOperationalRequirements();
+                    $educationRequirementExperiences = $candidate->educationRequirementExperiences->map(function ($experience) {
+                        return $experience->getTitle();
+                    })->flatten()->unique()->toArray();
 
-                            // find the hydrated experience model for the snapshotted experience, then you can execute ->getTitle()
-                            $experienceModelFound = Arr::first($experiencesHydrated, function ($hydratedExperience) use ($snapshotExperience) {
-                                return $snapshotExperience['id'] == $hydratedExperience->id;
-                            });
+                    $values = [
+                        $candidate->pool->process_number, // Process number
+                        $candidate->pool->name[$this->lang] ?? '', // Process name
+                        $userHydrated->first_name, // First name
+                        $userHydrated->last_name, // Last name
+                        $this->localizeEnum($candidate->application_status, ApplicationStatus::class), // Status
+                        $this->localizeEnum($userHydrated->priority, PriorityWeight::class),
+                        $candidate->suspended_at ? Lang::get('common.not_interested', [], $this->lang) : Lang::get('common.open_to_job_offers', [], $this->lang),
+                        $this->sanitizeString($candidate->notes ?? ''), // Notes
+                        $candidate->submitted_at ? $candidate->submitted_at->format('Y-m-d') : '', // Date received
+                        $candidate->expiry_date ? $candidate->expiry_date->format('Y-m-d') : '', // Expiry date
+                        $candidate->archived_at ? $candidate->archived_at->format('Y-m-d') : '', // Archival date
+                        $this->localizeEnum($userHydrated->current_province, ProvinceOrTerritory::class), // Current province
+                        $userHydrated->current_city, // Current city
+                        $userHydrated->email, // Email
+                        $this->localizeEnum($userHydrated->preferred_lang, Language::class),
+                        $this->localizeEnum($userHydrated->preferred_language_for_interview, Language::class),
+                        $this->localizeEnum($userHydrated->preferred_language_for_exam, Language::class),
+                        $this->localizeEnum($userHydrated->armed_forces_status, ArmedForcesStatus::class),
+                        $this->localizeEnum($userHydrated->citizenship, CitizenshipStatus::class),
+                        $this->localizeEnum($userHydrated->first_official_language, Language::class),
+                        $this->localizeEnum($userHydrated->estimated_language_ability, EstimatedLanguageAbility::class), // Estimated language ability
+                        $this->yesOrNo($userHydrated->second_language_exam_completed),
+                        $this->yesOrNo($userHydrated->second_language_exam_validity),
+                        $this->localizeEnum($userHydrated->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
+                        $this->localizeEnum($userHydrated->written_level, EvaluatedLanguageAbility::class), // Writing level
+                        $this->localizeEnum($userHydrated->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
+                        $this->yesOrNo($userHydrated->computed_is_gov_employee), // Government employee
+                        $department->name[$this->lang] ?? '', // Department
+                        $this->localizeEnum($userHydrated->computed_gov_employee_type, GovEmployeeType::class),
+                        $userHydrated->work_email, // Work email
+                        $userHydrated->getClassification(), // Current classification
+                        $this->yesOrNo($userHydrated->has_priority_entitlement), // Priority entitlement
+                        $userHydrated->priority_number ?? '', // Priority number
+                        $userHydrated->position_duration ? $this->yesOrNo($userHydrated->wouldAcceptTemporary()) : '', // Accept temporary
+                        $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
+                        /* remove 'Telework' from location preferences */
+                        $this->localizeEnumArray(
+                            array_filter($userHydrated->location_preferences ?? [], function ($location) {
+                                return $location !== WorkRegion::TELEWORK->name;
+                            }),
+                            WorkRegion::class
+                        ), // Location preferences
+                        $this->localizeEnumArray($userHydrated->flexible_work_locations, FlexibleWorkLocation::class), // Flexible work locations
+                        $userHydrated->location_exemptions, // Location exemptions
+                        $this->yesOrNo($userHydrated->is_woman), // Woman
+                        $this->localizeEnumArray($userHydrated->indigenous_communities, IndigenousCommunity::class),
+                        $this->yesOrNo($userHydrated->is_visible_minority), // Visible minority
+                        $this->yesOrNo($userHydrated->has_disability), // Disability
+                        $this->localizeEnum($candidate->education_requirement_option, EducationRequirementOption::class), // Education requirement
+                        implode(', ', $educationRequirementExperiences ?? []), // Education requirement experiences
+                    ];
 
-                            // search for the iterated skill, returns array of one or empty
-                            // array_values reindexes the array
-                            $skillFoundArray =
-                                array_values(
-                                    array_filter(
-                                        $snapshotExperience['skills'] ?? [],
-                                        function ($skill) use ($poolsSkillId) {
-                                            return $skill['id'] === $poolsSkillId;
+                    // Skills claimed through UserSkills field, from snapshot
+                    $usersSkillsNames = [];
+                    $snapshotUserSkills = $snapshot['userSkills'] ?? [];
+                    foreach ($snapshotUserSkills as $snapshotUserSkill) {
+                        array_push($usersSkillsNames, $snapshotUserSkill['skill']['name'][$this->lang]);
+                    }
+                    $values[] = implode(', ', $usersSkillsNames);
+
+                    // General question responses — one column per question, in header order
+                    foreach ($this->generalQuestionIds as $questionId) {
+                        $response = $candidate->generalQuestionResponses->where('general_question_id', $questionId)->first();
+                        $values[] = $response ? $this->sanitizeString($response->answer) : '';
+                    }
+
+                    // Screening question responses — one column per question, in header order
+                    foreach ($this->screeningQuestionIds as $questionId) {
+                        $response = $candidate->screeningQuestionResponses->where('screening_question_id', $questionId)->first();
+                        $values[] = $response ? $this->sanitizeString($response->answer) : '';
+                    }
+
+                    // PoolSkill section
+                    // collect pool's skills and all skills claimed in snapshotted experiences
+                    $usersSkillsIds = [];
+                    foreach ($snapshotExperiences as $snapshotExperience) {
+                        $skills = $snapshotExperience['skills'] ?? [];
+                        foreach ($skills as $skill) {
+                            array_push($usersSkillsIds, $skill['id']);
+                        }
+                    }
+                    $usersSkillsIds = array_unique($usersSkillsIds);
+
+                    foreach ($this->skillIds as $poolsSkillId) {
+                        $experienceSkillArray = [];
+                        // execute if the skill was claimed by the user
+                        if (in_array($poolsSkillId, $usersSkillsIds)) {
+                            // iterate through each snapshotted experience
+                            foreach ($snapshotExperiences as $snapshotExperience) {
+
+                                // find the hydrated experience model for the snapshotted experience, then you can execute ->getTitle()
+                                $experienceModelFound = Arr::first($experiencesHydrated, function ($hydratedExperience) use ($snapshotExperience) {
+                                    return $snapshotExperience['id'] == $hydratedExperience->id;
+                                });
+
+                                // search for the iterated skill, returns array of one or empty
+                                // array_values reindexes the array
+                                $skillFoundArray =
+                                    array_values(
+                                        array_filter(
+                                            $snapshotExperience['skills'] ?? [],
+                                            function ($skill) use ($poolsSkillId) {
+                                                return $skill['id'] === $poolsSkillId;
+                                            }
+                                        )
+                                    );
+
+                                // if not empty, append onto accumulator
+                                if (! empty($skillFoundArray)) {
+                                    $skillFound = $skillFoundArray[0];
+                                    array_push(
+                                        $experienceSkillArray,
+                                        $experienceModelFound && $skillFound['experienceSkillRecord'] && $skillFound['experienceSkillRecord']['details'] ?
+                                        $experienceModelFound->getTitle().': '.$skillFound['experienceSkillRecord']['details'] :
+                                        $experienceModelFound->getTitle().': '.Lang::get('common.not_found', [], $this->lang),
+                                    );
+                                }
+                            }
+                        }
+                        $values[] = implode("\r\n", $experienceSkillArray);
+                    }
+
+                    if ($this->withROD) {
+                        foreach ($this->RODStepsWithPoolSkills as $stepId => $poolSkills) {
+                            foreach ($poolSkills as $poolSkill) {
+                                if ($poolSkill === 'education') {
+                                    $result = $this->array_find($candidate->assessmentResults, function ($ar) use ($stepId) {
+                                        return $ar->assessmentStep->id === $stepId && $ar->assessment_result_type === AssessmentResultType::EDUCATION->name;
+                                    });
+                                    $values[] = is_null($result) ? '' : (is_null($result->assessment_decision) ? Lang::get('common.pending_second_opinion', [], $this->lang) : $this->localizeEnum($result->assessment_decision, AssessmentDecision::class));
+                                    $values[] = is_null($result) ? '' : $this->localizeEnumArray($result->justifications, AssessmentResultJustification::class);
+                                    $values[] = is_null($result) || is_null($result->skill_decision_notes) ? '' : $this->sanitizeString($result->skill_decision_notes);
+                                } else {
+                                    $result = $this->array_find($candidate->assessmentResults, function ($ar) use ($poolSkill, $stepId) {
+                                        if (is_null($ar['poolSkill'])) {
+                                            return false;
                                         }
-                                    )
-                                );
 
-                            // if not empty, append onto accumulator
-                            if (! empty($skillFoundArray)) {
-                                $skillFound = $skillFoundArray[0];
-                                array_push(
-                                    $experienceSkillArray,
-                                    $experienceModelFound && $skillFound['experienceSkillRecord'] && $skillFound['experienceSkillRecord']['details'] ?
-                                    $experienceModelFound->getTitle().': '.$skillFound['experienceSkillRecord']['details'] :
-                                    $experienceModelFound->getTitle().': '.Lang::get('common.not_found', [], $this->lang),
-                                );
+                                        return $ar->assessmentStep->id === $stepId && $ar['poolSkill']->id === $poolSkill;
+                                    });
+                                    $values[] = is_null($result) ? '' : (is_null($result->assessment_decision) ? Lang::get('common.pending_second_opinion', [], $this->lang) : $this->localizeEnum($result->assessment_decision, AssessmentDecision::class));
+                                    $values[] = is_null($result) ? '' : (is_null($result->assessment_decision_level) ? $this->localizeEnumArray($result->justifications, AssessmentResultJustification::class) : $this->localizeEnum($result->assessment_decision_level, AssessmentDecisionLevel::class));
+                                    $values[] = is_null($result) || is_null($result->skill_decision_notes) ? '' : $this->sanitizeString($result->skill_decision_notes);
+                                }
                             }
                         }
-                    }
-                    $values[] = implode("\r\n", $experienceSkillArray);
-                }
 
-                if ($this->withROD) {
-                    foreach ($this->RODStepsWithPoolSkills as $stepId => $poolSkills) {
-                        foreach ($poolSkills as $poolSkill) {
-                            if ($poolSkill === 'education') {
-                                $result = $this->array_find($candidate->assessmentResults, function ($ar) use ($stepId) {
-                                    return $ar->assessmentStep->id === $stepId && $ar->assessment_result_type === AssessmentResultType::EDUCATION->name;
-                                });
-                                $values[] = is_null($result) ? '' : (is_null($result->assessment_decision) ? Lang::get('common.pending_second_opinion', [], $this->lang) : $this->localizeEnum($result->assessment_decision, AssessmentDecision::class));
-                                $values[] = is_null($result) ? '' : $this->localizeEnumArray($result->justifications, AssessmentResultJustification::class);
-                                $values[] = is_null($result) || is_null($result->skill_decision_notes) ? '' : $this->sanitizeString($result->skill_decision_notes);
+                        $decision = null;
+                        if (is_null($candidate->application_status) || $candidate->application_status === ApplicationStatus::TO_ASSESS->name) {
+                            if (! isset($candidate->computed_assessment_status['overallAssessmentStatus'])) {
+                                $decision = Lang::get('final_decision.to_assess', [], $this->lang);
                             } else {
-                                $result = $this->array_find($candidate->assessmentResults, function ($ar) use ($poolSkill, $stepId) {
-                                    if (is_null($ar['poolSkill'])) {
-                                        return false;
-                                    }
-
-                                    return $ar->assessmentStep->id === $stepId && $ar['poolSkill']->id === $poolSkill;
-                                });
-                                $values[] = is_null($result) ? '' : (is_null($result->assessment_decision) ? Lang::get('common.pending_second_opinion', [], $this->lang) : $this->localizeEnum($result->assessment_decision, AssessmentDecision::class));
-                                $values[] = is_null($result) ? '' : (is_null($result->assessment_decision_level) ? $this->localizeEnumArray($result->justifications, AssessmentResultJustification::class) : $this->localizeEnum($result->assessment_decision_level, AssessmentDecisionLevel::class));
-                                $values[] = is_null($result) || is_null($result->skill_decision_notes) ? '' : $this->sanitizeString($result->skill_decision_notes);
+                                if ($candidate->computed_assessment_status['overallAssessmentStatus'] === OverallAssessmentStatus::DISQUALIFIED->name) {
+                                    $decision = Lang::get('final_decision.disqualified_pending', [], $this->lang);
+                                } elseif ($candidate->assessment_step_id === null) {
+                                    $decision = Lang::get('final_decision.qualified_pending', [], $this->lang);
+                                } else {
+                                    $decision = Lang::get('final_decision.to_assess', [], $this->lang)
+                                                .$this->colon()
+                                                .Lang::get('common.step', [], $this->lang)
+                                                .' '
+                                                .$candidate->assessmentStep->sort_order;
+                                }
                             }
-                        }
-                    }
-
-                    $decision = null;
-                    if (is_null($candidate->application_status) || $candidate->application_status === ApplicationStatus::TO_ASSESS->name) {
-                        if (! isset($candidate->computed_assessment_status['overallAssessmentStatus'])) {
-                            $decision = Lang::get('final_decision.to_assess', [], $this->lang);
                         } else {
-                            if ($candidate->computed_assessment_status['overallAssessmentStatus'] === OverallAssessmentStatus::DISQUALIFIED->name) {
-                                $decision = Lang::get('final_decision.disqualified_pending', [], $this->lang);
-                            } elseif ($candidate->assessment_step_id === null) {
-                                $decision = Lang::get('final_decision.qualified_pending', [], $this->lang);
-                            } else {
-                                $decision = Lang::get('final_decision.to_assess', [], $this->lang)
-                                            .$this->colon()
-                                            .Lang::get('common.step', [], $this->lang)
-                                            .' '
-                                            .$candidate->assessmentStep->sort_order;
-                            }
+                            $decision = $this->localizeEnum($candidate->application_status, ApplicationStatus::class);
                         }
-                    } else {
-                        $decision = $this->localizeEnum($candidate->application_status, ApplicationStatus::class);
+
+                        $values[] = $decision;
                     }
 
-                    $values[] = $decision;
+                    $this->writer->addRow($this->row($values));
                 }
-
-                $this->writer->addRow($this->row($values));
-            }
-        });
-
-        $this->writer->close();
+            });
+        } finally {
+            $this->writer->close();
+        }
 
         return $this;
     }

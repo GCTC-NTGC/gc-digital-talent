@@ -183,21 +183,23 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         $this->writer = new Writer();
         $this->writer->openToFile($this->getPath());
 
-        // Nominations overview sheet
-        $this->writer->getCurrentSheet()->setName($this->getExcelSheetTitle('headings.nominations_overview'));
-        $this->generateOverviewTab();
+        try {
+            // Nominations overview sheet
+            $this->writer->getCurrentSheet()->setName($this->getExcelSheetTitle('headings.nominations_overview'));
+            $this->generateOverviewTab();
 
-        // Nominee Profiles sheet
-        $nomineeProfilesSheet = $this->writer->addNewSheetAndMakeItCurrent();
-        $nomineeProfilesSheet->setName($this->getExcelSheetTitle('headings.nominee_profiles'));
-        $this->generateNomineeProfilesTab();
+            // Nominee Profiles sheet
+            $nomineeProfilesSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $nomineeProfilesSheet->setName($this->getExcelSheetTitle('headings.nominee_profiles'));
+            $this->generateNomineeProfilesTab();
 
-        // Nomination Details sheet
-        $nominationDetailsSheet = $this->writer->addNewSheetAndMakeItCurrent();
-        $nominationDetailsSheet->setName($this->getExcelSheetTitle('headings.nominations_details'));
-        $this->generateNominationDetailsTab();
-
-        $this->writer->close();
+            // Nomination Details sheet
+            $nominationDetailsSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $nominationDetailsSheet->setName($this->getExcelSheetTitle('headings.nominations_details'));
+            $this->generateNominationDetailsTab();
+        } finally {
+            $this->writer->close();
+        }
 
         return $this;
     }

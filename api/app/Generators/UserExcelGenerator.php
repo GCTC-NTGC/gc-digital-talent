@@ -231,21 +231,25 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         $this->writer = new Writer();
         $this->writer->openToFile($this->getPath());
 
-        // Users sheet
-        $this->writer->getCurrentSheet()->setName(Lang::get('headings.user', [], $this->lang));
-        $this->generateUsersSheet();
+        try {
 
-        // Career Experience sheet
-        $careerSheet = $this->writer->addNewSheetAndMakeItCurrent();
-        $careerSheet->setName(Lang::get('headings.career_experience', [], $this->lang));
-        $this->generateCareerExperienceSheet();
+            // Users sheet
+            $this->writer->getCurrentSheet()->setName(Lang::get('headings.user', [], $this->lang));
+            $this->generateUsersSheet();
 
-        // Community Interest sheet
-        $interestSheet = $this->writer->addNewSheetAndMakeItCurrent();
-        $interestSheet->setName(Lang::get('headings.community_interest', [], $this->lang));
-        $this->generateCommunityInterestSheet();
+            // Career Experience sheet
+            $careerSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $careerSheet->setName(Lang::get('headings.career_experience', [], $this->lang));
+            $this->generateCareerExperienceSheet();
 
-        $this->writer->close();
+            // Community Interest sheet
+            $interestSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $interestSheet->setName(Lang::get('headings.community_interest', [], $this->lang));
+            $this->generateCommunityInterestSheet();
+        } finally {
+
+            $this->writer->close();
+        }
 
         return $this;
     }
