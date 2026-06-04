@@ -48,8 +48,8 @@ const TalentRequestDetailsCard = ({ query }: TalentRequestDetailsCardProps) => {
       })}
       subtitle={intl.formatMessage({
         defaultMessage:
-          "The details tab provides the specific information and context about the requirements for this request.",
-        id: "M0hPlm",
+          "This section provides context about the requirements for this request.",
+        id: "Ay4Syt",
         description:
           "Description of the details submitted with a talent request",
       })}

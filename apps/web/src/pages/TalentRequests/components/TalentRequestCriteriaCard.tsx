@@ -105,8 +105,8 @@ const TalentRequestCriteriaCard = ({
       })}
       subtitle={intl.formatMessage({
         defaultMessage:
-          "The details tab provides the specific information and context about the requirements for this request.",
-        id: "TgVsZ4",
+          "These are the requirements the ideal candidate needs to have for this job.",
+        id: "aOpiSU",
         description: "Description of the talent request criteria submitted",
       })}
       icon={ClipboardDocumentListIcon}
