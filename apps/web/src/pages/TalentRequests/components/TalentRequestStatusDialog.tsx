@@ -31,6 +31,7 @@ import { DateInput, RadioGroup, Select } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 const COLOUR_MAP: Record<
   TalentRequestStatus | "default",
@@ -144,7 +145,9 @@ const TalentRequestStatusDialog = ({
         TalentRequestStatus.InProgress,
       inProgressDetails: talentRequest.inProgressDetails?.value,
       completionDetails: talentRequest.completionDetails?.value,
-      followUpDate: talentRequest.followUpDate,
+      followUpDate: talentRequest.followUpDate
+        ? strToFormDate(talentRequest.followUpDate)
+        : null,
     },
   });
   const currentStatus = methods.watch("talentRequestStatus");
