@@ -19,6 +19,8 @@ class GenerateUserFile implements ShouldQueue
 
     public int $timeout = 300;
 
+    public int $tries = 3;
+
     public function __construct(private FileGeneratorInterface $generator, private User $user) {}
 
     public function handle(): void
