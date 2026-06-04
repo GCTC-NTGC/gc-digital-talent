@@ -5,7 +5,9 @@ const navigateToStaticTcReport = async (page: Page, url: string) => {
   await expect
     .poll(
       async () => {
-        const response = await page.goto(url, { waitUntil: "domcontentloaded" });
+        const response = await page.goto(url, {
+          waitUntil: "domcontentloaded",
+        });
         return response?.status() ?? 0;
       },
       { timeout: 30_000 },
@@ -16,7 +18,10 @@ const navigateToStaticTcReport = async (page: Page, url: string) => {
 test.describe("Talent Cloud Report pages", () => {
   test.describe("Home page", () => {
     test("has heading", async ({ page }) => {
-      await navigateToStaticTcReport(page, "/static/tc-report/en/talent-cloud/");
+      await navigateToStaticTcReport(
+        page,
+        "/static/tc-report/en/talent-cloud/",
+      );
       await expect(
         page.getByRole("heading", { name: "Talent Cloud", level: 1 }),
       ).toBeVisible();
