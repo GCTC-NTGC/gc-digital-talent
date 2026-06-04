@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+return new class() extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('education_experiences', function (Blueprint $table) {
-            // Set nullable at first until we move data over
             $table->string('education_type')->nullable();
             $table->string('other_education_type')->nullable();
             $table->string('degree_type')->nullable();
@@ -59,7 +58,6 @@ return new class extends Migration
 
         Schema::table('education_experiences', function (Blueprint $table) {
             $table->dropColumn('type');
-            $table->string('education_type')->nullable(false)->change();
         });
     }
 

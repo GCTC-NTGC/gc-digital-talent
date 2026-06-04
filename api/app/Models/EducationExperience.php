@@ -19,11 +19,19 @@ use Illuminate\Support\Facades\Lang;
  * @property string $thesis_title
  * @property ?Carbon $start_date
  * @property ?Carbon $end_date
- * @property string $type
+ * @property string $education_type
  * @property string $status
  * @property string $details
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
+ * @property string $other_education_type
+ * @property string $degree_type
+ * @property string $license_or_accreditation
+ * @property string $certification
+ * @property string $course_name
+ * @property string $fellowship_type
+ * @property string $other_fellowship_type
+ * @property ?Carbon $prospective_end_date
  */
 class EducationExperience extends Experience
 {
@@ -52,16 +60,25 @@ class EducationExperience extends Experience
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
+        'prospective_end_date' => 'date',
     ];
 
     protected static $hydrationFields = [
         'institution' => 'institution',
         'area_of_study' => 'areaOfStudy',
         'thesis_title' => 'thesisTitle',
-        'type' => 'type',
+        'education_type' => 'educationType',
         'status' => 'status',
         'start_date' => 'startDate',
         'end_date' => 'endDate',
+        'other_education_type' => 'otherEducationType',
+        'degree_type' => 'degreeType',
+        'license_or_accreditation' => 'licenseOrAccreditation',
+        'certification' => 'certification',
+        'course_name' => 'courseName',
+        'fellowship_type' => 'fellowshipType',
+        'other_fellowship_type' => 'otherFellowshipType',
+        'prospective_end_date' => 'prospectiveEndDate',
     ];
 
     public function awardExperiences(): MorphMany
