@@ -36,6 +36,7 @@ import adminMessages from "~/messages/adminMessages";
 import Hero from "~/components/Hero";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import { requireUser } from "~/routing/auth";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import type { Route } from "./+types/UpdateCommunityPage";
 import type { ContextType } from "../CommunityMembersPage/components/types";
@@ -361,7 +362,7 @@ const UpdateCommunityPage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-
+      teamIdForRoleAssignment
       ...UpdateCommunityPage_Community
     }
   }
@@ -374,24 +375,6 @@ const UpdateCommunity_Mutation = graphql(/* GraphQL */ `
     }
   }
 `);
-
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request, params }, next) => {
-    const teamId = await getCommunityTeamIdInMiddleware(
-      context,
-      params.communityId,
-    );
-
-    requireUser(context, request, {
-      roles: [
-        { name: ROLE_NAME.PlatformAdmin },
-        { name: ROLE_NAME.CommunityAdmin, teamId: teamId },
-      ],
-      strict: true,
-    });
-    return await next();
-  },
-];
 
 export const Component = () => {
   const intl = useIntl();
@@ -463,11 +446,22 @@ export const Component = () => {
         <div className="mb-18">
           <Pending fetching={fetching} error={error}>
             {data?.community ? (
-              <CommunityForm
-                query={data.community}
-                onUpdate={handleSave}
-                isSubmitting={isSubmitting}
-              />
+              <RequireAuth
+                rolesAndTeams={[
+                  { name: ROLE_NAME.PlatformAdmin },
+                  {
+                    name: ROLE_NAME.CommunityAdmin,
+                    teamId: data.community.teamIdForRoleAssignment,
+                  },
+                ]}
+                strict
+              >
+                <CommunityForm
+                  query={data.community}
+                  onUpdate={handleSave}
+                  isSubmitting={isSubmitting}
+                />
+              </RequireAuth>
             ) : (
               <NotFound
                 headingMessage={intl.formatMessage(commonMessages.notFound)}
