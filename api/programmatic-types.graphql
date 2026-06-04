@@ -424,6 +424,11 @@ type LocalizedTalentRequestReason implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedTalentRequestSource implements LocalizedEnumOption {
+  value: TalentRequestSource!
+  label: LocalizedString!
+}
+
 type LocalizedTalentRequestStatus implements LocalizedEnumOption {
   value: TalentRequestStatus!
   label: LocalizedString!
@@ -516,6 +521,35 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
+enum NullsOrder {
+  FIRST
+  LAST
+}
+
+input RelatedOrderInput {
+  name: String!
+  column: String!
+}
+
+input AdvancedOrderByInput {
+  column: String
+  scope: String
+  relation: RelatedOrderInput
+  direction: SortOrder = ASC
+  nulls: NullsOrder
+  accentInsensitive: Boolean
+  caseInsensitive: Boolean
+}
+
+"A paginated list of TalentRequestResult items."
+type TalentRequestResultPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestResult items."
+  data: [TalentRequestResult!]!
+}
+
 "A paginated list of Pool items."
 type PoolPaginator {
   "Pagination information about the list of items."
@@ -550,26 +584,6 @@ type PoolCandidateSearchRequestPaginator {
 
   "A list of PoolCandidateSearchRequest items."
   data: [PoolCandidateSearchRequest!]!
-}
-
-enum NullsOrder {
-  FIRST
-  LAST
-}
-
-input RelatedOrderInput {
-  name: String!
-  column: String!
-}
-
-input AdvancedOrderByInput {
-  column: String
-  scope: String
-  relation: RelatedOrderInput
-  direction: SortOrder = ASC
-  nulls: NullsOrder
-  accentInsensitive: Boolean
-  caseInsensitive: Boolean
 }
 
 "A paginated list of TalentRequest items."
@@ -1972,6 +1986,12 @@ enum TalentRequestReason {
   UPCOMING_NEED
   GENERAL_INTEREST
   REQUIRED_BY_DIRECTIVE
+}
+
+enum TalentRequestSource {
+  PREQUALIFIED
+  AT_LEVEL
+  ADVANCEMENT
 }
 
 enum TalentRequestStatus {
