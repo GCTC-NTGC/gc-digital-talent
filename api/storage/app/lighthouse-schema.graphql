@@ -1937,10 +1937,12 @@ input TalentRequestMatchFilterInput {
 }
 
 type TalentRequestResult {
-  id: ID!
+  id: UUID!
   user: User!
   sources: [TalentRequestSource!]!
-  qualifiedInPools: [Pool!]!
+  matchingPreQualifiedSources: [PoolCandidate!]
+  matchingAtLevelSources: [CommunityInterest!]
+  matchingAdvancementSources: [TalentNominationGroup!]
   skillCount: Int
 }
 
