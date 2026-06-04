@@ -25,7 +25,7 @@ import {
   checkRoleDepartments,
   groupRoleAssignmentsByUserDepartments,
 } from "~/utils/departmentUtils";
-import { requireUser } from "~/routing/auth";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AddDepartmentMembershipDialog from "./components/AddDepartmentMembership";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -34,8 +34,6 @@ import type {
   DepartmentManageAccessPageFragment,
 } from "./components/types";
 import { DepartmentManageAccessPage_DepartmentFragment } from "./components/operations";
-import type { Route } from "./+types/ManageAccessPage";
-import { getTeamIdInMiddleware } from "../utils";
 
 const pageTitle = defineMessage({
   defaultMessage: "Department members",
@@ -163,6 +161,7 @@ const DepartmentMembersTable = ({
 const DepartmentMembersTeam_Query = graphql(/* GraphQL */ `
   query DepartmentMembersTeam($departmentId: UUID!) {
     department(id: $departmentId) {
+      teamIdForRoleAssignment
       ...DepartmentManageAccessPage_Department
     }
   }
@@ -218,21 +217,6 @@ const DepartmentManageAccessPage = ({
   );
 };
 
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request, params }, next) => {
-    const teamId = await getTeamIdInMiddleware(context, params.departmentId);
-    requireUser(context, request, {
-      roles: [
-        { name: ROLE.PlatformAdmin },
-        { name: ROLE.DepartmentAdmin, teamId: teamId },
-        { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
-      ],
-      strict: true,
-    });
-    return await next();
-  },
-];
-
 // Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
 const Component = () => {
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
@@ -240,10 +224,19 @@ const Component = () => {
     query: DepartmentMembersTeam_Query,
     variables: { departmentId },
   });
+  const teamId = data?.department?.teamIdForRoleAssignment;
   return (
     <Pending fetching={fetching} error={error}>
       {data?.department ? (
-        <DepartmentManageAccessPage departmentQuery={data.department} />
+        <RequireAuth
+          rolesAndTeams={[
+            { name: ROLE.PlatformAdmin },
+            { name: ROLE.DepartmentAdmin, teamId: teamId },
+            { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
+          ]}
+        >
+          <DepartmentManageAccessPage departmentQuery={data.department} />
+        </RequireAuth>
       ) : (
         <ThrowNotFound />
       )}

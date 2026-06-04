@@ -24,12 +24,10 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-import { requireUser } from "~/routing/auth";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import labels from "./labels";
 import type { ContextType } from "./ManageAccessPage/components/types";
-import type { Route } from "./+types/ViewDepartmentPage";
-import { getTeamIdInMiddleware } from "./utils";
 import messages from "./messages";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
@@ -151,6 +149,7 @@ interface RouteParams extends Record<string, string> {
 const Department_Query = graphql(/* GraphQL */ `
   query ViewDepartmentPage($id: UUID!) {
     department(id: $id) {
+      teamIdForRoleAssignment
       name {
         en
         fr
@@ -159,21 +158,6 @@ const Department_Query = graphql(/* GraphQL */ `
     }
   }
 `);
-
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request, params }, next) => {
-    const teamId = await getTeamIdInMiddleware(context, params.departmentId);
-    requireUser(context, request, {
-      roles: [
-        { name: ROLE.PlatformAdmin },
-        { name: ROLE.DepartmentAdmin, teamId: teamId },
-        { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
-      ],
-      strict: true,
-    });
-    return await next();
-  },
-];
 
 const Component = () => {
   const intl = useIntl();
@@ -191,6 +175,8 @@ const Component = () => {
 
   const crumbs = [...(baseCrumbs ?? [])];
 
+  const teamId = departmentData?.department?.teamIdForRoleAssignment;
+
   return (
     <>
       <SEO title={departmentName} />
@@ -204,7 +190,16 @@ const Component = () => {
       <Container className="my-18">
         <Pending fetching={fetching} error={error}>
           {departmentData?.department ? (
-            <ViewDepartmentForm query={departmentData?.department} />
+            <RequireAuth
+              rolesAndTeams={[
+                { name: ROLE.PlatformAdmin },
+                { name: ROLE.DepartmentAdmin, teamId: teamId },
+                { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
+              ]}
+              strict
+            >
+              <ViewDepartmentForm query={departmentData?.department} />
+            </RequireAuth>
           ) : (
             <NotFound
               headingMessage={intl.formatMessage(commonMessages.notFound)}
