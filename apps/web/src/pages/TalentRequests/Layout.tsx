@@ -106,7 +106,7 @@ const Layout = ({ query, optionsQuery }: LayoutProps) => {
           },
         ]}
       />
-      <Container size="xl" className="my-18">
+      <Container size="lg" className="my-18">
         <Sidebar.Wrapper className="sm:gap-x-6">
           <Sidebar.Sidebar>
             <TalentRequestSidebar
