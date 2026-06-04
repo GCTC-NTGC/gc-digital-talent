@@ -64,7 +64,7 @@
     "react-focus-on": "^3.10.2",
     "react-hook-form": "^7.76.0",
     "react-idle-timer": "^5.7.3",
-    "react-intl": "^10.1.9",
+    "react-intl": "^10.1.11",
     "react-router": "^7.15.1",
     "react-to-print": "^3.3.0",
     "tailwind-merge": "^3.6.0",
@@ -74,7 +74,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^10.4.0",
-    "@formatjs/cli": "^6.16.1",
+    "@formatjs/cli": "^6.16.6",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
