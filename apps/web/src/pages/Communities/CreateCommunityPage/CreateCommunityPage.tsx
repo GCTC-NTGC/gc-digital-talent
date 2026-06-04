@@ -10,9 +10,8 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
-import { requireUser } from "~/routing/auth";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import type { Route } from "./+types/CreateCommunityPage";
 import CreateCommunityForm from "./components/CreateCommunityForm";
 
 const CreateCommunity_Mutation = graphql(/* GraphQL */ `
@@ -34,15 +33,6 @@ const pageSubtitle = defineMessage({
   id: "EgYtVO",
   description: "Page subtitle for the create community page",
 });
-
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, {
-      roles: [{ name: ROLE_NAME.PlatformAdmin }],
-    });
-    return await next();
-  },
-];
 
 const Component = () => {
   const intl = useIntl();
@@ -82,7 +72,7 @@ const Component = () => {
   });
 
   return (
-    <>
+    <RequireAuth rolesAndTeams={[{ name: ROLE_NAME.PlatformAdmin }]}>
       <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
       <Hero
         title={formattedPageTitle}
@@ -95,7 +85,7 @@ const Component = () => {
           <CreateCommunityForm onSubmit={handleSubmit} />
         </div>
       </Hero>
-    </>
+    </RequireAuth>
   );
 };
 
