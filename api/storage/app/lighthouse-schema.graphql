@@ -418,6 +418,26 @@ type LocalizedTalentRequestStatus implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedTalentRequestTrackedUserNotReferredReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotReferredReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotSelectedReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotSelectedReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserReferralDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserReferralDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserSelectionDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserSelectionDecision!
+  label: LocalizedString!
+}
+
 type LocalizedTargetRole implements LocalizedEnumOption {
   value: TargetRole!
   label: LocalizedString!
@@ -1597,6 +1617,22 @@ type TalentRequest {
   statusChangedAt: DateTime
   createdAt: DateTime
   updatedAt: DateTime
+  trackedUsers(where: TalentRequestTrackedUserFilterInput): [TalentRequestTrackedUser!]
+}
+
+input TalentRequestTrackedUserFilterInput {
+  referralDecisions: [TalentRequestTrackedUserReferralDecision!]
+  selectionDecisions: [TalentRequestTrackedUserSelectionDecision!]
+}
+
+type TalentRequestTrackedUser {
+  id: UUID!
+  user: User!
+  skillCount: Int
+  referralDecision: LocalizedTalentRequestTrackedUserReferralDecision
+  selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
+  notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
+  notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
 }
 
 type SkillFamily {
@@ -4647,6 +4683,24 @@ enum TalentRequestStatus {
   NEW
   IN_PROGRESS
   COMPLETED
+}
+
+enum TalentRequestTrackedUserNotReferredReason {
+  OTHER
+}
+
+enum TalentRequestTrackedUserNotSelectedReason {
+  OTHER
+}
+
+enum TalentRequestTrackedUserReferralDecision {
+  REFERRED
+  NOT_REFERRED
+}
+
+enum TalentRequestTrackedUserSelectionDecision {
+  SELECTED
+  NOT_SELECTED
 }
 
 enum TargetRole {
