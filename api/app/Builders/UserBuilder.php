@@ -16,6 +16,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 /**
  * @template TModelClass of \Illuminate\Database\Eloquent\Model
@@ -351,6 +352,74 @@ class UserBuilder extends Builder
 
             return $innerQueryBuilder;
         });
+    }
+
+    // Users who match a talent request: at least one matching source (currently a qualified,
+    // talent-searchable candidacy) plus the request's user-level attribute and location filters.
+    // Accepts either the wrapper shape ({applicantFilter, ...}) or a bare ApplicantFilterInput.
+    public function whereMatchesTalentRequest(?array $args): self
+    {
+        $filters = $args['applicantFilter'] ?? $args ?? [];
+        $skillIds = array_column($filters['skills'] ?? [], 'id');
+
+        // at least one matching source (the OR group leaves room for future sources)
+        $this->where(fn ($query) => $query->orWhereHas(
+            'poolCandidates',
+            fn ($candidate) => $candidate->whereMatchesTalentRequest($filters)
+        ));
+
+        // user-level attribute and location filters
+        $this->whereHasDiploma($filters['hasDiploma'] ?? null)
+            ->whereEquityIn($filters['equity'] ?? null)
+            ->whereLanguageAbility($filters['languageAbility'] ?? null)
+            ->whereOperationalRequirementsIn($filters['operationalRequirements'] ?? null)
+            ->wherePositionDurationIn($filters['positionDuration'] ?? null)
+            ->whereSkillsAdditive($skillIds)
+            ->whereSkillsIntersectional(array_column($filters['skillsIntersectional'] ?? [], 'id'))
+            ->whereFlexibleLocationAndRegionSpecialMatching(
+                $filters['locationPreferences'] ?? null,
+                $filters['flexibleWorkLocations'] ?? null
+            );
+
+        if ($skillIds) {
+            $this->addSkillCountSelect($skillIds);
+        }
+
+        // eager-load only the pools that matched, for qualifiedInPools
+        $this->with(['poolCandidates' => fn ($candidate) => $candidate
+            ->whereMatchesTalentRequest($filters)
+            ->with('pool')]);
+
+        return $this;
+    }
+
+    private function addSkillCountSelect(array $skillIds): self
+    {
+        return $this->addSelect([
+            'skill_count' => DB::table('user_skills')
+                ->selectRaw('count(*)')
+                ->whereColumn('user_skills.user_id', 'users.id')
+                ->whereIn('user_skills.skill_id', $skillIds),
+        ]);
+    }
+
+    // Idempotent null fallback so skill_count is always selectable, even when no skills filter
+    // added the real count (mirrors PoolCandidateBuilder::whereSkillCount).
+    public function withSkillCount(): self
+    {
+        $normalizedColumns = array_map(function ($column) {
+            return $column instanceof Expression
+                ? Str::afterLast($column->getValue(DB::getQueryGrammar()), 'as ')
+                : Str::afterLast($column, 'as ');
+        }, $this->getQuery()->columns ?? []);
+
+        if (in_array('"skill_count"', $normalizedColumns)) {
+            return $this;
+        }
+
+        return $this->addSelect([
+            'skill_count' => DB::table('user_skills')->selectRaw('null')->whereRaw('1 = 0'),
+        ]);
     }
 
     /**

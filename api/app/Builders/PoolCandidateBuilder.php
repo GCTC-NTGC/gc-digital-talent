@@ -105,6 +105,21 @@ class PoolCandidateBuilder extends Builder
 
     }
 
+    // A candidacy that satisfies a talent request: available, talent-searchable, and matching
+    // the request's pool-level constraints. Shared by the User membership check and the
+    // constrained eager-load so they cannot drift.
+    public function whereMatchesTalentRequest(?array $filters): self
+    {
+        $filters ??= [];
+
+        return $this->whereAvailable()
+            ->whereInTalentSearchablePublishingGroup()
+            ->whereAppliedClassificationsIn($filters['qualifiedInClassifications'] ?? null)
+            ->whereWorkStreamsIn(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
+            ->whereHasPoolCandidateCommunity($filters['community']['id'] ?? null)
+            ->when($filters['pools'] ?? null, fn ($query, $pools) => $query->whereIn('pool_id', array_column($pools, 'id')));
+    }
+
     /**
      * Scope users department
      *
