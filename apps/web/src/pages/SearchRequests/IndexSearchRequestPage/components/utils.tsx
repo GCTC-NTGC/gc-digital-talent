@@ -2,7 +2,7 @@ import type { SortingState } from "@tanstack/react-table";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
-  OrderByClause,
+  AdvancedOrderByInput,
   TalentRequestStatus,
   TalentRequestInput,
 } from "@gc-digital-talent/graphql";
@@ -34,7 +34,7 @@ export function transformFormValuesToTalentRequestFilterInput(
 
 export function transformSortStateToOrderByClause(
   sortingRule: SortingState,
-): OrderByClause | OrderByClause[] | undefined {
+): AdvancedOrderByInput | AdvancedOrderByInput[] | undefined {
   const columnMap = new Map<string, string>([
     ["id", "id"],
     ["manager", "full_name"],
@@ -51,7 +51,7 @@ export function transformSortStateToOrderByClause(
       if (!columnName) return undefined;
       return {
         column: columnName,
-        order: rule.desc ? SortOrder.Desc : SortOrder.Asc,
+        direction: rule.desc ? SortOrder.Desc : SortOrder.Asc,
       };
     })
     .filter(notEmpty);
