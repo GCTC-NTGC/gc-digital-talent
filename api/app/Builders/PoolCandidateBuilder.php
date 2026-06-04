@@ -112,12 +112,14 @@ class PoolCandidateBuilder extends Builder
     {
         $filters ??= [];
 
+        // skills/pools/community are already plain ids (ApplicantFilterInput @pluck); workStreams
+        // and classifications are not plucked, so workStreams still needs its id pulled out.
         return $this->whereAvailable()
             ->whereInTalentSearchablePublishingGroup()
             ->whereAppliedClassificationsIn($filters['qualifiedInClassifications'] ?? null)
             ->whereWorkStreamsIn(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
-            ->whereHasPoolCandidateCommunity($filters['community']['id'] ?? null)
-            ->when($filters['pools'] ?? null, fn ($query, $pools) => $query->whereIn('pool_id', array_column($pools, 'id')));
+            ->whereHasPoolCandidateCommunity($filters['community'] ?? null)
+            ->when($filters['pools'] ?? null, fn ($query, $pools) => $query->whereIn('pool_id', $pools));
     }
 
     /**

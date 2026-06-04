@@ -1531,6 +1531,19 @@ type CandidateSearchPoolResult {
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
+input TalentRequestMatchFilterInput {
+  applicantFilter: ApplicantFilterInput
+  talentRequestId: UUID # accepted but unused until the tracked-user pivot (#16968) lands
+}
+
+type TalentRequestResult {
+  id: ID!
+  user: User! @self
+  sources: [TalentRequestSource!]! @field(resolver: "Sources")
+  qualifiedInPools: [Pool!]! @field(resolver: "QualifiedInPools")
+  skillCount: Int @rename(attribute: "skill_count")
+}
+
 type SitewideAnnouncement {
   title: LocalizedString!
   message: LocalizedString!
@@ -1665,6 +1678,19 @@ type Query {
     where: TrashedExperienceSkillInput! @spread
   ): ExperienceSkillRecord @guard
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
+  talentRequestMatches(
+    where: TalentRequestMatchFilterInput
+      @scope(name: "whereMatchesTalentRequest")
+  ): [TalentRequestResult]!
+    @advancedOrderBy
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["whereAuthorizedToView"]
+      model: "App\\Models\\User"
+    )
+    @guard
+    @canModel(ability: "viewAny", model: "User")
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
