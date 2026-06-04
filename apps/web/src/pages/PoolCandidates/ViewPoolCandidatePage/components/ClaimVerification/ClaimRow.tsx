@@ -4,7 +4,6 @@ import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import type { PropsWithoutRef, ReactNode, SVGProps } from "react";
 
-import type { Maybe, Scalars } from "@gc-digital-talent/graphql";
 import { ClaimVerificationResult } from "@gc-digital-talent/graphql";
 import { Heading } from "@gc-digital-talent/ui";
 import {
@@ -15,7 +14,7 @@ import {
 
 interface VerificationMessageProps {
   result: ClaimVerificationResult;
-  expiry?: Maybe<Scalars["DateTime"]["output"]>;
+  expiry?: string | null;
 }
 
 const VerificationMessage = ({ result, expiry }: VerificationMessageProps) => {
@@ -94,7 +93,7 @@ const VerificationIcon = ({ result, ...rest }: VerificationIconProps) => {
 interface ClaimRowProps {
   result?: ClaimVerificationResult | null;
   title: ReactNode;
-  expiry?: Maybe<Scalars["DateTime"]["output"]>;
+  expiry?: string | null;
   children: ReactNode;
 }
 

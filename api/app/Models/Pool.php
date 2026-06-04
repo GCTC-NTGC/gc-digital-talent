@@ -7,6 +7,7 @@ use App\Casts\LocalizedString;
 use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
+use App\Enums\PoolLanguage;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\PublishingGroup;
@@ -27,8 +28,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 /**
  * Class Pool
@@ -68,6 +69,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?Community $community
  * @property ?string $contact_email
  * @property ?AssessmentStep $screening_step
+ * @property array $display_name
  */
 class Pool extends Model
 {
@@ -201,7 +203,7 @@ class Pool extends Model
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     public function user(): BelongsTo
@@ -295,7 +297,7 @@ class Pool extends Model
     /** @return HasMany<AssessmentStep, $this> */
     public function assessmentSteps(): HasMany
     {
-        return $this->hasMany(AssessmentStep::class)->orderBy('sort_order', 'ASC');
+        return $this->hasMany(AssessmentStep::class)->orderBy('sort_order', 'asc');
     }
 
     public function aggregateActivities($root, array $args = [])
@@ -524,6 +526,13 @@ class Pool extends Model
         return $classification
             ? $classification.$dividingColon.$name
             : $name;
+    }
+
+    public function requiresBilingual(): Attribute
+    {
+        return Attribute::get(function ($_, $attributes) {
+            return in_array($attributes['advertisement_language'], PoolLanguage::bilingualGroup());
+        });
     }
 
     public function publish()

@@ -108,6 +108,11 @@ type LocalizedCitizenshipStatus implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
+  value: CommunityInterestAdditionalDuty!
+  label: LocalizedString!
+}
+
 type LocalizedCourseFormat implements LocalizedEnumOption {
   value: CourseFormat!
   label: LocalizedString!
@@ -180,11 +185,6 @@ type LocalizedExternalRoleSeniority implements LocalizedEnumOption {
 
 type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   value: ExternalSizeOfOrganization!
-  label: LocalizedString!
-}
-
-type LocalizedFinanceChiefDuty implements LocalizedEnumOption {
-  value: FinanceChiefDuty!
   label: LocalizedString!
 }
 
@@ -393,6 +393,51 @@ type LocalizedTalentNominationUserReview implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedTalentRequestCompletionDetail implements LocalizedEnumOption {
+  value: TalentRequestCompletionDetail!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestInProgressDetail implements LocalizedEnumOption {
+  value: TalentRequestInProgressDetail!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestPositionType implements LocalizedEnumOption {
+  value: TalentRequestPositionType!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestReason implements LocalizedEnumOption {
+  value: TalentRequestReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestStatus implements LocalizedEnumOption {
+  value: TalentRequestStatus!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotReferredReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotReferredReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotSelectedReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotSelectedReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserReferralDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserReferralDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserSelectionDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserSelectionDecision!
+  label: LocalizedString!
+}
+
 type LocalizedTargetRole implements LocalizedEnumOption {
   value: TargetRole!
   label: LocalizedString!
@@ -418,7 +463,8 @@ type Query {
     trashed: Trashed
   ): User
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
-  workEmails(search: String): [UserWorkEmail!]!
+  workEmails(search: String, limit: Int = 5): [UserWorkEmail!]!
+  trashedExperienceSkill(where: TrashedExperienceSkillInput!): ExperienceSkillRecord
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
@@ -433,6 +479,7 @@ type Query {
   jobPosterTemplate(id: UUID!): JobPosterTemplate
   jobPosterTemplates: [JobPosterTemplate!]
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
+  talentRequest(id: ID!): TalentRequest
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
@@ -450,6 +497,7 @@ type Query {
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!] @deprecated(reason: "Replaced by localizedEnumOptions")
   localizedEnumOptions(enumName: String!): [LocalizedEnumOption!]
+  canMigrateMyAccount: Boolean!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -525,6 +573,16 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): PoolCandidateSearchRequestPaginator!
+  talentRequests(
+    where: TalentRequestInput
+    orderBy: [AdvancedOrderByInput!]
+
+    "Limits number of fetched items. Maximum allowed value: 500."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): TalentRequestPaginator!
   notifications(
     where: NotificationFilterInput
     excludeIds: [UUID!]
@@ -608,6 +666,10 @@ type Mutation {
   updateDevelopmentProgram(id: ID!, developmentProgram: UpdateDevelopmentProgramInput!): DevelopmentProgram
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  updatePoolCandidateSearchRequestStatus(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput!): PoolCandidateSearchRequest
+  createTalentRequest(talentRequest: CreateTalentRequestInput!): TalentRequest
+  updateTalentRequest(id: ID!, talentRequest: UpdateTalentRequestInput!): TalentRequest
+  updateTalentRequestStatus(id: ID!, talentRequest: UpdateTalentRequestStatusInput!): TalentRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
@@ -680,7 +742,7 @@ type Mutation {
   updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   createTrainingOpportunity(createTrainingOpportunity: CreateTrainingOpportunityInput!): TrainingOpportunity
   updateTrainingOpportunity(updateTrainingOpportunity: UpdateTrainingOpportunityInput!): TrainingOpportunity
-  createCommunityDevelopmentProgram(createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
+  createOrRestoreCommunityDevelopmentProgram(createCommunityDevelopmentProgram: CreateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
   updateCommunityDevelopmentProgram(updateCommunityDevelopmentProgram: UpdateCommunityDevelopmentProgramInput!): CommunityDevelopmentProgram
   deleteCommunityDevelopmentProgram(id: UUID!): CommunityDevelopmentProgram
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
@@ -836,11 +898,12 @@ type CommunityInterest {
   additionalInformation: String
   interestInDevelopmentPrograms: [DevelopmentProgramInterest!] @deprecated(reason: "replaced by user.developmentProgramUserRecords")
   financeIsChief: Boolean
-  financeAdditionalDuties: [LocalizedFinanceChiefDuty!]
+  communityInterestAdditionalDuties: [LocalizedCommunityInterestAdditionalDuty!]
   financeOtherRoles: [LocalizedFinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
   createdAt: DateTime
+  procurementIsSDO: Boolean
 }
 
 type OffPlatformRecruitmentProcess {
@@ -948,6 +1011,7 @@ type NewJobPostedNotification implements Notification {
   createdAt: DateTime!
   updatedAt: DateTime!
   poolId: ID
+  displayName: LocalizedString
 }
 
 type ApplicationStatusChangedNotification implements Notification {
@@ -1204,6 +1268,8 @@ type PoolCandidate {
   placementType: LocalizedPlacementType
   placedAt: DateTime
   placedDepartment: Department
+  placedStartDate: Date
+  placedEndDate: Date
   isBeingReferred: Boolean
   pauseReferralsAt: DateTime
   resumeReferralsAt: DateTime
@@ -1265,6 +1331,8 @@ type Classification {
   maxSalary: Int
   genericJobTitles: [GenericJobTitle]
   isAvailableInSearch: Boolean
+  groupAndLevel: String!
+  displayName: String!
 }
 
 type GenericJobTitle {
@@ -1336,6 +1404,7 @@ type CommunityDevelopmentProgram {
   developmentProgram: DevelopmentProgram!
   classifications: [Classification!]
   pivot: CommunityDevelopmentProgramTalentEventRecord
+  createdAt: DateTime
 }
 
 type DevelopmentProgramUser {
@@ -1356,8 +1425,10 @@ type TalentNominationEvent {
   learnMoreUrl: LocalizedString
   includeLeadershipCompetencies: Boolean!
   community: Community!
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
-  developmentPrograms: [DevelopmentProgram!]
+  communityDevelopmentPrograms(
+    "Allows to filter if trashed elements should be fetched."
+    trashed: Trashed
+  ): [CommunityDevelopmentProgram!]
   talentNominationGroups: [TalentNominationGroup!]
   countTalentNominationGroups: Int!
   status: LocalizedTalentNominationEventStatus
@@ -1394,8 +1465,10 @@ type TalentNomination {
   advancementReferenceFallbackDepartment: Department
   lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
-  communityDevelopmentPrograms: [CommunityDevelopmentProgram!]
-  developmentPrograms: [DevelopmentProgram!]
+  communityDevelopmentPrograms(
+    "Allows to filter if trashed elements should be fetched."
+    trashed: Trashed
+  ): [CommunityDevelopmentProgram!]
   developmentProgramOptionsOther: String
   nominationRationale: String
   skills: [Skill]
@@ -1438,6 +1511,7 @@ type Role {
   displayName: LocalizedString
   description: LocalizedString
   isTeamBased: Boolean
+  permissions: [Permission!]
   roleAssignments: [RoleAssignment!]
 }
 
@@ -1499,7 +1573,7 @@ type PoolCandidateSearchRequest {
   additionalComments: String
   hrAdvisorEmail: Email
   requestedDate: DateTime
-  status: LocalizedPoolCandidateSearchStatus
+  status: LocalizedPoolCandidateSearchStatus @deprecated(reason: "Use talentRequestStatus instead")
   statusChangedAt: DateTime
   adminNotes: String
   poolCandidateFilter: PoolCandidateFilter @deprecated(reason: "Replaced by applicantFilter")
@@ -1510,6 +1584,55 @@ type PoolCandidateSearchRequest {
   reason: LocalizedPoolCandidateSearchRequestReason
   community: Community
   initialResultCount: Int
+  followUpDate: Date
+  talentRequestStatus: LocalizedTalentRequestStatus
+  inProgressDetails: LocalizedTalentRequestInProgressDetail
+  completionDetails: LocalizedTalentRequestCompletionDetail
+  details: LocalizedString
+}
+
+type TalentRequest {
+  id: ID!
+  fullName: String
+  email: Email
+  department: Department
+  jobTitle: String
+  additionalComments: String
+  hrAdvisorEmail: Email
+  requestedDate: DateTime
+  adminNotes: String
+  applicantFilter: ApplicantFilter
+  wasEmpty: Boolean
+  managerJobTitle: String
+  positionType: LocalizedTalentRequestPositionType
+  reason: LocalizedTalentRequestReason
+  community: Community
+  user: User
+  initialResultCount: Int
+  followUpDate: Date
+  talentRequestStatus: LocalizedTalentRequestStatus
+  inProgressDetails: LocalizedTalentRequestInProgressDetail
+  completionDetails: LocalizedTalentRequestCompletionDetail
+  details: LocalizedString
+  statusChangedAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  trackedUsers(where: TalentRequestTrackedUserFilterInput): [TalentRequestTrackedUser!]
+}
+
+input TalentRequestTrackedUserFilterInput {
+  referralDecisions: [TalentRequestTrackedUserReferralDecision!]
+  selectionDecisions: [TalentRequestTrackedUserSelectionDecision!]
+}
+
+type TalentRequestTrackedUser {
+  id: UUID!
+  user: User!
+  skillCount: Int
+  referralDecision: LocalizedTalentRequestTrackedUserReferralDecision
+  selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
+  notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
+  notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
 }
 
 type SkillFamily {
@@ -1789,6 +1912,7 @@ input PoolCandidateSearchInput {
 
 input PoolCandidateSearchRequestInput {
   status: [PoolCandidateSearchStatus]
+  talentRequestStatus: [TalentRequestStatus]
   departments: [ID]
   classifications: [ID]
   workStreams: [UUID]
@@ -1798,6 +1922,20 @@ input PoolCandidateSearchRequestInput {
   jobTitle: String
   additionalComments: String
   hrAdvisorEmail: String
+  adminNotes: String
+  generalSearch: String
+}
+
+input TalentRequestInput {
+  id: ID
+  talentRequestStatus: [TalentRequestStatus]
+  departments: [ID]
+  classifications: [ID]
+  workStreams: [UUID]
+  fullName: String
+  email: String
+  jobTitle: String
+  additionalComments: String
   adminNotes: String
   generalSearch: String
 }
@@ -1813,13 +1951,13 @@ type CandidateSearchPoolResult {
 }
 
 type SitewideAnnouncement {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
   title: LocalizedString!
   message: LocalizedString!
-  updatedAt: DateTime!
+  isEnabled: Boolean!
   isDismissible: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  updatedAt: DateTime!
 }
 
 type TrainingOpportunity {
@@ -1842,12 +1980,12 @@ input TrainingOpportunitiesFilterInput {
 }
 
 input SitewideAnnouncementInput {
-  isEnabled: Boolean!
-  publishDate: DateTime!
-  expiryDate: DateTime!
   title: LocalizedStringInput!
   message: LocalizedStringInput!
+  isEnabled: Boolean!
   isDismissible: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
 }
 
 input ClaimVerificationSort {
@@ -1889,6 +2027,12 @@ input ProcessActivityFilterInput {
   causers: [UUID!]
   candidates: [UUID!]
   events: [ActivityEvent!]
+}
+
+input TrashedExperienceSkillInput {
+  skillId: UUID!
+  experienceId: UUID!
+  restore: Boolean
 }
 
 input ClassificationBelongsTo {
@@ -2098,10 +2242,11 @@ input CreateCommunityInterestInput {
   trainingInterest: Boolean
   additionalInformation: String
   financeIsChief: Boolean
-  financeAdditionalDuties: [FinanceChiefDuty!]
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  procurementIsSDO: Boolean
 }
 
 input UpdateCommunityInterestInput {
@@ -2110,10 +2255,11 @@ input UpdateCommunityInterestInput {
   trainingInterest: Boolean
   additionalInformation: String
   financeIsChief: Boolean
-  financeAdditionalDuties: [FinanceChiefDuty!]
+  communityInterestAdditionalDuties: [CommunityInterestAdditionalDuty!]
   financeOtherRoles: [FinanceChiefRole!]
   financeOtherRolesOther: String
   consentToShareProfile: Boolean
+  procurementIsSDO: Boolean
 }
 
 input UpsertDevelopmentProgramUserInput {
@@ -2238,6 +2384,8 @@ input QualifyCandidateInput {
 input PlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input QualifyAndPlaceCandidateInput {
@@ -2245,6 +2393,8 @@ input QualifyAndPlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
   pauseReferrals: PauseReferralsInput
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input CreateDepartmentInput {
@@ -2353,7 +2503,7 @@ input CommunityDevelopmentProgramBelongsToMany {
 }
 
 input CommunityDevelopmentProgramBelongsToManyWithPivot {
-  connect: [ConnectCommunityDevelopmentProgramWithPivot!]
+  sync: [ConnectCommunityDevelopmentProgramWithPivot!]
 }
 
 input ConnectCommunityDevelopmentProgramWithPivot {
@@ -2502,6 +2652,41 @@ input CreatePoolCandidateSearchRequestInput {
 input UpdatePoolCandidateSearchRequestInput {
   adminNotes: String
   status: PoolCandidateSearchStatus
+  followUpDate: Date
+}
+
+input UpdatePoolCandidateSearchRequestStatusInput {
+  status: TalentRequestStatus!
+  inProgressDetails: TalentRequestInProgressDetail
+  completionDetails: TalentRequestCompletionDetail
+  followUpDate: Date
+}
+
+input CreateTalentRequestInput {
+  fullName: String!
+  email: Email!
+  department: DepartmentBelongsTo!
+  community: CommunityBelongsTo!
+  jobTitle: String!
+  additionalComments: String
+  hrAdvisorEmail: Email
+  applicantFilter: ApplicantFilterBelongsTo!
+  wasEmpty: Boolean
+  managerJobTitle: String!
+  positionType: TalentRequestPositionType!
+  reason: TalentRequestReason!
+  initialResultCount: Int
+}
+
+input UpdateTalentRequestInput {
+  adminNotes: String
+}
+
+input UpdateTalentRequestStatusInput {
+  status: TalentRequestStatus!
+  inProgressDetails: TalentRequestInProgressDetail
+  completionDetails: TalentRequestCompletionDetail
+  followUpDate: Date
 }
 
 input SkillBelongsToMany {
@@ -3072,6 +3257,35 @@ type PoolCandidateSearchRequestPaginator {
   data: [PoolCandidateSearchRequest!]!
 }
 
+enum NullsOrder {
+  FIRST
+  LAST
+}
+
+input RelatedOrderInput {
+  name: String!
+  column: String!
+}
+
+input AdvancedOrderByInput {
+  column: String
+  scope: String
+  relation: RelatedOrderInput
+  direction: SortOrder = ASC
+  nulls: NullsOrder
+  accentInsensitive: Boolean
+  caseInsensitive: Boolean
+}
+
+"A paginated list of TalentRequest items."
+type TalentRequestPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequest items."
+  data: [TalentRequest!]!
+}
+
 "A paginated list of Notification items."
 type NotificationPaginator {
   "Pagination information about the list of items."
@@ -3475,6 +3689,173 @@ enum NotificationType {
   UserFileGenerationError
 }
 
+enum RoleName {
+  Guest
+  BaseUser
+  Applicant
+  ProcessOperator
+  CommunityRecruiter
+  CommunityAdmin
+  PlatformAdmin
+  CommunityTalentCoordinator
+  DepartmentAdmin
+  DepartmentHrAdvisor
+}
+
+enum Permission {
+  ViewAnyClassification
+  CreateAnyClassification
+  UpdateAnyClassification
+  DeleteAnyClassification
+  ViewAnyDepartment
+  CreateAnyDepartment
+  UpdateAnyDepartment
+  DeleteAnyDepartment
+  ArchiveAnyDepartment
+  ViewAnyDevelopmentProgram
+  CreateAnyDevelopmentProgram
+  UpdateAnyDevelopmentProgram
+  ViewAnyGenericJobTitle
+  CreateAnyGenericJobTitle
+  UpdateAnyGenericJobTitle
+  DeleteAnyGenericJobTitle
+  ViewAnySkill
+  CreateAnySkill
+  UpdateAnySkill
+  DeleteAnySkill
+  ViewAnySkillFamily
+  CreateAnySkillFamily
+  UpdateAnySkillFamily
+  DeleteAnySkillFamily
+  CreateAnyUser
+  ViewAnyUser
+  ViewOwnUser
+  ViewAnyUserBasicInfo
+  ViewAnyUserWorkEmail
+  UpdateAnyUser
+  UpdateAnyUserSub
+  UpdateOwnUser
+  DeleteAnyUser
+  ViewAnyApplicantProfile
+  ViewTeamApplicantProfile
+  ViewOwnApplicantProfile
+  UpdateOwnApplicantProfile
+  ViewOwnEmployeeProfile
+  UpdateOwnEmployeeProfile
+  ViewTeamDraftPool
+  ViewAnyPool
+  ViewAnyPublishedPool
+  CreateTeamDraftPool
+  UpdateTeamDraftPool
+  UpdateAnyPublishedPool
+  PublishTeamDraftPool
+  PublishAnyDraftPool
+  UpdateTeamPublishedPool
+  DeleteTeamDraftPool
+  ArchiveTeamPublishedPool
+  ArchiveAnyPublishedPool
+  ViewAnyAssessmentPlan
+  ViewTeamAssessmentPlan
+  UpdateAnyAssessmentPlan
+  UpdateTeamAssessmentPlan
+  CreateAnyApplication
+  ViewOwnApplication
+  ViewTeamSubmittedApplication
+  ViewAnySubmittedApplication
+  CreateOwnDraftApplication
+  UpdateOwnDraftApplication
+  SubmitOwnDraftApplication
+  DeleteOwnDraftApplication
+  ArchiveOwnSubmittedApplication
+  SuspendOwnSubmittedApplication
+  ViewOwnApplicationStatus
+  ViewTeamApplicationStatus
+  ViewAnyApplicationStatus
+  UpdateTeamApplicationStatus
+  UpdateAnyApplicationStatus
+  ViewAnyApplicationAssessment
+  ViewTeamApplicationAssessment
+  UpdateAnyApplicationAssessment
+  UpdateTeamApplicationAssessment
+  ViewAnyApplicationDecision
+  ViewTeamApplicationDecision
+  ViewOwnApplicationDecision
+  UpdateTeamApplicationDecision
+  UpdateAnyApplicationDecision
+  ViewAnyApplicationPlacement
+  ViewTeamApplicationPlacement
+  ViewOwnApplicationPlacement
+  UpdateTeamApplicationPlacement
+  UpdateAnyApplicationPlacement
+  ViewAnyApplicantCount
+  ViewAnyJobPosterTemplate
+  CreateAnyJobPosterTemplate
+  UpdateAnyJobPosterTemplate
+  DeleteAnyJobPosterTemplate
+  CreateAnyTalentRequest
+  ViewTeamTalentRequest
+  UpdateTeamTalentRequest
+  DeleteTeamTalentRequest
+  ViewAnyTalentRequest
+  UpdateAnyTalentRequest
+  DeleteAnyTalentRequest
+  ViewOwnTalentRequest
+  CreateAnyWorkStream
+  UpdateAnyWorkStream
+  ViewAnyRole
+  AssignAnyRole
+  AssignTeamRole
+  UpdateAnyRole
+  ViewAnyAnnouncement
+  UpdateAnyAnnouncement
+  ViewAnyCommunity
+  CreateAnyCommunity
+  UpdateAnyCommunity
+  UpdateTeamCommunity
+  DeleteAnyCommunity
+  UpdateAnyPlatformAdminMembership
+  UpdateAnyCommunityAdminMembership
+  UpdateTeamCommunityAdminMembership
+  UpdateAnyCommunityRecruiterMembership
+  UpdateTeamCommunityRecruiterMembership
+  UpdateAnyProcessOperatorMembership
+  UpdateTeamProcessOperatorMembership
+  UpdateAnyCommunityTalentCoordinatorMembership
+  UpdateTeamCommunityTalentCoordinatorMembership
+  UpdateAnyDepartmentAdminMembership
+  UpdateAnyDepartmentHRAdvisorMembership
+  UpdateTeamDepartmentHRAdvisorMembership
+  ViewAnyPoolTeamMembers
+  ViewTeamPoolTeamMembers
+  ViewAnyCommunityTeamMembers
+  ViewTeamCommunityTeamMembers
+  ViewAnyDepartmentTeamMembers
+  ViewTeamDepartmentTeamMembers
+  CreateAnyTrainingOpportunity
+  ViewAnyTalentNominationEvent
+  CreateAnyTalentNominationEvent
+  CreateTeamTalentNominationEvent
+  UpdateTeamTalentNominationEvent
+  ViewAnyCommunityInterest
+  ViewTeamCommunityInterest
+  ViewTeamCommunityTalent
+  DeleteOwnCommunityInterest
+  CreateOwnTalentNomination
+  UpdateOwnTalentNomination
+  ViewOwnTalentNomination
+  ViewTeamTalentNomination
+  ViewAnyTalentNomination
+  UpdateTeamTalentNominationGroup
+  ViewTeamTalentNominationGroup
+  ViewAnyTalentNominationGroup
+  ViewAnyBasicGovEmployeeProfile
+  ViewAnyPoolActivityLog
+  ViewTeamPoolActivityLog
+  CreateTeamCommunityDevelopmentProgram
+  UpdateTeamCommunityDevelopmentProgram
+  DeleteTeamCommunityDevelopmentProgram
+}
+
 enum ActivityEvent {
   CREATED
   UPDATED
@@ -3673,6 +4054,17 @@ enum ClaimVerificationResult {
   UNVERIFIED
 }
 
+enum CommunityInterestAdditionalDuty {
+  CORPORATE_COMMUNICATIONS
+  FACILITIES_MANAGEMENT_AND_SECURITY
+  HUMAN_RESOURCES
+  INFORMATION_TECHNOLOGY
+  MATERIEL_MANAGEMENT
+  PROCUREMENT
+  PROJECT_MANAGEMENT
+  REAL_PROPERTY_MANAGEMENT
+}
+
 enum CourseFormat {
   ON_SITE
   VIRTUAL
@@ -3784,7 +4176,7 @@ enum ErrorCode {
   DEPARTMENT_NOT_FOUND
   DEPARTMENT_MUST_NOT_BE_ARCHIVED
   COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND
-  COMMUNITY_DEVELOPMENT_INVALID_SELECTION
+  COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID
   DEVELOPMENT_PROGRAM_NOT_FOUND
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED
@@ -3839,7 +4231,14 @@ enum ErrorCode {
   ROLE_NOT_FOUND
   SCREENING_QUESTION_NOT_FOUND
   SKILL_NOT_FOUND
+  TALENT_REQUEST_INVALID_POSITION_TYPE
+  TALENT_REQUEST_INVALID_REASON
+  TALENT_REQUEST_INVALID_STATUS
+  TALENT_REQUEST_IN_PROGRESS_DETAILS_REQUIRED
+  TALENT_REQUEST_COMPLETION_DETAILS_REQUIRED
   TALENT_EVENT_IS_CLOSED
+  TALENT_EVENT_CANNOT_CHANGE_COMMUNITY
+  TALENT_EVENT_CANNOT_CHANGE_NAME
   TALENT_NOMINATION_ALREADY_SUBMITTED
   NO_NOMINATIONS_FOR_ADVANCEMENT_TO_DECIDE
   NO_NOMINATIONS_FOR_LATERAL_MOVEMENT_TO_DECIDE
@@ -3916,16 +4315,6 @@ enum ExternalSizeOfOrganization {
   THIRTY_SIX_TO_ONE_HUNDRED
   ONE_HUNDRED_ONE_TO_ONE_THOUSAND
   ONE_THOUSAND_PLUS
-}
-
-enum FinanceChiefDuty {
-  CORPORATE_COMMUNICATIONS
-  FACILITIES_MANAGEMENT_AND_SECURITY
-  HUMAN_RESOURCES
-  INFORMATION_TECHNOLOGY
-  MATERIEL_MANAGEMENT
-  PROCUREMENT
-  REAL_PROPERTY_MANAGEMENT
 }
 
 enum FinanceChiefRole {
@@ -4107,6 +4496,7 @@ enum PoolLanguage {
   ENGLISH
   FRENCH
   VARIOUS
+  VARIOUS_BILINGUAL
   BILINGUAL_INTERMEDIATE
   BILINGUAL_ADVANCED
 }
@@ -4257,6 +4647,60 @@ enum TalentNominationUserReview {
   CORRECT
   INCORRECT
   OUT_OF_DATE
+}
+
+enum TalentRequestCompletionDetail {
+  HIRE_MADE
+  PROCESS_WILL_BE_LAUNCHED
+  HIRING_MANAGER_NOT_RESPONSIVE
+  NO_CANDIDATES_FOUND
+  NO_LONGER_REQUIRED
+  DUPLICATE_REQUEST
+  NON_COMPLIANT
+}
+
+enum TalentRequestInProgressDetail {
+  INITIAL_CONVERSATION
+  TALENT_SENT
+  FOLLOW_UP_SENT
+  DISCUSSION_ONGOING
+  OTHER
+}
+
+enum TalentRequestPositionType {
+  INDIVIDUAL_CONTRIBUTOR
+  TEAM_LEAD
+}
+
+enum TalentRequestReason {
+  IMMEDIATE_HIRE
+  UPCOMING_NEED
+  GENERAL_INTEREST
+  REQUIRED_BY_DIRECTIVE
+}
+
+enum TalentRequestStatus {
+  NEW
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum TalentRequestTrackedUserNotReferredReason {
+  OTHER
+}
+
+enum TalentRequestTrackedUserNotSelectedReason {
+  OTHER
+}
+
+enum TalentRequestTrackedUserReferralDecision {
+  REFERRED
+  NOT_REFERRED
+}
+
+enum TalentRequestTrackedUserSelectionDecision {
+  SELECTED
+  NOT_SELECTED
 }
 
 enum TargetRole {

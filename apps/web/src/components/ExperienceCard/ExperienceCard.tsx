@@ -243,6 +243,8 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
         level
         maxSalary
         minSalary
+        groupAndLevel
+        displayName
       }
       department {
         id

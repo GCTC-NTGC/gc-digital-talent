@@ -55,6 +55,7 @@ const EmployeeProfileNextRoleOptions_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      displayName
     }
     targetRoles: localizedEnumStrings(enumName: "TargetRole") {
       value
@@ -96,6 +97,8 @@ export const EmployeeProfileNextRole_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     nextRoleTargetRole {
       value
@@ -220,7 +223,6 @@ const NextRoleSection = ({
     ? verifiedIcon
     : {
         icon: LockClosedIcon,
-        color: "black",
       };
 
   const handleError = () => {
@@ -244,7 +246,8 @@ const NextRoleSection = ({
 
     return {
       classificationGroup: initialData.nextRoleClassification?.group,
-      classificationLevel: initialData.nextRoleClassification?.level.toString(),
+      classificationLevel:
+        initialData.nextRoleClassification?.level?.toString(),
       targetRole: initialData.nextRoleTargetRole?.value,
       targetRoleOther: initialData.nextRoleTargetRoleOther,
       jobTitle: initialData.nextRoleJobTitle,
@@ -345,7 +348,7 @@ const NextRoleSection = ({
     const selectedClassification = unpackMaybes(options.classifications).find(
       (classification) =>
         classification.group === classificationGroup &&
-        classification.level.toString() === classificationLevel,
+        classification.level?.toString() === classificationLevel,
     );
 
     // community and communityOther have bespoke handling

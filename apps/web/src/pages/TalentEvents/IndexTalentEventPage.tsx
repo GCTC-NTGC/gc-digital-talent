@@ -87,7 +87,11 @@ export const IndexTalentEventPage = () => {
 
 export const Component = () => (
   <RequireAuth
-    roles={[ROLE_NAME.CommunityTalentCoordinator, ROLE_NAME.PlatformAdmin]}
+    roles={[
+      ROLE_NAME.CommunityTalentCoordinator,
+      ROLE_NAME.PlatformAdmin,
+      ROLE_NAME.CommunityAdmin,
+    ]}
   >
     <IndexTalentEventPage />
   </RequireAuth>

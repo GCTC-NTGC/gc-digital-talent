@@ -468,7 +468,7 @@ const UserTable = ({ title }: UserTableProps) => {
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
         total: data?.usersPaginated?.paginatorInfo.total,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
         },
@@ -496,6 +496,7 @@ const UserTable = ({ title }: UserTableProps) => {
         initialState: defaultState.sortState,
       }}
       filter={{
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <UserFilterDialog

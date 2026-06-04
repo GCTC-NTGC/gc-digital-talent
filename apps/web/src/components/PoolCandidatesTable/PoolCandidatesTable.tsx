@@ -27,7 +27,6 @@ import { toast } from "@gc-digital-talent/toast";
 import type {
   PoolCandidateSearchInput,
   Pool,
-  Maybe,
   FragmentType,
   CandidatesTableCandidatesPaginated_QueryQuery,
 } from "@gc-digital-talent/graphql";
@@ -272,8 +271,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             }
             classification {
               id
-              group
-              level
+              groupAndLevel
             }
             workStream {
               id
@@ -437,14 +435,16 @@ const PoolCandidatesTable = ({
   doNotUseBookmark = false,
   doNotUseFlag = false,
   availableSteps,
+  hiddenColumnIds: hiddenColumnIdsProp,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pick<Pool, "id" | "displayName">>;
+  currentPool?: Pick<Pool, "id" | "displayName"> | null;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
   doNotUseFlag?: boolean;
-  availableSteps?: Maybe<PoolCandidateFilterDialogProps["availableSteps"]>;
+  availableSteps?: PoolCandidateFilterDialogProps["availableSteps"] | null;
+  hiddenColumnIds?: string[];
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -1143,7 +1143,11 @@ const PoolCandidatesTable = ({
     ),
   ] as ColumnDef<CandidatesTableCandidatesPaginatedQueryDataType>[];
 
-  const hiddenColumnIds = ["candidacyStatus", "notes", "flexibleWorkLocations"];
+  const hiddenColumnIds = hiddenColumnIdsProp ?? [
+    "candidacyStatus",
+    "notes",
+    "flexibleWorkLocations",
+  ];
   const hasSelectedRows = selectedRows.length > 0;
 
   return (
@@ -1178,6 +1182,7 @@ const PoolCandidatesTable = ({
       }}
       filter={{
         initialState: initialFilterInput,
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <PoolCandidateFilterDialog

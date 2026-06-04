@@ -5,8 +5,6 @@ import { useCallback, useEffect } from "react";
 
 import type {
   FragmentType,
-  Maybe,
-  Scalars,
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import {
@@ -35,6 +33,7 @@ import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
 import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
+import adminMessages from "~/messages/adminMessages";
 
 import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
@@ -90,8 +89,7 @@ const DetailsCommunityDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
       }
     }
     classifications {
-      group
-      level
+      groupAndLevel
     }
     developmentProgram {
       id
@@ -108,19 +106,19 @@ type NominationOption =
   | "developmentProgram";
 
 interface FormValues extends BaseFormValues {
-  nominationOptions: Maybe<NominationOption>[];
-  advancementReference: Maybe<Scalars["UUID"]["input"]>;
+  nominationOptions: (NominationOption | null)[];
+  advancementReference: string | null;
   advancementReferenceReview?: TalentNominationUserReview;
-  advancementReferenceFallbackWorkEmail: Maybe<string>;
-  advancementReferenceFallbackName: Maybe<string>;
-  advancementReferenceFallbackClassification: Scalars["UUID"]["input"];
-  advancementReferenceFallbackClassificationGroup: Maybe<string>;
-  advancementReferenceFallbackClassificationLevel: Maybe<string>;
-  advancementReferenceFallbackDepartment: Scalars["UUID"]["input"];
-  lateralMovementOptions: Maybe<TalentNominationLateralMovementOption[]>;
-  lateralMovementOptionsOther: Maybe<string>;
-  communityDevelopmentPrograms: Scalars["UUID"]["input"][];
-  developmentProgramOptionsOther: Maybe<string>;
+  advancementReferenceFallbackWorkEmail: string | null;
+  advancementReferenceFallbackName: string | null;
+  advancementReferenceFallbackClassification: string;
+  advancementReferenceFallbackClassificationGroup: string | null;
+  advancementReferenceFallbackClassificationLevel: string | null;
+  advancementReferenceFallbackDepartment: string;
+  lateralMovementOptions: TalentNominationLateralMovementOption[] | null;
+  lateralMovementOptionsOther: string | null;
+  communityDevelopmentPrograms: string[];
+  developmentProgramOptionsOther: string | null;
 }
 
 type DetailsFieldsOptionsFragmentType = FragmentType<
@@ -143,12 +141,10 @@ const DetailsFields = ({
   const intl = useIntl();
 
   const options = getFragment(DetailsFieldsOptions_Fragment, optionsQuery);
-
   const advancementReferenceData = getFragment(
     DetailsEmployee_Fragment,
     employeeQuery,
   );
-
   const communityDevelopmentProgramData = getFragment(
     DetailsCommunityDevelopmentProgram_Fragment,
     communityDevelopmentProgramQuery,
@@ -240,7 +236,7 @@ const DetailsFields = ({
           },
           {
             value: "developmentProgram",
-            label: intl.formatMessage(labels.developmentOpportunities),
+            label: intl.formatMessage(adminMessages.developmentOpportunities),
             contentBelow: intl.formatMessage({
               defaultMessage:
                 "The employee would benefit from a development or learning opportunity to help prepare them for their next role.",
@@ -469,7 +465,7 @@ const DetailsFields = ({
             <div className="flex flex-col gap-6">
               <div>
                 <Heading level="h3" size="h6">
-                  {intl.formatMessage(labels.developmentOpportunities)}
+                  {intl.formatMessage(adminMessages.developmentOpportunities)}
                 </Heading>
                 <p>
                   {intl.formatMessage({
@@ -484,7 +480,9 @@ const DetailsFields = ({
               <Checklist
                 idPrefix="communityDevelopmentPrograms"
                 name="communityDevelopmentPrograms"
-                legend={intl.formatMessage(labels.developmentOpportunities)}
+                legend={intl.formatMessage(
+                  adminMessages.developmentOpportunities,
+                )}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -507,10 +505,7 @@ const DetailsFields = ({
                               {intl.formatMessage(commonMessages.dividingColon)}
 
                               {cdp.classifications
-                                .map(
-                                  (classification) =>
-                                    `${classification.group}-${classification.level}`,
-                                )
+                                .map(({ groupAndLevel }) => groupAndLevel)
                                 .join(", ")}
                               <br />
                             </>
@@ -549,7 +544,7 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentDetails on TalentNomination {
     id
     talentNominationEvent {
-      communityDevelopmentPrograms {
+      communityDevelopmentPrograms(trashed: WITH) {
         id
         ...DetailsCommunityDevelopmentProgram
       }
@@ -578,7 +573,7 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
       value
     }
     lateralMovementOptionsOther
-    communityDevelopmentPrograms {
+    communityDevelopmentPrograms(trashed: WITH) {
       id
       developmentProgram {
         id
@@ -693,7 +688,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     return null;
   };
 
-  let nominationOptions: Maybe<NominationOption>[] = [];
+  let nominationOptions: (NominationOption | null)[] = [];
   if (talentNomination?.nominateForAdvancement) {
     nominationOptions = [...nominationOptions, "advancement"];
   }
@@ -708,7 +703,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     !!talentNomination.advancementReference?.id ||
     !!talentNomination.advancementReferenceFallbackName;
 
-  let defaultReference: Maybe<string> | undefined;
+  let defaultReference: string | null | undefined;
 
   if (referenceSet) {
     defaultReference = talentNomination.advancementReference?.id ?? null;

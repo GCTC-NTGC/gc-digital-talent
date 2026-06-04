@@ -26,7 +26,7 @@ import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
 
 import messages from "./messages";
-import EmployeeVerificationSection from "./components/EmployeeVerificationSection/EmployeeVerificationSection";
+import EmployeeVerificationSection from "../../components/EmployeeVerificationSection/EmployeeVerificationSection";
 import GoalsWorkStyleSection, {
   EmployeeProfileGoalsWorkStyle_Fragment,
 } from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
@@ -261,7 +261,10 @@ export const EmployeeProfile = ({
           <TableOfContents.Content>
             <div className="flex flex-col gap-y-18">
               <TableOfContents.Section id={SECTION_ID.EMPLOYEE_VERIFICATION}>
-                <EmployeeVerificationSection userQuery={user} />
+                <EmployeeVerificationSection
+                  userQuery={user}
+                  context="applicant"
+                />
               </TableOfContents.Section>
               <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
                 <Heading
@@ -271,7 +274,7 @@ export const EmployeeProfile = ({
                       ? ChartBarSquareIcon
                       : LockClosedIcon
                   }
-                  color={user.isVerifiedGovEmployee ? "primary" : "black"}
+                  {...(user.isVerifiedGovEmployee && { color: "primary" })}
                   className="mt-0 font-normal sm:text-left"
                 >
                   {intl.formatMessage(commonMessages.careerPlanning)}

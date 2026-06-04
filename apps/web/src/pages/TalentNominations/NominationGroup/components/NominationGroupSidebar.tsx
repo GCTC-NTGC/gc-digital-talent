@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import { Accordion, Card, CardSeparator, Heading } from "@gc-digital-talent/ui";
+import { Accordion, Card, Heading } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { getClassificationName } from "~/utils/poolUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
 import DownloadNominationDocxButton from "~/components/DownloadButton/DownloadNominationDocxButton";
@@ -45,8 +44,7 @@ export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
       }
       classification {
         id
-        group
-        level
+        groupAndLevel
       }
       department {
         name {
@@ -91,16 +89,8 @@ const NominationGroupSidebar = ({
       <Card className="mb-3 flex flex-col justify-center pb-3">
         <div className="flex justify-between">
           <p className="mb-1.5 text-sm text-gray-600 dark:text-gray-200">
-            {!!talentNominationGroup.nominee?.classification?.group &&
-            !!talentNominationGroup.nominee.classification.level
-              ? getClassificationName(
-                  {
-                    group: talentNominationGroup.nominee.classification.group,
-                    level: talentNominationGroup.nominee.classification.level,
-                  },
-                  intl,
-                )
-              : intl.formatMessage(commonMessages.notProvided)}
+            {talentNominationGroup.nominee?.classification?.groupAndLevel ??
+              intl.formatMessage(commonMessages.notProvided)}
           </p>
           <DownloadNominationDocxButton
             id={talentNominationGroup.id}
@@ -122,8 +112,8 @@ const NominationGroupSidebar = ({
         <div className="w-full self-start">
           <NominationGroupEvaluationDialog query={talentNominationGroup} />
         </div>
-        <CardSeparator decorative space="sm" />
-        <p className="font-bold">
+        <Card.Separator space="sm" />
+        <p>
           {intl.formatMessage({
             defaultMessage: "Nominated by",
             id: "ULsL3v",
@@ -145,6 +135,7 @@ const NominationGroupSidebar = ({
         <NominatedForList
           nominationGroupSidebarForListQuery={talentNominationGroup}
         />
+        <Card.Separator space="xs" />
         <Accordion.Root
           type="single"
           size="sm"
@@ -152,7 +143,6 @@ const NominationGroupSidebar = ({
           onValueChange={(value: AccordionStates) => setAccordionState(value)}
           collapsible
         >
-          <CardSeparator decorative space="xs" />
           <Accordion.Item value="nominee-contact-information">
             <Accordion.Trigger as="h3">
               {intl.formatMessage({
@@ -181,7 +171,7 @@ const NominationGroupSidebar = ({
               </div>
             </Accordion.Content>
           </Accordion.Item>
-          <CardSeparator decorative space="xs" />
+          <Card.Separator space="xs" />
           <Accordion.Item value="comments">
             <Accordion.Trigger as="h3" className="pb-0">
               {intl.formatMessage(adminMessages.comments)}

@@ -1,10 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type {
-  Experience,
-  FragmentType,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { Experience, FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -29,7 +25,7 @@ const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
 interface SupportingEvidenceProps {
   query: FragmentType<typeof ScreeningDialogSupportingEvidence_Fragment>;
   experiences: Omit<Experience, "user">[];
-  skillId?: Scalars["UUID"]["output"];
+  skillId?: string;
   dialogType: DialogType;
 }
 
@@ -50,7 +46,7 @@ const SupportingEvidence = ({
   const experiencesFiltered =
     dialogType === DIALOG_TYPE.Education
       ? experiences.filter((experience) =>
-          educationRequirementExperienceIds?.includes(experience.id),
+          educationRequirementExperienceIds.includes(experience.id),
         )
       : experiences.filter((experience) =>
           experience.skills?.some((skill) => skill?.id === skillId),
@@ -74,7 +70,7 @@ const SupportingEvidence = ({
                 experience,
                 ExperienceCard_Fragment,
               )}
-              headingLevel="h3"
+              headingLevel="h4"
               showEdit={false}
               {...(skillId && {
                 showSkills: { id: skillId },

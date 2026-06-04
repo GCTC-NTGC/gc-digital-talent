@@ -314,6 +314,12 @@ class PoolCandidateBuilder extends Builder
         return $this;
     }
 
+    /**
+     * The candidate whose referral status is NULL or blank should not be present
+     * when filter with referral status as 'Not referred' or 'Available' for referral
+     *
+     * The referral status filter are exclusively for qualified candidate status only
+     */
     public function whereReferralStatusIn(?array $referralStatuses): self
     {
         if (empty($referralStatuses)) {
@@ -333,7 +339,17 @@ class PoolCandidateBuilder extends Builder
             return $this->whereNotBeingReferred();
         }
 
-        // none selected or both selected - no filtering
+        // both selected
+        if ($hasReferring && $hasNotReferring) {
+            return $this->where(function ($query) {
+                $query->whereBeingReferred()
+                    ->orWhere(function ($query) {
+                        $query->whereNotBeingReferred();
+                    });
+            });
+        }
+
+        // none selected - no filtering
         return $this;
     }
 
@@ -353,15 +369,12 @@ class PoolCandidateBuilder extends Builder
     {
         $now = now();
 
-        return $this->where(function ($query) use ($now) {
-            $query
-                ->where('pause_referrals_at', '<=', $now)
-                ->where(function ($query) use ($now) {
-                    $query->whereNull('resume_referrals_at')
-                        ->orWhere('resume_referrals_at', '>', $now);
-                })
-                ->orWhere('application_status', '!=', ApplicationStatus::QUALIFIED->name);
-        });
+        return $this->where('pause_referrals_at', '<=', $now)
+            ->where(function ($query) use ($now) {
+                $query->whereNull('resume_referrals_at')
+                    ->orWhere('resume_referrals_at', '>', $now);
+            })
+            ->where('application_status', ApplicationStatus::QUALIFIED->name);
     }
 
     public function whereSuspendedStatus(?string $suspendedStatus): self
@@ -627,7 +640,7 @@ class PoolCandidateBuilder extends Builder
         }
 
         if (! empty($args['useFlag'])) {
-            $this->orderBy('is_flagged', 'DESC');
+            $this->orderBy('is_flagged', 'desc');
         }
 
         return $this;
@@ -670,7 +683,7 @@ class PoolCandidateBuilder extends Builder
 
             $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
 
-            $this->orderByRaw($order)->orderBy('submitted_at', 'ASC');
+            $this->orderByRaw($order)->orderBy('submitted_at', 'asc');
         }
 
         return $this;
@@ -693,7 +706,7 @@ class PoolCandidateBuilder extends Builder
             return
             $this->withMax('pool', 'name->'.$locale)
                 ->orderBy('pool_max_name'.$locale, $order)
-                ->orderBy('submitted_at', 'ASC');
+                ->orderBy('submitted_at', 'asc');
         }
 
         return $this;
@@ -712,7 +725,7 @@ class PoolCandidateBuilder extends Builder
             ->leftJoin('users', 'pool_candidates.user_id', '=', 'users.id')
             ->leftJoin('departments', 'users.computed_department', '=', 'departments.id')
             ->orderByRaw("departments.name->>'$locale' $order")
-            ->orderBy('submitted_at', 'ASC');
+            ->orderBy('submitted_at', 'asc');
     }
 
     public function orderByScreeningStage(?string $order): self

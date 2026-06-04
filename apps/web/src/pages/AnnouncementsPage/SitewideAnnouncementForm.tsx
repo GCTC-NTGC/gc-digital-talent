@@ -7,7 +7,6 @@ import {
   nowUTCDateTime,
 } from "@gc-digital-talent/date-helpers";
 import type {
-  Scalars,
   SitewideAnnouncement,
   SitewideAnnouncementInput,
 } from "@gc-digital-talent/graphql";
@@ -34,10 +33,10 @@ const invalidDateTimeMessage = defineMessage({
 });
 
 interface FormValues {
-  isEnabled: Scalars["Boolean"]["input"];
-  isDismissible: Scalars["Boolean"]["input"];
-  publishDate: Scalars["DateTime"]["input"];
-  expiryDate: Scalars["DateTime"]["input"];
+  isEnabled: boolean;
+  isDismissible: boolean;
+  publishDate: string;
+  expiryDate: string;
   titleEn: string;
   messageEn: string;
   titleFr: string;

@@ -12,13 +12,13 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import type { Scalars, FragmentType } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 interface FormValues {
-  userId: Scalars["UUID"]["input"];
+  userId: string;
   name: string;
 }
 

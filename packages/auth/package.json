@@ -31,10 +31,10 @@
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.15",
     "eslint": "^9.20.1",
-    "jsdom": "^26.0.0",
-    "react": "^19.2.5",
+    "jsdom": "^29.1.1",
+    "react": "^19.2.6",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
     "vitest": "^4.0.16"

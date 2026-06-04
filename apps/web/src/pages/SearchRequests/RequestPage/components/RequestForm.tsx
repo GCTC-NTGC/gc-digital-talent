@@ -38,7 +38,6 @@ import {
 import type {
   EquitySelections,
   CreatePoolCandidateSearchRequestInput,
-  Maybe,
   DepartmentBelongsTo,
   Classification,
   OperationalRequirement,
@@ -77,19 +76,19 @@ interface FormValues {
   hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
     qualifiedInClassifications?: {
-      sync?: Maybe<Classification["id"]>[];
+      sync?: (Classification["id"] | null)[];
     };
     qualifiedInworkStreams?: ApplicantFilterInput["qualifiedInWorkStreams"];
     skills?: {
-      sync?: Maybe<Skill["id"]>[];
+      sync?: (Skill["id"] | null)[];
     };
     hasDiploma?: ApplicantFilterInput["hasDiploma"];
     positionDuration?: ApplicantFilterInput["positionDuration"];
     equity?: EquitySelections;
     languageAbility?: ApplicantFilter["languageAbility"];
-    operationalRequirements?: Maybe<OperationalRequirement>[];
+    operationalRequirements?: (OperationalRequirement | null)[];
     pools?: {
-      sync?: Maybe<Pool["id"]>[];
+      sync?: (Pool["id"] | null)[];
     };
     locationPreferences?: ApplicantFilterInput["locationPreferences"];
     flexibleWorkLocations?: ApplicantFilterInput["flexibleWorkLocations"];
@@ -102,6 +101,8 @@ export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
     id
     group
     level
+    groupAndLevel
+    displayName
   }
 `);
 
@@ -136,6 +137,8 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
           id
           group
           level
+          groupAndLevel
+          displayName
         }
         workStream {
           id
@@ -213,10 +216,10 @@ export interface RequestFormProps {
     typeof RequestFormClassification_Fragment
   >[];
   communitiesQuery: FragmentType<typeof RequestFormCommunity_Fragment>[];
-  applicantFilter: Maybe<ApplicantFilterInput>;
-  candidateCount: Maybe<number>;
+  applicantFilter: ApplicantFilterInput | null;
+  candidateCount: number | null;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
+  selectedClassifications: Pick<Classification, "groupAndLevel">[];
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<CreateRequestMutation["createPoolCandidateSearchRequest"]>;
@@ -527,12 +530,7 @@ export const RequestForm = ({
               id="hrAdvisorEmail"
               type="email"
               name="hrAdvisorEmail"
-              label={intl.formatMessage({
-                defaultMessage: "HR advisor email",
-                id: "VrLfLw",
-                description:
-                  "Input label asking for the HR advisor's email address.",
-              })}
+              label={intl.formatMessage(talentRequestMessages.hrAdvisorEmail)}
             />
           </div>
           <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
@@ -755,10 +753,10 @@ const RequestFormApi = ({
   searchFormInitialValues,
   selectedClassifications,
 }: {
-  applicantFilter: Maybe<ApplicantFilterInput>;
-  candidateCount: Maybe<number>;
+  applicantFilter: ApplicantFilterInput | null;
+  candidateCount: number | null;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<Pick<Classification, "group" | "level">>[];
+  selectedClassifications: Pick<Classification, "groupAndLevel">[];
 }) => {
   const intl = useIntl();
   const [{ data: lookupData, fetching, error }] = useQuery({

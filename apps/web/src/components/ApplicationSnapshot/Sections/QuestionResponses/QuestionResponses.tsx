@@ -5,8 +5,6 @@ import { tv } from "tailwind-variants";
 import type {
   GeneralQuestionResponse,
   LocalizedString,
-  Maybe,
-  Scalars,
   ScreeningQuestionResponse,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -18,9 +16,9 @@ type SourceQuestionResponse =
   | ScreeningQuestionResponse;
 
 export interface GenericQuestionResponse {
-  id: Scalars["UUID"]["output"];
-  question?: Maybe<string>;
-  answer?: Maybe<string>;
+  id: string;
+  question?: string | null;
+  answer?: string | null;
 }
 
 const normalizeQuestionResponses = (
@@ -32,7 +30,7 @@ const normalizeQuestionResponses = (
 
   return responses
     .map((response) => {
-      let question: Maybe<LocalizedString> | undefined;
+      let question: LocalizedString | null | undefined;
 
       if ("screeningQuestion" in response) {
         question = response.screeningQuestion?.question;

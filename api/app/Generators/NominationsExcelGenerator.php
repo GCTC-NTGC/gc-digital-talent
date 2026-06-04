@@ -35,7 +35,6 @@ use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
 {
@@ -180,7 +179,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet = $this->newSpreadsheet();
 
         // Nominations overview sheet
         $overviewSheet = $this->spreadsheet->getActiveSheet();

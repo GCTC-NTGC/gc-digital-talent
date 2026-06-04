@@ -80,7 +80,7 @@ return [
         'applicationStatus' => 'applicationStatus', // TODO: remove - to be replaced by applicationAssessment and applicationDecision, but can't be fully removed until after #8671.
         'applicantCount' => 'applicantCount',
         'jobPosterTemplate' => 'jobPosterTemplate',
-        'searchRequest' => 'searchRequest',
+        'talentRequest' => 'talentRequest',
         'role' => 'role',
         'announcement' => 'announcement',
         'community' => 'community',
@@ -488,36 +488,36 @@ return [
             'fr' => 'Supprimer un modèle d\'offre d\'emploi',
         ],
 
-        'create-any-searchRequest' => [
-            'en' => 'Create Any SearchRequest',
+        'create-any-talentRequest' => [
+            'en' => 'Create Any TalentRequest',
             'fr' => 'Créer toute demande de recherche',
         ],
-        'view-team-searchRequest' => [
-            'en' => 'View SearchRequests submitted to this Team',
+        'view-team-talentRequest' => [
+            'en' => 'View TalentRequests submitted to this Team',
             'fr' => 'Voir les demandes de recherche soumises à cette équipe',
         ],
-        'update-team-searchRequest' => [
-            'en' => 'Update the notes or status of SearchRequests submitted to this Team',
+        'update-team-talentRequest' => [
+            'en' => 'Update the notes or status of TalentRequests submitted to this Team',
             'fr' => 'Mettre à jour les notes ou le statut des demandes de recherche soumises à cette équipe.',
         ],
-        'delete-team-searchRequest' => [
-            'en' => 'Delete SearchRequests submitted to this Team',
+        'delete-team-talentRequest' => [
+            'en' => 'Delete TalentRequests submitted to this Team',
             'fr' => 'Supprimer une demande de recherche d’équipe',
         ],
-        'view-any-searchRequest' => [
-            'en' => 'View any SearchRequests',
+        'view-any-talentRequest' => [
+            'en' => 'View any TalentRequests',
             'fr' => 'Voir n\'import quelles demandes de recherche',
         ],
-        'update-any-searchRequest' => [
-            'en' => 'Update the notes or status of SearchRequests submitted to this Team',
+        'update-any-talentRequest' => [
+            'en' => 'Update the notes or status of TalentRequests submitted to this Team',
             'fr' => 'Mettre à jour les notes ou le statut de n\'import quelle demande de recherche',
         ],
-        'delete-any-searchRequest' => [
-            'en' => 'Delete SearchRequests submitted to this Team',
+        'delete-any-talentRequest' => [
+            'en' => 'Delete TalentRequests submitted to this Team',
             'fr' => 'Supprimer n\'import quelle demande de recherche',
         ],
-        'view-own-searchRequest' => [
-            'en' => 'View own SearchRequests',
+        'view-own-talentRequest' => [
+            'en' => 'View own TalentRequests',
             'fr' => 'Voir ses propres demandes de recherche',
         ],
 
@@ -935,7 +935,7 @@ return [
             'jobPosterTemplate' => [
                 'any' => ['view'],
             ],
-            'searchRequest' => [
+            'talentRequest' => [
                 'any' => ['create'],
             ],
             'talentNominationEvent' => [
@@ -980,7 +980,7 @@ return [
             'jobPosterTemplate' => [
                 'any' => ['view'],
             ],
-            'searchRequest' => [
+            'talentRequest' => [
                 'any' => ['create'],
             ],
             'announcement' => [
@@ -1022,7 +1022,7 @@ return [
             'employeeProfile' => [
                 'own' => ['view', 'update'],
             ],
-            'searchRequest' => [
+            'talentRequest' => [
                 'own' => ['view'],
             ],
             'user' => [
@@ -1097,7 +1097,7 @@ return [
             'applicationPlacement' => [
                 'team' => ['view', 'update'],
             ],
-            'searchRequest' => [
+            'talentRequest' => [
                 'team' => ['view', 'update', 'delete'],
             ],
             'communityTeamMembers' => [
@@ -1136,6 +1136,9 @@ return [
             'publishedPool' => [
                 'team' => ['update', 'archive'],
             ],
+            'poolActivityLog' => [
+                'team' => ['view'],
+            ],
             'assessmentPlan' => [
                 'team' => ['view', 'update'],
             ],
@@ -1154,11 +1157,17 @@ return [
             'applicationPlacement' => [
                 'team' => ['view', 'update'],
             ],
-            'searchRequest' => [
+            'talentRequest' => [
                 'team' => ['view', 'update', 'delete'],
             ],
             'talentNominationEvent' => [
                 'team' => ['create', 'update'],
+            ],
+            'talentNomination' => [
+                'team' => ['view'],
+            ],
+            'talentNominationGroup' => [
+                'team' => ['view', 'update'],
             ],
             'community' => [
                 'team' => ['update'],
@@ -1253,7 +1262,7 @@ return [
             'jobPosterTemplate' => [
                 'any' => ['create', 'update', 'delete'],
             ],
-            'searchRequest' => [
+            'talentRequest' => [
                 'any' => ['view'],
             ],
             'role' => [
@@ -1356,7 +1365,7 @@ return [
                 'team' => ['view', 'create', 'update', 'delete', 'publish'],
             ],
             'publishedPool' => [
-                'team' => ['archive'],
+                'team' => ['archive', 'update'],
             ],
             'poolTeamMembers' => [
                 'team' => ['view'],

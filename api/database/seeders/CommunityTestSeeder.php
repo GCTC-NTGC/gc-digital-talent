@@ -33,8 +33,8 @@ class CommunityTestSeeder extends Seeder
                 function (Sequence $sequence) {
                     return [
                         'name' => [
-                            'en' => 'Test Development program EN '.$sequence->index,
-                            'fr' => 'Test Development program FR '.$sequence->index,
+                            'en' => 'Test Development program EN ',
+                            'fr' => 'Test Development program FR ',
                         ],
                     ];
                 }
@@ -50,5 +50,38 @@ class CommunityTestSeeder extends Seeder
             'community_id' => $testCommunity->id,
         ]);
 
+        // does not exist in production yet
+        $testProcurementCommunity = Community::factory()
+            ->withTalentNominationEvents()
+            ->create([
+                'key' => 'procurement',
+                'name' => [
+                    'en' => 'Test Procurement Community EN',
+                    'fr' => 'Test Procurement Community FR',
+                ],
+            ]);
+
+        DevelopmentProgram::factory()
+            ->withCommunityAndClassifications($testProcurementCommunity->id)
+            ->state(new Sequence(
+                function (Sequence $sequence) {
+                    return [
+                        'name' => [
+                            'en' => 'Test Development program 2 EN ',
+                            'fr' => 'Test Development program 2 FR ',
+                        ],
+                    ];
+                }
+            ))
+            ->create();
+
+        WorkStream::factory()->create([
+            'key' => 'test_procurement_work_stream',
+            'name' => [
+                'en' => 'Test Procurement work stream EN',
+                'fr' => 'Test Procurement work stream FR',
+            ],
+            'community_id' => $testProcurementCommunity->id,
+        ]);
     }
 }

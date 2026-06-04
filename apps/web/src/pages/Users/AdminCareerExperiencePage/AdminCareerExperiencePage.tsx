@@ -11,7 +11,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
@@ -29,7 +29,7 @@ const AdminCareerExperience_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface AdminCareerExperienceProps {
-  userId: Scalars["UUID"]["output"];
+  userId: string;
   query: FragmentType<typeof AdminCareerExperience_Fragment>[];
 }
 
@@ -94,7 +94,7 @@ const AdminCareerExperiencePage_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  userId: Scalars["ID"]["output"];
+  userId: string;
 }
 
 const AdminCareerExperiencePage = () => {

@@ -199,6 +199,11 @@ const messages = defineMessages({
     id: "ht9CfC",
     description: "Label for communities",
   },
+  communityDetails: {
+    defaultMessage: "Community details",
+    id: "iqCi+v",
+    description: "Label for Community details",
+  },
   comments: {
     defaultMessage: "Comments",
     id: "gk/x2T",
@@ -213,6 +218,31 @@ const messages = defineMessages({
     defaultMessage: "User",
     id: "Ftq+3Y",
     description: "Label for a specific user",
+  },
+  eventDetails: {
+    defaultMessage: "Event details",
+    id: "v3CrHe",
+    description: "Label for talent event details",
+  },
+  openingDate: {
+    defaultMessage: "Opening date",
+    id: "OFrfEA",
+    description: "Label for Opening date",
+  },
+  developmentOpportunities: {
+    defaultMessage: "Development opportunities",
+    id: "NVKfLp",
+    description: "Label for Development opportunities",
+  },
+  developmentOpportunitiesRecommended: {
+    defaultMessage: "Recommended development opportunities",
+    id: "uNQzDO",
+    description: "Label for Recommended development opportunities",
+  },
+  professionalization: {
+    defaultMessage: "Professionalization",
+    id: "MT1JwK",
+    description: "Label for Professionalization",
   },
 });
 

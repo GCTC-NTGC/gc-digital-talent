@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { ColumnDef, PaginationState } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import { createIntl, createIntlCache, useIntl } from "react-intl";
@@ -175,7 +175,32 @@ const SkillTable = ({
   const [filterState, setFilterState] =
     useState<SkillFilterInput>(initialFilters);
 
-  const [dataState, setDataState] = useState<Skill[]>(skills);
+  // Derive filtered data directly from state and props using useMemo
+  const filteredSkills = useMemo(() => {
+    let filtered = skills;
+
+    // filter by skill family
+    if (filterState?.skillFamilies) {
+      filtered = filtered.filter((skill) =>
+        skill.families?.find((skillFamily) =>
+          filterState.skillFamilies?.includes(skillFamily.key),
+        ),
+      );
+    }
+
+    // filter by skill category
+    if (filterState?.skillCategories) {
+      filtered = filtered.filter(
+        (skill) =>
+          skill.category.value ===
+          filterState.skillCategories?.find(
+            (category) => category === skill.category.value,
+          ),
+      );
+    }
+
+    return filtered;
+  }, [filterState, skills]);
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (values) => {
     const transformedData = transformFormValuesToSkillFilterInput(values);
@@ -226,29 +251,6 @@ const SkillTable = ({
     }),
   ] as ColumnDef<Skill>[];
 
-  useEffect(() => {
-    let filteredData = skills;
-    // filter by skill family
-    if (filterState?.skillFamilies)
-      filteredData = filteredData.filter((skill) =>
-        skill.families?.find((skillFamily) =>
-          filterState.skillFamilies?.includes(skillFamily.key),
-        ),
-      );
-
-    // filter by skill category
-    if (filterState?.skillCategories)
-      filteredData = filteredData?.filter(
-        (skill) =>
-          skill.category.value ===
-          filterState.skillCategories?.find(
-            (category) => category === skill.category.value,
-          ),
-      );
-
-    setDataState(filteredData);
-  }, [filterState, skills]);
-
   const { pathname, search, hash } = useLocation();
   const currentUrl = `${pathname}${search}${hash}`;
 
@@ -260,13 +262,13 @@ const SkillTable = ({
     <Table<Skill>
       caption={title}
       isLoading={fetching}
-      data={dataState}
+      data={filteredSkills}
       columns={columns}
       hiddenColumnIds={["id"]}
       pagination={{
         internal: true,
-        total: dataState.length,
-        pageSizes: [10, 20, 50],
+        total: filteredSkills.length,
+        pageSizes: [10, 20, 50, 100, 500],
         initialState: paginationState ?? INITIAL_STATE.paginationState,
       }}
       sort={{

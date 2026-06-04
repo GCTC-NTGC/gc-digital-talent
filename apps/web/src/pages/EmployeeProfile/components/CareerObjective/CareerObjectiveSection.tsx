@@ -55,6 +55,8 @@ const EmployeeProfileCareerObjectiveOptions_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     targetRoles: localizedEnumStrings(enumName: "TargetRole") {
       value
@@ -96,6 +98,8 @@ export const EmployeeProfileCareerObjective_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     careerObjectiveTargetRole {
       value
@@ -224,7 +228,6 @@ const CareerObjectiveSection = ({
     ? verifiedIcon
     : {
         icon: LockClosedIcon,
-        color: "black",
       };
 
   const handleError = () => {

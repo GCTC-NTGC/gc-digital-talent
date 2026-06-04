@@ -38,6 +38,7 @@ import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 import useApplication from "../useApplication";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 const careerTimelineLink = (children: ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
@@ -353,6 +354,7 @@ export const ApplicationSkills = ({
             <Link mode="inline" href={cancelPath}>
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Link>
+            <DeleteApplicationDialog query={application} />
           </div>
         </form>
       </FormProvider>

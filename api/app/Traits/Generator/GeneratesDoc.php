@@ -12,6 +12,8 @@ trait GeneratesDoc
 {
     use GeneratesFile;
 
+    protected array $linkStyle;
+
     /**
      * Adds text accompanied by a strong label
      *

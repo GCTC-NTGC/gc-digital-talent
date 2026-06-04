@@ -3,7 +3,6 @@ import { faker } from "@faker-js/faker/locale/en";
 import type {
   PoolSkill,
   AssessmentStep,
-  Maybe,
   AssessmentResult,
 } from "@gc-digital-talent/graphql";
 import {
@@ -17,8 +16,8 @@ import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generateAssessmentResult = (
   index: number,
-  assessmentStep?: Maybe<AssessmentStep>,
-  poolSkill?: Maybe<PoolSkill>,
+  assessmentStep?: AssessmentStep | null,
+  poolSkill?: PoolSkill | null,
 ): AssessmentResult => {
   faker.seed(index); // repeatable results
 
@@ -50,8 +49,8 @@ const generateAssessmentResult = (
 
 export default (
   numToGenerate?: number,
-  assessmentStep?: Maybe<AssessmentStep>,
-  poolSkill?: Maybe<PoolSkill>,
+  assessmentStep?: AssessmentStep | null,
+  poolSkill?: PoolSkill | null,
 ): AssessmentResult[] => {
   return Array.from({ length: numToGenerate ?? 20 }, (_x, index) =>
     generateAssessmentResult(index, assessmentStep, poolSkill),

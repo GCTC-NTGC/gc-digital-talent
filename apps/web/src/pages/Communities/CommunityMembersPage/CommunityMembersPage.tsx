@@ -9,10 +9,7 @@ import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type {
-  CommunityMembersTeamQuery,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { CommunityMembersTeamQuery } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -21,12 +18,13 @@ import type { CommunityMember } from "~/utils/communityUtils";
 import { groupRoleAssignmentsByUser, checkRole } from "~/utils/communityUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
+import { requireUser } from "~/routing/auth";
 import adminMessages from "~/messages/adminMessages";
 
+import type { Route } from "./+types/CommunityMembersPage";
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
 import type {
@@ -34,6 +32,7 @@ import type {
   ContextType,
 } from "./components/types";
 import { CommunityMembersPage_CommunityFragment } from "./components/operations";
+import { getCommunityTeamIdInMiddleware } from "../utils";
 
 const pageTitle = defineMessage({
   defaultMessage: "Community members",
@@ -53,7 +52,8 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     CommunityMembersPage_CommunityFragment,
     communityQuery,
   );
-  const { canAdminManageAccess } = useOutletContext<ContextType>();
+  const { canAdminManageAccessAndEditCommunity } =
+    useOutletContext<ContextType>();
 
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
@@ -97,7 +97,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     }),
   ] as ColumnDef<CommunityMember>[];
 
-  if (canAdminManageAccess) {
+  if (canAdminManageAccessAndEditCommunity) {
     columns.splice(
       1,
       0,
@@ -130,13 +130,13 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
         pagination={{
           internal: true,
           total: data.length,
-          pageSizes: [10, 20, 50],
+          pageSizes: [10, 20, 50, 100, 500],
         }}
         search={{
           internal: true,
           label: intl.formatMessage(adminMessages.searchByKeyword),
         }}
-        {...(canAdminManageAccess && {
+        {...(canAdminManageAccessAndEditCommunity && {
           add: {
             component: <AddCommunityMemberDialog community={community} />,
           },
@@ -162,7 +162,7 @@ const CommunityMembersTeam_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  communityId: Scalars["ID"]["output"];
+  communityId: string;
 }
 
 interface CommunityMembersPageProps {
@@ -206,8 +206,28 @@ const CommunityMembersPage = ({ community }: CommunityMembersPageProps) => {
   );
 };
 
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request, params }, next) => {
+    const teamId = await getCommunityTeamIdInMiddleware(
+      context,
+      params.communityId,
+    );
+
+    requireUser(context, request, {
+      roles: [
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId: teamId },
+        { name: ROLE_NAME.CommunityRecruiter, teamId: teamId },
+        { name: ROLE_NAME.CommunityTalentCoordinator, teamId: teamId },
+      ],
+      strict: true,
+    });
+    return await next();
+  },
+];
+
 // Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
-const CommunityMembersPageApiWrapper = () => {
+const Component = () => {
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
     query: CommunityMembersTeam_Query,
@@ -223,19 +243,6 @@ const CommunityMembersPageApiWrapper = () => {
     </Pending>
   );
 };
-
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityTalentCoordinator,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
-    <CommunityMembersPageApiWrapper />
-  </RequireAuth>
-);
 
 Component.displayName = "AdminCommunityMembersPage";
 

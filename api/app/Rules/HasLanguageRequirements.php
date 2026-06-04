@@ -3,7 +3,6 @@
 namespace App\Rules;
 
 use App\Enums\ErrorCode;
-use App\Enums\PoolLanguage;
 use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Contracts\Validation\Rule;
@@ -33,7 +32,7 @@ class HasLanguageRequirements implements Rule
     {
         $thisUser = User::findOrFail($value);
         $userLookingForBilingual = $thisUser->looking_for_bilingual;
-        $poolNeedsBilingual = $this->pool->advertisement_language == PoolLanguage::BILINGUAL_INTERMEDIATE->name || $this->pool->advertisement_language == PoolLanguage::BILINGUAL_ADVANCED->name;
+        $poolNeedsBilingual = $this->pool->requires_bilingual;
         $poolAndUserAreBothBilingual = $poolNeedsBilingual && $userLookingForBilingual;
 
         $passes = ! $poolNeedsBilingual || $poolAndUserAreBothBilingual;

@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\CommunityInterestAdditionalDuty;
 use App\Enums\DevelopmentProgramParticipationStatus;
 use App\Enums\ErrorCode;
-use App\Enums\FinanceChiefDuty;
 use App\Enums\FinanceChiefRole;
 use App\Models\Community;
 use App\Models\User;
@@ -54,14 +54,22 @@ final class CreateCommunityInterestWithDevelopmentProgramsInputValidator extends
                     ['prohibited']
                 ),
             ],
-            'communityInterest.financeAdditionalDuties' => [
+            'communityInterest.procurementIsSDO' => [
                 'nullable',
-                Rule::when($community?->key === 'finance',
+                Rule::when($community?->key === 'procurement',
+                    ['boolean'],
+                    ['prohibited']
+                ),
+            ],
+            'communityInterest.communityInterestAdditionalDuties' => [
+                'nullable',
+                Rule::when(
+                    ($community?->key === 'finance' || $community?->key === 'procurement'),
                     ['array', 'distinct'],
                     ['prohibited']
                 ),
             ],
-            'communityInterest.financeAdditionalDuties.*' => [Rule::in(array_column(FinanceChiefDuty::cases(), 'name'))],
+            'communityInterest.communityInterestAdditionalDuties.*' => [Rule::in(array_column(CommunityInterestAdditionalDuty::cases(), 'name'))],
             'communityInterest.financeOtherRoles' => [
                 'nullable',
                 Rule::when($community?->key === 'finance',
@@ -92,10 +100,7 @@ final class CreateCommunityInterestWithDevelopmentProgramsInputValidator extends
                 Rule::in($userEducationExperienceIds),
             ],
             'developmentPrograms.*.participationStatus' => ['nullable', Rule::in(array_column(DevelopmentProgramParticipationStatus::cases(), 'name'))],
-            'developmentPrograms.*.completionDate' => [
-                'required_if:developmentPrograms.*.participationStatus,'.DevelopmentProgramParticipationStatus::COMPLETED->name,
-                'prohibited_unless:developmentPrograms.*.participationStatus,'.DevelopmentProgramParticipationStatus::COMPLETED->name,
-            ],
+            'developmentPrograms.*.completionDate' => ['nullable'],
         ];
     }
 
@@ -108,8 +113,6 @@ final class CreateCommunityInterestWithDevelopmentProgramsInputValidator extends
             'communityInterest.workStreams.sync.*.exists' => ErrorCode::WORK_STREAM_NOT_FOUND->name,
             'developmentPrograms.*.developmentProgramId.exists' => ErrorCode::DEVELOPMENT_PROGRAM_NOT_FOUND->name,
             'developmentPrograms.*.educationExperienceId.in' => ErrorCode::DEVELOPMENT_PROGRAM_MUST_CONNECT_OWN_EDUCATION_EXPERIENCE->name,
-            'developmentPrograms.*.completionDate.prohibited_unless' => ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED->name,
-            'developmentPrograms.*.completionDate.required_if' => ErrorCode::DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED->name,
         ];
     }
 }

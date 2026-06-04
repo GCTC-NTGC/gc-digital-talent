@@ -9,7 +9,6 @@ import { toast } from "@gc-digital-talent/toast";
 import { Submit } from "@gc-digital-talent/forms";
 import type {
   CreateDepartmentInput,
-  Scalars,
   LocalizedStringInput,
   DepartmentSize,
 } from "@gc-digital-talent/graphql";
@@ -26,13 +25,14 @@ import {
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import { requireUser } from "~/routing/auth";
 
 import FormFields from "./FormFields";
 import type { DepartmentType } from "./utils";
 import { departmentTypeToInput } from "./utils";
+import type { Route } from "./+types/CreateDepartmentPage";
 
 interface FormValues {
   name?: LocalizedStringInput;
@@ -65,9 +65,7 @@ const CreateDepartmentOptions_Query = graphql(/* GraphQL */ `
 `);
 
 interface CreateDepartmentProps {
-  handleCreateDepartment: (
-    data: CreateDepartmentInput,
-  ) => Promise<Scalars["UUID"]["output"]>;
+  handleCreateDepartment: (data: CreateDepartmentInput) => Promise<string>;
 }
 
 export const CreateDepartmentForm = ({
@@ -163,7 +161,16 @@ const CreateDepartment_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const CreateDepartmentPage = () => {
+export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
+  async ({ context, request }, next) => {
+    requireUser(context, request, {
+      roles: [{ name: ROLE_NAME.PlatformAdmin }],
+    });
+    return await next();
+  },
+];
+
+const Component = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const [, executeMutation] = useMutation(CreateDepartment_Mutation);
@@ -211,12 +218,6 @@ const CreateDepartmentPage = () => {
     </>
   );
 };
-
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <CreateDepartmentPage />
-  </RequireAuth>
-);
 
 Component.displayName = "AdminCreateDepartmentPage";
 

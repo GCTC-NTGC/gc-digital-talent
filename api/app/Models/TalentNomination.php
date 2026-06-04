@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
@@ -93,7 +93,7 @@ class TalentNomination extends Model
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /**
@@ -164,9 +164,12 @@ class TalentNomination extends Model
         return $this->belongsToMany(CommunityDevelopmentProgram::class, 'community_development_program_talent_nomination');
     }
 
+    // allow for downloads and the like to skip working with the pivot
+    // will fetch with soft deleted intermediate CommunityDevelopmentProgram
     public function developmentProgramsThroughPivot(): HasManyDeep
     {
-        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram())->developmentProgram());
+        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram())->developmentProgram())
+            ->withTrashed('community_development_program.deleted_at');
     }
 
     /** @return BelongsToMany<DevelopmentProgram, $this> */

@@ -6,7 +6,6 @@ use App\Contracts\BearerTokenService;
 use App\Models\Role;
 use App\Models\User;
 use App\Rules\GovernmentEmailRegex;
-use Exception;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
@@ -17,6 +16,7 @@ use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\UnencryptedToken;
+use Throwable;
 
 class AuthController extends Controller
 {
@@ -86,7 +86,7 @@ class AuthController extends Controller
             new InvalidArgumentException('Invalid session state')
         );
 
-        $tokenResponse = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+        $tokenResponse = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
             return $exception instanceof ConnectionException;
         }, throw: false)->asForm()->post(config('oauth.token_uri'), [
             'grant_type' => 'authorization_code',
@@ -98,7 +98,7 @@ class AuthController extends Controller
         assert($tokenResponse instanceof Response);
         if ($tokenResponse->failed()) {
             Log::error('Failed when POSTing to the token URI in authCallback');
-            Log::debug((string) $tokenResponse->getBody());
+            Log::debug($tokenResponse->body());
 
             return response('Failed to get token', 400);
         }
@@ -180,16 +180,19 @@ class AuthController extends Controller
                     $existingUser = User::where('id', '!=', $userMatch->id)
                         ->where(fn ($subquery) => $subquery
                             ->where('email', 'ilike', $incomingEmailAddress)
-                            ->orWhere('work_email', 'ilike', $incomingEmailAddress)
-                        )->first();
+                            ->orWhere('work_email', 'ilike', $incomingEmailAddress))
+                        ->withTrashed()
+                        ->first();
                     if (strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
-                        $existingUser->email = $existingUser->email.'-taken-at-'.Carbon::now()->timestamp;
+                        $existingUser->email_backup = $existingUser->email;
+                        $existingUser->email = null;
                     }
                     if (strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
-                        $existingUser->work_email = $existingUser->work_email.'-taken-at-'.Carbon::now()->timestamp;
+                        $existingUser->work_email_backup = $existingUser->work_email;
+                        $existingUser->work_email = null;
                     }
                     $existingUser->save();
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                     // log and continue - don't break log in for failure to take address
                     Log::error('Failed to take email address on log in.'.$e->getMessage(), [
                         'sub' => $sub,
@@ -265,7 +268,7 @@ class AuthController extends Controller
     {
         $refreshToken = $request->query('refresh_token');
         $response =
-        Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+        Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
             return $exception instanceof ConnectionException;
         }, throw: false)->asForm()
             ->post(config('oauth.token_uri'), [
@@ -285,7 +288,7 @@ class AuthController extends Controller
             } else {
                 Log::debug($errorMessageToLog);
             }
-            Log::debug((string) $response->getBody());
+            Log::debug($response->body());
 
             return response('Failed to get token', 400);
         }

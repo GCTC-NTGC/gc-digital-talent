@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useMutation, useQuery } from "urql";
+import { useMutation, useQuery, type OperationContext } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
@@ -21,7 +21,7 @@ import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { messages } from "./messages";
+import { messages } from "../messages";
 import type { FormValues } from "../form";
 import { apiDataToFormValues, formValuesToApiUpdateInput } from "../form";
 import FindANewCommunity from "../sections/FindANewCommunity";
@@ -44,9 +44,6 @@ const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
       developmentProgramUserRecords {
         ...DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragment
       }
-      # educationExperiences {
-      #   id
-      # }
     }
 
     communities {
@@ -75,7 +72,7 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
     }
     additionalInformation
     financeIsChief
-    financeAdditionalDuties {
+    communityInterestAdditionalDuties {
       value
       label {
         localized
@@ -88,6 +85,7 @@ export const UpdateCommunityInterestFormData_Fragment = graphql(/* GraphQL */ `
       }
     }
     financeOtherRolesOther
+    procurementIsSDO
     ...DeleteCommunityInterestAlert
     consentToShareProfile
   }
@@ -134,13 +132,15 @@ const UpdateCommunityInterestForm = ({
     unpackMaybes(formOptions.me?.developmentProgramUserRecords),
   );
 
+  const assignToDefaultValues = apiDataToFormValues(
+    userId,
+    usersDevelopmentProgramRecords,
+    formData,
+    developmentProgramsForCommunity,
+  );
+
   const formMethods = useForm<FormValues>({
-    defaultValues: apiDataToFormValues(
-      userId,
-      usersDevelopmentProgramRecords,
-      formData,
-      developmentProgramsForCommunity,
-    ),
+    defaultValues: assignToDefaultValues,
   });
 
   return (
@@ -152,8 +152,8 @@ const UpdateCommunityInterestForm = ({
             {...formMethods.register(`userId`)}
             value={userId}
           />
-          <Card space="lg">
-            <div className="flex flex-col gap-12">
+          <Card>
+            <div className="flex flex-col gap-6">
               <FindANewCommunity
                 optionsQuery={formOptions}
                 formDisabled={formDisabled}
@@ -239,6 +239,10 @@ const UpdateCommunityInterest_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["EducationExperience"],
+};
+
 interface RouteParams extends Record<string, string> {
   communityInterestId: string;
 }
@@ -259,6 +263,7 @@ export const UpdateCommunityInterestPage = () => {
       variables: {
         communityInterestId: communityInterestId,
       },
+      context,
     });
   const [{ fetching: mutationFetching }, executeUpdateMutation] = useMutation(
     UpdateCommunityInterest_Mutation,

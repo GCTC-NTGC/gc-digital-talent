@@ -3,7 +3,6 @@ import uniqBy from "lodash/uniqBy";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   Experience,
-  Maybe,
   Skill,
   SkillFamily,
   PoolSkill,
@@ -85,7 +84,7 @@ export function invertSkillExperienceTree(
 }
 
 export function filterSkillsByCategory(
-  skills: Maybe<Skill[]> | undefined,
+  skills: Skill[] | null | undefined,
   category: SkillCategory,
 ) {
   return skills
@@ -94,8 +93,8 @@ export function filterSkillsByCategory(
 }
 
 export function categorizeSkill(
-  skills: Maybe<Skill[]> | undefined,
-): Record<SkillCategory, Maybe<Skill[] | undefined>> {
+  skills: Skill[] | null | undefined,
+): Record<SkillCategory, Skill[] | undefined> {
   return {
     [SkillCategory.Technical]: filterSkillsByCategory(
       skills,
@@ -110,9 +109,9 @@ export function categorizeSkill(
 
 export interface AddedSkill {
   id: string;
-  experienceSkillRecord?: Maybe<{
-    details?: Maybe<string>;
-  }>;
+  experienceSkillRecord?: {
+    details?: string | null | undefined;
+  } | null;
 }
 
 export const getMissingSkills = (required: Skill[], added?: AddedSkill[]) => {
@@ -248,7 +247,7 @@ export const sortPoolSkillsBySkillCategory = <T extends PoolSkill[]>(
  * @returns Skill[]
  */
 export const filterPoolSkillsByType = (
-  poolSkills: Maybe<Maybe<PoolSkill>[]> | undefined,
+  poolSkills: (PoolSkill | null)[] | null | undefined,
   poolSkillType: PoolSkillType,
 ): Skill[] => {
   const skills = unpackMaybes(poolSkills)
@@ -258,7 +257,7 @@ export const filterPoolSkillsByType = (
 };
 
 export function groupPoolSkillByType(
-  poolSkills?: Maybe<Maybe<PoolSkill>[]>,
+  poolSkills?: (PoolSkill | null)[] | null,
 ): Map<PoolSkillType, Skill[]> {
   return unpackMaybes(poolSkills).reduce((map, poolSkill) => {
     const { type, skill } = poolSkill;
@@ -272,6 +271,6 @@ export function groupPoolSkillByType(
   }, new Map<PoolSkillType, Skill[]>());
 }
 
-export function poolSkillsToSkills(poolSkills?: Maybe<Maybe<PoolSkill>[]>) {
+export function poolSkillsToSkills(poolSkills?: (PoolSkill | null)[] | null) {
   return unpackMaybes(poolSkills?.map((poolSkill) => poolSkill?.skill));
 }
