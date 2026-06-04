@@ -13,7 +13,6 @@ import {
 } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  Scalars,
   UpdateTalentNominationGroupInput,
 } from "@gc-digital-talent/graphql";
 import {
@@ -98,7 +97,7 @@ const NominationGroupEvaluationDialog = ({
 
   // run the mutation
   const updateTalentNominationGroup = async (
-    id: Scalars["UUID"]["input"],
+    id: string,
     talentNominationGroup: UpdateTalentNominationGroupInput,
   ) =>
     executeMutation({ id, talentNominationGroup }).then((result) => {

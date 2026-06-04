@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
-import type { Maybe } from "@gc-digital-talent/graphql";
 
 import type { HeadingLevel } from "../Heading";
 import Heading from "../Heading";
@@ -12,7 +11,7 @@ import type { StepState } from "./utils";
 
 const deriveStepState = (
   stepIndex: number,
-  currentIndex?: Maybe<number>,
+  currentIndex?: number | null,
   completed?: boolean | null,
   disabled?: boolean | null,
   error?: boolean | null,
@@ -41,7 +40,7 @@ export interface StepperProps {
   headingLevel?: HeadingLevel;
   subTitle?: ReactNode;
   label: string;
-  steps: Maybe<StepType[]>;
+  steps: StepType[] | null;
   readOnly?: boolean;
 }
 

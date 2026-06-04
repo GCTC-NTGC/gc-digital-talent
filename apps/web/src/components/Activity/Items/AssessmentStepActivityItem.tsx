@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
 
-import type { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
+import type { ActivityProperties } from "@gc-digital-talent/graphql";
 import { getFragment } from "@gc-digital-talent/graphql";
 import type { Locales } from "@gc-digital-talent/i18n";
 import { getLocale } from "@gc-digital-talent/i18n";
@@ -14,7 +14,7 @@ type AssessmentStepActivityItemProps = CommonItemProps;
 
 function getDescription(
   locale: Locales,
-  propsObj?: Maybe<ActivityProperties>,
+  propsObj?: ActivityProperties | null,
 ): ReactNode {
   let desc: ReactNode;
   if (propsObj) {

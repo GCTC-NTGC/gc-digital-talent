@@ -25,7 +25,6 @@ import {
   positionDurationToEmploymentDuration,
   positionTypeToYesNoSupervisoryStatement,
 } from "~/utils/searchRequestUtils";
-import { formatClassificationString } from "~/utils/poolUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import { deriveChipSettings, deriveSingleString } from "./utils";
@@ -46,8 +45,7 @@ const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
       applicantFilter {
         hasDiploma
         qualifiedInClassifications {
-          group
-          level
+          groupAndLevel
         }
         qualifiedInWorkStreams {
           name {
@@ -147,7 +145,10 @@ const ReviewTalentRequestDialogContent = ({
             label={intl.formatMessage(talentRequestMessages.classification)}
           >
             {classifications.length > 0
-              ? deriveSingleString(classifications, formatClassificationString)
+              ? deriveSingleString(
+                  classifications,
+                  ({ groupAndLevel }): string => groupAndLevel,
+                )
               : nullMessage}
           </FieldDisplay>
 

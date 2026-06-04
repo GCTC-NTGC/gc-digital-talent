@@ -51,7 +51,7 @@ return new class() extends Migration
     public function down(): void
     {
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
-            $table->dropColumn(['status', 'in_progress_details', 'closed_details', 'status_weight']);
+            $table->dropColumn(['status_weight', 'status', 'in_progress_details', 'closed_details']);
         });
     }
 };

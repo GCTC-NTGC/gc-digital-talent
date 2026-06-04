@@ -287,6 +287,10 @@
     "defaultMessage": "Chaque évaluation doit inclure une ou plusieurs compétences à des fins d’évaluation",
     "description": "Error message that the pool advertisement assessments are lacking a skill"
   },
+  "7YjaCY": {
+    "defaultMessage": "L’expérience d’études sélectionnée n’est pas valide.",
+    "description": "Error message for development program must connect own education experience"
+  },
   "7hUWc+": {
     "defaultMessage": "Créer un profil",
     "description": "Link text for users to create a profile"
@@ -334,6 +338,10 @@
   "9hjEsr": {
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
+  },
+  "9tH7k0": {
+    "defaultMessage": "Date de début",
+    "description": "Label displayed before start date"
   },
   "9wqUyU": {
     "defaultMessage": "Un champ obligatoire est vide : Courriel de correspondance",
@@ -555,6 +563,10 @@
     "defaultMessage": "La signature représente un champ obligatoire",
     "description": "Message displayed when user attempts to apply to a pool without a signature"
   },
+  "JCA/2+": {
+    "defaultMessage": "Date de fin",
+    "description": "Label displayed before end date"
+  },
   "JD0G28": {
     "defaultMessage": "Je m'identifie comme une personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
@@ -618,6 +630,10 @@
   "MBnBcY": {
     "defaultMessage": "Vitrine de compétences",
     "description": "Name of the skill showcase page"
+  },
+  "MJzimR": {
+    "defaultMessage": "Le nom de l’événement ne peut pas être modifié.",
+    "description": "Error message for talent event cannot change name"
   },
   "MQB4IA": {
     "defaultMessage": "Enregistrer et continuer",
@@ -795,6 +811,10 @@
     "defaultMessage": "Statut",
     "description": "Title for status"
   },
+  "RE4+M0": {
+    "defaultMessage": "Le programme de perfectionnement est introuvable dans votre collectivité.",
+    "description": "Error message for community development program not found or invalid"
+  },
   "RgCSri": {
     "defaultMessage": "J'affirme que je suis membre d'une Première Nation (inscrit ou non inscrit), Inuk (Inuit) ou Métis.",
     "description": "Text for the option to self-declare as Indigenous"
@@ -934,6 +954,10 @@
   "VqrVpT": {
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
     "description": "Error message that the given email address is already in use when updating."
+  },
+  "W1sM+z": {
+    "defaultMessage": "La collectivité ne peut pas être modifiée.",
+    "description": "Error message for talent event cannot change community"
   },
   "W2CzAY": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement)",
@@ -1286,6 +1310,10 @@
   "hC74Bo": {
     "defaultMessage": "S'affiche sur la page « Trouver des talents »",
     "description": "Message for when a specific item shows up as an option when searching talent"
+  },
+  "hD254d": {
+    "defaultMessage": "Le programme de perfectionnement est introuvable dans votre collectivité.",
+    "description": "Error message for community development program not found"
   },
   "hpBnAk": {
     "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",

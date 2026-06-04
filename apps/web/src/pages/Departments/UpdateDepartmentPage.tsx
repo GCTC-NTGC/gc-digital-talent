@@ -24,8 +24,6 @@ import type {
   DepartmentSize,
   FragmentType,
   LocalizedStringInput,
-  Maybe,
-  Scalars,
   UpdateDepartmentInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -47,9 +45,9 @@ import type { Route } from "./+types/UpdateDepartmentPage";
 
 interface FormValues {
   name?: LocalizedStringInput;
-  departmentNumber: Maybe<number>;
-  orgIdentifier: Maybe<number>;
-  size: Maybe<DepartmentSize>;
+  departmentNumber: number | null;
+  orgIdentifier: number | null;
+  size: DepartmentSize | null;
   departmentType: DepartmentType[] | boolean;
 }
 
@@ -197,7 +195,7 @@ export const UpdateDepartmentForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+  departmentId: string;
 }
 
 const Department_Query = graphql(/* GraphQL */ `
