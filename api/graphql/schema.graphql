@@ -1695,7 +1695,6 @@ type Query {
       model: "App\\Models\\User"
     )
     @guard
-    @canModel(ability: "viewAny", model: "User")
   countTalentRequestMatches(where: ApplicantFilterInput): Int!
   countTalentRequestMatchesByPool(
     where: ApplicantFilterInput
