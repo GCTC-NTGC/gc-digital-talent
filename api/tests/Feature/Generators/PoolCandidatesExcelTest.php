@@ -10,7 +10,6 @@ use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use Tests\TestCase;
 
 class PoolCandidatesExcelTest extends TestCase
