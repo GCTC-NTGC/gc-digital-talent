@@ -29,15 +29,13 @@ const TalentRequestFilterData_Query = graphql(/* GraphQL */ `
       id
       departmentNumber
       name {
-        en
-        fr
+        localized
       }
     }
     workStreams {
       id
       name {
-        en
-        fr
+        localized
       }
     }
     statuses: localizedEnumOptions(enumName: "TalentRequestStatus") {
@@ -70,6 +68,8 @@ const TalentRequestFilterDialog = ({
     context,
   });
 
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
+
   return (
     <FilterDialog<FormValues>
       {...{ onSubmit, resetValues }}
@@ -101,7 +101,7 @@ const TalentRequestFilterDialog = ({
           label={intl.formatMessage(adminMessages.departments)}
           options={unpackMaybes(data?.departments).map((department) => ({
             value: department.id,
-            label: getLocalizedName(department.name, intl),
+            label: department.name.localized ?? notAvailable,
           }))}
         />
         <Combobox
@@ -124,7 +124,7 @@ const TalentRequestFilterDialog = ({
           label={intl.formatMessage(adminMessages.streams)}
           options={unpackMaybes(data?.workStreams).map((workStream) => ({
             value: workStream.id,
-            label: getLocalizedName(workStream?.name, intl),
+            label: workStream.name?.localized ?? notAvailable,
           }))}
         />
       </div>
