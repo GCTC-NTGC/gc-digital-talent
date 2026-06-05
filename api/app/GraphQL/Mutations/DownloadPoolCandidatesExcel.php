@@ -40,8 +40,6 @@ final class DownloadPoolCandidatesExcel
                 ->setIds($ids)
                 ->setFilters($filters);
 
-            @file_put_contents('/tmp/gendispatch.log', date('H:i:s').' sapi='.php_sapi_name().' pid='.getmypid().' queue='.config('queue.default').' after_commit='.var_export(config('queue.connections.'.config('queue.default').'.after_commit'), true).' file='.$generator->getFileNameWithExtension()."\n", FILE_APPEND);
-
             GenerateUserFile::dispatch($generator, $user);
 
             return true;
