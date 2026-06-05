@@ -7,21 +7,18 @@ import type { FormValues } from "~/components/SidebarNotesForm/SidebarNotesForm"
 import SidebarNotesForm from "~/components/SidebarNotesForm/SidebarNotesForm";
 
 const TalentRequestNotes_Fragment = graphql(/** GraphQL */ `
-  fragment PoolCandidateSearchRequestNotes on PoolCandidateSearchRequest {
+  fragment TalentRequestNotes on TalentRequest {
     id
     adminNotes
   }
 `);
 
 const UpdateTalentRequestNotes_Mutation = graphql(/** GraphQL */ `
-  mutation UpdatePoolCandidateSearchRequestNotes(
+  mutation UpdateTalentRequestNotes(
     $id: ID!
-    $input: UpdatePoolCandidateSearchRequestInput!
+    $input: UpdateTalentRequestInput!
   ) {
-    updatePoolCandidateSearchRequest(
-      id: $id
-      poolCandidateSearchRequest: $input
-    ) {
+    updateTalentRequest(id: $id, talentRequest: $input) {
       id
       adminNotes
     }

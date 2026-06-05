@@ -29,14 +29,11 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import { followUpDateOverdueInfo } from "~/utils/searchRequestUtils";
 
 const UpdateTalentRequestFollowUpDate_Mutation = graphql(/* GraphQL */ `
-  mutation UpdatePoolCandidateSearchRequestFollowUpDate(
+  mutation UpdateTalentRequestFollowUpDate(
     $id: ID!
-    $input: UpdatePoolCandidateSearchRequestInput!
+    $input: UpdateTalentRequestInput!
   ) {
-    updatePoolCandidateSearchRequest(
-      id: $id
-      poolCandidateSearchRequest: $input
-    ) {
+    updateTalentRequest(id: $id, talentRequest: $input) {
       id
       followUpDate
     }
@@ -44,7 +41,7 @@ const UpdateTalentRequestFollowUpDate_Mutation = graphql(/* GraphQL */ `
 `);
 
 const TalentRequestFollowUpDate_Fragment = graphql(/** GraphQL */ `
-  fragment PoolCandidateSearchRequestFollowUpDate on PoolCandidateSearchRequest {
+  fragment TalentRequestFollowUpDate on TalentRequest {
     id
     followUpDate
   }
@@ -102,7 +99,7 @@ const TalentRequestFollowUpDate = ({
       input: { followUpDate: newDate },
     })
       .then((res) => {
-        if (res.error || !res.data?.updatePoolCandidateSearchRequest?.id) {
+        if (res.error || !res.data?.updateTalentRequest?.id) {
           throw new Error();
         }
 

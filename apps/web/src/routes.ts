@@ -421,10 +421,12 @@ export default [
               index(
                 "./pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage.tsx",
               ),
-              route(
-                ":searchRequestId",
-                "./pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage.tsx",
-              ),
+              ...prefix(":talentRequestId", [
+                layout("./pages/TalentRequests/Layout.tsx", [
+                  index("./pages/TalentRequests/Details.tsx"),
+                  route("tracking", "./pages/TalentRequests/Tracking.tsx"),
+                ]),
+              ]),
             ]),
 
             // Admin - Training opportunities
