@@ -35,12 +35,9 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
 import Hero from "~/components/Hero";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
-import { requireUser } from "~/routing/auth";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import type { Route } from "./+types/UpdateCommunityPage";
 import type { ContextType } from "../CommunityMembersPage/components/types";
-import { getCommunityTeamIdInMiddleware } from "../utils";
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = Math.round(
@@ -447,7 +444,7 @@ export const Component = () => {
           <Pending fetching={fetching} error={error}>
             {data?.community ? (
               <RequireAuth
-                rolesAndTeams={[
+                rolesRequirements={[
                   { name: ROLE_NAME.PlatformAdmin },
                   {
                     name: ROLE_NAME.CommunityAdmin,
