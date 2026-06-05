@@ -41,7 +41,7 @@ return [
             // its own queue, so an idle slot's worker can't steal jobs
             'queue' => env('QUEUE_NAME', env('DEPLOYMENT_SLOT_NAME', 'default')),
             'retry_after' => env('QUEUE_RETRY_AFTER', 400),
-            'after_commit' => true,
+            'after_commit' => false,
         ],
 
         'beanstalkd' => [
