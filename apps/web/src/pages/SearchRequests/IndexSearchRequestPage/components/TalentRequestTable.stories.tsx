@@ -1,6 +1,13 @@
 import type { Meta, StoryFn } from "@storybook/react-vite";
 
-import { fakeTalentRequests } from "@gc-digital-talent/fake-data";
+import {
+  fakeClassifications,
+  fakeDepartments,
+  fakeTalentRequests,
+  fakeWorkStreams,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
+import { TalentRequestStatus } from "@gc-digital-talent/graphql";
 
 import TalentRequestTable from "./TalentRequestTable";
 
@@ -26,6 +33,17 @@ export default {
             data: requestsData,
             paginatorInfo: mockPaginatorInfo,
           },
+        },
+      },
+      TalentRequestFilterData: {
+        data: {
+          classifications: fakeClassifications(),
+          departments: fakeDepartments(),
+          workStreams: fakeWorkStreams(),
+          statuses: Object.values(TalentRequestStatus).map((status) => ({
+            __typename: "LocalizedTalentRequestStatus" as const,
+            ...toLocalizedEnum(status),
+          })),
         },
       },
     },
