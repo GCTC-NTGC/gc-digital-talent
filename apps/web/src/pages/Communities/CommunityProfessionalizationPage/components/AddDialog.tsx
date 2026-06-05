@@ -19,8 +19,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { stringifyGroupLevel } from "~/utils/classification";
-
 const ProfessionalizationAddDialog_Query = graphql(/* GraphQL */ `
   query ProfessionalizationAddDialog {
     developmentPrograms {
@@ -34,8 +32,7 @@ const ProfessionalizationAddDialog_Query = graphql(/* GraphQL */ `
     }
     classifications {
       id
-      group
-      level
+      groupAndLevel
     }
   }
 `);
@@ -300,10 +297,10 @@ const AddDialog = ({ community: communityFragment }: AddDialogProps) => {
                     description: "Label for classifications multi select",
                   })}
                   options={unpackMaybes(data?.classifications).map(
-                    ({ id, group, level }) => ({
+                    ({ id, groupAndLevel }) => ({
                       value: id,
                       label:
-                        stringifyGroupLevel(group, level) ??
+                        groupAndLevel ??
                         intl.formatMessage(commonMessages.notProvided),
                     }),
                   )}

@@ -688,6 +688,12 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+  placedStartDate: Date
+    @rename(attribute: "placed_start_date")
+    @canRoot(ability: "viewStatus")
+  placedEndDate: Date
+    @rename(attribute: "placed_end_date")
+    @canRoot(ability: "viewStatus")
   isBeingReferred: Boolean
   pauseReferralsAt: DateTime
     @rename(attribute: "pause_referrals_at")
@@ -769,6 +775,8 @@ type Classification {
   maxSalary: Int @rename(attribute: "max_salary")
   genericJobTitles: [GenericJobTitle] @belongsToMany
   isAvailableInSearch: Boolean @rename(attribute: "is_available_in_search")
+  groupAndLevel: String! @rename(attribute: "formattedGroupAndLevel")
+  displayName: String!
 }
 
 type GenericJobTitle {
@@ -1122,6 +1130,60 @@ type PoolCandidateSearchRequest {
   details: LocalizedString
 }
 
+type TalentRequest {
+  id: ID!
+  fullName: String @rename(attribute: "full_name")
+  email: Email
+  department: Department @belongsTo
+  jobTitle: String @rename(attribute: "job_title")
+  additionalComments: String @rename(attribute: "additional_comments")
+  hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
+  requestedDate: DateTime @rename(attribute: "created_at")
+  adminNotes: String @rename(attribute: "admin_notes")
+  applicantFilter: ApplicantFilter @belongsTo
+  wasEmpty: Boolean @rename(attribute: "was_empty")
+  managerJobTitle: String @rename(attribute: "manager_job_title")
+  positionType: LocalizedTalentRequestPositionType
+    @rename(attribute: "position_type")
+  reason: LocalizedTalentRequestReason
+  community: Community @belongsTo
+  user: User @belongsTo
+  initialResultCount: Int @rename(attribute: "initial_result_count")
+  followUpDate: Date @rename(attribute: "follow_up_date")
+  talentRequestStatus: LocalizedTalentRequestStatus @rename(attribute: "status")
+  inProgressDetails: LocalizedTalentRequestInProgressDetail
+    @rename(attribute: "in_progress_details")
+  completionDetails: LocalizedTalentRequestCompletionDetail
+    @rename(attribute: "completion_details")
+  details: LocalizedString
+  statusChangedAt: DateTime @rename(attribute: "status_changed_at")
+  createdAt: DateTime @rename(attribute: "created_at")
+  updatedAt: DateTime @rename(attribute: "updated_at")
+  trackedUsers(where: TalentRequestTrackedUserFilterInput): [TalentRequestTrackedUser!]
+    @hasMany(scopes: ["whereAuthorizedToView", "withSkillCount"])
+}
+
+input TalentRequestTrackedUserFilterInput {
+  referralDecisions: [TalentRequestTrackedUserReferralDecision!]
+    @scope(name: "whereReferralDecisionIn")
+  selectionDecisions: [TalentRequestTrackedUserSelectionDecision!]
+    @scope(name: "whereSelectionDecisionIn")
+}
+
+type TalentRequestTrackedUser {
+  id: UUID!
+  user: User! @belongsTo
+  skillCount: Int @rename(attribute: "skill_count") # live subquery column from the withSkillCount scope - count of the user's skills matching this request's applicant filter
+  referralDecision: LocalizedTalentRequestTrackedUserReferralDecision
+    @rename(attribute: "referral_decision")
+  selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
+    @rename(attribute: "selection_decision")
+  notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
+    @rename(attribute: "not_referred_reason")
+  notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
+    @rename(attribute: "not_selected_reason")
+}
+
 type SkillFamily {
   id: ID!
   key: KeyString!
@@ -1464,6 +1526,21 @@ input PoolCandidateSearchRequestInput {
   generalSearch: String @scope
 }
 
+input TalentRequestInput {
+  id: ID @scope(name: "whereId")
+  talentRequestStatus: [TalentRequestStatus]
+    @scope(name: "whereTalentRequestStatus")
+  departments: [ID] @scope(name: "whereDepartments")
+  classifications: [ID] @scope(name: "whereClassifications")
+  workStreams: [UUID] @scope(name: "whereWorkStreams")
+  fullName: String @scope(name: "whereFullName")
+  email: String @scope(name: "whereEmail")
+  jobTitle: String @scope(name: "whereJobTitle")
+  additionalComments: String @scope(name: "whereAdditionalComments")
+  adminNotes: String @scope(name: "whereAdminNotes")
+  generalSearch: String @scope(name: "whereGeneralSearch")
+}
+
 input PoolCandidatePoolNameOrderByInput {
   locale: String!
   order: SortOrder!
@@ -1769,6 +1846,19 @@ type Query {
     )
     @guard
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
+  talentRequest(id: ID! @eq): TalentRequest
+    @find
+    @guard
+    @canFind(ability: "view", find: "id", scopes: ["withPolicyEagerLoads"])
+  talentRequests(where: TalentRequestInput): [TalentRequest]!
+    @advancedOrderBy
+    @paginate(
+      defaultCount: 10
+      maxCount: 500
+      scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"]
+    )
+    @guard
+    @canModel(ability: "viewAny")
   skillFamily(id: UUID! @eq): SkillFamily @find @canModel(ability: "view")
   skillFamilies: [SkillFamily]! @all @canModel(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @canModel(ability: "view")
@@ -2344,6 +2434,8 @@ input QualifyCandidateInput {
 input PlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input QualifyAndPlaceCandidateInput {
@@ -2351,6 +2443,8 @@ input QualifyAndPlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
   pauseReferrals: PauseReferralsInput @spread
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input CreateDepartmentInput {
@@ -2676,6 +2770,33 @@ input UpdatePoolCandidateSearchRequestInput @validator {
 }
 
 input UpdatePoolCandidateSearchRequestStatusInput {
+  status: TalentRequestStatus!
+  inProgressDetails: TalentRequestInProgressDetail
+  completionDetails: TalentRequestCompletionDetail
+  followUpDate: Date
+}
+
+input CreateTalentRequestInput {
+  fullName: String! @rename(attribute: "full_name")
+  email: Email!
+  department: DepartmentBelongsTo!
+  community: CommunityBelongsTo!
+  jobTitle: String! @rename(attribute: "job_title")
+  additionalComments: String @rename(attribute: "additional_comments")
+  hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
+  applicantFilter: ApplicantFilterBelongsTo!
+  wasEmpty: Boolean @rename(attribute: "was_empty")
+  managerJobTitle: String! @rename(attribute: "manager_job_title")
+  positionType: TalentRequestPositionType! @rename(attribute: "position_type")
+  reason: TalentRequestReason!
+  initialResultCount: Int @rename(attribute: "initial_result_count")
+}
+
+input UpdateTalentRequestInput {
+  adminNotes: String @rename(attribute: "admin_notes")
+}
+
+input UpdateTalentRequestStatusInput {
   status: TalentRequestStatus!
   inProgressDetails: TalentRequestInProgressDetail
   completionDetails: TalentRequestCompletionDetail
@@ -3556,6 +3677,26 @@ type Mutation {
     poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput!
       @spread
   ): PoolCandidateSearchRequest
+    @guard
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+    @validator
+
+  # TalentRequest mutations
+  createTalentRequest(
+    talentRequest: CreateTalentRequestInput! @spread
+  ): TalentRequest @create @canModel(ability: "create") @validator
+  updateTalentRequest(
+    id: ID!
+    talentRequest: UpdateTalentRequestInput! @spread
+  ): TalentRequest
+    @update
+    @guard
+    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
+    @validator
+  updateTalentRequestStatus(
+    id: ID!
+    talentRequest: UpdateTalentRequestStatusInput! @spread
+  ): TalentRequest
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
     @validator

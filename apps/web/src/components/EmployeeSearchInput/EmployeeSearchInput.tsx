@@ -3,7 +3,6 @@ import type { ComponentPropsWithoutRef } from "react";
 
 import type { CommonInputProps } from "@gc-digital-talent/forms";
 import { Field, useFieldState } from "@gc-digital-talent/forms";
-import type { Maybe } from "@gc-digital-talent/graphql";
 
 import ControlledInput from "./ControlledInput";
 import type {
@@ -22,7 +21,7 @@ export interface EmployeeSearchInputProps
   wrapperProps?: ComponentPropsWithoutRef<"div">;
   errorMessages?: Partial<ErrorMessages>;
   errorSeverities?: Partial<ErrorSeverities>;
-  employeeOption?: Maybe<EmployeeSearchResult>;
+  employeeOption?: EmployeeSearchResult | null;
   searchMessageCase?: SearchMessageCases;
 }
 

@@ -1,4 +1,3 @@
-import type { Maybe } from "@gc-digital-talent/graphql";
 import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 
 import firstNationsIcon from "~/assets/img/first-nations-true.webp";
@@ -15,7 +14,7 @@ const communityIconMap = new Map<IndigenousCommunity, string>([
 ]);
 
 interface CommunityIconProps {
-  community?: Maybe<IndigenousCommunity>;
+  community?: IndigenousCommunity | null;
 }
 
 const CommunityIcon = ({ community }: CommunityIconProps) => {

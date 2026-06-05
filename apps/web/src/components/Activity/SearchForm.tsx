@@ -3,7 +3,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
 
-import type { Maybe } from "@gc-digital-talent/graphql";
 import { Field, inputStyles } from "@gc-digital-talent/forms";
 import { Button } from "@gc-digital-talent/ui";
 
@@ -17,13 +16,13 @@ const input = tv({
 });
 
 interface FormValues {
-  term?: Maybe<string>;
+  term?: string | null;
 }
 
 interface SearchFormProps {
-  onSearch?: (term?: Maybe<string>) => void;
+  onSearch?: (term?: string | null) => void;
   onReset?: () => void;
-  defaultValue?: Maybe<string>;
+  defaultValue?: string | null;
 }
 
 const SearchForm = ({ onSearch, onReset, defaultValue }: SearchFormProps) => {

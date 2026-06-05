@@ -31,6 +31,17 @@ abstract class ExcelGenerator extends FileGenerator implements FileGeneratorInte
         return $this->spreadsheet;
     }
 
+    // Build a spreadsheet whose value binder keeps "="-leading user text as a
+    // string. The binder lives on the instance so it survives queue
+    // serialization — generate() runs in the worker, not where we were built.
+    protected function newSpreadsheet(): Spreadsheet
+    {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->setValueBinder(new NonFormulaValueBinder());
+
+        return $spreadsheet;
+    }
+
     public function write()
     {
         if (! $this->spreadsheet) {

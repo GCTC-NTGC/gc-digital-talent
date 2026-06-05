@@ -3,7 +3,6 @@ import type { IntlShape } from "react-intl";
 import type {
   ApplicationStep,
   Pool,
-  Scalars,
   Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";
 
@@ -14,7 +13,7 @@ import type { PageNavInfo } from "./pages";
 interface GetApplicationStepInfoArgs {
   application: ApplicationPoolCandidateFragmentType;
   paths: ReturnType<typeof useRoutes>;
-  resourceId?: Scalars["ID"]["output"];
+  resourceId?: string;
   intl: IntlShape;
   stepOrdinal?: number;
 }

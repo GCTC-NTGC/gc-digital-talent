@@ -20,7 +20,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import type {
   UpdateUserSkillRankingsInput,
-  Scalars,
   UpdateSkillShowcase_UserSkillFragment as UpdateSkillShowcaseUserSkillFragmentType,
   UpdateSkillShowcase_SkillFragment as UpdateSkillShowcaseSkillFragmentType,
 } from "@gc-digital-talent/graphql";
@@ -105,7 +104,7 @@ export interface FormValues {
 }
 
 interface UpdateSkillShowcaseProps {
-  userId: Scalars["UUID"]["output"];
+  userId: string;
   allUserSkills: UpdateSkillShowcaseUserSkillFragmentType[];
   allSkills: UpdateSkillShowcaseSkillFragmentType[];
   initialData: FormValues;

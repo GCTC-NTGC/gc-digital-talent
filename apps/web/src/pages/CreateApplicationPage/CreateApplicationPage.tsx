@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/refs -- SEE: #16944 */
 import { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
@@ -11,7 +12,6 @@ import {
   errorMessages,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type { Scalars } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { appInsights } from "@gc-digital-talent/app-insights";
 
@@ -20,7 +20,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const CreateApplicationApplications_Query = graphql(/* GraphQL */ `

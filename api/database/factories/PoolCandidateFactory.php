@@ -204,12 +204,17 @@ class PoolCandidateFactory extends BaseFactory
             ]);
         }
 
+        $hasPlacedStartDate = PlacementType::hasPlacedStartDate($type);
+        $isIndeterminate = $type === PlacementType::PLACED_INDETERMINATE->name;
+
         return $factory->state(fn (array $atts) => [
             'placement_type' => $type,
             'placed_at' => $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', $atts['expiry_date'] ?? 'now'),
             'placed_department_id' => $deptId ?? $this->firstOrCreate(Department::class)->id,
             'screening_stage' => null,
             'assessment_step_id' => null,
+            'placed_start_date' => $hasPlacedStartDate ? $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', 'now') : null,
+            'placed_end_date' => $hasPlacedStartDate && ! $isIndeterminate ? $this->faker->dateTimeBetween('now', $atts['expiry_date']) : null,
         ]);
     }
 

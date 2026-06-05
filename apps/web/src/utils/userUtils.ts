@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import type {
   LocalizedEvaluatedLanguageAbility,
   LocalizedProvinceOrTerritory,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import { PositionDuration } from "@gc-digital-talent/graphql";
 import type { TEmploymentDuration } from "@gc-digital-talent/i18n";
@@ -29,9 +28,9 @@ export function durationToEnumPositionDuration(
 
 export const getEvaluatedLanguageLevels = (
   intl: IntlShape,
-  comprehensionLevel: Maybe<LocalizedEvaluatedLanguageAbility> | undefined,
-  writtenLevel: Maybe<LocalizedEvaluatedLanguageAbility> | undefined,
-  verbalLevel: Maybe<LocalizedEvaluatedLanguageAbility> | undefined,
+  comprehensionLevel: LocalizedEvaluatedLanguageAbility | null | undefined,
+  writtenLevel: LocalizedEvaluatedLanguageAbility | null | undefined,
+  verbalLevel: LocalizedEvaluatedLanguageAbility | null | undefined,
 ): ReactNode => {
   return [
     comprehensionLevel?.label
@@ -43,8 +42,8 @@ export const getEvaluatedLanguageLevels = (
 };
 
 interface FormatLocationArgs {
-  city?: Maybe<string>;
-  region?: Maybe<Omit<LocalizedProvinceOrTerritory, "value">>;
+  city?: string | null;
+  region?: Omit<LocalizedProvinceOrTerritory, "value"> | null;
   intl: IntlShape;
 }
 

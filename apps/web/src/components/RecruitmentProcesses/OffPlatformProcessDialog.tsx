@@ -35,7 +35,6 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import processMessages from "~/messages/processMessages";
-import { getClassificationName } from "~/utils/poolUtils";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 
@@ -53,6 +52,8 @@ export const OffPlatformProcessDialog_Fragment = graphql(/* GraphQL */ `
     }
     classifications {
       ...ClassificationInput
+
+      groupAndLevel
     }
     hiringPlatforms: localizedEnumStrings(enumName: "HiringPlatform") {
       value
@@ -274,7 +275,7 @@ const OffPlatformProcessDialog = ({
                     },
                     {
                       classification: process.classification
-                        ? getClassificationName(process.classification, intl)
+                        ? process.classification.groupAndLevel
                         : intl.formatMessage(commonMessages.notFound),
                       departmentName: process.department.name.localized,
                     },
@@ -289,7 +290,7 @@ const OffPlatformProcessDialog = ({
                     },
                     {
                       classification: process.classification
-                        ? getClassificationName(process.classification, intl)
+                        ? process.classification.groupAndLevel
                         : intl.formatMessage(commonMessages.notFound),
                     },
                   )

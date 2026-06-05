@@ -6,7 +6,6 @@ import type {
   PoolCandidate,
   QualifyAndPlaceCandidateInput,
   QualifyCandidateInput,
-  Scalars,
   UpdatePoolCandidateScreeningStageInput,
 } from "@gc-digital-talent/graphql";
 import { EducationRequirementOption } from "@gc-digital-talent/graphql";
@@ -176,7 +175,7 @@ const Test_RemoveCandidateMutationDocument = /* GraphQL */ `
 `;
 
 interface RemoveCandidateArgs {
-  id: Scalars["UUID"]["input"];
+  id: string;
   removalReason: CandidateRemovalReason;
   removalReasonOther?: string;
 }

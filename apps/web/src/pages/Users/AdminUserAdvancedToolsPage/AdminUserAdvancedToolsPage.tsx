@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Container,
@@ -113,7 +113,7 @@ const AdminUserAdvancedToolsPage_Query = graphql(/** GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  userId: Scalars["ID"]["output"];
+  userId: string;
 }
 
 const AdminUserAdvancedToolsPage = () => {

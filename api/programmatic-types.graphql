@@ -414,8 +414,38 @@ type LocalizedTalentRequestInProgressDetail implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedTalentRequestPositionType implements LocalizedEnumOption {
+  value: TalentRequestPositionType!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestReason implements LocalizedEnumOption {
+  value: TalentRequestReason!
+  label: LocalizedString!
+}
+
 type LocalizedTalentRequestStatus implements LocalizedEnumOption {
   value: TalentRequestStatus!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotReferredReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotReferredReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotSelectedReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotSelectedReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserReferralDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserReferralDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserSelectionDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserSelectionDecision!
   label: LocalizedString!
 }
 
@@ -540,6 +570,35 @@ type PoolCandidateSearchRequestPaginator {
 
   "A list of PoolCandidateSearchRequest items."
   data: [PoolCandidateSearchRequest!]!
+}
+
+enum NullsOrder {
+  FIRST
+  LAST
+}
+
+input RelatedOrderInput {
+  name: String!
+  column: String!
+}
+
+input AdvancedOrderByInput {
+  column: String
+  scope: String
+  relation: RelatedOrderInput
+  direction: SortOrder = ASC
+  nulls: NullsOrder
+  accentInsensitive: Boolean
+  caseInsensitive: Boolean
+}
+
+"A paginated list of TalentRequest items."
+type TalentRequestPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequest items."
+  data: [TalentRequest!]!
 }
 
 "A paginated list of Notification items."
@@ -1048,14 +1107,14 @@ enum Permission {
   CreateAnyJobPosterTemplate
   UpdateAnyJobPosterTemplate
   DeleteAnyJobPosterTemplate
-  CreateAnySearchRequest
-  ViewTeamSearchRequest
-  UpdateTeamSearchRequest
-  DeleteTeamSearchRequest
-  ViewAnySearchRequest
-  UpdateAnySearchRequest
-  DeleteAnySearchRequest
-  ViewOwnSearchRequest
+  CreateAnyTalentRequest
+  ViewTeamTalentRequest
+  UpdateTeamTalentRequest
+  DeleteTeamTalentRequest
+  ViewAnyTalentRequest
+  UpdateAnyTalentRequest
+  DeleteAnyTalentRequest
+  ViewOwnTalentRequest
   CreateAnyWorkStream
   UpdateAnyWorkStream
   ViewAnyRole
@@ -1487,6 +1546,11 @@ enum ErrorCode {
   ROLE_NOT_FOUND
   SCREENING_QUESTION_NOT_FOUND
   SKILL_NOT_FOUND
+  TALENT_REQUEST_INVALID_POSITION_TYPE
+  TALENT_REQUEST_INVALID_REASON
+  TALENT_REQUEST_INVALID_STATUS
+  TALENT_REQUEST_IN_PROGRESS_DETAILS_REQUIRED
+  TALENT_REQUEST_COMPLETION_DETAILS_REQUIRED
   TALENT_EVENT_IS_CLOSED
   TALENT_EVENT_CANNOT_CHANGE_COMMUNITY
   TALENT_EVENT_CANNOT_CHANGE_NAME
@@ -1918,10 +1982,40 @@ enum TalentRequestInProgressDetail {
   OTHER
 }
 
+enum TalentRequestPositionType {
+  INDIVIDUAL_CONTRIBUTOR
+  TEAM_LEAD
+}
+
+enum TalentRequestReason {
+  IMMEDIATE_HIRE
+  UPCOMING_NEED
+  GENERAL_INTEREST
+  REQUIRED_BY_DIRECTIVE
+}
+
 enum TalentRequestStatus {
   NEW
   IN_PROGRESS
   COMPLETED
+}
+
+enum TalentRequestTrackedUserNotReferredReason {
+  OTHER
+}
+
+enum TalentRequestTrackedUserNotSelectedReason {
+  OTHER
+}
+
+enum TalentRequestTrackedUserReferralDecision {
+  REFERRED
+  NOT_REFERRED
+}
+
+enum TalentRequestTrackedUserSelectionDecision {
+  SELECTED
+  NOT_SELECTED
 }
 
 enum TargetRole {
