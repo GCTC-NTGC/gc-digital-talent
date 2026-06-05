@@ -125,6 +125,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
     {
         $this->writer = new Writer();
         $this->writer->openToFile($this->getPath());
+        error_log('[GENDEBUG] openToFile done path='.$this->getPath().' exists='.var_export(is_file($this->getPath()), true));
 
         try {
             // Pre-pass: collect all pool IDs so we can build headers before streaming rows
@@ -362,6 +363,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
             });
         } finally {
             $this->writer->close();
+            error_log('[GENDEBUG] writer->close() done path='.$this->getPath().' exists='.var_export(is_file($this->getPath()), true).' size='.(is_file($this->getPath()) ? filesize($this->getPath()) : 'NA'));
         }
 
         return $this;
