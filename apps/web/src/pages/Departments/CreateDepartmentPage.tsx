@@ -9,7 +9,6 @@ import { toast } from "@gc-digital-talent/toast";
 import { Submit } from "@gc-digital-talent/forms";
 import type {
   CreateDepartmentInput,
-  Scalars,
   LocalizedStringInput,
   DepartmentSize,
 } from "@gc-digital-talent/graphql";
@@ -66,9 +65,7 @@ const CreateDepartmentOptions_Query = graphql(/* GraphQL */ `
 `);
 
 interface CreateDepartmentProps {
-  handleCreateDepartment: (
-    data: CreateDepartmentInput,
-  ) => Promise<Scalars["UUID"]["output"]>;
+  handleCreateDepartment: (data: CreateDepartmentInput) => Promise<string>;
 }
 
 export const CreateDepartmentForm = ({

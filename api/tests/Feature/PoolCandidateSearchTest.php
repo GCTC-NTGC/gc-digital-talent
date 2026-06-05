@@ -915,6 +915,22 @@ class PoolCandidateSearchTest extends TestCase
     {
         $now = Carbon::now();
 
+        // NULL
+        PoolCandidate::factory(1)
+            ->availableInSearch()
+            ->disqualified()
+            ->for($this->pool)
+            ->create();
+
+        // DISQUALIFIED
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->disqualified()
+            ->for($this->pool)
+            ->create([
+                'pause_referrals_at' => null,
+            ]);
+
         // REFERRING: No pause set
         PoolCandidate::factory()
             ->availableInSearch()
@@ -980,7 +996,7 @@ class PoolCandidateSearchTest extends TestCase
             ],
         ]);
 
-        // Assert NOT_REFERRING returns 1 (paused with no resume date, paused with future resume date)
+        // Assert NOT_REFERRING returns 2 (paused with no resume date, paused with future resume date)
         $this->actingAs($this->processOperator, 'api')->graphQL($query, [
             'where' => ['referralStatuses' => [CandidateReferralFilter::NOT_REFERRING->name]],
         ])->assertJson([
@@ -993,7 +1009,7 @@ class PoolCandidateSearchTest extends TestCase
             ],
         ]);
 
-        // Assert both REFERRING, NOT_REFERRING returns 4 (all candidates) when all options supplied
+        // Assert both REFERRING, NOT_REFERRING returns 4 (QUALIFIED candidates) when all options supplied
         $this->actingAs($this->processOperator, 'api')->graphQL($query, [
             'where' => ['referralStatuses' => array_column(CandidateReferralFilter::cases(), 'name')],
         ])->assertJson([
@@ -1006,14 +1022,14 @@ class PoolCandidateSearchTest extends TestCase
             ],
         ]);
 
-        // Assert both REFERRING, NOT_REFERRING returns 4 (all candidates) when no options supplied
+        // Assert both REFERRING, NOT_REFERRING returns 6 (all candidates) when no options supplied
         $this->actingAs($this->processOperator, 'api')->graphQL($query, [
             'where' => ['referralStatuses' => []],
         ])->assertJson([
             'data' => [
                 'poolCandidatesPaginatedAdminView' => [
                     'paginatorInfo' => [
-                        'count' => 4,
+                        'count' => 6,
                     ],
                 ],
             ],

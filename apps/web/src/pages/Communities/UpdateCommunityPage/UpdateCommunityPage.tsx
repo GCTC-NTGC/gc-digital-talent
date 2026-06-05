@@ -22,7 +22,6 @@ import {
   Notice,
 } from "@gc-digital-talent/ui";
 import type {
-  Scalars,
   FragmentType,
   UpdateCommunityInput,
 } from "@gc-digital-talent/graphql";
@@ -352,7 +351,7 @@ const CommunityForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  communityId: Scalars["ID"]["output"];
+  communityId: string;
 }
 
 const UpdateCommunityPage_Query = graphql(/* GraphQL */ `

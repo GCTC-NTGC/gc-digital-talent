@@ -40,7 +40,7 @@ import NoResults from "./NoResults";
 import SearchResultCard from "./SearchResultCard";
 
 interface SearchFormProps {
-  classifications: Pick<Classification, "group" | "level" | "id" | "name">[];
+  classifications: Classification[];
   skills: Skill[];
   workStreams: WorkStream[];
 }
@@ -347,6 +347,8 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       name {
         localized
       }
+      groupAndLevel
+      displayName
     }
     workStreams(talentSearchable: true) {
       id

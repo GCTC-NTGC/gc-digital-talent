@@ -4,8 +4,6 @@ import type { ReactNode } from "react";
 import { useId } from "react";
 import { tv } from "tailwind-variants";
 
-import type { Maybe } from "@gc-digital-talent/graphql";
-
 const boolCheck = tv({
   slots: {
     base: "flex items-start gap-1.5",
@@ -22,14 +20,14 @@ const boolCheck = tv({
 type DivProps = React.ComponentPropsWithoutRef<"div">;
 
 interface BothLabelsRequiredProps extends DivProps {
-  value?: Maybe<boolean>;
+  value?: boolean | null;
   trueLabel: string;
   falseLabel: string;
   children: ReactNode;
 }
 
 interface NoLabelsAllowedProps extends DivProps {
-  value?: Maybe<boolean>;
+  value?: boolean | null;
   trueLabel?: undefined;
   falseLabel?: undefined;
   children: ReactNode;

@@ -19,8 +19,6 @@ import {
 import type {
   FragmentType,
   LocalizedStringInput,
-  Maybe,
-  Scalars,
   UpdateDevelopmentProgramInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -35,8 +33,8 @@ import FormFields from "./FormFields";
 interface FormValues {
   name: LocalizedStringInput;
   descriptionForProfile: LocalizedStringInput;
-  informationUrl?: Maybe<LocalizedStringInput>;
-  abbreviation?: Maybe<LocalizedStringInput>;
+  informationUrl?: LocalizedStringInput | null;
+  abbreviation?: LocalizedStringInput | null;
 }
 
 export function formValuesToUpdateInput({
@@ -180,7 +178,7 @@ export const UpdateDevelopmentProgramForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  developmentProgramId: Scalars["ID"]["output"];
+  developmentProgramId: string;
 }
 
 const DevelopmentProgramQuery = graphql(/* GraphQL */ `

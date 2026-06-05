@@ -41,8 +41,7 @@ const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
       }
     }
     classification {
-      group
-      level
+      groupAndLevel
     }
     name {
       en

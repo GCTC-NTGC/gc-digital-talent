@@ -46,6 +46,13 @@ enum PlacementType
         ];
     }
 
+    public static function hasPlacedStartDate(string $typeName): bool
+    {
+        return $typeName !== self::NOT_PLACED->name &&
+            $typeName !== self::UNDER_CONSIDERATION->name &&
+            $typeName !== self::PLACED_TENTATIVE->name;
+    }
+
     public static function getLangFilename(): string
     {
         return 'placement_type';

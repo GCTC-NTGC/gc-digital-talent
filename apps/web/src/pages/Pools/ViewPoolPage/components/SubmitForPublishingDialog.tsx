@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import type { Maybe } from "@gc-digital-talent/graphql";
 
 const contactLink = (chunks: ReactNode) => (
   <Link external href="mailto:recruitmentIMIT-recrutementGITI@tbs-sct.gc.ca">
@@ -12,7 +11,7 @@ const contactLink = (chunks: ReactNode) => (
 );
 
 interface SubmitForPublishingDialogProps {
-  isReadyToPublish: Maybe<boolean>;
+  isReadyToPublish: boolean | null;
 }
 
 const SubmitForPublishingDialog = ({

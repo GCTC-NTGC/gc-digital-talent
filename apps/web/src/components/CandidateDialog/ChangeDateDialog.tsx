@@ -57,8 +57,7 @@ export const ChangeDateDialog_PoolCandidateFragment = graphql(/* GraphQL */ `
       }
       classification {
         id
-        group
-        level
+        groupAndLevel
       }
     }
   }

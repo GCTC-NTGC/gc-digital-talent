@@ -34,7 +34,6 @@ use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
@@ -134,7 +133,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet();
+        $this->spreadsheet = $this->newSpreadsheet();
 
         $sheet = $this->spreadsheet->getActiveSheet();
 

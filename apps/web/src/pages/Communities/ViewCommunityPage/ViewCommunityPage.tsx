@@ -15,7 +15,6 @@ import {
 } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  Scalars,
   ViewCommunityQuery,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -33,7 +32,7 @@ import type { Route } from "./+types/ViewCommunityPage";
 import type { ContextType } from "../CommunityMembersPage/components/types";
 
 interface RouteParams extends Record<string, string> {
-  communityId: Scalars["ID"]["output"];
+  communityId: string;
 }
 
 const ViewCommunityPage_CommunityFragment = graphql(/* GraphQL */ `

@@ -10,7 +10,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { stringifyGroupLevel } from "~/utils/classification";
 
 import messages from "../../messages";
 import ReviewHeading from "./ReviewHeading";
@@ -32,8 +31,7 @@ const NominatorReview_Fragment = graphql(/* GraphQL */ `
         }
       }
       classification {
-        group
-        level
+        groupAndLevel
       }
     }
     nominatorFallbackName
@@ -44,8 +42,7 @@ const NominatorReview_Fragment = graphql(/* GraphQL */ `
       }
     }
     nominatorFallbackClassification {
-      group
-      level
+      groupAndLevel
     }
   }
 `);
@@ -120,12 +117,8 @@ const NominatorReview = ({ nominatorQuery }: NominatorReviewProps) => {
             description: "Label for the nominators's classification",
           })}
         >
-          {nominatorClassification
-            ? stringifyGroupLevel(
-                nominatorClassification.group,
-                nominatorClassification.level,
-              )
-            : intl.formatMessage(commonMessages.notProvided)}
+          {nominatorClassification?.groupAndLevel ??
+            intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
         <FieldDisplay label={intl.formatMessage(labels.nominatorDepartment)}>
           {nominatorDepartment?.name.localized ??
