@@ -853,7 +853,7 @@ export const EditPoolPage = () => {
     <Pending fetching={fetching} error={error}>
       {data?.pool ? (
         <RequireAuth
-          rolesAndTeams={[
+          rolesRequirements={[
             { name: ROLE_NAME.PlatformAdmin },
             { name: ROLE_NAME.CommunityAdmin, teamId: communityTeamId },
             { name: ROLE_NAME.CommunityRecruiter, teamId: communityTeamId },

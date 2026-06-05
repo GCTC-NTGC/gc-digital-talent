@@ -282,7 +282,9 @@ const Component = () => {
         <div className="mb-18">
           <Pending fetching={fetching} error={error}>
             {data?.department ? (
-              <RequireAuth rolesAndTeams={[{ name: ROLE_NAME.PlatformAdmin }]}>
+              <RequireAuth
+                rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}
+              >
                 <UpdateDepartmentForm
                   query={data.department}
                   optionsQuery={data}

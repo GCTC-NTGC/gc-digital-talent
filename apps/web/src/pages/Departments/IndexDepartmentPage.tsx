@@ -28,7 +28,7 @@ const Component = () => {
 
   return (
     <RequireAuth
-      rolesAndTeams={[
+      rolesRequirements={[
         { name: ROLE_NAME.PlatformAdmin },
         { name: ROLE_NAME.DepartmentAdmin },
         { name: ROLE_NAME.DepartmentHRAdvisor },

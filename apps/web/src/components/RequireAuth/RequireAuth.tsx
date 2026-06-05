@@ -16,24 +16,24 @@ import useRoutes from "~/hooks/useRoutes";
 
 import useNavContext from "../NavContext/useNavContext";
 
-interface RequireAuthPropsSimple {
+interface RequireAuthPropsForRoleNames {
   children: ReactNode;
   roles: RoleName[];
-  rolesAndTeams?: never;
+  rolesRequirements?: never;
   loginPath?: string;
   strict?: never;
 }
 
-interface RequireAuthPropsWithTeams {
+interface RequireAuthPropsForRoleRequirements {
   children: ReactNode;
   roles?: never;
-  rolesAndTeams: RoleRequirement[];
+  rolesRequirements: RoleRequirement[];
   loginPath?: string;
   strict?: boolean;
 }
 
 const RequireAuth = (
-  props: RequireAuthPropsSimple | RequireAuthPropsWithTeams,
+  props: RequireAuthPropsForRoleNames | RequireAuthPropsForRoleRequirements,
 ) => {
   const location = useLocation();
   const logger = getLogger();
@@ -52,7 +52,7 @@ const RequireAuth = (
   let isAuthorized: boolean;
   let authorizedRoleNames: RoleName[];
 
-  // branch 1: simple role names provided
+  // branch 1: role names provided
   if ("roles" in props) {
     authorizedRoleNames = props.roles ?? [];
     isAuthorized =
@@ -60,19 +60,19 @@ const RequireAuth = (
       authorizedRoleNames?.some((authorizedRoleName) =>
         userRoleNames?.includes(authorizedRoleName),
       );
-  } // branch 2: roles and teams provided
-  else if ("rolesAndTeams" in props) {
-    const authorizedRolesAndTeams = props.rolesAndTeams ?? [];
-    authorizedRoleNames = authorizedRolesAndTeams.map((r) => r.name);
+  } // branch 2: role requirements provided
+  else if ("rolesRequirements" in props) {
+    const authorizedRoleRequirements = props.rolesRequirements ?? [];
+    authorizedRoleNames = authorizedRoleRequirements.map((r) => r.name);
     isAuthorized =
       isLoaded &&
       hasRequiredRoles({
-        toCheck: authorizedRolesAndTeams,
+        toCheck: authorizedRoleRequirements,
         userRoles: roleAssignments,
         strict: props.strict,
       });
   }
-  // unexpect branch
+  // unexpected branch
   else {
     authorizedRoleNames = [];
     isAuthorized = false;

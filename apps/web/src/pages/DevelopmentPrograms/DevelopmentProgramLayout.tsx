@@ -81,7 +81,7 @@ const DevelopmentProgramLayout = () => {
   });
 
   return (
-    <RequireAuth rolesAndTeams={[{ name: ROLE_NAME.PlatformAdmin }]}>
+    <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
       <Pending fetching={fetching} error={error}>
         <SEO
           title={pageTitle ?? intl.formatMessage(commonMessages.notFound)}

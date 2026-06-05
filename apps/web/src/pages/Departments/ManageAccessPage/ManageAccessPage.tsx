@@ -229,7 +229,7 @@ const Component = () => {
     <Pending fetching={fetching} error={error}>
       {data?.department ? (
         <RequireAuth
-          rolesAndTeams={[
+          rolesRequirements={[
             { name: ROLE.PlatformAdmin },
             { name: ROLE.DepartmentAdmin, teamId: teamId },
             { name: ROLE.DepartmentHRAdvisor, teamId: teamId },

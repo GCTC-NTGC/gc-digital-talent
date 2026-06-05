@@ -50,7 +50,7 @@ const ProfileLayout = () => {
   });
 
   return (
-    <RequireAuth rolesAndTeams={[{ name: ROLE_NAME.Applicant }]}>
+    <RequireAuth rolesRequirements={[{ name: ROLE_NAME.Applicant }]}>
       <SEO title={pageTitle} description={description} />
       <Hero
         title={pageTitle}

@@ -72,7 +72,7 @@ const Component = () => {
   });
 
   return (
-    <RequireAuth rolesAndTeams={[{ name: ROLE_NAME.PlatformAdmin }]}>
+    <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
       <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
       <Hero
         title={formattedPageTitle}

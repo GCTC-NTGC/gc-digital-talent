@@ -218,7 +218,7 @@ export const Component = () => {
     <Pending fetching={fetching} error={error}>
       {data?.community ? (
         <RequireAuth
-          rolesAndTeams={[
+          rolesRequirements={[
             { name: ROLE_NAME.PlatformAdmin },
             { name: ROLE_NAME.CommunityAdmin, teamId: teamId },
             { name: ROLE_NAME.CommunityRecruiter, teamId: teamId },
