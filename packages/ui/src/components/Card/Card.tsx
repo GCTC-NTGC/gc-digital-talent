@@ -7,7 +7,7 @@ import type { SeparatorProps } from "../Separator/Separator";
 import { Grid, GridItem } from "./CardGrid";
 
 const card = tv({
-  base: "rounded-md bg-white text-black dark:bg-gray-600 dark:text-white",
+  base: "-mx-3 rounded-md bg-white text-black xs:mx-0 dark:bg-gray-600 dark:text-white",
   variants: {
     space: {
       xs: "p-3",
