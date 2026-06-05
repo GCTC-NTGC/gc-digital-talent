@@ -70,7 +70,6 @@ use Illuminate\Validation\ValidationServiceProvider;
 use Illuminate\View\ViewServiceProvider;
 use Laravel\Scout\ScoutServiceProvider;
 use Laravel\Tinker\TinkerServiceProvider;
-use MLL\GraphiQL\GraphiQLServiceProvider;
 use Nuwave\Lighthouse\GlobalId\GlobalIdServiceProvider;
 use Nuwave\Lighthouse\LighthouseServiceProvider;
 use Nuwave\Lighthouse\OrderBy\OrderByServiceProvider;
@@ -280,7 +279,6 @@ return [
         WhereConditionsServiceProvider::class,
         SubscriptionServiceProvider::class,
         // \Nuwave\Lighthouse\Tracing\TracingServiceProvider::class,
-        GraphiQLServiceProvider::class,
         TinkerServiceProvider::class,
 
         GraphQLServiceProvider::class,
