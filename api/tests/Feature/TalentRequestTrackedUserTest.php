@@ -39,7 +39,7 @@ class TalentRequestTrackedUserTest extends TestCase
     protected User $recruiter;
 
     protected string $query = <<<'GRAPHQL'
-        query TrackedUsers($id: ID!) {
+        query TrackedUsers($id: UUID!) {
             talentRequest(id: $id) {
                 trackedUsers {
                     skillCount
@@ -54,7 +54,7 @@ class TalentRequestTrackedUserTest extends TestCase
         GRAPHQL;
 
     protected string $filterQuery = <<<'GRAPHQL'
-        query FilteredTrackedUsers($id: ID!, $where: TalentRequestTrackedUserFilterInput) {
+        query FilteredTrackedUsers($id: UUID!, $where: TalentRequestTrackedUserFilterInput) {
             talentRequest(id: $id) {
                 trackedUsers(where: $where) {
                     user { id }
