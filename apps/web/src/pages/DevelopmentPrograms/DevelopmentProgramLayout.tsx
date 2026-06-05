@@ -2,11 +2,11 @@ import type { MessageDescriptor } from "react-intl";
 import { useIntl } from "react-intl";
 import type { UIMatch } from "react-router";
 import { Outlet, useMatches } from "react-router";
+import { useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Container } from "@gc-digital-talent/ui";
-import { NotFoundError } from "@gc-digital-talent/helpers";
+import { Container, Pending } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -14,11 +14,9 @@ import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import adminMessages from "~/messages/adminMessages";
-import { graphqlClientContext } from "~/routing/context";
 import pageTitles from "~/messages/pageTitles";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-
-import type { Route } from "./+types/DevelopmentProgramLayout";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
 interface DevelopmentProgramHandle {
   pageTitle?: MessageDescriptor;
@@ -34,34 +32,22 @@ const DevelopmentProgram_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export async function clientLoader({
-  context,
-  params,
-}: Route.ClientLoaderArgs) {
-  const client = context.get(graphqlClientContext);
-
-  const res = await client
-    .query(DevelopmentProgram_Query, {
-      id: params.developmentProgramId,
-    })
-    .toPromise();
-
-  if (!res.data?.developmentProgram) {
-    throw new NotFoundError();
-  }
-
-  return {
-    developmentProgram: res.data.developmentProgram,
-  };
+interface RouteParams extends Record<string, string> {
+  developmentProgramId: string;
 }
 
-const DevelopmentProgramLayout = ({
-  loaderData,
-  params,
-}: Route.ComponentProps) => {
+const DevelopmentProgramLayout = () => {
   const intl = useIntl();
+  const { developmentProgramId } = useRequiredParams<RouteParams>(
+    "developmentProgramId",
+  );
+
+  const [{ data, fetching, error }] = useQuery({
+    query: DevelopmentProgram_Query,
+    variables: { id: developmentProgramId },
+  });
+
   const paths = useRoutes();
-  const { developmentProgram } = loaderData;
   const matches = useMatches() as UIMatch<unknown, DevelopmentProgramHandle>[];
 
   const currentPage = matches[matches.length - 1];
@@ -87,7 +73,7 @@ const DevelopmentProgramLayout = ({
     ],
   });
 
-  const pageTitle = developmentProgram?.name?.localized;
+  const pageTitle = data?.developmentProgram?.name.localized;
   const description = intl.formatMessage({
     defaultMessage: "View and edit details about this program",
     id: "rdyy/m",
@@ -96,24 +82,26 @@ const DevelopmentProgramLayout = ({
 
   return (
     <RequireAuth rolesAndTeams={[{ name: ROLE_NAME.PlatformAdmin }]}>
-      <SEO
-        title={pageTitle ?? intl.formatMessage(commonMessages.notFound)}
-        description={description}
-      />
-      <Hero
-        title={pageTitle}
-        subtitle={description}
-        crumbs={crumbs}
-        navTabs={[
-          {
-            label: intl.formatMessage(adminMessages.details),
-            url: paths.developmentProgramView(params.developmentProgramId),
-          },
-        ]}
-      />
-      <Container className="my-18">
-        <Outlet />
-      </Container>
+      <Pending fetching={fetching} error={error}>
+        <SEO
+          title={pageTitle ?? intl.formatMessage(commonMessages.notFound)}
+          description={description}
+        />
+        <Hero
+          title={pageTitle}
+          subtitle={description}
+          crumbs={crumbs}
+          navTabs={[
+            {
+              label: intl.formatMessage(adminMessages.details),
+              url: paths.developmentProgramView(developmentProgramId),
+            },
+          ]}
+        />
+        <Container className="my-18">
+          <Outlet />
+        </Container>
+      </Pending>
     </RequireAuth>
   );
 };
