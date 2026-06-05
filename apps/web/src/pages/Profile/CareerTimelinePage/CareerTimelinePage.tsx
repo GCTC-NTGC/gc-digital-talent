@@ -7,9 +7,9 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
-import { requireUser } from "~/routing/auth";
 import { graphqlClientContext, intlContext } from "~/routing/context";
 import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import type { Route } from "./+types/CareerTimelinePage";
 
@@ -22,13 +22,6 @@ const pageTitle = defineMessage({
 export const handle = {
   pageTitle,
 };
-
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, { roles: [{ name: ROLE_NAME.Applicant }] });
-    return await next();
-  },
-];
 
 export const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
   query CareerTimelineExperiences {
@@ -63,7 +56,7 @@ const CareerTimelinePage = ({ loaderData }: Route.ComponentProps) => {
   const { user } = loaderData;
 
   return (
-    <>
+    <RequireAuth rolesAndTeams={[{ name: ROLE_NAME.Applicant }]}>
       <Heading
         icon={BookmarkSquareIcon}
         color="error"
@@ -91,7 +84,7 @@ const CareerTimelinePage = ({ loaderData }: Route.ComponentProps) => {
           userId={user.id}
         />
       </div>
-    </>
+    </RequireAuth>
   );
 };
 

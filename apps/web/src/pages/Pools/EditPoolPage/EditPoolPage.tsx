@@ -50,8 +50,7 @@ import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/spe
 import processMessages from "~/messages/processMessages";
 import { getAdvertisementStatus } from "~/utils/poolUtils";
 import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
-import { requireUser } from "~/routing/auth";
-import { graphqlClientContext } from "~/routing/context";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import type {
   PoolClassification_Fragment,
@@ -92,7 +91,6 @@ import type { WhatToExpectAdmissionSubmitData } from "./components/WhatToExpectA
 import WhatToExpectAdmissionSection from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
 import type { ContactEmailSubmitData } from "./components/ContactEmailSection/ContactEmailSection";
 import ContactEmailSection from "./components/ContactEmailSection/ContactEmailSection";
-import type { Route } from "./+types/EditPoolPage";
 
 export const EditPool_Fragment = graphql(/* GraphQL */ `
   fragment EditPool on Pool {
@@ -742,6 +740,13 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   query EditPoolPage($poolId: UUID!) {
     # the existing data of the pool to edit
     pool(id: $poolId) {
+      community {
+        teamIdForRoleAssignment
+      }
+      department {
+        teamIdForRoleAssignment
+      }
+      teamId
       status {
         value
         label {
@@ -840,21 +845,36 @@ export const EditPoolPage = () => {
     delete: mutations.deletePoolSkill,
   };
 
+  const communityTeamId = data?.pool?.community?.teamIdForRoleAssignment;
+  const departmentTeamId = data?.pool?.department?.teamIdForRoleAssignment;
+  const poolTeamId = data?.pool?.teamId;
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.pool ? (
-        <EditPoolContext.Provider value={ctx}>
-          <EditPoolForm
-            poolQuery={data.pool}
-            classifications={unpackMaybes(data.classifications)}
-            skills={data.skills.filter(notEmpty)}
-            onSave={(saveData) => mutations.update(poolId, saveData)}
-            onUpdatePublished={(updateData) =>
-              mutations.updatePublished(poolId, updateData)
-            }
-            poolSkillMutations={poolSkillMutations}
-          />
-        </EditPoolContext.Provider>
+        <RequireAuth
+          rolesAndTeams={[
+            { name: ROLE_NAME.PlatformAdmin },
+            { name: ROLE_NAME.CommunityAdmin, teamId: communityTeamId },
+            { name: ROLE_NAME.CommunityRecruiter, teamId: communityTeamId },
+            { name: ROLE_NAME.ProcessOperator, teamId: poolTeamId },
+            { name: ROLE_NAME.DepartmentAdmin, teamId: departmentTeamId },
+            { name: ROLE_NAME.DepartmentHRAdvisor, teamId: departmentTeamId },
+          ]}
+        >
+          <EditPoolContext.Provider value={ctx}>
+            <EditPoolForm
+              poolQuery={data.pool}
+              classifications={unpackMaybes(data.classifications)}
+              skills={data.skills.filter(notEmpty)}
+              onSave={(saveData) => mutations.update(poolId, saveData)}
+              onUpdatePublished={(updateData) =>
+                mutations.updatePublished(poolId, updateData)
+              }
+              poolSkillMutations={poolSkillMutations}
+            />
+          </EditPoolContext.Provider>
+        </RequireAuth>
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>{notFoundMessage}</p>
@@ -863,45 +883,6 @@ export const EditPoolPage = () => {
     </Pending>
   );
 };
-
-const PoolTeams_Query = graphql(/** GraphQL */ `
-  query PoolTeams($id: UUID!) {
-    pool(id: $id) {
-      community {
-        teamIdForRoleAssignment
-      }
-      department {
-        teamIdForRoleAssignment
-      }
-      teamId
-    }
-  }
-`);
-
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  async ({ context, request, params }, next) => {
-    const client = context.get(graphqlClientContext);
-    const res = await client
-      .query(PoolTeams_Query, { id: params.poolId })
-      .toPromise();
-
-    const communityId = res.data?.pool?.community?.teamIdForRoleAssignment;
-    const departmentId = res.data?.pool?.department?.teamIdForRoleAssignment;
-
-    requireUser(context, request, {
-      roles: [
-        { name: ROLE_NAME.PlatformAdmin },
-        { name: ROLE_NAME.CommunityAdmin, teamId: communityId },
-        { name: ROLE_NAME.CommunityRecruiter, teamId: communityId },
-        { name: ROLE_NAME.ProcessOperator, teamId: res.data?.pool?.teamId },
-        { name: ROLE_NAME.DepartmentAdmin, teamId: departmentId },
-        { name: ROLE_NAME.DepartmentHRAdvisor, teamId: departmentId },
-      ],
-    });
-    return await next();
-  },
-];
 
 export const Component = () => <EditPoolPage />;
 

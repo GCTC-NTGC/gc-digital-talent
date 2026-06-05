@@ -11,27 +11,18 @@ import { graphql } from "@gc-digital-talent/graphql";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import { requireUser } from "~/routing/auth";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import adminMessages from "~/messages/adminMessages";
 import { graphqlClientContext } from "~/routing/context";
 import pageTitles from "~/messages/pageTitles";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import type { Route } from "./+types/DevelopmentProgramLayout";
 
 interface DevelopmentProgramHandle {
   pageTitle?: MessageDescriptor;
 }
-
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, {
-      roles: [{ name: ROLE_NAME.PlatformAdmin }],
-    });
-    return await next();
-  },
-];
 
 const DevelopmentProgram_Query = graphql(/* GraphQL */ `
   query DevelopmentProgramLayout($id: UUID!) {
@@ -104,7 +95,7 @@ const DevelopmentProgramLayout = ({
   });
 
   return (
-    <>
+    <RequireAuth rolesAndTeams={[{ name: ROLE_NAME.PlatformAdmin }]}>
       <SEO
         title={pageTitle ?? intl.formatMessage(commonMessages.notFound)}
         description={description}
@@ -123,7 +114,7 @@ const DevelopmentProgramLayout = ({
       <Container className="my-18">
         <Outlet />
       </Container>
-    </>
+    </RequireAuth>
   );
 };
 
