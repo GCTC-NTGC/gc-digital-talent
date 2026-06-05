@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # This script is run after the deployment is complete to help set up the environment in the app service.
-# It sends a message to a slack webook URI.
+# It sends a message to a slack webhook URI.
 
 SLACK_WEBHOOK_URI=$1
 
