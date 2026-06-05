@@ -395,17 +395,16 @@ test.describe("Development Program Interest", () => {
     const linkBtn = appPage.page.getByRole("button", {
       name: /link existing experience/i,
     });
-    if (await linkBtn.isVisible()) {
-      await linkBtn.click();
-      const dialog = appPage.page.getByRole("dialog");
-      await dialog
-        .getByRole("combobox", {
-          name: /select education or certificate experience/i,
-        })
-        .selectOption({ index: 1 });
-      await dialog.getByRole("button", { name: /link experience/i }).click();
-      await expect(dialog).toBeHidden();
-    }
+    await expect(linkBtn).toBeVisible();
+    await linkBtn.click();
+    const dialog = appPage.page.getByRole("dialog");
+    await dialog
+      .getByRole("combobox", {
+        name: /select education or certificate experience/i,
+      })
+      .selectOption({ index: 1 });
+    await dialog.getByRole("button", { name: /link experience/i }).click();
+    await expect(dialog).toBeHidden();
 
     // Open the card dropdown menu and remove the linked experience
     await appPage.page
