@@ -39,7 +39,7 @@ return [
             'table' => 'jobs',
             'queue' => 'default',
             'retry_after' => env('QUEUE_RETRY_AFTER', 400),
-            'after_commit' => false,
+            'after_commit' => true,
         ],
 
         'beanstalkd' => [
