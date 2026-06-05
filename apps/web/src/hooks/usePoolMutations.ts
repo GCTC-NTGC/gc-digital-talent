@@ -5,7 +5,6 @@ import { useMutation } from "urql";
 import { toast } from "@gc-digital-talent/toast";
 import type {
   UpdatePoolInput,
-  Scalars,
   CreatePoolSkillInput,
   UpdatePoolSkillInput,
   UpdatePublishedPoolInput,
@@ -187,10 +186,7 @@ const usePoolMutations = (returnPath?: string) => {
   const [{ fetching: extendFetching }, executeExtendMutation] =
     useMutation(ExtendPool_Mutation);
 
-  const extend = async (
-    id: string,
-    closingDate: Scalars["DateTime"]["input"],
-  ) => {
+  const extend = async (id: string, closingDate: string) => {
     await executeExtendMutation({ id, closingDate })
       .then((result) => {
         if (result.data?.changePoolClosingDate) {

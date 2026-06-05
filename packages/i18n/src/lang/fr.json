@@ -339,6 +339,10 @@
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
   },
+  "9tH7k0": {
+    "defaultMessage": "Date de début",
+    "description": "Label displayed before start date"
+  },
   "9wqUyU": {
     "defaultMessage": "Un champ obligatoire est vide : Courriel de correspondance",
     "description": "Error message that contact email for this process must be filled"
@@ -558,6 +562,10 @@
   "J30FT0": {
     "defaultMessage": "La signature représente un champ obligatoire",
     "description": "Message displayed when user attempts to apply to a pool without a signature"
+  },
+  "JCA/2+": {
+    "defaultMessage": "Date de fin",
+    "description": "Label displayed before end date"
   },
   "JD0G28": {
     "defaultMessage": "Je m'identifie comme une personne en situation de handicap.",

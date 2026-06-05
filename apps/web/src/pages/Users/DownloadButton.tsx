@@ -2,13 +2,12 @@ import { useIntl } from "react-intl";
 import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
 
 import { DropdownMenu } from "@gc-digital-talent/ui";
-import type { Scalars } from "@gc-digital-talent/graphql";
 
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
 import useUserDownloads from "~/hooks/useUserDownloads";
 
 interface DownloadButtonProps {
-  id: Scalars["UUID"]["output"];
+  id: string;
 }
 
 const DownloadButton = ({ id }: DownloadButtonProps) => {

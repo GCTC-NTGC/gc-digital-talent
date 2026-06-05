@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import type { FragmentType, Scalars, User } from "@gc-digital-talent/graphql";
+import type { FragmentType, User } from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
   getFragment,
@@ -84,8 +84,8 @@ export const ScreeningDecisionDialog_Fragment = graphql(/** GraphQL */ `
 
 export interface ScreeningDecisionDialogProps {
   query: FragmentType<typeof ScreeningDecisionDialog_Fragment>;
-  stepId: Scalars["UUID"]["output"];
-  poolSkillId?: Scalars["UUID"]["output"];
+  stepId: string;
+  poolSkillId?: string;
   defaultOpen?: boolean;
 }
 

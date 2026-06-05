@@ -4,10 +4,7 @@ import { useState } from "react";
 import type { RegisterOptions } from "react-hook-form";
 
 import { Combobox } from "@gc-digital-talent/forms";
-import type {
-  PoolFilterInput as TPoolFilterInput,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { PoolFilterInput as TPoolFilterInput } from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 
@@ -19,8 +16,8 @@ interface PoolFilterInputProps {
   label?: React.ReactNode;
   rules?: RegisterOptions;
   filterInput?: TPoolFilterInput;
-  includeIds?: Scalars["UUID"]["input"][];
-  excludeIds?: Scalars["UUID"]["input"][];
+  includeIds?: string[];
+  excludeIds?: string[];
 }
 
 const PoolFilterInput = ({

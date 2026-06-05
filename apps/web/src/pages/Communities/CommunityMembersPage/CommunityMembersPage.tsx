@@ -9,10 +9,7 @@ import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type {
-  CommunityMembersTeamQuery,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { CommunityMembersTeamQuery } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -165,7 +162,7 @@ const CommunityMembersTeam_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  communityId: Scalars["ID"]["output"];
+  communityId: string;
 }
 
 interface CommunityMembersPageProps {

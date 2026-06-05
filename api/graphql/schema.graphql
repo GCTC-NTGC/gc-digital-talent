@@ -691,6 +691,12 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+  placedStartDate: Date
+    @rename(attribute: "placed_start_date")
+    @canRoot(ability: "viewStatus")
+  placedEndDate: Date
+    @rename(attribute: "placed_end_date")
+    @canRoot(ability: "viewStatus")
   isBeingReferred: Boolean
   pauseReferralsAt: DateTime
     @rename(attribute: "pause_referrals_at")
@@ -1156,6 +1162,29 @@ type TalentRequest {
   statusChangedAt: DateTime @rename(attribute: "status_changed_at")
   createdAt: DateTime @rename(attribute: "created_at")
   updatedAt: DateTime @rename(attribute: "updated_at")
+  trackedUsers(where: TalentRequestTrackedUserFilterInput): [TalentRequestTrackedUser!]
+    @hasMany(scopes: ["whereAuthorizedToView", "withSkillCount"])
+}
+
+input TalentRequestTrackedUserFilterInput {
+  referralDecisions: [TalentRequestTrackedUserReferralDecision!]
+    @scope(name: "whereReferralDecisionIn")
+  selectionDecisions: [TalentRequestTrackedUserSelectionDecision!]
+    @scope(name: "whereSelectionDecisionIn")
+}
+
+type TalentRequestTrackedUser {
+  id: UUID!
+  user: User! @belongsTo
+  skillCount: Int @rename(attribute: "skill_count") # live subquery column from the withSkillCount scope - count of the user's skills matching this request's applicant filter
+  referralDecision: LocalizedTalentRequestTrackedUserReferralDecision
+    @rename(attribute: "referral_decision")
+  selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
+    @rename(attribute: "selection_decision")
+  notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
+    @rename(attribute: "not_referred_reason")
+  notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
+    @rename(attribute: "not_selected_reason")
 }
 
 type SkillFamily {
@@ -2414,6 +2443,8 @@ input QualifyCandidateInput {
 input PlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input QualifyAndPlaceCandidateInput {
@@ -2421,6 +2452,8 @@ input QualifyAndPlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
   pauseReferrals: PauseReferralsInput @spread
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input CreateDepartmentInput {

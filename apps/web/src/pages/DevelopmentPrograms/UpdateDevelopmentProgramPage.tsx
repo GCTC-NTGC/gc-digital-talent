@@ -19,7 +19,6 @@ import {
 import type {
   FragmentType,
   LocalizedStringInput,
-  Scalars,
   UpdateDevelopmentProgramInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -179,7 +178,7 @@ export const UpdateDevelopmentProgramForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  developmentProgramId: Scalars["ID"]["output"];
+  developmentProgramId: string;
 }
 
 const DevelopmentProgramQuery = graphql(/* GraphQL */ `

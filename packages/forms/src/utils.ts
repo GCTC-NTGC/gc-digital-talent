@@ -6,7 +6,6 @@ import type { FieldErrors, FieldValues } from "react-hook-form";
 import type {
   LocalizedEnumString,
   LocalizedString,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import type { Locales } from "@gc-digital-talent/i18n";
 import {
@@ -200,7 +199,7 @@ export const countNumberOfWordsAfterReplacingHTML = (text: string): number => {
  */
 export const objectsToSortedOptions = (
   objects: {
-    id: Scalars["ID"]["input"];
+    id: string;
     name?: LocalizedString;
   }[],
   intl: IntlShape,

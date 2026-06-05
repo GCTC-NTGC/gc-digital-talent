@@ -4,7 +4,6 @@ import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
 import type { SubmitHandler } from "react-hook-form";
 
-import type { Scalars } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import {
   Container,
@@ -35,7 +34,7 @@ import {
 } from "./utils";
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const resetValues: FormValues = {

@@ -14,7 +14,7 @@ import {
   Button,
   Notice,
 } from "@gc-digital-talent/ui";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -37,7 +37,7 @@ import type { Route } from "./+types/CommunityProfessionalizationPage";
 type SortValues = "recentlyAdded" | "name";
 
 interface RouteParams extends Record<string, string> {
-  communityId: Scalars["ID"]["output"];
+  communityId: string;
 }
 
 const ProfessionalizationForm_Fragment = graphql(/* GraphQL */ `

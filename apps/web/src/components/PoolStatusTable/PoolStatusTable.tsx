@@ -10,7 +10,6 @@ import type {
   FragmentType,
   PoolCandidate,
   PoolStatusTableFragment,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
@@ -90,7 +89,7 @@ type RowDef = NonNullable<
 const columnHelper = createColumnHelper<RowDef>();
 
 interface PoolStatusTableProps {
-  currentPoolId?: Scalars["ID"]["output"];
+  currentPoolId?: string;
   onlyRecruitmentProcesses?: boolean;
   userQuery: FragmentType<typeof PoolStatusTable_Fragment>;
 }
