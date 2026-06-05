@@ -37,7 +37,9 @@ return [
         'database' => [
             'driver' => 'database',
             'table' => 'jobs',
-            'queue' => 'default',
+            // Slot-private queue: each App Service slot dispatches to and works only
+            // its own queue, so an idle slot's worker can't steal jobs (#16891).
+            'queue' => env('QUEUE_NAME', env('WEBSITE_SLOT_NAME', 'default')),
             'retry_after' => env('QUEUE_RETRY_AFTER', 400),
             'after_commit' => true,
         ],
