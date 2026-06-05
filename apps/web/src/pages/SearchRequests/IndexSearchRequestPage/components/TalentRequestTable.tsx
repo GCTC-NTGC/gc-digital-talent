@@ -47,59 +47,27 @@ import {
   transformFormValuesToTalentRequestFilterInput,
   transformTalentRequestFilterInputToFormValues,
   transformSortStateToOrderByClause,
+  transformTalentRequestInput,
 } from "./utils";
 
-const columnHelper = createColumnHelper<TalentRequest>();
+const columnHelper = createColumnHelper<TalentRequestTableRow>();
 
-interface TalentRequestTableProps {
-  title: string;
-}
-
-const transformTalentRequestInput = (
-  filterState: TalentRequestInput,
-  searchBarTerm: string | undefined,
-  searchType: string | undefined,
-): TalentRequestInput | null => {
-  if (
-    filterState === undefined &&
-    searchBarTerm === undefined &&
-    searchType === undefined
-  ) {
-    return null;
-  }
-
-  return {
-    // from search bar
-    generalSearch: !!searchBarTerm && !searchType ? searchBarTerm : undefined,
-    id: searchType === "id" && !!searchBarTerm ? searchBarTerm : undefined,
-    fullName:
-      searchType === "fullName" && !!searchBarTerm ? searchBarTerm : undefined,
-    email:
-      searchType === "email" && !!searchBarTerm ? searchBarTerm : undefined,
-    jobTitle:
-      searchType === "jobTitle" && !!searchBarTerm ? searchBarTerm : undefined,
-    additionalComments:
-      searchType === "additionalComments" && !!searchBarTerm
-        ? searchBarTerm
-        : undefined,
-    adminNotes:
-      searchType === "adminNotes" && !!searchBarTerm
-        ? searchBarTerm
-        : undefined,
-    // from filter
-    talentRequestStatus: filterState?.talentRequestStatus,
-    departments: filterState?.departments,
-    classifications: filterState?.classifications,
-    workStreams: filterState?.workStreams,
-  };
-};
-
-const sortInitialState = [
-  {
-    id: "requestedDate",
-    desc: true,
-  },
-];
+type TalentRequestTableRow = Pick<
+  TalentRequest,
+  | "id"
+  | "additionalComments"
+  | "adminNotes"
+  | "jobTitle"
+  | "talentRequestStatus"
+  | "details"
+  | "applicantFilter"
+  | "fullName"
+  | "email"
+  | "department"
+  | "followUpDate"
+  | "requestedDate"
+  | "community"
+>;
 
 const TalentRequestTable_Query = graphql(/* GraphQL */ `
   query TalentRequestTable(
@@ -178,6 +146,17 @@ const TalentRequestTable_Query = graphql(/* GraphQL */ `
     }
   }
 `);
+
+const sortInitialState = [
+  {
+    id: "requestedDate",
+    desc: true,
+  },
+];
+
+interface TalentRequestTableProps {
+  title: string;
+}
 
 const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
   const intl = useIntl();
@@ -368,7 +347,7 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
       enableColumnFilter: false,
       enableSorting: false,
     }),
-  ] as ColumnDef<TalentRequest>[];
+  ] as ColumnDef<TalentRequestTableRow>[];
 
   const handlePaginationStateChange = ({
     pageIndex,

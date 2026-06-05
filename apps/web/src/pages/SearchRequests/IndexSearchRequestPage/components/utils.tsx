@@ -67,3 +67,42 @@ export function transformTalentRequestFilterInputToFormValues(
     workStreams: unpackMaybes(input?.workStreams) ?? [],
   };
 }
+
+export const transformTalentRequestInput = (
+  filterState: TalentRequestInput,
+  searchBarTerm: string | undefined,
+  searchType: string | undefined,
+): TalentRequestInput | null => {
+  if (
+    filterState === undefined &&
+    searchBarTerm === undefined &&
+    searchType === undefined
+  ) {
+    return null;
+  }
+
+  return {
+    // from search bar
+    generalSearch: !!searchBarTerm && !searchType ? searchBarTerm : undefined,
+    id: searchType === "id" && !!searchBarTerm ? searchBarTerm : undefined,
+    fullName:
+      searchType === "fullName" && !!searchBarTerm ? searchBarTerm : undefined,
+    email:
+      searchType === "email" && !!searchBarTerm ? searchBarTerm : undefined,
+    jobTitle:
+      searchType === "jobTitle" && !!searchBarTerm ? searchBarTerm : undefined,
+    additionalComments:
+      searchType === "additionalComments" && !!searchBarTerm
+        ? searchBarTerm
+        : undefined,
+    adminNotes:
+      searchType === "adminNotes" && !!searchBarTerm
+        ? searchBarTerm
+        : undefined,
+    // from filter
+    talentRequestStatus: filterState?.talentRequestStatus,
+    departments: filterState?.departments,
+    classifications: filterState?.classifications,
+    workStreams: filterState?.workStreams,
+  };
+};
