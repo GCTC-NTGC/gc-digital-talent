@@ -3,7 +3,6 @@ import { useForm, FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { TextArea, Submit } from "@gc-digital-talent/forms";
-import type { Maybe, Scalars } from "@gc-digital-talent/graphql";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { ToggleSection, Button } from "@gc-digital-talent/ui";
@@ -14,7 +13,7 @@ import adminMessages from "~/messages/adminMessages";
 import ToggleForm from "../ToggleForm/ToggleForm";
 
 export interface FormValues {
-  notes?: Maybe<Scalars["String"]["input"]>;
+  notes?: string | null;
 }
 
 interface SidebarNotesFormProps {

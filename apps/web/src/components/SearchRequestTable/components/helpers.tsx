@@ -5,7 +5,6 @@ import {
   Chip,
   Spoiler,
   Chips,
-  UNICODE_CHAR,
   type ChipProps,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -14,7 +13,6 @@ import {
   TalentRequestStatus,
   type Classification,
   type LocalizedTalentRequestStatus,
-  type Maybe,
   type PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
 import {
@@ -26,20 +24,20 @@ import type useRoutes from "~/hooks/useRoutes";
 import { followUpDateOverdueInfo } from "~/utils/searchRequestUtils";
 import cells from "~/components/Table/cells";
 
-export function classificationAccessor(
+export function classificationsAccessor(
   classifications:
-    | Maybe<Maybe<Pick<Classification, "group" | "level">>[]>
+    | (Pick<Classification, "groupAndLevel"> | null | undefined)[]
     | undefined,
 ) {
   return classifications
     ?.filter(notEmpty)
-    ?.map((c) => `${c.group}-${c.level < 10 ? "0" : ""}${c.level}`)
+    ?.map((c) => c.groupAndLevel)
     ?.join(", ");
 }
 
 export function classificationsCell(
   classifications:
-    | Maybe<Maybe<Pick<Classification, "group" | "level">>[] | undefined>
+    | (Pick<Classification, "id" | "groupAndLevel"> | null | undefined)[]
     | undefined,
   intl: IntlShape,
 ) {
@@ -48,16 +46,8 @@ export function classificationsCell(
     : [];
   const chipsArray = filteredClassifications.map((classification) => {
     return (
-      <Chip
-        key={`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
-        color="primary"
-      >
-        <>
-          {classification.group}
-          <span>{UNICODE_CHAR.HYPHEN}</span>
-          {classification.level < 10 ? "0" : ""}
-          {classification.level}
-        </>
+      <Chip key={classification.id} color="primary">
+        {classification.groupAndLevel}
       </Chip>
     );
   });
@@ -148,7 +138,7 @@ export const followUpDateCell = (
 const COLOUR_MAP: Record<TalentRequestStatus, ChipProps["color"]> = {
   [TalentRequestStatus.New]: "warning",
   [TalentRequestStatus.InProgress]: "primary",
-  [TalentRequestStatus.Closed]: "gray",
+  [TalentRequestStatus.Completed]: "gray",
 } as const;
 
 export const statusCell = (status?: LocalizedTalentRequestStatus | null) => {

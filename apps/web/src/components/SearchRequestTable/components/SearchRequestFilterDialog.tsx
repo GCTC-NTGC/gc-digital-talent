@@ -33,12 +33,7 @@ const RequestFilterDepartment_Fragment = graphql(/* GraphQL */ `
 const RequestFilterClassification_Fragment = graphql(/* GraphQL */ `
   fragment RequestFilterClassification on Classification {
     id
-    name {
-      en
-      fr
-    }
-    group
-    level
+    groupAndLevel
   }
 `);
 
@@ -136,9 +131,9 @@ const SearchRequestFilterDialog = ({
           {...{ fetching }}
           isMulti
           label={intl.formatMessage(adminMessages.classifications)}
-          options={classifications.map((classification) => ({
-            value: classification.id,
-            label: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
+          options={classifications.map(({ id, groupAndLevel }) => ({
+            value: id,
+            label: groupAndLevel,
           }))}
         />
         <Combobox

@@ -19,12 +19,7 @@ import {
 } from "@gc-digital-talent/ui";
 import type { RoleName } from "@gc-digital-talent/auth";
 import { useAuthorization, hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
-import type {
-  Maybe,
-  Role,
-  RoleAssignment,
-  User,
-} from "@gc-digital-talent/graphql";
+import type { Role, RoleAssignment, User } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -59,7 +54,7 @@ interface RoleChipsProps {
 // short-circuit hasRole if no roles were required so an empty array
 const hasRolesHandleNoRolesRequired = (
   checkRole: RoleName | RoleName[],
-  userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
+  userRoles: (RoleAssignment | null | undefined)[] | null | undefined,
 ): boolean => {
   if (Array.isArray(checkRole) && checkRole.length === 0) {
     return true;

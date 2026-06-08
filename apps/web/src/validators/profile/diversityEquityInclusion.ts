@@ -1,6 +1,5 @@
 import type {
   User,
-  Maybe,
   Pool,
   LocalizedIndigenousCommunity,
 } from "@gc-digital-talent/graphql";
@@ -10,14 +9,14 @@ export interface PartialUser extends Pick<
   User,
   "isWoman" | "hasDisability" | "isVisibleMinority"
 > {
-  indigenousCommunities?: Maybe<
-    Maybe<Pick<LocalizedIndigenousCommunity, "value">>[]
-  >;
+  indigenousCommunities?:
+    | (Pick<LocalizedIndigenousCommunity, "value"> | null | undefined)[]
+    | null;
 }
 
 export function hasEmptyRequiredFields(
   applicant: PartialUser,
-  pool?: Maybe<Pick<Pool, "publishingGroup">>,
+  pool?: Pick<Pool, "publishingGroup"> | null,
 ): boolean {
   if (!(pool?.publishingGroup?.value === PublishingGroup.Iap)) {
     return false;

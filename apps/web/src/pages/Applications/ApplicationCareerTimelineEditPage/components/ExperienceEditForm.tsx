@@ -6,7 +6,6 @@ import { useForm, FormProvider } from "react-hook-form";
 import { toast } from "@gc-digital-talent/toast";
 import { AlertDialog, Button, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import type { Scalars } from "@gc-digital-talent/graphql";
 import { Submit } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -35,7 +34,7 @@ type ExperienceExperienceFormValues =
     action: FormAction | "";
   };
 interface EditExperienceFormProps {
-  applicationId: Scalars["ID"]["output"];
+  applicationId: string;
   experience: AnyExperience;
   organizationSuggestions: string[];
 }

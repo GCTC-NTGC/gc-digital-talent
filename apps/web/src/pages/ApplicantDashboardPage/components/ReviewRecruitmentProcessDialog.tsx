@@ -28,7 +28,6 @@ import { RadioGroup } from "@gc-digital-talent/forms";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
-import { getClassificationName } from "~/utils/poolUtils";
 import { candidateInterestColorMap } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 import { getSalaryRange } from "~/utils/classification";
@@ -68,8 +67,7 @@ const ReviewRecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
         localized
       }
       classification {
-        group
-        level
+        displayName
         minSalary
         maxSalary
       }
@@ -264,10 +262,7 @@ const ReviewRecruitmentProcessDialog = ({
               label={intl.formatMessage(talentRequestMessages.classification)}
             >
               {pool?.classification
-                ? wrapAbbr(
-                    getClassificationName(pool?.classification, intl),
-                    intl,
-                  )
+                ? wrapAbbr(pool.classification.displayName, intl)
                 : nullMessage}
             </FieldDisplay>
             <FieldDisplay

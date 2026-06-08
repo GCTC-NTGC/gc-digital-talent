@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
-import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
   getFragment,
@@ -33,9 +33,9 @@ const hiddenSteps = [
 ];
 
 function getStepLabel(
-  title?: Maybe<string>,
-  typeLocalized?: Maybe<string>,
-  order?: Maybe<number>,
+  title?: string | null,
+  typeLocalized?: string | null,
+  order?: number | null,
 ): string | null {
   if (!title && !typeLocalized) {
     return null;

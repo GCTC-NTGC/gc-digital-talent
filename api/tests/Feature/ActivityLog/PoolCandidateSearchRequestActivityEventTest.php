@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\ActivityLog;
 
-use App\Enums\TalentRequestClosedDetail;
+use App\Enums\TalentRequestCompletionDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestStatus;
 use App\Models\Activity;
@@ -59,7 +59,7 @@ class PoolCandidateSearchRequestActivityEventTest extends TestCase
             'in_progress_details' => TalentRequestInProgressDetail::TALENT_SENT->name,
         ]);
 
-        $request->close(TalentRequestClosedDetail::HIRE_MADE->name);
+        $request->complete(TalentRequestCompletionDetail::HIRE_MADE->name);
 
         $this->assertDatabaseHas('activity_log', [
             'subject_type' => PoolCandidateSearchRequest::class,
@@ -74,6 +74,6 @@ class PoolCandidateSearchRequestActivityEventTest extends TestCase
             ->first();
 
         $this->assertEquals(TalentRequestStatus::IN_PROGRESS->name, $activity->properties['old']['status']);
-        $this->assertEquals(TalentRequestStatus::CLOSED->name, $activity->properties['attributes']['status']);
+        $this->assertEquals(TalentRequestStatus::COMPLETED->name, $activity->properties['attributes']['status']);
     }
 }

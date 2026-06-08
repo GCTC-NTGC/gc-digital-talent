@@ -75,4 +75,49 @@ class PoolCandidatesExcelTest extends TestCase
         $fileSize = $disk->size($path);
         $this->assertGreaterThan(0, $fileSize, 'File is empty');
     }
+
+    // A free-text field starting with "=" must be written as text, not a formula.
+    // OpenSpout's Cell::fromValue auto-detects it as a FormulaCell and emits an
+    // <f> element, which Excel renders as #NAME? (or a live HYPERLINK injection).
+    public function testNeutralizesFormulaInjection(): void
+    {
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $targetUser = User::factory()->asApplicant()->withNonGovProfile()->create();
+
+        // Same shape as the value that broke generation in production.
+        $payload = '= To become more involved';
+        $application = PoolCandidate::factory()
+            ->availableInSearch()
+            ->withSnapshot()
+            ->create(['user_id' => $targetUser->id, 'notes' => $payload]);
+
+        $fileName = sprintf('%s_%s', __('filename.candidates_rod'), date('Y-m-d_His'));
+        $generator = new PoolCandidateExcelGenerator(
+            fileName: $fileName,
+            dir: 'test',
+            lang: 'en',
+            withROD: true,
+        );
+        $generator
+            ->setAuthenticatedUserId($adminUser->id)
+            ->setIds([$application->id])
+            ->setFilters([]);
+        $generator->generate()->write();
+
+        // gather the workbook xml (worksheets + shared strings)
+        $path = Storage::disk('user_generated')->path('test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx');
+        $zip = new \ZipArchive();
+        $zip->open($path);
+        $xml = '';
+        for ($i = 0; $i < $zip->numFiles; $i++) {
+            $name = $zip->getNameIndex($i);
+            if (str_contains($name, 'worksheets/') || str_contains($name, 'sharedStrings')) {
+                $xml .= $zip->getFromName($name);
+            }
+        }
+        $zip->close();
+
+        $this->assertStringContainsString('To become more involved', $xml, 'Notes value was not written');
+        $this->assertStringNotContainsString('<f>', $xml, 'Notes value was written as a formula element');
+    }
 }

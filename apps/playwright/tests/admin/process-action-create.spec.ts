@@ -30,7 +30,7 @@ test.describe("Process candidate assessment", () => {
   let processTitle: string;
   let technicalSkill: string;
   let behaviouralSkill: string;
-  let communityName: string, workStreamName: string, groupAndLevel: string;
+  let communityName: string, workStreamName: string;
   let poolId: string;
 
   test.beforeEach(async ({ appPage }) => {
@@ -59,12 +59,14 @@ test.describe("Process candidate assessment", () => {
     poolPage = new PoolPage(appPage.page);
     const classifications = await getClassifications(adminCtx, {});
     const classification = classifications[3];
-    // eslint-disable-next-line playwright/no-conditional-in-test
-    groupAndLevel = `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`;
+
     await poolPage.gotoIndex();
     await appPage.waitForGraphqlResponse("PoolTable");
 
-    await poolPage.poolCreation("Digital Community", groupAndLevel);
+    await poolPage.poolCreation(
+      "Digital Community",
+      classification.groupAndLevel,
+    );
     await poolPage.editBasicInformation(PROCESS_TITLE, "Software Solutions");
     await poolPage.updateClosingDate();
     await poolPage.updateCoreRequirements();
@@ -85,13 +87,12 @@ test.describe("Process candidate assessment", () => {
     workStreamName = workStreams[0]?.name?.en ?? "";
     const classifications = await getClassifications(adminCtx, {});
     const classification = classifications[0];
-    // eslint-disable-next-line playwright/no-conditional-in-test
-    groupAndLevel = `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`;
+
     await poolPage.gotoIndex();
     // Process creation with behavioral and technical skills in UI
     await poolPage.createProcessTillEssentialSkills(
       communityName,
-      groupAndLevel,
+      classification.groupAndLevel,
       processTitle,
       workStreamName,
       [

@@ -8,7 +8,6 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type {
   Skill,
   Experience,
-  Scalars,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
@@ -24,8 +23,8 @@ const ExperienceSkillFormDialogExperience_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface FormValues {
-  experience?: Scalars["ID"]["output"];
-  skill?: Scalars["ID"]["output"];
+  experience?: string;
+  skill?: string;
   details?: string;
 }
 

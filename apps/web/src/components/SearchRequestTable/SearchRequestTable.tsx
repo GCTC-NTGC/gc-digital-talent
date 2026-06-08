@@ -13,7 +13,6 @@ import { useQuery } from "urql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type {
-  InputMaybe,
   PoolCandidateSearchRequestInput,
   SearchRequestTableQuery as SearchRequestTableQueryType,
 } from "@gc-digital-talent/graphql";
@@ -27,7 +26,7 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import { useStableDate } from "~/hooks/useStableDate";
 
 import {
-  classificationAccessor,
+  classificationsAccessor,
   classificationsCell,
   detailsCell,
   followUpDateCell,
@@ -64,7 +63,7 @@ const transformSearchRequestInput = (
   filterState: PoolCandidateSearchRequestInput,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): InputMaybe<PoolCandidateSearchRequestInput> => {
+): PoolCandidateSearchRequestInput | null | undefined => {
   if (
     filterState === undefined &&
     searchBarTerm === undefined &&
@@ -126,8 +125,7 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
           id
           qualifiedInClassifications {
             id
-            group
-            level
+            groupAndLevel
           }
           qualifiedInWorkStreams {
             id
@@ -271,7 +269,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     }),
     columnHelper.accessor(
       (row) =>
-        classificationAccessor(
+        classificationsAccessor(
           row.applicantFilter?.qualifiedInClassifications?.filter(notEmpty),
         ),
       {
@@ -492,6 +490,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         },
       }}
       filter={{
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <SearchRequestFilterDialog

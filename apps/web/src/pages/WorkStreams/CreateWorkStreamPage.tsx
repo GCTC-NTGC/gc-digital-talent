@@ -15,10 +15,8 @@ import {
 } from "@gc-digital-talent/forms";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import type {
-  Scalars,
   CreateWorkStreamInput,
   LocalizedStringInput,
-  InputMaybe,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -48,9 +46,9 @@ const CreateWorkStream_Mutation = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  key: InputMaybe<Scalars["String"]["input"]>;
+  key: string | null;
   name: LocalizedStringInput;
-  plainLanguageName?: InputMaybe<LocalizedStringInput>;
+  plainLanguageName?: LocalizedStringInput | null;
   community: string;
   talentSearchable: boolean;
 }

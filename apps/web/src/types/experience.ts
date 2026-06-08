@@ -19,10 +19,8 @@ import type {
   EducationType,
   Exact,
   LocalizedString,
-  Maybe,
   PersonalExperience,
   PersonalExperienceInput,
-  Scalars,
   WorkExperienceInput,
   WorkExperience,
   EmploymentCategory,
@@ -56,14 +54,14 @@ export type AnyExperience =
   | Omit<WorkExperience, "user">;
 
 export interface ExperienceForDate extends SimpleAnyExperience {
-  awardedDate?: Maybe<string>;
-  startDate?: Maybe<string>;
-  endDate?: Maybe<string>;
+  awardedDate?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
 }
 
 interface FormValueDateRange {
-  startDate: Scalars["Date"]["input"];
-  endDate?: Scalars["Date"]["input"];
+  startDate: string;
+  endDate?: string;
 }
 
 interface AwardFormValues {
@@ -71,16 +69,16 @@ interface AwardFormValues {
   awardedTo: AwardedTo;
   issuedBy: string;
   awardedScope: AwardedScope;
-  awardedDate: Scalars["Date"]["input"];
+  awardedDate: string;
 }
 
 export type CommunityFormValues = FormValueDateRange & {
   title: string;
   organization: string;
   project: string;
-  startDate: Scalars["Date"]["input"];
+  startDate: string;
   roleStatus: "active" | "past";
-  endDate?: Scalars["Date"]["input"];
+  endDate?: string;
 };
 
 export type EducationFormValues = FormValueDateRange & {
@@ -138,7 +136,7 @@ export type AllExperienceFormValues = AwardFormValues &
   };
 
 export interface FormSkill {
-  id?: Maybe<string>;
+  id?: string | null;
   skillId: string;
   details: string;
   name: LocalizedString;
@@ -147,7 +145,7 @@ export type FormSkills = FormSkill[];
 
 export type ExperienceFormValues<T> = T & {
   details: string;
-  skills?: Maybe<FormSkills>;
+  skills?: FormSkills | null;
 };
 
 export interface SubExperienceFormProps {
@@ -163,13 +161,13 @@ export interface ExperienceDetailsSubmissionData {
   details?: string;
   division?: string | null;
   currentRole?: boolean;
-  endDate?: Scalars["Date"]["input"] | null;
+  endDate?: string | null;
   institution?: string;
   issuedBy?: string;
   organization?: string;
   project?: string;
   role?: string | null;
-  startDate?: Scalars["Date"]["input"];
+  startDate?: string;
   status?: EducationStatus;
   thesisTitle?: string;
   title?: string | null;
@@ -189,10 +187,10 @@ export interface ExperienceDetailsSubmissionData {
   cafRank?: CafRank | null;
   skills?: {
     sync?:
-      | ({ id: string; details: Maybe<string> | undefined } | undefined)[]
+      | ({ id: string; details: string | null | undefined } | undefined)[]
       | undefined;
     connect?:
-      | ({ id: string; details: Maybe<string> | undefined } | undefined)[]
+      | ({ id: string; details: string | null | undefined } | undefined)[]
       | undefined;
   };
   workStreams?: {
@@ -251,13 +249,13 @@ export interface ExperienceDetailsDefaultValues {
   description?: string;
   details?: string;
   team?: string;
-  endDate?: Scalars["Date"]["input"];
+  endDate?: string;
   institution?: string;
   issuedBy?: string;
   organization?: string;
   project?: string;
   role?: string;
-  startDate?: Scalars["Date"]["input"];
+  startDate?: string;
   educationStatus?: EducationStatus;
   thesisTitle?: string;
   title?: string;

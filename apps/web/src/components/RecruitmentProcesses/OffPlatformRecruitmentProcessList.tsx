@@ -10,7 +10,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { Heading, UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 import { wrapAbbr } from "~/utils/nameUtils";
-import { getClassificationName } from "~/utils/poolUtils";
 
 import type { OffPlatformProcessDialog_Fragment } from "./OffPlatformProcessDialog";
 import OffPlatformProcessDialog from "./OffPlatformProcessDialog";
@@ -30,6 +29,8 @@ const OffPlatformRecruitmentProcessList_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     platform {
       value
@@ -66,7 +67,7 @@ const OffPlatformRecruitmentProcessList = ({
     <ul className="mb-6 flex flex-col">
       {processes.map((process) => {
         const classificationTitle = process.classification
-          ? wrapAbbr(getClassificationName(process.classification, intl), intl)
+          ? wrapAbbr(process.classification.groupAndLevel, intl)
           : intl.formatMessage(commonMessages.notFound);
 
         return (

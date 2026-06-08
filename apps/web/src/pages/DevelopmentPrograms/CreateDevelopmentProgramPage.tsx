@@ -9,7 +9,6 @@ import { toast } from "@gc-digital-talent/toast";
 import { Submit } from "@gc-digital-talent/forms";
 import type {
   CreateDevelopmentProgramInput,
-  Scalars,
   LocalizedStringInput,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
@@ -49,7 +48,7 @@ export function formValuesToCreateInput({
 interface CreateDevelopmentProgramProps {
   handleCreateDevelopmentProgram: (
     data: CreateDevelopmentProgramInput,
-  ) => Promise<Scalars["UUID"]["output"]>;
+  ) => Promise<string>;
 }
 
 export const CreateDevelopmentProgramForm = ({

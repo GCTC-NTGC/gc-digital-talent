@@ -43,6 +43,7 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
     classifications {
       group
       level
+      groupAndLevel
     }
     skills {
       id
@@ -271,9 +272,9 @@ const PoolCandidateFilterDialog = ({
               isMulti
               label={intl.formatMessage(adminMessages.classifications)}
               options={unpackMaybes(data?.classifications).map(
-                ({ group, level }) => ({
+                ({ group, level, groupAndLevel }) => ({
                   value: `${group}-${level}`,
-                  label: `${group}-${level < 10 ? "0" : ""}${level}`,
+                  label: groupAndLevel,
                 }),
               )}
             />

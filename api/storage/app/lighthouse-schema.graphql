@@ -393,8 +393,8 @@ type LocalizedTalentNominationUserReview implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedTalentRequestClosedDetail implements LocalizedEnumOption {
-  value: TalentRequestClosedDetail!
+type LocalizedTalentRequestCompletionDetail implements LocalizedEnumOption {
+  value: TalentRequestCompletionDetail!
   label: LocalizedString!
 }
 
@@ -403,8 +403,38 @@ type LocalizedTalentRequestInProgressDetail implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedTalentRequestPositionType implements LocalizedEnumOption {
+  value: TalentRequestPositionType!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestReason implements LocalizedEnumOption {
+  value: TalentRequestReason!
+  label: LocalizedString!
+}
+
 type LocalizedTalentRequestStatus implements LocalizedEnumOption {
   value: TalentRequestStatus!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotReferredReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotReferredReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotSelectedReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotSelectedReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserReferralDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserReferralDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserSelectionDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserSelectionDecision!
   label: LocalizedString!
 }
 
@@ -449,6 +479,7 @@ type Query {
   jobPosterTemplate(id: UUID!): JobPosterTemplate
   jobPosterTemplates: [JobPosterTemplate!]
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
+  talentRequest(id: UUID!): TalentRequest
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
@@ -466,6 +497,7 @@ type Query {
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!] @deprecated(reason: "Replaced by localizedEnumOptions")
   localizedEnumOptions(enumName: String!): [LocalizedEnumOption!]
+  canMigrateMyAccount: Boolean!
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!]
@@ -541,6 +573,16 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): PoolCandidateSearchRequestPaginator!
+  talentRequests(
+    where: TalentRequestInput
+    orderBy: [AdvancedOrderByInput!]
+
+    "Limits number of fetched items. Maximum allowed value: 500."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): TalentRequestPaginator!
   notifications(
     where: NotificationFilterInput
     excludeIds: [UUID!]
@@ -625,6 +667,9 @@ type Mutation {
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequestStatus(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput!): PoolCandidateSearchRequest
+  createTalentRequest(talentRequest: CreateTalentRequestInput!): TalentRequest
+  updateTalentRequest(id: ID!, talentRequest: UpdateTalentRequestInput!): TalentRequest
+  updateTalentRequestStatus(id: ID!, talentRequest: UpdateTalentRequestStatusInput!): TalentRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
@@ -966,6 +1011,7 @@ type NewJobPostedNotification implements Notification {
   createdAt: DateTime!
   updatedAt: DateTime!
   poolId: ID
+  displayName: LocalizedString
 }
 
 type ApplicationStatusChangedNotification implements Notification {
@@ -1222,6 +1268,8 @@ type PoolCandidate {
   placementType: LocalizedPlacementType
   placedAt: DateTime
   placedDepartment: Department
+  placedStartDate: Date
+  placedEndDate: Date
   isBeingReferred: Boolean
   pauseReferralsAt: DateTime
   resumeReferralsAt: DateTime
@@ -1283,6 +1331,8 @@ type Classification {
   maxSalary: Int
   genericJobTitles: [GenericJobTitle]
   isAvailableInSearch: Boolean
+  groupAndLevel: String!
+  displayName: String!
 }
 
 type GenericJobTitle {
@@ -1537,8 +1587,52 @@ type PoolCandidateSearchRequest {
   followUpDate: Date
   talentRequestStatus: LocalizedTalentRequestStatus
   inProgressDetails: LocalizedTalentRequestInProgressDetail
-  closedDetails: LocalizedTalentRequestClosedDetail
+  completionDetails: LocalizedTalentRequestCompletionDetail
   details: LocalizedString
+}
+
+type TalentRequest {
+  id: ID!
+  fullName: String
+  email: Email
+  department: Department
+  jobTitle: String
+  additionalComments: String
+  hrAdvisorEmail: Email
+  requestedDate: DateTime
+  adminNotes: String
+  applicantFilter: ApplicantFilter
+  wasEmpty: Boolean
+  managerJobTitle: String
+  positionType: LocalizedTalentRequestPositionType
+  reason: LocalizedTalentRequestReason
+  community: Community
+  user: User
+  initialResultCount: Int
+  followUpDate: Date
+  talentRequestStatus: LocalizedTalentRequestStatus
+  inProgressDetails: LocalizedTalentRequestInProgressDetail
+  completionDetails: LocalizedTalentRequestCompletionDetail
+  details: LocalizedString
+  statusChangedAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  trackedUsers(where: TalentRequestTrackedUserFilterInput): [TalentRequestTrackedUser!]
+}
+
+input TalentRequestTrackedUserFilterInput {
+  referralDecisions: [TalentRequestTrackedUserReferralDecision!]
+  selectionDecisions: [TalentRequestTrackedUserSelectionDecision!]
+}
+
+type TalentRequestTrackedUser {
+  id: UUID!
+  user: User!
+  skillCount: Int
+  referralDecision: LocalizedTalentRequestTrackedUserReferralDecision
+  selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
+  notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
+  notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
 }
 
 type SkillFamily {
@@ -1828,6 +1922,20 @@ input PoolCandidateSearchRequestInput {
   jobTitle: String
   additionalComments: String
   hrAdvisorEmail: String
+  adminNotes: String
+  generalSearch: String
+}
+
+input TalentRequestInput {
+  id: ID
+  talentRequestStatus: [TalentRequestStatus]
+  departments: [ID]
+  classifications: [ID]
+  workStreams: [UUID]
+  fullName: String
+  email: String
+  jobTitle: String
+  additionalComments: String
   adminNotes: String
   generalSearch: String
 }
@@ -2276,6 +2384,8 @@ input QualifyCandidateInput {
 input PlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input QualifyAndPlaceCandidateInput {
@@ -2283,6 +2393,8 @@ input QualifyAndPlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
   pauseReferrals: PauseReferralsInput
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input CreateDepartmentInput {
@@ -2546,7 +2658,35 @@ input UpdatePoolCandidateSearchRequestInput {
 input UpdatePoolCandidateSearchRequestStatusInput {
   status: TalentRequestStatus!
   inProgressDetails: TalentRequestInProgressDetail
-  closedDetails: TalentRequestClosedDetail
+  completionDetails: TalentRequestCompletionDetail
+  followUpDate: Date
+}
+
+input CreateTalentRequestInput {
+  fullName: String!
+  email: Email!
+  department: DepartmentBelongsTo!
+  community: CommunityBelongsTo!
+  jobTitle: String!
+  additionalComments: String
+  hrAdvisorEmail: Email
+  applicantFilter: ApplicantFilterBelongsTo!
+  wasEmpty: Boolean
+  managerJobTitle: String!
+  positionType: TalentRequestPositionType!
+  reason: TalentRequestReason!
+  initialResultCount: Int
+}
+
+input UpdateTalentRequestInput {
+  adminNotes: String
+  followUpDate: Date
+}
+
+input UpdateTalentRequestStatusInput {
+  status: TalentRequestStatus!
+  inProgressDetails: TalentRequestInProgressDetail
+  completionDetails: TalentRequestCompletionDetail
   followUpDate: Date
 }
 
@@ -3118,6 +3258,35 @@ type PoolCandidateSearchRequestPaginator {
   data: [PoolCandidateSearchRequest!]!
 }
 
+enum NullsOrder {
+  FIRST
+  LAST
+}
+
+input RelatedOrderInput {
+  name: String!
+  column: String!
+}
+
+input AdvancedOrderByInput {
+  column: String
+  scope: String
+  relation: RelatedOrderInput
+  direction: SortOrder = ASC
+  nulls: NullsOrder
+  accentInsensitive: Boolean
+  caseInsensitive: Boolean
+}
+
+"A paginated list of TalentRequest items."
+type TalentRequestPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequest items."
+  data: [TalentRequest!]!
+}
+
 "A paginated list of Notification items."
 type NotificationPaginator {
   "Pagination information about the list of items."
@@ -3624,14 +3793,14 @@ enum Permission {
   CreateAnyJobPosterTemplate
   UpdateAnyJobPosterTemplate
   DeleteAnyJobPosterTemplate
-  CreateAnySearchRequest
-  ViewTeamSearchRequest
-  UpdateTeamSearchRequest
-  DeleteTeamSearchRequest
-  ViewAnySearchRequest
-  UpdateAnySearchRequest
-  DeleteAnySearchRequest
-  ViewOwnSearchRequest
+  CreateAnyTalentRequest
+  ViewTeamTalentRequest
+  UpdateTeamTalentRequest
+  DeleteTeamTalentRequest
+  ViewAnyTalentRequest
+  UpdateAnyTalentRequest
+  DeleteAnyTalentRequest
+  ViewOwnTalentRequest
   CreateAnyWorkStream
   UpdateAnyWorkStream
   ViewAnyRole
@@ -4063,6 +4232,11 @@ enum ErrorCode {
   ROLE_NOT_FOUND
   SCREENING_QUESTION_NOT_FOUND
   SKILL_NOT_FOUND
+  TALENT_REQUEST_INVALID_POSITION_TYPE
+  TALENT_REQUEST_INVALID_REASON
+  TALENT_REQUEST_INVALID_STATUS
+  TALENT_REQUEST_IN_PROGRESS_DETAILS_REQUIRED
+  TALENT_REQUEST_COMPLETION_DETAILS_REQUIRED
   TALENT_EVENT_IS_CLOSED
   TALENT_EVENT_CANNOT_CHANGE_COMMUNITY
   TALENT_EVENT_CANNOT_CHANGE_NAME
@@ -4476,7 +4650,7 @@ enum TalentNominationUserReview {
   OUT_OF_DATE
 }
 
-enum TalentRequestClosedDetail {
+enum TalentRequestCompletionDetail {
   HIRE_MADE
   PROCESS_WILL_BE_LAUNCHED
   HIRING_MANAGER_NOT_RESPONSIVE
@@ -4494,10 +4668,40 @@ enum TalentRequestInProgressDetail {
   OTHER
 }
 
+enum TalentRequestPositionType {
+  INDIVIDUAL_CONTRIBUTOR
+  TEAM_LEAD
+}
+
+enum TalentRequestReason {
+  IMMEDIATE_HIRE
+  UPCOMING_NEED
+  GENERAL_INTEREST
+  REQUIRED_BY_DIRECTIVE
+}
+
 enum TalentRequestStatus {
   NEW
   IN_PROGRESS
-  CLOSED
+  COMPLETED
+}
+
+enum TalentRequestTrackedUserNotReferredReason {
+  OTHER
+}
+
+enum TalentRequestTrackedUserNotSelectedReason {
+  OTHER
+}
+
+enum TalentRequestTrackedUserReferralDecision {
+  REFERRED
+  NOT_REFERRED
+}
+
+enum TalentRequestTrackedUserSelectionDecision {
+  SELECTED
+  NOT_SELECTED
 }
 
 enum TargetRole {

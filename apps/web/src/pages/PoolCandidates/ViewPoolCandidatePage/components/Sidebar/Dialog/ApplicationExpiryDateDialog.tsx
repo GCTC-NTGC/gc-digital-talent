@@ -3,12 +3,11 @@ import { useMutation } from "urql";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import {
-  DATE_FORMAT_STRING,
   formatDate,
   parseDateTimeUtc,
   strToFormDate,
@@ -35,7 +34,7 @@ const ApplicationExpiryDateDialog_Mutation = graphql(/** GraphQL */ `
 `);
 
 interface FormValues {
-  expiryDate: Scalars["Date"]["input"];
+  expiryDate: string;
 }
 
 interface ApplicationExpiryDateDialogProps {
@@ -101,7 +100,7 @@ const ApplicationExpiryDateDialog = ({
   const formattedDate = application.expiryDate
     ? formatDate({
         date: parseDateTimeUtc(application.expiryDate),
-        formatString: DATE_FORMAT_STRING,
+        formatString: "PPP",
         intl,
       })
     : title;

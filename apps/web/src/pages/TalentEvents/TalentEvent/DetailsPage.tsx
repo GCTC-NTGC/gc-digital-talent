@@ -7,7 +7,6 @@ import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 import type {
   FragmentType,
   LocalizedTalentNominationEventStatus,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import {
   getFragment,
@@ -96,7 +95,7 @@ const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface StatusChipProps {
-  status: Maybe<LocalizedTalentNominationEventStatus> | undefined;
+  status: LocalizedTalentNominationEventStatus | null | undefined;
 }
 
 const StatusChip = ({ status }: StatusChipProps) => {

@@ -1,7 +1,6 @@
 import { useMutation } from "urql";
 import { useIntl } from "react-intl";
 
-import type { Scalars } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useControllableState } from "@gc-digital-talent/ui";
@@ -13,7 +12,7 @@ const PoolCandidate_ToggleFlagMutation = graphql(/* GraphQL */ `
 `);
 
 interface UseCandidateFlagToggleArgs {
-  id: Scalars["UUID"]["output"];
+  id: string;
   defaultValue?: boolean;
   value?: boolean;
   onChange?: (newIsFlagged: boolean) => void;

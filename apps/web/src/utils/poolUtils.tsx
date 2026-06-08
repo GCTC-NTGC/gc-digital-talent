@@ -27,7 +27,6 @@ import type { ChipProps, IconType } from "@gc-digital-talent/ui";
 import { Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
 import type {
   RoleAssignment,
-  Maybe,
   Classification,
   Pool,
   LocalizedPoolStatus,
@@ -53,8 +52,8 @@ import { checkRole } from "./teamUtils";
  * @returns boolean
  */
 export const isAdvertisementVisible = (
-  roleAssignments: Maybe<RoleAssignment>[],
-  status?: Maybe<PoolStatus>,
+  roleAssignments: (RoleAssignment | null)[],
+  status?: PoolStatus | null,
 ) => {
   if (status !== PoolStatus.Draft) {
     return true;
@@ -77,11 +76,11 @@ export const isAdvertisementVisible = (
   );
 };
 
-export function isIAPPool(publishingGroup?: Maybe<PublishingGroup>): boolean {
+export function isIAPPool(publishingGroup?: PublishingGroup | null): boolean {
   return publishingGroup === PublishingGroup.Iap;
 }
 
-export function isExecPool(publishingGroup?: Maybe<PublishingGroup>): boolean {
+export function isExecPool(publishingGroup?: PublishingGroup | null): boolean {
   return publishingGroup === PublishingGroup.ExecutiveJobs;
 }
 
@@ -89,13 +88,6 @@ interface formatClassificationStringProps {
   group: string;
   level: number;
 }
-
-export const formatClassificationString = ({
-  group,
-  level,
-}: formatClassificationStringProps): string => {
-  return `${group}-${level < 10 ? "0" : ""}${level}`;
-};
 
 export const formatClassificationAriaString = ({
   group,
@@ -105,9 +97,9 @@ export const formatClassificationAriaString = ({
   return tokens.join(" ");
 };
 interface formattedPoolPosterTitleProps {
-  title: Maybe<string> | undefined;
-  classification: Maybe<Pick<Classification, "group" | "level">> | undefined;
-  workStream?: Maybe<WorkStream>;
+  title: string | null | undefined;
+  classification: Pick<Classification, "groupAndLevel"> | null | undefined;
+  workStream?: WorkStream | null;
   short?: boolean;
   intl: IntlShape;
 }
@@ -123,9 +115,7 @@ export const formattedPoolPosterTitle = ({
   label: string;
 } => {
   const streamString = getLocalizedName(workStream?.name, intl, true);
-  const groupAndLevel = classification
-    ? formatClassificationString(classification)
-    : "";
+  const groupAndLevel = classification?.groupAndLevel ?? "";
 
   const genericTitle = short
     ? `${groupAndLevel.trim()}${intl.formatMessage(
@@ -166,10 +156,10 @@ interface PoolTitleOptions {
 
 type PartialPool = Pick<Pool, "name" | "publishingGroup" | "workStream">;
 interface PartialPoolWithClassification extends PartialPool {
-  classification?: Maybe<Pick<Classification, "group" | "level">>;
+  classification?: Pick<Classification, "groupAndLevel"> | null;
 }
 
-type PoolTitle = Maybe<PartialPoolWithClassification>;
+type PoolTitle = PartialPoolWithClassification | null;
 
 export const poolTitle = (
   intl: IntlShape,
@@ -447,7 +437,7 @@ export const getPoolCompletenessBadge = (completeness: PoolCompleteness) => {
 };
 
 export const getProcessStatusBadge = (
-  status: Maybe<LocalizedPoolStatus> | undefined,
+  status: LocalizedPoolStatus | null | undefined,
   intl: IntlShape,
 ): StatusBadge => {
   const statusBadge: StatusBadge = {
@@ -475,21 +465,7 @@ export const getProcessStatusBadge = (
   return statusBadge;
 };
 
-export function getClassificationName(
-  { group, level, name }: Pick<Classification, "group" | "level" | "name">,
-  intl: IntlShape,
-) {
-  const groupLevelStr = `${group}-${level < 10 ? "0" : ""}${level}`;
-
-  if (!name) {
-    return groupLevelStr;
-  }
-
-  const nameStr = getLocalizedName(name, intl);
-  return `${groupLevelStr} (${nameStr})`;
-}
-
-export const contactEmailTag = (email?: Maybe<string>) => {
+export const contactEmailTag = (email?: string | null) => {
   return email ? (
     <Link external href={`mailto:${email}`}>
       {email}

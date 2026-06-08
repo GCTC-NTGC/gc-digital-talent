@@ -1,7 +1,7 @@
 import type { IntlShape } from "react-intl";
 import uniqBy from "lodash/uniqBy";
 
-import type { Classification, Maybe } from "@gc-digital-talent/graphql";
+import type { Classification } from "@gc-digital-talent/graphql";
 import { getLocalizedName, localizeSalaryRange } from "@gc-digital-talent/i18n";
 
 import { splitAndJoin } from "./nameUtils";
@@ -14,7 +14,7 @@ import { splitAndJoin } from "./nameUtils";
  */
 export const getSalaryRange = (
   locale: string,
-  classification?: Maybe<Pick<Classification, "minSalary" | "maxSalary">>,
+  classification?: Pick<Classification, "minSalary" | "maxSalary"> | null,
 ) => {
   if (!classification) return null;
 
@@ -23,19 +23,6 @@ export const getSalaryRange = (
     classification.maxSalary,
     locale,
   );
-};
-
-/**
- * Convert group and level to string
- * @returns string
- * */
-export const stringifyGroupLevel = (
-  group?: string,
-  level?: number,
-): string | null => {
-  if (!group || !level) return null;
-
-  return `${group}-${String(level).padStart(2, "0")}`;
 };
 
 /**
@@ -51,7 +38,7 @@ export const getGroupOptions = (
   }[] = classifications.map((classification) => {
     return {
       label:
-        classification.group ||
+        classification.group ??
         intl.formatMessage({
           defaultMessage: "Error: classification group not found.",
           id: "YA/7nb",
