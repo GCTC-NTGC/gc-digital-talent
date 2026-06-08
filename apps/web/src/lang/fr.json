@@ -14918,6 +14918,10 @@
     "defaultMessage": "La personne candidate n'a pas fourni d'informations sur son objectif de carrière final.",
     "description": "Message displayed if nominee hasn't filled out career objective info"
   },
+  "wLR3Ux": {
+    "defaultMessage": "Effacer la date et enregistrer",
+    "description": "Button text to clear out a date"
+  },
   "wMni5o": {
     "defaultMessage": "Processus de recrutement ({numOfProcesses})",
     "description": "Recruitment processes expandable"

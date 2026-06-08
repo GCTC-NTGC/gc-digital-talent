@@ -21,7 +21,7 @@ Inside the `webserver` container, nginx listens on port `8080` (mapped to host p
 | Path pattern | Routed to |
 |---|---|
 | `/oxauth/*` | Proxy → `mock-auth:8080` |
-| `/graphql`, `/admin/graphql`, `/graphiql`, `/admin/graphiql` | FastCGI → PHP-FPM `:9000` |
+| `/graphql`, `/admin/graphql` | FastCGI → PHP-FPM `:9000` |
 | `/api/*`, `/login`, `/register`, `/auth-callback`, `/refresh`, `/sector-identifier` | FastCGI → PHP-FPM `:9000` |
 | Static asset extensions (`.png`, `.js`, `.css`, …) | File system → `apps/web/dist/client/` |
 | `/` (all other paths) | SPA fallback → `apps/web/dist/client/index.html` |
