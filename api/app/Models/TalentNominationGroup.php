@@ -158,7 +158,7 @@ class TalentNominationGroup extends Model
             $unevaluatedFieldCount > 0 => TalentNominationGroupStatus::IN_PROGRESS->name,
             $rejectedCount > 0 && $approvedCount > 0 => TalentNominationGroupStatus::PARTIALLY_APPROVED->name,
             $rejectedCount > 0 && $approvedCount == 0 => TalentNominationGroupStatus::REJECTED->name,
-            $rejectedCount == 0 && $approvedCount > 0 => TalentNominationGroupStatus::APPROVED->name,
+            $rejectedCount == 0 && $approvedCount > 0 => TalentNominationGroupStatus::APPROVED->name, // @phpstan-ignore equal.alwaysTrue
             default => TalentNominationGroupStatus::IN_PROGRESS->name, // should never happen
         };
 
