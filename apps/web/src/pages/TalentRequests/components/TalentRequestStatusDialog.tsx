@@ -29,6 +29,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { DateInput, RadioGroup, Select } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
@@ -50,21 +51,18 @@ interface FormValues {
 }
 
 const UpdateTalentRequestStatus = graphql(/** GraphQL */ `
-  mutation UpdatePoolCandidateSearchRequestStatus(
+  mutation UpdateTalentRequestStatus(
     $id: ID!
-    $input: UpdatePoolCandidateSearchRequestStatusInput!
+    $input: UpdateTalentRequestStatusInput!
   ) {
-    updatePoolCandidateSearchRequestStatus(
-      id: $id
-      poolCandidateSearchRequest: $input
-    ) {
+    updateTalentRequestStatus(id: $id, talentRequest: $input) {
       id
     }
   }
 `);
 
 const TalentRequestStatusDialog_Fragment = graphql(/** GraphQL */ `
-  fragment PoolCandidateSearchRequestStatusDialog on PoolCandidateSearchRequest {
+  fragment TalentRequestStatusDialog on TalentRequest {
     id
     talentRequestStatus {
       value
@@ -147,7 +145,9 @@ const TalentRequestStatusDialog = ({
         TalentRequestStatus.InProgress,
       inProgressDetails: talentRequest.inProgressDetails?.value,
       completionDetails: talentRequest.completionDetails?.value,
-      followUpDate: talentRequest.followUpDate,
+      followUpDate: talentRequest.followUpDate
+        ? strToFormDate(talentRequest.followUpDate)
+        : null,
     },
   });
   const currentStatus = methods.watch("talentRequestStatus");
@@ -175,10 +175,7 @@ const TalentRequestStatusDialog = ({
       },
     })
       .then((res) => {
-        if (
-          res.error ||
-          !res.data?.updatePoolCandidateSearchRequestStatus?.id
-        ) {
+        if (res.error || !res.data?.updateTalentRequestStatus?.id) {
           throw new Error(res.error?.toString() ?? "Unknown error");
         }
 

@@ -1849,7 +1849,7 @@ type Query {
     )
     @guard
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
-  talentRequest(id: ID! @eq): TalentRequest
+  talentRequest(id: UUID! @eq): TalentRequest
     @find
     @guard
     @canFind(ability: "view", find: "id", scopes: ["withPolicyEagerLoads"])
@@ -2803,6 +2803,7 @@ input CreateTalentRequestInput {
 
 input UpdateTalentRequestInput {
   adminNotes: String @rename(attribute: "admin_notes")
+  followUpDate: Date @rename(attribute: "follow_up_date")
 }
 
 input UpdateTalentRequestStatusInput {

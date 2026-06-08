@@ -479,7 +479,7 @@ type Query {
   jobPosterTemplate(id: UUID!): JobPosterTemplate
   jobPosterTemplates: [JobPosterTemplate!]
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
-  talentRequest(id: ID!): TalentRequest
+  talentRequest(id: UUID!): TalentRequest
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
@@ -2680,6 +2680,7 @@ input CreateTalentRequestInput {
 
 input UpdateTalentRequestInput {
   adminNotes: String
+  followUpDate: Date
 }
 
 input UpdateTalentRequestStatusInput {
