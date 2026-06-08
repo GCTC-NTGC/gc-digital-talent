@@ -40,7 +40,17 @@ class Team extends LaratrustTeam
 
     public function teamable(): MorphTo
     {
-        return $this->morphTo();
+        // Eager load what PoolPolicy::view reads (via getPoolTeams). without('teamable') breaks the
+        // teamable -> team -> teamable cycle caused by $with = ['teamable'].
+        $withoutTeamable = fn ($query) => $query->without('teamable');
+
+        return $this->morphTo()->morphWith([
+            Pool::class => [
+                'team' => $withoutTeamable,
+                'community.team' => $withoutTeamable,
+                'department.team' => $withoutTeamable,
+            ],
+        ]);
     }
 
     /** @return HasMany<RoleAssignment, $this> */
