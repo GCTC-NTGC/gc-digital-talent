@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Community;
+use App\Models\Pool;
 use App\Models\Role;
 use App\Models\Team;
 use App\Models\User;
@@ -458,5 +459,34 @@ class UserRoleTest extends TestCase
                 ],
             ]
         )->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    // Authorizing a draft Pool teamable runs PoolPolicy::view, which reads the pool's teams.
+    // Needs >1 pool so the morphTo batch hydrates multiple models (when Eloquent enforces
+    // lazy-load prevention), else it throws "lazy load [team] on model Pool".
+    public function testTeamableDraftPoolEagerLoadsItsTeams()
+    {
+        $role = Role::where('name', 'process_operator')->sole();
+        $pools = Pool::factory()->count(3)->create(); // draft by default
+        $user = User::factory()->create();
+        $pools->each(fn (Pool $pool) => $user->addRole($role, $pool->team));
+
+        $this->actingAs($user, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query myAuthTeamable {
+                myAuth {
+                    roleAssignments {
+                        teamable {
+                            id
+                            ... on Pool { id }
+                        }
+                        team { id }
+                    }
+                }
+            }
+        '
+        )->assertGraphQLErrorFree()
+            ->assertJsonFragment(['teamable' => ['id' => $pools->first()->id]]);
     }
 }
