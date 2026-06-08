@@ -108,10 +108,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Environment Label
+    | Application Vertical
     |--------------------------------------------------------------------------
     |
-    | A human-readable tier label independent of APP_ENV. Both UAT and production
+    | Deployment vertical independent of APP_ENV. Both UAT and production
     | run APP_ENV=production, so this var is used where behaviour must differ
     | between them (e.g. test-token endpoint guard).
     |
@@ -120,7 +120,7 @@ return [
     |
     */
 
-    'env_label' => env('APP_ENV_LABEL', 'production'),
+    'vertical' => env('APP_ENV_VERTICAL', 'production'),
 
     /*
     |--------------------------------------------------------------------------
