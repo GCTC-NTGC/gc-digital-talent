@@ -291,7 +291,7 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
       id: "email",
       header: intl.formatMessage(commonMessages.email),
     }),
-    columnHelper.accessor((row) => () => row.department?.name.localized, {
+    columnHelper.accessor(({ department }) => department?.name.localized, {
       id: "departments",
       header: intl.formatMessage(commonMessages.department),
       enableColumnFilter: false,
