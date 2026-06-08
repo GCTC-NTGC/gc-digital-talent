@@ -41,21 +41,6 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
     firstName
     lastName
     telephone
-    preferredLang {
-      value
-    }
-    preferredLanguageForInterview {
-      value
-    }
-    preferredLanguageForExam {
-      value
-    }
-    citizenship {
-      value
-    }
-    armedForcesStatus {
-      value
-    }
     ...PersonalInformationDisplay
   }
 `);
