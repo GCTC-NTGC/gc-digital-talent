@@ -33,7 +33,7 @@ const IndexTalentRequestPage = () => {
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={crumbs} />
-      <Container size="full">
+      <Container size="full" className="my-18 sm:px-12">
         <TalentRequestTable title={pageTitle} />
       </Container>
     </>
