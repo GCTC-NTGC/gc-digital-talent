@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test(
   "community admin can reach the community dashboard",
-  { tag: "@regression" },
+  { tag: "@uat" },
   async ({ page }) => {
     await page.goto("/en/community");
     await expect(

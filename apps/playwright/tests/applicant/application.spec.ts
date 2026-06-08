@@ -245,7 +245,7 @@ test.describe("Application", () => {
 
   test(
     "Can submit application",
-    { tag: "@regression" },
+    { tag: "@uat" },
     async ({ appPage }, testInfo) => {
       testInfo.slow();
       const adminCtx = await graphql.newContext();

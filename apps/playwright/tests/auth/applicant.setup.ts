@@ -5,7 +5,7 @@ import { authenticateAs } from "./setup-helper";
 // eslint-disable-next-line playwright/expect-expect
 setup(
   "authenticate as applicant",
-  { tag: "@regression" },
+  { tag: "@uat" },
   async ({ page, request }) => {
     const sub =
       process.env.PLAYWRIGHT_APPLICANT_SUB ??

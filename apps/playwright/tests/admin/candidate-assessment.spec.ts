@@ -45,7 +45,7 @@ const LOCALIZED_STRING = {
   fr: "test FR",
 };
 
-test.describe("Pool candidates", { tag: "@regression" }, () => {
+test.describe("Pool candidates", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
   let adminSub: string;

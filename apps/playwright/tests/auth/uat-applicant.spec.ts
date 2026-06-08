@@ -5,7 +5,7 @@ import AUTH from "~/constants/auth";
 test.describe("Applicant user", () => {
   test(
     "cannot access admin restricted paths",
-    { tag: "@regression" },
+    { tag: "@uat" },
     async ({ page }) => {
       await Promise.all(
         AUTH.RESTRICTED_PATHS.ADMIN.map(async (restrictedPath) => {
