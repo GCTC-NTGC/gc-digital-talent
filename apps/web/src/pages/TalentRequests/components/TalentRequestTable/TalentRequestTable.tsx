@@ -40,15 +40,13 @@ import {
   jobTitleCell,
   notesCell,
   statusCell,
-} from "./helpers";
-import TalentRequestFilterDialog from "./TalentRequestFilterDialog";
-import type { FormValues } from "./utils";
-import {
   transformFormValuesToTalentRequestFilterInput,
   transformTalentRequestFilterInputToFormValues,
   transformSortStateToOrderByClause,
   transformTalentRequestInput,
 } from "./utils";
+import TalentRequestFilterDialog from "./TalentRequestFilterDialog";
+import type { FormValues } from "./utils";
 
 const columnHelper = createColumnHelper<TalentRequestTableRow>();
 
