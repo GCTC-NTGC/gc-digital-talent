@@ -109,6 +109,25 @@ const messages = defineMessages({
     id: "ngoGPH",
     description: "Label for the talent requests on-site location criteria",
   },
+  trackedUserVeteranOrPriority: {
+    defaultMessage: "Veteran / Priority",
+    id: "mXZFPm",
+    description:
+      "Column header for a tracked user's veteran and priority entitlement indicators",
+  },
+  trackedUsersNullTitle: {
+    defaultMessage: "You are not tracking any candidates yet",
+    id: "uQqsKm",
+    description:
+      "Title displayed when there are no tracked users for a talent request",
+  },
+  trackedUsersNullDescription: {
+    defaultMessage:
+      "Use the ‘Find matching candidates’ table to start tracking possible matching candidates to this request.",
+    id: "R/lWNz",
+    description:
+      "Help message displayed when there are no tracked users for a talent request",
+  },
 });
 
 export default messages;

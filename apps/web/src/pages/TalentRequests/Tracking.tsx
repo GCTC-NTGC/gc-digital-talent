@@ -2,17 +2,19 @@ import { useIntl } from "react-intl";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 
-import { Notice } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
 import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
+import TalentRequestTrackedUsersTable from "./components/TalentRequestTrackedUsersTable/TalentRequestTrackedUsersTable";
+import type { RouteParams } from "./types";
 
 const Tracking = () => {
   const intl = useIntl();
-  const trackedUsers = [];
+  const { talentRequestId } = useRequiredParams<RouteParams>("talentRequestId");
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -28,29 +30,10 @@ const Tracking = () => {
             "Description of the candidates being tracked by a talent request",
         })}
       >
-        {trackedUsers.length > 0 ? null : (
-          <Notice.Root mode="inline">
-            <Notice.Title>
-              {intl.formatMessage({
-                defaultMessage: "You are not tracking any candidates yet",
-                id: "uQqsKm",
-                description:
-                  "Title displayed when there are no tracked users for a talent request",
-              })}
-            </Notice.Title>
-            <Notice.Content>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Use the ‘<italic>Find matching candidates</italic>’ table to start tracking possible matching candidates to this request.",
-                  id: "nmXd3e",
-                  description:
-                    "Help message displayed when there are no tracked users for a talent request",
-                })}
-              </p>
-            </Notice.Content>
-          </Notice.Root>
-        )}
+        <TalentRequestTrackedUsersTable
+          talentRequestId={talentRequestId}
+          title={intl.formatMessage(talentRequestMessages.candidateTracking)}
+        />
       </TalentRequestSectionCard>
 
       <TalentRequestSectionCard
