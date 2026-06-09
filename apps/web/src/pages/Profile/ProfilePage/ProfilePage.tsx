@@ -41,7 +41,7 @@ export const handle = {
   pageTitle: defineMessage(navigationMessages.profilePage),
 };
 
-const UserProfile_Fragment = graphql(/* GraphQL */ `
+export const UserProfile_Fragment = graphql(/* GraphQL */ `
   fragment UserProfile on User {
     isVerifiedGovEmployee
     ...ProfileWorkPreferences

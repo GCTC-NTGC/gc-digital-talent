@@ -40,7 +40,10 @@ interface CareerTimelineProps {
   >[];
 }
 
-const CareerTimeline = ({ userId, experiencesQuery }: CareerTimelineProps) => {
+export const CareerTimeline = ({
+  userId,
+  experiencesQuery,
+}: CareerTimelineProps) => {
   const intl = useIntl();
 
   return (
