@@ -27,8 +27,6 @@ class TestTokenController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $user = $this->resolveUser($request);
-
         $sub = $request->query('sub');
         if (! $sub) {
             return response()->json(['error' => 'Missing required ?sub= parameter.'], 422);
