@@ -19,10 +19,15 @@ import { TrackedUserSkill_Fragment } from "./TalentRequestTrackedUserSkillsDialo
 
 const users = fakeUsers(4);
 
+// The request matches against 5 skills; the mocked tracked users each claim 3 of them.
+const requestSkills = fakeSkills(5);
+const claimedSkillIds = requestSkills.slice(0, 3).map((skill) => skill.id);
+const matchedSkillCount = claimedSkillIds.length;
+
 const trackedUsers = [
   {
     id: "tracked-user-1",
-    skillCount: 6,
+    skillCount: matchedSkillCount,
     referralDecision: null,
     selectionDecision: null,
     notReferredReason: null,
@@ -34,7 +39,7 @@ const trackedUsers = [
   },
   {
     id: "tracked-user-2",
-    skillCount: 4,
+    skillCount: matchedSkillCount,
     referralDecision: toLocalizedEnum(
       TalentRequestTrackedUserReferralDecision.Referred,
     ),
@@ -48,7 +53,7 @@ const trackedUsers = [
   },
   {
     id: "tracked-user-3",
-    skillCount: 3,
+    skillCount: matchedSkillCount,
     referralDecision: toLocalizedEnum(
       TalentRequestTrackedUserReferralDecision.NotReferred,
     ),
@@ -64,7 +69,7 @@ const trackedUsers = [
   },
   {
     id: "tracked-user-4",
-    skillCount: 1,
+    skillCount: matchedSkillCount,
     referralDecision: toLocalizedEnum(
       TalentRequestTrackedUserReferralDecision.Referred,
     ),
@@ -123,11 +128,19 @@ export default {
           })),
         },
       },
+      TrackedUserMatchedSkills: {
+        data: {
+          user: {
+            id: "tracked-user-story-user",
+            userSkills: claimedSkillIds.map((id) => ({ skill: { id } })),
+          },
+        },
+      },
     },
   },
 } as Meta<typeof TalentRequestTrackedUsersTable>;
 
-const storySkills = fakeSkills(5).map((skill) =>
+const storySkills = requestSkills.map((skill) =>
   makeFragmentData(
     { id: skill.id, name: { localized: skill.name.en } },
     TrackedUserSkill_Fragment,
