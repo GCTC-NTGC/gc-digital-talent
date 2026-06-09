@@ -432,9 +432,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         communityInterest: {
           user: { currentClassification },
         },
-      }) =>
-        () =>
-          currentClassification?.groupAndLevel ?? "",
+      }) => currentClassification?.groupAndLevel ?? "",
       {
         id: "classification",
         header: intl.formatMessage(processMessages.classification),
