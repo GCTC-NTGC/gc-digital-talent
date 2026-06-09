@@ -38,7 +38,12 @@ class BearerTokenServiceProvider extends ServiceProvider
             // real service so test tokens are validated locally while real GCKey tokens
             // pass through unchanged.
             if (config('testing.token_enabled') && config('app.vertical') !== 'production') {
-                return new TestBearerTokenService($realService, config('testing.jwt_secret'), $clock);
+                $jwtSecret = config('testing.jwt_secret');
+                if (! $jwtSecret) {
+                    throw new \RuntimeException('TESTING_JWT_SECRET must be set when TESTING_TOKEN_ENABLED=true');
+                }
+
+                return new TestBearerTokenService($realService, $jwtSecret, $clock);
             }
 
             return $realService;

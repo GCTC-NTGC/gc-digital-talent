@@ -14,9 +14,9 @@ use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Psr\Clock\ClockInterface;
 
 /**
- * Wraps the real BearerTokenService and intercepts tokens issued by the local
- * test endpoint (/testing/token). Test tokens are validated against a shared
- * symmetric key — no GCKey JWKS fetch or introspection call is made.
+ * Wraps the real BearerTokenService and intercepts tokens issued via the
+ * test branch on /refresh (X-Testing-Secret header). Test tokens are validated
+ * against a shared symmetric key — no GCKey JWKS fetch or introspection call is made.
  *
  * All other tokens (real GCKey JWTs) are passed through to the real service
  * unchanged, so normal UAT logins continue to work while this is active.
