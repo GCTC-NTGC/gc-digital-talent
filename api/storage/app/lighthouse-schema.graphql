@@ -583,6 +583,17 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): TalentRequestPaginator!
+  talentRequestTrackedUsers(
+    talentRequestId: UUID!
+    where: TalentRequestTrackedUserFilterInput
+    orderBy: [AdvancedOrderByInput!]
+
+    "Limits number of fetched items. Maximum allowed value: 500."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): TalentRequestTrackedUserPaginator!
   notifications(
     where: NotificationFilterInput
     excludeIds: [UUID!]
@@ -3285,6 +3296,15 @@ type TalentRequestPaginator {
 
   "A list of TalentRequest items."
   data: [TalentRequest!]!
+}
+
+"A paginated list of TalentRequestTrackedUser items."
+type TalentRequestTrackedUserPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestTrackedUser items."
+  data: [TalentRequestTrackedUser!]!
 }
 
 "A paginated list of Notification items."

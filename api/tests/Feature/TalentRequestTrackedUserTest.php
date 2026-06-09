@@ -65,6 +65,20 @@ class TalentRequestTrackedUserTest extends TestCase
         }
         GRAPHQL;
 
+    protected string $paginatedQuery = <<<'GRAPHQL'
+        query PaginatedTrackedUsers($talentRequestId: UUID!, $where: TalentRequestTrackedUserFilterInput) {
+            talentRequestTrackedUsers(talentRequestId: $talentRequestId, where: $where) {
+                data {
+                    skillCount
+                    user { id }
+                    referralDecision { value }
+                    selectionDecision { value }
+                }
+                paginatorInfo { total }
+            }
+        }
+        GRAPHQL;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -420,6 +434,164 @@ class TalentRequestTrackedUserTest extends TestCase
                 'where' => ['selectionDecisions' => $filter],
             ])
             ->assertJsonCount(count($expectedKeys), 'data.talentRequest.trackedUsers');
+
+        foreach ($expectedKeys as $key) {
+            $response->assertJsonFragment(['user' => ['id' => $users[$key]->id]]);
+        }
+    }
+
+    public function testPaginatedScopedToGivenRequest(): void
+    {
+        $request = $this->createRequest();
+        $otherRequest = $this->createRequest();
+
+        $included = User::factory()->create();
+        $excluded = User::factory()->create();
+
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $included->id,
+        ]);
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $otherRequest->id,
+            'user_id' => $excluded->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->paginatedQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data')
+            ->assertJsonFragment(['user' => ['id' => $included->id]])
+            ->assertJsonMissing(['user' => ['id' => $excluded->id]]);
+    }
+
+    public function testPaginatedPlatformAdminSeesAllTrackedUsers(): void
+    {
+        $request = $this->createRequest();
+        $users = User::factory()->count(3)->create();
+        foreach ($users as $user) {
+            TalentRequestTrackedUser::factory()->create([
+                'talent_request_id' => $request->id,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->paginatedQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(3, 'data.talentRequestTrackedUsers.data')
+            ->assertJsonFragment(['total' => 3]);
+    }
+
+    public function testPaginatedTrackedUsersFilteredToThoseTheViewerCanSee(): void
+    {
+        $request = $this->createRequest();
+
+        // viewable: applicant with a submitted candidate in a published pool of the community
+        $pool = Pool::factory()->for($this->admin)->published()
+            ->create(['community_id' => $this->community->id]);
+        $viewableUser = User::factory()->asApplicant()->create();
+        PoolCandidate::factory()->for($viewableUser)->for($pool)
+            ->create(['submitted_at' => CarbonImmutable::now()]);
+
+        // hidden: plain applicant with no candidacy in the community
+        $hiddenUser = User::factory()->asApplicant()->create();
+
+        foreach ([$viewableUser, $hiddenUser] as $user) {
+            TalentRequestTrackedUser::factory()->create([
+                'talent_request_id' => $request->id,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->paginatedQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data')
+            ->assertJsonFragment(['user' => ['id' => $viewableUser->id]])
+            ->assertJsonMissing(['user' => ['id' => $hiddenUser->id]]);
+    }
+
+    #[DataProvider('skillCountProvider')]
+    public function testPaginatedSkillCountCountsOnlyApplicantFilterSkills(int $matching, int $expected): void
+    {
+        $filterSkills = Skill::factory()->count(3)->create();
+        $filter = ApplicantFilter::factory()->create(['community_id' => $this->community->id]);
+        $filter->skills()->sync($filterSkills->pluck('id')->all());
+
+        $request = TalentRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        $user = User::factory()->create();
+        // an unrelated skill that must never be counted
+        UserSkill::factory()->create(['user_id' => $user->id, 'skill_id' => Skill::factory()->create()->id]);
+        foreach ($filterSkills->take($matching) as $skill) {
+            UserSkill::factory()->create(['user_id' => $user->id, 'skill_id' => $skill->id]);
+        }
+
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->paginatedQuery, ['talentRequestId' => $request->id])
+            ->assertJsonFragment([
+                'user' => ['id' => $user->id],
+                'skillCount' => $expected,
+            ]);
+    }
+
+    #[DataProvider('cannotViewRequestProvider')]
+    public function testPaginatedRolesWithoutAccessCannotViewRequest(string $role): void
+    {
+        $request = $this->createRequest();
+
+        $actor = match ($role) {
+            'applicant' => User::factory()->asApplicant()->create(),
+            'other_recruiter' => User::factory()->asCommunityRecruiter([Community::factory()->create()->id])->create(),
+        };
+
+        $this->actingAs($actor, 'api')
+            ->graphQL($this->paginatedQuery, ['talentRequestId' => $request->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testPaginatedUnauthenticatedCannotViewRequest(): void
+    {
+        $request = $this->createRequest();
+
+        $this->graphQL($this->paginatedQuery, ['talentRequestId' => $request->id])
+            ->assertGraphQLErrorMessage('Unauthenticated.');
+    }
+
+    /**
+     * @param  array<int, string>  $filter
+     * @param  array<int, string>  $expectedKeys
+     */
+    #[DataProvider('referralFilterProvider')]
+    public function testPaginatedFilterByReferralDecisions(array $filter, array $expectedKeys): void
+    {
+        $request = $this->createRequest();
+        $users = [
+            'referred' => User::factory()->create(),
+            'notReferred' => User::factory()->create(),
+        ];
+
+        TalentRequestTrackedUser::factory()->referred()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users['referred']->id,
+        ]);
+        TalentRequestTrackedUser::factory()->notReferred()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users['notReferred']->id,
+        ]);
+
+        $response = $this->actingAs($this->admin, 'api')
+            ->graphQL($this->paginatedQuery, [
+                'talentRequestId' => $request->id,
+                'where' => ['referralDecisions' => $filter],
+            ])
+            ->assertJsonCount(count($expectedKeys), 'data.talentRequestTrackedUsers.data');
 
         foreach ($expectedKeys as $key) {
             $response->assertJsonFragment(['user' => ['id' => $users[$key]->id]]);

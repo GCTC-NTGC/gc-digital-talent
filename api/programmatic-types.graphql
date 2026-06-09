@@ -601,6 +601,15 @@ type TalentRequestPaginator {
   data: [TalentRequest!]!
 }
 
+"A paginated list of TalentRequestTrackedUser items."
+type TalentRequestTrackedUserPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestTrackedUser items."
+  data: [TalentRequestTrackedUser!]!
+}
+
 "A paginated list of Notification items."
 type NotificationPaginator {
   "Pagination information about the list of items."
