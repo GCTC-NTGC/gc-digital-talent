@@ -3712,34 +3712,37 @@ type Mutation {
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
     @validator
-  createTrackedUsersReferred(userIds: [UUID!]!, talentRequestId: UUID!): Boolean
+  createTrackedUsersReferred(
+    userIds: [UUID!]!
+    talentRequestId: UUID!
+  ): Boolean
     @field(resolver: "TalentRequestTrackedUserMutator@bulkCreateReferred")
-    @validator(class: "App\\GraphQL\\Validators\\Mutation\\CreateTrackedUsersReferredValidator")
+    @validator
   createTrackedUsersNotReferred(
     userIds: [UUID!]!
     talentRequestId: UUID!
     notReferredReason: TalentRequestTrackedUserNotReferredReason!
   ): Boolean
     @field(resolver: "TalentRequestTrackedUserMutator@bulkCreateNotReferred")
-    @validator(class: "App\\GraphQL\\Validators\\Mutation\\CreateTrackedUsersNotReferredValidator")
+    @validator
   updateTrackedUsersReferred(ids: [UUID!]!): [TalentRequestTrackedUser!]!
     @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateReferred")
-    @validator(class: "App\\GraphQL\\Validators\\Mutation\\UpdateTrackedUsersReferredValidator")
+    @validator
   updateTrackedUsersNotReferred(
     ids: [UUID!]!
     notReferredReason: TalentRequestTrackedUserNotReferredReason!
   ): [TalentRequestTrackedUser!]!
     @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateNotReferred")
-    @validator(class: "App\\GraphQL\\Validators\\Mutation\\UpdateTrackedUsersNotReferredValidator")
+    @validator
   updateTrackedUsersSelected(ids: [UUID!]!): [TalentRequestTrackedUser!]!
     @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateSelected")
-    @validator(class: "App\\GraphQL\\Validators\\Mutation\\UpdateTrackedUsersSelectedValidator")
+    @validator
   updateTrackedUsersNotSelected(
     ids: [UUID!]!
     notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason!
   ): [TalentRequestTrackedUser!]!
     @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateNotSelected")
-    @validator(class: "App\\GraphQL\\Validators\\Mutation\\UpdateTrackedUsersNotSelectedValidator")
+    @validator
 
   # SkillFamily mutations
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
