@@ -1634,6 +1634,7 @@ type TalentRequest {
 input TalentRequestTrackedUserFilterInput {
   referralDecisions: [TalentRequestTrackedUserReferralDecision!]
   selectionDecisions: [TalentRequestTrackedUserSelectionDecision!]
+  generalSearch: String
 }
 
 type TalentRequestTrackedUser {
