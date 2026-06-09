@@ -1162,7 +1162,9 @@ type TalentRequest {
   statusChangedAt: DateTime @rename(attribute: "status_changed_at")
   createdAt: DateTime @rename(attribute: "created_at")
   updatedAt: DateTime @rename(attribute: "updated_at")
-  trackedUsers(where: TalentRequestTrackedUserFilterInput): [TalentRequestTrackedUser!]
+  trackedUsers(
+    where: TalentRequestTrackedUserFilterInput
+  ): [TalentRequestTrackedUser!]
     @hasMany(scopes: ["whereAuthorizedToView", "withSkillCount"])
 }
 
@@ -3710,7 +3712,36 @@ type Mutation {
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
     @validator
+  createTrackedUsersReferred(userIds: [UUID!]!, talentRequestId: UUID!): Boolean
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkCreateReferred")
+    @validator(class: "App\\GraphQL\\Validators\\Mutation\\CreateTrackedUsersReferredValidator")
+  createTrackedUsersNotReferred(
+    userIds: [UUID!]!
+    talentRequestId: UUID!
+    notReferredReason: TalentRequestTrackedUserNotReferredReason!
+  ): Boolean
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkCreateNotReferred")
+    @validator(class: "App\\GraphQL\\Validators\\Mutation\\CreateTrackedUsersNotReferredValidator")
+  updateTrackedUsersReferred(ids: [UUID!]!): [TalentRequestTrackedUser!]!
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateReferred")
+    @validator(class: "App\\GraphQL\\Validators\\Mutation\\UpdateTrackedUsersReferredValidator")
+  updateTrackedUsersNotReferred(
+    ids: [UUID!]!
+    notReferredReason: TalentRequestTrackedUserNotReferredReason!
+  ): [TalentRequestTrackedUser!]!
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateNotReferred")
+    @validator(class: "App\\GraphQL\\Validators\\Mutation\\UpdateTrackedUsersNotReferredValidator")
+  updateTrackedUsersSelected(ids: [UUID!]!): [TalentRequestTrackedUser!]!
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateSelected")
+    @validator(class: "App\\GraphQL\\Validators\\Mutation\\UpdateTrackedUsersSelectedValidator")
+  updateTrackedUsersNotSelected(
+    ids: [UUID!]!
+    notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason!
+  ): [TalentRequestTrackedUser!]!
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateNotSelected")
+    @validator(class: "App\\GraphQL\\Validators\\Mutation\\UpdateTrackedUsersNotSelectedValidator")
 
+  # SkillFamily mutations
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
     @guard
@@ -3720,7 +3751,7 @@ type Mutation {
     skillFamily: UpdateSkillFamilyInput! @spread
   ): SkillFamily @update @guard @canFind(ability: "update", find: "id")
 
-  # skill mutations
+  # Skill mutations
   createSkill(skill: CreateSkillInput! @spread): Skill
     @create
     @guard
