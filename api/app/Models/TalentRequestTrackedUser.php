@@ -100,6 +100,17 @@ class TalentRequestTrackedUser extends Pivot
         );
     }
 
+    public function scopeOrderBySkillCount(Builder $query, ?array $args): Builder
+    {
+        $direction = match ($args['order'] ?? null) {
+            'ASC' => 'ASC',
+            'DESC' => 'DESC',
+            default => null,
+        };
+
+        return $query->when($direction, fn (Builder $query) => $query->orderBy('skill_count', $direction));
+    }
+
     public function scopeWhereUserNameOrEmail(Builder $query, ?string $search): Builder
     {
         return $query->when(

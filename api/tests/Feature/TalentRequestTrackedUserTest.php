@@ -643,4 +643,60 @@ class TalentRequestTrackedUserTest extends TestCase
             ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data')
             ->assertJsonFragment(['user' => ['id' => $users[$expectedKey]->id]]);
     }
+
+    public function testPaginatedOrderBySkillCount(): void
+    {
+        $orderedQuery = <<<'GRAPHQL'
+            query OrderedTrackedUsers($talentRequestId: UUID!, $orderBy: [AdvancedOrderByInput!]) {
+                talentRequestTrackedUsers(talentRequestId: $talentRequestId, orderBy: $orderBy) {
+                    data {
+                        skillCount
+                        user { id }
+                    }
+                }
+            }
+            GRAPHQL;
+
+        $filterSkills = Skill::factory()->count(3)->create();
+        $filter = ApplicantFilter::factory()->create(['community_id' => $this->community->id]);
+        $filter->skills()->sync($filterSkills->pluck('id')->all());
+
+        $request = TalentRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        // none / one / all matching skills
+        $none = User::factory()->create();
+        $one = User::factory()->create();
+        $all = User::factory()->create();
+
+        UserSkill::factory()->create(['user_id' => $one->id, 'skill_id' => $filterSkills[0]->id]);
+        foreach ($filterSkills as $skill) {
+            UserSkill::factory()->create(['user_id' => $all->id, 'skill_id' => $skill->id]);
+        }
+
+        foreach ([$none, $one, $all] as $user) {
+            TalentRequestTrackedUser::factory()->create([
+                'talent_request_id' => $request->id,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        $descIds = $this->actingAs($this->admin, 'api')
+            ->graphQL($orderedQuery, [
+                'talentRequestId' => $request->id,
+                'orderBy' => [['scope' => 'orderBySkillCount', 'direction' => 'DESC']],
+            ])
+            ->json('data.talentRequestTrackedUsers.data.*.user.id');
+        $this->assertEquals([$all->id, $one->id, $none->id], $descIds);
+
+        $ascIds = $this->actingAs($this->admin, 'api')
+            ->graphQL($orderedQuery, [
+                'talentRequestId' => $request->id,
+                'orderBy' => [['scope' => 'orderBySkillCount', 'direction' => 'ASC']],
+            ])
+            ->json('data.talentRequestTrackedUsers.data.*.user.id');
+        $this->assertEquals([$none->id, $one->id, $all->id], $ascIds);
+    }
 }
