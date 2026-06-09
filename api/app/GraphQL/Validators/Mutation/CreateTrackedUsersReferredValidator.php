@@ -17,4 +17,3 @@ final class CreateTrackedUsersReferredValidator extends Validator
         ];
     }
 }
-

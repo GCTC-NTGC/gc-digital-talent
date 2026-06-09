@@ -22,4 +22,3 @@ final class UpdateTrackedUsersNotSelectedValidator extends Validator
         ];
     }
 }
-

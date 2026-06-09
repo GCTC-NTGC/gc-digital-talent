@@ -16,4 +16,3 @@ final class UpdateTrackedUsersReferredValidator extends Validator
         ];
     }
 }
-

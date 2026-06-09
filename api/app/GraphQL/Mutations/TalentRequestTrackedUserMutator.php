@@ -59,22 +59,21 @@ class TalentRequestTrackedUserMutator
     }
 
     private function bulkUpdateTrackedUsers(array $ids, callable $callback): Collection
-{
-    if (empty($ids)) {
-        return collect();
-    }
-
-    $trackedUsers = TalentRequestTrackedUser::whereIn('id', $ids)->get();
-
-    DB::transaction(function () use ($trackedUsers, $callback) {
-        foreach ($trackedUsers as $trackedUser) {
-            $callback($trackedUser);
+    {
+        if (empty($ids)) {
+            return collect();
         }
-    });
 
-    return $trackedUsers;
-}
+        $trackedUsers = TalentRequestTrackedUser::whereIn('id', $ids)->get();
 
+        DB::transaction(function () use ($trackedUsers, $callback) {
+            foreach ($trackedUsers as $trackedUser) {
+                $callback($trackedUser);
+            }
+        });
+
+        return $trackedUsers;
+    }
 
     public function bulkUpdateReferred($_, array $args): Collection
     {
@@ -87,7 +86,7 @@ class TalentRequestTrackedUserMutator
         return $this->bulkUpdateTrackedUsers($args['ids'], fn ($user) => $user->notReferred($args['notReferredReason']));
     }
 
-        public function bulkUpdateSelected($_, array $args): Collection
+    public function bulkUpdateSelected($_, array $args): Collection
     {
 
         return $this->bulkUpdateTrackedUsers($args['ids'], fn ($user) => $user->selected());
@@ -97,5 +96,4 @@ class TalentRequestTrackedUserMutator
     {
         return $this->bulkUpdateTrackedUsers($args['ids'], fn ($user) => $user->notSelected($args['notSelectedReason']));
     }
-
 }

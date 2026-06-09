@@ -22,4 +22,3 @@ final class UpdateTrackedUsersNotReferredValidator extends Validator
         ];
     }
 }
-

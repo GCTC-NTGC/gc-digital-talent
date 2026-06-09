@@ -23,4 +23,3 @@ final class CreateTrackedUsersNotReferredValidator extends Validator
         ];
     }
 }
-

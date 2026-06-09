@@ -107,7 +107,7 @@ class TalentRequestTrackedUser extends Pivot
         $this->referral_decision = TalentRequestTrackedUserReferralDecision::REFERRED->name;
         $this->not_referred_reason = null;
 
-        if($save) {
+        if ($save) {
             $this->save();
         }
     }
