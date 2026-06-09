@@ -29,10 +29,14 @@ class TestTokenController extends Controller
 
         $user = $this->resolveUser($request);
 
+        $sub = $request->query('sub');
+        if (! $sub) {
+            return response()->json(['error' => 'Missing required ?sub= parameter.'], 422);
+        }
+
+        $user = User::where('sub', $sub)->first();
         if (! $user) {
-            return response()->json([
-                'error' => 'No matching user found. Provide ?role=<role> or ?sub=<sub>.',
-            ], 404);
+            return response()->json(['error' => 'No user found for the given sub.'], 404);
         }
 
         return response()->json([
@@ -40,19 +44,6 @@ class TestTokenController extends Controller
             'refresh_token' => $this->mintToken($user->sub),
             'id_token' => $this->mintToken($user->sub),
         ]);
-    }
-
-    private function resolveUser(Request $request): ?User
-    {
-        if ($sub = $request->query('sub')) {
-            return User::where('sub', $sub)->first();
-        }
-
-        if ($role = $request->query('role')) {
-            return User::whereHas('roles', fn ($q) => $q->where('name', $role))->first();
-        }
-
-        return null;
     }
 
     private function mintToken(string $sub): string
