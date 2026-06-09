@@ -542,6 +542,15 @@ class TalentRequestTrackedUserTest extends TestCase
         ]);
     }
 
+    public function testUpdateTrackedUsersReferredBulkIdsMutationFailsValidationForUnknownId(): void
+    {
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->bulkUpdateReferredMutation, [
+                'ids' => ['00000000-0000-0000-0000-000000000000'],
+            ])
+            ->assertGraphQLValidationError('ids.0', 'The selected ids.0 is invalid.');
+    }
+
     public function testCreateTrackedUsersReferred(): void
     {
         $request = $this->createRequest();
@@ -580,6 +589,18 @@ class TalentRequestTrackedUserTest extends TestCase
             'user_id' => $users[2]->id,
         ]);
         $this->assertDatabaseCount('talent_request_tracked_users', 2);
+    }
+
+    public function testCreateTrackedUsersReferredFailsValidationForUnknownTalentRequestId(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->bulkCreateReferredMutation, [
+                'userIds' => [$user->id],
+                'talentRequestId' => '00000000-0000-0000-0000-000000000000',
+            ])
+            ->assertGraphQLValidationError('talentRequestId', 'The selected talent request id is invalid.');
     }
 
     public function testCreateTrackedUsersNotReferred(): void
@@ -625,6 +646,19 @@ class TalentRequestTrackedUserTest extends TestCase
             'user_id' => $users[2]->id,
         ]);
         $this->assertDatabaseCount('talent_request_tracked_users', 2);
+    }
+
+    public function testCreateTrackedUsersNotReferredFailsValidationForUnknownTalentRequestId(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->bulkCreateNotReferredMutation, [
+                'userIds' => [$user->id],
+                'talentRequestId' => '00000000-0000-0000-0000-000000000000',
+                'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+            ])
+            ->assertGraphQLValidationError('talentRequestId', 'The selected talent request id is invalid.');
     }
 
     public function testUpdateTrackedUsersNotReferredBulkIdsMutation(): void
@@ -687,6 +721,16 @@ class TalentRequestTrackedUserTest extends TestCase
         ]);
     }
 
+    public function testUpdateTrackedUsersNotReferredBulkIdsMutationFailsValidationForUnknownId(): void
+    {
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->bulkUpdateNotReferredMutation, [
+                'ids' => ['00000000-0000-0000-0000-000000000000'],
+                'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+            ])
+            ->assertGraphQLValidationError('ids.0', 'The selected ids.0 is invalid.');
+    }
+
     public function testUpdateTrackedUsersSelectedBulkIdsMutation(): void
     {
         $request = $this->createRequest();
@@ -740,6 +784,15 @@ class TalentRequestTrackedUserTest extends TestCase
             'id' => $untouched->id,
             'selection_decision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
         ]);
+    }
+
+    public function testUpdateTrackedUsersSelectedBulkIdsMutationFailsValidationForUnknownId(): void
+    {
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->bulkUpdateSelectedMutation, [
+                'ids' => ['00000000-0000-0000-0000-000000000000'],
+            ])
+            ->assertGraphQLValidationError('ids.0', 'The selected ids.0 is invalid.');
     }
 
     public function testUpdateTrackedUsersNotSelectedBulkIdsMutation(): void
@@ -796,5 +849,15 @@ class TalentRequestTrackedUserTest extends TestCase
             'id' => $untouched->id,
             'selection_decision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
         ]);
+    }
+
+    public function testUpdateTrackedUsersNotSelectedBulkIdsMutationFailsValidationForUnknownId(): void
+    {
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->bulkUpdateNotSelectedMutation, [
+                'ids' => ['00000000-0000-0000-0000-000000000000'],
+                'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+            ])
+            ->assertGraphQLValidationError('ids.0', 'The selected ids.0 is invalid.');
     }
 }
