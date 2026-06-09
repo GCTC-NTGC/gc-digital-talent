@@ -8,7 +8,7 @@ enum TalentRequestSource
 {
     use HasLocalization;
 
-    case PREQUALIFIED;
+    case QUALIFIED_IN_POOL;
     case AT_LEVEL;
     case ADVANCEMENT;
 

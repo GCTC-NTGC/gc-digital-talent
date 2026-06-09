@@ -1989,7 +1989,7 @@ enum TalentRequestReason {
 }
 
 enum TalentRequestSource {
-  PREQUALIFIED
+  QUALIFIED_IN_POOL
   AT_LEVEL
   ADVANCEMENT
 }

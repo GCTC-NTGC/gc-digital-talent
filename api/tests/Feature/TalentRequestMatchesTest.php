@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\PublishingGroup;
+use App\Enums\TalentRequestSource;
 use App\Facades\Notify;
 use App\Models\Classification;
 use App\Models\Community;
@@ -37,7 +38,7 @@ class TalentRequestMatchesTest extends TestCase
                 data {
                     user { id }
                     sources
-                    matchingPreQualifiedSources { pool { id } }
+                    matchingQualifiedInPoolSources { pool { id } }
                     skillCount
                 }
                 paginatorInfo { total }
@@ -96,8 +97,8 @@ class TalentRequestMatchesTest extends TestCase
                         'data' => [
                             [
                                 'user' => ['id' => $match->id],
-                                'sources' => ['PREQUALIFIED'],
-                                'matchingPreQualifiedSources' => [['pool' => ['id' => $pool->id]]],
+                                'sources' => [TalentRequestSource::QUALIFIED_IN_POOL->name],
+                                'matchingQualifiedInPoolSources' => [['pool' => ['id' => $pool->id]]],
                                 'skillCount' => null,
                             ],
                         ],
@@ -171,7 +172,7 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $remote->id);
     }
 
-    public function testMatchingPreQualifiedSourcesOnlyIncludesPoolsMatchingTheFilter(): void
+    public function testMatchingQualifiedInPoolsOnlyIncludesPoolsMatchingTheFilter(): void
     {
         $matchingClass = Classification::factory()->create();
         $otherClass = Classification::factory()->create();
@@ -207,7 +208,7 @@ class TalentRequestMatchesTest extends TestCase
                         'data' => [
                             [
                                 'user' => ['id' => $user->id],
-                                'matchingPreQualifiedSources' => [['pool' => ['id' => $matchingPool->id]]],
+                                'matchingQualifiedInPoolSources' => [['pool' => ['id' => $matchingPool->id]]],
                             ],
                         ],
                         'paginatorInfo' => ['total' => 1],
@@ -234,7 +235,7 @@ class TalentRequestMatchesTest extends TestCase
         $this->runMatches()
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $user->id)
-            ->assertJsonCount(2, 'data.talentRequestMatches.data.0.matchingPreQualifiedSources')
+            ->assertJsonCount(2, 'data.talentRequestMatches.data.0.matchingQualifiedInPoolSources')
             ->assertJsonFragment(['id' => $poolA->id])
             ->assertJsonFragment(['id' => $poolB->id]);
     }

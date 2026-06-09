@@ -1940,7 +1940,7 @@ type TalentRequestResult {
   id: UUID!
   user: User!
   sources: [TalentRequestSource!]!
-  matchingPreQualifiedSources: [PoolCandidate!]
+  matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
   skillCount: Int
@@ -4690,7 +4690,7 @@ enum TalentRequestReason {
 }
 
 enum TalentRequestSource {
-  PREQUALIFIED
+  QUALIFIED_IN_POOL
   AT_LEVEL
   ADVANCEMENT
 }

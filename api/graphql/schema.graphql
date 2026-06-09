@@ -1544,8 +1544,8 @@ type TalentRequestResult {
   sources: [TalentRequestSource!]! @field(resolver: "Sources")
   # the matching records behind each source kind (filtered to the search, gated by view auth).
   # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
-  matchingPreQualifiedSources: [PoolCandidate!]
-    @field(resolver: "MatchingPreQualifiedSources")
+  matchingQualifiedInPoolSources: [PoolCandidate!]
+    @field(resolver: "MatchingQualifiedInPoolSources")
   matchingAtLevelSources: [CommunityInterest!]
     @field(resolver: "MatchingAtLevelSources")
   matchingAdvancementSources: [TalentNominationGroup!]

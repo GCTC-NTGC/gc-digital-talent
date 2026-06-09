@@ -12,7 +12,7 @@ final class Sources
         $sources = [];
 
         if (isset($user->has_prequalified_source) && $user->has_prequalified_source) {
-            $sources[] = TalentRequestSource::PREQUALIFIED->name;
+            $sources[] = TalentRequestSource::QUALIFIED_IN_POOL->name;
         }
 
         return $sources;

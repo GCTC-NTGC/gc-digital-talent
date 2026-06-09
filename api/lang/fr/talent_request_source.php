@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'prequalified' => '',
+    'qualified_in_pool' => '',
     'at_level' => '',
     'advancement' => '',
 ];
