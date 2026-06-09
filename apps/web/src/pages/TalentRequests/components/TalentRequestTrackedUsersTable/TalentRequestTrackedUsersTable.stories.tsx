@@ -1,7 +1,12 @@
 import type { Meta, StoryFn } from "@storybook/react-vite";
 
-import { fakeUsers, toLocalizedEnum } from "@gc-digital-talent/fake-data";
 import {
+  fakeSkills,
+  fakeUsers,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
+import {
+  makeFragmentData,
   PriorityWeight,
   TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUserNotSelectedReason,
@@ -10,6 +15,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import TalentRequestTrackedUsersTable from "./TalentRequestTrackedUsersTable";
+import { TrackedUserSkill_Fragment } from "./TalentRequestTrackedUserSkillsDialog";
 
 const users = fakeUsers(4);
 
@@ -121,6 +127,13 @@ export default {
   },
 } as Meta<typeof TalentRequestTrackedUsersTable>;
 
+const storySkills = fakeSkills(5).map((skill) =>
+  makeFragmentData(
+    { id: skill.id, name: { localized: skill.name.en } },
+    TrackedUserSkill_Fragment,
+  ),
+);
+
 const Template: StoryFn<typeof TalentRequestTrackedUsersTable> = (args) => (
   <TalentRequestTrackedUsersTable {...args} />
 );
@@ -129,4 +142,5 @@ export const Default = Template.bind({});
 Default.args = {
   talentRequestId: "tracked-users-story",
   title: "Tracked candidates",
+  skills: storySkills,
 };

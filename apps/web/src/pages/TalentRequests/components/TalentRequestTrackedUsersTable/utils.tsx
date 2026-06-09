@@ -72,20 +72,18 @@ export function transformToWhere(
 }
 
 export function transformSortStateToOrderByClause(
-  sortingRule: SortingState,
+  sortingRule: SortingState | undefined,
 ): AdvancedOrderByInput[] | undefined {
-  const columnMap = new Map<string, string>([["skillCount", "skill_count"]]);
+  const rule = sortingRule?.find(({ id }) => id === "skillCount");
+  if (!rule) return undefined;
 
-  const orderBy = sortingRule.map((rule) => {
-    const column = columnMap.get(rule.id);
-    if (!column) return undefined;
-    return {
-      column,
+  // skill_count is a select-alias subquery, so order via the model scope rather than a column
+  return [
+    {
+      scope: "orderBySkillCount",
       direction: rule.desc ? SortOrder.Desc : SortOrder.Asc,
-    };
-  });
-
-  return orderBy.length ? unpackMaybes(orderBy) : undefined;
+    },
+  ];
 }
 
 interface StatusChip {

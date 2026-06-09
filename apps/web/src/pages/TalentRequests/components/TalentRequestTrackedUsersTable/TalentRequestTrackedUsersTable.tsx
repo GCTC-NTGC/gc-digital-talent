@@ -9,7 +9,10 @@ import isEqual from "lodash/isEqual";
 import { Link, Chip } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { TalentRequestTrackedUsersPaginatedQuery } from "@gc-digital-talent/graphql";
+import type {
+  FragmentType,
+  TalentRequestTrackedUsersPaginatedQuery,
+} from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -30,12 +33,16 @@ import useSelectedRows from "~/hooks/useSelectedRows";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import TalentRequestTrackedUsersFilterDialog from "./TalentRequestTrackedUsersFilterDialog";
+import type {
+  TrackedUserSkill_Fragment,
+} from "./TalentRequestTrackedUserSkillsDialog";
+import TalentRequestTrackedUserSkillsDialog from "./TalentRequestTrackedUserSkillsDialog";
 import type { FormValues, TrackedUserFilters } from "./utils";
 import {
   transformFilterInputToFormValues,
   transformFormValuesToFilterInput,
-  transformSortStateToOrderByClause,
   transformToWhere,
+  transformSortStateToOrderByClause,
   trackedUserReason,
   trackedUserStatusChip,
 } from "./utils";
@@ -118,11 +125,14 @@ const defaultSortState = [{ id: "skillCount", desc: true }];
 interface TalentRequestTrackedUsersTableProps {
   talentRequestId: string;
   title: string;
+  // The request's applicant-filter skills, sourced from the talent request the parent already loads.
+  skills: FragmentType<typeof TrackedUserSkill_Fragment>[];
 }
 
 const TalentRequestTrackedUsersTable = ({
   talentRequestId,
   title,
+  skills,
 }: TalentRequestTrackedUsersTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -198,6 +208,19 @@ const TalentRequestTrackedUsersTable = ({
     }
   };
 
+  const [{ data, fetching }] = useQuery({
+    query: TalentRequestTrackedUsersPaginated_Query,
+    variables: {
+      talentRequestId,
+      where: transformToWhere(filterState, searchState?.term),
+      page: paginationState.pageIndex,
+      first: paginationState.pageSize,
+      orderBy: transformSortStateToOrderByClause(sortState),
+    },
+  });
+
+  const trackedUsers = unpackMaybes(data?.talentRequestTrackedUsers.data);
+
   const columns = [
     columnHelper.accessor(
       ({ user }) => getFullNameLabel(user.firstName, user.lastName, intl),
@@ -216,6 +239,18 @@ const TalentRequestTrackedUsersTable = ({
       id: "skillCount",
       header: intl.formatMessage(tableMessages.skillCount),
       enableColumnFilter: false,
+      cell: ({ row: { original } }) => (
+        <TalentRequestTrackedUserSkillsDialog
+          skillsQuery={skills}
+          skillCount={original.skillCount}
+          userId={original.user.id}
+          userName={getFullNameLabel(
+            original.user.firstName,
+            original.user.lastName,
+            intl,
+          )}
+        />
+      ),
     }),
     columnHelper.accessor(({ user }) => user.priority?.label?.localized, {
       id: "priority",
@@ -253,21 +288,6 @@ const TalentRequestTrackedUsersTable = ({
       },
     ),
   ];
-
-  const [{ data, fetching }] = useQuery({
-    query: TalentRequestTrackedUsersPaginated_Query,
-    variables: {
-      talentRequestId,
-      where: transformToWhere(filterState, searchState?.term),
-      page: paginationState.pageIndex,
-      first: paginationState.pageSize,
-      orderBy: sortState
-        ? transformSortStateToOrderByClause(sortState)
-        : undefined,
-    },
-  });
-
-  const trackedUsers = unpackMaybes(data?.talentRequestTrackedUsers.data);
 
   return (
     <Table<TrackedUser, TrackedUserFilters>
