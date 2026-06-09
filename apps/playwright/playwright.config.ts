@@ -46,32 +46,38 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    // UAT auth setup — calls /refresh with test credentials, saves storageState
-    {
-      name: "setup-admin",
-      testMatch: /admin\.setup\.ts/,
-    },
-    {
-      name: "setup-applicant",
-      testMatch: /applicant\.setup\.ts/,
-    },
-
-    // UAT smoke / regression — pre-authenticated, depends on setup projects
-    {
-      name: "uat-admin",
-      use: { ...devices["Desktop Chrome"], storageState: ".auth/admin.json" },
-      testMatch: /uat-admin\.spec\.ts/,
-      dependencies: ["setup-admin"],
-    },
-    {
-      name: "uat-applicant",
-      use: {
-        ...devices["Desktop Chrome"],
-        storageState: ".auth/applicant.json",
-      },
-      testMatch: /uat-applicant\.spec\.ts/,
-      dependencies: ["setup-applicant"],
-    },
+    // UAT projects — only registered when TESTING_ENDPOINT_SECRET is set.
+    // Without it these projects fail immediately, breaking local runs.
+    ...(process.env.TESTING_ENDPOINT_SECRET
+      ? [
+          {
+            name: "setup-admin",
+            testMatch: /admin\.setup\.ts/,
+          },
+          {
+            name: "setup-applicant",
+            testMatch: /applicant\.setup\.ts/,
+          },
+          {
+            name: "uat-admin",
+            use: {
+              ...devices["Desktop Chrome"],
+              storageState: ".auth/admin.json",
+            },
+            testMatch: /uat-admin\.spec\.ts/,
+            dependencies: ["setup-admin"],
+          },
+          {
+            name: "uat-applicant",
+            use: {
+              ...devices["Desktop Chrome"],
+              storageState: ".auth/applicant.json",
+            },
+            testMatch: /uat-applicant\.spec\.ts/,
+            dependencies: ["setup-applicant"],
+          },
+        ]
+      : []),
 
     {
       name: "chromium",
