@@ -63,9 +63,11 @@ class TalentRequestTrackedUserMutator
 
         $trackedUsers = TalentRequestTrackedUser::whereIn('id', $args['ids'])->get();
 
-        foreach ($trackedUsers as $trackedUser) {
-            $trackedUser->referred();
-        }
+        DB::transaction(function () use ($trackedUsers) {
+            foreach ($trackedUsers as $trackedUser) {
+                $trackedUser->referred();
+            }
+        });
 
         return $trackedUsers;
     }
@@ -75,9 +77,11 @@ class TalentRequestTrackedUserMutator
 
         $trackedUsers = TalentRequestTrackedUser::whereIn('id', $args['ids'])->get();
 
-        foreach ($trackedUsers as $trackedUser) {
-            $trackedUser->notReferred($args['notReferredReason']);
-        }
+        DB::transaction(function () use ($trackedUsers, $args) {
+            foreach ($trackedUsers as $trackedUser) {
+                $trackedUser->notReferred($args['notReferredReason']);
+            }
+        });
 
         return $trackedUsers;
     }
@@ -87,9 +91,11 @@ class TalentRequestTrackedUserMutator
 
         $trackedUsers = TalentRequestTrackedUser::whereIn('id', $args['ids'])->get();
 
-        foreach ($trackedUsers as $trackedUser) {
-            $trackedUser->selected();
-        }
+        DB::transaction(function () use ($trackedUsers) {
+            foreach ($trackedUsers as $trackedUser) {
+                $trackedUser->selected();
+            }
+        });
 
         return $trackedUsers;
     }
@@ -99,9 +105,11 @@ class TalentRequestTrackedUserMutator
 
         $trackedUsers = TalentRequestTrackedUser::whereIn('id', $args['ids'])->get();
 
-        foreach ($trackedUsers as $trackedUser) {
-            $trackedUser->notSelected($args['notSelectedReason']);
-        }
+        DB::transaction(function () use ($trackedUsers, $args) {
+            foreach ($trackedUsers as $trackedUser) {
+                $trackedUser->notSelected($args['notSelectedReason']);
+            }
+        });
 
         return $trackedUsers;
     }
