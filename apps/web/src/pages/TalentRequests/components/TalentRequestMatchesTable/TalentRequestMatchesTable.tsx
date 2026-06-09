@@ -26,6 +26,8 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import adminMessages from "~/messages/adminMessages";
+import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 
 import { locationAccessor } from "./utils";
 import TalentRequestMatchesFilterDialog, {
@@ -155,6 +157,7 @@ const TalentRequestMatchesTable = () => {
         description:
           "Header for the number of user skills matching requested skills",
       }),
+      enableColumnFilter: false,
     }),
     columnHelper.accessor(({ sources }) => sources.join(", "), {
       id: "sources",
@@ -164,6 +167,7 @@ const TalentRequestMatchesTable = () => {
         description: "Heading for the source of the matching user",
       }),
       enableSorting: false,
+      enableColumnFilter: false,
     }),
     columnHelper.accessor(({ user }) => user.email, {
       id: "email",
@@ -219,6 +223,11 @@ const TalentRequestMatchesTable = () => {
       data={data}
       columns={columns}
       isLoading={fetchingOptions}
+      search={{
+        internal: false,
+        onChange: handleSearchStateChange,
+        label: intl.formatMessage(adminMessages.searchByKeyword),
+      }}
       filter={{
         // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
@@ -229,6 +238,32 @@ const TalentRequestMatchesTable = () => {
             resetValues={{}}
           />
         ),
+      }}
+      pagination={{
+        internal: false,
+        initialState: INITIAL_STATE.paginationState,
+        state: paginationState,
+        total: 0,
+        pageSizes: [10, 20, 50, 100],
+        onPaginationChange: handlePaginationStateChange,
+      }}
+      rowSelect={{
+        onRowSelection: setSelectedRows,
+        getRowId: (row) => row.id,
+        cell: ({ row }) =>
+          rowSelectCell({
+            row,
+            label: getFullNameLabel(
+              row.original.user.firstName,
+              row.original.user.lastName,
+              intl,
+            ),
+          }),
+      }}
+      sort={{
+        internal: false,
+        onSortChange: setSortState,
+        initialState: [{ id: "skillCount", desc: false }],
       }}
     />
   );
