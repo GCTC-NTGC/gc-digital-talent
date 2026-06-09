@@ -46,12 +46,6 @@ const TalentRequestMatchesFilterDialog_Fragment = graphql(/** GraphQL */ `
         localized
       }
     }
-    communities {
-      id
-      name {
-        localized
-      }
-    }
     departments {
       id
       name {
@@ -112,7 +106,6 @@ const TalentRequestMatchesFilterDialog_Fragment = graphql(/** GraphQL */ `
 `);
 
 export interface FormValues {
-  community?: string;
   classifications?: string[];
   streams?: string[];
   pools?: string[];
@@ -160,18 +153,6 @@ const TalentRequestMatchesFilterDialog = ({
             "Heading for filters associated with a candidates process",
         })}
       </Heading>
-
-      <Select
-        id="community"
-        name="community"
-        enableNull
-        label={intl.formatMessage(adminMessages.community)}
-        nullSelection={intl.formatMessage(commonMessages.selectACommunity)}
-        options={unpackMaybes(options?.communities).map(({ id, name }) => ({
-          value: id,
-          label: name?.localized ?? notAvailable,
-        }))}
-      />
       <div className="my-6 grid gap-6 xs:grid-cols-2">
         <Combobox
           id="classifications"

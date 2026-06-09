@@ -9,7 +9,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import {
   fakeClassifications,
-  fakeCommunities,
   fakeDepartments,
   fakeSkills,
   fakeWorkStreams,
@@ -26,7 +25,6 @@ const meta = {
         data: {
           classifications: fakeClassifications(),
           skills: fakeSkills(),
-          communities: fakeCommunities(),
           departments: fakeDepartments(),
           workStreams: fakeWorkStreams(),
           flexibleWorkLocations: Object.values(FlexibleWorkLocation).map(
