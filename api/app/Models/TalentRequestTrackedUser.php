@@ -99,4 +99,17 @@ class TalentRequestTrackedUser extends Pivot
             fn (Builder $query) => $query->whereIn('selection_decision', $decisions)
         );
     }
+
+    public function scopeWhereUserNameOrEmail(Builder $query, ?string $search): Builder
+    {
+        return $query->when(
+            $search,
+            fn (Builder $query) => $query->whereHas('user', fn (Builder $userQuery) => $userQuery
+                ->where(fn (Builder $nameQuery) => $nameQuery
+                    ->whereRaw("CONCAT(first_name, ' ', last_name) ILIKE ?", ["%{$search}%"])
+                    ->orWhere('first_name', 'ilike', "%{$search}%")
+                    ->orWhere('last_name', 'ilike', "%{$search}%")
+                    ->orWhere('email', 'ilike', "%{$search}%")))
+        );
+    }
 }

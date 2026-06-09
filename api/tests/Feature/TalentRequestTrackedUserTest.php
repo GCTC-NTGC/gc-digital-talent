@@ -597,4 +597,50 @@ class TalentRequestTrackedUserTest extends TestCase
             $response->assertJsonFragment(['user' => ['id' => $users[$key]->id]]);
         }
     }
+
+    /**
+     * @return array<string, array{0: string, 1: string}>
+     */
+    public static function generalSearchProvider(): array
+    {
+        return [
+            'first name' => ['Alice', 'alice'],
+            'last name' => ['Jones', 'bob'],
+            'full name' => ['Alice Smith', 'alice'],
+            'email' => ['bob@example', 'bob'],
+        ];
+    }
+
+    #[DataProvider('generalSearchProvider')]
+    public function testPaginatedGeneralSearchMatchesNameOrEmail(string $search, string $expectedKey): void
+    {
+        $request = $this->createRequest();
+        $users = [
+            'alice' => User::factory()->create([
+                'first_name' => 'Alice',
+                'last_name' => 'Smith',
+                'email' => 'alice@example.com',
+            ]),
+            'bob' => User::factory()->create([
+                'first_name' => 'Bob',
+                'last_name' => 'Jones',
+                'email' => 'bob@example.com',
+            ]),
+        ];
+
+        foreach ($users as $user) {
+            TalentRequestTrackedUser::factory()->create([
+                'talent_request_id' => $request->id,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->paginatedQuery, [
+                'talentRequestId' => $request->id,
+                'where' => ['generalSearch' => $search],
+            ])
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data')
+            ->assertJsonFragment(['user' => ['id' => $users[$expectedKey]->id]]);
+    }
 }

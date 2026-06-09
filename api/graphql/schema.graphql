@@ -1173,6 +1173,7 @@ input TalentRequestTrackedUserFilterInput {
     @scope(name: "whereReferralDecisionIn")
   selectionDecisions: [TalentRequestTrackedUserSelectionDecision!]
     @scope(name: "whereSelectionDecisionIn")
+  generalSearch: String @scope(name: "whereUserNameOrEmail")
 }
 
 type TalentRequestTrackedUser {
