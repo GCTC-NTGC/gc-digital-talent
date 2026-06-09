@@ -6,8 +6,10 @@ import {
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useMemo, useRef, useState } from "react";
+import { useQuery, type OperationContext } from "urql";
+import type { SubmitHandler } from "react-hook-form";
 
-import type { User } from "@gc-digital-talent/graphql";
+import { graphql, type User } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
@@ -26,6 +28,9 @@ import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 
 import { locationAccessor } from "./utils";
+import TalentRequestMatchesFilterDialog, {
+  type FormValues,
+} from "./TalentRequestMatchesFilterDialog";
 
 interface TalentRequestResult {
   id: string;
@@ -35,6 +40,16 @@ interface TalentRequestResult {
 }
 
 const columnHelper = createColumnHelper<TalentRequestResult>();
+
+const TalentRequestMatchesTable_Query = graphql(/** GraphQL */ `
+  query TalentRequestMatchesTable {
+    ...TalentRequestMatchesFilterDialog
+  }
+`);
+
+const context: Partial<OperationContext> = {
+  requestPolicy: "cache-first",
+};
 
 const defaultState = {
   ...INITIAL_STATE,
@@ -101,6 +116,23 @@ const TalentRequestMatchesTable = () => {
       type: type ?? INITIAL_STATE.searchState.type,
     });
   };
+
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
+    console.log(data);
+    // setFilterState(transformedData);
+    // if (!isEqual(transformedData, filterRef.current)) {
+    //   filterRef.current = transformedData;
+    // }
+  };
+
+  const [{ data: optionsData, fetching: fetchingOptions }] = useQuery({
+    query: TalentRequestMatchesTable_Query,
+    context,
+  });
 
   const columns: ColumnDef<TalentRequestResult>[] = [
     columnHelper.accessor(
@@ -186,6 +218,18 @@ const TalentRequestMatchesTable = () => {
       })}
       data={data}
       columns={columns}
+      isLoading={fetchingOptions}
+      filter={{
+        // eslint-disable-next-line react-hooks/refs
+        state: filterRef.current,
+        component: (
+          <TalentRequestMatchesFilterDialog
+            query={optionsData}
+            onSubmit={handleFilterSubmit}
+            resetValues={{}}
+          />
+        ),
+      }}
     />
   );
 };
