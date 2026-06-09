@@ -102,12 +102,14 @@ class TalentRequestTrackedUser extends Pivot
         );
     }
 
-    public function referred()
+    public function referred(bool $save = true)
     {
         $this->referral_decision = TalentRequestTrackedUserReferralDecision::REFERRED->name;
         $this->not_referred_reason = null;
 
-        $this->save();
+        if($save) {
+            $this->save();
+        }
     }
 
     public function notReferred(string $notReferredReason)
@@ -122,7 +124,7 @@ class TalentRequestTrackedUser extends Pivot
 
     public function selected()
     {
-        $this->referred();
+        $this->referred(save: false);
         $this->selection_decision = TalentRequestTrackedUserSelectionDecision::SELECTED->name;
         $this->not_referred_reason = null;
 
@@ -131,7 +133,7 @@ class TalentRequestTrackedUser extends Pivot
 
     public function notSelected(string $notSelectedReason)
     {
-        $this->referred();
+        $this->referred(save: false);
         $this->selection_decision = TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name;
         $this->not_selected_reason = $notSelectedReason;
 
