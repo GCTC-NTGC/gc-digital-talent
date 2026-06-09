@@ -1,8 +1,11 @@
 import { useIntl } from "react-intl";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
+import { useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -12,9 +15,27 @@ import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
 import TalentRequestTrackedUsersTable from "./components/TalentRequestTrackedUsersTable/TalentRequestTrackedUsersTable";
 import type { RouteParams } from "./types";
 
+const TalentRequestTrackingSkills_Query = graphql(/* GraphQL */ `
+  query TalentRequestTrackingSkills($talentRequestId: UUID!) {
+    talentRequest(id: $talentRequestId) {
+      applicantFilter {
+        skills {
+          ...TrackedUserSkill
+        }
+      }
+    }
+  }
+`);
+
 const Tracking = () => {
   const intl = useIntl();
   const { talentRequestId } = useRequiredParams<RouteParams>("talentRequestId");
+
+  const [{ data }] = useQuery({
+    query: TalentRequestTrackingSkills_Query,
+    variables: { talentRequestId },
+  });
+  const skills = unpackMaybes(data?.talentRequest?.applicantFilter?.skills);
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -33,6 +54,7 @@ const Tracking = () => {
         <TalentRequestTrackedUsersTable
           talentRequestId={talentRequestId}
           title={intl.formatMessage(talentRequestMessages.candidateTracking)}
+          skills={skills}
         />
       </TalentRequestSectionCard>
 
