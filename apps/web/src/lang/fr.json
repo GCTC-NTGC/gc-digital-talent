@@ -2983,10 +2983,6 @@
     "defaultMessage": "Note spéciale<hidden> relative aux compétences techniques essentielles</hidden>",
     "description": "The essential technical skills special note for a job poster template"
   },
-  "9pivu5": {
-    "defaultMessage": "La date d’ouverture doit être postérieure à aujourd’hui.",
-    "description": "Error message for closing date"
-  },
   "9q6fZo": {
     "defaultMessage": "Cette revendication ne s’applique pas à ce processus",
     "description": "Label for the rejected claim option"
@@ -14917,10 +14913,6 @@
   "wL95nl": {
     "defaultMessage": "La personne candidate n'a pas fourni d'informations sur son objectif de carrière final.",
     "description": "Message displayed if nominee hasn't filled out career objective info"
-  },
-  "wLR3Ux": {
-    "defaultMessage": "Effacer la date et enregistrer",
-    "description": "Button text to clear out a date"
   },
   "wMni5o": {
     "defaultMessage": "Processus de recrutement ({numOfProcesses})",
