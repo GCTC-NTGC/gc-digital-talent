@@ -16,9 +16,12 @@ export async function authenticateAs(
   request: APIRequestContext,
 ) {
   const secret = process.env.TESTING_ENDPOINT_SECRET;
-  const response = await request.get(`/refresh?sub=${encodeURIComponent(sub)}`, {
-    headers: { "X-Testing-Secret": secret ?? "" },
-  });
+  const response = await request.get(
+    `/refresh?sub=${encodeURIComponent(sub)}`,
+    {
+      headers: { "X-Testing-Secret": secret ?? "" },
+    },
+  );
 
   const body = await response.text();
 
