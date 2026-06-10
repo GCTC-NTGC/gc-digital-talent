@@ -12,7 +12,7 @@ import type { SubmitHandler } from "react-hook-form";
 import {
   graphql,
   type TalentRequestMatchingUsersQuery,
-  type User,
+  type TalentRequestTrackedUserFilterInput,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
@@ -107,11 +107,17 @@ const TalentRequestMatchesTable = () => {
   const initialState = getTableStateFromSearchParams(defaultState);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters = useMemo(
-    () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
-    [filtersEncoded],
+  const initialFilters: TalentRequestTrackedUserFilterInput | undefined =
+    useMemo(
+      () =>
+        filtersEncoded
+          ? (JSON.parse(filtersEncoded) as TalentRequestTrackedUserFilterInput)
+          : undefined,
+      [filtersEncoded],
+    );
+  const filterRef = useRef<TalentRequestTrackedUserFilterInput | undefined>(
+    initialFilters,
   );
-  const filterRef = useRef(initialFilters);
   const [paginationState, setPaginationState] = useState<PaginationState>(
     initialState.paginationState
       ? {
@@ -127,7 +133,8 @@ const TalentRequestMatchesTable = () => {
   const [sortState, setSortState] = useState<SortingState | undefined>(
     initialState.sortState ?? [{ id: "createdDate", desc: false }],
   );
-  const [filterState, setFilterState] = useState(initialFilters ?? {});
+  const [filterState, setFilterState] =
+    useState<TalentRequestTrackedUserFilterInput>(initialFilters ?? {});
 
   const handlePaginationStateChange = ({
     pageIndex,
