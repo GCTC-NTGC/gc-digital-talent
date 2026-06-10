@@ -158,6 +158,7 @@
     },
     "e2e:playwright": {
       "env": [
+        "PLAYWRIGHT_ENV_FILE",
         "BASE_URL",
         "TESTING_ENDPOINT_SECRET",
         "PLAYWRIGHT_PLATFORM_ADMIN_SUB",
