@@ -108,10 +108,15 @@ class TalentRequestFactory extends BaseFactory
                         ));
                 }
 
-                TalentRequestTrackedUser::factory()->create([
-                    'talent_request_id' => $talentRequest->id,
-                    'user_id' => $user->id,
-                ]);
+                $randomState = fake()->randomElement(['referred', 'notReferred', 'selected', 'notSelected']);
+
+                TalentRequestTrackedUser::factory()
+                    ->$randomState()
+                    ->create([
+                        'talent_request_id' => $talentRequest->id,
+                        'user_id' => $user->id,
+                    ]);
+
             }
         });
     }
