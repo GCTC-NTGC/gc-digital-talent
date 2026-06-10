@@ -3716,6 +3716,13 @@ type Mutation {
     userIds: [UUID!]!
     talentRequestId: UUID!
   ): Boolean
+    @guard
+    @canFind(
+      ability: "update"
+      find: "talentRequestId"
+      model: "TalentRequest"
+      scopes: ["withPolicyEagerLoads"]
+    )
     @field(resolver: "TalentRequestTrackedUserMutator@bulkCreateReferred")
     @validator
   createTrackedUsersNotReferred(
@@ -3723,24 +3730,55 @@ type Mutation {
     talentRequestId: UUID!
     notReferredReason: TalentRequestTrackedUserNotReferredReason!
   ): Boolean
+    @guard
+    @canFind(
+      ability: "update"
+      find: "talentRequestId"
+      model: "TalentRequest"
+      scopes: ["withPolicyEagerLoads"]
+    )
     @field(resolver: "TalentRequestTrackedUserMutator@bulkCreateNotReferred")
     @validator
   updateTrackedUsersReferred(ids: [UUID!]!): [TalentRequestTrackedUser!]!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
     @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateReferred")
     @validator
   updateTrackedUsersNotReferred(
     ids: [UUID!]!
     notReferredReason: TalentRequestTrackedUserNotReferredReason!
   ): [TalentRequestTrackedUser!]!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
     @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateNotReferred")
     @validator
   updateTrackedUsersSelected(ids: [UUID!]!): [TalentRequestTrackedUser!]!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
     @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateSelected")
     @validator
   updateTrackedUsersNotSelected(
     ids: [UUID!]!
     notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason!
   ): [TalentRequestTrackedUser!]!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
     @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateNotSelected")
     @validator
 

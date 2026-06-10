@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\TalentRequest;
+use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
@@ -70,6 +71,34 @@ class TalentRequestPolicy
         }
 
         return false;
+    }
+
+    /**
+     * Determine whether the user can update tracked users for one or more talent requests.
+     *
+     * @param  array{ids?: array<int, string>}  $args
+     * @return Response|bool
+     */
+    public function updateTrackedUsers(User $user, array $args)
+    {
+        $ids = $args['ids'] ?? null;
+
+        if (! is_array($ids) || empty($ids)) {
+            return false;
+        }
+
+        $talentRequests = TalentRequestTrackedUser::query()
+            ->whereIn('id', $ids)
+            ->with('talentRequest.community.team')
+            ->get()
+            ->pluck('talentRequest')
+            ->filter();
+
+        if ($talentRequests->isEmpty()) {
+            return false;
+        }
+
+        return $talentRequests->every(fn (TalentRequest $talentRequest) => $this->update($user, $talentRequest));
     }
 
     /**

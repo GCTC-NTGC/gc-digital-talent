@@ -508,7 +508,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'user_id' => $users[2]->id,
         ]);
 
-        $this->actingAs($this->admin, 'api')
+        $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->bulkUpdateReferredMutation, [
                 'ids' => [$toUpdateA->id, $toUpdateB->id],
             ])
@@ -544,7 +544,7 @@ class TalentRequestTrackedUserTest extends TestCase
 
     public function testUpdateTrackedUsersReferredBulkIdsMutationFailsValidationForUnknownId(): void
     {
-        $this->actingAs($this->admin, 'api')
+        $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->bulkUpdateReferredMutation, [
                 'ids' => ['00000000-0000-0000-0000-000000000000'],
             ])
@@ -561,7 +561,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'user_id' => $users[0]->id,
         ]);
 
-        $this->actingAs($this->admin, 'api')
+        $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->bulkCreateReferredMutation, [
                 'userIds' => [$users[0]->id, $users[1]->id],
                 'talentRequestId' => $request->id,
@@ -595,7 +595,7 @@ class TalentRequestTrackedUserTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->actingAs($this->admin, 'api')
+        $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->bulkCreateReferredMutation, [
                 'userIds' => [$user->id],
                 'talentRequestId' => '00000000-0000-0000-0000-000000000000',
@@ -613,7 +613,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'user_id' => $users[0]->id,
         ]);
 
-        $this->actingAs($this->admin, 'api')
+        $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->bulkCreateNotReferredMutation, [
                 'userIds' => [$users[0]->id, $users[1]->id],
                 'talentRequestId' => $request->id,
@@ -652,7 +652,7 @@ class TalentRequestTrackedUserTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->actingAs($this->admin, 'api')
+        $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->bulkCreateNotReferredMutation, [
                 'userIds' => [$user->id],
                 'talentRequestId' => '00000000-0000-0000-0000-000000000000',
@@ -679,7 +679,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'user_id' => $users[2]->id,
         ]);
 
-        $this->actingAs($this->admin, 'api')
+        $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->bulkUpdateNotReferredMutation, [
                 'ids' => [$toUpdateA->id, $toUpdateB->id],
                 'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
@@ -723,7 +723,7 @@ class TalentRequestTrackedUserTest extends TestCase
 
     public function testUpdateTrackedUsersNotReferredBulkIdsMutationFailsValidationForUnknownId(): void
     {
-        $this->actingAs($this->admin, 'api')
+        $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->bulkUpdateNotReferredMutation, [
                 'ids' => ['00000000-0000-0000-0000-000000000000'],
                 'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
@@ -749,7 +749,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'user_id' => $users[2]->id,
         ]);
 
-        $this->actingAs($this->admin, 'api')
+        $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->bulkUpdateSelectedMutation, [
                 'ids' => [$toUpdateA->id, $toUpdateB->id],
             ])
@@ -788,7 +788,7 @@ class TalentRequestTrackedUserTest extends TestCase
 
     public function testUpdateTrackedUsersSelectedBulkIdsMutationFailsValidationForUnknownId(): void
     {
-        $this->actingAs($this->admin, 'api')
+        $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->bulkUpdateSelectedMutation, [
                 'ids' => ['00000000-0000-0000-0000-000000000000'],
             ])
@@ -813,7 +813,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'user_id' => $users[2]->id,
         ]);
 
-        $this->actingAs($this->admin, 'api')
+        $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->bulkUpdateNotSelectedMutation, [
                 'ids' => [$toUpdateA->id, $toUpdateB->id],
                 'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
@@ -853,7 +853,7 @@ class TalentRequestTrackedUserTest extends TestCase
 
     public function testUpdateTrackedUsersNotSelectedBulkIdsMutationFailsValidationForUnknownId(): void
     {
-        $this->actingAs($this->admin, 'api')
+        $this->actingAs($this->recruiter, 'api')
             ->graphQL($this->bulkUpdateNotSelectedMutation, [
                 'ids' => ['00000000-0000-0000-0000-000000000000'],
                 'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
