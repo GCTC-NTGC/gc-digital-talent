@@ -1169,10 +1169,7 @@ type TalentRequest {
 }
 
 input TalentRequestTrackedUserFilterInput {
-  referralDecisions: [TalentRequestTrackedUserReferralDecision!]
-    @scope(name: "whereReferralDecisionIn")
-  selectionDecisions: [TalentRequestTrackedUserSelectionDecision!]
-    @scope(name: "whereSelectionDecisionIn")
+  statuses: [TalentRequestTrackedUserStatus!] @scope(name: "whereStatusIn")
   generalSearch: String @scope(name: "whereUserNameOrEmail")
 }
 
@@ -1180,6 +1177,7 @@ type TalentRequestTrackedUser {
   id: UUID!
   user: User! @belongsTo
   skillCount: Int @rename(attribute: "skill_count") # live subquery column from the withSkillCount scope - count of the user's skills matching this request's applicant filter
+  status: LocalizedTalentRequestTrackedUserStatus # computed accessor: selection decision supersedes referral decision
   referralDecision: LocalizedTalentRequestTrackedUserReferralDecision
     @rename(attribute: "referral_decision")
   selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision

@@ -10,8 +10,7 @@ import {
   PriorityWeight,
   TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUserNotSelectedReason,
-  TalentRequestTrackedUserReferralDecision,
-  TalentRequestTrackedUserSelectionDecision,
+  TalentRequestTrackedUserStatus,
 } from "@gc-digital-talent/graphql";
 
 import TalentRequestTrackedUsersTable, {
@@ -29,8 +28,7 @@ const trackedUsers = [
   {
     id: "tracked-user-1",
     skillCount: matchedSkillCount,
-    referralDecision: null,
-    selectionDecision: null,
+    status: toLocalizedEnum(TalentRequestTrackedUserStatus.Referred),
     notReferredReason: null,
     notSelectedReason: null,
     user: {
@@ -41,11 +39,10 @@ const trackedUsers = [
   {
     id: "tracked-user-2",
     skillCount: matchedSkillCount,
-    referralDecision: toLocalizedEnum(
-      TalentRequestTrackedUserReferralDecision.Referred,
+    status: toLocalizedEnum(TalentRequestTrackedUserStatus.NotReferred),
+    notReferredReason: toLocalizedEnum(
+      TalentRequestTrackedUserNotReferredReason.Other,
     ),
-    selectionDecision: null,
-    notReferredReason: null,
     notSelectedReason: null,
     user: {
       ...users[1],
@@ -55,13 +52,8 @@ const trackedUsers = [
   {
     id: "tracked-user-3",
     skillCount: matchedSkillCount,
-    referralDecision: toLocalizedEnum(
-      TalentRequestTrackedUserReferralDecision.NotReferred,
-    ),
-    selectionDecision: null,
-    notReferredReason: toLocalizedEnum(
-      TalentRequestTrackedUserNotReferredReason.Other,
-    ),
+    status: toLocalizedEnum(TalentRequestTrackedUserStatus.Selected),
+    notReferredReason: null,
     notSelectedReason: null,
     user: {
       ...users[2],
@@ -71,12 +63,7 @@ const trackedUsers = [
   {
     id: "tracked-user-4",
     skillCount: matchedSkillCount,
-    referralDecision: toLocalizedEnum(
-      TalentRequestTrackedUserReferralDecision.Referred,
-    ),
-    selectionDecision: toLocalizedEnum(
-      TalentRequestTrackedUserSelectionDecision.NotSelected,
-    ),
+    status: toLocalizedEnum(TalentRequestTrackedUserStatus.NotSelected),
     notReferredReason: null,
     notSelectedReason: toLocalizedEnum(
       TalentRequestTrackedUserNotSelectedReason.Other,
@@ -113,20 +100,12 @@ export default {
       },
       TalentRequestTrackedUsersFilterData: {
         data: {
-          referralDecisions: Object.values(
-            TalentRequestTrackedUserReferralDecision,
-          ).map((value) => ({
-            __typename:
-              "LocalizedTalentRequestTrackedUserReferralDecision" as const,
-            ...toLocalizedEnum(value),
-          })),
-          selectionDecisions: Object.values(
-            TalentRequestTrackedUserSelectionDecision,
-          ).map((value) => ({
-            __typename:
-              "LocalizedTalentRequestTrackedUserSelectionDecision" as const,
-            ...toLocalizedEnum(value),
-          })),
+          statuses: Object.values(TalentRequestTrackedUserStatus).map(
+            (value) => ({
+              __typename: "LocalizedTalentRequestTrackedUserStatus" as const,
+              ...toLocalizedEnum(value),
+            }),
+          ),
         },
       },
       SkillMatchDialog_Query: {

@@ -5,14 +5,11 @@ import type {
   AdvancedOrderByInput,
   LocalizedTalentRequestTrackedUserNotReferredReason,
   LocalizedTalentRequestTrackedUserNotSelectedReason,
-  LocalizedTalentRequestTrackedUserReferralDecision,
-  LocalizedTalentRequestTrackedUserSelectionDecision,
   TalentRequestTrackedUserFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
   SortOrder,
-  TalentRequestTrackedUserReferralDecision,
-  TalentRequestTrackedUserSelectionDecision,
+  TalentRequestTrackedUserStatus,
 } from "@gc-digital-talent/graphql";
 import type { ChipProps } from "@gc-digital-talent/ui";
 
@@ -22,30 +19,19 @@ export interface FormValues {
 
 export type TrackedUserFilters = Pick<
   TalentRequestTrackedUserFilterInput,
-  "referralDecisions" | "selectionDecisions"
+  "statuses"
 >;
 
-const referralValues = Object.values(TalentRequestTrackedUserReferralDecision);
-const selectionValues = Object.values(
-  TalentRequestTrackedUserSelectionDecision,
-);
+const statusValues = Object.values(TalentRequestTrackedUserStatus);
 
 export function transformFormValuesToFilterInput(
   data: FormValues,
 ): TrackedUserFilters {
-  const statuses = data.status ?? [];
-  const referralDecisions = referralValues.filter((value) =>
-    statuses.includes(value),
-  );
-  const selectionDecisions = selectionValues.filter((value) =>
-    statuses.includes(value),
-  );
+  const selected = data.status ?? [];
+  const statuses = statusValues.filter((value) => selected.includes(value));
 
   return {
-    referralDecisions: referralDecisions.length ? referralDecisions : undefined,
-    selectionDecisions: selectionDecisions.length
-      ? selectionDecisions
-      : undefined,
+    statuses: statuses.length ? statuses : undefined,
   };
 }
 
@@ -53,10 +39,7 @@ export function transformFilterInputToFormValues(
   input: TrackedUserFilters | undefined,
 ): FormValues {
   return {
-    status: [
-      ...unpackMaybes(input?.referralDecisions),
-      ...unpackMaybes(input?.selectionDecisions),
-    ],
+    status: unpackMaybes(input?.statuses),
   };
 }
 
@@ -65,8 +48,7 @@ export function transformToWhere(
   searchTerm: string | undefined,
 ): TalentRequestTrackedUserFilterInput {
   return {
-    referralDecisions: filters?.referralDecisions,
-    selectionDecisions: filters?.selectionDecisions,
+    statuses: filters?.statuses,
     generalSearch: searchTerm?.length ? searchTerm : undefined,
   };
 }
@@ -86,39 +68,20 @@ export function transformSortStateToOrderByClause(
   ];
 }
 
-interface StatusChip {
-  label?: string | null;
-  color: ChipProps["color"];
-}
-
-/** Derive a single status chip, with selection taking precedence over referral. */
-export function trackedUserStatusChip(
-  referralDecision?: LocalizedTalentRequestTrackedUserReferralDecision | null,
-  selectionDecision?: LocalizedTalentRequestTrackedUserSelectionDecision | null,
-): StatusChip {
-  if (selectionDecision) {
-    return {
-      label: selectionDecision.label?.localized,
-      color:
-        selectionDecision.value ===
-        TalentRequestTrackedUserSelectionDecision.Selected
-          ? "success"
-          : "error",
-    };
+/** Chip colour for a tracked user's status (the status itself is computed on the API). */
+export function trackedUserStatusChipColor(
+  status: TalentRequestTrackedUserStatus | null | undefined,
+): ChipProps["color"] {
+  switch (status) {
+    case TalentRequestTrackedUserStatus.Referred:
+    case TalentRequestTrackedUserStatus.Selected:
+      return "success";
+    case TalentRequestTrackedUserStatus.NotReferred:
+    case TalentRequestTrackedUserStatus.NotSelected:
+      return "error";
+    default:
+      return "gray";
   }
-
-  if (referralDecision) {
-    return {
-      label: referralDecision.label?.localized,
-      color:
-        referralDecision.value ===
-        TalentRequestTrackedUserReferralDecision.Referred
-          ? "success"
-          : "error",
-    };
-  }
-
-  return { color: "gray" };
 }
 
 export function trackedUserReason(

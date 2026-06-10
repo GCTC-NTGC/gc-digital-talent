@@ -45,7 +45,7 @@ import {
   transformToWhere,
   transformSortStateToOrderByClause,
   trackedUserReason,
-  trackedUserStatusChip,
+  trackedUserStatusChipColor,
 } from "./utils";
 
 type TrackedUser =
@@ -109,13 +109,7 @@ const TalentRequestTrackedUsersPaginated_Query = graphql(/* GraphQL */ `
       data {
         id
         skillCount
-        referralDecision {
-          value
-          label {
-            localized
-          }
-        }
-        selectionDecision {
+        status {
           value
           label {
             localized
@@ -274,23 +268,20 @@ const TalentRequestTrackedUsersTable = ({
           ) : null,
       },
     ),
-    columnHelper.accessor(
-      ({ referralDecision, selectionDecision }) =>
-        trackedUserStatusChip(referralDecision, selectionDecision).label,
-      {
-        id: "status",
-        header: intl.formatMessage(commonMessages.status),
-        enableColumnFilter: false,
-        enableSorting: false,
-        cell: ({ row: { original } }) => {
-          const { label, color } = trackedUserStatusChip(
-            original.referralDecision,
-            original.selectionDecision,
-          );
-          return label ? <Chip color={color}>{label}</Chip> : null;
-        },
+    columnHelper.accessor(({ status }) => status?.label?.localized, {
+      id: "status",
+      header: intl.formatMessage(commonMessages.status),
+      enableColumnFilter: false,
+      enableSorting: false,
+      cell: ({ row: { original } }) => {
+        const label = original.status?.label?.localized;
+        return label ? (
+          <Chip color={trackedUserStatusChipColor(original.status?.value)}>
+            {label}
+          </Chip>
+        ) : null;
       },
-    ),
+    }),
     columnHelper.accessor(
       ({ notReferredReason, notSelectedReason }) =>
         trackedUserReason(notReferredReason, notSelectedReason),

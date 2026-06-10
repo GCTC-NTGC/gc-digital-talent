@@ -14,20 +14,10 @@ import type { FormValues } from "./utils";
 
 const TalentRequestTrackedUsersFilterData_Query = graphql(/* GraphQL */ `
   query TalentRequestTrackedUsersFilterData {
-    referralDecisions: localizedEnumOptions(
-      enumName: "TalentRequestTrackedUserReferralDecision"
+    statuses: localizedEnumOptions(
+      enumName: "TalentRequestTrackedUserStatus"
     ) {
-      ... on LocalizedTalentRequestTrackedUserReferralDecision {
-        value
-        label {
-          localized
-        }
-      }
-    }
-    selectionDecisions: localizedEnumOptions(
-      enumName: "TalentRequestTrackedUserSelectionDecision"
-    ) {
-      ... on LocalizedTalentRequestTrackedUserSelectionDecision {
+      ... on LocalizedTalentRequestTrackedUserStatus {
         value
         label {
           localized
@@ -57,18 +47,12 @@ const TalentRequestTrackedUsersFilterDialog = ({
   });
 
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
-  const statusOptions = [
-    ...narrowEnumType(
-      unpackMaybes(data?.referralDecisions),
-      "TalentRequestTrackedUserReferralDecision",
-    ),
-    ...narrowEnumType(
-      unpackMaybes(data?.selectionDecisions),
-      "TalentRequestTrackedUserSelectionDecision",
-    ),
-  ].map((decision) => ({
-    value: decision.value,
-    label: decision.label?.localized ?? notAvailable,
+  const statusOptions = narrowEnumType(
+    unpackMaybes(data?.statuses),
+    "TalentRequestTrackedUserStatus",
+  ).map((status) => ({
+    value: status.value,
+    label: status.label?.localized ?? notAvailable,
   }));
 
   return (
