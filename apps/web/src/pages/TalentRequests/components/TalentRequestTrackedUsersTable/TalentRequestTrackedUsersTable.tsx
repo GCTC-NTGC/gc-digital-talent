@@ -274,30 +274,6 @@ const TalentRequestTrackedUsersTable = ({
           ) : null,
       },
     ),
-    columnHelper.accessor("skillCount", {
-      id: "skillCount",
-      header: intl.formatMessage(tableMessages.skillCount),
-      enableColumnFilter: false,
-      cell: ({ row: { original } }) =>
-        skillMatchDialogAccessor(
-          [...matchedSkills],
-          original.skillCount,
-          original.user.id,
-          getFullNameLabel(
-            original.user.firstName,
-            original.user.lastName,
-            intl,
-          ),
-        ),
-    }),
-    columnHelper.accessor(({ user }) => user.priority?.label?.localized, {
-      id: "priority",
-      header: intl.formatMessage(
-        talentRequestMessages.trackedUserVeteranOrPriority,
-      ),
-      enableColumnFilter: false,
-      enableSorting: false,
-    }),
     columnHelper.accessor(
       ({ referralDecision, selectionDecision }) =>
         trackedUserStatusChip(referralDecision, selectionDecision).label,
@@ -325,6 +301,30 @@ const TalentRequestTrackedUsersTable = ({
         enableSorting: false,
       },
     ),
+    columnHelper.accessor("skillCount", {
+      id: "skillCount",
+      header: intl.formatMessage(tableMessages.skillCount),
+      enableColumnFilter: false,
+      cell: ({ row: { original } }) =>
+        skillMatchDialogAccessor(
+          [...matchedSkills],
+          original.skillCount,
+          original.user.id,
+          getFullNameLabel(
+            original.user.firstName,
+            original.user.lastName,
+            intl,
+          ),
+        ),
+    }),
+    columnHelper.accessor(({ user }) => user.priority?.label?.localized, {
+      id: "priority",
+      header: intl.formatMessage(
+        talentRequestMessages.trackedUserVeteranOrPriority,
+      ),
+      enableColumnFilter: false,
+      enableSorting: false,
+    }),
   ] as ColumnDef<TrackedUser>[];
 
   return (
