@@ -114,6 +114,15 @@ export interface DownloadDef {
       };
 }
 
+export interface TableAction {
+  /** Item label */
+  label: ReactNode;
+  /** Fires when clicked and at least one row is selected */
+  onClick?: () => void;
+  /** Disable the item */
+  disabled?: boolean;
+}
+
 export interface PaginationDef {
   /** Allows the table to manage search */
   internal: boolean;
