@@ -1,7 +1,9 @@
 {
   "configurations": [
+    // For using Xdebug with the PHP runtime in the webserver container and your debugger is running in WSL.
+    // For webserver Xdebug configuration, see the infrastructure/conf/xdebug.ini file.
     {
-      "name": "Listen for PHP Xdebug from webserver",
+      "name": "PHP Xdebug webserver (WSL)",
       "type": "php",
       "request": "launch",
       "port": 9003,
@@ -9,12 +11,24 @@
         "/home/site/wwwroot/": "${workspaceFolder}"
       },
       "linux": {
-        "hostname": "localhost" // WSL-specific: This is necessary when connecting to a webserver running in a docker container from inside WSL. If on native linux, you may need to comment out this line.
+        "hostname": "localhost" // WSL-specific: This is necessary when connecting to a webserver running in a docker container from inside WSL.
       }
-      // For configuration, see the infrastructure/conf/xdebug.ini file.
     },
+    // For using Xdebug with the PHP runtime in the webserver container and your debugger is running in your native OS.
+    // For webserver Xdebug configuration, see the infrastructure/conf/xdebug.ini file.
     {
-      "name": "Listen for PHP Xdebug locally",
+      "name": "PHP Xdebug webserver (native)",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "pathMappings": {
+        "/home/site/wwwroot/": "${workspaceFolder}"
+      }
+    },
+    // For using Xdebug with the PHP CLI runtime on your native OS and your debugger is running in your native OS.
+    // For CLI Xdebug configuration, see your local config file in a location like /etc/php/8.4/cli/conf.d/20-xdebug.ini.
+    {
+      "name": "PHP Xdebug CLI (native)",
       "type": "php",
       "request": "launch",
       "port": 9003
