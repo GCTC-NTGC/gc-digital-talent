@@ -21,7 +21,11 @@ import type {
   FragmentType,
   TalentRequestTrackedUsersPaginatedQuery,
 } from "@gc-digital-talent/graphql";
-import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  getFragment,
+  PriorityWeight,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
@@ -354,11 +358,33 @@ const TalentRequestTrackedUsersTable = ({
     }),
     columnHelper.accessor(({ user }) => user.priority?.label?.localized, {
       id: "priority",
-      header: intl.formatMessage(
-        talentRequestMessages.trackedUserVeteranOrPriority,
-      ),
+      header: intl.formatMessage(adminMessages.category),
       enableColumnFilter: false,
       enableSorting: false,
+      cell: ({
+        row: {
+          original: {
+            user: { priority },
+          },
+        },
+        getValue,
+      }) => {
+        const bold =
+          priority?.value === PriorityWeight.Veteran ||
+          priority?.value === PriorityWeight.PriorityEntitlement;
+
+        return (
+          <span
+            className={
+              bold
+                ? "font-bold text-secondary-600 dark:text-secondary-200"
+                : undefined
+            }
+          >
+            {getValue()}
+          </span>
+        );
+      },
     }),
   ] as ColumnDef<TrackedUser>[];
 
