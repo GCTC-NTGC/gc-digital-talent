@@ -117,10 +117,10 @@ export interface DownloadDef {
 export interface TableAction {
   /** Item label */
   label: ReactNode;
-  /** Fires when clicked and at least one row is selected */
-  onClick?: () => void;
   /** Disable the item */
   disabled?: boolean;
+  /** Fires when clicked with at least one row selected; receives the selected row IDs */
+  onClick?: (selectedRowIds: string[]) => void;
 }
 
 export interface PaginationDef {

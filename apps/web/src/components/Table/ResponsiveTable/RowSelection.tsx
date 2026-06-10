@@ -209,6 +209,8 @@ interface ActionsProps {
   download?: DownloadDef;
   /** Arbitrary bulk actions for the selected rows, shown in a dropdown menu */
   actions?: TableAction[];
+  /** IDs of the currently selected rows, passed to action handlers */
+  selectedRowIds: string[];
 }
 
 /**
@@ -224,11 +226,20 @@ const Actions = ({
   onClear,
   download,
   actions,
+  selectedRowIds,
 }: ActionsProps) => {
   const intl = useIntl();
 
   const handleNoRowsSelected = () => {
     toast.warning(intl.formatMessage(tableMessages.noRowsSelected));
+  };
+
+  const handleActionClick = (action: TableAction) => {
+    if (count <= 0) {
+      handleNoRowsSelected();
+      return;
+    }
+    action.onClick?.(selectedRowIds);
   };
 
   return (
@@ -348,9 +359,7 @@ const Actions = ({
                         <DropdownMenu.Item
                           key={index}
                           disabled={action.disabled}
-                          onClick={
-                            count > 0 ? action.onClick : handleNoRowsSelected
-                          }
+                          onClick={() => handleActionClick(action)}
                         >
                           {action.label}
                         </DropdownMenu.Item>

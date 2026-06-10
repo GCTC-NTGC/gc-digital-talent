@@ -435,6 +435,9 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                   rowSelect: !!rowSelect,
                   download,
                   actions,
+                  selectedRowIds: Object.keys(rowSelection).filter(
+                    (rowId) => rowSelection[rowId],
+                  ),
                   isLoading,
                   count: Object.values(rowSelection).length,
                   onClear: () => table.resetRowSelection(),
