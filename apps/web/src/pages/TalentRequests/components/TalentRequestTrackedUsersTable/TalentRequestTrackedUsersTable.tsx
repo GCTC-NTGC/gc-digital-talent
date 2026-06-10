@@ -11,7 +11,11 @@ import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import { Link, Chip } from "@gc-digital-talent/ui";
-import { notEmpty, uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  notEmpty,
+  uniqueItems,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
