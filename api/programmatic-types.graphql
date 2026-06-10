@@ -449,6 +449,11 @@ type LocalizedTalentRequestTrackedUserSelectionDecision implements LocalizedEnum
   label: LocalizedString!
 }
 
+type LocalizedTalentRequestTrackedUserStatus implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserStatus!
+  label: LocalizedString!
+}
+
 type LocalizedTargetRole implements LocalizedEnumOption {
   value: TargetRole!
   label: LocalizedString!
@@ -2023,6 +2028,13 @@ enum TalentRequestTrackedUserReferralDecision {
 }
 
 enum TalentRequestTrackedUserSelectionDecision {
+  SELECTED
+  NOT_SELECTED
+}
+
+enum TalentRequestTrackedUserStatus {
+  NOT_REFERRED
+  REFERRED
   SELECTED
   NOT_SELECTED
 }
