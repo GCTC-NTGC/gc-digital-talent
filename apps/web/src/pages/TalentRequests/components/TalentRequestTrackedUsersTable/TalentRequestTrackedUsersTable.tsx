@@ -1,5 +1,9 @@
 import { useIntl } from "react-intl";
-import type { PaginationState, SortingState } from "@tanstack/react-table";
+import type {
+  ColumnDef,
+  PaginationState,
+  SortingState,
+} from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useState, useMemo, useRef } from "react";
 import { useQuery } from "urql";
@@ -159,14 +163,11 @@ const defaultSortState = [{ id: "skillCount", desc: true }];
 
 interface TalentRequestTrackedUsersTableProps {
   talentRequestId: string;
-  title: string;
-  // The request's applicant-filter skills, sourced from the talent request the parent already loads.
   skills: FragmentType<typeof TrackedUserSkillMatch_Fragment>[];
 }
 
 const TalentRequestTrackedUsersTable = ({
   talentRequestId,
-  title,
   skills,
 }: TalentRequestTrackedUsersTableProps) => {
   const intl = useIntl();
@@ -324,11 +325,11 @@ const TalentRequestTrackedUsersTable = ({
         enableSorting: false,
       },
     ),
-  ];
+  ] as ColumnDef<TrackedUser>[];
 
   return (
     <Table<TrackedUser, TrackedUserFilters>
-      caption={title}
+      caption={intl.formatMessage(talentRequestMessages.candidateTracking)}
       data={trackedUsers}
       columns={columns}
       isLoading={fetching}

@@ -53,7 +53,6 @@ const Tracking = () => {
       >
         <TalentRequestTrackedUsersTable
           talentRequestId={talentRequestId}
-          title={intl.formatMessage(talentRequestMessages.candidateTracking)}
           skills={skills}
         />
       </TalentRequestSectionCard>
