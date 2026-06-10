@@ -345,12 +345,7 @@ const Actions = ({
                   <Bullet />
                   <DropdownMenu.Root>
                     <DropdownMenu.Trigger btnProps={actionButtonStyles}>
-                      {intl.formatMessage({
-                        defaultMessage: "Actions",
-                        id: "PtnJL7",
-                        description:
-                          "Trigger label for the bulk actions menu on selected table rows",
-                      })}
+                      {intl.formatMessage(tableMessages.actions)}
                     </DropdownMenu.Trigger>
                     <DropdownMenu.Popup
                       positionerProps={{ align: "end", collisionPadding: 2 }}
