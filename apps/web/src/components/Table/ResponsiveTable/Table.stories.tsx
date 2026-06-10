@@ -137,6 +137,39 @@ RowSelection.args = {
   },
 };
 
+export const RowSelectionWithActions = Template.bind({});
+RowSelectionWithActions.args = {
+  caption: "Table with bulk actions",
+  rowSelect: {
+    getRowId: (row) => row.id,
+    onRowSelection: (rows) => {
+      action("onRowSelection")(rows);
+    },
+    cell: rowSelectCell,
+  },
+  actions: [
+    {
+      label: "Assign to pool",
+      onClick: () => {
+        action("assignToPool")();
+      },
+    },
+    {
+      label: "Send notification",
+      onClick: () => {
+        action("sendNotification")();
+      },
+    },
+    {
+      label: "Archive",
+      onClick: () => {
+        action("archive")();
+      },
+      disabled: true,
+    },
+  ],
+};
+
 export const InitialState = Template.bind({});
 InitialState.args = {
   caption: "Default table",
