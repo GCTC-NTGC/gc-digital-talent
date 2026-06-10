@@ -11,7 +11,7 @@ import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import { Link, Chip } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty, uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
@@ -34,8 +34,10 @@ import {
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import useSelectedRows from "~/hooks/useSelectedRows";
+import useUserDownloads from "~/hooks/useUserDownloads";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
+import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
 
 import TalentRequestTrackedUsersFilterDialog from "./TalentRequestTrackedUsersFilterDialog";
 import type { FormValues, TrackedUserFilters } from "./utils";
@@ -194,7 +196,17 @@ const TalentRequestTrackedUsersTable = ({
         }
       : INITIAL_STATE.paginationState,
   );
-  const { setSelectedRows } = useSelectedRows<string>([]);
+  const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
+  const {
+    downloadDoc,
+    downloadingDoc,
+    downloadZip,
+    downloadingZip,
+    downloadExcel,
+    downloadingExcel,
+    downloadTrackedUsersExcel,
+    downloadingTrackedUsersExcel,
+  } = useUserDownloads();
   const [searchState, setSearchState] = useState<SearchState>(
     initialState.searchState ?? INITIAL_STATE.searchState,
   );
@@ -253,6 +265,34 @@ const TalentRequestTrackedUsersTable = ({
   });
 
   const trackedUsers = unpackMaybes(data?.talentRequestTrackedUsers.data);
+
+  // Row selection is keyed by tracked-user (pivot) id; the downloads operate on user ids.
+  const rowIdsToUserIds = (rowIds: string[]): string[] =>
+    uniqueItems(
+      rowIds
+        .map((rowId) => trackedUsers.find((row) => row.id === rowId)?.user.id)
+        .filter(notEmpty),
+    );
+
+  const handleDocDownload = (anonymous: boolean) => {
+    const ids = rowIdsToUserIds(selectedRows);
+    if (ids.length === 1) {
+      downloadDoc({ id: ids[0], anonymous });
+    } else {
+      downloadZip({ ids, anonymous });
+    }
+  };
+
+  const handleExcelDownload = () => {
+    downloadExcel({ ids: rowIdsToUserIds(selectedRows) });
+  };
+
+  const handleExcelDownloadAll = () => {
+    downloadTrackedUsersExcel({
+      talentRequestId,
+      where: transformToWhere(filterState, searchState?.term),
+    });
+  };
 
   const columns = [
     columnHelper.accessor(
@@ -343,6 +383,32 @@ const TalentRequestTrackedUsersTable = ({
               intl,
             ),
           }),
+      }}
+      download={{
+        all: {
+          enable: true,
+          onClick: handleExcelDownloadAll,
+          downloading: downloadingTrackedUsersExcel,
+        },
+        spreadsheet: {
+          enable: true,
+          onClick: handleExcelDownload,
+          downloading: downloadingExcel,
+        },
+        doc: {
+          enable: true,
+          component: (
+            <DownloadDocxButton
+              inTable
+              disabled={
+                selectedRows.length === 0 || downloadingZip || downloadingDoc
+              }
+              isDownloading={downloadingZip || downloadingDoc}
+              onClickProfile={() => handleDocDownload(false)}
+              onClickAnonymousProfile={() => handleDocDownload(true)}
+            />
+          ),
+        },
       }}
       search={{
         internal: false,
