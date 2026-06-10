@@ -14,9 +14,7 @@ import type { FormValues } from "./utils";
 
 const TalentRequestTrackedUsersFilterData_Query = graphql(/* GraphQL */ `
   query TalentRequestTrackedUsersFilterData {
-    statuses: localizedEnumOptions(
-      enumName: "TalentRequestTrackedUserStatus"
-    ) {
+    statuses: localizedEnumOptions(enumName: "TalentRequestTrackedUserStatus") {
       ... on LocalizedTalentRequestTrackedUserStatus {
         value
         label {
