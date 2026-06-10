@@ -1554,6 +1554,33 @@ type CandidateSearchPoolResult {
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
+input TalentRequestMatchFilterInput {
+  applicantFilter: ApplicantFilterInput
+  # NOT the filter source (filters come from applicantFilter); names the request whose tracked
+  # users to exclude. Has no effect yet.
+  excludeTrackedByRequestId: UUID
+}
+
+type TalentRequestResult {
+  id: UUID!
+  user: User! @self
+  sources: [TalentRequestSource!]! @field(resolver: "Sources")
+  # the matching records behind each source kind (filtered to the search, gated by view auth).
+  # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
+  matchingQualifiedInPoolSources: [PoolCandidate!]
+    @field(resolver: "MatchingQualifiedInPoolSources")
+  matchingAtLevelSources: [CommunityInterest!]
+    @field(resolver: "MatchingAtLevelSources")
+  matchingAdvancementSources: [TalentNominationGroup!]
+    @field(resolver: "MatchingAdvancementSources")
+  skillCount: Int @rename(attribute: "skill_count")
+}
+
+type TalentRequestMatchPoolCount {
+  pool: Pool!
+  count: Int!
+}
+
 type SitewideAnnouncement {
   title: LocalizedString!
   message: LocalizedString!
@@ -1688,6 +1715,22 @@ type Query {
     where: TrashedExperienceSkillInput! @spread
   ): ExperienceSkillRecord @guard
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
+  talentRequestMatches(
+    where: TalentRequestMatchFilterInput
+      @scope(name: "whereMatchesTalentRequest")
+  ): [TalentRequestResult]!
+    @advancedOrderBy
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["whereAuthorizedToView"]
+      model: "App\\Models\\User"
+    )
+    @guard
+  countTalentRequestMatches(where: ApplicantFilterInput): Int!
+  countTalentRequestMatchesByPool(
+    where: ApplicantFilterInput
+  ): [TalentRequestMatchPoolCount!]!
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])

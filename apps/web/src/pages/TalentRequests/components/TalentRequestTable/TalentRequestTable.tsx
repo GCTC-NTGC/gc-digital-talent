@@ -40,15 +40,13 @@ import {
   jobTitleCell,
   notesCell,
   statusCell,
-} from "./helpers";
-import TalentRequestFilterDialog from "./TalentRequestFilterDialog";
-import type { FormValues } from "./utils";
-import {
   transformFormValuesToTalentRequestFilterInput,
   transformTalentRequestFilterInputToFormValues,
   transformSortStateToOrderByClause,
   transformTalentRequestInput,
 } from "./utils";
+import TalentRequestFilterDialog from "./TalentRequestFilterDialog";
+import type { FormValues } from "./utils";
 
 const columnHelper = createColumnHelper<TalentRequestTableRow>();
 
@@ -293,7 +291,7 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
       id: "email",
       header: intl.formatMessage(commonMessages.email),
     }),
-    columnHelper.accessor((row) => () => row.department?.name.localized, {
+    columnHelper.accessor(({ department }) => department?.name.localized, {
       id: "departments",
       header: intl.formatMessage(commonMessages.department),
       enableColumnFilter: false,
