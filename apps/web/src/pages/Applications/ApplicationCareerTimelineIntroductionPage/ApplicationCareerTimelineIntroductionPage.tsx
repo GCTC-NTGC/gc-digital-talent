@@ -52,7 +52,7 @@ const ApplicationCareerTimelineIntroduction = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { currentStepOrdinal, isIAP } = useApplicationContext();
+  const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -93,10 +93,7 @@ const ApplicationCareerTimelineIntroduction = ({
             description: "Link text to continue the application process",
           })}
         </Link>
-        <Link
-          mode="inline"
-          href={paths.profileAndApplications({ fromIapDraft: isIAP })}
-        >
+        <Link mode="inline" href={paths.profileAndApplications()}>
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>
         <DeleteApplicationDialog query={application} />

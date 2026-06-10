@@ -4,9 +4,6 @@ import EducationRequirements from "./EducationRequirements";
 
 const meta = {
   component: EducationRequirements,
-  args: {
-    isIAP: false,
-  },
 } satisfies Meta<typeof EducationRequirements>;
 
 export default meta;

@@ -43,7 +43,6 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   graphql,
   PoolStatus,
-  PublishingGroup,
   PoolSkillType,
   getFragment,
 } from "@gc-digital-talent/graphql";
@@ -812,7 +811,6 @@ export const PoolPoster = ({
                 )}
               </Text>
               <EducationRequirements
-                isIAP={pool.publishingGroup?.value === PublishingGroup.Iap}
                 classificationGroup={classificationGroup}
               />
             </TableOfContents.Section>

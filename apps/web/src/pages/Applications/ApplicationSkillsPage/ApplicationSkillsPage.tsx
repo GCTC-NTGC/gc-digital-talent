@@ -118,8 +118,8 @@ export const ApplicationSkills = ({
   );
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
-  const { followingPageUrl, isIAP } = useApplicationContext();
-  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
+  const { followingPageUrl } = useApplicationContext();
+  const cancelPath = paths.profileAndApplications();
   const nextStep =
     followingPageUrl ?? paths.applicationQuestionsIntro(application.id);
   const experiences = getFragment(

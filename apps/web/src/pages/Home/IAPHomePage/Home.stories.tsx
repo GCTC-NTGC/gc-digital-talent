@@ -15,7 +15,7 @@ import * as crgMessages from "~/lang/crgCompiled.json";
 import * as crkMessages from "~/lang/crkCompiled.json";
 import * as ojwMessages from "~/lang/ojwCompiled.json";
 
-import { Home } from "./Home";
+import IAPHomePage from "./Home";
 
 const mockPools = fakePools(1);
 const IAPPool = {
@@ -31,7 +31,7 @@ const messages = new Map<string, Messages>([
 ]);
 
 export default {
-  component: Home,
+  component: IAPHomePage,
   decorators: [MockGraphqlDecorator],
   parameters: {
     apiResponsesConfig: {
@@ -61,7 +61,7 @@ export default {
 
 const Template: StoryFn = () => (
   <NestedLanguageProvider messages={messages}>
-    <Home />
+    <IAPHomePage />
   </NestedLanguageProvider>
 );
 
