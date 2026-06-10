@@ -5,11 +5,13 @@ namespace App\Policies;
 use App\Models\TalentRequest;
 use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
+use App\Traits\ChecksTeamPermissions;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
 class TalentRequestPolicy
 {
+    use ChecksTeamPermissions;
     use HandlesAuthorization;
 
     /**
@@ -107,21 +109,12 @@ class TalentRequestPolicy
             return false;
         }
 
-        // Preserve update() behavior: deny when related talent request or team is missing.
-        if ($trackedUsers->contains(fn (TalentRequestTrackedUser $trackedUser) => ! isset($trackedUser->talentRequest?->community?->team))) {
-            return false;
-        }
-
         $teams = $trackedUsers
             ->pluck('talentRequest.community.team')
             ->filter()
             ->unique('id');
 
-        if ($teams->isEmpty()) {
-            return false;
-        }
-
-        return $teams->every(fn ($team) => $user->isAbleTo('update-team-talentRequest', $team));
+        return $teams->isNotEmpty() && $teams->every(fn ($team) => $this->checkTeamPermission($user, [$team], 'update-team-talentRequest'));
     }
 
     /**
