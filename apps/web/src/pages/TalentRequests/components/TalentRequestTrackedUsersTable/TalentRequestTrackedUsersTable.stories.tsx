@@ -14,8 +14,9 @@ import {
   TalentRequestTrackedUserSelectionDecision,
 } from "@gc-digital-talent/graphql";
 
-import TalentRequestTrackedUsersTable from "./TalentRequestTrackedUsersTable";
-import { TrackedUserSkill_Fragment } from "./TalentRequestTrackedUserSkillsDialog";
+import TalentRequestTrackedUsersTable, {
+  TrackedUserSkillMatch_Fragment,
+} from "./TalentRequestTrackedUsersTable";
 
 const users = fakeUsers(4);
 
@@ -128,10 +129,10 @@ export default {
           })),
         },
       },
-      TrackedUserMatchedSkills: {
+      SkillMatchDialog_Query: {
         data: {
           user: {
-            id: "tracked-user-story-user",
+            experiences: [],
             userSkills: claimedSkillIds.map((id) => ({ skill: { id } })),
           },
         },
@@ -141,10 +142,7 @@ export default {
 } as Meta<typeof TalentRequestTrackedUsersTable>;
 
 const storySkills = requestSkills.map((skill) =>
-  makeFragmentData(
-    { id: skill.id, name: { localized: skill.name.en } },
-    TrackedUserSkill_Fragment,
-  ),
+  makeFragmentData(skill, TrackedUserSkillMatch_Fragment),
 );
 
 const Template: StoryFn<typeof TalentRequestTrackedUsersTable> = (args) => (

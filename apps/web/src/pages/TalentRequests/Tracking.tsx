@@ -20,7 +20,7 @@ const TalentRequestTrackingSkills_Query = graphql(/* GraphQL */ `
     talentRequest(id: $talentRequestId) {
       applicantFilter {
         skills {
-          ...TrackedUserSkill
+          ...TrackedUserSkillMatch
         }
       }
     }

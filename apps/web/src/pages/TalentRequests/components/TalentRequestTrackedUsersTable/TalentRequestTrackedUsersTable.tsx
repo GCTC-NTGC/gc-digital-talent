@@ -13,7 +13,7 @@ import type {
   FragmentType,
   TalentRequestTrackedUsersPaginatedQuery,
 } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
@@ -31,12 +31,9 @@ import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 
 import TalentRequestTrackedUsersFilterDialog from "./TalentRequestTrackedUsersFilterDialog";
-import type {
-  TrackedUserSkill_Fragment,
-} from "./TalentRequestTrackedUserSkillsDialog";
-import TalentRequestTrackedUserSkillsDialog from "./TalentRequestTrackedUserSkillsDialog";
 import type { FormValues, TrackedUserFilters } from "./utils";
 import {
   transformFilterInputToFormValues,
@@ -51,6 +48,44 @@ type TrackedUser =
   TalentRequestTrackedUsersPaginatedQuery["talentRequestTrackedUsers"]["data"][number];
 
 const columnHelper = createColumnHelper<TrackedUser>();
+
+export const TrackedUserSkillMatch_Fragment = graphql(/* GraphQL */ `
+  fragment TrackedUserSkillMatch on Skill {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    category {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    families {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 const TalentRequestTrackedUsersPaginated_Query = graphql(/* GraphQL */ `
   query TalentRequestTrackedUsersPaginated(
@@ -126,7 +161,7 @@ interface TalentRequestTrackedUsersTableProps {
   talentRequestId: string;
   title: string;
   // The request's applicant-filter skills, sourced from the talent request the parent already loads.
-  skills: FragmentType<typeof TrackedUserSkill_Fragment>[];
+  skills: FragmentType<typeof TrackedUserSkillMatch_Fragment>[];
 }
 
 const TalentRequestTrackedUsersTable = ({
@@ -136,6 +171,7 @@ const TalentRequestTrackedUsersTable = ({
 }: TalentRequestTrackedUsersTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const matchedSkills = getFragment(TrackedUserSkillMatch_Fragment, skills);
 
   const initialState = getTableStateFromSearchParams({
     ...INITIAL_STATE,
@@ -143,7 +179,9 @@ const TalentRequestTrackedUsersTable = ({
   });
 
   const searchParams = new URLSearchParams(window.location.search);
-  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.TRACKED_USER_FILTERS);
+  const filtersEncoded = searchParams.get(
+    SEARCH_PARAM_KEY.TRACKED_USER_FILTERS,
+  );
   const initialFilters = useMemo<TrackedUserFilters | undefined>(
     () =>
       filtersEncoded
@@ -239,18 +277,17 @@ const TalentRequestTrackedUsersTable = ({
       id: "skillCount",
       header: intl.formatMessage(tableMessages.skillCount),
       enableColumnFilter: false,
-      cell: ({ row: { original } }) => (
-        <TalentRequestTrackedUserSkillsDialog
-          skillsQuery={skills}
-          skillCount={original.skillCount}
-          userId={original.user.id}
-          userName={getFullNameLabel(
+      cell: ({ row: { original } }) =>
+        skillMatchDialogAccessor(
+          [...matchedSkills],
+          original.skillCount,
+          original.user.id,
+          getFullNameLabel(
             original.user.firstName,
             original.user.lastName,
             intl,
-          )}
-        />
-      ),
+          ),
+        ),
     }),
     columnHelper.accessor(({ user }) => user.priority?.label?.localized, {
       id: "priority",
