@@ -81,24 +81,47 @@ class TalentRequestPolicy
      */
     public function updateTrackedUsers(User $user, array $args)
     {
+        if ($user->isAbleTo('update-any-talentRequest')) {
+            return true;
+        }
+
         $ids = $args['ids'] ?? null;
 
         if (! is_array($ids) || empty($ids)) {
             return false;
         }
 
-        $talentRequests = TalentRequestTrackedUser::query()
-            ->whereIn('id', $ids)
-            ->with('talentRequest.community.team')
-            ->get()
-            ->pluck('talentRequest')
-            ->filter();
+        $uniqueIds = array_values(array_unique($ids));
 
-        if ($talentRequests->isEmpty()) {
+        if (empty($uniqueIds)) {
             return false;
         }
 
-        return $talentRequests->every(fn (TalentRequest $talentRequest) => $this->update($user, $talentRequest));
+        $trackedUsers = TalentRequestTrackedUser::query()
+            ->whereIn('id', $uniqueIds)
+            ->with('talentRequest.community.team')
+            ->get();
+
+        // Deny when any requested tracked user id cannot be resolved.
+        if ($trackedUsers->count() !== count($uniqueIds)) {
+            return false;
+        }
+
+        // Preserve update() behavior: deny when related talent request or team is missing.
+        if ($trackedUsers->contains(fn (TalentRequestTrackedUser $trackedUser) => ! isset($trackedUser->talentRequest?->community?->team))) {
+            return false;
+        }
+
+        $teams = $trackedUsers
+            ->pluck('talentRequest.community.team')
+            ->filter()
+            ->unique('id');
+
+        if ($teams->isEmpty()) {
+            return false;
+        }
+
+        return $teams->every(fn ($team) => $user->isAbleTo('update-team-talentRequest', $team));
     }
 
     /**

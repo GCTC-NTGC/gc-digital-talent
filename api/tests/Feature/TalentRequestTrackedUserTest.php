@@ -542,13 +542,26 @@ class TalentRequestTrackedUserTest extends TestCase
         ]);
     }
 
-    public function testUpdateTrackedUsersReferredBulkIdsMutationFailsValidationForUnknownId(): void
+    public function testUnauthorizedUserCannotUpdateTrackedUsersReferredBulkIdsMutation(): void
     {
-        $this->actingAs($this->recruiter, 'api')
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER)->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+        $unauthorizedUser = User::factory()->asApplicant()->create();
+
+        $this->actingAs($unauthorizedUser, 'api')
             ->graphQL($this->bulkUpdateReferredMutation, [
-                'ids' => ['00000000-0000-0000-0000-000000000000'],
+                'ids' => [$trackedUser->id],
             ])
-            ->assertGraphQLValidationError('ids.0', 'The selected ids.0 is invalid.');
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+            'not_referred_reason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+        ]);
     }
 
     public function testCreateTrackedUsersReferred(): void
@@ -591,16 +604,23 @@ class TalentRequestTrackedUserTest extends TestCase
         $this->assertDatabaseCount('talent_request_tracked_users', 2);
     }
 
-    public function testCreateTrackedUsersReferredFailsValidationForUnknownTalentRequestId(): void
+    public function testUnauthorizedUserCannotCreateTrackedUsersReferred(): void
     {
+        $request = $this->createRequest();
         $user = User::factory()->create();
+        $unauthorizedUser = User::factory()->asApplicant()->create();
 
-        $this->actingAs($this->recruiter, 'api')
+        $this->actingAs($unauthorizedUser, 'api')
             ->graphQL($this->bulkCreateReferredMutation, [
                 'userIds' => [$user->id],
-                'talentRequestId' => '00000000-0000-0000-0000-000000000000',
+                'talentRequestId' => $request->id,
             ])
-            ->assertGraphQLValidationError('talentRequestId', 'The selected talent request id is invalid.');
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseMissing('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
     }
 
     public function testCreateTrackedUsersNotReferred(): void
@@ -648,17 +668,24 @@ class TalentRequestTrackedUserTest extends TestCase
         $this->assertDatabaseCount('talent_request_tracked_users', 2);
     }
 
-    public function testCreateTrackedUsersNotReferredFailsValidationForUnknownTalentRequestId(): void
+    public function testUnauthorizedUserCannotCreateTrackedUsersNotReferred(): void
     {
+        $request = $this->createRequest();
         $user = User::factory()->create();
+        $unauthorizedUser = User::factory()->asApplicant()->create();
 
-        $this->actingAs($this->recruiter, 'api')
+        $this->actingAs($unauthorizedUser, 'api')
             ->graphQL($this->bulkCreateNotReferredMutation, [
                 'userIds' => [$user->id],
-                'talentRequestId' => '00000000-0000-0000-0000-000000000000',
+                'talentRequestId' => $request->id,
                 'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
             ])
-            ->assertGraphQLValidationError('talentRequestId', 'The selected talent request id is invalid.');
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseMissing('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
     }
 
     public function testUpdateTrackedUsersNotReferredBulkIdsMutation(): void
@@ -721,14 +748,28 @@ class TalentRequestTrackedUserTest extends TestCase
         ]);
     }
 
-    public function testUpdateTrackedUsersNotReferredBulkIdsMutationFailsValidationForUnknownId(): void
+    public function testUnauthorizedUserCannotUpdateTrackedUsersNotReferredBulkIdsMutation(): void
     {
-        $this->actingAs($this->recruiter, 'api')
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->selected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+        $unauthorizedUser = User::factory()->asApplicant()->create();
+
+        $this->actingAs($unauthorizedUser, 'api')
             ->graphQL($this->bulkUpdateNotReferredMutation, [
-                'ids' => ['00000000-0000-0000-0000-000000000000'],
+                'ids' => [$trackedUser->id],
                 'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
             ])
-            ->assertGraphQLValidationError('ids.0', 'The selected ids.0 is invalid.');
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'not_referred_reason' => null,
+        ]);
     }
 
     public function testUpdateTrackedUsersSelectedBulkIdsMutation(): void
@@ -786,13 +827,26 @@ class TalentRequestTrackedUserTest extends TestCase
         ]);
     }
 
-    public function testUpdateTrackedUsersSelectedBulkIdsMutationFailsValidationForUnknownId(): void
+    public function testUnauthorizedUserCannotUpdateTrackedUsersSelectedBulkIdsMutation(): void
     {
-        $this->actingAs($this->recruiter, 'api')
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->notSelected(TalentRequestTrackedUserNotSelectedReason::OTHER)->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+        $unauthorizedUser = User::factory()->asApplicant()->create();
+
+        $this->actingAs($unauthorizedUser, 'api')
             ->graphQL($this->bulkUpdateSelectedMutation, [
-                'ids' => ['00000000-0000-0000-0000-000000000000'],
+                'ids' => [$trackedUser->id],
             ])
-            ->assertGraphQLValidationError('ids.0', 'The selected ids.0 is invalid.');
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+            'not_selected_reason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+        ]);
     }
 
     public function testUpdateTrackedUsersNotSelectedBulkIdsMutation(): void
@@ -851,13 +905,26 @@ class TalentRequestTrackedUserTest extends TestCase
         ]);
     }
 
-    public function testUpdateTrackedUsersNotSelectedBulkIdsMutationFailsValidationForUnknownId(): void
+    public function testUnauthorizedUserCannotUpdateTrackedUsersNotSelectedBulkIdsMutation(): void
     {
-        $this->actingAs($this->recruiter, 'api')
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->selected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+        $unauthorizedUser = User::factory()->asApplicant()->create();
+
+        $this->actingAs($unauthorizedUser, 'api')
             ->graphQL($this->bulkUpdateNotSelectedMutation, [
-                'ids' => ['00000000-0000-0000-0000-000000000000'],
+                'ids' => [$trackedUser->id],
                 'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
             ])
-            ->assertGraphQLValidationError('ids.0', 'The selected ids.0 is invalid.');
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+            'not_selected_reason' => null,
+        ]);
     }
 }
