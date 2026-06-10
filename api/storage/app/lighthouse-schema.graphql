@@ -687,6 +687,12 @@ type Mutation {
   createTalentRequest(talentRequest: CreateTalentRequestInput!): TalentRequest
   updateTalentRequest(id: ID!, talentRequest: UpdateTalentRequestInput!): TalentRequest
   updateTalentRequestStatus(id: ID!, talentRequest: UpdateTalentRequestStatusInput!): TalentRequest
+  createTrackedUsersReferred(userIds: [UUID!]!, talentRequestId: UUID!): Boolean
+  createTrackedUsersNotReferred(userIds: [UUID!]!, talentRequestId: UUID!, notReferredReason: TalentRequestTrackedUserNotReferredReason!): Boolean
+  updateTrackedUsersReferred(ids: [UUID!]!): [TalentRequestTrackedUser!]!
+  updateTrackedUsersNotReferred(ids: [UUID!]!, notReferredReason: TalentRequestTrackedUserNotReferredReason!): [TalentRequestTrackedUser!]!
+  updateTrackedUsersSelected(ids: [UUID!]!): [TalentRequestTrackedUser!]!
+  updateTrackedUsersNotSelected(ids: [UUID!]!, notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason!): [TalentRequestTrackedUser!]!
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
