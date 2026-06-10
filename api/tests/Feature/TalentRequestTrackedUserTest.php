@@ -65,6 +65,70 @@ class TalentRequestTrackedUserTest extends TestCase
         }
         GRAPHQL;
 
+    protected string $bulkUpdateReferredMutation = <<<'GRAPHQL'
+        mutation UpdateTrackedUsersReferred($ids: [UUID!]!) {
+            updateTrackedUsersReferred(ids: $ids) {
+                id
+                referralDecision { value }
+                notReferredReason { value }
+            }
+        }
+        GRAPHQL;
+
+    protected string $bulkCreateReferredMutation = <<<'GRAPHQL'
+        mutation CreateTrackedUsersReferred($userIds: [UUID!]!, $talentRequestId: UUID!) {
+            createTrackedUsersReferred(userIds: $userIds, talentRequestId: $talentRequestId)
+        }
+        GRAPHQL;
+
+    protected string $bulkCreateNotReferredMutation = <<<'GRAPHQL'
+        mutation CreateTrackedUsersNotReferred(
+            $userIds: [UUID!]!
+            $talentRequestId: UUID!
+            $notReferredReason: TalentRequestTrackedUserNotReferredReason!
+        ) {
+            createTrackedUsersNotReferred(
+                userIds: $userIds
+                talentRequestId: $talentRequestId
+                notReferredReason: $notReferredReason
+            )
+        }
+        GRAPHQL;
+
+    protected string $bulkUpdateNotReferredMutation = <<<'GRAPHQL'
+        mutation UpdateTrackedUsersNotReferred($ids: [UUID!]!, $notReferredReason: TalentRequestTrackedUserNotReferredReason!) {
+            updateTrackedUsersNotReferred(ids: $ids, notReferredReason: $notReferredReason) {
+                id
+                referralDecision { value }
+                notReferredReason { value }
+                selectionDecision { value }
+                notSelectedReason { value }
+            }
+        }
+        GRAPHQL;
+
+    protected string $bulkUpdateSelectedMutation = <<<'GRAPHQL'
+        mutation UpdateTrackedUsersSelected($ids: [UUID!]!) {
+            updateTrackedUsersSelected(ids: $ids) {
+                id
+                referralDecision { value }
+                notReferredReason { value }
+                selectionDecision { value }
+            }
+        }
+        GRAPHQL;
+
+    protected string $bulkUpdateNotSelectedMutation = <<<'GRAPHQL'
+        mutation UpdateTrackedUsersNotSelected($ids: [UUID!]!, $notSelectedReason: TalentRequestTrackedUserNotSelectedReason!) {
+            updateTrackedUsersNotSelected(ids: $ids, notSelectedReason: $notSelectedReason) {
+                id
+                referralDecision { value }
+                selectionDecision { value }
+                notSelectedReason { value }
+            }
+        }
+        GRAPHQL;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -424,5 +488,443 @@ class TalentRequestTrackedUserTest extends TestCase
         foreach ($expectedKeys as $key) {
             $response->assertJsonFragment(['user' => ['id' => $users[$key]->id]]);
         }
+    }
+
+    public function testUpdateTrackedUsersReferredBulkIdsMutation(): void
+    {
+        $request = $this->createRequest();
+        $users = User::factory()->count(3)->create();
+
+        $toUpdateA = TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER)->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[0]->id,
+        ]);
+        $toUpdateB = TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER)->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[1]->id,
+        ]);
+        $untouched = TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER)->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[2]->id,
+        ]);
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->bulkUpdateReferredMutation, [
+                'ids' => [$toUpdateA->id, $toUpdateB->id],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonCount(2, 'data.updateTrackedUsersReferred')
+            ->assertJsonFragment([
+                'id' => $toUpdateA->id,
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'notReferredReason' => null,
+            ])
+            ->assertJsonFragment([
+                'id' => $toUpdateB->id,
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'notReferredReason' => null,
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $toUpdateA->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'not_referred_reason' => null,
+        ]);
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $toUpdateB->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'not_referred_reason' => null,
+        ]);
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $untouched->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+            'not_referred_reason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+        ]);
+    }
+
+    public function testUnauthorizedUserCannotUpdateTrackedUsersReferredBulkIdsMutation(): void
+    {
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER)->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+        $unauthorizedUser = User::factory()->asApplicant()->create();
+
+        $this->actingAs($unauthorizedUser, 'api')
+            ->graphQL($this->bulkUpdateReferredMutation, [
+                'ids' => [$trackedUser->id],
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+            'not_referred_reason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+        ]);
+    }
+
+    public function testCreateTrackedUsersReferred(): void
+    {
+        $request = $this->createRequest();
+        $users = User::factory()->count(3)->create();
+
+        $existing = TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER)->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[0]->id,
+        ]);
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->bulkCreateReferredMutation, [
+                'userIds' => [$users[0]->id, $users[1]->id],
+                'talentRequestId' => $request->id,
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment([
+                'createTrackedUsersReferred' => true,
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $existing->id,
+            'talent_request_id' => $request->id,
+            'user_id' => $users[0]->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'not_referred_reason' => null,
+        ]);
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $users[1]->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'not_referred_reason' => null,
+        ]);
+        $this->assertDatabaseMissing('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $users[2]->id,
+        ]);
+        $this->assertDatabaseCount('talent_request_tracked_users', 2);
+    }
+
+    public function testUnauthorizedUserCannotCreateTrackedUsersReferred(): void
+    {
+        $request = $this->createRequest();
+        $user = User::factory()->create();
+        $unauthorizedUser = User::factory()->asApplicant()->create();
+
+        $this->actingAs($unauthorizedUser, 'api')
+            ->graphQL($this->bulkCreateReferredMutation, [
+                'userIds' => [$user->id],
+                'talentRequestId' => $request->id,
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseMissing('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+    }
+
+    public function testCreateTrackedUsersNotReferred(): void
+    {
+        $request = $this->createRequest();
+        $users = User::factory()->count(3)->create();
+
+        $existing = TalentRequestTrackedUser::factory()->selected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[0]->id,
+        ]);
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->bulkCreateNotReferredMutation, [
+                'userIds' => [$users[0]->id, $users[1]->id],
+                'talentRequestId' => $request->id,
+                'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment([
+                'createTrackedUsersNotReferred' => true,
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $existing->id,
+            'talent_request_id' => $request->id,
+            'user_id' => $users[0]->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+            'not_referred_reason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+            'selection_decision' => null,
+            'not_selected_reason' => null,
+        ]);
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $users[1]->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+            'not_referred_reason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+            'selection_decision' => null,
+            'not_selected_reason' => null,
+        ]);
+        $this->assertDatabaseMissing('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $users[2]->id,
+        ]);
+        $this->assertDatabaseCount('talent_request_tracked_users', 2);
+    }
+
+    public function testUnauthorizedUserCannotCreateTrackedUsersNotReferred(): void
+    {
+        $request = $this->createRequest();
+        $user = User::factory()->create();
+        $unauthorizedUser = User::factory()->asApplicant()->create();
+
+        $this->actingAs($unauthorizedUser, 'api')
+            ->graphQL($this->bulkCreateNotReferredMutation, [
+                'userIds' => [$user->id],
+                'talentRequestId' => $request->id,
+                'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseMissing('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+    }
+
+    public function testUpdateTrackedUsersNotReferredBulkIdsMutation(): void
+    {
+        $request = $this->createRequest();
+        $users = User::factory()->count(3)->create();
+
+        $toUpdateA = TalentRequestTrackedUser::factory()->selected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[0]->id,
+        ]);
+        $toUpdateB = TalentRequestTrackedUser::factory()->selected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[1]->id,
+        ]);
+        $untouched = TalentRequestTrackedUser::factory()->selected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[2]->id,
+        ]);
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->bulkUpdateNotReferredMutation, [
+                'ids' => [$toUpdateA->id, $toUpdateB->id],
+                'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonCount(2, 'data.updateTrackedUsersNotReferred')
+            ->assertJsonFragment([
+                'id' => $toUpdateA->id,
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name],
+                'notReferredReason' => ['value' => TalentRequestTrackedUserNotReferredReason::OTHER->name],
+                'selectionDecision' => null,
+                'notSelectedReason' => null,
+            ])
+            ->assertJsonFragment([
+                'id' => $toUpdateB->id,
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name],
+                'notReferredReason' => ['value' => TalentRequestTrackedUserNotReferredReason::OTHER->name],
+                'selectionDecision' => null,
+                'notSelectedReason' => null,
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $toUpdateA->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+            'not_referred_reason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+            'selection_decision' => null,
+            'not_selected_reason' => null,
+        ]);
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $toUpdateB->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+            'not_referred_reason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+            'selection_decision' => null,
+            'not_selected_reason' => null,
+        ]);
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $untouched->id,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+        ]);
+    }
+
+    public function testUnauthorizedUserCannotUpdateTrackedUsersNotReferredBulkIdsMutation(): void
+    {
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->selected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+        $unauthorizedUser = User::factory()->asApplicant()->create();
+
+        $this->actingAs($unauthorizedUser, 'api')
+            ->graphQL($this->bulkUpdateNotReferredMutation, [
+                'ids' => [$trackedUser->id],
+                'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'not_referred_reason' => null,
+        ]);
+    }
+
+    public function testUpdateTrackedUsersSelectedBulkIdsMutation(): void
+    {
+        $request = $this->createRequest();
+        $users = User::factory()->count(3)->create();
+
+        $toUpdateA = TalentRequestTrackedUser::factory()->notSelected(TalentRequestTrackedUserNotSelectedReason::OTHER)->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[0]->id,
+        ]);
+        $toUpdateB = TalentRequestTrackedUser::factory()->notSelected(TalentRequestTrackedUserNotSelectedReason::OTHER)->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[1]->id,
+        ]);
+        $untouched = TalentRequestTrackedUser::factory()->notSelected(TalentRequestTrackedUserNotSelectedReason::OTHER)->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[2]->id,
+        ]);
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->bulkUpdateSelectedMutation, [
+                'ids' => [$toUpdateA->id, $toUpdateB->id],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonCount(2, 'data.updateTrackedUsersSelected')
+            ->assertJsonFragment([
+                'id' => $toUpdateA->id,
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'selectionDecision' => ['value' => TalentRequestTrackedUserSelectionDecision::SELECTED->name],
+                'notReferredReason' => null,
+            ])
+            ->assertJsonFragment([
+                'id' => $toUpdateB->id,
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'selectionDecision' => ['value' => TalentRequestTrackedUserSelectionDecision::SELECTED->name],
+                'notReferredReason' => null,
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $toUpdateA->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+            'not_referred_reason' => null,
+        ]);
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $toUpdateB->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+            'not_referred_reason' => null,
+        ]);
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $untouched->id,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+        ]);
+    }
+
+    public function testUnauthorizedUserCannotUpdateTrackedUsersSelectedBulkIdsMutation(): void
+    {
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->notSelected(TalentRequestTrackedUserNotSelectedReason::OTHER)->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+        $unauthorizedUser = User::factory()->asApplicant()->create();
+
+        $this->actingAs($unauthorizedUser, 'api')
+            ->graphQL($this->bulkUpdateSelectedMutation, [
+                'ids' => [$trackedUser->id],
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+            'not_selected_reason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+        ]);
+    }
+
+    public function testUpdateTrackedUsersNotSelectedBulkIdsMutation(): void
+    {
+        $request = $this->createRequest();
+        $users = User::factory()->count(3)->create();
+
+        $toUpdateA = TalentRequestTrackedUser::factory()->selected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[0]->id,
+        ]);
+        $toUpdateB = TalentRequestTrackedUser::factory()->selected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[1]->id,
+        ]);
+        $untouched = TalentRequestTrackedUser::factory()->selected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $users[2]->id,
+        ]);
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->bulkUpdateNotSelectedMutation, [
+                'ids' => [$toUpdateA->id, $toUpdateB->id],
+                'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonCount(2, 'data.updateTrackedUsersNotSelected')
+            ->assertJsonFragment([
+                'id' => $toUpdateA->id,
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'selectionDecision' => ['value' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name],
+                'notSelectedReason' => ['value' => TalentRequestTrackedUserNotSelectedReason::OTHER->name],
+            ])
+            ->assertJsonFragment([
+                'id' => $toUpdateB->id,
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'selectionDecision' => ['value' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name],
+                'notSelectedReason' => ['value' => TalentRequestTrackedUserNotSelectedReason::OTHER->name],
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $toUpdateA->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+            'not_selected_reason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+        ]);
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $toUpdateB->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+            'not_selected_reason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+        ]);
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $untouched->id,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+        ]);
+    }
+
+    public function testUnauthorizedUserCannotUpdateTrackedUsersNotSelectedBulkIdsMutation(): void
+    {
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->selected()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+        $unauthorizedUser = User::factory()->asApplicant()->create();
+
+        $this->actingAs($unauthorizedUser, 'api')
+            ->graphQL($this->bulkUpdateNotSelectedMutation, [
+                'ids' => [$trackedUser->id],
+                'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+            'not_selected_reason' => null,
+        ]);
     }
 }

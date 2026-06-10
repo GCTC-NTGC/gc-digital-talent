@@ -307,6 +307,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(PoolCandidate::class)->withTrashed();
     }
 
+    /** @return HasMany<TalentRequestTrackedUser, $this> */
+    public function talentRequestTrackedUsers(): HasMany
+    {
+        return $this->hasMany(TalentRequestTrackedUser::class);
+    }
+
     /** @return BelongsTo<Department, $this> */
     public function department(): BelongsTo
     {
