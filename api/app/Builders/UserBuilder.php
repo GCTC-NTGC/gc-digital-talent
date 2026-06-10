@@ -388,6 +388,12 @@ class UserBuilder extends Builder
             ->whereAuthorizedToView()
             ->with('pool')]);
 
+        $excludeTrackedByRequestId = $args['excludeTrackedByRequestId'] ?? null;
+        if ($excludeTrackedByRequestId) {
+            $this->whereDoesntHave('talentRequestTrackedUsers', fn ($trackedUsers) => $trackedUsers
+                ->where('talent_request_id', $excludeTrackedByRequestId));
+        }
+
         return $this;
     }
 
