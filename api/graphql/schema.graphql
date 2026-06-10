@@ -1162,7 +1162,9 @@ type TalentRequest {
   statusChangedAt: DateTime @rename(attribute: "status_changed_at")
   createdAt: DateTime @rename(attribute: "created_at")
   updatedAt: DateTime @rename(attribute: "updated_at")
-  trackedUsers(where: TalentRequestTrackedUserFilterInput): [TalentRequestTrackedUser!]
+  trackedUsers(
+    where: TalentRequestTrackedUserFilterInput
+  ): [TalentRequestTrackedUser!]
     @hasMany(scopes: ["whereAuthorizedToView", "withSkillCount"])
 }
 
@@ -3753,7 +3755,77 @@ type Mutation {
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
     @validator
+  createTrackedUsersReferred(
+    userIds: [UUID!]!
+    talentRequestId: UUID!
+  ): Boolean
+    @guard
+    @canFind(
+      ability: "update"
+      find: "talentRequestId"
+      model: "TalentRequest"
+      scopes: ["withPolicyEagerLoads"]
+    )
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkCreateReferred")
+    @validator
+  createTrackedUsersNotReferred(
+    userIds: [UUID!]!
+    talentRequestId: UUID!
+    notReferredReason: TalentRequestTrackedUserNotReferredReason!
+  ): Boolean
+    @guard
+    @canFind(
+      ability: "update"
+      find: "talentRequestId"
+      model: "TalentRequest"
+      scopes: ["withPolicyEagerLoads"]
+    )
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkCreateNotReferred")
+    @validator
+  updateTrackedUsersReferred(ids: [UUID!]!): [TalentRequestTrackedUser!]!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateReferred")
+    @validator
+  updateTrackedUsersNotReferred(
+    ids: [UUID!]!
+    notReferredReason: TalentRequestTrackedUserNotReferredReason!
+  ): [TalentRequestTrackedUser!]!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateNotReferred")
+    @validator
+  updateTrackedUsersSelected(ids: [UUID!]!): [TalentRequestTrackedUser!]!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateSelected")
+    @validator
+  updateTrackedUsersNotSelected(
+    ids: [UUID!]!
+    notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason!
+  ): [TalentRequestTrackedUser!]!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateNotSelected")
+    @validator
 
+  # SkillFamily mutations
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
     @guard
@@ -3763,7 +3835,7 @@ type Mutation {
     skillFamily: UpdateSkillFamilyInput! @spread
   ): SkillFamily @update @guard @canFind(ability: "update", find: "id")
 
-  # skill mutations
+  # Skill mutations
   createSkill(skill: CreateSkillInput! @spread): Skill
     @create
     @guard
