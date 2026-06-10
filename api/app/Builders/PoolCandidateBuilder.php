@@ -112,8 +112,11 @@ class PoolCandidateBuilder extends Builder
     {
         $filters ??= [];
 
-        // skills/pools/community are already plain ids (ApplicantFilterInput @pluck); workStreams
-        // and classifications are not plucked, so workStreams still needs its id pulled out.
+        // Match the request's pool-level constraints: classification, work stream, community,
+        // and specific pools. Skills are not matched here — this scope only decides whether a
+        // pool fits the request; whether the user has the requested skills is matched separately
+        // on the user. pools and community arrive as plain ids; workStreams arrives as objects,
+        // so its id is pulled out first.
         return $this->whereAvailable()
             ->whereInTalentSearchablePublishingGroup()
             ->whereAppliedClassificationsIn($filters['qualifiedInClassifications'] ?? null)
