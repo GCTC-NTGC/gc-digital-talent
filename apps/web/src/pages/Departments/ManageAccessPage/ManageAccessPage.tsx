@@ -234,6 +234,7 @@ const Component = () => {
             { name: ROLE.DepartmentAdmin, teamId: teamId },
             { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
           ]}
+          strict
         >
           <DepartmentManageAccessPage departmentQuery={data.department} />
         </RequireAuth>
