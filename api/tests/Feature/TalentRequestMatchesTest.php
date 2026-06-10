@@ -74,6 +74,24 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->query, ['where' => $where]);
     }
 
+    private function runCountMatches(array $where = []): TestResponse
+    {
+        return $this->graphQL(
+            'query ($where: ApplicantFilterInput) { countTalentRequestMatches(where: $where) }',
+            ['where' => $where]
+        );
+    }
+
+    private function runCountByPool(array $where = []): TestResponse
+    {
+        return $this->graphQL(
+            'query ($where: ApplicantFilterInput) {
+                countTalentRequestMatchesByPool(where: $where) { pool { id } count }
+            }',
+            ['where' => $where]
+        );
+    }
+
     public function testReturnsOnlyUsersWithAMatchingCandidacy(): void
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create();
@@ -232,12 +250,16 @@ class TalentRequestMatchesTest extends TestCase
             'pool_id' => $poolB->id,
         ]);
 
-        $this->runMatches()
+        $response = $this->runMatches()
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $user->id)
-            ->assertJsonCount(2, 'data.talentRequestMatches.data.0.matchingQualifiedInPoolSources')
-            ->assertJsonFragment(['id' => $poolA->id])
-            ->assertJsonFragment(['id' => $poolB->id]);
+            ->assertJsonCount(2, 'data.talentRequestMatches.data.0.matchingQualifiedInPoolSources');
+
+        $poolIds = collect($response->json('data.talentRequestMatches.data.0.matchingQualifiedInPoolSources'))
+            ->pluck('pool.id')
+            ->all();
+
+        $this->assertEqualsCanonicalizing([$poolA->id, $poolB->id], $poolIds);
     }
 
     public function testSkillCountCountsTheUsersMatchingSkills(): void
@@ -329,10 +351,8 @@ class TalentRequestMatchesTest extends TestCase
         User::factory()->create();
 
         // no actingAs — the count is public, like the legacy search counts
-        $this->graphQL(
-            'query ($where: ApplicantFilterInput) { countTalentRequestMatches(where: $where) }',
-            ['where' => []]
-        )->assertJson(['data' => ['countTalentRequestMatches' => 2]]);
+        $this->runCountMatches()
+            ->assertJson(['data' => ['countTalentRequestMatches' => 2]]);
     }
 
     public function testCountByPoolCountsDistinctUsersAndExcludesNonMatchingPools(): void
@@ -355,11 +375,8 @@ class TalentRequestMatchesTest extends TestCase
         // user qualified only in the matching pool
         $this->matchingUser($matchingPool);
 
-        $this->graphQL(
-            'query ($where: ApplicantFilterInput) {
-                countTalentRequestMatchesByPool(where: $where) { pool { id } count }
-            }',
-            ['where' => ['qualifiedInClassifications' => [['group' => $matchingClass->group, 'level' => $matchingClass->level]]]]
+        $this->runCountByPool(
+            ['qualifiedInClassifications' => [['group' => $matchingClass->group, 'level' => $matchingClass->level]]]
         )->assertExactJson([
             'data' => [
                 'countTalentRequestMatchesByPool' => [
@@ -379,9 +396,7 @@ class TalentRequestMatchesTest extends TestCase
         $listTotal = $this->runMatches()
             ->json('data.talentRequestMatches.paginatorInfo.total');
 
-        $this->graphQL(
-            'query ($where: ApplicantFilterInput) { countTalentRequestMatches(where: $where) }',
-            ['where' => []]
-        )->assertJson(['data' => ['countTalentRequestMatches' => $listTotal]]);
+        $this->runCountMatches()
+            ->assertJson(['data' => ['countTalentRequestMatches' => $listTotal]]);
     }
 }
