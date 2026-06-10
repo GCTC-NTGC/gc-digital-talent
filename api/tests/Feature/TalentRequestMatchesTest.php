@@ -109,7 +109,7 @@ class TalentRequestMatchesTest extends TestCase
         User::factory()->create();
 
         $this->runMatches()
-            ->assertJson([
+            ->assertExactJson([
                 'data' => [
                     'talentRequestMatches' => [
                         'data' => [
