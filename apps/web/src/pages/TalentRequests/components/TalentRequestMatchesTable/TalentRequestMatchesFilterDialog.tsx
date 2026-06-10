@@ -1,5 +1,4 @@
 import { useIntl, type MessageDescriptor } from "react-intl";
-import type { options } from "react-router";
 
 import {
   WorkRegion,

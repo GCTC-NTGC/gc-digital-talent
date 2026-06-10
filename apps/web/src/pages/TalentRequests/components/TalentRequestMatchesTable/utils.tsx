@@ -2,7 +2,7 @@ import type { LocalizedProvinceOrTerritory } from "@gc-digital-talent/graphql";
 
 export const locationAccessor = (
   city?: string | null,
-  provinceOrTerritory?: LocalizedProvinceOrTerritory | null,
+  provinceOrTerritory?: Partial<LocalizedProvinceOrTerritory> | null,
 ): string | null => {
   if (!city && !provinceOrTerritory) return null;
   const strings: string[] = [];
@@ -11,7 +11,7 @@ export const locationAccessor = (
     strings.push(city);
   }
 
-  if (provinceOrTerritory?.label.localized) {
+  if (provinceOrTerritory?.label?.localized) {
     strings.push(provinceOrTerritory.label.localized);
   }
 

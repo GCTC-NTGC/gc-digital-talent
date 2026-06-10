@@ -5,22 +5,43 @@ import {
   LanguageAbility,
   OperationalRequirement,
   PriorityWeight,
+  TalentRequestSource,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import {
   fakeClassifications,
   fakeDepartments,
   fakeSkills,
+  fakeUsers,
   fakeWorkStreams,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 
 import TalentRequestMatchesTable from "./TalentRequestMatchesTable";
 
+const mockUsers = fakeUsers(10);
+const rows = mockUsers.map((user) => ({
+  __typename: "TalentRequestResult",
+  id: user.id,
+  user,
+  sources: [toLocalizedEnum(TalentRequestSource.QualifiedInPool)],
+  skillCount: user.userSkills?.length ?? 0,
+}));
+
 const meta = {
   component: TalentRequestMatchesTable,
   parameters: {
     apiResponses: {
+      TalentRequestMatchingUsers: {
+        data: {
+          talentRequestMatches: {
+            data: rows,
+            paginatorInfo: {
+              total: 10,
+            },
+          },
+        },
+      },
       TalentRequestMatchesTable: {
         data: {
           classifications: fakeClassifications(),

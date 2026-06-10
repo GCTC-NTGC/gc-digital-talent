@@ -9,10 +9,14 @@ import { useMemo, useRef, useState } from "react";
 import { useQuery, type OperationContext } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 
-import { graphql, type User } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  type TalentRequestMatchingUsersQuery,
+  type User,
+} from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-import { fakeUsers } from "@gc-digital-talent/fake-data";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
   INITIAL_STATE,
@@ -34,12 +38,50 @@ import TalentRequestMatchesFilterDialog, {
   type FormValues,
 } from "./TalentRequestMatchesFilterDialog";
 
-interface TalentRequestResult {
-  id: string;
-  user: User;
-  sources: "PREQUALIFIED"[];
-  skillCount: number;
-}
+const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
+  query TalentRequestMatchingUsers(
+    $where: TalentRequestMatchFilterInput
+    $page: Int
+    $first: Int
+  ) {
+    talentRequestMatches(where: $where, page: $page, first: $first) {
+      data {
+        id
+        user {
+          id
+          firstName
+          lastName
+          email
+          isGovEmployee
+          currentCity
+          currentProvince {
+            label {
+              localized
+            }
+          }
+          department {
+            name {
+              localized
+            }
+          }
+        }
+        sources {
+          label {
+            localized
+          }
+        }
+        skillCount
+      }
+
+      paginatorInfo {
+        total
+      }
+    }
+  }
+`);
+
+type TalentRequestResult =
+  TalentRequestMatchingUsersQuery["talentRequestMatches"]["data"][number];
 
 const columnHelper = createColumnHelper<TalentRequestResult>();
 
@@ -58,14 +100,6 @@ const defaultState = {
   sortState: [],
   filters: {},
 };
-
-const mockUsers = fakeUsers(10);
-const data = mockUsers.map((user) => ({
-  id: user.id,
-  user,
-  sources: [],
-  skillCount: user.userSkills?.length ?? 0,
-}));
 
 const TalentRequestMatchesTable = () => {
   const intl = useIntl();
@@ -119,12 +153,11 @@ const TalentRequestMatchesTable = () => {
     });
   };
 
-  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+  const handleFilterSubmit: SubmitHandler<FormValues> = (values) => {
     setPaginationState((previous) => ({
       ...previous,
       pageIndex: 0,
     }));
-    console.log(data);
     // setFilterState(transformedData);
     // if (!isEqual(transformedData, filterRef.current)) {
     //   filterRef.current = transformedData;
@@ -159,16 +192,20 @@ const TalentRequestMatchesTable = () => {
       }),
       enableColumnFilter: false,
     }),
-    columnHelper.accessor(({ sources }) => sources.join(", "), {
-      id: "sources",
-      header: intl.formatMessage({
-        defaultMessage: "Talent source",
-        id: "ZayKDK",
-        description: "Heading for the source of the matching user",
-      }),
-      enableSorting: false,
-      enableColumnFilter: false,
-    }),
+    columnHelper.accessor(
+      ({ sources }) =>
+        sources.flatMap((source) => source.label.localized).join(", "),
+      {
+        id: "sources",
+        header: intl.formatMessage({
+          defaultMessage: "Talent source",
+          id: "ZayKDK",
+          description: "Heading for the source of the matching user",
+        }),
+        enableSorting: false,
+        enableColumnFilter: false,
+      },
+    ),
     columnHelper.accessor(({ user }) => user.email, {
       id: "email",
       header: intl.formatMessage(commonMessages.email),
@@ -213,6 +250,19 @@ const TalentRequestMatchesTable = () => {
     ),
   ] as ColumnDef<TalentRequestResult>[];
 
+  const [{ data, fetching }] = useQuery({
+    query: TalentRequestMatchingUsers_Query,
+    variables: {
+      page: paginationState.pageIndex,
+      first: paginationState.pageIndex,
+    },
+  });
+
+  const rows = useMemo(
+    () => unpackMaybes(data?.talentRequestMatches.data),
+    [data?.talentRequestMatches.data],
+  );
+
   return (
     <Table<TalentRequestResult>
       caption={intl.formatMessage({
@@ -220,9 +270,9 @@ const TalentRequestMatchesTable = () => {
         id: "pX4FBO",
         description: "Title for users matching talent request criteria",
       })}
-      data={data}
+      data={rows}
       columns={columns}
-      isLoading={fetchingOptions}
+      isLoading={fetching || fetchingOptions}
       search={{
         internal: false,
         onChange: handleSearchStateChange,
@@ -243,7 +293,7 @@ const TalentRequestMatchesTable = () => {
         internal: false,
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
-        total: 0,
+        total: data?.talentRequestMatches?.paginatorInfo.total,
         pageSizes: [10, 20, 50, 100],
         onPaginationChange: handlePaginationStateChange,
       }}
