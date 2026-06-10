@@ -163,4 +163,42 @@ class TalentRequestTrackedUser extends Pivot
                     ->orWhere('email', 'ilike', "%{$search}%")))
         );
     }
+
+    public function referred(bool $save = true)
+    {
+        $this->referral_decision = TalentRequestTrackedUserReferralDecision::REFERRED->name;
+        $this->not_referred_reason = null;
+
+        if ($save) {
+            $this->save();
+        }
+    }
+
+    public function notReferred(string $notReferredReason)
+    {
+        $this->referral_decision = TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name;
+        $this->not_referred_reason = $notReferredReason;
+        $this->selection_decision = null;
+        $this->not_selected_reason = null;
+
+        $this->save();
+    }
+
+    public function selected()
+    {
+        $this->referred(save: false);
+        $this->selection_decision = TalentRequestTrackedUserSelectionDecision::SELECTED->name;
+        $this->not_referred_reason = null;
+
+        $this->save();
+    }
+
+    public function notSelected(string $notSelectedReason)
+    {
+        $this->referred(save: false);
+        $this->selection_decision = TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name;
+        $this->not_selected_reason = $notSelectedReason;
+
+        $this->save();
+    }
 }
