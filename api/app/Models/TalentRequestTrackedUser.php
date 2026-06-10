@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Carbon;
+use SortDirection;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 use Spatie\Activitylog\Support\LogOptions;
 
@@ -143,8 +144,8 @@ class TalentRequestTrackedUser extends Pivot
     public function scopeOrderBySkillCount(Builder $query, ?array $args): Builder
     {
         $direction = match ($args['order'] ?? null) {
-            'ASC' => 'ASC',
-            'DESC' => 'DESC',
+            'ASC' => SortDirection::Ascending,
+            'DESC' => SortDirection::Descending,
             default => null,
         };
 
