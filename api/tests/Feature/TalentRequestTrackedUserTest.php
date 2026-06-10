@@ -17,9 +17,11 @@ use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
 use App\Models\UserSkill;
 use Carbon\CarbonImmutable;
+use App\Jobs\GenerateUserFile;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Queue;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -677,5 +679,49 @@ class TalentRequestTrackedUserTest extends TestCase
             ])
             ->json('data.talentRequestTrackedUsers.data.*.user.id');
         $this->assertEquals([$none->id, $one->id, $all->id], $ascIds);
+    }
+
+    public function testDownloadAllTrackedUsersExcelDispatchesJob(): void
+    {
+        Queue::fake();
+
+        $request = $this->createRequest();
+        $this->seedTrackedUsersForEachStatus($request);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL(/** @lang GraphQL */ '
+                mutation DownloadTrackedUsersExcel($talentRequestId: UUID!, $where: TalentRequestTrackedUserFilterInput) {
+                    downloadTrackedUsersExcel(talentRequestId: $talentRequestId, where: $where)
+                }
+            ', [
+                'talentRequestId' => $request->id,
+                'where' => ['statuses' => [TalentRequestTrackedUserStatus::REFERRED->name]],
+            ])
+            ->assertJson(['data' => ['downloadTrackedUsersExcel' => true]]);
+
+        Queue::assertPushed(GenerateUserFile::class);
+    }
+
+    #[DataProvider('cannotViewRequestProvider')]
+    public function testDownloadAllTrackedUsersExcelRolesWithoutAccessCannotDownload(string $role): void
+    {
+        Queue::fake();
+
+        $request = $this->createRequest();
+
+        $actor = match ($role) {
+            'applicant' => User::factory()->asApplicant()->create(),
+            'other_recruiter' => User::factory()->asCommunityRecruiter([Community::factory()->create()->id])->create(),
+        };
+
+        $this->actingAs($actor, 'api')
+            ->graphQL(/** @lang GraphQL */ '
+                mutation DownloadTrackedUsersExcel($talentRequestId: UUID!) {
+                    downloadTrackedUsersExcel(talentRequestId: $talentRequestId)
+                }
+            ', ['talentRequestId' => $request->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        Queue::assertNotPushed(GenerateUserFile::class);
     }
 }

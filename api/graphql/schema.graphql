@@ -4127,6 +4127,17 @@ type Mutation {
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean! @guard
+  downloadTrackedUsersExcel(
+    talentRequestId: UUID!
+    where: TalentRequestTrackedUserFilterInput
+  ): Boolean
+    @guard
+    @canFind(
+      ability: "view"
+      find: "talentRequestId"
+      model: "App\\Models\\TalentRequest"
+      scopes: ["withPolicyEagerLoads"]
+    )
   downloadCommunityInterestUsersExcel(
     ids: [UUID!]
     where: CommunityInterestFilterInput
