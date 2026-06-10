@@ -7,6 +7,7 @@ use App\Models\TalentNominationEvent;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Facades\Auth;
 
 class TalentEventOpenForCreatingNominations implements ValidationRule
 {
@@ -25,6 +26,13 @@ class TalentEventOpenForCreatingNominations implements ValidationRule
                 $now = Carbon::now();
 
                 if ($now > $eventClosing) {
+                    $user = Auth::user();
+
+                    // Allow community coordinators and admins to nominate for past events
+                    if ($user->roles()->whereIn('name', ['community_talent_coordinator', 'community_admin'])->exists()) {
+                        return;
+                    }
+
                     $fail(ErrorCode::TALENT_EVENT_IS_CLOSED->name);
                 }
             }
