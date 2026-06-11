@@ -34,6 +34,8 @@ import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import adminMessages from "~/messages/adminMessages";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
+import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
+import useUserDownloads from "~/hooks/useUserDownloads";
 
 import {
   addSearchToWhere,
@@ -192,9 +194,15 @@ const TalentRequestMatchesTable = ({
         }
       : INITIAL_STATE.paginationState,
   );
-  // selectedRows is reserved for upcoming bulk actions (downloads, tracking)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
+  const {
+    downloadDoc,
+    downloadingDoc,
+    downloadZip,
+    downloadingZip,
+    downloadExcel,
+    downloadingExcel,
+  } = useUserDownloads();
   const [searchState, setSearchState] = useState<SearchState>(
     initialState.searchState ?? INITIAL_STATE.searchState,
   );
@@ -216,6 +224,18 @@ const TalentRequestMatchesTable = ({
           : 0,
       pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
     }));
+  };
+
+  const handleDocDownload = (anonymous: boolean) => {
+    if (selectedRows.length === 1) {
+      downloadDoc({ id: selectedRows[0], anonymous });
+    } else {
+      downloadZip({ ids: selectedRows, anonymous });
+    }
+  };
+
+  const handleExcelDownload = () => {
+    downloadExcel({ ids: selectedRows });
   };
 
   const handleSearchStateChange = ({ term, type }: SearchState) => {
@@ -345,6 +365,8 @@ const TalentRequestMatchesTable = ({
     [data?.talentRequestMatches.data],
   );
 
+  const hasSelectedRows = selectedRows.length > 0;
+
   return (
     <Table<TalentRequestResult>
       caption={intl.formatMessage({
@@ -393,6 +415,25 @@ const TalentRequestMatchesTable = ({
               intl,
             ),
           }),
+      }}
+      download={{
+        spreadsheet: {
+          enable: true,
+          onClick: handleExcelDownload,
+          downloading: downloadingExcel,
+        },
+        doc: {
+          enable: true,
+          component: (
+            <DownloadDocxButton
+              inTable
+              disabled={!hasSelectedRows || downloadingZip || downloadingDoc}
+              isDownloading={downloadingZip || downloadingDoc}
+              onClickProfile={() => handleDocDownload(false)}
+              onClickAnonymousProfile={() => handleDocDownload(true)}
+            />
+          ),
+        },
       }}
       sort={{
         internal: false,
