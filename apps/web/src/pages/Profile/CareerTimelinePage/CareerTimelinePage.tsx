@@ -87,7 +87,7 @@ const CareerTimelinePage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.me?.experiences ? (
+      {data?.me ? (
         <CareerTimeline
           userId={data?.me.id}
           experiencesQuery={unpackMaybes(data?.me.experiences)}
