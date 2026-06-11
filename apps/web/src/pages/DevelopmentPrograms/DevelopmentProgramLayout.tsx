@@ -6,7 +6,7 @@ import { useQuery } from "urql";
 
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Container, Pending } from "@gc-digital-talent/ui";
+import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -82,24 +82,30 @@ const DevelopmentProgramLayout = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SEO
-        title={pageTitle ?? intl.formatMessage(commonMessages.notFound)}
-        description={description}
-      />
-      <Hero
-        title={pageTitle}
-        subtitle={description}
-        crumbs={crumbs}
-        navTabs={[
-          {
-            label: intl.formatMessage(adminMessages.details),
-            url: paths.developmentProgramView(developmentProgramId),
-          },
-        ]}
-      />
-      <Container className="my-18">
-        <Outlet />
-      </Container>
+      {data?.developmentProgram ? (
+        <>
+          <SEO
+            title={pageTitle ?? intl.formatMessage(commonMessages.notFound)}
+            description={description}
+          />
+          <Hero
+            title={pageTitle}
+            subtitle={description}
+            crumbs={crumbs}
+            navTabs={[
+              {
+                label: intl.formatMessage(adminMessages.details),
+                url: paths.developmentProgramView(developmentProgramId),
+              },
+            ]}
+          />
+          <Container className="my-18">
+            <Outlet />
+          </Container>
+        </>
+      ) : (
+        <ThrowNotFound message={intl.formatMessage(commonMessages.notFound)} />
+      )}
     </Pending>
   );
 };
