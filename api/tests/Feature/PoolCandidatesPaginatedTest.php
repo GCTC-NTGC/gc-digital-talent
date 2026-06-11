@@ -38,7 +38,7 @@ class PoolCandidatesPaginatedTest extends TestCase
         /** GraphQL */
         '
         query PoolCandidates {
-            poolCandidatesPaginated(first: 100) {
+            poolCandidatesPaginatedAdminView(first: 100) {
                 paginatorInfo {
                     total
                 }

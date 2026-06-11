@@ -69,7 +69,9 @@ class PoolApplicationTest extends TestCase
         '
         query poolCandidate($id: UUID!) {
             poolCandidate(id: $id) {
-                status { value }
+                applicationStatusData {
+                    status { value }
+                }
             }
         }
     ';
@@ -85,7 +87,9 @@ class PoolApplicationTest extends TestCase
                 pool {
                     id
                 }
-                status { value }
+                applicationStatusData {
+                    status { value }
+                }
             }
         }
     ';
@@ -115,7 +119,9 @@ class PoolApplicationTest extends TestCase
             submitApplication(id: $id, signature: $sig) {
                 submittedAt
                 signature
-                status { value }
+                applicationStatusData {
+                    status { value }
+                }
             }
         }
     GRAPHQL;
@@ -191,8 +197,10 @@ class PoolApplicationTest extends TestCase
                     'pool' => [
                         'id' => $pool->id,
                     ],
-                    'status' => [
-                        'value' => ApplicationStatus::DRAFT->name,
+                    'applicationStatusData' => [
+                        'status' => [
+                            'value' => ApplicationStatus::DRAFT->name,
+                        ],
                     ],
                 ],
             ],
@@ -344,7 +352,7 @@ class PoolApplicationTest extends TestCase
                     fn ($json) => $json->has(
                         'submitApplication',
                         fn ($json) => $json->has('signature')
-                            ->has('status')
+                            ->has('applicationStatusData')
                             ->has('submittedAt')
                             ->whereType('submittedAt', 'string')
                     )
@@ -418,7 +426,7 @@ class PoolApplicationTest extends TestCase
                     fn ($json) => $json->has(
                         'submitApplication',
                         fn ($json) => $json->has('submittedAt')
-                            ->has('status')
+                            ->has('applicationStatusData')
                             ->has('signature')
                             ->whereType('submittedAt', 'string')
                     )
@@ -510,7 +518,7 @@ class PoolApplicationTest extends TestCase
                     fn ($json) => $json->has(
                         'submitApplication',
                         fn ($json) => $json->has('signature')
-                            ->has('status')
+                            ->has('applicationStatusData')
                             ->has('submittedAt')
                             ->whereType('submittedAt', 'string')
                     )
@@ -595,7 +603,7 @@ class PoolApplicationTest extends TestCase
                         'submitApplication',
                         fn ($json) => $json
                             ->has('signature')
-                            ->has('status')
+                            ->has('applicationStatusData')
                             ->has('submittedAt')
                             ->whereType('submittedAt', 'string')
                     )
@@ -659,7 +667,7 @@ class PoolApplicationTest extends TestCase
                     fn ($json) => $json->has(
                         'submitApplication',
                         fn ($json) => $json->has('signature')
-                            ->has('status')
+                            ->has('applicationStatusData')
                             ->has('submittedAt')
                             ->whereType('submittedAt', 'string')
                     )
@@ -717,7 +725,7 @@ class PoolApplicationTest extends TestCase
                     fn ($json) => $json->has(
                         'submitApplication',
                         fn ($json) => $json->has('signature')
-                            ->has('status')
+                            ->has('applicationStatusData')
                             ->has('submittedAt')
                             ->whereType('submittedAt', 'string')
                     )
@@ -749,8 +757,10 @@ class PoolApplicationTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => [
-                            'value' => ApplicationStatus::DRAFT->name,
+                        'applicationStatusData' => [
+                            'status' => [
+                                'value' => ApplicationStatus::DRAFT->name,
+                            ],
                         ],
                     ],
                 ],
