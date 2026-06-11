@@ -48,30 +48,17 @@ const LOCALIZED_STRING = {
 test.describe("Pool candidates", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
-  let adminSub: string;
+  const adminSub = "admin@test.com";
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
   let adminCtx: GraphQLContext;
   let poolId: string;
   let user: User | undefined;
-  let adminUser: User | undefined;
 
   test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
-    adminSub = `playwright.sub.admin.${uniqueTestId}`;
     adminCtx = await graphql.newContext();
-
-    adminUser = await createUserWithRoles(adminCtx, {
-      roles: ["guest", "base_user", "platform_admin"],
-      user: {
-        firstName: "Playwright",
-        lastName: "Admin",
-        email: `${adminSub}@example.org`,
-        emailVerifiedAt: PAST_DATE,
-        sub: adminSub,
-      },
-    });
 
     technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find(
@@ -144,7 +131,6 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
   test.afterEach(async () => {
     adminCtx = await graphql.newContext();
     if (user?.id) await deleteUser(adminCtx, { id: user.id });
-    if (adminUser?.id) await deleteUser(adminCtx, { id: adminUser.id });
   });
 
   test("Validate Application can be screened in with applied work", async ({
