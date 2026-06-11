@@ -4,7 +4,10 @@ import path from "node:path";
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 
-dotenv.config({ path: path.resolve(__dirname, process.env.PLAYWRIGHT_ENV_FILE ?? ".env"), quiet: true });
+dotenv.config({
+  path: path.resolve(__dirname, process.env.PLAYWRIGHT_ENV_FILE ?? ".env"),
+  quiet: true,
+});
 
 /**
  * See https://playwright.dev/docs/test-configuration.

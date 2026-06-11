@@ -65,6 +65,8 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
     adminUser = await createUserWithRoles(adminCtx, {
       roles: ["guest", "base_user", "platform_admin"],
       user: {
+        firstName: "Playwright",
+        lastName: "Admin",
         email: `${adminSub}@example.org`,
         emailVerifiedAt: PAST_DATE,
         sub: adminSub,
