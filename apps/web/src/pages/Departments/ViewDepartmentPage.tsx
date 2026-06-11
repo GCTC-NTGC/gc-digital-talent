@@ -208,16 +208,18 @@ const UpdateDepartmentPage = () => {
 const Component = () => {
   const { teamId } = useOutletContext<ContextType>();
 
-  <RequireAuth
-    rolesRequirements={[
-      { name: ROLE.PlatformAdmin },
-      { name: ROLE.DepartmentAdmin, teamId },
-      { name: ROLE.DepartmentHRAdvisor, teamId },
-    ]}
-    strict
-  >
-    <UpdateDepartmentPage />
-  </RequireAuth>;
+  return (
+    <RequireAuth
+      rolesRequirements={[
+        { name: ROLE.PlatformAdmin },
+        { name: ROLE.DepartmentAdmin, teamId },
+        { name: ROLE.DepartmentHRAdvisor, teamId },
+      ]}
+      strict
+    >
+      <UpdateDepartmentPage />
+    </RequireAuth>
+  );
 };
 
 Component.displayName = "AdminUpdateDepartmentPage";
