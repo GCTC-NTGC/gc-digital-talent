@@ -122,7 +122,9 @@ class TalentRequestTrackedUser extends Pivot
         return $query->when($statuses, fn (Builder $query) => $query->where(fn (Builder $query) => $query
             ->when(
                 in_array(TalentRequestTrackedUserStatus::NOT_REFERRED->name, $statuses),
-                fn (Builder $query) => $query->orWhere('referral_decision', TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name)
+                fn (Builder $query) => $query
+                    ->orWhere('referral_decision', TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name)
+                    ->whereNull('selection_decision')
             )
             ->when(
                 in_array(TalentRequestTrackedUserStatus::REFERRED->name, $statuses),
