@@ -1,10 +1,15 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
-import { waitFor } from "@testing-library/react";
+import { waitFor, screen } from "@testing-library/react";
+import type * as ReactRouter from "react-router";
 
 import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
-import type { RoleAssignment } from "@gc-digital-talent/graphql";
-import type { RoleName, RoleRequirement } from "@gc-digital-talent/auth";
+import { type RoleAssignment } from "@gc-digital-talent/graphql";
+import type {
+  HasRequiredRolesArgs,
+  RoleName,
+  RoleRequirement,
+} from "@gc-digital-talent/auth";
 
 import RequireAuth from "./RequireAuth";
 
@@ -12,13 +17,13 @@ const mocks = vi.hoisted(() => ({
   loggedIn: true,
   isLoaded: true,
   roleAssignments: [] as (RoleAssignment | null | undefined)[],
-  hasRequiredRoles: vi.fn(),
+  hasRequiredRoles: vi.fn<(args: HasRequiredRolesArgs) => boolean>(),
   onAuthorizedRolesChanged: vi.fn(),
   navigate: vi.fn(),
 }));
 
 vi.mock("react-router", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("react-router")>();
+  const actual = await importOriginal<typeof ReactRouter>();
   return {
     ...actual,
     useNavigate: () => mocks.navigate,
@@ -31,7 +36,8 @@ vi.mock("@gc-digital-talent/auth", () => ({
     roleAssignments: mocks.roleAssignments,
     isLoaded: mocks.isLoaded,
   }),
-  hasRequiredRoles: (...args: unknown[]) => mocks.hasRequiredRoles(...args),
+  hasRequiredRoles: (args: HasRequiredRolesArgs) =>
+    mocks.hasRequiredRoles(args),
 }));
 
 vi.mock("~/hooks/useRoutes", () => ({
@@ -45,9 +51,6 @@ vi.mock("../NavContext/useNavContext", () => ({
     onAuthorizedRolesChanged: mocks.onAuthorizedRolesChanged,
   }),
 }));
-
-const ROLE_A = "PlatformAdmin" as unknown as RoleName;
-const ROLE_B = "CommunityAdmin" as unknown as RoleName;
 
 const renderForRoles = (roles: RoleName[]) =>
   renderWithProviders(
@@ -79,7 +82,7 @@ describe("RequireAuth", () => {
   it("redirects logged-out users to login with a from parameter", async () => {
     mocks.loggedIn = false;
 
-    renderForRoles([ROLE_A]);
+    renderForRoles(["platform_admin"]);
 
     await waitFor(() => {
       expect(mocks.navigate).toHaveBeenCalledWith(
@@ -100,18 +103,20 @@ describe("RequireAuth", () => {
         id: "assignment-1",
         role: {
           id: "role-1",
-          name: ROLE_A,
+          name: "platform_admin",
           isTeamBased: false,
         },
         team: null,
       },
     ];
 
-    const { getByText } = renderForRoles([ROLE_A]);
+    renderForRoles(["platform_admin"]);
 
-    expect(getByText("authorized content")).toBeInTheDocument();
+    expect(screen.getByText("authorized content")).toBeInTheDocument();
     expect(mocks.hasRequiredRoles).not.toHaveBeenCalled();
-    expect(mocks.onAuthorizedRolesChanged).toHaveBeenCalledWith([ROLE_A]);
+    expect(mocks.onAuthorizedRolesChanged).toHaveBeenCalledWith([
+      "platform_admin",
+    ]);
   });
 
   it("throws UnauthorizedError in the roles branch when no matching role exists", () => {
@@ -120,14 +125,14 @@ describe("RequireAuth", () => {
         id: "assignment-2",
         role: {
           id: "role-2",
-          name: ROLE_B,
+          name: "community_admin",
           isTeamBased: false,
         },
         team: null,
       },
     ];
 
-    expect(() => renderForRoles([ROLE_A])).toThrow(UnauthorizedError);
+    expect(() => renderForRoles(["platform_admin"])).toThrow(UnauthorizedError);
     expect(mocks.hasRequiredRoles).not.toHaveBeenCalled();
   });
 
@@ -137,7 +142,7 @@ describe("RequireAuth", () => {
         id: "assignment-3",
         role: {
           id: "role-3",
-          name: ROLE_B,
+          name: "community_admin",
           isTeamBased: true,
         },
         team: { id: "team-1", name: "Team 1" },
@@ -147,27 +152,31 @@ describe("RequireAuth", () => {
 
     const rolesRequirements: RoleRequirement[] = [
       {
-        name: ROLE_B,
+        name: "community_admin",
         teamId: "team-1",
       },
     ];
 
-    const { getByText } = renderForRoleRequirements(rolesRequirements, true);
+    renderForRoleRequirements(rolesRequirements, true);
 
-    expect(getByText("authorized content")).toBeInTheDocument();
+    expect(screen.getByText("authorized content")).toBeInTheDocument();
     expect(mocks.hasRequiredRoles).toHaveBeenCalledWith({
       toCheck: rolesRequirements,
       userRoles: mocks.roleAssignments,
       strict: true,
     });
-    expect(mocks.onAuthorizedRolesChanged).toHaveBeenCalledWith([ROLE_B]);
+    expect(mocks.onAuthorizedRolesChanged).toHaveBeenCalledWith([
+      "community_admin",
+    ]);
   });
 
   it("throws UnauthorizedError in the rolesRequirements branch when requirements are not met", () => {
     mocks.hasRequiredRoles.mockReturnValue(false);
 
     expect(() =>
-      renderForRoleRequirements([{ name: ROLE_B, teamId: "team-2" }]),
+      renderForRoleRequirements([
+        { name: "community_admin", teamId: "team-2" },
+      ]),
     ).toThrow(UnauthorizedError);
   });
 });
