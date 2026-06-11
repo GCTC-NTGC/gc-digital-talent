@@ -877,6 +877,7 @@ export const Component = () => {
         { name: ROLE_NAME.DepartmentAdmin, teamId: departmentTeamId },
         { name: ROLE_NAME.DepartmentHRAdvisor, teamId: departmentTeamId },
       ]}
+      strict
     >
       <EditPoolPage />
     </RequireAuth>
