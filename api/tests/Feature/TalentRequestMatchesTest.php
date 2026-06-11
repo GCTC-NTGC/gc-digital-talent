@@ -2,13 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ArmedForcesStatus;
+use App\Enums\CitizenshipStatus;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
+use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
 use App\Enums\TalentRequestSource;
 use App\Facades\Notify;
 use App\Models\Classification;
 use App\Models\Community;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
@@ -57,9 +61,10 @@ class TalentRequestMatchesTest extends TestCase
     }
 
     // A user with an available, talent-searchable qualified candidacy in $pool.
-    private function matchingUser(Pool $pool, array $userAttributes = []): User
+    private function matchingUser(Pool $pool, ?array $userAttributes = [], ?bool $isGovEmployee = false): User
     {
-        $user = User::factory()->create($userAttributes);
+        $state = $isGovEmployee ? 'withGovEmployeeProfile' : 'withNonGovProfile';
+        $user = User::factory()->$state()->create($userAttributes);
         PoolCandidate::factory()->availableInSearch()->create([
             'user_id' => $user->id,
             'pool_id' => $pool->id,
@@ -72,6 +77,22 @@ class TalentRequestMatchesTest extends TestCase
     {
         return $this->actingAs($actingAs ?? $this->admin, 'api')
             ->graphQL($this->query, ['where' => $where]);
+    }
+
+    private function runMatchesOrdered(array $where, string $direction): TestResponse
+    {
+        $query = <<<'GRAPHQL'
+            query ($where: TalentRequestMatchFilterInput, $orderBy: [AdvancedOrderByInput!]) {
+                talentRequestMatches(where: $where, orderBy: $orderBy) {
+                    data { user { id } skillCount }
+                }
+            }
+            GRAPHQL;
+
+        return $this->actingAs($this->admin, 'api')->graphQL($query, [
+            'where' => $where,
+            'orderBy' => [['scope' => 'orderBySkillCount', 'direction' => $direction]],
+        ]);
     }
 
     private function runCountMatches(array $where = []): TestResponse
@@ -292,6 +313,122 @@ class TalentRequestMatchesTest extends TestCase
         ])
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $match->id);
+    }
+
+    public function testFiltersByDepartments(): void
+    {
+        $department = Department::factory()->create();
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $inDepartment = $this->matchingUser($pool, [], true);
+        $this->matchingUser($pool, [], false);
+
+        $this->runMatches(['departments' => [$department->id]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $inDepartment->id);
+    }
+
+    public function testFiltersByIsGovEmployee(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $govEmployee = $this->matchingUser($pool, [], true);
+        $nonGov = $this->matchingUser($pool, [], false);
+
+        $this->runMatches(['isGovEmployee' => true])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $govEmployee->id);
+    }
+
+    public function testFiltersByPriorityWeight(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        // priority_weight is generated on users: VETERAN armed forces → weight 20
+        $veteran = $this->matchingUser($pool, [
+            'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
+            'has_priority_entitlement' => false,
+            'citizenship' => CitizenshipStatus::OTHER->name,
+        ]);
+        // not a veteran → weight 40 (OTHER)
+        $this->matchingUser($pool, [
+            'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
+            'has_priority_entitlement' => false,
+            'citizenship' => CitizenshipStatus::OTHER->name,
+        ]);
+
+        $this->runMatches(['priorityWeight' => [PriorityWeight::VETERAN->name]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $veteran->id);
+    }
+
+    public function testFiltersByGeneralSearch(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $jane = $this->matchingUser($pool, [
+            'first_name' => 'Jane',
+            'last_name' => 'Doe',
+            'email' => 'jane.doe@example.com',
+        ]);
+        $this->matchingUser($pool, [
+            'first_name' => 'Bob',
+            'last_name' => 'Smith',
+            'email' => 'bob.smith@example.com',
+        ]);
+
+        $this->runMatches(['generalSearch' => 'Jane'])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $jane->id);
+    }
+
+    public function testFiltersByName(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $jane = $this->matchingUser($pool, ['first_name' => 'Jane', 'last_name' => 'Doe']);
+        $this->matchingUser($pool, ['first_name' => 'Bob', 'last_name' => 'Smith']);
+
+        $this->runMatches(['name' => 'Doe'])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $jane->id);
+    }
+
+    public function testFiltersByEmail(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $jane = $this->matchingUser($pool, ['email' => 'jane.doe@example.com']);
+        $this->matchingUser($pool, ['email' => 'bob.smith@example.com']);
+
+        $this->runMatches(['email' => 'jane.doe@example.com'])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $jane->id);
+    }
+
+    public function testOrdersBySkillCount(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $oneSkill = $this->matchingUser($pool);
+        $twoSkills = $this->matchingUser($pool);
+
+        $skillA = Skill::factory()->create();
+        $skillB = Skill::factory()->create();
+
+        UserSkill::factory()->for($oneSkill)->create(['skill_id' => $skillA->id]);
+
+        UserSkill::factory()->for($twoSkills)->create(['skill_id' => $skillA->id]);
+        UserSkill::factory()->for($twoSkills)->create(['skill_id' => $skillB->id]);
+
+        $where = ['applicantFilter' => ['skills' => [['id' => $skillA->id], ['id' => $skillB->id]]]];
+
+        $this->runMatchesOrdered($where, 'DESC')
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $twoSkills->id)
+            ->assertJsonPath('data.talentRequestMatches.data.1.user.id', $oneSkill->id);
+
+        $this->runMatchesOrdered($where, 'ASC')
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $oneSkill->id)
+            ->assertJsonPath('data.talentRequestMatches.data.1.user.id', $twoSkills->id);
     }
 
     public function testMatchesAreFilteredByViewAuthorization(): void
