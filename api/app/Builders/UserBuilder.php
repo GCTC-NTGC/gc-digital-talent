@@ -5,8 +5,6 @@ namespace App\Builders;
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
-use App\Enums\CitizenshipStatus;
-use App\Enums\ClaimVerificationResult;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\PriorityWeight;
@@ -400,36 +398,13 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->where(function ($query) use ($priorityWeights) {
-            foreach ($priorityWeights as $priorityWeight) {
-                switch ($priorityWeight) {
-                    case PriorityWeight::PRIORITY_ENTITLEMENT->name:
-                        $query->orWhereIn(
-                            'priority_verification',
-                            [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
-                        );
-                        break;
+        // priority_weight is a generated column on users (10/20/30/40)
+        $weights = array_map(
+            fn ($priorityWeight) => PriorityWeight::weight($priorityWeight),
+            $priorityWeights
+        );
 
-                    case PriorityWeight::VETERAN->name:
-                        $query->orWhereIn(
-                            'veteran_verification',
-                            [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
-                        );
-                        break;
-
-                    case PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT->name:
-                        $query->orWhereIn(
-                            'citizenship',
-                            [CitizenshipStatus::CITIZEN->name, CitizenshipStatus::PERMANENT_RESIDENT->name]
-                        );
-                        break;
-
-                    case PriorityWeight::OTHER->name:
-                        $query->orWhere('citizenship', CitizenshipStatus::OTHER->name);
-                        break;
-                }
-            }
-        });
+        return $this->whereIn('priority_weight', $weights);
     }
 
     public function orderBySkillCount(array $args): self
