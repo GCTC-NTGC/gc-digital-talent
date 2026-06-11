@@ -34,7 +34,7 @@ const pageSubtitle = defineMessage({
   description: "Page subtitle for the create community page",
 });
 
-const Component = () => {
+const CreateCommunityPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
@@ -72,7 +72,7 @@ const Component = () => {
   });
 
   return (
-    <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
+    <>
       <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
       <Hero
         title={formattedPageTitle}
@@ -85,9 +85,15 @@ const Component = () => {
           <CreateCommunityForm onSubmit={handleSubmit} />
         </div>
       </Hero>
-    </RequireAuth>
+    </>
   );
 };
+
+const Component = () => (
+  <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
+    <CreateCommunityPage />
+  </RequireAuth>
+);
 
 Component.displayName = "AdminCreateCommunityPage";
 
