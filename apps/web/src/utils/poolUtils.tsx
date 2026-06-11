@@ -76,10 +76,6 @@ export const isAdvertisementVisible = (
   );
 };
 
-export function isIAPPool(publishingGroup?: PublishingGroup | null): boolean {
-  return publishingGroup === PublishingGroup.Iap;
-}
-
 export function isExecPool(publishingGroup?: PublishingGroup | null): boolean {
   return publishingGroup === PublishingGroup.ExecutiveJobs;
 }
@@ -182,13 +178,6 @@ export const poolTitle = (
     };
 
   const specificTitle = getLocalizedName(pool?.name, intl);
-
-  if (isIAPPool(pool.publishingGroup?.value)) {
-    return {
-      html: specificTitle,
-      label: specificTitle,
-    };
-  }
 
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,

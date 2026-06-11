@@ -176,8 +176,7 @@ export const ApplicationCareerTimeline = ({
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { followingPageUrl, currentStepOrdinal, isIAP } =
-    useApplicationContext();
+  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -189,7 +188,7 @@ export const ApplicationCareerTimeline = ({
     followingPageUrl ?? paths.applicationEducation(application.id);
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
-  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
+  const cancelPath = paths.profileAndApplications();
   const applicationWasSubmitted = !!application.submittedAt;
 
   const methods = useForm<FormValues>();

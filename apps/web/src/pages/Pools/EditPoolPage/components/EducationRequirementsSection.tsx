@@ -6,11 +6,7 @@ import { Heading, Link, ScrollToLink, Notice } from "@gc-digital-talent/ui";
 import type { Locales } from "@gc-digital-talent/i18n";
 import { getLocale } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
-import {
-  PublishingGroup,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { getLogger } from "@gc-digital-talent/logger";
 
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
@@ -157,10 +153,7 @@ const EducationRequirementsSection = ({
           </Notice.Content>
         </Notice.Root>
       ) : (
-        <EducationRequirements
-          isIAP={pool.publishingGroup?.value === PublishingGroup.Iap}
-          classificationGroup={classificationGroup}
-        />
+        <EducationRequirements classificationGroup={classificationGroup} />
       )}
     </div>
   );

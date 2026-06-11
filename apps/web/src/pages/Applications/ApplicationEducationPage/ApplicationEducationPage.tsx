@@ -111,7 +111,7 @@ const ApplicationEducation = ({
   const paths = useRoutes();
   const logger = getLogger();
   const navigate = useNavigate();
-  const { followingPageUrl, currentStepOrdinal, isIAP, classificationGroup } =
+  const { followingPageUrl, currentStepOrdinal, classificationGroup } =
     useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -122,7 +122,7 @@ const ApplicationEducation = ({
   const nextStep =
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);
   const previousStep = paths.applicationCareerTimeline(application.id);
-  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
+  const cancelPath = paths.profileAndApplications();
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -347,28 +347,17 @@ const ApplicationEducation = ({
           </p>
           <RadioGroup
             idPrefix="education_requirement"
-            legend={
-              isIAP
-                ? intl.formatMessage({
-                    defaultMessage:
-                      "Please select the option that best reflects your qualifications",
-                    id: "0IggSg",
-                    description:
-                      "Legend for the radio group in the application education page - IAP variant.",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "Select the option that applies to you",
-                    id: "TBsQMo",
-                    description:
-                      "Legend for the radio group in the application education page.",
-                  })
-            }
+            legend={intl.formatMessage({
+              defaultMessage: "Select the option that applies to you",
+              id: "TBsQMo",
+              description:
+                "Legend for the radio group in the application education page.",
+            })}
             name="educationRequirement"
             items={getEducationRequirementOptions(
               intl,
               locale,
               classificationGroupTyped,
-              isIAP,
             )}
             rules={{
               required: intl.formatMessage(errorMessages.required),

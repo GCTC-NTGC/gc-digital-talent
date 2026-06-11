@@ -16,7 +16,6 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import type { ApplicationPageProps } from "../ApplicationApi";
 import ApplicationApi from "../ApplicationApi";
-import { useApplicationContext } from "../ApplicationContext";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import type { FormValues } from "./types";
 import AnswerInput from "./components/AnswerInput";
@@ -54,10 +53,9 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { isIAP } = useApplicationContext();
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
-  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
+  const cancelPath = paths.profileAndApplications();
 
   const screeningQuestions =
     application.pool.screeningQuestions?.filter(notEmpty) ?? [];
