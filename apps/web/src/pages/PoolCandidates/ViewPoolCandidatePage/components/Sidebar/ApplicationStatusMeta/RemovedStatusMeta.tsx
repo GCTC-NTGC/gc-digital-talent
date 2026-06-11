@@ -33,9 +33,13 @@ const RemovedStatusMeta = ({ query }: RemovedStatusMetaProps) => {
   const intl = useIntl();
   const application = getFragment(RemovedStatusMeta_Fragment, query);
 
-  let reason = application.removalReason?.label.localized;
-  if (application.removalReason?.value === CandidateRemovalReason.Other) {
-    reason = application.removalReasonOther;
+  let reason =
+    application.applicationStatusData?.removalReason?.label.localized;
+  if (
+    application.applicationStatusData?.removalReason?.value ===
+    CandidateRemovalReason.Other
+  ) {
+    reason = application.applicationStatusData?.removalReasonOther;
   }
 
   return (

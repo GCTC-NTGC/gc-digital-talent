@@ -30,8 +30,8 @@ const DisqualifiedStatusMeta = ({ query }: DisqualifiedStatusMetaProps) => {
   return (
     <FieldDisplay label={intl.formatMessage(applicationMessages.reason)}>
       <span className="text-gray-600 dark:text-gray-200">
-        {application.disqualificationReason?.label.localized ??
-          intl.formatMessage(commonMessages.notAvailable)}
+        {application.applicationStatusData?.disqualificationReason?.label
+          .localized ?? intl.formatMessage(commonMessages.notAvailable)}
       </span>
     </FieldDisplay>
   );

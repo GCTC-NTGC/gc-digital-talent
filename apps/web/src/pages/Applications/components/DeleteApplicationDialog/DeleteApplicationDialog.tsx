@@ -53,7 +53,10 @@ const DeleteApplicationDialog = ({ query }: DeleteApplicationDialogProps) => {
 
   const handleDelete = () => {
     // NOTE: Only drafts can be deleted
-    if (application.status?.value !== ApplicationStatus.Draft) {
+    if (
+      application.applicationStatusData?.status?.value !==
+      ApplicationStatus.Draft
+    ) {
       toast.error(
         intl.formatMessage({
           defaultMessage:

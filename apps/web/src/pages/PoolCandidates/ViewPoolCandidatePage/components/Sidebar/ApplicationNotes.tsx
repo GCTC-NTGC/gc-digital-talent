@@ -46,7 +46,7 @@ const ApplicationNotes = ({ query }: ApplicationNotesProps) => {
 
   return (
     <SidebarNotesForm
-      values={{ notes: application.notes }}
+      values={{ notes: application.applicationAssessmentData?.notes }}
       onSave={handleSubmit}
     />
   );

@@ -58,7 +58,7 @@ const ApplicationBookmarkFlag = ({ query }: ApplicationBookmarkFlagProps) => {
 
   const [{ isFlagged }, toggleFlag] = useCandidateFlagToggle({
     id: application.id,
-    defaultValue: application.isFlagged ?? false,
+    defaultValue: application.applicationAssessmentData?.isFlagged ?? false,
     name,
     processTitle:
       application.pool.displayName?.display.localized ??

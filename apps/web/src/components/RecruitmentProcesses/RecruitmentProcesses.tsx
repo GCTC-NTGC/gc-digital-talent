@@ -52,7 +52,8 @@ const RecruitmentProcesses = ({
   );
   const recruitmentProcessesFiltered = recruitmentProcesses
     ? recruitmentProcesses.filter(
-        ({ status }) => status?.value === ApplicationStatus.Qualified,
+        ({ applicationStatusData }) =>
+          applicationStatusData?.status?.value === ApplicationStatus.Qualified,
       )
     : []; // filter for qualified recruitment processes
 

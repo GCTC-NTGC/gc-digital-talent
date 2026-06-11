@@ -20,6 +20,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 const RecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment RecruitmentProcessDialog on PoolCandidate {
     id
+    expiryDate
     applicationStatusData {
       status {
         value
@@ -164,9 +165,11 @@ const RecruitmentProcessDialog = ({
               {pool.department?.name.localized}
             </FieldDisplay>
             <FieldDisplay label={intl.formatMessage(commonMessages.qualified)}>
-              {recruitmentProcess.statusUpdatedAt
+              {recruitmentProcess.applicationStatusData?.statusUpdatedAt
                 ? formatDate({
-                    date: parseDateTimeUtc(recruitmentProcess.statusUpdatedAt),
+                    date: parseDateTimeUtc(
+                      recruitmentProcess.applicationStatusData?.statusUpdatedAt,
+                    ),
                     formatString: DATE_FORMAT_LOCALIZED,
                     intl,
                   })

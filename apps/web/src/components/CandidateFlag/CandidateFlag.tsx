@@ -59,7 +59,7 @@ const CandidateFlag = ({
       id: candidate.id,
       onChange: onFlagChange,
       value: flagged,
-      defaultValue: candidate?.isFlagged ?? false,
+      defaultValue: candidate?.applicationAssessmentData?.isFlagged ?? false,
       name: candidateName,
       processTitle:
         processTitle ??

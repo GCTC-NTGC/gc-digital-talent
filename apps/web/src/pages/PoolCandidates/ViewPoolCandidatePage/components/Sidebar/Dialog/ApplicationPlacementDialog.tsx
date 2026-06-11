@@ -87,10 +87,12 @@ const ApplicationPlacementDialog = ({
   const application = getFragment(ApplicationPlacementDialog_Fragment, query);
   const methods = useForm<FormValues>({
     defaultValues: {
-      placementType: application.placementType?.value,
-      department: application.placedDepartment?.id,
-      placedStartDate: application.placedStartDate ?? undefined,
-      placedEndDate: application.placedEndDate ?? undefined,
+      placementType: application.applicationStatusData?.placementType?.value,
+      department: application.applicationStatusData?.placedDepartment?.id,
+      placedStartDate:
+        application.applicationStatusData?.placedStartDate ?? undefined,
+      placedEndDate:
+        application.applicationStatusData?.placedEndDate ?? undefined,
     },
   });
 
@@ -104,12 +106,13 @@ const ApplicationPlacementDialog = ({
   });
 
   let label =
-    application.placementType?.label.localized ??
+    application.applicationStatusData?.placementType?.label.localized ??
     intl.formatMessage(commonMessages.notAvailable);
   if (
-    !application.placementType?.value ||
-    application.placementType?.value === null ||
-    application.placementType?.value === PlacementType.NotPlaced
+    !application.applicationStatusData?.placementType?.value ||
+    application.applicationStatusData?.placementType?.value === null ||
+    application.applicationStatusData?.placementType?.value ===
+      PlacementType.NotPlaced
   ) {
     label = intl.formatMessage(poolCandidateMessages.notPlaced);
   }

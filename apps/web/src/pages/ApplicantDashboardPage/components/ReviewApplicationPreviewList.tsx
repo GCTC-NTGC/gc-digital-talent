@@ -66,10 +66,10 @@ const ReviewApplicationPreviewList = ({
   const sortedApplications = unpackMaybes(applications).sort(
     (a, b) =>
       ENUM_SORT_ORDER.CANDIDATE_STATUS.indexOf(
-        a?.candidateStatus?.value ?? null,
+        a?.applicationStatusData?.candidateStatus?.value ?? null,
       ) -
       ENUM_SORT_ORDER.CANDIDATE_STATUS.indexOf(
-        b?.candidateStatus?.value ?? null,
+        b?.applicationStatusData?.candidateStatus?.value ?? null,
       ),
   );
 
@@ -78,8 +78,10 @@ const ReviewApplicationPreviewList = ({
       {applications.length ? (
         <PreviewList.Root>
           {sortedApplications.map((application) => {
-            const { id, pool, submittedAt, statusUpdatedAt, candidateStatus } =
+            const { id, pool, submittedAt, applicationStatusData } =
               application;
+            const statusUpdatedAt = applicationStatusData?.statusUpdatedAt;
+            const candidateStatus = applicationStatusData?.candidateStatus;
             const statusChip = candidateStatusChip(candidateStatus);
 
             let applicationMetadata: PreviewMetaData[] = [];

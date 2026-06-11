@@ -80,7 +80,8 @@ const ApplicationsProcessesTaskCard = ({
     applicationsProcessesTaskCardFragment?.poolCandidates,
   );
   const recruitmentProcessesFiltered = recruitmentProcesses.filter(
-    ({ status }) => status?.value === ApplicationStatus.Qualified,
+    ({ applicationStatusData }) =>
+      applicationStatusData?.status?.value === ApplicationStatus.Qualified,
   ); // filter for qualified recruitment processes
 
   const offPlatformProcesses = unpackMaybes(

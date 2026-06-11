@@ -43,7 +43,7 @@ const ToAssessStatusMeta = ({ query }: ToAssessStatusMetaProps) => {
       <FieldDisplay
         label={intl.formatMessage(applicationMessages.assessmentStage)}
       >
-        {application.screeningStage?.value ===
+        {application.applicationStatusData?.screeningStage?.value ===
         ScreeningStage.UnderAssessment ? (
           <UpdateAssessmentStageDialog query={application} />
         ) : (

@@ -148,7 +148,8 @@ const UpdateAssessmentStageDialog = ({
       input: {
         id: candidate.id,
         screeningStage:
-          candidate?.screeningStage?.value ?? ScreeningStage.UnderAssessment,
+          candidate.applicationStatusData?.screeningStage?.value ??
+          ScreeningStage.UnderAssessment,
         assessmentStep: { connect: values.assessmentStep },
       },
     })

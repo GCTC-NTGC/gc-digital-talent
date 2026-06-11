@@ -68,8 +68,8 @@ const RemovedStatusForm = ({ id, onSubmit, query }: RemovedStatusFormProps) => {
           <Content
             query={application}
             reason={
-              application.removalReason?.label.localized ??
-              intl.formatMessage(commonMessages.notAvailable)
+              application.applicationStatusData?.removalReason?.label
+                .localized ?? intl.formatMessage(commonMessages.notAvailable)
             }
             submitProps={{
               color: "warning",
