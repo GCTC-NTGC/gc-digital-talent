@@ -5,14 +5,17 @@ namespace App\Models;
 use App\Builders\UserBuilder;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Enums\TalentRequestTrackedUserSelectionDecision;
+use App\Enums\TalentRequestTrackedUserStatus;
 use Database\Factories\TalentRequestTrackedUserFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Carbon;
+use SortDirection;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 use Spatie\Activitylog\Support\LogOptions;
 
@@ -26,6 +29,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $selection_decision
  * @property ?string $not_referred_reason
  * @property ?string $not_selected_reason
+ * @property-read ?string $status
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
  */
@@ -59,6 +63,26 @@ class TalentRequestTrackedUser extends Pivot
     }
 
     /**
+     * The tracked user's current position in the referral → selection flow,
+     * as a TalentRequestTrackedUserStatus name. A selection decision supersedes
+     * the referral decision (matching whereStatusIn and the status chip).
+     *
+     * @return Attribute<?string, never>
+     */
+    protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): ?string => match (true) {
+                $this->selection_decision === TalentRequestTrackedUserSelectionDecision::SELECTED->name => TalentRequestTrackedUserStatus::SELECTED->name,
+                $this->selection_decision === TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name => TalentRequestTrackedUserStatus::NOT_SELECTED->name,
+                $this->referral_decision === TalentRequestTrackedUserReferralDecision::REFERRED->name => TalentRequestTrackedUserStatus::REFERRED->name,
+                $this->referral_decision === TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name => TalentRequestTrackedUserStatus::NOT_REFERRED->name,
+                default => null,
+            },
+        );
+    }
+
+    /**
      * Only keep tracked users whose underlying user the viewer is allowed to see.
      */
     public function scopeWhereAuthorizedToView(Builder $query): Builder
@@ -86,19 +110,60 @@ class TalentRequestTrackedUser extends Pivot
         ]);
     }
 
-    public function scopeWhereReferralDecisionIn(Builder $query, ?array $decisions): Builder
+    /**
+     * Filter by a tracked user's current position in the referral → selection flow,
+     * mirroring the status chip (a selection decision supersedes the referral decision).
+     * Multiple statuses are OR'd together.
+     *
+     * @param  ?array<int, string>  $statuses
+     */
+    public function scopeWhereStatusIn(Builder $query, ?array $statuses): Builder
     {
-        return $query->when(
-            $decisions,
-            fn (Builder $query) => $query->whereIn('referral_decision', $decisions)
-        );
+        return $query->when($statuses, fn (Builder $query) => $query->where(fn (Builder $query) => $query
+            ->when(
+                in_array(TalentRequestTrackedUserStatus::NOT_REFERRED->name, $statuses),
+                fn (Builder $query) => $query
+                    ->orWhere('referral_decision', TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name)
+                    ->whereNull('selection_decision')
+            )
+            ->when(
+                in_array(TalentRequestTrackedUserStatus::REFERRED->name, $statuses),
+                fn (Builder $query) => $query->orWhere(fn (Builder $query) => $query
+                    ->where('referral_decision', TalentRequestTrackedUserReferralDecision::REFERRED->name)
+                    ->whereNull('selection_decision'))
+            )
+            ->when(
+                in_array(TalentRequestTrackedUserStatus::SELECTED->name, $statuses),
+                fn (Builder $query) => $query->orWhere('selection_decision', TalentRequestTrackedUserSelectionDecision::SELECTED->name)
+            )
+            ->when(
+                in_array(TalentRequestTrackedUserStatus::NOT_SELECTED->name, $statuses),
+                fn (Builder $query) => $query->orWhere('selection_decision', TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name)
+            )
+        ));
     }
 
-    public function scopeWhereSelectionDecisionIn(Builder $query, ?array $decisions): Builder
+    public function scopeOrderBySkillCount(Builder $query, ?array $args): Builder
+    {
+        $direction = match ($args['order'] ?? null) {
+            'ASC' => SortDirection::Ascending,
+            'DESC' => SortDirection::Descending,
+            default => null,
+        };
+
+        return $query->when($direction, fn (Builder $query) => $query->orderBy('skill_count', $direction));
+    }
+
+    public function scopeWhereUserNameOrEmail(Builder $query, ?string $search): Builder
     {
         return $query->when(
-            $decisions,
-            fn (Builder $query) => $query->whereIn('selection_decision', $decisions)
+            $search,
+            fn (Builder $query) => $query->whereHas('user', fn (Builder $userQuery) => $userQuery
+                ->where(fn (Builder $nameQuery) => $nameQuery
+                    ->whereRaw("CONCAT(first_name, ' ', last_name) ILIKE ?", ["%{$search}%"])
+                    ->orWhere('first_name', 'ilike', "%{$search}%")
+                    ->orWhere('last_name', 'ilike', "%{$search}%")
+                    ->orWhere('email', 'ilike', "%{$search}%")))
         );
     }
 
