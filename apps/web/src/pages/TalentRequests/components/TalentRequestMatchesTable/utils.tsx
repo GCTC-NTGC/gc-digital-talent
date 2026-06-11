@@ -33,40 +33,40 @@ export const locationAccessor = (
 
 export const TalentRequestMatchesApplicantFilter_Fragment = graphql(
   /** GraphQL */ `
-  fragment TalentRequestMatchesApplicantFilter on ApplicantFilter {
-    languageAbility {
-      value
+    fragment TalentRequestMatchesApplicantFilter on ApplicantFilter {
+      languageAbility {
+        value
+      }
+      locationPreferences {
+        value
+      }
+      operationalRequirements {
+        value
+      }
+      flexibleWorkLocations {
+        value
+      }
+      equity {
+        isWoman
+        hasDisability
+        isIndigenous
+        isVisibleMinority
+      }
+      qualifiedInClassifications {
+        group
+        level
+      }
+      qualifiedInWorkStreams {
+        id
+      }
+      pools {
+        id
+      }
+      skills {
+        id
+      }
     }
-    locationPreferences {
-      value
-    }
-    operationalRequirements {
-      value
-    }
-    flexibleWorkLocations {
-      value
-    }
-    equity {
-      isWoman
-      hasDisability
-      isIndigenous
-      isVisibleMinority
-    }
-    qualifiedInClassifications {
-      group
-      level
-    }
-    qualifiedInWorkStreams {
-      id
-    }
-    pools {
-      id
-    }
-    skills {
-      id
-    }
-  }
-`,
+  `,
 );
 
 export function transformApplicantFilterToFormValues(
@@ -129,8 +129,7 @@ export function transformWhereToFormValues(
       applicantFilter?.qualifiedInWorkStreams
         ?.filter(notEmpty)
         .map(({ id }) => id) ?? [],
-    pools:
-      applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id) ?? [],
+    pools: applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id) ?? [],
     languageAbility: applicantFilter?.languageAbility ?? undefined,
     equity: applicantFilter?.equity
       ? [
@@ -173,10 +172,12 @@ export function transformFormValuesToWhere(
       },
       pools: data.pools?.map((id) => ({ id })),
       skills: data.skills?.map((id) => ({ id })),
-      qualifiedInClassifications: data.classifications?.map((classification) => {
-        const [group, level] = classification.split("-");
-        return { group, level: Number(level) };
-      }),
+      qualifiedInClassifications: data.classifications?.map(
+        (classification) => {
+          const [group, level] = classification.split("-");
+          return { group, level: Number(level) };
+        },
+      ),
       qualifiedInWorkStreams: data.streams?.map((id) => ({ id })),
     },
     priorityWeight: data.priorityWeight,

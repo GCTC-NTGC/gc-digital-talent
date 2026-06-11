@@ -51,13 +51,13 @@ import TalentRequestMatchesFilterDialog, {
 
 export const TalentRequestMatchesTable_TalentRequestFragment = graphql(
   /** GraphQL */ `
-  fragment TalentRequestMatchesTableTalentRequest on TalentRequest {
-    id
-    applicantFilter {
-      ...TalentRequestMatchesApplicantFilter
+    fragment TalentRequestMatchesTableTalentRequest on TalentRequest {
+      id
+      applicantFilter {
+        ...TalentRequestMatchesApplicantFilter
+      }
     }
-  }
-`,
+  `,
 );
 
 const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
