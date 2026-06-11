@@ -108,10 +108,8 @@ class TalentRequestFactory extends BaseFactory
                         ));
                 }
 
-                $randomState = fake()->randomElement(['referred', 'notReferred', 'selected', 'notSelected']);
-
                 TalentRequestTrackedUser::factory()
-                    ->$randomState()
+                    ->withRandomState()
                     ->create([
                         'talent_request_id' => $talentRequest->id,
                         'user_id' => $user->id,

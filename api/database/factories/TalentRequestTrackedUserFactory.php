@@ -9,6 +9,9 @@ use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Models\TalentRequest;
 use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
+use Illuminate\Support\Arr;
+use ReflectionClass;
+use ReflectionMethod;
 
 /**
  * @extends BaseFactory<TalentRequestTrackedUser>
@@ -70,5 +73,27 @@ class TalentRequestTrackedUserFactory extends BaseFactory
             'selection_decision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
             'not_selected_reason' => $reason,
         ]);
+    }
+
+    public function withRandomState(): static
+    {
+        $reflection = new ReflectionClass($this);
+        $methods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
+        $stateMethods = [];
+
+        foreach ($methods as $method) {
+            if ($method->class === self::class && ! in_array($method->name, ['definition', 'configure', 'withRandomState'])) {
+                $stateMethods[] = $method->name;
+            }
+        }
+
+        // 3. Pick one and invoke it safely
+        if (! empty($stateMethods)) {
+            $randomMethod = Arr::random($stateMethods);
+
+            return $this->$randomMethod();
+        }
+
+        return $this;
     }
 }
