@@ -221,8 +221,8 @@ const PoolLayout = () => {
     <>
       <Pending fetching={fetching} error={error}>
         {data?.pool ? <PoolHeader poolQuery={data.pool} /> : <ThrowNotFound />}
+        <Outlet context={outletContext} />
       </Pending>
-      <Outlet context={outletContext} />
     </>
   );
 };
