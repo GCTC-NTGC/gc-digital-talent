@@ -12,8 +12,10 @@ import QualifiedStatusMeta from "./QualifiedStatusMeta";
 
 const ApplicationStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationStatusMeta on PoolCandidate {
-    status {
-      value
+    applicationStatusData {
+      status {
+        value
+      }
     }
     ...ToAssessStatusMeta
     ...QualifiedStatusMeta

@@ -43,20 +43,22 @@ const RevertPlaceCandidate_Mutation = graphql(/* GraphQL */ `
 const ApplicationPlacementDialog_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationPlacementDialog on PoolCandidate {
     id
-    placementType {
-      value
-      label {
-        localized
+    applicationStatusData {
+      placementType {
+        value
+        label {
+          localized
+        }
       }
-    }
-    placedDepartment {
-      id
-      name {
-        localized
+      placedDepartment {
+        id
+        name {
+          localized
+        }
       }
+      placedStartDate
+      placedEndDate
     }
-    placedStartDate
-    placedEndDate
   }
 `);
 

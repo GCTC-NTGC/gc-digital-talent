@@ -34,10 +34,12 @@ import MoveToPreviousStepNotice from "./MoveToPreviousStepNotice";
 const UpdateScreeningStageDialog_Fragment = graphql(/** GraphQL */ `
   fragment UpdateScreeningStageDialog on PoolCandidate {
     id
-    screeningStage {
-      value
-      label {
-        localized
+    applicationStatusData {
+      screeningStage {
+        value
+        label {
+          localized
+        }
       }
     }
   }

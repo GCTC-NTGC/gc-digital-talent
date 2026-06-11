@@ -15,8 +15,10 @@ import { recruitmentProcessesTitle } from "./utils";
 const RecruitmentProcesses_Fragment = graphql(/* GraphQL */ `
   fragment RecruitmentProcesses on User {
     poolCandidates {
-      status {
-        value
+      applicationStatusData {
+        status {
+          value
+        }
       }
       pool {
         id

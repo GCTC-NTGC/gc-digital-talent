@@ -26,10 +26,12 @@ import messages from "./messages";
 const ApplicationStatusDialog_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationStatusDialog on PoolCandidate {
     id
-    status {
-      value
-      label {
-        localized
+    applicationStatusData {
+      status {
+        value
+        label {
+          localized
+        }
       }
     }
 

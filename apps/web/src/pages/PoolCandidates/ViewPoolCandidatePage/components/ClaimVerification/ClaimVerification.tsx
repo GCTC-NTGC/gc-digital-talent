@@ -26,10 +26,12 @@ const ClaimVerification_Fragment = graphql(/* GraphQL */ `
     user {
       priorityNumber
     }
-    veteranVerification
-    veteranVerificationExpiry
-    priorityVerification
-    priorityVerificationExpiry
+    applicationAssessmentData {
+      veteranVerification
+      veteranVerificationExpiry
+      priorityVerification
+      priorityVerificationExpiry
+    }
   }
 `);
 

@@ -20,17 +20,19 @@ import ApplicationResumeReferralsDialog from "../Dialog/ApplicationResumeReferra
 
 const QualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedStatusMeta on PoolCandidate {
-    placedDepartment {
-      name {
-        localized
+    applicationStatusData {
+      placedDepartment {
+        name {
+          localized
+        }
       }
+      placementType {
+        value
+      }
+      resumeReferralsAt
+      placedStartDate
+      placedEndDate
     }
-    placementType {
-      value
-    }
-    resumeReferralsAt
-    placedStartDate
-    placedEndDate
 
     ...ApplicationPlacementDialog
     ...ApplicationPauseReferralsDialog

@@ -13,11 +13,13 @@ import applicationMessages from "~/messages/applicationMessages";
 
 const RemovedStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment RemovedStatusMeta on PoolCandidate {
-    removalReasonOther
-    removalReason {
-      value
-      label {
-        localized
+    applicationStatusData {
+      removalReasonOther
+      removalReason {
+        value
+        label {
+          localized
+        }
       }
     }
   }

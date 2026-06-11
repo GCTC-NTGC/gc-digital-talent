@@ -9,9 +9,11 @@ import applicationMessages from "~/messages/applicationMessages";
 
 const DisqualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment DisqualifiedStatusMeta on PoolCandidate {
-    disqualificationReason {
-      label {
-        localized
+    applicationStatusData {
+      disqualificationReason {
+        label {
+          localized
+        }
       }
     }
   }

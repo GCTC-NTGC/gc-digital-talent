@@ -37,15 +37,17 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
     poolCandidates {
       ...ReviewRecruitmentProcessDialog
       id
-      statusUpdatedAt
-      candidateInterest {
-        value
-        label {
-          localized
+      applicationStatusData {
+        statusUpdatedAt
+        candidateInterest {
+          value
+          label {
+            localized
+          }
         }
-      }
-      status {
-        value
+        status {
+          value
+        }
       }
       pool {
         id

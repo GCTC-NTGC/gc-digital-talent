@@ -20,12 +20,12 @@ import { wrapAbbr } from "~/utils/nameUtils";
 const RecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment RecruitmentProcessDialog on PoolCandidate {
     id
-    expiryDate
-    statusUpdatedAt
-    suspendedAt
-    placedAt
-    status {
-      value
+    applicationStatusData {
+      status {
+        value
+      }
+      placedAt
+      statusUpdatedAt
     }
     pool {
       id

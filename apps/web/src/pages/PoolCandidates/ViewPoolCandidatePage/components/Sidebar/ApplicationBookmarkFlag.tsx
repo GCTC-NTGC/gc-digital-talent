@@ -35,8 +35,9 @@ const ApplicationBookmarkFlag_Fragment = graphql(/** GraphQL */ `
         }
       }
     }
-
-    isFlagged
+    applicationAssessmentData {
+      isFlagged
+    }
     isBookmarked
   }
 `);

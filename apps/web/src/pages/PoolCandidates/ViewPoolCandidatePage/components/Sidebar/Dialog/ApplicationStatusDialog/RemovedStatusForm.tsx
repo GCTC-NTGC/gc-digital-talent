@@ -16,9 +16,11 @@ import messages from "./messages";
 const RemovedStatusForm_Fragment = graphql(/** GraphQL */ `
   fragment RemovedStatusForm on PoolCandidate {
     ...ApplicationStatusDialogContent
-    removalReason {
-      label {
-        localized
+    applicationStatusData {
+      removalReason {
+        label {
+          localized
+        }
       }
     }
   }

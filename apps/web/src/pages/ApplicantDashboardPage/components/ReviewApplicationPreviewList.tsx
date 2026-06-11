@@ -23,12 +23,14 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
   fragment ReviewApplicationPreviewList on PoolCandidate {
     ...ReviewApplicationDialog
     id
-    statusUpdatedAt
     submittedAt
-    candidateStatus {
-      value
-      label {
-        localized
+    applicationStatusData {
+      statusUpdatedAt
+      candidateStatus {
+        value
+        label {
+          localized
+        }
       }
     }
     pool {

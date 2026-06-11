@@ -33,8 +33,10 @@ const ApplicationsProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
     }
     poolCandidates {
       ...ReviewApplicationPreviewList
-      status {
-        value
+      applicationStatusData {
+        status {
+          value
+        }
       }
     }
     ...ReviewRecruitmentProcessPreviewList

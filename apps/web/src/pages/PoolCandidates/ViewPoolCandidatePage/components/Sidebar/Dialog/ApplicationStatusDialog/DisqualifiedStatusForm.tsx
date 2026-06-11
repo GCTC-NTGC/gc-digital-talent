@@ -16,9 +16,11 @@ import { Content } from "./StatusContent";
 const DisqualifiedStatusForm_Fragment = graphql(/** GraphQL */ `
   fragment DisqualifiedStatusForm on PoolCandidate {
     ...ApplicationStatusDialogContent
-    disqualificationReason {
-      label {
-        localized
+    applicationStatusData {
+      disqualificationReason {
+        label {
+          localized
+        }
       }
     }
   }

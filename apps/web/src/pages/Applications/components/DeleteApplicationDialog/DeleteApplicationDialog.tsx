@@ -26,8 +26,10 @@ const DeleteApplication_Mutation = graphql(/** GraphQL */ `
 const DeleteApplicationDialog_Fragment = graphql(/** GraphQL */ `
   fragment DeleteApplicationDialog on PoolCandidate {
     id
-    status {
-      value
+    applicationStatusData {
+      status {
+        value
+      }
     }
   }
 `);

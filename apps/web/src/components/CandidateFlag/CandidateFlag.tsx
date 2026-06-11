@@ -13,7 +13,9 @@ import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
 export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
   fragment PoolCandidate_Flag on PoolCandidate {
     id
-    isFlagged
+    applicationAssessmentData {
+      isFlagged
+    }
     user {
       id
       firstName

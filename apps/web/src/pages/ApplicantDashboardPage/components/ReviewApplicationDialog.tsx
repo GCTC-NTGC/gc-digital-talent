@@ -46,10 +46,12 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
   fragment ReviewApplicationDialog on PoolCandidate {
     id
     submittedAt
-    candidateStatus {
-      value
-      label {
-        localized
+    applicationStatusData {
+      candidateStatus {
+        value
+        label {
+          localized
+        }
       }
     }
     pool {

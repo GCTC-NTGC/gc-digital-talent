@@ -26,9 +26,11 @@ const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
       id
       expiryDate
       suspendedAt
-      placedAt
-      status {
-        value
+      applicationStatusData {
+        placedAt
+        status {
+          value
+        }
       }
       pool {
         id

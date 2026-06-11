@@ -43,10 +43,12 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
     poolCandidates {
       id
       ...ChangeDateDialog_PoolCandidate
-      status {
-        value
-        label {
-          localized
+      applicationStatusData {
+        status {
+          value
+          label {
+            localized
+          }
         }
       }
       expiryDate

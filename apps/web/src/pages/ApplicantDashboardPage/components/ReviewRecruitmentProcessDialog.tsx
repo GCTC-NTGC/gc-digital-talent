@@ -53,12 +53,14 @@ const ReviewRecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment ReviewRecruitmentProcessDialog on PoolCandidate {
     id
     expiryDate
-    statusUpdatedAt
     suspendedAt
-    candidateInterest {
-      value
-      label {
-        localized
+    applicationStatusData {
+      statusUpdatedAt
+      candidateInterest {
+        value
+        label {
+          localized
+        }
       }
     }
     pool {

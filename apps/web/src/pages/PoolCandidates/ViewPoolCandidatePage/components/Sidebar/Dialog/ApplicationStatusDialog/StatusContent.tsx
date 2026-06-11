@@ -34,13 +34,15 @@ export const StatusChangeNotice = () => {
 
 const ApplicationStatusDialogContent_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationStatusDialogContent on PoolCandidate {
-    status {
-      value
-      label {
-        localized
+    applicationStatusData {
+      status {
+        value
+        label {
+          localized
+        }
       }
+      statusUpdatedAt
     }
-    statusUpdatedAt
   }
 `);
 

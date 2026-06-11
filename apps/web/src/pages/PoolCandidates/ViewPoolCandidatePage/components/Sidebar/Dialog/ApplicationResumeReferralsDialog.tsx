@@ -24,9 +24,11 @@ const ApplicationResumeReferralsDialog_Fragment = graphql(/** GraphQL */ `
       firstName
       lastName
     }
-    pauseReferralsAt
-    resumeReferralsAt
-    pauseReferralsReason
+    applicationStatusData {
+      pauseReferralsAt
+      resumeReferralsAt
+      pauseReferralsReason
+    }
   }
 `);
 
