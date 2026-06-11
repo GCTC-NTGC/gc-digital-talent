@@ -109,6 +109,19 @@ const messages = defineMessages({
     id: "ngoGPH",
     description: "Label for the talent requests on-site location criteria",
   },
+  trackedUsersNullTitle: {
+    defaultMessage: "You are not tracking any candidates yet",
+    id: "uQqsKm",
+    description:
+      "Title displayed when there are no tracked users for a talent request",
+  },
+  trackedUsersNullDescription: {
+    defaultMessage:
+      "Use the ‘<italic>Find matching candidates</italic>’ table to start tracking possible matching candidates to this request.",
+    id: "nmXd3e",
+    description:
+      "Help message displayed when there are no tracked users for a talent request",
+  },
 });
 
 export default messages;
