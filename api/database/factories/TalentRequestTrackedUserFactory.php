@@ -87,7 +87,6 @@ class TalentRequestTrackedUserFactory extends BaseFactory
             }
         }
 
-        // 3. Pick one and invoke it safely
         if (! empty($stateMethods)) {
             $randomMethod = Arr::random($stateMethods);
 
