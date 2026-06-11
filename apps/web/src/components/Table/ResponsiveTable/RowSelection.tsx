@@ -234,14 +234,6 @@ const Actions = ({
     toast.warning(intl.formatMessage(tableMessages.noRowsSelected));
   };
 
-  const handleActionClick = (action: TableAction) => {
-    if (count <= 0) {
-      handleNoRowsSelected();
-      return;
-    }
-    action.onClick?.(selectedRowIds);
-  };
-
   return (
     <div className="sticky left-0 flex flex-col items-center justify-between gap-y-3 bg-gray-700 px-6 py-3 text-white sm:flex-row sm:items-start sm:gap-x-3 sm:gap-y-0">
       {rowSelect && (
@@ -353,7 +345,13 @@ const Actions = ({
                       {actions.map((action, index) => (
                         <DropdownMenu.Item
                           key={index}
-                          onClick={() => handleActionClick(action)}
+                          onClick={() => {
+                            if (count <= 0) {
+                              handleNoRowsSelected();
+                              return;
+                            }
+                            action.onClick?.(selectedRowIds);
+                          }}
                         >
                           {action.label}
                         </DropdownMenu.Item>
