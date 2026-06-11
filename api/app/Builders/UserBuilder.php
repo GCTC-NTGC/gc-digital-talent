@@ -5,8 +5,11 @@ namespace App\Builders;
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\CitizenshipStatus;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
+use App\Enums\PriorityWeight;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Utilities\PostgresTextSearch;
@@ -389,6 +392,49 @@ class UserBuilder extends Builder
             ->with('pool')]);
 
         return $this;
+    }
+
+    public function wherePriorityWeightIn(?array $priorityWeights): self
+    {
+        if (empty($priorityWeights)) {
+            return $this;
+        }
+
+        return $this->where(function ($query) use ($priorityWeights) {
+            foreach ($priorityWeights as $priorityWeight) {
+                switch ($priorityWeight) {
+                    case PriorityWeight::PRIORITY_ENTITLEMENT->name:
+                        $query->orWhereIn(
+                            'priority_verification',
+                            [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
+                        );
+                        break;
+
+                    case PriorityWeight::VETERAN->name:
+                        $query->orWhereIn(
+                            'veteran_verification',
+                            [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
+                        );
+                        break;
+
+                    case PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT->name:
+                        $query->orWhereIn(
+                            'citizenship',
+                            [CitizenshipStatus::CITIZEN->name, CitizenshipStatus::PERMANENT_RESIDENT->name]
+                        );
+                        break;
+
+                    case PriorityWeight::OTHER->name:
+                        $query->orWhere('citizenship', CitizenshipStatus::OTHER->name);
+                        break;
+                }
+            }
+        });
+    }
+
+    public function orderBySkillCount(array $args): self
+    {
+        return $this->orderBy('skill_count', $args['direction'] ?? 'asc');
     }
 
     // a presence flag (1 or null) per source kind, read by the Sources resolver
