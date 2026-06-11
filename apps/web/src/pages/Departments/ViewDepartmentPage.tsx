@@ -208,6 +208,11 @@ const UpdateDepartmentPage = () => {
 const Component = () => {
   const { teamId } = useOutletContext<ContextType>();
 
+  // wait for outlet to load
+  if (teamId === undefined) {
+    return null;
+  }
+
   return (
     <RequireAuth
       rolesRequirements={[

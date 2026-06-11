@@ -867,6 +867,12 @@ export const EditPoolPage = () => {
 export const Component = () => {
   const { communityTeamId, departmentTeamId, teamId } =
     useOutletContext<ContextType>();
+
+  // wait for outlet to load
+  if (teamId === undefined) {
+    return null;
+  }
+
   return (
     <RequireAuth
       rolesRequirements={[

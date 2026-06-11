@@ -220,6 +220,12 @@ const DepartmentManageAccessPage = () => {
 // Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
 const Component = () => {
   const { teamId } = useOutletContext<ContextType>();
+
+  // wait for outlet to load
+  if (teamId === undefined) {
+    return null;
+  }
+
   return (
     <RequireAuth
       rolesRequirements={[
