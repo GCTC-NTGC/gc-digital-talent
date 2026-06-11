@@ -1226,4 +1226,26 @@ class TalentRequestTrackedUserTest extends TestCase
             'not_selected_reason' => null,
         ]);
     }
+
+    public function testFilterByStatusNotReferredDoesNotIncludeRowsWithSelectionDecision(): void
+    {
+        $request = $this->createRequest();
+        $inconsistent = User::factory()->create();
+
+        // Intentionally inconsistent row to verify filter follows status accessor precedence.
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $inconsistent->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->filterQuery, [
+                'id' => $request->id,
+                'where' => ['statuses' => [TalentRequestTrackedUserStatus::NOT_REFERRED->name]],
+            ])
+            ->assertJsonCount(0, 'data.talentRequest.trackedUsers')
+            ->assertJsonMissing(['user' => ['id' => $inconsistent->id]]);
+    }
 }
