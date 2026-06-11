@@ -454,6 +454,11 @@ type LocalizedTalentRequestTrackedUserSelectionDecision implements LocalizedEnum
   label: LocalizedString!
 }
 
+type LocalizedTalentRequestTrackedUserStatus implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserStatus!
+  label: LocalizedString!
+}
+
 type LocalizedTargetRole implements LocalizedEnumOption {
   value: TargetRole!
   label: LocalizedString!
@@ -613,6 +618,15 @@ type TalentRequestPaginator {
 
   "A list of TalentRequest items."
   data: [TalentRequest!]!
+}
+
+"A paginated list of TalentRequestTrackedUser items."
+type TalentRequestTrackedUserPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestTrackedUser items."
+  data: [TalentRequestTrackedUser!]!
 }
 
 "A paginated list of Notification items."
@@ -2034,6 +2048,13 @@ enum TalentRequestTrackedUserReferralDecision {
 }
 
 enum TalentRequestTrackedUserSelectionDecision {
+  SELECTED
+  NOT_SELECTED
+}
+
+enum TalentRequestTrackedUserStatus {
+  NOT_REFERRED
+  REFERRED
   SELECTED
   NOT_SELECTED
 }

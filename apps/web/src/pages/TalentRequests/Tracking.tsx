@@ -3,9 +3,10 @@ import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 import { useQuery } from "urql";
 
-import { Notice, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -13,12 +14,18 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 
 import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
 import TalentRequestMatchesTable from "./components/TalentRequestMatchesTable/TalentRequestMatchesTable";
+import TalentRequestTrackedUsersTable from "./components/TalentRequestTrackedUsersTable/TalentRequestTrackedUsersTable";
 import type { RouteParams } from "./types";
 
 const TalentRequestTracking_Query = graphql(/** GraphQL */ `
   query TalentRequestTracking($id: UUID!) {
     talentRequest(id: $id) {
       ...TalentRequestMatchesTableTalentRequest
+      applicantFilter {
+        skills {
+          ...TrackedUserSkillMatch
+        }
+      }
     }
   }
 `);
@@ -30,7 +37,7 @@ const Tracking = () => {
     query: TalentRequestTracking_Query,
     variables: { id: talentRequestId },
   });
-  const trackedUsers = [];
+  const skills = unpackMaybes(data?.talentRequest?.applicantFilter?.skills);
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -46,29 +53,10 @@ const Tracking = () => {
             "Description of the candidates being tracked by a talent request",
         })}
       >
-        {trackedUsers.length > 0 ? null : (
-          <Notice.Root mode="inline">
-            <Notice.Title>
-              {intl.formatMessage({
-                defaultMessage: "You are not tracking any candidates yet",
-                id: "uQqsKm",
-                description:
-                  "Title displayed when there are no tracked users for a talent request",
-              })}
-            </Notice.Title>
-            <Notice.Content>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Use the ‘<italic>Find matching candidates</italic>’ table to start tracking possible matching candidates to this request.",
-                  id: "nmXd3e",
-                  description:
-                    "Help message displayed when there are no tracked users for a talent request",
-                })}
-              </p>
-            </Notice.Content>
-          </Notice.Root>
-        )}
+        <TalentRequestTrackedUsersTable
+          talentRequestId={talentRequestId}
+          skills={skills}
+        />
       </TalentRequestSectionCard>
 
       <TalentRequestSectionCard
