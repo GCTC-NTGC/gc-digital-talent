@@ -91,16 +91,32 @@ class PoolCandidateBuilder extends Builder
     }
 
     /**
-     * Scope is IT & OTHER Publishing Groups
+     * Filter Publishing Groups
      *
-     * Restrict a query by pool candidates that are for pools
-     * containing IT and OTHER publishing groups
+     * Restrict a query by excluding specific publishing groups
+     */
+    public function wherePublishingGroupsNotIn(?array $publishingGroups): self
+    {
+        if (empty($publishingGroups)) {
+            return $this;
+        }
+
+        return $this->whereDoesntHave('pool', function (Builder $query) use ($publishingGroups) {
+            /** @var PoolBuilder $query */
+            $query->publishingGroups($publishingGroups);
+        });
+    }
+
+    /**
+     * Scope is not IAP Publishing Group
+     *
+     * Restrict a query by pool candidates that are for pools not
+     * containing IAP publishing group
      */
     public function whereInTalentSearchablePublishingGroup(): self
     {
-        return $this->wherePublishingGroupsIn([
-            PublishingGroup::IT_JOBS->name,
-            PublishingGroup::OTHER->name,
+        return $this->wherePublishingGroupsNotIn([
+            PublishingGroup::IAP->name,
         ]);
 
     }
