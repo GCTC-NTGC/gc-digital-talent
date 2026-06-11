@@ -1976,6 +1976,8 @@ type CandidateSearchPoolResult {
 input TalentRequestMatchFilterInput {
   applicantFilter: ApplicantFilterInput
   generalSearch: String
+  name: String
+  email: String
   priorityWeight: [PriorityWeight]
   isGovEmployee: Boolean
   departments: [UUID!]

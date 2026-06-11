@@ -36,6 +36,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 
 import {
+  addSearchToWhere,
   locationAccessor,
   transformApplicantFilterToFormValues,
   transformFormValuesToWhere,
@@ -302,6 +303,7 @@ const TalentRequestMatchesTable = ({
       {
         id: "location",
         header: intl.formatMessage(profileMessages.currentLocation),
+        enableColumnFilter: false,
       },
     ),
     columnHelper.accessor(
@@ -323,6 +325,7 @@ const TalentRequestMatchesTable = ({
         header: intl.formatMessage(
           employeeProfileMessages.currentEmployeeDepartment,
         ),
+        enableColumnFilter: false,
       },
     ),
   ] as ColumnDef<TalentRequestResult>[];
@@ -330,11 +333,7 @@ const TalentRequestMatchesTable = ({
   const [{ data, fetching }] = useQuery({
     query: TalentRequestMatchingUsers_Query,
     variables: {
-      where: {
-        ...filterState,
-        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- empty search term should clear the filter
-        generalSearch: searchState.term || undefined,
-      },
+      where: addSearchToWhere(filterState, searchState.term, searchState.type),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       orderBy: sortState ? transformSortStateToOrderBy(sortState) : undefined,

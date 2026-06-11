@@ -185,6 +185,23 @@ export function transformFormValuesToWhere(
   };
 }
 
+// Merge the search bar term into the filter state, routing it to the scope
+// matching the selected column (search type === column id); no type → general search.
+export function addSearchToWhere(
+  where: TalentRequestMatchFilterInput,
+  term: string | undefined,
+  type: string | undefined,
+): TalentRequestMatchFilterInput {
+  const hasTerm = !!term;
+
+  return {
+    ...where,
+    generalSearch: hasTerm && !type ? term : undefined,
+    name: hasTerm && type === "name" ? term : undefined,
+    email: hasTerm && type === "email" ? term : undefined,
+  };
+}
+
 export function transformSortStateToOrderBy(
   sortState: SortingState,
 ): AdvancedOrderByInput[] | undefined {

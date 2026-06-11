@@ -1559,6 +1559,8 @@ type CandidateSearchPoolResult {
 input TalentRequestMatchFilterInput {
   applicantFilter: ApplicantFilterInput
   generalSearch: String @scope(name: "whereGeneralSearch")
+  name: String @scope(name: "whereName")
+  email: String @scope(name: "whereEmail")
   priorityWeight: [PriorityWeight] @scope(name: "wherePriorityWeightIn")
   isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
