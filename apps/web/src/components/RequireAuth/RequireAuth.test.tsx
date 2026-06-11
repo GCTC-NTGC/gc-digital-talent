@@ -1,4 +1,5 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
+import { waitFor } from "@testing-library/react";
 
 import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
@@ -13,7 +14,16 @@ const mocks = vi.hoisted(() => ({
   roleAssignments: [] as (RoleAssignment | null | undefined)[],
   hasRequiredRoles: vi.fn(),
   onAuthorizedRolesChanged: vi.fn(),
+  navigate: vi.fn(),
 }));
+
+vi.mock("react-router", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("react-router")>();
+  return {
+    ...actual,
+    useNavigate: () => mocks.navigate,
+  };
+});
 
 vi.mock("@gc-digital-talent/auth", () => ({
   useAuthentication: () => ({ loggedIn: mocks.loggedIn }),
@@ -63,6 +73,25 @@ describe("RequireAuth", () => {
     mocks.roleAssignments = [];
     mocks.hasRequiredRoles.mockReset();
     mocks.onAuthorizedRolesChanged.mockReset();
+    mocks.navigate.mockReset();
+  });
+
+  it("redirects logged-out users to login with a from parameter", async () => {
+    mocks.loggedIn = false;
+
+    renderForRoles([ROLE_A]);
+
+    await waitFor(() => {
+      expect(mocks.navigate).toHaveBeenCalledWith(
+        {
+          pathname: "/login",
+          search: "from=%2F",
+        },
+        {
+          replace: true,
+        },
+      );
+    });
   });
 
   it("authorizes with the roles branch when user has a matching role", () => {
