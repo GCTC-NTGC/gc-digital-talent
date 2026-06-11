@@ -181,7 +181,6 @@ const ActionsTemplate: StoryFn<typeof Table<User>> = (args) => {
             onClick: (ids) => {
               action("archive")(ids);
             },
-            disabled: true,
           },
         ]}
       />

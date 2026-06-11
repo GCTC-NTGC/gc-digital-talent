@@ -353,7 +353,6 @@ const Actions = ({
                       {actions.map((action, index) => (
                         <DropdownMenu.Item
                           key={index}
-                          disabled={action.disabled}
                           onClick={() => handleActionClick(action)}
                         >
                           {action.label}
