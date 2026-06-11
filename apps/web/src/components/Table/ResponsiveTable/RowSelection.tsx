@@ -340,7 +340,7 @@ const Actions = ({
                   )}
                 </span>
               )}
-              {actions?.length ? (
+              {actions?.length && selectedRowIds?.length ? (
                 <>
                   <Bullet />
                   <DropdownMenu.Root>
