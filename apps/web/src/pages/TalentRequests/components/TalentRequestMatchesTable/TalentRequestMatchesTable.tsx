@@ -20,12 +20,8 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import {
-  INITIAL_STATE,
-  SEARCH_PARAM_KEY,
-} from "~/components/Table/ResponsiveTable/constants";
+import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
 import useRoutes from "~/hooks/useRoutes";
-import { getTableStateFromSearchParams } from "~/components/Table/ResponsiveTable/useControlledTableState";
 import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -43,7 +39,6 @@ import {
   transformApplicantFilterToFormValues,
   transformFormValuesToWhere,
   transformSortStateToOrderBy,
-  transformWhereToFormValues,
 } from "./utils";
 import TalentRequestMatchesFilterDialog, {
   type FormValues,
@@ -125,12 +120,6 @@ const context: Partial<OperationContext> = {
 
 const sortInitialState: SortingState = [{ id: "skillCount", desc: true }];
 
-const defaultState = {
-  ...INITIAL_STATE,
-  sortState: sortInitialState,
-  filters: {},
-};
-
 interface TalentRequestMatchesTableProps {
   query: FragmentType<typeof TalentRequestMatchesTable_TalentRequestFragment>;
 }
@@ -144,28 +133,14 @@ const TalentRequestMatchesTable = ({
     TalentRequestMatchesTable_TalentRequestFragment,
     query,
   );
-  const initialState = getTableStateFromSearchParams(defaultState);
-  const searchParams = new URLSearchParams(window.location.search);
-  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-
-  // The current filter state persisted in the URL takes precedence over the
-  // request's applicant filter, which only seeds the dialog's defaults.
-  const urlFilters = useMemo(
-    () =>
-      filtersEncoded
-        ? (JSON.parse(filtersEncoded) as TalentRequestMatchFilterInput)
-        : undefined,
-    [filtersEncoded],
-  );
 
   const applicantFilterDefaults = useMemo(
     () => transformApplicantFilterToFormValues(talentRequest.applicantFilter),
     [talentRequest.applicantFilter],
   );
 
-  // The applicant-filter-derived defaults. Passed as the table's filter
-  // initialState so the URL filter param is dropped whenever the active filters
-  // match these (e.g. after "Reset filters").
+  // The applicant-filter-derived defaults seed both the dialog and the
+  // initial query filter.
   const defaultWhere = useMemo<TalentRequestMatchFilterInput>(
     () => ({
       ...transformFormValuesToWhere(applicantFilterDefaults),
@@ -174,26 +149,10 @@ const TalentRequestMatchesTable = ({
     [applicantFilterDefaults, talentRequest.id],
   );
 
-  const initialWhere = useMemo<TalentRequestMatchFilterInput>(
-    () =>
-      urlFilters
-        ? { ...urlFilters, excludeTrackedByRequestId: talentRequest.id }
-        : defaultWhere,
-    [urlFilters, defaultWhere, talentRequest.id],
-  );
-
-  const initialFormValues = urlFilters
-    ? transformWhereToFormValues(urlFilters)
-    : applicantFilterDefaults;
-
-  const [paginationState, setPaginationState] = useState<PaginationState>(
-    initialState.paginationState
-      ? {
-          ...initialState.paginationState,
-          pageIndex: initialState.paginationState.pageIndex + 1,
-        }
-      : INITIAL_STATE.paginationState,
-  );
+  const [paginationState, setPaginationState] = useState<PaginationState>({
+    ...INITIAL_STATE.paginationState,
+    pageIndex: INITIAL_STATE.paginationState.pageIndex + 1,
+  });
   const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
   const {
     downloadDoc,
@@ -204,14 +163,14 @@ const TalentRequestMatchesTable = ({
     downloadingExcel,
   } = useUserDownloads();
   const [searchState, setSearchState] = useState<SearchState>(
-    initialState.searchState ?? INITIAL_STATE.searchState,
+    INITIAL_STATE.searchState,
   );
   const [sortState, setSortState] = useState<SortingState | undefined>(
-    initialState.sortState ?? sortInitialState,
+    sortInitialState,
   );
-  const filterRef = useRef<TalentRequestMatchFilterInput>(initialWhere);
+  const filterRef = useRef<TalentRequestMatchFilterInput>(defaultWhere);
   const [filterState, setFilterState] =
-    useState<TalentRequestMatchFilterInput>(initialWhere);
+    useState<TalentRequestMatchFilterInput>(defaultWhere);
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -377,6 +336,7 @@ const TalentRequestMatchesTable = ({
       data={rows}
       columns={columns}
       isLoading={fetching || fetchingOptions}
+      urlSync={false}
       search={{
         internal: false,
         onChange: handleSearchStateChange,
@@ -390,7 +350,7 @@ const TalentRequestMatchesTable = ({
           <TalentRequestMatchesFilterDialog
             query={optionsData}
             onSubmit={handleFilterSubmit}
-            initialValues={initialFormValues}
+            initialValues={applicantFilterDefaults}
             resetValues={applicantFilterDefaults}
           />
         ),
