@@ -359,7 +359,6 @@ const UpdateCommunityPage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      teamIdForRoleAssignment
       ...UpdateCommunityPage_Community
     }
   }
@@ -373,7 +372,7 @@ const UpdateCommunity_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const Component = () => {
+export const UpdateCommunityPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { communityId } = useRequiredParams<RouteParams>("communityId");
@@ -443,22 +442,11 @@ export const Component = () => {
         <div className="mb-18">
           <Pending fetching={fetching} error={error}>
             {data?.community ? (
-              <RequireAuth
-                rolesRequirements={[
-                  { name: ROLE_NAME.PlatformAdmin },
-                  {
-                    name: ROLE_NAME.CommunityAdmin,
-                    teamId: data.community.teamIdForRoleAssignment,
-                  },
-                ]}
-                strict
-              >
-                <CommunityForm
-                  query={data.community}
-                  onUpdate={handleSave}
-                  isSubmitting={isSubmitting}
-                />
-              </RequireAuth>
+              <CommunityForm
+                query={data.community}
+                onUpdate={handleSave}
+                isSubmitting={isSubmitting}
+              />
             ) : (
               <NotFound
                 headingMessage={intl.formatMessage(commonMessages.notFound)}
@@ -479,6 +467,22 @@ export const Component = () => {
         </div>
       </Hero>
     </>
+  );
+};
+
+const Component = () => {
+  const { teamId } = useOutletContext<ContextType>();
+
+  return (
+    <RequireAuth
+      rolesRequirements={[
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId },
+      ]}
+      strict
+    >
+      <UpdateCommunityPage />
+    </RequireAuth>
   );
 };
 

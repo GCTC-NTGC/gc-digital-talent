@@ -254,7 +254,6 @@ export const CommunityProfessionalizationForm = ({
 const CommunityProfessionalization_Query = graphql(/* GraphQL */ `
   query CommunityProfessionalization($id: UUID!) {
     community(id: $id) {
-      teamIdForRoleAssignment
       ...ProfessionalizationForm
     }
   }
@@ -264,7 +263,7 @@ const operationContext: Partial<OperationContext> = {
   additionalTypenames: ["CommunityDevelopmentProgram"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
 };
 
-const Component = () => {
+const CommunityProfessionalizationPage = () => {
   const intl = useIntl();
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
@@ -276,18 +275,7 @@ const Component = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.community ? (
-        <RequireAuth
-          rolesRequirements={[
-            { name: ROLE_NAME.PlatformAdmin },
-            {
-              name: ROLE_NAME.CommunityAdmin,
-              teamId: data.community.teamIdForRoleAssignment,
-            },
-          ]}
-          strict
-        >
-          <CommunityProfessionalizationForm community={data.community} />
-        </RequireAuth>
+        <CommunityProfessionalizationForm community={data.community} />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>
@@ -303,6 +291,22 @@ const Component = () => {
         </NotFound>
       )}
     </Pending>
+  );
+};
+
+const Component = () => {
+  const { teamId } = useOutletContext<ContextType>();
+
+  return (
+    <RequireAuth
+      rolesRequirements={[
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId },
+      ]}
+      strict
+    >
+      <CommunityProfessionalizationPage />
+    </RequireAuth>
   );
 };
 

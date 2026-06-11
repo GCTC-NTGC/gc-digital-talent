@@ -9,7 +9,6 @@ import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { CommunityMembersTeamQuery } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -154,7 +153,6 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
 const CommunityMembersTeam_Query = graphql(/* GraphQL */ `
   query CommunityMembersTeam($communityId: UUID!) {
     community(id: $communityId) {
-      teamIdForRoleAssignment
       ...CommunityMembersPage_Community
     }
   }
@@ -164,15 +162,16 @@ interface RouteParams extends Record<string, string> {
   communityId: string;
 }
 
-interface CommunityMembersPageProps {
-  community: NonNullable<CommunityMembersTeamQuery["community"]>;
-}
-
-const CommunityMembersPage = ({ community }: CommunityMembersPageProps) => {
+const CommunityMembersPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
   const { communityId } = useRequiredParams<RouteParams>("communityId");
+
+  const [{ data, fetching, error }] = useQuery({
+    query: CommunityMembersTeam_Query,
+    variables: { communityId },
+  });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
 
@@ -199,39 +198,33 @@ const CommunityMembersPage = ({ community }: CommunityMembersPageProps) => {
       <SEO title={formattedPageTitle} />
       <Hero title={communityName} crumbs={crumbs} navTabs={navTabs} />
       <Container className="my-12">
-        <CommunityMembers communityQuery={community} />
+        <Pending fetching={fetching} error={error}>
+          {data?.community ? (
+            <CommunityMembers communityQuery={data.community} />
+          ) : (
+            <ThrowNotFound />
+          )}
+        </Pending>
       </Container>
     </>
   );
 };
 
-// Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
 export const Component = () => {
-  const { communityId } = useRequiredParams<RouteParams>("communityId");
-  const [{ data, fetching, error }] = useQuery({
-    query: CommunityMembersTeam_Query,
-    variables: { communityId },
-  });
-  const teamId = data?.community?.teamIdForRoleAssignment;
+  const { teamId } = useOutletContext<ContextType>();
 
   return (
-    <Pending fetching={fetching} error={error}>
-      {data?.community ? (
-        <RequireAuth
-          rolesRequirements={[
-            { name: ROLE_NAME.PlatformAdmin },
-            { name: ROLE_NAME.CommunityAdmin, teamId: teamId },
-            { name: ROLE_NAME.CommunityRecruiter, teamId: teamId },
-            { name: ROLE_NAME.CommunityTalentCoordinator, teamId: teamId },
-          ]}
-          strict
-        >
-          <CommunityMembersPage community={data.community} />
-        </RequireAuth>
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+    <RequireAuth
+      rolesRequirements={[
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId },
+        { name: ROLE_NAME.CommunityRecruiter, teamId },
+        { name: ROLE_NAME.CommunityTalentCoordinator, teamId },
+      ]}
+      strict
+    >
+      <CommunityMembersPage />
+    </RequireAuth>
   );
 };
 

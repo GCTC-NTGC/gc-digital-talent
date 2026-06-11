@@ -6,6 +6,7 @@ import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 import type { JSX } from "react";
 import { useMemo } from "react";
+import { useOutletContext } from "react-router";
 
 import {
   NotFound,
@@ -91,6 +92,7 @@ import type { WhatToExpectAdmissionSubmitData } from "./components/WhatToExpectA
 import WhatToExpectAdmissionSection from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
 import type { ContactEmailSubmitData } from "./components/ContactEmailSection/ContactEmailSection";
 import ContactEmailSection from "./components/ContactEmailSection/ContactEmailSection";
+import type { ContextType } from "../PoolLayout";
 
 export const EditPool_Fragment = graphql(/* GraphQL */ `
   fragment EditPool on Pool {
@@ -740,13 +742,6 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   query EditPoolPage($poolId: UUID!) {
     # the existing data of the pool to edit
     pool(id: $poolId) {
-      community {
-        teamIdForRoleAssignment
-      }
-      department {
-        teamIdForRoleAssignment
-      }
-      teamId
       status {
         value
         label {
@@ -845,36 +840,21 @@ export const EditPoolPage = () => {
     delete: mutations.deletePoolSkill,
   };
 
-  const communityTeamId = data?.pool?.community?.teamIdForRoleAssignment;
-  const departmentTeamId = data?.pool?.department?.teamIdForRoleAssignment;
-  const poolTeamId = data?.pool?.teamId;
-
   return (
     <Pending fetching={fetching} error={error}>
       {data?.pool ? (
-        <RequireAuth
-          rolesRequirements={[
-            { name: ROLE_NAME.PlatformAdmin },
-            { name: ROLE_NAME.CommunityAdmin, teamId: communityTeamId },
-            { name: ROLE_NAME.CommunityRecruiter, teamId: communityTeamId },
-            { name: ROLE_NAME.ProcessOperator, teamId: poolTeamId },
-            { name: ROLE_NAME.DepartmentAdmin, teamId: departmentTeamId },
-            { name: ROLE_NAME.DepartmentHRAdvisor, teamId: departmentTeamId },
-          ]}
-        >
-          <EditPoolContext.Provider value={ctx}>
-            <EditPoolForm
-              poolQuery={data.pool}
-              classifications={unpackMaybes(data.classifications)}
-              skills={data.skills.filter(notEmpty)}
-              onSave={(saveData) => mutations.update(poolId, saveData)}
-              onUpdatePublished={(updateData) =>
-                mutations.updatePublished(poolId, updateData)
-              }
-              poolSkillMutations={poolSkillMutations}
-            />
-          </EditPoolContext.Provider>
-        </RequireAuth>
+        <EditPoolContext.Provider value={ctx}>
+          <EditPoolForm
+            poolQuery={data.pool}
+            classifications={unpackMaybes(data.classifications)}
+            skills={data.skills.filter(notEmpty)}
+            onSave={(saveData) => mutations.update(poolId, saveData)}
+            onUpdatePublished={(updateData) =>
+              mutations.updatePublished(poolId, updateData)
+            }
+            poolSkillMutations={poolSkillMutations}
+          />
+        </EditPoolContext.Provider>
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>{notFoundMessage}</p>
@@ -884,7 +864,24 @@ export const EditPoolPage = () => {
   );
 };
 
-export const Component = () => <EditPoolPage />;
+export const Component = () => {
+  const { communityTeamId, departmentTeamId, teamId } =
+    useOutletContext<ContextType>();
+  return (
+    <RequireAuth
+      rolesRequirements={[
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId: communityTeamId },
+        { name: ROLE_NAME.CommunityRecruiter, teamId: communityTeamId },
+        { name: ROLE_NAME.ProcessOperator, teamId: teamId },
+        { name: ROLE_NAME.DepartmentAdmin, teamId: departmentTeamId },
+        { name: ROLE_NAME.DepartmentHRAdvisor, teamId: departmentTeamId },
+      ]}
+    >
+      <EditPoolPage />
+    </RequireAuth>
+  );
+};
 
 Component.displayName = "AdminEditPoolPage";
 

@@ -12,7 +12,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import DepartmentTableApi from "./components/DepartmentTable";
 
-const Component = () => {
+const IndexDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const formattedPageTitle = intl.formatMessage(pageTitles.departments);
@@ -27,21 +27,27 @@ const Component = () => {
   });
 
   return (
-    <RequireAuth
-      rolesRequirements={[
-        { name: ROLE_NAME.PlatformAdmin },
-        { name: ROLE_NAME.DepartmentAdmin },
-        { name: ROLE_NAME.DepartmentHRAdvisor },
-      ]}
-    >
+    <>
       <SEO title={formattedPageTitle} />
       <Hero title={formattedPageTitle} crumbs={navigationCrumbs} />
       <AdminContentWrapper table>
         <DepartmentTableApi title={formattedPageTitle} />
       </AdminContentWrapper>
-    </RequireAuth>
+    </>
   );
 };
+
+const Component = () => (
+  <RequireAuth
+    rolesRequirements={[
+      { name: ROLE_NAME.PlatformAdmin },
+      { name: ROLE_NAME.DepartmentAdmin },
+      { name: ROLE_NAME.DepartmentHRAdvisor },
+    ]}
+  >
+    <IndexDepartmentPage />
+  </RequireAuth>
+);
 
 Component.displayName = "AdminIndexDepartmentPage";
 

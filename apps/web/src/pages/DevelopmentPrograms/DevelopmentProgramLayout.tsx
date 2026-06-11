@@ -81,29 +81,33 @@ const DevelopmentProgramLayout = () => {
   });
 
   return (
-    <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
-      <Pending fetching={fetching} error={error}>
-        <SEO
-          title={pageTitle ?? intl.formatMessage(commonMessages.notFound)}
-          description={description}
-        />
-        <Hero
-          title={pageTitle}
-          subtitle={description}
-          crumbs={crumbs}
-          navTabs={[
-            {
-              label: intl.formatMessage(adminMessages.details),
-              url: paths.developmentProgramView(developmentProgramId),
-            },
-          ]}
-        />
-        <Container className="my-18">
-          <Outlet />
-        </Container>
-      </Pending>
-    </RequireAuth>
+    <Pending fetching={fetching} error={error}>
+      <SEO
+        title={pageTitle ?? intl.formatMessage(commonMessages.notFound)}
+        description={description}
+      />
+      <Hero
+        title={pageTitle}
+        subtitle={description}
+        crumbs={crumbs}
+        navTabs={[
+          {
+            label: intl.formatMessage(adminMessages.details),
+            url: paths.developmentProgramView(developmentProgramId),
+          },
+        ]}
+      />
+      <Container className="my-18">
+        <Outlet />
+      </Container>
+    </Pending>
   );
 };
 
-export default DevelopmentProgramLayout;
+const Component = () => (
+  <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
+    <DevelopmentProgramLayout />
+  </RequireAuth>
+);
+
+export default Component;

@@ -160,7 +160,7 @@ const CreateDepartment_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const Component = () => {
+const CreateDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const [, executeMutation] = useMutation(CreateDepartment_Mutation);
@@ -196,7 +196,7 @@ const Component = () => {
   });
 
   return (
-    <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
+    <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <div className="mb-18">
@@ -205,9 +205,15 @@ const Component = () => {
           />
         </div>
       </Hero>
-    </RequireAuth>
+    </>
   );
 };
+
+const Component = () => (
+  <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
+    <CreateDepartmentPage />
+  </RequireAuth>
+);
 
 Component.displayName = "AdminCreateDepartmentPage";
 

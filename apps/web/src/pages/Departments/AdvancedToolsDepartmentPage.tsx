@@ -93,7 +93,7 @@ const AdvancedToolsDepartment_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const Component = () => {
+const AdvancedToolsDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
@@ -117,7 +117,7 @@ const Component = () => {
   ];
 
   return (
-    <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
+    <>
       <SEO title={departmentName} />
       <Hero
         title={
@@ -151,9 +151,15 @@ const Component = () => {
           </Pending>
         </div>
       </div>
-    </RequireAuth>
+    </>
   );
 };
+
+const Component = () => (
+  <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
+    <AdvancedToolsDepartmentPage />
+  </RequireAuth>
+);
 
 Component.displayName = "AdminAdvancedToolsDepartmentPage";
 

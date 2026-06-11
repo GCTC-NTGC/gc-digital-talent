@@ -218,7 +218,7 @@ const UpdateDepartment_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const Component = () => {
+const UpdateDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
@@ -282,15 +282,11 @@ const Component = () => {
         <div className="mb-18">
           <Pending fetching={fetching} error={error}>
             {data?.department ? (
-              <RequireAuth
-                rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}
-              >
-                <UpdateDepartmentForm
-                  query={data.department}
-                  optionsQuery={data}
-                  handleUpdateDepartment={handleUpdateDepartment}
-                />
-              </RequireAuth>
+              <UpdateDepartmentForm
+                query={data.department}
+                optionsQuery={data}
+                handleUpdateDepartment={handleUpdateDepartment}
+              />
             ) : (
               <NotFound
                 headingMessage={intl.formatMessage(commonMessages.notFound)}
@@ -314,6 +310,12 @@ const Component = () => {
     </>
   );
 };
+
+const Component = () => (
+  <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
+    <UpdateDepartmentPage />
+  </RequireAuth>
+);
 
 Component.displayName = "AdminUpdateDepartmentPage";
 

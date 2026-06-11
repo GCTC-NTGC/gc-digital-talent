@@ -149,7 +149,6 @@ interface RouteParams extends Record<string, string> {
 const Department_Query = graphql(/* GraphQL */ `
   query ViewDepartmentPage($id: UUID!) {
     department(id: $id) {
-      teamIdForRoleAssignment
       name {
         en
         fr
@@ -159,7 +158,7 @@ const Department_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const Component = () => {
+const UpdateDepartmentPage = () => {
   const intl = useIntl();
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
   const [{ data: departmentData, fetching, error }] = useQuery({
@@ -175,8 +174,6 @@ const Component = () => {
 
   const crumbs = [...(baseCrumbs ?? [])];
 
-  const teamId = departmentData?.department?.teamIdForRoleAssignment;
-
   return (
     <>
       <SEO title={departmentName} />
@@ -190,16 +187,7 @@ const Component = () => {
       <Container className="my-18">
         <Pending fetching={fetching} error={error}>
           {departmentData?.department ? (
-            <RequireAuth
-              rolesRequirements={[
-                { name: ROLE.PlatformAdmin },
-                { name: ROLE.DepartmentAdmin, teamId: teamId },
-                { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
-              ]}
-              strict
-            >
-              <ViewDepartmentForm query={departmentData?.department} />
-            </RequireAuth>
+            <ViewDepartmentForm query={departmentData?.department} />
           ) : (
             <NotFound
               headingMessage={intl.formatMessage(commonMessages.notFound)}
@@ -215,6 +203,21 @@ const Component = () => {
       </Container>
     </>
   );
+};
+
+const Component = () => {
+  const { teamId } = useOutletContext<ContextType>();
+
+  <RequireAuth
+    rolesRequirements={[
+      { name: ROLE.PlatformAdmin },
+      { name: ROLE.DepartmentAdmin, teamId },
+      { name: ROLE.DepartmentHRAdvisor, teamId },
+    ]}
+    strict
+  >
+    <UpdateDepartmentPage />
+  </RequireAuth>;
 };
 
 Component.displayName = "AdminUpdateDepartmentPage";
