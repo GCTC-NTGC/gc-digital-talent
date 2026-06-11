@@ -3,7 +3,12 @@ import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import { useQuery, type OperationContext } from "urql";
 
-import { TableOfContents, Link, Pending } from "@gc-digital-talent/ui";
+import {
+  TableOfContents,
+  Link,
+  Pending,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
@@ -16,6 +21,7 @@ import type {
 } from "~/components/SkillsPortfolioTable/SkillPortfolioTable";
 import SkillPortfolioTable from "~/components/SkillsPortfolioTable/SkillPortfolioTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import profileMessages from "~/messages/profileMessages";
 
 interface PageSection {
   id: string;
@@ -137,6 +143,7 @@ const context: Partial<OperationContext> = {
 };
 
 const SkillPortfolioPage = () => {
+  const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: SkillPortfolioPage_Query,
     context,
@@ -147,7 +154,13 @@ const SkillPortfolioPage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SkillPortfolio userSkills={userSkills} skills={skills} />
+      {data?.me ? (
+        <SkillPortfolio userSkills={userSkills} skills={skills} />
+      ) : (
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
+      )}
     </Pending>
   );
 };
