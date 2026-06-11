@@ -3,6 +3,7 @@ import type { StoryObj, Meta } from "@storybook/react-vite";
 import {
   FlexibleWorkLocation,
   LanguageAbility,
+  makeFragmentData,
   OperationalRequirement,
   PriorityWeight,
   TalentRequestSource,
@@ -17,9 +18,33 @@ import {
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 
-import TalentRequestMatchesTable from "./TalentRequestMatchesTable";
+import TalentRequestMatchesTable, {
+  TalentRequestMatchesTable_TalentRequestFragment,
+} from "./TalentRequestMatchesTable";
+import { TalentRequestMatchesApplicantFilter_Fragment } from "./utils";
 
 const mockUsers = fakeUsers(10);
+
+const talentRequestFragment = makeFragmentData(
+  {
+    id: "talent-request-id",
+    applicantFilter: makeFragmentData(
+      {
+        languageAbility: null,
+        locationPreferences: [],
+        operationalRequirements: [],
+        flexibleWorkLocations: [],
+        equity: null,
+        qualifiedInClassifications: [],
+        qualifiedInWorkStreams: [],
+        pools: [],
+        skills: [],
+      },
+      TalentRequestMatchesApplicantFilter_Fragment,
+    ),
+  },
+  TalentRequestMatchesTable_TalentRequestFragment,
+);
 const rows = mockUsers.map((user) => ({
   __typename: "TalentRequestResult",
   id: user.id,
@@ -30,6 +55,9 @@ const rows = mockUsers.map((user) => ({
 
 const meta = {
   component: TalentRequestMatchesTable,
+  args: {
+    query: talentRequestFragment,
+  },
   parameters: {
     apiResponses: {
       TalentRequestMatchingUsers: {

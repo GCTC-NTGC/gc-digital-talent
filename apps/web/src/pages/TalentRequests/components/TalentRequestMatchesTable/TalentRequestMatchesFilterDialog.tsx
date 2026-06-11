@@ -109,7 +109,7 @@ export interface FormValues {
   streams?: string[];
   pools?: string[];
   languageAbility?: LanguageAbility;
-  equity?: [];
+  equity?: string[];
   priorityWeight?: PriorityWeight[];
   operationalRequirements?: OperationalRequirement[];
   flexibleWorkLocations?: FlexibleWorkLocation[];
@@ -238,8 +238,8 @@ const TalentRequestMatchesFilterDialog = ({
           }))}
         />
         <Checklist
-          idPrefix="operationalRequirement"
-          name="operationalRequirement"
+          idPrefix="operationalRequirements"
+          name="operationalRequirements"
           legend={intl.formatMessage(navigationMessages.workPreferences)}
           items={narrowEnumType(
             unpackMaybes(options?.operationalRequirements),
@@ -265,8 +265,8 @@ const TalentRequestMatchesFilterDialog = ({
           }))}
         />
         <Checklist
-          idPrefix="workRegion"
-          name="workRegion"
+          idPrefix="workRegions"
+          name="workRegions"
           legend={intl.formatMessage(navigationMessages.workLocation)}
           items={sortLocalizedEnumOptions(
             ENUM_SORT_ORDER.WORK_REGION,

@@ -1,17 +1,35 @@
 import { useIntl } from "react-intl";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
+import { useQuery } from "urql";
 
-import { Notice } from "@gc-digital-talent/ui";
+import { Notice, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
 import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
+import TalentRequestMatchesTable from "./components/TalentRequestMatchesTable/TalentRequestMatchesTable";
+import type { RouteParams } from "./types";
+
+const TalentRequestTracking_Query = graphql(/** GraphQL */ `
+  query TalentRequestTracking($id: UUID!) {
+    talentRequest(id: $id) {
+      ...TalentRequestMatchesTableTalentRequest
+    }
+  }
+`);
 
 const Tracking = () => {
   const intl = useIntl();
+  const { talentRequestId } = useRequiredParams<RouteParams>("talentRequestId");
+  const [{ data, fetching, error }] = useQuery({
+    query: TalentRequestTracking_Query,
+    variables: { id: talentRequestId },
+  });
   const trackedUsers = [];
 
   return (
@@ -70,7 +88,13 @@ const Tracking = () => {
             "Description of the table showing users who match talent request criteria",
         })}
       >
-        <>{/** TODO: Add children */}</>
+        <Pending fetching={fetching} error={error}>
+          {data?.talentRequest ? (
+            <TalentRequestMatchesTable query={data.talentRequest} />
+          ) : (
+            <ThrowNotFound />
+          )}
+        </Pending>
       </TalentRequestSectionCard>
     </div>
   );
