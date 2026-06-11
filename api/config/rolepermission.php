@@ -90,6 +90,7 @@ return [
         'talentNominationEvent' => 'talentNominationEvent',
         'talentNomination' => 'talentNomination',
         'talentNominationGroup' => 'talentNominationGroup',
+        'pastTalentNomination' => 'pastTalentNomination',
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
         'communityInterest' => 'communityInterest',
@@ -1169,6 +1170,8 @@ return [
             ],
             'talentNomination' => [
                 'team' => ['view'],
+            ],
+            'pastTalentNomination' => [
                 'own' => ['create'],
             ],
             'talentNominationGroup' => [
@@ -1332,6 +1335,8 @@ return [
             ],
             'talentNomination' => [
                 'team' => ['view'],
+            ],
+            'pastTalentNomination' => [
                 'own' => ['create'],
             ],
             'communityInterest' => [
