@@ -15,7 +15,7 @@ import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/s
 import useRoutes from "~/hooks/useRoutes";
 import experienceMessages from "~/messages/experienceMessages";
 
-const CareerTimelineSectionExperience_Fragment = graphql(/** GraphQL */ `
+export const CareerTimelineSectionExperience_Fragment = graphql(/** GraphQL */ `
   fragment CareerTimelineSectionExperience on Experience {
     id
     ...ExperienceCard

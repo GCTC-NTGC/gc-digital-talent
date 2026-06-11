@@ -1,39 +1,28 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 
 import { fakeUsers } from "@gc-digital-talent/fake-data";
-import { Container } from "@gc-digital-talent/ui";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import ProfilePage from "./ProfilePage";
+import ProfilePage, { ProfileForm, UserProfile_Fragment } from "./ProfilePage";
 
-const mockUser = fakeUsers(1)[0];
+const fakeUserData = fakeUsers(1)[0];
 
-const meta = {
+export default {
   component: ProfilePage,
-  decorators: [
-    (Comp) => (
-      <Container className="mt-18">
-        <Comp />
-      </Container>
-    ),
-  ],
-} satisfies Meta<typeof ProfilePage>;
+  args: {},
+} as Meta;
 
-export default meta;
-
-type Story = StoryObj<typeof ProfilePage>;
-
-export const WithData: Story = {
-  args: {
-    loaderData: {
-      user: mockUser,
-    },
-  },
+const Template: StoryFn<typeof ProfileForm> = (args) => {
+  const { userQuery } = args;
+  return <ProfileForm userQuery={userQuery} />;
 };
 
-export const Null: Story = {
-  args: {
-    loaderData: {
-      user: {},
-    },
-  },
+export const WithData = Template.bind({});
+WithData.args = {
+  userQuery: makeFragmentData(fakeUserData, UserProfile_Fragment),
+};
+
+export const Null = Template.bind({});
+Null.args = {
+  userQuery: makeFragmentData({}, UserProfile_Fragment),
 };

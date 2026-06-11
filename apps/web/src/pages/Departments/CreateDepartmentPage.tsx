@@ -27,12 +27,11 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
-import { requireUser } from "~/routing/auth";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import FormFields from "./FormFields";
 import type { DepartmentType } from "./utils";
 import { departmentTypeToInput } from "./utils";
-import type { Route } from "./+types/CreateDepartmentPage";
 
 interface FormValues {
   name?: LocalizedStringInput;
@@ -161,16 +160,7 @@ const CreateDepartment_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, {
-      roles: [{ name: ROLE_NAME.PlatformAdmin }],
-    });
-    return await next();
-  },
-];
-
-const Component = () => {
+const CreateDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const [, executeMutation] = useMutation(CreateDepartment_Mutation);
@@ -218,6 +208,12 @@ const Component = () => {
     </>
   );
 };
+
+const Component = () => (
+  <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
+    <CreateDepartmentPage />
+  </RequireAuth>
+);
 
 Component.displayName = "AdminCreateDepartmentPage";
 

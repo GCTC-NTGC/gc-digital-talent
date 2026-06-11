@@ -1,17 +1,16 @@
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import { defineMessage, useIntl } from "react-intl";
+import { useQuery } from "urql";
 
-import { Heading } from "@gc-digital-talent/ui";
-import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
+import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { graphql } from "@gc-digital-talent/graphql";
+import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
-import { requireUser } from "~/routing/auth";
-import { graphqlClientContext, intlContext } from "~/routing/context";
+import type { CareerTimelineSectionExperience_Fragment } from "~/components/CareerTimelineSection/CareerTimelineSection";
 import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
-
-import type { Route } from "./+types/CareerTimelinePage";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 const pageTitle = defineMessage({
   defaultMessage: "Career timeline",
@@ -22,13 +21,6 @@ const pageTitle = defineMessage({
 export const handle = {
   pageTitle,
 };
-
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, { roles: [{ name: ROLE_NAME.Applicant }] });
-    return await next();
-  },
-];
 
 export const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
   query CareerTimelineExperiences {
@@ -41,26 +33,18 @@ export const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export async function clientLoader({ context }: Route.ClientLoaderArgs) {
-  const intl = context.get(intlContext);
-  const client = context.get(graphqlClientContext);
-
-  const res = await client
-    .query(CareerTimelineExperiences_Query, {})
-    .toPromise();
-
-  if (!res.data?.me) {
-    throw new NotFoundError(intl.formatMessage(profileMessages.userNotFound));
-  }
-
-  return {
-    user: res.data.me,
-  };
+interface CareerTimelineProps {
+  userId: string;
+  experiencesQuery: FragmentType<
+    typeof CareerTimelineSectionExperience_Fragment
+  >[];
 }
 
-const CareerTimelinePage = ({ loaderData }: Route.ComponentProps) => {
+export const CareerTimeline = ({
+  userId,
+  experiencesQuery,
+}: CareerTimelineProps) => {
   const intl = useIntl();
-  const { user } = loaderData;
 
   return (
     <>
@@ -87,12 +71,42 @@ const CareerTimelinePage = ({ loaderData }: Route.ComponentProps) => {
       </p>
       <div className="mb-18">
         <CareerTimelineSection
-          experiencesQuery={unpackMaybes(user.experiences)}
-          userId={user.id}
+          experiencesQuery={experiencesQuery}
+          userId={userId}
         />
       </div>
     </>
   );
 };
 
-export default CareerTimelinePage;
+const CareerTimelinePage = () => {
+  const intl = useIntl();
+  const [{ data, fetching, error }] = useQuery({
+    query: CareerTimelineExperiences_Query,
+  });
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.me ? (
+        <CareerTimeline
+          userId={data?.me.id}
+          experiencesQuery={unpackMaybes(data?.me.experiences)}
+        />
+      ) : (
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
+      )}
+    </Pending>
+  );
+};
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <CareerTimelinePage />
+  </RequireAuth>
+);
+
+Component.displayName = "CareerTimelinePage";
+
+export default Component;

@@ -1,12 +1,20 @@
 import { defineMessage, useIntl } from "react-intl";
-import { useMutation } from "urql";
-import { useRevalidator } from "react-router";
+import { useMutation, useQuery, type OperationContext } from "urql";
 
-import { Link, Separator, TableOfContents } from "@gc-digital-talent/ui";
+import {
+  Link,
+  Pending,
+  Separator,
+  TableOfContents,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { NotFoundError } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import profileMessages from "~/messages/profileMessages";
@@ -17,12 +25,9 @@ import WorkPreferences from "~/components/Profile/components/WorkPreferences/Wor
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
-import { requireUser } from "~/routing/auth";
-import { graphqlClientContext, intlContext } from "~/routing/context";
 import useRoutes from "~/hooks/useRoutes";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
-
-import type { Route } from "./+types/ProfilePage";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
@@ -36,45 +41,24 @@ export const handle = {
   pageTitle: defineMessage(navigationMessages.profilePage),
 };
 
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, { roles: [{ name: ROLE_NAME.Applicant }] });
-    return await next();
-  },
-];
-
-const ProfileUser_Query = graphql(/* GraphQL */ `
-  query ProfileUser {
-    me {
-      isVerifiedGovEmployee
-      ...ProfileWorkPreferences
-      ...ProfileDiversityEquityInclusion
-      ...ProfileCitizenVeteranPriority
-      ...ProfileLanguageProfile
-    }
+export const UserProfile_Fragment = graphql(/* GraphQL */ `
+  fragment UserProfile on User {
+    isVerifiedGovEmployee
+    ...ProfileWorkPreferences
+    ...ProfileDiversityEquityInclusion
+    ...ProfileCitizenVeteranPriority
+    ...ProfileLanguageProfile
   }
 `);
 
-export async function clientLoader({ context }: Route.ClientLoaderArgs) {
-  const intl = context.get(intlContext);
-  const client = context.get(graphqlClientContext);
-
-  const res = await client.query(ProfileUser_Query, {}).toPromise();
-
-  if (!res.data?.me) {
-    throw new NotFoundError(intl.formatMessage(profileMessages.userNotFound));
-  }
-
-  return {
-    user: res.data.me,
-  };
+export interface ProfilePageProps {
+  userQuery: FragmentType<typeof UserProfile_Fragment>;
 }
 
-const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
+export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const revalidator = useRevalidator();
-  const { user } = loaderData;
+  const user = getFragment(UserProfile_Fragment, userQuery);
 
   const [languagePresetNoticeIsVisible, setLanguagePresetNoticeIsVisible] =
     useLocalStorage<boolean>(KEY_NEW_USER_LANGUAGE_PRESET, false);
@@ -87,8 +71,7 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
     return executeUpdateMutation({
       id: userId,
       user: userData,
-    }).then(async (res) => {
-      await revalidator.revalidate();
+    }).then((res) => {
       return res.data?.updateUserAsUser;
     });
   };
@@ -164,5 +147,45 @@ const ProfilePage = ({ loaderData }: Route.ComponentProps) => {
     </TableOfContents.Wrapper>
   );
 };
+
+const ProfileUser_Query = graphql(/* GraphQL */ `
+  query ProfileUser {
+    me {
+      ...UserProfile
+    }
+  }
+`);
+
+const context: Partial<OperationContext> = {
+  requestPolicy: "cache-and-network",
+};
+
+const ProfilePage = () => {
+  const intl = useIntl();
+  const [{ data, fetching, error }] = useQuery({
+    query: ProfileUser_Query,
+    context,
+  });
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.me ? (
+        <ProfileForm userQuery={data?.me} />
+      ) : (
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
+      )}
+    </Pending>
+  );
+};
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <ProfilePage />
+  </RequireAuth>
+);
+
+Component.displayName = "ProfilePage";
 
 export default ProfilePage;

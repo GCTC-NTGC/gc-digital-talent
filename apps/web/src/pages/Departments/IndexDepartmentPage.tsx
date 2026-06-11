@@ -8,25 +8,11 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import { requireUser } from "~/routing/auth";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import type { Route } from "./+types/IndexDepartmentPage";
 import DepartmentTableApi from "./components/DepartmentTable";
 
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, {
-      roles: [
-        { name: ROLE_NAME.PlatformAdmin },
-        { name: ROLE_NAME.DepartmentAdmin },
-        { name: ROLE_NAME.DepartmentHRAdvisor },
-      ],
-    });
-    return await next();
-  },
-];
-
-const Component = () => {
+const IndexDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const formattedPageTitle = intl.formatMessage(pageTitles.departments);
@@ -50,6 +36,18 @@ const Component = () => {
     </>
   );
 };
+
+const Component = () => (
+  <RequireAuth
+    rolesRequirements={[
+      { name: ROLE_NAME.PlatformAdmin },
+      { name: ROLE_NAME.DepartmentAdmin },
+      { name: ROLE_NAME.DepartmentHRAdvisor },
+    ]}
+  >
+    <IndexDepartmentPage />
+  </RequireAuth>
+);
 
 Component.displayName = "AdminIndexDepartmentPage";
 

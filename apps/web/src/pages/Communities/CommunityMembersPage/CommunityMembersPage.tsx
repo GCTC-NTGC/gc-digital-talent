@@ -9,7 +9,6 @@ import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { CommunityMembersTeamQuery } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -21,10 +20,9 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import tableMessages from "~/components/Table/tableMessages";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
-import { requireUser } from "~/routing/auth";
 import adminMessages from "~/messages/adminMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import type { Route } from "./+types/CommunityMembersPage";
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
 import type {
@@ -32,7 +30,6 @@ import type {
   ContextType,
 } from "./components/types";
 import { CommunityMembersPage_CommunityFragment } from "./components/operations";
-import { getCommunityTeamIdInMiddleware } from "../utils";
 
 const pageTitle = defineMessage({
   defaultMessage: "Community members",
@@ -165,15 +162,16 @@ interface RouteParams extends Record<string, string> {
   communityId: string;
 }
 
-interface CommunityMembersPageProps {
-  community: NonNullable<CommunityMembersTeamQuery["community"]>;
-}
-
-const CommunityMembersPage = ({ community }: CommunityMembersPageProps) => {
+const CommunityMembersPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
   const { communityId } = useRequiredParams<RouteParams>("communityId");
+
+  const [{ data, fetching, error }] = useQuery({
+    query: CommunityMembersTeam_Query,
+    variables: { communityId },
+  });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
 
@@ -200,47 +198,38 @@ const CommunityMembersPage = ({ community }: CommunityMembersPageProps) => {
       <SEO title={formattedPageTitle} />
       <Hero title={communityName} crumbs={crumbs} navTabs={navTabs} />
       <Container className="my-12">
-        <CommunityMembers communityQuery={community} />
+        <Pending fetching={fetching} error={error}>
+          {data?.community ? (
+            <CommunityMembers communityQuery={data.community} />
+          ) : (
+            <ThrowNotFound />
+          )}
+        </Pending>
       </Container>
     </>
   );
 };
 
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request, params }, next) => {
-    const teamId = await getCommunityTeamIdInMiddleware(
-      context,
-      params.communityId,
-    );
+export const Component = () => {
+  const { teamId } = useOutletContext<ContextType>();
 
-    requireUser(context, request, {
-      roles: [
-        { name: ROLE_NAME.PlatformAdmin },
-        { name: ROLE_NAME.CommunityAdmin, teamId: teamId },
-        { name: ROLE_NAME.CommunityRecruiter, teamId: teamId },
-        { name: ROLE_NAME.CommunityTalentCoordinator, teamId: teamId },
-      ],
-      strict: true,
-    });
-    return await next();
-  },
-];
+  // wait for outlet to load
+  if (teamId === undefined) {
+    return null;
+  }
 
-// Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
-const Component = () => {
-  const { communityId } = useRequiredParams<RouteParams>("communityId");
-  const [{ data, fetching, error }] = useQuery({
-    query: CommunityMembersTeam_Query,
-    variables: { communityId },
-  });
   return (
-    <Pending fetching={fetching} error={error}>
-      {data?.community ? (
-        <CommunityMembersPage community={data.community} />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+    <RequireAuth
+      rolesRequirements={[
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId },
+        { name: ROLE_NAME.CommunityRecruiter, teamId },
+        { name: ROLE_NAME.CommunityTalentCoordinator, teamId },
+      ]}
+      strict
+    >
+      <CommunityMembersPage />
+    </RequireAuth>
   );
 };
 
