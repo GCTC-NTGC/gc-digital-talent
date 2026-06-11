@@ -37,7 +37,7 @@ class TalentRequestMatchesTest extends TestCase
             talentRequestMatches(where: $where) {
                 data {
                     user { id }
-                    sources
+                    sources { value }
                     matchingQualifiedInPoolSources { pool { id } }
                     skillCount
                 }
@@ -115,7 +115,7 @@ class TalentRequestMatchesTest extends TestCase
                         'data' => [
                             [
                                 'user' => ['id' => $match->id],
-                                'sources' => [TalentRequestSource::QUALIFIED_IN_POOL->name],
+                                'sources' => [['value' => TalentRequestSource::QUALIFIED_IN_POOL->name]],
                                 'matchingQualifiedInPoolSources' => [['pool' => ['id' => $pool->id]]],
                                 'skillCount' => null,
                             ],
