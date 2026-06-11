@@ -149,14 +149,24 @@ export async function loginBySub(
     .click();
   await page.getByPlaceholder("Enter any user/subject").fill(sub);
   await page.getByRole("button", { name: /sign in/i }).click();
-  await expect(
-    page.getByRole(
-      "heading",
-      notAuthorized
-        ? { name: "Sorry, you are not authorized to view this page.", level: 1 }
-        : { name: /welcome/i, level: 1 },
-    ),
-  ).toBeVisible();
+  if (notAuthorized) {
+    await expect(
+      page.getByRole("heading", {
+        name: "Sorry, you are not authorized to view this page.",
+        level: 1,
+      }),
+    ).toBeVisible();
+  } else {
+    // Wait for tokenSyncMiddleware to complete: URL is in /en/ territory,
+    // token params have been stripped, and it's not a login redirect.
+    await page.waitForURL(
+      (url) =>
+        url.pathname.includes("/en/") &&
+        !url.searchParams.has("access_token") &&
+        !url.pathname.includes("login"),
+      { timeout: 30000 },
+    );
+  }
 }
 
 export interface AuthCookies {
