@@ -94,19 +94,26 @@ const useApplyToPool = ({
       const result = await executeMutation({ poolId });
       const newApplicationId = result.data?.createApplication?.id;
 
-      if (newApplicationId && !result.error) {
-        trackEvent("Job application started");
-        await navigate(paths.application(newApplicationId), { replace: true });
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Application created",
-            id: "U/ji+A",
-            description: "Application created successfully",
-          }),
-        );
-      } else {
+      // The API returns the existing application (with an error recorded) when
+      // the user has already applied, so a returned id always means "go there".
+      if (!newApplicationId) {
         toastError(result.error?.message);
+        return;
       }
+      if (result.error) {
+        await goToExistingApplication(newApplicationId);
+        return;
+      }
+
+      trackEvent("Job application started");
+      await navigate(paths.application(newApplicationId), { replace: true });
+      toast.success(
+        intl.formatMessage({
+          defaultMessage: "Application created",
+          id: "U/ji+A",
+          description: "Application created successfully",
+        }),
+      );
     } catch {
       toastError();
     } finally {
