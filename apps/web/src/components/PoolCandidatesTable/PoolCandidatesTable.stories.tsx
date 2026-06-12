@@ -25,11 +25,6 @@ const mockPoolCandidatesWithSkillCount: PoolCandidateAdminViewWithSkillCount[] =
         status: poolCandidate.applicationStatusData?.status,
         screeningStage: poolCandidate.applicationStatusData?.screeningStage,
         statusUpdatedAt: poolCandidate.applicationStatusData?.statusUpdatedAt,
-        pauseReferralsAt: poolCandidate.applicationStatusData?.pauseReferralsAt,
-        resumeReferralsAt:
-          poolCandidate.applicationStatusData?.resumeReferralsAt,
-        pauseReferralsReason:
-          poolCandidate.applicationStatusData?.pauseReferralsReason,
 
         isFlagged: poolCandidate.applicationAssessmentData?.isFlagged,
       },
