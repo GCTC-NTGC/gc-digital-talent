@@ -174,7 +174,6 @@ const ReferralFormFields = ({
                   "Label for the selection decision select in the referral dialog",
               })}
               nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
               options={selectionDecisionOptions}
             />
             {selectionDecision ===
