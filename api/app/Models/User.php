@@ -334,8 +334,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     ->whereNotNull('not_selected_reason')
                     ->groupBy('not_selected_reason')
                     ->map(fn ($group, $reason) => [
-                        'reason' => $reason,
-                        'count' => $group->count(),
+                        'reason' => (string) $reason,
+                        'count' => (int) $group->count(),
                     ])
                     ->values()
                     ->all(),
