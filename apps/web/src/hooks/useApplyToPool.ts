@@ -64,9 +64,19 @@ const useApplyToPool = ({
     );
   };
 
+  const genericErrorMessage = intl.formatMessage({
+    defaultMessage: "Error application creation failed",
+    id: "tlAiJm",
+    description: "Application creation failed",
+  });
+
   const toastError = (message?: string) => {
-    const descriptor = message ? tryFindMessageDescriptor(message) : undefined;
-    trackEvent("Job application creation error", message);
+    trackEvent("Job application creation error", message ?? genericErrorMessage);
+    if (!message) {
+      toast.error(genericErrorMessage);
+      return;
+    }
+    const descriptor = tryFindMessageDescriptor(message);
     toast.error(
       intl.formatMessage(
         descriptor ?? errorMessages.unknownErrorRequestErrorTitle,
