@@ -28,6 +28,12 @@ class LocalizedStringValidationTest extends TestCase
     {
         return [
             'valid localized string' => [['en' => 'English text', 'fr' => 'Texte francais'], true],
+            'en and fr can be null' => [['en' => null, 'fr' => null], true],
+            'en and fr can both be empty strings' => [['en' => '', 'fr' => ''], true],
+            'en can be null only if fr is also null or empty' => [['en' => null, 'fr' => 'Texte francais'], false],
+            'fr can be null only if en is also null or empty' => [['en' => 'English text', 'fr' => null], false],
+            'en cannot be empty if fr is filled' => [['en' => '', 'fr' => 'Texte francais'], false],
+            'fr cannot be empty if en is filled' => [['en' => 'English text', 'fr' => ''], false],
             'must be an array' => ['not-an-array', false],
             'requires en key' => [['fr' => 'Texte francais'], false],
             'requires fr key' => [['en' => 'English text'], false],

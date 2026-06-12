@@ -27,8 +27,16 @@ class LocalizedString implements ValidationRule
             return;
         }
 
-        if (! is_string($value['en']) || ! is_string($value['fr'])) {
-            $fail("The {$attribute}.en and {$attribute}.fr fields must be strings.");
+        // TrimStrings middleware will turn empty strings into nulls
+        if ((! is_string($value['en']) && ! is_null($value['en'])) ||
+            (! is_string($value['fr']) && ! is_null($value['fr']))) {
+            $fail("The {$attribute}.en and {$attribute}.fr fields must be strings or null.");
+
+            return;
+        }
+
+        if (blank($value['en']) !== blank($value['fr'])) {
+            $fail("The {$attribute}.en and {$attribute}.fr fields must both be empty or both be filled.");
         }
     }
 }

@@ -20,8 +20,9 @@ final class UpdateTalentNominationEventInputValidator extends Validator
         return [
             'community.connect' => ['sometimes', 'uuid', 'required', 'exists:communities,id'],
             'community.disconnect' => ['missing'],
-            'communityDevelopmentPrograms.sync' => ['array:id'],
+            'communityDevelopmentPrograms.sync' => ['sometimes', 'required', 'list'],
             'communityDevelopmentPrograms.sync.*.id' => [
+                'required',
                 'uuid',
                 Rule::exists('community_development_program', 'id')
                     ->where(function ($query) use ($communityId) {
