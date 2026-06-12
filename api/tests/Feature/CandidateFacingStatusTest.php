@@ -33,11 +33,13 @@ class CandidateFacingStatusTest extends TestCase
     protected string $query = <<<'GRAPHQL'
         query CandidateStatusTestQuery($id: UUID!) {
             poolCandidate(id: $id) {
-                candidateStatus {
-                    value
-                }
-                candidateInterest {
-                    value
+                applicationStatusData {
+                    candidateStatus {
+                        value
+                    }
+                    candidateInterest {
+                        value
+                    }
                 }
             }
         }

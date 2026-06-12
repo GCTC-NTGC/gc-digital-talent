@@ -1194,8 +1194,10 @@ class ApplicantTest extends TestCase
             '
             query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
-                    statusWeight
-                    status { value }
+                    applicationStatusData {
+                        statusWeight
+                        status { value }
+                    }
                 }
             }
         ';
@@ -1207,9 +1209,11 @@ class ApplicantTest extends TestCase
             ->graphQL($query, $variables)->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'statusWeight' => 10,
-                        'status' => [
-                            'value' => ApplicationStatus::DRAFT->name,
+                        'applicationStatusData' => [
+                            'statusWeight' => 10,
+                            'status' => [
+                                'value' => ApplicationStatus::DRAFT->name,
+                            ],
                         ],
                     ],
                 ],
@@ -1227,9 +1231,11 @@ class ApplicantTest extends TestCase
             ->graphQL($query, $variables)->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'statusWeight' => 20,
-                        'status' => [
-                            'value' => ApplicationStatus::TO_ASSESS->name,
+                        'applicationStatusData' => [
+                            'statusWeight' => 20,
+                            'status' => [
+                                'value' => ApplicationStatus::TO_ASSESS->name,
+                            ],
                         ],
                     ],
                 ],
@@ -1245,9 +1251,11 @@ class ApplicantTest extends TestCase
             ->graphQL($query, $variables)->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'statusWeight' => 30,
-                        'status' => [
-                            'value' => ApplicationStatus::DISQUALIFIED->name,
+                        'applicationStatusData' => [
+                            'statusWeight' => 30,
+                            'status' => [
+                                'value' => ApplicationStatus::DISQUALIFIED->name,
+                            ],
                         ],
                     ],
                 ],
@@ -1262,9 +1270,11 @@ class ApplicantTest extends TestCase
             ->graphQL($query, $variables)->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'statusWeight' => 40,
-                        'status' => [
-                            'value' => ApplicationStatus::QUALIFIED->name,
+                        'applicationStatusData' => [
+                            'statusWeight' => 40,
+                            'status' => [
+                                'value' => ApplicationStatus::QUALIFIED->name,
+                            ],
                         ],
                     ],
                 ],
@@ -1280,9 +1290,11 @@ class ApplicantTest extends TestCase
             ->graphQL($query, $variables)->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'statusWeight' => 50,
-                        'status' => [
-                            'value' => ApplicationStatus::REMOVED->name,
+                        'applicationStatusData' => [
+                            'statusWeight' => 50,
+                            'status' => [
+                                'value' => ApplicationStatus::REMOVED->name,
+                            ],
                         ],
                     ],
                 ],

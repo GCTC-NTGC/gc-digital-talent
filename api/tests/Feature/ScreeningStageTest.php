@@ -37,8 +37,10 @@ class ScreeningStageTest extends TestCase
     protected $mutation = <<<'GRAPHQL'
         mutation TestUpdateScreeningStage($candidate: UpdatePoolCandidateScreeningStageInput!) {
             updatePoolCandidateScreeningStage(poolCandidate: $candidate) {
-                screeningStage {
-                    value
+                applicationStatusData {
+                    screeningStage {
+                        value
+                    }
                 }
                 assessmentStep {
                     id
@@ -93,7 +95,9 @@ class ScreeningStageTest extends TestCase
                     'screeningStage' => ScreeningStage::UNDER_ASSESSMENT->name,
                 ]])
             ->assertJsonFragment([
-                'screeningStage' => ['value' => ScreeningStage::UNDER_ASSESSMENT->name],
+                'applicationStatusData' => [
+                    'screeningStage' => ['value' => ScreeningStage::UNDER_ASSESSMENT->name],
+                ],
                 'assessmentStep' => ['id' => $expectedStep],
             ]);
 
@@ -104,7 +108,9 @@ class ScreeningStageTest extends TestCase
                     'screeningStage' => ScreeningStage::SCREENED_IN->name,
                 ]])
             ->assertJsonFragment([
-                'screeningStage' => ['value' => ScreeningStage::SCREENED_IN->name],
+                'applicationStatusData' => [
+                    'screeningStage' => ['value' => ScreeningStage::SCREENED_IN->name],
+                ],
                 'assessmentStep' => null,
             ]);
     }
@@ -117,7 +123,9 @@ class ScreeningStageTest extends TestCase
             'screeningStage' => $screeningStage,
         ];
 
-        $expected = ['screeningStage' => ['value' => $screeningStage]];
+        $expected = ['applicationStatusData' => [
+            'screeningStage' => ['value' => $screeningStage]],
+        ];
 
         if ($includeStep) {
             $input['assessmentStep']['connect'] = $this->step->id;
@@ -169,7 +177,9 @@ class ScreeningStageTest extends TestCase
             'screeningStage' => $screeningStage,
         ];
 
-        $expected = ['screeningStage' => ['value' => $screeningStage]];
+        $expected = ['applicationStatusData' => [
+            'screeningStage' => ['value' => $screeningStage]],
+        ];
 
         if ($includeStep) {
             // Set to unexpected UUID if we expect it to not match candidate pool

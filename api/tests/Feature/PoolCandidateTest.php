@@ -131,8 +131,8 @@ class PoolCandidateTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query PoolCandidates($where: PoolCandidateSearchInput, $orderBy: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!) {
-                poolCandidatesPaginated(where: $where, orderBy: [$orderBy]) {
+            query PoolCandidates($where: PoolCandidateSearchInput, $orderBy: QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!) {
+                poolCandidatesPaginatedAdminView(where: $where, orderBy: [$orderBy]) {
                     data {
                         id
                         skillCount
@@ -204,7 +204,7 @@ class PoolCandidateTest extends TestCase
             ])
             ->assertJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             [
                                 'id' => $userTwoCandidate->id,
@@ -233,7 +233,7 @@ class PoolCandidateTest extends TestCase
             ])
             ->assertJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             [
                                 'id' => $userOneCandidate->id,
@@ -261,7 +261,7 @@ class PoolCandidateTest extends TestCase
                 ],
             ])->assertJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'data' => [],
                     ],
                 ],
@@ -289,7 +289,7 @@ class PoolCandidateTest extends TestCase
                 ],
             ])->assertJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             [
                                 'id' => $userOneCandidate->id,
@@ -316,7 +316,9 @@ class PoolCandidateTest extends TestCase
         '
             query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
-                    notes
+                    applicationAssessmentData {
+                        notes
+                    }
                 }
             }
          ';
@@ -327,7 +329,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'notes' => $this->candidate->notes,
+                        'applicationAssessmentData' => [
+                            'notes' => $this->candidate->notes,
+                        ],
                     ],
                 ],
             ]);
@@ -338,7 +342,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'notes' => $this->candidate->notes,
+                        'applicationAssessmentData' => [
+                            'notes' => $this->candidate->notes,
+                        ],
                     ],
                 ],
             ]);
@@ -349,7 +355,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'notes' => $this->candidate->notes,
+                        'applicationAssessmentData' => [
+                            'notes' => $this->candidate->notes,
+                        ],
                     ],
                 ],
             ]);
@@ -379,7 +387,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'notes' => $this->candidate->notes,
+                        'applicationAssessmentData' => [
+                            'notes' => $this->candidate->notes,
+                        ],
                     ],
                 ],
             ]);
@@ -396,7 +406,9 @@ class PoolCandidateTest extends TestCase
             mutation UpdatePoolCandidateNotes($id: UUID!, $notes: String) {
                 updatePoolCandidateNotes(id: $id, notes: $notes) {
                     id
-                    notes
+                    applicationAssessmentData {
+                        notes
+                    }
                 }
             }
          ';
@@ -416,7 +428,12 @@ class PoolCandidateTest extends TestCase
             ->graphQL($notesMutation, $notesVariables)
             ->assertJson([
                 'data' => [
-                    'updatePoolCandidateNotes' => $notesVariables,
+                    'updatePoolCandidateNotes' => [
+                        'id' => $this->candidate->id,
+                        'applicationAssessmentData' => [
+                            'notes' => 'new notes',
+                        ],
+                    ],
                 ],
             ]);
 
@@ -425,7 +442,12 @@ class PoolCandidateTest extends TestCase
             ->graphQL($notesMutation, $notesVariables)
             ->assertJson([
                 'data' => [
-                    'updatePoolCandidateNotes' => $notesVariables,
+                    'updatePoolCandidateNotes' => [
+                        'id' => $this->candidate->id,
+                        'applicationAssessmentData' => [
+                            'notes' => 'new notes',
+                        ],
+                    ],
                 ],
             ]);
         $this->actingAs($this->unAssociatedDepartmentUser, 'api')
@@ -443,7 +465,9 @@ class PoolCandidateTest extends TestCase
         '
             query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
-                    status { value }
+                    applicationStatusData {
+                        status { value }
+                    }
                 }
             }
          ';
@@ -454,8 +478,10 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => [
-                            'value' => $this->candidate->application_status,
+                        'applicationStatusData' => [
+                            'status' => [
+                                'value' => $this->candidate->application_status,
+                            ],
                         ],
                     ],
                 ],
@@ -467,8 +493,10 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => [
-                            'value' => $this->candidate->application_status,
+                        'applicationStatusData' => [
+                            'status' => [
+                                'value' => $this->candidate->application_status,
+                            ],
                         ],
                     ],
                 ],
@@ -480,8 +508,10 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => [
-                            'value' => $this->candidate->application_status,
+                        'applicationStatusData' => [
+                            'status' => [
+                                'value' => $this->candidate->application_status,
+                            ],
                         ],
                     ],
                 ],
@@ -493,8 +523,10 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => [
-                            'value' => $this->candidate->application_status,
+                        'applicationStatusData' => [
+                            'status' => [
+                                'value' => $this->candidate->application_status,
+                            ],
                         ],
                     ],
                 ],
@@ -511,8 +543,10 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => [
-                            'value' => $this->candidate->application_status,
+                        'applicationStatusData' => [
+                            'status' => [
+                                'value' => $this->candidate->application_status,
+                            ],
                         ],
                     ],
                 ],
@@ -529,7 +563,7 @@ class PoolCandidateTest extends TestCase
             /** @lang GraphQL */
             '
             query PoolCandidates($orderBy: PoolCandidatePoolNameOrderByInput) {
-                poolCandidatesPaginated(orderByPoolName: $orderBy) {
+                poolCandidatesPaginatedAdminView(orderByPoolName: $orderBy) {
                     data {
                         id
                         poolCandidate {
@@ -570,7 +604,7 @@ class PoolCandidateTest extends TestCase
             ])
             ->assertJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             [
                                 'poolCandidate' => [
@@ -601,7 +635,7 @@ class PoolCandidateTest extends TestCase
             ])
             ->assertJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             [
                                 'poolCandidate' => [
@@ -632,7 +666,7 @@ class PoolCandidateTest extends TestCase
             ])
             ->assertJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             [
                                 'poolCandidate' => [
@@ -663,7 +697,7 @@ class PoolCandidateTest extends TestCase
             ])
             ->assertJson([
                 'data' => [
-                    'poolCandidatesPaginated' => [
+                    'poolCandidatesPaginatedAdminView' => [
                         'data' => [
                             [
                                 'poolCandidate' => [
@@ -691,8 +725,8 @@ class PoolCandidateTest extends TestCase
         $query =
         /** @lang GraphQL */
         '
-            query PoolCandidates($where: PoolCandidateSearchInput, $orderBy: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!) {
-                poolCandidatesPaginated(where: $where, orderBy: [$orderBy]) {
+            query PoolCandidates($where: PoolCandidateSearchInput, $orderBy: QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!) {
+                poolCandidatesPaginatedAdminView(where: $where, orderBy: [$orderBy]) {
                     data {
                         id
                     }

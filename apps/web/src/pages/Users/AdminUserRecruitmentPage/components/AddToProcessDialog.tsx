@@ -33,8 +33,10 @@ const AddToProcessDialog_Mutation = graphql(/* GraphQL */ `
         id
       }
       expiryDate
-      status {
-        value
+      applicationStatusData {
+        status {
+          value
+        }
       }
     }
   }

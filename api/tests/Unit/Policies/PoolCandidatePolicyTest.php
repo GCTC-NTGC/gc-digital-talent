@@ -93,7 +93,7 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $owner = User::factory()->asApplicant()->create();
         $candidate = PoolCandidate::factory()->for($owner)->for($this->primaryPool)->create();
 
-        $this->assertTrue($this->ensureBool($this->policy->viewStatus($owner, $candidate)));
+        $this->assertTrue($this->ensureBool($this->policy->viewApplicationStatus($owner, $candidate)));
     }
 
     public function testNonOwnerCannotModifyOrSubmitApplication(): void
@@ -114,8 +114,8 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $admin = User::factory()->asAdmin()->create();
 
         $this->assertTrue($this->ensureBool($this->policy->view($admin, $this->submittedCandidate)));
-        $this->assertTrue($this->ensureBool($this->policy->viewStatus($admin, $this->submittedCandidate)));
-        $this->assertTrue($this->ensureBool($this->policy->viewNotes($admin, $this->submittedCandidate)));
+        $this->assertTrue($this->ensureBool($this->policy->viewApplicationStatus($admin, $this->submittedCandidate)));
+        $this->assertTrue($this->ensureBool($this->policy->viewApplicationAssessment($admin, $this->submittedCandidate)));
         $this->assertTrue($this->ensureBool($this->policy->viewAssessment($admin, $this->submittedCandidate)));
         $this->assertTrue($this->ensureBool($this->policy->viewDecision($admin, $this->submittedCandidate)));
         $this->assertTrue($this->ensureBool($this->policy->viewPlacement($admin, $this->submittedCandidate)));
@@ -142,7 +142,7 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
 
         $this->assertTrue($this->ensureBool($this->policy->view($user, $this->submittedCandidate)));
-        $this->assertTrue($this->ensureBool($this->policy->viewStatus($user, $this->submittedCandidate)));
+        $this->assertTrue($this->ensureBool($this->policy->viewApplicationStatus($user, $this->submittedCandidate)));
     }
 
     #[DataProvider('allTeamRolesProvider')]
@@ -150,7 +150,7 @@ class PoolCandidatePolicyTest extends PolicyTestCase
     {
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
 
-        $this->assertTrue($this->ensureBool($this->policy->viewNotes($user, $this->submittedCandidate)));
+        $this->assertTrue($this->ensureBool($this->policy->viewApplicationAssessment($user, $this->submittedCandidate)));
         $this->assertTrue($this->ensureBool($this->policy->updateFlag($user, $this->submittedCandidate)));
         $this->assertTrue($this->ensureBool($this->policy->updateNotes($user, $this->submittedCandidate)));
         $this->assertTrue($this->ensureBool($this->policy->viewAssessment($user, $this->submittedCandidate)));
@@ -254,8 +254,8 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $user = $this->createContextualUser($factoryMethod, $otherPool);
 
         $this->assertFalse($this->ensureBool($this->policy->view($user, $this->submittedCandidate)));
-        $this->assertFalse($this->ensureBool($this->policy->viewStatus($user, $this->submittedCandidate)));
-        $this->assertFalse($this->ensureBool($this->policy->viewNotes($user, $this->submittedCandidate)));
+        $this->assertFalse($this->ensureBool($this->policy->viewApplicationStatus($user, $this->submittedCandidate)));
+        $this->assertFalse($this->ensureBool($this->policy->viewApplicationAssessment($user, $this->submittedCandidate)));
         $this->assertFalse($this->ensureBool($this->policy->viewAssessment($user, $this->submittedCandidate)));
         $this->assertFalse($this->ensureBool($this->policy->viewDecision($user, $this->submittedCandidate)));
         $this->assertFalse($this->ensureBool($this->policy->viewPlacement($user, $this->submittedCandidate)));

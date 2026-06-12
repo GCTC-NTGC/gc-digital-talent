@@ -34,10 +34,12 @@ import MoveToPreviousStepNotice from "./MoveToPreviousStepNotice";
 const UpdateScreeningStageDialog_Fragment = graphql(/** GraphQL */ `
   fragment UpdateScreeningStageDialog on PoolCandidate {
     id
-    screeningStage {
-      value
-      label {
-        localized
+    applicationStatusData {
+      screeningStage {
+        value
+        label {
+          localized
+        }
       }
     }
   }
@@ -85,8 +87,12 @@ const UpdateScreeningStageDialog = ({
     UpdateScreeningStage_Mutation,
   );
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
-  const idx = getScreeningStageIndex(candidate.screeningStage?.value);
-  let label = candidate.screeningStage?.label.localized ?? notAvailable;
+  const idx = getScreeningStageIndex(
+    candidate.applicationStatusData?.screeningStage?.value,
+  );
+  let label =
+    candidate.applicationStatusData?.screeningStage?.label.localized ??
+    notAvailable;
   if (idx) {
     label = `${idx}. ${label}`;
   }
@@ -94,7 +100,8 @@ const UpdateScreeningStageDialog = ({
   const methods = useForm<FormValues>({
     defaultValues: {
       screeningStage:
-        candidate?.screeningStage?.value ?? ScreeningStage.NewApplication,
+        candidate.applicationStatusData?.screeningStage?.value ??
+        ScreeningStage.NewApplication,
     },
   });
 
@@ -186,7 +193,9 @@ const UpdateScreeningStageDialog = ({
                 }))}
               />
               <MoveToPreviousStepNotice
-                screeningStage={candidate?.screeningStage?.value}
+                screeningStage={
+                  candidate.applicationStatusData?.screeningStage?.value
+                }
               />
               <CandidateFacingScreeningStageNotice />
               <Dialog.Footer>

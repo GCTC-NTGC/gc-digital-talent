@@ -11,8 +11,10 @@ const Candidate_ScreeningStageQueryDocument = /* GraphQL */ `
   query Candidate_ScreeningStage($candidateId: UUID!) {
     poolCandidate(id: $candidateId) {
       id
-      screeningStage {
-        value
+      applicationStatusData {
+        screeningStage {
+          value
+        }
       }
     }
   }
@@ -28,13 +30,18 @@ export const getCandidateScreeningStage: GraphQLRequestFunc<
     .post<
       GraphQLResponse<
         "poolCandidate",
-        { id: string; screeningStage: { value: string } }
+        {
+          id: string;
+          applicationStatusData: { screeningStage: { value: string } };
+        }
       >
     >(Candidate_ScreeningStageQueryDocument, {
       isPrivileged: true,
       variables: { candidateId },
     })
-    .then((res) => res.poolCandidate.screeningStage.value);
+    .then(
+      (res) => res.poolCandidate.applicationStatusData.screeningStage.value,
+    );
 };
 
 const Pool_AssessmentStepsQueryDocument = /* GraphQL */ `

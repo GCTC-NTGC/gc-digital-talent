@@ -9,7 +9,9 @@ import SidebarNotesForm from "~/components/SidebarNotesForm/SidebarNotesForm";
 const ApplicationNotes_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationNotes on PoolCandidate {
     id
-    notes
+    applicationAssessmentData {
+      notes
+    }
   }
 `);
 
@@ -17,7 +19,9 @@ const UpdateApplicationNotes_Mutation = graphql(/** GraphQL */ `
   mutation UpdateApplicationNotes($id: UUID!, $notes: String) {
     updatePoolCandidateNotes(id: $id, notes: $notes) {
       id
-      notes
+      applicationAssessmentData {
+        notes
+      }
     }
   }
 `);
@@ -42,7 +46,7 @@ const ApplicationNotes = ({ query }: ApplicationNotesProps) => {
 
   return (
     <SidebarNotesForm
-      values={{ notes: application.notes }}
+      values={{ notes: application.applicationAssessmentData?.notes }}
       onSave={handleSubmit}
     />
   );

@@ -169,7 +169,9 @@ const Test_RemoveCandidateMutationDocument = /* GraphQL */ `
       removalReasonOther: $removalReasonOther
     ) {
       id
-      statusUpdatedAt
+      applicationStatusData {
+        statusUpdatedAt
+      }
     }
   }
 `;
