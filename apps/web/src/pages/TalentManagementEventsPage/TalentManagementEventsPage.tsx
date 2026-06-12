@@ -13,7 +13,6 @@ import {
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
-import { hasRequiredRoles, useAuthorization } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -23,10 +22,6 @@ import TalentNominationEventCard from "~/components/TalentNominationEventCard/Ta
 const TalentManagementEventsPage_Query = graphql(/* GraphQL */ `
   query TalentManagementEventsPage {
     activeEvents: talentNominationEvents(where: { status: ACTIVE }) {
-      id
-      ...TalentNominationEventCard
-    }
-    pastEvents: talentNominationEvents(where: { status: PAST }) {
       id
       ...TalentNominationEventCard
     }
@@ -41,23 +36,12 @@ interface Section {
 export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { userAuthInfo } = useAuthorization();
-
-  // Check if user can nominate to past events
-  const canNominatePast = hasRequiredRoles({
-    toCheck: [
-      { name: "community_talent_coordinator" },
-      { name: "community_admin" },
-    ],
-    userRoles: userAuthInfo?.roleAssignments,
-  });
 
   const [{ data, fetching }] = useQuery({
     query: TalentManagementEventsPage_Query,
   });
 
   const activeEvents = unpackMaybes(data?.activeEvents);
-  const pastEvents = unpackMaybes(data?.pastEvents);
 
   const pageTitle = intl.formatMessage(
     navigationMessages.talentManagementEvents,
@@ -79,18 +63,6 @@ export const Component = () => {
         description: "Title for active events section",
       }),
     },
-    ...(canNominatePast
-      ? [
-          {
-            id: "past-events",
-            title: intl.formatMessage({
-              defaultMessage: "Past events",
-              id: "Oft9y0",
-              description: "Title for past events section",
-            }),
-          },
-        ]
-      : []),
   ];
 
   const crumbs = useBreadcrumbs({
@@ -172,47 +144,6 @@ export const Component = () => {
                 </Notice.Root>
               )}
             </TableOfContents.Section>
-
-            {canNominatePast && (
-              <TableOfContents.Section id="past-events">
-                <TableOfContents.Heading
-                  size="h3"
-                  icon={MegaphoneOutlineIcon}
-                  color="primary"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Past events",
-                    id: "Oft9y0",
-                    description: "Title for past events section",
-                  })}
-                </TableOfContents.Heading>
-
-                {fetching ? (
-                  <Loading inline />
-                ) : pastEvents.length > 0 ? (
-                  <div className="flex flex-col gap-1.5">
-                    {pastEvents.map((item) => (
-                      <TalentNominationEventCard
-                        key={item.id}
-                        talentNominationEventQuery={item}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <Notice.Root className="text-center">
-                    <Notice.Title>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "There aren't any past events at the moment.",
-                        id: "0xjr5h",
-                        description:
-                          "Message title displayed when no past events",
-                      })}
-                    </Notice.Title>
-                  </Notice.Root>
-                )}
-              </TableOfContents.Section>
-            )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </Container>

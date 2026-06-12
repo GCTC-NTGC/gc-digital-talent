@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import { Heading, Card, Link, Dialog, Button } from "@gc-digital-talent/ui";
+import { Heading, Card, Link } from "@gc-digital-talent/ui";
 import {
   DATE_FORMAT_LOCALIZED,
   formatDate,
@@ -9,8 +8,6 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { hasRequiredRoles, useAuthorization } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -47,30 +44,11 @@ const TalentNominationEventCard = ({
 }: TalentNominationEventCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { userAuthInfo } = useAuthorization();
-  const roleAssignments = userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [];
-  const [confirmOpen, setConfirmOpen] = useState(false);
-
   const talentNominationEvent = getFragment(
     TalentNominationEventCard_Fragment,
     talentNominationEventQuery,
   );
-
   const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-  const isPastEvent = talentNominationEvent.closeDate
-    ? new Date() > new Date(talentNominationEvent.closeDate)
-    : false;
-
-  const canNominatePast = hasRequiredRoles({
-    toCheck: [
-      { name: "community_talent_coordinator" },
-      { name: "community_admin" },
-    ],
-    userRoles: roleAssignments,
-  });
-
-  const nominationPath = paths.createTalentNomination(talentNominationEvent.id);
 
   return (
     <>
@@ -117,81 +95,21 @@ const TalentNominationEventCard = ({
           </p>
           <p className="mb-6">{talentNominationEvent.description?.localized}</p>
           <div className="flex flex-col items-center gap-6 xs:flex-row">
-            {isPastEvent && canNominatePast ? (
-              <Dialog.Root open={confirmOpen} onOpenChange={setConfirmOpen}>
-                <Dialog.Trigger>
-                  <Button mode="solid" color="primary">
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "Start a nomination<hidden> for {title}</hidden>",
-                        id: "ZqGZ2s",
-                        description:
-                          "Button label to start a nomination for event",
-                      },
-                      { title: talentNominationEvent.name.localized },
-                    )}
-                  </Button>
-                </Dialog.Trigger>
-                <Dialog.Content>
-                  <Dialog.Header>
-                    {intl.formatMessage({
-                      defaultMessage: "Closed nomination event",
-                      id: "PONcJx",
-                      description:
-                        "Title for past talent event confirmation dialog",
-                    })}
-                  </Dialog.Header>
-                  <Dialog.Body>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "This event is already closed. Are you sure you want to submit a nomination?",
-                        id: "IAR6nU",
-                        description:
-                          "Body text for past talent event confirmation dialog",
-                      })}
-                    </p>
-
-                    <Dialog.Footer>
-                      <Link mode="solid" color="primary" href={nominationPath}>
-                        {intl.formatMessage({
-                          defaultMessage: "Start nomination",
-                          id: "9Ky9Y4",
-                          description:
-                            "Confirm button for past talent event dialog",
-                        })}
-                      </Link>
-                      <Dialog.Close>
-                        <Button mode="inline" color="secondary">
-                          {intl.formatMessage({
-                            defaultMessage: "Close",
-                            id: "JI/w8j",
-                            description:
-                              "Cancel button for past talent event dialog",
-                          })}
-                        </Button>
-                      </Dialog.Close>
-                    </Dialog.Footer>
-                  </Dialog.Body>
-                </Dialog.Content>
-              </Dialog.Root>
-            ) : (
-              !isPastEvent && (
-                <Link mode="solid" color="primary" href={nominationPath}>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "Start a nomination<hidden> for {title}</hidden>",
-                      id: "ZqGZ2s",
-                      description:
-                        "Button label to start a nomination for event",
-                    },
-                    { title: talentNominationEvent.name.localized },
-                  )}
-                </Link>
-              )
-            )}
+            <Link
+              mode="solid"
+              color="primary"
+              href={paths.createTalentNomination(talentNominationEvent.id)}
+            >
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Start a nomination<hidden> for {title}</hidden>",
+                  id: "ZqGZ2s",
+                  description: "Button label to start a nomination for event",
+                },
+                { title: talentNominationEvent.name.localized },
+              )}
+            </Link>
             {talentNominationEvent.learnMoreUrl?.localized && (
               <Link
                 color="primary"
