@@ -87,7 +87,7 @@ class TalentRequestPolicy
             return true;
         }
 
-        $ids = $args['ids'] ?? null;
+        $ids = $args['ids'] ?? (isset($args['id']) ? [$args['id']] : null);
 
         if (! is_array($ids) || empty($ids)) {
             return false;
