@@ -18,23 +18,27 @@ final class CreateTalentNominationEventInputValidator extends Validator
         $communityId = $this->arg('community.connect');
 
         return [
+            'community' => ['present'],
             'community.connect' => ['uuid', 'required', 'exists:communities,id'],
+            'community.disconnect' => ['missing'],
+            'communityDevelopmentPrograms.sync' => ['required', 'list'],
             'communityDevelopmentPrograms.sync.*.id' => [
+                'required',
                 'uuid',
                 Rule::exists('community_development_program', 'id')
                     ->where(function ($query) use ($communityId) {
                         $query->where('community_id', $communityId);
                     }),
             ],
-            'name.en' => ['required', 'string'],
-            'name.fr' => ['required', 'string'],
-            'description.en' => ['nullable', 'required_with:description.fr', 'string'],
-            'description.fr' => ['nullable', 'required_with:description.en', 'string'],
-            'learnMoreUrl.en' => ['nullable', 'required_with:learnMoreUrl.fr', 'string', 'url'],
-            'learnMoreUrl.fr' => ['nullable', 'required_with:learnMoreUrl.en', 'string', 'url'],
+            'name' => ['required', 'localized_string'],
+            'description' => ['nullable', 'localized_string'],
+            'learnMoreUrl' => ['nullable', 'localized_string'],
+            'learnMoreUrl.en' => ['nullable', 'url'],
+            'learnMoreUrl.fr' => ['nullable', 'url'],
             'openDate' => ['required', 'date'],
             'closeDate' => ['required', 'date', 'after:openDate'],
             'includeLeadershipCompetencies' => ['nullable', 'boolean'],
+            'customInstructions' => ['nullable', 'localized_string'],
         ];
     }
 
