@@ -197,7 +197,7 @@ const NominateTalentPage = () => {
                 <Navigation navigationQuery={data.talentNomination} />
               </TableOfContents.Sidebar>
               <TableOfContents.Content>
-                <Instructions />
+                <Instructions nominationId={id} />
                 <Nominator
                   nominatorQuery={data.talentNomination}
                   optionsQuery={data}
