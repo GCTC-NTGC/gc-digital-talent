@@ -37,7 +37,7 @@ class ApplicationPage extends AppPage {
     await this.waitForGraphqlResponse("PoolAdvertisementPage");
 
     await this.page
-      .getByRole("link", { name: /apply now/i })
+      .getByRole("button", { name: /apply now/i })
       .first()
       .click();
   }
