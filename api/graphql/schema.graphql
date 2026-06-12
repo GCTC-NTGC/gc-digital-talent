@@ -2664,7 +2664,7 @@ input CreateTalentNominationEventInput @validator {
     @rename(attribute: "custom_instructions")
 }
 
-input UpdateTalentNominationEventInput @validator {
+input UpdateTalentNominationEventInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
   openDate: DateTime @rename(attribute: "open_date")
