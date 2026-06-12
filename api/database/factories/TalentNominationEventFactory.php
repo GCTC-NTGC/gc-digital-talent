@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<TalentNominationEvent>
  */
-class TalentNominationEventFactory extends Factory
+class TalentNominationEventFactory extends BaseFactory
 {
     /**
      * Define the model's default state.
@@ -47,6 +47,9 @@ class TalentNominationEventFactory extends Factory
 
                 return $community->id;
             },
+            'include_9_box' => $this->faker->boolean(),
+            'require_reference_for_advancement' => $this->faker->boolean(),
+            'custom_instructions' => $this->localizedString($this->faker->sentences(3, true)),
         ];
     }
 
