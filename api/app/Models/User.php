@@ -12,6 +12,7 @@ use App\Enums\GovPositionType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
+use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
 use App\Traits\HydratesSnapshot;
@@ -311,6 +312,37 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function talentRequestTrackedUsers(): HasMany
     {
         return $this->hasMany(TalentRequestTrackedUser::class);
+    }
+
+    /**
+     * Aggregate of the user's referral history across all talent requests:
+     * the total times referred plus a breakdown of the reasons they were not selected.
+     *
+     * @return Attribute<array{referredCount: int, notSelectedReasons: array<int, array{reason: string, count: int}>}, never>
+     */
+    protected function referralSummary(): Attribute
+    {
+        return Attribute::get(function () {
+            $rows = $this->talentRequestTrackedUsers()
+                ->selectRaw('referral_decision, not_selected_reason, count(*) as aggregate')
+                ->groupBy('referral_decision', 'not_selected_reason')
+                ->get();
+
+            return [
+                'referredCount' => (int) $rows
+                    ->where('referral_decision', TalentRequestTrackedUserReferralDecision::REFERRED->name)
+                    ->sum('aggregate'),
+                'notSelectedReasons' => $rows
+                    ->whereNotNull('not_selected_reason')
+                    ->groupBy('not_selected_reason')
+                    ->map(fn ($group, $reason) => [
+                        'reason' => $reason,
+                        'count' => (int) $group->sum('aggregate'),
+                    ])
+                    ->values()
+                    ->all(),
+            ];
+        });
     }
 
     /** @return BelongsTo<Department, $this> */
