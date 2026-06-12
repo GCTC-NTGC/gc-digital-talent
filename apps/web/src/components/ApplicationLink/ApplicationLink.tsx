@@ -64,8 +64,11 @@ const ApplicationLink = (props: ApplicationLinkProps) => {
   }
 
   const label = getLinkText(intl, props);
-  const { mode = "solid", color = "primary", ...restLinkProps } =
-    linkProps ?? {};
+  const {
+    mode = "solid",
+    color = "primary",
+    ...restLinkProps
+  } = linkProps ?? {};
 
   // Application already exists, link to it.
   if (applicationId) {

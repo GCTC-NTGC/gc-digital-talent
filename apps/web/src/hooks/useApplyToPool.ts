@@ -71,7 +71,10 @@ const useApplyToPool = ({
   });
 
   const toastError = (message?: string) => {
-    trackEvent("Job application creation error", message ?? genericErrorMessage);
+    trackEvent(
+      "Job application creation error",
+      message ?? genericErrorMessage,
+    );
     if (!message) {
       toast.error(genericErrorMessage);
       return;
