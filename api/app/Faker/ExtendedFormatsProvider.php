@@ -46,4 +46,45 @@ class ExtendedFormatsProvider extends Base
             'fr' => $suffixLocale ? "{$base} (fr)" : $base,
         ];
     }
+
+    /**
+     * Pick a single random name from a pure Enum case list.
+     *
+     * @template TEnum of \UnitEnum
+     *
+     * @param  class-string<TEnum>  $enumClass
+     *
+     * @phpstan-template TEnum of \UnitEnum
+     *
+     * @phpstan-param class-string<TEnum> $enumClass
+     *
+     * @phpstan-return string
+     */
+    public function enum(string $enumClass): string
+    {
+        $names = array_map(fn ($case) => $case->name, $enumClass::cases());
+
+        return $this->generator->randomElement($names);
+    }
+
+    /**
+     * Pick multiple random names from a pure Enum case list.
+     *
+     * @template TEnum of \UnitEnum
+     *
+     * @param  class-string<TEnum>  $enumClass
+     *
+     * @phpstan-template TEnum of \UnitEnum
+     *
+     * @phpstan-param class-string<TEnum> $enumClass
+     * @phpstan-param int $count
+     *
+     * @phpstan-return list<string>
+     */
+    public function enums(string $enumClass, int $count = 2): array
+    {
+        $names = array_map(fn ($case) => $case->name, $enumClass::cases());
+
+        return $this->generator->randomElements($names, min($count, count($names)));
+    }
 }
