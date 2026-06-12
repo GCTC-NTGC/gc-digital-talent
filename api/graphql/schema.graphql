@@ -3860,7 +3860,7 @@ type Mutation {
     @guard
     @canFind(
       ability: "update"
-      find: "talentRequestId"
+      find: "talent_request_id"
       model: "TalentRequest"
       scopes: ["withPolicyEagerLoads"]
     )
