@@ -81,7 +81,7 @@ class PoolFactory extends BaseFactory
                 'key_tasks' => $this->faker->localizedString(null, 'paragraph', true),
                 'your_impact' => $this->faker->localizedString(null, 'paragraph', true),
                 'what_to_expect' => $this->faker->localizedString(null, 'paragraph', true),
-                'what_to_expect_admission' => $this->localizedString(null, 'paragraph', true),
+                'what_to_expect_admission' => $this->faker->localizedString(null, 'paragraph', true),
                 'about_us' => $this->faker->localizedString(null, 'paragraph', true),
                 'special_note' => $hasSpecialNote ? $this->faker->localizedString(null, 'paragraph', true) : null,
                 'security_clearance' => $this->randomEnum(SecurityStatus::class),
