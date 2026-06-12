@@ -23,7 +23,7 @@ const TalentRequestTracking_Query = graphql(/** GraphQL */ `
       ...TalentRequestMatchesTableTalentRequest
       applicantFilter {
         skills {
-          ...TrackedUserSkillMatch
+          ...TalentRequestUserSkillMatch
         }
       }
     }
@@ -78,7 +78,10 @@ const Tracking = () => {
       >
         <Pending fetching={fetching} error={error}>
           {data?.talentRequest ? (
-            <TalentRequestMatchesTable query={data.talentRequest} />
+            <TalentRequestMatchesTable
+              query={data.talentRequest}
+              skills={skills}
+            />
           ) : (
             <ThrowNotFound />
           )}

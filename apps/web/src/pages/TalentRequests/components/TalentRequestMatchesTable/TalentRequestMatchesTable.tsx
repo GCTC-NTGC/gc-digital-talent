@@ -29,6 +29,7 @@ import profileMessages from "~/messages/profileMessages";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import adminMessages from "~/messages/adminMessages";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
 import useUserDownloads from "~/hooks/useUserDownloads";
@@ -43,6 +44,10 @@ import {
 import TalentRequestMatchesFilterDialog, {
   type FormValues,
 } from "./TalentRequestMatchesFilterDialog";
+import {
+  TalentRequestUserSkillMatch_Fragment,
+  type TalentRequestUserSkillMatchFragment,
+} from "../skillMatchFragment";
 
 export const TalentRequestMatchesTable_TalentRequestFragment = graphql(
   /** GraphQL */ `
@@ -122,16 +127,22 @@ const sortInitialState: SortingState = [{ id: "skillCount", desc: true }];
 
 interface TalentRequestMatchesTableProps {
   query: FragmentType<typeof TalentRequestMatchesTable_TalentRequestFragment>;
+  skills: TalentRequestUserSkillMatchFragment[];
 }
 
 const TalentRequestMatchesTable = ({
   query,
+  skills,
 }: TalentRequestMatchesTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const talentRequest = getFragment(
     TalentRequestMatchesTable_TalentRequestFragment,
     query,
+  );
+  const matchedSkills = getFragment(
+    TalentRequestUserSkillMatch_Fragment,
+    skills,
   );
 
   const applicantFilterDefaults = useMemo(
@@ -248,6 +259,17 @@ const TalentRequestMatchesTable = ({
           "Header for the number of user skills matching requested skills",
       }),
       enableColumnFilter: false,
+      cell: ({ row: { original } }) =>
+        skillMatchDialogAccessor(
+          [...matchedSkills],
+          original.skillCount,
+          original.user.id,
+          getFullNameLabel(
+            original.user.firstName,
+            original.user.lastName,
+            intl,
+          ),
+        ),
     }),
     columnHelper.accessor(
       ({ sources }) =>

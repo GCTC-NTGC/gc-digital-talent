@@ -52,49 +52,15 @@ import {
   trackedUserReason,
   trackedUserStatusChipColor,
 } from "./utils";
+import {
+  TalentRequestUserSkillMatch_Fragment,
+  type TalentRequestUserSkillMatchFragment,
+} from "../skillMatchFragment";
 
 type TrackedUser =
   TalentRequestTrackedUsersPaginatedQuery["talentRequestTrackedUsers"]["data"][number];
 
 const columnHelper = createColumnHelper<TrackedUser>();
-
-export const TrackedUserSkillMatch_Fragment = graphql(/* GraphQL */ `
-  fragment TrackedUserSkillMatch on Skill {
-    id
-    key
-    name {
-      en
-      fr
-    }
-    keywords {
-      en
-      fr
-    }
-    description {
-      en
-      fr
-    }
-    category {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    families {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-    }
-  }
-`);
 
 const TalentRequestTrackedUsersPaginated_Query = graphql(/* GraphQL */ `
   query TalentRequestTrackedUsersPaginated(
@@ -162,7 +128,7 @@ const defaultSortState = [{ id: "skillCount", desc: true }];
 
 interface TalentRequestTrackedUsersTableProps {
   talentRequestId: string;
-  skills: FragmentType<typeof TrackedUserSkillMatch_Fragment>[];
+  skills: TalentRequestUserSkillMatchFragment[];
 }
 
 const TalentRequestTrackedUsersTable = ({
@@ -171,7 +137,10 @@ const TalentRequestTrackedUsersTable = ({
 }: TalentRequestTrackedUsersTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const matchedSkills = getFragment(TrackedUserSkillMatch_Fragment, skills);
+  const matchedSkills = getFragment(
+    TalentRequestUserSkillMatch_Fragment,
+    skills,
+  );
 
   const filterRef = useRef<TrackedUserFilters | undefined>(undefined);
 
@@ -315,7 +284,12 @@ const TalentRequestTrackedUsersTable = ({
     ),
     columnHelper.accessor("skillCount", {
       id: "skillCount",
-      header: intl.formatMessage(tableMessages.skillCount),
+      header: intl.formatMessage({
+        defaultMessage: "Requested skills",
+        id: "aNhUkJ",
+        description:
+          "Header for the number of user skills matching requested skills",
+      }),
       enableColumnFilter: false,
       cell: ({ row: { original } }) =>
         skillMatchDialogAccessor(
