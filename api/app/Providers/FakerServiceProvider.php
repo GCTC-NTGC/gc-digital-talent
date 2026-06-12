@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Faker\LocalizedStringProvider;
+use App\Faker\ExtendedFormatsProvider;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Support\ServiceProvider;
@@ -13,7 +13,7 @@ class FakerServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Generator::class, function () {
             $faker = Factory::create();
-            $faker->addProvider(new LocalizedStringProvider($faker));
+            $faker->addProvider(new ExtendedFormatsProvider($faker));
 
             return $faker;
         });

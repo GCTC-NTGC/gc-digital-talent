@@ -4,7 +4,7 @@ namespace App\Faker;
 
 use Faker\Provider\Base;
 
-class LocalizedStringProvider extends Base
+class ExtendedFormatsProvider extends Base
 {
     /**
      * Generate a localized string array for 'en' and 'fr' locales.
