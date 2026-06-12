@@ -57,6 +57,9 @@ import {
   trackedUserReason,
   trackedUserStatusChipColor,
 } from "./utils";
+import TalentRequestCreateTrackedUserDialog from "../TalentRequestReferralDialog/TalentRequestCreateTrackedUserDialog";
+import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialog/ReferralFormFields";
+import TalentRequestReferralDialog from "../TalentRequestReferralDialog/TalentRequestReferralDialog";
 
 type TrackedUser =
   TalentRequestTrackedUsersPaginatedQuery["talentRequestTrackedUsers"]["data"][number];
@@ -148,6 +151,7 @@ const TalentRequestTrackedUsersPaginated_Query = graphql(/* GraphQL */ `
             }
           }
         }
+        ...TalentRequestReferralDialog
       }
       paginatorInfo {
         count
@@ -167,16 +171,20 @@ const defaultSortState = [{ id: "skillCount", desc: true }];
 
 interface TalentRequestTrackedUsersTableProps {
   talentRequestId: string;
-  skills: FragmentType<typeof TrackedUserSkillMatch_Fragment>[];
+  skillsQuery: FragmentType<typeof TrackedUserSkillMatch_Fragment>[];
+  optionsQuery: TalentRequestReferralDialogOptions;
 }
 
 const TalentRequestTrackedUsersTable = ({
   talentRequestId,
-  skills,
+  skillsQuery,
+  optionsQuery,
 }: TalentRequestTrackedUsersTableProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
-  const matchedSkills = getFragment(TrackedUserSkillMatch_Fragment, skills);
+  const matchedSkills = getFragment(
+    TrackedUserSkillMatch_Fragment,
+    skillsQuery,
+  );
 
   const initialState = getTableStateFromSearchParams({
     ...INITIAL_STATE,
@@ -310,10 +318,13 @@ const TalentRequestTrackedUsersTable = ({
         header: intl.formatMessage(commonMessages.name),
         enableSorting: false,
         meta: { isRowTitle: true },
-        cell: ({ row: { original }, getValue }) =>
-          original.user.id ? (
-            <Link href={paths.userView(original.user.id)}>{getValue()}</Link>
-          ) : null,
+        cell: ({ row: { original } }) => (
+          <TalentRequestReferralDialog
+            talentRequestId={talentRequestId}
+            query={original}
+            optionsQuery={optionsQuery}
+          />
+        ),
       },
     ),
     columnHelper.accessor(({ status }) => status?.label?.localized, {

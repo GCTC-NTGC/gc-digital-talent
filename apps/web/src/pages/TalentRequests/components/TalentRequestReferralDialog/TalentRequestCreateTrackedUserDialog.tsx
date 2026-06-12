@@ -97,8 +97,8 @@ const TalentRequestCreateTrackedUserDialog = ({
       input: {
         userId: user.id,
         talentRequestId,
-        referralDecision: values.referralDecision ?? undefined,
-        notReferredReason: values.notReferredReason ?? undefined,
+        referralDecision: values.referralDecision,
+        notReferredReason: values.notReferredReason,
       },
     })
       .then((res) => {
@@ -130,7 +130,7 @@ const TalentRequestCreateTrackedUserDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        {trigger ?? <Button mode="inline">{userName}</Button>}
+        {trigger ?? <Button mode="text">{userName}</Button>}
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{userName}</Dialog.Header>

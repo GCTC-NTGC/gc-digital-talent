@@ -15,8 +15,8 @@ import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
 import TalentRequestTrackedUsersTable from "./components/TalentRequestTrackedUsersTable/TalentRequestTrackedUsersTable";
 import type { RouteParams } from "./types";
 
-const TalentRequestTrackingSkills_Query = graphql(/* GraphQL */ `
-  query TalentRequestTrackingSkills($talentRequestId: UUID!) {
+const TalentRequestTracking_Query = graphql(/* GraphQL */ `
+  query TalentRequestTracking($talentRequestId: UUID!) {
     talentRequest(id: $talentRequestId) {
       applicantFilter {
         skills {
@@ -24,6 +24,8 @@ const TalentRequestTrackingSkills_Query = graphql(/* GraphQL */ `
         }
       }
     }
+
+    ...TalentRequestReferralDialogOptions
   }
 `);
 
@@ -32,10 +34,9 @@ const Tracking = () => {
   const { talentRequestId } = useRequiredParams<RouteParams>("talentRequestId");
 
   const [{ data }] = useQuery({
-    query: TalentRequestTrackingSkills_Query,
+    query: TalentRequestTracking_Query,
     variables: { talentRequestId },
   });
-  const skills = unpackMaybes(data?.talentRequest?.applicantFilter?.skills);
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -53,7 +54,10 @@ const Tracking = () => {
       >
         <TalentRequestTrackedUsersTable
           talentRequestId={talentRequestId}
-          skills={skills}
+          skillsQuery={unpackMaybes(
+            data?.talentRequest?.applicantFilter?.skills,
+          )}
+          optionsQuery={data}
         />
       </TalentRequestSectionCard>
 

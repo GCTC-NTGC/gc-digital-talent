@@ -8,7 +8,6 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -123,9 +122,9 @@ const TalentRequestReferralDialog = ({
       id: trackedUser.id,
       input: {
         referralDecision: values.referralDecision,
-        notReferredReason: values.notReferredReason ?? undefined,
-        selectionDecision: values.selectionDecision ?? undefined,
-        notSelectedReason: values.notSelectedReason ?? undefined,
+        notReferredReason: values.notReferredReason,
+        selectionDecision: values.selectionDecision,
+        notSelectedReason: values.notSelectedReason,
       },
     })
       .then((res) => {
@@ -155,17 +154,11 @@ const TalentRequestReferralDialog = ({
       );
   };
 
-  const defaultTrigger = (
-    <Button mode="inline">
-      {trackedUser.referralDecision?.value
-        ? userName
-        : intl.formatMessage(commonMessages.notProvided)}
-    </Button>
-  );
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
-      <Dialog.Trigger>{trigger ?? defaultTrigger}</Dialog.Trigger>
+      <Dialog.Trigger>
+        {trigger ?? <Button mode="text">{userName}</Button>}
+      </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{userName}</Dialog.Header>
         <Dialog.Body>
