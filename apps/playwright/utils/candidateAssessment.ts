@@ -11,8 +11,10 @@ const Candidate_ScreeningStageQueryDocument = /* GraphQL */ `
   query Candidate_ScreeningStage($candidateId: UUID!) {
     poolCandidate(id: $candidateId) {
       id
-      screeningStage {
-        value
+      applicationStatusData {
+        screeningStage {
+          value
+        }
       }
     }
   }

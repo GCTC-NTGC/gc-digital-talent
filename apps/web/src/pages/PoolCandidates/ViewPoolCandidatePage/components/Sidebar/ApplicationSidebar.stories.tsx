@@ -190,6 +190,8 @@ export const QualifiedPaused: Story = {
     query: makeApplication({
       applicationStatusData: {
         status: toLocalizedEnum(ApplicationStatus.Qualified),
+        pauseReferralsAt: "2001-01-01",
+        resumeReferralsAt: "2050-12-31",
       },
     }),
   },
@@ -202,6 +204,7 @@ export const Placed: Story = {
         status: toLocalizedEnum(ApplicationStatus.Qualified),
         placementType: toLocalizedEnum(PlacementType.PlacedTerm),
         placedDepartment: fakeDepartments()[0],
+        resumeReferralsAt: "2050-12-31",
       },
     }),
   },
