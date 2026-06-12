@@ -11,8 +11,6 @@ import {
   AwardedTo,
   CandidateRemovalReason,
   CandidateStatus,
-  EducationStatus,
-  EducationType,
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
   PlacementType,
@@ -301,35 +299,6 @@ export function sortCandidateRemovalReason(
       CandidateRemovalReason.Other,
     ],
     removalReasons,
-  );
-}
-
-export function sortEducationType(educationTypes?: MaybeLocalizedEnums) {
-  return sortLocalizedEnums(
-    [
-      EducationType.Diploma,
-      EducationType.BachelorsDegree,
-      EducationType.MastersDegree,
-      EducationType.Phd,
-      EducationType.PostDoctoralFellowship,
-      EducationType.OnlineCourse,
-      EducationType.Certification,
-      EducationType.Other,
-    ],
-    educationTypes,
-  );
-}
-
-export function sortEducationStatus(educationStatuses?: MaybeLocalizedEnums) {
-  return sortLocalizedEnums(
-    [
-      EducationStatus.SuccessCredential,
-      EducationStatus.SuccessNoCredential,
-      EducationStatus.InProgress,
-      EducationStatus.Audited,
-      EducationStatus.DidNotComplete,
-    ],
-    educationStatuses,
   );
 }
 

@@ -200,6 +200,16 @@ export const getExperienceFormLabels = (
       id: "Yaxm1W",
       description: "Label displayed on an Experience form for start date input",
     }),
+    issueDate: intl.formatMessage({
+      defaultMessage: "Issue date",
+      id: "TTE5K9",
+      description: "Label displayed on an Experience form for issue date input",
+    }),
+    prospectiveIssueDate: intl.formatMessage({
+      defaultMessage: "Start date",
+      id: "Yaxm1W",
+      description: "Label displayed on an Experience form for start date input",
+    }),
     endDate: intl.formatMessage({
       defaultMessage: "End date",
       id: "cD3QKi",
@@ -217,9 +227,15 @@ export const getExperienceFormLabels = (
       description: "Label for the start/end date for an experience",
     }),
     educationType: intl.formatMessage({
-      defaultMessage: "Type of education",
-      id: "AAvLM5",
+      defaultMessage: "Type of education or certificate",
+      id: "NVEnZS",
       description: "Label displayed on Education form for education type input",
+    }),
+    degreeType: intl.formatMessage({
+      defaultMessage: "Type of degree or diploma",
+      id: "XYtPRu",
+      description:
+        "Label displayed on Education form for degree/diploma/certificate type input",
     }),
     areaOfStudy: intl.formatMessage({
       defaultMessage: "Area of study",
@@ -227,15 +243,53 @@ export const getExperienceFormLabels = (
       description: "Label displayed on education form for area of study input",
     }),
     institution: intl.formatMessage({
-      defaultMessage: "Institution",
-      id: "o0Yt8Q",
+      defaultMessage: "Institution or school",
+      id: "0CeQ12",
       description: "Label displayed on education form for institution input",
     }),
-    educationStatus: intl.formatMessage(commonMessages.status),
+    educationStatus: intl.formatMessage({
+      defaultMessage: "Completion status",
+      id: "M/KgP9",
+      description: "Label displayed on education form for status input",
+    }),
     thesisTitle: intl.formatMessage({
-      defaultMessage: "Thesis title",
-      id: "E9I34y",
+      defaultMessage: "Thesis or dissertation",
+      id: "mXwAfu",
       description: "Label displayed on education form for thesis title input",
+    }),
+    licenseOrAccreditation: intl.formatMessage({
+      defaultMessage: "License or accreditation",
+      id: "Z8yKiP",
+      description:
+        "Label displayed on education form for license or accreditation input",
+    }),
+    certification: intl.formatMessage({
+      defaultMessage: "Certification",
+      id: "uAe0kc",
+      description: "Label displayed on education form for certification input",
+    }),
+    courseName: intl.formatMessage({
+      defaultMessage: "Course name",
+      id: "iJXHYu",
+      description: "Label displayed on education form for course name input",
+    }),
+    fellowshipType: intl.formatMessage({
+      defaultMessage: "Type of fellowship",
+      id: "SevzT7",
+      description:
+        "Label displayed on education form for fellowship type input",
+    }),
+    otherFellowshipType: intl.formatMessage({
+      defaultMessage: "Other type of fellowship",
+      id: "hr2X3H",
+      description:
+        "Label displayed on education form for other fellowship type input",
+    }),
+    otherEducationType: intl.formatMessage({
+      defaultMessage: "Other type of education",
+      id: "EXf+z4",
+      description:
+        "Label displayed on education form for other education type input",
     }),
     experienceTitle: intl.formatMessage({
       defaultMessage: "Short title for this experience",
@@ -510,7 +564,7 @@ export const formValuesToSubmitData = (
       endDate: !currentRole && endDate ? endDate : null,
     },
     education: {
-      type: educationType,
+      educationType,
       status: educationStatus,
       areaOfStudy,
       institution,
@@ -755,7 +809,7 @@ const getEducationExperienceDefaultValues = (
   experience: Omit<EducationExperience, "user">,
 ) => {
   const {
-    type,
+    educationType,
     status,
     areaOfStudy,
     institution,
@@ -765,7 +819,7 @@ const getEducationExperienceDefaultValues = (
     details,
   } = experience;
   return {
-    educationType: type?.value,
+    educationType: educationType?.value,
     educationStatus: status?.value,
     areaOfStudy,
     institution,
@@ -989,7 +1043,7 @@ export const getExperienceName = <T extends ExperienceName>(
   }
 
   if (isEducationExperience(experience)) {
-    const { type, areaOfStudy, institution } = experience;
+    const { educationType: type, areaOfStudy, institution } = experience;
 
     // shape of type changed at some point from string to object. this is a imperfect solution.
     let educationType;

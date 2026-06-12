@@ -37,6 +37,8 @@ import type {
   GovContractorType,
   CSuiteRoleTitle,
   DepartmentBelongsTo,
+  DegreeType,
+  FellowshipType,
 } from "@gc-digital-talent/graphql";
 
 import type { SimpleAnyExperience } from "~/utils/experienceUtils";
@@ -93,6 +95,8 @@ export type EducationFormValues = FormValueDateRange & {
   educationType: EducationType;
   educationStatus: EducationStatus;
   currentRole: boolean;
+  degreeType?: DegreeType;
+  fellowshipType?: FellowshipType;
 };
 
 export type PersonalFormValues = FormValueDateRange & {
@@ -177,7 +181,7 @@ export interface ExperienceDetailsSubmissionData {
   status?: EducationStatus;
   thesisTitle?: string;
   title?: string | null;
-  type?: EducationType;
+  educationType?: EducationType;
   employmentCategory?: EmploymentCategory | null;
   extSizeOfOrganization?: ExternalSizeOfOrganization | null;
   extRoleSeniority?: ExternalRoleSeniority | null;

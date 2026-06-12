@@ -4114,6 +4114,7 @@ enum EducationStatus {
   IN_PROGRESS
   AUDITED
   DID_NOT_COMPLETE
+  SUCCESS
 }
 
 enum EducationType {
