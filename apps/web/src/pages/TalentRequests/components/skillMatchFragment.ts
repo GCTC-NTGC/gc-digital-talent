@@ -1,4 +1,4 @@
-import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 export const TalentRequestUserSkillMatch_Fragment = graphql(/* GraphQL */ `
   fragment TalentRequestUserSkillMatch on Skill {
@@ -37,7 +37,3 @@ export const TalentRequestUserSkillMatch_Fragment = graphql(/* GraphQL */ `
     }
   }
 `);
-
-export type TalentRequestUserSkillMatchFragment = FragmentType<
-  typeof TalentRequestUserSkillMatch_Fragment
->;

@@ -127,7 +127,7 @@ const sortInitialState: SortingState = [{ id: "skillCount", desc: true }];
 
 interface TalentRequestMatchesTableProps {
   query: FragmentType<typeof TalentRequestMatchesTable_TalentRequestFragment>;
-  skills: TalentRequestUserSkillMatchFragment[];
+  skills: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
 }
 
 const TalentRequestMatchesTable = ({
@@ -140,10 +140,9 @@ const TalentRequestMatchesTable = ({
     TalentRequestMatchesTable_TalentRequestFragment,
     query,
   );
-  const matchedSkills = getFragment(
-    TalentRequestUserSkillMatch_Fragment,
-    skills,
-  );
+  const [requestedSkills, setRequestedSkills] = useState<
+    TalentRequestUserSkillMatchFragment[]
+  >(getFragment(TalentRequestUserSkillMatch_Fragment, skills));
 
   const applicantFilterDefaults = useMemo(
     () => transformApplicantFilterToFormValues(talentRequest.applicantFilter),
@@ -219,11 +218,15 @@ const TalentRequestMatchesTable = ({
     });
   };
 
-  const handleFilterSubmit: SubmitHandler<FormValues> = (values) => {
+  const handleFilterSubmit = (
+    values: FormValues,
+    filterSkills: TalentRequestUserSkillMatchFragment[],
+  ) => {
     setPaginationState((previous) => ({
       ...previous,
       pageIndex: 0,
     }));
+    setRequestedSkills(filterSkills);
     const where: TalentRequestMatchFilterInput = {
       ...transformFormValuesToWhere(values),
       excludeTrackedByRequestId: talentRequest.id,
@@ -261,7 +264,7 @@ const TalentRequestMatchesTable = ({
       enableColumnFilter: false,
       cell: ({ row: { original } }) =>
         skillMatchDialogAccessor(
-          [...matchedSkills],
+          [...requestedSkills],
           original.skillCount,
           original.user.id,
           getFullNameLabel(
@@ -366,7 +369,7 @@ const TalentRequestMatchesTable = ({
       }}
       filter={{
         initialState: defaultWhere,
-        // eslint-disable-next-line react-hooks/refs
+
         state: filterRef.current,
         component: (
           <TalentRequestMatchesFilterDialog

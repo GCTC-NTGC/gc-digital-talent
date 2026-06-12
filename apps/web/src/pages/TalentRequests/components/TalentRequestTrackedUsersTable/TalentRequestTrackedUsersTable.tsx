@@ -31,7 +31,6 @@ import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
-import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
@@ -52,10 +51,7 @@ import {
   trackedUserReason,
   trackedUserStatusChipColor,
 } from "./utils";
-import {
-  TalentRequestUserSkillMatch_Fragment,
-  type TalentRequestUserSkillMatchFragment,
-} from "../skillMatchFragment";
+import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 
 type TrackedUser =
   TalentRequestTrackedUsersPaginatedQuery["talentRequestTrackedUsers"]["data"][number];
@@ -128,7 +124,7 @@ const defaultSortState = [{ id: "skillCount", desc: true }];
 
 interface TalentRequestTrackedUsersTableProps {
   talentRequestId: string;
-  skills: TalentRequestUserSkillMatchFragment[];
+  skills: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
 }
 
 const TalentRequestTrackedUsersTable = ({

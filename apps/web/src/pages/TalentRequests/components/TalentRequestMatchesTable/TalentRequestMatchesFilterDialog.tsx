@@ -1,4 +1,5 @@
 import { useIntl, type MessageDescriptor } from "react-intl";
+import type { SubmitHandler } from "react-hook-form";
 
 import {
   WorkRegion,
@@ -32,6 +33,8 @@ import adminMessages from "~/messages/adminMessages";
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 
+import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
+
 const TalentRequestMatchesFilterDialog_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestMatchesFilterDialog on Query {
     classifications {
@@ -44,6 +47,8 @@ const TalentRequestMatchesFilterDialog_Fragment = graphql(/** GraphQL */ `
       name {
         localized
       }
+
+      ...TalentRequestUserSkillMatch
     }
     departments {
       id
@@ -119,10 +124,16 @@ export interface FormValues {
   skills?: string[];
 }
 
-export type TalentRequestMatchesFilterDialogProps =
-  CommonFilterDialogProps<FormValues> & {
-    query?: FragmentType<typeof TalentRequestMatchesFilterDialog_Fragment>;
-  };
+export type TalentRequestMatchesFilterDialogProps = Omit<
+  CommonFilterDialogProps<FormValues>,
+  "onSubmit"
+> & {
+  query?: FragmentType<typeof TalentRequestMatchesFilterDialog_Fragment>;
+  onSubmit: (
+    values: FormValues,
+    skills: TalentRequestUserSkillMatchFragment[],
+  ) => void;
+};
 
 const TalentRequestMatchesFilterDialog = ({
   query,
@@ -139,10 +150,20 @@ const TalentRequestMatchesFilterDialog = ({
     label: intl.formatMessage(message),
   });
 
+  const handleSubmit: SubmitHandler<FormValues> = (values) => {
+    const requestedSkills = options.skills.filter(({ id }) =>
+      values.skills?.includes(id),
+    );
+    onSubmit?.(
+      values,
+      getFragment(TalentRequestUserSkillMatch_Fragment, requestedSkills),
+    );
+  };
+
   return (
     <FilterDialog<FormValues>
       options={{ defaultValues: initialValues }}
-      {...{ resetValues, onSubmit }}
+      {...{ resetValues, onSubmit: handleSubmit }}
     >
       <Heading level="h3" size="h5" className="mt-0 mb-6 font-bold">
         {intl.formatMessage({
