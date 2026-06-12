@@ -1186,6 +1186,18 @@ type TalentRequestTrackedUser {
     @rename(attribute: "not_referred_reason")
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
     @rename(attribute: "not_selected_reason")
+  referralSummary: TalentRequestReferralSummary! # user-wide aggregate across all talent requests
+}
+
+# Aggregate of a user's referral history: total times referred plus a breakdown of why they were not selected.
+type TalentRequestReferralSummary {
+  referredCount: Int!
+  notSelectedReasons: [TalentRequestNotSelectedReasonCount!]!
+}
+
+type TalentRequestNotSelectedReasonCount {
+  reason: LocalizedTalentRequestTrackedUserNotSelectedReason
+  count: Int!
 }
 
 type SkillFamily {
@@ -1575,6 +1587,7 @@ type TalentRequestResult {
   matchingAdvancementSources: [TalentNominationGroup!]
     @field(resolver: "MatchingAdvancementSources")
   skillCount: Int @rename(attribute: "skill_count")
+  referralSummary: TalentRequestReferralSummary! # user-wide aggregate; root is the User model
 }
 
 type TalentRequestMatchPoolCount {
