@@ -54,7 +54,7 @@ class PoolFactory extends BaseFactory
 
         // this is essentially the draft state
         return [
-            'name' => $this->localizedString($name),
+            'name' => $this->faker->localizedString($name),
             'user_id' => $adminUserId,
             'classification_id' => $classification->id,
             'department_id' => $department->id,
@@ -78,12 +78,12 @@ class PoolFactory extends BaseFactory
                 'opportunity_length' => $this->randomEnum(PoolOpportunityLength::class),
                 'area_of_selection' => $this->randomEnum(PoolAreaOfSelection::class),
                 'operational_requirements' => $this->randomEnum(OperationalRequirement::class, 2),
-                'key_tasks' => $this->localizedString(null, 'paragraph', true),
-                'your_impact' => $this->localizedString(null, 'paragraph', true),
-                'what_to_expect' => $this->localizedString(null, 'paragraph', true),
+                'key_tasks' => $this->faker->localizedString(null, 'paragraph', true),
+                'your_impact' => $this->faker->localizedString(null, 'paragraph', true),
+                'what_to_expect' => $this->faker->localizedString(null, 'paragraph', true),
                 'what_to_expect_admission' => $this->localizedString(null, 'paragraph', true),
-                'about_us' => $this->localizedString(null, 'paragraph', true),
-                'special_note' => $hasSpecialNote ? $this->localizedString(null, 'paragraph', true) : null,
+                'about_us' => $this->faker->localizedString(null, 'paragraph', true),
+                'special_note' => $hasSpecialNote ? $this->faker->localizedString(null, 'paragraph', true) : null,
                 'security_clearance' => $this->randomEnum(SecurityStatus::class),
                 'advertisement_language' => $this->randomEnum(PoolLanguage::class),
                 'is_remote' => $this->faker->boolean(),
@@ -92,7 +92,7 @@ class PoolFactory extends BaseFactory
                         return null;
                     }
 
-                    return $this->localizedString(null, 'country');
+                    return $this->faker->localizedString(null, 'country');
                 },
                 'work_stream_id' => function ($attributes) {
                     $community = Community::find($attributes['community_id']);
@@ -298,7 +298,7 @@ class PoolFactory extends BaseFactory
                 $pool->assessmentSteps()->create([
                     'type' => $stepType,
                     'sort_order' => ++$sortOrder,
-                    'title' => $this->localizedString(),
+                    'title' => $this->faker->localizedString(),
                 ]);
             }
 
@@ -331,7 +331,7 @@ class PoolFactory extends BaseFactory
             if (! $screeningStep) {
                 $screeningStep = $pool->assessmentSteps()->create([
                     'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
-                    'title' => $this->localizedString(),
+                    'title' => $this->faker->localizedString(),
                 ]);
             }
 
