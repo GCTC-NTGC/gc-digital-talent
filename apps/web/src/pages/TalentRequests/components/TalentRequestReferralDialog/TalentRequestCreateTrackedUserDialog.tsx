@@ -132,16 +132,7 @@ const TalentRequestCreateTrackedUserDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        {trigger ?? (
-          <Button mode="inline">
-            {intl.formatMessage({
-              defaultMessage: "Track",
-              id: "WJVx1L",
-              description:
-                "Button label to open the dialog for adding a user to a talent request's tracking list",
-            })}
-          </Button>
-        )}
+        {trigger ?? <Button mode="inline">{userName}</Button>}
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>{userName}</Dialog.Header>
