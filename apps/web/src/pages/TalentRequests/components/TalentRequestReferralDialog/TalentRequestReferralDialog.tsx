@@ -8,13 +8,13 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import { Button, Dialog, Link } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
-import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
+import ReferralDialogFooter from "./ReferralDialogFooter";
 import ReferralFormFields, {
   type FormValues,
   type TalentRequestReferralDialogOptions,
@@ -80,7 +80,6 @@ const TalentRequestReferralDialog = ({
   defaultOpen = false,
 }: TalentRequestReferralDialogProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
   const [isOpen, setOpen] = useState(defaultOpen);
   const trackedUser = getFragment(TalentRequestReferralDialog_Fragment, query);
   const [{ fetching }, executeMutation] = useMutation(
@@ -179,26 +178,10 @@ const TalentRequestReferralDialog = ({
                 optionsQuery={optionsQuery}
                 showSelectionDecision
               />
-              <Dialog.Footer>
-                <Button type="submit" disabled={fetching}>
-                  {fetching
-                    ? intl.formatMessage(commonMessages.saving)
-                    : intl.formatMessage(formMessages.saveChanges)}
-                </Button>
-                <Dialog.Close>
-                  <Button type="button" color="warning" mode="inline">
-                    {intl.formatMessage(formMessages.cancelGoBack)}
-                  </Button>
-                </Dialog.Close>
-                <Link href={paths.userView(trackedUser.user.id)} newTab>
-                  {intl.formatMessage({
-                    defaultMessage: "View profile",
-                    id: "KsUNz1",
-                    description:
-                      "Link text to view a user's profile in a new tab",
-                  })}
-                </Link>
-              </Dialog.Footer>
+              <ReferralDialogFooter
+                fetching={fetching}
+                userId={trackedUser.user.id}
+              />
             </form>
           </FormProvider>
         </Dialog.Body>
