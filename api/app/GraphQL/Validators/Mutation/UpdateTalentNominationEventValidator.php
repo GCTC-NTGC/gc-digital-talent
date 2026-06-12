@@ -45,6 +45,8 @@ final class UpdateTalentNominationEventValidator extends Validator
                     ]
                 ),
             ],
+            'talentNominationEvent.community.disconnect' => ['missing'],
+            'talentNominationEvent.communityDevelopmentPrograms.sync' => ['list'],
             'talentNominationEvent.communityDevelopmentPrograms.sync.*.id' => [
                 'uuid',
                 Rule::exists('community_development_program', 'id')
@@ -52,8 +54,8 @@ final class UpdateTalentNominationEventValidator extends Validator
                         $query->where('community_id', $communityId);
                     }),
             ],
+            'talentNominationEvent.name' => ['localized_string'],
             'talentNominationEvent.name.en' => [
-                'required_with:name.fr',
                 Rule::when(
                     $eventStatus === TalentNominationEventStatus::ACTIVE->name,
                     [
@@ -62,7 +64,6 @@ final class UpdateTalentNominationEventValidator extends Validator
                 ),
             ],
             'talentNominationEvent.name.fr' => [
-                'required_with:name.en',
                 Rule::when(
                     $eventStatus === TalentNominationEventStatus::ACTIVE->name,
                     [
@@ -70,10 +71,10 @@ final class UpdateTalentNominationEventValidator extends Validator
                     ]
                 ),
             ],
-            'talentNominationEvent.description.en' => ['nullable', 'required_with:description.fr', 'string'],
-            'talentNominationEvent.description.fr' => ['nullable', 'required_with:description.en', 'string'],
-            'talentNominationEvent.learnMoreUrl.en' => ['nullable', 'required_with:learnMoreUrl.fr', 'string', 'url'],
-            'talentNominationEvent.learnMoreUrl.fr' => ['nullable', 'required_with:learnMoreUrl.en', 'string', 'url'],
+            'talentNominationEvent.description' => ['nullable', 'localized_string'],
+            'talentNominationEvent.learnMoreUrl' => ['nullable', 'localized_string'],
+            'talentNominationEvent.learnMoreUrl.en' => ['nullable', 'url'],
+            'talentNominationEvent.learnMoreUrl.fr' => ['nullable', 'url'],
             'talentNominationEvent.openDate' => [
                 'date',
                 Rule::when(
@@ -92,6 +93,7 @@ final class UpdateTalentNominationEventValidator extends Validator
                 ),
             ],
             'talentNominationEvent.includeLeadershipCompetencies' => ['nullable', 'boolean'],
+            'customInstructions' => ['nullable', 'localized_string'],
         ];
     }
 
