@@ -1993,13 +1993,19 @@ type CandidateSearchPoolResult {
 
 input TalentRequestMatchFilterInput {
   applicantFilter: ApplicantFilterInput
+  generalSearch: String
+  name: String
+  email: String
+  priorityWeight: [PriorityWeight]
+  isGovEmployee: Boolean
+  departments: [UUID!]
   excludeTrackedByRequestId: UUID
 }
 
 type TalentRequestResult {
   id: UUID!
   user: User!
-  sources: [TalentRequestSource!]!
+  sources: [LocalizedTalentRequestSource!]!
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
