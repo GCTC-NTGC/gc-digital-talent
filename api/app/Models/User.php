@@ -323,21 +323,19 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     protected function referralSummary(): Attribute
     {
         return Attribute::get(function () {
-            $rows = $this->talentRequestTrackedUsers()
-                ->selectRaw('referral_decision, not_selected_reason, count(*) as aggregate')
-                ->groupBy('referral_decision', 'not_selected_reason')
-                ->get();
+            // property (not query) so the GraphQL fields can batch it via @with
+            $rows = $this->talentRequestTrackedUsers;
 
             return [
-                'referredCount' => (int) $rows
+                'referredCount' => $rows
                     ->where('referral_decision', TalentRequestTrackedUserReferralDecision::REFERRED->name)
-                    ->sum('aggregate'),
+                    ->count(),
                 'notSelectedReasons' => $rows
                     ->whereNotNull('not_selected_reason')
                     ->groupBy('not_selected_reason')
                     ->map(fn ($group, $reason) => [
                         'reason' => $reason,
-                        'count' => (int) $group->sum('aggregate'),
+                        'count' => $group->count(),
                     ])
                     ->values()
                     ->all(),
