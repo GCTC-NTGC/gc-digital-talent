@@ -7,7 +7,6 @@ import {
 import { useIntl } from "react-intl";
 import { useMemo, useRef, useState } from "react";
 import { useQuery, type OperationContext } from "urql";
-import type { SubmitHandler } from "react-hook-form";
 
 import {
   getFragment,
@@ -15,6 +14,7 @@ import {
   type FragmentType,
   type TalentRequestMatchingUsersQuery,
   type TalentRequestMatchFilterInput,
+  type TalentRequestUserSkillMatchFragment,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
@@ -44,10 +44,7 @@ import {
 import TalentRequestMatchesFilterDialog, {
   type FormValues,
 } from "./TalentRequestMatchesFilterDialog";
-import {
-  TalentRequestUserSkillMatch_Fragment,
-  type TalentRequestUserSkillMatchFragment,
-} from "../skillMatchFragment";
+import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 
 export const TalentRequestMatchesTable_TalentRequestFragment = graphql(
   /** GraphQL */ `
@@ -369,7 +366,7 @@ const TalentRequestMatchesTable = ({
       }}
       filter={{
         initialState: defaultWhere,
-
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <TalentRequestMatchesFilterDialog

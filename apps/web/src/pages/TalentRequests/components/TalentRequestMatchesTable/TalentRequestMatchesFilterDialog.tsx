@@ -8,6 +8,7 @@ import {
   type LanguageAbility,
   type OperationalRequirement,
   type PriorityWeight,
+  type TalentRequestUserSkillMatchFragment,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -151,7 +152,7 @@ const TalentRequestMatchesFilterDialog = ({
   });
 
   const handleSubmit: SubmitHandler<FormValues> = (values) => {
-    const requestedSkills = options.skills.filter(({ id }) =>
+    const requestedSkills = unpackMaybes(options?.skills).filter(({ id }) =>
       values.skills?.includes(id),
     );
     onSubmit?.(
