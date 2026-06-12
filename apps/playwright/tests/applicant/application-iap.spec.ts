@@ -96,7 +96,7 @@ test.describe("IAP Application", () => {
     await application.waitForGraphqlResponse("IAPHomePage_Query");
 
     await application.page
-      .getByRole("link", { name: /apply now/i })
+      .getByRole("button", { name: /apply now/i })
       .first()
       .click();
     await application.waitForGraphqlResponse("Application");
