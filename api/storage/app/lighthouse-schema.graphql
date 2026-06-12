@@ -1472,6 +1472,9 @@ type TalentNominationEvent {
   talentNominationGroups: [TalentNominationGroup!]
   countTalentNominationGroups: Int!
   status: LocalizedTalentNominationEventStatus
+  include9Box: Boolean!
+  requireReferenceForAdvancement: Boolean!
+  customInstructions: LocalizedString
 }
 
 type TalentNomination {
@@ -2581,6 +2584,9 @@ input CreateTalentNominationEventInput {
   includeLeadershipCompetencies: Boolean
   community: CommunityBelongsTo!
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
+  include9Box: Boolean
+  requireReferenceForAdvancement: Boolean
+  customInstructions: LocalizedStringInput
 }
 
 input UpdateTalentNominationEventInput {
@@ -2592,6 +2598,9 @@ input UpdateTalentNominationEventInput {
   includeLeadershipCompetencies: Boolean
   community: CommunityBelongsTo
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
+  include9Box: Boolean
+  requireReferenceForAdvancement: Boolean
+  customInstructions: LocalizedStringInput
 }
 
 input TalentNominationEventBelongsTo {

@@ -6,7 +6,7 @@ use App\Enums\ErrorCode;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class CreateTalentNominationEventInputValidator extends Validator
+final class UpdateTalentNominationEventInputValidator extends Validator
 {
     /**
      * Return the validation rules.
@@ -18,8 +18,7 @@ final class CreateTalentNominationEventInputValidator extends Validator
         $communityId = $this->arg('community.connect');
 
         return [
-            'community' => ['present'],
-            'community.connect' => ['uuid', 'required', 'exists:communities,id'],
+            'community.connect' => ['sometimes', 'uuid', 'required', 'exists:communities,id'],
             'community.disconnect' => ['missing'],
             'communityDevelopmentPrograms.sync' => ['array:id'],
             'communityDevelopmentPrograms.sync.*.id' => [
@@ -29,13 +28,13 @@ final class CreateTalentNominationEventInputValidator extends Validator
                         $query->where('community_id', $communityId);
                     }),
             ],
-            'name' => ['required', 'localized_string'],
+            'name' => ['sometimes', 'required', 'localized_string'],
             'description' => ['nullable', 'localized_string'],
             'learnMoreUrl' => ['nullable', 'localized_string'],
             'learnMoreUrl.en' => ['nullable', 'url'],
             'learnMoreUrl.fr' => ['nullable', 'url'],
-            'openDate' => ['required', 'date'],
-            'closeDate' => ['required', 'date', 'after:openDate'],
+            'openDate' => ['sometimes', 'required', 'date'],
+            'closeDate' => ['sometimes', 'required', 'date', 'after:openDate'],
             'includeLeadershipCompetencies' => ['nullable', 'boolean'],
             'customInstructions' => ['nullable', 'localized_string'],
         ];
