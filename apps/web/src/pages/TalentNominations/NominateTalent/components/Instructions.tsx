@@ -135,8 +135,8 @@ const Instructions = ({ nominationId }: InstructionsProps) => {
                   >
                     {intl.formatMessage({
                       defaultMessage: "Cancel",
-                      id: "Wr9Ml4",
-                      description: "Cancel button for past talent event dialog",
+                      id: "FhWYXz",
+                      description: "Label for close general question dialog.",
                     })}
                   </Link>
                 </Dialog.Close>
