@@ -35,7 +35,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $status
  * @property bool $include_9_box
  * @property bool $require_reference_for_advancement
- * @property array $custom_instructions
+ * @property ?array $custom_instructions
  */
 class TalentNominationEvent extends Model
 {
@@ -59,7 +59,6 @@ class TalentNominationEvent extends Model
         'include_9_box' => 'boolean',
         'require_reference_for_advancement' => 'boolean',
         'include_leadership_competencies' => 'boolean',
-
         'custom_instructions' => LocalizedString::class,
     ];
 
