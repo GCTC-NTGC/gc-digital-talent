@@ -23,6 +23,22 @@ class ValidationRulesServiceProvider extends ServiceProvider
                 $failed = true;
             });
 
+            if ($failed || ! is_array($value) || $parameters === []) {
+                return ! $failed;
+            }
+
+            $localizedValidator = ValidatorFacade::make([
+                'en' => $value['en'] ?? null,
+                'fr' => $value['fr'] ?? null,
+            ], [
+                'en' => $parameters,
+                'fr' => $parameters,
+            ]);
+
+            if ($localizedValidator->fails()) {
+                return false;
+            }
+
             return ! $failed;
         }, 'The :attribute field must be a localized string with en and fr string values.');
     }

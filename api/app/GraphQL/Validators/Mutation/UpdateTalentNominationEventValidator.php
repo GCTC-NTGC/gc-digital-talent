@@ -72,9 +72,7 @@ final class UpdateTalentNominationEventValidator extends Validator
                 ),
             ],
             'talentNominationEvent.description' => ['nullable', 'localized_string'],
-            'talentNominationEvent.learnMoreUrl' => ['nullable', 'localized_string'],
-            'talentNominationEvent.learnMoreUrl.en' => ['nullable', 'url'],
-            'talentNominationEvent.learnMoreUrl.fr' => ['nullable', 'url'],
+            'talentNominationEvent.learnMoreUrl' => ['nullable', 'localized_string:nullable,url'],
             'talentNominationEvent.openDate' => [
                 'date',
                 Rule::when(

@@ -42,4 +42,29 @@ class LocalizedStringValidationTest extends TestCase
             'fr must be a string' => [['en' => 'English text', 'fr' => 123], false],
         ];
     }
+
+    public function testLocalizedStringCanRequireBothValues(): void
+    {
+        $validator = Validator::make(
+            ['test' => ['en' => null, 'fr' => null]],
+            ['test' => ['localized_string:required']]
+        );
+
+        $this->assertFalse($validator->passes());
+    }
+
+    public function testLocalizedStringCanValidateBothValuesAsUrls(): void
+    {
+        $validUrls = Validator::make(
+            ['test' => ['en' => 'https://example.com/en', 'fr' => 'https://example.com/fr']],
+            ['test' => ['localized_string:url']]
+        );
+        $invalidUrls = Validator::make(
+            ['test' => ['en' => 'https://example.com/en', 'fr' => 'not-a-url']],
+            ['test' => ['localized_string:url']]
+        );
+
+        $this->assertTrue($validUrls->passes());
+        $this->assertFalse($invalidUrls->passes());
+    }
 }

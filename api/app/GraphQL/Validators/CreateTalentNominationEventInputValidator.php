@@ -30,11 +30,9 @@ final class CreateTalentNominationEventInputValidator extends Validator
                         $query->where('community_id', $communityId);
                     }),
             ],
-            'name' => ['required', 'localized_string'],
+            'name' => ['required', 'localized_string:required'],
             'description' => ['nullable', 'localized_string'],
-            'learnMoreUrl' => ['nullable', 'localized_string'],
-            'learnMoreUrl.en' => ['nullable', 'url'],
-            'learnMoreUrl.fr' => ['nullable', 'url'],
+            'learnMoreUrl' => ['nullable', 'localized_string:nullable,url'],
             'openDate' => ['required', 'date'],
             'closeDate' => ['required', 'date', 'after:openDate'],
             'includeLeadershipCompetencies' => ['nullable', 'boolean'],
