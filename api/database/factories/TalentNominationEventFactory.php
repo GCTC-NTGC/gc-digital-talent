@@ -7,11 +7,12 @@ use App\Models\CommunityDevelopmentProgram;
 use App\Models\CommunityDevelopmentProgramTalentNominationEvent;
 use App\Models\DevelopmentProgram;
 use App\Models\TalentNominationEvent;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends BaseFactory<TalentNominationEvent>
  */
-class TalentNominationEventFactory extends BaseFactory
+class TalentNominationEventFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -48,7 +49,7 @@ class TalentNominationEventFactory extends BaseFactory
             },
             'include_nine_box' => $this->faker->boolean(),
             'require_reference_for_advancement' => $this->faker->boolean(),
-            'custom_instructions' => $this->localizedString($this->faker->sentences(3, true)),
+            'custom_instructions' => $this->faker->localizedString($this->faker->sentences(3, true)),
         ];
     }
 
