@@ -249,4 +249,18 @@ class PoolPolicy
 
         return $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'view-team-poolTeamMembers');
     }
+
+    /**
+     * Determine whether the user can view pool's assorted notes
+     *
+     * @return Response|bool
+     */
+    public function viewPoolNotes(User $user, Pool $pool)
+    {
+        if ($user->isAbleTo('view-any-poolNotes')) {
+            return true;
+        }
+
+        return $this->checkTeamPermission($user, $this->getPoolTeams($pool), 'view-team-poolNotes');
+    }
 }
