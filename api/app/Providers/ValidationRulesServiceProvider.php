@@ -17,14 +17,18 @@ class ValidationRulesServiceProvider extends ServiceProvider
     public function boot()
     {
         ValidatorFacade::extend('localized_string', function (string $attribute, mixed $value, array $parameters, Validator $validator): bool {
-            $failed = false;
+            $shapeValidator = ValidatorFacade::make([
+                'value' => $value,
+            ], [
+                'value' => [new LocalizedString()],
+            ]);
 
-            (new LocalizedString())->validate($attribute, $value, function (string $message) use (&$failed): void {
-                $failed = true;
-            });
+            if ($shapeValidator->fails()) {
+                return false;
+            }
 
-            if ($failed || ! is_array($value) || $parameters === []) {
-                return ! $failed;
+            if (! is_array($value) || $parameters === []) {
+                return true;
             }
 
             $localizedValidator = ValidatorFacade::make([
@@ -39,7 +43,7 @@ class ValidationRulesServiceProvider extends ServiceProvider
                 return false;
             }
 
-            return ! $failed;
+            return true;
         }, 'The :attribute field must be a localized string with en and fr string values.');
     }
 }
