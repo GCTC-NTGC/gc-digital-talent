@@ -45,8 +45,6 @@ final class UpdateTalentNominationEventValidator extends Validator
                     ]
                 ),
             ],
-            'talentNominationEvent.community.disconnect' => ['missing'],
-            'talentNominationEvent.communityDevelopmentPrograms.sync' => ['list'],
             'talentNominationEvent.communityDevelopmentPrograms.sync.*.id' => [
                 'uuid',
                 Rule::exists('community_development_program', 'id')
