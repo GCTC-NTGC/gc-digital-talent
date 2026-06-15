@@ -13,6 +13,15 @@ enum PublishingGroup
     case EXECUTIVE_JOBS;
     case OTHER;
 
+    public static function candidatesAvailableInSearch(): array
+    {
+        return [
+            PublishingGroup::IT_JOBS->name,
+            PublishingGroup::EXECUTIVE_JOBS->name,
+            PublishingGroup::OTHER->name,
+        ];
+    }
+
     public static function getLangFilename(): string
     {
         return 'publishing_group';
