@@ -186,14 +186,14 @@ class PoolFactory extends BaseFactory
     /**
      * Pool Candidates for this pool will appear in search results
      *
-     * Note: That means only IT publishing groups
+     * Note: That means only non-IAP publishing groups
      *
      * @return void
      */
     public function candidatesAvailableInSearch()
     {
         return $this->published()->state([
-            'publishing_group' => PublishingGroup::IT_JOBS->name,
+            'publishing_group' => $this->faker->randomElement(PublishingGroup::candidatesAvailableInSearch()),
         ]);
     }
 
