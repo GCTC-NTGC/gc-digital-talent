@@ -56,7 +56,10 @@ class TalentNominationEvent extends Model
         'open_date' => 'datetime',
         'close_date' => 'datetime',
         'learn_more_url' => LocalizedString::class,
+        'include_9_box' => 'boolean',
+        'require_reference_for_advancement' => 'boolean',
         'include_leadership_competencies' => 'boolean',
+
         'custom_instructions' => LocalizedString::class,
     ];
 
