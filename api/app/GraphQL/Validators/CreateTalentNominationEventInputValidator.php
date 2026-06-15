@@ -33,7 +33,7 @@ final class CreateTalentNominationEventInputValidator extends Validator
             'closeDate' => ['required', 'date', 'after:openDate'],
             'includeLeadershipCompetencies' => ['nullable', 'boolean'],
             'include9Box' => ['sometimes', 'boolean'],
-            'requireReference_for_advancement' => ['sometimes', 'boolean'],
+            'requireReferenceForAdvancement' => ['sometimes', 'boolean'],
             'customInstructions' => ['nullable', 'localized_string'],
         ];
     }
