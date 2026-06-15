@@ -19,7 +19,7 @@ class ValidationRulesServiceProvider extends ServiceProvider
         ValidatorFacade::extend('localized_string', function (string $attribute, mixed $value, array $parameters, Validator $validator): bool {
             $failed = false;
 
-            (new LocalizedString())->validate($attribute, $value, function () use (&$failed): void {
+            (new LocalizedString())->validate($attribute, $value, function (string $message) use (&$failed): void {
                 $failed = true;
             });
 
