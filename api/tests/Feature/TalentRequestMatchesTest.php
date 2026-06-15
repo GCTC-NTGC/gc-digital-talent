@@ -12,11 +12,12 @@ use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
+use App\Models\TalentRequest;
+use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
 use App\Models\UserSkill;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -281,17 +282,27 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.0.skillCount', null);
     }
 
-    public function testExcludeTrackedByRequestIdIsAcceptedButDoesNotAffectResults(): void
+    public function testExcludeTrackedByRequestIdFiltersOutUsersTrackedByThatRequest(): void
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create();
-        $match = $this->matchingUser($pool);
+        $included = $this->matchingUser($pool);
+        $tracked = $this->matchingUser($pool);
+
+        $talentRequest = TalentRequest::factory()->create();
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $talentRequest->id,
+            'user_id' => $tracked->id,
+        ]);
 
         $this->runMatches([
-            'excludeTrackedByRequestId' => Str::uuid()->toString(),
+            'excludeTrackedByRequestId' => $talentRequest->id,
             'applicantFilter' => [],
         ])
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
-            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $match->id);
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $included->id)
+            ->assertJsonMissing([
+                'user' => ['id' => $tracked->id],
+            ]);
     }
 
     public function testMatchesAreFilteredByViewAuthorization(): void
