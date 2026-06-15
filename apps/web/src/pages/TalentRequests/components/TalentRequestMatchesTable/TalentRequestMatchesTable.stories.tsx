@@ -57,6 +57,7 @@ const meta = {
   component: TalentRequestMatchesTable,
   args: {
     query: talentRequestFragment,
+    skills: [],
   },
   parameters: {
     apiResponses: {
