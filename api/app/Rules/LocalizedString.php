@@ -27,7 +27,7 @@ class LocalizedString implements ValidationRule
             return;
         }
 
-        // TrimStrings middleware will turn empty strings into nulls
+        // ConvertEmptyStringsToNull middleware will turn empty strings into nulls
         if ((! is_string($value['en']) && ! is_null($value['en'])) ||
             (! is_string($value['fr']) && ! is_null($value['fr']))) {
             $fail("The {$attribute}.en and {$attribute}.fr fields must be strings or null.");

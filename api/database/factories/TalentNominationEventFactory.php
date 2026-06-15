@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<TalentNominationEvent>
  */
-class TalentNominationEventFactory extends BaseFactory
+class TalentNominationEventFactory extends Factory
 {
     /**
      * Define the model's default state.
