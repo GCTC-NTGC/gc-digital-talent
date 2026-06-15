@@ -2,6 +2,9 @@
 
 namespace Tests;
 
+use App\Faker\ExtendedFormatsProvider;
+use Faker\Factory;
+use Faker\Generator;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -19,9 +22,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function makeFaker($locale = null)
     {
-        $faker = \Faker\Factory::create();
-        $faker->addProvider(new \App\Faker\ExtendedFormatsProvider($faker));
-        $this->app->instance(\Faker\Generator::class, $faker);
+        $faker = Factory::create();
+        $faker->addProvider(new ExtendedFormatsProvider($faker));
+        $this->app->instance(Generator::class, $faker);
 
         return $faker;
     }
