@@ -7,12 +7,11 @@ use App\Models\CommunityDevelopmentProgram;
 use App\Models\CommunityDevelopmentProgramTalentNominationEvent;
 use App\Models\DevelopmentProgram;
 use App\Models\TalentNominationEvent;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<TalentNominationEvent>
+ * @extends BaseFactory<TalentNominationEvent>
  */
-class TalentNominationEventFactory extends Factory
+class TalentNominationEventFactory extends BaseFactory
 {
     /**
      * Define the model's default state.
