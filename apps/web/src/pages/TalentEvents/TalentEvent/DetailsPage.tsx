@@ -8,11 +8,7 @@ import type {
   FragmentType,
   LocalizedTalentNominationEventStatus,
 } from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
-  TalentNominationEventStatus,
-} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Button,
   Card,
