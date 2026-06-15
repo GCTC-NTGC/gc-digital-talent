@@ -24,8 +24,8 @@ class AnnouncementFactory extends BaseFactory
 
         return [
             'key' => $this->faker->slug(),
-            'title' => $this->localizedString(),
-            'message' => $this->localizedString(null, 'paragraph'),
+            'title' => $this->faker->localizedString(),
+            'message' => $this->faker->localizedString(null, 'paragraph'),
             'is_enabled' => $this->faker->boolean(),
             'is_dismissible' => $this->faker->boolean(),
             'publish_date' => $publishDate,
