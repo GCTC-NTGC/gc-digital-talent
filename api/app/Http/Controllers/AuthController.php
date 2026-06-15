@@ -266,6 +266,13 @@ class AuthController extends Controller
 
     public function refresh(Request $request)
     {
+        // Test token branch — only active when TESTING_TOKEN_ENABLED=true and APP_ENV_VERTICAL != production.
+        // Checks the secret VALUE so a wrong/missing header falls through to normal OAuth refresh.
+        $testSecret = config('testing.endpoint_secret');
+        if (config('testing.token_enabled') && config('app.vertical') !== 'production' && $testSecret && $request->header('X-Testing-Secret') === $testSecret) {
+            return app(TestTokenController::class)->issue($request);
+        }
+
         $refreshToken = $request->query('refresh_token');
         $response =
         Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
