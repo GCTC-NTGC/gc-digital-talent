@@ -12,7 +12,7 @@ return new class() extends Migration
     public function up(): void
     {
         Schema::table('talent_nomination_events', function (Blueprint $table) {
-            $table->boolean('include_9_box')->default(false);
+            $table->boolean('include_nine_box')->default(false);
             $table->boolean('require_reference_for_advancement')->default(false);
             $table->jsonb('custom_instructions')->nullable();
         });
@@ -24,7 +24,7 @@ return new class() extends Migration
     public function down(): void
     {
         Schema::table('talent_nomination_events', function (Blueprint $table) {
-            $table->dropColumn('include_9_box');
+            $table->dropColumn('include_nine_box');
             $table->dropColumn('require_reference_for_advancement');
             $table->dropColumn('custom_instructions');
         });

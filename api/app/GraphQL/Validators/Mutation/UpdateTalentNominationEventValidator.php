@@ -89,7 +89,7 @@ final class UpdateTalentNominationEventValidator extends Validator
                 ),
             ],
             'talentNominationEvent.includeLeadershipCompetencies' => ['nullable', 'boolean'],
-            'talentNominationEvent.include9Box' => ['sometimes', 'boolean'],
+            'talentNominationEvent.includeNineBox' => ['sometimes', 'boolean'],
             'talentNominationEvent.requireReferenceForAdvancement' => ['sometimes', 'boolean'],
             'talentNominationEvent.customInstructions' => ['nullable', 'localized_string'],
         ];

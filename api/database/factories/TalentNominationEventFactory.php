@@ -46,7 +46,7 @@ class TalentNominationEventFactory extends BaseFactory
 
                 return $community->id;
             },
-            'include_9_box' => $this->faker->boolean(),
+            'include_nine_box' => $this->faker->boolean(),
             'require_reference_for_advancement' => $this->faker->boolean(),
             'custom_instructions' => $this->localizedString($this->faker->sentences(3, true)),
         ];

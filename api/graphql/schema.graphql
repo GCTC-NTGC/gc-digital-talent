@@ -908,7 +908,7 @@ type TalentNominationEvent {
       scopes: ["withPolicyEagerLoads", "authorizedToView"]
     )
   status: LocalizedTalentNominationEventStatus
-  include9Box: Boolean! @rename(attribute: "include_9_box")
+  includeNineBox: Boolean! @rename(attribute: "include_nine_box")
   requireReferenceForAdvancement: Boolean!
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedString @rename(attribute: "custom_instructions")
@@ -2657,7 +2657,7 @@ input CreateTalentNominationEventInput @validator {
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo!
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
-  include9Box: Boolean @rename(attribute: "include_9_box")
+  includeNineBox: Boolean @rename(attribute: "include_nine_box")
   requireReferenceForAdvancement: Boolean
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedStringInput
@@ -2674,7 +2674,7 @@ input UpdateTalentNominationEventInput {
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
-  include9Box: Boolean @rename(attribute: "include_9_box")
+  includeNineBox: Boolean @rename(attribute: "include_nine_box")
   requireReferenceForAdvancement: Boolean
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedStringInput
