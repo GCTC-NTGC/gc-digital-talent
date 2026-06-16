@@ -337,7 +337,7 @@ const TalentRequestMatchesTable = ({
       where: addSearchToWhere(filterState, searchState.term, searchState.type),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      orderBy: sortState ? transformSortStateToOrderBy(sortState) : undefined,
+      orderBy: sortState ? transformSortStateToOrderBy(sortState, intl) : undefined,
     },
   });
 

@@ -1,4 +1,5 @@
 import type { SortingState } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
 
 import {
   getFragment,
@@ -10,6 +11,7 @@ import {
   type TalentRequestMatchFilterInput,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import type { FormValues } from "./TalentRequestMatchesFilterDialog";
 
@@ -205,14 +207,28 @@ export function addSearchToWhere(
 
 export function transformSortStateToOrderBy(
   sortState: SortingState,
+  intl: IntlShape,
 ): AdvancedOrderByInput[] | undefined {
-  const skillCountRule = sortState.find((rule) => rule.id === "skillCount");
-  if (!skillCountRule) return undefined;
+  if (!sortState.length) return undefined;
 
-  return [
-    {
-      scope: "orderBySkillCount",
-      direction: skillCountRule.desc ? SortOrder.Desc : SortOrder.Asc,
-    },
-  ];
+  const [rule] = sortState;
+  const direction = rule.desc ? SortOrder.Desc : SortOrder.Asc;
+
+  switch (rule.id) {
+    case "skillCount":
+      return [{ scope: "orderBySkillCount", direction }];
+    case "name":
+      return [
+        { column: "first_name", direction },
+        { column: "last_name", direction },
+      ];
+    case "email":
+      return [{ column: "email", direction }];
+    case "location":
+      return [{ column: "current_city", direction }];
+    case "department":
+      return [{ relation: { name: "department", column: `name->${getLocale(intl)}` }, direction }];
+    default:
+      return undefined;
+  }
 }
