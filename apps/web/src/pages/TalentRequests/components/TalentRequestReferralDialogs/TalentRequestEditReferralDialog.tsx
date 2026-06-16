@@ -18,6 +18,9 @@ import ReferralFormFields, {
   type FormValues,
   type TalentRequestReferralDialogOptions,
 } from "./ReferralFormFields";
+import ReferralDialogHeader from "./ReferralDialogHeader";
+
+export type { TalentRequestReferralDialogOptions };
 
 const UpdateTalentRequestTrackedUser_Mutation = graphql(/* GraphQL */ `
   mutation UpdateTalentRequestTrackedUser(
@@ -42,8 +45,8 @@ const UpdateTalentRequestTrackedUser_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const TalentRequestReferralDialog_Fragment = graphql(/* GraphQL */ `
-  fragment TalentRequestReferralDialog on TalentRequestTrackedUser {
+export const TalentRequestEditReferralDialog_Fragment = graphql(/* GraphQL */ `
+  fragment TalentRequestEditReferralDialog on TalentRequestTrackedUser {
     id
     referralDecision {
       value
@@ -65,22 +68,22 @@ export const TalentRequestReferralDialog_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-interface TalentRequestReferralDialogProps {
-  query: FragmentType<typeof TalentRequestReferralDialog_Fragment>;
+interface TalentRequestEditReferralDialogProps {
+  query: FragmentType<typeof TalentRequestEditReferralDialog_Fragment>;
   optionsQuery?: TalentRequestReferralDialogOptions;
   trigger?: ReactNode;
   defaultOpen?: boolean;
 }
 
-const TalentRequestReferralDialog = ({
+const TalentRequestEditReferralDialog = ({
   query,
   optionsQuery,
   trigger,
   defaultOpen = false,
-}: TalentRequestReferralDialogProps) => {
+}: TalentRequestEditReferralDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState(defaultOpen);
-  const trackedUser = getFragment(TalentRequestReferralDialog_Fragment, query);
+  const trackedUser = getFragment(TalentRequestEditReferralDialog_Fragment, query);
   const [{ fetching }, executeMutation] = useMutation(
     UpdateTalentRequestTrackedUser_Mutation,
   );
@@ -160,7 +163,7 @@ const TalentRequestReferralDialog = ({
         {trigger ?? <Button mode="text">{userName}</Button>}
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{userName}</Dialog.Header>
+        <ReferralDialogHeader userName={userName} />
         <Dialog.Body>
           <FormProvider {...methods}>
             <form
@@ -183,4 +186,4 @@ const TalentRequestReferralDialog = ({
   );
 };
 
-export default TalentRequestReferralDialog;
+export default TalentRequestEditReferralDialog;

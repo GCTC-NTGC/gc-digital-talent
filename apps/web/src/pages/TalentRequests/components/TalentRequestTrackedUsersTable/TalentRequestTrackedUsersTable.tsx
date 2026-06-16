@@ -57,9 +57,9 @@ import {
   trackedUserReason,
   trackedUserStatusChipColor,
 } from "./utils";
-import TalentRequestCreateTrackedUserDialog from "../TalentRequestReferralDialog/TalentRequestCreateTrackedUserDialog";
-import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialog/ReferralFormFields";
-import TalentRequestReferralDialog from "../TalentRequestReferralDialog/TalentRequestReferralDialog";
+import TalentRequestEditReferralDialog, {
+  type TalentRequestReferralDialogOptions,
+} from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
 
 type TrackedUser =
   TalentRequestTrackedUsersPaginatedQuery["talentRequestTrackedUsers"]["data"][number];
@@ -151,7 +151,7 @@ const TalentRequestTrackedUsersPaginated_Query = graphql(/* GraphQL */ `
             }
           }
         }
-        ...TalentRequestReferralDialog
+        ...TalentRequestEditReferralDialog
       }
       paginatorInfo {
         count
@@ -319,7 +319,7 @@ const TalentRequestTrackedUsersTable = ({
         enableSorting: false,
         meta: { isRowTitle: true },
         cell: ({ row: { original } }) => (
-          <TalentRequestReferralDialog
+          <TalentRequestEditReferralDialog
             talentRequestId={talentRequestId}
             query={original}
             optionsQuery={optionsQuery}

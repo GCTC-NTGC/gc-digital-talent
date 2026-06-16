@@ -18,6 +18,7 @@ import ReferralFormFields, {
   type FormValues,
   type TalentRequestReferralDialogOptions,
 } from "./ReferralFormFields";
+import ReferralDialogHeader from "./ReferralDialogHeader";
 
 const CreateTalentRequestTrackedUser_Mutation = graphql(/* GraphQL */ `
   mutation CreateTalentRequestTrackedUser(
@@ -35,9 +36,9 @@ const CreateTalentRequestTrackedUser_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const TalentRequestCreateTrackedUserDialog_Fragment = graphql(
+export const TalentRequestAddReferralDialog_Fragment = graphql(
   /* GraphQL */ `
-    fragment TalentRequestCreateTrackedUserDialog on User {
+    fragment TalentRequestAddReferralDialog on User {
       id
       firstName
       lastName
@@ -45,25 +46,25 @@ export const TalentRequestCreateTrackedUserDialog_Fragment = graphql(
   `,
 );
 
-interface TalentRequestCreateTrackedUserDialogProps {
-  query: FragmentType<typeof TalentRequestCreateTrackedUserDialog_Fragment>;
+interface TalentRequestAddReferralDialogProps {
+  query: FragmentType<typeof TalentRequestAddReferralDialog_Fragment>;
   talentRequestId: string;
   optionsQuery?: TalentRequestReferralDialogOptions;
   trigger?: ReactNode;
   defaultOpen?: boolean;
 }
 
-const TalentRequestCreateTrackedUserDialog = ({
+const TalentRequestAddReferralDialog = ({
   query,
   talentRequestId,
   optionsQuery,
   trigger,
   defaultOpen = false,
-}: TalentRequestCreateTrackedUserDialogProps) => {
+}: TalentRequestAddReferralDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState(defaultOpen);
   const user = getFragment(
-    TalentRequestCreateTrackedUserDialog_Fragment,
+    TalentRequestAddReferralDialog_Fragment,
     query,
   );
   const [{ fetching }, executeMutation] = useMutation(
@@ -133,7 +134,7 @@ const TalentRequestCreateTrackedUserDialog = ({
         {trigger ?? <Button mode="text">{userName}</Button>}
       </Dialog.Trigger>
       <Dialog.Content>
-        <Dialog.Header>{userName}</Dialog.Header>
+        <ReferralDialogHeader userName={userName} />
         <Dialog.Body>
           <FormProvider {...methods}>
             <form
@@ -153,4 +154,4 @@ const TalentRequestCreateTrackedUserDialog = ({
   );
 };
 
-export default TalentRequestCreateTrackedUserDialog;
+export default TalentRequestAddReferralDialog;

@@ -17,10 +17,10 @@ import {
   OverlayOrDialogDecorator,
 } from "@gc-digital-talent/storybook-helpers";
 
-import TalentRequestReferralDialog, {
-  TalentRequestReferralDialog_Fragment,
-} from "./TalentRequestReferralDialog";
-import { TalentRequestReferralDialogOptions_Fragment } from "./ReferralFormFields";
+import TalentRequestEditReferralDialog, {
+  TalentRequestEditReferralDialog_Fragment,
+} from "./TalentRequestEditReferralDialog";
+import { TalentRequestEditReferralDialogOptions_Fragment } from "./ReferralFormFields";
 
 const [user] = fakeUsers(1);
 
@@ -54,7 +54,7 @@ const optionsQuery = makeFragmentData(
       ...toLocalizedEnum(opt.value),
     })),
   },
-  TalentRequestReferralDialogOptions_Fragment,
+  TalentRequestEditReferralDialogOptions_Fragment,
 );
 
 const mockTrackedUser = {
@@ -71,7 +71,7 @@ const mockTrackedUser = {
 };
 
 const meta = {
-  component: TalentRequestReferralDialog,
+  component: TalentRequestEditReferralDialog,
   decorators: [OverlayOrDialogDecorator, MockGraphqlDecorator],
   parameters: {
     apiResponses: {
@@ -86,14 +86,14 @@ const meta = {
     optionsQuery,
     defaultOpen: true,
   },
-} satisfies Meta<typeof TalentRequestReferralDialog>;
+} satisfies Meta<typeof TalentRequestEditReferralDialog>;
 
 export default meta;
-type Story = StoryObj<typeof TalentRequestReferralDialog>;
+type Story = StoryObj<typeof TalentRequestEditReferralDialog>;
 
 export const Default: Story = {
   args: {
-    query: makeFragmentData(mockTrackedUser, TalentRequestReferralDialog_Fragment),
+    query: makeFragmentData(mockTrackedUser, TalentRequestEditReferralDialog_Fragment),
   },
 };
 
@@ -106,7 +106,7 @@ export const Referred: Story = {
           TalentRequestTrackedUserReferralDecision.Referred,
         ),
       },
-      TalentRequestReferralDialog_Fragment,
+      TalentRequestEditReferralDialog_Fragment,
     ),
   },
 };
@@ -123,7 +123,7 @@ export const Selected: Story = {
           TalentRequestTrackedUserSelectionDecision.Selected,
         ),
       },
-      TalentRequestReferralDialog_Fragment,
+      TalentRequestEditReferralDialog_Fragment,
     ),
   },
 };
@@ -143,7 +143,7 @@ export const NotSelected: Story = {
           TalentRequestTrackedUserNotSelectedReason.Other,
         ),
       },
-      TalentRequestReferralDialog_Fragment,
+      TalentRequestEditReferralDialog_Fragment,
     ),
   },
 };
@@ -160,7 +160,7 @@ export const NotReferred: Story = {
           TalentRequestTrackedUserNotReferredReason.Other,
         ),
       },
-      TalentRequestReferralDialog_Fragment,
+      TalentRequestEditReferralDialog_Fragment,
     ),
   },
 };

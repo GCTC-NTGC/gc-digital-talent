@@ -17,9 +17,9 @@ import {
   OverlayOrDialogDecorator,
 } from "@gc-digital-talent/storybook-helpers";
 
-import TalentRequestCreateTrackedUserDialog, {
-  TalentRequestCreateTrackedUserDialog_Fragment,
-} from "./TalentRequestCreateTrackedUserDialog";
+import TalentRequestAddReferralDialog, {
+  TalentRequestAddReferralDialog_Fragment,
+} from "./TalentRequestAddReferralDialog";
 import { TalentRequestReferralDialogOptions_Fragment } from "./ReferralFormFields";
 
 const [user] = fakeUsers(1);
@@ -55,7 +55,7 @@ const optionsQuery = makeFragmentData(
 );
 
 const meta = {
-  component: TalentRequestCreateTrackedUserDialog,
+  component: TalentRequestAddReferralDialog,
   decorators: [OverlayOrDialogDecorator, MockGraphqlDecorator],
   parameters: {
     apiResponses: {
@@ -73,16 +73,16 @@ const meta = {
   args: {
     query: makeFragmentData(
       { id: user.id, firstName: user.firstName, lastName: user.lastName },
-      TalentRequestCreateTrackedUserDialog_Fragment,
+      TalentRequestAddReferralDialog_Fragment,
     ),
     talentRequestId: "talent-request-1",
     optionsQuery,
     defaultOpen: true,
   },
-} satisfies Meta<typeof TalentRequestCreateTrackedUserDialog>;
+} satisfies Meta<typeof TalentRequestAddReferralDialog>;
 
 export default meta;
-type Story = StoryObj<typeof TalentRequestCreateTrackedUserDialog>;
+type Story = StoryObj<typeof TalentRequestAddReferralDialog>;
 
 export const Default: Story = {};
 
