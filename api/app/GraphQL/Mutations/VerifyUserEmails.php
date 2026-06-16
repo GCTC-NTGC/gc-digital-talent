@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Enums\EmailType;
 use App\Enums\ErrorCode;
 use App\Models\User;
+use App\Rules\CaseInsensitiveUnique;
 use App\Rules\GovernmentEmailRegex;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -31,6 +32,7 @@ final class VerifyUserEmails
             throw ValidationException::withMessages(['code' => ErrorCode::VERIFICATION_FAILED->name]);
         }
 
+        // these rules should stay similar to api/app/GraphQL/Validators/SendUserEmailsVerificationInputValidator.php
         $validator = Validator::make($token, [
             'code' => [
                 'required',
@@ -53,12 +55,12 @@ final class VerifyUserEmails
                     [new GovernmentEmailRegex()],
                     ['email']
                 ),
-                Rule::unique('users', 'email')->ignore($user->id, 'id'),
-                Rule::unique('users', 'work_email')->ignore($user->id, 'id'),
+                (new CaseInsensitiveUnique('users', 'email'))->ignore($user?->id, 'id'),
+                (new CaseInsensitiveUnique('users', 'work_email'))->ignore($user?->id, 'id'),
             ],
         ],
             [
-                'emailAddress.unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
+                'emailAddress.case_insensitive_unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
             ]);
 
         if ($validator->fails()) {
