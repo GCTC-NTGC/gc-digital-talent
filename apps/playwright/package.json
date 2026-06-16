@@ -6,6 +6,7 @@
   "license": "ISC",
   "scripts": {
     "e2e:playwright": "pnpm exec playwright test",
+    "e2e:playwright:uat": "PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test",
     "e2e:playwright:chromium": "pnpm exec playwright test --project=chromium",
     "e2e:playwright:firefox": "pnpm exec playwright test --project=firefox",
     "e2e:playwright:webkit": "pnpm exec playwright test --project=webkit",
