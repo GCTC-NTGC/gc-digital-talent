@@ -17,6 +17,7 @@ class TalentRequestRandomSeeder extends Seeder
 
         foreach ($applicantFilters as $applicantFilter) {
             TalentRequest::factory()
+                ->withTrackedUsers()
                 ->createQuietly([
                     'community_id' => $applicantFilter->community_id,
                     'applicant_filter_id' => $applicantFilter->id,
