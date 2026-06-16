@@ -6,13 +6,13 @@ import { useNavigate } from "react-router";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
+  Permission,
   TalentNominationStep,
   graphql,
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { Link, Dialog, Button } from "@gc-digital-talent/ui";
-import { hasRequiredRoles, useAuthorization } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { useHasPermissions } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -43,16 +43,10 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
     NominateTalentInstructions_Fragment,
     instructionsQuery,
   );
-  const { userAuthInfo } = useAuthorization();
-  const roleAssignments = userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [];
   const [showForm, setShowForm] = useState(false);
 
-  const canNominatePast = hasRequiredRoles({
-    toCheck: [
-      { name: "community_talent_coordinator" },
-      { name: "community_admin" },
-    ],
-    userRoles: roleAssignments,
+  const canNominatePast = useHasPermissions({
+    permission: Permission.CreateOwnPastTalentNomination,
   });
 
   const closeDate = data?.talentNominationEvent?.closeDate;
