@@ -55,7 +55,7 @@
     "@storybook/addon-vitest": "^10.4.2",
     "@storybook/react-vite": "^10.4.2",
     "@vitest/browser": "^4.1.8",
-    "@vitest/browser-playwright": "^4.0.16",
+    "@vitest/browser-playwright": "^4.1.8",
     "@vitest/coverage-v8": "^4.0.16",
     "jsdom": "^29.1.1",
     "playwright": "^1.61.0",
