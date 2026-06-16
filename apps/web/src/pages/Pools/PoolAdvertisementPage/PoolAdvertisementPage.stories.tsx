@@ -37,7 +37,7 @@ const closedEarlyPool = {
   ...fakePool,
   status: { value: PoolStatus.Closed, label: {} },
   publishedAt: FAR_PAST_DATE,
-  closingReason: "reason",
+  wasClosedEarly: true,
   closingDate: FAR_PAST_DATE,
 };
 
