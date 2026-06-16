@@ -413,6 +413,11 @@ type LocalizedTalentRequestReason implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedTalentRequestSource implements LocalizedEnumOption {
+  value: TalentRequestSource!
+  label: LocalizedString!
+}
+
 type LocalizedTalentRequestStatus implements LocalizedEnumOption {
   value: TalentRequestStatus!
   label: LocalizedString!
@@ -435,6 +440,11 @@ type LocalizedTalentRequestTrackedUserReferralDecision implements LocalizedEnumO
 
 type LocalizedTalentRequestTrackedUserSelectionDecision implements LocalizedEnumOption {
   value: TalentRequestTrackedUserSelectionDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserStatus implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserStatus!
   label: LocalizedString!
 }
 
@@ -466,6 +476,8 @@ type Query {
   workEmails(search: String, limit: Int = 5): [UserWorkEmail!]!
   trashedExperienceSkill(where: TrashedExperienceSkillInput!): ExperienceSkillRecord
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
+  countTalentRequestMatches(where: ApplicantFilterInput): Int!
+  countTalentRequestMatchesByPool(where: ApplicantFilterInput): [TalentRequestMatchPoolCount!]!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolCandidate(id: UUID!): PoolCandidate
@@ -479,7 +491,7 @@ type Query {
   jobPosterTemplate(id: UUID!): JobPosterTemplate
   jobPosterTemplates: [JobPosterTemplate!]
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
-  talentRequest(id: ID!): TalentRequest
+  talentRequest(id: UUID!): TalentRequest
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: UUID!): Skill
@@ -519,6 +531,16 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): UserPublicProfilePaginator!
+  talentRequestMatches(
+    where: TalentRequestMatchFilterInput
+    orderBy: [AdvancedOrderByInput!]
+
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): TalentRequestResultPaginator!
   poolsPaginated(
     includeIds: [UUID!]
     excludeIds: [UUID!]
@@ -583,6 +605,17 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): TalentRequestPaginator!
+  talentRequestTrackedUsers(
+    talentRequestId: UUID!
+    where: TalentRequestTrackedUserFilterInput
+    orderBy: [AdvancedOrderByInput!]
+
+    "Limits number of fetched items. Maximum allowed value: 500."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): TalentRequestTrackedUserPaginator!
   notifications(
     where: NotificationFilterInput
     excludeIds: [UUID!]
@@ -670,6 +703,12 @@ type Mutation {
   createTalentRequest(talentRequest: CreateTalentRequestInput!): TalentRequest
   updateTalentRequest(id: ID!, talentRequest: UpdateTalentRequestInput!): TalentRequest
   updateTalentRequestStatus(id: ID!, talentRequest: UpdateTalentRequestStatusInput!): TalentRequest
+  createTrackedUsersReferred(userIds: [UUID!]!, talentRequestId: UUID!): Boolean
+  createTrackedUsersNotReferred(userIds: [UUID!]!, talentRequestId: UUID!, notReferredReason: TalentRequestTrackedUserNotReferredReason!): Boolean
+  updateTrackedUsersReferred(ids: [UUID!]!): [TalentRequestTrackedUser!]!
+  updateTrackedUsersNotReferred(ids: [UUID!]!, notReferredReason: TalentRequestTrackedUserNotReferredReason!): [TalentRequestTrackedUser!]!
+  updateTrackedUsersSelected(ids: [UUID!]!): [TalentRequestTrackedUser!]!
+  updateTrackedUsersNotSelected(ids: [UUID!]!, notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason!): [TalentRequestTrackedUser!]!
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
@@ -747,6 +786,7 @@ type Mutation {
   deleteCommunityDevelopmentProgram(id: UUID!): CommunityDevelopmentProgram
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
+  downloadTrackedUsersExcel(talentRequestId: UUID!, where: TalentRequestTrackedUserFilterInput): Boolean
   downloadCommunityInterestUsersExcel(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
   downloadNominationsExcel(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
@@ -1614,14 +1654,15 @@ type TalentRequest {
 }
 
 input TalentRequestTrackedUserFilterInput {
-  referralDecisions: [TalentRequestTrackedUserReferralDecision!]
-  selectionDecisions: [TalentRequestTrackedUserSelectionDecision!]
+  statuses: [TalentRequestTrackedUserStatus!]
+  generalSearch: String
 }
 
 type TalentRequestTrackedUser {
   id: UUID!
   user: User!
   skillCount: Int
+  status: LocalizedTalentRequestTrackedUserStatus
   referralDecision: LocalizedTalentRequestTrackedUserReferralDecision
   selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
   notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
@@ -1941,6 +1982,26 @@ input PoolCandidatePoolNameOrderByInput {
 type CandidateSearchPoolResult {
   pool: Pool!
   candidateCount: Int!
+}
+
+input TalentRequestMatchFilterInput {
+  applicantFilter: ApplicantFilterInput
+  excludeTrackedByRequestId: UUID
+}
+
+type TalentRequestResult {
+  id: UUID!
+  user: User!
+  sources: [TalentRequestSource!]!
+  matchingQualifiedInPoolSources: [PoolCandidate!]
+  matchingAtLevelSources: [CommunityInterest!]
+  matchingAdvancementSources: [TalentNominationGroup!]
+  skillCount: Int
+}
+
+type TalentRequestMatchPoolCount {
+  pool: Pool!
+  count: Int!
 }
 
 type SitewideAnnouncement {
@@ -2673,6 +2734,7 @@ input CreateTalentRequestInput {
 
 input UpdateTalentRequestInput {
   adminNotes: String
+  followUpDate: Date
 }
 
 input UpdateTalentRequestStatusInput {
@@ -3214,6 +3276,35 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
+enum NullsOrder {
+  FIRST
+  LAST
+}
+
+input RelatedOrderInput {
+  name: String!
+  column: String!
+}
+
+input AdvancedOrderByInput {
+  column: String
+  scope: String
+  relation: RelatedOrderInput
+  direction: SortOrder = ASC
+  nulls: NullsOrder
+  accentInsensitive: Boolean
+  caseInsensitive: Boolean
+}
+
+"A paginated list of TalentRequestResult items."
+type TalentRequestResultPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestResult items."
+  data: [TalentRequestResult!]!
+}
+
 "A paginated list of Pool items."
 type PoolPaginator {
   "Pagination information about the list of items."
@@ -3250,26 +3341,6 @@ type PoolCandidateSearchRequestPaginator {
   data: [PoolCandidateSearchRequest!]!
 }
 
-enum NullsOrder {
-  FIRST
-  LAST
-}
-
-input RelatedOrderInput {
-  name: String!
-  column: String!
-}
-
-input AdvancedOrderByInput {
-  column: String
-  scope: String
-  relation: RelatedOrderInput
-  direction: SortOrder = ASC
-  nulls: NullsOrder
-  accentInsensitive: Boolean
-  caseInsensitive: Boolean
-}
-
 "A paginated list of TalentRequest items."
 type TalentRequestPaginator {
   "Pagination information about the list of items."
@@ -3277,6 +3348,15 @@ type TalentRequestPaginator {
 
   "A list of TalentRequest items."
   data: [TalentRequest!]!
+}
+
+"A paginated list of TalentRequestTrackedUser items."
+type TalentRequestTrackedUserPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestTrackedUser items."
+  data: [TalentRequestTrackedUser!]!
 }
 
 "A paginated list of Notification items."
@@ -4672,6 +4752,12 @@ enum TalentRequestReason {
   REQUIRED_BY_DIRECTIVE
 }
 
+enum TalentRequestSource {
+  QUALIFIED_IN_POOL
+  AT_LEVEL
+  ADVANCEMENT
+}
+
 enum TalentRequestStatus {
   NEW
   IN_PROGRESS
@@ -4692,6 +4778,13 @@ enum TalentRequestTrackedUserReferralDecision {
 }
 
 enum TalentRequestTrackedUserSelectionDecision {
+  SELECTED
+  NOT_SELECTED
+}
+
+enum TalentRequestTrackedUserStatus {
+  NOT_REFERRED
+  REFERRED
   SELECTED
   NOT_SELECTED
 }

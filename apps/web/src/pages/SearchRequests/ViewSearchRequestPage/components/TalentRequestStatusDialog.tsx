@@ -50,7 +50,7 @@ interface FormValues {
 }
 
 const UpdateTalentRequestStatus = graphql(/** GraphQL */ `
-  mutation UpdateTalentRequestStatus(
+  mutation UpdatePoolCandidateSearchRequestStatus(
     $id: ID!
     $input: UpdatePoolCandidateSearchRequestStatusInput!
   ) {
@@ -64,7 +64,7 @@ const UpdateTalentRequestStatus = graphql(/** GraphQL */ `
 `);
 
 const TalentRequestStatusDialog_Fragment = graphql(/** GraphQL */ `
-  fragment TalentRequestStatusDialog on PoolCandidateSearchRequest {
+  fragment PoolCandidateSearchRequestStatusDialog on PoolCandidateSearchRequest {
     id
     talentRequestStatus {
       value

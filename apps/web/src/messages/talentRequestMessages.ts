@@ -53,6 +53,11 @@ const messages = defineMessages({
     id: "Ji2C9w",
     description: "Title of the Language Information link section",
   },
+  workingLanguageAbility: {
+    defaultMessage: "Working language ability",
+    id: "FmkNkA",
+    description: "Title of the talent request language criteria",
+  },
   supervisoryStatus: {
     defaultMessage: "Supervisory status",
     id: "uR9G1H",
@@ -93,6 +98,29 @@ const messages = defineMessages({
     defaultMessage: "Follow-up date",
     id: "5wS5V8",
     description: "Label for the follow-up date field",
+  },
+  candidateTracking: {
+    defaultMessage: "Candidate tracking",
+    id: "4uFJb+",
+    description: "Title for tracking candidates within a talent request",
+  },
+  onSiteLocations: {
+    defaultMessage: "On-site locations",
+    id: "ngoGPH",
+    description: "Label for the talent requests on-site location criteria",
+  },
+  trackedUsersNullTitle: {
+    defaultMessage: "You are not tracking any candidates yet",
+    id: "uQqsKm",
+    description:
+      "Title displayed when there are no tracked users for a talent request",
+  },
+  trackedUsersNullDescription: {
+    defaultMessage:
+      "Use the ‘<italic>Find matching candidates</italic>’ table to start tracking possible matching candidates to this request.",
+    id: "nmXd3e",
+    description:
+      "Help message displayed when there are no tracked users for a talent request",
   },
 });
 

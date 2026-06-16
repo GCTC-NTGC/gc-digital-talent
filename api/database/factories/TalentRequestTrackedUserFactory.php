@@ -9,6 +9,9 @@ use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Models\TalentRequest;
 use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
+use Illuminate\Support\Arr;
+use ReflectionClass;
+use ReflectionMethod;
 
 /**
  * @extends BaseFactory<TalentRequestTrackedUser>
@@ -44,7 +47,7 @@ class TalentRequestTrackedUserFactory extends BaseFactory
 
     public function notReferred(?TalentRequestTrackedUserNotReferredReason $reason = null): self
     {
-        $reason = $reason?->name ?? $this->randomEnum(TalentRequestTrackedUserNotReferredReason::class);
+        $reason = $reason?->name ?? $this->faker->enum(TalentRequestTrackedUserNotReferredReason::class);
 
         return $this->state(fn () => [
             'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
@@ -64,11 +67,32 @@ class TalentRequestTrackedUserFactory extends BaseFactory
 
     public function notSelected(?TalentRequestTrackedUserNotSelectedReason $reason = null): self
     {
-        $reason = $reason?->name ?? $this->randomEnum(TalentRequestTrackedUserNotSelectedReason::class);
+        $reason = $reason?->name ?? $this->faker->enum(TalentRequestTrackedUserNotSelectedReason::class);
 
         return $this->referred()->state(fn () => [
             'selection_decision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
             'not_selected_reason' => $reason,
         ]);
+    }
+
+    public function withRandomState(): static
+    {
+        $reflection = new ReflectionClass($this);
+        $methods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
+        $stateMethods = [];
+
+        foreach ($methods as $method) {
+            if ($method->class === self::class && ! in_array($method->name, ['definition', 'configure', 'withRandomState'])) {
+                $stateMethods[] = $method->name;
+            }
+        }
+
+        if (! empty($stateMethods)) {
+            $randomMethod = Arr::random($stateMethods);
+
+            return $this->$randomMethod();
+        }
+
+        return $this;
     }
 }

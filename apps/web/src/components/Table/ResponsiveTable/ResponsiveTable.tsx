@@ -39,6 +39,7 @@ import type {
   SearchDef,
   SearchState,
   SortDef,
+  TableAction,
 } from "./types";
 import { getColumnHeader } from "./utils";
 
@@ -67,6 +68,8 @@ interface TableProps<TData, TFilters> {
   pagination?: PaginationDef;
   /** Download buttons */
   download?: DownloadDef;
+  /** Arbitrary bulk actions for selected rows, shown in a dropdown menu */
+  actions?: TableAction[];
   /** Enable the "add item" button */
   add?: AddDef;
   filter?: FilterDef<TFilters>;
@@ -87,6 +90,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   search,
   sort,
   download,
+  actions,
   add,
   pagination,
   filter,
@@ -425,11 +429,15 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                 ))}
               </Table.Body>
             </Table.Table>
-            {(!!rowSelect || !!download?.all) && (
+            {(!!rowSelect || !!download?.all || !!actions?.length) && (
               <RowSelection.Actions
                 {...{
                   rowSelect: !!rowSelect,
                   download,
+                  actions,
+                  selectedRowIds: Object.keys(rowSelection).filter(
+                    (rowId) => rowSelection[rowId],
+                  ),
                   isLoading,
                   count: Object.values(rowSelection).length,
                   onClear: () => table.resetRowSelection(),
