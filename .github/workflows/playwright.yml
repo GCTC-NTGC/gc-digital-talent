@@ -38,6 +38,7 @@ jobs:
       PNPM_VERSION: "10.27.0"
       PLAYWRIGHT_WORKERS: "25%"
       PLAYWRIGHT_RETRIES: "1"
+      E2E_COVERAGE: "true"
       GCNOTIFY_API_KEY: ${{ secrets.GCNOTIFY_API_KEY }}
       GCNOTIFY_TEMPLATE_VERIFY_EMAIL_EN: ${{ vars.GCNOTIFY_TEMPLATE_VERIFY_EMAIL_EN }}
       GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_EN: ${{ vars.GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_EN }}
@@ -94,6 +95,16 @@ jobs:
 
       - name: Run Tests
         run: pnpm run e2e:playwright --project=${{ matrix.project }} --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+
+      - name: Upload E2E coverage to Codecov
+        if: ${{ !cancelled() && github.actor != 'dependabot[bot]' }}
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./apps/playwright/coverage
+          flags: e2etests
+          fail_ci_if_error: false
+
       - uses: actions/upload-artifact@v7
         if: always()
         with:

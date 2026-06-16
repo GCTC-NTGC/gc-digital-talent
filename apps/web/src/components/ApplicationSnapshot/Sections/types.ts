@@ -1,4 +1,4 @@
-import type { LocalizedString, Maybe } from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 
 export interface SnapshotProps<TSnapshot extends object> {
   snapshot: { version?: number } & Partial<TSnapshot>;
@@ -6,5 +6,5 @@ export interface SnapshotProps<TSnapshot extends object> {
 
 export type RelatedSnapshotModel<TKey extends string> = Record<
   TKey,
-  Maybe<LocalizedString>
+  LocalizedString | null
 >;

@@ -1,5 +1,3 @@
-import type { Scalars } from "@gc-digital-talent/graphql";
-
 export interface FormValues {
   name: {
     en: string | null;
@@ -9,8 +7,8 @@ export interface FormValues {
     en: string | null;
     fr: string | null;
   };
-  openDate: Scalars["Date"]["input"];
-  closeDate: Scalars["Date"]["input"];
+  openDate: string;
+  closeDate: string;
   learnMoreUrl: {
     en: string | null;
     fr: string | null;

@@ -105,6 +105,26 @@ class PoolCandidateBuilder extends Builder
 
     }
 
+    // A candidacy that satisfies a talent request: available, talent-searchable, and matching
+    // the request's pool-level constraints. Shared by the User membership check and the
+    // constrained eager-load so they cannot drift.
+    public function whereMatchesTalentRequest(?array $filters): self
+    {
+        $filters ??= [];
+
+        // Match the request's pool-level constraints: classification, work stream, community,
+        // and specific pools. Skills are not matched here — this scope only decides whether a
+        // pool fits the request; whether the user has the requested skills is matched separately
+        // on the user. pools and community arrive as plain ids; workStreams arrives as objects,
+        // so its id is pulled out first.
+        return $this->whereAvailable()
+            ->whereInTalentSearchablePublishingGroup()
+            ->whereAppliedClassificationsIn($filters['qualifiedInClassifications'] ?? null)
+            ->whereWorkStreamsIn(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
+            ->whereHasPoolCandidateCommunity($filters['community'] ?? null)
+            ->when($filters['pools'] ?? null, fn ($query, $pools) => $query->whereIn('pool_id', $pools));
+    }
+
     /**
      * Scope users department
      *
@@ -314,6 +334,12 @@ class PoolCandidateBuilder extends Builder
         return $this;
     }
 
+    /**
+     * The candidate whose referral status is NULL or blank should not be present
+     * when filter with referral status as 'Not referred' or 'Available' for referral
+     *
+     * The referral status filter are exclusively for qualified candidate status only
+     */
     public function whereReferralStatusIn(?array $referralStatuses): self
     {
         if (empty($referralStatuses)) {
@@ -333,7 +359,17 @@ class PoolCandidateBuilder extends Builder
             return $this->whereNotBeingReferred();
         }
 
-        // none selected or both selected - no filtering
+        // both selected
+        if ($hasReferring && $hasNotReferring) {
+            return $this->where(function ($query) {
+                $query->whereBeingReferred()
+                    ->orWhere(function ($query) {
+                        $query->whereNotBeingReferred();
+                    });
+            });
+        }
+
+        // none selected - no filtering
         return $this;
     }
 
@@ -353,15 +389,12 @@ class PoolCandidateBuilder extends Builder
     {
         $now = now();
 
-        return $this->where(function ($query) use ($now) {
-            $query
-                ->where('pause_referrals_at', '<=', $now)
-                ->where(function ($query) use ($now) {
-                    $query->whereNull('resume_referrals_at')
-                        ->orWhere('resume_referrals_at', '>', $now);
-                })
-                ->orWhere('application_status', '!=', ApplicationStatus::QUALIFIED->name);
-        });
+        return $this->where('pause_referrals_at', '<=', $now)
+            ->where(function ($query) use ($now) {
+                $query->whereNull('resume_referrals_at')
+                    ->orWhere('resume_referrals_at', '>', $now);
+            })
+            ->where('application_status', ApplicationStatus::QUALIFIED->name);
     }
 
     public function whereSuspendedStatus(?string $suspendedStatus): self

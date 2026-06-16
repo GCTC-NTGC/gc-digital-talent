@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type { LocalizedLanguage, Maybe } from "@gc-digital-talent/graphql";
+import type { LocalizedLanguage } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 
@@ -11,12 +11,12 @@ import profileMessages from "~/messages/profileMessages";
 import type { SnapshotProps } from "../types";
 
 export interface PersonalInformationSnapshotV1 {
-  firstName: Maybe<string>;
-  lastName: Maybe<string>;
-  email: Maybe<string>;
-  isEmailVerified: Maybe<boolean>;
-  telephone: Maybe<string>;
-  preferredLang: Maybe<LocalizedLanguage>;
+  firstName: string | null;
+  lastName: string | null;
+  email: string | null;
+  isEmailVerified: boolean | null;
+  telephone: string | null;
+  preferredLang: LocalizedLanguage | null;
 }
 
 type PersonalInformationV1Props = SnapshotProps<PersonalInformationSnapshotV1>;

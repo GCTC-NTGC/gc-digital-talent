@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -35,7 +35,7 @@ const EducationRequirement_PoolCandidateFragment = graphql(/* GraphQL */ `
 `);
 
 export interface EducationRequirementSnapshotV1 {
-  experiences?: Maybe<Maybe<SnapshotExperience>[]>;
+  experiences?: (SnapshotExperience | null | undefined)[] | null;
 }
 
 export interface EducationRequirementV1Props extends SnapshotProps<EducationRequirementSnapshotV1> {

@@ -26,7 +26,6 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
-import { getClassificationName } from "~/utils/poolUtils";
 import Hero from "~/components/Hero";
 import { requireUser } from "~/routing/auth";
 import { graphqlClientContext, intlContext } from "~/routing/context";
@@ -38,6 +37,7 @@ import type { Route } from "./+types/UpdateClassificationPage";
 export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
   fragment ClassificationForm on Classification {
     id
+    displayName
     name {
       en
       fr
@@ -90,7 +90,7 @@ export const UpdateClassificationForm = ({
         url: paths.classificationTable(),
       },
       {
-        label: getClassificationName(classification, intl),
+        label: classification.displayName,
         url: paths.classificationView(classification.id),
       },
       {
@@ -301,7 +301,9 @@ const Classification_Query = graphql(/* GraphQL */ `
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request }, next) => {
-    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
+    requireUser(context, request, {
+      roles: [{ name: ROLE_NAME.PlatformAdmin }],
+    });
     return await next();
   },
 ];

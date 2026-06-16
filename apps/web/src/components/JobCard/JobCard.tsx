@@ -8,7 +8,7 @@ import { isPast } from "date-fns/isPast";
 import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql, PoolLanguage } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import type { HeadingLevel } from "@gc-digital-talent/ui";
@@ -70,8 +70,7 @@ export const JobCard_Fragment = graphql(/* GraphQL */ `
     }
     classification {
       id
-      group
-      level
+      groupAndLevel
       minSalary
       maxSalary
     }
@@ -126,8 +125,8 @@ const PostedOnDate = ({
   applicantsCount,
   className,
 }: {
-  publishedAt?: Maybe<string>;
-  applicantsCount?: Maybe<number>;
+  publishedAt?: string | null;
+  applicantsCount?: number | null;
   className?: string;
 }) => {
   const intl = useIntl();
@@ -327,7 +326,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           </p>
         </div>
         <Link
-          className="justify-self-end after:absolute after:inset-0 after:content-[''] xs:self-end"
+          className="shrink-0 justify-self-end after:absolute after:inset-0 after:content-[''] xs:self-end"
           color="primary"
           mode="solid"
           href={paths.jobPoster(pool.id)}

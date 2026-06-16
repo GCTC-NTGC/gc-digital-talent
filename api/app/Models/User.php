@@ -37,9 +37,9 @@ use Illuminate\Support\Str;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Laravel\Scout\Searchable;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\CausesActivity;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\CausesActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
@@ -262,7 +262,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /**
@@ -305,6 +305,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class)->withTrashed();
+    }
+
+    /** @return HasMany<TalentRequestTrackedUser, $this> */
+    public function talentRequestTrackedUsers(): HasMany
+    {
+        return $this->hasMany(TalentRequestTrackedUser::class);
     }
 
     /** @return BelongsTo<Department, $this> */
@@ -456,9 +462,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         $classification = $this->currentClassification;
 
-        $leadingZero = $classification->level < 10 ? '0' : '';
-
-        return $classification->group.'-'.$leadingZero.$classification->level;
+        return $classification->formattedGroupAndLevel;
     }
 
     public function getDepartment()
@@ -687,7 +691,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         activity()
             ->causedBy(Auth::user())
             ->performedOn($user)
-            ->withProperties(['attributes' => $properties])
+            ->withChanges(['attributes' => $properties])
             ->event($eventName)
             ->log($eventName);
     }

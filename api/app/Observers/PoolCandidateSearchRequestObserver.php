@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\PoolCandidateSearchRequest;
 use App\Notifications\GcNotifyEmailChannel;
 use App\Notifications\TalentRequestSubmissionConfirmation;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Throwable;
@@ -34,7 +35,12 @@ class PoolCandidateSearchRequestObserver
      */
     public function updated(PoolCandidateSearchRequest $poolCandidateSearchRequest): void
     {
-        //
+        if ($poolCandidateSearchRequest->wasChanged(['request_status', 'status', 'in_progress_details', 'completion_details'])) {
+            $poolCandidateSearchRequest->timestamps = false;
+            $poolCandidateSearchRequest->request_status_changed_at = CarbonImmutable::now();
+            $poolCandidateSearchRequest->saveQuietly();
+            $poolCandidateSearchRequest->timestamps = true;
+        }
     }
 
     /**

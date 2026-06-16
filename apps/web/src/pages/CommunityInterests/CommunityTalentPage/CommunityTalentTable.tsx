@@ -48,7 +48,6 @@ import accessors from "~/components/Table/accessors";
 import type { FormValues } from "./components/CommunityTalentFilterDialog";
 import CommunityTalentFilterDialog from "./components/CommunityTalentFilterDialog";
 import {
-  classificationAccessor,
   getClassificationSort,
   interestAccessor,
   transformCommunityInterestFilterInputToFormValues,
@@ -82,8 +81,7 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
         lookingForFrench
         lookingForBilingual
         currentClassification {
-          group
-          level
+          groupAndLevel
         }
         positionDuration
         flexibleWorkLocations {
@@ -434,11 +432,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         communityInterest: {
           user: { currentClassification },
         },
-      }) =>
-        classificationAccessor(
-          currentClassification?.group,
-          currentClassification?.level,
-        ),
+      }) => currentClassification?.groupAndLevel ?? "",
       {
         id: "classification",
         header: intl.formatMessage(processMessages.classification),
@@ -689,6 +683,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         },
       }}
       filter={{
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <CommunityTalentFilterDialog

@@ -42,8 +42,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 /**
  * Class PoolCandidate
@@ -87,6 +87,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?Carbon $pause_referrals_at
  * @property ?Carbon $resume_referrals_at
  * @property ?string $pause_referrals_reason
+ * @property ?Carbon $placed_start_date
+ * @property ?Carbon $placed_end_date
  */
 class PoolCandidate extends Model
 {
@@ -118,6 +120,8 @@ class PoolCandidate extends Model
         'computed_assessment_status' => 'array',
         'pause_referrals_at' => 'datetime',
         'resume_referrals_at' => 'datetime',
+        'placed_start_date' => 'date',
+        'placed_end_date' => 'date',
     ];
 
     /**
@@ -150,6 +154,8 @@ class PoolCandidate extends Model
         'pause_referrals_at',
         'resume_referrals_at',
         'pause_referrals_reason',
+        'placed_start_date',
+        'placed_end_date',
     ];
 
     protected $touches = ['user'];
@@ -198,7 +204,7 @@ class PoolCandidate extends Model
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /** @return BelongsTo<User, $this> */
@@ -826,6 +832,8 @@ class PoolCandidate extends Model
         $this->pause_referrals_at = null;
         $this->pause_referrals_reason = null;
         $this->resume_referrals_at = null;
+        $this->placed_start_date = null;
+        $this->placed_end_date = null;
 
         $this->save();
 
@@ -833,7 +841,7 @@ class PoolCandidate extends Model
     }
 
     // mark the pool candidate as placed
-    public function place(string $placementType, string $departmentId)
+    public function place(string $placementType, string $departmentId, ?Carbon $placedStartDate = null, ?Carbon $placedEndDate = null)
     {
         $this->disableLogging();
 
@@ -854,6 +862,9 @@ class PoolCandidate extends Model
         if ($this->placement_type === PlacementType::PLACED_INDETERMINATE->name) {
             $this->pauseReferrals(PauseReferralsLength::OTHER->name, Lang::get('common.successfully_placed'), null);
         }
+
+        $this->placed_start_date = $placedStartDate;
+        $this->placed_end_date = $placedEndDate;
 
         $this->save();
 
@@ -879,6 +890,8 @@ class PoolCandidate extends Model
         $this->pause_referrals_at = null;
         $this->pause_referrals_reason = null;
         $this->resume_referrals_at = null;
+        $this->placed_start_date = null;
+        $this->placed_end_date = null;
 
         $this->save();
 
@@ -916,6 +929,8 @@ class PoolCandidate extends Model
         $this->pause_referrals_at = null;
         $this->pause_referrals_reason = null;
         $this->resume_referrals_at = null;
+        $this->placed_start_date = null;
+        $this->placed_end_date = null;
 
         $this->save();
 

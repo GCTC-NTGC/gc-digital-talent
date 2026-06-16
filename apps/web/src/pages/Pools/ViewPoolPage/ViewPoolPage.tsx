@@ -17,11 +17,7 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type {
-  FragmentType,
-  RoleAssignment,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, RoleAssignment } from "@gc-digital-talent/graphql";
 import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -83,9 +79,7 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     }
     poolCandidatesCount
     classification {
-      id
-      group
-      level
+      groupAndLevel
     }
     name {
       en
@@ -101,12 +95,10 @@ export interface ViewPoolProps {
   isFetching: boolean;
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;
-  onExtend: (closingDate: Scalars["DateTime"]["output"]) => Promise<void>;
+  onExtend: (closingDate: string) => Promise<void>;
   onClose: (reason: string) => Promise<void>;
   onArchive: () => Promise<void>;
-  onDuplicate: (opts: {
-    department: Scalars["ID"]["output"] | undefined;
-  }) => Promise<void>;
+  onDuplicate: (opts: { department: string | undefined }) => Promise<void>;
   onUnarchive: () => Promise<void>;
 }
 
@@ -149,7 +141,7 @@ export const ViewPool = ({
     roleAssignments,
   );
   const canChangeDateOfPublished = checkRole(
-    [ROLE_NAME.CommunityAdmin],
+    [ROLE_NAME.CommunityAdmin, ROLE_NAME.DepartmentAdmin],
     roleAssignments,
   );
   // Editing a published pool is restricted to same roles who can publish it in the first place.
@@ -480,7 +472,7 @@ export const ViewPool = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const ViewPoolPage_Query = graphql(/* GraphQL */ `

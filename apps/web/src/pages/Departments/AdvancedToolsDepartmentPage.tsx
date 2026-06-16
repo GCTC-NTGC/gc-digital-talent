@@ -5,7 +5,7 @@ import { useOutletContext } from "react-router";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -80,7 +80,7 @@ export const AdvancedToolsDepartment = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+  departmentId: string;
 }
 
 const AdvancedToolsDepartment_Query = graphql(/* GraphQL */ `
@@ -96,7 +96,9 @@ const AdvancedToolsDepartment_Query = graphql(/* GraphQL */ `
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request }, next) => {
-    requireUser(context, request, [{ name: ROLE_NAME.PlatformAdmin }]);
+    requireUser(context, request, {
+      roles: [{ name: ROLE_NAME.PlatformAdmin }],
+    });
     return await next();
   },
 ];

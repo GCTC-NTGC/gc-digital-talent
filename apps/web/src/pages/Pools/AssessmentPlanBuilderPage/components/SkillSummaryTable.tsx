@@ -9,7 +9,6 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
   LocalizedAssessmentStepType,
-  Maybe,
   Skill,
   SkillSummaryPoolSkillFragment as SkillSummaryPoolSkillFragmentType,
   SkillSummaryTableAssessmentStepFragment as SkillSummaryAssessmentStepFragmentType,
@@ -89,7 +88,7 @@ interface SkillSummaryTableProps {
 
 const CheckIconElement = (
   skill: Skill | null | undefined,
-  assessmentStepType: Maybe<LocalizedAssessmentStepType> | undefined,
+  assessmentStepType: LocalizedAssessmentStepType | null | undefined,
 ): JSX.Element | null => {
   const intl = useIntl();
   if (!skill) {

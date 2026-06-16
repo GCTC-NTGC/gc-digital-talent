@@ -1,0 +1,91 @@
+import { useIntl } from "react-intl";
+import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
+import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
+import { useQuery } from "urql";
+
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+import useRequiredParams from "~/hooks/useRequiredParams";
+
+import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
+import TalentRequestTrackedUsersTable from "./components/TalentRequestTrackedUsersTable/TalentRequestTrackedUsersTable";
+import type { RouteParams } from "./types";
+
+const TalentRequestTrackingSkills_Query = graphql(/* GraphQL */ `
+  query TalentRequestTrackingSkills($talentRequestId: UUID!) {
+    talentRequest(id: $talentRequestId) {
+      applicantFilter {
+        skills {
+          ...TrackedUserSkillMatch
+        }
+      }
+    }
+  }
+`);
+
+const Tracking = () => {
+  const intl = useIntl();
+  const { talentRequestId } = useRequiredParams<RouteParams>("talentRequestId");
+
+  const [{ data }] = useQuery({
+    query: TalentRequestTrackingSkills_Query,
+    variables: { talentRequestId },
+  });
+  const skills = unpackMaybes(data?.talentRequest?.applicantFilter?.skills);
+
+  return (
+    <div className="flex flex-col gap-y-6">
+      <TalentRequestSectionCard
+        color="primary"
+        icon={MapPinIcon}
+        title={intl.formatMessage(talentRequestMessages.candidateTracking)}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "Track and manage all candidates that have matched this request.",
+          id: "T0+7FE",
+          description:
+            "Description of the candidates being tracked by a talent request",
+        })}
+      >
+        <TalentRequestTrackedUsersTable
+          talentRequestId={talentRequestId}
+          skills={skills}
+        />
+      </TalentRequestSectionCard>
+
+      <TalentRequestSectionCard
+        color="warning"
+        icon={MagnifyingGlassPlusIcon}
+        title={intl.formatMessage({
+          defaultMessage: "Find matching candidates",
+          id: "CtcCZj",
+          description:
+            "Heading for the table that contains users who match talent request criteria",
+        })}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "This list is always up-to-date, find new candidates that match to this talent request.",
+          id: "JT8Azd",
+          description:
+            "Description of the table showing users who match talent request criteria",
+        })}
+      >
+        <>{/** TODO: Add children */}</>
+      </TalentRequestSectionCard>
+    </div>
+  );
+};
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin]}>
+    <Tracking />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminTalentRequestTracking";
+
+export default Component;

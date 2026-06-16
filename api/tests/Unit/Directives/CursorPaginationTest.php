@@ -310,4 +310,59 @@ final class CursorPaginationTest extends TestCase
             }
         }')->assertGraphQLValidationKeys(['last']);
     }
+
+    public function testEdgesHaveWorkingCursors(): void
+    {
+        // Fetch first 3 edges and check their cursors
+        $response = $this->graphQL(/** @lang GraphQL */ '
+        {
+            classifications(orderBy: { column: "level", order: ASC }, first: 3) {
+                edges {
+                    nextCursor
+                    previousCursor
+                    node { level }
+                }
+                pageInfo { hasNextPage }
+            }
+        }
+        ');
+
+        $response->assertGraphQLErrorFree();
+        $edges = Arr::get($response, 'data.classifications.edges');
+        $this->assertCount(3, $edges);
+
+        // navigating forwards from the edge cursor of the second item returns the third item
+        $secondForwardCursor = $edges[1]['nextCursor'];
+        $responseForward = $this->graphQL(/** @lang GraphQL */ '
+            query Classifications($after: String) {
+                classifications(orderBy: { column: "level", order: ASC }, first: 1, after: $after) {
+                    edges {
+                        node { level }
+                    }
+                }
+            }
+        ', ['after' => $secondForwardCursor]);
+
+        $responseForward->assertGraphQLErrorFree();
+        $edgesForward = Arr::get($responseForward, 'data.classifications.edges');
+        $this->assertCount(1, $edgesForward);
+        $this->assertEquals(3, $edgesForward[0]['node']['level']);
+
+        // navigating backwards from the edge cursor of the second item returns the first item
+        $secondReverseCursor = $edges[1]['previousCursor'];
+        $responseBack = $this->graphQL(/** @lang GraphQL */ '
+            query Classifications($before: String) {
+                classifications(orderBy: { column: "level", order: ASC }, last: 1, before: $before) {
+                    edges {
+                        node { level }
+                    }
+                }
+            }
+        ', ['before' => $secondReverseCursor]);
+
+        $responseBack->assertGraphQLErrorFree();
+        $edgesBack = Arr::get($responseBack, 'data.classifications.edges');
+        $this->assertCount(1, $edgesBack);
+        $this->assertEquals(1, $edgesBack[0]['node']['level']);
+    }
 }

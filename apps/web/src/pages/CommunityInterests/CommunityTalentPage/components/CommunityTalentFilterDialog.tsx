@@ -54,8 +54,7 @@ const CommunityTalentFilterData_Query = graphql(/* GraphQL */ `
   query CommunityFilterData {
     classifications {
       id
-      group
-      level
+      groupAndLevel
     }
     communities {
       id
@@ -242,9 +241,9 @@ const CommunityTalentFilterDialog = ({
         isMulti
         label={intl.formatMessage(adminMessages.classifications)}
         options={unpackMaybes(data?.classifications).map(
-          ({ group, level, id }) => ({
+          ({ id, groupAndLevel }) => ({
             value: id,
-            label: `${group}-${level < 10 ? "0" : ""}${level}`,
+            label: groupAndLevel,
           }),
         )}
       />

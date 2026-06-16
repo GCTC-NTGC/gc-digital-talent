@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
+import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 import { useOutletContext } from "react-router";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -15,12 +15,10 @@ import {
 } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  Scalars,
   ViewCommunityQuery,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -34,7 +32,7 @@ import type { Route } from "./+types/ViewCommunityPage";
 import type { ContextType } from "../CommunityMembersPage/components/types";
 
 interface RouteParams extends Record<string, string> {
-  communityId: Scalars["ID"]["output"];
+  communityId: string;
 }
 
 const ViewCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
@@ -75,148 +73,122 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   return (
     <>
-      <Heading
-        level="h2"
-        color="secondary"
-        icon={IdentificationIcon}
-        center
-        className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Community information",
-          id: "9b+Xtt",
-          description:
-            "Heading for the community information section of a form",
-        })}
-      </Heading>
-      <Card>
+      <Card space="lg">
+        <Heading
+          level="h2"
+          color="primary"
+          icon={QueueListIcon}
+          center
+          className="mt-1 mb-6 font-normal xs:justify-start xs:text-left"
+          size="h3"
+        >
+          {intl.formatMessage(adminMessages.communityDetails)}
+        </Heading>
+        <p className="mb-9">
+          {intl.formatMessage({
+            defaultMessage:
+              "The following information will be used to identify the community and offer insight into the domains it supports.",
+            id: "f1vqns",
+            description: "Description for community form",
+          })}
+        </p>
         <div className="grid gap-6 xs:grid-cols-2">
-          <FieldDisplay
-            hasError={!community.name?.en}
-            label={intl.formatMessage(commonMessages.name)}
-            appendLanguageToLabel={"en"}
-          >
-            {community.name?.en ??
-              intl.formatMessage(commonMessages.notProvided)}
-          </FieldDisplay>
-          <FieldDisplay
-            hasError={!community.name?.fr}
-            label={intl.formatMessage(commonMessages.name)}
-            appendLanguageToLabel={"fr"}
-          >
-            {community.name?.fr ??
-              intl.formatMessage(commonMessages.notProvided)}
-          </FieldDisplay>
-          <FieldDisplay
-            hasError={!community.description?.en}
-            label={intl.formatMessage(commonMessages.description)}
-            appendLanguageToLabel={"en"}
-          >
-            {community.description?.en ? (
-              <RichTextRenderer
-                node={htmlToRichTextJSON(community.description.en)}
-              />
-            ) : (
-              notProvided
-            )}
-          </FieldDisplay>
-          <FieldDisplay
-            hasError={!community.description?.fr}
-            label={intl.formatMessage(commonMessages.description)}
-            appendLanguageToLabel={"en"}
-          >
-            {community.description?.fr ? (
-              <RichTextRenderer
-                node={htmlToRichTextJSON(community.description.fr)}
-              />
-            ) : (
-              notProvided
-            )}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "External link to information",
-              id: "fWNqcM",
-              description:
-                "Label displayed on the community form information URL field",
-            })}
-            appendLanguageToLabel={"en"}
-          >
-            {community.informationUrl?.en ??
-              intl.formatMessage(commonMessages.notProvided)}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "External link to information",
-              id: "fWNqcM",
-              description:
-                "Label displayed on the community form information URL field",
-            })}
-            appendLanguageToLabel={"fr"}
-          >
-            {community.informationUrl?.fr ??
-              intl.formatMessage(commonMessages.notProvided)}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Mandate authority",
-              id: "83aYHF",
-              description:
-                "Label displayed on the community form mandate authority field",
-            })}
-            appendLanguageToLabel={"en"}
-          >
-            {community.mandateAuthority?.en ??
-              intl.formatMessage(commonMessages.notProvided)}
-          </FieldDisplay>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Mandate authority",
-              id: "83aYHF",
-              description:
-                "Label displayed on the community form mandate authority field",
-            })}
-            appendLanguageToLabel={"fr"}
-          >
-            {community.mandateAuthority?.fr ??
-              intl.formatMessage(commonMessages.notProvided)}
-          </FieldDisplay>
-          <div className="xs:col-span-2">
+          <div>
+            <p className="mb-1 font-bold">
+              {community.name?.en ?? notProvided}
+            </p>
+            <>
+              {community.informationUrl?.en && (
+                <Link
+                  mode="text"
+                  external
+                  newTab
+                  href={community.informationUrl.en}
+                  className="-mt-3 break-all"
+                >
+                  {community.informationUrl.en}
+                </Link>
+              )}
+            </>
+            <p className="my-3">{community.description?.en ?? notProvided}</p>
             <FieldDisplay
               label={intl.formatMessage({
-                defaultMessage: "Generic contact email",
-                id: "iVe7JX",
+                defaultMessage: "Mandated by",
+                id: "eJekyY",
                 description:
-                  "Label displayed on the community form contact email field",
+                  "Label displayed on the community form mandated by authority field",
               })}
             >
-              {community.contactEmail ??
+              {community.mandateAuthority?.en ??
+                intl.formatMessage(commonMessages.notProvided)}
+            </FieldDisplay>
+            <CardSeparator className="xs:hidden" />
+          </div>
+          <div className="-mt-6 xs:mt-0">
+            <p className="mb-1 font-bold">
+              {community.name?.fr ?? notProvided}
+            </p>
+            <>
+              {community.informationUrl?.fr && (
+                <Link
+                  mode="text"
+                  external
+                  newTab
+                  href={community.informationUrl.fr}
+                  className="-mt-3 break-all"
+                >
+                  {community.informationUrl.fr}
+                </Link>
+              )}
+            </>
+            <p className="my-3">{community.description?.fr ?? notProvided}</p>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Mandated by",
+                id: "eJekyY",
+                description:
+                  "Label displayed on the community form mandated by authority field",
+              })}
+            >
+              {community.mandateAuthority?.fr ??
                 intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
           </div>
-          <div className="xs:col-span-2">
-            <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
-              {community.key}
-            </FieldDisplay>
-          </div>
         </div>
-        {canAdminManageAccessAndEditCommunity && (
-          <>
-            <CardSeparator />
-            <div className="flex justify-center xs:justify-start">
-              <Link
-                href={paths.communityUpdate(community.id)}
-                className="font-bold"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Edit community information",
-                  id: "phS+TP",
-                  description: "Link to edit the currently viewed community",
-                })}
-              </Link>
-            </div>
-          </>
-        )}
+        <CardSeparator />
+        <div className="xs:col-span-2">
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "Generic contact email",
+              id: "iVe7JX",
+              description:
+                "Label displayed on the community form contact email field",
+            })}
+          >
+            {community.contactEmail ??
+              intl.formatMessage(commonMessages.notProvided)}
+          </FieldDisplay>
+        </div>
+        <CardSeparator />
+        <div className="col-span-2 flex flex-col items-center justify-center xs:flex-row xs:justify-between">
+          {canAdminManageAccessAndEditCommunity ? (
+            <Link
+              href={paths.communityUpdate(community.id)}
+              className="mb-6 font-bold xs:mb-0"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Edit community details",
+                id: "UieDSb",
+                description: "Link to edit the currently viewed community",
+              })}
+            </Link>
+          ) : (
+            <div></div>
+          )}
+          <span className="text-sm text-gray-500 dark:text-gray-200">
+            {community.key}
+          </span>
+        </div>
       </Card>
     </>
   );
@@ -238,18 +210,32 @@ const ViewCommunityPage = ({ community }: ViewCommunityPageProps) => {
   const intl = useIntl();
   const pageTitle = intl.formatMessage({
     defaultMessage: "Community information",
-    id: "W0Bh1G",
-    description: "Title for community information",
+    id: "+OOFwz",
+    description: "Title for community form",
   });
 
   const { communityName, navigationCrumbs, navTabs } =
     useOutletContext<ContextType>();
 
+  const subtitleMessage = intl.formatMessage(
+    {
+      defaultMessage: "View and edit details about the {communityName}",
+      id: "vpnzr+",
+      description: "Subtitle for the details view page of a community",
+    },
+    { communityName: communityName },
+  );
+
   return (
     <>
       <SEO title={pageTitle} />
-      <Hero title={communityName} crumbs={navigationCrumbs} navTabs={navTabs} />
-      <Container className="my-12">
+      <Hero
+        title={communityName}
+        subtitle={subtitleMessage}
+        crumbs={navigationCrumbs}
+        navTabs={navTabs}
+      />
+      <Container className="my-18">
         <ViewCommunityForm query={community} />
       </Container>
     </>
@@ -258,17 +244,14 @@ const ViewCommunityPage = ({ community }: ViewCommunityPageProps) => {
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request }, next) => {
-    requireUser(
-      context,
-      request,
-      [
+    requireUser(context, request, {
+      roles: [
         { name: ROLE_NAME.PlatformAdmin },
         { name: ROLE_NAME.CommunityAdmin },
         { name: ROLE_NAME.CommunityRecruiter },
         { name: ROLE_NAME.CommunityTalentCoordinator },
       ],
-      false,
-    );
+    });
     return await next();
   },
 ];

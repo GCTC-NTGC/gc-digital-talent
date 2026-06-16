@@ -1,5 +1,5 @@
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import type { Maybe, RoleAssignment } from "@gc-digital-talent/graphql";
+import type { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import type { RoleName } from "../const";
 
@@ -9,7 +9,7 @@ import type { RoleName } from "../const";
  */
 const hasRole = (
   checkRole: RoleName | RoleName[],
-  userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
+  userRoles: (RoleAssignment | null | undefined)[] | null | undefined,
   teamIds?: string[],
 ): boolean => {
   const assignments = unpackMaybes(userRoles);

@@ -20,6 +20,8 @@ class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail
         public string $poolNameEn,
         public string $poolNameFr,
         public string $poolId,
+        public string $displayNameEn,
+        public string $displayNameFr,
     ) {}
 
     /**
@@ -52,6 +54,10 @@ class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail
     public function toArray(object $notifiable): array
     {
         return [
+            'displayName' => [
+                'en' => $this->displayNameEn,
+                'fr' => $this->displayNameFr,
+            ],
             'poolId' => $this->poolId,
         ];
     }

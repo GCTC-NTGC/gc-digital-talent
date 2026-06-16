@@ -35,7 +35,7 @@ import TalentRequestSidebar from "./TalentRequestSidebar";
 
 const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
   fragment ViewSearchRequest_SearchRequest on PoolCandidateSearchRequest {
-    ...TalentRequestSidebar
+    ...PoolCandidateSearchRequestSidebar
 
     id
     fullName
@@ -71,12 +71,10 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
       id
       classifications {
         id
-        name {
-          en
-          fr
-        }
         group
         level
+        groupAndLevel
+        displayName
       }
       hasDiploma
       equity {
@@ -116,6 +114,8 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           id
           group
           level
+          groupAndLevel
+          displayName
         }
         workStream {
           id
@@ -207,16 +207,16 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           id
           group
           level
+          groupAndLevel
+          displayName
         }
       }
       qualifiedInClassifications {
         id
-        name {
-          en
-          fr
-        }
         group
         level
+        groupAndLevel
+        displayName
       }
       qualifiedInWorkStreams {
         id

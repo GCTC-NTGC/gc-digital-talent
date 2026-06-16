@@ -27,13 +27,14 @@ import type { ButtonProps } from "@gc-digital-talent/ui";
 import {
   Button,
   DownloadCsv,
+  DropdownMenu,
   Loading,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
-import type { DownloadDef, RowSelectDef } from "./types";
+import type { DownloadDef, RowSelectDef, TableAction } from "./types";
 import SpinnerIcon from "../../SpinnerIcon/SpinnerIcon";
 import tableMessages from "../tableMessages";
 
@@ -206,6 +207,10 @@ interface ActionsProps {
   onClear: MouseEventHandler;
   /** Button to trigger an async download */
   download?: DownloadDef;
+  /** Arbitrary bulk actions for the selected rows, shown in a dropdown menu */
+  actions?: TableAction[];
+  /** IDs of the currently selected rows, passed to action handlers */
+  selectedRowIds: string[];
 }
 
 /**
@@ -220,6 +225,8 @@ const Actions = ({
   count,
   onClear,
   download,
+  actions,
+  selectedRowIds,
 }: ActionsProps) => {
   const intl = useIntl();
 
@@ -325,6 +332,34 @@ const Actions = ({
                   )}
                 </span>
               )}
+              {actions?.length && selectedRowIds?.length ? (
+                <>
+                  <Bullet />
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger btnProps={actionButtonStyles}>
+                      {intl.formatMessage(tableMessages.actions)}
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Popup
+                      positionerProps={{ align: "end", collisionPadding: 2 }}
+                    >
+                      {actions.map((action, index) => (
+                        <DropdownMenu.Item
+                          key={index}
+                          onClick={() => {
+                            if (count <= 0) {
+                              handleNoRowsSelected();
+                              return;
+                            }
+                            action.onClick?.(selectedRowIds);
+                          }}
+                        >
+                          {action.label}
+                        </DropdownMenu.Item>
+                      ))}
+                    </DropdownMenu.Popup>
+                  </DropdownMenu.Root>
+                </>
+              ) : null}
             </Section>
           )}
         </Column>
@@ -405,6 +440,8 @@ export const useRowSelection = <T,>(
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const rowSelectionCallbackRef = useRef<RowSelectionCallback>(() => undefined);
 
+  // Keep the newest callback in the ref for the effect to call
+  // eslint-disable-next-line react-hooks/refs
   rowSelectionCallbackRef.current = (newRows: RowSelectionState) => {
     if (rowSelect?.onRowSelection) {
       const selectedRows = Object.keys(newRows)

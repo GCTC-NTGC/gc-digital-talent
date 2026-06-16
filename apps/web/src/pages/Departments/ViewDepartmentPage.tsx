@@ -14,7 +14,7 @@ import {
   Ul,
   Container,
 } from "@gc-digital-talent/ui";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME as ROLE } from "@gc-digital-talent/auth";
 
@@ -145,7 +145,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
 };
 
 interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+  departmentId: string;
 }
 
 const Department_Query = graphql(/* GraphQL */ `
@@ -163,16 +163,14 @@ const Department_Query = graphql(/* GraphQL */ `
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request, params }, next) => {
     const teamId = await getTeamIdInMiddleware(context, params.departmentId);
-    requireUser(
-      context,
-      request,
-      [
+    requireUser(context, request, {
+      roles: [
         { name: ROLE.PlatformAdmin },
         { name: ROLE.DepartmentAdmin, teamId: teamId },
         { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
       ],
-      true,
-    );
+      strict: true,
+    });
     return await next();
   },
 ];

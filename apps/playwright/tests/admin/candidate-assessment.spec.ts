@@ -37,7 +37,6 @@ import {
 import { createAndPublishPool, getPoolSkills } from "~/utils/pools";
 import { loginBySub } from "~/utils/auth";
 import { generateUniqueTestId } from "~/utils/id";
-import testConfig from "~/constants/config";
 import AssessmentPage from "~/fixtures/AssessmentPage";
 import { getCandidateScreeningStage } from "~/utils/candidateAssessment";
 
@@ -46,9 +45,10 @@ const LOCALIZED_STRING = {
   fr: "test FR",
 };
 
-test.describe("Pool candidates", () => {
+test.describe("Pool candidates", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
+  const adminSub = "admin@test.com";
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
   let adminCtx: GraphQLContext;
@@ -129,16 +129,14 @@ test.describe("Pool candidates", () => {
   });
 
   test.afterEach(async () => {
-    if (user?.id) {
-      adminCtx = await graphql.newContext();
-      await deleteUser(adminCtx, { id: user.id });
-    }
+    adminCtx = await graphql.newContext();
+    if (user?.id) await deleteUser(adminCtx, { id: user.id });
   });
 
   test("Validate Application can be screened in with applied work", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, "admin@test.com");
+    await loginBySub(appPage.page, adminSub);
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
@@ -230,7 +228,7 @@ test.describe("Pool candidates", () => {
   }) => {
     test.setTimeout(70_000);
     const assessmentPage = new AssessmentPage(appPage.page);
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const poolSkillsID = await getPoolSkills(adminCtx, {
       poolId: poolId,
     }).then((poolSkills) => poolSkills.map((ps) => ps.id));
@@ -296,7 +294,7 @@ test.describe("Pool candidates", () => {
   test("Validate application status post reverting Qualified candidate", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const assessmentPage = new AssessmentPage(appPage.page);
     await assessmentPage.goToCandidateApplication(candidate.id);
 
@@ -321,7 +319,7 @@ test.describe("Pool candidates", () => {
     appPage,
   }) => {
     const assessmentPage = new AssessmentPage(appPage.page);
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const poolSkillsID = await getPoolSkills(adminCtx, {
       poolId: poolId,
     }).then((poolSkills) => poolSkills.map((ps) => ps.id));
@@ -388,7 +386,7 @@ test.describe("Pool candidates", () => {
   test("Validate application status post reverting disqualified candidate", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const assessmentPage = new AssessmentPage(appPage.page);
     await assessmentPage.goToCandidateApplication(candidate.id);
     await expect(
@@ -417,7 +415,7 @@ test.describe("Pool candidates", () => {
     appPage,
   }) => {
     const assessmentPage = new AssessmentPage(appPage.page);
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const poolSkillsID = await getPoolSkills(adminCtx, {
       poolId: poolId,
     }).then((poolSkills) => poolSkills.map((ps) => ps.id));
@@ -470,7 +468,7 @@ test.describe("Pool candidates", () => {
   test("Validate application status post reinstate removed candidate", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const assessmentPage = new AssessmentPage(appPage.page);
     await assessmentPage.goToCandidateApplication(candidate.id);
     await expect(
