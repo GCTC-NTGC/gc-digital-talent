@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import { useQuery } from "urql";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import type { ReactNode } from "react";
 import { useNavigate } from "react-router";
 
-import { TalentNominationStep, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import {
+  TalentNominationStep,
+  graphql,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 import { Link, Dialog, Button } from "@gc-digital-talent/ui";
 import { hasRequiredRoles, useAuthorization } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -16,44 +20,32 @@ import useCurrentStep from "../useCurrentStep";
 import SubHeading from "./SubHeading";
 import UpdateForm from "./UpdateForm";
 
-export const NominationInstructions_Query = graphql(/* GraphQL */ `
-  query NominationInstructionsQuery($id: UUID!) {
-    talentNomination(id: $id) {
+export const NominateTalentInstructions_Fragment = graphql(/* GraphQL */ `
+  fragment NominateTalentInstructions on TalentNomination {
+    id
+    talentNominationEvent {
       id
-      talentNominationEvent {
-        id
-        closeDate
-      }
+      closeDate
     }
   }
 `);
 
 interface InstructionsProps {
-  nominationId: string;
+  instructionsQuery: FragmentType<typeof NominateTalentInstructions_Fragment>;
 }
 
-interface InstructionsQueryData {
-  talentNomination?: {
-    talentNominationEvent?: {
-      closeDate?: string | null;
-    } | null;
-  } | null;
-}
-
-const Instructions = ({ nominationId }: InstructionsProps) => {
+const Instructions = ({ instructionsQuery }: InstructionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const { current } = useCurrentStep();
+  const data = getFragment(
+    NominateTalentInstructions_Fragment,
+    instructionsQuery,
+  );
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = userAuthInfo?.roleAssignments?.filter(notEmpty) ?? [];
   const [showForm, setShowForm] = useState(false);
-
-  const [result] = useQuery<InstructionsQueryData>({
-    query: NominationInstructions_Query,
-    variables: { id: nominationId },
-    pause: !nominationId,
-  });
 
   const canNominatePast = hasRequiredRoles({
     toCheck: [
@@ -63,8 +55,7 @@ const Instructions = ({ nominationId }: InstructionsProps) => {
     userRoles: roleAssignments,
   });
 
-  const data = result.data;
-  const closeDate = data?.talentNomination?.talentNominationEvent?.closeDate;
+  const closeDate = data?.talentNominationEvent?.closeDate;
   const isPastEvent = closeDate ? new Date() > new Date(closeDate) : false;
   const showDialogue = isPastEvent && canNominatePast && !showForm;
 
