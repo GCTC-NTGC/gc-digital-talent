@@ -184,11 +184,11 @@ class AuthController extends Controller
                         ->withTrashed()
                         ->first();
                     if ($existingUser) {
-                        if (strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
+                        if (! empty($existingUser->email) && strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
                             $existingUser->email_backup = $existingUser->email;
                             $existingUser->email = null;
                         }
-                        if (strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
+                        if (! empty($existingUser->work_email) && strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
                             $existingUser->work_email_backup = $existingUser->work_email;
                             $existingUser->work_email = null;
                         }
