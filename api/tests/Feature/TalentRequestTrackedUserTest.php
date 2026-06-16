@@ -1394,4 +1394,54 @@ class TalentRequestTrackedUserTest extends TestCase
 
         $this->assertEqualsCanonicalizing([$poolA->id, $poolB->id], $poolIds);
     }
+
+    public function testSourcesCorrectOnNestedPathWithoutPaginatedScope(): void
+    {
+        $classification = Classification::factory()->create();
+        $filter = ApplicantFilter::factory()->create(['community_id' => $this->community->id]);
+        $filter->qualifiedInClassifications()->sync([$classification->id]);
+
+        $request = TalentRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+            'classification_id' => $classification->id,
+        ]);
+
+        $withCandidacy = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $withCandidacy->id,
+            'pool_id' => $pool->id,
+        ]);
+
+        $withoutCandidacy = User::factory()->create();
+
+        foreach ([$withCandidacy, $withoutCandidacy] as $user) {
+            TalentRequestTrackedUser::factory()->create([
+                'talent_request_id' => $request->id,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        $response = $this->actingAs($this->admin, 'api')
+            ->graphQL(/** @lang GraphQL */ '
+                query NestedSources($id: UUID!) {
+                    talentRequest(id: $id) {
+                        trackedUsers {
+                            user { id }
+                            sources
+                        }
+                    }
+                }
+            ', ['id' => $request->id]);
+
+        $byUser = collect($response->json('data.talentRequest.trackedUsers'))
+            ->keyBy(fn ($row) => $row['user']['id']);
+
+        $this->assertEquals([TalentRequestSource::QUALIFIED_IN_POOL->name], $byUser[$withCandidacy->id]['sources']);
+        $this->assertEquals([], $byUser[$withoutCandidacy->id]['sources']);
+    }
 }

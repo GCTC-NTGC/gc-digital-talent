@@ -86,10 +86,19 @@ class TalentRequestTrackedUser extends Pivot
     /** @return Attribute<array<string>, never> */
     protected function sources(): Attribute
     {
-        return Attribute::get(fn (): array => $this->has_prequalified_source
+        return Attribute::get(fn (): array => $this->hasQualifiedInPoolSource()
             ? [TalentRequestSource::QUALIFIED_IN_POOL->name]
             : []
         );
+    }
+
+    private function hasQualifiedInPoolSource(): bool
+    {
+        if (isset($this->has_prequalified_source)) {
+            return (bool) $this->has_prequalified_source;
+        }
+
+        return $this->matchingQualifiedInPoolSources()->exists();
     }
 
     /** @return Attribute<array<never>, never> */
