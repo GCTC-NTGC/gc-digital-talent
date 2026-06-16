@@ -80,8 +80,8 @@ export function isIAPPool(publishingGroup?: PublishingGroup | null): boolean {
   return publishingGroup === PublishingGroup.Iap;
 }
 
-export function isExecPool(publishingGroup?: PublishingGroup | null): boolean {
-  return publishingGroup === PublishingGroup.ExecutiveJobs;
+export function isExecPool(group?: string | null): boolean {
+  return group === "EX";
 }
 
 interface formatClassificationStringProps {
