@@ -442,6 +442,39 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.1.user.id', $twoSkills->id);
     }
 
+    public function testOrdersByDepartmentName(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $depA = Department::factory()->create(['name' => ['en' => 'Apricot Agency', 'fr' => 'Agence abricot']]);
+        $depB = Department::factory()->create(['name' => ['en' => 'Banana Bureau', 'fr' => 'Bureau banane']]);
+
+        $userA = $this->matchingUser($pool, ['computed_department' => $depA->id], true);
+        $userB = $this->matchingUser($pool, ['computed_department' => $depB->id], true);
+
+        $query = <<<'GRAPHQL'
+            query ($where: TalentRequestMatchFilterInput, $orderBy: [AdvancedOrderByInput!]) {
+                talentRequestMatches(where: $where, orderBy: $orderBy) {
+                    data { user { id } }
+                }
+            }
+            GRAPHQL;
+
+        $this->actingAs($this->admin, 'api')->graphQL($query, [
+            'where' => [],
+            'orderBy' => [['relation' => ['name' => 'department', 'column' => 'name->en'], 'direction' => 'ASC']],
+        ])
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $userA->id)
+            ->assertJsonPath('data.talentRequestMatches.data.1.user.id', $userB->id);
+
+        $this->actingAs($this->admin, 'api')->graphQL($query, [
+            'where' => [],
+            'orderBy' => [['relation' => ['name' => 'department', 'column' => 'name->en'], 'direction' => 'DESC']],
+        ])
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $userB->id)
+            ->assertJsonPath('data.talentRequestMatches.data.1.user.id', $userA->id);
+    }
+
     public function testMatchesAreFilteredByViewAuthorization(): void
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create();
