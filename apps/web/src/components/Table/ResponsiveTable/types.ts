@@ -122,7 +122,7 @@ export interface TableAction {
 }
 
 export interface PaginationDef {
-  /** Allows the table to manage search */
+  /** Allows the table to manage pagination */
   internal: boolean;
   /** Callback for when the pagination changes */
   onPaginationChange?: (newPagination: PaginationState) => void;
