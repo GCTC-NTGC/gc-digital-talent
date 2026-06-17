@@ -33,7 +33,7 @@ class TalentEventOpenForCreatingNominations implements ValidationRule
 
                     if ((bool) $user) {
                         $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'create-own-pastTalentNomination');
-                        $communityTeamId = $event?->community?->team?->id;
+                        $communityTeamId = $event->community?->team?->id;
 
                         if ((bool) $communityTeamId && in_array($communityTeamId, $teamIds, true)) {
                             return;
