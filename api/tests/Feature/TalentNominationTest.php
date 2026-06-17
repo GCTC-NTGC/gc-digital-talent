@@ -303,8 +303,8 @@ class TalentNominationTest extends TestCase
                 'id' => $nomination->id,
             ]);
 
-        $response->assertGraphQLValidationError('nine_box_performance', 'The nine box performance field is required.');
-        $response->assertGraphQLValidationError('nine_box_leadership_potential', 'The nine box leadership potential field is required.');
+        $response->assertGraphQLValidationError('nine_box_performance', 'NINE_BOX_RATINGS_REQUIRED_FOR_EVENT');
+        $response->assertGraphQLValidationError('nine_box_leadership_potential', 'NINE_BOX_RATINGS_REQUIRED_FOR_EVENT');
     }
 
     public function testCanSubmitWithNineBoxFieldsWhenEventRequiresThem()
@@ -336,6 +336,30 @@ class TalentNominationTest extends TestCase
         ]);
 
         $response->assertGraphQLErrorFree();
+    }
+
+    public function testCantSubmitWithNineBoxFieldsWhenEventProhibitsThem()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'close_date' => config('constants.far_future_datetime'),
+            'include_nine_box' => false,
+        ]);
+        $nomination = TalentNomination::factory()
+            ->submittedRationale()
+            ->create([
+                'submitter_id' => $this->employee1->id,
+                'talent_nomination_event_id' => $event->id,
+                'nine_box_performance' => 'LOW',
+                'nine_box_leadership_potential' => 'LOW',
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertGraphQLValidationError('nine_box_performance', 'NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT');
+        $response->assertGraphQLValidationError('nine_box_leadership_potential', 'NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT');
     }
 
     public function testCantNominateSelf()

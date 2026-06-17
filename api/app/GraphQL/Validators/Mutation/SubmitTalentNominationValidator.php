@@ -189,6 +189,10 @@ final class SubmitTalentNominationValidator extends Validator
             'submitted_at.prohibited' => ErrorCode::TALENT_NOMINATION_ALREADY_SUBMITTED->name,
             'skills.*.in' => ErrorCode::SKILL_NOT_KLC->name,
             'skills.*.prohibited' => ErrorCode::SKILLS_NOT_ALLOWED_FOR_EVENT->name,
+            'nine_box_performance.required' => ErrorCode::NINE_BOX_RATINGS_REQUIRED_FOR_EVENT->name,
+            'nine_box_performance.prohibited' => ErrorCode::NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT->name,
+            'nine_box_leadership_potential.required' => ErrorCode::NINE_BOX_RATINGS_REQUIRED_FOR_EVENT->name,
+            'nine_box_leadership_potential.prohibited' => ErrorCode::NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT->name,
         ];
     }
 }
