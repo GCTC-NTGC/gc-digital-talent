@@ -217,10 +217,9 @@ const Component = () => {
     <RequireAuth
       rolesRequirements={[
         { name: ROLE.PlatformAdmin },
-        { name: ROLE.DepartmentAdmin, teamId },
-        { name: ROLE.DepartmentHRAdvisor, teamId },
+        { name: ROLE.DepartmentAdmin },
+        { name: ROLE.DepartmentHRAdvisor },
       ]}
-      strict
     >
       <UpdateDepartmentPage />
     </RequireAuth>
