@@ -21,7 +21,6 @@ import { Link } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
-import useRoutes from "~/hooks/useRoutes";
 import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import { getFullNameLabel } from "~/utils/nameUtils";

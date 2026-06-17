@@ -20,7 +20,7 @@ import {
 import TalentRequestEditReferralDialog, {
   TalentRequestEditReferralDialog_Fragment,
 } from "./TalentRequestEditReferralDialog";
-import { TalentRequestEditReferralDialogOptions_Fragment } from "./ReferralFormFields";
+import { TalentRequestReferralDialogOptions_Fragment } from "./ReferralFormFields";
 
 const [user] = fakeUsers(1);
 
@@ -51,7 +51,7 @@ const optionsQuery = makeFragmentData(
       ...toLocalizedEnum(opt.value),
     })),
   },
-  TalentRequestEditReferralDialogOptions_Fragment,
+  TalentRequestReferralDialogOptions_Fragment,
 );
 
 const mockTrackedUser = {
