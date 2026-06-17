@@ -386,6 +386,7 @@ class RolePermissionTest extends TestCase
             'update-team-communityDevelopmentProgram',
             'delete-team-communityDevelopmentProgram',
             'view-team-poolNotes',
+            'create-own-pastTalentNomination',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
         $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);
@@ -428,6 +429,7 @@ class RolePermissionTest extends TestCase
             'create-team-communityDevelopmentProgram',
             'update-team-communityDevelopmentProgram',
             'delete-team-communityDevelopmentProgram',
+            'create-own-pastTalentNomination',
         ];
         $allPermissions = Permission::all()->pluck('name')->toArray();
         $notPossessedPermissions = array_diff($allPermissions, $permissionsToCheck);

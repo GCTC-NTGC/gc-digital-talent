@@ -7,6 +7,7 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
+use App\Enums\PriorityWeight;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Utilities\PostgresTextSearch;
@@ -395,6 +396,26 @@ class UserBuilder extends Builder
         }
 
         return $this;
+    }
+
+    public function wherePriorityWeightIn(?array $priorityWeights): self
+    {
+        if (empty($priorityWeights)) {
+            return $this;
+        }
+
+        // priority_weight is a generated column on users (10/20/30/40)
+        $weights = array_map(
+            fn ($priorityWeight) => PriorityWeight::weight($priorityWeight),
+            $priorityWeights
+        );
+
+        return $this->whereIn('priority_weight', $weights);
+    }
+
+    public function orderBySkillCount(array $args): self
+    {
+        return $this->orderBy('skill_count', $args['direction'] ?? 'asc');
     }
 
     // a presence flag (1 or null) per source kind, read by the Sources resolver

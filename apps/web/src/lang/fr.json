@@ -2843,6 +2843,10 @@
     "defaultMessage": "Ministère de l’employé",
     "description": "Title displayed on the Pool Candidates table employee department column"
   },
+  "9Ky9Y4": {
+    "defaultMessage": "Commencer la mise en candidature",
+    "description": "Confirm button for past talent event dialog"
+  },
   "9LR5wC": {
     "defaultMessage": "En apposant votre signature (en tapant votre nom au complet), vous contribuez à la création d'un espace honnête et sûr où les personnes autochtones peuvent accéder à ces possibilités d'emploi.",
     "description": "Disclaimer before signing Indigenous self-declaration form"
@@ -5007,6 +5011,10 @@
     "defaultMessage": "Votre vitrine de compétences vous permet de créer des listes de compétences à partir de votre portfolio qui présentent de manière plus ciblée et personnalisée vos forces et vos domaines d’intérêt. Bien que votre portfolio serve d’endroit central pour gérer toutes les compétences que vous ajoutez à votre profil, la vitrine est jumelée à vos demandes d’emploi. Elle est partagée avec les membres du personnel de recrutement et les gestionnaires pour leur donner un tableau plus complet de vos talents.",
     "description": "Description on what the skills showcase is."
   },
+  "IAR6nU": {
+    "defaultMessage": "Cet événement est déjà fermé. Voulez-vous vraiment soumettre une mise en candidature?",
+    "description": "Body text for past talent event confirmation dialog"
+  },
   "IBLDnY": {
     "defaultMessage": "Commentaires supplémentaires",
     "description": "Label for additional comments on a nomination's rationale"
@@ -6786,6 +6794,10 @@
   "PO94zE": {
     "defaultMessage": "Perfectionnement professionnel mis à jour avec succès!",
     "description": "Message displayed to user after professionalization is updated successfully."
+  },
+  "PONcJx": {
+    "defaultMessage": "Événement de mise en candidature fermé",
+    "description": "Title for past talent event confirmation dialog"
   },
   "POj+1M": {
     "defaultMessage": "Normes de qualification en matière de langues officielles",
@@ -9254,6 +9266,10 @@
     "defaultMessage": "Chercher les utilisateurs",
     "description": "Label for the user table search input"
   },
+  "ZayKDK": {
+    "defaultMessage": "Motif de correspondance",
+    "description": "Heading for the source of the matching user"
+  },
   "Zd02bf": {
     "defaultMessage": "Bienvenue à la première étape de votre demande. Nous sommes ravis de vous rencontrer!",
     "description": "Subtitle for the application welcome page"
@@ -9405,6 +9421,10 @@
   "aLAl+r": {
     "defaultMessage": "Autre raison",
     "description": "Label for the other reason a decision was made"
+  },
+  "aNhUkJ": {
+    "defaultMessage": "Compétences demandées",
+    "description": "Header for the number of user skills matching requested skills"
   },
   "aO23nW": {
     "defaultMessage": "<strong>Veuillez indiquer vos niveaux les plus récents obtenus auprès de la Commission de la fonction publique.</strong>",
@@ -13333,6 +13353,10 @@
   "pWoAv0": {
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
     "description": "First paragraph about the program"
+  },
+  "pX4FBO": {
+    "defaultMessage": "Candidatures correspondantes",
+    "description": "Title for users matching talent request criteria"
   },
   "pX6VRT": {
     "defaultMessage": "peut consulter les profils des membres du personnel qui montrent un intérêt concernant des possibilités d’emploi et de formation dans leur collectivité.",

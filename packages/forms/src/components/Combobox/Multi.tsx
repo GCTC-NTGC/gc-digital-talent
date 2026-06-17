@@ -50,11 +50,22 @@ const Multi = ({
   const [inputValue, setInputValue] = useState<string>("");
   const [previousOptions, setPreviousOptions] = useState<Option[]>(options);
   const [available, setAvailable] = useState<Option[]>(options);
+  const [selectedItems, setSelectedItems] = useState<Option[]>(value ?? []);
+  const [previousValue, setPreviousValue] = useState<Option[]>(value ?? []);
   const inputRef = useRef<HTMLInputElement | null>(null);
   // NOTE: Pattern comes from https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
   if (!isEqual(options, previousOptions)) {
     setPreviousOptions(options);
     setAvailable(options);
+  }
+  // Sync selectedItems when options load and resolve pre-selected values for the first time.
+  if (
+    !isEqual(value, previousValue) &&
+    selectedItems.length === 0 &&
+    (value?.length ?? 0) > 0
+  ) {
+    setPreviousValue(value ?? []);
+    setSelectedItems(value ?? []);
   }
   const items = useMemo(
     () => (isExternalSearch ? options : available),
@@ -82,10 +93,13 @@ const Multi = ({
     getDropdownProps,
     addSelectedItem,
     removeSelectedItem,
-    selectedItems,
     reset,
   } = useMultipleSelection<Option>({
-    initialSelectedItems: value,
+    selectedItems,
+    onSelectedItemsChange: ({ selectedItems: newSelectedItems }) => {
+      setSelectedItems(newSelectedItems ?? []);
+      onSelectedChange(newSelectedItems ?? null);
+    },
     // Reverse the keyboard navigation (we place our chips after the input, not before)
     keyNavigationPrevious: "ArrowRight",
     keyNavigationNext: "ArrowLeft",
@@ -143,20 +157,6 @@ const Multi = ({
       }
 
       return changes;
-    },
-    onStateChange({ selectedItems: newSelectedItems, type }) {
-      switch (type) {
-        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownBackspace:
-        case useMultipleSelection.stateChangeTypes.SelectedItemKeyDownDelete:
-        case useMultipleSelection.stateChangeTypes.DropdownKeyDownBackspace:
-        case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
-        case useMultipleSelection.stateChangeTypes.FunctionAddSelectedItem:
-        case useMultipleSelection.stateChangeTypes.FunctionReset:
-          onSelectedChange(newSelectedItems ?? null);
-          break;
-        default:
-          break;
-      }
     },
   });
 
