@@ -90,6 +90,7 @@ return [
         'talentNominationEvent' => 'talentNominationEvent',
         'talentNomination' => 'talentNomination',
         'talentNominationGroup' => 'talentNominationGroup',
+        'pastTalentNomination' => 'pastTalentNomination',
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
         'communityInterest' => 'communityInterest',
@@ -693,6 +694,10 @@ return [
             'en' => 'Create a draft talent nomination as the submitter',
             'fr' => 'Créer un projet de nomination de talents en tant qu\'auteur de la proposition',
         ],
+        'create-own-pastTalentNomination' => [
+            'en' => 'Create a past talent nomination as the submitter',
+            'fr' => 'Créer une nomination de talent passée en tant que soumissionnaire',
+        ],
         'update-own-talentNomination' => [
             'en' => 'Update a draft talent nomination as the submitter',
             'fr' => 'Mise à jour d\'un projet de nomination de talent en tant que déposant',
@@ -1166,6 +1171,9 @@ return [
             'talentNomination' => [
                 'team' => ['view'],
             ],
+            'pastTalentNomination' => [
+                'own' => ['create'],
+            ],
             'talentNominationGroup' => [
                 'team' => ['view', 'update'],
             ],
@@ -1327,6 +1335,9 @@ return [
             ],
             'talentNomination' => [
                 'team' => ['view'],
+            ],
+            'pastTalentNomination' => [
+                'own' => ['create'],
             ],
             'communityInterest' => [
                 'team' => ['view'],

@@ -13,9 +13,8 @@ import {
   TalentRequestTrackedUserStatus,
 } from "@gc-digital-talent/graphql";
 
-import TalentRequestTrackedUsersTable, {
-  TrackedUserSkillMatch_Fragment,
-} from "./TalentRequestTrackedUsersTable";
+import TalentRequestTrackedUsersTable from "./TalentRequestTrackedUsersTable";
+import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 
 const users = fakeUsers(4);
 
@@ -121,7 +120,7 @@ export default {
 } as Meta<typeof TalentRequestTrackedUsersTable>;
 
 const storySkills = requestSkills.map((skill) =>
-  makeFragmentData(skill, TrackedUserSkillMatch_Fragment),
+  makeFragmentData(skill, TalentRequestUserSkillMatch_Fragment),
 );
 
 const Template: StoryFn<typeof TalentRequestTrackedUsersTable> = (args) => (

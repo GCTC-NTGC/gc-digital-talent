@@ -22,7 +22,7 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 
-import messages from "~/lang/frCompiled.json";
+import messages from "~/lang/frCompiled.json" with { type: "json" };
 import useErrorMessages from "~/hooks/useErrorMessages";
 import darkPug from "~/assets/img/404_pug_dark.webp";
 import lightPug from "~/assets/img/404_pug_light.webp";

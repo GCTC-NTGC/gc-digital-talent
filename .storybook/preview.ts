@@ -13,8 +13,8 @@ import {
 import { ToastDecorator } from "@gc-digital-talent/toast";
 import defaultRichTextElements from "@gc-digital-talent/rich-text-elements";
 
-import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json";
-import frCompiled from "../apps/web/src/lang/frCompiled.json";
+import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json" with { type: "json" };
+import frCompiled from "../apps/web/src/lang/frCompiled.json" with { type: "json" };
 
 import "../apps/web/src/assets/css/tailwind.css";
 
