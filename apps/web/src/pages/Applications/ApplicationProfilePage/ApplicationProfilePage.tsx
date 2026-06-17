@@ -20,7 +20,7 @@ import DiversityEquityInclusion from "~/components/Profile/components/DiversityE
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
-import WorkEmailCard from "~/components/WorkEmailCard.tsx/WorkEmailCard";
+import WorkEmailCard from "~/components/WorkEmailCard/WorkEmailCard";
 import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 

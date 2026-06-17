@@ -28,7 +28,7 @@ import StatusItem from "~/components/StatusItem/StatusItem";
 import { aboutSectionHasEmptyRequiredFields } from "~/validators/profile";
 import messages from "~/messages/profileMessages";
 import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
-import WorkEmailCard from "~/components/WorkEmailCard.tsx/WorkEmailCard";
+import WorkEmailCard from "~/components/WorkEmailCard/WorkEmailCard";
 
 import AccountManagement from "./AccountManagement";
 import NotificationSettings from "./NotificationSettings";
