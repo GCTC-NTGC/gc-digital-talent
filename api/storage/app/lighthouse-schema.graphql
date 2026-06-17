@@ -3933,6 +3933,7 @@ enum Permission {
   ViewTeamCommunityTalent
   DeleteOwnCommunityInterest
   CreateOwnTalentNomination
+  CreateOwnPastTalentNomination
   UpdateOwnTalentNomination
   ViewOwnTalentNomination
   ViewTeamTalentNomination
