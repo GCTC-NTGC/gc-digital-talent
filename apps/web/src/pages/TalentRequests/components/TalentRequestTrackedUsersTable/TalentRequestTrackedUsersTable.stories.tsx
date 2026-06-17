@@ -130,5 +130,5 @@ const Template: StoryFn<typeof TalentRequestTrackedUsersTable> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   talentRequestId: "tracked-users-story",
-  skills: storySkills,
+  skillsQuery: storySkills,
 };
