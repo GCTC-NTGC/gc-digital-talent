@@ -10,7 +10,7 @@ import { useQuery } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
-import { Link, Chip } from "@gc-digital-talent/ui";
+import { Chip } from "@gc-digital-talent/ui";
 import {
   notEmpty,
   uniqueItems,
@@ -27,7 +27,6 @@ import {
   PriorityWeight,
 } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -128,8 +127,8 @@ const defaultSortState = [{ id: "skillCount", desc: true }];
 
 interface TalentRequestTrackedUsersTableProps {
   talentRequestId: string;
-  skillsQuery: FragmentType<typeof TrackedUserSkillMatch_Fragment>[];
-  optionsQuery: TalentRequestReferralDialogOptions;
+  skillsQuery: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
+  optionsQuery?: TalentRequestReferralDialogOptions;
 }
 
 const TalentRequestTrackedUsersTable = ({
@@ -139,7 +138,7 @@ const TalentRequestTrackedUsersTable = ({
 }: TalentRequestTrackedUsersTableProps) => {
   const intl = useIntl();
   const matchedSkills = getFragment(
-    TrackedUserSkillMatch_Fragment,
+    TalentRequestUserSkillMatch_Fragment,
     skillsQuery,
   );
 
@@ -255,7 +254,6 @@ const TalentRequestTrackedUsersTable = ({
         meta: { isRowTitle: true },
         cell: ({ row: { original } }) => (
           <TalentRequestEditReferralDialog
-            talentRequestId={talentRequestId}
             query={original}
             optionsQuery={optionsQuery}
           />

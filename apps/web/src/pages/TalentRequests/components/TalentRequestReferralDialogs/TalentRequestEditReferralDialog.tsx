@@ -83,7 +83,10 @@ const TalentRequestEditReferralDialog = ({
 }: TalentRequestEditReferralDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState(defaultOpen);
-  const trackedUser = getFragment(TalentRequestEditReferralDialog_Fragment, query);
+  const trackedUser = getFragment(
+    TalentRequestEditReferralDialog_Fragment,
+    query,
+  );
   const [{ fetching }, executeMutation] = useMutation(
     UpdateTalentRequestTrackedUser_Mutation,
   );

@@ -35,22 +35,19 @@ const optionsQuery = makeFragmentData(
     selectionDecisions: fakeLocalizedEnum(
       TalentRequestTrackedUserSelectionDecision,
     ).map((opt) => ({
-      __typename:
-        "LocalizedTalentRequestTrackedUserSelectionDecision" as const,
+      __typename: "LocalizedTalentRequestTrackedUserSelectionDecision" as const,
       ...toLocalizedEnum(opt.value),
     })),
     notReferredReasons: fakeLocalizedEnum(
       TalentRequestTrackedUserNotReferredReason,
     ).map((opt) => ({
-      __typename:
-        "LocalizedTalentRequestTrackedUserNotReferredReason" as const,
+      __typename: "LocalizedTalentRequestTrackedUserNotReferredReason" as const,
       ...toLocalizedEnum(opt.value),
     })),
     notSelectedReasons: fakeLocalizedEnum(
       TalentRequestTrackedUserNotSelectedReason,
     ).map((opt) => ({
-      __typename:
-        "LocalizedTalentRequestTrackedUserNotSelectedReason" as const,
+      __typename: "LocalizedTalentRequestTrackedUserNotSelectedReason" as const,
       ...toLocalizedEnum(opt.value),
     })),
   },
@@ -93,7 +90,10 @@ type Story = StoryObj<typeof TalentRequestEditReferralDialog>;
 
 export const Default: Story = {
   args: {
-    query: makeFragmentData(mockTrackedUser, TalentRequestEditReferralDialog_Fragment),
+    query: makeFragmentData(
+      mockTrackedUser,
+      TalentRequestEditReferralDialog_Fragment,
+    ),
   },
 };
 

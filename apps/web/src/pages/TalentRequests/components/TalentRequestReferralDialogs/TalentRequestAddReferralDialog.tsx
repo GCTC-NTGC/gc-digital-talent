@@ -36,15 +36,13 @@ const CreateTalentRequestTrackedUser_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const TalentRequestAddReferralDialog_Fragment = graphql(
-  /* GraphQL */ `
-    fragment TalentRequestAddReferralDialog on User {
-      id
-      firstName
-      lastName
-    }
-  `,
-);
+export const TalentRequestAddReferralDialog_Fragment = graphql(/* GraphQL */ `
+  fragment TalentRequestAddReferralDialog on User {
+    id
+    firstName
+    lastName
+  }
+`);
 
 interface TalentRequestAddReferralDialogProps {
   query: FragmentType<typeof TalentRequestAddReferralDialog_Fragment>;
@@ -63,10 +61,7 @@ const TalentRequestAddReferralDialog = ({
 }: TalentRequestAddReferralDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState(defaultOpen);
-  const user = getFragment(
-    TalentRequestAddReferralDialog_Fragment,
-    query,
-  );
+  const user = getFragment(TalentRequestAddReferralDialog_Fragment, query);
   const [{ fetching }, executeMutation] = useMutation(
     CreateTalentRequestTrackedUser_Mutation,
   );

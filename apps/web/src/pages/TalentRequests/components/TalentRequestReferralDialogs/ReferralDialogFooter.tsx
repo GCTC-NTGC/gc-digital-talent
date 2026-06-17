@@ -10,7 +10,10 @@ interface ReferralDialogFooterProps {
   userId: string;
 }
 
-const ReferralDialogFooter = ({ fetching, userId }: ReferralDialogFooterProps) => {
+const ReferralDialogFooter = ({
+  fetching,
+  userId,
+}: ReferralDialogFooterProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 

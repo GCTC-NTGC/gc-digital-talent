@@ -124,12 +124,12 @@ const sortInitialState: SortingState = [{ id: "skillCount", desc: true }];
 
 interface TalentRequestMatchesTableProps {
   query: FragmentType<typeof TalentRequestMatchesTable_TalentRequestFragment>;
-  skills: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
+  skillsQuery: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
 }
 
 const TalentRequestMatchesTable = ({
   query,
-  skills,
+  skillsQuery,
 }: TalentRequestMatchesTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -139,7 +139,7 @@ const TalentRequestMatchesTable = ({
   );
   const [requestedSkills, setRequestedSkills] = useState<
     TalentRequestUserSkillMatchFragment[]
-  >(getFragment(TalentRequestUserSkillMatch_Fragment, skills));
+  >(getFragment(TalentRequestUserSkillMatch_Fragment, skillsQuery));
 
   const applicantFilterDefaults = useMemo(
     () => transformApplicantFilterToFormValues(talentRequest.applicantFilter),
