@@ -8,6 +8,11 @@ enum TalentRequestTrackedUserNotSelectedReason
 {
     use HasLocalization;
 
+    case LACKS_EXPERIENCE;
+    case REQUIREMENT_MISMATCH;
+    case DECLINED_BY_CANDIDATE;
+    case OTHER_CANDIDATE_SELECTED;
+    case NO_REASON;
     case OTHER;
 
     public static function getLangFilename(): string
