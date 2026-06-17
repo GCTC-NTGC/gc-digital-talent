@@ -9266,6 +9266,10 @@
     "defaultMessage": "Chercher les utilisateurs",
     "description": "Label for the user table search input"
   },
+  "ZayKDK": {
+    "defaultMessage": "Motif de correspondance",
+    "description": "Heading for the source of the matching user"
+  },
   "Zd02bf": {
     "defaultMessage": "Bienvenue à la première étape de votre demande. Nous sommes ravis de vous rencontrer!",
     "description": "Subtitle for the application welcome page"
@@ -9417,6 +9421,10 @@
   "aLAl+r": {
     "defaultMessage": "Autre raison",
     "description": "Label for the other reason a decision was made"
+  },
+  "aNhUkJ": {
+    "defaultMessage": "Compétences demandées",
+    "description": "Header for the number of user skills matching requested skills"
   },
   "aO23nW": {
     "defaultMessage": "<strong>Veuillez indiquer vos niveaux les plus récents obtenus auprès de la Commission de la fonction publique.</strong>",
@@ -13345,6 +13353,10 @@
   "pWoAv0": {
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
     "description": "First paragraph about the program"
+  },
+  "pX4FBO": {
+    "defaultMessage": "Candidatures correspondantes",
+    "description": "Title for users matching talent request criteria"
   },
   "pX6VRT": {
     "defaultMessage": "peut consulter les profils des membres du personnel qui montrent un intérêt concernant des possibilités d’emploi et de formation dans leur collectivité.",
