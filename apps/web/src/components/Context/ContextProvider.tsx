@@ -15,7 +15,7 @@ import { Announcer } from "@gc-digital-talent/ui";
 import { ThemeProvider } from "@gc-digital-talent/theme";
 import Toast from "@gc-digital-talent/toast";
 
-import frMessages from "~/lang/frCompiled.json";
+import frMessages from "~/lang/frCompiled.json" with { type: "json" };
 
 import NavContextProvider from "../NavContext/NavContextProvider";
 import ActivityContainer from "../ActivityContext/ActivityContainer";
