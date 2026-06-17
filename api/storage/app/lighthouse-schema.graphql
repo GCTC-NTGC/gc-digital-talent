@@ -4520,6 +4520,12 @@ enum Mentorship {
   MENTEE
 }
 
+enum NineBoxRating {
+  LOW
+  MEDIUM
+  HIGH
+}
+
 enum NotificationFamily {
   SYSTEM_MESSAGE
   APPLICATION_UPDATE

@@ -980,6 +980,10 @@ type TalentNomination {
   nominationRationale: String @rename(attribute: "nomination_rationale")
   skills: [Skill] @belongsToMany
   additionalComments: String @rename(attribute: "additional_comments")
+  nineBoxPerformance: LocalizedNineBoxRating
+    @rename(attribute: "nine_box_performance")
+  nineBoxLeadershipPotential: LocalizedNineBoxRating
+    @rename(attribute: "nine_box_leadership_potential")
 }
 
 type TalentNominationGroup {
@@ -1199,7 +1203,7 @@ type TalentRequestTrackedUser {
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
-  referralSummary: TalentRequestReferralSummary! # user-wide aggregate across all talent requests
+  referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
 
@@ -1607,7 +1611,7 @@ type TalentRequestResult {
   matchingAdvancementSources: [TalentNominationGroup!]
     @field(resolver: "MatchingAdvancementSources")
   skillCount: Int @rename(attribute: "skill_count")
-  referralSummary: TalentRequestReferralSummary! # user-wide aggregate; root is the User model
+  referralSummary: TalentRequestReferralSummary!  # user-wide aggregate; root is the User model
     @with(relation: "talentRequestTrackedUsers")
 }
 
@@ -1941,7 +1945,9 @@ type Query {
     @guard
     @canModel(ability: "viewAny")
   talentRequestTrackedUsers(
-    talentRequestId: UUID! @eq(key: "talent_request_id") @scope(name: "withSources")
+    talentRequestId: UUID!
+      @eq(key: "talent_request_id")
+      @scope(name: "withSources")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy
@@ -2765,6 +2771,9 @@ input CreateTalentNominationInput @validator {
   nominationRationale: String @rename(attribute: "nomination_rationale")
   skills: SkillBelongsToMany
   additionalComments: String @rename(attribute: "additional_comments")
+  nineBoxPerformance: NineBoxRating @rename(attribute: "nine_box_performance")
+  nineBoxLeadershipPotential: NineBoxRating
+    @rename(attribute: "nine_box_leadership_potential")
 }
 
 input UpdateTalentNominationInput @validator {
@@ -2817,6 +2826,9 @@ input UpdateTalentNominationInput @validator {
   nominationRationale: String @rename(attribute: "nomination_rationale")
   skills: SkillBelongsToMany
   additionalComments: String @rename(attribute: "additional_comments")
+  nineBoxPerformance: NineBoxRating @rename(attribute: "nine_box_performance")
+  nineBoxLeadershipPotential: NineBoxRating
+    @rename(attribute: "nine_box_leadership_potential")
 }
 
 input UpdateTalentNominationGroupInput {
