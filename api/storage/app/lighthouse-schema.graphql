@@ -1465,6 +1465,9 @@ type TalentNominationEvent {
   talentNominationGroups: [TalentNominationGroup!]
   countTalentNominationGroups: Int!
   status: LocalizedTalentNominationEventStatus
+  includeNineBox: Boolean!
+  requireReferenceForAdvancement: Boolean!
+  customInstructions: LocalizedString
 }
 
 type TalentNomination {
@@ -1667,6 +1670,21 @@ type TalentRequestTrackedUser {
   selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
   notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
+  sources: [TalentRequestSource!]!
+  matchingQualifiedInPoolSources: [PoolCandidate!]
+  matchingAtLevelSources: [CommunityInterest!]
+  matchingAdvancementSources: [TalentNominationGroup!]
+  referralSummary: TalentRequestReferralSummary!
+}
+
+type TalentRequestReferralSummary {
+  referredCount: Int!
+  notSelectedReasons: [TalentRequestNotSelectedReasonCount!]!
+}
+
+type TalentRequestNotSelectedReasonCount {
+  reason: LocalizedTalentRequestTrackedUserNotSelectedReason
+  count: Int!
 }
 
 type SkillFamily {
@@ -1986,17 +2004,24 @@ type CandidateSearchPoolResult {
 
 input TalentRequestMatchFilterInput {
   applicantFilter: ApplicantFilterInput
+  generalSearch: String
+  name: String
+  email: String
+  priorityWeight: [PriorityWeight]
+  isGovEmployee: Boolean
+  departments: [UUID!]
   excludeTrackedByRequestId: UUID
 }
 
 type TalentRequestResult {
   id: UUID!
   user: User!
-  sources: [TalentRequestSource!]!
+  sources: [LocalizedTalentRequestSource!]!
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
   skillCount: Int
+  referralSummary: TalentRequestReferralSummary!
 }
 
 type TalentRequestMatchPoolCount {
@@ -2574,6 +2599,9 @@ input CreateTalentNominationEventInput {
   includeLeadershipCompetencies: Boolean
   community: CommunityBelongsTo!
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
+  includeNineBox: Boolean
+  requireReferenceForAdvancement: Boolean
+  customInstructions: LocalizedStringInput
 }
 
 input UpdateTalentNominationEventInput {
@@ -2585,6 +2613,9 @@ input UpdateTalentNominationEventInput {
   includeLeadershipCompetencies: Boolean
   community: CommunityBelongsTo
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
+  includeNineBox: Boolean
+  requireReferenceForAdvancement: Boolean
+  customInstructions: LocalizedStringInput
 }
 
 input TalentNominationEventBelongsTo {
@@ -3914,6 +3945,7 @@ enum Permission {
   ViewTeamCommunityTalent
   DeleteOwnCommunityInterest
   CreateOwnTalentNomination
+  CreateOwnPastTalentNomination
   UpdateOwnTalentNomination
   ViewOwnTalentNomination
   ViewTeamTalentNomination
