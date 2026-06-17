@@ -6,6 +6,7 @@
   "license": "ISC",
   "scripts": {
     "e2e:playwright": "pnpm exec playwright test",
+    "e2e:playwright:uat": "PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test",
     "e2e:playwright:chromium": "pnpm exec playwright test --project=chromium",
     "e2e:playwright:firefox": "pnpm exec playwright test --project=firefox",
     "e2e:playwright:webkit": "pnpm exec playwright test --project=webkit",
@@ -21,7 +22,7 @@
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
-    "@playwright/test": "^1.60.0",
+    "@playwright/test": "^1.61.0",
     "@types/node": "^25.9.2",
     "axe-core": "^4.12.0",
     "dotenv": "^17.4.2",

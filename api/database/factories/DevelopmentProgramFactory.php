@@ -24,16 +24,16 @@ class DevelopmentProgramFactory extends BaseFactory
     public function definition()
     {
         return [
-            'name' => $this->localizedString($this->faker->company()),
-            'description_for_profile' => $this->localizedString($this->faker->sentence()),
-            'description_for_nominations' => $this->localizedString($this->faker->sentence()),
+            'name' => $this->faker->localizedString($this->faker->company()),
+            'description_for_profile' => $this->faker->localizedString($this->faker->sentence()),
+            'description_for_nominations' => $this->faker->localizedString($this->faker->sentence()),
             'community_id' => function () {
                 $community = Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create());
 
                 return $community->id;
             },
-            'information_url' => $this->localizedString($this->faker->url()),
-            'abbreviation' => $this->localizedString(strtoupper($this->faker->text(5))),
+            'information_url' => $this->faker->localizedString($this->faker->url()),
+            'abbreviation' => $this->faker->localizedString(strtoupper($this->faker->text(5))),
         ];
     }
 

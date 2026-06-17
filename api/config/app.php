@@ -5,10 +5,12 @@ use App\Providers\AppServiceProvider;
 use App\Providers\BearerTokenServiceProvider;
 use App\Providers\ClockInterfaceProvider;
 use App\Providers\EventServiceProvider;
+use App\Providers\FakerServiceProvider;
 use App\Providers\GraphQLServiceProvider;
 use App\Providers\ManagedIdentityProvider;
 use App\Providers\NotifyServiceProvider;
 use App\Providers\RouteServiceProvider;
+use App\Providers\ValidationRulesServiceProvider;
 use Illuminate\Auth\AuthServiceProvider;
 use Illuminate\Auth\Passwords\PasswordResetServiceProvider;
 use Illuminate\Broadcasting\BroadcastServiceProvider;
@@ -104,6 +106,22 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Vertical
+    |--------------------------------------------------------------------------
+    |
+    | Deployment vertical independent of APP_ENV. Both UAT and production
+    | run APP_ENV=production, so this var is used where behaviour must differ
+    | between them (e.g. test-token endpoint guard).
+    |
+    | Values: local | uat | production
+    | Default: production — safe fallback so untagged environments are locked down.
+    |
+    */
+
+    'vertical' => env('APP_ENV_VERTICAL', 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -266,6 +284,7 @@ return [
         RouteServiceProvider::class,
         ClockInterfaceProvider::class,
         ManagedIdentityProvider::class,
+        ValidationRulesServiceProvider::class,
 
         // Additional Providers
         LighthouseServiceProvider::class,
@@ -286,6 +305,7 @@ return [
         NotifyServiceProvider::class,
         PostgresEngineServiceProvider::class,
         ScoutServiceProvider::class,
+        FakerServiceProvider::class,
 
     ],
 
