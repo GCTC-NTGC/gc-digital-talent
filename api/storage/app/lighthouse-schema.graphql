@@ -1678,6 +1678,17 @@ type TalentRequestTrackedUser {
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
+  referralSummary: TalentRequestReferralSummary!
+}
+
+type TalentRequestReferralSummary {
+  referredCount: Int!
+  notSelectedReasons: [TalentRequestNotSelectedReasonCount!]!
+}
+
+type TalentRequestNotSelectedReasonCount {
+  reason: LocalizedTalentRequestTrackedUserNotSelectedReason
+  count: Int!
 }
 
 type SkillFamily {
@@ -2008,6 +2019,7 @@ type TalentRequestResult {
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
   skillCount: Int
+  referralSummary: TalentRequestReferralSummary!
 }
 
 type TalentRequestMatchPoolCount {

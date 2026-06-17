@@ -209,7 +209,7 @@ const Skill_Query = graphql(/* GraphQL */ `
 const ViewSkillPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { skillId: skillId } = useRequiredParams<RouteParams>("skillId");
+  const { skillId } = useRequiredParams<RouteParams>("skillId");
   const [{ data: skillData, fetching, error }] = useQuery({
     query: Skill_Query,
     variables: { id: skillId },
