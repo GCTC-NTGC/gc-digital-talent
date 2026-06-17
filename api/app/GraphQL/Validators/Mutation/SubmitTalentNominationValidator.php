@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators\Mutation;
 
 use App\Enums\ErrorCode;
+use App\Enums\NineBoxRating;
 use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
@@ -166,6 +167,18 @@ final class SubmitTalentNominationValidator extends Validator
             ],
             'skills.*.skill_id' => [
                 Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray()),
+            ],
+            'nine_box_performance' => [
+                Rule::when(fn () => $this->nomination->talentNominationEvent->include_nine_box,
+                    ['required', Rule::in(array_column(NineBoxRating::cases(), 'name'))],
+                    ['prohibited']
+                ),
+            ],
+            'nine_box_leadership_potential' => [
+                Rule::when(fn () => $this->nomination->talentNominationEvent->include_nine_box,
+                    ['required', Rule::in(array_column(NineBoxRating::cases(), 'name'))],
+                    ['prohibited']
+                ),
             ],
         ];
     }
