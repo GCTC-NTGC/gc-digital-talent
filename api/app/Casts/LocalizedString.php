@@ -35,6 +35,10 @@ class LocalizedString implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
+        if (is_null($value)) {
+            return null;
+        }
+
         return json_encode($value);
     }
 }
