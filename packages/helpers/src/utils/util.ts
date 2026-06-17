@@ -155,7 +155,7 @@ export function pickMap<T, K extends keyof T>(
   list: (T | null | undefined)[] | null | undefined,
   keys: K | K[],
 ): Pick<T, K>[] | undefined {
-  const keyArr = (Array.isArray(keys) ? keys : [keys]) as K[];
+  const keyArr = Array.isArray(keys) ? keys : [keys];
   return unpackMaybes(list).map(
     (item) => Object.fromEntries(keyArr.map((k) => [k, item[k]])) as Pick<T, K>,
   );
