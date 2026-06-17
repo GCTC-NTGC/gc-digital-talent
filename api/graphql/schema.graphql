@@ -1190,7 +1190,7 @@ type TalentRequestTrackedUser {
     @rename(attribute: "not_referred_reason")
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
     @rename(attribute: "not_selected_reason")
-  referralSummary: TalentRequestReferralSummary! # user-wide aggregate across all talent requests
+  referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
 
@@ -1592,7 +1592,7 @@ type TalentRequestResult {
   matchingAdvancementSources: [TalentNominationGroup!]
     @field(resolver: "MatchingAdvancementSources")
   skillCount: Int @rename(attribute: "skill_count")
-  referralSummary: TalentRequestReferralSummary! # user-wide aggregate; root is the User model
+  referralSummary: TalentRequestReferralSummary!  # user-wide aggregate; root is the User model
     @with(relation: "talentRequestTrackedUsers")
 }
 
@@ -4280,10 +4280,6 @@ type Mutation {
       model: "App\\Models\\TalentRequest"
       scopes: ["withPolicyEagerLoads"]
     )
-  downloadCommunityInterestUsersExcel(
-    ids: [UUID!]
-    where: CommunityInterestFilterInput
-  ): Boolean! @guard
   downloadNominationsExcel(
     ids: [UUID!]
     talentNominationEventId: UUID!
