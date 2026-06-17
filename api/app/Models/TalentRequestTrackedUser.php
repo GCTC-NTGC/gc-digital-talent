@@ -86,10 +86,14 @@ class TalentRequestTrackedUser extends Pivot
     /** @return Attribute<array<string>, never> */
     protected function sources(): Attribute
     {
-        return Attribute::get(fn (): array => $this->hasQualifiedInPoolSource()
-            ? [TalentRequestSource::QUALIFIED_IN_POOL->name]
-            : []
-        );
+        return Attribute::get(function (): array {
+            /** @var array<string> $sources */
+            $sources = $this->hasQualifiedInPoolSource()
+                ? [TalentRequestSource::QUALIFIED_IN_POOL->name]
+                : [];
+
+            return $sources;
+        });
     }
 
     private function hasQualifiedInPoolSource(): bool
@@ -101,13 +105,13 @@ class TalentRequestTrackedUser extends Pivot
         return $this->matchingQualifiedInPoolSources()->exists();
     }
 
-    /** @return Attribute<array<never>, never> */
+    /** @return Attribute<array{}, never> */
     protected function matchingAtLevelSources(): Attribute
     {
         return Attribute::get(fn (): array => []);
     }
 
-    /** @return Attribute<array<never>, never> */
+    /** @return Attribute<array{}, never> */
     protected function matchingAdvancementSources(): Attribute
     {
         return Attribute::get(fn (): array => []);
