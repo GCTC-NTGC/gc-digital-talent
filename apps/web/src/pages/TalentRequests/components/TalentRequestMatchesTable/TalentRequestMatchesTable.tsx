@@ -120,8 +120,12 @@ const TalentRequestMatchesTable_Query = graphql(/** GraphQL */ `
   }
 `);
 
-const context: Partial<OperationContext> = {
+const optionsContext: Partial<OperationContext> = {
   requestPolicy: "cache-first",
+};
+
+const matchesContext: Partial<OperationContext> = {
+  additionalTypenames: ["TalentRequestTrackedUser"],
 };
 
 const sortInitialState: SortingState = [{ id: "skillCount", desc: true }];
@@ -239,7 +243,7 @@ const TalentRequestMatchesTable = ({
 
   const [{ data: optionsData, fetching: fetchingOptions }] = useQuery({
     query: TalentRequestMatchesTable_Query,
-    context,
+    context: optionsContext,
   });
 
   const columns: ColumnDef<TalentRequestResult>[] = [
@@ -349,6 +353,7 @@ const TalentRequestMatchesTable = ({
         ? transformSortStateToOrderBy(sortState, intl)
         : undefined,
     },
+    context: matchesContext,
   });
 
   const rows = useMemo(
