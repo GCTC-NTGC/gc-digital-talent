@@ -362,6 +362,37 @@ class TalentNominationTest extends TestCase
         $response->assertGraphQLValidationError('nine_box_leadership_potential', 'NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT');
     }
 
+    public function testCanSubmitWithoutNineBoxFieldsWhenEventProhibitsThem()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'close_date' => config('constants.far_future_datetime'),
+            'include_nine_box' => false,
+        ]);
+        $nomination = TalentNomination::factory()
+            ->submittedRationale()
+            ->create([
+                'submitter_id' => $this->employee1->id,
+                'talent_nomination_event_id' => $event->id,
+                'nine_box_performance' => null,
+                'nine_box_leadership_potential' => null,
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertJsonStructure([
+            'data' => [
+                'submitTalentNomination' => [
+                    'id',
+                ],
+            ],
+        ]);
+
+        $response->assertGraphQLErrorFree();
+    }
+
     public function testCantNominateSelf()
     {
         $nomination = TalentNomination::factory()
