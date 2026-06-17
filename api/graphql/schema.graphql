@@ -1194,6 +1194,15 @@ type TalentRequestTrackedUser {
     @rename(attribute: "not_referred_reason")
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
     @rename(attribute: "not_selected_reason")
+  sources: [TalentRequestSource!]!
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+  # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
+  matchingQualifiedInPoolSources: [PoolCandidate!]
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+  matchingAtLevelSources: [CommunityInterest!]
+  matchingAdvancementSources: [TalentNominationGroup!]
   referralSummary: TalentRequestReferralSummary! # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
@@ -1578,6 +1587,12 @@ type CandidateSearchPoolResult {
 
 input TalentRequestMatchFilterInput {
   applicantFilter: ApplicantFilterInput
+  generalSearch: String @scope(name: "whereGeneralSearch")
+  name: String @scope(name: "whereName")
+  email: String @scope(name: "whereEmail")
+  priorityWeight: [PriorityWeight] @scope(name: "wherePriorityWeightIn")
+  isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
+  departments: [UUID!] @scope(name: "whereDepartmentsIn")
   # NOT the filter source (filters come from applicantFilter); names the request whose tracked
   # users to exclude. Has no effect yet.
   excludeTrackedByRequestId: UUID
@@ -1586,7 +1601,7 @@ input TalentRequestMatchFilterInput {
 type TalentRequestResult {
   id: UUID!
   user: User! @self
-  sources: [TalentRequestSource!]! @field(resolver: "Sources")
+  sources: [LocalizedTalentRequestSource!]! @field(resolver: "Sources")
   # the matching records behind each source kind (filtered to the search, gated by view auth).
   # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
@@ -1930,7 +1945,7 @@ type Query {
     @guard
     @canModel(ability: "viewAny")
   talentRequestTrackedUsers(
-    talentRequestId: UUID! @eq(key: "talent_request_id")
+    talentRequestId: UUID! @eq(key: "talent_request_id") @scope(name: "withSources")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy
