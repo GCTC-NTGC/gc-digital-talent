@@ -31,6 +31,6 @@
     "timezone-mock": "^1.4.2",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
-    "vitest": "^4.0.16"
+    "vitest": "^4.1.8"
   }
 }
