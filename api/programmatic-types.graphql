@@ -2036,10 +2036,18 @@ enum TalentRequestStatus {
 }
 
 enum TalentRequestTrackedUserNotReferredReason {
+  MISMATCH_IN_QUALIFICATIONS
+  JOB_MISMATCHES_EXPECTATIONS
+  TOO_MANY_CANDIDATES
   OTHER
 }
 
 enum TalentRequestTrackedUserNotSelectedReason {
+  LACKS_EXPERIENCE
+  REQUIREMENT_MISMATCH
+  DECLINED_BY_CANDIDATE
+  OTHER_CANDIDATE_SELECTED
+  NO_REASON
   OTHER
 }
 
