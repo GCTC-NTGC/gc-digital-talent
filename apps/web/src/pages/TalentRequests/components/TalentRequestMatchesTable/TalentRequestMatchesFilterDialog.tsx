@@ -32,6 +32,7 @@ import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDi
 import FilterDialog from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
+import usePoolFilterOptions from "~/components/PoolFilterInput/usePoolFilterOptions";
 import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
@@ -145,6 +146,9 @@ const TalentRequestMatchesFilterDialog = ({
   const intl = useIntl();
   const options = getFragment(TalentRequestMatchesFilterDialog_Fragment, query);
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
+  // Pre-warm cache with the same variables PoolFilterInput uses on mount so
+  // options are available synchronously when the dialog opens.
+  usePoolFilterOptions({ generalSearch: undefined }, initialValues?.pools);
 
   const equityOption = (value: string, message: MessageDescriptor) => ({
     value,
@@ -198,7 +202,7 @@ const TalentRequestMatchesFilterDialog = ({
           }))}
         />
       </div>
-      <PoolFilterInput />
+      <PoolFilterInput includeIds={initialValues?.pools} />
 
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
