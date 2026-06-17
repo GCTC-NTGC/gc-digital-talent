@@ -283,6 +283,61 @@ class TalentNominationTest extends TestCase
         $response->assertGraphQLValidationError('talentNomination.skills.sync.0', ErrorCode::SKILL_NOT_KLC->name);
     }
 
+    public function testCantSubmitWithoutNineBoxFieldsWhenEventRequiresThem()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'close_date' => config('constants.far_future_datetime'),
+            'include_nine_box' => true,
+        ]);
+        $nomination = TalentNomination::factory()
+            ->submittedRationale()
+            ->create([
+                'submitter_id' => $this->employee1->id,
+                'talent_nomination_event_id' => $event->id,
+                'nine_box_performance' => null,
+                'nine_box_leadership_potential' => null,
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertGraphQLValidationError('nine_box_performance', 'The nine box performance field is required.');
+        $response->assertGraphQLValidationError('nine_box_leadership_potential', 'The nine box leadership potential field is required.');
+    }
+
+    public function testCanSubmitWithNineBoxFieldsWhenEventRequiresThem()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'close_date' => config('constants.far_future_datetime'),
+            'include_nine_box' => true,
+        ]);
+        $nomination = TalentNomination::factory()
+            ->submittedRationale()
+            ->create([
+                'submitter_id' => $this->employee1->id,
+                'talent_nomination_event_id' => $event->id,
+                'nine_box_performance' => 'LOW',
+                'nine_box_leadership_potential' => 'LOW',
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertJsonStructure([
+            'data' => [
+                'submitTalentNomination' => [
+                    'id',
+                ],
+            ],
+        ]);
+
+        $response->assertGraphQLErrorFree();
+    }
+
     public function testCantNominateSelf()
     {
         $nomination = TalentNomination::factory()
