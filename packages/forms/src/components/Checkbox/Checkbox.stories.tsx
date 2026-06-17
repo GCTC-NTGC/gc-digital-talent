@@ -49,7 +49,7 @@ WithBoundingBox.args = {
 WithElementLabel.args = {
   id: "Red Selection",
   name: "Red Selection",
-  label: <span className="text-error-200">Red Selection</span>,
+  label: <span className="bg-error-200 dark:bg-error-500">Red Selection</span>,
 };
 
 WithLongText.args = {
