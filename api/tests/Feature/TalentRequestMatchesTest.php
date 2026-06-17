@@ -449,8 +449,15 @@ class TalentRequestMatchesTest extends TestCase
         $depA = Department::factory()->create(['name' => ['en' => 'Apricot Agency', 'fr' => 'Agence abricot']]);
         $depB = Department::factory()->create(['name' => ['en' => 'Banana Bureau', 'fr' => 'Bureau banane']]);
 
-        $userA = $this->matchingUser($pool, ['computed_department' => $depA->id], true);
-        $userB = $this->matchingUser($pool, ['computed_department' => $depB->id], true);
+        $userA = $this->matchingUser($pool, [], true);
+        $expA = $userA->latest_current_government_work_experience;
+        $expA->department_id = $depA->id;
+        $expA->save();
+
+        $userB = $this->matchingUser($pool, [], true);
+        $expB = $userB->latest_current_government_work_experience;
+        $expB->department_id = $depB->id;
+        $expB->save();
 
         $query = <<<'GRAPHQL'
             query ($where: TalentRequestMatchFilterInput, $orderBy: [AdvancedOrderByInput!]) {
