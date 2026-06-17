@@ -162,8 +162,8 @@ const EmailVerificationForm = ({
                 description: "Button to save and add email",
               })}
             />
-            {formEmailType == EmailType.Work &&
-            featureFlags.canadaLogin == true &&
+            {formEmailType === EmailType.Work &&
+            featureFlags.canadaLogin === true &&
             auth.userAuthInfo?.id &&
             initialEmailAddress ? (
               <WipeWorkEmailDialog
