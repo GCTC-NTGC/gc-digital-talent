@@ -1,4 +1,4 @@
-import fr from "./lang/frCompiled.json";
+import fr from "./lang/frCompiled.json" with { type: "json" };
 import LanguageProvider from "./components/LanguageProvider";
 import NestedLanguageProvider from "./components/NestedLanguageProvider";
 import useLocale from "./hooks/useLocale";
