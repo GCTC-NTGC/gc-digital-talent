@@ -227,7 +227,12 @@ export function transformSortStateToOrderBy(
     case "location":
       return [{ column: "current_city", direction }];
     case "department":
-      return [{ relation: { name: "department", column: `name->${getLocale(intl)}` }, direction }];
+      return [
+        {
+          relation: { name: "department", column: `name->${getLocale(intl)}` },
+          direction,
+        },
+      ];
     default:
       return undefined;
   }
