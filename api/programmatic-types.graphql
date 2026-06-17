@@ -424,6 +424,11 @@ type LocalizedTalentRequestReason implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedTalentRequestSource implements LocalizedEnumOption {
+  value: TalentRequestSource!
+  label: LocalizedString!
+}
+
 type LocalizedTalentRequestStatus implements LocalizedEnumOption {
   value: TalentRequestStatus!
   label: LocalizedString!
@@ -446,6 +451,11 @@ type LocalizedTalentRequestTrackedUserReferralDecision implements LocalizedEnumO
 
 type LocalizedTalentRequestTrackedUserSelectionDecision implements LocalizedEnumOption {
   value: TalentRequestTrackedUserSelectionDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserStatus implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserStatus!
   label: LocalizedString!
 }
 
@@ -536,6 +546,35 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
+enum NullsOrder {
+  FIRST
+  LAST
+}
+
+input RelatedOrderInput {
+  name: String!
+  column: String!
+}
+
+input AdvancedOrderByInput {
+  column: String
+  scope: String
+  relation: RelatedOrderInput
+  direction: SortOrder = ASC
+  nulls: NullsOrder
+  accentInsensitive: Boolean
+  caseInsensitive: Boolean
+}
+
+"A paginated list of TalentRequestResult items."
+type TalentRequestResultPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestResult items."
+  data: [TalentRequestResult!]!
+}
+
 "A paginated list of Pool items."
 type PoolPaginator {
   "Pagination information about the list of items."
@@ -572,26 +611,6 @@ type PoolCandidateSearchRequestPaginator {
   data: [PoolCandidateSearchRequest!]!
 }
 
-enum NullsOrder {
-  FIRST
-  LAST
-}
-
-input RelatedOrderInput {
-  name: String!
-  column: String!
-}
-
-input AdvancedOrderByInput {
-  column: String
-  scope: String
-  relation: RelatedOrderInput
-  direction: SortOrder = ASC
-  nulls: NullsOrder
-  accentInsensitive: Boolean
-  caseInsensitive: Boolean
-}
-
 "A paginated list of TalentRequest items."
 type TalentRequestPaginator {
   "Pagination information about the list of items."
@@ -599,6 +618,15 @@ type TalentRequestPaginator {
 
   "A list of TalentRequest items."
   data: [TalentRequest!]!
+}
+
+"A paginated list of TalentRequestTrackedUser items."
+type TalentRequestTrackedUserPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestTrackedUser items."
+  data: [TalentRequestTrackedUser!]!
 }
 
 "A paginated list of Notification items."
@@ -1156,6 +1184,7 @@ enum Permission {
   ViewTeamCommunityTalent
   DeleteOwnCommunityInterest
   CreateOwnTalentNomination
+  CreateOwnPastTalentNomination
   UpdateOwnTalentNomination
   ViewOwnTalentNomination
   ViewTeamTalentNomination
@@ -1994,6 +2023,12 @@ enum TalentRequestReason {
   REQUIRED_BY_DIRECTIVE
 }
 
+enum TalentRequestSource {
+  QUALIFIED_IN_POOL
+  AT_LEVEL
+  ADVANCEMENT
+}
+
 enum TalentRequestStatus {
   NEW
   IN_PROGRESS
@@ -2014,6 +2049,13 @@ enum TalentRequestTrackedUserReferralDecision {
 }
 
 enum TalentRequestTrackedUserSelectionDecision {
+  SELECTED
+  NOT_SELECTED
+}
+
+enum TalentRequestTrackedUserStatus {
+  NOT_REFERRED
+  REFERRED
   SELECTED
   NOT_SELECTED
 }

@@ -39,8 +39,8 @@ class TalentRequestFactory extends BaseFactory
             'hr_advisor_email' => $this->faker->unique()->safeEmail,
             'applicant_filter_id' => ApplicantFilter::factory()->create(['community_id' => $community->id])->id,
             'manager_job_title' => $this->faker->jobTitle(),
-            'position_type' => $this->randomEnum(TalentRequestPositionType::class),
-            'reason' => $this->randomEnum(TalentRequestReason::class),
+            'position_type' => $this->faker->enum(TalentRequestPositionType::class),
+            'reason' => $this->faker->enum(TalentRequestReason::class),
             'community_id' => $community->id,
             'user_id' => User::inRandomOrder()->first()?->id,
             'initial_result_count' => $this->faker->optional()->numberBetween(0, 999),
@@ -52,7 +52,7 @@ class TalentRequestFactory extends BaseFactory
     {
         return $this->state(fn () => [
             'status' => TalentRequestStatus::IN_PROGRESS->name,
-            'in_progress_details' => $this->randomEnum(TalentRequestInProgressDetail::class),
+            'in_progress_details' => $this->enum(TalentRequestInProgressDetail::class),
             'completion_details' => null,
             'follow_up_date' => $this->faker->optional()->dateTimeBetween('-1 month', '+3 months')?->format('Y-m-d'),
         ]);
@@ -62,7 +62,7 @@ class TalentRequestFactory extends BaseFactory
     {
         return $this->state(fn () => [
             'status' => TalentRequestStatus::COMPLETED->name,
-            'completion_details' => $this->randomEnum(TalentRequestCompletionDetail::class),
+            'completion_details' => $this->faker->enum(TalentRequestCompletionDetail::class),
             'in_progress_details' => null,
             'follow_up_date' => null,
         ]);
@@ -102,16 +102,19 @@ class TalentRequestFactory extends BaseFactory
                         ->each(fn ($skill) => UserSkill::firstOrCreate(
                             ['user_id' => $user->id, 'skill_id' => $skill->id],
                             [
-                                'skill_level' => $this->randomEnum(SkillLevel::class),
-                                'when_skill_used' => $this->randomEnum(WhenSkillUsed::class),
+                                'skill_level' => $this->faker->enum(SkillLevel::class),
+                                'when_skill_used' => $this->faker->enum(WhenSkillUsed::class),
                             ]
                         ));
                 }
 
-                TalentRequestTrackedUser::factory()->create([
-                    'talent_request_id' => $talentRequest->id,
-                    'user_id' => $user->id,
-                ]);
+                TalentRequestTrackedUser::factory()
+                    ->withRandomState()
+                    ->create([
+                        'talent_request_id' => $talentRequest->id,
+                        'user_id' => $user->id,
+                    ]);
+
             }
         });
     }

@@ -79,7 +79,7 @@ const includesAll = (
   values: TalentNominationStep[],
 ) => values.every((v) => arr.includes(v));
 
-const NominateTalentNavigation_Fragment = graphql(/* GraphQL */ `
+export const NominateTalentNavigation_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentNavigation on TalentNomination {
     submittedSteps
     talentNominationEvent {

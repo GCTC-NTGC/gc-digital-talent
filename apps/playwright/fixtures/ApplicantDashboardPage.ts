@@ -213,28 +213,44 @@ class ApplicantDashboardPage extends AppPage {
   }
 
   async viewNotifications(poolName: string, action: "Visible" | "Not Visible") {
-    await this.page
-      .getByRole("button", { name: /view notifications/i })
-      .click();
+    const viewNotificationsButton = this.page.getByRole("button", {
+      name: /view notifications/i,
+    });
+    const refreshNotificationsButton = this.page.getByRole("button", {
+      name: /refresh notifications/i,
+    });
+
+    await viewNotificationsButton.click();
+    await this.waitForGraphqlResponse("NotificationDialog");
 
     await expect(
       this.page.getByRole("link", { name: /view all notifications/i }),
     ).toBeVisible();
 
-    await this.page
-      .getByRole("button", { name: /refresh notifications/i })
-      .click();
+    const escapedPoolName = poolName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
     const notificationLink = this.page.getByRole("link", {
       name: new RegExp(
-        `deadline for ${poolName}.*extended.*continue your application`,
+        `deadline for ${escapedPoolName}.*extended.*continue your application`,
         "i",
       ),
     });
 
     if (action === "Visible") {
-      await expect(notificationLink).toBeVisible();
+      await expect
+        .poll(
+          async () => {
+            await refreshNotificationsButton.click();
+            await this.waitForGraphqlResponse("NotificationDialog");
+            return await notificationLink.count();
+          },
+          { timeout: 30_000 },
+        )
+        .toBeGreaterThan(0);
+      await expect(notificationLink.first()).toBeVisible();
     } else {
+      await refreshNotificationsButton.click();
+      await this.waitForGraphqlResponse("NotificationDialog");
       await expect(notificationLink).toBeHidden();
     }
 

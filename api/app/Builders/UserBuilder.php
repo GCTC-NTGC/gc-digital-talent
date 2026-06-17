@@ -7,6 +7,8 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
+use App\Enums\PriorityWeight;
+use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
@@ -351,6 +353,94 @@ class UserBuilder extends Builder
 
             return $innerQueryBuilder;
         });
+    }
+
+    // $args may be the wrapper ({applicantFilter, ...}) or a bare ApplicantFilterInput.
+    public function whereMatchesTalentRequest(?array $args): self
+    {
+        $filters = $args ? ($args['applicantFilter'] ?? $args) : [];
+        $skillIds = $filters['skills'] ?? []; // already plain ids via ApplicantFilterInput @pluck
+
+        // grouped so source branches OR together without affecting the filters below
+        $this->where(fn ($query) => $query->orWhereHas(
+            'poolCandidates',
+            fn ($candidate) => $candidate->whereMatchesTalentRequest($filters)
+        ));
+
+        // user-level attribute and location filters
+        $this->whereHasDiploma($filters['hasDiploma'] ?? null)
+            ->whereEquityIn($filters['equity'] ?? null)
+            ->whereLanguageAbility($filters['languageAbility'] ?? null)
+            ->whereOperationalRequirementsIn($filters['operationalRequirements'] ?? null)
+            ->wherePositionDurationIn($filters['positionDuration'] ?? null)
+            ->whereSkillsAdditive($skillIds)
+            ->whereSkillsIntersectional($filters['skillsIntersectional'] ?? [])
+            ->whereFlexibleLocationAndRegionSpecialMatching(
+                $filters['locationPreferences'] ?? null,
+                $filters['flexibleWorkLocations'] ?? null
+            );
+
+        $this->addSkillCountSelect($skillIds);
+        $this->addTalentRequestSourceFlags($filters);
+
+        // the matched, view-authorized candidacies for the matchingPreQualifiedSources field
+        $this->with(['poolCandidates' => fn ($candidate) => $candidate
+            ->whereMatchesTalentRequest($filters)
+            ->whereAuthorizedToView()
+            ->with('pool')]);
+
+        $excludeTrackedByRequestId = $args['excludeTrackedByRequestId'] ?? null;
+        if ($excludeTrackedByRequestId) {
+            $this->whereDoesntHave('talentRequestTrackedUsers', fn ($trackedUsers) => $trackedUsers
+                ->where('talent_request_id', $excludeTrackedByRequestId));
+        }
+
+        return $this;
+    }
+
+    public function wherePriorityWeightIn(?array $priorityWeights): self
+    {
+        if (empty($priorityWeights)) {
+            return $this;
+        }
+
+        // priority_weight is a generated column on users (10/20/30/40)
+        $weights = array_map(
+            fn ($priorityWeight) => PriorityWeight::weight($priorityWeight),
+            $priorityWeights
+        );
+
+        return $this->whereIn('priority_weight', $weights);
+    }
+
+    public function orderBySkillCount(array $args): self
+    {
+        return $this->orderBy('skill_count', $args['direction'] ?? 'asc');
+    }
+
+    // a presence flag (1 or null) per source kind, read by the Sources resolver
+    private function addTalentRequestSourceFlags(array $filters): self
+    {
+        return $this->addSelect(['has_prequalified_source' => PoolCandidate::query()
+            ->whereColumn('pool_candidates.user_id', 'users.id')
+            ->whereMatchesTalentRequest($filters)
+            ->selectRaw('1')
+            ->limit(1)]);
+    }
+
+    // Always selects a skill_count column so the field is resolvable: the real count of the
+    // user's skills matching the filter, or null when no skills filter was supplied. Both
+    // branches are sub-selects so Laravel keeps users.* alongside the aliased column.
+    private function addSkillCountSelect(array $skillIds): self
+    {
+        $count = empty($skillIds)
+            ? DB::query()->selectRaw('null')
+            : DB::table('user_skills')
+                ->selectRaw('count(*)')
+                ->whereColumn('user_skills.user_id', 'users.id')
+                ->whereIn('user_skills.skill_id', $skillIds);
+
+        return $this->addSelect(['skill_count' => $count]);
     }
 
     /**

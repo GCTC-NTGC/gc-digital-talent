@@ -19,8 +19,8 @@ import TalentRequestFollowUpDate from "./TalentRequestFollowUpDate";
 import TalentRequestStatusDialog from "./TalentRequestStatusDialog";
 import type { TalentRequestStatusOptions } from "./TalentRequestStatusDialog";
 
-const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
-  fragment TalentRequestSidebar on PoolCandidateSearchRequest {
+const PoolCandidateSearchRequestSidebar_Fragment = graphql(/** GraphQL */ `
+  fragment PoolCandidateSearchRequestSidebar on PoolCandidateSearchRequest {
     jobTitle
     fullName
     department {
@@ -42,14 +42,14 @@ const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
     email
     hrAdvisorEmail
 
-    ...TalentRequestStatusDialog
-    ...TalentRequestNotes
-    ...TalentRequestFollowUpDate
+    ...PoolCandidateSearchRequestStatusDialog
+    ...PoolCandidateSearchRequestNotes
+    ...PoolCandidateSearchRequestFollowUpDate
   }
 `);
 
 interface TalentRequestSidebarProps {
-  query: FragmentType<typeof TalentRequestSidebar_Fragment>;
+  query: FragmentType<typeof PoolCandidateSearchRequestSidebar_Fragment>;
   optionsQuery?: TalentRequestStatusOptions;
 }
 
@@ -58,7 +58,10 @@ const TalentRequestSidebar = ({
   optionsQuery,
 }: TalentRequestSidebarProps) => {
   const intl = useIntl();
-  const talentRequest = getFragment(TalentRequestSidebar_Fragment, query);
+  const talentRequest = getFragment(
+    PoolCandidateSearchRequestSidebar_Fragment,
+    query,
+  );
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   return (
