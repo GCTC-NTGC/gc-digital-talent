@@ -248,6 +248,11 @@ type LocalizedMentorship implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedNineBoxRating implements LocalizedEnumOption {
+  value: NineBoxRating!
+  label: LocalizedString!
+}
+
 type LocalizedOperationalRequirement implements LocalizedEnumOption {
   value: OperationalRequirement!
   label: LocalizedString!
@@ -1516,6 +1521,8 @@ type TalentNomination {
   nominationRationale: String
   skills: [Skill]
   additionalComments: String
+  nineBoxPerformance: LocalizedNineBoxRating
+  nineBoxLeadershipPotential: LocalizedNineBoxRating
 }
 
 type TalentNominationGroup {
@@ -2659,6 +2666,8 @@ input CreateTalentNominationInput {
   nominationRationale: String
   skills: SkillBelongsToMany
   additionalComments: String
+  nineBoxPerformance: NineBoxRating
+  nineBoxLeadershipPotential: NineBoxRating
 }
 
 input UpdateTalentNominationInput {
@@ -2691,6 +2700,8 @@ input UpdateTalentNominationInput {
   nominationRationale: String
   skills: SkillBelongsToMany
   additionalComments: String
+  nineBoxPerformance: NineBoxRating
+  nineBoxLeadershipPotential: NineBoxRating
 }
 
 input UpdateTalentNominationGroupInput {
