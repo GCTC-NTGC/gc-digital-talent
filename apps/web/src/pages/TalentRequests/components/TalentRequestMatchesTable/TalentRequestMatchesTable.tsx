@@ -45,6 +45,8 @@ import TalentRequestMatchesFilterDialog, {
   type FormValues,
 } from "./TalentRequestMatchesFilterDialog";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
+import TalentRequestAddReferralDialog from "../TalentRequestReferralDialogs/TalentRequestAddReferralDialog";
+import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 
 export const TalentRequestMatchesTable_TalentRequestFragment = graphql(
   /** GraphQL */ `
@@ -89,6 +91,8 @@ const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
               localized
             }
           }
+
+          ...TalentRequestAddReferralDialog
         }
         sources {
           label {
@@ -125,14 +129,15 @@ const sortInitialState: SortingState = [{ id: "skillCount", desc: true }];
 interface TalentRequestMatchesTableProps {
   query: FragmentType<typeof TalentRequestMatchesTable_TalentRequestFragment>;
   skillsQuery: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
+  optionsQuery?: TalentRequestReferralDialogOptions;
 }
 
 const TalentRequestMatchesTable = ({
   query,
   skillsQuery,
+  optionsQuery,
 }: TalentRequestMatchesTableProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
   const talentRequest = getFragment(
     TalentRequestMatchesTable_TalentRequestFragment,
     query,
@@ -243,10 +248,13 @@ const TalentRequestMatchesTable = ({
       {
         header: intl.formatMessage(commonMessages.name),
         id: "name",
-        cell: ({ row: { original: user }, getValue }) =>
-          user.id ? (
-            <Link href={paths.userView(user.id)}>{getValue()}</Link>
-          ) : null,
+        cell: ({ row: { original } }) => (
+          <TalentRequestAddReferralDialog
+            talentRequestId={talentRequest.id}
+            query={original.user}
+            optionsQuery={optionsQuery}
+          />
+        ),
         meta: { isRowTitle: true },
       },
     ),

@@ -20,8 +20,6 @@ import ReferralFormFields, {
 } from "./ReferralFormFields";
 import ReferralDialogHeader from "./ReferralDialogHeader";
 
-export type { TalentRequestReferralDialogOptions };
-
 const UpdateTalentRequestTrackedUser_Mutation = graphql(/* GraphQL */ `
   mutation UpdateTalentRequestTrackedUser(
     $id: UUID!

@@ -50,10 +50,9 @@ import {
   trackedUserReason,
   trackedUserStatusChipColor,
 } from "./utils";
-import TalentRequestEditReferralDialog, {
-  type TalentRequestReferralDialogOptions,
-} from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
+import TalentRequestEditReferralDialog from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
+import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 
 type TrackedUser =
   TalentRequestTrackedUsersPaginatedQuery["talentRequestTrackedUsers"]["data"][number];

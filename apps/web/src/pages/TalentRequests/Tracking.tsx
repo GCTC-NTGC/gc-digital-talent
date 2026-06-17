@@ -87,6 +87,7 @@ const Tracking = () => {
               skillsQuery={unpackMaybes(
                 data?.talentRequest?.applicantFilter?.skills,
               )}
+              optionsQuery={data}
             />
           ) : (
             <ThrowNotFound />
