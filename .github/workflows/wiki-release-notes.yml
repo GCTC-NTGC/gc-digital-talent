@@ -171,11 +171,17 @@ jobs:
 
           DEPLOY_STEPS=""
           HAS_DEPLOY=false
+          LABELED_NO_SECTION=""   # PRs with deployment label but no body section
           for pr in $PR_NUMS; do
-            raw=$(gh pr view "$pr" --json title,body --jq '.title + "|||" + .body' 2>/dev/null || true)
+            raw=$(gh pr view "$pr" --json title,body,labels \
+              --jq '.title + "|||" + .body + "|||" + ([.labels[].name] | join(","))' 2>/dev/null || true)
             [[ "$raw" != *"|||"* ]] && continue
             pr_title="${raw%%|||*}"
-            pr_body="${raw#*|||}"
+            rest="${raw#*|||}"
+            pr_body="${rest%%|||*}"
+            pr_labels="${rest##*|||}"
+            has_deploy_label=false
+            echo "$pr_labels" | grep -qi 'deployment' && has_deploy_label=true
             # Look for 🚚 Deployment section header
             if echo "$pr_body" | grep -qiE '(🚚|:truck:)[[:space:]]*(Deployment|Deploy)'; then
               section=$(echo "$pr_body" | awk '
@@ -189,8 +195,20 @@ jobs:
               DEPLOY_STEPS+="### PR #${pr} — ${pr_title}"$'\n'
               DEPLOY_STEPS+="**Source:** [#${pr}](${REPO_URL}/pull/${pr})"$'\n\n'
               DEPLOY_STEPS+="${section}"$'\n\n---\n\n'
+            elif [ "$has_deploy_label" = "true" ]; then
+              # Has deployment label but no written section — flag it
+              LABELED_NO_SECTION+="| [#${pr}](${REPO_URL}/pull/${pr}) | ${pr_title} |"$'\n'
             fi
           done
+
+          # Surface labeled-but-undocumented PRs
+          if [ -n "$LABELED_NO_SECTION" ]; then
+            HAS_DEPLOY=true
+            DEPLOY_STEPS+="### ⚠️ PRs with \`deployment\` label but no deployment instructions written"$'\n\n'
+            DEPLOY_STEPS+="| PR | Title |"$'\n'
+            DEPLOY_STEPS+="|-----|-------|"$'\n'
+            DEPLOY_STEPS+="${LABELED_NO_SECTION}"$'\n\n---\n\n'
+          fi
 
           # ── env.example scan (catch missed deployment notes) ──────────────────
 
