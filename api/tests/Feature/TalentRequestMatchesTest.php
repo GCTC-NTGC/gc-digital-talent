@@ -152,7 +152,7 @@ class TalentRequestMatchesTest extends TestCase
     {
         $searchablePool = Pool::factory()->candidatesAvailableInSearch()->create();
         $nonSearchablePool = Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
+            'publishing_group' => PublishingGroup::IAP->name,
         ]);
 
         $included = $this->matchingUser($searchablePool);
