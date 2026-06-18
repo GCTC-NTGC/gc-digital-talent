@@ -176,13 +176,14 @@ jobs:
           LABELED_NO_SECTION=""
           LABELED_PRS=""           # track which PRs have the deployment label
           for pr in $PR_NUMS; do
-            raw=$(gh pr view "$pr" --json title,body,labels \
-              --jq '.title + "|||" + .body + "|||" + ([.labels[].name] | join(","))' 2>/dev/null || true)
-            [[ "$raw" != *"|||"* ]] && continue
-            pr_title="${raw%%|||*}"
-            rest="${raw#*|||}"
-            pr_body="${rest%%|||*}"
-            pr_labels="${rest##*|||}"
+            # Fetch as JSON and parse fields separately — avoids delimiter
+            # collisions when PR bodies contain table rows with multiple pipes.
+            pr_json=$(gh pr view "$pr" --json title,body,labels 2>/dev/null || true)
+            [ -z "$pr_json" ] && continue
+            pr_title=$(echo "$pr_json" | jq -r '.title')
+            # Normalise \r\n → \n so awk ^ anchors match correctly
+            pr_body=$(echo "$pr_json" | jq -r '.body' | tr -d '\r')
+            pr_labels=$(echo "$pr_json" | jq -r '[.labels[].name] | join(",")')
 
             has_deploy_label=false
             echo "$pr_labels" | grep -qi 'deployment' && has_deploy_label=true
@@ -258,7 +259,7 @@ jobs:
                 # Skip if it has a body section
                 if [ -z "${PR_META_CACHE[$introducing_pr]+x}" ]; then
                   PR_META_CACHE[$introducing_pr]=$(gh pr view "$introducing_pr" \
-                    --json body --jq '.body' 2>/dev/null || true)
+                    --json body --jq '.body' 2>/dev/null | tr -d '\r' || true)
                 fi
                 if echo "${PR_META_CACHE[$introducing_pr]}" | grep -qiE '(🚚|:truck:)[[:space:]]*(Deployment|Deploy)'; then
                   continue
