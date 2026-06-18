@@ -379,7 +379,6 @@ const TalentRequestMatchesTable = ({
   const [activeStatus, setActiveStatus] = useState<ChangeStatusKey | null>(
     null,
   );
-  const [activeSelectedIds, setActiveSelectedIds] = useState<string[]>([]);
 
   // Central config for status-change dialogs: selects the right UI copy and action
   // (confirm or reason-based update) based on the currently chosen status.
@@ -404,7 +403,7 @@ const TalentRequestMatchesTable = ({
       disable: creatingTrackedUsersReferred,
       onConfirm: async () => {
         await createTrackedUsersReferred({
-          userIds: activeSelectedIds,
+          userIds: selectedRows,
           talentRequestId: talentRequest.id,
         });
         setSelectedRows([]);
@@ -421,7 +420,7 @@ const TalentRequestMatchesTable = ({
           return;
         }
         await createTrackedUsersNotReferred({
-          userIds: activeSelectedIds,
+          userIds: selectedRows,
           talentRequestId: talentRequest.id,
           notReferredReason: reason,
         });
@@ -520,10 +519,7 @@ const TalentRequestMatchesTable = ({
                 icon={ArrowRightCircleIcon}
               />
             ),
-            onClick: (ids) => {
-              setActiveSelectedIds(ids ?? []);
-              setActiveStatus("referred");
-            },
+            onClick: () => setActiveStatus("referred"),
           },
           {
             label: (
@@ -534,10 +530,7 @@ const TalentRequestMatchesTable = ({
                 icon={ArchiveBoxIcon}
               />
             ),
-            onClick: (ids) => {
-              setActiveSelectedIds(ids ?? []);
-              setActiveStatus("notReferred");
-            },
+            onClick: () => setActiveStatus("notReferred"),
           },
         ]}
       />
@@ -549,7 +542,7 @@ const TalentRequestMatchesTable = ({
           }}
           icon={activeDialogConfig.icon}
           status={activeDialogConfig.status}
-          numOfSelectedCandidates={activeSelectedIds.length}
+          numOfSelectedCandidates={selectedRows.length}
           onCancel={() => setActiveStatus(null)}
           onConfirm={activeDialogConfig.onConfirm}
           reasonType={activeDialogConfig.reasonType}

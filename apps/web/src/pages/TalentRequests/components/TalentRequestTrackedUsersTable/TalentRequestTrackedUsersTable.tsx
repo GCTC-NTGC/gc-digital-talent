@@ -361,7 +361,6 @@ const TalentRequestTrackedUsersTable = ({
   const [activeStatus, setActiveStatus] = useState<ChangeStatusKey | null>(
     null,
   );
-  const [activeSelectedIds, setActiveSelectedIds] = useState<string[]>([]);
 
   // Central config for status-change dialogs: selects the right UI copy and action
   // (confirm or reason-based update) based on the currently chosen status.
@@ -385,7 +384,7 @@ const TalentRequestTrackedUsersTable = ({
       icon: ArrowRightCircleIcon,
       disable: updatingTrackedUsersSelected,
       onConfirm: async () => {
-        await updateTrackedUsersSelected({ ids: activeSelectedIds });
+        await updateTrackedUsersSelected({ ids: selectedRows });
         setSelectedRows([]);
         setActiveStatus(null);
       },
@@ -400,7 +399,7 @@ const TalentRequestTrackedUsersTable = ({
           return;
         }
         await updateTrackedUsersNotSelected({
-          ids: activeSelectedIds,
+          ids: selectedRows,
           notSelectedReason: reason,
         });
         setSelectedRows([]);
@@ -507,10 +506,7 @@ const TalentRequestTrackedUsersTable = ({
                 icon={ArrowRightCircleIcon}
               />
             ),
-            onClick: (ids) => {
-              setActiveSelectedIds(ids ?? []);
-              setActiveStatus("selected");
-            },
+            onClick: () => setActiveStatus("selected"),
           },
           {
             label: (
@@ -521,10 +517,7 @@ const TalentRequestTrackedUsersTable = ({
                 icon={ArchiveBoxIcon}
               />
             ),
-            onClick: (ids) => {
-              setActiveSelectedIds(ids ?? []);
-              setActiveStatus("notSelected");
-            },
+            onClick: () => setActiveStatus("notSelected"),
           },
         ]}
       />
@@ -536,7 +529,7 @@ const TalentRequestTrackedUsersTable = ({
           }}
           icon={activeDialogConfig.icon}
           status={activeDialogConfig.status}
-          numOfSelectedCandidates={activeSelectedIds.length}
+          numOfSelectedCandidates={selectedRows.length}
           onCancel={() => setActiveStatus(null)}
           onConfirm={activeDialogConfig.onConfirm}
           reasonType={activeDialogConfig.reasonType}

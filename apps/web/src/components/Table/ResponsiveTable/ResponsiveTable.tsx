@@ -119,7 +119,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   }, [columns, intl, rowSelect]);
   const columnIds = memoizedColumns.map((column) => column.id).filter(notEmpty);
 
-  const [rowSelection, setRowSelection] = useRowSelection<TData>(rowSelect);
+  const [rowSelection, setRowSelection] = useRowSelection();
   const { state, initialState, initialParamState, updaters } =
     useControlledTableState({
       columnIds,
@@ -159,7 +159,17 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onRowSelectionChange: setRowSelection, // Note: We should probably do the state sync here
+    onRowSelectionChange: (updater) => {
+      const newRowSelection =
+        typeof updater === "function" ? updater(rowSelection) : updater;
+      setRowSelection(newRowSelection);
+      if (rowSelect?.onRowSelection) {
+        const selectedIds = data
+          .filter((row) => newRowSelection[rowSelect.getRowId(row)])
+          .map((row) => rowSelect.getRowId(row));
+        rowSelect.onRowSelection(selectedIds);
+      }
+    },
     ...updaters,
   });
 
@@ -435,11 +445,11 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                   rowSelect: !!rowSelect,
                   download,
                   actions,
-                  selectedRowIds: Object.keys(rowSelection).filter(
-                    (rowId) => rowSelection[rowId],
-                  ),
+                  selectedRowIds: table
+                    .getSelectedRowModel()
+                    .rows.map((row) => row.id),
                   isLoading,
-                  count: Object.values(rowSelection).length,
+                  count: table.getSelectedRowModel().rows.length,
                   onClear: () => table.resetRowSelection(),
                 }}
               />

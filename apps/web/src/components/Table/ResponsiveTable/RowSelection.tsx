@@ -18,7 +18,7 @@ import type {
   MouseEventHandler,
   SetStateAction,
 } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { tv } from "tailwind-variants";
 
 import type { CheckButtonProps } from "@gc-digital-talent/forms";
@@ -31,7 +31,6 @@ import {
   Loading,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
 import type { DownloadDef, RowSelectDef, TableAction } from "./types";
@@ -61,7 +60,10 @@ const Header = <TData extends object>({
   <CheckButton
     checked={table.getIsAllRowsSelected()}
     onToggle={table.toggleAllRowsSelected}
-    indeterminate={table.getIsSomeRowsSelected()}
+    indeterminate={
+      table.getSelectedRowModel().rows.length > 0 &&
+      !table.getIsAllRowsSelected()
+    }
     {...props}
     color="black"
   />
@@ -432,27 +434,8 @@ type UseRowSelectionReturn = [
   setter: OnChangeFn<RowSelectionState>,
 ];
 
-type RowSelectionCallback = (s: RowSelectionState) => void;
-
-export const useRowSelection = <T,>(
-  rowSelect?: RowSelectDef<T>,
-): UseRowSelectionReturn => {
+export const useRowSelection = (): UseRowSelectionReturn => {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const rowSelectionCallbackRef = useRef<RowSelectionCallback>(() => undefined);
-
-  // Keep the newest callback in the ref for the effect to call
-  // eslint-disable-next-line react-hooks/refs
-  rowSelectionCallbackRef.current = (newRows: RowSelectionState) => {
-    if (rowSelect?.onRowSelection) {
-      const selectedRows = Object.keys(newRows)
-        .map((value) => {
-          return newRows[value] ? value : undefined;
-        })
-        .filter(notEmpty);
-
-      rowSelect.onRowSelection(selectedRows);
-    }
-  };
 
   const handleRowSelection = (
     setter: Dispatch<SetStateAction<RowSelectionState>>,
@@ -469,10 +452,6 @@ export const useRowSelection = <T,>(
 
   const setter = (updater: Updater<RowSelectionState>) =>
     handleRowSelection(setRowSelection, updater);
-
-  useEffect(() => {
-    rowSelectionCallbackRef.current(rowSelection);
-  }, [rowSelection]); // stable — callback stored in ref to avoid re-render cycle
 
   return [rowSelection, setter];
 };
