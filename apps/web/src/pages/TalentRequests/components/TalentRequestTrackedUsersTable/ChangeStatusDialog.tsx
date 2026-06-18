@@ -6,7 +6,7 @@ import {
   IconLabel,
   type IconType,
 } from "@gc-digital-talent/ui";
-import { formMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import type {
   TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUserNotSelectedReason,
@@ -66,13 +66,14 @@ const ChangeStatusDialog = ({
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "The selected candidates <strong>({numOfSelectedCandidates})</strong> will be marked as:",
-                  id: "a23hsf",
+                    "The selected candidates <strong>({numOfSelectedCandidates})</strong> will be marked as",
+                  id: "tgu3Ip",
                   description:
                     "Message for change status dialog in the talent request tracked users table",
                 },
                 { numOfSelectedCandidates },
               )}
+              {intl.formatMessage(commonMessages.dividingColon)}
             </span>
             <span>
               <IconLabel label={status} icon={icon} />
@@ -94,14 +95,16 @@ const ChangeStatusDialog = ({
               >
                 {intl.formatMessage(formMessages.saveChanges)}
               </Button>
-              <Button
-                type="button"
-                mode="inline"
-                color="warning"
-                onClick={onCancel}
-              >
-                {intl.formatMessage(formMessages.cancelGoBack)}
-              </Button>
+              <Dialog.Close>
+                <Button
+                  type="button"
+                  mode="inline"
+                  color="warning"
+                  onClick={onCancel}
+                >
+                  {intl.formatMessage(formMessages.cancelGoBack)}
+                </Button>
+              </Dialog.Close>
             </Dialog.Footer>
           )}
         </Dialog.Body>

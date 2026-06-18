@@ -5,7 +5,7 @@ import type {
   SortingState,
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
@@ -22,13 +22,13 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
   TalentRequestTrackedUserNotReferredReason,
-  TalentRequestTrackedUserNotSelectedReason,
   TalentRequestTrackedUsersPaginatedQuery,
 } from "@gc-digital-talent/graphql";
 import {
   graphql,
   getFragment,
   PriorityWeight,
+  TalentRequestTrackedUserNotSelectedReason,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -135,7 +135,18 @@ interface TalentRequestTrackedUsersTableProps {
   skills: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
 }
 
-type ChangeStatusKey = "referred" | "notReferred" | "selected" | "notSelected";
+type ChangeStatusKey = "selected" | "notSelected";
+
+const notSelectedReasonValues = new Set<string>(
+  Object.values(TalentRequestTrackedUserNotSelectedReason),
+);
+
+const isNotSelectedReason = (
+  reason:
+    | TalentRequestTrackedUserNotReferredReason
+    | TalentRequestTrackedUserNotSelectedReason,
+): reason is TalentRequestTrackedUserNotSelectedReason =>
+  notSelectedReasonValues.has(reason);
 
 const TalentRequestTrackedUsersTable = ({
   talentRequestId,
@@ -342,10 +353,6 @@ const TalentRequestTrackedUsersTable = ({
   ] as ColumnDef<TrackedUser>[];
 
   const {
-    updateTrackedUsersReferred,
-    updatingTrackedUsersReferred,
-    updateTrackedUsersNotReferred,
-    updatingTrackedUsersNotReferred,
     updateTrackedUsersSelected,
     updatingTrackedUsersSelected,
     updateTrackedUsersNotSelected,
@@ -354,7 +361,10 @@ const TalentRequestTrackedUsersTable = ({
   const [activeStatus, setActiveStatus] = useState<ChangeStatusKey | null>(
     null,
   );
+  const [activeSelectedIds, setActiveSelectedIds] = useState<string[]>([]);
 
+  // Central config for status-change dialogs: selects the right UI copy and action
+  // (confirm or reason-based update) based on the currently chosen status.
   const statusDialogConfigs: Record<
     ChangeStatusKey,
     {
@@ -370,35 +380,13 @@ const TalentRequestTrackedUsersTable = ({
       ) => Promise<void>;
     }
   > = {
-    referred: {
-      status: intl.formatMessage(messages.referred),
-      icon: ArrowRightCircleIcon,
-      disable: updatingTrackedUsersReferred,
-      onConfirm: async () => {
-        await updateTrackedUsersReferred({ ids: selectedRows });
-        setActiveStatus(null);
-      },
-    },
-    notReferred: {
-      status: intl.formatMessage(messages.notReferred),
-      icon: ArchiveBoxIcon,
-      disable: updatingTrackedUsersNotReferred,
-      reasonType: "notReferred",
-      onUpdate: async (reason) => {
-        await updateTrackedUsersNotReferred({
-          ids: selectedRows,
-          notReferredReason:
-            reason as TalentRequestTrackedUserNotReferredReason,
-        });
-        setActiveStatus(null);
-      },
-    },
     selected: {
       status: intl.formatMessage(messages.selected),
       icon: ArrowRightCircleIcon,
       disable: updatingTrackedUsersSelected,
       onConfirm: async () => {
-        await updateTrackedUsersSelected({ ids: selectedRows });
+        await updateTrackedUsersSelected({ ids: activeSelectedIds });
+        setSelectedRows([]);
         setActiveStatus(null);
       },
     },
@@ -408,11 +396,14 @@ const TalentRequestTrackedUsersTable = ({
       disable: updatingTrackedUsersNotSelected,
       reasonType: "notSelected",
       onUpdate: async (reason) => {
+        if (!isNotSelectedReason(reason)) {
+          return;
+        }
         await updateTrackedUsersNotSelected({
-          ids: selectedRows,
-          notSelectedReason:
-            reason as TalentRequestTrackedUserNotSelectedReason,
+          ids: activeSelectedIds,
+          notSelectedReason: reason,
         });
+        setSelectedRows([]);
         setActiveStatus(null);
       },
     },
@@ -511,34 +502,15 @@ const TalentRequestTrackedUsersTable = ({
             label: (
               <IconLabel
                 label={intl.formatMessage(messages.changeStatus, {
-                  status: intl.formatMessage(messages.referred),
-                })}
-                icon={ArrowRightCircleIcon}
-              />
-            ),
-            onClick: () => setActiveStatus("referred"),
-          },
-          {
-            label: (
-              <IconLabel
-                label={intl.formatMessage(messages.changeStatus, {
-                  status: intl.formatMessage(messages.notReferred),
-                })}
-                icon={ArchiveBoxIcon}
-              />
-            ),
-            onClick: () => setActiveStatus("notReferred"),
-          },
-          {
-            label: (
-              <IconLabel
-                label={intl.formatMessage(messages.changeStatus, {
                   status: intl.formatMessage(messages.selected),
                 })}
                 icon={ArrowRightCircleIcon}
               />
             ),
-            onClick: () => setActiveStatus("selected"),
+            onClick: (ids) => {
+              setActiveSelectedIds(ids ?? []);
+              setActiveStatus("selected");
+            },
           },
           {
             label: (
@@ -549,7 +521,10 @@ const TalentRequestTrackedUsersTable = ({
                 icon={ArchiveBoxIcon}
               />
             ),
-            onClick: () => setActiveStatus("notSelected"),
+            onClick: (ids) => {
+              setActiveSelectedIds(ids ?? []);
+              setActiveStatus("notSelected");
+            },
           },
         ]}
       />
@@ -561,7 +536,7 @@ const TalentRequestTrackedUsersTable = ({
           }}
           icon={activeDialogConfig.icon}
           status={activeDialogConfig.status}
-          numOfSelectedCandidates={selectedRows.length}
+          numOfSelectedCandidates={activeSelectedIds.length}
           onCancel={() => setActiveStatus(null)}
           onConfirm={activeDialogConfig.onConfirm}
           reasonType={activeDialogConfig.reasonType}

@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
-import { useQuery } from "urql";
+import { useQuery, type OperationContext } from "urql";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -30,12 +30,19 @@ const TalentRequestTracking_Query = graphql(/** GraphQL */ `
   }
 `);
 
+const context: Partial<OperationContext> = {
+  // Keep these query results tied to tracked-user mutations, even for empty lists.
+  additionalTypenames: ["TalentRequest", "TalentRequestTrackedUser", "User"],
+  requestPolicy: "cache-first",
+};
+
 const Tracking = () => {
   const intl = useIntl();
   const { talentRequestId } = useRequiredParams<RouteParams>("talentRequestId");
   const [{ data, fetching, error }] = useQuery({
     query: TalentRequestTracking_Query,
     variables: { id: talentRequestId },
+    context,
   });
   const skills = unpackMaybes(data?.talentRequest?.applicantFilter?.skills);
 

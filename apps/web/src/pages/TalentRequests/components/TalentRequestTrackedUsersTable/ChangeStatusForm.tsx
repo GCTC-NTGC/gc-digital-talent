@@ -2,6 +2,7 @@ import { useIntl, type IntlShape } from "react-intl";
 import { gql, useQuery } from "urql";
 
 import type {
+  ChangeTrackedUserStatusQuery,
   TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUserNotSelectedReason,
 } from "@gc-digital-talent/graphql";
@@ -53,25 +54,6 @@ interface FormValues {
     | TalentRequestTrackedUserNotSelectedReason;
 }
 
-interface ChangeTrackedUserStatusData {
-  notReferredReasons:
-    | {
-        value: TalentRequestTrackedUserNotReferredReason;
-        label?: {
-          localized?: string | null;
-        } | null;
-      }[]
-    | null;
-  notSelectedReasons:
-    | {
-        value: TalentRequestTrackedUserNotSelectedReason;
-        label?: {
-          localized?: string | null;
-        } | null;
-      }[]
-    | null;
-}
-
 export type StatusReasonType = "notReferred" | "notSelected";
 
 interface ChangeStatusFormProps {
@@ -90,13 +72,14 @@ const ChangeStatusForm = ({
   onCancel,
 }: ChangeStatusFormProps) => {
   const intl = useIntl();
-  const [{ data }] = useQuery<ChangeTrackedUserStatusData>({
+  const [{ data }] = useQuery<ChangeTrackedUserStatusQuery>({
     query: ChangeTrackedUserStatus_Query,
   });
   const isNotSelected = reasonType === "notSelected";
+  const formLabels = labels(intl);
   const reasonLabel = isNotSelected
-    ? labels(intl).notSelectedReason
-    : labels(intl).notReferredReason;
+    ? formLabels.notSelectedReason
+    : formLabels.notReferredReason;
   const reasons = isNotSelected
     ? (data?.notSelectedReasons ?? [])
     : (data?.notReferredReasons ?? []);
@@ -110,7 +93,7 @@ const ChangeStatusForm = ({
   };
 
   return (
-    <BasicForm labels={labels(intl)} onSubmit={handleSubmit}>
+    <BasicForm labels={formLabels} onSubmit={handleSubmit}>
       <Select
         id="reason"
         name="reason"
@@ -123,9 +106,16 @@ const ChangeStatusForm = ({
         <Button type="submit" color="primary">
           {intl.formatMessage(formMessages.saveChanges)}
         </Button>
-        <Button type="button" mode="inline" color="warning" onClick={onCancel}>
-          {intl.formatMessage(formMessages.cancelGoBack)}
-        </Button>
+        <Dialog.Close>
+          <Button
+            type="button"
+            mode="inline"
+            color="warning"
+            onClick={onCancel}
+          >
+            {intl.formatMessage(formMessages.cancelGoBack)}
+          </Button>
+        </Dialog.Close>
       </Dialog.Footer>
     </BasicForm>
   );

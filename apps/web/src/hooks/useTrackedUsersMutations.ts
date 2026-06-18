@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
+import type { OperationContext } from "@urql/core";
 
 import type {
   TalentRequestTrackedUserNotReferredReason,
@@ -77,6 +78,12 @@ const UpdateTrackedUsersNotSelected_Mutation = graphql(/* GraphQL */ `
     }
   }
 `);
+
+const trackedUsersMutationContext: Partial<OperationContext> = {
+  // Invalidate talent-request tracking/matching lists after bulk status mutations.
+  additionalTypenames: ["TalentRequest", "TalentRequestTrackedUser", "User"],
+  requestPolicy: "cache-first",
+};
 
 interface CreateTrackedUsersReferredArgs {
   userIds: string[];
@@ -163,7 +170,10 @@ const useTrackedUsersMutations = () => {
     userIds,
     talentRequestId,
   }: CreateTrackedUsersReferredArgs) => {
-    return executeCreateReferredMutation({ userIds, talentRequestId })
+    return executeCreateReferredMutation(
+      { userIds, talentRequestId },
+      trackedUsersMutationContext,
+    )
       .then((res) => {
         if (!res.error && res.data?.createTrackedUsersReferred === true) {
           handleUpdateSuccess();
@@ -180,11 +190,14 @@ const useTrackedUsersMutations = () => {
     talentRequestId,
     notReferredReason,
   }: CreateTrackedUsersNotReferredArgs) => {
-    return executeCreateNotReferredMutation({
-      userIds,
-      talentRequestId,
-      notReferredReason,
-    })
+    return executeCreateNotReferredMutation(
+      {
+        userIds,
+        talentRequestId,
+        notReferredReason,
+      },
+      trackedUsersMutationContext,
+    )
       .then((res) => {
         if (!res.error && res.data?.createTrackedUsersNotReferred === true) {
           handleUpdateSuccess();
@@ -199,7 +212,7 @@ const useTrackedUsersMutations = () => {
   const updateTrackedUsersReferred = async ({
     ids,
   }: UpdateTrackedUsersReferredArgs) => {
-    return executeUpdateReferredMutation({ ids })
+    return executeUpdateReferredMutation({ ids }, trackedUsersMutationContext)
       .then((res) => {
         if (
           !res.error &&
@@ -218,7 +231,10 @@ const useTrackedUsersMutations = () => {
     ids,
     notReferredReason,
   }: UpdateTrackedUsersNotReferredArgs) => {
-    return executeUpdateNotReferredMutation({ ids, notReferredReason })
+    return executeUpdateNotReferredMutation(
+      { ids, notReferredReason },
+      trackedUsersMutationContext,
+    )
       .then((res) => {
         if (
           !res.error &&
@@ -236,7 +252,7 @@ const useTrackedUsersMutations = () => {
   const updateTrackedUsersSelected = async ({
     ids,
   }: UpdateTrackedUsersSelectedArgs) => {
-    return executeUpdateSelectedMutation({ ids })
+    return executeUpdateSelectedMutation({ ids }, trackedUsersMutationContext)
       .then((res) => {
         if (
           !res.error &&
@@ -255,7 +271,10 @@ const useTrackedUsersMutations = () => {
     ids,
     notSelectedReason,
   }: UpdateTrackedUsersNotSelectedArgs) => {
-    return executeUpdateNotSelectedMutation({ ids, notSelectedReason })
+    return executeUpdateNotSelectedMutation(
+      { ids, notSelectedReason },
+      trackedUsersMutationContext,
+    )
       .then((res) => {
         if (
           !res.error &&
