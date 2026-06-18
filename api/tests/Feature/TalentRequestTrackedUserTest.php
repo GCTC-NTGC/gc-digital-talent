@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\TalentRequestSource;
 use App\Enums\TalentRequestTrackedUserNotReferredReason;
 use App\Enums\TalentRequestTrackedUserNotSelectedReason;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
@@ -9,6 +10,7 @@ use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Enums\TalentRequestTrackedUserStatus;
 use App\Jobs\GenerateUserFile;
 use App\Models\ApplicantFilter;
+use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -79,6 +81,20 @@ class TalentRequestTrackedUserTest extends TestCase
                     selectionDecision { value }
                 }
                 paginatorInfo { total }
+            }
+        }
+        GRAPHQL;
+
+    protected string $sourcesQuery = <<<'GRAPHQL'
+        query SourcesTrackedUsers($talentRequestId: UUID!) {
+            talentRequestTrackedUsers(talentRequestId: $talentRequestId) {
+                data {
+                    user { id }
+                    sources
+                    matchingQualifiedInPoolSources { pool { id } }
+                    matchingAtLevelSources { id }
+                    matchingAdvancementSources { id }
+                }
             }
         }
         GRAPHQL;
@@ -1603,5 +1619,185 @@ class TalentRequestTrackedUserTest extends TestCase
             ])
             ->assertJsonCount(0, 'data.talentRequest.trackedUsers')
             ->assertJsonMissing(['user' => ['id' => $inconsistent->id]]);
+    }
+
+    public function testSourcesQualifiedInPoolWhenUserHasMatchingCandidacy(): void
+    {
+        $classification = Classification::factory()->create();
+        $filter = ApplicantFilter::factory()->create(['community_id' => $this->community->id]);
+        $filter->qualifiedInClassifications()->sync([$classification->id]);
+
+        $request = TalentRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+            'classification_id' => $classification->id,
+        ]);
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $user->id,
+            'pool_id' => $pool->id,
+        ]);
+
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->sourcesQuery, ['talentRequestId' => $request->id])
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources', [TalentRequestSource::QUALIFIED_IN_POOL->name])
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources');
+    }
+
+    public function testSourcesEmptyWhenUserHasNoMatchingCandidacy(): void
+    {
+        $request = $this->createRequest();
+        $user = User::factory()->create();
+
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->sourcesQuery, ['talentRequestId' => $request->id])
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources', [])
+            ->assertJsonCount(0, 'data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources');
+    }
+
+    public function testMatchingQualifiedInPoolSourcesOnlyIncludesFilterMatchingPools(): void
+    {
+        $matchingClass = Classification::factory()->create();
+        $otherClass = Classification::factory()->create();
+
+        $filter = ApplicantFilter::factory()->create(['community_id' => $this->community->id]);
+        $filter->qualifiedInClassifications()->sync([$matchingClass->id]);
+
+        $request = TalentRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        $matchingPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+            'classification_id' => $matchingClass->id,
+        ]);
+        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+            'classification_id' => $otherClass->id,
+        ]);
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $user->id,
+            'pool_id' => $matchingPool->id,
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $user->id,
+            'pool_id' => $otherPool->id,
+        ]);
+
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->sourcesQuery, ['talentRequestId' => $request->id])
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources', [TalentRequestSource::QUALIFIED_IN_POOL->name])
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources')
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources.0.pool.id', $matchingPool->id);
+    }
+
+    public function testUserQualifiedInTwoMatchingPoolsGetsBothInMatchingQualifiedInPoolSources(): void
+    {
+        $request = $this->createRequest();
+
+        $poolA = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+        ]);
+        $poolB = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+        ]);
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $user->id,
+            'pool_id' => $poolA->id,
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $user->id,
+            'pool_id' => $poolB->id,
+        ]);
+
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->actingAs($this->admin, 'api')
+            ->graphQL($this->sourcesQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(2, 'data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources');
+
+        $poolIds = collect($response->json('data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources'))
+            ->pluck('pool.id')
+            ->all();
+
+        $this->assertEqualsCanonicalizing([$poolA->id, $poolB->id], $poolIds);
+    }
+
+    public function testSourcesCorrectOnNestedPathWithoutPaginatedScope(): void
+    {
+        $classification = Classification::factory()->create();
+        $filter = ApplicantFilter::factory()->create(['community_id' => $this->community->id]);
+        $filter->qualifiedInClassifications()->sync([$classification->id]);
+
+        $request = TalentRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+            'classification_id' => $classification->id,
+        ]);
+
+        $withCandidacy = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $withCandidacy->id,
+            'pool_id' => $pool->id,
+        ]);
+
+        $withoutCandidacy = User::factory()->create();
+
+        foreach ([$withCandidacy, $withoutCandidacy] as $user) {
+            TalentRequestTrackedUser::factory()->create([
+                'talent_request_id' => $request->id,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        $response = $this->actingAs($this->admin, 'api')
+            ->graphQL(/** @lang GraphQL */ '
+                query NestedSources($id: UUID!) {
+                    talentRequest(id: $id) {
+                        trackedUsers {
+                            user { id }
+                            sources
+                        }
+                    }
+                }
+            ', ['id' => $request->id]);
+
+        $byUser = collect($response->json('data.talentRequest.trackedUsers'))
+            ->keyBy(fn ($row) => $row['user']['id']);
+
+        $this->assertEquals([TalentRequestSource::QUALIFIED_IN_POOL->name], $byUser[$withCandidacy->id]['sources']);
+        $this->assertEquals([], $byUser[$withoutCandidacy->id]['sources']);
     }
 }
